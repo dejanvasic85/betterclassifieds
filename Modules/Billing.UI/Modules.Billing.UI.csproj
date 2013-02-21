@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F8DA1224-D0CF-4E3B-AD0F-FE6FA04797DE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Paramount.Billing.UI</RootNamespace>
+    <AssemblyName>Paramount.Billing.UI</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=3.0.30512.20315, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\Release\ThirdParty\AjaxControlToolkit\3.0.30512.1\AjaxControlToolkit.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Telerik.Web.UI, Version=2011.3.1305.35, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\Release\ThirdParty\Telerik\2011.3.1305.35\Telerik.Web.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddressView.cs" />
+    <Compile Include="Invoice\BankPayment.cs" />
+    <Compile Include="BillingCompositeControl.cs" />
+    <Compile Include="BillingCompositeUpdateControl.cs" />
+    <Compile Include="BillingHandler.cs" />
+    <Compile Include="BillingSessionManager.cs" />
+    <Compile Include="DummyProvider.cs" />
+    <Compile Include="Enums\BillingSteps.cs" />
+    <Compile Include="IBillingPayment.cs" />
+    <Compile Include="Invoice\Address.cs" />
+    <Compile Include="Invoice\AddressControl.cs" />
+    <Compile Include="Invoice\BillingWizardStep.cs" />
+    <Compile Include="Invoice\Fail.cs" />
+    <Compile Include="Invoice\FinalInvoice.cs" />
+    <Compile Include="Invoice\InvoiceDetails.cs" />
+    <Compile Include="Invoice\InvoiceItemsGrid.cs" />
+    <Compile Include="Invoice\PaypalPayment.cs" />
+    <Compile Include="Invoice\SuccessWait.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="ShoppingCart\CartDetail.cs" />
+    <Compile Include="Invoice\PaymentOptions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ApplicationBlock\Betterclassifieds.Utility\Paramount.Betterclassified.Utilities.csproj">
+      <Project>{c1b1d4cc-e982-472d-8fe3-8719ba24d272}</Project>
+      <Name>Paramount.Betterclassified.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApplicationBlock\Configuration\ApplicationBlock.Configuration.csproj">
+      <Project>{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}</Project>
+      <Name>ApplicationBlock.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\DataTransferObjects\Common.DataTransferObjects.csproj">
+      <Project>{377F2216-9202-4DF9-9C5B-C2A4E627FFE2}</Project>
+      <Name>Common.DataTransferObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\ServiceContracts\Common.ServiceContracts.csproj">
+      <Project>{97D730A7-D86A-4FA1-90E2-3DFCFD4C337A}</Project>
+      <Name>Common.ServiceContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WebApplication\UI\Common.UI.csproj">
+      <Project>{32E18B88-521E-4887-BFBF-26B64797AF75}</Project>
+      <Name>Common.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApplicationBlock\Utility\Paramount.Utility.csproj">
+      <Project>{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}</Project>
+      <Name>Paramount.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Billing.UIController\Modules.Billing.UIController.csproj">
+      <Project>{351E9E72-3BB7-44F1-AA12-C42774F2CC84}</Project>
+      <Name>Modules.Billing.UIController</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DSL.UI\Modules.DSL.UI.csproj">
+      <Project>{FFB51537-50B9-4D5B-B4F2-B7E9DA731E4C}</Project>
+      <Name>Modules.DSL.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logging.UIController\Modules.Logging.UIController.csproj">
+      <Project>{353EA369-566F-426F-9EBE-DA865F055B45}</Project>
+      <Name>Modules.Logging.UIController</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

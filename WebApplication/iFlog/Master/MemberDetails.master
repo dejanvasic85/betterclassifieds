@@ -1,0 +1,67 @@
+﻿<%@ Master Language="VB" MasterPageFile="~/Master/Default.Master" AutoEventWireup="false" CodeBehind="MemberDetails.master.vb" Inherits="BetterclassifiedsWeb.MemberDetails" %>
+
+<asp:Content ContentPlaceHolderID="head" ID="mainHead" runat="server">
+    <asp:ContentPlaceHolder ID="memberHeadContent" runat="server" />
+</asp:Content>
+
+<asp:Content ID="mainContent" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
+    
+    <div class="clearFloat">
+        <div id="contentBodyAccounts">
+            
+            <div id="sidebarMenu">
+                <ul>
+                    <li>
+                        <div class="sidebarMenu01">
+                            <h3>
+                                MY ACCOUNT</h3>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="sidebarMenu02">
+                            <asp:HyperLink ID="HyperLink7" runat="server" NavigateUrl="~/MemberAccount/Default.aspx">MY DETAILS</asp:HyperLink></div>
+                    </li>
+                    <li>
+                        <div class="sidebarMenu02">
+                            <asp:HyperLink ID="HyperLink8" runat="server" NavigateUrl="~/MemberAccount/Bookings.aspx">BOOKINGS</asp:HyperLink></div>
+                    </li>
+                    <li>
+                        <div class="sidebarMenu03">
+                            <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/MemberAccount/Current.aspx">CURRENT ADS</asp:HyperLink></div>
+                    </li>
+                    <li>
+                        <div class="sidebarMenu02">
+                            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/MemberAccount/UpComing.aspx">UP-COMING ADS</asp:HyperLink></div>
+                    </li>
+                    <li>
+                        <div class="sidebarMenu04">
+                            <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/MemberAccount/Expired.aspx">EXPIRED ADS</asp:HyperLink></div>
+                    </li>
+                    <li>
+                        <div class="sidebarMenu05">
+                            <asp:HyperLink ID="HyperLink6" runat="server" NavigateUrl="~/MemberAccount/Transactions.aspx">TRANSACTIONS</asp:HyperLink></div>
+                    </li>
+                    <li>
+                        <div class="sidebarMenu05">
+                            <asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="~/MemberAccount/MemberDetails.aspx">CHANGE DETAILS</asp:HyperLink></div>
+                    </li>
+                    <li>
+                        <div class="sidebarMenu05">
+                            <asp:HyperLink ID="HyperLink5" runat="server" NavigateUrl="~/MemberAccount/ChangePassword.aspx">CHANGE PASSWORD</asp:HyperLink></div>
+                    </li>
+                    <li>
+                        <div class="sidebarMenu06">
+                            <asp:HyperLink ID="HyperLink9" runat="server" NavigateUrl="~/MemberAccount/Messages.aspx">MY MESSAGES</asp:HyperLink></div>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div id="mainMyAccount">
+                <asp:ContentPlaceHolder ID="memberContentMain" runat="server" />      
+            </div>
+            <div style="clear:both"></div>
+        </div>
+    </div>
+    
+</asp:Content>

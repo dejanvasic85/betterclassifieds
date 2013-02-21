@@ -1,0 +1,1225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FEB858C0-B35D-4A07-A0EE-16F5B5BFC7EE}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>BetterclassifiedsWeb</RootNamespace>
+    <AssemblyName>BetterclassifiedsWeb</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <MyType>Custom</MyType>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionCompare>Binary</OptionCompare>
+    <OptionStrict>Off</OptionStrict>
+    <OptionInfer>On</OptionInfer>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Testing|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <NoWarn>42353,42354,42355</NoWarn>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(TeamBuildOutDir) != '' ">
+    <OutputPath>$(TeamBuildOutDir)\$(MSBuildProjectName)</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=3.0.30512.20315, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Release\ThirdParty\AjaxControlToolkit\3.0.30512.1\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="Telerik.Web.UI, Version=2011.3.1305.35, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\Release\ThirdParty\Telerik\2011.3.1305.35\Telerik.Web.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Collections.Specialized" />
+    <Import Include="System.Configuration" />
+    <Import Include="System.Text" />
+    <Import Include="System.Text.RegularExpressions" />
+    <Import Include="System.Web" />
+    <Import Include="System.Web.Caching" />
+    <Import Include="System.Web.SessionState" />
+    <Import Include="System.Web.Security" />
+    <Import Include="System.Web.Profile" />
+    <Import Include="System.Web.UI" />
+    <Import Include="System.Web.UI.WebControls" />
+    <Import Include="System.Web.UI.WebControls.WebParts" />
+    <Import Include="System.Web.UI.HtmlControls" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Default\css\aspcontrols.css" />
+    <Content Include="App_Themes\Default\css\main.css" />
+    <Content Include="App_Themes\Default\css\style.css" />
+    <Content Include="App_Themes\iflog\css\BetterclassifiedUI.css" />
+    <Content Include="App_Themes\iflog\Common.UI\PaddedPanel.css" />
+    <Content Include="App_Themes\iflog\css\bookingpage.css" />
+    <Content Include="App_Themes\iflog\images\aeroleftblack.gif" />
+    <Content Include="App_Themes\iflog\images\aerorightblack.gif" />
+    <Content Include="App_Themes\iflog\images\button.gif" />
+    <Content Include="App_Themes\iflog\images\foot_arrow.gif" />
+    <Content Include="App_Themes\iflog\images\icon_mail_small.gif" />
+    <Content Include="App_Themes\iflog\images\icon_success.gif" />
+    <Content Include="App_Themes\iflog\images\informationbar_right.gif" />
+    <Content Include="App_Themes\iflog\images\mail-q-bg.jpg" />
+    <Content Include="App_Themes\iflog\images\upload_head_img.gif" />
+    <Content Include="App_Themes\iflog\images\upload_head_img_b.gif" />
+    <EmbeddedResource Include="App_Themes\iflog\json2.js" />
+    <EmbeddedResource Include="App_Themes\iflog\jquery.timers.js" />
+    <Content Include="Resources\Images\Packages\example_online.gif" />
+    <Content Include="Resources\Images\Packages\example_online.jpg" />
+    <Content Include="Resources\Images\Packages\example_premium.gif" />
+    <Content Include="Resources\Images\Packages\example_print.jpg" />
+    <Content Include="Resources\Images\Packages\example_print_online.jpg" />
+    <Content Include="Resources\Images\Packages\example_print_online_hori.jpg" />
+    <Content Include="Resources\Images\new_ad_header_online.gif" />
+    <Content Include="Resources\Images\icon_question.gif" />
+    <Content Include="App_Themes\iflog\images\save_close.gif" />
+    <Content Include="Resources\Images\new_ad_header_free.gif" />
+    <Content Include="Resources\Images\new_ad_header_premium.gif" />
+    <Content Include="Resources\Images\question_button.gif" />
+    <Content Include="Resources\Images\Packages\example_free.gif" />
+    <Content Include="Resources\Images\shopping_cart_16x16.gif" />
+    <Content Include="Service\AjaxMethods.asmx" />
+    <Content Include="TestPage.aspx" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Booking\BookSpecial.aspx.designer.vb">
+      <DependentUpon>BookSpecial.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Booking\BookSpecial.aspx.vb">
+      <DependentUpon>BookSpecial.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Booking\BookSpecialCategories.aspx.designer.vb">
+      <DependentUpon>BookSpecialCategories.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Booking\BookSpecialCategories.aspx.vb">
+      <DependentUpon>BookSpecialCategories.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Booking\BookSpecialConfirm.aspx.designer.vb">
+      <DependentUpon>BookSpecialConfirm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Booking\BookSpecialConfirm.aspx.vb">
+      <DependentUpon>BookSpecialConfirm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Booking\Default.aspx.designer.vb">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Booking\Default.aspx.vb">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Booking\Step1.aspx.designer.vb">
+      <DependentUpon>Step1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Booking\Step1.aspx.vb">
+      <DependentUpon>Step1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Booking\Step2.aspx.designer.vb">
+      <DependentUpon>Step2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Booking\Step2.aspx.vb">
+      <DependentUpon>Step2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Booking\Step3.aspx.designer.vb">
+      <DependentUpon>Step3.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Booking\Step3.aspx.vb">
+      <DependentUpon>Step3.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Booking\Step4.aspx.designer.vb">
+      <DependentUpon>Step4.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Booking\Step4.aspx.vb">
+      <DependentUpon>Step4.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Booking\Step5.aspx.designer.vb">
+      <DependentUpon>Step5.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Booking\Step5.aspx.vb">
+      <DependentUpon>Step5.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Booking\Success.aspx.designer.vb">
+      <DependentUpon>Success.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Booking\Success.aspx.vb">
+      <DependentUpon>Success.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="BundleBooking\BundlePage2.aspx.designer.vb">
+      <DependentUpon>BundlePage2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BundleBooking\BundlePage2.aspx.vb">
+      <DependentUpon>BundlePage2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BundleBooking\BundlePage3.aspx.designer.vb">
+      <DependentUpon>BundlePage3.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BundleBooking\BundlePage3.aspx.vb">
+      <DependentUpon>BundlePage3.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BundleBooking\BundlePage4.aspx.designer.vb">
+      <DependentUpon>BundlePage4.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BundleBooking\BundlePage4.aspx.vb">
+      <DependentUpon>BundlePage4.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BundleBooking\BundlePage5.aspx.designer.vb">
+      <DependentUpon>BundlePage5.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BundleBooking\BundlePage5.aspx.vb">
+      <DependentUpon>BundlePage5.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Common\Constants.vb" />
+    <Compile Include="Common\General.vb" />
+    <Compile Include="Common\IStartBookingProcess.vb" />
+    <Compile Include="Common\UploadBookingManager.aspx.designer.vb">
+      <DependentUpon>UploadBookingManager.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Common\UploadBookingManager.aspx.vb">
+      <DependentUpon>UploadBookingManager.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Common\UploadManager.aspx.designer.vb">
+      <DependentUpon>UploadManager.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Common\UploadManager.aspx.vb">
+      <DependentUpon>UploadManager.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Controls\AdSpace.ascx.designer.vb">
+      <DependentUpon>AdSpace.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AdSpace.ascx.vb">
+      <DependentUpon>AdSpace.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Booking\AdDetails.ascx.designer.vb">
+      <DependentUpon>AdDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Booking\AdDetails.ascx.vb">
+      <DependentUpon>AdDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Booking\AdTypeList.ascx.designer.vb">
+      <DependentUpon>AdTypeList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Booking\AdTypeList.ascx.vb">
+      <DependentUpon>AdTypeList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Booking\BundlePriceSummary.ascx.designer.vb">
+      <DependentUpon>BundlePriceSummary.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Booking\BundlePriceSummary.ascx.vb">
+      <DependentUpon>BundlePriceSummary.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Booking\DesignLineAd.ascx.designer.vb">
+      <DependentUpon>DesignLineAd.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Booking\DesignLineAd.ascx.vb">
+      <DependentUpon>DesignLineAd.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Booking\DesignOnlineAd.ascx.designer.vb">
+      <DependentUpon>DesignOnlineAd.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Booking\DesignOnlineAd.ascx.vb">
+      <DependentUpon>DesignOnlineAd.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Booking\EditionDates.ascx.designer.vb">
+      <DependentUpon>EditionDates.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Booking\EditionDates.ascx.vb">
+      <DependentUpon>EditionDates.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Booking\LineAdDescriptionBox.vb" />
+    <Compile Include="Controls\Booking\MultipleFileUpload.ascx.designer.vb">
+      <DependentUpon>MultipleFileUpload.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Booking\MultipleFileUpload.ascx.vb">
+      <DependentUpon>MultipleFileUpload.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Booking\NavigationButtons.ascx.designer.vb">
+      <DependentUpon>NavigationButtons.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Booking\NavigationButtons.ascx.vb">
+      <DependentUpon>NavigationButtons.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Booking\NavigationSteps.ascx.designer.vb">
+      <DependentUpon>NavigationSteps.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Booking\NavigationSteps.ascx.vb">
+      <DependentUpon>NavigationSteps.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Booking\PaperListSelection.ascx.designer.vb">
+      <DependentUpon>PaperListSelection.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Booking\PaperListSelection.ascx.vb">
+      <DependentUpon>PaperListSelection.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Booking\Payment.ascx.designer.vb">
+      <DependentUpon>Payment.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Booking\Payment.ascx.vb">
+      <DependentUpon>Payment.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Booking\PriceSummary.ascx.designer.vb">
+      <DependentUpon>PriceSummary.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Booking\PriceSummary.ascx.vb">
+      <DependentUpon>PriceSummary.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Booking\Scheduling.ascx.designer.vb">
+      <DependentUpon>Scheduling.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Booking\Scheduling.ascx.vb">
+      <DependentUpon>Scheduling.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\OnlineAdViewWithDiv.ascx.designer.vb">
+      <DependentUpon>OnlineAdViewWithDiv.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\OnlineAdViewWithDiv.ascx.vb">
+      <DependentUpon>OnlineAdViewWithDiv.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ErrorList.ascx.designer.vb">
+      <DependentUpon>ErrorList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ErrorList.ascx.vb">
+      <DependentUpon>ErrorList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ExpiredAds\LinkItemControl.vb" />
+    <Compile Include="Controls\ExpiredAds\LinkItemTemplate.vb" />
+    <Compile Include="Controls\ImageSpecification.ascx.designer.vb">
+      <DependentUpon>ImageSpecification.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ImageSpecification.ascx.vb">
+      <DependentUpon>ImageSpecification.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\InvoiceGrid.ascx.designer.vb">
+      <DependentUpon>InvoiceGrid.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\InvoiceGrid.ascx.vb">
+      <DependentUpon>InvoiceGrid.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\LineAdPreview.ascx.designer.vb">
+      <DependentUpon>LineAdPreview.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LineAdPreview.ascx.vb">
+      <DependentUpon>LineAdPreview.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Member\Login.ascx.designer.vb">
+      <DependentUpon>Login.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Member\Login.ascx.vb">
+      <DependentUpon>Login.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Member\MemberDetails.ascx.designer.vb">
+      <DependentUpon>MemberDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Member\MemberDetails.ascx.vb">
+      <DependentUpon>MemberDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Member\Register.ascx.designer.vb">
+      <DependentUpon>Register.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Member\Register.ascx.vb">
+      <DependentUpon>Register.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Member\UserDetails.ascx.designer.vb">
+      <DependentUpon>UserDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Member\UserDetails.ascx.vb">
+      <DependentUpon>UserDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\OnlineAdView.ascx.designer.vb">
+      <DependentUpon>OnlineAdView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\OnlineAdView.ascx.vb">
+      <DependentUpon>OnlineAdView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ParamountCompositeControl.vb" />
+    <Compile Include="Controls\Search\FlogID.ascx.designer.vb">
+      <DependentUpon>FlogID.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Search\FlogID.ascx.vb">
+      <DependentUpon>FlogID.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Search\KeySearch.ascx.designer.vb">
+      <DependentUpon>KeySearch.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Search\KeySearch.ascx.vb">
+      <DependentUpon>KeySearch.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\Search\RecentOnlineAdList.ascx.designer.vb">
+      <DependentUpon>RecentOnlineAdList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Search\RecentOnlineAdList.ascx.vb">
+      <DependentUpon>RecentOnlineAdList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error\AccessDenied.aspx.designer.vb">
+      <DependentUpon>AccessDenied.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Error\AccessDenied.aspx.vb">
+      <DependentUpon>AccessDenied.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Error\ConnectFail.aspx.designer.vb">
+      <DependentUpon>ConnectFail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Error\ConnectFail.aspx.vb">
+      <DependentUpon>ConnectFail.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Error\Default.aspx.designer.vb">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Error\Default.aspx.vb">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Error\NotFound.aspx.designer.vb">
+      <DependentUpon>NotFound.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Error\NotFound.aspx.vb">
+      <DependentUpon>NotFound.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Global.asax.vb">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.designer.vb">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.vb">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Help\About.aspx.designer.vb">
+      <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Help\About.aspx.vb">
+      <DependentUpon>About.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Help\Contact.aspx.designer.vb">
+      <DependentUpon>Contact.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Help\Contact.aspx.vb">
+      <DependentUpon>Contact.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Help\FAQ.aspx.designer.vb">
+      <DependentUpon>FAQ.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Help\FAQ.aspx.vb">
+      <DependentUpon>FAQ.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Help\PrivacyPolicy.aspx.designer.vb">
+      <DependentUpon>PrivacyPolicy.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Help\PrivacyPolicy.aspx.vb">
+      <DependentUpon>PrivacyPolicy.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Help\RefundPolicy.aspx.designer.vb">
+      <DependentUpon>RefundPolicy.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Help\RefundPolicy.aspx.vb">
+      <DependentUpon>RefundPolicy.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="LineAds\PreviewLineAd.aspx.designer.vb">
+      <DependentUpon>PreviewLineAd.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LineAds\PreviewLineAd.aspx.vb">
+      <DependentUpon>PreviewLineAd.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Master\MasterWithMessage.master.designer.vb">
+      <DependentUpon>MasterWithMessage.master</DependentUpon>
+    </Compile>
+    <Compile Include="Master\MasterWithMessage.master.vb">
+      <DependentUpon>MasterWithMessage.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Master\MasterWithRightBar.Master.designer.vb">
+      <DependentUpon>MasterWithRightBar.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Master\MasterWithRightBar.Master.vb">
+      <DependentUpon>MasterWithRightBar.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MemberAccount\Bookings.aspx.designer.vb">
+      <DependentUpon>Bookings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MemberAccount\Bookings.aspx.vb">
+      <DependentUpon>Bookings.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="MemberAccount\Current.aspx.designer.vb">
+      <DependentUpon>Current.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MemberAccount\Current.aspx.vb">
+      <DependentUpon>Current.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="MemberAccount\EditLineAd.aspx.designer.vb">
+      <DependentUpon>EditLineAd.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MemberAccount\EditLineAd.aspx.vb">
+      <DependentUpon>EditLineAd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MemberAccount\Expired.aspx.designer.vb">
+      <DependentUpon>Expired.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MemberAccount\Expired.aspx.vb">
+      <DependentUpon>Expired.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="MemberAccount\MemberHeading.ascx.designer.vb">
+      <DependentUpon>MemberHeading.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="MemberAccount\MemberHeading.ascx.vb">
+      <DependentUpon>MemberHeading.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MemberAccount\Messages.aspx.designer.vb">
+      <DependentUpon>Messages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MemberAccount\Messages.aspx.vb">
+      <DependentUpon>Messages.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="MemberAccount\Transactions.aspx.designer.vb">
+      <DependentUpon>Transactions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MemberAccount\Transactions.aspx.vb">
+      <DependentUpon>Transactions.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="MemberAccount\UpComing.aspx.designer.vb">
+      <DependentUpon>UpComing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MemberAccount\UpComing.aspx.vb">
+      <DependentUpon>UpComing.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="MemberAccount\ViewTransaction.aspx.designer.vb">
+      <DependentUpon>ViewTransaction.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MemberAccount\ViewTransaction.aspx.vb">
+      <DependentUpon>ViewTransaction.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="OnlineAdMessaging\Default.aspx.designer.vb">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineAdMessaging\Default.aspx.vb">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="OnlineAds\AdView.aspx.designer.vb">
+      <DependentUpon>AdView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineAds\AdView.aspx.vb">
+      <DependentUpon>AdView.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="OnlineAds\BodyView.aspx.designer.vb">
+      <DependentUpon>BodyView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineAds\BodyView.aspx.vb">
+      <DependentUpon>BodyView.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="OnlineAds\Default.aspx.designer.vb">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineAds\Default.aspx.vb">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="OnlineAds\ImageLarge.aspx.designer.vb">
+      <DependentUpon>ImageLarge.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineAds\ImageLarge.aspx.vb">
+      <DependentUpon>ImageLarge.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="OnlineAds\Preview.aspx.designer.vb">
+      <DependentUpon>Preview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineAds\Preview.aspx.vb">
+      <DependentUpon>Preview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PageUrl.vb" />
+    <Compile Include="payment\cc.aspx.designer.vb">
+      <DependentUpon>cc.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="payment\cc.aspx.vb">
+      <DependentUpon>cc.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="payment\notify.aspx.designer.vb">
+      <DependentUpon>notify.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="payment\notify.aspx.vb">
+      <DependentUpon>notify.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="payment\NotifyParameterAccess.vb" />
+    <Compile Include="payment\pp.aspx.designer.vb">
+      <DependentUpon>pp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="payment\pp.aspx.vb">
+      <DependentUpon>pp.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="payment\SubmitInputControl.vb" />
+    <Compile Include="Publications.aspx.designer.vb">
+      <DependentUpon>Publications.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Publications.aspx.vb">
+      <DependentUpon>Publications.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Rates.aspx.designer.vb">
+      <DependentUpon>Rates.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Rates.aspx.vb">
+      <DependentUpon>Rates.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Service\AjaxMethods.asmx.vb">
+      <DependentUpon>AjaxMethods.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Service\NotificationService.asmx.vb">
+      <DependentUpon>NotificationService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SessionRefresher.ashx.vb">
+      <DependentUpon>SessionRefresher.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Terms.aspx.designer.vb">
+      <DependentUpon>Terms.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Terms.aspx.vb">
+      <DependentUpon>Terms.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.vb">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.vb">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Master\Default.Master.designer.vb">
+      <DependentUpon>Default.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Master\Default.Master.vb">
+      <DependentUpon>Default.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Master\MemberDetails.master.designer.vb">
+      <DependentUpon>MemberDetails.master</DependentUpon>
+    </Compile>
+    <Compile Include="Master\MemberDetails.master.vb">
+      <DependentUpon>MemberDetails.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MemberAccount\ChangePassword.aspx.designer.vb">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MemberAccount\ChangePassword.aspx.vb">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="MemberAccount\Default.aspx.designer.vb">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MemberAccount\Default.aspx.vb">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="MemberAccount\EditOnlineAd.aspx.designer.vb">
+      <DependentUpon>EditOnlineAd.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MemberAccount\EditOnlineAd.aspx.vb">
+      <DependentUpon>EditOnlineAd.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="MemberAccount\MemberDetails.aspx.designer.vb">
+      <DependentUpon>MemberDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MemberAccount\MemberDetails.aspx.vb">
+      <DependentUpon>MemberDetails.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="MemberAccount\UserList.aspx.designer.vb">
+      <DependentUpon>UserList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MemberAccount\UserList.aspx.vb">
+      <DependentUpon>UserList.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="GetPassword.aspx.designer.vb">
+      <DependentUpon>GetPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GetPassword.aspx.vb">
+      <DependentUpon>GetPassword.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Specials\Default.aspx.designer.vb">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Specials\Default.aspx.vb">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\MyExtensions\MyWebExtension.vb">
+      <VBMyExtensionTemplateID>Microsoft.VisualBasic.Web.MyExtension</VBMyExtensionTemplateID>
+      <VBMyExtensionTemplateVersion>1.0.0.0</VBMyExtensionTemplateVersion>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Register.aspx.designer.vb">
+      <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Register.aspx.vb">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="TestPage.aspx.designer.vb">
+      <DependentUpon>TestPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TestPage.aspx.vb">
+      <DependentUpon>TestPage.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="UploadFiles.aspx.designer.vb">
+      <DependentUpon>UploadFiles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UploadFiles.aspx.vb">
+      <DependentUpon>UploadFiles.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\iflog\css\asp_control.css" />
+    <Content Include="App_Themes\iflog\css\main_1024.css" />
+    <Content Include="App_Themes\iflog\css\messaging.css" />
+    <Content Include="App_Themes\iflog\css\paramount_controls.css" />
+    <Content Include="App_Themes\iflog\css\special_offer.css" />
+    <Content Include="App_Themes\iflog\images\bottom_message.gif" />
+    <Content Include="App_Themes\iflog\images\menu_hori_3V2.jpg" />
+    <Content Include="App_Themes\iflog\images\menu_hori_4_5V2.jpg" />
+    <Content Include="App_Themes\iflog\images\top_message.gif" />
+    <Content Include="App_Themes\iflog\images\upgrade_premium.jpg" />
+    <Content Include="App_Themes\iflog\jquery-1.4.min.js" />
+    <Content Include="App_Themes\Plain\main.css" />
+    <Content Include="Booking\BookSpecialCategories.aspx" />
+    <Content Include="Common\UploadBookingManager.aspx" />
+    <Content Include="Common\UploadManager.aspx" />
+    <Content Include="Environment.xml" />
+    <Content Include="Config\Environment.Release.xml" />
+    <Content Include="Config\Environment.Testing.xml" />
+    <Content Include="Config\Environment.Debug.xml" />
+    <Content Include="Controls\OnlineAdViewWithDiv.ascx" />
+    <Content Include="Help\FAQ.aspx" />
+    <Content Include="LineAds\PreviewLineAd.aspx" />
+    <Content Include="MemberAccount\Messages.aspx" />
+    <Content Include="OnlineAdMessaging\Default.aspx" />
+    <Content Include="OnlineAds\BodyView.aspx" />
+    <Content Include="OnlineAds\Preview.aspx" />
+    <Content Include="Resources\Images\help.png" />
+    <Content Include="Resources\Images\ajax-loading.gif" />
+    <Content Include="App_Themes\iflog\images\ads-button.gif" />
+    <Content Include="App_Themes\iflog\images\ads-button_2state.gif" />
+    <Content Include="App_Themes\iflog\images\advertiseNavButBorderLeft.gif" />
+    <Content Include="App_Themes\iflog\images\bannerFake.jpg" />
+    <Content Include="App_Themes\iflog\images\bgLineShadow.jpg" />
+    <Content Include="App_Themes\iflog\images\bgLineShadow1024.gif" />
+    <Content Include="App_Themes\iflog\images\bgLineShadowLeft.jpg" />
+    <Content Include="App_Themes\iflog\images\bgLineShadowRight.jpg" />
+    <Content Include="App_Themes\iflog\images\bgTopCurve.jpg" />
+    <Content Include="App_Themes\iflog\images\bgTopCurve1024.jpg" />
+    <Content Include="App_Themes\iflog\images\blue_arrow_right.jpg" />
+    <Content Include="App_Themes\iflog\images\book_ad_browse_but.jpg" />
+    <Content Include="App_Themes\iflog\images\book_ad_header_bg.gif" />
+    <Content Include="App_Themes\iflog\images\book_ad_upload_but.jpg" />
+    <Content Include="App_Themes\iflog\images\book_ad_verifydate_but.jpg" />
+    <Content Include="App_Themes\iflog\images\book_ad_wordcount_but.jpg" />
+    <Content Include="App_Themes\iflog\images\calHeadBg.jpg" />
+    <Content Include="App_Themes\iflog\images\categories.gif" />
+    <Content Include="App_Themes\iflog\images\contentMainBodyBorderBottom.gif" />
+    <Content Include="App_Themes\iflog\images\contentMainHeadBorderBottom.gif" />
+    <Content Include="App_Themes\iflog\images\contentMainHeaderBorder.gif" />
+    <Content Include="App_Themes\iflog\images\discount_price.jpg" />
+    <Content Include="App_Themes\iflog\images\example_guitar_large.jpg" />
+    <Content Include="App_Themes\iflog\images\example_guitar_small.jpg" />
+    <Content Include="App_Themes\iflog\images\example_online.jpg" />
+    <Content Include="App_Themes\iflog\images\example_print.jpg" />
+    <Content Include="App_Themes\iflog\images\example_print_online.jpg" />
+    <Content Include="App_Themes\iflog\images\exclame_circle.jpg" />
+    <Content Include="App_Themes\iflog\images\iflogIdButton.gif" />
+    <Content Include="App_Themes\iflog\images\iflog_new_ad_header.jpg" />
+    <Content Include="BundleBooking\BundlePage2.aspx" />
+    <Content Include="BundleBooking\BundlePage3.aspx" />
+    <Content Include="BundleBooking\BundlePage4.aspx" />
+    <Content Include="BundleBooking\BundlePage5.aspx" />
+    <Content Include="Controls\Booking\BundlePriceSummary.ascx" />
+    <Content Include="OnlineAds\ad_placeholder.jpg" />
+    <Content Include="App_Themes\iflog\images\latest-deals.gif" />
+    <Content Include="App_Themes\iflog\images\latest-deals_short.gif" />
+    <Content Include="App_Themes\iflog\images\latest-deals_short_1024.gif" />
+    <Content Include="App_Themes\iflog\images\latest-deals_short_extended.gif" />
+    <Content Include="App_Themes\iflog\images\login_header.jpg" />
+    <Content Include="App_Themes\iflog\images\logoDrumPerth.gif" />
+    <Content Include="App_Themes\iflog\images\logoDrumSydney.gif" />
+    <Content Include="App_Themes\iflog\images\logoIFLOG.gif" />
+    <Content Include="App_Themes\iflog\images\logoInpress.gif" />
+    <Content Include="App_Themes\iflog\images\logoTimeoff.gif" />
+    <Content Include="App_Themes\iflog\images\logo_drum_perth_large.jpg" />
+    <Content Include="App_Themes\iflog\images\logo_drum_sydney_large.jpg" />
+    <Content Include="App_Themes\iflog\images\logo_inpress_large.jpg" />
+    <Content Include="App_Themes\iflog\images\logo_timeoff_large.jpg" />
+    <Content Include="App_Themes\iflog\images\mainBorderBg.gif" />
+    <Content Include="App_Themes\iflog\images\mainBorderBg2.gif" />
+    <Content Include="App_Themes\iflog\images\mainBorderBg2_1024.gif" />
+    <Content Include="App_Themes\iflog\images\mainBorderBg2_SearchResults.gif" />
+    <Content Include="App_Themes\iflog\images\mainBorderBg4_1024.gif" />
+    <Content Include="App_Themes\iflog\images\mainBorderBgOutsideLines.gif" />
+    <Content Include="App_Themes\iflog\images\mainContentHeaderLine.gif" />
+    <Content Include="App_Themes\iflog\images\menu_hori_1.jpg" />
+    <Content Include="App_Themes\iflog\images\menu_hori_10.jpg" />
+    <Content Include="App_Themes\iflog\images\menu_hori_2.jpg" />
+    <Content Include="App_Themes\iflog\images\menu_hori_3.jpg" />
+    <Content Include="App_Themes\iflog\images\menu_hori_4.jpg" />
+    <Content Include="App_Themes\iflog\images\menu_hori_4_5.jpg" />
+    <Content Include="App_Themes\iflog\images\menu_hori_5.jpg" />
+    <Content Include="App_Themes\iflog\images\menu_hori_6.jpg" />
+    <Content Include="App_Themes\iflog\images\menu_hori_7.jpg" />
+    <Content Include="App_Themes\iflog\images\menu_hori_8.jpg" />
+    <Content Include="App_Themes\iflog\images\menu_hori_9.jpg" />
+    <Content Include="App_Themes\iflog\images\menu_side_bottom.jpg" />
+    <Content Include="App_Themes\iflog\images\menu_side_bottom176.jpg" />
+    <Content Include="App_Themes\iflog\images\menu_side_middle.jpg" />
+    <Content Include="App_Themes\iflog\images\menu_side_middle176.jpg" />
+    <Content Include="App_Themes\iflog\images\menu_side_top.jpg" />
+    <Content Include="App_Themes\iflog\images\menu_side_top_176.jpg" />
+    <Content Include="App_Themes\iflog\images\more_shots_button.jpg" />
+    <Content Include="App_Themes\iflog\images\my_accounts_header_bg.gif" />
+    <Content Include="App_Themes\iflog\images\my_account_ads_CANCEL.gif" />
+    <Content Include="App_Themes\iflog\images\my_account_ads_EXTEND.gif" />
+    <Content Include="App_Themes\iflog\images\my_account_ads_MODIFY.gif" />
+    <Content Include="App_Themes\iflog\images\my_account_header.gif" />
+    <Content Include="App_Themes\iflog\images\new_ad_header.jpg" />
+    <Content Include="App_Themes\iflog\images\place_ad_but.jpg" />
+    <Content Include="App_Themes\iflog\images\prelim_DIY.jpg" />
+    <Content Include="App_Themes\iflog\images\prelim_special_offer_1.jpg" />
+    <Content Include="App_Themes\iflog\images\red_arrow_small_right.gif" />
+    <Content Include="App_Themes\iflog\images\register_header.jpg" />
+    <Content Include="App_Themes\iflog\images\sampleCategoryPic.gif" />
+    <Content Include="App_Themes\iflog\images\search-button.gif" />
+    <Content Include="App_Themes\iflog\images\search-button_2state.gif" />
+    <Content Include="App_Themes\iflog\images\search-button_2stateNEW.gif" />
+    <Content Include="App_Themes\iflog\images\search-button_2state_old.gif" />
+    <Content Include="App_Themes\iflog\images\search_field_560.gif" />
+    <Content Include="App_Themes\iflog\images\search_field_737.gif" />
+    <Content Include="App_Themes\iflog\images\search_field_737x95.gif" />
+    <Content Include="App_Themes\iflog\images\search_results_header_bg.gif" />
+    <Content Include="App_Themes\iflog\images\SPApoweredby.gif" />
+    <Content Include="App_Themes\iflog\images\step_button_green25px.gif" />
+    <Content Include="App_Themes\iflog\images\step_button_green33px.gif" />
+    <Content Include="App_Themes\iflog\images\step_button_red25px.gif" />
+    <Content Include="App_Themes\iflog\jquery-jtemplates.js" />
+    <Content Include="App_Themes\iflog\jquery.tablesorter.min.js" />
+    <Content Include="Booking\Success.aspx" />
+    <Content Include="Controls\AdSpace.ascx" />
+    <Content Include="Controls\Booking\AdDetails.ascx" />
+    <Content Include="Controls\Booking\AdTypeList.ascx" />
+    <Content Include="Controls\Booking\DesignLineAd.ascx" />
+    <Content Include="Controls\Booking\DesignOnlineAd.ascx" />
+    <Content Include="Controls\Booking\EditionDates.ascx" />
+    <Content Include="Controls\Booking\MultipleFileUpload.ascx" />
+    <Content Include="Controls\Booking\NavigationButtons.ascx" />
+    <Content Include="Controls\Booking\NavigationSteps.ascx" />
+    <Content Include="Controls\Booking\PaperListSelection.ascx" />
+    <Content Include="Controls\Booking\Payment.ascx" />
+    <Content Include="Controls\Booking\PriceSummary.ascx" />
+    <Content Include="Controls\Booking\Scheduling.ascx" />
+    <Content Include="Controls\ErrorList.ascx" />
+    <Content Include="Controls\ImageSpecification.ascx" />
+    <Content Include="Controls\InvoiceGrid.ascx" />
+    <Content Include="Controls\LineAdPreview.ascx" />
+    <Content Include="Controls\Member\Login.ascx" />
+    <Content Include="Controls\Member\MemberDetails.ascx" />
+    <Content Include="Controls\Member\Register.ascx" />
+    <Content Include="Controls\Member\UserDetails.ascx" />
+    <Content Include="Controls\OnlineAdView.ascx" />
+    <Content Include="Controls\Search\FlogID.ascx" />
+    <Content Include="Controls\Search\KeySearch.ascx" />
+    <Content Include="Controls\Search\RecentOnlineAdList.ascx" />
+    <Content Include="Error\AccessDenied.aspx" />
+    <Content Include="Error\ConnectFail.aspx" />
+    <Content Include="Error\Default.aspx" />
+    <Content Include="Error\NotFound.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="Help\About.aspx" />
+    <Content Include="Help\Contact.aspx" />
+    <Content Include="Help\PrivacyPolicy.aspx" />
+    <Content Include="Help\RefundPolicy.aspx" />
+    <Content Include="iflog_icon.ico" />
+    <Content Include="MemberAccount\Bookings.aspx" />
+    <Content Include="MemberAccount\Current.aspx" />
+    <Content Include="MemberAccount\EditLineAd.aspx" />
+    <Content Include="MemberAccount\Expired.aspx" />
+    <Content Include="MemberAccount\MemberHeading.ascx" />
+    <Content Include="MemberAccount\Transactions.aspx" />
+    <Content Include="MemberAccount\UpComing.aspx" />
+    <Content Include="MemberAccount\ViewTransaction.aspx" />
+    <Content Include="OnlineAds\ImageLarge.aspx" />
+    <Content Include="payment\cc.aspx" />
+    <Content Include="payment\notify.aspx" />
+    <Content Include="payment\pp.aspx" />
+    <Content Include="Booking\BookSpecial.aspx" />
+    <Content Include="Booking\BookSpecialConfirm.aspx" />
+    <Content Include="Booking\Default.aspx" />
+    <Content Include="Booking\Step1.aspx" />
+    <Content Include="Booking\Step2.aspx" />
+    <Content Include="Booking\Step3.aspx" />
+    <Content Include="Booking\Step4.aspx" />
+    <Content Include="Booking\Step5.aspx" />
+    <Content Include="Default.aspx" />
+    <Content Include="OnlineAds\AdView.aspx" />
+    <Content Include="OnlineAds\Default.aspx" />
+    <Content Include="Publications.aspx" />
+    <Content Include="Rates.aspx" />
+    <Content Include="Resources\Images\AdTypes\example_online.jpg" />
+    <Content Include="Resources\Images\AdTypes\example_print.jpg" />
+    <Content Include="Resources\Images\AdTypes\example_print_online.jpg" />
+    <Content Include="Resources\Images\AdTypes\example_print_online_hori.jpg" />
+    <Content Include="Resources\Images\Banners\iflog_skyscaper_150x450.jpg" />
+    <Content Include="Resources\Images\blue_arrow_right.jpg" />
+    <Content Include="Resources\Images\Bold.jpg" />
+    <Content Include="Resources\Images\calendar.png" />
+    <Content Include="Resources\Images\drum-media-perth.gif" />
+    <Content Include="Resources\Images\drum-media.gif" />
+    <Content Include="Resources\Images\Banners\benchmark_master_banner.jpg" />
+    <Content Include="Resources\Images\Banners\guitar_factory.jpg" />
+    <Content Include="Resources\Images\iflog_new_ad_header.jpg" />
+    <Content Include="Resources\Images\image_placeholder.gif" />
+    <Content Include="Resources\Images\image_placeholder_gt1.gif" />
+    <Content Include="Resources\Images\indicator.gif" />
+    <Content Include="Resources\Images\inpress.gif" />
+    <Content Include="Resources\Images\login_header.jpg" />
+    <Content Include="Resources\Images\logo.gif" />
+    <Content Include="Resources\Images\my_account_header.gif" />
+    <Content Include="Resources\Images\new_ad_header.jpg" />
+    <Content Include="Resources\Images\Papers\logo_3dWorld.jpg" />
+    <Content Include="Resources\Images\Papers\logo_drum_sydney_large.jpg" />
+    <Content Include="Resources\Images\Papers\logo_inpress_large.jpg" />
+    <Content Include="Resources\Images\paramount-it.gif" />
+    <Content Include="Resources\Images\red_arrow_small_right.gif" />
+    <Content Include="Resources\Images\register_header.jpg" />
+    <Content Include="Resources\Images\rip-it-up.gif" />
+    <Content Include="Resources\Images\standard.jpg" />
+    <Content Include="Resources\Images\street-press-australia.gif" />
+    <Content Include="Resources\Images\time-off.gif" />
+    <Content Include="Service\NotificationService.asmx" />
+    <Content Include="Terms.aspx" />
+    <Content Include="Login.aspx" />
+    <Content Include="Master\Default.Master" />
+    <Content Include="MemberAccount\ChangePassword.aspx" />
+    <Content Include="MemberAccount\Default.aspx" />
+    <Content Include="MemberAccount\EditOnlineAd.aspx" />
+    <Content Include="MemberAccount\MemberDetails.aspx" />
+    <Content Include="MemberAccount\UserList.aspx" />
+    <Content Include="GetPassword.aspx" />
+    <Content Include="Register.aspx" />
+    <Content Include="Specials\Default.aspx" />
+    <Content Include="OnlineAds\image_placeholder.gif" />
+    <Content Include="Master\MemberDetails.master" />
+    <Content Include="Booking\Web.config" />
+    <Content Include="MemberAccount\Web.config" />
+    <Content Include="Master\MasterWithRightBar.Master" />
+    <Content Include="BundleBooking\Web.config" />
+    <None Include="App_Data\RadSpell\en-US.tdf" />
+    <Content Include="Master\MasterWithMessage.master" />
+    <None Include="BuildCopy.bat" />
+    <None Include="My Project\DataSources\Paramount.IT.Utilities.WebServices.ServiceResponse.datasource" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\PublishProfiles\Local-Test.pubxml" />
+    <None Include="My Project\PublishProfiles\Local.pubxml" />
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <Content Include="SessionRefresher.ashx" />
+    <Content Include="packages.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Test.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Specials\Web.config" />
+    <Content Include="UploadFiles.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ApplicationBlock\Configuration\ApplicationBlock.Configuration.csproj">
+      <Project>{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}</Project>
+      <Name>ApplicationBlock.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BetterclassifiedsCore\BetterclassifiedsCore.vbproj">
+      <Project>{0790d756-48f2-42c5-9985-7915d15ed88c}</Project>
+      <Name>BetterclassifiedsCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UI\Common.UI.csproj">
+      <Project>{32E18B88-521E-4887-BFBF-26B64797AF75}</Project>
+      <Name>Common.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Modules\Broadcast.Components\Modules.Broadcast.Components.csproj">
+      <Project>{3091F288-C6F8-4E2D-9622-48B00ACE526B}</Project>
+      <Name>Modules.Broadcast.Components</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Modules\Broadcast.UIController\Modules.Broadcast.UIController.csproj">
+      <Project>{BDB4624F-539D-45A0-B39F-138E66F5C0F0}</Project>
+      <Name>Modules.Broadcast.UIController</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Modules\Broadcast.UI\Modules.Broadcast.UI.csproj">
+      <Project>{1FA80FC7-435C-4F99-8986-8BC261F9BB6E}</Project>
+      <Name>Modules.Broadcast.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Modules\DSL.UIController\Modules.DSL.UIController.csproj">
+      <Project>{E745F9B8-3967-44D3-9ADB-ABED1B3E3F9D}</Project>
+      <Name>Modules.DSL.UIController</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Modules\DSL.UI\Modules.DSL.UI.csproj">
+      <Project>{FFB51537-50B9-4D5B-B4F2-B7E9DA731E4C}</Project>
+      <Name>Modules.DSL.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Modules\Logging.UIController\Modules.Logging.UIController.csproj">
+      <Project>{353EA369-566F-426F-9EBE-DA865F055B45}</Project>
+      <Name>Modules.Logging.UIController</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApplicationBlock\Utility\Paramount.Utility.csproj">
+      <Project>{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}</Project>
+      <Name>Paramount.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BetterClassified.UIController\BetterClassified.UIController.csproj">
+      <Project>{40730ADA-F229-4418-A953-0ED119FFD2A3}</Project>
+      <Name>BetterClassified.UIController</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BetterClassified.UI\BetterClassified.UI.csproj">
+      <Project>{04E24B49-191F-44B6-833F-361C559F7B18}</Project>
+      <Name>BetterClassified.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApplicationBlock\Betterclassifieds.Utility\Paramount.Betterclassified.Utilities.csproj">
+      <Project>{C1B1D4CC-E982-472D-8FE3-8719BA24D272}</Project>
+      <Name>Paramount.Betterclassified.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Xavier\Paramount.Betterclassified.Xavier.vbproj">
+      <Project>{B8A0E004-2AAB-4DDB-852D-BF8E740975C2}</Project>
+      <Name>Paramount.Betterclassified.Xavier</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_GlobalResources\" />
+    <Folder Include="App_Themes\iflog\Betterclassified.UI\" />
+    <Folder Include="bin\" />
+    <Folder Include="Image\" />
+    <Folder Include="Scripts\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>54119</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/classifieds.development-1.0.5</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\..\packages\OctoPack.2.0.14\targets\OctoPack.targets" />
+</Project>

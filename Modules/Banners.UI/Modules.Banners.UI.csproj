@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C8F99B5E-6C1C-4C89-BC23-DBED2D38C146}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Paramount.Banners.UI</RootNamespace>
+    <AssemblyName>Paramount.Banners.UI</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=3.0.30512.20315, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\Release\ThirdParty\AjaxControlToolkit\3.0.30512.1\AjaxControlToolkit.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Telerik.Web.UI, Version=2011.3.1305.35, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\Release\ThirdParty\Telerik\2011.3.1305.35\Telerik.Web.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Banner.cs" />
+    <Compile Include="BannerAdmin\AddBanner.cs" />
+    <Compile Include="BannerAdmin\BannerTagHeaderTemplate.cs" />
+    <Compile Include="BannerAdmin\BannerTagTemplate.cs" />
+    <Compile Include="BannerAdmin\Calendar.cs" />
+    <Compile Include="BannerAdmin\BannerDetails.cs" />
+    <Compile Include="BannerAdmin\CalendarSupport\AdvancedEditTemplate.cs" />
+    <Compile Include="BannerAdmin\CalendarSupport\AdvancedInsertTemplate.cs" />
+    <Compile Include="BannerAdmin\CalendarSupport\AppointmentTemplate.cs" />
+    <Compile Include="BannerAdmin\DeleteBanner.cs" />
+    <Compile Include="BannerAdmin\EditBanner.cs" />
+    <Compile Include="BannerGroup\AddGroup.cs" />
+    <Compile Include="BannerGroup\BannerGroupDetails.cs" />
+    <Compile Include="BannerWcf.cs" />
+    <Compile Include="BannerWebService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BannerGroup\DeleteGroup.cs" />
+    <Compile Include="BannerGroup\EditGroup.cs" />
+    <Compile Include="BannerGroup\Groups.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="HttpHandlers\BannerHandler.cs" />
+    <Compile Include="HttpHandlers\ImageHandler.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SessionManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ApplicationBlock\Configuration\ApplicationBlock.Configuration.csproj">
+      <Project>{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}</Project>
+      <Name>ApplicationBlock.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApplicationBlock\Logging\ApplicationBlock.Logging.csproj">
+      <Project>{5C76B020-CE3C-4176-B2AA-5EAE9C3150CC}</Project>
+      <Name>ApplicationBlock.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\DataTransferObjects\Common.DataTransferObjects.csproj">
+      <Project>{377F2216-9202-4DF9-9C5B-C2A4E627FFE2}</Project>
+      <Name>Common.DataTransferObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WebApplication\UIController\Common.UIController.csproj">
+      <Project>{0FBD88DA-96D9-4F11-A45A-2364A4184C37}</Project>
+      <Name>Common.UIController</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WebApplication\UI\Common.UI.csproj">
+      <Project>{32E18B88-521E-4887-BFBF-26B64797AF75}</Project>
+      <Name>Common.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Banners.UIController\Modules.Banners.UIController.csproj">
+      <Project>{A4CFC493-97BB-4E9C-BC69-1E6B291F48FB}</Project>
+      <Name>Modules.Banners.UIController</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DSL.UIController\Modules.DSL.UIController.csproj">
+      <Project>{E745F9B8-3967-44D3-9ADB-ABED1B3E3F9D}</Project>
+      <Name>Modules.DSL.UIController</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DSL.UI\Modules.DSL.UI.csproj">
+      <Project>{FFB51537-50B9-4D5B-B4F2-B7E9DA731E4C}</Project>
+      <Name>Modules.DSL.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="JavaScript\banner.js" />
+    <Content Include="JavaScript\jquery-1.4.min.js" />
+    <Content Include="JavaScript\jquery.timers-1.2.js" />
+    <Content Include="JavaScript\json2.js" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

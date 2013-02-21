@@ -1,0 +1,16 @@
+﻿.adBodyTextBox
+{
+    font-family: Arial;
+    height: 100px;
+    width: 350px;
+}
+.bottomToolbarPanel
+{
+    margin-left: 5px;
+    display: block;
+}
+.maxWordCountValue
+{
+    display: block;
+    color: Red;
+}

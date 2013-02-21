@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="AppUserSPRESS" EntityNamespace="DataModel" ContextNamespace="DataModel" Class="AppUserDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=paramountit.com.au;Initial Catalog=AppUserSPRESS;User ID=sa" SettingsObjectName="BetterclassifiedsCore.My.MySettings" SettingsPropertyName="AppUserSPRESSConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.aspnet_Users" Member="aspnet_Users">
+    <Type Name="aspnet_User">
+      <Column Name="ApplicationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="LoweredUserName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="MobileAlias" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="IsAnonymous" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LastActivityDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Industry" Member="Industries">
+    <Type Name="Industry">
+      <Column Name="IndustryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Association Name="Industry_BusinessCategory" Member="BusinessCategories" ThisKey="IndustryId" OtherKey="IndustryId" Type="BusinessCategory" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BusinessCategory" Member="BusinessCategories">
+    <Type Name="BusinessCategory">
+      <Column Name="BusinessCategoryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IndustryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Association Name="Industry_BusinessCategory" Member="Industry" ThisKey="IndustryId" OtherKey="IndustryId" Type="Industry" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserProfile" Member="UserProfiles">
+    <Type Name="UserProfile">
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RefNumber" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Address1" Type="System.String" DbType="NVarChar(75) NOT NULL" CanBeNull="false" />
+      <Column Name="Address2" Type="System.String" DbType="NVarChar(75)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="State" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="PostCode" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(12) NOT NULL" CanBeNull="false" />
+      <Column Name="SecondaryPhone" Type="System.String" DbType="NVarChar(12)" CanBeNull="true" />
+      <Column Name="PreferedContact" Type="System.String" DbType="NVarChar(12)" CanBeNull="true" />
+      <Column Name="BusinessName" Type="System.String" DbType="NVarChar(75)" CanBeNull="true" />
+      <Column Name="ABN" Type="System.String" DbType="NVarChar(12)" CanBeNull="true" />
+      <Column Name="Industry" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BusinessCategory" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProfileVersion" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LastUpdatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="UserProfile_UserProfile" Member="UserProfile1" ThisKey="UserID" OtherKey="UserID" Type="UserProfile" Cardinality="One" />
+      <Association Name="UserProfile_UserProfile" Member="UserProfile" ThisKey="UserID" OtherKey="UserID" Type="UserProfile" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{40730ADA-F229-4418-A953-0ED119FFD2A3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BetterClassified.UIController</RootNamespace>
+    <AssemblyName>BetterClassified.UIController</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Test|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Testing|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Entity.Design" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdBookingController.cs" />
+    <Compile Include="DataController.cs" />
+    <Compile Include="BaseController.cs" />
+    <Compile Include="Booking\BookCartController.cs" />
+    <Compile Include="CategoryController.cs" />
+    <Compile Include="ClientSetting.cs" />
+    <Compile Include="Constants\ProviderNames.cs" />
+    <Compile Include="Constants\PageConstant.cs" />
+    <Compile Include="Constants\ValidationExpressionFormats.cs" />
+    <Compile Include="Converter.cs" />
+    <Compile Include="EmailNotificationController.cs" />
+    <Compile Include="Enumeration\AdType.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="ImageCacheController.cs" />
+    <Compile Include="LineAdController.cs" />
+    <Compile Include="LineAdHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataFactory.cs" />
+    <Compile Include="Enumeration\RepositoryType.cs" />
+    <Compile Include="PublicationController.cs" />
+    <Compile Include="RateController.cs" />
+    <Compile Include="Repository\LinqDaoRepository-AppSetting.cs" />
+    <Compile Include="Repository\LinqDaoRepository-Publication.cs" />
+    <Compile Include="Repository\IDataRepository.cs" />
+    <Compile Include="Repository\LinqDaoRepository-Category.cs" />
+    <Compile Include="Repository\LinqDaoRepository-Ratecard.cs" />
+    <Compile Include="Repository\LinqDaoRepository-LineAd.cs" />
+    <Compile Include="ViewObjects\ExpiredAdView.cs" />
+    <Compile Include="ViewObjects\LineAdBookingView.cs" />
+    <Compile Include="ViewObjects\LineAdColourVo.cs" />
+    <Compile Include="ViewObjects\LineAdVo.cs" />
+    <Compile Include="ViewObjects\PublicationRateInfoVo.cs" />
+    <Compile Include="ViewObjects\RateCardSearchResultVo.cs" />
+    <Compile Include="ViewObjects\RateCardVo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ApplicationBlock\Configuration\ApplicationBlock.Configuration.csproj">
+      <Project>{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}</Project>
+      <Name>ApplicationBlock.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApplicationBlock\Data\ApplicationBlock.Data.csproj">
+      <Project>{F119DDC3-24DD-411E-B509-B8E41A011741}</Project>
+      <Name>ApplicationBlock.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\DataTransferObjects\Common.DataTransferObjects.csproj">
+      <Project>{377F2216-9202-4DF9-9C5B-C2A4E627FFE2}</Project>
+      <Name>Common.DataTransferObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\ServiceContracts\Common.ServiceContracts.csproj">
+      <Project>{97D730A7-D86A-4FA1-90E2-3DFCFD4C337A}</Project>
+      <Name>Common.ServiceContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UI\Common.UI.csproj">
+      <Project>{32E18B88-521E-4887-BFBF-26B64797AF75}</Project>
+      <Name>Common.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\Paramount.Services.Proxy\Services.Proxy.csproj">
+      <Project>{E560D316-27E8-4F4C-A6A4-F23B82651770}</Project>
+      <Name>Services.Proxy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApplicationBlock\Utility\Paramount.Utility.csproj">
+      <Project>{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}</Project>
+      <Name>Paramount.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BetterclassifiedsCore\BetterclassifiedsCore.vbproj">
+      <Project>{0790D756-48F2-42C5-9985-7915D15ED88C}</Project>
+      <Name>BetterclassifiedsCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApplicationBlock\Betterclassifieds.Utility\Paramount.Betterclassified.Utilities.csproj">
+      <Project>{C1B1D4CC-E982-472D-8FE3-8719BA24D272}</Project>
+      <Name>Paramount.Betterclassified.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ParameterObjects\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

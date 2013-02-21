@@ -1,0 +1,34 @@
+﻿<%@ Master Language="VB" MasterPageFile="~/Master/Default.Master" AutoEventWireup="false" CodeBehind="MasterWithMessage.master.vb" Inherits="BetterclassifiedsWeb.MasterWithMessage" %>
+
+<%@ Register Src="~/Controls/Search/KeySearch.ascx" TagName="keysearch" TagPrefix="ucx" %>
+
+<asp:Content ContentPlaceHolderID="head" runat="server" ID="cntHead">
+    <asp:ContentPlaceHolder ID="HeadPlaceHolder" runat="server" />
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="ContentPlaceHolder1" runat="server" ID="cntMain">
+
+    <div id="contentMainHead">
+        <div id="searchTotalContent">
+            <ucx:keysearch id="ucxKeySearch" runat="server" />
+        </div>
+        <div id="advertiseNavBut">
+            <ul>
+                <li>
+                    <asp:LinkButton ID="LinkPrint" runat="server">iFLOG IN PRINT</asp:LinkButton></li>
+                <li>
+                    <asp:LinkButton ID="LinkOnline" runat="server">iFLOG ONLINE</asp:LinkButton></li>
+                <li>
+                    <asp:LinkButton ID="Linkboth" runat="server">iFLOG BOTH WAYS</asp:LinkButton></li>
+            </ul>
+        </div>
+    </div>
+    <div class="clearFloat">
+        <div id="contentBody">
+            <asp:ContentPlaceHolder ID="BodyPlaceHolder" runat="server" />
+
+        </div>
+    </div>
+
+</asp:Content>
+

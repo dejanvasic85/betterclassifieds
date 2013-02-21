@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ParamountCore" Class="EvenServiceClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=paramountit.com.au;Initial Catalog=ParamountCore;Persist Security Info=True;User ID=sa" SettingsObjectName="Paramount.DataService.Properties.Settings" SettingsPropertyName="ParamountCoreConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Event" Member="Events">
+    <Type Name="Event">
+      <Column Name="EventId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EventTitle" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="EventDescription" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="CategoryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DefaultImageId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="StartDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EndDateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IsRepeat" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DisplayStartDate" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DisplayEndDate" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="TimeZone" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="HostedBy" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="HostDescription" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DisplayGoogleMap" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateTimeCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="RegionCode" Type="System.String" DbType="NVarChar(6) NOT NULL" CanBeNull="false" />
+      <Column Name="LocationName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Address1" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Address2" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Postcode" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="Latitude" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Longitude" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Association Name="Event_Event_Ticket" Member="Event_Tickets" ThisKey="EventId" OtherKey="EventId" Type="Event_Ticket" />
+      <Association Name="Event_Category_Event" Member="Event_Category" ThisKey="CategoryId" OtherKey="CategoryId" Type="Event_Category" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Event_Category" Member="Event_Categories">
+    <Type Name="Event_Category">
+      <Column Name="CategoryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ParentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Association Name="Event_Category_Event" Member="Events" ThisKey="CategoryId" OtherKey="CategoryId" Type="Event" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Event_Location" Member="Event_Locations">
+    <Type Name="Event_Location">
+      <Column Name="LocationId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Address1" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Address2" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="Postcode" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="RegionCode" Type="System.String" DbType="NVarChar(6)" CanBeNull="true" />
+      <Column Name="Latitude" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Longitude" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Registered" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DateTimeCreated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Event_Ticket" Member="Event_Tickets">
+    <Type Name="Event_Ticket">
+      <Column Name="EventTicketId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EventId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TicketTitle" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="TicketDescription" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="SaleType" Type="System.String" DbType="Char(4) NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MinimumTicketPerTransaction" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MaximumTicketPerTransaction" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SaleStartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="SaleEndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Event_Event_Ticket" Member="Event" ThisKey="EventId" OtherKey="EventId" Type="Event" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

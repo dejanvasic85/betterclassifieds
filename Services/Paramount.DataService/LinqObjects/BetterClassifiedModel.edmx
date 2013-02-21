@@ -1,0 +1,2818 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BetterclassifiedsModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2006/04/edm/ssdl">
+        <EntityContainer Name="BetterclassifiedsModelStoreContainer">
+          <EntitySet Name="Ad" EntityType="BetterclassifiedsModel.Store.Ad" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AdBooking" EntityType="BetterclassifiedsModel.Store.AdBooking" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AdDesign" EntityType="BetterclassifiedsModel.Store.AdDesign" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AdGraphic" EntityType="BetterclassifiedsModel.Store.AdGraphic" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AdType" EntityType="BetterclassifiedsModel.Store.AdType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AppSetting" EntityType="BetterclassifiedsModel.Store.AppSetting" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AutoField" EntityType="BetterclassifiedsModel.Store.AutoField" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AutoFieldItem" EntityType="BetterclassifiedsModel.Store.AutoFieldItem" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AutoFieldType" EntityType="BetterclassifiedsModel.Store.AutoFieldType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BaseRate" EntityType="BetterclassifiedsModel.Store.BaseRate" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BlockAd" EntityType="BetterclassifiedsModel.Store.BlockAd" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BlockAdSize" EntityType="BetterclassifiedsModel.Store.BlockAdSize" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BookEntry" EntityType="BetterclassifiedsModel.Store.BookEntry" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Edition" EntityType="BetterclassifiedsModel.Store.Edition" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="EnquiryDocument" EntityType="BetterclassifiedsModel.Store.EnquiryDocument" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="EnquiryType" EntityType="BetterclassifiedsModel.Store.EnquiryType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LineAd" EntityType="BetterclassifiedsModel.Store.LineAd" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Location" EntityType="BetterclassifiedsModel.Store.Location" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LocationArea" EntityType="BetterclassifiedsModel.Store.LocationArea" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MainCategory" EntityType="BetterclassifiedsModel.Store.MainCategory" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="NonPublicationDate" EntityType="BetterclassifiedsModel.Store.NonPublicationDate" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="OnlineAd" EntityType="BetterclassifiedsModel.Store.OnlineAd" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="OnlineAdEnquiry" EntityType="BetterclassifiedsModel.Store.OnlineAdEnquiry" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Publication" EntityType="BetterclassifiedsModel.Store.Publication" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PublicationAdType" EntityType="BetterclassifiedsModel.Store.PublicationAdType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PublicationCategory" EntityType="BetterclassifiedsModel.Store.PublicationCategory" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PublicationRate" EntityType="BetterclassifiedsModel.Store.PublicationRate" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PublicationSpecialRate" EntityType="BetterclassifiedsModel.Store.PublicationSpecialRate" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PublicationType" EntityType="BetterclassifiedsModel.Store.PublicationType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Ratecard" EntityType="BetterclassifiedsModel.Store.Ratecard" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SpecialRate" EntityType="BetterclassifiedsModel.Store.SpecialRate" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SupportEnquiry" EntityType="BetterclassifiedsModel.Store.SupportEnquiry" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TempBookingRecord" EntityType="BetterclassifiedsModel.Store.TempBookingRecord" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Transaction" EntityType="BetterclassifiedsModel.Store.Transaction" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="WebAdSpace" EntityType="BetterclassifiedsModel.Store.WebAdSpace" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="WebAdSpaceSetting" EntityType="BetterclassifiedsModel.Store.WebAdSpaceSetting" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="WebContent" EntityType="BetterclassifiedsModel.Store.WebContent" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_AdBooking_Ad" Association="BetterclassifiedsModel.Store.FK_AdBooking_Ad">
+            <End Role="Ad" EntitySet="Ad" />
+            <End Role="AdBooking" EntitySet="AdBooking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdBooking_MainCategory" Association="BetterclassifiedsModel.Store.FK_AdBooking_MainCategory">
+            <End Role="MainCategory" EntitySet="MainCategory" />
+            <End Role="AdBooking" EntitySet="AdBooking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdDesign_Ad" Association="BetterclassifiedsModel.Store.FK_AdDesign_Ad">
+            <End Role="Ad" EntitySet="Ad" />
+            <End Role="AdDesign" EntitySet="AdDesign" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdDesign_AdType" Association="BetterclassifiedsModel.Store.FK_AdDesign_AdType">
+            <End Role="AdType" EntitySet="AdType" />
+            <End Role="AdDesign" EntitySet="AdDesign" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdGraphic_AdDesign" Association="BetterclassifiedsModel.Store.FK_AdGraphic_AdDesign">
+            <End Role="AdDesign" EntitySet="AdDesign" />
+            <End Role="AdGraphic" EntitySet="AdGraphic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoField_AutoFieldType" Association="BetterclassifiedsModel.Store.FK_AutoField_AutoFieldType">
+            <End Role="AutoFieldType" EntitySet="AutoFieldType" />
+            <End Role="AutoField" EntitySet="AutoField" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoField_MainCategory" Association="BetterclassifiedsModel.Store.FK_AutoField_MainCategory">
+            <End Role="MainCategory" EntitySet="MainCategory" />
+            <End Role="AutoField" EntitySet="AutoField" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoFieldItem_AutoField" Association="BetterclassifiedsModel.Store.FK_AutoFieldItem_AutoField">
+            <End Role="AutoField" EntitySet="AutoField" />
+            <End Role="AutoFieldItem" EntitySet="AutoFieldItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BlockAd_AdDesign" Association="BetterclassifiedsModel.Store.FK_BlockAd_AdDesign">
+            <End Role="AdDesign" EntitySet="AdDesign" />
+            <End Role="BlockAd" EntitySet="BlockAd" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BlockAd_BlockAdSize" Association="BetterclassifiedsModel.Store.FK_BlockAd_BlockAdSize">
+            <End Role="BlockAdSize" EntitySet="BlockAdSize" />
+            <End Role="BlockAd" EntitySet="BlockAd" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookEntry_AdBooking" Association="BetterclassifiedsModel.Store.FK_BookEntry_AdBooking">
+            <End Role="AdBooking" EntitySet="AdBooking" />
+            <End Role="BookEntry" EntitySet="BookEntry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookEntry_Publication" Association="BetterclassifiedsModel.Store.FK_BookEntry_Publication">
+            <End Role="Publication" EntitySet="Publication" />
+            <End Role="BookEntry" EntitySet="BookEntry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Edition_Publication" Association="BetterclassifiedsModel.Store.FK_Edition_Publication">
+            <End Role="Publication" EntitySet="Publication" />
+            <End Role="Edition" EntitySet="Edition" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EnquiryDocument_OnlineAdEnquiry" Association="BetterclassifiedsModel.Store.FK_EnquiryDocument_OnlineAdEnquiry">
+            <End Role="OnlineAdEnquiry" EntitySet="OnlineAdEnquiry" />
+            <End Role="EnquiryDocument" EntitySet="EnquiryDocument" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LineAd_AdDesign" Association="BetterclassifiedsModel.Store.FK_LineAd_AdDesign">
+            <End Role="AdDesign" EntitySet="AdDesign" />
+            <End Role="LineAd" EntitySet="LineAd" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LocationArea_Location" Association="BetterclassifiedsModel.Store.FK_LocationArea_Location">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="LocationArea" EntitySet="LocationArea" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NonPublicationDate_Publication" Association="BetterclassifiedsModel.Store.FK_NonPublicationDate_Publication">
+            <End Role="Publication" EntitySet="Publication" />
+            <End Role="NonPublicationDate" EntitySet="NonPublicationDate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnlineAd_AdDesign" Association="BetterclassifiedsModel.Store.FK_OnlineAd_AdDesign">
+            <End Role="AdDesign" EntitySet="AdDesign" />
+            <End Role="OnlineAd" EntitySet="OnlineAd" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnlineAd_Location" Association="BetterclassifiedsModel.Store.FK_OnlineAd_Location">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="OnlineAd" EntitySet="OnlineAd" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnlineAd_LocationArea" Association="BetterclassifiedsModel.Store.FK_OnlineAd_LocationArea">
+            <End Role="LocationArea" EntitySet="LocationArea" />
+            <End Role="OnlineAd" EntitySet="OnlineAd" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnlineAdEnquiry_EnquiryType" Association="BetterclassifiedsModel.Store.FK_OnlineAdEnquiry_EnquiryType">
+            <End Role="EnquiryType" EntitySet="EnquiryType" />
+            <End Role="OnlineAdEnquiry" EntitySet="OnlineAdEnquiry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnlineAdEnquiry_OnlineAd" Association="BetterclassifiedsModel.Store.FK_OnlineAdEnquiry_OnlineAd">
+            <End Role="OnlineAd" EntitySet="OnlineAd" />
+            <End Role="OnlineAdEnquiry" EntitySet="OnlineAdEnquiry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Publication_PublicationType" Association="BetterclassifiedsModel.Store.FK_Publication_PublicationType">
+            <End Role="PublicationType" EntitySet="PublicationType" />
+            <End Role="Publication" EntitySet="Publication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PublicationAdType_AdType" Association="BetterclassifiedsModel.Store.FK_PublicationAdType_AdType">
+            <End Role="AdType" EntitySet="AdType" />
+            <End Role="PublicationAdType" EntitySet="PublicationAdType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PublicationAdType_Publication" Association="BetterclassifiedsModel.Store.FK_PublicationAdType_Publication">
+            <End Role="Publication" EntitySet="Publication" />
+            <End Role="PublicationAdType" EntitySet="PublicationAdType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PublicationCategory_MainCategory" Association="BetterclassifiedsModel.Store.FK_PublicationCategory_MainCategory">
+            <End Role="MainCategory" EntitySet="MainCategory" />
+            <End Role="PublicationCategory" EntitySet="PublicationCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PublicationCategory_Publication" Association="BetterclassifiedsModel.Store.FK_PublicationCategory_Publication">
+            <End Role="Publication" EntitySet="Publication" />
+            <End Role="PublicationCategory" EntitySet="PublicationCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PublicationRate_PublicationAdType" Association="BetterclassifiedsModel.Store.FK_PublicationRate_PublicationAdType">
+            <End Role="PublicationAdType" EntitySet="PublicationAdType" />
+            <End Role="PublicationRate" EntitySet="PublicationRate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PublicationRate_PublicationCategory" Association="BetterclassifiedsModel.Store.FK_PublicationRate_PublicationCategory">
+            <End Role="PublicationCategory" EntitySet="PublicationCategory" />
+            <End Role="PublicationRate" EntitySet="PublicationRate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PublicationRate_Ratecard" Association="BetterclassifiedsModel.Store.FK_PublicationRate_Ratecard">
+            <End Role="Ratecard" EntitySet="Ratecard" />
+            <End Role="PublicationRate" EntitySet="PublicationRate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PublicationSpecialRate_PublicationAdType" Association="BetterclassifiedsModel.Store.FK_PublicationSpecialRate_PublicationAdType">
+            <End Role="PublicationAdType" EntitySet="PublicationAdType" />
+            <End Role="PublicationSpecialRate" EntitySet="PublicationSpecialRate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PublicationSpecialRate_PublicationCategory" Association="BetterclassifiedsModel.Store.FK_PublicationSpecialRate_PublicationCategory">
+            <End Role="PublicationCategory" EntitySet="PublicationCategory" />
+            <End Role="PublicationSpecialRate" EntitySet="PublicationSpecialRate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PublicationSpecialRate_SpecialRate" Association="BetterclassifiedsModel.Store.FK_PublicationSpecialRate_SpecialRate">
+            <End Role="SpecialRate" EntitySet="SpecialRate" />
+            <End Role="PublicationSpecialRate" EntitySet="PublicationSpecialRate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ratecard_BaseRate" Association="BetterclassifiedsModel.Store.FK_Ratecard_BaseRate">
+            <End Role="BaseRate" EntitySet="BaseRate" />
+            <End Role="Ratecard" EntitySet="Ratecard" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SpecialRate_BaseRate" Association="BetterclassifiedsModel.Store.FK_SpecialRate_BaseRate">
+            <End Role="BaseRate" EntitySet="BaseRate" />
+            <End Role="SpecialRate" EntitySet="SpecialRate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WebAdSpace_WebAdSpaceSetting" Association="BetterclassifiedsModel.Store.FK_WebAdSpace_WebAdSpaceSetting">
+            <End Role="WebAdSpaceSetting" EntitySet="WebAdSpaceSetting" />
+            <End Role="WebAdSpace" EntitySet="WebAdSpace" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Ad">
+          <Key>
+            <PropertyRef Name="AdId" />
+          </Key>
+          <Property Name="AdId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="255" />
+          <Property Name="UseAsTemplate" Type="bit" />
+        </EntityType>
+        <EntityType Name="AdBooking">
+          <Key>
+            <PropertyRef Name="AdBookingId" />
+          </Key>
+          <Property Name="AdBookingId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="TotalPrice" Type="money" />
+          <Property Name="BookReference" Type="nchar" MaxLength="10" />
+          <Property Name="AdId" Type="int" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="50" />
+          <Property Name="BookingStatus" Type="int" />
+          <Property Name="MainCategoryId" Type="int" />
+          <Property Name="BookingType" Type="nvarchar" MaxLength="20" />
+          <Property Name="BookingDate" Type="datetime" />
+          <Property Name="Insertions" Type="int" />
+        </EntityType>
+        <EntityType Name="AdDesign">
+          <Key>
+            <PropertyRef Name="AdDesignId" />
+          </Key>
+          <Property Name="AdDesignId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AdId" Type="int" />
+          <Property Name="AdTypeId" Type="int" />
+          <Property Name="Status" Type="int" />
+        </EntityType>
+        <EntityType Name="AdGraphic">
+          <Key>
+            <PropertyRef Name="AdGraphicId" />
+          </Key>
+          <Property Name="AdGraphicId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AdDesignId" Type="int" />
+          <Property Name="DocumentID" Type="nvarchar" MaxLength="100" />
+          <Property Name="Filename" Type="nvarchar" MaxLength="100" />
+          <Property Name="ImageType" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="AdType">
+          <Key>
+            <PropertyRef Name="AdTypeId" />
+          </Key>
+          <Property Name="AdTypeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="PaperBased" Type="bit" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="255" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="AppSetting">
+          <Key>
+            <PropertyRef Name="Module" />
+            <PropertyRef Name="AppKey" />
+          </Key>
+          <Property Name="Module" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="AppKey" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="DataType" Type="nchar" MaxLength="10" />
+          <Property Name="SettingValue" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AutoField">
+          <Key>
+            <PropertyRef Name="AutoFieldId" />
+          </Key>
+          <Property Name="AutoFieldId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Hint" Type="nvarchar" MaxLength="255" />
+          <Property Name="AutoFieldTypeId" Type="int" />
+          <Property Name="MainCategoryId" Type="int" />
+        </EntityType>
+        <EntityType Name="AutoFieldItem">
+          <Key>
+            <PropertyRef Name="AutoFieldItemId" />
+          </Key>
+          <Property Name="AutoFieldItemId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ItemContent" Type="nvarchar" MaxLength="255" />
+          <Property Name="ItemLabel" Type="nvarchar" MaxLength="50" />
+          <Property Name="AutoFieldId" Type="int" />
+        </EntityType>
+        <EntityType Name="AutoFieldType">
+          <Key>
+            <PropertyRef Name="AutoFieldTypeId" />
+          </Key>
+          <Property Name="AutoFieldTypeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="BaseRate">
+          <Key>
+            <PropertyRef Name="BaseRateId" />
+          </Key>
+          <Property Name="BaseRateId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="255" />
+          <Property Name="UpgradeBaseRateId" Type="int" />
+        </EntityType>
+        <EntityType Name="BlockAd">
+          <Key>
+            <PropertyRef Name="BlockAdId" />
+          </Key>
+          <Property Name="BlockAdId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AdDesignId" Type="int" />
+          <Property Name="BlockSizeId" Type="int" />
+        </EntityType>
+        <EntityType Name="BlockAdSize">
+          <Key>
+            <PropertyRef Name="BlockSizeId" />
+          </Key>
+          <Property Name="BlockSizeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="nvarchar" MaxLength="255" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="BookEntry">
+          <Key>
+            <PropertyRef Name="BookEntryId" />
+          </Key>
+          <Property Name="BookEntryId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EditionDate" Type="datetime" />
+          <Property Name="AdBookingId" Type="int" />
+          <Property Name="PublicationId" Type="int" />
+          <Property Name="EditionAdPrice" Type="money" />
+          <Property Name="PublicationPrice" Type="money" />
+          <Property Name="BaseRateId" Type="int" />
+          <Property Name="RateType" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Edition">
+          <Key>
+            <PropertyRef Name="EditionId" />
+          </Key>
+          <Property Name="EditionId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PublicationId" Type="int" />
+          <Property Name="EditionDate" Type="datetime" />
+          <Property Name="Deadline" Type="datetime" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="EnquiryDocument">
+          <Key>
+            <PropertyRef Name="EnquiryDocumentId" />
+          </Key>
+          <Property Name="EnquiryDocumentId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="OnlineAdEnquiryId" Type="int" Nullable="false" />
+          <Property Name="DocumentId" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="EnquiryType">
+          <Key>
+            <PropertyRef Name="EnquiryTypeId" />
+          </Key>
+          <Property Name="EnquiryTypeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="LineAd">
+          <Key>
+            <PropertyRef Name="LineAdId" />
+          </Key>
+          <Property Name="LineAdId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AdDesignId" Type="int" />
+          <Property Name="AdHeader" Type="nvarchar" MaxLength="255" />
+          <Property Name="AdText" Type="nvarchar(max)" />
+          <Property Name="NumOfWords" Type="int" />
+          <Property Name="UsePhoto" Type="bit" />
+          <Property Name="UseBoldHeader" Type="bit" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="LocationId" />
+          </Key>
+          <Property Name="LocationId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="LocationArea">
+          <Key>
+            <PropertyRef Name="LocationAreaId" />
+          </Key>
+          <Property Name="LocationAreaId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LocationId" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="MainCategory">
+          <Key>
+            <PropertyRef Name="MainCategoryId" />
+          </Key>
+          <Property Name="MainCategoryId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="255" />
+          <Property Name="ParentId" Type="int" />
+        </EntityType>
+        <EntityType Name="NonPublicationDate">
+          <Key>
+            <PropertyRef Name="NonPublicationDateId" />
+          </Key>
+          <Property Name="NonPublicationDateId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PublicationId" Type="int" Nullable="false" />
+          <Property Name="EditionDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OnlineAd">
+          <Key>
+            <PropertyRef Name="OnlineAdId" />
+          </Key>
+          <Property Name="OnlineAdId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AdDesignId" Type="int" />
+          <Property Name="Heading" Type="nvarchar" MaxLength="255" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="HtmlText" Type="nvarchar(max)" />
+          <Property Name="Price" Type="money" />
+          <Property Name="LocationId" Type="int" />
+          <Property Name="LocationAreaId" Type="int" />
+          <Property Name="ContactName" Type="nvarchar" MaxLength="200" />
+          <Property Name="ContactType" Type="nvarchar" MaxLength="20" />
+          <Property Name="ContactValue" Type="nvarchar" MaxLength="100" />
+          <Property Name="NumOfViews" Type="int" />
+        </EntityType>
+        <EntityType Name="OnlineAdEnquiry">
+          <Key>
+            <PropertyRef Name="OnlineAdEnquiryId" />
+          </Key>
+          <Property Name="OnlineAdEnquiryId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="OnlineAdId" Type="int" Nullable="false" />
+          <Property Name="EnquiryTypeId" Type="int" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="12" />
+          <Property Name="EnquiryText" Type="nvarchar(max)" />
+          <Property Name="OpenDate" Type="datetime" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="Publication">
+          <Key>
+            <PropertyRef Name="PublicationId" />
+          </Key>
+          <Property Name="PublicationId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="PublicationTypeId" Type="int" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="255" />
+          <Property Name="FrequencyType" Type="nvarchar" MaxLength="20" />
+          <Property Name="FrequencyValue" Type="nvarchar" MaxLength="20" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="SortOrder" Type="int" />
+        </EntityType>
+        <EntityType Name="PublicationAdType">
+          <Key>
+            <PropertyRef Name="PublicationAdTypeId" />
+          </Key>
+          <Property Name="PublicationAdTypeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PublicationId" Type="int" />
+          <Property Name="AdTypeId" Type="int" />
+        </EntityType>
+        <EntityType Name="PublicationCategory">
+          <Key>
+            <PropertyRef Name="PublicationCategoryId" />
+          </Key>
+          <Property Name="PublicationCategoryId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="255" />
+          <Property Name="ParentId" Type="int" />
+          <Property Name="MainCategoryId" Type="int" />
+          <Property Name="PublicationId" Type="int" />
+        </EntityType>
+        <EntityType Name="PublicationRate">
+          <Key>
+            <PropertyRef Name="PublicationRateId" />
+          </Key>
+          <Property Name="PublicationRateId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PublicationAdTypeId" Type="int" />
+          <Property Name="PublicationCategoryId" Type="int" />
+          <Property Name="RatecardId" Type="int" />
+        </EntityType>
+        <EntityType Name="PublicationSpecialRate">
+          <Key>
+            <PropertyRef Name="PublicationSpecialRateId" />
+          </Key>
+          <Property Name="PublicationSpecialRateId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SpecialRateId" Type="int" />
+          <Property Name="PublicationAdTypeId" Type="int" />
+          <Property Name="PublicationCategoryId" Type="int" />
+        </EntityType>
+        <EntityType Name="PublicationType">
+          <Key>
+            <PropertyRef Name="PublicationTypeId" />
+          </Key>
+          <Property Name="PublicationTypeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="nchar" MaxLength="10" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Ratecard">
+          <Key>
+            <PropertyRef Name="RatecardId" />
+          </Key>
+          <Property Name="RatecardId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="BaseRateId" Type="int" />
+          <Property Name="MinCharge" Type="money" />
+          <Property Name="MaxCharge" Type="money" />
+          <Property Name="RatePerMeasureUnit" Type="money" />
+          <Property Name="MeasureUnitLimit" Type="int" />
+          <Property Name="PhotoCharge" Type="money" />
+          <Property Name="BoldHeading" Type="money" />
+          <Property Name="SalesTax" Type="money" />
+          <Property Name="PositionLoading" Type="numeric" />
+          <Property Name="MakeUpCharge" Type="money" />
+          <Property Name="MakeUpFee" Type="bit" />
+          <Property Name="OnlineEditionBundle" Type="money" />
+        </EntityType>
+        <EntityType Name="SpecialRate">
+          <Key>
+            <PropertyRef Name="SpecialRateId" />
+          </Key>
+          <Property Name="SpecialRateId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="BaseRateId" Type="int" />
+          <Property Name="NumOfInsertions" Type="int" />
+          <Property Name="MaximumWords" Type="int" />
+          <Property Name="SetPrice" Type="money" />
+          <Property Name="Discount" Type="numeric" Scale="2" />
+          <Property Name="NumOfAds" Type="int" />
+          <Property Name="LineAdBoldHeader" Type="bit" />
+          <Property Name="LineAdImage" Type="bit" />
+          <Property Name="NumberOfImages" Type="int" />
+        </EntityType>
+        <EntityType Name="SupportEnquiry">
+          <Key>
+            <PropertyRef Name="SupportEnquiryId" />
+          </Key>
+          <Property Name="SupportEnquiryId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EnquiryTypeName" Type="varchar" MaxLength="50" />
+          <Property Name="FullName" Type="varchar" MaxLength="100" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="Phone" Type="varchar" MaxLength="15" />
+          <Property Name="Subject" Type="varchar" MaxLength="100" />
+          <Property Name="EnquiryText" Type="varchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TempBookingRecord">
+          <Key>
+            <PropertyRef Name="BookingRecordId" />
+          </Key>
+          <Property Name="BookingRecordId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TotalCost" Type="money" Nullable="false" />
+          <Property Name="SessionID" Type="varchar" Nullable="false" MaxLength="25" />
+          <Property Name="UserId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="DateTime" Type="datetime" Nullable="false" />
+          <Property Name="AdReferenceId" Type="varchar" Nullable="false" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="TransactionId" />
+          </Key>
+          <Property Name="TransactionId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TransactionType" Type="int" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="50" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="Amount" Type="money" />
+          <Property Name="TransactionDate" Type="datetime" />
+          <Property Name="RowTimeStamp" Type="timestamp" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="WebAdSpace">
+          <Key>
+            <PropertyRef Name="WebAdSpaceId" />
+          </Key>
+          <Property Name="WebAdSpaceId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" />
+          <Property Name="SettingID" Type="int" />
+          <Property Name="SortOrder" Type="int" />
+          <Property Name="AdLinkUrl" Type="nvarchar" MaxLength="255" />
+          <Property Name="AdTarget" Type="nvarchar" MaxLength="50" />
+          <Property Name="SpaceType" Type="int" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="255" />
+          <Property Name="DisplayText" Type="nvarchar" MaxLength="100" />
+          <Property Name="ToolTipText" Type="nvarchar" MaxLength="200" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="WebAdSpaceSetting">
+          <Key>
+            <PropertyRef Name="SettingId" />
+          </Key>
+          <Property Name="SettingId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" />
+          <Property Name="LocationCode" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WebContent">
+          <Key>
+            <PropertyRef Name="WebContentId" />
+          </Key>
+          <Property Name="WebContentId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="PageId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="WebContent" Type="nvarchar(max)" />
+          <Property Name="LastModifiedDate" Type="datetime" />
+          <Property Name="LastModifiedUser" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_AdBooking_Ad">
+          <End Role="Ad" Type="BetterclassifiedsModel.Store.Ad" Multiplicity="0..1" />
+          <End Role="AdBooking" Type="BetterclassifiedsModel.Store.AdBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ad">
+              <PropertyRef Name="AdId" />
+            </Principal>
+            <Dependent Role="AdBooking">
+              <PropertyRef Name="AdId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdBooking_MainCategory">
+          <End Role="MainCategory" Type="BetterclassifiedsModel.Store.MainCategory" Multiplicity="0..1" />
+          <End Role="AdBooking" Type="BetterclassifiedsModel.Store.AdBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MainCategory">
+              <PropertyRef Name="MainCategoryId" />
+            </Principal>
+            <Dependent Role="AdBooking">
+              <PropertyRef Name="MainCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdDesign_Ad">
+          <End Role="Ad" Type="BetterclassifiedsModel.Store.Ad" Multiplicity="0..1" />
+          <End Role="AdDesign" Type="BetterclassifiedsModel.Store.AdDesign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ad">
+              <PropertyRef Name="AdId" />
+            </Principal>
+            <Dependent Role="AdDesign">
+              <PropertyRef Name="AdId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdDesign_AdType">
+          <End Role="AdType" Type="BetterclassifiedsModel.Store.AdType" Multiplicity="0..1" />
+          <End Role="AdDesign" Type="BetterclassifiedsModel.Store.AdDesign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdType">
+              <PropertyRef Name="AdTypeId" />
+            </Principal>
+            <Dependent Role="AdDesign">
+              <PropertyRef Name="AdTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdGraphic_AdDesign">
+          <End Role="AdDesign" Type="BetterclassifiedsModel.Store.AdDesign" Multiplicity="0..1" />
+          <End Role="AdGraphic" Type="BetterclassifiedsModel.Store.AdGraphic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdDesign">
+              <PropertyRef Name="AdDesignId" />
+            </Principal>
+            <Dependent Role="AdGraphic">
+              <PropertyRef Name="AdDesignId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoField_AutoFieldType">
+          <End Role="AutoFieldType" Type="BetterclassifiedsModel.Store.AutoFieldType" Multiplicity="0..1" />
+          <End Role="AutoField" Type="BetterclassifiedsModel.Store.AutoField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoFieldType">
+              <PropertyRef Name="AutoFieldTypeId" />
+            </Principal>
+            <Dependent Role="AutoField">
+              <PropertyRef Name="AutoFieldTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoField_MainCategory">
+          <End Role="MainCategory" Type="BetterclassifiedsModel.Store.MainCategory" Multiplicity="0..1" />
+          <End Role="AutoField" Type="BetterclassifiedsModel.Store.AutoField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MainCategory">
+              <PropertyRef Name="MainCategoryId" />
+            </Principal>
+            <Dependent Role="AutoField">
+              <PropertyRef Name="MainCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AutoFieldItem_AutoField">
+          <End Role="AutoField" Type="BetterclassifiedsModel.Store.AutoField" Multiplicity="0..1" />
+          <End Role="AutoFieldItem" Type="BetterclassifiedsModel.Store.AutoFieldItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AutoField">
+              <PropertyRef Name="AutoFieldId" />
+            </Principal>
+            <Dependent Role="AutoFieldItem">
+              <PropertyRef Name="AutoFieldId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BlockAd_AdDesign">
+          <End Role="AdDesign" Type="BetterclassifiedsModel.Store.AdDesign" Multiplicity="0..1" />
+          <End Role="BlockAd" Type="BetterclassifiedsModel.Store.BlockAd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdDesign">
+              <PropertyRef Name="AdDesignId" />
+            </Principal>
+            <Dependent Role="BlockAd">
+              <PropertyRef Name="AdDesignId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BlockAd_BlockAdSize">
+          <End Role="BlockAdSize" Type="BetterclassifiedsModel.Store.BlockAdSize" Multiplicity="0..1" />
+          <End Role="BlockAd" Type="BetterclassifiedsModel.Store.BlockAd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BlockAdSize">
+              <PropertyRef Name="BlockSizeId" />
+            </Principal>
+            <Dependent Role="BlockAd">
+              <PropertyRef Name="BlockSizeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookEntry_AdBooking">
+          <End Role="AdBooking" Type="BetterclassifiedsModel.Store.AdBooking" Multiplicity="0..1" />
+          <End Role="BookEntry" Type="BetterclassifiedsModel.Store.BookEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdBooking">
+              <PropertyRef Name="AdBookingId" />
+            </Principal>
+            <Dependent Role="BookEntry">
+              <PropertyRef Name="AdBookingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookEntry_Publication">
+          <End Role="Publication" Type="BetterclassifiedsModel.Store.Publication" Multiplicity="0..1" />
+          <End Role="BookEntry" Type="BetterclassifiedsModel.Store.BookEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publication">
+              <PropertyRef Name="PublicationId" />
+            </Principal>
+            <Dependent Role="BookEntry">
+              <PropertyRef Name="PublicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Edition_Publication">
+          <End Role="Publication" Type="BetterclassifiedsModel.Store.Publication" Multiplicity="0..1" />
+          <End Role="Edition" Type="BetterclassifiedsModel.Store.Edition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publication">
+              <PropertyRef Name="PublicationId" />
+            </Principal>
+            <Dependent Role="Edition">
+              <PropertyRef Name="PublicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EnquiryDocument_OnlineAdEnquiry">
+          <End Role="OnlineAdEnquiry" Type="BetterclassifiedsModel.Store.OnlineAdEnquiry" Multiplicity="1" />
+          <End Role="EnquiryDocument" Type="BetterclassifiedsModel.Store.EnquiryDocument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OnlineAdEnquiry">
+              <PropertyRef Name="OnlineAdEnquiryId" />
+            </Principal>
+            <Dependent Role="EnquiryDocument">
+              <PropertyRef Name="OnlineAdEnquiryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LineAd_AdDesign">
+          <End Role="AdDesign" Type="BetterclassifiedsModel.Store.AdDesign" Multiplicity="0..1" />
+          <End Role="LineAd" Type="BetterclassifiedsModel.Store.LineAd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdDesign">
+              <PropertyRef Name="AdDesignId" />
+            </Principal>
+            <Dependent Role="LineAd">
+              <PropertyRef Name="AdDesignId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LocationArea_Location">
+          <End Role="Location" Type="BetterclassifiedsModel.Store.Location" Multiplicity="1" />
+          <End Role="LocationArea" Type="BetterclassifiedsModel.Store.LocationArea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="LocationId" />
+            </Principal>
+            <Dependent Role="LocationArea">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NonPublicationDate_Publication">
+          <End Role="Publication" Type="BetterclassifiedsModel.Store.Publication" Multiplicity="1" />
+          <End Role="NonPublicationDate" Type="BetterclassifiedsModel.Store.NonPublicationDate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publication">
+              <PropertyRef Name="PublicationId" />
+            </Principal>
+            <Dependent Role="NonPublicationDate">
+              <PropertyRef Name="PublicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OnlineAd_AdDesign">
+          <End Role="AdDesign" Type="BetterclassifiedsModel.Store.AdDesign" Multiplicity="0..1" />
+          <End Role="OnlineAd" Type="BetterclassifiedsModel.Store.OnlineAd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdDesign">
+              <PropertyRef Name="AdDesignId" />
+            </Principal>
+            <Dependent Role="OnlineAd">
+              <PropertyRef Name="AdDesignId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OnlineAd_Location">
+          <End Role="Location" Type="BetterclassifiedsModel.Store.Location" Multiplicity="0..1" />
+          <End Role="OnlineAd" Type="BetterclassifiedsModel.Store.OnlineAd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="LocationId" />
+            </Principal>
+            <Dependent Role="OnlineAd">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OnlineAd_LocationArea">
+          <End Role="LocationArea" Type="BetterclassifiedsModel.Store.LocationArea" Multiplicity="0..1" />
+          <End Role="OnlineAd" Type="BetterclassifiedsModel.Store.OnlineAd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LocationArea">
+              <PropertyRef Name="LocationAreaId" />
+            </Principal>
+            <Dependent Role="OnlineAd">
+              <PropertyRef Name="LocationAreaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OnlineAdEnquiry_EnquiryType">
+          <End Role="EnquiryType" Type="BetterclassifiedsModel.Store.EnquiryType" Multiplicity="1" />
+          <End Role="OnlineAdEnquiry" Type="BetterclassifiedsModel.Store.OnlineAdEnquiry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EnquiryType">
+              <PropertyRef Name="EnquiryTypeId" />
+            </Principal>
+            <Dependent Role="OnlineAdEnquiry">
+              <PropertyRef Name="EnquiryTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OnlineAdEnquiry_OnlineAd">
+          <End Role="OnlineAd" Type="BetterclassifiedsModel.Store.OnlineAd" Multiplicity="1" />
+          <End Role="OnlineAdEnquiry" Type="BetterclassifiedsModel.Store.OnlineAdEnquiry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OnlineAd">
+              <PropertyRef Name="OnlineAdId" />
+            </Principal>
+            <Dependent Role="OnlineAdEnquiry">
+              <PropertyRef Name="OnlineAdId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Publication_PublicationType">
+          <End Role="PublicationType" Type="BetterclassifiedsModel.Store.PublicationType" Multiplicity="0..1" />
+          <End Role="Publication" Type="BetterclassifiedsModel.Store.Publication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PublicationType">
+              <PropertyRef Name="PublicationTypeId" />
+            </Principal>
+            <Dependent Role="Publication">
+              <PropertyRef Name="PublicationTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PublicationAdType_AdType">
+          <End Role="AdType" Type="BetterclassifiedsModel.Store.AdType" Multiplicity="0..1" />
+          <End Role="PublicationAdType" Type="BetterclassifiedsModel.Store.PublicationAdType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AdType">
+              <PropertyRef Name="AdTypeId" />
+            </Principal>
+            <Dependent Role="PublicationAdType">
+              <PropertyRef Name="AdTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PublicationAdType_Publication">
+          <End Role="Publication" Type="BetterclassifiedsModel.Store.Publication" Multiplicity="0..1" />
+          <End Role="PublicationAdType" Type="BetterclassifiedsModel.Store.PublicationAdType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publication">
+              <PropertyRef Name="PublicationId" />
+            </Principal>
+            <Dependent Role="PublicationAdType">
+              <PropertyRef Name="PublicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PublicationCategory_MainCategory">
+          <End Role="MainCategory" Type="BetterclassifiedsModel.Store.MainCategory" Multiplicity="0..1" />
+          <End Role="PublicationCategory" Type="BetterclassifiedsModel.Store.PublicationCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MainCategory">
+              <PropertyRef Name="MainCategoryId" />
+            </Principal>
+            <Dependent Role="PublicationCategory">
+              <PropertyRef Name="MainCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PublicationCategory_Publication">
+          <End Role="Publication" Type="BetterclassifiedsModel.Store.Publication" Multiplicity="0..1" />
+          <End Role="PublicationCategory" Type="BetterclassifiedsModel.Store.PublicationCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publication">
+              <PropertyRef Name="PublicationId" />
+            </Principal>
+            <Dependent Role="PublicationCategory">
+              <PropertyRef Name="PublicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PublicationRate_PublicationAdType">
+          <End Role="PublicationAdType" Type="BetterclassifiedsModel.Store.PublicationAdType" Multiplicity="0..1" />
+          <End Role="PublicationRate" Type="BetterclassifiedsModel.Store.PublicationRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PublicationAdType">
+              <PropertyRef Name="PublicationAdTypeId" />
+            </Principal>
+            <Dependent Role="PublicationRate">
+              <PropertyRef Name="PublicationAdTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PublicationRate_PublicationCategory">
+          <End Role="PublicationCategory" Type="BetterclassifiedsModel.Store.PublicationCategory" Multiplicity="0..1" />
+          <End Role="PublicationRate" Type="BetterclassifiedsModel.Store.PublicationRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PublicationCategory">
+              <PropertyRef Name="PublicationCategoryId" />
+            </Principal>
+            <Dependent Role="PublicationRate">
+              <PropertyRef Name="PublicationCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PublicationRate_Ratecard">
+          <End Role="Ratecard" Type="BetterclassifiedsModel.Store.Ratecard" Multiplicity="0..1" />
+          <End Role="PublicationRate" Type="BetterclassifiedsModel.Store.PublicationRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ratecard">
+              <PropertyRef Name="RatecardId" />
+            </Principal>
+            <Dependent Role="PublicationRate">
+              <PropertyRef Name="RatecardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PublicationSpecialRate_PublicationAdType">
+          <End Role="PublicationAdType" Type="BetterclassifiedsModel.Store.PublicationAdType" Multiplicity="0..1" />
+          <End Role="PublicationSpecialRate" Type="BetterclassifiedsModel.Store.PublicationSpecialRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PublicationAdType">
+              <PropertyRef Name="PublicationAdTypeId" />
+            </Principal>
+            <Dependent Role="PublicationSpecialRate">
+              <PropertyRef Name="PublicationAdTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PublicationSpecialRate_PublicationCategory">
+          <End Role="PublicationCategory" Type="BetterclassifiedsModel.Store.PublicationCategory" Multiplicity="0..1" />
+          <End Role="PublicationSpecialRate" Type="BetterclassifiedsModel.Store.PublicationSpecialRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PublicationCategory">
+              <PropertyRef Name="PublicationCategoryId" />
+            </Principal>
+            <Dependent Role="PublicationSpecialRate">
+              <PropertyRef Name="PublicationCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PublicationSpecialRate_SpecialRate">
+          <End Role="SpecialRate" Type="BetterclassifiedsModel.Store.SpecialRate" Multiplicity="0..1" />
+          <End Role="PublicationSpecialRate" Type="BetterclassifiedsModel.Store.PublicationSpecialRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SpecialRate">
+              <PropertyRef Name="SpecialRateId" />
+            </Principal>
+            <Dependent Role="PublicationSpecialRate">
+              <PropertyRef Name="SpecialRateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ratecard_BaseRate">
+          <End Role="BaseRate" Type="BetterclassifiedsModel.Store.BaseRate" Multiplicity="0..1" />
+          <End Role="Ratecard" Type="BetterclassifiedsModel.Store.Ratecard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BaseRate">
+              <PropertyRef Name="BaseRateId" />
+            </Principal>
+            <Dependent Role="Ratecard">
+              <PropertyRef Name="BaseRateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SpecialRate_BaseRate">
+          <End Role="BaseRate" Type="BetterclassifiedsModel.Store.BaseRate" Multiplicity="0..1" />
+          <End Role="SpecialRate" Type="BetterclassifiedsModel.Store.SpecialRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BaseRate">
+              <PropertyRef Name="BaseRateId" />
+            </Principal>
+            <Dependent Role="SpecialRate">
+              <PropertyRef Name="BaseRateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WebAdSpace_WebAdSpaceSetting">
+          <End Role="WebAdSpaceSetting" Type="BetterclassifiedsModel.Store.WebAdSpaceSetting" Multiplicity="0..1" />
+          <End Role="WebAdSpace" Type="BetterclassifiedsModel.Store.WebAdSpace" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WebAdSpaceSetting">
+              <PropertyRef Name="SettingId" />
+            </Principal>
+            <Dependent Role="WebAdSpace">
+              <PropertyRef Name="SettingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="psp_Betterclassified_GetAdBookingByEndDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="endDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="psp_Betterclassified_GetOnlineAd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="keyword" Type="varchar" Mode="In" />
+          <Parameter Name="locationId" Type="int" Mode="In" />
+          <Parameter Name="areaId" Type="int" Mode="In" />
+          <Parameter Name="parentCategoryId" Type="int" Mode="In" />
+          <Parameter Name="subCategoryId" Type="int" Mode="In" />
+          <Parameter Name="pageSize" Type="int" Mode="In" />
+          <Parameter Name="pageIndex" Type="int" Mode="In" />
+          <Parameter Name="totalPopulationSize" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spAdBookingSelectUserActive" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+          <Parameter Name="BookingStatus" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spAdBookingsSearch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AdDesignId" Type="int" Mode="In" />
+          <Parameter Name="BookReference" Type="nvarchar" Mode="In" />
+          <Parameter Name="Username" Type="nvarchar" Mode="In" />
+          <Parameter Name="BookingDateStart" Type="datetime" Mode="In" />
+          <Parameter Name="BookingDateEnd" Type="datetime" Mode="In" />
+          <Parameter Name="BookingStatus" Type="int" Mode="In" />
+          <Parameter Name="PublicationId" Type="int" Mode="In" />
+          <Parameter Name="ParentCategoryId" Type="int" Mode="In" />
+          <Parameter Name="MainCategoryId" Type="int" Mode="In" />
+          <Parameter Name="AdSearchText" Type="nvarchar" Mode="In" />
+          <Parameter Name="EditionStartDate" Type="datetime" Mode="In" />
+          <Parameter Name="EditionEndDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="spGetMainParentCategories" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spGetPublicationsByAdType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="adTypeId" Type="int" Mode="In" />
+          <Parameter Name="showOnline" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="spLineAdById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LineAdId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spLineAdExportList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="publicationId" Type="int" Mode="In" />
+          <Parameter Name="editionDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="spLineAdSelectUserCurrent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+          <Parameter Name="BookingStatus" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spLineAdSelectUserExpired" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+          <Parameter Name="EndDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="spLineAdSelectUserScheduled" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+          <Parameter Name="BookingStatus" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spMainCategoriesUnassigned" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="isParent" Type="bit" Mode="In" />
+          <Parameter Name="publicationCategoryId" Type="int" Mode="In" />
+          <Parameter Name="publicationId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spMainCategoryAdCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="bookStatus" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spOnlineAdSelect" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ParentCategoryId" Type="int" Mode="In" />
+          <Parameter Name="SubCategoryId" Type="int" Mode="In" />
+          <Parameter Name="LocationId" Type="int" Mode="In" />
+          <Parameter Name="AreaId" Type="int" Mode="In" />
+          <Parameter Name="KeyWord" Type="nvarchar" Mode="In" />
+          <Parameter Name="BookStatus" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spOnlineAdSelectByCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CategoryId" Type="int" Mode="In" />
+          <Parameter Name="bookStatus" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spOnlineAdSelectByLineAdDesign" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LineDesignId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spOnlineAdSelectRecentlyAdded" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="bookStatus" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spOnlineAdSelectRecentlyAddedNEW" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spOnlineAdSelectUserCurrent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+          <Parameter Name="BookingStatus" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spOnlineAdSelectUserExpired" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+          <Parameter Name="EndDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="spOnlineAdSelectUserScheduled" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+          <Parameter Name="BookingStatus" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spPublicationCategories" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PublicationID" Type="int" Mode="In" />
+          <Parameter Name="ParentID" Type="int" Mode="In" />
+          <Parameter Name="MainCategoryID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spPublicationCategoriesByPubId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PublicationID" Type="int" Mode="In" />
+          <Parameter Name="ParentID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spPublicationDeadlineSelect" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PublicationID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spPublicationEditionAndDeadlines" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spPublicationSpecialRateAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PublicationId" Type="int" Mode="In" />
+          <Parameter Name="MainCategoryId" Type="int" Mode="In" />
+          <Parameter Name="SpecialRateId" Type="int" Mode="In" />
+          <Parameter Name="ClearCurrentRates" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="spRatecardsByCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="categoryId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spReportIncomeReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="startDate" Type="datetime" Mode="In" />
+          <Parameter Name="endDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="spReportWeeklySales" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pubid" Type="int" Mode="In" />
+          <Parameter Name="ed" Type="datetime" Mode="In" />
+          <Parameter Name="status" Type="int" Mode="In" />
+          <Parameter Name="subCategoryId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSpecialRatePublications" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="specialRateId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSpecialRatesByCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="mainCategoryId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSystemBackupDatabases" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="path" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spTransactionsByUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
+          <Parameter Name="StartDate" Type="datetime" Mode="In" />
+        </Function>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BetterclassifiedsModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
+        <EntityContainer Name="BetterclassifiedsEntities">
+          <EntitySet Name="Ads" EntityType="BetterclassifiedsModel.Ad" />
+          <EntitySet Name="AdBookings" EntityType="BetterclassifiedsModel.AdBooking" />
+          <EntitySet Name="AdDesigns" EntityType="BetterclassifiedsModel.AdDesign" />
+          <EntitySet Name="AdGraphics" EntityType="BetterclassifiedsModel.AdGraphic" />
+          <EntitySet Name="AdTypes" EntityType="BetterclassifiedsModel.AdType" />
+          <EntitySet Name="AppSettings" EntityType="BetterclassifiedsModel.AppSetting" />
+          <EntitySet Name="AutoFields" EntityType="BetterclassifiedsModel.AutoField" />
+          <EntitySet Name="AutoFieldItems" EntityType="BetterclassifiedsModel.AutoFieldItem" />
+          <EntitySet Name="AutoFieldTypes" EntityType="BetterclassifiedsModel.AutoFieldType" />
+          <EntitySet Name="BaseRates" EntityType="BetterclassifiedsModel.BaseRate" />
+          <EntitySet Name="BlockAds" EntityType="BetterclassifiedsModel.BlockAd" />
+          <EntitySet Name="BlockAdSizes" EntityType="BetterclassifiedsModel.BlockAdSize" />
+          <EntitySet Name="BookEntries" EntityType="BetterclassifiedsModel.BookEntry" />
+          <EntitySet Name="Editions" EntityType="BetterclassifiedsModel.Edition" />
+          <EntitySet Name="EnquiryDocuments" EntityType="BetterclassifiedsModel.EnquiryDocument" />
+          <EntitySet Name="EnquiryTypes" EntityType="BetterclassifiedsModel.EnquiryType" />
+          <EntitySet Name="LineAds" EntityType="BetterclassifiedsModel.LineAd" />
+          <EntitySet Name="Locations" EntityType="BetterclassifiedsModel.Location" />
+          <EntitySet Name="LocationAreas" EntityType="BetterclassifiedsModel.LocationArea" />
+          <EntitySet Name="MainCategories" EntityType="BetterclassifiedsModel.MainCategory" />
+          <EntitySet Name="NonPublicationDates" EntityType="BetterclassifiedsModel.NonPublicationDate" />
+          <EntitySet Name="OnlineAds" EntityType="BetterclassifiedsModel.OnlineAd" />
+          <EntitySet Name="OnlineAdEnquiries" EntityType="BetterclassifiedsModel.OnlineAdEnquiry" />
+          <EntitySet Name="Publications" EntityType="BetterclassifiedsModel.Publication" />
+          <EntitySet Name="PublicationAdTypes" EntityType="BetterclassifiedsModel.PublicationAdType" />
+          <EntitySet Name="PublicationCategories" EntityType="BetterclassifiedsModel.PublicationCategory" />
+          <EntitySet Name="PublicationRates" EntityType="BetterclassifiedsModel.PublicationRate" />
+          <EntitySet Name="PublicationSpecialRates" EntityType="BetterclassifiedsModel.PublicationSpecialRate" />
+          <EntitySet Name="PublicationTypes" EntityType="BetterclassifiedsModel.PublicationType" />
+          <EntitySet Name="Ratecards" EntityType="BetterclassifiedsModel.Ratecard" />
+          <EntitySet Name="SpecialRates" EntityType="BetterclassifiedsModel.SpecialRate" />
+          <EntitySet Name="SupportEnquiries" EntityType="BetterclassifiedsModel.SupportEnquiry" />
+          <EntitySet Name="TempBookingRecords" EntityType="BetterclassifiedsModel.TempBookingRecord" />
+          <EntitySet Name="Transactions" EntityType="BetterclassifiedsModel.Transaction" />
+          <EntitySet Name="WebAdSpaces" EntityType="BetterclassifiedsModel.WebAdSpace" />
+          <EntitySet Name="WebAdSpaceSettings" EntityType="BetterclassifiedsModel.WebAdSpaceSetting" />
+          <EntitySet Name="WebContents" EntityType="BetterclassifiedsModel.WebContent" />
+          <AssociationSet Name="FK_AdBooking_Ad" Association="BetterclassifiedsModel.FK_AdBooking_Ad">
+            <End Role="Ad" EntitySet="Ads" />
+            <End Role="AdBooking" EntitySet="AdBookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdDesign_Ad" Association="BetterclassifiedsModel.FK_AdDesign_Ad">
+            <End Role="Ad" EntitySet="Ads" />
+            <End Role="AdDesign" EntitySet="AdDesigns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdBooking_MainCategory" Association="BetterclassifiedsModel.FK_AdBooking_MainCategory">
+            <End Role="MainCategory" EntitySet="MainCategories" />
+            <End Role="AdBooking" EntitySet="AdBookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookEntry_AdBooking" Association="BetterclassifiedsModel.FK_BookEntry_AdBooking">
+            <End Role="AdBooking" EntitySet="AdBookings" />
+            <End Role="BookEntry" EntitySet="BookEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdDesign_AdType" Association="BetterclassifiedsModel.FK_AdDesign_AdType">
+            <End Role="AdType" EntitySet="AdTypes" />
+            <End Role="AdDesign" EntitySet="AdDesigns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdGraphic_AdDesign" Association="BetterclassifiedsModel.FK_AdGraphic_AdDesign">
+            <End Role="AdDesign" EntitySet="AdDesigns" />
+            <End Role="AdGraphic" EntitySet="AdGraphics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BlockAd_AdDesign" Association="BetterclassifiedsModel.FK_BlockAd_AdDesign">
+            <End Role="AdDesign" EntitySet="AdDesigns" />
+            <End Role="BlockAd" EntitySet="BlockAds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LineAd_AdDesign" Association="BetterclassifiedsModel.FK_LineAd_AdDesign">
+            <End Role="AdDesign" EntitySet="AdDesigns" />
+            <End Role="LineAd" EntitySet="LineAds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnlineAd_AdDesign" Association="BetterclassifiedsModel.FK_OnlineAd_AdDesign">
+            <End Role="AdDesign" EntitySet="AdDesigns" />
+            <End Role="OnlineAd" EntitySet="OnlineAds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PublicationAdType_AdType" Association="BetterclassifiedsModel.FK_PublicationAdType_AdType">
+            <End Role="AdType" EntitySet="AdTypes" />
+            <End Role="PublicationAdType" EntitySet="PublicationAdTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoField_AutoFieldType" Association="BetterclassifiedsModel.FK_AutoField_AutoFieldType">
+            <End Role="AutoFieldType" EntitySet="AutoFieldTypes" />
+            <End Role="AutoField" EntitySet="AutoFields" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoField_MainCategory" Association="BetterclassifiedsModel.FK_AutoField_MainCategory">
+            <End Role="MainCategory" EntitySet="MainCategories" />
+            <End Role="AutoField" EntitySet="AutoFields" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AutoFieldItem_AutoField" Association="BetterclassifiedsModel.FK_AutoFieldItem_AutoField">
+            <End Role="AutoField" EntitySet="AutoFields" />
+            <End Role="AutoFieldItem" EntitySet="AutoFieldItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ratecard_BaseRate" Association="BetterclassifiedsModel.FK_Ratecard_BaseRate">
+            <End Role="BaseRate" EntitySet="BaseRates" />
+            <End Role="Ratecard" EntitySet="Ratecards" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SpecialRate_BaseRate" Association="BetterclassifiedsModel.FK_SpecialRate_BaseRate">
+            <End Role="BaseRate" EntitySet="BaseRates" />
+            <End Role="SpecialRate" EntitySet="SpecialRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BlockAd_BlockAdSize" Association="BetterclassifiedsModel.FK_BlockAd_BlockAdSize">
+            <End Role="BlockAdSize" EntitySet="BlockAdSizes" />
+            <End Role="BlockAd" EntitySet="BlockAds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookEntry_Publication" Association="BetterclassifiedsModel.FK_BookEntry_Publication">
+            <End Role="Publication" EntitySet="Publications" />
+            <End Role="BookEntry" EntitySet="BookEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Edition_Publication" Association="BetterclassifiedsModel.FK_Edition_Publication">
+            <End Role="Publication" EntitySet="Publications" />
+            <End Role="Edition" EntitySet="Editions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EnquiryDocument_OnlineAdEnquiry" Association="BetterclassifiedsModel.FK_EnquiryDocument_OnlineAdEnquiry">
+            <End Role="OnlineAdEnquiry" EntitySet="OnlineAdEnquiries" />
+            <End Role="EnquiryDocument" EntitySet="EnquiryDocuments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnlineAdEnquiry_EnquiryType" Association="BetterclassifiedsModel.FK_OnlineAdEnquiry_EnquiryType">
+            <End Role="EnquiryType" EntitySet="EnquiryTypes" />
+            <End Role="OnlineAdEnquiry" EntitySet="OnlineAdEnquiries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LocationArea_Location" Association="BetterclassifiedsModel.FK_LocationArea_Location">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="LocationArea" EntitySet="LocationAreas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnlineAd_Location" Association="BetterclassifiedsModel.FK_OnlineAd_Location">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="OnlineAd" EntitySet="OnlineAds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnlineAd_LocationArea" Association="BetterclassifiedsModel.FK_OnlineAd_LocationArea">
+            <End Role="LocationArea" EntitySet="LocationAreas" />
+            <End Role="OnlineAd" EntitySet="OnlineAds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PublicationCategory_MainCategory" Association="BetterclassifiedsModel.FK_PublicationCategory_MainCategory">
+            <End Role="MainCategory" EntitySet="MainCategories" />
+            <End Role="PublicationCategory" EntitySet="PublicationCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NonPublicationDate_Publication" Association="BetterclassifiedsModel.FK_NonPublicationDate_Publication">
+            <End Role="Publication" EntitySet="Publications" />
+            <End Role="NonPublicationDate" EntitySet="NonPublicationDates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnlineAdEnquiry_OnlineAd" Association="BetterclassifiedsModel.FK_OnlineAdEnquiry_OnlineAd">
+            <End Role="OnlineAd" EntitySet="OnlineAds" />
+            <End Role="OnlineAdEnquiry" EntitySet="OnlineAdEnquiries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Publication_PublicationType" Association="BetterclassifiedsModel.FK_Publication_PublicationType">
+            <End Role="PublicationType" EntitySet="PublicationTypes" />
+            <End Role="Publication" EntitySet="Publications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PublicationAdType_Publication" Association="BetterclassifiedsModel.FK_PublicationAdType_Publication">
+            <End Role="Publication" EntitySet="Publications" />
+            <End Role="PublicationAdType" EntitySet="PublicationAdTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PublicationCategory_Publication" Association="BetterclassifiedsModel.FK_PublicationCategory_Publication">
+            <End Role="Publication" EntitySet="Publications" />
+            <End Role="PublicationCategory" EntitySet="PublicationCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PublicationRate_PublicationAdType" Association="BetterclassifiedsModel.FK_PublicationRate_PublicationAdType">
+            <End Role="PublicationAdType" EntitySet="PublicationAdTypes" />
+            <End Role="PublicationRate" EntitySet="PublicationRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PublicationSpecialRate_PublicationAdType" Association="BetterclassifiedsModel.FK_PublicationSpecialRate_PublicationAdType">
+            <End Role="PublicationAdType" EntitySet="PublicationAdTypes" />
+            <End Role="PublicationSpecialRate" EntitySet="PublicationSpecialRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PublicationRate_PublicationCategory" Association="BetterclassifiedsModel.FK_PublicationRate_PublicationCategory">
+            <End Role="PublicationCategory" EntitySet="PublicationCategories" />
+            <End Role="PublicationRate" EntitySet="PublicationRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PublicationSpecialRate_PublicationCategory" Association="BetterclassifiedsModel.FK_PublicationSpecialRate_PublicationCategory">
+            <End Role="PublicationCategory" EntitySet="PublicationCategories" />
+            <End Role="PublicationSpecialRate" EntitySet="PublicationSpecialRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PublicationRate_Ratecard" Association="BetterclassifiedsModel.FK_PublicationRate_Ratecard">
+            <End Role="Ratecard" EntitySet="Ratecards" />
+            <End Role="PublicationRate" EntitySet="PublicationRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PublicationSpecialRate_SpecialRate" Association="BetterclassifiedsModel.FK_PublicationSpecialRate_SpecialRate">
+            <End Role="SpecialRate" EntitySet="SpecialRates" />
+            <End Role="PublicationSpecialRate" EntitySet="PublicationSpecialRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WebAdSpace_WebAdSpaceSetting" Association="BetterclassifiedsModel.FK_WebAdSpace_WebAdSpaceSetting">
+            <End Role="WebAdSpaceSetting" EntitySet="WebAdSpaceSettings" />
+            <End Role="WebAdSpace" EntitySet="WebAdSpaces" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Ad">
+          <Key>
+            <PropertyRef Name="AdId" />
+          </Key>
+          <Property Name="AdId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Comments" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="UseAsTemplate" Type="Boolean" />
+          <NavigationProperty Name="AdBookings" Relationship="BetterclassifiedsModel.FK_AdBooking_Ad" FromRole="Ad" ToRole="AdBooking" />
+          <NavigationProperty Name="AdDesigns" Relationship="BetterclassifiedsModel.FK_AdDesign_Ad" FromRole="Ad" ToRole="AdDesign" />
+        </EntityType>
+        <EntityType Name="AdBooking">
+          <Key>
+            <PropertyRef Name="AdBookingId" />
+          </Key>
+          <Property Name="AdBookingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartDate" Type="DateTime" />
+          <Property Name="EndDate" Type="DateTime" />
+          <Property Name="TotalPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="BookReference" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="UserId" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="BookingStatus" Type="Int32" />
+          <Property Name="BookingType" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="BookingDate" Type="DateTime" />
+          <Property Name="Insertions" Type="Int32" />
+          <NavigationProperty Name="Ad" Relationship="BetterclassifiedsModel.FK_AdBooking_Ad" FromRole="AdBooking" ToRole="Ad" />
+          <NavigationProperty Name="MainCategory" Relationship="BetterclassifiedsModel.FK_AdBooking_MainCategory" FromRole="AdBooking" ToRole="MainCategory" />
+          <NavigationProperty Name="BookEntries" Relationship="BetterclassifiedsModel.FK_BookEntry_AdBooking" FromRole="AdBooking" ToRole="BookEntry" />
+        </EntityType>
+        <EntityType Name="AdDesign">
+          <Key>
+            <PropertyRef Name="AdDesignId" />
+          </Key>
+          <Property Name="AdDesignId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="Int32" />
+          <NavigationProperty Name="Ad" Relationship="BetterclassifiedsModel.FK_AdDesign_Ad" FromRole="AdDesign" ToRole="Ad" />
+          <NavigationProperty Name="AdType" Relationship="BetterclassifiedsModel.FK_AdDesign_AdType" FromRole="AdDesign" ToRole="AdType" />
+          <NavigationProperty Name="AdGraphics" Relationship="BetterclassifiedsModel.FK_AdGraphic_AdDesign" FromRole="AdDesign" ToRole="AdGraphic" />
+          <NavigationProperty Name="BlockAds" Relationship="BetterclassifiedsModel.FK_BlockAd_AdDesign" FromRole="AdDesign" ToRole="BlockAd" />
+          <NavigationProperty Name="LineAds" Relationship="BetterclassifiedsModel.FK_LineAd_AdDesign" FromRole="AdDesign" ToRole="LineAd" />
+          <NavigationProperty Name="OnlineAds" Relationship="BetterclassifiedsModel.FK_OnlineAd_AdDesign" FromRole="AdDesign" ToRole="OnlineAd" />
+        </EntityType>
+        <EntityType Name="AdGraphic">
+          <Key>
+            <PropertyRef Name="AdGraphicId" />
+          </Key>
+          <Property Name="AdGraphicId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DocumentID" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Filename" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ImageType" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ModifiedDate" Type="DateTime" />
+          <NavigationProperty Name="AdDesign" Relationship="BetterclassifiedsModel.FK_AdGraphic_AdDesign" FromRole="AdGraphic" ToRole="AdDesign" />
+        </EntityType>
+        <EntityType Name="AdType">
+          <Key>
+            <PropertyRef Name="AdTypeId" />
+          </Key>
+          <Property Name="AdTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Title" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="PaperBased" Type="Boolean" />
+          <Property Name="ImageUrl" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="AdDesigns" Relationship="BetterclassifiedsModel.FK_AdDesign_AdType" FromRole="AdType" ToRole="AdDesign" />
+          <NavigationProperty Name="PublicationAdTypes" Relationship="BetterclassifiedsModel.FK_PublicationAdType_AdType" FromRole="AdType" ToRole="PublicationAdType" />
+        </EntityType>
+        <EntityType Name="AppSetting">
+          <Key>
+            <PropertyRef Name="Module" />
+            <PropertyRef Name="AppKey" />
+          </Key>
+          <Property Name="Module" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="AppKey" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DataType" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="SettingValue" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="AutoField">
+          <Key>
+            <PropertyRef Name="AutoFieldId" />
+          </Key>
+          <Property Name="AutoFieldId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Hint" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="AutoFieldType" Relationship="BetterclassifiedsModel.FK_AutoField_AutoFieldType" FromRole="AutoField" ToRole="AutoFieldType" />
+          <NavigationProperty Name="MainCategory" Relationship="BetterclassifiedsModel.FK_AutoField_MainCategory" FromRole="AutoField" ToRole="MainCategory" />
+          <NavigationProperty Name="AutoFieldItems" Relationship="BetterclassifiedsModel.FK_AutoFieldItem_AutoField" FromRole="AutoField" ToRole="AutoFieldItem" />
+        </EntityType>
+        <EntityType Name="AutoFieldItem">
+          <Key>
+            <PropertyRef Name="AutoFieldItemId" />
+          </Key>
+          <Property Name="AutoFieldItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemContent" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="ItemLabel" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="AutoField" Relationship="BetterclassifiedsModel.FK_AutoFieldItem_AutoField" FromRole="AutoFieldItem" ToRole="AutoField" />
+        </EntityType>
+        <EntityType Name="AutoFieldType">
+          <Key>
+            <PropertyRef Name="AutoFieldTypeId" />
+          </Key>
+          <Property Name="AutoFieldTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="AutoFields" Relationship="BetterclassifiedsModel.FK_AutoField_AutoFieldType" FromRole="AutoFieldType" ToRole="AutoField" />
+        </EntityType>
+        <EntityType Name="BaseRate">
+          <Key>
+            <PropertyRef Name="BaseRateId" />
+          </Key>
+          <Property Name="BaseRateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="StartDate" Type="DateTime" />
+          <Property Name="EndDate" Type="DateTime" />
+          <Property Name="ImageUrl" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="UpgradeBaseRateId" Type="Int32" />
+          <NavigationProperty Name="Ratecards" Relationship="BetterclassifiedsModel.FK_Ratecard_BaseRate" FromRole="BaseRate" ToRole="Ratecard" />
+          <NavigationProperty Name="SpecialRates" Relationship="BetterclassifiedsModel.FK_SpecialRate_BaseRate" FromRole="BaseRate" ToRole="SpecialRate" />
+        </EntityType>
+        <EntityType Name="BlockAd">
+          <Key>
+            <PropertyRef Name="BlockAdId" />
+          </Key>
+          <Property Name="BlockAdId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="AdDesign" Relationship="BetterclassifiedsModel.FK_BlockAd_AdDesign" FromRole="BlockAd" ToRole="AdDesign" />
+          <NavigationProperty Name="BlockAdSize" Relationship="BetterclassifiedsModel.FK_BlockAd_BlockAdSize" FromRole="BlockAd" ToRole="BlockAdSize" />
+        </EntityType>
+        <EntityType Name="BlockAdSize">
+          <Key>
+            <PropertyRef Name="BlockSizeId" />
+          </Key>
+          <Property Name="BlockSizeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="Title" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="BlockAds" Relationship="BetterclassifiedsModel.FK_BlockAd_BlockAdSize" FromRole="BlockAdSize" ToRole="BlockAd" />
+        </EntityType>
+        <EntityType Name="BookEntry">
+          <Key>
+            <PropertyRef Name="BookEntryId" />
+          </Key>
+          <Property Name="BookEntryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EditionDate" Type="DateTime" />
+          <Property Name="EditionAdPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PublicationPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="BaseRateId" Type="Int32" />
+          <Property Name="RateType" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="AdBooking" Relationship="BetterclassifiedsModel.FK_BookEntry_AdBooking" FromRole="BookEntry" ToRole="AdBooking" />
+          <NavigationProperty Name="Publication" Relationship="BetterclassifiedsModel.FK_BookEntry_Publication" FromRole="BookEntry" ToRole="Publication" />
+        </EntityType>
+        <EntityType Name="Edition">
+          <Key>
+            <PropertyRef Name="EditionId" />
+          </Key>
+          <Property Name="EditionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EditionDate" Type="DateTime" />
+          <Property Name="Deadline" Type="DateTime" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="Publication" Relationship="BetterclassifiedsModel.FK_Edition_Publication" FromRole="Edition" ToRole="Publication" />
+        </EntityType>
+        <EntityType Name="EnquiryDocument">
+          <Key>
+            <PropertyRef Name="EnquiryDocumentId" />
+          </Key>
+          <Property Name="EnquiryDocumentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DocumentId" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" />
+          <NavigationProperty Name="OnlineAdEnquiry" Relationship="BetterclassifiedsModel.FK_EnquiryDocument_OnlineAdEnquiry" FromRole="EnquiryDocument" ToRole="OnlineAdEnquiry" />
+        </EntityType>
+        <EntityType Name="EnquiryType">
+          <Key>
+            <PropertyRef Name="EnquiryTypeId" />
+          </Key>
+          <Property Name="EnquiryTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" />
+          <NavigationProperty Name="OnlineAdEnquiries" Relationship="BetterclassifiedsModel.FK_OnlineAdEnquiry_EnquiryType" FromRole="EnquiryType" ToRole="OnlineAdEnquiry" />
+        </EntityType>
+        <EntityType Name="LineAd">
+          <Key>
+            <PropertyRef Name="LineAdId" />
+          </Key>
+          <Property Name="LineAdId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdHeader" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="AdText" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="NumOfWords" Type="Int32" />
+          <Property Name="UsePhoto" Type="Boolean" />
+          <Property Name="UseBoldHeader" Type="Boolean" />
+          <NavigationProperty Name="AdDesign" Relationship="BetterclassifiedsModel.FK_LineAd_AdDesign" FromRole="LineAd" ToRole="AdDesign" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="LocationId" />
+          </Key>
+          <Property Name="LocationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="LocationAreas" Relationship="BetterclassifiedsModel.FK_LocationArea_Location" FromRole="Location" ToRole="LocationArea" />
+          <NavigationProperty Name="OnlineAds" Relationship="BetterclassifiedsModel.FK_OnlineAd_Location" FromRole="Location" ToRole="OnlineAd" />
+        </EntityType>
+        <EntityType Name="LocationArea">
+          <Key>
+            <PropertyRef Name="LocationAreaId" />
+          </Key>
+          <Property Name="LocationAreaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Location" Relationship="BetterclassifiedsModel.FK_LocationArea_Location" FromRole="LocationArea" ToRole="Location" />
+          <NavigationProperty Name="OnlineAds" Relationship="BetterclassifiedsModel.FK_OnlineAd_LocationArea" FromRole="LocationArea" ToRole="OnlineAd" />
+        </EntityType>
+        <EntityType Name="MainCategory">
+          <Key>
+            <PropertyRef Name="MainCategoryId" />
+          </Key>
+          <Property Name="MainCategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="ImageUrl" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="ParentId" Type="Int32" />
+          <NavigationProperty Name="AdBookings" Relationship="BetterclassifiedsModel.FK_AdBooking_MainCategory" FromRole="MainCategory" ToRole="AdBooking" />
+          <NavigationProperty Name="AutoFields" Relationship="BetterclassifiedsModel.FK_AutoField_MainCategory" FromRole="MainCategory" ToRole="AutoField" />
+          <NavigationProperty Name="PublicationCategories" Relationship="BetterclassifiedsModel.FK_PublicationCategory_MainCategory" FromRole="MainCategory" ToRole="PublicationCategory" />
+        </EntityType>
+        <EntityType Name="NonPublicationDate">
+          <Key>
+            <PropertyRef Name="NonPublicationDateId" />
+          </Key>
+          <Property Name="NonPublicationDateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EditionDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Publication" Relationship="BetterclassifiedsModel.FK_NonPublicationDate_Publication" FromRole="NonPublicationDate" ToRole="Publication" />
+        </EntityType>
+        <EntityType Name="OnlineAd">
+          <Key>
+            <PropertyRef Name="OnlineAdId" />
+          </Key>
+          <Property Name="OnlineAdId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Heading" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="HtmlText" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ContactName" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="ContactType" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="ContactValue" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="NumOfViews" Type="Int32" />
+          <NavigationProperty Name="AdDesign" Relationship="BetterclassifiedsModel.FK_OnlineAd_AdDesign" FromRole="OnlineAd" ToRole="AdDesign" />
+          <NavigationProperty Name="Location" Relationship="BetterclassifiedsModel.FK_OnlineAd_Location" FromRole="OnlineAd" ToRole="Location" />
+          <NavigationProperty Name="LocationArea" Relationship="BetterclassifiedsModel.FK_OnlineAd_LocationArea" FromRole="OnlineAd" ToRole="LocationArea" />
+          <NavigationProperty Name="OnlineAdEnquiries" Relationship="BetterclassifiedsModel.FK_OnlineAdEnquiry_OnlineAd" FromRole="OnlineAd" ToRole="OnlineAdEnquiry" />
+        </EntityType>
+        <EntityType Name="OnlineAdEnquiry">
+          <Key>
+            <PropertyRef Name="OnlineAdEnquiryId" />
+          </Key>
+          <Property Name="OnlineAdEnquiryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Phone" Type="String" MaxLength="12" Unicode="true" FixedLength="false" />
+          <Property Name="EnquiryText" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="OpenDate" Type="DateTime" />
+          <Property Name="CreatedDate" Type="DateTime" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="EnquiryDocuments" Relationship="BetterclassifiedsModel.FK_EnquiryDocument_OnlineAdEnquiry" FromRole="OnlineAdEnquiry" ToRole="EnquiryDocument" />
+          <NavigationProperty Name="EnquiryType" Relationship="BetterclassifiedsModel.FK_OnlineAdEnquiry_EnquiryType" FromRole="OnlineAdEnquiry" ToRole="EnquiryType" />
+          <NavigationProperty Name="OnlineAd" Relationship="BetterclassifiedsModel.FK_OnlineAdEnquiry_OnlineAd" FromRole="OnlineAdEnquiry" ToRole="OnlineAd" />
+        </EntityType>
+        <EntityType Name="Publication">
+          <Key>
+            <PropertyRef Name="PublicationId" />
+          </Key>
+          <Property Name="PublicationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="ImageUrl" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="FrequencyType" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="FrequencyValue" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="SortOrder" Type="Int32" />
+          <NavigationProperty Name="BookEntries" Relationship="BetterclassifiedsModel.FK_BookEntry_Publication" FromRole="Publication" ToRole="BookEntry" />
+          <NavigationProperty Name="Editions" Relationship="BetterclassifiedsModel.FK_Edition_Publication" FromRole="Publication" ToRole="Edition" />
+          <NavigationProperty Name="NonPublicationDates" Relationship="BetterclassifiedsModel.FK_NonPublicationDate_Publication" FromRole="Publication" ToRole="NonPublicationDate" />
+          <NavigationProperty Name="PublicationType" Relationship="BetterclassifiedsModel.FK_Publication_PublicationType" FromRole="Publication" ToRole="PublicationType" />
+          <NavigationProperty Name="PublicationAdTypes" Relationship="BetterclassifiedsModel.FK_PublicationAdType_Publication" FromRole="Publication" ToRole="PublicationAdType" />
+          <NavigationProperty Name="PublicationCategories" Relationship="BetterclassifiedsModel.FK_PublicationCategory_Publication" FromRole="Publication" ToRole="PublicationCategory" />
+        </EntityType>
+        <EntityType Name="PublicationAdType">
+          <Key>
+            <PropertyRef Name="PublicationAdTypeId" />
+          </Key>
+          <Property Name="PublicationAdTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="AdType" Relationship="BetterclassifiedsModel.FK_PublicationAdType_AdType" FromRole="PublicationAdType" ToRole="AdType" />
+          <NavigationProperty Name="Publication" Relationship="BetterclassifiedsModel.FK_PublicationAdType_Publication" FromRole="PublicationAdType" ToRole="Publication" />
+          <NavigationProperty Name="PublicationRates" Relationship="BetterclassifiedsModel.FK_PublicationRate_PublicationAdType" FromRole="PublicationAdType" ToRole="PublicationRate" />
+          <NavigationProperty Name="PublicationSpecialRates" Relationship="BetterclassifiedsModel.FK_PublicationSpecialRate_PublicationAdType" FromRole="PublicationAdType" ToRole="PublicationSpecialRate" />
+        </EntityType>
+        <EntityType Name="PublicationCategory">
+          <Key>
+            <PropertyRef Name="PublicationCategoryId" />
+          </Key>
+          <Property Name="PublicationCategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="ImageUrl" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="ParentId" Type="Int32" />
+          <NavigationProperty Name="MainCategory" Relationship="BetterclassifiedsModel.FK_PublicationCategory_MainCategory" FromRole="PublicationCategory" ToRole="MainCategory" />
+          <NavigationProperty Name="Publication" Relationship="BetterclassifiedsModel.FK_PublicationCategory_Publication" FromRole="PublicationCategory" ToRole="Publication" />
+          <NavigationProperty Name="PublicationRates" Relationship="BetterclassifiedsModel.FK_PublicationRate_PublicationCategory" FromRole="PublicationCategory" ToRole="PublicationRate" />
+          <NavigationProperty Name="PublicationSpecialRates" Relationship="BetterclassifiedsModel.FK_PublicationSpecialRate_PublicationCategory" FromRole="PublicationCategory" ToRole="PublicationSpecialRate" />
+        </EntityType>
+        <EntityType Name="PublicationRate">
+          <Key>
+            <PropertyRef Name="PublicationRateId" />
+          </Key>
+          <Property Name="PublicationRateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="PublicationAdType" Relationship="BetterclassifiedsModel.FK_PublicationRate_PublicationAdType" FromRole="PublicationRate" ToRole="PublicationAdType" />
+          <NavigationProperty Name="PublicationCategory" Relationship="BetterclassifiedsModel.FK_PublicationRate_PublicationCategory" FromRole="PublicationRate" ToRole="PublicationCategory" />
+          <NavigationProperty Name="Ratecard" Relationship="BetterclassifiedsModel.FK_PublicationRate_Ratecard" FromRole="PublicationRate" ToRole="Ratecard" />
+        </EntityType>
+        <EntityType Name="PublicationSpecialRate">
+          <Key>
+            <PropertyRef Name="PublicationSpecialRateId" />
+          </Key>
+          <Property Name="PublicationSpecialRateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="PublicationAdType" Relationship="BetterclassifiedsModel.FK_PublicationSpecialRate_PublicationAdType" FromRole="PublicationSpecialRate" ToRole="PublicationAdType" />
+          <NavigationProperty Name="PublicationCategory" Relationship="BetterclassifiedsModel.FK_PublicationSpecialRate_PublicationCategory" FromRole="PublicationSpecialRate" ToRole="PublicationCategory" />
+          <NavigationProperty Name="SpecialRate" Relationship="BetterclassifiedsModel.FK_PublicationSpecialRate_SpecialRate" FromRole="PublicationSpecialRate" ToRole="SpecialRate" />
+        </EntityType>
+        <EntityType Name="PublicationType">
+          <Key>
+            <PropertyRef Name="PublicationTypeId" />
+          </Key>
+          <Property Name="PublicationTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+          <Property Name="Title" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Publications" Relationship="BetterclassifiedsModel.FK_Publication_PublicationType" FromRole="PublicationType" ToRole="Publication" />
+        </EntityType>
+        <EntityType Name="Ratecard">
+          <Key>
+            <PropertyRef Name="RatecardId" />
+          </Key>
+          <Property Name="RatecardId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MinCharge" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MaxCharge" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="RatePerMeasureUnit" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MeasureUnitLimit" Type="Int32" />
+          <Property Name="PhotoCharge" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="BoldHeading" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SalesTax" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PositionLoading" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="MakeUpCharge" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MakeUpFee" Type="Boolean" />
+          <Property Name="OnlineEditionBundle" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="BaseRate" Relationship="BetterclassifiedsModel.FK_Ratecard_BaseRate" FromRole="Ratecard" ToRole="BaseRate" />
+          <NavigationProperty Name="PublicationRates" Relationship="BetterclassifiedsModel.FK_PublicationRate_Ratecard" FromRole="Ratecard" ToRole="PublicationRate" />
+        </EntityType>
+        <EntityType Name="SpecialRate">
+          <Key>
+            <PropertyRef Name="SpecialRateId" />
+          </Key>
+          <Property Name="SpecialRateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumOfInsertions" Type="Int32" />
+          <Property Name="MaximumWords" Type="Int32" />
+          <Property Name="SetPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Discount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="NumOfAds" Type="Int32" />
+          <Property Name="LineAdBoldHeader" Type="Boolean" />
+          <Property Name="LineAdImage" Type="Boolean" />
+          <Property Name="NumberOfImages" Type="Int32" />
+          <NavigationProperty Name="BaseRate" Relationship="BetterclassifiedsModel.FK_SpecialRate_BaseRate" FromRole="SpecialRate" ToRole="BaseRate" />
+          <NavigationProperty Name="PublicationSpecialRates" Relationship="BetterclassifiedsModel.FK_PublicationSpecialRate_SpecialRate" FromRole="SpecialRate" ToRole="PublicationSpecialRate" />
+        </EntityType>
+        <EntityType Name="SupportEnquiry">
+          <Key>
+            <PropertyRef Name="SupportEnquiryId" />
+          </Key>
+          <Property Name="SupportEnquiryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EnquiryTypeName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="FullName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Phone" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="Subject" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="EnquiryText" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="CreatedDate" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="TempBookingRecord">
+          <Key>
+            <PropertyRef Name="BookingRecordId" />
+          </Key>
+          <Property Name="BookingRecordId" Type="Guid" Nullable="false" />
+          <Property Name="TotalCost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="SessionID" Type="String" Nullable="false" MaxLength="25" Unicode="false" FixedLength="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="DateTime" Type="DateTime" Nullable="false" />
+          <Property Name="AdReferenceId" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="TransactionId" />
+          </Key>
+          <Property Name="TransactionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransactionType" Type="Int32" />
+          <Property Name="UserId" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Title" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TransactionDate" Type="DateTime" />
+          <Property Name="RowTimeStamp" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="WebAdSpace">
+          <Key>
+            <PropertyRef Name="WebAdSpaceId" />
+          </Key>
+          <Property Name="WebAdSpaceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="SortOrder" Type="Int32" />
+          <Property Name="AdLinkUrl" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="AdTarget" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="SpaceType" Type="Int32" />
+          <Property Name="ImageUrl" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="DisplayText" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ToolTipText" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="WebAdSpaceSetting" Relationship="BetterclassifiedsModel.FK_WebAdSpace_WebAdSpaceSetting" FromRole="WebAdSpace" ToRole="WebAdSpaceSetting" />
+        </EntityType>
+        <EntityType Name="WebAdSpaceSetting">
+          <Key>
+            <PropertyRef Name="SettingId" />
+          </Key>
+          <Property Name="SettingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="LocationCode" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="WebAdSpaces" Relationship="BetterclassifiedsModel.FK_WebAdSpace_WebAdSpaceSetting" FromRole="WebAdSpaceSetting" ToRole="WebAdSpace" />
+        </EntityType>
+        <EntityType Name="WebContent">
+          <Key>
+            <PropertyRef Name="WebContentId" />
+          </Key>
+          <Property Name="WebContentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="PageId" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="WebContent1" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="LastModifiedDate" Type="DateTime" />
+          <Property Name="LastModifiedUser" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_AdBooking_Ad">
+          <End Role="Ad" Type="BetterclassifiedsModel.Ad" Multiplicity="0..1" />
+          <End Role="AdBooking" Type="BetterclassifiedsModel.AdBooking" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_AdDesign_Ad">
+          <End Role="Ad" Type="BetterclassifiedsModel.Ad" Multiplicity="0..1" />
+          <End Role="AdDesign" Type="BetterclassifiedsModel.AdDesign" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_AdBooking_MainCategory">
+          <End Role="MainCategory" Type="BetterclassifiedsModel.MainCategory" Multiplicity="0..1" />
+          <End Role="AdBooking" Type="BetterclassifiedsModel.AdBooking" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_BookEntry_AdBooking">
+          <End Role="AdBooking" Type="BetterclassifiedsModel.AdBooking" Multiplicity="0..1" />
+          <End Role="BookEntry" Type="BetterclassifiedsModel.BookEntry" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_AdDesign_AdType">
+          <End Role="AdType" Type="BetterclassifiedsModel.AdType" Multiplicity="0..1" />
+          <End Role="AdDesign" Type="BetterclassifiedsModel.AdDesign" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_AdGraphic_AdDesign">
+          <End Role="AdDesign" Type="BetterclassifiedsModel.AdDesign" Multiplicity="0..1" />
+          <End Role="AdGraphic" Type="BetterclassifiedsModel.AdGraphic" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_BlockAd_AdDesign">
+          <End Role="AdDesign" Type="BetterclassifiedsModel.AdDesign" Multiplicity="0..1" />
+          <End Role="BlockAd" Type="BetterclassifiedsModel.BlockAd" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_LineAd_AdDesign">
+          <End Role="AdDesign" Type="BetterclassifiedsModel.AdDesign" Multiplicity="0..1" />
+          <End Role="LineAd" Type="BetterclassifiedsModel.LineAd" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_OnlineAd_AdDesign">
+          <End Role="AdDesign" Type="BetterclassifiedsModel.AdDesign" Multiplicity="0..1" />
+          <End Role="OnlineAd" Type="BetterclassifiedsModel.OnlineAd" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_PublicationAdType_AdType">
+          <End Role="AdType" Type="BetterclassifiedsModel.AdType" Multiplicity="0..1" />
+          <End Role="PublicationAdType" Type="BetterclassifiedsModel.PublicationAdType" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_AutoField_AutoFieldType">
+          <End Role="AutoFieldType" Type="BetterclassifiedsModel.AutoFieldType" Multiplicity="0..1" />
+          <End Role="AutoField" Type="BetterclassifiedsModel.AutoField" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_AutoField_MainCategory">
+          <End Role="MainCategory" Type="BetterclassifiedsModel.MainCategory" Multiplicity="0..1" />
+          <End Role="AutoField" Type="BetterclassifiedsModel.AutoField" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_AutoFieldItem_AutoField">
+          <End Role="AutoField" Type="BetterclassifiedsModel.AutoField" Multiplicity="0..1" />
+          <End Role="AutoFieldItem" Type="BetterclassifiedsModel.AutoFieldItem" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Ratecard_BaseRate">
+          <End Role="BaseRate" Type="BetterclassifiedsModel.BaseRate" Multiplicity="0..1" />
+          <End Role="Ratecard" Type="BetterclassifiedsModel.Ratecard" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_SpecialRate_BaseRate">
+          <End Role="BaseRate" Type="BetterclassifiedsModel.BaseRate" Multiplicity="0..1" />
+          <End Role="SpecialRate" Type="BetterclassifiedsModel.SpecialRate" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_BlockAd_BlockAdSize">
+          <End Role="BlockAdSize" Type="BetterclassifiedsModel.BlockAdSize" Multiplicity="0..1" />
+          <End Role="BlockAd" Type="BetterclassifiedsModel.BlockAd" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_BookEntry_Publication">
+          <End Role="Publication" Type="BetterclassifiedsModel.Publication" Multiplicity="0..1" />
+          <End Role="BookEntry" Type="BetterclassifiedsModel.BookEntry" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Edition_Publication">
+          <End Role="Publication" Type="BetterclassifiedsModel.Publication" Multiplicity="0..1" />
+          <End Role="Edition" Type="BetterclassifiedsModel.Edition" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_EnquiryDocument_OnlineAdEnquiry">
+          <End Role="OnlineAdEnquiry" Type="BetterclassifiedsModel.OnlineAdEnquiry" Multiplicity="1" />
+          <End Role="EnquiryDocument" Type="BetterclassifiedsModel.EnquiryDocument" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_OnlineAdEnquiry_EnquiryType">
+          <End Role="EnquiryType" Type="BetterclassifiedsModel.EnquiryType" Multiplicity="1" />
+          <End Role="OnlineAdEnquiry" Type="BetterclassifiedsModel.OnlineAdEnquiry" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_LocationArea_Location">
+          <End Role="Location" Type="BetterclassifiedsModel.Location" Multiplicity="1" />
+          <End Role="LocationArea" Type="BetterclassifiedsModel.LocationArea" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_OnlineAd_Location">
+          <End Role="Location" Type="BetterclassifiedsModel.Location" Multiplicity="0..1" />
+          <End Role="OnlineAd" Type="BetterclassifiedsModel.OnlineAd" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_OnlineAd_LocationArea">
+          <End Role="LocationArea" Type="BetterclassifiedsModel.LocationArea" Multiplicity="0..1" />
+          <End Role="OnlineAd" Type="BetterclassifiedsModel.OnlineAd" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_PublicationCategory_MainCategory">
+          <End Role="MainCategory" Type="BetterclassifiedsModel.MainCategory" Multiplicity="0..1" />
+          <End Role="PublicationCategory" Type="BetterclassifiedsModel.PublicationCategory" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_NonPublicationDate_Publication">
+          <End Role="Publication" Type="BetterclassifiedsModel.Publication" Multiplicity="1" />
+          <End Role="NonPublicationDate" Type="BetterclassifiedsModel.NonPublicationDate" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_OnlineAdEnquiry_OnlineAd">
+          <End Role="OnlineAd" Type="BetterclassifiedsModel.OnlineAd" Multiplicity="1" />
+          <End Role="OnlineAdEnquiry" Type="BetterclassifiedsModel.OnlineAdEnquiry" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Publication_PublicationType">
+          <End Role="PublicationType" Type="BetterclassifiedsModel.PublicationType" Multiplicity="0..1" />
+          <End Role="Publication" Type="BetterclassifiedsModel.Publication" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_PublicationAdType_Publication">
+          <End Role="Publication" Type="BetterclassifiedsModel.Publication" Multiplicity="0..1" />
+          <End Role="PublicationAdType" Type="BetterclassifiedsModel.PublicationAdType" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_PublicationCategory_Publication">
+          <End Role="Publication" Type="BetterclassifiedsModel.Publication" Multiplicity="0..1" />
+          <End Role="PublicationCategory" Type="BetterclassifiedsModel.PublicationCategory" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_PublicationRate_PublicationAdType">
+          <End Role="PublicationAdType" Type="BetterclassifiedsModel.PublicationAdType" Multiplicity="0..1" />
+          <End Role="PublicationRate" Type="BetterclassifiedsModel.PublicationRate" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_PublicationSpecialRate_PublicationAdType">
+          <End Role="PublicationAdType" Type="BetterclassifiedsModel.PublicationAdType" Multiplicity="0..1" />
+          <End Role="PublicationSpecialRate" Type="BetterclassifiedsModel.PublicationSpecialRate" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_PublicationRate_PublicationCategory">
+          <End Role="PublicationCategory" Type="BetterclassifiedsModel.PublicationCategory" Multiplicity="0..1" />
+          <End Role="PublicationRate" Type="BetterclassifiedsModel.PublicationRate" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_PublicationSpecialRate_PublicationCategory">
+          <End Role="PublicationCategory" Type="BetterclassifiedsModel.PublicationCategory" Multiplicity="0..1" />
+          <End Role="PublicationSpecialRate" Type="BetterclassifiedsModel.PublicationSpecialRate" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_PublicationRate_Ratecard">
+          <End Role="Ratecard" Type="BetterclassifiedsModel.Ratecard" Multiplicity="0..1" />
+          <End Role="PublicationRate" Type="BetterclassifiedsModel.PublicationRate" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_PublicationSpecialRate_SpecialRate">
+          <End Role="SpecialRate" Type="BetterclassifiedsModel.SpecialRate" Multiplicity="0..1" />
+          <End Role="PublicationSpecialRate" Type="BetterclassifiedsModel.PublicationSpecialRate" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_WebAdSpace_WebAdSpaceSetting">
+          <End Role="WebAdSpaceSetting" Type="BetterclassifiedsModel.WebAdSpaceSetting" Multiplicity="0..1" />
+          <End Role="WebAdSpace" Type="BetterclassifiedsModel.WebAdSpace" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="urn:schemas-microsoft-com:windows:storage:mapping:CS">
+        <EntityContainerMapping StorageEntityContainer="BetterclassifiedsModelStoreContainer" CdmEntityContainer="BetterclassifiedsEntities">
+          <EntitySetMapping Name="Ads"><EntityTypeMapping TypeName="BetterclassifiedsModel.Ad"><MappingFragment StoreEntitySet="Ad">
+            <ScalarProperty Name="AdId" ColumnName="AdId" />
+            <ScalarProperty Name="Title" ColumnName="Title" />
+            <ScalarProperty Name="Comments" ColumnName="Comments" />
+            <ScalarProperty Name="UseAsTemplate" ColumnName="UseAsTemplate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="AdBookings"><EntityTypeMapping TypeName="BetterclassifiedsModel.AdBooking"><MappingFragment StoreEntitySet="AdBooking">
+            <ScalarProperty Name="AdBookingId" ColumnName="AdBookingId" />
+            <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+            <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+            <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+            <ScalarProperty Name="BookReference" ColumnName="BookReference" />
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="BookingStatus" ColumnName="BookingStatus" />
+            <ScalarProperty Name="BookingType" ColumnName="BookingType" />
+            <ScalarProperty Name="BookingDate" ColumnName="BookingDate" />
+            <ScalarProperty Name="Insertions" ColumnName="Insertions" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="AdDesigns"><EntityTypeMapping TypeName="BetterclassifiedsModel.AdDesign"><MappingFragment StoreEntitySet="AdDesign">
+            <ScalarProperty Name="AdDesignId" ColumnName="AdDesignId" />
+            <ScalarProperty Name="Status" ColumnName="Status" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="AdGraphics"><EntityTypeMapping TypeName="BetterclassifiedsModel.AdGraphic"><MappingFragment StoreEntitySet="AdGraphic">
+            <ScalarProperty Name="AdGraphicId" ColumnName="AdGraphicId" />
+            <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
+            <ScalarProperty Name="Filename" ColumnName="Filename" />
+            <ScalarProperty Name="ImageType" ColumnName="ImageType" />
+            <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="AdTypes"><EntityTypeMapping TypeName="BetterclassifiedsModel.AdType"><MappingFragment StoreEntitySet="AdType">
+            <ScalarProperty Name="AdTypeId" ColumnName="AdTypeId" />
+            <ScalarProperty Name="Code" ColumnName="Code" />
+            <ScalarProperty Name="Title" ColumnName="Title" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="PaperBased" ColumnName="PaperBased" />
+            <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+            <ScalarProperty Name="Active" ColumnName="Active" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="AppSettings"><EntityTypeMapping TypeName="BetterclassifiedsModel.AppSetting"><MappingFragment StoreEntitySet="AppSetting">
+            <ScalarProperty Name="Module" ColumnName="Module" />
+            <ScalarProperty Name="AppKey" ColumnName="AppKey" />
+            <ScalarProperty Name="DataType" ColumnName="DataType" />
+            <ScalarProperty Name="SettingValue" ColumnName="SettingValue" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="AutoFields"><EntityTypeMapping TypeName="BetterclassifiedsModel.AutoField"><MappingFragment StoreEntitySet="AutoField">
+            <ScalarProperty Name="AutoFieldId" ColumnName="AutoFieldId" />
+            <ScalarProperty Name="Title" ColumnName="Title" />
+            <ScalarProperty Name="Hint" ColumnName="Hint" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="AutoFieldItems"><EntityTypeMapping TypeName="BetterclassifiedsModel.AutoFieldItem"><MappingFragment StoreEntitySet="AutoFieldItem">
+            <ScalarProperty Name="AutoFieldItemId" ColumnName="AutoFieldItemId" />
+            <ScalarProperty Name="ItemContent" ColumnName="ItemContent" />
+            <ScalarProperty Name="ItemLabel" ColumnName="ItemLabel" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="AutoFieldTypes"><EntityTypeMapping TypeName="BetterclassifiedsModel.AutoFieldType"><MappingFragment StoreEntitySet="AutoFieldType">
+            <ScalarProperty Name="AutoFieldTypeId" ColumnName="AutoFieldTypeId" />
+            <ScalarProperty Name="Title" ColumnName="Title" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="BaseRates"><EntityTypeMapping TypeName="BetterclassifiedsModel.BaseRate"><MappingFragment StoreEntitySet="BaseRate">
+            <ScalarProperty Name="BaseRateId" ColumnName="BaseRateId" />
+            <ScalarProperty Name="Title" ColumnName="Title" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+            <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+            <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+            <ScalarProperty Name="UpgradeBaseRateId" ColumnName="UpgradeBaseRateId" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="BlockAds"><EntityTypeMapping TypeName="BetterclassifiedsModel.BlockAd"><MappingFragment StoreEntitySet="BlockAd">
+            <ScalarProperty Name="BlockAdId" ColumnName="BlockAdId" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="BlockAdSizes"><EntityTypeMapping TypeName="BetterclassifiedsModel.BlockAdSize"><MappingFragment StoreEntitySet="BlockAdSize">
+            <ScalarProperty Name="BlockSizeId" ColumnName="BlockSizeId" />
+            <ScalarProperty Name="Code" ColumnName="Code" />
+            <ScalarProperty Name="Title" ColumnName="Title" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="BookEntries"><EntityTypeMapping TypeName="BetterclassifiedsModel.BookEntry"><MappingFragment StoreEntitySet="BookEntry">
+            <ScalarProperty Name="BookEntryId" ColumnName="BookEntryId" />
+            <ScalarProperty Name="EditionDate" ColumnName="EditionDate" />
+            <ScalarProperty Name="EditionAdPrice" ColumnName="EditionAdPrice" />
+            <ScalarProperty Name="PublicationPrice" ColumnName="PublicationPrice" />
+            <ScalarProperty Name="BaseRateId" ColumnName="BaseRateId" />
+            <ScalarProperty Name="RateType" ColumnName="RateType" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Editions"><EntityTypeMapping TypeName="BetterclassifiedsModel.Edition"><MappingFragment StoreEntitySet="Edition">
+            <ScalarProperty Name="EditionId" ColumnName="EditionId" />
+            <ScalarProperty Name="EditionDate" ColumnName="EditionDate" />
+            <ScalarProperty Name="Deadline" ColumnName="Deadline" />
+            <ScalarProperty Name="Active" ColumnName="Active" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="EnquiryDocuments"><EntityTypeMapping TypeName="BetterclassifiedsModel.EnquiryDocument"><MappingFragment StoreEntitySet="EnquiryDocument">
+            <ScalarProperty Name="EnquiryDocumentId" ColumnName="EnquiryDocumentId" />
+            <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
+            <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="EnquiryTypes"><EntityTypeMapping TypeName="BetterclassifiedsModel.EnquiryType"><MappingFragment StoreEntitySet="EnquiryType">
+            <ScalarProperty Name="EnquiryTypeId" ColumnName="EnquiryTypeId" />
+            <ScalarProperty Name="Title" ColumnName="Title" />
+            <ScalarProperty Name="Active" ColumnName="Active" />
+            <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="LineAds"><EntityTypeMapping TypeName="BetterclassifiedsModel.LineAd"><MappingFragment StoreEntitySet="LineAd">
+            <ScalarProperty Name="LineAdId" ColumnName="LineAdId" />
+            <ScalarProperty Name="AdHeader" ColumnName="AdHeader" />
+            <ScalarProperty Name="AdText" ColumnName="AdText" />
+            <ScalarProperty Name="NumOfWords" ColumnName="NumOfWords" />
+            <ScalarProperty Name="UsePhoto" ColumnName="UsePhoto" />
+            <ScalarProperty Name="UseBoldHeader" ColumnName="UseBoldHeader" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Locations"><EntityTypeMapping TypeName="BetterclassifiedsModel.Location"><MappingFragment StoreEntitySet="Location">
+            <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+            <ScalarProperty Name="Title" ColumnName="Title" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="LocationAreas"><EntityTypeMapping TypeName="BetterclassifiedsModel.LocationArea"><MappingFragment StoreEntitySet="LocationArea">
+            <ScalarProperty Name="LocationAreaId" ColumnName="LocationAreaId" />
+            <ScalarProperty Name="Title" ColumnName="Title" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="MainCategories"><EntityTypeMapping TypeName="BetterclassifiedsModel.MainCategory"><MappingFragment StoreEntitySet="MainCategory">
+            <ScalarProperty Name="MainCategoryId" ColumnName="MainCategoryId" />
+            <ScalarProperty Name="Title" ColumnName="Title" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+            <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="NonPublicationDates"><EntityTypeMapping TypeName="BetterclassifiedsModel.NonPublicationDate"><MappingFragment StoreEntitySet="NonPublicationDate">
+            <ScalarProperty Name="NonPublicationDateId" ColumnName="NonPublicationDateId" />
+            <ScalarProperty Name="EditionDate" ColumnName="EditionDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="OnlineAds"><EntityTypeMapping TypeName="BetterclassifiedsModel.OnlineAd"><MappingFragment StoreEntitySet="OnlineAd">
+            <ScalarProperty Name="OnlineAdId" ColumnName="OnlineAdId" />
+            <ScalarProperty Name="Heading" ColumnName="Heading" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="HtmlText" ColumnName="HtmlText" />
+            <ScalarProperty Name="Price" ColumnName="Price" />
+            <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+            <ScalarProperty Name="ContactType" ColumnName="ContactType" />
+            <ScalarProperty Name="ContactValue" ColumnName="ContactValue" />
+            <ScalarProperty Name="NumOfViews" ColumnName="NumOfViews" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="OnlineAdEnquiries"><EntityTypeMapping TypeName="BetterclassifiedsModel.OnlineAdEnquiry"><MappingFragment StoreEntitySet="OnlineAdEnquiry">
+            <ScalarProperty Name="OnlineAdEnquiryId" ColumnName="OnlineAdEnquiryId" />
+            <ScalarProperty Name="FullName" ColumnName="FullName" />
+            <ScalarProperty Name="Email" ColumnName="Email" />
+            <ScalarProperty Name="Phone" ColumnName="Phone" />
+            <ScalarProperty Name="EnquiryText" ColumnName="EnquiryText" />
+            <ScalarProperty Name="OpenDate" ColumnName="OpenDate" />
+            <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+            <ScalarProperty Name="Active" ColumnName="Active" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Publications"><EntityTypeMapping TypeName="BetterclassifiedsModel.Publication"><MappingFragment StoreEntitySet="Publication">
+            <ScalarProperty Name="PublicationId" ColumnName="PublicationId" />
+            <ScalarProperty Name="Title" ColumnName="Title" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+            <ScalarProperty Name="FrequencyType" ColumnName="FrequencyType" />
+            <ScalarProperty Name="FrequencyValue" ColumnName="FrequencyValue" />
+            <ScalarProperty Name="Active" ColumnName="Active" />
+            <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="PublicationAdTypes"><EntityTypeMapping TypeName="BetterclassifiedsModel.PublicationAdType"><MappingFragment StoreEntitySet="PublicationAdType">
+            <ScalarProperty Name="PublicationAdTypeId" ColumnName="PublicationAdTypeId" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="PublicationCategories"><EntityTypeMapping TypeName="BetterclassifiedsModel.PublicationCategory"><MappingFragment StoreEntitySet="PublicationCategory">
+            <ScalarProperty Name="PublicationCategoryId" ColumnName="PublicationCategoryId" />
+            <ScalarProperty Name="Title" ColumnName="Title" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+            <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="PublicationRates"><EntityTypeMapping TypeName="BetterclassifiedsModel.PublicationRate"><MappingFragment StoreEntitySet="PublicationRate">
+            <ScalarProperty Name="PublicationRateId" ColumnName="PublicationRateId" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="PublicationSpecialRates"><EntityTypeMapping TypeName="BetterclassifiedsModel.PublicationSpecialRate"><MappingFragment StoreEntitySet="PublicationSpecialRate">
+            <ScalarProperty Name="PublicationSpecialRateId" ColumnName="PublicationSpecialRateId" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="PublicationTypes"><EntityTypeMapping TypeName="BetterclassifiedsModel.PublicationType"><MappingFragment StoreEntitySet="PublicationType">
+            <ScalarProperty Name="PublicationTypeId" ColumnName="PublicationTypeId" />
+            <ScalarProperty Name="Code" ColumnName="Code" />
+            <ScalarProperty Name="Title" ColumnName="Title" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Ratecards"><EntityTypeMapping TypeName="BetterclassifiedsModel.Ratecard"><MappingFragment StoreEntitySet="Ratecard">
+            <ScalarProperty Name="RatecardId" ColumnName="RatecardId" />
+            <ScalarProperty Name="MinCharge" ColumnName="MinCharge" />
+            <ScalarProperty Name="MaxCharge" ColumnName="MaxCharge" />
+            <ScalarProperty Name="RatePerMeasureUnit" ColumnName="RatePerMeasureUnit" />
+            <ScalarProperty Name="MeasureUnitLimit" ColumnName="MeasureUnitLimit" />
+            <ScalarProperty Name="PhotoCharge" ColumnName="PhotoCharge" />
+            <ScalarProperty Name="BoldHeading" ColumnName="BoldHeading" />
+            <ScalarProperty Name="SalesTax" ColumnName="SalesTax" />
+            <ScalarProperty Name="PositionLoading" ColumnName="PositionLoading" />
+            <ScalarProperty Name="MakeUpCharge" ColumnName="MakeUpCharge" />
+            <ScalarProperty Name="MakeUpFee" ColumnName="MakeUpFee" />
+            <ScalarProperty Name="OnlineEditionBundle" ColumnName="OnlineEditionBundle" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="SpecialRates"><EntityTypeMapping TypeName="BetterclassifiedsModel.SpecialRate"><MappingFragment StoreEntitySet="SpecialRate">
+            <ScalarProperty Name="SpecialRateId" ColumnName="SpecialRateId" />
+            <ScalarProperty Name="NumOfInsertions" ColumnName="NumOfInsertions" />
+            <ScalarProperty Name="MaximumWords" ColumnName="MaximumWords" />
+            <ScalarProperty Name="SetPrice" ColumnName="SetPrice" />
+            <ScalarProperty Name="Discount" ColumnName="Discount" />
+            <ScalarProperty Name="NumOfAds" ColumnName="NumOfAds" />
+            <ScalarProperty Name="LineAdBoldHeader" ColumnName="LineAdBoldHeader" />
+            <ScalarProperty Name="LineAdImage" ColumnName="LineAdImage" />
+            <ScalarProperty Name="NumberOfImages" ColumnName="NumberOfImages" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="SupportEnquiries"><EntityTypeMapping TypeName="BetterclassifiedsModel.SupportEnquiry"><MappingFragment StoreEntitySet="SupportEnquiry">
+            <ScalarProperty Name="SupportEnquiryId" ColumnName="SupportEnquiryId" />
+            <ScalarProperty Name="EnquiryTypeName" ColumnName="EnquiryTypeName" />
+            <ScalarProperty Name="FullName" ColumnName="FullName" />
+            <ScalarProperty Name="Email" ColumnName="Email" />
+            <ScalarProperty Name="Phone" ColumnName="Phone" />
+            <ScalarProperty Name="Subject" ColumnName="Subject" />
+            <ScalarProperty Name="EnquiryText" ColumnName="EnquiryText" />
+            <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="TempBookingRecords"><EntityTypeMapping TypeName="BetterclassifiedsModel.TempBookingRecord"><MappingFragment StoreEntitySet="TempBookingRecord">
+            <ScalarProperty Name="BookingRecordId" ColumnName="BookingRecordId" />
+            <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
+            <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+            <ScalarProperty Name="AdReferenceId" ColumnName="AdReferenceId" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Transactions"><EntityTypeMapping TypeName="BetterclassifiedsModel.Transaction"><MappingFragment StoreEntitySet="Transaction">
+            <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+            <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="Title" ColumnName="Title" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="Amount" ColumnName="Amount" />
+            <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+            <ScalarProperty Name="RowTimeStamp" ColumnName="RowTimeStamp" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="WebAdSpaces"><EntityTypeMapping TypeName="BetterclassifiedsModel.WebAdSpace"><MappingFragment StoreEntitySet="WebAdSpace">
+            <ScalarProperty Name="WebAdSpaceId" ColumnName="WebAdSpaceId" />
+            <ScalarProperty Name="Title" ColumnName="Title" />
+            <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+            <ScalarProperty Name="AdLinkUrl" ColumnName="AdLinkUrl" />
+            <ScalarProperty Name="AdTarget" ColumnName="AdTarget" />
+            <ScalarProperty Name="SpaceType" ColumnName="SpaceType" />
+            <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+            <ScalarProperty Name="DisplayText" ColumnName="DisplayText" />
+            <ScalarProperty Name="ToolTipText" ColumnName="ToolTipText" />
+            <ScalarProperty Name="Active" ColumnName="Active" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="WebAdSpaceSettings"><EntityTypeMapping TypeName="BetterclassifiedsModel.WebAdSpaceSetting"><MappingFragment StoreEntitySet="WebAdSpaceSetting">
+            <ScalarProperty Name="SettingId" ColumnName="SettingId" />
+            <ScalarProperty Name="Title" ColumnName="Title" />
+            <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="WebContents"><EntityTypeMapping TypeName="BetterclassifiedsModel.WebContent"><MappingFragment StoreEntitySet="WebContent">
+            <ScalarProperty Name="WebContentId" ColumnName="WebContentId" />
+            <ScalarProperty Name="Title" ColumnName="Title" />
+            <ScalarProperty Name="PageId" ColumnName="PageId" />
+            <ScalarProperty Name="WebContent1" ColumnName="WebContent" />
+            <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+            <ScalarProperty Name="LastModifiedUser" ColumnName="LastModifiedUser" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <AssociationSetMapping Name="FK_AdBooking_Ad" TypeName="BetterclassifiedsModel.FK_AdBooking_Ad" StoreEntitySet="AdBooking">
+            <EndProperty Name="Ad">
+              <ScalarProperty Name="AdId" ColumnName="AdId" />
+            </EndProperty>
+            <EndProperty Name="AdBooking">
+              <ScalarProperty Name="AdBookingId" ColumnName="AdBookingId" />
+            </EndProperty>
+            <Condition ColumnName="AdId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_AdDesign_Ad" TypeName="BetterclassifiedsModel.FK_AdDesign_Ad" StoreEntitySet="AdDesign">
+            <EndProperty Name="Ad">
+              <ScalarProperty Name="AdId" ColumnName="AdId" />
+            </EndProperty>
+            <EndProperty Name="AdDesign">
+              <ScalarProperty Name="AdDesignId" ColumnName="AdDesignId" />
+            </EndProperty>
+            <Condition ColumnName="AdId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_AdBooking_MainCategory" TypeName="BetterclassifiedsModel.FK_AdBooking_MainCategory" StoreEntitySet="AdBooking">
+            <EndProperty Name="MainCategory">
+              <ScalarProperty Name="MainCategoryId" ColumnName="MainCategoryId" />
+            </EndProperty>
+            <EndProperty Name="AdBooking">
+              <ScalarProperty Name="AdBookingId" ColumnName="AdBookingId" />
+            </EndProperty>
+            <Condition ColumnName="MainCategoryId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_BookEntry_AdBooking" TypeName="BetterclassifiedsModel.FK_BookEntry_AdBooking" StoreEntitySet="BookEntry">
+            <EndProperty Name="AdBooking">
+              <ScalarProperty Name="AdBookingId" ColumnName="AdBookingId" />
+            </EndProperty>
+            <EndProperty Name="BookEntry">
+              <ScalarProperty Name="BookEntryId" ColumnName="BookEntryId" />
+            </EndProperty>
+            <Condition ColumnName="AdBookingId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_AdDesign_AdType" TypeName="BetterclassifiedsModel.FK_AdDesign_AdType" StoreEntitySet="AdDesign">
+            <EndProperty Name="AdType">
+              <ScalarProperty Name="AdTypeId" ColumnName="AdTypeId" />
+            </EndProperty>
+            <EndProperty Name="AdDesign">
+              <ScalarProperty Name="AdDesignId" ColumnName="AdDesignId" />
+            </EndProperty>
+            <Condition ColumnName="AdTypeId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_AdGraphic_AdDesign" TypeName="BetterclassifiedsModel.FK_AdGraphic_AdDesign" StoreEntitySet="AdGraphic">
+            <EndProperty Name="AdDesign">
+              <ScalarProperty Name="AdDesignId" ColumnName="AdDesignId" />
+            </EndProperty>
+            <EndProperty Name="AdGraphic">
+              <ScalarProperty Name="AdGraphicId" ColumnName="AdGraphicId" />
+            </EndProperty>
+            <Condition ColumnName="AdDesignId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_BlockAd_AdDesign" TypeName="BetterclassifiedsModel.FK_BlockAd_AdDesign" StoreEntitySet="BlockAd">
+            <EndProperty Name="AdDesign">
+              <ScalarProperty Name="AdDesignId" ColumnName="AdDesignId" />
+            </EndProperty>
+            <EndProperty Name="BlockAd">
+              <ScalarProperty Name="BlockAdId" ColumnName="BlockAdId" />
+            </EndProperty>
+            <Condition ColumnName="AdDesignId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_LineAd_AdDesign" TypeName="BetterclassifiedsModel.FK_LineAd_AdDesign" StoreEntitySet="LineAd">
+            <EndProperty Name="AdDesign">
+              <ScalarProperty Name="AdDesignId" ColumnName="AdDesignId" />
+            </EndProperty>
+            <EndProperty Name="LineAd">
+              <ScalarProperty Name="LineAdId" ColumnName="LineAdId" />
+            </EndProperty>
+            <Condition ColumnName="AdDesignId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_OnlineAd_AdDesign" TypeName="BetterclassifiedsModel.FK_OnlineAd_AdDesign" StoreEntitySet="OnlineAd">
+            <EndProperty Name="AdDesign">
+              <ScalarProperty Name="AdDesignId" ColumnName="AdDesignId" />
+            </EndProperty>
+            <EndProperty Name="OnlineAd">
+              <ScalarProperty Name="OnlineAdId" ColumnName="OnlineAdId" />
+            </EndProperty>
+            <Condition ColumnName="AdDesignId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_PublicationAdType_AdType" TypeName="BetterclassifiedsModel.FK_PublicationAdType_AdType" StoreEntitySet="PublicationAdType">
+            <EndProperty Name="AdType">
+              <ScalarProperty Name="AdTypeId" ColumnName="AdTypeId" />
+            </EndProperty>
+            <EndProperty Name="PublicationAdType">
+              <ScalarProperty Name="PublicationAdTypeId" ColumnName="PublicationAdTypeId" />
+            </EndProperty>
+            <Condition ColumnName="AdTypeId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_AutoField_AutoFieldType" TypeName="BetterclassifiedsModel.FK_AutoField_AutoFieldType" StoreEntitySet="AutoField">
+            <EndProperty Name="AutoFieldType">
+              <ScalarProperty Name="AutoFieldTypeId" ColumnName="AutoFieldTypeId" />
+            </EndProperty>
+            <EndProperty Name="AutoField">
+              <ScalarProperty Name="AutoFieldId" ColumnName="AutoFieldId" />
+            </EndProperty>
+            <Condition ColumnName="AutoFieldTypeId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_AutoField_MainCategory" TypeName="BetterclassifiedsModel.FK_AutoField_MainCategory" StoreEntitySet="AutoField">
+            <EndProperty Name="MainCategory">
+              <ScalarProperty Name="MainCategoryId" ColumnName="MainCategoryId" />
+            </EndProperty>
+            <EndProperty Name="AutoField">
+              <ScalarProperty Name="AutoFieldId" ColumnName="AutoFieldId" />
+            </EndProperty>
+            <Condition ColumnName="MainCategoryId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_AutoFieldItem_AutoField" TypeName="BetterclassifiedsModel.FK_AutoFieldItem_AutoField" StoreEntitySet="AutoFieldItem">
+            <EndProperty Name="AutoField">
+              <ScalarProperty Name="AutoFieldId" ColumnName="AutoFieldId" />
+            </EndProperty>
+            <EndProperty Name="AutoFieldItem">
+              <ScalarProperty Name="AutoFieldItemId" ColumnName="AutoFieldItemId" />
+            </EndProperty>
+            <Condition ColumnName="AutoFieldId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Ratecard_BaseRate" TypeName="BetterclassifiedsModel.FK_Ratecard_BaseRate" StoreEntitySet="Ratecard">
+            <EndProperty Name="BaseRate">
+              <ScalarProperty Name="BaseRateId" ColumnName="BaseRateId" />
+            </EndProperty>
+            <EndProperty Name="Ratecard">
+              <ScalarProperty Name="RatecardId" ColumnName="RatecardId" />
+            </EndProperty>
+            <Condition ColumnName="BaseRateId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_SpecialRate_BaseRate" TypeName="BetterclassifiedsModel.FK_SpecialRate_BaseRate" StoreEntitySet="SpecialRate">
+            <EndProperty Name="BaseRate">
+              <ScalarProperty Name="BaseRateId" ColumnName="BaseRateId" />
+            </EndProperty>
+            <EndProperty Name="SpecialRate">
+              <ScalarProperty Name="SpecialRateId" ColumnName="SpecialRateId" />
+            </EndProperty>
+            <Condition ColumnName="BaseRateId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_BlockAd_BlockAdSize" TypeName="BetterclassifiedsModel.FK_BlockAd_BlockAdSize" StoreEntitySet="BlockAd">
+            <EndProperty Name="BlockAdSize">
+              <ScalarProperty Name="BlockSizeId" ColumnName="BlockSizeId" />
+            </EndProperty>
+            <EndProperty Name="BlockAd">
+              <ScalarProperty Name="BlockAdId" ColumnName="BlockAdId" />
+            </EndProperty>
+            <Condition ColumnName="BlockSizeId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_BookEntry_Publication" TypeName="BetterclassifiedsModel.FK_BookEntry_Publication" StoreEntitySet="BookEntry">
+            <EndProperty Name="Publication">
+              <ScalarProperty Name="PublicationId" ColumnName="PublicationId" />
+            </EndProperty>
+            <EndProperty Name="BookEntry">
+              <ScalarProperty Name="BookEntryId" ColumnName="BookEntryId" />
+            </EndProperty>
+            <Condition ColumnName="PublicationId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Edition_Publication" TypeName="BetterclassifiedsModel.FK_Edition_Publication" StoreEntitySet="Edition">
+            <EndProperty Name="Publication">
+              <ScalarProperty Name="PublicationId" ColumnName="PublicationId" />
+            </EndProperty>
+            <EndProperty Name="Edition">
+              <ScalarProperty Name="EditionId" ColumnName="EditionId" />
+            </EndProperty>
+            <Condition ColumnName="PublicationId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_EnquiryDocument_OnlineAdEnquiry" TypeName="BetterclassifiedsModel.FK_EnquiryDocument_OnlineAdEnquiry" StoreEntitySet="EnquiryDocument">
+            <EndProperty Name="OnlineAdEnquiry">
+              <ScalarProperty Name="OnlineAdEnquiryId" ColumnName="OnlineAdEnquiryId" />
+            </EndProperty>
+            <EndProperty Name="EnquiryDocument">
+              <ScalarProperty Name="EnquiryDocumentId" ColumnName="EnquiryDocumentId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_OnlineAdEnquiry_EnquiryType" TypeName="BetterclassifiedsModel.FK_OnlineAdEnquiry_EnquiryType" StoreEntitySet="OnlineAdEnquiry">
+            <EndProperty Name="EnquiryType">
+              <ScalarProperty Name="EnquiryTypeId" ColumnName="EnquiryTypeId" />
+            </EndProperty>
+            <EndProperty Name="OnlineAdEnquiry">
+              <ScalarProperty Name="OnlineAdEnquiryId" ColumnName="OnlineAdEnquiryId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_LocationArea_Location" TypeName="BetterclassifiedsModel.FK_LocationArea_Location" StoreEntitySet="LocationArea">
+            <EndProperty Name="Location">
+              <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+            </EndProperty>
+            <EndProperty Name="LocationArea">
+              <ScalarProperty Name="LocationAreaId" ColumnName="LocationAreaId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_OnlineAd_Location" TypeName="BetterclassifiedsModel.FK_OnlineAd_Location" StoreEntitySet="OnlineAd">
+            <EndProperty Name="Location">
+              <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+            </EndProperty>
+            <EndProperty Name="OnlineAd">
+              <ScalarProperty Name="OnlineAdId" ColumnName="OnlineAdId" />
+            </EndProperty>
+            <Condition ColumnName="LocationId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_OnlineAd_LocationArea" TypeName="BetterclassifiedsModel.FK_OnlineAd_LocationArea" StoreEntitySet="OnlineAd">
+            <EndProperty Name="LocationArea">
+              <ScalarProperty Name="LocationAreaId" ColumnName="LocationAreaId" />
+            </EndProperty>
+            <EndProperty Name="OnlineAd">
+              <ScalarProperty Name="OnlineAdId" ColumnName="OnlineAdId" />
+            </EndProperty>
+            <Condition ColumnName="LocationAreaId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_PublicationCategory_MainCategory" TypeName="BetterclassifiedsModel.FK_PublicationCategory_MainCategory" StoreEntitySet="PublicationCategory">
+            <EndProperty Name="MainCategory">
+              <ScalarProperty Name="MainCategoryId" ColumnName="MainCategoryId" />
+            </EndProperty>
+            <EndProperty Name="PublicationCategory">
+              <ScalarProperty Name="PublicationCategoryId" ColumnName="PublicationCategoryId" />
+            </EndProperty>
+            <Condition ColumnName="MainCategoryId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_NonPublicationDate_Publication" TypeName="BetterclassifiedsModel.FK_NonPublicationDate_Publication" StoreEntitySet="NonPublicationDate">
+            <EndProperty Name="Publication">
+              <ScalarProperty Name="PublicationId" ColumnName="PublicationId" />
+            </EndProperty>
+            <EndProperty Name="NonPublicationDate">
+              <ScalarProperty Name="NonPublicationDateId" ColumnName="NonPublicationDateId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_OnlineAdEnquiry_OnlineAd" TypeName="BetterclassifiedsModel.FK_OnlineAdEnquiry_OnlineAd" StoreEntitySet="OnlineAdEnquiry">
+            <EndProperty Name="OnlineAd">
+              <ScalarProperty Name="OnlineAdId" ColumnName="OnlineAdId" />
+            </EndProperty>
+            <EndProperty Name="OnlineAdEnquiry">
+              <ScalarProperty Name="OnlineAdEnquiryId" ColumnName="OnlineAdEnquiryId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Publication_PublicationType" TypeName="BetterclassifiedsModel.FK_Publication_PublicationType" StoreEntitySet="Publication">
+            <EndProperty Name="PublicationType">
+              <ScalarProperty Name="PublicationTypeId" ColumnName="PublicationTypeId" />
+            </EndProperty>
+            <EndProperty Name="Publication">
+              <ScalarProperty Name="PublicationId" ColumnName="PublicationId" />
+            </EndProperty>
+            <Condition ColumnName="PublicationTypeId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_PublicationAdType_Publication" TypeName="BetterclassifiedsModel.FK_PublicationAdType_Publication" StoreEntitySet="PublicationAdType">
+            <EndProperty Name="Publication">
+              <ScalarProperty Name="PublicationId" ColumnName="PublicationId" />
+            </EndProperty>
+            <EndProperty Name="PublicationAdType">
+              <ScalarProperty Name="PublicationAdTypeId" ColumnName="PublicationAdTypeId" />
+            </EndProperty>
+            <Condition ColumnName="PublicationId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_PublicationCategory_Publication" TypeName="BetterclassifiedsModel.FK_PublicationCategory_Publication" StoreEntitySet="PublicationCategory">
+            <EndProperty Name="Publication">
+              <ScalarProperty Name="PublicationId" ColumnName="PublicationId" />
+            </EndProperty>
+            <EndProperty Name="PublicationCategory">
+              <ScalarProperty Name="PublicationCategoryId" ColumnName="PublicationCategoryId" />
+            </EndProperty>
+            <Condition ColumnName="PublicationId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_PublicationRate_PublicationAdType" TypeName="BetterclassifiedsModel.FK_PublicationRate_PublicationAdType" StoreEntitySet="PublicationRate">
+            <EndProperty Name="PublicationAdType">
+              <ScalarProperty Name="PublicationAdTypeId" ColumnName="PublicationAdTypeId" />
+            </EndProperty>
+            <EndProperty Name="PublicationRate">
+              <ScalarProperty Name="PublicationRateId" ColumnName="PublicationRateId" />
+            </EndProperty>
+            <Condition ColumnName="PublicationAdTypeId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_PublicationSpecialRate_PublicationAdType" TypeName="BetterclassifiedsModel.FK_PublicationSpecialRate_PublicationAdType" StoreEntitySet="PublicationSpecialRate">
+            <EndProperty Name="PublicationAdType">
+              <ScalarProperty Name="PublicationAdTypeId" ColumnName="PublicationAdTypeId" />
+            </EndProperty>
+            <EndProperty Name="PublicationSpecialRate">
+              <ScalarProperty Name="PublicationSpecialRateId" ColumnName="PublicationSpecialRateId" />
+            </EndProperty>
+            <Condition ColumnName="PublicationAdTypeId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_PublicationRate_PublicationCategory" TypeName="BetterclassifiedsModel.FK_PublicationRate_PublicationCategory" StoreEntitySet="PublicationRate">
+            <EndProperty Name="PublicationCategory">
+              <ScalarProperty Name="PublicationCategoryId" ColumnName="PublicationCategoryId" />
+            </EndProperty>
+            <EndProperty Name="PublicationRate">
+              <ScalarProperty Name="PublicationRateId" ColumnName="PublicationRateId" />
+            </EndProperty>
+            <Condition ColumnName="PublicationCategoryId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_PublicationSpecialRate_PublicationCategory" TypeName="BetterclassifiedsModel.FK_PublicationSpecialRate_PublicationCategory" StoreEntitySet="PublicationSpecialRate">
+            <EndProperty Name="PublicationCategory">
+              <ScalarProperty Name="PublicationCategoryId" ColumnName="PublicationCategoryId" />
+            </EndProperty>
+            <EndProperty Name="PublicationSpecialRate">
+              <ScalarProperty Name="PublicationSpecialRateId" ColumnName="PublicationSpecialRateId" />
+            </EndProperty>
+            <Condition ColumnName="PublicationCategoryId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_PublicationRate_Ratecard" TypeName="BetterclassifiedsModel.FK_PublicationRate_Ratecard" StoreEntitySet="PublicationRate">
+            <EndProperty Name="Ratecard">
+              <ScalarProperty Name="RatecardId" ColumnName="RatecardId" />
+            </EndProperty>
+            <EndProperty Name="PublicationRate">
+              <ScalarProperty Name="PublicationRateId" ColumnName="PublicationRateId" />
+            </EndProperty>
+            <Condition ColumnName="RatecardId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_PublicationSpecialRate_SpecialRate" TypeName="BetterclassifiedsModel.FK_PublicationSpecialRate_SpecialRate" StoreEntitySet="PublicationSpecialRate">
+            <EndProperty Name="SpecialRate">
+              <ScalarProperty Name="SpecialRateId" ColumnName="SpecialRateId" />
+            </EndProperty>
+            <EndProperty Name="PublicationSpecialRate">
+              <ScalarProperty Name="PublicationSpecialRateId" ColumnName="PublicationSpecialRateId" />
+            </EndProperty>
+            <Condition ColumnName="SpecialRateId" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_WebAdSpace_WebAdSpaceSetting" TypeName="BetterclassifiedsModel.FK_WebAdSpace_WebAdSpaceSetting" StoreEntitySet="WebAdSpace">
+            <EndProperty Name="WebAdSpaceSetting">
+              <ScalarProperty Name="SettingId" ColumnName="SettingID" />
+            </EndProperty>
+            <EndProperty Name="WebAdSpace">
+              <ScalarProperty Name="WebAdSpaceId" ColumnName="WebAdSpaceId" />
+            </EndProperty>
+            <Condition ColumnName="SettingID" IsNull="false" />
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2007/06/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="BetterClassifiedModel">
+        <EntityTypeShape EntityType="BetterclassifiedsModel.Ad" Width="1.5" PointX="0.75" PointY="5.75" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.AdBooking" Width="1.5" PointX="3" PointY="5" Height="3.5186979166666665" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.AdDesign" Width="1.5" PointX="11.25" PointY="15.125" Height="2.5571907552083335" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.AdGraphic" Width="1.5" PointX="13.5" PointY="13.75" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.AdType" Width="1.5" PointX="6" PointY="18.375" Height="2.749492187499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.AppSetting" Width="1.5" PointX="10.75" PointY="2.75" Height="1.9802864583333322" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.AutoField" Width="1.5" PointX="11.25" PointY="5.75" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.AutoFieldItem" Width="1.5" PointX="13.5" PointY="3.875" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.AutoFieldType" Width="1.5" PointX="9" PointY="18" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.BaseRate" Width="1.5" PointX="6" PointY="1.125" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.BlockAd" Width="1.5" PointX="16.5" PointY="15.625" Height="1.5956835937500014" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.BlockAdSize" Width="1.5" PointX="14.25" PointY="22.5" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.BookEntry" Width="1.5" PointX="5.25" PointY="9.5" Height="2.5571907552083388" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.Edition" Width="1.5" PointX="5.25" PointY="13" Height="1.9802864583333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.EnquiryDocument" Width="1.5" PointX="21" PointY="11.5" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.EnquiryType" Width="1.5" PointX="16.5" PointY="7.5" Height="1.9802864583333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.LineAd" Width="1.5" PointX="13.5" PointY="19.125" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.Location" Width="1.5" PointX="14.25" PointY="10.125" Height="1.9802864583333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.LocationArea" Width="1.5" PointX="14.25" PointY="6.875" Height="1.9802864583333388" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.MainCategory" Width="1.5" PointX="6" PointY="5.5" Height="2.5571907552083388" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.NonPublicationDate" Width="1.5" PointX="5.25" PointY="15.625" Height="1.5956835937500031" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.OnlineAd" Width="1.5" PointX="16.5" PointY="10.625" Height="3.5186979166666674" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.OnlineAdEnquiry" Width="1.5" PointX="18.75" PointY="10.875" Height="3.1340950520833246" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.Publication" Width="1.5" PointX="3" PointY="10" Height="3.7109993489583246" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.PublicationAdType" Width="1.5" PointX="8.25" PointY="10.75" Height="1.9802864583333246" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.PublicationCategory" Width="1.5" PointX="8.25" PointY="6.375" Height="2.749492187499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.PublicationRate" Width="1.5" PointX="10.5" PointY="8.75" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.PublicationSpecialRate" Width="1.5" PointX="10.5" PointY="11.75" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.PublicationType" Width="1.5" PointX="0.75" PointY="10.75" Height="1.9802864583333246" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.Ratecard" Width="1.5" PointX="8.25" PointY="0.75" Height="3.7109993489583388" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.SpecialRate" Width="1.5" PointX="8.25" PointY="14" Height="3.1340950520833388" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.SupportEnquiry" Width="1.5" PointX="0.75" PointY="14.75" Height="2.5571907552083264" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.TempBookingRecord" Width="1.5" PointX="0.75" PointY="18.75" Height="2.1725878906250102" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.Transaction" Width="1.5" PointX="2.75" PointY="18.75" Height="2.5571907552083246" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.WebAdSpace" Width="1.5" PointX="19" PointY="3" Height="3.1340950520833246" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.WebAdSpaceSetting" Width="1.5" PointX="16.75" PointY="3.75" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="BetterclassifiedsModel.WebContent" Width="1.5" PointX="15.75" PointY="18.75" Height="2.1725878906250102" IsExpanded="true" />
+        <AssociationConnector Association="BetterclassifiedsModel.FK_AdBooking_Ad" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="6.8362939453125" />
+          <ConnectorPoint PointX="3" PointY="6.8362939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_AdDesign_Ad" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="7.4106929179687491" />
+          <ConnectorPoint PointX="2.75" PointY="7.4106929179687491" />
+          <ConnectorPoint PointX="2.75" PointY="9.374492187499996" />
+          <ConnectorPoint PointX="4.916666666666667" PointY="9.374492187499996" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="9.374492187499996" />
+          <ConnectorPoint PointX="5.510416666666667" PointY="9.374492187499996" />
+          <ConnectorPoint PointX="5.677083333333333" PointY="9.374492187499996" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="9.374492187499996" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="9.374492187499996" />
+          <ConnectorPoint PointX="9.9166666666666661" PointY="9.374492187499996" />
+          <ConnectorPoint PointX="10.114583333333334" PointY="9.374492187499996" />
+          <ConnectorPoint PointX="10.25" PointY="9.374492187499996" />
+          <ConnectorPoint PointX="10.25" PointY="14.75" />
+          <ConnectorPoint PointX="12" PointY="14.75" />
+          <ConnectorPoint PointX="12" PointY="15.125" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_AdBooking_MainCategory" ManuallyRouted="false">
+          <ConnectorPoint PointX="6" PointY="6.7785953776041694" />
+          <ConnectorPoint PointX="5.677083333333333" PointY="6.7785953776041685" />
+          <ConnectorPoint PointX="5.510416666666667" PointY="6.7785953776041694" />
+          <ConnectorPoint PointX="4.5" PointY="6.7785953776041694" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_BookEntry_AdBooking" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="5.21875" />
+          <ConnectorPoint PointX="5.59375" PointY="5.21875" />
+          <ConnectorPoint PointX="5.59375" PointY="9.5" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_AdDesign_AdType" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.5" PointY="20.391337890624996" />
+          <ConnectorPoint PointX="12" PointY="20.391337890624996" />
+          <ConnectorPoint PointX="12" PointY="17.682190755208332" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_AdGraphic_AdDesign" ManuallyRouted="false">
+          <ConnectorPoint PointX="12.75" PointY="15.5237939453125" />
+          <ConnectorPoint PointX="13.5" PointY="15.5237939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_BlockAd_AdDesign" ManuallyRouted="false">
+          <ConnectorPoint PointX="12.75" PointY="16.602885742187503" />
+          <ConnectorPoint PointX="16.5" PointY="16.602885742187503" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_LineAd_AdDesign" ManuallyRouted="false">
+          <ConnectorPoint PointX="12.4062525" PointY="17.682190755208332" />
+          <ConnectorPoint PointX="12.4062525" PointY="19.758168945312498" />
+          <ConnectorPoint PointX="13.5" PointY="19.758168945312498" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_OnlineAd_AdDesign" ManuallyRouted="false">
+          <ConnectorPoint PointX="12.40625" PointY="15.125" />
+          <ConnectorPoint PointX="12.40625" PointY="13.643992513020834" />
+          <ConnectorPoint PointX="16.5" PointY="13.643992513020834" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_PublicationAdType_AdType" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.15625" PointY="18.375" />
+          <ConnectorPoint PointX="7.15625" PointY="12.424988606770832" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="12.424988606770832" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="12.424988606770832" />
+          <ConnectorPoint PointX="8.25" PointY="12.424988606770832" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_AutoField_AutoFieldType" ManuallyRouted="false">
+          <ConnectorPoint PointX="10.03125" PointY="18" />
+          <ConnectorPoint PointX="10.03125" PointY="6.03125" />
+          <ConnectorPoint PointX="10.510416666666666" PointY="6.0312499999999991" />
+          <ConnectorPoint PointX="10.677083333333334" PointY="6.03125" />
+          <ConnectorPoint PointX="11.25" PointY="6.03125" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_AutoField_MainCategory" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.5" PointY="6.234375" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="6.2343749999999991" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="6.234375" />
+          <ConnectorPoint PointX="9.9479166666666661" PointY="6.2343749999999991" />
+          <ConnectorPoint PointX="10.114583333333334" PointY="6.234375" />
+          <ConnectorPoint PointX="10.510416666666666" PointY="6.2343749999999991" />
+          <ConnectorPoint PointX="10.677083333333334" PointY="6.234375" />
+          <ConnectorPoint PointX="11.25" PointY="6.234375" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_AutoFieldItem_AutoField" ManuallyRouted="false">
+          <ConnectorPoint PointX="12.75" PointY="6.28125" />
+          <ConnectorPoint PointX="13.84375" PointY="6.28125" />
+          <ConnectorPoint PointX="13.84375" PointY="5.6629850260416674" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_Ratecard_BaseRate" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.5" PointY="2.49974609375" />
+          <ConnectorPoint PointX="8.25" PointY="2.49974609375" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_SpecialRate_BaseRate" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.5" PointY="3.8744921874999996" />
+          <ConnectorPoint PointX="7.875" PointY="4.2494921875" />
+          <ConnectorPoint PointX="7.875" PointY="15.567047526041669" />
+          <ConnectorPoint PointX="8.25" PointY="15.567047526041669" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_BlockAd_BlockAdSize" ManuallyRouted="false">
+          <ConnectorPoint PointX="15.375" PointY="22.5" />
+          <ConnectorPoint PointX="15.375" PointY="16.943037167968754" />
+          <ConnectorPoint PointX="16.5" PointY="16.943037167968754" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_BookEntry_Publication" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="11.028595377604169" />
+          <ConnectorPoint PointX="4.916666666666667" PointY="11.028595377604169" />
+          <ConnectorPoint PointX="5.083333333333333" PointY="11.028595377604169" />
+          <ConnectorPoint PointX="5.25" PointY="11.028595377604169" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_Edition_Publication" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="13.355499674479162" />
+          <ConnectorPoint PointX="5.25" PointY="13.355499674479162" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_EnquiryDocument_OnlineAdEnquiry" ManuallyRouted="false">
+          <ConnectorPoint PointX="20.25" PointY="12.393992513020834" />
+          <ConnectorPoint PointX="21" PointY="12.393992513020834" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_OnlineAdEnquiry_EnquiryType" ManuallyRouted="false">
+          <ConnectorPoint PointX="18" PointY="8.49014322916667" />
+          <ConnectorPoint PointX="19.5" PointY="8.49014322916667" />
+          <ConnectorPoint PointX="19.5" PointY="10.875" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_LocationArea_Location" ManuallyRouted="false">
+          <ConnectorPoint PointX="15" PointY="10.125" />
+          <ConnectorPoint PointX="15" PointY="8.8552864583333388" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_OnlineAd_Location" ManuallyRouted="false">
+          <ConnectorPoint PointX="15.75" PointY="11.365143229166669" />
+          <ConnectorPoint PointX="16.041666666666668" PointY="11.365143229166669" />
+          <ConnectorPoint PointX="16.208333333333332" PointY="11.365143229166669" />
+          <ConnectorPoint PointX="16.5" PointY="11.365143229166669" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_OnlineAd_LocationArea" ManuallyRouted="false">
+          <ConnectorPoint PointX="15.75" PointY="8.8552864583333388" />
+          <ConnectorPoint PointX="16.125" PointY="9.2302864583333388" />
+          <ConnectorPoint PointX="16.125" PointY="12.504567871093752" />
+          <ConnectorPoint PointX="16.5" PointY="12.504567871093752" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_PublicationCategory_MainCategory" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.5" PointY="7.2160953776041694" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="7.2160953776041685" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="7.2160953776041694" />
+          <ConnectorPoint PointX="8.25" PointY="7.2160953776041694" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_NonPublicationDate_Publication" ManuallyRouted="false">
+          <ConnectorPoint PointX="3.75" PointY="13.710999348958325" />
+          <ConnectorPoint PointX="3.75" PointY="16.422841796875" />
+          <ConnectorPoint PointX="5.25" PointY="16.422841796875" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_OnlineAdEnquiry_OnlineAd" ManuallyRouted="false">
+          <ConnectorPoint PointX="18" PointY="12.442047526041662" />
+          <ConnectorPoint PointX="18.75" PointY="12.442047526041662" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_Publication_PublicationType" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="11.740143229166662" />
+          <ConnectorPoint PointX="3" PointY="11.740143229166662" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_PublicationAdType_Publication" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="12.209839680989585" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="12.209839680989585" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="12.209839680989585" />
+          <ConnectorPoint PointX="8.25" PointY="12.209839680989585" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_PublicationCategory_Publication" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="11.619217529296877" />
+          <ConnectorPoint PointX="5" PointY="11.619217529296877" />
+          <ConnectorPoint PointX="5" PointY="9.25" />
+          <ConnectorPoint PointX="5.510416666666667" PointY="9.25" />
+          <ConnectorPoint PointX="5.677083333333333" PointY="9.25" />
+          <ConnectorPoint PointX="7.791666666666667" PointY="9.25" />
+          <ConnectorPoint PointX="7.958333333333333" PointY="9.25" />
+          <ConnectorPoint PointX="9" PointY="9.25" />
+          <ConnectorPoint PointX="9" PointY="9.124492187499996" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_PublicationRate_PublicationAdType" ManuallyRouted="false">
+          <ConnectorPoint PointX="9.75" PointY="10.75" />
+          <ConnectorPoint PointX="9.97232443490112" PointY="10.527675565098878" />
+          <ConnectorPoint PointX="10.183925565098878" PointY="10.316074434901122" />
+          <ConnectorPoint PointX="10.19107443490112" PointY="10.308925565098878" />
+          <ConnectorPoint PointX="10.308925565098878" PointY="10.191074434901122" />
+          <ConnectorPoint PointX="10.375" PointY="10.125" />
+          <ConnectorPoint PointX="10.375" PointY="10.662985026041667" />
+          <ConnectorPoint PointX="10.5" PointY="10.537985026041667" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_PublicationSpecialRate_PublicationAdType" ManuallyRouted="false">
+          <ConnectorPoint PointX="9.75" PointY="12.240143229166662" />
+          <ConnectorPoint PointX="9.9479166666666661" PointY="12.240143229166661" />
+          <ConnectorPoint PointX="10.333333333333334" PointY="12.240143229166662" />
+          <ConnectorPoint PointX="10.5" PointY="12.240143229166662" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_PublicationRate_PublicationCategory" ManuallyRouted="false">
+          <ConnectorPoint PointX="9.75" PointY="8.937246093749998" />
+          <ConnectorPoint PointX="9.9479166666666661" PointY="8.937246093749998" />
+          <ConnectorPoint PointX="10.114583333333334" PointY="8.937246093749998" />
+          <ConnectorPoint PointX="10.5" PointY="8.937246093749998" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_PublicationSpecialRate_PublicationCategory" ManuallyRouted="false">
+          <ConnectorPoint PointX="9.75" PointY="9.124492187499996" />
+          <ConnectorPoint PointX="9.9723244349011217" PointY="9.346816622401116" />
+          <ConnectorPoint PointX="10.090175565098878" PointY="9.4646677525988743" />
+          <ConnectorPoint PointX="10.125" PointY="9.499492187499996" />
+          <ConnectorPoint PointX="10.125" PointY="12.92031612760416" />
+          <ConnectorPoint PointX="10.166666666666666" PointY="12.92031612760416" />
+          <ConnectorPoint PointX="10.333333333333334" PointY="12.92031612760416" />
+          <ConnectorPoint PointX="10.5" PointY="12.92031612760416" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_PublicationRate_Ratecard" ManuallyRouted="false">
+          <ConnectorPoint PointX="9.75" PointY="1.71875" />
+          <ConnectorPoint PointX="10.59375" PointY="1.71875" />
+          <ConnectorPoint PointX="10.59375" PointY="8.75" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_PublicationSpecialRate_SpecialRate" ManuallyRouted="false">
+          <ConnectorPoint PointX="9.75" PointY="14.375" />
+          <ConnectorPoint PointX="9.9479166666666661" PointY="14.375" />
+          <ConnectorPoint PointX="10.114583333333334" PointY="14.375" />
+          <ConnectorPoint PointX="10.166666666666666" PointY="14.375" />
+          <ConnectorPoint PointX="10.333333333333334" PointY="14.375" />
+          <ConnectorPoint PointX="10.84375" PointY="14.375" />
+          <ConnectorPoint PointX="10.84375" PointY="13.537985026041667" />
+        </AssociationConnector>
+        <AssociationConnector Association="BetterclassifiedsModel.FK_WebAdSpace_WebAdSpaceSetting" ManuallyRouted="false">
+          <ConnectorPoint PointX="18.25" PointY="4.6439925130208337" />
+          <ConnectorPoint PointX="19" PointY="4.6439925130208337" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

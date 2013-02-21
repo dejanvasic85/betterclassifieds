@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E51B8388-9A02-40AD-97B4-2802AE77FB69}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Paramount.DataService</RootNamespace>
+    <AssemblyName>Paramount.DataService</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BannerDataProvider.cs" />
+    <Compile Include="BannerGroupDataProvider.cs" />
+    <Compile Include="BannerRow.cs" />
+    <Compile Include="BetterclassifiedDataService.cs" />
+    <Compile Include="BillingSettingsDataProvider.cs" />
+    <Compile Include="CommonDataProvider.cs" />
+    <Compile Include="ExpiredAdRow.cs" />
+    <Compile Include="InvoiceDataProvider.cs" />
+    <Compile Include="LinqObjects\BillingDatabaseModel.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BillingDatabaseModel.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="LinqObjects\Common.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Common.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="ShoppingCartDataProvider.cs" />
+    <Compile Include="BillingDataService.cs" />
+    <Compile Include="BroadcastDataService.cs" />
+    <Compile Include="Broadcast\EmailBroadcastEntryRow.cs" />
+    <Compile Include="Broadcast\EmailBroadcastRow.cs" />
+    <Compile Include="Broadcast\EmailTemplateRow.cs" />
+    <Compile Include="CRMDataService.cs" />
+    <Compile Include="DslDataService.cs" />
+    <Compile Include="LinqObjects\EvenServiceClasses.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EvenServiceClasses.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="EventDataProvider.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="IDataProvider.cs" />
+    <Compile Include="LinqObjects\BannerDatabaseModel.cs">
+      <DependentUpon>BannerDatabaseModel.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="LinqObjects\BannerDatabaseModel.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BannerDatabaseModel.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="LinqObjects\BetterClassifiedModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BetterClassifiedModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="LinqObjects\PagedSource.cs" />
+    <Compile Include="LinqObjects\UserMembership.cs">
+      <DependentUpon>UserMembership.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="LinqObjects\UserMembership.designer.cs">
+      <DependentUpon>UserMembership.dbml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="LocationDataService.cs" />
+    <Compile Include="LoggingDataService.cs" />
+    <Compile Include="MembershipDataProvider.cs" />
+    <Compile Include="ParamountAccountDataService.cs" />
+    <Compile Include="Proc.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="RoleDataProvider.cs" />
+    <Compile Include="Utils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ApplicationBlock\Configuration\ApplicationBlock.Configuration.csproj">
+      <Project>{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}</Project>
+      <Name>ApplicationBlock.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApplicationBlock\Data\ApplicationBlock.Data.csproj">
+      <Project>{F119DDC3-24DD-411E-B509-B8E41A011741}</Project>
+      <Name>ApplicationBlock.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataTransferObjects\Common.DataTransferObjects.csproj">
+      <Project>{377F2216-9202-4DF9-9C5B-C2A4E627FFE2}</Project>
+      <Name>Common.DataTransferObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApplicationBlock\Utility\Paramount.Utility.csproj">
+      <Project>{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}</Project>
+      <Name>Paramount.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="LinqObjects\BetterClassifiedModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BetterClassifiedModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="LinqObjects\BillingDatabaseModel.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>BillingDatabaseModel.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="LinqObjects\Common.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>Common.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="LinqObjects\EvenServiceClasses.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>EvenServiceClasses.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="LinqObjects\BannerDatabaseModel.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>BannerDatabaseModel.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="LinqObjects\UserMembership.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>UserMembership.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\DataSources\Paramount.DataService.LinqObjects.BetterclassifiedsEntities.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LinqObjects\UserMembership.dbml.layout">
+      <DependentUpon>UserMembership.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LinqObjects\BannerDatabaseModel.dbml.layout">
+      <DependentUpon>BannerDatabaseModel.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LinqObjects\EvenServiceClasses.dbml.layout">
+      <DependentUpon>EvenServiceClasses.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LinqObjects\BillingDatabaseModel.dbml.layout">
+      <DependentUpon>BillingDatabaseModel.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LinqObjects\Common.dbml.layout">
+      <DependentUpon>Common.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

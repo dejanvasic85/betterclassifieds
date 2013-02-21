@@ -1,0 +1,44 @@
+﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="MasterWithRightBar.master.vb"
+    Inherits="BetterclassifiedsWeb.Master.MasterWithRightBar" MasterPageFile="~/Master/Default.Master" %>
+
+<%@ Register Src="~/Controls/AdSpace.ascx" TagName="AdSpaces" TagPrefix="ucx" %>
+
+<%@ Register Src="~/Controls/Search/KeySearch.ascx" TagName="keysearch" TagPrefix="ucx" %>
+
+<asp:Content ContentPlaceHolderID="head" runat="server" ID="cntHead">
+    <asp:ContentPlaceHolder ID="HeadPlaceHolder" runat="server" />
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="ContentPlaceHolder1" runat="server" ID="cntMain">
+
+    <div id="contentMainHead">
+        <div id="searchTotalContent">
+            <ucx:keysearch id="ucxKeySearch" runat="server" />
+        </div>
+        <div id="advertiseNavBut">
+            <ul>
+                <li>
+                    <asp:LinkButton ID="LinkPrint" runat="server">iFLOG IN PRINT</asp:LinkButton></li>
+                <li>
+                    <asp:LinkButton ID="LinkOnline" runat="server">iFLOG ONLINE</asp:LinkButton></li>
+                <li>
+                    <asp:LinkButton ID="Linkboth" runat="server">iFLOG BOTH WAYS</asp:LinkButton></li>
+            </ul>
+        </div>
+    </div>
+    <div class="clearFloat">
+        <div id="contentBody">
+            <asp:ContentPlaceHolder ID="BodyPlaceHolder" runat="server" />
+            <div id="rightSidebar">
+            <div style="clear:both"></div>
+               <a href="rates.aspx" >
+                
+                    <ucx:AdSpaces ID="ucxAds" runat="server" Location="RightColumn" />
+                    <%--UNCOMMENT WHEN DISABLING AD SPACES --%>               
+                    <%--<asp:image id="banner01" runat="server" imageurl="~/Resources/Images/Banners/iflog_skyscaper_150x450.jpg"  cssclass="banner-image"/></a>--%>
+            </div>
+        </div>
+    </div>
+
+</asp:Content>
+

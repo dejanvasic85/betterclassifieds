@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+    <siteMapNode url="" title=""  description="" roles="*">
+
+      <!-- Classified Section -->
+      <siteMapNode url="~/classified/" title="Classified Manager"  description="Classified Manager" roles ="Managers,Administrators">
+        <siteMapNode url="~/classified/ApplicationSettings.aspx" title="Application Settings" description="Tool to set up the application settings" roles="Administrators">
+          <siteMapNode url="~/classified/LocationManagement.aspx" title="Location and Areas" description="Management utility for setting up Location and Location Areas." />
+        </siteMapNode>
+        <siteMapNode url="~/classified/AdBookings.aspx" title="Ad Bookings" description="View ad bookings in the system." roles="Administrator">
+          <siteMapNode url="~/classified/AdExport.aspx" title="Export" description="Exports current bookings into XML readable format" />
+          <siteMapNode url="~/classified/AdReview.aspx" title="Ad Review" description="Facility to review ads." />
+        </siteMapNode>
+        <siteMapNode url="~/classified/Categories.aspx" title="Main Categories" description="View list of current categories" roles="Administrators" />
+        <siteMapNode url="~/classified/Publications.aspx" title="Publications" description="View list of current publications" roles="Administrators">
+          <siteMapNode url="~/classified/PublicationEditions.aspx" title="Editions" description="Publication Editions" />
+          <siteMapNode url="~/classified/PublicationCategories.aspx" title="Publication Categories" description="Publication Editions" />
+        </siteMapNode>
+        <siteMapNode url="~/classified/Ratecards.aspx" title="Pricing" description="Casual and Special rates management" roles="Administrators">
+          <siteMapNode url="~/classified/SpecialRates.aspx" title="Special Rates" description="Page for managing special rates in the system." />
+        </siteMapNode>
+        <siteMapNode url="~/classified/AdSpaces.aspx?settingId=0" title="Banners" description="Configuring the external/internal advertising for online classifieds website.">
+        </siteMapNode>
+        <siteMapNode url="~/classified/Themes/ManageThemes.aspx" title="Line Ad Themes" description="Page for uploading and designing line ad themes" roles="Administrators">
+          
+        </siteMapNode>
+      
+      </siteMapNode>
+
+
+      <!-- Customer Membership Section -->
+      <siteMapNode url="~/crm?" title="Customer Membership"  description="" roles="Administrators,Sales">
+        <!--<siteMapNode url="~/crm" title="Dashboard"  description="*"/>-->
+        <siteMapNode url="~/crm/customers.aspx" title="Registered Customers"  description=""/>
+        <!--<siteMapNode url="~/crm/Add_Customer.aspx" title="Add New Customer"  description=""/>-->
+        <siteMapNode url="~/crm/Search_Customer.aspx" title="Search Customer"  description=""/>
+        <siteMapNode url="~/crm/Email_Broadcast.aspx?letter=none" title="Email Broadcast"  description=""/>
+        <siteMapNode url="~/crm/Industries.aspx" title="Business Details" description="" />
+      </siteMapNode>
+
+      <!-- Admin User Section -->
+      <siteMapNode url="~/useradmin" title="User Admin"  description="" roles="Administrators">
+        <siteMapNode url="~/useradmin/users.aspx" title="Users"  description="" />
+        <siteMapNode url="~/useradmin/add_user.aspx" title="Add Users"  description="" />
+      </siteMapNode>
+
+      <!-- Web Content Section -->
+      <siteMapNode url="~/webcontent/" title="Web Content"  description="Web Content" roles="Administrators,WebContent">
+        <!--<siteMapNode url="~/webcontent/default.aspx" title="Content Search"  description="Web Content" roles="Administrators,WebContent"/>-->
+        <siteMapNode url="~/webcontent/ClassifiedFaq.aspx" title="Classified FAQ"  description="Classified FAQ" roles="Administrators,WebContent"/>
+        <siteMapNode url="~/webcontent/MarketingTagline.aspx" title="Marketing Tagline"  description="Marketing Tagline" roles="Administrators,WebContent"/>
+      </siteMapNode>
+     
+      <!-- Report Section -->
+      <siteMapNode url="~/report/" title="Report" description="Report" roles="Administrators,Report">
+        <siteMapNode url="~/report/ClassifiedReports.aspx" title="Classified Reports" roles="Administrators">
+          <siteMapNode url="~/report/WeeklyPublication.aspx" title="Weekly Publication" />
+          <siteMapNode url="~/report/TransactionReport.aspx" title="Transaction Report" />
+        </siteMapNode>
+      </siteMapNode>
+
+      <!-- Backup Section -->
+      <siteMapNode url="~/SystemAdmin" title="System Admin" description="Administration tasks for entire system" roles="Administrators">
+        <siteMapNode url="~/SystemAdmin/Backup.aspx" title="Data Backup" roles="Administrators" />
+      </siteMapNode>
+    </siteMapNode>
+</siteMap>

@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- if Feature is used then key={feature}/{content key} e.g key=PaymentHistory/sampleText1.Text -->
+<!-- if Feature.None is used then key={content key} e.g key=sampleText2.Text -->
+<!-- Use <![CDATA[    ]]> for content value -->
+<contents >
+  <content qualifier="OnlineAdMessaging" key="Form/phoneNumber.Text">
+    <![CDATA[Phone Number]]>
+  </content>
+  <content qualifier="OnlineAdMessaging" key="Form/submit.Text">
+    <![CDATA[Submit]]>
+  </content>
+  <content qualifier="OnlineAdMessaging" key="Form/emailAddress.Text">
+    <![CDATA[Email]]>
+  </content>
+  <content qualifier="OnlineAdMessaging" key="Form/title.Text">
+    <![CDATA[Title]]>
+  </content>
+  <content qualifier="OnlineAdMessaging" key="Form/clear.Text">
+    <![CDATA[Clear]]>
+  </content>
+  <content qualifier="OnlineAdMessaging" key="Form/message.Text">
+    <![CDATA[Message]]>
+  </content>
+  <content qualifier="OnlineAdMessaging" key="Form/fullName.Text">
+    <![CDATA[Full Name]]>
+  </content>
+  <content qualifier="OnlineAdMessaging" key="Form/enquiryType.Text">
+    <![CDATA[Enquiry Type]]>
+  </content>
+  <content qualifier="OnlineAdMessaging" key="Form/back.Text">
+    <![CDATA[Back]]>
+  </content>
+  <content qualifier="OnlineAdMessaging" key="Form/invalidEmail.Text">
+    <![CDATA[Invalid email address. Please enter a valid email]]>
+  </content>
+  <content qualifier="OnlineAdMessaging" key="Form/success.Text">
+    <![CDATA[your enquiry has been sent]]>
+  </content>
+  <content qualifier="OnlineAdMessaging" key="AdEnquiry/notifyMessage.Text">
+    <![CDATA[new messages]]>
+  </content>
+  <content qualifier="OnlineAdMessaging" key="Form/invalidName.Text">
+    <![CDATA[please enter your name]]>
+  </content>
+  <content qualifier="OnlineAdMessaging" key="Form/messageRequired.Text">
+    <![CDATA[please enter your message]]>
+  </content>
+  <content qualifier="Constants" key="Common/active.Text">
+    <![CDATA[Active]]>
+  </content>
+  <content qualifier="Constants" key="Common/inActive.Text">
+    <![CDATA[Inactive]]>
+  </content>
+  <content qualifier="Constants" key="Common/submit.Text">
+    <![CDATA[Submit]]>
+  </content>
+
+  <content qualifier="Events" key="ScheduleDateTime/month.Text">
+    <![CDATA[MM]]>
+  </content>
+  <content qualifier="Events" key="ScheduleDateTime/year.Text">
+    <![CDATA[YY]]>
+  </content>
+  <content qualifier="Events" key="ScheduleDateTime/day.Text">
+    <![CDATA[DD]]>
+  </content>
+  <content qualifier="Events" key="Location/country.text">
+    <![CDATA[Country]]>
+  </content>
+  <content qualifier="Events" key="Common/buttonNext.Text">
+    <![CDATA[Next]]>
+  </content>
+  <content qualifier="Events" key="StandardEventBookingControl/eventLocation.Text">
+    <![CDATA[Location]]>
+  </content>
+  <content qualifier="Events" key="StandardEventBookingControl/eventDetails.Text">
+    <![CDATA[Event Details]]>
+  </content>
+
+  <content qualifier="Events" key="EventSearch/searchButton.Text">
+    <![CDATA[Search]]>
+  </content>
+  <content qualifier="Admin" key="EntityGrid/entityStatus.Column">
+    <![CDATA[Entity Status]]>
+  </content>
+  <content qualifier="Admin" key="EntityGrid/entityCode.Column">
+    <![CDATA[Entity Code]]>
+  </content>
+  <content qualifier="Admin" key="EntityGrid/entityName.Column">
+    <![CDATA[Entity Name]]>
+  </content>
+  <content qualifier="Admin" key="EntityGrid/manageModule.Text">
+    <![CDATA[Manage Module]]>
+  </content>
+
+
+  <content qualifier="Events" key="Common/buttonPrevious.Text">
+    <![CDATA[Previous]]>
+  </content>
+  <content qualifier="Events" key="StandardEventBookingControl/eventTitle.Text">
+    <![CDATA[Event Title]]>
+  </content>
+  <content qualifier="Events" key="StandardEventBookingControl/eventDescription.Text">
+    <![CDATA[Description]]>
+  </content>
+  <content qualifier="Events" key="StandardEventBookingControl/eventschedule.Text">
+    <![CDATA[Event Dates]]>
+  </content>
+  <content qualifier="Events" key="StandardEventBookingControl/eventGenre.Text">
+    <![CDATA[Genre]]>
+  </content>
+  <content qualifier="Events" key="Location/locationName.text">
+    <![CDATA[Location Name]]>
+  </content>
+  <content qualifier="Events" key="Location/address1.text">
+    <![CDATA[Address Line 1]]>
+  </content>
+  <content qualifier="Events" key="Location/address2.text">
+    <![CDATA[Address Line 2]]>
+  </content>
+  <content qualifier="Events" key="Location/city.text">
+    <![CDATA[City]]>
+  </content>
+  <content qualifier="Events" key="Location/postcode.text">
+    <![CDATA[Postcode]]>
+  </content>
+  <content qualifier="Events" key="Location/region.text">
+    <![CDATA[Region]]>
+  </content>
+  <content qualifier="Events" key="StandardEventBookingControl/startDate.Text">
+    <![CDATA[Start Date]]>
+  </content>
+  <content qualifier="Events" key="StandardEventBookingControl/startTime.Text">
+    <![CDATA[Start Time]]>
+  </content>
+  <content qualifier="Events" key="StandardEventBookingControl/endDate.Text">
+    <![CDATA[End Date]]>
+  </content>
+  <content qualifier="Events" key="StandardEventBookingControl/endTime.Text">
+    <![CDATA[End Time]]>
+  </content>
+
+  <content qualifier="Admin" key="EntityModuleFormBase/startdate.Text">
+    <![CDATA[Start Date]]>
+  </content>
+  <content qualifier="Admin" key="EntityModuleFormBase/invalidstartdate.Error">
+    <![CDATA[Start Date]]>
+  </content>
+
+  
+  <!--Betterclassified.UI-->
+  <content qualifier="Betterclassified" key="LineAdControl/AdTextHeading.Text">
+    <![CDATA[Body Text]]>
+  </content>
+  <content qualifier="Betterclassified" key="LineAdControl/AdTextSubHeading.Text">
+    <![CDATA[Start typing the main text! Words will be automatically counted.]]>
+  </content>
+  <content qualifier="Betterclassified" key="LineAdControl/WordCountLabel.Text">
+    <![CDATA[Word Count]]>
+  </content>
+  <content qualifier="Betterclassified" key="LineAdControl/BoldHeaderHeading.Text">
+    <![CDATA[Bold Header]]>
+  </content>
+  <content qualifier="Betterclassified" key="LineAdControl/BoldHeaderSubHeading.Text">
+    <![CDATA[The title for your advertisement. Max 30 characters.]]>
+  </content>
+  <content qualifier="Betterclassified" key="LineAdControl/ProvideHeaderCheckBox.Text">
+    <![CDATA[Provide a header for your print ad.]]>
+  </content>
+  <content qualifier="Betterclassified" key="LineAdControl/ProvideSuperBoldHeaderCheckBox.Text">
+    <![CDATA[Add a Super Bold Header!]]>
+  </content>
+  <content qualifier="Betterclassified" key="LineAdControl/ColourOptionsHeading.Text">
+    <![CDATA[Add Life with Colours]]>
+  </content>
+  <content qualifier="Betterclassified" key="LineAdControl/ColourOptionsSubHeading.Text">
+    <![CDATA[*New]]>
+  </content>
+  <content qualifier="Betterclassified" key="LineAdControl/ColourHeaderCheckBox.Text">
+    <![CDATA[Add Colour Header]]>
+  </content>
+  <content qualifier="Betterclassified" key="LineAdControl/ColourBorderCheckBox.Text">
+    <![CDATA[Add Colour Border]]>
+  </content>
+  <content qualifier="Betterclassified" key="LineAdControl/ColourBackgroundCheckBox.Text">
+    <![CDATA[Add Colour Background]]>
+  </content>
+  <content qualifier="Betterclassified" key="LineAdControl/AveragePriceLabel.Text">
+    <![CDATA[avg]]>
+  </content>
+  <content qualifier="Betterclassified" key="LineAdControl/TotalPriceLabel.Text">
+    <![CDATA[total]]>
+  </content>
+  <content qualifier="Betterclassified" key="LineAdControl/AdTextIsRequired.Text">
+    <![CDATA[Print Ad Text Is Required]]>
+  </content>
+  <content qualifier="Betterclassified" key="LineAdControl/AdHeaderIsRequired.Text">
+    <![CDATA[Print Ad Header has been selected and text is required]]>
+  </content>
+  <content qualifier="Betterclassified" key="LineAdControl/AdHeaderColourIsRequired.Text">
+    <![CDATA[Print Ad Header Colour has been selected and is required]]>
+  </content>
+  <content qualifier="Betterclassified" key="LineAdControl/AdBorderColourIsRequired.Text">
+    <![CDATA[Print Ad Border Colour has been selected and is required]]>
+  </content>
+  <content qualifier="Betterclassified" key="LineAdControl/AdBackgroundColourIsRequired.Text">
+    <![CDATA[Print Ad Background Colour has been selected and is required]]>
+  </content>
+  <content qualifier="Betterclassified" key="LineAdControl/BorderSuggestion.Text">
+    <![CDATA[The best suited border colour is {0}. | {1}]]>
+  </content>
+  <content qualifier="Betterclassified" key="LineAdControl/HeaderSuggestion.Text">
+    <![CDATA[The best suited heading colour is {0}. | {1}]]>
+  </content>
+  <content qualifier="Betterclassified" key="LineAdControl/BackgroundSuggestion.Text">
+    <![CDATA[The best suited background colour is {0}. | {1}]]>
+  </content>
+
+  <!--EditLineAdControl-->
+  <content qualifier="Betterclassified" key="EditLineAdControl/Heading.Text">
+    <![CDATA[Edit Print Ad Details]]>
+  </content>
+  <content qualifier="Betterclassified" key="EditLineAdControl/BoldHeader.Label">
+    <![CDATA[Bold Header]]>
+  </content>
+  <content qualifier="Betterclassified" key="EditLineAdControl/BodyText.Label">
+    <![CDATA[Body Text]]>
+  </content>
+  <content qualifier="Betterclassified" key="EditLineAdControl/ColourHeading.Label">
+    <![CDATA[Colour Header]]>
+  </content>
+  <content qualifier="Betterclassified" key="EditLineAdControl/ColourBorder.Label">
+    <![CDATA[Colour Border]]>
+  </content>
+  <content qualifier="Betterclassified" key="EditLineAdControl/ColourBackground.Label">
+    <![CDATA[Colour Background]]>
+  </content>
+  <content qualifier="Betterclassified" key="EditLineAdControl/HelpTitle.Text">
+    <![CDATA[Modifying Ad Details]]>
+  </content>
+  <content qualifier="Betterclassified" key="EditLineAdControl/HelpInfo.Text">
+    <![CDATA[The fields available for modification below include only the options selected at purchase.]]>
+  </content>
+  <content qualifier="Betterclassified" key="EditLineAdControl/SuperBoldHeaderCheck.Label">
+    <![CDATA[Super Bold Header]]>
+  </content>
+  <content qualifier="Betterclassified" key="EditLineAdControl/WordCountExceeded.Error">
+    <![CDATA[Ad text word limit has been exceeded.]]>
+  </content>
+  <content qualifier="Betterclassified" key="EditLineAdControl/BoldHeaderLengthExceeded.Error">
+    <![CDATA[Bold header length exceeded.]]>
+  </content>
+  <content qualifier="Betterclassified" key="EditLineAdControl/Cancel.Button">
+    <![CDATA[Cancel]]>
+  </content>
+  <content qualifier="Betterclassified" key="EditLineAdControl/Update.Button">
+    <![CDATA[Update]]>
+  </content>
+  <content qualifier="Betterclassified" key="EditLineAdControl/UpdateSuccess.Text">
+    <![CDATA[Line ad details updated successfully. Click Preview button to view details.]]>
+  </content>
+  
+
+  <!--LineAdTextBox-->
+  <content qualifier="Betterclassified" key="LineAdTextBoxControl/Wordcount.Text">
+    <![CDATA[Word Count]]>
+  </content>
+
+
+  <content qualifier="Betterclassified" key="AdPriceSummaryControl/CategoryLabel.Text">
+    <![CDATA[Category]]>
+  </content>
+  <content qualifier="Betterclassified" key="AdPriceSummaryControl/PublicationsLabel.Text">
+    <![CDATA[Publications]]>
+  </content>
+  <content qualifier="Betterclassified" key="AdPriceSummaryControl/SubTotalLabel.Text">
+    <![CDATA[Sub Total]]>
+  </content>
+  <content qualifier="Betterclassified" key="AdPriceSummaryControl/ScheduleLabel.Text">
+    <![CDATA[Schedule]]>
+  </content>
+  <content qualifier="Betterclassified" key="AdPriceSummaryControl/Editions.Text">
+    <![CDATA[Number of Editions]]>
+  </content>
+</contents >

@@ -1,0 +1,1 @@
+﻿echo ENVIRONMENT %1 > Build.txt

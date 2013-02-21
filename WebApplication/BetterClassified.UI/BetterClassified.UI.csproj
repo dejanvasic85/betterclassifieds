@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{04E24B49-191F-44B6-833F-361C559F7B18}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BetterClassified.UI</RootNamespace>
+    <AssemblyName>BetterClassified.UI</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Test|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Testing|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=3.0.30512.20315, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\Release\ThirdParty\AjaxControlToolkit\3.0.30512.1\AjaxControlToolkit.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Telerik.Web.UI, Version=2011.3.1305.35, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\Release\ThirdParty\Telerik\2011.3.1305.35\Telerik.Web.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActionButton.cs" />
+    <Compile Include="AdOrderSummary.cs" />
+    <Compile Include="AdPriceSummary.cs" />
+    <Compile Include="AdSearchBox.cs" />
+    <Compile Include="AjaxWebService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BaseControl\ApplicationBasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BaseControl\MasterPageBase.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BaseControl\PageSettings.cs" />
+    <Compile Include="CategorySelector.cs" />
+    <Compile Include="CategorySelectorSupport\CategoryItem.cs" />
+    <Compile Include="CategorySelectorSupport\MainCategoryTemplate.cs" />
+    <Compile Include="CategorySelectorSupport\MainCategoryTemplateControl.cs" />
+    <Compile Include="CategorySelectorSupport\SubCategoryTemplate.cs" />
+    <Compile Include="CategorySelectorSupport\SubCategoryTemplateControl.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Converter.cs" />
+    <Compile Include="AjaxWebService-Booking.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Dsl\IImageProvider.cs" />
+    <Compile Include="Dsl\SelectedDocumentArgs.cs" />
+    <Compile Include="Dsl\SimpleImageProvider.cs" />
+    <Compile Include="Dsl\WebImageMaker.cs" />
+    <Compile Include="Dsl\WebImageMakerHelper.cs" />
+    <Compile Include="Enumerations\MasterPageName.cs" />
+    <Compile Include="ErrorList.cs" />
+    <Compile Include="Handlers\DocumentHandler.cs" />
+    <Compile Include="ImageThumbCommand.cs" />
+    <Compile Include="Dsl\ImageThumbCommandTemplate.cs" />
+    <Compile Include="Dsl\ImageThumbTemplate.cs" />
+    <Compile Include="FrameAutoSizeControl.cs" />
+    <Compile Include="ImageGallery.cs" />
+    <Compile Include="ImageThumb.cs" />
+    <Compile Include="JqueryControl.cs" />
+    <Compile Include="LineAdColourPicker.cs" />
+    <Compile Include="LineAdEditDetails.cs" />
+    <Compile Include="LineAdNewDesign.cs" />
+    <Compile Include="LineAdSupport\HelpPopupContentTemplate.cs" />
+    <Compile Include="LineAdSupport\LineAdTextBox.cs" />
+    <Compile Include="LineAdView.cs" />
+    <Compile Include="MessageNotifyControl.cs" />
+    <Compile Include="Messaging\ActionButtonTemplate.cs" />
+    <Compile Include="MultipleFileUpload.cs" />
+    <Compile Include="SendMessageControl.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TelerikExtensions.cs" />
+    <Compile Include="WebPage\BaseBookingPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ApplicationBlock\Configuration\ApplicationBlock.Configuration.csproj">
+      <Project>{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}</Project>
+      <Name>ApplicationBlock.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApplicationBlock\Logging\ApplicationBlock.Logging.csproj">
+      <Project>{5C76B020-CE3C-4176-B2AA-5EAE9C3150CC}</Project>
+      <Name>ApplicationBlock.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UI\Common.UI.csproj">
+      <Project>{32E18B88-521E-4887-BFBF-26B64797AF75}</Project>
+      <Name>Common.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Modules\Broadcast.Components\Modules.Broadcast.Components.csproj">
+      <Project>{3091F288-C6F8-4E2D-9622-48B00ACE526B}</Project>
+      <Name>Modules.Broadcast.Components</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Modules\Broadcast.UIController\Modules.Broadcast.UIController.csproj">
+      <Project>{BDB4624F-539D-45A0-B39F-138E66F5C0F0}</Project>
+      <Name>Modules.Broadcast.UIController</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Modules\Broadcast.UI\Modules.Broadcast.UI.csproj">
+      <Project>{1FA80FC7-435C-4F99-8986-8BC261F9BB6E}</Project>
+      <Name>Modules.Broadcast.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Modules\DSL.UIController\Modules.DSL.UIController.csproj">
+      <Project>{E745F9B8-3967-44D3-9ADB-ABED1B3E3F9D}</Project>
+      <Name>Modules.DSL.UIController</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Modules\DSL.UI\Modules.DSL.UI.csproj">
+      <Project>{FFB51537-50B9-4D5B-B4F2-B7E9DA731E4C}</Project>
+      <Name>Modules.DSL.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Modules\Logging.UIController\Modules.Logging.UIController.csproj">
+      <Project>{353EA369-566F-426F-9EBE-DA865F055B45}</Project>
+      <Name>Modules.Logging.UIController</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApplicationBlock\Utility\Paramount.Utility.csproj">
+      <Project>{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}</Project>
+      <Name>Paramount.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BetterClassified.UIController\BetterClassified.UIController.csproj">
+      <Project>{40730ADA-F229-4418-A953-0ED119FFD2A3}</Project>
+      <Name>BetterClassified.UIController</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BetterclassifiedsCore\BetterclassifiedsCore.vbproj">
+      <Project>{0790D756-48F2-42C5-9985-7915D15ED88C}</Project>
+      <Name>BetterclassifiedsCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApplicationBlock\Betterclassifieds.Utility\Paramount.Betterclassified.Utilities.csproj">
+      <Project>{C1B1D4CC-E982-472D-8FE3-8719BA24D272}</Project>
+      <Name>Paramount.Betterclassified.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\action-add.gif" />
+    <EmbeddedResource Include="Resources\action-button.css" />
+    <EmbeddedResource Include="Resources\action-delete.gif" />
+    <EmbeddedResource Include="Resources\action-edit.gif" />
+    <EmbeddedResource Include="Resources\action-mark.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="JavaScript\auto-resize-frame.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="JavaScript\betterclassifieds-jquery-library.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="JavaScript\ad-enquiry-moving-message-box.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="JavaScript\fileuploadvalidation.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="JavaScript\WebImageMaker_canvas.js" />
+    <EmbeddedResource Include="JavaScript\WebImageMaker_normal.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\lineAdView.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="JavaScript\linead-newdesign.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="JavaScript\jquery-timers.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AdOrderSummarySupport\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="JavaScript\jquery-floatobject.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="JavaScript\adordersummary-float.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="JavaScript\adordersummary-pricecheck.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="JavaScript\linead-textbox.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\lineAdTextBox.css" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

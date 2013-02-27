@@ -5,6 +5,11 @@ Imports System.Data.SqlClient
 Imports System.Text
 Imports BetterclassifiedsCore.Booking
 Imports Paramount.ApplicationBlock.Logging.EventLogging
+Imports Paramount.DSL.UIController
+Imports System.Configuration
+Imports System.Collections.Specialized
+Imports Paramount.Utility
+Imports Paramount.ApplicationBlock.Configuration
 
 Public Enum TransactionType
     CREDIT = 1
@@ -469,8 +474,7 @@ Public Class BookingController
                     If adBooking.Ad.AdDesigns.Count > 0 Then
                         For Each item In adBooking.Ad.AdDesigns
                             For Each item2 In item.LineAds
-                                contentBuilder.AppendLine("<br/>")
-                                contentBuilder.AppendLine("**********--- Line Ad----********** <br/>")
+                                contentBuilder.AppendLine("<p>**********--- Line Ad----********** </p>")
                                 contentBuilder.AppendLine(String.Format("iFlog ID {0}<br/>", item2.AdDesignId))
                                 contentBuilder.AppendLine(String.Format("Header: {0}<br/><br/>", item2.AdHeader))
                                 contentBuilder.AppendLine("------ Text ------<br/>")
@@ -480,8 +484,7 @@ Public Class BookingController
 
 
                             For Each item3 In item.OnlineAds
-                                contentBuilder.AppendLine("<br/>")
-                                contentBuilder.AppendLine("**********--- Online Ad----**********<br/>")
+                                contentBuilder.AppendLine("<p>**********--- Online Ad----**********</p>")
                                 contentBuilder.AppendLine(String.Format("iFlog ID {0}<br/>", item3.AdDesignId))
                                 contentBuilder.AppendLine(String.Format("Header: {0}<br/>", item3.Heading))
                                 contentBuilder.AppendLine("------ Text ------<br/>")
@@ -491,15 +494,23 @@ Public Class BookingController
                                 contentBuilder.AppendLine("<br/><br/>")
                             Next
 
-                            contentBuilder.AppendLine("------ Images ------<br/>")
+                            contentBuilder.AppendLine("<p>------ Images ------</p>")
                             For Each item4 In item.AdGraphics
-                                contentBuilder.AppendLine(String.Format("{0}={1}<br/>", System.Configuration.ConfigurationManager.AppSettings("DSLUrl"), item4.DocumentID))
+                                Dim collection As New NameValueCollection()
+                                Dim dslQuery As New DslQueryParam(collection)
+                                dslQuery.DocumentId = item4.DocumentID
+                                dslQuery.Entity = CryptoHelper.Encrypt(ConfigurationManager.AppSettings.Get("ClientCode"))
+                                dslQuery.Height = 200
+                                dslQuery.Width = 200
+                                dslQuery.Resolution = 90
+                                Dim imageTag As String = String.Format("<img id=""{0}"" src=""{1}?{2}"" />", item4.DocumentID, ConfigSettingReader.DslImageHandler, dslQuery.GenerateUrl)
+                                contentBuilder.AppendLine(imageTag)
                             Next
 
                         Next
                     End If
 
-                    contentBuilder.AppendLine("----- Publications & Date(s) ---- <br/>")
+                    contentBuilder.AppendLine("<p>----- Publications & Date(s) ---- </p>")
                     Dim pub = From i In adBooking.BookEntries Group i By i.Publication.Title Into Group
                     For Each item In pub
                         contentBuilder.AppendLine("<br/>")

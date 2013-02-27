@@ -1121,6 +1121,10 @@
       <Project>{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}</Project>
       <Name>ApplicationBlock.Configuration</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Modules\Broadcast.Components\Modules.Broadcast.Components.csproj">
+      <Project>{3091f288-c6f8-4e2d-9622-48b00ace526b}</Project>
+      <Name>Modules.Broadcast.Components</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BetterclassifiedsCore\BetterclassifiedsCore.vbproj">
       <Project>{0790d756-48f2-42c5-9985-7915d15ed88c}</Project>
       <Name>BetterclassifiedsCore</Name>
@@ -1128,10 +1132,6 @@
     <ProjectReference Include="..\UI\Common.UI.csproj">
       <Project>{32E18B88-521E-4887-BFBF-26B64797AF75}</Project>
       <Name>Common.UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Modules\Broadcast.Components\Modules.Broadcast.Components.csproj">
-      <Project>{3091F288-C6F8-4E2D-9622-48B00ACE526B}</Project>
-      <Name>Modules.Broadcast.Components</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Modules\Broadcast.UIController\Modules.Broadcast.UIController.csproj">
       <Project>{BDB4624F-539D-45A0-B39F-138E66F5C0F0}</Project>

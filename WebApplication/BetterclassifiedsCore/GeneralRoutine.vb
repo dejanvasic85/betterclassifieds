@@ -832,7 +832,7 @@ Public Module GeneralRoutine
                 xmlDoc.Element("Root").Add(elementGraphic)
             End If
 
-            Dim elementBodyText As New XElement(listbodyNodeName, exportItem.AdText)
+            Dim elementBodyText As New XElement(listbodyNodeName, exportItem.AdText.Replace(Environment.NewLine, " "))
             xmlDoc.Element("Root").Add(elementBodyText)
 
             ' App Setting that indicates whether to add cant delete flag

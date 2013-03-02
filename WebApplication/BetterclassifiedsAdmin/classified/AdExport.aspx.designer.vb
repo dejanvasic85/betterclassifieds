@@ -41,15 +41,6 @@ Partial Public Class AdExport
     Protected WithEvents radAjaxLoading As Global.Telerik.Web.UI.RadAjaxLoadingPanel
 
     '''<summary>
-    '''hyperlink1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents hyperlink1 As Global.System.Web.UI.WebControls.HyperLink
-
-    '''<summary>
     '''Label1 control.
     '''</summary>
     '''<remarks>

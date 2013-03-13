@@ -4,5 +4,6 @@
     {
         public const string AdministrationUser = "AdministrationUser";
         public const string GetExpiredAdListByLastEdition = "GetExpiredAdListByLastEdition";
+        public const string GetActivitySummary = "GetActivitySummary";
     }
 }

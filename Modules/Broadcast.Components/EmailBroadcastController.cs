@@ -1,17 +1,16 @@
-﻿namespace Paramount.Broadcast.UIController
+﻿namespace Paramount.Broadcast.Components
 {
     using System;
     using System.Collections.ObjectModel;
+    using Common.DataTransferObjects.Broadcast;
+    using Common.DataTransferObjects.Broadcast.Messages;
+    using System.Collections.Generic;
     using ApplicationBlock.Configuration;
     using ApplicationBlock.Logging.AuditLogging;
     using ApplicationBlock.Logging.Constants;
-    using Common.DataTransferObjects.Broadcast;
-    using Common.DataTransferObjects.Broadcast.Messages;
-    using Broadcast.UIController.ViewObjects;
+    using ApplicationBlock.Logging.EventLogging;
     using Services.Proxy;
     using Utility;
-    using System.Collections.Generic;
-    using Paramount.ApplicationBlock.Logging.EventLogging;
 
     public class EmailBroadcastController
     {
@@ -204,6 +203,15 @@
 
             response.TemplateList.Insert(0, new EmailTemplate { Description = "[Select Template]", Name = string.Empty });
             return response.TemplateList.Convert();
+        }
+
+        public static void SendHealthCheckNotification(string[] recipients, int totalBookings, decimal sumOfBookings)
+        {
+            // Fetch all the required data from the sources
+
+
+            // Setup the notification with all the template replacement data
+
         }
     }
 

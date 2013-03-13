@@ -16,10 +16,11 @@ namespace Paramount.DataService
         public const string EndDate = "EndDate";
         public const string TotalPrice = "TotalPrice";
     }
+
     public class ExpiredAdRow
     {
         private readonly DataRow _row;
-        public ExpiredAdRow( DataRow row)
+        public ExpiredAdRow(DataRow row)
         {
             _row = row;
         }

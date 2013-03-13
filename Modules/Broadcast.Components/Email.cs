@@ -1,9 +1,6 @@
 ﻿namespace Paramount.Broadcast.Components
 {
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using Broadcast.UIController.ViewObjects;
-    using Broadcast.UIController;
 
     public abstract class Email
     {

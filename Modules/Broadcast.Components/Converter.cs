@@ -1,10 +1,9 @@
-﻿namespace Paramount.Broadcast.UIController
+﻿namespace Paramount.Broadcast.Components
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using Paramount.Common.DataTransferObjects.Broadcast;
-    using Paramount.Broadcast.UIController.ViewObjects;
+    using Common.DataTransferObjects.Broadcast;
 
     public static class Converter
     {

@@ -1,7 +1,6 @@
 ﻿Imports Paramount.ApplicationBlock.Configuration
+Imports Paramount.Broadcast.Components
 Imports Microsoft.Win32
-Imports Paramount.Broadcast.UIController
-Imports Paramount.Broadcast.UIController.ViewObjects
 
 Namespace CRM
     Partial Public Class Email_Options

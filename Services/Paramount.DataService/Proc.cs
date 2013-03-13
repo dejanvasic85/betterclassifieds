@@ -7,16 +7,6 @@ namespace Paramount.DataService
 {
     internal struct Proc
     {
-        public struct GetLineAdBookingByLastEdition
-        {
-            public const string Name = "psp_Betterclassified_GetLineAdBookingByLastEdition";
-
-            public struct Params
-            {
-                public const string EditionDate = "@EditionDate";
-            }
-        }
-
         public struct GetNextBanner
         {
             public const string Name = "brn_GetNextBanner";

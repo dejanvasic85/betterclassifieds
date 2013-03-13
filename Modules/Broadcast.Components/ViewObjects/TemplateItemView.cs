@@ -1,4 +1,4 @@
-﻿namespace Paramount.Broadcast.UIController.ViewObjects
+﻿namespace Paramount.Broadcast.Components
 {
     public class TemplateItemView
     {
@@ -13,5 +13,6 @@
             Name = name;
             Value = value;
         }
+
     }
 }

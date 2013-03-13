@@ -54,9 +54,10 @@
     <Compile Include="BannerGroupDataProvider.cs" />
     <Compile Include="BannerRow.cs" />
     <Compile Include="BetterclassifiedDataService.cs" />
+    <Compile Include="BetterclassifiedModels\ActivitySummaryRow.cs" />
     <Compile Include="BillingSettingsDataProvider.cs" />
     <Compile Include="CommonDataProvider.cs" />
-    <Compile Include="ExpiredAdRow.cs" />
+    <Compile Include="BetterclassifiedModels\ExpiredAdRow.cs" />
     <Compile Include="InvoiceDataProvider.cs" />
     <Compile Include="LinqObjects\BillingDatabaseModel.designer.cs">
       <AutoGen>True</AutoGen>

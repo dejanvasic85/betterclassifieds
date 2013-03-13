@@ -1134,14 +1134,6 @@
       <Project>{32E18B88-521E-4887-BFBF-26B64797AF75}</Project>
       <Name>Common.UI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Modules\Broadcast.UIController\Modules.Broadcast.UIController.csproj">
-      <Project>{BDB4624F-539D-45A0-B39F-138E66F5C0F0}</Project>
-      <Name>Modules.Broadcast.UIController</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Modules\Broadcast.UI\Modules.Broadcast.UI.csproj">
-      <Project>{1FA80FC7-435C-4F99-8986-8BC261F9BB6E}</Project>
-      <Name>Modules.Broadcast.UI</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Modules\DSL.UIController\Modules.DSL.UIController.csproj">
       <Project>{E745F9B8-3967-44D3-9ADB-ABED1B3E3F9D}</Project>
       <Name>Modules.DSL.UIController</Name>

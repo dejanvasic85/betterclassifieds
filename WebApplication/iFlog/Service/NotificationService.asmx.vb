@@ -2,7 +2,6 @@
 Imports System.ComponentModel
 Imports BetterclassifiedsCore
 Imports Paramount.Broadcast.Components
-Imports Paramount.Broadcast.UIController.ViewObjects
 Imports BetterClassified.UIController
 
 ' To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line.

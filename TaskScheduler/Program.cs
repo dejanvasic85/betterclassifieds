@@ -15,13 +15,18 @@ namespace Paramount.Products.TaskScheduler
                                                         new EmailProcessing(),
                                                         new CleanDirectoryTask(),
                                                         new DslImageCacheCleanTask(), 
-                                                        new ExpiredAdNotification()
+                                                        new ExpiredAdNotification(),
+                                                        new SystemHealthCheckAlert()
                                                     };
 
         static void Main(string[] args)
         {
+#if DEBUG
+            ProcessJob(new[] { "SYSTEMHEALTHCHECKALERT/dejan.vasic@paramount.com.au" });
+#else
             ProcessJob(args);
-            // ProcessJob(new[] { "EMAILPROCESSING/" });
+#endif
+
         }
 
         private static void ProcessJob(IEnumerable<string> args)
@@ -31,16 +36,13 @@ namespace Paramount.Products.TaskScheduler
 
             AuditLogManager.Log(new AuditLog(ConfigSettingReader.ApplicationName) { TransactionName = "Request.ScheduleTask", Data = "Start Schedule Task", SecondaryData = groupingid });
 
-            foreach (var job in Jobs)
+            foreach (var job in Jobs.Where(job => parameters.ContainsKey(job.Name.ToUpper())))
             {
-                if (parameters.ContainsKey(job.Name.ToUpper()))
-                {
-                    AuditLogManager.Log(new AuditLog(ConfigSettingReader.ApplicationName) { TransactionName = "Request.RunScheduleTask", Data = job.Name, SecondaryData = groupingid });
+                AuditLogManager.Log(new AuditLog(ConfigSettingReader.ApplicationName) { TransactionName = "Request.RunScheduleTask", Data = job.Name, SecondaryData = groupingid });
 
-                    job.Run(parameters);
+                job.Run(parameters);
 
-                    AuditLogManager.Log(new AuditLog(ConfigSettingReader.ApplicationName) { TransactionName = "Response.RunScheduleTask", Data = job.Name, SecondaryData = groupingid });
-                }
+                AuditLogManager.Log(new AuditLog(ConfigSettingReader.ApplicationName) { TransactionName = "Response.RunScheduleTask", Data = job.Name, SecondaryData = groupingid });
             }
 
             AuditLogManager.Log(new AuditLog(ConfigSettingReader.ApplicationName) { TransactionName = "Response.ScheduleTask", Data = "End Schedule Job", SecondaryData = groupingid });

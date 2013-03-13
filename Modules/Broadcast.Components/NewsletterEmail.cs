@@ -1,8 +1,6 @@
 ﻿namespace Paramount.Broadcast.Components
 {
     using System.Collections.ObjectModel;
-    using Broadcast.UIController;
-    using Broadcast.UIController.ViewObjects;
 
     public class NewsletterEmail : Email
     {

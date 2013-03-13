@@ -1,9 +1,8 @@
-﻿namespace Paramount.Broadcast.UI.Newsletter
+﻿namespace Paramount.Broadcast.Components.UI
 {
     using System.Collections.ObjectModel;
     using System.Web.UI.WebControls;
     using Common.UI.BaseControls;
-    using Broadcast.UIController.ViewObjects;
 
     public class TemplateListControl : ParamountCompositeControl
     {

@@ -1145,6 +1145,14 @@
       <Project>{377F2216-9202-4DF9-9C5B-C2A4E627FFE2}</Project>
       <Name>Common.DataTransferObjects</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BetterClassified.UIController\BetterClassified.UIController.csproj">
+      <Project>{40730ada-f229-4418-a953-0ed119ffd2a3}</Project>
+      <Name>BetterClassified.UIController</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BetterClassified.UI\BetterClassified.UI.csproj">
+      <Project>{04e24b49-191f-44b6-833f-361c559f7b18}</Project>
+      <Name>BetterClassified.UI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UIController\Common.UIController.csproj">
       <Project>{0FBD88DA-96D9-4F11-A45A-2364A4184C37}</Project>
       <Name>Common.UIController</Name>
@@ -1165,14 +1173,6 @@
       <Project>{3091F288-C6F8-4E2D-9622-48B00ACE526B}</Project>
       <Name>Modules.Broadcast.Components</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Modules\Broadcast.UIController\Modules.Broadcast.UIController.csproj">
-      <Project>{BDB4624F-539D-45A0-B39F-138E66F5C0F0}</Project>
-      <Name>Modules.Broadcast.UIController</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Modules\Broadcast.UI\Modules.Broadcast.UI.csproj">
-      <Project>{1FA80FC7-435C-4F99-8986-8BC261F9BB6E}</Project>
-      <Name>Modules.Broadcast.UI</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Modules\DSL.UIController\Modules.DSL.UIController.csproj">
       <Project>{E745F9B8-3967-44D3-9ADB-ABED1B3E3F9D}</Project>
       <Name>Modules.DSL.UIController</Name>
@@ -1188,14 +1188,6 @@
     <ProjectReference Include="..\..\ApplicationBlock\Utility\Paramount.Utility.csproj">
       <Project>{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}</Project>
       <Name>Paramount.Utility</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BetterClassified.UIController\BetterClassified.UIController.csproj">
-      <Project>{40730ADA-F229-4418-A953-0ED119FFD2A3}</Project>
-      <Name>BetterClassified.UIController</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BetterClassified.UI\BetterClassified.UI.csproj">
-      <Project>{04E24B49-191F-44B6-833F-361C559F7B18}</Project>
-      <Name>BetterClassified.UI</Name>
     </ProjectReference>
     <ProjectReference Include="..\BetterclassifiedsCore\BetterclassifiedsCore.vbproj">
       <Project>{0790D756-48F2-42C5-9985-7915D15ED88C}</Project>

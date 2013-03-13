@@ -37,6 +37,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -45,19 +47,46 @@
   <ItemGroup>
     <Compile Include="AdExpiryNotification.cs" />
     <Compile Include="AfterAdBookingNotification.cs" />
+    <Compile Include="Converter.cs" />
     <Compile Include="Email.cs" />
+    <Compile Include="EmailBroadcastController.cs" />
     <Compile Include="ForgottenPasswordNotification.cs" />
     <Compile Include="NewsletterEmail.cs" />
     <Compile Include="OnlineAdEnquiryNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistrationNotification.cs" />
     <Compile Include="SupportNotification.cs" />
+    <Compile Include="SystemHealthCheckNotification.cs" />
     <Compile Include="TemplateFields.cs" />
+    <Compile Include="UI\TemplateListControl.cs" />
+    <Compile Include="ViewObjects\EmailRecipientView.cs" />
+    <Compile Include="ViewObjects\EmailTemplateView.cs" />
+    <Compile Include="ViewObjects\TemplateItemView.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Broadcast.UIController\Modules.Broadcast.UIController.csproj">
-      <Project>{BDB4624F-539D-45A0-B39F-138E66F5C0F0}</Project>
-      <Name>Modules.Broadcast.UIController</Name>
+    <ProjectReference Include="..\..\ApplicationBlock\Configuration\ApplicationBlock.Configuration.csproj">
+      <Project>{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}</Project>
+      <Name>ApplicationBlock.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApplicationBlock\Logging\ApplicationBlock.Logging.csproj">
+      <Project>{5C76B020-CE3C-4176-B2AA-5EAE9C3150CC}</Project>
+      <Name>ApplicationBlock.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApplicationBlock\Utility\Paramount.Utility.csproj">
+      <Project>{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}</Project>
+      <Name>Paramount.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\DataTransferObjects\Common.DataTransferObjects.csproj">
+      <Project>{377F2216-9202-4DF9-9C5B-C2A4E627FFE2}</Project>
+      <Name>Common.DataTransferObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\Paramount.Services.Proxy\Services.Proxy.csproj">
+      <Project>{E560D316-27E8-4F4C-A6A4-F23B82651770}</Project>
+      <Name>Services.Proxy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WebApplication\UI\Common.UI.csproj">
+      <Project>{32E18B88-521E-4887-BFBF-26B64797AF75}</Project>
+      <Name>Common.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

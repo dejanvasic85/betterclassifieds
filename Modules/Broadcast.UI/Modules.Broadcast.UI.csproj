@@ -44,17 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Newsletter\TemplateListControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\WebApplication\UI\Common.UI.csproj">
       <Project>{32E18B88-521E-4887-BFBF-26B64797AF75}</Project>
       <Name>Common.UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Broadcast.UIController\Modules.Broadcast.UIController.csproj">
-      <Project>{BDB4624F-539D-45A0-B39F-138E66F5C0F0}</Project>
-      <Name>Modules.Broadcast.UIController</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

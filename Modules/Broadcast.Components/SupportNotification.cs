@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
-    using Broadcast.UIController.ViewObjects;
 
     public class SupportNotification : Email
     {

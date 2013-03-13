@@ -84,8 +84,11 @@
     <Compile Include="Banner\BannerModifyEntity.cs" />
     <Compile Include="Banner\AuditTransactions.cs" />
     <Compile Include="BaseResponse.cs" />
+    <Compile Include="Betterclassifieds\ActivitySummary.cs" />
     <Compile Include="Betterclassifieds\AuditTransactions.cs" />
     <Compile Include="Betterclassifieds\ExpiredAdEntity.cs" />
+    <Compile Include="Betterclassifieds\Messages\GetActivitySummaryRequest.cs" />
+    <Compile Include="Betterclassifieds\Messages\GetActivitySummaryResponse.cs" />
     <Compile Include="Betterclassifieds\Messages\GetExpiredAdListByLastEditionRequest.cs" />
     <Compile Include="Betterclassifieds\Messages\GetExpiredAdListByLastEditionResponse.cs" />
     <Compile Include="Billing\AddressDetails.cs" />

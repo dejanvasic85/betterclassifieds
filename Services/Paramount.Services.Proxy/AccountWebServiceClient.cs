@@ -1,13 +1,11 @@
-﻿
-namespace Paramount.Services.Proxy
+﻿namespace Paramount.Services.Proxy
 {
     using System.ServiceModel;
     using System.ServiceModel.Channels;
-    using Paramount.Common.DataTransferObjects.DSL.Messages;
-    using Paramount.Common.ServiceContracts;
-    using Paramount.Common.DataTransferObjects.UserAccountWebService.Messages;
+    using Common.DataTransferObjects.UserAccountWebService.Messages;
+    using Common.ServiceContracts;
 
-    public partial class AccountWebServiceClient : ClientBase<IUserAccountWebService>
+    public class AccountWebServiceClient : ClientBase<IUserAccountWebService>
     {
         public AccountWebServiceClient() { }
 

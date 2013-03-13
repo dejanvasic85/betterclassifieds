@@ -1,4 +1,4 @@
-﻿namespace Paramount.Broadcast.UIController.ViewObjects
+﻿namespace Paramount.Broadcast.Components
 {
     public class EmailTemplateView
     {

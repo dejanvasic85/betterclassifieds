@@ -2,7 +2,6 @@
 Imports BetterclassifiedAdmin.Configuration
 Imports System.Net.Mail
 Imports Paramount.Broadcast.Components
-Imports Paramount.Broadcast.UIController.ViewObjects
 Imports Paramount.Utility.Security
 Imports Paramount.Common.UIController
 

@@ -46,7 +46,7 @@
                 </telerik:RadComboBox>
                 <asp:objectdatasource ID="emailTemplateSource1" runat="server" 
                     OldValuesParameterFormatString="original_{0}" SelectMethod="GetTemplatesForEntity" 
-        TypeName="Paramount.Broadcast.UIController.EmailBroadcastController">
+        TypeName="Paramount.Broadcast.Components.EmailBroadcastController">
                     <SelectParameters>
                         <asp:Parameter DefaultValue="P000000005" Name="clientCode" Type="String" />
                     </SelectParameters>

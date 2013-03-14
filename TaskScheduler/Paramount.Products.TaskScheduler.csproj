@@ -112,7 +112,7 @@
     <Compile Include="Tasks\DslImageCacheCleanTask.cs" />
     <Compile Include="Tasks\EmailProcessing.cs" />
     <Compile Include="Tasks\ExpiredAdNotification.cs" />
-    <Compile Include="IScheduler.cs" />
+    <Compile Include="Tasks\IScheduler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchedulerParameters.cs" />
@@ -199,6 +199,10 @@
     <ProjectReference Include="..\ApplicationBlock\Logging\ApplicationBlock.Logging.csproj">
       <Project>{5c76b020-ce3c-4176-b2aa-5eae9c3150cc}</Project>
       <Name>ApplicationBlock.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ApplicationBlock\Utility\Paramount.Utility.csproj">
+      <Project>{7f2cf5fe-6ad1-4dde-9f7d-a6fb3a1124e5}</Project>
+      <Name>Paramount.Utility</Name>
     </ProjectReference>
     <ProjectReference Include="..\Modules\Broadcast.Components\Modules.Broadcast.Components.csproj">
       <Project>{3091f288-c6f8-4e2d-9622-48b00ace526b}</Project>

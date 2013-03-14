@@ -26,6 +26,9 @@ namespace Paramount.Common.DataTransferObjects
         protected BaseRequest ()
         {
             AuditData = new AuditData();
+            this.ApplicationName = ConfigSettingReader.ApplicationName;
+            this.ClientCode = ConfigSettingReader.ClientCode;
+            this.Domain = ConfigSettingReader.Domain;
         }
         
         [DataMember]

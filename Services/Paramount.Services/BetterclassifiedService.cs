@@ -36,9 +36,7 @@ namespace Paramount.Services
                 })
                 .First();
 
-            var response = new GetActivitySummaryResponse { ActivitySummary = summary };
-            AuditLogManager.Log(request.ConvertToAudit(response));
-            return response;
+            return new GetActivitySummaryResponse { ActivitySummary = summary };
         }
     }
 }

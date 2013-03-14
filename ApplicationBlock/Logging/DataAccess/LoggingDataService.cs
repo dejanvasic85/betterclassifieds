@@ -1,4 +1,8 @@
-﻿namespace Paramount.ApplicationBlock.Logging.DataAccess
+﻿using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+
+namespace Paramount.ApplicationBlock.Logging.DataAccess
 {
     using System;
     using Logging.Enum;
@@ -44,6 +48,16 @@
             dataFactory.AddParameter(Proc.LogInsert.Params.IPAddress, ipAddress, StringType.VarChar);
             dataFactory.AddParameter(Proc.LogInsert.Params.HostName, hostName, StringType.VarChar);
             dataFactory.ExecuteNonQuery();
+        }
+
+        public static IEnumerable<EventLogSummary> GetEventLogSummary(DateTime reportDate)
+        {
+            var data = new DataProxyFactory("psp_ActivitySummary", ConfigSection, ConfigKey)
+                .AddParameter("@ReportDate", reportDate)
+                .ExecuteQuery()
+                .Tables[0];
+
+            return from DataRow row in data.Rows select new EventLogSummary(row);
         }
     }
 }

@@ -133,9 +133,12 @@
     <Compile Include="Billing\ShoppingCartItemEntity.cs" />
     <Compile Include="Billing\ShoppingCartEntity.cs" />
     <Compile Include="Broadcast\AuditTransactions.cs" />
+    <Compile Include="Broadcast\BroadcastActivitySummary.cs" />
     <Compile Include="Broadcast\EmailPriority.cs" />
     <Compile Include="Broadcast\EmailRecipient.cs" />
     <Compile Include="Broadcast\EmailTemplate.cs" />
+    <Compile Include="Broadcast\Messages\GetBroadcastActivityRequest.cs" />
+    <Compile Include="Broadcast\Messages\GetBroadcastActivityResponse.cs" />
     <Compile Include="CodeDescription.cs" />
     <Compile Include="CRM\AuditTransactions.cs" />
     <Compile Include="CRM\ParamountModule.cs" />

@@ -110,6 +110,7 @@
     <Compile Include="Enum\StringType.cs" />
     <Compile Include="EventLogging\EventLog.cs" />
     <Compile Include="EventLogging\EventLogManager.cs" />
+    <Compile Include="EventLogging\EventLogSummary.cs" />
     <Compile Include="Interface\ILog.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

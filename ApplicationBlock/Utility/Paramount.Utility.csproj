@@ -98,6 +98,7 @@
     <Compile Include="DataAccess\DataRowMapper.cs" />
     <Compile Include="Dsl\DslQueryParam.cs" />
     <Compile Include="GetControlString.cs" />
+    <Compile Include="HtmlExtensions.cs" />
     <Compile Include="PDFGenerator.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>

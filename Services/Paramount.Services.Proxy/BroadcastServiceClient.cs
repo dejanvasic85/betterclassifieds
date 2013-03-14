@@ -2,8 +2,8 @@
 {
     using System.ServiceModel;
     using Paramount.Common.ServiceContracts;
-using System.ServiceModel.Channels;
-using Paramount.Common.DataTransferObjects.Broadcast.Messages;
+    using System.ServiceModel.Channels;
+    using Paramount.Common.DataTransferObjects.Broadcast.Messages;
 
     public partial class BroadcastServiceClient : ClientBase<IBroadcastService>
     {
@@ -27,7 +27,7 @@ using Paramount.Common.DataTransferObjects.Broadcast.Messages;
 
         public string GetServiceInfo()
         {
-            return Channel.GetServiceInfo();   
+            return Channel.GetServiceInfo();
         }
 
         public void Process(ProcessEmailsRequest request)
@@ -50,9 +50,14 @@ using Paramount.Common.DataTransferObjects.Broadcast.Messages;
             Channel.InsertUpdateTemplate(request);
         }
 
-        public GetEmailTemplateResponse  GetEmailTemplate(GetEmailTemplateRequest request)
+        public GetEmailTemplateResponse GetEmailTemplate(GetEmailTemplateRequest request)
         {
             return Channel.GetEmailTemplate(request);
         }
+
+        public GetBroadcastActivityResponse GetBroadcastActivity(GetBroadcastActivityRequest request)
+        {
+            return Channel.GetBroadcastActivity(request);
+        }
     }
-} 
+}

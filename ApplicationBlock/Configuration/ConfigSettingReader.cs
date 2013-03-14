@@ -35,7 +35,7 @@ namespace Paramount.ApplicationBlock.Configuration
             return value;
         }
 
-        public static string ApplicationName { get { return WebConfigurationManager.AppSettings.Get(ApplicationNameKey); } }
+        public static string ApplicationName { get { return ConfigurationManager.AppSettings.Get(ApplicationNameKey); } }
 
         public static string Domain { get { return WebConfigurationManager.AppSettings.Get(DomainNameKey); } }
 

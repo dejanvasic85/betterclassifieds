@@ -22,7 +22,8 @@ namespace Paramount.Products.TaskScheduler
         static void Main(string[] args)
         {
 #if DEBUG
-            ProcessJob(new[] { "SYSTEMHEALTHCHECKALERT/dejan.vasic@paramount.com.au" });
+            //ProcessJob(new[] { "SYSTEMHEALTHCHECKALERT/dejan.vasic@paramountit.com.au" });
+            ProcessJob(new[] {"EMAILPROCESSING/"});
 #else
             ProcessJob(args);
 #endif
@@ -34,18 +35,24 @@ namespace Paramount.Products.TaskScheduler
             var parameters = new SchedulerParameters(args);
             var groupingid = Guid.NewGuid().ToString();
 
-            AuditLogManager.Log(new AuditLog(ConfigSettingReader.ApplicationName) { TransactionName = "Request.ScheduleTask", Data = "Start Schedule Task", SecondaryData = groupingid });
-
             foreach (var job in Jobs.Where(job => parameters.ContainsKey(job.Name.ToUpper())))
             {
-                AuditLogManager.Log(new AuditLog(ConfigSettingReader.ApplicationName) { TransactionName = "Request.RunScheduleTask", Data = job.Name, SecondaryData = groupingid });
-
+                LogTask(job, groupingid, "Request.RunScheduleTask");
                 job.Run(parameters);
-
-                AuditLogManager.Log(new AuditLog(ConfigSettingReader.ApplicationName) { TransactionName = "Response.RunScheduleTask", Data = job.Name, SecondaryData = groupingid });
+                LogTask(job, groupingid, "Response.RunScheduleTask");
             }
+        }
 
-            AuditLogManager.Log(new AuditLog(ConfigSettingReader.ApplicationName) { TransactionName = "Response.ScheduleTask", Data = "End Schedule Job", SecondaryData = groupingid });
+        private static void LogTask(IScheduler job, string groupingid, string transactionName)
+        {
+            AuditLogManager.Log(
+                new AuditLog(ConfigSettingReader.ApplicationName)
+                    {
+                        TransactionName = transactionName,
+                        Data = job.Name,
+                        SecondaryData = groupingid,
+                        AccountId = ConfigSettingReader.ClientCode
+                    });
         }
     }
 }

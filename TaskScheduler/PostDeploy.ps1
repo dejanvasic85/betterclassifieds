@@ -1,7 +1,7 @@
 ﻿Import-Module TaskScheduler
 
 $exeFullPath = $OctopusPackageDirectoryPath + "\TaskScheduler.exe"
-$Tasks = "iFlog_EmailProcessor~MI5~EMAILPROCESSING/,iFlog_ExpiredEmailSender~DI06:30~EXPAD/1 DAYSBEFOREEXPIRY/6,iFlog_ImageCacheCleaner~DI23:30~IMAGECACHECLEAN/c:\Paramount\ImageCache\"
+$Tasks = "iFlog_EmailProcessor~MI5~EMAILPROCESSING/,iFlog_ExpiredEmailSender~DI06:30~EXPAD/1 DAYSBEFOREEXPIRY/6,iFlog_ImageCacheCleaner~DI23:30~IMAGECACHECLEAN/c:\Paramount\ImageCache\,iFlog_HealthCheckAlert~DI23:45~SYSTEMHEALTHCHECKALERT/support@paramountit.com.au"
 
 $tasksWithSchedule = $Tasks.split(',')
 

@@ -1,9 +1,12 @@
-﻿namespace Paramount.DataService
+﻿using System.Linq;
+
+namespace Paramount.DataService
 {
     using System;
     using System.Data;
+    using System.Collections.Generic;
     using ApplicationBlock.Data;
-    using DataService.Broadcast;
+    using Broadcast;
 
     public static class BroadcastDataService
     {
@@ -150,6 +153,14 @@
             }
 
             return df.ExecuteQuery().Tables[0];
+        }
+
+        public static IEnumerable<BroadcastActivityRow> GetBroadcastActivities(DateTime date)
+        {
+            var df = new DatabaseProxy("bst_Broadcast_Activity", ConfigSection, ConfigKey);
+            df.AddParameter("@ReportDate", date);
+            return from DataRow row in df.ExecuteQuery().Tables[0].Rows 
+                   select new BroadcastActivityRow(row) ;
         }
     }
 }

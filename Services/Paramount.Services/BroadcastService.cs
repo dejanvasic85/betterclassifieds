@@ -173,6 +173,21 @@
             };
         }
 
+        public GetBroadcastActivityResponse GetBroadcastActivity(GetBroadcastActivityRequest request)
+        {
+            request.LogRequestAudit();
+
+            var activityRow = BroadcastDataService.GetBroadcastActivities(request.ReportDate).First();
+
+            return new GetBroadcastActivityResponse
+                {
+                    BroadcastActivitySummary = new BroadcastActivitySummary
+                        {
+                            TotalNumberOfEmailsSent = activityRow.NumberOfEmailSent
+                        }
+                };
+        }
+
         private static void SendEmail(string from, string to, string subject, string body, int priority, bool isBodyHtml)
         {
             var smtp = new SmtpClient();

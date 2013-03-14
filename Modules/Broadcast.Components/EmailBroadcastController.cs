@@ -205,13 +205,33 @@
             return response.TemplateList.Convert();
         }
 
-        public static void SendHealthCheckNotification(string[] recipients, int totalBookings, decimal sumOfBookings)
+        public static void SendHealthCheckNotification(DateTime reportDate, string environment, string[] recipients, int totalBookings, decimal sumOfBookings, int totalNumberOfEmailsSent, string htmlTableContent)
         {
             // Fetch all the required data from the sources
+            const string healthCheckTemplateName = "SystemHealthCheck";
+            const string dateFormat = "dd-MMM-yyyy";
+            string subbject = "Health Check report for " + reportDate.ToString(dateFormat);
+
+            // Recipients
+            Collection<EmailRecipientView> emailRecipientViews = new Collection<EmailRecipientView>();
+            foreach (string recipient in recipients)
+            {
+                emailRecipientViews.Add(new EmailRecipientView { Email = recipient });
+            }
+
+            // Placeholders
+            Collection<TemplateItemView> templateItems = new Collection<TemplateItemView>
+                {
+                    new TemplateItemView("TotalBookings", totalBookings.ToString()), 
+                    new TemplateItemView("SumOfBookings", sumOfBookings.ToString("N")), 
+                    new TemplateItemView("TotalEmails", totalNumberOfEmailsSent.ToString()), 
+                    new TemplateItemView("LogTable", htmlTableContent),
+                    new TemplateItemView("ReportDate", reportDate.ToString(dateFormat)),
+                    new TemplateItemView("Environment", environment),
+                };
 
 
-            // Setup the notification with all the template replacement data
-
+            SendEmail(healthCheckTemplateName, emailRecipientViews, templateItems, subbject);
         }
     }
 

@@ -53,42 +53,49 @@
             this.paramList = (parameterList ?? new Collection<Parameter>());
         }
 
-        public void AddParameter(string name, int value)
+        public DataProxyFactory AddParameter(string name, int value)
         {
             this.paramList.Add(new Parameter(name, value));
+            return this;
         }
 
-        public void AddParameter(string name, string value, StringType stringType)
+        public DataProxyFactory AddParameter(string name, string value, StringType stringType)
         {
             this.paramList.Add(new Parameter(name, value, stringType));
+            return this;
         }
 
-        public void AddParameter(string name, Guid value)
+        public DataProxyFactory AddParameter(string name, Guid value)
         {
             this.AddParameter(new Parameter(name, value));
+            return this;
         }
 
-        public void AddParameter(string name, DateTime value)
+        public DataProxyFactory AddParameter(string name, DateTime value)
         {
             this.AddParameter(new Parameter(name, value));
+            return this;
         }
 
-        public void AddParameter(string name, decimal value)
+        public DataProxyFactory AddParameter(string name, decimal value)
         {
             this.AddParameter(new Parameter(name, value));
+            return this;
         }
 
-        public void AddParameter(Parameter parameter)
+        public DataProxyFactory AddParameter(Parameter parameter)
         {
             this.paramList.Add(parameter);
+            return this;
         }
 
-        public void AddParameterList(Collection<Parameter> parameterList)
+        public DataProxyFactory AddParameterList(Collection<Parameter> parameterList)
         {
             foreach (var parameter in parameterList)
             {
                 this.AddParameter(parameter);
             }
+            return this;
         }
 
         public void Dispose()

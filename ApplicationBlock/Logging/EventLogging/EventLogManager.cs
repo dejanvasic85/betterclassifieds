@@ -31,5 +31,10 @@
         {
             Log( new EventLog(exception));
         }
+
+        public static IEnumerable<EventLogSummary> GetSummaryOfTopErrors(DateTime reportDate)
+        {
+            return LoggingDataService.GetEventLogSummary(reportDate);
+        }
     }
 }

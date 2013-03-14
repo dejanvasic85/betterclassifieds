@@ -56,6 +56,7 @@
     <Compile Include="BetterclassifiedDataService.cs" />
     <Compile Include="BetterclassifiedModels\ActivitySummaryRow.cs" />
     <Compile Include="BillingSettingsDataProvider.cs" />
+    <Compile Include="Broadcast\BroadcastActivityRow.cs" />
     <Compile Include="CommonDataProvider.cs" />
     <Compile Include="BetterclassifiedModels\ExpiredAdRow.cs" />
     <Compile Include="InvoiceDataProvider.cs" />

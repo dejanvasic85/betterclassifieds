@@ -4,16 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <Name>IflogDatabase</Name>
+    <Name>iFlogDb</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-    <ProjectGuid>{13074add-1abc-467a-a13c-2ed4d9c3e3d2}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql110DatabaseSchemaProvider</DSP>
+    <ProjectGuid>{acdc56b8-5e33-44ea-b1ae-53c1d1014dc0}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql100DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
-    <RootNamespace>IflogDatabase</RootNamespace>
-    <AssemblyName>IflogDatabase</AssemblyName>
+    <RootNamespace>iFlogDb</RootNamespace>
+    <AssemblyName>iFlogDb</AssemblyName>
     <ModelCollation>1033,CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
@@ -22,12 +22,12 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <SqlServerVerification>False</SqlServerVerification>
     <TargetDatabaseSet>True</TargetDatabaseSet>
-    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
-    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
     <SccProjectName>SAK</SccProjectName>
     <SccProvider>SAK</SccProvider>
     <SccAuxPath>SAK</SccAuxPath>
     <SccLocalPath>SAK</SccLocalPath>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -63,8 +63,10 @@
     <Folder Include="dbo\Tables\" />
     <Folder Include="dbo\Views\" />
     <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="Snapshots" />
   </ItemGroup>
   <ItemGroup>
+    <Build Include="dbo\Tables\AppSetting.sql" />
     <Build Include="dbo\Tables\BaseRate.sql" />
     <Build Include="dbo\Tables\Ad.sql" />
     <Build Include="dbo\Tables\Location.sql" />
@@ -73,29 +75,28 @@
     <Build Include="dbo\Tables\PublicationSpecialRate.sql" />
     <Build Include="dbo\Tables\PublicationRate.sql" />
     <Build Include="dbo\Tables\Publication.sql" />
-    <Build Include="dbo\Tables\EnquiryType.sql" />
     <Build Include="dbo\Tables\TempBookingRecord.sql" />
     <Build Include="dbo\Tables\NonPublicationDate.sql" />
-    <Build Include="dbo\Tables\OnlineAdEnquiry.sql" />
     <Build Include="dbo\Tables\Edition.sql" />
-    <Build Include="dbo\Tables\EnquiryDocument.sql" />
+    <Build Include="dbo\Tables\EnquiryType.sql" />
     <Build Include="dbo\Tables\PublicationAdType.sql" />
+    <Build Include="dbo\Tables\OnlineAdEnquiry.sql" />
     <Build Include="dbo\Tables\PublicationCategory.sql" />
+    <Build Include="dbo\Tables\EnquiryDocument.sql" />
     <Build Include="dbo\Tables\SpecialRate.sql" />
-    <Build Include="dbo\Tables\SupportEnquiry.sql" />
-    <Build Include="dbo\Tables\Ratecard.sql" />
     <Build Include="dbo\Tables\WebContent.sql" />
+    <Build Include="dbo\Tables\Ratecard.sql" />
     <Build Include="dbo\Tables\AdDesign.sql" />
     <Build Include="dbo\Tables\AdBooking.sql" />
+    <Build Include="dbo\Tables\SupportEnquiry.sql" />
     <Build Include="dbo\Tables\OnlineAd.sql" />
     <Build Include="dbo\Tables\LocationArea.sql" />
-    <Build Include="dbo\Tables\AdType.sql" />
     <Build Include="dbo\Tables\LineAd.sql" />
-    <Build Include="dbo\Tables\PublicationType.sql" />
     <Build Include="dbo\Tables\AdGraphic.sql" />
+    <Build Include="dbo\Tables\AdType.sql" />
+    <Build Include="dbo\Tables\PublicationType.sql" />
     <Build Include="dbo\Tables\LineAdTheme.sql" />
     <Build Include="dbo\Tables\LineAdColourCode.sql" />
-    <Build Include="dbo\Tables\AppSetting.sql" />
     <Build Include="dbo\Tables\WebAdSpaceSetting.sql" />
     <Build Include="dbo\Tables\WebAdSpace.sql" />
     <Build Include="dbo\Tables\Transaction.sql" />
@@ -118,9 +119,9 @@
     <Build Include="dbo\Stored Procedures\spAdBookingsSearch.sql" />
     <Build Include="dbo\Stored Procedures\spOnlineAdSelectByLineAdDesign.sql" />
     <Build Include="dbo\Stored Procedures\spPublicationDeadlineSelect.sql" />
-    <Build Include="dbo\Stored Procedures\psp_AdBookings_Select.sql" />
     <Build Include="dbo\Stored Procedures\spPublicationSpecialRateAdd.sql" />
     <Build Include="dbo\Stored Procedures\spSpecialRateDelete.sql" />
+    <Build Include="dbo\Stored Procedures\psp_AdBookings_Select.sql" />
     <Build Include="dbo\Stored Procedures\usp_LineAdTheme__FetchBorderColour.sql" />
     <Build Include="dbo\Stored Procedures\usp_LineAdTheme__FetchHeaderColour.sql" />
     <Build Include="dbo\Stored Procedures\usp_LineAdTheme__FetchBackgroundColour.sql" />
@@ -131,6 +132,7 @@
     <Build Include="dbo\Stored Procedures\usp_Publication__SelectForRateCard.sql" />
     <Build Include="dbo\Stored Procedures\usp_RateCard__Delete.sql" />
     <Build Include="dbo\Stored Procedures\psp_Betterclassified_GetLineAdBookingByLastEdition.sql" />
+    <Build Include="dbo\Stored Procedures\psp_Betterclassified_GetActivitySummary.sql" />
     <Build Include="dbo\Stored Procedures\psp_Betterclassified_GetAdBookingByEndDate.sql" />
     <Build Include="dbo\Stored Procedures\spMainCategoryAdCount.sql" />
     <Build Include="dbo\Stored Procedures\spGetMainParentCategories.sql" />
@@ -145,5 +147,8 @@
     <Build Include="dbo\Stored Procedures\spLineAdById.sql" />
     <Build Include="dbo\Stored Procedures\spPublicationCategories.sql" />
     <Build Include="dbo\Stored Procedures\spPublicationCategoriesByPubId.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Snapshots\iFlogDb_20130315_10-12-31.dacpac" />
   </ItemGroup>
 </Project>

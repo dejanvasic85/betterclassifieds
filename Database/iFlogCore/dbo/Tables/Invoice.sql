@@ -1,0 +1,28 @@
+﻿CREATE TABLE [dbo].[Invoice] (
+    [InvoiceId]        UNIQUEIDENTIFIER NOT NULL,
+    [UserId]           UNIQUEIDENTIFIER NOT NULL,
+    [Status]           NVARCHAR (20)    COLLATE Latin1_General_CI_AS NOT NULL,
+    [DateTimeCreated]  DATETIME         NOT NULL,
+    [DateTimeUpdated]  DATETIME         NOT NULL,
+    [SessionId]        NVARCHAR (30)    COLLATE Latin1_General_CI_AS NOT NULL,
+    [ReferenceNumber]  BIGINT           NOT NULL,
+    [BillingName]      NVARCHAR (150)   COLLATE Latin1_General_CI_AS NULL,
+    [BillingAddress1]  NVARCHAR (250)   COLLATE Latin1_General_CI_AS NULL,
+    [BillingAddress2]  NVARCHAR (250)   COLLATE Latin1_General_CI_AS NULL,
+    [BillingPostcode]  NVARCHAR (12)    COLLATE Latin1_General_CI_AS NULL,
+    [BillingCity]      NVARCHAR (150)   COLLATE Latin1_General_CI_AS NULL,
+    [BillingState]     NVARCHAR (50)    COLLATE Latin1_General_CI_AS NULL,
+    [BillingCountry]   NVARCHAR (250)   COLLATE Latin1_General_CI_AS NULL,
+    [DeliveryName]     NVARCHAR (150)   COLLATE Latin1_General_CI_AS NULL,
+    [DeliveryAddress1] NVARCHAR (250)   COLLATE Latin1_General_CI_AS NULL,
+    [DeliveryAddress2] NVARCHAR (250)   COLLATE Latin1_General_CI_AS NULL,
+    [DeliveryPostcode] NVARCHAR (12)    COLLATE Latin1_General_CI_AS NULL,
+    [DeliveryCity]     NVARCHAR (150)   COLLATE Latin1_General_CI_AS NULL,
+    [DeliveryState]    NVARCHAR (50)    COLLATE Latin1_General_CI_AS NULL,
+    [DeliveryCountry]  NVARCHAR (250)   COLLATE Latin1_General_CI_AS NULL,
+    [PaymentType]      NVARCHAR (20)    COLLATE Latin1_General_CI_AS NULL,
+    [PaymentReference] NVARCHAR (50)    COLLATE Latin1_General_CI_AS NULL,
+    [ClientCode]       NVARCHAR (11)    COLLATE Latin1_General_CI_AS NULL,
+    CONSTRAINT [PK_Invoice] PRIMARY KEY CLUSTERED ([InvoiceId] ASC)
+);
+

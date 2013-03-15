@@ -77,9 +77,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 Database", "05 Database"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "iFlogDb", "Database\iFlogDb\iFlogDb.sqlproj", "{ACDC56B8-5E33-44EA-B1AE-53C1D1014DC0}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "iFlogCore", "Database\iFlogCore\iFlogCore.sqlproj", "{C6B023EF-178D-402E-84A9-6182BA0A3465}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "iFlogLogs", "Database\iFlogLogs\iFlogLogs.sqlproj", "{337069B3-0C8C-40FA-8957-FEEBB6BDDB4E}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "iFlogAppUser", "Database\iFlogAppUser\iFlogAppUser.sqlproj", "{02D30B18-52A1-43DF-AD89-22DF1AD281C4}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 34
+		SccNumberOfProjects = 37
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://paramountit.visualstudio.com/defaultcollection
 		SccLocalPath0 = .
@@ -215,6 +221,18 @@ Global
 		SccProjectTopLevelParentUniqueName33 = iFlog.sln
 		SccProjectName33 = Database/iFlogDb
 		SccLocalPath33 = Database\\iFlogDb
+		SccProjectUniqueName34 = Database\\iFlogCore\\iFlogCore.sqlproj
+		SccProjectTopLevelParentUniqueName34 = iFlog.sln
+		SccProjectName34 = Database/iFlogCore
+		SccLocalPath34 = Database\\iFlogCore
+		SccProjectUniqueName35 = Database\\iFlogLogs\\iFlogLogs.sqlproj
+		SccProjectTopLevelParentUniqueName35 = iFlog.sln
+		SccProjectName35 = Database/iFlogLogs
+		SccLocalPath35 = Database\\iFlogLogs
+		SccProjectUniqueName36 = Database\\iFlogAppUser\\iFlogAppUser.sqlproj
+		SccProjectTopLevelParentUniqueName36 = iFlog.sln
+		SccProjectName36 = Database/iFlogAppUser
+		SccLocalPath36 = Database\\iFlogAppUser
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -423,6 +441,33 @@ Global
 		{ACDC56B8-5E33-44EA-B1AE-53C1D1014DC0}.Test|Any CPU.ActiveCfg = Debug|Any CPU
 		{ACDC56B8-5E33-44EA-B1AE-53C1D1014DC0}.Test|Any CPU.Build.0 = Debug|Any CPU
 		{ACDC56B8-5E33-44EA-B1AE-53C1D1014DC0}.Test|Any CPU.Deploy.0 = Debug|Any CPU
+		{C6B023EF-178D-402E-84A9-6182BA0A3465}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6B023EF-178D-402E-84A9-6182BA0A3465}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6B023EF-178D-402E-84A9-6182BA0A3465}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C6B023EF-178D-402E-84A9-6182BA0A3465}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6B023EF-178D-402E-84A9-6182BA0A3465}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6B023EF-178D-402E-84A9-6182BA0A3465}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{C6B023EF-178D-402E-84A9-6182BA0A3465}.Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6B023EF-178D-402E-84A9-6182BA0A3465}.Test|Any CPU.Build.0 = Debug|Any CPU
+		{C6B023EF-178D-402E-84A9-6182BA0A3465}.Test|Any CPU.Deploy.0 = Debug|Any CPU
+		{337069B3-0C8C-40FA-8957-FEEBB6BDDB4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{337069B3-0C8C-40FA-8957-FEEBB6BDDB4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{337069B3-0C8C-40FA-8957-FEEBB6BDDB4E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{337069B3-0C8C-40FA-8957-FEEBB6BDDB4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{337069B3-0C8C-40FA-8957-FEEBB6BDDB4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{337069B3-0C8C-40FA-8957-FEEBB6BDDB4E}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{337069B3-0C8C-40FA-8957-FEEBB6BDDB4E}.Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{337069B3-0C8C-40FA-8957-FEEBB6BDDB4E}.Test|Any CPU.Build.0 = Debug|Any CPU
+		{337069B3-0C8C-40FA-8957-FEEBB6BDDB4E}.Test|Any CPU.Deploy.0 = Debug|Any CPU
+		{02D30B18-52A1-43DF-AD89-22DF1AD281C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02D30B18-52A1-43DF-AD89-22DF1AD281C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02D30B18-52A1-43DF-AD89-22DF1AD281C4}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{02D30B18-52A1-43DF-AD89-22DF1AD281C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02D30B18-52A1-43DF-AD89-22DF1AD281C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02D30B18-52A1-43DF-AD89-22DF1AD281C4}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{02D30B18-52A1-43DF-AD89-22DF1AD281C4}.Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{02D30B18-52A1-43DF-AD89-22DF1AD281C4}.Test|Any CPU.Build.0 = Debug|Any CPU
+		{02D30B18-52A1-43DF-AD89-22DF1AD281C4}.Test|Any CPU.Deploy.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -461,5 +506,8 @@ Global
 		{0790D756-48F2-42C5-9985-7915D15ED88C} = {328F405C-3398-4608-B8DA-62CCB3EE8627}
 		{5A595E8C-7861-415F-A193-A295E94CA22F} = {328F405C-3398-4608-B8DA-62CCB3EE8627}
 		{ACDC56B8-5E33-44EA-B1AE-53C1D1014DC0} = {06813343-424A-4B8F-9CA9-A109CEA6303B}
+		{C6B023EF-178D-402E-84A9-6182BA0A3465} = {06813343-424A-4B8F-9CA9-A109CEA6303B}
+		{337069B3-0C8C-40FA-8957-FEEBB6BDDB4E} = {06813343-424A-4B8F-9CA9-A109CEA6303B}
+		{02D30B18-52A1-43DF-AD89-22DF1AD281C4} = {06813343-424A-4B8F-9CA9-A109CEA6303B}
 	EndGlobalSection
 EndGlobal

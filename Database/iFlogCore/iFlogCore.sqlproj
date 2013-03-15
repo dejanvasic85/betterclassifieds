@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>iFlogCore</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{c6b023ef-178d-402e-84a9-6182ba0a3465}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql100DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>iFlogCore</RootNamespace>
+    <AssemblyName>iFlogCore</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <!-- VS10 without SP1 will not have VisualStudioVersion set, so do that here -->
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="dbo\User Defined Types\" />
+    <Folder Include="Snapshots" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\EmailBroadcastEntry.sql" />
+    <Build Include="dbo\Tables\EmailBroadcast.sql" />
+    <Build Include="dbo\Tables\EntityCounter.sql" />
+    <Build Include="dbo\Tables\Contact.sql" />
+    <Build Include="dbo\Tables\BusinessIndustry.sql" />
+    <Build Include="dbo\Tables\Region.sql" />
+    <Build Include="dbo\Tables\Module.sql" />
+    <Build Include="dbo\Tables\Entity.sql" />
+    <Build Include="dbo\Tables\Address.sql" />
+    <Build Include="dbo\Tables\EntityContact.sql" />
+    <Build Include="dbo\Tables\ContactAddress.sql" />
+    <Build Include="dbo\Tables\EntityModule.sql" />
+    <Build Include="dbo\Tables\DocumentCategory.sql" />
+    <Build Include="dbo\Tables\BannerAudit.sql" />
+    <Build Include="dbo\Tables\BannerFileType.sql" />
+    <Build Include="dbo\Tables\DocumentStorage.sql" />
+    <Build Include="dbo\Tables\AccountTransactionType.sql" />
+    <Build Include="dbo\Tables\AccountTransaction.sql" />
+    <Build Include="dbo\Tables\BannerReference.sql" />
+    <Build Include="dbo\Tables\BannerReferenceType.sql" />
+    <Build Include="dbo\Tables\Billing_Bank.sql" />
+    <Build Include="dbo\Tables\BillingSettings.sql" />
+    <Build Include="dbo\Tables\Invoice.sql" />
+    <Build Include="dbo\Tables\InvoiceItem.sql" />
+    <Build Include="dbo\Tables\ShoppingCart.sql" />
+    <Build Include="dbo\Tables\ShoppingCartItem.sql" />
+    <Build Include="dbo\Tables\Banner.sql" />
+    <Build Include="dbo\Tables\BannerGroup.sql" />
+    <Build Include="dbo\Tables\Currency.sql" />
+    <Build Include="dbo\Tables\NameValueCollection.sql" />
+    <Build Include="dbo\Tables\Product.sql" />
+    <Build Include="dbo\Tables\State.sql" />
+    <Build Include="dbo\Tables\TimeZone.sql" />
+    <Build Include="dbo\Tables\Broadcast.sql" />
+    <Build Include="dbo\Tables\EmailTracker.sql" />
+    <Build Include="dbo\Tables\EmailTemplate.sql" />
+    <Build Include="dbo\Stored Procedures\bst_Broadcast_Activity.sql" />
+    <Build Include="dbo\Stored Procedures\bst_GetUnsentEmailBroadcastEntryById.sql" />
+    <Build Include="dbo\Stored Procedures\bst_GetUnsentEmailBroadcastEntry.sql" />
+    <Build Include="dbo\Stored Procedures\bst_EmailTrackerUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\bst_EmailTrackerSelect.sql" />
+    <Build Include="dbo\Stored Procedures\bst_EmailTrackerInsert.sql" />
+    <Build Include="dbo\Stored Procedures\bst_EmailTrackerDelete.sql" />
+    <Build Include="dbo\Stored Procedures\bst_EmailTemplateUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\bst_EmailTemplateSelectByName.sql" />
+    <Build Include="dbo\Stored Procedures\bst_EmailTemplateSelectById.sql" />
+    <Build Include="dbo\Stored Procedures\bst_EmailTemplateSelect.sql" />
+    <Build Include="dbo\Stored Procedures\bst_EmailTemplateSearch.sql" />
+    <Build Include="dbo\Stored Procedures\bst_EmailTemplateInsert.sql" />
+    <Build Include="dbo\Stored Procedures\bst_EmailTemplateDelete.sql" />
+    <Build Include="dbo\Stored Procedures\bst_EmailBroadcastInsert.sql" />
+    <Build Include="dbo\Stored Procedures\bst_EmailBroadcastEntryUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\bst_EmailBroadcastEntrySelect.sql" />
+    <Build Include="dbo\Stored Procedures\bst_EmailBroadcastEntryProcess.sql" />
+    <Build Include="dbo\Stored Procedures\bst_EmailBroadcastEntryInsert.sql" />
+    <Build Include="dbo\Stored Procedures\bst_EmailBroadcastEntryDelete.sql" />
+    <Build Include="dbo\Stored Procedures\bst_BroadcastUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\bst_BroadcastSelect.sql" />
+    <Build Include="dbo\Stored Procedures\bst_BroadcastInsert.sql" />
+    <Build Include="dbo\Stored Procedures\bst_BroadcastDelete.sql" />
+    <Build Include="dbo\Stored Procedures\crm_ModuleUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\crm_ModuleSelect.sql" />
+    <Build Include="dbo\Stored Procedures\crm_ModuleInsert.sql" />
+    <Build Include="dbo\Stored Procedures\crm_ModuleDelete.sql" />
+    <Build Include="dbo\Stored Procedures\crm_EntityGetNewId.sql" />
+    <Build Include="dbo\Stored Procedures\crm_EntityInsert.sql" />
+    <Build Include="dbo\Stored Procedures\crm_EntityDelete.sql" />
+    <Build Include="dbo\Stored Procedures\crm_EntityUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\crm_EntitySelect.sql" />
+    <Build Include="dbo\Stored Procedures\crm_ModuleSelectByEntity.sql" />
+    <Build Include="dbo\Stored Procedures\crm_EntityModuleUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\crm_EntityModuleSelect.sql" />
+    <Build Include="dbo\Stored Procedures\crm_EntityModuleInsert.sql" />
+    <Build Include="dbo\Stored Procedures\crm_EntityModuleDelete.sql" />
+    <Build Include="dbo\Stored Procedures\dsl_DocumentCategorySelectId.sql" />
+    <Build Include="dbo\Stored Procedures\dsl_DocumentCategorySelectByCode.sql" />
+    <Build Include="dbo\Stored Procedures\dsl_DocumentStorageUpdateFileData.sql" />
+    <Build Include="dbo\Stored Procedures\dsl_DocumentStorageSelectFileData.sql" />
+    <Build Include="dbo\Stored Procedures\dsl_DocumentStorageSelect.sql" />
+    <Build Include="dbo\Stored Procedures\dsl_DocumentStorageInsert.sql" />
+    <Build Include="dbo\Stored Procedures\dsl_DocumentStorageDelete.sql" />
+    <Build Include="dbo\Stored Procedures\dsl_DocumentStorageClearUpdate.sql" />
+    <Build Include="dbo\Stored Procedures\brn_GetNextBanner.sql" />
+    <Build Include="dbo\User Defined Types\BannerRefrenceType.sql" />
+    <Build Include="dbo\User Defined Types\NameValueCollectionType.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Snapshots\iFlogCore_20130315_11-23-06.dacpac" />
+  </ItemGroup>
+</Project>

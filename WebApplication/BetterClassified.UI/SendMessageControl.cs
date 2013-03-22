@@ -9,17 +9,20 @@
     using Paramount.Common.UI;
     using Paramount.Common.UI.BaseControls;
     using UIController.Constants;
+    using Telerik.Web.UI;
 
-    public class SendMessageControl:ParamountCompositeControl
+    public class SendMessageControl : ParamountCompositeControl
     {
         private const string ValidationGroup = "messaging";
         protected ValidationSummary validationSumary;
 
-        protected Label  successText;
+        protected Label successText;
 
         protected TextBox messageBox;
-   
+
         protected TextBox emailBox;
+
+        protected RadCaptcha captcha;
 
         protected CustomValidator validator;
         protected RegularExpressionValidator emailValidator;
@@ -66,7 +69,7 @@
                     if (idType == "dsId")
                     {
                         var onlineAd = AdController.GetOnlineAdEntityByDesign(adId, false);
-                        if(onlineAd != null)
+                        if (onlineAd != null)
                         {
                             return onlineAd.OnlineAdId;
                         }
@@ -94,25 +97,25 @@
         public SendMessageControl()
         {
             this.validationSumary = new ValidationSummary { ValidationGroup = ValidationGroup };
-                this.emailValidator = new RegularExpressionValidator
-                                          {
-                                              ValidationExpression = ValidationExpressionFormats.EmailValidation,
-                                              SetFocusOnError = true,
-                                              ErrorMessage =
-                                                  GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form,
-                                                               "invalidEmail.Text"),
-                                              Text = "&nbsp;",
-                                              ValidationGroup = ValidationGroup
-                                          };
-                nameRequired = new RequiredFieldValidator
-                {
-                    SetFocusOnError = true,
-                    ErrorMessage =
-                        GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form,
-                                     "invalidName.Text"),
-                    Text = "&nbsp;",
-                    ValidationGroup = ValidationGroup
-                };
+            this.emailValidator = new RegularExpressionValidator
+                                      {
+                                          ValidationExpression = ValidationExpressionFormats.EmailValidation,
+                                          SetFocusOnError = true,
+                                          ErrorMessage =
+                                              GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form,
+                                                           "invalidEmail.Text"),
+                                          Text = "&nbsp;",
+                                          ValidationGroup = ValidationGroup
+                                      };
+            nameRequired = new RequiredFieldValidator
+            {
+                SetFocusOnError = true,
+                ErrorMessage =
+                    GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form,
+                                 "invalidName.Text"),
+                Text = "&nbsp;",
+                ValidationGroup = ValidationGroup
+            };
             this.emailRequiredField = new RequiredFieldValidator
                                           {
                                               SetFocusOnError = true,
@@ -121,63 +124,68 @@
                                                                "invalidEmail.Text"),
                                               Text = "&nbsp;",
                                               ValidationGroup = ValidationGroup
-                                              };
-                this.messageRequiredField = new RequiredFieldValidator
-                                                {
-                                                    SetFocusOnError = true,
-                                                    Text = "&nbsp;",
-                                                    ErrorMessage =
-                                                        GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form,
-                                                                     "messageRequired.Text"),
-                                                    ValidationGroup = ValidationGroup
-                                                };
-            this .successText = new Label{CssClass ="inner-text"};
-              
-                this.nameBox = new TextBox {CssClass = "input-text full", ID="nameBox", MaxLength = 100};
+                                          };
+            this.messageRequiredField = new RequiredFieldValidator
+                                            {
+                                                SetFocusOnError = true,
+                                                Text = "&nbsp;",
+                                                ErrorMessage =
+                                                    GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form,
+                                                                 "messageRequired.Text"),
+                                                ValidationGroup = ValidationGroup
+                                            };
+            this.successText = new Label { CssClass = "inner-text" };
 
-             
-                this.messageBox = new TextBox
-                                      {
-                                          TextMode = TextBoxMode.MultiLine,
-                                          CssClass = "textFieldInput full",
-                                         // Columns = 40,
-                                          Rows = 5,
-                                          ID = "messageBox"
-                                      };
-              
-                this.emailBox = new TextBox {CssClass = "input-text full", ID = "emailBox", MaxLength = 50};
+            this.nameBox = new TextBox { CssClass = "input-text full", ID = "nameBox", MaxLength = 100 };
 
-              
-                this.phoneBox = new TextBox {CssClass = "input-text full", MaxLength = 12, ID ="phoneBox"};
 
-                this.clearButton = new Button
-                                       {
-                                           Text =
-                                               GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form, "clear.Text"),
-                                               CausesValidation =false,
-                                           CssClass = "btn radius"
-                                       };
-                this.backButton = new Button
-                {
-                    CausesValidation = false,
-                    Text = GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form,
-                        "back.Text"),
-                    CssClass = "btn radius"
-                };
-                this.submitButton = new Button
-                                        {
-                                            Text =
-                                                GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form,
-                                                             "submit.Text"),
-                                            ValidationGroup = ValidationGroup,
-                                            CssClass = "btn radius"
-                                        };
+            this.messageBox = new TextBox
+                                  {
+                                      TextMode = TextBoxMode.MultiLine,
+                                      CssClass = "textFieldInput full",
+                                      // Columns = 40,
+                                      Rows = 5,
+                                      ID = "messageBox"
+                                  };
 
-               this.clearButton.Click += ClearButtonClick;
-                this.submitButton.Click += SubmitButtonClick;
-                this.backButton.Click += BackButtonClick;
-                this.validator = new CustomValidator{Text = "&nbsp;", ValidationGroup = ValidationGroup};
-                this.validator.ServerValidate += ValidatorServerValidate;
+            this.emailBox = new TextBox { CssClass = "input-text full", ID = "emailBox", MaxLength = 50 };
+            this.captcha = new RadCaptcha
+            {
+                ErrorMessage = "The code you entered is not valid.",
+                Display = ValidatorDisplay.Dynamic,
+                Width = Unit.Pixel(150)
+            };
+
+            this.phoneBox = new TextBox { CssClass = "input-text full", MaxLength = 12, ID = "phoneBox" };
+
+            this.clearButton = new Button
+                                   {
+                                       Text =
+                                           GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form, "clear.Text"),
+                                       CausesValidation = false,
+                                       CssClass = "btn radius"
+                                   };
+            this.backButton = new Button
+            {
+                CausesValidation = false,
+                Text = GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form,
+                    "back.Text"),
+                CssClass = "btn radius"
+            };
+            this.submitButton = new Button
+                                    {
+                                        Text =
+                                            GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form,
+                                                         "submit.Text"),
+                                        ValidationGroup = ValidationGroup,
+                                        CssClass = "btn radius"
+                                    };
+
+            this.clearButton.Click += ClearButtonClick;
+            this.submitButton.Click += SubmitButtonClick;
+            this.backButton.Click += BackButtonClick;
+            this.validator = new CustomValidator { Text = "&nbsp;", ValidationGroup = ValidationGroup };
+            this.validator.ServerValidate += ValidatorServerValidate;
         }
 
         void BackButtonClick(object sender, EventArgs e)
@@ -185,12 +193,21 @@
             InvokeBackClick(e);
         }
 
-        void  SubmitButtonClick(object sender, EventArgs e)
+        void SubmitButtonClick(object sender, EventArgs e)
         {
-            if(!this.Page.IsValid)
+            captcha.Validate();
+
+            if (!this.captcha.IsValid)
+            {
+                this.validator.ErrorMessage = "Invalid captcha code";
+                return;
+            }
+
+            if (!this.Page.IsValid)
             {
                 return;
             }
+
             try
             {
                 BetterclassifiedsCore.Controller.OnlineAdEnquiryController.CreateOnlineAdEnquiry(
@@ -233,12 +250,18 @@
                                                            "invalidEmail.Text");
             }
 
-            if(string.IsNullOrEmpty(this.messageBox.Text))
+            if (string.IsNullOrEmpty(this.messageBox.Text))
             {
                 args.IsValid = false;
                 this.validator.ErrorMessage = GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form,
                                                            "messageRequired.Text");
             }
+
+            //if (!this.captcha.IsValid)
+            //{
+            //    args.IsValid = false;
+            //    this.validator.ErrorMessage = "Invalid captcha code";
+            //}
         }
 
         protected override HtmlTextWriterTag TagKey
@@ -254,7 +277,7 @@
             if (AdId.HasValue)
             {
                 var headerPanel = new Panel { CssClass = "messageHead" };
-                var messageBody = new Panel {CssClass = "infoMessage"};
+                var messageBody = new Panel { CssClass = "infoMessage" };
                 var messageTail = new Panel { CssClass = "messageBottom" };
 
                 //
@@ -269,9 +292,9 @@
                 this.Controls.Add(this.emailValidator);
                 this.Controls.Add(this.messageRequiredField);
                 this.Controls.Add(this.validator);
-                var namePanel = new Panel ();
-                var nameWatermark = new TextBoxWatermarkExtender{TargetControlID = this.nameBox.ClientID, WatermarkText = "Name", ID ="xx1"};
-                
+                var namePanel = new Panel();
+                var nameWatermark = new TextBoxWatermarkExtender { TargetControlID = this.nameBox.ClientID, WatermarkText = "Name", ID = "xx1" };
+
                 namePanel.Controls.Add(this.nameBox);
                 namePanel.Controls.Add(nameWatermark);
                 messageBody.Controls.Add(namePanel);
@@ -293,9 +316,12 @@
                 errorPanel.Controls.Add(validationSumary);
                 messageBody.Controls.Add(errorPanel);
 
+                messageBody.Controls.Add(this.captcha);
                 messageBody.Controls.Add(this.submitButton.DivWrap("messageButton fr"));
                 messageBody.Controls.Add(this.clearButton.DivWrap("messageButton"));
-                
+
+
+
                 //add controls
                 Controls.Add(headerPanel);
                 Controls.Add(messageBody);

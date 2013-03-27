@@ -146,6 +146,7 @@
     <Content Include="App_Themes\iflog\images\upload_head_img_b.gif" />
     <EmbeddedResource Include="App_Themes\iflog\json2.js" />
     <EmbeddedResource Include="App_Themes\iflog\jquery.timers.js" />
+    <Content Include="MemberAccount\AdManager.aspx" />
     <Content Include="Resources\Images\Packages\example_online.gif" />
     <Content Include="Resources\Images\Packages\example_online.jpg" />
     <Content Include="Resources\Images\Packages\example_premium.gif" />
@@ -233,7 +234,7 @@
     </Compile>
     <Compile Include="Booking\Success.aspx.vb">
       <DependentUpon>Success.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BundleBooking\BundlePage2.aspx.designer.vb">
       <DependentUpon>BundlePage2.aspx</DependentUpon>
@@ -271,14 +272,14 @@
     </Compile>
     <Compile Include="Common\UploadBookingManager.aspx.vb">
       <DependentUpon>UploadBookingManager.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Common\UploadManager.aspx.designer.vb">
       <DependentUpon>UploadManager.aspx</DependentUpon>
     </Compile>
     <Compile Include="Common\UploadManager.aspx.vb">
       <DependentUpon>UploadManager.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Controls\AdSpace.ascx.designer.vb">
       <DependentUpon>AdSpace.ascx</DependentUpon>
@@ -478,28 +479,28 @@
     </Compile>
     <Compile Include="Error\AccessDenied.aspx.vb">
       <DependentUpon>AccessDenied.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Error\ConnectFail.aspx.designer.vb">
       <DependentUpon>ConnectFail.aspx</DependentUpon>
     </Compile>
     <Compile Include="Error\ConnectFail.aspx.vb">
       <DependentUpon>ConnectFail.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Error\Default.aspx.designer.vb">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Error\Default.aspx.vb">
       <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Error\NotFound.aspx.designer.vb">
       <DependentUpon>NotFound.aspx</DependentUpon>
     </Compile>
     <Compile Include="Error\NotFound.aspx.vb">
       <DependentUpon>NotFound.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
@@ -516,14 +517,14 @@
     </Compile>
     <Compile Include="Help\About.aspx.vb">
       <DependentUpon>About.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Help\Contact.aspx.designer.vb">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
     <Compile Include="Help\Contact.aspx.vb">
       <DependentUpon>Contact.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Help\FAQ.aspx.designer.vb">
       <DependentUpon>FAQ.aspx</DependentUpon>
@@ -537,21 +538,21 @@
     </Compile>
     <Compile Include="Help\PrivacyPolicy.aspx.vb">
       <DependentUpon>PrivacyPolicy.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Help\RefundPolicy.aspx.designer.vb">
       <DependentUpon>RefundPolicy.aspx</DependentUpon>
     </Compile>
     <Compile Include="Help\RefundPolicy.aspx.vb">
       <DependentUpon>RefundPolicy.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="LineAds\PreviewLineAd.aspx.designer.vb">
       <DependentUpon>PreviewLineAd.aspx</DependentUpon>
     </Compile>
     <Compile Include="LineAds\PreviewLineAd.aspx.vb">
       <DependentUpon>PreviewLineAd.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Master\MasterWithMessage.master.designer.vb">
       <DependentUpon>MasterWithMessage.master</DependentUpon>
@@ -567,19 +568,26 @@
       <DependentUpon>MasterWithRightBar.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="MemberAccount\AdManager.aspx.designer.vb">
+      <DependentUpon>AdManager.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MemberAccount\AdManager.aspx.vb">
+      <DependentUpon>AdManager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="MemberAccount\Bookings.aspx.designer.vb">
       <DependentUpon>Bookings.aspx</DependentUpon>
     </Compile>
     <Compile Include="MemberAccount\Bookings.aspx.vb">
       <DependentUpon>Bookings.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="MemberAccount\Current.aspx.designer.vb">
       <DependentUpon>Current.aspx</DependentUpon>
     </Compile>
     <Compile Include="MemberAccount\Current.aspx.vb">
       <DependentUpon>Current.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="MemberAccount\EditLineAd.aspx.designer.vb">
       <DependentUpon>EditLineAd.aspx</DependentUpon>
@@ -593,7 +601,7 @@
     </Compile>
     <Compile Include="MemberAccount\Expired.aspx.vb">
       <DependentUpon>Expired.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="MemberAccount\MemberHeading.ascx.designer.vb">
       <DependentUpon>MemberHeading.ascx</DependentUpon>
@@ -607,63 +615,63 @@
     </Compile>
     <Compile Include="MemberAccount\Messages.aspx.vb">
       <DependentUpon>Messages.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="MemberAccount\Transactions.aspx.designer.vb">
       <DependentUpon>Transactions.aspx</DependentUpon>
     </Compile>
     <Compile Include="MemberAccount\Transactions.aspx.vb">
       <DependentUpon>Transactions.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="MemberAccount\UpComing.aspx.designer.vb">
       <DependentUpon>UpComing.aspx</DependentUpon>
     </Compile>
     <Compile Include="MemberAccount\UpComing.aspx.vb">
       <DependentUpon>UpComing.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="MemberAccount\ViewTransaction.aspx.designer.vb">
       <DependentUpon>ViewTransaction.aspx</DependentUpon>
     </Compile>
     <Compile Include="MemberAccount\ViewTransaction.aspx.vb">
       <DependentUpon>ViewTransaction.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="OnlineAdMessaging\Default.aspx.designer.vb">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="OnlineAdMessaging\Default.aspx.vb">
       <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="OnlineAds\AdView.aspx.designer.vb">
       <DependentUpon>AdView.aspx</DependentUpon>
     </Compile>
     <Compile Include="OnlineAds\AdView.aspx.vb">
       <DependentUpon>AdView.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="OnlineAds\BodyView.aspx.designer.vb">
       <DependentUpon>BodyView.aspx</DependentUpon>
     </Compile>
     <Compile Include="OnlineAds\BodyView.aspx.vb">
       <DependentUpon>BodyView.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="OnlineAds\Default.aspx.designer.vb">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="OnlineAds\Default.aspx.vb">
       <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="OnlineAds\ImageLarge.aspx.designer.vb">
       <DependentUpon>ImageLarge.aspx</DependentUpon>
     </Compile>
     <Compile Include="OnlineAds\ImageLarge.aspx.vb">
       <DependentUpon>ImageLarge.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="OnlineAds\Preview.aspx.designer.vb">
       <DependentUpon>Preview.aspx</DependentUpon>
@@ -678,14 +686,14 @@
     </Compile>
     <Compile Include="payment\cc.aspx.vb">
       <DependentUpon>cc.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="payment\notify.aspx.designer.vb">
       <DependentUpon>notify.aspx</DependentUpon>
     </Compile>
     <Compile Include="payment\notify.aspx.vb">
       <DependentUpon>notify.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="payment\NotifyParameterAccess.vb" />
     <Compile Include="payment\pp.aspx.designer.vb">
@@ -693,7 +701,7 @@
     </Compile>
     <Compile Include="payment\pp.aspx.vb">
       <DependentUpon>pp.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="payment\SubmitInputControl.vb" />
     <Compile Include="Publications.aspx.designer.vb">
@@ -701,14 +709,14 @@
     </Compile>
     <Compile Include="Publications.aspx.vb">
       <DependentUpon>Publications.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Rates.aspx.designer.vb">
       <DependentUpon>Rates.aspx</DependentUpon>
     </Compile>
     <Compile Include="Rates.aspx.vb">
       <DependentUpon>Rates.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Service\AjaxMethods.asmx.vb">
       <DependentUpon>AjaxMethods.asmx</DependentUpon>
@@ -726,7 +734,7 @@
     </Compile>
     <Compile Include="Terms.aspx.vb">
       <DependentUpon>Terms.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Login.aspx.designer.vb">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -754,42 +762,42 @@
     </Compile>
     <Compile Include="MemberAccount\ChangePassword.aspx.vb">
       <DependentUpon>ChangePassword.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="MemberAccount\Default.aspx.designer.vb">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="MemberAccount\Default.aspx.vb">
       <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="MemberAccount\EditOnlineAd.aspx.designer.vb">
       <DependentUpon>EditOnlineAd.aspx</DependentUpon>
     </Compile>
     <Compile Include="MemberAccount\EditOnlineAd.aspx.vb">
       <DependentUpon>EditOnlineAd.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="MemberAccount\MemberDetails.aspx.designer.vb">
       <DependentUpon>MemberDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="MemberAccount\MemberDetails.aspx.vb">
       <DependentUpon>MemberDetails.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="MemberAccount\UserList.aspx.designer.vb">
       <DependentUpon>UserList.aspx</DependentUpon>
     </Compile>
     <Compile Include="MemberAccount\UserList.aspx.vb">
       <DependentUpon>UserList.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="GetPassword.aspx.designer.vb">
       <DependentUpon>GetPassword.aspx</DependentUpon>
     </Compile>
     <Compile Include="GetPassword.aspx.vb">
       <DependentUpon>GetPassword.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Specials\Default.aspx.designer.vb">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -822,21 +830,21 @@
     </Compile>
     <Compile Include="Register.aspx.vb">
       <DependentUpon>Register.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="TestPage.aspx.designer.vb">
       <DependentUpon>TestPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="TestPage.aspx.vb">
       <DependentUpon>TestPage.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="UploadFiles.aspx.designer.vb">
       <DependentUpon>UploadFiles.aspx</DependentUpon>
     </Compile>
     <Compile Include="UploadFiles.aspx.vb">
       <DependentUpon>UploadFiles.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>

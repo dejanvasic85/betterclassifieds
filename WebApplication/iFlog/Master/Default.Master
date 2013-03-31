@@ -5,193 +5,213 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-    <meta http-equiv="X-UA-Compatible" content="IE=8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
 
     <%-- favicon setup --%>
     <link id="Link3" runat="server" rel="shortcut icon" href="~/iflog_icon.ico" type="image/x-icon" />
     <link id="Link4" runat="server" rel="icon" href="~/iflog_icon.ico" type="image/ico" />
-    
+
     <asp:ContentPlaceHolder ID="head" runat="server" />
-<title>iFLOG.com.au - Australia's # 1 print and online classifieds network – currently free!!!</title>
-<meta name="description" content="iFLOG.com.au - Australia's # 1 print and online classifieds network – currently free!!!" />
-<meta name="keywords" content="iFlog, classifieds, classified, newspaper, deal, sell, buy, trade, paypal, online, streetpress, street press, Inpress, Time Off, Drum Media Sydney, Drum Media Perth, 3D World, Drum Media, Lure, magazine, Sydney, Brisbane, Melbourne, Perth, Adelaide, Tasmania, Darwin, New South Wales, Victoria, Queensland, Tasmania, Northern Territory, South Australia, Western Australia,  Employment, For Sale, Music Services, Musicians Available, Musicians Wanted, Services, Wanted, Bass Player, DJ, Drummer, Guiarist, Keyboard, Singer, Song Writer, Band Merchandise, Booking Agents, Duplication, Mastering, EP Release, Hire Services, Legal, Accounting, Management, Mastering, PA, Audio, Engineering, Photography, Posters, Printing, Recording Studios, Rehearsal Rooms, Repairs, Studio Hire, Transport, Tuition, Video, Production, Amps, Bass, Cases, CD, DVD, Computers, Decks, Furniture, Guitars, Keyboards, Mixers, PA Equipment, Recreational Equipment, Beauty Services, Graphic Design, Piercing, Tattoo, Tuition" />
+    <title>iFLOG.com.au - Australia's # 1 print and online classifieds network – currently free!!!</title>
+    <meta name="description" content="iFLOG.com.au - Australia's # 1 print and online classifieds network – currently free!!!" />
+    <meta name="keywords" content="iFlog, classifieds, classified, newspaper, deal, sell, buy, trade, paypal, online, streetpress, street press, Inpress, Time Off, Drum Media Sydney, Drum Media Perth, 3D World, Drum Media, Lure, magazine, Sydney, Brisbane, Melbourne, Perth, Adelaide, Tasmania, Darwin, New South Wales, Victoria, Queensland, Tasmania, Northern Territory, South Australia, Western Australia,  Employment, For Sale, Music Services, Musicians Available, Musicians Wanted, Services, Wanted, Bass Player, DJ, Drummer, Guiarist, Keyboard, Singer, Song Writer, Band Merchandise, Booking Agents, Duplication, Mastering, EP Release, Hire Services, Legal, Accounting, Management, Mastering, PA, Audio, Engineering, Photography, Posters, Printing, Recording Studios, Rehearsal Rooms, Repairs, Studio Hire, Transport, Tuition, Video, Production, Amps, Bass, Cases, CD, DVD, Computers, Decks, Furniture, Guitars, Keyboards, Mixers, PA Equipment, Recreational Equipment, Beauty Services, Graphic Design, Piercing, Tattoo, Tuition" />
 </head>
 <body>
     <form id="form1" runat="server">
-    <paramountItCommon:SessionRefresher SessionUrl="~/SessionRefresher.ashx" TimeOutPeriod="5" runat="server" ID="refresher" />
-    <asp:ScriptManager ID="scriptManager" runat="server">
-    </asp:ScriptManager>
-    <div id="container">
-        <div id="header">
-            
-            <div id="magLogosTop">
-               
-                <asp:Repeater runat="server" ID="rptPublicationsTop">
-                    <HeaderTemplate><ul></HeaderTemplate>
-                    <ItemTemplate><li>
-                        <asp:HyperLink ID="lnkPub" runat="server" NavigateUrl="~/Booking/Step1.aspx">
-                            <asp:Image runat="server" ID="imgPublication" />
-                        </asp:HyperLink>
-                        </li>
-                    </ItemTemplate>
-                    <FooterTemplate></ul></FooterTemplate>
-                </asp:Repeater>
-                <br />
-            </div>
-            <div id="iFlogLogoAndBanner">
-                <h1 class="iFlogTopBanner">
-                    
-                    <%--UNCOMMENT WHEN DISABLING AD SPACES --%>  
-                    <%--<asp:HyperLink ID="imgTopBanner" runat="server" ImageUrl="~/Resources/Images/Banners/guitar_factory.jpg"
+        <paramountItCommon:SessionRefresher SessionUrl="~/SessionRefresher.ashx" TimeOutPeriod="5" runat="server" ID="refresher" />
+        <asp:ScriptManager ID="scriptManager" runat="server">
+        </asp:ScriptManager>
+        <div id="container">
+            <div id="header">
+
+                <div id="magLogosTop">
+
+                    <asp:Repeater runat="server" ID="rptPublicationsTop">
+                        <HeaderTemplate>
+                            <ul>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <li>
+                                <asp:HyperLink ID="lnkPub" runat="server" NavigateUrl="~/Booking/Step1.aspx">
+                                    <asp:Image runat="server" ID="imgPublication" />
+                                </asp:HyperLink>
+                            </li>
+                        </ItemTemplate>
+                        <FooterTemplate></ul></FooterTemplate>
+                    </asp:Repeater>
+                    <br />
+                </div>
+                <div id="iFlogLogoAndBanner">
+                    <h1 class="iFlogTopBanner">
+
+                        <%--UNCOMMENT WHEN DISABLING AD SPACES --%>
+                        <%--<asp:HyperLink ID="imgTopBanner" runat="server" ImageUrl="~/Resources/Images/Banners/guitar_factory.jpg"
                         NavigateUrl="http://www.guitarfactory.com.au" Target="_blank"  />--%>
-                    <ucx:AdSpaces ID="ucxBannerAds" runat="server" Location="Banner" /></h1>
-                <asp:HyperLink ID="HyperLink7" runat="server" NavigateUrl="~/Default.aspx">
+                        <ucx:AdSpaces ID="ucxBannerAds" runat="server" Location="Banner" />
+                    </h1>
+                    <asp:HyperLink ID="HyperLink7" runat="server" NavigateUrl="~/Default.aspx">
                     <p>Banner Advertisement - Fake Banner</p></asp:HyperLink>
-                <br />
+                    <br />
+                </div>
+                <div id="loginRegister">
+                    <asp:LoginView ID="LoginView1" runat="server">
+                        <AnonymousTemplate>
+                            <asp:LoginStatus ID="LoginStatus1" runat="server" />
+                            <asp:Literal ID="Literal1" runat="server" Text="or" />
+                            <asp:HyperLink ID="HyperLink1" runat="server" Text="Register" NavigateUrl="~/Register.aspx" />
+                        </AnonymousTemplate>
+                        <LoggedInTemplate>
+                            <asp:Label ID="Label2" runat="server" Text="Hello"></asp:Label>
+                            <asp:LoginName ID="LoginName1" runat="server" />
+                            !
+                        <paramountIt:MessageNotifyControl ID="notifyControl" runat="server" />
+                            <asp:LoginStatus ID="LoginStatus1" runat="server" />
+                        </LoggedInTemplate>
+                    </asp:LoginView>
+                    <asp:Label ID="lblVersion" runat="server" Text="" />
+                </div>
             </div>
-            <div id="loginRegister">
-                <asp:LoginView ID="LoginView1" runat="server">
+            <div id="bgImage">
+
+                <asp:LoginView ID="loginViewMenu" runat="server">
                     <AnonymousTemplate>
-                        <asp:LoginStatus ID="LoginStatus1" runat="server" />
-                        <asp:Literal ID="Literal1" runat="server" Text="or" />
-                        <asp:HyperLink ID="HyperLink1" runat="server" Text="Register" NavigateUrl="~/Register.aspx" />
+                        <div id="bgImageTop"></div>
                     </AnonymousTemplate>
                     <LoggedInTemplate>
-                        <asp:Label ID="Label2" runat="server" Text="Hello"></asp:Label>
-                        <asp:LoginName ID="LoginName1" runat="server" />
-                        !
-                        <paramountIt:MessageNotifyControl ID="notifyControl" runat="server" />
-                        <asp:LoginStatus ID="LoginStatus1" runat="server" />
+                        <div id="bgImageTopMenu">
+                            <ul>
+                                <li>
+                                    <div class="menuHori01">
+                                        <h6>.</h6>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="menuHori02">
+                                        <asp:HyperLink ID="HyperLink22" runat="server" NavigateUrl="~/Default.aspx">HOME</asp:HyperLink>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="menuHori03">
+                                        <asp:HyperLink ID="HyperLink23" runat="server" NavigateUrl="~/Booking/Step1.aspx">iFLOG NEW AD</asp:HyperLink>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="menuHori045">
+                                        <asp:HyperLink ID="HyperLink24" runat="server" NavigateUrl="~/Rates.aspx">RATES</asp:HyperLink>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="menuHori06">
+                                        <asp:HyperLink ID="HyperLink26" runat="server" NavigateUrl="~/Publications.aspx">DEADLINES</asp:HyperLink>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="menuHori07">
+                                        <asp:HyperLink ID="HyperLink27" runat="server" NavigateUrl="~/Help/Contact.aspx">CONTACT</asp:HyperLink>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="menuHori08">
+                                        <h6>.</h6>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="menuHori09">
+                                        <asp:HyperLink ID="HyperLink28" runat="server" NavigateUrl="~/MemberAccount/Default.aspx">MY ACCOUNT</asp:HyperLink>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="menuHori10">
+                                        <h6>.</h6>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </LoggedInTemplate>
                 </asp:LoginView>
-                <asp:Label ID="lblVersion" runat="server" Text="" />
-            </div>
-        </div>
-        <div id="bgImage">
-            
-            <asp:LoginView ID="loginViewMenu" runat="server">
-                <AnonymousTemplate>
-                    <div id="bgImageTop"></div>
-                </AnonymousTemplate>
-                <LoggedInTemplate>
-                    <div id="bgImageTopMenu">
-                        <ul>
-                            <li>
-                                <div class="menuHori01">
-                                    <h6>
-                                        .</h6>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="menuHori02">
-                                    <asp:HyperLink ID="HyperLink22" runat="server" NavigateUrl="~/Default.aspx">HOME</asp:HyperLink></div>
-                            </li>
-                            <li>
-                                <div class="menuHori03">
-                                    <asp:HyperLink ID="HyperLink23" runat="server" NavigateUrl="~/Booking/Step1.aspx">iFLOG NEW AD</asp:HyperLink></div>
-                            </li>
-                            <li>
-                                <div class="menuHori045">
-                                    <asp:HyperLink ID="HyperLink24" runat="server" NavigateUrl="~/Rates.aspx">RATES</asp:HyperLink></div>
-                            </li>
-                            <li>
-                                <div class="menuHori06">
-                                    <asp:HyperLink ID="HyperLink26" runat="server" NavigateUrl="~/Publications.aspx">DEADLINES</asp:HyperLink></div>
-                            </li>
-                            <li>
-                                <div class="menuHori07">
-                                    <asp:HyperLink ID="HyperLink27" runat="server" NavigateUrl="~/Help/Contact.aspx">CONTACT</asp:HyperLink></div>
-                            </li>
-                            <li>
-                                <div class="menuHori08">
-                                    <h6>
-                                        .</h6>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="menuHori09">
-                                    <asp:HyperLink ID="HyperLink28" runat="server" NavigateUrl="~/MemberAccount/Default.aspx">MY ACCOUNT</asp:HyperLink></div>
-                            </li>
-                            <li>
-                                <div class="menuHori10">
-                                    <h6>
-                                        .</h6>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </LoggedInTemplate>
-            </asp:LoginView>
-           
-            <div id="bgImageRepeat">
-                <div id="content">
-                    <div id="contentMain">
-                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
-                    </div>
-               
-                    <div class="bottomBanner">
-                        <ucx:AdSpaces ID="ucxAds" runat="server" Location="Footer" />
-                        <%--<asp:Image ID="imgBottomBanner" runat="server" ImageUrl="~/Resources/Images/Banners/benchmark_master_banner.jpg" />--%>
-                    </div>
-                    
-                    <div id="footer">
-                        <div id="footerDetailsOne">
-                            <p>
-                                <em>SITE INFO</em> 
-                                <asp:HyperLink ID="HyperLink21" runat="server" NavigateUrl="~/Default.aspx">HOME</asp:HyperLink> | 
-                                <%--<a href="help.html">HELP</a> | --%>
-                                <asp:HyperLink ID="HyperLink8" runat="server" NavigateUrl="~/Help/About.aspx">ABOUT US</asp:HyperLink> | 
-                                <asp:HyperLink ID="HyperLink11" runat="server" NavigateUrl="~/Help/PrivacyPolicy.aspx">PRIVACY POLICY</asp:HyperLink> | 
-                                <asp:HyperLink ID="HyperLink12" runat="server" NavigateUrl="~/Terms.aspx">TERMS AND CONDITIONS</asp:HyperLink> | 
-                                <asp:HyperLink ID="HyperLink13" runat="server" NavigateUrl="~/Help/RefundPolicy.aspx">REFUND POLICY</asp:HyperLink> |
-                                <%--<asp:HyperLink ID="HyperLink14" runat="server">FLOG IN</asp:HyperLink> | --%>
-                                <asp:HyperLink ID="HyperLink14" runat="server" NavigateUrl="~/Register.aspx">REGISTER</asp:HyperLink> | 
-                                <asp:HyperLink ID="HyperLink15" runat="server" NavigateUrl="~/Rates.aspx">RATES</asp:HyperLink> | 
-                                <asp:HyperLink ID="HyperLink16" runat="server" NavigateUrl="~/Publications.aspx">DEADLINES</asp:HyperLink> | 
-                                <asp:HyperLink ID="HyperLink10" runat="server" NavigateUrl="~/Help/Contact.aspx">CONTACT US</asp:HyperLink>
-                                <asp:HyperLink ID="lnkFAQ" runat="server" NavigateUrl="~/Help/FAQ.aspx"> | FAQ</asp:HyperLink></p>
+
+                <div id="bgImageRepeat">
+                    <div id="content">
+                        <div id="contentMain">
+                            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
                         </div>
-                        <div id="footerDetailsTwo">
-                            <p>
-                                <em>PLACE AD</em> 
-                                <asp:Repeater ID="rptPublicationsBottom" runat="server">
-                                    <SeparatorTemplate> | </SeparatorTemplate>
-                                    <ItemTemplate>
-                                        <asp:HyperLink ID="lnkPub" runat="server" NavigateUrl="~/Booking/Step1.aspx" Text='<%# Eval("Title").ToString().ToUpper() %>'>
-                                    </asp:HyperLink>  </ItemTemplate>
-                                </asp:Repeater>
-                            </p>
+
+                        <div class="bottomBanner">
+                            <ucx:AdSpaces ID="ucxAds" runat="server" Location="Footer" />
+                            <%--<asp:Image ID="imgBottomBanner" runat="server" ImageUrl="~/Resources/Images/Banners/benchmark_master_banner.jpg" />--%>
                         </div>
-                        <div id="footerDetailsThree">
-                            <p>
-                                <asp:HyperLink ID="HyperLink20" runat="server"
-                                    NavigateUrl="http://www.streetpress.com.au" Target="_blank"
-                                    ImageUrl="~/App_Themes/iflog/images/SPApoweredby.gif"
-                                    Width="188" Height="18" BorderWidth="0" />
-                            </p>
-                            <div id="style1">
+
+                        <div id="footer">
+                            <div id="footerDetailsOne">
                                 <p>
-                                    <br />
-                                    DEVELOPED BY PARAMOUNT IT SOLUTIONS</p>
+                                    <em>SITE INFO</em>
+                                    <asp:HyperLink ID="HyperLink21" runat="server" NavigateUrl="~/Default.aspx">HOME</asp:HyperLink>
+                                    | 
+                                <%--<a href="help.html">HELP</a> | --%>
+                                    <asp:HyperLink ID="HyperLink8" runat="server" NavigateUrl="~/Help/About.aspx">ABOUT US</asp:HyperLink>
+                                    | 
+                                <asp:HyperLink ID="HyperLink11" runat="server" NavigateUrl="~/Help/PrivacyPolicy.aspx">PRIVACY POLICY</asp:HyperLink>
+                                    | 
+                                <asp:HyperLink ID="HyperLink12" runat="server" NavigateUrl="~/Terms.aspx">TERMS AND CONDITIONS</asp:HyperLink>
+                                    | 
+                                <asp:HyperLink ID="HyperLink13" runat="server" NavigateUrl="~/Help/RefundPolicy.aspx">REFUND POLICY</asp:HyperLink>
+                                    |
+                                <%--<asp:HyperLink ID="HyperLink14" runat="server">FLOG IN</asp:HyperLink> | --%>
+                                    <asp:HyperLink ID="HyperLink14" runat="server" NavigateUrl="~/Register.aspx">REGISTER</asp:HyperLink>
+                                    | 
+                                <asp:HyperLink ID="HyperLink15" runat="server" NavigateUrl="~/Rates.aspx">RATES</asp:HyperLink>
+                                    | 
+                                <asp:HyperLink ID="HyperLink16" runat="server" NavigateUrl="~/Publications.aspx">DEADLINES</asp:HyperLink>
+                                    | 
+                                <asp:HyperLink ID="HyperLink10" runat="server" NavigateUrl="~/Help/Contact.aspx">CONTACT US</asp:HyperLink>
+                                    <asp:HyperLink ID="lnkFAQ" runat="server" NavigateUrl="~/Help/FAQ.aspx"> | FAQ</asp:HyperLink>
+                                </p>
+                            </div>
+                            <div id="footerDetailsTwo">
+                                <p>
+                                    <em>PLACE AD</em>
+                                    <asp:Repeater ID="rptPublicationsBottom" runat="server">
+                                        <SeparatorTemplate>| </SeparatorTemplate>
+                                        <ItemTemplate>
+                                            <asp:HyperLink ID="lnkPub" runat="server" NavigateUrl="~/Booking/Step1.aspx" Text='<%# Eval("Title").ToString().ToUpper() %>'>
+                                            </asp:HyperLink>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                </p>
+                            </div>
+                            <div id="footerDetailsThree">
+                                <p>
+                                    <asp:HyperLink ID="HyperLink20" runat="server"
+                                        NavigateUrl="http://www.streetpress.com.au" Target="_blank"
+                                        ImageUrl="~/App_Themes/iflog/images/SPApoweredby.gif"
+                                        Width="188" Height="18" BorderWidth="0" />
+                                </p>
+                                <div id="style1">
+                                    <p>
+                                        <br />
+                                        DEVELOPED BY PARAMOUNT IT SOLUTIONS
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
-            
         </div>
-    </div>
     </form>
-<script type="text/javascript">
-    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
     </script>
     <script type="text/javascript">
-    try {
-    var pageTracker = _gat._getTracker("UA-12017002-5");
-    pageTracker._trackPageview();
-    } catch(err) {}
+        try {
+            var pageTracker = _gat._getTracker("UA-12017002-5");
+            pageTracker._trackPageview();
+        } catch (err) { }
 
-</script> 
+    </script>
+    <asp:ContentPlaceHolder runat="server" ID="pageScripts"></asp:ContentPlaceHolder>
 </body>
+
 </html>

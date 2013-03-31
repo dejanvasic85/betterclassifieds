@@ -255,4 +255,13 @@ Partial Public Class _Default1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents HyperLink20 As Global.System.Web.UI.WebControls.HyperLink
+
+    '''<summary>
+    '''pageScripts control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pageScripts As Global.System.Web.UI.WebControls.ContentPlaceHolder
 End Class

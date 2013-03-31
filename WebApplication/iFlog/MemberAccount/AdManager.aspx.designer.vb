@@ -30,4 +30,13 @@ Partial Public Class AdManager
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents grdBookings As Global.Telerik.Web.UI.RadGrid
+
+    '''<summary>
+    '''RadWindowManager1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents RadWindowManager1 As Global.Telerik.Web.UI.RadWindowManager
 End Class

@@ -8,7 +8,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="memberContentMain" runat="server">
     
-    <ucx:MemberHeading ID="ucxHeading" runat="server" HeadingText="Manage Ad Bookings" />
+    <ucx:MemberHeading ID="ucxHeading" runat="server" HeadingText="Manage your ads" />
 
     <telerik:RadGrid runat="server" ID="grdBookings" OnNeedDataSource="grdBookings_NeedDataSource">
         <MasterTableView>            
@@ -20,4 +20,8 @@
             </Columns>
         </MasterTableView>
     </telerik:RadGrid>
+    
+    <telerik:RadWindowManager ID="RadWindowManager1" VisibleOnPageLoad="false" Behaviors="Close"
+        runat="server" Width="650px" Height="500px" Modal="true" VisibleStatusbar="false" >
+    </telerik:RadWindowManager>
 </asp:Content>

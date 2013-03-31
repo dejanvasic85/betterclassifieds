@@ -75,6 +75,9 @@
       <HintPath>..\..\..\..\..\Release\ThirdParty\AjaxControlToolkit\3.0.30512.1\AjaxControlToolkit.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\..\..\..\..\Release\ThirdParty\Unity 2.0\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
@@ -114,6 +117,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BaseControl\PageSettings.cs" />
+    <Compile Include="BaseCompositeControl.cs" />
     <Compile Include="CategorySelector.cs" />
     <Compile Include="CategorySelectorSupport\CategoryItem.cs" />
     <Compile Include="CategorySelectorSupport\MainCategoryTemplate.cs" />
@@ -132,6 +136,7 @@
     <Compile Include="Dsl\WebImageMakerHelper.cs" />
     <Compile Include="Enumerations\MasterPageName.cs" />
     <Compile Include="ErrorList.cs" />
+    <Compile Include="ExtendBooking\ExtendBookingForm.cs" />
     <Compile Include="Handlers\DocumentHandler.cs" />
     <Compile Include="ImageThumbCommand.cs" />
     <Compile Include="Dsl\ImageThumbCommandTemplate.cs" />

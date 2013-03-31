@@ -111,4 +111,13 @@ Partial Public Class MemberDetails
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents memberContentMain As Global.System.Web.UI.WebControls.ContentPlaceHolder
+
+    '''<summary>
+    '''memberPageScripts control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents memberPageScripts As Global.System.Web.UI.WebControls.ContentPlaceHolder
 End Class

@@ -11,6 +11,8 @@ Public Class Global_asax
         ' todo - Get the encryption configuration to check the MAC Address (secure app to server)
         ' Application.Add("validApplication", GeneralRoutine.CheckMachineMacAddress(paramountKey))
         Application.Add("validApplication", True)
+
+
     End Sub
 
     Sub Session_Start(ByVal sender As Object, ByVal e As EventArgs)

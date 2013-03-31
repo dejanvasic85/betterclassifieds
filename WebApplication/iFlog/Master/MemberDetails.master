@@ -65,3 +65,7 @@
     </div>
     
 </asp:Content>
+
+<asp:Content runat="server" ID="scriptsPlaceholder" ContentPlaceHolderID="pageScripts">
+    <asp:ContentPlaceHolder runat="server" id="memberPageScripts"/>
+</asp:Content>

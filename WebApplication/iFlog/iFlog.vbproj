@@ -69,6 +69,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Release\ThirdParty\AjaxControlToolkit\3.0.30512.1\AjaxControlToolkit.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\..\..\..\..\Release\ThirdParty\Unity 2.0\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq">
@@ -147,6 +150,7 @@
     <EmbeddedResource Include="App_Themes\iflog\json2.js" />
     <EmbeddedResource Include="App_Themes\iflog\jquery.timers.js" />
     <Content Include="MemberAccount\AdManager.aspx" />
+    <Content Include="MemberAccount\ExtendBooking.aspx" />
     <Content Include="Resources\Images\Packages\example_online.gif" />
     <Content Include="Resources\Images\Packages\example_online.jpg" />
     <Content Include="Resources\Images\Packages\example_premium.gif" />
@@ -602,6 +606,13 @@
     <Compile Include="MemberAccount\Expired.aspx.vb">
       <DependentUpon>Expired.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MemberAccount\ExtendBooking.aspx.designer.vb">
+      <DependentUpon>ExtendBooking.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MemberAccount\ExtendBooking.aspx.vb">
+      <DependentUpon>ExtendBooking.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="MemberAccount\MemberHeading.ascx.designer.vb">
       <DependentUpon>MemberHeading.ascx</DependentUpon>

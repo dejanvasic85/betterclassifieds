@@ -71,6 +71,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\..\..\..\..\Release\ThirdParty\Unity 2.0\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
@@ -95,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdBookingController.cs" />
+    <Compile Include="Controllers\ExtendBookingController.cs" />
     <Compile Include="DataController.cs" />
     <Compile Include="BaseController.cs" />
     <Compile Include="Booking\BookCartController.cs" />
@@ -107,6 +111,11 @@
     <Compile Include="EmailNotificationController.cs" />
     <Compile Include="Enumeration\AdType.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="Framework\Controller.cs" />
+    <Compile Include="Framework\IBaseView.cs" />
+    <Compile Include="Framework\System.Web\HttpContextExtensions.cs" />
+    <Compile Include="Framework\Unity\Unity.cs" />
+    <Compile Include="Framework\Unity\With.cs" />
     <Compile Include="ImageCacheController.cs" />
     <Compile Include="LineAdController.cs" />
     <Compile Include="LineAdHelper.cs" />
@@ -128,6 +137,7 @@
     <Compile Include="ViewObjects\PublicationRateInfoVo.cs" />
     <Compile Include="ViewObjects\RateCardSearchResultVo.cs" />
     <Compile Include="ViewObjects\RateCardVo.cs" />
+    <Compile Include="Views\IExtendBookingView.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ApplicationBlock\Configuration\ApplicationBlock.Configuration.csproj">
@@ -184,9 +194,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ParameterObjects\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

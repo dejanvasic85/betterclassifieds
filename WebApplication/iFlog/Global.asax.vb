@@ -1,6 +1,10 @@
 ﻿Imports BetterclassifiedsCore
 Imports Paramount.Broadcast.Components
 Imports Paramount.Modules.Logging.UIController
+Imports BetterClassified.UI
+Imports BetterClassified.UIController
+Imports BetterClassified.UIController.Repository
+Imports Microsoft.Practices.Unity
 
 Public Delegate Sub OnPayment(ByVal ref As String)
 Public Class Global_asax
@@ -12,7 +16,8 @@ Public Class Global_asax
         ' Application.Add("validApplication", GeneralRoutine.CheckMachineMacAddress(paramountKey))
         Application.Add("validApplication", True)
 
-
+        ' Unity Registrations
+        BetterClassified.Unity.DefaultContainer.RegisterType(Of IBookingRepository, BookingRepository)()
     End Sub
 
     Sub Session_Start(ByVal sender As Object, ByVal e As EventArgs)

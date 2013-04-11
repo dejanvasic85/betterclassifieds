@@ -124,6 +124,7 @@
     <Compile Include="Enumeration\RepositoryType.cs" />
     <Compile Include="PublicationController.cs" />
     <Compile Include="RateController.cs" />
+    <Compile Include="Repository\IBookingRepository.cs" />
     <Compile Include="Repository\LinqDaoRepository-AppSetting.cs" />
     <Compile Include="Repository\LinqDaoRepository-Publication.cs" />
     <Compile Include="Repository\IDataRepository.cs" />

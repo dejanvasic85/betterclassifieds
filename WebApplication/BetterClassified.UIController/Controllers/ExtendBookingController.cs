@@ -2,9 +2,11 @@
 {
     public class ExtendBookingController : Controller<Views.IExtendBookingView>
     {
-        public ExtendBookingController(Views.IExtendBookingView view) : base(view)
+        private Repository.IBookingRepository bookingRepository;
+
+        public ExtendBookingController(Views.IExtendBookingView view, Repository.IBookingRepository bookingRepository) : base(view)
         {
-            
+            this.bookingRepository = bookingRepository;
         }
 
         public void Load()

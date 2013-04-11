@@ -6,9 +6,14 @@ namespace BetterClassified.UI
     using UIController.Views;
     using UIController.Controllers;
 
+    /// <summary>
+    /// Form control used for extending an existing booking by allowing user to specify additional insertion number
+    /// </summary>
     public class ExtendBookingForm : BaseCompositeControl<ExtendBookingController, IExtendBookingView>, IExtendBookingView
     {
         private readonly Label label;
+        private readonly Button btnSubmit;
+        private readonly DropDownList ddlInsertions;
 
         public ExtendBookingForm()
         {
@@ -17,6 +22,8 @@ namespace BetterClassified.UI
 
         protected override void CreateChildControls()
         {
+            this.Controller.Load();
+
             this.Controls.Add(label);
         }
 

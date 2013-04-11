@@ -110,14 +110,14 @@
     <Compile Include="AjaxWebService.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="BaseControl\ApplicationBasePage.cs">
+    <Compile Include="Base\ApplicationBasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="BaseControl\MasterPageBase.cs">
+    <Compile Include="Base\MasterPageBase.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="BaseControl\PageSettings.cs" />
-    <Compile Include="BaseCompositeControl.cs" />
+    <Compile Include="Base\PageSettings.cs" />
+    <Compile Include="Base\BaseCompositeControl.cs" />
     <Compile Include="CategorySelector.cs" />
     <Compile Include="CategorySelectorSupport\CategoryItem.cs" />
     <Compile Include="CategorySelectorSupport\MainCategoryTemplate.cs" />
@@ -258,6 +258,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AdOrderSummarySupport\" />
+    <Folder Include="BaseControl\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="JavaScript\jquery-floatobject.js" />

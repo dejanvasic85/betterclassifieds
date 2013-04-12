@@ -17,7 +17,8 @@ Public Class Global_asax
         Application.Add("validApplication", True)
 
         ' Unity Registrations
-        BetterClassified.Unity.DefaultContainer.RegisterType(Of IBookingRepository, BookingRepository)()
+        BetterClassified.Unity.DefaultContainer _
+            .RegisterType(Of IBookingRepository, BookingRepository)()
     End Sub
 
     Sub Session_Start(ByVal sender As Object, ByVal e As EventArgs)

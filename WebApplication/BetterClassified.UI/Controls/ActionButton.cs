@@ -3,7 +3,6 @@ namespace BetterClassified.UI
     using System;
     using System.Web.UI;
     using System.Web.UI.WebControls;
-    using BaseControl;
     using Paramount.Common.UI.BaseControls;
 
     public class ActionButton : ParamountCompositeControl

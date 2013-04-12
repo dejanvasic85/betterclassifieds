@@ -1,6 +1,5 @@
 ﻿namespace BetterClassified.UI
 {
-    using BaseControl;
     using Paramount.Common.UI.BaseControls;
 
     public class FrameAutoSizeControl:ParamountCompositeControl

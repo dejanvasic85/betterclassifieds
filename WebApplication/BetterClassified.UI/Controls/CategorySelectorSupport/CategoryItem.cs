@@ -2,7 +2,6 @@ namespace BetterClassified.UI.CategorySelectorSupport
 {
     using System;
     using System.Web.UI.WebControls;
-    using BaseControl;
     using Paramount.Common.UI.BaseControls;
 
     public class CategoryItem:ParamountCompositeControl

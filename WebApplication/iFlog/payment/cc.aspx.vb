@@ -1,5 +1,4 @@
 ﻿Imports System.IO
-Imports Paramount.ApplicationBlock.Logging.AuditLogging
 Imports BetterclassifiedsCore
 Imports System.Globalization
 Imports BetterclassifiedsCore.BundleBooking

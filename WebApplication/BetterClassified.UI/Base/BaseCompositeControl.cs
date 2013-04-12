@@ -2,8 +2,6 @@
 
 namespace BetterClassified.UI
 {
-
-
     public abstract class BaseCompositeControl<TController, TView> : System.Web.UI.WebControls.CompositeControl, IBaseView where TView : IBaseView
     {
         protected TController Controller;

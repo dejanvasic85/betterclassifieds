@@ -103,28 +103,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionButton.cs" />
-    <Compile Include="AdOrderSummary.cs" />
-    <Compile Include="AdPriceSummary.cs" />
-    <Compile Include="AdSearchBox.cs" />
+    <Compile Include="Controls\ActionButton.cs" />
+    <Compile Include="Controls\AdOrderSummary.cs" />
+    <Compile Include="Controls\AdPriceSummary.cs" />
     <Compile Include="AjaxWebService.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Base\ApplicationBasePage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Base\MasterPageBase.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Base\PageSettings.cs" />
     <Compile Include="Base\BaseCompositeControl.cs" />
-    <Compile Include="CategorySelector.cs" />
-    <Compile Include="CategorySelectorSupport\CategoryItem.cs" />
-    <Compile Include="CategorySelectorSupport\MainCategoryTemplate.cs" />
-    <Compile Include="CategorySelectorSupport\MainCategoryTemplateControl.cs" />
-    <Compile Include="CategorySelectorSupport\SubCategoryTemplate.cs" />
-    <Compile Include="CategorySelectorSupport\SubCategoryTemplateControl.cs" />
-    <Compile Include="Constants.cs" />
+    <Compile Include="Controls\CategorySelectorSupport\CategorySelector.cs" />
+    <Compile Include="Controls\CategorySelectorSupport\CategoryItem.cs" />
+    <Compile Include="Controls\CategorySelectorSupport\MainCategoryTemplate.cs" />
+    <Compile Include="Controls\CategorySelectorSupport\MainCategoryTemplateControl.cs" />
+    <Compile Include="Controls\CategorySelectorSupport\SubCategoryTemplate.cs" />
+    <Compile Include="Controls\CategorySelectorSupport\SubCategoryTemplateControl.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="AjaxWebService-Booking.cs">
       <SubType>Component</SubType>
@@ -134,9 +125,8 @@
     <Compile Include="Dsl\SimpleImageProvider.cs" />
     <Compile Include="Dsl\WebImageMaker.cs" />
     <Compile Include="Dsl\WebImageMakerHelper.cs" />
-    <Compile Include="Enumerations\MasterPageName.cs" />
     <Compile Include="ErrorList.cs" />
-    <Compile Include="ExtendBooking\ExtendBookingForm.cs" />
+    <Compile Include="Controls\ExtendBookingForm.cs" />
     <Compile Include="Handlers\DocumentHandler.cs" />
     <Compile Include="ImageThumbCommand.cs" />
     <Compile Include="Dsl\ImageThumbCommandTemplate.cs" />
@@ -148,11 +138,11 @@
     <Compile Include="LineAdColourPicker.cs" />
     <Compile Include="LineAdEditDetails.cs" />
     <Compile Include="LineAdNewDesign.cs" />
-    <Compile Include="LineAdSupport\HelpPopupContentTemplate.cs" />
-    <Compile Include="LineAdSupport\LineAdTextBox.cs" />
+    <Compile Include="Controls\Templates\HelpPopupContentTemplate.cs" />
+    <Compile Include="Controls\LineAdTextBox.cs" />
     <Compile Include="LineAdView.cs" />
     <Compile Include="MessageNotifyControl.cs" />
-    <Compile Include="Messaging\ActionButtonTemplate.cs" />
+    <Compile Include="Controls\Templates\ActionButtonTemplate.cs" />
     <Compile Include="MultipleFileUpload.cs" />
     <Compile Include="SendMessageControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -258,7 +248,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AdOrderSummarySupport\" />
-    <Folder Include="BaseControl\" />
+    <Folder Include="ExtendBooking\" />
+    <Folder Include="LineAdSupport\" />
+    <Folder Include="Messaging\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="JavaScript\jquery-floatobject.js" />

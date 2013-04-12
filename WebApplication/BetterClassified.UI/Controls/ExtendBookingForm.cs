@@ -31,5 +31,7 @@ namespace BetterClassified.UI
         {
             get { return HttpContext.Current.ReadQueryString<int>("AdBookingId"); }
         }
+
+        public bool IsPaymentRequired { get; set; }
     }
 }

@@ -3,7 +3,6 @@ namespace BetterClassified.UI.CategorySelectorSupport
     using System;
     using System.Collections.Generic;
     using System.Web.UI.WebControls;
-    using BaseControl;
     using BetterclassifiedsCore;
     using BetterclassifiedsCore.DataModel;
 

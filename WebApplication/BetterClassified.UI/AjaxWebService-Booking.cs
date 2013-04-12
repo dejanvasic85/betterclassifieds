@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.IO;
 using System.Web.Services;
-using System.Web.Services.Protocols;
-using BetterclassifiedsCore;
-using BetterClassified.UIController;
-using System.IO;
 using System.Web.UI;
+using BetterClassified.UIController;
 using BetterClassified.UIController.Booking;
+using BetterclassifiedsCore;
 
 namespace BetterClassified.UI
 {
-    public partial class AjaxWebService : System.Web.Services.WebService
+    public partial class AjaxWebService : WebService
     {
         [WebMethod(true)]
         public string GetBorderColourSuggestion(string headerColour, string backgroundColour)
@@ -36,7 +31,7 @@ namespace BetterClassified.UI
         public int GetAdWordCount(string adText)
         {
             // Store the number of words in to the session
-            IBookCartContext bookCartContext = BetterClassified.UIController.Booking.BookCartController.GetCurrentBookCart(true);
+            IBookCartContext bookCartContext = BookCartController.GetCurrentBookCart(true);
 
             int wordCount = LineAdHelper.GetWordCount(adText);
 
@@ -50,7 +45,7 @@ namespace BetterClassified.UI
         public void LineAdBoldHeaderClicked(bool isHeaderSelected)
         {
             // Selects the line ad bold header option in session
-            IBookCartContext bookCartContext = BetterClassified.UIController.Booking.BookCartController.GetCurrentBookCart(true);
+            IBookCartContext bookCartContext = BookCartController.GetCurrentBookCart(true);
 
             if (bookCartContext != null)
             {
@@ -62,7 +57,7 @@ namespace BetterClassified.UI
         public void SuperBoldHeaderClicked(bool isSuperHeaderSelected)
         {
             // Selects the line ad bold header option in session
-            IBookCartContext bookCartContext = BetterClassified.UIController.Booking.BookCartController.GetCurrentBookCart(true);
+            IBookCartContext bookCartContext = BookCartController.GetCurrentBookCart(true);
 
             if (bookCartContext != null)
             {
@@ -83,7 +78,7 @@ namespace BetterClassified.UI
         public void LineAdHeaderColourClicked(bool isSelected)
         {
             // Store the selection variable in to the session
-            var bookingContext = BetterClassified.UIController.Booking.BookCartController.GetCurrentBookCart(true);
+            var bookingContext = BookCartController.GetCurrentBookCart(true);
 
             if (bookingContext != null)
                 bookingContext.LineAdIsColourHeading = isSelected;
@@ -93,7 +88,7 @@ namespace BetterClassified.UI
         public void LineAdBackgroundColourClicked(bool isSelected)
         {
             // Store the selection variable in to the session
-            var bookingContext = BetterClassified.UIController.Booking.BookCartController.GetCurrentBookCart();
+            var bookingContext = BookCartController.GetCurrentBookCart();
 
             if (bookingContext != null)
                 bookingContext.LineAdIsColourBackground = isSelected;

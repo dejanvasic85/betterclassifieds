@@ -116,38 +116,37 @@
     <Compile Include="Controls\CategorySelectorSupport\MainCategoryTemplateControl.cs" />
     <Compile Include="Controls\CategorySelectorSupport\SubCategoryTemplate.cs" />
     <Compile Include="Controls\CategorySelectorSupport\SubCategoryTemplateControl.cs" />
-    <Compile Include="Converter.cs" />
+    <Compile Include="Base\ControlExtensions.cs" />
     <Compile Include="AjaxWebService-Booking.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Dsl\IImageProvider.cs" />
-    <Compile Include="Dsl\SelectedDocumentArgs.cs" />
-    <Compile Include="Dsl\SimpleImageProvider.cs" />
-    <Compile Include="Dsl\WebImageMaker.cs" />
-    <Compile Include="Dsl\WebImageMakerHelper.cs" />
-    <Compile Include="ErrorList.cs" />
+    <Compile Include="Controls\Dsl\IImageProvider.cs" />
+    <Compile Include="Controls\Dsl\SelectedDocumentArgs.cs" />
+    <Compile Include="Controls\Dsl\SimpleImageProvider.cs" />
+    <Compile Include="Controls\Dsl\WebImageMaker.cs" />
+    <Compile Include="Controls\Dsl\WebImageMakerHelper.cs" />
+    <Compile Include="Controls\ErrorList.cs" />
     <Compile Include="Controls\ExtendBookingForm.cs" />
     <Compile Include="Handlers\DocumentHandler.cs" />
-    <Compile Include="ImageThumbCommand.cs" />
-    <Compile Include="Dsl\ImageThumbCommandTemplate.cs" />
-    <Compile Include="Dsl\ImageThumbTemplate.cs" />
-    <Compile Include="FrameAutoSizeControl.cs" />
-    <Compile Include="ImageGallery.cs" />
-    <Compile Include="ImageThumb.cs" />
-    <Compile Include="JqueryControl.cs" />
-    <Compile Include="LineAdColourPicker.cs" />
-    <Compile Include="LineAdEditDetails.cs" />
-    <Compile Include="LineAdNewDesign.cs" />
+    <Compile Include="Controls\ImageThumbCommand.cs" />
+    <Compile Include="Controls\Dsl\ImageThumbCommandTemplate.cs" />
+    <Compile Include="Controls\Dsl\ImageThumbTemplate.cs" />
+    <Compile Include="Controls\FrameAutoSizeControl.cs" />
+    <Compile Include="Controls\ImageGallery.cs" />
+    <Compile Include="Controls\ImageThumb.cs" />
+    <Compile Include="Controls\JqueryControl.cs" />
+    <Compile Include="Controls\LineAdColourPicker.cs" />
+    <Compile Include="Controls\LineAdEditDetails.cs" />
+    <Compile Include="Controls\LineAdNewDesign.cs" />
     <Compile Include="Controls\Templates\HelpPopupContentTemplate.cs" />
     <Compile Include="Controls\LineAdTextBox.cs" />
-    <Compile Include="LineAdView.cs" />
-    <Compile Include="MessageNotifyControl.cs" />
+    <Compile Include="Controls\LineAdView.cs" />
+    <Compile Include="Controls\MessageNotifyControl.cs" />
     <Compile Include="Controls\Templates\ActionButtonTemplate.cs" />
-    <Compile Include="MultipleFileUpload.cs" />
-    <Compile Include="SendMessageControl.cs" />
+    <Compile Include="Controls\MultipleFileUpload.cs" />
+    <Compile Include="Controls\SendMessageControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TelerikExtensions.cs" />
-    <Compile Include="WebPage\BaseBookingPage.cs">
+    <Compile Include="Base\BaseBookingPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
   </ItemGroup>
@@ -247,10 +246,7 @@
     <EmbeddedResource Include="JavaScript\jquery-timers.js" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AdOrderSummarySupport\" />
-    <Folder Include="ExtendBooking\" />
-    <Folder Include="LineAdSupport\" />
-    <Folder Include="Messaging\" />
+    <Folder Include="WebPage\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="JavaScript\jquery-floatobject.js" />

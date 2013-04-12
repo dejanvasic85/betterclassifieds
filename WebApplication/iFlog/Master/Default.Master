@@ -117,7 +117,7 @@
                                 </li>
                                 <li>
                                     <div class="menuHori09">
-                                        <asp:HyperLink ID="HyperLink28" runat="server" NavigateUrl="~/MemberAccount/Default.aspx">MY ACCOUNT</asp:HyperLink>
+                                        <asp:HyperLink ID="HyperLink28" runat="server" NavigateUrl="~/MemberAccount/MemberDetails.aspx">MY ACCOUNT</asp:HyperLink>
                                     </div>
                                 </li>
                                 <li>

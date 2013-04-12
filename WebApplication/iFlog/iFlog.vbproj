@@ -775,13 +775,6 @@
       <DependentUpon>ChangePassword.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MemberAccount\Default.aspx.designer.vb">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="MemberAccount\Default.aspx.vb">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="MemberAccount\EditOnlineAd.aspx.designer.vb">
       <DependentUpon>EditOnlineAd.aspx</DependentUpon>
     </Compile>
@@ -1093,7 +1086,6 @@
     <Content Include="Login.aspx" />
     <Content Include="Master\Default.Master" />
     <Content Include="MemberAccount\ChangePassword.aspx" />
-    <Content Include="MemberAccount\Default.aspx" />
     <Content Include="MemberAccount\EditOnlineAd.aspx" />
     <Content Include="MemberAccount\MemberDetails.aspx" />
     <Content Include="MemberAccount\UserList.aspx" />

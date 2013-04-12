@@ -19,7 +19,7 @@
                     </li>
                     <li>
                         <div class="sidebarMenu02">
-                            <asp:HyperLink ID="HyperLink7" runat="server" NavigateUrl="~/MemberAccount/Default.aspx">MY DETAILS</asp:HyperLink></div>
+                            <asp:HyperLink ID="HyperLink7" runat="server" NavigateUrl="~/MemberAccount/MemberDetails.aspx">MY DETAILS</asp:HyperLink></div>
                     </li>
                     <li>
                         <div class="sidebarMenu02">
@@ -40,10 +40,6 @@
                     <li>
                         <div class="sidebarMenu05">
                             <asp:HyperLink ID="HyperLink6" runat="server" NavigateUrl="~/MemberAccount/Transactions.aspx">TRANSACTIONS</asp:HyperLink></div>
-                    </li>
-                    <li>
-                        <div class="sidebarMenu05">
-                            <asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="~/MemberAccount/MemberDetails.aspx">CHANGE DETAILS</asp:HyperLink></div>
                     </li>
                     <li>
                         <div class="sidebarMenu05">

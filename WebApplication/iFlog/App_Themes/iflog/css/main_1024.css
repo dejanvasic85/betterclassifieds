@@ -2192,13 +2192,7 @@ bookAdMainContent {
 
 /* start SearchResults Category CSS */
 
- {
-	background: url(../images/contentMainHeaderBorder.gif) repeat-x;
-	margin: 0px;
-	padding: 0px;
-	height: 18px;
-	width: 177px;
-}
+
 #searchTableBody {
 	padding: 0px;
 	margin-left: 10px;

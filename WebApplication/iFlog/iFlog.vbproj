@@ -151,6 +151,8 @@
     <EmbeddedResource Include="App_Themes\iflog\jquery.timers.js" />
     <Content Include="MemberAccount\AdManager.aspx" />
     <Content Include="MemberAccount\ExtendBooking.aspx" />
+    <Content Include="Resources\Images\date.png" />
+    <Content Include="Resources\Images\extendcalendar.png" />
     <Content Include="Resources\Images\Packages\example_online.gif" />
     <Content Include="Resources\Images\Packages\example_online.jpg" />
     <Content Include="Resources\Images\Packages\example_premium.gif" />
@@ -165,6 +167,7 @@
     <Content Include="Resources\Images\question_button.gif" />
     <Content Include="Resources\Images\Packages\example_free.gif" />
     <Content Include="Resources\Images\shopping_cart_16x16.gif" />
+    <Content Include="Resources\Images\Trash.png" />
     <Content Include="Service\AjaxMethods.asmx" />
     <Content Include="TestPage.aspx" />
     <Content Include="Web.config" />
@@ -612,7 +615,7 @@
     </Compile>
     <Compile Include="MemberAccount\ExtendBooking.aspx.vb">
       <DependentUpon>ExtendBooking.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="MemberAccount\MemberHeading.ascx.designer.vb">
       <DependentUpon>MemberHeading.ascx</DependentUpon>
@@ -876,9 +879,6 @@
     <Content Include="Common\UploadBookingManager.aspx" />
     <Content Include="Common\UploadManager.aspx" />
     <Content Include="Environment.xml" />
-    <Content Include="Config\Environment.Release.xml" />
-    <Content Include="Config\Environment.Testing.xml" />
-    <Content Include="Config\Environment.Debug.xml" />
     <Content Include="Controls\OnlineAdViewWithDiv.ascx" />
     <Content Include="Help\FAQ.aspx" />
     <Content Include="LineAds\PreviewLineAd.aspx" />
@@ -1100,7 +1100,6 @@
     <Content Include="BundleBooking\Web.config" />
     <None Include="App_Data\RadSpell\en-US.tdf" />
     <Content Include="Master\MasterWithMessage.master" />
-    <None Include="BuildCopy.bat" />
     <Content Include="iFlog.nuspec" />
     <None Include="My Project\DataSources\Paramount.IT.Utilities.WebServices.ServiceResponse.datasource" />
     <None Include="My Project\Application.myapp">

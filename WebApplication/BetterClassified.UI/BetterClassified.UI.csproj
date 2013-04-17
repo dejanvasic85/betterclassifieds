@@ -84,6 +84,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions">
@@ -103,23 +104,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Framework\BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Controls\ActionButton.cs" />
     <Compile Include="Controls\AdOrderSummary.cs" />
     <Compile Include="Controls\AdPriceSummary.cs" />
     <Compile Include="AjaxWebService.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Base\BaseCompositeControl.cs" />
     <Compile Include="Controls\CategorySelectorSupport\CategorySelector.cs" />
     <Compile Include="Controls\CategorySelectorSupport\CategoryItem.cs" />
     <Compile Include="Controls\CategorySelectorSupport\MainCategoryTemplate.cs" />
     <Compile Include="Controls\CategorySelectorSupport\MainCategoryTemplateControl.cs" />
     <Compile Include="Controls\CategorySelectorSupport\SubCategoryTemplate.cs" />
     <Compile Include="Controls\CategorySelectorSupport\SubCategoryTemplateControl.cs" />
-    <Compile Include="Base\ControlExtensions.cs" />
+    <Compile Include="Framework\ControlExtensions.cs" />
     <Compile Include="AjaxWebService-Booking.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\FormDropDownList.cs" />
     <Compile Include="Controls\Dsl\IImageProvider.cs" />
     <Compile Include="Controls\Dsl\SelectedDocumentArgs.cs" />
     <Compile Include="Controls\Dsl\SimpleImageProvider.cs" />
@@ -127,6 +131,7 @@
     <Compile Include="Controls\Dsl\WebImageMakerHelper.cs" />
     <Compile Include="Controls\ErrorList.cs" />
     <Compile Include="Controls\ExtendBookingForm.cs" />
+    <Compile Include="Controls\FormLabel.cs" />
     <Compile Include="Handlers\DocumentHandler.cs" />
     <Compile Include="Controls\ImageThumbCommand.cs" />
     <Compile Include="Controls\Dsl\ImageThumbCommandTemplate.cs" />
@@ -145,10 +150,16 @@
     <Compile Include="Controls\Templates\ActionButtonTemplate.cs" />
     <Compile Include="Controls\MultipleFileUpload.cs" />
     <Compile Include="Controls\SendMessageControl.cs" />
+    <Compile Include="Models\EditionModel.cs" />
+    <Compile Include="Models\PublicationEditionModel.cs" />
+    <Compile Include="Presenters\ExtendBookingPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Base\BaseBookingPage.cs">
+    <Compile Include="Framework\BaseBookingPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Repository\IBookingRepository.cs" />
+    <Compile Include="Repository\IPublicationRepository.cs" />
+    <Compile Include="Views\IExtendBookingView.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ApplicationBlock\Configuration\ApplicationBlock.Configuration.csproj">

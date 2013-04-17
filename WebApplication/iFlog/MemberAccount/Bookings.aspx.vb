@@ -16,25 +16,34 @@ Partial Public Class Bookings
         Using Controller As New CRM.UserClassController
             grdBookings.DataSource = Controller.GetCurrentAdBookings(_userId, BetterclassifiedsCore.Controller.BookingStatus.BOOKED)
             grdBookings.DataBind()
-            pnlButton.Visible = (grdBookings.Rows.Count > 0)
         End Using
     End Sub
 
-    Protected Sub CancelBooking(ByVal sender As Object, ByVal e As System.EventArgs)
-        For Each row As GridViewRow In grdBookings.Rows
-            If row.RowType = DataControlRowType.DataRow Then
-                Dim chk As CheckBox = TryCast(row.FindControl("chkSelect"), CheckBox)
-                If chk IsNot Nothing Then
-                    If chk.Checked Then
-                        Dim hdnBooking As HiddenField = TryCast(row.FindControl("hdnBookingId"), HiddenField)
-                        If hdnBooking IsNot Nothing And hdnBooking.Value <> String.Empty Then
-                            BookingController.ExpireExistingBooking(hdnBooking.Value)
-                        End If
-                    End If
-                End If
-            End If
-        Next
-        DataBindBookings()
+    Private Sub grdBookings_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles grdBookings.RowCommand
+        Select Case e.CommandName
+            Case "CancelBooking"
+                BookingController.ExpireExistingBooking(e.CommandArgument)
+        End Select
     End Sub
+
+    Private Sub grdBookings_RowDataBound(sender As Object, e As GridViewRowEventArgs) Handles grdBookings.RowDataBound
+        If e.Row.RowType <> DataControlRowType.DataRow Then
+            Return
+        End If
+
+        Dim item As DataModel.spAdBookingSelectUserActiveResult = e.Row.DataItem
+        If item Is Nothing Then
+            Return
+        End If
+
+        ' Check if the end date is within this week
+        If item.EndDate.GetValueOrDefault.AddDays(-7) < DateTime.Today Then
+            e.Row.BackColor = Drawing.Color.LightPink
+            e.Row.ToolTip = "This booking will expire this week."
+            highlightWarning.Visible = True
+        End If
+
+    End Sub
+
 
 End Class

@@ -23,11 +23,20 @@ Partial Public Class ExtendBooking
     Protected WithEvents ucxHeading As Global.BetterclassifiedsWeb.MemberHeading
 
     '''<summary>
-    '''formExtendBooking control.
+    '''ddlEditions control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents formExtendBooking As Global.BetterClassified.UI.ExtendBookingForm
+    Protected WithEvents ddlEditions As Global.BetterClassified.UI.FormDropDownList
+
+    '''<summary>
+    '''rptEditions control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rptEditions As Global.System.Web.UI.WebControls.Repeater
 End Class

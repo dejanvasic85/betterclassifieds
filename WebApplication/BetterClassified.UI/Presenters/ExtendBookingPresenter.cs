@@ -1,4 +1,6 @@
-﻿namespace BetterClassified.UI.Presenters
+﻿using System;
+
+namespace BetterClassified.UI.Presenters
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -11,6 +13,10 @@
         private readonly Repository.IBookingRepository bookingRepository;
         private readonly Repository.IPublicationRepository publicationRepository;
 
+        // The following are hard coded (should be configurable per client)
+        private const int RestrictedEditionCount = 10;
+        private const int NumberOfDaysAfterLastEdition = 6;
+
         public ExtendBookingPresenter(IExtendBookingView view, Repository.IBookingRepository bookingRepository, Repository.IPublicationRepository publicationRepository)
             : base(view)
         {
@@ -21,17 +27,29 @@
         public void Load()
         {
             // Hard code ten weeks to allow the extensions
-            View.DataBindInsertionList(Enumerable.Range(1, 10));
+            View.DataBindOptions(Enumerable.Range(1, RestrictedEditionCount));
 
             // Load for a single edition first
             LoadForInsertions(1);
         }
 
-        public void LoadForInsertions(int value)
+        public void LoadForInsertions(int insertions)
         {
             // Fetch and display the list of editions
-            var editions = GenerateExtensionDates(View.AdBookingId, value);
-            View.DataBindEditions(editions);
+            var editions = GenerateExtensionDates(View.AdBookingId, insertions).ToList();
+
+            // Fetch the online end date
+            DateTime onlineAdEndDate = editions
+                .SelectMany(e => e.Editions)
+                .OrderBy(date => date.EditionDate)
+                .Last()
+                .EditionDate
+                .AddDays(NumberOfDaysAfterLastEdition);
+
+            // Fetch price per edition
+            decimal pricePerEdition = editions.Sum(s => s.Editions.First().EditionPrice);
+            decimal totalPrice = pricePerEdition * insertions;
+            View.DataBindEditions(editions, onlineAdEndDate, pricePerEdition, totalPrice);
         }
 
         private IEnumerable<PublicationEditionModel> GenerateExtensionDates(int adBookingId, int numberOfInsertions)
@@ -53,14 +71,18 @@
                 {
                     PublicationId = publicationEntries.Key.GetValueOrDefault(),
                     PublicationName = publicationRepository.GetPublication(publicationEntries.Key.GetValueOrDefault()).Title,
-                    Editions = upComingEditions.Select(e => new EditionModel { EditionDate = e.EditionDate.GetValueOrDefault() }).ToList()
+                    Editions = upComingEditions.Select(e => new EditionModel
+                        {
+                            EditionDate = e.EditionDate.GetValueOrDefault(),
+                            EditionPrice = bookEntry.EditionAdPrice.GetValueOrDefault()
+                        }).ToList()
                 };
             }
         }
 
         public void ProcessExtensions()
         {
-
+            
         }
     }
 

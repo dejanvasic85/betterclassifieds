@@ -5,6 +5,6 @@
     public class EditionModel
     {
         public DateTime EditionDate { get; set; }
-        public decimal EditionCost { get; set; }
+        public decimal EditionPrice { get; set; }
     }
 }

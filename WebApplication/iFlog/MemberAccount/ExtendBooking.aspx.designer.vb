@@ -39,4 +39,67 @@ Partial Public Class ExtendBooking
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents rptEditions As Global.System.Web.UI.WebControls.Repeater
+
+    '''<summary>
+    '''lblOnlineEndDate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblOnlineEndDate As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblPricePerEdition control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblPricePerEdition As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblTotalPrice control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblTotalPrice As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''divPayment control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divPayment As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''chkConditions control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents chkConditions As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
+    '''btnCancel control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnCancel As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''btnSubmit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnSubmit As Global.System.Web.UI.WebControls.Button
 End Class

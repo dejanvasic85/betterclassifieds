@@ -37,6 +37,7 @@
     Public Const MemberScheduledAds As String = "~/MemberAccount/UpComing.aspx"
     Public Const MemberCurrentAds As String = "~/MemberAccount/Current.aspx"
     Public Const MemberExpiredAds As String = "~/MemberAccount/Expired.aspx"
+    Public Const MemberBookings As String = "~/MemberAccount/Bookings.aspx"
 
     ' Document Service Library
     Public Const DSL As String = "~/dsl/document.ashx?id="
@@ -51,5 +52,7 @@
     ' Help Pages
     Public Const HelpContact As String = "~/Help/Contact.aspx"
     Public Const RatesPage As String = "~/Rates.aspx"
+
+
 
 End Class

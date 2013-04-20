@@ -55,5 +55,5 @@ Public Class ExtendBooking
         ddlEditions.HelpText = ddlEditions.HelpText.Replace("weeks", "days")
         divPricePerEdition.Visible = False
         divPublications.Visible = False
-    End Subz
+    End Sub
 End Class

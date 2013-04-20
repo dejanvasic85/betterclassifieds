@@ -1,4 +1,5 @@
 ﻿Imports BetterclassifiedsCore
+Imports System.Drawing
 
 Partial Public Class Bookings
     Inherits System.Web.UI.Page
@@ -38,7 +39,7 @@ Partial Public Class Bookings
 
         ' Check if the end date is within this week
         If item.EndDate.GetValueOrDefault.AddDays(-7) < DateTime.Today Then
-            e.Row.BackColor = Drawing.Color.LightPink
+            e.Row.BackColor = ColorTranslator.FromHtml("#FFF8C6")
             e.Row.ToolTip = "This booking will expire this week."
             highlightWarning.Visible = True
         End If

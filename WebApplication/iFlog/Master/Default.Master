@@ -19,8 +19,8 @@
 <body>
     <form id="form1" runat="server">
         <paramountItCommon:SessionRefresher SessionUrl="~/SessionRefresher.ashx" TimeOutPeriod="5" runat="server" ID="refresher" />
-        <asp:ScriptManager ID="scriptManager" runat="server">
-        </asp:ScriptManager>
+        <telerik:RadScriptManager runat="server" ID="radScriptManager" />
+        
         <div id="container">
             <div id="header">
 

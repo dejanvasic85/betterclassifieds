@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 
@@ -7,9 +8,10 @@ namespace BetterClassified.UI
     public class FormDropDownList : CompositeControl
     {
         // Inner controls
-        private readonly Panel divContainer;
-        private readonly Label label;
-        private readonly Label help;
+        private readonly HtmlGenericControl parentContainer;
+        private readonly HtmlGenericControl label;
+        private readonly HtmlGenericControl help;
+        private readonly HtmlGenericControl controlContainer;
         private readonly RadComboBox comboBox;
 
         // Events
@@ -20,11 +22,20 @@ namespace BetterClassified.UI
         // Constructor
         public FormDropDownList()
         {
-            divContainer = new Panel { CssClass = "FormControl" };
+            parentContainer = new HtmlGenericControl("div");
+            parentContainer.Attributes.Add("class", "formcontrol-container");
+
+            controlContainer = new HtmlGenericControl("div");
+            controlContainer.Attributes.Add("class", "control");
+
             comboBox = new RadComboBox { AutoPostBack = true };
             comboBox.SelectedIndexChanged += ComboBoxOnSelectedIndexChanged;
-            label = new Label { CssClass = "FormControlText" };
-            help = new Label { CssClass = "FormControlHelp" };
+
+            label = new HtmlGenericControl("label");
+            
+            help = new HtmlGenericControl("label");
+            help.Attributes.Add("class", "helptext");
+            
         }
 
         // Bubbled events
@@ -37,28 +48,32 @@ namespace BetterClassified.UI
         // Overrides
         protected override void CreateChildControls()
         {
-            divContainer.Controls.Add(label);
-            divContainer.Controls.Add(help);
-            divContainer.Controls.Add(comboBox);
-            Controls.Add(divContainer);
+            Controls.Clear();
+
+            parentContainer.Controls.Add(label);
+            parentContainer.Controls.Add(help);
+            controlContainer.Controls.Add(comboBox);
+            parentContainer.Controls.Add(controlContainer);
+            
+            Controls.Add(parentContainer);
         }
 
         protected override void Render(System.Web.UI.HtmlTextWriter writer)
         {
-            divContainer.RenderControl(writer);
+            parentContainer.RenderControl(writer);
         }
 
         // Public properties
         public string Text
         {
-            get { return label.Text; }
-            set { label.Text = value; }
+            get { return label.InnerText; }
+            set { label.InnerText = value; }
         }
 
         public string HelpText
         {
-            get { return help.Text; }
-            set { help.Text = value; }
+            get { return help.InnerText; }
+            set { help.InnerText = value; }
         }
 
         public bool IsRequired { get; set; }
@@ -73,6 +88,12 @@ namespace BetterClassified.UI
         {
             get { return this.comboBox.SelectedValue; }
             set { this.comboBox.SelectedValue = value; }
+        }
+
+        public new Unit Width
+        {
+            get { return this.comboBox.Width; }
+            set { this.comboBox.Width = value; }
         }
     }
 }

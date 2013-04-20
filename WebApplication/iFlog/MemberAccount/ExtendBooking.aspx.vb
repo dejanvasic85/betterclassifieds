@@ -49,4 +49,11 @@ Public Class ExtendBooking
             Return ddlEditions.SelectedValue
         End Get
     End Property
+
+    Public Sub SetupOnlineOnlyView() Implements Views.IExtendBookingView.SetupOnlineOnlyView
+        ddlEditions.Text = "Days"
+        ddlEditions.HelpText = ddlEditions.HelpText.Replace("weeks", "days")
+        divPricePerEdition.Visible = False
+        divPublications.Visible = False
+    End Subz
 End Class

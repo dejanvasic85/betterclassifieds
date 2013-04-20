@@ -23,6 +23,24 @@ Partial Public Class ExtendBooking
     Protected WithEvents ucxHeading As Global.BetterclassifiedsWeb.MemberHeading
 
     '''<summary>
+    '''radLoadingPanel control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents radLoadingPanel As Global.Telerik.Web.UI.RadAjaxLoadingPanel
+
+    '''<summary>
+    '''ajaxManager control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ajaxManager As Global.Telerik.Web.UI.RadAjaxManager
+
+    '''<summary>
     '''ddlEditions control.
     '''</summary>
     '''<remarks>
@@ -30,6 +48,24 @@ Partial Public Class ExtendBooking
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlEditions As Global.BetterClassified.UI.FormDropDownList
+
+    '''<summary>
+    '''pnlContent control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlContent As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''divPublications control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divPublications As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
     '''rptEditions control.
@@ -41,6 +77,15 @@ Partial Public Class ExtendBooking
     Protected WithEvents rptEditions As Global.System.Web.UI.WebControls.Repeater
 
     '''<summary>
+    '''divOnlineSchedule control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divOnlineSchedule As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
     '''lblOnlineEndDate control.
     '''</summary>
     '''<remarks>
@@ -50,6 +95,15 @@ Partial Public Class ExtendBooking
     Protected WithEvents lblOnlineEndDate As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''divPricePerEdition control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divPricePerEdition As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
     '''lblPricePerEdition control.
     '''</summary>
     '''<remarks>
@@ -57,6 +111,15 @@ Partial Public Class ExtendBooking
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblPricePerEdition As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''divTotalPrice control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divTotalPrice As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
     '''lblTotalPrice control.

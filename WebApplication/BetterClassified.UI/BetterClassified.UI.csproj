@@ -131,7 +131,6 @@
     <Compile Include="Controls\Dsl\WebImageMakerHelper.cs" />
     <Compile Include="Controls\ErrorList.cs" />
     <Compile Include="Controls\ExtendBookingForm.cs" />
-    <Compile Include="Controls\FormLabel.cs" />
     <Compile Include="Handlers\DocumentHandler.cs" />
     <Compile Include="Controls\ImageThumbCommand.cs" />
     <Compile Include="Controls\Dsl\ImageThumbCommandTemplate.cs" />

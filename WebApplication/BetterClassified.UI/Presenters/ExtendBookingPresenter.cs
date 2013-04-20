@@ -100,7 +100,17 @@
 
         public void ProcessExtensions()
         {
-            // Todo
+            // Fetch original booking
+            AdBooking adBooking = bookingRepository.GetBooking(View.AdBookingId);
+
+            if (adBooking.IsBundledBooking())
+            {
+                
+            }
+            else
+            {
+                
+            }
         }
     }
 

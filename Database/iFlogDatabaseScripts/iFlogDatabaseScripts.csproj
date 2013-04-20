@@ -45,15 +45,11 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="1.New\2.StoredProc\" />
-    <Folder Include="1.New\3.Data\" />
-    <Folder Include="2.Base\1.Schema\" />
-    <Folder Include="2.Base\2.StoredProc\" />
-    <Folder Include="2.Base\3.Data\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="1.New\1.Schema\01.11.01-dbo.ScriptLog.table.sql" />
+    <Content Include="1.New\1.Schema\01.11.01-dbo.ScriptLog.table.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Deploy.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -64,12 +60,27 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="1.New\2.StoredProc\_._">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="1.New\3.Data\_._">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="2.Base\1.Schema\_._">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="2.Base\2.StoredProc\_._">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="2.Base\3.Data\_._">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>xcopy /e /r /y /i "$(ProjectDir)1.New" "$(TargetDir)1.New"
-xcopy /e /r /y /i "$(ProjectDir)2.Base" "$(TargetDir)2.Base"</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <Import Project="..\..\packages\OctoPack.2.0.20\targets\OctoPack.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

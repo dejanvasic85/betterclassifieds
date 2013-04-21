@@ -728,9 +728,6 @@
     <Content Include="EmailTemplates\CreateUserWizard.txt" />
     <Content Include="EmailTemplates\PasswordRecovery.txt" />
     <Content Include="Entry.aspx" />
-    <Content Include="Environment.xml">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="greybox\AJS.js" />
@@ -1082,7 +1079,6 @@
     </Compile>
     <Compile Include="Utilities\TypeExtentions.vb" />
     <None Include="App_Data\RadSpell\en-US.tdf" />
-    <None Include="BuildCopy.bat" />
     <Content Include="masterpage\Dialog.Master" />
     <None Include="Data\CRM.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
@@ -1091,6 +1087,7 @@
     </None>
     <Content Include="masterpage\GMasterPage.Master" />
     <Content Include="iFlogAdmin.nuspec" />
+    <Content Include="Deploy.ps1" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>

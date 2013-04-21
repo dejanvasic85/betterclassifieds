@@ -23,7 +23,7 @@ Public Class ExtendBooking
         lblOnlineEndDate.Text = lastOnlineDate.ToString("dd-MMM-yyyy")
         lblPricePerEdition.Text = pricePerEdition.ToString("C")
         lblTotalPrice.Text = totalPrice.ToString("C")
-
+        Me.TotalPrice = totalPrice
         divPayment.Visible = totalPrice > 0
     End Sub
 
@@ -56,4 +56,32 @@ Public Class ExtendBooking
         divPricePerEdition.Visible = False
         divPublications.Visible = False
     End Sub
+
+    Public Sub DisplayExpiredBookingMessage() Implements Views.IExtendBookingView.DisplayExpiredBookingMessage
+        lblErrorMessage.Text = "The booking you have requested has already expired. Please click the 'Expired Ads' link on the left hand menu to complete the Booking Process for the expired ad."
+        errorDetails.Visible = True
+        pnlContent.Visible = False
+    End Sub
+
+    Public Sub DisplayBookingDoesNotExist() Implements Views.IExtendBookingView.DisplayBookingDoesNotExist
+        lblErrorMessage.Text = "The booking you have requested does not exist."
+        errorDetails.Visible = True
+        pnlContent.Visible = False
+    End Sub
+
+    Public ReadOnly Property IsPaymentRequired As Boolean Implements Views.IExtendBookingView.IsPaymentRequired
+        Get
+            Return Me.TotalPrice > 0
+        End Get
+    End Property
+
+    Public Property TotalPrice As Decimal Implements Views.IExtendBookingView.TotalPrice
+        Get
+            Return ViewState("TotalPrice")
+        End Get
+        Set(value As Decimal)
+            ViewState("TotalPrice") = value
+        End Set
+    End Property
+
 End Class

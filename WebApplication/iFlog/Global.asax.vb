@@ -17,7 +17,8 @@ Public Class Global_asax
         ' Unity Registrations
         BetterClassified.Unity.DefaultContainer _
             .RegisterType(Of IBookingRepository, BookingRepository)() _
-            .RegisterType(Of IPublicationRepository, PublicationRepository)()
+            .RegisterType(Of IPublicationRepository, PublicationRepository)() _
+            .RegisterType(Of IConfigSettings, ConfigSettings)()
     End Sub
 
     Sub Session_Start(ByVal sender As Object, ByVal e As EventArgs)

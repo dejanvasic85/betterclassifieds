@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using Microsoft.Practices.Unity;
 
 namespace BetterClassified.UI
@@ -25,6 +26,16 @@ namespace BetterClassified.UI
         public void NavigateToHome()
         {
             // Navigate to home page (iflog home page)
+        }
+
+        public string LoggedInUserName
+        {
+            get
+            {
+                if (HttpContext.Current.User != null && HttpContext.Current.User.Identity.IsAuthenticated)
+                    return HttpContext.Current.User.Identity.Name;
+                return string.Empty;
+            }
         }
 
         protected T ReadQueryString<T>(string key)

@@ -41,13 +41,22 @@ Partial Public Class ExtendBooking
     Protected WithEvents ajaxManager As Global.Telerik.Web.UI.RadAjaxManager
 
     '''<summary>
-    '''ddlEditions control.
+    '''errorDetails control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlEditions As Global.BetterClassified.UI.FormDropDownList
+    Protected WithEvents errorDetails As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''lblErrorMessage control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblErrorMessage As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
     '''pnlContent control.
@@ -57,6 +66,24 @@ Partial Public Class ExtendBooking
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents pnlContent As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''ddlEditions control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlEditions As Global.BetterClassified.UI.FormDropDownList
+
+    '''<summary>
+    '''pnlForm control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlForm As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
     '''divPublications control.

@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using BetterclassifiedsCore.DataModel;
     using Models;
     using Views;
 
@@ -11,41 +10,60 @@
     {
         private readonly Repository.IBookingRepository bookingRepository;
         private readonly Repository.IPublicationRepository publicationRepository;
+        private readonly Repository.IConfigSettings configSettings;
 
-        // The following are hard coded (should be configurable per client)
-        private const int RestrictedEditionCount = 10;
-        private const int RestrictedOnlineDaysCount = 30;
-        private const int NumberOfDaysAfterLastEdition = 6;
-
-        public ExtendBookingPresenter(IExtendBookingView view, Repository.IBookingRepository bookingRepository, Repository.IPublicationRepository publicationRepository)
+        public ExtendBookingPresenter(IExtendBookingView view, Repository.IBookingRepository bookingRepository, Repository.IPublicationRepository publicationRepository, Repository.IConfigSettings configSettings)
             : base(view)
         {
             this.bookingRepository = bookingRepository;
             this.publicationRepository = publicationRepository;
+            this.configSettings = configSettings;
         }
 
         public void Load()
         {
             // Fetch the original booking
-            AdBooking booking = bookingRepository.GetBooking(View.AdBookingId);
+            AdBookingModel booking = bookingRepository.GetBooking(View.AdBookingId);
 
-            // Hard code ten weeks to allow the extensions
-            View.DataBindOptions(booking.IsBundledBooking()
-                ? Enumerable.Range(1, RestrictedEditionCount)
-                : Enumerable.Range(1, RestrictedOnlineDaysCount));
+            // Ensure booking exists and belongs to the user
+            if (booking == null)
+            {
+                View.DisplayBookingDoesNotExist();
+                return;
+            }
+
+            // Ensure that the booking belongs to the logged in user!
+            if (!View.LoggedInUserName.Equals(booking.UserId))
+            {
+                View.DisplayBookingDoesNotExist();
+                return;
+            }
+
+            // Ensure the booking has not already expired
+            if (booking.IsExpired)
+            {
+                // Get out and display a message that the booking has expired
+                View.DisplayExpiredBookingMessage();
+                return;
+            }
+
+            // Load the screen as per usual (depending on the type of booking)
+            View.DataBindOptions(booking.BookingType == BookingType.Bundled
+                ? Enumerable.Range(1, configSettings.RestrictedEditionCount)
+                : Enumerable.Range(1, configSettings.RestrictedOnlineDaysCount));
 
             // Load for a single edition first
             LoadForInsertions(1, booking);
         }
 
-        public void LoadForInsertions(int insertions, AdBooking booking = null)
+        public void LoadForInsertions(int insertions, AdBookingModel booking = null)
         {
             // Fetch the original booking
             if (booking == null)
                 booking = bookingRepository.GetBooking(View.AdBookingId);
 
             // Check whether the booking is online only
-            if (booking.IsBundledBooking())
+            if (booking.BookingType == BookingType.Bundled)
             {
                 // Fetch and display the list of editions
                 List<PublicationEditionModel> editions = GenerateExtensionDates(View.AdBookingId, insertions).ToList();
@@ -56,7 +74,7 @@
                     .OrderBy(date => date.EditionDate)
                     .Last()
                     .EditionDate
-                    .AddDays(NumberOfDaysAfterLastEdition);
+                    .AddDays(configSettings.NumberOfDaysAfterLastEdition);
 
                 // Fetch price per edition
                 decimal pricePerEdition = editions.Sum(s => s.Editions.First().EditionPrice);
@@ -66,7 +84,7 @@
             else
             {
                 View.SetupOnlineOnlyView();
-                View.DataBindEditions(null, booking.EndDate.GetValueOrDefault().AddDays(insertions), booking.TotalPrice.GetValueOrDefault(), booking.TotalPrice.GetValueOrDefault());
+                View.DataBindEditions(null, booking.EndDate.AddDays(insertions), booking.TotalPrice, booking.TotalPrice);
             }
         }
 
@@ -74,25 +92,25 @@
         {
             foreach (var publicationEntries in bookingRepository.GetBookEntriesForBooking(adBookingId).GroupBy(be => be.PublicationId))
             {
-                if (publicationRepository.IsOnlinePublication(publicationEntries.Key.GetValueOrDefault()))
+                if (publicationRepository.IsOnlinePublication(publicationEntries.Key))
                     continue;
 
                 // Fetch the last edition (used continuing the dates and price)
-                BookEntry bookEntry = publicationEntries.OrderByDescending(be => be.EditionDate).First();
+                BookEntryModel bookEntry = publicationEntries.OrderByDescending(be => be.EditionDate).First();
 
                 // Fetch the up-coming editions for the publication
-                List<Edition> upComingEditions = publicationRepository
-                    .GetEditionsForPublication(bookEntry.PublicationId.GetValueOrDefault(), bookEntry.EditionDate.GetValueOrDefault().AddDays(1), numberOfInsertions)
+                List<EditionModel> upComingEditions = publicationRepository
+                    .GetEditionsForPublication(bookEntry.PublicationId, bookEntry.EditionDate.AddDays(1), numberOfInsertions)
                     .ToList();
 
                 yield return new PublicationEditionModel
                 {
-                    PublicationId = publicationEntries.Key.GetValueOrDefault(),
-                    PublicationName = publicationRepository.GetPublication(publicationEntries.Key.GetValueOrDefault()).Title,
+                    PublicationId = publicationEntries.Key,
+                    PublicationName = publicationRepository.GetPublication(publicationEntries.Key).Title,
                     Editions = upComingEditions.Select(e => new EditionModel
                         {
-                            EditionDate = e.EditionDate.GetValueOrDefault(),
-                            EditionPrice = bookEntry.EditionAdPrice.GetValueOrDefault()
+                            EditionDate = e.EditionDate,
+                            EditionPrice = bookEntry.EditionAdPrice
                         }).ToList()
                 };
             }
@@ -100,25 +118,29 @@
 
         public void ProcessExtensions()
         {
-            // Fetch original booking
-            AdBooking adBooking = bookingRepository.GetBooking(View.AdBookingId);
-
-            if (adBooking.IsBundledBooking())
+            // Create a new extension model
+            AdBookingExtensionModel extension = new AdBookingExtensionModel
             {
-                
+                AdBookingId = View.AdBookingId,
+                Insertions = View.SelectedInsertionCount,
+                LastModifiedDate = DateTime.Now,
+                LastModifiedUserId = View.LoggedInUserName,
+                ExtensionPrice = View.TotalPrice,
+                Status = AdBookingExtensionStatus.Pending
+            };
+
+            if (View.IsPaymentRequired)
+            {
+                // Todo - payment processing goes here!
             }
             else
             {
+                // Free extension! Create extension record and update the original booking end dates and bookentries
                 
-            }
-        }
-    }
 
-    internal static class BookingExtensions
-    {
-        public static bool IsBundledBooking(this AdBooking adBooking)
-        {
-            return adBooking.BookingType.Equals("Bundled", StringComparison.OrdinalIgnoreCase);
+                
+                extension.Status = AdBookingExtensionStatus.Complete;
+            }
         }
     }
 }

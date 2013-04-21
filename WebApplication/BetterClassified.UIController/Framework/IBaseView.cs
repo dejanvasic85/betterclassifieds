@@ -2,8 +2,7 @@
 {
     public interface IBaseView
     {
-        void PrintMessage();
-        void PrintError();
         void NavigateToHome();
+        string LoggedInUserName { get; }
     }
 }

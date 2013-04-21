@@ -1101,7 +1101,6 @@
     <None Include="App_Data\RadSpell\en-US.tdf" />
     <Content Include="Master\MasterWithMessage.master" />
     <Content Include="iFlog.nuspec" />
-    <Content Include="App_Themes\iflog\css\betterclassified.ui.css" />
     <Content Include="Deploy.ps1" />
     <None Include="My Project\DataSources\Paramount.IT.Utilities.WebServices.ServiceResponse.datasource" />
     <None Include="My Project\Application.myapp">
@@ -1184,7 +1183,6 @@
     <Folder Include="App_Themes\iflog\Betterclassified.UI\" />
     <Folder Include="bin\" />
     <Folder Include="Image\" />
-    <Folder Include="Scripts\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

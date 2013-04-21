@@ -172,3 +172,53 @@ LineAdTextBox
 ************************/
 .adBodyTextBox
 {}
+
+
+/*
+    Generic form control stuff
+    */
+.formcontrol-container {
+    width: 95%;
+    display: block;
+    margin: 5px 0px 10px 10px;
+    float: left;
+}
+
+.formcontrol-container label {
+    font-weight: bold;
+    font-size: 1.3em;
+    line-height: 1.6em;
+    color: #333;
+}
+
+.formcontrol-container .helptext {
+    font-size: 0.8em;
+    margin-left: 10px;
+}
+
+.formcontrol-container .control {
+    font-size: 1em;
+    display: block;
+}
+
+.formcontrol-container .control label {
+    font-weight: normal;
+    font-size: 1em;
+}
+
+.formcontrol-container input[type="submit"] {
+    width: 150px;
+    height: 25px;
+    font-size: 1em;
+}
+
+.formcontrol-container .pull-right {
+    float: right;
+}
+
+.formcontrol-container .error{
+    padding: 5px;
+    font-size: 0.9em;
+    background-color: #FAE8E8;
+    border: 1px solid #FFA2AA;
+}

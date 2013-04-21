@@ -1,24 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using BetterclassifiedsCore.DataModel;
-
-namespace BetterClassified.UI.Repository
+﻿namespace BetterClassified.UI.Repository
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using BetterclassifiedsCore.DataModel;
+    using Models;
+    using AutoMapper;
+
     public interface IPublicationRepository
     {
-        Publication GetPublication(int publicationId);
+        PublicationModel GetPublication(int publicationId);
         bool IsOnlinePublication(int publicationId);
-        List<Edition> GetEditionsForPublication(int publicationId, DateTime startDate, int numberOfEditions);
+        List<EditionModel> GetEditionsForPublication(int publicationId, DateTime startDate, int numberOfEditions);
     }
 
-    public class PublicationRepository : IPublicationRepository
+    public class PublicationRepository : IPublicationRepository, IMappingBehaviour
     {
-        public Publication GetPublication(int publicationId)
+        public PublicationModel GetPublication(int publicationId)
         {
             using (var context = BetterclassifiedsDataContext.NewContext())
             {
-                return context.Publications.First(publication => publication.PublicationId == publicationId);
+                return this.Map<Publication, PublicationModel>(context.Publications.First(publication => publication.PublicationId == publicationId));
             }
         }
 
@@ -35,15 +37,21 @@ namespace BetterClassified.UI.Repository
             }
         }
 
-        public List<Edition> GetEditionsForPublication(int publicationId, DateTime startDate, int numberOfEditions)
+        public List<EditionModel> GetEditionsForPublication(int publicationId, DateTime startDate, int numberOfEditions)
         {
             using (var context = BetterclassifiedsDataContext.NewContext())
             {
-                return context.Editions
+                return this.MapList<Edition, EditionModel>(context.Editions
                     .Where(edition => edition.PublicationId == publicationId && edition.EditionDate >= startDate)
                     .Take(numberOfEditions)
-                    .ToList();
+                    .ToList());
             }
+        }
+
+        public void OnRegisterMaps(IConfiguration configuration)
+        {
+            configuration.CreateMap<Edition, EditionModel>();
+            configuration.CreateMap<Publication, PublicationModel>();
         }
     }
 }

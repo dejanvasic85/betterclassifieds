@@ -10,8 +10,11 @@
     <ucx:MemberHeading ID="ucxHeading" runat="server" HeadingText="My Active Bookings" />
 
     <div id="mainContentMyAccount">
-
+        
         <div id="bookAdMainContent">
+            <div class="div-sucess" id="successMessage" runat="server" Visible="False">
+                Booking extension has been processed successfully.
+            </div>
             <div class="div-warning" id="highlightWarning" runat="server" visible="False" >
                 Note: The highlighted bookings are expiring this week. You may start extending your ads by clicking on the calendar icon on the desired booking.
             </div>

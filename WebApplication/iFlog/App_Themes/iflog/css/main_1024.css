@@ -2938,6 +2938,14 @@ bookAdMainContent {
 	margin-top: 10px; 
 }
 
+.div-sucess {
+    border: 1px solid #6CD858;
+    background-color: #E3FFDE;
+    font-size: 0.7em;
+    padding: 8px;
+    margin-top: 10px;
+}
+
 .uploadManager {
 	padding: 0px;
 	width: 640px;

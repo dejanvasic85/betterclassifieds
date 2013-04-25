@@ -10,8 +10,19 @@ Partial Public Class Bookings
         _userId = Membership.GetUser.UserName
         If Not Page.IsPostBack Then
             DataBindBookings()
+            successMessage.Visible = IsExtensionSuccessful
         End If
     End Sub
+
+    Private ReadOnly Property IsExtensionSuccessful As Boolean
+        Get
+            Dim success = Request.QueryString("extension")
+            If Not String.IsNullOrEmpty(success) Then
+                Return success
+            End If
+            Return False
+        End Get
+    End Property
 
     Private Sub DataBindBookings()
         Using Controller As New CRM.UserClassController

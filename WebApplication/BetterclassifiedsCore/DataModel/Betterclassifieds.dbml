@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Betterclassifieds" EntityNamespace="DataModel" ContextNamespace="DataModel" Class="BetterclassifiedsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=paramountit.com.au;Initial Catalog=Betterclassifieds;Persist Security Info=True;User ID=sa" SettingsObjectName="BetterclassifiedsCore.My.MySettings" SettingsPropertyName="BetterclassifiedsConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="iFlog" EntityNamespace="DataModel" ContextNamespace="DataModel" Class="BetterclassifiedsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost;Initial Catalog=iFlog;Integrated Security=True" SettingsObjectName="BetterclassifiedsCore.My.MySettings" SettingsPropertyName="iFlogConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Ad" Member="Ads">
     <Type Name="Ad">
       <Column Name="AdId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -446,6 +446,17 @@
       <Column Name="FooterPhotoId" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="IsSuperHeadingPurchased" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="AdDesign_LineAd" Member="AdDesign" ThisKey="AdDesignId" OtherKey="AdDesignId" Type="AdDesign" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AdBookingExtension" Member="AdBookingExtensions">
+    <Type Name="AdBookingExtension">
+      <Column Name="AdBookingExtensionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AdBookingId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Insertions" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ExtensionPrice" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LastModifiedUserId" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="LastModifiedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
   <Function Name="dbo.spGetMainParentCategories" Method="spGetMainParentCategories">

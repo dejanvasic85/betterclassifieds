@@ -11,7 +11,7 @@
     {
         PublicationModel GetPublication(int publicationId);
         bool IsOnlinePublication(int publicationId);
-        List<EditionModel> GetEditionsForPublication(int publicationId, DateTime startDate, int numberOfEditions);
+        List<BookEntryModel> GetEditionsForPublication(int publicationId, DateTime startDate, int numberOfEditions);
     }
 
     public class PublicationRepository : IPublicationRepository, IMappingBehaviour
@@ -37,11 +37,11 @@
             }
         }
 
-        public List<EditionModel> GetEditionsForPublication(int publicationId, DateTime startDate, int numberOfEditions)
+        public List<BookEntryModel> GetEditionsForPublication(int publicationId, DateTime startDate, int numberOfEditions)
         {
             using (var context = BetterclassifiedsDataContext.NewContext())
             {
-                return this.MapList<Edition, EditionModel>(context.Editions
+                return this.MapList<Edition, BookEntryModel>(context.Editions
                     .Where(edition => edition.PublicationId == publicationId && edition.EditionDate >= startDate)
                     .Take(numberOfEditions)
                     .ToList());
@@ -50,7 +50,7 @@
 
         public void OnRegisterMaps(IConfiguration configuration)
         {
-            configuration.CreateMap<Edition, EditionModel>();
+            configuration.CreateMap<Edition, BookEntryModel>();
             configuration.CreateMap<Publication, PublicationModel>();
         }
     }

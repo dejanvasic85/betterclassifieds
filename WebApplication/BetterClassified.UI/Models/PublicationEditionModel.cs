@@ -6,11 +6,11 @@ namespace BetterClassified.UI.Models
     {
         public int PublicationId { get; set; }
         public string PublicationName { get; set; }
-        public List<EditionModel> Editions { get; set; }
+        public List<BookEntryModel> Editions { get; set; }
 
         public PublicationEditionModel()
         {
-            this.Editions = new List<EditionModel>();
+            this.Editions = new List<BookEntryModel>();
         }
     }
 }

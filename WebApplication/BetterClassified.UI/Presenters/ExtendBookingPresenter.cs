@@ -9,14 +9,14 @@
     public class ExtendBookingPresenter : Controller<IExtendBookingView>
     {
         private readonly Repository.IBookingRepository bookingRepository;
-        private readonly Repository.IPublicationRepository publicationRepository;
         private readonly Repository.IConfigSettings configSettings;
+        private readonly ExtensionManager extensionManager;
 
-        public ExtendBookingPresenter(IExtendBookingView view, Repository.IBookingRepository bookingRepository, Repository.IPublicationRepository publicationRepository, Repository.IConfigSettings configSettings)
+        public ExtendBookingPresenter(IExtendBookingView view, Repository.IBookingRepository bookingRepository, ExtensionManager extensionManager, Repository.IConfigSettings configSettings)
             : base(view)
         {
             this.bookingRepository = bookingRepository;
-            this.publicationRepository = publicationRepository;
+            this.extensionManager = extensionManager;
             this.configSettings = configSettings;
         }
 
@@ -53,10 +53,10 @@
                 : Enumerable.Range(1, configSettings.RestrictedOnlineDaysCount));
 
             // Load for a single edition first
-            LoadForInsertions(1, booking);
+            Load(insertions: 1, booking: booking);
         }
 
-        public void LoadForInsertions(int insertions, AdBookingModel booking = null)
+        public void Load(int insertions, AdBookingModel booking = null)
         {
             // Fetch the original booking
             if (booking == null)
@@ -66,7 +66,7 @@
             if (booking.BookingType == BookingType.Bundled)
             {
                 // Fetch and display the list of editions
-                List<PublicationEditionModel> editions = GenerateExtensionDates(View.AdBookingId, insertions).ToList();
+                List<PublicationEditionModel> editions = extensionManager.ExtensionDates(View.AdBookingId, insertions).ToList();
 
                 // Fetch the online end date
                 DateTime onlineAdEndDate = editions
@@ -77,69 +77,38 @@
                     .AddDays(configSettings.NumberOfDaysAfterLastEdition);
 
                 // Fetch price per edition
-                decimal pricePerEdition = editions.Sum(s => s.Editions.First().EditionPrice);
+                decimal pricePerEdition = editions.Sum(s => s.Editions.First().EditionAdPrice);
                 decimal totalPrice = pricePerEdition * insertions;
+                View.IsOnlineOnly = false;
                 View.DataBindEditions(editions, onlineAdEndDate, pricePerEdition, totalPrice);
             }
             else
             {
                 View.SetupOnlineOnlyView();
+                View.IsOnlineOnly = true;
                 View.DataBindEditions(null, booking.EndDate.AddDays(insertions), booking.TotalPrice, booking.TotalPrice);
             }
         }
 
-        private IEnumerable<PublicationEditionModel> GenerateExtensionDates(int adBookingId, int numberOfInsertions)
+        public void ProcessExtension()
         {
-            foreach (var publicationEntries in bookingRepository.GetBookEntriesForBooking(adBookingId).GroupBy(be => be.PublicationId))
-            {
-                if (publicationRepository.IsOnlinePublication(publicationEntries.Key))
-                    continue;
-
-                // Fetch the last edition (used continuing the dates and price)
-                BookEntryModel bookEntry = publicationEntries.OrderByDescending(be => be.EditionDate).First();
-
-                // Fetch the up-coming editions for the publication
-                List<EditionModel> upComingEditions = publicationRepository
-                    .GetEditionsForPublication(bookEntry.PublicationId, bookEntry.EditionDate.AddDays(1), numberOfInsertions)
-                    .ToList();
-
-                yield return new PublicationEditionModel
-                {
-                    PublicationId = publicationEntries.Key,
-                    PublicationName = publicationRepository.GetPublication(publicationEntries.Key).Title,
-                    Editions = upComingEditions.Select(e => new EditionModel
-                        {
-                            EditionDate = e.EditionDate,
-                            EditionPrice = bookEntry.EditionAdPrice
-                        }).ToList()
-                };
-            }
-        }
-
-        public void ProcessExtensions()
-        {
-            // Create a new extension model
-            AdBookingExtensionModel extension = new AdBookingExtensionModel
-            {
-                AdBookingId = View.AdBookingId,
-                Insertions = View.SelectedInsertionCount,
-                LastModifiedDate = DateTime.Now,
-                LastModifiedUserId = View.LoggedInUserName,
-                ExtensionPrice = View.TotalPrice,
-                Status = AdBookingExtensionStatus.Pending
-            };
+            var extension = extensionManager.CreateExtension(View.AdBookingId,
+                    View.SelectedInsertionCount,
+                    View.LoggedInUserName,
+                    View.TotalPrice,
+                    View.IsPaymentRequired ? ExtensionStatus.Pending : ExtensionStatus.Complete,
+                    View.IsOnlineOnly);
 
             if (View.IsPaymentRequired)
             {
-                // Todo - payment processing goes here!
+                // Save the extension id for completing later and redirect to the payment processing views
+                View.NavigateToPayment(extension.AdBookingExtensionId);
             }
             else
             {
-                // Free extension! Create extension record and update the original booking end dates and bookentries
-                
-
-                
-                extension.Status = AdBookingExtensionStatus.Complete;
+                // Extend the booking details
+                extensionManager.Extend(extension);
+                View.NavigateToBookings(true);
             }
         }
     }

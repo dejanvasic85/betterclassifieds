@@ -23,6 +23,15 @@ Partial Public Class Bookings
     Protected WithEvents ucxHeading As Global.BetterclassifiedsWeb.MemberHeading
 
     '''<summary>
+    '''successMessage control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents successMessage As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
     '''highlightWarning control.
     '''</summary>
     '''<remarks>

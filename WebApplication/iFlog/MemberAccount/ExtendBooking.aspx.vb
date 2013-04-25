@@ -33,7 +33,7 @@ Public Class ExtendBooking
     End Sub
 
     Private Sub ddlEditions_IndexChanged(sender As Object, eventArgs As Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs) Handles ddlEditions.IndexChanged
-        Me.Presenter.LoadForInsertions(eventArgs.Value)
+        Me.Presenter.Load(eventArgs.Value)
     End Sub
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
@@ -41,7 +41,7 @@ Public Class ExtendBooking
     End Sub
 
     Private Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
-        Presenter.ProcessExtensions()
+        Presenter.ProcessExtension()
     End Sub
 
     Public ReadOnly Property SelectedInsertionCount As Integer Implements Views.IExtendBookingView.SelectedInsertionCount
@@ -84,4 +84,20 @@ Public Class ExtendBooking
         End Set
     End Property
 
+    Public Property IsOnlineOnly As Boolean Implements Views.IExtendBookingView.IsOnlineOnly
+        Get
+            Return ViewState("IsOnlineOnly")
+        End Get
+        Set(value As Boolean)
+            ViewState("IsOnlineOnly") = value
+        End Set
+    End Property
+
+    Public Sub NavigateToPayment(extensionId As Integer) Implements Views.IExtendBookingView.NavigateToPayment
+        ' Todo
+    End Sub
+
+    Public Sub NavigateToBookings(successful As Boolean) Implements Views.IExtendBookingView.NavigateToBookings
+        Response.Redirect(PageUrl.MemberBookings + "?extension=true")
+    End Sub
 End Class

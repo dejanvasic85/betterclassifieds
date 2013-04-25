@@ -25,6 +25,8 @@ BEGIN
 ALTER TABLE [dbo].[ScriptLog] ADD  CONSTRAINT [DF_ScriptLog_RunDate]  DEFAULT (getdate()) FOR [RunDate]
 END
 
-
 End
+GO
+
+SET ANSI_PADDING OFF
 GO

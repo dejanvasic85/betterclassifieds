@@ -7,10 +7,11 @@ Expected Variables
  OctopusPackageDirectoryPath - Supplied by octopus deployment tool that specifies the directory for the deployed scripts to run
  *** *** ***  *** *** *** *** *** *** *** *** *** #>
 
-Add-PSSnapin SqlServerCmdletSnapin100 -ErrorAction SilentlyContinue
-Add-PSSnapin SqlServerProviderSnapin100 -ErrorAction SilentlyContinue
+Import-Module SQLPS -DisableNameChecking -ErrorAction SilentlyContinue
 
 $DatabaseFolder = $OctopusPackageDirectoryPath
+
+Invoke-SqlCmd "This is just a test to see if the build will break"
 
 if ( $BackupBeforeDeploy -eq $true )
 {

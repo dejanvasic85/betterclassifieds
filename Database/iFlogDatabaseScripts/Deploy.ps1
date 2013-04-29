@@ -11,8 +11,6 @@ Import-Module SQLPS -DisableNameChecking -ErrorAction SilentlyContinue
 
 $DatabaseFolder = $OctopusPackageDirectoryPath
 
-Invoke-SqlCmd "This is just a test to see if the build will break"
-
 if ( $BackupBeforeDeploy -eq $true )
 {
 	$currentDateTime = Get-Date -format yyyyMMdd_hhmmss;

@@ -11,7 +11,7 @@ namespace BetterClassified.UI.Repository
 
     public interface IBookingRepository
     {
-        AdBookingModel GetBooking(int id);
+        AdBookingModel GetBooking(int id, bool withLineAd = false);
         List<BookEntryModel> GetBookEntriesForBooking(int adBookingId);
         int AddBookingExtension(AdBookingExtensionModel extension);
         AdBookingExtensionModel GetBookingExtension(int extensionId);
@@ -22,15 +22,25 @@ namespace BetterClassified.UI.Repository
 
     public class BookingRepository : IBookingRepository, IMappingBehaviour
     {
-        public AdBookingModel GetBooking(int id)
+        public AdBookingModel GetBooking(int id, bool withLineAd = false)
         {
             using (var context = BetterclassifiedsDataContext.NewContext())
             {
                 var booking = context.AdBookings.FirstOrDefault(b => b.AdBookingId == id);
                 if (booking == null)
                     return null;
+                
+                AdBookingModel model= this.Map<AdBooking, AdBookingModel>(booking);
+                
+                // Fetch line ad if required
+                if (withLineAd)
+                {
+                    var design = booking.Ad.AdDesigns.FirstOrDefault(d => d.LineAds.Any());
+                    if (design != null)
+                        model.LineAd = this.Map<LineAd, LineAdModel>(design.LineAds.First());
+                }
 
-                return this.Map<AdBooking, AdBookingModel>(booking);
+                return model;
             }
         }
 
@@ -106,6 +116,7 @@ namespace BetterClassified.UI.Repository
             configuration.CreateMap<AdBooking, AdBookingModel>();
             configuration.CreateMap<BookEntry, BookEntryModel>();
             configuration.CreateMap<AdBookingExtension, AdBookingExtensionModel>();
+            configuration.CreateMap<LineAd, LineAdModel>();
 
             // To data
             configuration.CreateMap<AdBookingExtensionModel, AdBookingExtension>()

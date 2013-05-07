@@ -44,11 +44,16 @@ namespace Paramount.Modules.Logging.UIController
             return request;
         }
 
-        public static LogAddResponse SendLogRequest(LogAddRequest logAddRequest)
+        public static void SendLogRequest(LogAddRequest logAddRequest)
         {
-            var response = WebServiceHostManager.LogServiceClient.Add(logAddRequest);
-
-            return response;
+            try
+            {
+                WebServiceHostManager.LogServiceClient.Add(logAddRequest);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
     }
 }

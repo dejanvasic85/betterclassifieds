@@ -5,28 +5,35 @@
     using System.Linq;
     using Models;
     using Views;
+    using Repository;
 
     public class ExtendBookingPresenter : Controller<IExtendBookingView>
     {
-        private readonly Repository.IBookingRepository bookingRepository;
-        private readonly Repository.IConfigSettings configSettings;
+        private readonly IBookingRepository bookingRepository;
+        private readonly IConfigSettings configSettings;
         private readonly ExtensionManager extensionManager;
+        private readonly RateCalculator rateCalculator;
 
-        public ExtendBookingPresenter(IExtendBookingView view, Repository.IBookingRepository bookingRepository, ExtensionManager extensionManager, Repository.IConfigSettings configSettings)
+        public ExtendBookingPresenter(IExtendBookingView view,
+            IBookingRepository bookingRepository,
+            ExtensionManager extensionManager,
+            IConfigSettings configSettings,
+            RateCalculator rateCalculator)
             : base(view)
         {
             this.bookingRepository = bookingRepository;
             this.extensionManager = extensionManager;
             this.configSettings = configSettings;
+            this.rateCalculator = rateCalculator;
         }
 
         public void Load()
         {
             // Fetch the original booking
-            AdBookingModel booking = bookingRepository.GetBooking(View.AdBookingId);
+            AdBookingModel booking = bookingRepository.GetBooking(View.AdBookingId, withLineAd: true);
 
-            // Ensure booking exists and belongs to the user
-            if (booking == null)
+            // Ensure booking exists
+            if (booking == null || booking.IsExpired || booking.BookingStatus != BookingStatusType.Booked)
             {
                 View.DisplayBookingDoesNotExist();
                 return;
@@ -36,14 +43,6 @@
             if (!View.LoggedInUserName.Equals(booking.UserId))
             {
                 View.DisplayBookingDoesNotExist();
-                return;
-            }
-
-            // Ensure the booking has not already expired
-            if (booking.IsExpired)
-            {
-                // Get out and display a message that the booking has expired
-                View.DisplayExpiredBookingMessage();
                 return;
             }
 
@@ -60,9 +59,9 @@
         {
             // Fetch the original booking
             if (booking == null)
-                booking = bookingRepository.GetBooking(View.AdBookingId);
+                booking = bookingRepository.GetBooking(View.AdBookingId, withLineAd: true);
 
-            // Check whether the booking is online only
+            // Check whether the booking is online only ( for scheduling )
             if (booking.BookingType == BookingType.Bundled)
             {
                 // Fetch and display the list of editions
@@ -76,9 +75,18 @@
                     .EditionDate
                     .AddDays(configSettings.NumberOfDaysAfterLastEdition);
 
-                // Fetch price per edition
-                decimal pricePerEdition = editions.Sum(s => s.Editions.First().EditionAdPrice);
+                decimal pricePerEdition = 0;
+
+                foreach (var publication in editions)
+                {
+                    pricePerEdition += rateCalculator.Calculate(
+                        publication.Editions.OrderBy(e => e.EditionDate).Last().BaseRateId,
+                        booking.LineAd,
+                        isOnlineAd: true);
+                }
+
                 decimal totalPrice = pricePerEdition * insertions;
+
                 View.IsOnlineOnly = false;
                 View.DataBindEditions(editions, onlineAdEndDate, pricePerEdition, totalPrice);
             }

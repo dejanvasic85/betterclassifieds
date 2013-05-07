@@ -57,12 +57,6 @@ Public Class ExtendBooking
         divPublications.Visible = False
     End Sub
 
-    Public Sub DisplayExpiredBookingMessage() Implements Views.IExtendBookingView.DisplayExpiredBookingMessage
-        lblErrorMessage.Text = "The booking you have requested has already expired. Please click the 'Expired Ads' link on the left hand menu to complete the Booking Process for the expired ad."
-        errorDetails.Visible = True
-        pnlContent.Visible = False
-    End Sub
-
     Public Sub DisplayBookingDoesNotExist() Implements Views.IExtendBookingView.DisplayBookingDoesNotExist
         lblErrorMessage.Text = "The booking you have requested does not exist."
         errorDetails.Visible = True

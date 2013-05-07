@@ -16,7 +16,6 @@ namespace BetterClassified.UI.Views
         void DataBindOptions(IEnumerable<int> insertions);
         void DataBindEditions(IEnumerable<PublicationEditionModel> editions, DateTime dateTime, decimal pricePerEdition, decimal totalPrice);
         void SetupOnlineOnlyView();
-        void DisplayExpiredBookingMessage();
         void DisplayBookingDoesNotExist();
         void NavigateToPayment(int extensionId);
         void NavigateToBookings(bool successful);

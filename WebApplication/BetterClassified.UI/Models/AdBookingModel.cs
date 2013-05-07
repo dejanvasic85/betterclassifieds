@@ -14,5 +14,9 @@ namespace BetterClassified.UI.Models
         {
             get { return this.EndDate < DateTime.Today; }
         }
+
+        public LineAdModel LineAd { get; set; }
+
+        public BookingStatusType BookingStatus { get; set; }
     }
 }

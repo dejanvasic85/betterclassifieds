@@ -18,7 +18,8 @@ Public Class Global_asax
         BetterClassified.Unity.DefaultContainer _
             .RegisterType(Of IBookingRepository, BookingRepository)() _
             .RegisterType(Of IPublicationRepository, PublicationRepository)() _
-            .RegisterType(Of IConfigSettings, ConfigSettings)()
+            .RegisterType(Of IConfigSettings, ConfigSettings)() _
+            .RegisterType(Of IRateRepository, RateRepository)()
     End Sub
 
     Sub Session_Start(ByVal sender As Object, ByVal e As EventArgs)

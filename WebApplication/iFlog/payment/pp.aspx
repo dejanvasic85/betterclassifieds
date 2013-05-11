@@ -38,8 +38,7 @@
     </form>
     
        <script language="javascript" type="text/javascript">
-           document.payForm.submit();
-
+           document.forms[0].submit();
         </script>
 </body>
 </html>

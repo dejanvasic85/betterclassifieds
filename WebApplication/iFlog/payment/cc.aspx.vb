@@ -113,7 +113,7 @@ Namespace payment
             payForm.Controls.Add(contr)
 
 
-            Dim scriptText As String = String.Format("<script language ='javascript'> document.payForm.action='{0}'; document.payForm.submit(); </script>", Settings.GatewayUrl)
+            Dim scriptText As String = String.Format("<script language ='javascript'> document.forms[0].action='{0}'; document.forms[0].submit(); </script>", Settings.GatewayUrl)
             ClientScript.RegisterStartupScript(this.GetType(), "paymentForm", scriptText)
             this.Controls.Add(payForm)
             'AuditLogManager.Log(New AuditLog With {.TransactionName = "Response.SubmitPaymentInfo", .Data = "Success"})

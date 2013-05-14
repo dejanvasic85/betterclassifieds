@@ -12,12 +12,13 @@ namespace BetterClassified.UI.Views
         decimal TotalPrice { get; set; }
         bool IsPaymentRequired { get; }
         bool IsOnlineOnly { get; set; }
-        
+        string BookingReference { get; set; }
+
         void DataBindOptions(IEnumerable<int> insertions);
         void DataBindEditions(IEnumerable<PublicationEditionModel> editions, DateTime dateTime, decimal pricePerEdition, decimal totalPrice);
         void SetupOnlineOnlyView();
         void DisplayBookingDoesNotExist();
-        void NavigateToPayment(int extensionId);
+        void NavigateToPayment(int extensionId, string bookingReference);
         void NavigateToBookings(bool successful);
     }
 }

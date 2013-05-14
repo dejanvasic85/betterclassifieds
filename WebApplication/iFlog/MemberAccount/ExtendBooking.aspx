@@ -82,9 +82,19 @@
             </div>
 
             <div class="formcontrol-container" id="divPayment" runat="server">
+                <label>Payment Option</label>
+                <label class="helptext">Select your method of payment</label>
+                <div class="control">
+                    <asp:RadioButton runat="server" ID="rdoCreditCard" Text="Credit Card" GroupName="PaymentOption"
+                        Checked="True"/>
+                </div>
+                <div class="control">
+                    <asp:RadioButton runat="server" ID="rdoPaypal" Text="PayPal" GroupName="PaymentOption"/>
+                </div>
                 <div class="control">
                     <asp:CheckBox ID="chkConditions" runat="server"
-                        Text="I have read and agreed to the <a href='../Terms.aspx' target='blank'>terms and conditions</a>." />
+                        Text="I have read and agreed to the <a href='../Terms.aspx' target='blank'>terms and conditions</a>."
+                        Checked="True" />
                 </div>
             </div>
 

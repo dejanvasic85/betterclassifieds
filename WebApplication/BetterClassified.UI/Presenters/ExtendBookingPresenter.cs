@@ -33,14 +33,10 @@
             AdBookingModel booking = bookingRepository.GetBooking(View.AdBookingId, withLineAd: true);
 
             // Ensure booking exists
-            if (booking == null || booking.IsExpired || booking.BookingStatus != BookingStatusType.Booked)
-            {
-                View.DisplayBookingDoesNotExist();
-                return;
-            }
-
-            // Ensure that the booking belongs to the logged in user!
-            if (!View.LoggedInUserName.Equals(booking.UserId))
+            if (booking == null || 
+                booking.IsExpired || 
+                booking.BookingStatus != BookingStatusType.Booked ||
+                booking.UserId.DoesNotEqual(View.LoggedInUserName))
             {
                 View.DisplayBookingDoesNotExist();
                 return;
@@ -60,6 +56,8 @@
             // Fetch the original booking
             if (booking == null)
                 booking = bookingRepository.GetBooking(View.AdBookingId, withLineAd: true);
+
+            View.BookingReference = booking.BookReference;
 
             // Check whether the booking is online only ( for scheduling )
             if (booking.BookingType == BookingType.Bundled)
@@ -110,7 +108,7 @@
             if (View.IsPaymentRequired)
             {
                 // Save the extension id for completing later and redirect to the payment processing views
-                View.NavigateToPayment(extension.AdBookingExtensionId);
+                View.NavigateToPayment(extension.AdBookingExtensionId, View.BookingReference);
             }
             else
             {

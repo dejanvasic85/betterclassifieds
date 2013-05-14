@@ -176,6 +176,24 @@ Partial Public Class ExtendBooking
     Protected WithEvents chkConditions As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
+    '''rdoCreditCard control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rdoCreditCard As Global.System.Web.UI.WebControls.RadioButton
+
+    '''<summary>
+    '''rdoPaypal control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rdoPaypal As Global.System.Web.UI.WebControls.RadioButton
+
+    '''<summary>
     '''btnCancel control.
     '''</summary>
     '''<remarks>

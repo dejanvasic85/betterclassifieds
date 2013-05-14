@@ -16,7 +16,7 @@ namespace BetterClassified.UI.Repository
         int AddBookingExtension(AdBookingExtensionModel extension);
         AdBookingExtensionModel GetBookingExtension(int extensionId);
         void UpdateExtesion(int extensionId, int? status);
-        void UpdateBooking(int adBookingId, DateTime? newEndDate);
+        void UpdateBooking(int adBookingId, DateTime? newEndDate = null, decimal? totalPrice = null);
         void AddBookEntries(BookEntryModel[] bookEntries);
     }
 
@@ -69,8 +69,10 @@ namespace BetterClassified.UI.Repository
         {
             using (var context = BetterclassifiedsDataContext.NewContext())
             {
-                var adBookingExtension = context.AdBookingExtensions.First(extension => extension.AdBookingExtensionId == extensionId);
-                return this.Map<AdBookingExtension, AdBookingExtensionModel>(adBookingExtension);
+                var adBookingExtension = context.AdBookingExtensions.FirstOrDefault(extension => extension.AdBookingExtensionId == extensionId);
+                return adBookingExtension == null 
+                    ? null 
+                    : this.Map<AdBookingExtension, AdBookingExtensionModel>(adBookingExtension);
             }
         }
 
@@ -87,7 +89,7 @@ namespace BetterClassified.UI.Repository
             }
         }
 
-        public void UpdateBooking(int adBookingId, DateTime? newEndDate)
+        public void UpdateBooking(int adBookingId, DateTime? newEndDate = null, decimal? totalPrice = null)
         {
             using (var context = BetterclassifiedsDataContext.NewContext())
             {
@@ -95,6 +97,9 @@ namespace BetterClassified.UI.Repository
 
                 if (newEndDate.HasValue)
                     adBooking.EndDate = newEndDate.Value;
+
+                if (totalPrice.HasValue)
+                    adBooking.TotalPrice = totalPrice.Value;
 
                 // Update
                 context.SubmitChanges(ConflictMode.ContinueOnConflict);

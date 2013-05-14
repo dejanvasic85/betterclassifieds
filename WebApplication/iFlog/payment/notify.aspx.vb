@@ -4,7 +4,8 @@ Imports BetterclassifiedsWeb.payment
 Imports Paramount.ApplicationBlock.Configuration
 Imports Paramount.Modules.Logging.UIController
 Imports Paramount.Betterclassified.Utilities.PayPal
-
+Imports Microsoft.Practices.Unity
+Imports BetterClassified.UI.Presenters
 
 Partial Public Class notify
     Inherits System.Web.UI.Page
@@ -25,7 +26,7 @@ Partial Public Class notify
     End Function
 
     Private Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        
+
         Dim result As String = "Success"
         Try
 
@@ -65,24 +66,28 @@ Partial Public Class notify
                         End If
                         'redirect to book successful page
                         Me.Response.Redirect("~/Booking/Default.aspx?action=successful")
+                    Else
+                        Dim manager = BetterClassified.Unity.DefaultContainer.Resolve(Of ExtensionManager)()
+                        Dim extension = manager.GetExtension(NotifyParameterAccess.ReferenceId)
+                        If extension IsNot Nothing Then
+                            manager.Extend(extension)
+                            Me.Response.Redirect("~/MemberAccount/Bookings.aspx?extension=true")
+                        End If
                     End If
                 Case Else
-                    If True Then
-                        ' Possible fraud. Log for investigation.
-                        Dim secError = "Possible Fraud occurance using paypal system." + Environment.NewLine + _
-                                                                         "Paypal User information" + Environment.NewLine + _
-                                                                         "-----------------------" + Environment.NewLine + _
-                                                                         "Username: " + Request("payer_email") + Environment.NewLine + _
-                                                                         "First Name: " + Environment.NewLine + _
-                                                                         "Last Name: " + Environment.NewLine + _
-                                                                         Environment.NewLine + Environment.NewLine + _
-                                                                         "Betterclassifieds User Information " + Environment.NewLine + _
-                                                                         "---------------------------------- " + Environment.NewLine + _
-                                                                         "Username: " + Membership.GetUser().UserName
-                        Throw New Exception(secError)
-
-                        Exit Select
-                    End If
+                    ' Possible fraud. Log for investigation.
+                    Dim secError = "Possible Fraud occurance using paypal system." + Environment.NewLine + _
+                                                                     "Paypal User information" + Environment.NewLine + _
+                                                                     "-----------------------" + Environment.NewLine + _
+                                                                     "Username: " + Request("payer_email") + Environment.NewLine + _
+                                                                     "First Name: " + Environment.NewLine + _
+                                                                     "Last Name: " + Environment.NewLine + _
+                                                                     Environment.NewLine + Environment.NewLine + _
+                                                                     "Betterclassifieds User Information " + Environment.NewLine + _
+                                                                     "---------------------------------- " + Environment.NewLine + _
+                                                                     "Username: " + Membership.GetUser().UserName
+                    Throw New Exception(secError)
+                    Exit Select
             End Select
         Catch ex As Exception
             'EventLogManager.Log(New EventLog(ex) With {.TransactionName = "Response.CreditCardPayment.Notify"})

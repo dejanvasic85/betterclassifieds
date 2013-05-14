@@ -13,13 +13,28 @@ Partial Public Class pp
 
     Public Shared ReadOnly Property SuccessUrl() As String
         Get
-            Return String.Format("{0}?id={1}&", Settings.SuccessUrl, BookingProcess.PaymentReferenceId)
+            If BookingController.BookingType = Booking.BookingAction.Extension Then
+                Dim returnUrl = Replace(Settings.SuccessUrl, "/Booking/Success.aspx", "/MemberAccount/Bookings.aspx?extension=true")
+                Return returnUrl
+            Else
+                Return String.Format("{0}?id={1}&", Settings.SuccessUrl, BookingProcess.PaymentReferenceId)
+            End If
         End Get
     End Property
 
     Public Shared ReadOnly Property NotifyUrl() As String
         Get
-            Return String.Format("{0}?sessionid={1}&id={2}&tt={3}&totalCost={4}&", Settings.NotifyUrl, HttpContext.Current.Session.SessionID, BookingProcess.PaymentReferenceId, Common.Constants.PaymentOption.PayPal, Cost)
+            Dim reference = BookingProcess.PaymentReferenceId
+            If BookingController.BookingType = Booking.BookingAction.Extension Then
+                reference = ExtensionContext.ExtensionId
+            End If
+
+            Return String.Format("{0}?sessionid={1}&id={2}&tt={3}&totalCost={4}&", _
+                                 Settings.NotifyUrl, _
+                                 HttpContext.Current.Session.SessionID, _
+                                 reference, _
+                                 Common.Constants.PaymentOption.PayPal, _
+                                 Cost)
         End Get
     End Property
 
@@ -39,6 +54,8 @@ Partial Public Class pp
                 End If
             ElseIf BookingController.BookingType = Booking.BookingAction.BundledBooking Then
                 Return BundleController.BundleCart.TotalPrice.ToString("00.00")
+            ElseIf BookingController.BookingType = Booking.BookingAction.Extension Then
+                Return ParameterAccess.ExtensionContext.TotalCost.ToString("00.00")
             End If
             Return 0
         End Get
@@ -54,6 +71,8 @@ Partial Public Class pp
                 Return String.Format("Booking Reference: {0}", BookingController.SpecialBookCart.BookReference)
             ElseIf BookingController.BookingType = Booking.BookingAction.BundledBooking Then
                 Return String.Format("Booking Reference: {0}", BundleController.BundleCart.BookReference)
+            ElseIf BookingController.BookingType = Booking.BookingAction.Extension Then
+                Return String.Format("Booking Reference: {0}", ParameterAccess.ExtensionContext.BookingReference)
             End If
             Return ""
         End Get

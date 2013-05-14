@@ -1,4 +1,6 @@
 ﻿Imports BetterClassified.UI
+Imports BetterclassifiedsCore
+Imports BetterclassifiedsCore.ParameterAccess
 
 Public Class ExtendBooking
     Inherits BasePage(Of Presenters.ExtendBookingPresenter, Views.IExtendBookingView)
@@ -87,11 +89,32 @@ Public Class ExtendBooking
         End Set
     End Property
 
-    Public Sub NavigateToPayment(extensionId As Integer) Implements Views.IExtendBookingView.NavigateToPayment
-        ' Todo
+    Public Sub NavigateToPayment(extensionId As Integer, bookingReference As String) Implements Views.IExtendBookingView.NavigateToPayment
+        ExtensionContext.ExtensionId = extensionId
+        ExtensionContext.BookingReference = bookingReference
+        ExtensionContext.TotalCost = Me.TotalPrice
+        BookingController.BookingType = Booking.BookingAction.Extension
+
+        If rdoCreditCard.Checked Then
+            BookingProcess.PaymentOption = Common.Constants.PaymentOption.CreditCard
+            Response.Redirect(PageUrl.CreditCardPaymentPage)
+        ElseIf rdoPaypal.Checked Then
+            BookingProcess.PaymentOption = Common.Constants.PaymentOption.PayPal
+            Response.Redirect(PageUrl.PaypalPaymentPage)
+        End If
     End Sub
 
     Public Sub NavigateToBookings(successful As Boolean) Implements Views.IExtendBookingView.NavigateToBookings
         Response.Redirect(PageUrl.MemberBookings + "?extension=true")
     End Sub
+
+    Public Property BookingReference As String Implements Views.IExtendBookingView.BookingReference
+        Get
+            Return ViewState("bookingReference")
+        End Get
+        Set(value As String)
+            ViewState("bookingReference") = value
+        End Set
+    End Property
+
 End Class

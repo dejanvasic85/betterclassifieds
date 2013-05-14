@@ -6,6 +6,7 @@
         SpecialBooking
         BundledBooking
         Empty
+        Extension
     End Enum
 
 End Namespace

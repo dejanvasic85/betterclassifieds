@@ -16,7 +16,7 @@ namespace BetterClassified.UI.Models
         }
 
         public LineAdModel LineAd { get; set; }
-
         public BookingStatusType BookingStatus { get; set; }
+        public string BookReference { get; set; }
     }
 }

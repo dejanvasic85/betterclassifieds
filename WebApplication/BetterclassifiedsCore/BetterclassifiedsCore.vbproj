@@ -150,6 +150,7 @@
     <Compile Include="Exceptions\ContextNotSetException.vb" />
     <Compile Include="IBookCartContext.vb" />
     <Compile Include="ParameterAccess\BookingProcess.vb" />
+    <Compile Include="ParameterAccess\ExtensionContext.vb" />
     <Compile Include="ParameterAccess\UploadParameter.vb" />
     <Compile Include="ParameterAccess\OnlineSearchParameter.vb" />
     <Compile Include="WebAdvertising\AdSpaceController.vb" />

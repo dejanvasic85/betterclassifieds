@@ -76,6 +76,11 @@ namespace BetterClassified.UI.Presenters
             return extension;
         }
 
+        public AdBookingExtensionModel GetExtension(int extensionId)
+        {
+            return bookingRepository.GetBookingExtension(extensionId);
+        }
+
         public void Extend(AdBookingExtensionModel extensionModel)
         {
             AdBookingModel adBooking = bookingRepository.GetBooking(extensionModel.AdBookingId);
@@ -103,7 +108,9 @@ namespace BetterClassified.UI.Presenters
                 {
                     lastEditionDate = lastEditionDate.AddDays(configSettings.NumberOfDaysAfterLastEdition);
                 }
-                bookingRepository.UpdateBooking(adBooking.AdBookingId, lastEditionDate);
+
+                var price = adBooking.TotalPrice + extensionModel.ExtensionPrice;
+                bookingRepository.UpdateBooking(adBooking.AdBookingId, lastEditionDate, price);
             }
 
             // Mark the extension as complete

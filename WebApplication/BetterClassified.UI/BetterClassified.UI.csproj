@@ -134,6 +134,7 @@
     <Compile Include="Controls\Dsl\WebImageMakerHelper.cs" />
     <Compile Include="Controls\ErrorList.cs" />
     <Compile Include="Controls\ExtendBookingForm.cs" />
+    <Compile Include="Framework\Extensions\StringExtensions.cs" />
     <Compile Include="Framework\Mapping.cs" />
     <Compile Include="Framework\ReaderWriterCache.cs" />
     <Compile Include="Handlers\DocumentHandler.cs" />

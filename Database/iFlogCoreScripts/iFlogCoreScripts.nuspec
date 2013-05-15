@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>iFlogCoreDatabaseScripts</id>
-    <title>iFlogCoreDatabaseScripts</title>
+    <id>iFlogCoreScripts</id>
+    <title>iFlogCoreScripts</title>
     <version>1.0.0</version>
     <authors>Paramount IT Solutions</authors>
     <owners>Paramount IT Solutions</owners>
@@ -12,10 +12,4 @@
     <description>iFlog core database contains all service based data for the iFlog website.</description>
     <releaseNotes></releaseNotes>
   </metadata>
-  <files>
-    <file src="Deploy.xml" />
-    <file src="Deploy.ps1" />
-    <file src="1.New\**\*.*" target="1.New\" />
-    <file src="2.Base\**\*.*" target="2.Base\" />    
-  </files>
 </package>

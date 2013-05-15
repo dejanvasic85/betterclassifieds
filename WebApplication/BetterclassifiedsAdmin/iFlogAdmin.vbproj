@@ -597,7 +597,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="webcontent\web.config" />
-    <Content Include="packages.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -1245,5 +1244,5 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
-  <Import Project="..\..\packages\OctoPack.2.0.14\targets\OctoPack.targets" />
+  <Import Project="..\..\packages\OctoPack.2.0.20\targets\OctoPack.targets" />
 </Project>

@@ -12,10 +12,4 @@
     <description>Package containing database scripts that is invoked with a contained powershell package.</description>
     <releaseNotes></releaseNotes>
   </metadata>
-  <files>
-    <file src="Deploy.xml" />
-    <file src="Deploy.ps1" />
-    <file src="1.New\**\*.*" target="1.New\" />
-    <file src="2.Base\**\*.*" target="2.Base\" />    
-  </files>
 </package>

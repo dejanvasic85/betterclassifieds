@@ -154,9 +154,6 @@
     <Content Include="Dsl\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Deploy.ps1" />
     <None Include="Services.Host.nuspec" />
   </ItemGroup>
@@ -185,7 +182,7 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="..\..\packages\OctoPack.2.0.14\targets\OctoPack.targets" />
+  <Import Project="..\..\packages\OctoPack.2.0.20\targets\OctoPack.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

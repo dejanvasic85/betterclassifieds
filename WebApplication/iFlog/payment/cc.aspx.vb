@@ -26,6 +26,8 @@ Namespace payment
                         Return BookingController.SpecialBookCart.TotalPrice.Value.ToString("00.00")
                     Case Booking.BookingAction.BundledBooking
                         Return BundleBooking.BundleController.BundleCart.TotalPrice.ToString("00.00")
+                    Case Booking.BookingAction.Extension
+                        Return ParameterAccess.ExtensionContext.TotalCost.ToString("00.00")
                 End Select
                 Return Nothing
             End Get
@@ -41,6 +43,8 @@ Namespace payment
                     Return BookingController.SpecialBookCart.BookReference
                 ElseIf BookingController.BookingType = Booking.BookingAction.BundledBooking Then
                     Return BundleBooking.BundleController.BundleCart.BookReference
+                ElseIf BookingController.BookingType = Booking.BookingAction.Extension Then
+                    Return ParameterAccess.ExtensionContext.BookingReference
                 End If
                 Return Nothing
             End Get
@@ -56,13 +60,7 @@ Namespace payment
             SaveTempRecord()
         End Sub
 
-
-
         Private Sub SaveTempRecord()
-            'Dim info = New AuditLog With {.TransactionName = "Request.SaveTempBookingRecord", .Data = String.Format("Ref:{0}, Cost:{1}, Booking Type:{2}", BookingProcess.PaymentReferenceId, Cost, BookingController.BookingType)}
-            'AuditLogManager.Log(info)
-
-
             If BookingController.BookingType = Booking.BookingAction.NormalBooking Then
                 BookingController.SaveTempAdRecord(BookingProcess.PaymentReferenceId, Cost, Session.SessionID, User.Identity.Name, BookingController.AdBookCart, TransactionType.CREDIT)
             ElseIf BookingController.BookingType = Booking.BookingAction.Reschedule Then
@@ -72,8 +70,18 @@ Namespace payment
             ElseIf BookingController.BookingType = Booking.BookingAction.BundledBooking Then
                 BundleBooking.BundleController.SaveTempAdBundleRecord(BookingProcess.PaymentReferenceId, Cost, Session.SessionID, BundleController.BundleCart.Username, BundleController.BundleCart, TransactionType.CREDIT)
             End If
-            'AuditLogManager.Log(New AuditLog With {.TransactionName = "Request.SaveTempBookingRecord", .Data = "Success"})
         End Sub
+
+        Private ReadOnly Property ReturnUrl As String
+            Get
+                If BookingController.BookingType = Booking.BookingAction.Extension Then
+                    ' Override the return URL
+                    Dim url = Replace(Settings.ReturnUrl, "/Booking/Success.aspx", "/MemberAccount/Bookings.aspx?extension=true")
+                    Return url
+                End If
+                Return String.Format("{0}?id={1}&", Settings.ReturnUrl, BookingProcess.PaymentReferenceId)
+            End Get
+        End Property
 
         Protected Overrides Sub CreateChildControls()
             'Dim info As New AuditLog
@@ -86,13 +94,9 @@ Namespace payment
             sb.AppendFormat("Payment Reference: {0},", ItemName)
             sb.AppendFormat("Gst Rate: {0},", Settings.GstAdded)
             sb.AppendFormat("Gst Included: {0},", Settings.GstAdded)
-            sb.AppendFormat("Return Url: {0},", String.Format("{0}?id={1}&", Settings.ReturnUrl, BookingProcess.PaymentReferenceId))
+            sb.AppendFormat("Return Url: {0},", Me.ReturnUrl)
             sb.AppendFormat("ReturnUrlText: {0},", Settings.VendorName)
 
-            'info.TransactionName = "Request.SubmitPaymentInfo"
-            'info.Data = String.Format(sb.ToString)
-            'info.SecondaryData = String.Format("{0}?sessionid={1}&id={2}&tt={3}&totalCost={4}&", Settings.NotifyUrl, Session.SessionID, BookingProcess.PaymentReferenceId, Common.Constants.PaymentOption.CreditCard, Cost)
-            'AuditLogManager.Log(info)
             Dim contr As New SubmitInputControl
 
             With contr
@@ -112,11 +116,9 @@ Namespace payment
             contr.AddProduct(ItemName, Cost)
             payForm.Controls.Add(contr)
 
-
             Dim scriptText As String = String.Format("<script language ='javascript'> document.forms[0].action='{0}'; document.forms[0].submit(); </script>", Settings.GatewayUrl)
             ClientScript.RegisterStartupScript(this.GetType(), "paymentForm", scriptText)
             this.Controls.Add(payForm)
-            'AuditLogManager.Log(New AuditLog With {.TransactionName = "Response.SubmitPaymentInfo", .Data = "Success"})
         End Sub
 
         Private Function GetPriceSummary() As String

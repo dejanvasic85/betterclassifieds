@@ -16,7 +16,6 @@ Partial Public Class notify
         End Get
     End Property
 
-
     ' This helper method encodes a string correctly for an HTTP POST
     Private Function Encode(ByVal oldValue As String) As String
         Dim newValue As String = oldValue.Replace("""", "'")
@@ -26,10 +25,9 @@ Partial Public Class notify
     End Function
 
     Private Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
         Dim result As String = "Success"
         Try
-
+            ' Credit card processing
             If Request.QueryString("tt") = Common.Constants.PaymentOption.CreditCard Then
                 If BookingController.BookTempAdRecord(NotifyParameterAccess.ReferenceId, NotifyParameterAccess.SessionId, NotifyParameterAccess.Cost) Then
                     'redirect to book successful page
@@ -37,14 +35,20 @@ Partial Public Class notify
                     If Not String.IsNullOrEmpty(ref) Then
                         Global_asax.OnPayment.BeginInvoke(ref, Nothing, Nothing)
                     End If
-
                     Me.Response.Redirect("~/Booking/Default.aspx?action=successful")
+                Else
+                    ' This is an extension booking
+                    Dim manager = BetterClassified.Unity.DefaultContainer.Resolve(Of ExtensionManager)()
+                    Dim extension = manager.GetExtension(NotifyParameterAccess.ReferenceId)
+                    If extension IsNot Nothing Then
+                        manager.Extend(extension)
+                        Me.Response.Redirect("~/MemberAccount/Bookings.aspx?extension=true")
+                    End If
                 End If
-
                 Return
             End If
 
-            ' Step 1a: Modify the POST string.
+            ' Paypal processing
             Dim formPostData As String = "cmd = _notify-validate"
             For Each postKey As [String] In Request.Form
                 Dim postValue As String = Encode(Request.Form(postKey))

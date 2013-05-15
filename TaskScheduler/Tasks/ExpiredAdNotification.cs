@@ -13,7 +13,7 @@ namespace Paramount.Products.TaskScheduler
             if(int.TryParse(parameters[DaysBeforeExpiry], out daysBeforeExpiry))
                 using (var proxy = new NotificationService.NotificationServiceSoapClient())
                 {
-                    var result = proxy.ExpreiredAdEmailNotification(DateTime.Today.AddDays(daysBeforeExpiry));
+                    var result = proxy.ExpiredAdEmailNotification(DateTime.Today.AddDays(daysBeforeExpiry));
                 }
         }
 

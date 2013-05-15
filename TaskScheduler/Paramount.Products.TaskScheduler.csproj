@@ -145,6 +145,7 @@
       <SubType>Designer</SubType>
       <TransformOnBuild>true</TransformOnBuild>
     </None>
+    <None Include="Service References\NotificationService\NotificationService1.disco" />
     <Content Include="TaskScheduler.exe.Debug.config">
       <DependentUpon>app.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -169,7 +170,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\app.manifest" />
-    <None Include="Service References\NotificationService\NotificationService.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -178,15 +178,13 @@
     <WCFMetadataStorage Include="Service References\NotificationService\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\NotificationService\NotificationService.disco" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Service References\NotificationService\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\NotificationService\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\NotificationService\NotificationService1.wsdl" />
     <None Include="Service References\NotificationService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

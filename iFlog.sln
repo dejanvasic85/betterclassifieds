@@ -72,14 +72,19 @@ EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "BetterclassifiedsCore", "WebApplication\BetterclassifiedsCore\BetterclassifiedsCore.vbproj", "{0790D756-48F2-42C5-9985-7915D15ED88C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Products.TaskScheduler", "TaskScheduler\Paramount.Products.TaskScheduler.csproj", "{5A595E8C-7861-415F-A193-A295E94CA22F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FEB858C0-B35D-4A07-A0EE-16F5B5BFC7EE} = {FEB858C0-B35D-4A07-A0EE-16F5B5BFC7EE}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 Database", "05 Database", "{06813343-424A-4B8F-9CA9-A109CEA6303B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iFlogDatabaseScripts", "Database\iFlogDatabaseScripts\iFlogDatabaseScripts.csproj", "{11CB1DF8-8BA4-4135-8DAF-7393AC8DCAFC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iFlogCoreScripts", "Database\iFlogCoreScripts\iFlogCoreScripts.csproj", "{189DAD36-69E1-4FE1-82FB-7F1EE2F59309}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 34
+		SccNumberOfProjects = 35
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://paramountit.visualstudio.com/defaultcollection
 		SccLocalPath0 = .
@@ -215,6 +220,10 @@ Global
 		SccProjectTopLevelParentUniqueName33 = iFlog.sln
 		SccProjectName33 = Database/iFlogDatabaseScripts
 		SccLocalPath33 = Database\\iFlogDatabaseScripts
+		SccProjectUniqueName34 = Database\\iFlogCoreScripts\\iFlogCoreScripts.csproj
+		SccProjectTopLevelParentUniqueName34 = iFlog.sln
+		SccProjectName34 = Database/iFlogCoreScripts
+		SccLocalPath34 = Database\\iFlogCoreScripts
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -420,6 +429,12 @@ Global
 		{11CB1DF8-8BA4-4135-8DAF-7393AC8DCAFC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{11CB1DF8-8BA4-4135-8DAF-7393AC8DCAFC}.Test|Any CPU.ActiveCfg = Release|Any CPU
 		{11CB1DF8-8BA4-4135-8DAF-7393AC8DCAFC}.Test|Any CPU.Build.0 = Release|Any CPU
+		{189DAD36-69E1-4FE1-82FB-7F1EE2F59309}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{189DAD36-69E1-4FE1-82FB-7F1EE2F59309}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{189DAD36-69E1-4FE1-82FB-7F1EE2F59309}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{189DAD36-69E1-4FE1-82FB-7F1EE2F59309}.Release|Any CPU.Build.0 = Release|Any CPU
+		{189DAD36-69E1-4FE1-82FB-7F1EE2F59309}.Test|Any CPU.ActiveCfg = Release|Any CPU
+		{189DAD36-69E1-4FE1-82FB-7F1EE2F59309}.Test|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -458,5 +473,6 @@ Global
 		{0790D756-48F2-42C5-9985-7915D15ED88C} = {328F405C-3398-4608-B8DA-62CCB3EE8627}
 		{5A595E8C-7861-415F-A193-A295E94CA22F} = {328F405C-3398-4608-B8DA-62CCB3EE8627}
 		{11CB1DF8-8BA4-4135-8DAF-7393AC8DCAFC} = {06813343-424A-4B8F-9CA9-A109CEA6303B}
+		{189DAD36-69E1-4FE1-82FB-7F1EE2F59309} = {06813343-424A-4B8F-9CA9-A109CEA6303B}
 	EndGlobalSection
 EndGlobal

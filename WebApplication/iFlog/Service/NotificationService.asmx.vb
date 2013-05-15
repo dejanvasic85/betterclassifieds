@@ -15,7 +15,7 @@ Namespace Service
         Inherits System.Web.Services.WebService
 
         <WebMethod()> _
-        Public Function ExpreiredAdEmailNotification(ByVal daysBeforeExpiry As Date) As Boolean
+        Public Function ExpiredAdEmailNotification(ByVal daysBeforeExpiry As Date) As Boolean
             Dim email As New AdExpiryNotification
             Dim expiringAdbookings = AdBookingController.GetExpiredAdList(daysBeforeExpiry)
 
@@ -34,6 +34,10 @@ Namespace Service
                     Next
                     Dim recip = New EmailRecipientView() With {.Email = user.Email, .Name = user.UserName}
                     recip.TemplateFields.Add(New TemplateItemView With {.Name = "adReference", .Value = sb.ToString})
+
+                    Dim link = ConfigurationManager.AppSettings.Get("BaseUrl") + "/MemberAccount/Bookings.aspx"
+
+                    recip.TemplateFields.Add(New TemplateItemView With {.Name = "linkForExtension", .Value = link})
                     email.Recipients.Add(recip)
                 End If
             Next

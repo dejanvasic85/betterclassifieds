@@ -20,11 +20,11 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:54118/Service/NotificationService.asmx" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost/iFlog/Service/NotificationService.asmx" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="NotificationService.wsdl" MetadataType="Wsdl" ID="f11973cb-6218-4146-94fd-5d157918ff22" SourceId="1" SourceUrl="http://localhost:54118/Service/NotificationService.asmx?wsdl" />
-    <MetadataFile FileName="NotificationService.disco" MetadataType="Disco" ID="c4a03ba9-7dde-4b9b-85f0-7df9bddc6076" SourceId="1" SourceUrl="http://localhost:54118/Service/NotificationService.asmx?disco" />
+    <MetadataFile FileName="NotificationService1.disco" MetadataType="Disco" ID="6f57a76d-d8d2-41ba-902d-53060b0e557a" SourceId="1" SourceUrl="http://localhost/iFlog/Service/NotificationService.asmx?disco" />
+    <MetadataFile FileName="NotificationService1.wsdl" MetadataType="Wsdl" ID="b738de57-96c0-438e-ba4c-efbc5c24301a" SourceId="1" SourceUrl="http://localhost/iFlog/Service/NotificationService.asmx?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

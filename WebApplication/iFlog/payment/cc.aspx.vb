@@ -108,9 +108,9 @@ Namespace payment
                 .PaymentReference = ItemName
                 .GstRate = Settings.GstRate
                 .GstIncluded = Settings.GstAdded
-                .ReturnUrl = String.Format("{0}?id={1}&", Settings.ReturnUrl, BookingProcess.PaymentReferenceId)
+                .ReturnUrl = Me.ReturnUrl
                 .ReturnUrlText = Settings.ReturnUrlText
-                .NotifyUrl = String.Format("{0}?sessionid={1}&id={2}&tt={3}&totalCost={4}&", Settings.NotifyUrl, Session.SessionID, BookingProcess.PaymentReferenceId, Common.Constants.PaymentOption.CreditCard, Cost)
+                .NotifyUrl = String.Format("{0}?sessionid={1}&id={2}&tt={3}&totalCost={4}&", Settings.NotifyUrl, Session.SessionID, Me.Id, Common.Constants.PaymentOption.CreditCard, Cost)
             End With
 
             contr.AddProduct(ItemName, Cost)
@@ -120,6 +120,17 @@ Namespace payment
             ClientScript.RegisterStartupScript(this.GetType(), "paymentForm", scriptText)
             this.Controls.Add(payForm)
         End Sub
+
+        Private ReadOnly Property Id As String
+            Get
+                Select Case BookingController.BookingType
+                    Case Booking.BookingAction.Extension
+                        Return ExtensionContext.ExtensionId
+                    Case Else
+                        Return BookingProcess.PaymentReferenceId
+                End Select
+            End Get
+        End Property
 
         Private Function GetPriceSummary() As String
             Dim tempPage As New Page

@@ -168,7 +168,6 @@
     <Content Include="Resources\Images\Packages\example_free.gif" />
     <Content Include="Resources\Images\shopping_cart_16x16.gif" />
     <Content Include="Resources\Images\Trash.png" />
-    <Content Include="Service\AjaxMethods.asmx" />
     <Content Include="TestPage.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -731,10 +730,6 @@
     <Compile Include="Rates.aspx.vb">
       <DependentUpon>Rates.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Service\AjaxMethods.asmx.vb">
-      <DependentUpon>AjaxMethods.asmx</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Service\NotificationService.asmx.vb">
       <DependentUpon>NotificationService.asmx</DependentUpon>

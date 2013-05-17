@@ -156,6 +156,7 @@
     <Compile Include="Controls\MultipleFileUpload.cs" />
     <Compile Include="Controls\SendMessageControl.cs" />
     <Compile Include="Models\AdBookingExtensionModel.cs" />
+    <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\BookingStatusType.cs" />
     <Compile Include="Models\ExtensionStatus.cs" />
     <Compile Include="Models\LineAdModel.cs" />
@@ -176,6 +177,7 @@
     <Compile Include="Repository\IPublicationRepository.cs" />
     <Compile Include="Models\PublicationModel.cs" />
     <Compile Include="Repository\IRateRepository.cs" />
+    <Compile Include="Repository\IUserRepository.cs" />
     <Compile Include="Views\IExtendBookingView.cs" />
   </ItemGroup>
   <ItemGroup>

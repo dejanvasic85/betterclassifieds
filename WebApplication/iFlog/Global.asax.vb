@@ -10,8 +10,6 @@ Public Class Global_asax
     Public Shared OnPayment As OnPayment
 
     Sub Application_Start(ByVal sender As Object, ByVal e As EventArgs)
-        ' todo - Get the encryption configuration to check the MAC Address (secure app to server)
-        ' Application.Add("validApplication", GeneralRoutine.CheckMachineMacAddress(paramountKey))
         Application.Add("validApplication", True)
 
         ' Unity Registrations
@@ -19,7 +17,8 @@ Public Class Global_asax
             .RegisterType(Of IBookingRepository, BookingRepository)() _
             .RegisterType(Of IPublicationRepository, PublicationRepository)() _
             .RegisterType(Of IConfigSettings, ConfigSettings)() _
-            .RegisterType(Of IRateRepository, RateRepository)()
+            .RegisterType(Of IRateRepository, RateRepository)() _
+            .RegisterType(Of IUserRepository, UserRepository)()
     End Sub
 
     Sub Session_Start(ByVal sender As Object, ByVal e As EventArgs)
@@ -32,22 +31,9 @@ Public Class Global_asax
             OnPayment = New OnPayment(AddressOf SucessfulPayment)
         End If
 
-        Dim environment As String = System.Configuration.ConfigurationManager.AppSettings("ConfigurationContext")
-
-        If (environment.ToUpper = "LIVE" And Application("validApplication") = False) Then
-
-            ' print message to user
-            ' and don't allow any other requests to come in.
-            Response.Write("Cannot process your request at this time. Please try again later or if problem persists contact our support staff.")
-            Response.End()
-
-        Else
-
-            ' check the request length and direct the user to an appropriate error message.
-            If Request.ContentLength > Utilities.Constants.CONST_SYSTEM_MaxRequest_Length Then
-                Response.Redirect(Utilities.Constants.CONST_ERROR_DEFAULT_URL + "?type=" + Utilities.Constants.CONST_ERROR_REQUEST_SIZE)
-            End If
-
+        ' check the request length and direct the user to an appropriate error message.
+        If Request.ContentLength > Utilities.Constants.CONST_SYSTEM_MaxRequest_Length Then
+            Response.Redirect(Utilities.Constants.CONST_ERROR_DEFAULT_URL + "?type=" + Utilities.Constants.CONST_ERROR_REQUEST_SIZE)
         End If
 
     End Sub

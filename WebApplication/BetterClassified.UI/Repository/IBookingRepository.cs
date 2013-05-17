@@ -1,13 +1,12 @@
-﻿using System;
-using System.Data.Linq;
-
-namespace BetterClassified.UI.Repository
+﻿namespace BetterClassified.UI.Repository
 {
     using System.Collections.Generic;
     using System.Linq;
     using AutoMapper;
     using BetterclassifiedsCore.DataModel;
     using Models;
+    using System;
+    using System.Data.Linq;
 
     public interface IBookingRepository
     {
@@ -29,9 +28,9 @@ namespace BetterClassified.UI.Repository
                 var booking = context.AdBookings.FirstOrDefault(b => b.AdBookingId == id);
                 if (booking == null)
                     return null;
-                
-                AdBookingModel model= this.Map<AdBooking, AdBookingModel>(booking);
-                
+
+                AdBookingModel model = this.Map<AdBooking, AdBookingModel>(booking);
+
                 // Fetch line ad if required
                 if (withLineAd)
                 {
@@ -70,8 +69,8 @@ namespace BetterClassified.UI.Repository
             using (var context = BetterclassifiedsDataContext.NewContext())
             {
                 var adBookingExtension = context.AdBookingExtensions.FirstOrDefault(extension => extension.AdBookingExtensionId == extensionId);
-                return adBookingExtension == null 
-                    ? null 
+                return adBookingExtension == null
+                    ? null
                     : this.Map<AdBookingExtension, AdBookingExtensionModel>(adBookingExtension);
             }
         }

@@ -1,4 +1,6 @@
 ﻿
+using Paramount.ApplicationBlock.Configuration;
+
 namespace BetterClassified.UI.Repository
 {
     public interface IConfigSettings
@@ -7,6 +9,7 @@ namespace BetterClassified.UI.Repository
         int RestrictedOnlineDaysCount { get; }
         int NumberOfDaysAfterLastEdition { get; }
         bool IsOnlineAdFree { get; }
+        string BaseUrl { get; }
     }
 
     public class ConfigSettings : IConfigSettings
@@ -16,5 +19,9 @@ namespace BetterClassified.UI.Repository
         public int RestrictedOnlineDaysCount { get { return 30; } }
         public int NumberOfDaysAfterLastEdition { get { return 6; } }
         public bool IsOnlineAdFree { get { return true; } }
+        public string BaseUrl
+        {
+            get { return ConfigManager.ReadAppSetting<string>("BaseUrl"); }
+        }
     }
 }

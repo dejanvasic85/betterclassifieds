@@ -23,7 +23,8 @@ namespace Paramount.Products.TaskScheduler
         {
 #if DEBUG
             //ProcessJob(new[] { "SYSTEMHEALTHCHECKALERT/dejan.vasic@paramountit.com.au" });
-            ProcessJob(new[] {"EMAILPROCESSING/"});
+            //ProcessJob(new[] {"EXPAD/1", "DAYSBEFOREEXPIRY/11"});
+            ProcessJob(new[] { "EMAILPROCESSING/"});
 #else
             ProcessJob(args);
 #endif

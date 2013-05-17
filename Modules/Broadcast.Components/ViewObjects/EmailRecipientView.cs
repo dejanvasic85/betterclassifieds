@@ -13,5 +13,13 @@
         {
             TemplateFields = new Collection<TemplateItemView>();
         }
+
+        public EmailRecipientView AddTemplateItem(string name, string value)
+        {
+            if (TemplateFields == null)
+                TemplateFields = new Collection<TemplateItemView>();
+            TemplateFields.Add(new TemplateItemView(name, value));
+            return this;
+        }
     }
 }

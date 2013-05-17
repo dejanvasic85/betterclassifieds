@@ -27,7 +27,7 @@
 
         public override string Subject
         {
-            get { return "Iflog - Expiring Ad Notification"; }
+            get { return "iFlog - Extend your expiring ad!"; }
         }
 
         public override Collection<EmailRecipientView> Recipients

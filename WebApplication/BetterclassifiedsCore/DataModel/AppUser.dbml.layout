@@ -40,5 +40,18 @@
         <classShapeMoniker Id="f7b4c052-e91a-4cc9-937c-949021a00556" />
       </nodes>
     </associationConnector>
+    <classShape Id="8b416e24-4bda-4df6-83be-38af7aeb0bd3" absoluteBounds="1.625, 0.625, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/AppUserDataContext/aspnet_Application" />
+      <nestedChildShapes>
+        <elementListCompartment Id="62182dfe-c1d7-47a5-b31f-1e9339784e2e" absoluteBounds="1.6400000000000001, 1.085, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.625 : 1.41429768880208); (5.375 : 1.41429768880208); (5.375 : 2.625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/AppUserDataContext/aspnet_Application/aspnet_Application_aspnet_User" />
+      <nodes>
+        <classShapeMoniker Id="8b416e24-4bda-4df6-83be-38af7aeb0bd3" />
+        <classShapeMoniker Id="89d64484-3314-46c8-b225-cf9562f541ce" />
+      </nodes>
+    </associationConnector>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

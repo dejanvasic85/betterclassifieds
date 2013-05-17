@@ -116,11 +116,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchedulerParameters.cs" />
-    <Compile Include="Service References\NotificationService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Tasks\SystemHealthCheckAlert.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -145,7 +140,6 @@
       <SubType>Designer</SubType>
       <TransformOnBuild>true</TransformOnBuild>
     </None>
-    <None Include="Service References\NotificationService\NotificationService1.disco" />
     <Content Include="TaskScheduler.exe.Debug.config">
       <DependentUpon>app.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
@@ -170,25 +164,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\app.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\NotificationService\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\NotificationService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\NotificationService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\NotificationService\NotificationService1.wsdl" />
-    <None Include="Service References\NotificationService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ApplicationBlock\Configuration\ApplicationBlock.Configuration.csproj">

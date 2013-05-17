@@ -731,10 +731,6 @@
       <DependentUpon>Rates.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Service\NotificationService.asmx.vb">
-      <DependentUpon>NotificationService.asmx</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="SessionRefresher.ashx.vb">
       <DependentUpon>SessionRefresher.ashx</DependentUpon>
     </Compile>
@@ -1076,7 +1072,6 @@
     <Content Include="Resources\Images\standard.jpg" />
     <Content Include="Resources\Images\street-press-australia.gif" />
     <Content Include="Resources\Images\time-off.gif" />
-    <Content Include="Service\NotificationService.asmx" />
     <Content Include="Terms.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Master\Default.Master" />

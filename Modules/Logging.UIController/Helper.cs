@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Paramount.Common.DataTransferObjects.LoggingService.Messages;
-using Paramount.Common.DataTransferObjects.LoggingService;
+using System.Web;
 using Paramount.ApplicationBlock.Configuration;
 using Paramount.Common.DataTransferObjects;
-using System.Web;
+using Paramount.Common.DataTransferObjects.LoggingService;
+using Paramount.Common.DataTransferObjects.LoggingService.Messages;
 using Paramount.Services.Proxy;
-using System.Configuration;
 
 namespace Paramount.Modules.Logging.UIController
 {

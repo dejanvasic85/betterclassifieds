@@ -53,6 +53,101 @@
             if (handler != null) handler(this, e);
         }
 
+        public SendMessageControl()
+        {
+            this.validationSumary = new ValidationSummary { ValidationGroup = ValidationGroup };
+            this.emailValidator = new RegularExpressionValidator
+            {
+                ValidationExpression = ValidationExpressionFormats.EmailValidation,
+                SetFocusOnError = true,
+                ErrorMessage =
+                    GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form,
+                                 "invalidEmail.Text"),
+                Text = "&nbsp;",
+                ValidationGroup = ValidationGroup
+            };
+            nameRequired = new RequiredFieldValidator
+            {
+                SetFocusOnError = true,
+                ErrorMessage =
+                    GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form,
+                                 "invalidName.Text"),
+                Text = "&nbsp;",
+                ValidationGroup = ValidationGroup
+            };
+            this.emailRequiredField = new RequiredFieldValidator
+            {
+                SetFocusOnError = true,
+                ErrorMessage =
+                    GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form,
+                                 "invalidEmail.Text"),
+                Text = "&nbsp;",
+                ValidationGroup = ValidationGroup
+            };
+            this.messageRequiredField = new RequiredFieldValidator
+            {
+                SetFocusOnError = true,
+                Text = "&nbsp;",
+                ErrorMessage =
+                    GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form,
+                                 "messageRequired.Text"),
+                ValidationGroup = ValidationGroup
+            };
+            this.successText = new Label { CssClass = "inner-text" };
+
+            this.nameBox = new TextBox { CssClass = "input-text full", ID = "nameBox", MaxLength = 100 };
+
+
+            this.messageBox = new TextBox
+            {
+                TextMode = TextBoxMode.MultiLine,
+                CssClass = "textFieldInput full",
+                // Columns = 40,
+                Rows = 5,
+                ID = "messageBox"
+            };
+
+            this.emailBox = new TextBox { CssClass = "input-text full", ID = "emailBox", MaxLength = 50 };
+            this.captcha = new RadCaptcha
+            {
+                ErrorMessage = "The code you entered is not valid.",
+                Display = ValidatorDisplay.Dynamic,
+                Width = Unit.Pixel(150)
+            };
+            this.captcha.Style.Add("float", "left");
+
+            this.phoneBox = new TextBox { CssClass = "input-text full", MaxLength = 12, ID = "phoneBox" };
+
+            this.clearButton = new Button
+            {
+                Text =
+                    GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form, "clear.Text"),
+                CausesValidation = false,
+                CssClass = "btn radius"
+            };
+            this.backButton = new Button
+            {
+                CausesValidation = false,
+                Text = GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form,
+                    "back.Text"),
+                CssClass = "btn radius"
+            };
+            this.submitButton = new Button
+            {
+                Text =
+                    GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form,
+                                 "submit.Text"),
+                ValidationGroup = ValidationGroup,
+                CssClass = "btn radius"
+            };
+
+            this.clearButton.Click += ClearButtonClick;
+            this.submitButton.Click += SubmitButtonClick;
+            this.backButton.Click += BackButtonClick;
+            this.validator = new CustomValidator { Text = "&nbsp;", ValidationGroup = ValidationGroup };
+            this.validator.ServerValidate += ValidatorServerValidate;
+        }
+
         public int? AdId
         {
             get
@@ -84,6 +179,7 @@
                 }
             }
         }
+
         protected void Clear()
         {
             //this.titleBox.Text = string.Empty;
@@ -91,101 +187,6 @@
             this.phoneBox.Text = string.Empty;
             this.emailBox.Text = string.Empty;
             this.messageBox.Text = string.Empty;
-        }
-
-
-        public SendMessageControl()
-        {
-            this.validationSumary = new ValidationSummary { ValidationGroup = ValidationGroup };
-            this.emailValidator = new RegularExpressionValidator
-                                      {
-                                          ValidationExpression = ValidationExpressionFormats.EmailValidation,
-                                          SetFocusOnError = true,
-                                          ErrorMessage =
-                                              GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form,
-                                                           "invalidEmail.Text"),
-                                          Text = "&nbsp;",
-                                          ValidationGroup = ValidationGroup
-                                      };
-            nameRequired = new RequiredFieldValidator
-            {
-                SetFocusOnError = true,
-                ErrorMessage =
-                    GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form,
-                                 "invalidName.Text"),
-                Text = "&nbsp;",
-                ValidationGroup = ValidationGroup
-            };
-            this.emailRequiredField = new RequiredFieldValidator
-                                          {
-                                              SetFocusOnError = true,
-                                              ErrorMessage =
-                                                  GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form,
-                                                               "invalidEmail.Text"),
-                                              Text = "&nbsp;",
-                                              ValidationGroup = ValidationGroup
-                                          };
-            this.messageRequiredField = new RequiredFieldValidator
-                                            {
-                                                SetFocusOnError = true,
-                                                Text = "&nbsp;",
-                                                ErrorMessage =
-                                                    GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form,
-                                                                 "messageRequired.Text"),
-                                                ValidationGroup = ValidationGroup
-                                            };
-            this.successText = new Label { CssClass = "inner-text" };
-
-            this.nameBox = new TextBox { CssClass = "input-text full", ID = "nameBox", MaxLength = 100 };
-
-
-            this.messageBox = new TextBox
-                                  {
-                                      TextMode = TextBoxMode.MultiLine,
-                                      CssClass = "textFieldInput full",
-                                      // Columns = 40,
-                                      Rows = 5,
-                                      ID = "messageBox"
-                                  };
-
-            this.emailBox = new TextBox { CssClass = "input-text full", ID = "emailBox", MaxLength = 50 };
-            this.captcha = new RadCaptcha
-            {
-                ErrorMessage = "The code you entered is not valid.",
-                Display = ValidatorDisplay.Dynamic,
-                Width = Unit.Pixel(150)
-            };
-
-            this.phoneBox = new TextBox { CssClass = "input-text full", MaxLength = 12, ID = "phoneBox" };
-
-            this.clearButton = new Button
-                                   {
-                                       Text =
-                                           GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form, "clear.Text"),
-                                       CausesValidation = false,
-                                       CssClass = "btn radius"
-                                   };
-            this.backButton = new Button
-            {
-                CausesValidation = false,
-                Text = GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form,
-                    "back.Text"),
-                CssClass = "btn radius"
-            };
-            this.submitButton = new Button
-                                    {
-                                        Text =
-                                            GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form,
-                                                         "submit.Text"),
-                                        ValidationGroup = ValidationGroup,
-                                        CssClass = "btn radius"
-                                    };
-
-            this.clearButton.Click += ClearButtonClick;
-            this.submitButton.Click += SubmitButtonClick;
-            this.backButton.Click += BackButtonClick;
-            this.validator = new CustomValidator { Text = "&nbsp;", ValidationGroup = ValidationGroup };
-            this.validator.ServerValidate += ValidatorServerValidate;
         }
 
         void BackButtonClick(object sender, EventArgs e)

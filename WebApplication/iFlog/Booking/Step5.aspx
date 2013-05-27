@@ -2,13 +2,9 @@
     CodeBehind="Step5.aspx.vb" Inherits="BetterclassifiedsWeb.Step5" 
     Title="iFlog - New Booking - Confirmation" %>
 
-<%@ Register Src="~/Controls/Booking/NavigationSteps.ascx" TagName="NavigationSteps"
-    TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/Booking/EditionDates.ascx" TagName="EditionDates" TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/Booking/NavigationButtons.ascx" TagName="NavigationButtons"
     TagPrefix="ucx" %>
-<%@ Register Src="~/Controls/LineAdPreview.ascx" TagName="LineAdPreview" TagPrefix="ucx" %>
-<%@ Register Src="~/Controls/OnlineAdView.ascx" TagName="OnlineAdView" TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/ErrorList.ascx" TagName="ErrorList" TagPrefix="ucx" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     

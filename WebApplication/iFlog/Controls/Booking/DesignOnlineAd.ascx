@@ -72,7 +72,7 @@
         <tr>
             <td valign="top">
                 <telerik:RadEditor ID="radEditor" runat="server" NewLineBr="true" ToolbarMode="Default"
-                    EditModes="All">
+                    EditModes="Design">
                     <Tools>
                         <telerik:EditorToolGroup Tag="EditToolbar">
                             <telerik:EditorTool Name="Print" Text="Print" />

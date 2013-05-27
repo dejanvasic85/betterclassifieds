@@ -94,8 +94,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Broadcasts\EmailBroadcast.cs" />
-    <Compile Include="Configuration\BetterclassifiedAdminSetting.cs" />
     <Compile Include="Configuration\BetterclassifiedSetting.cs" />
     <Compile Include="Configuration\ParamountConfigurationManager.cs" />
     <Compile Include="CreditCardPayment\CCPaymentGatewaySettings.cs" />
@@ -111,9 +109,6 @@
     <Compile Include="WebServices\ServiceCallBase.cs" />
     <Compile Include="WebServices\ServiceRequest.cs" />
     <Compile Include="WebServices\ServiceResponse.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Database\LoggingDatabase.sql" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

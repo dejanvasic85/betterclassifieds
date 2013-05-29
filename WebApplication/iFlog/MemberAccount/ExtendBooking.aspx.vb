@@ -108,12 +108,12 @@ Public Class ExtendBooking
         Response.Redirect(PageUrl.MemberBookings + "?extension=true")
     End Sub
 
-    Public Property BookingReference As String Implements Views.IExtendBookingView.BookingReference
+    Public Property PaymentReference As String Implements Views.IExtendBookingView.PaymentReference
         Get
-            Return ViewState("bookingReference")
+            Return ViewState("PaymentReference")
         End Get
         Set(value As String)
-            ViewState("bookingReference") = value
+            ViewState("PaymentReference") = value
         End Set
     End Property
 

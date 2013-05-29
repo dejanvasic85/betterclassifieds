@@ -144,7 +144,6 @@
     <Compile Include="Controls\FrameAutoSizeControl.cs" />
     <Compile Include="Controls\ImageGallery.cs" />
     <Compile Include="Controls\ImageThumb.cs" />
-    <Compile Include="Controls\JqueryControl.cs" />
     <Compile Include="Controls\LineAdColourPicker.cs" />
     <Compile Include="Controls\LineAdEditDetails.cs" />
     <Compile Include="Controls\LineAdNewDesign.cs" />

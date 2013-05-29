@@ -1161,10 +1161,6 @@
       <Project>{C8F99B5E-6C1C-4C89-BC23-DBED2D38C146}</Project>
       <Name>Modules.Banners.UI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Modules\Billing.UI\Modules.Billing.UI.csproj">
-      <Project>{F8DA1224-D0CF-4E3B-AD0F-FE6FA04797DE}</Project>
-      <Name>Modules.Billing.UI</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Modules\Broadcast.Components\Modules.Broadcast.Components.csproj">
       <Project>{3091F288-C6F8-4E2D-9622-48B00ACE526B}</Project>
       <Name>Modules.Broadcast.Components</Name>

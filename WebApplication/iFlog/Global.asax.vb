@@ -5,9 +5,12 @@ Imports Microsoft.Practices.Unity
 Imports BetterClassified.UI.Repository
 
 Public Delegate Sub OnPayment(ByVal ref As String)
+
 Public Class Global_asax
     Inherits System.Web.HttpApplication
+
     Public Shared OnPayment As OnPayment
+    Public Shared TransactionManager As BetterClassified.UI.Presenters.TransactionManager
 
     Sub Application_Start(ByVal sender As Object, ByVal e As EventArgs)
         Application.Add("validApplication", True)
@@ -18,7 +21,9 @@ Public Class Global_asax
             .RegisterType(Of IPublicationRepository, PublicationRepository)() _
             .RegisterType(Of IConfigSettings, ConfigSettings)() _
             .RegisterType(Of IRateRepository, RateRepository)() _
-            .RegisterType(Of IUserRepository, UserRepository)()
+            .RegisterType(Of IUserRepository, UserRepository)() _
+            .RegisterType(Of IPaymentsRepository, PaymentsRepository)()
+
     End Sub
 
     Sub Session_Start(ByVal sender As Object, ByVal e As EventArgs)

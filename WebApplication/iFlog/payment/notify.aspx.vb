@@ -41,7 +41,7 @@ Partial Public Class notify
                     Dim manager = BetterClassified.Unity.DefaultContainer.Resolve(Of ExtensionManager)()
                     Dim extension = manager.GetExtension(NotifyParameterAccess.ReferenceId)
                     If extension IsNot Nothing Then
-                        manager.Extend(extension)
+                        manager.Extend(extension, BetterClassified.UI.Models.PaymentType.CreditCard)
                         Me.Response.Redirect("~/MemberAccount/Bookings.aspx?extension=true")
                     End If
                 End If
@@ -74,7 +74,7 @@ Partial Public Class notify
                         Dim manager = BetterClassified.Unity.DefaultContainer.Resolve(Of ExtensionManager)()
                         Dim extension = manager.GetExtension(NotifyParameterAccess.ReferenceId)
                         If extension IsNot Nothing Then
-                            manager.Extend(extension)
+                            manager.Extend(extension, BetterClassified.UI.Models.PaymentType.PayPal)
                             Me.Response.Redirect("~/MemberAccount/Bookings.aspx?extension=true")
                         End If
                     End If

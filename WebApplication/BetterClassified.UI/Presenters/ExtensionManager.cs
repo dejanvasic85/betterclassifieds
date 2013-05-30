@@ -10,12 +10,17 @@ namespace BetterClassified.UI.Presenters
         private readonly Repository.IBookingRepository bookingRepository;
         private readonly Repository.IPublicationRepository publicationRepository;
         private readonly Repository.IConfigSettings configSettings;
+        private readonly Repository.IPaymentsRepository payments;
 
-        public ExtensionManager(Repository.IBookingRepository bookingRepository, Repository.IPublicationRepository publicationRepository, Repository.IConfigSettings configSettings)
+        public ExtensionManager(Repository.IBookingRepository bookingRepository,
+            Repository.IPublicationRepository publicationRepository,
+            Repository.IConfigSettings configSettings,
+            Repository.IPaymentsRepository payments)
         {
             this.bookingRepository = bookingRepository;
             this.publicationRepository = publicationRepository;
             this.configSettings = configSettings;
+            this.payments = payments;
         }
 
         public IEnumerable<PublicationEditionModel> ExtensionDates(int adBookingId, int numberOfInsertions)
@@ -35,17 +40,17 @@ namespace BetterClassified.UI.Presenters
                     {
                         var pubEntry = publicationEntries.First(p => p.PublicationId == m.PublicationId);
 
-                            return new BookEntryModel
-                            {
-                                AdBookingId = adBookingId,
-                                BaseRateId = pubEntry.BaseRateId,
-                                EditionAdPrice = pubEntry.EditionAdPrice,
-                                EditionDate = m.EditionDate,
-                                PublicationId = m.PublicationId,
-                                PublicationPrice = pubEntry.PublicationPrice,
-                                RateType = pubEntry.RateType
-                            };
-                        })
+                        return new BookEntryModel
+                        {
+                            AdBookingId = adBookingId,
+                            BaseRateId = pubEntry.BaseRateId,
+                            EditionAdPrice = pubEntry.EditionAdPrice,
+                            EditionDate = m.EditionDate,
+                            PublicationId = m.PublicationId,
+                            PublicationPrice = pubEntry.PublicationPrice,
+                            RateType = pubEntry.RateType
+                        };
+                    })
                     .ToList();
 
                 yield return new PublicationEditionModel
@@ -81,7 +86,7 @@ namespace BetterClassified.UI.Presenters
             return bookingRepository.GetBookingExtension(extensionId);
         }
 
-        public void Extend(AdBookingExtensionModel extensionModel)
+        public void Extend(AdBookingExtensionModel extensionModel, PaymentType paymentType = PaymentType.None)
         {
             AdBookingModel adBooking = bookingRepository.GetBooking(extensionModel.AdBookingId);
 
@@ -118,6 +123,14 @@ namespace BetterClassified.UI.Presenters
             {
                 bookingRepository.UpdateExtesion(extensionModel.AdBookingExtensionId, (int)ExtensionStatus.Complete);
             }
+
+            if (extensionModel.IsPaid)
+                this.payments.CreateTransaction(userId: extensionModel.LastModifiedUserId,
+                    reference: adBooking.ExtensionReference,
+                    description: "Booking Extension",
+                    amount: extensionModel.ExtensionPrice,
+                    paymentType: paymentType
+                    );
         }
     }
 }

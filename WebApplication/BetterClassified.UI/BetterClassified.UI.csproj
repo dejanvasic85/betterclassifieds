@@ -167,12 +167,14 @@
     <Compile Include="Presenters\ExtendBookingPresenter.cs" />
     <Compile Include="Presenters\ExtensionManager.cs" />
     <Compile Include="Presenters\RateCalculator.cs" />
+    <Compile Include="Presenters\TransactionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Framework\BaseBookingPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Repository\IBookingRepository.cs" />
     <Compile Include="Repository\IConfigSettings.cs" />
+    <Compile Include="Repository\IPaymentsRepository.cs" />
     <Compile Include="Repository\IPublicationRepository.cs" />
     <Compile Include="Models\PublicationModel.cs" />
     <Compile Include="Repository\IRateRepository.cs" />

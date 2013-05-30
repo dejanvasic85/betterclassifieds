@@ -57,7 +57,7 @@
             if (booking == null)
                 booking = bookingRepository.GetBooking(View.AdBookingId, withLineAd: true);
 
-            View.PaymentReference = string.Format("{0}EX", booking.BookReference);
+            View.PaymentReference = booking.ExtensionReference;
 
             // Check whether the booking is online only ( for scheduling )
             if (booking.BookingType == BookingType.Bundled)

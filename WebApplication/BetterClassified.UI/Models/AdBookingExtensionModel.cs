@@ -12,5 +12,15 @@ namespace BetterClassified.UI.Models
         public ExtensionStatus Status { get; set; }
         public string LastModifiedUserId { get; set; }
         public DateTime? LastModifiedDate { get; set; }
+
+        public bool IsFree
+        {
+            get { return this.ExtensionPrice == 0; }
+        }
+
+        public bool IsPaid
+        {
+            get { return !this.IsFree; }
+        }
     }
 }

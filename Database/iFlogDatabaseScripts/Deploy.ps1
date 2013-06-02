@@ -4,6 +4,7 @@ Expected Variables
  DatabaseServer			- Specific environment based database server instance name
  DatabaseName			- Specific targeted database for scripts to run for
  BackupBeforeDeploy		- True or False value that indicates whether the database should be backed up before deployment
+ DatabaseBackupLocation	- The path to store the database backup files
  DbUser					- the userid for the identity executing the script
  DbPassword				- the password for the identity executing the script
  OctopusPackageDirectoryPath - Supplied by octopus deployment tool that specifies the directory for the deployed scripts to run
@@ -16,10 +17,10 @@ $DatabaseFolder = $OctopusPackageDirectoryPath
 if ( $BackupBeforeDeploy -eq $true )
 {
 	$currentDateTime = Get-Date -format yyyyMMdd_hhmmss;
-	$databaseBackupLocation = "C:\Paramount\SQLBackup\" + $DatabaseName + "_" + $currentDateTime + ".bak";
+	$backupTarget = ($DatabaseBackupLocation + "\" + $DatabaseName + "_" $currentDateTime + ".bak")
 
-	Write-Host "Backing Database to : " $databaseBackupLocation
-	$sqlBackupScript = ("BACKUP DATABASE [" + $DatabaseName + "] TO DISK = N'" + $databaseBackupLocation + "' WITH NOFORMAT, INIT,  NAME = N'" + $DatabaseName + "-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10")
+	Write-Host "Backing Database to : " $backupTarget
+	$sqlBackupScript = ("BACKUP DATABASE [" + $DatabaseName + "] TO DISK = N'" + $backupTarget + "' WITH NOFORMAT, INIT,  NAME = N'" + $DatabaseName + "-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10")
 
 	Invoke-SqlCmd -Query $sqlBackupScript -ServerInstance $databaseServer -Database $databaseName -Username $dbUser -Password $dbPassword | out-null
 }

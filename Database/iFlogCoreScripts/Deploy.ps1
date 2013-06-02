@@ -18,6 +18,11 @@ if ( $BackupBeforeDeploy -eq $true )
 	$currentDateTime = Get-Date -format yyyyMMdd_hhmmss;
 	$databaseBackupLocation = "C:\Paramount\SQLBackup\" + $DatabaseName + "_" + $currentDateTime + ".bak";
 
+	#Create directory if not exists
+	if(!Test-Path -path $databaseBackupLocation)) {
+		New-Item $databaseBackupLocation -Type Directory
+	}
+
 	Write-Host "Backing Database to : " $databaseBackupLocation
 	$sqlBackupScript = ("BACKUP DATABASE [" + $DatabaseName + "] TO DISK = N'" + $databaseBackupLocation + "' WITH NOFORMAT, INIT,  NAME = N'" + $DatabaseName + "-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10")
 

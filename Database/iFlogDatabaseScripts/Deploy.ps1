@@ -16,7 +16,7 @@ $DatabaseFolder = $OctopusPackageDirectoryPath
 if ( $BackupBeforeDeploy -eq $true )
 {
 	$currentDateTime = Get-Date -format yyyyMMdd_hhmmss;
-	$databaseBackupLocation = $DatabaseFolder + "\" + $DatabaseName + "_" + $currentDateTime + ".bak";
+	$databaseBackupLocation = "C:\Paramount\SQLBackup\" + $DatabaseName + "_" + $currentDateTime + ".bak";
 
 	Write-Host "Backing Database to : " $databaseBackupLocation
 	$sqlBackupScript = ("BACKUP DATABASE [" + $DatabaseName + "] TO DISK = N'" + $databaseBackupLocation + "' WITH NOFORMAT, INIT,  NAME = N'" + $DatabaseName + "-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10")

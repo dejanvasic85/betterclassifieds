@@ -19,9 +19,9 @@ if ( $BackupBeforeDeploy -eq $true )
 	$databaseBackupLocation = $DatabaseFolder + "\" + $DatabaseName + "_" + $currentDateTime + ".bak";
 
 	Write-Host "Backing Database to : " $databaseBackupLocation
-	$sqlBackupScript = "BACKUP DATABASE " + $DatabaseName + " TO DISK = N'" + $databaseBackupLocation + "' WITH NOFORMAT, INIT,  NAME = N'" + $DatabaseName +"-Full Database Backup', SKIP, NOREWIND, NOUNLOAD, COMPRESSION,  STATS = 10"
+	$sqlBackupScript = ("BACKUP DATABASE [" + $DatabaseName + "] TO DISK = N'" + $databaseBackupLocation + "' WITH NOFORMAT, INIT,  NAME = N'" + $DatabaseName + "-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10")
 
-	Invoke-SqlCmd -Query $sqlBackupScript -ServerInstance $databaseServer -Database $databaseName -U $dbUser -P $dbPassword | out-null
+	Invoke-SqlCmd -Query $sqlBackupScript -ServerInstance $databaseServer -Database $databaseName -Username $dbUser -Password $dbPassword | out-null
 }
 
 # Fetch and parse the deploy.xml file that determines the included sql scripts for this release

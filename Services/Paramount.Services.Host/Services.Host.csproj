@@ -154,7 +154,6 @@
     <Content Include="Dsl\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Deploy.ps1" />
     <None Include="Services.Host.nuspec" />
   </ItemGroup>
   <PropertyGroup>

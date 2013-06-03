@@ -1086,7 +1086,6 @@
     </None>
     <Content Include="masterpage\GMasterPage.Master" />
     <Content Include="iFlogAdmin.nuspec" />
-    <Content Include="Deploy.ps1" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>

@@ -1064,7 +1064,6 @@
     <None Include="App_Data\RadSpell\en-US.tdf" />
     <Content Include="Master\MasterWithMessage.master" />
     <Content Include="iFlog.nuspec" />
-    <Content Include="Deploy.ps1" />
     <None Include="My Project\DataSources\Paramount.IT.Utilities.WebServices.ServiceResponse.datasource" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>

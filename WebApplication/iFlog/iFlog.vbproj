@@ -845,7 +845,6 @@
     <Content Include="App_Themes\Plain\main.css" />
     <Content Include="Common\UploadBookingManager.aspx" />
     <Content Include="Common\UploadManager.aspx" />
-    <Content Include="Environment.xml" />
     <Content Include="Controls\OnlineAdViewWithDiv.ascx" />
     <Content Include="Help\FAQ.aspx" />
     <Content Include="LineAds\PreviewLineAd.aspx" />

@@ -12,10 +12,10 @@
             this.rateRepository = rateRepository;
         }
 
-        public decimal Calculate(int baseRateId, LineAdModel lineAd, bool isOnlineAd, int editions = 1)
+        public decimal Calculate(int ratecardId, LineAdModel lineAd, bool isOnlineAd, int editions = 1)
         {
             // Fetch the ratecard by the baseRate
-            RateModel rateModel = rateRepository.GetRatecard(baseRateId);
+            RateModel rateModel = rateRepository.GetRatecard(ratecardId);
             decimal price = 0;
             
             // Calculate line ad price

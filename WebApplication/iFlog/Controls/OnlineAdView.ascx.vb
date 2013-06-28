@@ -48,9 +48,12 @@ Partial Public Class OnlineAdView
             lblHeading.Text = .Heading
             ' html text
             If onlineAd.OnlineAdId > 0 Then
-                frameBodyText.Attributes.Add("src", String.Format("BodyView.aspx?type=db&id={0}", onlineAd.OnlineAdId))
+                'onlineAdFrame.Attributes.Add("src", String.Format("BodyView.aspx?type=db&id={0}", onlineAd.OnlineAdId))
+                onlineAdFrame.Src = ResolveUrl(String.Format("~/OnlineAds/BodyView.aspx?type=db&id={0}", onlineAd.OnlineAdId))
             Else
-                frameBodyText.Attributes.Add("src", String.Format("BodyView.aspx?type=session"))
+                onlineAdFrame.Src = ResolveUrl("~/OnlineAds/BodyView.aspx?type=session")
+                'onlineAdFrame.Attributes.Add("src", String.Format("BodyView.aspx?type=session"))
+
             End If
 
             lblLocation.Text = .LocationValue

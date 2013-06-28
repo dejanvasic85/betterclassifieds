@@ -114,7 +114,7 @@
     </div>
     
     <div style="padding-left: 10px">
-        <iframe runat="server" id="frameBodyText" frameborder="0" scrolling="no"  
+        <iframe runat="server" id="onlineAdFrame" frameborder="0" scrolling="no"  
             marginheight="10px" marginwidth="10px"  width="100%" class="frameWithBody">
         </iframe>
     </div>        

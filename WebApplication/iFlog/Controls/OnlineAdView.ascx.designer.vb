@@ -221,11 +221,11 @@ Partial Public Class OnlineAdView
     Protected WithEvents paramountGallery As Global.BetterClassified.UI.ImageGallery
 
     '''<summary>
-    '''frameBodyText control.
+    '''onlineAdFrame control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents frameBodyText As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    Protected WithEvents onlineAdFrame As Global.System.Web.UI.HtmlControls.HtmlIframe
 End Class

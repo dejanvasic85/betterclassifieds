@@ -10,7 +10,7 @@ namespace Paramount.Common.UI
             //add new scrip here
             return new List<string>
                        {
-                           "Paramount.Common.UI.JavaScript.jquery-1.4.min.js",
+                           "Paramount.Common.UI.JavaScript.jquery-1.8.3.min.js",
                            "Paramount.Common.UI.JavaScript.json2.js"
                        };
         }

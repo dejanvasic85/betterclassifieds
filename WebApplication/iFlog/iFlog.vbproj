@@ -129,9 +129,6 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\Default\css\aspcontrols.css" />
-    <Content Include="App_Themes\Default\css\main.css" />
-    <Content Include="App_Themes\Default\css\style.css" />
     <Content Include="App_Themes\iflog\css\BetterclassifiedUI.css" />
     <Content Include="App_Themes\iflog\Common.UI\PaddedPanel.css" />
     <Content Include="App_Themes\iflog\css\bookingpage.css" />
@@ -145,8 +142,6 @@
     <Content Include="App_Themes\iflog\images\mail-q-bg.jpg" />
     <Content Include="App_Themes\iflog\images\upload_head_img.gif" />
     <Content Include="App_Themes\iflog\images\upload_head_img_b.gif" />
-    <EmbeddedResource Include="App_Themes\iflog\json2.js" />
-    <EmbeddedResource Include="App_Themes\iflog\jquery.timers.js" />
     <Content Include="MemberAccount\AdManager.aspx" />
     <Content Include="MemberAccount\ExtendBooking.aspx" />
     <Content Include="Resources\Images\date.png" />
@@ -839,8 +834,6 @@
     <Content Include="App_Themes\iflog\images\menu_hori_4_5V2.jpg" />
     <Content Include="App_Themes\iflog\images\top_message.gif" />
     <Content Include="App_Themes\iflog\images\upgrade_premium.jpg" />
-    <Content Include="App_Themes\iflog\jquery-1.4.min.js" />
-    <Content Include="App_Themes\Plain\main.css" />
     <Content Include="Common\UploadBookingManager.aspx" />
     <Content Include="Common\UploadManager.aspx" />
     <Content Include="Controls\OnlineAdViewWithDiv.ascx" />
@@ -951,8 +944,6 @@
     <Content Include="App_Themes\iflog\images\step_button_green25px.gif" />
     <Content Include="App_Themes\iflog\images\step_button_green33px.gif" />
     <Content Include="App_Themes\iflog\images\step_button_red25px.gif" />
-    <Content Include="App_Themes\iflog\jquery-jtemplates.js" />
-    <Content Include="App_Themes\iflog\jquery.tablesorter.min.js" />
     <Content Include="Booking\Success.aspx" />
     <Content Include="Controls\AdSpace.ascx" />
     <Content Include="Controls\Booking\AdDetails.ascx" />
@@ -1061,6 +1052,7 @@
     <None Include="App_Data\RadSpell\en-US.tdf" />
     <Content Include="Master\MasterWithMessage.master" />
     <Content Include="iFlog.nuspec" />
+    <Content Include="App_Themes\iflog\fonts\ufonts.com_alternate_gothic_no2_d.ttf" />
     <None Include="My Project\DataSources\Paramount.IT.Utilities.WebServices.ServiceResponse.datasource" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>

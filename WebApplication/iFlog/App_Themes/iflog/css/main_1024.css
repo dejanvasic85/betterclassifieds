@@ -1,20 +1,32 @@
 /* CSS Document */
 
+@font-face
+{
+    font-family: alternate-gothic-no-2-d;
+    src: url('../fonts/ufonts.com_alternate_gothic_no2_d.ttf');
+}
 html {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 100%;
-	margin: 0px;
-	padding: 0px;
+	font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
+	margin: 0;
+	padding: 0;
 }
 body {
-	margin: 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 0;
 	height :100%;
+    background-image: url('http://themusic.com.au/images/body-grad.png'), url('http://themusic.com.au/images/bg.png');
+    background-attachment: scroll, scroll;
+    background-repeat: repeat-x, repeat;
 }
 #container {
-	margin: 0px auto;
+    margin: 18px auto 18px auto;
+    max-width: 1000px;
 	padding: 0px;
 	width: 987px;
+}
+
+img {
+    border: none;
 }
 
 .sub-category
@@ -243,7 +255,7 @@ br {
 	letter-spacing: 0.05em;
 }
 #bgImageTopMenu h6 {
-	font-family: Arial, Helvetica, sans-serif;
+	
 	font-size: 0.8em;
 	line-height: 28px;
 	text-decoration: none;
@@ -398,7 +410,7 @@ br {
 	height: 26px;
 }
 #searchAndIflogBut   p  {
-	font-family: Arial, Helvetica, sans-serif;
+	
 	font-size: 1em;
 	font-weight: bolder;
 	line-height: 1.625em;
@@ -491,7 +503,7 @@ br {
 	margin-top: 12px;
 }
 #advertiseNavBut  li {
-	font-family: Arial, Helvetica, sans-serif;
+	
 	font-size: 0.81em;
 	font-weight: bolder;
 	text-align: center;
@@ -551,7 +563,7 @@ br {
 	float: left;
 }
 #sidebarHeader p {
-	font-family: Arial, Helvetica, sans-serif;
+	
 	font-size: 0.8em;
 	margin: 0px;
 	padding: 0px;
@@ -638,7 +650,6 @@ br {
 	float: left;
 }
 #sidebarMenu li {
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: 0.8em;
 	font-weight: bolder;
 	margin: 0px;
@@ -947,7 +958,7 @@ br {
 	margin: 0px;
 	padding: 0px;
 	float: left;
-	border: 2px solid #333333;
+	
 	vertical-align: top;
 }
 #mainBodyItemPage  p {
@@ -1057,7 +1068,6 @@ br {
 	float: left;
 }
 #mainHeaderMyAccount  p {
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: 0.8em;
 	margin: 0px;
 	padding: 0px;
@@ -1268,7 +1278,6 @@ br {
 
 .bookingMainContent h1
 {
-    font-family: Arial, Helvetica, sans-serif;
 	font-size: 1.6em;
 	line-height: 1.6em;
 	margin: 0px;
@@ -1287,7 +1296,6 @@ br {
 	padding-left: 20px;
 }
 #bookAdMainContent p {
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: 0.95em;
 	line-height: 1.2em;
 	margin: 0px;
@@ -1298,7 +1306,6 @@ br {
 	float: left;
 }
 #bookAdMainContent h1 {
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: 1.6em;
 	line-height: 1.6em;
 	margin: 0px;
@@ -1308,7 +1315,6 @@ br {
 	float: left;
 }
 #bookAdMainContent  h2 {
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: 1.3em;
 	line-height: 1.6em;
 	margin: 0px;
@@ -1318,7 +1324,6 @@ br {
 	float: left;
 }
 #bookAdMainContent  h3 {
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: 0.9em;
 	line-height: 1em;
 	margin: 0px;
@@ -1328,7 +1333,6 @@ br {
 	float: left;
 }
 #bookAdMainContent  h4 {
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: 1em;
 	line-height: 1.2em;
 	margin: 0px;
@@ -1385,7 +1389,6 @@ bookAdMainContent {
 	padding-left: 20px;
 }
 .bookAdMainContent p {
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: 0.95em;
 	line-height: 1.2em;
 	margin: 0px;
@@ -1396,7 +1399,6 @@ bookAdMainContent {
 	float: left;
 }
 .bookAdMainContent h1 {
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: 1.6em;
 	line-height: 1.6em;
 	margin: 0px;
@@ -1406,7 +1408,6 @@ bookAdMainContent {
 	float: left;
 }
 .bookAdMainContent  h2 {
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: 1.3em;
 	line-height: 1.6em;
 	margin: 0px;
@@ -1416,7 +1417,6 @@ bookAdMainContent {
 	float: left;
 }
 .bookAdMainContent  h3 {
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: 0.9em;
 	line-height: 1em;
 	margin: 0px;
@@ -1426,7 +1426,6 @@ bookAdMainContent {
 	float: left;
 }
 .bookAdMainContent  h4 {
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: 1em;
 	line-height: 1.2em;
 	margin: 0px;
@@ -1659,7 +1658,6 @@ bookAdMainContent {
 	margin-left: 10px;
 }
 #myAccountTableHead p {
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: 0.9em;
 	line-height: 28px;
 	margin: 0px;
@@ -1670,7 +1668,6 @@ bookAdMainContent {
 	text-align: center;
 }
 .myAccountTableItemHead {
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: 0.85em;
 	line-height: 28px;
 	margin: 0px;
@@ -1692,7 +1689,6 @@ bookAdMainContent {
 	padding-bottom: 10px;
 }
 #myAccountTableBody p {
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: 0.9em;
 	line-height: 28px;
 	margin: 0px;
@@ -1703,7 +1699,6 @@ bookAdMainContent {
 	text-align: center;
 }
 .myAccountTableItemBody {
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: 0.8em;
 	line-height: 0.9em;
 	margin: 0px;
@@ -1837,7 +1832,6 @@ bookAdMainContent {
 	margin-left: 5px;
 }
 #myAccountTableButtonsPlaceAd  a {
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: 1em;
 	line-height: 15px;
 	font-weight: bold;
@@ -1853,7 +1847,6 @@ bookAdMainContent {
 	width:114px;
 }
 #myAccountTableButtonsPlaceAd a:hover {
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: 1em;
 	line-height: 15px;
 	font-weight: bold;
@@ -1873,7 +1866,6 @@ bookAdMainContent {
 	margin-left: 540px;
 }
 #myAccountTableButtonsBack  a {
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: 0.85em;
 	line-height: 15px;
 	font-weight: bold;
@@ -1890,7 +1882,6 @@ bookAdMainContent {
 	margin-top: 6px;
 }
 #myAccountTableButtonsBack a:hover {
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: 0.85em;
 	line-height: 15px;
 	font-weight: bold;
@@ -1913,7 +1904,7 @@ bookAdMainContent {
 }
 
 #myAccountTableButtonsExtend  a {
-	font-family: Arial, Helvetica, sans-serif;
+	
 	font-size: 0.85em;
 	line-height: 15px;
 	font-weight: bold;
@@ -1928,7 +1919,6 @@ bookAdMainContent {
 	padding-top: 4px;
 }
 #myAccountTableButtonsExtend a:hover {
-	font-family: Arial, Helvetica, sans-serif;
 	font-size: 0.85em;
 	line-height: 15px;
 	font-weight: bold;
@@ -1945,7 +1935,7 @@ bookAdMainContent {
 #myAccountTableButtonsModify {
 }
 #myAccountTableButtonsModify a {
-	font-family: Arial, Helvetica, sans-serif;
+	
 	font-size: 0.85em;
 	line-height: 15px;
 	font-weight: bold;
@@ -1960,7 +1950,7 @@ bookAdMainContent {
 	padding-top: 4px;
 }
 #myAccountTableButtonsModify a:hover {
-	font-family: Arial, Helvetica, sans-serif;
+	
 	font-size: 0.85em;
 	line-height: 15px;
 	font-weight: bold;
@@ -1977,7 +1967,7 @@ bookAdMainContent {
 #myAccountTableButtonsCancel {
 }
 #myAccountTableButtonsCancel a {
-	font-family: Arial, Helvetica, sans-serif;
+	
 	font-size: 0.85em;
 	line-height: 15px;
 	font-weight: bold;
@@ -1992,7 +1982,7 @@ bookAdMainContent {
 	padding-top: 4px;
 }
 #myAccountTableButtonsCancel a:hover {
-	font-family: Arial, Helvetica, sans-serif;
+	
 	font-size: 0.85em;
 	line-height: 15px;
 	font-weight: bold;
@@ -2015,7 +2005,7 @@ bookAdMainContent {
 	padding-top: 10px;
 }
 #myAccountTableChgDet p {
-	font-family: Arial, Helvetica, sans-serif;
+	
 	font-size: 0.95em;
 	line-height: 0.95em;
 	margin: 0px;
@@ -2024,7 +2014,7 @@ bookAdMainContent {
 	color: #333;
 }
 #myAccountTableChgDet h3 {
-	font-family: Arial, Helvetica, sans-serif;
+	
 	font-size: 1.3em;
 	line-height: 1.6em;
 	margin: 0px 0px 10px 10px;
@@ -2079,7 +2069,7 @@ bookAdMainContent {
 	float: left;
 }
 #mainHeader  p {
-	font-family: Arial, Helvetica, sans-serif;
+	
 	font-size: 0.8em;
 	margin: 0px;
 	padding: 0px;
@@ -2095,7 +2085,7 @@ bookAdMainContent {
 	float: right;
 }
 #mainHeaderSearchResults  p {
-	font-family: Arial, Helvetica, sans-serif;
+	
 	font-size: 0.8em;
 	margin: 0px;
 	padding: 0px;
@@ -2126,7 +2116,7 @@ bookAdMainContent {
 	background: #53c0e7;
 }
 .showingResults p {
-	font-family: Arial, Helvetica, sans-serif;
+	
 	font-size: 0.9em;
 	margin: 0px;
 	padding: 0px;
@@ -2140,7 +2130,7 @@ bookAdMainContent {
 	display: block;
 }
 .sortByResults p {
-	font-family: Arial, Helvetica, sans-serif;
+	
 	font-size: 0.9em;
 	line-height: 28px;
 	margin: 0px;
@@ -2168,7 +2158,7 @@ bookAdMainContent {
 	margin-bottom: 5px;
 }
 .searchTableHead p {
-	font-family: Arial, Helvetica, sans-serif;
+	
 	font-size: 0.9em;
 	line-height: 28px;
 	margin: 0px;
@@ -2178,7 +2168,7 @@ bookAdMainContent {
 	color: #333;
 }
 .searchTableItemHead   {
-	font-family: Arial, Helvetica, sans-serif;
+	
 	font-size: 0.9em;
 	line-height: 28px;
 	margin: 0px;
@@ -2202,7 +2192,7 @@ bookAdMainContent {
 	padding-bottom: 15px;
 }
 .searchTableItemBody {
-	font-family: Arial, Helvetica, sans-serif;
+	
 	font-size: 0.8em;
 	line-height: 28px;
 	margin: 0px;
@@ -2212,7 +2202,7 @@ bookAdMainContent {
 	text-align: center;
 }
 .searchTableItemBodyPrice {
-	font-family: Arial, Helvetica, sans-serif;
+	
 	font-size: 0.8em;
 	line-height: 28px;
 	margin: 0px;
@@ -2360,12 +2350,12 @@ bookAdMainContent {
 	background: url(../images/mainContentHeaderLine.gif) repeat-x;
 }
 #mainHeaderInfo  p {
-	font-family: Arial, Helvetica, sans-serif;
+	
 	margin: 0px;
 	padding: 0px;
 }
 #mainHeaderInfo h2 {
-	font-family: Arial, Helvetica, sans-serif;
+	
 	margin: 0px;
 	padding: 0px;
 	width: 590px;
@@ -2400,7 +2390,7 @@ bookAdMainContent {
 	color: #666;
 }
 #mainContentInfo  h3 {
-	font-family: Arial, Helvetica, sans-serif;
+	
 	font-size: 1.18em;
 	line-height: 1.3em;
 	margin: 0px 0px 10px 5px;
@@ -2410,7 +2400,7 @@ bookAdMainContent {
 	border-bottom: 1px solid #999;
 }
 #mainContentInfo h4 {
-	font-family: Arial, Helvetica, sans-serif;
+	
 	font-size: 1em;
 	line-height: 1.2em;
 	margin: 0px 0px 10px 5px;
@@ -2825,7 +2815,7 @@ bookAdMainContent {
 .myAccountTableButtonsPremium {
 }
 .myAccountTableButtonsPremium  a {
-	font-family: Arial, Helvetica, sans-serif;
+	
 	font-size: 0.85em;
 	line-height: 15px;
 	font-weight: bold;
@@ -2841,7 +2831,7 @@ bookAdMainContent {
 	padding-top: 2px;
 }
 .myAccountTableButtonsPremium a:hover {
-	font-family: Arial, Helvetica, sans-serif;
+	
 	font-size: 0.85em;
 	line-height: 15px;
 	font-weight: bold;
@@ -3000,3 +2990,76 @@ bookAdMainContent {
 	padding: 0px;
 }
 	
+.navigation {
+    font-family: "alternate-gothic-no-2-d";
+    font-size: 1.3em;
+    margin: 18px auto 18px auto;
+    padding: 0;
+    clear: both;
+    display: block;
+    -webkit-box-shadow: 0 1px 4px rgba(52, 52, 52, 0.49);
+    box-shadow: 0 1px 4px rgba(52, 52, 52, 0.49);
+    line-height: 1.2em;
+}
+
+.navigation ul {
+    background-color: #263745;
+    position: relative;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    list-style-image: none;
+    clear: both;
+}
+
+.navigation ul li {
+    display: inline;
+    padding: 0;
+}
+
+.navigation ul li.active {
+    background-color: #d64c0f;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    -webkit-border-top-left-radius: 2px;
+    -webkit-border-top-right-radius: 2px;
+    padding-bottom: 25px;
+    position: relative;
+    
+}
+
+.navigation ul li a:hover {
+    background-color: #d64c0f;
+    height: 1.3em;
+    line-height: 1.6em;
+    padding: 0 10px;
+}
+
+.navigation ul li a {
+    color: #fff;
+    padding: 0 10px;
+    text-decoration: none;
+    height: 1.3em;
+    line-height: 1.6em;
+    transition: color 0.15s linear 0s, background-color 0.15s linear 0s, opacity 0.15s ease 0s;
+}
+
+/*submenu*/
+.navigation ul li ul {
+    background-color: #d64c0f;
+    font-size: 0.9em;
+}
+
+.navigation ul li ul li a {
+    text-transform: none;
+}
+
+.navigation ul li ul li a:hover {
+    text-decoration: underline;
+    text-transform: none;
+}
+
+.navigation ul li ul li a.upper {
+    text-transform: uppercase
+}

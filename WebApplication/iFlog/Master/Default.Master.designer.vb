@@ -77,31 +77,58 @@ Partial Public Class _Default1
     Protected WithEvents radScriptManager As Global.Telerik.Web.UI.RadScriptManager
 
     '''<summary>
-    '''rptPublicationsTop control.
+    '''lnkFind control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents rptPublicationsTop As Global.System.Web.UI.WebControls.Repeater
+    Protected WithEvents lnkFind As Global.System.Web.UI.WebControls.HyperLink
 
     '''<summary>
-    '''ucxBannerAds control.
+    '''lnkRates control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ucxBannerAds As Global.BetterclassifiedsWeb.AdSpace
+    Protected WithEvents lnkRates As Global.System.Web.UI.WebControls.HyperLink
 
     '''<summary>
-    '''HyperLink7 control.
+    '''lnkDeadlines control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents HyperLink7 As Global.System.Web.UI.WebControls.HyperLink
+    Protected WithEvents lnkDeadlines As Global.System.Web.UI.WebControls.HyperLink
+
+    '''<summary>
+    '''lnkContact control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lnkContact As Global.System.Web.UI.WebControls.HyperLink
+
+    '''<summary>
+    '''lnkMyAccount control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lnkMyAccount As Global.System.Web.UI.WebControls.HyperLink
+
+    '''<summary>
+    '''lnkNewAd control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lnkNewAd As Global.System.Web.UI.WebControls.HyperLink
 
     '''<summary>
     '''LoginView1 control.
@@ -120,15 +147,6 @@ Partial Public Class _Default1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblVersion As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''loginViewMenu control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents loginViewMenu As Global.System.Web.UI.WebControls.LoginView
 
     '''<summary>
     '''ContentPlaceHolder1 control.

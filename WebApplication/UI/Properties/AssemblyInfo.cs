@@ -36,7 +36,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: System.Web.UI.WebResource("Paramount.Common.UI.JavaScript.HelpContextControl.js", "text/js")]
 [assembly: System.Web.UI.WebResource("Paramount.Common.UI.JavaScript.tooltip.min.js", "text/js")]
-[assembly: System.Web.UI.WebResource("Paramount.Common.UI.JavaScript.jquery-1.4.min.js", "text/js")]
+[assembly: System.Web.UI.WebResource("Paramount.Common.UI.JavaScript.jquery-1.8.3.min.js", "text/js")]
 [assembly: System.Web.UI.WebResource("Paramount.Common.UI.JavaScript.json2.js", "text/js")]
 [assembly: System.Web.UI.WebResource("Paramount.Common.UI.JavaScript.session-refresher.js", "text/js")]
 

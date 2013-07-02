@@ -4,7 +4,7 @@
 
     function iResize() {
         for (var i = 0, j = iFrames.length; i < j; i++) {
-            iFrames[i].style.height = iFrames[i].contentWindow.document.body.offsetHeight + 'px';
+            iFrames[i].style.height = iFrames[i].contentWindow.document.body.offsetHeight + 20 + 'px';
         }
     }
 

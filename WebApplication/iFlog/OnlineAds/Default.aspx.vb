@@ -121,34 +121,12 @@ Partial Public Class _Default5
     End Sub
 
     Private Sub objSourceResults_Selected(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs) Handles objSourceResults.Selected
-
         Try
-
             ViewState("resultCount") = e.ReturnValue
-
             lblSearchResults.Text = e.ReturnValue.ToString + " results found "
-
         Catch ex As Exception
 
         End Try
-
-    End Sub
-
-    Private Sub LinkPrint_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles LinkPrint.Click
-        ' start a new print ad straight from here (go straight to paper selection)
-        ' General.StartBundleBookingStep2()
-        Response.Redirect(PageUrl.BookingStep_1)
-    End Sub
-
-    Private Sub LinkOnline_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles LinkOnline.Click
-        ' start new online ad print from here ( go straight to paper selection)
-        ' StartBooking(SystemAdType.ONLINE)
-        Response.Redirect(PageUrl.BookingStep_1)
-    End Sub
-
-    Private Sub Linkboth_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Linkboth.Click
-        ' General.StartBundleBookingStep2()
-        Response.Redirect(PageUrl.BookingStep_1)
     End Sub
 
     Private Sub StartBooking(ByVal type As SystemAdType)
@@ -176,9 +154,5 @@ Partial Public Class _Default5
     Private Sub grdSearchResults_Sorting(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewSortEventArgs) Handles grdSearchResults.Sorting
         GetDatasource()
     End Sub
-
-    'Private Sub ddlSortBy_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles ddlSortBy.SelectedIndexChanged
-    '    GetDatasource()
-    'End Sub
 
 End Class

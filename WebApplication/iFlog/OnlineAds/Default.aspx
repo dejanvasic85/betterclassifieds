@@ -10,23 +10,10 @@
         <div id="searchTotalContent">
             <ucx:KeySearch ID="ucxKeySearch" runat="server" />
         </div>
-        
-        <div id="advertiseNavBut">
-            <ul>
-                <li>
-                    <asp:LinkButton ID="LinkPrint" runat="server">iFLOG IN PRINT</asp:LinkButton></li>
-                <li>
-                    <asp:LinkButton ID="LinkOnline" runat="server">iFLOG ONLINE</asp:LinkButton></li>
-                <li>
-                    <asp:LinkButton ID="Linkboth" runat="server">iFLOG BOTH WAYS</asp:LinkButton></li>
-            </ul>
-        </div>
-        
     </div>
     
     <div class="clearFloat">
         <div id="contentBody">
-        
             <div id="sidebar">
                 <div id="sidebarHeader">
                     <p>
@@ -35,9 +22,7 @@
                 <div id="sidebarContent">
                         <paramountIt:CategorySelector ID="categorySelector" runat="server"  />
                 </div>
-                
                 <ucx:FlogSearch ID="ucxFlogSearch" runat="server" />
-                
             </div>
             
             <div id="mainSearchResults">

@@ -33,33 +33,6 @@ Namespace Master
         Protected WithEvents ucxKeySearch As Global.BetterclassifiedsWeb.Controls.Search.KeySearch1
 
         '''<summary>
-        '''LinkPrint control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents LinkPrint As Global.System.Web.UI.WebControls.LinkButton
-
-        '''<summary>
-        '''LinkOnline control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents LinkOnline As Global.System.Web.UI.WebControls.LinkButton
-
-        '''<summary>
-        '''Linkboth control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents Linkboth As Global.System.Web.UI.WebControls.LinkButton
-
-        '''<summary>
         '''BodyPlaceHolder control.
         '''</summary>
         '''<remarks>

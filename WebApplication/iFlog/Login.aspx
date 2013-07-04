@@ -1,4 +1,4 @@
-﻿<%@ Page Title="iFlog Login" Language="vb" AutoEventWireup="false" CodeBehind="Login.aspx.vb" Inherits="BetterclassifiedsWeb.Login1" MasterPageFile="~/Master/Default.Master" %>
+﻿<%@ Page Title="Login to Classies" Language="vb" AutoEventWireup="false" CodeBehind="Login.aspx.vb" Inherits="BetterclassifiedsWeb.Login1" MasterPageFile="~/Master/Default.Master" %>
 <%@ Register Src="~/Controls/Member/Login.ascx" tagname="Login" tagprefix="ucx" %>
 
 
@@ -9,8 +9,7 @@
        <div id="contentBodyAccounts">
             <div id="mainLoginRegister">
                 <div id="mainHeaderMyAccount">
-                    <asp:Image ID="Image1" runat="server" ImageUrl="~/Resources/Images/login_header.jpg" /><h2>
-                        Please enter your username and password below...</h2>
+                    <h2>Login to Classies with your username and password</h2>
                 </div>
                 <div id="bookAdMainContent">
                     &nbsp;

@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MasterWithRightBar.Master"
-    CodeBehind="Rates.aspx.vb" Inherits="BetterclassifiedsWeb.Rates" Title="iFlog Price List" %>
+    CodeBehind="Rates.aspx.vb" Inherits="BetterclassifiedsWeb.Rates" Title="Classies Price List" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadPlaceHolder" runat="server">
     <style type="text/css">

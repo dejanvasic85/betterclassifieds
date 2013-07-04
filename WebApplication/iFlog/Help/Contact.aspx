@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MasterWithRightBar.Master"
-    CodeBehind="Contact.aspx.vb" Inherits="BetterclassifiedsWeb.Contact" Title="iFlog Contact Us" %>
+    CodeBehind="Contact.aspx.vb" Inherits="BetterclassifiedsWeb.Contact" Title="Contact Us" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadPlaceHolder" runat="server">
     <style type="text/css">
@@ -28,7 +28,7 @@
                 <p>
                     <asp:Label ID="lblNew" runat="server" Font-Bold="true" Text="NEW!" />&nbsp; Have
                     a suggestion/feedback or simply require support for our website? Use the following
-                    support form to voice your concerns and the friendly team at iFlog will get back
+                    support form to voice your concerns and the friendly team will get back
                     to you as soon as possible!
                 </p>
                 <table cellpadding="5">
@@ -133,12 +133,12 @@
                 </table>
                 <p>
                     <asp:Label ID="lblNote" runat="server" Font-Bold="true" Text="Note: For any support enquiries, please provide as much detail as possible 
-                     including username, browser and version, error message, booking id, iFlog id." /></p>
+                     including username, browser and version, error message, booking id, Ad ID." /></p>
             </div>
             <div style="margin-top: 15px">
                 <p>
-                    <b>iFlog is operated under licence by Dharma Media Pty Ltd (ABN: 54 117 132 402). Dharma
-                        Media Pty Ltd is part of the Street Press Australia Pty Ltd group of companies.</b>
+                    <b>Classies are operated under licence by Dharma Media Pty Ltd (ABN: 54 117 132 402). Dharma
+                        Media Pty Ltd is part of the StreetPress Australia Pty Ltd group of companies.</b>
                     <table style="width: 359px">
                         <tr>
                             <td class="style1">

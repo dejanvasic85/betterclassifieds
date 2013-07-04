@@ -8,7 +8,7 @@ Namespace Controls.Search
         Public Event Search As EventHandler
         ' Page Constants
         Private _searchKeyword As String = "search keywords..."
-        Private _iFlogID As String = "iFlog ID"
+        Private _iFlogID As String = "Ad ID"
         Private _AnyCategory As String = " Any Category "
         Private _AnySubCategory As String = " Any Sub-Category "
 

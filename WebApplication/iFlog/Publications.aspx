@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MasterWithRightBar.Master"
     CodeBehind="Publications.aspx.vb" Inherits="BetterclassifiedsWeb.Publications"
-    Title="iFlog Publications, Editions and Deadlines" %>
+    Title="Publications, Editions and Deadlines" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadPlaceHolder" runat="server">
 </asp:Content>

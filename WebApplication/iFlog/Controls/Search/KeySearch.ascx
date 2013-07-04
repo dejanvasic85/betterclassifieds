@@ -21,7 +21,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <asp:TextBox ID="txtIflogId" runat="server" Text="iFlog ID" Width="200px" />
+                        <asp:TextBox ID="txtIflogId" runat="server" Text="Ad ID" Width="200px" />
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlSubCategory" runat="server" Width="200px"

@@ -77,13 +77,13 @@ Partial Public Class _Default1
     Protected WithEvents radScriptManager As Global.Telerik.Web.UI.RadScriptManager
 
     '''<summary>
-    '''lnkFind control.
+    '''lnkExplore control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lnkFind As Global.System.Web.UI.WebControls.HyperLink
+    Protected WithEvents lnkExplore As Global.System.Web.UI.WebControls.HyperLink
 
     '''<summary>
     '''lnkRates control.

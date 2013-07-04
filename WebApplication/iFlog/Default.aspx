@@ -1,6 +1,6 @@
-﻿<%@ Page Title="iFlog Home Page" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MasterWithRightBar.Master"
+﻿<%@ Page Title="Classies Home" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MasterWithRightBar.Master"
     CodeBehind="Default.aspx.vb" Inherits="BetterclassifiedsWeb._Default4" Theme="iflog" %>
-<%@ Register Src="~/Controls/Search/KeySearch.ascx" TagName="KeySearch" TagPrefix="ucx" %>
+
 <%@ Register Src="~/Controls/Search/RecentOnlineAdList.ascx" TagName="RecentlyAdded" TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/Search/FlogID.ascx" TagName="FlogSearch" TagPrefix="ucx" %>
 

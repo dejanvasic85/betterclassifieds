@@ -12,16 +12,6 @@
         <div id="searchTotalContent">
             <ucx:keysearch id="ucxKeySearch" runat="server" />
         </div>
-        <div id="advertiseNavBut">
-            <ul>
-                <li>
-                    <asp:LinkButton ID="LinkPrint" runat="server">iFLOG IN PRINT</asp:LinkButton></li>
-                <li>
-                    <asp:LinkButton ID="LinkOnline" runat="server">iFLOG ONLINE</asp:LinkButton></li>
-                <li>
-                    <asp:LinkButton ID="Linkboth" runat="server">iFLOG BOTH WAYS</asp:LinkButton></li>
-            </ul>
-        </div>
     </div>
     <div class="clearFloat">
         <div id="contentBody">

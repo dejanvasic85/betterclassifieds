@@ -13,29 +13,15 @@
 
     <div id="contentMainHead">
         <div id="searchTotalContent">
-            <ucx:keysearch id="ucxKeySearch" runat="server" />
-        </div>
-        <div id="advertiseNavBut">
-            <ul>
-                <li>
-                    <asp:LinkButton ID="LinkPrint" runat="server">iFLOG IN PRINT</asp:LinkButton></li>
-                <li>
-                    <asp:LinkButton ID="LinkOnline" runat="server">iFLOG ONLINE</asp:LinkButton></li>
-                <li>
-                    <asp:LinkButton ID="Linkboth" runat="server">iFLOG BOTH WAYS</asp:LinkButton></li>
-            </ul>
+            <ucx:keysearch ID="ucxKeySearch" runat="server" />
         </div>
     </div>
     <div class="clearFloat">
         <div id="contentBody">
             <asp:ContentPlaceHolder ID="BodyPlaceHolder" runat="server" />
             <div id="rightSidebar">
-            <div style="clear:both"></div>
-               <a href="rates.aspx" >
-                
-                    <ucx:AdSpaces ID="ucxAds" runat="server" Location="RightColumn" />
-                    <%--UNCOMMENT WHEN DISABLING AD SPACES --%>               
-                    <%--<asp:image id="banner01" runat="server" imageurl="~/Resources/Images/Banners/iflog_skyscaper_150x450.jpg"  cssclass="banner-image"/></a>--%>
+                <div style="clear: both"></div>
+                <ucx:AdSpaces ID="ucxAds" runat="server" Location="RightColumn" />
             </div>
         </div>
     </div>

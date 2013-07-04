@@ -143,6 +143,7 @@
     <Content Include="App_Themes\iflog\images\upload_head_img.gif" />
     <Content Include="App_Themes\iflog\images\upload_head_img_b.gif" />
     <Content Include="App_Themes\Plain\plain.css" />
+    <Content Include="favicon.ico" />
     <Content Include="MemberAccount\AdManager.aspx" />
     <Content Include="MemberAccount\ExtendBooking.aspx" />
     <Content Include="Resources\Images\date.png" />
@@ -980,7 +981,6 @@
     <Content Include="Help\Contact.aspx" />
     <Content Include="Help\PrivacyPolicy.aspx" />
     <Content Include="Help\RefundPolicy.aspx" />
-    <Content Include="iflog_icon.ico" />
     <Content Include="MemberAccount\Bookings.aspx" />
     <Content Include="MemberAccount\Current.aspx" />
     <Content Include="MemberAccount\EditLineAd.aspx" />

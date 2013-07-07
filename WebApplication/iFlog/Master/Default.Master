@@ -2,7 +2,7 @@
 
 <%@ Register Src="~/Controls/AdSpace.ascx" TagName="AdSpaces" TagPrefix="ucx" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <meta http-equiv="X-UA-Compatible" content="IE=9,IE=10,IE=edge" />
@@ -21,9 +21,7 @@
     <form id="form1" runat="server">
         <paramountItCommon:SessionRefresher SessionUrl="~/SessionRefresher.ashx" TimeOutPeriod="5" runat="server" ID="refresher" />
         <telerik:RadScriptManager runat="server" ID="radScriptManager" />
-
         <div id="container">
-
             <a href="http://themusic.com.au/" class="themusic">
                 <img src="//dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" alt="The Music | theMusic.com.au | Australia’s Premier Music News &amp; Reviews Website" />
             </a>
@@ -199,6 +197,7 @@
         })();
 
     </script>
+    
     <asp:ContentPlaceHolder runat="server" ID="pageScripts"></asp:ContentPlaceHolder>
 </body>
 

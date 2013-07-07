@@ -14,10 +14,14 @@ body {
 	margin: 0;
 	padding: 0;
 	height :100%;
+}
+
+.customBackground {
     background-image: url('http://themusic.com.au/images/body-grad.png'), url('http://themusic.com.au/images/bg.png');
     background-attachment: scroll, scroll;
     background-repeat: repeat-x, repeat;
 }
+
 #container {
     margin: 35px auto 18px auto;
     max-width: 1000px;
@@ -3224,3 +3228,4 @@ bookAdMainContent {
 	background: url(../images/my_account_ads_CANCEL.gif) no-repeat -74px;
 }
         
+/* End of Booking  Page*/

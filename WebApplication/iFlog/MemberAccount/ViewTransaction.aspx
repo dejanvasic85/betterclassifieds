@@ -10,25 +10,22 @@
         {
             padding:20px;
         }
-        
         .items
         {
             width: 75%;
             text-align: left;
             float: left;
         }
-           
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
     <div class="tranContent">
-        <p>Dharma Media Pty Ltd<br />
-        Trading as IFLOG<br />
-        ABN 54 117 132 402</p>
+        <p>Dharma Media Pty Ltd
+            <br />ABN 54 117 132 402
+            <br/>Locked Bag 2001, Clifton Hill VIC 3068
+        </p>
         
-        <p>PO Box 1079<br />
-        Richmond North VIC 3067</p>
         
         <p>Tel 03 9421 4499<br />
         Email <a href="mailto:accounts@streetpress.com.au">accounts@streetpress.com.au</a></p>
@@ -83,7 +80,7 @@
             <RowStyle HorizontalAlign="Center" />
             <HeaderStyle HorizontalAlign="Center" BorderColor="Gray" BorderStyle="Solid" BorderWidth="1px" />
             <Columns>
-                <asp:BoundField HeaderText="iFlog ID" DataField="AdDesignId" />
+                <asp:BoundField HeaderText="Ad ID" DataField="AdDesignId" />
                 <asp:TemplateField HeaderText="Ad Type">
                     <ItemTemplate>
                         <asp:Literal ID="lblAdType" runat="server" />
@@ -100,7 +97,6 @@
         <br />
         
         <p>Thank You</p>
-        <a href="http://www.iflog.com.au" target="_blank">http://www.iflog.com.au</a>
         
     </div>
     </form>

@@ -23,7 +23,7 @@
                 <h3>Design your Print and Online Ads</h3>
             </div>
         </div>
-    
+
         <div class="bookingpage-bookingContentWrapper">
 
             <div style="margin-bottom: 5px;" id="divMarketingContent" runat="server">
@@ -69,7 +69,8 @@
                             <tr>
                                 <td>
                                     <div class="wordcount">
-                                        <asp:LinkButton ID="lnkUploadImages" runat="server" Text="Manage" /></div>
+                                        <asp:LinkButton ID="lnkUploadImages" runat="server" Text="Manage" />
+                                    </div>
                                 </td>
                             </tr>
                         </table>
@@ -111,4 +112,6 @@
             </div>
         </div>
     </div>
+    
 </asp:Content>
+

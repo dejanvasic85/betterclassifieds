@@ -3,8 +3,6 @@
 
 <%@ Register Src="~/Controls/Booking/DesignOnlineAd.ascx" TagName="OnlineAd" TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/ErrorList.ascx" TagName="PageErrors" TagPrefix="ucx" %>
-<%@ Register Src="~/Controls/Booking/BundlePriceSummary.ascx" TagName="BundleSummary" TagPrefix="ucx" %>
-<%@ Register Src="~/Controls/Booking/NavigationSteps.ascx" TagName="navigationsteps" TagPrefix="ucx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
@@ -21,61 +19,57 @@
     <div class="bookingpage-pageContainer">
 
         <div class="bookingpage-bookingHeaderContainer">
-            <div class="bookingpage-bookingHeaderImg">
-                <asp:Image ID="Image2" runat="server" ImageUrl="~/Resources/Images/new_ad_header_premium.gif"
-                    AlternateText="Premium Booking" />
-            </div>
             <div class="bookingpage-bookingHeaderText">
                 <h3>Design your Print and Online Ads</h3>
             </div>
         </div>
     
         <div class="bookingpage-bookingContentWrapper">
-        
+
             <div style="margin-bottom: 5px;" id="divMarketingContent" runat="server">
                 <asp:Panel ID="pnlMarketingContent" runat="server" />
             </div>
 
             <div class="bookingpage-BookingContent">
                 <ucx:PageErrors ID="ucxPageErrors" runat="server" />
-                
-                <div class="bookingMainContent" style="width:500px">
-                    <paramountIt:LineAdNewDesign ID="lineAdNewDesign" runat="server" 
-                        HelpContextImageUrl="~/Resources/Images/question_button.gif" CssClass="lineAdNewDesign" 
+
+                <div class="bookingMainContent" style="width: 500px">
+                    <paramountIt:LineAdNewDesign ID="lineAdNewDesign" runat="server"
+                        HelpContextImageUrl="~/Resources/Images/question_button.gif" CssClass="lineAdNewDesign"
                         Width="500px"
-                        style="display: block;" />
+                        Style="display: block;" />
                 </div>
-                    
-                <div class="bookingMainContent" style="width:500px">
+
+                <div class="bookingMainContent" style="width: 500px">
                     <%--Booking Content--%>
-                    <h1>
-                        Upload Images 
+                    <h1>Upload Images 
                     </h1>
-                    
+
                     <div>
                         <table>
                             <tr>
                                 <td valign="bottom">
-                                    <div style="font-size: 0.8em; border: 2px solid #646D7E; padding: 5px; background-color: #E3E4FA; ">
+                                    <div style="font-size: 0.8em; border: 2px solid #646D7E; padding: 5px; background-color: #E3E4FA;">
                                         Click button below to upload and manage Print and Online Ad Images.
                                     </div>
                                 </td>
                                 <td valign="top">
-                                    <paramountItCommon:HelpContextControl Position="Top" ID="HelpContextControl1" 
+                                    <paramountItCommon:HelpContextControl Position="Top" ID="HelpContextControl1"
                                         ImageUrl="~/Resources/Images/question_button.gif"
                                         runat="server" CssClass="upload-help">
                                         <ContentTemplate>
                                             <span class="text-wrapper">
                                                 <b>Image:</b> You have the option of selecting
                                                 an image to enhance the appeal of your ad to the public. 
-                                            </span> 
-                                        </ContentTemplate> 
+                                            </span>
+                                        </ContentTemplate>
                                     </paramountItCommon:HelpContextControl>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="wordcount"><asp:LinkButton ID="lnkUploadImages" runat="server" Text="Manage" /></div>
+                                    <div class="wordcount">
+                                        <asp:LinkButton ID="lnkUploadImages" runat="server" Text="Manage" /></div>
                                 </td>
                             </tr>
                         </table>
@@ -83,10 +77,10 @@
                 </div>
 
                 <telerik:RadWindow ID="radWindowImages" runat="server" NavigateUrl="~/Common/UploadBookingManager.aspx"
-                    Title="Upload Images" Width="680px" Height="580px" Modal="true" Behaviors="Close" 
-                    ReloadOnShow="true" VisibleStatusbar="false" OnClientClose="imageWindowClosed">    
+                    Title="Upload Images" Width="680px" Height="580px" Modal="true" Behaviors="Close"
+                    ReloadOnShow="true" VisibleStatusbar="false" OnClientClose="imageWindowClosed">
                 </telerik:RadWindow>
-               
+
                 <%--Online Ad Details--%>
                 <ucx:OnlineAd ID="ucxOnlineAd" runat="server" />
 
@@ -94,8 +88,8 @@
 
             <div class="bookingpage-BookingSideContent">
                 <%--Main Div for Summary Details--%>
-                <paramountIt:AdOrderSummary ID="paramountOrderSummary" runat="server" 
-                    IsFloatingOnPage="false" IsAutoPriceCheck="true" 
+                <paramountIt:AdOrderSummary ID="paramountOrderSummary" runat="server"
+                    IsFloatingOnPage="false" IsAutoPriceCheck="true"
                     HelpContextImageUrl="~/Resources/Images/shopping_cart_16x16.gif" />
             </div>
 

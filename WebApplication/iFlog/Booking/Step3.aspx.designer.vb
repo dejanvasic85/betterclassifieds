@@ -14,22 +14,13 @@ Option Explicit On
 Partial Public Class Step3
 
     '''<summary>
-    '''Image1 control.
+    '''ucxPageErrors control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Image1 As Global.System.Web.UI.WebControls.Image
-
-    '''<summary>
-    '''ucxPageErrors1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ucxPageErrors1 As Global.BetterclassifiedsWeb.ErrorList
+    Protected WithEvents ucxPageErrors As Global.BetterclassifiedsWeb.ErrorList
 
     '''<summary>
     '''helpContextPanel control.

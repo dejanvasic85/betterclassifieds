@@ -2,23 +2,16 @@
     MasterPageFile="~/Master/Default.Master"
     CodeBehind="Step4.aspx.vb" Inherits="BetterclassifiedsWeb.Step4" %>
 
-<%@ Register Src="~/Controls/Booking/NavigationSteps.ascx" TagName="NavigationSteps"
-    TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/Booking/EditionDates.ascx" TagName="EditionDates" TagPrefix="ucx" %>
-<%@ Register Src="~/Controls/Booking/NavigationButtons.ascx" TagName="NavigationButtons"
-    TagPrefix="ucx" %>
+<%@ Register Src="~/Controls/Booking/NavigationButtons.ascx" TagName="NavigationButtons" TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/ErrorList.ascx" TagName="PageErrors" TagPrefix="ucx" %>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="clearFloat">
         <div id="contentBodyAccounts">
             <div id="mainBookAd">
-                <%--<div id="mainHeaderBookAd">
-                    <ucx:NavigationSteps runat="server" ID="nav" StepNumber="4" Instruction="Scheduling Details"
-                        Description="Please specify when you would like your ad to run. <br />Use the Check Editions Button to see all insertion dates." />
-                </div>--%>
+           
                 <div class="mainBookingHeader">
-                    <asp:Image ID="Image2" runat="server" ImageUrl="~/Resources/Images/new_ad_header_online.gif"
-                        AlternateText="Premium Booking" />
                     <h3>Scheduling Details</h3>
                 </div>
                 <div id="mainContentMyAccount">

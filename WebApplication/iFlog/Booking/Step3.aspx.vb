@@ -67,15 +67,6 @@ Partial Public Class Step3
 
     End Sub
 
-    'Private Sub btnUpdatePrice_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnUpdatePrice.Click
-    '    ' calculate the price accordingly to the ad type
-    '    If (ViewState(adTypeState) = SystemAdType.LINE.ToString) Then
-    '        CalculatePrice(ViewState(adTypeState), ucxLineAdDesign.AdText)
-    '    ElseIf (ViewState(adTypeState) = SystemAdType.ONLINE.ToString) Then
-    '        CalculatePrice(ViewState(adTypeState), ucxDesignOnlineAd.Description)
-    '    End If
-    'End Sub
-
     ''' <summary>
     ''' Method to handle the Next Button Event
     ''' </summary>
@@ -112,15 +103,11 @@ Partial Public Class Step3
 
             Response.Redirect("Step4.aspx")
         Else
-            'ucxPageErrors.ShowErrors(errorList)
+            ucxPageErrors.ShowErrors(errorList)
         End If
     End Sub
 
     Private Function ValidatePage(ByRef errorList As List(Of String)) As Boolean
-
-        'If ucxAdDetails.AdTitle = String.Empty Then
-        '    errorList.Add("Please provide a Title for the booking.")
-        'End If
 
         If (ucxLineAdDesign.Visible = True) Then
             ' validate the line ad control
@@ -160,27 +147,13 @@ Partial Public Class Step3
             Dim isHeaderUsed As Boolean = ucxLineAdDesign.UseBoldHeading
 
             Dim priceSummary = BookingController.GetPriceSummary(rates, mainCategory, 1, adText, isGraphicUploaded, isHeaderUsed)
-
-            ' get the overall price for a single edition by adding price for each paper
             For Each price In priceSummary
                 totalPrice += price.PaperPrice
             Next
-
-            'ucxPriceSummary.BindPriceSummary(priceSummary, totalPrice, isGraphicUploaded, isHeaderUsed, SystemAdType.LINE)
-
         ElseIf (adType = SystemAdType.ONLINE.ToString) Then
-
-            Dim _
-                priceSummaryList = _
-                    BookingController.GetPriceSummary(rates, mainCategory, ucxDesignOnlineAd.Description)
-
-            ' there should be only one item in this collection for now
+            Dim priceSummaryList = BookingController.GetPriceSummary(rates, mainCategory, ucxDesignOnlineAd.Description)
             totalPrice = priceSummaryList(0).PaperPrice
-
-            'ucxPriceSummary.BindPriceSummary(priceSummaryList, totalPrice, False, False, SystemAdType.ONLINE)
         End If
-
-        'lnkShowPrice.Text = String.Format("{0:C}", totalPrice)
         Return totalPrice
     End Function
 End Class

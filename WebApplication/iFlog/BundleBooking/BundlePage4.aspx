@@ -3,8 +3,7 @@
 
 <%@ Register Src="~/Controls/ErrorList.ascx" TagName="PageErrors" TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/Booking/EditionDates.ascx" TagName="EditionDates" TagPrefix="ucx" %>
-<%@ Register Src="~/Controls/Booking/NavigationSteps.ascx" TagName="navigationsteps"
-    TagPrefix="ucx" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -16,8 +15,7 @@
                         Description="Please specify when you would like your ad to run. <br />Use the Check Editions Button to see all insertion dates." />
                 </div>--%>
                 <div class="mainBookingHeader">
-                    <asp:Image ID="Image1" runat="server" ImageUrl="~/Resources/Images/new_ad_header_premium.gif"
-                        AlternateText="Premium Booking" />
+                    
                     <h3>Scheduling Details</h3>
                 </div>
                 <div id="mainContentMyAccount">

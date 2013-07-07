@@ -14,15 +14,6 @@ Option Explicit On
 Partial Public Class AdType
 
     '''<summary>
-    '''Image4 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Image4 As Global.System.Web.UI.WebControls.Image
-
-    '''<summary>
     '''pnlBooking control.
     '''</summary>
     '''<remarks>

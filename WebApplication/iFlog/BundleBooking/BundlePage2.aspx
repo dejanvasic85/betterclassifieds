@@ -4,8 +4,7 @@
 <%@ Register Src="~/Controls/ErrorList.ascx" TagName="PageError" TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/Booking/PaperListSelection.ascx" TagName="PaperList"
     TagPrefix="ucx" %>
-<%@ Register Src="~/Controls/Booking/NavigationSteps.ascx" TagName="navigationsteps"
-    TagPrefix="ucx" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -13,8 +12,6 @@
         <div id="contentBodyAccounts">
             <div id="mainBookAd">
                 <div class="mainBookingHeader">
-                    <asp:Image ID="Image1" runat="server" ImageUrl="~/Resources/Images/new_ad_header_premium.gif"
-                        AlternateText="Premium Booking" />
                     <h3>Select Category and Publication</h3>
                 </div>
 

@@ -1,25 +1,18 @@
 ﻿<%@ Page Title="iFlog - New Bundle Booking - Confirmation" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/Default.Master"
     CodeBehind="BundlePage5.aspx.vb" Inherits="BetterclassifiedsWeb.BundlePage5" %>
 
-<%@ Register Src="~/Controls/Booking/NavigationSteps.ascx" TagName="NavigationSteps"
-    TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/Booking/EditionDates.ascx" TagName="EditionDates" TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/ErrorList.ascx" TagName="errorlist" TagPrefix="ucx" %>
-<%@ Register Src="~/Controls/LineAdPreview.ascx" TagName="LineAdPreview" TagPrefix="ucx" %>
-<%@ Register Src="~/Controls/OnlineAdView.ascx" TagName="OnlineAdView" TagPrefix="ucx" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="clearFloat">
         <div id="contentBodyAccounts">
             <div id="mainBookAd">
-                <%--<div id="mainHeaderBookAd">
-                    <ucx:NavigationSteps runat="server" ID="nav" StepNumber="5" Instruction="Confirmation and Payment"
-                        Description="Confirm details below and provide payment details before checkout. <br />Ensure all confirmation boxes are ticked to proceed." />
-                </div>--%>
+               
                 <div class="mainBookingHeader">
-                    <asp:Image ID="Image2" runat="server" ImageUrl="~/Resources/Images/new_ad_header_premium.gif"
-                        AlternateText="Premium Booking" />
+                    
                     <h3>Confirmation</h3>
                 </div>
                 <div id="mainContentMyAccount">

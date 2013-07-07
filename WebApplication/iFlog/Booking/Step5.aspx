@@ -3,21 +3,15 @@
     Title="iFlog - New Booking - Confirmation" %>
 
 <%@ Register Src="~/Controls/Booking/EditionDates.ascx" TagName="EditionDates" TagPrefix="ucx" %>
-<%@ Register Src="~/Controls/Booking/NavigationButtons.ascx" TagName="NavigationButtons"
-    TagPrefix="ucx" %>
+<%@ Register Src="~/Controls/Booking/NavigationButtons.ascx" TagName="NavigationButtons" TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/ErrorList.ascx" TagName="ErrorList" TagPrefix="ucx" %>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     
     <div class="clearFloat">
         <div id="contentBodyAccounts">
             <div id="mainBookAd">
-                <%--<div id="mainHeaderBookAd">
-                    <ucx:NavigationSteps runat="server" ID="nav" StepNumber="5" Instruction="Confirmation and Payment"
-                        Description="Confirm details below and provide payment details before checkout. <br />Ensure all confirmation boxes are ticked to proceed." />
-                </div>--%>
                 <div class="mainBookingHeader">
-                    <asp:Image ID="Image2" runat="server" ImageUrl="~/Resources/Images/new_ad_header_online.gif"
-                        AlternateText="Premium Booking" />
                     <h3>Confirmation</h3>
                 </div>
                 <div id="mainContentMyAccount">

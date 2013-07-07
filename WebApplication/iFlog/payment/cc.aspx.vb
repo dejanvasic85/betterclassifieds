@@ -90,7 +90,7 @@ Namespace payment
             sb.AppendFormat("Vendor Name: {0},", Settings.VendorName)
             sb.AppendFormat("Refund Policy Url: {0},", Settings.RefundPolicyUrl)
             sb.AppendFormat("Payment Alert Email: {0},", Settings.PaymentAlertEmail)
-            sb.AppendFormat("Information Fields: {0},", GetPriceSummary)
+            sb.AppendFormat("Information Fields: {0},", Cost.ToString())
             sb.AppendFormat("Payment Reference: {0},", ItemName)
             sb.AppendFormat("Gst Rate: {0},", Settings.GstAdded)
             sb.AppendFormat("Gst Included: {0},", Settings.GstAdded)
@@ -104,7 +104,7 @@ Namespace payment
                 .VendorName = Settings.VendorName
                 .RefundPolicyUrl = Settings.RefundPolicyUrl
                 .PaymentAlertEmail = Settings.PaymentAlertEmail
-                .InformationFields.Add(GetPriceSummary)
+                .InformationFields.Add(Cost.ToString())
                 .PaymentReference = ItemName
                 .GstRate = Settings.GstRate
                 .GstIncluded = Settings.GstAdded
@@ -132,15 +132,5 @@ Namespace payment
             End Get
         End Property
 
-        Private Function GetPriceSummary() As String
-            Dim tempPage As New Page
-            Dim sw As New StringWriter()
-            Dim control = this.LoadControl("~/Controls/Booking/PriceSummary.ascx")
-            Page.Controls.Add(control)
-            HttpContext.Current.Server.Execute(tempPage, sw, False)
-            Dim contentString = sw.ToString()
-            sw.Close()
-            Return contentString
-        End Function
     End Class
 End Namespace

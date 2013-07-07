@@ -269,20 +269,6 @@
       <DependentUpon>AdSpace.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Booking\AdDetails.ascx.designer.vb">
-      <DependentUpon>AdDetails.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Booking\AdDetails.ascx.vb">
-      <DependentUpon>AdDetails.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\Booking\AdTypeList.ascx.designer.vb">
-      <DependentUpon>AdTypeList.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Booking\AdTypeList.ascx.vb">
-      <DependentUpon>AdTypeList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Controls\Booking\BundlePriceSummary.ascx.designer.vb">
       <DependentUpon>BundlePriceSummary.ascx</DependentUpon>
     </Compile>
@@ -312,13 +298,6 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Controls\Booking\LineAdDescriptionBox.vb" />
-    <Compile Include="Controls\Booking\MultipleFileUpload.ascx.designer.vb">
-      <DependentUpon>MultipleFileUpload.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Booking\MultipleFileUpload.ascx.vb">
-      <DependentUpon>MultipleFileUpload.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Controls\Booking\NavigationButtons.ascx.designer.vb">
       <DependentUpon>NavigationButtons.ascx</DependentUpon>
     </Compile>
@@ -326,39 +305,11 @@
       <DependentUpon>NavigationButtons.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\Booking\NavigationSteps.ascx.designer.vb">
-      <DependentUpon>NavigationSteps.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Booking\NavigationSteps.ascx.vb">
-      <DependentUpon>NavigationSteps.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Controls\Booking\PaperListSelection.ascx.designer.vb">
       <DependentUpon>PaperListSelection.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\Booking\PaperListSelection.ascx.vb">
       <DependentUpon>PaperListSelection.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\Booking\Payment.ascx.designer.vb">
-      <DependentUpon>Payment.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Booking\Payment.ascx.vb">
-      <DependentUpon>Payment.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\Booking\PriceSummary.ascx.designer.vb">
-      <DependentUpon>PriceSummary.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Booking\PriceSummary.ascx.vb">
-      <DependentUpon>PriceSummary.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\Booking\Scheduling.ascx.designer.vb">
-      <DependentUpon>Scheduling.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Booking\Scheduling.ascx.vb">
-      <DependentUpon>Scheduling.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Controls\OnlineAdViewWithDiv.ascx.designer.vb">
@@ -417,13 +368,6 @@
     </Compile>
     <Compile Include="Controls\Member\Register.ascx.vb">
       <DependentUpon>Register.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\Member\UserDetails.ascx.designer.vb">
-      <DependentUpon>UserDetails.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Member\UserDetails.ascx.vb">
-      <DependentUpon>UserDetails.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Controls\OnlineAdView.ascx.designer.vb">
@@ -934,18 +878,11 @@
     <Content Include="App_Themes\iflog\images\step_button_red25px.gif" />
     <Content Include="Booking\Success.aspx" />
     <Content Include="Controls\AdSpace.ascx" />
-    <Content Include="Controls\Booking\AdDetails.ascx" />
-    <Content Include="Controls\Booking\AdTypeList.ascx" />
     <Content Include="Controls\Booking\DesignLineAd.ascx" />
     <Content Include="Controls\Booking\DesignOnlineAd.ascx" />
     <Content Include="Controls\Booking\EditionDates.ascx" />
-    <Content Include="Controls\Booking\MultipleFileUpload.ascx" />
     <Content Include="Controls\Booking\NavigationButtons.ascx" />
-    <Content Include="Controls\Booking\NavigationSteps.ascx" />
     <Content Include="Controls\Booking\PaperListSelection.ascx" />
-    <Content Include="Controls\Booking\Payment.ascx" />
-    <Content Include="Controls\Booking\PriceSummary.ascx" />
-    <Content Include="Controls\Booking\Scheduling.ascx" />
     <Content Include="Controls\ErrorList.ascx" />
     <Content Include="Controls\ImageSpecification.ascx" />
     <Content Include="Controls\InvoiceGrid.ascx" />
@@ -953,7 +890,6 @@
     <Content Include="Controls\Member\Login.ascx" />
     <Content Include="Controls\Member\MemberDetails.ascx" />
     <Content Include="Controls\Member\Register.ascx" />
-    <Content Include="Controls\Member\UserDetails.ascx" />
     <Content Include="Controls\OnlineAdView.ascx" />
     <Content Include="Controls\RecentOnlineAdList.ascx" />
     <Content Include="Error\AccessDenied.aspx" />
@@ -1115,9 +1051,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_GlobalResources\" />
-    <Folder Include="App_Themes\iflog\Betterclassified.UI\" />
     <Folder Include="bin\" />
-    <Folder Include="Controls\Search\" />
     <Folder Include="Image\" />
   </ItemGroup>
   <PropertyGroup>

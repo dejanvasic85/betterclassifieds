@@ -3,19 +3,12 @@
 
 <%@ Register Src="~/Controls/AdSpace.ascx" TagName="AdSpaces" TagPrefix="ucx" %>
 
-<%@ Register Src="~/Controls/Search/KeySearch.ascx" TagName="keysearch" TagPrefix="ucx" %>
-
 <asp:Content ContentPlaceHolderID="head" runat="server" ID="cntHead">
     <asp:ContentPlaceHolder ID="HeadPlaceHolder" runat="server" />
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="ContentPlaceHolder1" runat="server" ID="cntMain">
 
-    <div id="contentMainHead">
-        <div id="searchTotalContent">
-            <ucx:keysearch ID="ucxKeySearch" runat="server" />
-        </div>
-    </div>
     <div class="clearFloat">
         <div id="contentBody">
             <asp:ContentPlaceHolder ID="BodyPlaceHolder" runat="server" />

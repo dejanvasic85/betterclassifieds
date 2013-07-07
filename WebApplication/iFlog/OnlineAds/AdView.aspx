@@ -2,8 +2,7 @@
     CodeBehind="AdView.aspx.vb" Inherits="BetterclassifiedsWeb.AdView"  %>
 
 <%@ Register Src="~/Controls/OnlineAdView.ascx" TagName="OnlineAd" TagPrefix="ucx" %>
-<%@ Register Src="~/Controls/Search/KeySearch.ascx" TagName="KeySearch" TagPrefix="ucx" %>
-<%@ Register Src="~/Controls/Search/FlogID.ascx" TagName="FlogSearch" TagPrefix="ucx" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadPlaceHolder" runat="server">
     
 </asp:Content>
@@ -19,7 +18,7 @@
         <div id="sidebarContent">
             <paramountIt:CategorySelector ID="categorySelector" runat="server"  />
         </div>
-        <ucx:FlogSearch ID="ucxFlogSearch" runat="server" />
+        
         <div style="clear:both"></div>
     </div>
 

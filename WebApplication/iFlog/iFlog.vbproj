@@ -434,24 +434,10 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Controls\ParamountCompositeControl.vb" />
-    <Compile Include="Controls\Search\FlogID.ascx.designer.vb">
-      <DependentUpon>FlogID.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Search\FlogID.ascx.vb">
-      <DependentUpon>FlogID.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\Search\KeySearch.ascx.designer.vb">
-      <DependentUpon>KeySearch.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Search\KeySearch.ascx.vb">
-      <DependentUpon>KeySearch.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\Search\RecentOnlineAdList.ascx.designer.vb">
+    <Compile Include="Controls\RecentOnlineAdList.ascx.designer.vb">
       <DependentUpon>RecentOnlineAdList.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Search\RecentOnlineAdList.ascx.vb">
+    <Compile Include="Controls\RecentOnlineAdList.ascx.vb">
       <DependentUpon>RecentOnlineAdList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -969,9 +955,7 @@
     <Content Include="Controls\Member\Register.ascx" />
     <Content Include="Controls\Member\UserDetails.ascx" />
     <Content Include="Controls\OnlineAdView.ascx" />
-    <Content Include="Controls\Search\FlogID.ascx" />
-    <Content Include="Controls\Search\KeySearch.ascx" />
-    <Content Include="Controls\Search\RecentOnlineAdList.ascx" />
+    <Content Include="Controls\RecentOnlineAdList.ascx" />
     <Content Include="Error\AccessDenied.aspx" />
     <Content Include="Error\ConnectFail.aspx" />
     <Content Include="Error\Default.aspx" />
@@ -1077,6 +1061,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="UploadFiles.aspx" />
+    <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ApplicationBlock\Configuration\ApplicationBlock.Configuration.csproj">
@@ -1132,6 +1117,7 @@
     <Folder Include="App_GlobalResources\" />
     <Folder Include="App_Themes\iflog\Betterclassified.UI\" />
     <Folder Include="bin\" />
+    <Folder Include="Controls\Search\" />
     <Folder Include="Image\" />
   </ItemGroup>
   <PropertyGroup>

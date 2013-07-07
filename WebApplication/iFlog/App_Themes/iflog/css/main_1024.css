@@ -2993,7 +2993,7 @@ bookAdMainContent {
 .navigation {
     font-family: "alternate-gothic-no-2-d";
     font-size: 1.3em;
-    margin: 18px auto 18px auto;
+    margin: 18px auto 0px auto;
     padding: 0;
     clear: both;
     display: block;
@@ -3020,10 +3020,10 @@ bookAdMainContent {
 
 .navigation ul li.active {
     background-color: #d64c0f;
-    border-top-left-radius: 2px;
-    border-top-right-radius: 2px;
     -webkit-border-top-left-radius: 2px;
     -webkit-border-top-right-radius: 2px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
     padding-bottom: 25px;
     position: relative;
     
@@ -3063,3 +3063,37 @@ bookAdMainContent {
 .navigation ul li ul li a.upper {
     text-transform: uppercase
 }
+
+/* end of submenu*/
+
+
+/* top search bar*/
+.topSearch {
+    background-color: #d64c0f;
+    font-family: "alternate-gothic-no-2-d";
+    font-size: 1.3em;
+    color: #fff;
+    -webkit-border-bottom-left-radius: 8px;
+    -webkit-border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    margin: 0 auto 18px auto;
+    padding: 15px 10px;
+    position: relative;
+    font-size: 1.2em;
+}
+
+.topSearch ul {
+    list-style: none;
+    list-style-image: none;
+    padding: 0;
+    margin: 0;
+}
+
+.topSearch ul li {
+    display: inline;
+    padding: 0;
+    margin: 0;
+}
+
+/* end of top search bar*/

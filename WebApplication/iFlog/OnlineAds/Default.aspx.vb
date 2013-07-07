@@ -45,12 +45,6 @@ Partial Public Class _Default5
                 Me.Title += " - " + "All Categories"
             End If
 
-            ' set the default search button
-            Dim btn As LinkButton = TryCast(ucxKeySearch.FindControl("lnkSearch"), LinkButton)
-            If btn IsNot Nothing Then
-                Me.Form.DefaultButton = btn.UniqueID
-            End If
-
             GetDatasource()
         End If
     End Sub

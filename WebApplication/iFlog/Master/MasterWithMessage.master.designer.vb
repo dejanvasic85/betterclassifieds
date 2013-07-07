@@ -23,15 +23,6 @@ Partial Public Class MasterWithMessage
     Protected WithEvents HeadPlaceHolder As Global.System.Web.UI.WebControls.ContentPlaceHolder
 
     '''<summary>
-    '''ucxKeySearch control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ucxKeySearch As Global.BetterclassifiedsWeb.Controls.Search.KeySearch1
-
-    '''<summary>
     '''BodyPlaceHolder control.
     '''</summary>
     '''<remarks>

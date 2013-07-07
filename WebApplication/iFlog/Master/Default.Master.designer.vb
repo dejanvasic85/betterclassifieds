@@ -131,6 +131,87 @@ Partial Public Class _Default1
     Protected WithEvents lnkNewAd As Global.System.Web.UI.WebControls.HyperLink
 
     '''<summary>
+    '''pnlAjaxSearch control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlAjaxSearch As Global.System.Web.UI.UpdatePanel
+
+    '''<summary>
+    '''pnlSearchOptions control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlSearchOptions As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''ddlMainCategory control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlMainCategory As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''ddlSubCategory control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlSubCategory As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''ddlLocation control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlLocation As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''ddlArea control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlArea As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''txtKeywords control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtKeywords As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''txtAdId control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtAdId As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''btnSearch control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnSearch As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
     '''LoginView1 control.
     '''</summary>
     '''<remarks>

@@ -32,15 +32,6 @@ Partial Public Class AdView
     Protected WithEvents categorySelector As Global.BetterClassified.UI.CategorySelector
 
     '''<summary>
-    '''ucxFlogSearch control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ucxFlogSearch As Global.BetterclassifiedsWeb.FlogID
-
-    '''<summary>
     '''ucxOnlineAd control.
     '''</summary>
     '''<remarks>

@@ -5,7 +5,7 @@
 
     End Sub
 
-    Private Sub Login1_Authenticate(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.AuthenticateEventArgs) Handles Login1.Authenticate
+    Protected Sub Login1_Authenticate(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.AuthenticateEventArgs) Handles Login1.Authenticate
 
         If (Membership.Provider.ValidateUser(Login1.UserName, Login1.Password) = True) Then
             e.Authenticated = True
@@ -13,6 +13,11 @@
             ' store the username into the session
             Session(Common.Constants.sessionUsername) = Login1.UserName
         End If
+    End Sub
+
+    Protected Sub Login1_LoggedIn(ByVal sender As Object, ByVal e As EventArgs) Handles Login1.LoggedIn
+        Dim isAuthenticated = Membership.GetUser
+
     End Sub
 
     Public Property InstructionText() As String

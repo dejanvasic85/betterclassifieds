@@ -14,15 +14,6 @@ Option Explicit On
 Partial Public Class _Default5
 
     '''<summary>
-    '''ucxKeySearch control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ucxKeySearch As Global.BetterclassifiedsWeb.Controls.Search.KeySearch1
-
-    '''<summary>
     '''categorySelector control.
     '''</summary>
     '''<remarks>
@@ -30,15 +21,6 @@ Partial Public Class _Default5
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents categorySelector As Global.BetterClassified.UI.CategorySelector
-
-    '''<summary>
-    '''ucxFlogSearch control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ucxFlogSearch As Global.BetterclassifiedsWeb.FlogID
 
     '''<summary>
     '''lblSearchResults control.

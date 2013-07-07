@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="Login.ascx.vb" Inherits="BetterclassifiedsWeb.Login" %>
-<asp:Login ID="Login1" runat="server" PasswordRecoveryUrl="~/GetPassword.aspx">
+<asp:Login ID="Login1" runat="server" PasswordRecoveryUrl="~/GetPassword.aspx" OnAuthenticate="Login1_Authenticate">
     <LayoutTemplate>
-        <asp:Panel ID="pnllogin" DefaultButton="btnLogin">
+        <asp:Panel runat="server" ID="pnllogin" DefaultButton="btnLogin">
         <div id="myAccountTableChgDet">
             <table width="570" border="0" align="center" cellpadding="3px" cellspacing="0px">
                 <tr>
@@ -67,9 +67,7 @@
    
         <div id="myAccountTableButtonsLogin">
             <ul>
-                <div id="myAccountTableButtonsExtend"><%--
-                    <li><asp:LinkButton ID="LoginButton" runat="server" 
-                            CommandName="Login" Text="LOGIN" ValidationGroup="ctl00$Login1" /></li>--%>
+                <div id="myAccountTableButtonsExtend">
                     <li><asp:Button ID="btnLogin" runat="server" 
                             CommandName="Login" Text="Login" ValidationGroup="ctl00$Login1" /></li>
                 </div>

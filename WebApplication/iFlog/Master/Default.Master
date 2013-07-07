@@ -9,11 +9,12 @@
     <%-- favicon setup --%>
     <link id="Link3" runat="server" rel="shortcut icon" href="~/favicon.ico" type="image/x-icon" />
     <link id="Link4" runat="server" rel="icon" href="~/favicon.ico" type="image/ico" />
-    
+
     <asp:ContentPlaceHolder ID="head" runat="server" />
     <title>themusic.com.au classies - Australia's # 1 print and online classifieds network – currently free!!!</title>
     <meta name="description" content="themusic.com.au - Australia's # 1 print and online classifieds network – currently free!!!" />
     <meta name="keywords" content="themusic, classifieds, classified, newspaper, deal, sell, buy, trade, paypal, online, streetpress, street press, Inpress, Time Off, Drum Media Sydney, Drum Media Perth, 3D World, Drum Media, Lure, magazine, Sydney, Brisbane, Melbourne, Perth, Adelaide, Tasmania, Darwin, New South Wales, Victoria, Queensland, Tasmania, Northern Territory, South Australia, Western Australia,  Employment, For Sale, Music Services, Musicians Available, Musicians Wanted, Services, Wanted, Bass Player, DJ, Drummer, Guiarist, Keyboard, Singer, Song Writer, Band Merchandise, Booking Agents, Duplication, Mastering, EP Release, Hire Services, Legal, Accounting, Management, Mastering, PA, Audio, Engineering, Photography, Posters, Printing, Recording Studios, Rehearsal Rooms, Repairs, Studio Hire, Transport, Tuition, Video, Production, Amps, Bass, Cases, CD, DVD, Computers, Decks, Furniture, Guitars, Keyboards, Mixers, PA Equipment, Recreational Equipment, Beauty Services, Graphic Design, Piercing, Tattoo, Tuition" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9,IE=10,IE=edge" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -21,7 +22,7 @@
         <telerik:RadScriptManager runat="server" ID="radScriptManager" />
 
         <div id="container">
-            
+
             <a href="http://themusic.com.au/" class="themusic">
                 <img src="//dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" alt="The Music | theMusic.com.au | Australia’s Premier Music News &amp; Reviews Website" />
             </a>
@@ -52,7 +53,26 @@
                     </li>
                 </ul>
             </div>
-
+            <asp:UpdatePanel runat="server" ID="pnlAjaxSearch">
+                <ContentTemplate>
+                    <asp:Panel runat="server" CssClass="topSearch" ID="pnlSearchOptions" DefaultButton="btnSearch">
+                        <ul>
+                            <li>Quick Search</li>
+                            <li><asp:DropDownList runat="server" ID="ddlMainCategory" DataTextField="Title" DataValueField="MainCategoryId" AutoPostBack="true" Width="150px" OnSelectedIndexChanged="ddlMainCategory_SelectedIndexChanged" /></li>
+                            <li><asp:DropDownList runat="server" ID="ddlSubCategory" Width="150px" DataTextField="Title" DataValueField="MainCategoryId" AutoPostBack="true" /></li>
+                            <li><asp:DropDownList runat="server" ID="ddlLocation" DataTextField="Title" DataValueField="LocationId" Width="150px" OnSelectedIndexChanged="ddlLocation_SelectedIndexChanged" AutoPostBack="True" /></li>
+                            <li><asp:DropDownList runat="server" ID="ddlArea" DataTextField="Title" DataValueField="LocationAreaId" Width="150px" /></li>
+                            <li><asp:TextBox runat="server" ID="txtKeywords" placeholder="keywords..." Width="100px"></asp:TextBox></li>
+                            <li>| OR</li>
+                            <li><asp:TextBox runat="server" ID="txtAdId" placeholder="Ad ID" Width="50px"></asp:TextBox></li>
+                            <li><asp:Button runat="server" ID="btnSearch" Text="Search" /></li>
+                        </ul>
+                    </asp:Panel>
+                </ContentTemplate>
+                <Triggers>
+                    <asp:PostBackTrigger ControlID="btnSearch"/>
+                </Triggers>
+            </asp:UpdatePanel>
 
             <div id="loginRegister">
                 <asp:LoginView ID="LoginView1" runat="server">
@@ -81,32 +101,21 @@
 
                         <div class="bottomBanner">
                             <ucx:AdSpaces ID="ucxAds" runat="server" Location="Footer" />
-                            <%--<asp:Image ID="imgBottomBanner" runat="server" ImageUrl="~/Resources/Images/Banners/benchmark_master_banner.jpg" />--%>
                         </div>
 
                         <div id="footer">
                             <div id="footerDetailsOne">
                                 <p>
                                     <em>SITE INFO</em>
-                                    <asp:HyperLink ID="HyperLink21" runat="server" NavigateUrl="~/Default.aspx">HOME</asp:HyperLink>
-                                    | 
-                                <%--<a href="help.html">HELP</a> | --%>
-                                    <asp:HyperLink ID="HyperLink8" runat="server" NavigateUrl="~/Help/About.aspx">ABOUT US</asp:HyperLink>
-                                    | 
-                                <asp:HyperLink ID="HyperLink11" runat="server" NavigateUrl="~/Help/PrivacyPolicy.aspx">PRIVACY POLICY</asp:HyperLink>
-                                    | 
-                                <asp:HyperLink ID="HyperLink12" runat="server" NavigateUrl="~/Terms.aspx">TERMS AND CONDITIONS</asp:HyperLink>
-                                    | 
-                                <asp:HyperLink ID="HyperLink13" runat="server" NavigateUrl="~/Help/RefundPolicy.aspx">REFUND POLICY</asp:HyperLink>
-                                    |
-                                <%--<asp:HyperLink ID="HyperLink14" runat="server">FLOG IN</asp:HyperLink> | --%>
-                                    <asp:HyperLink ID="HyperLink14" runat="server" NavigateUrl="~/Register.aspx">REGISTER</asp:HyperLink>
-                                    | 
-                                <asp:HyperLink ID="HyperLink15" runat="server" NavigateUrl="~/Rates.aspx">RATES</asp:HyperLink>
-                                    | 
-                                <asp:HyperLink ID="HyperLink16" runat="server" NavigateUrl="~/Publications.aspx">DEADLINES</asp:HyperLink>
-                                    | 
-                                <asp:HyperLink ID="HyperLink10" runat="server" NavigateUrl="~/Help/Contact.aspx">CONTACT US</asp:HyperLink>
+                                    <asp:HyperLink ID="HyperLink21" runat="server" NavigateUrl="~/Default.aspx">HOME</asp:HyperLink> | 
+                                    <asp:HyperLink ID="HyperLink8" runat="server" NavigateUrl="~/Help/About.aspx">ABOUT US</asp:HyperLink> | 
+                                    <asp:HyperLink ID="HyperLink11" runat="server" NavigateUrl="~/Help/PrivacyPolicy.aspx">PRIVACY POLICY</asp:HyperLink> | 
+                                    <asp:HyperLink ID="HyperLink12" runat="server" NavigateUrl="~/Terms.aspx">TERMS AND CONDITIONS</asp:HyperLink> | 
+                                    <asp:HyperLink ID="HyperLink13" runat="server" NavigateUrl="~/Help/RefundPolicy.aspx">REFUND POLICY</asp:HyperLink> |
+                                    <asp:HyperLink ID="HyperLink14" runat="server" NavigateUrl="~/Register.aspx">REGISTER</asp:HyperLink> | 
+                                    <asp:HyperLink ID="HyperLink15" runat="server" NavigateUrl="~/Rates.aspx">RATES</asp:HyperLink> | 
+                                    <asp:HyperLink ID="HyperLink16" runat="server" NavigateUrl="~/Publications.aspx">DEADLINES</asp:HyperLink> | 
+                                    <asp:HyperLink ID="HyperLink10" runat="server" NavigateUrl="~/Help/Contact.aspx">CONTACT US</asp:HyperLink>
                                     <asp:HyperLink ID="lnkFAQ" runat="server" NavigateUrl="~/Help/FAQ.aspx"> | FAQ</asp:HyperLink>
                                 </p>
                             </div>

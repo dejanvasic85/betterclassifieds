@@ -1,17 +1,8 @@
 <%@ Page Title="iFlog Search Results" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/Default.Master"
     CodeBehind="Default.aspx.vb" Inherits="BetterclassifiedsWeb._Default5" %> 
-<%@ Register Src="~/Controls/Search/KeySearch.ascx" TagName="KeySearch" TagPrefix="ucx" %>
-<%@ Register Src="~/Controls/Search/FlogID.ascx" TagName="FlogSearch" TagPrefix="ucx" %>
     
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    
-    <div id="contentMainHead">
-        
-        <div id="searchTotalContent">
-            <ucx:KeySearch ID="ucxKeySearch" runat="server" />
-        </div>
-    </div>
-    
+  
     <div class="clearFloat">
         <div id="contentBody">
             <div id="sidebar">
@@ -22,7 +13,7 @@
                 <div id="sidebarContent">
                         <paramountIt:CategorySelector ID="categorySelector" runat="server"  />
                 </div>
-                <ucx:FlogSearch ID="ucxFlogSearch" runat="server" />
+                
             </div>
             
             <div id="mainSearchResults">

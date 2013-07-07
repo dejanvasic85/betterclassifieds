@@ -145,15 +145,7 @@
                                 Address:
                             </td>
                             <td class="style2">
-                                2-4 Bond St, Abbotsford, VIC 3067
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="style1">
-                                Postal:
-                            </td>
-                            <td class="style2">
-                                PO Box 1079, Richmond North VIC 3121
+                                Locked Bag 2001, Clifton Hill VIC 3068
                             </td>
                         </tr>
                         <tr>
@@ -177,7 +169,7 @@
                                 Email:
                             </td>
                             <td class="style2">
-                                <a href="mailto:support@iflog.com.au">support@iflog.com.au</a>
+                                <a href="mailto:support@themusic.com.au">support@themusic.com.au</a>
                             </td>
                         </tr>
                     </table>

@@ -76,7 +76,7 @@
     <Content Include="1.New\1.Schema\_._">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="1.New\3.Data\_._">
+    <Content Include="1.New\3.Data\2.0.01-dbo.Publication.UpdateOnlineName.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="iFlogDatabaseScripts.nuspec" />

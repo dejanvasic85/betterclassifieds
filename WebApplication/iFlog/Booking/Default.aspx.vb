@@ -19,16 +19,13 @@ Partial Public Class _Default2
                 lblBookingSuccess.Text = "Please try again. Contact us if problem persists."
                 pnlHeader.CssClass = "red"
                 lblHeader.Text = "FAIL!"
-                lblSubHeader.Text = "Booking failed."
 
             ElseIf (action = "cancel") Then
 
                 lblBookingSuccess.Text = "Successfully cancelled your booking."
-                lblSubHeader.Text = "Booking cancelled"
             Else
                 'display a blank page
                 lblHeader.Text = ""
-                lblSubHeader.Text = ""
             End If
 
             ' clear any bookings

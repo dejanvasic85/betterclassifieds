@@ -431,7 +431,7 @@
             </h4>
             <p>
                 If you think that any of our sites have been accessed or used by another user in
-                breach of the Conditions, please email us at support@iflog.com.au. We'll consider
+                breach of the Conditions, please email us at support@themusic.com.au. We'll consider
                 whether there are grounds for taking any action, but you won't necessarily be contacted
                 as to our decision.
             </p>
@@ -441,7 +441,7 @@
                 identify each copyright protected work in which you own the rights and which you
                 believe has been infringed, identify how each copyright protected work has been
                 or is being infringed and include your contact information. You will need to sign
-                the notice and send it to support@iflog.com.au.
+                the notice and send it to support@themusic.com.au.
                 <br />
             </p>
             <h4>

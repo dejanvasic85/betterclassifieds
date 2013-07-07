@@ -19,7 +19,7 @@
                         <tr>
                             <td>
                                 <h1>
-                                    iFlog Publication and Category Rates!</h1>
+                                    Publication and Category Rates!</h1>
                             </td>
                         </tr>
                         <tr>

@@ -11,7 +11,7 @@
 <table >
     <tr>
         <td><h2>
-        Bold Header*</h2></td>
+        Online Header*</h2></td>
         <td><h5 style="margin-top:15px;"> The title for your advertisement</h5></td>
         <td><div class="help-context-panel" style="margin-top:10px">
         <paramountItCommon:HelpContextControl Position="Bottom" ID="HelpContextControl2"

@@ -66,7 +66,7 @@
                             <li><asp:TextBox runat="server" ID="txtKeywords" placeholder="keywords..." Width="100px"></asp:TextBox></li>
                             <li>| OR</li>
                             <li><asp:TextBox runat="server" ID="txtAdId" placeholder="Ad ID" Width="50px"></asp:TextBox></li>
-                            <li><asp:Button runat="server" ID="btnSearch" Text="Search" /></li>
+                            <li><asp:Button runat="server" ID="btnSearch" Text="Search" CausesValidation="False" /></li>
                         </ul>
                     </asp:Panel>
                 </ContentTemplate>
@@ -103,55 +103,75 @@
                         <div class="bottomBanner">
                             <ucx:AdSpaces ID="ucxAds" runat="server" Location="Footer" />
                         </div>
-
-                        <div id="footer">
-                            <div id="footerDetailsOne">
-                                <p>
-                                    <em>SITE INFO</em>
-                                    <asp:HyperLink ID="HyperLink21" runat="server" NavigateUrl="~/Default.aspx">HOME</asp:HyperLink> | 
-                                    <asp:HyperLink ID="HyperLink8" runat="server" NavigateUrl="~/Help/About.aspx">ABOUT US</asp:HyperLink> | 
-                                    <asp:HyperLink ID="HyperLink11" runat="server" NavigateUrl="~/Help/PrivacyPolicy.aspx">PRIVACY POLICY</asp:HyperLink> | 
-                                    <asp:HyperLink ID="HyperLink12" runat="server" NavigateUrl="~/Terms.aspx">TERMS AND CONDITIONS</asp:HyperLink> | 
-                                    <asp:HyperLink ID="HyperLink13" runat="server" NavigateUrl="~/Help/RefundPolicy.aspx">REFUND POLICY</asp:HyperLink> |
-                                    <asp:HyperLink ID="HyperLink14" runat="server" NavigateUrl="~/Register.aspx">REGISTER</asp:HyperLink> | 
-                                    <asp:HyperLink ID="HyperLink15" runat="server" NavigateUrl="~/Rates.aspx">RATES</asp:HyperLink> | 
-                                    <asp:HyperLink ID="HyperLink16" runat="server" NavigateUrl="~/Publications.aspx">DEADLINES</asp:HyperLink> | 
-                                    <asp:HyperLink ID="HyperLink10" runat="server" NavigateUrl="~/Help/Contact.aspx">CONTACT US</asp:HyperLink>
-                                    <asp:HyperLink ID="lnkFAQ" runat="server" NavigateUrl="~/Help/FAQ.aspx"> | FAQ</asp:HyperLink>
-                                </p>
-                            </div>
-                            <div id="footerDetailsTwo">
-                                <p>
-                                    <em>PLACE AD</em>
-                                    <asp:Repeater ID="rptPublicationsBottom" runat="server">
-                                        <SeparatorTemplate>| </SeparatorTemplate>
-                                        <ItemTemplate>
-                                            <asp:HyperLink ID="lnkPub" runat="server" NavigateUrl="~/Booking/Step1.aspx" Text='<%# Eval("Title").ToString().ToUpper() %>'>
-                                            </asp:HyperLink>
-                                        </ItemTemplate>
-                                    </asp:Repeater>
-                                </p>
-                            </div>
-                            <div id="footerDetailsThree">
-                                <p>
-                                    <asp:HyperLink ID="HyperLink20" runat="server"
-                                        NavigateUrl="http://www.streetpress.com.au" Target="_blank"
-                                        ImageUrl="~/App_Themes/iflog/images/SPApoweredby.gif"
-                                        Width="188" Height="18" BorderWidth="0" />
-                                </p>
-                                <div id="style1">
-                                    <p>
-                                        <br />
-                                        DEVELOPED BY PARAMOUNT IT SOLUTIONS
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
+            </div>
 
+            <div class="footer">
+                <section class="submenu">
+		            <h1>Info</h1>
+		            <ul><li class="first"><a href="meta/info/contact-us/" title="Contact Us">Contact Us</a></li>
+			            <li><a href="http://themusic.com.au/meta/info/contact-us/" title="About Us">About Us</a></li>
+			            <li><a href="http://themusic.com.au/meta/info/about-us/" title="Careers">Careers</a></li>
+			            <li><a href="http://themusic.com.au/store/magazines.html" title="Subscriptions">Subscriptions</a></li>
+		                <li><p></p></li>
+                        <li><a href="http://themusic.com.au/meta/the-fine-print/privacy-policy/" title="Privacy Policy">Privacy Policy</a></li>
+    		            <li class="last"><a href="http://themusic.com.au/meta/the-fine-print/terms-of-use/" title="Terms Of Use">Terms Of Use</a></li>
+		            </ul>
+	            </section>
+                <section class="submenu">
+		            <h1>Advertising</h1>
+		            <ul><li class="first"><a title="Advertise" href="http://themusic.com.au/meta/advertising/advertise/">Advertise</a></li>
+			            <li><a title="Advertising Specifications" href="http://themusic.com.au/meta/advertising/advertising-specifications/">Advertising Specifications</a></li>
+			            <li><a title="Classifieds" href="http://iflog.com.au/">Classifieds</a></li>
+			            <li><a title="Enquire" href="mailto:sales@themusic.com.au">Enquire</a></li>
+			            <li><a title="Indy Bands" href="http://themusic.com.au/store/band-services/advertising.html">Indy Bands</a></li>
+			            <li><a title="Pay Invoice" href="http://themusic.com.au/meta/advertising/pay-invoice/">Pay Invoice</a></li>
+			            <li class="last"><a title="Terms and Conditions" href="http://themusic.com.au/meta/advertising/terms-and-conditions/">Terms and Conditions</a></li>
+		            </ul>
+	            </section>
+                <section class="submenu">
+		            <h1>The Mags</h1>
+		            <ul><li class="first"><a title="Drum Media (Sydney)" href="http://themusic.com.au/meta/the-mags/drum-media-(sydney)/">Drum Media (Sydney)</a></li>
+			            <li><a title="Inpress Magazine (Melbourne)" href="http://themusic.com.au/meta/the-mags/inpress-magazine-(melbourne)/">Inpress Magazine (Melbourne)</a></li>
+			            <li><a title="Time Off (Brisbane)" href="http://themusic.com.au/meta/the-mags/time-off-(brisbane)/">Time Off (Brisbane)</a></li>
+			            <li><a title="Drum Media (Perth)" href="http://themusic.com.au/meta/the-mags/drum-media-(perth)/">Drum Media (Perth)</a></li>
+			            <li><a title="Muso" href="http://themusic.com.au/meta/the-mags/muso/">Muso</a></li>
+			            <li><a title="Three Magazine" href="http://themusic.com.au/meta/the-mags/three-magazine/">Three Magazine</a></li>
+			            <li class="last"><a title="Australasian Music Industry Directory" href="http://themusic.com.au/meta/the-mags/australasian-music-industry-directory/">Australasian Music Industry Directory</a></li>
+		            </ul>
+	            </section>
+                <section class="submenu">
+		            <h1>The Guide</h1>
+		            <ul><li class="first"><a title="Submit A Gig" href="http://themusic.com.au/meta/the-guide/submit-a-gig/">Submit A Gig</a></li>
+			            <li><a title="Submit Multiple Gigs" href="http://themusic.com.au/meta/the-guide/submit-multiple-gigs/">Submit Multiple Gigs</a></li>
+                        <li><a title="Advertise" href="http://themusic.com.au/meta/the-guide/advertise/">Advertise</a></li>
+                        <li class="last"><a title="Support" href="http://themusic.com.au/meta/the-guide/support/">Support</a></li>
+		            </ul>
+	            </section>
+                <section class="submenu">
+                    <h1>Social</h1>
+                    <ul>
+                        <li>Facebook</li>
+                        <li>Twitter</li>
+                        <li><p></p></li>
+                    </ul>
+
+		            <h1>Classies</h1>
+                    <ul>
+                        <li><asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/Booking/Step1.aspx" Text="Place an Ad"></asp:HyperLink></li>
+                        <li><asp:HyperLink ID="HyperLink7" runat="server" NavigateUrl="~/Register.aspx" Text="Register"></asp:HyperLink></li>
+                        <li><asp:HyperLink ID="HyperLink9" runat="server" NavigateUrl="~/Help/Contact.aspx" Text="Contact Us"></asp:HyperLink></li>
+                        <li><asp:HyperLink ID="HyperLink17" runat="server" NavigateUrl="~/Help/FAQ.aspx" Text="FAQ"></asp:HyperLink></li>
+                        <li><asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/Help/About.aspx" Text="About"></asp:HyperLink></li>
+                        <li><asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="~/Help/PrivacyPolicy.aspx" Text="Privacy Policy"></asp:HyperLink></li>
+                        <li><asp:HyperLink ID="HyperLink5" runat="server" NavigateUrl="~/Terms.aspx" Text="Terms and Conditions"></asp:HyperLink></li>
+                        <li><asp:HyperLink ID="HyperLink6" runat="server" NavigateUrl="~/Help/RefundPolicy.aspx" Text="Refund Policy"></asp:HyperLink></li>
+                    </ul>
+	            </section>
             </div>
         </div>
+        
     </form>
     <script type="text/javascript">
         var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");

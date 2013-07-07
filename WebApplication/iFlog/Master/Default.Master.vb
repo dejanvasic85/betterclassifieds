@@ -16,10 +16,6 @@ Partial Public Class _Default1
         If Not Page.IsPostBack Then
             Dim papers = PublicationController.GetPublications(True)
 
-            rptPublicationsBottom.DataSource = papers
-            rptPublicationsBottom.DataBind()
-            lnkFAQ.Visible = GeneralRoutine.GetAppSetting(Utilities.Constants.CONST_MODULE_SYSTEM, Utilities.Constants.CONST_KEY_System_EnableFAQPage)
-
             Dim environment = ConfigSettingReader.GetConfigurationContext()
             If Not environment = "LIVE" Then
                 lblVersion.Text = String.Format(" - Version : {0}", BetterclassifiedSetting.Version)

@@ -13,8 +13,7 @@
         <div id="mainContentInfo">
             <p>
                 Cancellation of advertisement placement online or in print can be made 7 days prior
-                the the advertisement running. Otherwise, normal <a href="terms_and_conditions.html">
-                    Terms and Conditions</a> apply.</p>
+                the the advertisement running. Otherwise, normal Terms and Conditions apply.</p>
         </div>
         <div id="mainFooterInfo">
             <em>RETURN TO:</em> <a href="#0">TOP</a> |

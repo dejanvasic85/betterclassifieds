@@ -248,112 +248,76 @@ Partial Public Class _Default1
     Protected WithEvents ucxAds As Global.BetterclassifiedsWeb.AdSpace
 
     '''<summary>
-    '''HyperLink21 control.
+    '''HyperLink2 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents HyperLink21 As Global.System.Web.UI.WebControls.HyperLink
+    Protected WithEvents HyperLink2 As Global.System.Web.UI.WebControls.HyperLink
 
     '''<summary>
-    '''HyperLink8 control.
+    '''HyperLink7 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents HyperLink8 As Global.System.Web.UI.WebControls.HyperLink
+    Protected WithEvents HyperLink7 As Global.System.Web.UI.WebControls.HyperLink
 
     '''<summary>
-    '''HyperLink11 control.
+    '''HyperLink9 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents HyperLink11 As Global.System.Web.UI.WebControls.HyperLink
+    Protected WithEvents HyperLink9 As Global.System.Web.UI.WebControls.HyperLink
 
     '''<summary>
-    '''HyperLink12 control.
+    '''HyperLink17 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents HyperLink12 As Global.System.Web.UI.WebControls.HyperLink
+    Protected WithEvents HyperLink17 As Global.System.Web.UI.WebControls.HyperLink
 
     '''<summary>
-    '''HyperLink13 control.
+    '''HyperLink3 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents HyperLink13 As Global.System.Web.UI.WebControls.HyperLink
+    Protected WithEvents HyperLink3 As Global.System.Web.UI.WebControls.HyperLink
 
     '''<summary>
-    '''HyperLink14 control.
+    '''HyperLink4 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents HyperLink14 As Global.System.Web.UI.WebControls.HyperLink
+    Protected WithEvents HyperLink4 As Global.System.Web.UI.WebControls.HyperLink
 
     '''<summary>
-    '''HyperLink15 control.
+    '''HyperLink5 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents HyperLink15 As Global.System.Web.UI.WebControls.HyperLink
+    Protected WithEvents HyperLink5 As Global.System.Web.UI.WebControls.HyperLink
 
     '''<summary>
-    '''HyperLink16 control.
+    '''HyperLink6 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents HyperLink16 As Global.System.Web.UI.WebControls.HyperLink
-
-    '''<summary>
-    '''HyperLink10 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents HyperLink10 As Global.System.Web.UI.WebControls.HyperLink
-
-    '''<summary>
-    '''lnkFAQ control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lnkFAQ As Global.System.Web.UI.WebControls.HyperLink
-
-    '''<summary>
-    '''rptPublicationsBottom control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents rptPublicationsBottom As Global.System.Web.UI.WebControls.Repeater
-
-    '''<summary>
-    '''HyperLink20 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents HyperLink20 As Global.System.Web.UI.WebControls.HyperLink
+    Protected WithEvents HyperLink6 As Global.System.Web.UI.WebControls.HyperLink
 
     '''<summary>
     '''pageScripts control.

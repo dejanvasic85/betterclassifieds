@@ -137,6 +137,7 @@
     <Compile Include="Framework\Extensions\StringExtensions.cs" />
     <Compile Include="Framework\Mapping.cs" />
     <Compile Include="Framework\ReaderWriterCache.cs" />
+    <Compile Include="Framework\Security\ClassifiedSqlMembershipProvider.cs" />
     <Compile Include="Handlers\DocumentHandler.cs" />
     <Compile Include="Controls\ImageThumbCommand.cs" />
     <Compile Include="Controls\Dsl\ImageThumbCommandTemplate.cs" />
@@ -185,6 +186,10 @@
     <ProjectReference Include="..\..\ApplicationBlock\Configuration\ApplicationBlock.Configuration.csproj">
       <Project>{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}</Project>
       <Name>ApplicationBlock.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApplicationBlock\Data\ApplicationBlock.Data.csproj">
+      <Project>{f119ddc3-24dd-411e-b509-b8e41a011741}</Project>
+      <Name>ApplicationBlock.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ApplicationBlock\Logging\ApplicationBlock.Logging.csproj">
       <Project>{5C76B020-CE3C-4176-B2AA-5EAE9C3150CC}</Project>

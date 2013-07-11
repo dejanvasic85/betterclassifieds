@@ -1,4 +1,6 @@
-﻿namespace Paramount.ApplicationBlock.Data
+﻿using System.Configuration;
+
+namespace Paramount.ApplicationBlock.Data
 {
     using System;
     using System.Collections.Generic;

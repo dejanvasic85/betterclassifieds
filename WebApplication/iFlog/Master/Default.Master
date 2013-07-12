@@ -16,12 +16,39 @@
     <meta name="description" content="themusic.com.au - Australia's # 1 print and online classifieds network – currently free!!!" />
     <meta name="keywords" content="themusic, classifieds, classified, newspaper, deal, sell, buy, trade, paypal, online, streetpress, street press, Inpress, Time Off, Drum Media Sydney, Drum Media Perth, 3D World, Drum Media, Lure, magazine, Sydney, Brisbane, Melbourne, Perth, Adelaide, Tasmania, Darwin, New South Wales, Victoria, Queensland, Tasmania, Northern Territory, South Australia, Western Australia,  Employment, For Sale, Music Services, Musicians Available, Musicians Wanted, Services, Wanted, Bass Player, DJ, Drummer, Guiarist, Keyboard, Singer, Song Writer, Band Merchandise, Booking Agents, Duplication, Mastering, EP Release, Hire Services, Legal, Accounting, Management, Mastering, PA, Audio, Engineering, Photography, Posters, Printing, Recording Studios, Rehearsal Rooms, Repairs, Studio Hire, Transport, Tuition, Video, Production, Amps, Bass, Cases, CD, DVD, Computers, Decks, Furniture, Guitars, Keyboards, Mixers, PA Equipment, Recreational Equipment, Beauty Services, Graphic Design, Piercing, Tattoo, Tuition" />
     
+    <script type="text/javascript">
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+        (function () {
+            var gads = document.createElement("script");
+            gads.async = true;
+            gads.type = "text/javascript";
+            var useSSL = "https:" == document.location.protocol;
+            gads.src = (useSSL ? "https:" : "http:") + "//www.googletagservices.com/tag/js/gpt.js";
+            var node = document.getElementsByTagName("script")[0];
+            node.parentNode.insertBefore(gads, node);
+        })();
+	</script>
+	<script type="text/javascript">
+	    googletag.cmd.push(function () {
+	        // var adSlot1 = googletag.defineSlot('/6355419/Travel/Europe/France/Paris',[300, 250], "banner1");
+	        var adSlot1 = googletag.defineSlot('/4446275/Leaderboard_top', [728, 90], "leadboard");
+	        adSlot1.addService(googletag.pubads());
+	        googletag.enableServices();
+	    });
+	</script>
+
 </head>
 <body class="customBackground">
     <form id="form1" runat="server">
         <paramountItCommon:SessionRefresher SessionUrl="~/SessionRefresher.ashx" TimeOutPeriod="5" runat="server" ID="refresher" />
         <telerik:RadScriptManager runat="server" ID="radScriptManager" />
         <div id="container">
+            <div id="leadboard" style="width:728px; height:90px; float:right">
+              <script type="text/javascript">
+                  googletag.cmd.push(function () { googletag.display('leadboard'); });
+              </script>
+            </div>
             <a href="http://themusic.com.au/" class="themusic">
                 <img src="//dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" alt="The Music | theMusic.com.au | Australia’s Premier Music News &amp; Reviews Website" />
             </a>

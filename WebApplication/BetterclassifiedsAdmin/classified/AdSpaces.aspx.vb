@@ -1,7 +1,5 @@
 ﻿Imports BetterclassifiedsCore.WebAdvertising
 Imports Paramount.Betterclassified.Utilities.Configuration
-Imports Paramount.Common.Utility
-Imports Paramount.Modules.Dsl.UIController
 Imports Paramount.Utility.Dsl
 Imports Paramount.Utility
 

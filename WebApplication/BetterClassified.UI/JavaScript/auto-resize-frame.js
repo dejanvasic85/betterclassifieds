@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-    var iFrames = $('iframe');
+    var iFrames = $('.frameWithBody');
 
     function iResize() {
         for (var i = 0, j = iFrames.length; i < j; i++) {
@@ -11,7 +11,7 @@
     $('iframe').load(function () {
         setTimeout(iResize, 0);
         //open all links in external window
-        $('iframe').contents().find("a").attr("target", "_blank");
+        $('.frameWithBody').contents().find("a").attr("target", "_blank");
     });
 
     for (var i = 0, j = iFrames.length; i < j; i++) {

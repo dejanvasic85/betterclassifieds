@@ -5,15 +5,14 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadPlaceHolder" runat="server">
 </asp:Content>
 <asp:Content ID="mainContent" ContentPlaceHolderID="BodyPlaceHolder" runat="server">
-    <a id="0" name="0"></a>
+    
     <div id="mainInfo">
         <div id="mainHeaderInfo">
             <h2>
                 Publications and Deadlines</h2>
         </div>
         <div id="mainContentInfo">
-            <asp:DataList ID="listPublications" runat="server" Width="570" CellPadding="5" CellSpacing="0">
-                <AlternatingItemStyle BackColor="WhiteSmoke" />
+            <asp:DataList ID="listPublications" runat="server" Width="570px" CellPadding="5" CellSpacing="0">
                 <ItemTemplate>
                     <asp:Image ID="imgPublication" runat="server" />
                     <h4>

@@ -761,8 +761,6 @@
     <Content Include="App_Themes\iflog\css\paramount_controls.css" />
     <Content Include="App_Themes\iflog\css\special_offer.css" />
     <Content Include="App_Themes\iflog\images\bottom_message.gif" />
-    <Content Include="App_Themes\iflog\images\menu_hori_3V2.jpg" />
-    <Content Include="App_Themes\iflog\images\menu_hori_4_5V2.jpg" />
     <Content Include="App_Themes\iflog\images\top_message.gif" />
     <Content Include="App_Themes\iflog\images\upgrade_premium.jpg" />
     <Content Include="Common\UploadBookingManager.aspx" />
@@ -833,17 +831,6 @@
     <Content Include="App_Themes\iflog\images\mainBorderBg4_1024.gif" />
     <Content Include="App_Themes\iflog\images\mainBorderBgOutsideLines.gif" />
     <Content Include="App_Themes\iflog\images\mainContentHeaderLine.gif" />
-    <Content Include="App_Themes\iflog\images\menu_hori_1.jpg" />
-    <Content Include="App_Themes\iflog\images\menu_hori_10.jpg" />
-    <Content Include="App_Themes\iflog\images\menu_hori_2.jpg" />
-    <Content Include="App_Themes\iflog\images\menu_hori_3.jpg" />
-    <Content Include="App_Themes\iflog\images\menu_hori_4.jpg" />
-    <Content Include="App_Themes\iflog\images\menu_hori_4_5.jpg" />
-    <Content Include="App_Themes\iflog\images\menu_hori_5.jpg" />
-    <Content Include="App_Themes\iflog\images\menu_hori_6.jpg" />
-    <Content Include="App_Themes\iflog\images\menu_hori_7.jpg" />
-    <Content Include="App_Themes\iflog\images\menu_hori_8.jpg" />
-    <Content Include="App_Themes\iflog\images\menu_hori_9.jpg" />
     <Content Include="App_Themes\iflog\images\menu_side_bottom.jpg" />
     <Content Include="App_Themes\iflog\images\menu_side_bottom176.jpg" />
     <Content Include="App_Themes\iflog\images\menu_side_middle.jpg" />

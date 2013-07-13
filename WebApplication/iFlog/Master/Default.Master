@@ -32,17 +32,26 @@
 	<script type="text/javascript">
 	    googletag.cmd.push(function () {
 	        // var adSlot1 = googletag.defineSlot('/6355419/Travel/Europe/France/Paris',[300, 250], "banner1");
-	        var adSlot1 = googletag.defineSlot('/4446275/Leaderboard_top', [728, 90], "leadboard");
-	        adSlot1.addService(googletag.pubads());
+	        googletag.defineSlot('/4446275/Leaderboard_top', [728, 90], "leadboard").addService(googletag.pubads());
+	        googletag.defineSlot('/4446275/StripAd_top', [1110, 40], 'div-gpt-ad-1332716467013-20').addService(googletag.pubads()).setTargeting('Pages', 'Home');
+	        googletag.defineSlot('/4446275/skin_left', [150, 901], 'div-gpt-ad-1332716467013-18').addService(googletag.pubads()).setTargeting('Pages', 'Home');
+	        googletag.defineSlot('/4446275/skin_right', [150, 900], 'div-gpt-ad-1332716467013-19').addService(googletag.pubads()).setTargeting('Pages', 'Home');
 	        googletag.enableServices();
 	    });
 	</script>
-
+    <style>
+        
+    </style>
 </head>
 <body class="customBackground">
     <form id="form1" runat="server">
         <paramountItCommon:SessionRefresher SessionUrl="~/SessionRefresher.ashx" TimeOutPeriod="5" runat="server" ID="refresher" />
         <telerik:RadScriptManager runat="server" ID="radScriptManager" />
+        <div id='div-gpt-ad-1332716467013-20' style='width:1020px; height:40px;margin: 0 auto;' class="gam">
+            <script>
+                googletag.cmd.push(function () { googletag.display('div-gpt-ad-1332716467013-20'); });
+            </script>
+	    </div>
         <div id="container">
             <div id="leadboard" style="width:728px; height:90px; float:right">
               <script type="text/javascript">
@@ -103,8 +112,7 @@
             <div id="loginRegister">
                 <asp:LoginView ID="LoginView1" runat="server">
                     <AnonymousTemplate>
-                        <asp:LoginStatus ID="LoginStatus1" runat="server" />
-                        <asp:Literal ID="Literal1" runat="server" Text="or" />
+                        <asp:LoginStatus ID="LoginStatus1" runat="server" LoginText="Login to the Classies OR" />
                         <asp:HyperLink ID="HyperLink1" runat="server" Text="Register" NavigateUrl="~/Register.aspx" />
                     </AnonymousTemplate>
                     <LoggedInTemplate>
@@ -117,9 +125,8 @@
                 </asp:LoginView>
                 <asp:Label ID="lblVersion" runat="server" Text="" />
             </div>
-            <div id="bgImage">
-                <div id="bgImageTop"></div>
-                <div id="bgImageRepeat">
+            <div class="mainContent">
+                
                     <div id="content">
                         <div id="contentMain">
                             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
@@ -129,7 +136,7 @@
                             <ucx:AdSpaces ID="ucxAds" runat="server" Location="Footer" />
                         </div>
                     </div>
-                </div>
+                
             </div>
 
             <div class="footer">
@@ -197,6 +204,24 @@
             </div>
         </div>
         
+        <div class="skins">
+            <div class="left">
+                <!-- skin_left -->
+		        <div id='div-gpt-ad-1332716467013-18' style='width:150px; height:900px;'>
+			        <script type='text/javascript'>
+			            googletag.cmd.push(function () { googletag.display('div-gpt-ad-1332716467013-18'); });
+			        </script>
+		        </div>
+            </div>
+            <div class="right">
+                <div id='div-gpt-ad-1332716467013-19' style='width:150px; height:900px;'>
+			        <script type='text/javascript'>
+			            googletag.cmd.push(function () { googletag.display('div-gpt-ad-1332716467013-19'); });
+			        </script>
+		        </div>
+            </div>
+        </div>
+
     </form>
     <script type="text/javascript">
         var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
@@ -210,7 +235,6 @@
         } catch (err) { }
 
     </script>
-
     <script type="text/javascript">
 
         var _gaq = _gaq || [];

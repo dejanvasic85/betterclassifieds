@@ -63,9 +63,8 @@
     <Content Include="iFlogCoreDatabase.exe.CI.config">
       <DependentUpon>App.config</DependentUpon>
     </Content>
-    <None Include="iFlogDatabase.nuspec" />
+    <None Include="iFlogCoreDatabase.nuspec" />
     <None Include="packages.config" />
-    
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Scripts\Script-0001-BaselineSchema.sql" />

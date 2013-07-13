@@ -54,10 +54,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
-    <Content Include="App.Release.config">
+    <Content Include="iFlogCoreDatabase.exe.Release.config">
       <DependentUpon>App.config</DependentUpon>
     </Content>
-    <Content Include="App.Test.config">
+    <Content Include="iFlogCoreDatabase.exe.Test.config">
+      <DependentUpon>App.config</DependentUpon>
+    </Content>
+    <Content Include="iFlogCoreDatabase.exe.CI.config">
       <DependentUpon>App.config</DependentUpon>
     </Content>
     <None Include="iFlogDatabase.nuspec" />

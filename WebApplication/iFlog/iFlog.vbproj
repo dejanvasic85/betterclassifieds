@@ -982,6 +982,9 @@
     <Content Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+    <Content Include="Web.CI.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
     <Content Include="UploadFiles.aspx" />
     <Content Include="packages.config" />
   </ItemGroup>

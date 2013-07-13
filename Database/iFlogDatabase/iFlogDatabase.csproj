@@ -60,6 +60,9 @@
     <Content Include="App.Test.config">
       <DependentUpon>App.config</DependentUpon>
     </Content>
+    <Content Include="App.CI.config">
+      <DependentUpon>App.config</DependentUpon>
+    </Content>
     <None Include="iFlogDatabase.nuspec">
       <SubType>Designer</SubType>
     </None>

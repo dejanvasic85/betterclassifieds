@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>iFlogCoreScripts</id>
+    <title>iFlogCoreScripts</title>
+    <version>1.0.0</version>
+    <authors>Paramount IT Solutions</authors>
+    <owners>Paramount IT Solutions</owners>
+    <licenseUrl>http://paramountit.com.au</licenseUrl>
+    <projectUrl>http://paramountit.com.au</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>iFlog core database contains all service based data for the iFlog website.</description>
+    <releaseNotes></releaseNotes>
+  </metadata>
+</package>

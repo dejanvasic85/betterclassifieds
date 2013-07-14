@@ -69,6 +69,7 @@
     <Content Include="Deploy.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Scripts\Script-0003-UpdateEmailTemplate.All.sql" />
     <None Include="iFlogCoreDatabase.nuspec">
       <SubType>Designer</SubType>
     </None>

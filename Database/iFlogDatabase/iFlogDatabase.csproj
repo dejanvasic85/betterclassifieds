@@ -69,6 +69,8 @@
     <Content Include="Deploy.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Scripts\Script-0004-UpdateFAQcontentdata.sql" />
+    <EmbeddedResource Include="Scripts\Script-0003-Table.DropScriptLog.sql" />
     <None Include="iFlogDatabase.nuspec">
       <SubType>Designer</SubType>
     </None>

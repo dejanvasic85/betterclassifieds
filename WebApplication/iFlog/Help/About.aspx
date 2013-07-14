@@ -11,7 +11,7 @@
         </div>
         <div id="mainContentInfo">
             <p>
-                <b>IFLOG is operated under licence by Dharma Media Pty Ltd (ABN: 54 117 132 402). Dharma
+                <b>TheMusic Classies are operated under licence by Dharma Media Pty Ltd (ABN: 54 117 132 402). Dharma
                     Media Pty Ltd is part of the Street Press Australia Pty Ltd group of companies.</b>
         </div>
         <div id="mainFooterInfo">

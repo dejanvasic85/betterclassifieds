@@ -63,7 +63,9 @@
     <Content Include="iFlogCoreDatabase.exe.CI.config">
       <DependentUpon>App.config</DependentUpon>
     </Content>
-    <Content Include="Deploy.ps1" />
+    <Content Include="Deploy.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="iFlogCoreDatabase.nuspec">
       <SubType>Designer</SubType>
     </None>

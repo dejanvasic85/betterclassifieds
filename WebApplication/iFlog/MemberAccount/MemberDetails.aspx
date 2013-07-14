@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Manage Account Details - iFlog" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MemberDetails.master" CodeBehind="MemberDetails.aspx.vb" Inherits="BetterclassifiedsWeb.MemberDetails1" %>
+﻿<%@ Page Title="Manage Account Details - Classies" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MemberDetails.master" CodeBehind="MemberDetails.aspx.vb" Inherits="BetterclassifiedsWeb.MemberDetails1" %>
 
 <%@ Register Src="~/Controls/Member/MemberDetails.ascx" TagName="MemberDetails" TagPrefix="ucx" %>
 

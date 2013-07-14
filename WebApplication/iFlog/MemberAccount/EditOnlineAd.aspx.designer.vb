@@ -38,7 +38,7 @@ Partial Public Class EditOnlineAd
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents notifyControl As Global.BetterClassified.UI.MessageNotifyControl
+    Protected WithEvents notifyControl As Global.BetterclassifiedsWeb.Controls.Booking.ExpiredAds.MessageNotifyControl
 
     '''<summary>
     '''lblAdDesignId control.

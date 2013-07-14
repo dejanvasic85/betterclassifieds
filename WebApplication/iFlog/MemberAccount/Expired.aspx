@@ -35,12 +35,7 @@
                 <HeaderStyle CssClass="myAccountTableItemHead" />
                 <RowStyle Height="28" />
                 <Columns>
-                    <%--<asp:HyperLinkField datatextfield="AdDesignId" ItemStyle-CssClass="myAccountTableItemBody"
-                            datatextformatstring="{0}"
-                            datanavigateurlfields="AdDesignId"
-                            datanavigateurlformatstring="~\OnlineAds\AdView.aspx?type=dsId&preview=true&id={0}"          
-                            headertext="iFlog ID" target="_blank" />--%>
-                    <asp:TemplateField HeaderText="iFlog ID" ItemStyle-CssClass="myAccountTableItemBody">
+                    <asp:TemplateField HeaderText="Ad ID" ItemStyle-CssClass="myAccountTableItemBody">
                         <ItemTemplate>
                             <a href="#" onclick="openRadWindow('<%#DataBinder.Eval(Container.DataItem,"AdDesignId")%>'); return false;">
                                 <asp:Literal ID="lbliFlogId" runat="server" Text='<%#DataBinder.Eval(Container.DataItem,"AdDesignId")%>' /></a>
@@ -82,7 +77,7 @@
                 <HeaderStyle CssClass="myAccountTableItemHead" />
                 <RowStyle Height="28" />
                 <Columns>
-                    <asp:TemplateField HeaderText="iFlog ID" ItemStyle-CssClass="myAccountTableItemBody">
+                    <asp:TemplateField HeaderText="Print ID" ItemStyle-CssClass="myAccountTableItemBody">
                         <ItemTemplate>
                             <a href="#"
                                 onclick="openLineRadWindow('<%#DataBinder.Eval(Container.DataItem,"AdDesignId")%>'); return false;">

@@ -10,15 +10,6 @@
     <telerik:RadGrid ID="messageGrid" runat="server" AutoGenerateColumns="false">
         <MasterTableView>
             <Columns>
- <%--               <telerik:GridTemplateColumn>
-                    <ItemTemplate>
-                        <paramountIt:ActionButton runat="server" OnActionClick="ActionClick" ID="actionbutton"
-                            ShowDeleteButton="true" ShowMarkButton="true" 
-                            Key='<%#Databinder.Eval(Container.DataItem, "OnlineAdEnquiryID") %>'
-                            MarkButtonToolTip="Mark as Read"
-                            DeleteButtonToolTip="Delete" />
-                    </ItemTemplate>
-                </telerik:GridTemplateColumn>--%>
                 <telerik:GridBoundColumn HeaderText="Date" DataField="CreatedDate" DataType="System.DateTime"
                     DataFormatString="{0:dd-MMM-yyyy}">
                 </telerik:GridBoundColumn>

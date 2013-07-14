@@ -101,5 +101,5 @@ Partial Public Class EditLineAd
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lineAdDetails As Global.BetterClassified.UI.LineAdEditDetails
+    Protected WithEvents lineAdDetails As Global.BetterclassifiedsWeb.Controls.Booking.ExpiredAds.LineAdEditDetails
 End Class

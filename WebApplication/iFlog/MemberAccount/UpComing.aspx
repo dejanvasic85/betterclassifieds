@@ -1,7 +1,6 @@
-﻿<%@ Page Title="iFlog Up Coming Ads" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MemberDetails.master" CodeBehind="UpComing.aspx.vb" Inherits="BetterclassifiedsWeb.UpComing" %>
+﻿<%@ Page Title="Up Coming Ads" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MemberDetails.master" CodeBehind="UpComing.aspx.vb" Inherits="BetterclassifiedsWeb.UpComing" %>
 
 <%@ Register Src="~/MemberAccount/MemberHeading.ascx" TagName="MemberHeading" TagPrefix="ucx" %>
-<%@ Register Src="~/Controls/LineAdPreview.ascx" TagName="LineAdView" TagPrefix="ucx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="memberHeadContent" runat="server">
     <script type="text/javascript">
@@ -30,7 +29,7 @@
                 <HeaderStyle CssClass="myAccountTableItemHead" />
                 <RowStyle Height="28" />
                 <Columns>
-                    <asp:TemplateField HeaderText="iFlog ID" ItemStyle-CssClass="myAccountTableItemBody">
+                    <asp:TemplateField HeaderText="Ad ID" ItemStyle-CssClass="myAccountTableItemBody">
                         <ItemTemplate>
                             <a href="#"
                                 onclick="openRadWindow('<%#DataBinder.Eval(Container.DataItem,"AdDesignId")%>'); return false;">
@@ -74,7 +73,7 @@
                 <HeaderStyle CssClass="myAccountTableItemHead" />
                 <RowStyle Height="28" />      
                 <Columns>
-                    <asp:TemplateField HeaderText="iFlog ID" ItemStyle-CssClass="myAccountTableItemBody">
+                    <asp:TemplateField HeaderText="Print ID" ItemStyle-CssClass="myAccountTableItemBody">
                         <ItemTemplate>
                             <a href="#"
                                 onclick="openLineRadWindow('<%#DataBinder.Eval(Container.DataItem,"AdDesignId")%>'); return false;">

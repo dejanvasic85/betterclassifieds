@@ -2,7 +2,6 @@
     CodeBehind="Current.aspx.vb" Inherits="BetterclassifiedsWeb.Current" %>
 
 <%@ Register Src="~/MemberAccount/MemberHeading.ascx" TagName="MemberHeading" TagPrefix="ucx" %>
-<%@ Register Src="~/Controls/LineAdPreview.ascx" TagName="LineAdView" TagPrefix="ucx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="memberHeadContent" runat="server">
 
@@ -32,13 +31,7 @@
                 <HeaderStyle CssClass="myAccountTableItemHead" />
                 <RowStyle Height="28" />
                 <Columns>
-                    <%--<asp:HyperLinkField datatextfield="AdDesignId" ItemStyle-CssClass="myAccountTableItemBody"
-                            datatextformatstring="{0}"
-                            datanavigateurlfields="AdDesignId"
-                            datanavigateurlformatstring="~\OnlineAds\AdView.aspx?type=dsId&preview=true&id={0}"          
-                            headertext="iFlog ID" target="_blank" />--%>
-                            
-                    <asp:TemplateField HeaderText="iFlog ID" ItemStyle-CssClass="myAccountTableItemBody">
+                    <asp:TemplateField HeaderText="Ad ID" ItemStyle-CssClass="myAccountTableItemBody">
                         <ItemTemplate>
                             <a href="#"
                                 onclick="openRadWindow('<%#DataBinder.Eval(Container.DataItem,"AdDesignId")%>'); return false;">
@@ -48,11 +41,6 @@
                     </asp:TemplateField>
                     <asp:BoundField HeaderText="Ref No" DataField="BookReference" ItemStyle-CssClass="myAccountTableItemBody" />
                     <asp:BoundField HeaderText="Title" DataField="Title" ItemStyle-CssClass="myAccountTableItemBody" />
-                    <%--<asp:TemplateField HeaderText="Status" ItemStyle-CssClass="myAccountTableItemBody">
-                        <ItemTemplate>
-                            <asp:HyperLink ID="lnkStatus" runat="server" Text='<% Eval("Status") %>' />
-                        </ItemTemplate>
-                    </asp:TemplateField>--%>
                     <asp:BoundField HeaderText="Category" DataField="Category" ItemStyle-CssClass="myAccountTableItemBody" />
                     <asp:BoundField HeaderText="Expires" DataField="EndDate" DataFormatString="{0:dd-MMM-yyyy}" ItemStyle-CssClass="myAccountTableItemBody" />
                     <asp:TemplateField HeaderText="Edit" ItemStyle-CssClass="myAccountTableItemBody">
@@ -61,12 +49,8 @@
                                 NavigateUrl='<%# String.Format("{0}?dsId={1}&bkId={2}&list=current", "~/MemberAccount/EditOnlineAd.aspx", Eval("AdDesignId"), Eval("AdBookingId")) %>' />
                         </ItemTemplate>
                     </asp:TemplateField>
-                    
-
                 </Columns>
-                
             </asp:GridView>
-            
         </div>
         
         <div style="margin-top: 30px;" />
@@ -79,7 +63,7 @@
                 <HeaderStyle CssClass="myAccountTableItemHead" />
                 <RowStyle Height="28" />      
                 <Columns>
-                    <asp:TemplateField HeaderText="iFlog ID" ItemStyle-CssClass="myAccountTableItemBody">
+                    <asp:TemplateField HeaderText="Print ID" ItemStyle-CssClass="myAccountTableItemBody">
                         <ItemTemplate>
                             <a href="#"
                                 onclick="openLineRadWindow('<%#DataBinder.Eval(Container.DataItem,"AdDesignId")%>'); return false;">

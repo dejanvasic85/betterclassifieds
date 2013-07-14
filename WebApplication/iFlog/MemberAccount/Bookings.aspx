@@ -1,4 +1,4 @@
-﻿<%@ Page Title="iFlog Bookings" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MemberDetails.master"
+﻿<%@ Page Title="Classies Bookings" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MemberDetails.master"
     CodeBehind="Bookings.aspx.vb" Inherits="BetterclassifiedsWeb.Bookings" %>
 
 <%@ Register Src="~/MemberAccount/MemberHeading.ascx" TagName="MemberHeading" TagPrefix="ucx" %>

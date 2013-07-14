@@ -1,4 +1,4 @@
-﻿<%@ Page Title="iFlog User Transactions" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MemberDetails.master"
+﻿<%@ Page Title="Classies User Transactions" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MemberDetails.master"
     CodeBehind="Transactions.aspx.vb" Inherits="BetterclassifiedsWeb.Transactions" %>
 
 <%@ Register Src="~/MemberAccount/MemberHeading.ascx" TagName="MemberHeading" TagPrefix="ucx" %>

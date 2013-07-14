@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Change Password - iFlog" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MemberDetails.master" CodeBehind="ChangePassword.aspx.vb" Inherits="BetterclassifiedsWeb.ChangePassword"  %>
+﻿<%@ Page Title="Change Classies Password" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MemberDetails.master" CodeBehind="ChangePassword.aspx.vb" Inherits="BetterclassifiedsWeb.ChangePassword"  %>
 
 
 <asp:Content ID="Content3" runat="server" contentplaceholderid="memberContentMain">

@@ -224,7 +224,7 @@
 <div id="myAccountTableButtonsAll" style="width: 700px">
     <ul class="accountButtons">
         <div id="myAccountTableButtonsCancel">
-            <li><asp:LinkButton ID="btnCancel" runat="server" PostBackUrl="~/MemberAccount/Default.aspx" Text="CANCEL" /></li>
+            <li><asp:LinkButton ID="btnCancel" runat="server" PostBackUrl="~/MemberAccount/MemberDetails.aspx" Text="CANCEL" /></li>
         </div>
         <div id="myAccountTableButtonsModify">
             <li><asp:LinkButton ID="btnSubmit" runat="server" Text="MODIFY" /></li>

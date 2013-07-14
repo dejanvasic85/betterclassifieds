@@ -32,15 +32,6 @@ Partial Public Class EditOnlineAd
     Protected WithEvents LoginName1 As Global.System.Web.UI.WebControls.LoginName
 
     '''<summary>
-    '''notifyControl control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents notifyControl As Global.BetterclassifiedsWeb.Controls.Booking.ExpiredAds.MessageNotifyControl
-
-    '''<summary>
     '''lblAdDesignId control.
     '''</summary>
     '''<remarks>

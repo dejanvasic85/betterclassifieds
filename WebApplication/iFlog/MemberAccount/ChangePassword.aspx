@@ -17,12 +17,10 @@
 <div id="mainContentMyAccount">
      
     <div style="margin-left: 10px;">
-    <asp:ChangePassword ID="ChangePassword1" runat="server" 
-            ContinueDestinationPageUrl="~/MemberAccount/Default.aspx" 
-            CancelDestinationPageUrl="~/MemberAccount/Default.aspx">
- 
+    <asp:ChangePassword ID="ChangePassword1" runat="server"  
+            ContinueDestinationPageUrl="~/MemberAccount/MemberDetails.aspx" 
+            CancelDestinationPageUrl="~/MemberAccount/MemberDetails.aspx">
             <ChangePasswordTemplate>
-            
                 <div id="myAccountTableChgDet">
                     <table width="570" border="0" cellspacing="" cellpadding="8px">
                         <tr>
@@ -119,7 +117,7 @@
                                 <tr>
                                     <td>
                                         <asp:Label ID="lblSuccess" runat="server" 
-                                            Text="Your password has been changed. For security, we have has also sent an email to your nominated email account containing your new password."></asp:Label></td>
+                                            Text="Your password has been changed sucessfully."></asp:Label></td>
                                 </tr>
                                 <tr>
                                     <td align="right" colspan="2">

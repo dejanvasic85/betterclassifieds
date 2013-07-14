@@ -50,12 +50,12 @@ Partial Public Class EditLineAd
 
     End Sub
 
-    Private Sub lineAdDetails_CancelEvent(ByVal sender As Object, ByVal e As System.EventArgs) Handles lineAdDetails.CancelEvent
-        If String.Compare(_listType, "scheduled", True) = 0 Then
-            Response.Redirect(PageUrl.MemberScheduledAds)
-        ElseIf String.Compare(_listType, "current", True) = 0 Then
-            Response.Redirect(PageUrl.MemberCurrentAds)
-        End If
+    'Private Sub lineAdDetails_CancelEvent(ByVal sender As Object, ByVal e As System.EventArgs) Handles lineAdDetails.CancelEvent
+    '    If String.Compare(_listType, "scheduled", True) = 0 Then
+    '        Response.Redirect(PageUrl.MemberScheduledAds)
+    '    ElseIf String.Compare(_listType, "current", True) = 0 Then
+    '        Response.Redirect(PageUrl.MemberCurrentAds)
+    '    End If
 
-    End Sub
+    'End Sub
 End Class

@@ -1,10 +1,6 @@
 ﻿<%@ Page Title="Edit Print Ad" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MemberDetails.master"
     CodeBehind="EditLineAd.aspx.vb" Inherits="BetterclassifiedsWeb.EditLineAd" %>
 
-<%@ Register Src="~/MemberAccount/MemberHeading.ascx" TagName="MemberHeading" TagPrefix="ucx" %>
-<%@ Register Src="~/Controls/Booking/DesignLineAd.ascx" TagName="LineAd" TagPrefix="ucx" %>
-<%@ Register Src="~/Controls/ErrorList.ascx" TagName="PageErrors" TagPrefix="ucx" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="memberHeadContent" runat="server">
 </asp:Content>
 

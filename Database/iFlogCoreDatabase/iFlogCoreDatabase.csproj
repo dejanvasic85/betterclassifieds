@@ -63,7 +63,10 @@
     <Content Include="iFlogCoreDatabase.exe.CI.config">
       <DependentUpon>App.config</DependentUpon>
     </Content>
-    <None Include="iFlogCoreDatabase.nuspec" />
+    <Content Include="Deploy.ps1" />
+    <None Include="iFlogCoreDatabase.nuspec">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

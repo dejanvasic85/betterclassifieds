@@ -1,0 +1,1 @@
+﻿& .\OctoSample.Database.exe | Write-Host

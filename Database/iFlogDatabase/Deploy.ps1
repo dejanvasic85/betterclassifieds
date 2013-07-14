@@ -1,1 +1,1 @@
-﻿& .\OctoSample.Database.exe | Write-Host
+﻿& .\iFlogDatabase.exe | Write-Host

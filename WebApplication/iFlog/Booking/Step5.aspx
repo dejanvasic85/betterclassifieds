@@ -113,9 +113,8 @@
                                 <td>
                                     <% If AdType = BetterclassifiedsCore.SystemAdType.ONLINE Then%>
                                     <telerik:RadWindow ID="radOnlineWindow" runat="server" Width="650px" Height="500px"
-                                        Modal="true" NavigateUrl="../OnlineAds/Preview.aspx?viewType=session" OnClientShow="OnRadWindowLoad"
-                                        VisibleStatusbar="false" />
-                                    <asp:Button ID="btnPreviewOnline" runat="server" Text="Preview Online Ad" Behaviors="Close" />
+                                            Modal="true" NavigateUrl="../OnlineAds/Preview.aspx?viewType=session" Behaviors="Close" VisibleStatusbar="false" />
+                                        <asp:Button ID="btnPreviewOnline" runat="server" Text="Preview Online Ad" />
                                     <% End If%>
                                     <% If AdType = BetterclassifiedsCore.SystemAdType.LINE Then%>
                                     <telerik:RadWindow ID="radLineWindow" runat="server" Width="650px" Height="500px"

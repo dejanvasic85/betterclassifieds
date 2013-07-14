@@ -10,7 +10,6 @@ Partial Public Class Step5
             Me.paymentPanel.Visible = False
         End If
         If Not Page.IsPostBack Then
-
             If BookingController.AdBookCart Is Nothing Then
                 Response.Redirect(PageUrl.BookingStep_1 + "?action=expired")
             End If

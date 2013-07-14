@@ -9,7 +9,7 @@ namespace iFlogCoreDatabase
     {
         static int Main(string[] args)
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["iFlogDb"].ConnectionString;
+            var connectionString = ConfigurationManager.ConnectionStrings["iFlogCoreDb"].ConnectionString;
 
             var upgrader =
                 DeployChanges.To

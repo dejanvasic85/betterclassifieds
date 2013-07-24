@@ -8,7 +8,11 @@
     Public Const SearchSubCategoryResults As String = "~/OnlineAds/Default.aspx"
 
     ' item view
-    Public Const AdViewItem As String = "~/OnlineAds/AdView.aspx"
+    Public Shared ReadOnly Property AdViewItem(ByVal id As String, Optional ByVal preview As Boolean = False, Optional ByVal typeOfId As String = "bkId")
+        Get
+            Return String.Format("~/OnlineAds/AdView.aspx?id={0}&preview={1}&type={2}", id, preview, typeOfId)
+        End Get
+    End Property
 
     ' booking steps
     Public Const BookingStep_1 As String = "~/Booking/Step1.aspx"

@@ -22,7 +22,8 @@ Public Class Global_asax
             .RegisterType(Of IConfigSettings, ConfigSettings)() _
             .RegisterType(Of IRateRepository, RateRepository)() _
             .RegisterType(Of IUserRepository, UserRepository)() _
-            .RegisterType(Of IPaymentsRepository, PaymentsRepository)()
+            .RegisterType(Of IPaymentsRepository, PaymentsRepository)() _
+            .RegisterType(Of IAdRepository, AdRepository)()
 
     End Sub
 

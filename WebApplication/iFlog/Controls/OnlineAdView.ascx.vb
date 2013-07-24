@@ -6,7 +6,6 @@ Partial Public Class OnlineAdView
 
     Const MainCategoryViewState = "MainCategoryViewState"
     Const SubCategoryViewState = "SubCategoryViewState"
-    Const contactAdvertiserUrl As String = "~/OnlineAdMessaging/default.aspx?AdNumber={0}"
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If _preview = True Then
@@ -60,10 +59,10 @@ Partial Public Class OnlineAdView
             lblArea.Text = .AreaValue
             lblNumOfViews.Text = .NumOfViews.ToString
             lblDatePosted.Text = String.Format("{0:D}", .DatePosted)
-            If .AdDesignId > 0 Then
-                lblIFlogID.Text = .AdDesignId
+            If .AdBookingId.HasValue Then
+                lblIFlogID.Text = .AdBookingId
                 ' set up the sitemap for this ad
-                lblID.Text = .AdDesignId
+                lblID.Text = .AdBookingId
             End If
 
             If .ContactName = "" Or .ContactName = "Private" Then
@@ -98,48 +97,6 @@ Partial Public Class OnlineAdView
             lnkSubCategory.Text = .SubCategory.Title
 
             paramountGallery.ImageList = onlineAd.ImageList
-        End With
-    End Sub
-
-    Public Sub BindOnlineAd(ByVal onlineAd As DataModel.OnlineAd, ByVal imageList As List(Of String), ByVal datePosted As DateTime, ByVal parentCategoryID As Integer, ByVal subCategoryId As Integer)
-        With onlineAd
-            lblHeading.Text = .Heading
-            lblLocation.Text = GeneralController.GetLocationById(.LocationId).Title
-            lblArea.Text = GeneralController.GetLocationAreaById(.LocationAreaId).Title
-            lblNumOfViews.Text = .NumOfViews.ToString
-            lblDatePosted.Text = String.Format("{0:D}", datePosted)
-            If .AdDesignId > 0 Then
-                lblIFlogID.Text = .AdDesignId
-                lblID.Text = .AdDesignId
-            End If
-
-            If .ContactName = "" Or .ContactName = "Private" Then
-                objContactName.Visible = False
-            Else
-                lblContactName.Text = .ContactName
-            End If
-
-            If .ContactValue = "" Or .ContactName = "Private" Then
-                objContactDetail.Visible = False
-            Else
-                If .ContactType.ToLower = "email" Then
-                    litContactDetails.Text = String.Format("<a href='mailto:{0}'></a>", .ContactValue)
-                Else
-                    litContactDetails.Text = .ContactValue
-                End If
-            End If
-
-            objPrice.Visible = onlineAd.Price > 0
-            lblPrice.Text = String.Format("{0:C}", .Price)
-
-            MainCategoryId = parentCategoryID
-            lnkCategory.Text = CategoryController.GetMainCategoryById(parentCategoryID).Title
-
-            subCategoryId = subCategoryId
-            lnkSubCategory.Text = CategoryController.GetMainCategoryById(subCategoryId).Title
-
-            paramountGallery.ImageList = imageList
-
         End With
     End Sub
 

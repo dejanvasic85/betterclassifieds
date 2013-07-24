@@ -1,6 +1,7 @@
 ﻿Imports BetterclassifiedsCore
 Imports BetterclassifiedsCore.DataModel
 Imports BetterClassified.UI.CategorySelectorSupport
+Imports BetterClassified
 Imports BetterclassifiedsCore.ParameterAccess
 Imports Paramount.Betterclassified.Utilities.Configuration
 Imports Paramount.Utility.Dsl
@@ -31,7 +32,7 @@ Partial Public Class _Default5
         If Not Page.IsPostBack Then
 
             ' change the title for this page based on the user's search
-            Me.Title = "iFlog Results for "
+            Me.Title = "Results for "
             ' append to the title depending on the seach
 
             If OnlineSearchParameter.Category.HasValue Then
@@ -62,9 +63,6 @@ Partial Public Class _Default5
         End If
     End Sub
 
-    ''' <summary>
-    ''' Helper to bind the grid to the dynamic data
-    ''' </summary>
     Private Sub GetDatasource()
         Dim table = Search.SearchOnlineAds(OnlineSearchParameter.Category, OnlineSearchParameter.SubCategory, OnlineSearchParameter.Location, OnlineSearchParameter.Area, OnlineSearchParameter.KeyWord, grdSearchResults.PageIndex, grdSearchResults.PageSize)
         grdSearchResults.DataSource = table
@@ -85,31 +83,27 @@ Partial Public Class _Default5
     Private Sub grdSearchResults_RowDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewRowEventArgs) Handles grdSearchResults.RowDataBound
         ' method is used to display an automatic placeholder if image doesn't exist from datasource.
         If e.Row.RowType = DataControlRowType.DataRow Then
-            Dim i As HyperLink = e.Row.FindControl("imgDocument")
+            Dim adBookingId = CInt(DataBinder.Eval(e.Row.DataItem, "AdBookingId"))
+            Dim imageId = DataBinder.Eval(e.Row.DataItem, "DocumentId")
+            Dim price = Val(DataBinder.Eval(e.Row.DataItem, "Price"))
 
-            If Not i Is Nothing Then
-                If DataBinder.Eval(e.Row.DataItem, "DocumentId") Is Nothing Or DataBinder.Eval(e.Row.DataItem, "DocumentId") Is DBNull.Value Then
-                    i.ImageUrl = "ad_placeholder.jpg"
-                Else
-                    ' Use the Paramount DSL image handler
-                    Dim docId = DataBinder.Eval(e.Row.DataItem, "DocumentId")
-                    Dim param As New DslQueryParam(Request.QueryString) With {.DocumentId = docId, _
-                                                                              .Entity = CryptoHelper.Encrypt(Paramount.ApplicationBlock.Configuration.ConfigSettingReader.ClientCode), _
-                                                                              .Height = BetterclassifiedSetting.DslThumbHeight, _
-                                                                              .Width = BetterclassifiedSetting.DslThumbWidth, _
-                                                                              .Resolution = BetterclassifiedSetting.DslDefaultResolution}
-                    'i.ImageUrl = "~/dsl/document.ashx?id=" + DataBinder.Eval(e.Row.DataItem, "DocumentId") + "&thumb=y"
-                    i.ImageUrl = param.GenerateUrl(BetterclassifiedSetting.DslImageUrlHandler)
-                End If
-            End If
+            e.Row.FindControl(Of Label)("lblPrice").Text = If(price > 0, price.ToString("C"), String.Empty)
+            e.Row.FindControl(Of HyperLink)("lnkAdLink").NavigateUrl = PageUrl.AdViewItem(adBookingId)
 
-            Dim p As Label = e.Row.FindControl("lblPrice")
-            If Not p Is Nothing Then
-                If Val(DataBinder.Eval(e.Row.DataItem, "Price")) > 0 Then
-                    p.Text = String.Format("{0:C}", Val(DataBinder.Eval(e.Row.DataItem, "Price")))
-                Else
-                    p.Text = ""
-                End If
+            Dim imageLink As HyperLink = e.Row.FindControl(Of HyperLink)("imgDocument")
+            imageLink.NavigateUrl = PageUrl.AdViewItem(adBookingId)
+
+            If imageId Is Nothing Or imageId Is DBNull.Value Then
+                imageLink.ImageUrl = "ad_placeholder.jpg"
+            Else
+                ' Use the Paramount DSL image handler
+                Dim param As New DslQueryParam(Request.QueryString) With {.DocumentId = imageId.ToString, _
+                                                                          .Entity = CryptoHelper.Encrypt(Paramount.ApplicationBlock.Configuration.ConfigSettingReader.ClientCode), _
+                                                                          .Height = BetterclassifiedSetting.DslThumbHeight, _
+                                                                          .Width = BetterclassifiedSetting.DslThumbWidth, _
+                                                                          .Resolution = BetterclassifiedSetting.DslDefaultResolution}
+                imageLink.ImageUrl = param.GenerateUrl(BetterclassifiedSetting.DslImageUrlHandler)
+                imageLink.NavigateUrl = PageUrl.AdViewItem(adBookingId)
             End If
         End If
     End Sub

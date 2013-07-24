@@ -265,6 +265,47 @@ Public Class AdController
         End Try
     End Function
 
+    Public Shared Function GetOnlineAdEntityByBookingId(ByVal id As Integer, ByVal isPreview As Boolean) As BusinessEntities.OnlineAdEntity
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim ad = (From o In db.OnlineAds _
+                      Join des In db.AdDesigns On des.AdDesignId Equals o.AdDesignId _
+                      Join bk In db.AdBookings On bk.AdId Equals des.AdId _
+                      Where bk.AdBookingId = id _
+                      And ((isPreview = False And bk.StartDate <= DateTime.Now And bk.EndDate > DateTime.Now _
+                            And bk.BookingStatus = BookingStatus.BOOKED) _
+                       Or (isPreview = True)) _
+                      Select New BusinessEntities.OnlineAdEntity With {.OnlineAdId = o.OnlineAdId, _
+                                                                       .AdBookingId = bk.AdBookingId, _
+                                                                       .AdDesignId = o.AdDesignId, _
+                                                                       .Heading = o.Heading, _
+                                                                       .Description = o.Description, _
+                                                                       .HtmlText = o.HtmlText, _
+                                                                       .Price = o.Price, _
+                                                                       .LocationValue = o.Location.Title, _
+                                                                       .AreaValue = o.LocationArea.Title, _
+                                                                       .ContactName = o.ContactName, _
+                                                                       .ContactType = o.ContactType, _
+                                                                       .ContactValue = o.ContactValue, _
+                                                                       .NumOfViews = o.NumOfViews, _
+                                                                       .DatePosted = bk.StartDate, _
+                                                                       .BookingReference = bk.BookReference, _
+                                                                       .ImageList = GetAdGraphicDocuments(o.AdDesignId), _
+                                                                       .SubCategory = bk.MainCategory, _
+                                                                       .ParentCategory = (From mc In db.MainCategories Where mc.MainCategoryId = bk.MainCategory.ParentId Select mc).Single})
+
+            If ad.Count > 0 Then
+                ' increase the number of views for this ad if this is not a preview only.
+                If Not isPreview Then
+                    Dim onlineAdId = ad.FirstOrDefault.OnlineAdId
+                    IncreaseOnlineAdViews(onlineAdId, db)
+                End If
+                Return ad.FirstOrDefault
+            Else
+                Return Nothing
+            End If
+        End Using
+    End Function
+
     Public Shared Function GetOnlineAdEntityByDesign(ByVal adDesignId As Integer, ByVal isPreview As Boolean) As BusinessEntities.OnlineAdEntity
         Using db = BetterclassifiedsDataContext.NewContext
             Dim ad = (From o In db.OnlineAds _
@@ -275,6 +316,7 @@ Public Class AdController
                             And bk.BookingStatus = BookingStatus.BOOKED) _
                            Or (isPreview = True)) _
                       Select New BusinessEntities.OnlineAdEntity With {.OnlineAdId = o.OnlineAdId, _
+                                                                       .AdBookingId = bk.AdBookingId, _
                                                                        .AdDesignId = o.AdDesignId, _
                                                                        .Heading = o.Heading, _
                                                                        .Description = o.Description, _
@@ -315,6 +357,7 @@ Public Class AdController
                             And bk.BookingStatus = BookingStatus.BOOKED) _
                        Or (isPreview = True)) _
                       Select New BusinessEntities.OnlineAdEntity With {.OnlineAdId = o.OnlineAdId, _
+                                                                       .AdBookingId = bk.AdBookingId, _
                                                                        .AdDesignId = o.AdDesignId, _
                                                                        .Heading = o.Heading, _
                                                                        .Description = o.Description, _
@@ -357,6 +400,7 @@ Public Class AdController
                             And book.BookingStatus = BookingStatus.BOOKED _
                        Or (isPreview = True))) _
                       Select New BusinessEntities.OnlineAdEntity With {.OnlineAdId = o.OnlineAdId, _
+                                                                       .AdBookingId = book.AdBookingId, _
                                                                        .AdDesignId = o.AdDesignId, _
                                                                        .Heading = o.Heading, _
                                                                        .Description = o.Description, _

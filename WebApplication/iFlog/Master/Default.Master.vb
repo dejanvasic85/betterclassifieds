@@ -128,7 +128,7 @@ Partial Public Class _Default1
             Response.Redirect(PageUrl.OnlineAdSearch)
         Else
             ' get the online ad details for the reference user has provided and direct to item page
-            Response.Redirect(PageUrl.AdViewItem + "?preview=false&type=dsId&id=" + txtAdId.Text)
+            Response.Redirect(PageUrl.AdViewItem(txtAdId.Text))
         End If
     End Sub
 

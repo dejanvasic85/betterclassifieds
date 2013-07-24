@@ -4,6 +4,7 @@ Imports BetterclassifiedsCore.ParameterAccess
 Imports Paramount.Betterclassified.Utilities.Configuration
 Imports Paramount.Utility.Dsl
 Imports Paramount.Utility
+Imports BetterClassified
 
 Namespace Controls.Search
     Partial Public Class RecentOnlineAdList
@@ -20,20 +21,23 @@ Namespace Controls.Search
 
         Private Sub listRecentlyListed_ItemDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.DataListItemEventArgs) Handles listRecentlyListed.ItemDataBound
             If e.Item.ItemType = ListItemType.Item Or e.Item.ItemType = ListItemType.AlternatingItem Then
-                Dim i As Image = e.Item.FindControl("imgDocument")
-                If Not i Is Nothing Then
-                    If e.Item.DataItem.DocumentId Is Nothing Then
-                        i.ImageUrl = "~/OnlineAds/ad_placeholder.jpg"
-                    Else
-                        Dim param As New DslQueryParam(Request.QueryString)
-                        param.DocumentId = e.Item.DataItem.DocumentID
-                        param.Entity = CryptoHelper.Encrypt(Paramount.ApplicationBlock.Configuration.ConfigSettingReader.ClientCode)
-                        param.Resolution = BetterclassifiedSetting.DslDefaultResolution
-                        param.Width = BetterclassifiedSetting.DslThumbWidth
-                        param.Height = BetterclassifiedSetting.DslThumbHeight
-                        i.ImageUrl = param.GenerateUrl(BetterclassifiedSetting.DslImageUrlHandler)
-                    End If
+                Dim lnkImageLink = e.Item.FindControl(Of HyperLink)("lnkImageLink")
+
+
+                If e.Item.DataItem.DocumentId Is Nothing Then
+                    lnkImageLink.ImageUrl = "~/OnlineAds/ad_placeholder.jpg"
+                Else
+                    Dim param As New DslQueryParam(Request.QueryString)
+                    param.DocumentId = e.Item.DataItem.DocumentID
+                    param.Entity = CryptoHelper.Encrypt(Paramount.ApplicationBlock.Configuration.ConfigSettingReader.ClientCode)
+                    param.Resolution = BetterclassifiedSetting.DslDefaultResolution
+                    param.Width = BetterclassifiedSetting.DslThumbWidth
+                    param.Height = BetterclassifiedSetting.DslThumbHeight
+                    lnkImageLink.ImageUrl = param.GenerateUrl(BetterclassifiedSetting.DslImageUrlHandler)
                 End If
+
+                e.Item.FindControl(Of HyperLink)("lnkHeadingLink").NavigateUrl = PageUrl.AdViewItem(e.Item.DataItem.AdBookingId)
+                lnkImageLink.NavigateUrl = PageUrl.AdViewItem(e.Item.DataItem.AdBookingId)
             End If
         End Sub
 

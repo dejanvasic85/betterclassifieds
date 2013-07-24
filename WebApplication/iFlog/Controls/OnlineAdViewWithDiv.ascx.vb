@@ -8,7 +8,6 @@ Namespace Controls
 
         Const MainCategoryViewState = "MainCategoryViewState"
         Const SubCategoryViewState = "SubCategoryViewState"
-        Const contactAdvertiserUrl As String = "~/OnlineAdMessaging/default.aspx?AdNumber={0}"
 
         Protected Sub LoadPage(ByVal id As String, ByVal type As String)
             If _preview = True Then
@@ -82,10 +81,10 @@ Namespace Controls
                 lblArea.Text = .AreaValue
                 lblNumOfViews.Text = .NumOfViews.ToString
                 lblDatePosted.Text = String.Format("{0:D}", .DatePosted)
-                If .AdDesignId > 0 Then
-                    lblIFlogID.Text = .AdDesignId
+                If .AdBookingId.HasValue Then
+                    lblIFlogID.Text = .AdBookingId
                     ' set up the sitemap for this ad
-                    lblID.Text = .AdDesignId
+                    lblID.Text = .AdBookingId
                 End If
 
                 If .ContactName = "" Or .ContactName = "Private" Then
@@ -143,10 +142,10 @@ Namespace Controls
                 lblNumOfViews.Text = .NumOfViews.ToString
                 lblDatePosted.Text = String.Format("{0:D}", datePosted)
 
-                If .AdDesignId > 0 Then
-                    lblIFlogID.Text = .AdDesignId
-                    lblID.Text = .AdDesignId
-                End If
+                'If .AdDesignId > 0 Then
+                '    lblIFlogID.Text = .AdDesignId
+                '    lblID.Text = .AdDesignId
+                'End If
 
                 If .ContactName = "" Or .ContactName = "Private" Then
                     objContactName.Visible = False

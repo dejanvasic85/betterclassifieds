@@ -25,11 +25,11 @@
                 <ucx:OnlineAd ID="ucxOnlineAd" runat="server" />
                 <asp:Panel ID="pnlResult" runat="server" Visible="false">
                     <div id="mainHeaderItemPage">
-                        <h2>Cannot find requested iFlog Ad</h2>
+                        <h2>Cannot find requested Ad</h2>
                     </div>
                     <div id="mainBodyItemPage" style="margin-top: 10px;">
                         <div id="mainBodyItemPageBlock">
-                            <h6>iFlog ID '<asp:Label ID="lblIFlogID" runat="server" Text="" />' cannot be found
+                            <h6>Ad '<asp:Label ID="lblIFlogID" runat="server" Text="" />' cannot be found
                         because it does not exist or has expired.
                             </h6>
                         </div>

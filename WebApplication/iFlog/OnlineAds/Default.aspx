@@ -69,9 +69,7 @@
                                         </tr>
                                         <tr>
                                             <td rowspan="2" width="90">
-                                                <asp:HyperLink ID="imgDocument" runat="server" 
-                                                    ImageUrl='<% Eval("ImageUrl") %>'
-                                                    NavigateUrl='<%# String.Format("{0}{1}", "~/OnlineAds/AdView.aspx?preview=false&id=", Eval("OnlineAdId")) %>' />   
+                                                <asp:HyperLink ID="imgDocument" runat="server" />   
                                             </td>
                                             <td width="286" height="48">
                                                 <div id="categoryBodySearchResults">
@@ -88,12 +86,8 @@
                                                 </div>
                                                 <div id="categoryMoreSearchResultsButton">
                                                     <p>
-                                                        <asp:HyperLink ID="HyperLink3" runat="server" 
-                                                            Text="DETAILS"
-                                                            NavigateUrl='<%# String.Format("{0}{1}", "~/OnlineAds/AdView.aspx?preview=false&id=", Eval("OnlineAdId")) %>' />
-                                                            
-                                                            </p>
-                                                            
+                                                        <asp:HyperLink ID="lnkAdLink" runat="server" Text="DETAILS" />
+                                                    </p>
                                                 </div>
                                             </td>
                                         </tr>

@@ -130,4 +130,6 @@
                 .ForMember(member => member.Publication, options => options.Ignore());
         }
     }
+
+    
 }

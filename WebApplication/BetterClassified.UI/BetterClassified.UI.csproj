@@ -134,6 +134,8 @@
     <Compile Include="Controls\Dsl\WebImageMakerHelper.cs" />
     <Compile Include="Controls\ErrorList.cs" />
     <Compile Include="Controls\ExtendBookingForm.cs" />
+    <Compile Include="Framework\Extensions\ControlExtensions.cs" />
+    <Compile Include="Framework\Extensions\HttpRequestExtensions.cs" />
     <Compile Include="Framework\Extensions\StringExtensions.cs" />
     <Compile Include="Framework\Mapping.cs" />
     <Compile Include="Framework\ReaderWriterCache.cs" />
@@ -160,6 +162,7 @@
     <Compile Include="Models\BookingStatusType.cs" />
     <Compile Include="Models\ExtensionStatus.cs" />
     <Compile Include="Models\LineAdModel.cs" />
+    <Compile Include="Models\OnlineAdModel.cs" />
     <Compile Include="Models\PublicationEditionModel.cs" />
     <Compile Include="Models\AdBookingModel.cs" />
     <Compile Include="Models\BookingType.cs" />
@@ -173,6 +176,7 @@
     <Compile Include="Framework\BaseBookingPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Repository\IAdRepository.cs" />
     <Compile Include="Repository\IBookingRepository.cs" />
     <Compile Include="Repository\IConfigSettings.cs" />
     <Compile Include="Repository\IPaymentsRepository.cs" />

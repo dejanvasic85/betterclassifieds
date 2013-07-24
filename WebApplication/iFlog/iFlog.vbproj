@@ -942,7 +942,6 @@
     <Content Include="MemberAccount\MemberDetails.aspx" />
     <Content Include="GetPassword.aspx" />
     <Content Include="Register.aspx" />
-    <Content Include="OnlineAds\image_placeholder.gif" />
     <Content Include="Master\MemberDetails.master" />
     <Content Include="Booking\Web.config" />
     <Content Include="MemberAccount\Web.config" />

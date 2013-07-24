@@ -1,15 +1,18 @@
 ﻿Imports BetterclassifiedsCore
 Imports BetterclassifiedsCore.ParameterAccess
 Imports BetterClassified.UI.CategorySelectorSupport
+Imports BetterClassified.UI.Repository
+Imports BetterClassified
+Imports Microsoft.Practices.Unity
 
 Partial Public Class AdView
     Inherits System.Web.UI.Page
 
-    Dim _onlineAdId As Integer
-    Dim _adDesignId As Integer
-    Dim _bookReference As String    
+    Dim _bookReference As String
+    Dim _id As String
     Dim _isPreview As Boolean
     Dim _type As String
+    Dim _adRepository As BetterClassified.UI.Repository.IAdRepository
 
     Protected Overrides Sub OnInit(ByVal e As System.EventArgs)
         MyBase.OnInit(e)
@@ -32,53 +35,38 @@ Partial Public Class AdView
     End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        ''Fix issue with ie 8 caching page, when user clicks back
         Response.Cache.SetCacheability(HttpCacheability.NoCache)
 
-        _type = Request.QueryString("type")
-        _isPreview = Request.QueryString("preview")
+        _adRepository = BetterClassified.Unity.DefaultContainer.Resolve(Of IAdRepository)()
+        _type = Request.QueryStringValue(Of String)("type").Default(String.Empty)
+        _isPreview = Request.QueryStringValue(Of Boolean)("preview")
+        _id = Request.QueryString("id")
+        Dim adId As Integer
 
         If Not Page.IsPostBack Then
 
-            Dim onlineAd As BusinessEntities.OnlineAdEntity
+            Dim onlineAd As BusinessEntities.OnlineAdEntity = Nothing
 
-            ' check the type of query for the page
-            If _type = "ref" Then
-
-                ' going by the booking reference ID (iFlogID)
-                _bookReference = Server.UrlDecode(Request.QueryString("id"))
+            If _type.EqualTo("ref") Then
+                _bookReference = Server.UrlDecode(_id)
                 onlineAd = AdController.GetOnlineAdEntityByReference(_bookReference, _isPreview)
-
-            ElseIf _type = "dsId" Then
-
-                Integer.TryParse(Request.QueryString("id"), _adDesignId)
-                onlineAd = AdController.GetOnlineAdEntityByDesign(_adDesignId, _isPreview)
-
-            Else
-
-                ' the ID passed in the query is the straight Online Ad ID
-                _onlineAdId = Request.QueryString("id")
-                onlineAd = AdController.GetOnlineAdEntityById(_onlineAdId, _isPreview)
-
+            ElseIf _type.EqualTo("dsId") And Integer.TryParse(Request.QueryString("id"), adId) Then
+                onlineAd = AdController.GetOnlineAdEntityByDesign(adId, _isPreview)
+            ElseIf _type.EqualTo("bkid") And Integer.TryParse(Request.QueryString("id"), adId) Then
+                onlineAd = AdController.GetOnlineAdEntityByBookingId(adId, _isPreview)
+            ElseIf Integer.TryParse(Request.QueryString("id"), adId) Then
+                onlineAd = AdController.GetOnlineAdEntityById(adId, _isPreview)
             End If
 
             ' perform databind
             If onlineAd IsNot Nothing Then
-                ' increase the number of views for this ad if this is not a preview only.
-                'If _isPreview = False Then
-                '    AdController.IncreaseOnlineAdViews(onlineAd.OnlineAdId)
-                'End If
-                ' set the title of the page to be the heading
                 Me.Title = onlineAd.Heading
-                ' get the required information to bind the online ad.
                 ucxOnlineAd.BindOnlineAd(onlineAd)
             Else
-                Me.Title = "iFlog ID does not exist or has Expired"
+                Me.Title = "Ad does not exist or has Expired"
                 ucxOnlineAd.Visible = False
                 pnlResult.Visible = True
-                If _type = "dsId" Then
-                    lblIFlogID.Text = _adDesignId.ToString
-                End If
+                lblIFlogID.Text = _id
             End If
         End If
     End Sub

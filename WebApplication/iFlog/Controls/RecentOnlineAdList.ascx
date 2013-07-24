@@ -20,12 +20,9 @@
                 
                 <div id="categoryBody">
                     <h4 class="word-wrap">
-                        <asp:HyperLink ID="HyperLink4" runat="server" Text='<%# Eval("Heading") %>' 
-                            NavigateUrl='<%# String.Format("{0}{1}", "~/OnlineAds/AdView.aspx?preview=false&id=", Eval("OnlineAdId")) %>' /></h4>
+                        <asp:HyperLink ID="lnkHeadingLink" runat="server" Text='<%# Eval("Heading") %>' /></h4>
                     <p>
-                        <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# String.Format("{0}{1}", "~/OnlineAds/AdView.aspx?preview=false&id=", Eval("OnlineAdId")) %>'>
-                            <asp:Image ID="imgDocument" runat="server" ImageUrl='<% Eval("DocumentId") %>' />
-                        </asp:HyperLink></p>
+                        <asp:HyperLink ID="lnkImageLink" runat="server" /></p>
                     <p class="word-wrap">
                         <asp:Literal ID="litText" runat="server" Text='<%# Eval("AdText") %>' /></p>
                 </div>

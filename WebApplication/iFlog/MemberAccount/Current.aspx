@@ -1,4 +1,4 @@
-﻿<%@ Page Title="iFlog Current Ads" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MemberDetails.master"
+﻿<%@ Page Title="My Current Ads" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MemberDetails.master"
     CodeBehind="Current.aspx.vb" Inherits="BetterclassifiedsWeb.Current" %>
 
 <%@ Register Src="~/MemberAccount/MemberHeading.ascx" TagName="MemberHeading" TagPrefix="ucx" %>

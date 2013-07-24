@@ -1,4 +1,4 @@
-﻿<%@ Page Title="iFlog Expired Ads" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MemberDetails.master"
+﻿<%@ Page Title="My Expired Ads" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MemberDetails.master"
     CodeBehind="Expired.aspx.vb" Inherits="BetterclassifiedsWeb.Expired" %>
 
 <%@ Register Src="~/MemberAccount/MemberHeading.ascx" TagName="MemberHeading" TagPrefix="ucx" %>

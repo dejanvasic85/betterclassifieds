@@ -555,13 +555,6 @@
       <DependentUpon>ViewTransaction.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="OnlineAdMessaging\Default.aspx.designer.vb">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="OnlineAdMessaging\Default.aspx.vb">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="OnlineAds\AdView.aspx.designer.vb">
       <DependentUpon>AdView.aspx</DependentUpon>
     </Compile>
@@ -762,7 +755,6 @@
     <Content Include="Help\FAQ.aspx" />
     <Content Include="LineAds\PreviewLineAd.aspx" />
     <Content Include="MemberAccount\Messages.aspx" />
-    <Content Include="OnlineAdMessaging\Default.aspx" />
     <Content Include="OnlineAds\BodyView.aspx" />
     <Content Include="OnlineAds\Preview.aspx" />
     <Content Include="Resources\Images\help.png" />

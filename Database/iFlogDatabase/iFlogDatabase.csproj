@@ -69,7 +69,7 @@
     <Content Include="Deploy.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\Script-0005-UpdateProcsToReturnAdBookingId.sql" />
+    <EmbeddedResource Include="Scripts\Script-0005-UpdateProcsToReturnAdBookingId.sql" />
     <EmbeddedResource Include="Scripts\Script-0004-UpdateFAQcontentdata.sql" />
     <EmbeddedResource Include="Scripts\Script-0003-Table.DropScriptLog.sql" />
     <None Include="iFlogDatabase.nuspec">

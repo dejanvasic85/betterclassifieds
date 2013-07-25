@@ -2,7 +2,6 @@
     CodeBehind="Expired.aspx.vb" Inherits="BetterclassifiedsWeb.Expired" %>
 
 <%@ Register Src="~/MemberAccount/MemberHeading.ascx" TagName="MemberHeading" TagPrefix="ucx" %>
-<%@ Register Src="~/Controls/LineAdPreview.ascx" TagName="LineAdView" TagPrefix="ucx" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="memberHeadContent" runat="server">
     <script type="text/javascript">
         function openRadWindow(adID) {

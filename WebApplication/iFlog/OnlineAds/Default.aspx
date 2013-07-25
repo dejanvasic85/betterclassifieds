@@ -61,9 +61,7 @@
                                         <tr>
                                             <td colspan="2">
                                                 <div id="categoryBodySearchResults">
-                                                    <asp:HyperLink ID="HyperLink1" runat="server" 
-                                                            Text='<%# Eval("Heading") %>' Font-Bold="true"
-                                                            NavigateUrl='<%# String.Format("{0}{1}", "~/OnlineAds/AdView.aspx?preview=false&id=", Eval("OnlineAdId")) %>' />
+                                                    <asp:HyperLink ID="lnkHeadingLink" runat="server" Text='<%# Eval("Heading") %>' Font-Bold="true"/>
                                                 </div>
                                             </td>
                                         </tr>

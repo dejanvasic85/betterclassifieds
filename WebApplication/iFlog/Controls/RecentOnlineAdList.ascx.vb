@@ -22,8 +22,6 @@ Namespace Controls.Search
         Private Sub listRecentlyListed_ItemDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.DataListItemEventArgs) Handles listRecentlyListed.ItemDataBound
             If e.Item.ItemType = ListItemType.Item Or e.Item.ItemType = ListItemType.AlternatingItem Then
                 Dim lnkImageLink = e.Item.FindControl(Of HyperLink)("lnkImageLink")
-
-
                 If e.Item.DataItem.DocumentId Is Nothing Then
                     lnkImageLink.ImageUrl = "~/OnlineAds/ad_placeholder.jpg"
                 Else
@@ -37,6 +35,7 @@ Namespace Controls.Search
                 End If
 
                 e.Item.FindControl(Of HyperLink)("lnkHeadingLink").NavigateUrl = PageUrl.AdViewItem(e.Item.DataItem.AdBookingId)
+                e.Item.FindControl(Of HyperLink)("lnkDetailLink").NavigateUrl = PageUrl.AdViewItem(e.Item.DataItem.AdBookingId)
                 lnkImageLink.NavigateUrl = PageUrl.AdViewItem(e.Item.DataItem.AdBookingId)
             End If
         End Sub

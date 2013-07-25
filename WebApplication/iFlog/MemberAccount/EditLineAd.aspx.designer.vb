@@ -94,4 +94,12 @@ Partial Public Class EditLineAd
     '''</remarks>
     Protected WithEvents msgPanel As Global.Paramount.Common.UI.GenericMessagePanel
 
+    '''<summary>
+    '''lineAdDetails control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lineAdDetails As Global.BetterClassified.UI.LineAdEditDetails
 End Class

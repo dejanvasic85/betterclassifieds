@@ -28,6 +28,7 @@ Partial Public Class _Default5
             Response.Redirect(PageUrl.SearchCategoryResults)
         End If
     End Sub
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
 
@@ -73,8 +74,6 @@ Partial Public Class _Default5
         grdSearchResults.DataBind()
     End Sub
 
-
-
     Private Sub grdSearchResults_PageIndexChanging(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewPageEventArgs) Handles grdSearchResults.PageIndexChanging
         grdSearchResults.PageIndex = e.NewPageIndex
         GetDatasource()
@@ -89,6 +88,7 @@ Partial Public Class _Default5
 
             e.Row.FindControl(Of Label)("lblPrice").Text = If(price > 0, price.ToString("C"), String.Empty)
             e.Row.FindControl(Of HyperLink)("lnkAdLink").NavigateUrl = PageUrl.AdViewItem(adBookingId)
+            e.Row.FindControl(Of HyperLink)("lnkHeadingLink").NavigateUrl = PageUrl.AdViewItem(adBookingId)
 
             Dim imageLink As HyperLink = e.Row.FindControl(Of HyperLink)("imgDocument")
             imageLink.NavigateUrl = PageUrl.AdViewItem(adBookingId)
@@ -103,7 +103,6 @@ Partial Public Class _Default5
                                                                           .Width = BetterclassifiedSetting.DslThumbWidth, _
                                                                           .Resolution = BetterclassifiedSetting.DslDefaultResolution}
                 imageLink.ImageUrl = param.GenerateUrl(BetterclassifiedSetting.DslImageUrlHandler)
-                imageLink.NavigateUrl = PageUrl.AdViewItem(adBookingId)
             End If
         End If
     End Sub
@@ -137,7 +136,6 @@ Partial Public Class _Default5
         ' specify that the user is coming from the home page which means they may need to store the user again
         Response.Redirect(PageUrl.BookingStep_2 + "?action=home")
     End Sub
-
 
     Private Sub grdSearchResults_Sorting(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewSortEventArgs) Handles grdSearchResults.Sorting
         GetDatasource()

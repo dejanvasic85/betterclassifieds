@@ -102,7 +102,7 @@ Partial Public Class _Default1
 
     Protected Sub btnSearch_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSearch.Click
         OnlineSearchParameter.Clear()
-        '' perform the main search if they didn't provide the iFlog ID
+        '' perform the main search if they didn't provide the Ad ID
         If String.IsNullOrEmpty(txtAdId.Text) Then
 
             If Not String.IsNullOrEmpty(txtKeywords.Text) Then

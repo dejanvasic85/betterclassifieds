@@ -42,7 +42,7 @@
 
         public override string Subject
         {
-            get { return string.Format("iFlog Online Ad Enquiry for iflog ID: {0} - {1}", AdNumber, FullName); }
+            get { return string.Format("Classies Ad Enquiry for your AD ID: {0} - {1}", AdNumber, FullName); }
         }
 
         public override Collection<EmailRecipientView> Recipients

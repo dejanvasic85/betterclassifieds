@@ -13,7 +13,7 @@
             <asp:LoginName ID="LoginName1" runat="server"  />
         </h2>
         
-        <h3> Edit Print Ad - iFlog <asp:Literal ID="lblAdDesignId" runat="server" /></h3>
+        <h3> Edit Print Ad <asp:Literal ID="lblAdDesignId" runat="server" /></h3>
     </div>
     
     <div class="clearFloat" />

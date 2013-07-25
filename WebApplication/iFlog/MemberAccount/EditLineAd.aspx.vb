@@ -43,8 +43,8 @@ Partial Public Class EditLineAd
                 lnkPrintImages.Visible = lineAd.UsePhoto
 
                 ' Set the iflog id
-                lblAdDesignId.Text = _adDesignId
-                Me.Title = String.Format("Edit iFlog {0}", _adDesignId)
+                lblAdDesignId.Text = booking.AdBookingId
+                Me.Title = String.Format("Edit Ad {0}", booking.AdBookingId)
             End If
         End If
 

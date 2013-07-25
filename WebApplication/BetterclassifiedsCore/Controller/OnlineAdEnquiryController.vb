@@ -68,15 +68,20 @@ Namespace Controller
             End Using
         End Function
 
-        Public Shared Sub CreateOnlineAdEnquiry(ByVal onlineAdId As Integer, ByVal enquiryTypeId As Integer, ByVal fullName As String, ByVal email As String, ByVal phone As String, ByVal enquiryText As String)
+        Public Shared Sub CreateOnlineAdEnquiry(ByVal bookingId As Integer, ByVal enquiryTypeId As Integer, ByVal fullName As String, ByVal email As String, ByVal phone As String, ByVal enquiryText As String)
             Using db = BetterclassifiedsDataContext.NewContext
 
-                Dim adDesignId = db.OnlineAds.Where(Function(i) i.OnlineAdId = onlineAdId).Single.AdDesignId
+                Dim onlineAd = (From bk In db.AdBookings _
+                                 Where bk.AdBookingId = bookingId _
+                                 Join a In db.Ads On a.AdId Equals bk.AdId _
+                                 Join d In db.AdDesigns On d.AdId Equals a.AdId _
+                                 Join o In db.OnlineAds On o.AdDesignId Equals d.AdDesignId _
+                                 Select New With {.AdDesignId = d.AdDesignId, .OnlineAdId = o.OnlineAdId}).Single
 
-                Dim userData = GetUserEmailByAdDesignId(adDesignId)
-                SendEmail(userData.IflogId, userData.Email, email, fullName, enquiryText, phone)
+                Dim userData = GetUserEmailByAdDesignId(onlineAd.AdDesignId)
+                SendEmail(bookingId, userData.Email, email, fullName, enquiryText, phone)
 
-                Dim enquiry As New DataModel.OnlineAdEnquiry With {.OnlineAdId = onlineAdId, _
+                Dim enquiry As New DataModel.OnlineAdEnquiry With {.OnlineAdId = onlineAd.OnlineAdId, _
                                                                    .EnquiryTypeId = enquiryTypeId, _
                                                                    .FullName = fullName, _
                                                                    .Email = email, _
@@ -105,8 +110,8 @@ Namespace Controller
             End Using
         End Function
 
-        Friend Shared Sub SendEmail(ByVal iflogId As Integer, ByVal email As String, ByVal senderEmail As String, ByVal fullname As String, ByVal message As String, ByVal phone As String)
-            Dim emailTemplate As New OnlineAdEnquiryNotification(email) With {.AdNumber = iflogId, .EmailAddress = senderEmail, .FullName = fullname, .Message = message, .Phone = phone}
+        Friend Shared Sub SendEmail(ByVal adId As Integer, ByVal email As String, ByVal senderEmail As String, ByVal fullname As String, ByVal message As String, ByVal phone As String)
+            Dim emailTemplate As New OnlineAdEnquiryNotification(email) With {.AdNumber = adId, .EmailAddress = senderEmail, .FullName = fullname, .Message = message, .Phone = phone}
             emailTemplate.Send()
         End Sub
 

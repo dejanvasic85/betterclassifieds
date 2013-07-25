@@ -209,22 +209,10 @@
                 return;
             }
 
-            try
-            {
-                BetterclassifiedsCore.Controller.OnlineAdEnquiryController.CreateOnlineAdEnquiry(
-    AdId.Value, 1,
-    this.nameBox.Text, this.emailBox.Text, this.phoneBox.Text, this.messageBox.Text);
-                successText.Text = GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form,
-                                                "success.Text");
-                InvokeOnSubmit(e);
-            }
-            catch (Exception exception)
-            {
-                EventLogManager.Log(exception);
-                successText.Text = GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form,
-                                                "failed.Text");
-            }
-
+            if (AdId != null) 
+                BetterclassifiedsCore.Controller.OnlineAdEnquiryController.CreateOnlineAdEnquiry(AdId.Value, 1,this.nameBox.Text, this.emailBox.Text, this.phoneBox.Text, this.messageBox.Text);
+            successText.Text = GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form, "success.Text");
+            InvokeOnSubmit(e);
             Clear();
         }
 

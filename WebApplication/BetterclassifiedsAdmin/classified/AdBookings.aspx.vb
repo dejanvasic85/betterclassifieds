@@ -105,7 +105,7 @@ Partial Public Class AdBookings
 
     Private Sub btnClear_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnClear.Click
         ' clear the form by setting all the values to be empty
-        txtAdDesignID.Text = String.Empty
+        txtAdId.Text = String.Empty
         txtBookReference.Text = String.Empty
         txtUsername.Text = String.Empty
         dtmEditionFrom.Clear()

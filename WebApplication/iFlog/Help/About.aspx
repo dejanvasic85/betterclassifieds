@@ -1,4 +1,4 @@
-﻿<%@ Page Title="iFlog About Us" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MasterWithRightBar.Master"
+﻿<%@ Page Title="About Us" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MasterWithRightBar.Master"
     CodeBehind="About.aspx.vb" Inherits="BetterclassifiedsWeb.About" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadPlaceHolder" runat="server">

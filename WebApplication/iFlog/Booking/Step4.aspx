@@ -1,4 +1,4 @@
-<%@ Page Title="iFlog - New Booking - Scheduling" Language="vb" AutoEventWireup="false" 
+<%@ Page Title="New Booking - Scheduling" Language="vb" AutoEventWireup="false" 
     MasterPageFile="~/Master/Default.Master"
     CodeBehind="Step4.aspx.vb" Inherits="BetterclassifiedsWeb.Step4" %>
 

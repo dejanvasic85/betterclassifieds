@@ -14,7 +14,7 @@ Partial Public Class Contact
         ' set up the email content 
         If RadCaptcha1.IsValid Then
             Dim sb As New StringBuilder
-            sb.AppendLine("*** iFLOG SUPPORT ***")
+            sb.AppendLine("*** Classies Support ***")
             sb.AppendLine(String.Format("Enquiry Type: {0}", ddlEnquiryType.SelectedItem.Text))
             sb.AppendLine(String.Format("Full Name: {0}", txtFirstName.Text))
             sb.AppendLine(String.Format("Email: {0}", txtEmail.Text))

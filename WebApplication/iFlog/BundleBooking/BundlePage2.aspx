@@ -1,4 +1,4 @@
-﻿<%@ Page Title="iFlog - New Bundle Booking - Select Category and Publication" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/Default.Master"
+﻿<%@ Page Title="New Bundle Booking - Select Category and Publication" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/Default.Master"
     CodeBehind="BundlePage2.aspx.vb" Inherits="BetterclassifiedsWeb.BundlePage2" %>
 
 <%@ Register Src="~/Controls/ErrorList.ascx" TagName="PageError" TagPrefix="ucx" %>

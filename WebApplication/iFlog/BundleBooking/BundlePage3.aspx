@@ -1,4 +1,4 @@
-﻿<%@ Page Title="iFlog - New Bundle Booking - Design your Ad" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/Default.Master"
+﻿<%@ Page Title="New Bundle Booking - Design your Ad" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/Default.Master"
     CodeBehind="BundlePage3.aspx.vb" Inherits="BetterclassifiedsWeb.BundlePage3" %>
 
 <%@ Register Src="~/Controls/Booking/DesignOnlineAd.ascx" TagName="OnlineAd" TagPrefix="ucx" %>

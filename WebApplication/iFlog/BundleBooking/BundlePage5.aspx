@@ -1,4 +1,4 @@
-﻿<%@ Page Title="iFlog - New Bundle Booking - Confirmation" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/Default.Master"
+﻿<%@ Page Title="New Bundle Booking - Confirmation" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/Default.Master"
     CodeBehind="BundlePage5.aspx.vb" Inherits="BetterclassifiedsWeb.BundlePage5" %>
 
 <%@ Register Src="~/Controls/Booking/EditionDates.ascx" TagName="EditionDates" TagPrefix="ucx" %>

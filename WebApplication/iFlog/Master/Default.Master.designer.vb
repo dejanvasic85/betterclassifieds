@@ -248,6 +248,15 @@ Partial Public Class _Default1
     Protected WithEvents ucxAds As Global.BetterclassifiedsWeb.AdSpace
 
     '''<summary>
+    '''lnkHome control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lnkHome As Global.System.Web.UI.WebControls.HyperLink
+
+    '''<summary>
     '''HyperLink2 control.
     '''</summary>
     '''<remarks>

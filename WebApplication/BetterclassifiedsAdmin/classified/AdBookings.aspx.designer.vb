@@ -23,13 +23,13 @@ Partial Public Class AdBookings
     Protected WithEvents ucxBookingNavigation As Global.BetterclassifiedAdmin.BookingNavigation
 
     '''<summary>
-    '''txtAdDesignID control.
+    '''txtAdId control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtAdDesignID As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtAdId As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''txtBookReference control.

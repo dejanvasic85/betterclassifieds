@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/Default.Master"
-    CodeBehind="Step1.aspx.vb" Inherits="BetterclassifiedsWeb.AdType" Title="iFlog - New Booking - Select Package" %>
+    CodeBehind="Step1.aspx.vb" Inherits="BetterclassifiedsWeb.AdType" Title="New Booking - Select Package" %>
 
 <%@ Register Src="~/Controls/Booking/NavigationButtons.ascx" TagName="NavigationButtons" TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/ErrorList.ascx" TagName="PageErrors" TagPrefix="ucx" %>

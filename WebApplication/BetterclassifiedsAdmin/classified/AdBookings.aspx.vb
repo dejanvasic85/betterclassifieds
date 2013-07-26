@@ -47,8 +47,8 @@ Partial Public Class AdBookings
         If Not e.ExecutingSelectCount Then
 
             Dim adDesignId As Nullable(Of Integer)
-            If Not txtAdDesignID.Text = String.Empty Then
-                adDesignId = txtAdDesignID.Text
+            If Not txtAdId.Text = String.Empty Then
+                adDesignId = txtAdId.Text
             End If
 
             Dim bookingStatus As Nullable(Of Integer)

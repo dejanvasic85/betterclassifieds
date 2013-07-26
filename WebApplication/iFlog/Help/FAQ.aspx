@@ -1,4 +1,4 @@
-﻿<%@ Page Title="iFlog - FAQ" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MasterWithRightBar.Master" CodeBehind="FAQ.aspx.vb" Inherits="BetterclassifiedsWeb.FAQ" %>
+﻿<%@ Page Title="Frequently Asked Questions" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MasterWithRightBar.Master" CodeBehind="FAQ.aspx.vb" Inherits="BetterclassifiedsWeb.FAQ" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadPlaceHolder" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="BodyPlaceHolder" runat="server">

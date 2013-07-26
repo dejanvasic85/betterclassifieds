@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="vb" MasterPageFile="~/Master/Default.Master" AutoEventWireup="false"
     CodeBehind="Step2.aspx.vb" Inherits="BetterclassifiedsWeb.Step2"
-    Title="iFlog - New Booking - Select Category and Publication" %>
+    Title="New Booking - Select Category and Publication" %>
 
 <%@ Register Src="~/Controls/Booking/PaperListSelection.ascx" TagName="PaperListSelection" TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/Booking/NavigationButtons.ascx" TagName="NavigationButtons" TagPrefix="ucx" %>

@@ -4,5 +4,5 @@
     <h3>Access Denied</h3>
     <p>Access to the requested content is denied. Please 
     <asp:HyperLink ID="lnkContact" runat="server" Text="contact" />
-    iFlog for any further issues. </p>
+    TheMusic for any further issues. </p>
 </asp:Content>

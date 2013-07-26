@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Register with iFlog" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/Default.Master" CodeBehind="Register.aspx.vb" Inherits="BetterclassifiedsWeb.Register" %>
+﻿<%@ Page Title="Register to start placing Classifieds" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/Default.Master" CodeBehind="Register.aspx.vb" Inherits="BetterclassifiedsWeb.Register" %>
 
 <%@ Register src="~/Controls/Member/Register.ascx" tagname="Register" tagprefix="ucx" %>
 
@@ -14,7 +14,7 @@
                     <asp:Image ID="Image1" runat="server" ImageUrl="~/Resources/Images/register_header.jpg"
                          AlternateText="Register header" />
                     <h2>
-                        Register your new account with iFlog...</h2>
+                        Register your new account...</h2>
                 </div>
                 
                 <div id="mainContentMyAccount">

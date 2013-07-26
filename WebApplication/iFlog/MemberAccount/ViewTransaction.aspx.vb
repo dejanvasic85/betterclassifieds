@@ -32,7 +32,7 @@ Partial Public Class ViewTransaction
             End If
         Else
             ' Security error - Log IT!
-            Dim secError = String.Format("Action: User attempt at booking that does not belong to them; iFlog Customer ID [{0}]; Booking Red {1}", _userId, _bookReference)
+            Dim secError = String.Format("Action: User attempt at booking that does not belong to them; Customer ID [{0}]; Booking Red {1}", _userId, _bookReference)
             Try
                 Throw New Exception(secError)
             Catch ex As Exception

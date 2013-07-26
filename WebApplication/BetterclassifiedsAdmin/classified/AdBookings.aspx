@@ -32,8 +32,8 @@
             <td>
                 <table cellpadding="2">
                     <tr>
-                        <td>iFlog ID:</td>
-                        <td><asp:TextBox ID="txtAdDesignID" runat="server" AutoCompleteType="Disabled" /></td>
+                        <td>Ad ID:</td>
+                        <td><asp:TextBox ID="txtAdId" runat="server" AutoCompleteType="Disabled" /></td>
                     </tr>
                     <tr>
                         <td>Booking Ref:</td>

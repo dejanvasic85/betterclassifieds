@@ -1,4 +1,4 @@
-<%@ Page Title="iFlog Search Results" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/Default.Master"
+<%@ Page Title="Search Results" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/Default.Master"
     CodeBehind="Default.aspx.vb" Inherits="BetterclassifiedsWeb._Default5" %> 
     
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">

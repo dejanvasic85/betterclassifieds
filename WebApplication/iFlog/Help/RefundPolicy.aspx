@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MasterWithRightBar.Master"
     CodeBehind="RefundPolicy.aspx.vb" Inherits="BetterclassifiedsWeb.RefundPolicy"
-    Title="iFlog Refund Policy" %>
+    Title="Refund Policy" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadPlaceHolder" runat="server">
 </asp:Content>

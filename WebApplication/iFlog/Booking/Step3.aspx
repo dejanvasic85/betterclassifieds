@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/Default.Master"
     CodeBehind="Step3.aspx.vb" Inherits="BetterclassifiedsWeb.Step3" 
-    Title="iFlog - New Booking - Design Ad" %>
+    Title="New Booking - Design Ad" %>
 
 <%@ Register Src="~/Controls/Booking/DesignLineAd.ascx" TagName="DesignLineAd" TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/Booking/DesignOnlineAd.ascx" TagName="DesignOnlineAd" TagPrefix="ucx" %>

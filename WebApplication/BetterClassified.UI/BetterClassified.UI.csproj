@@ -163,6 +163,7 @@
     <Compile Include="Models\ExtensionStatus.cs" />
     <Compile Include="Models\LineAdModel.cs" />
     <Compile Include="Models\OnlineAdModel.cs" />
+    <Compile Include="Models\PaymentType.cs" />
     <Compile Include="Models\PublicationEditionModel.cs" />
     <Compile Include="Models\AdBookingModel.cs" />
     <Compile Include="Models\BookingType.cs" />

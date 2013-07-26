@@ -17,6 +17,7 @@ Partial Public Class Edit_AdDesigns
         _adBookingId = Request.QueryString(_adBookingParameter)
         If _adBookingId > 0 Then
             _booking = BookingController.GetAdBookingById(_adBookingId)
+            lblAdId.Text = "Ad ID: " + _adBookingId.ToString
         End If
 
         If Not Page.IsPostBack Then
@@ -36,7 +37,6 @@ Partial Public Class Edit_AdDesigns
     Private Sub linqSourceOnlineAd_Selecting(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.LinqDataSourceSelectEventArgs) Handles linqSourceOnlineAd.Selecting
         If IsOnlineAdEnabled Then
             e.Result = AdController.OnlineAdByBookingId(_adBookingId)
-            lblFlogId.Text = String.Format("iFlog ID {0}", e.Result.AdDesignId)
         End If
     End Sub
 #End Region

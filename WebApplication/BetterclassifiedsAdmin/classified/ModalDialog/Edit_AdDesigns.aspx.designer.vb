@@ -32,13 +32,13 @@ Partial Public Class Edit_AdDesigns
     Protected WithEvents ScriptManager1 As Global.System.Web.UI.ScriptManager
 
     '''<summary>
-    '''lblFlogId control.
+    '''lblAdId control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblFlogId As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblAdId As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''radTabStrip control.

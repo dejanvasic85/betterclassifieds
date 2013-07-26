@@ -21,7 +21,7 @@ namespace BetterClassified.UIController
         const string betterclassifiedConnection = "BetterclassifiedsConnection";
 
         public List<BookingSearchResult> SearchAdBookings(string sortBy, ObjectDataSourceSelectingEventArgs e, 
-            int? adDesignId, string bookReference, string userName, DateTime? bookingStartDate, DateTime? bookingEndDate,
+            int? adBookingId, string bookReference, string userName, DateTime? bookingStartDate, DateTime? bookingEndDate,
             int? bookingStatus, int? publicationId, int? parentCategoryid, int? subCategoryid,
             DateTime? editionStartDate, DateTime? editionEndDate, string adSearchText,
             int maximumRows, int startRowIndex)
@@ -41,7 +41,7 @@ namespace BetterClassified.UIController
                 CommandType = CommandType.StoredProcedure
             };
 
-            command.Parameters.Add("@AdDesignId", SqlDbType.Int).Value = adDesignId;
+            command.Parameters.Add("@AdBookingId", SqlDbType.Int).Value = adBookingId;
             command.Parameters.Add("@BookReference", SqlDbType.VarChar).Value = bookReference;
             command.Parameters.Add("@Username", SqlDbType.VarChar).Value = userName;
             command.Parameters.Add("@BookingDateStart", SqlDbType.DateTime).Value = bookingStartDate;

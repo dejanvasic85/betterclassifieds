@@ -16,7 +16,7 @@
         <asp:ScriptManager ID="ScriptManager1" runat="server">
         </asp:ScriptManager>
         
-        <asp:Label ID="lblFlogId" runat="server" CssClass="ifloglabel" />
+        <asp:Label ID="lblAdId" runat="server" CssClass="ifloglabel" />
         
         <telerik:RadTabStrip runat="server" ID="radTabStrip" MultiPageID="radMultiPage" SelectedIndex="0">
             <Tabs>

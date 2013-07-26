@@ -114,24 +114,28 @@
             Gridlines="None">
         <MasterTableView Width="100%">
         <PagerStyle Mode="NextPrevAndNumeric" AlwaysVisible="true" />
-        <HeaderStyle HorizontalAlign="Center" Wrap="true" Height="35" />
+        <HeaderStyle HorizontalAlign="Left" Wrap="true" Height="35" />
         <AlternatingItemStyle VerticalAlign="Top" />
         <ItemStyle VerticalAlign="Top" />
         <Columns>
-            <telerik:GridBoundColumn DataField="AdBookingId" HeaderText="AdBookingId" />
-            <telerik:GridTemplateColumn HeaderText="Reference">
+            <telerik:GridTemplateColumn HeaderText="Ad ID">
                 <ItemTemplate>
                 <a href="#"
                         onclick="openAdBookingRadWindow('<%#DataBinder.Eval(Container.DataItem,"AdBookingId")%>'); return false;">
-                    <asp:Label ID="lblReference" runat="server" Text='<%# Eval("BookReference") %>' ToolTip="Edit Ad Booking Details" /></a>
+                    <asp:Label ID="lblReference" runat="server" Text='<%# Eval("AdBookingId")%>' ToolTip="Edit Ad Booking Details" /></a>
                 </ItemTemplate>
             </telerik:GridTemplateColumn>
+            <telerik:GridBoundColumn DataField="BookReference" HeaderText="Reference" />
             <telerik:GridBoundColumn DataField="ParentCategory" HeaderText="Category" />
             <telerik:GridBoundColumn DataField="SubCategory" HeaderText="Sub Category" />
             <telerik:GridBoundColumn DataField="UserId" HeaderText="UserId" />
             <telerik:GridBoundColumn DataField="BookingDate" HeaderText="Date Booked" DataFormatString="{0:dd-MMM-yyyy}" />
             <telerik:GridBoundColumn DataField="BookingType" HeaderText="Type" />
-            <telerik:GridBoundColumn DataField="BookingStatus" HeaderText="Status" />
+            <telerik:GridTemplateColumn HeaderText="Status">
+                <ItemTemplate>
+                    <asp:Literal runat="server" ID="lblBookingStatus"></asp:Literal>
+                </ItemTemplate>
+            </telerik:GridTemplateColumn>
             <telerik:GridTemplateColumn HeaderText="Editions">
                 <ItemTemplate>
                 <a href="#"

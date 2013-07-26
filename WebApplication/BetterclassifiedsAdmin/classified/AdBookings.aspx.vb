@@ -1,4 +1,8 @@
 ﻿Imports BetterclassifiedsCore
+Imports BetterclassifiedsCore.BusinessEntities
+Imports BetterClassified
+Imports Telerik.Web.UI
+Imports BetterClassified.UI.Models
 
 Partial Public Class AdBookings
     Inherits System.Web.UI.Page
@@ -33,6 +37,13 @@ Partial Public Class AdBookings
         ddlSubCategories.Items.Insert(0, New ListItem("Any", 0))
     End Sub
 
+    Private Sub grdBookingResults_ItemDataBound(sender As Object, e As Telerik.Web.UI.GridItemEventArgs) Handles grdBookingResults.ItemDataBound
+        If e.Item.ItemType = GridItemType.Item Or e.Item.ItemType = GridItemType.AlternatingItem Then
+            Dim item As BookingSearchResult = e.Item.DataItem
+            e.Item.FindControl(Of Literal)("lblBookingStatus").Text = DirectCast(e.Item.DataItem.BookingStatus, BookingStatusType).ToString
+        End If
+    End Sub
+
     Private Sub btnSearch_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSearch.Click, grdBookingResults.PageSizeChanged
         grdBookingResults.Rebind()
     End Sub
@@ -46,9 +57,9 @@ Partial Public Class AdBookings
         e.InputParameters.Clear()
         If Not e.ExecutingSelectCount Then
 
-            Dim adDesignId As Nullable(Of Integer)
+            Dim adBookingId As Nullable(Of Integer)
             If Not txtAdId.Text = String.Empty Then
-                adDesignId = txtAdId.Text
+                adBookingId = txtAdId.Text
             End If
 
             Dim bookingStatus As Nullable(Of Integer)
@@ -71,7 +82,7 @@ Partial Public Class AdBookings
                 subCategoryId = ddlSubCategories.SelectedValue
             End If
 
-            e.InputParameters.Add("adDesignId", adDesignId)
+            e.InputParameters.Add("adBookingId", adBookingId)
             e.InputParameters.Add("bookReference", txtBookReference.Text)
             e.InputParameters.Add("userName", txtUsername.Text)
             e.InputParameters.Add("bookingStartDate", dtmFrom.SelectedDate)
@@ -131,7 +142,6 @@ Partial Public Class AdBookings
 
         Return String.Format("{0} {1}", sortExpression, Me.SortDirection)
     End Function
-
 
     Private Property SortBy() As String
         Get

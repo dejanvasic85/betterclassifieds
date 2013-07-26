@@ -4,9 +4,6 @@
 
       <!-- Classified Section -->
       <siteMapNode url="~/classified/" title="Classified Manager"  description="Classified Manager" roles ="Managers,Administrators">
-        <siteMapNode url="~/classified/ApplicationSettings.aspx" title="Application Settings" description="Tool to set up the application settings" roles="Administrators">
-          <siteMapNode url="~/classified/LocationManagement.aspx" title="Location and Areas" description="Management utility for setting up Location and Location Areas." />
-        </siteMapNode>
         <siteMapNode url="~/classified/AdBookings.aspx" title="Ad Bookings" description="View ad bookings in the system." roles="Administrator">
           <siteMapNode url="~/classified/AdExport.aspx" title="Export" description="Exports current bookings into XML readable format" />
           <siteMapNode url="~/classified/AdReview.aspx" title="Ad Review" description="Facility to review ads." />

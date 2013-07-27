@@ -33,7 +33,7 @@
       <div id="mainHeaderItemPageIDHits" runat="server" style="float:right; margin-right:10px;">
         <table width="125" border="0" cellspacing="0" cellpadding="0">
             <tr>
-                <td><h6>iFlog ID:</h6></td>
+                <td><h6>Ad ID:</h6></td>
                 <td><h6><asp:Label ID="lblIFlogID" runat="server" Text=""></asp:Label></h6></td>
             </tr>
             <tr>

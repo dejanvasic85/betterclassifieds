@@ -466,6 +466,7 @@ Public Class BookingController
                 If bk.Count = 1 Then
                     Dim adBooking = bk.SingleOrDefault
 
+                    contentBuilder.AppendLine(String.Format("Ad ID: {0} <br/>", adBooking.AdBookingId))
                     contentBuilder.AppendLine(String.Format("Booking Reference: {0} <br/>", adBooking.BookReference))
                     contentBuilder.AppendLine(String.Format("User Id: {0} <br/>", adBooking.UserId))
                     contentBuilder.AppendLine(String.Format("Total Price: {0:C} <br/>", adBooking.TotalPrice))
@@ -475,7 +476,6 @@ Public Class BookingController
                         For Each item In adBooking.Ad.AdDesigns
                             For Each item2 In item.LineAds
                                 contentBuilder.AppendLine("<p>**********--- Line Ad----********** </p>")
-                                contentBuilder.AppendLine(String.Format("iFlog ID {0}<br/>", item2.AdDesignId))
                                 contentBuilder.AppendLine(String.Format("Header: {0}<br/><br/>", item2.AdHeader))
                                 contentBuilder.AppendLine("------ Text ------<br/>")
                                 contentBuilder.AppendLine(item2.AdText)
@@ -485,7 +485,6 @@ Public Class BookingController
 
                             For Each item3 In item.OnlineAds
                                 contentBuilder.AppendLine("<p>**********--- Online Ad----**********</p>")
-                                contentBuilder.AppendLine(String.Format("iFlog ID {0}<br/>", item3.AdDesignId))
                                 contentBuilder.AppendLine(String.Format("Header: {0}<br/>", item3.Heading))
                                 contentBuilder.AppendLine("------ Text ------<br/>")
                                 contentBuilder.AppendLine(item3.Description + "<br/>")

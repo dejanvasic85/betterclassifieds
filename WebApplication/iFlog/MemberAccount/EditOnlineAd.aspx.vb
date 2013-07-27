@@ -45,8 +45,8 @@ Partial Public Class EditOnlineAd
                 radWindowPreview.OpenerElementID = lnkPreview.ClientID
 
                 ' Set the iFlog ID for user to see
-                lblAdDesignId.Text = _adDesignId.ToString
-                Me.Title = String.Format("Edit iFlog {0}", _adDesignId)
+                lblAdDesignId.Text = _adBookingId.ToString
+                Me.Title = String.Format("Edit Ad {0}", _adBookingId)
             End If
 
         End If

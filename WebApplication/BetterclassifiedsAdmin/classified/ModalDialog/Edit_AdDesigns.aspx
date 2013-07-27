@@ -46,7 +46,6 @@
                     DefaultMode="Edit" DataKeyNames="OnlineAdId" DataSourceID="linqSourceOnlineAd">
                     <Fields>
                         <asp:BoundField DataField="OnlineAdId" HeaderText="Ad Id" ReadOnly="true" Visible="false" />
-                        <asp:BoundField DataField="AdDesignId" HeaderText="iFlog ID" ReadOnly="true" Visible="false"/>
                         <asp:BoundField DataField="Price" HeaderText="Price" />
                         <asp:BoundField DataField="ContactName" HeaderText="Contact Name" />
                         <asp:TemplateField HeaderText="Contact Type">

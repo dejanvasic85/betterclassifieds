@@ -765,22 +765,9 @@ Public Module GeneralRoutine
 
         ' Loop through each ad
         For Each exportItem In exportItems
-
-            Dim iflogId As Integer = exportItem.AdDesignId
-            Dim isOnline As Boolean = False
-            Using db = BetterclassifiedsDataContext.NewContext
-                Dim onlineAd = db.spOnlineAdSelectByLineAdDesign(exportItem.AdDesignId).FirstOrDefault
-                If onlineAd IsNot Nothing Then
-                    iflogId = onlineAd.AdDesignId
-                    isOnline = True
-                End If
-                If xmlExportStrategy = GeneralRoutine.XmlExportStrategy.Styled Then
-                    isFreeAd = (From bk In db.AdBookings _
-                               Join ds In db.AdDesigns On bk.AdId Equals ds.AdId _
-                               Where ds.AdDesignId = iflogId _
-                               Select bk).Single.TotalPrice = 0
-                End If
-            End Using
+            If xmlExportStrategy = GeneralRoutine.XmlExportStrategy.Styled Then
+                isFreeAd = exportItem.TotalPrice = 0
+            End If
 
             ' Setup the node names
             Dim headerNodeName As String = "ListHead"
@@ -826,33 +813,16 @@ Public Module GeneralRoutine
 
             If graphic IsNot Nothing Then
                 ' Call method to save the ad graphic to disk.
-                SaveLineAdImageToDisk(graphic, iflogId, imageDirectory.FullName)
-                Dim xmlStorePath = String.Format("{0}{1}.jpg", adStorePath, iflogId)
+                SaveLineAdImageToDisk(graphic, exportItem.AdBookingId, imageDirectory.FullName)
+                Dim xmlStorePath = String.Format("{0}{1}.jpg", adStorePath, exportItem.AdBookingId)
                 Dim elementGraphic As New XElement(graphicNodeName, New XAttribute("href", xmlStorePath))
                 xmlDoc.Element("Root").Add(elementGraphic)
             End If
 
             Dim elementBodyText As New XElement(listbodyNodeName, exportItem.AdText.Replace(Environment.NewLine, " "))
             xmlDoc.Element("Root").Add(elementBodyText)
-
-            ' App Setting that indicates whether to add cant delete flag
-            Dim cantDeleteMin As Integer = GetAppSetting("AdBooking", "MinimumIdForDelete")
-
-            If iflogId > cantDeleteMin Then
-                xmlDoc.Element("Root").Add(New XElement("cantDelete"))
-            End If
-
-            ' iFlog ID
-            If isOnline Then
-                Dim elementFlog As New XElement(iFlogIdNodeName, "iFlogID: ", iflogId.ToString)
-                xmlDoc.Element("Root").Add(elementFlog)
-            Else
-                Dim elementFlog As New XElement(iFlogIdNodeName, "iFlogID: ", "N/A")
-                xmlDoc.Element("Root").Add(elementFlog)
-            End If
-
-
-
+            xmlDoc.Element("Root").Add(New XElement("cantDelete"))
+            xmlDoc.Element("Root").Add(New XElement(iFlogIdNodeName, "Ad ID: ", exportItem.AdBookingId))
         Next
 
         Return xmlDoc
@@ -869,14 +839,14 @@ Public Module GeneralRoutine
 
 #End Region
 
-    Public Sub SaveLineAdImageToDisk(ByVal graphic As AdGraphic, ByVal iflogId As Integer, ByVal imageDir As String)
+    Public Sub SaveLineAdImageToDisk(ByVal graphic As AdGraphic, ByVal adId As Integer, ByVal imageDir As String)
         Dim documentId As Guid
         Try
-            Dim imageFullName = Path.Combine(imageDir, String.Format("{0}.jpg", iflogId))
+            Dim imageFullName = Path.Combine(imageDir, String.Format("{0}.jpg", adId))
             documentId = New Guid(graphic.DocumentID)
             DslController.DownloadFile(documentId, ConfigSettingReader.ClientCode, imageFullName)
         Catch e As Exception
-            Dim errorMsg As String = String.Format("Error in export. Unable to save image from DSL for iFlog ID [{0}], Document ID [{1}]. Details [{2}]", iflogId, documentId, e.Message)
+            Dim errorMsg As String = String.Format("Error in export. Unable to save image from DSL for iFlog ID [{0}], Document ID [{1}]. Details [{2}]", adId, documentId, e.Message)
             Throw New ApplicationException(errorMsg)
         End Try
     End Sub

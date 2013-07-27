@@ -98,7 +98,7 @@
             <MasterTableView Width="100%" Summary="RadGrid table">
 
                 <Columns>
-                    <telerik:GridBoundColumn DataField="iflogId" HeaderText="iFlog" />
+                    <telerik:GridBoundColumn DataField="AdBookingId" HeaderText="Ad ID" />
                     <telerik:GridBoundColumn DataField="MainCategory" HeaderText="Category" />
                     <telerik:GridBoundColumn DataField="SubCategory" HeaderText="Sub Category" />
                     <telerik:GridBoundColumn DataField="NumOfWords" HeaderText="Word Count" Aggregate="Sum" FooterText="Total: " />
@@ -108,12 +108,6 @@
                     <telerik:GridBoundColumn DataField="BoldHeadingColourCode" HeaderText="Header Colour" />
                     <telerik:GridBoundColumn DataField="BackgroundColourCode" HeaderText="Background Colour" />
                     <telerik:GridBoundColumn DataField="BorderColourCode" HeaderText="Border Colour" />
-
-                    <%--<telerik:GridImageColumn HeaderText="Image" DataType="System.String" DataImageUrlFields="UsePhoto" 
-                            DataImageUrlFormatString="~/images/Status/status_{0}.png" ImageHeight="20" ImageWidth="20" />
-                        <telerik:GridImageColumn HeaderText="Heading" DataType="System.String" DataImageUrlFields="UseBoldHeader" 
-                            DataImageUrlFormatString="~/images/Status/status_{0}.png" ImageHeight="20" ImageWidth="20" />--%>
-
                     <telerik:GridBoundColumn DataField="UserId" HeaderText="Username" />
                     <telerik:GridTemplateColumn HeaderText="Preview">
                         <ItemTemplate>

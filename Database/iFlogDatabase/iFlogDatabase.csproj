@@ -69,6 +69,7 @@
     <Content Include="Deploy.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Scripts\Script-0007-Alter.Export.sql" />
     <EmbeddedResource Include="Scripts\Script-0006-Alter.AdBookings_Select.sql" />
     <EmbeddedResource Include="Scripts\Script-0005-UpdateProcsToReturnAdBookingId.sql" />
     <EmbeddedResource Include="Scripts\Script-0004-UpdateFAQcontentdata.sql" />

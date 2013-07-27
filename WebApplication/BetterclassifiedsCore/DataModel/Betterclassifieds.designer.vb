@@ -701,16 +701,16 @@ Namespace DataModel
 			Return CType(result.ReturnValue,ISingleResult(Of usp_LineAdTheme__FetchHeaderColourResult))
 		End Function
 		
-		<Global.System.Data.Linq.Mapping.FunctionAttribute(Name:="dbo.spLineAdExportList")>  _
-		Public Function spLineAdExportList(<Global.System.Data.Linq.Mapping.ParameterAttribute(DbType:="Int")> ByVal publicationId As System.Nullable(Of Integer), <Global.System.Data.Linq.Mapping.ParameterAttribute(DbType:="DateTime")> ByVal editionDate As System.Nullable(Of Date)) As ISingleResult(Of spLineAdExportListResult)
-			Dim result As IExecuteResult = Me.ExecuteMethodCall(Me, CType(MethodInfo.GetCurrentMethod,MethodInfo), publicationId, editionDate)
-			Return CType(result.ReturnValue,ISingleResult(Of spLineAdExportListResult))
-		End Function
-		
 		<Global.System.Data.Linq.Mapping.FunctionAttribute(Name:="dbo.spOnlineAdSelectRecentlyAdded")>  _
 		Public Function spOnlineAdSelectRecentlyAdded(<Global.System.Data.Linq.Mapping.ParameterAttribute(DbType:="Int")> ByVal bookStatus As System.Nullable(Of Integer)) As ISingleResult(Of spOnlineAdSelectRecentlyAddedResult)
 			Dim result As IExecuteResult = Me.ExecuteMethodCall(Me, CType(MethodInfo.GetCurrentMethod,MethodInfo), bookStatus)
 			Return CType(result.ReturnValue,ISingleResult(Of spOnlineAdSelectRecentlyAddedResult))
+		End Function
+		
+		<Global.System.Data.Linq.Mapping.FunctionAttribute(Name:="dbo.spLineAdExportList")>  _
+		Public Function spLineAdExportList(<Global.System.Data.Linq.Mapping.ParameterAttribute(DbType:="Int")> ByVal publicationId As System.Nullable(Of Integer), <Global.System.Data.Linq.Mapping.ParameterAttribute(DbType:="DateTime")> ByVal editionDate As System.Nullable(Of Date)) As ISingleResult(Of spLineAdExportListResult)
+			Dim result As IExecuteResult = Me.ExecuteMethodCall(Me, CType(MethodInfo.GetCurrentMethod,MethodInfo), publicationId, editionDate)
+			Return CType(result.ReturnValue,ISingleResult(Of spLineAdExportListResult))
 		End Function
 	End Class
 	
@@ -12743,15 +12743,155 @@ Namespace DataModel
 		End Property
 	End Class
 	
+	Partial Public Class spOnlineAdSelectRecentlyAddedResult
+		
+		Private _OnlineAdId As Integer
+		
+		Private _AdBookingId As Integer
+		
+		Private _Heading As String
+		
+		Private _AdText As String
+		
+		Private _DocumentId As String
+		
+		Private _StartDate As System.Nullable(Of Date)
+		
+		Private _AdBookingId1 As Integer
+		
+		Private _Category As String
+		
+		Private _CategoryId As System.Nullable(Of Integer)
+		
+		Public Sub New()
+			MyBase.New
+		End Sub
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_OnlineAdId", DbType:="Int NOT NULL")>  _
+		Public Property OnlineAdId() As Integer
+			Get
+				Return Me._OnlineAdId
+			End Get
+			Set
+				If ((Me._OnlineAdId = value)  _
+							= false) Then
+					Me._OnlineAdId = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AdBookingId", DbType:="Int NOT NULL")>  _
+		Public Property AdBookingId() As Integer
+			Get
+				Return Me._AdBookingId
+			End Get
+			Set
+				If ((Me._AdBookingId = value)  _
+							= false) Then
+					Me._AdBookingId = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Heading", DbType:="NVarChar(43)")>  _
+		Public Property Heading() As String
+			Get
+				Return Me._Heading
+			End Get
+			Set
+				If (String.Equals(Me._Heading, value) = false) Then
+					Me._Heading = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AdText", DbType:="NVarChar(MAX)")>  _
+		Public Property AdText() As String
+			Get
+				Return Me._AdText
+			End Get
+			Set
+				If (String.Equals(Me._AdText, value) = false) Then
+					Me._AdText = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_DocumentId", DbType:="NVarChar(100)")>  _
+		Public Property DocumentId() As String
+			Get
+				Return Me._DocumentId
+			End Get
+			Set
+				If (String.Equals(Me._DocumentId, value) = false) Then
+					Me._DocumentId = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_StartDate", DbType:="DateTime")>  _
+		Public Property StartDate() As System.Nullable(Of Date)
+			Get
+				Return Me._StartDate
+			End Get
+			Set
+				If (Me._StartDate.Equals(value) = false) Then
+					Me._StartDate = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AdBookingId1", DbType:="Int NOT NULL")>  _
+		Public Property AdBookingId1() As Integer
+			Get
+				Return Me._AdBookingId1
+			End Get
+			Set
+				If ((Me._AdBookingId1 = value)  _
+							= false) Then
+					Me._AdBookingId1 = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Category", DbType:="NVarChar(50)")>  _
+		Public Property Category() As String
+			Get
+				Return Me._Category
+			End Get
+			Set
+				If (String.Equals(Me._Category, value) = false) Then
+					Me._Category = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_CategoryId", DbType:="Int")>  _
+		Public Property CategoryId() As System.Nullable(Of Integer)
+			Get
+				Return Me._CategoryId
+			End Get
+			Set
+				If (Me._CategoryId.Equals(value) = false) Then
+					Me._CategoryId = value
+				End If
+			End Set
+		End Property
+	End Class
+	
 	Partial Public Class spLineAdExportListResult
 		
 		Private _iflogId As Integer
 		
 		Private _AdBookingId As Integer
 		
+		Private _TotalPrice As System.Nullable(Of Decimal)
+		
 		Private _AdDesignId As Integer
 		
 		Private _LineAdId As Integer
+		
+		Private _OnlineAdId As System.Nullable(Of Integer)
 		
 		Private _MainCategoryId As System.Nullable(Of Integer)
 		
@@ -12815,6 +12955,18 @@ Namespace DataModel
 			End Set
 		End Property
 		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_TotalPrice", DbType:="Money")>  _
+		Public Property TotalPrice() As System.Nullable(Of Decimal)
+			Get
+				Return Me._TotalPrice
+			End Get
+			Set
+				If (Me._TotalPrice.Equals(value) = false) Then
+					Me._TotalPrice = value
+				End If
+			End Set
+		End Property
+		
 		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AdDesignId", DbType:="Int NOT NULL")>  _
 		Public Property AdDesignId() As Integer
 			Get
@@ -12837,6 +12989,18 @@ Namespace DataModel
 				If ((Me._LineAdId = value)  _
 							= false) Then
 					Me._LineAdId = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_OnlineAdId", DbType:="Int")>  _
+		Public Property OnlineAdId() As System.Nullable(Of Integer)
+			Get
+				Return Me._OnlineAdId
+			End Get
+			Set
+				If (Me._OnlineAdId.Equals(value) = false) Then
+					Me._OnlineAdId = value
 				End If
 			End Set
 		End Property
@@ -13032,142 +13196,6 @@ Namespace DataModel
 			Set
 				If (Me._IsSuperBoldHeading.Equals(value) = false) Then
 					Me._IsSuperBoldHeading = value
-				End If
-			End Set
-		End Property
-	End Class
-	
-	Partial Public Class spOnlineAdSelectRecentlyAddedResult
-		
-		Private _OnlineAdId As Integer
-		
-		Private _AdBookingId As Integer
-		
-		Private _Heading As String
-		
-		Private _AdText As String
-		
-		Private _DocumentId As String
-		
-		Private _StartDate As System.Nullable(Of Date)
-		
-		Private _AdBookingId1 As Integer
-		
-		Private _Category As String
-		
-		Private _CategoryId As System.Nullable(Of Integer)
-		
-		Public Sub New()
-			MyBase.New
-		End Sub
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_OnlineAdId", DbType:="Int NOT NULL")>  _
-		Public Property OnlineAdId() As Integer
-			Get
-				Return Me._OnlineAdId
-			End Get
-			Set
-				If ((Me._OnlineAdId = value)  _
-							= false) Then
-					Me._OnlineAdId = value
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AdBookingId", DbType:="Int NOT NULL")>  _
-		Public Property AdBookingId() As Integer
-			Get
-				Return Me._AdBookingId
-			End Get
-			Set
-				If ((Me._AdBookingId = value)  _
-							= false) Then
-					Me._AdBookingId = value
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Heading", DbType:="NVarChar(43)")>  _
-		Public Property Heading() As String
-			Get
-				Return Me._Heading
-			End Get
-			Set
-				If (String.Equals(Me._Heading, value) = false) Then
-					Me._Heading = value
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AdText", DbType:="NVarChar(MAX)")>  _
-		Public Property AdText() As String
-			Get
-				Return Me._AdText
-			End Get
-			Set
-				If (String.Equals(Me._AdText, value) = false) Then
-					Me._AdText = value
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_DocumentId", DbType:="NVarChar(100)")>  _
-		Public Property DocumentId() As String
-			Get
-				Return Me._DocumentId
-			End Get
-			Set
-				If (String.Equals(Me._DocumentId, value) = false) Then
-					Me._DocumentId = value
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_StartDate", DbType:="DateTime")>  _
-		Public Property StartDate() As System.Nullable(Of Date)
-			Get
-				Return Me._StartDate
-			End Get
-			Set
-				If (Me._StartDate.Equals(value) = false) Then
-					Me._StartDate = value
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AdBookingId1", DbType:="Int NOT NULL")>  _
-		Public Property AdBookingId1() As Integer
-			Get
-				Return Me._AdBookingId1
-			End Get
-			Set
-				If ((Me._AdBookingId1 = value)  _
-							= false) Then
-					Me._AdBookingId1 = value
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Category", DbType:="NVarChar(50)")>  _
-		Public Property Category() As String
-			Get
-				Return Me._Category
-			End Get
-			Set
-				If (String.Equals(Me._Category, value) = false) Then
-					Me._Category = value
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_CategoryId", DbType:="Int")>  _
-		Public Property CategoryId() As System.Nullable(Of Integer)
-			Get
-				Return Me._CategoryId
-			End Get
-			Set
-				If (Me._CategoryId.Equals(value) = false) Then
-					Me._CategoryId = value
 				End If
 			End Set
 		End Property

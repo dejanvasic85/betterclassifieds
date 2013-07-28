@@ -9,10 +9,10 @@
 
     public class ExtendBookingPresenter : Controller<IExtendBookingView>
     {
-        private readonly IBookingRepository bookingRepository;
-        private readonly IConfigSettings configSettings;
-        private readonly ExtensionManager extensionManager;
-        private readonly RateCalculator rateCalculator;
+        private readonly IBookingRepository BookingRepository;
+        private readonly IConfigSettings ConfigSettings;
+        private readonly ExtensionManager ExtensionManager;
+        private readonly RateCalculator RateCalculator;
 
         public ExtendBookingPresenter(IExtendBookingView view,
             IBookingRepository bookingRepository,
@@ -21,16 +21,16 @@
             RateCalculator rateCalculator)
             : base(view)
         {
-            this.bookingRepository = bookingRepository;
-            this.extensionManager = extensionManager;
-            this.configSettings = configSettings;
-            this.rateCalculator = rateCalculator;
+            this.BookingRepository = bookingRepository;
+            this.ExtensionManager = extensionManager;
+            this.ConfigSettings = configSettings;
+            this.RateCalculator = rateCalculator;
         }
 
         public void Load()
         {
             // Fetch the original booking
-            AdBookingModel booking = bookingRepository.GetBooking(View.AdBookingId, withLineAd: true);
+            AdBookingModel booking = BookingRepository.GetBooking(View.AdBookingId, withLineAd: true);
 
             // Ensure booking exists
             if (booking == null || 
@@ -44,8 +44,8 @@
 
             // Load the screen as per usual (depending on the type of booking)
             View.DataBindOptions(booking.BookingType == BookingType.Bundled
-                ? Enumerable.Range(1, configSettings.RestrictedEditionCount)
-                : Enumerable.Range(1, configSettings.RestrictedOnlineDaysCount));
+                ? Enumerable.Range(1, ConfigSettings.RestrictedEditionCount)
+                : Enumerable.Range(1, ConfigSettings.RestrictedOnlineDaysCount));
 
             // Load for a single edition first
             Load(insertions: 1, booking: booking);
@@ -55,7 +55,7 @@
         {
             // Fetch the original booking
             if (booking == null)
-                booking = bookingRepository.GetBooking(View.AdBookingId, withLineAd: true);
+                booking = BookingRepository.GetBooking(View.AdBookingId, withLineAd: true);
 
             View.PaymentReference = booking.ExtensionReference;
 
@@ -63,7 +63,7 @@
             if (booking.BookingType == BookingType.Bundled)
             {
                 // Fetch and display the list of editions
-                List<PublicationEditionModel> editions = extensionManager.ExtensionDates(View.AdBookingId, insertions).ToList();
+                List<PublicationEditionModel> editions = ExtensionManager.ExtensionDates(View.AdBookingId, insertions).ToList();
 
                 // Fetch the online end date
                 DateTime onlineAdEndDate = editions
@@ -71,13 +71,13 @@
                     .OrderBy(date => date.EditionDate)
                     .Last()
                     .EditionDate
-                    .AddDays(configSettings.NumberOfDaysAfterLastEdition);
+                    .AddDays(ConfigSettings.NumberOfDaysAfterLastEdition);
 
                 decimal pricePerEdition = 0;
 
                 foreach (var publication in editions)
                 {
-                    pricePerEdition += rateCalculator.Calculate(
+                    pricePerEdition += RateCalculator.Calculate(
                         publication.Editions.OrderBy(e => e.EditionDate).Last().BaseRateId,
                         booking.LineAd,
                         isOnlineAd: true);
@@ -98,7 +98,7 @@
 
         public void ProcessExtension()
         {
-            var extension = extensionManager.CreateExtension(View.AdBookingId,
+            var extension = ExtensionManager.CreateExtension(View.AdBookingId,
                     View.SelectedInsertionCount,
                     View.LoggedInUserName,
                     View.TotalPrice,
@@ -113,7 +113,7 @@
             else
             {
                 // Extend the booking details
-                extensionManager.Extend(extension);
+                ExtensionManager.Extend(extension);
                 View.NavigateToBookings(true);
             }
         }

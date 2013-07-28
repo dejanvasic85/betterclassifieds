@@ -212,10 +212,6 @@ LineAdTextBox
     font-size: 1em;
 }
 
-.formcontrol-container .pull-right {
-    float: right;
-}
-
 .formcontrol-container .error{
     padding: 5px;
     font-size: 0.9em;

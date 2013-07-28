@@ -12,11 +12,13 @@
     {
         AdBookingModel GetBooking(int id, bool withLineAd = false);
         List<BookEntryModel> GetBookEntriesForBooking(int adBookingId);
+        List<UserBookingModel> GetBookingsForUser(string username);
         int AddBookingExtension(AdBookingExtensionModel extension);
         AdBookingExtensionModel GetBookingExtension(int extensionId);
         void UpdateExtesion(int extensionId, int? status);
         void UpdateBooking(int adBookingId, DateTime? newEndDate = null, decimal? totalPrice = null);
         void AddBookEntries(BookEntryModel[] bookEntries);
+        void CancelAndExpireBooking(int adBookingId);
     }
 
     public class BookingRepository : IBookingRepository, IMappingBehaviour
@@ -48,6 +50,40 @@
             using (var context = BetterclassifiedsDataContext.NewContext())
             {
                 return this.MapList<BookEntry, BookEntryModel>(context.BookEntries.Where(entries => entries.AdBookingId == adBookingId).ToList());
+            }
+        }
+
+        public List<UserBookingModel> GetBookingsForUser(string username)
+        {
+            using (var context = BetterclassifiedsDataContext.NewContext())
+            {
+                IQueryable<AdBooking> bookings = context.AdBookings.Where(bk =>
+                    bk.UserId == username &&
+                    (BookingStatusType)bk.BookingStatus == BookingStatusType.Booked);
+
+                return bookings.Select(bk =>
+                    new UserBookingModel
+                    {
+                        AdBookingId = bk.AdBookingId,
+                        CategoryName = bk.MainCategory.Title,
+                        TotalPrice = bk.TotalPrice,
+                        BookingReference = bk.BookReference,
+                        StartDate = bk.StartDate.Value,
+                        EndDate = bk.EndDate.Value,
+
+                        AdTitle = bk.Ad.AdDesigns.Any(d => d.AdType.Code == AdTypeCode.ONLINE)
+                            ? bk.Ad.AdDesigns.First(d => d.AdType.Code == AdTypeCode.ONLINE).OnlineAds.First().Heading
+                            : bk.Ad.AdDesigns.First(d => d.AdType.Code == AdTypeCode.LINE).LineAds.First().AdHeader,
+
+                        OnlineImageId = bk.Ad.AdDesigns.Any(d=> d.AdType.Code == AdTypeCode.ONLINE && d.AdGraphics.Any()) 
+                            ? bk.Ad.AdDesigns.First(d=>d.AdType.Code == AdTypeCode.ONLINE).AdGraphics.First().DocumentID
+                            : string.Empty,
+                 
+                        LineAdImageId = bk.Ad.AdDesigns.Any(d => d.AdType.Code == AdTypeCode.LINE && d.AdGraphics.Any())
+                            ? bk.Ad.AdDesigns.First(d => d.AdType.Code == AdTypeCode.LINE).AdGraphics.First().DocumentID
+                            : string.Empty,
+                    }
+                ).ToList();
             }
         }
 
@@ -114,6 +150,17 @@
             }
         }
 
+        public void CancelAndExpireBooking(int adBookingId)
+        {
+            using (var context = BetterclassifiedsDataContext.NewContext())
+            {
+                var booking = context.AdBookings.First(bk => bk.AdBookingId == adBookingId);
+                booking.EndDate = DateTime.Today.AddDays(-1);
+                booking.BookingStatus = (int)BookingStatusType.Cancelled;
+                context.SubmitChanges();
+            }
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             // From data
@@ -131,5 +178,5 @@
         }
     }
 
-    
+
 }

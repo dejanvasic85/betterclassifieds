@@ -158,6 +158,7 @@
     <Compile Include="Controls\MultipleFileUpload.cs" />
     <Compile Include="Controls\SendMessageControl.cs" />
     <Compile Include="Models\AdBookingExtensionModel.cs" />
+    <Compile Include="Models\AdTypeCode.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\BookingStatusType.cs" />
     <Compile Include="Models\ExtensionStatus.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="Models\RateModel.cs" />
     <Compile Include="Presenters\ExtendBookingPresenter.cs" />
     <Compile Include="Presenters\ExtensionManager.cs" />
+    <Compile Include="Presenters\MyBookingsPresenter.cs" />
     <Compile Include="Presenters\RateCalculator.cs" />
     <Compile Include="Presenters\TransactionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -185,7 +187,10 @@
     <Compile Include="Models\PublicationModel.cs" />
     <Compile Include="Repository\IRateRepository.cs" />
     <Compile Include="Repository\IUserRepository.cs" />
+    <Compile Include="Models\UserBookingModel.cs" />
+    <Compile Include="Models\UserBookingViewType.cs" />
     <Compile Include="Views\IExtendBookingView.cs" />
+    <Compile Include="Views\IMyBookingsView.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ApplicationBlock\Configuration\ApplicationBlock.Configuration.csproj">

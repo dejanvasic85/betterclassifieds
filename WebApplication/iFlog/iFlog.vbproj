@@ -142,11 +142,14 @@
     <Content Include="App_Themes\iflog\images\upload_head_img.gif" />
     <Content Include="App_Themes\iflog\images\upload_head_img_b.gif" />
     <Content Include="App_Themes\Plain\plain.css" />
+    <Compile Include="Common\HttpExtensions.vb" />
     <Content Include="favicon.ico" />
     <Content Include="MemberAccount\AdManager.aspx" />
     <Content Include="MemberAccount\ExtendBooking.aspx" />
+    <Content Include="MemberAccount\MyBookings.aspx" />
     <Content Include="Resources\Images\date.png" />
     <Content Include="Resources\Images\extendcalendar.png" />
+    <Content Include="Resources\Images\noimage.gif" />
     <Content Include="Resources\Images\Packages\example_online.gif" />
     <Content Include="Resources\Images\Packages\example_online.jpg" />
     <Content Include="Resources\Images\Packages\example_premium.gif" />
@@ -532,6 +535,13 @@
     </Compile>
     <Compile Include="MemberAccount\Messages.aspx.vb">
       <DependentUpon>Messages.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MemberAccount\MyBookings.aspx.designer.vb">
+      <DependentUpon>MyBookings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MemberAccount\MyBookings.aspx.vb">
+      <DependentUpon>MyBookings.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="MemberAccount\Transactions.aspx.designer.vb">

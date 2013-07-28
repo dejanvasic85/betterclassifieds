@@ -4,7 +4,6 @@ Imports BetterclassifiedsCore.ParameterAccess
 Partial Public Class EditOnlineAd
     Inherits System.Web.UI.Page
 
-    Private _adDesignId As Integer
     Private _adBookingId As Integer
     Private _bookingReference As String
     Private _action As String
@@ -12,7 +11,7 @@ Partial Public Class EditOnlineAd
     Private _list As String
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        _adDesignId = Request.QueryString("dsId")
+
         _adBookingId = Request.QueryString("bkId")
         _action = Request.QueryString("act")
         _userId = Membership.GetUser().UserName
@@ -20,14 +19,15 @@ Partial Public Class EditOnlineAd
         lblUserMsg.Text = String.Empty
 
         If Not Page.IsPostBack Then
-            If General.SecurityCheckUserAdBooking(_userId, _adBookingId, _adDesignId) Then
+            Dim booking = BookingController.GetAdBookingById(_adBookingId)
+            Dim onlineAd = AdController.OnlineAdByBookingId(_adBookingId)
+
+            If General.SecurityCheckUserAdBooking(_userId, _adBookingId, onlineAd.AdDesignId) Then
 
                 General.ClearCurrentBookings()
 
                 ' get the required details for the online ad
-                Dim booking As DataModel.AdBooking = BookingController.GetAdBookingById(_adBookingId)
-                Dim onlineAd As DataModel.OnlineAd = AdController.GetOnlineAd(_adDesignId)
-                Dim images As List(Of String) = AdController.GetAdGraphicDocuments(_adDesignId)
+                Dim images As List(Of String) = AdController.GetAdGraphicDocuments(onlineAd.AdDesignId)
 
                 ' bind the online ad details.
                 ucxOnlineAd.BookingReference = _bookingReference
@@ -35,13 +35,13 @@ Partial Public Class EditOnlineAd
 
                 ' Set up the online upload parameters
                 UploadParameter.Clear()
-                UploadParameter.AdDesignId = _adDesignId
+                UploadParameter.AdDesignId = onlineAd.AdDesignId
                 UploadParameter.IsOnlineAdUpload = True
                 UploadParameter.BookingReference = booking.BookReference
                 radWindowImages.OpenerElementID = lnkOnlineImages.ClientID
 
                 ' Set up the Preview Window
-                radWindowPreview.NavigateUrl = String.Format("../OnlineAds/Preview.aspx?viewType=db&id={0}", _adDesignId)
+                radWindowPreview.NavigateUrl = String.Format("../OnlineAds/Preview.aspx?viewType=db&id={0}", onlineAd.AdDesignId)
                 radWindowPreview.OpenerElementID = lnkPreview.ClientID
 
                 ' Set the iFlog ID for user to see
@@ -57,7 +57,8 @@ Partial Public Class EditOnlineAd
         If ValidatePage() Then
             With ucxOnlineAd
                 ' Update the ad details - without images
-                AdController.UpdateOnlineAd(_adDesignId, .Heading, .Description, .HtmlText, .Price, .LocationId, .LocationArea, .ContactName, .ContactType, .ContactValue)
+                Dim onlineAd = AdController.OnlineAdByBookingId(_adBookingId)
+                AdController.UpdateOnlineAd(onlineAd.AdDesignId, .Heading, .Description, .HtmlText, .Price, .LocationId, .LocationArea, .ContactName, .ContactType, .ContactValue)
                 lblUserMsg.Text = "Online Ad Details have been updated successfully."
                 pnlSuccess.Visible = True
             End With

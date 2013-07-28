@@ -10,7 +10,7 @@
     <%-- favicon setup --%>
     <link id="Link3" runat="server" rel="shortcut icon" href="~/favicon.ico" type="image/x-icon" />
     <link id="Link4" runat="server" rel="icon" href="~/favicon.ico" type="image/ico" />
-
+    
     <asp:ContentPlaceHolder ID="head" runat="server" />
     <title>themusic.com.au classies - Australia's # 1 print and online classifieds network – currently free!!!</title>
     <meta name="description" content="themusic.com.au - Australia's # 1 print and online classifieds network – currently free!!!" />
@@ -39,9 +39,6 @@
 	        googletag.enableServices();
 	    });
 	</script>
-    <style>
-        
-    </style>
 </head>
 <body class="customBackground">
     <form id="form1" runat="server">

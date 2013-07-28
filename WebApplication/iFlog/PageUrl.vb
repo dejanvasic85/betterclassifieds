@@ -8,11 +8,26 @@
     Public Const SearchSubCategoryResults As String = "~/OnlineAds/Default.aspx"
 
     ' item view
-    Public Shared ReadOnly Property AdViewItem(ByVal id As String, Optional ByVal preview As Boolean = False, Optional ByVal typeOfId As String = "bkId")
-        Get
-            Return String.Format("~/OnlineAds/AdView.aspx?id={0}&preview={1}&type={2}", id, preview, typeOfId)
-        End Get
-    End Property
+    Public Shared Function AdViewItem(ByVal id As String, Optional ByVal preview As Boolean = False, Optional ByVal typeOfId As String = "bkId")
+        Return String.Format("~/OnlineAds/AdView.aspx?id={0}&preview={1}&type={2}", id, preview, typeOfId)
+    End Function
+
+    ' Account
+    Public Shared Function ExtendBooking(ByVal adBookingId As Integer)
+        Return String.Format("~/MemberAccount/ExtendBooking.aspx?AdBookingId={0}", adBookingId)
+    End Function
+
+    Public Shared Function ViewInvoice(ByVal reference As String)
+        Return String.Format("~/MemberAccount/ViewTransaction.aspx?ref={0}", reference)
+    End Function
+
+    Public Shared Function EditLineAd(ByVal adBookingId As Integer)
+        Return String.Format("~/MemberAccount/EditLineAd.aspx?bkId={0}", adBookingId)
+    End Function
+
+    Public Shared Function EditOnlineAd(ByVal adBookingId As Integer)
+        Return String.Format("~/MemberAccount/EditOnlineAd.aspx?bkId={0}", adBookingId)
+    End Function
 
     ' booking steps
     Public Const BookingStep_1 As String = "~/Booking/Step1.aspx"

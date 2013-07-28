@@ -1909,6 +1909,21 @@ bookAdMainContent
     width: 180px;
 }
 
+.accountRow
+{
+    display: block;
+    padding: 10px;
+    clear: both;
+    font-size: 0.8em;
+}
+
+    .accountRow .adLabel label
+    {
+        width: 16%;
+        display: inline-block;
+        font-weight: bold;
+    }
+
 #myAccountTableButtonsAll ul
 {
     margin: 0px;
@@ -3756,3 +3771,346 @@ bookAdMainContent
         }
 
 /* End of skins for google ads*/
+
+/* Bootstrap nav */
+.nav
+{
+    padding-left: 0;
+    list-style: none;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+    .nav:before, .nav:after
+    {
+        display: table;
+        content: " ";
+    }
+
+.nav-after
+{
+    clear: both;
+}
+
+.nav > li
+{
+    position: relative;
+    display: block;
+}
+
+    .nav > li > a
+    {
+        text-decoration: none;
+        position: relative;
+        display: block;
+        padding: 10px 15px;
+        color: #428bca;
+    }
+
+        .nav > li > a:hover, .nav > li > a:focus
+        {
+            text-decoration: none;
+            background-color: #eee;
+        }
+
+.nav-pills > li
+{
+    float: left;
+}
+
+    .nav-pills > li.active > a, .nav-pills > li.active > a:hover
+    {
+        color: #fff;
+        background-color: #428bca;
+    }
+
+    .nav-pills > li > a
+    {
+        border-radius: 5px;
+    }
+/* End of nav */
+
+/* Bootstrap table */
+.table
+{
+    width: 100%;
+    background-color: transparent;
+    border-collapse: collapse;
+    display: table;
+    border-color: gray;
+}
+
+    .table thead > tr > th
+    {
+        vertical-align: bottom;
+        padding: 8px;
+    }
+
+    .table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td
+    {
+        padding: 8px;
+        line-height: 1.428571429;
+        vertical-align: top;
+        border-top: 1px solid #dddddd;
+    }
+
+    .table th
+    {
+        text-align: left;
+    }
+
+    .table > tbody > tr.success > td
+    {
+        background-color: #dff0d8;
+        border-color: #d6e9c6;
+    }
+
+    .table > tbody > tr.danger > td
+    {
+        background-color: #f2dede;
+        border-color: #eed3d7;
+    }
+
+    .table > tbody > tr.warning > td
+    {
+        background-color: #fcf8e3;
+        border-color: #fbeed5;
+    }
+
+    .table > tbody > tr.active > td
+    {
+        background-color: #f5f5f5;
+    }
+
+/* End of bootstrap table */
+
+/* Bootstrap thumbnail */
+
+.thumbnail
+{
+    padding: 4px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out;
+}
+
+/* End of Bootstrap thumbnail*/
+
+/* Bootstrap btnGroup */
+.btn
+{
+    display: inline-block;
+    padding: 8px 12px;
+    margin-bottom: 0;
+    font-weight: 500;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.btn-default
+{
+    color: #ffffff;
+    background-color: #474949;
+    border-color: #474949;
+}
+
+.btn-primary
+{
+    color: #ffffff;
+    background-color: #0044cc;
+}
+
+.btn-small
+{
+}
+
+.btn:hover, .btn:focus
+{
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active
+{
+    background-color: #3a3c3c;
+    border-color: #2e2f2f;
+}
+
+
+.btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle)
+{
+    border-radius: 0;
+}
+
+.btn-group > .btn:first-child
+{
+    margin-left: 0;
+}
+
+    .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle)
+    {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+.btn-group > .btn:last-child:not(:first-child),
+.btn-group > .dropdown-toggle:not(:first-child)
+{
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+
+.btn-group > .btn-group
+{
+    float: left;
+}
+
+    .btn-group > .btn-group:not(:first-child):not(:last-child) > .btn
+    {
+        border-radius: 0;
+    }
+
+    .btn-group > .btn-group:first-child > .btn:last-child,
+    .btn-group > .btn-group:first-child > .dropdown-toggle
+    {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .btn-group > .btn-group:last-child > .btn:first-child
+    {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+    }
+
+.btn-group .dropdown-toggle:active,
+.btn-group.open .dropdown-toggle
+{
+    outline: 0;
+}
+
+.btn-group > .btn + .dropdown-toggle
+{
+    padding-right: 8px;
+    padding-left: 8px;
+}
+
+.btn-group > .btn-large + .dropdown-toggle
+{
+    padding-right: 12px;
+    padding-left: 12px;
+}
+
+.btn-group .btn + .btn
+{
+    margin-left: -4px;
+}
+
+/* End Bootstrap btnGroup */
+
+.pull-right
+{
+    float: right;
+}
+
+
+.alert
+{
+    padding: 8px 35px 8px 14px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    background-color: #fcf8e3;
+    border: 1px solid #fbeed5;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+    .alert,
+    .alert h4
+    {
+        color: #c09853;
+    }
+
+        .alert h4
+        {
+            margin: 0;
+        }
+
+        .alert .close
+        {
+            position: relative;
+            top: -2px;
+            right: -21px;
+            line-height: 20px;
+        }
+
+.alert-success
+{
+    color: #468847;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+    .alert-success h4
+    {
+        color: #468847;
+    }
+
+.alert-cancelConfirmation
+{
+    background-color: #fff;
+    border-color: #ddd;
+}
+
+
+.alert-danger,
+.alert-error
+{
+    color: #b94a48;
+    background-color: #f2dede;
+    border-color: #eed3d7;
+}
+
+    .alert-danger h4,
+    .alert-error h4
+    {
+        color: #b94a48;
+    }
+
+.alert-info
+{
+    color: #3a87ad;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+
+    .alert-info h4
+    {
+        color: #3a87ad;
+    }
+
+.alert-block
+{
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+    .alert-block > p,
+    .alert-block > ul
+    {
+        margin-bottom: 0;
+    }
+
+    .alert-block p + p
+    {
+        margin-top: 5px;
+    }
+

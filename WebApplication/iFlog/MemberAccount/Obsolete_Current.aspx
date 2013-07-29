@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="My Current Ads" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MemberDetails.master"
-    CodeBehind="Current.aspx.vb" Inherits="BetterclassifiedsWeb.Current" %>
+    CodeBehind="Obsolete_Current.aspx.vb" Inherits="BetterclassifiedsWeb.Obsolete_Current" %>
 
 <%@ Register Src="~/MemberAccount/MemberHeading.ascx" TagName="MemberHeading" TagPrefix="ucx" %>
 

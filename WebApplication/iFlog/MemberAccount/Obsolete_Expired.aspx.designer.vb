@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class UpComing
+Partial Public Class Obsolete_Expired
 
     '''<summary>
     '''ucxHeading control.
@@ -21,6 +21,15 @@ Partial Public Class UpComing
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ucxHeading As Global.BetterclassifiedsWeb.MemberHeading
+
+    '''<summary>
+    '''lblMonths control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblMonths As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''grdOnline control.

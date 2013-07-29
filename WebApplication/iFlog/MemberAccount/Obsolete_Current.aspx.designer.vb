@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class Current
+Partial Public Class Obsolete_Current
 
     '''<summary>
     '''ucxHeading control.

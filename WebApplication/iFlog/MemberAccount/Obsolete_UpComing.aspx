@@ -1,4 +1,6 @@
-﻿<%@ Page Title="My Up Coming Ads" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MemberDetails.master" CodeBehind="UpComing.aspx.vb" Inherits="BetterclassifiedsWeb.UpComing" %>
+﻿<%@ Page Title="My Up Coming Ads" Language="vb" AutoEventWireup="false" 
+    MasterPageFile="~/Master/MemberDetails.master" CodeBehind="Obsolete_UpComing.aspx.vb" 
+    Inherits="BetterclassifiedsWeb.Obsolete_UpComing" %>
 
 <%@ Register Src="~/MemberAccount/MemberHeading.ascx" TagName="MemberHeading" TagPrefix="ucx" %>
 

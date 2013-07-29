@@ -26,22 +26,6 @@
                             <asp:HyperLink ID="HyperLink8" runat="server" NavigateUrl="~/MemberAccount/Bookings.aspx">BOOKINGS</asp:HyperLink></div>
                     </li>
                     <li>
-                        <div class="sidebarMenu03">
-                            <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/MemberAccount/Current.aspx">CURRENT ADS</asp:HyperLink></div>
-                    </li>
-                    <li>
-                        <div class="sidebarMenu02">
-                            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/MemberAccount/UpComing.aspx">UP-COMING ADS</asp:HyperLink></div>
-                    </li>
-                    <li>
-                        <div class="sidebarMenu04">
-                            <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/MemberAccount/Expired.aspx">EXPIRED ADS</asp:HyperLink></div>
-                    </li>
-                    <li>
-                        <div class="sidebarMenu05">
-                            <asp:HyperLink ID="HyperLink6" runat="server" NavigateUrl="~/MemberAccount/Transactions.aspx">TRANSACTIONS</asp:HyperLink></div>
-                    </li>
-                    <li>
                         <div class="sidebarMenu05">
                             <asp:HyperLink ID="HyperLink5" runat="server" NavigateUrl="~/MemberAccount/ChangePassword.aspx">CHANGE PASSWORD</asp:HyperLink></div>
                     </li>

@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class Expired
+Partial Public Class Obsolete_Transactions
 
     '''<summary>
     '''ucxHeading control.
@@ -32,29 +32,11 @@ Partial Public Class Expired
     Protected WithEvents lblMonths As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''grdOnline control.
+    '''grdTransactions control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents grdOnline As Global.System.Web.UI.WebControls.GridView
-
-    '''<summary>
-    '''grdPrintAds control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents grdPrintAds As Global.System.Web.UI.WebControls.GridView
-
-    '''<summary>
-    '''RadWindowManager1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents RadWindowManager1 As Global.Telerik.Web.UI.RadWindowManager
+    Protected WithEvents grdTransactions As Global.System.Web.UI.WebControls.GridView
 End Class

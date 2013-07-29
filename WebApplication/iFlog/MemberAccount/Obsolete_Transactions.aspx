@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Classies User Transactions" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MemberDetails.master"
-    CodeBehind="Transactions.aspx.vb" Inherits="BetterclassifiedsWeb.Transactions" %>
+    CodeBehind="Obsolete_Transactions.aspx.vb" Inherits="BetterclassifiedsWeb.Obsolete_Transactions" %>
 
 <%@ Register Src="~/MemberAccount/MemberHeading.ascx" TagName="MemberHeading" TagPrefix="ucx" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="memberHeadContent" runat="server">

@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="My Expired Ads" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MemberDetails.master"
-    CodeBehind="Expired.aspx.vb" Inherits="BetterclassifiedsWeb.Expired" %>
+    CodeBehind="Obsolete_Expired.aspx.vb" Inherits="BetterclassifiedsWeb.Obsolete_Expired" %>
 
 <%@ Register Src="~/MemberAccount/MemberHeading.ascx" TagName="MemberHeading" TagPrefix="ucx" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="memberHeadContent" runat="server">

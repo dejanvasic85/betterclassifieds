@@ -1,6 +1,6 @@
 ﻿Imports BetterclassifiedsCore
 
-Partial Public Class Transactions
+Partial Public Class Obsolete_Transactions
     Inherits System.Web.UI.Page
 
     Private _months As Integer

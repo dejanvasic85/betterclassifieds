@@ -66,6 +66,10 @@
                             <asp:Literal runat="server" ID="lblCategory" Text='<%# Eval("CategoryName")%>'></asp:Literal>
                         </div>
                         <div class="adLabel">
+                            <label>Starting</label>
+                            <asp:Literal runat="server" ID="Literal2" Text='<%# string.Format("{0:dd-MMM-yyyy}", Eval("StartDate"))%>'></asp:Literal>
+                        </div>
+                        <div class="adLabel">
                             <label>Ending</label>
                             <asp:Literal runat="server" ID="Literal1" Text='<%# string.Format("{0:dd-MMM-yyyy}", Eval("EndDate"))%>'></asp:Literal>
                         </div>

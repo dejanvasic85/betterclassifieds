@@ -49,7 +49,7 @@ namespace BetterClassified.UI.Presenters
                 .ToList();
 
             if (viewType == UserBookingViewType.Current)
-                bookings = bookings.Where(bk => bk.EndDate > DateTime.Today).ToList();
+                bookings = bookings.Where(bk => bk.EndDate > DateTime.Today && bk.StartDate <= DateTime.Today).ToList();
 
             if (viewType == UserBookingViewType.Expired)
                 bookings = bookings.Where(bk => bk.EndDate < DateTime.Today).ToList();

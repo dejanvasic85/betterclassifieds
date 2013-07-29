@@ -1,7 +1,7 @@
 ﻿Imports BetterclassifiedsCore
 Imports BetterclassifiedsWeb.Controls.Booking.ExpiredAds
 
-Partial Public Class Expired
+Partial Public Class Obsolete_Expired
     Inherits System.Web.UI.Page
 
     Private _userId As String

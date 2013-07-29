@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class AdManager
+Partial Public Class Obsolete_UpComing
 
     '''<summary>
     '''ucxHeading control.
@@ -23,13 +23,22 @@ Partial Public Class AdManager
     Protected WithEvents ucxHeading As Global.BetterclassifiedsWeb.MemberHeading
 
     '''<summary>
-    '''grdBookings control.
+    '''grdOnline control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents grdBookings As Global.Telerik.Web.UI.RadGrid
+    Protected WithEvents grdOnline As Global.System.Web.UI.WebControls.GridView
+
+    '''<summary>
+    '''grdPrintAds control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents grdPrintAds As Global.System.Web.UI.WebControls.GridView
 
     '''<summary>
     '''RadWindowManager1 control.

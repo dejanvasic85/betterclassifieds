@@ -117,6 +117,11 @@ Module General
         HttpContext.Current.Response.Redirect(redirectionPage)
     End Sub
 
+    Public Sub StartBundleBookingStep2(ByVal adBookingId As Integer)
+        Dim designId = AdController.GetOnlineAdByAdBooking(adBookingId).AdDesignId
+        StartBundleBookingStep2(designId, SystemAdType.ONLINE)
+    End Sub
+
     Public Sub StartBundleBookingStep2(ByVal AdDesignId As Integer, ByVal type As SystemAdType)
         ' starts a new bundle booking with existing ad details
         BookingController.ClearAdBooking()

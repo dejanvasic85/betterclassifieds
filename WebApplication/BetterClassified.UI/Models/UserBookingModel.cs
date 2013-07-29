@@ -18,7 +18,7 @@ namespace BetterClassified.UI.Models
         
         public bool AboutToExpire
         {
-            get { return EndDate.AddDays(-ExpiringAdDaysBeforeToday) < DateTime.Today; }
+            get { return EndDate.AddDays(-ExpiringAdDaysBeforeToday) < DateTime.Today && EndDate > DateTime.Today; }
         }
 
         public bool Expired

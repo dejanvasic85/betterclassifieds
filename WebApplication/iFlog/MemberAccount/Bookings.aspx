@@ -1,56 +1,120 @@
-﻿<%@ Page Title="My Classies" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/MemberDetails.master"
-    CodeBehind="Bookings.aspx.vb" Inherits="BetterclassifiedsWeb.Bookings" %>
+﻿<%@ Page Title="My Bookings" Language="vb" AutoEventWireup="false" ClientIDMode="Predictable" CodeBehind="Bookings.aspx.vb" Inherits="BetterclassifiedsWeb.Bookings" MasterPageFile="~/Master/MemberDetails.master" %>
 
 <%@ Register Src="~/MemberAccount/MemberHeading.ascx" TagName="MemberHeading" TagPrefix="ucx" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="memberHeadContent" runat="server">
-</asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="memberContentMain" runat="server">
 
-    <ucx:MemberHeading ID="ucxHeading" runat="server" HeadingText="My Active Bookings" />
+    <%--Heading--%>
+    <ucx:MemberHeading ID="ucxHeading" runat="server" HeadingText="My Bookings" />
 
-    <div id="mainContentMyAccount">
-        
-        <div id="bookAdMainContent">
-            <div class="div-sucess" id="successMessage" runat="server" Visible="False">
-                Booking extension has been processed successfully.
-            </div>
-            <div class="div-warning" id="highlightWarning" runat="server" visible="False" >
-                Note: The highlighted bookings are expiring this week. You may start extending your ads by clicking on the calendar icon on the desired booking.
-            </div>
-        </div>
+    <%--User Alert--%>
+    <div class="accountRow">
+        <asp:Panel runat="server" ID="pnlBookingsAboutToExpireAlert" Visible="False" CssClass="alert alert-warning">
+            <strong>Note:</strong> There are bookings that are about to expire. Click extend now!
+        </asp:Panel>
+        <asp:Panel runat="server" ID="pnlBookingCancelledAlert" Visible="False" CssClass="alert alert-success">
+            The requested Ad has been cancelled successfully.
+        </asp:Panel>
 
-        <br />
-        <br />
-
-        <div class="UserListPanel">
-            <asp:GridView ID="grdBookings" runat="server" Width="740" AutoGenerateColumns="false"
-                EmptyDataText="You have no active bookings." CellPadding="0"
-                GridLines="Horizontal" AllowSorting="false" EnableViewState="true">
-                <HeaderStyle CssClass="myAccountTableItemHead" />
-                <RowStyle Height="28" />
-                <Columns>
-                    <asp:BoundField HeaderText="Ref No" DataField="BookReference" ItemStyle-CssClass="myAccountTableItemBody" />
-                    <asp:BoundField HeaderText="Start Date" DataField="StartDate" DataFormatString="{0:dd-MMM-yyyy}" ItemStyle-CssClass="myAccountTableItemBody" />
-                    <asp:BoundField HeaderText="End Date" DataField="EndDate" DataFormatString="{0:dd-MMM-yyyy}" ItemStyle-CssClass="myAccountTableItemBody" />
-                    <asp:BoundField HeaderText="Category" DataField="Title" ItemStyle-CssClass="myAccountTableItemBody" />
-                    <asp:BoundField HeaderText="Price" DataField="TotalPrice" DataFormatString="{0:c}" ItemStyle-CssClass="myAccountTableItemBody" />
-                    <asp:BoundField HeaderText="Ads" DataField="NumOfAds" ItemStyle-CssClass="myAccountTableItemBody" />
-                    <asp:TemplateField HeaderText="Extend">
-                        <ItemStyle HorizontalAlign="Center"></ItemStyle>
-                        <ItemTemplate>
-                            <asp:HyperLink runat="server" ID="lnkToExtensions" ToolTip="Extend Booking" NavigateUrl='<%# DataBinder.Eval(Container.DataItem, "AdBookingId", "~/MemberAccount/ExtendBooking.aspx?AdBookingId={0}") %>' ImageUrl="~/Resources/Images/date.png" Width="24" Height="24" />
-                        </ItemTemplate>
-                    </asp:TemplateField>
-
-                    <asp:TemplateField>
-                        <ItemTemplate>
-                            <asp:ImageButton runat="server" CommandName="CancelBooking" ToolTip="Cancel Booking" CommandArgument='<%# Eval("AdBookingId")%>' ImageUrl="~/Resources/Images/Trash.png" OnClientClick="return confirm('Both online and line ads will be cancelled for the selected booking from iFlog. Do you wish to continue?');" Width="24" Height="24" />
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    
-                </Columns>
-            </asp:GridView>
-        </div>
+        <asp:Panel runat="server" ID="pnlExtensionComplete" CssClass="alert alert-success" Visible="False">
+            Booking extension has been processed successfully.
+        </asp:Panel>
     </div>
+
+
+    <%--Menu--%>
+    <div class="accountRow" id="menu" runat="server">
+        <ul class="nav nav-pills">
+            <li>
+                <asp:LinkButton runat="server" ID="lnkViewAll" Text="All"></asp:LinkButton></li>
+            <li class="active">
+                <asp:LinkButton runat="server" ID="lnkViewCurrent" Text="Current" CssClass="active"></asp:LinkButton></li>
+            <li>
+                <asp:LinkButton runat="server" ID="lnkViewScheduled" Text="Coming Soon"></asp:LinkButton></li>
+            <li>
+                <asp:LinkButton runat="server" ID="lnkViewExpired" Text="Expired"></asp:LinkButton></li>
+        </ul>
+    </div>
+
+
+    <%--Bookings--%>
+    <div class="accountRow">
+        <asp:ListView runat="server" ID="lstBookings" ClientIDMode="AutoID">
+            <LayoutTemplate>
+                <table class="table" runat="server" id="tblBookings">
+                    <tbody>
+                        <tr runat="server" id="itemPlaceholder"></tr>
+                    </tbody>
+                </table>
+            </LayoutTemplate>
+            <ItemTemplate>
+                <tr runat="server" id="row">
+                    <td style="width: 20%">
+                        <asp:Image runat="server" ID="adImage" CssClass="thumbnail" />
+                    </td>
+                    <td style="width: 80%">
+                        <div class="adLabel">
+                            <label>Ad ID</label>
+                            <asp:Literal runat="server" ID="lblAdBookingId" Text='<%#Eval("AdBookingId") %>'></asp:Literal>
+                        </div>
+                        <div class="adLabel">
+                            <label>Title</label>
+                            <asp:Literal runat="server" ID="lblTitle" Text='<%#Eval("AdTitle")%>'></asp:Literal>
+                        </div>
+                        <div class="adLabel">
+                            <label>Category</label>
+                            <asp:Literal runat="server" ID="lblCategory" Text='<%# Eval("CategoryName")%>'></asp:Literal>
+                        </div>
+                        <div class="adLabel">
+                            <label>Ending</label>
+                            <asp:Literal runat="server" ID="Literal1" Text='<%# string.Format("{0:dd-MMM-yyyy}", Eval("EndDate"))%>'></asp:Literal>
+                        </div>
+                        <div class="btn-group pull-right" style="padding-top: 10px;">
+                            <asp:HyperLink runat="server" ID="lnkExtend" Text="Extend" CssClass="btn btn-default" />
+                            <asp:HyperLink runat="server" ID="lnkCancel" Text="Cancel" CssClass="btn btn-default cancelBooking" />
+                            <asp:HyperLink runat="server" ID="lnkViewInvoice" Text="Invoice" CssClass="btn btn-default" Target="Blank" />
+                            <asp:LinkButton runat="server" ID="lnkBookAgain" Text="Book Again" CssClass="btn btn-default" Visible="False" CommandArgument='<%# Eval("AdBookingId")%>' CommandName="BookAgain"/>
+                            <asp:HyperLink runat="server" ID="lnkEditOnlineAd" Text="Edit Online Ad" CssClass="btn btn-default" />
+                            <asp:HyperLink runat="server" ID="lnkEditLineAd" Text="Edit Print Ad" CssClass="btn btn-default" />
+                        </div>
+                        <div class="alert alert-cancelConfirmation pull-right">
+                            <label>
+                                This will remove your entire booking.
+                                Are you sure you want to continue?
+                            </label>
+
+                            <asp:LinkButton runat="server" ID="lnkConfirmCancellation" CommandArgument='<%# Eval("AdBookingId") %>'
+                                CommandName="CancelBooking" CssClass="btn btn-default" Text="Yes"></asp:LinkButton>
+                            <a class="btn btn-default dismiss">No</a>
+                        </div>
+                    </td>
+                </tr>
+            </ItemTemplate>
+        </asp:ListView>
+    </div>
+</asp:Content>
+<asp:Content runat="server" ContentPlaceHolderID="memberPageScripts">
+    <script type="text/javascript">
+        $().ready(function () {
+
+            $('.alert-cancelConfirmation').closest('tr').find('.alert').hide();
+
+            $('.cancelBooking').on('click', function () {
+                $(this).closest('tr').find('.alert-cancelConfirmation').slideToggle();
+            });
+
+            $('.dismiss').on('click', function () {
+                $(this).parent().slideToggle();
+            });
+
+            $('.nav-pills').find('a').each(function () {
+                if ($(this).hasClass('active')) {
+                    $(this).closest('li').attr('class', 'active');
+                    
+                } else {
+                    $(this).closest('li').removeClass('active');
+                }
+            });
+        });
+    </script>
 </asp:Content>

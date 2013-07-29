@@ -23,29 +23,83 @@ Partial Public Class Bookings
     Protected WithEvents ucxHeading As Global.BetterclassifiedsWeb.MemberHeading
 
     '''<summary>
-    '''successMessage control.
+    '''pnlBookingsAboutToExpireAlert control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents successMessage As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    Protected WithEvents pnlBookingsAboutToExpireAlert As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
-    '''highlightWarning control.
+    '''pnlBookingCancelledAlert control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents highlightWarning As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    Protected WithEvents pnlBookingCancelledAlert As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
-    '''grdBookings control.
+    '''pnlExtensionComplete control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents grdBookings As Global.System.Web.UI.WebControls.GridView
+    Protected WithEvents pnlExtensionComplete As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''menu control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents menu As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''lnkViewAll control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lnkViewAll As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
+    '''lnkViewCurrent control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lnkViewCurrent As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
+    '''lnkViewScheduled control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lnkViewScheduled As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
+    '''lnkViewExpired control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lnkViewExpired As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
+    '''lstBookings control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lstBookings As Global.System.Web.UI.WebControls.ListView
 End Class

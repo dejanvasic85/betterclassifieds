@@ -146,7 +146,7 @@
     <Content Include="favicon.ico" />
     <Content Include="MemberAccount\AdManager.aspx" />
     <Content Include="MemberAccount\ExtendBooking.aspx" />
-    <Content Include="MemberAccount\MyBookings.aspx" />
+    <Content Include="MemberAccount\Bookings.aspx" />
     <Content Include="Resources\Images\date.png" />
     <Content Include="Resources\Images\extendcalendar.png" />
     <Content Include="Resources\Images\noimage.gif" />
@@ -488,11 +488,11 @@
       <DependentUpon>AdManager.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MemberAccount\Bookings.aspx.designer.vb">
-      <DependentUpon>Bookings.aspx</DependentUpon>
+    <Compile Include="MemberAccount\Obsolete_Bookings.aspx.designer.vb">
+      <DependentUpon>Obsolete_Bookings.aspx</DependentUpon>
     </Compile>
-    <Compile Include="MemberAccount\Bookings.aspx.vb">
-      <DependentUpon>Bookings.aspx</DependentUpon>
+    <Compile Include="MemberAccount\Obsolete_Bookings.aspx.vb">
+      <DependentUpon>Obsolete_Bookings.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="MemberAccount\Current.aspx.designer.vb">
@@ -537,11 +537,11 @@
       <DependentUpon>Messages.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MemberAccount\MyBookings.aspx.designer.vb">
-      <DependentUpon>MyBookings.aspx</DependentUpon>
+    <Compile Include="MemberAccount\Bookings.aspx.designer.vb">
+      <DependentUpon>Bookings.aspx</DependentUpon>
     </Compile>
-    <Compile Include="MemberAccount\MyBookings.aspx.vb">
-      <DependentUpon>MyBookings.aspx</DependentUpon>
+    <Compile Include="MemberAccount\Bookings.aspx.vb">
+      <DependentUpon>Bookings.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="MemberAccount\Transactions.aspx.designer.vb">
@@ -882,7 +882,7 @@
     <Content Include="Help\Contact.aspx" />
     <Content Include="Help\PrivacyPolicy.aspx" />
     <Content Include="Help\RefundPolicy.aspx" />
-    <Content Include="MemberAccount\Bookings.aspx" />
+    <Content Include="MemberAccount\Obsolete_Bookings.aspx" />
     <Content Include="MemberAccount\Current.aspx" />
     <Content Include="MemberAccount\EditLineAd.aspx" />
     <Content Include="MemberAccount\Expired.aspx" />

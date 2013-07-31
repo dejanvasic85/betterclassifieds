@@ -37,8 +37,11 @@ namespace BetterClassified.UI
         private readonly ValidationSummary _validationSummary;
 
         private readonly Panel _commandPanel;
-        private readonly Button _buttonCancel;
-        private readonly Button _buttonSubmit;
+        private readonly LinkButton _buttonCancel;
+        private readonly LinkButton _buttonSubmit;
+        private readonly LinkButton _buttonViewImages;
+
+        public event EventHandler Submit;
 
         #endregion
 
@@ -108,26 +111,22 @@ namespace BetterClassified.UI
             };
             _colourBackgroundPicker = new LineAdColourPicker();
 
-            _commandPanel = new Panel { CssClass = "editLineAd-commandPanel" };
-            _buttonCancel = new Button
+            _commandPanel = new Panel { CssClass = "btn-group pull-right" };
+            _buttonCancel = new LinkButton
             {
                 Text = GetResource(EntityGroup.Betterclassified, ContentItem.EditLineAdControl, "Cancel.Button"),
-                CssClass = "editLineAd-button"
+                CssClass = "btn btn-warning"
             };
-            _buttonCancel.Click += ButtonCancelClick;
-            _buttonSubmit = new Button
+            
+            _buttonSubmit = new LinkButton
             {
-                Text = GetResource(EntityGroup.Betterclassified, ContentItem.EditLineAdControl, "Update.Button"),
-                CssClass = "editLineAd-button"
+                Text = "Save Changes",
+                CssClass = "btn btn-default"
             };
             _buttonSubmit.Click += ButtonSubmitClick;
+            _buttonViewImages = new LinkButton {Text = "Manage Images", CssClass = "btn btn-default", ID = "ViewImages"};
 
             _genericMessagePanel = new GenericMessagePanel();
-        }
-
-        void ButtonCancelClick(object sender, EventArgs e)
-        {
-            InvokeCancelEvent();
         }
 
         void ServerValidatorServerValidate(object source, ServerValidateEventArgs args)
@@ -168,14 +167,6 @@ namespace BetterClassified.UI
             set { _buttonCancel.Visible = value; }
         }
         public string QueryParamName { get; set; }
-        public event EventHandler CancelEvent;
-
-        private void InvokeCancelEvent()
-        {
-            EventHandler handler = CancelEvent;
-            if (handler != null) handler(this, new EventArgs());
-        }
-
         private int? LineAdId
         {
             get
@@ -213,6 +204,21 @@ namespace BetterClassified.UI
             get { return Convert.ToInt32(ViewState["originalWordCount"]); }
             set { ViewState["originalWordCount"] = value; }
         }
+        public string CancelNavigateUrl
+        {
+            get { return _buttonCancel.PostBackUrl; }
+            set { _buttonCancel.PostBackUrl = value; }
+        }
+        public bool ManageImageButtonVisible
+        {
+            get { return _buttonViewImages.Visible; }
+            set { _buttonViewImages.Visible = value; }
+        }
+        
+        public string GetManageImagesButtonClientID()
+        {
+            return _buttonViewImages.ClientID;
+        }
 
         protected override void CreateChildControls()
         {
@@ -240,6 +246,7 @@ namespace BetterClassified.UI
             _paddedPanelContainer.Controls.Add(_colourBackgroundPanel);
 
             _commandPanel.Controls.Add(_buttonCancel);
+            _commandPanel.Controls.Add(_buttonViewImages);
             _commandPanel.Controls.Add(_buttonSubmit);
 
             Controls.Add(_genericMessagePanel);
@@ -319,13 +326,17 @@ namespace BetterClassified.UI
                                 _colourHeadingPicker.SelectedHtmlColour, _colourBorderPicker.SelectedHtmlColour, _colourBackgroundPicker.SelectedHtmlColour);
 
 
-                _genericMessagePanel.MessageText = GetResource(EntityGroup.Betterclassified, ContentItem.EditLineAdControl,
-                                                               "UpdateSuccess.Text");
-                _genericMessagePanel.MessageType = MessagePanelType.Success;
-                _genericMessagePanel.Visible = true;
+                //_genericMessagePanel.MessageText = "Details have been updated successfully.";
+                //_genericMessagePanel.MessageType = MessagePanelType.Success;
+                //_genericMessagePanel.Visible = true;
+            }
+
+            EventHandler handler = Submit;
+            if (handler != null)
+            {
+                handler(this, new EventArgs());
             }
         }
-
     }
 
     public enum LineAdEditParamType

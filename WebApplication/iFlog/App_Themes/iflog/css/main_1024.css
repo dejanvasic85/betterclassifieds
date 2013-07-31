@@ -3897,12 +3897,13 @@ bookAdMainContent
 
 /* End of Bootstrap thumbnail*/
 
-/* Bootstrap btnGroup */
+/* Bootstrap buttons */
 .btn
 {
     display: inline-block;
     padding: 8px 12px;
     margin-bottom: 0;
+    font-size: 12px;
     font-weight: 500;
     line-height: 1.428571429;
     text-align: center;
@@ -3927,15 +3928,77 @@ bookAdMainContent
     background-color: #0044cc;
 }
 
-.btn-small
-{
-}
-
 .btn:hover, .btn:focus
 {
     color: #ffffff;
     text-decoration: none;
 }
+
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active
+{
+    background-color: #357ebd;
+    border-color: #3071a9;
+}
+
+.btn-primary.disabled,
+.btn-primary[disabled],
+fieldset[disabled] .btn-primary,
+.btn-primary.disabled:hover,
+.btn-primary[disabled]:hover,
+fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus,
+.btn-primary[disabled]:focus,
+fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled:active,
+.btn-primary[disabled]:active,
+fieldset[disabled] .btn-primary:active,
+.btn-primary.disabled.active,
+.btn-primary[disabled].active,
+fieldset[disabled] .btn-primary.active
+{
+    background-color: #428bca;
+    border-color: #428bca;
+}
+
+.btn-warning
+{
+    color: #ffffff;
+    background-color: #f0ad4e;
+    border-color: #f0ad4e;
+}
+
+    .btn-warning:hover,
+    .btn-warning:focus,
+    .btn-warning:active,
+    .btn-warning.active
+    {
+        background-color: #eea236;
+        border-color: #ec971f;
+    }
+
+    .btn-warning.disabled,
+    .btn-warning[disabled],
+    fieldset[disabled] .btn-warning,
+    .btn-warning.disabled:hover,
+    .btn-warning[disabled]:hover,
+    fieldset[disabled] .btn-warning:hover,
+    .btn-warning.disabled:focus,
+    .btn-warning[disabled]:focus,
+    fieldset[disabled] .btn-warning:focus,
+    .btn-warning.disabled:active,
+    .btn-warning[disabled]:active,
+    fieldset[disabled] .btn-warning:active,
+    .btn-warning.disabled.active,
+    .btn-warning[disabled].active,
+    fieldset[disabled] .btn-warning.active
+    {
+        background-color: #f0ad4e;
+        border-color: #f0ad4e;
+    }
 
 .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active
 {
@@ -3943,75 +4006,79 @@ bookAdMainContent
     border-color: #2e2f2f;
 }
 
-
-.btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle)
+.btn-group
 {
-    border-radius: 0;
+    margin-top: 5px;
 }
 
-.btn-group > .btn:first-child
-{
-    margin-left: 0;
-}
-
-    .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle)
-    {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-    }
-
-.btn-group > .btn:last-child:not(:first-child),
-.btn-group > .dropdown-toggle:not(:first-child)
-{
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0;
-}
-
-.btn-group > .btn-group
-{
-    float: left;
-}
-
-    .btn-group > .btn-group:not(:first-child):not(:last-child) > .btn
+    .btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle)
     {
         border-radius: 0;
     }
 
-    .btn-group > .btn-group:first-child > .btn:last-child,
-    .btn-group > .btn-group:first-child > .dropdown-toggle
+    .btn-group > .btn:first-child
     {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
+        margin-left: 0;
     }
 
-    .btn-group > .btn-group:last-child > .btn:first-child
+        .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle)
+        {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+    .btn-group > .btn:last-child:not(:first-child),
+    .btn-group > .dropdown-toggle:not(:first-child)
     {
         border-bottom-left-radius: 0;
         border-top-left-radius: 0;
     }
 
-.btn-group .dropdown-toggle:active,
-.btn-group.open .dropdown-toggle
-{
-    outline: 0;
-}
+    .btn-group > .btn-group
+    {
+        float: left;
+    }
 
-.btn-group > .btn + .dropdown-toggle
-{
-    padding-right: 8px;
-    padding-left: 8px;
-}
+        .btn-group > .btn-group:not(:first-child):not(:last-child) > .btn
+        {
+            border-radius: 0;
+        }
 
-.btn-group > .btn-large + .dropdown-toggle
-{
-    padding-right: 12px;
-    padding-left: 12px;
-}
+        .btn-group > .btn-group:first-child > .btn:last-child,
+        .btn-group > .btn-group:first-child > .dropdown-toggle
+        {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
 
-.btn-group .btn + .btn
-{
-    margin-left: -4px;
-}
+        .btn-group > .btn-group:last-child > .btn:first-child
+        {
+            border-bottom-left-radius: 0;
+            border-top-left-radius: 0;
+        }
+
+    .btn-group .dropdown-toggle:active,
+    .btn-group.open .dropdown-toggle
+    {
+        outline: 0;
+    }
+
+    .btn-group > .btn + .dropdown-toggle
+    {
+        padding-right: 8px;
+        padding-left: 8px;
+    }
+
+    .btn-group > .btn-large + .dropdown-toggle
+    {
+        padding-right: 12px;
+        padding-left: 12px;
+    }
+
+    .btn-group .btn + .btn
+    {
+        margin-left: -4px;
+    }
 
 /* End Bootstrap btnGroup */
 
@@ -4113,4 +4180,3 @@ bookAdMainContent
     {
         margin-top: 5px;
     }
-

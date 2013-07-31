@@ -14,31 +14,13 @@ Option Explicit On
 Partial Public Class EditLineAd
 
     '''<summary>
-    '''imgAccHeader control.
+    '''ucxHeading control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents imgAccHeader As Global.System.Web.UI.WebControls.Image
-
-    '''<summary>
-    '''LoginName1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents LoginName1 As Global.System.Web.UI.WebControls.LoginName
-
-    '''<summary>
-    '''lblAdDesignId control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblAdDesignId As Global.System.Web.UI.WebControls.Literal
+    Protected WithEvents ucxHeading As Global.BetterclassifiedsWeb.MemberHeading
 
     '''<summary>
     '''divBodyEdit control.
@@ -50,6 +32,24 @@ Partial Public Class EditLineAd
     Protected WithEvents divBodyEdit As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
+    '''pnlSuccess control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlSuccess As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''lblUserMsg control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblUserMsg As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''lnkPreview control.
     '''</summary>
     '''<remarks>
@@ -57,15 +57,6 @@ Partial Public Class EditLineAd
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lnkPreview As Global.System.Web.UI.WebControls.HyperLink
-
-    '''<summary>
-    '''lnkPrintImages control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lnkPrintImages As Global.System.Web.UI.WebControls.HyperLink
 
     '''<summary>
     '''radWindowImages control.
@@ -84,15 +75,6 @@ Partial Public Class EditLineAd
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents radWindowPreview As Global.Telerik.Web.UI.RadWindow
-
-    '''<summary>
-    '''msgPanel control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents msgPanel As Global.Paramount.Common.UI.GenericMessagePanel
 
     '''<summary>
     '''lineAdDetails control.

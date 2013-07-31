@@ -45,7 +45,7 @@ Partial Public Class EditOnlineAd
                 radWindowPreview.OpenerElementID = lnkPreview.ClientID
 
                 ' Set the iFlog ID for user to see
-                lblAdDesignId.Text = _adBookingId.ToString
+                'lblAdDesignId.Text = _adBookingId.ToString
                 Me.Title = String.Format("Edit Ad {0}", _adBookingId)
             End If
 
@@ -63,16 +63,6 @@ Partial Public Class EditOnlineAd
                 pnlSuccess.Visible = True
             End With
         End If
-    End Sub
-
-    Private Sub btnCancel_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnCancel.Click
-        ' Redirect to the previous page
-        Select Case _list
-            Case "scheduled"
-                Response.Redirect(PageUrl.MemberScheduledAds)
-            Case "current"
-                Response.Redirect(PageUrl.MemberCurrentAds)
-        End Select
     End Sub
 
     Private Function ValidatePage() As Boolean

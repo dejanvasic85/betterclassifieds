@@ -46,13 +46,17 @@ Partial Public Class Bookings
                 e.Item.FindControl(Of HyperLink)("lnkEditLineAd").Visible = False
                 e.Item.FindControl(Of LinkButton)("lnkBookAgain").Visible = True
                 e.Item.FindControl(Of HyperLink)("lnkExtend").Visible = False
+            Else
+                e.Item.FindControl(Of HyperLink)("lnkEditLineAd").NavigateUrl = PageUrl.EditLineAd(booking.AdBookingId)
+                e.Item.FindControl(Of HyperLink)("lnkEditLineAd").Visible = booking.LineAdId.HasValue
+                e.Item.FindControl(Of HyperLink)("lnkEditOnlineAd").Visible = booking.OnlineAdId.HasValue
+                e.Item.FindControl(Of HyperLink)("lnkEditOnlineAd").NavigateUrl = PageUrl.EditOnlineAd(booking.AdBookingId)
             End If
 
             e.Item.FindControl(Of HyperLink)("lnkViewInvoice").Visible = booking.IsPaid
             e.Item.FindControl(Of HyperLink)("lnkViewInvoice").NavigateUrl = PageUrl.ViewInvoice(booking.BookingReference)
             e.Item.FindControl(Of HyperLink)("lnkExtend").NavigateUrl = PageUrl.ExtendBooking(booking.AdBookingId)
-            e.Item.FindControl(Of HyperLink)("lnkEditLineAd").NavigateUrl = PageUrl.EditLineAd(booking.AdBookingId)
-            e.Item.FindControl(Of HyperLink)("lnkEditOnlineAd").NavigateUrl = PageUrl.EditOnlineAd(booking.AdBookingId)
+            
         End If
 
     End Sub

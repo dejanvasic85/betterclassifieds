@@ -33,29 +33,23 @@ Partial Public Class EditLineAd
                 UploadParameter.AdDesignId = _adDesignId
                 UploadParameter.IsPrintAdUpload = isPrintAd
                 UploadParameter.BookingReference = booking.BookReference
-                radWindowImages.OpenerElementID = lnkPrintImages.ClientID
+                radWindowImages.OpenerElementID = String.Format("{0}_{1}", lineAdDetails.ClientID, lineAdDetails.GetManageImagesButtonClientID())
 
                 ' Set up the Preview Window
                 radWindowPreview.NavigateUrl = String.Format("../LineAds/PreviewLineAd.aspx?viewType=db&id={0}", _adDesignId)
                 radWindowPreview.OpenerElementID = lnkPreview.ClientID
 
                 ' Toggle visibility on the Image Upload based on original line ad.
-                lnkPrintImages.Visible = lineAd.UsePhoto
+                lineAdDetails.ManageImageButtonVisible = lineAd.UsePhoto
 
                 ' Set the iflog id
-                lblAdDesignId.Text = booking.AdBookingId
                 Me.Title = String.Format("Edit Ad {0}", booking.AdBookingId)
             End If
         End If
 
     End Sub
 
-    'Private Sub lineAdDetails_CancelEvent(ByVal sender As Object, ByVal e As System.EventArgs) Handles lineAdDetails.CancelEvent
-    '    If String.Compare(_listType, "scheduled", True) = 0 Then
-    '        Response.Redirect(PageUrl.MemberScheduledAds)
-    '    ElseIf String.Compare(_listType, "current", True) = 0 Then
-    '        Response.Redirect(PageUrl.MemberCurrentAds)
-    '    End If
-
-    'End Sub
+    Private Sub lineAdDetails_SubmitEvent(sender As Object, e As EventArgs) Handles lineAdDetails.Submit
+        pnlSuccess.Visible = True
+    End Sub
 End Class

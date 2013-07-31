@@ -14,31 +14,13 @@ Option Explicit On
 Partial Public Class EditOnlineAd
 
     '''<summary>
-    '''imgAccHeader control.
+    '''ucxHeading control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents imgAccHeader As Global.System.Web.UI.WebControls.Image
-
-    '''<summary>
-    '''LoginName1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents LoginName1 As Global.System.Web.UI.WebControls.LoginName
-
-    '''<summary>
-    '''lblAdDesignId control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblAdDesignId As Global.System.Web.UI.WebControls.Literal
+    Protected WithEvents ucxHeading As Global.BetterclassifiedsWeb.MemberHeading
 
     '''<summary>
     '''ucxPageError control.
@@ -86,15 +68,6 @@ Partial Public Class EditOnlineAd
     Protected WithEvents lnkPreview As Global.System.Web.UI.WebControls.HyperLink
 
     '''<summary>
-    '''lnkOnlineImages control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lnkOnlineImages As Global.System.Web.UI.WebControls.HyperLink
-
-    '''<summary>
     '''radWindowImages control.
     '''</summary>
     '''<remarks>
@@ -122,13 +95,22 @@ Partial Public Class EditOnlineAd
     Protected WithEvents ucxOnlineAd As Global.BetterclassifiedsWeb.DesignOnlineAd
 
     '''<summary>
-    '''btnCancel control.
+    '''lnkCancel control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnCancel As Global.System.Web.UI.WebControls.LinkButton
+    Protected WithEvents lnkCancel As Global.System.Web.UI.WebControls.HyperLink
+
+    '''<summary>
+    '''lnkOnlineImages control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lnkOnlineImages As Global.System.Web.UI.WebControls.HyperLink
 
     '''<summary>
     '''btnUpdate control.

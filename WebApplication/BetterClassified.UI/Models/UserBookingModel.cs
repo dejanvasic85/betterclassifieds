@@ -15,6 +15,8 @@ namespace BetterClassified.UI.Models
         public string OnlineImageId { get; set; }
         public string LineAdImageId { get; set; }
         public decimal? TotalPrice { get; set; }
+        public int? OnlineAdId { get; set; }
+        public int? LineAdId { get; set; }
         
         public bool AboutToExpire
         {

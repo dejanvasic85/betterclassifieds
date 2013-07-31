@@ -1,8 +1,5 @@
 ﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="Edit_AdDesigns.aspx.vb" Inherits="BetterclassifiedAdmin.Edit_AdDesigns" %>
 
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajax" %>
-<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
@@ -121,11 +118,6 @@
             <%--Image Tab--%>
             <telerik:RadPageView ID="radPageImages" runat="server" CssClass="multipage">
                 <div class="uploadManager">
-                    <%--<div style="margin-left:10px; margin-top:5px;">
-                        <telerik:RadProgressManager ID="RadProgressManager2" runat="server"
-                            ProgressIndicators="FilesCountBar,FilesCountPercent,TimeElapsed,TimeEstimated,CurrentFileName" />
-                        <telerik:RadProgressArea ID="RadProgressArea2" runat="server" />
-                    </div>--%>
 
                     <asp:Panel ID="pnlOnline" runat="server">
                         <h1>Online Ad Images</h1>

@@ -34,12 +34,5 @@
             CancelNavigateUrl="~/MemberAccount/Bookings.aspx"
             Style="display: block" />
 
-        <%--<div class="accountRow">
-            <div class="btn-group pull-right" style="padding-top: 10px;">
-                <asp:HyperLink runat="server" ID="lnkCancel" CssClass="btn btn-warning" Text="Cancel" NavigateUrl="~/MemberAccount/Bookings.aspx"></asp:HyperLink>
-                <asp:HyperLink ID="lnkPrintImages" runat="server" NavigateUrl="#" Text="Manage Images" CssClass="btn btn-default" />
-                <asp:LinkButton runat="server" ID="btnUpdate" CssClass="btn btn-default" Text="Save Changes"></asp:LinkButton>
-            </div>
-        </div>--%>
     </div>
 </asp:Content>

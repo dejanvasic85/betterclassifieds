@@ -126,7 +126,6 @@ Partial Public Class Edit_AdDesigns
 
     Private Function EnableLineAd() As Boolean
         Dim lineAd = AdController.LineAdByBookingId(_adBookingId)
-        lineAdDetails.ManageImageButtonVisible = False
         Dim isEnabled As Boolean = (lineAd Is Nothing = False)
         radPageLineAd.Visible = isEnabled
         radTabStrip.Tabs(_lineAdTabIndex).Enabled = isEnabled

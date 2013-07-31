@@ -120,7 +120,7 @@ namespace BetterClassified.UI
             
             _buttonSubmit = new LinkButton
             {
-                Text = "Save Changes",
+                Text = "Update",
                 CssClass = "btn btn-default"
             };
             _buttonSubmit.Click += ButtonSubmitClick;

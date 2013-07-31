@@ -33,7 +33,7 @@
             <div class="btn-group pull-right" style="padding-top: 10px;">
                 <asp:HyperLink runat="server" ID="lnkCancel" CssClass="btn btn-warning" Text="Cancel" NavigateUrl="~/MemberAccount/Bookings.aspx"></asp:HyperLink>
                 <asp:HyperLink ID="lnkOnlineImages" runat="server" NavigateUrl="#" Text="Manage Images" CssClass="btn btn-default" />
-                <asp:LinkButton runat="server" ID="btnUpdate" CssClass="btn btn-default" Text="Save Changes"></asp:LinkButton>
+                <asp:LinkButton runat="server" ID="btnUpdate" CssClass="btn btn-default" Text="Update"></asp:LinkButton>
             </div>
         </div>
     </div>

@@ -101,8 +101,10 @@
         </asp:Panel>
 
         <div class="formcontrol-container">
-            <asp:Button runat="server" ID="btnCancel" Text="Cancel" />
-            <asp:Button runat="server" ID="btnSubmit" Text="Submit" CssClass="pull-right" />
+            <div class="btn btn-group pull-right">
+                <asp:LinkButton runat="server" ID="btnCancel" Text="Cancel" CssClass="btn btn-warning" />
+                <asp:LinkButton runat="server" ID="btnSubmit" Text="Submit" CssClass="btn btn-default" />
+            </div>
         </div>
     </asp:Panel>
 

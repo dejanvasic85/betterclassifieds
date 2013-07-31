@@ -206,12 +206,6 @@ LineAdTextBox
     font-size: 1em;
 }
 
-.formcontrol-container input[type="submit"] {
-    width: 150px;
-    height: 25px;
-    font-size: 1em;
-}
-
 .formcontrol-container .error{
     padding: 5px;
     font-size: 0.9em;

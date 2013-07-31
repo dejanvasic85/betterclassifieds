@@ -5,7 +5,7 @@ Partial Public Class MemberDetails2
     Inherits System.Web.UI.UserControl
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        
+
     End Sub
 
     Public Sub BindUserDetails(ByVal profile As UserProfile)
@@ -70,7 +70,7 @@ Partial Public Class MemberDetails2
             ' they have selected no item so we clear all from business category drop down
             ddlCategory.Items.Clear()
         Else
-            ddlCategory.DataSource = AppUserController.GetBusinessCategoriesByIndustryId(ddlIndustry.SelectedValue)           
+            ddlCategory.DataSource = AppUserController.GetBusinessCategoriesByIndustryId(ddlIndustry.SelectedValue)
             ddlCategory.DataBind()
         End If
     End Sub
@@ -85,16 +85,14 @@ Partial Public Class MemberDetails2
             businessCategory = ddlCategory.SelectedValue
         End If
 
-        If AppUserController.UpdateUserProfile(UserId, FirstNameTextBox.Text, LastNameTextBox.Text, _
+        pnlAlertSuccess.Visible = AppUserController.UpdateUserProfile(UserId, FirstNameTextBox.Text, LastNameTextBox.Text, _
                                                Address1TextBox.Text, "", CityTextBox.Text, _
                                                StateDropDownList.SelectedValue, ZipCodeTextBox.Text, _
                                                PhoneNumberTextBox.Text, SecondaryPhoneTextBox.Text, txtABN.Text, _
-                                               txtBusinessName.Text, industryId, businessCategory, txtEmail.Text) Then
+                                               txtBusinessName.Text, industryId, businessCategory, txtEmail.Text)
 
-            lblInfo.Text = "Details updated successfully."
-        Else
-            lblInfo.Text = "Error occurred updating details."
-        End If
+
+
     End Sub
 
 #Region " Properties "

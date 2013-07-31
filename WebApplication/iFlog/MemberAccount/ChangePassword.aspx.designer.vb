@@ -32,6 +32,15 @@ Partial Public Class ChangePassword
     Protected WithEvents LoginName1 As Global.System.Web.UI.WebControls.LoginName
 
     '''<summary>
+    '''notifyControl control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents notifyControl As Global.BetterClassified.UI.MessageNotifyControl
+
+    '''<summary>
     '''lblHeader control.
     '''</summary>
     '''<remarks>

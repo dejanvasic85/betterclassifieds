@@ -30,7 +30,8 @@
                 <paramountIt:LineAdEditDetails runat="server" ID="lineAdDetails"
                     CssClass="lineAdEdit" IsAdminMode="true" 
                     QueryParamType="AdBookingId" QueryParamName="adBookingId"
-                    style="display:block; padding: 10px;" CancelButtonVisible="false" />
+                    style="display:block; padding: 10px;" CancelButtonVisible="false"
+                    ManageImageButtonVisible="False" />
             </telerik:RadPageView>
             
             <%--Online Ad Details Tab--%>

@@ -167,15 +167,6 @@ Partial Public Class ExtendBooking
     Protected WithEvents divPayment As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''chkConditions control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents chkConditions As Global.System.Web.UI.WebControls.CheckBox
-
-    '''<summary>
     '''rdoCreditCard control.
     '''</summary>
     '''<remarks>
@@ -194,13 +185,22 @@ Partial Public Class ExtendBooking
     Protected WithEvents rdoPaypal As Global.System.Web.UI.WebControls.RadioButton
 
     '''<summary>
+    '''chkConditions control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents chkConditions As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
     '''btnCancel control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnCancel As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnCancel As Global.System.Web.UI.WebControls.LinkButton
 
     '''<summary>
     '''btnSubmit control.
@@ -209,5 +209,5 @@ Partial Public Class ExtendBooking
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnSubmit As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnSubmit As Global.System.Web.UI.WebControls.LinkButton
 End Class

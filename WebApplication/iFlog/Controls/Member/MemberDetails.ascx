@@ -1,17 +1,12 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="MemberDetails.ascx.vb"
     Inherits="BetterclassifiedsWeb.MemberDetails2" %>
 
-
-<div id="myAccountTableChgDet">
-    <h3>
-        Personal Details</h3>
+<%--Alert--%>
+<div class="accountRow">
+    <asp:Panel runat="server" ID="pnlAlertSuccess" Visible="False" CssClass="alert alert-success">
+            Details have been updated successfully
+    </asp:Panel>
 </div>
-           
-
-<div style="margin-left: 10px; float: left; font-size: 0.8em; font-weight: bold;">
-    <asp:Label ID="lblInfo" runat="server" Text="" ForeColor="Green" />
-</div>
-
  
 <%--First and Last name--%>
 <div id="myAccountTableChgDet">
@@ -221,13 +216,9 @@
     </ContentTemplate>
 </asp:UpdatePanel>
 
-<div id="myAccountTableButtonsAll" style="width: 700px">
-    <ul class="accountButtons">
-        <div id="myAccountTableButtonsCancel">
-            <li><asp:LinkButton ID="btnCancel" runat="server" PostBackUrl="~/MemberAccount/MemberDetails.aspx" Text="CANCEL" /></li>
-        </div>
-        <div id="myAccountTableButtonsModify">
-            <li><asp:LinkButton ID="btnSubmit" runat="server" Text="MODIFY" /></li>
-        </div>
-    </ul>
+<div class="accountRow">
+    <div class="btn-group pull-right">
+        <asp:LinkButton ID="btnCancel" runat="server" PostBackUrl="~/MemberAccount/MemberDetails.aspx" Text="Cancel" CssClass="btn btn-warning" />
+        <asp:LinkButton ID="btnSubmit" runat="server" Text="Update" CssClass="btn btn-default" />
+    </div>
 </div>

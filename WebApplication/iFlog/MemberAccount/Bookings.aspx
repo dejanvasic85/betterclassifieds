@@ -74,8 +74,8 @@
                             <asp:Literal runat="server" ID="Literal1" Text='<%# string.Format("{0:dd-MMM-yyyy}", Eval("EndDate"))%>'></asp:Literal>
                         </div>
                         <div class="btn-group pull-right" style="padding-top: 10px;">
+                            <asp:HyperLink runat="server" ID="lnkCancel" Text="Cancel" CssClass="btn btn-warning cancelBooking" />
                             <asp:HyperLink runat="server" ID="lnkExtend" Text="Extend" CssClass="btn btn-default" />
-                            <asp:HyperLink runat="server" ID="lnkCancel" Text="Cancel" CssClass="btn btn-default cancelBooking" />
                             <asp:HyperLink runat="server" ID="lnkViewInvoice" Text="Invoice" CssClass="btn btn-default" Target="Blank" />
                             <asp:LinkButton runat="server" ID="lnkBookAgain" Text="Book Again" CssClass="btn btn-default" Visible="False" CommandArgument='<%# Eval("AdBookingId")%>' CommandName="BookAgain"/>
                             <asp:HyperLink runat="server" ID="lnkEditOnlineAd" Text="Edit Online Ad" CssClass="btn btn-default" />

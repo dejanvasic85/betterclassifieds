@@ -134,12 +134,16 @@
     <Compile Include="Controls\Dsl\WebImageMakerHelper.cs" />
     <Compile Include="Controls\ErrorList.cs" />
     <Compile Include="Controls\ExtendBookingForm.cs" />
+    <Compile Include="Framework\Controller.cs" />
     <Compile Include="Framework\Extensions\ControlExtensions.cs" />
     <Compile Include="Framework\Extensions\HttpRequestExtensions.cs" />
     <Compile Include="Framework\Extensions\StringExtensions.cs" />
+    <Compile Include="Framework\IBaseView.cs" />
     <Compile Include="Framework\Mapping.cs" />
     <Compile Include="Framework\ReaderWriterCache.cs" />
     <Compile Include="Framework\Security\ClassifiedSqlMembershipProvider.cs" />
+    <Compile Include="Framework\Unity\Unity.cs" />
+    <Compile Include="Framework\Unity\With.cs" />
     <Compile Include="Handlers\DocumentHandler.cs" />
     <Compile Include="Controls\ImageThumbCommand.cs" />
     <Compile Include="Controls\Dsl\ImageThumbCommandTemplate.cs" />
@@ -163,6 +167,7 @@
     <Compile Include="Models\BookingStatusType.cs" />
     <Compile Include="Models\ExtensionStatus.cs" />
     <Compile Include="Models\LineAdModel.cs" />
+    <Compile Include="Models\MemberMenuItem.cs" />
     <Compile Include="Models\OnlineAdModel.cs" />
     <Compile Include="Models\PaymentType.cs" />
     <Compile Include="Models\PublicationEditionModel.cs" />
@@ -172,7 +177,7 @@
     <Compile Include="Models\RateModel.cs" />
     <Compile Include="Presenters\ExtendBookingPresenter.cs" />
     <Compile Include="Presenters\ExtensionManager.cs" />
-    <Compile Include="Presenters\MyBookingsPresenter.cs" />
+    <Compile Include="Presenters\UserBookingsPresenter.cs" />
     <Compile Include="Presenters\RateCalculator.cs" />
     <Compile Include="Presenters\TransactionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

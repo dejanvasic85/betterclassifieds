@@ -1,8 +1,10 @@
-﻿<%@ Page Title="My Bookings" Language="vb" AutoEventWireup="false" ClientIDMode="Predictable" CodeBehind="Bookings.aspx.vb" Inherits="BetterclassifiedsWeb.Bookings" MasterPageFile="~/Master/MemberDetails.master" %>
+﻿<%@ Page Title="My Classies" Language="vb" AutoEventWireup="false" ClientIDMode="Predictable" CodeBehind="Bookings.aspx.vb" Inherits="BetterclassifiedsWeb.Bookings" MasterPageFile="~/Master/MemberDetails.master" %>
 
 <%@ Register Src="~/MemberAccount/MemberHeading.ascx" TagName="MemberHeading" TagPrefix="ucx" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="memberContentMain" runat="server">
+    
+    <div class="clearFloat">
 
     <%--Heading--%>
     <ucx:MemberHeading ID="ucxHeading" runat="server" HeadingText="My Bookings" />
@@ -23,14 +25,14 @@
 
 
     <%--Menu--%>
-    <div class="accountRow" id="menu" runat="server">
+    <div class="accountRow" id="menu" runat="server" Visible="False">
         <ul class="nav nav-pills">
             <li>
                 <asp:LinkButton runat="server" ID="lnkViewAll" Text="All"></asp:LinkButton></li>
             <li class="active">
                 <asp:LinkButton runat="server" ID="lnkViewCurrent" Text="Current" CssClass="active"></asp:LinkButton></li>
             <li>
-                <asp:LinkButton runat="server" ID="lnkViewScheduled" Text="Coming Soon"></asp:LinkButton></li>
+                <asp:LinkButton runat="server" ID="lnkViewScheduled" Text="Scheduled"></asp:LinkButton></li>
             <li>
                 <asp:LinkButton runat="server" ID="lnkViewExpired" Text="Expired"></asp:LinkButton></li>
         </ul>
@@ -47,6 +49,9 @@
                     </tbody>
                 </table>
             </LayoutTemplate>
+            <EmptyDataTemplate>
+                <div class="alert alert-info">There are no items to display</div>
+            </EmptyDataTemplate>
             <ItemTemplate>
                 <tr runat="server" id="row">
                     <td style="width: 20%">
@@ -97,6 +102,7 @@
         </asp:ListView>
     </div>
 </asp:Content>
+
 <asp:Content runat="server" ContentPlaceHolderID="memberPageScripts">
     <script type="text/javascript">
         $().ready(function () {

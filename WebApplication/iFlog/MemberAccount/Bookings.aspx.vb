@@ -7,6 +7,7 @@ Partial Public Class Bookings
     Inherits BasePage(Of Presenters.UserBookingsPresenter, Views.IMyBookingsView)
     Implements Views.IMyBookingsView
 
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
             Presenter.Load()
@@ -56,7 +57,7 @@ Partial Public Class Bookings
             e.Item.FindControl(Of HyperLink)("lnkViewInvoice").Visible = booking.IsPaid
             e.Item.FindControl(Of HyperLink)("lnkViewInvoice").NavigateUrl = PageUrl.ViewInvoice(booking.BookingReference)
             e.Item.FindControl(Of HyperLink)("lnkExtend").NavigateUrl = PageUrl.ExtendBooking(booking.AdBookingId)
-            
+
         End If
 
     End Sub
@@ -79,24 +80,21 @@ Partial Public Class Bookings
         End Get
     End Property
 
-    Public Property SelectedViewType As UserBookingViewType Implements IMyBookingsView.SelectedViewType
+    Public ReadOnly Property SelectedViewType As UserBookingViewType Implements IMyBookingsView.SelectedViewType
         Get
-            If ViewState("viewType") Is Nothing Then
-                Return UserBookingViewType.Current
+            ' Return from view state (priority)
+            If ViewState("viewType") IsNot Nothing Then
+                Return DirectCast(ViewState("viewType"), UserBookingViewType)
             End If
-            Return DirectCast(ViewState("viewType"), UserBookingViewType)
+
+            ' Return from query string
+            If Request.QueryString("view").HasValue Then
+                Return [Enum].Parse(GetType(UserBookingViewType), Request.QueryString("view"))
+            End If
+
+            ' Default to current
+            Return UserBookingViewType.Current
         End Get
-        Set(value As UserBookingViewType)
-            For Each btn In menu.FindControls(Of LinkButton)()
-                Dim id = "lnkView" + value.ToString
-                If (btn.ID.DoesNotEqual(id)) Then
-                    btn.CssClass = String.Empty
-                    Continue For
-                End If
-                btn.CssClass = "active"
-            Next
-            ViewState("viewType") = value
-        End Set
     End Property
 
     Public Sub HideAlerts() Implements IMyBookingsView.HideAlerts
@@ -104,19 +102,8 @@ Partial Public Class Bookings
         pnlExtensionComplete.Visible = False
     End Sub
 
-    Private Sub lnkViewAll_Click(sender As Object, e As EventArgs) Handles lnkViewAll.Click
-        Presenter.ChangeView(UserBookingViewType.All)
+    Public Sub SetViewType(ByVal viewType As UserBookingViewType) Implements IMyBookingsView.SetViewType
+        ucxHeading.HeadingText = ucxHeading.HeadingText.Append(" - " + Me.SelectedViewType.ToString)
     End Sub
 
-    Private Sub lnkViewCurrent_Click(sender As Object, e As EventArgs) Handles lnkViewCurrent.Click
-        Presenter.ChangeView(UserBookingViewType.Current)
-    End Sub
-
-    Private Sub lnkViewExpired_Click(sender As Object, e As EventArgs) Handles lnkViewExpired.Click
-        Presenter.ChangeView(UserBookingViewType.Expired)
-    End Sub
-
-    Private Sub lnkViewScheduled_Click(sender As Object, e As EventArgs) Handles lnkViewScheduled.Click
-        Presenter.ChangeView(UserBookingViewType.Scheduled)
-    End Sub
 End Class

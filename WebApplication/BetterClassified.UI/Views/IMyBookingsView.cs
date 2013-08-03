@@ -13,6 +13,7 @@ namespace BetterClassified.UI.Views
         void HideAlerts();
 
         bool IsExtensionComplete { get; }
-        UserBookingViewType SelectedViewType { get; set; }
+        UserBookingViewType SelectedViewType { get; }
+        void SetViewType(UserBookingViewType selectedViewType);
     }
 }

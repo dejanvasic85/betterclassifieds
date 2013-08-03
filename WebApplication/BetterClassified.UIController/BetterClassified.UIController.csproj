@@ -110,12 +110,6 @@
     <Compile Include="EmailNotificationController.cs" />
     <Compile Include="ViewObjects\AdType.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="Framework\Controller.cs" />
-    <Compile Include="Framework\IBaseView.cs" />
-    <Compile Include="Framework\System.Web\HttpContextExtensions.cs" />
-    <Compile Include="Framework\System\StringExtensions.cs" />
-    <Compile Include="Framework\Unity\Unity.cs" />
-    <Compile Include="Framework\Unity\With.cs" />
     <Compile Include="ImageCacheController.cs" />
     <Compile Include="LineAdController.cs" />
     <Compile Include="LineAdHelper.cs" />
@@ -194,7 +188,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Enumeration\" />
+    <Folder Include="Framework\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

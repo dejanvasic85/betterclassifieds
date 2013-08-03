@@ -1,8 +1,9 @@
-﻿Public Partial Class MemberDetails
+﻿Imports BetterClassified
+
+Partial Public Class MemberDetails
     Inherits System.Web.UI.MasterPage
 
-    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
+    Public Sub SetActiveMenuItem(ByVal menuItem As String)
+        Dim control = Me.FindControl(menuItem)
     End Sub
-
 End Class

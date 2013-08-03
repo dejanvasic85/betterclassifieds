@@ -615,145 +615,17 @@ br
     float: left;
 }
 
-    #sidebarMenu ul
-    {
-        margin: 0px;
-        padding: 0px;
-        list-style: none;
-        float: left;
-    }
-
-    #sidebarMenu li
-    {
-        font-size: 0.8em;
-        font-weight: bolder;
-        margin: 0px;
-        padding: 0px;
-        color: #FFFFFF;
-        text-decoration: none;
-    }
-
-    #sidebarMenu a
-    {
-        text-decoration: none;
-        width: 162px;
-        line-height: 24px;
-        color: #FFFFFF;
-        display: block;
-        padding-left: 10px;
-    }
-
-    #sidebarMenu h3
-    {
-        text-decoration: none;
-        width: 162px;
-        line-height: 25px;
-        color: #FFFFFF;
-        display: block;
-        margin: 0;
-        padding: 0;
-        margin-left: 14px;
-        font-size: 1.3em;
-        padding-top: 3px;
-    }
-
-.sidebarMenu01
+.currentPageAccountsSide a
 {
-    background: url(../images/menu_side_top_176.jpg) no-repeat;
-    width: 176px;
-    height: 28px;
-}
-
-.sidebarMenu02
-{
-    background: url(../images/menu_side_middle176.jpg) no-repeat;
-    width: 172px;
-    height: 24px;
-    margin-left: 4px;
-}
-
-.sidebarMenu03
-{
-    background: url(../images/menu_side_middle176.jpg) no-repeat;
-    width: 172px;
-    height: 24px;
-    margin-left: 4px;
-}
-
-.sidebarMenu04
-{
-    background: url(../images/menu_side_middle176.jpg) no-repeat;
-    width: 172px;
-    height: 24px;
-    margin-left: 4px;
-}
-
-.sidebarMenu05
-{
-    background: url(../images/menu_side_middle176.jpg) no-repeat;
-    width: 172px;
-    height: 24px;
-    margin-left: 4px;
-}
-
-.sidebarMenu06
-{
-    background: url(../images/menu_side_bottom176.jpg) no-repeat;
-    width: 172px;
-    height: 30px;
-    margin-left: 4px;
-}
-
-.sidebarMenu02 a:hover
-{
-    width: 172px;
-    height: 24px;
     background: url(../images/menu_side_middle176.jpg) no-repeat -172px;
+    cursor: default;
 }
 
-.sidebarMenu03 a:hover
-{
-    width: 172px;
-    height: 24px;
-    background: url(../images/menu_side_middle176.jpg) no-repeat -172px;
-}
-
-.sidebarMenu04 a:hover
-{
-    width: 172px;
-    height: 24px;
-    background: url(../images/menu_side_middle176.jpg) no-repeat -172px;
-}
-
-.sidebarMenu05 a:hover
-{
-    width: 172px;
-    height: 24px;
-    background: url(../images/menu_side_middle176.jpg) no-repeat -172px;
-}
-
-.sidebarMenu06 a:hover
-{
-    width: 172px;
-    height: 30px;
-    background: url(../images/menu_side_bottom176.jpg) no-repeat -172px;
-}
-
-.currentPageAccountsSide
-{
-}
-
-    .currentPageAccountsSide a
+    .currentPageAccountsSide a:hover
     {
         background: url(../images/menu_side_middle176.jpg) no-repeat -172px;
         cursor: default;
     }
-
-        .currentPageAccountsSide a:hover
-        {
-            background: url(../images/menu_side_middle176.jpg) no-repeat -172px;
-            cursor: default;
-        }
 
 .currentPageAccountsSideBottom a
 {
@@ -3828,6 +3700,20 @@ bookAdMainContent
     {
         border-radius: 5px;
     }
+
+
+.nav-stacked > li
+{
+    float: none;
+}
+
+    .nav-stacked > li + li
+    {
+        margin-top: 2px;
+        margin-left: 0;
+    }
+
+
 /* End of nav */
 
 /* Bootstrap table */
@@ -4087,7 +3973,7 @@ fieldset[disabled] .btn-primary.active
     float: right;
 }
 
-
+/* Start of Bootstrap Alerts */
 .alert
 {
     padding: 8px 35px 8px 14px;
@@ -4180,3 +4066,66 @@ fieldset[disabled] .btn-primary.active
     {
         margin-top: 5px;
     }
+
+/* End of boostrap Alerts*/
+
+.bs-sidenav {
+  padding-top:    10px;
+  padding-bottom: 10px;
+  text-shadow: 0 1px 0 #fff;
+  background-color: #f7f5fa;
+  border-radius: 5px;
+}
+
+.bs-sidebar
+{
+    width: 176px;
+    float: left;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #f7f5fa;
+    border-radius: 5px;
+    font-size: .9em;
+}
+
+
+    /* All levels of nav */
+    .bs-sidebar .nav > li > a
+    {
+        display: block;
+        color: #716b7a;
+        padding: 5px 20px;
+    }
+
+        .bs-sidebar .nav > li > a:hover,
+        .bs-sidebar .nav > li > a:focus
+        {
+            text-decoration: none;
+            background-color: #e5e3e9;
+            border-right: 1px solid #dbd8e0;
+        }
+
+    .bs-sidebar .nav > .active > a,
+    .bs-sidebar .nav > .active:hover > a,
+    .bs-sidebar .nav > .active:focus > a
+    {
+        font-weight: bold;
+        color: #fff;
+        background-color: #263745;
+
+    }
+
+    /* Nav: second level (shown on .active) */
+    .bs-sidebar .nav .nav
+    {
+        
+        margin-bottom: 8px;
+    }
+
+        .bs-sidebar .nav .nav > li > a
+        {
+            padding-top: 3px;
+            padding-bottom: 3px;
+            padding-left: 30px;
+            font-size: 90%;
+        }

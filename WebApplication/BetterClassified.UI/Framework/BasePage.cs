@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Net;
 using System.Web;
+using BetterClassified.UI.Views;
 using Microsoft.Practices.Unity;
 
 namespace BetterClassified.UI

@@ -1,33 +1,41 @@
 ﻿Public Class PageUrl
 
+    ' item view
+    Public Shared Function AdViewItem(ByVal id As String, Optional ByVal preview As Boolean = False, Optional ByVal typeOfId As String = "bkId") As String
+        Return String.Format("~/OnlineAds/AdView.aspx?id={0}&preview={1}&type={2}", id, preview, typeOfId)
+    End Function
+
+    ' Account
+    Public Shared Function ExtendBooking(ByVal adBookingId As Integer) As String
+        Return String.Format("~/MemberAccount/ExtendBooking.aspx?AdBookingId={0}", adBookingId)
+    End Function
+
+    Public Shared Function ViewInvoice(ByVal reference As String) As String
+        Return String.Format("~/MemberAccount/ViewTransaction.aspx?ref={0}", reference)
+    End Function
+
+    Public Shared Function EditLineAd(ByVal adBookingId As Integer) As String
+        Return String.Format("~/MemberAccount/EditLineAd.aspx?bkId={0}", adBookingId)
+    End Function
+
+    Public Shared Function EditOnlineAd(ByVal adBookingId As Integer) As String
+        Return String.Format("~/MemberAccount/EditOnlineAd.aspx?bkId={0}", adBookingId)
+    End Function
+
+    Public Shared Function MemberBookings(Optional ByVal view As BetterClassified.UI.Models.UserBookingViewType = BetterClassified.UI.Models.UserBookingViewType.Current) As String
+        Return String.Format("~/MemberAccount/Bookings.aspx?view={0}", view)
+    End Function
+
+    Public Shared Function MemberDetails() As String
+        Return "~/MemberAccount/MemberDetails.aspx"
+    End Function
+
     Public Const CreditCardPaymentPage As String = "~/payment/cc.aspx"
     Public Const PaypalPaymentPage As String = "~/payment/pp.aspx"
 
     ' search results
     Public Const SearchCategoryResults As String = "~/OnlineAds/Default.aspx"
     Public Const SearchSubCategoryResults As String = "~/OnlineAds/Default.aspx"
-
-    ' item view
-    Public Shared Function AdViewItem(ByVal id As String, Optional ByVal preview As Boolean = False, Optional ByVal typeOfId As String = "bkId")
-        Return String.Format("~/OnlineAds/AdView.aspx?id={0}&preview={1}&type={2}", id, preview, typeOfId)
-    End Function
-
-    ' Account
-    Public Shared Function ExtendBooking(ByVal adBookingId As Integer)
-        Return String.Format("~/MemberAccount/ExtendBooking.aspx?AdBookingId={0}", adBookingId)
-    End Function
-
-    Public Shared Function ViewInvoice(ByVal reference As String)
-        Return String.Format("~/MemberAccount/ViewTransaction.aspx?ref={0}", reference)
-    End Function
-
-    Public Shared Function EditLineAd(ByVal adBookingId As Integer)
-        Return String.Format("~/MemberAccount/EditLineAd.aspx?bkId={0}", adBookingId)
-    End Function
-
-    Public Shared Function EditOnlineAd(ByVal adBookingId As Integer)
-        Return String.Format("~/MemberAccount/EditOnlineAd.aspx?bkId={0}", adBookingId)
-    End Function
 
     ' booking steps
     Public Const BookingStep_1 As String = "~/Booking/Step1.aspx"
@@ -51,12 +59,6 @@
 
     ' online ad search result
     Public Const OnlineAdSearch As String = "~/OnlineAds/Default.aspx"
-
-    ' member account area
-    Public Const MemberScheduledAds As String = "~/MemberAccount/UpComing.aspx"
-    Public Const MemberCurrentAds As String = "~/MemberAccount/Current.aspx"
-    Public Const MemberExpiredAds As String = "~/MemberAccount/Expired.aspx"
-    Public Const MemberBookings As String = "~/MemberAccount/Bookings.aspx"
 
     ' Document Service Library
     Public Const DSL As String = "~/dsl/document.ashx?id="

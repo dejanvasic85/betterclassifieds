@@ -25,7 +25,8 @@ namespace BetterClassified.UI.Presenters
                 View.DisplayExtensionCompleteAlert();
             }
 
-            LoadBookings(UserBookingViewType.Current);
+            LoadBookings(View.SelectedViewType);
+            View.SetViewType(View.SelectedViewType);
         }
 
         public void CancelBooking(int adBookingId)
@@ -35,18 +36,12 @@ namespace BetterClassified.UI.Presenters
             Load();
         }
 
-        public void ChangeView(UserBookingViewType viewType)
-        {
-            View.HideAlerts();
-            View.SelectedViewType = viewType;
-            LoadBookings(viewType);
-        }
-
         public void LoadBookings(UserBookingViewType viewType)
         {
-            List<UserBookingModel> bookings = BookingRepository.GetBookingsForUser(View.LoggedInUserName)
-                .OrderByDescending(b => b.AdBookingId)
-                .ToList();
+            IEnumerable<UserBookingModel> bookings = BookingRepository
+                .GetBookingsForUser(View.LoggedInUserName)
+                .Where(b => b.StartDate > DateTime.Today.AddMonths(-12))
+                .OrderByDescending(b => b.AdBookingId);
 
             if (viewType == UserBookingViewType.Current)
                 bookings = bookings.Where(bk => bk.EndDate > DateTime.Today && bk.StartDate <= DateTime.Today).ToList();
@@ -57,7 +52,7 @@ namespace BetterClassified.UI.Presenters
             if (viewType == UserBookingViewType.Scheduled)
                 bookings = bookings.Where(bk => bk.StartDate > DateTime.Today).ToList();
 
-            this.View.DisplayBookings(bookings);
+            this.View.DisplayBookings(bookings.ToList());
 
             if (bookings.Any(b => b.AboutToExpire))
             {

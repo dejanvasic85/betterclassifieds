@@ -33,5 +33,18 @@ namespace BetterClassified
         {
             return !string.IsNullOrEmpty(source);
         }
+
+        public static string Append(this string source, string value)
+        {
+            return source + value;
+        }
+
+        public static int? ToInt(this string value)
+        {
+            int convertedValue;
+            if (int.TryParse(value, out convertedValue))
+                return convertedValue;
+            return null;
+        }
     }
 }

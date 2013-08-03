@@ -23,40 +23,85 @@ Partial Public Class MemberDetails
     Protected WithEvents memberHeadContent As Global.System.Web.UI.WebControls.ContentPlaceHolder
 
     '''<summary>
-    '''HyperLink7 control.
+    '''Details control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents HyperLink7 As Global.System.Web.UI.WebControls.HyperLink
+    Protected WithEvents Details As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''HyperLink8 control.
+    '''BookingsAll control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents HyperLink8 As Global.System.Web.UI.WebControls.HyperLink
+    Protected WithEvents BookingsAll As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''HyperLink5 control.
+    '''BookingsCurrent control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents HyperLink5 As Global.System.Web.UI.WebControls.HyperLink
+    Protected WithEvents BookingsCurrent As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''HyperLink9 control.
+    '''BookingsScheduled control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents HyperLink9 As Global.System.Web.UI.WebControls.HyperLink
+    Protected WithEvents BookingsScheduled As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''BookingsExpired control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents BookingsExpired As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''ChangePassword control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ChangePassword As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''HyperLink3 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents HyperLink3 As Global.System.Web.UI.WebControls.HyperLink
+
+    '''<summary>
+    '''Messages control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Messages As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''HyperLink4 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents HyperLink4 As Global.System.Web.UI.WebControls.HyperLink
 
     '''<summary>
     '''memberContentMain control.

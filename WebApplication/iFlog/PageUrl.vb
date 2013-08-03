@@ -22,8 +22,9 @@
         Return String.Format("~/MemberAccount/EditOnlineAd.aspx?bkId={0}", adBookingId)
     End Function
 
-    Public Shared Function MemberBookings(Optional ByVal view As BetterClassified.UI.Models.UserBookingViewType = BetterClassified.UI.Models.UserBookingViewType.Current) As String
-        Return String.Format("~/MemberAccount/Bookings.aspx?view={0}", view)
+    Public Shared Function MemberBookings(Optional ByVal view As BetterClassified.UI.Models.UserBookingViewType = BetterClassified.UI.Models.UserBookingViewType.Current, _
+                                          Optional ByVal extensionComplete As Boolean = False) As String
+        Return String.Format("~/MemberAccount/Bookings.aspx?view={0}&extension={1}", view, extensionComplete)
     End Function
 
     Public Shared Function MemberDetails() As String

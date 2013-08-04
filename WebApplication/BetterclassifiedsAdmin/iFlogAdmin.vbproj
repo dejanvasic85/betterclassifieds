@@ -608,6 +608,7 @@
     <Content Include="Web.CI.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+    <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Browsers\CSSFriendlyAdapters.browser" />

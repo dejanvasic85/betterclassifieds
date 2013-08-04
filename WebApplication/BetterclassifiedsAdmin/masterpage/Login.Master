@@ -1,38 +1,37 @@
 ﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="Login.Master.vb" Inherits="BetterclassifiedAdmin.LoginMaster" %>
 
-<%@ register assembly="Telerik.Web.UI" namespace="Telerik.Web.UI" tagprefix="telerik" %>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml" >
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-       
+    <title>Classies Administration</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=8,IE=9" />
 </head>
-<body style="margin:0">
+<body style="margin: 0">
 
     <form id="form1" runat="server">
-    <asp:scriptmanager id="ScriptManager1" runat="server">
-    </asp:scriptmanager>
-    <div id="content">
-        <div class="header">
-            
-              <asp:contentplaceholder ID="header" runat="server">
-        </asp:contentplaceholder>
-          
-          
-    </div>
-        <div class="content-page">      
-          <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-                                    </asp:ContentPlaceHolder>
-            
+        <asp:ScriptManager ID="ScriptManager1" runat="server">
+        </asp:ScriptManager>
+        <div id="content">
+            <div class="header">
+
+                <asp:ContentPlaceHolder ID="header" runat="server">
+                </asp:ContentPlaceHolder>
+
+
+            </div>
+            <div class="content-page">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+
+            </div>
+
+            <div id="copyright">
+                <asp:ContentPlaceHolder ID="footerPaceHolder" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+
         </div>
-        
-        <div id="copyright">
-           <asp:ContentPlaceHolder ID="footerPaceHolder" runat="server">
-                                    </asp:ContentPlaceHolder>
-        </div>
-        
-    </div>
     </form>
 </body>
 </html>

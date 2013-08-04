@@ -9,7 +9,9 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>BetterClassified Admin</title>
+    <title>Classies Admin</title>
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=8,IE=9" />
 
     <%-- favicon setup --%>
     <link id="Link3" runat="server" rel="shortcut icon" href="~/favicon.ico" type="image/x-icon" />

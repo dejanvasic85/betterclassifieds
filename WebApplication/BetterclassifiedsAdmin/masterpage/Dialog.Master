@@ -8,6 +8,8 @@
 <head runat="server">
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+    <meta http-equiv="X-UA-Compatible" content="IE=8,IE=9" />
+
 </head>
 <body>
     <form id="form1" runat="server">

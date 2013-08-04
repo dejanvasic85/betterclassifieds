@@ -4,7 +4,10 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head runat="server">
-    <title></title>
+    <title>Classies Administration</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=8,IE=9" />
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>

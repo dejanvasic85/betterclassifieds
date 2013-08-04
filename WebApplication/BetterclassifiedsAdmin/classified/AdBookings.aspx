@@ -164,7 +164,7 @@
     <telerik:RadWindowManager ID="RadWindowManager1" runat="server" 
         Width="800px" Height="600px" 
         VisibleOnPageLoad="false" DestroyOnClose="true" 
-        ReloadOnShow="true" Modal="true" InitialBehavior="Maximize">
+        ReloadOnShow="true" Modal="true" >
     </telerik:RadWindowManager>
 
 </asp:Content>

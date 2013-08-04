@@ -164,7 +164,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
-    <None Include="Paramount.Products.TaskScheduler.nuspec" />
+    <None Include="TaskScheduler.nuspec" />
     <Content Include="PreDeploy.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

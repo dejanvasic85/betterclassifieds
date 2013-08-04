@@ -72,6 +72,8 @@ namespace BetterClassified.UI.Handlers
                 encoderParams.Param[0] = qualityParam;
 
                 // Serve the image to the client browser
+                context.Response.ContentType = "image/jpeg";
+                
                 image.Save(context.Response.OutputStream, jpegCodec, encoderParams);
 
                 if (isServerCaching)

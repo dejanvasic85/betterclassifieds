@@ -480,32 +480,11 @@
       <DependentUpon>MasterWithRightBar.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MemberAccount\Obsolete_Bookings.aspx.designer.vb">
-      <DependentUpon>Obsolete_Bookings.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="MemberAccount\Obsolete_Bookings.aspx.vb">
-      <DependentUpon>Obsolete_Bookings.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="MemberAccount\Obsolete_Current.aspx.designer.vb">
-      <DependentUpon>Obsolete_Current.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="MemberAccount\Obsolete_Current.aspx.vb">
-      <DependentUpon>Obsolete_Current.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="MemberAccount\EditLineAd.aspx.designer.vb">
       <DependentUpon>EditLineAd.aspx</DependentUpon>
     </Compile>
     <Compile Include="MemberAccount\EditLineAd.aspx.vb">
       <DependentUpon>EditLineAd.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="MemberAccount\Obsolete_Expired.aspx.designer.vb">
-      <DependentUpon>Obsolete_Expired.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="MemberAccount\Obsolete_Expired.aspx.vb">
-      <DependentUpon>Obsolete_Expired.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="MemberAccount\ExtendBooking.aspx.designer.vb">
@@ -534,20 +513,6 @@
     </Compile>
     <Compile Include="MemberAccount\Bookings.aspx.vb">
       <DependentUpon>Bookings.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="MemberAccount\Obsolete_Transactions.aspx.designer.vb">
-      <DependentUpon>Obsolete_Transactions.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="MemberAccount\Obsolete_Transactions.aspx.vb">
-      <DependentUpon>Obsolete_Transactions.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="MemberAccount\Obsolete_UpComing.aspx.designer.vb">
-      <DependentUpon>Obsolete_UpComing.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="MemberAccount\Obsolete_UpComing.aspx.vb">
-      <DependentUpon>Obsolete_UpComing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="MemberAccount\ViewTransaction.aspx.designer.vb">
@@ -874,13 +839,8 @@
     <Content Include="Help\Contact.aspx" />
     <Content Include="Help\PrivacyPolicy.aspx" />
     <Content Include="Help\RefundPolicy.aspx" />
-    <Content Include="MemberAccount\Obsolete_Bookings.aspx" />
-    <Content Include="MemberAccount\Obsolete_Current.aspx" />
     <Content Include="MemberAccount\EditLineAd.aspx" />
-    <Content Include="MemberAccount\Obsolete_Expired.aspx" />
     <Content Include="MemberAccount\MemberHeading.ascx" />
-    <Content Include="MemberAccount\Obsolete_Transactions.aspx" />
-    <Content Include="MemberAccount\Obsolete_UpComing.aspx" />
     <Content Include="MemberAccount\ViewTransaction.aspx" />
     <Content Include="OnlineAds\ImageLarge.aspx" />
     <Content Include="payment\cc.aspx" />

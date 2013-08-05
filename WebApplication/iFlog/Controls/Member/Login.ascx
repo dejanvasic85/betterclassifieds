@@ -68,7 +68,7 @@
         <div id="myAccountTableButtonsLogin">
             <ul>
                 <div id="myAccountTableButtonsExtend">
-                    <li><asp:Button ID="btnLogin" runat="server" 
+                    <li><asp:Button ID="btnLogin" runat="server"  CssClass="btn btn-default"
                             CommandName="Login" Text="Login" ValidationGroup="ctl00$Login1" /></li>
                 </div>
             </ul>

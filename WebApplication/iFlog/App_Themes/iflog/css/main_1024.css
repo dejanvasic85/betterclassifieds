@@ -1563,40 +1563,6 @@ bookAdMainContent
     display: block;
 }
 
-    .verify a
-    {
-        margin: 0px;
-        padding: 0px;
-        font-size: 0.85em;
-        line-height: 19px;
-        font-weight: bold;
-        float: left;
-        display: block;
-        color: #fff;
-        width: 193px;
-        height: 19px;
-        text-align: center;
-        text-decoration: none;
-        background: url(../images/book_ad_verifydate_but.jpg) no-repeat;
-    }
-
-        .verify a:hover
-        {
-            margin: 0px;
-            padding: 0px;
-            font-size: 0.85em;
-            line-height: 19px;
-            font-weight: bold;
-            float: left;
-            display: block;
-            color: #fff;
-            width: 193px;
-            height: 19px;
-            text-align: center;
-            text-decoration: none;
-            background: url(../images/book_ad_verifydate_but.jpg) no-repeat -193px;
-        }
-
 .upload
 {
     margin: 0px;
@@ -3886,6 +3852,19 @@ fieldset[disabled] .btn-primary.active
         border-color: #f0ad4e;
     }
 
+.btn-info
+{
+    color: #ffffff;
+    background-color: #5bc0de;
+    border-color: #5bc0de;
+}
+
+    .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active
+    {
+        background-color: #46b8da;
+        border-color: #31b0d5;
+    }
+
 .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active
 {
     background-color: #3a3c3c;
@@ -3966,6 +3945,47 @@ fieldset[disabled] .btn-primary.active
         margin-left: -4px;
     }
 
+.btn-large
+{
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.33;
+    border-radius: 6px;
+}
+
+.btn-small,
+.btn-mini
+{
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+.btn-mini
+{
+    padding: 3px 5px;
+}
+
+.btn-block
+{
+    display: block;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+    .btn-block + .btn-block
+    {
+        margin-top: 5px;
+    }
+
+input[type="submit"].btn-block,
+input[type="reset"].btn-block,
+input[type="button"].btn-block
+{
+    width: 100%;
+}
 /* End Bootstrap btnGroup */
 
 .pull-right
@@ -4069,12 +4089,13 @@ fieldset[disabled] .btn-primary.active
 
 /* End of boostrap Alerts*/
 
-.bs-sidenav {
-  padding-top:    10px;
-  padding-bottom: 10px;
-  text-shadow: 0 1px 0 #fff;
-  background-color: #f7f5fa;
-  border-radius: 5px;
+.bs-sidenav
+{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-shadow: 0 1px 0 #fff;
+    background-color: #f7f5fa;
+    border-radius: 5px;
 }
 
 .bs-sidebar
@@ -4112,13 +4133,11 @@ fieldset[disabled] .btn-primary.active
         font-weight: bold;
         color: #fff;
         background-color: #263745;
-
     }
 
     /* Nav: second level (shown on .active) */
     .bs-sidebar .nav .nav
     {
-        
         margin-bottom: 8px;
     }
 

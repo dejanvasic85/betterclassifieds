@@ -1,24 +1,25 @@
 <%@ Page Title="Search Results" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/Default.Master"
-    CodeBehind="Default.aspx.vb" Inherits="BetterclassifiedsWeb._Default5" %> 
-    
+    CodeBehind="Default.aspx.vb" Inherits="BetterclassifiedsWeb._Default5" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-  
+
     <div class="clearFloat">
         <div id="contentBody">
             <div id="sidebar">
                 <div id="sidebarHeader">
                     <p>
-                        categories header</p>
+                        categories header
+                    </p>
                 </div>
                 <div id="sidebarContent">
-                        <paramountIt:CategorySelector ID="categorySelector" runat="server"  />
+                    <paramountIt:CategorySelector ID="categorySelector" runat="server" />
                 </div>
-                
+
             </div>
-            
+
             <div id="mainSearchResults">
                 <div id="mainHeaderSearchResults">
-                    
+
                     <h2>
                         <asp:Label ID="lblSearchResults" runat="server" Text="" /></h2>
                     <%--<h3>
@@ -28,13 +29,14 @@
                     <div class="showingResults">
                         <p>
                             <%--Showing 1 - 10 of 25 ads for &quot;example example&quot;--%>
-                            <asp:Label ID="lblSearchDetails" runat="server" /></p>
+                            <asp:Label ID="lblSearchDetails" runat="server" />
+                        </p>
                     </div>
                     <div class="sortByResults">
                         <%--<p>
                             Sort by:</p>--%>
                     </div>
-                   <%-- <div class="sortByDropdownBox" style="margin-top:2px;">
+                    <%-- <div class="sortByDropdownBox" style="margin-top:2px;">
                         <asp:DropDownList ID="ddlSortBy" runat="server" AutoPostBack="true">
                             <asp:ListItem Selected="True" value="RowNumber asc">Latest First</asp:ListItem>
                             <asp:ListItem value="RowNumber DESC">Oldest First</asp:ListItem>
@@ -44,11 +46,11 @@
                     </div>--%>
                 </div>
                 <div id="searchTableBody">
-                    <paramountit:paramountgrid ID="grdSearchResults" runat="server" ShowHeader="true"
-                            Width="751" BorderStyle="None" CellPadding="4" CellSpacing="0"
-                            AutoGenerateColumns="False" AllowPaging="True" GridLines="Horizontal" AllowSorting="true"
-                            PageSize="10">
-                            <pagersettings position="Bottom"  mode="NumericFirstLast"   />
+                    <paramountIt:ParamountGrid ID="grdSearchResults" runat="server" ShowHeader="true"
+                        Width="751" BorderStyle="None" CellPadding="4" CellSpacing="0"
+                        AutoGenerateColumns="False" AllowPaging="True" GridLines="Horizontal" AllowSorting="true"
+                        PageSize="10">
+                        <PagerSettings Position="Bottom" Mode="NumericFirstLast" />
                         <HeaderStyle Height="28px" HorizontalAlign="Left" CssClass="searchTableItemHead" />
                         <EmptyDataTemplate>
                             <h5>No result found</h5>
@@ -61,18 +63,19 @@
                                         <tr>
                                             <td colspan="2">
                                                 <div id="categoryBodySearchResults">
-                                                    <asp:HyperLink ID="lnkHeadingLink" runat="server" Text='<%# Eval("Heading") %>' Font-Bold="true"/>
+                                                    <asp:HyperLink ID="lnkHeadingLink" runat="server" Text='<%# Eval("Heading") %>' Font-Bold="true" />
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td rowspan="2" width="90">
-                                                <asp:HyperLink ID="imgDocument" runat="server" />   
+                                                <asp:HyperLink ID="imgDocument" runat="server" />
                                             </td>
                                             <td width="286" height="48">
                                                 <div id="categoryBodySearchResults">
                                                     <p>
-                                                        <asp:Label ID="Label2" runat="server" Text='<%# Eval("AdText") %>'  /></p>
+                                                        <asp:Label ID="Label2" runat="server" Text='<%# Eval("AdText") %>' />
+                                                    </p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -80,13 +83,13 @@
                                             <td width="286" height="12">
                                                 <div id="categoryMoreSearchResults">
                                                     <p>
-                                                        <asp:Label ID="Label1" runat="server" Text='<%# String.Format("{0}{1}{2}", "Viewed: ", Eval("NumOfViews"), " times") %>' /></p>
-                                                </div>
-                                                <div id="categoryMoreSearchResultsButton">
-                                                    <p>
-                                                        <asp:HyperLink ID="lnkAdLink" runat="server" Text="DETAILS" />
+                                                        <asp:Label ID="Label1" runat="server" Text='<%# String.Format("{0}{1}{2}", "Viewed: ", Eval("NumOfViews"), " times") %>' />
                                                     </p>
                                                 </div>
+
+
+                                                <asp:HyperLink ID="lnkAdLink" runat="server" Text="Details" CssClass="btn btn-info btn-mini" />
+
                                             </td>
                                         </tr>
                                     </table>
@@ -97,25 +100,25 @@
                                     <asp:Label ID="lblPrice" runat="server" Text='<%# Eval("Price") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:BoundField DataField="Location" HeaderText="Location" 
-                                ItemStyle-HorizontalAlign="Center"  />
+                            <asp:BoundField DataField="Location" HeaderText="Location"
+                                ItemStyle-HorizontalAlign="Center" />
                             <%--<asp:BoundField DataField="Category" ItemStyle-HorizontalAlign="Center" />--%>
-                            <asp:BoundField DataField="Posted" HeaderText="Posted" DataFormatString="{0:dd/MM/yy}" 
+                            <asp:BoundField DataField="Posted" HeaderText="Posted" DataFormatString="{0:dd/MM/yy}"
                                 ItemStyle-HorizontalAlign="Center" />
                         </Columns>
-                    </paramountit:paramountgrid >
-                   <div class="grid-pager" >
-                  <%--  <asp:datapager id="DataPager1" runat="server" >
+                    </paramountIt:ParamountGrid>
+                    <div class="grid-pager">
+                        <%--  <asp:datapager id="DataPager1" runat="server" >
                         <fields >
                             <
                         </fields>
                     </asp:datapager>--%>
-                   </div>
+                    </div>
                     <asp:ObjectDataSource ID="objSourceResults" runat="server"
-                            MaximumRowsParameterName="maximumRows" StartRowIndexParameterName="startRowIndex"
-                            SelectMethod="SearchOnlineAds" SelectCountMethod="SearchOnlineAdsCount"
-                            TypeName="BetterclassifiedsCore.DataModel.Search" 
-                            OldValuesParameterFormatString="original_{0}" EnablePaging="True">
+                        MaximumRowsParameterName="maximumRows" StartRowIndexParameterName="startRowIndex"
+                        SelectMethod="SearchOnlineAds" SelectCountMethod="SearchOnlineAdsCount"
+                        TypeName="BetterclassifiedsCore.DataModel.Search"
+                        OldValuesParameterFormatString="original_{0}" EnablePaging="True">
                         <SelectParameters>
                             <asp:QueryStringParameter Name="category" QueryStringField="category" Type="Int32" />
                             <asp:QueryStringParameter Name="subCategoryId" QueryStringField="subCategory" Type="Int32" />
@@ -125,12 +128,12 @@
                             <asp:Parameter Name="startRowIndex" Type="Int32" />
                             <asp:Parameter Name="maximumRows" Type="Int32" />
                         </SelectParameters>
-                        
+
                     </asp:ObjectDataSource>
                 </div>
             </div>
-            
+
         </div>
     </div>
-    
+
 </asp:Content>

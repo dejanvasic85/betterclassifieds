@@ -97,7 +97,7 @@
                             <li><asp:TextBox runat="server" ID="txtKeywords" placeholder="keywords..." Width="100px"></asp:TextBox></li>
                             <li>| OR</li>
                             <li><asp:TextBox runat="server" ID="txtAdId" placeholder="Ad ID" Width="50px"></asp:TextBox></li>
-                            <li><asp:Button runat="server" ID="btnSearch" Text="Search" CausesValidation="False" /></li>
+                            <li><asp:Button runat="server" ID="btnSearch" Text="Search" CausesValidation="False" CssClass="btn btn-default" /></li>
                         </ul>
                     </asp:Panel>
                 </ContentTemplate>

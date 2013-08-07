@@ -473,6 +473,12 @@ Namespace DataModel
 			End Get
 		End Property
 		
+		Public ReadOnly Property OnlineAds1() As System.Data.Linq.Table(Of OnlineAds)
+			Get
+				Return Me.GetTable(Of OnlineAds)
+			End Get
+		End Property
+		
 		<Global.System.Data.Linq.Mapping.FunctionAttribute(Name:="dbo.spGetMainParentCategories")>  _
 		Public Function spGetMainParentCategories() As ISingleResult(Of MainCategory)
 			Dim result As IExecuteResult = Me.ExecuteMethodCall(Me, CType(MethodInfo.GetCurrentMethod,MethodInfo))
@@ -9426,6 +9432,409 @@ Namespace DataModel
 				RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
 			End If
 		End Sub
+	End Class
+	
+	<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.OnlineAds")>  _
+	Partial Public Class OnlineAds
+		
+		Private _OnlineAdId As Integer
+		
+		Private _AdDesignId As System.Nullable(Of Integer)
+		
+		Private _Heading As String
+		
+		Private _Description As String
+		
+		Private _HtmlText As String
+		
+		Private _Price As System.Nullable(Of Decimal)
+		
+		Private _LocationId As System.Nullable(Of Integer)
+		
+		Private _LocationAreaId As System.Nullable(Of Integer)
+		
+		Private _ContactName As String
+		
+		Private _ContactType As String
+		
+		Private _ContactValue As String
+		
+		Private _NumOfViews As System.Nullable(Of Integer)
+		
+		Private _UserId As String
+		
+		Private _TotalPrice As System.Nullable(Of Decimal)
+		
+		Private _StartDate As System.Nullable(Of Date)
+		
+		Private _EndDate As System.Nullable(Of Date)
+		
+		Private _BookReference As String
+		
+		Private _BookingStatus As System.Nullable(Of Integer)
+		
+		Private _MainCategoryId As System.Nullable(Of Integer)
+		
+		Private _Insertions As System.Nullable(Of Integer)
+		
+		Private _BookingDate As System.Nullable(Of Date)
+		
+		Private _BookingType As String
+		
+		Private _AdBookingId As Integer
+		
+		Private _Category As String
+		
+		Private _ParentId As System.Nullable(Of Integer)
+		
+		Private _Title As String
+		
+		Private _Area As String
+		
+		Private _AdId As Integer
+		
+		Public Sub New()
+			MyBase.New
+		End Sub
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_OnlineAdId", DbType:="Int NOT NULL")>  _
+		Public Property OnlineAdId() As Integer
+			Get
+				Return Me._OnlineAdId
+			End Get
+			Set
+				If ((Me._OnlineAdId = value)  _
+							= false) Then
+					Me._OnlineAdId = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AdDesignId", DbType:="Int")>  _
+		Public Property AdDesignId() As System.Nullable(Of Integer)
+			Get
+				Return Me._AdDesignId
+			End Get
+			Set
+				If (Me._AdDesignId.Equals(value) = false) Then
+					Me._AdDesignId = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Heading", DbType:="NVarChar(255)")>  _
+		Public Property Heading() As String
+			Get
+				Return Me._Heading
+			End Get
+			Set
+				If (String.Equals(Me._Heading, value) = false) Then
+					Me._Heading = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Description", DbType:="NVarChar(MAX)")>  _
+		Public Property Description() As String
+			Get
+				Return Me._Description
+			End Get
+			Set
+				If (String.Equals(Me._Description, value) = false) Then
+					Me._Description = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_HtmlText", DbType:="NVarChar(MAX)")>  _
+		Public Property HtmlText() As String
+			Get
+				Return Me._HtmlText
+			End Get
+			Set
+				If (String.Equals(Me._HtmlText, value) = false) Then
+					Me._HtmlText = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Price", DbType:="Money")>  _
+		Public Property Price() As System.Nullable(Of Decimal)
+			Get
+				Return Me._Price
+			End Get
+			Set
+				If (Me._Price.Equals(value) = false) Then
+					Me._Price = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_LocationId", DbType:="Int")>  _
+		Public Property LocationId() As System.Nullable(Of Integer)
+			Get
+				Return Me._LocationId
+			End Get
+			Set
+				If (Me._LocationId.Equals(value) = false) Then
+					Me._LocationId = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_LocationAreaId", DbType:="Int")>  _
+		Public Property LocationAreaId() As System.Nullable(Of Integer)
+			Get
+				Return Me._LocationAreaId
+			End Get
+			Set
+				If (Me._LocationAreaId.Equals(value) = false) Then
+					Me._LocationAreaId = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ContactName", DbType:="NVarChar(200)")>  _
+		Public Property ContactName() As String
+			Get
+				Return Me._ContactName
+			End Get
+			Set
+				If (String.Equals(Me._ContactName, value) = false) Then
+					Me._ContactName = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ContactType", DbType:="NVarChar(20)")>  _
+		Public Property ContactType() As String
+			Get
+				Return Me._ContactType
+			End Get
+			Set
+				If (String.Equals(Me._ContactType, value) = false) Then
+					Me._ContactType = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ContactValue", DbType:="NVarChar(100)")>  _
+		Public Property ContactValue() As String
+			Get
+				Return Me._ContactValue
+			End Get
+			Set
+				If (String.Equals(Me._ContactValue, value) = false) Then
+					Me._ContactValue = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_NumOfViews", DbType:="Int")>  _
+		Public Property NumOfViews() As System.Nullable(Of Integer)
+			Get
+				Return Me._NumOfViews
+			End Get
+			Set
+				If (Me._NumOfViews.Equals(value) = false) Then
+					Me._NumOfViews = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_UserId", DbType:="NVarChar(50)")>  _
+		Public Property UserId() As String
+			Get
+				Return Me._UserId
+			End Get
+			Set
+				If (String.Equals(Me._UserId, value) = false) Then
+					Me._UserId = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_TotalPrice", DbType:="Money")>  _
+		Public Property TotalPrice() As System.Nullable(Of Decimal)
+			Get
+				Return Me._TotalPrice
+			End Get
+			Set
+				If (Me._TotalPrice.Equals(value) = false) Then
+					Me._TotalPrice = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_StartDate", DbType:="DateTime")>  _
+		Public Property StartDate() As System.Nullable(Of Date)
+			Get
+				Return Me._StartDate
+			End Get
+			Set
+				If (Me._StartDate.Equals(value) = false) Then
+					Me._StartDate = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_EndDate", DbType:="DateTime")>  _
+		Public Property EndDate() As System.Nullable(Of Date)
+			Get
+				Return Me._EndDate
+			End Get
+			Set
+				If (Me._EndDate.Equals(value) = false) Then
+					Me._EndDate = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_BookReference", DbType:="NChar(10)")>  _
+		Public Property BookReference() As String
+			Get
+				Return Me._BookReference
+			End Get
+			Set
+				If (String.Equals(Me._BookReference, value) = false) Then
+					Me._BookReference = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_BookingStatus", DbType:="Int")>  _
+		Public Property BookingStatus() As System.Nullable(Of Integer)
+			Get
+				Return Me._BookingStatus
+			End Get
+			Set
+				If (Me._BookingStatus.Equals(value) = false) Then
+					Me._BookingStatus = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_MainCategoryId", DbType:="Int")>  _
+		Public Property MainCategoryId() As System.Nullable(Of Integer)
+			Get
+				Return Me._MainCategoryId
+			End Get
+			Set
+				If (Me._MainCategoryId.Equals(value) = false) Then
+					Me._MainCategoryId = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Insertions", DbType:="Int")>  _
+		Public Property Insertions() As System.Nullable(Of Integer)
+			Get
+				Return Me._Insertions
+			End Get
+			Set
+				If (Me._Insertions.Equals(value) = false) Then
+					Me._Insertions = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_BookingDate", DbType:="DateTime")>  _
+		Public Property BookingDate() As System.Nullable(Of Date)
+			Get
+				Return Me._BookingDate
+			End Get
+			Set
+				If (Me._BookingDate.Equals(value) = false) Then
+					Me._BookingDate = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_BookingType", DbType:="NVarChar(20)")>  _
+		Public Property BookingType() As String
+			Get
+				Return Me._BookingType
+			End Get
+			Set
+				If (String.Equals(Me._BookingType, value) = false) Then
+					Me._BookingType = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AdBookingId", DbType:="Int NOT NULL")>  _
+		Public Property AdBookingId() As Integer
+			Get
+				Return Me._AdBookingId
+			End Get
+			Set
+				If ((Me._AdBookingId = value)  _
+							= false) Then
+					Me._AdBookingId = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Category", DbType:="NVarChar(50)")>  _
+		Public Property Category() As String
+			Get
+				Return Me._Category
+			End Get
+			Set
+				If (String.Equals(Me._Category, value) = false) Then
+					Me._Category = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ParentId", DbType:="Int")>  _
+		Public Property ParentId() As System.Nullable(Of Integer)
+			Get
+				Return Me._ParentId
+			End Get
+			Set
+				If (Me._ParentId.Equals(value) = false) Then
+					Me._ParentId = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Title", DbType:="NVarChar(50)")>  _
+		Public Property Title() As String
+			Get
+				Return Me._Title
+			End Get
+			Set
+				If (String.Equals(Me._Title, value) = false) Then
+					Me._Title = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Area", DbType:="NVarChar(50)")>  _
+		Public Property Area() As String
+			Get
+				Return Me._Area
+			End Get
+			Set
+				If (String.Equals(Me._Area, value) = false) Then
+					Me._Area = value
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AdId", DbType:="Int NOT NULL")>  _
+		Public Property AdId() As Integer
+			Get
+				Return Me._AdId
+			End Get
+			Set
+				If ((Me._AdId = value)  _
+							= false) Then
+					Me._AdId = value
+				End If
+			End Set
+		End Property
 	End Class
 	
 	Partial Public Class spSpecialRatesByCategoryResult

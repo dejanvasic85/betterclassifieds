@@ -3,6 +3,8 @@ Imports Paramount.Broadcast.Components
 Imports Paramount.Modules.Logging.UIController
 Imports Microsoft.Practices.Unity
 Imports BetterClassified.UI.Repository
+Imports System.Web.Routing
+Imports System.Web.Http
 
 Public Delegate Sub OnPayment(ByVal ref As String)
 
@@ -24,6 +26,11 @@ Public Class Global_asax
             .RegisterType(Of IUserRepository, UserRepository)() _
             .RegisterType(Of IPaymentsRepository, PaymentsRepository)() _
             .RegisterType(Of IAdRepository, AdRepository)()
+
+        RouteTable.Routes.MapHttpRoute(
+           name:="DefaultApi",
+           routeTemplate:="api/{controller}/{id}",
+           defaults:=New With {Key .id = System.Web.Http.RouteParameter.[Optional]})
 
     End Sub
 

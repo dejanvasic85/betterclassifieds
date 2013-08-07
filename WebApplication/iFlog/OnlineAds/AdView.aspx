@@ -42,3 +42,11 @@
         </div>
     </div>
 </asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="pageScripts" ID="AdViewScript">
+    <script type="text/javascript">
+        $().ready(function () {
+            $('.RadCaptcha').find('img').width('160px');
+        });
+    </script>
+</asp:Content>

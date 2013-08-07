@@ -114,6 +114,7 @@
                 Display = ValidatorDisplay.Dynamic,
                 Width = Unit.Pixel(150)
             };
+
             this.captcha.Style.Add("float", "left");
 
             this.phoneBox = new TextBox { CssClass = "input-text full", MaxLength = 12, ID = "phoneBox" };

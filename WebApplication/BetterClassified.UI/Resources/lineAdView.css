@@ -9,7 +9,7 @@
 
 .lineadview-header {
 	font-size: 12px;
-	font-weight: 100;
+	font-weight: 900;
 	line-height: 12px;
 	text-transform: capitalize;
 	text-align: center;
@@ -21,7 +21,7 @@
 
 .lineadview-superboldheader {
 	font-size: 13px;
-	font-weight: 900;
+    font-family: Arial Black;
 	line-height: 12px;
 	text-transform: capitalize;
 	text-align: center;

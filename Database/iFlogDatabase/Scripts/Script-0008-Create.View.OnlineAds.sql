@@ -10,6 +10,10 @@ GO
 -- Create date: 8th August 2013
 -- =============================================
 
+DROP VIEW [dbo].[OnlineAds]
+GO
+
+
 CREATE VIEW [dbo].[OnlineAds]
 AS
 SELECT        o.OnlineAdId, o.AdDesignId, o.Heading, o.Description, o.HtmlText, o.Price, o.LocationId, o.LocationAreaId, o.ContactName, o.ContactType, o.ContactValue, 

@@ -70,9 +70,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iFlogDatabase", "Database\i
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iFlogCoreDatabase", "Database\iFlogCoreDatabase\iFlogCoreDatabase.csproj", "{6B9ABBAE-F1A9-456B-AAA5-24AD1D459777}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06 Testing", "06 Testing", "{4AEAFAD5-08D5-4D51-9AAC-B24DE3E5FBDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterClassified.FunctionalTests", "Tests\BetterClassified.FunctionalTests\BetterClassified.FunctionalTests.csproj", "{EEFEC030-A02C-4DC5-9F64-64C81C54938B}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 29
+		SccNumberOfProjects = 30
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://paramountit.visualstudio.com/defaultcollection
 		SccLocalPath0 = .
@@ -188,6 +192,10 @@ Global
 		SccProjectTopLevelParentUniqueName28 = iFlog.sln
 		SccProjectName28 = TaskScheduler
 		SccLocalPath28 = TaskScheduler
+		SccProjectUniqueName29 = Tests\\BetterClassified.FunctionalTests\\BetterClassified.FunctionalTests.csproj
+		SccProjectTopLevelParentUniqueName29 = iFlog.sln
+		SccProjectName29 = Tests/BetterClassified.FunctionalTests
+		SccLocalPath29 = Tests\\BetterClassified.FunctionalTests
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -420,6 +428,14 @@ Global
 		{6B9ABBAE-F1A9-456B-AAA5-24AD1D459777}.Test|Any CPU.Build.0 = Release|Any CPU
 		{6B9ABBAE-F1A9-456B-AAA5-24AD1D459777}.Testing|Any CPU.ActiveCfg = Release|Any CPU
 		{6B9ABBAE-F1A9-456B-AAA5-24AD1D459777}.Testing|Any CPU.Build.0 = Release|Any CPU
+		{EEFEC030-A02C-4DC5-9F64-64C81C54938B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEFEC030-A02C-4DC5-9F64-64C81C54938B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEFEC030-A02C-4DC5-9F64-64C81C54938B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEFEC030-A02C-4DC5-9F64-64C81C54938B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEFEC030-A02C-4DC5-9F64-64C81C54938B}.Test|Any CPU.ActiveCfg = Release|Any CPU
+		{EEFEC030-A02C-4DC5-9F64-64C81C54938B}.Test|Any CPU.Build.0 = Release|Any CPU
+		{EEFEC030-A02C-4DC5-9F64-64C81C54938B}.Testing|Any CPU.ActiveCfg = Release|Any CPU
+		{EEFEC030-A02C-4DC5-9F64-64C81C54938B}.Testing|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -453,5 +469,6 @@ Global
 		{5A595E8C-7861-415F-A193-A295E94CA22F} = {328F405C-3398-4608-B8DA-62CCB3EE8627}
 		{E17C5429-4810-4589-9640-6D1828A6C71E} = {06813343-424A-4B8F-9CA9-A109CEA6303B}
 		{6B9ABBAE-F1A9-456B-AAA5-24AD1D459777} = {06813343-424A-4B8F-9CA9-A109CEA6303B}
+		{EEFEC030-A02C-4DC5-9F64-64C81C54938B} = {4AEAFAD5-08D5-4D51-9AAC-B24DE3E5FBDC}
 	EndGlobalSection
 EndGlobal

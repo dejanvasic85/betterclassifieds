@@ -119,5 +119,7 @@
         </iframe>
     </div>        
     
+    <div id="facebook" runat="server" class="fb-like" data-href="http://iflog.com.au" data-width="450" data-action="recommend" data-show-faces="true" data-send="false"></div>
+    
 </div>
 

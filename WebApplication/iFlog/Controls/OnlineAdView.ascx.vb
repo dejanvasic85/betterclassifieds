@@ -120,6 +120,8 @@ Partial Public Class OnlineAdView
                 Me.Page.Header.AddMetaTag("og:image", PageUrl.AdImageUrl(onlineAd.ImageList.First(), maxWidth:=800, maxHeight:=800).ToAbsoluteUrl(Me.Request))
             End If
             Me.Page.Header.AddMetaTag("og:description", onlineAd.Description)
+
+            Me.facebook.Attributes.Add("data-href", PageUrl.AdViewItem(onlineAd.AdBookingId).ToAbsoluteUrl(Me.Request))
         End With
     End Sub
 

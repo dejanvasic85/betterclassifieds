@@ -8,7 +8,6 @@ namespace BetterClassified.UI
     using Paramount.Betterclassified.Utilities.Configuration;
     using Paramount.Common.UI.BaseControls;
     using Paramount.DSL.UIController;
-    using Paramount.DSL.UI;
     using Paramount.Utility;
 
     public class ImageGallery : ParamountCompositeControl

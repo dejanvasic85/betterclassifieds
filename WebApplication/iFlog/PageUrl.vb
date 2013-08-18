@@ -1,8 +1,23 @@
-﻿Public Class PageUrl
+﻿Imports BetterClassified
+Imports BetterClassified.UI
+Imports BetterClassified.UI.Repository
+Imports Microsoft.Practices.Unity
+
+''' <summary>
+''' PageUrl is a utility class that generates outgoing URL's for specific pages
+''' </summary>
+''' <remarks></remarks>
+Public Class PageUrl
 
     ' item view
-    Public Shared Function AdViewItem(ByVal id As String, Optional ByVal preview As Boolean = False, Optional ByVal typeOfId As String = "bkId") As String
-        Return String.Format("~/OnlineAds/AdView.aspx?id={0}&preview={1}&type={2}", id, preview, typeOfId)
+    Public Shared Function AdViewItem(ByVal id As String, Optional ByVal preview As Boolean = False, Optional ByVal typeOfId As String = "bkId") As SiteUrl
+        Return New SiteUrl(String.Format("~/OnlineAds/AdView.aspx?id={0}&preview={1}&type={2}", id, preview, typeOfId))
+    End Function
+
+    ' Image View
+    Public Shared Function AdImageUrl(ByVal documentId As String, Optional ByVal maxWidth As Integer = 80, Optional ByVal maxHeight As Integer = 80, Optional ByVal resolution As Integer = 90) As SiteUrl
+        Dim settings = Unity.DefaultContainer.Resolve(Of IConfigSettings)()
+        Return New SiteUrl(String.Format("~/Image/View.ashx?docId={0}&entity={1}&width={2}&height={3}&res={4}", documentId, settings.ClientCode, maxWidth, maxHeight, resolution))
     End Function
 
     ' Account

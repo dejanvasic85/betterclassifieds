@@ -1,11 +1,20 @@
 ﻿Imports BetterclassifiedsCore
 Imports BetterclassifiedsCore.ParameterAccess
+Imports BetterClassified.UI.Repository
+Imports BetterClassified
+Imports Microsoft.Practices.Unity
 
 Partial Public Class OnlineAdView
     Inherits System.Web.UI.UserControl
 
     Const MainCategoryViewState = "MainCategoryViewState"
     Const SubCategoryViewState = "SubCategoryViewState"
+
+    Dim configSettings As IConfigSettings
+
+    Public Sub OnlineAdView()
+
+    End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If _preview = True Then
@@ -43,6 +52,7 @@ Partial Public Class OnlineAdView
     End Property
 
     Public Sub BindOnlineAd(ByVal onlineAd As BusinessEntities.OnlineAdEntity)
+
         With onlineAd
             lblHeading.Text = .Heading
             ' html text
@@ -97,6 +107,19 @@ Partial Public Class OnlineAdView
             lnkSubCategory.Text = .SubCategory.Title
 
             paramountGallery.ImageList = onlineAd.ImageList
+
+            ' Inject meta tags for facebook integration
+            configSettings = BetterClassified.Unity.DefaultContainer.Resolve(Of IConfigSettings)()
+            Me.Page.Header.AddMetaTag("fb:app_id", configSettings.FacebookAppId)
+            Me.Page.Header.AddMetaTag("og:url", PageUrl.AdViewItem(onlineAd.AdBookingId).ToAbsoluteUrl(Me.Request))
+            Me.Page.Header.AddMetaTag("og:title", onlineAd.Heading)
+            Me.Page.Header.AddMetaTag("og:locale", "en-AU")
+            Me.Page.Header.AddMetaTag("og:type", "OnlineClassified")
+            Me.Page.Header.AddMetaTag("og:site_name", "TheMusic")
+            If onlineAd.ImageList.Any Then
+                Me.Page.Header.AddMetaTag("og:image", PageUrl.AdImageUrl(onlineAd.ImageList.First(), maxWidth:=800, maxHeight:=800).ToAbsoluteUrl(Me.Request))
+            End If
+            Me.Page.Header.AddMetaTag("og:description", onlineAd.Description)
         End With
     End Sub
 

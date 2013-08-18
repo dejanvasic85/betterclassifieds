@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace BetterClassified
@@ -22,13 +23,18 @@ namespace BetterClassified
         {
             return target.Controls
                 .Cast<Control>()
-                .Where(control => control.GetType() == typeof (T))
-                .Select(control => (T) control);
+                .Where(control => control.GetType() == typeof(T))
+                .Select(control => (T)control);
         }
 
         public static void RemoveCssClass(this WebControl target, string @class)
         {
             target.CssClass = String.Join(" ", target.CssClass.Split(' ').Where(x => x != @class).ToArray());
+        }
+
+        public static void AddMetaTag(this Control head, string name, string content)
+        {
+            head.Controls.Add(new HtmlMeta { Name = name, Content = content });
         }
     }
 }

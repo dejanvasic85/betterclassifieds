@@ -1,15 +1,11 @@
-﻿namespace Paramount.DSL.UIController
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Collections.Specialized;
-    using Paramount.ApplicationBlock.Configuration;
+﻿using System.Collections.Specialized;
+using Paramount.ApplicationBlock.Configuration;
 
+namespace Paramount.DSL.UIController
+{
     public class DslQueryParam
     {
-        private NameValueCollection collectionData;
+        private readonly NameValueCollection collectionData;
         private const string documentIdKey = "docId";
         private const string entityKey = "entity";
         private const string resolutionKey = "res";

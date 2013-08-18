@@ -1,7 +1,5 @@
 using Paramount.Betterclassified.Utilities.Configuration;
-using Paramount.Common.UI;
 using Paramount.Utility;
-using Paramount.DSL.UI;
 
 namespace BetterClassified.UI
 {

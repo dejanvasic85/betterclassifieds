@@ -1,11 +1,11 @@
-﻿namespace Paramount.DSL.UI
-{
-    using System;
-    using System.Web;
-    using System.Web.UI.WebControls;
-    using Paramount.Common.UI.BaseControls;
-    using Paramount.DSL.UIController;
+﻿using System;
+using System.Web;
+using System.Web.UI.WebControls;
+using Paramount.Common.UI.BaseControls;
+using Paramount.DSL.UIController;
 
+namespace BetterClassified.UI
+{
     public abstract class DslThumbImage : ParamountCompositeControl
     {
         private readonly ImageButton _imageThumb;

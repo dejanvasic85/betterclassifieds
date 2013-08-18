@@ -1,17 +1,15 @@
-﻿ namespace Paramount.DSL.UI
-{
-    using System;
-    using System.Web;
-    using System.Web.UI;
-    using System.Web.UI.WebControls;
-    using Paramount.Common.UI.BaseControls;
-    using Paramount.DSL.UIController;
+﻿using Paramount.Common.UI.BaseControls;
+using Paramount.DSL.UIController;
+using System;
+using System.Web;
+using System.Web.UI.WebControls;
 
-    public abstract class DslThumbCommand : ParamountCompositeControl
+namespace BetterClassified.UI
+{
+   public abstract class DslThumbCommand : ParamountCompositeControl
     {
         private readonly Image _image;
         private readonly LinkButton _commandButton;
-        private readonly UpdatePanel _updatePanel;
 
         public event EventHandler CommandClick;
 
@@ -40,7 +38,7 @@
             var thumbPanel = new Panel { CssClass = "dslthumbcommand-thumbpanel" };
             thumbPanel.Controls.Add(_image);
 
-            var commandPanel = new Panel() { CssClass = "dslthumbcommand-commandpanel" };
+            var commandPanel = new Panel { CssClass = "dslthumbcommand-commandpanel" };
             commandPanel.Controls.Add(_commandButton);
 
             Controls.Add(thumbPanel);

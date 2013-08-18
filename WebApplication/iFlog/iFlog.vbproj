@@ -969,10 +969,6 @@
       <Project>{E745F9B8-3967-44D3-9ADB-ABED1B3E3F9D}</Project>
       <Name>Modules.DSL.UIController</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Modules\DSL.UI\Modules.DSL.UI.csproj">
-      <Project>{FFB51537-50B9-4D5B-B4F2-B7E9DA731E4C}</Project>
-      <Name>Modules.DSL.UI</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Modules\Logging.UIController\Modules.Logging.UIController.csproj">
       <Project>{353EA369-566F-426F-9EBE-DA865F055B45}</Project>
       <Name>Modules.Logging.UIController</Name>

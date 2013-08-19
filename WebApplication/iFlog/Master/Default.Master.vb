@@ -5,6 +5,7 @@ Imports Paramount.ApplicationBlock.Configuration
 Imports Paramount.Utility.Dsl
 Imports Paramount.Utility
 Imports BetterclassifiedsCore.ParameterAccess
+Imports BetterclassifiedsCore.DataModel
 
 Partial Public Class _Default1
     Inherits BaseMasterPage
@@ -102,7 +103,8 @@ Partial Public Class _Default1
 
     Protected Sub btnSearch_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSearch.Click
         OnlineSearchParameter.Clear()
-        '' perform the main search if they didn't provide the Ad ID
+
+        ' perform the main search if they didn't provide the Ad ID
         If String.IsNullOrEmpty(txtAdId.Text) Then
 
             If Not String.IsNullOrEmpty(txtKeywords.Text) Then
@@ -126,11 +128,26 @@ Partial Public Class _Default1
                 OnlineSearchParameter.Area = ddlArea.SelectedValue
             End If
             Response.Redirect(PageUrl.OnlineAdSearch)
+        
+        ElseIf txtAdId.Text.Contains("-") Then
+            Dim combinedSearch = txtAdId.Text.Split("-")
+            Dim searchLog As New SearchLog
+            If Integer.TryParse(combinedSearch(0), searchLog.PublicationId) _
+                And Integer.TryParse(combinedSearch(1), searchLog.AdId) _
+                And PublicationController.GetPublications(activateOnly:=True).Any(Function(p As Publication) p.PublicationId = searchLog.PublicationId) Then
+                ' Log the search
+                Paramount.Modules.Logging.UIController.AuditLogController(Of SearchLog).AuditWebTransaction(searchLog, "PublicationAdSearch")
+                Response.Redirect(PageUrl.AdViewItem(searchLog.AdId))
+            End If
         Else
-            ' get the online ad details for the reference user has provided and direct to item page
             Response.Redirect(PageUrl.AdViewItem(txtAdId.Text))
         End If
     End Sub
+
+    Public Class SearchLog
+        Public Property PublicationId As Integer
+        Public Property AdId As Integer
+    End Class
 
 #End Region
 

@@ -822,7 +822,7 @@ Public Module GeneralRoutine
             Dim elementBodyText As New XElement(listbodyNodeName, exportItem.AdText.Replace(Environment.NewLine, " "))
             xmlDoc.Element("Root").Add(elementBodyText)
             xmlDoc.Element("Root").Add(New XElement("cantDelete"))
-            xmlDoc.Element("Root").Add(New XElement(iFlogIdNodeName, "Ad ID: ", exportItem.AdBookingId))
+            xmlDoc.Element("Root").Add(New XElement(iFlogIdNodeName, "Ad ID: ", String.Format("{0}-{1}", publicationId, exportItem.AdBookingId)))
         Next
 
         Return xmlDoc

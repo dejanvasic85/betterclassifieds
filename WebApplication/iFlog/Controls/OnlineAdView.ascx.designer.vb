@@ -230,6 +230,15 @@ Partial Public Class OnlineAdView
     Protected WithEvents onlineAdFrame As Global.System.Web.UI.HtmlControls.HtmlIframe
 
     '''<summary>
+    '''twitter control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents twitter As Global.System.Web.UI.HtmlControls.HtmlAnchor
+
+    '''<summary>
     '''facebook control.
     '''</summary>
     '''<remarks>

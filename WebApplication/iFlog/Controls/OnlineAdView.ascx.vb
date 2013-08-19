@@ -123,7 +123,7 @@ Partial Public Class OnlineAdView
             Me.Page.Header.AddMetaTag("og:description", onlineAd.Description)
 
             Me.facebook.Attributes.Add("data-href", pageAbsUrl)
-            Me.twitter.Attributes.Add("data-text", String.Format("{0} - see it at: {1}", onlineAd.Heading, pageAbsUrl))
+            Me.twitter.Attributes.Add("data-text", String.Format("Check out '{0}' - see it at {1}", onlineAd.Heading, pageAbsUrl))
         End With
     End Sub
 

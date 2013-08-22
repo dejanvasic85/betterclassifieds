@@ -57,14 +57,10 @@ Partial Public Class OnlineAdView
             lblHeading.Text = .Heading
             ' html text
             If onlineAd.OnlineAdId > 0 Then
-                'onlineAdFrame.Attributes.Add("src", String.Format("BodyView.aspx?type=db&id={0}", onlineAd.OnlineAdId))
                 onlineAdFrame.Src = ResolveUrl(String.Format("~/OnlineAds/BodyView.aspx?type=db&id={0}", onlineAd.OnlineAdId))
             Else
                 onlineAdFrame.Src = ResolveUrl("~/OnlineAds/BodyView.aspx?type=session")
-                'onlineAdFrame.Attributes.Add("src", String.Format("BodyView.aspx?type=session"))
-
             End If
-
             lblLocation.Text = .LocationValue
             lblArea.Text = .AreaValue
             lblNumOfViews.Text = .NumOfViews.ToString
@@ -123,7 +119,7 @@ Partial Public Class OnlineAdView
             Me.Page.Header.AddMetaTag("og:description", onlineAd.Description)
 
             Me.facebook.Attributes.Add("data-href", pageAbsUrl)
-            Me.twitter.Attributes.Add("data-text", String.Format("Check out '{0}' - see it at {1}", onlineAd.Heading, pageAbsUrl))
+            Me.twitter.Attributes.Add("data-text", String.Format("Check out '{0}' - see it at", onlineAd.Heading))
         End With
     End Sub
 

@@ -126,12 +126,15 @@
             marginheight="10px" marginwidth="10px" width="100%" class="frameWithBody"></iframe>
     </div>
 
-    <div style="margin-left: 10px; display: block">
-        <a id="twitter" runat="server" href="https://twitter.com/share" class="twitter-share-button" data-text="http://iflog.com.au" data-size="large">Tweet</a>
+    <div style="margin-left: 10px; display: inline-block; width: 180px">
+        <a id="twitter" runat="server" href="https://twitter.com/share" class="twitter-share-button" 
+            data-text="http://iflog.com.au" data-size="medium">Tweet</a>
         <script type="text/javascript">
             !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');
         </script>
     </div>
-    <div id="facebook" runat="server" style="margin-left: 15px;" class="fb-like" data-href="http://iflog.com.au" data-width="450" data-action="recommend" data-show-faces="true" data-send="false"></div>
+    <div id="facebook" runat="server" style="margin-left: 15px; display:inline-block" class="fb-like" 
+        data-href="http://iflog.com.au" data-width="450" data-action="recommend" 
+        data-show-faces="true" data-send="false"></div>
 </div>
 

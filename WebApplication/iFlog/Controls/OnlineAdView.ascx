@@ -126,7 +126,7 @@
             marginheight="10px" marginwidth="10px" width="100%" class="frameWithBody"></iframe>
     </div>
 
-    <div style="margin-left: 10px; display: inline-block; width: 180px; vertical-align: top">
+    <div style="margin-left: 10px; display: inline-block; width: 100px; vertical-align: top">
         <a id="twitter" runat="server" href="https://twitter.com/share" class="twitter-share-button" 
             data-text="http://iflog.com.au" data-size="medium">Tweet</a>
         <script type="text/javascript">

@@ -178,6 +178,7 @@
     <Compile Include="Models\BookingType.cs" />
     <Compile Include="Models\BookEntryModel.cs" />
     <Compile Include="Models\RateModel.cs" />
+    <Compile Include="Models\TutorAdModel.cs" />
     <Compile Include="Presenters\ExtendBookingPresenter.cs" />
     <Compile Include="Presenters\ExtensionManager.cs" />
     <Compile Include="Presenters\UserBookingsPresenter.cs" />

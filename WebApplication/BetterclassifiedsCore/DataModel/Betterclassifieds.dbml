@@ -217,6 +217,7 @@
       <Column Name="ContactValue" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="NumOfViews" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="OnlineAd_OnlineAdEnquiry" Member="OnlineAdEnquiries" ThisKey="OnlineAdId" OtherKey="OnlineAdId" Type="OnlineAdEnquiry" />
+      <Association Name="OnlineAd_TutorAd" Member="TutorAds" ThisKey="OnlineAdId" OtherKey="OnlineAdId" Type="TutorAd" />
       <Association Name="Location_OnlineAd" Member="Location" ThisKey="LocationId" OtherKey="LocationId" Type="Location" IsForeignKey="true" />
       <Association Name="LocationArea_OnlineAd" Member="LocationArea" ThisKey="LocationAreaId" OtherKey="LocationAreaId" Type="LocationArea" IsForeignKey="true" />
       <Association Name="AdDesign_OnlineAd" Member="AdDesign" ThisKey="AdDesignId" OtherKey="AdDesignId" Type="AdDesign" IsForeignKey="true" />
@@ -489,6 +490,21 @@
       <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Area" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="AdId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TutorAd" Member="TutorAds">
+    <Type Name="TutorAd">
+      <Column Name="TutorAdId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OnlineAdId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Subjects" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Availability" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="AgeGroup" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ExpertiseLevel" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="AcceptedArea" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="TravelOptions" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PricingOptions" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="WhatToBring" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Association Name="OnlineAd_TutorAd" Member="OnlineAd" ThisKey="OnlineAdId" OtherKey="OnlineAdId" Type="OnlineAd" IsForeignKey="true" />
     </Type>
   </Table>
   <Function Name="dbo.spGetMainParentCategories" Method="spGetMainParentCategories">

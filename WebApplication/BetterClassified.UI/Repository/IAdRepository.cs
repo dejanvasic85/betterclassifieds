@@ -8,6 +8,7 @@ namespace BetterClassified.UI.Repository
     public interface IAdRepository
     {
         OnlineAdModel GetOnlineAdByBooking(int bookingId);
+        TutorAdModel GetTutorAd(int onlineAdId);
     }
 
     public class AdRepository : IAdRepository, IMappingBehaviour
@@ -23,10 +24,19 @@ namespace BetterClassified.UI.Repository
             }
         }
 
+        public TutorAdModel GetTutorAd(int onlineAdId)
+        {
+            using (var context = BetterclassifiedsDataContext.NewContext())
+            {
+                return this.Map<TutorAd, TutorAdModel>(context.TutorAds.FirstOrDefault(onlinead => onlinead.OnlineAdId == onlineAdId));
+            }
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             // From Db
             configuration.CreateMap<OnlineAd, OnlineAdModel>();
+            configuration.CreateMap<TutorAd, TutorAdModel>();
 
             // To Db
             configuration.CreateMap<OnlineAdModel, OnlineAd>()

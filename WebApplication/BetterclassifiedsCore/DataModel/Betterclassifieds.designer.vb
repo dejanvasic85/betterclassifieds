@@ -236,6 +236,12 @@ Namespace DataModel
     End Sub
     Partial Private Sub DeleteAdBookingExtension(instance As AdBookingExtension)
     End Sub
+    Partial Private Sub InsertTutorAd(instance As TutorAd)
+    End Sub
+    Partial Private Sub UpdateTutorAd(instance As TutorAd)
+    End Sub
+    Partial Private Sub DeleteTutorAd(instance As TutorAd)
+    End Sub
     #End Region
 		
 		Public Sub New()
@@ -476,6 +482,12 @@ Namespace DataModel
 		Public ReadOnly Property OnlineAds1() As System.Data.Linq.Table(Of OnlineAds)
 			Get
 				Return Me.GetTable(Of OnlineAds)
+			End Get
+		End Property
+		
+		Public ReadOnly Property TutorAds() As System.Data.Linq.Table(Of TutorAd)
+			Get
+				Return Me.GetTable(Of TutorAd)
 			End Get
 		End Property
 		
@@ -2853,7 +2865,7 @@ Namespace DataModel
 			End Set
 		End Property
 		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_RowTimeStamp", AutoSync:=AutoSync.Always, DbType:="rowversion", IsDbGenerated:=true, IsVersion:=true, UpdateCheck:=UpdateCheck.Never)>  _
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_RowTimeStamp", AutoSync:=AutoSync.Always, DbType:="rowversion", CanBeNull:=true, IsDbGenerated:=true, IsVersion:=true, UpdateCheck:=UpdateCheck.Never)>  _
 		Public Property RowTimeStamp() As System.Data.Linq.Binary
 			Get
 				Return Me._RowTimeStamp
@@ -4602,6 +4614,8 @@ Namespace DataModel
 		
 		Private _OnlineAdEnquiries As EntitySet(Of OnlineAdEnquiry)
 		
+		Private _TutorAds As EntitySet(Of TutorAd)
+		
 		Private _Location As EntityRef(Of Location)
 		
 		Private _LocationArea As EntityRef(Of LocationArea)
@@ -4668,6 +4682,7 @@ Namespace DataModel
 		Public Sub New()
 			MyBase.New
 			Me._OnlineAdEnquiries = New EntitySet(Of OnlineAdEnquiry)(AddressOf Me.attach_OnlineAdEnquiries, AddressOf Me.detach_OnlineAdEnquiries)
+			Me._TutorAds = New EntitySet(Of TutorAd)(AddressOf Me.attach_TutorAds, AddressOf Me.detach_TutorAds)
 			Me._Location = CType(Nothing, EntityRef(Of Location))
 			Me._LocationArea = CType(Nothing, EntityRef(Of LocationArea))
 			Me._AdDesign = CType(Nothing, EntityRef(Of AdDesign))
@@ -4886,6 +4901,16 @@ Namespace DataModel
 			End Set
 		End Property
 		
+		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="OnlineAd_TutorAd", Storage:="_TutorAds", ThisKey:="OnlineAdId", OtherKey:="OnlineAdId")>  _
+		Public Property TutorAds() As EntitySet(Of TutorAd)
+			Get
+				Return Me._TutorAds
+			End Get
+			Set
+				Me._TutorAds.Assign(value)
+			End Set
+		End Property
+		
 		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="Location_OnlineAd", Storage:="_Location", ThisKey:="LocationId", OtherKey:="LocationId", IsForeignKey:=true)>  _
 		Public Property Location() As Location
 			Get
@@ -4994,6 +5019,16 @@ Namespace DataModel
 		End Sub
 		
 		Private Sub detach_OnlineAdEnquiries(ByVal entity As OnlineAdEnquiry)
+			Me.SendPropertyChanging
+			entity.OnlineAd = Nothing
+		End Sub
+		
+		Private Sub attach_TutorAds(ByVal entity As TutorAd)
+			Me.SendPropertyChanging
+			entity.OnlineAd = Me
+		End Sub
+		
+		Private Sub detach_TutorAds(ByVal entity As TutorAd)
 			Me.SendPropertyChanging
 			entity.OnlineAd = Nothing
 		End Sub
@@ -9835,6 +9870,301 @@ Namespace DataModel
 				End If
 			End Set
 		End Property
+	End Class
+	
+	<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.TutorAd")>  _
+	Partial Public Class TutorAd
+		Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+		
+		Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
+		
+		Private _TutorAdId As Integer
+		
+		Private _OnlineAdId As Integer
+		
+		Private _Subjects As String
+		
+		Private _Availability As String
+		
+		Private _AgeGroup As String
+		
+		Private _ExpertiseLevel As String
+		
+		Private _AcceptedArea As String
+		
+		Private _TravelOptions As String
+		
+		Private _PricingOptions As String
+		
+		Private _WhatToBring As String
+		
+		Private _OnlineAd As EntityRef(Of OnlineAd)
+		
+    #Region "Extensibility Method Definitions"
+    Partial Private Sub OnLoaded()
+    End Sub
+    Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
+    End Sub
+    Partial Private Sub OnCreated()
+    End Sub
+    Partial Private Sub OnTutorAdIdChanging(value As Integer)
+    End Sub
+    Partial Private Sub OnTutorAdIdChanged()
+    End Sub
+    Partial Private Sub OnOnlineAdIdChanging(value As Integer)
+    End Sub
+    Partial Private Sub OnOnlineAdIdChanged()
+    End Sub
+    Partial Private Sub OnSubjectsChanging(value As String)
+    End Sub
+    Partial Private Sub OnSubjectsChanged()
+    End Sub
+    Partial Private Sub OnAvailabilityChanging(value As String)
+    End Sub
+    Partial Private Sub OnAvailabilityChanged()
+    End Sub
+    Partial Private Sub OnAgeGroupChanging(value As String)
+    End Sub
+    Partial Private Sub OnAgeGroupChanged()
+    End Sub
+    Partial Private Sub OnExpertiseLevelChanging(value As String)
+    End Sub
+    Partial Private Sub OnExpertiseLevelChanged()
+    End Sub
+    Partial Private Sub OnAcceptedAreaChanging(value As String)
+    End Sub
+    Partial Private Sub OnAcceptedAreaChanged()
+    End Sub
+    Partial Private Sub OnTravelOptionsChanging(value As String)
+    End Sub
+    Partial Private Sub OnTravelOptionsChanged()
+    End Sub
+    Partial Private Sub OnPricingOptionsChanging(value As String)
+    End Sub
+    Partial Private Sub OnPricingOptionsChanged()
+    End Sub
+    Partial Private Sub OnWhatToBringChanging(value As String)
+    End Sub
+    Partial Private Sub OnWhatToBringChanged()
+    End Sub
+    #End Region
+		
+		Public Sub New()
+			MyBase.New
+			Me._OnlineAd = CType(Nothing, EntityRef(Of OnlineAd))
+			OnCreated
+		End Sub
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_TutorAdId", AutoSync:=AutoSync.OnInsert, DbType:="Int NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
+		Public Property TutorAdId() As Integer
+			Get
+				Return Me._TutorAdId
+			End Get
+			Set
+				If ((Me._TutorAdId = value)  _
+							= false) Then
+					Me.OnTutorAdIdChanging(value)
+					Me.SendPropertyChanging
+					Me._TutorAdId = value
+					Me.SendPropertyChanged("TutorAdId")
+					Me.OnTutorAdIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_OnlineAdId", DbType:="Int NOT NULL")>  _
+		Public Property OnlineAdId() As Integer
+			Get
+				Return Me._OnlineAdId
+			End Get
+			Set
+				If ((Me._OnlineAdId = value)  _
+							= false) Then
+					If Me._OnlineAd.HasLoadedOrAssignedValue Then
+						Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
+					End If
+					Me.OnOnlineAdIdChanging(value)
+					Me.SendPropertyChanging
+					Me._OnlineAdId = value
+					Me.SendPropertyChanged("OnlineAdId")
+					Me.OnOnlineAdIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Subjects", DbType:="NVarChar(500)")>  _
+		Public Property Subjects() As String
+			Get
+				Return Me._Subjects
+			End Get
+			Set
+				If (String.Equals(Me._Subjects, value) = false) Then
+					Me.OnSubjectsChanging(value)
+					Me.SendPropertyChanging
+					Me._Subjects = value
+					Me.SendPropertyChanged("Subjects")
+					Me.OnSubjectsChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Availability", DbType:="NVarChar(500)")>  _
+		Public Property Availability() As String
+			Get
+				Return Me._Availability
+			End Get
+			Set
+				If (String.Equals(Me._Availability, value) = false) Then
+					Me.OnAvailabilityChanging(value)
+					Me.SendPropertyChanging
+					Me._Availability = value
+					Me.SendPropertyChanged("Availability")
+					Me.OnAvailabilityChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AgeGroup", DbType:="NVarChar(100)")>  _
+		Public Property AgeGroup() As String
+			Get
+				Return Me._AgeGroup
+			End Get
+			Set
+				If (String.Equals(Me._AgeGroup, value) = false) Then
+					Me.OnAgeGroupChanging(value)
+					Me.SendPropertyChanging
+					Me._AgeGroup = value
+					Me.SendPropertyChanged("AgeGroup")
+					Me.OnAgeGroupChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ExpertiseLevel", DbType:="NVarChar(100)")>  _
+		Public Property ExpertiseLevel() As String
+			Get
+				Return Me._ExpertiseLevel
+			End Get
+			Set
+				If (String.Equals(Me._ExpertiseLevel, value) = false) Then
+					Me.OnExpertiseLevelChanging(value)
+					Me.SendPropertyChanging
+					Me._ExpertiseLevel = value
+					Me.SendPropertyChanged("ExpertiseLevel")
+					Me.OnExpertiseLevelChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AcceptedArea", DbType:="NVarChar(500)")>  _
+		Public Property AcceptedArea() As String
+			Get
+				Return Me._AcceptedArea
+			End Get
+			Set
+				If (String.Equals(Me._AcceptedArea, value) = false) Then
+					Me.OnAcceptedAreaChanging(value)
+					Me.SendPropertyChanging
+					Me._AcceptedArea = value
+					Me.SendPropertyChanged("AcceptedArea")
+					Me.OnAcceptedAreaChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_TravelOptions", DbType:="NVarChar(50)")>  _
+		Public Property TravelOptions() As String
+			Get
+				Return Me._TravelOptions
+			End Get
+			Set
+				If (String.Equals(Me._TravelOptions, value) = false) Then
+					Me.OnTravelOptionsChanging(value)
+					Me.SendPropertyChanging
+					Me._TravelOptions = value
+					Me.SendPropertyChanged("TravelOptions")
+					Me.OnTravelOptionsChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_PricingOptions", DbType:="NVarChar(100)")>  _
+		Public Property PricingOptions() As String
+			Get
+				Return Me._PricingOptions
+			End Get
+			Set
+				If (String.Equals(Me._PricingOptions, value) = false) Then
+					Me.OnPricingOptionsChanging(value)
+					Me.SendPropertyChanging
+					Me._PricingOptions = value
+					Me.SendPropertyChanged("PricingOptions")
+					Me.OnPricingOptionsChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_WhatToBring", DbType:="NVarChar(100)")>  _
+		Public Property WhatToBring() As String
+			Get
+				Return Me._WhatToBring
+			End Get
+			Set
+				If (String.Equals(Me._WhatToBring, value) = false) Then
+					Me.OnWhatToBringChanging(value)
+					Me.SendPropertyChanging
+					Me._WhatToBring = value
+					Me.SendPropertyChanged("WhatToBring")
+					Me.OnWhatToBringChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="OnlineAd_TutorAd", Storage:="_OnlineAd", ThisKey:="OnlineAdId", OtherKey:="OnlineAdId", IsForeignKey:=true)>  _
+		Public Property OnlineAd() As OnlineAd
+			Get
+				Return Me._OnlineAd.Entity
+			End Get
+			Set
+				Dim previousValue As OnlineAd = Me._OnlineAd.Entity
+				If ((Object.Equals(previousValue, value) = false)  _
+							OrElse (Me._OnlineAd.HasLoadedOrAssignedValue = false)) Then
+					Me.SendPropertyChanging
+					If ((previousValue Is Nothing)  _
+								= false) Then
+						Me._OnlineAd.Entity = Nothing
+						previousValue.TutorAds.Remove(Me)
+					End If
+					Me._OnlineAd.Entity = value
+					If ((value Is Nothing)  _
+								= false) Then
+						value.TutorAds.Add(Me)
+						Me._OnlineAdId = value.OnlineAdId
+					Else
+						Me._OnlineAdId = CType(Nothing, Integer)
+					End If
+					Me.SendPropertyChanged("OnlineAd")
+				End If
+			End Set
+		End Property
+		
+		Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
+		
+		Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+		
+		Protected Overridable Sub SendPropertyChanging()
+			If ((Me.PropertyChangingEvent Is Nothing)  _
+						= false) Then
+				RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
+			End If
+		End Sub
+		
+		Protected Overridable Sub SendPropertyChanged(ByVal propertyName As [String])
+			If ((Me.PropertyChangedEvent Is Nothing)  _
+						= false) Then
+				RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+			End If
+		End Sub
 	End Class
 	
 	Partial Public Class spSpecialRatesByCategoryResult

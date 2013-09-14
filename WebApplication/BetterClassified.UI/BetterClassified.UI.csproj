@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="Controls\Dsl\DslThumbCommand.cs" />
     <Compile Include="Controls\Dsl\DslThumbImage.cs" />
+    <Compile Include="Controls\TagsInput.cs" />
     <Compile Include="Framework\BasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>

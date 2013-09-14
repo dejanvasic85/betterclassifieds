@@ -36,6 +36,10 @@ body
     z-index: 1000;
 }
 
+.themusic img {
+    max-width: 250px;
+}
+
 img
 {
     border: none;

@@ -352,3 +352,30 @@
 	};
 
 })(jQuery);
+
+$(function () {
+    $('.tags').tagsInput({
+        width: '90%',
+        height: '15px',
+        onAddTag: function (tag) {
+            var hiddenInput = $(this).closest('span').find('.hdnInputTag');
+            var tags = hiddenInput.val();
+            if (tags == '') {
+                tags = tag;
+            } else {
+                tags = tags + "," + tag;
+            }
+            hiddenInput.val(tags);
+        },
+        onRemoveTag: function (tag) {
+            var hiddenInput = $(this).closest('span').find('.hdnInputTag');
+            var tags = hiddenInput.val().split(','),
+                index = tags.indexOf(tag);
+            while (index >= 0) {
+                tags.splice(index, 1);
+                index = tags.indexOf(tag);
+            }
+            hiddenInput.val(tags.join(','));
+        }
+    });
+});

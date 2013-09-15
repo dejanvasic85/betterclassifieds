@@ -30,4 +30,22 @@ Partial Public Class TutorAdForm
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtSubjects As Global.BetterClassified.UI.TagsInput
+
+    '''<summary>
+    '''txtObjective control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtObjective As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''txtWhatToBring control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtWhatToBring As Global.System.Web.UI.WebControls.TextBox
 End Class

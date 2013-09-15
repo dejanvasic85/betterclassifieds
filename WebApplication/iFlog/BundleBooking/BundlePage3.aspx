@@ -1,8 +1,9 @@
-﻿<%@ Page Title="New Bundle Booking - Design your Ad" Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/Default.Master"
+﻿<%@ Page Title="New Bundle Booking - Design your Ad" Language="vb" AutoEventWireup="false" ClientIDMode="Predictable" MasterPageFile="~/Master/Default.Master"
     CodeBehind="BundlePage3.aspx.vb" Inherits="BetterclassifiedsWeb.BundlePage3" %>
 
 <%@ Register Src="~/Controls/Booking/DesignOnlineAd.ascx" TagName="OnlineAd" TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/ErrorList.ascx" TagName="PageErrors" TagPrefix="ucx" %>
+<%@ Register src="~/Controls/TutorAdForm.ascx" tagName="TutorForm" tagPrefix="ucx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
@@ -85,8 +86,8 @@
                 <%--Online Ad Details--%>
                 <ucx:OnlineAd ID="ucxOnlineAd" runat="server" />
 
-               <%-- <div class="additionalOnlineDetails">
-                    
+                <%--<div class="additionalOnlineDetails">
+                    <ucx:TutorForm ID="tutorForm" runat="server" />
                 </div>--%>
             </div>
 

@@ -37,5 +37,12 @@ namespace BetterClassified.UI
                 .Cast<ColorPickerItem>()
                 .Any(item => string.Compare(ColorTranslator.ToHtml(item.Value), colourCode, StringComparison.OrdinalIgnoreCase) == 0);
         }
+
+        public static void AddCssResource(this Page page, Type serverControlType, string resourceName)
+        {
+            var resourceUrl = page.ClientScript.GetWebResourceUrl(serverControlType, resourceName);
+            var includeControl = new LiteralControl(string.Format("<link rel='stylesheet' text='text/css' href='{0}' />", resourceUrl));
+            page.Header.Controls.Add(includeControl);
+        }
     }
 }

@@ -158,6 +158,7 @@
     <Content Include="App_Themes\Plain\plain.css" />
     <Compile Include="api\OnlineAdController.vb" />
     <Compile Include="Common\HttpExtensions.vb" />
+    <Content Include="Controls\TutorAdForm.ascx" />
     <Content Include="favicon.ico" />
     <Content Include="MemberAccount\ExtendBooking.aspx" />
     <Content Include="MemberAccount\Bookings.aspx" />
@@ -399,6 +400,13 @@
     </Compile>
     <Compile Include="Controls\RecentOnlineAdList.ascx.vb">
       <DependentUpon>RecentOnlineAdList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\TutorAdForm.ascx.designer.vb">
+      <DependentUpon>TutorAdForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TutorAdForm.ascx.vb">
+      <DependentUpon>TutorAdForm.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Error\AccessDenied.aspx.designer.vb">
@@ -996,8 +1004,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_GlobalResources\" />
-    <Folder Include="bin\" />
-    <Folder Include="Image\" />
+    <Folder Include="bin\Image\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

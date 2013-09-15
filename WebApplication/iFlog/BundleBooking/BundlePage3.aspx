@@ -85,17 +85,10 @@
                 <%--Online Ad Details--%>
                 <ucx:OnlineAd ID="ucxOnlineAd" runat="server" />
 
-                <%--<div class="formcontrol-container">
-                    <label>Course Subject(s)</label>
-                    <label class="helptext">What areas are covered in the course?</label>
-                    <div class="control">
-                        <asp:TextBox runat="server" ID="txtSubjects"></asp:TextBox>
-                    </div>
+               <%-- <div class="additionalOnlineDetails">
+                    
                 </div>--%>
-
             </div>
-            
-            
 
             <div class="bookingpage-BookingSideContent">
                 <%--Main Div for Summary Details--%>
@@ -122,6 +115,8 @@
             </div>
         </div>
     </div>
-
 </asp:Content>
 
+<asp:Content runat="server" ContentPlaceHolderID="pageScripts" ID="scripts">
+    
+</asp:Content>

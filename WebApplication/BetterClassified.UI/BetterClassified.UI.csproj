@@ -109,7 +109,7 @@
   <ItemGroup>
     <Compile Include="Controls\Dsl\DslThumbCommand.cs" />
     <Compile Include="Controls\Dsl\DslThumbImage.cs" />
-    <Compile Include="Controls\TagsInput.cs" />
+    <Compile Include="Controls\TagsInput\TagsInput.cs" />
     <Compile Include="Framework\BasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -297,7 +297,10 @@
   <ItemGroup>
     <EmbeddedResource Include="JavaScript\jquery-timers.js" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\TagsInput\jquery.tagsinput.css" />
+    <EmbeddedResource Include="Controls\TagsInput\jquery.tagsinput.js" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="JavaScript\jquery-floatobject.js" />
   </ItemGroup>

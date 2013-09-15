@@ -45,6 +45,7 @@ using System.Runtime.InteropServices;
 [assembly: System.Web.UI.WebResource("BetterClassified.UI.Resources.action-button.css", "text/css")]
 [assembly: System.Web.UI.WebResource("BetterClassified.UI.Resources.lineAdView.css", "text/css")]
 [assembly: System.Web.UI.WebResource("BetterClassified.UI.Resources.lineAdTextBox.css", "text/css")]
+[assembly: System.Web.UI.WebResource("BetterClassified.UI.Controls.TagsInput.jquery.tagsinput.css", "text/css")]
 
 // Java script
 [assembly: System.Web.UI.WebResource("BetterClassified.UI.JavaScript.auto-resize-frame.js", "text/js")]
@@ -58,3 +59,4 @@ using System.Runtime.InteropServices;
 [assembly: System.Web.UI.WebResource("BetterClassified.UI.JavaScript.linead-textbox.js", "text/js")]
 [assembly: System.Web.UI.WebResource("BetterClassified.UI.JavaScript.adordersummary-float.js", "text/js")]
 [assembly: System.Web.UI.WebResource("BetterClassified.UI.JavaScript.adordersummary-pricecheck.js", "text/js")]
+[assembly: System.Web.UI.WebResource("BetterClassified.UI.Controls.TagsInput.jquery.tagsinput.js", "text/js")]

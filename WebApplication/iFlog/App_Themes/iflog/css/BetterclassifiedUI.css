@@ -212,3 +212,7 @@ LineAdTextBox
     background-color: #FAE8E8;
     border: 1px solid #FFA2AA;
 }
+
+.formcontrol-container .image-panel {
+    display: inline-block;
+}

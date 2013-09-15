@@ -63,9 +63,6 @@ Partial Public Class BundlePage3
         End If
     End Sub
 
-    'Private Function GetSingleAdPrice(ByVal adText As String, ByVal useImage As Boolean, ByVal useBoldHeading As Boolean)
-    '    Return _bundleController.GetEditionPrice(adText, useImage, useBoldHeading, 1)
-    'End Function
 #End Region
 
 #Region "Navigation Buttons"

@@ -2,7 +2,7 @@
 Imports BetterclassifiedsCore.ParameterAccess
 
 Partial Public Class _Default4
-    Inherits BetterclassifiedsCore.UI.BasePage
+    Inherits System.Web.UI.Page
     Protected Overrides Sub OnInit(ByVal e As System.EventArgs)
         MyBase.OnInit(e)
         AddHandler categorySelector.OnCategoryClick, AddressOf CategoryClicked

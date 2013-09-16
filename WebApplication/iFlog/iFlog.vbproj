@@ -143,7 +143,6 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\iflog\css\BetterclassifiedUI.css" />
     <Content Include="App_Themes\iflog\Common.UI\PaddedPanel.css" />
     <Content Include="App_Themes\iflog\images\aeroleftblack.gif" />
     <Content Include="App_Themes\iflog\images\aerorightblack.gif" />

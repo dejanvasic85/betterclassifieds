@@ -2,7 +2,7 @@
 Imports BetterclassifiedsCore.ParameterAccess
 
 Partial Public Class EditLineAd
-    Inherits BetterclassifiedsCore.UI.BasePage
+    Inherits System.Web.UI.Page
 
     Private _userId As String
     Private _adBookingId As Integer

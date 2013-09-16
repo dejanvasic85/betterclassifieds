@@ -15,3 +15,25 @@ CREATE TABLE [dbo].[Lookup](
 ) ON [PRIMARY]
 END
 GO
+
+INSERT INTO [iFlog].[dbo].[Lookup]
+           ([GroupName]
+           ,[LookupValue])
+     VALUES
+           ( 'TutorLevels', 'Any' ),
+		   ( 'TutorLevels', 'Advanced' ),
+		   ( 'TutorLevels', 'Intermediate' ),
+		   ( 'TutorLevels', 'Beginners' ),
+
+		   ( 'TutorTravelOptions', 'Any' ),
+		   ( 'TutorTravelOptions', 'Tutor Location' ),
+		   ( 'TutorTravelOptions', 'Student Location' ),
+		   ( 'TutorTravelOptions', 'Mutual Location' ),
+
+		   ( 'TutorPricingOptions', 'Flexible' ),
+		   ( 'TutorPricingOptions', 'Hourly' ), 
+		   ( 'TutorPricingOptions', 'Flat Rate' )
+
+
+GO
+

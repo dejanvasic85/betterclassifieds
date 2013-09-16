@@ -2,6 +2,9 @@
 {
     public enum LookupGroup
     {
-        TutorSubjects
+        TutorSubjects,
+        TutorLevels,
+        TutorTravelOptions,
+        TutorPricingOptions
     }
 }

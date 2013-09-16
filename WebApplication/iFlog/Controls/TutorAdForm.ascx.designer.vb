@@ -14,6 +14,24 @@ Option Explicit On
 Partial Public Class TutorAdForm
 
     '''<summary>
+    '''hdnOnlineAdId control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hdnOnlineAdId As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
+    '''hdnTutorAdId control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hdnTutorAdId As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
     '''txtSubjects control.
     '''</summary>
     '''<remarks>
@@ -39,4 +57,49 @@ Partial Public Class TutorAdForm
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtWhatToBring As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''txtAgeMin control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtAgeMin As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''txtAgeMax control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtAgeMax As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''ddlExpertLevel control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlExpertLevel As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''ddlTravelOptions control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlTravelOptions As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''ddlPricingOptions control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlPricingOptions As Global.System.Web.UI.WebControls.DropDownList
 End Class

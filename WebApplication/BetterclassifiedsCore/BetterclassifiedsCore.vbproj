@@ -146,8 +146,6 @@
     <Compile Include="BusinessEntities\UserProfileEntity.vb" />
     <Compile Include="BusinessEntities\Utility.vb" />
     <Compile Include="BusinessEntities\PublicationEntity.vb" />
-    <Compile Include="Context\BookingTransactionContext.vb" />
-    <Compile Include="Context\ParamountContext.vb" />
     <Compile Include="Controller\OnlineAdEnquiryController.vb" />
     <Compile Include="Controller\ReportController.vb" />
     <Compile Include="DataModel\ApplicationUserDataContext.vb" />
@@ -184,14 +182,7 @@
     <Compile Include="DataModel\DataSource.vb" />
     <Compile Include="DataModel\Proc.vb" />
     <Compile Include="DataModel\Search.vb" />
-    <Compile Include="Error\BettterclassifiedException.vb" />
     <Compile Include="Settings.vb" />
-    <Compile Include="UI\BaseMasterPage.vb">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UI\BasePage.vb">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Booking\BookCart.vb" />
     <Compile Include="Booking\PriceSummary.vb" />
     <Compile Include="Controller\AdController.vb" />

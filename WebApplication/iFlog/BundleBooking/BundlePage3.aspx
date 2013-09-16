@@ -82,13 +82,14 @@
                     Title="Upload Images" Width="680px" Height="580px" Modal="true" Behaviors="Close"
                     ReloadOnShow="true" VisibleStatusbar="false" OnClientClose="imageWindowClosed">
                 </telerik:RadWindow>
+                
+                <div class="additionalOnlineDetails">
+                    <ucx:TutorForm ID="tutorForm" runat="server" />
+                </div>
 
                 <%--Online Ad Details--%>
                 <ucx:OnlineAd ID="ucxOnlineAd" runat="server" />
-
-                <%--<div class="additionalOnlineDetails">
-                    <ucx:TutorForm ID="tutorForm" runat="server" />
-                </div>--%>
+                
             </div>
 
             <div class="bookingpage-BookingSideContent">

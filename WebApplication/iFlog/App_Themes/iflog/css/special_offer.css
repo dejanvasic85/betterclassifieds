@@ -128,14 +128,6 @@
 	width: 400px;
 	float: left;
 }
-.spacerSpecialBreak {
-	display: block;
-	margin: 0px;
-	padding: 0px;
-	float: left;
-	height: 2px;
-	width: 520px;
-}
 .spacerSpecialCategory {
 	display: block;
 	margin: 0px;

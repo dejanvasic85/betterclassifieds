@@ -7,17 +7,20 @@ namespace BetterClassified.UI.Repository
 {
     public interface ILookupRepository
     {
-        IEnumerable<string> GetLookupsForGroup(Models.LookupGroup lookupGroup);
+        List<string> GetLookupsForGroup(Models.LookupGroup lookupGroup);
         void AddOrUpdate(Models.LookupGroup group, string lookupValue);
     }
 
     public class LookupRepository : ILookupRepository
     {
-        public IEnumerable<string> GetLookupsForGroup(Models.LookupGroup lookupGroup)
+        public List<string> GetLookupsForGroup(Models.LookupGroup lookupGroup)
         {
             using (var context = BetterclassifiedsDataContext.NewContext())
             {
-                return context.Lookups.Where(l => l.GroupName == lookupGroup.ToString()).Select(a=>a.LookupValue);
+                return context.Lookups
+                    .Where(l => l.GroupName == lookupGroup.ToString())
+                    .Select(a=>a.LookupValue)
+                    .ToList();
             }
         }
 

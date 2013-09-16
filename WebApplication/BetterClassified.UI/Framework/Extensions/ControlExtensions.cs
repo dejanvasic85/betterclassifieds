@@ -36,5 +36,15 @@ namespace BetterClassified
         {
             head.Controls.Add(new HtmlMeta { Name = name, Content = content });
         }
+
+        public static void DatabindLookups<T>(this DropDownList dropDown, IEnumerable<T> values, string textField = "", string valueField = "")
+        {
+            dropDown.DataSource = values;
+            if (textField.HasValue())
+                dropDown.DataTextField = textField;
+            if (valueField.HasValue())
+                dropDown.DataValueField = valueField;
+            dropDown.DataBind();
+        }
     }
 }

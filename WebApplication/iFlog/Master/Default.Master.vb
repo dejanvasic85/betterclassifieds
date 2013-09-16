@@ -8,7 +8,7 @@ Imports BetterclassifiedsCore.ParameterAccess
 Imports BetterclassifiedsCore.DataModel
 
 Partial Public Class _Default1
-    Inherits BaseMasterPage
+    Inherits System.Web.UI.MasterPage
 
     Private Const AnyCategory As String = "Any Category"
     Private Const AnySubCategory As String = "Any Sub Category"

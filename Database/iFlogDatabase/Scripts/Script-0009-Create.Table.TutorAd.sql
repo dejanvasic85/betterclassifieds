@@ -8,13 +8,13 @@ CREATE TABLE [dbo].[TutorAd](
 	[TutorAdId] [int] IDENTITY(1,1) NOT NULL,
 	[OnlineAdId] [int] NOT NULL,
 	[Subjects] [nvarchar](500) NULL,
-	[Availability] [nvarchar](500) NULL,
-	[AgeGroup] [nvarchar](100) NULL,
+	[AgeGroupMin] [int] NULL,
+	[AgeGroupMax] [int] NULL,
 	[ExpertiseLevel] [nvarchar](100) NULL,
-	[AcceptedArea] [nvarchar](500) NULL,
-	[TravelOptions] [nvarchar](50) NULL,
-	[PricingOptions] [nvarchar](100) NULL,
+	[TravelOption] [nvarchar](50) NULL,
+	[PricingOption] [nvarchar](100) NULL,
 	[WhatToBring] [nvarchar](100) NULL,
+	[Objective] [nvarchar](200) NULL
  CONSTRAINT [PK_TutorAd] PRIMARY KEY CLUSTERED 
 (
 	[TutorAdId] ASC

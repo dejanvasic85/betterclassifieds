@@ -2,7 +2,7 @@
 Imports BetterclassifiedsCore.UI
 
 Partial Public Class Login1
-    Inherits BasePage
+    Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         'this is the current url

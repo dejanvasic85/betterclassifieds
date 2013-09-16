@@ -7,8 +7,7 @@ BEGIN
 CREATE TABLE [dbo].[Lookup](
 	[LookupId] [bigint] IDENTITY(1,1) NOT NULL,
 	[GroupName] [nvarchar](50) NOT NULL,
-	[Name] [nvarchar](100) NOT NULL,
-	[Value] [nvarchar](200) NOT NULL
+	[LookupValue] [nvarchar](200) NOT NULL
  CONSTRAINT [PK_Lookup] PRIMARY KEY CLUSTERED 
 (
 	[LookupId] ASC

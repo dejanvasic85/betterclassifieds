@@ -17,7 +17,7 @@ Public Class Global_asax
     Sub Application_Start(ByVal sender As Object, ByVal e As EventArgs)
         Application.Add("validApplication", True)
 
-        ' Unity Registrations
+        ' Unity Container Registrations
         BetterClassified.Unity.DefaultContainer _
             .RegisterType(Of IBookingRepository, BookingRepository)() _
             .RegisterType(Of IPublicationRepository, PublicationRepository)() _
@@ -25,7 +25,8 @@ Public Class Global_asax
             .RegisterType(Of IRateRepository, RateRepository)() _
             .RegisterType(Of IUserRepository, UserRepository)() _
             .RegisterType(Of IPaymentsRepository, PaymentsRepository)() _
-            .RegisterType(Of IAdRepository, AdRepository)()
+            .RegisterType(Of IAdRepository, AdRepository)() _
+            .RegisterType(Of ILookupRepository, LookupRepository)()
 
         RouteTable.Routes.MapHttpRoute(
            name:="DefaultApi",

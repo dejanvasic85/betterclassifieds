@@ -507,6 +507,13 @@
       <Association Name="OnlineAd_TutorAd" Member="OnlineAd" ThisKey="OnlineAdId" OtherKey="OnlineAdId" Type="OnlineAd" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Lookup" Member="Lookups">
+    <Type Name="Lookup">
+      <Column Name="LookupId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="GroupName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LookupValue" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
   <Function Name="dbo.spGetMainParentCategories" Method="spGetMainParentCategories">
     <ElementType IdRef="ID1" />
   </Function>

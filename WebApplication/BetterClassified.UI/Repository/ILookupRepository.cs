@@ -1,18 +1,38 @@
 ﻿using System.Linq;
-using BetterClassified.UI.Models;
+using System.Collections.Generic;
+
+using BetterclassifiedsCore.DataModel; // fkn dependency
 
 namespace BetterClassified.UI.Repository
 {
     public interface ILookupRepository
     {
-        ILookup<string, string> GetLookups(LookupGroup lookupGroup);
+        IEnumerable<string> GetLookupsForGroup(Models.LookupGroup lookupGroup);
+        void AddOrUpdate(Models.LookupGroup group, string lookupValue);
     }
 
     public class LookupRepository : ILookupRepository
     {
-        public ILookup<string, string> GetLookups(LookupGroup lookupGroup)
+        public IEnumerable<string> GetLookupsForGroup(Models.LookupGroup lookupGroup)
         {
-            return null;
+            using (var context = BetterclassifiedsDataContext.NewContext())
+            {
+                return context.Lookups.Where(l => l.GroupName == lookupGroup.ToString()).Select(a=>a.LookupValue);
+            }
+        }
+
+        public void AddOrUpdate(Models.LookupGroup group, string lookupValue)
+        {
+            using (var context = BetterclassifiedsDataContext.NewContext())
+            {
+                // Check if exists
+                var lookup = context.Lookups.FirstOrDefault(l => l.GroupName == group.ToString() && l.LookupValue == lookupValue);
+                if (lookup == null)
+                {
+                    context.Lookups.InsertOnSubmit(new Lookup {GroupName = group.ToString(), LookupValue = lookupValue});
+                }
+                context.SubmitChanges();
+            }
         }
     }
 }

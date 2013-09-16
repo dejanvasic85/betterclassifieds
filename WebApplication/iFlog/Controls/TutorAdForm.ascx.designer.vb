@@ -14,15 +14,6 @@ Option Explicit On
 Partial Public Class TutorAdForm
 
     '''<summary>
-    '''hlpTutorSubject control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents hlpTutorSubject As Global.Paramount.Common.UI.HelpContextControl
-
-    '''<summary>
     '''txtSubjects control.
     '''</summary>
     '''<remarks>

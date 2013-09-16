@@ -171,6 +171,7 @@
     <Compile Include="Models\BookingStatusType.cs" />
     <Compile Include="Models\ExtensionStatus.cs" />
     <Compile Include="Models\LineAdModel.cs" />
+    <Compile Include="Models\LookupType.cs" />
     <Compile Include="Models\MemberMenuItem.cs" />
     <Compile Include="Models\OnlineAdModel.cs" />
     <Compile Include="Models\PaymentType.cs" />
@@ -192,6 +193,7 @@
     <Compile Include="Repository\IAdRepository.cs" />
     <Compile Include="Repository\IBookingRepository.cs" />
     <Compile Include="Repository\IConfigSettings.cs" />
+    <Compile Include="Repository\ILookupRepository.cs" />
     <Compile Include="Repository\IPaymentsRepository.cs" />
     <Compile Include="Repository\IPublicationRepository.cs" />
     <Compile Include="Models\PublicationModel.cs" />

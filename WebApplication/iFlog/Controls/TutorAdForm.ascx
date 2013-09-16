@@ -9,16 +9,12 @@
 <div class="formcontrol-container">
     <label>Subject(s)</label>
     <label class="helptext">What areas are covered in the course?</label>
-    <paramountItCommon:HelpContextControl runat="server" Position="Bottom" ID="hlpTutorSubject" ImageUrl="~/Resources/Images/question_button.gif">
-        <ContentTemplate>
-            <span class="text-wrapper">Type a subject and press TAB or comma to save.</span>
-        </ContentTemplate>
-    </paramountItCommon:HelpContextControl>
     <div class="control">
         <paramountIt:TagsInput runat="server" ID="txtSubjects" />
     </div>
 </div>
 
+<%--Course Objective--%>
 <div class="formcontrol-container">
     <label for="ContentPlaceHolder1_tutorForm_txtObjective">Course Objective</label>
     <label class="helptext">What should the expectations be for the student?</label>
@@ -27,6 +23,7 @@
     </div>
 </div>
 
+<%--What to bring--%>
 <div class="formcontrol-container">
     <label for="ContentPlaceHolder1_tutorForm_txtWhatToBring">What to bring</label>
     <label class="helptext">List any equipment/materials students should bring.</label>
@@ -34,3 +31,4 @@
         <asp:TextBox runat="server" ID="txtWhatToBring" Width="90%"></asp:TextBox>
     </div>
 </div>
+

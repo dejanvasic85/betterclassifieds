@@ -394,7 +394,6 @@
       <DependentUpon>OnlineAdView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Controls\ParamountCompositeControl.vb" />
     <Compile Include="Controls\RecentOnlineAdList.ascx.designer.vb">
       <DependentUpon>RecentOnlineAdList.ascx</DependentUpon>
     </Compile>

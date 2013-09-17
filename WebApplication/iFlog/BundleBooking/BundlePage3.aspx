@@ -84,7 +84,7 @@
                 </telerik:RadWindow>
                 
                 <div class="additionalOnlineDetails">
-                    <ucx:TutorForm ID="tutorForm" runat="server" />
+                    <ucx:TutorForm ID="ucxTutorForm" runat="server" />
                 </div>
 
                 <%--Online Ad Details--%>

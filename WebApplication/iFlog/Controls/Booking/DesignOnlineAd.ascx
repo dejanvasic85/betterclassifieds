@@ -1,11 +1,6 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="DesignOnlineAd.ascx.vb"
     Inherits="BetterclassifiedsWeb.DesignOnlineAd" %>
-<%@ Register Src="~/Controls/ImageSpecification.ascx" TagName="ImageSpecification"
-    TagPrefix="ucx" %>
-<div class="bookingMainContent">
-    <h1>
-        Online Classified Details</h1>
-</div>
+
 <%--Ad Title--%>
 <div id="bookAdMainContent">
 <table >

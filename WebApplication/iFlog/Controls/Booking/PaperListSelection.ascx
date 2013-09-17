@@ -4,13 +4,9 @@
         DataKeyNames="PublicationId" GridLines="None" ShowHeader="false" CellPadding="10" CellSpacing="0">
         
         <Columns>
-            
-           <%-- <asp:ImageField ItemStyle-Width="240" DataImageUrlField="ImageUrl" 
-                DataImageUrlFormatString="~/dsl/document.ashx?docType=4&id={0}" />--%>
-            
-            <asp:TemplateField ItemStyle-Width="240">
+            <asp:TemplateField ItemStyle-Width="180px">
                 <ItemTemplate>
-                    <asp:Image ID="imgPaper" runat="server" />
+                    <asp:Image ID="imgPaper" runat="server" style="width: 180px" />
                 </ItemTemplate>
             </asp:TemplateField>
             

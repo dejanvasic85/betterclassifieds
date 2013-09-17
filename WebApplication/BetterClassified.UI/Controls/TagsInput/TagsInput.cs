@@ -8,16 +8,16 @@ namespace BetterClassified.UI
 {
     public class TagsInput : CompositeControl
     {
-        private readonly HtmlInputText inputText;
-        private readonly HtmlInputHidden hiddenField;
+        private readonly HtmlInputText _inputText;
+        private readonly HtmlInputHidden _hiddenField;
 
         public TagsInput()
         {
-            inputText = new HtmlInputText();
-            inputText.Attributes.Add("class", "tags");
+            _inputText = new HtmlInputText();
+            _inputText.Attributes.Add("class", "tags");
 
-            hiddenField = new HtmlInputHidden();
-            hiddenField.Attributes.Add("class", "hdnInputTag");
+            _hiddenField = new HtmlInputHidden();
+            _hiddenField.Attributes.Add("class", "hdnInputTag");
         }
 
         protected override void OnPreRender(System.EventArgs e)
@@ -30,19 +30,31 @@ namespace BetterClassified.UI
         protected override void CreateChildControls()
         {
             // Add the input control 
-            Controls.Add(inputText);
-            Controls.Add(hiddenField);
+            Controls.Add(_inputText);
+            Controls.Add(_hiddenField);
         }
 
         public string GetTags()
         {
-            return hiddenField.Value;
+            return _hiddenField.Value;
         }
 
         public void SetTags(string tags)
         {
-            inputText.Value = tags;
-            hiddenField.Value = tags;
+            _inputText.Value = tags;
+            _hiddenField.Value = tags;
+        }
+
+        public string AddTagMethodName
+        {
+            get { return _hiddenField.Attributes["data-addservicename"]; }
+            set { _hiddenField.Attributes["data-addservicename"] = value; }
+        }
+
+        public string AutoCompleteMethodName
+        {
+            get { return _hiddenField.Attributes["data-autocompleteurl"]; }
+            set { _hiddenField.Attributes["data-autocompleteurl"] = value; }
         }
     }
 }

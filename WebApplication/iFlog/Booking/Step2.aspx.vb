@@ -6,7 +6,6 @@ Imports BetterClassified.UI.WebPage
 
 Partial Public Class Step2
     Inherits BaseBookingPage
-    Implements IStartBookingProcess
 
     Protected Sub Page_Load (ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
@@ -192,7 +191,4 @@ Partial Public Class Step2
 
 #End Region
 
-    Public Sub BeginBooking() Implements IStartBookingProcess.BeginBooking
-
-    End Sub
 End Class

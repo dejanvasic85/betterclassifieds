@@ -1,9 +1,12 @@
 ﻿using System.IO;
+using System.Linq;
 using System.Web.Services;
 using System.Web.UI;
+using BetterClassified.UI.Models;
 using BetterClassified.UIController;
 using BetterClassified.UIController.Booking;
 using BetterclassifiedsCore;
+using Microsoft.Practices.Unity;
 
 namespace BetterClassified.UI
 {
@@ -107,6 +110,20 @@ namespace BetterClassified.UI
             Server.Execute(page, stringWriter, false);
 
             return stringWriter.ToString();
+        }
+
+        [WebMethod(EnableSession = true)]
+        public void AddOrUpdateSubjectTag(string subject)
+        {
+            Unity.DefaultContainer.Resolve<Repository.ILookupRepository>().AddOrUpdate(LookupGroup.TutorSubjects, subject);
+        }
+
+        [WebMethod]
+        public string[] GetSubjectLookups(string searchString)
+        {
+            return Unity.DefaultContainer.Resolve<Repository.ILookupRepository>()
+                .GetLookupsForGroup(LookupGroup.TutorSubjects, searchString: searchString)
+                .ToArray();
         }
     }
 }

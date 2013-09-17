@@ -68,15 +68,6 @@ Partial Public Class BundlePage2
     Protected WithEvents pnlPublications As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
-    '''HelpContextControl1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents HelpContextControl1 As Global.Paramount.Common.UI.HelpContextControl
-
-    '''<summary>
     '''ucxPaperList control.
     '''</summary>
     '''<remarks>

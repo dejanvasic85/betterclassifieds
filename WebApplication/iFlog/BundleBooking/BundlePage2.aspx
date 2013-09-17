@@ -23,30 +23,30 @@
                         <ContentTemplate>
                             <%--Select Category--%>
                             <div id="bookAdMainContent">
-                              <table>
-                                <tr>
-                                    <td>
-                                        <h2> Choose Category:</h2>
-                                    </td>
-                                    <td style="vertical-align:middle">
-                                        <h5 style="margin-top:15px;"> Please select the appropriate category</h5>
-                                    </td>
-                                    <td>
-                                        <div class="help-context-panel" style="margin-top:10px">
-                                            <paramountItCommon:HelpContextControl Position="Bottom" ID="HelpContextControl3" ImageUrl="~/Resources/Images/question_button.gif"
-                                                runat="server">
-                                                <ContentTemplate>
-                                                    <span class="text-wrapper"><b>Choose Category:</b>
-                                                        <br />
-                                                        Select the reason for making the ad. Example: If you are in a band and need a new
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <h2>Choose Category:</h2>
+                                        </td>
+                                        <td style="vertical-align: middle">
+                                            <h5 style="margin-top: 15px;">Please select the appropriate category</h5>
+                                        </td>
+                                        <td>
+                                            <div class="help-context-panel" style="margin-top: 10px">
+                                                <paramountItCommon:HelpContextControl Position="Bottom" ID="HelpContextControl3" ImageUrl="~/Resources/Images/question_button.gif"
+                                                    runat="server">
+                                                    <ContentTemplate>
+                                                        <span class="text-wrapper"><b>Choose Category:</b>
+                                                            <br />
+                                                            Select the reason for making the ad. Example: If you are in a band and need a new
                                                         guitarist, in the employment option you would select 'Musicians Wanted' and in administration
                                                         you would select 'Guitarist'. </span>
-                                                </ContentTemplate>
-                                            </paramountItCommon:HelpContextControl>
-                                        </div>
-                                    </td>
-                                </tr>
-                              </table>
+                                                    </ContentTemplate>
+                                                </paramountItCommon:HelpContextControl>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                             <div id="bookAdMainContent">
                                 <table width="550" border="0" cellspacing="0px" cellpadding="0px">
@@ -65,40 +65,18 @@
                             <%--Select Publication--%>
                             <asp:Panel ID="pnlPublications" runat="server">
                                 <div id="bookAdMainContent">
-                                <table>
-                                    <tr>
-                                        <td>
-                                        <h2>
-                                        Publication:</h2>
-                                        </td>
-                                        <td>
-                                        <h5 style="margin-top:15px;"> Please select single or multiple publications.</h5>
-                                        </td>
-                                        <td>
-                                        <div class="help-context-panel" style="margin-top:10px">
-                                            <paramountItCommon:HelpContextControl Position="Bottom" ID="HelpContextControl1" ImageUrl="~/Resources/Images/question_button.gif"
-                                                runat="server">
-                                                <ContentTemplate>
-                                                    <span class="text-wrapper">
-                                                <p>
-                                                    Pick a magazine to suit your ad.
-                                                </p>
-                                                <br />
-                                                <b>3D World:</b> 3D World is Sydney's largest free weekly dance magazine. With 30,000
-                                                copies distributed throughout Sydney, Newscastle, Wollongong and Canberra. <br />
-                                                <b>Drum Media:</b>
-                                                 Drum Media is Sydney's largest free weekly magazine aimed at 18-35 year olds.
-                                                Over 34,000 copies are distributed throughout Sydney, Newscastle, Wollongong and
-                                                Canberra.
-                                                </span>
-                                                </ContentTemplate>
-                                            </paramountItCommon:HelpContextControl>
-                                </div> 
-                                        </td>
-                                    </tr>
-                                </table>
-                                    
-                                 
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <h2>Publication:</h2>
+                                            </td>
+                                            <td>
+                                                <h5 style="margin-top: 15px;">Please select single or multiple publications.</h5>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+
                                 </div>
                                 <div id="bookAdMainContent">
                                     <ucx:PaperList ID="ucxPaperList" runat="server" AllowMultiplePapers="true" />
@@ -119,7 +97,8 @@
                         </div>
                     </div>
                     <div class="spacerBookAdBottom">
-                        &nbsp;</div>
+                        &nbsp;
+                    </div>
                     <div id="myAccountTableButtonsRight">
                         <div id="myAccountTableButtonsCancel">
                             <ul>

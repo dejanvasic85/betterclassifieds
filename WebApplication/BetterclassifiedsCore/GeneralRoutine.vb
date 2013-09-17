@@ -624,6 +624,11 @@ Public Module GeneralRoutine
                                                                               .ImageType = onlineGraphic.ImageType, .ModifiedDate = onlineGraphic.ModifiedDate})
                 Next
 
+                '' TUTOR AD
+                If cart.TutorAd IsNot Nothing Then
+                    onlineAd.TutorAds.Add(cart.TutorAd)
+                End If
+
                 ' ************
                 ' Book Entries
                 ' ************

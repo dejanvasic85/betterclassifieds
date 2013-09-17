@@ -11,17 +11,17 @@
 
 <%--Subjects--%>
 <div class="formcontrol-container">
-    <label>Subject/Themes</label>
-    <label class="helptext">What areas are covered in the course?</label>
+    <label>Subject/Fields</label>
+    <label class="helptext">What areas are covered in the course? e.g. piano</label>
     <div class="control">
-        <paramountIt:TagsInput runat="server" ID="txtSubjects" />
+        <paramountIt:TagsInput runat="server" ID="txtSubjects" AddTagMethodName="AddOrUpdateSubjectTag" AutoCompleteMethodName="GetSubjectLookups" />
     </div>
 </div>
 
 <%--Course Objective--%>
 <div class="formcontrol-container">
     <label for="ContentPlaceHolder1_tutorForm_txtObjective">Course Objective</label>
-    <label class="helptext">What should the expectations be for the student?</label>
+    <label class="helptext">What should the student expect to achieve?</label>
     <div class="control">
         <asp:TextBox runat="server" ID="txtObjective" Rows="3" TextMode="MultiLine" Width="90%"></asp:TextBox>
     </div>

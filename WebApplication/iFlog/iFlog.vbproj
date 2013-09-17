@@ -143,7 +143,6 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\iflog\Common.UI\PaddedPanel.css" />
     <Content Include="App_Themes\iflog\images\aeroleftblack.gif" />
     <Content Include="App_Themes\iflog\images\aerorightblack.gif" />
     <Content Include="App_Themes\iflog\images\button.gif" />
@@ -263,7 +262,6 @@
     </Compile>
     <Compile Include="Common\Constants.vb" />
     <Compile Include="Common\General.vb" />
-    <Compile Include="Common\IStartBookingProcess.vb" />
     <Compile Include="Common\UploadBookingManager.aspx.designer.vb">
       <DependentUpon>UploadBookingManager.aspx</DependentUpon>
     </Compile>

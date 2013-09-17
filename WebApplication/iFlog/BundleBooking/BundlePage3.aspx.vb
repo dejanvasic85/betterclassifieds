@@ -80,10 +80,10 @@ Partial Public Class BundlePage3
             _bundleController.SetOnlineAdDetails(ucxOnlineAd.Heading, ucxOnlineAd.Description, ucxOnlineAd.HtmlText, ucxOnlineAd.Price, ucxOnlineAd.LocationId, _
                                                  ucxOnlineAd.LocationArea, ucxOnlineAd.ContactName, ucxOnlineAd.ContactType, _
                                                  ucxOnlineAd.ContactValue)
-            Dim isGraphicUploaded As Boolean = (BundleController.BundleCart.LineAdGraphic IsNot Nothing)
-            ' set the price for a single edition
-            '_bundleController.SetSingleEditionPrice(GetSingleAdPrice(lineAdNewDesign.LineAdText, isGraphicUploaded, lineAdNewDesign.IsLineAdHeadingSelected))
-            ' redirect to the scheduling details step
+
+            Dim tutorAd = ucxTutorForm.GetTutorAd
+            _bundleController.SetTutorAdDetails(tutorAd.AgeGroupMax, tutorAd.AgeGroupMin, tutorAd.Level, tutorAd.Objective, tutorAd.PricingOption, tutorAd.GetSubjectsAsCsv(), tutorAd.TravelOption, tutorAd.WhatToBring)
+
             Response.Redirect(PageUrl.BookingBundle_4)
         End If
     End Sub

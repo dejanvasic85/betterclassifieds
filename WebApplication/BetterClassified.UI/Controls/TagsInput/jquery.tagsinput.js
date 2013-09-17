@@ -366,6 +366,18 @@ $(function () {
                 tags = tags + "," + tag;
             }
             hiddenInput.val(tags);
+            
+            // Persist the added tag
+            if (hiddenInput.attr('data-addservicename')) {
+                var webServiceUrl = ajaxWebServiceUrl + "/" + hiddenInput.attr('data-addservicename');
+                $.ajax({
+                    type: "POST",
+                    url: webServiceUrl,
+                    data: JSON.stringify({ subject: tag }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                });
+            }
         },
         onRemoveTag: function (tag) {
             var hiddenInput = $(this).closest('span').find('.hdnInputTag');
@@ -376,6 +388,27 @@ $(function () {
                 index = tags.indexOf(tag);
             }
             hiddenInput.val(tags.join(','));
-        }
+        },
+        //autocomplete_url: ajaxWebServiceUrl + "/" + $('.hdnInputTag').attr('data-autocompleteurl'),
+        //autocomplete: {
+        //    source: function (request, response) {
+        //        console.log('autocomplete term: ' + request.term);
+                
+        //        var hiddenInput = $(this).closest('span').find('.hdnInputTag');
+        //        if (!hiddenInput.attr('data-autocompleteurl')) {
+        //            response(null);
+        //            return;
+        //        }
+        //        var webServiceUrl = ajaxWebServiceUrl + "/" + hiddenInput.attr('data-autocompleteurl');
+        //        $.ajax({
+        //            url: webServiceUrl,
+        //            dataType: "json",
+        //            data: { searchString: request.term },
+        //            success: function(data) {
+        //                alert(data);
+        //            }
+        //        });
+        //    }
+        //}
     });
 });

@@ -277,6 +277,22 @@ Namespace BundleBooking
             End If
         End Sub
 
+        Public Sub SetTutorAdDetails(ByVal ageGroupMax As Nullable(Of Integer), ByVal ageGroupMin As Nullable(Of Integer), _
+                                     ByVal level As String, ByVal objective As String, ByVal pricingOption As String, _
+                                     ByVal subjects As String, ByVal travelOption As String, ByVal whatToBring As String)
+            If BundleCart IsNot Nothing Then
+                BundleCart.TutorAd = New DataModel.TutorAd With { _
+                    .AgeGroupMax = ageGroupMax, _
+                    .AgeGroupMin = ageGroupMin, _
+                    .ExpertiseLevel = level, _
+                    .Objective = objective, _
+                    .PricingOption = pricingOption, _
+                    .Subjects = subjects, _
+                    .TravelOption = travelOption, _
+                    .WhatToBring = whatToBring}
+            End If
+        End Sub
+
         Public Sub SetOnlineAdGraphics(ByVal imageList As List(Of String))
             Dim onlineGraphics As New List(Of DataModel.AdGraphic)
             For Each imageGuid In imageList

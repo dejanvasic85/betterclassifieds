@@ -95,6 +95,9 @@ Partial Public Class Step3
                                                ucxDesignOnlineAd.ContactName, ucxDesignOnlineAd.ContactType, _
                                                ucxDesignOnlineAd.ContactValue)
 
+                Dim tutorAd = ucxTutorForm.GetTutorAd
+                BookingController.SetTutorAdDetails(tutorAd.AgeGroupMax, tutorAd.AgeGroupMin, tutorAd.Level, tutorAd.Objective, tutorAd.PricingOption, tutorAd.GetSubjectsAsCsv(), tutorAd.TravelOption, tutorAd.WhatToBring)
+
                 totalPrice = CalculatePrice(adTypeCode, ucxDesignOnlineAd.Description)
             End If
 

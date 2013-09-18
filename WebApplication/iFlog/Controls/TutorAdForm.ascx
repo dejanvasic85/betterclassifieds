@@ -1,10 +1,5 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="TutorAdForm.ascx.vb" ClientIDMode="Predictable" Inherits="BetterclassifiedsWeb.TutorAdForm" %>
 
-<%--<div class="well">
-    <strong>New:</strong> These tutoring details that will be displayed 
-    and searchable online!
-</div>--%>
-
 <%--Hidden fields--%>
 <asp:HiddenField runat="server" ID="hdnOnlineAdId"/>
 <asp:HiddenField runat="server" ID="hdnTutorAdId"/>

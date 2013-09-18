@@ -1,11 +1,12 @@
 ﻿<%@ Page Language="vb" AutoEventWireup="false" MasterPageFile="~/Master/Default.Master"
-    CodeBehind="Step3.aspx.vb" Inherits="BetterclassifiedsWeb.Step3" 
+    CodeBehind="Step3.aspx.vb" Inherits="BetterclassifiedsWeb.Step3"
     Title="New Booking - Design Ad" %>
 
 <%@ Register Src="~/Controls/Booking/DesignLineAd.ascx" TagName="DesignLineAd" TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/Booking/DesignOnlineAd.ascx" TagName="DesignOnlineAd" TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/Booking/NavigationButtons.ascx" TagName="NavigationButtons" TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/ErrorList.ascx" TagName="PageErrors" TagPrefix="ucx" %>
+<%@ Register Src="~/Controls/TutorAdForm.ascx" TagName="TutorForm" TagPrefix="ucx" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="clearFloat">
@@ -19,19 +20,18 @@
                     <div id="bookAdMainContent">
                         <ucx:PageErrors ID="ucxPageErrors" runat="server" />
                     </div>
-                    
-                    <div id="bookAdMainContent">                        
-                        <h1>
-                            Upload Images</h1>
-                            <div class="help-context-panel">
+
+                    <div id="bookAdMainContent">
+                        <h1>Upload Images</h1>
+                        <div class="help-context-panel">
                             <paramountItCommon:HelpContextControl Position="Bottom" ID="helpContextPanel" ImageUrl="~/Resources/Images/question_button.gif"
                                 runat="server" CssClass="upload-help">
                                 <ContentTemplate>
                                     <span class="text-wrapper">
-                                    <b>Image:</b>
-                                     You have the option of selecting
+                                        <b>Image:</b>
+                                        You have the option of selecting
                                         an image to enhance the appeal of your ad to the public. 
-                                        </span>
+                                    </span>
                                 </ContentTemplate>
                             </paramountItCommon:HelpContextControl>
                         </div>
@@ -40,16 +40,24 @@
                         <asp:Label ID="lblInfoImages" runat="server" CssClass="message-info-blue" Text="Use our new upload manager to submit your images. You can always open this window to add and remove at any time." /><br />
                         <br />
                         <div class="wordcount">
-                            <asp:LinkButton ID="lnkUploadImages" runat="server" Text="Upload" /></div>
+                            <asp:LinkButton ID="lnkUploadImages" runat="server" Text="Upload" />
+                        </div>
                     </div>
                     <%--Telerik RadWindow for displaying and managing online ad images--%>
                     <telerik:RadWindow ID="radWindowImages" runat="server" NavigateUrl="~/Common/UploadBookingManager.aspx"
                         Title="Upload Images" Width="680px" Height="580px" Behaviors="Close" Modal="true" ReloadOnShow="true" VisibleStatusbar="false" />
+
                     <ucx:DesignLineAd ID="ucxLineAdDesign" runat="server" Visible="false" ShowWordCount="true" />
+
+                    <%--Tutors--%>
+                    <div class="additionalOnlineDetails">
+                        <ucx:TutorForm ID="ucxTutorForm" runat="server" />
+                    </div>
+
                     <ucx:DesignOnlineAd ID="ucxDesignOnlineAd" runat="server" Visible="false" />
                     <br />
                     <br />
-                
+
                     <%--Bottom Navigation Buttons--%>
                     <ucx:NavigationButtons ID="ucxNavButtons" runat="server" StepNumber="3" />
                 </div>

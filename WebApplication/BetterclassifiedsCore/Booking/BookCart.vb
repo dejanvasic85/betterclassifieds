@@ -119,6 +119,16 @@ Namespace Booking
             End Set
         End Property
 
+        Private _tutorAd As DataModel.TutorAd
+        Public Property TutorAd() As DataModel.TutorAd
+            Get
+                Return _tutorAd
+            End Get
+            Set(value As DataModel.TutorAd)
+                _tutorAd = value
+            End Set
+        End Property
+
 #Region "IBookCartContext Members"
 
         Public Property MainCategoryName As String Implements IBookCartContext.MainCategoryName

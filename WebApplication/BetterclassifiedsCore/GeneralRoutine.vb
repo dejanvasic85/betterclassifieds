@@ -310,9 +310,9 @@ Public Module GeneralRoutine
     ''' </summary>
     ''' <param name="adBooking">AdBooking Object that contains all required booking details.</param>
     ''' <returns>Returns true if booking successful</returns>
-    Public Function PlaceAd(ByVal adBooking As BookCart, ByVal transactionType As TransactionType) As Boolean
+    Public Function PlaceAd(ByVal cart As BookCart, ByVal transactionType As TransactionType) As Boolean
         ' call method to ensure that the booking already exists.
-        If BookingController.Exists(adBooking.BookReference) Then
+        If BookingController.Exists(cart.BookReference) Then
             Return True
             Exit Function ' exit the function and do not proceed with inserting records into DB
         End If
@@ -322,14 +322,14 @@ Public Module GeneralRoutine
             ' AD BOOKING
             Dim b As New AdBooking
             With b
-                .StartDate = adBooking.StartDate
-                .EndDate = adBooking.EndDate
-                .TotalPrice = adBooking.TotalPrice
-                .UserId = adBooking.UserId
-                .BookReference = adBooking.BookReference
-                .MainCategoryId = adBooking.MainCategoryId
-                .BookingStatus = adBooking.BookingStatus
-                .Insertions = adBooking.Insertions
+                .StartDate = cart.StartDate
+                .EndDate = cart.EndDate
+                .TotalPrice = cart.TotalPrice
+                .UserId = cart.UserId
+                .BookReference = cart.BookReference
+                .MainCategoryId = cart.MainCategoryId
+                .BookingStatus = cart.BookingStatus
+                .Insertions = cart.Insertions
                 .BookingType = BookingController.GetBookingTypeString
                 .BookingDate = DateTime.Now
             End With
@@ -337,13 +337,13 @@ Public Module GeneralRoutine
             '' AD
             b.Ad = New Ad
             With b.Ad
-                .Title = adBooking.Ad.Title.Trim
-                .Comments = adBooking.Ad.Comments
-                .UseAsTemplate = adBooking.Ad.UseAsTemplate
+                .Title = cart.Ad.Title.Trim
+                .Comments = cart.Ad.Comments
+                .UseAsTemplate = cart.Ad.UseAsTemplate
             End With
 
             '' AD DESIGN
-            For Each design In adBooking.Ad.AdDesigns
+            For Each design In cart.Ad.AdDesigns
 
                 Dim d As New AdDesign
                 d.AdTypeId = design.AdTypeId
@@ -363,9 +363,9 @@ Public Module GeneralRoutine
                         End With
 
                         ' line ad image
-                        If adBooking.LineAdGraphic IsNot Nothing Then
+                        If cart.LineAdGraphic IsNot Nothing Then
                             line.UsePhoto = True
-                            d.AdGraphics.Add(New AdGraphic With {.DocumentID = adBooking.LineAdGraphic.DocumentID})
+                            d.AdGraphics.Add(New AdGraphic With {.DocumentID = cart.LineAdGraphic.DocumentID})
                         End If
 
                         ' add the line Ad into the design
@@ -390,23 +390,14 @@ Public Module GeneralRoutine
                         d.Status = AdDesignStatus.Approved
                         d.OnlineAds.Add(onlineAd)
 
+                        If cart.TutorAd IsNot Nothing Then
+                            onlineAd.TutorAds.Add(cart.TutorAd)
+                        End If
+
                 End Select
 
-                ''' AD GRAPHIC
-                'For Each graphic In design.AdGraphics
-                '    Dim g As New AdGraphic
-                '    With g
-                '        .DocumentID = graphic.DocumentID
-                '        .ImageType = graphic.ImageType
-                '        .ModifiedDate = graphic.ModifiedDate
-                '    End With
-
-                '    ' add the graphic into the design
-                '    d.AdGraphics.Add(g)
-                'Next
-
                 '' AD GRAPHICS
-                For Each imageGuid As String In adBooking.ImageList
+                For Each imageGuid As String In cart.ImageList
                     Dim g As New AdGraphic With {.DocumentID = imageGuid, .ImageType = Nothing, .ModifiedDate = DateTime.Now}
                     d.AdGraphics.Add(g)
                 Next
@@ -416,7 +407,7 @@ Public Module GeneralRoutine
             Next
 
             '' BOOK ENTRY
-            For Each entry In adBooking.BookEntries
+            For Each entry In cart.BookEntries
                 b.BookEntries.Add(New BookEntry With {.BaseRateId = entry.BaseRateId, _
                                                               .EditionAdPrice = entry.EditionAdPrice, _
                                                               .EditionDate = entry.EditionDate, _

@@ -383,6 +383,22 @@ Public Class BookingController
         End If
     End Sub
 
+    Public Shared Sub SetTutorAdDetails(ByVal ageGroupMax As Nullable(Of Integer), ByVal ageGroupMin As Nullable(Of Integer), _
+                                         ByVal level As String, ByVal objective As String, ByVal pricingOption As String, _
+                                         ByVal subjects As String, ByVal travelOption As String, ByVal whatToBring As String)
+        If AdBookCart IsNot Nothing Then
+            AdBookCart.TutorAd = New DataModel.TutorAd With { _
+                .AgeGroupMax = ageGroupMax, _
+                .AgeGroupMin = ageGroupMin, _
+                .ExpertiseLevel = level, _
+                .Objective = objective, _
+                .PricingOption = pricingOption, _
+                .Subjects = subjects, _
+                .TravelOption = travelOption, _
+                .WhatToBring = whatToBring}
+        End If
+    End Sub
+
     ''' <summary>
     ''' Retrieves the Ratecards from the databases associated with the selected Publications and Category
     ''' </summary>

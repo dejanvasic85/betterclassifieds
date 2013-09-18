@@ -4,9 +4,9 @@
         DataKeyNames="PublicationId" GridLines="None" ShowHeader="false" CellPadding="10" CellSpacing="0">
         
         <Columns>
-            <asp:TemplateField ItemStyle-Width="180px">
+            <asp:TemplateField>
                 <ItemTemplate>
-                    <asp:Image ID="imgPaper" runat="server" style="width: 180px" />
+                    <asp:Image ID="imgPaper" runat="server" style="max-width: 180px" />
                 </ItemTemplate>
             </asp:TemplateField>
             

@@ -150,7 +150,6 @@
     <Compile Include="Controller\ReportController.vb" />
     <Compile Include="DataModel\ApplicationUserDataContext.vb" />
     <Compile Include="DataModel\BetterclassifiedsDataContext.vb" />
-    <Compile Include="Exceptions\ContextNotSetException.vb" />
     <Compile Include="IBookCartContext.vb" />
     <Compile Include="ParameterAccess\BookingProcess.vb" />
     <Compile Include="ParameterAccess\ExtensionContext.vb" />
@@ -162,11 +161,6 @@
     <Compile Include="Controller\DataSetController.vb" />
     <Compile Include="CRM\CrmController.vb" />
     <Compile Include="Controller\GeneralController.vb" />
-    <Compile Include="CRM\Correspondance.vb" />
-    <Compile Include="CRM\Customer.vb" />
-    <Compile Include="CRM\Purchase.vb" />
-    <Compile Include="CRM\Transaction.vb" />
-    <Compile Include="CRM\UserClassController.vb" />
     <Compile Include="DataModel\AdBookingSet.vb" />
     <Compile Include="DataModel\AppUser.designer.vb">
       <AutoGen>True</AutoGen>

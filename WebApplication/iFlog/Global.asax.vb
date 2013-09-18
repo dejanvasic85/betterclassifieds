@@ -46,7 +46,7 @@ Public Class Global_asax
         End If
 
         ' check the request length and direct the user to an appropriate error message.
-        If Request.ContentLength > Utilities.Constants.CONST_SYSTEM_MaxRequest_Length Then
+        If Request.ContentLength > 4194304 Then
             Response.Redirect(Utilities.Constants.CONST_ERROR_DEFAULT_URL + "?type=" + Utilities.Constants.CONST_ERROR_REQUEST_SIZE)
         End If
 

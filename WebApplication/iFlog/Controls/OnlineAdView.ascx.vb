@@ -81,7 +81,7 @@ Partial Public Class OnlineAdView
                 objContactDetail.Visible = False
             Else
                 If .ContactType.ToLower = "email" Then
-                    Dim r As Regex = New Regex(Utilities.Constants.CONST_REGEX_Email, RegexOptions.IgnoreCase)
+                    Dim r As Regex = New Regex("\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b", RegexOptions.IgnoreCase)
                     Dim m As Match = r.Match(.ContactValue)
                     If m.Success Then
                         litContactDetails.Text = String.Format("<a href=""mailto:{0}"">{1}</a>", .ContactValue, .ContactValue)

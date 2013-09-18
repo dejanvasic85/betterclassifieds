@@ -248,6 +248,12 @@ Namespace DataModel
     End Sub
     Partial Private Sub DeleteTutorAd(instance As TutorAd)
     End Sub
+    Partial Private Sub InsertMainCategoryOnlineAd(instance As MainCategoryOnlineAd)
+    End Sub
+    Partial Private Sub UpdateMainCategoryOnlineAd(instance As MainCategoryOnlineAd)
+    End Sub
+    Partial Private Sub DeleteMainCategoryOnlineAd(instance As MainCategoryOnlineAd)
+    End Sub
     #End Region
 		
 		Public Sub New()
@@ -500,6 +506,12 @@ Namespace DataModel
 		Public ReadOnly Property TutorAds() As System.Data.Linq.Table(Of TutorAd)
 			Get
 				Return Me.GetTable(Of TutorAd)
+			End Get
+		End Property
+		
+		Public ReadOnly Property MainCategoryOnlineAds() As System.Data.Linq.Table(Of MainCategoryOnlineAd)
+			Get
+				Return Me.GetTable(Of MainCategoryOnlineAd)
 			End Get
 		End Property
 		
@@ -1371,6 +1383,8 @@ Namespace DataModel
 		
 		Private _AdBookings As EntitySet(Of AdBooking)
 		
+		Private _MainCategoryOnlineAds As EntitySet(Of MainCategoryOnlineAd)
+		
     #Region "Extensibility Method Definitions"
     Partial Private Sub OnLoaded()
     End Sub
@@ -1404,6 +1418,7 @@ Namespace DataModel
 			MyBase.New
 			Me._PublicationCategories = New EntitySet(Of PublicationCategory)(AddressOf Me.attach_PublicationCategories, AddressOf Me.detach_PublicationCategories)
 			Me._AdBookings = New EntitySet(Of AdBooking)(AddressOf Me.attach_AdBookings, AddressOf Me.detach_AdBookings)
+			Me._MainCategoryOnlineAds = New EntitySet(Of MainCategoryOnlineAd)(AddressOf Me.attach_MainCategoryOnlineAds, AddressOf Me.detach_MainCategoryOnlineAds)
 			OnCreated
 		End Sub
 		
@@ -1508,6 +1523,16 @@ Namespace DataModel
 			End Set
 		End Property
 		
+		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="MainCategory_MainCategoryOnlineAd", Storage:="_MainCategoryOnlineAds", ThisKey:="MainCategoryId", OtherKey:="MainCategoryId")>  _
+		Public Property MainCategoryOnlineAds() As EntitySet(Of MainCategoryOnlineAd)
+			Get
+				Return Me._MainCategoryOnlineAds
+			End Get
+			Set
+				Me._MainCategoryOnlineAds.Assign(value)
+			End Set
+		End Property
+		
 		Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
 		
 		Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
@@ -1542,6 +1567,16 @@ Namespace DataModel
 		End Sub
 		
 		Private Sub detach_AdBookings(ByVal entity As AdBooking)
+			Me.SendPropertyChanging
+			entity.MainCategory = Nothing
+		End Sub
+		
+		Private Sub attach_MainCategoryOnlineAds(ByVal entity As MainCategoryOnlineAd)
+			Me.SendPropertyChanging
+			entity.MainCategory = Me
+		End Sub
+		
+		Private Sub detach_MainCategoryOnlineAds(ByVal entity As MainCategoryOnlineAd)
 			Me.SendPropertyChanging
 			entity.MainCategory = Nothing
 		End Sub
@@ -10262,6 +10297,214 @@ Namespace DataModel
 						Me._OnlineAdId = CType(Nothing, Integer)
 					End If
 					Me.SendPropertyChanged("OnlineAd")
+				End If
+			End Set
+		End Property
+		
+		Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
+		
+		Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+		
+		Protected Overridable Sub SendPropertyChanging()
+			If ((Me.PropertyChangingEvent Is Nothing)  _
+						= false) Then
+				RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
+			End If
+		End Sub
+		
+		Protected Overridable Sub SendPropertyChanged(ByVal propertyName As [String])
+			If ((Me.PropertyChangedEvent Is Nothing)  _
+						= false) Then
+				RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+			End If
+		End Sub
+	End Class
+	
+	<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.MainCategoryOnlineAd")>  _
+	Partial Public Class MainCategoryOnlineAd
+		Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+		
+		Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
+		
+		Private _MainCategoryOnlineAdId As Integer
+		
+		Private _MainCategoryId As Integer
+		
+		Private _OnlineAdTag As String
+		
+		Private _IsDeleted As Boolean
+		
+		Private _LastModifiedBy As String
+		
+		Private _LastModifiedDate As System.Nullable(Of Date)
+		
+		Private _MainCategory As EntityRef(Of MainCategory)
+		
+    #Region "Extensibility Method Definitions"
+    Partial Private Sub OnLoaded()
+    End Sub
+    Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
+    End Sub
+    Partial Private Sub OnCreated()
+    End Sub
+    Partial Private Sub OnMainCategoryOnlineAdIdChanging(value As Integer)
+    End Sub
+    Partial Private Sub OnMainCategoryOnlineAdIdChanged()
+    End Sub
+    Partial Private Sub OnMainCategoryIdChanging(value As Integer)
+    End Sub
+    Partial Private Sub OnMainCategoryIdChanged()
+    End Sub
+    Partial Private Sub OnOnlineAdTagChanging(value As String)
+    End Sub
+    Partial Private Sub OnOnlineAdTagChanged()
+    End Sub
+    Partial Private Sub OnIsDeletedChanging(value As Boolean)
+    End Sub
+    Partial Private Sub OnIsDeletedChanged()
+    End Sub
+    Partial Private Sub OnLastModifiedByChanging(value As String)
+    End Sub
+    Partial Private Sub OnLastModifiedByChanged()
+    End Sub
+    Partial Private Sub OnLastModifiedDateChanging(value As System.Nullable(Of Date))
+    End Sub
+    Partial Private Sub OnLastModifiedDateChanged()
+    End Sub
+    #End Region
+		
+		Public Sub New()
+			MyBase.New
+			Me._MainCategory = CType(Nothing, EntityRef(Of MainCategory))
+			OnCreated
+		End Sub
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_MainCategoryOnlineAdId", AutoSync:=AutoSync.OnInsert, DbType:="Int NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
+		Public Property MainCategoryOnlineAdId() As Integer
+			Get
+				Return Me._MainCategoryOnlineAdId
+			End Get
+			Set
+				If ((Me._MainCategoryOnlineAdId = value)  _
+							= false) Then
+					Me.OnMainCategoryOnlineAdIdChanging(value)
+					Me.SendPropertyChanging
+					Me._MainCategoryOnlineAdId = value
+					Me.SendPropertyChanged("MainCategoryOnlineAdId")
+					Me.OnMainCategoryOnlineAdIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_MainCategoryId", DbType:="Int NOT NULL")>  _
+		Public Property MainCategoryId() As Integer
+			Get
+				Return Me._MainCategoryId
+			End Get
+			Set
+				If ((Me._MainCategoryId = value)  _
+							= false) Then
+					If Me._MainCategory.HasLoadedOrAssignedValue Then
+						Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
+					End If
+					Me.OnMainCategoryIdChanging(value)
+					Me.SendPropertyChanging
+					Me._MainCategoryId = value
+					Me.SendPropertyChanged("MainCategoryId")
+					Me.OnMainCategoryIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_OnlineAdTag", DbType:="NVarChar(50) NOT NULL", CanBeNull:=false)>  _
+		Public Property OnlineAdTag() As String
+			Get
+				Return Me._OnlineAdTag
+			End Get
+			Set
+				If (String.Equals(Me._OnlineAdTag, value) = false) Then
+					Me.OnOnlineAdTagChanging(value)
+					Me.SendPropertyChanging
+					Me._OnlineAdTag = value
+					Me.SendPropertyChanged("OnlineAdTag")
+					Me.OnOnlineAdTagChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_IsDeleted", DbType:="Bit NOT NULL")>  _
+		Public Property IsDeleted() As Boolean
+			Get
+				Return Me._IsDeleted
+			End Get
+			Set
+				If ((Me._IsDeleted = value)  _
+							= false) Then
+					Me.OnIsDeletedChanging(value)
+					Me.SendPropertyChanging
+					Me._IsDeleted = value
+					Me.SendPropertyChanged("IsDeleted")
+					Me.OnIsDeletedChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_LastModifiedBy", DbType:="NVarChar(100)")>  _
+		Public Property LastModifiedBy() As String
+			Get
+				Return Me._LastModifiedBy
+			End Get
+			Set
+				If (String.Equals(Me._LastModifiedBy, value) = false) Then
+					Me.OnLastModifiedByChanging(value)
+					Me.SendPropertyChanging
+					Me._LastModifiedBy = value
+					Me.SendPropertyChanged("LastModifiedBy")
+					Me.OnLastModifiedByChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_LastModifiedDate", DbType:="DateTime")>  _
+		Public Property LastModifiedDate() As System.Nullable(Of Date)
+			Get
+				Return Me._LastModifiedDate
+			End Get
+			Set
+				If (Me._LastModifiedDate.Equals(value) = false) Then
+					Me.OnLastModifiedDateChanging(value)
+					Me.SendPropertyChanging
+					Me._LastModifiedDate = value
+					Me.SendPropertyChanged("LastModifiedDate")
+					Me.OnLastModifiedDateChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="MainCategory_MainCategoryOnlineAd", Storage:="_MainCategory", ThisKey:="MainCategoryId", OtherKey:="MainCategoryId", IsForeignKey:=true)>  _
+		Public Property MainCategory() As MainCategory
+			Get
+				Return Me._MainCategory.Entity
+			End Get
+			Set
+				Dim previousValue As MainCategory = Me._MainCategory.Entity
+				If ((Object.Equals(previousValue, value) = false)  _
+							OrElse (Me._MainCategory.HasLoadedOrAssignedValue = false)) Then
+					Me.SendPropertyChanging
+					If ((previousValue Is Nothing)  _
+								= false) Then
+						Me._MainCategory.Entity = Nothing
+						previousValue.MainCategoryOnlineAds.Remove(Me)
+					End If
+					Me._MainCategory.Entity = value
+					If ((value Is Nothing)  _
+								= false) Then
+						value.MainCategoryOnlineAds.Add(Me)
+						Me._MainCategoryId = value.MainCategoryId
+					Else
+						Me._MainCategoryId = CType(Nothing, Integer)
+					End If
+					Me.SendPropertyChanged("MainCategory")
 				End If
 			End Set
 		End Property

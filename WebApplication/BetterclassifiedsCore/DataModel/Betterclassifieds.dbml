@@ -42,6 +42,7 @@
       <Column Name="ParentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="MainCategory_PublicationCategory" Member="PublicationCategories" ThisKey="MainCategoryId" OtherKey="MainCategoryId" Type="PublicationCategory" />
       <Association Name="MainCategory_AdBooking" Member="AdBookings" ThisKey="MainCategoryId" OtherKey="MainCategoryId" Type="AdBooking" />
+      <Association Name="MainCategory_MainCategoryOnlineAd" Member="MainCategoryOnlineAds" ThisKey="MainCategoryId" OtherKey="MainCategoryId" Type="MainCategoryOnlineAd" />
     </Type>
   </Table>
   <Table Name="dbo.PublicationAdType" Member="PublicationAdTypes">
@@ -512,6 +513,17 @@
       <Column Name="WhatToBring" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="Objective" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
       <Association Name="OnlineAd_TutorAd" Member="OnlineAd" ThisKey="OnlineAdId" OtherKey="OnlineAdId" Type="OnlineAd" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MainCategoryOnlineAd" Member="MainCategoryOnlineAds">
+    <Type Name="MainCategoryOnlineAd">
+      <Column Name="MainCategoryOnlineAdId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MainCategoryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OnlineAdTag" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LastModifiedBy" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="LastModifiedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="MainCategory_MainCategoryOnlineAd" Member="MainCategory" ThisKey="MainCategoryId" OtherKey="MainCategoryId" Type="MainCategory" IsForeignKey="true" />
     </Type>
   </Table>
   <Function Name="dbo.spGetMainParentCategories" Method="spGetMainParentCategories">

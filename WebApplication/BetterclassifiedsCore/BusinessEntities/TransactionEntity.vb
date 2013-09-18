@@ -5,14 +5,14 @@
         Private _gstCharge As Decimal
         Public ReadOnly Property GSTAmount() As Decimal
             Get
-                Return Amount * Utilities.Constants.GST
+                Return Amount * 0.1
             End Get
         End Property
 
         Private _beforeGST As Decimal
         Public ReadOnly Property AmountBeforeGST() As Decimal
             Get
-                Return Amount - (Amount * Utilities.Constants.GST)
+                Return Amount - (Amount * 0.1)
             End Get
         End Property
 

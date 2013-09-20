@@ -138,9 +138,11 @@
     <Compile Include="Controls\ErrorList.cs" />
     <Compile Include="Controls\ExtendBookingForm.cs" />
     <Compile Include="Framework\Controller.cs" />
+    <Compile Include="Framework\Extensions\ArrayExtensions.cs" />
     <Compile Include="Framework\Extensions\ControlExtensions.cs" />
     <Compile Include="Framework\Extensions\HttpRequestExtensions.cs" />
     <Compile Include="Framework\Extensions\StringExtensions.cs" />
+    <Compile Include="Framework\Extensions\SystemExtensions.cs" />
     <Compile Include="Framework\IBaseView.cs" />
     <Compile Include="Framework\Mapping.cs" />
     <Compile Include="Framework\ReaderWriterCache.cs" />
@@ -170,6 +172,7 @@
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\BookingStatusType.cs" />
     <Compile Include="Models\ExtensionStatus.cs" />
+    <Compile Include="Models\OnlineAdTypeAttribute.cs" />
     <Compile Include="Models\LineAdModel.cs" />
     <Compile Include="Models\LookupType.cs" />
     <Compile Include="Models\MemberMenuItem.cs" />

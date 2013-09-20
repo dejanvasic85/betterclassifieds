@@ -221,6 +221,7 @@ Public Class CategoryController
                     obj.ParentId = updatedCategory.ParentId
                     obj.ImageUrl = .ImageUrl
                     obj.Description = .Description
+                    obj.OnlineAdTag = IIf(String.IsNullOrEmpty(.OnlineAdTag), Nothing, .OnlineAdTag)
 
                     db.SubmitChanges()
 

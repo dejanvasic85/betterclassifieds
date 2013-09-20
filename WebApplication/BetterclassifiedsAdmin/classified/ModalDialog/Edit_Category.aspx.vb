@@ -1,4 +1,5 @@
 ﻿Imports BetterclassifiedsCore
+Imports BetterclassifiedsCore.DataModel
 
 Partial Public Class Edit_Category
     Inherits System.Web.UI.Page
@@ -14,6 +15,12 @@ Partial Public Class Edit_Category
         _categoryId = Request.QueryString("categoryId")
         _isParent = Request.QueryString("isParent")
         lblCategoryMsg.Text = ""
+        If Not Page.IsPostBack Then
+
+            ddlOnlineTypes.DataSource = BetterClassified.UI.Models.OnlineAdModel.GetOnlineAdTypeNames
+            ddlOnlineTypes.DataBind()
+            ddlOnlineTypes.Items.Insert(0, New ListItem("-- None --", ""))
+        End If
     End Sub
 
 #End Region
@@ -21,7 +28,9 @@ Partial Public Class Edit_Category
 #Region "Databinding"
 
     Private Sub linqSourceCategory_Selecting(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.LinqDataSourceSelectEventArgs) Handles linqSourceCategory.Selecting
-        e.Result = CategoryController.GetMainCategoryById(_categoryId)
+        Dim category = CategoryController.GetMainCategoryById(_categoryId)
+        e.Result = category
+        ddlOnlineTypes.SelectedValue = category.OnlineAdTag
     End Sub
 
 #End Region
@@ -36,6 +45,7 @@ Partial Public Class Edit_Category
         Try
             Dim category As DataModel.MainCategory = TryCast(e.NewObject, DataModel.MainCategory)
             If category IsNot Nothing Then
+                category.OnlineAdTag = ddlOnlineTypes.SelectedValue
                 CategoryController.UpdateCategoryDetails(category)
                 lblCategoryMsg.Text = "Update Successful"
                 lblCategoryMsg.ForeColor = Drawing.Color.Green

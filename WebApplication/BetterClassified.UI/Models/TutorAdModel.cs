@@ -3,6 +3,7 @@ using System.Linq;
 
 namespace BetterClassified.UI.Models
 {
+    [OnlineAdType(OnlineAdName = "Tutors")]
     public class TutorAdModel
     {
         public TutorAdModel(int? ageGroupMin, int? ageGroupMax, string level, string travelOption,

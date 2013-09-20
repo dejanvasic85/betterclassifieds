@@ -70,8 +70,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iFlogDatabase", "Database\i
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iFlogCoreDatabase", "Database\iFlogCoreDatabase\iFlogCoreDatabase.csproj", "{6B9ABBAE-F1A9-456B-AAA5-24AD1D459777}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06 Testing", "06 Testing", "{4AEAFAD5-08D5-4D51-9AAC-B24DE3E5FBDC}"
-EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 29

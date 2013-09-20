@@ -55,16 +55,6 @@
                                             </asp:DropDownList>
                                         </EditItemTemplate>
                                     </asp:TemplateField>
-                                    <%--<asp:TemplateField HeaderText="Assigned Category">
-                                        <EditItemTemplate>
-                                            <div style="padding: 2px">
-                                                <asp:DropDownList ID="ddlMainCategories" runat="server"
-                                                    DataTextField="Title" DataValueField="MainCategoryId" AutoPostBack="true" Width="200px" /></div>
-                                            <div style="padding: 2px">
-                                                <asp:DropDownList ID="ddlSubCategories" runat="server" 
-                                                    DataTextField="Title" DataValueField="MainCategoryId" Width="200px" /></div>
-                                        </EditItemTemplate>
-                                    </asp:TemplateField>--%>
                                 </Fields>
                             </asp:DetailsView>
                             <table width="90%" class="detailsviewMain" cellpadding="0" cellspacing="0">

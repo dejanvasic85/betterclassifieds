@@ -1,4 +1,8 @@
-﻿namespace BetterClassified.UI.Models
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+
+namespace BetterClassified.UI.Models
 {
     public class OnlineAdModel
     {
@@ -13,5 +17,14 @@
         public string ContactType { get; set; }
         public string ContactValue { get; set; }
         public int NumOfViews { get; set; }
+
+        public static IEnumerable<string> GetOnlineAdTypeNames()
+        {
+            var types = Assembly.GetExecutingAssembly().GetTypes();
+            
+            return from type in types 
+                   where type.HasCustomAttribute<OnlineAdTypeAttribute>() 
+                   select type.GetCustomAttribute<OnlineAdTypeAttribute>().OnlineAdName;
+        }
     }
 }

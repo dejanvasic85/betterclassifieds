@@ -6,6 +6,9 @@ namespace BetterClassified.UI.Models
     [OnlineAdType(OnlineAdName = "Tutors")]
     public class TutorAdModel
     {
+        public TutorAdModel()
+        { }
+
         public TutorAdModel(int? ageGroupMin, int? ageGroupMax, string level, string travelOption,
             string pricingOption, string whatToBring, string objective, string subjects,
             int? onlineAdId = null, int? tutorAdId = null)
@@ -22,16 +25,16 @@ namespace BetterClassified.UI.Models
             this.TutorAdId = tutorAdId;
         }
 
-        public long? OnlineAdId { get; private set; }
-        public long? TutorAdId { get; private set; }
-        public int? AgeGroupMin { get; private set; }
-        public int? AgeGroupMax { get; private set; }
-        public string Level { get; private set; }
-        public string TravelOption { get; private set; }
-        public string PricingOption { get; private set; }
-        public string WhatToBring { get; private set; }
-        public string Objective { get; private set; }
-        public List<string> Subjects { get; private set; }
+        public long? OnlineAdId { get; set; }
+        public long? TutorAdId { get; set; }
+        public int? AgeGroupMin { get; set; }
+        public int? AgeGroupMax { get; set; }
+        public string Level { get; set; }
+        public string TravelOption { get; set; }
+        public string PricingOption { get; set; }
+        public string WhatToBring { get; set; }
+        public string Objective { get; set; }
+        public List<string> Subjects { get; set; }
 
         public string GetSubjectsAsCsv()
         {

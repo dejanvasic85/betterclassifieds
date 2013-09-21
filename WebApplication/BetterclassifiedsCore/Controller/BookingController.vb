@@ -250,8 +250,6 @@ Public Class BookingController
     Public Shared Sub SetPublications(ByVal paperIds As List(Of Integer))
         If Not AdBookCart Is Nothing Then
             AdBookCart.PublicationList = paperIds
-        Else
-            ' todo: throw exception
         End If
     End Sub
 
@@ -278,26 +276,23 @@ Public Class BookingController
     ''' </summary>
     ''' <param name="categoryId">ID Value of the selected category from the database.</param>
     Public Shared Sub SetMainCategory(ByVal categoryId As Integer)
-        Try
-            If Not AdBookCart Is Nothing Then
-                AdBookCart.MainCategoryId = categoryId
-            Else
-                Throw New Exception("The booking has not been started. Should not be able to access this part of the system.")
-            End If
-
-        Catch ex As Exception
-            Throw ex
-        End Try
+        AdBookCart.MainCategoryId = categoryId
     End Sub
+
+    Public Shared Function GetOnlineAdTypeForBooking() As String
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim category = db.MainCategories.FirstOrDefault(Function(c) c.MainCategoryId = AdBookCart.MainCategoryId)
+            Dim parentCategory = db.MainCategories.FirstOrDefault(Function(c) c.MainCategoryId = AdBookCart.ParentCategoryId)
+            Return IIf(Not String.IsNullOrEmpty(category.OnlineAdTag), category.OnlineAdTag, parentCategory.OnlineAdTag)
+        End Using
+    End Function
 
     ''' <summary>
     ''' Sets the Parent Category for the main category selected during booking.
     ''' </summary>
     ''' <param name="parentCategoryId"></param>
     Public Shared Sub SetParentCategory(ByVal parentCategoryId As Integer)
-        If Not AdBookCart Is Nothing Then
-            AdBookCart.ParentCategoryId = parentCategoryId
-        End If
+        AdBookCart.ParentCategoryId = parentCategoryId
     End Sub
 
     ''' <summary>

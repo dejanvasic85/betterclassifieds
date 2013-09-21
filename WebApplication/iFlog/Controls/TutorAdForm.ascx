@@ -18,7 +18,7 @@
     <label for="ContentPlaceHolder1_tutorForm_txtObjective">Course Objective</label>
     <label class="helptext">What should the student expect to achieve?</label>
     <div class="control">
-        <asp:TextBox runat="server" ID="txtObjective" Rows="3" TextMode="MultiLine" Width="90%"></asp:TextBox>
+        <asp:TextBox runat="server" ID="txtObjective" Rows="3" TextMode="MultiLine" Width="90%" MaxLength="200"></asp:TextBox>
     </div>
 </div>
 
@@ -27,7 +27,7 @@
     <label for="ContentPlaceHolder1_tutorForm_txtWhatToBring">What to bring</label>
     <label class="helptext">List any equipment/materials students should bring.</label>
     <div class="control">
-        <asp:TextBox runat="server" ID="txtWhatToBring" Width="90%"></asp:TextBox>
+        <asp:TextBox runat="server" ID="txtWhatToBring" Width="90%" MaxLength="100"></asp:TextBox>
     </div>
 </div>
 

@@ -68,13 +68,22 @@ Partial Public Class Step3
     Protected WithEvents ucxLineAdDesign As Global.BetterclassifiedsWeb.DesignLineAd
 
     '''<summary>
-    '''ucxTutorForm control.
+    '''divOnlineAdTypes control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ucxTutorForm As Global.BetterclassifiedsWeb.TutorAdForm
+    Protected WithEvents divOnlineAdTypes As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''ucxTutors control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ucxTutors As Global.BetterclassifiedsWeb.TutorAdForm
 
     '''<summary>
     '''ucxDesignOnlineAd control.

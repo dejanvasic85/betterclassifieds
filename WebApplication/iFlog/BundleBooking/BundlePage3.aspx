@@ -83,8 +83,8 @@
                     ReloadOnShow="true" VisibleStatusbar="false" OnClientClose="imageWindowClosed">
                 </telerik:RadWindow>
                 
-                <div class="additionalOnlineDetails">
-                    <ucx:TutorForm ID="ucxTutorForm" runat="server" />
+                <div class="additionalOnlineDetails" id="OnlineAdTypes" runat="server">
+                    <ucx:TutorForm ID="ucxTutors" runat="server" Visible="False" />
                 </div>
 
                 <%--Online Ad Details--%>

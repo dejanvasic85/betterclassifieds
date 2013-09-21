@@ -166,6 +166,13 @@ Namespace BundleBooking
             Return _context.PublicationAdTypes.Where(Function(pat) pat.PublicationId = publicationId).ToList()
         End Function
 
+        Public Function GetOnlineAdTypeForBooking() As String
+            If BundleCart IsNot Nothing Then
+                Return IIf(Not String.IsNullOrEmpty(BundleCart.MainSubCategory.OnlineAdTag), BundleCart.MainSubCategory.OnlineAdTag, BundleCart.MainParentCategory.OnlineAdTag)
+            End If
+            Return String.Empty
+        End Function
+
 #End Region
 
 #Region "Booking Set Methods"

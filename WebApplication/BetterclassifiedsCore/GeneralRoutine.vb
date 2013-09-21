@@ -539,114 +539,112 @@ Public Module GeneralRoutine
     End Function
 
     Public Function PlaceBundledAd(ByVal cart As BundleCart, ByVal transactionType As TransactionType, ByVal bookingStatus As Controller.BookingStatus) As Boolean
-        Try
-            Dim bundleController As New BundleController
 
-            ' ensure first that the booking reference does not already exist
-            If BookingController.Exists(cart.BookReference) Then
-                Return True
-                Exit Function
+        Dim bundleController As New BundleController
+
+        ' ensure first that the booking reference does not already exist
+        If BookingController.Exists(cart.BookReference) Then
+            Return True
+            Exit Function
+        End If
+
+        Using db = BetterclassifiedsDataContext.NewContext()
+            ' ADBOOKING Object
+            ' create a new adbooking object and map the details to the Cart paramater from session
+            Dim bk As New AdBooking With {.StartDate = cart.StartDate, .EndDate = cart.EndDate, _
+                                          .TotalPrice = cart.TotalPrice, _
+                                          .UserId = cart.Username, _
+                                          .BookReference = cart.BookReference, _
+                                          .BookingStatus = bookingStatus, _
+                                          .MainCategoryId = cart.MainSubCategory.MainCategoryId, _
+                                          .Insertions = cart.Insertions, _
+                                          .BookingType = BookingController.GetBookingTypeString, _
+                                          .BookingDate = DateTime.Now}
+            '' AD Object
+            bk.Ad = New DataModel.Ad With {.Title = Nothing, .Comments = Nothing, .UseAsTemplate = False}
+
+            '' LINEAD Object
+            Dim lineDesign As New AdDesign With {.Ad = bk.Ad, _
+                                                 .AdTypeId = AdController.GetAdTypeByCode(SystemAdType.LINE).AdTypeId, _
+                                                 .Status = AdDesignStatus.Approved}
+
+            Dim lineAd As New LineAd With {.AdDesign = lineDesign, _
+                                           .AdHeader = cart.LineAd.AdHeader, _
+                                           .AdText = cart.LineAd.AdText, _
+                                           .NumOfWords = cart.LineAd.NumOfWords, _
+                                           .UseBoldHeader = cart.LineAd.UseBoldHeader, _
+                                           .UsePhoto = cart.LineAd.UsePhoto, _
+                                           .IsSuperBoldHeading = cart.LineAd.IsSuperBoldHeading, _
+                                           .IsSuperHeadingPurchased = cart.LineAd.IsSuperBoldHeading, _
+                                           .IsColourBoldHeading = cart.LineAd.IsColourBoldHeading, _
+                                           .IsColourBorder = cart.LineAd.IsColourBorder, _
+                                           .IsColourBackground = cart.LineAd.IsColourBackground}
+
+            If lineAd.IsColourBoldHeading Then
+                lineAd.BoldHeadingColourCode = cart.LineAd.BoldHeadingColourCode
             End If
 
-            Using db = BetterclassifiedsDataContext.NewContext()
-                ' ADBOOKING Object
-                ' create a new adbooking object and map the details to the Cart paramater from session
-                Dim bk As New AdBooking With {.StartDate = cart.StartDate, .EndDate = cart.EndDate, _
-                                              .TotalPrice = cart.TotalPrice, _
-                                              .UserId = cart.Username, _
-                                              .BookReference = cart.BookReference, _
-                                              .BookingStatus = bookingStatus, _
-                                              .MainCategoryId = cart.MainSubCategory.MainCategoryId, _
-                                              .Insertions = cart.Insertions, _
-                                              .BookingType = BookingController.GetBookingTypeString, _
-                                              .BookingDate = DateTime.Now}
-                '' AD Object
-                bk.Ad = New DataModel.Ad With {.Title = Nothing, .Comments = Nothing, .UseAsTemplate = False}
+            If lineAd.IsColourBorder Then
+                lineAd.BorderColourCode = cart.LineAd.BorderColourCode
+            End If
 
-                '' LINEAD Object
-                Dim lineDesign As New AdDesign With {.Ad = bk.Ad, _
-                                                     .AdTypeId = AdController.GetAdTypeByCode(SystemAdType.LINE).AdTypeId, _
-                                                     .Status = AdDesignStatus.Approved}
+            If lineAd.IsColourBackground Then
+                lineAd.BackgroundColourCode = cart.LineAd.BackgroundColourCode
+            End If
 
-                Dim lineAd As New LineAd With {.AdDesign = lineDesign, _
-                                               .AdHeader = cart.LineAd.AdHeader, _
-                                               .AdText = cart.LineAd.AdText, _
-                                               .NumOfWords = cart.LineAd.NumOfWords, _
-                                               .UseBoldHeader = cart.LineAd.UseBoldHeader, _
-                                               .UsePhoto = cart.LineAd.UsePhoto, _
-                                               .IsSuperBoldHeading = cart.LineAd.IsSuperBoldHeading, _
-                                               .IsSuperHeadingPurchased = cart.LineAd.IsSuperBoldHeading, _
-                                               .IsColourBoldHeading = cart.LineAd.IsColourBoldHeading, _
-                                               .IsColourBorder = cart.LineAd.IsColourBorder, _
-                                               .IsColourBackground = cart.LineAd.IsColourBackground}
+            If cart.LineAdGraphic IsNot Nothing Then
+                ' LINE AD Photo
+                Dim lineGraphic As New AdGraphic With {.AdDesign = lineDesign, _
+                                                       .DocumentID = cart.LineAdGraphic.DocumentID}
+            End If
 
-                If lineAd.IsColourBoldHeading Then
-                    lineAd.BoldHeadingColourCode = cart.LineAd.BoldHeadingColourCode
-                End If
+            '' ONLINEAD Object
+            Dim onlineDesign As New DataModel.AdDesign With {.Ad = bk.Ad, _
+                                                             .AdTypeId = AdController.GetAdTypeByCode(SystemAdType.ONLINE).AdTypeId, _
+                                                             .Status = AdDesignStatus.Approved}
 
-                If lineAd.IsColourBorder Then
-                    lineAd.BorderColourCode = cart.LineAd.BorderColourCode
-                End If
+            Dim onlineAd As New DataModel.OnlineAd With {.AdDesign = onlineDesign, .ContactName = cart.OnlineAd.ContactName, _
+                                                         .ContactType = cart.OnlineAd.ContactType, .ContactValue = cart.OnlineAd.ContactValue, _
+                                                         .Description = cart.OnlineAd.Description, .Heading = cart.OnlineAd.Heading, _
+                                                         .HtmlText = cart.OnlineAd.HtmlText, .LocationId = cart.OnlineAd.LocationId, _
+                                                         .LocationAreaId = cart.OnlineAd.LocationAreaId, .NumOfViews = cart.OnlineAd.NumOfViews, _
+                                                         .Price = cart.OnlineAd.Price}
+            ' add the ad graphics if any
+            For Each onlineGraphic As DataModel.AdGraphic In cart.OnlineAdGraphics
+                onlineDesign.AdGraphics.Add(New DataModel.AdGraphic With {.DocumentID = onlineGraphic.DocumentID, .Filename = onlineGraphic.Filename, _
+                                                                          .ImageType = onlineGraphic.ImageType, .ModifiedDate = onlineGraphic.ModifiedDate})
+            Next
 
-                If lineAd.IsColourBackground Then
-                    lineAd.BackgroundColourCode = cart.LineAd.BackgroundColourCode
-                End If
+            '' TUTOR AD
+            If cart.TutorAd IsNot Nothing Then
+                onlineAd.TutorAds.Add(cart.TutorAd)
+            End If
 
-                If cart.LineAdGraphic IsNot Nothing Then
-                    ' LINE AD Photo
-                    Dim lineGraphic As New AdGraphic With {.AdDesign = lineDesign, _
-                                                           .DocumentID = cart.LineAdGraphic.DocumentID}
-                End If
-
-                '' ONLINEAD Object
-                Dim onlineDesign As New DataModel.AdDesign With {.Ad = bk.Ad, _
-                                                                 .AdTypeId = AdController.GetAdTypeByCode(SystemAdType.ONLINE).AdTypeId, _
-                                                                 .Status = AdDesignStatus.Approved}
-
-                Dim onlineAd As New DataModel.OnlineAd With {.AdDesign = onlineDesign, .ContactName = cart.OnlineAd.ContactName, _
-                                                             .ContactType = cart.OnlineAd.ContactType, .ContactValue = cart.OnlineAd.ContactValue, _
-                                                             .Description = cart.OnlineAd.Description, .Heading = cart.OnlineAd.Heading, _
-                                                             .HtmlText = cart.OnlineAd.HtmlText, .LocationId = cart.OnlineAd.LocationId, _
-                                                             .LocationAreaId = cart.OnlineAd.LocationAreaId, .NumOfViews = cart.OnlineAd.NumOfViews, _
-                                                             .Price = cart.OnlineAd.Price}
-                ' add the ad graphics if any
-                For Each onlineGraphic As DataModel.AdGraphic In cart.OnlineAdGraphics
-                    onlineDesign.AdGraphics.Add(New DataModel.AdGraphic With {.DocumentID = onlineGraphic.DocumentID, .Filename = onlineGraphic.Filename, _
-                                                                              .ImageType = onlineGraphic.ImageType, .ModifiedDate = onlineGraphic.ModifiedDate})
-                Next
-
-                '' TUTOR AD
-                If cart.TutorAd IsNot Nothing Then
-                    onlineAd.TutorAds.Add(cart.TutorAd)
-                End If
-
-                ' ************
-                ' Book Entries
-                ' ************
-                ' retrieve from the session now
-                For Each entry In cart.BookEntries
-                    bk.BookEntries.Add(New BookEntry With {.BaseRateId = entry.BaseRateId, _
-                                                           .EditionAdPrice = entry.EditionAdPrice, _
-                                                           .EditionDate = entry.EditionDate, _
-                                                           .PublicationId = entry.PublicationId, _
-                                                           .PublicationPrice = entry.PublicationPrice, _
-                                                           .RateType = entry.RateType})
-                Next
+            ' ************
+            ' Book Entries
+            ' ************
+            ' retrieve from the session now
+            For Each entry In cart.BookEntries
+                bk.BookEntries.Add(New BookEntry With {.BaseRateId = entry.BaseRateId, _
+                                                       .EditionAdPrice = entry.EditionAdPrice, _
+                                                       .EditionDate = entry.EditionDate, _
+                                                       .PublicationId = entry.PublicationId, _
+                                                       .PublicationPrice = entry.PublicationPrice, _
+                                                       .RateType = entry.RateType})
+            Next
 
 
-                ' TRANSACTION Table
-                Dim transaction As New DataModel.Transaction With {.Amount = cart.TotalPrice, .Description = BookingController.GetBookingTypeString, _
-                                                                   .Title = cart.BookReference, .TransactionDate = DateTime.Now, _
-                                                                   .TransactionType = transactionType, .UserId = cart.Username}
+            ' TRANSACTION Table
+            Dim transaction As New DataModel.Transaction With {.Amount = cart.TotalPrice, .Description = BookingController.GetBookingTypeString, _
+                                                               .Title = cart.BookReference, .TransactionDate = DateTime.Now, _
+                                                               .TransactionType = transactionType, .UserId = cart.Username}
 
-                db.AdBookings.InsertOnSubmit(bk)
-                db.Transactions.InsertOnSubmit(transaction)
-                db.SubmitChanges()
-                Return True
-            End Using
-        Catch ex As Exception
-            Throw ex
-        End Try
+            db.AdBookings.InsertOnSubmit(bk)
+            db.Transactions.InsertOnSubmit(transaction)
+            db.SubmitChanges()
+            Return True
+        End Using
+
     End Function
 
 #End Region

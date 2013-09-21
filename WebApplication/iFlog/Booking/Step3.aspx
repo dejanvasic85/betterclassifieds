@@ -49,9 +49,10 @@
 
                     <ucx:DesignLineAd ID="ucxLineAdDesign" runat="server" Visible="false" ShowWordCount="true" />
 
-                    <%--Tutors--%>
-                    <div class="additionalOnlineDetails">
-                        <ucx:TutorForm ID="ucxTutorForm" runat="server" />
+                    <%--Online Ad types--%>
+                    <div class="additionalOnlineDetails" id="divOnlineAdTypes" runat="server">
+                        <%-- Tutors --%>
+                        <ucx:TutorForm ID="ucxTutors" runat="server" Visible="False" />
                     </div>
 
                     <ucx:DesignOnlineAd ID="ucxDesignOnlineAd" runat="server" Visible="false" />

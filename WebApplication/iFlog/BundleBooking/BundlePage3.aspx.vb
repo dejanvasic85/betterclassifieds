@@ -2,6 +2,8 @@
 Imports BetterclassifiedsCore.BundleBooking
 Imports BetterclassifiedsCore.ParameterAccess
 Imports BetterClassified.UI.WebPage
+Imports BetterClassified.UI.Models
+Imports BetterClassified
 
 Partial Public Class BundlePage3
     Inherits BaseBookingPage
@@ -13,12 +15,7 @@ Partial Public Class BundlePage3
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         ' check if the bundle booking cart is expired
-        If BundleController.BundleCart Is Nothing Then
-            Response.Redirect(PageUrl.BookingStep_1 + "?action=expired")
-        End If
-
-        'make sure ad has not been saved in temp booking
-        If (AdController.TempRecordExist(BundleController.BundleCart.BookReference)) Then
+        If BundleController.BundleCart Is Nothing Or AdController.TempRecordExist(BundleController.BundleCart.BookReference) Then
             Response.Redirect(PageUrl.BookingStep_1 + "?action=expired")
         End If
 
@@ -28,7 +25,7 @@ Partial Public Class BundlePage3
 
             ' load any current session data (if any)
             LoadCurrentSessionData()
-            
+
             ' Set up the online upload parameters
             UploadParameter.Clear()
             UploadParameter.IsOnlineAdUpload = True
@@ -39,6 +36,13 @@ Partial Public Class BundlePage3
             ' Load the marketing content
             DataBindMarketingContent()
 
+            ' Display the appropriate online ad
+            Dim onlineAdType = String.Format("ucx{0}", _bundleController.GetOnlineAdTypeForBooking)
+            Dim onlineControl = OnlineAdTypes.FindControl(onlineAdType)
+            If onlineControl IsNot Nothing Then
+                onlineControl.Visible = True
+            End If
+
         End If
     End Sub
 
@@ -48,6 +52,7 @@ Partial Public Class BundlePage3
             divMarketingContent.InnerHtml = contentItem.WebContent
         End If
     End Sub
+
 #End Region
 
 #Region "Displaying / Calculate Single Price Information"
@@ -60,6 +65,12 @@ Partial Public Class BundlePage3
             ucxOnlineAd.BindOnlineAd(BundleController.BundleCart.OnlineAd, BundleController.BundleCart.OnlineAdGraphics, False)
             ' also set the booking reference
             ucxOnlineAd.BookingReference = BundleController.BundleCart.BookReference
+
+            If BundleController.BundleCart.TutorAd IsNot Nothing Then
+                With BundleController.BundleCart.TutorAd
+                    ucxTutors.BindTutorAd(New TutorAdModel(.AgeGroupMin, .AgeGroupMax, .ExpertiseLevel, .TravelOption, .PricingOption, .WhatToBring, .Objective, .Subjects, .OnlineAdId, .TutorAdId))
+                End With
+            End If
         End If
     End Sub
 
@@ -81,8 +92,10 @@ Partial Public Class BundlePage3
                                                  ucxOnlineAd.LocationArea, ucxOnlineAd.ContactName, ucxOnlineAd.ContactType, _
                                                  ucxOnlineAd.ContactValue)
 
-            Dim tutorAd = ucxTutorForm.GetTutorAd
-            _bundleController.SetTutorAdDetails(tutorAd.AgeGroupMax, tutorAd.AgeGroupMin, tutorAd.Level, tutorAd.Objective, tutorAd.PricingOption, tutorAd.GetSubjectsAsCsv(), tutorAd.TravelOption, tutorAd.WhatToBring)
+            If ucxTutors.Visible Then
+                Dim tutorAd = ucxTutors.GetTutorAd
+                _bundleController.SetTutorAdDetails(tutorAd.AgeGroupMax, tutorAd.AgeGroupMin, tutorAd.Level, tutorAd.Objective, tutorAd.PricingOption, tutorAd.GetSubjectsAsCsv(), tutorAd.TravelOption, tutorAd.WhatToBring)
+            End If
 
             Response.Redirect(PageUrl.BookingBundle_4)
         End If

@@ -11,11 +11,7 @@ Partial Public Class Step3
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
-        If BookingController.AdBookCart Is Nothing Then
-            Response.Redirect(PageUrl.BookingStep_1 + "?action=expired")
-        End If
-
-        If (AdController.TempRecordExist(BookingController.AdBookCart.BookReference)) Then
+        If BookingController.AdBookCart Is Nothing Or AdController.TempRecordExist(BookingController.AdBookCart.BookReference) Then
             Response.Redirect(PageUrl.BookingStep_1 + "?action=expired")
         End If
 
@@ -63,6 +59,12 @@ Partial Public Class Step3
             UploadParameter.BookingReference = BookingController.AdBookCart.BookReference
             radWindowImages.OpenerElementID = lnkUploadImages.ClientID
 
+            ' Display the appropriate ad type ( using ucx naming convention )
+            Dim onlineAdType = String.Format("ucx{0}", BookingController.GetOnlineAdTypeForBooking)
+            Dim onlineControl = divOnlineAdTypes.FindControl(onlineAdType)
+            If onlineControl IsNot Nothing Then
+                onlineControl.Visible = True
+            End If
         End If
 
     End Sub
@@ -95,16 +97,18 @@ Partial Public Class Step3
                                                ucxDesignOnlineAd.ContactName, ucxDesignOnlineAd.ContactType, _
                                                ucxDesignOnlineAd.ContactValue)
 
-                Dim tutorAd = ucxTutorForm.GetTutorAd
-                BookingController.SetTutorAdDetails(tutorAd.AgeGroupMax, tutorAd.AgeGroupMin, tutorAd.Level, tutorAd.Objective, tutorAd.PricingOption, tutorAd.GetSubjectsAsCsv(), tutorAd.TravelOption, tutorAd.WhatToBring)
 
+                If ucxTutors.Visible Then
+                    Dim tutorAd = ucxTutors.GetTutorAd
+                    BookingController.SetTutorAdDetails(tutorAd.AgeGroupMax, tutorAd.AgeGroupMin, tutorAd.Level, tutorAd.Objective, tutorAd.PricingOption, tutorAd.GetSubjectsAsCsv(), tutorAd.TravelOption, tutorAd.WhatToBring)
+                End If
                 totalPrice = CalculatePrice(adTypeCode, ucxDesignOnlineAd.Description)
-            End If
+                End If
 
-            ' set the price in the Session for a single Edition (may be for multiple papers though)
-            BookingController.SetSingleAdPrice(totalPrice)
+                ' set the price in the Session for a single Edition (may be for multiple papers though)
+                BookingController.SetSingleAdPrice(totalPrice)
 
-            Response.Redirect("Step4.aspx")
+                Response.Redirect("Step4.aspx")
         Else
             ucxPageErrors.ShowErrors(errorList)
         End If

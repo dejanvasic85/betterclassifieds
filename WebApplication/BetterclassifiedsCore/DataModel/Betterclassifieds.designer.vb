@@ -128,12 +128,6 @@ Namespace DataModel
     End Sub
     Partial Private Sub DeleteAdBooking(instance As AdBooking)
     End Sub
-    Partial Private Sub InsertOnlineAd(instance As OnlineAd)
-    End Sub
-    Partial Private Sub UpdateOnlineAd(instance As OnlineAd)
-    End Sub
-    Partial Private Sub DeleteOnlineAd(instance As OnlineAd)
-    End Sub
     Partial Private Sub InsertPublication(instance As Publication)
     End Sub
     Partial Private Sub UpdatePublication(instance As Publication)
@@ -247,6 +241,12 @@ Namespace DataModel
     Partial Private Sub UpdateMainCategory(instance As MainCategory)
     End Sub
     Partial Private Sub DeleteMainCategory(instance As MainCategory)
+    End Sub
+    Partial Private Sub InsertOnlineAd(instance As OnlineAd)
+    End Sub
+    Partial Private Sub UpdateOnlineAd(instance As OnlineAd)
+    End Sub
+    Partial Private Sub DeleteOnlineAd(instance As OnlineAd)
     End Sub
     #End Region
 		
@@ -368,12 +368,6 @@ Namespace DataModel
 		Public ReadOnly Property AdBookings() As System.Data.Linq.Table(Of AdBooking)
 			Get
 				Return Me.GetTable(Of AdBooking)
-			End Get
-		End Property
-		
-		Public ReadOnly Property OnlineAds() As System.Data.Linq.Table(Of OnlineAd)
-			Get
-				Return Me.GetTable(Of OnlineAd)
 			End Get
 		End Property
 		
@@ -500,6 +494,12 @@ Namespace DataModel
 		Public ReadOnly Property MainCategories() As System.Data.Linq.Table(Of MainCategory)
 			Get
 				Return Me.GetTable(Of MainCategory)
+			End Get
+		End Property
+		
+		Public ReadOnly Property OnlineAds() As System.Data.Linq.Table(Of OnlineAd)
+			Get
+				Return Me.GetTable(Of OnlineAd)
 			End Get
 		End Property
 		
@@ -2681,7 +2681,7 @@ Namespace DataModel
 			End Set
 		End Property
 		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_RowTimeStamp", AutoSync:=AutoSync.Always, DbType:="rowversion", CanBeNull:=true, IsDbGenerated:=true, IsVersion:=true, UpdateCheck:=UpdateCheck.Never)>  _
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_RowTimeStamp", AutoSync:=AutoSync.Always, DbType:="rowversion", IsDbGenerated:=true, IsVersion:=true, UpdateCheck:=UpdateCheck.Never)>  _
 		Public Property RowTimeStamp() As System.Data.Linq.Binary
 			Get
 				Return Me._RowTimeStamp
@@ -4395,458 +4395,6 @@ Namespace DataModel
 		Private Sub detach_BookEntries(ByVal entity As BookEntry)
 			Me.SendPropertyChanging
 			entity.AdBooking = Nothing
-		End Sub
-	End Class
-	
-	<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.OnlineAd")>  _
-	Partial Public Class OnlineAd
-		Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
-		
-		Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
-		
-		Private _OnlineAdId As Integer
-		
-		Private _AdDesignId As System.Nullable(Of Integer)
-		
-		Private _Heading As String
-		
-		Private _Description As String
-		
-		Private _HtmlText As String
-		
-		Private _Price As System.Nullable(Of Decimal)
-		
-		Private _LocationId As System.Nullable(Of Integer)
-		
-		Private _LocationAreaId As System.Nullable(Of Integer)
-		
-		Private _ContactName As String
-		
-		Private _ContactType As String
-		
-		Private _ContactValue As String
-		
-		Private _NumOfViews As System.Nullable(Of Integer)
-		
-		Private _OnlineAdEnquiries As EntitySet(Of OnlineAdEnquiry)
-		
-		Private _TutorAds As EntitySet(Of TutorAd)
-		
-		Private _Location As EntityRef(Of Location)
-		
-		Private _LocationArea As EntityRef(Of LocationArea)
-		
-		Private _AdDesign As EntityRef(Of AdDesign)
-		
-    #Region "Extensibility Method Definitions"
-    Partial Private Sub OnLoaded()
-    End Sub
-    Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
-    End Sub
-    Partial Private Sub OnCreated()
-    End Sub
-    Partial Private Sub OnOnlineAdIdChanging(value As Integer)
-    End Sub
-    Partial Private Sub OnOnlineAdIdChanged()
-    End Sub
-    Partial Private Sub OnAdDesignIdChanging(value As System.Nullable(Of Integer))
-    End Sub
-    Partial Private Sub OnAdDesignIdChanged()
-    End Sub
-    Partial Private Sub OnHeadingChanging(value As String)
-    End Sub
-    Partial Private Sub OnHeadingChanged()
-    End Sub
-    Partial Private Sub OnDescriptionChanging(value As String)
-    End Sub
-    Partial Private Sub OnDescriptionChanged()
-    End Sub
-    Partial Private Sub OnHtmlTextChanging(value As String)
-    End Sub
-    Partial Private Sub OnHtmlTextChanged()
-    End Sub
-    Partial Private Sub OnPriceChanging(value As System.Nullable(Of Decimal))
-    End Sub
-    Partial Private Sub OnPriceChanged()
-    End Sub
-    Partial Private Sub OnLocationIdChanging(value As System.Nullable(Of Integer))
-    End Sub
-    Partial Private Sub OnLocationIdChanged()
-    End Sub
-    Partial Private Sub OnLocationAreaIdChanging(value As System.Nullable(Of Integer))
-    End Sub
-    Partial Private Sub OnLocationAreaIdChanged()
-    End Sub
-    Partial Private Sub OnContactNameChanging(value As String)
-    End Sub
-    Partial Private Sub OnContactNameChanged()
-    End Sub
-    Partial Private Sub OnContactTypeChanging(value As String)
-    End Sub
-    Partial Private Sub OnContactTypeChanged()
-    End Sub
-    Partial Private Sub OnContactValueChanging(value As String)
-    End Sub
-    Partial Private Sub OnContactValueChanged()
-    End Sub
-    Partial Private Sub OnNumOfViewsChanging(value As System.Nullable(Of Integer))
-    End Sub
-    Partial Private Sub OnNumOfViewsChanged()
-    End Sub
-    #End Region
-		
-		Public Sub New()
-			MyBase.New
-			Me._OnlineAdEnquiries = New EntitySet(Of OnlineAdEnquiry)(AddressOf Me.attach_OnlineAdEnquiries, AddressOf Me.detach_OnlineAdEnquiries)
-			Me._TutorAds = New EntitySet(Of TutorAd)(AddressOf Me.attach_TutorAds, AddressOf Me.detach_TutorAds)
-			Me._Location = CType(Nothing, EntityRef(Of Location))
-			Me._LocationArea = CType(Nothing, EntityRef(Of LocationArea))
-			Me._AdDesign = CType(Nothing, EntityRef(Of AdDesign))
-			OnCreated
-		End Sub
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_OnlineAdId", AutoSync:=AutoSync.OnInsert, DbType:="Int NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
-		Public Property OnlineAdId() As Integer
-			Get
-				Return Me._OnlineAdId
-			End Get
-			Set
-				If ((Me._OnlineAdId = value)  _
-							= false) Then
-					Me.OnOnlineAdIdChanging(value)
-					Me.SendPropertyChanging
-					Me._OnlineAdId = value
-					Me.SendPropertyChanged("OnlineAdId")
-					Me.OnOnlineAdIdChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AdDesignId", DbType:="Int")>  _
-		Public Property AdDesignId() As System.Nullable(Of Integer)
-			Get
-				Return Me._AdDesignId
-			End Get
-			Set
-				If (Me._AdDesignId.Equals(value) = false) Then
-					If Me._AdDesign.HasLoadedOrAssignedValue Then
-						Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
-					End If
-					Me.OnAdDesignIdChanging(value)
-					Me.SendPropertyChanging
-					Me._AdDesignId = value
-					Me.SendPropertyChanged("AdDesignId")
-					Me.OnAdDesignIdChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Heading", DbType:="NVarChar(255)")>  _
-		Public Property Heading() As String
-			Get
-				Return Me._Heading
-			End Get
-			Set
-				If (String.Equals(Me._Heading, value) = false) Then
-					Me.OnHeadingChanging(value)
-					Me.SendPropertyChanging
-					Me._Heading = value
-					Me.SendPropertyChanged("Heading")
-					Me.OnHeadingChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Description", DbType:="NVarChar(MAX)")>  _
-		Public Property Description() As String
-			Get
-				Return Me._Description
-			End Get
-			Set
-				If (String.Equals(Me._Description, value) = false) Then
-					Me.OnDescriptionChanging(value)
-					Me.SendPropertyChanging
-					Me._Description = value
-					Me.SendPropertyChanged("Description")
-					Me.OnDescriptionChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_HtmlText", DbType:="NVarChar(MAX)")>  _
-		Public Property HtmlText() As String
-			Get
-				Return Me._HtmlText
-			End Get
-			Set
-				If (String.Equals(Me._HtmlText, value) = false) Then
-					Me.OnHtmlTextChanging(value)
-					Me.SendPropertyChanging
-					Me._HtmlText = value
-					Me.SendPropertyChanged("HtmlText")
-					Me.OnHtmlTextChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Price", DbType:="Money")>  _
-		Public Property Price() As System.Nullable(Of Decimal)
-			Get
-				Return Me._Price
-			End Get
-			Set
-				If (Me._Price.Equals(value) = false) Then
-					Me.OnPriceChanging(value)
-					Me.SendPropertyChanging
-					Me._Price = value
-					Me.SendPropertyChanged("Price")
-					Me.OnPriceChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_LocationId", DbType:="Int")>  _
-		Public Property LocationId() As System.Nullable(Of Integer)
-			Get
-				Return Me._LocationId
-			End Get
-			Set
-				If (Me._LocationId.Equals(value) = false) Then
-					If Me._Location.HasLoadedOrAssignedValue Then
-						Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
-					End If
-					Me.OnLocationIdChanging(value)
-					Me.SendPropertyChanging
-					Me._LocationId = value
-					Me.SendPropertyChanged("LocationId")
-					Me.OnLocationIdChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_LocationAreaId", DbType:="Int")>  _
-		Public Property LocationAreaId() As System.Nullable(Of Integer)
-			Get
-				Return Me._LocationAreaId
-			End Get
-			Set
-				If (Me._LocationAreaId.Equals(value) = false) Then
-					If Me._LocationArea.HasLoadedOrAssignedValue Then
-						Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
-					End If
-					Me.OnLocationAreaIdChanging(value)
-					Me.SendPropertyChanging
-					Me._LocationAreaId = value
-					Me.SendPropertyChanged("LocationAreaId")
-					Me.OnLocationAreaIdChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ContactName", DbType:="NVarChar(200)")>  _
-		Public Property ContactName() As String
-			Get
-				Return Me._ContactName
-			End Get
-			Set
-				If (String.Equals(Me._ContactName, value) = false) Then
-					Me.OnContactNameChanging(value)
-					Me.SendPropertyChanging
-					Me._ContactName = value
-					Me.SendPropertyChanged("ContactName")
-					Me.OnContactNameChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ContactType", DbType:="NVarChar(20)")>  _
-		Public Property ContactType() As String
-			Get
-				Return Me._ContactType
-			End Get
-			Set
-				If (String.Equals(Me._ContactType, value) = false) Then
-					Me.OnContactTypeChanging(value)
-					Me.SendPropertyChanging
-					Me._ContactType = value
-					Me.SendPropertyChanged("ContactType")
-					Me.OnContactTypeChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ContactValue", DbType:="NVarChar(100)")>  _
-		Public Property ContactValue() As String
-			Get
-				Return Me._ContactValue
-			End Get
-			Set
-				If (String.Equals(Me._ContactValue, value) = false) Then
-					Me.OnContactValueChanging(value)
-					Me.SendPropertyChanging
-					Me._ContactValue = value
-					Me.SendPropertyChanged("ContactValue")
-					Me.OnContactValueChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_NumOfViews", DbType:="Int")>  _
-		Public Property NumOfViews() As System.Nullable(Of Integer)
-			Get
-				Return Me._NumOfViews
-			End Get
-			Set
-				If (Me._NumOfViews.Equals(value) = false) Then
-					Me.OnNumOfViewsChanging(value)
-					Me.SendPropertyChanging
-					Me._NumOfViews = value
-					Me.SendPropertyChanged("NumOfViews")
-					Me.OnNumOfViewsChanged
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="OnlineAd_OnlineAdEnquiry", Storage:="_OnlineAdEnquiries", ThisKey:="OnlineAdId", OtherKey:="OnlineAdId")>  _
-		Public Property OnlineAdEnquiries() As EntitySet(Of OnlineAdEnquiry)
-			Get
-				Return Me._OnlineAdEnquiries
-			End Get
-			Set
-				Me._OnlineAdEnquiries.Assign(value)
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="OnlineAd_TutorAd", Storage:="_TutorAds", ThisKey:="OnlineAdId", OtherKey:="OnlineAdId")>  _
-		Public Property TutorAds() As EntitySet(Of TutorAd)
-			Get
-				Return Me._TutorAds
-			End Get
-			Set
-				Me._TutorAds.Assign(value)
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="Location_OnlineAd", Storage:="_Location", ThisKey:="LocationId", OtherKey:="LocationId", IsForeignKey:=true)>  _
-		Public Property Location() As Location
-			Get
-				Return Me._Location.Entity
-			End Get
-			Set
-				Dim previousValue As Location = Me._Location.Entity
-				If ((Object.Equals(previousValue, value) = false)  _
-							OrElse (Me._Location.HasLoadedOrAssignedValue = false)) Then
-					Me.SendPropertyChanging
-					If ((previousValue Is Nothing)  _
-								= false) Then
-						Me._Location.Entity = Nothing
-						previousValue.OnlineAds.Remove(Me)
-					End If
-					Me._Location.Entity = value
-					If ((value Is Nothing)  _
-								= false) Then
-						value.OnlineAds.Add(Me)
-						Me._LocationId = value.LocationId
-					Else
-						Me._LocationId = CType(Nothing, Nullable(Of Integer))
-					End If
-					Me.SendPropertyChanged("Location")
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="LocationArea_OnlineAd", Storage:="_LocationArea", ThisKey:="LocationAreaId", OtherKey:="LocationAreaId", IsForeignKey:=true)>  _
-		Public Property LocationArea() As LocationArea
-			Get
-				Return Me._LocationArea.Entity
-			End Get
-			Set
-				Dim previousValue As LocationArea = Me._LocationArea.Entity
-				If ((Object.Equals(previousValue, value) = false)  _
-							OrElse (Me._LocationArea.HasLoadedOrAssignedValue = false)) Then
-					Me.SendPropertyChanging
-					If ((previousValue Is Nothing)  _
-								= false) Then
-						Me._LocationArea.Entity = Nothing
-						previousValue.OnlineAds.Remove(Me)
-					End If
-					Me._LocationArea.Entity = value
-					If ((value Is Nothing)  _
-								= false) Then
-						value.OnlineAds.Add(Me)
-						Me._LocationAreaId = value.LocationAreaId
-					Else
-						Me._LocationAreaId = CType(Nothing, Nullable(Of Integer))
-					End If
-					Me.SendPropertyChanged("LocationArea")
-				End If
-			End Set
-		End Property
-		
-		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="AdDesign_OnlineAd", Storage:="_AdDesign", ThisKey:="AdDesignId", OtherKey:="AdDesignId", IsForeignKey:=true)>  _
-		Public Property AdDesign() As AdDesign
-			Get
-				Return Me._AdDesign.Entity
-			End Get
-			Set
-				Dim previousValue As AdDesign = Me._AdDesign.Entity
-				If ((Object.Equals(previousValue, value) = false)  _
-							OrElse (Me._AdDesign.HasLoadedOrAssignedValue = false)) Then
-					Me.SendPropertyChanging
-					If ((previousValue Is Nothing)  _
-								= false) Then
-						Me._AdDesign.Entity = Nothing
-						previousValue.OnlineAds.Remove(Me)
-					End If
-					Me._AdDesign.Entity = value
-					If ((value Is Nothing)  _
-								= false) Then
-						value.OnlineAds.Add(Me)
-						Me._AdDesignId = value.AdDesignId
-					Else
-						Me._AdDesignId = CType(Nothing, Nullable(Of Integer))
-					End If
-					Me.SendPropertyChanged("AdDesign")
-				End If
-			End Set
-		End Property
-		
-		Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
-		
-		Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
-		
-		Protected Overridable Sub SendPropertyChanging()
-			If ((Me.PropertyChangingEvent Is Nothing)  _
-						= false) Then
-				RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
-			End If
-		End Sub
-		
-		Protected Overridable Sub SendPropertyChanged(ByVal propertyName As [String])
-			If ((Me.PropertyChangedEvent Is Nothing)  _
-						= false) Then
-				RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
-			End If
-		End Sub
-		
-		Private Sub attach_OnlineAdEnquiries(ByVal entity As OnlineAdEnquiry)
-			Me.SendPropertyChanging
-			entity.OnlineAd = Me
-		End Sub
-		
-		Private Sub detach_OnlineAdEnquiries(ByVal entity As OnlineAdEnquiry)
-			Me.SendPropertyChanging
-			entity.OnlineAd = Nothing
-		End Sub
-		
-		Private Sub attach_TutorAds(ByVal entity As TutorAd)
-			Me.SendPropertyChanging
-			entity.OnlineAd = Me
-		End Sub
-		
-		Private Sub detach_TutorAds(ByVal entity As TutorAd)
-			Me.SendPropertyChanging
-			entity.OnlineAd = Nothing
 		End Sub
 	End Class
 	
@@ -7229,9 +6777,9 @@ Namespace DataModel
 		
 		Private _AdGraphics As EntitySet(Of AdGraphic)
 		
-		Private _OnlineAds As EntitySet(Of OnlineAd)
-		
 		Private _LineAds As EntitySet(Of LineAd)
+		
+		Private _OnlineAds As EntitySet(Of OnlineAd)
 		
 		Private _Ad As EntityRef(Of Ad)
 		
@@ -7277,8 +6825,8 @@ Namespace DataModel
 		Public Sub New()
 			MyBase.New
 			Me._AdGraphics = New EntitySet(Of AdGraphic)(AddressOf Me.attach_AdGraphics, AddressOf Me.detach_AdGraphics)
-			Me._OnlineAds = New EntitySet(Of OnlineAd)(AddressOf Me.attach_OnlineAds, AddressOf Me.detach_OnlineAds)
 			Me._LineAds = New EntitySet(Of LineAd)(AddressOf Me.attach_LineAds, AddressOf Me.detach_LineAds)
+			Me._OnlineAds = New EntitySet(Of OnlineAd)(AddressOf Me.attach_OnlineAds, AddressOf Me.detach_OnlineAds)
 			Me._Ad = CType(Nothing, EntityRef(Of Ad))
 			Me._AdType = CType(Nothing, EntityRef(Of AdType))
 			OnCreated
@@ -7413,16 +6961,6 @@ Namespace DataModel
 			End Set
 		End Property
 		
-		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="AdDesign_OnlineAd", Storage:="_OnlineAds", ThisKey:="AdDesignId", OtherKey:="AdDesignId")>  _
-		Public Property OnlineAds() As EntitySet(Of OnlineAd)
-			Get
-				Return Me._OnlineAds
-			End Get
-			Set
-				Me._OnlineAds.Assign(value)
-			End Set
-		End Property
-		
 		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="AdDesign_LineAd", Storage:="_LineAds", ThisKey:="AdDesignId", OtherKey:="AdDesignId")>  _
 		Public Property LineAds() As EntitySet(Of LineAd)
 			Get
@@ -7430,6 +6968,16 @@ Namespace DataModel
 			End Get
 			Set
 				Me._LineAds.Assign(value)
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="AdDesign_OnlineAd", Storage:="_OnlineAds", ThisKey:="AdDesignId", OtherKey:="AdDesignId")>  _
+		Public Property OnlineAds() As EntitySet(Of OnlineAd)
+			Get
+				Return Me._OnlineAds
+			End Get
+			Set
+				Me._OnlineAds.Assign(value)
 			End Set
 		End Property
 		
@@ -7517,22 +7065,22 @@ Namespace DataModel
 			entity.AdDesign = Nothing
 		End Sub
 		
-		Private Sub attach_OnlineAds(ByVal entity As OnlineAd)
-			Me.SendPropertyChanging
-			entity.AdDesign = Me
-		End Sub
-		
-		Private Sub detach_OnlineAds(ByVal entity As OnlineAd)
-			Me.SendPropertyChanging
-			entity.AdDesign = Nothing
-		End Sub
-		
 		Private Sub attach_LineAds(ByVal entity As LineAd)
 			Me.SendPropertyChanging
 			entity.AdDesign = Me
 		End Sub
 		
 		Private Sub detach_LineAds(ByVal entity As LineAd)
+			Me.SendPropertyChanging
+			entity.AdDesign = Nothing
+		End Sub
+		
+		Private Sub attach_OnlineAds(ByVal entity As OnlineAd)
+			Me.SendPropertyChanging
+			entity.AdDesign = Me
+		End Sub
+		
+		Private Sub detach_OnlineAds(ByVal entity As OnlineAd)
 			Me.SendPropertyChanging
 			entity.AdDesign = Nothing
 		End Sub
@@ -10304,6 +9852,480 @@ Namespace DataModel
 		Private Sub detach_AdBookings(ByVal entity As AdBooking)
 			Me.SendPropertyChanging
 			entity.MainCategory = Nothing
+		End Sub
+	End Class
+	
+	<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.OnlineAd")>  _
+	Partial Public Class OnlineAd
+		Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+		
+		Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
+		
+		Private _OnlineAdId As Integer
+		
+		Private _AdDesignId As System.Nullable(Of Integer)
+		
+		Private _Heading As String
+		
+		Private _Description As String
+		
+		Private _HtmlText As String
+		
+		Private _Price As System.Nullable(Of Decimal)
+		
+		Private _LocationId As System.Nullable(Of Integer)
+		
+		Private _LocationAreaId As System.Nullable(Of Integer)
+		
+		Private _ContactName As String
+		
+		Private _ContactType As String
+		
+		Private _ContactValue As String
+		
+		Private _NumOfViews As System.Nullable(Of Integer)
+		
+		Private _OnlineAdTag As String
+		
+		Private _OnlineAdEnquiries As EntitySet(Of OnlineAdEnquiry)
+		
+		Private _TutorAds As EntitySet(Of TutorAd)
+		
+		Private _AdDesign As EntityRef(Of AdDesign)
+		
+		Private _Location As EntityRef(Of Location)
+		
+		Private _LocationArea As EntityRef(Of LocationArea)
+		
+    #Region "Extensibility Method Definitions"
+    Partial Private Sub OnLoaded()
+    End Sub
+    Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
+    End Sub
+    Partial Private Sub OnCreated()
+    End Sub
+    Partial Private Sub OnOnlineAdIdChanging(value As Integer)
+    End Sub
+    Partial Private Sub OnOnlineAdIdChanged()
+    End Sub
+    Partial Private Sub OnAdDesignIdChanging(value As System.Nullable(Of Integer))
+    End Sub
+    Partial Private Sub OnAdDesignIdChanged()
+    End Sub
+    Partial Private Sub OnHeadingChanging(value As String)
+    End Sub
+    Partial Private Sub OnHeadingChanged()
+    End Sub
+    Partial Private Sub OnDescriptionChanging(value As String)
+    End Sub
+    Partial Private Sub OnDescriptionChanged()
+    End Sub
+    Partial Private Sub OnHtmlTextChanging(value As String)
+    End Sub
+    Partial Private Sub OnHtmlTextChanged()
+    End Sub
+    Partial Private Sub OnPriceChanging(value As System.Nullable(Of Decimal))
+    End Sub
+    Partial Private Sub OnPriceChanged()
+    End Sub
+    Partial Private Sub OnLocationIdChanging(value As System.Nullable(Of Integer))
+    End Sub
+    Partial Private Sub OnLocationIdChanged()
+    End Sub
+    Partial Private Sub OnLocationAreaIdChanging(value As System.Nullable(Of Integer))
+    End Sub
+    Partial Private Sub OnLocationAreaIdChanged()
+    End Sub
+    Partial Private Sub OnContactNameChanging(value As String)
+    End Sub
+    Partial Private Sub OnContactNameChanged()
+    End Sub
+    Partial Private Sub OnContactTypeChanging(value As String)
+    End Sub
+    Partial Private Sub OnContactTypeChanged()
+    End Sub
+    Partial Private Sub OnContactValueChanging(value As String)
+    End Sub
+    Partial Private Sub OnContactValueChanged()
+    End Sub
+    Partial Private Sub OnNumOfViewsChanging(value As System.Nullable(Of Integer))
+    End Sub
+    Partial Private Sub OnNumOfViewsChanged()
+    End Sub
+    Partial Private Sub OnOnlineAdTagChanging(value As String)
+    End Sub
+    Partial Private Sub OnOnlineAdTagChanged()
+    End Sub
+    #End Region
+		
+		Public Sub New()
+			MyBase.New
+			Me._OnlineAdEnquiries = New EntitySet(Of OnlineAdEnquiry)(AddressOf Me.attach_OnlineAdEnquiries, AddressOf Me.detach_OnlineAdEnquiries)
+			Me._TutorAds = New EntitySet(Of TutorAd)(AddressOf Me.attach_TutorAds, AddressOf Me.detach_TutorAds)
+			Me._AdDesign = CType(Nothing, EntityRef(Of AdDesign))
+			Me._Location = CType(Nothing, EntityRef(Of Location))
+			Me._LocationArea = CType(Nothing, EntityRef(Of LocationArea))
+			OnCreated
+		End Sub
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_OnlineAdId", AutoSync:=AutoSync.OnInsert, DbType:="Int NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
+		Public Property OnlineAdId() As Integer
+			Get
+				Return Me._OnlineAdId
+			End Get
+			Set
+				If ((Me._OnlineAdId = value)  _
+							= false) Then
+					Me.OnOnlineAdIdChanging(value)
+					Me.SendPropertyChanging
+					Me._OnlineAdId = value
+					Me.SendPropertyChanged("OnlineAdId")
+					Me.OnOnlineAdIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_AdDesignId", DbType:="Int")>  _
+		Public Property AdDesignId() As System.Nullable(Of Integer)
+			Get
+				Return Me._AdDesignId
+			End Get
+			Set
+				If (Me._AdDesignId.Equals(value) = false) Then
+					If Me._AdDesign.HasLoadedOrAssignedValue Then
+						Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
+					End If
+					Me.OnAdDesignIdChanging(value)
+					Me.SendPropertyChanging
+					Me._AdDesignId = value
+					Me.SendPropertyChanged("AdDesignId")
+					Me.OnAdDesignIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Heading", DbType:="NVarChar(255)")>  _
+		Public Property Heading() As String
+			Get
+				Return Me._Heading
+			End Get
+			Set
+				If (String.Equals(Me._Heading, value) = false) Then
+					Me.OnHeadingChanging(value)
+					Me.SendPropertyChanging
+					Me._Heading = value
+					Me.SendPropertyChanged("Heading")
+					Me.OnHeadingChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Description", DbType:="NVarChar(MAX)")>  _
+		Public Property Description() As String
+			Get
+				Return Me._Description
+			End Get
+			Set
+				If (String.Equals(Me._Description, value) = false) Then
+					Me.OnDescriptionChanging(value)
+					Me.SendPropertyChanging
+					Me._Description = value
+					Me.SendPropertyChanged("Description")
+					Me.OnDescriptionChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_HtmlText", DbType:="NVarChar(MAX)")>  _
+		Public Property HtmlText() As String
+			Get
+				Return Me._HtmlText
+			End Get
+			Set
+				If (String.Equals(Me._HtmlText, value) = false) Then
+					Me.OnHtmlTextChanging(value)
+					Me.SendPropertyChanging
+					Me._HtmlText = value
+					Me.SendPropertyChanged("HtmlText")
+					Me.OnHtmlTextChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Price", DbType:="Money")>  _
+		Public Property Price() As System.Nullable(Of Decimal)
+			Get
+				Return Me._Price
+			End Get
+			Set
+				If (Me._Price.Equals(value) = false) Then
+					Me.OnPriceChanging(value)
+					Me.SendPropertyChanging
+					Me._Price = value
+					Me.SendPropertyChanged("Price")
+					Me.OnPriceChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_LocationId", DbType:="Int")>  _
+		Public Property LocationId() As System.Nullable(Of Integer)
+			Get
+				Return Me._LocationId
+			End Get
+			Set
+				If (Me._LocationId.Equals(value) = false) Then
+					If Me._Location.HasLoadedOrAssignedValue Then
+						Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
+					End If
+					Me.OnLocationIdChanging(value)
+					Me.SendPropertyChanging
+					Me._LocationId = value
+					Me.SendPropertyChanged("LocationId")
+					Me.OnLocationIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_LocationAreaId", DbType:="Int")>  _
+		Public Property LocationAreaId() As System.Nullable(Of Integer)
+			Get
+				Return Me._LocationAreaId
+			End Get
+			Set
+				If (Me._LocationAreaId.Equals(value) = false) Then
+					If Me._LocationArea.HasLoadedOrAssignedValue Then
+						Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
+					End If
+					Me.OnLocationAreaIdChanging(value)
+					Me.SendPropertyChanging
+					Me._LocationAreaId = value
+					Me.SendPropertyChanged("LocationAreaId")
+					Me.OnLocationAreaIdChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ContactName", DbType:="NVarChar(200)")>  _
+		Public Property ContactName() As String
+			Get
+				Return Me._ContactName
+			End Get
+			Set
+				If (String.Equals(Me._ContactName, value) = false) Then
+					Me.OnContactNameChanging(value)
+					Me.SendPropertyChanging
+					Me._ContactName = value
+					Me.SendPropertyChanged("ContactName")
+					Me.OnContactNameChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ContactType", DbType:="NVarChar(20)")>  _
+		Public Property ContactType() As String
+			Get
+				Return Me._ContactType
+			End Get
+			Set
+				If (String.Equals(Me._ContactType, value) = false) Then
+					Me.OnContactTypeChanging(value)
+					Me.SendPropertyChanging
+					Me._ContactType = value
+					Me.SendPropertyChanged("ContactType")
+					Me.OnContactTypeChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ContactValue", DbType:="NVarChar(100)")>  _
+		Public Property ContactValue() As String
+			Get
+				Return Me._ContactValue
+			End Get
+			Set
+				If (String.Equals(Me._ContactValue, value) = false) Then
+					Me.OnContactValueChanging(value)
+					Me.SendPropertyChanging
+					Me._ContactValue = value
+					Me.SendPropertyChanged("ContactValue")
+					Me.OnContactValueChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_NumOfViews", DbType:="Int")>  _
+		Public Property NumOfViews() As System.Nullable(Of Integer)
+			Get
+				Return Me._NumOfViews
+			End Get
+			Set
+				If (Me._NumOfViews.Equals(value) = false) Then
+					Me.OnNumOfViewsChanging(value)
+					Me.SendPropertyChanging
+					Me._NumOfViews = value
+					Me.SendPropertyChanged("NumOfViews")
+					Me.OnNumOfViewsChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_OnlineAdTag", DbType:="VarChar(50)")>  _
+		Public Property OnlineAdTag() As String
+			Get
+				Return Me._OnlineAdTag
+			End Get
+			Set
+				If (String.Equals(Me._OnlineAdTag, value) = false) Then
+					Me.OnOnlineAdTagChanging(value)
+					Me.SendPropertyChanging
+					Me._OnlineAdTag = value
+					Me.SendPropertyChanged("OnlineAdTag")
+					Me.OnOnlineAdTagChanged
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="OnlineAd_OnlineAdEnquiry", Storage:="_OnlineAdEnquiries", ThisKey:="OnlineAdId", OtherKey:="OnlineAdId")>  _
+		Public Property OnlineAdEnquiries() As EntitySet(Of OnlineAdEnquiry)
+			Get
+				Return Me._OnlineAdEnquiries
+			End Get
+			Set
+				Me._OnlineAdEnquiries.Assign(value)
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="OnlineAd_TutorAd", Storage:="_TutorAds", ThisKey:="OnlineAdId", OtherKey:="OnlineAdId")>  _
+		Public Property TutorAds() As EntitySet(Of TutorAd)
+			Get
+				Return Me._TutorAds
+			End Get
+			Set
+				Me._TutorAds.Assign(value)
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="AdDesign_OnlineAd", Storage:="_AdDesign", ThisKey:="AdDesignId", OtherKey:="AdDesignId", IsForeignKey:=true)>  _
+		Public Property AdDesign() As AdDesign
+			Get
+				Return Me._AdDesign.Entity
+			End Get
+			Set
+				Dim previousValue As AdDesign = Me._AdDesign.Entity
+				If ((Object.Equals(previousValue, value) = false)  _
+							OrElse (Me._AdDesign.HasLoadedOrAssignedValue = false)) Then
+					Me.SendPropertyChanging
+					If ((previousValue Is Nothing)  _
+								= false) Then
+						Me._AdDesign.Entity = Nothing
+						previousValue.OnlineAds.Remove(Me)
+					End If
+					Me._AdDesign.Entity = value
+					If ((value Is Nothing)  _
+								= false) Then
+						value.OnlineAds.Add(Me)
+						Me._AdDesignId = value.AdDesignId
+					Else
+						Me._AdDesignId = CType(Nothing, Nullable(Of Integer))
+					End If
+					Me.SendPropertyChanged("AdDesign")
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="Location_OnlineAd", Storage:="_Location", ThisKey:="LocationId", OtherKey:="LocationId", IsForeignKey:=true)>  _
+		Public Property Location() As Location
+			Get
+				Return Me._Location.Entity
+			End Get
+			Set
+				Dim previousValue As Location = Me._Location.Entity
+				If ((Object.Equals(previousValue, value) = false)  _
+							OrElse (Me._Location.HasLoadedOrAssignedValue = false)) Then
+					Me.SendPropertyChanging
+					If ((previousValue Is Nothing)  _
+								= false) Then
+						Me._Location.Entity = Nothing
+						previousValue.OnlineAds.Remove(Me)
+					End If
+					Me._Location.Entity = value
+					If ((value Is Nothing)  _
+								= false) Then
+						value.OnlineAds.Add(Me)
+						Me._LocationId = value.LocationId
+					Else
+						Me._LocationId = CType(Nothing, Nullable(Of Integer))
+					End If
+					Me.SendPropertyChanged("Location")
+				End If
+			End Set
+		End Property
+		
+		<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="LocationArea_OnlineAd", Storage:="_LocationArea", ThisKey:="LocationAreaId", OtherKey:="LocationAreaId", IsForeignKey:=true)>  _
+		Public Property LocationArea() As LocationArea
+			Get
+				Return Me._LocationArea.Entity
+			End Get
+			Set
+				Dim previousValue As LocationArea = Me._LocationArea.Entity
+				If ((Object.Equals(previousValue, value) = false)  _
+							OrElse (Me._LocationArea.HasLoadedOrAssignedValue = false)) Then
+					Me.SendPropertyChanging
+					If ((previousValue Is Nothing)  _
+								= false) Then
+						Me._LocationArea.Entity = Nothing
+						previousValue.OnlineAds.Remove(Me)
+					End If
+					Me._LocationArea.Entity = value
+					If ((value Is Nothing)  _
+								= false) Then
+						value.OnlineAds.Add(Me)
+						Me._LocationAreaId = value.LocationAreaId
+					Else
+						Me._LocationAreaId = CType(Nothing, Nullable(Of Integer))
+					End If
+					Me.SendPropertyChanged("LocationArea")
+				End If
+			End Set
+		End Property
+		
+		Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
+		
+		Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+		
+		Protected Overridable Sub SendPropertyChanging()
+			If ((Me.PropertyChangingEvent Is Nothing)  _
+						= false) Then
+				RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
+			End If
+		End Sub
+		
+		Protected Overridable Sub SendPropertyChanged(ByVal propertyName As [String])
+			If ((Me.PropertyChangedEvent Is Nothing)  _
+						= false) Then
+				RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+			End If
+		End Sub
+		
+		Private Sub attach_OnlineAdEnquiries(ByVal entity As OnlineAdEnquiry)
+			Me.SendPropertyChanging
+			entity.OnlineAd = Me
+		End Sub
+		
+		Private Sub detach_OnlineAdEnquiries(ByVal entity As OnlineAdEnquiry)
+			Me.SendPropertyChanging
+			entity.OnlineAd = Nothing
+		End Sub
+		
+		Private Sub attach_TutorAds(ByVal entity As TutorAd)
+			Me.SendPropertyChanging
+			entity.OnlineAd = Me
+		End Sub
+		
+		Private Sub detach_TutorAds(ByVal entity As TutorAd)
+			Me.SendPropertyChanging
+			entity.OnlineAd = Nothing
 		End Sub
 	End Class
 	

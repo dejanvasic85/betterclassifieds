@@ -48,10 +48,6 @@ Partial Public Class pp
                 If (BookingController.AdBookCart.TotalPrice.HasValue) Then
                     Return BookingController.AdBookCart.TotalPrice.Value.ToString("00.00")
                 End If
-            ElseIf BookingController.BookingType = Booking.BookingAction.SpecialBooking Then
-                If BookingController.SpecialBookCart.TotalPrice.HasValue Then
-                    Return BookingController.SpecialBookCart.TotalPrice.Value.ToString("00.00")
-                End If
             ElseIf BookingController.BookingType = Booking.BookingAction.BundledBooking Then
                 Return BundleController.BundleCart.TotalPrice.ToString("00.00")
             ElseIf BookingController.BookingType = Booking.BookingAction.Extension Then
@@ -67,8 +63,6 @@ Partial Public Class pp
                 Return String.Format("Booking Reference: {0}", BookingController.AdBookCart.BookReference)
             ElseIf BookingController.BookingType = Booking.BookingAction.Reschedule Then
                 Return String.Format("Booking Reference: {0}", BookingController.AdBookCart.BookReference)
-            ElseIf BookingController.BookingType = Booking.BookingAction.SpecialBooking Then
-                Return String.Format("Booking Reference: {0}", BookingController.SpecialBookCart.BookReference)
             ElseIf BookingController.BookingType = Booking.BookingAction.BundledBooking Then
                 Return String.Format("Booking Reference: {0}", BundleController.BundleCart.BookReference)
             ElseIf BookingController.BookingType = Booking.BookingAction.Extension Then
@@ -91,9 +85,6 @@ Partial Public Class pp
         ElseIf BookingController.BookingType = Booking.BookingAction.Reschedule Then
             ' reschedule
             BookingController.SaveTempAdRecord(BookingProcess.PaymentReferenceId, Cost, Session.SessionID, User.Identity.Name, BookingController.AdBookCart, TransactionType.PAYPAL)
-        ElseIf BookingController.BookingType = Booking.BookingAction.SpecialBooking Then
-            ' special
-            BookingController.SaveTempAdSpecialRecord(BookingProcess.PaymentReferenceId, Cost, Session.SessionID, User.Identity.Name, BookingController.SpecialBookCart, TransactionType.PAYPAL)
         ElseIf BookingController.BookingType = Booking.BookingAction.BundledBooking Then
             ' bundled
             BundleController.SaveTempAdBundleRecord(BookingProcess.PaymentReferenceId, Cost, Session.SessionID, BundleController.BundleCart.Username, BundleController.BundleCart, TransactionType.PAYPAL)

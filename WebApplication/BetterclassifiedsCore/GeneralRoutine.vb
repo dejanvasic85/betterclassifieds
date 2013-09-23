@@ -12,11 +12,6 @@ Imports Paramount.DSL.UIController
 
 Public Module GeneralRoutine
 
-    Public Enum XmlExportStrategy
-        Simple = 1
-        Styled = 2
-    End Enum
-
     Public Function GetAppSetting(ByVal moduleName As String, ByVal key As String) As Object
         'Try
         Using db = BetterclassifiedsDataContext.NewContext
@@ -313,8 +308,7 @@ Public Module GeneralRoutine
     Public Function PlaceAd(ByVal cart As BookCart, ByVal transactionType As TransactionType) As Boolean
         ' call method to ensure that the booking already exists.
         If BookingController.Exists(cart.BookReference) Then
-            Return True
-            Exit Function ' exit the function and do not proceed with inserting records into DB
+           Throw New ApplicationException(String.Format("The booking reference already exists. {0}", cart.BookReference))
         End If
 
         Using db = BetterclassifiedsDataContext.NewContext
@@ -385,6 +379,7 @@ Public Module GeneralRoutine
                             .ContactName = design.OnlineAds(0).ContactName
                             .ContactType = design.OnlineAds(0).ContactType
                             .ContactValue = design.OnlineAds(0).ContactValue
+                            .OnlineAdTag = design.OnlineAds(0).OnlineAdTag
                             .NumOfViews = 1
                         End With
                         d.Status = AdDesignStatus.Approved
@@ -435,117 +430,13 @@ Public Module GeneralRoutine
         End Using
     End Function
 
-    ''' <summary>
-    ''' Inserts all the required values into the database related to a special booking.
-    ''' </summary>
-    ''' <param name="cart"></param>
-    ''' <param name="transactionType"></param>
-    ''' <returns></returns>
-    ''' <remarks></remarks>
-    Public Function PlaceSpecialAd(ByVal cart As BookCartSpecial, ByVal transactionType As TransactionType) As Boolean
-        ' call method to ensure that the booking already exists.
-        If BookingController.Exists(cart.BookReference) Then
-            Return True
-            Exit Function ' exit the function and do not proceed with inserting records into DB
-        End If
-
-        Using db = BetterclassifiedsDataContext.NewContext
-
-            ' AD BOOKING TABLE
-            Dim adBooking As New DataModel.AdBooking With {.StartDate = cart.StartDate, .EndDate = cart.EndDate, .TotalPrice = cart.TotalPrice, _
-                                                           .UserId = cart.UserId, .BookReference = cart.BookReference, _
-                                                           .BookingStatus = cart.BookingStatus, .MainCategoryId = cart.MainCategoryId, _
-                                                           .Insertions = cart.Insertions, _
-                                                           .BookingDate = DateTime.Now, _
-                                                           .BookingType = BookingController.GetBookingTypeString}
-
-            ' AD TABLE
-            adBooking.Ad = New Ad With {.Title = cart.Ad.Title, .Comments = cart.Ad.Comments, .UseAsTemplate = cart.Ad.UseAsTemplate}
-
-            ' LINE AD
-            If cart.IsLineAd Then
-
-                ' AD DESIGN
-                Dim design As New DataModel.AdDesign
-                design.AdTypeId = db.AdTypes.Where(Function(i) i.Code = SystemAdType.LINE.ToString()).FirstOrDefault.AdTypeId
-
-                ' LINE AD TABLE
-                Dim lineAd As New LineAd With {.AdHeader = cart.LineAd.AdHeader, .AdText = cart.LineAd.AdText, _
-                                               .NumOfWords = cart.LineAd.NumOfWords, .UsePhoto = cart.LineAd.UsePhoto, _
-                                               .UseBoldHeader = cart.LineAd.UseBoldHeader}
-
-                design.Status = AdDesignStatus.Approved
-                design.LineAds.Add(lineAd)
-
-                ' AD GRAPHIC
-                If (lineAd.UsePhoto) Then
-                    design.AdGraphics.Add(New DataModel.AdGraphic With {.DocumentID = cart.LineAdImage.DocumentID, _
-                                                                 .ImageType = cart.LineAdImage.ImageType, _
-                                                                 .ModifiedDate = cart.LineAdImage.ModifiedDate, _
-                                                                 .Filename = cart.LineAdImage.Filename})
-                End If
-
-                adBooking.Ad.AdDesigns.Add(design)
-            End If
-
-            ' ONLINE AD
-            If cart.IsOnlineAd Then
-                Dim onlineDesign As New DataModel.AdDesign
-                onlineDesign.AdTypeId = db.AdTypes.Where(Function(i) i.Code = SystemAdType.ONLINE.ToString()).FirstOrDefault.AdTypeId
-
-                ' ONLINE AD TABLE
-                Dim onlineAd As New DataModel.OnlineAd With {.Heading = cart.OnlineAd.Heading, .Description = cart.OnlineAd.Description, _
-                                                             .HtmlText = cart.OnlineAd.HtmlText, .Price = cart.OnlineAd.Price, _
-                                                             .LocationId = cart.OnlineAd.LocationId, .LocationAreaId = cart.OnlineAd.LocationAreaId, _
-                                                             .ContactName = cart.OnlineAd.ContactName, .ContactType = cart.OnlineAd.ContactType, _
-                                                             .ContactValue = cart.OnlineAd.ContactValue, .NumOfViews = 1}
-                onlineDesign.Status = AdDesignStatus.Approved
-                onlineDesign.OnlineAds.Add(onlineAd)
-
-                ' ONLINE AD GRAPHICS
-                If cart.OnlineImages IsNot Nothing Then
-                    For Each g In cart.OnlineImages
-                        onlineDesign.AdGraphics.Add(New DataModel.AdGraphic With {.DocumentID = g.DocumentID, .Filename = g.Filename, .ImageType = g.ImageType, .ModifiedDate = g.ModifiedDate})
-                    Next
-                End If
-                adBooking.Ad.AdDesigns.Add(onlineDesign)
-
-            End If
-
-            ' BOOK ENTRIES
-            ' set the book entries using the session values
-            For Each entry In cart.BookEntries
-                adBooking.BookEntries.Add(New BookEntry With {.BaseRateId = entry.BaseRateId, _
-                                                              .EditionAdPrice = entry.EditionAdPrice, _
-                                                              .EditionDate = entry.EditionDate, _
-                                                              .PublicationId = entry.PublicationId, _
-                                                              .PublicationPrice = entry.PublicationPrice, _
-                                                              .RateType = entry.RateType})
-            Next
-
-            ' TRANSACTION
-            Dim transaction As New DataModel.Transaction With {.Amount = cart.TotalPrice, .Description = BookingController.GetBookingTypeString, _
-                                                               .Title = cart.BookReference, .TransactionDate = DateTime.Now, _
-                                                               .TransactionType = transactionType, .UserId = cart.UserId}
-
-            ' SUBMIT TO DATABASE
-            db.AdBookings.InsertOnSubmit(adBooking)
-            db.Transactions.InsertOnSubmit(transaction)
-            db.SubmitChanges()
-
-            ' return successful
-            Return True
-        End Using
-    End Function
-
     Public Function PlaceBundledAd(ByVal cart As BundleCart, ByVal transactionType As TransactionType, ByVal bookingStatus As Controller.BookingStatus) As Boolean
 
         Dim bundleController As New BundleController
 
         ' ensure first that the booking reference does not already exist
         If BookingController.Exists(cart.BookReference) Then
-            Return True
-            Exit Function
+            Throw New ApplicationException(String.Format("The booking reference already exists. {0}", cart.BookReference))
         End If
 
         Using db = BetterclassifiedsDataContext.NewContext()
@@ -598,7 +489,7 @@ Public Module GeneralRoutine
                                                        .DocumentID = cart.LineAdGraphic.DocumentID}
             End If
 
-            '' ONLINEAD Object
+            ' ONLINEAD Object
             Dim onlineDesign As New DataModel.AdDesign With {.Ad = bk.Ad, _
                                                              .AdTypeId = AdController.GetAdTypeByCode(SystemAdType.ONLINE).AdTypeId, _
                                                              .Status = AdDesignStatus.Approved}
@@ -608,7 +499,7 @@ Public Module GeneralRoutine
                                                          .Description = cart.OnlineAd.Description, .Heading = cart.OnlineAd.Heading, _
                                                          .HtmlText = cart.OnlineAd.HtmlText, .LocationId = cart.OnlineAd.LocationId, _
                                                          .LocationAreaId = cart.OnlineAd.LocationAreaId, .NumOfViews = cart.OnlineAd.NumOfViews, _
-                                                         .Price = cart.OnlineAd.Price}
+                                                         .Price = cart.OnlineAd.Price, .OnlineAdTag = cart.OnlineAd.OnlineAdTag}
             ' add the ad graphics if any
             For Each onlineGraphic As DataModel.AdGraphic In cart.OnlineAdGraphics
                 onlineDesign.AdGraphics.Add(New DataModel.AdGraphic With {.DocumentID = onlineGraphic.DocumentID, .Filename = onlineGraphic.Filename, _
@@ -759,7 +650,7 @@ Public Module GeneralRoutine
 
         ' Loop through each ad
         For Each exportItem In exportItems
-            If xmlExportStrategy = GeneralRoutine.XmlExportStrategy.Styled Then
+            If xmlExportStrategy = xmlExportStrategy.Styled Then
                 isFreeAd = exportItem.TotalPrice = 0
             End If
 
@@ -768,7 +659,7 @@ Public Module GeneralRoutine
             Dim graphicNodeName As String = "graphic"
             Dim listbodyNodeName As String = "ListBody"
             Dim iFlogIdNodeName As String = "iFlogID"
-            If xmlExportStrategy = GeneralRoutine.XmlExportStrategy.Styled Then
+            If xmlExportStrategy = xmlExportStrategy.Styled Then
                 If isFreeAd Then
                     headerNodeName += "_Free"
                     graphicNodeName += "_Free"

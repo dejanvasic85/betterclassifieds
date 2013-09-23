@@ -119,7 +119,6 @@ Partial Public Class _Default5
     Private Sub StartBooking(ByVal type As SystemAdType)
         ' clear any current bookings
         BookingController.ClearAdBooking()
-        BookingController.ClearSpecialBooking()
 
         ' start the new booking now with no user defined
         If Membership.GetUser Is Nothing Then

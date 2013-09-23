@@ -37,51 +37,22 @@ Partial Public Class Preview
                     ' bind the online ad to the user control
                     ucxOnlineAd.BindOnlineAd(onlineAd)
 
-                ElseIf BookingController.BookingType = Booking.BookingAction.SpecialBooking Then
-                    With BookingController.SpecialBookCart
-                        Dim location As String = GeneralController.GetLocationById(BookingController.SpecialBookCart.OnlineAd.LocationId).Title
-                        Dim area As String = GeneralController.GetLocationAreaById(BookingController.SpecialBookCart.OnlineAd.LocationAreaId).Title
-                        Dim parentCategory = CategoryController.GetMainParentCategory(BookingController.SpecialBookCart.MainCategoryId)
-                        Dim subCategry = CategoryController.GetMainCategoryById(BookingController.SpecialBookCart.MainCategoryId)
-                        Dim images As New List(Of String)
-
-                        If BookingController.SpecialBookCart.OnlineImages IsNot Nothing Then
-                            For Each i In BookingController.SpecialBookCart.OnlineImages
-                                images.Add(i.DocumentID)
-                            Next
-                        End If
-                        onlineAd = BookingController.SpecialBookCart.OnlineAd.ToOnlineAdEntity(images, _
-                                                                                                parentCategory, _
-                                                                                                subCategry, _
-                                                                                                DateTime.Today, _
-                                                                                                .BookReference, _
-                                                                                                location, _
-                                                                                                area)
-
+                ElseIf BookingController.AdBookCart IsNot Nothing Then
+                    With BookingController.AdBookCart
+                        Dim cartAd = .Ad.AdDesigns(0).OnlineAds(0)
+                        Dim subCategory = CategoryController.GetMainCategoryById(.MainCategoryId)
+                        Dim parentCategory = CategoryController.GetMainCategoryById(.ParentCategoryId)
+                        Dim locationValue = GeneralController.GetLocationById(cartAd.LocationId).Title
+                        Dim areaValue = GeneralController.GetLocationAreaById(cartAd.LocationAreaId).Title
+                        onlineAd = cartAd.ToOnlineAdEntity(.ImageList, _
+                                                              parentCategory, _
+                                                              subCategory, _
+                                                              DateTime.Today, _
+                                                              .BookReference, _
+                                                              locationValue, _
+                                                              areaValue)
+                        ucxOnlineAd.BindOnlineAd(onlineAd, BookingController.AdBookCart.ImageList, DateTime.Now, parentCategory.MainCategoryId, subCategory.MainCategoryId)
                     End With
-
-                    ' bind the online ad to the user control
-                    ucxOnlineAd.BindOnlineAd(onlineAd)
-
-                Else
-                    If BookingController.AdBookCart IsNot Nothing Then
-                        With BookingController.AdBookCart
-                            Dim cartAd = .Ad.AdDesigns(0).OnlineAds(0)
-                            Dim subCategory = CategoryController.GetMainCategoryById(.MainCategoryId)
-                            Dim parentCategory = CategoryController.GetMainCategoryById(.ParentCategoryId)
-                            Dim locationValue = GeneralController.GetLocationById(cartAd.LocationId).Title
-                            Dim areaValue = GeneralController.GetLocationAreaById(cartAd.LocationAreaId).Title
-                            onlineAd = cartAd.ToOnlineAdEntity(.ImageList, _
-                                                                  parentCategory, _
-                                                                  subCategory, _
-                                                                  DateTime.Today, _
-                                                                  .BookReference, _
-                                                                  locationValue, _
-                                                                  areaValue)
-                            ucxOnlineAd.BindOnlineAd(onlineAd, BookingController.AdBookCart.ImageList, DateTime.Now, parentCategory.MainCategoryId, subCategory.MainCategoryId)
-                        End With
-
-                    End If
                 End If
         End Select
 

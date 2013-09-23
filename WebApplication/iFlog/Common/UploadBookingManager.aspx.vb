@@ -1,6 +1,5 @@
 ﻿Imports BetterclassifiedsCore.ParameterAccess
 Imports Paramount.Betterclassified.Utilities.Configuration
-
 Imports BetterclassifiedsCore
 
 Partial Public Class UploadBookingManager
@@ -14,8 +13,6 @@ Partial Public Class UploadBookingManager
             If UploadParameter.IsOnlineAdUpload = False And UploadParameter.IsPrintAdUpload = False Then
                 lblUserMessage.Text = "Uploading images is not available for the package selected."
             End If
-
-            pnlUserMessage.Visible = (Not UploadParameter.IsPrintAdUpload) And (BookingController.SpecialBookCart IsNot Nothing)
 
         End If
     End Sub
@@ -76,8 +73,6 @@ Partial Public Class UploadBookingManager
             Case Booking.BookingAction.BundledBooking
                 Dim controller As New BundleBooking.BundleController
                 list = controller.GetOnlineGraphicsIdList
-            Case Booking.BookingAction.SpecialBooking
-                list = BookingController.GetSpecialOnlineAdGraphicIdList()
         End Select
         Return list
     End Function
@@ -93,10 +88,6 @@ Partial Public Class UploadBookingManager
                 If BundleBooking.BundleController.BundleCart.LineAdGraphic IsNot Nothing Then
                     docId = BundleBooking.BundleController.BundleCart.LineAdGraphic.DocumentID
                 End If
-            Case Booking.BookingAction.SpecialBooking
-                If BookingController.SpecialBookCart.LineAdImage IsNot Nothing Then
-                    docId = BookingController.SpecialBookCart.LineAdImage.DocumentID
-                End If
         End Select
         Return docId
     End Function
@@ -108,8 +99,6 @@ Partial Public Class UploadBookingManager
             Case Booking.BookingAction.BundledBooking
                 Dim controller As New BundleBooking.BundleController
                 controller.RemoveOnlineAdGraphic(imageGuid)
-            Case Booking.BookingAction.SpecialBooking
-                BookingController.RemoveSpecialOnlineAdGraphic(imageGuid)
         End Select
     End Sub
 
@@ -120,8 +109,6 @@ Partial Public Class UploadBookingManager
             Case Booking.BookingAction.BundledBooking
                 BundleBooking.BundleController.BundleCart.LineAdGraphic = Nothing
                 BundleBooking.BundleController.BundleCart.LineAdIsMainPhoto = False
-            Case Booking.BookingAction.SpecialBooking
-                BookingController.SpecialBookCart.LineAdImage = Nothing
         End Select
     End Sub
 
@@ -132,8 +119,6 @@ Partial Public Class UploadBookingManager
             Case Booking.BookingAction.BundledBooking
                 Dim controller As New BundleBooking.BundleController
                 controller.SetOnlineAdGraphics(list)
-            Case Booking.BookingAction.SpecialBooking
-                BookingController.SetSpecialOnlineAdGraphics(list)
         End Select
     End Sub
 
@@ -144,8 +129,6 @@ Partial Public Class UploadBookingManager
             Case Booking.BookingAction.BundledBooking
                 Dim controller As New BundleBooking.BundleController
                 controller.SetLineAdGraphic(docId)
-            Case Booking.BookingAction.SpecialBooking
-                BookingController.SetSpecialLineAdGraphic(docId)
         End Select
     End Sub
 

@@ -30,7 +30,6 @@ Partial Public Class _Default2
 
             ' clear any bookings
             BookingController.ClearAdBooking()
-            BookingController.ClearSpecialBooking()
             BundleController.ClearBundleBooking()
 
         End If

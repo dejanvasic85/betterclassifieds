@@ -22,7 +22,6 @@ Partial Public Class AdType
         If Not Page.IsPostBack Then
             ' this is a new booking so start clear the session and start again
             BookingController.ClearAdBooking()
-            BookingController.ClearSpecialBooking() ' clear any special booking
             BundleController.ClearBundleBooking() ' clear any bundled booking
         End If
     End Sub

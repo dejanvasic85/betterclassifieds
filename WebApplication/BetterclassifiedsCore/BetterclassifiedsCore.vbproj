@@ -176,7 +176,6 @@
     <Compile Include="DataModel\DataSource.vb" />
     <Compile Include="DataModel\Proc.vb" />
     <Compile Include="DataModel\Search.vb" />
-    <Compile Include="Settings.vb" />
     <Compile Include="Booking\BookCart.vb" />
     <Compile Include="Booking\PriceSummary.vb" />
     <Compile Include="Controller\AdController.vb" />
@@ -212,7 +211,7 @@
     <Compile Include="Utilities\Utility.vb" />
     <Compile Include="WebAdvertising\AdSpaceType.vb" />
     <Compile Include="WebAdvertising\LocationCode.vb" />
-    <Compile Include="WebPageUrl.vb" />
+    <Compile Include="XmlExportStrategy.vb" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DataModel\Betterclassifieds.dbml.layout">

@@ -13,10 +13,6 @@ Partial Public Class DesignOnlineAd
                 BindLocations()
             End If
             
-            If BookingController.BookingType = Booking.BookingAction.SpecialBooking Then
-                Exit Sub
-            End If
-
             ' load current data from the session
             If (Request.QueryString("action") = "back") Or BookingController.BookingType = Booking.BookingAction.Reschedule Then
                 Dim onlineAdDesign As DataModel.AdDesign = BookingController.GetAdDesignDetails(SystemAdType.ONLINE)

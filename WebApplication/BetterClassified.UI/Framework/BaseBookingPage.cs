@@ -25,7 +25,7 @@ namespace BetterClassified.UI.WebPage
             if (exception is BookingExpiredException)
             {
                 // Redirect to Page
-                context.Response.Redirect(WebPageUrl.BookingExpired);
+                context.Response.Redirect("~/Booking/Step1.aspx?action=expired");
             }
         }
     }

@@ -51,7 +51,7 @@
         <classShapeMoniker Id="ce6a1561-90b7-431b-8c4a-0385233551f2" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(10.75 : 5.16429768880208); (10.9166666666667 : 5.16429768880208 : JumpStart); (11.0833333333333 : 5.16429768880208 : JumpEnd); (12 : 5.16429768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(10.75 : 5.16429768880208); (10.9166666666667 : 5.16429768880208 : JumpStart); (11.0833333333333 : 5.16429768880208 : JumpEnd); (11.4635411666667 : 5.16429768880208 : JumpStart); (11.6302078333333 : 5.16429768880208 : JumpEnd); (12 : 5.16429768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BetterclassifiedsDataContext/PublicationCategory/PublicationCategory_PublicationRate" />
       <nodes>
         <classShapeMoniker Id="096a0e59-5803-4630-acd0-02eb86f9a781" />
@@ -64,7 +64,7 @@
         <elementListCompartment Id="848e402d-f18d-4ada-9f48-c3a561653e81" absoluteBounds="1.0150000000000001, 12.71, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3 : 13.787787867513); (8.875 : 13.787787867513); (8.875 : 6.90549967447917); (9.66666666666667 : 6.90549967447917 : JumpStart); (9.83333333333333 : 6.90549967447917 : JumpEnd); (11 : 6.90549967447917); (11 : 3.8862939453125); (10.875 : 3.8862939453125); (10.875 : 3.5112939453125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(3 : 13.787787867513); (4.10416666666667 : 13.787787867513 : JumpStart); (4.27083333333333 : 13.787787867513 : JumpEnd); (6.29166666666667 : 13.787787867513 : JumpStart); (6.45833333333333 : 13.787787867513 : JumpEnd); (8.51041666666667 : 13.787787867513 : JumpStart); (8.67708333333333 : 13.787787867513 : JumpEnd); (8.875 : 13.787787867513); (8.875 : 6.90549967447917); (9.66666666666667 : 6.90549967447917 : JumpStart); (9.83333333333333 : 6.90549967447917 : JumpEnd); (11 : 6.90549967447917); (11 : 3.8862939453125); (10.875 : 3.8862939453125); (10.875 : 3.5112939453125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BetterclassifiedsDataContext/AdType/AdType_PublicationAdType" />
       <nodes>
         <classShapeMoniker Id="f5aab5bc-f164-4366-aabd-4b5fcec62c44" />
@@ -161,31 +161,11 @@
         <classShapeMoniker Id="beb01eac-abab-44e4-ada7-23d6b992943e" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(3.03125 : 10.25); (3.03125 : 8.5713525390625); (3.375 : 8.5713525390625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.03125 : 10.25); (3.03125 : 8.5713525390625); (3.375 : 8.5713525390625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BetterclassifiedsDataContext/Ad/Ad_AdBooking" />
       <nodes>
         <classShapeMoniker Id="da08b62c-430a-4dc0-8cde-06500c9b8e77" />
         <classShapeMoniker Id="63fe5358-9568-4fbc-8c8d-9fd4acfdc71c" />
-      </nodes>
-    </associationConnector>
-    <classShape Id="17fb47bc-d7ab-4478-907b-18a4feaf4018" absoluteBounds="20, 15.5, 2, 3.1170068359375023">
-      <DataClassMoniker Name="/BetterclassifiedsDataContext/OnlineAd" />
-      <nestedChildShapes>
-        <elementListCompartment Id="58659666-9656-457d-9885-8cd82d92da19" absoluteBounds="20.015, 15.96, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <associationConnector edgePoints="[(18.125 : 18.3085034179688); (20 : 18.3085034179688)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/BetterclassifiedsDataContext/Location/Location_OnlineAd" />
-      <nodes>
-        <classShapeMoniker Id="ba56494c-7a51-4ba1-ab1d-ee3ad3274665" />
-        <classShapeMoniker Id="17fb47bc-d7ab-4478-907b-18a4feaf4018" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(18.25 : 16.2267976888021); (20 : 16.2267976888021)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/BetterclassifiedsDataContext/LocationArea/LocationArea_OnlineAd" />
-      <nodes>
-        <classShapeMoniker Id="74c2a04d-cf37-46c1-940f-4fb4706aae60" />
-        <classShapeMoniker Id="17fb47bc-d7ab-4478-907b-18a4feaf4018" />
       </nodes>
     </associationConnector>
     <classShape Id="1a30d51b-ff0c-481c-b69e-a28bc0517b5e" absoluteBounds="3.625, 3.25, 2, 2.5401025390624996">
@@ -215,7 +195,7 @@
         <classShapeMoniker Id="096a0e59-5803-4630-acd0-02eb86f9a781" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 4.53929768880208); (3.625 : 4.53929768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(2.75 : 4.53929768880208); (3.625 : 4.53929768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/BetterclassifiedsDataContext/PublicationType/PublicationType_Publication" />
       <nodes>
         <classShapeMoniker Id="aebb8f52-d130-4bdb-9830-9b76090fde20" />
@@ -298,13 +278,6 @@
         <classShapeMoniker Id="3250ce81-1ba6-4f05-bccf-2066ac3c2513" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(22 : 17.7460034179688); (22.75 : 17.7460034179688)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/BetterclassifiedsDataContext/OnlineAd/OnlineAd_OnlineAdEnquiry" />
-      <nodes>
-        <classShapeMoniker Id="17fb47bc-d7ab-4478-907b-18a4feaf4018" />
-        <classShapeMoniker Id="3250ce81-1ba6-4f05-bccf-2066ac3c2513" />
-      </nodes>
-    </associationConnector>
     <classShape Id="5a4c1356-2afd-477d-85a7-60bbf0748ab9" absoluteBounds="15.125, 10.25, 2, 2.3478011067708344">
       <DataClassMoniker Name="/BetterclassifiedsDataContext/SupportEnquiry" />
       <nestedChildShapes>
@@ -328,13 +301,6 @@
       <nodes>
         <classShapeMoniker Id="e2df0087-62e0-4078-b42b-7ce2a4f949bd" />
         <classShapeMoniker Id="b696e7a6-0754-4387-a891-bd955d5e6689" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(5.75 : 11.6935513977865); (6.375 : 11.6935513977865); (6.375 : 15.125); (8.51041666666667 : 15.125 : JumpStart); (8.67708333333333 : 15.125 : JumpEnd); (21 : 15.125); (21 : 15.5)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/BetterclassifiedsDataContext/AdDesign/AdDesign_OnlineAd" />
-      <nodes>
-        <classShapeMoniker Id="e2df0087-62e0-4078-b42b-7ce2a4f949bd" />
-        <classShapeMoniker Id="17fb47bc-d7ab-4478-907b-18a4feaf4018" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(3.25 : 11.0392976888021); (3.75 : 11.0392976888021)]" fixedFrom="NotFixed" fixedTo="NotFixed">
@@ -420,31 +386,65 @@
         <elementListCompartment Id="353d33de-4b5b-4093-9bf9-bf53cdade096" absoluteBounds="19.39, 19.71, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(20.6875 : 18.6170068359375); (20.6875 : 19.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/BetterclassifiedsDataContext/OnlineAd/OnlineAd_TutorAd" />
-      <nodes>
-        <classShapeMoniker Id="17fb47bc-d7ab-4478-907b-18a4feaf4018" />
-        <classShapeMoniker Id="bd7c82e9-fd97-40b4-8db1-8aaed5400e39" />
-      </nodes>
-    </associationConnector>
     <classShape Id="155f45d3-3c47-4d6d-903f-d472fbfc1aa6" absoluteBounds="0.75, 5.75, 2, 1.9631982421875">
       <DataClassMoniker Name="/BetterclassifiedsDataContext/MainCategory" />
       <nestedChildShapes>
         <elementListCompartment Id="9dda7ecc-6f70-462b-946f-7cbc257c71b7" absoluteBounds="0.765, 6.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 6.02005126953125); (7.16666666666667 : 6.02005126953125 : JumpStart); (7.33333333333333 : 6.02005126953125 : JumpEnd); (8.75 : 6.02005126953125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 6.02005126953125); (7.16666666666667 : 6.02005126953125 : JumpStart); (7.33333333333333 : 6.02005126953125 : JumpEnd); (8.75 : 6.02005126953125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BetterclassifiedsDataContext/MainCategory/MainCategory_PublicationCategory" />
       <nodes>
         <classShapeMoniker Id="155f45d3-3c47-4d6d-903f-d472fbfc1aa6" />
         <classShapeMoniker Id="096a0e59-5803-4630-acd0-02eb86f9a781" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 6.98159912109375); (3.375 : 6.98159912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 6.98159912109375); (3.375 : 6.98159912109375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BetterclassifiedsDataContext/MainCategory/MainCategory_AdBooking" />
       <nodes>
         <classShapeMoniker Id="155f45d3-3c47-4d6d-903f-d472fbfc1aa6" />
         <classShapeMoniker Id="63fe5358-9568-4fbc-8c8d-9fd4acfdc71c" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="d8583609-15de-4d11-8045-04209e276ea9" absoluteBounds="19.5, 15.5, 2, 3.3093082682291666">
+      <DataClassMoniker Name="/BetterclassifiedsDataContext/OnlineAd" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b5faff44-e3e3-4dcf-a107-1440a6dff4d0" absoluteBounds="19.515, 15.96, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(21.5 : 17.8421541341146); (22.75 : 17.8421541341146)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/BetterclassifiedsDataContext/OnlineAd/OnlineAd_OnlineAdEnquiry" />
+      <nodes>
+        <classShapeMoniker Id="d8583609-15de-4d11-8045-04209e276ea9" />
+        <classShapeMoniker Id="3250ce81-1ba6-4f05-bccf-2066ac3c2513" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(20.4375 : 18.8093082682292); (20.4375 : 19.25)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/BetterclassifiedsDataContext/OnlineAd/OnlineAd_TutorAd" />
+      <nodes>
+        <classShapeMoniker Id="d8583609-15de-4d11-8045-04209e276ea9" />
+        <classShapeMoniker Id="bd7c82e9-fd97-40b4-8db1-8aaed5400e39" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.75 : 11.2027498372396); (6.375 : 11.2027498372396); (6.375 : 15.125); (8.51041666666667 : 15.125 : JumpStart); (8.67708333333333 : 15.125 : JumpEnd); (11.1354166666667 : 15.125 : JumpStart); (11.3020833333333 : 15.125 : JumpEnd); (20.5 : 15.125); (20.5 : 15.5)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/BetterclassifiedsDataContext/AdDesign/AdDesign_OnlineAd" />
+      <nodes>
+        <classShapeMoniker Id="e2df0087-62e0-4078-b42b-7ce2a4f949bd" />
+        <classShapeMoniker Id="d8583609-15de-4d11-8045-04209e276ea9" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(18.125 : 18.4046541341146); (19.5 : 18.4046541341146)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/BetterclassifiedsDataContext/Location/Location_OnlineAd" />
+      <nodes>
+        <classShapeMoniker Id="ba56494c-7a51-4ba1-ab1d-ee3ad3274665" />
+        <classShapeMoniker Id="d8583609-15de-4d11-8045-04209e276ea9" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(18.25 : 16.2267976888021); (19.5 : 16.2267976888021)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/BetterclassifiedsDataContext/LocationArea/LocationArea_OnlineAd" />
+      <nodes>
+        <classShapeMoniker Id="74c2a04d-cf37-46c1-940f-4fb4706aae60" />
+        <classShapeMoniker Id="d8583609-15de-4d11-8045-04209e276ea9" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

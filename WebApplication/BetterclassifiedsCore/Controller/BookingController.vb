@@ -49,6 +49,20 @@ Public Class BookingController
         End Set
     End Property
 
+    Public Shared Function IsBooked(ByVal paymentRef As String)
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim book = From b In db.AdBookings _
+                       Join t In db.TempBookingRecords On b.BookReference Equals t.AdReferenceId _
+                       Where t.BookingRecordId.ToString = paymentRef Select b
+            If book.Count = 1 Then
+                If book.Single.BookingStatus.Value = BookingStatus.BOOKED Then
+                    Return True
+                End If
+            End If
+        End Using
+        Return False
+    End Function
+
     Public Shared ReadOnly Property AdBookCart() As BookCart
         Get
             Return HttpContext.Current.Session(bookingSessionName)
@@ -57,18 +71,7 @@ Public Class BookingController
 
     Public Shared ReadOnly Property IsZeroValueTransaction()
         Get
-            If (AdBookCart IsNot Nothing) Then
-                If AdBookCart.TotalPrice = 0 Then
-                    Return True
-                End If
-            End If
-
-            If (SpecialBookCart IsNot Nothing) Then
-                If SpecialBookCart.TotalPrice = 0 Then
-                    Return True
-                End If
-            End If
-            Return False
+            Return AdBookCart.TotalPrice = 0
         End Get
     End Property
 
@@ -188,6 +191,50 @@ Public Class BookingController
 
     End Function
 
+    Public Shared Function BookTempAdRecord(ByVal Id As String, ByVal sessionId As String, ByVal totalCost As Decimal) As Boolean
+        Dim list = New List(Of AdBooking)
+        Using db = BetterclassifiedsDataContext.NewContext
+            list = (From item In db.AdBookings _
+                    Join item2 In db.TempBookingRecords On item2.AdReferenceId Equals item.BookReference _
+                    Where item2.SessionID = sessionId _
+                    AndAlso item2.BookingRecordId.ToString = Id _
+                    AndAlso item2.TotalCost = totalCost Select item).ToList
+
+            If list.Count = 1 Then
+                Dim item = list(0)
+                item.BookingStatus = BookingStatus.BOOKED
+                db.SubmitChanges()
+                Return True
+            End If
+        End Using
+        Return False
+    End Function
+
+    Public Shared Sub SaveTempAdRecord(ByVal Id As String, ByVal totalPrice As Decimal, ByVal sessionId As String, ByVal UserId As String, ByVal recordValue As BookCart, ByVal transType As TransactionType)
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim check = From a In db.TempBookingRecords Where a.BookingRecordId = New Guid(Id)
+            If check.Count > 0 Then
+                Return
+            End If
+        End Using
+
+
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim record As New TempBookingRecord
+            record.BookingRecordId = New Guid(Id)
+            record.DateTime = DateTime.Now
+            record.SessionID = sessionId
+            record.TotalCost = totalPrice
+            record.UserId = UserId
+            record.AdReferenceId = recordValue.BookReference
+            db.TempBookingRecords.InsertOnSubmit(record)
+            db.SubmitChanges()
+        End Using
+        recordValue.BookingStatus = BookingStatus.UNPAID
+        GeneralRoutine.PlaceAd(recordValue, transType)
+    End Sub
+#End Region
+
 #Region "Set Methods"
 
     ''' <summary>
@@ -279,7 +326,7 @@ Public Class BookingController
         AdBookCart.MainCategoryId = categoryId
     End Sub
 
-    Public Shared Function GetOnlineAdTypeForBooking() As String
+    Public Shared Function GetOnlineAdTypeTagForBooking() As String
         Using db = BetterclassifiedsDataContext.NewContext
             Dim category = db.MainCategories.FirstOrDefault(Function(c) c.MainCategoryId = AdBookCart.MainCategoryId)
             Dim parentCategory = db.MainCategories.FirstOrDefault(Function(c) c.MainCategoryId = AdBookCart.ParentCategoryId)
@@ -364,16 +411,16 @@ Public Class BookingController
             AdBookCart.Ad.AdDesigns(0).AdGraphics.Clear()
 
             ' create an Online Ad
-            Dim a As New DataModel.OnlineAd With {.Heading = heading, .Description = description, .HtmlText = html, .Price = price, _
+            Dim onlineAd As New DataModel.OnlineAd With {.Heading = heading, .Description = description, .HtmlText = html, .Price = price, _
                                          .ContactName = contactName, .ContactType = contactType, _
-                                         .ContactValue = contactValue}
+                                         .ContactValue = contactValue, .OnlineAdTag = GetOnlineAdTypeTagForBooking()}
             If (locationId > 0) Then
-                a.LocationId = locationId
+                onlineAd.LocationId = locationId
             End If
             If (locationAreaId > 0) Then
-                a.LocationAreaId = locationAreaId
+                onlineAd.LocationAreaId = locationAreaId
             End If
-            AdBookCart.Ad.AdDesigns(0).OnlineAds.Add(a)
+            AdBookCart.Ad.AdDesigns(0).OnlineAds.Add(onlineAd)
             AdBookCart.ImageList = imageList
         End If
     End Sub
@@ -730,318 +777,6 @@ Public Class BookingController
 
 #End Region
 
-#End Region
-
-#Region "Special Ad Booking"
-
-    Private Const _specialBookingSession As String = "specialBookingSession"
-
-    Public Shared ReadOnly Property SpecialBookCart() As Booking.BookCartSpecial
-        Get
-            Return HttpContext.Current.Session(_specialBookingSession)
-        End Get
-    End Property
-
-    Public Shared ReadOnly Property SpecialBookCartSummary() As List(Of Booking.BookCartSpecial)
-        Get
-            Dim list As New List(Of BookCartSpecial)
-            list.Add(SpecialBookCart)
-            Return list
-        End Get
-    End Property
-
-    Public Shared Sub StartSpecialBooking(ByVal userId As String, ByVal specialId As Integer, ByVal mainCategoryId As Integer)
-        ClearSpecialBooking() ' call method that will clear the session first
-        ClearAdBooking() ' clear any ad booking objects in the session also
-        If HttpContext.Current.Session(_specialBookingSession) Is Nothing Then
-            HttpContext.Current.Session(_specialBookingSession) = New Booking.BookCartSpecial
-            BookingType = BookingAction.SpecialBooking
-
-            ' save the user and category id
-            Using db = BetterclassifiedsDataContext.NewContext
-                With SpecialBookCart
-                    .UserId = userId
-                    .MainCategoryId = mainCategoryId
-                    .MainCategory = db.MainCategories.Where(Function(i) i.MainCategoryId = mainCategoryId).FirstOrDefault.Title
-                    .BookReference = GeneralRoutine.GetBookingReference(mainCategoryId, True)
-                    Dim special = db.SpecialRates.Where(Function(s) s.SpecialRateId = specialId).FirstOrDefault
-
-                    ' make the property settings for the special details
-                    .SetPrice = special.SetPrice
-
-                    If (special.MaximumWords > 0) Then
-                        .MaximumWords = special.MaximumWords
-                    End If
-
-                    If (special.NumOfInsertions > 0) Then
-                        .Insertions = special.NumOfInsertions
-                    End If
-
-                    If (special.LineAdBoldHeader = True) Then
-                        .AllowLineBoldHeader = True
-                    End If
-
-                    If (special.LineAdImage = True) Then
-                        .AllowLineImage = True
-                    End If
-                End With
-            End Using
-        End If
-    End Sub
-
-    Public Shared Sub ClearSpecialBooking()
-        If Not HttpContext.Current.Session(_specialBookingSession) Is Nothing Then
-            HttpContext.Current.Session(_specialBookingSession) = Nothing
-        End If
-    End Sub
-
-    Public Shared Sub SetSpecialAdPrice(ByVal lineAdPublicationCount As Integer, ByVal specialPrice As Decimal)
-        If Not SpecialBookCart Is Nothing Then
-            If lineAdPublicationCount > 0 Then
-                SpecialBookCart.TotalPrice = specialPrice * lineAdPublicationCount
-            Else
-                SpecialBookCart.TotalPrice = specialPrice
-            End If
-        End If
-    End Sub
-
-    Public Shared Sub SetSpecialAdDetails(ByVal title As String, ByVal comments As String, ByVal useTemplate As Boolean)
-        If Not SpecialBookCart Is Nothing Then
-            SpecialBookCart.Ad = New Ad
-            With SpecialBookCart.Ad
-                .Title = title
-                .Comments = comments
-                .UseAsTemplate = useTemplate
-            End With
-        End If
-    End Sub
-
-    Public Shared Sub SetSpecialOnlineAd(ByVal heading As String, ByVal description As String, ByVal html As String, ByVal price As Decimal, _
-                                         ByVal locationId As Integer, ByVal locationAreaId As Integer, ByVal contactName As String, ByVal contactType As String, ByVal contactValue As String)
-        If Not SpecialBookCart Is Nothing Then
-            SpecialBookCart.OnlineAd = New DataModel.OnlineAd
-            With SpecialBookCart.OnlineAd
-                .Heading = heading
-                .Description = description
-                .HtmlText = html
-                .Price = price
-                If locationId > 0 Then
-                    .LocationId = locationId
-                End If
-                If locationAreaId > 0 Then
-                    .LocationAreaId = locationAreaId
-                End If
-                .ContactName = contactName
-                .ContactType = contactType
-                .ContactValue = contactValue
-            End With
-        End If
-    End Sub
-
-    Public Shared Function GetSpecialOnlineAdGraphicIdList() As List(Of String)
-        Dim list As New List(Of String)
-        If SpecialBookCart.OnlineImages IsNot Nothing Then
-            For Each image In SpecialBookCart.OnlineImages
-                list.Add(image.DocumentID)
-            Next
-        End If
-        Return list
-    End Function
-
-    Public Shared Sub RemoveSpecialOnlineAdGraphic(ByVal imageGuid As String)
-        Dim graphic = SpecialBookCart.OnlineImages.Where(Function(i) i.DocumentID = imageGuid).FirstOrDefault
-        If graphic IsNot Nothing Then
-            SpecialBookCart.OnlineImages.Remove(graphic)
-        End If
-    End Sub
-
-    Public Shared Sub SetSpecialOnlineAdGraphics(ByVal list As List(Of String))
-        Dim graphics As New List(Of DataModel.AdGraphic)
-        For Each imageGuid As String In list
-            graphics.Add(New AdGraphic With {.DocumentID = imageGuid, .ModifiedDate = DateTime.Now})
-        Next
-        SpecialBookCart.OnlineImages = graphics
-    End Sub
-
-    Public Shared Sub SetSpecialLineAd(ByVal maximumWords As Integer, ByVal boldHeader As String, ByVal adText As String)
-        If Not SpecialBookCart Is Nothing Then
-            SpecialBookCart.LineAd = New LineAd
-
-            With SpecialBookCart.LineAd
-                .AdText = adText
-                .AdHeader = boldHeader
-                If (boldHeader <> String.Empty) Then
-                    .UseBoldHeader = True
-                Else
-                    .UseBoldHeader = False
-                End If
-                .NumOfWords = GeneralRoutine.LineAdWordCount(adText)
-
-                If SpecialBookCart.LineAdImage IsNot Nothing Then
-                    .UsePhoto = True
-                End If
-
-            End With
-        End If
-    End Sub
-
-    Public Shared Sub SetSpecialLineAdGraphic(ByVal documentId As String)
-        If SpecialBookCart IsNot Nothing Then
-            SpecialBookCart.LineAdImage = New AdGraphic With {.DocumentID = documentId}
-        End If
-    End Sub
-
-    Public Shared Sub SetSpecialSchedule(ByVal startDate As DateTime, ByVal endDate As DateTime)
-        If Not SpecialBookCart Is Nothing Then
-            With SpecialBookCart
-                .StartDate = startDate
-                .EndDate = endDate
-            End With
-        End If
-    End Sub
-
-    Public Shared Function PlaceSpecialAd(ByVal cart As Booking.BookCartSpecial, ByVal transactionType As TransactionType) As Boolean
-        Return GeneralRoutine.PlaceSpecialAd(cart, transactionType)
-    End Function
-
-    Public Shared Sub SaveTempAdRecord(ByVal Id As String, ByVal totalPrice As Decimal, ByVal sessionId As String, ByVal UserId As String, ByVal recordValue As BookCart, ByVal transType As TransactionType)
-        Using db = BetterclassifiedsDataContext.NewContext
-            Dim check = From a In db.TempBookingRecords Where a.BookingRecordId = New Guid(Id)
-            If check.Count > 0 Then
-                Return
-            End If
-        End Using
-
-
-        Using db = BetterclassifiedsDataContext.NewContext
-            Dim record As New TempBookingRecord
-            record.BookingRecordId = New Guid(Id)
-            record.DateTime = DateTime.Now
-            record.SessionID = sessionId
-            record.TotalCost = totalPrice
-            record.UserId = UserId
-            record.AdReferenceId = recordValue.BookReference
-            db.TempBookingRecords.InsertOnSubmit(record)
-            db.SubmitChanges()
-        End Using
-        recordValue.BookingStatus = BookingStatus.UNPAID
-        GeneralRoutine.PlaceAd(recordValue, transType)
-    End Sub
-
-    Public Shared Sub SaveTempAdSpecialRecord(ByVal Id As String, ByVal totalPrice As Decimal, ByVal sessionId As String, ByVal UserId As String, ByVal recordValue As BookCartSpecial, ByVal transType As TransactionType)
-        Using db = BetterclassifiedsDataContext.NewContext
-            Dim check = From a In db.TempBookingRecords Where a.BookingRecordId = New Guid(Id)
-            If check.Count > 0 Then
-                Return
-            End If
-        End Using
-        Using db = BetterclassifiedsDataContext.NewContext
-            Dim record As New TempBookingRecord
-            record.BookingRecordId = New Guid(Id)
-            record.DateTime = DateTime.Now
-            record.SessionID = sessionId
-            record.TotalCost = totalPrice
-            record.UserId = UserId
-            record.AdReferenceId = recordValue.BookReference
-            db.TempBookingRecords.InsertOnSubmit(record)
-            db.SubmitChanges()
-        End Using
-        recordValue.BookingStatus = BookingStatus.UNPAID
-        GeneralRoutine.PlaceSpecialAd(recordValue, transType)
-    End Sub
-
-    Public Shared Function IsBooked(ByVal paymentRef As String)
-        Using db = BetterclassifiedsDataContext.NewContext
-            Dim book = From b In db.AdBookings _
-                       Join t In db.TempBookingRecords On b.BookReference Equals t.AdReferenceId _
-                       Where t.BookingRecordId.ToString = paymentRef Select b
-            If book.Count = 1 Then
-                If book.Single.BookingStatus.Value = BookingStatus.BOOKED Then
-                    Return True
-                End If
-            End If
-        End Using
-        Return False
-    End Function
-
-    Public Shared Function BookTempAdRecord(ByVal Id As String, ByVal sessionId As String, ByVal totalCost As Decimal) As Boolean
-        Dim list = New List(Of AdBooking)
-        Using db = BetterclassifiedsDataContext.NewContext
-            list = (From item In db.AdBookings _
-                    Join item2 In db.TempBookingRecords On item2.AdReferenceId Equals item.BookReference _
-                    Where item2.SessionID = sessionId _
-                    AndAlso item2.BookingRecordId.ToString = Id _
-                    AndAlso item2.TotalCost = totalCost Select item).ToList
-
-            If list.Count = 1 Then
-                Dim item = list(0)
-                item.BookingStatus = BookingStatus.BOOKED
-                db.SubmitChanges()
-                Return True
-            End If
-        End Using
-        Return False
-    End Function
-
-    Public Shared Sub SetSpecialBookEntries(ByVal specialRateId As Integer, ByVal startDate As DateTime, _
-                                            ByVal publicationList As List(Of Integer), ByVal isLineAd As Boolean, ByVal isOnlineAd As Boolean)
-
-        ' clear any current book entry
-        If BookingController.SpecialBookCart.BookEntries Is Nothing Then
-            BookingController.SpecialBookCart.BookEntries = New List(Of DataModel.BookEntry)
-        End If
-        BookingController.SpecialBookCart.BookEntries.Clear()
-
-        Using db = BetterclassifiedsDataContext.NewContext
-
-            ' get the special rate we need to work with
-            Dim special = db.SpecialRates.Where(Function(i) i.SpecialRateId = specialRateId).Single
-
-            ' divide the set price by insertions to get edition price
-            Dim singleEditionPrice As Decimal = special.SetPrice \ special.NumOfInsertions
-
-            ' need to loop through each publication and create the required book entries based on the insertions
-            For Each id In publicationList
-                Dim pubId = id
-                Dim publication = (From pub In db.Publications Where pub.PublicationId = pubId Select pub).Single
-
-                If publication.PublicationType.Code.Trim.ToLower = "online" And isLineAd Then
-                    ' create a free book entry because online ads are free when bundled with Line ads
-                    BookingController.SpecialBookCart.BookEntries.Add(New BookEntry With {.BaseRateId = special.BaseRateId, _
-                                                                                          .EditionAdPrice = 0, _
-                                                                                          .EditionDate = startDate, _
-                                                                                          .PublicationId = id, _
-                                                                                          .PublicationPrice = 0, _
-                                                                                          .RateType = GetRateTypeString()})
-                ElseIf publication.PublicationType.Code.Trim.ToLower = "online" And isLineAd = False Then
-                    ' this is only the Online ad so set the appropriate price details from the special rate
-                    BookingController.SpecialBookCart.BookEntries.Add(New BookEntry With {.BaseRateId = special.BaseRateId, _
-                                                                                          .EditionAdPrice = special.SetPrice, _
-                                                                                          .EditionDate = startDate, _
-                                                                                          .PublicationId = id, _
-                                                                                          .PublicationPrice = special.SetPrice, _
-                                                                                          .RateType = GetRateTypeString()})
-                ElseIf publication.PublicationType.Code.Trim.ToLower <> "online" Then
-                    ' each publication will be get the set price - so divide the set price by insertions to get edition price
-                    ' get the edition dates for this paper
-                    Dim dates = PublicationController.PublicationEditions(id, special.NumOfInsertions, startDate)
-
-
-                    For Each d In dates
-                        BookingController.SpecialBookCart.BookEntries.Add(New BookEntry With {.BaseRateId = special.BaseRateId, _
-                                                                                          .EditionAdPrice = singleEditionPrice, _
-                                                                                          .EditionDate = d, _
-                                                                                          .PublicationId = id, _
-                                                                                          .PublicationPrice = special.SetPrice, _
-                                                                                          .RateType = GetRateTypeString()})
-                    Next
-                End If
-            Next
-        End Using
-    End Sub
-
-#End Region
-
 #Region "Retrieve"
 
     Public Shared Function GetAdBookingById(ByVal id As Integer) As DataModel.AdBooking
@@ -1318,8 +1053,6 @@ Public Class BookingController
                 Return "Regular"
             Case BookingAction.Reschedule
                 Return "Rescheduled"
-            Case BookingAction.SpecialBooking
-                Return "Special"
         End Select
         Return Nothing
     End Function
@@ -1334,8 +1067,6 @@ Public Class BookingController
                 Return "Ratecard"
             Case BookingAction.Reschedule
                 Return "Ratecard"
-            Case BookingAction.SpecialBooking
-                Return "SpecialRate"
         End Select
         Return Nothing
     End Function

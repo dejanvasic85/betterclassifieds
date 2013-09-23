@@ -166,7 +166,7 @@ Namespace BundleBooking
             Return _context.PublicationAdTypes.Where(Function(pat) pat.PublicationId = publicationId).ToList()
         End Function
 
-        Public Function GetOnlineAdTypeForBooking() As String
+        Public Function GetOnlineAdTypeTagForBooking() As String
             If BundleCart IsNot Nothing Then
                 Return IIf(Not String.IsNullOrEmpty(BundleCart.MainSubCategory.OnlineAdTag), BundleCart.MainSubCategory.OnlineAdTag, BundleCart.MainParentCategory.OnlineAdTag)
             End If
@@ -278,7 +278,8 @@ Namespace BundleBooking
                                                              .LocationAreaId = locationAreaId, _
                                                              .ContactName = contactName, _
                                                              .ContactValue = contactValue, _
-                                                             .ContactType = contactType}
+                                                             .ContactType = contactType, _
+                                                             .OnlineAdTag = GetOnlineAdTypeTagForBooking()}
                 ' save the ad in the session
                 BundleCart.OnlineAd = onlineAd
             End If

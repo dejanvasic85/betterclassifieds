@@ -12,8 +12,6 @@ Partial Public Class BodyView
                 Case "session"
                     If BookingController.BookingType = Booking.BookingAction.BundledBooking Then
                         divContent.InnerHtml = BundleBooking.BundleController.BundleCart.OnlineAd.HtmlText
-                    ElseIf BookingController.BookingType = Booking.BookingAction.SpecialBooking Then
-                        divContent.InnerHtml = BookingController.SpecialBookCart.OnlineAd.HtmlText
                     Else
                         divContent.InnerHtml = BookingController.AdBookCart.Ad.AdDesigns(0).OnlineAds(0).HtmlText
                     End If

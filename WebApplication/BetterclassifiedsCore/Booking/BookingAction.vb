@@ -3,7 +3,6 @@
     Public Enum BookingAction
         NormalBooking
         Reschedule
-        SpecialBooking
         BundledBooking
         Empty
         Extension

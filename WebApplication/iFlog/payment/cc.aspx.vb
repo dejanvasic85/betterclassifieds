@@ -22,8 +22,6 @@ Namespace payment
                         Return BookingController.AdBookCart.TotalPrice.Value.ToString("00.00")
                     Case Booking.BookingAction.Reschedule
                         Return BookingController.AdBookCart.TotalPrice.Value.ToString("00.00")
-                    Case Booking.BookingAction.SpecialBooking
-                        Return BookingController.SpecialBookCart.TotalPrice.Value.ToString("00.00")
                     Case Booking.BookingAction.BundledBooking
                         Return BundleBooking.BundleController.BundleCart.TotalPrice.ToString("00.00")
                     Case Booking.BookingAction.Extension
@@ -39,8 +37,6 @@ Namespace payment
                     Return BookingController.AdBookCart.BookReference
                 ElseIf BookingController.BookingType = Booking.BookingAction.Reschedule Then
                     Return BookingController.AdBookCart.BookReference
-                ElseIf BookingController.BookingType = Booking.BookingAction.SpecialBooking Then
-                    Return BookingController.SpecialBookCart.BookReference
                 ElseIf BookingController.BookingType = Booking.BookingAction.BundledBooking Then
                     Return BundleBooking.BundleController.BundleCart.BookReference
                 ElseIf BookingController.BookingType = Booking.BookingAction.Extension Then
@@ -65,8 +61,6 @@ Namespace payment
                 BookingController.SaveTempAdRecord(BookingProcess.PaymentReferenceId, Cost, Session.SessionID, User.Identity.Name, BookingController.AdBookCart, TransactionType.CREDIT)
             ElseIf BookingController.BookingType = Booking.BookingAction.Reschedule Then
                 BookingController.SaveTempAdRecord(BookingProcess.PaymentReferenceId, Cost, Session.SessionID, User.Identity.Name, BookingController.AdBookCart, TransactionType.CREDIT)
-            ElseIf BookingController.BookingType = Booking.BookingAction.SpecialBooking Then
-                BookingController.SaveTempAdSpecialRecord(BookingProcess.PaymentReferenceId, Cost, Session.SessionID, User.Identity.Name, BookingController.SpecialBookCart, TransactionType.CREDIT)
             ElseIf BookingController.BookingType = Booking.BookingAction.BundledBooking Then
                 BundleBooking.BundleController.SaveTempAdBundleRecord(BookingProcess.PaymentReferenceId, Cost, Session.SessionID, BundleController.BundleCart.Username, BundleController.BundleCart, TransactionType.CREDIT)
             End If

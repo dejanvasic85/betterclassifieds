@@ -75,16 +75,6 @@ Partial Public Class Step5
                         'redirect to book successful page
                         Me.Response.Redirect("~/Booking/Default.aspx?action=successful")
                     End If
-
-                ElseIf BookingController.BookingType = Booking.BookingAction.SpecialBooking Then
-
-                    BookingController.SpecialBookCart.BookingStatus = Controller.BookingStatus.BOOKED
-
-                    If BookingController.PlaceSpecialAd(BookingController.SpecialBookCart, TransactionType.FREEAD) Then
-                        Global_asax.OnPayment.BeginInvoke(BookingController.SpecialBookCart.BookReference, Nothing, Nothing)
-                        'redirect to book successful page
-                        Me.Response.Redirect("~/Booking/Default.aspx?action=successful")
-                    End If
                 End If
             End If
 

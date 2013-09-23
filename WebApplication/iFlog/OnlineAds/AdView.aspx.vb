@@ -62,6 +62,11 @@ Partial Public Class AdView
             If onlineAd IsNot Nothing Then
                 Me.Title = onlineAd.Heading
                 ucxOnlineAd.BindOnlineAd(onlineAd)
+
+                ' Databind ad specific view
+                Dim adSpecificType = _adRepository.GetTutorAd(onlineAd.OnlineAdId)
+                'mainItemPage.FindControl(Of IOnlineAdView(Of BetterClassified.UI.Models.TutorAdModel))("ucxTutors")
+
             Else
                 Me.Title = "Ad does not exist or has Expired"
                 ucxOnlineAd.Visible = False

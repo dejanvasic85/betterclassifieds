@@ -26,11 +26,6 @@ Partial Public Class PreviewLineAd
                     If BundleBooking.BundleController.BundleCart.LineAdGraphic IsNot Nothing Then
                         adGraphicId = BundleBooking.BundleController.BundleCart.LineAdGraphic.DocumentID
                     End If
-                ElseIf BookingController.BookingType = Booking.BookingAction.SpecialBooking Then
-                    ad = BookingController.SpecialBookCart.LineAd
-                    If BookingController.SpecialBookCart.LineAdImage IsNot Nothing Then
-                        adGraphicId = BookingController.SpecialBookCart.LineAdImage.DocumentID
-                    End If
                 Else
                     ' otherwise the booking details should be just in the ad book cart
                     If BookingController.AdBookCart.Ad.AdDesigns(0).LineAds(0) IsNot Nothing Then

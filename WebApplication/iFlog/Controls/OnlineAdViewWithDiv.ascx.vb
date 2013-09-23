@@ -21,8 +21,6 @@ Namespace Controls
                     Case "session"
                         If BookingController.BookingType = BetterclassifiedsCore.Booking.BookingAction.BundledBooking Then
                             divContent.InnerHtml = BetterclassifiedsCore.BundleBooking.BundleController.BundleCart.OnlineAd.HtmlText
-                        ElseIf BookingController.BookingType = BetterclassifiedsCore.Booking.BookingAction.SpecialBooking Then
-                            divContent.InnerHtml = BookingController.SpecialBookCart.OnlineAd.HtmlText
                         Else
                             divContent.InnerHtml = BookingController.AdBookCart.Ad.AdDesigns(0).OnlineAds(0).HtmlText
                         End If

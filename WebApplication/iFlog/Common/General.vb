@@ -45,14 +45,12 @@ Module General
 
     Public Sub ClearCurrentBookings()
         BookingController.ClearAdBooking()
-        BookingController.ClearSpecialBooking()
         BundleController.ClearBundleBooking()
     End Sub
 
     Public Sub StartBookingStep2(ByVal type As SystemAdType)
         ' clear any current bookings
         BookingController.ClearAdBooking()
-        BookingController.ClearSpecialBooking()
         BundleController.ClearBundleBooking()
         ' start the new booking now with no user defined
         If Membership.GetUser Is Nothing Then
@@ -69,7 +67,6 @@ Module General
 
     Public Sub StartBundleBookingStep2()
         BookingController.ClearAdBooking()
-        BookingController.ClearSpecialBooking()
         BundleController.ClearBundleBooking()
         ' start a new booking
         If Membership.GetUser Is Nothing Then
@@ -88,7 +85,6 @@ Module General
         Dim query = "?action=home"
 
         BookingController.ClearAdBooking()
-        BookingController.ClearSpecialBooking()
         BundleController.ClearBundleBooking()
         ' start a new booking
         If Membership.GetUser Is Nothing Then
@@ -125,7 +121,6 @@ Module General
     Public Sub StartBundleBookingStep2(ByVal AdDesignId As Integer, ByVal type As SystemAdType)
         ' starts a new bundle booking with existing ad details
         BookingController.ClearAdBooking()
-        BookingController.ClearSpecialBooking()
         BundleController.ClearBundleBooking()
         ' start a new booking
         If Membership.GetUser Is Nothing Then

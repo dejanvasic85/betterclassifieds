@@ -191,27 +191,6 @@
       <Association Name="MainCategory_AdBooking" Member="MainCategory" ThisKey="MainCategoryId" OtherKey="MainCategoryId" Type="MainCategory" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.OnlineAd" Member="OnlineAds">
-    <Type Name="OnlineAd">
-      <Column Name="OnlineAdId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="AdDesignId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Heading" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="HtmlText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="LocationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="LocationAreaId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ContactName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Column Name="ContactType" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="ContactValue" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="NumOfViews" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="OnlineAd_OnlineAdEnquiry" Member="OnlineAdEnquiries" ThisKey="OnlineAdId" OtherKey="OnlineAdId" Type="OnlineAdEnquiry" />
-      <Association Name="OnlineAd_TutorAd" Member="TutorAds" ThisKey="OnlineAdId" OtherKey="OnlineAdId" Type="TutorAd" />
-      <Association Name="Location_OnlineAd" Member="Location" ThisKey="LocationId" OtherKey="LocationId" Type="Location" IsForeignKey="true" />
-      <Association Name="LocationArea_OnlineAd" Member="LocationArea" ThisKey="LocationAreaId" OtherKey="LocationAreaId" Type="LocationArea" IsForeignKey="true" />
-      <Association Name="AdDesign_OnlineAd" Member="AdDesign" ThisKey="AdDesignId" OtherKey="AdDesignId" Type="AdDesign" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Publication" Member="Publications">
     <Type Name="Publication" Id="ID1">
       <Column Name="PublicationId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -354,8 +333,8 @@
       <Column Name="Version" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="FirstAdDesignId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="AdDesign_AdGraphic" Member="AdGraphics" ThisKey="AdDesignId" OtherKey="AdDesignId" Type="AdGraphic" />
-      <Association Name="AdDesign_OnlineAd" Member="OnlineAds" ThisKey="AdDesignId" OtherKey="AdDesignId" Type="OnlineAd" />
       <Association Name="AdDesign_LineAd" Member="LineAds" ThisKey="AdDesignId" OtherKey="AdDesignId" Type="LineAd" />
+      <Association Name="AdDesign_OnlineAd" Member="OnlineAds" ThisKey="AdDesignId" OtherKey="AdDesignId" Type="OnlineAd" />
       <Association Name="Ad_AdDesign" Member="Ad" ThisKey="AdId" OtherKey="AdId" Type="Ad" IsForeignKey="true" />
       <Association Name="AdType_AdDesign" Member="AdType" ThisKey="AdTypeId" OtherKey="AdTypeId" Type="AdType" IsForeignKey="true" />
     </Type>
@@ -513,6 +492,28 @@
       <Column Name="OnlineAdTag" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Association Name="MainCategory_PublicationCategory" Member="PublicationCategories" ThisKey="MainCategoryId" OtherKey="MainCategoryId" Type="PublicationCategory" />
       <Association Name="MainCategory_AdBooking" Member="AdBookings" ThisKey="MainCategoryId" OtherKey="MainCategoryId" Type="AdBooking" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OnlineAd" Member="OnlineAds">
+    <Type Name="OnlineAd">
+      <Column Name="OnlineAdId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AdDesignId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Heading" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="HtmlText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="LocationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LocationAreaId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ContactName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="ContactType" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="ContactValue" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="NumOfViews" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OnlineAdTag" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="OnlineAd_OnlineAdEnquiry" Member="OnlineAdEnquiries" ThisKey="OnlineAdId" OtherKey="OnlineAdId" Type="OnlineAdEnquiry" />
+      <Association Name="OnlineAd_TutorAd" Member="TutorAds" ThisKey="OnlineAdId" OtherKey="OnlineAdId" Type="TutorAd" />
+      <Association Name="AdDesign_OnlineAd" Member="AdDesign" ThisKey="AdDesignId" OtherKey="AdDesignId" Type="AdDesign" IsForeignKey="true" />
+      <Association Name="Location_OnlineAd" Member="Location" ThisKey="LocationId" OtherKey="LocationId" Type="Location" IsForeignKey="true" />
+      <Association Name="LocationArea_OnlineAd" Member="LocationArea" ThisKey="LocationAreaId" OtherKey="LocationAreaId" Type="LocationArea" IsForeignKey="true" />
     </Type>
   </Table>
   <Function Name="dbo.spSpecialRatesByCategory" Method="spSpecialRatesByCategory">

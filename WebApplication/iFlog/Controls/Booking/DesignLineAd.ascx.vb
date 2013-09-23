@@ -10,8 +10,7 @@ Partial Public Class DesignLineAd
         If Not Page.IsPostBack Then
             ' load current data from the session if there is anything
 
-            If BookingController.BookingType = Booking.BookingAction.SpecialBooking Or _
-                    BookingController.BookingType = Booking.BookingAction.BundledBooking Then
+            If BookingController.BookingType = Booking.BookingAction.BundledBooking Then
                 Exit Sub
             End If
 

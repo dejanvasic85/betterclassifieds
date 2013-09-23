@@ -33,10 +33,6 @@
         
         <asp:Literal ID="lblUserMessage" runat="server" />
 
-        <asp:Panel ID="pnlUserMessage" runat="server" CssClass="div-warning">
-            To have a picture for your print ad, you will have to upgrade to our Premium Offer. Premium will also provide you with a Bold Header for your print ad.
-        </asp:Panel>
-
         <asp:Panel ID="pnlOnline" runat="server">
             <h1><asp:Label ID="lblOnlineTitle" runat="server" Text="Online Ad Images" /></h1>
             <div class="breakSmall"></div>

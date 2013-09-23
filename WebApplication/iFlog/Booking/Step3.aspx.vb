@@ -11,19 +11,20 @@ Partial Public Class Step3
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
-        If BookingController.AdBookCart Is Nothing Or AdController.TempRecordExist(BookingController.AdBookCart.BookReference) Then
+        If BookingController.AdBookCart Is Nothing Then
+            Response.Redirect(PageUrl.BookingStep_1 + "?action=expired")
+        End If
+
+        If AdController.TempRecordExist(BookingController.AdBookCart.BookReference) Then
             Response.Redirect(PageUrl.BookingStep_1 + "?action=expired")
         End If
 
         If Not Page.IsPostBack Then
 
             Dim adType As String = BookingController.AdBookCart.MainAdType().Code.Trim
-
             ' store the type of Ad in Viewstate since it's used a bit in this page
             ViewState(adTypeState) = adType
-
             If Request.QueryString("action") = "back" Then
-
                 If (adType = SystemAdType.LINE.ToString) Then
                     ' we retrieve the session data to calculate the price and display the price summary
                     Dim lineAd As AdDesign = BookingController.GetAdDesignDetails(SystemAdType.LINE)
@@ -34,9 +35,7 @@ Partial Public Class Step3
                     ucxDesignOnlineAd.Visible = True
                     CalculatePrice(adType, onlineAd.OnlineAds(0).Description)
                 End If
-
             Else
-
                 ' display the required control on the page and calculate the price
                 Select Case adType
                     Case SystemAdType.LINE.ToString
@@ -60,7 +59,7 @@ Partial Public Class Step3
             radWindowImages.OpenerElementID = lnkUploadImages.ClientID
 
             ' Display the appropriate ad type ( using ucx naming convention )
-            Dim onlineAdType = String.Format("ucx{0}", BookingController.GetOnlineAdTypeForBooking)
+            Dim onlineAdType = String.Format("ucx{0}", BookingController.GetOnlineAdTypeTagForBooking)
             Dim onlineControl = divOnlineAdTypes.FindControl(onlineAdType)
             If onlineControl IsNot Nothing Then
                 onlineControl.Visible = True

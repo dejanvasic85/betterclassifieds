@@ -37,7 +37,7 @@ Partial Public Class BundlePage3
             DataBindMarketingContent()
 
             ' Display the appropriate online ad
-            Dim onlineAdType = String.Format("ucx{0}", _bundleController.GetOnlineAdTypeForBooking)
+            Dim onlineAdType = String.Format("ucx{0}", _bundleController.GetOnlineAdTypeTagForBooking)
             Dim onlineControl = OnlineAdTypes.FindControl(onlineAdType)
             If onlineControl IsNot Nothing Then
                 onlineControl.Visible = True

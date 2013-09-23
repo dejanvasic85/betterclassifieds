@@ -32,15 +32,6 @@ Partial Public Class AdView
     Protected WithEvents categorySelector As Global.BetterClassified.UI.CategorySelector
 
     '''<summary>
-    '''mainItemPage control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents mainItemPage As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-
-    '''<summary>
     '''ucxOnlineAd control.
     '''</summary>
     '''<remarks>
@@ -48,6 +39,15 @@ Partial Public Class AdView
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ucxOnlineAd As Global.BetterclassifiedsWeb.OnlineAdView
+
+    '''<summary>
+    '''pnlAdDetails control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlAdDetails As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
     '''ucxTutors control.

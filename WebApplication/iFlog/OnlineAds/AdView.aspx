@@ -2,7 +2,7 @@
     CodeBehind="AdView.aspx.vb" Inherits="BetterclassifiedsWeb.AdView" %>
 
 <%@ Register Src="~/Controls/OnlineAdView.ascx" TagName="OnlineAd" TagPrefix="ucx" %>
-<%@ Register src="~/Controls/TutorAdView.ascx" tagName="TutorView" tagPrefix="ucx" %>
+<%@ Register Src="~/Controls/TutorAdView.ascx" TagName="TutorView" TagPrefix="ucx" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -22,10 +22,14 @@
                 <div style="clear: both"></div>
             </div>
 
-            <div id="mainItemPage" runat="server">
+            <div id="mainItemPage">
                 <ucx:OnlineAd ID="ucxOnlineAd" runat="server" />
-                <%--Specific ad type views--%>
-                <ucx:TutorView ID="ucxTutors" runat="server" Visible="False"/>
+
+                <asp:Panel runat="server" ID="pnlAdDetails">
+                    <%--Specific ad type views--%>
+                    <ucx:TutorView ID="ucxTutors" runat="server" Visible="False" />
+                </asp:Panel>
+
                 <asp:Panel ID="pnlResult" runat="server" Visible="false">
                     <div id="mainHeaderItemPage">
                         <h2>Cannot find requested Ad</h2>

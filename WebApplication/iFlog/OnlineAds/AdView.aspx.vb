@@ -4,6 +4,7 @@ Imports BetterClassified.UI.CategorySelectorSupport
 Imports BetterClassified.UI.Repository
 Imports BetterClassified
 Imports Microsoft.Practices.Unity
+Imports BetterClassified.UI.Models
 
 Partial Public Class AdView
     Inherits System.Web.UI.Page
@@ -63,10 +64,13 @@ Partial Public Class AdView
                 Me.Title = onlineAd.Heading
                 ucxOnlineAd.BindOnlineAd(onlineAd)
 
-                ' Databind ad specific view
-                Dim adSpecificType = _adRepository.GetTutorAd(onlineAd.OnlineAdId)
-                'mainItemPage.FindControl(Of IOnlineAdView(Of BetterClassified.UI.Models.TutorAdModel))("ucxTutors")
+                If (onlineAd.OnlineAdTag.HasValue) Then
+                    ' bind the specific ad type - locate the control first
+                    Dim adTypeControl = pnlAdDetails.FindControl(Of IOnlineAdView)("ucx" + onlineAd.OnlineAdTag)
 
+                    ' todo - use a factory here to determine which ad to fetch
+                    adTypeControl.DatabindAd(_adRepository.GetTutorAd(onlineAd.OnlineAdId))
+                End If
             Else
                 Me.Title = "Ad does not exist or has Expired"
                 ucxOnlineAd.Visible = False

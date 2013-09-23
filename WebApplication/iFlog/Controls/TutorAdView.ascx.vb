@@ -2,13 +2,14 @@
 
 Public Class TutorAdView
     Inherits System.Web.UI.UserControl
-    Implements IOnlineAdView(Of TutorAdModel)
+    Implements IOnlineAdView
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
     End Sub
 
-    Public Sub DatabindAd(ByVal adDetails As TutorAdModel) Implements IOnlineAdView(Of TutorAdModel).DatabindAd
+    Public Sub DatabindAd(Of T)(ByVal adDetails As T) Implements IOnlineAdView.DatabindAd
+        Dim tutorAdModel = TryCast(adDetails, TutorAdModel)
 
     End Sub
 

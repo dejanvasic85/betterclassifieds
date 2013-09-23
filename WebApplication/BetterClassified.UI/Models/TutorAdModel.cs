@@ -11,7 +11,7 @@ namespace BetterClassified.UI.Models
 
         public TutorAdModel(int? ageGroupMin, int? ageGroupMax, string level, string travelOption,
             string pricingOption, string whatToBring, string objective, string subjects,
-            int? onlineAdId = null, int? tutorAdId = null)
+            long onlineAdId = 0, long tutorAdId = 0)
         {
             this.AgeGroupMin = ageGroupMin;
             this.AgeGroupMax = ageGroupMax;
@@ -25,8 +25,8 @@ namespace BetterClassified.UI.Models
             this.TutorAdId = tutorAdId;
         }
 
-        public long? OnlineAdId { get; set; }
-        public long? TutorAdId { get; set; }
+        public long OnlineAdId { get; set; }
+        public long TutorAdId { get; set; }
         public int? AgeGroupMin { get; set; }
         public int? AgeGroupMax { get; set; }
         public string Level { get; set; }

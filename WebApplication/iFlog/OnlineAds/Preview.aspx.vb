@@ -1,5 +1,7 @@
 ﻿Imports BetterclassifiedsCore
 Imports BetterclassifiedsCore.BusinessEntities
+Imports BetterClassified
+Imports BetterClassified.UI.Models
 
 Partial Public Class Preview
     Inherits System.Web.UI.Page
@@ -15,6 +17,7 @@ Partial Public Class Preview
                 onlineAd = AdController.GetOnlineAdEntityByDesign(Request.QueryString("id"), True)
                 ' bind the online ad to the user control
                 ucxOnlineAd.BindOnlineAd(onlineAd)
+
             Case "session"
                 If BookingController.BookingType = Booking.BookingAction.BundledBooking Then
                     ' grab the session values from the booking cart
@@ -25,13 +28,7 @@ Partial Public Class Preview
                         Next
                         Dim locationValue = GeneralController.GetLocationById(.OnlineAd.LocationId).Title
                         Dim areaValue = GeneralController.GetLocationAreaById(.OnlineAd.LocationAreaId).Title
-                        onlineAd = .OnlineAd.ToOnlineAdEntity(imageList, _
-                                                                .MainParentCategory, _
-                                                                .MainSubCategory, _
-                                                                DateTime.Today, _
-                                                                .BookReference, _
-                                                                locationValue, _
-                                                                areaValue)
+                        onlineAd = .OnlineAd.ToOnlineAdEntity(imageList, .MainParentCategory, .MainSubCategory, DateTime.Today, .BookReference, locationValue, areaValue)
                     End With
 
                     ' bind the online ad to the user control

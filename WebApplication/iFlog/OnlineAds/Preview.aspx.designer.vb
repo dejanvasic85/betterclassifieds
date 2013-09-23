@@ -32,6 +32,15 @@ Partial Public Class Preview
     Protected WithEvents ScriptManager As Global.System.Web.UI.ScriptManager
 
     '''<summary>
+    '''divAdViewControls control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divAdViewControls As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
     '''ucxOnlineAd control.
     '''</summary>
     '''<remarks>
@@ -39,4 +48,13 @@ Partial Public Class Preview
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ucxOnlineAd As Global.BetterclassifiedsWeb.Controls.OnlineAdViewWithDiv
+
+    '''<summary>
+    '''ucxTutors control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ucxTutors As Global.BetterclassifiedsWeb.TutorAdView
 End Class

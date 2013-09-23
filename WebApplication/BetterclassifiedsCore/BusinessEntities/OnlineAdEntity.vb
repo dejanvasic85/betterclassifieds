@@ -77,6 +77,5 @@
         End Property
 
         Public Property AdBookingId As Nullable(Of Integer)
-
     End Class
 End Namespace

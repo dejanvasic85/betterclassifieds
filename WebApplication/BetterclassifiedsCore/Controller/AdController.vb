@@ -291,6 +291,7 @@ Public Class AdController
                                                                        .BookingReference = bk.BookReference, _
                                                                        .ImageList = GetAdGraphicDocuments(o.AdDesignId), _
                                                                        .SubCategory = bk.MainCategory, _
+                                                                       .OnlineAdTag = o.OnlineAdTag, _
                                                                        .ParentCategory = (From mc In db.MainCategories Where mc.MainCategoryId = bk.MainCategory.ParentId Select mc).Single})
 
             If ad.Count > 0 Then
@@ -332,6 +333,7 @@ Public Class AdController
                                                                        .BookingReference = bk.BookReference, _
                                                                        .ImageList = GetAdGraphicDocuments(o.AdDesignId), _
                                                                        .SubCategory = bk.MainCategory, _
+                                                                       .OnlineAdTag = o.OnlineAdTag, _
                                                                        .ParentCategory = (From mc In db.MainCategories Where mc.MainCategoryId = bk.MainCategory.ParentId Select mc).Single})
 
             If ad.Count > 0 Then
@@ -373,6 +375,7 @@ Public Class AdController
                                                                        .BookingReference = bk.BookReference, _
                                                                        .ImageList = GetAdGraphicDocuments(o.AdDesignId), _
                                                                        .SubCategory = bk.MainCategory, _
+                                                                       .OnlineAdTag = o.OnlineAdTag, _
                                                                        .ParentCategory = (From mc In db.MainCategories Where mc.MainCategoryId = bk.MainCategory.ParentId Select mc).Single})
 
             If ad.Count > 0 Then
@@ -416,6 +419,7 @@ Public Class AdController
                                                                        .BookingReference = book.BookReference, _
                                                                        .ImageList = GetAdGraphicDocuments(o.AdDesignId), _
                                                                        .SubCategory = book.MainCategory, _
+                                                                       .OnlineAdTag = o.OnlineAdTag, _
                                                                        .ParentCategory = (From mc In db.MainCategories Where mc.MainCategoryId = book.MainCategory.ParentId Select mc).Single})
             If ad.Count > 0 Then
                 ' increase the number of views for this ad if this is not a preview only.

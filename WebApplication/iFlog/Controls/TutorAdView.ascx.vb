@@ -10,6 +10,9 @@ Public Class TutorAdView
 
     Public Sub DatabindAd(Of T)(ByVal adDetails As T) Implements IOnlineAdView.DatabindAd
         Dim tutorAdModel = TryCast(adDetails, TutorAdModel)
+        If tutorAdModel Is Nothing Then
+            Throw New InvalidCastException("Unable to cast to TutorAdModel")
+        End If
         lblSubjects.InnerText = tutorAdModel.Subjects
 
         If (tutorAdModel.IsOpenForAllAges()) Then

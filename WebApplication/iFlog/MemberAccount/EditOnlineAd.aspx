@@ -3,6 +3,7 @@
 <%@ Register Src="~/MemberAccount/MemberHeading.ascx" TagName="MemberHeading" TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/Booking/DesignOnlineAd.ascx" TagName="OnlineAd" TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/ErrorList.ascx" TagName="PageError" TagPrefix="ucx" %>
+<%@ Register Src="~/Controls/TutorAdForm.ascx" TagName="TutorForm" tagPrefix="ucx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="memberContentMain" runat="server">
 
@@ -28,6 +29,11 @@
             ReloadOnShow="true" Behaviors="Close" VisibleStatusbar="false" />
 
         <ucx:OnlineAd ID="ucxOnlineAd" runat="server" />
+        
+        <%--Ad specific details--%>
+        <asp:Panel runat="server" ID="pnlAdDetails" style="padding-left:10px; padding-top:20px;">
+            <ucx:TutorForm ID="ucxTutors" runat="server" Visible="False"/>
+        </asp:Panel>
 
         <div class="accountRow">
             <div class="btn-group pull-right" style="padding-top: 10px;">

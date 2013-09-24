@@ -5,6 +5,7 @@ Imports Microsoft.Practices.Unity
 
 Public Class TutorAdForm
     Inherits System.Web.UI.UserControl
+    Implements IOnlineAdView
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
@@ -29,13 +30,18 @@ Public Class TutorAdForm
                                 .TutorAdId = hdnTutorAdId.Value.ToInt}
     End Function
 
-    Public Sub BindTutorAd(ByVal tutorAd As TutorAdModel)
+    Public Sub DatabindAd(Of T)(ByVal adDetails As T) Implements IOnlineAdView.DatabindAd
+        Dim tutorAd = TryCast(adDetails, TutorAdModel)
+        If tutorAd Is Nothing Then
+            Throw New InvalidCastException("Unable to cast to TutorAdModel")
+        End If
+
         hdnOnlineAdId.Value = tutorAd.OnlineAdId
         hdnTutorAdId.Value = tutorAd.TutorAdId
 
         txtSubjects.SetTags(tutorAd.Subjects)
-        txtAgeMin.Text = tutorAd.AgeGroupMin
-        txtAgeMax.Text = tutorAd.AgeGroupMax
+        txtAgeMin.Text = IIf(tutorAd.AgeGroupMin.HasValue, tutorAd.AgeGroupMin, "")
+        txtAgeMax.Text = IIf(tutorAd.AgeGroupMax.HasValue, tutorAd.AgeGroupMax, "")
         ddlExpertLevel.SelectedValue = tutorAd.ExpertiseLevel
         ddlTravelOptions.SelectedValue = tutorAd.TravelOption
         txtObjective.Text = tutorAd.Objective

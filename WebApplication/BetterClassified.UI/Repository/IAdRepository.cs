@@ -9,6 +9,7 @@ namespace BetterClassified.UI.Repository
     {
         OnlineAdModel GetOnlineAdByBooking(int bookingId);
         TutorAdModel GetTutorAd(int onlineAdId);
+        void UpdateTutor(TutorAdModel tutorAdModel);
     }
 
     public class AdRepository : IAdRepository, IMappingBehaviour
@@ -32,6 +33,19 @@ namespace BetterClassified.UI.Repository
             }
         }
 
+        public void UpdateTutor(TutorAdModel tutorAdModel)
+        {
+            using (var context = BetterclassifiedsDataContext.NewContext())
+            {
+                // Fetch original
+                var tutorAd = context.TutorAds.Single(t => t.TutorAdId == tutorAdModel.TutorAdId);
+                // Map new property changes
+                this.Map(tutorAdModel, tutorAd);
+                // Commit the changes
+                context.SubmitChanges();
+            }
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             // From Db
@@ -41,6 +55,7 @@ namespace BetterClassified.UI.Repository
             // To Db
             configuration.CreateMap<OnlineAdModel, OnlineAd>()
                 .ForMember(member => member.AdDesignId, options => options.Ignore());
+            configuration.CreateMap<TutorAdModel, TutorAd>().ForMember(member => member.OnlineAd, options => options.Ignore());
         }
     }
 }

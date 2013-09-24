@@ -1,5 +1,9 @@
 ﻿Imports BetterclassifiedsCore
 Imports BetterclassifiedsCore.ParameterAccess
+Imports BetterClassified
+Imports BetterClassified.UI.Models
+Imports BetterClassified.UI.Repository
+Imports Microsoft.Practices.Unity
 
 Partial Public Class EditOnlineAd
     Inherits System.Web.UI.Page
@@ -9,6 +13,7 @@ Partial Public Class EditOnlineAd
     Private _action As String
     Private _userId As String
     Private _list As String
+    Private _adRepository As IAdRepository
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
@@ -16,6 +21,7 @@ Partial Public Class EditOnlineAd
         _action = Request.QueryString("act")
         _userId = Membership.GetUser().UserName
         _list = Request.QueryString("list")
+        _adRepository = Unity.DefaultContainer.Resolve(Of IAdRepository)()
         lblUserMsg.Text = String.Empty
 
         If Not Page.IsPostBack Then
@@ -33,6 +39,14 @@ Partial Public Class EditOnlineAd
                 ucxOnlineAd.BookingReference = _bookingReference
                 ucxOnlineAd.BindOnlineAd(onlineAd, images)
 
+                ' Bind the ad specific details
+                If (onlineAd.OnlineAdTag.HasValue) Then
+                    Dim adTypeControl = pnlAdDetails.FindControl(Of IOnlineAdView)("ucx" + onlineAd.OnlineAdTag)
+                    ' todo - use a factory here to determine which ad to fetch
+                    DirectCast(adTypeControl, Control).Visible = True
+                    adTypeControl.DatabindAd(_adRepository.GetTutorAd(onlineAd.OnlineAdId))
+                End If
+
                 ' Set up the online upload parameters
                 UploadParameter.Clear()
                 UploadParameter.AdDesignId = onlineAd.AdDesignId
@@ -47,6 +61,7 @@ Partial Public Class EditOnlineAd
                 ' Set the iFlog ID for user to see
                 'lblAdDesignId.Text = _adBookingId.ToString
                 Me.Title = String.Format("Edit Ad {0}", _adBookingId)
+
             End If
 
         End If
@@ -59,6 +74,12 @@ Partial Public Class EditOnlineAd
                 ' Update the ad details - without images
                 Dim onlineAd = AdController.OnlineAdByBookingId(_adBookingId)
                 AdController.UpdateOnlineAd(onlineAd.AdDesignId, .Heading, .Description, .HtmlText, .Price, .LocationId, .LocationArea, .ContactName, .ContactType, .ContactValue)
+
+                If (ucxTutors.Visible) Then
+                    Dim tutorAdModel = ucxTutors.GetTutorAd()
+                    _adRepository.UpdateTutor(tutorAdModel)
+                End If
+
                 lblUserMsg.Text = "Online Ad Details have been updated successfully."
                 pnlSuccess.Visible = True
             End With

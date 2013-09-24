@@ -95,6 +95,24 @@ Partial Public Class EditOnlineAd
     Protected WithEvents ucxOnlineAd As Global.BetterclassifiedsWeb.DesignOnlineAd
 
     '''<summary>
+    '''pnlAdDetails control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlAdDetails As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''ucxTutors control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ucxTutors As Global.BetterclassifiedsWeb.TutorAdForm
+
+    '''<summary>
     '''lnkCancel control.
     '''</summary>
     '''<remarks>

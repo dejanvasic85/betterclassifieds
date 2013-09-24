@@ -68,7 +68,7 @@ Partial Public Class BundlePage3
 
                 Dim tutorAd = BundleController.BundleCart.TutorAd
                 With BundleController.BundleCart.TutorAd
-                ucxTutors.BindTutorAd(New TutorAdModel With { _
+                ucxTutors.DatabindAd(New TutorAdModel With { _
                                       .AgeGroupMin = tutorAd.AgeGroupMin, _
                                       .AgeGroupMax = tutorAd.AgeGroupMax, _
                                       .ExpertiseLevel = tutorAd.ExpertiseLevel, _

@@ -99,7 +99,7 @@ Partial Public Class Step3
 
                 If ucxTutors.Visible Then
                     Dim tutorAd = ucxTutors.GetTutorAd
-                    BookingController.SetTutorAdDetails(tutorAd.AgeGroupMax, tutorAd.AgeGroupMin, tutorAd.Level, tutorAd.Objective, tutorAd.PricingOption, tutorAd.GetSubjectsAsCsv(), tutorAd.TravelOption, tutorAd.WhatToBring)
+                    BookingController.SetTutorAdDetails(tutorAd.AgeGroupMax, tutorAd.AgeGroupMin, tutorAd.ExpertiseLevel, tutorAd.Objective, tutorAd.PricingOption, tutorAd.Subjects, tutorAd.TravelOption, tutorAd.WhatToBring)
                 End If
                 totalPrice = CalculatePrice(adTypeCode, ucxDesignOnlineAd.Description)
                 End If

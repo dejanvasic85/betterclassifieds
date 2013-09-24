@@ -32,13 +32,13 @@ Partial Public Class AdView
     Protected WithEvents categorySelector As Global.BetterClassified.UI.CategorySelector
 
     '''<summary>
-    '''ucxOnlineAd control.
+    '''ucxOnlineAdDetailView control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ucxOnlineAd As Global.BetterclassifiedsWeb.OnlineAdView
+    Protected WithEvents ucxOnlineAdDetailView As Global.BetterclassifiedsWeb.OnlineAdView
 
     '''<summary>
     '''pnlAdDetails control.

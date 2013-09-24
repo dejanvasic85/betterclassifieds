@@ -66,12 +66,21 @@ Partial Public Class BundlePage3
             ' also set the booking reference
             ucxOnlineAd.BookingReference = BundleController.BundleCart.BookReference
 
-            If BundleController.BundleCart.TutorAd IsNot Nothing Then
+                Dim tutorAd = BundleController.BundleCart.TutorAd
                 With BundleController.BundleCart.TutorAd
-                    ucxTutors.BindTutorAd(New TutorAdModel(.AgeGroupMin, .AgeGroupMax, .ExpertiseLevel, .TravelOption, .PricingOption, .WhatToBring, .Objective, .Subjects, .OnlineAdId, .TutorAdId))
+                ucxTutors.BindTutorAd(New TutorAdModel With { _
+                                      .AgeGroupMin = tutorAd.AgeGroupMin, _
+                                      .AgeGroupMax = tutorAd.AgeGroupMax, _
+                                      .ExpertiseLevel = tutorAd.ExpertiseLevel, _
+                                      .TravelOption = tutorAd.TravelOption, _
+                                      .PricingOption = tutorAd.PricingOption, _
+                                      .WhatToBring = tutorAd.WhatToBring, _
+                                      .Objective = tutorAd.Objective, _
+                                      .Subjects = tutorAd.Subjects, _
+                                      .OnlineAdId = tutorAd.OnlineAdId, _
+                                      .TutorAdId = tutorAd.TutorAdId})
                 End With
             End If
-        End If
     End Sub
 
 #End Region
@@ -94,7 +103,7 @@ Partial Public Class BundlePage3
 
             If ucxTutors.Visible Then
                 Dim tutorAd = ucxTutors.GetTutorAd
-                _bundleController.SetTutorAdDetails(tutorAd.AgeGroupMax, tutorAd.AgeGroupMin, tutorAd.Level, tutorAd.Objective, tutorAd.PricingOption, tutorAd.GetSubjectsAsCsv(), tutorAd.TravelOption, tutorAd.WhatToBring)
+                _bundleController.SetTutorAdDetails(tutorAd.AgeGroupMax, tutorAd.AgeGroupMin, tutorAd.ExpertiseLevel, tutorAd.Objective, tutorAd.PricingOption, tutorAd.Subjects, tutorAd.TravelOption, tutorAd.WhatToBring)
             End If
 
             Response.Redirect(PageUrl.BookingBundle_4)

@@ -17,26 +17,26 @@ Public Class TutorAdForm
 
     Public Function GetTutorAd() As TutorAdModel
         ' Get the tutor model from the UI
-        Return New TutorAdModel(ageGroupMin:=txtAgeMin.Text.ToInt(), _
-                                ageGroupMax:=txtAgeMax.Text.ToInt(), _
-                                level:=ddlExpertLevel.SelectedValue, _
-                                travelOption:=ddlTravelOptions.SelectedValue, _
-                                objective:=txtObjective.Text, _
-                                pricingOption:=ddlPricingOptions.SelectedValue, _
-                                subjects:=txtSubjects.GetTags(), _
-                                whatToBring:=txtWhatToBring.Text, _
-                                onlineAdId:=hdnOnlineAdId.Value.ToInt,
-                                tutorAdId:=hdnTutorAdId.Value.ToInt)
+        Return New TutorAdModel With {.AgeGroupMin = txtAgeMin.Text.ToInt(), _
+                                .AgeGroupMax = txtAgeMax.Text.ToInt(), _
+                                .ExpertiseLevel = ddlExpertLevel.SelectedValue, _
+                                .TravelOption = ddlTravelOptions.SelectedValue, _
+                                .Objective = txtObjective.Text, _
+                                .PricingOption = ddlPricingOptions.SelectedValue, _
+                                .Subjects = txtSubjects.GetTags(), _
+                                .WhatToBring = txtWhatToBring.Text, _
+                                .OnlineAdId = hdnOnlineAdId.Value.ToInt,
+                                .TutorAdId = hdnTutorAdId.Value.ToInt}
     End Function
 
     Public Sub BindTutorAd(ByVal tutorAd As TutorAdModel)
         hdnOnlineAdId.Value = tutorAd.OnlineAdId
         hdnTutorAdId.Value = tutorAd.TutorAdId
 
-        txtSubjects.SetTags(tutorAd.GetSubjectsAsCsv)
+        txtSubjects.SetTags(tutorAd.Subjects)
         txtAgeMin.Text = tutorAd.AgeGroupMin
         txtAgeMax.Text = tutorAd.AgeGroupMax
-        ddlExpertLevel.SelectedValue = tutorAd.Level
+        ddlExpertLevel.SelectedValue = tutorAd.ExpertiseLevel
         ddlTravelOptions.SelectedValue = tutorAd.TravelOption
         txtObjective.Text = tutorAd.Objective
         ddlPricingOptions.SelectedValue = tutorAd.PricingOption

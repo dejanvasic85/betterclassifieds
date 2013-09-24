@@ -23,7 +23,7 @@
             </div>
 
             <div id="mainItemPage">
-                <ucx:OnlineAd ID="ucxOnlineAd" runat="server" />
+                <ucx:OnlineAd ID="ucxOnlineAdDetailView" runat="server" />
 
                 <asp:Panel runat="server" ID="pnlAdDetails">
                     <%--Specific ad type views--%>

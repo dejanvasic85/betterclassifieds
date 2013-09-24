@@ -62,7 +62,7 @@ Partial Public Class AdView
             ' perform databind
             If onlineAd IsNot Nothing Then
                 Me.Title = onlineAd.Heading
-                ucxOnlineAd.BindOnlineAd(onlineAd)
+                ucxOnlineAdDetailView.BindOnlineAd(onlineAd)
 
                 If (onlineAd.OnlineAdTag.HasValue) Then
                     ' bind the specific ad type - locate the control first
@@ -70,10 +70,11 @@ Partial Public Class AdView
 
                     ' todo - use a factory here to determine which ad to fetch
                     adTypeControl.DatabindAd(_adRepository.GetTutorAd(onlineAd.OnlineAdId))
+                    DirectCast(adTypeControl, Control).Visible = True
                 End If
             Else
                 Me.Title = "Ad does not exist or has Expired"
-                ucxOnlineAd.Visible = False
+                ucxOnlineAdDetailView.Visible = False
                 pnlResult.Visible = True
                 lblIFlogID.Text = _id
             End If

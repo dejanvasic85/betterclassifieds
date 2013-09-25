@@ -1,14 +1,9 @@
 ﻿Imports BetterClassified.UI.Models
 
 Public Class TutorAdView
-    Inherits System.Web.UI.UserControl
-    Implements IOnlineAdView
+    Inherits OnlineAdViewControl
 
-    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
-    End Sub
-
-    Public Sub DatabindAd(Of T)(ByVal adDetails As T) Implements IOnlineAdView.DatabindAd
+    Public Overrides Sub DatabindAd(Of T)(ByVal adDetails As T)
         Dim tutorAdModel = TryCast(adDetails, TutorAdModel)
         If tutorAdModel Is Nothing Then
             Throw New InvalidCastException("Unable to cast to TutorAdModel")

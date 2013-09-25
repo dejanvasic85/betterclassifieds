@@ -15,7 +15,9 @@
     <asp:ScriptManager ID="ScriptManager" runat="server" />
     <div style="padding:10px" id="divAdViewControls" runat="server">
         <ucx:OnlineAd ID="ucxOnlineAd" runat="server" PreviewOnly="true" />
-        <ucx:TutorView ID="ucxTutors" runat="server" Visible="False"/>
+        <asp:Panel runat="server" ID="pnlAdTypes">
+            <ucx:TutorView ID="ucxTutors" runat="server" Visible="False"/>
+        </asp:Panel>
     </div>
     </form>
 </body>

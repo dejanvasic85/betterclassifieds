@@ -1,6 +1,8 @@
 ﻿Imports BetterclassifiedsCore
 Imports BetterclassifiedsCore.BundleBooking
+Imports BetterClassified.UI.Models
 Imports Paramount.Modules.Logging.UIController
+Imports System.Runtime.CompilerServices
 
 Module General
 
@@ -186,4 +188,19 @@ Module General
 
         HttpContext.Current.Response.Redirect(PageUrl.BookingBundle_2 + "?action=home")
     End Sub
+
+    ' Mapper extension
+    <Extension()> _
+    Public Function ToTutorAdModel(ByVal tutorAd As DataModel.TutorAd)
+        Return New TutorAdModel With {.TutorAdId = tutorAd.TutorAdId, _
+                                      .OnlineAdId = tutorAd.OnlineAdId, _
+                                      .AgeGroupMax = tutorAd.AgeGroupMax, _
+                                      .AgeGroupMin = tutorAd.AgeGroupMin, _
+                                      .ExpertiseLevel = tutorAd.ExpertiseLevel, _
+                                      .Objective = tutorAd.Objective, _
+                                      .PricingOption = tutorAd.PricingOption, _
+                                      .Subjects = tutorAd.Subjects, _
+                                      .TravelOption = tutorAd.TravelOption, _
+                                      .WhatToBring = tutorAd.WhatToBring}
+    End Function
 End Module

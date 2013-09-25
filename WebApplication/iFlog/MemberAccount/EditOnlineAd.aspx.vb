@@ -41,7 +41,7 @@ Partial Public Class EditOnlineAd
 
                 ' Bind the ad specific details
                 If (onlineAd.OnlineAdTag.HasValue) Then
-                    Dim adTypeControl = pnlAdDetails.FindControl(Of IOnlineAdView)("ucx" + onlineAd.OnlineAdTag)
+                    Dim adTypeControl = pnlAdDetails.FindControl(Of OnlineAdViewControl)("ucx" + onlineAd.OnlineAdTag)
                     ' todo - use a factory here to determine which ad to fetch
                     DirectCast(adTypeControl, Control).Visible = True
                     adTypeControl.DatabindAd(_adRepository.GetTutorAd(onlineAd.OnlineAdId))

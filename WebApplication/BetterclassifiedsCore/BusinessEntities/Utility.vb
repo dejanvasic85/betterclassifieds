@@ -92,6 +92,7 @@ Namespace BusinessEntities
                 .SubCategory = subCategory
                 .LocationValue = location
                 .AreaValue = area
+                .OnlineAdTag = .OnlineAdTag
             End With
             Return entity
         End Function

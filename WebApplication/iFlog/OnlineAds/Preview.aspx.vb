@@ -2,9 +2,11 @@
 Imports BetterclassifiedsCore.BusinessEntities
 Imports BetterClassified
 Imports BetterClassified.UI.Models
+Imports BetterClassified.UI.Repository
 
 Partial Public Class Preview
     Inherits System.Web.UI.Page
+    Private ReadOnly _adRepository As IAdRepository
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         'Fix issue with ie 8, where page is being cached.
@@ -17,6 +19,13 @@ Partial Public Class Preview
                 onlineAd = AdController.GetOnlineAdEntityByDesign(Request.QueryString("id"), True)
                 ' bind the online ad to the user control
                 ucxOnlineAd.BindOnlineAd(onlineAd)
+
+                If (onlineAd.OnlineAdTag.HasValue) Then
+                    ' Find the control
+                    Dim adTypeControl = pnlAdTypes.FindControl(Of OnlineAdViewControl)("ucx" + onlineAd.OnlineAdTag)
+                    adTypeControl.Visible = True
+                    adTypeControl.DatabindAd(_adRepository.GetTutorAd(onlineAd.OnlineAdId))
+                End If
 
             Case "session"
                 If BookingController.BookingType = Booking.BookingAction.BundledBooking Then
@@ -31,8 +40,15 @@ Partial Public Class Preview
                         onlineAd = .OnlineAd.ToOnlineAdEntity(imageList, .MainParentCategory, .MainSubCategory, DateTime.Today, .BookReference, locationValue, areaValue)
                     End With
 
-                    ' bind the online ad to the user control
+                    ' Bind the online ad to the user control
                     ucxOnlineAd.BindOnlineAd(onlineAd)
+
+                    ' Display the ad details 
+                    If BundleBooking.BundleController.BundleCart.TutorAd IsNot Nothing Then
+                        Dim adControl = pnlAdTypes.FindControl(Of OnlineAdViewControl)("ucxTutors")
+                        adControl.Visible = True
+                        adControl.DatabindAd(BundleBooking.BundleController.BundleCart.TutorAd.ToTutorAdModel)
+                    End If
 
                 ElseIf BookingController.AdBookCart IsNot Nothing Then
                     With BookingController.AdBookCart
@@ -49,6 +65,14 @@ Partial Public Class Preview
                                                               locationValue, _
                                                               areaValue)
                         ucxOnlineAd.BindOnlineAd(onlineAd, BookingController.AdBookCart.ImageList, DateTime.Now, parentCategory.MainCategoryId, subCategory.MainCategoryId)
+
+                        ' Display the ad details 
+                        If BookingController.AdBookCart.TutorAd IsNot Nothing Then
+                            Dim adControl = pnlAdTypes.FindControl(Of OnlineAdViewControl)("ucxTutors")
+                            adControl.Visible = True
+                            adControl.DatabindAd(BookingController.AdBookCart.TutorAd.ToTutorAdModel)
+                        End If
+
                     End With
                 End If
         End Select

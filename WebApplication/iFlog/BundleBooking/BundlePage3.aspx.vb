@@ -66,8 +66,11 @@ Partial Public Class BundlePage3
             ' also set the booking reference
             ucxOnlineAd.BookingReference = BundleController.BundleCart.BookReference
 
-                Dim tutorAd = BundleController.BundleCart.TutorAd
-                With BundleController.BundleCart.TutorAd
+            Dim tutorAd = BundleController.BundleCart.TutorAd
+            If tutorAd Is Nothing Then
+                Return
+            End If
+            With BundleController.BundleCart.TutorAd
                 ucxTutors.DatabindAd(New TutorAdModel With { _
                                       .AgeGroupMin = tutorAd.AgeGroupMin, _
                                       .AgeGroupMax = tutorAd.AgeGroupMax, _
@@ -79,8 +82,8 @@ Partial Public Class BundlePage3
                                       .Subjects = tutorAd.Subjects, _
                                       .OnlineAdId = tutorAd.OnlineAdId, _
                                       .TutorAdId = tutorAd.TutorAdId})
-                End With
-            End If
+            End With
+        End If
     End Sub
 
 #End Region

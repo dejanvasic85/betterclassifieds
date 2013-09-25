@@ -4,8 +4,7 @@ Imports BetterClassified.UI.Models
 Imports Microsoft.Practices.Unity
 
 Public Class TutorAdForm
-    Inherits System.Web.UI.UserControl
-    Implements IOnlineAdView
+    Inherits OnlineAdViewControl
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
@@ -26,11 +25,11 @@ Public Class TutorAdForm
                                 .PricingOption = ddlPricingOptions.SelectedValue, _
                                 .Subjects = txtSubjects.GetTags(), _
                                 .WhatToBring = txtWhatToBring.Text, _
-                                .OnlineAdId = hdnOnlineAdId.Value.ToInt,
-                                .TutorAdId = hdnTutorAdId.Value.ToInt}
+                                .OnlineAdId = hdnOnlineAdId.Value.ToInt.GetValueOrDefault(0),
+                                .TutorAdId = hdnTutorAdId.Value.ToInt.GetValueOrDefault(0)}
     End Function
 
-    Public Sub DatabindAd(Of T)(ByVal adDetails As T) Implements IOnlineAdView.DatabindAd
+    Public Overrides Sub DatabindAd(Of T)(ByVal adDetails As T)
         Dim tutorAd = TryCast(adDetails, TutorAdModel)
         If tutorAd Is Nothing Then
             Throw New InvalidCastException("Unable to cast to TutorAdModel")

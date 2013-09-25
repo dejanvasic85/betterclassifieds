@@ -66,11 +66,11 @@ Partial Public Class AdView
 
                 If (onlineAd.OnlineAdTag.HasValue) Then
                     ' bind the specific ad type - locate the control first
-                    Dim adTypeControl = pnlAdDetails.FindControl(Of IOnlineAdView)("ucx" + onlineAd.OnlineAdTag)
+                    Dim adTypeControl = pnlAdDetails.FindControl(Of OnlineAdViewControl)("ucx" + onlineAd.OnlineAdTag)
 
                     ' todo - use a factory here to determine which ad to fetch
                     adTypeControl.DatabindAd(_adRepository.GetTutorAd(onlineAd.OnlineAdId))
-                    DirectCast(adTypeControl, Control).Visible = True
+                    adTypeControl.Visible = True
                 End If
             Else
                 Me.Title = "Ad does not exist or has Expired"

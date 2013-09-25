@@ -577,7 +577,9 @@
       <DependentUpon>ImageLarge.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="OnlineAds\IOnlineAd.vb" />
+    <Compile Include="OnlineAds\OnlineAdViewControl.vb">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="OnlineAds\Preview.aspx.designer.vb">
       <DependentUpon>Preview.aspx</DependentUpon>
     </Compile>

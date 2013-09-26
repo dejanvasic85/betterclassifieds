@@ -68,7 +68,7 @@ Namespace My
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=paramountit.com.au;Initial Catalog=SPRESS;User ID=sa;Password=rs-101")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=paramountit.com.au;Initial Catalog=SPRESS;Integrated Security=True")>  _
         Public ReadOnly Property SPRESSConnectionString() As String
             Get
                 Return CType(Me("SPRESSConnectionString"),String)

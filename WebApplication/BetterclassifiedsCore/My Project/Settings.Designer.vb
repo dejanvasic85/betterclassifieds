@@ -68,7 +68,7 @@ Namespace My
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
          Global.System.Configuration.DefaultSettingValueAttribute("Data Source=paramountit.com.au;Initial Catalog=Betterclassifieds;Persist Security"& _ 
-            " Info=True;User ID=sa;Password=rs-101")>  _
+            " Info=True;Integrated Security=True")>  _
         Public ReadOnly Property BetterclassifiedsConnectionString() As String
             Get
                 Return CType(Me("BetterclassifiedsConnectionString"),String)

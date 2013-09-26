@@ -5,18 +5,18 @@
     <Setting Name="ELConnectionString" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=paramountit.com.au;Initial Catalog=EL;Persist Security Info=True;User ID=sa;Password=rs-101&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;Data Source=paramountit.com.au;Initial Catalog=EL;Persist Security Info=True;Integrated Security=True&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=paramountit.com.au;Initial Catalog=EL;Persist Security Info=True;User ID=sa;Password=rs-101</Value>
+      <Value Profile="(Default)">Data Source=paramountit.com.au;Initial Catalog=EL;Persist Security Info=True;Integrated Security=True</Value>
     </Setting>
     <Setting Name="SPRESSConnectionString" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=paramountit.com.au;Initial Catalog=SPRESS;User ID=sa;Password=rs-101&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;Data Source=paramountit.com.au;Initial Catalog=SPRESS;Integrated Security=True&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=paramountit.com.au;Initial Catalog=SPRESS;User ID=sa;Password=rs-101</Value>
+      <Value Profile="(Default)">Data Source=paramountit.com.au;Initial Catalog=SPRESS;Integrated Security=True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

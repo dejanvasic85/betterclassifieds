@@ -37,7 +37,7 @@ namespace Paramount.DataService.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=paramountit.com.au;Initial Catalog=ParamountCore;Persist Security Inf" +
-            "o=True;User ID=sa;Password=rs-101")]
+            "o=True;Integrated Security=True")]
         public string ParamountCoreConnectionString {
             get {
                 return ((string)(this["ParamountCoreConnectionString"]));
@@ -48,7 +48,7 @@ namespace Paramount.DataService.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=paramountit.com.au;Initial Catalog=AppUser;Persist Security Info=True" +
-            ";User ID=sa;Password=rs-101")]
+            ";Integrated Security=True")]
         public string ApplicationUserConnectionString {
             get {
                 return ((string)(this["ApplicationUserConnectionString"]));
@@ -59,7 +59,7 @@ namespace Paramount.DataService.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=paramountit.com.au;Initial Catalog=ApplicationUser;Persist Security I" +
-            "nfo=True;User ID=sa;Password=rs-101")]
+            "nfo=True;Integrated Security=True")]
         public string ApplicationUserConnectionString1 {
             get {
                 return ((string)(this["ApplicationUserConnectionString1"]));

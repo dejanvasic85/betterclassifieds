@@ -54,6 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Scripts\0002-BaselineStoredProc.sql" />
     <EmbeddedResource Include="Scripts\0001-BaselineSchema.sql" />
     <None Include="App.config" />
     <Content Include="iFlogAppUserDatabase.exe.Release.config">

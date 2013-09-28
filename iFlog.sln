@@ -72,9 +72,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iFlogCoreDatabase", "Databa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iFlogAppUserDatabase", "Database\iFlogAppUserDatabase\iFlogAppUserDatabase.csproj", "{0E32F93E-8E53-4469-BD63-3BFCE23468DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iFlogLogDatabase", "Database\iFlogLogDatabase\iFlogLogDatabase.csproj", "{04979BB2-2132-46AF-B359-D83A243B97DE}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 30
+		SccNumberOfProjects = 31
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://paramountit.visualstudio.com/defaultcollection
 		SccLocalPath0 = .
@@ -194,6 +196,10 @@ Global
 		SccProjectTopLevelParentUniqueName29 = iFlog.sln
 		SccProjectName29 = Database/iFlogAppUserDatabase
 		SccLocalPath29 = Database\\iFlogAppUserDatabase
+		SccProjectUniqueName30 = Database\\iFlogLogDatabase\\iFlogLogDatabase.csproj
+		SccProjectTopLevelParentUniqueName30 = iFlog.sln
+		SccProjectName30 = Database/iFlogLogDatabase
+		SccLocalPath30 = Database\\iFlogLogDatabase
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -434,6 +440,14 @@ Global
 		{0E32F93E-8E53-4469-BD63-3BFCE23468DD}.Test|Any CPU.Build.0 = Release|Any CPU
 		{0E32F93E-8E53-4469-BD63-3BFCE23468DD}.Testing|Any CPU.ActiveCfg = Release|Any CPU
 		{0E32F93E-8E53-4469-BD63-3BFCE23468DD}.Testing|Any CPU.Build.0 = Release|Any CPU
+		{04979BB2-2132-46AF-B359-D83A243B97DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04979BB2-2132-46AF-B359-D83A243B97DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04979BB2-2132-46AF-B359-D83A243B97DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04979BB2-2132-46AF-B359-D83A243B97DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04979BB2-2132-46AF-B359-D83A243B97DE}.Test|Any CPU.ActiveCfg = Release|Any CPU
+		{04979BB2-2132-46AF-B359-D83A243B97DE}.Test|Any CPU.Build.0 = Release|Any CPU
+		{04979BB2-2132-46AF-B359-D83A243B97DE}.Testing|Any CPU.ActiveCfg = Release|Any CPU
+		{04979BB2-2132-46AF-B359-D83A243B97DE}.Testing|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -468,5 +482,6 @@ Global
 		{E17C5429-4810-4589-9640-6D1828A6C71E} = {06813343-424A-4B8F-9CA9-A109CEA6303B}
 		{6B9ABBAE-F1A9-456B-AAA5-24AD1D459777} = {06813343-424A-4B8F-9CA9-A109CEA6303B}
 		{0E32F93E-8E53-4469-BD63-3BFCE23468DD} = {06813343-424A-4B8F-9CA9-A109CEA6303B}
+		{04979BB2-2132-46AF-B359-D83A243B97DE} = {06813343-424A-4B8F-9CA9-A109CEA6303B}
 	EndGlobalSection
 EndGlobal

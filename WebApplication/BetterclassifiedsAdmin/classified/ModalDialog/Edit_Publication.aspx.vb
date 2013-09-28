@@ -90,7 +90,7 @@ Partial Public Class Edit_Publication
         ' add the image to the DSL service if a file was provided
         Dim upl As FileUpload = TryCast(viewPublications.FindControl("fileUploadImage"), FileUpload)
         If upl.HasFile Then
-            Dim documentId = DslController.UploadDslDocument(ViewObjects.DslDocumentCategoryTypeView.Logos, _
+            Dim documentId = DslController.UploadDslDocument(Paramount.Common.DataTransferObjects.DSL.DslDocumentCategoryType.Logos, _
                                                              upl.PostedFile.InputStream, _
                                                              upl.PostedFile.ContentLength, _
                                                              upl.PostedFile.FileName, _

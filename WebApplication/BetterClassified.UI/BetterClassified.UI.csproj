@@ -220,6 +220,10 @@
       <Project>{5C76B020-CE3C-4176-B2AA-5EAE9C3150CC}</Project>
       <Name>ApplicationBlock.Logging</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Services\DataTransferObjects\Common.DataTransferObjects.csproj">
+      <Project>{377f2216-9202-4df9-9c5b-c2a4e627ffe2}</Project>
+      <Name>Common.DataTransferObjects</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UI\Common.UI.csproj">
       <Project>{32E18B88-521E-4887-BFBF-26B64797AF75}</Project>
       <Name>Common.UI</Name>

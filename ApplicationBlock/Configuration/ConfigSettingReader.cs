@@ -116,13 +116,9 @@ namespace Paramount.ApplicationBlock.Configuration
 
         public static string DslImageHandler
         {
-            get
-            {
-                return ConfigManager.GetSetting(DslSectionName, DslImageHandlerKey);
-            }
+            get { return ConfigManager.ReadAppSetting<string>("DslImageUrlHandler"); }
         }
-
-
+        
         public static string BillingStepAddressUrl
         {
             get { return ConfigManager.GetSetting(BillingStepsSectionName, "BillingStepAddressUrl"); }

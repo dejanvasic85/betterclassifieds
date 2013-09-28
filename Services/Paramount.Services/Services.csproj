@@ -56,7 +56,6 @@
     <Compile Include="BillingService.cs" />
     <Compile Include="BroadcastService.cs" />
     <Compile Include="CRMService.cs" />
-    <Compile Include="DslService.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="EventService.cs" />
     <Compile Include="Extensions.cs" />

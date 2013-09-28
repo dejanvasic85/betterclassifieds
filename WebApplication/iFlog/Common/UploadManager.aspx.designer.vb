@@ -10,6 +10,8 @@
 Option Strict On
 Option Explicit On
 
+Imports BetterClassified.UI
+
 
 Partial Public Class UploadManager
 
@@ -65,7 +67,7 @@ Partial Public Class UploadManager
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents paramountFileUpload As Global.BetterClassified.UI.MultipleFileUpload
+    Protected WithEvents paramountFileUpload As MultipleFileUpload
 
     '''<summary>
     '''pnlPrint control.
@@ -92,7 +94,7 @@ Partial Public Class UploadManager
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents paramountWebImageMaker As Global.BetterClassified.UI.WebImageMaker
+    Protected WithEvents paramountWebImageMaker As WebImageMaker
 
     '''<summary>
     '''linkCloseWindow control.

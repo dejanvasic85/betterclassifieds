@@ -40,7 +40,7 @@ Partial Public Class Create_Publication
             Dim upl As FileUpload = TryCast(Me.dtlPublication.FindControl("fileUploadImage"), FileUpload)
             If upl IsNot Nothing Then
                 If upl.HasFile Then
-                    Dim documentId = DslController.UploadDslDocument(ViewObjects.DslDocumentCategoryTypeView.Logos, _
+                    Dim documentId = DslController.UploadDslDocument(Paramount.Common.DataTransferObjects.DSL.DslDocumentCategoryType.Logos, _
                                                              upl.PostedFile.InputStream, _
                                                              upl.PostedFile.ContentLength, _
                                                              upl.PostedFile.FileName, _

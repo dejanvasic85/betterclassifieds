@@ -972,6 +972,10 @@
       <Project>{3091f288-c6f8-4e2d-9622-48b00ace526b}</Project>
       <Name>Modules.Broadcast.Components</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Services\DataTransferObjects\Common.DataTransferObjects.csproj">
+      <Project>{377f2216-9202-4df9-9c5b-c2a4e627ffe2}</Project>
+      <Name>Common.DataTransferObjects</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BetterclassifiedsCore\BetterclassifiedsCore.vbproj">
       <Project>{0790d756-48f2-42c5-9985-7915d15ed88c}</Project>
       <Name>BetterclassifiedsCore</Name>

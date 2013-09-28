@@ -28,7 +28,7 @@
         public static void InsertFile(
             Guid documentId,
             string accountId,
-            int documentCategory,
+            DslDocumentCategoryType documentCategory,
             string applicationCode,
             DateTime? startDate,
             DateTime? endDate,
@@ -55,7 +55,7 @@
                 df.AddParameter(Proc.DocumentStorageInsert.Params.AccountId, account);
             }
 
-            df.AddParameter(Proc.DocumentStorageInsert.Params.CategoryCode, documentCategory);
+            df.AddParameter(Proc.DocumentStorageInsert.Params.CategoryCode, (int)documentCategory);
 
             if (startDate.HasValue)
             {

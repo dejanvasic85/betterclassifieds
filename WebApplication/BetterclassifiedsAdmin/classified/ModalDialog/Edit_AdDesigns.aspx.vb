@@ -1,6 +1,5 @@
 ﻿Imports BetterclassifiedsCore
 Imports Paramount.Betterclassified.Utilities.Configuration
-Imports Paramount.DSL.UIController.ViewObjects
 Imports Telerik.Web.UI
 
 Partial Public Class Edit_AdDesigns
@@ -188,7 +187,7 @@ Partial Public Class Edit_AdDesigns
             Dim graphics = AdController.GetAdGraphicDocuments(onlineAd.AdDesignId)
 
             OnlineAdDesignId = onlineAd.AdDesignId
-            paramountFileUpload.DocumentCategory = DslDocumentCategoryTypeView.OnlineAd
+            paramountFileUpload.DocumentCategory = Paramount.Common.DataTransferObjects.DSL.DslDocumentCategoryType.OnlineAd
             paramountFileUpload.ReferenceData = _booking.BookReference
             paramountFileUpload.ImageList = graphics
             paramountFileUpload.MaxFiles = GeneralRoutine.GetAppSetting(Utilities.Constants.CONST_MODULE_ONLINE_ADS, Utilities.Constants.CONST_KEY_Maximum_Image_Files)

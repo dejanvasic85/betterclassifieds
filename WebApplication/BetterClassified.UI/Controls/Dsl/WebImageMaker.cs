@@ -12,11 +12,11 @@ using AjaxControlToolkit;
 using BetterClassified.UI.Dsl;
 using Paramount.ApplicationBlock.Configuration;
 using Paramount.Betterclassified.Utilities.Configuration;
+using Paramount.Common.DataTransferObjects.DSL;
 using Paramount.Common.UI;
 using Paramount.Common.UI.BaseControls;
 using Paramount.Utility;
 using Paramount.DSL.UIController;
-using Paramount.DSL.UIController.ViewObjects;
 using Telerik.Web.UI;
 
 [assembly: WebResource("BetterClassified.UI.JavaScript.WebImageMaker_canvas.js", "application/x-javascript")]
@@ -131,15 +131,15 @@ namespace BetterClassified.UI
         [Bindable(false)]
         [Category("Appearance")]
         [Themeable(false)]
-        public DslDocumentCategoryTypeView DocumentCategory
+        public DslDocumentCategoryType DocumentCategory
         {
             get
             {
                 // Default to general category
-                DslDocumentCategoryTypeView categoryType = DslDocumentCategoryTypeView.General;
+                DslDocumentCategoryType categoryType = DslDocumentCategoryType.General;
                 if (ViewState["DocumentCategoryType"] != null)
                 {
-                    categoryType = (DslDocumentCategoryTypeView) ViewState["DocumentCategoryType"];
+                    categoryType = (DslDocumentCategoryType)ViewState["DocumentCategoryType"];
                 }
                 return categoryType;
             }
@@ -547,7 +547,7 @@ window.onload = init{0};
             }
 
             // Retrieve the dsl Document Category entity details for validation
-            DslDocumentCategoryView dslDocumentCategory = DslController.GetDocumentCategory(DocumentCategory);
+            DslDocumentCategory dslDocumentCategory = DslController.GetDocumentCategory(DocumentCategory);
             pnlContainer = new Panel {CssClass = "webimagemaker-panelcontainer"};
             pnlButtonUpload = new Panel {CssClass = "webimagemaker-panelbuttonupload"};
             pnlRemoveImage = new Panel {CssClass = "webimagemaker-panelremoveimage"};
@@ -557,7 +557,7 @@ window.onload = init{0};
                                 MaxFileInputsCount = 1,
                                 ControlObjectsVisibility = ControlObjectsVisibility.None,
                                 InitialFileInputsCount = 1,
-                                AllowedFileExtensions = dslDocumentCategory.AcceptedFileTypes,
+                                AllowedFileExtensions = dslDocumentCategory.AcceptedFileTypes.ToArray(),
                                 OnClientFileSelected = "submitPrintImage"
                             };
             pnlUploaded = new Panel {CssClass = "webimagemaker-panelimage"};

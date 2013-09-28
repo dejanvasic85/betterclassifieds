@@ -82,7 +82,6 @@
     <Content Include="Nodes\BannerService.svc" />
     <Content Include="Nodes\LogService.svc" />
     <Content Include="Nodes\UserAccountWebService.svc" />
-    <Content Include="Nodes\DslService.svc" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -98,9 +97,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dsl\ImageHandler.ashx.cs">
-      <DependentUpon>ImageHandler.ashx</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -153,13 +149,7 @@
     <Content Include="IPLocation\LocationHandler.ashx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Dsl\ImageHandler.ashx" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Handler1.ashx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Dsl\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Services.Host.nuspec" />

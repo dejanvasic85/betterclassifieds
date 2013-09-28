@@ -13,13 +13,13 @@ namespace Paramount.Services.Proxy
         const int MaxBufferSize = 65536;
         private const string SectionName = "paramount/services";
 
-        public static DslServiceClient DslServiceHost
-        {
-            get
-            {
-                return new DslServiceClient(BasicHttpBinding, CreateEndpointAddress(ServiceDefinition.Dsl.Address));
-            }
-        }
+        //public static DslServiceClient DslServiceHost
+        //{
+        //    get
+        //    {
+        //        return new DslServiceClient(BasicHttpBinding, CreateEndpointAddress(ServiceDefinition.Dsl.Address));
+        //    }
+        //}
         
         public static BroadcastServiceClient BroadcastServiceHost
         {

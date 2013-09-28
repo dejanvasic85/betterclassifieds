@@ -11,11 +11,6 @@ Partial Public Class UploadManager
         If Not Page.IsPostBack Then
             SetupOnlineUpload()
             SetupPrintUpload()
-
-            'If UploadParameter.IsOnlineAdUpload = False And UploadParameter.IsPrintAdUpload = False Then
-            '    lblUserMessage.Text = "Uploading images is not available for the package selected."
-            'End If
-
         End If
     End Sub
 
@@ -29,7 +24,7 @@ Partial Public Class UploadManager
             Dim onlineAd = AdController.GetOnlineAd(UploadParameter.AdDesignId)
             Dim graphics = AdController.GetAdGraphicDocuments(UploadParameter.AdDesignId)
 
-            paramountFileUpload.DocumentCategory = DslDocumentCategoryTypeView.OnlineAd
+            paramountFileUpload.DocumentCategory = Paramount.Common.DataTransferObjects.DSL.DslDocumentCategoryType.OnlineAd
             paramountFileUpload.ReferenceData = UploadParameter.BookingReference
             paramountFileUpload.ImageList = graphics
             paramountFileUpload.MaxFiles = GeneralRoutine.GetAppSetting(Utilities.Constants.CONST_MODULE_ONLINE_ADS, Utilities.Constants.CONST_KEY_Maximum_Image_Files)

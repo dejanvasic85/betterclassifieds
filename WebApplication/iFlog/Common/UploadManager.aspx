@@ -19,20 +19,6 @@
             GetRadWindow().Close();
         }
 
-//        function checkUploadedFilesSize(progressArea, args) {
-//            //progressArea.confirmed is a custom variable,
-//            // you can use another if you want to
-//            if (!progressArea.confirmed && args.get_progressData().RadUpload.RequestSize > 10) {
-//                if (confirm("The total size of the selected files" +
-//                 " is more than the limit." +
-//                 " Do you want to cancel the upload?")) {
-//                    progressArea.cancelRequest();
-//                }
-//                else {
-//                    progressArea.confirmed = "confirmed";
-//                }
-//            }
-//        }
 
     </script>
 </head>

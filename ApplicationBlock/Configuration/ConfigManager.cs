@@ -33,22 +33,6 @@ namespace Paramount.ApplicationBlock.Configuration
             throw new ConfigurationErrorsException(string.Format("Configuration Error: Cannot find section:{0} ", section));
         }
 
-        //public  static ConfigurationItem GetSetting(string section, string name)
-        //{
-        //    var value = GetSection(section) as ConfigurationSectionHandler;
-
-        //    if (value != null) return value[name];
-        //    throw new ConfigurationErrorsException(string.Format("Configuration Error: Cannot find section:{0} ", section));
-        //}
-
-        public static int MaxDslRetries
-        {
-            get
-            {
-                return int.Parse(ConfigurationManager.AppSettings.Get(MaxRetriesKey));
-            }
-        }
-
         public static string GetApplicationName()
         {
             return WebConfigurationManager.AppSettings.Get(ApplicationNameKey);

@@ -1,4 +1,6 @@
 using System.Web.UI;
+using Paramount.Common.DataTransferObjects.DSL;
+
 [assembly: WebResource("BetterClassified.UI.JavaScript.fileuploadvalidation.js", "application/x-javascript")]
 
 
@@ -13,7 +15,6 @@ namespace BetterClassified.UI
     using Paramount.ApplicationBlock.Configuration;
     using Paramount.Common.UI.BaseControls;
     using Paramount.DSL.UIController;
-    using Paramount.DSL.UIController.ViewObjects;
     using Telerik.Web.UI;
 
     public class MultipleFileUpload : ParamountCompositeControl
@@ -28,7 +29,7 @@ namespace BetterClassified.UI
         private Button _buttonUpload;
         private Label _userInfo;
         private Label _maxFileUserInfo;
-        private DslDocumentCategoryView _dslDocumentCategory;
+        private DslDocumentCategory _dslDocumentCategory;
 
         public event RemoveDocumentEventHandler RemoveDocument;
         public event EventHandler UploadComplete;
@@ -65,7 +66,7 @@ namespace BetterClassified.UI
                 MaxFileInputsCount = MaxFiles,
                 InitialFileInputsCount = MaxFiles,
                 MaxFileSize = (int)_dslDocumentCategory.MaximumFileSize,
-                AllowedFileExtensions = _dslDocumentCategory.AcceptedFileTypes,
+                AllowedFileExtensions = _dslDocumentCategory.AcceptedFileTypes.ToArray(),
                 CssClass = "multiplefileupload-radupload",
                 ControlObjectsVisibility = ControlObjectsVisibility.None
             };
@@ -258,15 +259,15 @@ namespace BetterClassified.UI
             }
         }
 
-        public DslDocumentCategoryTypeView DocumentCategory
+        public DslDocumentCategoryType DocumentCategory
         {
             get
             {
                 // Default to general category
-                DslDocumentCategoryTypeView categoryType = DslDocumentCategoryTypeView.General;
+                DslDocumentCategoryType categoryType = DslDocumentCategoryType.General;
                 if (ViewState["DocumentCategoryType"] != null)
                 {
-                    categoryType = (DslDocumentCategoryTypeView)ViewState["DocumentCategoryType"];
+                    categoryType = (DslDocumentCategoryType)ViewState["DocumentCategoryType"];
                 }
                 return categoryType;
             }
@@ -297,7 +298,7 @@ namespace BetterClassified.UI
         {
             get
             {
-                return ViewState["isUploadSelect"] != null ? bool.Parse(ViewState["isUploadSelect"].ToString()) : false;
+                return ViewState["isUploadSelect"] != null && bool.Parse(ViewState["isUploadSelect"].ToString());
             }
             set
             {

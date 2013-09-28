@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BetterClassified.UI.Models;
+using BetterClassified.Models;
 
 namespace BetterClassified.UI.Presenters
 {

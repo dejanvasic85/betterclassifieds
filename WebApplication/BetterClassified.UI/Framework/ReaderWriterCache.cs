@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
-namespace BetterClassified.UI
+namespace BetterClassified
 {
     public abstract class ReaderWriterCache<TKey, TValue>
     {

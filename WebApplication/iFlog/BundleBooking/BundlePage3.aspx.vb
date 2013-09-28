@@ -2,8 +2,8 @@
 Imports BetterclassifiedsCore.BundleBooking
 Imports BetterclassifiedsCore.ParameterAccess
 Imports BetterClassified.UI.WebPage
-Imports BetterClassified.UI.Models
 Imports BetterClassified
+Imports BetterClassified.Models
 
 Partial Public Class BundlePage3
     Inherits BaseBookingPage

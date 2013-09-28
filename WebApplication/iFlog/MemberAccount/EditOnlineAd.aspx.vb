@@ -1,8 +1,8 @@
 ﻿Imports BetterclassifiedsCore
 Imports BetterclassifiedsCore.ParameterAccess
 Imports BetterClassified
-Imports BetterClassified.UI.Models
-Imports BetterClassified.UI.Repository
+Imports BetterClassified.Models
+Imports BetterClassified.Repository
 Imports Microsoft.Practices.Unity
 
 Partial Public Class EditOnlineAd

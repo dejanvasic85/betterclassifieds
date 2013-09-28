@@ -2,7 +2,7 @@
 Imports Paramount.Broadcast.Components
 Imports Paramount.Modules.Logging.UIController
 Imports Microsoft.Practices.Unity
-Imports BetterClassified.UI.Repository
+Imports BetterClassified.Repository
 Imports System.Web.Routing
 Imports System.Web.Http
 

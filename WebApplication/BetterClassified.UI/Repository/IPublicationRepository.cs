@@ -1,4 +1,4 @@
-﻿namespace BetterClassified.UI.Repository
+﻿namespace BetterClassified.Repository
 {
     using System;
     using System.Collections.Generic;

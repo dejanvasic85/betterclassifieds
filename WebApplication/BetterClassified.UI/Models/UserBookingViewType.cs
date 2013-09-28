@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 
-namespace BetterClassified.UI.Models
+namespace BetterClassified.Models
 {
     public enum UserBookingViewType
     {

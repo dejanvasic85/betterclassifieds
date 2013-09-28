@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace BetterClassified.UI.Models
+namespace BetterClassified.Models
 {
     [OnlineAdType(OnlineAdName = "Tutors")]
     public class TutorAdModel

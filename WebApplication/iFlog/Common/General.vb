@@ -1,8 +1,8 @@
 ﻿Imports BetterclassifiedsCore
 Imports BetterclassifiedsCore.BundleBooking
-Imports BetterClassified.UI.Models
 Imports Paramount.Modules.Logging.UIController
 Imports System.Runtime.CompilerServices
+Imports BetterClassified.Models
 
 Module General
 

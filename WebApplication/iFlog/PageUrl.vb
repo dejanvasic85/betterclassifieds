@@ -1,6 +1,6 @@
 ﻿Imports BetterClassified
 Imports BetterClassified.UI
-Imports BetterClassified.UI.Repository
+Imports BetterClassified.Repository
 Imports Microsoft.Practices.Unity
 
 ''' <summary>
@@ -37,7 +37,7 @@ Public Class PageUrl
         Return String.Format("~/MemberAccount/EditOnlineAd.aspx?bkId={0}", adBookingId)
     End Function
 
-    Public Shared Function MemberBookings(Optional ByVal view As BetterClassified.UI.Models.UserBookingViewType = BetterClassified.UI.Models.UserBookingViewType.Current, _
+    Public Shared Function MemberBookings(Optional ByVal view As BetterClassified.Models.UserBookingViewType = BetterClassified.Models.UserBookingViewType.Current, _
                                           Optional ByVal extensionComplete As Boolean = False) As String
         Return String.Format("~/MemberAccount/Bookings.aspx?view={0}&extension={1}", view, extensionComplete)
     End Function

@@ -1,8 +1,8 @@
 ﻿Imports BetterclassifiedsCore
 Imports BetterclassifiedsCore.BusinessEntities
 Imports BetterClassified
-Imports BetterClassified.UI.Models
-Imports BetterClassified.UI.Repository
+Imports BetterClassified.Models
+Imports BetterClassified.Repository
 
 Partial Public Class Preview
     Inherits System.Web.UI.Page

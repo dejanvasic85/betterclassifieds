@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace BetterClassified.UI.Models
+namespace BetterClassified.Models
 {
     public class AdBookingModel
     {

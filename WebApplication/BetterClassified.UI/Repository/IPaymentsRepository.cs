@@ -2,7 +2,7 @@
 using AutoMapper;
 using BetterclassifiedsCore.DataModel;
 
-namespace BetterClassified.UI.Repository
+namespace BetterClassified.Repository
 {
     public interface IPaymentsRepository
     {

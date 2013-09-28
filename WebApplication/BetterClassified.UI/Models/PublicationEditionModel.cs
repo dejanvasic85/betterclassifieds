@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BetterClassified.UI.Models
+namespace BetterClassified.Models
 {
     public class PublicationEditionModel
     {

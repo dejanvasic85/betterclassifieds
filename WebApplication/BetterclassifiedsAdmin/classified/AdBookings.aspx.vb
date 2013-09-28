@@ -2,7 +2,7 @@
 Imports BetterclassifiedsCore.BusinessEntities
 Imports BetterClassified
 Imports Telerik.Web.UI
-Imports BetterClassified.UI.Models
+Imports BetterClassified.Models
 
 Partial Public Class AdBookings
     Inherits System.Web.UI.Page

@@ -1,5 +1,6 @@
 ﻿Imports BetterClassified.UI
 Imports BetterclassifiedsCore
+Imports BetterClassified
 Imports BetterclassifiedsCore.ParameterAccess
 
 Public Class ExtendBooking

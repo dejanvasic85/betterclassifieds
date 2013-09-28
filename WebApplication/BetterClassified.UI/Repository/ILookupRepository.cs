@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using BetterclassifiedsCore.DataModel; // fkn dependency
 
-namespace BetterClassified.UI.Repository
+namespace BetterClassified.Repository
 {
     public interface ILookupRepository
     {

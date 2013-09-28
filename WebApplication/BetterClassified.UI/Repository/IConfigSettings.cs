@@ -1,6 +1,6 @@
 ﻿using Paramount.ApplicationBlock.Configuration;
 
-namespace BetterClassified.UI.Repository
+namespace BetterClassified.Repository
 {
     public interface IConfigSettings
     {

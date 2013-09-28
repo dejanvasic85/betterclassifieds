@@ -1,7 +1,7 @@
 ﻿Imports BetterClassified
-Imports BetterClassified.UI.Repository
-Imports BetterClassified.UI.Models
+Imports BetterClassified.Repository
 Imports Microsoft.Practices.Unity
+Imports BetterClassified.Models
 
 Public Class TutorAdForm
     Inherits OnlineAdViewControl

@@ -1,6 +1,6 @@
 ﻿Imports BetterclassifiedsCore
 Imports BetterclassifiedsCore.ParameterAccess
-Imports BetterClassified.UI.Repository
+Imports BetterClassified.Repository
 Imports BetterClassified
 Imports Microsoft.Practices.Unity
 

@@ -1,4 +1,4 @@
-namespace BetterClassified.UI.Models
+namespace BetterClassified.Models
 {
     public enum ExtensionStatus
     {

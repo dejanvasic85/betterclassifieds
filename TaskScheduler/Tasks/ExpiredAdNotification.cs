@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Text;
-using BetterClassified.UI.Models;
-using BetterClassified.UI.Repository;
+using BetterClassified.Models;
+using BetterClassified.Repository;
 using BetterClassified.UIController;
 using BetterClassified.UIController.ViewObjects;
 using Paramount.ApplicationBlock.Logging.EventLogging;

@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using AutoMapper;
-using BetterClassified.UI.Models;
+using BetterClassified.Models;
 using BetterclassifiedsCore.DataModel;
 
-namespace BetterClassified.UI.Repository
+namespace BetterClassified.Repository
 {
     public interface IAdRepository
     {

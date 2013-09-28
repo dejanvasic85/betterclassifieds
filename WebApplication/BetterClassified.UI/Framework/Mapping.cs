@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using AutoMapper;
 
-namespace BetterClassified.UI
+namespace BetterClassified
 {
     public interface IMappingBehaviour
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BetterClassified.UI.Models
+namespace BetterClassified.Models
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class OnlineAdTypeAttribute : Attribute

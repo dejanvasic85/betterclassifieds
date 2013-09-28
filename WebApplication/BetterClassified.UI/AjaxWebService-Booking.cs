@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Web.Services;
 using System.Web.UI;
-using BetterClassified.UI.Models;
+using BetterClassified.Models;
 using BetterClassified.UIController;
 using BetterClassified.UIController.Booking;
 using BetterclassifiedsCore;

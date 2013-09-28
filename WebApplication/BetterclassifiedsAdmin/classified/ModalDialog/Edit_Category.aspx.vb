@@ -17,7 +17,7 @@ Partial Public Class Edit_Category
         lblCategoryMsg.Text = ""
         If Not Page.IsPostBack Then
 
-            ddlOnlineTypes.DataSource = BetterClassified.UI.Models.OnlineAdModel.GetOnlineAdTypeNames
+            ddlOnlineTypes.DataSource = BetterClassified.Models.OnlineAdModel.GetOnlineAdTypeNames
             ddlOnlineTypes.DataBind()
             ddlOnlineTypes.Items.Insert(0, New ListItem("-- None --", ""))
         End If

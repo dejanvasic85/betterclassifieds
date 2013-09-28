@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace BetterClassified.UI.Models
+namespace BetterClassified.Models
 {
     public class OnlineAdModel
     {

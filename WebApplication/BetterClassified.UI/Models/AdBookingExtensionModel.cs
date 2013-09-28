@@ -1,6 +1,6 @@
 using System;
 
-namespace BetterClassified.UI.Models
+namespace BetterClassified.Models
 {
     public class AdBookingExtensionModel
     {

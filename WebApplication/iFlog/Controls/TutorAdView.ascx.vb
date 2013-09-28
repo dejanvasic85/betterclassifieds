@@ -1,4 +1,4 @@
-﻿Imports BetterClassified.UI.Models
+﻿Imports BetterClassified.Models
 
 Public Class TutorAdView
     Inherits OnlineAdViewControl

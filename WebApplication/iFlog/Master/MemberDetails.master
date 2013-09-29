@@ -1,8 +1,9 @@
 ﻿<%@ Master Language="VB" MasterPageFile="~/Master/Default.Master" AutoEventWireup="false" CodeBehind="MemberDetails.master.vb" Inherits="BetterclassifiedsWeb.MemberDetails" %>
 
+<%@ Import Namespace="BetterClassified.Models" %>
+
 <%@ Import Namespace="BetterclassifiedsWeb" %>
 
-<%@ Import Namespace="BetterClassified.UI.Models" %>
 
 <asp:Content ContentPlaceHolderID="head" ID="mainHead" runat="server">
     <asp:ContentPlaceHolder ID="memberHeadContent" runat="server" />

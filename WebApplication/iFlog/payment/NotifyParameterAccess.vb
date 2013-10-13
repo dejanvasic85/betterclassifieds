@@ -1,4 +1,4 @@
-﻿Namespace payment
+﻿Namespace Payment
     Public Class NotifyParameterAccess
         Private Const PaymentReferenceParam = "payment_reference"
         Private Const ReferenceParam As String = "id"

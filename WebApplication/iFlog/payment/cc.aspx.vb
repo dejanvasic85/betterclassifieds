@@ -5,7 +5,7 @@ Imports BetterclassifiedsCore.BundleBooking
 Imports BetterclassifiedsCore.ParameterAccess
 Imports Paramount.Betterclassified.Utilities.CreditCardPayment
 
-Namespace payment
+Namespace Payment
     Partial Public Class cc
         Inherits System.Web.UI.Page
         Public Shared ReadOnly Property Settings() As CCPaymentGatewaySettings

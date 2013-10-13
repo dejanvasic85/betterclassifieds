@@ -81,7 +81,6 @@
     <Content Include="Nodes\AuthenticationService.svc" />
     <Content Include="Nodes\BannerService.svc" />
     <Content Include="Nodes\LogService.svc" />
-    <Content Include="Nodes\UserAccountWebService.svc" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

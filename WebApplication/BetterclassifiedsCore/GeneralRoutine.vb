@@ -802,31 +802,6 @@ Public Module GeneralRoutine
         End Using
     End Function
 
-    ''' <summary>
-    ''' Performs a back up of all the databases on the local sql server and saves the files in the specified path
-    ''' </summary>
-    ''' <param name="path"></param>
-    ''' <remarks></remarks>
-    Public Sub BackupSystemDatabases(ByVal path As String)
-        Using db = BetterclassifiedsDataContext.NewContext
-
-            ' concat todays date with the path specified
-            Dim saveDir As New DirectoryInfo(path + String.Format("{0:yyyyMMdd}", DateTime.Today) + "\")
-
-            ' first delete the folder if any current backups are there now
-            If saveDir.Exists Then
-                saveDir.Delete(True)
-            End If
-
-            ' create the directory to be ready!
-            saveDir.Create()
-
-            ' execute the stored procedure to back up the data
-            db.spSystemBackupDatabases(saveDir.FullName)
-
-        End Using
-    End Sub
-
     Public Sub UpdateApplicationSetting(ByVal moduleName As String, ByVal key As String, ByVal newValue As String)
         Try
             Using db = BetterclassifiedsDataContext.NewContext

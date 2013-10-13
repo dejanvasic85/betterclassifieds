@@ -61,7 +61,6 @@
     <Compile Include="EntityGroup.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="GenericTemplate.cs" />
-    <Compile Include="Handlers\UnSubscribeHandler.cs" />
     <Compile Include="HeaderControl.cs" />
     <Compile Include="HelpContextControl.cs" />
     <Compile Include="HelpContextTemplate.cs" />
@@ -76,7 +75,6 @@
     <Compile Include="ParamountGrid.cs" />
     <Compile Include="ParamountHtmlGenericControl.cs" />
     <Compile Include="ParamountLabel.cs" />
-    <Compile Include="PaymentControl.cs" />
     <Compile Include="GeneratePdfHandler.cs" />
     <Compile Include="PrintPdfButton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

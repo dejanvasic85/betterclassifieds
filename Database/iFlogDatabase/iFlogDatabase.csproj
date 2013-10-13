@@ -69,6 +69,7 @@
     <Content Include="Deploy.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Scripts\Script-0014-DropProc.spSystemBackupDatabases.sql" />
     <EmbeddedResource Include="Scripts\Script-0013-AddColumn.OnlineAd.Adtype.sql" />
     <EmbeddedResource Include="Scripts\Script-0012-AdjustMainCategoryRelationship.sql" />
     <EmbeddedResource Include="Scripts\Script-0011-Create.Table.CategoryOnlineAd.sql" />

@@ -112,7 +112,7 @@ Public Class AdController
 
     Public Shared Function GetLineAd(ByVal adDesignId As Integer) As LineAd
         Using db = BetterclassifiedsDataContext.NewContext
-            Dim lineAd As LineAd
+
             ' check if this ad design ID refers to the online version
             ' if so, then we get the ad, and find the Line Ad Version
             Dim design = db.AdDesigns.Where(Function(i) i.AdDesignId = adDesignId).FirstOrDefault

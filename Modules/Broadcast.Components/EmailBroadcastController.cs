@@ -7,7 +7,6 @@
     using System.Collections.Generic;
     using ApplicationBlock.Configuration;
     using ApplicationBlock.Logging.AuditLogging;
-    using ApplicationBlock.Logging.Constants;
     using ApplicationBlock.Logging.EventLogging;
     using Services.Proxy;
     using Utility;
@@ -35,7 +34,7 @@
                 AccountId = ConfigSettingReader.ClientCode,
                 SecondaryData = groupingId,
                 Data = XmlUtilities.SerializeObject(request),
-                TransactionName = TransactionNames.SendEmailRequest
+                TransactionName = "Request.Broadcast.SendEmail"
             };
             AuditLogManager.Log(auditLog);
             WebServiceHostManager.BroadcastServiceHost.InsertUpdateTemplate(request);
@@ -45,7 +44,7 @@
                 AccountId = ConfigSettingReader.ClientCode,
                 SecondaryData = groupingId,
                 Data = "success",
-                TransactionName = TransactionNames.SendEmailResponse
+                TransactionName = "Response.Broadcast.SendEmail"
             });
         }
 
@@ -60,7 +59,7 @@
                 AccountId = ConfigSettingReader.ClientCode,
                 SecondaryData = groupingId,
                 Data = XmlUtilities.SerializeObject(request),
-                TransactionName = TransactionNames.SendEmailRequest
+                TransactionName = "Request.Broadcast.SendEmail"
             };
             AuditLogManager.Log(auditLog);
             var response = WebServiceHostManager.BroadcastServiceHost.GetEmailTemplate(request);
@@ -70,7 +69,7 @@
                 AccountId = ConfigSettingReader.ClientCode,
                 SecondaryData = groupingId,
                 Data = XmlUtilities.SerializeObject(response),
-                TransactionName = TransactionNames.SendEmailResponse
+                TransactionName = "Response.Broadcast.SendEmail"
             });
             return response.Template.Convert();
         }
@@ -95,7 +94,7 @@
                 AccountId = ConfigSettingReader.ClientCode,
                 SecondaryData = groupingId,
                 Data = XmlUtilities.SerializeObject(request),
-                TransactionName = TransactionNames.SendEmailRequest
+                TransactionName = "Request.Broadcast.SendEmail"
             };
             AuditLogManager.Log(auditLog);
             var response = WebServiceHostManager.BroadcastServiceHost.SendMail(request);
@@ -105,7 +104,7 @@
                 AccountId = ConfigSettingReader.ClientCode,
                 SecondaryData = groupingId,
                 Data = XmlUtilities.SerializeObject(response),
-                TransactionName = TransactionNames.SendEmailResponse
+                TransactionName = "Response.Broadcast.SendEmail"
             };
             AuditLogManager.Log(auditLog);
 
@@ -132,7 +131,7 @@
                 AccountId = ConfigSettingReader.ClientCode,
                 SecondaryData = groupingId,
                 Data = XmlUtilities.SerializeObject(request),
-                TransactionName = TransactionNames.SendEmailRequest
+                TransactionName = "Request.Broadcast.SendEmail"
             };
             AuditLogManager.Log(auditLog);
             var response = WebServiceHostManager.BroadcastServiceHost.SendNewsletter(request);
@@ -142,7 +141,7 @@
                 AccountId = ConfigSettingReader.ClientCode,
                 SecondaryData = groupingId,
                 Data = XmlUtilities.SerializeObject(response),
-                TransactionName = TransactionNames.SendEmailResponse
+                TransactionName = "Response.Broadcast.SendEmail"
             };
             AuditLogManager.Log(auditLog);
 
@@ -160,7 +159,7 @@
                     AccountId = ConfigSettingReader.ClientCode,
                     SecondaryData = groupingId,
                     Data = XmlUtilities.SerializeObject(request),
-                    TransactionName = TransactionNames.ProcessEmailRequest
+                    TransactionName = "Request.EmailProcess"
                 };
                 AuditLogManager.Log(auditLog);
                 WebServiceHostManager.BroadcastServiceHost.Process(request);
@@ -169,7 +168,7 @@
                     AccountId = ConfigSettingReader.ClientCode,
                     SecondaryData = groupingId,
                     Data = "Success",
-                    TransactionName = TransactionNames.ProcessEmailResponse
+                    TransactionName = "Response.EmailProcess"
                 };
                 AuditLogManager.Log(auditLog);
             }
@@ -188,7 +187,7 @@
                 AccountId = ConfigSettingReader.ClientCode,
                 SecondaryData = groupingId,
                 Data = XmlUtilities.SerializeObject(request),
-                TransactionName = TransactionNames.GetEmailTemplatesRequest
+                TransactionName = "Request.GetEmailTemplates"
             });
 
             var response = WebServiceHostManager.BroadcastServiceHost.GetEmailTemplateListByClient(request);
@@ -198,7 +197,7 @@
                 AccountId = ConfigSettingReader.ClientCode,
                 SecondaryData = groupingId,
                 Data = XmlUtilities.SerializeObject(response),
-                TransactionName = TransactionNames.GetEmailTemplatesResponse
+                TransactionName = "Response.GetEmailTemplates"
             });
 
             response.TemplateList.Insert(0, new EmailTemplate { Description = "[Select Template]", Name = string.Empty });

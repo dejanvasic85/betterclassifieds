@@ -98,7 +98,6 @@
     <Compile Include="AuditLogging\AuditLog.cs" />
     <Compile Include="AuditLogging\AuditLogManager.cs" />
     <Compile Include="BaseClass\LogBase.cs" />
-    <Compile Include="Constants\TransactionNames.cs" />
     <Compile Include="DataAccess\ConfigReader.cs" />
     <Compile Include="DataAccess\DataProxyFactory.cs" />
     <Compile Include="DataAccess\DataProxyFactoryException.cs" />

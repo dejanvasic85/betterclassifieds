@@ -768,10 +768,6 @@
       <Column Name="Code" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.spSystemBackupDatabases" Method="spSystemBackupDatabases">
-    <Parameter Name="path" Type="System.String" DbType="NVarChar(200)" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.spReportWeeklySales" Method="spReportWeeklySales">
     <Parameter Name="pubid" Type="System.Int32" DbType="Int" />
     <Parameter Name="ed" Type="System.DateTime" DbType="DateTime" />

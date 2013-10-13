@@ -16,22 +16,16 @@
         <siteMapNode url="~/classified/Ratecards.aspx" title="Pricing" description="Casual and Special rates management" roles="Administrators">
           <siteMapNode url="~/classified/SpecialRates.aspx" title="Special Rates" description="Page for managing special rates in the system." />
         </siteMapNode>
-        <siteMapNode url="~/classified/AdSpaces.aspx?settingId=0" title="Banners" description="Configuring the external/internal advertising for online classifieds website.">
-        </siteMapNode>
-        <siteMapNode url="~/classified/Themes/ManageThemes.aspx" title="Line Ad Themes" description="Page for uploading and designing line ad themes" roles="Administrators">
-          
-        </siteMapNode>
-      
+        <siteMapNode url="~/classified/AdSpaces.aspx?settingId=0" title="Banners" description="Configuring the external/internal advertising for online classifieds website." />
+        <siteMapNode url="~/classified/Themes/ManageThemes.aspx" title="Line Ad Themes" description="Page for uploading and designing line ad themes" roles="Administrators" />
+        <siteMapNode url="~/crm/email_options.aspx" title="Email Templates"  description=""/>
       </siteMapNode>
 
 
       <!-- Customer Membership Section -->
       <siteMapNode url="~/crm?" title="Customer Membership"  description="" roles="Administrators,Sales">
-        <!--<siteMapNode url="~/crm" title="Dashboard"  description="*"/>-->
         <siteMapNode url="~/crm/customers.aspx" title="Registered Customers"  description=""/>
-        <!--<siteMapNode url="~/crm/Add_Customer.aspx" title="Add New Customer"  description=""/>-->
         <siteMapNode url="~/crm/Search_Customer.aspx" title="Search Customer"  description=""/>
-        <siteMapNode url="~/crm/Email_Broadcast.aspx?letter=none" title="Email Broadcast"  description=""/>
         <siteMapNode url="~/crm/Industries.aspx" title="Business Details" description="" />
       </siteMapNode>
 
@@ -43,7 +37,6 @@
 
       <!-- Web Content Section -->
       <siteMapNode url="~/webcontent/" title="Web Content"  description="Web Content" roles="Administrators,WebContent">
-        <!--<siteMapNode url="~/webcontent/default.aspx" title="Content Search"  description="Web Content" roles="Administrators,WebContent"/>-->
         <siteMapNode url="~/webcontent/ClassifiedFaq.aspx" title="Classified FAQ"  description="Classified FAQ" roles="Administrators,WebContent"/>
         <siteMapNode url="~/webcontent/MarketingTagline.aspx" title="Marketing Tagline"  description="Marketing Tagline" roles="Administrators,WebContent"/>
       </siteMapNode>
@@ -55,10 +48,6 @@
           <siteMapNode url="~/report/TransactionReport.aspx" title="Transaction Report" />
         </siteMapNode>
       </siteMapNode>
-
-      <!-- Backup Section -->
-      <siteMapNode url="~/SystemAdmin" title="System Admin" description="Administration tasks for entire system" roles="Administrators">
-        <siteMapNode url="~/SystemAdmin/Backup.aspx" title="Data Backup" roles="Administrators" />
-      </siteMapNode>
+   
     </siteMapNode>
 </siteMap>

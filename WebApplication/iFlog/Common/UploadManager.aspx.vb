@@ -2,7 +2,6 @@
 Imports BetterclassifiedsCore.ParameterAccess
 Imports BetterClassified.UI.Dsl
 Imports Paramount.Betterclassified.Utilities.Configuration
-Imports Paramount.DSL.UIController.ViewObjects
 
 Partial Public Class UploadManager
     Inherits System.Web.UI.Page

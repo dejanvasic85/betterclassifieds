@@ -325,13 +325,6 @@
       <DependentUpon>edit_customermodal_success.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="crm\Email_Broadcast.aspx.designer.vb">
-      <DependentUpon>Email_Broadcast.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="crm\Email_Broadcast.aspx.vb">
-      <DependentUpon>Email_Broadcast.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="crm\Email_Options.aspx.designer.vb">
       <DependentUpon>Email_Options.aspx</DependentUpon>
     </Compile>
@@ -717,7 +710,6 @@
     <Content Include="crm\Edit_Customer.aspx" />
     <Content Include="crm\Edit_CustomerModal.aspx" />
     <Content Include="crm\edit_customermodal_success.aspx" />
-    <Content Include="crm\Email_Broadcast.aspx" />
     <Content Include="crm\Email_Options.aspx" />
     <Content Include="classified\LocationManagement.aspx" />
     <Content Include="crm\Industries.aspx" />
@@ -1072,13 +1064,6 @@
       <DependentUpon>ClassifiedNav.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SystemAdmin\Backup.aspx.designer.vb">
-      <DependentUpon>Backup.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="SystemAdmin\Backup.aspx.vb">
-      <DependentUpon>Backup.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
     <Compile Include="Utilities\TypeExtentions.vb" />
     <None Include="App_Data\RadSpell\en-US.tdf" />
     <Content Include="masterpage\Dialog.Master" />
@@ -1106,7 +1091,6 @@
     <Content Include="report\TransactionReport.aspx" />
     <Content Include="report\WeeklyPublication.aspx" />
     <Content Include="report\navigation\ClassifiedNav.ascx" />
-    <Content Include="SystemAdmin\Backup.aspx" />
     <Content Include="useradmin\web.config" />
     <Content Include="masterpage\WebForm1.aspx" />
     <Content Include="memberpage\Bookings.aspx" />

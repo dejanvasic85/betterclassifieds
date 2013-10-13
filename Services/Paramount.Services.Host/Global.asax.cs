@@ -12,7 +12,7 @@ using Paramount.ApplicationBlock.Logging.DataAccess;
 
 namespace Paramount.Services.Host
 {
-    public class Global : System.Web.HttpApplication,IServiceInformation
+    public class Global : System.Web.HttpApplication, IServiceInformation
     {
 
         protected void Application_Start(object sender, EventArgs e)
@@ -101,7 +101,6 @@ namespace Paramount.Services.Host
 
                 string[] userPass = s.Split(new char[] { ':' });
                 string username = userPass[0];
-                string password = userPass[1];
 
                 //the user is validated against the SqlMemberShipProvider
                 //If it is validated then the roles are retrieved from the
@@ -116,16 +115,6 @@ namespace Paramount.Services.Host
                     context.Context.User = new GenericPrincipal(
                         new GenericIdentity(username), new string[1]);
                 }
-                else
-                {
-                    //DenyAccess(context);
-                    return;
-                }
-            }
-            else
-            {
-                //context.Response.StatusCode = 401;
-                //context.Response.End();
             }
         }
 

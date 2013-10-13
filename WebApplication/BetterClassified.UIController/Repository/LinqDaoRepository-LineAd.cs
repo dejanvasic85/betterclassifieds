@@ -152,7 +152,7 @@ namespace BetterClassified.UIController.Repository
                     Yellow = lineAdColour.Yellow == null ? 0 : (int)lineAdColour.Yellow,
                     Magenta = lineAdColour.Magenta == null ? 0 : (int)lineAdColour.Magenta,
                     KeyCode = lineAdColour.KeyCode == null ? 0 : (int)lineAdColour.KeyCode,
-                    IsActive = lineAdColour.IsActive == null ? false : Convert.ToBoolean(lineAdColour.IsActive),
+                    IsActive = Convert.ToBoolean(lineAdColour.IsActive),
                     SortOrder = lineAdColour.SortOrder == null ? 0 : (int)lineAdColour.SortOrder,
                     CreatedDate = lineAdColour.CreatedDate == null ? DateTime.MinValue : (DateTime)lineAdColour.CreatedDate,
                     CreatedByUser = lineAdColour.CreatedByUser

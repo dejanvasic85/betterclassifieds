@@ -12,7 +12,7 @@ Option Strict On
 Option Explicit On
 
 
-Namespace payment
+Namespace Payment
 
     Partial Public Class cc
 

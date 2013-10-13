@@ -120,7 +120,7 @@ Module General
         StartBundleBookingStep2(designId, SystemAdType.ONLINE)
     End Sub
 
-    Public Sub StartBundleBookingStep2(ByVal AdDesignId As Integer, ByVal type As SystemAdType)
+    Public Sub StartBundleBookingStep2(ByVal adDesignId As Integer, ByVal type As SystemAdType)
         ' starts a new bundle booking with existing ad details
         BookingController.ClearAdBooking()
         BundleController.ClearBundleBooking()
@@ -133,14 +133,14 @@ Module General
         BookingController.BookingType = Booking.BookingAction.BundledBooking
 
         ' set up the ad details passed through by the design id
-        Dim lineAd As DataModel.LineAd
+        Dim lineAd As DataModel.LineAd = Nothing
         Dim lineAdGraphicId As String = String.Empty
-        Dim onlineAd As DataModel.OnlineAd
+        Dim onlineAd As DataModel.OnlineAd = Nothing
         Dim onlineGraphics As New List(Of String)
 
         If type = SystemAdType.LINE Then
             ' get the line ad 
-            lineAd = AdController.GetLineAd(AdDesignId)
+            lineAd = AdController.GetLineAd(adDesignId)
             If lineAd.UsePhoto Then
                 lineAdGraphicId = AdController.GetLineAdGraphic(lineAd.AdDesignId).DocumentID
             End If
@@ -157,13 +157,13 @@ Module General
             End If
         ElseIf type = SystemAdType.ONLINE Then
             ' get the online ad
-            onlineAd = AdController.GetOnlineAd(AdDesignId)
+            onlineAd = AdController.GetOnlineAd(adDesignId)
             ' get the online ad graphics
             For Each gr In AdController.GetAdGraphics(onlineAd.AdDesignId)
                 onlineGraphics.Add(gr.DocumentID)
             Next
             ' get the line ad (if exists)
-            lineAd = AdController.GetLineAd(AdDesignId)
+            lineAd = AdController.GetLineAd(adDesignId)
             If lineAd Is Nothing Then
                 ' otherwise, map the line to online as a guide for details
                 lineAd = New DataModel.LineAd With {.AdHeader = onlineAd.Heading, .AdText = onlineAd.Description, _
@@ -177,7 +177,7 @@ Module General
             controller.SetOnlineAdDetails(.Heading, .Description, .HtmlText, .Price, .LocationId, .LocationAreaId, .ContactName, .ContactType, .ContactValue)
             controller.SetOnlineAdGraphics(onlineGraphics)
         End With
-        ' set line ad details
+
         ' todo - LineAdNewDesign (set the properties for upgrading to premium)
         With lineAd
             controller.SetLineAdDetails(.AdHeader, .AdText, .UseBoldHeader)

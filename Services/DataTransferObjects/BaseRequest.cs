@@ -1,5 +1,4 @@
 ﻿using Paramount.ApplicationBlock.Logging.AuditLogging;
-using Paramount.ApplicationBlock.Logging.Constants;
 using Paramount.Utility;
 
 namespace Paramount.Common.DataTransferObjects

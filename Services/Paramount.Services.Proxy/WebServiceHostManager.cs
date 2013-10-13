@@ -69,13 +69,13 @@ namespace Paramount.Services.Proxy
             }
         }
 
-        public static AccountWebServiceClient AccountWebServiceHost
-        {
-            get
-            {
-                return new AccountWebServiceClient(BasicHttpBinding, CreateEndpointAddress(ServiceDefinition.AccountProfile.Address));
-            }
-        }
+        //public static AccountWebServiceClient AccountWebServiceHost
+        //{
+        //    get
+        //    {
+        //        return new AccountWebServiceClient(BasicHttpBinding, CreateEndpointAddress(ServiceDefinition.AccountProfile.Address));
+        //    }
+        //}
 
         private static EndpointAddress CreateEndpointAddress(string serviceName)
         {

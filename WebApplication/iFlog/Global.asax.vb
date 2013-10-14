@@ -56,11 +56,6 @@ Public Class Global_asax
         ' Fires upon attempting to authenticate the use
     End Sub
 
-    Sub Application_Error(ByVal sender As Object, ByVal e As EventArgs)
-        Dim ex As Exception = Server.GetLastError().GetBaseException
-        ' todo - audit
-    End Sub
-
     Sub Session_End(ByVal sender As Object, ByVal e As EventArgs)
         ' Fires when the session ends
     End Sub

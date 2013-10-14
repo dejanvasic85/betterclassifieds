@@ -136,8 +136,7 @@ Partial Public Class _Default1
             If Integer.TryParse(combinedSearch(0), searchLog.PublicationId) _
                 And Integer.TryParse(combinedSearch(1), searchLog.AdId) _
                 And PublicationController.GetPublications(activateOnly:=True).Any(Function(p As Publication) p.PublicationId = searchLog.PublicationId) Then
-                ' Log the search
-                ' todo - audit Paramount.Modules.Logging.UIController.AuditLogController(Of SearchLog).AuditWebTransaction(searchLog, "PublicationAdSearch")
+
                 Response.Redirect(PageUrl.AdViewItem(searchLog.AdId))
             End If
         Else

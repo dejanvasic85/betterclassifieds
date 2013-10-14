@@ -16,14 +16,11 @@ namespace BetterClassified.UI.WebPage
 
             var context = HttpContext.Current;
             var exception = context.Server.GetLastError();
-
-            // Log / Audit using Paramount Service
-            // todo - audit ExceptionLogController<Exception>.AuditException(exception);
-            context.Server.ClearError();
-
+            
             if (exception is BookingExpiredException)
             {
-                // Redirect to Page
+                // Clear the last error and do a redirect to the first booking step
+                context.Server.ClearError();
                 context.Response.Redirect("~/Booking/Step1.aspx?action=expired");
             }
         }

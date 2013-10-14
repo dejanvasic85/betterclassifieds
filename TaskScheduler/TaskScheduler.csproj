@@ -8,7 +8,7 @@
     <ProjectGuid>{5A595E8C-7861-415F-A193-A295E94CA22F}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Paramount.Products.TaskScheduler</RootNamespace>
+    <RootNamespace>Paramount.TaskScheduler</RootNamespace>
     <AssemblyName>TaskScheduler</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -174,10 +174,6 @@
     <ProjectReference Include="..\ApplicationBlock\Configuration\ApplicationBlock.Configuration.csproj">
       <Project>{ca9b2482-2a5b-4666-b6ee-0be6034fd9c7}</Project>
       <Name>ApplicationBlock.Configuration</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ApplicationBlock\Logging\ApplicationBlock.Logging.csproj">
-      <Project>{5c76b020-ce3c-4176-b2aa-5eae9c3150cc}</Project>
-      <Name>ApplicationBlock.Logging</Name>
     </ProjectReference>
     <ProjectReference Include="..\ApplicationBlock\Utility\Paramount.Utility.csproj">
       <Project>{7f2cf5fe-6ad1-4dde-9f7d-a6fb3a1124e5}</Project>

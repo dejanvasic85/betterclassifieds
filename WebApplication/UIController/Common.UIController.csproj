@@ -68,10 +68,6 @@
       <Project>{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}</Project>
       <Name>ApplicationBlock.Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ApplicationBlock\Logging\ApplicationBlock.Logging.csproj">
-      <Project>{5C76B020-CE3C-4176-B2AA-5EAE9C3150CC}</Project>
-      <Name>ApplicationBlock.Logging</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Services\Paramount.Services.Proxy\Services.Proxy.csproj">
       <Project>{E560D316-27E8-4F4C-A6A4-F23B82651770}</Project>
       <Name>Services.Proxy</Name>

@@ -1,7 +1,6 @@
 ﻿Imports System.Web
 Imports BetterclassifiedsCore.DataModel
 Imports BetterclassifiedsCore.Controller
-Imports Paramount.ApplicationBlock.Logging.EventLogging
 
 ''' <summary>
 ''' Provides the general data layer methods required to communicate 
@@ -41,14 +40,9 @@ Public Class CategoryController
     ''' </summary>
     ''' <returns><see cref="List(Of MainCategory)">List of Main Root Categories</see></returns>
     Public Shared Function GetMainParentCategories() As List(Of MainCategory)
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Return db.spGetMainParentCategories.ToList
-            End Using
-        Catch ex As Exception
-            EventLogManager.Log(ex)
-            Throw ex
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Return db.spGetMainParentCategories.ToList
+        End Using
     End Function
 
     ''' <summary>
@@ -82,14 +76,9 @@ Public Class CategoryController
     ''' <param name="parentId"></param>
     ''' <returns><see cref="List(Of MainCategoery)">List of Main Categories</see></returns>
     Public Shared Function GetMainCategoriesByParent(ByVal parentId As Integer) As List(Of MainCategory)
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Return db.MainCategories.Where(Function(i) i.ParentId = parentId).OrderBy(Function(i) i.Title).ToList
-            End Using
-        Catch ex As Exception
-            EventLogManager.Log(ex)
-            Throw ex
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Return db.MainCategories.Where(Function(i) i.ParentId = parentId).OrderBy(Function(i) i.Title).ToList
+        End Using
     End Function
 
     ''' <summary>
@@ -97,14 +86,9 @@ Public Class CategoryController
     ''' </summary>
     ''' <param name="bookStatus"></param>
     Public Shared Function GetMainParentCategoriesWithAdCount(ByVal bookStatus As BookingStatus) As List(Of spMainCategoryAdCountResult)
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Return db.spMainCategoryAdCount(bookStatus).ToList
-            End Using
-        Catch ex As Exception
-            EventLogManager.Log(ex)
-            Throw ex
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Return db.spMainCategoryAdCount(bookStatus).ToList
+        End Using
     End Function
 
     ''' <summary>

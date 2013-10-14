@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Paramount.Products.TaskScheduler
+namespace Paramount.TaskScheduler
 {
     public class SchedulerParameters:Dictionary<string , string >
     {

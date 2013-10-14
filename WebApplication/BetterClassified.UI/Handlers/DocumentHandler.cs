@@ -6,7 +6,6 @@ using System.Web;
 using System.Web.SessionState;
 using Paramount.ApplicationBlock.Configuration;
 using Paramount.DSL.UIController;
-using Paramount.Modules.Logging.UIController;
 using Paramount.Utility;
 
 namespace BetterClassified.UI.Handlers
@@ -79,7 +78,7 @@ namespace BetterClassified.UI.Handlers
             }
             catch (Exception ex)
             {
-                ExceptionLogController<Exception>.AuditException(ex);
+                // todo - audit ExceptionLogController<Exception>.AuditException(ex);
                 throw;
             }
         }

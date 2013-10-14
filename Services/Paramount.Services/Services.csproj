@@ -58,10 +58,8 @@
     <Compile Include="CRMService.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="EventService.cs" />
-    <Compile Include="Extensions.cs" />
     <Compile Include="IServiceInformation.cs" />
     <Compile Include="LocationService.cs" />
-    <Compile Include="LogService.cs" />
     <Compile Include="MembershipService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -74,10 +72,6 @@
     <ProjectReference Include="..\..\ApplicationBlock\Data\ApplicationBlock.Data.csproj">
       <Project>{F119DDC3-24DD-411E-B509-B8E41A011741}</Project>
       <Name>ApplicationBlock.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ApplicationBlock\Logging\ApplicationBlock.Logging.csproj">
-      <Project>{5C76B020-CE3C-4176-B2AA-5EAE9C3150CC}</Project>
-      <Name>ApplicationBlock.Logging</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ApplicationBlock\Membership\ApplicationBlock.Membership.csproj">
       <Project>{B4B22683-30E1-4F01-90AE-4DDF12691150}</Project>

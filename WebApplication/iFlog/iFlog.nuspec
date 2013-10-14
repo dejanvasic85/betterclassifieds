@@ -9,7 +9,12 @@
     <licenseUrl>http://paramountit.com.au</licenseUrl>
     <projectUrl>http://paramountit.com.au</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Main website application delivered specifically to TempoMedia.</description>
-    <releaseNotes></releaseNotes>
+    <description>Main website application delivered.</description>
+    <releaseNotes>
+      Refactor: Removed email broadcast (newsletter) - redundant functionality
+      Refactor: Removed Account WCF Service
+      Refactor: Removed System database backup - redundant functionality
+      #Refactor: Refined error logging system through all applications
+    </releaseNotes>
   </metadata>
 </package>

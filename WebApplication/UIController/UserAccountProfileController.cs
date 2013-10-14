@@ -2,7 +2,7 @@
 //{
 //    using System;
 //    using ApplicationBlock.Configuration;
-//    using ApplicationBlock.Logging.AuditLogging;
+//    
 //    using ApplicationBlock.Logging.Constants;
 //    using Common.DataTransferObjects.UserAccountWebService.Messages;
 //    using Services.Proxy;

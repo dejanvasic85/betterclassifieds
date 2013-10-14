@@ -1,48 +1,21 @@
 ﻿Imports BetterclassifiedsCore
 Imports BetterclassifiedsCore.BundleBooking
-Imports Paramount.Modules.Logging.UIController
 Imports System.Runtime.CompilerServices
 Imports BetterClassified.Models
 
 Module General
-
     Public Function SecurityCheckUserAdBooking(ByVal userId As String, ByVal bookingId As Integer) As Boolean
         If GeneralRoutine.CheckUserAdBooking(userId, bookingId) Then
             Return True
-        Else
-            Dim sb As New StringBuilder()
-            sb.AppendLine("Security Infringement!")
-            sb.AppendLine(String.Format("UserID = {0}", userId))
-            sb.AppendLine(String.Format("BookingID = {0}", bookingId))
-            sb.AppendLine("Action: User attempted to view a booking that does not belong to them.")
-
-            Try
-                Throw New Exception(sb.ToString)
-            Catch ex As Exception
-                ExceptionLogController(Of Exception).AuditException(ex)
-            End Try
-            HttpContext.Current.Response.Redirect(PageUrl.ErrorAccessDenied)
         End If
+        Return False
     End Function
 
     Public Function SecurityCheckUserAdBooking(ByVal userId As String, ByVal bookingId As Integer, ByVal adDesignId As Integer) As Boolean
         If GeneralRoutine.CheckUserAdBooking(userId, bookingId, adDesignId) Then
             Return True
-        Else
-            Dim sb As New StringBuilder()
-            sb.AppendLine("Security Infringement;")
-            sb.AppendLine("User attempted to view a booking that does not belong to them;")
-            sb.AppendLine(String.Format("UserID = {0};", userId))
-            sb.AppendLine(String.Format("BookingID = {0};", bookingId))
-
-            Try
-                Throw New Exception(sb.ToString)
-            Catch ex As Exception
-                ExceptionLogController(Of Exception).AuditException(ex)
-            End Try
-
-            HttpContext.Current.Response.Redirect(PageUrl.ErrorAccessDenied)
         End If
+        Return False
     End Function
 
     Public Sub ClearCurrentBookings()

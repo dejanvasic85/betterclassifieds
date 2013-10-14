@@ -1,7 +1,7 @@
 ﻿Imports Telerik.Web.UI
 Imports System.Drawing
 Imports BetterClassified.UIController.ViewObjects
-Imports Paramount.Modules.Logging.UIController
+
 Imports BetterClassified.UIController
 
 Public Class EditLineAdColour
@@ -22,16 +22,6 @@ Public Class EditLineAdColour
 
     Private Sub btnUpdate_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnUpdate.Click
         dtlLineAdColour.UpdateItem(True)
-    End Sub
-
-    Private Sub srcLineAdColour_Updated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ObjectDataSourceStatusEventArgs) Handles srcLineAdColour.Updated
-        If e.Exception IsNot Nothing Then
-            UserMessageControl.PrintException(e.Exception)
-            ExceptionLogController(Of Exception).AuditException(e.Exception)
-            e.ExceptionHandled = True
-        Else
-            UserMessageControl.PrintUserMessage("Colour details updated successfully.", True)
-        End If
     End Sub
 
     Private Sub srcLineAdColour_Updating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.ObjectDataSourceMethodEventArgs) Handles srcLineAdColour.Updating

@@ -109,7 +109,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="LocationDataService.cs" />
-    <Compile Include="LoggingDataService.cs" />
     <Compile Include="MembershipDataProvider.cs" />
     <Compile Include="ParamountAccountDataService.cs" />
     <Compile Include="Proc.cs" />

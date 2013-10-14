@@ -1,4 +1,4 @@
-﻿Imports Paramount.ApplicationBlock.Logging.DataAccess
+﻿Imports Paramount.ApplicationBlock.Data
 
 Partial Public Class CRMDataContext
     Private Const configSection As String = "paramount/services"

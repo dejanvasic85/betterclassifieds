@@ -263,10 +263,6 @@
       <Project>{F119DDC3-24DD-411E-B509-B8E41A011741}</Project>
       <Name>ApplicationBlock.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ApplicationBlock\Logging\ApplicationBlock.Logging.csproj">
-      <Project>{5C76B020-CE3C-4176-B2AA-5EAE9C3150CC}</Project>
-      <Name>ApplicationBlock.Logging</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Modules\Broadcast.Components\Modules.Broadcast.Components.csproj">
       <Project>{3091F288-C6F8-4E2D-9622-48B00ACE526B}</Project>
       <Name>Modules.Broadcast.Components</Name>

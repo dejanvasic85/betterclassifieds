@@ -1,4 +1,4 @@
-﻿namespace Paramount.Products.TaskScheduler
+﻿namespace Paramount.TaskScheduler
 {
     interface IScheduler
     {

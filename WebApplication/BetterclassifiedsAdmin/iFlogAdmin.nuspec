@@ -11,9 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Web portal for administering features for the iFlog application.</description>
     <releaseNotes>
-      Refactor: Removed email broadcast (newsletter) - redundant functionality
-      Refactor: Removed Account WCF Service
-      Refactor: Removed System database backup - redundant functionality
+      
     </releaseNotes>
   </metadata>
 </package>

@@ -1,6 +1,6 @@
 ﻿Imports BetterclassifiedsCore
 Imports BetterclassifiedsCore.DataModel
-Imports Paramount.Modules.Logging.UIController
+
 Imports BetterclassifiedsCore.Utilities
 Imports BetterClassified.UI.WebPage
 
@@ -33,28 +33,6 @@ Partial Public Class Step2
             pnlPublications.Visible = (adType.Code = SystemAdType.LINE.ToString)
 
             Dim publicationList = PublicationController.GetAllPublicationByAdType (adType.AdTypeId, True)
-
-            If publicationList IsNot Nothing Then
-
-                If publicationList.Count = 0 Then
-                    ' no publications exist for this type of Ad - log this as administration error
-                    Try
-                        Throw New Exception("No Publications have been set up for selected Ad Type or they need to be marked active.")
-                    Catch ex As Exception
-                        ExceptionLogController(Of Exception).AuditException(ex)
-                    End Try
-
-                    ' redirect to error page since the settings have not been made.
-                    Response.Redirect (Constants.CONST_ERROR_DEFAULT_URL + "?type=" + _
-                                       Constants.CONST_ERROR_SETTINGS)
-                End If
-
-            Else
-                ' redirect to error page since the settings have not been made.
-                Response.Redirect (Constants.CONST_ERROR_DEFAULT_URL + "?type=" + _
-                                   Constants.CONST_ERROR_SETTINGS)
-
-            End If
 
             ' Check if the user is coming back to this page.
             If Request.QueryString ("action") = "back" Then
@@ -130,22 +108,12 @@ Partial Public Class Step2
             BookingController.SetMainCategory (mainCategory)
 
             ' set the ratecards used to calculate the cost for the ad
-            If BookingController.SetRatecards (paperList, mainCategory) = False Then
-                ' no ratecard was set - means that application setting or business logic error
-                Try
-                    Throw New Exception("Failed to assign the ratecard to booking procedure. Ensure that every publication category is assigned a ratecard. Paper List: " + _
-                                                   paperList.ToString + ", Category Id: " + mainCategory.ToString)
-                Catch ex As Exception
-                    ExceptionLogController(Of Exception).AuditException(ex)
-                End Try
-                Response.Redirect(Constants.CONST_ERROR_DEFAULT_URL + "?type=" + Constants.CONST_ERROR_SETTINGS)
-            End If
+            BookingController.SetRatecards(paperList, mainCategory)
+            BookingController.SetBookingReference(mainCategory)
 
-            BookingController.SetBookingReference (mainCategory)
-
-            Response.Redirect ("Step3.aspx")
+            Response.Redirect("Step3.aspx")
         Else
-            Me.ucxPageErrors.ShowErrors (errorList)
+            Me.ucxPageErrors.ShowErrors(errorList)
         End If
     End Sub
 

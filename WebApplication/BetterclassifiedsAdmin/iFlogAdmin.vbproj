@@ -83,6 +83,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Release\ThirdParty\AjaxControlToolkit\3.0.30512.1\AjaxControlToolkit.dll</HintPath>
     </Reference>
+    <Reference Include="Elmah">
+      <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -138,6 +141,7 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Readme\Elmah.txt" />
     <Content Include="App_Themes\blue\BetterclassifiedUI.css" />
     <Content Include="App_Themes\blue\CommonUI.css" />
     <Content Include="App_Themes\blue\Images\Edit.png" />
@@ -1119,9 +1123,9 @@
       <Project>{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}</Project>
       <Name>ApplicationBlock.Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ApplicationBlock\Logging\ApplicationBlock.Logging.csproj">
-      <Project>{5C76B020-CE3C-4176-B2AA-5EAE9C3150CC}</Project>
-      <Name>ApplicationBlock.Logging</Name>
+    <ProjectReference Include="..\..\ApplicationBlock\Data\ApplicationBlock.Data.csproj">
+      <Project>{f119ddc3-24dd-411e-b509-b8e41a011741}</Project>
+      <Name>ApplicationBlock.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Services\DataTransferObjects\Common.DataTransferObjects.csproj">
       <Project>{377F2216-9202-4DF9-9C5B-C2A4E627FFE2}</Project>
@@ -1150,10 +1154,6 @@
     <ProjectReference Include="..\..\Modules\DSL.UIController\Modules.DSL.UIController.csproj">
       <Project>{E745F9B8-3967-44D3-9ADB-ABED1B3E3F9D}</Project>
       <Name>Modules.DSL.UIController</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Modules\Logging.UIController\Modules.Logging.UIController.csproj">
-      <Project>{353EA369-566F-426F-9EBE-DA865F055B45}</Project>
-      <Name>Modules.Logging.UIController</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ApplicationBlock\Utility\Paramount.Utility.csproj">
       <Project>{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}</Project>

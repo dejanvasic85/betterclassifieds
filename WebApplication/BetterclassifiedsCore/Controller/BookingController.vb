@@ -4,7 +4,6 @@ Imports BetterclassifiedsCore.Controller
 Imports System.Data.SqlClient
 Imports System.Text
 Imports BetterclassifiedsCore.Booking
-Imports Paramount.ApplicationBlock.Logging.EventLogging
 Imports Paramount.DSL.UIController
 Imports System.Configuration
 Imports System.Collections.Specialized
@@ -447,57 +446,53 @@ Public Class BookingController
     ''' <param name="publicationIds">List of PublicationId's selected in the session</param>
     ''' <param name="mainCategory">Main Category ID chosen that's also in the session</param>
     Public Shared Function SetRatecards(ByVal publicationIds As List(Of Integer), ByVal mainCategory As Integer) As Boolean
-        Try
 
 
-            ' instatiate the object we need to set
-            Dim rateList As New Dictionary(Of Integer, Ratecard)
-            Dim adType As AdType = BookingController.AdBookCart.MainAdType
+        ' instatiate the object we need to set
+        Dim rateList As New Dictionary(Of Integer, Ratecard)
+        Dim adType As AdType = BookingController.AdBookCart.MainAdType
 
-            Dim db = BetterclassifiedsDataContext.NewContext
+        Dim db = BetterclassifiedsDataContext.NewContext
 
-            ' loop through each publication ID chosen and obtain the right ratecard we need to use
-            For Each pubId In publicationIds
-                Dim id As Integer = pubId
-                ' retrieve the publication category we need to use
-                Dim pubCategory As PublicationCategory = CategoryController.GetPublicationCategory(mainCategory, pubId)
+        ' loop through each publication ID chosen and obtain the right ratecard we need to use
+        For Each pubId In publicationIds
+            Dim id As Integer = pubId
+            ' retrieve the publication category we need to use
+            Dim pubCategory As PublicationCategory = CategoryController.GetPublicationCategory(mainCategory, pubId)
 
-                If pubCategory Is Nothing Then
-                    Return False
-                    Exit Function
-                End If
-
-                ' perform query to get the ratecard
-                Dim rateCard = From pubRate In db.PublicationRates _
-                               Join pubAdType In db.PublicationAdTypes On pubRate.PublicationAdTypeId Equals pubAdType.PublicationAdTypeId _
-                               Join rate In db.Ratecards On pubRate.RatecardId Equals rate.RatecardId _
-                               Where pubAdType.PublicationId = id _
-                               And pubAdType.AdTypeId = adType.AdTypeId _
-                               And pubRate.PublicationCategoryId = pubCategory.PublicationCategoryId _
-                               Select rate
-
-                If rateCard.Count > 0 Then
-                    rateList.Add(pubId, rateCard.Single)
-                Else
-                    Return False
-                    Exit Function
-                End If
-
-            Next
-
-            ' store the rate card list in the session object
-            If Not AdBookCart Is Nothing Then
-                AdBookCart.RatecardList = rateList
+            If pubCategory Is Nothing Then
+                Return False
+                Exit Function
             End If
 
-            db = Nothing ' clean up
-            rateList = Nothing
+            ' perform query to get the ratecard
+            Dim rateCard = From pubRate In db.PublicationRates _
+                           Join pubAdType In db.PublicationAdTypes On pubRate.PublicationAdTypeId Equals pubAdType.PublicationAdTypeId _
+                           Join rate In db.Ratecards On pubRate.RatecardId Equals rate.RatecardId _
+                           Where pubAdType.PublicationId = id _
+                           And pubAdType.AdTypeId = adType.AdTypeId _
+                           And pubRate.PublicationCategoryId = pubCategory.PublicationCategoryId _
+                           Select rate
 
-            Return True
-        Catch ex As Exception
-            EventLogManager.Log(ex)
-            Throw ex
-        End Try
+            If rateCard.Count > 0 Then
+                rateList.Add(pubId, rateCard.Single)
+            Else
+                Return False
+                Exit Function
+            End If
+
+        Next
+
+        ' store the rate card list in the session object
+        If Not AdBookCart Is Nothing Then
+            AdBookCart.RatecardList = rateList
+        End If
+
+        db = Nothing ' clean up
+        rateList = Nothing
+
+        Return True
+
     End Function
 
     Public Shared Function GetBookingRefByTempRec(ByVal tempRef As String) As String

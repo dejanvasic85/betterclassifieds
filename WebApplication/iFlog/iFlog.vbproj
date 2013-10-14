@@ -73,6 +73,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Release\ThirdParty\AjaxControlToolkit\3.0.30512.1\AjaxControlToolkit.dll</HintPath>
     </Reference>
+    <Reference Include="Elmah">
+      <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.Unity">
       <HintPath>..\..\..\..\..\Release\ThirdParty\Unity 2.0\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
@@ -143,6 +146,7 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Readme\Elmah.txt" />
     <Content Include="App_Themes\iflog\images\aeroleftblack.gif" />
     <Content Include="App_Themes\iflog\images\aerorightblack.gif" />
     <Content Include="App_Themes\iflog\images\button.gif" />
@@ -987,10 +991,6 @@
     <ProjectReference Include="..\..\Modules\DSL.UIController\Modules.DSL.UIController.csproj">
       <Project>{E745F9B8-3967-44D3-9ADB-ABED1B3E3F9D}</Project>
       <Name>Modules.DSL.UIController</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Modules\Logging.UIController\Modules.Logging.UIController.csproj">
-      <Project>{353EA369-566F-426F-9EBE-DA865F055B45}</Project>
-      <Name>Modules.Logging.UIController</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ApplicationBlock\Utility\Paramount.Utility.csproj">
       <Project>{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}</Project>

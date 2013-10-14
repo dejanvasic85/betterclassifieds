@@ -1,6 +1,6 @@
 ﻿Imports BetterclassifiedsCore
 Imports Paramount.Broadcast.Components
-Imports Paramount.Modules.Logging.UIController
+
 Imports Microsoft.Practices.Unity
 Imports BetterClassified.Repository
 Imports System.Web.Routing
@@ -58,8 +58,7 @@ Public Class Global_asax
 
     Sub Application_Error(ByVal sender As Object, ByVal e As EventArgs)
         Dim ex As Exception = Server.GetLastError().GetBaseException
-        'EventLogManager.Log(ex)
-        ExceptionLogController(Of Exception).AuditException(ex)
+        ' todo - audit
     End Sub
 
     Sub Session_End(ByVal sender As Object, ByVal e As EventArgs)

@@ -6,10 +6,9 @@ using BetterClassified.Models;
 using BetterClassified.Repository;
 using BetterClassified.UIController;
 using BetterClassified.UIController.ViewObjects;
-using Paramount.ApplicationBlock.Logging.EventLogging;
 using Paramount.Broadcast.Components;
 
-namespace Paramount.Products.TaskScheduler
+namespace Paramount.TaskScheduler
 {
     public class ExpiredAdNotification : IScheduler
     {
@@ -33,41 +32,32 @@ namespace Paramount.Products.TaskScheduler
 
             DateTime expiryDate = DateTime.Today.AddDays(int.Parse(parameters[DaysBeforeExpiry]));
 
-            try
+            // Fetch the expiry list
+            List<ExpiredAdView> expiryAdList = AdBookingController.GetExpiredAdList(expiryDate);
+            if (expiryAdList.Count > 0)
             {
+                // Construct and send the email ( per user )
+                var email = new AdExpiryNotification();
 
-                // Fetch the expiry list
-                List<ExpiredAdView> expiryAdList = AdBookingController.GetExpiredAdList(expiryDate);
-                if (expiryAdList.Count > 0)
+                foreach (var ads in expiryAdList.GroupBy(e => e.Username))
                 {
-                    // Construct and send the email ( per user )
-                    var email = new AdExpiryNotification();
-
-                    foreach (var ads in expiryAdList.GroupBy(e => e.Username))
+                    // Construct the email content
+                    StringBuilder sb = new StringBuilder();
+                    foreach (var expiredAd in ads)
                     {
-                        // Construct the email content
-                        StringBuilder sb = new StringBuilder();
-                        foreach (var expiredAd in ads)
-                        {
-                            sb.AppendFormat("iFlog ID: {0} has last print date of {1}<br />", expiredAd.AdId, expiredAd.LastPrintInsertionDate.ToString("dd/MM/yyyy"));
-                        }
-
-                        // Fetch the membership user 
-                        ApplicationUser applicationUser = userRepository.GetClassifiedUser(ads.Key);
-
-                        // Construct the parameters for broadcasting
-                        EmailRecipientView recipient = new EmailRecipientView { Email = applicationUser.Email, Name = applicationUser.Username }.AddTemplateItem("adReference", sb.ToString()).AddTemplateItem("linkForExtension", configSettings.BaseUrl + "/MemberAccount/Bookings.aspx");
-                        email.Recipients.Add(recipient);
+                        sb.AppendFormat("iFlog ID: {0} has last print date of {1}<br />", expiredAd.AdId, expiredAd.LastPrintInsertionDate.ToString("dd/MM/yyyy"));
                     }
 
-                    // Send
-                    email.Send();
+                    // Fetch the membership user 
+                    ApplicationUser applicationUser = userRepository.GetClassifiedUser(ads.Key);
+
+                    // Construct the parameters for broadcasting
+                    EmailRecipientView recipient = new EmailRecipientView { Email = applicationUser.Email, Name = applicationUser.Username }.AddTemplateItem("adReference", sb.ToString()).AddTemplateItem("linkForExtension", configSettings.BaseUrl + "/MemberAccount/Bookings.aspx");
+                    email.Recipients.Add(recipient);
                 }
 
-            }
-            catch (Exception ex)
-            {
-                EventLogManager.Log(ex);
+                // Send
+                email.Send();
             }
         }
 

@@ -15,6 +15,7 @@ Partial Public Class _Default1
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
+
             Dim papers = PublicationController.GetPublications(True)
 
             Dim environment = ConfigSettingReader.GetConfigurationContext()
@@ -128,7 +129,7 @@ Partial Public Class _Default1
                 OnlineSearchParameter.Area = ddlArea.SelectedValue
             End If
             Response.Redirect(PageUrl.OnlineAdSearch)
-        
+
         ElseIf txtAdId.Text.Contains("-") Then
             Dim combinedSearch = txtAdId.Text.Split("-")
             Dim searchLog As New SearchLog
@@ -136,7 +137,7 @@ Partial Public Class _Default1
                 And Integer.TryParse(combinedSearch(1), searchLog.AdId) _
                 And PublicationController.GetPublications(activateOnly:=True).Any(Function(p As Publication) p.PublicationId = searchLog.PublicationId) Then
                 ' Log the search
-                Paramount.Modules.Logging.UIController.AuditLogController(Of SearchLog).AuditWebTransaction(searchLog, "PublicationAdSearch")
+                ' todo - audit Paramount.Modules.Logging.UIController.AuditLogController(Of SearchLog).AuditWebTransaction(searchLog, "PublicationAdSearch")
                 Response.Redirect(PageUrl.AdViewItem(searchLog.AdId))
             End If
         Else

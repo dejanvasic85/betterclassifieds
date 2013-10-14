@@ -14,7 +14,7 @@ namespace Paramount.Services
         public LogBannerAuditResponse LogBannerAudit(LogBannerAuditRequest request)
         {
 
-            request.LogRequestAudit();
+            
             using (var database = new BannerDataProvider(request.ClientCode))
             {
                 database.AddAudit(request.Audit);
@@ -26,7 +26,7 @@ namespace Paramount.Services
         public GetBannerByGroupIdResponse GetBannerByGroupId(GetBannerByGroupIdRequest request)
         {
             var response = new GetBannerByGroupIdResponse();
-            request.LogRequestAudit();
+            
             using (var database = new BannerDataProvider(request.ClientCode))
             {
                 response.BannerCollection = database.Find(banner => banner.StartDateTime >= request.FromDate && banner.EndDateTime <= request.ToDate && banner.ClientCode == request.ClientCode && (request.GroupId== Guid.Empty || request.GroupId == banner.BannerGroupId)).ToList();
@@ -38,7 +38,7 @@ namespace Paramount.Services
         {
             var response = new GetBannersResponse();
 
-            request.LogRequestAudit();
+            
             using (var database = new BannerDataProvider(request.ClientCode))
             {
                 if (request.BannerId.HasValue)
@@ -56,7 +56,7 @@ namespace Paramount.Services
 
         public DeleteBannerResponse DeleteBanner(DeleteBannerRequest request)
         {
-            request.LogRequestAudit();
+            
             using (var database = new BannerDataProvider(request.ClientCode))
             {
                 database.Delete(request.Banner );
@@ -67,7 +67,7 @@ namespace Paramount.Services
 
         public GetAllBannerFileTypeResponse GetAllFileTypes(GetAllFileTypeRequest request)
         {
-            request.LogRequestAudit();
+            
             var response = new GetAllBannerFileTypeResponse();
             using (var database = new BannerGroupDataProvider(request.ClientCode))
             {
@@ -80,7 +80,7 @@ namespace Paramount.Services
 
         public GetNextBannerAdResponse GetNextBannerAd(GetNextBannerAdRequest request)
         {
-            request.LogRequestAudit();
+            
             var response = new GetNextBannerAdResponse();
             using (var database = new BannerDataProvider(request.ClientCode))
             {
@@ -91,7 +91,7 @@ namespace Paramount.Services
 
         public CreateBannerResponse CreateBanner(CreateBannerRequest request)
         {
-            request.LogRequestAudit();
+            
             using (var database = new BannerDataProvider(request.ClientCode))
             {
                 database.Add(request.Banner);
@@ -103,7 +103,7 @@ namespace Paramount.Services
 
         public UpdateBannerResponse UpdateBanner(UpdateBannerRequest request)
         {
-            request.LogRequestAudit();
+            
              using (var database = new BannerDataProvider(request.ClientCode))
             {
                 database.Update(request.Banner);
@@ -116,7 +116,7 @@ namespace Paramount.Services
         public RebookBannerResponse RebookBanner(RebookBannerRequest request)
         {
             //var response = new RebookBannerResponse();
-            request.LogRequestAudit();
+            
             using (var database = new BannerDataProvider(request.ClientCode))
             {
                 database.ReBookBanner(request.RebookDetail);
@@ -127,7 +127,7 @@ namespace Paramount.Services
 
         public UpdateBannerRenderCountResponse UpdateBannerRenderCount(UpdateBannerRenderCountRequest request)
         {
-            request.LogRequestAudit();
+            
             using (var database = new BannerDataProvider(request.ClientCode))
             {
                 database.UpdateBannerRequestCount(request.BannerId);
@@ -139,7 +139,7 @@ namespace Paramount.Services
 
         public UpdateBannerClickCountResponse UpdateBannerClickCount(UpdateBannerClickCountRequest request)
         {
-            request.LogRequestAudit();
+            
             using (var database = new BannerDataProvider(request.ClientCode))
             {
                 database.UpdateBannerClickCount(request.BannerId);
@@ -151,7 +151,7 @@ namespace Paramount.Services
 
         public GetBannerGroupResponse GetBannerGroup(GetBannerGroupRequest request)
         {
-            request.LogRequestAudit();
+            
             var response = new GetBannerGroupResponse();
             using (var database = new BannerGroupDataProvider(request.ClientCode))
             {
@@ -163,7 +163,7 @@ namespace Paramount.Services
 
         public GetBannerGroupResponse GetBannerGroups(GetBannerGroupRequest request)
         {
-            request.LogRequestAudit();
+            
             var response = new GetBannerGroupResponse();
             using (var database = new BannerGroupDataProvider(request.ClientCode))
             {
@@ -175,7 +175,7 @@ namespace Paramount.Services
 
         public CreateBannerGroupResponse CreateBannerGroup(CreateBannerGroupRequest request)
         {
-            request.LogRequestAudit();
+            
             using (var database = new BannerGroupDataProvider(request.ClientCode))
             {
                 database.Add(request.BannerGroup);
@@ -187,7 +187,7 @@ namespace Paramount.Services
 
         public DeleteBannerGroupResponse DeleteBannerGroup(DeleteBannerGroupRequest request)
         {
-            request.LogRequestAudit();
+            
             using (var database = new BannerGroupDataProvider(request.ClientCode))
             {
                 database.Delete(request.BannerGroup);
@@ -198,7 +198,7 @@ namespace Paramount.Services
 
         public UpdateBannerGroupResponse UpdateBannerGroup(UpdateBannerGroupRequest request)
         {
-            request.LogRequestAudit();
+            
             using (var database = new BannerGroupDataProvider(request.ClientCode))
             {
                 database.Update(request.BannerGroup);

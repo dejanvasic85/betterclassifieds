@@ -1,5 +1,4 @@
 ﻿Imports BetterclassifiedsCore
-Imports Paramount.Modules.Logging.UIController
 
 Partial Public Class ViewTransaction
     Inherits System.Web.UI.Page
@@ -30,14 +29,6 @@ Partial Public Class ViewTransaction
                     End Select
                 End If
             End If
-        Else
-            ' Security error - Log IT!
-            Dim secError = String.Format("Action: User attempt at booking that does not belong to them; Customer ID [{0}]; Booking Red {1}", _userId, _bookReference)
-            Try
-                Throw New Exception(secError)
-            Catch ex As Exception
-                ExceptionLogController(Of Exception).AuditException(ex)
-            End Try
         End If
     End Sub
 

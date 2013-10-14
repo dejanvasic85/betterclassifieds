@@ -1,12 +1,9 @@
-﻿using Paramount.ApplicationBlock.Logging.AuditLogging;
-using Paramount.Utility;
+﻿using System;
+using System.Runtime.Serialization;
+using Paramount.ApplicationBlock.Configuration;
 
 namespace Paramount.Common.DataTransferObjects
 {
-    using System;
-    using System.Runtime.Serialization;
-    using Paramount.ApplicationBlock.Configuration;
-
     public static class Extensions
     {
         public static BaseRequest LoadContext(this BaseRequest request)
@@ -57,23 +54,5 @@ namespace Paramount.Common.DataTransferObjects
 
         public abstract string TransactionName { get; }
 
-        public virtual void LogRequestAudit()
-        {
-            var auditLog = new AuditLog
-            {
-                AccountId = ClientCode,
-                SecondaryData = AuditData.GroupingId,
-                Data = XmlUtilities.SerializeObject(this),
-                TransactionName = RequestTransactionName,
-                IPAddress = AuditData.ClientIpAddress,
-                SessionId = AuditData.SessionId,
-                User = AuditData.Username,
-                Application = ApplicationName,
-                DateTimeCreated = DateTime.Now,
-                Domain = Domain,
-                HostName = AuditData.HostName
-            };
-            AuditLogManager.Log(auditLog);
-        }
     }
 }

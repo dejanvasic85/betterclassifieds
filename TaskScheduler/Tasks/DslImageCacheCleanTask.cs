@@ -1,11 +1,8 @@
-namespace Paramount.Products.TaskScheduler
+namespace Paramount.TaskScheduler
 {
     using System;
     using System.IO;
-    using System.Linq;
-    using ApplicationBlock.Logging.EventLogging;
-    using Paramount.ApplicationBlock.Configuration;
-    
+
     public class DslImageCacheCleanTask : IScheduler
     {
         private const int DslFileDurationHours = 6;
@@ -22,27 +19,20 @@ namespace Paramount.Products.TaskScheduler
 
         static void CleanUpDslImageCache(string path)
         {
-            try
-            {
-                // Only perform clean of cache for files older than 24 hours
-                var directoryInfo = new DirectoryInfo(path);
-                var files = directoryInfo.GetFiles();
+            // Only perform clean of cache for files older than 24 hours
+            var directoryInfo = new DirectoryInfo(path);
+            var files = directoryInfo.GetFiles();
 
-                foreach (var file in files)
+            foreach (var file in files)
+            {
+                TimeSpan ts = DateTime.Now.Subtract(file.LastAccessTime);
+                Console.WriteLine(ts.Hours.ToString());
+
+                if (ts.TotalHours > DslFileDurationHours)
                 {
-                    TimeSpan ts = DateTime.Now.Subtract(file.LastAccessTime);
-                    Console.WriteLine(ts.Hours.ToString());
-
-                    if (ts.TotalHours > DslFileDurationHours)
-                    {
-                        Console.WriteLine("Deleting File " + file.FullName);
-                        file.Delete();
-                    }
+                    Console.WriteLine("Deleting File " + file.FullName);
+                    file.Delete();
                 }
-            }
-            catch (Exception ex)
-            {
-                EventLogManager.Log(ex);
             }
         }
     }

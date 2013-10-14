@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Web;
-using System.Web.Security;
-using System.Web.SessionState;
 using System.Security.Principal;
 using System.Text;
-using Paramount.ApplicationBlock.Configuration;
-using Paramount.ApplicationBlock.Logging.DataAccess;
 
 namespace Paramount.Services.Host
 {
-    public class Global : System.Web.HttpApplication, IServiceInformation
+    public class Global : HttpApplication, IServiceInformation
     {
 
         protected void Application_Start(object sender, EventArgs e)

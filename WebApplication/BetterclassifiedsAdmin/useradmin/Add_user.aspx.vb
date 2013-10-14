@@ -1,4 +1,4 @@
-﻿Imports Paramount.Modules.Logging.UIController
+﻿
 Imports Paramount.Common.DataTransferObjects.Betterclassifieds
 Imports Paramount.Common.DataTransferObjects.LoggingService
 Imports BetterclassifiedAdmin.CRM

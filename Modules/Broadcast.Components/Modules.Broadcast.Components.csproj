@@ -68,10 +68,6 @@
       <Project>{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}</Project>
       <Name>ApplicationBlock.Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ApplicationBlock\Logging\ApplicationBlock.Logging.csproj">
-      <Project>{5C76B020-CE3C-4176-B2AA-5EAE9C3150CC}</Project>
-      <Name>ApplicationBlock.Logging</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\ApplicationBlock\Utility\Paramount.Utility.csproj">
       <Project>{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}</Project>
       <Name>Paramount.Utility</Name>

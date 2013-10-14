@@ -6,7 +6,6 @@
     using System.Linq;
     using System.Net.Mail;
     using Common.ServiceContracts;
-    using ApplicationBlock.Logging.EventLogging;
     using Common.DataTransferObjects.Broadcast;
     using Common.DataTransferObjects.Broadcast.Messages;
     using DataService;
@@ -95,7 +94,7 @@
                 catch (Exception exception)
                 {
                     BroadcastDataService.EmailBroadcastEntryProcess(item.EmailBroadcastEntryId, 1, null);
-                    EventLogManager.Log(exception);
+                    
                 }
             }
         }
@@ -175,8 +174,6 @@
 
         public GetBroadcastActivityResponse GetBroadcastActivity(GetBroadcastActivityRequest request)
         {
-            request.LogRequestAudit();
-
             var activityRow = BroadcastDataService.GetBroadcastActivities(request.ReportDate).First();
 
             return new GetBroadcastActivityResponse

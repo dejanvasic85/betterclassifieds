@@ -1,6 +1,6 @@
 ﻿Imports BetterclassifiedsCore
 Imports BetterclassifiedsCore.ParameterAccess
-Imports Paramount.Modules.Logging.UIController
+
 
 Namespace Controls
     Partial Public Class OnlineAdViewWithDiv
@@ -14,23 +14,16 @@ Namespace Controls
                 mainHeaderItemPageIDHits.Visible = False
                 divSitemap.Visible = False
             End If
-            Try
-                Select Case type.ToLower.Trim
-                    Case "db"
-                        divContent.InnerHtml = AdController.GetOnlineAdHtml(id)
-                    Case "session"
-                        If BookingController.BookingType = BetterclassifiedsCore.Booking.BookingAction.BundledBooking Then
-                            divContent.InnerHtml = BetterclassifiedsCore.BundleBooking.BundleController.BundleCart.OnlineAd.HtmlText
-                        Else
-                            divContent.InnerHtml = BookingController.AdBookCart.Ad.AdDesigns(0).OnlineAds(0).HtmlText
-                        End If
-                End Select
-            Catch ex As Exception
-                ' show an error 
-                divContent.InnerHtml = "<b>Unable to display ad details at this time.</b>"
-                ' write a log entry into the database
-                ExceptionLogController(Of Exception).AuditException(ex)
-            End Try
+            Select Case type.ToLower.Trim
+                Case "db"
+                    divContent.InnerHtml = AdController.GetOnlineAdHtml(id)
+                Case "session"
+                    If BookingController.BookingType = BetterclassifiedsCore.Booking.BookingAction.BundledBooking Then
+                        divContent.InnerHtml = BetterclassifiedsCore.BundleBooking.BundleController.BundleCart.OnlineAd.HtmlText
+                    Else
+                        divContent.InnerHtml = BookingController.AdBookCart.Ad.AdDesigns(0).OnlineAds(0).HtmlText
+                    End If
+            End Select
         End Sub
 
         Private _preview As Boolean

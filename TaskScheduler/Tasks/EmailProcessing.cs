@@ -1,21 +1,13 @@
 using System;
-using Paramount.ApplicationBlock.Logging.EventLogging;
 using Paramount.Broadcast.Components;
 
-namespace Paramount.Products.TaskScheduler
+namespace Paramount.TaskScheduler
 {
     public class EmailProcessing : IScheduler
     {
         public void Run(SchedulerParameters parameters)
         {
-            try
-            {
-                EmailBroadcastController.ProcessEmailBroadcast(null);
-            }
-            catch (Exception ex)
-            {
-                EventLogManager.Log(ex);
-            }
+            EmailBroadcastController.ProcessEmailBroadcast(null);
         }
 
         public string Name

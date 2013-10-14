@@ -1,6 +1,6 @@
 ﻿Imports BetterclassifiedsCore
 Imports BetterclassifiedsCore.BundleBooking
-Imports Paramount.Modules.Logging.UIController
+
 Imports BetterClassified.UI.WebPage
 
 Partial Public Class BundlePage4
@@ -149,18 +149,6 @@ Partial Public Class BundlePage4
 
         ' make a call to Publication Controller to do the work for us here
         Dim dates = PublicationController.PublicationEditions(publicationIdList, maxEditions)
-
-        ' ensure that there's more than one date in the list
-        If dates.Count = 0 Then
-            ' if not, then there's an application setting issue (alert the administrator)
-            Try
-                Throw New Exception("Publication editions have not been set up for selected publications: " + BookingController.AdBookCart.PublicationList.ToString)
-            Catch ex As Exception
-                ExceptionLogController(Of Exception).AuditException(ex)
-            End Try
-            ' redirect the user to an appropriate error page
-            Response.Redirect(Utilities.Constants.CONST_ERROR_DEFAULT_URL + "?type=" + Utilities.Constants.CONST_ERROR_SETTINGS)
-        End If
 
         ' simply return the dates
         Return dates

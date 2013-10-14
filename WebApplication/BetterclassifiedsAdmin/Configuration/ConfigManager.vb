@@ -1,5 +1,5 @@
 Imports Paramount.Betterclassified.Utilities.Configuration
-Imports Paramount.ApplicationBlock.Logging.DataAccess
+Imports Paramount.ApplicationBlock.Data
 
 Namespace Configuration
     Public Class ConfigManager

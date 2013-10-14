@@ -216,10 +216,6 @@
       <Project>{f119ddc3-24dd-411e-b509-b8e41a011741}</Project>
       <Name>ApplicationBlock.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ApplicationBlock\Logging\ApplicationBlock.Logging.csproj">
-      <Project>{5C76B020-CE3C-4176-B2AA-5EAE9C3150CC}</Project>
-      <Name>ApplicationBlock.Logging</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Services\DataTransferObjects\Common.DataTransferObjects.csproj">
       <Project>{377f2216-9202-4df9-9c5b-c2a4e627ffe2}</Project>
       <Name>Common.DataTransferObjects</Name>
@@ -235,10 +231,6 @@
     <ProjectReference Include="..\..\Modules\DSL.UIController\Modules.DSL.UIController.csproj">
       <Project>{E745F9B8-3967-44D3-9ADB-ABED1B3E3F9D}</Project>
       <Name>Modules.DSL.UIController</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Modules\Logging.UIController\Modules.Logging.UIController.csproj">
-      <Project>{353EA369-566F-426F-9EBE-DA865F055B45}</Project>
-      <Name>Modules.Logging.UIController</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ApplicationBlock\Utility\Paramount.Utility.csproj">
       <Project>{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}</Project>

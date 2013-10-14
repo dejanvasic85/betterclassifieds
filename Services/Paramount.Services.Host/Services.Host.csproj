@@ -53,6 +53,9 @@
     <OutputPath>$(TeamBuildOutDir)\$(MSBuildProjectName)</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Elmah">
+      <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -72,6 +75,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Nodes\BetterclassifiedsWebService.svc" />
     <Content Include="Nodes\BillingService.svc" />
     <Content Include="Nodes\MembershipWebService.svc" />
@@ -80,7 +84,6 @@
     <Content Include="Nodes\BroadcastWebService.svc" />
     <Content Include="Nodes\AuthenticationService.svc" />
     <Content Include="Nodes\BannerService.svc" />
-    <Content Include="Nodes\LogService.svc" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -115,10 +118,6 @@
       <Project>{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}</Project>
       <Name>ApplicationBlock.Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ApplicationBlock\Logging\ApplicationBlock.Logging.csproj">
-      <Project>{5C76B020-CE3C-4176-B2AA-5EAE9C3150CC}</Project>
-      <Name>ApplicationBlock.Logging</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\ApplicationBlock\Membership\ApplicationBlock.Membership.csproj">
       <Project>{B4B22683-30E1-4F01-90AE-4DDF12691150}</Project>
       <Name>ApplicationBlock.Membership</Name>
@@ -151,6 +150,7 @@
     <Content Include="Handler1.ashx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="packages.config" />
     <None Include="Services.Host.nuspec" />
   </ItemGroup>
   <PropertyGroup>

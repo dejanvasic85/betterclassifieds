@@ -1,9 +1,7 @@
 ﻿Imports BetterclassifiedsCore.DataModel
 Imports BetterclassifiedsCore.BusinessEntities
 Imports BetterclassifiedsCore.Controller
-Imports Paramount.ApplicationBlock.Logging.AuditLogging
 Imports Paramount.ApplicationBlock.Configuration
-Imports Paramount.ApplicationBlock.Logging.EventLogging
 
 Public Class GeneralController
 
@@ -13,15 +11,11 @@ Public Class GeneralController
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public Shared Function CurrentOnlineAdStartDate() As DateTime
-        Try
-            ' get the ad duration app setting for online ads
-            Dim adDuration As Integer = GeneralRoutine.GetAppSetting(Utilities.Constants.CONST_MODULE_ONLINE_ADS, _
-                                                                     Utilities.Constants.CONST_KEY_Online_AdDurationDays)
-            ' calculate the start date we need to get the currently running online ads
-            Return DateTime.Today.AddDays(-adDuration)
-        Catch ex As Exception
-            Throw ex ' todo log exception
-        End Try
+        ' get the ad duration app setting for online ads
+        Dim adDuration As Integer = GeneralRoutine.GetAppSetting(Utilities.Constants.CONST_MODULE_ONLINE_ADS, _
+                                                                 Utilities.Constants.CONST_KEY_Online_AdDurationDays)
+        ' calculate the start date we need to get the currently running online ads
+        Return DateTime.Today.AddDays(-adDuration)
     End Function
 
 #Region "Rates"
@@ -31,13 +25,9 @@ Public Class GeneralController
     ''' </summary>
     ''' <param name="id">Id for the ratecard to retrieve.</param>
     Public Shared Function GetRateDetailsById(ByVal id As Integer) As Ratecard
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Return db.Ratecards.Where(Function(i) i.RatecardId = id).Single
-            End Using
-        Catch ex As Exception
-            Throw ex ' todo log error
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Return db.Ratecards.Where(Function(i) i.RatecardId = id).Single
+        End Using
     End Function
 
     ''' <summary>
@@ -45,16 +35,12 @@ Public Class GeneralController
     ''' </summary>
     ''' <param name="rateId">Id for the Ratecard to be queried</param>
     Public Shared Function GetBaseRateDetailsByRatecard(ByVal rateId As Integer) As BaseRate
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Dim query = (From r In db.Ratecards Where r.RatecardId = rateId _
-                            Join br In db.BaseRates On br.BaseRateId Equals r.BaseRateId _
-                            Select br).Single
-                Return query
-            End Using
-        Catch ex As Exception
-            Throw ex 'todo log error
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim query = (From r In db.Ratecards Where r.RatecardId = rateId _
+                        Join br In db.BaseRates On br.BaseRateId Equals r.BaseRateId _
+                        Select br).Single
+            Return query
+        End Using
     End Function
 
     Public Shared Function GetRatecardsByPublicationCategory(ByVal publicationId As Integer, ByVal publicationCategoryId As Integer, ByVal adTypeId As Integer) As Ratecard
@@ -72,77 +58,53 @@ Public Class GeneralController
     End Function
 
     Public Shared Function GetBaseRateDetailsBySpecial(ByVal specialId As Integer) As DataModel.BaseRate
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Dim query = (From sr In db.SpecialRates _
-                             Join br In db.BaseRates On br.BaseRateId Equals sr.BaseRateId _
-                             Where sr.SpecialRateId = specialId _
-                             Select br).Single
-                Return query
-            End Using
-        Catch ex As Exception
-            Throw ex 'todo log exception
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim query = (From sr In db.SpecialRates _
+                         Join br In db.BaseRates On br.BaseRateId Equals sr.BaseRateId _
+                         Where sr.SpecialRateId = specialId _
+                         Select br).Single
+            Return query
+        End Using
     End Function
 
     Public Shared Function GetPublicationRateByCategory(ByVal pubCategoryId As Integer) As DataModel.PublicationRate
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Return db.PublicationRates.Where(Function(i) i.PublicationCategoryId = pubCategoryId).FirstOrDefault
-            End Using
-        Catch ex As Exception
-            Throw ex ' todo log exception
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Return db.PublicationRates.Where(Function(i) i.PublicationCategoryId = pubCategoryId).FirstOrDefault
+        End Using
     End Function
 
     Public Shared Function GetPublicationSpecialRateByCategory(ByVal pubCategoryId As Integer) As DataModel.PublicationSpecialRate
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Return db.PublicationSpecialRates.Where(Function(i) i.PublicationCategoryId = pubCategoryId).FirstOrDefault
-            End Using
-        Catch ex As Exception
-            Throw ex 'todo log exception
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Return db.PublicationSpecialRates.Where(Function(i) i.PublicationCategoryId = pubCategoryId).FirstOrDefault
+        End Using
     End Function
 
     Public Shared Function GetCurrentSpecials(ByVal categoryId As Integer) As List(Of spSpecialRatesByCategoryResult)
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Return db.spSpecialRatesByCategory(categoryId).ToList
-            End Using
-        Catch ex As Exception
-            Throw ex ' todo log exception
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Return db.spSpecialRatesByCategory(categoryId).ToList
+        End Using
     End Function
 
     Public Shared Function RatecardsByCategoryId(ByVal categoryId As Integer) As List(Of spRatecardsByCategoryResult)
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Return db.spRatecardsByCategory(categoryId).ToList
-            End Using
-        Catch ex As Exception
-            Throw ex
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Return db.spRatecardsByCategory(categoryId).ToList
+        End Using
     End Function
 
     ''' <summary>
     ''' Returns a List of all New objects containing Ratecard Id, Title and Description from Base Rate ordered by ratecard id.
     ''' </summary>
     Public Shared Function GetRatecards() As IList
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Dim query = From ra In db.Ratecards _
-                            Join br In db.BaseRates On ra.BaseRateId Equals br.BaseRateId _
-                            Order By br.Title _
-                            Select New With {.RatecardId = ra.RatecardId, _
-                                             .Title = br.Title, _
-                                             .Description = br.Description.Substring(0, 35) + "...", _
-                                             .MinimumCharge = ra.MinCharge}
-                Return query.ToList
-            End Using
-        Catch ex As Exception
-            Throw ex ' todo log exception
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim query = From ra In db.Ratecards _
+                        Join br In db.BaseRates On ra.BaseRateId Equals br.BaseRateId _
+                        Order By br.Title _
+                        Select New With {.RatecardId = ra.RatecardId, _
+                                         .Title = br.Title, _
+                                         .Description = br.Description.Substring(0, 35) + "...", _
+                                         .MinimumCharge = ra.MinCharge}
+            Return query.ToList
+        End Using
     End Function
 
     Public Shared Function GetRatecard(ByVal publicationId As Integer, ByVal subCategoryId As Integer, ByVal adTypeId As Integer)
@@ -159,25 +121,21 @@ Public Class GeneralController
     ''' <remarks></remarks>
     Public Shared Function UpdateRatecardDetails(ByVal ratecardId As Integer, ByVal minCharge As Decimal, ByVal maxCharge As Decimal, ByVal ratePerUnit As Decimal, ByVal measureUnitLimit As Integer, _
                                                  ByVal photoCharge As Decimal, ByVal boldHeading As Decimal, ByVal onlineEditionBundle As Nullable(Of Decimal)) As Boolean
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Dim rate = (From r In db.Ratecards Where r.RatecardId = ratecardId Select r).Single
-                With rate
-                    .MinCharge = minCharge
-                    .MaxCharge = maxCharge
-                    .PhotoCharge = photoCharge
-                    .RatePerMeasureUnit = ratePerUnit
-                    .MeasureUnitLimit = measureUnitLimit
-                    .PhotoCharge = photoCharge
-                    .BoldHeading = boldHeading
-                    .OnlineEditionBundle = onlineEditionBundle
-                End With
-                db.SubmitChanges()
-                Return True
-            End Using
-        Catch ex As Exception
-            Throw ex ' todo log error
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim rate = (From r In db.Ratecards Where r.RatecardId = ratecardId Select r).Single
+            With rate
+                .MinCharge = minCharge
+                .MaxCharge = maxCharge
+                .PhotoCharge = photoCharge
+                .RatePerMeasureUnit = ratePerUnit
+                .MeasureUnitLimit = measureUnitLimit
+                .PhotoCharge = photoCharge
+                .BoldHeading = boldHeading
+                .OnlineEditionBundle = onlineEditionBundle
+            End With
+            db.SubmitChanges()
+            Return True
+        End Using
     End Function
 
     ''' <summary>
@@ -185,18 +143,14 @@ Public Class GeneralController
     ''' </summary>
     ''' <returns>True if the transaction was successful.</returns>
     Public Shared Function UpdateBaseRateDetails(ByVal baseRateId As Integer, ByVal title As String, ByVal descriptions As String) As Boolean
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Dim br = (From r In db.BaseRates Where r.BaseRateId = baseRateId Select r).Single
-                With br
-                    .Title = title
-                    .Description = descriptions
-                End With
-                db.SubmitChanges()
-            End Using
-        Catch ex As Exception
-            Throw ex ' todo log error
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim br = (From r In db.BaseRates Where r.BaseRateId = baseRateId Select r).Single
+            With br
+                .Title = title
+                .Description = descriptions
+            End With
+            db.SubmitChanges()
+        End Using
     End Function
 
     ''' <summary>
@@ -205,16 +159,12 @@ Public Class GeneralController
     ''' <returns>Returns the New ID of the record added.</returns>
     ''' <remarks></remarks>
     Public Shared Function CreateBaseRaseRate(ByVal title As String, ByVal description As String) As Integer
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Dim newItem As New BaseRate With {.Title = title, .Description = description}
-                db.BaseRates.InsertOnSubmit(newItem)
-                db.SubmitChanges()
-                Return newItem.BaseRateId ' return the new value after it's been inserted
-            End Using
-        Catch ex As Exception
-            Throw ex ' todo - log error
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim newItem As New BaseRate With {.Title = title, .Description = description}
+            db.BaseRates.InsertOnSubmit(newItem)
+            db.SubmitChanges()
+            Return newItem.BaseRateId ' return the new value after it's been inserted
+        End Using
     End Function
 
     ''' <summary>
@@ -226,18 +176,14 @@ Public Class GeneralController
                                           ByVal ratePerUnit As Nullable(Of Decimal), ByVal unitLimit As Nullable(Of Integer), _
                                           ByVal photoCharge As Nullable(Of Decimal), ByVal boldHeading As Nullable(Of Decimal), _
                                           ByVal onlineEditionBundle As Nullable(Of Decimal)) As Integer
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Dim newRate As New Ratecard With {.BaseRateId = baseRateId, .MinCharge = minCharge, .MaxCharge = maxCharge, _
-                                                  .RatePerMeasureUnit = ratePerUnit, .MeasureUnitLimit = unitLimit, _
-                                                  .PhotoCharge = photoCharge, .BoldHeading = boldHeading, .OnlineEditionBundle = onlineEditionBundle}
-                db.Ratecards.InsertOnSubmit(newRate)
-                db.SubmitChanges()
-                Return newRate.RatecardId ' return the new value
-            End Using
-        Catch ex As Exception
-            Throw ex ' todo - log error
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim newRate As New Ratecard With {.BaseRateId = baseRateId, .MinCharge = minCharge, .MaxCharge = maxCharge, _
+                                              .RatePerMeasureUnit = ratePerUnit, .MeasureUnitLimit = unitLimit, _
+                                              .PhotoCharge = photoCharge, .BoldHeading = boldHeading, .OnlineEditionBundle = onlineEditionBundle}
+            db.Ratecards.InsertOnSubmit(newRate)
+            db.SubmitChanges()
+            Return newRate.RatecardId ' return the new value
+        End Using
     End Function
 
     ''' <summary>
@@ -246,15 +192,11 @@ Public Class GeneralController
     ''' <returns>True if the deletion is successful.</returns>
     ''' <remarks></remarks>
     Public Shared Function DeleteBaseRate(ByVal baseRateId As Integer) As Boolean
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                db.BaseRates.DeleteOnSubmit(db.BaseRates.Where(Function(i) i.BaseRateId = baseRateId).Single)
-                db.SubmitChanges()
-                Return True
-            End Using
-        Catch ex As Exception
-            Throw ex ' todo log exception
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            db.BaseRates.DeleteOnSubmit(db.BaseRates.Where(Function(i) i.BaseRateId = baseRateId).Single)
+            db.SubmitChanges()
+            Return True
+        End Using
     End Function
 
     ''' <summary>
@@ -264,17 +206,13 @@ Public Class GeneralController
     ''' <returns>true if the deletion is successful.</returns>
     ''' <remarks></remarks>
     Public Shared Function DeleteBaseRateByRateId(ByVal ratecardId As Integer) As Boolean
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Dim rate = (From r In db.Ratecards Where r.RatecardId = ratecardId).Single
-                db.Ratecards.DeleteOnSubmit(rate)
-                db.BaseRates.DeleteOnSubmit(rate.BaseRate)
-                db.SubmitChanges()
-                Return True
-            End Using
-        Catch ex As Exception
-            Throw ex ' todo - log error
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim rate = (From r In db.Ratecards Where r.RatecardId = ratecardId).Single
+            db.Ratecards.DeleteOnSubmit(rate)
+            db.BaseRates.DeleteOnSubmit(rate.BaseRate)
+            db.SubmitChanges()
+            Return True
+        End Using
     End Function
 
 #End Region
@@ -282,31 +220,23 @@ Public Class GeneralController
 #Region "Special Rates"
 
     Public Shared Function GetSpecialRates() As IList
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Dim query = From sr In db.SpecialRates _
-                           Join br In db.BaseRates On sr.BaseRateId Equals br.BaseRateId _
-                           Order By br.Title _
-                           Select New With {.SpecialRateId = sr.SpecialRateId, _
-                                            .BaseRateId = br.BaseRateId, _
-                                            .Title = br.Title, _
-                                            .Description = br.Description.Substring(0, 35) + "...", _
-                                            .SetPrice = sr.SetPrice}
-                Return query.ToList
-            End Using
-        Catch ex As Exception
-            Throw ex ' todo - log error
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim query = From sr In db.SpecialRates _
+                       Join br In db.BaseRates On sr.BaseRateId Equals br.BaseRateId _
+                       Order By br.Title _
+                       Select New With {.SpecialRateId = sr.SpecialRateId, _
+                                        .BaseRateId = br.BaseRateId, _
+                                        .Title = br.Title, _
+                                        .Description = br.Description.Substring(0, 35) + "...", _
+                                        .SetPrice = sr.SetPrice}
+            Return query.ToList
+        End Using
     End Function
 
     Public Shared Function GetSpecialRateById(ByVal specialId As Integer) As DataModel.SpecialRate
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Return db.SpecialRates.Where(Function(i) i.SpecialRateId = specialId).Single
-            End Using
-        Catch ex As Exception
-            Throw ex 'todo log exception
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Return db.SpecialRates.Where(Function(i) i.SpecialRateId = specialId).Single
+        End Using
     End Function
 
     ''' <summary>
@@ -316,17 +246,13 @@ Public Class GeneralController
     ''' <remarks></remarks>
     Public Shared Function CreateSpecialRate(ByVal baseRateId As Integer, ByVal numOfInsertions As Nullable(Of Integer), ByVal maximumWords As Nullable(Of Integer), _
                                              ByVal setPrice As Nullable(Of Decimal), ByVal discount As Nullable(Of Decimal), ByVal boldHeading As Boolean, ByVal image As Boolean) As Integer
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Dim newRate As New SpecialRate With {.BaseRateId = baseRateId, .NumOfInsertions = numOfInsertions, .MaximumWords = maximumWords, _
-                                                     .SetPrice = setPrice, .Discount = discount, .LineAdBoldHeader = boldHeading, .LineAdImage = image}
-                db.SpecialRates.InsertOnSubmit(newRate)
-                db.SubmitChanges()
-                Return newRate.SpecialRateId ' return the new value
-            End Using
-        Catch ex As Exception
-            Throw ex ' todo - log error
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim newRate As New SpecialRate With {.BaseRateId = baseRateId, .NumOfInsertions = numOfInsertions, .MaximumWords = maximumWords, _
+                                                 .SetPrice = setPrice, .Discount = discount, .LineAdBoldHeader = boldHeading, .LineAdImage = image}
+            db.SpecialRates.InsertOnSubmit(newRate)
+            db.SubmitChanges()
+            Return newRate.SpecialRateId ' return the new value
+        End Using
     End Function
 
     ''' <summary>
@@ -336,40 +262,26 @@ Public Class GeneralController
     ''' <remarks></remarks>
     Public Shared Function UpdateSpecialRateDetails(ByVal specialRateId As Integer, ByVal numOfInsertions As Nullable(Of Integer), ByVal maximumWords As Nullable(Of Integer), _
                                              ByVal setPrice As Nullable(Of Decimal), ByVal discount As Nullable(Of Decimal), ByVal boldHeading As Boolean, ByVal image As Boolean) As Boolean
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Dim special = (From r In db.SpecialRates Where r.SpecialRateId = specialRateId Select r).Single
-                With special
-                    .NumOfInsertions = numOfInsertions
-                    .MaximumWords = maximumWords
-                    .SetPrice = setPrice
-                    .Discount = discount
-                    .LineAdBoldHeader = boldHeading
-                    .LineAdImage = image
-                End With
-                db.SubmitChanges()
-                Return True
-            End Using
-        Catch ex As Exception
-            Throw ex ' todo log error
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim special = (From r In db.SpecialRates Where r.SpecialRateId = specialRateId Select r).Single
+            With special
+                .NumOfInsertions = numOfInsertions
+                .MaximumWords = maximumWords
+                .SetPrice = setPrice
+                .Discount = discount
+                .LineAdBoldHeader = boldHeading
+                .LineAdImage = image
+            End With
+            db.SubmitChanges()
+            Return True
+        End Using
     End Function
 
     Public Shared Sub DeleteSpecialRateById(ByVal specialRateId As Integer, ByVal groupLogId As Guid)
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Dim isCascadeDelete = True
-                db.spSpecialRateDelete(specialRateId, isCascadeDelete)
-            End Using
-            Dim audit As New AuditLog With {.AccountId = ConfigSettingReader.ClientCode, _
-                                            .Data = specialRateId, _
-                                            .SecondaryData = groupLogId.ToString, _
-                                            .TransactionName = "Delete"}
-            AuditLogManager.Log(audit)
-        Catch ex As Exception
-            EventLogManager.Log(ex)
-            Throw ex ' todo - log exception
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim isCascadeDelete = True
+            db.spSpecialRateDelete(specialRateId, isCascadeDelete)
+        End Using
     End Sub
 
 #End Region
@@ -393,55 +305,35 @@ Public Class GeneralController
     End Sub
 
     Public Shared Function GetLocations() As List(Of DataModel.Location)
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Return db.Locations.OrderBy(Function(i) i.Title).ToList
-            End Using
-        Catch ex As Exception
-            Throw ex
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Return db.Locations.OrderBy(Function(i) i.Title).ToList
+        End Using
     End Function
 
     Public Shared Function GetLocationById(ByVal id As Integer) As DataModel.Location
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Return db.Locations.Where(Function(i) i.LocationId = id).Single
-            End Using
-        Catch ex As Exception
-            Throw ex
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Return db.Locations.Where(Function(i) i.LocationId = id).Single
+        End Using
     End Function
 
     Public Shared Function GetLocationAreaById(ByVal id As Integer) As DataModel.LocationArea
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Return db.LocationAreas.Where(Function(i) i.LocationAreaId = id).Single
-            End Using
-        Catch ex As Exception
-            Throw ex
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Return db.LocationAreas.Where(Function(i) i.LocationAreaId = id).Single
+        End Using
     End Function
 
     Public Shared Function GetLocationAreas() As List(Of DataModel.LocationArea)
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Return db.LocationAreas.OrderBy(Function(i) i.Title).ToList
-            End Using
-        Catch ex As Exception
-            Throw ex
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Return db.LocationAreas.OrderBy(Function(i) i.Title).ToList
+        End Using
     End Function
 
     Public Shared Function GetLocationAreas(ByVal locationId As Integer) As List(Of LocationArea)
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Dim query = (From loc In db.LocationAreas Where loc.LocationId = locationId _
-                            Or loc.Title.Contains("Any Area") Select loc Order By loc.Title).ToList
-                Return query
-            End Using
-        Catch ex As Exception
-            Throw ex
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim query = (From loc In db.LocationAreas Where loc.LocationId = locationId _
+                        Or loc.Title.Contains("Any Area") Select loc Order By loc.Title).ToList
+            Return query
+        End Using
     End Function
 
     Public Shared Function GetAnyLocationId() As Integer
@@ -528,13 +420,9 @@ Public Class GeneralController
 #Region "Home Page Listings"
 
     Public Shared Function GetRecentlyAddedAds(ByVal bookStatus As BookingStatus) As List(Of spOnlineAdSelectRecentlyAddedResult)
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Return db.spOnlineAdSelectRecentlyAdded(bookStatus).ToList
-            End Using
-        Catch ex As Exception
-            Throw ex ' todo log exception
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Return db.spOnlineAdSelectRecentlyAdded(bookStatus).ToList
+        End Using
     End Function
 
 #End Region
@@ -542,25 +430,17 @@ Public Class GeneralController
 #Region "Online Ad Search"
 
     Public Shared Function SearchOnlineAdsByCategory(ByVal categoryId As Integer, ByVal bookingStatus As BookingStatus) As List(Of DataModel.spOnlineAdSelectByCategoryResult)
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Return db.spOnlineAdSelectByCategory(categoryId, bookingStatus).ToList
-            End Using
-        Catch ex As Exception
-            Throw ex
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Return db.spOnlineAdSelectByCategory(categoryId, bookingStatus).ToList
+        End Using
     End Function
 
     Public Shared Function SearchOnlineAds(ByVal category As Nullable(Of Integer), ByVal subCategoryId As Nullable(Of Integer), _
                                            ByVal locationId As Nullable(Of Integer), ByVal areaId As Nullable(Of Integer), _
                                            ByVal keyword As String, ByVal bookStatus As BookingStatus) As List(Of spOnlineAdSelectResult)
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Return db.spOnlineAdSelect(category, subCategoryId, locationId, areaId, keyword, bookStatus).ToList
-            End Using
-        Catch ex As Exception
-            Throw ex
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Return db.spOnlineAdSelect(category, subCategoryId, locationId, areaId, keyword, bookStatus).ToList
+        End Using
     End Function
 
 #End Region
@@ -571,15 +451,10 @@ Public Class GeneralController
     ''' Returns an IList containing all the distinct Module Names in the Application Settings
     ''' </summary>
     Public Shared Function GetAppSettingModules() As IList
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Dim query = (From a In db.AppSettings Select a.Module Distinct).ToList
-                Return query
-            End Using
-        Catch ex As Exception
-            ' todo logging
-            Throw ex
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim query = (From a In db.AppSettings Select a.Module Distinct).ToList
+            Return query
+        End Using
     End Function
 
     ''' <summary>
@@ -587,15 +462,10 @@ Public Class GeneralController
     ''' </summary>
     ''' <param name="moduleName">Module Name in Application Settings.</param>
     Public Shared Function GetAppSettingNames(ByVal moduleName As String) As IList
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Dim query = (From a In db.AppSettings Where a.Module = moduleName Select a.AppKey Distinct).ToList
-                Return query
-            End Using
-        Catch ex As Exception
-            ' todo loggin
-            Throw ex
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim query = (From a In db.AppSettings Where a.Module = moduleName Select a.AppKey Distinct).ToList
+            Return query
+        End Using
     End Function
 
     ''' <summary>
@@ -604,32 +474,23 @@ Public Class GeneralController
     ''' <param name="moduleName"></param>
     ''' <param name="key"></param>
     Public Shared Function GetApplicationSetting(ByVal moduleName As String, ByVal key As String) As IList
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Return db.AppSettings.Where(Function(i) i.Module = moduleName And i.AppKey = key).ToList
-            End Using
-        Catch ex As Exception
-            'todo logging
-            Throw ex
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Return db.AppSettings.Where(Function(i) i.Module = moduleName And i.AppKey = key).ToList
+        End Using
     End Function
 
     ''' <summary>
     ''' Updates the required application setting.
     ''' </summary>
     Public Shared Function UpdateApplicationSetting(ByVal moduleName As String, ByVal key As String, ByVal setting As String) As Boolean
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Dim q = (From ap In db.AppSettings Where ap.Module = moduleName And key = ap.AppKey Select ap).Single
-                ' update the new setting value
-                q.SettingValue = setting
-                'update the database
-                db.SubmitChanges()
-                Return True
-            End Using
-        Catch ex As Exception
-            Throw ex
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim q = (From ap In db.AppSettings Where ap.Module = moduleName And key = ap.AppKey Select ap).Single
+            ' update the new setting value
+            q.SettingValue = setting
+            'update the database
+            db.SubmitChanges()
+            Return True
+        End Using
     End Function
 
 #End Region

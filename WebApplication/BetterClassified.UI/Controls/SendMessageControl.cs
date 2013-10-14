@@ -5,7 +5,6 @@
     using System.Web.UI.WebControls;
     using AjaxControlToolkit;
     using BetterclassifiedsCore;
-    using Paramount.ApplicationBlock.Logging.EventLogging;
     using Paramount.Common.UI;
     using Paramount.Common.UI.BaseControls;
     using UIController.Constants;

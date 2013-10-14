@@ -1,10 +1,9 @@
 using System;
 using System.IO;
-using Paramount.ApplicationBlock.Logging.EventLogging;
 
-namespace Paramount.Products.TaskScheduler
+namespace Paramount.TaskScheduler
 {
-    public class CleanDirectoryTask:IScheduler 
+    public class CleanDirectoryTask : IScheduler
     {
         //private const string DirectoryPath = "path";
         public void Run(SchedulerParameters parameters)
@@ -19,20 +18,12 @@ namespace Paramount.Products.TaskScheduler
 
         static void CleanupDirectory(string path)
         {
-            try
-            {
-                var directoryInfo = new DirectoryInfo(path);
+            var directoryInfo = new DirectoryInfo(path);
 
-                // Delete the directory and the contents
-                if (directoryInfo.Exists)
-                {
-                    directoryInfo.Delete(true);
-                }
-            }
-            catch (Exception ex)
+            // Delete the directory and the contents
+            if (directoryInfo.Exists)
             {
-                // todo: Audit an error and send email to support (Paramount Devs)
-                EventLogManager.Log(ex);
+                directoryInfo.Delete(true);
             }
         }
     }

@@ -2,7 +2,6 @@
 Imports BetterclassifiedsCore
 Imports BetterclassifiedsWeb.payment
 Imports Paramount.ApplicationBlock.Configuration
-Imports Paramount.Modules.Logging.UIController
 Imports Paramount.Betterclassified.Utilities.PayPal
 Imports Microsoft.Practices.Unity
 Imports BetterClassified.UI.Presenters
@@ -94,9 +93,8 @@ Partial Public Class notify
                     Exit Select
             End Select
         Catch ex As Exception
-            'EventLogManager.Log(New EventLog(ex) With {.TransactionName = "Response.CreditCardPayment.Notify"})
-            ExceptionLogController(Of Exception).AuditException(ex)
-            result = "Failed"
+            ' todo - audit ExceptionLogController(Of Exception).AuditException(ex)
+            Throw
         End Try
     End Sub
 End Class

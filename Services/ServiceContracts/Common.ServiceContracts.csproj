@@ -57,9 +57,7 @@
     <Compile Include="ILocationService.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ILogService.cs" />
     <Compile Include="IMembershipService.cs" />
-    <Compile Include="IUserAccountWebService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

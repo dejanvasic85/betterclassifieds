@@ -2,7 +2,7 @@ using System.Linq;
 
 namespace Paramount.Services
 {
-    using ApplicationBlock.Logging.AuditLogging;
+    
     using Common.DataTransferObjects.Betterclassifieds.Messages;
     using Common.ServiceContracts;
     using Common.DataTransferObjects.Betterclassifieds;
@@ -12,20 +12,20 @@ namespace Paramount.Services
     {
         public GetExpiredAdListByLastEditionResponse GetExpiredAdListByLastEdition(GetExpiredAdListByLastEditionRequest request)
         {
-            request.LogRequestAudit();
+            
             var expiryAdList = BetterclassifiedDataService.GetExpiredAdByLastEdition(request.EditionDate);
             var response = new GetExpiredAdListByLastEditionResponse();
             foreach (var item in expiryAdList)
             {
                 response.ExpiryAdList.Add(item.Convert());
             }
-            AuditLogManager.Log(request.ConvertToAudit(response));
+            
             return response;
         }
 
         public GetActivitySummaryResponse GetActivitySummary(GetActivitySummaryRequest request)
         {
-            request.LogRequestAudit();
+            
             
             ActivitySummary summary = BetterclassifiedDataService
                 .GetActivitySummaries(request.ReportDate)

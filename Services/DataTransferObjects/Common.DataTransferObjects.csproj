@@ -272,9 +272,7 @@
     <Compile Include="UserAccountService\Messages\ValidateUserResponse.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="UserAccountWebService\Messages\GetNewsletterUsersRequest.cs" />
     <Compile Include="LocationService\Messages\GetRegionRequest.cs" />
-    <Compile Include="UserAccountWebService\Messages\UnSubscribeUserRequest.cs" />
     <Compile Include="CRM\Messages\UpdateCreateEntityModuleRequest.cs" />
     <Compile Include="CRM\Messages\UpdateCreateEntityRequest.cs" />
     <Compile Include="Broadcast\Messages\GetEmailTemplateListRequest.cs" />
@@ -292,7 +290,6 @@
     <Compile Include="LocationService\Messages\GetListItemResponse.cs" />
     <Compile Include="CRM\Messages\GetModuleListResponse.cs" />
     <Compile Include="CRM\Messages\GetModulesByEntityCodeResponse.cs" />
-    <Compile Include="UserAccountWebService\Messages\GetNewsletterUsersResponse.cs" />
     <Compile Include="LocationService\Messages\GetRegionResponse.cs" />
     <Compile Include="Broadcast\Messages\SendEmailResponse.cs" />
     <Compile Include="CRM\Messages\UpdateCreateEntityModuleResponse.cs" />
@@ -303,10 +300,6 @@
     <ProjectReference Include="..\..\ApplicationBlock\Configuration\ApplicationBlock.Configuration.csproj">
       <Project>{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}</Project>
       <Name>ApplicationBlock.Configuration</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ApplicationBlock\Logging\ApplicationBlock.Logging.csproj">
-      <Project>{5C76B020-CE3C-4176-B2AA-5EAE9C3150CC}</Project>
-      <Name>ApplicationBlock.Logging</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ApplicationBlock\Membership\ApplicationBlock.Membership.csproj">
       <Project>{B4B22683-30E1-4F01-90AE-4DDF12691150}</Project>

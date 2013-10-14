@@ -2,7 +2,7 @@ namespace Paramount.Services
 {
     using System;
     using System.Web.Security;
-    using ApplicationBlock.Logging.AuditLogging;
+    
     using Common.DataTransferObjects.MembershipService;
     using Common.DataTransferObjects.MembershipService.Messages;
     using Common.ServiceContracts;
@@ -89,35 +89,31 @@ namespace Paramount.Services
 
         public GetUserResponse GetUserById(GetUserByIdRequest request)
         {
-            request.LogRequestAudit();
+            
             var response = new GetUserResponse();
             using( var provider = new MembershipDataProvider(request.ClientCode, request.ProviderName))
             {
                 response.MembershipUser = provider.GetUser(request.UserId, request.UserIsOnline);
             }
 
-            var auditResponse = request.ConvertToAudit(AuditTransactions.GetUserByIdResponse,  response);
-            AuditLogManager.Log(auditResponse);
             return response;
         }
 
         public GetUserResponse GetUserByUsername(GetUserByUsernameRequest request)
         {
-            request.LogRequestAudit();
+            
             var response = new GetUserResponse();
             using (var provider = new MembershipDataProvider(request.ClientCode, request.ProviderName))
             {
                 response.MembershipUser =  provider.GetUser(request.Username, request.UserIsOnline);
             }
 
-            var auditResponse = request.ConvertToAudit(AuditTransactions.GetUserByUsernameResponse, response);
-            AuditLogManager.Log(auditResponse);
             return response;
         }
 
         public GetFunctionsForUserResponse GetFunctionsForUser(GetFunctionsForUserRequest request)
         {
-            request.LogRequestAudit();
+            
             var response = new GetFunctionsForUserResponse();
 
             using( var provider = new RoleDataProvider(request.ClientCode, request.ApplicationName))
@@ -125,14 +121,12 @@ namespace Paramount.Services
                 response.Functions = provider.GetFunctionsForUseRole(request.Username, request.ApplicationName);
             }
 
-            var auditResponse = request.ConvertToAudit(AuditTransactions.GetFunctionsForUser + ".Response", response);
-            AuditLogManager.Log(auditResponse);
             return response;
         }
 
         public IsUserInFunctionResponse IsUserInFunction(IsUserInFunctionRequest request)
         {
-            request.LogRequestAudit();
+            
             var response = new IsUserInFunctionResponse();
 
             using (var provider = new RoleDataProvider(request.ClientCode, request.ApplicationName))
@@ -140,14 +134,12 @@ namespace Paramount.Services
                 response.Result = provider.IsUserInFunction(request.Username, request.FunctionName);
             }
 
-            var auditResponse = request.ConvertToAudit(AuditTransactions.IsUserInFunction + ".Response", response);
-            AuditLogManager.Log(auditResponse);
             return response;
         }
 
         public FunctionExistsResponse FunctionExists(FunctionExistsRequest request)
         {
-            request.LogRequestAudit();
+            
             var response = new FunctionExistsResponse();
 
             using (var provider = new RoleDataProvider(request.ClientCode, request.ApplicationName))
@@ -155,14 +147,12 @@ namespace Paramount.Services
                 response.Result = provider.FunctionExists(request.FunctionName);
             }
 
-            var auditResponse = request.ConvertToAudit(AuditTransactions.FunctionExists + ".Response", response);
-            AuditLogManager.Log(auditResponse);
             return response;
         }
 
         public void UpdateProfileInfo(UpdateProfileRequest request)
         {
-            request.LogRequestAudit();
+            
 
             using (var provider = new RoleDataProvider(request.ClientCode, request.ApplicationName))
             {
@@ -170,13 +160,11 @@ namespace Paramount.Services
                 provider.Commit();
             }
 
-            var auditResponse = request.ConvertToAudit(AuditTransactions.UpdateProfile + ".Response", "done");
-            AuditLogManager.Log(auditResponse);
         }
 
         public GetProfileResponse GetProfile(GetProfileRequest request)
         {
-            request.LogRequestAudit();
+            
 
             var response = new GetProfileResponse();
             using (var provider = new RoleDataProvider(request.ClientCode, request.ApplicationName))
@@ -184,8 +172,6 @@ namespace Paramount.Services
                 response.Profile = provider.GetProfile(request.Username);
             }
 
-            var auditResponse = request.ConvertToAudit(AuditTransactions.UpdateProfile + ".Response", response);
-            AuditLogManager.Log(auditResponse);
 
             return response;
         }

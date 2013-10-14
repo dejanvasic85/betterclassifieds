@@ -54,6 +54,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Scripts\0005-DropProcedure.psp_ActivitySummary.sql" />
+    <EmbeddedResource Include="Scripts\0004-ELMAH_Setup.sql" />
     <EmbeddedResource Include="Scripts\0003-DateTimeIndex.sql" />
     <EmbeddedResource Include="Scripts\0002-BaselineStoredProc.sql" />
     <EmbeddedResource Include="Scripts\0001-BaselineSchema.sql" />

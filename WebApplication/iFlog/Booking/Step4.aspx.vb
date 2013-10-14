@@ -1,5 +1,5 @@
 ﻿Imports BetterclassifiedsCore
-Imports Paramount.Modules.Logging.UIController
+
 Imports BetterClassified.UI.WebPage
 
 Partial Public Class Step4
@@ -42,31 +42,20 @@ Partial Public Class Step4
                     ' store the selectable dates in the viewstate for the calendar to render
                     ViewState(_selectableDates) = dates
 
-                    Try
 
-                        ' divide the number of Editions by the Number of Publications
-                        Dim ratio As Integer = dates.Count / BookingController.AdBookCart.PublicationList.Count
+                    ' divide the number of Editions by the Number of Publications
+                    Dim ratio As Integer = dates.Count / BookingController.AdBookCart.PublicationList.Count
 
-                        ' need to work out the number of Insertions the user is able to select!
-                        Dim items As Integer
-                        If ratio < _maxInsertSetting Then
-                            items = ratio
-                        Else
-                            items = _maxInsertSetting
-                        End If
+                    ' need to work out the number of Insertions the user is able to select!
+                    Dim items As Integer
+                    If ratio < _maxInsertSetting Then
+                        items = ratio
+                    Else
+                        items = _maxInsertSetting
+                    End If
 
-                        ' call method to databind the drop down box (select the first item)
-                        DataBindInsertions(items, 0)
-
-                    Catch ex As DivideByZeroException
-
-                        ' There's no publications chosen in the booking object!
-                        ' Alert the administrator and redirect the user
-                        ExceptionLogController(Of DivideByZeroException).AuditException(ex)
-
-                        Response.Redirect(Utilities.Constants.CONST_ERROR_DEFAULT_URL + "?type=" + _
-                                          Utilities.Constants.CONST_ERROR_SETTINGS)
-                    End Try
+                    ' call method to databind the drop down box (select the first item)
+                    DataBindInsertions(items, 0)
 
                 Else
                     'EventLogManager.Log(New EventLog("Publication editions have not been set up for selected publications: " + BookingController.AdBookCart.PublicationList.ToString))

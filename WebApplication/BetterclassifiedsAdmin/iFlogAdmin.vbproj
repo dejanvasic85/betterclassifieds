@@ -727,7 +727,6 @@
     <Content Include="EmailTemplates\PasswordRecovery.txt" />
     <Content Include="Entry.aspx" />
     <Content Include="favicon.ico" />
-    <Content Include="Global.asax" />
     <Content Include="greybox\AJS.js" />
     <Content Include="greybox\AJS_fx.js" />
     <Content Include="greybox\gb_scripts.js" />

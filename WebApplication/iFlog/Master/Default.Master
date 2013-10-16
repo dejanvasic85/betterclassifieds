@@ -70,8 +70,7 @@
                     <li><a href="http://themusic.com.au/listen/all/">Listen</a></li>
                     <li><a href="http://themusic.com.au/watch/video/">Watch</a></li>
                     <li><a href="http://themusic.com.au/festivals/">Festivals</a></li>
-                    <li><a href="http://themusic.com.au/mags/">Mags</a></li>
-                    <li><a href="http://themusic.com.au/industry/">Industry</a></li>
+                    <li><a href="http://themusic.com.au/the-wam-awards/">WAM Awards</a></li>
                     <li><a href="https://store.themusic.com.au/">Store</a></li>
                     <li class="active">
                         <asp:HyperLink runat="server" NavigateUrl="~/Default.aspx" Text="Classies"></asp:HyperLink>
@@ -164,10 +163,10 @@
 	            </section>
                 <section class="submenu">
 		            <h1>The Mags</h1>
-		            <ul><li class="first"><a title="Drum Media (Sydney)" href="http://themusic.com.au/meta/the-mags/drum-media-(sydney)/">Drum Media (Sydney)</a></li>
-			            <li><a title="Inpress Magazine (Melbourne)" href="http://themusic.com.au/meta/the-mags/inpress-magazine-(melbourne)/">Inpress Magazine (Melbourne)</a></li>
-			            <li><a title="Time Off (Brisbane)" href="http://themusic.com.au/meta/the-mags/time-off-(brisbane)/">Time Off (Brisbane)</a></li>
-			            <li><a title="Drum Media (Perth)" href="http://themusic.com.au/meta/the-mags/drum-media-(perth)/">Drum Media (Perth)</a></li>
+		            <ul><li class="first"><a title="The Music (Sydney)" href="http://themusic.com.au/meta/the-mags/the-music-(sydney)/">Drum Media (Sydney)</a></li>
+			            <li><a title="The Music (Melbourne)" href="http://themusic.com.au/meta/the-mags/the-music-(melbourne)/">Inpress Magazine (Melbourne)</a></li>
+			            <li><a title="The Music (Brisbane)" href="http://themusic.com.au/meta/the-mags/the-music-(brisbane)/">Time Off (Brisbane)</a></li>
+			            <li><a title="The Music (Perth)" href="http://themusic.com.au/meta/the-mags/the-music-(perth)/">Drum Media (Perth)</a></li>
 			            <li><a title="Muso" href="http://themusic.com.au/meta/the-mags/muso/">Muso</a></li>
 			            <li><a title="Three Magazine" href="http://themusic.com.au/meta/the-mags/three-magazine/">Three Magazine</a></li>
 			            <li class="last"><a title="Australasian Music Industry Directory" href="http://themusic.com.au/meta/the-mags/australasian-music-industry-directory/">Australasian Music Industry Directory</a></li>
@@ -184,22 +183,11 @@
                 <section class="submenu">
                     <h1>Social</h1>
                     <ul>
-                        <li>Facebook</li>
-                        <li>Twitter</li>
+                        <li><a title="Facebook" href="http://www.facebook.com.au/themusic.com.au" />Facebook</li>
+                        <li><a title="Twitter" href="https://twitter.com/TheMusicComAU"/>Twitter</li>
                         <li><p></p></li>
                     </ul>
 
-		            <h1>Classies</h1>
-                    <ul>
-                        <li><asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/Booking/Step1.aspx" Text="Place an Ad"></asp:HyperLink></li>
-                        <li><asp:HyperLink ID="HyperLink7" runat="server" NavigateUrl="~/Register.aspx" Text="Register"></asp:HyperLink></li>
-                        <li><asp:HyperLink ID="HyperLink9" runat="server" NavigateUrl="~/Help/Contact.aspx" Text="Contact Us"></asp:HyperLink></li>
-                        <li><asp:HyperLink ID="HyperLink17" runat="server" NavigateUrl="~/Help/FAQ.aspx" Text="FAQ"></asp:HyperLink></li>
-                        <li><asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/Help/About.aspx" Text="About"></asp:HyperLink></li>
-                        <li><asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="~/Help/PrivacyPolicy.aspx" Text="Privacy Policy"></asp:HyperLink></li>
-                        <li><asp:HyperLink ID="HyperLink5" runat="server" NavigateUrl="~/Terms.aspx" Text="Terms and Conditions"></asp:HyperLink></li>
-                        <li><asp:HyperLink ID="HyperLink6" runat="server" NavigateUrl="~/Help/RefundPolicy.aspx" Text="Refund Policy"></asp:HyperLink></li>
-                    </ul>
 	            </section>
             </div>
         </div>

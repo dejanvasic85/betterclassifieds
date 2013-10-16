@@ -159,6 +159,8 @@
     <Content Include="App_Themes\iflog\images\upload_head_img_b.gif" />
     <Content Include="App_Themes\Plain\plain.css" />
     <Compile Include="api\OnlineAdController.vb" />
+    <Compile Include="App_Start\ContainerConfig.vb" />
+    <Compile Include="App_Start\RouteConfig.vb" />
     <Compile Include="Common\HttpExtensions.vb" />
     <Content Include="Controls\TutorAdForm.ascx" />
     <Content Include="Controls\TutorAdView.ascx" />

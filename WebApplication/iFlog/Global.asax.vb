@@ -1,11 +1,6 @@
 ﻿Imports BetterclassifiedsCore
 Imports Paramount.Broadcast.Components
 
-Imports Microsoft.Practices.Unity
-Imports BetterClassified.Repository
-Imports System.Web.Routing
-Imports System.Web.Http
-
 Public Delegate Sub OnPayment(ByVal ref As String)
 
 Public Class Global_asax
@@ -17,26 +12,9 @@ Public Class Global_asax
     Sub Application_Start(ByVal sender As Object, ByVal e As EventArgs)
         Application.Add("validApplication", True)
 
-        ' Unity Container Registrations
-        BetterClassified.Unity.DefaultContainer _
-            .RegisterType(Of IBookingRepository, BookingRepository)() _
-            .RegisterType(Of IPublicationRepository, PublicationRepository)() _
-            .RegisterType(Of IConfigSettings, ConfigSettings)() _
-            .RegisterType(Of IRateRepository, RateRepository)() _
-            .RegisterType(Of IUserRepository, UserRepository)() _
-            .RegisterType(Of IPaymentsRepository, PaymentsRepository)() _
-            .RegisterType(Of IAdRepository, AdRepository)() _
-            .RegisterType(Of ILookupRepository, LookupRepository)()
+        RouteConfig.RegisterRoutes(System.Web.Routing.RouteTable.Routes)
+        ContainerConfig.RegisterIocContainer(BetterClassified.Unity.DefaultContainer)
 
-        RouteTable.Routes.MapHttpRoute(
-           name:="DefaultApi",
-           routeTemplate:="api/{controller}/{id}",
-           defaults:=New With {Key .id = System.Web.Http.RouteParameter.[Optional]})
-
-    End Sub
-
-    Sub Session_Start(ByVal sender As Object, ByVal e As EventArgs)
-        ' Fires when the session is started
     End Sub
 
     Sub Application_BeginRequest(ByVal sender As Object, ByVal e As EventArgs)
@@ -50,18 +28,6 @@ Public Class Global_asax
             Response.Redirect(Utilities.Constants.CONST_ERROR_DEFAULT_URL + "?type=" + Utilities.Constants.CONST_ERROR_REQUEST_SIZE)
         End If
 
-    End Sub
-
-    Sub Application_AuthenticateRequest(ByVal sender As Object, ByVal e As EventArgs)
-        ' Fires upon attempting to authenticate the use
-    End Sub
-
-    Sub Session_End(ByVal sender As Object, ByVal e As EventArgs)
-        ' Fires when the session ends
-    End Sub
-
-    Sub Application_End(ByVal sender As Object, ByVal e As EventArgs)
-        ' Fires when the application ends
     End Sub
 
     Sub SucessfulPayment(ByVal bookRef As String)

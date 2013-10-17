@@ -2,6 +2,8 @@
 using System.Configuration;
 using System.Reflection;
 using DbUp;
+using System.Data.SqlClient;
+using DbUp.Helpers;
 
 namespace iFlogAppUserDatabase
 {
@@ -10,6 +12,9 @@ namespace iFlogAppUserDatabase
         static int Main(string[] args)
         {
             var connectionString = ConfigurationManager.ConnectionStrings["iFlogAppUserDb"].ConnectionString;
+
+            // Create the database if not exists
+            CreateDbIfNotExists(connectionString);
 
             var upgrader =
                 DeployChanges.To
@@ -32,6 +37,22 @@ namespace iFlogAppUserDatabase
             Console.WriteLine("Success!");
             Console.ResetColor();
             return 0;
+        }
+
+        /// <summary>
+        /// Creates the db if not exists.
+        /// </summary>
+        private static void CreateDbIfNotExists(string rawConnectionString)
+        {
+            var connectionString = new SqlConnectionStringBuilder(rawConnectionString);
+            var dbName = connectionString.InitialCatalog;
+
+            var serverConnectionString = string.Format("Data Source={0};Integrated Security=SSPI;", connectionString.DataSource);
+            var sqlRunner = new AdHocSqlRunner(() => new SqlConnection(serverConnectionString), "dbo");
+
+            var createDbSql = string.Format(@"IF db_id('{0}') IS NULL BEGIN CREATE DATABASE {0} END", dbName);
+            System.Console.WriteLine(createDbSql);
+            sqlRunner.ExecuteNonQuery(createDbSql);
         }
     }
 }

@@ -10,7 +10,7 @@ Partial Public Class AdView
     Inherits System.Web.UI.Page
 
     Dim _bookReference As String
-    Dim _id As String
+    Dim _queryid As String
     Dim _isPreview As Boolean
     Dim _type As String
     Dim _adRepository As BetterClassified.Repository.IAdRepository
@@ -39,9 +39,9 @@ Partial Public Class AdView
         Response.Cache.SetCacheability(HttpCacheability.NoCache)
 
         _adRepository = BetterClassified.Unity.DefaultContainer.Resolve(Of IAdRepository)()
-        _type = Request.QueryStringValue(Of String)("type").Default(String.Empty)
+        _type = Request.QueryStringValue(Of String)("type").Default("bkid")
         _isPreview = Request.QueryStringValue(Of Boolean)("preview")
-        _id = Request.QueryString("id")
+        _queryid = Request.QueryString("id").Default(RouteData.Values("id"))
         Dim adId As Integer
 
         If Not Page.IsPostBack Then
@@ -49,13 +49,13 @@ Partial Public Class AdView
             Dim onlineAd As BusinessEntities.OnlineAdEntity = Nothing
 
             If _type.EqualTo("ref") Then
-                _bookReference = Server.UrlDecode(_id)
+                _bookReference = Server.UrlDecode(_queryid)
                 onlineAd = AdController.GetOnlineAdEntityByReference(_bookReference, _isPreview)
-            ElseIf _type.EqualTo("dsId") And Integer.TryParse(Request.QueryString("id"), adId) Then
+            ElseIf _type.EqualTo("dsId") And Integer.TryParse(_queryid, adId) Then
                 onlineAd = AdController.GetOnlineAdEntityByDesign(adId, _isPreview)
-            ElseIf _type.EqualTo("bkid") And Integer.TryParse(Request.QueryString("id"), adId) Then
+            ElseIf _type.EqualTo("bkid") And Integer.TryParse(_queryid, adId) Then
                 onlineAd = AdController.GetOnlineAdEntityByBookingId(adId, _isPreview)
-            ElseIf Integer.TryParse(Request.QueryString("id"), adId) Then
+            ElseIf Integer.TryParse(_queryid, adId) Then
                 onlineAd = AdController.GetOnlineAdEntityById(adId, _isPreview)
             End If
 
@@ -76,7 +76,7 @@ Partial Public Class AdView
                 Me.Title = "Ad does not exist or has Expired"
                 ucxOnlineAdDetailView.Visible = False
                 pnlResult.Visible = True
-                lblIFlogID.Text = _id
+                lblIFlogID.Text = _queryid
             End If
         End If
     End Sub

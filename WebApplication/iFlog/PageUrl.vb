@@ -11,7 +11,14 @@ Public Class PageUrl
 
     ' item view
     Public Shared Function AdViewItem(ByVal id As String, Optional ByVal preview As Boolean = False, Optional ByVal typeOfId As String = "bkId") As SiteUrl
-        Return New SiteUrl(String.Format("~/OnlineAds/AdView.aspx?id={0}&preview={1}&type={2}", id, preview, typeOfId))
+        Dim url = New SiteUrl("~/Ad/" + id)
+        If preview Then
+            url.Append("preview", preview)
+        End If
+        If typeOfId.DoesNotEqual("bkid") Then
+            url.Append("type", typeOfId)
+        End If
+        Return url
     End Function
 
     ' Image View

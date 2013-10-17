@@ -22,6 +22,18 @@ namespace BetterClassified.UI
             this.Url = relativeServerUrl;
         }
 
+        public SiteUrl Append(string name, string value)
+        {
+            if (value.HasValue())
+            {
+                StringBuilder sb = new StringBuilder(this.Url);
+                sb.AppendFormat("&{0}={1}", HttpContext.Current.Server.UrlEncode(name), HttpContext.Current.Server.UrlEncode(value));
+                this.Url = sb.ToString();
+            }
+
+            return this;
+        }
+
         public string ToAbsoluteUrl(HttpRequest request)
         {
             var currentUrl = Url;

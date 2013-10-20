@@ -85,10 +85,11 @@ Partial Public Class _Default5
             Dim adBookingId = CInt(DataBinder.Eval(e.Row.DataItem, "AdBookingId"))
             Dim imageId = DataBinder.Eval(e.Row.DataItem, "DocumentId")
             Dim price = Val(DataBinder.Eval(e.Row.DataItem, "Price"))
+            Dim heading = DataBinder.Eval(e.Row.DataItem, "Heading")
 
             e.Row.FindControl(Of Label)("lblPrice").Text = If(price > 0, price.ToString("C"), String.Empty)
 
-            Dim adUrl = PageUrl.AdViewItem(Me.Page, e.Row.DataItem.Heading, adBookingId)
+            Dim adUrl = PageUrl.AdViewItem(Me.Page, heading, adBookingId)
             e.Row.FindControl(Of HyperLink)("lnkAdLink").NavigateUrl = adUrl
             e.Row.FindControl(Of HyperLink)("lnkHeadingLink").NavigateUrl = adUrl
 

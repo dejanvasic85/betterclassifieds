@@ -143,6 +143,7 @@
     <Compile Include="Framework\Extensions\HttpRequestExtensions.cs" />
     <Compile Include="Framework\Extensions\StringExtensions.cs" />
     <Compile Include="Framework\Extensions\SystemExtensions.cs" />
+    <Compile Include="Framework\Slug.cs" />
     <Compile Include="IBaseView.cs" />
     <Compile Include="Framework\Mapping.cs" />
     <Compile Include="Framework\ReaderWriterCache.cs" />

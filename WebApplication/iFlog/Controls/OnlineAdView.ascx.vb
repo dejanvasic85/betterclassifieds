@@ -107,7 +107,7 @@ Partial Public Class OnlineAdView
             ' Inject meta tags for facebook integration
             configSettings = BetterClassified.Unity.DefaultContainer.Resolve(Of IConfigSettings)()
             Me.Page.Header.AddMetaTag("fb:app_id", configSettings.FacebookAppId)
-            Dim pageAbsUrl = PageUrl.AdViewItem(onlineAd.AdBookingId).ToAbsoluteUrl(Me.Request)
+            Dim pageAbsUrl = PageUrl.AdViewItem(Me.Page, onlineAd.Heading, onlineAd.AdBookingId).ToAbsoluteUrl(Me.Request)
             Me.Page.Header.AddMetaTag("og:url", pageAbsUrl)
             Me.Page.Header.AddMetaTag("og:title", onlineAd.Heading)
             Me.Page.Header.AddMetaTag("og:locale", "en-AU")

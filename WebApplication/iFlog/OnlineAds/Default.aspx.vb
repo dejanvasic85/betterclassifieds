@@ -87,11 +87,13 @@ Partial Public Class _Default5
             Dim price = Val(DataBinder.Eval(e.Row.DataItem, "Price"))
 
             e.Row.FindControl(Of Label)("lblPrice").Text = If(price > 0, price.ToString("C"), String.Empty)
-            e.Row.FindControl(Of HyperLink)("lnkAdLink").NavigateUrl = PageUrl.AdViewItem(adBookingId)
-            e.Row.FindControl(Of HyperLink)("lnkHeadingLink").NavigateUrl = PageUrl.AdViewItem(adBookingId)
+
+            Dim adUrl = PageUrl.AdViewItem(Me.Page, e.Row.DataItem.Heading, adBookingId)
+            e.Row.FindControl(Of HyperLink)("lnkAdLink").NavigateUrl = adUrl
+            e.Row.FindControl(Of HyperLink)("lnkHeadingLink").NavigateUrl = adUrl
 
             Dim imageLink As HyperLink = e.Row.FindControl(Of HyperLink)("imgDocument")
-            imageLink.NavigateUrl = PageUrl.AdViewItem(adBookingId)
+            imageLink.NavigateUrl = adUrl
 
             If imageId Is Nothing Or imageId Is DBNull.Value Then
                 imageLink.ImageUrl = "ad_placeholder.jpg"

@@ -13,19 +13,31 @@ namespace BetterClassified.UI
     public class SiteUrl
     {
         public string Url { get; private set; }
+        private bool _requiresQueryPrefix = true;
 
         /// <summary>
         /// Accepts a relative Server URL such as ~/Image/Handler.ashx
         /// </summary>
-        public SiteUrl(string relativeServerUrl)
+        public SiteUrl(string relativeServerUrl, params string[] paths)
         {
-            this.Url = relativeServerUrl;
+            StringBuilder sb = new StringBuilder(relativeServerUrl);
+            foreach (var path in paths)
+            {
+                sb.Append(path);
+            }
+            this.Url = sb.ToString();
         }
 
-        public SiteUrl Append(string name, string value)
+        public SiteUrl AppendQuery(string name, string value)
         {
             if (value.HasValue())
             {
+                if (_requiresQueryPrefix && !this.Url.EndsWith("?"))
+                {
+                    this.Url += "?";
+                    _requiresQueryPrefix = false;
+                }
+
                 StringBuilder sb = new StringBuilder(this.Url);
                 sb.AppendFormat("&{0}={1}", HttpContext.Current.Server.UrlEncode(name), HttpContext.Current.Server.UrlEncode(value));
                 this.Url = sb.ToString();

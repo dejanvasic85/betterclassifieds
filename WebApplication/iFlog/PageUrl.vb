@@ -9,16 +9,23 @@ Imports Microsoft.Practices.Unity
 ''' <remarks></remarks>
 Public Class PageUrl
 
-    ' item view
+    ''' <summary>
+    ''' Returns a page url for the online ad view
+    ''' </summary>
     Public Shared Function AdViewItem(ByVal id As String, Optional ByVal preview As Boolean = False, Optional ByVal typeOfId As String = "bkId") As SiteUrl
-        Dim url = New SiteUrl("~/Ad/" + id)
-        If preview Then
-            url.Append("preview", preview)
+        Return New SiteUrl("~/OnlineAds/AdView.aspx").AppendQuery("id", id).AppendQuery("preview", preview).AppendQuery("type", typeOfId)
+    End Function
+
+    ''' <summary>
+    ''' Returns a friendly URL to the online ad view by using the AdRoute setting
+    ''' </summary>
+    Public Shared Function AdViewItem(ByVal page As Page, ByVal title As String, ByVal id As String, Optional ByVal preview As Boolean = False, Optional ByVal typeOfId As String = "bkId") As SiteUrl
+        If preview Or typeOfId.DoesNotEqual("bkId") Then
+            ' Generate with preview and Type of ID in query
+            Return New SiteUrl(page.GetRouteUrl(RouteConfig.AdRoute, New With {Key .Id = id, .Title = Slug.Create(toLower:=True, value:=title), .Preview = preview, .Type = typeOfId}))
         End If
-        If typeOfId.DoesNotEqual("bkid") Then
-            url.Append("type", typeOfId)
-        End If
-        Return url
+        ' Generate a nice url with title and ID only
+        Return New SiteUrl(page.GetRouteUrl(RouteConfig.AdRoute, New With {Key .Id = id, .Title = Slug.Create(toLower:=True, value:=title)}))
     End Function
 
     ' Image View

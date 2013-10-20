@@ -12,7 +12,6 @@
     public static class DslDataService
     {
         private const string ConfigSection = @"paramount/dsl";
-        private const string ConfigKey = "paramountCore";
         private const int DefaultStreamSize = 4096;
 
         public static void AppendChunk(Guid documentId, byte[] buffer, int offSet)
@@ -243,11 +242,7 @@
 
                 using (var sqlDataReader = sqlCommand.ExecuteReader(CommandBehavior.SequentialAccess))
                 {
-                    if (sqlDataReader == null)
-                    {
-                        throw new Exception("Invalid file data");
-                    }
-                    var t = sqlDataReader.Read();
+                    sqlDataReader.Read();
 
                     var sqlRead = sqlDataReader.GetBytes(0, offset, tempBuffer, 0, bufferSize);
 

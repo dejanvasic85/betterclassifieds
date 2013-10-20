@@ -34,9 +34,10 @@ Namespace Controls.Search
                     lnkImageLink.ImageUrl = param.GenerateUrl(BetterclassifiedSetting.DslImageUrlHandler)
                 End If
 
-                e.Item.FindControl(Of HyperLink)("lnkHeadingLink").NavigateUrl = PageUrl.AdViewItem(e.Item.DataItem.AdBookingId)
-                e.Item.FindControl(Of HyperLink)("lnkDetailLink").NavigateUrl = PageUrl.AdViewItem(e.Item.DataItem.AdBookingId)
-                lnkImageLink.NavigateUrl = PageUrl.AdViewItem(e.Item.DataItem.AdBookingId)
+                Dim adUrl = PageUrl.AdViewItem(Me.Page, e.Item.DataItem.Heading, e.Item.DataItem.AdBookingId)
+                e.Item.FindControl(Of HyperLink)("lnkHeadingLink").NavigateUrl = adUrl
+                e.Item.FindControl(Of HyperLink)("lnkDetailLink").NavigateUrl = adUrl
+                lnkImageLink.NavigateUrl = adUrl
             End If
         End Sub
 

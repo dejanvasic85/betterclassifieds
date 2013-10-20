@@ -132,22 +132,28 @@ Partial Public Class _Default1
 
         ElseIf txtAdId.Text.Contains("-") Then
             Dim combinedSearch = txtAdId.Text.Split("-")
-            Dim searchLog As New SearchLog
-            If Integer.TryParse(combinedSearch(0), searchLog.PublicationId) _
-                And Integer.TryParse(combinedSearch(1), searchLog.AdId) _
-                And PublicationController.GetPublications(activateOnly:=True).Any(Function(p As Publication) p.PublicationId = searchLog.PublicationId) Then
+            Dim bookingId As Integer
+            If Integer.TryParse(combinedSearch(1), bookingId) And _
+                PublicationController.GetPublications(activateOnly:=True).Any(Function(p As Publication) p.PublicationId = combinedSearch(0)) Then
 
-                Response.Redirect(PageUrl.AdViewItem(searchLog.AdId))
+                ' Todo - log the search somewhere
+                FetchAndGo(bookingId)
+            Else
+                Response.Redirect(PageUrl.AdViewItem(txtAdId.Text))
             End If
         Else
-            Response.Redirect(PageUrl.AdViewItem(txtAdId.Text))
+            FetchAndGo(txtAdId.Text)
         End If
     End Sub
 
-    Public Class SearchLog
-        Public Property PublicationId As Integer
-        Public Property AdId As Integer
-    End Class
+    Private Sub FetchAndGo(ByVal id As String)
+        Dim onlineAd = AdController.GetOnlineAdByAdBooking(id)
+        If onlineAd Is Nothing Then
+            Response.Redirect(PageUrl.AdViewItem(txtAdId.Text))
+        End If
+        ' Todo - log this search somewhere!
+        Response.Redirect(PageUrl.AdViewItem(Me.Page, onlineAd.Heading, id))
+    End Sub
 
 #End Region
 

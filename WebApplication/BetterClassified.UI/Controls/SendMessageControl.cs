@@ -1,14 +1,18 @@
-﻿namespace BetterClassified.UI
+﻿using System.Web;
+using System.Web.Routing;
+using System;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using AjaxControlToolkit;
+using BetterClassified.UIController.Constants;
+using BetterclassifiedsCore;
+using Paramount.Common.UI;
+using Paramount.Common.UI.BaseControls;
+using Telerik.Web.UI;
+
+namespace BetterClassified.UI
 {
-    using System;
-    using System.Web.UI;
-    using System.Web.UI.WebControls;
-    using AjaxControlToolkit;
-    using BetterclassifiedsCore;
-    using Paramount.Common.UI;
-    using Paramount.Common.UI.BaseControls;
-    using UIController.Constants;
-    using Telerik.Web.UI;
+
 
     public class SendMessageControl : ParamountCompositeControl
     {
@@ -155,7 +159,7 @@
                 try
                 {
                     int adId;
-                    if (!int.TryParse(GetQueryString(PageConstant.AdNumber), out adId))
+                    if (!int.TryParse(GetQueryString(PageConstant.AdNumber).Default(Page.RouteData.Values["id"].ToString()), out adId))
                     {
                         return null;
                     }
@@ -209,8 +213,8 @@
                 return;
             }
 
-            if (AdId != null) 
-                BetterclassifiedsCore.Controller.OnlineAdEnquiryController.CreateOnlineAdEnquiry(AdId.Value, 1,this.nameBox.Text, this.emailBox.Text, this.phoneBox.Text, this.messageBox.Text);
+            if (AdId != null)
+                BetterclassifiedsCore.Controller.OnlineAdEnquiryController.CreateOnlineAdEnquiry(AdId.Value, 1, this.nameBox.Text, this.emailBox.Text, this.phoneBox.Text, this.messageBox.Text);
             successText.Text = GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form, "success.Text");
             InvokeOnSubmit(e);
             Clear();

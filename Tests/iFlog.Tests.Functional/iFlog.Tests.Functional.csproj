@@ -43,6 +43,7 @@
       <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Drawing" />
     <Reference Include="TechTalk.SpecFlow">
       <HintPath>..\..\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
@@ -70,7 +71,7 @@
       <DependentUpon>ViewAdDetails.feature</DependentUpon>
     </Compile>
     <Compile Include="Framework\WebTestBasePage.cs" />
-    <Compile Include="Framework\StepsBase.cs" />
+    <Compile Include="Framework\TestSetup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\OnlineAdSteps.cs" />
   </ItemGroup>

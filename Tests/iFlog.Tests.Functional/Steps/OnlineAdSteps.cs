@@ -11,7 +11,7 @@ namespace iFlog.Tests.Functional.Steps
     public class OnlineAdSteps
     {
         [Given(@"The online ad titled ""(.*)""")]
-        public void GivenTheOnlineAdTitled(string p0)
+        public void GivenTheOnlineAdTitled(string adTitle)
         {
             ScenarioContext.Current.Pending();
         }

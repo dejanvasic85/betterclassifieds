@@ -1,6 +1,6 @@
 ﻿namespace iFlog.Tests.Functional.Framework
 {
-    public abstract class WebTestBasePage
+    public abstract class BasePage
     {
     }
 }

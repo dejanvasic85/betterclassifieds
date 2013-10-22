@@ -3,29 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenQA.Selenium;
 using TechTalk.SpecFlow;
 
 namespace iFlog.Tests.Functional.Steps
 {
     [Binding]
-    public class OnlineAdSteps
+    public class OnlineAdSteps : BaseStep
     {
+        private Pages.OnlineAdPage _onlineAdPage;
+        private Router _router;
+
+        public OnlineAdSteps(IWebDriver webDriver) : base(webDriver)
+        {
+            _onlineAdPage = new Pages.OnlineAdPage(webDriver);
+        }
+
         [Given(@"The online ad titled ""(.*)""")]
         public void GivenTheOnlineAdTitled(string adTitle)
         {
-            ScenarioContext.Current.Pending();
+            // todo - setup mock data
         }
 
         [When(@"I navigate to ad URL for ""(.*)""")]
         public void WhenINavigateToAdURLFor(string adTitle)
         {
-            ScenarioContext.Current.Pending();
+            // Open selenium
+            Router.NavigateTo(_onlineAdPage);
         }
-        
+
         [Then(@"the page should display tutor ad information")]
         public void ThenThePageShouldDisplayTutorAdInformation()
         {
-            ScenarioContext.Current.Pending();
+            // todo - assert
         }
 
     }

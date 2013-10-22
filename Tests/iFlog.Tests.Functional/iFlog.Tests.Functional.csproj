@@ -51,6 +51,9 @@
     <Reference Include="WebDriver">
       <HintPath>..\..\packages\Selenium.WebDriver.2.37.0\lib\net40\WebDriver.dll</HintPath>
     </Reference>
+    <Reference Include="WebDriver.Support">
+      <HintPath>..\..\packages\Selenium.Support.2.37.0\lib\net40\WebDriver.Support.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -65,13 +68,16 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="BaseStep.cs" />
     <Compile Include="Features\ViewAdDetails.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ViewAdDetails.feature</DependentUpon>
     </Compile>
-    <Compile Include="Framework\WebTestBasePage.cs" />
-    <Compile Include="Framework\TestSetup.cs" />
+    <Compile Include="BasePage.cs" />
+    <Compile Include="Router.cs" />
+    <Compile Include="TestSetup.cs" />
+    <Compile Include="Pages\OnlineAdPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\OnlineAdSteps.cs" />
   </ItemGroup>
@@ -86,7 +92,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Pages\" />
+    <Folder Include="Framework\" />
+    <Folder Include="Mocks\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

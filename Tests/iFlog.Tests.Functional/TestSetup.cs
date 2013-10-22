@@ -7,7 +7,7 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using TechTalk.SpecFlow;
 
-namespace iFlog.Tests.Functional.Framework
+namespace iFlog.Tests.Functional
 {
     [Binding]
     public class TestSetup
@@ -40,7 +40,7 @@ namespace iFlog.Tests.Functional.Framework
             objectContainer.RegisterInstanceAs(driver);   
         }
 
-        [AfterScenario("ci")]
+        [AfterScenario("web")]
         public void AfterScenario()
         {
             var objectContainer = ScenarioContext.Current.GetBindingInstance(typeof(IObjectContainer)) as IObjectContainer;

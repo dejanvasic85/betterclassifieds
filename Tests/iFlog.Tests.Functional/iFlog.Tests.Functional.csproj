@@ -68,15 +68,16 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="BaseStep.cs" />
-    <Compile Include="Features\ViewAdDetails.feature.cs">
+    <Compile Include="Base\BaseStep.cs" />
+    <Compile Include="Features\Routes\OnlineAdRoute.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ViewAdDetails.feature</DependentUpon>
+      <DependentUpon>OnlineAdRoute.feature</DependentUpon>
     </Compile>
-    <Compile Include="BasePage.cs" />
-    <Compile Include="Router.cs" />
-    <Compile Include="TestSetup.cs" />
+    <Compile Include="Base\BasePage.cs" />
+    <Compile Include="Base\IConfig.cs" />
+    <Compile Include="Base\Router.cs" />
+    <Compile Include="Base\TestSetup.cs" />
     <Compile Include="Pages\OnlineAdPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\OnlineAdSteps.cs" />
@@ -85,15 +86,19 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Features\ViewAdDetails.feature">
+    <None Include="Features\Routes\OnlineAdRoute.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>ViewAdDetails.feature.cs</LastGenOutput>
+      <LastGenOutput>OnlineAdRoute.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Framework\" />
     <Folder Include="Mocks\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="chromedriver.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

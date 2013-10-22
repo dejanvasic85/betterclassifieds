@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using TechTalk.SpecFlow;
 
@@ -11,10 +8,10 @@ namespace iFlog.Tests.Functional.Steps
     [Binding]
     public class OnlineAdSteps : BaseStep
     {
-        private Pages.OnlineAdPage _onlineAdPage;
+        private readonly Pages.OnlineAdPage _onlineAdPage;
         private Router _router;
 
-        public OnlineAdSteps(IWebDriver webDriver) : base(webDriver)
+        public OnlineAdSteps(IWebDriver webDriver, IConfig configuration) : base(webDriver, configuration)
         {
             _onlineAdPage = new Pages.OnlineAdPage(webDriver);
         }
@@ -25,18 +22,16 @@ namespace iFlog.Tests.Functional.Steps
             // todo - setup mock data
         }
 
-        [When(@"I navigate to ad URL for ""(.*)""")]
-        public void WhenINavigateToAdURLFor(string adTitle)
+        [When(@"I navigate ""(.*)""")]
+        public void WhenINavigate(string url)
         {
-            // Open selenium
-            Router.NavigateTo(_onlineAdPage);
+            WebDriver.Navigate().GoToUrl(string.Concat(Configuration.BaseUrl, url));
         }
-
-        [Then(@"the page should display tutor ad information")]
-        public void ThenThePageShouldDisplayTutorAdInformation()
+        
+        [Then(@"the page title should start with ""(.*)""")]
+        public void ThenThePageTitleShouldStartWith(string title)
         {
-            // todo - assert
+            Assert.IsTrue(WebDriver.Title.StartsWith(title, StringComparison.OrdinalIgnoreCase));
         }
-
     }
 }

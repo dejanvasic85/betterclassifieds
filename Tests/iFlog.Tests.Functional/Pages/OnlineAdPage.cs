@@ -17,7 +17,7 @@ namespace iFlog.Tests.Functional.Pages
 
         public override string RelativePath
         {
-            get { return "/"; }
+            get { return ""; } // Ad/title/id
         }
     }
 }

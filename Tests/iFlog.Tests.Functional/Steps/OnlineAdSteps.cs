@@ -16,12 +16,12 @@ namespace iFlog.Tests.Functional.Steps
             ScenarioContext.Current.Pending();
         }
 
-        [When(@"I navigate to ad URL")]
-        public void WhenINavigateToAdURL()
+        [When(@"I navigate to ad URL for ""(.*)""")]
+        public void WhenINavigateToAdURLFor(string adTitle)
         {
             ScenarioContext.Current.Pending();
         }
-
+        
         [Then(@"the page should display tutor ad information")]
         public void ThenThePageShouldDisplayTutorAdInformation()
         {

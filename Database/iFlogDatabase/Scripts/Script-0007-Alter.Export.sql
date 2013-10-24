@@ -1,4 +1,4 @@
-﻿USE [iFlog]
+﻿
 GO
 /****** Object:  StoredProcedure [dbo].[spLineAdExportList]    Script Date: 07/27/2013 21:19:01 ******/
 SET ANSI_NULLS ON

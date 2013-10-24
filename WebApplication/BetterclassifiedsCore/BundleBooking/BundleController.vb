@@ -167,7 +167,7 @@ Namespace BundleBooking
         End Function
 
         Public Function GetOnlineAdTypeTagForBooking() As String
-            If BundleCart IsNot Nothing Then
+            If BundleCart IsNot Nothing And BundleCart.MainSubCategory IsNot Nothing Then
                 Return IIf(Not String.IsNullOrEmpty(BundleCart.MainSubCategory.OnlineAdTag), BundleCart.MainSubCategory.OnlineAdTag, BundleCart.MainParentCategory.OnlineAdTag)
             End If
             Return String.Empty

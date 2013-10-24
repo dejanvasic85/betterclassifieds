@@ -16,7 +16,7 @@ CREATE TABLE [dbo].[Lookup](
 END
 GO
 
-INSERT INTO [iFlog].[dbo].[Lookup]
+INSERT INTO [dbo].[Lookup]
            ([GroupName]
            ,[LookupValue])
      VALUES

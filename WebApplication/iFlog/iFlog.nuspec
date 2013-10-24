@@ -11,10 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Main website application delivered.</description>
     <releaseNotes>
-      Refactor: Removed email broadcast (newsletter) - redundant functionality
-      Refactor: Removed Account WCF Service
-      Refactor: Removed System database backup - redundant functionality
-      #Refactor: Refined error logging system through all applications
+      Ad route - SEO friendly URLs for Ads
     </releaseNotes>
   </metadata>
 </package>

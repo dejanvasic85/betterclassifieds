@@ -39,10 +39,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Drawing" />
     <Reference Include="TechTalk.SpecFlow">
@@ -78,7 +85,10 @@
     <Compile Include="Base\IConfig.cs" />
     <Compile Include="Base\Router.cs" />
     <Compile Include="Base\TestSetup.cs" />
-    <Compile Include="Mocks\PublicationMocks.cs" />
+    <Compile Include="Mocks\ClassifiedEfContext.cs" />
+    <Compile Include="Mocks\CreateTestDataInitialiser.cs" />
+    <Compile Include="Mocks\IDataManager.cs" />
+    <Compile Include="Mocks\MainCategory.cs" />
     <Compile Include="Pages\OnlineAdPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\OnlineAdSteps.cs" />

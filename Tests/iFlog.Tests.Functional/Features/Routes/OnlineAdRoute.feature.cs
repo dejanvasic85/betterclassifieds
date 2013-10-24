@@ -33,7 +33,7 @@ namespace iFlog.Tests.Functional.Features.Routes
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "OnlineAdRoute", "In order to view details of an ad online\r\nAs a an anonymous user\r\nI want to be to" +
-                    " navigate to an Ad URL", ProgrammingLanguage.CSharp, ((string[])(null)));
+                    " navigate to a SEO friendly URL", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         

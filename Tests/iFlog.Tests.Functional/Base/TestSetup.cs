@@ -38,6 +38,7 @@ namespace iFlog.Tests.Functional
             }
             objectContainer.RegisterInstanceAs(driver, typeof(IWebDriver));
             objectContainer.RegisterInstanceAs(new TestConfiguration(), typeof(IConfig));
+            objectContainer.RegisterInstanceAs(new Mocks.ClassifiedEfContext().Initialise(), typeof(Mocks.IDataManager));
         }
 
         [AfterScenario("web")]

@@ -9,17 +9,19 @@ namespace iFlog.Tests.Functional.Steps
     public class OnlineAdSteps : BaseStep
     {
         private readonly Pages.OnlineAdPage _onlineAdPage;
+        private readonly Mocks.IDataManager _dataManager;
         private Router _router;
 
-        public OnlineAdSteps(IWebDriver webDriver, IConfig configuration) : base(webDriver, configuration)
+        public OnlineAdSteps(IWebDriver webDriver, IConfig configuration, Mocks.IDataManager dataManager) : base(webDriver, configuration)
         {
             _onlineAdPage = new Pages.OnlineAdPage(webDriver);
+            _dataManager = dataManager;
         }
 
         [Given(@"The online ad titled ""(.*)""")]
         public void GivenTheOnlineAdTitled(string adTitle)
         {
-            // todo - setup mock data
+            _dataManager.CreateAd(adTitle);
         }
 
         [When(@"I navigate to ""(.*)""")]

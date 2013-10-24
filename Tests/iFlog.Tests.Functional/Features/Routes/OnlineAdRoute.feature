@@ -1,7 +1,7 @@
 ﻿Feature: OnlineAdRoute
 	In order to view details of an ad online
 	As a an anonymous user
-	I want to be to navigate to an Ad URL
+	I want to be to navigate to a SEO friendly URL
 
 @web	
 Scenario: Open Online Ad Url Successfully

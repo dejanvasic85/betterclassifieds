@@ -13,7 +13,7 @@ namespace iFlog.Tests.Functional
             _webDriver = webDriver;
         }
 
-        public void NavigateTo(BasePage page, params object[] args)
+        private void NavigateTo(BasePage page, params object[] args)
         {
             // Construct the path
             var webPath = ConfigurationManager.AppSettings.Get("BaseUrl") + string.Format(page.RelativePath, args);

@@ -22,16 +22,16 @@ namespace iFlog.Tests.Functional.Steps
             // todo - setup mock data
         }
 
-        [When(@"I navigate ""(.*)""")]
+        [When(@"I navigate to ""(.*)""")]
         public void WhenINavigate(string url)
         {
-            WebDriver.Navigate().GoToUrl(string.Concat(Configuration.BaseUrl, url));
+            Browser.Navigate().GoToUrl(string.Concat(Configuration.BaseUrl, url));
         }
         
         [Then(@"the page title should start with ""(.*)""")]
         public void ThenThePageTitleShouldStartWith(string title)
         {
-            Assert.IsTrue(WebDriver.Title.StartsWith(title, StringComparison.OrdinalIgnoreCase));
+            Assert.IsTrue(Browser.Title.StartsWith(title, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

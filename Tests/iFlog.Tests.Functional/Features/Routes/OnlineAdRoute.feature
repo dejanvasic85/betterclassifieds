@@ -6,5 +6,5 @@
 @web	
 Scenario: Open Online Ad Url Successfully
 	Given The online ad titled "WOOHOO IT’S TAX TIME!"
-	When I navigate "Ad/woohoo-its-tax-time/12925"
+	When I navigate to "Ad/woohoo-its-tax-time/12925"
 	Then the page title should start with "WOOHOO IT’S TAX TIME!"

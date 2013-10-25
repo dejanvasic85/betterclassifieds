@@ -88,7 +88,7 @@
     <Compile Include="Mocks\ClassifiedEfContext.cs" />
     <Compile Include="Mocks\CreateTestDataInitialiser.cs" />
     <Compile Include="Mocks\IDataManager.cs" />
-    <Compile Include="Mocks\MainCategory.cs" />
+    <Compile Include="Mocks\DataModels\MainCategory.cs" />
     <Compile Include="Pages\OnlineAdPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\OnlineAdSteps.cs" />

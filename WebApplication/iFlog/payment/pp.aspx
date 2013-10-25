@@ -27,10 +27,6 @@
 
         <input type="hidden" name="custom" value="<%Response.Write(BookingController.AdBookCart.BookReference)%>" />
 
-        <% ElseIf BookingController.BookingType = Booking.BookingAction.SpecialBooking Then%>
-
-        <input type="hidden" name="custom" value="<%Response.Write(BookingController.SpecialBookCart.BookReference)%>" />
-
         <% ElseIf BookingController.BookingType = Booking.BookingAction.BundledBooking Then%>
 
         <input type="hidden" name="custom" value="<%Response.Write(BundleController.BundleCart.BookReference)%>" />

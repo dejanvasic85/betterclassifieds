@@ -69,6 +69,7 @@
     <Content Include="Deploy.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Scripts\Script-0006-EmailTemplate.HeathCheck.sql" />
     <EmbeddedResource Include="Scripts\Script-0005-DSL.AcceptLargerImages.sql" />
     <EmbeddedResource Include="Scripts\Script-0004-EmailTemplates.LogoWidthChange.sql" />
     <EmbeddedResource Include="Scripts\Script-0003-UpdateEmailTemplate.All.sql" />

@@ -185,6 +185,24 @@ Partial Public Class OnlineAdView
     Protected WithEvents lblDatePosted As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''twitter control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents twitter As Global.System.Web.UI.HtmlControls.HtmlAnchor
+
+    '''<summary>
+    '''facebook control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents facebook As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
     '''radLoadingPanel control.
     '''</summary>
     '''<remarks>
@@ -228,22 +246,4 @@ Partial Public Class OnlineAdView
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents onlineAdFrame As Global.System.Web.UI.HtmlControls.HtmlIframe
-
-    '''<summary>
-    '''twitter control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents twitter As Global.System.Web.UI.HtmlControls.HtmlAnchor
-
-    '''<summary>
-    '''facebook control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents facebook As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 End Class

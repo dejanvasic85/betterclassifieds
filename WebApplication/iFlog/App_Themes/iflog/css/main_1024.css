@@ -509,22 +509,24 @@ br
 
 #sidebarHeader
 {
-    background: url(../images/categories.gif) no-repeat;
     width: 176px;
     display: block;
     margin: 0;
     padding: 0;
     line-height: 32px;
     float: left;
+    border-bottom: 1px solid #263745;
+    border-top: 1px solid #263745;
 }
 
-    #sidebarHeader p
-    {
-        font-size: 0.8em;
-        margin: 0px;
-        padding: 0px;
-        text-indent: -1000em;
-    }
+.content-header {
+    color: #263745; 
+    text-transform: uppercase;
+    font-family: alternate-gothic-no-2-d;
+    font-size: 2.0em;
+    font-weight: 700;
+    line-height: 1.1;
+}
 
 #sidebarContent
 {
@@ -956,15 +958,7 @@ br
     display: block;
     float: left;
 }
-/*#mainBodyItemPage h7 {
-	font-size: 0.75em;
-	line-height: 0.75em;
-	margin: 3px 0px;
-	padding: 0px;
-	color: #333;
-	display: block;
-	float: left;
-}*/
+
 .mainBodyItemPageH7
 {
     font-size: 0.75em;
@@ -2173,22 +2167,16 @@ bookAdMainContent
 
 #mainHeader
 {
-    background: url(../images/latest-deals_short_1024.gif) no-repeat;
     width: 591px;
     display: block;
-    margin: 0;
+    margin: 0 0 0 10px;
     padding: 0;
-    line-height: 42px;
+    line-height: 32px;
     float: left;
+    border-bottom: 1px solid #263745;
+    border-top: 1px solid #263745;
 }
 
-    #mainHeader p
-    {
-        font-size: 0.8em;
-        margin: 0px;
-        padding: 0px;
-        text-indent: -1000em;
-    }
 
 #mainHeaderSearchResults
 {
@@ -3591,7 +3579,7 @@ bookAdMainContent
     {
         position: fixed;
         top: 0;
-        width: 150px;
+        width: 300px;
         height: 900px;
         z-index: 0;
         overflow: hidden;
@@ -3600,7 +3588,7 @@ bookAdMainContent
         .skins div.left
         {
             left: 50%;
-            margin-left: -660px;
+            margin-left: -800px;
             text-align: right;
             z-index: -1;
         }
@@ -3608,7 +3596,7 @@ bookAdMainContent
         .skins div.right
         {
             right: 50%;
-            margin-right: -660px;
+            margin-right: -800px;
             text-align: left;
             z-index: -1;
         }
@@ -4479,3 +4467,20 @@ LineAdTextBox
 }
 
 /*End of Padded Panel*/
+
+.social-bar {
+    display: block;
+    padding: 10px;
+}
+
+    .social-bar .twitter {
+        margin-left: 10px; 
+        display: inline-block; 
+        width: 100px;
+        vertical-align: top;
+    }
+
+    .social-bar .facebook {
+        margin-left: 15px; 
+        display: inline-block   
+    }

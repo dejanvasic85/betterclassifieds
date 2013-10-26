@@ -7,9 +7,7 @@
         <div id="contentBody">
             <div id="sidebar">
                 <div id="sidebarHeader">
-                    <p>
-                        categories header
-                    </p>
+                    <span class="content-header">Categories</span>
                 </div>
                 <div id="sidebarContent">
                     <paramountIt:CategorySelector ID="categorySelector" runat="server" />

@@ -10,8 +10,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="BodyPlaceHolder" runat="server">
     <div id="sidebar">
         <div id="sidebarHeader">
-            <p>
-                categories header</p>
+            <span class="content-header">Categories</span>
         </div>
         <div id="sidebarContent">
              <paramountIt:CategorySelector ID="categorySelector" runat="server" />
@@ -20,8 +19,7 @@
     
     <div id="main">
         <div id="mainHeader">
-            <p>
-                mainHeader</p>
+            <span class="content-header">Latest Posts</span>
         </div>
         
         <div id="mainContent">

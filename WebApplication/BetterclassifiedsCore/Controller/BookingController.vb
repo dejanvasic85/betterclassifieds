@@ -22,20 +22,12 @@ Public Enum AdDesignStatus
     Cancelled = 3
 End Enum
 
-
-''' <summary>
-''' Provides Shared Methods that manipulate the BookCart object and general
-''' Database Operations on AdBookings.
-''' </summary>
-''' <remarks>There is no need to instanstiate this object. All methods 
-''' should be accessible directly.</remarks>
 Public Class BookingController
 
 #Region "Ad Booking Procedure"
 
     Private Const bookingSessionName As String = "_bookingSession"
     Private Const bookingTypeAction As String = "_bookingTypeAction"
-
 
     Public Shared Property BookingType() As BookingAction
         Get
@@ -162,31 +154,25 @@ Public Class BookingController
     ''' <returns>True if the booking status has been changed successfully.</returns>
     ''' <remarks></remarks>
     Public Shared Function ActiveExistingBooking(ByVal bookingId As Integer) As Boolean
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Dim booking = (From b In db.AdBookings Where b.AdBookingId = bookingId Select b).Single
-                booking.BookingStatus = BookingStatus.BOOKED
-                db.SubmitChanges()
-                Return True
-            End Using
-        Catch ex As Exception
-            Throw ex ' todo log exception
-        End Try
+
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim booking = (From b In db.AdBookings Where b.AdBookingId = bookingId Select b).Single
+            booking.BookingStatus = BookingStatus.BOOKED
+            db.SubmitChanges()
+            Return True
+        End Using
+
     End Function
 
     Public Shared Function ReBook(ByVal adBookingId As Integer, ByVal startDate As DateTime, ByVal endDate As DateTime, _
                                   ByVal bookReference As String, ByVal totalPrice As Decimal) As Boolean
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                '' need to retrieve all the required object to submit the booking again
 
-                ' start with ad and designs.
-                Dim booking = (From b In db.AdBookings Where b.AdBookingId = adBookingId Select b).Single
-            End Using
-        Catch e As Exception
-            '' todo handle the error (publish to log)
-            Return False
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            '' need to retrieve all the required object to submit the booking again
+
+            ' start with ad and designs.
+            Dim booking = (From b In db.AdBookings Where b.AdBookingId = adBookingId Select b).Single
+        End Using
 
     End Function
 
@@ -244,33 +230,28 @@ Public Class BookingController
     ''' Creates a new AdDesign with the AdType passed as parameter. Then it associates the Ad Design to a new Ad in the AdBookCart.</remarks>
     Public Shared Sub SetAdType(ByVal adTypeId As Integer)
 
-        Try
-            Dim cart As BookCart = AdBookCart
-            If Not (cart) Is Nothing Then
+        Dim cart As BookCart = AdBookCart
+        If Not (cart) Is Nothing Then
 
-                ' create a new ad design for this ad with the ad type the user chosen
-                Dim design As New AdDesign
-                design.AdTypeId = adTypeId
+            ' create a new ad design for this ad with the ad type the user chosen
+            Dim design As New AdDesign
+            design.AdTypeId = adTypeId
 
-                ' create new ad in the adbooking with the design we also created.
-                cart.Ad = New Ad
-                cart.Ad.AdDesigns.Add(design)
+            ' create new ad in the adbooking with the design we also created.
+            cart.Ad = New Ad
+            cart.Ad.AdDesigns.Add(design)
 
-                ' set the main ad type as reference in the BookCart object also
-                Using db = BetterclassifiedsDataContext.NewContext
-                    cart.MainAdType = (From t In db.AdTypes _
-                                      Where t.AdTypeId = adTypeId _
-                                      Select t).Single
-                End Using
+            ' set the main ad type as reference in the BookCart object also
+            Using db = BetterclassifiedsDataContext.NewContext
+                cart.MainAdType = (From t In db.AdTypes _
+                                  Where t.AdTypeId = adTypeId _
+                                  Select t).Single
+            End Using
 
-            Else
-                ' throw an exception. 
-                Throw New Exception("The booking has not been started. Should not be able to access this part of the system.")
-            End If
-        Catch ex As Exception
-            Throw ex
-        End Try
-
+        Else
+            ' throw an exception. 
+            Throw New Exception("The booking has not been started. Should not be able to access this part of the system.")
+        End If
     End Sub
 
     ''' <summary>
@@ -497,88 +478,85 @@ Public Class BookingController
 
     Public Shared Function GetBookingRefByTempRec(ByVal tempRef As String) As String
         Dim contentBuilder = New StringBuilder
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Dim bk = From b In db.TempBookingRecords Where b.BookingRecordId.ToString = tempRef Select b.AdReferenceId
-                If bk.Count = 1 Then
-                    Return bk.Single
-                End If
-            End Using
-            Return 0
-        Catch ex As Exception
-            Throw ex
-        End Try
+
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim bk = From b In db.TempBookingRecords Where b.BookingRecordId.ToString = tempRef Select b.AdReferenceId
+            If bk.Count = 1 Then
+                Return bk.Single
+            End If
+        End Using
+        Return 0
+
     End Function
 
     Public Shared Function GetBookingStringContentByRef(ByVal bookRef As String) As String
         Dim contentBuilder = New StringBuilder
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Dim bk = From b In db.AdBookings Where b.BookReference = bookRef
 
-                If bk.Count = 1 Then
-                    Dim adBooking = bk.SingleOrDefault
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim bk = From b In db.AdBookings Where b.BookReference = bookRef
 
-                    contentBuilder.AppendLine(String.Format("Ad ID: {0} <br/>", adBooking.AdBookingId))
-                    contentBuilder.AppendLine(String.Format("Booking Reference: {0} <br/>", adBooking.BookReference))
-                    contentBuilder.AppendLine(String.Format("User Id: {0} <br/>", adBooking.UserId))
-                    contentBuilder.AppendLine(String.Format("Total Price: {0:C} <br/>", adBooking.TotalPrice))
-                    contentBuilder.AppendLine(String.Format("Main Category: {0} <br/>", adBooking.MainCategory.Title))
+            If bk.Count = 1 Then
+                Dim adBooking = bk.SingleOrDefault
 
-                    If adBooking.Ad.AdDesigns.Count > 0 Then
-                        For Each item In adBooking.Ad.AdDesigns
-                            For Each item2 In item.LineAds
-                                contentBuilder.AppendLine("<p>**********--- Line Ad----********** </p>")
-                                contentBuilder.AppendLine(String.Format("Header: {0}<br/><br/>", item2.AdHeader))
-                                contentBuilder.AppendLine("------ Text ------<br/>")
-                                contentBuilder.AppendLine(item2.AdText)
-                                contentBuilder.AppendLine("<br/><br/>")
-                            Next
+                contentBuilder.AppendLine(String.Format("Ad ID: {0} <br/>", adBooking.AdBookingId))
+                contentBuilder.AppendLine(String.Format("Booking Reference: {0} <br/>", adBooking.BookReference))
+                contentBuilder.AppendLine(String.Format("User Id: {0} <br/>", adBooking.UserId))
+                contentBuilder.AppendLine(String.Format("Total Price: {0:C} <br/>", adBooking.TotalPrice))
+                contentBuilder.AppendLine(String.Format("Main Category: {0} <br/>", adBooking.MainCategory.Title))
 
-
-                            For Each item3 In item.OnlineAds
-                                contentBuilder.AppendLine("<p>**********--- Online Ad----**********</p>")
-                                contentBuilder.AppendLine(String.Format("Header: {0}<br/>", item3.Heading))
-                                contentBuilder.AppendLine("------ Text ------<br/>")
-                                contentBuilder.AppendLine(item3.Description + "<br/>")
-                                contentBuilder.AppendLine("------ HTML ------<br/>")
-                                contentBuilder.AppendLine(item3.HtmlText + "<br/>")
-                                contentBuilder.AppendLine("<br/><br/>")
-                            Next
-
-                            contentBuilder.AppendLine("<p>------ Images ------</p>")
-                            For Each item4 In item.AdGraphics
-                                Dim collection As New NameValueCollection()
-                                Dim dslQuery As New DslQueryParam(collection)
-                                dslQuery.DocumentId = item4.DocumentID
-                                dslQuery.Entity = CryptoHelper.Encrypt(ConfigurationManager.AppSettings.Get("ClientCode"))
-                                dslQuery.Height = 200
-                                dslQuery.Width = 200
-                                dslQuery.Resolution = 90
-                                Dim imageTag As String = String.Format("<img id=""{0}"" src=""{1}?{2}"" />", item4.DocumentID, ConfigSettingReader.DslImageHandler, dslQuery.GenerateUrl)
-                                contentBuilder.AppendLine(imageTag)
-                            Next
-
+                If adBooking.Ad.AdDesigns.Count > 0 Then
+                    For Each item In adBooking.Ad.AdDesigns
+                        For Each item2 In item.LineAds
+                            contentBuilder.AppendLine("<p>**********--- Line Ad----********** </p>")
+                            contentBuilder.AppendLine(String.Format("Header: {0}<br/><br/>", item2.AdHeader))
+                            contentBuilder.AppendLine("------ Text ------<br/>")
+                            contentBuilder.AppendLine(item2.AdText)
+                            contentBuilder.AppendLine("<br/><br/>")
                         Next
-                    End If
 
-                    contentBuilder.AppendLine("<p>----- Publications & Date(s) ---- </p>")
-                    Dim pub = From i In adBooking.BookEntries Group i By i.Publication.Title Into Group
-                    For Each item In pub
-                        contentBuilder.AppendLine("<br/>")
-                        contentBuilder.AppendLine(String.Format("----- {0}:<br/>", item.Title))
-                        For Each item2 In item.Group
-                            contentBuilder.AppendLine(item2.EditionDate + "<br/>")
+
+                        For Each item3 In item.OnlineAds
+                            contentBuilder.AppendLine("<p>**********--- Online Ad----**********</p>")
+                            contentBuilder.AppendLine(String.Format("Header: {0}<br/>", item3.Heading))
+                            contentBuilder.AppendLine("------ Text ------<br/>")
+                            contentBuilder.AppendLine(item3.Description + "<br/>")
+                            contentBuilder.AppendLine("------ HTML ------<br/>")
+                            contentBuilder.AppendLine(item3.HtmlText + "<br/>")
+                            contentBuilder.AppendLine("<br/><br/>")
                         Next
+
+                        contentBuilder.AppendLine("<p>------ Images ------</p>")
+                        For Each item4 In item.AdGraphics
+                            Dim collection As New NameValueCollection()
+                            Dim dslQuery As New DslQueryParam(collection)
+                            dslQuery.DocumentId = item4.DocumentID
+                            dslQuery.Entity = CryptoHelper.Encrypt(ConfigurationManager.AppSettings.Get("ClientCode"))
+                            dslQuery.Height = 200
+                            dslQuery.Width = 200
+                            dslQuery.Resolution = 90
+                            Dim baseUrl = New Uri(ConfigurationManager.AppSettings.Get("BaseUrl"))
+                            Dim imageUrl = New Uri(baseUrl, ConfigSettingReader.DslImageHandler.TrimStart("~", "/"))
+                            Dim imageTag As String = String.Format("<img id=""{0}"" src=""{1}?{2}"" />", item4.DocumentID, imageUrl, dslQuery.GenerateUrl)
+                            contentBuilder.AppendLine(imageTag)
+                        Next
+
                     Next
-                    Return contentBuilder.ToString
-                Else
-                    Return String.Empty
                 End If
-            End Using
-        Catch ex As Exception
-            Throw ex
-        End Try
+
+                contentBuilder.AppendLine("<p>----- Publications & Date(s) ---- </p>")
+                Dim pub = From i In adBooking.BookEntries Group i By i.Publication.Title Into Group
+                For Each item In pub
+                    contentBuilder.AppendLine("<br/>")
+                    contentBuilder.AppendLine(String.Format("----- {0}:<br/>", item.Title))
+                    For Each item2 In item.Group
+                        contentBuilder.AppendLine(item2.EditionDate + "<br/>")
+                    Next
+                Next
+                Return contentBuilder.ToString
+            Else
+                Return String.Empty
+            End If
+        End Using
     End Function
 
     ''' <summary>
@@ -775,18 +753,14 @@ Public Class BookingController
 #Region "Retrieve"
 
     Public Shared Function GetAdBookingById(ByVal id As Integer) As DataModel.AdBooking
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Dim bk = From b In db.AdBookings Where b.AdBookingId = id Select b
-                If bk.Count > 0 Then
-                    Return bk.FirstOrDefault
-                Else
-                    Return Nothing
-                End If
-            End Using
-        Catch ex As Exception
-            Throw ex
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim bk = From b In db.AdBookings Where b.AdBookingId = id Select b
+            If bk.Count > 0 Then
+                Return bk.FirstOrDefault
+            Else
+                Return Nothing
+            End If
+        End Using
     End Function
 
     Public Shared Function GetAdBookingByendDate(ByVal selectedDate As Date) As AdBookingSet
@@ -886,22 +860,19 @@ Public Class BookingController
     ''' </summary>
     ''' <returns>Returns a list of LineAd objects.</returns>
     Public Shared Function GetAdDesignDetails(ByVal adType As SystemAdType) As AdDesign
-        Try
-            If Not AdBookCart Is Nothing Then
-                If Not AdBookCart.Ad Is Nothing Then
-                    ' loop through all the ad designs in the session
-                    ' there shouldn't be more than one of each ad types in there.
-                    For Each design As AdDesign In AdBookCart.Ad.AdDesigns
-                        If (AdController.GetAdType(design.AdTypeId).Code = adType.ToString) Then
-                            Return design
-                            Exit For
-                        End If
-                    Next
-                End If
+        If Not AdBookCart Is Nothing Then
+            If Not AdBookCart.Ad Is Nothing Then
+                ' loop through all the ad designs in the session
+                ' there shouldn't be more than one of each ad types in there.
+                For Each design As AdDesign In AdBookCart.Ad.AdDesigns
+                    If (AdController.GetAdType(design.AdTypeId).Code = adType.ToString) Then
+                        Return design
+                        Exit For
+                    End If
+                Next
             End If
-        Catch ex As Exception
-            Throw ex
-        End Try
+        End If
+
         Return Nothing
     End Function
 
@@ -955,20 +926,17 @@ Public Class BookingController
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public Shared Function GetBookEntries(ByVal adBookingId As Integer) As IList
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Dim query = From en In db.BookEntries Where en.AdBookingId = adBookingId _
-                            Order By en.Publication.Title _
-                            Select New With {.BookEntryId = en.BookEntryId, _
-                                             .EditionDate = en.EditionDate, _
-                                             .AdBookingId = en.AdBookingId, _
-                                             .PublicationId = en.PublicationId, _
-                                             .PublicationTitle = en.Publication.Title}
-                Return query.ToList
-            End Using
-        Catch ex As Exception
-            Throw ex ' todo log error;
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim query = From en In db.BookEntries Where en.AdBookingId = adBookingId _
+                        Order By en.Publication.Title _
+                        Select New With {.BookEntryId = en.BookEntryId, _
+                                         .EditionDate = en.EditionDate, _
+                                         .AdBookingId = en.AdBookingId, _
+                                         .PublicationId = en.PublicationId, _
+                                         .PublicationTitle = en.Publication.Title}
+            Return query.ToList
+        End Using
+
     End Function
 
     ''' <summary>

@@ -1986,11 +1986,11 @@ bookAdMainContent
 
     #myAccountTableButtonsExtend a
     {
+        background: url(../images/my_account_ads_EXTEND.gif) no-repeat;
         font-size: 0.85em;
         line-height: 15px;
         font-weight: bold;
         color: #fff;
-        background: url(../images/my_account_ads_EXTEND.gif) no-repeat;
         margin: 0px;
         padding: 0px;
         height: 15px;
@@ -2002,11 +2002,11 @@ bookAdMainContent
 
         #myAccountTableButtonsExtend a:hover
         {
+            background: url(../images/my_account_ads_EXTEND.gif) no-repeat -74px;
             font-size: 0.85em;
             line-height: 15px;
             font-weight: bold;
             color: #fff;
-            background: url(../images/my_account_ads_EXTEND.gif) no-repeat -74px;
             margin: 0px;
             padding: 0px;
             height: 15px;
@@ -2016,9 +2016,6 @@ bookAdMainContent
             padding-top: 4px;
         }
 
-#myAccountTableButtonsModify
-{
-}
 
     #myAccountTableButtonsModify a
     {

@@ -155,6 +155,9 @@
     <Content Include="App_Themes\iflog\images\icon_success.gif" />
     <Content Include="App_Themes\iflog\images\informationbar_right.gif" />
     <Content Include="App_Themes\iflog\images\mail-q-bg.jpg" />
+    <Content Include="App_Themes\iflog\images\my_account_ads_CANCEL.gif" />
+    <Content Include="App_Themes\iflog\images\my_account_ads_EXTEND.gif" />
+    <Content Include="App_Themes\iflog\images\my_account_ads_MODIFY.gif" />
     <Content Include="App_Themes\iflog\images\upload_head_img.gif" />
     <Content Include="App_Themes\iflog\images\upload_head_img_b.gif" />
     <Content Include="App_Themes\Plain\plain.css" />

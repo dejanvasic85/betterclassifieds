@@ -191,7 +191,7 @@ SET		EmailContent = '
                 <td colspan="4">
                     <div style="text-align: center;">
                         <a href="http://classies.themusic.com.au/" target="_blank">
-                            <img src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" 
+                            <img src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" width="300px" 
                                 alt="The Music | theMusic.com.au | Australia’s Premier Music News &amp; Reviews Website" />
                         </a>
                     </div>
@@ -437,7 +437,7 @@ SET		EmailContent = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//
                 <td colspan="4">
                     <div style="text-align: center;">
                         <a href="http://classies.themusic.com.au/" target="_blank">
-                            <img src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png"
+                            <img src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" width="300px" 
                                 alt="The Music | theMusic.com.au | Australia’s Premier Music News &amp; Reviews Website" />
                         </a>
                     </div>
@@ -669,7 +669,7 @@ SET		EmailContent = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//
                 <td colspan="4">
                     <div style="text-align: center;">
                         <a href="http://classies.themusic.com.au/" target="_blank">
-                            <img src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png"
+                            <img src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" width="300px" 
                                 alt="The Music | theMusic.com.au | Australia�s Premier Music News &amp; Reviews Website" />
                         </a>
                     </div>
@@ -906,7 +906,7 @@ SET		EmailContent = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//
                 <td colspan="4">
                     <div style="text-align: center;">
                         <a href="http://classies.themusic.com.au/" target="_blank">
-                            <img src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png"
+                            <img src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" width="300px" 
                                 alt="The Music | theMusic.com.au | Australia�s Premier Music News &amp; Reviews Website" />
                         </a>
                     </div>
@@ -1138,7 +1138,7 @@ SET		EmailContent = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//
                 <td colspan="4">
                     <div style="text-align: center;">
                         <a href="http://classies.themusic.com.au/" target="_blank">
-                            <img src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png"
+                            <img src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" width="300px" 
                                 alt="The Music | theMusic.com.au | Australia’s Premier Music News &amp; Reviews Website" />
                         </a>
                     </div>
@@ -1376,7 +1376,7 @@ SET		EmailContent = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//
                 <td colspan="4">
                     <div style="text-align: center;">
                         <a href="http://classies.themusic.com.au/" target="_blank">
-                            <img src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png"
+                            <img src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" width="300px" 
                                 alt="The Music | theMusic.com.au | Australia�s Premier Music News &amp; Reviews Website" />
                         </a>
                     </div>

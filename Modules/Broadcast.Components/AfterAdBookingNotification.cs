@@ -43,7 +43,7 @@
 
         public override string Subject
         {
-            get { return "iflog Notification"; }
+            get { return "iFlog Notification"; }
         }
 
         public override Collection<EmailRecipientView> Recipients

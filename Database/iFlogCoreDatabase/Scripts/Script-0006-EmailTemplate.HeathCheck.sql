@@ -1,7 +1,7 @@
 ﻿IF NOT EXISTS ( SELECT 1 FROM EmailTemplate WHERE [Name] = 'SystemHealthCheck')
 begin
-	INSERT INTO EmailTemplate ([Name], [Description], [Subject], [Sender], [EntityCode])
-	VALUES ( 'SystemHealthCheck', 'Sends alert to admins about the daily activity', 'iFlog Activity Report', 'alert@iflog.com.au', 'P000000005' );
+	INSERT INTO EmailTemplate ([Name], [EmailContent], [Description], [Subject], [Sender], [EntityCode])
+	VALUES ( 'SystemHealthCheck', ' ', 'Sends alert to admins about the daily activity', 'iFlog Activity Report', 'alert@iflog.com.au', 'P000000005' );
 end
 
 UPDATE EmailTemplate

@@ -21,7 +21,7 @@ namespace iFlog.Tests.Functional.Steps
         [Given(@"The online ad titled ""(.*)""")]
         public void GivenTheOnlineAdTitled(string adTitle)
         {
-            _dataManager.CreateAd(adTitle);
+            _dataManager.AddOrUpdateOnlineAd(adTitle);
         }
 
         [When(@"I navigate to ""(.*)""")]

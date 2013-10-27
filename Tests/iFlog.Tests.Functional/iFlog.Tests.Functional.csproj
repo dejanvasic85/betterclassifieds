@@ -39,11 +39,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
@@ -51,6 +49,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="TechTalk.SpecFlow">
       <HintPath>..\..\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
@@ -85,10 +85,91 @@
     <Compile Include="Base\IConfig.cs" />
     <Compile Include="Base\Router.cs" />
     <Compile Include="Base\TestSetup.cs" />
-    <Compile Include="Mocks\ClassifiedEfContext.cs" />
-    <Compile Include="Mocks\CreateTestDataInitialiser.cs" />
+    <Compile Include="Mocks\EntityDataManager.cs" />
+    <Compile Include="Mocks\iFlogDb\iFlogDbInitialiser.cs" />
     <Compile Include="Mocks\IDataManager.cs" />
-    <Compile Include="Mocks\DataModels\MainCategory.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Ad.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\AdBooking.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\AdBookingExtension.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\AdDesign.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\AdGraphic.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\AdType.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\AppSetting.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\BaseRate.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\BookEntry.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Edition.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\EnquiryDocument.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\EnquiryType.cs" />
+    <Compile Include="Mocks\iFlogDb\iFlogContext.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\LineAd.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\LineAdColourCode.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\LineAdTheme.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Location.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\LocationArea.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Lookup.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\MainCategory.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\AdBookingExtensionMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\AdBookingMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\AdDesignMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\AdGraphicMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\AdMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\AdTypeMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\AppSettingMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\BaseRateMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\BookEntryMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\EditionMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\EnquiryDocumentMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\EnquiryTypeMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\LineAdColourCodeMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\LineAdMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\LineAdThemeMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\LocationAreaMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\LocationMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\LookupMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\MainCategoryMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\NonPublicationDateMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\OnlineAd1Map.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\OnlineAdEnquiryMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\OnlineAdMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\PublicationAdTypeMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\PublicationCategoryMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\PublicationMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\PublicationRateMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\PublicationSpecialRateMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\PublicationTypeMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\RatecardMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\RssFeedMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\SchemaVersionMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\SpecialRateMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\SupportEnquiryMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\TempBookingRecordMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\TransactionMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\TutorAdMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\WebAdSpaceMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\WebAdSpaceSettingMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Mapping\WebContentMap.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\NonPublicationDate.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\OnlineAd.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\OnlineAd1.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\OnlineAdEnquiry.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Publication.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\PublicationAdType.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\PublicationCategory.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\PublicationRate.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\PublicationSpecialRate.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\PublicationType.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Ratecard.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\RssFeed.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\SchemaVersion.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\SpecialRate.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\SupportEnquiry.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\TempBookingRecord.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\Transaction.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\TutorAd.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\WebAdSpace.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\WebAdSpaceSetting.cs" />
+    <Compile Include="Mocks\iFlogDb\Models\WebContent.cs" />
+    <Compile Include="Mocks\iFlogDb\iFlogDatabaseSeedTest.cs" />
     <Compile Include="Pages\OnlineAdPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\OnlineAdSteps.cs" />
@@ -103,7 +184,9 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="chromedriver.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

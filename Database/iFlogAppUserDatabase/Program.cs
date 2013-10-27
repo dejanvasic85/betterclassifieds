@@ -14,7 +14,7 @@ namespace iFlogAppUserDatabase
             var connectionString = ConfigurationManager.ConnectionStrings["iFlogAppUserDb"].ConnectionString;
 
             // Create the database if not exists
-            CreateDbIfNotExists(connectionString);
+            //CreateDbIfNotExists(connectionString);
 
             var upgrader =
                 DeployChanges.To

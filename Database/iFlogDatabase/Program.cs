@@ -13,7 +13,7 @@ namespace iFlogDatabase
         {
             var connectionString = ConfigurationManager.ConnectionStrings["iFlogDb"].ConnectionString;
 
-            CreateDbIfNotExists(connectionString);
+            //CreateDbIfNotExists(connectionString);
 
             var upgrader =
                 DeployChanges.To

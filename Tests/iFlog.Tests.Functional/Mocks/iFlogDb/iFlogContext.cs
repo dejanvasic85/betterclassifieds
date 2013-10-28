@@ -8,7 +8,7 @@ namespace iFlog.Tests.Functional.Mocks.iFlogDb
     {
         static iFlogContext()
         {
-            Database.SetInitializer<iFlogContext>(null);
+            Database.SetInitializer(new iFlogDbInitialiser());
         }
 
         public iFlogContext()

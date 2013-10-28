@@ -9,10 +9,9 @@ namespace iFlog.Tests.Functional.Mocks
     {
         public IDataManager Initialise()
         {
-            Database.SetInitializer(new iFlogDbInitialiser());
             using (iFlogContext iflogDb = new iFlogContext())
             {
-                iflogDb.Database.Initialize(force: true);
+                iflogDb.Database.Initialize(true); // Force the initialisation with seed data
             }
             return this;
         }

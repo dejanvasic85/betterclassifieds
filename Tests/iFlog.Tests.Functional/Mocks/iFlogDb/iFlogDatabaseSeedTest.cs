@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace iFlog.Tests.Functional.Mocks.iFlogDb

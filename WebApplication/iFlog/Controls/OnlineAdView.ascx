@@ -107,13 +107,13 @@
     <div class="social-bar">
         <div class="twitter">
             <a id="twitter" runat="server" href="https://twitter.com/share" class="twitter-share-button"
-                data-text="http://iflog.com.au" data-size="medium">Tweet</a>
+                data-text="https://classies.themusic.com.au" data-size="medium">Tweet</a>
             <script type="text/javascript">
                 !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + '://platform.twitter.com/widgets.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'twitter-wjs');
             </script>
         </div>
         <div id="facebook" runat="server" class="fb-like facebook"
-            data-href="http://iflog.com.au" data-width="450" data-action="recommend"
+            data-href="https://classies.themusic.com.au" data-width="450" data-action="recommend"
             data-show-faces="true" data-send="false">
         </div>
     </div>

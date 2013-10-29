@@ -75,11 +75,11 @@ namespace iFlog.Tests.Functional.Features.Routes
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.Given("The online ad titled \"WOOHOO IT’S TAX TIME!\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("The online ad titled \"Ad with cool route\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
- testRunner.When("I navigate to \"Ad/woohoo-its-tax-time/12925\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I navigate to \"Ad/ad-with-cool-route/{0}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 10
- testRunner.Then("the page title should start with \"WOOHOO IT’S TAX TIME!\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the page title should start with \"Ad with cool route\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

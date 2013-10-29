@@ -8,28 +8,30 @@ namespace iFlog.Tests.Functional.Steps
     [Binding]
     public class OnlineAdSteps : BaseStep
     {
-        private readonly Pages.OnlineAdPage _onlineAdPage;
-        private readonly Mocks.IDataManager _dataManager;
-        private Router _router;
+        private readonly Pages.OnlineAdPage onlineAdPage;
+        private readonly Mocks.IDataManager dataManager;
+        private readonly TestRouter testRouter;
 
-        public OnlineAdSteps(IWebDriver webDriver, IConfig configuration, Mocks.IDataManager dataManager) : base(webDriver, configuration)
+        public OnlineAdSteps(IWebDriver webDriver, IConfig configuration, Mocks.IDataManager dataManager, TestRouter testRouter): base(webDriver, configuration)
         {
-            _onlineAdPage = new Pages.OnlineAdPage(webDriver);
-            _dataManager = dataManager;
+            onlineAdPage = new Pages.OnlineAdPage(webDriver);
+            this.dataManager = dataManager;
+            this.testRouter = testRouter;
         }
 
         [Given(@"The online ad titled ""(.*)""")]
         public void GivenTheOnlineAdTitled(string adTitle)
         {
-            _dataManager.AddOrUpdateOnlineAd(adTitle);
+            ScenarioContext.Current.Add("AdId", dataManager.AddOrUpdateOnlineAd(adTitle));
         }
 
         [When(@"I navigate to ""(.*)""")]
         public void WhenINavigate(string url)
         {
-            Browser.Navigate().GoToUrl(string.Concat(Configuration.BaseUrl, url));
+            string urlWithId = string.Format(url, ScenarioContext.Current.Get<int>("AdId"));
+            testRouter.NavigateTo(urlWithId);
         }
-        
+
         [Then(@"the page title should start with ""(.*)""")]
         public void ThenThePageTitleShouldStartWith(string title)
         {

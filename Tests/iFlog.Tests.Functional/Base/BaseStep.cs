@@ -14,13 +14,13 @@ namespace iFlog.Tests.Functional
     {
         public readonly IWebDriver Browser;
         public readonly IConfig Configuration;
-        public readonly Router Router;
+        public readonly TestRouter Router;
 
         protected BaseStep(IWebDriver webDriver, IConfig configuration)
         {
             this.Browser = webDriver;
             this.Configuration = configuration;
-            this.Router = new Router(webDriver);
+            this.Router = new TestRouter(webDriver);
         }
 
     }

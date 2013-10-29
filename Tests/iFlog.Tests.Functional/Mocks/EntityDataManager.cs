@@ -1,5 +1,8 @@
 using System;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.Linq;
 
 namespace iFlog.Tests.Functional.Mocks
 {
@@ -9,10 +12,16 @@ namespace iFlog.Tests.Functional.Mocks
     {
         public IDataManager Initialise()
         {
-            using (iFlogContext iflogDb = new iFlogContext())
+            using (iFlogContext context = new iFlogContext())
             {
-                iflogDb.Database.Initialize(true); // Force the initialisation with seed data
+                // Force the initialisation - Create if not exists
+                context.Database.Initialize(true);
+
+                // Explicitly call the seed!
+                iFlogDbInitialiser initialiser = new iFlogDbInitialiser();
+                initialiser.Seed(context);
             }
+
             return this;
         }
 
@@ -20,8 +29,47 @@ namespace iFlog.Tests.Functional.Mocks
         {
             using (iFlogContext context = new iFlogContext())
             {
-                var category = context.MainCategories.Find(1);
-                return category.MainCategoryId;
+                // Check if already exists
+                var existingAd = context.OnlineAds.FirstOrDefault(o => o.Heading == adTitle);
+                if (existingAd != null)
+                    return existingAd.AdDesign.Ad.AdBookings.First().AdBookingId;
+
+                var booking = new AdBooking
+                    {
+                        BookReference = "SEL-001",
+                        BookingDate = DateTime.Now,
+                        BookingStatus = 1,
+                        StartDate = DateTime.Now.AddDays(-1),
+                        EndDate = DateTime.Now.AddMonths(1),
+                        UserId = "Selenium User"
+                    };
+
+                var onlineAd = new OnlineAd
+                    {
+                        Heading = adTitle,
+                        ContactName = "Sample Contact",
+                        ContactType = "Email",
+                        ContactValue = "samplecontact@email.com",
+                        Description = "This is a sample description for an ad",
+                        HtmlText = "<string>This is a sample description for an ad</strong>",
+                        NumOfViews = 1001,
+                        Price = 500
+                    };
+
+                var adDesign = new AdDesign { OnlineAds = new[] { onlineAd }, AdType = context.AdTypes.First(t => t.Code == "ONLINE") };
+                booking.Ad = new Ad { AdDesigns = new[] { adDesign } };
+                booking.MainCategory = context.MainCategories.First(m => m.Title == "Selenium Sub Category");
+                context.AdBookings.Add(booking);
+                try
+                {
+                    context.SaveChanges();
+                }
+                catch (DbEntityValidationException dbEntityValidationException)
+                {
+                    Console.WriteLine(dbEntityValidationException);
+                    throw;
+                }
+                return booking.AdBookingId; // This is the new Ad ID!!
             }
         }
     }

@@ -83,7 +83,7 @@
     </Compile>
     <Compile Include="Base\BasePage.cs" />
     <Compile Include="Base\IConfig.cs" />
-    <Compile Include="Base\Router.cs" />
+    <Compile Include="Base\TestRouter.cs" />
     <Compile Include="Base\TestSetup.cs" />
     <Compile Include="Mocks\EntityDataManager.cs" />
     <Compile Include="Mocks\iFlogDb\iFlogDbInitialiser.cs" />
@@ -169,7 +169,6 @@
     <Compile Include="Mocks\iFlogDb\Models\WebAdSpace.cs" />
     <Compile Include="Mocks\iFlogDb\Models\WebAdSpaceSetting.cs" />
     <Compile Include="Mocks\iFlogDb\Models\WebContent.cs" />
-    <Compile Include="Mocks\iFlogDb\iFlogDatabaseSeedTest.cs" />
     <Compile Include="Pages\OnlineAdPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\OnlineAdSteps.cs" />
@@ -184,9 +183,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="chromedriver.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

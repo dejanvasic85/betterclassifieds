@@ -12,8 +12,8 @@
     <link id="Link4" runat="server" rel="icon" href="~/favicon.ico" type="image/ico" />
     
     <asp:ContentPlaceHolder ID="head" runat="server" />
-    <title>themusic.com.au classies - Australia's # 1 print and online classifieds network – currently free!!!</title>
-    <meta name="description" content="themusic.com.au - Australia's # 1 print and online classifieds network – currently free!!!" />
+    <title>themusic.com.au classies - Australia's # 1 print and online classifieds network</title>
+    <meta name="description" content="themusic.com.au - Australia's # 1 print and online classifieds network!" />
     <meta name="keywords" content="themusic, classifieds, classified, newspaper, deal, sell, buy, trade, paypal, online, streetpress, street press, Inpress, Time Off, Drum Media Sydney, Drum Media Perth, 3D World, Drum Media, Lure, magazine, Sydney, Brisbane, Melbourne, Perth, Adelaide, Tasmania, Darwin, New South Wales, Victoria, Queensland, Tasmania, Northern Territory, South Australia, Western Australia,  Employment, For Sale, Music Services, Musicians Available, Musicians Wanted, Services, Wanted, Bass Player, DJ, Drummer, Guiarist, Keyboard, Singer, Song Writer, Band Merchandise, Booking Agents, Duplication, Mastering, EP Release, Hire Services, Legal, Accounting, Management, Mastering, PA, Audio, Engineering, Photography, Posters, Printing, Recording Studios, Rehearsal Rooms, Repairs, Studio Hire, Transport, Tuition, Video, Production, Amps, Bass, Cases, CD, DVD, Computers, Decks, Furniture, Guitars, Keyboards, Mixers, PA Equipment, Recreational Equipment, Beauty Services, Graphic Design, Piercing, Tattoo, Tuition" />
     
     <script type="text/javascript">

@@ -8,3 +8,4 @@ Scenario: Open Online Ad Url Successfully
 	Given The online ad titled "Ad with cool route"
 	When I navigate to "Ad/ad-with-cool-route/{0}"
 	Then the page title should start with "Ad with cool route"
+	And the online ad contact name should be "Sample Contact"

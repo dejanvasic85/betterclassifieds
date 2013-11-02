@@ -10,13 +10,13 @@ namespace iFlog.Tests.Functional.Mocks.iFlogDb
     {
         public new void Seed(iFlogContext context)
         {
-            var seleniumCategory = new MainCategory { Title = "Selenium Category" };
-            context.MainCategories.Add(seleniumCategory);
+            //var seleniumCategory = new MainCategory { Title = "Selenium Category" };
+            //context.MainCategories.Add(seleniumCategory);
 
-            var seleniumSubCategory = new MainCategory { Title = "Selenium Sub Category", ParentCategory = seleniumCategory };
-            context.MainCategories.Add(seleniumSubCategory);
+            //var seleniumSubCategory = new MainCategory { Title = "Selenium Sub Category", ParentCategory = seleniumCategory };
+            //context.MainCategories.Add(seleniumSubCategory);
             
-            context.SaveChanges();
+            //context.SaveChanges();
         }
     }
 }

@@ -51,6 +51,5 @@ namespace iFlog.Tests.Functional
 
             objectContainer.Resolve<IWebDriver>().Dispose();
         }
-
     }
 }

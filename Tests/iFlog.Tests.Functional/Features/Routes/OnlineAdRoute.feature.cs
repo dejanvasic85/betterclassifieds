@@ -80,6 +80,8 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.When("I navigate to \"Ad/ad-with-cool-route/{0}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 10
  testRunner.Then("the page title should start with \"Ad with cool route\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 11
+ testRunner.And("the online ad contact name should be \"Sample Contact\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

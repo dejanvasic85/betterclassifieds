@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using OpenQA.Selenium;
 using TechTalk.SpecFlow;
+using iFlog.Tests.Functional.Pages;
 
 namespace iFlog.Tests.Functional.Steps
 {
@@ -12,7 +13,8 @@ namespace iFlog.Tests.Functional.Steps
         private readonly Mocks.IDataManager dataManager;
         private readonly TestRouter testRouter;
 
-        public OnlineAdSteps(IWebDriver webDriver, IConfig configuration, Mocks.IDataManager dataManager, TestRouter testRouter): base(webDriver, configuration)
+        public OnlineAdSteps(IWebDriver webDriver, IConfig configuration, Mocks.IDataManager dataManager, TestRouter testRouter)
+            : base(webDriver, configuration)
         {
             onlineAdPage = new Pages.OnlineAdPage(webDriver);
             this.dataManager = dataManager;
@@ -22,7 +24,14 @@ namespace iFlog.Tests.Functional.Steps
         [Given(@"The online ad titled ""(.*)""")]
         public void GivenTheOnlineAdTitled(string adTitle)
         {
-            ScenarioContext.Current.Add("AdId", dataManager.AddOrUpdateOnlineAd(adTitle));
+            int addOrUpdateOnlineAd = dataManager.AddOrUpdateOnlineAd(adTitle);
+            ScenarioContext.Current.Add("AdId", addOrUpdateOnlineAd);
+        }
+
+        [Given(@"The online ad titled ""(.*)""")]
+        public void GivenTheOnlineAdTitled(Table adTitle)
+        {
+            
         }
 
         [When(@"I navigate to ""(.*)""")]
@@ -36,6 +45,14 @@ namespace iFlog.Tests.Functional.Steps
         public void ThenThePageTitleShouldStartWith(string title)
         {
             Assert.IsTrue(Browser.Title.StartsWith(title, StringComparison.OrdinalIgnoreCase));
+            
         }
+
+        [Then(@"the online ad contact name should be ""(.*)""")]
+        public void ThenTheOnlineAdContactNameShouldBe(string sampleContact)
+        {
+            Assert.AreEqual(sampleContact, onlineAdPage.GetContactName());
+        }
+
     }
 }

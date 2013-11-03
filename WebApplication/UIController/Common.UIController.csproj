@@ -47,7 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthenticationController.cs" />
     <Compile Include="Contants\QueryStringKeys.cs" />
     <Compile Include="Contants\ValidationExpressions.cs" />
     <Compile Include="Converter-FromContract.cs" />

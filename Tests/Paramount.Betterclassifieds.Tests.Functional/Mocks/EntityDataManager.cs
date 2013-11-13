@@ -1,24 +1,22 @@
+using Paramount.Betterclassifieds.Tests.Functional.Mocks.BetterclassifiedsDb;
 using System;
-using System.Collections.ObjectModel;
-using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
 using System.Linq;
 
-namespace iFlog.Tests.Functional.Mocks
+namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 {
-    using iFlogDb;
-
     public class EntityDataManager : IDataManager
     {
         public IDataManager Initialise()
         {
-            using (iFlogContext context = new iFlogContext())
+            using (BetterclassifiedsDbContext context = new BetterclassifiedsDbContext())
             {
                 // Force the initialisation - Create if not exists
                 context.Database.Initialize(true);
 
                 // Explicitly call the seed!
-                iFlogDbInitialiser initialiser = new iFlogDbInitialiser();
+                BetterclassifiedsDbInitialiser initialiser = new BetterclassifiedsDbInitialiser();
                 initialiser.Seed(context);
             }
 
@@ -27,7 +25,7 @@ namespace iFlog.Tests.Functional.Mocks
 
         public int AddOrUpdateOnlineAd(string adTitle)
         {
-            using (iFlogContext context = new iFlogContext())
+            using (BetterclassifiedsDbContext context = new BetterclassifiedsDbContext())
             {
                 // Check if already exists
                 var existingAd = context.OnlineAds.FirstOrDefault(o => o.Heading == adTitle);

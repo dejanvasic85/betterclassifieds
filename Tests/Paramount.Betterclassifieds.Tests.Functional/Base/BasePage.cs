@@ -4,7 +4,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using TechTalk.SpecFlow;
 
-namespace iFlog.Tests.Functional
+namespace Paramount.Betterclassifieds.Tests.Functional
 {
     public abstract class BasePage
     {

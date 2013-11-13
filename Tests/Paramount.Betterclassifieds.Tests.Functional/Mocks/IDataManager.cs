@@ -1,4 +1,4 @@
-﻿namespace iFlog.Tests.Functional.Mocks
+﻿namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 {
     /// <summary>
     /// Used directly by the tests to setup and assert scenarios

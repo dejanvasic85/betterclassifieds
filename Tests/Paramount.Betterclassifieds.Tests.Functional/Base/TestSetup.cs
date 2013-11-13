@@ -7,7 +7,7 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using TechTalk.SpecFlow;
 
-namespace iFlog.Tests.Functional
+namespace Paramount.Betterclassifieds.Tests.Functional
 {
     [Binding]
     public class TestSetup

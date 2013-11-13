@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace iFlog.Tests.Functional
+namespace Paramount.Betterclassifieds.Tests.Functional
 {
     public interface IConfig
     {

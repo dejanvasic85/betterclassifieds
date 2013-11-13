@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace iFlog.Tests.Functional.Features.Routes
+namespace Paramount.Betterclassifieds.Tests.Functional.Features.Routes
 {
     using TechTalk.SpecFlow;
     

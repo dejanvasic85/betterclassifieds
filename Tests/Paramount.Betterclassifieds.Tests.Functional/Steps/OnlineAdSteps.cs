@@ -2,21 +2,18 @@
 using NUnit.Framework;
 using OpenQA.Selenium;
 using TechTalk.SpecFlow;
-using iFlog.Tests.Functional.Pages;
 
-namespace iFlog.Tests.Functional.Steps
+namespace Paramount.Betterclassifieds.Tests.Functional.Steps
 {
     [Binding]
     public class OnlineAdSteps : BaseStep
     {
-        private readonly Pages.OnlineAdPage onlineAdPage;
         private readonly Mocks.IDataManager dataManager;
         private readonly TestRouter testRouter;
 
         public OnlineAdSteps(IWebDriver webDriver, IConfig configuration, Mocks.IDataManager dataManager, TestRouter testRouter)
             : base(webDriver, configuration)
         {
-            onlineAdPage = new Pages.OnlineAdPage(webDriver);
             this.dataManager = dataManager;
             this.testRouter = testRouter;
         }
@@ -51,6 +48,7 @@ namespace iFlog.Tests.Functional.Steps
         [Then(@"the online ad contact name should be ""(.*)""")]
         public void ThenTheOnlineAdContactNameShouldBe(string sampleContact)
         {
+            Pages.OnlineAdPage onlineAdPage = new Pages.OnlineAdPage(this.Browser);
             Assert.AreEqual(sampleContact, onlineAdPage.GetContactName());
         }
 

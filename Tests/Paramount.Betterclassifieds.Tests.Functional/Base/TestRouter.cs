@@ -2,7 +2,7 @@
 using System.Configuration;
 using OpenQA.Selenium;
 
-namespace iFlog.Tests.Functional
+namespace Paramount.Betterclassifieds.Tests.Functional
 {
     public class TestRouter
     {

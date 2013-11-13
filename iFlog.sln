@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationBlock.Configuration", "ApplicationBlock\Configuration\ApplicationBlock.Configuration.csproj", "{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Framework", "01 Framework", "{14255EFB-C9DC-4626-88E5-303AEB802EC8}"
@@ -72,7 +74,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iFlogLogDatabase", "Databas
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06 Tests", "06 Tests", "{1EAE4385-197F-413F-8AFB-C80EBBD5ED64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iFlog.Tests.Functional", "Tests\iFlog.Tests.Functional\iFlog.Tests.Functional.csproj", "{45BBB0EB-4C95-41D5-BD6C-C7D980212144}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Betterclassifieds.Tests.Functional", "Tests\Paramount.Betterclassifieds.Tests.Functional\Paramount.Betterclassifieds.Tests.Functional.csproj", "{45BBB0EB-4C95-41D5-BD6C-C7D980212144}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
@@ -192,10 +194,10 @@ Global
 		SccProjectTopLevelParentUniqueName28 = iFlog.sln
 		SccProjectName28 = Modules/DSL.UIController
 		SccLocalPath28 = Modules\\DSL.UIController
-		SccProjectUniqueName29 = Tests\\iFlog.Tests.Functional\\iFlog.Tests.Functional.csproj
+		SccProjectUniqueName29 = Tests\\Paramount.Betterclassifieds.Tests.Functional\\Paramount.Betterclassifieds.Tests.Functional.csproj
 		SccProjectTopLevelParentUniqueName29 = iFlog.sln
-		SccProjectName29 = Tests/iFlog.Tests.Functional
-		SccLocalPath29 = Tests\\iFlog.Tests.Functional
+		SccProjectName29 = Tests/Paramount.Betterclassifieds.Tests.Functional
+		SccLocalPath29 = Tests\\Paramount.Betterclassifieds.Tests.Functional
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

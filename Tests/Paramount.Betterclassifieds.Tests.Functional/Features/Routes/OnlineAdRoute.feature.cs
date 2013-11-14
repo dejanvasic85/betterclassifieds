@@ -68,10 +68,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Routes
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Open Online Ad Url Successfully")]
         [NUnit.Framework.CategoryAttribute("web")]
+        [NUnit.Framework.CategoryAttribute("routes")]
         public virtual void OpenOnlineAdUrlSuccessfully()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Open Online Ad Url Successfully", new string[] {
-                        "web"});
+                        "web",
+                        "routes"});
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8

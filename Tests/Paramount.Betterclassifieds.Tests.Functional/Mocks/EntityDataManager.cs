@@ -1,6 +1,5 @@
 using Paramount.Betterclassifieds.Tests.Functional.Mocks.BetterclassifiedsDb;
 using System;
-using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
 using System.Linq;
 

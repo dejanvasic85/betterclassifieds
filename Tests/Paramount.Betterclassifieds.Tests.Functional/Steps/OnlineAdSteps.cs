@@ -24,13 +24,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             int addOrUpdateOnlineAd = dataManager.AddOrUpdateOnlineAd(adTitle);
             ScenarioContext.Current.Add("AdId", addOrUpdateOnlineAd);
         }
-
-        [Given(@"The online ad titled ""(.*)""")]
-        public void GivenTheOnlineAdTitled(Table adTitle)
-        {
-            
-        }
-
+    
         [When(@"I navigate to ""(.*)""")]
         public void WhenINavigate(string url)
         {

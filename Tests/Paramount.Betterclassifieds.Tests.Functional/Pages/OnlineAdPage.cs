@@ -10,10 +10,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         {
 
         }
-
-        [FindsBy(How = How.Id, Using = "ctl00_ContentPlaceHolder1_ucxOnlineAdDetailView_lblContactName")] 
-        private IWebElement ContactNameLabel;
-
+        
         public override string RelativePath
         {
             get { return "Ad/{0}/{1}"; } // Ad/title/id
@@ -21,7 +18,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         public string GetContactName()
         {
-            return ContactNameLabel.Text;
+            return WebDriver.FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxOnlineAdDetailView_lblContactName")).Text;
         }
     }
 }

@@ -91,92 +91,12 @@
     <Compile Include="Base\TestRouter.cs" />
     <Compile Include="Base\TestSetup.cs" />
     <Compile Include="Mocks\EntityDataManager.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\BetterclassifiedsDbInitialiser.cs" />
     <Compile Include="Mocks\IDataManager.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Ad.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\AdBooking.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\AdBookingExtension.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\AdDesign.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\AdGraphic.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\AdType.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\AppSetting.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\BaseRate.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\BookEntry.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Edition.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\EnquiryDocument.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\EnquiryType.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\BetterclassifiedsDbContext.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\LineAd.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\LineAdColourCode.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\LineAdTheme.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Location.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\LocationArea.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Lookup.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\MainCategory.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\AdBookingExtensionMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\AdBookingMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\AdDesignMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\AdGraphicMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\AdMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\AdTypeMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\AppSettingMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\BaseRateMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\BookEntryMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\EditionMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\EnquiryDocumentMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\EnquiryTypeMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\LineAdColourCodeMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\LineAdMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\LineAdThemeMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\LocationAreaMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\LocationMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\LookupMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\MainCategoryMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\NonPublicationDateMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\OnlineAd1Map.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\OnlineAdEnquiryMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\OnlineAdMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\PublicationAdTypeMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\PublicationCategoryMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\PublicationMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\PublicationRateMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\PublicationSpecialRateMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\PublicationTypeMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\RatecardMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\RssFeedMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\SchemaVersionMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\SpecialRateMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\SupportEnquiryMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\TempBookingRecordMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\TransactionMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\TutorAdMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\WebAdSpaceMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\WebAdSpaceSettingMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Mapping\WebContentMap.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\NonPublicationDate.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\OnlineAd.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\OnlineAd1.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\OnlineAdEnquiry.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Publication.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\PublicationAdType.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\PublicationCategory.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\PublicationRate.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\PublicationSpecialRate.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\PublicationType.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Ratecard.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\RssFeed.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\SchemaVersion.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\SpecialRate.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\SupportEnquiry.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\TempBookingRecord.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\Transaction.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\TutorAd.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\WebAdSpace.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\WebAdSpaceSetting.cs" />
-    <Compile Include="Mocks\BetterclassifiedsDb\Models\WebContent.cs" />
+    <Compile Include="Mocks\Repository.cs" />
     <Compile Include="Pages\OnlineAdPage.cs" />
     <Compile Include="Pages\RegisterNewUserPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Steps\DataSetup.cs" />
     <Compile Include="Steps\RegistrationSteps.cs" />
     <Compile Include="Steps\OnlineAdSteps.cs" />
   </ItemGroup>
@@ -194,7 +114,16 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\DataLayer\Paramount.Betterclassifieds.DataAccess\Paramount.Betterclassifieds.DataAccess.csproj">
+      <Project>{80c5014d-7908-4cbc-b9b2-50535e481a53}</Project>
+      <Name>Paramount.Betterclassifieds.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Domain\Paramount.Betterclassifieds.Domain\Paramount.Betterclassifieds.Domain.csproj">
+      <Project>{05bd1f8e-ac94-4746-816f-a2bf91fe5cda}</Project>
+      <Name>Paramount.Betterclassifieds.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="chromedriver.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -1,35 +1,37 @@
-using Paramount.Betterclassifieds.Tests.Functional.Mocks.BetterclassifiedsDb;
-using System;
-using System.Data.Entity.Validation;
-using System.Linq;
-
 namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 {
-    public class EntityDataManager : IDataManager
+    using DataAccess.Classifieds;
+    using Domain;
+    using System;
+    using System.Data.Entity.Validation;
+    using System.Linq;
+
+    public class EntityDataManager : ITestDataManager
     {
-        public IDataManager Initialise()
+        public ITestDataManager Initialise()
         {
             using (BetterclassifiedsDbContext context = new BetterclassifiedsDbContext())
             {
-                // Force the initialisation - Create if not exists
-                context.Database.Initialize(true);
-
-                // Explicitly call the seed!
-                BetterclassifiedsDbInitialiser initialiser = new BetterclassifiedsDbInitialiser();
-                initialiser.Seed(context);
+                // Setup main test seed data here
+                var seleniumCategory = new Repository<MainCategory>(context).AddOrUpdate(c => c.Title == "Selenium Category", new MainCategory { Title = "Selenium Category", ParentId = null });
+                var seleniumSubCategory = new Repository<MainCategory>(context).AddOrUpdate(c => c.Title == "Selenium Sub Category", new MainCategory { Title = "Selenium Sub Category", ParentCategory = seleniumCategory });
+                context.SaveChanges();
             }
 
             return this;
         }
 
-        public int AddOrUpdateOnlineAd(string adTitle)
+        public ITestDataManager AddOrUpdateOnlineAd(string adTitle, out int? adId)
         {
             using (BetterclassifiedsDbContext context = new BetterclassifiedsDbContext())
             {
                 // Check if already exists
                 var existingAd = context.OnlineAds.FirstOrDefault(o => o.Heading == adTitle);
                 if (existingAd != null)
-                    return existingAd.AdDesign.Ad.AdBookings.First().AdBookingId;
+                {
+                    adId = existingAd.AdDesign.Ad.AdBookings.First().AdBookingId;
+                    return this;
+                }
 
                 var booking = new AdBooking
                     {
@@ -60,13 +62,23 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                 try
                 {
                     context.SaveChanges();
+                    adId = booking.AdBookingId;
                 }
                 catch (DbEntityValidationException dbEntityValidationException)
                 {
                     Console.WriteLine(dbEntityValidationException);
                     throw;
                 }
-                return booking.AdBookingId; // This is the new Ad ID!!
+                return this; // This is the new Ad ID!!
+            }
+        }
+
+        public ITestDataManager DropUserIfExists(string username)
+        {
+            using (var context = new BetterclassifiedsDbContext())
+            {
+                // todo - 
+                return this;
             }
         }
     }

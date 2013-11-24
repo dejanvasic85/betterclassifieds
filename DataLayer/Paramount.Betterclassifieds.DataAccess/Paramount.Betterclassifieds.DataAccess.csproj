@@ -90,9 +90,7 @@
     <Compile Include="NotificationDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Classifieds\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\Paramount.Betterclassifieds.Domain\Paramount.Betterclassifieds.Domain.csproj">
       <Project>{05bd1f8e-ac94-4746-816f-a2bf91fe5cda}</Project>

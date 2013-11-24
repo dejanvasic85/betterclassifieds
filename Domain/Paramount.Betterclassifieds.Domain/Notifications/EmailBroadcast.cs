@@ -4,7 +4,7 @@ namespace Paramount.Betterclassifieds.Domain.Notifications
 {
     public class Email
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string EmailRecipient { get; set; }
         public string Subject { get; set; }
         public string EmailContent { get; set; }

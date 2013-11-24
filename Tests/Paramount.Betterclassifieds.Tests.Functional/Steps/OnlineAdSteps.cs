@@ -44,7 +44,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Then(@"the online ad contact name should be ""(.*)""")]
         public void ThenTheOnlineAdContactNameShouldBe(string sampleContact)
         {
-            Pages.OnlineAdPage onlineAdPage = new Pages.OnlineAdPage(this.WebDriver);
+            Pages.OnlineAdPage onlineAdPage = Resolve<Pages.OnlineAdPage>();
             Assert.AreEqual(sampleContact, onlineAdPage.GetContactName());
         }
 

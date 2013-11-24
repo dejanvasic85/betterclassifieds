@@ -1,4 +1,10 @@
 ﻿GO
+IF NOT EXISTS ( SELECT 1 FROM EmailTemplate WHERE Name = 'ForgottenPassword' )
+begin
+	INSERT INTO EmailTemplate (Name, Description, EmailContent, Subject, Sender, EntityCode)
+	VALUES ('ForgottenPassword', 'ForgottenPassword template', '', 'Password Recovery', 'alert@iflog.com.au', 'P000000005');
+end
+GO
 UPDATE	EmailTemplate
 SET		EmailContent = '
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -246,7 +252,12 @@ WHERE	Name	= 'ForgottenPassword'
 
 
 GO 
-
+IF NOT EXISTS ( SELECT 1 FROM EmailTemplate WHERE Name = 'Registration' )
+begin
+	INSERT INTO EmailTemplate (Name, Description, EmailContent, Subject, Sender, EntityCode)
+	VALUES ('Registration', 'Registration template', '', 'iFlog.com.au Account Registration Details', 'activations@iflog.com.au', 'P000000005');
+end
+GO
 UPDATE	EmailTemplate
 SET		EmailContent = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -478,7 +489,12 @@ WHERE	Name	= 'Registration'
 
 GO
 
-
+IF NOT EXISTS ( SELECT 1 FROM EmailTemplate WHERE Name = 'SupportNotification' )
+begin
+	INSERT INTO EmailTemplate (Name, Description, EmailContent, Subject, Sender, EntityCode)
+	VALUES ('SupportNotification', 'iFlog Support Email from Contact Us Page.', '', 'iflog Support', 'alert@iflog.com.au', 'P000000005');
+end
+GO
 UPDATE	EmailTemplate
 SET		EmailContent = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -715,7 +731,12 @@ SET		EmailContent = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//
 WHERE	Name	= 'SupportNotification'
 GO
 
-
+IF NOT EXISTS ( SELECT 1 FROM EmailTemplate WHERE Name = 'AfterAdBookingNotification' )
+begin
+	INSERT INTO EmailTemplate (Name, Description, EmailContent, Subject, Sender, EntityCode)
+	VALUES ('AfterAdBookingNotification', 'AfterAdBookingNotification', '', 'iflog Notification', 'alert@iflog.com.au', 'P000000005');
+end
+GO
 UPDATE	EmailTemplate
 SET		EmailContent = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -947,7 +968,12 @@ WHERE	Name	= 'AfterAdBookingNotification'
 GO
 
 
-
+IF NOT EXISTS ( SELECT 1 FROM EmailTemplate WHERE Name = 'Notification' )
+begin
+	INSERT INTO EmailTemplate (Name, Description, EmailContent, Subject, Sender, EntityCode)
+	VALUES ('Notification', 'iFlog.com.au Expiry Notice', '', 'iFlog.com.au Extend your expiring Ad', 'alert@iflog.com.au', 'P000000005');
+end
+GO
 UPDATE	EmailTemplate
 SET		EmailContent = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -1186,6 +1212,12 @@ WHERE	Name	= 'Notification'
 GO
 
 
+IF NOT EXISTS ( SELECT 1 FROM EmailTemplate WHERE Name = 'OnlineAdEnquiry' )
+begin
+	INSERT INTO EmailTemplate (Name, Description, EmailContent, Subject, Sender, EntityCode)
+	VALUES ('OnlineAdEnquiry', 'Online Ad Enquiry', '', 'iflog Notification', 'alert@iflog.com.au', 'P000000005');
+end
+GO
 UPDATE	EmailTemplate
 SET		EmailContent = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">

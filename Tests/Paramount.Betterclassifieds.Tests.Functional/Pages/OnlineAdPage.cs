@@ -18,7 +18,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         public string GetContactName()
         {
-            return WebDriver.FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxOnlineAdDetailView_lblContactName")).Text;
+            return FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxOnlineAdDetailView_lblContactName")).Text;
         }
     }
 }

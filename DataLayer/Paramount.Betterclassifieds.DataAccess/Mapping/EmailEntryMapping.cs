@@ -20,7 +20,7 @@ namespace Paramount.Betterclassifieds.DataAccess.Mapping
             this.Property(p => p.Attempts).HasColumnName("RetryNo");
             this.Property(p => p.Sender).HasColumnName("Sender").HasMaxLength(50);
             this.Property(p => p.IsBodyHtml).HasColumnName("IsBodyHtml");
-            this.Property(p => p.CreatedDateTime).HasColumnName("CreatedDateTime");
+            this.Property(p => p.CreatedDateTime).HasColumnName("CreateDateTime");
         }
     }
 }

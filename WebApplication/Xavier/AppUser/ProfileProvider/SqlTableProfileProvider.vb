@@ -97,7 +97,11 @@ Namespace ProfileProvider
         Public Shared ReadOnly Property ProfileVersion() As Int32
             Get
                 Dim profileConfig As System.Web.Configuration.ProfileSection = DirectCast(WebConfigurationManager.GetSection("system.web/profile"), System.Web.Configuration.ProfileSection)
-                Return Int32.Parse(profileConfig.Providers(1).ElementInformation.Properties("profileVersion").Value.ToString())
+                Dim profileValue = profileConfig.Providers(1).ElementInformation.Properties("profileVersion")
+                If profileValue Is Nothing Then
+                    Return 1
+                End If
+                Return Int32.Parse(profileValue.Value)
             End Get
         End Property
         ' End 

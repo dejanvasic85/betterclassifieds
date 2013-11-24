@@ -1,13 +1,12 @@
-using System.Collections.Generic;
-using Paramount.Betterclassifieds.Domain.Membership;
-using Paramount.Betterclassifieds.Domain.Notifications;
-
 namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 {
     using DataAccess.Classifieds;
     using DataAccess.Membership;
     using Domain;
+    using Domain.Membership;
+    using Domain.Notifications;
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity.Validation;
     using System.Linq;
 
@@ -34,7 +33,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                 var existingAd = context.OnlineAds.FirstOrDefault(o => o.Heading == adTitle);
                 if (existingAd != null)
                 {
-                    adId = existingAd.AdDesign.Ad.AdBookings.First().AdBookingId;
+                    var existinBooking = from bk in context.AdBookings
+                                         join design in context.AdDesigns on bk.AdId equals design.AdId
+                                         where design.AdDesignId == existingAd.AdDesignId
+                                         select bk;
+                    adId = existinBooking.First().AdBookingId;
                     return this;
                 }
 
@@ -86,6 +89,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                 if (user != null)
                 {
                     context.Users.Remove(user);
+                    context.Memberships.Remove(context.Memberships.First(m => m.UserId == user.UserId));
+                    context.UserProfiles.Remove(context.UserProfiles.First(p => p.UserID == user.UserId));
                     context.SaveChanges();
                 }
                 return this;

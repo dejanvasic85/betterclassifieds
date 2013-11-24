@@ -2,6 +2,7 @@
 using System.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
+using OpenQA.Selenium.Support.UI;
 using TechTalk.SpecFlow;
 
 namespace Paramount.Betterclassifieds.Tests.Functional
@@ -26,8 +27,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             return this.WebDriver.FindElements(by).Any();
         }
 
-        public IWebElement FindElement(By by)
+        public IWebElement FindElement(By by, int maxSecondsToTimeout = 5)
         {
+            // Wait for element to appear first (just in case)
+            WebDriverWait wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(maxSecondsToTimeout));
+            wait.Until(ExpectedConditions.ElementExists(by));
+
             return WebDriver.FindElement(by);
         }
     }

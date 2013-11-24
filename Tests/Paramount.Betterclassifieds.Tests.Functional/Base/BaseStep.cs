@@ -1,10 +1,5 @@
-﻿using System;
-using System.Configuration;
-using BoDi;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.IE;
+﻿using OpenQA.Selenium;
+using System;
 using TechTalk.SpecFlow;
 
 namespace Paramount.Betterclassifieds.Tests.Functional
@@ -23,5 +18,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             this.Router = new TestRouter(webDriver, configuration);
         }
 
+        protected TPage Resolve<TPage>()
+        {
+            return (TPage) Activator.CreateInstance(typeof (TPage), args: WebDriver);
+        }
     }
 }

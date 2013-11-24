@@ -23,7 +23,7 @@
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Membership>().HasKey(k => k.UserId).ToTable("aspnet_Memberships");
+            modelBuilder.Entity<Membership>().HasKey(k => k.UserId).ToTable("aspnet_Membership");
             modelBuilder.Entity<User>().HasKey(k => k.UserId).ToTable("aspnet_Users");
             modelBuilder.Entity<UserProfile>().HasKey(k => k.UserID).ToTable("UserProfile");
             modelBuilder.Entity<Application>().HasKey(k=>k.ApplicationId).ToTable("aspnet_Applications");

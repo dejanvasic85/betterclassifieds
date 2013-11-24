@@ -134,7 +134,7 @@ namespace Paramount.DataService
         {
             var df = new DatabaseProxy(Proc.EmailTemplateSelectByName.Name, ConfigSection, ConfigKey);
             df.AddParameter(Proc.EmailTemplateSelectByName.Params.TemplateName, templateName, StringType.VarChar);
-
+            
             return new EmailTemplateRow(df.ExecuteQuery().Tables[0].Rows[0]);
         }
 

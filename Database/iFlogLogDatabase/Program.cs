@@ -13,7 +13,9 @@ namespace iFlogLogDatabase
         {
             var connectionString = ConfigurationManager.ConnectionStrings["iFlogLogDatabase"].ConnectionString;
 
-            //CreateDbIfNotExists(connectionString);
+            var createDb = false;
+            if (bool.TryParse(ConfigurationManager.AppSettings["AutoCreateDatabase"], out createDb))
+                CreateDbIfNotExists(connectionString);
 
             var upgrader =
                 DeployChanges.To

@@ -3,7 +3,7 @@ $regKey = "HKLM:\software\Microsoft\MSBuild\ToolsVersions\$dotNetVersion"
 $regProperty = "MSBuildToolsPath"
 $msbuild = Join-Path -Path (Get-ItemProperty $regKey).$regProperty -ChildPath "msbuild.exe"
 
-& $msbuild "iFlog.sln" "/p:Configuration=Debug" "/t:Clean,Build"
+& $msbuild "Betterclassifieds.sln" "/p:Configuration=Debug" "/t:Clean,Build"
 
 & "Database\iFlogAppUserDatabase\bin\Debug\iFlogAppUserDatabase.exe"
 

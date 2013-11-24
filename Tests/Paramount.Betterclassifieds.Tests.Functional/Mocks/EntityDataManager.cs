@@ -1,6 +1,11 @@
+using System.Collections.Generic;
+using Paramount.Betterclassifieds.Domain.Membership;
+using Paramount.Betterclassifieds.Domain.Notifications;
+
 namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 {
     using DataAccess.Classifieds;
+    using DataAccess.Membership;
     using Domain;
     using System;
     using System.Data.Entity.Validation;
@@ -75,10 +80,31 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 
         public ITestDataManager DropUserIfExists(string username)
         {
-            using (var context = new BetterclassifiedsDbContext())
+            using (var context = new MembershipDbContext())
             {
-                // todo - 
+                var user = context.Users.FirstOrDefault(u => u.Username == username);
+                if (user != null)
+                {
+                    context.Users.Remove(user);
+                    context.SaveChanges();
+                }
                 return this;
+            }
+        }
+
+        public User GetUserProfile(string username)
+        {
+            using (var context = new MembershipDbContext())
+            {
+                return context.Users.FirstOrDefault(u => u.Username == username);
+            }
+        }
+
+        public List<Email> GetSentEmailsFor(string email)
+        {
+            using (var context = new NotificationDbContext())
+            {
+                return context.EmailEntries.Where(e => e.EmailRecipient == email).ToList();
             }
         }
     }

@@ -14,7 +14,7 @@ namespace Paramount.Betterclassifieds.DataAccess.Classifieds
         public BetterclassifiedsDbContext()
             : base("Name=BetterclassifiedsDbContext")
         {
-            //this.Configuration.ProxyCreationEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
             //this.Configuration.LazyLoadingEnabled = false;
         }
 

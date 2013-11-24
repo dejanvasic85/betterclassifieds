@@ -37,14 +37,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Then(@"the page title should start with ""(.*)""")]
         public void ThenThePageTitleShouldStartWith(string title)
         {
-            Assert.IsTrue(Browser.Title.StartsWith(title, StringComparison.OrdinalIgnoreCase));
+            Assert.IsTrue(WebDriver.Title.StartsWith(title, StringComparison.OrdinalIgnoreCase));
 
         }
 
         [Then(@"the online ad contact name should be ""(.*)""")]
         public void ThenTheOnlineAdContactNameShouldBe(string sampleContact)
         {
-            Pages.OnlineAdPage onlineAdPage = new Pages.OnlineAdPage(this.Browser);
+            Pages.OnlineAdPage onlineAdPage = new Pages.OnlineAdPage(this.WebDriver);
             Assert.AreEqual(sampleContact, onlineAdPage.GetContactName());
         }
 

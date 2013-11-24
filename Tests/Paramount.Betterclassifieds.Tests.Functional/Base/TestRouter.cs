@@ -1,25 +1,25 @@
-﻿using System;
-using System.Configuration;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 
 namespace Paramount.Betterclassifieds.Tests.Functional
 {
     public class TestRouter
     {
-        private readonly IWebDriver webDriver;
+        private readonly IWebDriver _webDriver;
+        private readonly IConfig _config;
 
-        public TestRouter(IWebDriver webDriver)
+        public TestRouter(IWebDriver webDriver, IConfig config)
         {
-            this.webDriver = webDriver;
+            _webDriver = webDriver;
+            _config = config;
         }
-
+        
         public void NavigateTo(BasePage page, params object[] args)
         {
             // Construct the path
             var webPath = GetBaseUrl() + string.Format(page.RelativePath, args);
             
             // Navigate using selenium driver
-            webDriver.Navigate().GoToUrl( webPath);
+            _webDriver.Navigate().GoToUrl( webPath);
             
             // Initialise the UI elements
             page.InitElements();
@@ -31,13 +31,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             var webPath = GetBaseUrl() + relativePath;
             
             // Go!
-            webDriver.Navigate().GoToUrl(webPath);
+            _webDriver.Navigate().GoToUrl(webPath);
         }
 
         private string GetBaseUrl()
         {
-            return ConfigurationManager.AppSettings.Get("BaseUrl");
+            return _config.BaseUrl;
         }
-
     }
 }

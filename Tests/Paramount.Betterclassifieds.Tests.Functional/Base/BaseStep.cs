@@ -12,15 +12,15 @@ namespace Paramount.Betterclassifieds.Tests.Functional
     [Binding]
     public abstract class BaseStep
     {
-        public readonly IWebDriver Browser;
+        public readonly IWebDriver WebDriver;
         public readonly IConfig Configuration;
         public readonly TestRouter Router;
 
         protected BaseStep(IWebDriver webDriver, IConfig configuration)
         {
-            this.Browser = webDriver;
+            this.WebDriver = webDriver;
             this.Configuration = configuration;
-            this.Router = new TestRouter(webDriver);
+            this.Router = new TestRouter(webDriver, configuration);
         }
 
     }

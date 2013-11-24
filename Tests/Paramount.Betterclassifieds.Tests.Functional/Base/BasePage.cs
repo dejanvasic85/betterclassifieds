@@ -25,5 +25,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         {
             return this.WebDriver.FindElements(by).Any();
         }
+
+        public IWebElement FindElement(By by)
+        {
+            return WebDriver.FindElement(by);
+        }
     }
 }

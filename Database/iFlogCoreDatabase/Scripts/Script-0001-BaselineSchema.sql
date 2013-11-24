@@ -18,9 +18,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Invoice]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[BillingInvoice]') AND type in (N'U'))
 BEGIN
-CREATE TABLE [dbo].[Invoice](
+CREATE TABLE [dbo].[BillingInvoice](
 	[InvoiceId] [uniqueidentifier] NOT NULL,
 	[UserId] [uniqueidentifier] NOT NULL,
 	[Status] [nvarchar](20) NOT NULL,
@@ -633,16 +633,16 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InvoiceItem]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[BillingInvoiceItem]') AND type in (N'U'))
 BEGIN
-CREATE TABLE [dbo].[InvoiceItem](
+CREATE TABLE [dbo].[BillingInvoiceItem](
 	[InvoiceItemId] [uniqueidentifier] NOT NULL,
 	[Title] [nvarchar](100) NOT NULL,
 	[Summary] [nvarchar](500) NULL,
 	[Quantity] [decimal](18, 2) NOT NULL,
 	[Price] [money] NOT NULL,
 	[InvoiceId] [uniqueidentifier] NULL,
- CONSTRAINT [PK_InvoiceItem] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_BillingInvoiceItem] PRIMARY KEY CLUSTERED 
 (
 	[InvoiceItemId] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
@@ -1047,13 +1047,6 @@ REFERENCES [dbo].[Module] ([ModuleId])
 GO
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Subscription_Module]') AND parent_object_id = OBJECT_ID(N'[dbo].[EntityModule]'))
 ALTER TABLE [dbo].[EntityModule] CHECK CONSTRAINT [FK_Subscription_Module]
-GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[InvoiceItem_Invoice_FK]') AND parent_object_id = OBJECT_ID(N'[dbo].[InvoiceItem]'))
-ALTER TABLE [dbo].[InvoiceItem]  WITH CHECK ADD  CONSTRAINT [InvoiceItem_Invoice_FK] FOREIGN KEY([InvoiceId])
-REFERENCES [dbo].[Invoice] ([InvoiceId])
-GO
-IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[InvoiceItem_Invoice_FK]') AND parent_object_id = OBJECT_ID(N'[dbo].[InvoiceItem]'))
-ALTER TABLE [dbo].[InvoiceItem] CHECK CONSTRAINT [InvoiceItem_Invoice_FK]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[ShoppingCartItem_ShoppingCart_FK]') AND parent_object_id = OBJECT_ID(N'[dbo].[ShoppingCartItem]'))
 ALTER TABLE [dbo].[ShoppingCartItem]  WITH CHECK ADD  CONSTRAINT [ShoppingCartItem_ShoppingCart_FK] FOREIGN KEY([ShoppingCartId])

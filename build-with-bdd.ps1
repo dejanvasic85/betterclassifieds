@@ -10,9 +10,9 @@ function Main(){
     & $msbuild "Betterclassifieds.sln" "/p:Configuration=Debug"
 
     # Create the database for bdd and set connections
-    DropCreateDatabase -databaseName "bdd_classifieds" -dbUpPath "\Database\iFlogDatabase\bin\Debug\iFlogDatabase.exe"
-    DropCreateDatabase -databaseName "bdd_membership" -dbUpPath "\Database\iFlogAppUserDatabase\bin\Debug\iFlogAppUserDatabase.exe"
-    DropCreateDatabase -databaseName "bdd_core" -dbUpPath "\Database\iFlogCoreDatabase\bin\Debug\iFlogCoreDatabase.exe"
+    DropCreateDatabase -databaseName "bdd_classifieds" -dbUpPath "\Database\ClassifiedsDatabase\bin\Debug\ClassifiedsDatabase.exe"
+    DropCreateDatabase -databaseName "bdd_membership" -dbUpPath "\Database\MembershipDatabase\bin\Debug\MembershipDatabase.exe"
+    DropCreateDatabase -databaseName "bdd_core" -dbUpPath "\Database\CoreDatabase\bin\Debug\CoreDatabase.exe"
 }
 
 function DropCreateDatabase($databaseName, $dbUpPath){

@@ -5,10 +5,10 @@ $msbuild = Join-Path -Path (Get-ItemProperty $regKey).$regProperty -ChildPath "m
 
 & $msbuild "Betterclassifieds.sln" "/p:Configuration=Debug" "/t:Clean,Build"
 
-& "Database\iFlogAppUserDatabase\bin\Debug\iFlogAppUserDatabase.exe"
+& "Database\MembershipDatabase\bin\Debug\MembershipDatabase.exe"
 
-& "Database\iFlogCoreDatabase\bin\Debug\iFlogCoreDatabase.exe"
+& "Database\CoreDatabase\bin\Debug\CoreDatabase.exe"
 
-& "Database\iFlogDatabase\bin\Debug\iFlogDatabase.exe"
+& "Database\ClassifiedsDatabase\bin\Debug\ClassifiedsDatabase.exe"
 
-& "Database\iFlogLogDatabase\bin\Debug\iFlogLogDatabase.exe"
+& "Database\LogDatabase\bin\Debug\LogDatabase.exe"

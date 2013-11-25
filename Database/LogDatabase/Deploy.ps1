@@ -1,0 +1,1 @@
+﻿& .\LogDatabase.exe | Write-Host

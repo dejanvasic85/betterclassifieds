@@ -1,1 +1,0 @@
-﻿& .\iFlogCoreDatabase.exe | Write-Host

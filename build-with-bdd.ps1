@@ -13,6 +13,10 @@ function Main(){
     DropCreateDatabase -databaseName "bdd_classifieds" -dbUpPath "\Database\ClassifiedsDatabase\bin\Debug\ClassifiedsDatabase.exe"
     DropCreateDatabase -databaseName "bdd_membership" -dbUpPath "\Database\MembershipDatabase\bin\Debug\MembershipDatabase.exe"
     DropCreateDatabase -databaseName "bdd_core" -dbUpPath "\Database\CoreDatabase\bin\Debug\CoreDatabase.exe"
+
+	# Set location back to the executing script
+	$scriptPath = Join-Path -Path $PSScriptRoot -ChildPath ""
+	Set-Location $scriptPath
 }
 
 function DropCreateDatabase($databaseName, $dbUpPath){

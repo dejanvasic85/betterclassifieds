@@ -69,6 +69,7 @@
     <Content Include="Deploy.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Scripts\0003-EmailTemplates.Upsert.sql" />
     <None Include="CoreDatabase.nuspec">
       <SubType>Designer</SubType>
     </None>

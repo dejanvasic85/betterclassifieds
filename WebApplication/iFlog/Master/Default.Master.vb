@@ -6,12 +6,18 @@ Imports Paramount.Utility.Dsl
 Imports Paramount.Utility
 Imports BetterclassifiedsCore.ParameterAccess
 Imports BetterclassifiedsCore.DataModel
+Imports System.Net
 
 Partial Public Class _Default1
     Inherits System.Web.UI.MasterPage
 
     Private Const AnyCategory As String = "Any Category"
     Private Const AnySubCategory As String = "Any Sub Category"
+
+
+    Private Sub Page_Init(sender As Object, e As EventArgs) Handles Me.Init
+
+    End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
@@ -25,8 +31,18 @@ Partial Public Class _Default1
 
             ' Databind search filters
             DatabindSearchFilters()
+
             ' If search has executed - load controls to have the filtered data
             LoadSearchFilters()
+
+            ' Load the menu items from theMusic website directly.
+            'Dim client = New WebClient()
+            'Dim theMusicHome = client.DownloadString("http://themusic.com.au")
+            'Dim navigationList = theMusicHome.Substring(theMusicHome.IndexOf("<nav role=""navigation"">"))
+
+
+
+
         End If
     End Sub
 

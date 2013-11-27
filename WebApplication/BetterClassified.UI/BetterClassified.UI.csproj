@@ -155,6 +155,8 @@
     <Compile Include="Framework\Mapping.cs" />
     <Compile Include="Framework\ReaderWriterCache.cs" />
     <Compile Include="Framework\Security\ClassifiedSqlMembershipProvider.cs" />
+    <Compile Include="Models\TheMusicMenuParser.cs" />
+    <Compile Include="Repository\IMenuRepository.cs" />
     <Compile Include="SiteUrl.cs" />
     <Compile Include="Framework\Unity\Unity.cs" />
     <Compile Include="Framework\Unity\With.cs" />

@@ -57,8 +57,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="TheMusicMenuTests.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="TheMusicHtmlScraperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -69,6 +68,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Artefacts\TheMusicValidHtml.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

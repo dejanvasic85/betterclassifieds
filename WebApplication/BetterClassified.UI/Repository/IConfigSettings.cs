@@ -9,6 +9,7 @@ namespace BetterClassified.Repository
         int NumberOfDaysAfterLastEdition { get; }
         bool IsOnlineAdFree { get; }
         string BaseUrl { get; }
+        string PublisherHomeUrl { get; }
         string FacebookAppId { get; }
         string DslImageUrlHandler { get; }
         string ClientCode { get; }
@@ -24,6 +25,7 @@ namespace BetterClassified.Repository
 
 
         public string BaseUrl { get { return ConfigManager.ReadAppSetting<string>("BaseUrl"); } }
+        public string PublisherHomeUrl { get { return ConfigManager.ReadAppSetting<string>("PublisherHomeUrl"); } }
         public string FacebookAppId { get { return ConfigManager.ReadAppSetting<string>("FacebookAppId"); } }
         public string DslImageUrlHandler { get { return ConfigManager.ReadAppSetting<string>("DslImageUrlHandler"); } }
         public string ClientCode { get { return ConfigManager.ReadAppSetting<string>("ClientCode"); } }

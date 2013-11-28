@@ -39,6 +39,11 @@ namespace BetterClassified
             return source + value;
         }
 
+        public static string Prefix(this string source, string prefixValue)
+        {
+            return prefixValue + source;
+        }
+
         public static int? ToInt(this string value)
         {
             int convertedValue;

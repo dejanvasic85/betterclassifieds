@@ -31,7 +31,7 @@ namespace BetterClassified.Repository
                 WebClient client = new WebClient();
                 var theMusicContent = client.DownloadString("http://themusic.com.au");
 
-                Models.TheMusicMenuParser parser = new TheMusicMenuParser(theMusicContent, configSettings);
+                Models.TheMusicHtmlScraper parser = new TheMusicHtmlScraper(theMusicContent, configSettings);
                 var parsedItems = parser.GetMenuItemPairs();
 
                 // Store in cache for up to 12 hours!

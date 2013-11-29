@@ -43,7 +43,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Betterclassifieds\Enums\AdTypeCode.cs" />
+    <Compile Include="Betterclassifieds\Enums\BookingStatusType.cs" />
+    <Compile Include="Betterclassifieds\Enums\BookingType.cs" />
+    <Compile Include="Betterclassifieds\Enums\ExtensionStatus.cs" />
+    <Compile Include="Betterclassifieds\Enums\LookupType.cs" />
+    <Compile Include="Betterclassifieds\Enums\OnlineAdTypeAttribute.cs" />
+    <Compile Include="Betterclassifieds\Enums\PaymentType.cs" />
+    <Compile Include="Betterclassifieds\Enums\UserBookingViewType.cs" />
+    <Compile Include="Betterclassifieds\IGalleryAd.cs" />
+    <Compile Include="Betterclassifieds\Models\IAdBookingExtensionModel.cs" />
+    <Compile Include="Betterclassifieds\Models\IAdBookingModel.cs" />
+    <Compile Include="Betterclassifieds\Models\IApplicationUser.cs" />
+    <Compile Include="Betterclassifieds\Models\IBookEntryModel.cs" />
+    <Compile Include="Betterclassifieds\Models\ILineAdModel.cs" />
+    <Compile Include="Betterclassifieds\Models\IOnlineAdModel.cs" />
+    <Compile Include="Betterclassifieds\Models\IPublicationEditionModel.cs" />
+    <Compile Include="Betterclassifieds\Models\IPublicationModel.cs" />
+    <Compile Include="Betterclassifieds\Models\IRateModel.cs" />
+    <Compile Include="Betterclassifieds\Models\ITutorAdModel.cs" />
+    <Compile Include="Betterclassifieds\Models\IUserBookingModel.cs" />
+    <Compile Include="IEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IAdRepository.cs" />
+    <Compile Include="Repositories\IBookingRepository.cs" />
+    <Compile Include="Repositories\IConfigSettings.cs" />
+    <Compile Include="Repositories\ILookupRepository.cs" />
+    <Compile Include="Repositories\IPaymentsRepository.cs" />
+    <Compile Include="Repositories\IPublicationRepository.cs" />
+    <Compile Include="Repositories\IRateRepository.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\IUserRepository.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

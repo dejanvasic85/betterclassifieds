@@ -119,9 +119,9 @@
       <Project>{80c5014d-7908-4cbc-b9b2-50535e481a53}</Project>
       <Name>Paramount.Betterclassifieds.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Domain\Paramount.Betterclassifieds.Domain\Paramount.Betterclassifieds.Domain.csproj">
+    <ProjectReference Include="..\..\Domain\Paramount.Betterclassifieds.Domain\Paramount.Betterclassifieds.Business.csproj">
       <Project>{05bd1f8e-ac94-4746-816f-a2bf91fe5cda}</Project>
-      <Name>Paramount.Betterclassifieds.Domain</Name>
+      <Name>Paramount.Betterclassifieds.Business</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

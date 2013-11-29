@@ -68,7 +68,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nextgen", "Nextgen", "{0911
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Betterclassifieds.DataAccess", "DataLayer\Paramount.Betterclassifieds.DataAccess\Paramount.Betterclassifieds.DataAccess.csproj", "{80C5014D-7908-4CBC-B9B2-50535E481A53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Betterclassifieds.Domain", "Domain\Paramount.Betterclassifieds.Domain\Paramount.Betterclassifieds.Domain.csproj", "{05BD1F8E-AC94-4746-816F-A2BF91FE5CDA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Betterclassifieds.Business", "Domain\Paramount.Betterclassifieds.Domain\Paramount.Betterclassifieds.Business.csproj", "{05BD1F8E-AC94-4746-816F-A2BF91FE5CDA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassifiedsDatabase", "Database\ClassifiedsDatabase\ClassifiedsDatabase.csproj", "{E17C5429-4810-4589-9640-6D1828A6C71E}"
 EndProject
@@ -188,34 +188,34 @@ Global
 		SccProjectTopLevelParentUniqueName25 = Betterclassifieds.sln
 		SccProjectName25 = DataLayer/Paramount.Betterclassifieds.DataAccess
 		SccLocalPath25 = DataLayer\\Paramount.Betterclassifieds.DataAccess
-		SccProjectUniqueName26 = Domain\\Paramount.Betterclassifieds.Domain\\Paramount.Betterclassifieds.Domain.csproj
+		SccProjectUniqueName26 = Database\\ClassifiedsDatabase\\ClassifiedsDatabase.csproj
 		SccProjectTopLevelParentUniqueName26 = Betterclassifieds.sln
-		SccProjectName26 = Domain/Paramount.Betterclassifieds.Domain
-		SccLocalPath26 = Domain\\Paramount.Betterclassifieds.Domain
-		SccProjectUniqueName27 = Database\\ClassifiedsDatabase\\ClassifiedsDatabase.csproj
+		SccProjectName26 = Database/ClassifiedsDatabase
+		SccLocalPath26 = Database\\ClassifiedsDatabase
+		SccProjectUniqueName27 = Database\\CoreDatabase\\CoreDatabase.csproj
 		SccProjectTopLevelParentUniqueName27 = Betterclassifieds.sln
-		SccProjectName27 = Database/ClassifiedsDatabase
-		SccLocalPath27 = Database\\ClassifiedsDatabase
-		SccProjectUniqueName28 = Database\\CoreDatabase\\CoreDatabase.csproj
+		SccProjectName27 = Database/CoreDatabase
+		SccLocalPath27 = Database\\CoreDatabase
+		SccProjectUniqueName28 = Database\\MembershipDatabase\\MembershipDatabase.csproj
 		SccProjectTopLevelParentUniqueName28 = Betterclassifieds.sln
-		SccProjectName28 = Database/CoreDatabase
-		SccLocalPath28 = Database\\CoreDatabase
-		SccProjectUniqueName29 = Database\\MembershipDatabase\\MembershipDatabase.csproj
+		SccProjectName28 = Database/MembershipDatabase
+		SccLocalPath28 = Database\\MembershipDatabase
+		SccProjectUniqueName29 = Database\\LogDatabase\\LogDatabase.csproj
 		SccProjectTopLevelParentUniqueName29 = Betterclassifieds.sln
-		SccProjectName29 = Database/MembershipDatabase
-		SccLocalPath29 = Database\\MembershipDatabase
-		SccProjectUniqueName30 = Database\\LogDatabase\\LogDatabase.csproj
+		SccProjectName29 = Database/LogDatabase
+		SccLocalPath29 = Database\\LogDatabase
+		SccProjectUniqueName30 = Tests\\Paramount.Betterclassifieds.Tests\\Paramount.Betterclassifieds.Tests.csproj
 		SccProjectTopLevelParentUniqueName30 = Betterclassifieds.sln
-		SccProjectName30 = Database/LogDatabase
-		SccLocalPath30 = Database\\LogDatabase
-		SccProjectUniqueName31 = Tests\\Paramount.Betterclassifieds.Tests\\Paramount.Betterclassifieds.Tests.csproj
+		SccProjectName30 = Tests/Paramount.Betterclassifieds.Tests
+		SccLocalPath30 = Tests\\Paramount.Betterclassifieds.Tests
+		SccProjectUniqueName31 = Tests\\Paramount.Betterclassifieds.Tests.Functional\\Paramount.Betterclassifieds.Tests.Functional.csproj
 		SccProjectTopLevelParentUniqueName31 = Betterclassifieds.sln
-		SccProjectName31 = Tests/Paramount.Betterclassifieds.Tests
-		SccLocalPath31 = Tests\\Paramount.Betterclassifieds.Tests
-		SccProjectUniqueName32 = Tests\\Paramount.Betterclassifieds.Tests.Functional\\Paramount.Betterclassifieds.Tests.Functional.csproj
+		SccProjectName31 = Tests/Paramount.Betterclassifieds.Tests.Functional
+		SccLocalPath31 = Tests\\Paramount.Betterclassifieds.Tests.Functional
+		SccProjectUniqueName32 = Domain\\Paramount.Betterclassifieds.Domain\\Paramount.Betterclassifieds.Business.csproj
 		SccProjectTopLevelParentUniqueName32 = Betterclassifieds.sln
-		SccProjectName32 = Tests/Paramount.Betterclassifieds.Tests.Functional
-		SccLocalPath32 = Tests\\Paramount.Betterclassifieds.Tests.Functional
+		SccProjectName32 = Domain/Paramount.Betterclassifieds.Domain
+		SccLocalPath32 = Domain\\Paramount.Betterclassifieds.Domain
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

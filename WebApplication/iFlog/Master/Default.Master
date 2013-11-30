@@ -61,7 +61,12 @@
             </a>
             <div class="navigation">
                 <ul>
-                    <li class="first"><a href="http://themusic.com.au/" title="Home">Home</a></li>
+                    <asp:Repeater runat="server" ID="menuRepeater">
+                        <ItemTemplate>
+                            <li><a href='<%#Eval("Link")%>'><%#Eval("Name")%></a></li>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                    <%--<li class="first"><a href="http://themusic.com.au/" title="Home">Home</a></li>
                     <li><a href="http://themusic.com.au/">News</a></li>
                     <li><a href="http://themusic.com.au/events/">The Guide</a></li>
                     <li><a href="http://themusic.com.au/interviews/all/">Interviews</a></li>
@@ -71,7 +76,7 @@
                     <li><a href="http://themusic.com.au/watch/video/">Watch</a></li>
                     <li><a href="http://themusic.com.au/festivals/">Festivals</a></li>
                     <li><a href="http://themusic.com.au/the-wam-awards/">WAM Awards</a></li>
-                    <li><a href="https://store.themusic.com.au/">Store</a></li>
+                    <li><a href="https://store.themusic.com.au/">Store</a></li>--%>
                     <li class="active">
                         <asp:HyperLink runat="server" NavigateUrl="~/Default.aspx" Text="Classies"></asp:HyperLink>
                         <ul>

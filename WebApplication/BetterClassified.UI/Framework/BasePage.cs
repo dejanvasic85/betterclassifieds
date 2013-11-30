@@ -6,6 +6,9 @@ using Microsoft.Practices.Unity;
 
 namespace BetterClassified.UI
 {
+    /// <summary>
+    /// Used as a base page for a web forms application and makes use of Unity to tie the presenter and the view together
+    /// </summary>
     public abstract class BasePage<TPresenter, TView> : System.Web.UI.Page, IBaseView where TView : IBaseView
     {
         protected TPresenter Presenter;

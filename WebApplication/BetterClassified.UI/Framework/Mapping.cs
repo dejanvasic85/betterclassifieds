@@ -102,25 +102,5 @@ namespace BetterClassified
                 }
             }
         }
-
-        /// <summary>
-        /// Enumerates over the collection invoking action on each item.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="collection">collection to iterate</param>
-        /// <param name="action">Action to perform for each item</param>
-        public static void ForEach<T>(this IEnumerable<T> collection, Action<T> action)
-        {
-            if (collection == null)
-                throw new ArgumentNullException("collection");
-
-            if (action == null)
-                throw new ArgumentNullException("action");
-
-            foreach (T item in collection)
-            {
-                action(item);
-            }
-        }
     }
 }

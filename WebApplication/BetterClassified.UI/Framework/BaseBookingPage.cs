@@ -8,6 +8,9 @@ using BetterclassifiedsCore;
 
 namespace BetterClassified.UI.WebPage
 {
+    /// <summary>
+    /// Base page for webforms
+    /// </summary>
     public class BaseBookingPage : System.Web.UI.Page
     {
         protected override void OnError(EventArgs e)

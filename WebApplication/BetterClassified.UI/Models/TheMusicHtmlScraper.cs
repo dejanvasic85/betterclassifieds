@@ -1,38 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BetterClassified.Repository;
 using HtmlAgilityPack;
 
 namespace BetterClassified.Models
 {
     public class TheMusicHtmlScraper
     {
-        private readonly IConfigSettings config;
+        private readonly string theMusicHtml;
+        private readonly string homeUrl;
 
-        public TheMusicHtmlScraper(string html, IConfigSettings config)
+        public TheMusicHtmlScraper(string theMusicHtml, string homeUrl)
         {
-            this.config = config;
-
-            if (html.IsNullOrEmpty())
-                throw new ArgumentException("html is required to parse the menu");
-
-            this.Html = html;
+            this.theMusicHtml = theMusicHtml;
+            this.homeUrl = homeUrl;
         }
 
-        public string Html { get; private set; }
-
-        public Dictionary<string, string> GetMenuItemPairs()
+        public Dictionary<string, string> ParseMenuItems()
         {
+            // Return empty dictionary if no html is available
+            if (theMusicHtml.IsNullOrEmpty())
+                return new Dictionary<string, string>();
+
             // Use html agility pack to parse the document
             var document = new HtmlDocument();
-            document.LoadHtml(Html);
+            document.LoadHtml(theMusicHtml);
+            
+            var listNode = document.DocumentNode.SelectSingleNode("//nav//ul");
+            if (listNode == null)
+                return new Dictionary<string, string>();
 
-            // Current structure is that top navigation comes under NAV tag
-            var navigationListItems = document.DocumentNode
-                .SelectSingleNode("//nav//ul")
-                .ChildNodes
-                .Where(n => n.NodeType == HtmlNodeType.Element);
+            var navigationListItems = listNode.ChildNodes.Where(n => n.NodeType == HtmlNodeType.Element);
 
             var dictionary = navigationListItems.ToDictionary(
                 item => GetNextLink(item.FirstChild).InnerText, // Link Name
@@ -44,18 +42,11 @@ namespace BetterClassified.Models
                     if (!href.StartsWith("http"))
                     {
                         // Assume that those links are 
-                        return href.TrimStart('/').Prefix(config.PublisherHomeUrl);
+                        return href.TrimStart('/').Prefix(homeUrl);
                     }
 
                     return href;
                 });
-
-            // Ensure that the dictionary contains "Classies"
-            if (!dictionary.ContainsKey("Classies"))
-            {
-                dictionary.Add("Classies", config.BaseUrl);
-            }
-
             return dictionary;
         }
 

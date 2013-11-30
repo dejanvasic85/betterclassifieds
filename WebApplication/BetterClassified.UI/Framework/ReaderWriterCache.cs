@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Paramount;
 
 namespace BetterClassified
 {
@@ -108,7 +109,7 @@ namespace BetterClassified
 
             try
             {
-                this.cache.ForEach(item => OnRemove(item.Value));
+                this.cache.ForEach<KeyValuePair<TKey, TValue>>(item => OnRemove(item.Value));
                 this.cache.Clear();
             }
             finally

@@ -7,6 +7,8 @@ Imports Paramount.Utility
 Imports BetterclassifiedsCore.ParameterAccess
 Imports BetterclassifiedsCore.DataModel
 Imports System.Net
+Imports BetterClassified.Repository
+Imports Microsoft.Practices.Unity
 
 Partial Public Class _Default1
     Inherits System.Web.UI.MasterPage
@@ -14,9 +16,10 @@ Partial Public Class _Default1
     Private Const AnyCategory As String = "Any Category"
     Private Const AnySubCategory As String = "Any Sub Category"
 
+    Private menuRepository As IMenuRepository
 
     Private Sub Page_Init(sender As Object, e As EventArgs) Handles Me.Init
-
+        menuRepository = BetterClassified.Unity.DefaultContainer.Resolve(Of IMenuRepository)()
     End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -39,10 +42,8 @@ Partial Public Class _Default1
             'Dim client = New WebClient()
             'Dim theMusicHome = client.DownloadString("http://themusic.com.au")
             'Dim navigationList = theMusicHome.Substring(theMusicHome.IndexOf("<nav role=""navigation"">"))
-
-
-
-
+            menuRepeater.DataSource = menuRepository.GetMenuItemLinkNamePairs().Select(Function(kv) New With {.Link = kv.Value, .Name = kv.Key})
+            menuRepeater.DataBind()
         End If
     End Sub
 

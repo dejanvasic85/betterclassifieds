@@ -11,7 +11,8 @@ Public Class ContainerConfig
             .RegisterType(Of IUserRepository, UserRepository)() _
             .RegisterType(Of IPaymentsRepository, PaymentsRepository)() _
             .RegisterType(Of IAdRepository, AdRepository)() _
-            .RegisterType(Of ILookupRepository, LookupRepository)()
+            .RegisterType(Of ILookupRepository, LookupRepository)() _
+            .RegisterType(Of IMenuRepository, TheMusicMenuRepository)()
 
     End Sub
 End Class

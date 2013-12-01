@@ -33,43 +33,6 @@ Partial Public Class Rates
         End If
     End Sub
 
-    Private Sub lstCasualRates_ItemDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.DataListItemEventArgs) Handles lstCasualRates.ItemDataBound
-        'If e.Item.ItemType = ListItemType.AlternatingItem Or e.Item.ItemType = ListItemType.Item Then
-        '    If e.Item.DataItem.Code.Trim() = SystemAdType.ONLINE.ToString Then
-        '        Dim pnlRates As Panel = e.Item.FindControl("pnlRateDetails")
-        '        pnlRates.Visible = False
-
-        '        ' hide the main rate details
-        '        TryCast(e.Item.FindControl("pnlRateDetails"), Panel).Visible = False
-        '        ' show the online bundle price
-        '        TryCast(e.Item.FindControl("pnlOnlineBundle"), Panel).Visible = True
-        '    Else
-        '        ' hide max charge if the value is at $0
-        '        Dim pnlMaxCharge As Panel = TryCast(e.Item.FindControl("pnlMaxCharge"), Panel)
-        '        If pnlMaxCharge IsNot Nothing Then
-        '            If e.Item.DataItem.MaxCharge Is Nothing Then
-        '                pnlMaxCharge.Visible = False
-        '            ElseIf e.Item.DataItem.MaxCharge = 0 Then
-        '                pnlMaxCharge.Visible = False
-        '            End If
-        '        End If
-        '        ' do same for additional charge
-        '        Dim pnlExtra As Panel = TryCast(e.Item.FindControl("pnlExtraCharge"), Panel)
-        '        If pnlExtra IsNot Nothing Then
-        '            If e.Item.DataItem.RatePerMeasureUnit Is Nothing Then
-        '                pnlExtra.Visible = False
-        '            ElseIf e.Item.DataItem.RatePerMeasureUnit = 0 Then
-        '                pnlExtra.Visible = False
-        '            End If
-        '        End If
-
-        '        ' show the online bundle price
-        '        TryCast(e.Item.FindControl("pnlOnlineBundle"), Panel).Visible = False
-
-        '    End If
-        'End If
-    End Sub
-
     Private Sub ddlMainCategory_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles ddlMainCategory.SelectedIndexChanged
         ' Data Bind the sub categories
         DataBindSubCategories(ddlMainCategory.SelectedValue)

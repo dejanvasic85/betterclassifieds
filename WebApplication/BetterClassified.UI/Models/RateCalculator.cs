@@ -1,6 +1,5 @@
-﻿namespace BetterClassified.UI.Presenters
+﻿namespace BetterClassified.Models
 {
-    using Models;
     using Repository;
 
     public class RateCalculator

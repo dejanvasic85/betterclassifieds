@@ -109,9 +109,14 @@
                                 </div>
 
                                 <asp:Panel ID="pnlOnlineTemplate" runat="server" Visible='<%# Eval("IsOnlineRate") %>'>
-                                    <div class="priceSection">
+                                    <%--<div class="priceSection">
                                         <asp:Label ID="lblOnlineCost" runat="server" CssClass="priceTagLine"
-                                            Text='<%# String.Format("30 Day listing or Bundle with Print for {0}!", Eval("OnlinePriceDescription")) %>' />
+                                            Text='<%# Eval("OnlinePriceDescription")%>' />
+                                    </div>--%>
+                                    <div id="Div1" class="priceSection" runat="server">
+                                        <div class="priceHeaderTitle">Minimum Charge:</div>
+                                        <asp:Label ID="Label6" runat="server" CssClass="priceLabel"
+                                            Text='<%# String.Format("{0:C} ", Eval("MinimumAmount")) %>' />
                                     </div>
                                 </asp:Panel>
 

@@ -9,25 +9,27 @@ namespace BetterClassified.Models
     {
         private readonly string theMusicHtml;
         private readonly string homeUrl;
+        private readonly HtmlDocument document;
 
         public TheMusicHtmlScraper(string theMusicHtml, string homeUrl)
         {
             this.theMusicHtml = theMusicHtml;
             this.homeUrl = homeUrl;
+
+            // Ensure that the links are aligned
+            if (!this.homeUrl.EndsWith("/"))
+                this.homeUrl.Append("/");
+
+            document = new HtmlDocument();
+            document.LoadHtml(theMusicHtml);
         }
 
         public Dictionary<string, string> ParseMenuItems()
         {
             // Return empty dictionary if no html is available
-            if (theMusicHtml.IsNullOrEmpty())
-                return new Dictionary<string, string>();
-
-            // Use html agility pack to parse the document
-            var document = new HtmlDocument();
-            document.LoadHtml(theMusicHtml);
-            
             var listNode = document.DocumentNode.SelectSingleNode("//nav//ul");
-            if (listNode == null)
+
+            if (theMusicHtml.IsNullOrEmpty() || listNode == null)
                 return new Dictionary<string, string>();
 
             var navigationListItems = listNode.ChildNodes.Where(n => n.NodeType == HtmlNodeType.Element);
@@ -55,6 +57,29 @@ namespace BetterClassified.Models
             if (node.Name != "a")
                 return GetNextLink(node.NextSibling);
             return node;
+        }
+
+        public string ParseFooterHtml()
+        {
+            var footerNode = document.DocumentNode.SelectSingleNode("//footer");
+
+            if (footerNode == null)
+                return string.Empty;
+
+            var links = footerNode.Descendants().Where(a => a.Name == "a");
+            
+            foreach (var link in links)
+            {
+                var href = link.Attributes["href"];
+
+                if (href != null && !href.Value.StartsWith("http"))
+                {
+                    href.Value = href.Value.TrimStart('/').Prefix(homeUrl);
+                }
+            }
+
+            // Sanitise the footer links to contain the full link back to the music
+            return footerNode.InnerHtml;
         }
     }
 }

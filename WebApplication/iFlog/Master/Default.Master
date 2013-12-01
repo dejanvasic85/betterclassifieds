@@ -66,17 +66,6 @@
                             <li><a href='<%#Eval("Link")%>'><%#Eval("Name")%></a></li>
                         </ItemTemplate>
                     </asp:Repeater>
-                    <%--<li class="first"><a href="http://themusic.com.au/" title="Home">Home</a></li>
-                    <li><a href="http://themusic.com.au/">News</a></li>
-                    <li><a href="http://themusic.com.au/events/">The Guide</a></li>
-                    <li><a href="http://themusic.com.au/interviews/all/">Interviews</a></li>
-                    <li><a href="http://themusic.com.au/reviews/">Reviews</a></li>
-                    <li><a href="http://themusic.com.au/blog/">Blogs</a></li>
-                    <li><a href="http://themusic.com.au/listen/all/">Listen</a></li>
-                    <li><a href="http://themusic.com.au/watch/video/">Watch</a></li>
-                    <li><a href="http://themusic.com.au/festivals/">Festivals</a></li>
-                    <li><a href="http://themusic.com.au/the-wam-awards/">WAM Awards</a></li>
-                    <li><a href="https://store.themusic.com.au/">Store</a></li>--%>
                     <li class="active">
                         <asp:HyperLink runat="server" NavigateUrl="~/Default.aspx" Text="Classies"></asp:HyperLink>
                         <ul>
@@ -141,60 +130,7 @@
                 
             </div>
 
-            <div class="footer">
-                <section class="submenu">
-		            <h1>Info</h1>
-		            <ul><li class="first"><a href="meta/info/contact-us/" title="Contact Us">Contact Us</a></li>
-			            <li><a href="http://themusic.com.au/meta/info/contact-us/" title="About Us">About Us</a></li>
-			            <li><a href="http://themusic.com.au/meta/info/about-us/" title="Careers">Careers</a></li>
-			            <li><a href="http://themusic.com.au/store/magazines.html" title="Subscriptions">Subscriptions</a></li>
-		                <li><p></p></li>
-                        <li><a href="http://themusic.com.au/meta/the-fine-print/privacy-policy/" title="Privacy Policy">Privacy Policy</a></li>
-    		            <li class="last"><a href="http://themusic.com.au/meta/the-fine-print/terms-of-use/" title="Terms Of Use">Terms Of Use</a></li>
-		            </ul>
-	            </section>
-                <section class="submenu">
-		            <h1>Advertising</h1>
-		            <ul><li class="first"><a title="Advertise" href="http://themusic.com.au/meta/advertising/advertise/">Advertise</a></li>
-			            <li><a title="Advertising Specifications" href="http://themusic.com.au/meta/advertising/advertising-specifications/">Advertising Specifications</a></li>
-			            <li>
-                            <asp:HyperLink runat="server" ID="lnkHome" NavigateUrl="~/Default.aspx" Text="Classifieds"></asp:HyperLink>
-			            </li>
-			            <li><a title="Enquire" href="mailto:sales@themusic.com.au">Enquire</a></li>
-			            <li><a title="Indy Bands" href="http://themusic.com.au/store/band-services/advertising.html">Indy Bands</a></li>
-			            <li><a title="Pay Invoice" href="http://themusic.com.au/meta/advertising/pay-invoice/">Pay Invoice</a></li>
-			            <li class="last"><a title="Terms and Conditions" href="http://themusic.com.au/meta/advertising/terms-and-conditions/">Terms and Conditions</a></li>
-		            </ul>
-	            </section>
-                <section class="submenu">
-		            <h1>The Mags</h1>
-		            <ul><li class="first"><a title="The Music (Sydney)" href="http://themusic.com.au/meta/the-mags/the-music-(sydney)/">Drum Media (Sydney)</a></li>
-			            <li><a title="The Music (Melbourne)" href="http://themusic.com.au/meta/the-mags/the-music-(melbourne)/">Inpress Magazine (Melbourne)</a></li>
-			            <li><a title="The Music (Brisbane)" href="http://themusic.com.au/meta/the-mags/the-music-(brisbane)/">Time Off (Brisbane)</a></li>
-			            <li><a title="The Music (Perth)" href="http://themusic.com.au/meta/the-mags/the-music-(perth)/">Drum Media (Perth)</a></li>
-			            <li><a title="Muso" href="http://themusic.com.au/meta/the-mags/muso/">Muso</a></li>
-			            <li><a title="Three Magazine" href="http://themusic.com.au/meta/the-mags/three-magazine/">Three Magazine</a></li>
-			            <li class="last"><a title="Australasian Music Industry Directory" href="http://themusic.com.au/meta/the-mags/australasian-music-industry-directory/">Australasian Music Industry Directory</a></li>
-		            </ul>
-	            </section>
-                <section class="submenu">
-		            <h1>The Guide</h1>
-		            <ul><li class="first"><a title="Submit A Gig" href="http://themusic.com.au/meta/the-guide/submit-a-gig/">Submit A Gig</a></li>
-			            <li><a title="Submit Multiple Gigs" href="http://themusic.com.au/meta/the-guide/submit-multiple-gigs/">Submit Multiple Gigs</a></li>
-                        <li><a title="Advertise" href="http://themusic.com.au/meta/the-guide/advertise/">Advertise</a></li>
-                        <li class="last"><a title="Support" href="http://themusic.com.au/meta/the-guide/support/">Support</a></li>
-		            </ul>
-	            </section>
-                <section class="submenu">
-                    <h1>Social</h1>
-                    <ul>
-                        <li><a title="Facebook" href="http://www.facebook.com.au/themusic.com.au" />Facebook</li>
-                        <li><a title="Twitter" href="https://twitter.com/TheMusicComAU"/>Twitter</li>
-                        <li><p></p></li>
-                    </ul>
-
-	            </section>
-            </div>
+            <div class="footer" id="theMusicFooterContent" runat="server"></div>
         </div>
         
         <div class="skins">

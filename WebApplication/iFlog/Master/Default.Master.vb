@@ -38,12 +38,13 @@ Partial Public Class _Default1
             ' If search has executed - load controls to have the filtered data
             LoadSearchFilters()
 
-            ' Load the menu items from theMusic website directly.
-            'Dim client = New WebClient()
-            'Dim theMusicHome = client.DownloadString("http://themusic.com.au")
-            'Dim navigationList = theMusicHome.Substring(theMusicHome.IndexOf("<nav role=""navigation"">"))
+            ' Bind the menu items
             menuRepeater.DataSource = menuRepository.GetMenuItemLinkNamePairs().Select(Function(kv) New With {.Link = kv.Value, .Name = kv.Key})
             menuRepeater.DataBind()
+
+            ' Bind the footer content
+            theMusicFooterContent.InnerHtml = menuRepository.GetFooterContent()
+
         End If
     End Sub
 

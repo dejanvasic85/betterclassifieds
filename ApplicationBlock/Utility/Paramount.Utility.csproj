@@ -101,6 +101,7 @@
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="GetControlString.cs" />
     <Compile Include="HtmlExtensions.cs" />
+    <Compile Include="HttpCacher.cs" />
     <Compile Include="PDFGenerator.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>

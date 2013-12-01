@@ -11,43 +11,42 @@ namespace BetterClassified.Repository
     public interface IMenuRepository
     {
         IDictionary<string, string> GetMenuItemLinkNamePairs();
+        string GetFooterContent();
     }
 
     public class TheMusicMenuRepository : IMenuRepository
     {
         private readonly IConfigSettings configSettings;
-        private const string CacheKey = "TheMusicMenuCache";
+        private readonly TheMusicHtmlScraper htmlScraper;
 
         public TheMusicMenuRepository(IConfigSettings configSettings)
         {
             this.configSettings = configSettings;
+
+            // Attempt to fetch theMusic html
+            WebClient client = new WebClient();
+            var theMusicContent = client.DownloadString(configSettings.PublisherHomeUrl);
+            htmlScraper = new TheMusicHtmlScraper(theMusicContent, configSettings.PublisherHomeUrl);
         }
 
         public IDictionary<string, string> GetMenuItemLinkNamePairs()
         {
-            // We are going to fetch the menu items from TheMusic website and CACHE IT
-            if (HttpContext.Current.Cache[CacheKey] == null)
-            {
-                // Make a WebClient call to get the full html
-                WebClient client = new WebClient();
-                var theMusicContent = client.DownloadString(configSettings.PublisherHomeUrl);
+            return HttpCacher.FetchOrCreate("TheMusicMenuCache", () =>
+                {
+                    // Parse the items and add home link in case nothing comes back
+                    var parsedItems = htmlScraper.ParseMenuItems().AddOrUpdate("Home", configSettings.PublisherHomeUrl);
 
-                Models.TheMusicHtmlScraper parser = new TheMusicHtmlScraper(theMusicContent, configSettings.PublisherHomeUrl);
+                    // Remove the classies link
+                    if (parsedItems.ContainsKey("Classies"))
+                        parsedItems.Remove("Classies");
 
-                // Parse the items and home in case nothing comes back
-                var parsedItems = parser.ParseMenuItems().AddOrUpdate("Home", configSettings.PublisherHomeUrl);
+                    return parsedItems;
+                });
+        }
 
-                // Remove the classies link
-                if (parsedItems.ContainsKey("Classies"))
-                    parsedItems.Remove("Classies");
-
-                // Store in cache for up to 12 hours!
-                HttpContext.Current.Cache.Insert(CacheKey, parsedItems, null, Cache.NoAbsoluteExpiration, new TimeSpan(0, 12, 0));
-
-                return parsedItems;
-            }
-
-            return HttpContext.Current.Cache[CacheKey] as Dictionary<string, string>;
+        public string GetFooterContent()
+        {
+            return HttpCacher.FetchOrCreate("TheMusicFooter", () => htmlScraper.ParseFooterHtml(), minutesToCache: 0, seconds: 5);
         }
     }
 }

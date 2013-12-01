@@ -257,13 +257,13 @@ Partial Public Class _Default1
     Protected WithEvents ucxAds As Global.BetterclassifiedsWeb.AdSpace
 
     '''<summary>
-    '''lnkHome control.
+    '''theMusicFooterContent control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lnkHome As Global.System.Web.UI.WebControls.HyperLink
+    Protected WithEvents theMusicFooterContent As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
     '''pageScripts control.

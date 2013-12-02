@@ -6,6 +6,12 @@ Public Class RouteConfig
     Public Const AdRoute As String = "AdRoute"
 
     Public Shared Sub RegisterRoutes(ByVal routes As RouteCollection)
+
+        routes.Ignore("{resource}.axd/{*pathInfo}")
+        routes.Ignore("{resource}.aspx/{*pathInfo}")
+        routes.Ignore("{resources}.ashx/{*pathInfo}")
+        routes.Ignore("Image/View.ashx")
+
         routes.MapHttpRoute(
            name:="DefaultApi",
            routeTemplate:="api/{controller}/{id}",

@@ -48,13 +48,11 @@ namespace Paramount.ApplicationBlock.Mvc
             }
         }
 
-     
-
         protected virtual void ApplicationStart()
         {
             HostingEnvironment.RegisterVirtualPathProvider(new ViewModulesVirtualPathProvider());
             LoadModules();
-            ;
+            
             //AreaRegistration.RegisterAllAreas();
             RegisterAllModules(Bootstrapper.Initialise(DefaultContainer), RouteTable.Routes, ModuleData);
             Register();

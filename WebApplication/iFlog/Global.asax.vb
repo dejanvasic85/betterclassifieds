@@ -4,17 +4,23 @@ Imports Paramount.Broadcast.Components
 Public Delegate Sub OnPayment(ByVal ref As String)
 
 Public Class Global_asax
-    Inherits System.Web.HttpApplication
+    Inherits Paramount.ApplicationBlock.Mvc.WebClientApplication
 
     Public Shared OnPayment As OnPayment
     Public Shared TransactionManager As BetterClassified.UI.Presenters.TransactionManager
+
+    Protected Overrides ReadOnly Property DefaultContainer As Microsoft.Practices.Unity.IUnityContainer
+        Get
+            Return BetterClassified.Unity.DefaultContainer
+        End Get
+    End Property
 
     Sub Application_Start(ByVal sender As Object, ByVal e As EventArgs)
         Application.Add("validApplication", True)
 
         RouteConfig.RegisterRoutes(System.Web.Routing.RouteTable.Routes)
         ContainerConfig.RegisterIocContainer(BetterClassified.Unity.DefaultContainer)
-
+        ApplicationStart()
     End Sub
 
     Sub Application_BeginRequest(ByVal sender As Object, ByVal e As EventArgs)

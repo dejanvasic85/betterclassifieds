@@ -36,12 +36,12 @@ namespace BetterClassified
 
         public static string Append(this string source, string value)
         {
-            return source + value;
+            return string.Format("{0}{1}", source, value);
         }
 
         public static string Prefix(this string source, string prefixValue)
         {
-            return prefixValue + source;
+            return Append(prefixValue, source);
         }
 
         public static int? ToInt(this string value)

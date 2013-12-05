@@ -30,9 +30,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
     public class DapperDataManager : ITestDataManager
     {
         // Create IDbConnections
-        private IDbConnection classifiedDb;
-        private IDbConnection coreDb;
-        private IDbConnection membershipDb;
+        private readonly IDbConnection classifiedDb;
+        private readonly IDbConnection coreDb;
+        private readonly IDbConnection membershipDb;
 
         public DapperDataManager()
         {
@@ -73,16 +73,15 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
         {
             // Ensure that parent exists
             classifiedDb.Open();
-            var parentCategoryId = classifiedDb.Query("SELECT MainCategoryId FROM MainCategory WHERE Title = @Title", new { Title = parent });
-
-            //if (parentCategoryId == null)
-            //{
-            //    // Create parent
-            //    classifiedDb.Execute("INSERT INTO MainCategory (Title)");
-
-            //}
+            var parentCategoryId = classifiedDb.Query<int>("SELECT MainCategoryId FROM MainCategory WHERE Title = @Title", new { Title = parent }).FirstOrDefault();
+            if (parentCategoryId == 0)
+            {
+                classifiedDb.Execute("INSERT INTO MainCategory (Title) VALUES (@Title)", new { Title = parent });
+                SetIdentity<int>(classifiedDb, id => parentCategoryId = id);
+            }
 
             // Create sub category
+
 
             return this;
         }
@@ -90,14 +89,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
         protected static void SetIdentity<T>(IDbConnection connection, Action<T> setId)
         {
             var identity = connection.Query("SELECT @@IDENTITY AS Id").Single();
-            T newId = (T) identity.Id;
+            T newId = (T)identity.Id;
             setId(newId);
         }
 
         public void Dispose()
         {
             classifiedDb.Close();
-            classifiedDb.BeginTransaction();
             membershipDb.Close();
             coreDb.Close();
         }

@@ -13,7 +13,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             {
                 dataManager.AddOrUpdateCategory(name: "Selenium Sub", parent: "Selenium Parent");
             }
-                
         }
 
     }

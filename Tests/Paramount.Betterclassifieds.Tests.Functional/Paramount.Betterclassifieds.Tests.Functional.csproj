@@ -42,10 +42,6 @@
     <Reference Include="Dapper">
       <HintPath>..\..\packages\Dapper.1.13\lib\net45\Dapper.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
@@ -93,7 +89,6 @@
     <Compile Include="Mocks\DapperTest.cs" />
     <Compile Include="Mocks\Models\Email.cs" />
     <Compile Include="Mocks\IDataManager.cs" />
-    <Compile Include="Mocks\Repository.cs" />
     <Compile Include="Pages\OnlineAdPage.cs" />
     <Compile Include="Pages\RegisterNewUserPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

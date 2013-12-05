@@ -38,7 +38,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             }
             objectContainer.RegisterInstanceAs(driver, typeof(IWebDriver));
             objectContainer.RegisterInstanceAs(new TestConfiguration(), typeof(IConfig));
-            objectContainer.RegisterInstanceAs(new Mocks.EntityDataManager().Initialise(), typeof(Mocks.ITestDataManager));
+            objectContainer.RegisterInstanceAs(new Mocks.DapperDataManager(), typeof(Mocks.ITestDataManager));
         }
 
         [AfterScenario("web")]

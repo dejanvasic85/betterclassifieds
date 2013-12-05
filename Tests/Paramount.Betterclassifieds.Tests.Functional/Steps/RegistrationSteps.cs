@@ -81,9 +81,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Then(@"the user ""(.*)"" should be created successfully")]
         public void ThenTheUserShouldBeCreatedSuccessfully(string username)
         {
-            var userProfile = dataManager.GetUserProfile(username);
-            Assert.IsNotNull(userProfile);
-            Assert.AreEqual(username, userProfile.Username);
+            // Assert
+            dataManager.UserExists(username).IsTrue();
         }
 
         [Then(@"a registration email should be sent to ""(.*)""")]

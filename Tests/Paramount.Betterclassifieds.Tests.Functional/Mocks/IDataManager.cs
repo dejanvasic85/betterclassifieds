@@ -1,17 +1,105 @@
-﻿using System.Collections.Generic;
-using Paramount.Betterclassifieds.Domain.Notifications;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using Dapper;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 {
     /// <summary>
     /// Used directly by the tests to setup and assert scenarios
     /// </summary>
-    public interface ITestDataManager
+    public interface ITestDataManager : IDisposable
     {
-        ITestDataManager Initialise();
+        // Categories
+        ITestDataManager AddOrUpdateCategory(string name, string parent);
+
+        // Ads
         ITestDataManager AddOrUpdateOnlineAd(string adTitle, out int? id);
+
+        // Users
         ITestDataManager DropUserIfExists(string username);
-        Domain.Membership.User GetUserProfile(string username);
+        bool UserExists(string username);
+
+        // Emails / Notifications
         List<Email> GetSentEmailsFor(string email);
+    }
+
+    public class DapperDataManager : ITestDataManager
+    {
+        // Create IDbConnections
+        private IDbConnection classifiedDb;
+        private IDbConnection coreDb;
+        private IDbConnection membershipDb;
+
+        public DapperDataManager()
+        {
+            classifiedDb = new SqlConnection(ConfigurationManager.ConnectionStrings["ClassifiedsDb"].ConnectionString);
+            coreDb = new SqlConnection(ConfigurationManager.ConnectionStrings["MembershipDb"].ConnectionString);
+            membershipDb = new SqlConnection(ConfigurationManager.ConnectionStrings["CoreDb"].ConnectionString);
+        }
+
+        public ITestDataManager AddOrUpdateOnlineAd(string adTitle, out int? id)
+        {
+            id = null;
+            return this;
+        }
+
+        public ITestDataManager DropUserIfExists(string username)
+        {
+            // Drop from user table
+            // membershipDb.Execute("DELETE FROM ")
+
+            // Drop from Membership table
+
+            // Drop from UserProfile table
+
+            return this;
+        }
+
+        public bool UserExists(string username)
+        {
+            return false;
+        }
+
+        public List<Email> GetSentEmailsFor(string email)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ITestDataManager AddOrUpdateCategory(string name, string parent)
+        {
+            // Ensure that parent exists
+            classifiedDb.Open();
+            var parentCategoryId = classifiedDb.Query("SELECT MainCategoryId FROM MainCategory WHERE Title = @Title", new { Title = parent });
+
+            //if (parentCategoryId == null)
+            //{
+            //    // Create parent
+            //    classifiedDb.Execute("INSERT INTO MainCategory (Title)");
+
+            //}
+
+            // Create sub category
+
+            return this;
+        }
+
+        protected static void SetIdentity<T>(IDbConnection connection, Action<T> setId)
+        {
+            var identity = connection.Query("SELECT @@IDENTITY AS Id").Single();
+            T newId = (T) identity.Id;
+            setId(newId);
+        }
+
+        public void Dispose()
+        {
+            classifiedDb.Close();
+            classifiedDb.BeginTransaction();
+            membershipDb.Close();
+            coreDb.Close();
+        }
     }
 }

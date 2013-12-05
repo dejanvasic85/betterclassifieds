@@ -70,9 +70,9 @@
       <Project>{04e24b49-191f-44b6-833f-361c559f7b18}</Project>
       <Name>BetterClassified.UI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Paramount.Betterclassifieds.Tests.Utility\Paramount.Betterclassifieds.Tests.Utility.csproj">
-      <Project>{2afdfa95-be42-4afb-aeaf-f940b59914c1}</Project>
-      <Name>Paramount.Betterclassifieds.Tests.Utility</Name>
+    <ProjectReference Include="..\Paramount.Betterclassifieds.Tests.Common\Paramount.Betterclassifieds.Tests.Common.csproj">
+      <Project>{2AFDFA95-BE42-4AFB-AEAF-F940B59914C1}</Project>
+      <Name>Paramount.Betterclassifieds.Tests.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

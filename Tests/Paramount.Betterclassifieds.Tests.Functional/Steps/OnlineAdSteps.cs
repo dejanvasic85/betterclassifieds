@@ -21,8 +21,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Given(@"The online ad titled ""(.*)""")]
         public void GivenTheOnlineAdTitled(string adTitle)
         {
-            int? adId;
-            dataManager.AddOrUpdateOnlineAd(adTitle, out adId);
+            int? adId = dataManager.AddOrUpdateOnlineAd(adTitle, "Selenium Sub" );
             Assert.IsNotNull(adId, "Unable to add or update online ad [" + adTitle + "]");
             ScenarioContext.Current.Add("AdId", adId);
         }

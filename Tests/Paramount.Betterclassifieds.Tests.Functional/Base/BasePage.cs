@@ -31,7 +31,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         {
             // Wait for element to appear first (just in case)
             WebDriverWait wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(maxSecondsToTimeout));
-            wait.Until(ExpectedConditions.ElementExists(by));
+            wait.Until(ExpectedConditions.ElementIsVisible(by));
 
             return WebDriver.FindElement(by);
         }

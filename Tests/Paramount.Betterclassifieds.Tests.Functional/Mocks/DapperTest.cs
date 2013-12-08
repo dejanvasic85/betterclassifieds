@@ -6,14 +6,22 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
     public class DapperTest
     {
         [Test]
-        public void AddOrUpdateCategories()
+        public void AddOrUpdateBooking_Successful()
         {
             // Arrange and Act
             using (ITestDataManager dataManager = new DapperDataManager())
             {
-                dataManager.AddOrUpdateCategory(name: "Selenium Sub", parent: "Selenium Parent");
+                dataManager.AddOrUpdateOnlineAd("this is a cool ad", "Selenium Sub");
             }
         }
 
+        [Test]
+        public void AddOrUpdateCategory_Successful()
+        {
+            using (ITestDataManager manager = new DapperDataManager())
+            {
+                manager.AddOrUpdateCategory("test", "parent test");
+            }
+        }
     }
 }

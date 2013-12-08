@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
@@ -99,7 +100,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         public string GetUsernameAvailabilityMessage()
         {
-            var element = FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxRegister_SiteCreateUserWizard_CreateUserStepContainer_lblUsernameAvailability"));
+            var element = FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxRegister_SiteCreateUserWizard_CreateUserStepContainer_lblUsernameAvailability"));            
             return element.Text;
         }
 

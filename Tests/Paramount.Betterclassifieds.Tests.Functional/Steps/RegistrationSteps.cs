@@ -91,7 +91,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             var registrationTime = ScenarioContext.Current.Get<DateTime>("StartRegistrationTime");
             var emailsQueued = dataManager.GetSentEmailsFor(userEmail);
 
-            Assert.IsTrue(emailsQueued.Any(e => e.CreatedDateTime >= registrationTime && e.Subject == "New Registration"));
+            Assert.IsTrue(emailsQueued.Any(e => e.CreateDateTime >= registrationTime && e.Subject == "New Registration"));
         }
 
         [Then(@"I should see registration message displayed ""(.*)""")]

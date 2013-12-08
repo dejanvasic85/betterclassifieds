@@ -52,6 +52,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Transactions" />
     <Reference Include="TechTalk.SpecFlow">
       <HintPath>..\..\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
     </Reference>
@@ -86,9 +87,11 @@
     <Compile Include="Base\IConfig.cs" />
     <Compile Include="Base\TestRouter.cs" />
     <Compile Include="Base\TestSetup.cs" />
+    <Compile Include="Mocks\DapperExtensions.cs" />
     <Compile Include="Mocks\DapperTest.cs" />
+    <Compile Include="Base\ITestDataManager.cs" />
     <Compile Include="Mocks\Models\Email.cs" />
-    <Compile Include="Mocks\IDataManager.cs" />
+    <Compile Include="Mocks\DapperDataManager.cs" />
     <Compile Include="Pages\OnlineAdPage.cs" />
     <Compile Include="Pages\RegisterNewUserPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

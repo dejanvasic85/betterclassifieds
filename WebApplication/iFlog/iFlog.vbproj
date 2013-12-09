@@ -197,7 +197,6 @@
     <Content Include="Controls\TutorAdForm.ascx" />
     <Content Include="Controls\TutorAdView.ascx" />
     <Content Include="favicon.ico" />
-    <Content Include="index-temp.html" />
     <Content Include="MemberAccount\ExtendBooking.aspx" />
     <Content Include="MemberAccount\Bookings.aspx" />
     <Content Include="Resources\Images\date.png" />

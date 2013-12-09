@@ -18,12 +18,21 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             this.testRouter = testRouter;
         }
 
-        [Given(@"The online ad titled ""(.*)""")]
-        public void GivenTheOnlineAdTitled(string adTitle)
+        [Given(@"The online ad titled ""(.*)"" in parent category ""(.*)"" and sub category ""(.*)""")]
+        public void GivenTheOnlineAdTitledInParentCategoryAndSubCategory(string adTitle, string parentCategory, string childCategory)
         {
-            int? adId = dataManager.AddOrUpdateOnlineAd(adTitle, "Selenium Sub" );
-            Assert.IsNotNull(adId, "Unable to add or update online ad [" + adTitle + "]");
+            // Call the given that creates the categories first
+            GivenParentCategoryAndSubCategory(parentCategory, childCategory);
+
+            int? adId = dataManager.AddOrUpdateOnlineAd(adTitle, parentCategory, childCategory);
+
             ScenarioContext.Current.Add("AdId", adId);
+        }
+
+        [Given(@"The parent category ""(.*)"" and sub category ""(.*)""")]
+        public void GivenParentCategoryAndSubCategory(string parentCategory, string childCategory)
+        {
+            dataManager.AddOrUpdateCategory(parentCategory, childCategory);
         }
 
         [When(@"I navigate to ""(.*)""")]

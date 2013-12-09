@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>ClassifiedFunctionalTests</id>
+    <title>ClassifiedFunctionalTests</title>
+    <version>1.0.0</version>
+    <authors>Paramount IT Solutions</authors>
+    <owners>Paramount IT Solutions</owners>
+    <licenseUrl>http://paramountit.com.au</licenseUrl>
+    <projectUrl>http://paramountit.com.au</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Suite of functional tests involving full User Interface and selenium tests with NUnit and Specflow.</description>
+    <releaseNotes></releaseNotes>
+  </metadata>
+</package>

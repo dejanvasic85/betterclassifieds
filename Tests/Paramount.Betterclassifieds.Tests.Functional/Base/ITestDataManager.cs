@@ -12,7 +12,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
         int AddOrUpdateCategory(string name, string parent);
 
         // Ads
-        int AddOrUpdateOnlineAd(string adTitle, string categoryName);
+        int AddOrUpdateOnlineAd(string adTitle, string categoryName, string subCategoryName);
 
         // Users
         ITestDataManager DropUserIfExists(string username);

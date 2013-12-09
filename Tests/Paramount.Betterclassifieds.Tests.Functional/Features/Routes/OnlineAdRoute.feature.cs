@@ -77,7 +77,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Routes
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.Given("The online ad titled \"Ad with cool route\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("The online ad titled \"Ad with cool route\" in parent category \"Selenium parent\" an" +
+                    "d sub category \"Selenium child\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
  testRunner.When("I navigate to \"Ad/ad-with-cool-route/{0}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 10

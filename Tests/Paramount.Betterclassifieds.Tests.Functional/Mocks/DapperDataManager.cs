@@ -23,7 +23,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             membershipDb = new SqlConnection(ConfigurationManager.ConnectionStrings["MembershipDb"].ConnectionString);
         }
 
-        public int AddOrUpdateOnlineAd(string adTitle, string categoryName)
+        public int AddOrUpdateOnlineAd(string adTitle, string categoryName, string subCategoryName)
         {
             var bookingId = GetBookingByOnlineTitle(adTitle);
 
@@ -32,15 +32,36 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 
             using (var scope = new TransactionScope())
             {
-                var adId = classifiedDb.InsertTable("Ad", new { adTitle });
+                var adId = classifiedDb.InsertTable("Ad", new { title = adTitle });
 
                 var mainCategoryId = GetCategoryIdForTitle(categoryName);
 
-                bookingId = classifiedDb.InsertTable("AdBooking", new { @StartDate = DateTime.Now.AddDays(-1), @EndDate = DateTime.Now.AddDays(30), @TotalPrice = 0, @BookingReference = "SEL-001", adId, username = "bdduser", @BookingStatus = 1, mainCategoryId, @BookingDate = DateTime.Now, @Insertions = 1 });
+                bookingId = classifiedDb.InsertTable("AdBooking", new
+                    {
+                        @StartDate = DateTime.Now.AddDays(-1),
+                        @EndDate = DateTime.Now.AddDays(30),
+                        @TotalPrice = 0,
+                        @BookReference = "SEL-001",
+                        @AdId = adId,
+                        @UserId = "bdduser",
+                        @BookingStatus = 1,
+                        @MainCategoryId = mainCategoryId,
+                        @BookingDate = DateTime.Now,
+                        @Insertions = 1
+                    });
 
                 var adDesignId = classifiedDb.InsertTable("AdDesign", new { adId, @adTypeId = 2 });
 
-                var onlineAdid = classifiedDb.InsertTable("OnlineAd", new { adDesignId, adTitle, @description = adTitle, @htmlText = adTitle, @numOfViews = 100 });
+                var onlineAdid = classifiedDb.InsertTable("OnlineAd", new
+                    {
+                        @AdDesignId = adDesignId,
+                        @Heading = adTitle,
+                        @Description = adTitle,
+                        @HtmlText = adTitle,
+                        @NumOfViews = 100,
+                        @Price = 1500,
+                        @ContactName = "Sample Contact"
+                    });
 
                 // Commit transaction
                 scope.Complete();

@@ -53,6 +53,9 @@ Namespace UserAdmin
 
             ' get membership user account based on username sent in query string
             _user = ConfigManager.UserAdminMembershipProvider.GetUser(username, False)
+            If _user.IsLockedOut Then
+                Return
+            End If
             UserUpdateMessage.Text = ""
 
             ' get selected user's password start.................................................................

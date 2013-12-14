@@ -1,10 +1,20 @@
-﻿@model dynamic
-<head>
-    <title>this is the new title for everything in MVC!</title>
-    <link href="http://localhost/iflog/App_Themes/iflog/css/main_1024.css" rel="stylesheet" />
-</head>
-<body>
-    <div>
-        This is a sample home page
-    </div>
-</body>
+﻿@model List<Paramount.Betterclassifieds.Presentation.Models.AdSummaryView>
+
+<h1 class="cat-heading">Latest Posts</h1>
+
+@foreach (var ad in Model)
+{
+    <article class="news-item">
+	<a href="news/all/2013/12/14/the-wailers-sly-and-robbie-announce-bluesfest-sideshows/">
+		<figure>
+			<img src="">
+		</figure>
+		<hgroup>
+			<span class="category">@ad.ParentCategoryName||@ad.ChildCategoryName</span>
+			<h1>@ad.Title</h1>
+			<time datetime="@ad.PostedDate" pubdate="">@ad.PostedDate</time>
+		</hgroup>	
+		<p>@ad.Description</p>
+	</a>
+</article>
+}

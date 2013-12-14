@@ -18,15 +18,9 @@ namespace Paramount.Betterclassifieds.Presentation
             // BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             routes.MapRoute(
-                "homeRoute",
+                "default",
                 "{controller}/{action}/{id}",
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional }, new[] { GetType().Namespace });
-
-
-            //routes.MapRoute(
-            //    "adRouteDefault",
-            //    "Ad/{title}/{id}",  
-            //    new { controller= "Ad", action = "Index" }, new[] { GetType().Namespace });
 
         }
     }

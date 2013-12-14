@@ -606,6 +606,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="packages.config" />
+    <Content Include="PostDeploy.ps1" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Browsers\CSSFriendlyAdapters.browser" />

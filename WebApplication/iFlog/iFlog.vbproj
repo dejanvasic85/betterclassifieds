@@ -217,6 +217,7 @@
     <Content Include="Resources\Images\Packages\example_free.gif" />
     <Content Include="Resources\Images\shopping_cart_16x16.gif" />
     <Content Include="Resources\Images\Trash.png" />
+    <Content Include="PostDeploy.ps1" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />

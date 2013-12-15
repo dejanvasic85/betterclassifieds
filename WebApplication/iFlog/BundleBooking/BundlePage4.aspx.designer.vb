@@ -41,13 +41,13 @@ Partial Public Class BundlePage4
     Protected WithEvents helpContextPanel As Global.Paramount.Common.UI.HelpContextControl
 
     '''<summary>
-    '''calStartDate control.
+    '''ddlUpcomingEditions control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents calStartDate As Global.System.Web.UI.WebControls.Calendar
+    Protected WithEvents ddlUpcomingEditions As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
     '''HelpContextControl1 control.

@@ -36,7 +36,7 @@ Namespace BusinessEntities
         Public Function GetLineAdBoldHeaderPrice(ByVal isAverageRequired As Boolean) As Decimal
             Dim price As Decimal
             For Each p In PublicationPriceList
-                If p.LineBoldHeader IsNot Nothing Then
+                If p.LineBoldHeader IsNot Nothing And p.AdType <> BookingAdType.OnlineAd Then
                     price += p.LineBoldHeader
                 End If
             Next
@@ -51,7 +51,7 @@ Namespace BusinessEntities
         Public Function GetLineAdSuperBoldHeaderPrice(ByVal isAverageRequired As Boolean) As Decimal
             Dim price As Decimal
             For Each p In PublicationPriceList
-                If p.LineSuperBoldHeader IsNot Nothing Then
+                If p.LineSuperBoldHeader IsNot Nothing And p.AdType <> BookingAdType.OnlineAd Then
                     price += p.LineSuperBoldHeader
                 End If
             Next
@@ -64,7 +64,7 @@ Namespace BusinessEntities
         Public Function GetLineAdColourHeaderPrice(ByVal isAverageRequired As Boolean) As Decimal
             Dim price As Decimal
             For Each p In PublicationPriceList
-                If p.LineColourHeader IsNot Nothing Then
+                If p.LineColourHeader IsNot Nothing And p.AdType <> BookingAdType.OnlineAd Then
                     price += p.LineColourHeader
                 End If
             Next
@@ -77,7 +77,7 @@ Namespace BusinessEntities
         Public Function GetLineAdColourBorderPrice(ByVal isAverageRequired As Boolean) As Decimal
             Dim price As Decimal
             For Each p In PublicationPriceList
-                If p.LineColourBorder IsNot Nothing Then
+                If p.LineColourBorder IsNot Nothing And p.AdType <> BookingAdType.OnlineAd Then
                     price += p.LineColourBorder
                 End If
             Next
@@ -90,7 +90,7 @@ Namespace BusinessEntities
         Public Function GetLineAdColourBackgroundPrice(ByVal isAverageRequired As Boolean) As Decimal
             Dim price As Decimal
             For Each p In PublicationPriceList
-                If p.LineColourBackground IsNot Nothing Then
+                If p.LineColourBackground IsNot Nothing And p.AdType <> BookingAdType.OnlineAd Then
                     price += p.LineColourBackground
                 End If
             Next
@@ -107,7 +107,7 @@ Namespace BusinessEntities
         Public Function GetLineAdMainPhotoPrice(ByVal isAverageRequired As Boolean) As Decimal
             Dim price As Decimal
             For Each p In PublicationPriceList
-                If p.LineMainPhoto IsNot Nothing Then
+                If p.LineMainPhoto IsNot Nothing And p.AdType <> BookingAdType.OnlineAd Then
                     price += p.LineMainPhoto
                 End If
             Next

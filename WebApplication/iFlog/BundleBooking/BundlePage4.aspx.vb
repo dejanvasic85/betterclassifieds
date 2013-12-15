@@ -33,6 +33,11 @@ Partial Public Class BundlePage4
             Me.ScheduleOnlineWithPrint = GeneralRoutine.GetAppSetting(Utilities.Constants.CONST_MODULE_ONLINE_ADS, Utilities.Constants.CONST_KEY_Online_BundleWithPrint)
             ' get the selectable dates for all publications and store them into the session (for first load only)
             Me.PublicationEditions = Me.GetPublicationEditions(BundleController.BundleCart.PublicationList, Me.MaximumEditions)
+
+            ' Databind the upcoming editions combo
+            Me.ddlUpcomingEditions.DataSource = Me.PublicationEditions.Select(Function(d) New With {.EditionDate = d.Value, .EditionDateFormatted = d.GetValueOrDefault().ToString("dd-MMM-yyyy")})
+            Me.ddlUpcomingEditions.DataBind()
+
             ' databind the Combo Box for Insertion selection
             Me.DataBindEditionCombo(Me.MaximumEditions, Me.PublicationEditions, BundleController.BundleCart.PublicationList)
             ' databind the publication deadlines
@@ -71,19 +76,19 @@ Partial Public Class BundlePage4
         ddlInserts.Items.Insert(0, New ListItem("-- Select --", 0))
     End Sub
 
-    Private Sub calStartDate_DayRender(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.DayRenderEventArgs) Handles calStartDate.DayRender
+    'Private Sub calStartDate_DayRender(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.DayRenderEventArgs) Handles calStartDate.DayRender
 
-        ' this event will fire for each day that will appear in the calendar
-        ' we can get the date for each day from the e parameter
+    '    ' this event will fire for each day that will appear in the calendar
+    '    ' we can get the date for each day from the e parameter
 
-        If (Me.PublicationEditions.Contains(e.Day.Date)) Then
-            ' if this day is an edition we allow to be selectable
-            e.Cell.Style.Add("background-color", "#CCFFDD")
-        Else
-            ' otherwise we set the background colour
-            e.Day.IsSelectable = False
-        End If
-    End Sub
+    '    If (Me.PublicationEditions.Contains(e.Day.Date)) Then
+    '        ' if this day is an edition we allow to be selectable
+    '        e.Cell.Style.Add("background-color", "#CCFFDD")
+    '    Else
+    '        ' otherwise we set the background colour
+    '        e.Day.IsSelectable = False
+    '    End If
+    'End Sub
 
     Private Sub DataBindPublicationDeadlines(ByVal publicationList As List(Of DataModel.Publication))
         ' databind the publications but ensure that we pass in the publication id's only
@@ -161,7 +166,8 @@ Partial Public Class BundlePage4
 
     Private Sub SetStartDateValue(ByVal startDate As DateTime)
         ' sets the UI calendar to a specific date
-        calStartDate.SelectedDate = startDate
+        ' calStartDate.SelectedDate = startDate
+        ddlUpcomingEditions.SelectedValue = startDate
     End Sub
 
     Private Sub UpdateEditionDetails(ByVal selectedDate As DateTime, ByVal onlineStartDate As DateTime, ByVal editionCount As Integer)
@@ -221,8 +227,9 @@ Partial Public Class BundlePage4
         Return largestDate
     End Function
 
-    Private Function GetStartDate(ByVal selectedDate As Date) As Date
-        Dim startDate = calStartDate.SelectedDate.Date.AddDays(_daysPriorPrint)
+    Private Function GetStartDate() As Date
+        'Dim startDate = calStartDate.SelectedDate.Date.AddDays(_daysPriorPrint)
+        Dim startDate = Me.SelectedDate.AddDays(_daysPriorPrint)
         If startDate < DateTime.Now Then
             startDate = DateTime.Today
         End If
@@ -230,6 +237,16 @@ Partial Public Class BundlePage4
     End Function
 
 #End Region
+
+    Private Property SelectedDate As DateTime
+        Get
+            Return DateTime.Parse(ddlUpcomingEditions.SelectedValue)
+        End Get
+        Set(value As DateTime)
+            ddlUpcomingEditions.SelectedValue = value
+        End Set
+    End Property
+
 
 #Region "Navigation Buttons"
 
@@ -257,7 +274,7 @@ Partial Public Class BundlePage4
         Dim errorList As New List(Of String)
 
         ' start date needs to be selected
-        If calStartDate.SelectedDate < Today.Date Then
+        If Me.SelectedDate < Today.Date Then
             errorList.Add("Start Date has not been selected.")
         End If
 
@@ -276,22 +293,27 @@ Partial Public Class BundlePage4
 
 #Region "Event Handling"
 
-    Private Sub calStartDate_SelectionChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles calStartDate.SelectionChanged
-        Dim startDate = GetStartDate(calStartDate.SelectedDate)
-        ' handle the procedure when a selection is made on the UI
-        UpdateEditionDetails(calStartDate.SelectedDate, startDate, Me.ddlInserts.SelectedValue)
+    'Private Sub calStartDate_SelectionChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles calStartDate.SelectionChanged
+    '    Dim startDate = GetStartDate(calStartDate.SelectedDate)
+    '    ' handle the procedure when a selection is made on the UI
+    '    UpdateEditionDetails(calStartDate.SelectedDate, startDate, Me.ddlInserts.SelectedValue)
+    'End Sub
+
+    Private Sub ddlUpcomingEditions_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlUpcomingEditions.SelectedIndexChanged
+        UpdateEditionDetails(Me.SelectedDate, GetStartDate(), Me.ddlInserts.SelectedValue)
     End Sub
 
     Private Sub ddlInserts_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles ddlInserts.SelectedIndexChanged
         ' set the number of inserts into the session
         _bundleController.SetEditionCount(ddlInserts.SelectedValue)
-        If calStartDate.SelectedDate > DateTime.MinValue Then
+        If Me.SelectedDate > DateTime.MinValue Then
             ' handle the procedure when a selection is made 
-            Dim onlineStartDate = GetStartDate(calStartDate.SelectedDate)
-            UpdateEditionDetails(calStartDate.SelectedDate, onlineStartDate, Me.ddlInserts.SelectedValue)
+            Dim onlineStartDate = GetStartDate()
+            UpdateEditionDetails(Me.SelectedDate, onlineStartDate, Me.ddlInserts.SelectedValue)
         End If
     End Sub
 
 #End Region
 
+    
 End Class

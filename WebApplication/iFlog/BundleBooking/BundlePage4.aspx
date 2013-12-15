@@ -45,7 +45,7 @@
                                 
                             </div>
                             <div id="bookAdMainContent">
-                                <asp:Calendar ID="calStartDate" runat="server" BackColor="White" BorderColor="#53c0e7"
+                                <%--<asp:Calendar ID="calStartDate" runat="server" BackColor="White" BorderColor="#53c0e7"
                                     CellPadding="0" BorderWidth="0px" DayNameFormat="Shortest" Font-Names="Verdana"
                                     Font-Size="8pt" ForeColor="#003399" Height="250px" Width="270px" FirstDayOfWeek="Monday">
                                     <SelectedDayStyle BackColor="#53C0E7" Font-Bold="True" ForeColor="Black" />
@@ -55,7 +55,8 @@
                                     <DayHeaderStyle BackColor="#367D8F" ForeColor="White" Height="20px" />
                                     <TitleStyle CssClass="calHeadStyle" Height="28px" Font-Bold="True" ForeColor="White" />
                                     <DayStyle CssClass="calDayStyle" />
-                                </asp:Calendar>
+                                </asp:Calendar>--%>
+                                <asp:DropDownList runat="server" ID="ddlUpcomingEditions" AutoPostBack="True" DataTextField="EditionDateFormatted" DataValueField="EditionDate"/>
                             </div>
                             <%--Number of Insertions--%>
                             <div id="bookAdMainContent">

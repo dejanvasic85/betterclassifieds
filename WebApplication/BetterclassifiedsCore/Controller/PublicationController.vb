@@ -202,6 +202,12 @@ Public Class PublicationController
                                    And ed.PublicationId = id And ed.Deadline > DateTime.Now _
                                    Order By ed.EditionDate _
                                    Select ed.EditionDate Take takeAmount).ToList)
+
+                ' Remove any Non Publication dates
+                Dim nonPublicationDates = db.NonPublicationDates.Where(Function(n) n.PublicationId = paperId And n.EditionDate >= dateList.First() And n.EditionDate <= dateList.Last()).ToList()
+                For Each npd In nonPublicationDates
+                    dateList.Remove(npd.EditionDate)
+                Next
             Next
             Return dateList
         End Using

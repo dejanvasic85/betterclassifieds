@@ -99,18 +99,31 @@ Namespace BundleBooking
                 ' check that it's not an online publication
                 Dim pub1 = pub
                 If pub.PublicationType.Code.Trim <> "ONLINE" Then
+
+                    Dim nonPublicationDates = _context.NonPublicationDates.Where(Function(n) n.PublicationId = pub.PublicationId And n.EditionDate >= startDate).ToList()
+
                     ' create a new edition
                     Dim editions As New Booking.EditionList
                     With editions
                         .Title = pub.Title
-                        .EditionList = (From ed In _context.Editions _
-                                        Where ed.PublicationId = pub1.PublicationId _
-                                        And ed.EditionDate >= startDate _
-                                        Order By ed.EditionDate _
-                                        Select ed.EditionDate Take takeAmount).ToList
+                        .EditionList = _context.spPublicationEditions(startDate, pub.PublicationId) _
+                            .Select(Function(sp) sp.EditionDate) _
+                            .Take(takeAmount) _
+                            .OrderBy(Function(sp) sp) _
+                            .ToList()
+
+                        '.EditionList = (From ed In _context.Editions _
+                        '                Let npd = From _context.NonPublicationDates  _
+                        '                Where ed.PublicationId = pub1.PublicationId _
+                        '                And ed.EditionDate >= startDate _
+                        '                Order By ed.EditionDate _
+                        '                Select ed.EditionDate _
+                        '                Take takeAmount) _
+                        '            .ToList
                     End With
                     ' add the editionList
                     list.Add(editions)
+
                 End If
             Next
             ' return the list
@@ -119,11 +132,18 @@ Namespace BundleBooking
 
         Public Function GetPublicationEditions(ByVal publicationId As Integer, ByVal insertions As Integer, ByVal startDate As DateTime) As List(Of Nullable(Of Date))
             ' create the return value
-            Return (From ed In _context.Editions _
+            Dim dateList = (From ed In _context.Editions _
                     Where ed.PublicationId = publicationId _
                     And ed.EditionDate >= startDate _
                     Order By ed.EditionDate _
                     Select ed.EditionDate Take insertions).ToList
+
+            Dim nonPublicationDates = _context.NonPublicationDates.Where(Function(n) n.PublicationId = publicationId And n.EditionDate >= dateList.First() And n.EditionDate <= dateList.Last()).ToList()
+            For Each npd In nonPublicationDates
+                dateList.Remove(npd.EditionDate)
+            Next
+
+            Return dateList
         End Function
 
         Public Function CheckAllPublicationsExist(ByVal existingPublications As List(Of DataModel.Publication), ByVal newPubIdList As List(Of Integer), ByVal includeOnline As Boolean) As Boolean

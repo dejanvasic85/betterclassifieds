@@ -69,6 +69,7 @@
     <Content Include="Deploy.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Scripts\0004-GetPublicationDates-Proc.sql" />
     <EmbeddedResource Include="Scripts\0003-BaselineStoredProcs.sql" />
     <EmbeddedResource Include="Scripts\0002-BaselineData-1.sql" />
     <None Include="ClassifiedsDatabase.nuspec">

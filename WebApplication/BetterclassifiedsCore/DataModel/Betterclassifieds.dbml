@@ -206,6 +206,7 @@
       <Association Name="Publication_PublicationAdType" Member="PublicationAdTypes" ThisKey="PublicationId" OtherKey="PublicationId" Type="PublicationAdType" />
       <Association Name="Publication_PublicationCategory" Member="PublicationCategories" ThisKey="PublicationId" OtherKey="PublicationId" Type="PublicationCategory" />
       <Association Name="Publication_Edition" Member="Editions" ThisKey="PublicationId" OtherKey="PublicationId" Type="Edition" />
+      <Association Name="Publication_NonPublicationDate" Member="NonPublicationDates" ThisKey="PublicationId" OtherKey="PublicationId" Type="NonPublicationDate" />
       <Association Name="PublicationType_Publication" Member="PublicationType" ThisKey="PublicationTypeId" OtherKey="PublicationTypeId" Type="PublicationType" IsForeignKey="true" />
     </Type>
   </Table>
@@ -514,6 +515,14 @@
       <Association Name="AdDesign_OnlineAd" Member="AdDesign" ThisKey="AdDesignId" OtherKey="AdDesignId" Type="AdDesign" IsForeignKey="true" />
       <Association Name="Location_OnlineAd" Member="Location" ThisKey="LocationId" OtherKey="LocationId" Type="Location" IsForeignKey="true" />
       <Association Name="LocationArea_OnlineAd" Member="LocationArea" ThisKey="LocationAreaId" OtherKey="LocationAreaId" Type="LocationArea" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NonPublicationDate" Member="NonPublicationDates">
+    <Type Name="NonPublicationDate">
+      <Column Name="NonPublicationDateId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PublicationId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EditionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Publication_NonPublicationDate" Member="Publication" ThisKey="PublicationId" OtherKey="PublicationId" Type="Publication" IsForeignKey="true" />
     </Type>
   </Table>
   <Function Name="dbo.spSpecialRatesByCategory" Method="spSpecialRatesByCategory">
@@ -1000,5 +1009,12 @@
   </Function>
   <Function Name="dbo.spGetMainParentCategories" Method="spGetMainParentCategories">
     <ElementType IdRef="ID2" />
+  </Function>
+  <Function Name="dbo.spPublicationEditions" Method="spPublicationEditions">
+    <Parameter Name="StartDate" Parameter="startDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="PublicationId" Parameter="publicationId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="spPublicationEditionsResult">
+      <Column Name="EditionDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
   </Function>
 </Database>

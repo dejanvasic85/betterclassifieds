@@ -7,19 +7,18 @@ namespace Paramount.Betterclassifieds.Tests
 {
     public static class MockDataContext
     {
-        public static Mock<IDataContext> CreateMockOf<IDataContext>( StringBuilder sb ) where IDataContext : class, IDisposable
-        {
-            Mock<IDataContext> mock = new Mock<IDataContext>(MockBehavior.Strict);
+        //public static Mock<TDataContext> CreateMockOf<TDataContext>(StringBuilder sb) where TDataContext : class, IDisposable
+        //{
+        //    Mock<TDataContext> mock = new Mock<TDataContext>(MockBehavior.Strict);
 
-            mock.Setup( call => call.Dispose())
-                .Callback(() =>
-                                                              {
-                                                                  StackTrace stack = new StackTrace();
-                                                                  sb.AppendLine(stack.ToString());
-                                                              })
-                                                              ;
+        //    mock.Setup( call => call.Dispose())
+        //        .Callback(() =>
+        //        {
+        //            StackTrace stack = new StackTrace();
+        //            sb.AppendLine(stack.ToString());
+        //        });
 
-            return mock;
-        }
+        //    return mock;
+        //}
     }
 }

@@ -5,6 +5,7 @@ Imports BetterClassified.Repository
 Imports BetterClassified
 Imports Microsoft.Practices.Unity
 Imports BetterClassified.Models
+Imports Paramount
 
 Partial Public Class AdView
     Inherits System.Web.UI.Page

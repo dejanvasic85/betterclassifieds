@@ -1,4 +1,5 @@
 ﻿using System;
+using Paramount;
 
 namespace BetterClassified.Models
 {

@@ -11,7 +11,7 @@ namespace Paramount.Betterclassifieds.Presentation.App_Start
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
+                url: "nextgen/{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }

@@ -2,6 +2,7 @@
 Imports BetterClassified.Repository
 Imports Microsoft.Practices.Unity
 Imports BetterClassified.Models
+Imports Paramount
 
 Public Class TutorAdForm
     Inherits OnlineAdViewControl

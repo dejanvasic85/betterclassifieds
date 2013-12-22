@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
+using Paramount;
 
 namespace BetterClassified.Models
 {
@@ -20,10 +20,10 @@ namespace BetterClassified.Models
 
         public static IEnumerable<string> GetOnlineAdTypeNames()
         {
-            var types = Assembly.GetExecutingAssembly().GetTypes();
-            
-            return from type in types 
-                   where type.HasCustomAttribute<OnlineAdTypeAttribute>() 
+            var types = System.Reflection.Assembly.GetExecutingAssembly().GetTypes();
+
+            return from type in types
+                   where type.HasCustomAttribute<OnlineAdTypeAttribute>()
                    select type.GetCustomAttribute<OnlineAdTypeAttribute>().OnlineAdName;
         }
     }

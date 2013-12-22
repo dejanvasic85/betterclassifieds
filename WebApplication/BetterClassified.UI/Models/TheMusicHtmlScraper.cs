@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using HtmlAgilityPack;
+using Paramount;
 
 namespace BetterClassified.Models
 {

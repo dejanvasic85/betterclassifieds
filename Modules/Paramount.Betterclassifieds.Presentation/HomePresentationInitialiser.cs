@@ -19,7 +19,7 @@ namespace Paramount.Betterclassifieds.Presentation
 
             routes.MapRoute(
                 "default",
-                "{controller}/{action}/{id}",
+                "nextgen/{controller}/{action}/{id}",
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional }, new[] { GetType().Namespace });
 
         }

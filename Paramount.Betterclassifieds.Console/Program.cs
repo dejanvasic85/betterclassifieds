@@ -20,7 +20,7 @@
 #if DEBUG
                 program.Start(new[]
                                     {
-                                        TaskArguments.TaskFullArgName, "ExportDatabaseConfig",
+                                        "help"
                                     });
                 Console.WriteLine("Press any key to exit...");
                 Console.ReadLine();
@@ -44,17 +44,15 @@
             // Register one useful container with external service mappings
             _container = new UnityContainer();
 
-            // Auto register the tasks for the current assembly (where the task should be declared)!
-            Type taskInterface = typeof(ITask);
-            Assembly.GetExecutingAssembly()
-                .GetTypes()
-                .Where(i => i.GetInterface(taskInterface.Name, false) == taskInterface)
-                .ToList()
-                .ForEach(task => _container.RegisterType(taskInterface, task, task.Name));
+            TypeRegistrations.ActionEach(task => _container.RegisterType(typeof(ITask), task, task.Name));
         }
 
         public void Start(string[] args)
         {
+            // If the arguments contains "Help" then get the task helper to do the work
+            if (TaskHelper.DisplayHelp(args))
+                return;
+
             TaskArguments taskArguments = TaskArguments.FromArray(args);
 
             // Attempt to locate the appropriate task

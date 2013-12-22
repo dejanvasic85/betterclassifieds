@@ -43,6 +43,7 @@
       <HintPath>..\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
@@ -52,6 +53,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HelpAttribute.cs" />
+    <Compile Include="TypeRegistrations.cs" />
+    <Compile Include="TaskHelper.cs" />
     <Compile Include="Tasks\RemoveEdition.cs" />
     <Compile Include="Tasks\ITask.cs" />
     <Compile Include="Program.cs" />

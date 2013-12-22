@@ -1,4 +1,6 @@
-﻿namespace BetterClassified.UI.Presenters
+﻿using Paramount;
+
+namespace BetterClassified.UI.Presenters
 {
     using System;
     using System.Collections.Generic;

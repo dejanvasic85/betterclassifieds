@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace BetterClassified
+﻿namespace Paramount
 {
+    using System;
+
     public static class ArrayExtensions
     {
         public static TResult[] CastAll<TSource, TResult>(this TSource[] source) where TResult : class

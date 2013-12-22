@@ -2,6 +2,7 @@
 Imports BetterClassified.UI
 Imports BetterClassified.Repository
 Imports Microsoft.Practices.Unity
+Imports Paramount
 
 ''' <summary>
 ''' PageUrl is a utility class that generates outgoing URL's for specific pages

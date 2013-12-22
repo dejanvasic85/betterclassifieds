@@ -3,6 +3,7 @@ Imports BetterclassifiedsCore.BusinessEntities
 Imports BetterClassified
 Imports BetterClassified.Models
 Imports BetterClassified.Repository
+Imports Paramount
 
 Partial Public Class Preview
     Inherits System.Web.UI.Page

@@ -1,7 +1,10 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 
-using BetterclassifiedsCore.DataModel; // fkn dependency
+using BetterclassifiedsCore.DataModel;
+using Paramount;
+
+// fkn dependency
 
 namespace BetterClassified.Repository
 {

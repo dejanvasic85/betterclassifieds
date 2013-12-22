@@ -57,8 +57,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="BusinessModel\EditionManagerTests.cs" />
     <Compile Include="BusinessModel\TheMusicHtmlScraperTests.cs" />
-    <Compile Include="Console\UnitTest1.cs" />
+    <Compile Include="Console\TaskArgumentsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\DictionaryExtensionTests.cs" />
   </ItemGroup>

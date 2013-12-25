@@ -1,17 +1,10 @@
-﻿namespace BetterClassified.Repository
+﻿using System.Linq;
+using AutoMapper;
+using BetterClassified.Models;
+using BetterclassifiedsCore.DataModel;
+
+namespace BetterClassified.Repository
 {
-    using System;
-    using System.Linq;
-
-    using AutoMapper;
-    using BetterclassifiedsCore.DataModel;
-    using Models;
-
-    public interface IRateRepository
-    {
-        RateModel GetRatecard(int rateId);
-    }
-
     public class RateRepository : IRateRepository, IMappingBehaviour
     {
         public RateModel GetRatecard(int rateId)

@@ -2,20 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using BetterClassified.Models;
+using BetterClassified.Repository;
+using Paramount.Betterclassifieds.Repository;
 
-namespace BetterClassified.UI.Presenters
+namespace Paramount.Betterclassifieds.Business
 {
     public class ExtensionManager
     {
-        private readonly Repository.IBookingRepository bookingRepository;
-        private readonly Repository.IPublicationRepository publicationRepository;
-        private readonly Repository.IConfigSettings configSettings;
-        private readonly Repository.IPaymentsRepository payments;
+        private readonly IBookingRepository bookingRepository;
+        private readonly IPublicationRepository publicationRepository;
+        private readonly IConfigManager configSettings;
+        private readonly IPaymentsRepository payments;
 
-        public ExtensionManager(Repository.IBookingRepository bookingRepository,
-            Repository.IPublicationRepository publicationRepository,
-            Repository.IConfigSettings configSettings,
-            Repository.IPaymentsRepository payments)
+        public ExtensionManager(IBookingRepository bookingRepository,
+            IPublicationRepository publicationRepository,
+            IConfigManager configSettings,
+            IPaymentsRepository payments)
         {
             this.bookingRepository = bookingRepository;
             this.publicationRepository = publicationRepository;

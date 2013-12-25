@@ -1,19 +1,10 @@
-﻿using System.Linq;
-using System.Collections.Generic;
-
+﻿using System.Collections.Generic;
+using System.Linq;
 using BetterclassifiedsCore.DataModel;
 using Paramount;
 
-// fkn dependency
-
 namespace BetterClassified.Repository
 {
-    public interface ILookupRepository
-    {
-        List<string> GetLookupsForGroup(Models.LookupGroup lookupGroup, string searchString = "");
-        void AddOrUpdate(Models.LookupGroup group, string lookupValue);
-    }
-
     public class LookupRepository : ILookupRepository
     {
         public List<string> GetLookupsForGroup(Models.LookupGroup lookupGroup, string searchString = "")
@@ -21,8 +12,8 @@ namespace BetterClassified.Repository
             using (var context = BetterclassifiedsDataContext.NewContext())
             {
                 var values= context.Lookups
-                              .Where(l => l.GroupName == lookupGroup.ToString())
-                              .Select(a => a.LookupValue);
+                    .Where(l => l.GroupName == lookupGroup.ToString())
+                    .Select(a => a.LookupValue);
 
                 if (searchString.HasValue())
                     values = values.Where(lookup => lookup.StartsWith(searchString));

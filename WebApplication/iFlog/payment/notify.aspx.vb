@@ -37,7 +37,7 @@ Partial Public Class notify
                 Me.Response.Redirect("~/Booking/Default.aspx?action=successful")
             Else
                 ' This is an extension booking
-                Dim manager = BetterClassified.Unity.DefaultContainer.Resolve(Of ExtensionManager)()
+                Dim manager = BetterClassified.Unity.DefaultContainer.Resolve(Of Paramount.Betterclassifieds.Business.ExtensionManager)()
                 Dim extension = manager.GetExtension(NotifyParameterAccess.ReferenceId)
                 If extension IsNot Nothing Then
                     manager.Extend(extension, BetterClassified.Models.PaymentType.CreditCard)
@@ -70,7 +70,7 @@ Partial Public Class notify
                     'redirect to book successful page
                     Me.Response.Redirect("~/Booking/Default.aspx?action=successful")
                 Else
-                    Dim manager = BetterClassified.Unity.DefaultContainer.Resolve(Of ExtensionManager)()
+                    Dim manager = BetterClassified.Unity.DefaultContainer.Resolve(Of Paramount.Betterclassifieds.Business.ExtensionManager)()
                     Dim extension = manager.GetExtension(NotifyParameterAccess.ReferenceId)
                     If extension IsNot Nothing Then
                         manager.Extend(extension, BetterClassified.Models.PaymentType.PayPal)

@@ -1000,6 +1000,10 @@
       <Project>{16a1594a-f9a2-468b-bf45-2d716a72469e}</Project>
       <Name>Paramount.Betterclassifieds.Presentation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Paramount.Betterclassifieds.Business\Paramount.Betterclassifieds.Business.csproj">
+      <Project>{5c1be481-db9e-48cc-9048-5b10e6535d02}</Project>
+      <Name>Paramount.Betterclassifieds.Business</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Services\DataTransferObjects\Common.DataTransferObjects.csproj">
       <Project>{377f2216-9202-4df9-9c5b-c2a4e627ffe2}</Project>
       <Name>Common.DataTransferObjects</Name>

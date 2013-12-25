@@ -2,22 +2,9 @@
 
 namespace BetterClassified.Repository
 {
-    public interface IConfigSettings
+    public class ConfigSettings : IConfigManager
     {
-        int RestrictedEditionCount { get; }
-        int RestrictedOnlineDaysCount { get; }
-        int NumberOfDaysAfterLastEdition { get; }
-        bool IsOnlineAdFree { get; }
-        string BaseUrl { get; }
-        string PublisherHomeUrl { get; }
-        string FacebookAppId { get; }
-        string DslImageUrlHandler { get; }
-        string ClientCode { get; }
-    }
-
-    public class ConfigSettings : IConfigSettings
-    {
-        // Todo - read from database
+        // Todo - read from database (but default these for TheMusic)
         public int RestrictedEditionCount { get { return 10; } }
         public int RestrictedOnlineDaysCount { get { return 30; } }
         public int NumberOfDaysAfterLastEdition { get { return 6; } }

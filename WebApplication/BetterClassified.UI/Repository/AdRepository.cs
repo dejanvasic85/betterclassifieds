@@ -5,13 +5,6 @@ using BetterclassifiedsCore.DataModel;
 
 namespace BetterClassified.Repository
 {
-    public interface IAdRepository
-    {
-        OnlineAdModel GetOnlineAdByBooking(int bookingId);
-        TutorAdModel GetTutorAd(int onlineAdId);
-        void UpdateTutor(TutorAdModel tutorAdModel);
-    }
-
     public class AdRepository : IAdRepository, IMappingBehaviour
     {
         public OnlineAdModel GetOnlineAdByBooking(int bookingId)

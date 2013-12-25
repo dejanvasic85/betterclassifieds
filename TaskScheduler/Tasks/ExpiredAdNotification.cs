@@ -14,7 +14,7 @@ namespace Paramount.TaskScheduler
     {
         private const string DaysBeforeExpiry = "DAYSBEFOREEXPIRY";
         private readonly IUserRepository userRepository;
-        private readonly IConfigSettings configSettings;
+        private readonly IConfigManager configSettings;
 
         public ExpiredAdNotification()
         {

@@ -31,7 +31,7 @@ Public Class PageUrl
 
     ' Image View
     Public Shared Function AdImageUrl(ByVal documentId As String, Optional ByVal maxWidth As Integer = 80, Optional ByVal maxHeight As Integer = 80, Optional ByVal resolution As Integer = 90) As SiteUrl
-        Dim settings = Unity.DefaultContainer.Resolve(Of IConfigSettings)()
+        Dim settings = Unity.DefaultContainer.Resolve(Of IConfigManager)()
         Return New SiteUrl(String.Format("~/Image/View.ashx?docId={0}&entity={1}&width={2}&height={3}&res={4}", documentId, settings.ClientCode, maxWidth, maxHeight, resolution))
     End Function
 

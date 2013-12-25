@@ -1,19 +1,12 @@
-﻿namespace BetterClassified.Repository
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
+using BetterClassified.Models;
+using BetterclassifiedsCore.DataModel;
+
+namespace BetterClassified.Repository
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using BetterclassifiedsCore.DataModel;
-    using Models;
-    using AutoMapper;
-
-    public interface IPublicationRepository
-    {
-        PublicationModel GetPublication(int publicationId);
-        bool IsOnlinePublication(int publicationId);
-        List<BookEntryModel> GetEditionsForPublication(int publicationId, DateTime startDate, int numberOfEditions);
-    }
-
     public class PublicationRepository : IPublicationRepository, IMappingBehaviour
     {
         public PublicationModel GetPublication(int publicationId)

@@ -1,15 +1,8 @@
-﻿namespace BetterClassified.Repository
+﻿using System.Linq;
+using BetterClassified.Models;
+
+namespace BetterClassified.Repository
 {
-    using System.Linq;
-    using System.Collections.Generic;
-    using Models;
-
-
-    public interface IUserRepository
-    {
-        ApplicationUser GetClassifiedUser(string username);
-    }
-
     public class UserRepository : IUserRepository
     {
         private const string BetterclassifiedsAppId = "betterclassified";

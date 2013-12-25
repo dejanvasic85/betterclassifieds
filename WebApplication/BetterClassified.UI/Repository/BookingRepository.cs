@@ -1,4 +1,6 @@
-﻿namespace BetterClassified.Repository
+﻿using Paramount.Betterclassifieds.Repository;
+
+namespace BetterClassified.Repository
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -7,20 +9,7 @@
     using Models;
     using System;
     using System.Data.Linq;
-
-    public interface IBookingRepository
-    {
-        AdBookingModel GetBooking(int id, bool withLineAd = false);
-        List<BookEntryModel> GetBookEntriesForBooking(int adBookingId);
-        List<UserBookingModel> GetBookingsForUser(string username);
-        int AddBookingExtension(AdBookingExtensionModel extension);
-        AdBookingExtensionModel GetBookingExtension(int extensionId);
-        void UpdateExtesion(int extensionId, int? status);
-        void UpdateBooking(int adBookingId, DateTime? newEndDate = null, decimal? totalPrice = null);
-        void AddBookEntries(BookEntryModel[] bookEntries);
-        void CancelAndExpireBooking(int adBookingId);
-    }
-
+    
     public class BookingRepository : IBookingRepository, IMappingBehaviour
     {
         public AdBookingModel GetBooking(int id, bool withLineAd = false)
@@ -167,6 +156,11 @@
                 booking.BookingStatus = (int)BookingStatusType.Cancelled;
                 context.SubmitChanges();
             }
+        }
+
+        public List<AdBookingModel> GetBookingsForEdition(DateTime editionDate)
+        {
+            throw new NotImplementedException();
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

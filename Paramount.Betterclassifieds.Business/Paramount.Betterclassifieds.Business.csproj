@@ -44,14 +44,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Managers\EditionManager.cs" />
+    <Compile Include="Managers\ExtensionManager.cs" />
     <Compile Include="Managers\IEditionManager.cs" />
-    <Compile Include="Models\AdBooking.cs" />
+    <Compile Include="Managers\TransactionManager.cs" />
+    <Compile Include="Models\AdBookingExtensionModel.cs" />
+    <Compile Include="Models\AdBookingModel.cs" />
+    <Compile Include="Models\AdTypeCode.cs" />
+    <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\BookEntry.cs" />
+    <Compile Include="Models\BookEntryModel.cs" />
+    <Compile Include="Models\BookingStatusType.cs" />
+    <Compile Include="Models\BookingType.cs" />
+    <Compile Include="Models\ExtensionStatus.cs" />
+    <Compile Include="Models\LineAdModel.cs" />
+    <Compile Include="Models\LookupType.cs" />
+    <Compile Include="Models\MemberMenuItem.cs" />
+    <Compile Include="Models\OnlineAdModel.cs" />
+    <Compile Include="Models\OnlineAdTypeAttribute.cs" />
+    <Compile Include="Models\PaymentType.cs" />
+    <Compile Include="Models\PublicationEditionModel.cs" />
+    <Compile Include="Models\PublicationModel.cs" />
+    <Compile Include="Models\RateCalculator.cs" />
+    <Compile Include="Models\RateModel.cs" />
+    <Compile Include="Models\TutorAdModel.cs" />
+    <Compile Include="Models\UserBookingModel.cs" />
+    <Compile Include="Models\UserBookingViewType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\IAdRepository.cs" />
     <Compile Include="Repository\IBookingRepository.cs" />
+    <Compile Include="Managers\IConfigManager.cs" />
+    <Compile Include="Repository\ILookupRepository.cs" />
+    <Compile Include="Repository\IMenuRepository.cs" />
+    <Compile Include="Repository\IPaymentsRepository.cs" />
+    <Compile Include="Repository\IPublicationRepository.cs" />
+    <Compile Include="Repository\IRateRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\IUserRepository.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ApplicationBlock\Utility\Paramount.Utility.csproj">
+      <Project>{7f2cf5fe-6ad1-4dde-9f7d-a6fb3a1124e5}</Project>
+      <Name>Paramount.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

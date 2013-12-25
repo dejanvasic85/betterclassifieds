@@ -1,4 +1,5 @@
 ﻿Imports BetterClassified.Repository
+Imports Paramount.Betterclassifieds.Repository
 Imports Microsoft.Practices.Unity
 
 Public Class ContainerConfig
@@ -6,7 +7,7 @@ Public Class ContainerConfig
 
         container.RegisterType(Of IBookingRepository, BookingRepository)() _
             .RegisterType(Of IPublicationRepository, PublicationRepository)() _
-            .RegisterType(Of IConfigSettings, ConfigSettings)() _
+            .RegisterType(Of IConfigManager, ConfigSettings)() _
             .RegisterType(Of IRateRepository, RateRepository)() _
             .RegisterType(Of IUserRepository, UserRepository)() _
             .RegisterType(Of IPaymentsRepository, PaymentsRepository)() _

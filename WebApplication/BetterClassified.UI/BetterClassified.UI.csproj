@@ -155,8 +155,15 @@
     <Compile Include="Framework\Mapping.cs" />
     <Compile Include="Framework\ReaderWriterCache.cs" />
     <Compile Include="Framework\Security\ClassifiedSqlMembershipProvider.cs" />
-    <Compile Include="Models\TheMusicHtmlScraper.cs" />
-    <Compile Include="Repository\IMenuRepository.cs" />
+    <Compile Include="Repository\AdRepository.cs" />
+    <Compile Include="Repository\ConfigSettings.cs" />
+    <Compile Include="Repository\LookupRepository.cs" />
+    <Compile Include="Repository\PaymentsRepository.cs" />
+    <Compile Include="Repository\PublicationRepository.cs" />
+    <Compile Include="Repository\RateRepository.cs" />
+    <Compile Include="Repository\TheMusicHtmlScraper.cs" />
+    <Compile Include="Repository\TheMusicMenuRepository.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="SiteUrl.cs" />
     <Compile Include="Framework\Unity\Unity.cs" />
     <Compile Include="Framework\Unity\With.cs" />
@@ -177,43 +184,13 @@
     <Compile Include="Controls\Templates\ActionButtonTemplate.cs" />
     <Compile Include="Controls\MultipleFileUpload.cs" />
     <Compile Include="Controls\SendMessageControl.cs" />
-    <Compile Include="Models\AdBookingExtensionModel.cs" />
-    <Compile Include="Models\AdTypeCode.cs" />
-    <Compile Include="Models\ApplicationUser.cs" />
-    <Compile Include="Models\BookingStatusType.cs" />
-    <Compile Include="Models\ExtensionStatus.cs" />
-    <Compile Include="Models\OnlineAdTypeAttribute.cs" />
-    <Compile Include="Models\LineAdModel.cs" />
-    <Compile Include="Models\LookupType.cs" />
-    <Compile Include="Models\MemberMenuItem.cs" />
-    <Compile Include="Models\OnlineAdModel.cs" />
-    <Compile Include="Models\PaymentType.cs" />
-    <Compile Include="Models\PublicationEditionModel.cs" />
-    <Compile Include="Models\AdBookingModel.cs" />
-    <Compile Include="Models\BookingType.cs" />
-    <Compile Include="Models\BookEntryModel.cs" />
-    <Compile Include="Models\RateModel.cs" />
-    <Compile Include="Models\TutorAdModel.cs" />
     <Compile Include="Presenters\ExtendBookingPresenter.cs" />
-    <Compile Include="Presenters\ExtensionManager.cs" />
     <Compile Include="Presenters\UserBookingsPresenter.cs" />
-    <Compile Include="Models\RateCalculator.cs" />
-    <Compile Include="Presenters\TransactionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Framework\BaseBookingPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Repository\IAdRepository.cs" />
-    <Compile Include="Repository\IBookingRepository.cs" />
-    <Compile Include="Repository\IConfigSettings.cs" />
-    <Compile Include="Repository\ILookupRepository.cs" />
-    <Compile Include="Repository\IPaymentsRepository.cs" />
-    <Compile Include="Repository\IPublicationRepository.cs" />
-    <Compile Include="Models\PublicationModel.cs" />
-    <Compile Include="Repository\IRateRepository.cs" />
-    <Compile Include="Repository\IUserRepository.cs" />
-    <Compile Include="Models\UserBookingModel.cs" />
-    <Compile Include="Models\UserBookingViewType.cs" />
+    <Compile Include="Repository\BookingRepository.cs" />
     <Compile Include="Views\IExtendBookingView.cs" />
     <Compile Include="Views\IMyBookingsView.cs" />
   </ItemGroup>
@@ -225,6 +202,10 @@
     <ProjectReference Include="..\..\ApplicationBlock\Data\ApplicationBlock.Data.csproj">
       <Project>{f119ddc3-24dd-411e-b509-b8e41a011741}</Project>
       <Name>ApplicationBlock.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Paramount.Betterclassifieds.Business\Paramount.Betterclassifieds.Business.csproj">
+      <Project>{5c1be481-db9e-48cc-9048-5b10e6535d02}</Project>
+      <Name>Paramount.Betterclassifieds.Business</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Services\DataTransferObjects\Common.DataTransferObjects.csproj">
       <Project>{377f2216-9202-4df9-9c5b-c2a4e627ffe2}</Project>
@@ -330,6 +311,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

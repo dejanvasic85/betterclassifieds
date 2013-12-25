@@ -1,4 +1,6 @@
 ﻿using Paramount;
+using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Repository;
 
 namespace BetterClassified.UI.Presenters
 {
@@ -12,14 +14,14 @@ namespace BetterClassified.UI.Presenters
     public class ExtendBookingPresenter : Controller<IExtendBookingView>
     {
         private readonly IBookingRepository BookingRepository;
-        private readonly IConfigSettings ConfigSettings;
+        private readonly IConfigManager ConfigSettings;
         private readonly ExtensionManager ExtensionManager;
         private readonly RateCalculator RateCalculator;
 
         public ExtendBookingPresenter(IExtendBookingView view,
             IBookingRepository bookingRepository,
             ExtensionManager extensionManager,
-            IConfigSettings configSettings,
+            IConfigManager configSettings,
             RateCalculator rateCalculator)
             : base(view)
         {

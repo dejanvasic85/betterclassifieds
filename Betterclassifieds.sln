@@ -88,8 +88,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 Business", "02 Business"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Betterclassifieds.Business", "Paramount.Betterclassifieds.Business\Paramount.Betterclassifieds.Business.csproj", "{5C1BE481-DB9E-48CC-9048-5B10E6535D02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Betterclassifieds.DataLayer", "Paramount.Betterclassifieds.DataLayer\Paramount.Betterclassifieds.DataLayer.csproj", "{361E5988-8345-4C53-855B-152E352C52A7}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution Files", "{97624BE3-6BCD-46D3-A4FC-FFA0F09FC639}"
 	ProjectSection(SolutionItems) = preProject
 		readme.md = readme.md
@@ -98,7 +96,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution 
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 37
+		SccNumberOfProjects = 36
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://paramountit.visualstudio.com/defaultcollection
 		SccLocalPath0 = .
@@ -242,10 +240,6 @@ Global
 		SccProjectTopLevelParentUniqueName35 = Betterclassifieds.sln
 		SccProjectName35 = Paramount.Betterclassifieds.Business
 		SccLocalPath35 = Paramount.Betterclassifieds.Business
-		SccProjectUniqueName36 = Paramount.Betterclassifieds.DataLayer\\Paramount.Betterclassifieds.DataLayer.csproj
-		SccProjectTopLevelParentUniqueName36 = Betterclassifieds.sln
-		SccProjectName36 = Paramount.Betterclassifieds.DataLayer
-		SccLocalPath36 = Paramount.Betterclassifieds.DataLayer
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -534,14 +528,6 @@ Global
 		{5C1BE481-DB9E-48CC-9048-5B10E6535D02}.Test|Any CPU.Build.0 = Release|Any CPU
 		{5C1BE481-DB9E-48CC-9048-5B10E6535D02}.Testing|Any CPU.ActiveCfg = Release|Any CPU
 		{5C1BE481-DB9E-48CC-9048-5B10E6535D02}.Testing|Any CPU.Build.0 = Release|Any CPU
-		{361E5988-8345-4C53-855B-152E352C52A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{361E5988-8345-4C53-855B-152E352C52A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{361E5988-8345-4C53-855B-152E352C52A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{361E5988-8345-4C53-855B-152E352C52A7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{361E5988-8345-4C53-855B-152E352C52A7}.Test|Any CPU.ActiveCfg = Release|Any CPU
-		{361E5988-8345-4C53-855B-152E352C52A7}.Test|Any CPU.Build.0 = Release|Any CPU
-		{361E5988-8345-4C53-855B-152E352C52A7}.Testing|Any CPU.ActiveCfg = Release|Any CPU
-		{361E5988-8345-4C53-855B-152E352C52A7}.Testing|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -582,6 +568,5 @@ Global
 		{45BBB0EB-4C95-41D5-BD6C-C7D980212144} = {1EAE4385-197F-413F-8AFB-C80EBBD5ED64}
 		{2AFDFA95-BE42-4AFB-AEAF-F940B59914C1} = {1EAE4385-197F-413F-8AFB-C80EBBD5ED64}
 		{5C1BE481-DB9E-48CC-9048-5B10E6535D02} = {F16003D0-34C6-445D-AA88-017A63D33ADA}
-		{361E5988-8345-4C53-855B-152E352C52A7} = {F16003D0-34C6-445D-AA88-017A63D33ADA}
 	EndGlobalSection
 EndGlobal

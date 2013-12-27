@@ -1,4 +1,5 @@
-﻿using Paramount.Betterclassifieds.Repository;
+﻿using Paramount.Betterclassifieds.Business.Models;
+using Paramount.Betterclassifieds.Business.Repository;
 
 namespace BetterClassified.Repository
 {
@@ -6,7 +7,6 @@ namespace BetterClassified.Repository
     using System.Linq;
     using AutoMapper;
     using BetterclassifiedsCore.DataModel;
-    using Models;
     using System;
     using System.Data.Linq;
     

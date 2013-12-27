@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BetterClassified.Models
+namespace Paramount.Betterclassifieds.Business.Models
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class OnlineAdTypeAttribute : Attribute

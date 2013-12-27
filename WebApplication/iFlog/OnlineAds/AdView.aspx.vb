@@ -1,11 +1,11 @@
 ﻿Imports BetterclassifiedsCore
 Imports BetterclassifiedsCore.ParameterAccess
 Imports BetterClassified.UI.CategorySelectorSupport
-Imports BetterClassified.Repository
 Imports BetterClassified
 Imports Microsoft.Practices.Unity
-Imports BetterClassified.Models
+
 Imports Paramount
+Imports Paramount.Betterclassifieds.Business.Repository
 
 Partial Public Class AdView
     Inherits System.Web.UI.Page
@@ -14,7 +14,7 @@ Partial Public Class AdView
     Dim _queryid As String
     Dim _isPreview As Boolean
     Dim _type As String
-    Dim _adRepository As BetterClassified.Repository.IAdRepository
+    Dim _adRepository As IAdRepository
 
     Protected Overrides Sub OnInit(ByVal e As System.EventArgs)
         MyBase.OnInit(e)

@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
+using Paramount.Betterclassifieds.Business.Models;
 
 namespace BetterClassified.UI.Views
 {
-    using Models;
-
     public interface IMyBookingsView : IBaseView
     {
         void DisplayBookings(List<UserBookingModel> bookings);

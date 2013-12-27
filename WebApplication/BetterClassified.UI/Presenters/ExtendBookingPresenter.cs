@@ -1,15 +1,14 @@
 ﻿using Paramount;
-using Paramount.Betterclassifieds.Business;
-using Paramount.Betterclassifieds.Repository;
+using Paramount.Betterclassifieds.Business.Managers;
+using Paramount.Betterclassifieds.Business.Models;
+using Paramount.Betterclassifieds.Business.Repository;
 
 namespace BetterClassified.UI.Presenters
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Models;
     using Views;
-    using Repository;
 
     public class ExtendBookingPresenter : Controller<IExtendBookingView>
     {

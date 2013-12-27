@@ -1,9 +1,7 @@
-﻿using BetterClassified.Models;
+﻿using System;
 
-namespace Paramount.Betterclassifieds.Business
+namespace Paramount.Betterclassifieds.Business.Models
 {
-    using System;
-
     public class BookEntry
     {
         public int BookEntryId { get; set; }

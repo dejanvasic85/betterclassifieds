@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BetterClassified.Models
+namespace Paramount.Betterclassifieds.Business.Models
 {
     public class PublicationEditionModel
     {

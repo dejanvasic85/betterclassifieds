@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using BetterClassified.Models;
+using BetterClassified.Repository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Paramount.Betterclassifieds.Tests.BusinessModel

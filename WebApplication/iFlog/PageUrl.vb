@@ -1,8 +1,9 @@
 ﻿Imports BetterClassified
 Imports BetterClassified.UI
-Imports BetterClassified.Repository
 Imports Microsoft.Practices.Unity
 Imports Paramount
+Imports Paramount.Betterclassifieds.Business.Managers
+Imports Paramount.Betterclassifieds.Business.Models
 
 ''' <summary>
 ''' PageUrl is a utility class that generates outgoing URL's for specific pages
@@ -52,7 +53,7 @@ Public Class PageUrl
         Return String.Format("~/MemberAccount/EditOnlineAd.aspx?bkId={0}", adBookingId)
     End Function
 
-    Public Shared Function MemberBookings(Optional ByVal view As BetterClassified.Models.UserBookingViewType = BetterClassified.Models.UserBookingViewType.Current, _
+    Public Shared Function MemberBookings(Optional ByVal view As UserBookingViewType = UserBookingViewType.Current, _
                                           Optional ByVal extensionComplete As Boolean = False) As String
         Return String.Format("~/MemberAccount/Bookings.aspx?view={0}&extension={1}", view, extensionComplete)
     End Function

@@ -1,8 +1,8 @@
-﻿using System;
-using Paramount.Betterclassifieds.Repository;
-
-namespace Paramount.Betterclassifieds.Business
+﻿namespace Paramount.Betterclassifieds.Business.Managers
 {
+    using System;
+    using Repository;
+
     public class EditionManager : IEditionManager
     {
         private readonly IBookingRepository _bookingRepository;

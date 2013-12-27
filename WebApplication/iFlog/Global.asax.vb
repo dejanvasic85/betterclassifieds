@@ -1,5 +1,6 @@
 ﻿Imports BetterclassifiedsCore
 Imports Paramount.Broadcast.Components
+Imports Paramount.Betterclassifieds.Business.Managers
 
 Public Delegate Sub OnPayment(ByVal ref As String)
 
@@ -7,7 +8,7 @@ Public Class Global_asax
     Inherits Paramount.ApplicationBlock.Mvc.WebClientApplication
 
     Public Shared OnPayment As OnPayment
-    Public Shared TransactionManager As Paramount.Betterclassifieds.Business.TransactionManager
+    Public Shared TransactionManager As TransactionManager
 
     Protected Overrides ReadOnly Property DefaultContainer As Microsoft.Practices.Unity.IUnityContainer
         Get

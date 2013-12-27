@@ -1,5 +1,6 @@
 ﻿Imports BetterclassifiedsCore
 Imports BetterclassifiedsCore.DataModel
+Imports Paramount.Betterclassifieds.Business.Models
 
 Partial Public Class Edit_Category
     Inherits System.Web.UI.Page
@@ -17,7 +18,7 @@ Partial Public Class Edit_Category
         lblCategoryMsg.Text = ""
         If Not Page.IsPostBack Then
 
-            ddlOnlineTypes.DataSource = BetterClassified.Models.OnlineAdModel.GetOnlineAdTypeNames
+            ddlOnlineTypes.DataSource = OnlineAdModel.GetOnlineAdTypeNames()
             ddlOnlineTypes.DataBind()
             ddlOnlineTypes.Items.Insert(0, New ListItem("-- None --", ""))
         End If

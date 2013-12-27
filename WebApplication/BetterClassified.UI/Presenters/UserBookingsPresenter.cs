@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Paramount.Betterclassifieds.Repository;
+using Paramount.Betterclassifieds.Business.Models;
+using Paramount.Betterclassifieds.Business.Repository;
 
 namespace BetterClassified.UI.Presenters
 {
     using Views;
-    using Models;
-    using Repository;
 
     public class UserBookingsPresenter : Controller<IMyBookingsView>
     {

@@ -1,5 +1,6 @@
 ﻿Imports BetterClassified.Repository
-Imports Paramount.Betterclassifieds.Repository
+Imports Paramount.Betterclassifieds.Business.Repository
+Imports Paramount.Betterclassifieds.Business.Managers
 Imports Microsoft.Practices.Unity
 
 Public Class ContainerConfig

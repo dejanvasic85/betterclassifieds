@@ -76,7 +76,6 @@
     <Compile Include="ParamountHtmlGenericControl.cs" />
     <Compile Include="ParamountLabel.cs" />
     <Compile Include="GeneratePdfHandler.cs" />
-    <Compile Include="PrintPdfButton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegionSelectBox.cs" />
     <Compile Include="ScriptsControl.cs" />

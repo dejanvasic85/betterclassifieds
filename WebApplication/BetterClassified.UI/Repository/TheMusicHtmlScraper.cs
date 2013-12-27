@@ -4,7 +4,7 @@ using System.Linq;
 using HtmlAgilityPack;
 using Paramount;
 
-namespace BetterClassified.Models
+namespace BetterClassified.Repository
 {
     public class TheMusicHtmlScraper
     {

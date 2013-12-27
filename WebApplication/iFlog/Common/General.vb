@@ -1,7 +1,8 @@
 ﻿Imports BetterclassifiedsCore
 Imports BetterclassifiedsCore.BundleBooking
 Imports System.Runtime.CompilerServices
-Imports BetterClassified.Models
+
+Imports Paramount.Betterclassifieds.Business.Models
 
 Module General
     Public Function SecurityCheckUserAdBooking(ByVal userId As String, ByVal bookingId As Integer) As Boolean

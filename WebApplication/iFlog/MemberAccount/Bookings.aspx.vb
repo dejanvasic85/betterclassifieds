@@ -1,8 +1,9 @@
 ﻿Imports BetterClassified.UI
 Imports BetterClassified.UI.Views
 Imports BetterClassified
-Imports BetterClassified.Models
+
 Imports Paramount
+Imports Paramount.Betterclassifieds.Business.Models
 
 Partial Public Class Bookings
     Inherits BasePage(Of Presenters.UserBookingsPresenter, Views.IMyBookingsView)

@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace BetterClassified.Models
+﻿namespace Paramount.Betterclassifieds.Business.Models
 {
     public enum UserBookingViewType
     {

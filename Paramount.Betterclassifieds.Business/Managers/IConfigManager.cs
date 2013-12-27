@@ -1,4 +1,4 @@
-﻿namespace BetterClassified.Repository
+﻿namespace Paramount.Betterclassifieds.Business.Managers
 {
     public interface IConfigManager
     {

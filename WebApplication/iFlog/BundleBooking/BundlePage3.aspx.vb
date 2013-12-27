@@ -3,7 +3,8 @@ Imports BetterclassifiedsCore.BundleBooking
 Imports BetterclassifiedsCore.ParameterAccess
 Imports BetterClassified.UI.WebPage
 Imports BetterClassified
-Imports BetterClassified.Models
+
+Imports Paramount.Betterclassifieds.Business.Models
 
 Partial Public Class BundlePage3
     Inherits BaseBookingPage

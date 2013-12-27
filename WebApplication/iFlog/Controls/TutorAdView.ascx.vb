@@ -1,4 +1,5 @@
-﻿Imports BetterClassified.Models
+﻿Imports Paramount.Betterclassifieds.Business.Models
+
 
 Public Class TutorAdView
     Inherits OnlineAdViewControl

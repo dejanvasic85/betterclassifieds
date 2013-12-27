@@ -2,10 +2,13 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Text;
-using BetterClassified.Models;
+
 using BetterClassified.Repository;
 using BetterClassified.UIController;
 using BetterClassified.UIController.ViewObjects;
+using Paramount.Betterclassifieds.Business.Managers;
+using Paramount.Betterclassifieds.Business.Models;
+using Paramount.Betterclassifieds.Business.Repository;
 using Paramount.Broadcast.Components;
 
 namespace Paramount.TaskScheduler

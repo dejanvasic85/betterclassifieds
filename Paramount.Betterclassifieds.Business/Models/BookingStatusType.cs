@@ -1,4 +1,4 @@
-﻿namespace BetterClassified.Models
+﻿namespace Paramount.Betterclassifieds.Business.Models
 {
     public enum BookingStatusType
     {

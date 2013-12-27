@@ -1,9 +1,7 @@
-﻿namespace BetterClassified.Repository
+﻿using Paramount.Betterclassifieds.Business.Models;
+
+namespace Paramount.Betterclassifieds.Business.Repository
 {
-    using System.Collections.Generic;
-    using Models;
-
-
     public interface IUserRepository
     {
         ApplicationUser GetClassifiedUser(string username);

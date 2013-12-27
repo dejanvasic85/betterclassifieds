@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BetterClassified.Models;
-using BetterClassified.Repository;
-using Paramount.Betterclassifieds.Repository;
+using Paramount.Betterclassifieds.Business.Models;
+using Paramount.Betterclassifieds.Business.Repository;
 
-namespace Paramount.Betterclassifieds.Business
+namespace Paramount.Betterclassifieds.Business.Managers
 {
     public class ExtensionManager
     {

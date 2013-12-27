@@ -93,7 +93,6 @@
   <ItemGroup>
     <Compile Include="Crypto.cs" />
     <Compile Include="Broadcast\Email.cs" />
-    <Compile Include="CustomQueryString.cs" />
     <Compile Include="DataAccess\DataExecuteHelper.cs" />
     <Compile Include="DataAccess\DataRowMapper.cs" />
     <Compile Include="Dsl\DslQueryParam.cs" />

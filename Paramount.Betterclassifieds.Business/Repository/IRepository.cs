@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Paramount.Betterclassifieds.Repository
+namespace Paramount.Betterclassifieds.Business.Repository
 {
     /// <summary>
     /// Generic repository that is suitable for an entity in a domain driven design pattern

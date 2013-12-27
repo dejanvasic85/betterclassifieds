@@ -1,7 +1,7 @@
-﻿using BetterClassified.Models;
-
-namespace BetterClassified.Repository
+﻿namespace Paramount.Betterclassifieds.Business.Repository
 {
+    using Models;
+
     public interface IAdRepository
     {
         OnlineAdModel GetOnlineAdByBooking(int bookingId);

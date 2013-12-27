@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Net;
-using BetterClassified.Models;
 using Paramount;
+using Paramount.Betterclassifieds.Business.Managers;
+using Paramount.Betterclassifieds.Business.Repository;
 
 namespace BetterClassified.Repository
 {

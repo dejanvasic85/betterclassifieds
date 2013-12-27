@@ -1,12 +1,9 @@
-﻿using BetterClassified.Models;
+﻿using System;
+using System.Collections.Generic;
+using Paramount.Betterclassifieds.Business.Models;
 
-namespace Paramount.Betterclassifieds.Repository
+namespace Paramount.Betterclassifieds.Business.Repository
 {
-    using System;
-    using System.Collections.Generic;
-
-    using Business;
-
     public interface IBookingRepository
     {
         AdBookingModel GetBooking(int id, bool withLineAd = false);

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BetterClassified.Models
+namespace Paramount.Betterclassifieds.Business.Models
 {
     public class RateModel
     {

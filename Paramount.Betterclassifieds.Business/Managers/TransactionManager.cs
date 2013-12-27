@@ -1,6 +1,6 @@
-﻿using BetterClassified.Repository;
+﻿using Paramount.Betterclassifieds.Business.Repository;
 
-namespace Paramount.Betterclassifieds.Business
+namespace Paramount.Betterclassifieds.Business.Managers
 {
     public class TransactionManager
     {

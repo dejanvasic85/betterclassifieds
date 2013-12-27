@@ -1,10 +1,10 @@
 ﻿Imports BetterclassifiedsCore
 Imports BetterclassifiedsCore.ParameterAccess
 Imports BetterClassified
-Imports BetterClassified.Models
-Imports BetterClassified.Repository
+
 Imports Microsoft.Practices.Unity
 Imports Paramount
+Imports Paramount.Betterclassifieds.Business.Repository
 
 Partial Public Class EditOnlineAd
     Inherits System.Web.UI.Page

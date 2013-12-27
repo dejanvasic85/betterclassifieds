@@ -1,7 +1,6 @@
 ﻿using System;
-using Paramount;
 
-namespace BetterClassified.Models
+namespace Paramount.Betterclassifieds.Business.Models
 {
     public class UserBookingModel
     {

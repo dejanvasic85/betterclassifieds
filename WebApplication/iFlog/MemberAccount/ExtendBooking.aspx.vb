@@ -2,6 +2,7 @@
 Imports BetterclassifiedsCore
 Imports BetterClassified
 Imports BetterclassifiedsCore.ParameterAccess
+Imports Paramount.Betterclassifieds.Business
 
 Public Class ExtendBooking
     Inherits BasePage(Of Presenters.ExtendBookingPresenter, Views.IExtendBookingView)

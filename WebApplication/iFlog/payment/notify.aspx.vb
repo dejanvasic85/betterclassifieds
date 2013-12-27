@@ -5,6 +5,8 @@ Imports Paramount.ApplicationBlock.Configuration
 Imports Paramount.Betterclassified.Utilities.PayPal
 Imports Microsoft.Practices.Unity
 Imports BetterClassified.UI.Presenters
+Imports Paramount.Betterclassifieds.Business.Models
+Imports Paramount.Betterclassifieds.Business.Managers
 
 Partial Public Class notify
     Inherits System.Web.UI.Page
@@ -37,10 +39,10 @@ Partial Public Class notify
                 Me.Response.Redirect("~/Booking/Default.aspx?action=successful")
             Else
                 ' This is an extension booking
-                Dim manager = BetterClassified.Unity.DefaultContainer.Resolve(Of Paramount.Betterclassifieds.Business.ExtensionManager)()
+                Dim manager = BetterClassified.Unity.DefaultContainer.Resolve(Of ExtensionManager)()
                 Dim extension = manager.GetExtension(NotifyParameterAccess.ReferenceId)
                 If extension IsNot Nothing Then
-                    manager.Extend(extension, BetterClassified.Models.PaymentType.CreditCard)
+                    manager.Extend(extension, PaymentType.CreditCard)
                     Me.Response.Redirect("~/MemberAccount/Bookings.aspx?extension=true")
                 End If
             End If
@@ -70,10 +72,10 @@ Partial Public Class notify
                     'redirect to book successful page
                     Me.Response.Redirect("~/Booking/Default.aspx?action=successful")
                 Else
-                    Dim manager = BetterClassified.Unity.DefaultContainer.Resolve(Of Paramount.Betterclassifieds.Business.ExtensionManager)()
+                    Dim manager = BetterClassified.Unity.DefaultContainer.Resolve(Of ExtensionManager)()
                     Dim extension = manager.GetExtension(NotifyParameterAccess.ReferenceId)
                     If extension IsNot Nothing Then
-                        manager.Extend(extension, BetterClassified.Models.PaymentType.PayPal)
+                        manager.Extend(extension, PaymentType.PayPal)
                         Me.Response.Redirect("~/MemberAccount/Bookings.aspx?extension=true")
                     End If
                 End If

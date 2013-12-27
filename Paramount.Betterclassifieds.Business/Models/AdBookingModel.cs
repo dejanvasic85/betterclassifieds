@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Linq;
 
-namespace BetterClassified.Models
+namespace Paramount.Betterclassifieds.Business.Models
 {
     public class AdBookingModel
     {

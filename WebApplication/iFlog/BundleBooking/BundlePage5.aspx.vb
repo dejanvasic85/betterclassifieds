@@ -4,17 +4,18 @@ Imports BetterclassifiedsCore.ParameterAccess
 Imports BetterClassified.UI.WebPage
 Imports Microsoft.Practices.Unity
 Imports System.Linq
+Imports Paramount.Betterclassifieds.Business.Repository
 
 Partial Public Class BundlePage5
     Inherits BaseBookingPage
 
     Private _bundleController As BundleController
-    Private _lookupRepository As BetterClassified.Repository.ILookupRepository
+    Private _lookupRepository As ILookupRepository
 
 #Region "Page Load"
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        _lookupRepository = BetterClassified.Unity.DefaultContainer.Resolve(Of BetterClassified.Repository.ILookupRepository)()
+        _lookupRepository = BetterClassified.Unity.DefaultContainer.Resolve(Of ILookupRepository)()
 
         ' check if the bundle booking cart is expired
         If BundleController.BundleCart Is Nothing Then

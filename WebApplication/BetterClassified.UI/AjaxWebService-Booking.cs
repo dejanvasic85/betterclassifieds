@@ -2,11 +2,12 @@
 using System.Linq;
 using System.Web.Services;
 using System.Web.UI;
-using BetterClassified.Models;
 using BetterClassified.UIController;
 using BetterClassified.UIController.Booking;
 using BetterclassifiedsCore;
 using Microsoft.Practices.Unity;
+using Paramount.Betterclassifieds.Business.Models;
+using Paramount.Betterclassifieds.Business.Repository;
 
 namespace BetterClassified.UI
 {
@@ -115,13 +116,13 @@ namespace BetterClassified.UI
         [WebMethod(EnableSession = true)]
         public void AddOrUpdateSubjectTag(string subject)
         {
-            Unity.DefaultContainer.Resolve<Repository.ILookupRepository>().AddOrUpdate(LookupGroup.TutorSubjects, subject);
+            Unity.DefaultContainer.Resolve<ILookupRepository>().AddOrUpdate(LookupGroup.TutorSubjects, subject);
         }
 
         [WebMethod]
         public string[] GetSubjectLookups(string searchString)
         {
-            return Unity.DefaultContainer.Resolve<Repository.ILookupRepository>()
+            return Unity.DefaultContainer.Resolve<ILookupRepository>()
                 .GetLookupsForGroup(LookupGroup.TutorSubjects, searchString: searchString)
                 .ToArray();
         }

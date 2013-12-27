@@ -2,12 +2,14 @@
 using System.Linq;
 using BetterclassifiedsCore.DataModel;
 using Paramount;
+using Paramount.Betterclassifieds.Business.Models;
+using Paramount.Betterclassifieds.Business.Repository;
 
 namespace BetterClassified.Repository
 {
     public class LookupRepository : ILookupRepository
     {
-        public List<string> GetLookupsForGroup(Models.LookupGroup lookupGroup, string searchString = "")
+        public List<string> GetLookupsForGroup(LookupGroup lookupGroup, string searchString = "")
         {
             using (var context = BetterclassifiedsDataContext.NewContext())
             {
@@ -22,7 +24,7 @@ namespace BetterClassified.Repository
             }
         }
 
-        public void AddOrUpdate(Models.LookupGroup group, string lookupValue)
+        public void AddOrUpdate(LookupGroup group, string lookupValue)
         {
             using (var context = BetterclassifiedsDataContext.NewContext())
             {

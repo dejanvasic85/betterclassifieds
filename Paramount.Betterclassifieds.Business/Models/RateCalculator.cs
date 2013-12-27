@@ -1,7 +1,7 @@
-﻿namespace BetterClassified.Models
-{
-    using Repository;
+﻿using Paramount.Betterclassifieds.Business.Repository;
 
+namespace Paramount.Betterclassifieds.Business.Models
+{
     public class RateCalculator
     {
         private readonly IRateRepository rateRepository;

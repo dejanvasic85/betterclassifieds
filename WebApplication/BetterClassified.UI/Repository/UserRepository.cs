@@ -1,5 +1,6 @@
 ﻿using System.Linq;
-using BetterClassified.Models;
+using Paramount.Betterclassifieds.Business.Models;
+using Paramount.Betterclassifieds.Business.Repository;
 
 namespace BetterClassified.Repository
 {

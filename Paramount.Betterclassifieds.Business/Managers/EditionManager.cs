@@ -6,18 +6,19 @@
     public class EditionManager : IEditionManager
     {
         private readonly IBookingRepository _bookingRepository;
+        private readonly IBookingManager _bookingManager;
 
-        public EditionManager(IBookingRepository bookingRepository)
+        public EditionManager(IBookingRepository bookingRepository, IBookingManager bookingManager)
         {
             _bookingRepository = bookingRepository;
+            _bookingManager = bookingManager;
         }
 
-        public void RemoveEdition(DateTime editionDate)
+        public void RemoveEditionAndExtendBookings(DateTime editionDate)
         {
             // Fetch bookings that belong to this edition
-            var bookingsToExtend = _bookingRepository.GetBookingsForEdition(editionDate);
-
-
+            _bookingRepository.GetBookingsForEdition(editionDate)
+                .ForEach(booking => _bookingManager.Extend(booking.AdBookingId, 1));
         }
     }
 }

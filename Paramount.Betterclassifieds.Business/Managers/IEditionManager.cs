@@ -1,9 +1,9 @@
-﻿using System;
-
-namespace Paramount.Betterclassifieds.Business.Managers
+﻿namespace Paramount.Betterclassifieds.Business.Managers
 {
+    using System;
+
     public interface IEditionManager
     {
-        void RemoveEdition(DateTime edition);
+        void RemoveEditionAndExtendBookings(DateTime edition);
     }
 }

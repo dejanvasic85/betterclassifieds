@@ -50,7 +50,6 @@
   <ItemGroup>
     <Compile Include="AssertExtensions.cs" />
     <Compile Include="ExpectException.cs" />
-    <Compile Include="MockDataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

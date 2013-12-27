@@ -76,6 +76,10 @@
       <Project>{5c1be481-db9e-48cc-9048-5b10e6535d02}</Project>
       <Name>Paramount.Betterclassifieds.Business</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WebApplication\BetterClassified.UI\BetterClassified.UI.csproj">
+      <Project>{04e24b49-191f-44b6-833f-361c559f7b18}</Project>
+      <Name>BetterClassified.UI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

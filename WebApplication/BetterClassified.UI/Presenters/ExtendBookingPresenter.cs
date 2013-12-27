@@ -14,18 +14,18 @@ namespace BetterClassified.UI.Presenters
     {
         private readonly IBookingRepository BookingRepository;
         private readonly IConfigManager ConfigSettings;
-        private readonly ExtensionManager ExtensionManager;
+        private readonly BookingManager BookingManager;
         private readonly RateCalculator RateCalculator;
 
         public ExtendBookingPresenter(IExtendBookingView view,
             IBookingRepository bookingRepository,
-            ExtensionManager extensionManager,
+            BookingManager bookingManager,
             IConfigManager configSettings,
             RateCalculator rateCalculator)
             : base(view)
         {
             this.BookingRepository = bookingRepository;
-            this.ExtensionManager = extensionManager;
+            this.BookingManager = bookingManager;
             this.ConfigSettings = configSettings;
             this.RateCalculator = rateCalculator;
         }
@@ -66,7 +66,7 @@ namespace BetterClassified.UI.Presenters
             if (booking.BookingType == BookingType.Bundled)
             {
                 // Fetch and display the list of editions
-                List<PublicationEditionModel> editions = ExtensionManager.ExtensionDates(View.AdBookingId, insertions).ToList();
+                List<PublicationEditionModel> editions = BookingManager.GenerateExtensionDates(View.AdBookingId, insertions).ToList();
 
                 // Fetch the online end date
                 DateTime onlineAdEndDate = editions
@@ -101,7 +101,7 @@ namespace BetterClassified.UI.Presenters
 
         public void ProcessExtension()
         {
-            var extension = ExtensionManager.CreateExtension(View.AdBookingId,
+            var extension = BookingManager.CreateExtension(View.AdBookingId,
                     View.SelectedInsertionCount,
                     View.LoggedInUserName,
                     View.TotalPrice,
@@ -116,7 +116,7 @@ namespace BetterClassified.UI.Presenters
             else
             {
                 // Extend the booking details
-                ExtensionManager.Extend(extension);
+                BookingManager.Extend(extension);
                 View.NavigateToBookings(true);
             }
         }

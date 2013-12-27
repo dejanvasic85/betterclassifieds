@@ -160,7 +160,7 @@ namespace BetterClassified.Repository
 
         public List<AdBookingModel> GetBookingsForEdition(DateTime editionDate)
         {
-            throw new NotImplementedException();
+            return new List<AdBookingModel>();
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

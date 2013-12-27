@@ -1,19 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Paramount.Betterclassifieds.Business.Models;
-using Paramount.Betterclassifieds.Business.Repository;
-
-namespace Paramount.Betterclassifieds.Business.Managers
+﻿namespace Paramount.Betterclassifieds.Business.Managers
 {
-    public class ExtensionManager
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using Models;
+    using Repository;
+
+    public class BookingManager : IBookingManager
     {
         private readonly IBookingRepository bookingRepository;
         private readonly IPublicationRepository publicationRepository;
         private readonly IConfigManager configSettings;
         private readonly IPaymentsRepository payments;
 
-        public ExtensionManager(IBookingRepository bookingRepository,
+        public BookingManager(IBookingRepository bookingRepository,
             IPublicationRepository publicationRepository,
             IConfigManager configSettings,
             IPaymentsRepository payments)
@@ -22,45 +23,6 @@ namespace Paramount.Betterclassifieds.Business.Managers
             this.publicationRepository = publicationRepository;
             this.configSettings = configSettings;
             this.payments = payments;
-        }
-
-        public IEnumerable<PublicationEditionModel> ExtensionDates(int adBookingId, int numberOfInsertions)
-        {
-            foreach (var publicationEntries in bookingRepository.GetBookEntriesForBooking(adBookingId).GroupBy(be => be.PublicationId))
-            {
-                if (publicationRepository.IsOnlinePublication(publicationEntries.Key))
-                    continue;
-
-                // Fetch the last edition (used continuing the dates and price)
-                BookEntryModel bookEntry = publicationEntries.OrderByDescending(be => be.EditionDate).First();
-
-                // Fetch the up-coming editions for the publication
-                List<BookEntryModel> upComingEditions = publicationRepository
-                    .GetEditionsForPublication(bookEntry.PublicationId, bookEntry.EditionDate.AddDays(1), numberOfInsertions)
-                    .Select(m =>
-                    {
-                        var pubEntry = publicationEntries.First(p => p.PublicationId == m.PublicationId);
-
-                        return new BookEntryModel
-                        {
-                            AdBookingId = adBookingId,
-                            BaseRateId = pubEntry.BaseRateId,
-                            EditionAdPrice = pubEntry.EditionAdPrice,
-                            EditionDate = m.EditionDate,
-                            PublicationId = m.PublicationId,
-                            PublicationPrice = pubEntry.PublicationPrice,
-                            RateType = pubEntry.RateType
-                        };
-                    })
-                    .ToList();
-
-                yield return new PublicationEditionModel
-                    {
-                        PublicationId = publicationEntries.Key,
-                        PublicationName = publicationRepository.GetPublication(publicationEntries.Key).Title,
-                        Editions = upComingEditions
-                    };
-            }
         }
 
         public AdBookingExtensionModel CreateExtension(int adBookingId, int numberOfInsertions, string username, decimal price, ExtensionStatus status, bool isOnlineOnly)
@@ -101,7 +63,7 @@ namespace Paramount.Betterclassifieds.Business.Managers
             else
             {
                 // Generate the bookEntries and create them in repository
-                BookEntryModel[] models = ExtensionDates(extensionModel.AdBookingId, extensionModel.Insertions)
+                BookEntryModel[] models = GenerateExtensionDates(extensionModel.AdBookingId, extensionModel.Insertions)
                     .SelectMany(e => e.Editions)
                     .ToArray();
 
@@ -132,6 +94,50 @@ namespace Paramount.Betterclassifieds.Business.Managers
                     amount: extensionModel.ExtensionPrice,
                     paymentType: paymentType
                     );
+        }
+
+        public void Extend(int adBookingId, int numberOfInsertions)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<PublicationEditionModel> GenerateExtensionDates(int adBookingId, int numberOfInsertions)
+        {
+            foreach (var publicationEntries in bookingRepository.GetBookEntriesForBooking(adBookingId).GroupBy(be => be.PublicationId))
+            {
+                if (publicationRepository.IsOnlinePublication(publicationEntries.Key))
+                    continue;
+
+                // Fetch the last edition (used continuing the dates and price)
+                BookEntryModel bookEntry = publicationEntries.OrderByDescending(be => be.EditionDate).First();
+
+                // Fetch the up-coming editions for the publication
+                List<BookEntryModel> upComingEditions = publicationRepository
+                    .GetEditionsForPublication(bookEntry.PublicationId, bookEntry.EditionDate.AddDays(1), numberOfInsertions)
+                    .Select(m =>
+                    {
+                        var pubEntry = publicationEntries.First(p => p.PublicationId == m.PublicationId);
+
+                        return new BookEntryModel
+                        {
+                            AdBookingId = adBookingId,
+                            BaseRateId = pubEntry.BaseRateId,
+                            EditionAdPrice = pubEntry.EditionAdPrice,
+                            EditionDate = m.EditionDate,
+                            PublicationId = m.PublicationId,
+                            PublicationPrice = pubEntry.PublicationPrice,
+                            RateType = pubEntry.RateType
+                        };
+                    })
+                    .ToList();
+
+                yield return new PublicationEditionModel
+                {
+                    PublicationId = publicationEntries.Key,
+                    PublicationName = publicationRepository.GetPublication(publicationEntries.Key).Title,
+                    Editions = upComingEditions
+                };
+            }
         }
     }
 }

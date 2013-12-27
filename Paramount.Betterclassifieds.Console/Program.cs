@@ -1,10 +1,15 @@
-﻿namespace Paramount.Betterclassifieds.Console
+﻿using System.ComponentModel;
+using System.Reflection;
+using Paramount.Betterclassifieds.Business.Repository;
+
+namespace Paramount.Betterclassifieds.Console
 {
     using Microsoft.Practices.Unity;
     using System;
     using System.Linq;
-    using System.Reflection;
     using Tasks;
+    using Business.Managers;
+
 
     class Program
     {
@@ -13,14 +18,15 @@
         static void Main(string[] args)
         {
             Program program = new Program();
-            program.RegisterTasks();
+            program.RegisterContainer();
 
             try
             {
 #if DEBUG
                 program.Start(new[]
                                     {
-                                        "help"
+                                        TaskArguments.TaskFullArgName, "RemoveEdition",
+                                        "-Editions", "25-DEC-2013|01-JAN-2014"
                                     });
                 Console.WriteLine("Press any key to exit...");
                 Console.ReadLine();
@@ -39,10 +45,20 @@
         }
 
         // When registering your task ensure that your register them here
-        public void RegisterTasks()
+        public void RegisterContainer()
         {
-            // Register one useful container with external service mappings
             _container = new UnityContainer();
+
+            // Register all repositories and managers
+            _container.RegisterType<IBookingManager, BookingManager>()
+                .RegisterType<IEditionManager, EditionManager>();
+
+            var repositories = Assembly
+                .GetAssembly(typeof(BetterClassified.Repository.BookingRepository))
+                .GetTypes()
+                .Where(type => type.Namespace == "BetterClassified.Repository" && type.Name.EndsWith("Repository"));
+
+            _container.RegisterTypes(repositories, WithMappings.FromMatchingInterface);
 
             TypeRegistrations.ActionEach(task => _container.RegisterType(typeof(ITask), task, task.Name));
         }

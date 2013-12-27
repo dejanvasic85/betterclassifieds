@@ -6,15 +6,21 @@ Imports Microsoft.Practices.Unity
 Public Class ContainerConfig
     Public Shared Sub RegisterIocContainer(ByVal container As IUnityContainer)
 
+        ' Repositories
         container.RegisterType(Of IBookingRepository, BookingRepository)() _
             .RegisterType(Of IPublicationRepository, PublicationRepository)() _
-            .RegisterType(Of IConfigManager, ConfigSettings)() _
             .RegisterType(Of IRateRepository, RateRepository)() _
             .RegisterType(Of IUserRepository, UserRepository)() _
             .RegisterType(Of IPaymentsRepository, PaymentsRepository)() _
             .RegisterType(Of IAdRepository, AdRepository)() _
             .RegisterType(Of ILookupRepository, LookupRepository)() _
             .RegisterType(Of IMenuRepository, TheMusicMenuRepository)()
+
+        ' Managers
+        container.RegisterType(Of IConfigManager, ConfigSettings)() _
+            .RegisterType(Of IBookingManager, BookingManager)() _
+            .RegisterType(Of IEditionManager, EditionManager)()
+
 
     End Sub
 End Class

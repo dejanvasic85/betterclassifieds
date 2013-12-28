@@ -1,5 +1,7 @@
 **Enhancements**
 
+- Automated backups: https://trello.com/c/mMWF5vlO/23-automated-database-backups
+
 **Bug Fixes**
 
 **Change Requests**

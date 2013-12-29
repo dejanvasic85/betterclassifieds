@@ -2,6 +2,6 @@
 foreach ($file in $configFiles)
 { 
     $content = Get-Content $file.PSPath 
-    $content = $content -replace "{version}","2.7"
+    $content = $content -replace "{version}","$ReleaseNumber"
     [IO.File]::WriteAllText($file.FullName, ($content -join "`r`n"))
 }

@@ -25,7 +25,7 @@ namespace Paramount.ApplicationBlock.Mvc.Configuration
         {
             get { return (ModuleCollection)base["modules"]; }
 
-        }      
+        }
     }
 
     public class ModuleCollection : ConfigurationElementCollection
@@ -131,7 +131,7 @@ namespace Paramount.ApplicationBlock.Mvc.Configuration
 
         }
 
-        
+
         public ModuleConfigElement(string name, string @namespace, bool registerView)
         {
             this.Name = name;
@@ -160,7 +160,7 @@ namespace Paramount.ApplicationBlock.Mvc.Configuration
             set { this["name"] = value; }
         }
 
-        
+
 
         [ConfigurationProperty("namespace", IsRequired = true, DefaultValue = "")]
         public string Namespace

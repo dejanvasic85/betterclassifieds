@@ -43,12 +43,17 @@ namespace Paramount.ApplicationBlock.Configuration
             return WebConfigurationManager.AppSettings.Get(DomainNameKey);
         }
 
-        public static T ReadAppSetting<T>(string key) where T : class
+        public static string ReadAppSetting(string key)
         {
             var value = ConfigurationManager.AppSettings.Get(key);
             if (string.IsNullOrEmpty(value))
                 return null;
-            return (T)Convert.ChangeType(value, typeof(T));
+            return value;
+        }
+
+        public static T ReadAppSetting<T>(string key) where T : class
+        {
+            return (T)Convert.ChangeType(ReadAppSetting(key), typeof(T));
         }
     }
 }

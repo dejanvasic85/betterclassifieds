@@ -1,10 +1,12 @@
-﻿using System.Web.Http;
-using System.Web.Mvc;
-using System.Web.Routing;
-using Paramount.Betterclassifieds.Presentation.App_Start;
-
-namespace Paramount.Betterclassifieds.Presentation
+﻿namespace Paramount.Betterclassifieds.Presentation
 {
+    using System.Web.Http;
+    using System.Web.Mvc;
+    using System.Web.Routing;
+
+    using App_Start;
+    using Paramount.ApplicationBlock.Mvc;
+
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
     public class MvcApplication : System.Web.HttpApplication

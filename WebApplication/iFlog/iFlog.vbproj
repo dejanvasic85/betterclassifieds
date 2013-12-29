@@ -225,6 +225,8 @@
     <Content Include="TestPage.aspx" />
     <Content Include="Web.config" />
     <Content Include="Scripts\jquery-2.0.3.min.map" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\TheMusic\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Booking\Default.aspx.designer.vb">

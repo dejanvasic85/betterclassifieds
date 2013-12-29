@@ -1,0 +1,20 @@
+﻿@model List<Paramount.Betterclassifieds.Presentation.Models.AdSummaryView>
+
+<h1 class="cat-heading">Welcome to the default brand!</h1>
+
+@foreach (var ad in Model)
+{
+    <article class="news-item">
+	<a href="news/all/2013/12/14/the-wailers-sly-and-robbie-announce-bluesfest-sideshows/">
+		<figure>
+			<img src="">
+		</figure>
+		<hgroup>
+			<span class="category">@ad.ParentCategoryName||@ad.ChildCategoryName</span>
+			<h1>@ad.Title</h1>
+			<time datetime="@ad.PostedDate" pubdate="">@ad.PostedDate</time>
+		</hgroup>	
+		<p>@ad.Description</p>
+	</a>
+</article>
+}

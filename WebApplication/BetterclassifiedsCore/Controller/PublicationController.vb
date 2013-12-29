@@ -1,6 +1,4 @@
 ﻿Imports BetterclassifiedsCore.DataModel
-Imports Paramount.ApplicationBlock.Logging.EventLogging
-Imports Paramount.ApplicationBlock.Logging.AuditLogging
 Imports Paramount.ApplicationBlock.Configuration
 
 Public Enum PublicationFrequency

@@ -1,6 +1,6 @@
 ﻿<%@ Master Language="VB" MasterPageFile="~/Master/Default.Master" AutoEventWireup="false" CodeBehind="MemberDetails.master.vb" Inherits="BetterclassifiedsWeb.MemberDetails" %>
 
-<%@ Import Namespace="BetterClassified.Models" %>
+<%@ Import Namespace="Paramount.Betterclassifieds.Business.Models" %>
 
 <%@ Import Namespace="BetterclassifiedsWeb" %>
 

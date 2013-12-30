@@ -110,7 +110,6 @@
     <Compile Include="Unity\PreApplicationStartCode.cs" />
     <Compile Include="Unity\RequestLifetimeHttpModule.cs" />
     <Compile Include="Unity\UnityDependencyResolver.cs" />
-    <Compile Include="Views\BrandRazorViewEngine.cs" />
     <Compile Include="WebClientApplication.cs" />
   </ItemGroup>
   <ItemGroup>

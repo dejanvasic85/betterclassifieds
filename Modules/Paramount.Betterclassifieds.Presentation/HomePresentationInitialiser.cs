@@ -1,6 +1,7 @@
 ﻿namespace Paramount.Betterclassifieds.Presentation
 {
     using System.Web.Mvc;
+    using System.Linq;
     using ApplicationBlock.Mvc;
     
     public class HomePresentationInitialiser : ModuleRegistration
@@ -19,8 +20,8 @@
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional }, new[] { GetType().Namespace });
             
             // View engine ( for branding )
-            ViewEngines.Engines.Clear();
-            ViewEngines.Engines.Add(new BrandRazorViewEngine());
+            var webFormViewEngine = ViewEngines.Engines.OfType<WebFormViewEngine>().First();
+            ViewEngines.Engines.Remove(webFormViewEngine);
         }
     }
 }

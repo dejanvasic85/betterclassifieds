@@ -2,6 +2,7 @@
 using System.Web.Optimization;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
+using Paramount.ApplicationBlock.Configuration;
 using Paramount.ApplicationBlock.Mvc.Configuration;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace Paramount.ApplicationBlock.Mvc
         {
             get { return moduleData ?? (moduleData = new Dictionary<string, object>()); }
         }
-        
+
 
         protected abstract IUnityContainer DefaultContainer
         {
@@ -41,10 +42,10 @@ namespace Paramount.ApplicationBlock.Mvc
                 modules.Add(module.Name, module.Namespace);
                 if (module.RegisterView)
                 {
-                   ViewModulesVirtualPathProvider.RegisterViewModule(module);
-                    RegisterModuleViewLocations(module); 
+                    ViewModulesVirtualPathProvider.RegisterViewModule(module);
+                    RegisterModuleViewLocations(module);
                 }
-                
+
             }
         }
 
@@ -52,7 +53,7 @@ namespace Paramount.ApplicationBlock.Mvc
         {
             HostingEnvironment.RegisterVirtualPathProvider(new ViewModulesVirtualPathProvider());
             LoadModules();
-            
+
             //AreaRegistration.RegisterAllAreas();
             RegisterAllModules(Bootstrapper.Initialise(DefaultContainer), RouteTable.Routes, ModuleData);
             Register();
@@ -90,7 +91,16 @@ namespace Paramount.ApplicationBlock.Mvc
         /// <param name="moduleInfo">The module info.</param>
         protected virtual void RegisterModuleViewLocations(IModuleInfo moduleInfo)
         {
+            var brand = ConfigManager.ReadAppSetting("Brand");
+
+            if (brand.HasValue())
+            {
+                this.RegisterViewLocationFormat(moduleInfo.VirtualPath + "/Views/{1}/{0}." + brand + ".cshtml");
+            }
+
             this.RegisterViewLocationFormat(moduleInfo.VirtualPath + "/Views/{1}/{0}.cshtml");
+         
+
             this.RegisterViewLocationFormat(moduleInfo.VirtualPath + "/Views/{0}.cshtml");
             this.RegisterViewLocationFormat(moduleInfo.VirtualPath + "/Views/Shared/{0}.cshtml");
 
@@ -101,12 +111,12 @@ namespace Paramount.ApplicationBlock.Mvc
 
             this.RegisterMasterLocationFormat(moduleInfo.VirtualPath + "/Views/Shared/{0}.cshtml");
             this.RegisterMasterLocationFormat(moduleInfo.VirtualPath + "/Views/{0}.cshtml");
-            
+
         }
 
         protected void RegisterPartialViewLocationFormat(string locationFormat)
         {
-            var currentViewEngine = ViewEngines.Engines.First(a => a is RazorViewEngine ) as RazorViewEngine;
+            var currentViewEngine = ViewEngines.Engines.First(a => a is RazorViewEngine) as RazorViewEngine;
             this.RegisterPartialViewLocationFormat(locationFormat, currentViewEngine);
         }
 
@@ -190,7 +200,7 @@ namespace Paramount.ApplicationBlock.Mvc
         }
 
     }
-   
+
 }
-    
+
 

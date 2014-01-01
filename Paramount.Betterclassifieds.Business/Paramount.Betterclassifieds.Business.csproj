@@ -57,6 +57,7 @@
     <Compile Include="Models\BookEntryModel.cs" />
     <Compile Include="Models\BookingStatusType.cs" />
     <Compile Include="Models\BookingType.cs" />
+    <Compile Include="Models\Comparers\AdBookingComparer.cs" />
     <Compile Include="Models\ExtensionStatus.cs" />
     <Compile Include="Models\LineAdModel.cs" />
     <Compile Include="Models\LookupType.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Repository\IAdRepository.cs" />
     <Compile Include="Repository\IBookingRepository.cs" />
     <Compile Include="Managers\IConfigManager.cs" />
+    <Compile Include="Repository\IEditionRepository.cs" />
     <Compile Include="Repository\ILookupRepository.cs" />
     <Compile Include="Repository\IMenuRepository.cs" />
     <Compile Include="Repository\IPaymentsRepository.cs" />

@@ -1,4 +1,5 @@
 ﻿using Paramount.Betterclassifieds.Business.Models;
+using Paramount.Betterclassifieds.Business.Models.Comparers;
 using Paramount.Betterclassifieds.Business.Repository;
 
 namespace BetterClassified.Repository
@@ -9,7 +10,7 @@ namespace BetterClassified.Repository
     using BetterclassifiedsCore.DataModel;
     using System;
     using System.Data.Linq;
-    
+
     public class BookingRepository : IBookingRepository, IMappingBehaviour
     {
         public AdBookingModel GetBooking(int id, bool withLineAd = false)
@@ -64,10 +65,10 @@ namespace BetterClassified.Repository
                             ? bk.Ad.AdDesigns.First(d => d.AdType.Code == AdTypeCode.ONLINE).OnlineAds.First().Heading
                             : bk.Ad.AdDesigns.First(d => d.AdType.Code == AdTypeCode.LINE).LineAds.First().AdHeader,
 
-                        OnlineImageId = bk.Ad.AdDesigns.Any(d=> d.AdType.Code == AdTypeCode.ONLINE && d.AdGraphics.Any()) 
-                            ? bk.Ad.AdDesigns.First(d=>d.AdType.Code == AdTypeCode.ONLINE).AdGraphics.First().DocumentID
+                        OnlineImageId = bk.Ad.AdDesigns.Any(d => d.AdType.Code == AdTypeCode.ONLINE && d.AdGraphics.Any())
+                            ? bk.Ad.AdDesigns.First(d => d.AdType.Code == AdTypeCode.ONLINE).AdGraphics.First().DocumentID
                             : string.Empty,
-                 
+
                         LineAdImageId = bk.Ad.AdDesigns.Any(d => d.AdType.Code == AdTypeCode.LINE && d.AdGraphics.Any())
                             ? bk.Ad.AdDesigns.First(d => d.AdType.Code == AdTypeCode.LINE).AdGraphics.First().DocumentID
                             : string.Empty,
@@ -160,7 +161,28 @@ namespace BetterClassified.Repository
 
         public List<AdBookingModel> GetBookingsForEdition(DateTime editionDate)
         {
-            return new List<AdBookingModel>();
+            using (var context = BetterclassifiedsDataContext.NewContext())
+            {
+                var bookings = context.AdBookings.Join(
+                    context.BookEntries.Where(b => b.EditionDate == editionDate),
+                        booking => booking.AdBookingId,
+                        entry => entry.AdBookingId,
+                        (booking, entry) => booking).ToList();
+
+                var models = this.MapList<AdBooking, AdBookingModel>(bookings.ToList());
+
+                return models.Distinct(new AdBookingComparer()).ToList();
+            }
+        }
+
+        public void DeleteBookEntriesForBooking(int adBookingId, DateTime editionDate)
+        {
+            using (var context = BetterclassifiedsDataContext.NewContext())
+            {
+                var bookEntriesToDelete = context.BookEntries.Where(bookEntry => bookEntry.EditionDate == editionDate && bookEntry.AdBookingId == adBookingId);
+                context.BookEntries.DeleteAllOnSubmit(bookEntriesToDelete);
+                context.SubmitChanges();
+            }
         }
 
         public void OnRegisterMaps(IConfiguration configuration)
@@ -179,6 +201,4 @@ namespace BetterClassified.Repository
                 .ForMember(member => member.Publication, options => options.Ignore());
         }
     }
-
-
 }

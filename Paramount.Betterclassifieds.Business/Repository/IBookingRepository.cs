@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Paramount.Betterclassifieds.Business.Models;
 
 namespace Paramount.Betterclassifieds.Business.Repository
-{
+{       
     public interface IBookingRepository
     {
         AdBookingModel GetBooking(int id, bool withLineAd = false);
@@ -16,5 +16,6 @@ namespace Paramount.Betterclassifieds.Business.Repository
         void AddBookEntries(BookEntryModel[] bookEntries);
         void CancelAndExpireBooking(int adBookingId);
         List<AdBookingModel> GetBookingsForEdition(DateTime editionDate);
+        void DeleteBookEntriesForBooking(int adBookingId, DateTime editionDate);
     }
 }

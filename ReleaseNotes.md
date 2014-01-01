@@ -2,6 +2,8 @@
 
 - Automated backups: https://trello.com/c/mMWF5vlO/23-automated-database-backups
 
+- Ability to extend booking from command line (assist with administration and support)
+
 **Bug Fixes**
 
 **Change Requests**

@@ -157,6 +157,7 @@
     <Compile Include="Framework\Security\ClassifiedSqlMembershipProvider.cs" />
     <Compile Include="Repository\AdRepository.cs" />
     <Compile Include="Repository\ConfigSettings.cs" />
+    <Compile Include="Repository\EditionRepository.cs" />
     <Compile Include="Repository\LookupRepository.cs" />
     <Compile Include="Repository\PaymentsRepository.cs" />
     <Compile Include="Repository\PublicationRepository.cs" />

@@ -96,9 +96,14 @@
                     );
         }
 
-        public void Extend(int adBookingId, int numberOfInsertions)
+        public void Extend(int adBookingId, int numberOfInsertions, bool isOnlineOnly = false, ExtensionStatus extensionStatus = ExtensionStatus.Complete, int price = 0, string username = "admin", PaymentType payment = PaymentType.None)
         {
-            throw new NotImplementedException();
+            // Create the booking extension
+            var extension = CreateExtension(adBookingId, numberOfInsertions, username, price, extensionStatus, isOnlineOnly);
+
+            // Then extend it :)
+            // Single responsibility = EXTEND
+            Extend(extension, payment);
         }
 
         public IEnumerable<PublicationEditionModel> GenerateExtensionDates(int adBookingId, int numberOfInsertions)

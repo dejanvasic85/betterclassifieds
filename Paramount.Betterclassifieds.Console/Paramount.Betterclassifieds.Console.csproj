@@ -44,6 +44,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
@@ -68,6 +69,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ApplicationBlock\Configuration\ApplicationBlock.Configuration.csproj">
+      <Project>{ca9b2482-2a5b-4666-b6ee-0be6034fd9c7}</Project>
+      <Name>ApplicationBlock.Configuration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ApplicationBlock\Utility\Paramount.Utility.csproj">
       <Project>{7f2cf5fe-6ad1-4dde-9f7d-a6fb3a1124e5}</Project>
       <Name>Paramount.Utility</Name>

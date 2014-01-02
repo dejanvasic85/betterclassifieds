@@ -1,16 +1,13 @@
-﻿using System.ComponentModel;
-using System.Reflection;
-using Paramount.Betterclassifieds.Business.Repository;
-
-namespace Paramount.Betterclassifieds.Console
+﻿namespace Paramount.Betterclassifieds.Console
 {
+    using BetterClassified.Repository;
+    using Business.Managers;
     using Microsoft.Practices.Unity;
     using System;
     using System.Linq;
+    using System.Reflection;
     using Tasks;
-    using Business.Managers;
-
-
+    
     class Program
     {
         private IUnityContainer _container;
@@ -26,11 +23,11 @@ namespace Paramount.Betterclassifieds.Console
                 program.Start(new[]
                                     {
                                         TaskArguments.TaskFullArgName, "RemoveEdition",
-                                        "-Editions", "25-DEC-2013|01-JAN-2014"
+                                        "-Editions", "01-JAN-2014"
                                     });
                 Console.WriteLine("Press any key to exit...");
                 Console.ReadLine();
-#else
+//#else
                 program.Start(args);
 #endif
             }
@@ -51,10 +48,11 @@ namespace Paramount.Betterclassifieds.Console
 
             // Register all repositories and managers
             _container.RegisterType<IBookingManager, BookingManager>()
-                .RegisterType<IEditionManager, EditionManager>();
+                .RegisterType<IEditionManager, EditionManager>()
+                .RegisterType<IConfigManager, ConfigSettings>();
 
             var repositories = Assembly
-                .GetAssembly(typeof(BetterClassified.Repository.BookingRepository))
+                .GetAssembly(typeof(BookingRepository))
                 .GetTypes()
                 .Where(type => type.Namespace == "BetterClassified.Repository" && type.Name.EndsWith("Repository"));
 

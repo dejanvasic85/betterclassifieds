@@ -17,5 +17,8 @@ namespace Paramount.Betterclassifieds.Business.Repository
         void CancelAndExpireBooking(int adBookingId);
         List<AdBookingModel> GetBookingsForEdition(DateTime editionDate);
         void DeleteBookEntriesForBooking(int adBookingId, DateTime editionDate);
+        bool IsBookingOnline(int adBookingId);
+        bool IsBookingInPrint(int adBookingId);
+        bool IsBookingOnlineOnly(int adBookingId);
     }
 }

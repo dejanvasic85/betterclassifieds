@@ -26,7 +26,11 @@
         public void Run()
         {
             // Use the business layer to perform all the work :)
-            _editionsToRemove.ForEach(edition => _editionManager.RemoveEditionAndExtendBookings(edition));
+            _editionsToRemove.ForEach(edition =>
+                {
+                    Console.WriteLine("Processing edition {0}", edition);
+                    _editionManager.RemoveEditionAndExtendBookings(edition);
+                });
         }
 
         public bool Singleton { get { return true; } }

@@ -54,13 +54,14 @@
 
             _mockRepository.CreateMockOf<IBookingRepository>(_container, _verifyList)
                 .SetupWithVerification(call => call.GetBookingsForEdition(It.Is<DateTime>(d => d == editionDate)), result: adBookingModels)
-                .SetupWithVerification(call => call.DeleteBookEntriesForBooking(It.IsAny<int>(), It.IsAny<DateTime>()));
+                .SetupWithVerification(call => call.DeleteBookEntriesForBooking(It.IsAny<int>(), It.IsAny<DateTime>()))
+                ;
 
             var bookingManagerMock = _mockRepository.CreateMockOf<IBookingManager>(_container, _verifyList)
                 .SetupWithVerification(call => call.Extend(
                     It.IsAny<int>(),
                     It.IsAny<int>(),
-                    It.Is<bool>(b => b == false),
+                    It.Is<bool?>(b => b == null),
                     It.Is<ExtensionStatus>(status => status == ExtensionStatus.Complete),
                     It.Is<int>(price => price == 0),
                     It.Is<string>(username => username == "admin"),
@@ -74,11 +75,11 @@
             bookingManagerMock.Verify(call => call.Extend(
                     It.IsAny<int>(),
                     It.IsAny<int>(),
-                    It.Is<bool>(b => b == false),
+                    It.Is<bool?>(b => b == null),
                     It.Is<ExtensionStatus>(status => status == ExtensionStatus.Complete),
                     It.Is<int>(price => price == 0),
                     It.Is<string>(username => username == "admin"),
-                    It.Is<PaymentType>(payment => payment == PaymentType.None)));
+                    It.Is<PaymentType>(payment => payment == PaymentType.None)), Times.AtLeast(3));
         }
 
         [TestMethod]

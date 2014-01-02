@@ -12,12 +12,12 @@ namespace BetterClassified.Repository
         {
             using (var context = BetterclassifiedsDataContext.NewContext())
             {
-                var editionToDelete = context.Editions.First(e => e.EditionDate == editionDate);
-                context.Editions.DeleteOnSubmit(editionToDelete);
+                var editionsForDeletion = context.Editions.Where(e => e.EditionDate == editionDate).ToList();
+                context.Editions.DeleteAllOnSubmit(editionsForDeletion);
                 context.SubmitChanges();
             }
         }
-
+      
         public void OnRegisterMaps(IConfiguration configuration)
         {
             

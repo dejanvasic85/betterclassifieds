@@ -185,6 +185,41 @@ namespace BetterClassified.Repository
             }
         }
 
+        public bool IsBookingOnline(int adBookingId)
+        {
+            using (var context = BetterclassifiedsDataContext.NewContext())
+            {
+                // Make sure there's just one ad design (online)
+                var onlineAd = from o in context.OnlineAds
+                               join d in context.AdDesigns on o.AdDesignId equals d.AdDesignId
+                               join b in context.AdBookings on d.Ad.AdId equals b.AdId
+                               where b.AdBookingId == adBookingId
+                               select o;
+
+                return onlineAd.FirstOrDefault() != null;
+            }
+        }
+
+        public bool IsBookingInPrint(int adBookingId)
+        {
+            using (var context = BetterclassifiedsDataContext.NewContext())
+            {
+                // Make sure there's just one ad design (online)
+                var printad = from o in context.LineAds
+                               join d in context.AdDesigns on o.AdDesignId equals d.AdDesignId
+                               join b in context.AdBookings on d.Ad.AdId equals b.AdId
+                               where b.AdBookingId == adBookingId
+                               select o;
+
+                return printad.FirstOrDefault() != null;
+            }
+        }
+        
+        public bool IsBookingOnlineOnly(int adBookingId)
+        {
+            return this.IsBookingOnline(adBookingId) && !this.IsBookingInPrint(adBookingId);
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             // From data

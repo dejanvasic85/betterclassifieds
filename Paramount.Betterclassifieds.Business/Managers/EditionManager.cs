@@ -23,12 +23,11 @@
         public void RemoveEditionAndExtendBookings(DateTime editionDate)
         {
             // Fetch bookings that belong to this edition
-            _bookingRepository.GetBookingsForEdition(editionDate)
-                .ForEach(booking =>
+            _bookingRepository.GetBookingsForEdition(editionDate).ForEach(booking =>
                 {
                     // Extend the booking
-                    _bookingManager.Extend(booking.AdBookingId, numberOfInsertions: 1);
-
+                    _bookingManager.Extend( booking.AdBookingId, numberOfInsertions: 1, isOnlineOnly:null );
+                    
                     // Remove the book entries
                     _bookingRepository.DeleteBookEntriesForBooking(booking.AdBookingId, editionDate);
                 });

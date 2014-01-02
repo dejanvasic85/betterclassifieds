@@ -96,10 +96,15 @@
                     );
         }
 
-        public void Extend(int adBookingId, int numberOfInsertions, bool isOnlineOnly = false, ExtensionStatus extensionStatus = ExtensionStatus.Complete, int price = 0, string username = "admin", PaymentType payment = PaymentType.None)
+        public void Extend(int adBookingId, int numberOfInsertions, bool? isOnlineOnly = null, ExtensionStatus extensionStatus = ExtensionStatus.Complete, int price = 0, string username = "admin", PaymentType payment = PaymentType.None)
         {
+            if (!isOnlineOnly.HasValue)
+            {
+                isOnlineOnly = bookingRepository.IsBookingOnlineOnly(adBookingId);
+            }
+
             // Create the booking extension
-            var extension = CreateExtension(adBookingId, numberOfInsertions, username, price, extensionStatus, isOnlineOnly);
+            var extension = CreateExtension(adBookingId, numberOfInsertions, username, price, extensionStatus, isOnlineOnly.Value);
 
             // Then extend it :)
             // Single responsibility = EXTEND
@@ -110,7 +115,7 @@
         {
             foreach (var publicationEntries in bookingRepository.GetBookEntriesForBooking(adBookingId).GroupBy(be => be.PublicationId))
             {
-                if (publicationRepository.IsOnlinePublication(publicationEntries.Key))
+                if (publicationRepository.IsOnlinePublication(publicationEntries.Key))  
                     continue;
 
                 // Fetch the last edition (used continuing the dates and price)

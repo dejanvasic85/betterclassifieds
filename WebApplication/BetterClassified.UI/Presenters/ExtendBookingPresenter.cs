@@ -13,20 +13,20 @@ namespace BetterClassified.UI.Presenters
     public class ExtendBookingPresenter : Controller<IExtendBookingView>
     {
         private readonly IBookingRepository BookingRepository;
-        private readonly IConfigManager ConfigSettings;
+        private readonly IClientConfig ClientConfigSettings;
         private readonly BookingManager BookingManager;
         private readonly RateCalculator RateCalculator;
 
         public ExtendBookingPresenter(IExtendBookingView view,
             IBookingRepository bookingRepository,
             BookingManager bookingManager,
-            IConfigManager configSettings,
+            IClientConfig _clientConfigSettings,
             RateCalculator rateCalculator)
             : base(view)
         {
             this.BookingRepository = bookingRepository;
             this.BookingManager = bookingManager;
-            this.ConfigSettings = configSettings;
+            this.ClientConfigSettings = _clientConfigSettings;
             this.RateCalculator = rateCalculator;
         }
 
@@ -47,8 +47,8 @@ namespace BetterClassified.UI.Presenters
 
             // Load the screen as per usual (depending on the type of booking)
             View.DataBindOptions(booking.BookingType == BookingType.Bundled
-                ? Enumerable.Range(1, ConfigSettings.RestrictedEditionCount)
-                : Enumerable.Range(1, ConfigSettings.RestrictedOnlineDaysCount));
+                ? Enumerable.Range(1, ClientConfigSettings.RestrictedEditionCount)
+                : Enumerable.Range(1, ClientConfigSettings.RestrictedOnlineDaysCount));
 
             // Load for a single edition first
             Load(insertions: 1, booking: booking);
@@ -74,7 +74,7 @@ namespace BetterClassified.UI.Presenters
                     .OrderBy(date => date.EditionDate)
                     .Last()
                     .EditionDate
-                    .AddDays(ConfigSettings.NumberOfDaysAfterLastEdition);
+                    .AddDays(ClientConfigSettings.NumberOfDaysAfterLastEdition);
 
                 decimal pricePerEdition = 0;
 

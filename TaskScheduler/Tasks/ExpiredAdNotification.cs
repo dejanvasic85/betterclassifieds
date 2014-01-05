@@ -17,12 +17,13 @@ namespace Paramount.TaskScheduler
     {
         private const string DaysBeforeExpiry = "DAYSBEFOREEXPIRY";
         private readonly IUserRepository userRepository;
-        private readonly IConfigManager configSettings;
+        private readonly IApplicationConfig _applicationConfig;
+        
 
         public ExpiredAdNotification()
         {
             userRepository = new UserRepository();  // hard code for now
-            configSettings = new ConfigSettings();
+            _applicationConfig = new AppConfig();
         }
 
         public void Run(SchedulerParameters parameters)
@@ -48,14 +49,14 @@ namespace Paramount.TaskScheduler
                     StringBuilder sb = new StringBuilder();
                     foreach (var expiredAd in ads)
                     {
-                        sb.AppendFormat("iFlog ID: {0} has last print date of {1}<br />", expiredAd.AdId, expiredAd.LastPrintInsertionDate.ToString("dd/MM/yyyy"));
+                        sb.AppendFormat("Ad ID: {0} has last print date of {1}<br />", expiredAd.AdId, expiredAd.LastPrintInsertionDate.ToString("dd/MM/yyyy"));
                     }
 
                     // Fetch the membership user 
                     ApplicationUser applicationUser = userRepository.GetClassifiedUser(ads.Key);
 
                     // Construct the parameters for broadcasting
-                    EmailRecipientView recipient = new EmailRecipientView { Email = applicationUser.Email, Name = applicationUser.Username }.AddTemplateItem("adReference", sb.ToString()).AddTemplateItem("linkForExtension", configSettings.BaseUrl + "/MemberAccount/Bookings.aspx");
+                    EmailRecipientView recipient = new EmailRecipientView { Email = applicationUser.Email, Name = applicationUser.Username }.AddTemplateItem("adReference", sb.ToString()).AddTemplateItem("linkForExtension", _applicationConfig.BaseUrl + "/MemberAccount/Bookings.aspx");
                     email.Recipients.Add(recipient);
                 }
 

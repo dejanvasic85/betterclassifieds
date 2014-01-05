@@ -11,17 +11,17 @@
     {
         private readonly IBookingRepository bookingRepository;
         private readonly IPublicationRepository publicationRepository;
-        private readonly IConfigManager configSettings;
+        private readonly IClientConfig _clientConfigSettings;
         private readonly IPaymentsRepository payments;
 
         public BookingManager(IBookingRepository bookingRepository,
             IPublicationRepository publicationRepository,
-            IConfigManager configSettings,
+            IClientConfig _clientConfigSettings,
             IPaymentsRepository payments)
         {
             this.bookingRepository = bookingRepository;
             this.publicationRepository = publicationRepository;
-            this.configSettings = configSettings;
+            this._clientConfigSettings = _clientConfigSettings;
             this.payments = payments;
         }
 
@@ -74,7 +74,7 @@
 
                 if (adBooking.BookingType == BookingType.Bundled)
                 {
-                    lastEditionDate = lastEditionDate.AddDays(configSettings.NumberOfDaysAfterLastEdition);
+                    lastEditionDate = lastEditionDate.AddDays(_clientConfigSettings.NumberOfDaysAfterLastEdition);
                 }
 
                 var price = adBooking.TotalPrice + extensionModel.ExtensionPrice;

@@ -10,7 +10,7 @@ Partial Public Class OnlineAdView
     Const MainCategoryViewState = "MainCategoryViewState"
     Const SubCategoryViewState = "SubCategoryViewState"
 
-    Dim configSettings As IConfigManager
+    Dim configSettings As IClientConfig
 
     Public Sub OnlineAdView()
 
@@ -105,7 +105,7 @@ Partial Public Class OnlineAdView
             paramountGallery.ImageList = onlineAd.ImageList
 
             ' Inject meta tags for facebook integration
-            configSettings = BetterClassified.Unity.DefaultContainer.Resolve(Of IConfigManager)()
+            configSettings = BetterClassified.Unity.DefaultContainer.Resolve(Of IClientConfig)()
             Me.Page.Header.AddMetaTag("fb:app_id", configSettings.FacebookAppId)
             Dim pageAbsUrl = PageUrl.AdViewItem(Me.Page, onlineAd.Heading, onlineAd.AdBookingId).ToAbsoluteUrl(Me.Request)
             Me.Page.Header.AddMetaTag("og:url", pageAbsUrl)

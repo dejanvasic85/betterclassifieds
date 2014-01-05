@@ -17,7 +17,7 @@ Public Class ContainerConfig
             .RegisterType(Of IMenuRepository, TheMusicMenuRepository)()
 
         ' Managers
-        container.RegisterType(Of IConfigManager, ConfigSettings)() _
+        container.RegisterType(Of IClientConfig, ClientConfig)() _
             .RegisterType(Of IBookingManager, BookingManager)() _
             .RegisterType(Of IEditionManager, EditionManager)()
 

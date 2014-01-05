@@ -3,7 +3,7 @@ using Paramount.Betterclassifieds.Business.Managers;
 
 namespace BetterClassified.Repository
 {
-    public class ConfigSettings : IConfigManager
+    public class ClientConfig : IClientConfig
     {
         // Todo - read from database (but default these for TheMusic)
         public int RestrictedEditionCount { get { return 10; } }
@@ -11,11 +11,9 @@ namespace BetterClassified.Repository
         public int NumberOfDaysAfterLastEdition { get { return 6; } }
         public bool IsOnlineAdFree { get { return true; } }
 
-
-        public string BaseUrl { get { return ConfigManager.ReadAppSetting<string>("BaseUrl"); } }
         public string PublisherHomeUrl { get { return ConfigManager.ReadAppSetting<string>("PublisherHomeUrl"); } }
         public string FacebookAppId { get { return ConfigManager.ReadAppSetting<string>("FacebookAppId"); } }
-        public string DslImageUrlHandler { get { return ConfigManager.ReadAppSetting<string>("DslImageUrlHandler"); } }
+        
         public string ClientCode { get { return ConfigManager.ReadAppSetting<string>("ClientCode"); } }
     }
 }

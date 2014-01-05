@@ -8,17 +8,17 @@ namespace BetterClassified.Repository
 {
     public class TheMusicMenuRepository : IMenuRepository
     {
-        private readonly IConfigManager configSettings;
+        private readonly IClientConfig _clientConfigSettings;
         private readonly TheMusicHtmlScraper htmlScraper;
 
-        public TheMusicMenuRepository(IConfigManager configSettings)
+        public TheMusicMenuRepository(IClientConfig _clientConfigSettings)
         {
-            this.configSettings = configSettings;
+            this._clientConfigSettings = _clientConfigSettings;
 
             // Attempt to fetch theMusic html
             WebClient client = new WebClient();
-            var theMusicContent = client.DownloadString(configSettings.PublisherHomeUrl);
-            htmlScraper = new TheMusicHtmlScraper(theMusicContent, configSettings.PublisherHomeUrl);
+            var theMusicContent = client.DownloadString(_clientConfigSettings.PublisherHomeUrl);
+            htmlScraper = new TheMusicHtmlScraper(theMusicContent, _clientConfigSettings.PublisherHomeUrl);
         }
 
         public IDictionary<string, string> GetMenuItemLinkNamePairs()
@@ -26,7 +26,7 @@ namespace BetterClassified.Repository
             return HttpCacher.FetchOrCreate("TheMusicMenuCache", () =>
             {
                 // Parse the items and add home link in case nothing comes back
-                var parsedItems = htmlScraper.ParseMenuItems().AddOrUpdate("Home", configSettings.PublisherHomeUrl);
+                var parsedItems = htmlScraper.ParseMenuItems().AddOrUpdate("Home", _clientConfigSettings.PublisherHomeUrl);
 
                 // Remove the classies link
                 if (parsedItems.ContainsKey("Classies"))

@@ -156,7 +156,8 @@
     <Compile Include="Framework\ReaderWriterCache.cs" />
     <Compile Include="Framework\Security\ClassifiedSqlMembershipProvider.cs" />
     <Compile Include="Repository\AdRepository.cs" />
-    <Compile Include="Repository\ConfigSettings.cs" />
+    <Compile Include="Repository\AppConfig.cs" />
+    <Compile Include="Repository\ClientConfig.cs" />
     <Compile Include="Repository\EditionRepository.cs" />
     <Compile Include="Repository\LookupRepository.cs" />
     <Compile Include="Repository\PaymentsRepository.cs" />

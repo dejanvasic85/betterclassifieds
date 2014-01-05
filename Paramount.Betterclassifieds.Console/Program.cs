@@ -49,7 +49,7 @@
             // Register all repositories and managers
             _container.RegisterType<IBookingManager, BookingManager>()
                 .RegisterType<IEditionManager, EditionManager>()
-                .RegisterType<IConfigManager, ConfigSettings>();
+                .RegisterType<IClientConfig, ClientConfig>();
 
             var repositories = Assembly
                 .GetAssembly(typeof(BookingRepository))

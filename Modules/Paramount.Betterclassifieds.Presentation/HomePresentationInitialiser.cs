@@ -19,9 +19,6 @@
                 "nextgen/{controller}/{action}/{id}",
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional }, new[] { GetType().Namespace });
             
-            // View engine ( for branding )
-            var webFormViewEngine = ViewEngines.Engines.OfType<WebFormViewEngine>().First();
-            ViewEngines.Engines.Remove(webFormViewEngine);
         }
     }
 }

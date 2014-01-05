@@ -1,15 +1,20 @@
 ﻿namespace Paramount.Betterclassifieds.Business.Managers
 {
-    public interface IConfigManager
+    public interface IClientConfig
     {
         int RestrictedEditionCount { get; }
         int RestrictedOnlineDaysCount { get; }
         int NumberOfDaysAfterLastEdition { get; }
         bool IsOnlineAdFree { get; }
-        string BaseUrl { get; }
         string PublisherHomeUrl { get; }
         string FacebookAppId { get; }
-        string DslImageUrlHandler { get; }
         string ClientCode { get; }
     }
+
+    public interface IApplicationConfig
+    {
+        string BaseUrl { get; }
+        string DslImageUrlHandler { get; }
+    }
+
 }

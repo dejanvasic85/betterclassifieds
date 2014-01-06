@@ -130,6 +130,10 @@
       <Project>{F119DDC3-24DD-411E-B509-B8E41A011741}</Project>
       <Name>ApplicationBlock.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Paramount.Betterclassifieds.Business\Paramount.Betterclassifieds.Business.csproj">
+      <Project>{5c1be481-db9e-48cc-9048-5b10e6535d02}</Project>
+      <Name>Paramount.Betterclassifieds.Business</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataTransferObjects\Common.DataTransferObjects.csproj">
       <Project>{377F2216-9202-4DF9-9C5B-C2A4E627FFE2}</Project>
       <Name>Common.DataTransferObjects</Name>
@@ -205,6 +209,9 @@
     <None Include="LinqObjects\Common.dbml.layout">
       <DependentUpon>Common.dbml</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Repository\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

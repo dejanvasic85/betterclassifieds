@@ -7,5 +7,6 @@ namespace BetterClassified.Repository
     {
         public string BaseUrl { get { return ConfigManager.ReadAppSetting<string>("BaseUrl"); } }
         public string DslImageUrlHandler { get { return ConfigManager.ReadAppSetting<string>("DslImageUrlHandler"); } }
+        public string ClientCode { get { return ConfigManager.ReadAppSetting<string>("ClientCode"); } }
     }
 }

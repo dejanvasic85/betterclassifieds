@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Managers\EditionManager.cs" />
     <Compile Include="Managers\ExtensionManager.cs" />
+    <Compile Include="Managers\IApplicationConfig.cs" />
     <Compile Include="Managers\IEditionManager.cs" />
     <Compile Include="Managers\IBookingManager.cs" />
     <Compile Include="Managers\TransactionManager.cs" />

@@ -14,6 +14,5 @@ namespace BetterClassified.Repository
         public string PublisherHomeUrl { get { return ConfigManager.ReadAppSetting<string>("PublisherHomeUrl"); } }
         public string FacebookAppId { get { return ConfigManager.ReadAppSetting<string>("FacebookAppId"); } }
         
-        public string ClientCode { get { return ConfigManager.ReadAppSetting<string>("ClientCode"); } }
     }
 }

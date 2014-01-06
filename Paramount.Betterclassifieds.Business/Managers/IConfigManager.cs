@@ -8,13 +8,5 @@
         bool IsOnlineAdFree { get; }
         string PublisherHomeUrl { get; }
         string FacebookAppId { get; }
-        string ClientCode { get; }
     }
-
-    public interface IApplicationConfig
-    {
-        string BaseUrl { get; }
-        string DslImageUrlHandler { get; }
-    }
-
 }

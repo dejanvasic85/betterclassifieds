@@ -88,7 +88,7 @@
             // Arrange 
             var editionDate = new DateTime(2013, 12, 25);
             var bookings = new List<AdBookingModel>();
-
+            
             _mockRepository.CreateMockOf<IEditionRepository>(_container, _verifyList)
                 .SetupWithVerification(call => call.DeleteEditionByDate(It.IsAny<DateTime>()));
 

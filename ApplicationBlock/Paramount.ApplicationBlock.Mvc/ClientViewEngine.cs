@@ -37,15 +37,15 @@
             // Set default view location format
             ViewLocationFormats = new[]
             {
-               GetViewPath(baseUrl, "Views/{1}/{0}.cshtml"),
-               GetViewPath(baseUrl, "Views/Shared/{1}/{0}.cshtml")
+               GetViewPath(baseUrl, "Views/{1}/{0}"),
+               GetViewPath(baseUrl, "Views/Shared/{1}/{0}")
             };
 
             // Set default master location formats
             MasterLocationFormats = new[]
             {
-                GetViewPath(baseUrl, "Views/Shared{0}.cshtml"),
-                GetViewPath(baseUrl, "Views/{0}.cshtml")
+                GetViewPath(baseUrl, "Views/Shared{0}"),
+                GetViewPath(baseUrl, "Views/{0}")
             };
         }
 

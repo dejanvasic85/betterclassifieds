@@ -33,18 +33,21 @@
         {
             var section = ConfigurationManager.GetSection("modulesRegistration") as ModuleRegistrationSection;
             if (section == null) return;
+            
+            // Remove all engines and register the client view engine
+            ViewEngines.Engines.Clear();
+            var clientViewEngine = new ClientViewEngine();
+
             foreach (IModuleInfo module in section.Modules)
             {
                 modules.Add(module.Name, module.Namespace);
-                if (!module.RegisterView) 
-                    continue;
-
+                if (!module.RegisterView) continue;
                 ViewModulesVirtualPathProvider.RegisterViewModule(module);
-
-                // Remove all engines and register the client view engine
-                ViewEngines.Engines.Clear();
-                ViewEngines.Engines.Add(new ClientViewEngine(module.VirtualPath));
+                clientViewEngine.AddViewPath(module.VirtualPath);
             }
+
+            //register viewengine
+            ViewEngines.Engines.Add(clientViewEngine);
         }
 
         protected virtual void ApplicationStart()

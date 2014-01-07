@@ -76,13 +76,13 @@
       <Project>{B4B22683-30E1-4F01-90AE-4DDF12691150}</Project>
       <Name>ApplicationBlock.Membership</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Paramount.DataService\Paramount.Betterclassifieds.DataService.csproj">
+      <Project>{e51b8388-9a02-40ad-97b4-2802ae77fb69}</Project>
+      <Name>Paramount.Betterclassifieds.DataService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataTransferObjects\Common.DataTransferObjects.csproj">
       <Project>{377F2216-9202-4DF9-9C5B-C2A4E627FFE2}</Project>
       <Name>Common.DataTransferObjects</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Paramount.DataService\DataService.csproj">
-      <Project>{e51b8388-9a02-40ad-97b4-2802ae77fb69}</Project>
-      <Name>DataService</Name>
     </ProjectReference>
     <ProjectReference Include="..\ServiceContracts\Common.ServiceContracts.csproj">
       <Project>{97D730A7-D86A-4FA1-90E2-3DFCFD4C337A}</Project>

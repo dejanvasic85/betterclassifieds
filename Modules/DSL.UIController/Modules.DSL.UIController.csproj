@@ -56,7 +56,7 @@
       <Project>{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}</Project>
       <Name>ApplicationBlock.Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Paramount.DataService\Paramount.Betterclassifieds.DataService.csproj">
+    <ProjectReference Include="..\..\Paramount.Betterclassifieds.DataService\Paramount.Betterclassifieds.DataService.csproj">
       <Project>{e51b8388-9a02-40ad-97b4-2802ae77fb69}</Project>
       <Name>Paramount.Betterclassifieds.DataService</Name>
     </ProjectReference>

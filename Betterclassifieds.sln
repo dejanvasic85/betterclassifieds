@@ -90,7 +90,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution 
 		ReleaseNotes.md = ReleaseNotes.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Betterclassifieds.DataService", "Paramount.DataService\Paramount.Betterclassifieds.DataService.csproj", "{E51B8388-9A02-40AD-97B4-2802AE77FB69}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Betterclassifieds.DataService", "Paramount.Betterclassifieds.DataService\Paramount.Betterclassifieds.DataService.csproj", "{E51B8388-9A02-40AD-97B4-2802AE77FB69}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
@@ -234,10 +234,10 @@ Global
 		SccProjectTopLevelParentUniqueName34 = Betterclassifieds.sln
 		SccProjectName34 = Paramount.Betterclassifieds.Business
 		SccLocalPath34 = Paramount.Betterclassifieds.Business
-		SccProjectUniqueName35 = Paramount.DataService\\Paramount.Betterclassifieds.DataService.csproj
+		SccProjectUniqueName35 = Paramount.Betterclassifieds.DataService\\Paramount.Betterclassifieds.DataService.csproj
 		SccProjectTopLevelParentUniqueName35 = Betterclassifieds.sln
-		SccProjectName35 = Paramount.DataService
-		SccLocalPath35 = Paramount.DataService
+		SccProjectName35 = Paramount.Betterclassifieds.DataService
+		SccLocalPath35 = Paramount.Betterclassifieds.DataService
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

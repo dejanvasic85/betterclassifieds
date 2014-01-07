@@ -76,7 +76,7 @@
       <Project>{B4B22683-30E1-4F01-90AE-4DDF12691150}</Project>
       <Name>ApplicationBlock.Membership</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Paramount.DataService\Paramount.Betterclassifieds.DataService.csproj">
+    <ProjectReference Include="..\..\Paramount.Betterclassifieds.DataService\Paramount.Betterclassifieds.DataService.csproj">
       <Project>{e51b8388-9a02-40ad-97b4-2802ae77fb69}</Project>
       <Name>Paramount.Betterclassifieds.DataService</Name>
     </ProjectReference>

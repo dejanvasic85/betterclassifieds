@@ -18,7 +18,7 @@
             routes.MapRoute(
                 "default",
                 "nextgen/{controller}/{action}/{id}",
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional }, new[] { GetType().Namespace });
+                new { controller = "Home", action = "Index", module = Name, id = UrlParameter.Optional }, new[] { GetType().Namespace });
 
         }
 

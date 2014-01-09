@@ -111,6 +111,7 @@
     <Compile Include="Unity\PreApplicationStartCode.cs" />
     <Compile Include="Unity\RequestLifetimeHttpModule.cs" />
     <Compile Include="Unity\UnityDependencyResolver.cs" />
+    <Compile Include="UrlHelper.cs" />
     <Compile Include="WebClientApplication.cs" />
   </ItemGroup>
   <ItemGroup>

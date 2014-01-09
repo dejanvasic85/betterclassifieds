@@ -14,12 +14,12 @@ namespace BetterClassified.UI.Presenters
     {
         private readonly IBookingRepository BookingRepository;
         private readonly IClientConfig ClientConfigSettings;
-        private readonly BookingManager BookingManager;
+        private readonly IBookingManager BookingManager;
         private readonly RateCalculator RateCalculator;
 
         public ExtendBookingPresenter(IExtendBookingView view,
             IBookingRepository bookingRepository,
-            BookingManager bookingManager,
+            IBookingManager bookingManager,
             IClientConfig _clientConfigSettings,
             RateCalculator rateCalculator)
             : base(view)

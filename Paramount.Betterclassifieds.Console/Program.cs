@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Console
+﻿using Paramount.Betterclassifieds.Business.Bookings;
+
+namespace Paramount.Betterclassifieds.Console
 {
     using BetterClassified.Repository;
     using Business.Managers;

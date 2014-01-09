@@ -4,11 +4,11 @@ namespace Paramount.Betterclassifieds.Business.Managers
 {
     public class TransactionManager
     {
-        private readonly IPaymentsRepository paymentsRepository;
+        private readonly IPaymentsRepository _paymentsRepository;
 
         public TransactionManager(IPaymentsRepository paymentsRepository)
         {
-            this.paymentsRepository = paymentsRepository;
+            this._paymentsRepository = paymentsRepository;
         }
 
 

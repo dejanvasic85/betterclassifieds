@@ -9,8 +9,9 @@
     using Business.Managers;
     using Business.Repository;
     using Business.Models;
+    using Business.Bookings;
     using Mocks;
-
+    
     [TestClass]
     public class EditionManagerTests
     {

@@ -1,4 +1,4 @@
-﻿namespace Paramount.Betterclassifieds.Business.Managers
+﻿namespace Paramount.Betterclassifieds.Business.Bookings
 {
     using System;
     using System.Collections.Generic;
@@ -6,23 +6,24 @@
 
     using Models;
     using Repository;
+    using Managers;
 
     public class BookingManager : IBookingManager
     {
-        private readonly IBookingRepository bookingRepository;
-        private readonly IPublicationRepository publicationRepository;
+        private readonly IBookingRepository _bookingRepository;
+        private readonly IPublicationRepository _publicationRepository;
         private readonly IClientConfig _clientConfigSettings;
-        private readonly IPaymentsRepository payments;
+        private readonly IPaymentsRepository _payments;
 
         public BookingManager(IBookingRepository bookingRepository,
             IPublicationRepository publicationRepository,
-            IClientConfig _clientConfigSettings,
+            IClientConfig clientConfigSettings,
             IPaymentsRepository payments)
         {
-            this.bookingRepository = bookingRepository;
-            this.publicationRepository = publicationRepository;
-            this._clientConfigSettings = _clientConfigSettings;
-            this.payments = payments;
+            this._bookingRepository = bookingRepository;
+            this._publicationRepository = publicationRepository;
+            this._clientConfigSettings = clientConfigSettings;
+            this._payments = payments;
         }
 
         public AdBookingExtensionModel CreateExtension(int adBookingId, int numberOfInsertions, string username, decimal price, ExtensionStatus status, bool isOnlineOnly)
@@ -39,26 +40,26 @@
                     IsOnlineOnly = isOnlineOnly
                 };
 
-            bookingRepository.AddBookingExtension(extension);
+            _bookingRepository.AddBookingExtension(extension);
 
             return extension;
         }
 
         public AdBookingExtensionModel GetExtension(int extensionId)
         {
-            return bookingRepository.GetBookingExtension(extensionId);
+            return _bookingRepository.GetBookingExtension(extensionId);
         }
 
         public void Extend(AdBookingExtensionModel extensionModel, PaymentType paymentType = PaymentType.None)
         {
-            AdBookingModel adBooking = bookingRepository.GetBooking(extensionModel.AdBookingId);
+            AdBookingModel adBooking = _bookingRepository.GetBooking(extensionModel.AdBookingId);
 
             if (extensionModel.IsOnlineOnly)
             {
                 // Only required to update the end date on the booking
                 // Fetch original booking
                 DateTime newEndDate = adBooking.EndDate.AddDays(extensionModel.Insertions);
-                bookingRepository.UpdateBooking(extensionModel.AdBookingId, newEndDate);
+                _bookingRepository.UpdateBooking(extensionModel.AdBookingId, newEndDate);
             }
             else
             {
@@ -67,7 +68,7 @@
                     .SelectMany(e => e.Editions)
                     .ToArray();
 
-                bookingRepository.AddBookEntries(models);
+                _bookingRepository.AddBookEntries(models);
 
                 // Update the booking end date
                 var lastEditionDate = models.OrderByDescending(d => d.EditionDate).First().EditionDate;
@@ -78,17 +79,17 @@
                 }
 
                 var price = adBooking.TotalPrice + extensionModel.ExtensionPrice;
-                bookingRepository.UpdateBooking(adBooking.AdBookingId, lastEditionDate, price);
+                _bookingRepository.UpdateBooking(adBooking.AdBookingId, lastEditionDate, price);
             }
 
             // Mark the extension as complete
             if (extensionModel.Status == ExtensionStatus.Pending)
             {
-                bookingRepository.UpdateExtesion(extensionModel.AdBookingExtensionId, (int)ExtensionStatus.Complete);
+                _bookingRepository.UpdateExtesion(extensionModel.AdBookingExtensionId, (int)ExtensionStatus.Complete);
             }
 
             if (extensionModel.IsPaid)
-                this.payments.CreateTransaction(userId: extensionModel.LastModifiedUserId,
+                this._payments.CreateTransaction(userId: extensionModel.LastModifiedUserId,
                     reference: adBooking.ExtensionReference,
                     description: "Booking Extension",
                     amount: extensionModel.ExtensionPrice,
@@ -100,7 +101,7 @@
         {
             if (!isOnlineOnly.HasValue)
             {
-                isOnlineOnly = bookingRepository.IsBookingOnlineOnly(adBookingId);
+                isOnlineOnly = _bookingRepository.IsBookingOnlineOnly(adBookingId);
             }
 
             // Create the booking extension
@@ -113,16 +114,16 @@
 
         public IEnumerable<PublicationEditionModel> GenerateExtensionDates(int adBookingId, int numberOfInsertions)
         {
-            foreach (var publicationEntries in bookingRepository.GetBookEntriesForBooking(adBookingId).GroupBy(be => be.PublicationId))
+            foreach (var publicationEntries in _bookingRepository.GetBookEntriesForBooking(adBookingId).GroupBy(be => be.PublicationId))
             {
-                if (publicationRepository.IsOnlinePublication(publicationEntries.Key))  
+                if (_publicationRepository.IsOnlinePublication(publicationEntries.Key))  
                     continue;
 
                 // Fetch the last edition (used continuing the dates and price)
                 BookEntryModel bookEntry = publicationEntries.OrderByDescending(be => be.EditionDate).First();
 
                 // Fetch the up-coming editions for the publication
-                List<BookEntryModel> upComingEditions = publicationRepository
+                List<BookEntryModel> upComingEditions = _publicationRepository
                     .GetEditionsForPublication(bookEntry.PublicationId, bookEntry.EditionDate.AddDays(1), numberOfInsertions)
                     .Select(m =>
                     {
@@ -144,7 +145,7 @@
                 yield return new PublicationEditionModel
                 {
                     PublicationId = publicationEntries.Key,
-                    PublicationName = publicationRepository.GetPublication(publicationEntries.Key).Title,
+                    PublicationName = _publicationRepository.GetPublication(publicationEntries.Key).Title,
                     Editions = upComingEditions
                 };
             }

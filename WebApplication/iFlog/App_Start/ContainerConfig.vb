@@ -2,6 +2,7 @@
 Imports Paramount.Betterclassifieds.Business.Repository
 Imports Paramount.Betterclassifieds.Business.Managers
 Imports Microsoft.Practices.Unity
+Imports Paramount.Betterclassifieds.Business.Bookings
 
 Public Class ContainerConfig
     Public Shared Sub RegisterIocContainer(ByVal container As IUnityContainer)
@@ -18,6 +19,7 @@ Public Class ContainerConfig
 
         ' Managers
         container.RegisterType(Of IClientConfig, ClientConfig)() _
+            .RegisterType(Of IApplicationConfig, AppConfig)() _
             .RegisterType(Of IBookingManager, BookingManager)() _
             .RegisterType(Of IEditionManager, EditionManager)()
 

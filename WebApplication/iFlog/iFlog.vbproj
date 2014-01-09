@@ -1011,6 +1011,10 @@
       <Project>{16a1594a-f9a2-468b-bf45-2d716a72469e}</Project>
       <Name>Paramount.Betterclassifieds.Presentation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Paramount.Betterclassifieds.Business.Bookings\Paramount.Betterclassifieds.Business.Bookings.csproj">
+      <Project>{4b69c27d-4fbb-4192-850e-59e8ce737789}</Project>
+      <Name>Paramount.Betterclassifieds.Business.Bookings</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Paramount.Betterclassifieds.Business\Paramount.Betterclassifieds.Business.csproj">
       <Project>{5c1be481-db9e-48cc-9048-5b10e6535d02}</Project>
       <Name>Paramount.Betterclassifieds.Business</Name>

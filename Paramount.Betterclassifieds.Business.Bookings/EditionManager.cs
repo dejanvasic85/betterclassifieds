@@ -1,5 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Business.Managers
+﻿namespace Paramount.Betterclassifieds.Business.Bookings
 {
+    using Managers;
     using System;
     using Repository;
 

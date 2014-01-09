@@ -1,4 +1,5 @@
-﻿using Paramount.Betterclassifieds.Business.Models;
+﻿using Paramount;
+using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Models.Comparers;
 using Paramount.Betterclassifieds.Business.Repository;
 

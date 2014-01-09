@@ -152,8 +152,6 @@
     <Compile Include="Framework\Extensions\HttpRequestExtensions.cs" />
     <Compile Include="Framework\Slug.cs" />
     <Compile Include="IBaseView.cs" />
-    <Compile Include="Framework\Mapping.cs" />
-    <Compile Include="Framework\ReaderWriterCache.cs" />
     <Compile Include="Framework\Security\ClassifiedSqlMembershipProvider.cs" />
     <Compile Include="Repository\AdRepository.cs" />
     <Compile Include="Repository\AppConfig.cs" />

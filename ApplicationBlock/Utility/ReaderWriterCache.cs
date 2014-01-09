@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using Paramount;
 
-namespace BetterClassified
+namespace Paramount
 {
     public abstract class ReaderWriterCache<TKey, TValue>
     {

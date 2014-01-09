@@ -2,6 +2,7 @@
 using System.Linq;
 using AutoMapper;
 using BetterclassifiedsCore.DataModel;
+using Paramount;
 using Paramount.Betterclassifieds.Business.Repository;
 
 namespace BetterClassified.Repository

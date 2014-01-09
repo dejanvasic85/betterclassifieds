@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using BetterclassifiedsCore.DataModel;
+using Paramount;
 using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Repository;
 
@@ -37,6 +39,18 @@ namespace BetterClassified.Repository
                 this.Map(tutorAdModel, tutorAd);
                 // Commit the changes
                 context.SubmitChanges();
+            }
+        }
+
+        public List<OnlineAdModel> GetLatestAds(int takeLast = 10)
+        {
+            using (var context = BetterclassifiedsDataContext.NewContext())
+            {
+                // Get the latest online ads
+                var ads = context.OnlineAds.OrderByDescending(o => o.OnlineAdId).Take(10).ToList();
+
+                // Map to the models
+                return this.MapList<OnlineAd, OnlineAdModel>(ads);
             }
         }
 

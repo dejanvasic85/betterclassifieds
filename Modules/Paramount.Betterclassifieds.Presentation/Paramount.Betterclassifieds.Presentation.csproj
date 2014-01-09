@@ -43,6 +43,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=1.1.0.188, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Release\ThirdParty\Automapper 1.1\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -121,7 +125,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="HomePresentationInitialiser.cs" />
+    <Compile Include="PresentationInitialiser.cs" />
     <Compile Include="Models\AdSummaryView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -163,6 +167,10 @@
     <ProjectReference Include="..\..\ApplicationBlock\Paramount.ApplicationBlock.Mvc\Paramount.ApplicationBlock.Mvc.csproj">
       <Project>{0c2b4ebb-3d4d-45ef-9622-214f9ef80b1a}</Project>
       <Name>Paramount.ApplicationBlock.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ApplicationBlock\Utility\Paramount.Utility.csproj">
+      <Project>{7f2cf5fe-6ad1-4dde-9f7d-a6fb3a1124e5}</Project>
+      <Name>Paramount.Utility</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Paramount.Betterclassifieds.Business\Paramount.Betterclassifieds.Business.csproj">
       <Project>{5c1be481-db9e-48cc-9048-5b10e6535d02}</Project>

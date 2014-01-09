@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using AutoMapper;
 
-namespace BetterClassified
+namespace Paramount
 {
     public interface IMappingBehaviour
     {

@@ -1,4 +1,5 @@
 using System.Linq;
+using Paramount.Betterclassifieds.DataService;
 
 namespace Paramount.Services
 {
@@ -6,8 +7,7 @@ namespace Paramount.Services
     using Common.DataTransferObjects.Betterclassifieds.Messages;
     using Common.ServiceContracts;
     using Common.DataTransferObjects.Betterclassifieds;
-    using DataService;
-
+    
     public class BetterclassifiedService : BaseService, IBetterclassifiedService
     {
         public GetExpiredAdListByLastEditionResponse GetExpiredAdListByLastEdition(GetExpiredAdListByLastEditionRequest request)

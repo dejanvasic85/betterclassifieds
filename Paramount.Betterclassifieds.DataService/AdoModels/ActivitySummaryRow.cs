@@ -1,6 +1,6 @@
 using System.Data;
 
-namespace Paramount.DataService
+namespace Paramount.Betterclassifieds.DataService
 {
     public class ActivitySummaryRow
     {

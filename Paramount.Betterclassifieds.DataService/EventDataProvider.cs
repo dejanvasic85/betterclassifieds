@@ -1,4 +1,4 @@
-﻿namespace Paramount.DataService
+﻿namespace Paramount.Betterclassifieds.DataService
 {
     using System;
     using System.Collections.ObjectModel;

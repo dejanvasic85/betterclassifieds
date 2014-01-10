@@ -1,4 +1,4 @@
-﻿namespace Paramount.DataService.Broadcast
+﻿namespace Paramount.Betterclassifieds.DataService
 {
     using System;
     using System.Data;

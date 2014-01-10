@@ -1,3 +1,5 @@
+using Paramount.Betterclassifieds.DataService;
+
 namespace Paramount.Services
 {
     using System;
@@ -6,7 +8,6 @@ namespace Paramount.Services
     using Common.DataTransferObjects.MembershipService;
     using Common.DataTransferObjects.MembershipService.Messages;
     using Common.ServiceContracts;
-    using DataService;
 
     public class MembershipService : IMembershipService
     {

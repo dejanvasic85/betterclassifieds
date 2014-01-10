@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ParamountCore" Class="BannerDatabaseModelDataContext" AccessModifier="Internal" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=paramountit.com.au;Initial Catalog=ParamountCore;Persist Security Info=True;User ID=sa" SettingsObjectName="Paramount.DataService.Properties.Settings" SettingsPropertyName="ParamountCoreConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=paramountit.com.au;Initial Catalog=ParamountCore;Integrated Security=True;Persist Security Info=True" SettingsObjectName="Paramount.Betterclassifieds.DataService.Properties.Settings" SettingsPropertyName="ParamountCoreConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.BannerReference" Member="BannerReferences">
     <Type Name="BannerReference">
       <Column Name="BannerReferenceId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />

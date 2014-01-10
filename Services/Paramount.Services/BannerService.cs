@@ -1,11 +1,9 @@
-using System;
-using System.Collections.ObjectModel;
+using System.Linq;
+using Paramount.Betterclassifieds.DataService;
 using Paramount.Common.DataTransferObjects;
-using Paramount.Common.DataTransferObjects.Banner;
 using Paramount.Common.DataTransferObjects.Banner.Messages;
 using Paramount.Common.ServiceContracts;
-using Paramount.DataService;
-using System.Linq;
+using System;
 
 namespace Paramount.Services
 {

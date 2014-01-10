@@ -1,12 +1,11 @@
 ﻿using System.Linq;
 
-namespace Paramount.DataService
+namespace Paramount.Betterclassifieds.DataService
 {
     using System;
     using System.Data;
     using System.Collections.Generic;
     using ApplicationBlock.Data;
-    using Broadcast;
 
     public static class BroadcastDataService
     {

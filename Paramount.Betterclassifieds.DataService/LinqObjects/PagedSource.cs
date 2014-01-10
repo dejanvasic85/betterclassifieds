@@ -1,4 +1,4 @@
-namespace Paramount.DataService.LinqObjects
+namespace Paramount.Betterclassifieds.DataService.LinqObjects
 {
     using System.Linq;
 

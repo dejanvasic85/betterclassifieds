@@ -1,9 +1,9 @@
 ﻿using System.Data;
 using System.Web.Services;
+using Paramount.Betterclassifieds.DataService;
 using Paramount.Common.DataTransferObjects;
 using Paramount.Common.DataTransferObjects.LocationService.Messages;
 using Paramount.Common.ServiceContracts;
-using Paramount.DataService;
 
 namespace Paramount.Services
 {

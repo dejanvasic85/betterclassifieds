@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Paramount.ApplicationBlock.Data;
+﻿using Paramount.ApplicationBlock.Data;
+using Paramount.Betterclassifieds.DataService.LinqObjects;
 using Paramount.Common.DataTransferObjects.Common;
 using Paramount.Common.DataTransferObjects.LocationService;
-using Paramount.DataService.LinqObjects;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace Paramount.DataService
+namespace Paramount.Betterclassifieds.DataService
 {
     public class CommonDataProvider : IDisposable
     {

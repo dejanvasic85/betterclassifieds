@@ -1,4 +1,6 @@
-﻿namespace Paramount.Services
+﻿using Paramount.Betterclassifieds.DataService;
+
+namespace Paramount.Services
 {
     using System;
     using System.Collections.ObjectModel;
@@ -8,8 +10,6 @@
     using Common.ServiceContracts;
     using Common.DataTransferObjects.Broadcast;
     using Common.DataTransferObjects.Broadcast.Messages;
-    using DataService;
-    using DataService.Broadcast;
 
     public class BroadcastService : IBroadcastService
     {

@@ -1,12 +1,13 @@
-﻿namespace Paramount.Services
+﻿using Paramount.Betterclassifieds.DataService;
+
+namespace Paramount.Services
 {
     using System.Data;
     using System.Web.Services;
     using Common.DataTransferObjects.CRM;
     using Common.DataTransferObjects.CRM.Messages;
     using Common.ServiceContracts;
-    using DataService;
-    
+
     [WebService(Namespace = "http://paramountit.com.au/webservices/")]
     public class CRMService : ICRMService
     {

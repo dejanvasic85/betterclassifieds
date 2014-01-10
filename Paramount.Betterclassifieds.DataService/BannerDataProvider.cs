@@ -1,18 +1,15 @@
+using Paramount.ApplicationBlock.Data;
+using Paramount.Betterclassifieds.DataService.LinqObjects;
+using Paramount.Common.DataTransferObjects;
+using Paramount.Common.DataTransferObjects.Banner;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Data.Linq;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
-using Paramount.ApplicationBlock.Data;
-using Paramount.Common.DataTransferObjects;
-using Paramount.Common.DataTransferObjects.Banner;
-using Paramount.DataService.LinqObjects;
-using BannerAudit = Paramount.Common.DataTransferObjects.Banner.BannerAuditEntity;
 
-namespace Paramount.DataService
+namespace Paramount.Betterclassifieds.DataService
 {
     public class BannerDataProvider: IDisposable
     {

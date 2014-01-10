@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
+using Paramount.Betterclassifieds.DataService;
 using Paramount.Common.DataTransferObjects.Billing;
 using Paramount.Common.DataTransferObjects.Billing.Messages;
 using Paramount.Common.DataTransferObjects.Enums;
 using Paramount.Common.ServiceContracts;
+using System;
 
 namespace Paramount.Services
 {
@@ -26,7 +25,7 @@ namespace Paramount.Services
                                              Status =
                                                  Enum.GetName(typeof(ShoppingCartStatus), ShoppingCartStatus.Created)
                                          };
-            var dataService = new DataService.ShoppingCartDataProvider(request.ClientCode);
+            var dataService = new ShoppingCartDataProvider(request.ClientCode);
             var id = dataService.Create(shoppingCartEntity);
             return new CreateShoppingCartResonse { ShoppingCartId = id };
 
@@ -35,14 +34,14 @@ namespace Paramount.Services
         public AddShoppingCartItemResponse AddShoppingCartItem(AddShoppingCartItemRequest request)
         {
             var item = request.ShoppingCartItem;
-            var dataService = new DataService.ShoppingCartDataProvider(request.ClientCode);
+            var dataService = new ShoppingCartDataProvider(request.ClientCode);
             var id = dataService.AddItem(item);
             return new AddShoppingCartItemResponse() { ShoppingCartItemId = id };
         }
 
         public GetShoppingCartDetailResponse GetShoppingCartDetail(GetShoppingCartDetailRequest request)
         {
-            var dataService = new DataService.ShoppingCartDataProvider(request.ClientCode);
+            var dataService = new ShoppingCartDataProvider(request.ClientCode);
             var getShoppingCartDetailResponse = new GetShoppingCartDetailResponse
                                   {
                                       ShoppingCart =
@@ -71,7 +70,7 @@ namespace Paramount.Services
 
         public GenerateInvoiceResponse GenerateInvoice(GenerateInvoiceRequest request)
         {
-            var dataService = new DataService.InvoiceDataProvider(request.ClientCode);
+            var dataService = new InvoiceDataProvider(request.ClientCode);
             var generateInvoice = dataService.GenerateInvoice(request.ShoppingCartId, Enum.GetName(typeof(InvoiceStatus), InvoiceStatus.Created));
             dataService.Commit();
             return new GenerateInvoiceResponse() { InvoiceId = generateInvoice };
@@ -79,13 +78,13 @@ namespace Paramount.Services
 
         GetSettingsResponse IBillingService.GetSettings(GetSettingsRequest request)
         {
-            var dataService = new DataService.BillingSettingsDataProvider(request.ClientCode);
+            var dataService = new BillingSettingsDataProvider(request.ClientCode);
             return new GetSettingsResponse() { BillingSettings = dataService.GetBillingSettings() };
         }
 
         SaveSettingsResponse IBillingService.SaveSettings(SaveSettingsRequest request)
         {
-            var dataService = new DataService.BillingSettingsDataProvider(request.ClientCode);
+            var dataService = new BillingSettingsDataProvider(request.ClientCode);
             var success = dataService.SaveSettings(request.BillingSettings);
             dataService.Commit();
             return new SaveSettingsResponse() { Success = success };
@@ -93,7 +92,7 @@ namespace Paramount.Services
 
         public UpdateInvoiceAddressDetailsResponse UpdateInvoiceAddressDetails(UpdateInvoiceAddressDetailsRequest request)
         {
-            var dataService = new DataService.InvoiceDataProvider(request.ClientCode);
+            var dataService = new InvoiceDataProvider(request.ClientCode);
             var updateInvoiceAddressDetails = dataService.UpdateInvoiceAddressDetails(request.InvoiceId, request.BillingAddress,
                                                                                       request.DeliveryAddress);
             dataService.Commit();
@@ -106,7 +105,7 @@ namespace Paramount.Services
 
         public InvoicePaidResponse InvoicePaid(InvoicePaidRequest request)
         {
-            var dataService = new DataService.InvoiceDataProvider(request.ClientCode);
+            var dataService = new InvoiceDataProvider(request.ClientCode);
             var invoicePaid = dataService.UpdateInvoiceStatus(request.InvoiceId, Enum.GetName(typeof(InvoiceStatus), InvoiceStatus.Paid), request.SessionId,request.TotalAmount);
             dataService.Commit();
             return new InvoicePaidResponse()
@@ -117,7 +116,7 @@ namespace Paramount.Services
 
         public GetBankListResponse GetBankList(GetBankListRequest request)
         {
-            var dataService = new DataService.InvoiceDataProvider(request.ClientCode);
+            var dataService = new InvoiceDataProvider(request.ClientCode);
             return new GetBankListResponse()
             {
                 BankList =
@@ -127,20 +126,20 @@ namespace Paramount.Services
 
         public GetInvoiceDetailResponse GetInvoiceDetail(GetInvoiceDetailRequest request)
         {
-            var dataService = new DataService.InvoiceDataProvider(request.ClientCode);
+            var dataService = new InvoiceDataProvider(request.ClientCode);
             return new GetInvoiceDetailResponse() { Invoice = dataService.GetInvoice(request.InvoiceId) };
         }
 
         public GetInvoiceItemsResponse GetInvoiceItems(GetInvoiceItemsRequest request)
         {
-            var dataService = new DataService.InvoiceDataProvider(request.ClientCode);
+            var dataService = new InvoiceDataProvider(request.ClientCode);
             return new GetInvoiceItemsResponse() { InvoiceItems = dataService.GetItems(request.InvoiceId) };
 
         }
 
         public ConfirmInvoiceResponse ConfirmInvoice(ConfirmInvoiceRequest request)
         {
-            var dataService = new DataService.InvoiceDataProvider(request.ClientCode);
+            var dataService = new InvoiceDataProvider(request.ClientCode);
             dataService.UpdateInvoiceStatus(request.InvoiceId,
                                             Enum.GetName(typeof(InvoiceStatus), InvoiceStatus.SubmitForPayment));
             dataService.UpdatePaymentType(request.InvoiceId, Enum.GetName(typeof(PaymentType), request.PaymentType));
@@ -150,7 +149,7 @@ namespace Paramount.Services
 
         public UpdateInvoiceStatusResponse UpdateInvoiceStatus(UpdateInvoiceStatusRequest request)
         {
-            var dataService = new DataService.InvoiceDataProvider(request.ClientCode);
+            var dataService = new InvoiceDataProvider(request.ClientCode);
             dataService.UpdateInvoiceStatus(request.InvoiceId, Enum.GetName(typeof(InvoiceStatus), request.InvoiceStatus));
             dataService.Commit();
             return new UpdateInvoiceStatusResponse() { Success = true };
@@ -158,7 +157,7 @@ namespace Paramount.Services
 
         public GetCurrencyListResponse GetCurrencyList(GetCurrencyListRequest request)
         {
-            var dataService = new DataService.CommonDataProvider(request.ClientCode);
+            var dataService = new CommonDataProvider(request.ClientCode);
             return new GetCurrencyListResponse()
             {
                 CurrencyList = dataService.GetCurrencyList()

@@ -1,13 +1,11 @@
-﻿    using System;
+﻿using Paramount.ApplicationBlock.Data;
+using Paramount.Betterclassifieds.DataService.LinqObjects;
+using Paramount.Common.DataTransferObjects.Billing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Paramount.ApplicationBlock.Data;
-using Paramount.Common.DataTransferObjects.Banner;
-using Paramount.Common.DataTransferObjects.Billing;
-using Paramount.DataService.LinqObjects;
 
-namespace Paramount.DataService
+namespace Paramount.Betterclassifieds.DataService
 {
     public class InvoiceDataProvider : IDisposable
     {

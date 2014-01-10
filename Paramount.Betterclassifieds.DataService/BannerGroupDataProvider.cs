@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Paramount.ApplicationBlock.Data;
+using Paramount.Betterclassifieds.DataService.LinqObjects;
 using Paramount.Common.DataTransferObjects.Banner;
-using Paramount.DataService.LinqObjects;
 
-namespace Paramount.DataService
+namespace Paramount.Betterclassifieds.DataService
 {
     public class BannerGroupDataProvider : IDisposable
     {

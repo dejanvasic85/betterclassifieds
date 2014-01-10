@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace Paramount.DataService.Broadcast
+namespace Paramount.Betterclassifieds.DataService
 {
     public class BroadcastActivityRow
     {

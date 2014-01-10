@@ -2,8 +2,8 @@
 using System.IO;
 using System.Linq;
 using Paramount.ApplicationBlock.Configuration;
+using Paramount.Betterclassifieds.DataService;
 using Paramount.Common.DataTransferObjects.DSL;
-using Paramount.DataService;
 
 namespace Paramount.DSL.UIController
 {

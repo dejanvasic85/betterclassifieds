@@ -8,8 +8,8 @@
     <ProjectGuid>{E51B8388-9A02-40AD-97B4-2802AE77FB69}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Paramount.DataService</RootNamespace>
-    <AssemblyName>Paramount.DataService</AssemblyName>
+    <RootNamespace>Paramount.Betterclassifieds.DataService</RootNamespace>
+    <AssemblyName>Paramount.Betterclassifieds.DataService</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
@@ -54,28 +54,34 @@
     <Compile Include="BannerGroupDataProvider.cs" />
     <Compile Include="BannerRow.cs" />
     <Compile Include="BetterclassifiedDataService.cs" />
-    <Compile Include="BetterclassifiedModels\ActivitySummaryRow.cs" />
+    <Compile Include="AdoModels\ActivitySummaryRow.cs" />
     <Compile Include="BillingSettingsDataProvider.cs" />
-    <Compile Include="Broadcast\BroadcastActivityRow.cs" />
+    <Compile Include="AdoModels\BroadcastActivityRow.cs" />
     <Compile Include="CommonDataProvider.cs" />
-    <Compile Include="BetterclassifiedModels\ExpiredAdRow.cs" />
+    <Compile Include="AdoModels\ExpiredAdRow.cs" />
     <Compile Include="InvoiceDataProvider.cs" />
     <Compile Include="LinqObjects\BillingDatabaseModel.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BillingDatabaseModel.dbml</DependentUpon>
     </Compile>
+    <Compile Include="LinqObjects\Classifieds.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Classifieds.dbml</DependentUpon>
+    </Compile>
     <Compile Include="LinqObjects\Common.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Common.dbml</DependentUpon>
     </Compile>
+    <Compile Include="LinqObjects\DataContextFactory.cs" />
     <Compile Include="ShoppingCartDataProvider.cs" />
     <Compile Include="BillingDataService.cs" />
     <Compile Include="BroadcastDataService.cs" />
-    <Compile Include="Broadcast\EmailBroadcastEntryRow.cs" />
-    <Compile Include="Broadcast\EmailBroadcastRow.cs" />
-    <Compile Include="Broadcast\EmailTemplateRow.cs" />
+    <Compile Include="AdoModels\EmailBroadcastEntryRow.cs" />
+    <Compile Include="AdoModels\EmailBroadcastRow.cs" />
+    <Compile Include="AdoModels\EmailTemplateRow.cs" />
     <Compile Include="CRMDataService.cs" />
     <Compile Include="DslDataService.cs" />
     <Compile Include="LinqObjects\EvenServiceClasses.designer.cs">
@@ -93,11 +99,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BannerDatabaseModel.dbml</DependentUpon>
-    </Compile>
-    <Compile Include="LinqObjects\BetterClassifiedModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BetterClassifiedModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="LinqObjects\PagedSource.cs" />
     <Compile Include="LinqObjects\UserMembership.cs">
@@ -144,16 +145,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="LinqObjects\BetterClassifiedModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>BetterClassifiedModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="LinqObjects\BillingDatabaseModel.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>BillingDatabaseModel.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="LinqObjects\Classifieds.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>Classifieds.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
     <None Include="LinqObjects\Common.dbml">
@@ -211,7 +213,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="BetterclassifiedModels\" />
+    <Folder Include="Broadcast\" />
     <Folder Include="Repository\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LinqObjects\Classifieds.dbml.layout">
+      <DependentUpon>Classifieds.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

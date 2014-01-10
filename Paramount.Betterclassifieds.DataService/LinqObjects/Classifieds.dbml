@@ -1,0 +1,986 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="iFlog" EntityNamespace="Paramount.Betterclassifieds.DataService.Classifieds" ContextNamespace="Paramount.Betterclassifieds.DataService.Classifieds" Class="ClassifiedsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost;Initial Catalog=iFlog;Integrated Security=True" SettingsObjectName="Paramount.Betterclassifieds.DataService.Properties.Settings" SettingsPropertyName="iFlogConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Ad" Member="Ads">
+    <Type Name="Ad">
+      <Column Name="AdId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Comments" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="UseAsTemplate" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Ad_AdBooking" Member="AdBookings" ThisKey="AdId" OtherKey="AdId" Type="AdBooking" />
+      <Association Name="Ad_AdDesign" Member="AdDesigns" ThisKey="AdId" OtherKey="AdId" Type="AdDesign" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WebContent" Member="WebContents">
+    <Type Name="WebContent">
+      <Column Name="WebContentId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PageId" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="WebContent" Member="WebContent1" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="LastModifiedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LastModifiedUser" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AdBooking" Member="AdBookings">
+    <Type Name="AdBooking">
+      <Column Name="AdBookingId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TotalPrice" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="BookReference" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="AdId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BookingStatus" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MainCategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BookingType" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="BookingDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Insertions" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="AdBooking_BookEntry" Member="BookEntries" ThisKey="AdBookingId" OtherKey="AdBookingId" Type="BookEntry" />
+      <Association Name="Ad_AdBooking" Member="Ad" ThisKey="AdId" OtherKey="AdId" Type="Ad" IsForeignKey="true" />
+      <Association Name="MainCategory_AdBooking" Member="MainCategory" ThisKey="MainCategoryId" OtherKey="MainCategoryId" Type="MainCategory" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AdBookingExtension" Member="AdBookingExtensions">
+    <Type Name="AdBookingExtension">
+      <Column Name="AdBookingExtensionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AdBookingId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Insertions" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ExtensionPrice" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LastModifiedUserId" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="LastModifiedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AdDesign" Member="AdDesigns">
+    <Type Name="AdDesign">
+      <Column Name="AdDesignId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AdId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AdTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Version" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FirstAdDesignId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="AdDesign_AdGraphic" Member="AdGraphics" ThisKey="AdDesignId" OtherKey="AdDesignId" Type="AdGraphic" />
+      <Association Name="AdDesign_LineAd" Member="LineAds" ThisKey="AdDesignId" OtherKey="AdDesignId" Type="LineAd" />
+      <Association Name="AdDesign_OnlineAd" Member="OnlineAds" ThisKey="AdDesignId" OtherKey="AdDesignId" Type="OnlineAd" />
+      <Association Name="Ad_AdDesign" Member="Ad" ThisKey="AdId" OtherKey="AdId" Type="Ad" IsForeignKey="true" />
+      <Association Name="AdType_AdDesign" Member="AdType" ThisKey="AdTypeId" OtherKey="AdTypeId" Type="AdType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AdGraphic" Member="AdGraphics">
+    <Type Name="AdGraphic">
+      <Column Name="AdGraphicId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AdDesignId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DocumentID" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Filename" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ImageType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifiedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="AdDesign_AdGraphic" Member="AdDesign" ThisKey="AdDesignId" OtherKey="AdDesignId" Type="AdDesign" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AdType" Member="AdTypes">
+    <Type Name="AdType">
+      <Column Name="AdTypeId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PaperBased" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="AdType_AdDesign" Member="AdDesigns" ThisKey="AdTypeId" OtherKey="AdTypeId" Type="AdDesign" />
+      <Association Name="AdType_PublicationAdType" Member="PublicationAdTypes" ThisKey="AdTypeId" OtherKey="AdTypeId" Type="PublicationAdType" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AppSetting" Member="AppSettings">
+    <Type Name="AppSetting">
+      <Column Name="Module" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AppKey" Type="System.String" DbType="NVarChar(100) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DataType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SettingValue" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BaseRate" Member="BaseRates">
+    <Type Name="BaseRate">
+      <Column Name="BaseRateId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="UpgradeBaseRateId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="BaseRate_Ratecard" Member="Ratecards" ThisKey="BaseRateId" OtherKey="BaseRateId" Type="Ratecard" />
+      <Association Name="BaseRate_SpecialRate" Member="SpecialRates" ThisKey="BaseRateId" OtherKey="BaseRateId" Type="SpecialRate" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BookEntry" Member="BookEntries">
+    <Type Name="BookEntry">
+      <Column Name="BookEntryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EditionDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="AdBookingId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PublicationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EditionAdPrice" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="PublicationPrice" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="BaseRateId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RateType" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Association Name="AdBooking_BookEntry" Member="AdBooking" ThisKey="AdBookingId" OtherKey="AdBookingId" Type="AdBooking" IsForeignKey="true" />
+      <Association Name="Publication_BookEntry" Member="Publication" ThisKey="PublicationId" OtherKey="PublicationId" Type="Publication" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Edition" Member="Editions">
+    <Type Name="Edition">
+      <Column Name="EditionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PublicationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EditionDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Deadline" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Publication_Edition" Member="Publication" ThisKey="PublicationId" OtherKey="PublicationId" Type="Publication" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EnquiryDocument" Member="EnquiryDocuments">
+    <Type Name="EnquiryDocument">
+      <Column Name="EnquiryDocumentId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OnlineAdEnquiryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DocumentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="OnlineAdEnquiry_EnquiryDocument" Member="OnlineAdEnquiry" ThisKey="OnlineAdEnquiryId" OtherKey="OnlineAdEnquiryId" Type="OnlineAdEnquiry" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EnquiryType" Member="EnquiryTypes">
+    <Type Name="EnquiryType">
+      <Column Name="EnquiryTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="EnquiryType_OnlineAdEnquiry" Member="OnlineAdEnquiries" ThisKey="EnquiryTypeId" OtherKey="EnquiryTypeId" Type="OnlineAdEnquiry" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LineAd" Member="LineAds">
+    <Type Name="LineAd">
+      <Column Name="LineAdId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AdDesignId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AdHeader" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="AdText" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="NumOfWords" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UsePhoto" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="UseBoldHeader" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsColourBoldHeading" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsColourBorder" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsColourBackground" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsSuperBoldHeading" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsFooterPhoto" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="BoldHeadingColourCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="BorderColourCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="BackgroundColourCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="FooterPhotoId" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="IsSuperHeadingPurchased" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="AdDesign_LineAd" Member="AdDesign" ThisKey="AdDesignId" OtherKey="AdDesignId" Type="AdDesign" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LineAdColourCode" Member="LineAdColourCodes">
+    <Type Name="LineAdColourCode">
+      <Column Name="LineAdColourId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LineAdColourName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ColourCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Cyan" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Magenta" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Yellow" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="KeyCode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="SortOrder" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedByUser" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LineAdTheme" Member="LineAdThemes">
+    <Type Name="LineAdTheme">
+      <Column Name="LineAdThemeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ThemeName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="DescriptionHtml" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ImageUrl" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="HeaderColourCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="HeaderColourName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BorderColourCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="BorderColourName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BackgroundColourCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="BackgroundColourName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IsHeadingSuperBold" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedByUser" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Location" Member="Locations">
+    <Type Name="Location">
+      <Column Name="LocationId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Location_LocationArea" Member="LocationAreas" ThisKey="LocationId" OtherKey="LocationId" Type="LocationArea" />
+      <Association Name="Location_OnlineAd" Member="OnlineAds" ThisKey="LocationId" OtherKey="LocationId" Type="OnlineAd" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LocationArea" Member="LocationAreas">
+    <Type Name="LocationArea">
+      <Column Name="LocationAreaId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LocationId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Association Name="LocationArea_OnlineAd" Member="OnlineAds" ThisKey="LocationAreaId" OtherKey="LocationAreaId" Type="OnlineAd" />
+      <Association Name="Location_LocationArea" Member="Location" ThisKey="LocationId" OtherKey="LocationId" Type="Location" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Lookup" Member="Lookups">
+    <Type Name="Lookup">
+      <Column Name="LookupId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="GroupName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LookupValue" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MainCategory" Member="MainCategories">
+    <Type Name="MainCategory" Id="ID1">
+      <Column Name="MainCategoryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="ParentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OnlineAdTag" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="MainCategory_AdBooking" Member="AdBookings" ThisKey="MainCategoryId" OtherKey="MainCategoryId" Type="AdBooking" />
+      <Association Name="MainCategory_PublicationCategory" Member="PublicationCategories" ThisKey="MainCategoryId" OtherKey="MainCategoryId" Type="PublicationCategory" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NonPublicationDate" Member="NonPublicationDates">
+    <Type Name="NonPublicationDate">
+      <Column Name="NonPublicationDateId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PublicationId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EditionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Publication_NonPublicationDate" Member="Publication" ThisKey="PublicationId" OtherKey="PublicationId" Type="Publication" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OnlineAd" Member="OnlineAds">
+    <Type Name="OnlineAd">
+      <Column Name="OnlineAdId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AdDesignId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Heading" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="HtmlText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="LocationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LocationAreaId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ContactName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="ContactType" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="ContactValue" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="NumOfViews" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OnlineAdTag" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="OnlineAd_OnlineAdEnquiry" Member="OnlineAdEnquiries" ThisKey="OnlineAdId" OtherKey="OnlineAdId" Type="OnlineAdEnquiry" />
+      <Association Name="OnlineAd_TutorAd" Member="TutorAds" ThisKey="OnlineAdId" OtherKey="OnlineAdId" Type="TutorAd" />
+      <Association Name="AdDesign_OnlineAd" Member="AdDesign" ThisKey="AdDesignId" OtherKey="AdDesignId" Type="AdDesign" IsForeignKey="true" />
+      <Association Name="Location_OnlineAd" Member="Location" ThisKey="LocationId" OtherKey="LocationId" Type="Location" IsForeignKey="true" />
+      <Association Name="LocationArea_OnlineAd" Member="LocationArea" ThisKey="LocationAreaId" OtherKey="LocationAreaId" Type="LocationArea" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OnlineAdEnquiry" Member="OnlineAdEnquiries">
+    <Type Name="OnlineAdEnquiry">
+      <Column Name="OnlineAdEnquiryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="OnlineAdId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EnquiryTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(12)" CanBeNull="true" />
+      <Column Name="EnquiryText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="OpenDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="OnlineAdEnquiry_EnquiryDocument" Member="EnquiryDocuments" ThisKey="OnlineAdEnquiryId" OtherKey="OnlineAdEnquiryId" Type="EnquiryDocument" />
+      <Association Name="EnquiryType_OnlineAdEnquiry" Member="EnquiryType" ThisKey="EnquiryTypeId" OtherKey="EnquiryTypeId" Type="EnquiryType" IsForeignKey="true" />
+      <Association Name="OnlineAd_OnlineAdEnquiry" Member="OnlineAd" ThisKey="OnlineAdId" OtherKey="OnlineAdId" Type="OnlineAd" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Publication" Member="Publications">
+    <Type Name="Publication" Id="ID2">
+      <Column Name="PublicationId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PublicationTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="FrequencyType" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="FrequencyValue" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="SortOrder" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Publication_BookEntry" Member="BookEntries" ThisKey="PublicationId" OtherKey="PublicationId" Type="BookEntry" />
+      <Association Name="Publication_Edition" Member="Editions" ThisKey="PublicationId" OtherKey="PublicationId" Type="Edition" />
+      <Association Name="Publication_NonPublicationDate" Member="NonPublicationDates" ThisKey="PublicationId" OtherKey="PublicationId" Type="NonPublicationDate" />
+      <Association Name="Publication_PublicationAdType" Member="PublicationAdTypes" ThisKey="PublicationId" OtherKey="PublicationId" Type="PublicationAdType" />
+      <Association Name="Publication_PublicationCategory" Member="PublicationCategories" ThisKey="PublicationId" OtherKey="PublicationId" Type="PublicationCategory" />
+      <Association Name="PublicationType_Publication" Member="PublicationType" ThisKey="PublicationTypeId" OtherKey="PublicationTypeId" Type="PublicationType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PublicationAdType" Member="PublicationAdTypes">
+    <Type Name="PublicationAdType">
+      <Column Name="PublicationAdTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PublicationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AdTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="PublicationAdType_PublicationRate" Member="PublicationRates" ThisKey="PublicationAdTypeId" OtherKey="PublicationAdTypeId" Type="PublicationRate" />
+      <Association Name="PublicationAdType_PublicationSpecialRate" Member="PublicationSpecialRates" ThisKey="PublicationAdTypeId" OtherKey="PublicationAdTypeId" Type="PublicationSpecialRate" />
+      <Association Name="AdType_PublicationAdType" Member="AdType" ThisKey="AdTypeId" OtherKey="AdTypeId" Type="AdType" IsForeignKey="true" />
+      <Association Name="Publication_PublicationAdType" Member="Publication" ThisKey="PublicationId" OtherKey="PublicationId" Type="Publication" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PublicationCategory" Member="PublicationCategories">
+    <Type Name="PublicationCategory">
+      <Column Name="PublicationCategoryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="ParentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MainCategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PublicationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="PublicationCategory_PublicationRate" Member="PublicationRates" ThisKey="PublicationCategoryId" OtherKey="PublicationCategoryId" Type="PublicationRate" />
+      <Association Name="PublicationCategory_PublicationSpecialRate" Member="PublicationSpecialRates" ThisKey="PublicationCategoryId" OtherKey="PublicationCategoryId" Type="PublicationSpecialRate" />
+      <Association Name="MainCategory_PublicationCategory" Member="MainCategory" ThisKey="MainCategoryId" OtherKey="MainCategoryId" Type="MainCategory" IsForeignKey="true" />
+      <Association Name="Publication_PublicationCategory" Member="Publication" ThisKey="PublicationId" OtherKey="PublicationId" Type="Publication" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PublicationRate" Member="PublicationRates">
+    <Type Name="PublicationRate">
+      <Column Name="PublicationRateId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PublicationAdTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PublicationCategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RatecardId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="PublicationAdType_PublicationRate" Member="PublicationAdType" ThisKey="PublicationAdTypeId" OtherKey="PublicationAdTypeId" Type="PublicationAdType" IsForeignKey="true" />
+      <Association Name="PublicationCategory_PublicationRate" Member="PublicationCategory" ThisKey="PublicationCategoryId" OtherKey="PublicationCategoryId" Type="PublicationCategory" IsForeignKey="true" />
+      <Association Name="Ratecard_PublicationRate" Member="Ratecard" ThisKey="RatecardId" OtherKey="RatecardId" Type="Ratecard" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PublicationSpecialRate" Member="PublicationSpecialRates">
+    <Type Name="PublicationSpecialRate">
+      <Column Name="PublicationSpecialRateId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SpecialRateId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PublicationAdTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PublicationCategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="PublicationAdType_PublicationSpecialRate" Member="PublicationAdType" ThisKey="PublicationAdTypeId" OtherKey="PublicationAdTypeId" Type="PublicationAdType" IsForeignKey="true" />
+      <Association Name="PublicationCategory_PublicationSpecialRate" Member="PublicationCategory" ThisKey="PublicationCategoryId" OtherKey="PublicationCategoryId" Type="PublicationCategory" IsForeignKey="true" />
+      <Association Name="SpecialRate_PublicationSpecialRate" Member="SpecialRate" ThisKey="SpecialRateId" OtherKey="SpecialRateId" Type="SpecialRate" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PublicationType" Member="PublicationTypes">
+    <Type Name="PublicationType">
+      <Column Name="PublicationTypeId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Association Name="PublicationType_Publication" Member="Publications" ThisKey="PublicationTypeId" OtherKey="PublicationTypeId" Type="Publication" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Ratecard" Member="Ratecards">
+    <Type Name="Ratecard">
+      <Column Name="RatecardId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BaseRateId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MinCharge" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="MaxCharge" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="RatePerMeasureUnit" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="MeasureUnitLimit" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PhotoCharge" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="BoldHeading" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="OnlineEditionBundle" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="LineAdSuperBoldHeading" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="LineAdColourHeading" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="LineAdColourBorder" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="LineAdColourBackground" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="LineAdExtraImage" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedByUser" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Ratecard_PublicationRate" Member="PublicationRates" ThisKey="RatecardId" OtherKey="RatecardId" Type="PublicationRate" />
+      <Association Name="BaseRate_Ratecard" Member="BaseRate" ThisKey="BaseRateId" OtherKey="BaseRateId" Type="BaseRate" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SchemaVersions" Member="SchemaVersions">
+    <Type Name="SchemaVersion">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ScriptName" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Applied" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SpecialRate" Member="SpecialRates">
+    <Type Name="SpecialRate">
+      <Column Name="SpecialRateId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BaseRateId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NumOfInsertions" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MaximumWords" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SetPrice" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Discount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="NumOfAds" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LineAdBoldHeader" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="LineAdImage" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="NumberOfImages" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="SpecialRate_PublicationSpecialRate" Member="PublicationSpecialRates" ThisKey="SpecialRateId" OtherKey="SpecialRateId" Type="PublicationSpecialRate" />
+      <Association Name="BaseRate_SpecialRate" Member="BaseRate" ThisKey="BaseRateId" OtherKey="BaseRateId" Type="BaseRate" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SupportEnquiry" Member="SupportEnquiries">
+    <Type Name="SupportEnquiry">
+      <Column Name="SupportEnquiryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EnquiryTypeName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="Subject" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="EnquiryText" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TempBookingRecord" Member="TempBookingRecords">
+    <Type Name="TempBookingRecord">
+      <Column Name="BookingRecordId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TotalCost" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="SessionID" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="AdReferenceId" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Transaction]" Member="Transactions">
+    <Type Name="Transaction">
+      <Column Name="TransactionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TransactionType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="TransactionDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="RowTimeStamp" Type="System.Data.Linq.Binary" DbType="rowversion" CanBeNull="true" IsVersion="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TutorAd" Member="TutorAds">
+    <Type Name="TutorAd">
+      <Column Name="TutorAdId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OnlineAdId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Subjects" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="AgeGroupMin" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AgeGroupMax" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ExpertiseLevel" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="TravelOption" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PricingOption" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="WhatToBring" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Objective" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Association Name="OnlineAd_TutorAd" Member="OnlineAd" ThisKey="OnlineAdId" OtherKey="OnlineAdId" Type="OnlineAd" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WebAdSpace" Member="WebAdSpaces">
+    <Type Name="WebAdSpace">
+      <Column Name="WebAdSpaceId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="SettingID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SortOrder" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AdLinkUrl" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="AdTarget" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SpaceType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="DisplayText" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ToolTipText" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="WebAdSpaceSetting_WebAdSpace" Member="WebAdSpaceSetting" ThisKey="SettingID" OtherKey="SettingId" Type="WebAdSpaceSetting" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WebAdSpaceSetting" Member="WebAdSpaceSettings">
+    <Type Name="WebAdSpaceSetting">
+      <Column Name="SettingId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="LocationCode" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="WebAdSpaceSetting_WebAdSpace" Member="WebAdSpaces" ThisKey="SettingId" OtherKey="SettingID" Type="WebAdSpace" />
+    </Type>
+  </Table>
+  <Function Name="dbo.usp_RateCard__Search" Method="usp_RateCard__Search">
+    <ElementType Name="usp_RateCard__SearchResult">
+      <Column Name="RatecardId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MinCharge" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="MaxCharge" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedByUser" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PublicationCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spAdBookingSelectUserActive" Method="spAdBookingSelectUserActive">
+    <Parameter Name="UserId" Parameter="userId" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="BookingStatus" Parameter="bookingStatus" Type="System.Int32" DbType="Int" />
+    <ElementType Name="spAdBookingSelectUserActiveResult">
+      <Column Name="AdBookingId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TotalPrice" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="BookReference" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="NumOfAds" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spAdBookingsSearch" Method="spAdBookingsSearch">
+    <Parameter Name="AdDesignId" Parameter="adDesignId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="BookReference" Parameter="bookReference" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="Username" Parameter="username" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="BookingDateStart" Parameter="bookingDateStart" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="BookingDateEnd" Parameter="bookingDateEnd" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="BookingStatus" Parameter="bookingStatus" Type="System.Int32" DbType="Int" />
+    <Parameter Name="PublicationId" Parameter="publicationId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ParentCategoryId" Parameter="parentCategoryId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="MainCategoryId" Parameter="mainCategoryId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="AdSearchText" Parameter="adSearchText" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="EditionStartDate" Parameter="editionStartDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="EditionEndDate" Parameter="editionEndDate" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="spAdBookingsSearchResult">
+      <Column Name="AdBookingId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BookReference" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="ParentCategory" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SubCategory" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BookingDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="BookingType" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="TotalPrice" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BookingStatus" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Editions" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Designs" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spGetMainParentCategories" Method="spGetMainParentCategories">
+    <ElementType IdRef="ID1" />
+  </Function>
+  <Function Name="dbo.spGetPublicationsByAdType" Method="spGetPublicationsByAdType">
+    <Parameter Name="adTypeId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="showOnline" Type="System.Boolean" DbType="Bit" />
+    <ElementType IdRef="ID2" />
+  </Function>
+  <Function Name="dbo.spLineAdById" Method="spLineAdById">
+    <Parameter Name="LineAdId" Parameter="lineAdId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="spLineAdByIdResult">
+      <Column Name="LineAdId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AdHeader" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="AdText" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="NumOfWords" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UsePhoto" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="UseBoldHeader" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="DocumentId" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spLineAdExportList" Method="spLineAdExportList">
+    <Parameter Name="publicationId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="editionDate" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="spLineAdExportListResult">
+      <Column Name="iflogId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AdBookingId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TotalPrice" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="AdDesignId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LineAdId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OnlineAdId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MainCategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MainCategory" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SubCategoryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SubCategory" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="HeaderAndText" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="AdText" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="AdHeader" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="NumOfWords" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UsePhoto" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="UseBoldHeader" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BookEntryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BoldHeadingColourCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="BackgroundColourCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="BorderColourCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="IsSuperBoldHeading" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spLineAdSelectUserCurrent" Method="spLineAdSelectUserCurrent">
+    <Parameter Name="UserId" Parameter="userId" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="BookingStatus" Parameter="bookingStatus" Type="System.Int32" DbType="Int" />
+    <ElementType Name="spLineAdSelectUserCurrentResult">
+      <Column Name="AdDesignId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BookReference" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(28)" CanBeNull="true" />
+      <Column Name="Category" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AdBookingId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spLineAdSelectUserExpired" Method="spLineAdSelectUserExpired">
+    <Parameter Name="UserId" Parameter="userId" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="EndDate" Parameter="endDate" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="spLineAdSelectUserExpiredResult">
+      <Column Name="AdDesignId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BookReference" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(28)" CanBeNull="true" />
+      <Column Name="Category" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AdBookingId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AdTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spLineAdSelectUserScheduled" Method="spLineAdSelectUserScheduled">
+    <Parameter Name="UserId" Parameter="userId" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="BookingStatus" Parameter="bookingStatus" Type="System.Int32" DbType="Int" />
+    <ElementType Name="spLineAdSelectUserScheduledResult">
+      <Column Name="AdDesignId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BookReference" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(28)" CanBeNull="true" />
+      <Column Name="Category" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AdBookingId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AdTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spMainCategoriesUnassigned" Method="spMainCategoriesUnassigned">
+    <Parameter Name="isParent" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="publicationCategoryId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="publicationId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="spMainCategoriesUnassignedResult">
+      <Column Name="MainCategoryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spMainCategoryAdCount" Method="spMainCategoryAdCount">
+    <Parameter Name="bookStatus" Type="System.Int32" DbType="Int" />
+    <ElementType Name="spMainCategoryAdCountResult">
+      <Column Name="MainCategoryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spOnlineAdSelect" Method="spOnlineAdSelect">
+    <Parameter Name="ParentCategoryId" Parameter="parentCategoryId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="SubCategoryId" Parameter="subCategoryId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="LocationId" Parameter="locationId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="AreaId" Parameter="areaId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="KeyWord" Parameter="keyWord" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="BookStatus" Parameter="bookStatus" Type="System.Int32" DbType="Int" />
+    <ElementType Name="spOnlineAdSelectResult">
+      <Column Name="OnlineAdId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Heading" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="NumOfViews" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Posted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Ending" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Location" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AdText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Category" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DocumentId" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spOnlineAdSelectByCategory" Method="spOnlineAdSelectByCategory">
+    <Parameter Name="CategoryId" Parameter="categoryId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="bookStatus" Type="System.Int32" DbType="Int" />
+    <ElementType Name="spOnlineAdSelectByCategoryResult">
+      <Column Name="OnlineAdId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Heading" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="NumOfViews" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Posted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Ending" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Location" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AdText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Category" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DocumentId" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spOnlineAdSelectByLineAdDesign" Method="spOnlineAdSelectByLineAdDesign">
+    <Parameter Name="LineDesignId" Parameter="lineDesignId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="spOnlineAdSelectByLineAdDesignResult">
+      <Column Name="AdDesignId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ContactName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="ContactType" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="ContactValue" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Heading" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="HtmlText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="LocationAreaId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LocationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NumOfViews" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OnlineAdId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spOnlineAdSelectRecentlyAdded" Method="spOnlineAdSelectRecentlyAdded">
+    <Parameter Name="bookStatus" Type="System.Int32" DbType="Int" />
+    <ElementType Name="spOnlineAdSelectRecentlyAddedResult">
+      <Column Name="OnlineAdId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AdBookingId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Heading" Type="System.String" DbType="NVarChar(43)" CanBeNull="true" />
+      <Column Name="AdText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DocumentId" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="AdBookingId1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Category" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spOnlineAdSelectUserCurrent" Method="spOnlineAdSelectUserCurrent">
+    <Parameter Name="UserId" Parameter="userId" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="BookingStatus" Parameter="bookingStatus" Type="System.Int32" DbType="Int" />
+    <ElementType Name="spOnlineAdSelectUserCurrentResult">
+      <Column Name="AdDesignID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BookReference" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="AdBookingId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(28)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(9)" CanBeNull="true" />
+      <Column Name="Category" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndDate1" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spOnlineAdSelectUserExpired" Method="spOnlineAdSelectUserExpired">
+    <Parameter Name="UserId" Parameter="userId" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="EndDate" Parameter="endDate" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="spOnlineAdSelectUserExpiredResult">
+      <Column Name="AdDesignID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BookReference" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="AdBookingId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AdTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(28)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(9)" CanBeNull="true" />
+      <Column Name="Category" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndDate1" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spOnlineAdSelectUserScheduled" Method="spOnlineAdSelectUserScheduled">
+    <Parameter Name="UserId" Parameter="userId" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="BookingStatus" Parameter="bookingStatus" Type="System.Int32" DbType="Int" />
+    <ElementType Name="spOnlineAdSelectUserScheduledResult">
+      <Column Name="AdDesignID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BookReference" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="AdBookingId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(28)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(9)" CanBeNull="true" />
+      <Column Name="Category" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spPublicationCategories" Method="spPublicationCategories">
+    <Parameter Name="PublicationID" Parameter="publicationID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ParentID" Parameter="parentID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="MainCategoryID" Parameter="mainCategoryID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="spPublicationCategoriesResult">
+      <Column Name="PublicationCategoryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="ParentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MainCategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PublicationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spPublicationCategoriesByPubId" Method="spPublicationCategoriesByPubId">
+    <Parameter Name="PublicationID" Parameter="publicationID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ParentID" Parameter="parentID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="spPublicationCategoriesByPubIdResult">
+      <Column Name="PublicationCategoryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="ParentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MainCategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PublicationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spPublicationDeadlineSelect" Method="spPublicationDeadlineSelect">
+    <Parameter Name="PublicationID" Parameter="publicationID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="spPublicationDeadlineSelectResult">
+      <Column Name="PublicationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EditionId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EditionDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Deadline" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Publication" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spPublicationEditionAndDeadlines" Method="spPublicationEditionAndDeadlines">
+    <ElementType Name="spPublicationEditionAndDeadlinesResult">
+      <Column Name="PublicationId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="NextEdition" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="NextDeadline" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spPublicationEditions" Method="spPublicationEditions">
+    <Parameter Name="StartDate" Parameter="startDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="PublicationId" Parameter="publicationId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="spPublicationEditionsResult">
+      <Column Name="EditionDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spPublicationSpecialRateAdd" Method="spPublicationSpecialRateAdd">
+    <Parameter Name="PublicationId" Parameter="publicationId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="MainCategoryId" Parameter="mainCategoryId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="SpecialRateId" Parameter="specialRateId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ClearCurrentRates" Parameter="clearCurrentRates" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.spRatecardsByCategory" Method="spRatecardsByCategory">
+    <Parameter Name="categoryId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="spRatecardsByCategoryResult">
+      <Column Name="Publication" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Rate" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="MinCharge" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="MaxCharge" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="RatePerMeasureUnit" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="MeasureUnitLimit" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PhotoCharge" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="BoldHeading" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="OnlineEditionBundle" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spReportIncomeReport" Method="spReportIncomeReport">
+    <Parameter Name="startDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="endDate" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="spReportIncomeReportResult">
+      <Column Name="TransactionDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BookReference" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BookingType" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="TransactionType" Type="System.String" DbType="VarChar(11)" CanBeNull="true" />
+      <Column Name="PriceExGST" Type="System.Decimal" DbType="Decimal(21,5)" CanBeNull="true" />
+      <Column Name="GST" Type="System.Decimal" DbType="Decimal(21,5)" CanBeNull="true" />
+      <Column Name="TotalPrice" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spReportWeeklySales" Method="spReportWeeklySales">
+    <Parameter Name="pubid" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ed" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="status" Type="System.Int32" DbType="Int" />
+    <Parameter Name="subCategoryId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="spReportWeeklySalesResult">
+      <Column Name="iFlogID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Category" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SubCategory" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BookReference" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="BookingType" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(9)" CanBeNull="true" />
+      <Column Name="NumOfWords" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BoldHeadings" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Photos" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Publication" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PriceExGST" Type="System.Decimal" DbType="Decimal(21,5)" CanBeNull="true" />
+      <Column Name="GST" Type="System.Decimal" DbType="Decimal(21,5)" CanBeNull="true" />
+      <Column Name="TotalPrice" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spSpecialRateDelete" Method="spSpecialRateDelete">
+    <Parameter Name="specialRateId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="isCascade" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.spSpecialRatePublications" Method="spSpecialRatePublications">
+    <Parameter Name="specialRateId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="spSpecialRatePublicationsResult">
+      <Column Name="Publication" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AdType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PublicationId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="SortOrder" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spSpecialRatesByCategory" Method="spSpecialRatesByCategory">
+    <Parameter Name="mainCategoryId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="spSpecialRatesByCategoryResult">
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="SpecialRateId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NumOfInsertions" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MaximumWords" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SetPrice" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Discount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="NumOfAds" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MainCategoryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spTransactionsByUser" Method="spTransactionsByUser">
+    <Parameter Name="UserId" Parameter="userId" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="StartDate" Parameter="startDate" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="spTransactionsByUserResult">
+      <Column Name="[Ref No]" Member="Ref_No" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TransactionDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TransactionType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Category" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="NumOfAds" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.usp_LineAdTheme__FetchBackgroundColour" Method="usp_LineAdTheme__FetchBackgroundColour">
+    <Parameter Name="HeaderColourCode" Parameter="headerColourCode" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="BorderColourCode" Parameter="borderColourCode" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="usp_LineAdTheme__FetchBackgroundColourResult">
+      <Column Name="BackgroundColourCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="BackgroundColourName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.usp_LineAdTheme__FetchBorderColour" Method="usp_LineAdTheme__FetchBorderColour">
+    <Parameter Name="HeaderColourCode" Parameter="headerColourCode" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="BackgroundColourCode" Parameter="backgroundColourCode" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="usp_LineAdTheme__FetchBorderColourResult">
+      <Column Name="BorderColourCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="BorderColourName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.usp_LineAdTheme__FetchHeaderColour" Method="usp_LineAdTheme__FetchHeaderColour">
+    <Parameter Name="BorderColourCode" Parameter="borderColourCode" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="BackgroundColourCode" Parameter="backgroundColourCode" Type="System.String" DbType="VarChar(10)" />
+    <ElementType Name="usp_LineAdTheme__FetchHeaderColourResult">
+      <Column Name="HeaderColourCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="HeaderColourName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.usp_MainCategory__SelectForRateCard" Method="usp_MainCategory__SelectForRateCard">
+    <Parameter Name="RateCardId" Parameter="rateCardId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="usp_MainCategory__SelectForRateCardResult">
+      <Column Name="MainCategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.usp_Publication__SelectForRateCard" Method="usp_Publication__SelectForRateCard">
+    <Parameter Name="RateCardId" Parameter="rateCardId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="usp_Publication__SelectForRateCardResult">
+      <Column Name="PublicationId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.usp_PublicationRateCard__Add" Method="usp_PublicationRateCard__Add">
+    <Parameter Name="PublicationId" Parameter="publicationId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="MainCategoryId" Parameter="mainCategoryId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="RatecardId" Parameter="ratecardId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ClearCurrentRates" Parameter="clearCurrentRates" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.usp_PublicationRateCard__Select" Method="usp_PublicationRateCard__Select">
+    <Parameter Name="PublicationId" Parameter="publicationId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="MainCategoryId" Parameter="mainCategoryId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="AdTypeId" Parameter="adTypeId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="usp_PublicationRateCard__SelectResult">
+      <Column Name="PublicationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PublicationName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PublicationRateId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PublicationAdTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PublicationCategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PublicationCategoryName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RatecardName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RatecardId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MinCharge" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="MaxCharge" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="RatePerMeasureUnit" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="MeasureUnitLimit" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PhotoCharge" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="BoldHeading" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="LineAdSuperBoldHeading" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="LineAdColourHeading" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="LineAdColourBorder" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="LineAdColourBackground" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="LineAdExtraImage" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="OnlineEditionBundle" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.usp_RateCard__Delete" Method="usp_RateCard__Delete">
+    <Parameter Name="RateCardId" Parameter="rateCardId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IsCascade" Parameter="isCascade" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>

@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using Paramount.Common.DataTransferObjects.Banner;
 
-namespace Paramount.DataService
+namespace Paramount.Betterclassifieds.DataService
 {
     public interface IDataProvider<T> where T : class, IDataProvider 
     {

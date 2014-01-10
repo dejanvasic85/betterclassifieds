@@ -1,19 +1,20 @@
-﻿using System.Collections.ObjectModel;
-using System.Data.Linq;
-using System.Linq;
+﻿using Paramount.Betterclassifieds.DataService.LinqObjects;
 using Paramount.Common.DataTransferObjects;
 using Paramount.Common.DataTransferObjects.Banner;
 using Paramount.Common.DataTransferObjects.Billing;
 using Paramount.Common.DataTransferObjects.Common;
 using Paramount.Common.DataTransferObjects.LocationService;
-using Paramount.DataService.LinqObjects;
-namespace Paramount.DataService
+using System.Collections.ObjectModel;
+using System.Data.Linq;
+using System.Linq;
+
+namespace Paramount.Betterclassifieds.DataService
 {
+    using Common.DataTransferObjects.Betterclassifieds;
+    using Common.DataTransferObjects.DSL;
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using Common.DataTransferObjects.Betterclassifieds;
-    using Common.DataTransferObjects.DSL;
 
     public static class Extensions
     {

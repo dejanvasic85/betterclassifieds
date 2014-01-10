@@ -1,11 +1,10 @@
-﻿namespace Paramount.Services
+﻿using Paramount.Betterclassifieds.DataService;
+
+namespace Paramount.Services
 {
-    using System;
-    using System.Data;
-    using Common.ServiceContracts;
-    using DataService;
     using Common.DataTransferObjects.EventService.Messages;
-    using Paramount.Common.DataTransferObjects;
+    using Common.ServiceContracts;
+    using System;
 
     public class EventService:IEventService
     {

@@ -153,7 +153,6 @@
     <Compile Include="Framework\Slug.cs" />
     <Compile Include="IBaseView.cs" />
     <Compile Include="Framework\Security\ClassifiedSqlMembershipProvider.cs" />
-    <Compile Include="Repository\AdRepository.cs" />
     <Compile Include="Repository\AppConfig.cs" />
     <Compile Include="Repository\ClientConfig.cs" />
     <Compile Include="Repository\EditionRepository.cs" />

@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=1.1.0.188, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Release\ThirdParty\Automapper 1.1\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -50,16 +54,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BannerDataProvider.cs" />
-    <Compile Include="BannerGroupDataProvider.cs" />
-    <Compile Include="BannerRow.cs" />
-    <Compile Include="BetterclassifiedDataService.cs" />
+    <Compile Include="AdoModels\BannerDataProvider.cs" />
+    <Compile Include="AdoModels\BannerGroupDataProvider.cs" />
+    <Compile Include="AdoModels\BannerRow.cs" />
+    <Compile Include="AdoModels\BetterclassifiedDataService.cs" />
     <Compile Include="AdoModels\ActivitySummaryRow.cs" />
-    <Compile Include="BillingSettingsDataProvider.cs" />
+    <Compile Include="AdoModels\BillingSettingsDataProvider.cs" />
     <Compile Include="AdoModels\BroadcastActivityRow.cs" />
-    <Compile Include="CommonDataProvider.cs" />
+    <Compile Include="AdoModels\CommonDataProvider.cs" />
     <Compile Include="AdoModels\ExpiredAdRow.cs" />
-    <Compile Include="InvoiceDataProvider.cs" />
+    <Compile Include="AdoModels\InvoiceDataProvider.cs" />
     <Compile Include="LinqObjects\BillingDatabaseModel.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -76,22 +80,22 @@
       <DependentUpon>Common.dbml</DependentUpon>
     </Compile>
     <Compile Include="LinqObjects\DataContextFactory.cs" />
-    <Compile Include="ShoppingCartDataProvider.cs" />
-    <Compile Include="BillingDataService.cs" />
-    <Compile Include="BroadcastDataService.cs" />
+    <Compile Include="AdoModels\ShoppingCartDataProvider.cs" />
+    <Compile Include="AdoModels\BillingDataService.cs" />
+    <Compile Include="AdoModels\BroadcastDataService.cs" />
     <Compile Include="AdoModels\EmailBroadcastEntryRow.cs" />
     <Compile Include="AdoModels\EmailBroadcastRow.cs" />
     <Compile Include="AdoModels\EmailTemplateRow.cs" />
-    <Compile Include="CRMDataService.cs" />
-    <Compile Include="DslDataService.cs" />
+    <Compile Include="AdoModels\CRMDataService.cs" />
+    <Compile Include="AdoModels\DslDataService.cs" />
     <Compile Include="LinqObjects\EvenServiceClasses.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EvenServiceClasses.dbml</DependentUpon>
     </Compile>
-    <Compile Include="EventDataProvider.cs" />
-    <Compile Include="Extensions.cs" />
-    <Compile Include="IDataProvider.cs" />
+    <Compile Include="AdoModels\EventDataProvider.cs" />
+    <Compile Include="AdoModels\Extensions.cs" />
+    <Compile Include="AdoModels\IDataProvider.cs" />
     <Compile Include="LinqObjects\BannerDatabaseModel.cs">
       <DependentUpon>BannerDatabaseModel.dbml</DependentUpon>
     </Compile>
@@ -109,18 +113,19 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="LocationDataService.cs" />
-    <Compile Include="MembershipDataProvider.cs" />
-    <Compile Include="ParamountAccountDataService.cs" />
-    <Compile Include="Proc.cs" />
+    <Compile Include="AdoModels\LocationDataService.cs" />
+    <Compile Include="AdoModels\MembershipDataProvider.cs" />
+    <Compile Include="AdoModels\ParamountAccountDataService.cs" />
+    <Compile Include="AdoModels\Proc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="RoleDataProvider.cs" />
-    <Compile Include="Utils.cs" />
+    <Compile Include="AdoModels\RoleDataProvider.cs" />
+    <Compile Include="AdoModels\Utils.cs" />
+    <Compile Include="Repository\AdRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ApplicationBlock\Configuration\ApplicationBlock.Configuration.csproj">
@@ -212,11 +217,7 @@
       <DependentUpon>Common.dbml</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BetterclassifiedModels\" />
-    <Folder Include="Broadcast\" />
-    <Folder Include="Repository\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="LinqObjects\Classifieds.dbml.layout">
       <DependentUpon>Classifieds.dbml</DependentUpon>

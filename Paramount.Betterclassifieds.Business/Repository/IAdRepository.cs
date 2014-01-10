@@ -6,7 +6,6 @@ namespace Paramount.Betterclassifieds.Business.Repository
 
     public interface IAdRepository
     {
-        OnlineAdModel GetOnlineAdByBooking(int bookingId);
         TutorAdModel GetTutorAd(int onlineAdId);
         void UpdateTutor(TutorAdModel tutorAdModel);
         List<OnlineAdModel> GetLatestAds(int takeLast = 10);

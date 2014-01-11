@@ -24,7 +24,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             // Call the given that creates the categories first
             GivenParentCategoryAndSubCategory(parentCategory, childCategory);
 
-            int? adId = dataManager.AddOrUpdateOnlineAd(adTitle, parentCategory, childCategory);
+            int? adId = dataManager.DropAndAddOnlineAd(adTitle, parentCategory, childCategory);
 
             ScenarioContext.Current.Add("AdId", adId);
         }
@@ -32,7 +32,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Given(@"The parent category ""(.*)"" and sub category ""(.*)""")]
         public void GivenParentCategoryAndSubCategory(string parentCategory, string childCategory)
         {
-            dataManager.AddOrUpdateCategory(parentCategory, childCategory);
+            dataManager.AddCategoryIfNotExists(parentCategory, childCategory);
         }
 
         [When(@"I navigate to ""(.*)""")]

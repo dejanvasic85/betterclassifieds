@@ -3,9 +3,12 @@
 	As a registered user
 	I want to be able to go through the booking steps and submit a new booking
 
-@booking
+@booking @web
 Scenario: Submit free booking with print and online ad
-	Given The category "Selenium child" and publication "Selenium Publication" is a free category for online and line ads
+	Given AdTypes "LINE" and "ONLINE" 
+	And Publication "Selenium Publication"
+	And There is at least one Online Publication
+	And The parent category "Selenium Parent" and category "Selenium child" 
 	And the publication "Selenium Publication" has at least 10 editions
 	And I am a registered user with username "bdduser" and password "password123"
 	When I navigate to the login page

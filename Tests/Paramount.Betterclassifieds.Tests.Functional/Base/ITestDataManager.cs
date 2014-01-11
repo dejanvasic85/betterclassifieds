@@ -9,11 +9,16 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
     public interface ITestDataManager : IDisposable
     {
         // Categories
-        int AddOrUpdateCategory(string name, string parent);
+        int AddCategoryIfNotExists(string name, string parent);
+        int? GetCategoryIdForTitle(string categoryName);
+
+        // Publications
+        void AddPublicationIfNotExists(string publicationName);
 
         // Ads
-        int AddOrUpdateOnlineAd(string adTitle, string categoryName, string subCategoryName);
+        int DropAndAddOnlineAd(string adTitle, string categoryName, string subCategoryName);
         void DropOnlineAdIfExists(string adTitle);
+        void AddAdTypeIfNotExists(string lineAdCode);
 
         // Users
         ITestDataManager DropUserIfExists(string username);
@@ -21,5 +26,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 
         // Emails / Notifications
         List<Email> GetSentEmailsFor(string email);
+
+
     }
 }

@@ -23,17 +23,42 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             membershipDb = new SqlConnection(ConfigurationManager.ConnectionStrings["MembershipDb"].ConnectionString);
         }
 
-        public int AddOrUpdateOnlineAd(string adTitle, string categoryName, string subCategoryName)
+        public void AddPublicationIfNotExists(string publicationName)
+        {
+            using (var scope = new TransactionScope())
+            {
+                var publication = new
+                    {
+                        Title = publicationName,
+                        Description = "Selenium Paper",
+                        PublicationTypeId = 1
+                    };
+
+                var publicationId = classifiedDb.GetIdForTable("Publication", publicationName);
+                if (publicationId.HasValue)
+                    return;
+
+                // Create new publication
+                classifiedDb.InsertIntoTable("Publication", new { });
+
+
+                scope.Complete();
+            }
+        }
+
+
+
+        public int DropAndAddOnlineAd(string adTitle, string categoryName, string subCategoryName)
         {
             DropOnlineAdIfExists(adTitle);
 
             using (var scope = new TransactionScope())
             {
-                var adId = classifiedDb.InsertTable("Ad", new { title = adTitle });
+                var adId = classifiedDb.InsertIntoTable("Ad", new { title = adTitle });
 
                 var mainCategoryId = GetCategoryIdForTitle(categoryName);
 
-                int? bookingId = classifiedDb.InsertTable("AdBooking", new
+                int? bookingId = classifiedDb.InsertIntoTable("AdBooking", new
                     {
                         @StartDate = DateTime.Now.AddDays(-1),
                         @EndDate = DateTime.Now.AddDays(30),
@@ -47,9 +72,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                         @Insertions = 1
                     });
 
-                var adDesignId = classifiedDb.InsertTable("AdDesign", new { adId, @adTypeId = 2 });
+                var adDesignId = classifiedDb.InsertIntoTable("AdDesign", new { adId, @adTypeId = 2 });
 
-                var onlineAdid = classifiedDb.InsertTable("OnlineAd", new
+                var onlineAdid = classifiedDb.InsertIntoTable("OnlineAd", new
                     {
                         @AdDesignId = adDesignId,
                         @Heading = adTitle,
@@ -71,33 +96,62 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
         {
             // Fetch the AdDesign
 
-            var adDesignId = classifiedDb.Query<int?>("SELECT ds.AdDesignId FROM AdDesign ds JOIN OnlineAd o ON o.AdDesignId = ds.AdDesignId AND o.Heading = @title", new { @title = adTitle }).FirstOrDefault();
-
-            if (!adDesignId.HasValue)
-                return;
-
-            var adId = classifiedDb.Query<int?>("SELECT a.AdId FROM Ad a JOIN AdDesign ds ON ds.AdId = a.AdId WHERE ds.AdDesignId = @adDesignId", new { adDesignId }).FirstOrDefault();
-
-            // Let's drop everything ! Starting from the online ad
-            classifiedDb.ExecuteSql("DELETE from OnlineAd WHERE AdDesignId = @adDesignId", new { adDesignId });
-            classifiedDb.ExecuteSql("DELETE from AdDesign WHERE AdDesignId = @adDesignId", new { adDesignId });
-
-            if (adId.HasValue)
+            using (var scope = new TransactionScope())
             {
-                classifiedDb.ExecuteSql("DELETE FROM AdBooking WHERE AdId = @adId", new { adId });
-                classifiedDb.ExecuteSql("DELETE FROM Ad WHERE AdId = @adId", new {adId});
+                var adDesignId =
+                    classifiedDb.Query<int?>(
+                        "SELECT ds.AdDesignId FROM AdDesign ds JOIN OnlineAd o ON o.AdDesignId = ds.AdDesignId AND o.Heading = @title",
+                        new { @title = adTitle }).FirstOrDefault();
+
+                if (!adDesignId.HasValue)
+                    return;
+
+                var adId =
+                    classifiedDb.Query<int?>(
+                        "SELECT a.AdId FROM Ad a JOIN AdDesign ds ON ds.AdId = a.AdId WHERE ds.AdDesignId = @adDesignId",
+                        new { adDesignId }).FirstOrDefault();
+
+                // Let's drop everything ! Starting from the online ad
+                classifiedDb.ExecuteSql("DELETE from OnlineAd WHERE AdDesignId = @adDesignId", new { adDesignId });
+                classifiedDb.ExecuteSql("DELETE from AdDesign WHERE AdDesignId = @adDesignId", new { adDesignId });
+
+                if (adId.HasValue)
+                {
+                    classifiedDb.ExecuteSql("DELETE FROM AdBooking WHERE AdId = @adId", new { adId });
+                    classifiedDb.ExecuteSql("DELETE FROM Ad WHERE AdId = @adId", new { adId });
+                }
+
+                scope.Complete();
             }
+        }
+
+        public void AddAdTypeIfNotExists(string lineAdCode)
+        {
+            classifiedDb.AddIfNotExists("AdType", new
+                {
+                    Code = lineAdCode,
+                    Title = "Line Ad",
+                    Description = "Line Ad",
+                    PaperBased = true,
+                    Active = true
+                }, findBy: lineAdCode, findByColumnName: "Code");
         }
 
         public ITestDataManager DropUserIfExists(string username)
         {
             // Drop from user table
-            var userId = membershipDb.Query<Guid?>("SELECT UserId FROM aspnet_Users WHERE UserName = @username", new { username }).FirstOrDefault();
-            if (userId.HasValue)
+            using (var scope = new TransactionScope())
             {
-                membershipDb.Execute("DELETE FROM aspnet_Membership WHERE UserId = @userId", new { userId });
-                membershipDb.Execute("DELETE FROM aspnet_Users WHERE UserId = @userId", new { userId });
-                membershipDb.Execute("DELETE FROM UserProfile WHERE UserID = @userId", new { userId });
+                var userId =
+                    membershipDb.Query<Guid?>("SELECT UserId FROM aspnet_Users WHERE UserName = @username",
+                                              new { username }).FirstOrDefault();
+                if (userId.HasValue)
+                {
+                    membershipDb.Execute("DELETE FROM aspnet_Membership WHERE UserId = @userId", new { userId });
+                    membershipDb.Execute("DELETE FROM aspnet_Users WHERE UserId = @userId", new { userId });
+                    membershipDb.Execute("DELETE FROM UserProfile WHERE UserID = @userId", new { userId });
+                }
+                scope.Complete();
             }
 
             return this;
@@ -113,7 +167,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             return coreDb.Query<Email>("SELECT Subject, CreateDateTime FROM EmailBroadcastEntry WHERE Email = @email", new { email }).ToList();
         }
 
-        public int AddOrUpdateCategory(string name, string parent)
+        public int AddCategoryIfNotExists(string name, string parent)
         {
             using (var scope = new TransactionScope())
             {
@@ -121,21 +175,21 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                 var parentCategoryId = GetCategoryIdForTitle(parent);
                 if (!parentCategoryId.HasValue)
                 {
-                    parentCategoryId = classifiedDb.InsertTable("MainCategory", new { Title = parent });
+                    parentCategoryId = classifiedDb.InsertIntoTable("MainCategory", new { Title = parent });
                 }
 
                 // Create sub category
                 var categoryId = GetCategoryIdForTitle(name);
                 if (!categoryId.HasValue)
                 {
-                    classifiedDb.InsertTable("MainCategory", new { Title = name, ParentId = parentCategoryId });
+                    classifiedDb.InsertIntoTable("MainCategory", new { Title = name, ParentId = parentCategoryId });
                 }
                 scope.Complete();
                 return categoryId.GetValueOrDefault();
             }
         }
 
-        private int? GetCategoryIdForTitle(string categoryName)
+        public int? GetCategoryIdForTitle(string categoryName)
         {
             return classifiedDb.Query<int?>(
                 "SELECT MainCategoryId FROM MainCategory WHERE Title = @Title", new { Title = categoryName })

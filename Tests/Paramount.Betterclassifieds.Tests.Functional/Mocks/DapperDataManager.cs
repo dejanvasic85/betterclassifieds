@@ -25,10 +25,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 
         public int AddOrUpdateOnlineAd(string adTitle, string categoryName, string subCategoryName)
         {
-            var bookingId = GetBookingByOnlineTitle(adTitle);
-
-            if (bookingId.HasValue)
-                return bookingId.Value;
+            DropOnlineAdIfExists(adTitle);
 
             using (var scope = new TransactionScope())
             {
@@ -36,7 +33,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 
                 var mainCategoryId = GetCategoryIdForTitle(categoryName);
 
-                bookingId = classifiedDb.InsertTable("AdBooking", new
+                int? bookingId = classifiedDb.InsertTable("AdBooking", new
                     {
                         @StartDate = DateTime.Now.AddDays(-1),
                         @EndDate = DateTime.Now.AddDays(30),
@@ -70,13 +67,26 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             }
         }
 
-        private int? GetBookingByOnlineTitle(string adTitle)
+        public void DropOnlineAdIfExists(string adTitle)
         {
-            return classifiedDb.Query<int?>(
-                "SELECT  bk.AdBookingId FROM AdBooking bk JOIN " +
-                "AdDesign ds ON ds.AdId = bk.AdId JOIN " +
-                "OnlineAd o ON o.AdDesignId = ds.AdDesignId AND o.Heading = @title", new { @title = adTitle })
-                .FirstOrDefault();
+            // Fetch the AdDesign
+
+            var adDesignId = classifiedDb.Query<int?>("SELECT ds.AdDesignId FROM AdDesign ds JOIN OnlineAd o ON o.AdDesignId = ds.AdDesignId AND o.Heading = @title", new { @title = adTitle }).FirstOrDefault();
+
+            if (!adDesignId.HasValue)
+                return;
+
+            var adId = classifiedDb.Query<int?>("SELECT a.AdId FROM Ad a JOIN AdDesign ds ON ds.AdId = a.AdId WHERE ds.AdDesignId = @adDesignId", new { adDesignId }).FirstOrDefault();
+
+            // Let's drop everything ! Starting from the online ad
+            classifiedDb.ExecuteSql("DELETE from OnlineAd WHERE AdDesignId = @adDesignId", new { adDesignId });
+            classifiedDb.ExecuteSql("DELETE from AdDesign WHERE AdDesignId = @adDesignId", new { adDesignId });
+
+            if (adId.HasValue)
+            {
+                classifiedDb.ExecuteSql("DELETE FROM AdBooking WHERE AdId = @adId", new { adId });
+                classifiedDb.ExecuteSql("DELETE FROM Ad WHERE AdId = @adId", new {adId});
+            }
         }
 
         public ITestDataManager DropUserIfExists(string username)

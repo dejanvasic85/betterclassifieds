@@ -19,6 +19,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             this.testRouter = testRouter;
         }
 
+        [Given(@"I am a registered user with username ""(.*)"" and password ""(.*)""")]
+        public void GivenIAmARegisteredUserWithUsernameAndPassword(string username, string password)
+        {
+            // todo setup the user 
+            ScenarioContext.Current.Pending();
+        }
+
+        
         [Given(@"I navigate to the registration page")]
         public void GivenINavigateToTheRegistrationPage()
         {
@@ -76,6 +84,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
 
             var registrationPage = Resolve<Pages.RegisterNewUserPage>();
             registrationPage.ClickCreateUser();
+        }
+
+        [When(@"I navigate to the login page")]
+        public void WhenINavigateToTheLoginPage()
+        {
+            // todo navigate to the login page
+
+            ScenarioContext.Current.Pending();
         }
 
         [Then(@"the user ""(.*)"" should be created successfully")]

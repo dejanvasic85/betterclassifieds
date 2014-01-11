@@ -10,3 +10,4 @@
 - Adding new MVC 4 website as a module for iFlog website called Presentation
 - New library Paramount.ApplicationBlock.Mvc for managing MVC framework and modules
 - Fixing data layer to have classifieds linq and removing a lot of unused code.
+- Automated functional test for booking https://trello.com/c/AK23jSUI/81-automated-functional-test-for-new-booking

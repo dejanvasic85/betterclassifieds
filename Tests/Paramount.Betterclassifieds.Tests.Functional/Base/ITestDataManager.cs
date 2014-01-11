@@ -13,6 +13,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 
         // Ads
         int AddOrUpdateOnlineAd(string adTitle, string categoryName, string subCategoryName);
+        void DropOnlineAdIfExists(string adTitle);
 
         // Users
         ITestDataManager DropUserIfExists(string username);

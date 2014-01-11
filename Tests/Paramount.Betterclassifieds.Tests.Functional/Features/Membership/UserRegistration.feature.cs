@@ -86,8 +86,8 @@ this.ScenarioSetup(scenarioInfo);
 #line 11
  testRunner.And("I click Next to proceed to account details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 12
- testRunner.And("I have entered my account details \"bdduser\", \"password123\", \"dejanvasic@outlook.c" +
-                    "om\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I have entered my account details \"bdduser\", \"password123\", \"bdd@somefakeaddress." +
+                    "com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 13
  testRunner.And("I click check availability button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 14
@@ -100,7 +100,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 17
  testRunner.Then("the user \"bdduser\" should be created successfully", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 18
- testRunner.And("a registration email should be sent to \"dejanvasic@outlook.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("a registration email should be sent to \"bdd@somefakeaddress.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

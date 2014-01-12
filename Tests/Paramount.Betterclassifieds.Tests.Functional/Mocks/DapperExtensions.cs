@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using Dapper;
 
@@ -9,7 +8,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 {
     public static class DapperExtensions
     {
-        public static int InsertIntoTable(this IDbConnection connection, string table , object param)
+        public static int Add(this IDbConnection connection, string table , object param)
         {
             var queryBuilder = new StringBuilder(string.Format("INSERT INTO {0} ", table));
             var properties = param.GetType().GetProperties();
@@ -18,22 +17,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             queryBuilder.Append(" ) VALUES ( ");
             queryBuilder.Append(String.Join(",", properties.Select(p => "@" + p.Name)));
             queryBuilder.Append(" ) ");
-
-            return Insert(connection, queryBuilder.ToString(), param);
-        }
-
-        private static int Insert(this IDbConnection connection, string query, object param)
-        {
-            return connection.Query<int>(query + "; SELECT CAST(SCOPE_IDENTITY() as int)", param).Single();
-        }
-
-        public static IDbConnection ExecuteSql(this IDbConnection connection, string query, object param)
-        {
-            if (connection.Execute(query, param) == 0)
-            {
-                throw new DataException("No records have been affected");
-            }
-            return connection; // for chaining methods
+            queryBuilder.Append(" ; SELECT CAST(SCOPE_IDENTITY() as int)");
+            
+            return connection.Query<int>(queryBuilder.ToString(), param).Single();
         }
 
         public static int? GetIdForTable(this IDbConnection connection, string table, string findBy, string findByColumnName = "Title")
@@ -47,21 +33,16 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
         {
             // Check if the table record exists
             var id = connection.GetIdForTable(table, findBy, findByColumnName);
-            return id.HasValue ? id : connection.InsertIntoTable(table, param);
+            return id.HasValue ? id : connection.Add(table, param);
         }
 
-        //public static IDbConnection Insert<T>(this IDbConnection connection, string query, object param, Action<T> setId)
-        //{
-        //    connection.Execute(query, param);
-        //    connection.SetIdentity(setId);
-        //    return connection;
-        //}
-
-        //private static void SetIdentity<T>(this IDbConnection connection, Action<T> setId)
-        //{
-        //    var identity = connection.Query("SELECT @@IDENTITY AS Id").Single();
-        //    T newId = (T)identity.Id;
-        //    setId(newId);
-        //}
+        public static IDbConnection ExecuteSql(this IDbConnection connection, string query, object param)
+        {
+            if (connection.Execute(query, param) == 0)
+            {
+                throw new DataException("No records have been affected");
+            }
+            return connection; // for chaining methods
+        }
     }
 }

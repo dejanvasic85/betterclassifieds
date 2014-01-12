@@ -13,12 +13,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
         int? GetCategoryIdForTitle(string categoryName);
 
         // Publications
-        void AddPublicationIfNotExists(string publicationName);
+        int AddPublicationIfNotExists(string publicationName, int publicationTypeId = 1, string frequency = Constants.FrequencyType.Weekly, int frequencyValue = 3);
+        int AddOnlinePublicationIfNotExists();
+        void AddEditionsToPublication(string publicationName, int numberOfEditions);
 
         // Ads
         int DropAndAddOnlineAd(string adTitle, string categoryName, string subCategoryName);
         void DropOnlineAdIfExists(string adTitle);
-        void AddAdTypeIfNotExists(string lineAdCode);
+        void AddAdTypeIfNotExists(string adTypeCode);
 
         // Users
         ITestDataManager DropUserIfExists(string username);
@@ -26,7 +28,5 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 
         // Emails / Notifications
         List<Email> GetSentEmailsFor(string email);
-
-
     }
 }

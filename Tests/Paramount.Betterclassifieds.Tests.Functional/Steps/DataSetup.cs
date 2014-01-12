@@ -27,11 +27,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         {
             _dataManager.DropUserIfExists(username);
         }
-        
-        [Given(@"The parent category ""(.*)"" and category ""(.*)""")]
-        public void GivenTheParentCategoryAndCategory(string category, string su)
+
+        [Given(@"the publication ""(.*)"" has at least (.*) editions")]
+        public void GivenThePublicationHasAtLeastEditions(string publicationName, int numberOfEditions)
         {
-            ScenarioContext.Current.Pending();
+            _dataManager.AddEditionsToPublication(publicationName, numberOfEditions);
         }
     }
 }

@@ -23,67 +23,92 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             membershipDb = new SqlConnection(ConfigurationManager.ConnectionStrings["MembershipDb"].ConnectionString);
         }
 
-        public void AddPublicationIfNotExists(string publicationName)
+        public int AddPublicationIfNotExists(string publicationName, int publicationTypeId = 1, string frequency = Constants.FrequencyType.Weekly,
+            int frequencyValue = 3)
         {
             using (var scope = new TransactionScope())
             {
                 var publication = new
-                    {
-                        Title = publicationName,
-                        Description = "Selenium Paper",
-                        PublicationTypeId = 1
-                    };
+                {
+                    Title = publicationName,
+                    Description = "Selenium Paper",
+                    PublicationTypeId = publicationTypeId,
+                    FrequencyType = frequency,
+                    FrequencyValue = frequencyValue,
+                    Active = true
+                };
 
-                var publicationId = classifiedDb.GetIdForTable("Publication", publicationName);
-                if (publicationId.HasValue)
-                    return;
-
-                // Create new publication
-                classifiedDb.InsertIntoTable("Publication", new { });
-
+                var publicationId = classifiedDb.AddIfNotExists(Constants.Table.Publication, publication, findBy: publicationName);
 
                 scope.Complete();
+
+                return publicationId.GetValueOrDefault();
             }
         }
 
+        public int AddOnlinePublicationIfNotExists()
+        {
+            var onlinePublicationTypeId = classifiedDb.GetIdForTable(Constants.Table.PublicationType, findBy: Constants.PublicationType.Online, findByColumnName: "Code");
+            if (onlinePublicationTypeId.HasValue)
+            {
+                // There is an online publication already
+                // So return the id
+                var publicationId = classifiedDb.GetIdForTable(Constants.Table.Publication, findBy: onlinePublicationTypeId.ToString(), findByColumnName: "PublicationTypeId");
+                if (publicationId.HasValue)
+                    return publicationId.Value;
+            }
 
+            // Create an online publication 
+            return AddPublicationIfNotExists("Selenium Online Publication", onlinePublicationTypeId.GetValueOrDefault());
+        }
+
+        public void AddEditionsToPublication(string publicationName, int numberOfEditions)
+        {
+            // Todo 
+            throw new NotImplementedException();
+        }
 
         public int DropAndAddOnlineAd(string adTitle, string categoryName, string subCategoryName)
         {
             DropOnlineAdIfExists(adTitle);
 
+            return AddOnlineAd(adTitle, categoryName);
+        }
+
+        public int AddOnlineAd(string adTitle, string categoryName)
+        {
             using (var scope = new TransactionScope())
             {
-                var adId = classifiedDb.InsertIntoTable("Ad", new { title = adTitle });
+                var adId = classifiedDb.Add(Constants.Table.Ad, new { title = adTitle });
 
                 var mainCategoryId = GetCategoryIdForTitle(categoryName);
 
-                int? bookingId = classifiedDb.InsertIntoTable("AdBooking", new
-                    {
-                        @StartDate = DateTime.Now.AddDays(-1),
-                        @EndDate = DateTime.Now.AddDays(30),
-                        @TotalPrice = 0,
-                        @BookReference = "SEL-001",
-                        @AdId = adId,
-                        @UserId = "bdduser",
-                        @BookingStatus = 1,
-                        @MainCategoryId = mainCategoryId,
-                        @BookingDate = DateTime.Now,
-                        @Insertions = 1
-                    });
+                int? bookingId = classifiedDb.Add(Constants.Table.AdBooking, new
+                {
+                    @StartDate = DateTime.Now.AddDays(-1),
+                    @EndDate = DateTime.Now.AddDays(30),
+                    @TotalPrice = 0,
+                    @BookReference = "SEL-001",
+                    @AdId = adId,
+                    @UserId = "bdduser",
+                    @BookingStatus = 1,
+                    @MainCategoryId = mainCategoryId,
+                    @BookingDate = DateTime.Now,
+                    @Insertions = 1
+                });
 
-                var adDesignId = classifiedDb.InsertIntoTable("AdDesign", new { adId, @adTypeId = 2 });
+                var adDesignId = classifiedDb.Add(Constants.Table.AdDesign, new { adId, @adTypeId = 2 });
 
-                var onlineAdid = classifiedDb.InsertIntoTable("OnlineAd", new
-                    {
-                        @AdDesignId = adDesignId,
-                        @Heading = adTitle,
-                        @Description = adTitle,
-                        @HtmlText = adTitle,
-                        @NumOfViews = 100,
-                        @Price = 1500,
-                        @ContactName = "Sample Contact"
-                    });
+                var onlineAdid = classifiedDb.Add(Constants.Table.OnlineAd, new
+                {
+                    @AdDesignId = adDesignId,
+                    @Heading = adTitle,
+                    @Description = adTitle,
+                    @HtmlText = adTitle,
+                    @NumOfViews = 100,
+                    @Price = 1500,
+                    @ContactName = "Sample Contact"
+                });
 
                 // Commit transaction
                 scope.Complete();
@@ -98,18 +123,15 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 
             using (var scope = new TransactionScope())
             {
-                var adDesignId =
-                    classifiedDb.Query<int?>(
-                        "SELECT ds.AdDesignId FROM AdDesign ds JOIN OnlineAd o ON o.AdDesignId = ds.AdDesignId AND o.Heading = @title",
-                        new { @title = adTitle }).FirstOrDefault();
+                var adDesignId = classifiedDb.Query<int?>(
+                        "SELECT ds.AdDesignId FROM AdDesign ds JOIN OnlineAd o ON o.AdDesignId = ds.AdDesignId AND o.Heading = @title", new { @title = adTitle }).FirstOrDefault();
 
                 if (!adDesignId.HasValue)
                     return;
 
                 var adId =
                     classifiedDb.Query<int?>(
-                        "SELECT a.AdId FROM Ad a JOIN AdDesign ds ON ds.AdId = a.AdId WHERE ds.AdDesignId = @adDesignId",
-                        new { adDesignId }).FirstOrDefault();
+                        "SELECT a.AdId FROM Ad a JOIN AdDesign ds ON ds.AdId = a.AdId WHERE ds.AdDesignId = @adDesignId", new { adDesignId }).FirstOrDefault();
 
                 // Let's drop everything ! Starting from the online ad
                 classifiedDb.ExecuteSql("DELETE from OnlineAd WHERE AdDesignId = @adDesignId", new { adDesignId });
@@ -125,16 +147,16 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             }
         }
 
-        public void AddAdTypeIfNotExists(string lineAdCode)
+        public void AddAdTypeIfNotExists(string adTypeCode)
         {
-            classifiedDb.AddIfNotExists("AdType", new
+            classifiedDb.AddIfNotExists(Constants.Table.AdType, new
                 {
-                    Code = lineAdCode,
-                    Title = "Line Ad",
-                    Description = "Line Ad",
+                    Code = adTypeCode,
+                    Title = adTypeCode,
+                    Description = adTypeCode,
                     PaperBased = true,
                     Active = true
-                }, findBy: lineAdCode, findByColumnName: "Code");
+                }, findBy: adTypeCode, findByColumnName: "Code");
         }
 
         public ITestDataManager DropUserIfExists(string username)
@@ -171,20 +193,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
         {
             using (var scope = new TransactionScope())
             {
-                // Ensure that parent exists
-                var parentCategoryId = GetCategoryIdForTitle(parent);
-                if (!parentCategoryId.HasValue)
-                {
-                    parentCategoryId = classifiedDb.InsertIntoTable("MainCategory", new { Title = parent });
-                }
+                var parentCategoryId = classifiedDb.AddIfNotExists(Constants.Table.MainCategory, new { Title = parent }, parent);
 
-                // Create sub category
-                var categoryId = GetCategoryIdForTitle(name);
-                if (!categoryId.HasValue)
-                {
-                    classifiedDb.InsertIntoTable("MainCategory", new { Title = name, ParentId = parentCategoryId });
-                }
+                var categoryId = classifiedDb.AddIfNotExists(Constants.Table.MainCategory, new { Title = name, ParentId = parentCategoryId }, name);
+
                 scope.Complete();
+
                 return categoryId.GetValueOrDefault();
             }
         }

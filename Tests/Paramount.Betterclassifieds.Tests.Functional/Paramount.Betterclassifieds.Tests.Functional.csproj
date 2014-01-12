@@ -73,6 +73,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Base\BaseStep.cs" />
+    <Compile Include="Base\Constants.cs" />
     <Compile Include="Features\Booking\SubmitNewBooking.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -91,7 +92,7 @@
     <Compile Include="Base\BasePage.cs" />
     <Compile Include="Base\IConfig.cs" />
     <Compile Include="Base\TestRouter.cs" />
-    <Compile Include="Base\TestSetup.cs" />
+    <Compile Include="Steps\BeforeAndAfterTests.cs" />
     <Compile Include="Mocks\DapperExtensions.cs" />
     <Compile Include="Base\ITestDataManager.cs" />
     <Compile Include="Mocks\Models\Email.cs" />

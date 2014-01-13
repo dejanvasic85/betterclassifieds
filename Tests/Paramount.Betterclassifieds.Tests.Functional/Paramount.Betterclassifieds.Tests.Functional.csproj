@@ -132,6 +132,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\..\ApplicationBlock\Utility\Paramount.Utility.csproj">
+      <Project>{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}</Project>
+      <Name>Paramount.Utility</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Paramount.Betterclassifieds.Tests.Common\Paramount.Betterclassifieds.Tests.Common.csproj">
       <Project>{2afdfa95-be42-4afb-aeaf-f940b59914c1}</Project>
       <Name>Paramount.Betterclassifieds.Tests.Common</Name>

@@ -102,6 +102,7 @@
     <Compile Include="Dsl\DslQueryParam.cs" />
     <Compile Include="Extensions\ArrayExtensions.cs" />
     <Compile Include="Extensions\AttributeExtensions.cs" />
+    <Compile Include="DateTimeHelper.cs" />
     <Compile Include="Extensions\DictionaryExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />

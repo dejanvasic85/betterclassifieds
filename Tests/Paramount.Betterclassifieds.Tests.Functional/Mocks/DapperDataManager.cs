@@ -48,12 +48,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 
         public int AddOnlinePublicationIfNotExists()
         {
-            var onlinePublicationTypeId = classifiedDb.GetIdForTable(Constants.Table.PublicationType, findBy: Constants.PublicationType.Online, findByColumnName: "Code");
+            var onlinePublicationTypeId = classifiedDb.GetById(Constants.Table.PublicationType, findBy: Constants.PublicationType.Online, findByColumnName: "Code");
             if (onlinePublicationTypeId.HasValue)
             {
                 // There is an online publication already
                 // So return the id
-                var publicationId = classifiedDb.GetIdForTable(Constants.Table.Publication, findBy: onlinePublicationTypeId.ToString(), findByColumnName: "PublicationTypeId");
+                var publicationId = classifiedDb.GetById(Constants.Table.Publication, findBy: onlinePublicationTypeId.ToString(), findByColumnName: "PublicationTypeId");
                 if (publicationId.HasValue)
                     return publicationId.Value;
             }
@@ -64,8 +64,33 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 
         public void AddEditionsToPublication(string publicationName, int numberOfEditions)
         {
-            // Todo 
-            throw new NotImplementedException();
+            var nextEdition = DateTimeHelper.DateForNext(DayOfWeek.Wednesday);
+
+            using (var scope = new TransactionScope())
+            {
+                var publicationId = classifiedDb.GetById(Constants.Table.Publication, publicationName);
+
+                // Create a whole bunch of editions
+                for (int i = 0; i < numberOfEditions; i++)
+                {
+                    var editionDate = nextEdition.AddDays(i * 7);
+
+                    // Find by multiple criteria
+                    var editionId = classifiedDb
+                        .Query<int?>(
+                            " SELECT EditionId FROM " + Constants.Table.Edition +
+                            " WHERE PublicationId = @publicationId AND EditionDate = @editionDate", new { publicationId, editionDate })
+                        .FirstOrDefault();
+
+                    if (editionId.HasValue)
+                        continue;
+
+                    // Create the edition
+                    classifiedDb.Add(Constants.Table.Edition, new { publicationId, editionDate, deadline = editionDate.AddHours(-18), Active = true });
+                }
+
+                scope.Complete();
+            }
         }
 
         public int DropAndAddOnlineAd(string adTitle, string categoryName, string subCategoryName)

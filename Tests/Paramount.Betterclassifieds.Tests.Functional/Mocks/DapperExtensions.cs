@@ -22,7 +22,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             return connection.Query<int>(queryBuilder.ToString(), param).Single();
         }
 
-        public static int? GetIdForTable(this IDbConnection connection, string table, string findBy, string findByColumnName = "Title")
+        public static int? GetById(this IDbConnection connection, string table, string findBy, string findByColumnName = "Title")
         {
             var tableIdentifierName = string.Format("{0}{1}", table, "Id");
             var query = string.Format("SELECT {0} FROM {1} WHERE {2} = @queryParam", tableIdentifierName, table, findByColumnName);
@@ -32,7 +32,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
         public static int? AddIfNotExists(this IDbConnection connection, string table, object param, string findBy, string findByColumnName = "Title")
         {
             // Check if the table record exists
-            var id = connection.GetIdForTable(table, findBy, findByColumnName);
+            var id = connection.GetById(table, findBy, findByColumnName);
             return id.HasValue ? id : connection.Add(table, param);
         }
 

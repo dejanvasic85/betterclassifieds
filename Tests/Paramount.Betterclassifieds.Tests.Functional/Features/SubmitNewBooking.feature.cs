@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Paramount.Betterclassifieds.Tests.Functional.Features.Booking
+namespace Paramount.Betterclassifieds.Tests.Functional.Features
 {
     using TechTalk.SpecFlow;
     
@@ -81,7 +81,8 @@ this.ScenarioSetup(scenarioInfo);
 #line 9
  testRunner.Given("the publication \"Selenium Publication\" has at least 10 editions", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 10
- testRunner.And("I am a registered user with username \"bdduser\" and password \"password123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I am a registered user with username \"bdduser\" and password \"password123\" and ema" +
+                    "il \"bdd@somefakeaddress.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 11
  testRunner.When("I navigate to the login page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 12

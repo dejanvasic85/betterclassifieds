@@ -7,7 +7,7 @@ Feature: SubmitNewBooking
 @booking @web
 Scenario: Submit free booking with print and online ad
 	Given the publication "Selenium Publication" has at least 10 editions
-	And I am a registered user with username "bdduser" and password "password123"
+	And I am a registered user with username "bdduser" and password "password123" and email "bdd@somefakeaddress.com"
 	When I navigate to the login page
 	And I login with username "bdduser" and password "password123"
 	And I click on the Place New Ad button

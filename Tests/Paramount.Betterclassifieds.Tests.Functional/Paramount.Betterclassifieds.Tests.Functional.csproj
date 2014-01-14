@@ -53,6 +53,8 @@
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="TechTalk.SpecFlow">
       <HintPath>..\..\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
     </Reference>
@@ -74,17 +76,17 @@
   <ItemGroup>
     <Compile Include="Base\BaseStep.cs" />
     <Compile Include="Base\Constants.cs" />
-    <Compile Include="Features\Booking\SubmitNewBooking.feature.cs">
+    <Compile Include="Features\SubmitNewBooking.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SubmitNewBooking.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\Membership\UserRegistration.feature.cs">
+    <Compile Include="Features\UserRegistration.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>UserRegistration.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\Routes\OnlineAdRoute.feature.cs">
+    <Compile Include="Features\OnlineAdRoute.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>OnlineAdRoute.feature</DependentUpon>
@@ -109,16 +111,16 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Features\Booking\SubmitNewBooking.feature">
+    <None Include="Features\SubmitNewBooking.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SubmitNewBooking.feature.cs</LastGenOutput>
     </None>
     <None Include="Deploy_Disabled.ps1" />
-    <None Include="Features\Membership\UserRegistration.feature">
+    <None Include="Features\UserRegistration.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>UserRegistration.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\Routes\OnlineAdRoute.feature">
+    <None Include="Features\OnlineAdRoute.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>OnlineAdRoute.feature.cs</LastGenOutput>
     </None>
@@ -130,11 +132,23 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Folder Include="Features\Booking\" />
+    <Folder Include="Features\Membership\" />
+    <Folder Include="Features\Routes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ApplicationBlock\Configuration\ApplicationBlock.Configuration.csproj">
+      <Project>{ca9b2482-2a5b-4666-b6ee-0be6034fd9c7}</Project>
+      <Name>ApplicationBlock.Configuration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\ApplicationBlock\Utility\Paramount.Utility.csproj">
       <Project>{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}</Project>
       <Name>Paramount.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WebApplication\BetterClassified.UI\BetterClassified.UI.csproj">
+      <Project>{04e24b49-191f-44b6-833f-361c559f7b18}</Project>
+      <Name>BetterClassified.UI</Name>
     </ProjectReference>
     <ProjectReference Include="..\Paramount.Betterclassifieds.Tests.Common\Paramount.Betterclassifieds.Tests.Common.csproj">
       <Project>{2afdfa95-be42-4afb-aeaf-f940b59914c1}</Project>

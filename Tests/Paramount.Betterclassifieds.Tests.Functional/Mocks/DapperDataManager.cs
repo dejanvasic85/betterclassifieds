@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Transactions;
+using System.Web.Security;
 using Dapper;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
@@ -20,7 +21,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
         {
             classifiedDb = new SqlConnection(ConfigurationManager.ConnectionStrings["ClassifiedsDb"].ConnectionString);
             coreDb = new SqlConnection(ConfigurationManager.ConnectionStrings["CoreDb"].ConnectionString);
-            membershipDb = new SqlConnection(ConfigurationManager.ConnectionStrings["MembershipDb"].ConnectionString);
+            membershipDb = new SqlConnection(ConfigurationManager.ConnectionStrings["AppUserConnection"].ConnectionString);
         }
 
         public int AddPublicationIfNotExists(string publicationName, int publicationTypeId = 1, string frequency = Constants.FrequencyType.Weekly,
@@ -48,12 +49,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 
         public int AddOnlinePublicationIfNotExists()
         {
-            var onlinePublicationTypeId = classifiedDb.GetById(Constants.Table.PublicationType, findBy: Constants.PublicationType.Online, findByColumnName: "Code");
+            var onlinePublicationTypeId = classifiedDb.GetById(Constants.Table.PublicationType, queryFilter: Constants.PublicationType.Online, findBy: "Code");
             if (onlinePublicationTypeId.HasValue)
             {
                 // There is an online publication already
                 // So return the id
-                var publicationId = classifiedDb.GetById(Constants.Table.Publication, findBy: onlinePublicationTypeId.ToString(), findByColumnName: "PublicationTypeId");
+                var publicationId = classifiedDb.GetById(Constants.Table.Publication, queryFilter: onlinePublicationTypeId.ToString(), findBy: "PublicationTypeId");
                 if (publicationId.HasValue)
                     return publicationId.Value;
             }
@@ -184,7 +185,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                 }, findBy: adTypeCode, findByColumnName: "Code");
         }
 
-        public ITestDataManager DropUserIfExists(string username)
+        public void DropUserIfExists(string username)
         {
             // Drop from user table
             using (var scope = new TransactionScope())
@@ -200,13 +201,28 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                 }
                 scope.Complete();
             }
-
-            return this;
         }
 
         public bool UserExists(string username)
         {
             return membershipDb.Query("SELECT UserId FROM aspnet_Users WHERE UserName = @username", new { username }).Any();
+        }
+
+        public string AddUserIfNotExists(string username, string password, string email)
+        {
+            var userId = membershipDb.Query<string>("SELECT UserId FROM aspnet_Users WHERE UserName = @username", new { username }).FirstOrDefault();
+
+            if (userId.HasValue())
+                return userId;
+
+            using (var scope = new TransactionScope())
+            {
+                // Use the membership library to add the user (the easiest)
+                Membership.CreateUser(username, password, email);
+                scope.Complete();
+            }
+
+            return userId;
         }
 
         public List<Email> GetSentEmailsFor(string email)
@@ -219,11 +235,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             using (var scope = new TransactionScope())
             {
                 var parentCategoryId = classifiedDb.AddIfNotExists(Constants.Table.MainCategory, new { Title = parent }, parent);
-
                 var categoryId = classifiedDb.AddIfNotExists(Constants.Table.MainCategory, new { Title = name, ParentId = parentCategoryId }, name);
-
                 scope.Complete();
-
                 return categoryId.GetValueOrDefault();
             }
         }

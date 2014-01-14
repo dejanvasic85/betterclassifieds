@@ -23,10 +23,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
         void AddAdTypeIfNotExists(string adTypeCode);
 
         // Users
-        ITestDataManager DropUserIfExists(string username);
+        void DropUserIfExists(string username);
         bool UserExists(string username);
+        string AddUserIfNotExists(string username, string password, string email);
 
         // Emails / Notifications
         List<Email> GetSentEmailsFor(string email);
+        
     }
 }

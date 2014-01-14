@@ -9,29 +9,27 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
     [Binding]
     public class RegistrationSteps : BaseStep
     {
-        private readonly Mocks.ITestDataManager dataManager;
-        private readonly TestRouter testRouter;
+        private readonly Mocks.ITestDataManager _dataManager;
+        private readonly TestRouter _testRouter;
 
         public RegistrationSteps(IWebDriver webDriver, IConfig configuration, Mocks.ITestDataManager dataManager, TestRouter testRouter)
             : base(webDriver, configuration)
         {
-            this.dataManager = dataManager;
-            this.testRouter = testRouter;
+            this._dataManager = dataManager;
+            this._testRouter = testRouter;
         }
 
-        [Given(@"I am a registered user with username ""(.*)"" and password ""(.*)""")]
-        public void GivenIAmARegisteredUserWithUsernameAndPassword(string username, string password)
+        [Given(@"I am a registered user with username ""(.*)"" and password ""(.*)"" and email ""(.*)""")]
+        public void GivenIAmARegisteredUserWithUsernameAndPassword(string username, string password, string email)
         {
-            // todo setup the user 
-            ScenarioContext.Current.Pending();
+            _dataManager.AddUserIfNotExists(username, password, email);
         }
-
         
         [Given(@"I navigate to the registration page")]
         public void GivenINavigateToTheRegistrationPage()
         {
             var registrationPage = Resolve<Pages.RegisterNewUserPage>();
-            testRouter.NavigateTo(registrationPage);
+            _testRouter.NavigateTo(registrationPage);
         }
 
         [Given(@"I have entered my personal details ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)""")]
@@ -98,14 +96,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         public void ThenTheUserShouldBeCreatedSuccessfully(string username)
         {
             // Assert
-            dataManager.UserExists(username).IsTrue();
+            _dataManager.UserExists(username).IsTrue();
         }
 
         [Then(@"a registration email should be sent to ""(.*)""")]
         public void ThenARegistrationEmailShouldBeSentTo(string userEmail)
         {
             var registrationTime = ScenarioContext.Current.Get<DateTime>("StartRegistrationTime");
-            var emailsQueued = dataManager.GetSentEmailsFor(userEmail);
+            var emailsQueued = _dataManager.GetSentEmailsFor(userEmail);
 
             Assert.IsTrue(emailsQueued.Any(e => e.CreateDateTime >= registrationTime && e.Subject == "New Registration"));
         }

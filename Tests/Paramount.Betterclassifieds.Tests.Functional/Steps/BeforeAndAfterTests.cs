@@ -1,11 +1,10 @@
-﻿using System;
-using System.Configuration;
-using BoDi;
+﻿using BoDi;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using Paramount.Betterclassifieds.Tests.Functional.Mocks;
+using System.Configuration;
 using TechTalk.SpecFlow;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Steps
@@ -20,12 +19,52 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             _container = container;
         }
 
+        /// <summary>
+        /// All scenarios will require some implementations injected
+        /// </summary>
+        [BeforeScenario]
+        public void SetupTestDataRepository()
+        {
+            _container.RegisterInstanceAs(new TestConfiguration(), typeof(IConfig));
+            _container.RegisterInstanceAs(new DapperDataManager(), typeof(ITestDataManager));
+        }
+
         [BeforeScenario("web")]
         public void RegisterSeleniumDriver()
         {
-            IWebDriver driver;
+            // Create a web driver for all web tests
+            IWebDriver driver = GetDriverForBrowser(ConfigurationManager.AppSettings["Browser"].ToLower());
+            _container.RegisterInstanceAs(driver, typeof(IWebDriver));
+            
+            // Create instance and register for the page factory
+            _container.RegisterInstanceAs(new SeleniumPageFactory(driver), typeof(IPageFactory));
+        }
+        
+        [AfterScenario("web")]
+        public void DisposeSeleniumWebDriver()
+        {
+            _container.Resolve<IWebDriver>().Dispose();
+        }
 
-            switch (ConfigurationManager.AppSettings["Browser"].ToLower())
+        [BeforeFeature("booking")]
+        public static void SetupBookingFeature()
+        {
+            // Use the dapper manager to initialise some baseline test data for our booking scenarios
+            var dataManager = new DapperDataManager();
+
+            dataManager.AddAdTypeIfNotExists(Constants.AdType.LineAd);
+            dataManager.AddAdTypeIfNotExists(Constants.AdType.OnlineAd);
+            dataManager.AddPublicationIfNotExists("Selenium Publication");
+            dataManager.AddEditionsToPublication("Selenium Publication", 10);
+            dataManager.AddOnlinePublicationIfNotExists();
+            dataManager.AddCategoryIfNotExists("Selenium Child", "Selenium Parent");
+            dataManager.AddUserIfNotExists("bdduser", "password123", "bdd@somefakeaddress.com");
+        }
+
+        private static IWebDriver GetDriverForBrowser(string browserName)
+        {
+            IWebDriver driver;
+            switch (browserName)
             {
                 case "chrome":
                     driver = new ChromeDriver();
@@ -40,32 +79,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                     driver = new FirefoxDriver();
                     break;
             }
-            _container.RegisterInstanceAs(driver, typeof(IWebDriver));
+            return driver;
         }
 
-        [AfterScenario("web")]
-        public void DisposeSeleniumWebDriver()
-        {
-            _container.Resolve<IWebDriver>().Dispose();
-        }
-
-        [BeforeScenario]
-        public void SetupTestDataRepository()
-        {
-            _container.RegisterInstanceAs(new TestConfiguration(), typeof(IConfig));
-            _container.RegisterInstanceAs(new DapperDataManager(), typeof(ITestDataManager));
-        }
-
-        [BeforeFeature("booking")]
-        public static void SetupBookingFeature()
-        {
-            var dataManager = new DapperDataManager();
-
-            dataManager.AddAdTypeIfNotExists(Constants.AdType.LineAd);
-            dataManager.AddAdTypeIfNotExists(Constants.AdType.OnlineAd);
-            dataManager.AddPublicationIfNotExists("Selenium Publication");
-            dataManager.AddOnlinePublicationIfNotExists();
-            dataManager.AddCategoryIfNotExists("Selenium Child", "Selenium Parent");
-        }
     }
 }

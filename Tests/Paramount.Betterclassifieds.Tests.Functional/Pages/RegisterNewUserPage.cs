@@ -1,20 +1,14 @@
-﻿using System;
-using System.Threading;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
+    [TestPageUrl(RelativeUrl = "Register.aspx")]
     public class RegisterNewUserPage : BasePage
     {
         public RegisterNewUserPage(IWebDriver webDriver)
             : base(webDriver)
         { }
-
-        public override string RelativePath
-        {
-            get { return "Register.aspx"; }
-        }
 
         public void SetPersonalDetails(string firstName, string lastName, string address, string suburb, string state, string postcode, string telephone)
         {

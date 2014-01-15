@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
-using OpenQA.Selenium;
+using Paramount.Betterclassifieds.Tests.Functional.Pages;
 using TechTalk.SpecFlow;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Steps
 {
     [Binding]
-    public class RegistrationSteps : BaseStep
+    public class RegistrationSteps
     {
-        private readonly Mocks.ITestDataManager _dataManager;
-        private readonly TestRouter _testRouter;
+        private readonly IPageFactory _pageFactory;
+        private readonly ITestDataManager _dataManager;
+        private readonly PageNavigator _pageNavigator;
 
-        public RegistrationSteps(IWebDriver webDriver, IConfig configuration, Mocks.ITestDataManager dataManager, TestRouter testRouter)
-            : base(webDriver, configuration)
+        public RegistrationSteps(IPageFactory pageFactory, ITestDataManager dataManager, PageNavigator pageNavigator)
         {
-            this._dataManager = dataManager;
-            this._testRouter = testRouter;
+            _pageFactory = pageFactory;
+            _dataManager = dataManager;
+            _pageNavigator = pageNavigator;
         }
 
         [Given(@"I am a registered user with username ""(.*)"" and password ""(.*)"" and email ""(.*)""")]
@@ -24,18 +25,23 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         {
             _dataManager.AddUserIfNotExists(username, password, email);
         }
+
+        [Given(@"The user with username ""(.*)"" does not exist")]
+        public void GivenTheUserWithUsernameDoesNotExist(string username)
+        {
+            _dataManager.DropUserIfExists(username);
+        }
         
         [Given(@"I navigate to the registration page")]
         public void GivenINavigateToTheRegistrationPage()
         {
-            var registrationPage = Resolve<Pages.RegisterNewUserPage>();
-            _testRouter.NavigateTo(registrationPage);
+            _pageNavigator.NavigateTo<RegisterNewUserPage>();
         }
 
         [Given(@"I have entered my personal details ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)""")]
         public void GivenIHaveEnteredMyPersonalDetails(string firstName, string lastName, string address, string suburb, string state, string postcode, string telephone)
         {
-            var registrationPage = Resolve<Pages.RegisterNewUserPage>();
+            var registrationPage = _pageFactory.Resolve<RegisterNewUserPage>();
             registrationPage.SetPersonalDetails(firstName, lastName, address, suburb, state,
                 postcode, telephone);
         }
@@ -43,7 +49,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Given(@"I have entered my account details ""(.*)"", ""(.*)"", ""(.*)""")]
         public void GivenIHaveEnteredMyAccountDetails(string username, string password, string email)
         {
-            var registrationPage = Resolve<Pages.RegisterNewUserPage>();
+            var registrationPage = _pageFactory.Resolve<RegisterNewUserPage>();
             registrationPage.SetUsername(username);
             registrationPage.SetPassword(password);
             registrationPage.SetPasswordConfirmation(password);
@@ -54,21 +60,21 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Given(@"I click Next to proceed to account details")]
         public void GivenIClickNextToProceedToAccountDetails()
         {
-            var registrationPage = Resolve<Pages.RegisterNewUserPage>();
+            var registrationPage = _pageFactory.Resolve<RegisterNewUserPage>();
             registrationPage.ClickNextOnPersonalDetailsView();
         }
 
         [Given(@"I click check availability button")]
         public void GivenIClickCheckAvailabilityButton()
         {
-            var registrationPage = Resolve<Pages.RegisterNewUserPage>();
+            var registrationPage = _pageFactory.Resolve<RegisterNewUserPage>();
             registrationPage.ClickCheckAvailability();
         }
 
         [Then(@"user availability message should display ""(.*)""")]
         public void ThenUserAvailabilityMessageShouldDisplay(string expectedMessage)
         {
-            var registrationPage = Resolve<Pages.RegisterNewUserPage>();
+            var registrationPage = _pageFactory.Resolve<RegisterNewUserPage>();
             var message = registrationPage.GetUsernameAvailabilityMessage();
             Assert.IsTrue(message.StartsWith(expectedMessage));
         }
@@ -80,16 +86,21 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             // See ThenARegistrationEmailShouldBeSentTo method where this is retrieved
             ScenarioContext.Current.Add("StartRegistrationTime", DateTime.Now);
 
-            var registrationPage = Resolve<Pages.RegisterNewUserPage>();
+            var registrationPage = _pageFactory.Resolve<RegisterNewUserPage>();
             registrationPage.ClickCreateUser();
         }
 
         [When(@"I navigate to the login page")]
         public void WhenINavigateToTheLoginPage()
         {
-            // todo navigate to the login page
+            _pageNavigator.NavigateTo("~/Login.aspx");
+        }
 
-            ScenarioContext.Current.Pending();
+        [When(@"I login with username ""(.*)"" and password ""(.*)""")]
+        public void WhenILoginWithUsernameAndPassword(string p0, string p1)
+        {
+            WhenINavigateToTheLoginPage();
+
         }
 
         [Then(@"the user ""(.*)"" should be created successfully")]
@@ -111,7 +122,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Then(@"I should see registration message displayed ""(.*)""")]
         public void ThenIShouldSeeRegistrationMessageDisplayed(string expectedMessage)
         {
-            var registrationPage = Resolve<Pages.RegisterNewUserPage>();
+            var registrationPage = _pageFactory.Resolve<RegisterNewUserPage>();
             var currentMessage = registrationPage.GetRegistrationCompletedMessage();
 
             Assert.IsTrue(currentMessage.StartsWith(expectedMessage));

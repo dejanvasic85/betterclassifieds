@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Paramount.Betterclassifieds.Tests.Functional.Mocks;
 
-namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
+namespace Paramount.Betterclassifieds.Tests.Functional
 {
     /// <summary>
     /// Used directly by the tests to setup and assert scenarios
@@ -25,7 +26,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
         // Users
         void DropUserIfExists(string username);
         bool UserExists(string username);
-        string AddUserIfNotExists(string username, string password, string email);
+        Guid? AddUserIfNotExists(string username, string password, string email);
 
         // Emails / Notifications
         List<Email> GetSentEmailsFor(string email);

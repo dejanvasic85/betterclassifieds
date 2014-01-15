@@ -3,18 +3,12 @@ using OpenQA.Selenium.Support.PageObjects;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
+    [TestPageUrl(RelativeUrl = "Ad/{0}/{1}")]
     public class OnlineAdPage : BasePage
     {
         public OnlineAdPage(IWebDriver webdriver)
             : base(webdriver)
-        {
-
-        }
-        
-        public override string RelativePath
-        {
-            get { return "Ad/{0}/{1}"; } // Ad/title/id
-        }
+        { }
 
         public string GetContactName()
         {

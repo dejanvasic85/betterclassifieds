@@ -208,17 +208,18 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             return membershipDb.Query("SELECT UserId FROM aspnet_Users WHERE UserName = @username", new { username }).Any();
         }
 
-        public string AddUserIfNotExists(string username, string password, string email)
+        public Guid? AddUserIfNotExists(string username, string password, string email)
         {
-            var userId = membershipDb.Query<string>("SELECT UserId FROM aspnet_Users WHERE UserName = @username", new { username }).FirstOrDefault();
+            var userId = membershipDb.Query<Guid?>("SELECT UserId FROM aspnet_Users WHERE UserName = @username", new { username }).FirstOrDefault();
 
-            if (userId.HasValue())
+            if (userId.HasValue)
                 return userId;
 
             using (var scope = new TransactionScope())
             {
                 // Use the membership library to add the user (the easiest)
                 Membership.CreateUser(username, password, email);
+                userId = membershipDb.Query<Guid?>("SELECT UserId FROM aspnet_Users WHERE UserName = @username", new { username }).First();
                 scope.Complete();
             }
 

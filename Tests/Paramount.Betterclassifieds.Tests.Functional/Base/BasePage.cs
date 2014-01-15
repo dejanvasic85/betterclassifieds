@@ -10,11 +10,15 @@ namespace Paramount.Betterclassifieds.Tests.Functional
     public abstract class BasePage
     {
         public readonly IWebDriver WebDriver;
-        public abstract string RelativePath { get; }
 
         protected BasePage(IWebDriver webdriver)
         {
             this.WebDriver = webdriver;
+        }
+
+        public virtual string GetTitle()
+        {
+            return WebDriver.Title;
         }
 
         public virtual void InitElements()

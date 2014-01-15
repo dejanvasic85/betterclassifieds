@@ -2,27 +2,34 @@
 
 namespace Paramount.Betterclassifieds.Tests.Functional
 {
-    public class TestRouter
+    public class PageNavigator
     {
         private readonly IWebDriver _webDriver;
         private readonly IConfig _config;
+        private readonly IPageFactory _pageFactory;
 
-        public TestRouter(IWebDriver webDriver, IConfig config)
+        public PageNavigator(IWebDriver webDriver, IConfig config, IPageFactory pageFactory)
         {
             _webDriver = webDriver;
             _config = config;
+            _pageFactory = pageFactory;
         }
-        
-        public void NavigateTo(BasePage page, params object[] args)
+
+        public TPage NavigateTo<TPage>(IPageFactory pageFactory, params object[] query) where TPage : BasePage
         {
-            // Construct the path
-            var webPath = GetBaseUrl() + string.Format(page.RelativePath, args);
-            
-            // Navigate using selenium driver
-            _webDriver.Navigate().GoToUrl( webPath);
-            
-            // Initialise the UI elements
-            page.InitElements();
+            var relativeUrl = typeof(TPage).GetCustomAttribute<TestPageUrlAttribute>().RelativeUrl;
+            var fullPageUrl = GetBaseUrl() + string.Format(relativeUrl, query);
+            _webDriver.Navigate().GoToUrl(fullPageUrl);
+
+            var page = pageFactory.Resolve<TPage>();
+            return page;
+        }
+
+        public void NavigateTo<TPage>(params object[] query) where TPage : BasePage
+        {
+            var relativeUrl = typeof (TPage).GetCustomAttribute<TestPageUrlAttribute>().RelativeUrl;
+            var fullPageUrl = GetBaseUrl() + string.Format(relativeUrl, query);
+            _webDriver.Navigate().GoToUrl(fullPageUrl);
         }
 
         public void NavigateTo(string relativePath)

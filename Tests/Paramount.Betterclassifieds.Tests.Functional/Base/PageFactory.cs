@@ -1,33 +1,38 @@
-﻿using OpenQA.Selenium;
+﻿using System;
+using OpenQA.Selenium;
 
 namespace Paramount.Betterclassifieds.Tests.Functional
 {
-    public class PageNavigator
+    public class PageFactory
     {
         private readonly IWebDriver _webDriver;
         private readonly IConfig _config;
-        private readonly IPageFactory _pageFactory;
 
-        public PageNavigator(IWebDriver webDriver, IConfig config, IPageFactory pageFactory)
+        public PageFactory(IWebDriver webDriver, IConfig config)
         {
             _webDriver = webDriver;
             _config = config;
-            _pageFactory = pageFactory;
         }
 
-        public TPage NavigateTo<TPage>(IPageFactory pageFactory, params object[] query) where TPage : BasePage
+        public T Resolve<T>() where T : BasePage
+        {
+            var page = (T)Activator.CreateInstance(typeof(T), args: _webDriver);
+            page.InitElements();
+            return page;
+        }
+
+        public TPage NavigateToAndResolve<TPage>(params object[] query) where TPage : BasePage
         {
             var relativeUrl = typeof(TPage).GetCustomAttribute<TestPageUrlAttribute>().RelativeUrl;
             var fullPageUrl = GetBaseUrl() + string.Format(relativeUrl, query);
             _webDriver.Navigate().GoToUrl(fullPageUrl);
 
-            var page = pageFactory.Resolve<TPage>();
-            return page;
+            return Resolve<TPage>();
         }
 
         public void NavigateTo<TPage>(params object[] query) where TPage : BasePage
         {
-            var relativeUrl = typeof (TPage).GetCustomAttribute<TestPageUrlAttribute>().RelativeUrl;
+            var relativeUrl = typeof(TPage).GetCustomAttribute<TestPageUrlAttribute>().RelativeUrl;
             var fullPageUrl = GetBaseUrl() + string.Format(relativeUrl, query);
             _webDriver.Navigate().GoToUrl(fullPageUrl);
         }
@@ -36,7 +41,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         {
             // Construct the path with base url
             var webPath = GetBaseUrl() + relativePath;
-            
+
             // Go!
             _webDriver.Navigate().GoToUrl(webPath);
         }

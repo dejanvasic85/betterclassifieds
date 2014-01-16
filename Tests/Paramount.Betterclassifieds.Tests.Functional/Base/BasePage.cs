@@ -1,9 +1,7 @@
-﻿using System;
-using System.Linq;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.PageObjects;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using TechTalk.SpecFlow;
+using System;
+using System.Linq;
 
 namespace Paramount.Betterclassifieds.Tests.Functional
 {
@@ -23,10 +21,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
         public virtual void InitElements()
         {
-            PageFactory.InitElements(WebDriver, this);
+            OpenQA.Selenium.Support.PageObjects.PageFactory.InitElements(WebDriver, this);
 
             // Ensure the window size is good ( really useful for the testing in "offline" mode )
-            WebDriver.Manage().Window.Size = new System.Drawing.Size(1400, 1100);
+            WebDriver.Manage().Window.Size = new System.Drawing.Size(1200, 768);
         }
 
         public bool IsElementPresentBy(By by)

@@ -1,6 +1,6 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Paramount.Betterclassifieds.Tests.Functional.Pages;
+using System;
 using TechTalk.SpecFlow;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Steps
@@ -8,15 +8,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
     [Binding]
     public class OnlineAdSteps
     {
-        private readonly IPageFactory _pageFactory;
+        private readonly PageFactory _pageFactory;
         private readonly ITestDataManager _dataManager;
-        private readonly PageNavigator _router;
 
-        public OnlineAdSteps(IPageFactory pageFactory, ITestDataManager dataManager, PageNavigator pageNavigator)
+        public OnlineAdSteps(PageFactory pageFactory, ITestDataManager dataManager)
         {
             _pageFactory = pageFactory;
             _dataManager = dataManager;
-            _router = pageNavigator;
         }
 
         [Given(@"The online a d titled ""(.*)"" in parent category ""(.*)"" and sub category ""(.*)""")]
@@ -42,7 +40,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             string urlWithId = string.Format(url, ScenarioContext.Current.Get<int>("AdId"));
 
             // Route to an exact URL becuase this is what we're testing!
-            _router.NavigateTo(urlWithId);
+            _pageFactory.NavigateTo(urlWithId);
         }
 
         [Then(@"the page title should start with ""(.*)""")]

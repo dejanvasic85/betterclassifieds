@@ -9,15 +9,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
     [Binding]
     public class RegistrationSteps
     {
-        private readonly IPageFactory _pageFactory;
+        private readonly PageFactory _pageFactory;
         private readonly ITestDataManager _dataManager;
-        private readonly PageNavigator _pageNavigator;
 
-        public RegistrationSteps(IPageFactory pageFactory, ITestDataManager dataManager, PageNavigator pageNavigator)
+        public RegistrationSteps(PageFactory pageFactory, ITestDataManager dataManager)
         {
             _pageFactory = pageFactory;
             _dataManager = dataManager;
-            _pageNavigator = pageNavigator;
         }
 
         [Given(@"I am a registered user with username ""(.*)"" and password ""(.*)"" and email ""(.*)""")]
@@ -35,7 +33,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Given(@"I navigate to the registration page")]
         public void GivenINavigateToTheRegistrationPage()
         {
-            _pageNavigator.NavigateTo<RegisterNewUserPage>();
+            _pageFactory.NavigateTo<RegisterNewUserPage>();
         }
 
         [Given(@"I have entered my personal details ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)""")]
@@ -89,20 +87,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             var registrationPage = _pageFactory.Resolve<RegisterNewUserPage>();
             registrationPage.ClickCreateUser();
         }
-
-        [When(@"I navigate to the login page")]
-        public void WhenINavigateToTheLoginPage()
-        {
-            _pageNavigator.NavigateTo("~/Login.aspx");
-        }
-
-        [When(@"I login with username ""(.*)"" and password ""(.*)""")]
-        public void WhenILoginWithUsernameAndPassword(string p0, string p1)
-        {
-            WhenINavigateToTheLoginPage();
-
-        }
-
+        
         [Then(@"the user ""(.*)"" should be created successfully")]
         public void ThenTheUserShouldBeCreatedSuccessfully(string username)
         {

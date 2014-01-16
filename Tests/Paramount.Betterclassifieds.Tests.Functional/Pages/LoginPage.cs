@@ -11,13 +11,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         }
 
         [FindsBy(How = How.Id, Using = "ctl00_ContentPlaceHolder1_ucxLogin_Login1_UserName")]
-        private IWebElement _usernameElement;
+        private readonly IWebElement _usernameElement = null;
 
         [FindsBy(How = How.Id, Using = "ctl00_ContentPlaceHolder1_ucxLogin_Login1_Password")]
-        private IWebElement _passwordElement;
+        private readonly IWebElement _passwordElement = null;
 
         [FindsBy(How = How.Id, Using = "ctl00_ContentPlaceHolder1_ucxLogin_Login1_btnLogin")] 
-        private IWebElement _loginButtonElement;
+        private readonly IWebElement _loginButtonElement = null;
 
         public void SetUsername(string username)
         {

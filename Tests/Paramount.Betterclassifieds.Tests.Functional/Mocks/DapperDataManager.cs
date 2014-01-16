@@ -46,17 +46,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                 return publicationId.GetValueOrDefault();
             }
         }
-
-        public int AddPublicationTypeIfNotExists(string publicationType)
-        {
-            var onlinePublicationTypeId = classifiedDb.GetById(Constants.Table.PublicationType, queryFilter: publicationType, findBy: "Code");
-            if (onlinePublicationTypeId.HasValue)
-                return onlinePublicationTypeId.Value;
-
-            onlinePublicationTypeId = classifiedDb.AddIfNotExists(Constants.Table.PublicationType, new { Code = publicationType, Title = publicationType }, queryFilter: publicationType, findBy: "Code");
-            return onlinePublicationTypeId.GetValueOrDefault();
-        }
-
+        
         public int AddOnlinePublicationIfNotExists()
         {
             var onlinePublicationTypeId = classifiedDb.GetById(Constants.Table.PublicationType, queryFilter: Constants.PublicationType.Online, findBy: "Code");
@@ -195,18 +185,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 
                 scope.Complete();
             }
-        }
-
-        public void AddAdTypeIfNotExists(string adTypeCode)
-        {
-            classifiedDb.AddIfNotExists(Constants.Table.AdType, new
-                {
-                    Code = adTypeCode,
-                    Title = adTypeCode,
-                    Description = adTypeCode,
-                    PaperBased = true,
-                    Active = true
-                }, queryFilter: adTypeCode, findBy: "Code");
         }
 
         public void DropUserIfExists(string username)

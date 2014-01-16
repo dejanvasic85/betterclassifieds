@@ -4,7 +4,6 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using Paramount.Betterclassifieds.Tests.Functional.Mocks;
-using System.Configuration;
 using TechTalk.SpecFlow;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Steps
@@ -32,12 +31,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [BeforeScenario("web")]
         public void RegisterSeleniumDriver()
         {
+            IConfig config = _container.Resolve<IConfig>();
+
             // Create a web driver for all web tests
-            IWebDriver driver = GetDriverForBrowser(ConfigurationManager.AppSettings["Browser"].ToLower());
+            IWebDriver driver = GetDriverForBrowser(config.BrowserType);
             _container.RegisterInstanceAs(driver, typeof(IWebDriver));
             
             // Create instance and register for the page factory
-            _container.RegisterInstanceAs(new SeleniumPageFactory(driver), typeof(IPageFactory));
+            _container.RegisterInstanceAs(new PageFactory(driver, config), typeof(PageFactory));
         }
         
         [AfterScenario("web")]
@@ -52,10 +53,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             // Use the dapper manager to initialise some baseline test data for our booking scenarios
             ITestDataManager dataManager = new DapperDataManager();
 
-            dataManager.AddAdTypeIfNotExists(Constants.AdType.LineAd);
-            dataManager.AddAdTypeIfNotExists(Constants.AdType.OnlineAd);
-            dataManager.AddPublicationTypeIfNotExists(Constants.PublicationType.Newspaper);
-            dataManager.AddPublicationTypeIfNotExists(Constants.PublicationType.Online);
             dataManager.AddPublicationIfNotExists("Selenium Online");
             dataManager.AddEditionsToPublication("Selenium Online", 10);
             dataManager.AddPublicationAdTypeIfNotExists("Selenium Online", Constants.AdType.OnlineAd);

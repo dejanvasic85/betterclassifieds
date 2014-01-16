@@ -77,7 +77,7 @@
     <Compile Include="Base\Constants.cs" />
     <Compile Include="Base\IPageFactory.cs" />
     <Compile Include="Base\RouteUrlAttribute.cs" />
-    <Compile Include="Base\SeleniumPageFactory.cs" />
+    <Compile Include="Base\PageFactory.cs" />
     <Compile Include="Features\SubmitNewBooking.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -95,7 +95,9 @@
     </Compile>
     <Compile Include="Base\BasePage.cs" />
     <Compile Include="Base\IConfig.cs" />
-    <Compile Include="Base\TestRouter.cs" />
+    <Compile Include="Pages\BookingBasePage.cs" />
+    <Compile Include="Pages\BookingStep1.cs" />
+    <Compile Include="Pages\BookingStep2.cs" />
     <Compile Include="Pages\LoginPage.cs" />
     <Compile Include="Steps\BeforeAndAfterTests.cs" />
     <Compile Include="Mocks\DapperExtensions.cs" />
@@ -106,6 +108,7 @@
     <Compile Include="Pages\RegisterNewUserPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\BookingSteps.cs" />
+    <Compile Include="Steps\LoginSteps.cs" />
     <Compile Include="Steps\RegistrationSteps.cs" />
     <Compile Include="Steps\OnlineAdSteps.cs" />
   </ItemGroup>

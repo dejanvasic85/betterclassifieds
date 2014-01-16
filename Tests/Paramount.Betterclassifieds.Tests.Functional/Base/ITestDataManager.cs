@@ -16,7 +16,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         // Publications
         int AddPublicationIfNotExists(string publicationName, int publicationTypeId = 1, string frequency = Constants.FrequencyType.Weekly, int frequencyValue = 3);
         int AddOnlinePublicationIfNotExists();
+        int AddPublicationTypeIfNotExists(string publicationType);
+        int AddPublicationAdTypeIfNotExists(string publicationName, string adTypeCode);
         void AddEditionsToPublication(string publicationName, int numberOfEditions);
+
 
         // Ads
         int DropAndAddOnlineAd(string adTitle, string categoryName, string subCategoryName);

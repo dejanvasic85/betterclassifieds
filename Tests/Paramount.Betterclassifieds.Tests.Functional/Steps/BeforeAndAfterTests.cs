@@ -50,12 +50,15 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         public static void SetupBookingFeature()
         {
             // Use the dapper manager to initialise some baseline test data for our booking scenarios
-            var dataManager = new DapperDataManager();
+            ITestDataManager dataManager = new DapperDataManager();
 
             dataManager.AddAdTypeIfNotExists(Constants.AdType.LineAd);
             dataManager.AddAdTypeIfNotExists(Constants.AdType.OnlineAd);
-            dataManager.AddPublicationIfNotExists("Selenium Publication");
-            dataManager.AddEditionsToPublication("Selenium Publication", 10);
+            dataManager.AddPublicationTypeIfNotExists(Constants.PublicationType.Newspaper);
+            dataManager.AddPublicationTypeIfNotExists(Constants.PublicationType.Online);
+            dataManager.AddPublicationIfNotExists("Selenium Online");
+            dataManager.AddEditionsToPublication("Selenium Online", 10);
+            dataManager.AddPublicationAdTypeIfNotExists("Selenium Online", Constants.AdType.OnlineAd);
             dataManager.AddOnlinePublicationIfNotExists();
             dataManager.AddCategoryIfNotExists("Selenium Child", "Selenium Parent");
             dataManager.AddUserIfNotExists("bdduser", "password123", "bdd@somefakeaddress.com");

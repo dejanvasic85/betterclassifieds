@@ -74,7 +74,6 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Base\BaseStep.cs" />
     <Compile Include="Base\Constants.cs" />
     <Compile Include="Base\IPageFactory.cs" />
     <Compile Include="Base\RouteUrlAttribute.cs" />

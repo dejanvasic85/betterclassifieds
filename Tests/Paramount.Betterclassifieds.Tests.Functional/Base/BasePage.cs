@@ -23,12 +23,15 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
         public virtual void InitElements()
         {
-            PageFactory.InitElements(this.WebDriver, this);
+            PageFactory.InitElements(WebDriver, this);
+
+            // Ensure the window size is good ( really useful for the testing in "offline" mode )
+            WebDriver.Manage().Window.Size = new System.Drawing.Size(1400, 1100);
         }
 
         public bool IsElementPresentBy(By by)
         {
-            return this.WebDriver.FindElements(by).Any();
+            return WebDriver.FindElements(by).Any();
         }
 
         public IWebElement FindElement(By by, int maxSecondsToTimeout = 5)

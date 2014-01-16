@@ -5,7 +5,7 @@ using System.Text;
 using Dapper;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
-{
+{ 
     public static class DapperExtensions
     {
         public static int Add(this IDbConnection connection, string table, object param)
@@ -53,10 +53,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             return connection.Query<int?>(query, new { queryParam = queryFilter }).FirstOrDefault();
         }
 
-        public static int? AddIfNotExists(this IDbConnection connection, string table, object param, string findBy, string findByColumnName = "Title")
+        public static int? AddIfNotExists(this IDbConnection connection, string table, object param, string queryFilter, string findBy = "Title")
         {
             // Check if the table record exists
-            var id = connection.GetById(table, findBy, findByColumnName);
+            var id = connection.GetById(table, queryFilter, findBy);
             return id.HasValue ? id : connection.Add(table, param);
         }
 

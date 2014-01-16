@@ -39,12 +39,22 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                     Active = true
                 };
 
-                var publicationId = classifiedDb.AddIfNotExists(Constants.Table.Publication, publication, findBy: publicationName);
+                var publicationId = classifiedDb.AddIfNotExists(Constants.Table.Publication, publication, queryFilter: publicationName);
 
                 scope.Complete();
 
                 return publicationId.GetValueOrDefault();
             }
+        }
+
+        public int AddPublicationTypeIfNotExists(string publicationType)
+        {
+            var onlinePublicationTypeId = classifiedDb.GetById(Constants.Table.PublicationType, queryFilter: publicationType, findBy: "Code");
+            if (onlinePublicationTypeId.HasValue)
+                return onlinePublicationTypeId.Value;
+
+            onlinePublicationTypeId = classifiedDb.AddIfNotExists(Constants.Table.PublicationType, new { Code = publicationType, Title = publicationType }, queryFilter: publicationType, findBy: "Code");
+            return onlinePublicationTypeId.GetValueOrDefault();
         }
 
         public int AddOnlinePublicationIfNotExists()
@@ -61,6 +71,20 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 
             // Create an online publication 
             return AddPublicationIfNotExists("Selenium Online Publication", onlinePublicationTypeId.GetValueOrDefault());
+        }
+
+        public int AddPublicationAdTypeIfNotExists(string publicationName, string adTypeCode)
+        {
+            var publicationId = classifiedDb.GetById(Constants.Table.Publication, publicationName);
+            if (!publicationId.HasValue)
+                throw new ArgumentNullException("publicationName", "PublicationName " + publicationName + " does not exist and cannot create publication ad type");
+
+            var adTypeId = classifiedDb.GetById(Constants.Table.AdType, adTypeCode, findBy: "Code");
+            if (!adTypeId.HasValue)
+                throw new ArgumentNullException("adTypeCode", "AdType " + adTypeCode + " does not exist and cannot create publication ad type");
+
+            var publicationAdTypeId = classifiedDb.Add<int>(Constants.Table.PublicationAdType, new {PublicationId = publicationId, AdTypeId = adTypeId});
+            return publicationAdTypeId;
         }
 
         public void AddEditionsToPublication(string publicationName, int numberOfEditions)
@@ -182,7 +206,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                     Description = adTypeCode,
                     PaperBased = true,
                     Active = true
-                }, findBy: adTypeCode, findByColumnName: "Code");
+                }, queryFilter: adTypeCode, findBy: "Code");
         }
 
         public void DropUserIfExists(string username)
@@ -255,5 +279,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             membershipDb.Close();
             coreDb.Close();
         }
+
+
     }
 }

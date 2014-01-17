@@ -5,7 +5,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
     public abstract class OnlineBookingBasePage : BasePage
     {
-        protected OnlineBookingBasePage(IWebDriver webdriver) : base(webdriver)
+        protected OnlineBookingBasePage(IWebDriver webdriver, IConfig config)
+            : base(webdriver, config)
         {
         }
 

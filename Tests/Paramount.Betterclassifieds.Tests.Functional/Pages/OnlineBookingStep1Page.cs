@@ -3,10 +3,11 @@ using OpenQA.Selenium.Support.PageObjects;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
-    [TestPageUrl(RelativeUrl = "Booking/Step1.aspx")]
+    [TestPage(RelativeUrl = "Booking/Step1.aspx")]
     public class OnlineBookingStep1Page : OnlineBookingBasePage
     {
-        public OnlineBookingStep1Page(IWebDriver webdriver) : base(webdriver)
+        public OnlineBookingStep1Page(IWebDriver webdriver, IConfig config)
+            : base(webdriver, config)
         { }
 
         [FindsBy(How = How.Id, Using = "ctl00_ContentPlaceHolder1_rdoPremium")]

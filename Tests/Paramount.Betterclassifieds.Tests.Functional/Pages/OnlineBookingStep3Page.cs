@@ -4,18 +4,15 @@ using OpenQA.Selenium.Support.PageObjects;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
-    [TestPageUrl(RelativeUrl = "Booking/Step3.aspx")]
+    [TestPage(RelativeUrl = "Booking/Step3.aspx")]
     public class OnlineBookingStep3Page : OnlineBookingBasePage
     {
-        public OnlineBookingStep3Page(IWebDriver webdriver)
-            : base(webdriver)
+        public OnlineBookingStep3Page(IWebDriver webdriver, IConfig config)
+            : base(webdriver, config)
         { }
 
         [FindsBy(How = How.Id, Using = "ctl00_ContentPlaceHolder1_ucxDesignOnlineAd_txtOnlineHeading")]
         private readonly IWebElement _txtOnlineHeader = null;
-
-        [FindsBy(How = How.CssSelector, Using = "ctl00_ContentPlaceHolder1_ucxDesignOnlineAd_radEditor_contentIframe > body")]
-        private readonly IWebElement _txtOnlineDescription = null;
         
         public void FillOnlineHeader(string adTitle)
         {

@@ -84,8 +84,6 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.When("I submit a new Online Ad titled \"This is a Selenium Ad\" starting from today", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 11
  testRunner.Then("the booking should be successful", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 12
- testRunner.And("I should see the ad on top of the search results", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

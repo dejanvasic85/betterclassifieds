@@ -2,8 +2,9 @@
 
 namespace Paramount.Betterclassifieds.Tests.Functional
 {
-    public class TestPageUrlAttribute : Attribute
+    public class TestPageAttribute : Attribute
     {
         public string RelativeUrl { get; set; }
+        public string Title { get; set; }
     }
 }

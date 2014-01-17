@@ -22,7 +22,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         /// All scenarios will require some implementations injected
         /// </summary>
         [BeforeScenario]
-        public void SetupTestDataRepository()
+        public void RegisterConfigAndRepository()
         {
             _container.RegisterInstanceAs(new TestConfiguration(), typeof(IConfig));
             _container.RegisterInstanceAs(new DapperDataManager(), typeof(ITestDataManager));
@@ -57,10 +57,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             const string category = "Selenium Child";
             const string parentCategory = "Selenium Parent";
 
-            dataManager.AddPublicationIfNotExists(onlinePublication);
+            dataManager.AddPublicationIfNotExists(onlinePublication, Constants.PublicationType.Online, frequency: "Online", frequencyValue: null);
             dataManager.AddEditionsToPublication(onlinePublication, 10);
             dataManager.AddPublicationAdTypeIfNotExists(onlinePublication, Constants.AdType.OnlineAd);
-            dataManager.AddOnlinePublicationIfNotExists();
             dataManager.AddCategoryIfNotExists(category, parentCategory, onlinePublication);
             dataManager.AddRatecardIfNotExists("Selenium Free", 0, 0, category, onlinePublication);
 

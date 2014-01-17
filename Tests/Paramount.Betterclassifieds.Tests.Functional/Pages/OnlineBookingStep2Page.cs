@@ -5,11 +5,11 @@ using OpenQA.Selenium.Support.UI;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
-    [TestPageUrl(RelativeUrl = "Booking/Step2.aspx")]
+    [TestPage(RelativeUrl = "Booking/Step2.aspx")]
     public class OnlineBookingStep2Page : OnlineBookingBasePage
     {
-        public OnlineBookingStep2Page(IWebDriver webdriver)
-            : base(webdriver)
+        public OnlineBookingStep2Page(IWebDriver webdriver, IConfig config)
+            : base(webdriver, config)
         { }
 
         [FindsBy(How = How.Id, Using = "ctl00_ContentPlaceHolder1_ddlMainCategory")]

@@ -24,11 +24,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             membershipDb = new SqlConnection(ConfigurationManager.ConnectionStrings["AppUserConnection"].ConnectionString);
         }
 
-        public int AddPublicationIfNotExists(string publicationName, int publicationTypeId = 1, string frequency = Constants.FrequencyType.Weekly,
-            int frequencyValue = 3)
+        public int AddPublicationIfNotExists(string publicationName, string publicationType = Constants.PublicationType.Newspaper, string frequency = Constants.FrequencyType.Weekly, int? frequencyValue = 3)
         {
             using (var scope = new TransactionScope())
             {
+                var publicationTypeId = classifiedDb.Single(Constants.Table.PublicationType, publicationType, findBy: "Code");
+
                 var publication = new
                 {
                     Title = publicationName,
@@ -46,23 +47,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                 return publicationId.GetValueOrDefault();
             }
         }
-
-        public int AddOnlinePublicationIfNotExists()
-        {
-            var onlinePublicationTypeId = classifiedDb.SingleOrDefault(Constants.Table.PublicationType, queryFilter: Constants.PublicationType.Online, findBy: "Code");
-            if (onlinePublicationTypeId.HasValue)
-            {
-                // There is an online publication already
-                // So return the id
-                var publicationId = classifiedDb.SingleOrDefault(Constants.Table.Publication, queryFilter: onlinePublicationTypeId.ToString(), findBy: "PublicationTypeId");
-                if (publicationId.HasValue)
-                    return publicationId.Value;
-            }
-
-            // Create an online publication 
-            return AddPublicationIfNotExists("Selenium Online Publication", onlinePublicationTypeId.GetValueOrDefault());
-        }
-
+        
         public int AddPublicationAdTypeIfNotExists(string publicationName, string adTypeCode)
         {
             var publicationId = classifiedDb.SingleOrDefault(Constants.Table.Publication, publicationName);
@@ -244,16 +229,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
         {
             using (var scope = new TransactionScope())
             {
-                var baseRateId = classifiedDb.SingleOrDefault(Constants.Table.BaseRate, ratecardName);
+                var baseRateId = classifiedDb.AddIfNotExists(Constants.Table.BaseRate, new { Title = ratecardName, Description = ratecardName }, ratecardName);
 
-                // Everything is already setup for this rate!
-                if (baseRateId.HasValue)
-                    return;
-
-                // Create the ratecard ( base rate first )
-                baseRateId = classifiedDb.Add(Constants.Table.BaseRate, new { Title = ratecardName, Description = ratecardName });
-
-                var ratecardId = classifiedDb.Add(Constants.Table.Ratecard, new { BaseRateId = baseRateId, MinCharge = minCharge, MaxCharge = maxCharge });
+                var ratecardId = classifiedDb.AddIfNotExists(Constants.Table.Ratecard, new { BaseRateId = baseRateId, MinCharge = minCharge, MaxCharge = maxCharge }, baseRateId.ToString(), findBy:"BaseRateId");
 
                 if (category.HasValue() && publications.Length > 0)
                 {
@@ -266,6 +244,20 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                         var publicationId = classifiedDb.Single(Constants.Table.Publication, publicationName);
                         var publicationAdTypeId = classifiedDb.Single(Constants.Table.PublicationAdType, publicationId.ToString(), findBy: "PublicationId");
                         var publicationCategoryId = classifiedDb.Query<int?>("SELECT PublicationCategoryId FROM PublicationCategory WHERE MainCategoryId = @categoryId AND PublicationId = @publicationId", new { categoryId, publicationId }).Single();
+
+                        var publicationRateId =
+                            classifiedDb.Query<int?>(
+                                "SELECT PublicationRateId FROM PublicationRate WHERE PublicationAdTypeId = @publicationAdTypeId AND PublicationCategoryId = @publicationCategoryId AND RatecardId = @ratecardId",
+                                new
+                                    {
+                                        publicationAdTypeId,
+                                        publicationCategoryId,
+                                        ratecardId
+                                    })
+                                .FirstOrDefault();
+
+                        if (publicationRateId.HasValue)
+                            continue;
 
                         // Create a ratecard for each publication category
                         classifiedDb.Add(Constants.Table.PublicationRate, new

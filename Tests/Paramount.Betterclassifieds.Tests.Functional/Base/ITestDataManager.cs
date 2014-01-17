@@ -14,8 +14,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         int? GetCategoryIdForTitle(string categoryName);
 
         // Publications
-        int AddPublicationIfNotExists(string publicationName, int publicationTypeId = 1, string frequency = Constants.FrequencyType.Weekly, int frequencyValue = 3);
-        int AddOnlinePublicationIfNotExists();
+        int AddPublicationIfNotExists(string publicationName, string publicationType = Constants.PublicationType.Newspaper, string frequency = Constants.FrequencyType.Weekly, int? frequencyValue = 3);
         int AddPublicationAdTypeIfNotExists(string publicationName, string adTypeCode);
         void AddEditionsToPublication(string publicationName, int numberOfEditions);
         

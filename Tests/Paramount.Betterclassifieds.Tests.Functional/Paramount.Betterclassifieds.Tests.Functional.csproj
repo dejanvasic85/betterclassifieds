@@ -76,7 +76,7 @@
   <ItemGroup>
     <Compile Include="Base\Constants.cs" />
     <Compile Include="Base\IPageFactory.cs" />
-    <Compile Include="Base\TestPageUrlAttribute.cs" />
+    <Compile Include="Base\TestPageAttribute.cs" />
     <Compile Include="Base\PageFactory.cs" />
     <Compile Include="Base\WebDriverExtensions.cs" />
     <Compile Include="Features\SubmitNewBooking.feature.cs">
@@ -96,11 +96,14 @@
     </Compile>
     <Compile Include="Base\BasePage.cs" />
     <Compile Include="Base\IConfig.cs" />
+    <Compile Include="Pages\BookingCompletePage.cs" />
+    <Compile Include="Pages\OnlineBookingStep5Page.cs" />
     <Compile Include="Pages\OnlineBookingBasePage.cs" />
-    <Compile Include="Pages\BookingStep1Page.cs" />
-    <Compile Include="Pages\BookingStep2Page.cs" />
+    <Compile Include="Pages\OnlineBookingStep1Page.cs" />
+    <Compile Include="Pages\OnlineBookingStep2Page.cs" />
     <Compile Include="Pages\LoginPage.cs" />
     <Compile Include="Pages\OnlineBookingStep3Page.cs" />
+    <Compile Include="Pages\OnlineBookingStep4Page.cs" />
     <Compile Include="Steps\BeforeAndAfterTests.cs" />
     <Compile Include="Mocks\DapperExtensions.cs" />
     <Compile Include="Base\ITestDataManager.cs" />

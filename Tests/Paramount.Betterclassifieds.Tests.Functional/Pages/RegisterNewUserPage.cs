@@ -3,11 +3,11 @@ using OpenQA.Selenium.Support.UI;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
-    [TestPageUrl(RelativeUrl = "Register.aspx")]
+    [TestPage(RelativeUrl = "Register.aspx")]
     public class RegisterNewUserPage : BasePage
     {
-        public RegisterNewUserPage(IWebDriver webDriver)
-            : base(webDriver)
+        public RegisterNewUserPage(IWebDriver webdriver, IConfig config)
+            : base(webdriver, config)
         { }
 
         public void SetPersonalDetails(string firstName, string lastName, string address, string suburb, string state, string postcode, string telephone)

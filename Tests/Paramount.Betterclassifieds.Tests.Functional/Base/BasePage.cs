@@ -8,10 +8,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional
     public abstract class BasePage
     {
         public readonly IWebDriver WebDriver;
+        private readonly IConfig _config;
 
-        protected BasePage(IWebDriver webdriver)
+        protected BasePage(IWebDriver webdriver, IConfig config)
         {
             this.WebDriver = webdriver;
+            _config = config;
         }
 
         public virtual string GetTitle()
@@ -39,6 +41,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             wait.Until(ExpectedConditions.ElementIsVisible(by));
 
             return WebDriver.FindElement(by);
+        }
+
+        public bool IsDisplayed()
+        {
+            var fullUrl = _config.BaseUrl + GetType().GetCustomAttribute<TestPageAttribute>().RelativeUrl;
+            return WebDriver.Url.StartsWith(fullUrl, StringComparison.OrdinalIgnoreCase);
         }
     }
 }

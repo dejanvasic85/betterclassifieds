@@ -1,4 +1,6 @@
-﻿using Paramount.Betterclassifieds.Tests.Functional.Pages;
+﻿using System;
+using NUnit.Framework;
+using Paramount.Betterclassifieds.Tests.Functional.Pages;
 using TechTalk.SpecFlow;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Steps
@@ -7,7 +9,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
     public class BookingSteps
     {
         private readonly PageFactory _pageFactory;
-        
+
         public BookingSteps(PageFactory pageFactory)
         {
             _pageFactory = pageFactory;
@@ -28,6 +30,23 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             var bookingStep3 = _pageFactory.Init<OnlineBookingStep3Page>();
             bookingStep3.FillOnlineHeader(adTitle);
             bookingStep3.FillOnlineDescription(adTitle);
+            bookingStep3.Proceed();
+
+            var bookingStep4 = _pageFactory.Init<OnlineBookingStep4Page>();
+            bookingStep4.SelectOnlineStartDate(DateTime.Today.Date);
+            bookingStep4.Proceed();
+
+            var bookingStep5 = _pageFactory.Init<OnlineBookingStep5Page>();
+            bookingStep5.AgreeToTermsAndConditions();
+            bookingStep5.Proceed();
         }
+
+        [Then(@"the booking should be successful")]
+        public void ThenTheBookingShouldBeSuccessful()
+        {
+            var bookingCompletePage = _pageFactory.Init<BookingCompletePage>();
+            Assert.IsTrue(bookingCompletePage.IsDisplayed());
+        }
+
     }
 }

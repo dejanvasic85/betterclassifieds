@@ -109,17 +109,12 @@ Public Class CategoryController
     ''' </summary>
     ''' <remarks></remarks>
     Public Shared Function GetPublicationCategory(ByVal mainCategoryId As Integer, ByVal publicationId As Integer) As PublicationCategory
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Dim query = From pc In db.PublicationCategories Where pc.PublicationId = publicationId And _
-                            pc.MainCategoryId = mainCategoryId Select pc
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim query = From pc In db.PublicationCategories Where pc.PublicationId = publicationId And _
+                        pc.MainCategoryId = mainCategoryId Select pc
 
-                Return query.Single
-            End Using
-        Catch ex As Exception
-            Throw ex
-        End Try
-
+            Return query.Single
+        End Using
     End Function
 
     ''' <summary>
@@ -128,37 +123,25 @@ Public Class CategoryController
     ''' <param name="publicationCategoryId">Primary Key of the table</param>
     ''' <remarks></remarks>
     Public Shared Function GetPublicationCategory(ByVal publicationCategoryId As Integer) As PublicationCategory
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Dim query = From pc In db.PublicationCategories Where pc.PublicationCategoryId = publicationCategoryId Select pc
-                Return query.Single
-            End Using
-        Catch ex As Exception
-            Throw ex
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim query = From pc In db.PublicationCategories Where pc.PublicationCategoryId = publicationCategoryId Select pc
+            Return query.Single
+        End Using
     End Function
 
     ''' <summary>
     ''' Returns MainCategory Object from DatabaseModel by the mainCategoryId table key
     ''' </summary>
     Public Shared Function GetMainCategoryById(ByVal catId As Integer) As DataModel.MainCategory
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Return (db.MainCategories.Where(Function(i) i.MainCategoryId = catId).Single)
-            End Using
-        Catch ex As Exception
-            Throw ex
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Return (db.MainCategories.Where(Function(i) i.MainCategoryId = catId).Single)
+        End Using
     End Function
 
     Public Shared Function GetMainCategories(ByVal categoryId As Integer) As IList
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Return db.MainCategories.Where(Function(i) i.MainCategoryId = categoryId).ToList
-            End Using
-        Catch ex As Exception
-            Throw ex
-        End Try
+        Using db = BetterclassifiedsDataContext.NewContext
+            Return db.MainCategories.Where(Function(i) i.MainCategoryId = categoryId).ToList
+        End Using
     End Function
 
     Public Shared Function GetMainCategoriesByPubCategory(ByVal publicationCategoryId As Integer) As IList

@@ -26,7 +26,7 @@ Partial Public Class AdType
         End If
     End Sub
 
-    Private Sub ucxNavButton_NextStep(ByVal sender As Object, ByVal e As System.EventArgs) Handles ucxNavButton.NextStep
+    Private Sub ucxNavButton_NextStep(ByVal sender As Object, ByVal e As System.EventArgs) Handles ucxNavButtons.NextStep
         Select Case GetSelectedPackage()
             Case PackageSelection.Premium
                 ' Start a normal Bundle Booking

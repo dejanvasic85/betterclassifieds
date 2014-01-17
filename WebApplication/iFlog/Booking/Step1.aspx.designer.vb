@@ -104,11 +104,11 @@ Partial Public Class AdType
     Protected WithEvents lblInformation As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''ucxNavButton control.
+    '''ucxNavButtons control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ucxNavButton As Global.BetterclassifiedsWeb.NavigationButtons
+    Protected WithEvents ucxNavButtons As Global.BetterclassifiedsWeb.NavigationButtons
 End Class

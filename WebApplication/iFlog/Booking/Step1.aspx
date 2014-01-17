@@ -60,38 +60,6 @@
                                     </tr>
 
                                     <tr>
-                                        <%--<td width="20" align="right">
-                                            <asp:Image ID="Image2" runat="server" ImageUrl="~/Resources/Images/blue_arrow_right.jpg"
-                                                AlternateText="blue arrow" />
-                                        </td>
-                                        <td width="350">
-                                            <h4>
-                                                <span style="color: #38ACEC">FREE!</span> Bundled Print and Online Ads</h4>
-                                       <div class="help-context-panel" style="margin-top:7px">
-                                            <paramountItCommon:HelpContextControl Position="Bottom" ID="HelpContextControl2"
-                                                ImageUrl="~/Resources/Images/question_button.gif" runat="server">
-                                                <ContentTemplate>
-                                                    <span class="text-wrapper"><b>FREE:</b><br /> <br />
-                                                        PRICE: FREE!
-                                                        <br />
-                                                        WHAT YOU GET:
-                                                        <br />
-                                                        PRINT: 40 Words (no Bold Header or High Quality Image).
-                                                        <br />
-                                                        ONLINE: Bold Header, 2 x High Quality Images, Unlimited Words, 4 Week Placement.
-                                                    </span>
-                                                </ContentTemplate>
-                                            </paramountItCommon:HelpContextControl>
-                                        </div> 
-                                        </td>
-                                        <td width="155" valign="top">
-                                            <img src="../Resources/Images/Packages/example_free.gif" alt="Free Package" />
-                                        </td>
-                                        <td width="20" align="center" valign="middle">
-                                            <asp:RadioButton ID="rdoFree" runat="server" GroupName="Package" />
-                                        </td>--%>
-                                    </tr>
-                                    <tr>
                                         <td width="20" align="right">
                                             <asp:Image ID="Image3" runat="server" ImageUrl="~/Resources/Images/blue_arrow_right.jpg"
                                                 AlternateText="blue arrow" />
@@ -125,7 +93,7 @@
                             </div>
                             <asp:Label ID="lblInformation" runat="server" Text=""></asp:Label>
                         </div>
-                        <ucx:NavigationButtons ID="ucxNavButton" runat="server" StepNumber="1" />
+                        <ucx:NavigationButtons ID="ucxNavButtons" runat="server" StepNumber="1" />
                     </div>
                 </asp:Panel>
             </div>

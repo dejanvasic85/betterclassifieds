@@ -4,9 +4,9 @@ using OpenQA.Selenium.Support.PageObjects;
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
     [TestPageUrl(RelativeUrl = "Booking/Step1.aspx")]
-    public class BookingStep1 : BookingBasePage
+    public class OnlineBookingStep1Page : OnlineBookingBasePage
     {
-        public BookingStep1(IWebDriver webdriver) : base(webdriver)
+        public OnlineBookingStep1Page(IWebDriver webdriver) : base(webdriver)
         { }
 
         [FindsBy(How = How.Id, Using = "ctl00_ContentPlaceHolder1_rdoPremium")]

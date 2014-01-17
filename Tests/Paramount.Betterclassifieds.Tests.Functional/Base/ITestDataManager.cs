@@ -10,7 +10,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
     public interface ITestDataManager : IDisposable
     {
         // Categories
-        int AddCategoryIfNotExists(string name, string parent);
+        int AddCategoryIfNotExists(string subCategory, string parentCategory, params string[] addToPublications);
         int? GetCategoryIdForTitle(string categoryName);
 
         // Publications
@@ -30,5 +30,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
         // Emails / Notifications
         List<Email> GetSentEmailsFor(string email);
+        
     }
 }

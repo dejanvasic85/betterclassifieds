@@ -36,11 +36,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             // Create a web driver for all web tests
             IWebDriver driver = GetDriverForBrowser(config.BrowserType);
             _container.RegisterInstanceAs(driver, typeof(IWebDriver));
-            
+
             // Create instance and register for the page factory
             _container.RegisterInstanceAs(new PageFactory(driver, config), typeof(PageFactory));
         }
-        
+
         [AfterScenario("web")]
         public void DisposeSeleniumWebDriver()
         {
@@ -53,11 +53,17 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             // Use the dapper manager to initialise some baseline test data for our booking scenarios
             ITestDataManager dataManager = new DapperDataManager();
 
-            dataManager.AddPublicationIfNotExists("Selenium Online");
-            dataManager.AddEditionsToPublication("Selenium Online", 10);
-            dataManager.AddPublicationAdTypeIfNotExists("Selenium Online", Constants.AdType.OnlineAd);
+            const string onlinePublication = "Selenium Online";
+            const string category = "Selenium Child";
+            const string parentCategory = "Selenium Parent";
+
+            dataManager.AddPublicationIfNotExists(onlinePublication);
+            dataManager.AddEditionsToPublication(onlinePublication, 10);
+            dataManager.AddPublicationAdTypeIfNotExists(onlinePublication, Constants.AdType.OnlineAd);
             dataManager.AddOnlinePublicationIfNotExists();
-            dataManager.AddCategoryIfNotExists("Selenium Child", "Selenium Parent");
+            dataManager.AddCategoryIfNotExists(category, parentCategory, onlinePublication);
+
+            // Setup a demo user
             dataManager.AddUserIfNotExists("bdduser", "password123", "bdd@somefakeaddress.com");
         }
 

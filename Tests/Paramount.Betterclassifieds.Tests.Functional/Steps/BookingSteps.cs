@@ -16,11 +16,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [When(@"I submit a new Online Ad titled ""(.*)"" starting from today")]
         public void WhenISubmitANewOnlineAdTitledStartingFromToday(string adTitle)
         {
-            var bookingStep1 = _pageFactory.NavigateToAndResolve<BookingStep1>();
+            var bookingStep1 = _pageFactory.NavigateToAndResolve<OnlineBookingStep1Page>();
             bookingStep1.SelectOnlineAdBooking();
             bookingStep1.Proceed();
 
-            var bookingStep2 = _pageFactory.NavigateToAndResolve<BookingStep2>();
+            var bookingStep2 = _pageFactory.NavigateToAndResolve<OnlineBookingStep2Page>();
             bookingStep2.SelectParentCategory("Selenium Parent");
             bookingStep2.SelectSubCategory("Selenium Child");
             bookingStep2.Proceed();

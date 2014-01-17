@@ -76,8 +76,9 @@
   <ItemGroup>
     <Compile Include="Base\Constants.cs" />
     <Compile Include="Base\IPageFactory.cs" />
-    <Compile Include="Base\RouteUrlAttribute.cs" />
+    <Compile Include="Base\TestPageUrlAttribute.cs" />
     <Compile Include="Base\PageFactory.cs" />
+    <Compile Include="Base\WebDriverExtensions.cs" />
     <Compile Include="Features\SubmitNewBooking.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -95,9 +96,9 @@
     </Compile>
     <Compile Include="Base\BasePage.cs" />
     <Compile Include="Base\IConfig.cs" />
-    <Compile Include="Pages\BookingBasePage.cs" />
-    <Compile Include="Pages\BookingStep1.cs" />
-    <Compile Include="Pages\BookingStep2.cs" />
+    <Compile Include="Pages\OnlineBookingBasePage.cs" />
+    <Compile Include="Pages\BookingStep1Page.cs" />
+    <Compile Include="Pages\BookingStep2Page.cs" />
     <Compile Include="Pages\LoginPage.cs" />
     <Compile Include="Steps\BeforeAndAfterTests.cs" />
     <Compile Include="Mocks\DapperExtensions.cs" />

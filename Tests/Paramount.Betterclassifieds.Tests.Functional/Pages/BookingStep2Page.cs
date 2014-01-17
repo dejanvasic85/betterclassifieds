@@ -1,13 +1,14 @@
-﻿using OpenQA.Selenium;
+﻿using System.Threading;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
     [TestPageUrl(RelativeUrl = "Booking/Step2.aspx")]
-    public class BookingStep2 : BookingBasePage
+    public class OnlineBookingStep2Page : OnlineBookingBasePage
     {
-        public BookingStep2(IWebDriver webdriver)
+        public OnlineBookingStep2Page(IWebDriver webdriver)
             : base(webdriver)
         { }
 
@@ -19,14 +20,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         
         public void SelectParentCategory(string categoryName)
         {
-            SelectElement list = new SelectElement(_parentCategoryElement);
-            list.SelectByText(categoryName);
+            WebDriver.SelectOption(_parentCategoryElement, categoryName);
         }
 
         public void SelectSubCategory(string categoryName)
         {
-            SelectElement list = new SelectElement(_subCategoryElement);
-            list.SelectByText(categoryName);
+            WebDriver.WaitForAjax();
+            WebDriver.SelectOption(_subCategoryElement, categoryName);
         }
     }
 }

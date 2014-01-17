@@ -46,7 +46,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                 return publicationId.GetValueOrDefault();
             }
         }
-        
+
         public int AddOnlinePublicationIfNotExists()
         {
             var onlinePublicationTypeId = classifiedDb.GetById(Constants.Table.PublicationType, queryFilter: Constants.PublicationType.Online, findBy: "Code");
@@ -73,7 +73,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             if (!adTypeId.HasValue)
                 throw new ArgumentNullException("adTypeCode", "AdType " + adTypeCode + " does not exist and cannot create publication ad type");
 
-            var publicationAdTypeId = classifiedDb.Add<int>(Constants.Table.PublicationAdType, new {PublicationId = publicationId, AdTypeId = adTypeId});
+            var publicationAdTypeId = classifiedDb.Add<int>(Constants.Table.PublicationAdType, new { PublicationId = publicationId, AdTypeId = adTypeId });
             return publicationAdTypeId;
         }
 
@@ -233,12 +233,37 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             return coreDb.Query<Email>("SELECT Subject, CreateDateTime FROM EmailBroadcastEntry WHERE Email = @email", new { email }).ToList();
         }
 
-        public int AddCategoryIfNotExists(string name, string parent)
+        public int AddCategoryIfNotExists(string subCategory, string parentCategory, params string[] addToPublications)
         {
             using (var scope = new TransactionScope())
             {
-                var parentCategoryId = classifiedDb.AddIfNotExists(Constants.Table.MainCategory, new { Title = parent }, parent);
-                var categoryId = classifiedDb.AddIfNotExists(Constants.Table.MainCategory, new { Title = name, ParentId = parentCategoryId }, name);
+                var parentCategoryId = classifiedDb.AddIfNotExists(Constants.Table.MainCategory, new { Title = parentCategory }, parentCategory);
+                var categoryId = classifiedDb.AddIfNotExists(Constants.Table.MainCategory, new { Title = subCategory, ParentId = parentCategoryId }, subCategory);
+
+                foreach (var publicationName in addToPublications)
+                {
+                    // Fetch the Id for the publication (assume it exists)
+                    // Add publication category if not exists
+                    var publicationId = classifiedDb.GetById(Constants.Table.Publication, publicationName);
+
+                    var publicationParentCategoryId = classifiedDb.AddIfNotExists(Constants.Table.PublicationCategory,
+                        new
+                        {
+                            Title = parentCategory,
+                            MainCategoryId = parentCategoryId,
+                            PublicationId = publicationId
+                        }, parentCategory);
+
+                    var publicationChildCategoryId = classifiedDb.AddIfNotExists(Constants.Table.PublicationCategory,
+                        new
+                        {
+                            Title = subCategory,
+                            MainCategoryId = parentCategoryId,
+                            PublicationId = publicationId,
+                            ParentId = publicationParentCategoryId,
+                        }, subCategory);
+                }
+
                 scope.Complete();
                 return categoryId.GetValueOrDefault();
             }

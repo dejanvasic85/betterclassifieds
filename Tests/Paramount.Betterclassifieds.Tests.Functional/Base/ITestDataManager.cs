@@ -31,5 +31,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         // Emails / Notifications
         List<Email> GetSentEmailsFor(string email);
         
+        // Ratecards
+        void AddRatecardIfNotExists(string ratecardName, decimal minCharge, decimal maxCharge, string category, params string[] publications);
     }
 }

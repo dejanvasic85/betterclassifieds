@@ -62,6 +62,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             dataManager.AddPublicationAdTypeIfNotExists(onlinePublication, Constants.AdType.OnlineAd);
             dataManager.AddOnlinePublicationIfNotExists();
             dataManager.AddCategoryIfNotExists(category, parentCategory, onlinePublication);
+            dataManager.AddRatecardIfNotExists("Selenium Free", 0, 0, category, onlinePublication);
 
             // Setup a demo user
             dataManager.AddUserIfNotExists("bdduser", "password123", "bdd@somefakeaddress.com");

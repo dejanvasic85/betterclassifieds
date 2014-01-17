@@ -25,7 +25,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         public void SelectSubCategory(string categoryName)
         {
-            WebDriver.WaitForAjax();
+            // For life of me i cannot work out the stale element reference at this point
+            // So just fkn sleep it ( just for now )
+            Thread.Sleep(2000); 
+
             WebDriver.SelectOption(_subCategoryElement, categoryName);
         }
     }

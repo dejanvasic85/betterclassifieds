@@ -106,6 +106,7 @@
     <Compile Include="Extensions\DictionaryExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\ExceptionExtensions.cs" />
+    <Compile Include="Extensions\IntExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="GetControlString.cs" />
     <Compile Include="HtmlExtensions.cs" />

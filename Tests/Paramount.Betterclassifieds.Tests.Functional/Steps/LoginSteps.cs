@@ -17,7 +17,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         public void GivenIAmLoggedInAsWithPassword(string username, string password)
         {
             // Navigate to the login page
-            var loginPage = _pageFactory.NavigateToAndResolve<LoginPage>();
+            var loginPage = _pageFactory.NavigateToAndInit<LoginPage>();
 
             loginPage.SetUsername(username);
             loginPage.SetPassword(password);

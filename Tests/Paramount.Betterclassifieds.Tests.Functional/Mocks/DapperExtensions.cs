@@ -46,17 +46,33 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             return queryBuilder;
         }
 
-        public static int? GetById(this IDbConnection connection, string table, string queryFilter, string findBy = "Title")
+        public static int Single(this IDbConnection connection, string table, string queryFilter, string findBy = "Title")
         {
-            var tableIdentifierName = string.Format("{0}{1}", table, "Id");
-            var query = string.Format("SELECT {0} FROM {1} WHERE {2} = @queryParam", tableIdentifierName, table, findBy);
+            var value = connection.SingleOrDefault(table, queryFilter, findBy);
+            if (value == null)
+            {
+                throw new InvalidOperationException(string.Format("Table {0} does not contain any records for {1} by {2}", table, queryFilter, findBy));
+            }
+            return value.Value;
+        }
+
+        /// <summary>
+        /// Returns the record Id as integer for the required query as filter
+        /// </summary>
+        public static int? SingleOrDefault(this IDbConnection connection, string table, string queryFilter, string findBy = "Title")
+        {
+            // Use the convention of tableName+Id as the primary key (used for all classifieds tables)
+            var primaryKey = string.Format("{0}{1}", table, "Id");
+            
+            // Construct the query
+            var query = string.Format("SELECT {0} FROM {1} WHERE {2} = @queryParam", primaryKey, table, findBy);
             return connection.Query<int?>(query, new { queryParam = queryFilter }).FirstOrDefault();
         }
 
         public static int? AddIfNotExists(this IDbConnection connection, string table, object param, string queryFilter, string findBy = "Title")
         {
             // Check if the table record exists
-            var id = connection.GetById(table, queryFilter, findBy);
+            var id = connection.SingleOrDefault(table, queryFilter, findBy);
             return id.HasValue ? id : connection.Add(table, param);
         }
 

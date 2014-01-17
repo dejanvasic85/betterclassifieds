@@ -52,15 +52,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional
                 .FindElements(By.TagName("option"))
                 .FirstOrDefault(o => o.Text == optionValue);
 
-            if (option != null)
-            {
-                option.Click();
-                browser.WaitForAjax();
-            }
-            else
+            if (option == null)
             {
                 throw new Exception("Select Option " + optionValue + " not found");
             }
+
+            option.Click();
+            browser.WaitForAjax();
         }
     }
 }

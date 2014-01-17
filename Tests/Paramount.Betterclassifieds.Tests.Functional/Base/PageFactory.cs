@@ -14,20 +14,20 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             _config = config;
         }
 
-        public T Resolve<T>() where T : BasePage
+        public T Init<T>() where T : BasePage
         {
             var page = (T)Activator.CreateInstance(typeof(T), args: _webDriver);
             page.InitElements();
             return page;
         }
 
-        public TPage NavigateToAndResolve<TPage>(params object[] query) where TPage : BasePage
+        public TPage NavigateToAndInit<TPage>(params object[] query) where TPage : BasePage
         {
             var relativeUrl = typeof(TPage).GetCustomAttribute<TestPageUrlAttribute>().RelativeUrl;
             var fullPageUrl = GetBaseUrl() + string.Format(relativeUrl, query);
             _webDriver.Navigate().GoToUrl(fullPageUrl);
 
-            return Resolve<TPage>();
+            return Init<TPage>();
         }
 
         public void NavigateTo<TPage>(params object[] query) where TPage : BasePage

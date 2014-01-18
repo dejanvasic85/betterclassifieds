@@ -5,9 +5,6 @@
 	$DropCreateDatabase = $true
 #>
 
-Import-Module "sqlps" -DisableNameChecking
-
-
 $scriptPath = Split-Path -Parent $MyInvocation.MyCommand.Definition
 Set-Location $scriptPath
 [xml]$appConfig = Get-Content .\ClassifiedsDatabase.exe.config

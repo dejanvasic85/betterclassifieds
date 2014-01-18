@@ -2,6 +2,7 @@
 
 - Automated backups: https://trello.com/c/mMWF5vlO/23-automated-database-backups
 - Ability to extend booking from command line (assist with administration and support) https://trello.com/c/D8lYRCa4/61-new-offline-task-remove-edition
+- Controlling email sending from non production environment https://trello.com/c/2jd7Z9Lj/123-better-control-of-how-emails-are-sent-out-from-non-release-environment
 
 **Technical Debt**
 

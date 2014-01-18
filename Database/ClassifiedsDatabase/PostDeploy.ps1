@@ -42,5 +42,7 @@ if ( $DropCreateDatabase -eq $true ) {
     Invoke-Sqlcmd -Query "CREATE DATABASE $($sqlConnectionBuilder.InitialCatalog)" -ServerInstance $sqlConnectionBuilder.DataSource
 }
 
+Set-Location $scriptPath
+
 # Execute upgrade script
 & .\ClassifiedsDatabase.exe

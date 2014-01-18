@@ -1,1 +1,0 @@
-﻿& .\ClassifiedsDatabase.exe | Write-Host

@@ -1,1 +1,0 @@
-﻿& .\CoreDatabase.exe | Write-Host

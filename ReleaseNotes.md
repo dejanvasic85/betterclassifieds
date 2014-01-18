@@ -11,3 +11,4 @@
 - New library Paramount.ApplicationBlock.Mvc for managing MVC framework and modules
 - Fixing data layer to have classifieds linq and removing a lot of unused code.
 - Automated functional test for booking https://trello.com/c/AK23jSUI/81-automated-functional-test-for-new-booking
+- Continuous Integration Setup https://trello.com/c/Hrd7iRSd/74-setup-full-continuous-integration-with-automated-functional-testing

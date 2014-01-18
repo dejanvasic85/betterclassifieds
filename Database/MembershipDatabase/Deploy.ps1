@@ -1,1 +1,0 @@
-﻿& .\MembershipDatabase.exe | Write-Host

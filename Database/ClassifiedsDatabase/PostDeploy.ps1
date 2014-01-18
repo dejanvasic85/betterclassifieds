@@ -1,16 +1,16 @@
-﻿Import-Module "sqlps" -DisableNameChecking
-
-Set-Location $scriptPath
-
-<# Variables Provided by Octopus 
+﻿<# Variables Provided by Octopus 
 	$BackupDatabase = $true
 	$BackupDatabasePath = "D:\"
 	$RestoreDatabase = $true
 	$DropCreateDatabase = $true
 #>
 
-[xml]$appConfig = Get-Content .\ClassifiedsDatabase.exe.config
+Import-Module "sqlps" -DisableNameChecking
+
+
 $scriptPath = Split-Path -Parent $MyInvocation.MyCommand.Definition
+Set-Location $scriptPath
+[xml]$appConfig = Get-Content .\ClassifiedsDatabase.exe.config
 
 # Use connection builder to get variables we need for backup and stuff
 $sqlConnectionBuilder = New-Object -TypeName System.Data.SqlClient.SqlConnectionStringBuilder -ArgumentList $appConfig.configuration.connectionStrings.add.connectionString

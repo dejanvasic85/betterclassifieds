@@ -35,7 +35,7 @@ MOVE N'ParamountLogLIVE' TO N'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQ
 MOVE N'ParamountLogLIVE_log' TO N'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\$($sqlConnectionBuilder.InitialCatalog)_log.ldf',  
 NOUNLOAD,  REPLACE,  STATS = 5
 "@
-	Invoke-SqlCmd -Query $restoreQuery -ServerInstance $sqlConnectionBuilder.DataSource -Database "master"
+	Invoke-SqlCmd -Query $restoreQuery -ServerInstance $sqlConnectionBuilder.DataSource -Database "master" -ConnectionTimeout 65534
 }
 
 # Drop Create Database

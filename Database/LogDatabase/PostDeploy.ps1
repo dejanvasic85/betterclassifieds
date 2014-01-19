@@ -33,7 +33,7 @@ RESTORE DATABASE [$($sqlConnectionBuilder.InitialCatalog)] FROM
 DISK = N'$($backupFile)' WITH  FILE = 1,  
 MOVE N'ParamountLogLIVE' TO N'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\$($sqlConnectionBuilder.InitialCatalog).mdf',  
 MOVE N'ParamountLogLIVE_log' TO N'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\$($sqlConnectionBuilder.InitialCatalog)_log.ldf',  
-NOUNLOAD,  REPLACE,  STATS = 5
+NOUNLOAD,  REPLACE,RECOVERY,  STATS = 5
 "@
 	Invoke-SqlCmd -Query $restoreQuery -ServerInstance $sqlConnectionBuilder.DataSource -Database "master" -ConnectionTimeout 65534
 }

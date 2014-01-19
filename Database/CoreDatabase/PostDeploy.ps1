@@ -22,11 +22,20 @@ if ( $BackupDatabase -eq $true ){
 
 # Restore-SqlDatabase
 if ( $RestoreDatabase -eq $true ){	
-	$backupFile = $BackupDatabaseLocation + $sqlConnectionBuilder.InitialCatalog + ".bak"
+    $backupFile = $BackupDatabasePath + $sqlConnectionBuilder.InitialCatalog + ".bak"
 	Invoke-Sqlcmd "ALTER DATABASE [$($sqlConnectionBuilder.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ServerInstance $sqlConnectionBuilder.DataSource
 	Invoke-Sqlcmd "ALTER DATABASE [$($sqlConnectionBuilder.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ServerInstance $sqlConnectionBuilder.DataSource
-	Write-Host "Restoring ..."
-    Restore-SqlDatabase -ServerInstance $sqlConnectionBuilder.DataSource -Database $sqlConnectionBuilder.InitialCatalog -BackupFile $backupFile -ReplaceDatabase
+
+	Write-Host "Restoring Database $($sqlConnectionBuilder.InitialCatalog) from $($backupFile) ..."
+
+$restoreQuery = @"
+RESTORE DATABASE [$($sqlConnectionBuilder.InitialCatalog)] FROM  
+DISK = N'$($backupFile)' WITH  FILE = 1,  
+MOVE N'ParamountCoreLIVE' TO N'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\$($sqlConnectionBuilder.InitialCatalog).mdf',
+MOVE N'ParamountCoreLIVE_log' TO N'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\$($sqlConnectionBuilder.InitialCatalog)_log.ldf',  
+NOUNLOAD,  REPLACE,  STATS = 5
+"@
+	Invoke-SqlCmd -Query $restoreQuery -ServerInstance $sqlConnectionBuilder.DataSource -Database "master"
 }
 
 # Drop Create Database

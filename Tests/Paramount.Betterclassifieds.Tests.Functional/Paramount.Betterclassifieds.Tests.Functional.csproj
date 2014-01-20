@@ -125,7 +125,7 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SubmitNewBooking.feature.cs</LastGenOutput>
     </None>
-    <None Include="Deploy_Disabled.ps1" />
+    <None Include="Deploy.ps1" />
     <None Include="Features\UserRegistration.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>UserRegistration.feature.cs</LastGenOutput>

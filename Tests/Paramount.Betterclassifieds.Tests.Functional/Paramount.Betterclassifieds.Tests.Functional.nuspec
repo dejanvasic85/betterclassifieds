@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>ClassifiedFunctionalTests</id>
-    <title>ClassifiedFunctionalTests</title>
+    <id>ClassifiedsFunctionalTests</id>
+    <title>ClassifiedsFunctionalTests</title>
     <version>1.0.0</version>
     <authors>Paramount IT Solutions</authors>
     <owners>Paramount IT Solutions</owners>
@@ -12,4 +12,13 @@
     <description>Suite of functional tests involving full User Interface and selenium tests with NUnit and Specflow.</description>
     <releaseNotes></releaseNotes>
   </metadata>
+  <files>
+    <file src="*.ps1;*.config;*.csproj;*.exe" />
+    <file src="bin\Release\*.dll" />
+    <file src="bin\Release\*.pdb" />
+    <!--The config needs to be renamed to match the executing assembly-->
+    <file src="App.Config" target="Paramount.Betterclassifieds.Tests.Functional.dll.config" />
+    <file src="..\..\packages\SpecFlow.1.9.0\tools\*.*" target="Specflow" />
+    <file src="..\..\packages\NUnit.Runners.2.6.3\tools\**\*.*" target="NUnit" />
+  </files>
 </package>

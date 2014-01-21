@@ -234,7 +234,9 @@
     <Content Include="Scripts\jquery-2.0.3.min.js" />
     <Content Include="Service\AjaxMethods.asmx" />
     <Content Include="TestPage.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Scripts\jquery-2.0.3.min.map" />
   </ItemGroup>
   <ItemGroup>
@@ -1018,10 +1020,6 @@
     <ProjectReference Include="..\..\Paramount.Betterclassifieds.Business\Paramount.Betterclassifieds.Business.csproj">
       <Project>{5c1be481-db9e-48cc-9048-5b10e6535d02}</Project>
       <Name>Paramount.Betterclassifieds.Business</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Paramount.Betterclassifieds.DataService\Paramount.Betterclassifieds.DataService.csproj">
-      <Project>{e51b8388-9a02-40ad-97b4-2802ae77fb69}</Project>
-      <Name>Paramount.Betterclassifieds.DataService</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Services\DataTransferObjects\Common.DataTransferObjects.csproj">
       <Project>{377f2216-9202-4df9-9c5b-c2a4e627ffe2}</Project>

@@ -1143,6 +1143,10 @@
       <Project>{04e24b49-191f-44b6-833f-361c559f7b18}</Project>
       <Name>BetterClassified.UI</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BetterclassifiedsCore\BetterclassifiedsCore.vbproj">
+      <Project>{0790d756-48f2-42c5-9985-7915d15ed88c}</Project>
+      <Name>BetterclassifiedsCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UIController\Common.UIController.csproj">
       <Project>{0FBD88DA-96D9-4F11-A45A-2364A4184C37}</Project>
       <Name>Common.UIController</Name>
@@ -1162,10 +1166,6 @@
     <ProjectReference Include="..\..\ApplicationBlock\Utility\Paramount.Utility.csproj">
       <Project>{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}</Project>
       <Name>Paramount.Utility</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BetterclassifiedsCore\BetterclassifiedsCore.vbproj">
-      <Project>{0790D756-48F2-42C5-9985-7915D15ED88C}</Project>
-      <Name>BetterclassifiedsCore</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ApplicationBlock\Betterclassifieds.Utility\Paramount.Betterclassified.Utilities.csproj">
       <Project>{C1B1D4CC-E982-472D-8FE3-8719BA24D272}</Project>

@@ -81,7 +81,7 @@
       <Name>ApplicationBlock.Membership</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Paramount.Betterclassifieds.DataService\Paramount.Betterclassifieds.DataService.csproj">
-      <Project>{e51b8388-9a02-40ad-97b4-2802ae77fb69}</Project>
+      <Project>{E51B8388-9A02-40AD-97B4-2802AE77FB69}</Project>
       <Name>Paramount.Betterclassifieds.DataService</Name>
     </ProjectReference>
     <ProjectReference Include="..\DataTransferObjects\Common.DataTransferObjects.csproj">

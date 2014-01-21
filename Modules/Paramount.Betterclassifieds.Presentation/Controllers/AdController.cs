@@ -20,7 +20,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
 
-        public ActionResult Category(string categoryCode){
+        public ActionResult Category(string categoryCode)
+        {
             return View();
         }
     }

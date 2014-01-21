@@ -121,6 +121,12 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="App.CI.config">
+      <DependentUpon>App.Config</DependentUpon>
+    </None>
+    <None Include="App.Test.config">
+      <DependentUpon>App.Config</DependentUpon>
+    </None>
     <None Include="Features\SubmitNewBooking.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SubmitNewBooking.feature.cs</LastGenOutput>

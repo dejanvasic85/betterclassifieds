@@ -17,5 +17,7 @@
     <file src="App.Config" target="Paramount.Betterclassifieds.Tests.Functional.dll.config" />
     <file src="..\..\packages\SpecFlow.1.9.0\tools\*.*" target="Specflow" />
     <file src="..\..\packages\NUnit.Runners.2.6.3\tools\**\*.*" target="NUnit" />
+    <file src="bin\Release\*.dll" />
+    <file src="bin\Release\*.pdb" />
   </files>
 </package>

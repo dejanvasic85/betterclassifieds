@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Paramount.Betterclassifieds.Business.Repository;
+using Paramount.Utility;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
@@ -20,9 +22,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
 
-        public ActionResult Category(string categoryCode)
+        public ActionResult CategoryTest(int[] catIds)
         {
-            return View();
+            var adList = adRepository.GetOnlineAdsByCategory(catIds.EmptyIfNull().ToList());
+            return Json(adList, JsonRequestBehavior.AllowGet);
         }
     }
 }

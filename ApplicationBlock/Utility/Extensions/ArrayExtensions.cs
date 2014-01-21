@@ -1,4 +1,6 @@
-﻿namespace Paramount
+﻿using System.Collections.Generic;
+
+namespace Paramount
 {
     using System;
 
@@ -19,6 +21,11 @@
             }
 
             return result;
+        }
+
+        public static IEnumerable<T> EmptyIfNull<T>(this IEnumerable<T> data)
+        {
+            return data ?? new List<T>();
         }
     }
 }

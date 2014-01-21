@@ -60,6 +60,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
             // From Db
             configuration.CreateMap<OnlineAd, OnlineAdModel>();
+            configuration.CreateMap<OnlineClassie, OnlineAdModel>();
             configuration.CreateMap<TutorAd, TutorAdModel>();
 
             // To Db

@@ -75,5 +75,16 @@ namespace Paramount.Betterclassifieds.DataService.Properties {
                 return ((string)(this["iFlogConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=paramountit.com.au;Initial Catalog=iFlog;Persist Security Info=True;U" +
+            "ser ID=sa")]
+        public string iFlogConnectionString1 {
+            get {
+                return ((string)(this["iFlogConnectionString1"]));
+            }
+        }
     }
 }

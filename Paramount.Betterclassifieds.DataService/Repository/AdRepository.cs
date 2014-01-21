@@ -42,6 +42,18 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             }
         }
 
+        public List<OnlineAdModel> GetOnlineAdsByCategory(List<int> categoryIds, int index = 0, int pageSize = 25)
+        {
+            using (var context = DataContextFactory.CreateClassifiedContext())
+            {
+                // Get the latest online ads
+                var ads = context.OnlineClassies.Where(c =>  categoryIds.Contains(c.MainCategoryId.Value)).Skip(index * pageSize).Take(pageSize).ToList();
+
+                // Map to the models
+                return this.MapList<OnlineClassie, OnlineAdModel>(ads);
+            }
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateProfile("AdRepositoryMaps");

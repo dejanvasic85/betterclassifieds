@@ -41,6 +41,7 @@ Partial Public Class AdBookings
     Private Sub grdBookingResults_ItemDataBound(sender As Object, e As Telerik.Web.UI.GridItemEventArgs) Handles grdBookingResults.ItemDataBound
         If e.Item.ItemType = GridItemType.Item Or e.Item.ItemType = GridItemType.AlternatingItem Then
             Dim item As BookingSearchResult = e.Item.DataItem
+
             e.Item.FindControl(Of Literal)("lblBookingStatus").Text = DirectCast(e.Item.DataItem.BookingStatus, BookingStatusType).ToString
         End If
     End Sub

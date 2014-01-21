@@ -13,9 +13,9 @@ Public Class ContainerConfig
             .RegisterType(Of IRateRepository, RateRepository)() _
             .RegisterType(Of IUserRepository, UserRepository)() _
             .RegisterType(Of IPaymentsRepository, PaymentsRepository)() _
-            .RegisterType(Of IAdRepository, Paramount.Betterclassifieds.DataService.Repository.AdRepository)() _
-            .RegisterType(Of ILookupRepository, LookupRepository)() _
-            .RegisterType(Of IMenuRepository, TheMusicMenuRepository)()
+             .RegisterType(Of ILookupRepository, LookupRepository)() _
+        .RegisterType(Of IMenuRepository, TheMusicMenuRepository)()
+        '.RegisterType(Of IAdRepository, Paramount.Betterclassifieds.DataService.Repository.AdRepository)() _
 
         ' Managers
         container.RegisterType(Of IClientConfig, ClientConfig)() _

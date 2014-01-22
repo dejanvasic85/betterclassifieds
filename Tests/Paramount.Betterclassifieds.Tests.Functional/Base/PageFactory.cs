@@ -21,7 +21,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             var page = (T)Activator.CreateInstance(pageType, _webDriver, _config);
             var pageRelativeUrl = GetAbsoluteUrl(pageType.GetCustomAttribute<TestPageAttribute>().RelativeUrl);
 
-            WebDriverWait wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(5));
+            WebDriverWait wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(120));
             wait.Until(driver => driver.Url.StartsWith(pageRelativeUrl, StringComparison.OrdinalIgnoreCase));
 
             page.InitElements();

@@ -11,16 +11,20 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             : base(webdriver, config)
         { }
 
-        [FindsBy(How = How.Id, Using = "ctl00_ContentPlaceHolder1_chkConfirm")]
-        private readonly IWebElement _detailsConfirmedElement = null;
+        private IWebElement DetailsConfirmedElement
+        {
+            get { return FindElement(By.Id("ctl00_ContentPlaceHolder1_chkConfirm")); }
+        }
 
-        [FindsBy(How = How.Id, Using = "ctl00_ContentPlaceHolder1_chkConditions")]
-        private readonly IWebElement _termsAndConditionsElement = null;
+        private IWebElement TermsAndConditionsElement
+        {
+            get { return FindElement(By.Id("ctl00_ContentPlaceHolder1_chkConditions")); }
+        }
         
         public void AgreeToTermsAndConditions()
         {
-            _detailsConfirmedElement.Click();
-            _termsAndConditionsElement.Click();
+            DetailsConfirmedElement.Click();
+            TermsAndConditionsElement.Click();
         }
     }
 }

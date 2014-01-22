@@ -11,7 +11,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         public OnlineBookingStep4TestPage(IWebDriver webdriver, IConfig config)
             : base(webdriver, config)
         { }
-        
+
         public void SelectOnlineStartDate(DateTime date)
         {
             var linkToClick = WebDriver

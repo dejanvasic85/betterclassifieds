@@ -11,28 +11,38 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         {
         }
 
-        [FindsBy(How = How.Id, Using = "ctl00_ContentPlaceHolder1_ucxLogin_Login1_UserName")]
-        private readonly IWebElement _usernameElement = null;
+        private IWebElement UsernameElement
+        {
+            get { return FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxLogin_Login1_UserName")); }
+        }
 
-        [FindsBy(How = How.Id, Using = "ctl00_ContentPlaceHolder1_ucxLogin_Login1_Password")]
-        private readonly IWebElement _passwordElement = null;
+        private IWebElement PasswordElement
+        {
+            get { return FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxLogin_Login1_Password")); }
+        }
 
-        [FindsBy(How = How.Id, Using = "ctl00_ContentPlaceHolder1_ucxLogin_Login1_btnLogin")] 
-        private readonly IWebElement _loginButtonElement = null;
+        private IWebElement LoginButtonElement
+        {
+            get { return FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxLogin_Login1_btnLogin")); }
+        }
+
+        #region Public Methods
 
         public void SetUsername(string username)
         {
-            _usernameElement.SendKeys(username);
+            UsernameElement.SendKeys(username);
         }
 
         public void SetPassword(string password)
         {
-            _passwordElement.SendKeys(password);
+            PasswordElement.SendKeys(password);
         }
 
         public void ClickLogin()
         {
-            _loginButtonElement.Click();
+            LoginButtonElement.Click();
         }
+
+        #endregion
     }
 }

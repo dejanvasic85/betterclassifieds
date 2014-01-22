@@ -1,5 +1,4 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.PageObjects;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
@@ -10,12 +9,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         {
         }
 
-        [FindsBy(How = How.Id, Using = "ctl00_ContentPlaceHolder1_ucxNavButtons_btnNext")]
-        private readonly IWebElement _nextButtonElement = null;
+        protected IWebElement NextButtonElement
+        {
+            get { return FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxNavButtons_btnNext")); }
+        }
 
         public void Proceed()
         {
-            _nextButtonElement.Click();
+            NextButtonElement.Click();
         }
     }
 }

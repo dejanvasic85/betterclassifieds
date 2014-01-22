@@ -10,6 +10,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             : base(webdriver, config)
         { }
 
+        // todo : We need to extract the elements in to properties for better practice
+
         public void SetPersonalDetails(string firstName, string lastName, string address, string suburb, string state, string postcode, string telephone)
         {
             SetFirstName(firstName);

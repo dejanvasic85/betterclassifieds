@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.PageObjects;
+﻿using OpenQA.Selenium;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
@@ -11,18 +9,25 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             : base(webdriver, config)
         { }
 
-        [FindsBy(How = How.Id, Using = "ctl00_ContentPlaceHolder1_ucxDesignOnlineAd_txtOnlineHeading")]
-        private readonly IWebElement _txtOnlineHeader = null;
-        
+        private IWebElement OnlineHeaderElement
+        {
+            get { return FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxDesignOnlineAd_txtOnlineHeading")); }
+        }
+
+        private IWebElement OnlineDescriptionFrameElement
+        {
+            get { return FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxDesignOnlineAd_radEditor_contentIframe")); }
+        }
+
         public void FillOnlineHeader(string adTitle)
         {
-            _txtOnlineHeader.SendKeys(adTitle);
+            OnlineHeaderElement.SendKeys(adTitle);
         }
 
         public void FillOnlineDescription(string description)
         {
             // Capture the frame first
-            var telerikTextFrame = WebDriver.FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxDesignOnlineAd_radEditor_contentIframe"));
+            var telerikTextFrame = OnlineDescriptionFrameElement;
 
             // Switch to description frame
             WebDriver.SwitchTo().Frame(telerikTextFrame);

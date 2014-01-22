@@ -10,21 +10,33 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             : base(webdriver, config)
         { }
 
-        [FindsBy(How = How.Id, Using = "ctl00_ContentPlaceHolder1_rdoPremium")]
-        private readonly IWebElement _bundledOptionElement = null;
+        #region Page Elements
 
-        [FindsBy(How = How.Id, Using = "ctl00_ContentPlaceHolder1_rdoOnlineOnly")]
-        private readonly IWebElement _onlineOnlyBookingOptionElement = null;
+        private IWebElement BundleOptionElement
+        {
+            get { return FindElement(By.Id("ctl00_ContentPlaceHolder1_rdoPremium")); }
+        }
+
+        private IWebElement OnlineOnlyBookingOptionElement
+        {
+            get { return FindElement(By.Id("ctl00_ContentPlaceHolder1_rdoOnlineOnly")); }
+        }
+
+        #endregion
+
+        #region Public Methods
 
         public void SelectOnlineAdBooking()
         {
-            _onlineOnlyBookingOptionElement.Click();
+            OnlineOnlyBookingOptionElement.Click();
         }
 
         public void SelectBundleBooking()
         {
-            _bundledOptionElement.Click();
+            BundleOptionElement.Click();
         }
+
+        #endregion
 
     }
 }

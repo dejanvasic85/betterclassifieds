@@ -34,7 +34,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             return WebDriver.FindElements(by).Any();
         }
 
-        public IWebElement FindElement(By by, int maxSecondsToTimeout = 30)
+        public IWebElement FindElement(By by, int maxSecondsToTimeout = 120)
         {
             // Wait for element to appear first (just in case)
             WebDriverWait wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(maxSecondsToTimeout));

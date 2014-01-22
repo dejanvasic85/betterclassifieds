@@ -6,9 +6,9 @@ using OpenQA.Selenium.Support.UI;
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
     [TestPage(RelativeUrl = "Booking/Step2.aspx")]
-    public class OnlineBookingStep2Page : OnlineBookingBasePage
+    public class OnlineBookingStep2TestPage : OnlineBookingBaseTestPage
     {
-        public OnlineBookingStep2Page(IWebDriver webdriver, IConfig config)
+        public OnlineBookingStep2TestPage(IWebDriver webdriver, IConfig config)
             : base(webdriver, config)
         { }
 

@@ -18,25 +18,25 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [When(@"I submit a new Online Ad titled ""(.*)"" starting from today")]
         public void WhenISubmitANewOnlineAdTitledStartingFromToday(string adTitle)
         {
-            var bookingStep1 = _pageFactory.NavigateToAndInit<OnlineBookingStep1Page>();
+            var bookingStep1 = _pageFactory.NavigateToAndInit<OnlineBookingStep1TestPage>();
             bookingStep1.SelectOnlineAdBooking();
             bookingStep1.Proceed();
 
-            var bookingStep2 = _pageFactory.Init<OnlineBookingStep2Page>();
+            var bookingStep2 = _pageFactory.Init<OnlineBookingStep2TestPage>();
             bookingStep2.SelectParentCategory("Selenium Parent");
             bookingStep2.SelectSubCategory("Selenium Child");
             bookingStep2.Proceed();
 
-            var bookingStep3 = _pageFactory.Init<OnlineBookingStep3Page>();
+            var bookingStep3 = _pageFactory.Init<OnlineBookingStep3TestPage>();
             bookingStep3.FillOnlineHeader(adTitle);
             bookingStep3.FillOnlineDescription(adTitle);
             bookingStep3.Proceed();
 
-            var bookingStep4 = _pageFactory.Init<OnlineBookingStep4Page>();
+            var bookingStep4 = _pageFactory.Init<OnlineBookingStep4TestPage>();
             bookingStep4.SelectOnlineStartDate(DateTime.Today.Date);
             bookingStep4.Proceed();
 
-            var bookingStep5 = _pageFactory.Init<OnlineBookingStep5Page>();
+            var bookingStep5 = _pageFactory.Init<OnlineBookingStep5TestPage>();
             bookingStep5.AgreeToTermsAndConditions();
             bookingStep5.Proceed();
         }
@@ -44,7 +44,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Then(@"the booking should be successful")]
         public void ThenTheBookingShouldBeSuccessful()
         {
-            var bookingCompletePage = _pageFactory.Init<BookingCompletePage>();
+            var bookingCompletePage = _pageFactory.Init<BookingCompleteTestPage>();
             Assert.IsTrue(bookingCompletePage.IsDisplayed());
         }
 

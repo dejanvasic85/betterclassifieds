@@ -94,7 +94,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>OnlineAdRoute.feature</DependentUpon>
     </Compile>
-    <Compile Include="Base\BasePage.cs" />
+    <Compile Include="Base\BaseTestPage.cs" />
     <Compile Include="Base\IConfig.cs" />
     <Compile Include="Pages\BookingCompletePage.cs" />
     <Compile Include="Pages\OnlineBookingStep5Page.cs" />

@@ -32,7 +32,7 @@ if ( $RunIntegrationTests -eq $true ){
 		Write-Host "Failed: $($failureCount)"
 
     	$smtpFrom = "smoketest@paramountit.com.au"
-    	$smtpTo = "support@paramountit.com.au"
+    	$smtpTo = "dejan.vasic@paramountit.com.au"
     	$messageSubject = "Smoke Test Failed"
     	
     	$message = New-Object System.Net.Mail.MailMessage $smtpfrom, $smtpto

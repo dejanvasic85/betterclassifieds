@@ -4,9 +4,9 @@ using OpenQA.Selenium.Support.PageObjects;
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
     [TestPage(RelativeUrl = "Login.aspx")]
-    public class LoginPage : BasePage
+    public class LoginTestPage : BaseTestPage
     {
-        public LoginPage(IWebDriver webdriver, IConfig config)
+        public LoginTestPage(IWebDriver webdriver, IConfig config)
             : base(webdriver, config)
         {
         }

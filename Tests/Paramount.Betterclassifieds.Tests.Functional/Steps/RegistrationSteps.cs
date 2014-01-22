@@ -33,13 +33,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Given(@"I navigate to the registration page")]
         public void GivenINavigateToTheRegistrationPage()
         {
-            _pageFactory.NavigateTo<RegisterNewUserPage>();
+            _pageFactory.NavigateTo<RegisterNewUserTestPage>();
         }
 
         [Given(@"I have entered my personal details ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)""")]
         public void GivenIHaveEnteredMyPersonalDetails(string firstName, string lastName, string address, string suburb, string state, string postcode, string telephone)
         {
-            var registrationPage = _pageFactory.Init<RegisterNewUserPage>();
+            var registrationPage = _pageFactory.Init<RegisterNewUserTestPage>();
             registrationPage.SetPersonalDetails(firstName, lastName, address, suburb, state,
                 postcode, telephone);
         }
@@ -47,7 +47,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Given(@"I have entered my account details ""(.*)"", ""(.*)"", ""(.*)""")]
         public void GivenIHaveEnteredMyAccountDetails(string username, string password, string email)
         {
-            var registrationPage = _pageFactory.Init<RegisterNewUserPage>();
+            var registrationPage = _pageFactory.Init<RegisterNewUserTestPage>();
             registrationPage.SetUsername(username);
             registrationPage.SetPassword(password);
             registrationPage.SetPasswordConfirmation(password);
@@ -58,21 +58,21 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Given(@"I click Next to proceed to account details")]
         public void GivenIClickNextToProceedToAccountDetails()
         {
-            var registrationPage = _pageFactory.Init<RegisterNewUserPage>();
+            var registrationPage = _pageFactory.Init<RegisterNewUserTestPage>();
             registrationPage.ClickNextOnPersonalDetailsView();
         }
 
         [Given(@"I click check availability button")]
         public void GivenIClickCheckAvailabilityButton()
         {
-            var registrationPage = _pageFactory.Init<RegisterNewUserPage>();
+            var registrationPage = _pageFactory.Init<RegisterNewUserTestPage>();
             registrationPage.ClickCheckAvailability();
         }
 
         [Then(@"user availability message should display ""(.*)""")]
         public void ThenUserAvailabilityMessageShouldDisplay(string expectedMessage)
         {
-            var registrationPage = _pageFactory.Init<RegisterNewUserPage>();
+            var registrationPage = _pageFactory.Init<RegisterNewUserTestPage>();
             var message = registrationPage.GetUsernameAvailabilityMessage();
             Assert.IsTrue(message.StartsWith(expectedMessage));
         }
@@ -84,7 +84,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             // See ThenARegistrationEmailShouldBeSentTo method where this is retrieved
             ScenarioContext.Current.Add("StartRegistrationTime", DateTime.Now);
 
-            var registrationPage = _pageFactory.Init<RegisterNewUserPage>();
+            var registrationPage = _pageFactory.Init<RegisterNewUserTestPage>();
             registrationPage.ClickCreateUser();
         }
         
@@ -107,7 +107,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Then(@"I should see registration message displayed ""(.*)""")]
         public void ThenIShouldSeeRegistrationMessageDisplayed(string expectedMessage)
         {
-            var registrationPage = _pageFactory.Init<RegisterNewUserPage>();
+            var registrationPage = _pageFactory.Init<RegisterNewUserTestPage>();
             var currentMessage = registrationPage.GetRegistrationCompletedMessage();
 
             Assert.IsTrue(currentMessage.StartsWith(expectedMessage));

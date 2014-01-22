@@ -4,9 +4,9 @@ using OpenQA.Selenium.Support.PageObjects;
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
     [TestPage(RelativeUrl = "Ad/{0}/{1}")]
-    public class OnlineAdPage : BasePage
+    public class OnlineAdTestPage : BaseTestPage
     {
-        public OnlineAdPage(IWebDriver webdriver, IConfig config)
+        public OnlineAdTestPage(IWebDriver webdriver, IConfig config)
             : base(webdriver, config)
         { }
 

@@ -46,15 +46,15 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Then(@"the page title should start with ""(.*)""")]
         public void ThenThePageTitleShouldStartWith(string title)
         {
-            var onlineAdPage = _pageFactory.Init<OnlineAdPage>();
+            var onlineAdPage = _pageFactory.Init<OnlineAdTestPage>();
             Assert.IsTrue(onlineAdPage.GetTitle().StartsWith(title, StringComparison.OrdinalIgnoreCase));
         }
 
         [Then(@"the online ad contact name should be ""(.*)""")]
         public void ThenTheOnlineAdContactNameShouldBe(string sampleContact)
         {
-            OnlineAdPage onlineAdPage = _pageFactory.Init<OnlineAdPage>();
-            Assert.AreEqual(sampleContact, onlineAdPage.GetContactName());
+            OnlineAdTestPage onlineAdTestPage = _pageFactory.Init<OnlineAdTestPage>();
+            Assert.AreEqual(sampleContact, onlineAdTestPage.GetContactName());
         }
 
     }

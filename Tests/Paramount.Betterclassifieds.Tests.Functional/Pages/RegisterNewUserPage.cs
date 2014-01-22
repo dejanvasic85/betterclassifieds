@@ -4,9 +4,9 @@ using OpenQA.Selenium.Support.UI;
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
     [TestPage(RelativeUrl = "Register.aspx")]
-    public class RegisterNewUserPage : BasePage
+    public class RegisterNewUserTestPage : BaseTestPage
     {
-        public RegisterNewUserPage(IWebDriver webdriver, IConfig config)
+        public RegisterNewUserTestPage(IWebDriver webdriver, IConfig config)
             : base(webdriver, config)
         { }
 

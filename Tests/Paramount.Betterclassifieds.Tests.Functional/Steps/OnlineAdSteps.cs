@@ -31,7 +31,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Given(@"The parent category ""(.*)"" and sub category ""(.*)""")]
         public void GivenParentCategoryAndSubCategory(string parentCategory, string childCategory)
         {
-            _dataManager.AddCategoryIfNotExists(parentCategory, childCategory);
+            _dataManager.AddCategoryIfNotExists(childCategory, parentCategory);
         }
 
         [When(@"I navigate to ""(.*)""")]
@@ -46,14 +46,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Then(@"the page title should start with ""(.*)""")]
         public void ThenThePageTitleShouldStartWith(string title)
         {
-            var onlineAdPage = _pageFactory.Init<OnlineAdTestPage>();
+            var onlineAdPage = _pageFactory.Init<OnlineAdTestPage>(false);
             Assert.IsTrue(onlineAdPage.GetTitle().StartsWith(title, StringComparison.OrdinalIgnoreCase));
         }
 
         [Then(@"the online ad contact name should be ""(.*)""")]
         public void ThenTheOnlineAdContactNameShouldBe(string sampleContact)
         {
-            OnlineAdTestPage onlineAdTestPage = _pageFactory.Init<OnlineAdTestPage>();
+            OnlineAdTestPage onlineAdTestPage = _pageFactory.Init<OnlineAdTestPage>(false);
             Assert.AreEqual(sampleContact, onlineAdTestPage.GetContactName());
         }
 

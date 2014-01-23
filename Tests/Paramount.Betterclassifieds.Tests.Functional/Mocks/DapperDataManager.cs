@@ -104,7 +104,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
         {
             DropOnlineAdIfExists(adTitle);
 
-            return AddOnlineAd(adTitle, categoryName);
+            return AddOnlineAd(adTitle, subCategoryName);
         }
 
         public int AddOnlineAd(string adTitle, string categoryName)

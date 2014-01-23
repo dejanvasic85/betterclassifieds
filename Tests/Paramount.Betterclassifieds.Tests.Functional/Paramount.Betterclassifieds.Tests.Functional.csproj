@@ -75,7 +75,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Base\Constants.cs" />
-    <Compile Include="Base\IPageFactory.cs" />
     <Compile Include="Base\TestPageAttribute.cs" />
     <Compile Include="Base\PageFactory.cs" />
     <Compile Include="Base\WebDriverExtensions.cs" />

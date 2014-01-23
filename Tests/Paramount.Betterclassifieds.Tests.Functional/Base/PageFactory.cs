@@ -15,14 +15,20 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             _config = config;
         }
 
-        public T Init<T>() where T : BaseTestPage
+        public T Init<T>(bool ensureUrl = true) where T : BaseTestPage
         {
-            Type pageType = typeof (T);
+            Type pageType = typeof(T);
             var page = (T)Activator.CreateInstance(pageType, _webDriver, _config);
             var pageRelativeUrl = GetAbsoluteUrl(pageType.GetCustomAttribute<TestPageAttribute>().RelativeUrl);
 
-            WebDriverWait wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(120));
-            wait.Until(driver => driver.Url.StartsWith(pageRelativeUrl, StringComparison.OrdinalIgnoreCase));
+            if (ensureUrl)
+            {
+                WebDriverWait wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(5));
+                wait.Until(driver =>
+                {
+                    return driver.Url.StartsWith(pageRelativeUrl, StringComparison.OrdinalIgnoreCase);
+                });
+            }
 
             page.InitElements();
             return page;

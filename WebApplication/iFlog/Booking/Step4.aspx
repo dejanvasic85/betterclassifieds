@@ -2,7 +2,6 @@
     MasterPageFile="~/Master/Default.Master"
     CodeBehind="Step4.aspx.vb" Inherits="BetterclassifiedsWeb.Step4" %>
 
-<%@ Register Src="~/Controls/Booking/EditionDates.ascx" TagName="EditionDates" TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/Booking/NavigationButtons.ascx" TagName="NavigationButtons" TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/ErrorList.ascx" TagName="PageErrors" TagPrefix="ucx" %>
 
@@ -70,30 +69,7 @@
                                     <DayStyle CssClass="calDayStyle" />
                                 </asp:Calendar>
                             </div>
-                            <%  If AdType = BetterclassifiedsCore.SystemAdType.LINE Then %>
-                            <div id="bookAdMainContent" style="font-size: 11px;">
-                                Start Date:
-                                <asp:Label ID="lblLineStartDate" runat="server" Font-Bold="true" />
-                            </div>
-                            <%--Number of Insertions--%>
-                            <div id="bookAdMainContent">
-                                <h2>
-                                    Insertions*</h2>
-                                <div class="spacerBookAd">
-                                    &nbsp;</div>
-                                <h5>
-                                    Number of editions you would like your advertisement to run for each publication.</h5>
-                            </div>
-                            <div id="bookAdMainContent">
-                                <table width="520" border="0" cellspacing="0px" cellpadding="0px">
-                                    <tr>
-                                        <td width="90">
-                                            <asp:DropDownList ID="ddlInserts" runat="server" AutoPostBack="true" Width="115px" />
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <% ElseIf AdType = BetterclassifiedsCore.SystemAdType.ONLINE Then %>
+                           
                             <%--End Date--%>
                             <asp:Panel ID="trEndDate" runat="server">
                                 <div id="bookAdMainContent">
@@ -113,58 +89,8 @@
                                     <asp:Label ID="lblEndDate" runat="server" Text="" Font-Bold="true"></asp:Label>
                                 </div>
                             </asp:Panel>
-                            <%  End If%>
-                            <% If AdType = BetterclassifiedsCore.SystemAdType.LINE Then%>
-                            <%--Verify Publication Dates Button--%>
-                            <div id="bookAdMainContent">
-                                <table width="520" border="0" cellspacing="0px" cellpadding="0px">
-                                    <tr>
-                                        <td width="327">
-                                            &nbsp;
-                                        </td>
-                                        <td width="193">
-                                            <div class="verify">
-                                                <asp:LinkButton ID="lnkCheckEditions" runat="server" Text="View Editions" /></div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                                <ContentTemplate>
-                                    <asp:Panel ID="pnlEditions" runat="server" CssClass="modalPopup" Width="450px">
-                                        <ucx:EditionDates ID="ucxEditionDates" runat="server" />
-                                        <div align="center" style="padding: 5px;">
-                                            <asp:Button ID="btnClose" runat="server" Text="Close" /></div>
-                                    </asp:Panel>
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
-                            <ajax:ModalPopupExtender ID="modalPopup1" runat="server" BackgroundCssClass="modalBackground"
-                                CancelControlID="btnClose" PopupControlID="pnlEditions" TargetControlID="lnkCheckEditions" />
-                            <%--List of publication deadlines--%>
-                            <div id="bookAdMainContent">
-                                <h2>
-                                    Deadlines</h2>
-                                <div class="spacerBookAd">
-                                    &nbsp;</div>
-                                <h5>
-                                    Advertisements must be placed by this day and time.</h5>
-                            </div>
-                            <div id="bookAdMainContent">
-                                <asp:DataList ID="listPublicationDeadlines" runat="server" Width="520px" CellPadding="0"
-                                    CellSpacing="0" BorderStyle="None" ItemStyle-Width="520" GridLines="None" RepeatDirection="Horizontal"
-                                    RepeatColumns="1">
-                                    <ItemTemplate>
-                                        <h3>
-                                            <asp:Label ID="Label5" runat="server" Text='<%# Eval("Title") %>' Font-Bold="true"></asp:Label></h3>
-                                        <h6>
-                                            <div class="red">
-                                                <asp:Label ID="Label4" runat="server" Text='<%# String.Format("{0:f}", Eval("Deadline")) %>'></asp:Label>
-                                            </div>
-                                        </h6>
-                                    </ItemTemplate>
-                                </asp:DataList>
-                            </div>
-                            <% End If%>
+                            
+                            
                         </ContentTemplate>
                     </asp:UpdatePanel>
                     <%--Navigation Buttons--%>

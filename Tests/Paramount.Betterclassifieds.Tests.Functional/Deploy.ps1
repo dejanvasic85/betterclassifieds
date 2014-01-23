@@ -34,7 +34,7 @@ if ( $RunIntegrationTests -eq $true ){
     	$smtpFrom = "smoketest@paramountit.com.au"
     	$messageSubject = "Smoke Test Failed"
     	
-    	$message = New-Object System.Net.Mail.MailMessage $TestResultsEmail, $smtpto
+    	$message = New-Object System.Net.Mail.MailMessage $smtpFrom, $TestResultsEmail
     	$message.Subject = $messageSubject
     	$message.IsBodyHTML = $true
     	$message.Body = Get-Content ($deployPath + "\" + $reportFileName)
@@ -45,7 +45,7 @@ if ( $RunIntegrationTests -eq $true ){
 		
 		if ( $FailDeployOnFailedTests -eq $true ){
 			throw "At least 1 functional test has failed";
-		}   
+		}
 	}
 
 	Write-Host "Functional Tests completed..."

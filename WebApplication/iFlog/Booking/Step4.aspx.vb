@@ -20,7 +20,7 @@ Partial Public Class Step4
         End If
 
         ' load variable maximum insertions from App Settings
-        _maxInsertSetting = GeneralRoutine.GetAppSetting(Utilities.Constants.CONST_MODULE_ADBOOKING, Utilities.Constants.CONST_KEY_Maximum_Insertions)
+        _maxInsertSetting = AppKeyReader(Of Integer).ReadFromStore(AppKey.MaximumInsertions, 10)
 
         If Not Page.IsPostBack Then
 

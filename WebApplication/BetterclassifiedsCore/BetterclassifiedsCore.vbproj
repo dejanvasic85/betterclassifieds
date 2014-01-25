@@ -125,6 +125,7 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppSettingModule.vb" />
     <Compile Include="Booking\BookCartSpecial.vb" />
     <Compile Include="Booking\BookingAction.vb" />
     <Compile Include="Booking\EditonList.vb" />

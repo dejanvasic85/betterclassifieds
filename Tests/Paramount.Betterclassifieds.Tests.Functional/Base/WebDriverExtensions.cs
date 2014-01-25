@@ -50,7 +50,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
             var option = webElement
                 .FindElements(By.TagName("option"))
-                .FirstOrDefault(o => o.Text == optionValue);
+                .FirstOrDefault(o => o.Text.EqualTo(optionValue, StringComparison.OrdinalIgnoreCase));
 
             if (option == null)
             {

@@ -56,12 +56,16 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             const string onlinePublication = "Selenium Online";
             const string category = "Selenium Child";
             const string parentCategory = "Selenium Parent";
+            const string location = " Any Location  ";
+            const string locationArea = " Any Area ";
 
             dataManager.AddPublicationIfNotExists(onlinePublication, Constants.PublicationType.Online, frequency: "Online", frequencyValue: null);
             dataManager.AddEditionsToPublication(onlinePublication, 10);
             dataManager.AddPublicationAdTypeIfNotExists(onlinePublication, Constants.AdType.OnlineAd);
             dataManager.AddCategoryIfNotExists(category, parentCategory, onlinePublication);
             dataManager.AddRatecardIfNotExists("Selenium Free", 0, 0, category, onlinePublication);
+                
+            dataManager.AddLocationIfNotExists(location, locationArea);
 
             // Setup a demo user
             dataManager.AddUserIfNotExists("bdduser", "password123", "bdd@somefakeaddress.com");

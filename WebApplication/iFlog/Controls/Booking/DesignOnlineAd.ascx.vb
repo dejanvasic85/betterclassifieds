@@ -37,7 +37,7 @@ Partial Public Class DesignOnlineAd
     Private Sub Page_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreRender
 
         ' limit the at title if we need to
-        Dim titleLimit As Integer = GeneralRoutine.GetAppSetting(Utilities.Constants.CONST_MODULE_ONLINE_ADS, Utilities.Constants.CONST_KEY_AdTitleLength)
+        Dim titleLimit As Integer = AppKeyReader(Of Integer).ReadFromStore(AppKey.AdTitleLength)
         If (titleLimit > 0) Then
             txtOnlineHeading.MaxLength = titleLimit
             lblHeadingLimit.Text = "Max Characters: " + titleLimit.ToString

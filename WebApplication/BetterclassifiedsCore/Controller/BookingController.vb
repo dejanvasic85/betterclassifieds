@@ -723,8 +723,7 @@ Public Class BookingController
                         ' ONLINE AD
                         ' **********
                         Dim onlineSingleAdPrice = rateCard.MinCharge
-                        Dim onlineDurationDays As Integer = GetAppSetting(Utilities.Constants.CONST_MODULE_ONLINE_ADS, _
-                                                               Utilities.Constants.CONST_KEY_Online_AdDurationDays)
+                        Dim onlineDurationDays As Integer = AppKeyReader(Of Integer).ReadFromStore(AppKey.AdDurationDays, defaultIfNotExists:=30)
 
                         endDate = startDate.AddDays(onlineDurationDays)
 
@@ -881,8 +880,7 @@ Public Class BookingController
     ''' </summary>
     ''' <param name="startDate">Date when the Ad starts running.</param>
     Public Shared Function GetEndDate(ByVal startDate As DateTime) As DateTime
-        Dim numOfDays As Integer = GeneralRoutine.GetAppSetting(Utilities.Constants.CONST_MODULE_ONLINE_ADS, _
-                                                                Utilities.Constants.CONST_KEY_Online_AdDurationDays)
+        Dim numOfDays As Integer = AppKeyReader(Of Integer).ReadFromStore(AppKey.AdDurationDays, defaultIfNotExists:=30)
         Return startDate.AddDays(numOfDays)
     End Function
 

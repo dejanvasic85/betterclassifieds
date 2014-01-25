@@ -272,6 +272,21 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             }
         }
 
+        public void AddLocationIfNotExists(string parentLocation, params string[] areas)
+        {
+            using (var scope = new TransactionScope())
+            {
+                var locationId = classifiedDb.AddIfNotExists(Constants.Table.Location, new { Title = parentLocation }, queryFilter: parentLocation);
+
+                foreach (var locationArea in areas)
+                {
+                    classifiedDb.AddIfNotExists(Constants.Table.LocationArea, new { LocationId = locationId, Title = locationArea }, locationArea);
+                }
+
+                scope.Complete();
+            }
+        }
+
         public int AddCategoryIfNotExists(string subCategory, string parentCategory, params string[] addToPublications)
         {
             using (var scope = new TransactionScope())

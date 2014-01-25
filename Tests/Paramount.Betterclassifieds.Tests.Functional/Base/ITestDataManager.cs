@@ -32,5 +32,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         
         // Ratecards
         void AddRatecardIfNotExists(string ratecardName, decimal minCharge, decimal maxCharge, string category, params string[] publications);
+        
+        // Location Area
+        void AddLocationIfNotExists(string parentLocation, params string[] areas);
     }
 }

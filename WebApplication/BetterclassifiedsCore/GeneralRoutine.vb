@@ -13,29 +13,8 @@ Imports Paramount.DSL.UIController
 Public Module GeneralRoutine
 
     Public Function GetAppSetting(ByVal moduleName As String, ByVal key As String) As Object
-        'Try
-        Using db = BetterclassifiedsDataContext.NewContext
-            Dim query = (From app In db.AppSettings Where app.Module = moduleName _
-                        And app.AppKey = key).FirstOrDefault
-
-            If query Is Nothing Then
-                Throw New ApplicationException(String.Format("Database AppSetting {0} for Module {1} is not set properly or doesn't exist.", key, moduleName))
-            End If
-
-            ' convert the object in the database to the right data time that we need
-            Select Case query.DataType.ToString.Trim
-                Case "int"
-                    Return Convert.ToInt32(query.SettingValue)
-                Case "string"
-                    Return Convert.ToString(query.SettingValue)
-                Case "bit"
-                    Return Convert.ToBoolean(query.SettingValue)
-                Case "datetime"
-                    Return Convert.ToDateTime(query.SettingValue)
-                Case Else
-                    Return Nothing
-            End Select
-        End Using
+        Dim settingValue = AppKeyReader(Of Object).ReadFromStore(moduleName, key)
+        Return settingValue
     End Function
 
     Public Function LineAdRatePrice(ByVal rate As Ratecard, ByVal numOfInserts As Integer, ByVal wordCount As Integer, _
@@ -88,33 +67,27 @@ Public Module GeneralRoutine
     ''' <remarks>We use an AppSetting value of WordSeparators and WordMaxLength to calculate the words.</remarks>
     Public Function LineAdWordCount(ByVal adText As String) As Integer
 
-        Try
-            Dim setting As String = GetAppSetting(Utilities.Constants.CONST_MODULE_LINE_ADS, _
-                                                  Utilities.Constants.CONST_KEY_LineAd_Word_Separators).ToString
-            Dim maxWord As Integer = GetAppSetting(Utilities.Constants.CONST_MODULE_LINE_ADS, _
-                                                   Utilities.Constants.CONST_KEY_LineAd_Word_MaxLength)
+        Dim setting As String = AppKeyReader(Of String).ReadFromStore(AppKey.WordSeparators, defaultIfNotExists:="")
+        Dim maxWord As Integer = AppKeyReader(Of Integer).ReadFromStore(AppKey.WordMaxLength, defaultIfNotExists:=15)
 
-            Dim charArray() As Char = CType(setting, Char()) ' convert the DB value to character array
-            Dim arrayOfWords As String() = adText.Split(charArray) ' use the char array to split the ad text
+        Dim charArray() As Char = CType(setting, Char()) ' convert the DB value to character array
+        Dim arrayOfWords As String() = adText.Split(charArray) ' use the char array to split the ad text
 
-            ' loop through the text and ensure there are no white spaces
-            ' count each word and handle words longer than the max chars in word
-            Dim count As Integer
-            For Each item In arrayOfWords
-                ' we remove any empty strings from the array and add the right value into the array list object
-                If item <> String.Empty Then
-                    If (item.Trim.Length = maxWord) Then
-                        count += 1
-                    Else
-                        count += (item.Trim.Length \ maxWord) + 1
-                    End If
+        ' loop through the text and ensure there are no white spaces
+        ' count each word and handle words longer than the max chars in word
+        Dim count As Integer
+        For Each item In arrayOfWords
+            ' we remove any empty strings from the array and add the right value into the array list object
+            If item <> String.Empty Then
+                If (item.Trim.Length = maxWord) Then
+                    count += 1
+                Else
+                    count += (item.Trim.Length \ maxWord) + 1
                 End If
-            Next
+            End If
+        Next
 
-            Return count
-        Catch ex As Exception
-            Throw ex
-        End Try
+        Return count
 
     End Function
 
@@ -308,7 +281,7 @@ Public Module GeneralRoutine
     Public Function PlaceAd(ByVal cart As BookCart, ByVal transactionType As TransactionType) As Boolean
         ' call method to ensure that the booking already exists.
         If BookingController.Exists(cart.BookReference) Then
-           Throw New ApplicationException(String.Format("The booking reference already exists. {0}", cart.BookReference))
+            Throw New ApplicationException(String.Format("The booking reference already exists. {0}", cart.BookReference))
         End If
 
         Using db = BetterclassifiedsDataContext.NewContext
@@ -540,6 +513,10 @@ Public Module GeneralRoutine
 
 #End Region
 
+    Private Function Increment(ByVal value As Integer) As Integer
+        Return value + 1
+    End Function
+
     ''' <summary>
     ''' Produces a Booking reference number by concatenating the first three letters of Category name and a new incremented Booking number.
     ''' </summary>
@@ -547,49 +524,35 @@ Public Module GeneralRoutine
     ''' <param name="incrementRef">If newRef is True, database value is incremented otherwise same number is value is used.</param>
     ''' <returns>Returns a string representation of a New Booking Reference Number.</returns>
     Public Function GetBookingReference(ByVal categoryId As Integer, ByVal incrementRef As Boolean) As String
-        Try
-            Dim newValue As Integer
-            Dim bookRef As String ' return value
 
-            Using db = BetterclassifiedsDataContext.NewContext
+        Dim newValue As Integer
+        Dim bookRef As String ' return value
 
-                Dim refValue = (From app In db.AppSettings Where app.Module = "AdBooking" And app.AppKey = "BookingReference" Select app).Single
-                Dim categoryName = (From c In db.MainCategories Where c.MainCategoryId = categoryId Select c).Single.Title
+        Using db = BetterclassifiedsDataContext.NewContext
 
-                newValue = Convert.ToInt32(refValue.SettingValue)
+            newValue = AppKeyReader(Of Integer).ReadFromStore(AppKey.BookingReference, 1, AddressOf Increment)
 
-                If incrementRef Then
-                    ' increment the setting value
-                    newValue += 1
-                End If
+            Dim categoryName = (From c In db.MainCategories Where c.MainCategoryId = categoryId Select c).Single.Title
 
-                ' update the value back to the database
-                refValue.SettingValue = newValue
-
-                If categoryName.Length < 3 Then
-                    bookRef = categoryName
-                Else
-                    bookRef = categoryName.Substring(0, 3).ToUpper
-                End If
-
-                db.SubmitChanges()
-            End Using
-
-            Dim length = newValue.ToString.Length
-            Dim str As String = "000000"
-
-            ' insert the zero values in front if booking number is short
-            If (str.Length > length) Then
-                bookRef += "-" + str.Substring(0, str.Length - length) + newValue.ToString
+            If categoryName.Length < 3 Then
+                bookRef = categoryName
             Else
-                bookRef += "-" + newValue.ToString
+                bookRef = categoryName.Substring(0, 3).ToUpper
             End If
 
+        End Using
 
-            Return bookRef
-        Catch ex As Exception
-            Throw ex
-        End Try
+        Dim length = newValue.ToString.Length
+        Dim str As String = "000000"
+
+        ' insert the zero values in front if booking number is short
+        If (str.Length > length) Then
+            bookRef += "-" + str.Substring(0, str.Length - length) + newValue.ToString
+        Else
+            bookRef += "-" + newValue.ToString
+        End If
+
+        Return bookRef
     End Function
 
     Public Function GetAdStoreDirectory(ByVal bookingReference As String, ByVal adType As SystemAdType) As String

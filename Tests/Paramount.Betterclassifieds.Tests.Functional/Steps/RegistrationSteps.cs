@@ -29,7 +29,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         {
             _dataManager.DropUserIfExists(username);
         }
-        
+
         [Given(@"I navigate to the registration page")]
         public void GivenINavigateToTheRegistrationPage()
         {
@@ -87,12 +87,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             var registrationPage = _pageFactory.Init<RegisterNewUserTestPage>();
             registrationPage.ClickCreateUser();
         }
-        
+
         [Then(@"the user ""(.*)"" should be created successfully")]
         public void ThenTheUserShouldBeCreatedSuccessfully(string username)
         {
             // Assert
-            _dataManager.UserExists(username).IsTrue();
+            Assert.IsTrue(_dataManager.UserExists(username));
         }
 
         [Then(@"a registration email should be sent to ""(.*)""")]

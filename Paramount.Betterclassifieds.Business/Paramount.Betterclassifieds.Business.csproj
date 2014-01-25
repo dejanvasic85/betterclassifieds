@@ -49,6 +49,7 @@
     <Compile Include="Managers\IApplicationConfig.cs" />
     <Compile Include="Managers\IEditionManager.cs" />
     <Compile Include="Managers\IBookingManager.cs" />
+    <Compile Include="Repository\ISeoMappingRepository.cs" />
     <Compile Include="Models\AdBookingExtensionModel.cs" />
     <Compile Include="Models\AdBookingModel.cs" />
     <Compile Include="Models\AdTypeCode.cs" />

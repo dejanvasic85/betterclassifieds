@@ -42,17 +42,45 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             }
         }
 
-        public List<OnlineAdModel> GetOnlineAdsByCategory(List<int> categoryIds, int index = 0, int pageSize = 25)
+        public List<OnlineAdModel> GetOnlineAdsByCategoryAndLocation(List<int> categoryIds, int? locationId,  int index = 0, int pageSize = 25)
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 // Get the latest online ads
-                var ads = context.OnlineClassies.Where(c =>  categoryIds.Contains(c.MainCategoryId.Value)).Skip(index * pageSize).Take(pageSize).ToList();
+                var ads = context.OnlineClassies.Where(c => categoryIds.Contains(c.MainCategoryId.Value) && (locationId.HasValue && c.LocationId == locationId))
+                    .OrderByDescending(o => o.OnlineAdId).Skip(index * pageSize).Take(pageSize).ToList();
 
                 // Map to the models
                 return this.MapList<OnlineClassie, OnlineAdModel>(ads);
             }
         }
+
+        public List<OnlineAdModel> GetOnlineAdsByLocation(int locationId, int index = 0, int pageSize = 25)
+        {
+            using (var context = DataContextFactory.CreateClassifiedContext())
+            {
+                // Get the latest online ads
+                var ads = context.OnlineClassies.Where(c => c.LocationId == locationId)
+                    .OrderByDescending(o => o.OnlineAdId).Skip(index * pageSize).Take(pageSize).ToList();
+
+                // Map to the models
+                return this.MapList<OnlineClassie, OnlineAdModel>(ads);
+            }
+        }
+
+        public List<OnlineAdModel> GetOnlineAdsByCategory(List<int> categoryIds, int index = 0, int pageSize = 25)
+        {
+            using (var context = DataContextFactory.CreateClassifiedContext())
+            {
+                // Get the latest online ads
+                var ads = context.OnlineClassies.Where(c =>  categoryIds.Contains(c.MainCategoryId.Value))
+                    .OrderByDescending(o => o.OnlineAdId).Skip(index * pageSize).Take(pageSize).ToList();
+
+                // Map to the models
+                return this.MapList<OnlineClassie, OnlineAdModel>(ads);
+            }
+        }
+
 
         public void OnRegisterMaps(IConfiguration configuration)
         {

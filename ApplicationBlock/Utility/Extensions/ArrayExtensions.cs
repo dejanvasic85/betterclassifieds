@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Paramount
 {
@@ -26,6 +27,11 @@ namespace Paramount
         public static IEnumerable<T> EmptyIfNull<T>(this IEnumerable<T> data)
         {
             return data ?? new List<T>();
+        }
+
+        public static bool IsNullOrEmpty<T>(this IEnumerable<T> data)
+        {
+            return data == null || !data.Any();
         }
     }
 }

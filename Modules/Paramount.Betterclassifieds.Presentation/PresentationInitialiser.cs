@@ -20,6 +20,10 @@
                 "nextgen/{controller}/{action}/{id}",
                 new { controller = "Home", action = "Index", module = Name, id = UrlParameter.Optional }, new[] { GetType().Namespace });
 
+            routes.MapRoute(
+               "adsByCategory",
+               "listings/{title}",
+               new { controller = "Ad", action = "Category", module = Name, title = UrlParameter.Optional }, new[] { GetType().Namespace });
         }
 
         public override void RegisterTypes(IUnityContainer container)

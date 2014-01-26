@@ -1,8 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Paramount.Betterclassifieds.Business.Managers;
+using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Repository;
 using Paramount.Utility;
 
@@ -25,16 +27,29 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
 
-        public ActionResult CategoryTest(int[] catIds)
+
+        //
+        // GET: /Category/
+
+        public ActionResult Category(string title = "")
         {
-            var adList = adRepository.GetOnlineAdsByCategory(catIds.EmptyIfNull().ToList());
-            return Json(adList, JsonRequestBehavior.AllowGet);
+            var mapping = seoMappingRepository.GetCategoryMapping(title);
+            IEnumerable<int> catids = null;
+            if (mapping != null)
+            {
+                catids = mapping.CategoryIdList;
+            }
+
+            return Json(GetAdsByCategory(catids.EmptyIfNull().ToList()), JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult CreateCategorySeoNameTest(string seoName, int categoryId)
+        #region Private methods
+
+        private List<OnlineAdModel> GetAdsByCategory(List<int> catIds)
         {
-            seoMappingRepository.CreateCategoryMapping(seoName, categoryId);
-            return Json("true", JsonRequestBehavior.AllowGet);
+            return catIds.IsNullOrEmpty() ? adRepository.GetLatestAds(25) : adRepository.GetOnlineAdsByCategory(catIds);
         }
+
+        #endregion  
     }
 }

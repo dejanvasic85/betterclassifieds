@@ -105,6 +105,7 @@
     <Compile Include="DataSources\AzureTableDataSource.cs" />
     <Compile Include="DataSources\SeoNameMappingDataSource.cs" />
     <Compile Include="DataSources\TableNames.cs" />
+    <Compile Include="Entities\SeoLocationMappingEntity.cs" />
     <Compile Include="Entities\SeoNameMappingEntity.cs" />
     <Compile Include="LinqObjects\BillingDatabaseModel.designer.cs">
       <AutoGen>True</AutoGen>

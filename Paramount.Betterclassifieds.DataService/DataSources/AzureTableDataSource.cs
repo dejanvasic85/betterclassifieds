@@ -1,8 +1,11 @@
-﻿using System.Web.UI;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.UI;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using Paramount.Betterclassifieds.Business.Managers;
+using Paramount.Betterclassifieds.DataService.Entities;
 
 namespace Paramount.Betterclassifieds.DataService.DataSources
 {
@@ -31,6 +34,5 @@ namespace Paramount.Betterclassifieds.DataService.DataSources
         {
             return string.Format("{0}1{1}1{2}", TableName, applicationConfig.ClientCode, applicationConfig.ConfigurationContext);
         }
- 
     }
 }

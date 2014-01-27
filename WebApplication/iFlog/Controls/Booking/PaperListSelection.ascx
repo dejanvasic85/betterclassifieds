@@ -21,7 +21,7 @@
                 
                     <% If AllowMultiplePapers = True Then%>
                     
-                        <asp:CheckBox ID="chkPaper" runat="server" Text="" />
+                        <asp:CheckBox ID="chkPaper" runat="server" Text="" CssClass='<%# Eval("Title") %>' />
                         <asp:HiddenField ID="hdnPaperId" runat="server" Value='<%# Eval("PublicationId") %>' />
                     
                     <% Else%>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
@@ -19,15 +20,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         {
             Type pageType = typeof(T);
             var page = (T)Activator.CreateInstance(pageType, _webDriver, _config);
-            var pageRelativeUrl = GetAbsoluteUrl(pageType.GetCustomAttribute<TestPageAttribute>().RelativeUrl);
 
             if (ensureUrl)
             {
+                var acceptedUrls = pageType.GetCustomAttributes<TestPageAttribute>().Select( attr =>  GetBaseUrl() + attr.RelativeUrl );
+                
                 WebDriverWait wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(5));
-                wait.Until(driver =>
-                {
-                    return driver.Url.StartsWith(pageRelativeUrl, StringComparison.OrdinalIgnoreCase);
-                });
+                wait.Until(driver => acceptedUrls.Any(url => url.StartsWith(driver.Url, StringComparison.OrdinalIgnoreCase)));
             }
 
             page.InitElements();

@@ -95,6 +95,7 @@
     </Compile>
     <Compile Include="Base\BaseTestPage.cs" />
     <Compile Include="Base\IConfig.cs" />
+    <Compile Include="Mocks\TestData.cs" />
     <Compile Include="Pages\BookingCompletePage.cs" />
     <Compile Include="Pages\OnlineBookingStep5Page.cs" />
     <Compile Include="Pages\OnlineBookingBasePage.cs" />

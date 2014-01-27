@@ -52,23 +52,27 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         {
             // Use the dapper manager to initialise some baseline test data for our booking scenarios
             ITestDataManager dataManager = new DapperDataManager();
+            
+            // Online Publication  ( this should be removed later - no such thing as online publication ! )
+            dataManager.AddPublicationIfNotExists(TestData.OnlinePublication, Constants.PublicationType.Online, frequency: "Online", frequencyValue: null);
+            dataManager.AddPublicationAdTypeIfNotExists(TestData.OnlinePublication, Constants.AdType.OnlineAd);
+            
+            // Print Publication
+            dataManager.AddPublicationIfNotExists(TestData.SeleniumPublication);
+            dataManager.AddPublicationAdTypeIfNotExists(TestData.SeleniumPublication, Constants.AdType.LineAd);
+            dataManager.AddEditionsToPublication(TestData.SeleniumPublication, 50);
 
-            const string onlinePublication = "Selenium Online";
-            const string category = "Selenium Child";
-            const string parentCategory = "Selenium Parent";
-            const string location = " Any Location  ";
-            const string locationArea = " Any Area ";
+            // Categories ( assign to each publication automatically )
+            dataManager.AddCategoryIfNotExists(TestData.SubCategory, TestData.ParentCategory);
 
-            dataManager.AddPublicationIfNotExists(onlinePublication, Constants.PublicationType.Online, frequency: "Online", frequencyValue: null);
-            dataManager.AddEditionsToPublication(onlinePublication, 10);
-            dataManager.AddPublicationAdTypeIfNotExists(onlinePublication, Constants.AdType.OnlineAd);
-            dataManager.AddCategoryIfNotExists(category, parentCategory, onlinePublication);
-            dataManager.AddRatecardIfNotExists("Selenium Free", 0, 0, category, onlinePublication);
+            // Ratecard
+            dataManager.AddRatecardIfNotExists("Selenium Free Rate", 0, 0, TestData.SubCategory, TestData.OnlinePublication, TestData.SeleniumPublication);
                 
-            dataManager.AddLocationIfNotExists(location, locationArea);
+            // Location and Area
+            dataManager.AddLocationIfNotExists("Australia", "Victoria");
 
             // Setup a demo user
-            dataManager.AddUserIfNotExists("bdduser", "password123", "bdd@somefakeaddress.com");
+            dataManager.AddUserIfNotExists(TestData.Username, TestData.Password, TestData.UserEmail);
         }
 
         private static IWebDriver GetDriverForBrowser(string browserName)

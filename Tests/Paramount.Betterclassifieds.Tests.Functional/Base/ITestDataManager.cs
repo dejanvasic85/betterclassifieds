@@ -10,7 +10,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
     public interface ITestDataManager : IDisposable
     {
         // Categories
-        int AddCategoryIfNotExists(string subCategory, string parentCategory, params string[] addToPublications);
+        int AddCategoryIfNotExists(string subCategory, string parentCategory);
         int? GetCategoryIdForTitle(string categoryName);
 
         // Publications

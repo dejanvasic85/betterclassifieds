@@ -35,10 +35,7 @@ namespace BetterClassified.UIController.Booking
 
         public static int GetHeaderCharacterLimit()
         {
-            var headingLimit = GeneralRoutine.GetAppSetting("LineAds", "BoldHeadingLimit");
-
-            return Convert.ToInt32(headingLimit);
+            return AppSettingModule.AppKeyReader<int>.ReadFromStore("BoldHeadingLimit", 50);
         }
-
     }
 }

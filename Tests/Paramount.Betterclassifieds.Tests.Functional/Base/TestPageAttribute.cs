@@ -2,6 +2,7 @@
 
 namespace Paramount.Betterclassifieds.Tests.Functional
 {
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class TestPageAttribute : Attribute
     {
         public string RelativeUrl { get; set; }

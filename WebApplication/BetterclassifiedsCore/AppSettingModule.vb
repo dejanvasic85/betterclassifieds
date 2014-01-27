@@ -21,7 +21,7 @@
 
                 If appSetting Is Nothing And defaultIfNotExists Is Nothing Then
 
-                    Throw New NullReferenceException(String.Format("Application Key [{1}] is not set and no default value was provided.", key))
+                    Throw New NullReferenceException(String.Format("Application Key [{0}] is not set and no default value was provided.", key))
 
                 ElseIf appSetting Is Nothing Then
 

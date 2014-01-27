@@ -42,7 +42,7 @@ namespace BetterClassified.Repository
                     var href = GetNextLink(item.FirstChild).GetAttributeValue("href", "");
 
                     // Ensure that all outgoing links contain complete URL's back to home 
-                    if (!href.StartsWith("http"))
+                    if (!href.StartsWith("http") && !href.StartsWith("mailto"))
                     {
                         // Assume that those links are 
                         return href.TrimStart('/').Prefix(homeUrl);
@@ -73,7 +73,7 @@ namespace BetterClassified.Repository
             {
                 var href = link.Attributes["href"];
 
-                if (href != null && !href.Value.StartsWith("http"))
+                if (href != null && !href.Value.StartsWith("http") && !href.Value.StartsWith("mailto"))
                 {
                     href.Value = href.Value.TrimStart('/').Prefix(homeUrl);
                 }

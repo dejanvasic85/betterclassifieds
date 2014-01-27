@@ -73,7 +73,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 // Get the latest online ads
-                var ads = context.OnlineClassies.Where(c =>  categoryIds.Contains(c.MainCategoryId.Value))
+                var ads = context.OnlineClassies.Where(c => categoryIds.Contains(c.MainCategoryId.Value) || (c.ParentId.HasValue && categoryIds.Contains(c.ParentId.Value) ))
                     .OrderByDescending(o => o.OnlineAdId).Skip(index * pageSize).Take(pageSize).ToList();
 
                 // Map to the models

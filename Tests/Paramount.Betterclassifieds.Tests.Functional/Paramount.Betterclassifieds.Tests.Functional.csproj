@@ -55,6 +55,7 @@
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="TechTalk.SpecFlow">
       <HintPath>..\..\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
     </Reference>
@@ -96,14 +97,14 @@
     <Compile Include="Base\BaseTestPage.cs" />
     <Compile Include="Base\IConfig.cs" />
     <Compile Include="Mocks\TestData.cs" />
-    <Compile Include="Pages\BookingCompletePage.cs" />
-    <Compile Include="Pages\OnlineBookingStep5Page.cs" />
-    <Compile Include="Pages\OnlineBookingBasePage.cs" />
-    <Compile Include="Pages\OnlineBookingStep1Page.cs" />
-    <Compile Include="Pages\OnlineBookingStep2Page.cs" />
+    <Compile Include="Pages\Booking\BookingCompletePage.cs" />
+    <Compile Include="Pages\Booking\BookingStep5TestPage.cs" />
+    <Compile Include="Pages\Booking\BookingBasePage.cs" />
+    <Compile Include="Pages\Booking\BookingStep1TestPage.cs" />
+    <Compile Include="Pages\Booking\BookingStep2TestPage.cs" />
     <Compile Include="Pages\LoginPage.cs" />
-    <Compile Include="Pages\OnlineBookingStep3Page.cs" />
-    <Compile Include="Pages\OnlineBookingStep4Page.cs" />
+    <Compile Include="Pages\Booking\BookingStep3TestPage.cs" />
+    <Compile Include="Pages\Booking\BookingStep4TestPage.cs" />
     <Compile Include="Steps\BeforeAndAfterTests.cs" />
     <Compile Include="Mocks\DapperExtensions.cs" />
     <Compile Include="Base\ITestDataManager.cs" />

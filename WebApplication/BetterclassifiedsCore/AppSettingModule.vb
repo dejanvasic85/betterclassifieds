@@ -7,6 +7,9 @@
         Public Const AdTitleLength = "AdTitleLength"
         Public Const MaximumInsertions = "MaximumInsertions"
         Public Const AdDurationDays = "AdDurationDays"
+        Public Const LineAdBoldHeadingLimit = "BoldHeadingLimit"
+        Public Const BundleWithPrint = "BundleWithPrint"
+        Public Const ImageStoragePath = "ImageStoragePath"
     End Structure
 
     Public Class AppKeyReader(Of TKey)

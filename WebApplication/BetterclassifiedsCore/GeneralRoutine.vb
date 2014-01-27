@@ -563,7 +563,7 @@ Public Module GeneralRoutine
 
         ' for line ads, we need to get the storage path from the database
         ' and we create the directory here if it doesn't already exist
-        Dim storageFolder = GeneralRoutine.GetAppSetting(Utilities.Constants.CONST_MODULE_SYSTEM, Utilities.Constants.CONST_KEY_Image_Store_Path)
+        Dim storageFolder = AppKeyReader(Of String).ReadFromStore(AppKey.ImageStoragePath, defaultIfNotExists:="C:\iFlog\EditionImages")
 
         '' check the type of ad, then store into required folder
         If adType = SystemAdType.LINE Then
@@ -589,10 +589,14 @@ Public Module GeneralRoutine
     Public Function ExportBookings(ByVal publicationId As Integer, ByVal editionDate As DateTime, ByVal adStorePath As String) As XDocument
         ' Fetch the required details from the database
         Dim exportItems As List(Of spLineAdExportListResult) = AdController.GetExportItems(publicationId, editionDate)
+
         Dim publication As DataModel.Publication = PublicationController.GetPublicationById(publicationId)
-        Dim imagePathSetting As String = GetAppSetting(Utilities.Constants.CONST_MODULE_SYSTEM, Utilities.Constants.CONST_KEY_Image_Store_Path)
+
+        Dim imagePathSetting As String = AppKeyReader(Of String).ReadFromStore(AppKey.ImageStoragePath, defaultIfNotExists:="C:\iFlog\EditionImages")
+
         Dim imagePath As String = Path.Combine(imagePathSetting, publication.Title)
         imagePath = Path.Combine(imagePath, String.Format("{0} {1:yyyy-MM-dd}", publication.Title, editionDate))
+
         Dim imageDirectory As New DirectoryInfo(imagePath)
 
         ' Delete the directory if exists then create

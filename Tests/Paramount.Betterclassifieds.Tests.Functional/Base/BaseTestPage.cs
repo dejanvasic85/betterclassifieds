@@ -43,6 +43,18 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             return WebDriver.FindElement(by);
         }
 
+        public IWebElement FindElement(params string[] identifiers)
+        {
+            foreach (var id in identifiers)
+            {
+                var element = WebDriver.FindElements(By.Id(id)).FirstOrDefault();
+
+                if (element != null)
+                    return element;
+            }
+            throw new NoSuchElementException("Unable to locate any of the identifiers in the web page.");
+        }
+
         public bool IsDisplayed()
         {
             var fullUrl = _config.BaseUrl + GetType().GetCustomAttribute<TestPageAttribute>().RelativeUrl;

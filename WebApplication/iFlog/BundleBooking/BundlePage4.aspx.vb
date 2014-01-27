@@ -29,8 +29,10 @@ Partial Public Class BundlePage4
 
         If Not Page.IsPostBack Then
             ' set the global properties - first time only (not on each postback so we call DB only once)
-            Me.MaximumEditions = GeneralRoutine.GetAppSetting(Utilities.Constants.CONST_MODULE_ADBOOKING, Utilities.Constants.CONST_KEY_Maximum_Insertions)
-            Me.ScheduleOnlineWithPrint = GeneralRoutine.GetAppSetting(Utilities.Constants.CONST_MODULE_ONLINE_ADS, Utilities.Constants.CONST_KEY_Online_BundleWithPrint)
+            Me.MaximumEditions = AppKeyReader(Of Integer).ReadFromStore(AppKey.MaximumInsertions, 20)
+
+            Me.ScheduleOnlineWithPrint = AppKeyReader(Of Boolean).ReadFromStore(AppKey.BundleWithPrint, True)
+
             ' get the selectable dates for all publications and store them into the session (for first load only)
             Me.PublicationEditions = Me.GetPublicationEditions(BundleController.BundleCart.PublicationList, Me.MaximumEditions)
 
@@ -40,6 +42,7 @@ Partial Public Class BundlePage4
 
             ' databind the Combo Box for Insertion selection
             Me.DataBindEditionCombo(Me.MaximumEditions, Me.PublicationEditions, BundleController.BundleCart.PublicationList)
+
             ' databind the publication deadlines
             Me.DataBindPublicationDeadlines(BundleController.BundleCart.PublicationList)
 

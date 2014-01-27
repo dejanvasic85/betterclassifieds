@@ -23,10 +23,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
             if (ensureUrl)
             {
-                var acceptedUrls = pageType.GetCustomAttributes<TestPageAttribute>().Select( attr =>  GetBaseUrl() + attr.RelativeUrl );
-                
+                var acceptedUrls = pageType.GetCustomAttributes<TestPageAttribute>().Select(attr => GetBaseUrl() + attr.RelativeUrl);
+
+                var webDriverUrl = _webDriver.Url.Split('?')[0];
+
                 WebDriverWait wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(5));
-                wait.Until(driver => acceptedUrls.Any(url => url.StartsWith(driver.Url, StringComparison.OrdinalIgnoreCase)));
+                wait.Until(driver => acceptedUrls.Any(url => url.Equals(webDriverUrl, StringComparison.OrdinalIgnoreCase)));
             }
 
             page.InitElements();

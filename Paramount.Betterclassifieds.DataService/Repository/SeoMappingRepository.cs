@@ -26,12 +26,14 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
         public void CreateCategoryMapping(string seoName, int categoryIds)
         {
-            var returnValue = dataSource.CreateCategoryMapping(seoName, categoryIds.ToString(CultureInfo.InvariantCulture));
+            //return value to be implemented as needed
+            dataSource.CreateCategoryMapping(seoName, categoryIds.ToString(CultureInfo.InvariantCulture));
 
         }
 
         public void RetrieveMappings(string partition)
         {
+            //return value to be implemented as needed
             dataSource.RetrieveMappings(partition);
         }
 

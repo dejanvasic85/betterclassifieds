@@ -13,7 +13,7 @@ Imports Paramount.DSL.UIController
 Public Module GeneralRoutine
 
     Public Function GetAppSetting(ByVal moduleName As String, ByVal key As String) As Object
-        Dim settingValue = AppKeyReader(Of Object).ReadFromStore(moduleName, key)
+        Dim settingValue = AppKeyReader(Of Object).ReadFromStore(key)
         Return settingValue
     End Function
 

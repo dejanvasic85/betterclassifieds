@@ -18,28 +18,7 @@ Partial Public Class Step5
                 Response.Redirect(PageUrl.BookingStep_1 + "?action=expired")
             End If
 
-            Dim adType As String = BookingController.AdBookCart.MainAdType.Code
-
-            If adType = SystemAdType.LINE.ToString Then
-                Me.AdType = SystemAdType.LINE
-                ' perform databinding on the edition list control
-                Dim editionList = PublicationController.PublicationEditionList(BookingController.AdBookCart.PublicationList, _
-                                                                               BookingController.AdBookCart.Insertions, _
-                                                                               BookingController.AdBookCart.StartDate)
-
-                ucxEditionDates.BindPaperEditions(editionList)
-
-                '' preview the line ad.
-                Dim image As String = ""
-                If BookingController.AdBookCart.Ad.AdDesigns(0).LineAds(0).UsePhoto Then
-                    image = BookingController.AdBookCart.Ad.AdDesigns(0).AdGraphics(0).DocumentID
-                End If
-                radLineWindow.OpenerElementID = btnPreviewLine.ClientID
-
-            ElseIf adType = SystemAdType.ONLINE.ToString Then
-                Me.AdType = SystemAdType.ONLINE
-                radOnlineWindow.OpenerElementID = btnPreviewOnline.ClientID
-            End If
+            radOnlineWindow.OpenerElementID = btnPreviewOnline.ClientID
 
             ' perform the databinding on all the selections
             lstBookingSummary.DataSource = BookingController.GetBookSummary
@@ -92,20 +71,4 @@ Partial Public Class Step5
         End If
     End Sub
 
-    Public Property AdType() As SystemAdType
-        Get
-            Return ViewState("adType")
-        End Get
-        Set(ByVal value As SystemAdType)
-            ViewState("adType") = value
-        End Set
-    End Property
-
-    Private Sub ucxEditionDates_GridPageIndexChanged() Handles ucxEditionDates.GridPageIndexChanged
-        Dim editionList = PublicationController.PublicationEditionList(BookingController.AdBookCart.PublicationList, _
-                                                                              BookingController.AdBookCart.Insertions, _
-                                                                              BookingController.AdBookCart.StartDate)
-
-        ucxEditionDates.BindPaperEditions(editionList)
-    End Sub
 End Class

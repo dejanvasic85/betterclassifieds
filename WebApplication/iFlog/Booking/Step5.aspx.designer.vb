@@ -59,33 +59,6 @@ Partial Public Class Step5
     Protected WithEvents btnPreviewOnline As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''radLineWindow control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents radLineWindow As Global.Telerik.Web.UI.RadWindow
-
-    '''<summary>
-    '''btnPreviewLine control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnPreviewLine As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''ucxEditionDates control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ucxEditionDates As Global.BetterclassifiedsWeb.Controls.Booking.EditionDates
-
-    '''<summary>
     '''imgArrow1 control.
     '''</summary>
     '''<remarks>

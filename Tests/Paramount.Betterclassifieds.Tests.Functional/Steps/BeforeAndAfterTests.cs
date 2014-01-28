@@ -66,7 +66,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             dataManager.AddCategoryIfNotExists(TestData.SubCategory, TestData.ParentCategory);
 
             // Ratecard
-            dataManager.AddRatecardIfNotExists("Selenium Free Rate", 0, 0, TestData.SubCategory, TestData.OnlinePublication, TestData.SeleniumPublication);
+            dataManager.AddRatecardIfNotExists("Selenium Free Rate", 0, 0, TestData.SubCategory);
                 
             // Location and Area
             dataManager.AddLocationIfNotExists("Australia", "Victoria");

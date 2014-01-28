@@ -31,7 +31,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         List<Email> GetSentEmailsFor(string email);
         
         // Ratecards
-        void AddRatecardIfNotExists(string ratecardName, decimal minCharge, decimal maxCharge, string category, params string[] publications);
+        void AddRatecardIfNotExists(string ratecardName, decimal minCharge, decimal maxCharge, string category, bool autoAssign = true);
         
         // Location Area
         void AddLocationIfNotExists(string parentLocation, params string[] areas);

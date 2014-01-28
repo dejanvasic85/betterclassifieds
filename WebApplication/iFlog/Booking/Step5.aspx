@@ -2,7 +2,6 @@
     CodeBehind="Step5.aspx.vb" Inherits="BetterclassifiedsWeb.Step5" 
     Title="New Booking - Confirmation" %>
 
-<%@ Register Src="~/Controls/Booking/EditionDates.ascx" TagName="EditionDates" TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/Booking/NavigationButtons.ascx" TagName="NavigationButtons" TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/ErrorList.ascx" TagName="ErrorList" TagPrefix="ucx" %>
 
@@ -73,28 +72,7 @@
                                                 <asp:Label ID="lblEndDate" runat="server" Text='<%# String.Format("{0:D}", Eval("EndDate")) %>' /></h3>
                                         </td>
                                     </tr>
-                                    <% If AdType = BetterclassifiedsCore.SystemAdType.LINE Then%>
-                                    <tr>
-                                        <td>
-                                            <h3>
-                                                Single Ad Price</h3>
-                                        </td>
-                                        <td>
-                                            <h3>
-                                                <asp:Label ID="lblSinglePrice" runat="server" Text='<%# String.Format("{0:C}", Eval("SingleAdPrice")) %>'></asp:Label></h3>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <h3>
-                                                Editions</h3>
-                                        </td>
-                                        <td>
-                                            <h3>
-                                                <asp:Label ID="lblEditions" runat="server" Text='<%# Eval("Insertions") %>'></asp:Label></h3>
-                                        </td>
-                                    </tr>
-                                    <% End If%>
+                                    
                                     <tr>
                                         <td>
                                             <h3>
@@ -111,34 +89,14 @@
                         <table>
                             <tr>
                                 <td>
-                                    <% If AdType = BetterclassifiedsCore.SystemAdType.ONLINE Then%>
                                     <telerik:RadWindow ID="radOnlineWindow" runat="server" Width="650px" Height="500px"
                                             Modal="true" NavigateUrl="../OnlineAds/Preview.aspx?viewType=session" Behaviors="Close" VisibleStatusbar="false" />
                                         <asp:Button ID="btnPreviewOnline" runat="server" Text="Preview Online Ad" />
-                                    <% End If%>
-                                    <% If AdType = BetterclassifiedsCore.SystemAdType.LINE Then%>
-                                    <telerik:RadWindow ID="radLineWindow" runat="server" Width="650px" Height="500px"
-                                        Modal="true" NavigateUrl="../LineAds/PreviewLineAd.aspx?viewType=session"  VisibleStatusbar="false" />
-                                    <asp:Button ID="btnPreviewLine" runat="server" Text="Preview Line Ad" Behaviors="Close" />
-                                    <% End If%>
                                 </td>
                             </tr>
                         </table>
                     </div>
-                    <% If AdType = BetterclassifiedsCore.SystemAdType.LINE Then%>
-                    <%--Edition Dates--%>
-                    <div id="bookAdMainContent">
-                        <h2>
-                            Edition Dates:</h2>
-                        <div class="spacerBookAd">
-                            &nbsp;</div>
-                        <h5>
-                            When your advertisement will appear and in which magazine/s.</h5>
-                    </div>
-                    <div id="bookAdMainContent">
-                        <ucx:EditionDates ID="ucxEditionDates" runat="server" />
-                    </div>
-                    <% End If %>
+                   
                     <%--Confirmation --%>
                     <div id="bookAdMainContent">
                         <h2>

@@ -25,29 +25,34 @@ namespace BetterClassified.UI.Handlers
 
             var dslQuery = new DslQueryParam(context.Request.QueryString);
 
-            var documentId = dslQuery.DocumentId;
-            decimal? width = dslQuery.Width;
-            decimal? height = dslQuery.Height;
-            int resolution = dslQuery.Resolution;
+            Guid documentId;
+            if (!Guid.TryParse(dslQuery.DocumentId, out documentId))
+            {
+                return;
+            }
 
+            int resolution = dslQuery.Resolution;
+            
             if (ConfigSettingReader.DslIsServerCaching)
             {
-                stream = UIController.ImageCacheController.Get(documentId, width, height, resolution, out isRaw);
+                stream = UIController.ImageCacheController.Get(documentId.ToString(), dslQuery.Width, dslQuery.Height, dslQuery.Resolution, out isRaw);
             }
 
             if (stream == null)
             {
-                stream = DslController.DownloadDocumentToStream(new Guid(documentId), clientCode);
+                // This is throwing whole bunch of errors if publication or other stuff don't have an image...
+                // Silly
+                stream = DslController.DownloadDocumentToStream(documentId, clientCode);
                 isRaw = true;
             }
 
             // Load the image from the stream
             Image image = Image.FromStream(stream);
 
-            if (isRaw && width != null && height != null)
+            if (isRaw && dslQuery.Width != null && dslQuery.Height != null)
             {
                 // Prepare the image to be right size
-                image = ImageHelper.ResizeFixedSize(image, (int)width, (int)height, resolution);
+                image = ImageHelper.ResizeFixedSize(image, (int)dslQuery.Width, (int)dslQuery.Height, dslQuery.Resolution);
             }
 
             // Prepare the image for better quality
@@ -63,7 +68,7 @@ namespace BetterClassified.UI.Handlers
 
             if (ConfigSettingReader.DslIsServerCaching)
             {
-                UIController.ImageCacheController.Put(image, documentId, width, height, resolution);
+                UIController.ImageCacheController.Put(image, documentId.ToString(), dslQuery.Width, dslQuery.Height, dslQuery.Resolution);
             }
 
             if (stream != null)

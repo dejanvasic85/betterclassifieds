@@ -225,7 +225,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             return coreDb.Query<Email>("SELECT Subject, CreateDateTime FROM EmailBroadcastEntry WHERE Email = @email", new { email }).ToList();
         }
 
-        public void AddRatecardIfNotExists(string ratecardName, decimal minCharge, decimal maxCharge, string category = "", params string[] publications)
+        public void AddRatecardIfNotExists(string ratecardName, decimal minCharge, decimal maxCharge, string category = "", bool autoAssign = true)
         {
             using (var scope = new TransactionScope())
             {
@@ -233,15 +233,15 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 
                 var ratecardId = classifiedDb.AddIfNotExists(Constants.Table.Ratecard, new { BaseRateId = baseRateId, MinCharge = minCharge, MaxCharge = maxCharge }, baseRateId.ToString(), findBy: "BaseRateId");
 
-                if (category.HasValue() && publications.Length > 0)
+                if (category.HasValue() && autoAssign)
                 {
                     // Fetch categoryId ( reference tables )
                     var categoryId = classifiedDb.Single(Constants.Table.MainCategory, category);
 
-                    foreach (var publicationName in publications)
+                    List<int> publications = classifiedDb.Query<int>("SELECT PublicationId FROM Publication").ToList();
+
+                    foreach (var publicationId in publications)
                     {
-                        // Fetch the rest of reference tables
-                        var publicationId = classifiedDb.Single(Constants.Table.Publication, publicationName);
                         var publicationAdTypeId = classifiedDb.Single(Constants.Table.PublicationAdType, publicationId.ToString(), findBy: "PublicationId");
                         var publicationCategoryId = classifiedDb.Query<int?>("SELECT PublicationCategoryId FROM PublicationCategory WHERE MainCategoryId = @categoryId AND PublicationId = @publicationId", new { categoryId, publicationId }).Single();
 

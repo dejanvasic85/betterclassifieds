@@ -10,6 +10,7 @@ Scenario: Submit online ad
 	When I submit a new Online Ad titled "This is a Selenium Ad" starting from today
 	Then the booking should be successful
 
+
 @booking @web
 Scenario: Submit online and line ad bundle
 	Given I am logged in as "bdduser" with password "password123"

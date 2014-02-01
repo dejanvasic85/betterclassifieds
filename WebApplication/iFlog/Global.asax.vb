@@ -39,7 +39,7 @@ Public Class Global_asax
 
     Sub SucessfulPayment(ByVal bookRef As String)
         Dim content = BookingController.GetBookingStringContentByRef(bookRef)
-        Dim emailString As String = GeneralRoutine.GetAppSetting(Utilities.Constants.CONST_MODULE_SYSTEM, Utilities.Constants.CONST_KEY_System_AdminEmails)
+        Dim emailString As String = AppKeyReader(Of String).ReadFromStore(AppKey.AdminNotificationAccounts, defaultIfNotExists:="support@paramountit.com.au")
         Dim emailCollection = emailString.Split(";")
         Dim email As New AfterAdBookingNotification(emailCollection, String.Empty, content)
         email.Send()

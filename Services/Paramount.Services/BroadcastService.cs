@@ -1,16 +1,15 @@
 ﻿using Paramount.Betterclassifieds.DataService;
+using System;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.Linq;
+using System.Net.Mail;
+using Paramount.Common.DataTransferObjects.Broadcast;
+using Paramount.Common.DataTransferObjects.Broadcast.Messages;
+using Paramount.Common.ServiceContracts;
 
 namespace Paramount.Services
 {
-    using System;
-    using System.Collections.ObjectModel;
-    using System.Data;
-    using System.Linq;
-    using System.Net.Mail;
-    using Common.ServiceContracts;
-    using Common.DataTransferObjects.Broadcast;
-    using Common.DataTransferObjects.Broadcast.Messages;
-
     public class BroadcastService : IBroadcastService
     {
         private const string EmailTemplateKey = "[/{0}/]";
@@ -40,6 +39,10 @@ namespace Paramount.Services
                                                                (int)request.Priority);
             }
 
+            // Send email immediately ( no point in holding back because smtp is not flooded at the moment )
+
+            ProcessEmails(new ProcessEmailsRequest { BroadcastId = broadcastId });
+
             return new SendEmailResponse { Success = true, BroadcastId = broadcastId };
         }
 
@@ -66,6 +69,8 @@ namespace Paramount.Services
                                                                templateRows.Sender, request.IsBodyHtml,
                                                                (int)request.Priority);
             }
+
+            ProcessEmails(new ProcessEmailsRequest { BroadcastId = broadcastId });
 
             return new SendEmailResponse { Success = true, BroadcastId = broadcastId };
         }
@@ -94,7 +99,7 @@ namespace Paramount.Services
                 catch (Exception exception)
                 {
                     BroadcastDataService.EmailBroadcastEntryProcess(item.EmailBroadcastEntryId, 1, null);
-                    
+
                 }
             }
         }
@@ -188,7 +193,7 @@ namespace Paramount.Services
         private static void SendEmail(string from, string to, string subject, string body, int priority, bool isBodyHtml)
         {
             var smtp = new SmtpClient();
-
+            
             using (var message = new MailMessage(from, to, subject, body) { Priority = (MailPriority)priority, IsBodyHtml = isBodyHtml })
             {
                 smtp.Send(message);

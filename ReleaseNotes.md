@@ -4,7 +4,7 @@
 - [Ability to extend booking from command line to assist with administration and support](https://trello.com/c/D8lYRCa4/61-new-offline-task-remove-edition "Ability to extend booking")
 - [Controlling email sending from non production environment](https://trello.com/c/2jd7Z9Lj/123-better-control-of-how-emails-are-sent-out-from-non-release-environment "Controlling email sending") 
 - [Automated functional test for booking](https://trello.com/c/AK23jSUI/81-automated-functional-test-for-new-booking "Automated functional testing")
-
+- [Send emails as soon as they are queued](https://trello.com/c/mlzU4T4v/56-emails-should-attempt-to-send-straight-away-first)
 
 **Technical Debt**
 

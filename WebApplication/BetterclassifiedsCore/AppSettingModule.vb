@@ -10,6 +10,7 @@
         Public Const LineAdBoldHeadingLimit = "BoldHeadingLimit"
         Public Const BundleWithPrint = "BundleWithPrint"
         Public Const ImageStoragePath = "ImageStoragePath"
+        Public Const AdminNotificationAccounts = "AdminNotificationAccounts"
     End Structure
 
     Public Class AppKeyReader(Of TKey)

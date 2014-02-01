@@ -97,14 +97,14 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Submit online and line ad bundle", new string[] {
                         "booking",
                         "web"});
-#line 14
-this.ScenarioSetup(scenarioInfo);
 #line 15
- testRunner.Given("I am logged in as \"bdduser\" with password \"password123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+this.ScenarioSetup(scenarioInfo);
 #line 16
+ testRunner.Given("I am logged in as \"bdduser\" with password \"password123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 17
  testRunner.When("I submit a new Bundled Ad titled \"This is a bundled ad\" starting from the next ed" +
                     "ition", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 17
+#line 18
  testRunner.Then("the booking should be successful", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

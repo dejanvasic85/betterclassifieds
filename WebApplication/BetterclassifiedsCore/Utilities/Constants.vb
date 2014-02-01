@@ -54,7 +54,6 @@
         Public Const CONST_KEY_LineAd_Word_Separators As String = "WordSeparators"
         Public Const CONST_KEY_LineAd_Word_MaxLength As String = "WordMaxLength"
         Public Const CONST_KEY_Online_BundleWithPrint As String = "BundleWithPrint"
-        Public Const CONST_KEY_System_AdminEmails As String = "AdminNotificationAccounts"
         Public Const CONST_KEY_System_SupportEmails As String = "SupportNotificationAccounts"
         Public Const CONST_KEY_System_ExpiredHistoryMonths As String = "ExpiredHistoryMonths"
         Public Const CONST_KEY_System_LastBackupTime As String = "LastBackupTime"

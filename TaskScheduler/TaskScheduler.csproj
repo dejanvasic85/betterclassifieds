@@ -149,11 +149,6 @@
       <SubType>Designer</SubType>
       <TransformOnBuild>true</TransformOnBuild>
     </None>
-    <Content Include="TaskScheduler.exe.Debug.config">
-      <DependentUpon>app.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="TaskScheduler.exe.Release.config">
       <DependentUpon>app.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>

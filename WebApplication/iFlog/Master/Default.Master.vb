@@ -94,7 +94,7 @@ Partial Public Class _Default1
 
     Protected Sub LoadSearchFilters()
         If Not String.IsNullOrEmpty(OnlineSearchParameter.KeyWord) Then
-            Me.txtAdId.Text = OnlineSearchParameter.KeyWord
+            Me.txtKeywords.Text = OnlineSearchParameter.KeyWord
         End If
 
         If OnlineSearchParameter.Location.HasValue Then

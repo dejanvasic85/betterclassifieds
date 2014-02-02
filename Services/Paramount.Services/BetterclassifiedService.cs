@@ -22,21 +22,5 @@ namespace Paramount.Services
             
             return response;
         }
-
-        public GetActivitySummaryResponse GetActivitySummary(GetActivitySummaryRequest request)
-        {
-            
-            
-            ActivitySummary summary = BetterclassifiedDataService
-                .GetActivitySummaries(request.ReportDate)
-                .Select(row => new ActivitySummary
-                {
-                    NumberOfBookings = row.TotalBookings,
-                    SumOfBookings = row.TotalIncome
-                })
-                .First();
-
-            return new GetActivitySummaryResponse { ActivitySummary = summary };
-        }
     }
 }

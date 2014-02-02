@@ -9,7 +9,5 @@ namespace Paramount.Common.ServiceContracts
         [OperationContract]
         GetExpiredAdListByLastEditionResponse GetExpiredAdListByLastEdition(GetExpiredAdListByLastEditionRequest request);
 
-        [OperationContract]
-        GetActivitySummaryResponse GetActivitySummary(GetActivitySummaryRequest request);
     }
 }

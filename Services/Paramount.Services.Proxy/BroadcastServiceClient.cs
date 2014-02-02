@@ -1,9 +1,9 @@
 ﻿namespace Paramount.Services.Proxy
 {
     using System.ServiceModel;
-    using Paramount.Common.ServiceContracts;
+    using Common.ServiceContracts;
     using System.ServiceModel.Channels;
-    using Paramount.Common.DataTransferObjects.Broadcast.Messages;
+    using Common.DataTransferObjects.Broadcast.Messages;
 
     public partial class BroadcastServiceClient : ClientBase<IBroadcastService>
     {
@@ -55,9 +55,5 @@
             return Channel.GetEmailTemplate(request);
         }
 
-        public GetBroadcastActivityResponse GetBroadcastActivity(GetBroadcastActivityRequest request)
-        {
-            return Channel.GetBroadcastActivity(request);
-        }
     }
 }

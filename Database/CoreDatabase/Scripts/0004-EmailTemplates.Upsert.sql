@@ -1,4 +1,5 @@
-﻿GO
+﻿
+GO
 IF NOT EXISTS ( SELECT 1 FROM EmailTemplate WHERE Name = 'ForgottenPassword' )
 begin
 	INSERT INTO EmailTemplate (Name, Description, EmailContent, Subject, Sender, EntityCode)
@@ -7,8 +8,8 @@ end
 GO
 UPDATE	EmailTemplate
 SET	Description = 	'ForgottenPassword template',
-	Subject = 'Password Recovery',
-	Sender = 'classies@themusic.com.au',
+	[Subject]  = 'Password Recovery',
+	[Sender] = 'classies@themusic.com.au',
 	EmailContent = '
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -200,7 +201,7 @@ SET	Description = 	'ForgottenPassword template',
                 <td colspan="4">
                     <div style="text-align: center;">
                         <a href="http://classies.themusic.com.au/" target="_blank">
-                            <img src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" 
+                            <img  src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png"  width="300px"
                                 alt="The Music | theMusic.com.au | Australia’s Premier Music News &amp; Reviews Website" />
                         </a>
                     </div>
@@ -262,9 +263,9 @@ begin
 end
 GO
 UPDATE	EmailTemplate
-SET	Description = 'Registration template',
-	Subject = 'Classies Account Registration Details',
-	Sender = 'classies@themusic.com.au',
+SET	[Description]  = 'Registration template',
+	[Subject]  = 'Classies Account Registration Details',
+	[Sender] = 'classies@themusic.com.au',
 	EmailContent = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -454,7 +455,7 @@ SET	Description = 'Registration template',
                 <td colspan="4">
                     <div style="text-align: center;">
                         <a href="http://classies.themusic.com.au/" target="_blank">
-                            <img src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png"
+                            <img src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" width="300px"
                                 alt="The Music | theMusic.com.au | Australia’s Premier Music News &amp; Reviews Website" />
                         </a>
                     </div>
@@ -502,9 +503,9 @@ begin
 end
 GO
 UPDATE	EmailTemplate
-SET	Description = 'Classies support',
-	Subject = 'Classies support',
-	Sender = 'classies@themusic.com.au',
+SET	[Description]  = 'Classies support',
+	[Subject]  = 'Classies support',
+	[Sender] = 'classies@themusic.com.au',
 	EmailContent = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -694,7 +695,7 @@ SET	Description = 'Classies support',
                 <td colspan="4">
                     <div style="text-align: center;">
                         <a href="http://classies.themusic.com.au/" target="_blank">
-                            <img src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png"
+                            <img src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" width="300px"
                                 alt="The Music | theMusic.com.au | Australia�s Premier Music News &amp; Reviews Website" />
                         </a>
                     </div>
@@ -747,9 +748,9 @@ begin
 end
 GO
 UPDATE	EmailTemplate
-SET	Description = 'After Ad Booking Notification',
-	Subject = 'Classies Booking Notification',
-	Sender = 'classies@themusic.com.au',
+SET	[Description]  = 'After Ad Booking Notification',
+	[Subject]  = 'Classies Booking Notification',
+	[Sender] = 'classies@themusic.com.au',
 	EmailContent = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -939,7 +940,7 @@ SET	Description = 'After Ad Booking Notification',
                 <td colspan="4">
                     <div style="text-align: center;">
                         <a href="http://classies.themusic.com.au/" target="_blank">
-                            <img src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png"
+                            <img src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" width="300px"
                                 alt="The Music | theMusic.com.au | Australia�s Premier Music News &amp; Reviews Website" />
                         </a>
                     </div>
@@ -987,9 +988,9 @@ begin
 end
 GO
 UPDATE	EmailTemplate
-SET	Description = 'Expiry Notice',
-	Subject = 'Extend your expiring Classies Ad',
-	Sender = 'classies@themusic.com.au',
+SET	[Description]  = 'Expiry Notice',
+	[Subject]  = 'Extend your expiring Classies Ad',
+	[Sender] = 'classies@themusic.com.au',
 	EmailContent = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -1179,7 +1180,7 @@ SET	Description = 'Expiry Notice',
                 <td colspan="4">
                     <div style="text-align: center;">
                         <a href="http://classies.themusic.com.au/" target="_blank">
-                            <img src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png"
+                            <img src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" width="300px"
                                 alt="The Music | theMusic.com.au | Australia’s Premier Music News &amp; Reviews Website" />
                         </a>
                     </div>
@@ -1234,9 +1235,9 @@ begin
 end
 GO
 UPDATE	EmailTemplate
-SET	Description = 'Online Ad Enquiry',
-	Subject = 'Classies Ad Enquiry',
-	Sender = 'classies@themusic.com.au',
+SET	[Description]  = 'Online Ad Enquiry',
+	[Subject]  = 'Classies Ad Enquiry',
+	[Sender] = 'classies@themusic.com.au',
 	EmailContent = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -1426,7 +1427,7 @@ SET	Description = 'Online Ad Enquiry',
                 <td colspan="4">
                     <div style="text-align: center;">
                         <a href="http://classies.themusic.com.au/" target="_blank">
-                            <img src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png"
+                            <img src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" width="300px"
                                 alt="The Music | theMusic.com.au | Australia�s Premier Music News &amp; Reviews Website" />
                         </a>
                     </div>
@@ -1472,4 +1473,29 @@ SET	Description = 'Online Ad Enquiry',
 </html>
 '
 WHERE	Name	= 'OnlineAdEnquiry'
+GO
+
+
+
+-- Health Check Alert
+IF NOT EXISTS ( SELECT 1 FROM EmailTemplate WHERE Name = 'SystemHealthCheck' )
+begin
+	INSERT INTO EmailTemplate (Name, Description, EmailContent, Subject, Sender, EntityCode)
+	VALUES ('SystemHealthCheck', 'Sends alert to admins about the daily activity', '', 'Classifieds Activity Report', 'classies@themusic.com.au', 'P000000005');
+end
+GO
+UPDATE	EmailTemplate
+SET	[Description] = 'Sends alert to admins about the daily activity',
+	[Subject] = 'Classifieds Activity Report',
+	[Sender] = 'classies@themusic.com.au',
+	EmailContent = '
+<h3>Daily Activity for [/ReportDate/] Environment : [/Environment/]</h3>
+[/ClassifiedsTable/]
+<br>
+<h3>Elmah Errors</h3>
+<br>
+[/LogTable/]
+
+'
+WHERE	Name	= 'SystemHealthCheck'
 GO

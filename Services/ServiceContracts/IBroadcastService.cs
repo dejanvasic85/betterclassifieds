@@ -32,7 +32,5 @@ namespace Paramount.Common.ServiceContracts
         [OperationContract]
         GetEmailTemplateResponse GetEmailTemplate(GetEmailTemplateRequest emailTemplateRequest);
 
-        [OperationContract]
-        GetBroadcastActivityResponse GetBroadcastActivity(GetBroadcastActivityRequest request);
     }
 }

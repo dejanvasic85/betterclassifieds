@@ -69,7 +69,7 @@
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Scripts\0003-EmailTemplates.Upsert.sql" />
+    <EmbeddedResource Include="Scripts\0004-EmailTemplates.Upsert.sql" />
     <None Include="CoreDatabase.nuspec">
       <SubType>Designer</SubType>
     </None>

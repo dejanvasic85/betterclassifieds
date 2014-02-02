@@ -4,24 +4,25 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace Paramount.Utility
+namespace Paramount
 {
     public static class HtmlExtensions
     {
         public static string ToHtmlTable<T>(this List<T> values) where T : class
         {
+            if (values.Count == 0)
+                return string.Empty;
+
             StringBuilder builder = new StringBuilder();
             builder.Append("<table>");
-            if (values.Count > 0)
-            {
-                // Append the top header row
-                builder.Append(values.First().ToTableRow(isHeader: true));
 
-                // Append each value
-                foreach (var item in values)
-                {
-                    builder.Append(item.ToTableRow(isHeader: false));
-                }
+            // Append the top header row
+            builder.Append(values.First().ToTableRow(isHeader: true));
+
+            // Append each value
+            foreach (var item in values)
+            {
+                builder.Append(item.ToTableRow(isHeader: false));
             }
             builder.Append("</table>");
             return builder.ToString();
@@ -43,6 +44,25 @@ namespace Paramount.Utility
                 }
             }
             builder.Append("</tr>");
+            return builder.ToString();
+        }
+
+        public static string ToHtmlTable<TKey, TValue>(this Dictionary<TKey, TValue> values)
+        {
+            if (values.Count == 0)
+                return string.Empty;
+
+            StringBuilder builder = new StringBuilder();
+            builder.Append("<table>");
+
+            foreach (var item in values)
+            {
+                builder.Append("<tr>");
+                builder.AppendFormat("<td>{0}</td><td>{1}</td>", item.Key, item.Value);
+                builder.Append("</tr>");
+            }
+
+            builder.Append("</table>");
             return builder.ToString();
         }
     }

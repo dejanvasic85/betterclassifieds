@@ -5,6 +5,10 @@
 - [Controlling email sending from non production environment](https://trello.com/c/2jd7Z9Lj/123-better-control-of-how-emails-are-sent-out-from-non-release-environment "Controlling email sending") 
 - [Automated functional test for booking](https://trello.com/c/AK23jSUI/81-automated-functional-test-for-new-booking "Automated functional testing")
 - [Send emails as soon as they are queued](https://trello.com/c/mlzU4T4v/56-emails-should-attempt-to-send-straight-away-first)
+- [Daily report stat - Number of times contact advertiser form is used](https://trello.com/c/3SPmOODx/69-add-the-number-of-contact-advertiser-form-submit-count-to-the-health-check-report)
+- [Daily report stat - Number of tutor ads booked](https://trello.com/c/2wnCSHJb/79-number-of-tutor-ads-booked-for-the-day)
+- [Daily report stat - Number of booking extensions](https://trello.com/c/c7y9E8hK/95-number-of-bookings-extended-for-daily-activity-report)
+- [Daily report stat - Number of incomplete bookings](https://trello.com/c/BcgSbgdf/70-number-of-incomlete-bookings-for-activity-report)
 
 **Technical Debt**
 

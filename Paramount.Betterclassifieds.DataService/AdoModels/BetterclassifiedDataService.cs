@@ -20,12 +20,5 @@ namespace Paramount.Betterclassifieds.DataService
             return list;
         }
 
-        public static IEnumerable<ActivitySummaryRow> GetActivitySummaries(DateTime reportDate)
-        {
-            var df = new DatabaseProxy("psp_Betterclassified_GetActivitySummary", ConfigSection, ConfigKey);
-            df.AddParameter("@ReportDate", reportDate);
-            var dt = df.ExecuteQuery().Tables[0];
-            return from DataRow item in dt.Rows select new ActivitySummaryRow(item);
-        }
     }
 }

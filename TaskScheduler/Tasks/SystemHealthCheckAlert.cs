@@ -1,17 +1,12 @@
-using System.Threading.Tasks;
 using Dapper;
 using Paramount.ApplicationBlock.Configuration;
-using Paramount.Common.DataTransferObjects.Betterclassifieds;
-using Paramount.Common.DataTransferObjects.Betterclassifieds.Messages;
-using Paramount.Common.DataTransferObjects.Broadcast;
-using Paramount.Common.DataTransferObjects.Broadcast.Messages;
-using Paramount.Utility;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Paramount.TaskScheduler
 {
@@ -21,33 +16,24 @@ namespace Paramount.TaskScheduler
         {
             var recipients = parameters.First().Value.Split(';');
             DateTime reportDate = DateTime.Today;
-
-            var classifiedSummary = Task<ActivitySummary>.Factory.StartNew(() => 
-                Services.Proxy.WebServiceHostManager.BetterclassifiedServiceClient
-                    .GetActivitySummary(new GetActivitySummaryRequest { ReportDate = reportDate })
-                    .ActivitySummary);
-
-            var broadcastSummary = Task<BroadcastActivitySummary>.Factory.StartNew(() =>
-                    Services.Proxy.WebServiceHostManager.BroadcastServiceHost
-                        .GetBroadcastActivity(new GetBroadcastActivityRequest { ReportDate = reportDate })
-                        .BroadcastActivitySummary
-                );
-
-            var todaysLogs = Task<IEnumerable<Models.LogItem>>.Factory.StartNew(GetTodaysLogs);
+            
+            var classifiedsResultsTask = Task<Dictionary<string, string>>.Factory.StartNew(GetClassifiedsStatistics);
+            var classifiedResultsAsHtml = classifiedsResultsTask.Result.ToHtmlTable();
+            
+            var todaysLogsTask = Task<IEnumerable<Models.LogItem>>.Factory.StartNew(GetTodaysLogs);
+            var todaysLogsAsHtml = todaysLogsTask.Result.ToList().ToHtmlTable();
 
             // Block until all have completed
-            Task.WaitAll(classifiedSummary, broadcastSummary, todaysLogs);
+            Task.WaitAll(classifiedsResultsTask, todaysLogsTask);
 
-            // Fetch the system health check stuff
+            // Use the built in broadcaster to send out the emails
             Broadcast.Components.EmailBroadcastController
                 .SendHealthCheckNotification(
                     reportDate,
                     ConfigManager.ConfigurationContext,
                     recipients,
-                    classifiedSummary.Result.NumberOfBookings,
-                    classifiedSummary.Result.SumOfBookings,
-                    broadcastSummary.Result.TotalNumberOfEmailsSent,
-                    todaysLogs.Result.ToList().ToHtmlTable()
+                    classifiedResultsAsHtml,
+                    todaysLogsAsHtml
                 );
         }
 
@@ -64,9 +50,20 @@ namespace Paramount.TaskScheduler
                 var endDateUtc = DateTime.UtcNow;
 
                 return connection.Query<Models.LogItem>(
-                    "SELECT Application, Host, Type, Source, Message, User, StatusCode, TimeUtc FROM ELMAH_Error WHERE TimeUtc BETWEEN @StartDate AND @EndDate ORDER BY Sequence", 
+                    "SELECT Application, Host, Type, Source, Message, User, StatusCode, TimeUtc FROM ELMAH_Error WHERE TimeUtc BETWEEN @StartDate AND @EndDate ORDER BY Sequence",
                     new { StartDate = startDateUtc, EndDate = endDateUtc }
                 );
+            }
+        }
+
+        private Dictionary<string, string> GetClassifiedsStatistics()
+        {
+            using (IDbConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["BetterclassifiedsConnection"].ConnectionString))
+            {
+                var dictionary = connection.Query("psp_Betterclassified_GetActivitySummary", commandType: CommandType.StoredProcedure)
+                                           .ToDictionary(row => (string)row.StatisticName, row => (string)row.StatisticValue);
+
+                return dictionary;
             }
         }
     }

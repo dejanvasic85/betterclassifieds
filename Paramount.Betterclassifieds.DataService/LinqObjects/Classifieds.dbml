@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="iFlog" EntityNamespace="Paramount.Betterclassifieds.DataService.Classifieds" ContextNamespace="Paramount.Betterclassifieds.DataService.Classifieds" Class="ClassifiedsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost;Initial Catalog=iFlog;Integrated Security=True" SettingsObjectName="Paramount.Betterclassifieds.DataService.Properties.Settings" SettingsPropertyName="iFlogConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="LIVE-iFlog-v106" EntityNamespace="Paramount.Betterclassifieds.DataService.Classifieds" ContextNamespace="Paramount.Betterclassifieds.DataService.Classifieds" Class="ClassifiedsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=dexterii;Initial Catalog=LIVE-iFlog-v106;Integrated Security=True" SettingsObjectName="Paramount.Betterclassifieds.DataService.Properties.Settings" SettingsPropertyName="LIVE_iFlog_v106ConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Ad" Member="Ads">
     <Type Name="Ad">
       <Column Name="AdId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -519,6 +519,18 @@
       <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Area" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="AdId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SeoMapping" Member="SeoMappings">
+    <Type Name="SeoMapping">
+      <Column Name="SeoNameId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SeoName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="CategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ParentCategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LocationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AreaId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SearchTerm" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
     </Type>
   </Table>
   <Function Name="dbo.usp_RateCard__Search" Method="usp_RateCard__Search">

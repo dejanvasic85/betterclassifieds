@@ -21,5 +21,12 @@ Public Class RouteConfig
             routeName:=AdRoute,
             routeUrl:="Ad/{title}/{id}",
             physicalFile:="~/OnlineAds/AdView.aspx")
+
+        routes.MapPageRoute(
+            routeName:="seoName",
+            routeUrl:="listings/{seoName}",
+            checkPhysicalUrlAccess:=True,
+            physicalFile:="~/OnlineAds/Default.aspx",
+            defaults:=New RouteValueDictionary(New With {Key .seoName = RouteParameter.[Optional]}))
     End Sub
 End Class

@@ -6,12 +6,13 @@ using AutoMapper;
 using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.Business.Models.Seo;
 using Paramount.Betterclassifieds.Business.Repository;
+using Paramount.Betterclassifieds.DataService.Classifieds;
 using Paramount.Betterclassifieds.DataService.Entities;
 using Paramount.Betterclassifieds.DataService.SeoSettings;
 
 namespace Paramount.Betterclassifieds.DataService.Repository
 {
-    public class SeoMappingRepository : ISeoMappingRepository
+    public class SeoMappingRepository : ISeoMappingRepository, IMappingBehaviour
     {
         #region Dependencies
         private readonly ISeoNameMappingDataSource dataSource;
@@ -24,38 +25,24 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             this.dataSource = dataSource;
         }
 
-        public void CreateCategoryMapping(string seoName, int categoryIds)
-        {
-            //return value to be implemented as needed
-            dataSource.CreateCategoryMapping(seoName, categoryIds.ToString(CultureInfo.InvariantCulture));
-
-        }
-
-        public void RetrieveMappings(string partition)
-        {
-            //return value to be implemented as needed
-            dataSource.RetrieveMappings(partition);
-        }
-
-        public SeoNameMappingModel GetCategoryMapping(string seoName)
-        {
-            var entities = dataSource.GetCategoryMapping(seoName).ToList();
-            return entities.Any() ? entities.First().Convert() : null;
-        }
         
-       
-    }
-
-    internal static class Extentions
-    {
-        public static SeoNameMappingModel Convert(this SeoNameMappingEntity entity)
+        public SeoNameMappingModel GetSeoMapping(string seoName)
         {
-            return new SeoNameMappingModel()
+            using (var context = DataContextFactory.CreateClassifiedContext())
             {
-                CategoryIdList = entity.GetMappedCategoryId(),
-                LocationIdList = new List<int>(),
-                SeoName = entity.SeoName
-            };
+                var seoMappings =
+                    context.SeoMappings.Where(
+                        seo => seo.SeoName.Equals(seoName.Trim()));
+
+                return seoMappings.Any() ? this.Map<SeoMapping, SeoNameMappingModel>(seoMappings.First()) : null;
+            }
+        }
+
+
+        public void OnRegisterMaps(IConfiguration configuration)
+        {
+            configuration.CreateMap<SeoNameMappingModel, SeoMapping>();
+            configuration.CreateMap<SeoMapping, SeoNameMappingModel>();
         }
     }
 }

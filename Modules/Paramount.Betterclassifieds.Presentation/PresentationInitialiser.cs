@@ -22,7 +22,7 @@
 
             routes.MapRoute(
                "adsByCategory",
-               "listings/{title}",
+               "nextgen/listings/{title}",
                new { controller = "Ad", action = "Category", module = Name, title = UrlParameter.Optional }, new[] { GetType().Namespace });
         }
 

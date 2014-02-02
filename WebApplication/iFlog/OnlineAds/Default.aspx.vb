@@ -6,14 +6,23 @@ Imports BetterclassifiedsCore.ParameterAccess
 Imports Paramount.Betterclassified.Utilities.Configuration
 Imports Paramount.Utility.Dsl
 Imports Paramount.Utility
+Imports Paramount.Betterclassifieds.Business.Repository
+Imports Microsoft.Practices.Unity
+Imports Paramount.ApplicationBlock.Mvc
 
 Partial Public Class _Default5
     Inherits System.Web.UI.Page
+    Private seoMappingRepository As ISeoMappingRepository
     Protected Overrides Sub OnInit(ByVal e As System.EventArgs)
         MyBase.OnInit(e)
         AddHandler categorySelector.OnCategoryClick, AddressOf CategoryClicked
     End Sub
 
+    Public Sub New()
+        seoMappingRepository = BetterClassified.Unity.DefaultContainer.Resolve(Of ISeoMappingRepository)()
+    End Sub
+
+    
     Private Sub CategoryClicked(ByVal sender As Object, ByVal e As EventArgs)
         '' redirect them to search values
         Dim control = CType(sender, CategoryItem)
@@ -31,6 +40,7 @@ Partial Public Class _Default5
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not Page.IsPostBack Then
+            SetFiltersFromParamers()
 
             ' change the title for this page based on the user's search
             Me.Title = "Results for "
@@ -62,6 +72,23 @@ Partial Public Class _Default5
         If Not OnlineSearchParameter.Category.HasValue Then
             Me.lblSearchDetails.Text += "All Categories"
         End If
+    End Sub
+
+    Private Sub SetFiltersFromParamers()
+        Dim seoName = Page.RouteData.Values("seoName")
+        If String.IsNullOrEmpty(seoName) Or seoName.Equals("all", StringComparison.InvariantCultureIgnoreCase) Then
+            Return
+        End If
+        Dim seoModel = seoMappingRepository.GetSeoMapping(seoName)
+        If seoModel IsNot Nothing Then
+            OnlineSearchParameter.SubCategory = seoModel.CategoryId
+            OnlineSearchParameter.Category = seoModel.ParentCategoryId
+            OnlineSearchParameter.Area = seoModel.AreaId
+            OnlineSearchParameter.Location = seoModel.LocationId
+
+            
+        End If
+
     End Sub
 
     Private Sub GetDatasource()

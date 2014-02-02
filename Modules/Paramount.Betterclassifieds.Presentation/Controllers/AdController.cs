@@ -31,17 +31,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         //
         // GET: /Category/
 
-        public ActionResult Category(string title = "")
-        {
-            var mapping = seoMappingRepository.GetCategoryMapping(title);
-            IEnumerable<int> catids = null;
-            if (mapping != null)
-            {
-                catids = mapping.CategoryIdList;
-            }
-
-            return Json(GetAdsByCategory(catids.EmptyIfNull().ToList()), JsonRequestBehavior.AllowGet);
-        }
 
         #region Private methods
 

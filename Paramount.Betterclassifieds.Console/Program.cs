@@ -1,4 +1,5 @@
 ﻿using Paramount.Betterclassifieds.Business.Bookings;
+using Paramount.Betterclassifieds.DataService.Repository;
 
 namespace Paramount.Betterclassifieds.Console
 {

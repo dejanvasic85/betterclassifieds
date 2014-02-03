@@ -169,7 +169,16 @@
     <Compile Include="AdoModels\RoleDataProvider.cs" />
     <Compile Include="AdoModels\Utils.cs" />
     <Compile Include="Repository\AdRepository.cs" />
+    <Compile Include="Repository\AppConfig.cs" />
+    <Compile Include="Repository\BookingRepository.cs" />
+    <Compile Include="Repository\ClientConfig.cs" />
+    <Compile Include="Repository\EditionRepository.cs" />
+    <Compile Include="Repository\LookupRepository.cs" />
+    <Compile Include="Repository\PaymentsRepository.cs" />
+    <Compile Include="Repository\PublicationRepository.cs" />
+    <Compile Include="Repository\RateRepository.cs" />
     <Compile Include="Repository\SeoMappingRepository.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="SeoSettings\ISeoNameMappingDataSource.cs" />
   </ItemGroup>
   <ItemGroup>

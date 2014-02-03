@@ -1,15 +1,15 @@
 ﻿using System;
-using BetterclassifiedsCore.DataModel;
 using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Repository;
+using Paramount.Betterclassifieds.DataService.Classifieds;
 
-namespace BetterClassified.Repository
+namespace Paramount.Betterclassifieds.DataService.Repository
 {
     public class PaymentsRepository : IPaymentsRepository
     {
         public void CreateTransaction(string userId, string reference, string description, decimal amount, PaymentType paymentType)
         {
-            using (var context = BetterclassifiedsDataContext.NewContext())
+            using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 context.Transactions.InsertOnSubmit(
                     new Transaction

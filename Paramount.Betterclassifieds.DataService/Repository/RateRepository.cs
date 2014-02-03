@@ -1,17 +1,16 @@
 ﻿using System.Linq;
 using AutoMapper;
-using BetterclassifiedsCore.DataModel;
-using Paramount;
 using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Repository;
+using Paramount.Betterclassifieds.DataService.Classifieds;
 
-namespace BetterClassified.Repository
+namespace Paramount.Betterclassifieds.DataService.Repository
 {
     public class RateRepository : IRateRepository, IMappingBehaviour
     {
         public RateModel GetRatecard(int rateId)
         {
-            using (var context = BetterclassifiedsDataContext.NewContext())
+            using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 // Fetch data objects
                 var rateCard = context.Ratecards.First(rate => rate.RatecardId == rateId);

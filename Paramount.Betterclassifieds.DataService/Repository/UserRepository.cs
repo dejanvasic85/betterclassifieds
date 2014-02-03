@@ -2,7 +2,7 @@
 using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Repository;
 
-namespace BetterClassified.Repository
+namespace Paramount.Betterclassifieds.DataService.Repository
 {
     public class UserRepository : IUserRepository
     {
@@ -11,7 +11,7 @@ namespace BetterClassified.Repository
 
         public ApplicationUser GetClassifiedUser(string username)
         {
-            using (BetterclassifiedsCore.DataModel.AppUserDataContext context = BetterclassifiedsCore.DataModel.AppUserDataContext.NewContext())
+            using (var context = DataContextFactory.CreateMembershipContext())
             {
                 var application = context.aspnet_Applications.First(a => a.LoweredApplicationName == BetterclassifiedsAppId);
                 

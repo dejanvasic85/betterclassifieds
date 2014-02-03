@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using BetterclassifiedsCore.DataModel;
-using Paramount;
 using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Repository;
+using Paramount.Betterclassifieds.DataService.Classifieds;
 
-namespace BetterClassified.Repository
+namespace Paramount.Betterclassifieds.DataService.Repository
 {
     public class PublicationRepository : IPublicationRepository, IMappingBehaviour
     {
         public PublicationModel GetPublication(int publicationId)
         {
-            using (var context = BetterclassifiedsDataContext.NewContext())
+            using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 return this.Map<Publication, PublicationModel>(context.Publications.First(publication => publication.PublicationId == publicationId));
             }
@@ -21,7 +20,7 @@ namespace BetterClassified.Repository
 
         public bool IsOnlinePublication(int publicationId)
         {
-            using (var context = BetterclassifiedsDataContext.NewContext())
+            using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 return context.Publications
                     .First(publication => publication.PublicationId == publicationId)
@@ -34,7 +33,7 @@ namespace BetterClassified.Repository
 
         public List<BookEntryModel> GetEditionsForPublication(int publicationId, DateTime startDate, int numberOfEditions)
         {
-            using (var context = BetterclassifiedsDataContext.NewContext())
+            using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 return this.MapList<Edition, BookEntryModel>(context.Editions
                     .Where(edition => edition.PublicationId == publicationId && edition.EditionDate >= startDate)

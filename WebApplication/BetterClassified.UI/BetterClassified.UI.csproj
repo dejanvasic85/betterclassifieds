@@ -153,16 +153,8 @@
     <Compile Include="Framework\Slug.cs" />
     <Compile Include="IBaseView.cs" />
     <Compile Include="Framework\Security\ClassifiedSqlMembershipProvider.cs" />
-    <Compile Include="Repository\AppConfig.cs" />
-    <Compile Include="Repository\ClientConfig.cs" />
-    <Compile Include="Repository\EditionRepository.cs" />
-    <Compile Include="Repository\LookupRepository.cs" />
-    <Compile Include="Repository\PaymentsRepository.cs" />
-    <Compile Include="Repository\PublicationRepository.cs" />
-    <Compile Include="Repository\RateRepository.cs" />
     <Compile Include="Repository\TheMusicHtmlScraper.cs" />
     <Compile Include="Repository\TheMusicMenuRepository.cs" />
-    <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="SiteUrl.cs" />
     <Compile Include="Framework\Unity\Unity.cs" />
     <Compile Include="Framework\Unity\With.cs" />
@@ -189,7 +181,6 @@
     <Compile Include="Framework\BaseBookingPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Repository\BookingRepository.cs" />
     <Compile Include="Views\IExtendBookingView.cs" />
     <Compile Include="Views\IMyBookingsView.cs" />
   </ItemGroup>

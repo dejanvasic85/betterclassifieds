@@ -20,6 +20,14 @@ namespace Paramount.Betterclassifieds.DataService
             container.RegisterType<IAdRepository, AdRepository>();
             container.RegisterType<ISeoNameMappingDataSource, SeoNameMappingDataSource>();
             container.RegisterType<ISeoMappingRepository, SeoMappingRepository>();
+
+            container.RegisterType<IBookingRepository, BookingRepository>();
+            container.RegisterType<IPublicationRepository, PublicationRepository>();
+            container.RegisterType<IRateRepository, RateRepository>();
+            container.RegisterType<IUserRepository, UserRepository>();
+            container.RegisterType<IPaymentsRepository, PaymentsRepository>();
+            container.RegisterType<IClientConfig, ClientConfig>();
+            container.RegisterType<IApplicationConfig, AppConfig>();
         }
     }
 }

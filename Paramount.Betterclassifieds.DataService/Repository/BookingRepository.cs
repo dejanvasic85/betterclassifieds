@@ -1,22 +1,20 @@
-﻿using Paramount;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Linq;
+using System.Linq;
+using AutoMapper;
 using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Models.Comparers;
 using Paramount.Betterclassifieds.Business.Repository;
+using Paramount.Betterclassifieds.DataService.Classifieds;
 
-namespace BetterClassified.Repository
+namespace Paramount.Betterclassifieds.DataService.Repository
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using AutoMapper;
-    using BetterclassifiedsCore.DataModel;
-    using System;
-    using System.Data.Linq;
-
     public class BookingRepository : IBookingRepository, IMappingBehaviour
     {
         public AdBookingModel GetBooking(int id, bool withLineAd = false)
         {
-            using (var context = BetterclassifiedsDataContext.NewContext())
+            using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 var booking = context.AdBookings.FirstOrDefault(b => b.AdBookingId == id);
                 if (booking == null)
@@ -38,15 +36,16 @@ namespace BetterClassified.Repository
 
         public List<BookEntryModel> GetBookEntriesForBooking(int adBookingId)
         {
-            using (var context = BetterclassifiedsDataContext.NewContext())
+            using (var context = DataContextFactory.CreateClassifiedContext())
             {
-                return this.MapList<BookEntry, BookEntryModel>(context.BookEntries.Where(entries => entries.AdBookingId == adBookingId).ToList());
+                var bookEntryList = context.BookEntries.Where(entries => entries.AdBookingId == adBookingId).ToList();
+                return this.MapList<Classifieds.BookEntry, BookEntryModel>(bookEntryList);
             }
         }
 
         public List<UserBookingModel> GetBookingsForUser(string username)
         {
-            using (var context = BetterclassifiedsDataContext.NewContext())
+            using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 IQueryable<AdBooking> bookings = context.AdBookings.Where(bk =>
                     bk.UserId == username &&
@@ -88,7 +87,7 @@ namespace BetterClassified.Repository
 
         public int AddBookingExtension(AdBookingExtensionModel extension)
         {
-            using (var context = BetterclassifiedsDataContext.NewContext())
+            using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 AdBookingExtension adBookingExtension = this.Map<AdBookingExtensionModel, AdBookingExtension>(extension);
                 context.AdBookingExtensions.InsertOnSubmit(adBookingExtension);
@@ -101,7 +100,7 @@ namespace BetterClassified.Repository
 
         public AdBookingExtensionModel GetBookingExtension(int extensionId)
         {
-            using (var context = BetterclassifiedsDataContext.NewContext())
+            using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 var adBookingExtension = context.AdBookingExtensions.FirstOrDefault(extension => extension.AdBookingExtensionId == extensionId);
                 return adBookingExtension == null
@@ -112,7 +111,7 @@ namespace BetterClassified.Repository
 
         public void UpdateExtesion(int extensionId, int? status)
         {
-            using (var context = BetterclassifiedsDataContext.NewContext())
+            using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 // Fetch and update
                 AdBookingExtension extension = context.AdBookingExtensions.First(e => e.AdBookingExtensionId == extensionId);
@@ -125,7 +124,7 @@ namespace BetterClassified.Repository
 
         public void UpdateBooking(int adBookingId, DateTime? newEndDate = null, decimal? totalPrice = null)
         {
-            using (var context = BetterclassifiedsDataContext.NewContext())
+            using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 var adBooking = context.AdBookings.First(booking => booking.AdBookingId == adBookingId);
 
@@ -142,16 +141,16 @@ namespace BetterClassified.Repository
 
         public void AddBookEntries(BookEntryModel[] bookEntries)
         {
-            using (var context = BetterclassifiedsDataContext.NewContext())
+            using (var context = DataContextFactory.CreateClassifiedContext())
             {
-                context.BookEntries.InsertAllOnSubmit(this.MapList<BookEntryModel, BookEntry>(bookEntries.ToList()));
+                context.BookEntries.InsertAllOnSubmit(this.MapList<BookEntryModel, Classifieds.BookEntry>(bookEntries.ToList()));
                 context.SubmitChanges();
             }
         }
 
         public void CancelAndExpireBooking(int adBookingId)
         {
-            using (var context = BetterclassifiedsDataContext.NewContext())
+            using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 var booking = context.AdBookings.First(bk => bk.AdBookingId == adBookingId);
                 booking.EndDate = DateTime.Today.AddDays(-1);
@@ -162,7 +161,7 @@ namespace BetterClassified.Repository
 
         public List<AdBookingModel> GetBookingsForEdition(DateTime editionDate)
         {
-            using (var context = BetterclassifiedsDataContext.NewContext())
+            using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 var bookings = context.AdBookings.Join(
                     context.BookEntries.Where(b => b.EditionDate == editionDate),
@@ -178,7 +177,7 @@ namespace BetterClassified.Repository
 
         public void DeleteBookEntriesForBooking(int adBookingId, DateTime editionDate)
         {
-            using (var context = BetterclassifiedsDataContext.NewContext())
+            using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 var bookEntriesToDelete = context.BookEntries.Where(bookEntry => bookEntry.EditionDate == editionDate && bookEntry.AdBookingId == adBookingId);
                 context.BookEntries.DeleteAllOnSubmit(bookEntriesToDelete);
@@ -188,7 +187,7 @@ namespace BetterClassified.Repository
 
         public bool IsBookingOnline(int adBookingId)
         {
-            using (var context = BetterclassifiedsDataContext.NewContext())
+            using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 // Make sure there's just one ad design (online)
                 var onlineAd = from o in context.OnlineAds
@@ -203,7 +202,7 @@ namespace BetterClassified.Repository
 
         public bool IsBookingInPrint(int adBookingId)
         {
-            using (var context = BetterclassifiedsDataContext.NewContext())
+            using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 // Make sure there's just one ad design (online)
                 var printad = from o in context.LineAds
@@ -225,14 +224,14 @@ namespace BetterClassified.Repository
         {
             // From data
             configuration.CreateMap<AdBooking, AdBookingModel>();
-            configuration.CreateMap<BookEntry, BookEntryModel>();
+            configuration.CreateMap<Classifieds.BookEntry, BookEntryModel>();
             configuration.CreateMap<AdBookingExtension, AdBookingExtensionModel>();
             configuration.CreateMap<LineAd, LineAdModel>();
 
             // To data
             configuration.CreateMap<AdBookingExtensionModel, AdBookingExtension>()
                 .ForMember(member => member.AdBookingExtensionId, options => options.Condition(con => con.AdBookingExtensionId > 0));
-            configuration.CreateMap<BookEntryModel, BookEntry>()
+            configuration.CreateMap<BookEntryModel, Classifieds.BookEntry>()
                 .ForMember(member => member.AdBooking, options => options.Ignore())
                 .ForMember(member => member.Publication, options => options.Ignore());
         }

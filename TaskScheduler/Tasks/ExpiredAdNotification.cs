@@ -9,6 +9,7 @@ using BetterClassified.UIController.ViewObjects;
 using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Repository;
+using Paramount.Betterclassifieds.DataService.Repository;
 using Paramount.Broadcast.Components;
 
 namespace Paramount.TaskScheduler
@@ -37,7 +38,7 @@ namespace Paramount.TaskScheduler
             DateTime expiryDate = DateTime.Today.AddDays(int.Parse(parameters[DaysBeforeExpiry]));
 
             // Fetch the expiry list
-            List<ExpiredAdView> expiryAdList = AdBookingController.GetExpiredAdList(expiryDate);
+            var expiryAdList = AdBookingController.GetExpiredAdList(expiryDate);
             if (expiryAdList.Count > 0)
             {
                 // Construct and send the email ( per user )
@@ -46,7 +47,7 @@ namespace Paramount.TaskScheduler
                 foreach (var ads in expiryAdList.GroupBy(e => e.Username))
                 {
                     // Construct the email content
-                    StringBuilder sb = new StringBuilder();
+                    var sb = new StringBuilder();
                     foreach (var expiredAd in ads)
                     {
                         sb.AppendFormat("Ad ID: {0} has last print date of {1}<br />", expiredAd.AdId, expiredAd.LastPrintInsertionDate.ToString("dd/MM/yyyy"));

@@ -1,7 +1,7 @@
 ﻿using Paramount.ApplicationBlock.Configuration;
 using Paramount.Betterclassifieds.Business.Managers;
 
-namespace BetterClassified.Repository
+namespace Paramount.Betterclassifieds.DataService.Repository
 {
     public class AppConfig : IApplicationConfig
     {

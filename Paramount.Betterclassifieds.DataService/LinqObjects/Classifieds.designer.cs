@@ -11509,13 +11509,13 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 		
 		private string _Description;
 		
-		private System.Nullable<int> _CategoryId;
+		private string _CategoryIds;
 		
-		private System.Nullable<int> _ParentCategoryId;
+		private System.Nullable<int> _ParentCategoryIds;
 		
-		private System.Nullable<int> _LocationId;
+		private string _LocationIds;
 		
-		private System.Nullable<int> _AreaId;
+		private string _AreaIds;
 		
 		private string _SearchTerm;
 		
@@ -11529,14 +11529,14 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
     partial void OnSeoNameChanged();
     partial void OnDescriptionChanging(string value);
     partial void OnDescriptionChanged();
-    partial void OnCategoryIdChanging(System.Nullable<int> value);
-    partial void OnCategoryIdChanged();
-    partial void OnParentCategoryIdChanging(System.Nullable<int> value);
-    partial void OnParentCategoryIdChanged();
-    partial void OnLocationIdChanging(System.Nullable<int> value);
-    partial void OnLocationIdChanged();
-    partial void OnAreaIdChanging(System.Nullable<int> value);
-    partial void OnAreaIdChanged();
+    partial void OnCategoryIdsChanging(string value);
+    partial void OnCategoryIdsChanged();
+    partial void OnParentCategoryIdsChanging(System.Nullable<int> value);
+    partial void OnParentCategoryIdsChanged();
+    partial void OnLocationIdsChanging(string value);
+    partial void OnLocationIdsChanged();
+    partial void OnAreaIdsChanging(string value);
+    partial void OnAreaIdsChanged();
     partial void OnSearchTermChanging(string value);
     partial void OnSearchTermChanged();
     #endregion
@@ -11606,82 +11606,82 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CategoryId", DbType="Int")]
-		public System.Nullable<int> CategoryId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CategoryIds", DbType="VarChar(20)")]
+		public string CategoryIds
 		{
 			get
 			{
-				return this._CategoryId;
+				return this._CategoryIds;
 			}
 			set
 			{
-				if ((this._CategoryId != value))
+				if ((this._CategoryIds != value))
 				{
-					this.OnCategoryIdChanging(value);
+					this.OnCategoryIdsChanging(value);
 					this.SendPropertyChanging();
-					this._CategoryId = value;
-					this.SendPropertyChanged("CategoryId");
-					this.OnCategoryIdChanged();
+					this._CategoryIds = value;
+					this.SendPropertyChanged("CategoryIds");
+					this.OnCategoryIdsChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParentCategoryId", DbType="Int")]
-		public System.Nullable<int> ParentCategoryId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParentCategoryIds", DbType="Int")]
+		public System.Nullable<int> ParentCategoryIds
 		{
 			get
 			{
-				return this._ParentCategoryId;
+				return this._ParentCategoryIds;
 			}
 			set
 			{
-				if ((this._ParentCategoryId != value))
+				if ((this._ParentCategoryIds != value))
 				{
-					this.OnParentCategoryIdChanging(value);
+					this.OnParentCategoryIdsChanging(value);
 					this.SendPropertyChanging();
-					this._ParentCategoryId = value;
-					this.SendPropertyChanged("ParentCategoryId");
-					this.OnParentCategoryIdChanged();
+					this._ParentCategoryIds = value;
+					this.SendPropertyChanged("ParentCategoryIds");
+					this.OnParentCategoryIdsChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LocationId", DbType="Int")]
-		public System.Nullable<int> LocationId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LocationIds", DbType="VarChar(20)")]
+		public string LocationIds
 		{
 			get
 			{
-				return this._LocationId;
+				return this._LocationIds;
 			}
 			set
 			{
-				if ((this._LocationId != value))
+				if ((this._LocationIds != value))
 				{
-					this.OnLocationIdChanging(value);
+					this.OnLocationIdsChanging(value);
 					this.SendPropertyChanging();
-					this._LocationId = value;
-					this.SendPropertyChanged("LocationId");
-					this.OnLocationIdChanged();
+					this._LocationIds = value;
+					this.SendPropertyChanged("LocationIds");
+					this.OnLocationIdsChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AreaId", DbType="Int")]
-		public System.Nullable<int> AreaId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AreaIds", DbType="VarChar(20)")]
+		public string AreaIds
 		{
 			get
 			{
-				return this._AreaId;
+				return this._AreaIds;
 			}
 			set
 			{
-				if ((this._AreaId != value))
+				if ((this._AreaIds != value))
 				{
-					this.OnAreaIdChanging(value);
+					this.OnAreaIdsChanging(value);
 					this.SendPropertyChanging();
-					this._AreaId = value;
-					this.SendPropertyChanged("AreaId");
-					this.OnAreaIdChanged();
+					this._AreaIds = value;
+					this.SendPropertyChanged("AreaIds");
+					this.OnAreaIdsChanged();
 				}
 			}
 		}

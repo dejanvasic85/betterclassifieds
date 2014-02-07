@@ -526,10 +526,10 @@
       <Column Name="SeoNameId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="SeoName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Description" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
-      <Column Name="CategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ParentCategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="LocationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="AreaId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CategoryIds" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ParentCategoryIds" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LocationIds" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="AreaIds" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="SearchTerm" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
     </Type>
   </Table>

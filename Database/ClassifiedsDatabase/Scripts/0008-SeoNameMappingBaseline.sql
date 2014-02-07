@@ -8,10 +8,10 @@ CREATE TABLE [dbo].[SeoMapping](
 	[SeoNameId] [int] IDENTITY(1,1) NOT NULL,
 	[SeoName] [nvarchar](50) NOT NULL,
 	[Description] [nvarchar](150) NULL,
-	[CategoryId] [int] NULL,
-	[ParentCategoryId] [int] NULL,
-	[LocationId] [int] NULL,
-	[AreaId] [int] NULL,
+	[CategoryIds] varchar(20) NULL,
+	[ParentCategoryIds] int NULL,
+	[LocationIds] varchar(20) NULL,
+	[AreaIds] varchar(20) NULL,
 	[SearchTerm] [nvarchar](100) NULL,
  CONSTRAINT [PK_SeoMapping] PRIMARY KEY CLUSTERED 
 (

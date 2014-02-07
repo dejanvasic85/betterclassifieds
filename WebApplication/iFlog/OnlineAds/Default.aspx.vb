@@ -9,6 +9,8 @@ Imports Paramount.Utility
 Imports Paramount.Betterclassifieds.Business.Repository
 Imports Microsoft.Practices.Unity
 Imports Paramount.ApplicationBlock.Mvc
+Imports System.Linq
+Imports Paramount
 
 Partial Public Class _Default5
     Inherits System.Web.UI.Page
@@ -22,7 +24,7 @@ Partial Public Class _Default5
         seoMappingRepository = BetterClassified.Unity.DefaultContainer.Resolve(Of ISeoMappingRepository)()
     End Sub
 
-    
+
     Private Sub CategoryClicked(ByVal sender As Object, ByVal e As EventArgs)
         '' redirect them to search values
         Dim control = CType(sender, CategoryItem)
@@ -81,12 +83,18 @@ Partial Public Class _Default5
         End If
         Dim seoModel = seoMappingRepository.GetSeoMapping(seoName)
         If seoModel IsNot Nothing Then
-            OnlineSearchParameter.SubCategory = seoModel.CategoryId
             OnlineSearchParameter.Category = seoModel.ParentCategoryId
-            OnlineSearchParameter.Area = seoModel.AreaId
-            OnlineSearchParameter.Location = seoModel.LocationId
 
-            
+            If Not seoModel.AreaIds.IsNullOrEmpty Then
+                OnlineSearchParameter.Area = seoModel.AreaIds.First
+            End If
+
+            If Not seoModel.LocationIds.IsNullOrEmpty Then
+                OnlineSearchParameter.Location = seoModel.LocationIds.First
+            End If
+
+
+
         End If
 
     End Sub

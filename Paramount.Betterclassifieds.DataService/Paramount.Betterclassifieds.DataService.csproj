@@ -103,8 +103,11 @@
     <Compile Include="AdoModels\InvoiceDataProvider.cs" />
     <Compile Include="DataServiceInitialiser.cs" />
     <Compile Include="DataSources\AzureTableDataSource.cs" />
+    <Compile Include="DataSources\ClientSideCacheDataSource.cs" />
+    <Compile Include="DataSources\IClientSideCacheDataSource.cs" />
     <Compile Include="DataSources\SeoNameMappingDataSource.cs" />
     <Compile Include="DataSources\TableNames.cs" />
+    <Compile Include="Entities\CacheItemEntity.cs" />
     <Compile Include="Entities\SeoLocationMappingEntity.cs" />
     <Compile Include="Entities\SeoNameMappingEntity.cs" />
     <Compile Include="LinqObjects\BillingDatabaseModel.designer.cs">
@@ -160,6 +163,8 @@
     <Compile Include="AdoModels\MembershipDataProvider.cs" />
     <Compile Include="AdoModels\ParamountAccountDataService.cs" />
     <Compile Include="AdoModels\Proc.cs" />
+    <Compile Include="Managers\CookiesManager.cs" />
+    <Compile Include="Repository\ClientSideCacheRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

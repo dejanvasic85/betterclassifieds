@@ -88,6 +88,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -115,6 +116,7 @@
     <Compile Include="GetControlString.cs" />
     <Compile Include="HtmlExtensions.cs" />
     <Compile Include="HttpCacher.cs" />
+    <Compile Include="JsonHelper.cs" />
     <Compile Include="Mapping.cs" />
     <Compile Include="PDFGenerator.cs">
       <SubType>ASPXCodeBehind</SubType>

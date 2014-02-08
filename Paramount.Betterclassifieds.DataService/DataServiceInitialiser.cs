@@ -3,6 +3,7 @@ using Paramount.ApplicationBlock.Mvc;
 using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.Business.Repository;
 using Paramount.Betterclassifieds.DataService.DataSources;
+using Paramount.Betterclassifieds.DataService.Managers;
 using Paramount.Betterclassifieds.DataService.Repository;
 using Paramount.Betterclassifieds.DataService.SeoSettings;
 
@@ -28,6 +29,10 @@ namespace Paramount.Betterclassifieds.DataService
             container.RegisterType<IPaymentsRepository, PaymentsRepository>();
             container.RegisterType<IClientConfig, ClientConfig>();
             container.RegisterType<IApplicationConfig, AppConfig>();
+
+            container.RegisterType<IClientIdentifierManager, CookiesManager>();
+            container.RegisterType<IClientSideCacheRepository, ClientSideCacheRepository>();
+            container.RegisterType<IClientSideCacheDataSource, ClientSideCacheDataSource>();
         }
     }
 }

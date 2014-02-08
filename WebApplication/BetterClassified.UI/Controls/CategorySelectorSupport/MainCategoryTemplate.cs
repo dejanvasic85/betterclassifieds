@@ -51,13 +51,14 @@ namespace BetterClassified.UI.CategorySelectorSupport
                 return;
             }
 
-            if (OnlineSearchParameter.Category.HasValue)
-            if (OnlineSearchParameter.Category.Value == category .MainCategoryId)
+            
+            if (OnlineSearchParameter.Category.HasValue && OnlineSearchParameter.Category.Value == category.MainCategoryId)
             {
                 control.subCategories = CategoryController.GetMainCategoriesByParent(category.MainCategoryId);
             }
             control.Text = category.Title;
             control.CategoryId = category.MainCategoryId;
+            control.SeoName = category.SeoName;
         }
     }
 }

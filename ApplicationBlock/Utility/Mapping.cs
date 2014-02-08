@@ -73,20 +73,24 @@ namespace Paramount
 
             public AutoMapper.IMappingEngine GetEngine(IMappingBehaviour target)
             {
-                return this.FetchOrCreate(target, () =>
-                {
-                    AutoMapper.Configuration configuration = new AutoMapper.Configuration(new TypeMapFactory(), AutoMapper.Mappers.MapperRegistry.AllMappers());
+                return this.FetchOrCreate(target, () => MappingEngine(target));
+            }
 
-                    // Allow the convention of Source.PropertyId <=> Target.Property
-                    configuration.RecognizePostfixes("Id");
-                    configuration.RecognizeDestinationPostfixes("Id");
+            private static IMappingEngine MappingEngine(IMappingBehaviour target)
+            {
+                AutoMapper.Configuration configuration =
+                    new AutoMapper.Configuration(new TypeMapFactory(),
+                        AutoMapper.Mappers.MapperRegistry.AllMappers());
 
-                    IMappingEngine engine = new MappingEngine(configuration);
+                // Allow the convention of Source.PropertyId <=> Target.Property
+                configuration.RecognizePostfixes("Id");
+                configuration.RecognizeDestinationPostfixes("Id");
+                
+                target.OnRegisterMaps(configuration);
+                
+                IMappingEngine engine = new MappingEngine(configuration);
 
-                    target.OnRegisterMaps(configuration);
-
-                    return engine;
-                });
+                return engine;
             }
 
             private class MapperBehaviourComparer : IEqualityComparer<IMappingBehaviour>

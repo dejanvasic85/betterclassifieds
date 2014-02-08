@@ -23,7 +23,7 @@
         }
 
 
-        protected abstract IUnityContainer DefaultContainer
+        public abstract IUnityContainer DefaultContainer
         {
             get;
         }

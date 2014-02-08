@@ -36,7 +36,12 @@ Partial Public Class _Default5
                 OnlineSearchParameter.SubCategory = subCategory.CategoryId
                 OnlineSearchParameter.Category = subCategory.ParentCategoryId
             End If
-            Response.Redirect(PageUrl.SearchCategoryResults)
+
+            If Not String.IsNullOrEmpty(control.SeoName) Then
+                Response.Redirect(String.Format(PageUrl.SearchSeoCategoryResults, control.SeoName, control.CategoryId.Value))
+            Else
+                Response.Redirect(PageUrl.SearchCategoryResults)
+            End If
         End If
     End Sub
 
@@ -77,10 +82,21 @@ Partial Public Class _Default5
     End Sub
 
     Private Sub SetFiltersFromParamers()
+        Dim catString = Page.RouteData.Values("catId")
         Dim seoName = Page.RouteData.Values("seoName")
-        If String.IsNullOrEmpty(seoName) Or seoName.Equals("all", StringComparison.InvariantCultureIgnoreCase) Then
+        If String.IsNullOrEmpty(seoName) Then
             Return
         End If
+
+        If catString IsNot Nothing Then
+            Dim catId
+            If Integer.TryParse(catString, catId) Then
+                OnlineSearchParameter.Category = catId
+            End If
+
+            Return
+        End If
+
         Dim seoModel = seoMappingRepository.GetSeoMapping(seoName)
         If seoModel IsNot Nothing Then
             OnlineSearchParameter.Category = seoModel.ParentCategoryId

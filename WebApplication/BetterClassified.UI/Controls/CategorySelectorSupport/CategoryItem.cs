@@ -48,5 +48,11 @@ namespace BetterClassified.UI.CategorySelectorSupport
             set { ViewState["CategoryId"] = value; }
         }
 
+        public string SeoName
+        {
+            get { return (string) ViewState["SeoName"]; }
+            set { ViewState["SeoName"] = value; }
+        }
+
     }
 }

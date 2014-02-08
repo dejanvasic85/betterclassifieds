@@ -10,7 +10,7 @@ Public Class Global_asax
     Public Shared OnPayment As OnPayment
     Public Shared TransactionManager As TransactionManager
 
-    Protected Overrides ReadOnly Property DefaultContainer As Microsoft.Practices.Unity.IUnityContainer
+    Public Overrides ReadOnly Property DefaultContainer As Microsoft.Practices.Unity.IUnityContainer
         Get
             Return BetterClassified.Unity.DefaultContainer
         End Get

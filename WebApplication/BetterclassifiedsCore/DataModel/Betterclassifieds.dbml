@@ -491,6 +491,7 @@
       <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="ParentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="OnlineAdTag" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Member="SeoName" Type="System.String" CanBeNull="false" />
       <Association Name="MainCategory_PublicationCategory" Member="PublicationCategories" ThisKey="MainCategoryId" OtherKey="MainCategoryId" Type="PublicationCategory" />
       <Association Name="MainCategory_AdBooking" Member="AdBookings" ThisKey="MainCategoryId" OtherKey="MainCategoryId" Type="AdBooking" />
     </Type>

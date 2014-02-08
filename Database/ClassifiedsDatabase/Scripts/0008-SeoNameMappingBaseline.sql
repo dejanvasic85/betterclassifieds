@@ -21,3 +21,8 @@ CREATE TABLE [dbo].[SeoMapping](
 
 END
 GO
+
+ALTER TABLE [dbo].[MainCategory]
+    ADD [SeoName] NVARCHAR (20) NULL;
+
+	go

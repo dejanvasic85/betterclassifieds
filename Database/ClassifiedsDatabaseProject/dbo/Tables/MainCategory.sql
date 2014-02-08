@@ -5,6 +5,7 @@
     [ImageUrl]       NVARCHAR (255) NULL,
     [ParentId]       INT            NULL,
     [OnlineAdTag]    VARCHAR (50)   NULL,
+    [SeoName] NVARCHAR(20) NULL, 
     CONSTRAINT [PK_MainCategory] PRIMARY KEY CLUSTERED ([MainCategoryId] ASC)
 );
 

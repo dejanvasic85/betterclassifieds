@@ -1,3 +1,5 @@
+using System.Web.UI.HtmlControls;
+
 namespace BetterClassified.UI.CategorySelectorSupport
 {
     using System;
@@ -10,6 +12,7 @@ namespace BetterClassified.UI.CategorySelectorSupport
     {
         public event EventHandler OnSubCategoryClick;
         public  List<MainCategory> subCategories;
+        private HtmlGenericControl seoLink;
 
 
         private void InvokeOnCategoryClick(object sender, EventArgs e)

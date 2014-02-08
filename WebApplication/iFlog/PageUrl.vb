@@ -68,6 +68,7 @@ Public Class PageUrl
     ' search results
     Public Const SearchCategoryResults As String = "~/OnlineAds/Default.aspx"
     Public Const SearchSubCategoryResults As String = "~/OnlineAds/Default.aspx"
+    Public Const SearchSeoCategoryResults As String = "~/listings/{0}/{1}"
 
     ' booking steps
     Public Const BookingStep_1 As String = "~/Booking/Step1.aspx"

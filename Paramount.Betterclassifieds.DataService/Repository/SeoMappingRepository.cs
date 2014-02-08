@@ -56,6 +56,10 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                     src => string.IsNullOrEmpty(src.AreaIds)
                         ? new List<int>()
                         : src.AreaIds.Split(',').Select(int.Parse).ToList()));
+
+            configuration.CreateMap<SeoMapping, SeoNameMappingModel>().ForMember(dest => dest.ParentCategoryId,
+                opt => opt.MapFrom(
+                    src => src.ParentCategoryIds));
         }
     }
 }

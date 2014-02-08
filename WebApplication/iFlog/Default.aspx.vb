@@ -1,8 +1,18 @@
 ﻿Imports BetterClassified.UI.CategorySelectorSupport
 Imports BetterclassifiedsCore.ParameterAccess
-
+Imports Paramount.Betterclassifieds.Business.Repository
+Imports Microsoft.Practices.Unity
 Partial Public Class _Default4
     Inherits System.Web.UI.Page
+
+    Private seoMappingRepository As ISeoMappingRepository
+    Protected Sub New()
+
+    End Sub
+    Public Sub New(seoMappingRepository As ISeoMappingRepository)
+        Me.seoMappingRepository = seoMappingRepository
+        categorySelector = New BetterClassified.UI.CategorySelector()
+    End Sub
     Protected Overrides Sub OnInit(ByVal e As System.EventArgs)
         MyBase.OnInit(e)
         AddHandler categorySelector.OnCategoryClick, AddressOf CategoryClicked
@@ -24,7 +34,12 @@ Partial Public Class _Default4
                 OnlineSearchParameter.SubCategory = subCategory.CategoryId
                 OnlineSearchParameter.Category = subCategory.ParentCategoryId
             End If
-            Response.Redirect(PageUrl.SearchCategoryResults)
+
+            If Not String.IsNullOrEmpty(control.SeoName) Then
+                Response.Redirect(String.Format(PageUrl.SearchSeoCategoryResults, control.SeoName, control.CategoryId.Value))
+            Else
+                Response.Redirect(PageUrl.SearchCategoryResults)
+            End If
         End If
     End Sub
 

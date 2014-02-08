@@ -28,5 +28,11 @@ Public Class RouteConfig
             checkPhysicalUrlAccess:=True,
             physicalFile:="~/OnlineAds/Default.aspx",
             defaults:=New RouteValueDictionary(New With {Key .seoName = RouteParameter.[Optional]}))
+
+        routes.MapPageRoute(
+            routeName:="seoCategoryName",
+            routeUrl:="listings/{seoName}/{catId}",
+            checkPhysicalUrlAccess:=True,
+            physicalFile:="~/OnlineAds/Default.aspx")
     End Sub
 End Class

@@ -51,6 +51,7 @@ namespace BetterClassified.UI.CategorySelectorSupport
             control.Text = " - " + category.Title;
             control.CategoryId  = category.MainCategoryId;
             control.ParentCategoryId = category.ParentId;
+            control.SeoName = category.SeoName;
         }
     }
 }

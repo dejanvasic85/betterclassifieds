@@ -69,8 +69,12 @@
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Scripts\0009-FullTextSearch.sql" />
-    <EmbeddedResource Include="Scripts\0009-HealthCheckAlert-Proc-Fix.sql" />
+    <EmbeddedResource Include="Scripts\0013-spSearchOnlineAdFREETEXT-Proc.sql" />
+    <EmbeddedResource Include="Scripts\0012-FullTextIndex-OnlineAdView-Create.sql" />
+    <EmbeddedResource Include="Scripts\0011-ClusteredIndex-OnlineAdId-Create.sql" />
+    <EmbeddedResource Include="Scripts\0009-SplitStringToInt.sql" />
+    <EmbeddedResource Include="Scripts\0010-OnlineAdView-Create.sql" />
+    <EmbeddedResource Include="Scripts\0014-HealthCheckAlert-Proc-Fix.sql" />
     <EmbeddedResource Include="Scripts\0008-SeoNameMappingBaseline.sql" />
     <EmbeddedResource Include="Scripts\0007-CreateQuickSearchKeywordIndex-Script.sql" />
     <EmbeddedResource Include="Scripts\0006-HealthCheckAlert-Proc.sql" />

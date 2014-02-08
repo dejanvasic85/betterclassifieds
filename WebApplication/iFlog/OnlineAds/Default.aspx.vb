@@ -96,7 +96,7 @@ Partial Public Class _Default5
 
             Return
         End If
-
+        OnlineSearchParameter.Clear()
         Dim seoModel = seoMappingRepository.GetSeoMapping(seoName)
         If seoModel IsNot Nothing Then
             OnlineSearchParameter.Category = seoModel.ParentCategoryId

@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using Paramount.Betterclassifieds.Presentation.Models;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
-    using Models;
-    using Business.Models;
-    using Business.Repository;
-
     public class HomeController : Controller
     {
         //private readonly IAdRepository _adRepository;

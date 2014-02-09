@@ -1,14 +1,35 @@
-﻿namespace Paramount.ApplicationBlock.Mvc
-{
-    using ApplicationBlock.Configuration;
-    using System.Web.Mvc;
-    using System.Linq;
+﻿using System.Web.Mvc;
+using System.Linq;
+using Paramount.ApplicationBlock.Configuration;
 
+namespace Paramount.ApplicationBlock.Mvc
+{
     public class ClientViewEngine : RazorViewEngine
     {
-       public void AddViewPath(string baseUrl)
-        {
+        // Constructor chaining ( default as if it's a normal application - non module)
+        public ClientViewEngine()
+            : this("~")
+        { }
 
+        public ClientViewEngine(string baseUrl)
+        {
+            // Set default view location format
+            ViewLocationFormats = new[]
+            {
+               GetViewPath(baseUrl, "Views/{1}/{0}"),
+               GetViewPath(baseUrl, "Views/Shared/{1}/{0}")
+            };
+
+            // Set default master location formats
+            MasterLocationFormats = new[]
+            {
+                GetViewPath(baseUrl, "Views/Shared{0}"),
+                GetViewPath(baseUrl, "Views/{0}")
+            };
+        }
+
+        public void AddViewPath(string baseUrl)
+        {
             // Setup client specific view conventions
             var brand = ConfigManager.ReadAppSetting<string>("Brand");
             if (!string.IsNullOrEmpty(brand))
@@ -32,27 +53,6 @@
             PartialViewLocationFormats = this.ViewLocationFormats;
         }
 
-        public ClientViewEngine(string baseUrl)
-        {
-            // Set default view location format
-            ViewLocationFormats = new[]
-            {
-               GetViewPath(baseUrl, "Views/{1}/{0}"),
-               GetViewPath(baseUrl, "Views/Shared/{1}/{0}")
-            };
-
-            // Set default master location formats
-            MasterLocationFormats = new[]
-            {
-                GetViewPath(baseUrl, "Views/Shared{0}"),
-                GetViewPath(baseUrl, "Views/{0}")
-            };
-        }
-
-        // Constructor chaining ( default as if it's a normal application - non module)
-        public ClientViewEngine()
-            : this("~")
-        { }
 
         #region Private Methods
         string GetBrandViewPath(string baseUrl, string brand, string viewpath)
@@ -64,6 +64,7 @@
         {
             return string.Format("{0}/{1}.cshtml", baseUrl, viewpath);
         }
+
         #endregion
     }
 }

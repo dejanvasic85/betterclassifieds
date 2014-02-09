@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Presentation
+﻿using System.Web.Optimization;
+
+namespace Paramount.Betterclassifieds.Presentation
 {
     using System.Web.Http;
     using System.Web.Mvc;
@@ -22,7 +24,7 @@
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             // View engine ( for branding )
             ViewEngines.Engines.Clear();

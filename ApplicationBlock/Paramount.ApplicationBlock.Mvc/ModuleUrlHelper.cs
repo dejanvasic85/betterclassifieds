@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using Paramount;
+﻿using System.Web.Mvc;
 
 namespace Paramount.ApplicationBlock.Mvc
 {
-    public static class ModuleUrl
+    public static class ModuleUrlHelper
     {
-        public static string ClientUrl(this UrlHelper urlHelper, string relativePath)
+        public static string ClientUrl(this UrlHelper urlOutHelper, string relativePath)
         {
-            var routeData = urlHelper.RequestContext.RouteData;
+            var routeData = urlOutHelper.RequestContext.RouteData;
 
             object moduleName;
             routeData.Values.TryGetValue("module", out moduleName);
 
+            // Convention - Module URL's are a little different so ensure to generate outgoing URL based on module
             if (moduleName != null)
             {
                 return relativePath.Replace("~/", string.Format("~/{0}/", moduleName));

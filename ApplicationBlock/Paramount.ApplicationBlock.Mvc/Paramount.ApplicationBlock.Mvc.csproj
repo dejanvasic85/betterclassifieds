@@ -112,7 +112,7 @@
     <Compile Include="Unity\RequestLifetimeHttpModule.cs" />
     <Compile Include="Unity\UnityDependencyResolver.cs" />
     <Compile Include="Unity\UnityPageHandlerFactory.cs" />
-    <Compile Include="UrlHelper.cs" />
+    <Compile Include="ModuleUrlHelper.cs" />
     <Compile Include="WebClientApplication.cs" />
   </ItemGroup>
   <ItemGroup>

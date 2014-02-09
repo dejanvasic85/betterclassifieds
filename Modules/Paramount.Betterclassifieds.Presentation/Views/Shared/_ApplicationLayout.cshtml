@@ -1,0 +1,19 @@
+﻿@using Paramount
+@using Paramount.ApplicationBlock.Configuration
+@{
+    var brand = ConfigManager.ReadAppSetting<string>("Brand");
+    if (brand.HasValue())
+    {
+        Layout = string.Format("~/Views/Shared/_Layout.{0}.cshtml", brand);
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+}
+
+<div class="row">
+    This is the application dude!
+    @RenderBody()
+</div>

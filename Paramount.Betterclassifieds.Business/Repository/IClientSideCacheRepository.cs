@@ -6,5 +6,6 @@
         object Get<T>(string key);
 
         bool ContainsKey(string key);
+        void ClearClientSideCache();
     }
 }

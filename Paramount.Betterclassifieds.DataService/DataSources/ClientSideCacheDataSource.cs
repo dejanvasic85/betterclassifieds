@@ -1,4 +1,5 @@
-﻿using Microsoft.WindowsAzure.Storage.Table;
+﻿using System;
+using Microsoft.WindowsAzure.Storage.Table;
 using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.DataService.Entities;
 using Paramount.Utility;
@@ -66,6 +67,18 @@ namespace Paramount.Betterclassifieds.DataService.DataSources
 
             // Execute the operation.
             Table.Execute(deleteOperation);
+        }
+
+        public void ClearPartiotion(string identifier)
+        {
+            TableQuery<TableEntity> query = new TableQuery<TableEntity>()
+                .Where(
+                TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, identifier));
+            
+            foreach (TableEntity entity in Table.ExecuteQuery(query))
+            {
+                Delete(identifier, entity.RowKey);
+            }
         }
 
         public object InsertOrReplace(string identifier, string key, object data)

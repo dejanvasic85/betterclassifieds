@@ -8,7 +8,7 @@ using Paramount.Utility;
 
 namespace Paramount.Betterclassifieds.DataService.Managers
 {
-    public class ClientSideCacheRepository : IClientSideCacheRepository
+    public sealed class ClientSideCacheRepository : IClientSideCacheRepository
     {
         private readonly IClientSideCacheDataSource cacheDataSource;
         private readonly IClientIdentifierManager cookiesManager;
@@ -40,6 +40,11 @@ namespace Paramount.Betterclassifieds.DataService.Managers
         {
             var entity = cacheDataSource.Retrieve(cookiesManager.Identifier, key);
             return entity == null;
+        }
+
+        public void ClearClientSideCache()
+        {
+            cacheDataSource.ClearPartiotion(cookiesManager.Identifier);
         }
     }
 }

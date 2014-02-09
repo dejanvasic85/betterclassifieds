@@ -8,5 +8,6 @@ namespace Paramount.Betterclassifieds.DataService.DataSources
         CacheItemEntity Retrieve(string identifier, string key);
         void Delete(string identifier, string key);
         object InsertOrReplace(string identifier, string key, object data);
+        void ClearPartiotion(string identifier);
     }
 }

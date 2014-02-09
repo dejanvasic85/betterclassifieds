@@ -23,6 +23,7 @@
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
+
             // View engine ( for branding )
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new ClientViewEngine());

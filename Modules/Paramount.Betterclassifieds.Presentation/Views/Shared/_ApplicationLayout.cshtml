@@ -2,18 +2,72 @@
 @using Paramount.ApplicationBlock.Configuration
 @{
     var brand = ConfigManager.ReadAppSetting<string>("Brand");
-    if (brand.HasValue())
-    {
-        Layout = string.Format("~/Views/Shared/_Layout.{0}.cshtml", brand);
-    }
-    else
-    {
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
-
+    Layout = brand.HasValue() ? string.Format(Url.ClientUrl("~/Views/Shared/_Layout.{0}.cshtml"), brand) : Url.ClientUrl("~/Views/Shared/_Layout.cshtml");
 }
 
-<div class="row">
-    This is the application dude!
+
+@*This is our application*@
+<div class="container">
+
+    @*Login and Place Ad*@
+    <div class="row" style="padding: 20px 0 10px 0;">
+        <div class="col-md-12">
+            <div class="btn-group pull-right">
+                <button type="button" class="btn btn-default">Login</button>
+                <button type="button" class="btn btn-primary">Place New Ad</button>
+            </div>
+        </div>
+    </div>
+
+    @*Navbar*@
+    <div class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Classifieds</a>
+            </div>
+
+            <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Keyword">
+                    <input type="text" class="form-control" placeholder="Location">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+
+            </form>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Explore</a></li>
+                    <li><a href="#">Rates</a></li>
+                    <li><a href="#">Deadlines</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">My Account</a></li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+        <!--/.container-fluid -->
+    </div>
+
+
+    @*Body*@
     @RenderBody()
+
+
+
+    @*Footer*@
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <h1>Place New Ad</h1>
+        <p>This example is a quick exercise to illustrate how the default, static navbar and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
+        <p>
+            <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">Place New Ad &raquo;</a>
+        </p>
+    </div>
 </div>

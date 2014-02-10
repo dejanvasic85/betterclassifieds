@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.IO;
+using System.Web.Mvc;
 using System.Linq;
 using Paramount.ApplicationBlock.Configuration;
 
@@ -30,6 +31,12 @@ namespace Paramount.ApplicationBlock.Mvc
 
         public void AddViewPath(string baseUrl)
         {
+            if (baseUrl.HasValue())
+            {
+                this.ViewLocationFormats = this.ViewLocationFormats.Select(v => v.Replace("~/", string.Format("{0}/", baseUrl))).ToArray();
+                this.MasterLocationFormats = this.MasterLocationFormats.Select(v => v.Replace("~/", string.Format("{0}/", baseUrl))).ToArray();
+            }
+
             // Setup client specific view conventions
             var brand = ConfigManager.ReadAppSetting<string>("Brand");
             if (!string.IsNullOrEmpty(brand))

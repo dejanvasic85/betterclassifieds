@@ -166,6 +166,9 @@
     <Content Include="Scripts\jquery-1.11.0.min.js.map">
       <DependentUpon>jquery-1.11.0.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\bootstrap.min.js.map">
+      <DependentUpon>bootstrap.js</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\jquery-1.11.0.js" />
     <Content Include="Scripts\jquery-1.11.0.min.js" />

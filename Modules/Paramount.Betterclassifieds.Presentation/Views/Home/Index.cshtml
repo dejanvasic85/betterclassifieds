@@ -1,9 +1,12 @@
-﻿@model List<AdSummaryView>
+﻿@using Paramount.ApplicationBlock.Mvc
+@model List<Paramount.Betterclassifieds.Presentation.Models.AdSummaryView>
 
 @{
-    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
+    Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayout.cshtml");
 }
 
 <div class="row">
-    Welcome to the home page
+    <div class="col-md-12">
+        <div class="breadcrumb">Latest Ads</div>
+    </div>
 </div>

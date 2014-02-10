@@ -1,12 +1,12 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>@ViewBag.Title</title>
-    
+
     <!-- Bootstrap -->
     @Styles.Render("~/styles/default")
 
@@ -17,19 +17,10 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     @RenderSection("HeadSection", false)
-  </head>
-    <body>
-        
-        <div class="container">
-            <div class="row">
-                Default Brand!
-            </div>
-            
-            @RenderBody()
-
-        </div>
-
-        @Scripts.Render("~/scripts/default")
-        @RenderSection("Scripts", false)
-    </body>
+</head>
+<body>
+    @RenderBody()
+    @Scripts.Render("~/scripts/default")
+    @RenderSection("Scripts", false)
+</body>
 </html>

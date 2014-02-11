@@ -136,7 +136,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Controllers\AdController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -150,25 +149,24 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap-theme-3.1.0.css" />
+    <Content Include="Content\bootstrap-theme-3.1.0.min.css" />
+    <Content Include="Content\bootstrap-3.1.0.css" />
+    <Content Include="Content\bootstrap-3.1.0.min.css" />
     <Content Include="Content\site.css" />
     <Content Include="Content\TheMusic\themusic.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Scripts\jquery-1.11.0.min.map" />
+    <Content Include="Scripts\bootstrap-3.1.0.js" />
+    <Content Include="Scripts\bootstrap-3.1.0.min.js" />
     <Content Include="Scripts\jquery-1.11.0.min.js.map">
       <DependentUpon>jquery-1.11.0.js</DependentUpon>
     </Content>
     <Content Include="Scripts\bootstrap.min.js.map">
-      <DependentUpon>bootstrap.js</DependentUpon>
+      <DependentUpon>bootstrap-3.1.0.js</DependentUpon>
     </Content>
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\jquery-1.11.0.js" />
     <Content Include="Scripts\jquery-1.11.0.min.js" />
@@ -187,9 +185,7 @@
     <Content Include="Views\Shared\_Layout.TheMusic.cshtml" />
     <Content Include="Views\Shared\_ApplicationLayout.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

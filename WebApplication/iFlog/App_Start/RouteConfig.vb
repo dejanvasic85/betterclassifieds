@@ -1,5 +1,6 @@
 ﻿Imports System.Web.Http
 Imports System.Web.Routing
+Imports System.Web.Optimization
 
 Public Class RouteConfig
 
@@ -36,3 +37,4 @@ Public Class RouteConfig
             physicalFile:="~/OnlineAds/Default.aspx")
     End Sub
 End Class
+

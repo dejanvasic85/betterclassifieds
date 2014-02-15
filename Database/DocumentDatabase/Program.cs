@@ -5,13 +5,13 @@ using System.Reflection;
 using DbUp;
 using DbUp.Helpers;
 
-namespace LogDatabase
+namespace DocumentDatabase
 {
     class Program
     {
         static int Main(string[] args)
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["LogDatabase"].ConnectionString;
+            var connectionString = ConfigurationManager.ConnectionStrings["DocumentDb"].ConnectionString;
 
             var upgrader =
                 DeployChanges.To
@@ -35,5 +35,6 @@ namespace LogDatabase
             Console.ResetColor();
             return 0;
         }
+
     }
 }

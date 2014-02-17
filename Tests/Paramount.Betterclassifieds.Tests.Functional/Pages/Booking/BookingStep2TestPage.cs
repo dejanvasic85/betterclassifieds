@@ -33,16 +33,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         public void SelectParentCategory(string categoryName)
         {
-            WebDriver.SelectOption(ParentCategoryElement, categoryName);
+            ParentCategoryElement.SelectOption(categoryName);
         }
 
         public void SelectSubCategory(string categoryName)
         {
-            // For life of me i cannot work out the stale element reference at this point
-            // So just fkn sleep it ( just for now )
-            Thread.Sleep(2000);
-
-            WebDriver.SelectOption(SubCategoryElement, categoryName);
+            SubCategoryElement.SelectOption(categoryName);
         }
 
         public void SelectSeleniumPublication()

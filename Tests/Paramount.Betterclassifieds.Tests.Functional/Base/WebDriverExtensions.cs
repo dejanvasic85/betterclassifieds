@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
@@ -41,24 +40,5 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             });
         }
 
-        public static void SelectOption(this IWebDriver browser, IWebElement webElement, string optionValue)
-        {
-            if (webElement == null)
-            {
-                throw new Exception("Web Element not found");
-            }
-
-            var option = webElement
-                .FindElements(By.TagName("option"))
-                .FirstOrDefault(o => o.Text.EqualTo(optionValue, StringComparison.OrdinalIgnoreCase));
-
-            if (option == null)
-            {
-                throw new Exception("Select Option " + optionValue + " not found");
-            }
-
-            option.Click();
-            browser.WaitForAjax();
-        }
     }
 }

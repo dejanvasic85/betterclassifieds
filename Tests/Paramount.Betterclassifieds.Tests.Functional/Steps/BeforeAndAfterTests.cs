@@ -1,4 +1,8 @@
-﻿using BoDi;
+﻿using System;
+using System.IO;
+using System.Net.Mail;
+using System.Net.Mime;
+using BoDi;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
@@ -24,8 +28,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [BeforeScenario]
         public void RegisterConfigAndRepository()
         {
-            _container.RegisterInstanceAs(new TestConfiguration(), typeof(IConfig));
-            _container.RegisterInstanceAs(new DapperDataManager(), typeof(ITestDataManager));
+            _container.RegisterInstanceAs(new TestConfiguration(), typeof (IConfig));
+            _container.RegisterInstanceAs(new DapperDataManager(), typeof (ITestDataManager));
         }
 
         [BeforeScenario("web")]
@@ -35,10 +39,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
 
             // Create a web driver for all web tests
             IWebDriver driver = GetDriverForBrowser(config.BrowserType);
-            _container.RegisterInstanceAs(driver, typeof(IWebDriver));
+            _container.RegisterInstanceAs(driver, typeof (IWebDriver));
 
             // Create instance and register for the page factory
-            _container.RegisterInstanceAs(new PageFactory(driver, config), typeof(PageFactory));
+            _container.RegisterInstanceAs(new PageFactory(driver, config), typeof (PageFactory));
         }
 
         [AfterScenario("web")]
@@ -52,11 +56,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         {
             // Use the dapper manager to initialise some baseline test data for our booking scenarios
             ITestDataManager dataManager = new DapperDataManager();
-            
+
             // Online Publication  ( this should be removed later - no such thing as online publication ! )
-            dataManager.AddPublicationIfNotExists(TestData.OnlinePublication, Constants.PublicationType.Online, frequency: "Online", frequencyValue: null);
+            dataManager.AddPublicationIfNotExists(TestData.OnlinePublication, Constants.PublicationType.Online,
+                                                  frequency: "Online", frequencyValue: null);
             dataManager.AddPublicationAdTypeIfNotExists(TestData.OnlinePublication, Constants.AdType.OnlineAd);
-            
+
             // Print Publication
             dataManager.AddPublicationIfNotExists(TestData.SeleniumPublication);
             dataManager.AddPublicationAdTypeIfNotExists(TestData.SeleniumPublication, Constants.AdType.LineAd);
@@ -67,7 +72,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
 
             // Ratecard
             dataManager.AddRatecardIfNotExists("Selenium Free Rate", 0, 0, TestData.SubCategory);
-                
+
             // Location and Area
             dataManager.AddLocationIfNotExists("Australia", "Victoria");
 
@@ -96,5 +101,46 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             return driver;
         }
 
+        [AfterStep("web")]
+        public void ScreenshotOnError()
+        {
+            //Add a line break in the Console output for better readability
+            Console.WriteLine();
+
+            IConfig config = _container.Resolve<IConfig>();
+            IWebDriver webdriver = _container.Resolve<IWebDriver>();
+            
+            if (ScenarioContext.Current.TestError == null || string.IsNullOrEmpty(config.ErrorEmail))
+                return;
+
+            Screenshot screenshot = ((ITakesScreenshot) webdriver).GetScreenshot();
+            Stream screenshotStream = new MemoryStream(screenshot.AsByteArray);
+
+            Stream pageSourceStream = new MemoryStream();
+            StreamWriter writer = new StreamWriter(pageSourceStream);
+            writer.Write(webdriver.PageSource);
+            writer.Flush();
+            pageSourceStream.Position = 0;
+
+            MailMessage msg = new MailMessage("smoketest@paramountit.com.au", config.ErrorEmail)
+                {
+                    Subject = "Specflow Scenario failed: " + ScenarioContext.Current.ScenarioInfo.Title
+                };
+            msg.Attachments.Add(new Attachment(screenshotStream, ScenarioContext.Current.ScenarioInfo.Title + ".png", null));
+            msg.Attachments.Add(new Attachment(pageSourceStream, webdriver.Title + ".html"));
+
+            var plainTextEmailBody = ScenarioContext.Current.TestError.Message;
+
+            var resource = new LinkedResource(screenshotStream);
+            var htmlEmailBody = string.Format("<p>{0}</p><img src=\"cid:{1}\">", ScenarioContext.Current.TestError.Message, resource.ContentId);
+
+            msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(plainTextEmailBody, null, MediaTypeNames.Text.Plain));
+            var htmlView = AlternateView.CreateAlternateViewFromString(htmlEmailBody, null, MediaTypeNames.Text.Html);
+            htmlView.LinkedResources.Add(resource);
+            msg.AlternateViews.Add(htmlView);
+
+            var smtp = new SmtpClient();
+            smtp.Send(msg);
+        }
     }
 }

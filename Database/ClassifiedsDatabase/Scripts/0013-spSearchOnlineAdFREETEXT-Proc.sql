@@ -1,13 +1,17 @@
 ﻿
+SET ANSI_NULLS ON
 GO
-
--- =============================================
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[spSearchOnlineAdFREETEXT]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
 -- Author:		Uche Njoku
 -- Create date: 1/02/2014
 -- Description:	Search for ad using FREETEXT 
 -- =============================================
 CREATE PROCEDURE [dbo].[spSearchOnlineAdFREETEXT]
-	@searchTerm nvarchar(50) = '~',
+	@searchTerm nvarchar(50) = ''~'',
 	@categoryIds varchar(20) = null,
 	@locationIds varchar(20) = null,
 	@areaIds varchar(20) = null
@@ -16,7 +20,7 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-	SET @searchTerm=isnull(@searchTerm,'~')
+	SET @searchTerm=isnull(@searchTerm,''~'')
 
 	select  t1.*, ( 
 				select top 1 DocumentID from dbo.AdGraphic
@@ -34,20 +38,15 @@ BEGIN
 		and KEY_TBL.Rank >2
 		ORDER BY RANK desc
 		union ( select * from [dbo].[OnlineAdview] 
-		 where @searchTerm = '~')	
+		 where @searchTerm = ''~'')	
 		) as t1
 	where
-	(@categoryIds is null or t1.CategoryId in (select [data] from dbo.[SplitStringToInt](@categoryIds,',')) or t1.CategoryParentId in (select data from dbo.[SplitStringToInt](@categoryIds,',')))
-	and (@locationIds is null or t1.LocationId in (select data from dbo.[SplitStringToInt](@locationIds,',')))
-	and (@areaIds is null or t1.LocationAreaId in (select data from dbo.[SplitStringToInt](@areaIds,',')))
+	(@categoryIds is null or t1.CategoryId in (select [data] from dbo.[SplitStringToInt](@categoryIds,'','')) or t1.CategoryParentId in (select data from dbo.[SplitStringToInt](@categoryIds,'','')))
+	and (@locationIds is null or t1.LocationId in (select data from dbo.[SplitStringToInt](@locationIds,'','')))
+	and (@areaIds is null or t1.LocationAreaId in (select data from dbo.[SplitStringToInt](@areaIds,'','')))
 	
 	ORDER BY OnlineAdId desc
 	
-	END
+	END' 
+END
 GO
-
-
-
-
-
-

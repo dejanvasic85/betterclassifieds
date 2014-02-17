@@ -1,11 +1,10 @@
 ﻿
 SET ANSI_NULLS ON
 GO
-
 SET QUOTED_IDENTIFIER ON
 GO
-
-CREATE VIEW [dbo].[OnlineAdView]
+IF NOT EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[OnlineAdView]'))
+EXEC dbo.sp_executesql @statement = N'CREATE VIEW [dbo].[OnlineAdView]
 WITH SCHEMABINDING 
 AS
 SELECT        dbo.OnlineAd.OnlineAdId, dbo.OnlineAd.AdDesignId, dbo.OnlineAd.Heading, dbo.OnlineAd.Description, dbo.OnlineAd.HtmlText, dbo.OnlineAd.Price, dbo.OnlineAd.LocationId, dbo.OnlineAd.LocationAreaId, 
@@ -19,7 +18,5 @@ FROM            dbo.AdDesign AS AdDesign INNER JOIN
                          dbo.Ad ON AdDesign.AdId = dbo.Ad.AdId INNER JOIN
                          dbo.MainCategory INNER JOIN
                          dbo.AdBooking ON dbo.MainCategory.MainCategoryId = dbo.AdBooking.MainCategoryId ON dbo.AdBooking.AdId = dbo.Ad.AdId 
-WHERE        (dbo.AdBooking.BookingStatus = 1) AND (AdDesign.AdTypeId = 2)
-
-
+WHERE        (dbo.AdBooking.BookingStatus = 1) AND (AdDesign.AdTypeId = 2)' 
 GO

@@ -6,3 +6,8 @@
 .top-buffer-20 {
     margin-top: 20px;
 }
+
+.bordered-1 {
+    border: 1px solid #eee;
+    padding: 2px;
+}

@@ -1,1 +1,8 @@
-﻿/*todo*/
+﻿/*Application based styling ( built on top of the bootstrap core css */
+.top-buffer-10 {
+    margin-top: 10px;
+}
+
+.top-buffer-20 {
+    margin-top: 20px;
+}

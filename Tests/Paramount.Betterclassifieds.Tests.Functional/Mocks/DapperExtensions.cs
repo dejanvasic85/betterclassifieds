@@ -5,7 +5,7 @@ using System.Text;
 using Dapper;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
-{ 
+{
     public static class DapperExtensions
     {
         public static int Add(this IDbConnection connection, string table, object param)
@@ -15,7 +15,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 
             return connection.Query<int>(queryBuilder.ToString(), param).Single();
         }
-        
+
         public static T Add<T>(this IDbConnection connection, string table, object param)
         {
             var queryBuilder = BuildInsertQuery(table, param);
@@ -63,10 +63,15 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
         {
             // Use the convention of tableName+Id as the primary key (used for all classifieds tables)
             var primaryKey = string.Format("{0}{1}", table, "Id");
-            
+
             // Construct the query
             var query = string.Format("SELECT {0} FROM {1} WHERE {2} = @queryParam", primaryKey, table, findBy);
             return connection.Query<int?>(query, new { queryParam = queryFilter }).FirstOrDefault();
+        }
+
+        public static int? SingleOrDefault<T>(this IDbConnection connection, string table, T queryFilter, string findBy = "Title")
+        {
+            return connection.SingleOrDefault(table, queryFilter.ToString(), findBy);
         }
 
         public static int? AddIfNotExists(this IDbConnection connection, string table, object param, string queryFilter, string findBy = "Title")
@@ -74,6 +79,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             // Check if the table record exists
             var id = connection.SingleOrDefault(table, queryFilter, findBy);
             return id.HasValue ? id : connection.Add(table, param);
+        }
+
+        public static bool Any(this IDbConnection connection, string table, string queryFilter, string findBy = "Title")
+        {
+            var id = connection.SingleOrDefault(table, queryFilter, findBy);
+            return id.HasValue;
         }
 
         public static IDbConnection ExecuteSql(this IDbConnection connection, string query, object param)

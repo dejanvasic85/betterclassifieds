@@ -69,12 +69,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Submit online ad")]
-        [NUnit.Framework.CategoryAttribute("booking")]
         [NUnit.Framework.CategoryAttribute("web")]
         public virtual void SubmitOnlineAd()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Submit online ad", new string[] {
-                        "booking",
                         "web"});
 #line 8
 this.ScenarioSetup(scenarioInfo);
@@ -90,12 +88,10 @@ this.ScenarioSetup(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Submit online and line ad bundle")]
-        [NUnit.Framework.CategoryAttribute("booking")]
         [NUnit.Framework.CategoryAttribute("web")]
         public virtual void SubmitOnlineAndLineAdBundle()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Submit online and line ad bundle", new string[] {
-                        "booking",
                         "web"});
 #line 15
 this.ScenarioSetup(scenarioInfo);

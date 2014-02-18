@@ -18,7 +18,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
                 if (ajaxIsComplete) break;
 
-                Thread.Sleep(100);
+                Thread.Sleep(500);
 
                 if ((DateTime.Now - startTime).TotalSeconds > timeOutSeconds)
                 {

@@ -17,7 +17,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             _dataManager = dataManager;
         }
 
-        [Given(@"The online a d titled ""(.*)"" in parent category ""(.*)"" and sub category ""(.*)""")]
+        [Given(@"I have an online ad titled ""(.*)"" in parent category ""(.*)"" and sub category ""(.*)""")]
         public void GivenTheOnlineADTitledInParentCategoryAndSubCategory(string adTitle, string parentCategory, string childCategory)
         {
             // Call the given that creates the categories first

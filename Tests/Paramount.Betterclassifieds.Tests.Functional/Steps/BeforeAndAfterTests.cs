@@ -58,8 +58,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             ITestDataManager dataManager = new DapperDataManager();
 
             // Online Publication  ( this should be removed later - no such thing as online publication ! )
-            dataManager.AddPublicationIfNotExists(TestData.OnlinePublication, Constants.PublicationType.Online,
-                                                  frequency: "Online", frequencyValue: null);
+            dataManager.AddPublicationIfNotExists(TestData.OnlinePublication, Constants.PublicationType.Online, frequency: "Online", frequencyValue: null);
             dataManager.AddPublicationAdTypeIfNotExists(TestData.OnlinePublication, Constants.AdType.OnlineAd);
 
             // Print Publication
@@ -75,10 +74,17 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
 
             // Location and Area
             dataManager.AddLocationIfNotExists("Australia", "Victoria");
+        }
 
+        [BeforeFeature("booking", "extendbooking")]
+        public static void SetupBookingExtensionFeature()
+        {
+            ITestDataManager dataManager = new DapperDataManager();
+            
             // Setup a demo user
             dataManager.AddUserIfNotExists(TestData.Username, TestData.Password, TestData.UserEmail);
         }
+
 
         private static IWebDriver GetDriverForBrowser(string browserName)
         {
@@ -110,7 +116,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             IConfig config = _container.Resolve<IConfig>();
             IWebDriver webdriver = _container.Resolve<IWebDriver>();
             
-            if (ScenarioContext.Current.TestError == null || string.IsNullOrEmpty(config.ErrorEmail))
+            if (ScenarioContext.Current.TestError == null 
+                || string.IsNullOrEmpty(config.ErrorEmail)
+                || config.SendScreenshotOneError == false)
                 return;
 
             Screenshot screenshot = ((ITakesScreenshot) webdriver).GetScreenshot();

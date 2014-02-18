@@ -26,8 +26,7 @@ namespace BetterClassified.Repository
         }
 
         public Dictionary<string, string> ParseMenuItems()
-        {
-            // Return empty dictionary if no html is available
+        {            
             var listNode = document.DocumentNode.SelectSingleNode("//nav//ul");
 
             if (theMusicHtml.IsNullOrEmpty() || listNode == null)

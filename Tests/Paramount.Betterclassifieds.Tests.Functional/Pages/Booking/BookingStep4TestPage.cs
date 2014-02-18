@@ -38,14 +38,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         public void SelectFirstEditionDate()
         {
-            SelectElement select = new SelectElement(EditionsElement);
-            select.SelectByIndex(1);
+            EditionsElement.SelectOptionIndex(1);
         }
 
         public void SelectInsertionCount(int insertions)
         {
-            SelectElement select = new SelectElement(InsertionsElement);
-            select.SelectByText(insertions.ToString());
+            InsertionsElement.SelectOptionIndex(insertions);
         }
     }
 }

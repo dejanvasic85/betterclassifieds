@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 namespace Paramount.Betterclassifieds.Tests.Functional
 {
@@ -8,42 +10,73 @@ namespace Paramount.Betterclassifieds.Tests.Functional
     {
         public static void ClickOnElement(this IWebElement element)
         {
-            int attempts = 0;
-            do
+            RetryElementAction(() =>
             {
                 try
                 {
                     element.Click();
-                    break;
+                    return true;
                 }
                 catch (StaleElementReferenceException)
                 {
-                    if (attempts == 3)
-                    {
-                        break;
-                    }
-                    attempts++;
+                    return false;
                 }
-            } while (true);
+            });
         }
 
         public static void SelectOption(this IWebElement webElement, string optionValue)
         {
-            if (webElement == null)
+            // Retry mechanism
+            RetryElementAction(() =>
             {
-                throw new Exception("Web Element not found");
-            }
+                try
+                {
+                    var option = webElement
+                        .FindElements(By.TagName("option"))
+                        .FirstOrDefault(o => o.Text.EqualTo(optionValue));
 
-            var option = webElement
-                .FindElements(By.TagName("option"))
-                .FirstOrDefault(o => StringExtensions.EqualTo(o.Text, optionValue, StringComparison.OrdinalIgnoreCase));
+                    if (option == null)
+                        return false;
 
-            if (option == null)
+                    option.ClickOnElement();
+
+                    return true;
+                }
+                catch (StaleElementReferenceException)
+                {
+                    return false;
+                }
+            });
+        }
+
+        public static void SelectOptionIndex(this IWebElement webElement, int index)
+        {
+            // Retry mechanism
+            RetryElementAction(() =>
             {
-                throw new Exception("Select Option " + optionValue + " not found");
-            }
+                try
+                {
+                    var element = new SelectElement(webElement);
+                    element.SelectByIndex(index);
+                    return true;
+                }
+                catch (StaleElementReferenceException)
+                {
+                    return false;
+                }
+            });
+        }
 
-            webElement.ClickOnElement();
+        private static void RetryElementAction(Func<bool> action)
+        {
+            var attempts = 0;
+            while (attempts < 5)
+            {
+                if (action())
+                    break;
+                Thread.Sleep(1000);
+                attempts++;
+            }
         }
     }
 }

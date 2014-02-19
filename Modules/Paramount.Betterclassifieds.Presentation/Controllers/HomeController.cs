@@ -26,9 +26,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public ActionResult Index()
         {
-            return View(new List<AdSummaryView>
+            return View(new List<AdSummaryModel>
             {
-                new AdSummaryView{
+                new AdSummaryModel{
                     AdId = 100,
                     Title = "THE WAILERS, SLY & ROBBIE ANNOUNCE BLUESFEST SIDESHOWS",
                     Description = "Bluesfest boasts some seriously impressive reggae on its line up for 2014 and one of the biggest acts on the bill has locked in three sideshows next April",

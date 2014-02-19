@@ -18,7 +18,8 @@ namespace Paramount.ApplicationBlock.Mvc
             ViewLocationFormats = new[]
             {
                GetViewPath(baseUrl, "Views/{1}/{0}"),
-               GetViewPath(baseUrl, "Views/Shared/{1}/{0}")
+               GetViewPath(baseUrl, "Views/Shared/{1}/{0}"),
+               GetViewPath(baseUrl, "Views/Shared/{0}")
             };
 
             // Set default master location formats
@@ -44,7 +45,8 @@ namespace Paramount.ApplicationBlock.Mvc
                 this.ViewLocationFormats = new[]
                 {
                     GetBrandViewPath(baseUrl, brand,"Views/{1}/{0}"),
-                    GetBrandViewPath(baseUrl, brand,"Views/Shared/{1}/{0}")
+                    GetBrandViewPath(baseUrl, brand,"Views/Shared/{1}/{0}"),
+                    GetBrandViewPath(baseUrl, brand, "Views/Shared/{0}")
                 }.Union(this.ViewLocationFormats).ToArray();
 
                 this.MasterLocationFormats = new[]
@@ -58,6 +60,7 @@ namespace Paramount.ApplicationBlock.Mvc
 
             // Partial formats are just same as view formats
             PartialViewLocationFormats = this.ViewLocationFormats;
+            
         }
 
 

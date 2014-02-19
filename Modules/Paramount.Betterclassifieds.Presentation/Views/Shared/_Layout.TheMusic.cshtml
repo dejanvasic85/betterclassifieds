@@ -1,19 +1,22 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>@ViewBag.Title</title>
-    
-    
+    <meta name="description" content="themusic.com.au - Australia's # 1 print and online classifieds network!" />
+    <meta name="keywords" content="themusic, classifieds, classified, newspaper, deal, sell, buy, trade, paypal, online, streetpress, street press, Inpress, Time Off, Drum Media Sydney, Drum Media Perth, 3D World, Drum Media, Lure, magazine, Sydney, Brisbane, Melbourne, Perth, Adelaide, Tasmania, Darwin, New South Wales, Victoria, Queensland, Tasmania, Northern Territory, South Australia, Western Australia,  Employment, For Sale, Music Services, Musicians Available, Musicians Wanted, Services, Wanted, Bass Player, DJ, Drummer, Guiarist, Keyboard, Singer, Song Writer, Band Merchandise, Booking Agents, Duplication, Mastering, EP Release, Hire Services, Legal, Accounting, Management, Mastering, PA, Audio, Engineering, Photography, Posters, Printing, Recording Studios, Rehearsal Rooms, Repairs, Studio Hire, Transport, Tuition, Video, Production, Amps, Bass, Cases, CD, DVD, Computers, Decks, Furniture, Guitars, Keyboards, Mixers, PA Equipment, Recreational Equipment, Beauty Services, Graphic Design, Piercing, Tattoo, Tuition" />
+    <link rel="shortcut icon" href="@Url.Content("~/Content/TheMusic/img/themusic_favicon.ico")" type="image/x-icon" />
+    <link rel="icon" href="@Url.Content("~/Content/TheMusic/img/themusic_favicon.ico")" type="image/ico" />
+
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-3.1.0.css")"/>
-    <link rel="stylesheet" href="@Url.Content("~/Content/site.css")"/>
-      
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-3.1.0.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/site.css")" />
+
     <!-- TheMusic -->
-    <link rel="stylesheet" href="@Url.Content("~/Content/TheMusic/themusic.css")"/>
+    <link rel="stylesheet" href="@Url.Content("~/Content/TheMusic/themusic.css")" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,19 +24,60 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <script type="text/javascript">
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+        (function () {
+            var gads = document.createElement("script");
+            gads.async = true;
+            gads.type = "text/javascript";
+            var useSSL = "https:" == document.location.protocol;
+            gads.src = (useSSL ? "https:" : "http:") + "//www.googletagservices.com/tag/js/gpt.js";
+            var node = document.getElementsByTagName("script")[0];
+            node.parentNode.insertBefore(gads, node);
+        })();
+    </script>
+    <script type="text/javascript">
+        googletag.cmd.push(function () {
+            // var adSlot1 = googletag.defineSlot('/6355419/Travel/Europe/France/Paris',[300, 250], "banner1");
+            googletag.defineSlot('/4446275/Leaderboard_top', [728, 90], "leadboard").addService(googletag.pubads());
+            googletag.defineSlot('/4446275/StripAd_top', [1110, 40], 'div-gpt-ad-1332716467013-20').addService(googletag.pubads()).setTargeting('Pages', 'Home');
+            googletag.defineSlot('/4446275/skin_left', [150, 901], 'div-gpt-ad-1332716467013-18').addService(googletag.pubads()).setTargeting('Pages', 'Home');
+            googletag.defineSlot('/4446275/skin_right', [150, 900], 'div-gpt-ad-1332716467013-19').addService(googletag.pubads()).setTargeting('Pages', 'Home');
+            googletag.enableServices();
+        });
+    </script>
+
+
     @RenderSection("HeadSection", false)
-  </head>
-    <body>
-        
-        <div class="container">
-            
-            @RenderBody()
+</head>
+<body class="themusic-background">
 
+    <div class="container">
+
+        <div class="row visible-lg visible-md visible-sm top-buffer-40">
+            <div class="col-sm-4" style="padding-left: 40px;">
+                <a href="http://themusic.com.au/">
+                    <img style="max-width: 250px" src="@Url.Content("~/Content/TheMusic/img/tmlogo.png")" alt="The Music | theMusic.com.au | Australia’s Premier Music News &amp; Reviews Website" />
+                </a>
+            </div>
+            <div class="col-sm-8" style="padding:0;">
+                <div id="leadboard" style="width:728px; height:90px; float:right">
+                    <script type="text/javascript">
+                        googletag.cmd.push(function () { googletag.display('leadboard'); });
+                    </script>
+                </div> 
+            </div>
         </div>
-        
-        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.11.0.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/bootstrap-3.1.0.js")"></script>
 
-        @RenderSection("Scripts", false)
-    </body>
+        @RenderBody()
+
+    </div>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.11.0.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/bootstrap-3.1.0.js")"></script>
+
+    @RenderSection("Scripts", false)
+</body>
 </html>

@@ -7,6 +7,10 @@
     margin-top: 20px;
 }
 
+.top-buffer-40 {
+    margin-top: 40px;
+}
+
 .bordered-1 {
     border: 1px solid #eee;
     padding: 2px;

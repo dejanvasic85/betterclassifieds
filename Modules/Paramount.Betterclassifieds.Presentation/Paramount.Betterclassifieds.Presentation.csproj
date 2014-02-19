@@ -184,6 +184,8 @@
     <Content Include="Scripts\jquery-2.0.3.min.map" />
     <Content Include="Views\Shared\_Layout.TheMusic.cshtml" />
     <Content Include="Views\Shared\_ApplicationLayout.cshtml" />
+    <Content Include="Views\Shared\_Navbar.cshtml" />
+    <Content Include="Views\Shared\_Navbar.TheMusic.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

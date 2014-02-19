@@ -215,7 +215,15 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\site.css" />
-    <Content Include="Content\TheMusic\themusic.css" />
+    <Content Include="Content\TheMusic\img\themusic_favicon.ico" />
+    <Content Include="Content\TheMusic\img\tmlogo.png" />
+    <None Include="Content\TheMusic\themusic.less" />
+    <Content Include="Content\TheMusic\themusic.css">
+      <DependentUpon>themusic.less</DependentUpon>
+    </Content>
+    <Content Include="Content\TheMusic\themusic.min.css">
+      <DependentUpon>themusic.css</DependentUpon>
+    </Content>
     <Content Include="Controls\TutorAdForm.ascx" />
     <Content Include="Controls\TutorAdView.ascx" />
     <Content Include="favicon.ico" />
@@ -255,6 +263,7 @@
     </Content>
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\TheMusic\fonts\ufonts.com_alternate_gothic_no2_d.ttf" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

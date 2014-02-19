@@ -19,34 +19,7 @@
         </div>
     </div>
 
-    @*Navbar*@
-    <div class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Classifieds</a>
-            </div>
-
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Explore</a></li>
-                    <li><a href="#">Rates</a></li>
-                    <li><a href="#">Deadlines</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li><a href="#">My Account</a></li>
-                </ul>
-            </div>
-            <!--/.nav-collapse -->
-        </div>
-
-
-        <!--/.container-fluid -->
-    </div>
+    @Html.Partial("_Navbar")
 
     <div class="row">
         <form role="form">
@@ -71,13 +44,41 @@
     @*Body*@
     @RenderBody()
 
-    @*Footer*@
-    <!-- Main component for a primary marketing message or call to action -->
-    <div class="jumbotron">
-        <h1>Place New Ad</h1>
-        <p>This example is a quick exercise to illustrate how the default, static navbar and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
-        <p>
-            <a class="btn btn-lg btn-primary" href="#" role="button">Place New Ad &raquo;</a>
-        </p>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="jumbotron">
+                <p>
+                    Start designing your online and print ad now!
+                </p>
+                <p>
+                    <a class="btn btn-lg btn-primary" href="#" role="button">Place New Ad &raquo;</a>
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="jumbotron">
+                <p>
+                    Looking for a tutor? Find one near you.
+                </p>
+                <p>
+                    <a class="btn btn-lg btn-primary" href="#" role="button">View Tutors Ads &raquo;</a>
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="jumbotron">
+                <p>
+                    Need help or suggestion to improve this website?
+                </p>
+                <p>
+                    <a class="btn btn-lg btn-primary" href="#" role="button">Contact Us &raquo;</a>
+                </p>
+            </div>
+        </div>
     </div>
+
+
+    @*Footer*@
+
 </div>

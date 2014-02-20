@@ -1,5 +1,6 @@
-﻿@using Paramount.ApplicationBlock.Mvc
-@model List<Paramount.Betterclassifieds.Presentation.Models.AdSummaryModel>
+﻿@using Paramount
+@using Paramount.ApplicationBlock.Mvc
+@model Paramount.Betterclassifieds.Presentation.Models.HomeModel
 
 @{
     Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayout.cshtml");
@@ -15,70 +16,28 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="list-group">
-            <a href="#" class="list-group-item">
-                <div class="media">
-                    <img class="media-object pull-right bordered-1" alt="64x64" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZWVlIj48L3JlY3Q+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzIiIHk9IjMyIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9zdmc+" style="width: 64px; height: 64px;">
-                    <div class="media-body">
-                        <h4 class="media-heading">Media heading</h4>
-                        <p>
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
-                        </p>
-                        <p>
-                            Category, Publication
-                        </p>
+
+            @foreach (var ad in Model.AdSummaryList)
+            {
+                <a  class="list-group-item">
+                    <div class="media">
+                        <img class="media-object pull-right thumbnail" alt="84x84" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZWVlIj48L3JlY3Q+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzIiIHk9IjMyIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9zdmc+" style="width: 84px; height: 84px;">
+                        <div class="media-body">
+                            <h4 class="media-heading">@ad.Title</h4>
+                            <p>
+                                @ad.Description.TruncateOnWordBoundary(100)
+                            </p>
+                            <p>
+                                <span class="label label-category">@ad.ParentCategoryName</span>
+                                @foreach (var publication in ad.Publications)
+                                {
+                                    <span class="label label-publication">@publication</span>
+                                }
+                            </p>
+                        </div>
                     </div>
-                </div>
-
-            </a>
-
-            <a href="#" class="list-group-item">
-                <div class="media">
-                    <img class="media-object pull-right bordered-1" alt="64x64" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZWVlIj48L3JlY3Q+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzIiIHk9IjMyIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9zdmc+" style="width: 64px; height: 64px;">
-                    <div class="media-body">
-                        <h4 class="media-heading">Media heading</h4>
-                        <p>
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
-                        </p>
-                        <p>
-                            Category, Publication
-                        </p>
-                    </div>
-                </div>
-
-            </a>
-
-            <a href="#" class="list-group-item">
-                <div class="media">
-                    <img class="media-object pull-right bordered-1" alt="64x64" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZWVlIj48L3JlY3Q+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzIiIHk9IjMyIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9zdmc+" style="width: 64px; height: 64px;">
-                    <div class="media-body">
-                        <h4 class="media-heading">Media heading</h4>
-                        <p>
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
-                        </p>
-                        <p>
-                            Category, Publication
-                        </p>
-                    </div>
-                </div>
-
-            </a>
-
-            <a href="#" class="list-group-item">
-                <div class="media">
-                    <img class="media-object pull-right bordered-1" alt="64x64" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZWVlIj48L3JlY3Q+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzIiIHk9IjMyIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9zdmc+" style="width: 64px; height: 64px;">
-                    <div class="media-body">
-                        <h4 class="media-heading">Media heading</h4>
-                        <p>
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
-                        </p>
-                        <p>
-                            Category, Publication
-                        </p>
-                    </div>
-                </div>
-
-            </a>
-
+                </a>
+            }
         </div>
     </div>
 </div>

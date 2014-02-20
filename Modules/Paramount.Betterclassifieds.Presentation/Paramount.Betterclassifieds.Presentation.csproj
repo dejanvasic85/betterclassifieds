@@ -136,11 +136,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\AdController.cs" />
+    <Compile Include="Controllers\ViewController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AdModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="PresentationInitialiser.cs" />
     <Compile Include="Models\AdSummaryView.cs" />
@@ -210,7 +211,7 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Ad\Index.cshtml" />
+    <Content Include="Views\View\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Paramount.Betterclassifieds.Presentation.nuspec" />

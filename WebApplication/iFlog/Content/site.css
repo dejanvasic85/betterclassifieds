@@ -1,17 +1,14 @@
 ﻿/*Application based styling ( built on top of the bootstrap core css */
 .top-buffer-10 {
-    margin-top: 10px;
+  margin-top: 10px;
 }
-
 .top-buffer-20 {
-    margin-top: 20px;
+  margin-top: 20px;
 }
-
 .top-buffer-40 {
-    margin-top: 40px;
+  margin-top: 40px;
 }
-
 .bordered-1 {
-    border: 1px solid #eee;
-    padding: 2px;
+  border: 1px solid #eee;
+  padding: 2px;
 }

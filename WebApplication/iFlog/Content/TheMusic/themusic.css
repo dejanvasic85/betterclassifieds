@@ -17,7 +17,7 @@
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
   color: #e7e7e7;
-  background-color: #d64c0f;
+  text-decoration: underline;
 }
 .navbar-default {
   text-transform: uppercase;
@@ -48,4 +48,13 @@
   color: #e7e7e7;
   background-color: #263745;
   border-color: #263745;
+}
+.breadcrumb {
+  background-color: #e3e3e3;
+}
+.label-publication {
+  background-color: #d64c0f;
+}
+.label-category {
+  background-color: #263745;
 }

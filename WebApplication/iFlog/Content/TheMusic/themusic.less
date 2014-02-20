@@ -3,17 +3,13 @@
 @backgroundred: #d64c0f;
 @darkblue: #263745;
 @grayfont: #e7e7e7;
+@graylight: #e3e3e3;
+
 @white: #fff;
 
 @font-face {
     font-family: alternate-gothic-no-2-d;
     src: url('fonts/ufonts.com_alternate_gothic_no2_d.ttf');
-}
-
-html {
-}
-
-body {
 }
 
 .themusic-background {
@@ -32,7 +28,7 @@ body {
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
     color: @grayfont;
-    background-color: @backgroundred;
+    text-decoration: underline;
 }
 
 .navbar-default {
@@ -70,3 +66,15 @@ body {
         background-color: @darkblue;
         border-color: @darkblue;
     }
+
+.breadcrumb{
+    background-color: @graylight;
+}
+
+.label-publication{
+    background-color: @backgroundred;
+}
+
+.label-category{
+    background-color: @darkblue;
+}

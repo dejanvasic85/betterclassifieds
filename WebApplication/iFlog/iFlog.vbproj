@@ -214,7 +214,13 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\site.css" />
+    <None Include="Content\site.less" />
+    <Content Include="Content\site.css">
+      <DependentUpon>site.less</DependentUpon>
+    </Content>
+    <Content Include="Content\site.min.css">
+      <DependentUpon>site.css</DependentUpon>
+    </Content>
     <Content Include="Content\TheMusic\img\themusic_favicon.ico" />
     <Content Include="Content\TheMusic\img\tmlogo.png" />
     <None Include="Content\TheMusic\themusic.less" />

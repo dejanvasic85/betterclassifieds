@@ -4,6 +4,6 @@ namespace Paramount.Betterclassifieds.Presentation.Models
 {
     public class HomeModel
     {
-        public List<AdSummaryModel> AdSummary { get; set; }
+        public List<AdSummaryModel> AdSummaryList { get; set; }
     }
 }

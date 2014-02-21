@@ -161,6 +161,12 @@
     <Content Include="Content\site.min.css">
       <DependentUpon>site.css</DependentUpon>
     </Content>
+    <Content Include="Content\TheMusic\themusic.css">
+      <DependentUpon>themusic.less</DependentUpon>
+    </Content>
+    <Content Include="Content\TheMusic\themusic.min.css">
+      <DependentUpon>themusic.css</DependentUpon>
+    </Content>
     <Content Include="Content\TheMusic\img\themusic_favicon.ico" />
     <Content Include="Content\TheMusic\img\tmlogo.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -175,8 +181,12 @@
     </Content>
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\site.css.map">
+      <DependentUpon>site.css</DependentUpon>
+    </Content>
     <None Include="Content\site.less" />
     <Content Include="Content\TheMusic\fonts\ufonts.com_alternate_gothic_no2_d.ttf" />
+    <Content Include="Content\TheMusic\themusic.less" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\jquery-1.11.0.js" />
     <Content Include="Scripts\jquery-1.11.0.min.js" />

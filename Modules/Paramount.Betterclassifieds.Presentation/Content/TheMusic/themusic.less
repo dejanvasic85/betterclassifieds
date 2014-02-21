@@ -1,0 +1,80 @@
+﻿/* Specific style for TheMusic */
+
+@backgroundred: #d64c0f;
+@darkblue: #263745;
+@grayfont: #e7e7e7;
+@graylight: #e3e3e3;
+
+@white: #fff;
+
+@font-face {
+    font-family: alternate-gothic-no-2-d;
+    src: url('fonts/ufonts.com_alternate_gothic_no2_d.ttf');
+}
+
+.themusic-background {
+    background-image: url('http://themusic.com.au/images/body-grad.png'), url('http://themusic.com.au/images/bg.png');
+    background-attachment: scroll, scroll;
+    background-repeat: repeat-x, repeat;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: @grayfont;
+    background-color: @backgroundred;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: @grayfont;
+    text-decoration: underline;
+}
+
+.navbar-default {
+    text-transform: uppercase;
+    background-color: @darkblue;
+    border-color: @darkblue;
+    font-family: alternate-gothic-no-2-d;
+    font-size: 1.4em;
+}
+
+    .navbar-default .navbar-brand {
+        color: @grayfont;
+    }
+
+        .navbar-default .navbar-brand:hover {
+            color: @grayfont;
+        }
+
+    .navbar-default .navbar-nav > li > a {
+        color: @grayfont;
+    }
+
+.btn-primary {
+    color: @grayfont;
+    background-color: @darkblue;
+    border-color: @darkblue;
+}
+
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-primary:active,
+    .btn-primary.active,
+    .open .dropdown-toggle.btn-primary {
+        color: @grayfont;
+        background-color: @darkblue;
+        border-color: @darkblue;
+    }
+
+.breadcrumb{
+    background-color: @graylight;
+}
+
+.label-publication{
+    background-color: @backgroundred;
+}
+
+.label-category{
+    background-color: @darkblue;
+}

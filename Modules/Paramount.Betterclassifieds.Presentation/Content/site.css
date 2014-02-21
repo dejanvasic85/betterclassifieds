@@ -1,4 +1,4 @@
-﻿/*Application based styling ( built on top of the bootstrap core css */
+/*Application based styling ( built on top of the bootstrap core css */
 .top-buffer-10 {
   margin-top: 10px;
 }
@@ -12,3 +12,10 @@
   border: 1px solid #eee;
   padding: 2px;
 }
+.label-publication {
+  background-color: #428bca;
+}
+.label-category {
+  background-color: #f0ad4e;
+}
+/*# sourceMappingURL=site.css.map */

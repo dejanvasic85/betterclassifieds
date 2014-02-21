@@ -155,8 +155,14 @@
     <Content Include="Content\bootstrap-theme-3.1.0.min.css" />
     <Content Include="Content\bootstrap-3.1.0.css" />
     <Content Include="Content\bootstrap-3.1.0.min.css" />
-    <Content Include="Content\site.css" />
-    <Content Include="Content\TheMusic\themusic.css" />
+    <Content Include="Content\site.css">
+      <DependentUpon>site.less</DependentUpon>
+    </Content>
+    <Content Include="Content\site.min.css">
+      <DependentUpon>site.css</DependentUpon>
+    </Content>
+    <Content Include="Content\TheMusic\img\themusic_favicon.ico" />
+    <Content Include="Content\TheMusic\img\tmlogo.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap-3.1.0.js" />
@@ -169,6 +175,8 @@
     </Content>
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <None Include="Content\site.less" />
+    <Content Include="Content\TheMusic\fonts\ufonts.com_alternate_gothic_no2_d.ttf" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\jquery-1.11.0.js" />
     <Content Include="Scripts\jquery-1.11.0.min.js" />

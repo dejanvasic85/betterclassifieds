@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using Paramount.Betterclassifieds.Business.Repository;
 using Paramount.Betterclassifieds.Presentation.Models;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     public class HomeController : Controller
     {
-        //private readonly IAdRepository _adRepository;
+        private readonly IAdRepository _adRepository;
 
-        //public HomeController(IAdRepository adRepository)
-        //{
-        //    _adRepository = adRepository;
-        //}
+        public HomeController(IAdRepository adRepository)
+        {
+            _adRepository = adRepository;
+        }
 
         //
         // GET: /Home/
@@ -26,6 +27,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public ActionResult Index()
         {
+            var ads = _adRepository.GetLatestAds();
+
             return View(new HomeModel
             {
                 AdSummaryList = new List<AdSummaryModel>{

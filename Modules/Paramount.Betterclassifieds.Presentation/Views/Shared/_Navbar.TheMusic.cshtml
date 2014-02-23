@@ -8,16 +8,17 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">The Classies</a>
+            <a class="navbar-brand" href="@Url.Action("Index", "Home")">The Classies</a>
         </div>
 
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Explore</a></li>
-                <li><a href="#">Rates</a></li>
+                <li class="active"><a href="@Url.Action("Index", "Home")">Explore</a></li>
+                <li><a href="@Url.Content("~/Rates.aspx")">Rates</a></li>
                 <li><a href="#">Deadlines</a></li>
                 <li><a href="#">Contact</a></li>
                 <li><a href="#">My Account</a></li>
+                <li><span>&nbsp;&nbsp;</span></li>
                 <li><a href="#">The Music Home</a></li>
             </ul>
         </div>

@@ -1,4 +1,4 @@
-﻿/* Specific style for TheMusic */
+/* Specific style for TheMusic */
 @font-face {
   font-family: alternate-gothic-no-2-d;
   src: url('fonts/ufonts.com_alternate_gothic_no2_d.ttf');
@@ -36,8 +36,8 @@
   color: #e7e7e7;
 }
 .btn-primary {
-  color: #e7e7e7;
-  background-color: #263745;
+  color: #ffffff;
+  background-color: #d64c0f;
   border-color: #263745;
 }
 .btn-primary:hover,

@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
-    public class ViewController : Controller
+    public class AdController : Controller
     {
         //private readonly IAdRepository adRepository;
         //private readonly ISeoMappingRepository seoMappingRepository;

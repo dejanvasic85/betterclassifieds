@@ -19,9 +19,10 @@ Public Class Global_asax
     Sub Application_Start(ByVal sender As Object, ByVal e As EventArgs)
         Application.Add("validApplication", True)
 
-        RouteConfig.RegisterRoutes(System.Web.Routing.RouteTable.Routes)
         ContainerConfig.RegisterIocContainer(BetterClassified.Unity.DefaultContainer)
         ApplicationStart()
+        RouteConfig.RegisterRoutes(System.Web.Routing.RouteTable.Routes)
+
     End Sub
 
     Sub Application_BeginRequest(ByVal sender As Object, ByVal e As EventArgs)

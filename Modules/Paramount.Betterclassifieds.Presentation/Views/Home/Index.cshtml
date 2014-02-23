@@ -19,7 +19,7 @@
 
             @foreach (var ad in Model.AdSummaryList)
             {
-                <a  class="list-group-item">
+                <a href="@Url.Action("Index", "Ad")" class="list-group-item">
                     <div class="media">
                         <img class="media-object pull-right thumbnail" alt="84x84" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZWVlIj48L3JlY3Q+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzIiIHk9IjMyIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9zdmc+" style="width: 84px; height: 84px;">
                         <div class="media-body">
@@ -38,6 +38,42 @@
                     </div>
                 </a>
             }
+        </div>
+    </div>
+</div>
+
+
+@*Home utilities for users*@
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="jumbotron">
+            <p>
+                Start designing your online and print ad now!
+            </p>
+            <p>
+                <a class="btn btn-lg btn-primary" href="#" role="button">Place New Ad &raquo;</a>
+            </p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="jumbotron">
+            <p>
+                Looking for a tutor? Find one near you.
+            </p>
+            <p>
+                <a class="btn btn-lg btn-primary" href="#" role="button">View Tutors Ads &raquo;</a>
+            </p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="jumbotron">
+            <p>
+                Need help or suggestion to improve this website?
+            </p>
+            <p>
+                <a class="btn btn-lg btn-primary" href="#" role="button">Contact Us &raquo;</a>
+            </p>
         </div>
     </div>
 </div>

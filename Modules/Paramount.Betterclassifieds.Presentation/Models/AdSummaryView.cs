@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-
+﻿
 namespace Paramount.Betterclassifieds.Presentation.Models
 {
     public class AdSummaryModel

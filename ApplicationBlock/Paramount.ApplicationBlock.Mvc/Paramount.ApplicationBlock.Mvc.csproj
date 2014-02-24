@@ -110,6 +110,7 @@
     <Compile Include="Modules\VirtualFile.cs" />
     <Compile Include="Unity\PreApplicationStartCode.cs" />
     <Compile Include="Unity\RequestLifetimeHttpModule.cs" />
+    <Compile Include="Unity\SessionLifetimeManager.cs" />
     <Compile Include="Unity\UnityDependencyResolver.cs" />
     <Compile Include="Unity\UnityPageHandlerFactory.cs" />
     <Compile Include="ModuleUrlHelper.cs" />

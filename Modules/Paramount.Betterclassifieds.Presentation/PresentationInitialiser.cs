@@ -28,6 +28,7 @@
 
         public override void RegisterTypes(IUnityContainer container)
         {
+            container.RegisterType<LegacyIntegration.OnlineSearchParameter>(new SessionLifetimeManager<LegacyIntegration.OnlineSearchParameter>());
         }
     }
 }

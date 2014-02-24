@@ -1,18 +1,11 @@
-﻿using System;
+﻿using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
 
 namespace Paramount.ApplicationBlock.Mvc.Unity
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
-    using System.Web.Mvc;
-    using Microsoft.Practices.Unity;
-
     public class UnityDependencyResolver : IDependencyResolver
     {
         private const string HttpContextKey = "perRequestContainer";
@@ -22,9 +15,9 @@ namespace Paramount.ApplicationBlock.Mvc.Unity
         {
             get
             {
-                IUnityContainer unityContainer = HttpContext.Current.Items[(object)"perRequestContainer"] as IUnityContainer;
+                IUnityContainer unityContainer = HttpContext.Current.Items[HttpContextKey] as IUnityContainer;
                 if (unityContainer == null)
-                    HttpContext.Current.Items[(object)"perRequestContainer"] = (object)(unityContainer = this.container.CreateChildContainer());
+                    HttpContext.Current.Items[HttpContextKey] = (object)(unityContainer = this.container.CreateChildContainer());
                 return unityContainer;
             }
         }

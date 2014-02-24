@@ -40,7 +40,8 @@ Partial Public Class _Default5
             If Not String.IsNullOrEmpty(control.SeoName) Then
                 Response.Redirect(String.Format(PageUrl.SearchSeoCategoryResults, control.SeoName, control.CategoryId.Value))
             Else
-                Response.Redirect(PageUrl.SearchCategoryResults)
+                'Response.Redirect(PageUrl.SearchCategoryResults, )
+                Response.Redirect(PageUrl.SearchCategoryResults, True)
             End If
         End If
     End Sub

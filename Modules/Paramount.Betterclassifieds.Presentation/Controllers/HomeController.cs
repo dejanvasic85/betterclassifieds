@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using Paramount.Betterclassifieds.Business.Repository;
 using Paramount.Betterclassifieds.Presentation.Models;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController, IMappingBehaviour
     {
         private readonly IAdRepository _adRepository;
 
-        public HomeController(IAdRepository adRepository)
+        public HomeController(IAdRepository adRepository, LegacyIntegration.OnlineSearchParameter searchParameter) 
+            : base(searchParameter)
         {
             _adRepository = adRepository;
         }
@@ -58,6 +59,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                     },
                 }
             });
+        }
+
+        public void OnRegisterMaps(IConfiguration configuration)
+        {
+            
         }
     }
 }

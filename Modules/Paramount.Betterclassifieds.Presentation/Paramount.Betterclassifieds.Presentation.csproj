@@ -138,10 +138,14 @@
   <ItemGroup>
     <Compile Include="Controllers\AdController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Framework\BaseController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="LegacyIntegration\LegacyLinks.cs" />
+    <Compile Include="LegacyIntegration\OnlineSearchParameter.cs" />
     <Compile Include="Models\AdModel.cs" />
+    <Compile Include="Models\CategorySearchModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="PresentationInitialiser.cs" />
     <Compile Include="Models\AdSummaryView.cs" />
@@ -209,6 +213,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\EastGippslandNews\" />
+    <Folder Include="Scripts\home\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -1,5 +1,6 @@
 ﻿@using Paramount
 @using Paramount.ApplicationBlock.Mvc
+@using Paramount.Betterclassifieds.Presentation.LegacyIntegration
 @model Paramount.Betterclassifieds.Presentation.Models.HomeModel
 
 @{
@@ -44,7 +45,6 @@
 
 
 @*Home utilities for users*@
-
 <div class="row">
     <div class="col-md-4">
         <div class="jumbotron">
@@ -52,7 +52,7 @@
                 Start designing your online and print ad now!
             </p>
             <p>
-                <a class="btn btn-lg btn-primary" href="#" role="button">Place New Ad &raquo;</a>
+                <a class="btn btn-lg btn-primary" href="@Url.Content(LegacyLinks.StartBooking)" role="button">Place New Ad &raquo;</a>
             </p>
         </div>
     </div>
@@ -77,3 +77,10 @@
         </div>
     </div>
 </div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+       
+    </script>
+}

@@ -112,6 +112,7 @@
     <Compile Include="DataSources\IClientSideCacheDataSource.cs" />
     <Compile Include="DataSources\SeoNameMappingDataSource.cs" />
     <Compile Include="DataSources\TableNames.cs" />
+    <Compile Include="DbContext\DocumentContext.cs" />
     <Compile Include="Entities\CacheItemEntity.cs" />
     <Compile Include="Entities\SeoLocationMappingEntity.cs" />
     <Compile Include="Entities\SeoNameMappingEntity.cs" />

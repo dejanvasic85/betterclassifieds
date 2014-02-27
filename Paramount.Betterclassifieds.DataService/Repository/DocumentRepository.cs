@@ -1,4 +1,5 @@
-﻿using Paramount.Betterclassifieds.Business.Repository;
+﻿using System.Linq;
+using Paramount.Betterclassifieds.Business.Repository;
 using System;
 
 namespace Paramount.Betterclassifieds.DataService.Repository
@@ -7,7 +8,12 @@ namespace Paramount.Betterclassifieds.DataService.Repository
     {
         public Document GetDocument(Guid documentId)
         {
-            return new Document();
+            using (var context = new DocumentContext())
+            {
+                var document = context.Documents.FirstOrDefault(d => d.DocumentId == documentId);
+
+                return document;
+            }
         }
     }
 }

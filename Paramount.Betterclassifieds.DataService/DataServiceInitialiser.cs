@@ -26,6 +26,7 @@ namespace Paramount.Betterclassifieds.DataService
             container.RegisterType<IPublicationRepository, PublicationRepository>();
             container.RegisterType<IRateRepository, RateRepository>();
             container.RegisterType<IUserRepository, UserRepository>();
+            container.RegisterType<IDocumentRepository, DocumentRepository>();
             container.RegisterType<IPaymentsRepository, PaymentsRepository>();
             container.RegisterType<IClientConfig, ClientConfig>();
             container.RegisterType<IApplicationConfig, AppConfig>();
@@ -33,6 +34,7 @@ namespace Paramount.Betterclassifieds.DataService
             container.RegisterType<IClientIdentifierManager, CookiesManager>();
             container.RegisterType<IClientSideCacheRepository, ClientSideCacheRepository>();
             container.RegisterType<IClientSideCacheDataSource, ClientSideCacheDataSource>();
+
         }
     }
 }

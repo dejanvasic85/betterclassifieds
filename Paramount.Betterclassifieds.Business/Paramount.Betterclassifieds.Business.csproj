@@ -48,10 +48,16 @@
   <ItemGroup>
     <Compile Include="Managers\IApplicationConfig.cs" />
     <Compile Include="Managers\ICookiesManager.cs" />
+    <Compile Include="Models\Ad.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Comparers\PublicationIdComparer.cs" />
+    <Compile Include="Models\PublicationTypeModel.cs" />
+    <Compile Include="DocumentStorage\Document.cs" />
     <Compile Include="Repository\IClientSideCacheRepository.cs" />
     <Compile Include="Managers\IEditionManager.cs" />
     <Compile Include="Managers\IBookingManager.cs" />
     <Compile Include="Models\Seo\SeoNameMappingModel.cs" />
+    <Compile Include="Repository\IDocumentRepository.cs" />
     <Compile Include="Repository\ISeoMappingRepository.cs" />
     <Compile Include="Models\AdBookingExtensionModel.cs" />
     <Compile Include="Models\AdBookingModel.cs" />
@@ -61,7 +67,7 @@
     <Compile Include="Models\BookEntryModel.cs" />
     <Compile Include="Models\BookingStatusType.cs" />
     <Compile Include="Models\BookingType.cs" />
-    <Compile Include="Models\Comparers\AdBookingComparer.cs" />
+    <Compile Include="Models\Comparers\AdBookingIdComparer.cs" />
     <Compile Include="Models\ExtensionStatus.cs" />
     <Compile Include="Models\LineAdModel.cs" />
     <Compile Include="Models\LookupType.cs" />
@@ -95,6 +101,7 @@
       <Name>Paramount.Utility</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

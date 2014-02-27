@@ -1,13 +1,12 @@
-﻿namespace Paramount.Betterclassifieds.Business.Bookings
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Paramount.Betterclassifieds.Business.Managers;
+using Paramount.Betterclassifieds.Business.Models;
+using Paramount.Betterclassifieds.Business.Repository;
+
+namespace Paramount.Betterclassifieds.Business.Bookings
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using Models;
-    using Repository;
-    using Managers;
-
     public class BookingManager : IBookingManager
     {
         private readonly IBookingRepository _bookingRepository;
@@ -110,6 +109,14 @@
             // Then extend it :)
             // Single responsibility = EXTEND
             Extend(extension, payment);
+        }
+
+        public List<AdBookingModel> GetLatestBookings(int takeAmount = 10)
+        {
+            // This method should probably be the root (maybe aggregate) way of retrieving ads
+            var bookings = _bookingRepository.GetBookings(takeAmount);
+
+            return bookings;
         }
 
         public IEnumerable<PublicationEditionModel> GenerateExtensionDates(int adBookingId, int numberOfInsertions)

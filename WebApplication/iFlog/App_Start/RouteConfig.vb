@@ -8,10 +8,11 @@ Public Class RouteConfig
 
     Public Shared Sub RegisterRoutes(ByVal routes As RouteCollection)
 
-        routes.Ignore("{resource}.axd/{*pathInfo}")
-        routes.Ignore("{resource}.aspx/{*pathInfo}")
-        routes.Ignore("{resources}.ashx/{*pathInfo}")
-        routes.Ignore("Image/View.ashx")
+        ' This has been moved to the presentation layer route config !
+        'routes.Ignore("{resource}.axd/{*pathInfo}")
+        'routes.Ignore("{resource}.aspx/{*pathInfo}")
+        'routes.Ignore("{resources}.ashx/{*pathInfo}")
+        'routes.Ignore("Image/View.ashx")
 
         routes.MapHttpRoute(
            name:="DefaultApi",

@@ -1,7 +1,6 @@
 ﻿namespace Paramount.Betterclassifieds.Presentation
 {
     using System.Web.Mvc;
-    using System.Linq;
     using ApplicationBlock.Mvc;
     using Microsoft.Practices.Unity;
     
@@ -14,6 +13,13 @@
 
         public override void CreateContextAndRegister(System.Web.Routing.RouteCollection routes, object state)
         {
+            // Ignored routes
+            routes.Ignore("{resource}.axd/{*pathInfo}");
+            routes.Ignore("{resource}.aspx/{*pathInfo}");
+            routes.Ignore("{resources}.ashx/{*pathInfo}");
+            routes.Ignore("Image/View.ashx");
+
+
             // Routes
             routes.MapRoute(
                 "default",
@@ -28,7 +34,7 @@
 
         public override void RegisterTypes(IUnityContainer container)
         {
-            container.RegisterType<LegacyIntegration.OnlineSearchParameter>(new SessionLifetimeManager<LegacyIntegration.OnlineSearchParameter>());
+            // container.RegisterType<LegacyIntegration.OnlineSearchParameter>(new SessionLifetimeManager<LegacyIntegration.OnlineSearchParameter>());
         }
     }
 }

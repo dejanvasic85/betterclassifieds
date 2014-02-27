@@ -1,6 +1,6 @@
 ﻿namespace Paramount.Betterclassifieds.Business.Models
 {
-    public class LineAdModel
+    public class LineAdModel : Ad
     {
         public int? LineAdId { get; set; }
         public string AdHeader { get; set; }
@@ -19,8 +19,8 @@
 
         public int GetWordCount()
         {
-            if (!string.IsNullOrEmpty(this.AdText))
-                return this.AdText.Split(' ').Length;
+            if (!string.IsNullOrEmpty(AdText))
+                return AdText.Split(' ').Length;
             return 0;
         }
     }

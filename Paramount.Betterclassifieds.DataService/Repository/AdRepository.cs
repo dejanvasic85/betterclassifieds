@@ -29,19 +29,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                 context.SubmitChanges();
             }
         }
-
-        public List<OnlineAdModel> GetLatestAds(int takeLast = 10)
-        {
-            using (var context = DataContextFactory.CreateClassifiedContext())
-            {
-                // Get the latest online ads
-                var ads = context.OnlineAds.OrderByDescending(o => o.OnlineAdId).Take(10).ToList();
-
-                // Map to the models
-                return this.MapList<OnlineAd, OnlineAdModel>(ads);
-            }
-        }
-
+        
         public List<OnlineAdModel> GetOnlineAdsByCategoryAndLocation(List<int> categoryIds, int? locationId,  int index = 0, int pageSize = 25)
         {
             using (var context = DataContextFactory.CreateClassifiedContext())

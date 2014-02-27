@@ -1,17 +1,11 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using Paramount.Betterclassifieds.Presentation.Models;
 
 namespace Paramount.Betterclassifieds.Presentation
 {
     public class BaseController : Controller
     {
-        private readonly LegacyIntegration.OnlineSearchParameter _legacySearchParameter;
-
-        public BaseController(LegacyIntegration.OnlineSearchParameter legacySearchParameter)
-        {
-            _legacySearchParameter = legacySearchParameter;
-        }
-
         [HttpGet]
         public ActionResult GetCategorySearchOptions(int? parentId)
         {
@@ -29,8 +23,13 @@ namespace Paramount.Betterclassifieds.Presentation
         {
             // Currently this is legacy integration
             // So just set the session parameter to the search and redirect...
-            _legacySearchParameter["SearchKeywordParam"] = searchKeyword;
-            _legacySearchParameter["CategoryIdParam"] = searchCategoryId;
+            Dictionary<string, object> sessionSearchParam = Session["OnlineSearchParam"] as Dictionary<string, object>;
+
+            if (sessionSearchParam != null)
+            {
+                sessionSearchParam["SearchKeywordParam"] = searchKeyword;
+                sessionSearchParam["CategoryIdParam"] = searchCategoryId;
+            }
 
             return Redirect(LegacyIntegration.LegacyLinks.SearchResults);
         }

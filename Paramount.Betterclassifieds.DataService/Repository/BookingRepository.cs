@@ -7,6 +7,7 @@ using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Models.Comparers;
 using Paramount.Betterclassifieds.Business.Repository;
 using Paramount.Betterclassifieds.DataService.Classifieds;
+using Paramount.Betterclassifieds.DataService.Comparers;
 
 namespace Paramount.Betterclassifieds.DataService.Repository
 {
@@ -27,7 +28,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                 {
                     var design = booking.Ad.AdDesigns.FirstOrDefault(d => d.LineAds.Any());
                     if (design != null)
-                        model.LineAd = this.Map<LineAd, LineAdModel>(design.LineAds.First());
+                        model.Ads.Add(this.Map<LineAd, LineAdModel>(design.LineAds.First()));
                 }
 
                 return model;
@@ -82,6 +83,53 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                             : (int?)null,
                     }
                 ).ToList();
+            }
+        }
+
+        public List<AdBookingModel> GetBookings(int takeAmount = 10)
+        {
+            using (var context = DataContextFactory.CreateClassifiedContext())
+            {
+                var data = context.AdBookings
+                    .Where(b => b.BookingStatus == (int)BookingStatusType.Booked)
+                    .OrderByDescending(b => b.BookingDate) // Latest first
+                    .Take(takeAmount)
+                    .AsEnumerable();
+
+                IEnumerable<AdBookingModel> bookings = data
+                    .Select(b =>
+                    {
+                        var booking = this.Map<AdBooking, AdBookingModel>(b);
+
+                        // Fetch category
+                        booking.Category = this.Map<MainCategory, Category>(b.MainCategory);
+
+                        // Fetch online ad
+                        var onlineAdData = context.OnlineAds.FirstOrDefault(o => o.AdDesign.AdId == b.AdId);
+                        var onlineAdModel = this.Map<OnlineAd, OnlineAdModel>(onlineAdData);
+
+                        // Fetch the images
+                        if (onlineAdModel != null)
+                        {
+                            var graphics = onlineAdData.AdDesign.AdGraphics.ToList();
+                            onlineAdModel.Images = this.MapList<AdGraphic, AdImage>(graphics);
+                        }
+
+                        booking.Ads.Add(onlineAdModel);
+
+                        
+                        // Fetch publications
+                        var publications = b.BookEntries.Select(entry => entry.Publication)
+                            .Distinct(new PublicationDataIdComparer())
+                            .Where(p => p.PublicationTypeId != (int)PublicationTypeModel.Online)// Do not get online publications
+                            .ToList();
+
+                        booking.Publications = this.MapList<Publication, PublicationModel>(publications);
+
+                        return booking;
+                    });
+
+                return bookings.ToList();
             }
         }
 
@@ -171,7 +219,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
                 var models = this.MapList<AdBooking, AdBookingModel>(bookings.ToList());
 
-                return models.Distinct(new AdBookingComparer()).ToList();
+                return models.Distinct(new AdBookingIdComparer()).ToList();
             }
         }
 
@@ -206,15 +254,15 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             {
                 // Make sure there's just one ad design (online)
                 var printad = from o in context.LineAds
-                               join d in context.AdDesigns on o.AdDesignId equals d.AdDesignId
-                               join b in context.AdBookings on d.Ad.AdId equals b.AdId
-                               where b.AdBookingId == adBookingId
-                               select o;
+                              join d in context.AdDesigns on o.AdDesignId equals d.AdDesignId
+                              join b in context.AdBookings on d.Ad.AdId equals b.AdId
+                              where b.AdBookingId == adBookingId
+                              select o;
 
                 return printad.FirstOrDefault() != null;
             }
         }
-        
+
         public bool IsBookingOnlineOnly(int adBookingId)
         {
             return this.IsBookingOnline(adBookingId) && !this.IsBookingInPrint(adBookingId);
@@ -223,10 +271,17 @@ namespace Paramount.Betterclassifieds.DataService.Repository
         public void OnRegisterMaps(IConfiguration configuration)
         {
             // From data
-            configuration.CreateMap<AdBooking, AdBookingModel>();
+            configuration.CreateProfile("BookingMapProfile");
+            configuration.CreateMap<AdBooking, AdBookingModel>()
+                .ForMember(member => member.BookingType, options => options.Ignore());
             configuration.CreateMap<Classifieds.BookEntry, BookEntryModel>();
             configuration.CreateMap<AdBookingExtension, AdBookingExtensionModel>();
             configuration.CreateMap<LineAd, LineAdModel>();
+            configuration.CreateMap<MainCategory, Category>();
+            configuration.CreateMap<OnlineAd, OnlineAdModel>();
+            configuration.CreateMap<AdGraphic, AdImage>()
+                .ForMember(member => member.ImageUrl, options => options.MapFrom(source => source.DocumentID));
+            configuration.CreateMap<Publication, PublicationModel>();
 
             // To data
             configuration.CreateMap<AdBookingExtensionModel, AdBookingExtension>()

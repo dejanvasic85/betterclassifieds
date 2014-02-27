@@ -1,69 +1,41 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.Linq;
 using AutoMapper;
-using Paramount.Betterclassifieds.Business.Repository;
+using Paramount.Betterclassifieds.Business.Managers;
+using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Presentation.Models;
+using System.Web.Mvc;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     public class HomeController : BaseController, IMappingBehaviour
     {
-        private readonly IAdRepository _adRepository;
+        private readonly IBookingManager _bookingManager;
 
-        public HomeController(IAdRepository adRepository, LegacyIntegration.OnlineSearchParameter searchParameter) 
-            : base(searchParameter)
+        public HomeController(IBookingManager bookingManager)
         {
-            _adRepository = adRepository;
+            _bookingManager = bookingManager;
         }
-
-        //
-        // GET: /Home/
-        //public ActionResult Index()
-        //{
-        //    // Fetch the ads from the repository
-        //    var ads = _adRepository.GetLatestAds(takeLast: 10);
-
-        //    return View(new List<AdSummaryView>());
-        //}
 
         public ActionResult Index()
         {
-            var ads = _adRepository.GetLatestAds();
+            var ads = this.MapList<AdBookingModel, AdSummaryView>(_bookingManager.GetLatestBookings());
 
             return View(new HomeModel
             {
-                AdSummaryList = new List<AdSummaryModel>{
-                    new AdSummaryModel
-                    {
-                        AdId = 100,
-                        Title = "THE WAILERS, SLY & ROBBIE ANNOUNCE BLUESFEST SIDESHOWS",
-                        Description = "Bluesfest boasts some seriously impressive reggae on its line up for 2014 and one of the biggest acts on the bill has locked in three sideshows next April",
-                        ParentCategoryName = "Festival",
-                        Publications = new []{"The Music Sydney"}
-                    },
-                    new AdSummaryModel
-                    {
-                        AdId = 184,
-                        Title = "Rock drummer seeking band",
-                        Description = "Hey Im a 20 year old drummer in sydney been in god knows how bands since I began drumming. have been drumming for nearly 7 years.I love performing live and would love to join a band that has the same amount of energy and like mindedness + great music and performs. Check out some of the bands/EP's i'm in here: https://soundcloud.com/hindley-ermel",
-                        ParentCategoryName = "Musicians wanted",
-                        Publications = new []{"The Music Melbourne"}
-                    },
-                    new AdSummaryModel
-                    {
-                        AdId = 139,
-                        Title = "THE WAILERS, SLY & ROBBIE ANNOUNCE BLUESFEST SIDESHOWS",
-                        Description = "Bluesfest boasts some seriously impressive reggae on its line up for 2014 and one of the biggest acts on the bill has locked in three sideshows next April",
-                        ParentCategoryName = "Festival",
-                        Publications = new []{"The Music Perth", "The Music Sydney"}
-                    },
-                }
+                AdSummaryList = ads
             });
         }
 
         public void OnRegisterMaps(IConfiguration configuration)
         {
-            
+            // From Business
+            configuration.CreateMap<AdBookingModel, AdSummaryView>()
+                .ForMember(member => member.Description, options => options.MapFrom(source => source.OnlineAd.Description))
+                .ForMember(member => member.Title, options => options.MapFrom(source => source.OnlineAd.Heading))
+                .ForMember(member => member.CategoryName, options => options.MapFrom(source => source.Category.Title))
+                .ForMember(member => member.Publications, options => options.MapFrom(source => source.Publications.Select(p => p.Title)))
+                .ForMember(member => member.ImageUrls, options => options.MapFrom(source => source.OnlineAd.Images.Select(i => i.ImageUrl)))
+                ;
         }
     }
 }

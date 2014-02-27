@@ -1,10 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Paramount.Betterclassifieds.Business.Models
 {
-    public class OnlineAdModel
+    public class OnlineAdModel : Ad
     {
+        public OnlineAdModel()
+        {
+            Images = new List<AdImage>();
+        }
+
         public int OnlineAdId { get; set; }
         public string Heading { get; set; }
         public string Description { get; set; }
@@ -17,6 +23,8 @@ namespace Paramount.Betterclassifieds.Business.Models
         public string ContactValue { get; set; }
         public int NumOfViews { get; set; }
 
+        public List<AdImage> Images { get; set; }
+
         public static IEnumerable<string> GetOnlineAdTypeNames()
         {
             var types = System.Reflection.Assembly.GetExecutingAssembly().GetTypes();
@@ -24,6 +32,17 @@ namespace Paramount.Betterclassifieds.Business.Models
             return from type in types
                    where type.HasCustomAttribute<OnlineAdTypeAttribute>()
                    select type.GetCustomAttribute<OnlineAdTypeAttribute>().OnlineAdName;
+        }
+    }
+
+    public class AdImage
+    {
+        public string ImageUrl { get; set; }
+        public bool IsMain { get; set; }
+
+        public override string ToString()
+        {
+            return this.ImageUrl;
         }
     }
 }

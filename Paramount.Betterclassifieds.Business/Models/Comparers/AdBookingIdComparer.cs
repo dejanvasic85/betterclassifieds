@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Paramount.Betterclassifieds.Business.Models.Comparers
 {
-    public class AdBookingComparer: IEqualityComparer<AdBookingModel>
+    public class AdBookingIdComparer: IEqualityComparer<AdBookingModel>
     {
         public bool Equals(AdBookingModel x, AdBookingModel y)
         {
@@ -14,7 +11,7 @@ namespace Paramount.Betterclassifieds.Business.Models.Comparers
 
         public int GetHashCode(AdBookingModel obj)
         {
-            return obj.AdBookingId;
+            return obj.GetHashCode();
         }
     }
 }

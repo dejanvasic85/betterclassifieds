@@ -18,23 +18,26 @@
             routes.Ignore("{resource}.aspx/{*pathInfo}");
             routes.Ignore("{resources}.ashx/{*pathInfo}");
             routes.Ignore("Image/View.ashx");
+            
+            // Images
+            routes.MapRoute(
+                "images",
+                "Image/{documentId}/{width}/{height}",
+                new { controller = "Image", action ="Render", width = UrlParameter.Optional, height = UrlParameter.Optional } );
 
 
-            // Routes
+
+            // Default
             routes.MapRoute(
                 "default",
                 "{controller}/{action}/{id}",
-                new { controller = "Home", action = "Index", module = Name, id = UrlParameter.Optional }, new[] { GetType().Namespace });
+                new {controller = "Home", action = "Index", module = Name, id = UrlParameter.Optional},
+                new[] {GetType().Namespace});
 
-            //routes.MapRoute(
-            //   "adsByCategory",
-            //   "nextgen/listings/{title}",
-            //   new { controller = "Ad", action = "Category", module = Name, title = UrlParameter.Optional }, new[] { GetType().Namespace });
         }
 
         public override void RegisterTypes(IUnityContainer container)
         {
-            // container.RegisterType<LegacyIntegration.OnlineSearchParameter>(new SessionLifetimeManager<LegacyIntegration.OnlineSearchParameter>());
         }
     }
 }

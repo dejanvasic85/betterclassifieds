@@ -1,6 +1,8 @@
 ﻿using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Web.Caching;
+using System.Web.UI;
 using Paramount.Betterclassifieds.Business.Repository;
 using System;
 using System.Web.Mvc;
@@ -18,22 +20,16 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpGet]
-        public ActionResult Id(Guid documentId, int? height = null, int? width = null)
+        [OutputCache(Duration = 120, VaryByParam = "documentId;height;width")]
+        public ActionResult Render(Guid documentId, int? height = null, int? width = null)
         {
             // Fetch the document from repository
             var document = _documentRepository.GetDocument(documentId);
 
             if (height.HasValue && width.HasValue)
             {
-                using (MemoryStream stream = new MemoryStream(document.Data))
-                {
-                    var image = Image.FromStream(stream);
-
-                    MemoryStream saveToStream = new MemoryStream();
-                    ImageHelper.ResizeFixedSize(image, width.Value, height.Value, 96).Save(saveToStream, ImageFormat.Jpeg);
-                    
-                    return File(saveToStream, document.ContentType);
-                }
+                var resizedData = ImageHelper.ResizeFixedSize(document.Data, width.Value, height.Value);
+                return File(resizedData, document.ContentType);
             }
 
             return File(document.Data, document.ContentType);

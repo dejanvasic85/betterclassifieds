@@ -143,12 +143,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="LegacyIntegration\LegacyLinks.cs" />
-    <Compile Include="LegacyIntegration\OnlineSearchParameter.cs" />
     <Compile Include="Models\AdView.cs" />
     <Compile Include="Models\CategorySearchModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="PresentationInitialiser.cs" />
-    <Compile Include="Models\AdSummaryView.cs" />
+    <Compile Include="Models\AdSummaryViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

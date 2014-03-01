@@ -5,7 +5,7 @@
     <div id="divSitemap" runat="server">
         <h5>
             You are now in: 
-            <asp:HyperLink ID="lnkHome" runat="server" NavigateUrl="~/Default.aspx" Text="Home" /> > 
+            <asp:HyperLink ID="lnkHome" runat="server" NavigateUrl="~/" Text="Home" /> > 
             <asp:LinkButton ID="lnkCategory" runat="server" /> >
             <asp:LinkButton ID="lnkSubCategory" runat="server" /> > 
             <asp:Label ID="lblID" runat="server" />

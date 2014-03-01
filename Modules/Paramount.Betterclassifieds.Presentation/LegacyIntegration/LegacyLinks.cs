@@ -1,5 +1,6 @@
 ﻿namespace Paramount.Betterclassifieds.Presentation.LegacyIntegration
 {
+    //todo - legacy
     public class LegacyLinks
     {
         public const string StartBooking = "~/Booking/Step1.aspx";

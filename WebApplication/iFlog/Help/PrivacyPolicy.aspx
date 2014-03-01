@@ -227,7 +227,7 @@
         </div>
         <div id="mainFooterInfo">
             <em>RETURN TO:</em> <a href="#0">TOP</a> |
-            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Default.aspx">HOME</asp:HyperLink>
+            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/">HOME</asp:HyperLink>
         </div>
     </div>
 </asp:Content>

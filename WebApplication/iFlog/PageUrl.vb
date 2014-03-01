@@ -36,6 +36,11 @@ Public Class PageUrl
         Return New SiteUrl(String.Format("~/Image/View.ashx?docId={0}&entity={1}&width={2}&height={3}&res={4}", documentId, settings.ClientCode, maxWidth, maxHeight, resolution))
     End Function
 
+    ' Home
+    Public Shared Function Home() As String
+        Return "~"
+    End Function
+
     ' Account
     Public Shared Function ExtendBooking(ByVal adBookingId As Integer) As String
         Return String.Format("~/MemberAccount/ExtendBooking.aspx?AdBookingId={0}", adBookingId)

@@ -13,7 +13,7 @@
                 </div>
                 <div id="bookAdMainContent">
                     <p>Where would you like to go from here?</p><br />
-                    <h3><asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Default.aspx" Text="Take me to home page!" /></h3><br />
+                    <h3><asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/" Text="Take me to home page!" /></h3><br />
                     <h3><asp:HyperLink ID="lnkBookAd" runat="server" NavigateUrl="~/Booking/Step1.aspx" Text="Book another Ad" /></h3><br />
                     <h3><asp:HyperLink ID="lnkMyAccountDetails" runat="server" NavigateUrl="~/MemberAccount/MemberDetails.aspx" Text="Manage my account and Bookings" /></h3><br />
                     <h3><asp:HyperLink ID="lnkSpecials" runat="server" NavigateUrl="~/Rates.aspx" Text="Find a Special Rate" /></h3>

@@ -34,6 +34,6 @@
         </div>
         <div id="mainFooterInfo">
             <em>RETURN TO:</em> <a href="#0">TOP</a> |
-            <asp:HyperLink ID="lnkHome" runat="server" NavigateUrl="~/Default.aspx" Text="HOME" /></div>
+            <asp:HyperLink ID="lnkHome" runat="server" NavigateUrl="~/" Text="HOME" /></div>
     </div>
 </asp:Content>

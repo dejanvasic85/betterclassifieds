@@ -67,7 +67,7 @@ Partial Public Class Register1
 #Region "Create User Methods"
 
     Private Sub SiteCreateUserWizard_ContinueButtonClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles SiteCreateUserWizard.ContinueButtonClick
-        Response.Redirect("~/Default.aspx")
+        Response.Redirect(PageUrl.Home())
     End Sub
 
     Private Sub SiteCreateUserWizard_CreatingUser(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.LoginCancelEventArgs) Handles SiteCreateUserWizard.CreatingUser

@@ -9,5 +9,10 @@ namespace Paramount.Betterclassifieds.Presentation.Models
         public string[] ImageUrls { get; set; }
         public string CategoryName { get; set; }
         public string[] Publications { get; set; }
+
+        public string TitleSlug
+        {
+            get { return Slug.Create(true, Title); }
+        }
     }
 }

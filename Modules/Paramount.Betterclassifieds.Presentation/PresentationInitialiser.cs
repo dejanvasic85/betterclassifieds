@@ -3,7 +3,7 @@
     using System.Web.Mvc;
     using ApplicationBlock.Mvc;
     using Microsoft.Practices.Unity;
-    
+
     public class PresentationInitialiser : ModuleRegistration
     {
         public override string Name
@@ -18,21 +18,22 @@
             routes.Ignore("{resource}.aspx/{*pathInfo}");
             routes.Ignore("{resources}.ashx/{*pathInfo}");
             routes.Ignore("Image/View.ashx");
-            
+
             // Images
             routes.MapRoute(
-                "images",
+                "imageRoute",
                 "Image/{documentId}/{width}/{height}",
-                new { controller = "Image", action ="Render", width = UrlParameter.Optional, height = UrlParameter.Optional } );
+                new { controller = "Image", action = "Render", width = UrlParameter.Optional, height = UrlParameter.Optional });
 
-
+            // Ad (temporary)
+            routes.MapPageRoute("adRoute", "Ad/{title}/{id}", "~/OnlineAds/AdView.aspx", checkPhysicalUrlAccess:false);
 
             // Default
             routes.MapRoute(
-                "default",
+                "defaultRoute",
                 "{controller}/{action}/{id}",
-                new {controller = "Home", action = "Index", module = Name, id = UrlParameter.Optional},
-                new[] {GetType().Namespace});
+                new { controller = "Home", action = "Index", module = Name, id = UrlParameter.Optional },
+                new[] { GetType().Namespace });
 
         }
 

@@ -16,6 +16,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _bookingManager = bookingManager;
         }
 
+        [OutputCache(Duration = 120)]
         public ActionResult Index()
         {
             var ads = this.MapList<AdBookingModel, AdSummaryView>(_bookingManager.GetLatestBookings());
@@ -30,6 +31,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             // From Business
             configuration.CreateMap<AdBookingModel, AdSummaryView>()
+                .ForMember(member => member.AdId, options => options.MapFrom(source => source.AdBookingId))
                 .ForMember(member => member.Description, options => options.MapFrom(source => source.OnlineAd.Description))
                 .ForMember(member => member.Title, options => options.MapFrom(source => source.OnlineAd.Heading))
                 .ForMember(member => member.CategoryName, options => options.MapFrom(source => source.Category.Title))

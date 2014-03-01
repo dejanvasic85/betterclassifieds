@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace BetterClassified
+namespace Paramount
 {
     public static class Slug
     {

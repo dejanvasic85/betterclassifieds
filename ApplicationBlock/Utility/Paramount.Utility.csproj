@@ -127,6 +127,7 @@
     <Compile Include="Security\QueryStringHelper.cs" />
     <Compile Include="Security\SecureQueryString.cs" />
     <Compile Include="Security\SecUtil.cs" />
+    <Compile Include="Slug.cs" />
     <Compile Include="XmlUtilities.cs" />
   </ItemGroup>
   <ItemGroup>

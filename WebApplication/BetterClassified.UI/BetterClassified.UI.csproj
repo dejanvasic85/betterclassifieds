@@ -150,7 +150,6 @@
     <Compile Include="Framework\Controller.cs" />
     <Compile Include="Framework\Extensions\ControlExtensions.cs" />
     <Compile Include="Framework\Extensions\HttpRequestExtensions.cs" />
-    <Compile Include="Framework\Slug.cs" />
     <Compile Include="IBaseView.cs" />
     <Compile Include="Framework\Security\ClassifiedSqlMembershipProvider.cs" />
     <Compile Include="Repository\TheMusicHtmlScraper.cs" />

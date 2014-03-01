@@ -20,11 +20,11 @@
 
             @foreach (var ad in Model.AdSummaryList)
             {
-                <a href="@Url.Action("Index", "Ad")" class="list-group-item">
+                <a href="@Url.AdUrl(@ad.TitleSlug, @ad.AdId)" class="list-group-item">
                     <div class="media">
                         @if (ad.ImageUrls.Any())
                         {
-                            <img class="media-object pull-right thumbnail" alt="84x84" src="@Url.Action("Render", "Image", new { documentId = ad.ImageUrls.First(), height = 84, width = 84 })"/>
+                            <img class="media-object pull-right thumbnail" alt="84x84" src="@Url.Action("Render", "Image", new { documentId = ad.ImageUrls.First(), height = 84, width = 84 })" />
                         }
 
                         <div class="media-body">
@@ -85,6 +85,6 @@
 @section Scripts
 {
     <script type="text/javascript">
-       
+
     </script>
 }

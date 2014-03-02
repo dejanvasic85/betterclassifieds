@@ -10,18 +10,31 @@ namespace Paramount.Betterclassifieds.Presentation
         [HttpPost]
         public ActionResult Search(string searchKeyword, int? searchCategoryId)
         {
-            // Currently this is legacy integration
-            // So just set the session parameter to the search and redirect...
-            // todo - legacy integration
-            Dictionary<string, object> sessionSearchParam = Session["OnlineSearchParam"] as Dictionary<string, object>;
 
-            if (sessionSearchParam != null)
-            {
-                sessionSearchParam["SearchKeywordParam"] = searchKeyword;
-                sessionSearchParam["CategoryIdParam"] = searchCategoryId;
-            }
+            OnlineSearchParam["SearchKeywordParam"] = searchKeyword;
+            OnlineSearchParam["CategoryIdParam"] = searchCategoryId;
 
             return Redirect(LegacyIntegration.LegacyLinks.SearchResults);
+        }
+
+
+        // Currently this is legacy integration
+        // So just set the session parameter to the search and redirect...
+        // todo - legacy integration
+        private Dictionary<string, object> OnlineSearchParam
+        {
+            get
+            {
+                Dictionary<string, object> sessionSearchParam = Session["OnlineSearchParameter"] as Dictionary<string, object>;
+
+                if (sessionSearchParam == null)
+                {
+                    sessionSearchParam = new Dictionary<string, object>();
+                    Session["OnlineSearchParameter"] = sessionSearchParam;
+                }
+
+                return sessionSearchParam;
+            }
         }
     }
 }

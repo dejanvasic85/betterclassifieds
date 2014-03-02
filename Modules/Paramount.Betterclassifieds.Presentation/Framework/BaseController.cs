@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace Paramount.Betterclassifieds.Presentation
 {
-    public class BaseController : Controller, IMappingBehaviour
+    public class BaseController : Controller
     {
 
         [HttpPost]
@@ -22,11 +22,6 @@ namespace Paramount.Betterclassifieds.Presentation
             }
 
             return Redirect(LegacyIntegration.LegacyLinks.SearchResults);
-        }
-
-        public void OnRegisterMaps(IConfiguration configuration)
-        {
-            
         }
     }
 }

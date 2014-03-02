@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Web.Mvc;
+using AutoMapper;
 using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Presentation.Models;
@@ -7,26 +8,24 @@ using System.Web.Http;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
-    public class CategoriesController : ApiController, IMappingBehaviour
+    public class CategoriesController : Controller, IMappingBehaviour
     {
-        public CategoriesController()
+        private readonly ICategoryManager _manager;
+
+        public CategoriesController(ICategoryManager manager)
         {
-            
+            _manager = manager;
         }
 
-        // GET api/Categories
-        public IEnumerable<CategoryViewModel> GetTopLevel()
+        [OutputCache(Duration = 10000)]
+        public ActionResult GetTopLevel()
         {
-            //var categories = _manager.GetTopLevelCategories();
+            var categories = _manager.GetTopLevelCategories();
 
-            //var models = this.MapList<Category, CategoryViewModel>(categories);
-
-            // return models;
-            return new List<CategoryViewModel>
-                {
-                    new CategoryViewModel { CategoryId = null, CategoryName = "All Categories"},
-                    new CategoryViewModel { CategoryId = 1, CategoryName = "Test"},
-                };
+            var models = this.MapList<Category, CategoryViewModel>(categories);
+            models.Insert(0, new CategoryViewModel { CategoryId  = null, CategoryName = "All Categories"});
+            
+            return Json(models, JsonRequestBehavior.AllowGet);
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

@@ -16,11 +16,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _bookingManager = bookingManager;
         }
 
+#if RELEASE
         [OutputCache(Duration = 120)]
+#endif
         public ActionResult Index()
         {
             var ads = this.MapList<AdBookingModel, AdSummaryViewModel>(_bookingManager.GetLatestBookings());
-
+            
             return View(new HomeModel
             {
                 AdSummaryList = ads

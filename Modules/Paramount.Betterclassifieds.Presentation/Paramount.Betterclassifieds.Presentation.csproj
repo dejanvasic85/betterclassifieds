@@ -136,6 +136,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Framework\BaseController.cs" />
@@ -143,8 +144,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="LegacyIntegration\LegacyLinks.cs" />
-    <Compile Include="Models\AdView.cs" />
-    <Compile Include="Models\CategorySearchModel.cs" />
+    <Compile Include="Models\AdViewModel.cs" />
+    <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="PresentationInitialiser.cs" />
     <Compile Include="Models\AdSummaryViewModel.cs" />

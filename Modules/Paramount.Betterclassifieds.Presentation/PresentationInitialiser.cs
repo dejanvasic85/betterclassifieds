@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Presentation
+﻿using System.Web.Http;
+
+namespace Paramount.Betterclassifieds.Presentation
 {
     using System.Web.Mvc;
     using ApplicationBlock.Mvc;
@@ -19,6 +21,13 @@
             routes.Ignore("{resources}.ashx/{*pathInfo}");
             routes.Ignore("Image/View.ashx");
 
+            // Api
+            routes.MapHttpRoute(
+                name: "API Default",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+);
+
             // Images
             routes.MapRoute(
                 "imageRoute",
@@ -26,7 +35,7 @@
                 new { controller = "Image", action = "Render", width = UrlParameter.Optional, height = UrlParameter.Optional });
 
             // Ad (temporary)
-            routes.MapPageRoute("adRoute", "Ad/{title}/{id}", "~/OnlineAds/AdView.aspx", checkPhysicalUrlAccess:false);
+            routes.MapPageRoute("adRoute", "Ad/{title}/{id}", "~/OnlineAds/AdView.aspx", checkPhysicalUrlAccess: false);
 
             // Default
             routes.MapRoute(

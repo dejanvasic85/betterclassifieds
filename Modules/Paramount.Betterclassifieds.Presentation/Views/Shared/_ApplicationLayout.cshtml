@@ -48,7 +48,7 @@
 
                 // Load categories via http json
                 
-                $.getJSON('@Url.Action("GetCategorySearchOptions")').done( function(data) {
+                $.getJSON('api/categories').done( function(data) {
                     var $categorySelect = $('.js-parentCategories');
                     $categorySelect.empty();
                     $.each(data, function (index, value) {

@@ -21,7 +21,8 @@ Public Class ContainerConfig
         container.RegisterType(Of IClientConfig, ClientConfig)() _
             .RegisterType(Of IApplicationConfig, AppConfig)() _
             .RegisterType(Of IBookingManager, BookingManager)() _
-            .RegisterType(Of IEditionManager, EditionManager)()
+            .RegisterType(Of IEditionManager, EditionManager)() _
+            .RegisterType(Of ICategoryManager, CategoryManager)()
 
 
     End Sub

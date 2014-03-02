@@ -2,7 +2,7 @@
 
 namespace Paramount.Betterclassifieds.Presentation.Models
 {
-    public class AdView
+    public class AdViewModel
     {
         public int AdId { get; set; }
         public string Title { get; set; }

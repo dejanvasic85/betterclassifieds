@@ -1,20 +1,16 @@
-﻿using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Web.Caching;
-using System.Web.UI;
-using Paramount.Betterclassifieds.Business.Repository;
-using System;
-using System.Web.Mvc;
+﻿using Paramount.Betterclassifieds.Business.Repository;
 using Paramount.Utility;
+using System;
+using System.Web.Caching;
+using System.Web.Mvc;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
-    public class ImageController : BaseController
+    public class ImageClassifiedsController : Controller
     {
         private readonly IDocumentRepository _documentRepository;
 
-        public ImageController(IDocumentRepository documentRepository)
+        public ImageClassifiedsController(IDocumentRepository documentRepository)
         {
             _documentRepository = documentRepository;
         }
@@ -26,8 +22,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             // Fetch the document from repository
             var document = _documentRepository.GetDocument(documentId);
 
+            // Only resize the image if both values are provided
             if (height.HasValue && width.HasValue)
             {
+                // Use the helper to do the work...
                 var resizedData = ImageHelper.ResizeFixedSize(document.Data, width.Value, height.Value);
                 return File(resizedData, document.ContentType);
             }

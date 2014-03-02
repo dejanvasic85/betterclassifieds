@@ -18,22 +18,21 @@ namespace Paramount.Betterclassifieds.DataService
 
         public override void RegisterTypes(IUnityContainer container)
         {
-            container.RegisterType<IAdRepository, AdRepository>();
-            container.RegisterType<ISeoNameMappingDataSource, SeoNameMappingDataSource>();
-            container.RegisterType<ISeoMappingRepository, SeoMappingRepository>();
-
-            container.RegisterType<IBookingRepository, BookingRepository>();
-            container.RegisterType<IPublicationRepository, PublicationRepository>();
-            container.RegisterType<IRateRepository, RateRepository>();
-            container.RegisterType<IUserRepository, UserRepository>();
-            container.RegisterType<IDocumentRepository, DocumentRepository>();
-            container.RegisterType<IPaymentsRepository, PaymentsRepository>();
-            container.RegisterType<IClientConfig, ClientConfig>();
-            container.RegisterType<IApplicationConfig, AppConfig>();
-
-            container.RegisterType<IClientIdentifierManager, CookiesManager>();
-            container.RegisterType<IClientSideCacheRepository, ClientSideCacheRepository>();
-            container.RegisterType<IClientSideCacheDataSource, ClientSideCacheDataSource>();
+            container.RegisterType<IAdRepository, AdRepository>()
+                     .RegisterType<ICategoryRepository, CategoryRepository>()
+                     .RegisterType<ISeoNameMappingDataSource, SeoNameMappingDataSource>()
+                     .RegisterType<ISeoMappingRepository, SeoMappingRepository>()
+                     .RegisterType<IBookingRepository, BookingRepository>()
+                     .RegisterType<IPublicationRepository, PublicationRepository>()
+                     .RegisterType<IRateRepository, RateRepository>()
+                     .RegisterType<IUserRepository, UserRepository>()
+                     .RegisterType<IDocumentRepository, DocumentRepository>()
+                     .RegisterType<IPaymentsRepository, PaymentsRepository>()
+                     .RegisterType<IClientConfig, ClientConfig>()
+                     .RegisterType<IApplicationConfig, AppConfig>()
+                     .RegisterType<IClientIdentifierManager, CookiesManager>()
+                     .RegisterType<IClientSideCacheRepository, ClientSideCacheRepository>()
+                     .RegisterType<IClientSideCacheDataSource, ClientSideCacheDataSource>();
 
         }
     }

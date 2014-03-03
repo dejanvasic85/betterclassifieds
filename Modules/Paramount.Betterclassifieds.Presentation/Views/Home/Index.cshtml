@@ -26,7 +26,7 @@
                         {
                             <img class="media-object pull-right thumbnail" 
                                 alt="84x84" 
-                                src="@Url.Action("Render", "ImageClassifieds", new { documentId = ad.ImageUrls.First(), height = 84, width = 84 })" />
+                                src="@Url.Action("Render", "Image", new { documentId = ad.ImageUrls.First(), height = 84, width = 84 })" />
                         }
 
                         <div class="media-body">
@@ -68,7 +68,7 @@
                 Looking for a tutor? Find one near you.
             </p>
             <p>
-                <a class="btn btn-lg btn-primary" href="#" role="button">View Tutors Ads &raquo;</a>
+                <a class="btn btn-lg btn-primary" href="@Url.ListingsUrl("Tutors")" role="button">View Tutors Ads &raquo;</a>
             </p>
         </div>
     </div>
@@ -78,7 +78,7 @@
                 Need help or suggestion to improve this website?
             </p>
             <p>
-                <a class="btn btn-lg btn-primary" href="#" role="button">Contact Us &raquo;</a>
+                <a class="btn btn-lg btn-primary" href="@Url.Content(LegacyLinks.Contact)" role="button">Contact Us &raquo;</a>
             </p>
         </div>
     </div>

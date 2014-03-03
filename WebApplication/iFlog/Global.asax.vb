@@ -21,8 +21,7 @@ Public Class Global_asax
 
         ContainerConfig.RegisterIocContainer(BetterClassified.Unity.DefaultContainer)
         ApplicationStart()
-        RouteConfig.RegisterRoutes(System.Web.Routing.RouteTable.Routes)
-
+        
     End Sub
 
     Sub Application_BeginRequest(ByVal sender As Object, ByVal e As EventArgs)

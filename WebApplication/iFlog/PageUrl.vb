@@ -24,10 +24,10 @@ Public Class PageUrl
     Public Shared Function AdViewItem(ByVal page As Page, ByVal title As String, ByVal id As String, Optional ByVal preview As Boolean = False, Optional ByVal typeOfId As String = "bkId") As SiteUrl
         If preview Or typeOfId.DoesNotEqual("bkId") Then
             ' Generate with preview and Type of ID in query
-            Return New SiteUrl(page.GetRouteUrl(RouteConfig.AdRoute, New With {Key .Id = id, .Title = Slug.Create(toLower:=True, value:=title), .Preview = preview, .Type = typeOfId}))
+            Return New SiteUrl(page.GetRouteUrl("adRoute", New With {Key .Id = id, .Title = Slug.Create(toLower:=True, value:=title), .Preview = preview, .Type = typeOfId}))
         End If
         ' Generate a nice url with title and ID only
-        Return New SiteUrl(page.GetRouteUrl(RouteConfig.AdRoute, New With {Key .Id = id, .Title = Slug.Create(toLower:=True, value:=title)}))
+        Return New SiteUrl(page.GetRouteUrl("adRoute", New With {Key .Id = id, .Title = Slug.Create(toLower:=True, value:=title)}))
     End Function
 
     ' Image View

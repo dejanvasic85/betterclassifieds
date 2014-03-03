@@ -6,11 +6,11 @@ using System.Web.Mvc;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
-    public class ImageClassifiedsController : Controller
+    public class ImageController : Controller
     {
         private readonly IDocumentRepository _documentRepository;
 
-        public ImageClassifiedsController(IDocumentRepository documentRepository)
+        public ImageController(IDocumentRepository documentRepository)
         {
             _documentRepository = documentRepository;
         }

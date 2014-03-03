@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using System.Web.Routing;
 
 namespace Paramount.Betterclassifieds.Presentation
 {
@@ -25,8 +26,7 @@ namespace Paramount.Betterclassifieds.Presentation
             routes.MapHttpRoute(
                 name: "API Default",
                 routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-);
+                defaults: new { id = RouteParameter.Optional });
 
             // Images
             routes.MapRoute(
@@ -37,13 +37,15 @@ namespace Paramount.Betterclassifieds.Presentation
             // Ad (temporary)
             routes.MapPageRoute("adRoute", "Ad/{title}/{id}", "~/OnlineAds/AdView.aspx", checkPhysicalUrlAccess: false);
 
+            // Listing search (seo friendly)
+            routes.MapPageRoute("seoName", "listings/{seoName}", "~/OnlineAds/Default.aspx");
+
             // Default
             routes.MapRoute(
                 "defaultRoute",
                 "{controller}/{action}/{id}",
-                new { controller = "Home", action = "Index", module = Name, id = UrlParameter.Optional },
+                new { controller = "Home", action = "Index", module = Name, id = UrlParameter.Optional},
                 new[] { GetType().Namespace });
-
         }
 
         public override void RegisterTypes(IUnityContainer container)

@@ -40,5 +40,21 @@ namespace Paramount.ApplicationBlock.Mvc
 
             return path;
         }
+
+        /// <summary>
+        /// Generates outgoing URL for an Ad and particularly useful for the legacy integration piece
+        /// </summary>
+        public static string ListingsUrl(this UrlHelper urlHelper, string seoName)
+        {
+            RouteValueDictionary dictionary = new RouteValueDictionary
+            {
+                {"seoName", seoName}
+            };
+
+            VirtualPathData data = RouteTable.Routes.GetVirtualPath(null, "seoName", dictionary);
+            var path = data.VirtualPath;
+
+            return path;
+        }
     }
 }

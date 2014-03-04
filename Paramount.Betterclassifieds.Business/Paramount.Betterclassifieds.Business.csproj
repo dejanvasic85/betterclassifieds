@@ -52,6 +52,7 @@
     <Compile Include="Models\Ad.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Comparers\PublicationIdComparer.cs" />
+    <Compile Include="Models\OnlineListingModel.cs" />
     <Compile Include="Models\PublicationTypeModel.cs" />
     <Compile Include="DocumentStorage\Document.cs" />
     <Compile Include="Repository\ICategoryRepository.cs" />

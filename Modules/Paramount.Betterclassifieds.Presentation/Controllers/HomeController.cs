@@ -34,12 +34,15 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             // From Business
             configuration.CreateMap<AdBookingModel, AdSummaryViewModel>()
                 .ForMember(member => member.AdId, options => options.MapFrom(source => source.AdBookingId))
-                .ForMember(member => member.Description, options => options.MapFrom(source => source.OnlineAd.Description))
+                .ForMember(member => member.Description,
+                    options => options.MapFrom(source => source.OnlineAd.Description))
                 .ForMember(member => member.Title, options => options.MapFrom(source => source.OnlineAd.Heading))
                 .ForMember(member => member.CategoryName, options => options.MapFrom(source => source.Category.Title))
-                .ForMember(member => member.Publications, options => options.MapFrom(source => source.Publications.Select(p => p.Title)))
-                .ForMember(member => member.ImageUrls, options => options.MapFrom(source => source.OnlineAd.Images.Select(i => i.ImageUrl)))
-                ;
+                .ForMember(member => member.Publications,
+                    options => options.MapFrom(source => source.Publications.Select(p => p.Title)))
+                .ForMember(member => member.ImageUrls,
+                    options => options.MapFrom(source => source.OnlineAd.Images.Select(i => i.ImageUrl)));
+
         }
     }
 }

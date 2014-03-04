@@ -139,6 +139,7 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
+    <Compile Include="Controllers\ListingsController.cs" />
     <Compile Include="Framework\BaseController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -191,6 +192,7 @@
     <None Include="Content\site.less" />
     <Content Include="Content\TheMusic\fonts\ufonts.com_alternate_gothic_no2_d.ttf" />
     <Content Include="Content\TheMusic\themusic.less" />
+    <Content Include="Views\Listings\Index.cshtml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\jquery-1.11.0.js" />
     <Content Include="Scripts\jquery-1.11.0.min.js" />
@@ -212,6 +214,7 @@
     <Content Include="Views\Shared\_Navbar.TheMusic.cshtml" />
     <Content Include="Views\Shared\_LoginDisplay.cshtml" />
     <Content Include="Views\Store\Index.cshtml" />
+    <Content Include="Views\Listings\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\EastGippslandNews\" />

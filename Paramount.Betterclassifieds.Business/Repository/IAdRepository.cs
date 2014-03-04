@@ -8,5 +8,6 @@ namespace Paramount.Betterclassifieds.Business.Repository
         TutorAdModel GetTutorAd(int onlineAdId);
         void UpdateTutor(TutorAdModel tutorAdModel);
         List<OnlineAdModel> GetOnlineAdsByCategory(List<int> categoryIds, int index = 0, int pageSize = 25);
+        List<OnlineListingModel> SearchOnlineListing(string searchterm, IEnumerable<int> categoryIds, IEnumerable<int> locationIds, IEnumerable<int> areaIds, int index = 0, int pageSize = 25);
     }
 }

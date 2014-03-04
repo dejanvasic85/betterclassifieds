@@ -533,6 +533,37 @@
       <Column Name="SearchTerm" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.OnlineAdView" Member="OnlineAdViews">
+    <Type Name="OnlineAdView" Id="ID3">
+      <Column Name="OnlineAdId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AdDesignId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Heading" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="HtmlText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="LocationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LocationAreaId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ContactName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="ContactType" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="ContactValue" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="NumOfViews" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OnlineAdTag" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="AdBookingId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BookReference" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BookingStatus" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BookingDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="AreaTitle" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LocationTitle" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CategoryTitle" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CategoryParentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AdId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Member="DocumentId" Type="System.String" CanBeNull="false" />
+    </Type>
+  </Table>
   <Function Name="dbo.usp_RateCard__Search" Method="usp_RateCard__Search">
     <ElementType Name="usp_RateCard__SearchResult">
       <Column Name="RatecardId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -1026,5 +1057,12 @@
     <Parameter Name="RateCardId" Parameter="rateCardId" Type="System.Int32" DbType="Int" />
     <Parameter Name="IsCascade" Parameter="isCascade" Type="System.Boolean" DbType="Bit" />
     <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.spSearchOnlineAdFREETEXT" Method="spSearchOnlineAdFREETEXT">
+    <Parameter Name="searchTerm" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="categoryIds" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="locationIds" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="areaIds" Type="System.String" DbType="VarChar(20)" />
+    <ElementType IdRef="ID3" />
   </Function>
 </Database>

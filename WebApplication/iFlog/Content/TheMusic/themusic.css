@@ -1,4 +1,4 @@
-﻿/* Specific style for TheMusic */
+/* Specific style for TheMusic */
 @font-face {
   font-family: alternate-gothic-no-2-d;
   src: url('fonts/ufonts.com_alternate_gothic_no2_d.ttf');
@@ -65,3 +65,4 @@
 .themusic-logo {
   max-width: 250px;
 }
+/*# sourceMappingURL=themusic.css.map */

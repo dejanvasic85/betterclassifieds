@@ -1,7 +1,7 @@
 ﻿@using Paramount
 @using Paramount.ApplicationBlock.Mvc
 @using Paramount.Betterclassifieds.Presentation.LegacyIntegration
-@model List<Paramount.Betterclassifieds.Business.Models.OnlineListingModel>
+@model List<Paramount.Betterclassifieds.Presentation.Models.ListingSummaryViewModel>
 
 @{
     Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayout.cshtml");
@@ -30,7 +30,7 @@
             }
 
             <div class="media-body">
-                <h4 class="media-heading">@ad.Heading</h4>
+                <h4 class="media-heading">@ad.Title</h4>
                 <p>
                     @ad.Description.TruncateOnWordBoundary(150)
                 </p>

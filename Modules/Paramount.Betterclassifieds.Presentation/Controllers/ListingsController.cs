@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Models.Seo;
 using Paramount.Betterclassifieds.Business.Repository;
+using Paramount.Betterclassifieds.Presentation.Models;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
@@ -27,7 +28,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         //e.g: listings/employment
         public ActionResult Index(string seoName, int index = 0, int pageSize = 10)
         {
-            var onlineAds = new List<OnlineListingModel>();
+            var onlineAds = new List<ListingSummaryViewModel>();
             if (string.IsNullOrEmpty(seoName))
             {
                 return View(onlineAds);
@@ -40,7 +41,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return View(onlineAds);
             }
 
-            onlineAds = GetListingBySeo(seoModel, index, pageSize);
+            onlineAds = GetListingBySeo(seoModel, index, pageSize).Select(a => new ListingSummaryViewModel(a)).ToList();
 
             return View(onlineAds);
         }

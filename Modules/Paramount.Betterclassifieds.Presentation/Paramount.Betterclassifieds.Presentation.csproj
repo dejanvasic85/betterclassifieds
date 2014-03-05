@@ -145,12 +145,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="LegacyIntegration\LegacyLinks.cs" />
-    <Compile Include="Models\AdViewModel.cs" />
-    <Compile Include="Models\CategoryViewModel.cs" />
-    <Compile Include="Models\HomeModel.cs" />
+    <Compile Include="ViewModels\AdViewModel.cs" />
+    <Compile Include="ViewModels\CategoryViewModel.cs" />
+    <Compile Include="ViewModels\HomeModel.cs" />
     <Compile Include="PresentationInitialiser.cs" />
-    <Compile Include="Models\AdSummaryViewModel.cs" />
+    <Compile Include="ViewModels\AdSummaryViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ListingSummaryViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />

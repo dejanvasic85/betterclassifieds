@@ -23,7 +23,6 @@ namespace Paramount.Betterclassifieds.Business.Models
 
         public string DocumentID { get; set; }
         public string CategoryTitle { get; set; }
-        public string TitleSlug { get { return Slug.Create(true, Heading); } }
         public int AdId { get; set; }
     }
 }

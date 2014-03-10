@@ -3,6 +3,7 @@ Imports Paramount.Betterclassifieds.Business.Repository
 Imports Paramount.Betterclassifieds.Business.Managers
 Imports Microsoft.Practices.Unity
 Imports Paramount.Betterclassifieds.Business.Bookings
+Imports Paramount.Betterclassifieds.Security
 Imports Paramount.Betterclassifieds.DataService.Repository
 
 Public Class ContainerConfig
@@ -14,15 +15,18 @@ Public Class ContainerConfig
             .RegisterType(Of IRateRepository, RateRepository)() _
             .RegisterType(Of IUserRepository, UserRepository)() _
             .RegisterType(Of IPaymentsRepository, PaymentsRepository)() _
-             .RegisterType(Of ILookupRepository, LookupRepository)() _
-        .RegisterType(Of IMenuRepository, TheMusicMenuRepository)()
+            .RegisterType(Of ILookupRepository, LookupRepository)() _
+            .RegisterType(Of IMenuRepository, TheMusicMenuRepository)()
 
         ' Managers
         container.RegisterType(Of IClientConfig, ClientConfig)() _
             .RegisterType(Of IApplicationConfig, AppConfig)() _
             .RegisterType(Of IBookingManager, BookingManager)() _
             .RegisterType(Of IEditionManager, EditionManager)() _
-            .RegisterType(Of ICategoryManager, CategoryManager)()
+            .RegisterType(Of ICategoryManager, CategoryManager)() _
+            .RegisterType(Of IUserManager, UserManager)() _
+            .RegisterType(Of IAuthManager, AuthenticationService)()
+
 
 
     End Sub

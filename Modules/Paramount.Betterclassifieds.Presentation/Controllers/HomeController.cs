@@ -2,8 +2,8 @@
 using AutoMapper;
 using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.Business.Models;
-using Paramount.Betterclassifieds.Presentation.Models;
 using System.Web.Mvc;
+using Paramount.Betterclassifieds.Presentation.ViewModels;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {

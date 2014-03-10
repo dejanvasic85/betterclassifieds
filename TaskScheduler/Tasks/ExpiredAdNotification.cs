@@ -1,16 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Text;
-
-using BetterClassified.Repository;
-using BetterClassified.UIController;
-using BetterClassified.UIController.ViewObjects;
+﻿using BetterClassified.UIController;
 using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Repository;
 using Paramount.Betterclassifieds.DataService.Repository;
 using Paramount.Broadcast.Components;
+using System;
+using System.Linq;
+using System.Text;
 
 namespace Paramount.TaskScheduler
 {
@@ -54,7 +50,7 @@ namespace Paramount.TaskScheduler
                     }
 
                     // Fetch the membership user 
-                    ApplicationUser applicationUser = userRepository.GetClassifiedUser(ads.Key);
+                    ApplicationUser applicationUser = userRepository.GetUserByUsername(ads.Key);
 
                     // Construct the parameters for broadcasting
                     EmailRecipientView recipient = new EmailRecipientView { Email = applicationUser.Email, Name = applicationUser.Username }.AddTemplateItem("adReference", sb.ToString()).AddTemplateItem("linkForExtension", _applicationConfig.BaseUrl + "/MemberAccount/Bookings.aspx");

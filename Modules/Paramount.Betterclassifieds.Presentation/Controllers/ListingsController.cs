@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Models.Seo;
 using Paramount.Betterclassifieds.Business.Repository;
-using Paramount.Betterclassifieds.Presentation.Models;
+using Paramount.Betterclassifieds.Presentation.ViewModels;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {

@@ -1,28 +1,68 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using AutoMapper;
 using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Repository;
+using Paramount.Betterclassifieds.DataService.LinqObjects;
 
 namespace Paramount.Betterclassifieds.DataService.Repository
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository, IMappingBehaviour
     {
         private const string BetterclassifiedsAppId = "betterclassified";
         private const string AdminAppId = "betterclassifiedadmin";
 
-        public ApplicationUser GetClassifiedUser(string username)
+        public ApplicationUser GetUserByUsername(string username)
         {
             using (var context = DataContextFactory.CreateMembershipContext())
             {
-                var application = context.aspnet_Applications.First(a => a.LoweredApplicationName == BetterclassifiedsAppId);
-                
-                var user = context.aspnet_Users.First(u => 
+                var application = context.aspnet_Applications.Single(a => a.LoweredApplicationName == BetterclassifiedsAppId);
+
+                var user = context.aspnet_Users.FirstOrDefault(u =>
                     u.UserName == username &&
                     u.ApplicationId == application.ApplicationId);
 
+                if (user == null)
+                {
+                    return null;
+                }
+
                 var profile = context.UserProfiles.First(p => p.UserID == user.UserId);
 
-                return new ApplicationUser { Email = profile.Email, Username = user.UserName };
+                return CreateApplicationUser(profile, user.UserName);
             }
-        } 
+        }
+
+        private ApplicationUser CreateApplicationUser(UserProfile profile, string username)
+        {
+            var applicationUser = this.Map<UserProfile, ApplicationUser>(profile);
+            applicationUser.Username = username;
+            return applicationUser;
+        }
+
+        public ApplicationUser GetUserByEmail(string email)
+        {
+            using (var context = DataContextFactory.CreateMembershipContext())
+            {
+                var profile = context.UserProfiles
+                    .FirstOrDefault(u => u.Email.ToLower() == email.ToLower());
+
+                if (profile == null)
+                    return null;
+
+                return CreateApplicationUser(profile, email);
+            }
+        }
+        
+        public void OnRegisterMaps(IConfiguration configuration)
+        {
+            configuration.CreateProfile("UserRepositoryProfile");
+
+            // From Db
+            configuration.CreateMap<UserProfile, ApplicationUser>()
+                .ForMember(member => member.AddressLine1, options => options.MapFrom(source => source.Address1))
+                .ForMember(member => member.AddressLine2, options => options.MapFrom(source => source.Address2))
+                .ForMember(member => member.Postcode, options => options.MapFrom(source => source.PostCode));
+        }
     }
 }

@@ -1074,6 +1074,10 @@
       <Project>{e51b8388-9a02-40ad-97b4-2802ae77fb69}</Project>
       <Name>Paramount.Betterclassifieds.DataService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Paramount.Betterclassifieds.Security\Paramount.Betterclassifieds.Security.csproj">
+      <Project>{9ce120ea-cb54-4f24-a68c-a80eb331dbde}</Project>
+      <Name>Paramount.Betterclassifieds.Security</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Services\DataTransferObjects\Common.DataTransferObjects.csproj">
       <Project>{377f2216-9202-4df9-9c5b-c2a4e627ffe2}</Project>
       <Name>Common.DataTransferObjects</Name>

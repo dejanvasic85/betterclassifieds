@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Paramount.Betterclassifieds.Presentation.Models
+namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
     public class AdViewModel
     {

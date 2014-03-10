@@ -6,5 +6,6 @@
         string DslImageUrlHandler { get; }
         string ClientCode { get; }
         string ConfigurationContext { get; }
+        bool UseHttps { get; }
     }
 }

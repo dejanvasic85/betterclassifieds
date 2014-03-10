@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Configuration;
 using System.Web.Configuration;
 
 namespace Paramount.ApplicationBlock.Configuration
 {
-    using System.Configuration;
-    using System.Threading;
-
     public static class ConfigManager
     {
         private const string ApplicationNameKey = "ApplicationName";
@@ -43,6 +38,9 @@ namespace Paramount.ApplicationBlock.Configuration
             return WebConfigurationManager.AppSettings.Get(DomainNameKey);
         }
 
+        /// <summary>
+        /// Gets the app setting value using the ConfigurationManager and returns as string value
+        /// </summary>
         public static string ReadAppSetting(string key)
         {
             var value = ConfigurationManager.AppSettings.Get(key);
@@ -51,9 +49,31 @@ namespace Paramount.ApplicationBlock.Configuration
             return value;
         }
 
-        public static T ReadAppSetting<T>(string key) where T : class
+        /// <summary>
+        /// Gets the app setting value with conversion by direct cast
+        /// </summary>
+        public static T ReadAppSetting<T>(string key) 
         {
             return (T)Convert.ChangeType(ReadAppSetting(key), typeof(T));
+        }
+
+        /// <summary>
+        /// Gets the app setting value with conversion but uses the defaultValue as a fallback 
+        /// </summary>
+        public static T ReadAppSetting<T>(string key, T defaultValue)
+        {
+            var value = ReadAppSetting(key);
+            if (value.IsNullOrEmpty())
+                return defaultValue;
+
+            try
+            {
+                return (T) Convert.ChangeType(value, typeof (T));
+            }
+            catch
+            {
+                return defaultValue;
+            }
         }
     }
 }

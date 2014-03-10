@@ -1,0 +1,65 @@
+﻿@model Paramount.Betterclassifieds.Presentation.ViewModels.LoginViewModel
+
+@{
+    Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayout.cshtml");
+    ViewBag.Title = "Classifieds Login";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="well">
+            <h2>Login</h2>
+            <p>Have an account? Login with your username and password</p>
+            
+            <form role="form" method="POST" action="@Url.Action("Login")">
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <label for="Username">Username / Email</label>
+                    <input type="text" class="form-control" id="Username" name="Username" required/>
+                </div>
+                <div class="form-group">
+                    <label for="Password">Password</label>
+                    <input type="password" class="form-control" id="Password" name="Password" required />
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default">Login</button>
+                </div>
+                <div class="form-group">
+                    <span class="help-block">
+                        Forgot username? <a href="">Send it to your email.</a>
+                    </span>
+                    <span class="help-block">
+                        Forgot password? <a href="">Reset it.</a>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="well">
+            <h2>Not a User?</h2>
+            <p>Register now to start placing ads and more. We need only a few details. </p>
+            <form role="form" method="POST" action="@Url.Action("Register")">
+                <div class="form-group">
+                    <label for="RegisterEmail">Email</label>
+                    <input type="text" id="RegisterEmail" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <label for="RegisterEmailConfirm">Confirm Email</label>
+                    <input type="text" id="RegisterEmailConfirm" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <label for="RegisterPassword">Password</label>
+                    <input type="text" id="RegisterPassword" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <label for="RegisterPasswordConfirm">Confirm Password</label>
+                    <input type="text" id="RegisterPasswordConfirm" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

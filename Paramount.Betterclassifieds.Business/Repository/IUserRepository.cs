@@ -4,6 +4,7 @@ namespace Paramount.Betterclassifieds.Business.Repository
 {
     public interface IUserRepository
     {
-        ApplicationUser GetClassifiedUser(string username);
+        ApplicationUser GetUserByUsername(string username);
+        ApplicationUser GetUserByEmail(string email);
     }
 }

@@ -47,8 +47,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Managers\IApplicationConfig.cs" />
+    <Compile Include="Managers\IAuthManager.cs" />
     <Compile Include="Managers\ICategoryManager.cs" />
     <Compile Include="Managers\ICookiesManager.cs" />
+    <Compile Include="Managers\IUserManager.cs" />
     <Compile Include="Models\Ad.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Comparers\PublicationIdComparer.cs" />
@@ -65,7 +67,7 @@
     <Compile Include="Models\AdBookingExtensionModel.cs" />
     <Compile Include="Models\AdBookingModel.cs" />
     <Compile Include="Models\AdTypeCode.cs" />
-    <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\Membership\ApplicationUser.cs" />
     <Compile Include="Models\BookEntry.cs" />
     <Compile Include="Models\BookEntryModel.cs" />
     <Compile Include="Models\BookingStatusType.cs" />
@@ -88,7 +90,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IAdRepository.cs" />
     <Compile Include="Repository\IBookingRepository.cs" />
-    <Compile Include="Managers\IConfigManager.cs" />
+    <Compile Include="Managers\IClientConfig.cs" />
     <Compile Include="Repository\IEditionRepository.cs" />
     <Compile Include="Repository\ILookupRepository.cs" />
     <Compile Include="Repository\IMenuRepository.cs" />

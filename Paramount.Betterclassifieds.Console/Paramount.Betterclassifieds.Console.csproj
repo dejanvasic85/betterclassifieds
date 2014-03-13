@@ -77,10 +77,6 @@
       <Project>{7f2cf5fe-6ad1-4dde-9f7d-a6fb3a1124e5}</Project>
       <Name>Paramount.Utility</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Paramount.Betterclassifieds.Business.Bookings\Paramount.Betterclassifieds.Business.Bookings.csproj">
-      <Project>{4B69C27D-4FBB-4192-850E-59E8CE737789}</Project>
-      <Name>Paramount.Betterclassifieds.Business.Bookings</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Paramount.Betterclassifieds.Business\Paramount.Betterclassifieds.Business.csproj">
       <Project>{5c1be481-db9e-48cc-9048-5b10e6535d02}</Project>
       <Name>Paramount.Betterclassifieds.Business</Name>

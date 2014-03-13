@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Tests.BusinessModel
+﻿using Paramount.Betterclassifieds.Business;
+
+namespace Paramount.Betterclassifieds.Tests.BusinessModel
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Microsoft.Practices.Unity;
@@ -9,7 +11,6 @@
     using Business.Managers;
     using Business.Repository;
     using Business.Models;
-    using Business.Bookings;
     using Mocks;
     
     [TestClass]

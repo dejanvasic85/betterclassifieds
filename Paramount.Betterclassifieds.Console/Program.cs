@@ -1,9 +1,8 @@
-﻿using Paramount.Betterclassifieds.Business.Bookings;
+﻿using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.DataService.Repository;
 
 namespace Paramount.Betterclassifieds.Console
 {
-    using BetterClassified.Repository;
     using Business.Managers;
     using Microsoft.Practices.Unity;
     using System;

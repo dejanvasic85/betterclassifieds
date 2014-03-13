@@ -92,8 +92,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 Docs", "02 Docs", "{9762
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Betterclassifieds.DataService", "Paramount.Betterclassifieds.DataService\Paramount.Betterclassifieds.DataService.csproj", "{E51B8388-9A02-40AD-97B4-2802AE77FB69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Betterclassifieds.Business.Bookings", "Paramount.Betterclassifieds.Business.Bookings\Paramount.Betterclassifieds.Business.Bookings.csproj", "{4B69C27D-4FBB-4192-850E-59E8CE737789}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Src", "01 Src", "{C030D05C-AA23-4C91-A40A-047C4C8989DF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 Tools", "03 Tools", "{767D0413-71AD-4641-8C51-E07B6CF2F6B6}"
@@ -112,7 +110,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Betterclassifieds
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 38
+		SccNumberOfProjects = 37
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://paramountit.visualstudio.com/defaultcollection
 		SccLocalPath0 = .
@@ -252,18 +250,14 @@ Global
 		SccProjectTopLevelParentUniqueName34 = Betterclassifieds.sln
 		SccProjectName34 = Paramount.Betterclassifieds.DataService
 		SccLocalPath34 = Paramount.Betterclassifieds.DataService
-		SccProjectUniqueName35 = Paramount.Betterclassifieds.Business.Bookings\\Paramount.Betterclassifieds.Business.Bookings.csproj
+		SccProjectUniqueName35 = Database\\DocumentDatabase\\DocumentDatabase.csproj
 		SccProjectTopLevelParentUniqueName35 = Betterclassifieds.sln
-		SccProjectName35 = Paramount.Betterclassifieds.Business.Bookings
-		SccLocalPath35 = Paramount.Betterclassifieds.Business.Bookings
-		SccProjectUniqueName36 = Database\\DocumentDatabase\\DocumentDatabase.csproj
+		SccProjectName35 = Database/DocumentDatabase
+		SccLocalPath35 = Database\\DocumentDatabase
+		SccProjectUniqueName36 = Paramount.Betterclassifieds.Security\\Paramount.Betterclassifieds.Security.csproj
 		SccProjectTopLevelParentUniqueName36 = Betterclassifieds.sln
-		SccProjectName36 = Database/DocumentDatabase
-		SccLocalPath36 = Database\\DocumentDatabase
-		SccProjectUniqueName37 = Paramount.Betterclassifieds.Security\\Paramount.Betterclassifieds.Security.csproj
-		SccProjectTopLevelParentUniqueName37 = Betterclassifieds.sln
-		SccProjectName37 = Paramount.Betterclassifieds.Security
-		SccLocalPath37 = Paramount.Betterclassifieds.Security
+		SccProjectName36 = Paramount.Betterclassifieds.Security
+		SccLocalPath36 = Paramount.Betterclassifieds.Security
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -544,14 +538,6 @@ Global
 		{E51B8388-9A02-40AD-97B4-2802AE77FB69}.Test|Any CPU.Build.0 = Release|Any CPU
 		{E51B8388-9A02-40AD-97B4-2802AE77FB69}.Testing|Any CPU.ActiveCfg = Release|Any CPU
 		{E51B8388-9A02-40AD-97B4-2802AE77FB69}.Testing|Any CPU.Build.0 = Release|Any CPU
-		{4B69C27D-4FBB-4192-850E-59E8CE737789}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4B69C27D-4FBB-4192-850E-59E8CE737789}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4B69C27D-4FBB-4192-850E-59E8CE737789}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4B69C27D-4FBB-4192-850E-59E8CE737789}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4B69C27D-4FBB-4192-850E-59E8CE737789}.Test|Any CPU.ActiveCfg = Release|Any CPU
-		{4B69C27D-4FBB-4192-850E-59E8CE737789}.Test|Any CPU.Build.0 = Release|Any CPU
-		{4B69C27D-4FBB-4192-850E-59E8CE737789}.Testing|Any CPU.ActiveCfg = Release|Any CPU
-		{4B69C27D-4FBB-4192-850E-59E8CE737789}.Testing|Any CPU.Build.0 = Release|Any CPU
 		{CF649D5B-4AB9-4CA3-98D8-B2973C6D8941}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CF649D5B-4AB9-4CA3-98D8-B2973C6D8941}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF649D5B-4AB9-4CA3-98D8-B2973C6D8941}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -614,7 +600,6 @@ Global
 		{45BBB0EB-4C95-41D5-BD6C-C7D980212144} = {1EAE4385-197F-413F-8AFB-C80EBBD5ED64}
 		{5C1BE481-DB9E-48CC-9048-5B10E6535D02} = {F16003D0-34C6-445D-AA88-017A63D33ADA}
 		{E51B8388-9A02-40AD-97B4-2802AE77FB69} = {F16003D0-34C6-445D-AA88-017A63D33ADA}
-		{4B69C27D-4FBB-4192-850E-59E8CE737789} = {F16003D0-34C6-445D-AA88-017A63D33ADA}
 		{9CE120EA-CB54-4F24-A68C-A80EB331DBDE} = {F16003D0-34C6-445D-AA88-017A63D33ADA}
 	EndGlobalSection
 EndGlobal

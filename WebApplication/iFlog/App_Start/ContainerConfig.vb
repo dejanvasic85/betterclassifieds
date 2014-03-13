@@ -2,9 +2,9 @@
 Imports Paramount.Betterclassifieds.Business.Repository
 Imports Paramount.Betterclassifieds.Business.Managers
 Imports Microsoft.Practices.Unity
-Imports Paramount.Betterclassifieds.Business.Bookings
 Imports Paramount.Betterclassifieds.Security
 Imports Paramount.Betterclassifieds.DataService.Repository
+Imports Paramount.Betterclassifieds.Business
 
 Public Class ContainerConfig
     Public Shared Sub RegisterIocContainer(ByVal container As IUnityContainer)

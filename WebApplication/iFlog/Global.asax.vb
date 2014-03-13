@@ -8,7 +8,7 @@ Public Class Global_asax
     Inherits Paramount.ApplicationBlock.Mvc.WebClientApplication
 
     Public Shared OnPayment As OnPayment
-    Public Shared TransactionManager As TransactionManager
+    'Public Shared TransactionManager As TransactionManager
 
     Public Overrides ReadOnly Property DefaultContainer As Microsoft.Practices.Unity.IUnityContainer
         Get

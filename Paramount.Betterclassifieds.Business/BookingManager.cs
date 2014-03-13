@@ -5,7 +5,7 @@ using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Repository;
 
-namespace Paramount.Betterclassifieds.Business.Bookings
+namespace Paramount.Betterclassifieds.Business
 {
     public class BookingManager : IBookingManager
     {

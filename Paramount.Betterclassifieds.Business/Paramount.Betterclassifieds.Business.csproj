@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BookingManager.cs" />
+    <Compile Include="EditionManager.cs" />
     <Compile Include="Managers\IApplicationConfig.cs" />
     <Compile Include="Managers\IAuthManager.cs" />
     <Compile Include="Managers\ICategoryManager.cs" />

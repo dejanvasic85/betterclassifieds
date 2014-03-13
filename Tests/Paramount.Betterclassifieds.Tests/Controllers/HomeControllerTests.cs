@@ -6,9 +6,8 @@ using Paramount.Betterclassifieds.Presentation.Controllers;
 
 namespace Paramount.Betterclassifieds.Tests.Controllers
 {
-    //[TestClass]
-    //public class HomeControllerTests : ControllerTest<HomeController>
-    //{
+    public class HomeControllerTests : ControllerTest<HomeController>
+    {
 
-    //}
+    }
 }

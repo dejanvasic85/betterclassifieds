@@ -54,6 +54,7 @@
       <HintPath>..\..\packages\Moq.4.1.1311.0615\lib\net40\Moq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.Helpers.dll</HintPath>
@@ -92,10 +93,13 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AssertExtensions.cs" />
     <Compile Include="BusinessModel\Bookings\EditionManagerTests.cs" />
     <Compile Include="BusinessModel\Bookings\TheMusicHtmlScraperTests.cs" />
     <Compile Include="Console\TaskArgumentsTests.cs" />
+    <Compile Include="Controllers\ControllerTest.cs" />
     <Compile Include="Controllers\HomeControllerTests.cs" />
+    <Compile Include="ExpectException.cs" />
     <Compile Include="Mocks\MockFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\DictionaryExtensionTests.cs" />
@@ -124,10 +128,6 @@
     <ProjectReference Include="..\..\WebApplication\BetterClassified.UI\BetterClassified.UI.csproj">
       <Project>{04e24b49-191f-44b6-833f-361c559f7b18}</Project>
       <Name>BetterClassified.UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Paramount.Betterclassifieds.Tests.Common\Paramount.Betterclassifieds.Tests.Common.csproj">
-      <Project>{2AFDFA95-BE42-4AFB-AEAF-F940B59914C1}</Project>
-      <Name>Paramount.Betterclassifieds.Tests.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -50,7 +50,10 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                 if (profile == null)
                     return null;
 
-                return CreateApplicationUser(profile, email);
+                // Need another read to fetch the username!
+                var username = context.aspnet_Users.First(u => u.UserId == profile.UserID).UserName;
+
+                return CreateApplicationUser(profile, username);
             }
         }
         

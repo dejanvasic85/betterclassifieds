@@ -6,6 +6,7 @@
             {
                 <div class="pull-right well-sm">
                     <span>Hello  @User.Identity.Name </span>
+                    <span>@Html.ActionLink("Logout", "Logout", "Account")</span>
                     <a href="@Url.Content(LegacyLinks.StartBooking)" class="btn btn-primary">Place New Ad</a>
                 </div>
             }

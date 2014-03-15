@@ -1,12 +1,27 @@
 ﻿@using Paramount
 @using Paramount.ApplicationBlock.Configuration
+@using Paramount.Betterclassifieds.Presentation.LegacyIntegration
 @{
     var brand = ConfigManager.ReadAppSetting<string>("Brand");
     Layout = brand.HasValue() ? string.Format(Url.ClientUrl("~/Views/Shared/_Layout.{0}.cshtml"), brand) : Url.ClientUrl("~/Views/Shared/_Layout.cshtml");
 }
 
-@*Login and Place Ad*@
-@Html.Partial("_LoginDisplay")
+<div class="row top-buffer-10">
+    <div class="col-xs-6">
+        @if (Request.IsAuthenticated)
+{
+    <div style="margin-top: 8px">
+        <span>Welcome back @User.Identity.Name, </span>
+        <span>@Html.ActionLink("Logout", "Logout", "Account")</span>
+    </div>
+}
+    </div>
+    <div class="col-xs-6">
+        <div class="btn-group pull-right">
+            <a href="@Url.Content(LegacyLinks.StartBooking)" class="btn btn-primary">Place New Ad</a>
+        </div>
+    </div>
+</div>
 
 <div class="top-buffer-10"></div>
 
@@ -19,8 +34,7 @@
             <input type="text" name="searchKeyword" id="searchKeyword" class="form-control" placeholder="Keyword or Ad ID">
         </div>
         <div class="col-sm-5">
-            <select name="searchCategoryId" id="searchCategoryId" class="form-control js-parentCategories">
-            </select>
+            <select name="searchCategoryId" id="searchCategoryId" class="form-control js-parentCategories"></select>
         </div>
         <div class="col-sm-2">
             <button type="submit" class="btn btn-default btn-block">Search</button>
@@ -38,8 +52,8 @@
             $().ready(function () {
 
                 // Load categories via http json
-                
-                $.getJSON("@Url.Action("GetTopLevel", "Categories")").done( function(data) {
+
+                $.getJSON("@Url.Action("GetTopLevel", "Categories")").done(function (data) {
                     var $categorySelect = $('.js-parentCategories');
                     $categorySelect.empty();
                     $.each(data, function (index, value) {

@@ -1,22 +1,29 @@
 ﻿@using Paramount.Betterclassifieds.Presentation.LegacyIntegration
 
 <div class="row top-buffer-10">
-    <div class="col-md-12">
-         @if (Request.IsAuthenticated)
-            {
-                <div class="pull-right well-sm">
-                    <span>Hello  @User.Identity.Name </span>
-                    <span>@Html.ActionLink("Logout", "Logout", "Account")</span>
-                    <a href="@Url.Content(LegacyLinks.StartBooking)" class="btn btn-primary">Place New Ad</a>
-                </div>
-            }
-            else
-            {
-                <div class="btn-group pull-right">
-                    <a href="@Url.Content(LegacyLinks.Login)" class="btn btn-default">Login</a>
-                    <a href="@Url.Content(LegacyLinks.Register)" class="btn btn-default">Register</a>
-                    <a href="@Url.Content(LegacyLinks.StartBooking)" class="btn btn-primary">Place New Ad</a>
-                </div>
-            }
+    <div class="col-md-6">
+        @if (Request.IsAuthenticated)
+        {
+            <span>Welcome back @User.Identity.Name, </span>
+            <span>@Html.ActionLink("Logout", "Logout", "Account")</span>
+        }
+    </div>
+    <div class="col-md-6">
+        @if (Request.IsAuthenticated)
+        {
+            <div class="pull-right well-sm">
+                <span>Hello  @User.Identity.Name </span>
+                <span>@Html.ActionLink("Logout", "Logout", "Account")</span>
+                <a href="@Url.Content(LegacyLinks.StartBooking)" class="btn btn-primary">Place New Ad</a>
+            </div>
+        }
+        else
+        {
+            <div class="btn-group pull-right">
+                <a href="@Url.Content(LegacyLinks.Login)" class="btn btn-default">Login</a>
+                <a href="@Url.Content(LegacyLinks.Register)" class="btn btn-default">Register</a>
+                <a href="@Url.Content(LegacyLinks.StartBooking)" class="btn btn-primary">Place New Ad</a>
+            </div>
+        }
     </div>
 </div>

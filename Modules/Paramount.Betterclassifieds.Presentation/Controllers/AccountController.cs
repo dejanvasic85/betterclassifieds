@@ -29,6 +29,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
 
         [HttpGet]
+        [RequireHttps]
         public ActionResult Login(string returnUrl = "")
         {
             if (returnUrl.HasValue())
@@ -40,6 +41,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RequireHttps]
         public ActionResult Login(LoginViewModel loginModel)
         {
             if (User != null && User.Identity.IsAuthenticated)
@@ -73,6 +75,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RequireHttps]
         public ActionResult Register()
         {
             // Todo - as part of the next gen pages 

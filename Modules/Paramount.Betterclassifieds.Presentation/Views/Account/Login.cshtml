@@ -5,6 +5,20 @@
     ViewBag.Title = "Login to Classifieds";
 }
 
+
+@if (!ViewData.ModelState.IsValid)
+{
+    var errors = ViewData.ModelState.Values.SelectMany(m => m.Errors).Select(e => e.ErrorMessage);
+
+    foreach (var error in errors)
+    {
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <strong>OH Snap!</strong> <span>@error</span>
+        </div>
+    }
+}
+
 <div class="row">
     <div class="col-md-6">
         <div class="well">
@@ -14,14 +28,14 @@
                 @Html.AntiForgeryToken()
                 <div class="form-group">
                     <label for="Username">Email</label>
-                    <input type="text" class="form-control" id="Username" name="Username" placeholder="Email" required/>
+                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control", required = "" })
                     <span class="help-block">
                         Existing users can use either email or username.
                     </span>
                 </div>
                 <div class="form-group">
                     <label for="Password">Password</label>
-                    <input type="password" class="form-control" id="Password" name="Password" placeholder="Password" required />
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", required = "" })
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-default">Login</button>
@@ -42,19 +56,19 @@
                 @Html.AntiForgeryToken()
                 <div class="form-group">
                     <label for="RegisterEmail">Email</label>
-                    <input type="text" id="RegisterEmail" class="form-control" placeholder="Email" required />
+                    <input type="text" id="RegisterEmail" class="form-control" required />
                 </div>
                 <div class="form-group">
                     <label for="RegisterEmailConfirm">Confirm Email</label>
-                    <input type="text" id="RegisterEmailConfirm" class="form-control" placeholder="Email Confirm" required />
+                    <input type="text" id="RegisterEmailConfirm" class="form-control" required />
                 </div>
                 <div class="form-group">
                     <label for="RegisterPassword">Password</label>
-                    <input type="text" id="RegisterPassword" class="form-control" placeholder="Password" required />
+                    <input type="text" id="RegisterPassword" class="form-control" required />
                 </div>
                 <div class="form-group">
                     <label for="RegisterPasswordConfirm">Confirm Password</label>
-                    <input type="text" id="RegisterPasswordConfirm" class="form-control" placeholder="Confirm Password" required />
+                    <input type="text" id="RegisterPasswordConfirm" class="form-control" required />
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-default">Register</button>

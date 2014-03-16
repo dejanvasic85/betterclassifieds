@@ -44,28 +44,23 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             if (User != null && User.Identity.IsAuthenticated)
             {
-                ModelState.AddModelError(String.Empty, "You are already logged in!");
+                ModelState.AddModelError("AlreadyLoggedIn", "You are already logged in!");
                 return View();
             }
-
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
-
+            
             var user = _userManager.GetUserByEmailOrUsername(loginModel.Username);
 
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "Username or Email is not a registered member.");
-                return View();
+                ModelState.AddModelError("EmailNotValid", "The username/email provided is not a registered user.");
+                return View(loginModel);
             }
 
             // Authenticate
             if (!user.AuthenticateUser(_authManager, loginModel.Password))
             {
-                ModelState.AddModelError(string.Empty, "Username and Password are not valid");
-                return View();
+                ModelState.AddModelError("BadPassword", "The password provided is not correct.");
+                return View(loginModel);
             }
 
             // Finally, the user is ok.. so redirect them appropriately

@@ -8,10 +8,8 @@
           <siteMapNode url="~/classified/AdExport.aspx" title="Export" description="Exports current bookings into XML readable format" />
           <siteMapNode url="~/classified/AdReview.aspx" title="Ad Review" description="Facility to review ads." />
         </siteMapNode>
-        <siteMapNode url="~/classified/Categories.aspx" title="Main Categories" description="View list of current categories" roles="Administrators" />
         <siteMapNode url="~/classified/Publications.aspx" title="Publications" description="View list of current publications" roles="Administrators">
           <siteMapNode url="~/classified/PublicationEditions.aspx" title="Editions" description="Publication Editions" />
-          <siteMapNode url="~/classified/PublicationCategories.aspx" title="Publication Categories" description="Publication Editions" />
         </siteMapNode>
         <siteMapNode url="~/classified/Ratecards.aspx" title="Pricing" description="Casual and Special rates management" roles="Administrators">
           <siteMapNode url="~/classified/SpecialRates.aspx" title="Special Rates" description="Page for managing special rates in the system." />

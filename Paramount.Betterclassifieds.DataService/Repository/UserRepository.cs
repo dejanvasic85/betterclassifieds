@@ -56,7 +56,32 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                 return CreateApplicationUser(profile, username);
             }
         }
-        
+
+        public void CreateUser(string email, string firstName, string lastName, string postCode)
+        {
+            using (var context = DataContextFactory.CreateMembershipContext())
+            {
+                // Need to fetch the new membership user
+                // This is not nice 
+                // Should be addressed when moving authentication later
+                // So, this is tight coupling for ID instead of more appropriately, a username!
+
+                var member = context.aspnet_Memberships.Single(m => m.Email == email);
+
+                context.UserProfiles.InsertOnSubmit(new UserProfile
+                {
+                    UserID = member.UserId,
+                    Email = email,
+                    FirstName = firstName,
+                    LastName = lastName,
+                    PostCode = postCode,
+                    LastUpdatedDate = DateTime.UtcNow,
+                    ProfileVersion = 1
+                });
+                context.SubmitChanges();
+            }
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateProfile("UserRepositoryProfile");

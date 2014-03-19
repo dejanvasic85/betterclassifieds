@@ -1,0 +1,26 @@
+﻿@model Paramount.Betterclassifieds.Presentation.ViewModels.LoginViewModel
+
+<h2>Login</h2>
+<p>Have an account? Login with your email and password</p>
+<form role="form" method="POST" action="@Url.Action("Login")">
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.LabelFor(m => m.Username)
+        @Html.TextBoxFor(m => m.Username, new { @class = "form-control", required = "" })
+        <span class="help-block">
+            Existing users can use either email or username.
+        </span>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control", required = "" })
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-default">Login</button>
+    </div>
+    <div class="form-group">
+        <span class="help-block">
+            Forgot password? <a href="">Click here to recover.</a>
+        </span>
+    </div>
+</form>

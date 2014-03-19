@@ -16,7 +16,7 @@ namespace Paramount.Betterclassifieds.Security
             _applicationConfig = applicationConfig;
         }
 
-        public void Login(string username, bool createPersistentCookie, string userData)
+        public void Login(string username, bool createPersistentCookie, string role = "User")
         {
             HttpContext context = HttpContext.Current;
 
@@ -27,7 +27,7 @@ namespace Paramount.Betterclassifieds.Security
                 issueDate: DateTime.Now,
                 expiration: DateTime.Now.AddYears(100),
                 isPersistent: createPersistentCookie,
-                userData: userData,
+                userData: role,
                 cookiePath: FormsAuthentication.FormsCookiePath);
 
             string encryptedTicket = FormsAuthentication.Encrypt(ticket);
@@ -65,6 +65,11 @@ namespace Paramount.Betterclassifieds.Security
         {
             // Use the existing built-in membership provider for now
             return Membership.ValidateUser(username, password);
+        }
+
+        public void CreateMembership(string username, string password)
+        {
+            Membership.CreateUser(username, password, email: username);
         }
     }
 }

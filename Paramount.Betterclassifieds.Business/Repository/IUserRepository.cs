@@ -6,5 +6,6 @@ namespace Paramount.Betterclassifieds.Business.Repository
     {
         ApplicationUser GetUserByUsername(string username);
         ApplicationUser GetUserByEmail(string email);
+        void CreateUser(string email, string firstName, string lastName, string postCode);
     }
 }

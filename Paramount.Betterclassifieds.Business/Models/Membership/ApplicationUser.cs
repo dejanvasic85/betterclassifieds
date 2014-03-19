@@ -20,7 +20,7 @@ namespace Paramount.Betterclassifieds.Business.Models
             if (! authManager.ValidatePassword(Username, password))
                 return false;
 
-            authManager.Login(Username, persistAuthCookie, "User");
+            authManager.Login(Username, persistAuthCookie);
 
             return true;
         }

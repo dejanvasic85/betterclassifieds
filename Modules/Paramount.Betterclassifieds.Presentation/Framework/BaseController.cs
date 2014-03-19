@@ -25,7 +25,8 @@ namespace Paramount.Betterclassifieds.Presentation
         {
             get
             {
-                Dictionary<string, object> sessionSearchParam = Session["OnlineSearchParameter"] as Dictionary<string, object>;
+                Dictionary<string, object> sessionSearchParam =
+                    Session["OnlineSearchParameter"] as Dictionary<string, object>;
 
                 if (sessionSearchParam == null)
                 {
@@ -35,6 +36,11 @@ namespace Paramount.Betterclassifieds.Presentation
 
                 return sessionSearchParam;
             }
+        }
+
+        public bool IsUserLoggedIn()
+        {
+            return this.User != null && this.User.Identity.IsAuthenticated;
         }
     }
 }

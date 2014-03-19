@@ -1,0 +1,45 @@
+﻿@model Paramount.Betterclassifieds.Presentation.ViewModels.RegisterViewModel
+
+<h2>Not a User?</h2>
+<p>Register now to start placing ads and more. We need just a few details. </p>
+<form role="form" method="POST" action="@Url.Action("Register")">
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.LabelFor(m => m.RegisterUsername)
+        @Html.TextBoxFor(m => m.RegisterUsername, new { @class = "form-control", required = "" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.ConfirmUsername)
+        @Html.TextBoxFor(m => m.ConfirmUsername, new { @class = "form-control", required = "" })
+    </div>
+    
+    <div class="form-group">
+        @Html.LabelFor(m => m.RegisterPassword)
+        @Html.PasswordFor(m => m.RegisterPassword, new { @class = "form-control", required = "" })
+    </div>
+    
+    <div class="form-group">
+        @Html.LabelFor(m => m.ConfirmPassword)
+        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", required = "" })
+    </div>
+    
+    <div class="form-group">
+        @Html.LabelFor(m => m.FirstName)
+        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", required = "" })
+    </div>
+    
+    <div class="form-group">
+        @Html.LabelFor(m => m.LastName)
+        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", required = "" })
+    </div>
+    
+    <div class="form-group">
+        @Html.LabelFor(m => m.PostCode)
+        @Html.TextBoxFor(m => m.PostCode, new { @class = "form-control", required = "" })
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-default">Register</button>
+    </div>
+</form>

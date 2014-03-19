@@ -6,6 +6,7 @@ namespace Paramount.Betterclassifieds.Business.Managers
     public interface IUserManager
     {
         ApplicationUser GetUserByEmailOrUsername(string emailOrUsername);
+        void CreateUserProfile(string email, string firstName, string lastName, string postCode);
     }
 
     public class UserManager : IUserManager
@@ -25,6 +26,12 @@ namespace Paramount.Betterclassifieds.Business.Managers
                 return userByEmail;
 
             return _userRepository.GetUserByUsername(emailOrUsername);
+        }
+
+        public void CreateUserProfile(string email, string firstName, string lastName, string postCode)
+        {
+            // Simply persist directly to the repository
+            _userRepository.CreateUser(email, firstName, lastName, postCode);
         }
     }
 }

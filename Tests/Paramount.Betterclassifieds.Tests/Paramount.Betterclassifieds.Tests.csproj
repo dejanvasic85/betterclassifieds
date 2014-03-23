@@ -96,6 +96,8 @@
     <Compile Include="AssertExtensions.cs" />
     <Compile Include="BusinessModel\Bookings\EditionManagerTests.cs" />
     <Compile Include="BusinessModel\Bookings\TheMusicHtmlScraperTests.cs" />
+    <Compile Include="BusinessModel\Broadcast\BroadcastManagerTests.cs" />
+    <Compile Include="BusinessModel\Broadcast\BroadcastTemplateParserTests.cs" />
     <Compile Include="Console\TaskArgumentsTests.cs" />
     <Compile Include="Controllers\ControllerTest.cs" />
     <Compile Include="Controllers\HomeControllerTests.cs" />
@@ -120,6 +122,10 @@
     <ProjectReference Include="..\..\Paramount.Betterclassifieds.Console\Paramount.Betterclassifieds.Console.csproj">
       <Project>{ef41a36c-ada3-433b-9307-1cb642517544}</Project>
       <Name>Paramount.Betterclassifieds.Console</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Paramount.Betterclassifieds.DataService\Paramount.Betterclassifieds.DataService.csproj">
+      <Project>{e51b8388-9a02-40ad-97b4-2802ae77fb69}</Project>
+      <Name>Paramount.Betterclassifieds.DataService</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\WebApplication\BetterClassified.UI\BetterClassified.UI.csproj">
       <Project>{04e24b49-191f-44b6-833f-361c559f7b18}</Project>

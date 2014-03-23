@@ -1,7 +1,7 @@
 ﻿using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Repository;
 
-namespace Paramount.Betterclassifieds.Business.Managers
+namespace Paramount.Betterclassifieds.Business
 {
     public interface IUserManager
     {

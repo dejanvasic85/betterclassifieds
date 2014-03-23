@@ -47,6 +47,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookingManager.cs" />
+    <Compile Include="Broadcast\IBroadcastRepository.cs" />
+    <Compile Include="Broadcast\EmailSender.cs" />
+    <Compile Include="Broadcast\PlaceholderAttribute.cs" />
+    <Compile Include="Broadcast\Types\AccountConfirmationBroadcast.cs" />
+    <Compile Include="Broadcast\Broadcast.cs" />
+    <Compile Include="Broadcast\IBroadcastManager.cs" />
+    <Compile Include="Broadcast\EmailTemplate.cs" />
+    <Compile Include="Broadcast\IBroadcastTemplateParser.cs" />
     <Compile Include="EditionManager.cs" />
     <Compile Include="Managers\IApplicationConfig.cs" />
     <Compile Include="Managers\IAuthManager.cs" />
@@ -69,7 +77,7 @@
     <Compile Include="Models\AdBookingExtensionModel.cs" />
     <Compile Include="Models\AdBookingModel.cs" />
     <Compile Include="Models\AdTypeCode.cs" />
-    <Compile Include="Models\Membership\ApplicationUser.cs" />
+    <Compile Include="Membership\ApplicationUser.cs" />
     <Compile Include="Models\BookEntry.cs" />
     <Compile Include="Models\BookEntryModel.cs" />
     <Compile Include="Models\BookingStatusType.cs" />

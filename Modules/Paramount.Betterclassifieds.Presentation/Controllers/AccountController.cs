@@ -1,4 +1,4 @@
-﻿using Paramount.Betterclassifieds.Business.Managers;
+﻿using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 using System.Web.Mvc;
 

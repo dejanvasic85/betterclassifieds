@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 
-namespace Paramount.Betterclassifieds.Business
+namespace Paramount.Betterclassifieds.Business.Broadcast
 {
     public interface IBroadcastTemplateParser
     {

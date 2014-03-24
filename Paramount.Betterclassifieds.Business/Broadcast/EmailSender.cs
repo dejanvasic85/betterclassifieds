@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Mail;
 
-namespace Paramount.Betterclassifieds.Business
+namespace Paramount.Betterclassifieds.Business.Broadcast
 {
     /// <summary>
     /// Prepares broadcasts as MailMessage and sends it over smtp

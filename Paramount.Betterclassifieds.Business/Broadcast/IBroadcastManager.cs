@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 
-namespace Paramount.Betterclassifieds.Business
+namespace Paramount.Betterclassifieds.Business.Broadcast
 {
     public interface IBroadcastManager
     {
-        Guid SendEmail<T>(T broadcast) where T : Broadcast;
+        Guid Send<T>(T broadcast);
     }
 
     /// <summary>
@@ -14,24 +14,15 @@ namespace Paramount.Betterclassifieds.Business
     public class BroadcastManager : IBroadcastManager
     {
         private readonly IBroadcastRepository _broadcastRepository;
-        private readonly IBroadcastTemplateParser _templateParser;
 
-        public BroadcastManager(IBroadcastRepository broadcastRepository, IBroadcastTemplateParser templateParser)
+        public BroadcastManager(IBroadcastRepository broadcastRepository)
         {
             _broadcastRepository = broadcastRepository;
-            _templateParser = templateParser;
         }
 
-        public Guid SendEmail<T>(T broadcast) where T : Broadcast
+        public Guid Send<T>(T broadcast)
         {
-            Guid broadcastId = new Guid();
-
-            EmailTemplate template = _broadcastRepository.GetTemplateByName(broadcast.TemplateName);
-
-            EmailSender sender = new EmailSender(_templateParser);
-            sender.Send(template, broadcast.GetPlaceholders(), broadcast.Recipient);
-            
-            // Todo - save the result
+            Guid broadcastId = Guid.NewGuid();
 
             return broadcastId;
         }

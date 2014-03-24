@@ -50,8 +50,7 @@
     <Compile Include="Broadcast\IBroadcastRepository.cs" />
     <Compile Include="Broadcast\EmailSender.cs" />
     <Compile Include="Broadcast\PlaceholderAttribute.cs" />
-    <Compile Include="Broadcast\Types\AccountConfirmationBroadcast.cs" />
-    <Compile Include="Broadcast\Broadcast.cs" />
+    <Compile Include="Broadcast\Types\AccountConfirmation.cs" />
     <Compile Include="Broadcast\IBroadcastManager.cs" />
     <Compile Include="Broadcast\EmailTemplate.cs" />
     <Compile Include="Broadcast\IBroadcastTemplateParser.cs" />

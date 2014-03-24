@@ -96,10 +96,8 @@
     <Compile Include="AssertExtensions.cs" />
     <Compile Include="BusinessModel\Bookings\EditionManagerTests.cs" />
     <Compile Include="BusinessModel\Bookings\TheMusicHtmlScraperTests.cs" />
-    <Compile Include="BusinessModel\Broadcast\BroadcastManagerTests.cs" />
     <Compile Include="BusinessModel\Broadcast\BroadcastTemplateParserTests.cs" />
-    <Compile Include="BusinessModel\Broadcast\AccountConfirmationTests.cs" />
-    <Compile Include="BusinessModel\Broadcast\EmailSenderTests.cs" />
+    <Compile Include="BusinessModel\Broadcast\PlaceholderExtensionsTests.cs" />
     <Compile Include="Console\TaskArgumentsTests.cs" />
     <Compile Include="Controllers\ControllerTest.cs" />
     <Compile Include="Controllers\HomeControllerTests.cs" />

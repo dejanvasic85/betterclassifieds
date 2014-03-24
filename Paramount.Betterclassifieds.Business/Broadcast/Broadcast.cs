@@ -5,9 +5,12 @@ namespace Paramount.Betterclassifieds.Business
 {
     public abstract class Broadcast
     {
-        public string To { get; set; }
+        public string Recipient { get; set; }
         public abstract string TemplateName { get; }
      
+        /// <summary>
+        /// Returns a dictionary of all the template placeholder names and their values
+        /// </summary>
         public IDictionary<string, string> GetPlaceholders()
         {
             var placeholders = new Dictionary<string, string>();

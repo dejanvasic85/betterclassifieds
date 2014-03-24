@@ -9,6 +9,9 @@ namespace Paramount.Betterclassifieds.Business
         string ParseToString(string template, IDictionary<string, string> tokenValues);
     }
 
+    /// <summary>
+    /// Performs a simple find and replace for key value pairs with the key in format of [/{0}/] within the template
+    /// </summary>
     public class BroadcastTemplateParser : IBroadcastTemplateParser
     {
         private const string Key = "[/{0}/]";

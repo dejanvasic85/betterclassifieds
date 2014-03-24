@@ -9,23 +9,17 @@ namespace Paramount.Betterclassifieds.Business
     }
 
     /// <summary>
-    /// Prepares and sends broadcasts using template management
+    /// Prepares and sends broadcasts using template and subscription management
     /// </summary>
     public class BroadcastManager : IBroadcastManager
     {
         private readonly IBroadcastRepository _broadcastRepository;
-        private readonly IBroadcastTemplateParser _parser;
-        private readonly IBroadcastSender[] _senders;
+        private readonly IBroadcastTemplateParser _templateParser;
 
-        public BroadcastManager(IBroadcastRepository broadcastRepository)
+        public BroadcastManager(IBroadcastRepository broadcastRepository, IBroadcastTemplateParser templateParser)
         {
             _broadcastRepository = broadcastRepository;
-            
-            // Register just a basic template parser ( same one as before )
-            _parser = new BroadcastTemplateParser();
-
-            // Registration of all the possible senders ( currently email will do :)
-            _senders = new IBroadcastSender[] { new EmailSender(_parser) };
+            _templateParser = templateParser;
         }
 
         public Guid SendEmail<T>(T broadcast) where T : Broadcast
@@ -34,7 +28,8 @@ namespace Paramount.Betterclassifieds.Business
 
             EmailTemplate template = _broadcastRepository.GetTemplateByName(broadcast.TemplateName);
 
-            var result = _senders.OfType<EmailSender>().First().Send(broadcast, template);
+            EmailSender sender = new EmailSender(_templateParser);
+            sender.Send(template, broadcast.GetPlaceholders(), broadcast.Recipient);
             
             // Todo - save the result
 

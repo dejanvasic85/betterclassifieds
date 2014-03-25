@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookingManager.cs" />
+    <Compile Include="Broadcast\EmailDelivery.cs" />
     <Compile Include="Broadcast\IBroadcastRepository.cs" />
     <Compile Include="Broadcast\EmailProcessor.cs" />
     <Compile Include="Broadcast\ISmtpMailer.cs" />

@@ -3,5 +3,6 @@
     public interface IBroadcastRepository
     {
         EmailTemplate GetTemplateByName(string templateName);
+        void CreateOrUpdateEmail(EmailDelivery emailDelivery);
     }
 }

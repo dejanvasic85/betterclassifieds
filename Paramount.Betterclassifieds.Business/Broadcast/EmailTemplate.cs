@@ -11,8 +11,10 @@
         public string BodyTemplate { get; set; }
         public string SubjectTemplate { get; set; }
         public string FromAddress { get; set; }
+        public bool IsBodyHtml { get; set; }
 
         // Type of parser that is required
         public string ParserName { get; set; }
+        
     }
 }

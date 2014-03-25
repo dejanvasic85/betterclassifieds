@@ -23,7 +23,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         /// <summary>
         /// Creates dictionary with key being attribute TokenName and value as property of the object
         /// </summary>
-        public static IDictionary<string, string> ToPlaceholderDictionary<T>(this T broadcast) where T : class
+        public static IDictionary<string, string> ToPlaceholderDictionary<T>(this T broadcast) where T : IDocType
         {
             var placeholders = new Dictionary<string, string>();
 

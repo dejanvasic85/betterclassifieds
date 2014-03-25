@@ -11,7 +11,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel.Broadcast
         public void ToPlaceholderDictionary_ReturnsDictionary()
         {
             // Arrange a class that uses placeholder attribute
-            AccountConfirmation broadcast = new AccountConfirmation
+            NewRegistration broadcast = new NewRegistration
             {
                 FirstName = "Foo",
                 LastName = "Bar"
@@ -47,13 +47,15 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel.Broadcast
         }
 
 
-        private class PropertyNamesAreDifferentToPlaceholders
+        private class PropertyNamesAreDifferentToPlaceholders : IDocType
         {
             [Placeholder("Where")]
             public string Location { get; set; }
 
             [Placeholder("Amount")]
             public string Cost { get; set; }
+
+            public string DocumentTemplate { get { return "Fake"; }}
         }
     }
 }

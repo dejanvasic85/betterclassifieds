@@ -6,7 +6,7 @@ using Paramount.Betterclassifieds.Business.Broadcast;
 namespace Paramount.Betterclassifieds.Tests.BusinessModel.Broadcast
 {
     [TestClass]
-    public class BroadcastTemplateParserTests
+    public class SquareBracketParserTests
     {
         [TestMethod]
         public void ParseToString_ValidTemplateWithOneToken_ReturnsTransformedString()
@@ -16,7 +16,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel.Broadcast
             var tokenValues = new Dictionary<string, string> { { "something", "bar" } };
 
             // Act 
-            BroadcastTemplateParser parser = new BroadcastTemplateParser();
+            SquareBracketParser parser = new SquareBracketParser();
             string result = parser.ParseToString(template, tokenValues);
 
             // Assert
@@ -31,7 +31,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel.Broadcast
             var tokenValues = new Dictionary<string, string>();
 
             // Act 
-            BroadcastTemplateParser parser = new BroadcastTemplateParser();
+            SquareBracketParser parser = new SquareBracketParser();
             string result = parser.ParseToString(template, tokenValues);
 
             // Assert
@@ -46,7 +46,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel.Broadcast
             var tokenValues = new Dictionary<string, string> { { "something", "bar" } };
 
             // Act 
-            BroadcastTemplateParser parser = new BroadcastTemplateParser();
+            SquareBracketParser parser = new SquareBracketParser();
             string result = parser.ParseToString(template, tokenValues);
 
             // Assert

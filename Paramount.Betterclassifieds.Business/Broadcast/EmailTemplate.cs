@@ -10,6 +10,9 @@
         public string Description { get; set; }
         public string BodyTemplate { get; set; }
         public string SubjectTemplate { get; set; }
-        public string Sender { get; set; }
+        public string FromAddress { get; set; }
+
+        // Type of parser that is required
+        public string ParserName { get; set; }
     }
 }

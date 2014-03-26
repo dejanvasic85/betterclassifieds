@@ -1,9 +1,11 @@
 **Enhancements**
 
-- [New home page layout using bootstrap](https://trello.com/c/FCxD7ArA/101-new-home-page-layout-mobile-friendly)
+- Coming soon
 
 **Bug Fixes**
 
-- Fixed the nightly report to give the right income sum.
+- Coming soon
 
 **Technical Debt**
+
+- Coming soon

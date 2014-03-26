@@ -28,6 +28,8 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         public bool IsHtml { get; private set; }
         public string TemplateName { get; private set; }
         public int Attempts { get; private set; }
+        public DateTime? LastAttemptDate { get; set; }
+        public DateTime? LastAttemptDateUtc { get; set; }
         public DateTime? SentDate { get; private set; }
         public DateTime? SentDateUtc { get; private set; }
         public DateTime? CreatedDate { get; private set; }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Mail;
 
 namespace Paramount.Betterclassifieds.Business.Broadcast
 {
@@ -41,13 +40,13 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             var subject = parser.ParseToString(emailTemplate.SubjectTemplate, placeholderValues);
             var body = parser.ParseToString(emailTemplate.BodyTemplate, placeholderValues);
 
-            EmailDelivery delivery = new EmailDelivery(broadcastId, subject, body, emailTemplate.IsBodyHtml, emailTemplate.FromAddress, to);
+            EmailDelivery delivery = new EmailDelivery(broadcastId, subject, body, emailTemplate.IsBodyHtml, emailTemplate.TemplateName, emailTemplate.FromAddress, to);
             
             try
             {
                 delivery.IncrementAttempts();
                 _mailer.SendEmail(subject, body, emailTemplate.FromAddress, to);
-                delivery.HasBeenSent();
+                delivery.MarkAsSent();
                 result = true;
             }
             catch (Exception ex)

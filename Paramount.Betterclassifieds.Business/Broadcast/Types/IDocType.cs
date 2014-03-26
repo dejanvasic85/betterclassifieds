@@ -2,6 +2,6 @@
 {
     public interface IDocType
     {
-        string DocumentTemplate { get; } // e.g. AccountConfirmation
+        string DocumentTemplate { get; } // e.g. NewRegistration, AccountConfirmation
     }
 }

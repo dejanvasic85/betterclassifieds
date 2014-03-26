@@ -105,6 +105,8 @@
     <Compile Include="AdoModels\CommonDataProvider.cs" />
     <Compile Include="AdoModels\ExpiredAdRow.cs" />
     <Compile Include="AdoModels\InvoiceDataProvider.cs" />
+    <Compile Include="Broadcast\BroadcastContext.cs" />
+    <Compile Include="Broadcast\BroadcastRepository.cs" />
     <Compile Include="Comparers\PublicationDataIdComparer.cs" />
     <Compile Include="DataServiceInitialiser.cs" />
     <Compile Include="DataSources\AzureTableDataSource.cs" />
@@ -112,7 +114,7 @@
     <Compile Include="DataSources\IClientSideCacheDataSource.cs" />
     <Compile Include="DataSources\SeoNameMappingDataSource.cs" />
     <Compile Include="DataSources\TableNames.cs" />
-    <Compile Include="DbContext\DocumentContext.cs" />
+    <Compile Include="DocumentStorage\DocumentContext.cs" />
     <Compile Include="Entities\CacheItemEntity.cs" />
     <Compile Include="Entities\SeoLocationMappingEntity.cs" />
     <Compile Include="Entities\SeoNameMappingEntity.cs" />
@@ -184,7 +186,7 @@
     <Compile Include="Repository\AppConfig.cs" />
     <Compile Include="Repository\BookingRepository.cs" />
     <Compile Include="Repository\ClientConfig.cs" />
-    <Compile Include="Repository\DocumentRepository.cs" />
+    <Compile Include="DocumentStorage\DocumentRepository.cs" />
     <Compile Include="Repository\EditionRepository.cs" />
     <Compile Include="Repository\LookupRepository.cs" />
     <Compile Include="Repository\PaymentsRepository.cs" />

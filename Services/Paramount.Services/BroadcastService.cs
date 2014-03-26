@@ -96,7 +96,7 @@ namespace Paramount.Services
                     SendEmail(item.Sender, item.Email, item.Subject, item.Body, item.Priority, item.IsBodyHtml);
                     BroadcastDataService.EmailBroadcastEntryProcess(item.EmailBroadcastEntryId, 1, DateTime.Now);
                 }
-                catch (Exception exception)
+                catch (Exception)
                 {
                     BroadcastDataService.EmailBroadcastEntryProcess(item.EmailBroadcastEntryId, 1, null);
 

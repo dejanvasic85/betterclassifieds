@@ -91,7 +91,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 var data = context.AdBookings
-                    .Where(b => b.BookingStatus == (int)BookingStatusType.Booked)
+                    .Where(b => b.BookingStatus == (int)BookingStatusType.Booked && b.EndDate > DateTime.Today)
                     .OrderByDescending(b => b.BookingDate) // Latest first
                     .Take(takeAmount)
                     .AsEnumerable();

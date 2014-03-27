@@ -1058,10 +1058,6 @@
       <Project>{3091f288-c6f8-4e2d-9622-48b00ace526b}</Project>
       <Name>Modules.Broadcast.Components</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Modules\Paramount.Betterclassifieds.Presentation\Paramount.Betterclassifieds.Presentation.csproj">
-      <Project>{16a1594a-f9a2-468b-bf45-2d716a72469e}</Project>
-      <Name>Paramount.Betterclassifieds.Presentation</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Paramount.Betterclassifieds.Business\Paramount.Betterclassifieds.Business.csproj">
       <Project>{5c1be481-db9e-48cc-9048-5b10e6535d02}</Project>
       <Name>Paramount.Betterclassifieds.Business</Name>
@@ -1069,6 +1065,10 @@
     <ProjectReference Include="..\..\Paramount.Betterclassifieds.DataService\Paramount.Betterclassifieds.DataService.csproj">
       <Project>{e51b8388-9a02-40ad-97b4-2802ae77fb69}</Project>
       <Name>Paramount.Betterclassifieds.DataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Paramount.Betterclassifieds.Presentation\Paramount.Betterclassifieds.Presentation.csproj">
+      <Project>{16a1594a-f9a2-468b-bf45-2d716a72469e}</Project>
+      <Name>Paramount.Betterclassifieds.Presentation</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Paramount.Betterclassifieds.Security\Paramount.Betterclassifieds.Security.csproj">
       <Project>{9ce120ea-cb54-4f24-a68c-a80eb331dbde}</Project>

@@ -91,6 +91,16 @@ namespace Paramount.Betterclassifieds.Tests
         }
         #endregion
 
+        public static void IsLargerThan(this int target, int compareTo)
+        {
+            Assert.IsTrue(target > compareTo);
+        }
+
+        public static void IsLargerThan(this long target, long compareTo)
+        {
+            Assert.IsTrue(target > compareTo);
+        }
+
         public static void IsSameAs<T>( this T target, T toCompare)
         {
             Assert.AreSame( toCompare, target );
@@ -113,5 +123,6 @@ namespace Paramount.Betterclassifieds.Tests
                 IsTrue(predicate(item));
             }
         }
+
     }
 }

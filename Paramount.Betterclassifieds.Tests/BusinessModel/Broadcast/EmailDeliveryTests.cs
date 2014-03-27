@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Mail;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Paramount.Betterclassifieds.Business.Broadcast;
 
@@ -79,6 +80,54 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel.Broadcast
             // Act
             // Assert
             Expect.Exception<ArgumentException>(() => EmailDelivery.BuildWithTemplate(registration, template, Guid.NewGuid()));
+        }
+
+        [TestMethod]
+        public void IncrementAttempts_PropertiesAreSet()
+        {
+            // Arrange
+            EmailDelivery delivery = new EmailDelivery(Guid.NewGuid(),
+                "Subject 123", "Body 123", false, "unknown-doctype", "sender@somewhere.com", "destination@somewhere.com");
+
+            // Act - Assert
+            delivery.IncrementAttempts();
+            delivery.Attempts.IsEqualTo(1);
+            delivery.LastAttemptDate.IsNotNull();
+            delivery.LastAttemptDateUtc.IsNotNull();
+
+            // Act - Assert
+            delivery.IncrementAttempts();
+            delivery.Attempts.IsEqualTo(2);
+            delivery.LastAttemptDate.IsNotNull();
+            delivery.LastAttemptDateUtc.IsNotNull();
+        }
+
+        [TestMethod]
+        public void LogException_PropertiesAreSet()
+        {
+            // Arrange
+            EmailDelivery delivery = new EmailDelivery(Guid.NewGuid(),
+                "Subject 123", "Body 123", false, "unknown-doctype", "sender@somewhere.com", "destination@somewhere.com");
+
+            // Act
+            delivery.LogException(new SmtpException(SmtpStatusCode.MailboxBusy, "Unable to send email"));
+            delivery.LastExceptionMessage.IsEqualTo("Unable to send email");
+        }
+
+        [TestMethod]
+        public void LogException_MarkAsSent()
+        {
+            // Arrange
+            EmailDelivery delivery = new EmailDelivery(Guid.NewGuid(),
+                "Subject 123", "Body 123", false, "unknown-doctype", "sender@somewhere.com", "destination@somewhere.com");
+
+            // Act
+            // Assert
+            delivery.SentDate.IsNull("Sent date should be null when object is first created");
+            delivery.SentDateUtc.IsNull("Sent date should be null when object is first created");
+            delivery.MarkAsSent();
+            delivery.SentDate.IsNotNull();
+            delivery.SentDateUtc.IsNotNull();
         }
     }
 }

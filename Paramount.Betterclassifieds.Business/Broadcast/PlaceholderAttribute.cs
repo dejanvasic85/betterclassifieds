@@ -36,7 +36,11 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
                 if (attr == null)
                     continue;
 
-                placeholders.Add(attr.TokenName, propertyInfo.GetValue(broadcast).ToString());
+                var value = string.Empty;
+                if (propertyInfo.GetValue(broadcast) != null)
+                    value = propertyInfo.GetValue(broadcast).ToString();
+
+                placeholders.Add(attr.TokenName, value);
             }
 
             return placeholders;

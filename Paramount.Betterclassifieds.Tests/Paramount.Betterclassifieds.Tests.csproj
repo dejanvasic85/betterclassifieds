@@ -96,9 +96,10 @@
     <Compile Include="AssertExtensions.cs" />
     <Compile Include="BusinessModel\Bookings\EditionManagerTests.cs" />
     <Compile Include="BusinessModel\Bookings\TheMusicHtmlScraperTests.cs" />
-    <Compile Include="BusinessModel\Broadcast\TemplateParserTests.cs" />
+    <Compile Include="BusinessModel\Broadcast\SquareBracketParserTests.cs" />
     <Compile Include="BusinessModel\Broadcast\PlaceholderExtensionsTests.cs" />
     <Compile Include="BusinessModel\Broadcast\EmailProcessorTests.cs" />
+    <Compile Include="BusinessModel\Broadcast\EmailDeliveryTests.cs" />
     <Compile Include="Console\TaskArgumentsTests.cs" />
     <Compile Include="Controllers\ControllerTest.cs" />
     <Compile Include="Controllers\HomeControllerTests.cs" />

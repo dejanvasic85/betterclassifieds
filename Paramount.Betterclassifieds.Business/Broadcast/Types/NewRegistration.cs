@@ -2,7 +2,7 @@
 {
     public class NewRegistration : IDocType
     {
-        public string DocumentTemplate
+        public string DocumentType
         {
             get { return GetType().Name; }
         }

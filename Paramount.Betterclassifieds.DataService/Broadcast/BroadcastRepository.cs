@@ -11,7 +11,7 @@ namespace Paramount.Betterclassifieds.DataService.Broadcast
         {
             using (var context = new BroadcastContext())
             {
-                return context.EmailTemplates.FirstOrDefault(t => t.TemplateName.Equals(templateName));
+                return context.EmailTemplates.FirstOrDefault(t => t.DocType.Equals(templateName));
             }
         }
 

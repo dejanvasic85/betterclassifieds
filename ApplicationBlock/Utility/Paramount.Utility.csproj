@@ -114,6 +114,7 @@
     <Compile Include="Extensions\IntExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="GetControlString.cs" />
+    <Compile Include="Guard.cs" />
     <Compile Include="HtmlExtensions.cs" />
     <Compile Include="HttpCacher.cs" />
     <Compile Include="JsonHelper.cs" />

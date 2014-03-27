@@ -5,7 +5,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
 {
     public interface IBroadcastManager
     {
-        Guid SendEmail<T>(T broadcast, params string[] to) where T : IDocType;
+        Guid SendEmail<T>(T docType, params string[] to) where T : IDocType;
     }
 
     /// <summary>
@@ -20,19 +20,15 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             _broadcastRepository = broadcastRepository;
         }
 
-        public Guid SendEmail<T>(T broadcast, params string[] to) where T : IDocType
+        public Guid SendEmail<T>(T docType, params string[] to) where T : IDocType
         {
-            Guid broadcastId = Guid.NewGuid();
-
-            // Todo - create parent (grouping) record in Db
+            var broadcastGroupId = Guid.NewGuid();
 
             // Currently we only have an email processor
             var emailProcessor = new EmailProcessor(_broadcastRepository);
-            var result = emailProcessor.Send(broadcast, broadcastId, broadcast.ToPlaceholderDictionary(), to);
+            emailProcessor.Send(docType, broadcastGroupId, docType.ToPlaceholderDictionary(), to);
 
-            // Todo - update the parent record success flag based on result
-
-            return broadcastId;
+            return broadcastGroupId;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Paramount.Betterclassifieds.DataService
     public class DocumentContext : DbContext
     {
         public DocumentContext()
-            : base(ConfigReader.GetConnectionString("paramount/dsl", "ConnectionString"))
+            : base(ConfigReader.GetConnectionString("paramount/dsl"))
         {
             Configuration.ProxyCreationEnabled = false;
             Configuration.LazyLoadingEnabled = false;

@@ -25,7 +25,26 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel.Broadcast
             Assert.AreEqual(result["FirstName"], "Foo");
             Assert.AreEqual(result["LastName"], "Bar");
         }
-        
+
+        [TestMethod]
+        public void ToPlaceholderDictionary_NullProperties_ReturnsDictionaryWithEmptyValues()
+        {
+            // Arrange a class that uses placeholder attribute
+            NewRegistration broadcast = new NewRegistration
+            {
+                FirstName = null,
+                LastName = null
+            };
+
+            // Act
+            var result = broadcast.ToPlaceholderDictionary();
+
+            // Assert
+            Assert.AreEqual(2, result.Count);
+            Assert.AreEqual(result["FirstName"], string.Empty);
+            Assert.AreEqual(result["LastName"], string.Empty);
+        }
+
         [TestMethod]
         public void ToPlaceholderDictionary_WithDifferentNames_ReturnsDictionary()
         {
@@ -55,7 +74,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel.Broadcast
             [Placeholder("Amount")]
             public string Cost { get; set; }
 
-            public string DocumentTemplate { get { return "Fake"; }}
+            public string DocumentType { get { return "Fake"; }}
         }
     }
 }

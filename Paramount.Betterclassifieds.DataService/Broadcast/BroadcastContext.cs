@@ -9,7 +9,7 @@ namespace Paramount.Betterclassifieds.DataService.Broadcast
     public class BroadcastContext : DbContext
     {
         public BroadcastContext()
-            : base(ConfigReader.GetConnectionString("paramount/broadcast", "ConnectionString"))
+            : base(ConfigReader.GetConnectionString("paramount/broadcast"))
         {
             Configuration.ProxyCreationEnabled = false;
             Configuration.LazyLoadingEnabled = false;

@@ -21,6 +21,9 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
 
         public string ParseToString(string template, IDictionary<string, string> tokenValues)
         {
+            if (template.IsNullOrEmpty() || tokenValues == null)
+                return string.Empty;
+
             return tokenValues.Aggregate(template, (current, token) =>
                 current.Replace(string.Format(Key, token.Key), token.Value));
         }
@@ -37,7 +40,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         public static ITemplateParser ResolveParser(string name)
         {
             if (!Container.ContainsKey(name)) 
-                throw new ArgumentException(string.Format("'{0}' is not a registered template parser", name), name);
+                throw new ArgumentException(string.Format("'{0}' is not a registered template parser", name));
 
             return (ITemplateParser)Activator.CreateInstance(Container[name]);
         }

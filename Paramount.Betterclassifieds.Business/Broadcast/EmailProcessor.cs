@@ -31,21 +31,14 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             bool result;
 
             // Template is required for emails, so fetch it
-            EmailTemplate emailTemplate = _broadcastRepository.GetTemplateByName(docType.DocumentTemplate);
+            var emailTemplate = _broadcastRepository.GetTemplateByName(docType.DocumentType);
 
-            // Fetch the parser required for this template ( by name )
-            ITemplateParser parser = ParserFactory.ResolveParser(emailTemplate.ParserName);
-
-            // Construct the body and subject by performing the parsing on each
-            var subject = parser.ParseToString(emailTemplate.SubjectTemplate, placeholderValues);
-            var body = parser.ParseToString(emailTemplate.BodyTemplate, placeholderValues);
-
-            EmailDelivery delivery = new EmailDelivery(broadcastId, subject, body, emailTemplate.IsBodyHtml, emailTemplate.TemplateName, emailTemplate.FromAddress, to);
+            var delivery = EmailDelivery.BuildWithTemplate(docType, emailTemplate, broadcastId, to);
             
             try
             {
                 delivery.IncrementAttempts();
-                _mailer.SendEmail(subject, body, emailTemplate.FromAddress, to);
+                _mailer.SendEmail(delivery.Subject, delivery.Body, delivery.From, delivery.To);
                 delivery.MarkAsSent();
                 result = true;
             }

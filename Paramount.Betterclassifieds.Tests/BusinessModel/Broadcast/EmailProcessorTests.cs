@@ -24,7 +24,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel.Broadcast
             broadcastRepository.Setup(call => call.GetTemplateByName("NewRegistration")).Returns(emailTemplate);
             broadcastRepository.Setup(call => call.CreateOrUpdateEmail(It.IsAny<EmailDelivery>())).Returns(It.IsAny<int>);
 
-            NewRegistration registration = new NewRegistration { FirstName = "Mister", LastName = "Fake" };
+            NewRegistration registration = new NewRegistration { FirstName = "Mister", VerificationLink = "Fake" };
             var smtpMock = new Mock<ISmtpMailer>();
             smtpMock.Setup(call => call.SendEmail(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string[]>()));
 
@@ -53,7 +53,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel.Broadcast
             broadcastRepository.Setup(call => call.GetTemplateByName("NewRegistration")).Returns(emailTemplate);
             broadcastRepository.Setup(call => call.CreateOrUpdateEmail(It.IsAny<EmailDelivery>())).Returns(It.IsAny<int>);
 
-            NewRegistration registration = new NewRegistration { FirstName = "Mister", LastName = "Fake" };
+            NewRegistration registration = new NewRegistration { FirstName = "Mister", VerificationLink = "Fake" };
             var smtpMock = new Mock<ISmtpMailer>();
             smtpMock.Setup(call => call.SendEmail(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string[]>()))
                 .Throws<SmtpException>();

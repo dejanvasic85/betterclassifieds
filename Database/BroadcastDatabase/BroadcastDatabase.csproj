@@ -53,6 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Scripts\0003-Data.EmailTemplate.Upsert.sql" />
     <EmbeddedResource Include="Scripts\0002-Table.EmailTemplate.sql" />
     <EmbeddedResource Include="Scripts\0001-Table.EmailDelivery.sql" />
     <None Include="App.config" />

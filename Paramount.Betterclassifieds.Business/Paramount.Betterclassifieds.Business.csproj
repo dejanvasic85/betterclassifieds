@@ -52,11 +52,11 @@
     <Compile Include="Broadcast\EmailProcessor.cs" />
     <Compile Include="Broadcast\ISmtpMailer.cs" />
     <Compile Include="Broadcast\PlaceholderAttribute.cs" />
-    <Compile Include="Broadcast\Types\NewRegistration.cs" />
+    <Compile Include="Broadcast\DocTypes\NewRegistration.cs" />
     <Compile Include="Broadcast\IBroadcastManager.cs" />
     <Compile Include="Broadcast\EmailTemplate.cs" />
     <Compile Include="Broadcast\ITemplateParser.cs" />
-    <Compile Include="Broadcast\Types\IDocType.cs" />
+    <Compile Include="Broadcast\DocTypes\IDocType.cs" />
     <Compile Include="EditionManager.cs" />
     <Compile Include="Managers\IApplicationConfig.cs" />
     <Compile Include="Managers\IAuthManager.cs" />

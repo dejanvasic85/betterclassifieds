@@ -21,7 +21,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel.Broadcast
             var result = broadcast.ToPlaceholderDictionary();
 
             // Assert
-            Assert.AreEqual(2, result.Count);
+            Assert.AreEqual(3, result.Count);
             Assert.AreEqual(result["FirstName"], "Foo");
             Assert.AreEqual(result["LastName"], "Bar");
         }
@@ -40,7 +40,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel.Broadcast
             var result = broadcast.ToPlaceholderDictionary();
 
             // Assert
-            Assert.AreEqual(2, result.Count);
+            Assert.AreEqual(3, result.Count);
             Assert.AreEqual(result["FirstName"], string.Empty);
             Assert.AreEqual(result["LastName"], string.Empty);
         }

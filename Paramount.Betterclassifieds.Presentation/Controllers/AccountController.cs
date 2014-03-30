@@ -103,7 +103,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             //_userManager.CreateUserProfile(registerModel.RegisterUsername, registerModel.FirstName,
             //    registerModel.LastName, registerModel.PostCode);
 
-            _broadcastManager.SendEmail(new NewRegistration { FirstName = registerModel.FirstName, LastName = registerModel.LastName }, registerModel.RegisterUsername);
+            _broadcastManager.SendEmail(new NewRegistration { FirstName = registerModel.FirstName, VerificationLink = registerModel.LastName }, registerModel.RegisterUsername);
 
             return RedirectToAction("Index", "Home");
         }

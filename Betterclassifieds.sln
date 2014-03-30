@@ -108,9 +108,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Betterclassifieds
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Betterclassifieds.Presentation", "Paramount.Betterclassifieds.Presentation\Paramount.Betterclassifieds.Presentation.csproj", "{16A1594A-F9A2-468B-BF45-2D716A72469E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BroadcastDatabase", "Database\BroadcastDatabase\BroadcastDatabase.csproj", "{E21BC044-AAAF-4D53-9A52-55820A22A7C2}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 37
+		SccNumberOfProjects = 38
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://paramountit.visualstudio.com/defaultcollection
 		SccLocalPath0 = .
@@ -258,6 +260,10 @@ Global
 		SccProjectTopLevelParentUniqueName36 = Betterclassifieds.sln
 		SccProjectName36 = Paramount.Betterclassifieds.Presentation
 		SccLocalPath36 = Paramount.Betterclassifieds.Presentation
+		SccProjectUniqueName37 = Database\\BroadcastDatabase\\BroadcastDatabase.csproj
+		SccProjectTopLevelParentUniqueName37 = Betterclassifieds.sln
+		SccProjectName37 = Database/BroadcastDatabase
+		SccLocalPath37 = Database\\BroadcastDatabase
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -554,6 +560,14 @@ Global
 		{16A1594A-F9A2-468B-BF45-2D716A72469E}.Test|Any CPU.Build.0 = Release|Any CPU
 		{16A1594A-F9A2-468B-BF45-2D716A72469E}.Testing|Any CPU.ActiveCfg = Release|Any CPU
 		{16A1594A-F9A2-468B-BF45-2D716A72469E}.Testing|Any CPU.Build.0 = Release|Any CPU
+		{E21BC044-AAAF-4D53-9A52-55820A22A7C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E21BC044-AAAF-4D53-9A52-55820A22A7C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E21BC044-AAAF-4D53-9A52-55820A22A7C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E21BC044-AAAF-4D53-9A52-55820A22A7C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E21BC044-AAAF-4D53-9A52-55820A22A7C2}.Test|Any CPU.ActiveCfg = Release|Any CPU
+		{E21BC044-AAAF-4D53-9A52-55820A22A7C2}.Test|Any CPU.Build.0 = Release|Any CPU
+		{E21BC044-AAAF-4D53-9A52-55820A22A7C2}.Testing|Any CPU.ActiveCfg = Release|Any CPU
+		{E21BC044-AAAF-4D53-9A52-55820A22A7C2}.Testing|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -596,6 +610,7 @@ Global
 		{0E32F93E-8E53-4469-BD63-3BFCE23468DD} = {06813343-424A-4B8F-9CA9-A109CEA6303B}
 		{04979BB2-2132-46AF-B359-D83A243B97DE} = {06813343-424A-4B8F-9CA9-A109CEA6303B}
 		{CF649D5B-4AB9-4CA3-98D8-B2973C6D8941} = {06813343-424A-4B8F-9CA9-A109CEA6303B}
+		{E21BC044-AAAF-4D53-9A52-55820A22A7C2} = {06813343-424A-4B8F-9CA9-A109CEA6303B}
 		{C27FBF98-1C35-4B23-8551-966538A0D5AA} = {1EAE4385-197F-413F-8AFB-C80EBBD5ED64}
 		{45BBB0EB-4C95-41D5-BD6C-C7D980212144} = {1EAE4385-197F-413F-8AFB-C80EBBD5ED64}
 		{5C1BE481-DB9E-48CC-9048-5B10E6535D02} = {F16003D0-34C6-445D-AA88-017A63D33ADA}

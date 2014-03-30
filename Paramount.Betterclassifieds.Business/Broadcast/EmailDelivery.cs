@@ -4,16 +4,16 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
 {
     public class EmailDelivery
     {
-        public EmailDelivery(Guid broadcastId, string subject, string body, bool isHtml, string docType, string from, params string[] to)
+        public EmailDelivery(Guid broadcastId, string subject, string body, bool isBodyHtml, string docType, string from, params string[] to)
         {
             BroadcastId = broadcastId;
             Subject = subject;
             Body = body;
             To = string.Join(",", to);
             From = from;
-            IsHtml = isHtml;
-            CreatedDate = DateTime.Now;
-            CreatedDateUtc = DateTime.UtcNow;
+            IsBodyHtml = isBodyHtml;
+            ModifiedDate = DateTime.Now;
+            ModifiedDateUtc = DateTime.UtcNow;
             DocType = docType;
         }
 
@@ -33,10 +33,10 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             var subject = parser.ParseToString(emailTemplate.SubjectTemplate, docType.ToPlaceholderDictionary());
             var body = parser.ParseToString(emailTemplate.BodyTemplate, docType.ToPlaceholderDictionary());
 
-            return new EmailDelivery(broadcastId, subject, body, emailTemplate.IsBodyHtml, emailTemplate.DocType, emailTemplate.FromAddress, to);
+            return new EmailDelivery(broadcastId, subject, body, emailTemplate.IsBodyHtml, emailTemplate.DocType, emailTemplate.From, to);
         }
 
-        public int EmailDeliveryId { get; set; }
+        public int? EmailDeliveryId { get; set; }
         public Guid BroadcastId { get; private set; }
         public string To { get; private set; }
         public string Cc { get; private set; }
@@ -44,17 +44,17 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         public string From { get; private set; }
         public string Subject { get; private set; }
         public string Body { get; private set; }
-        public bool IsHtml { get; private set; }
+        public bool IsBodyHtml { get; private set; }
         public string DocType { get; private set; }
         public int Attempts { get; private set; }
         public DateTime? LastAttemptDate { get; set; }
         public DateTime? LastAttemptDateUtc { get; set; }
         public DateTime? SentDate { get; private set; }
         public DateTime? SentDateUtc { get; private set; }
-        public DateTime? CreatedDate { get; private set; }
-        public DateTime? CreatedDateUtc { get; private set; }
-        public string LastExceptionMessage { get; private set; }
-        public string LastExceptionStackTrace { get; private set; }
+        public DateTime? ModifiedDate { get; private set; }
+        public DateTime? ModifiedDateUtc { get; private set; }
+        public string LastErrorMessage { get; private set; }
+        public string LastErrorStackTrace { get; private set; }
 
         public void IncrementAttempts()
         {
@@ -70,14 +70,21 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
 
         public void LogException(string message, string stacktrace)
         {
-            LastExceptionMessage = message;
-            LastExceptionStackTrace = stacktrace;
+            LastErrorMessage = message;
+            LastErrorStackTrace = stacktrace;
         }
 
         public void MarkAsSent()
         {
             SentDate = DateTime.Now;
             SentDateUtc = DateTime.UtcNow;
+        }
+
+        public void Send(ISmtpMailer smtp)
+        {
+            IncrementAttempts();
+            smtp.SendEmail(Subject, Body, From, To);
+            MarkAsSent();
         }
     }
 }

@@ -20,12 +20,8 @@ namespace Paramount.Betterclassifieds.DataService.Broadcast
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<EmailDelivery>().ToTable("EmailDelivery");
-            modelBuilder.Entity<EmailDelivery>().HasKey(key => key.BroadcastId);
-
-            modelBuilder.Entity<EmailTemplate>().ToTable("EmailTemplate");
-            modelBuilder.Entity<EmailTemplate>().HasKey(key => key.EmailTemplateId);
-
+            modelBuilder.Configurations.Add(new EmailDeliveryConfiguration());
+            modelBuilder.Configurations.Add(new EmailTemplateConfiguration());
         }
     }
 }

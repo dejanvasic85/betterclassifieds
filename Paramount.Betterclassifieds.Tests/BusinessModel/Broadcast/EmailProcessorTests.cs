@@ -18,7 +18,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel.Broadcast
             {
                 BodyTemplate = "Hello [/FirstName/] [/LastName/]",
                 SubjectTemplate = "Hello [/FirstName/] [/LastName/]",
-                FromAddress = "sender@fake.com"
+                From = "sender@fake.com"
             };
             var broadcastRepository = new Mock<IBroadcastRepository>(MockBehavior.Strict);
             broadcastRepository.Setup(call => call.GetTemplateByName("NewRegistration")).Returns(emailTemplate);
@@ -47,7 +47,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel.Broadcast
             {
                 BodyTemplate = "Hello [/FirstName/] [/LastName/]",
                 SubjectTemplate = "Hello [/FirstName/] [/LastName/]",
-                FromAddress = "sender@fake.com"
+                From = "sender@fake.com"
             };
             var broadcastRepository = new Mock<IBroadcastRepository>(MockBehavior.Strict);
             broadcastRepository.Setup(call => call.GetTemplateByName("NewRegistration")).Returns(emailTemplate);

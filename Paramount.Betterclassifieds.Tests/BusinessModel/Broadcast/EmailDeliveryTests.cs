@@ -29,7 +29,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel.Broadcast
                 DocType = registration.DocumentType,
                 BodyTemplate = "Hello [/FirstName/] [/LastName/]",
                 SubjectTemplate = "Hello [/FirstName/] [/LastName/]",
-                FromAddress = "blah@email.com"
+                From = "blah@email.com"
             };
 
 
@@ -111,7 +111,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel.Broadcast
 
             // Act
             delivery.LogException(new SmtpException(SmtpStatusCode.MailboxBusy, "Unable to send email"));
-            delivery.LastExceptionMessage.IsEqualTo("Unable to send email");
+            delivery.LastErrorMessage.IsEqualTo("Unable to send email");
         }
 
         [TestMethod]

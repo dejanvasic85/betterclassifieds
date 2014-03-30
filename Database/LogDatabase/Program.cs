@@ -1,9 +1,7 @@
-﻿using System;
+﻿using DbUp;
+using System;
 using System.Configuration;
-using System.Data.SqlClient;
 using System.Reflection;
-using DbUp;
-using DbUp.Helpers;
 
 namespace LogDatabase
 {
@@ -17,6 +15,7 @@ namespace LogDatabase
                 DeployChanges.To
                     .SqlDatabase(connectionString)
                     .WithScriptsEmbeddedInAssembly(Assembly.GetExecutingAssembly())
+                    .WithTransactionPerScript()
                     .LogToConsole()
                     .Build();
 

@@ -5,6 +5,7 @@ Imports Paramount.Betterclassifieds.Business
 Imports Microsoft.Practices.Unity
 Imports Paramount.Betterclassifieds.Security
 Imports Paramount.Betterclassifieds.DataService.Repository
+Imports Paramount.Betterclassifieds.Business.Broadcast
 
 Public Class ContainerConfig
     Public Shared Sub RegisterIocContainer(ByVal container As IUnityContainer)
@@ -25,8 +26,8 @@ Public Class ContainerConfig
             .RegisterType(Of IEditionManager, EditionManager)() _
             .RegisterType(Of ICategoryManager, CategoryManager)() _
             .RegisterType(Of IUserManager, UserManager)() _
-            .RegisterType(Of IAuthManager, AuthenticationService)()
-
+            .RegisterType(Of IAuthManager, AuthenticationService)() _
+            .RegisterType(Of IBroadcastManager, BroadcastManager)()
 
 
     End Sub

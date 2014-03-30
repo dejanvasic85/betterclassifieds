@@ -1,6 +1,5 @@
 ﻿using System.Data;
 using System.Linq;
-using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Broadcast;
 
 namespace Paramount.Betterclassifieds.DataService.Broadcast
@@ -19,7 +18,7 @@ namespace Paramount.Betterclassifieds.DataService.Broadcast
         {
             using (var context = new BroadcastContext())
             {
-                if (emailDelivery.EmailDeliveryId != default(int))
+                if (emailDelivery.EmailDeliveryId == null || emailDelivery.EmailDeliveryId == default(int))
                 {
                     // Create
                     context.Emails.Add(emailDelivery);
@@ -34,7 +33,7 @@ namespace Paramount.Betterclassifieds.DataService.Broadcast
 
                 context.SaveChanges();
 
-                return emailDelivery.EmailDeliveryId;
+                return emailDelivery.EmailDeliveryId.GetValueOrDefault();
             }
         }
     }

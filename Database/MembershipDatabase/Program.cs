@@ -20,6 +20,7 @@ namespace MembershipDatabase
                 DeployChanges.To
                     .SqlDatabase(connectionString)
                     .WithScriptsEmbeddedInAssembly(Assembly.GetExecutingAssembly())
+                    .WithTransactionPerScript()
                     .LogToConsole()
                     .Build();
 
@@ -39,16 +40,5 @@ namespace MembershipDatabase
             return 0;
         }
 
-        /// <summary>
-        /// Creates the db if not exists.
-        /// </summary>
-        private static void CreateDbIfNotExists(string rawConnectionString)
-        {
-            var connectionString = new SqlConnectionStringBuilder(rawConnectionString);
-            var dbName = connectionString.InitialCatalog;
-            var sqlRunner = new AdHocSqlRunner(() => new SqlConnection(rawConnectionString), "dbo");
-            var createDbSql = string.Format(@"IF db_id('{0}') IS NULL BEGIN CREATE DATABASE {0} END", dbName);
-            sqlRunner.ExecuteNonQuery(createDbSql);
-        }
     }
 }

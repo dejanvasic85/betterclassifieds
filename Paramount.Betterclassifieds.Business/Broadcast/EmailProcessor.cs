@@ -37,9 +37,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             
             try
             {
-                delivery.IncrementAttempts();
-                _mailer.SendEmail(delivery.Subject, delivery.Body, delivery.From, delivery.To);
-                delivery.MarkAsSent();
+                delivery.Send(_mailer);
                 result = true;
             }
             catch (Exception ex)

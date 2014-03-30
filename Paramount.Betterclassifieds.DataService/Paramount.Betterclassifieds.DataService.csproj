@@ -107,6 +107,8 @@
     <Compile Include="AdoModels\InvoiceDataProvider.cs" />
     <Compile Include="Broadcast\BroadcastContext.cs" />
     <Compile Include="Broadcast\BroadcastRepository.cs" />
+    <Compile Include="Broadcast\MappingConfig\EmailDeliveryConfiguration.cs" />
+    <Compile Include="Broadcast\MappingConfig\EmailTemplateConfiguration.cs" />
     <Compile Include="Comparers\PublicationDataIdComparer.cs" />
     <Compile Include="DataServiceInitialiser.cs" />
     <Compile Include="DataSources\AzureTableDataSource.cs" />

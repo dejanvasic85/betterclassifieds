@@ -15,19 +15,21 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         public EmailTemplate(string parserName)
         {
             ParserName = parserName;
-            CreatedDate = DateTime.Now;
-            CreatedDateUtc = DateTime.UtcNow;
+            ModifiedDate = DateTime.Now;
+            ModifiedDateUtc = DateTime.UtcNow;
+            ModifiedBy = "system";
         }
         
         public int EmailTemplateId { get; set; }
         public string Description { get; set; }
         public string BodyTemplate { get; set; }
         public string SubjectTemplate { get; set; }
-        public string FromAddress { get; set; }
+        public string From { get; set; }
         public bool IsBodyHtml { get; set; }
         public string DocType { get; set; }
-        public DateTime? CreatedDate { get; private set; }
-        public DateTime? CreatedDateUtc { get; private set; }
+        public string ModifiedBy { get; set; }
+        public DateTime? ModifiedDate { get; private set; }
+        public DateTime? ModifiedDateUtc { get; private set; }
 
         // Type of parser that is required
         public string ParserName { get; private set; }

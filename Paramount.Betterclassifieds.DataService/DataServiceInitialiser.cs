@@ -32,7 +32,8 @@ namespace Paramount.Betterclassifieds.DataService
                      .RegisterType<IApplicationConfig, AppConfig>()
                      .RegisterType<IClientIdentifierManager, CookiesManager>()
                      .RegisterType<IClientSideCacheRepository, ClientSideCacheRepository>()
-                     .RegisterType<IClientSideCacheDataSource, ClientSideCacheDataSource>();
+                     .RegisterType<IClientSideCacheDataSource, ClientSideCacheDataSource>()
+                     .RegisterType<Business.Broadcast.IBroadcastRepository, Broadcast.BroadcastRepository>();
 
         }
     }

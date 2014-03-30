@@ -1,4 +1,5 @@
 ﻿using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 using System.Web.Mvc;
 
@@ -8,13 +9,15 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
     {
         private readonly IUserManager _userManager;
         private readonly IAuthManager _authManager;
+        private readonly IBroadcastManager _broadcastManager;
 
         public const string ReturnUrlKey = "ReturnUrlForLogin";
 
-        public AccountController(IUserManager userManager, IAuthManager authManager)
+        public AccountController(IUserManager userManager, IAuthManager authManager, IBroadcastManager broadcastManager)
         {
             _userManager = userManager;
             _authManager = authManager;
+            _broadcastManager = broadcastManager;
         }
 
         //
@@ -56,15 +59,15 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             if (user == null)
             {
-                ModelState.AddModelError("EmailNotValid", "The username/email provided is not a registered user.");
+                ModelState.AddModelError("EmailNotValid", "Username/email or password is invalid.");
                 //return View(loginOrRegister);
-                return View(new LoginOrRegisterModel {LoginViewModel = loginViewModel});
+                return View(new LoginOrRegisterModel { LoginViewModel = loginViewModel });
             }
 
             // Authenticate
             if (!user.AuthenticateUser(_authManager, loginViewModel.Password))
             {
-                ModelState.AddModelError("BadPassword", "The password provided is not correct.");
+                ModelState.AddModelError("BadPassword", "Username/email or password is invalid.");
                 //return View(loginOrRegister);
                 return View(new LoginOrRegisterModel { LoginViewModel = loginViewModel });
             }
@@ -81,7 +84,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [ValidateAntiForgeryToken]
         [RequireHttps]
         public ActionResult Register(RegisterViewModel registerModel)
-        {            
+        {
             if (this.IsUserLoggedIn())
             {
                 ModelState.AddModelError("UserAlreadyRegistered", "You are already logged in.");
@@ -94,19 +97,15 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             // Create the membership, then create the profile
-            _authManager.CreateMembership(registerModel.RegisterUsername, registerModel.RegisterPassword);
-            _userManager.CreateUserProfile(registerModel.RegisterUsername, registerModel.FirstName,
-                registerModel.LastName, registerModel.PostCode);
-            
-            // Login
-            _authManager.Login(registerModel.RegisterUsername, false);
 
-            // Finally, the user is registered and logged in.. so redirect them appropriately
-            if (TempData[ReturnUrlKey] == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            return Redirect((string)TempData[ReturnUrlKey]);
+            // Todo - the registrationModel just needs to be persisted temporarily
+            //_authManager.CreateMembership(registerModel.RegisterUsername, registerModel.RegisterPassword);
+            //_userManager.CreateUserProfile(registerModel.RegisterUsername, registerModel.FirstName,
+            //    registerModel.LastName, registerModel.PostCode);
+
+            _broadcastManager.SendEmail(new NewRegistration { FirstName = registerModel.FirstName, LastName = registerModel.LastName }, registerModel.RegisterUsername);
+
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]

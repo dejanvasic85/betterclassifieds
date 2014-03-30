@@ -22,6 +22,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             // Fetch the document from repository
             var document = _documentRepository.GetDocument(documentId);
 
+            if (document == null)
+                return new EmptyResult();
+
             // Only resize the image if both values are provided
             if (height.HasValue && width.HasValue)
             {

@@ -36,15 +36,11 @@ end
 UPDATE	EmailTemplate
 SET	[SubjectTemplate]  = 'Classies HealthCheck',
 	[From] = 'classies@themusic.com.au',
-	[BodyTemplate] = '
-
-<h3>Daily Activity for [/ReportDate/] Environment : [/Environment/]</h3>
+	[BodyTemplate] = '<h3>Daily Activity for [/ReportDate/] Environment : [/Environment/]</h3>
 [/ClassifiedsTable/]
 <br>
 <h3>Elmah Errors</h3>
 <br>
 [/LogTable/]
-
-
 '
 WHERE	DocType	= 'ActivityReport'

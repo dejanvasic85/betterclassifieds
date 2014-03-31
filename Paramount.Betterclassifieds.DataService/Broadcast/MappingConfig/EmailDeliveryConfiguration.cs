@@ -3,7 +3,7 @@ using Paramount.Betterclassifieds.Business.Broadcast;
 
 namespace Paramount.Betterclassifieds.DataService.Broadcast
 {
-    public class EmailDeliveryConfiguration : EntityTypeConfiguration<EmailDelivery>
+    public class EmailDeliveryConfiguration : EntityTypeConfiguration<Email>
     {
         public EmailDeliveryConfiguration()
         {

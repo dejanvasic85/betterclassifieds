@@ -1,7 +1,5 @@
 ﻿using Paramount.ApplicationBlock.Data;
-using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Broadcast;
-using System;
 using System.Data.Entity;
 
 namespace Paramount.Betterclassifieds.DataService.Broadcast
@@ -15,11 +13,13 @@ namespace Paramount.Betterclassifieds.DataService.Broadcast
             Configuration.LazyLoadingEnabled = false;
         }
 
-        public IDbSet<EmailDelivery> Emails { get; set; }
+        public IDbSet<Notification> Notifications { get; set; } 
+        public IDbSet<Email> Emails { get; set; }
         public IDbSet<EmailTemplate> EmailTemplates { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Configurations.Add(new NotificationConfiguration());
             modelBuilder.Configurations.Add(new EmailDeliveryConfiguration());
             modelBuilder.Configurations.Add(new EmailTemplateConfiguration());
         }

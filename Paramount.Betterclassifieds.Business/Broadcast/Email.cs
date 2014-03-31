@@ -2,14 +2,14 @@
 
 namespace Paramount.Betterclassifieds.Business.Broadcast
 {
-    public class EmailDelivery
+    public class Email
     {
-        protected EmailDelivery()
+        protected Email()
         {
             // Parameterless constructor for EntityFramework ( hope it works >.. )
         }
 
-        public EmailDelivery(Guid broadcastId, string subject, string body, bool isBodyHtml, string docType, string from, params string[] to)
+        public Email(Guid broadcastId, string subject, string body, bool isBodyHtml, string docType, string from, params string[] to)
         {
             BroadcastId = broadcastId;
             Subject = subject;
@@ -22,7 +22,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             DocType = docType;
         }
 
-        public static EmailDelivery BuildWithTemplate<T>(T docType, EmailTemplate emailTemplate, Guid broadcastId, params string[] to) where T : IDocType
+        public static Email BuildWithTemplate<T>(T docType, EmailTemplate emailTemplate, Guid broadcastId, params string[] to) where T : IDocType
         {
             Guard.NotNull(emailTemplate);
             Guard.NotDefaultValue(broadcastId);
@@ -31,14 +31,14 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             // Fetch the parser required for this template ( by name )
             var parser = ParserFactory.ResolveParser(emailTemplate.ParserName);
 
-            if(parser == null)
+            if (parser == null)
                 throw new NullReferenceException(string.Format("Parser {0} does cannot be resolved.", emailTemplate.ParserName));
 
             // Construct the body and subject by performing the parsing on each
             var subject = parser.ParseToString(emailTemplate.SubjectTemplate, docType.ToPlaceholderDictionary());
             var body = parser.ParseToString(emailTemplate.BodyTemplate, docType.ToPlaceholderDictionary());
 
-            return new EmailDelivery(broadcastId, subject, body, emailTemplate.IsBodyHtml, emailTemplate.DocType, emailTemplate.From, to);
+            return new Email(broadcastId, subject, body, emailTemplate.IsBodyHtml, emailTemplate.DocType, emailTemplate.From, to);
         }
 
         public int? EmailDeliveryId { get; set; }
@@ -88,8 +88,22 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         public void Send(ISmtpMailer smtp)
         {
             IncrementAttempts();
-            smtp.SendEmail(Subject, Body, From, To);
-            MarkAsSent();
+
+            try
+            {
+                smtp.SendEmail(Subject, Body, From, To);
+                
+                MarkAsSent();
+            }
+            catch (Exception ex)
+            {
+                LogException(ex);
+            }
+        }
+
+        public bool HasCompleted(int maxAttempts)
+        {
+            return this.SentDate.HasValue || this.Attempts >= maxAttempts;
         }
     }
 }

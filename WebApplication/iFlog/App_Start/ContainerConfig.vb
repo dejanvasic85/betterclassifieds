@@ -27,7 +27,8 @@ Public Class ContainerConfig
             .RegisterType(Of ICategoryManager, CategoryManager)() _
             .RegisterType(Of IUserManager, UserManager)() _
             .RegisterType(Of IAuthManager, AuthenticationService)() _
-            .RegisterType(Of IBroadcastManager, BroadcastManager)()
+            .RegisterType(Of IBroadcastManager, BroadcastManager)() _
+            .RegisterType(Of INotificationProcessor, EmailProcessor)()
 
 
     End Sub

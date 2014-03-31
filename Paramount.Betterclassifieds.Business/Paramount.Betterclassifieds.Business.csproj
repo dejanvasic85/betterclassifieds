@@ -47,6 +47,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookingManager.cs" />
+    <Compile Include="Broadcast\DocTypes\ActivityReport.cs" />
+    <Compile Include="Broadcast\DocTypes\AdEnquiry.cs" />
+    <Compile Include="Broadcast\DocTypes\ExpirationReminder.cs" />
+    <Compile Include="Broadcast\DocTypes\ForgottenPassword.cs" />
+    <Compile Include="Broadcast\DocTypes\NewBooking.cs" />
+    <Compile Include="Broadcast\DocTypes\SupportRequest.cs" />
     <Compile Include="Broadcast\EmailDelivery.cs" />
     <Compile Include="Broadcast\IBroadcastRepository.cs" />
     <Compile Include="Broadcast\EmailProcessor.cs" />

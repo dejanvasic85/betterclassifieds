@@ -6,7 +6,8 @@ DECLARE @currentDateTimeUtc AS DATETIME;
 SET		@currentDateTimeUtc = GETUTCDATE();
 
 
-IF NOT EXISTS ( SELECT 1 FROM EmailTemplate WHERE DocType = 'NewRegistration' )
+
+IF NOT EXISTS ( SELECT 1 FROM EmailTemplate WHERE DocType = 'AdEnquiry' )
 begin
 	INSERT INTO [dbo].[EmailTemplate]
 			   ([DocType]
@@ -20,8 +21,8 @@ begin
 			   ,[ModifiedDate]
 			   ,[ModifiedDateUtc])
 		 VALUES
-			   ('NewRegistration'
-			   ,'New User Registration - Welcome and confirmation email'
+			   ('AdEnquiry'
+			   ,'Anonymous request made to the advertiser when previewing an Ad.'
 			   ,'<todo>' -- Subject
 			   ,'<todo>' -- Body
 			   ,1
@@ -32,16 +33,14 @@ begin
 			   ,@currentDateTimeUtc)
 end
 
-
 UPDATE	EmailTemplate
-SET	[SubjectTemplate]  = 'Classies Account Confirmation',
+SET	[SubjectTemplate]  = 'Classies Ad Enquiry',
 	[From] = 'classies@themusic.com.au',
 	[BodyTemplate] = '
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>TheMusic Classies Registration Confirmation</title>
+    <title>TheMusic Classies Ad Enquiry - Notification</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <style type="text/css">
         <!--
@@ -59,7 +58,6 @@ SET	[SubjectTemplate]  = 'Classies Account Confirmation',
             margin: 0px 0px;
             padding: 0px;
             border-style: none;
-            
         }
 
         a
@@ -228,8 +226,8 @@ SET	[SubjectTemplate]  = 'Classies Account Confirmation',
                 <td colspan="4">
                     <div style="text-align: center;">
                         <a href="http://classies.themusic.com.au/" target="_blank">
-                            <img  src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png"  width="300px"
-                                alt="The Music | theMusic.com.au | Australia’s Premier Music News &amp; Reviews Website" />
+                            <img src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" width="300px"
+                                alt="The Music | theMusic.com.au | Australia?s Premier Music News &amp; Reviews Website" />
                         </a>
                     </div>
 
@@ -238,16 +236,13 @@ SET	[SubjectTemplate]  = 'Classies Account Confirmation',
 
             <tr>
                 <td valign="top" style="width: 600px;">
-                    <h2 class="headline">Account Confirmation</h2>
-                    <p class="mainPara"><strong>Welcome [/FirstName/]</strong>. Thank you for signing up with us.</p>
-                    <p class="mainPara"> You will need to verify that you own this email address
-                    by clicking on the following link below. This will also log you in automatically!
-                    </p>
+                    <h2 class="headline">Classies Ad Enquiry</h2>
                     <p class="mainPara">
-                    	[/VerificationLink/]
+                        Hi, you have recieved interest in your Ad #[/adNumber/]. To find out what has 
+                        been left for you, go to <a href="http://classies.themusic.com.au">our classies site</a>, 
+                        login and go to My Account -> Messages for full details.
                     </p>
                     <br />
-
                     <p class="mainPara">Thanks,</p>
                     <p class="mainPara">TheMusic Team</p>
                 </td>
@@ -255,28 +250,20 @@ SET	[SubjectTemplate]  = 'Classies Account Confirmation',
             <tr>
                 <td valign="top" style="width: 600px;">
                     <div class="boxLinks">
-                        <p class="mainPara">
-                            Thank you for using TheMusic Classies, Street Press Australia''s classifieds site. 
-                        Did you try our new premium advert this time? Maximise your print advertisements 
-                        potential by choosing our <a href="http://classies.themusic.com.au/">premium advert option</a> which includes a bold heading and a colour image. 
-                        If you want to see your advertisement in print, you can check the electronic versions of our 
-                        publications <a href="http://www.streetpress.com.au">here.</a>
-                            If you have any concerns or would like to provide feedback, 
-                        please don''t hesitate to <a href="http://classies.themusic.com.au/Help/Contact.aspx">contact us.</a>
-                        </p>
+                        <p class="mainPara">Thank you for using TheMusic Classies, Street Press Australia''s classifieds site. Did you try our new premium advert this time? Maximise your print advertisements potential by choosing our <a href="https://classies.themusic.com.au/login.aspx?ReturnUrl=/Default.aspx">premium advert option</a> which includes a bold heading and a colour image. If you want to see your advertisement in print, you can check the electronic versions of our publications <a href="http://www.streetpress.com.au">here.</a> If you have any concerns or would like to provide feedback, please don''t hesitate to <a href="http://classies.themusic.com.au/Help/Contact.aspx">contact us.</a></p>
                     </div>
                 </td>
             </tr>
-            <!--  VERY BOTTOM LINKS, SHOULDN''T NEED TO CHANGE -->
             <tr>
                 <td align="center" class="outline" valign="middle" style="background-color: #e3f6fd; width: 600px;" colspan="4">
                     <p class="boxLinks3">
                         <a href="http://classies.themusic.com.au/Help/FAQ.aspx" target="_blank">FAQ</a> | 
-                        <a href="http://classies.com.au/Rates.aspx" target="_blank">Rates</a> | 
+                        <a href="http://classies.themusic.com.au/Rates.aspx" target="_blank">Rates</a> | 
                         <a href="http://classies.themusic.com.au/Publications.aspx" target="_blank">Deadlines</a> | 
                         <a href="http://classies.themusic.com.au/Terms.aspx" target="_blank">Terms and Conditions</a> | 
                         <a href="http://classies.themusic.com.au/Help/PrivacyPolicy.aspx" target="_blank">Privacy Policy</a> | 
-                        <a href="http://classies.themusic.com.au/Help/Contact.aspx" target="_blank">Contact Us</a> </p>
+                        <a href="http://classies.themusic.com.au/Help/Contact.aspx" target="_blank">Contact Us</a>
+                    </p>
                 </td>
             </tr>
         </tbody>
@@ -284,4 +271,4 @@ SET	[SubjectTemplate]  = 'Classies Account Confirmation',
 </body>
 </html>
 '
-WHERE	DocType	= 'NewRegistration'
+WHERE	DocType	= 'AdEnquiry'

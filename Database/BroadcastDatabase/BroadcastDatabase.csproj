@@ -53,7 +53,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Scripts\0003-Data.EmailTemplate.Upsert.sql" />
+    <EmbeddedResource Include="Scripts\0009-Data.EmailTemplate-ActivityReport.sql" />
+    <EmbeddedResource Include="Scripts\0008-Data.EmailTemplate-AdEnquiry.sql" />
+    <EmbeddedResource Include="Scripts\0007-Data.EmailTemplate-SupportRequest.sql" />
+    <EmbeddedResource Include="Scripts\0006-Data.EmailTemplate-NewBooking.sql" />
+    <EmbeddedResource Include="Scripts\0005-Data.EmailTemplate-ExpirationReminder.sql" />
+    <EmbeddedResource Include="Scripts\0004-Data.EmailTemplate-ForgottenPassword.sql" />
+    <EmbeddedResource Include="Scripts\0003-Data.EmailTemplate-NewRegistration.sql" />
     <EmbeddedResource Include="Scripts\0002-Table.EmailTemplate.sql" />
     <EmbeddedResource Include="Scripts\0001-Table.EmailDelivery.sql" />
     <None Include="App.config" />
@@ -72,7 +78,9 @@
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="BroadcastDatabase.nuspec" />
+    <None Include="BroadcastDatabase.nuspec">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

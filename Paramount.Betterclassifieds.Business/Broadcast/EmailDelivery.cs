@@ -4,6 +4,11 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
 {
     public class EmailDelivery
     {
+        protected EmailDelivery()
+        {
+            // Parameterless constructor for EntityFramework ( hope it works >.. )
+        }
+
         public EmailDelivery(Guid broadcastId, string subject, string body, bool isBodyHtml, string docType, string from, params string[] to)
         {
             BroadcastId = broadcastId;
@@ -56,7 +61,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         public string LastErrorMessage { get; private set; }
         public string LastErrorStackTrace { get; private set; }
 
-        public void IncrementAttempts()
+        private void IncrementAttempts()
         {
             Attempts++;
             LastAttemptDate = DateTime.Now;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Mail;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using Paramount.Betterclassifieds.Business.Broadcast;
 
 namespace Paramount.Betterclassifieds.Tests.BusinessModel.Broadcast
@@ -83,23 +84,27 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel.Broadcast
         }
 
         [TestMethod]
-        public void IncrementAttempts_PropertiesAreSet()
+        public void Send_WithFakeMailer_PropertiesAreSet()
         {
             // Arrange
             EmailDelivery delivery = new EmailDelivery(Guid.NewGuid(),
                 "Subject 123", "Body 123", false, "unknown-doctype", "sender@somewhere.com", "destination@somewhere.com");
 
+            Mock<ISmtpMailer> mailer = new Mock<ISmtpMailer>(MockBehavior.Strict);
+            mailer.Setup(call => call.SendEmail(delivery.Subject,
+                delivery.Body, delivery.From, delivery.To));
+
             // Act - Assert
-            delivery.IncrementAttempts();
+            delivery.Send(mailer.Object);
             delivery.Attempts.IsEqualTo(1);
             delivery.LastAttemptDate.IsNotNull();
             delivery.LastAttemptDateUtc.IsNotNull();
+            delivery.SentDate.IsNotNull();
+            delivery.SentDateUtc.IsNotNull();
 
             // Act - Assert
-            delivery.IncrementAttempts();
+            delivery.Send(mailer.Object);
             delivery.Attempts.IsEqualTo(2);
-            delivery.LastAttemptDate.IsNotNull();
-            delivery.LastAttemptDateUtc.IsNotNull();
         }
 
         [TestMethod]

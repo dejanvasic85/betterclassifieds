@@ -12,17 +12,17 @@ Set-Location $scriptPath
 # Use connection builder to get variables we need for backup and stuff
 $sqlConnectionBuilder = New-Object -TypeName System.Data.SqlClient.SqlConnectionStringBuilder -ArgumentList $appConfig.configuration.connectionStrings.add.connectionString
 
+$backupFile = $BackupDatabaseLocation + $sqlConnectionBuilder.InitialCatalog + ".bak"
+
 # Backup-SqlDatabase 
 if ( $BackupDatabase -eq $true ){
-	$backupFile = $BackupDatabaseLocation + $sqlConnectionBuilder.InitialCatalog + ".bak"    
     Write-Host "Backing Up..."
     Backup-SqlDatabase -ServerInstance $sqlConnectionBuilder.DataSource -Database $sqlConnectionBuilder.InitialCatalog -BackupFile $backupFile -BackupAction Database -Initialize
     Set-Location $scriptPath
 }
 
 # Restore-SqlDatabase
-if ( $RestoreDatabase -eq $true ){	
-    $backupFile = $BackupDatabasePath + $sqlConnectionBuilder.InitialCatalog + ".bak"
+if ( ($RestoreDatabase -eq $true) -and (Test-Path $backupFile)  ){	
 	Invoke-Sqlcmd "ALTER DATABASE [$($sqlConnectionBuilder.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ServerInstance $sqlConnectionBuilder.DataSource
 	Invoke-Sqlcmd "ALTER DATABASE [$($sqlConnectionBuilder.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ServerInstance $sqlConnectionBuilder.DataSource
 

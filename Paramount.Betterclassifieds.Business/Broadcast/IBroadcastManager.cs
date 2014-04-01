@@ -53,7 +53,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
                 // Keep track results from all processors
                 ConcurrentBag<bool> results = new ConcurrentBag<bool>();
 
-                // Create a task for each
+                // Create a task for each processor
                 var tasks = _processors
                     .Select(processor =>
                     {
@@ -61,12 +61,14 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
                         results.Add(task.Result);
                         return task;
                     }).ToArray();
-
+               
                 // Wait until all of processors have completed
-                Task.WaitAll(tasks);
+                Task.WaitAll(tasks.ToArray());
 
                 if (results.All(r => r))
+                {
                     notification.IsComplete = true;
+                }
 
                 // Persist back to repository
                 _broadcastRepository.CreateOrUpdateNotification(notification);

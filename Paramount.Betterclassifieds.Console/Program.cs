@@ -1,16 +1,16 @@
-﻿using Paramount.Betterclassifieds.Business;
+﻿using System;
+using System.Linq;
+using Microsoft.Practices.Unity;
+using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Broadcast;
+using Paramount.Betterclassifieds.Business.Managers;
+using Paramount.Betterclassifieds.Business.Repository;
+using Paramount.Betterclassifieds.Console.Tasks;
+using Paramount.Betterclassifieds.DataService.Broadcast;
 using Paramount.Betterclassifieds.DataService.Repository;
 
 namespace Paramount.Betterclassifieds.Console
 {
-    using Business.Managers;
-    using Microsoft.Practices.Unity;
-    using System;
-    using System.Linq;
-    using System.Reflection;
-    using Tasks;
-    
     class Program
     {
         private IUnityContainer _container;
@@ -27,8 +27,8 @@ namespace Paramount.Betterclassifieds.Console
                                     {
                                         TaskArguments.TaskFullArgName, typeof(ProcessUnsentNotifications).Name
                                     });
-                Console.WriteLine("Press any key to exit...");
-                Console.ReadLine();
+                System.Console.WriteLine("Press any key to exit...");
+                System.Console.ReadLine();
 //#else
                 program.Start(args);
 #endif
@@ -37,37 +37,12 @@ namespace Paramount.Betterclassifieds.Console
             {
                 // If it gets to here then some unexpected exception occurred within a job.
                 // Log to the windows event viewer as last resort.
-                Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.StackTrace);
+                System.Console.WriteLine(ex.Message);
+                System.Console.WriteLine(ex.StackTrace);
                 ex.ToEventLog();
             }
         }
-
-        // When registering your task ensure that your register them here
-        public void RegisterContainer()
-        {
-            _container = new UnityContainer();
-
-            // Register all repositories and managers
-            _container.RegisterType<IBookingManager, BookingManager>()
-                .RegisterType<IEditionManager, EditionManager>()
-                .RegisterType<IClientConfig, ClientConfig>()
-                .RegisterType<IBroadcastManager, BroadcastManager>()
-                .RegisterType<INotificationProcessor, EmailProcessor>()
-                .RegisterType<ISmtpMailer, DefaultMailer>();
-
-            // Automatically register all repositories ( by convention )
-            var repositories = Assembly
-                .GetAssembly(typeof(BookingRepository))
-                .GetTypes()
-                .Where(type => type.Name.EndsWith("Repository"));
-
-            // todo - convention _container.RegisterTypes(repositories, WithMappings.FromMatchingInterface);
-
-            // Register each task that implements ITask
-            TypeRegistrations.ActionEach(task => _container.RegisterType(typeof(ITask), task, task.Name));
-        }
-
+        
         public void Start(string[] args)
         {
             // If the arguments contains "Help" then get the task helper to do the work
@@ -97,5 +72,30 @@ namespace Paramount.Betterclassifieds.Console
             // Run the task!
             task.Run();
         }
+
+        // When registering your task ensure that your register them here
+        public void RegisterContainer()
+        {
+            _container = new UnityContainer();
+
+            // Register all managers and other components
+            _container.RegisterType<IBookingManager, BookingManager>()
+                .RegisterType<IEditionManager, EditionManager>()
+                .RegisterType<IClientConfig, ClientConfig>()
+                .RegisterType<IBroadcastManager, BroadcastManager>()
+                .RegisterType<INotificationProcessor, EmailProcessor>()
+                .RegisterType<ISmtpMailer, DefaultMailer>();
+
+            // Repositories
+            _container.RegisterType<IBookingRepository, BookingRepository>()
+                .RegisterType<IBroadcastRepository, BroadcastRepository>()
+                .RegisterType<IEditionRepository, EditionRepository>()
+                .RegisterType<IPublicationRepository, PublicationRepository>()
+                .RegisterType<IPaymentsRepository, PaymentsRepository>();
+
+            // Tasks (anything that implements ITask)
+            TypeRegistrations.ActionEach(task => _container.RegisterType(typeof(ITask), task, task.Name));
+        }
+
     }
 }

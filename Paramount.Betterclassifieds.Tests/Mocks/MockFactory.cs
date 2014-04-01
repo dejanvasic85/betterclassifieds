@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using Microsoft.Practices.Unity;
 using Moq;
-using Moq.Language.Flow;
 
 namespace Paramount.Betterclassifieds.Tests.Mocks
 {

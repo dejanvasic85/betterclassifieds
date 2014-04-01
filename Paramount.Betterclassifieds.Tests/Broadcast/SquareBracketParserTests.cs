@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Paramount.Betterclassifieds.Business.Broadcast;
 
-namespace Paramount.Betterclassifieds.Tests.BusinessModel.Broadcast
+namespace Paramount.Betterclassifieds.Tests.Broadcast
 {
     [TestClass]
     public class SquareBracketParserTests

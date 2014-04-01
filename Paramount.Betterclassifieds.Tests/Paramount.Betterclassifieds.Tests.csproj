@@ -91,11 +91,12 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AssertExtensions.cs" />
-    <Compile Include="BusinessModel\Bookings\EditionManagerTests.cs" />
-    <Compile Include="BusinessModel\Bookings\TheMusicHtmlScraperTests.cs" />
-    <Compile Include="BusinessModel\Broadcast\SquareBracketParserTests.cs" />
-    <Compile Include="BusinessModel\Broadcast\PlaceholderExtensionsTests.cs" />
-    <Compile Include="BusinessModel\Broadcast\EmailTests.cs" />
+    <Compile Include="Bookings\EditionManagerTests.cs" />
+    <Compile Include="Bookings\TheMusicHtmlScraperTests.cs" />
+    <Compile Include="Broadcast\BroadcastManagerTests.cs" />
+    <Compile Include="Broadcast\SquareBracketParserTests.cs" />
+    <Compile Include="Broadcast\PlaceholderExtensionsTests.cs" />
+    <Compile Include="Broadcast\EmailTests.cs" />
     <Compile Include="Console\TaskArgumentsTests.cs" />
     <Compile Include="Controllers\ControllerTest.cs" />
     <Compile Include="Controllers\HomeControllerTests.cs" />
@@ -135,7 +136,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ApplicationBlock\" />
+    <Folder Include="BusinessModel\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Artefacts\TheMusicBadHtml.html">

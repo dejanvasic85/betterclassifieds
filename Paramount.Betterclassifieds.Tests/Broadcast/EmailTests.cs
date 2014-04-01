@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Paramount.Betterclassifieds.Business.Broadcast;
 
-namespace Paramount.Betterclassifieds.Tests.BusinessModel.Broadcast
+namespace Paramount.Betterclassifieds.Tests.Broadcast
 {
     [TestClass]
     public class EmailTests

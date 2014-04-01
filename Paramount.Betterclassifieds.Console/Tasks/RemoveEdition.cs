@@ -1,10 +1,10 @@
-﻿namespace Paramount.Betterclassifieds.Console.Tasks
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Business.Managers;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Paramount.Betterclassifieds.Business.Managers;
 
+namespace Paramount.Betterclassifieds.Console.Tasks
+{
     [Help(Description = "Removes an edition from the system and ensures that any bookings made are also extended.")]
     public class RemoveEdition : ITask
     {
@@ -28,7 +28,7 @@
             // Use the business layer to perform all the work :)
             _editionsToRemove.ForEach(edition =>
                 {
-                    Console.WriteLine("Processing edition {0}", edition);
+                    System.Console.WriteLine("Processing edition {0}", edition);
                     _editionManager.RemoveEditionAndExtendBookings(edition);
                 });
         }

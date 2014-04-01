@@ -11,7 +11,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         private readonly int _maxAttempts;
 
         public EmailProcessor(IBroadcastRepository broadcastRepository)
-            : this(broadcastRepository, new SmtpMailer())
+            : this(broadcastRepository, new DefaultMailer())
         {
             // Overloaded constructor
         }

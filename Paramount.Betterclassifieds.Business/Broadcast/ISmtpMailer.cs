@@ -7,7 +7,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         void SendEmail(string subject, string body, string from, params string[] to);
     }
 
-    public class SmtpMailer : ISmtpMailer
+    public class DefaultMailer : ISmtpMailer
     {
         public void SendEmail(string subject, string body, string from, params string[] to)
         {

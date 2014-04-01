@@ -1,4 +1,5 @@
 ﻿using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.DataService.Repository;
 
 namespace Paramount.Betterclassifieds.Console
@@ -24,8 +25,7 @@ namespace Paramount.Betterclassifieds.Console
 #if DEBUG
                 program.Start(new[]
                                     {
-                                        TaskArguments.TaskFullArgName, "RemoveEdition",
-                                        "-Editions", "01-JAN-2014"
+                                        TaskArguments.TaskFullArgName, typeof(ProcessUnsentNotifications).Name
                                     });
                 Console.WriteLine("Press any key to exit...");
                 Console.ReadLine();
@@ -51,15 +51,20 @@ namespace Paramount.Betterclassifieds.Console
             // Register all repositories and managers
             _container.RegisterType<IBookingManager, BookingManager>()
                 .RegisterType<IEditionManager, EditionManager>()
-                .RegisterType<IClientConfig, ClientConfig>();
+                .RegisterType<IClientConfig, ClientConfig>()
+                .RegisterType<IBroadcastManager, BroadcastManager>()
+                .RegisterType<INotificationProcessor, EmailProcessor>()
+                .RegisterType<ISmtpMailer, DefaultMailer>();
 
+            // Automatically register all repositories ( by convention )
             var repositories = Assembly
                 .GetAssembly(typeof(BookingRepository))
                 .GetTypes()
-                .Where(type => type.Namespace == "BetterClassified.Repository" && type.Name.EndsWith("Repository"));
+                .Where(type => type.Name.EndsWith("Repository"));
 
-            _container.RegisterTypes(repositories, WithMappings.FromMatchingInterface);
+            // todo - convention _container.RegisterTypes(repositories, WithMappings.FromMatchingInterface);
 
+            // Register each task that implements ITask
             TypeRegistrations.ActionEach(task => _container.RegisterType(typeof(ITask), task, task.Name));
         }
 

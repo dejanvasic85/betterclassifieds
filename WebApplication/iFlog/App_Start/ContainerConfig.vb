@@ -28,7 +28,8 @@ Public Class ContainerConfig
             .RegisterType(Of IUserManager, UserManager)() _
             .RegisterType(Of IAuthManager, AuthenticationService)() _
             .RegisterType(Of IBroadcastManager, BroadcastManager)() _
-            .RegisterType(Of INotificationProcessor, EmailProcessor)()
+            .RegisterType(Of INotificationProcessor, EmailProcessor)("emailProcessingEngine") _
+            .RegisterType(Of ISmtpMailer, DefaultMailer)()
 
 
     End Sub

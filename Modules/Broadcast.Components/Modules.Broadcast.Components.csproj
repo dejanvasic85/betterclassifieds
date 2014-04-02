@@ -58,7 +58,6 @@
     <Compile Include="OnlineAdEnquiryNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistrationNotification.cs" />
-    <Compile Include="SupportNotification.cs" />
     <Compile Include="SystemHealthCheckNotification.cs" />
     <Compile Include="TemplateFields.cs" />
     <Compile Include="UI\TemplateListControl.cs" />

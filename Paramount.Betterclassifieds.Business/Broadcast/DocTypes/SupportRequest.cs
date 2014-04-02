@@ -6,5 +6,6 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
 
         [Placeholder("content")]
         public string RequestDetails { get; set; }
+
     }
 }

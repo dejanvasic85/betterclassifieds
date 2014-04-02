@@ -54,7 +54,6 @@
     <Compile Include="EmailBroadcastController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemHealthCheckNotification.cs" />
-    <Compile Include="TemplateFields.cs" />
     <Compile Include="UI\TemplateListControl.cs" />
     <Compile Include="ViewObjects\EmailRecipientView.cs" />
     <Compile Include="ViewObjects\EmailTemplateView.cs" />

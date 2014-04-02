@@ -54,7 +54,6 @@
     <Compile Include="Email.cs" />
     <Compile Include="EmailBroadcastController.cs" />
     <Compile Include="ForgottenPasswordNotification.cs" />
-    <Compile Include="OnlineAdEnquiryNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemHealthCheckNotification.cs" />
     <Compile Include="TemplateFields.cs" />

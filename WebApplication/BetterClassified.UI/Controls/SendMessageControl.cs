@@ -7,9 +7,11 @@ using AjaxControlToolkit;
 using BetterClassified.UIController.Constants;
 using BetterclassifiedsCore;
 using Paramount;
+using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Common.UI;
 using Paramount.Common.UI.BaseControls;
 using Telerik.Web.UI;
+using Microsoft.Practices.Unity;
 
 namespace BetterClassified.UI
 {
@@ -215,7 +217,18 @@ namespace BetterClassified.UI
             }
 
             if (AdId != null)
+            {
                 BetterclassifiedsCore.Controller.OnlineAdEnquiryController.CreateOnlineAdEnquiry(AdId.Value, 1, this.nameBox.Text, this.emailBox.Text, this.phoneBox.Text, this.messageBox.Text);
+
+
+                // Fetch the recipient
+                var recipient = BetterclassifiedsCore.Controller.OnlineAdEnquiryController.GetUserEmailByAdBookingId(AdId.Value);
+                
+                // Send the email - using the new broadcast implementation
+                IBroadcastManager manager = Unity.DefaultContainer.Resolve<IBroadcastManager>();
+                manager.SendEmail<AdEnquiry>(new AdEnquiry {AdNumber = AdId.ToString()}, recipient);
+
+            }
             successText.Text = GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form, "success.Text");
             InvokeOnSubmit(e);
             Clear();

@@ -79,7 +79,8 @@ Namespace Controller
                                  Select New With {.AdDesignId = d.AdDesignId, .OnlineAdId = o.OnlineAdId}).Single
 
                 Dim userData = GetUserEmailByAdDesignId(onlineAd.AdDesignId)
-                SendEmail(bookingId, userData.Email, email, fullName, enquiryText, phone)
+                ' SendEmail(bookingId, userData.Email, email, fullName, enquiryText, phone)
+
 
                 Dim enquiry As New DataModel.OnlineAdEnquiry With {.OnlineAdId = onlineAd.OnlineAdId, _
                                                                    .EnquiryTypeId = enquiryTypeId, _
@@ -94,6 +95,17 @@ Namespace Controller
                 db.SubmitChanges()
             End Using
         End Sub
+
+        Public Shared Function GetUserEmailByAdBookingId(ByVal adBookingId As Integer) As String
+            Using db = BetterclassifiedsDataContext.NewContext
+                Dim result = db.AdBookings.FirstOrDefault(Function(b) b.AdBookingId = adBookingId)
+
+                If (result Is Nothing) Then
+                    Throw New Exception("invalid email address")
+                End If
+                Return Membership.GetUser((result.UserId)).Email
+            End Using
+        End Function
 
         Public Shared Function GetUserEmailByAdDesignId(ByVal adDesignId As Integer)
             Using db = BetterclassifiedsDataContext.NewContext
@@ -110,10 +122,10 @@ Namespace Controller
             End Using
         End Function
 
-        Friend Shared Sub SendEmail(ByVal adId As Integer, ByVal email As String, ByVal senderEmail As String, ByVal fullname As String, ByVal message As String, ByVal phone As String)
-            Dim emailTemplate As New OnlineAdEnquiryNotification(email) With {.AdNumber = adId, .EmailAddress = senderEmail, .FullName = fullname, .Message = message, .Phone = phone}
-            emailTemplate.Send()
-        End Sub
+        'Friend Shared Sub SendEmail(ByVal adId As Integer, ByVal email As String, ByVal senderEmail As String, ByVal fullname As String, ByVal message As String, ByVal phone As String)
+        '    Dim emailTemplate As New OnlineAdEnquiryNotification(email) With {.AdNumber = adId, .EmailAddress = senderEmail, .FullName = fullname, .Message = message, .Phone = phone}
+        '    emailTemplate.Send()
+        'End Sub
 
 #Region " IDisposable Support "
         ' This code added by Visual Basic to correctly implement the disposable pattern.

@@ -1,6 +1,9 @@
 ﻿Imports BetterclassifiedsCore
-Imports Paramount.Broadcast.Components
+Imports Paramount.Betterclassifieds.Business.Broadcast
 Imports Paramount.Betterclassifieds.Business.Managers
+Imports BetterClassified
+Imports Microsoft.Practices.Unity
+Imports Paramount
 
 Public Delegate Sub OnPayment(ByVal ref As String)
 
@@ -40,9 +43,18 @@ Public Class Global_asax
     Sub SucessfulPayment(ByVal bookRef As String)
         Dim content = BookingController.GetBookingStringContentByRef(bookRef)
         Dim emailString As String = AppKeyReader(Of String).ReadFromStore(AppKey.AdminNotificationAccounts, defaultIfNotExists:="support@paramountit.com.au")
-        Dim emailCollection = emailString.Split(";")
-        Dim email As New AfterAdBookingNotification(emailCollection, String.Empty, content)
-        email.Send()
+
+        Dim broadcastManager = DefaultContainer.Resolve(Of IBroadcastManager)()
+
+        For Each recipient In emailString.Split(";")
+
+            If recipient.HasValue() Then
+                ' Always create a new email ( broadcast ) per recipient
+                broadcastManager.SendEmail(Of NewBooking)(New NewBooking() With {.Content = content}, recipient)
+            End If
+
+        Next
+
     End Sub
 
 End Class

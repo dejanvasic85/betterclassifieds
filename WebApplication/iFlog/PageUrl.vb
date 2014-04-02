@@ -5,6 +5,10 @@ Imports Paramount
 Imports Paramount.Betterclassifieds.Business.Managers
 Imports Paramount.Betterclassifieds.Business.Models
 
+Public Class NextGenUrl
+    Public Const LoginAndRegistration As String = "~/Account/Login"
+End Class
+
 ''' <summary>
 ''' PageUrl is a utility class that generates outgoing URL's for specific pages
 ''' </summary>

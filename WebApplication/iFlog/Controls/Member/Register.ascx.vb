@@ -1,6 +1,6 @@
 ﻿Imports BetterclassifiedsCore
 Imports Paramount.Betterclassified.Xavier.ProfileProvider
-Imports Paramount.Broadcast.Components
+
 
 Partial Public Class Register1
     Inherits System.Web.UI.UserControl
@@ -9,6 +9,11 @@ Partial Public Class Register1
     Private pageValid As String = "pageValid"
 
     Private Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
+        ' Perform a permanent redirect ( to the new registration page - nextgen !)
+        Response.RedirectPermanent(NextGenUrl.LoginAndRegistration)
+
+
         If Not Page.IsPostBack Then
 
             ' perform databind on business industry list to drop down
@@ -99,19 +104,10 @@ Partial Public Class Register1
             UserProfile.BusinessCategory = GetCategoryCode()
             UserProfile.Save()
         End If
-        NotiFyUser()
     End Sub
 
 #End Region
 
-#Region "Notify User - Email"
-
-    Private Sub NotiFyUser()
-        Dim email As New RegistrationNotification(SiteCreateUserWizard.UserName, SiteCreateUserWizard.Password, SiteCreateUserWizard.Email)
-        email.Send()
-    End Sub
-
-#End Region
 
 #Region "Helper Methods"
 

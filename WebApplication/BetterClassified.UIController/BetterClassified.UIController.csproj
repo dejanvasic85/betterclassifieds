@@ -150,10 +150,6 @@
       <Project>{377F2216-9202-4DF9-9C5B-C2A4E627FFE2}</Project>
       <Name>Common.DataTransferObjects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Services\ServiceContracts\Common.ServiceContracts.csproj">
-      <Project>{97D730A7-D86A-4FA1-90E2-3DFCFD4C337A}</Project>
-      <Name>Common.ServiceContracts</Name>
-    </ProjectReference>
     <ProjectReference Include="..\UI\Common.UI.csproj">
       <Project>{32E18B88-521E-4887-BFBF-26B64797AF75}</Project>
       <Name>Common.UI</Name>

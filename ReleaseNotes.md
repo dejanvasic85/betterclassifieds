@@ -10,3 +10,4 @@
 **Technical Debt**
 
 - [Revamped broadcast backend]('https://trello.com/c/OHkFAn66/157-revamped-broadcast-backend')
+- Made all the WCF services redundant and removed from solution

@@ -1,9 +1,10 @@
 ﻿using BetterClassified.UIController;
 using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.Business.Repository;
+using Paramount.Betterclassifieds.DataService.Broadcast;
 using Paramount.Betterclassifieds.DataService.Repository;
-using Paramount.Broadcast.Components;
 using System;
 using System.Linq;
 using System.Text;
@@ -13,14 +14,20 @@ namespace Paramount.TaskScheduler
     public class ExpiredAdNotification : IScheduler
     {
         private const string DaysBeforeExpiry = "DAYSBEFOREEXPIRY";
-        private readonly IUserRepository userRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IApplicationConfig _applicationConfig;
-        
+        private readonly IBroadcastManager _broadcastManager;
 
         public ExpiredAdNotification()
         {
-            userRepository = new UserRepository();  // hard code for now
+            _userRepository = new UserRepository();  // hard code for now
             _applicationConfig = new AppConfig();
+            
+            IBroadcastRepository broadcastRepository = new BroadcastRepository();
+            INotificationProcessor processor = new EmailProcessor(broadcastRepository);
+
+            _broadcastManager = new BroadcastManager(broadcastRepository, new[] {processor});
+
         }
 
         public void Run(SchedulerParameters parameters)
@@ -37,28 +44,26 @@ namespace Paramount.TaskScheduler
             var expiryAdList = AdBookingController.GetExpiredAdList(expiryDate);
             if (expiryAdList.Count > 0)
             {
-                // Construct and send the email ( per user )
-                var email = new AdExpiryNotification();
-
                 foreach (var ads in expiryAdList.GroupBy(e => e.Username))
                 {
                     // Construct the email content
-                    var sb = new StringBuilder();
+                    var adReference = new StringBuilder();
                     foreach (var expiredAd in ads)
                     {
-                        sb.AppendFormat("Ad ID: {0} has last print date of {1}<br />", expiredAd.AdId, expiredAd.LastPrintInsertionDate.ToString("dd/MM/yyyy"));
+                        adReference.AppendFormat("Ad ID: {0} has last print date of {1}<br />", expiredAd.AdId, expiredAd.LastPrintInsertionDate.ToString("dd/MM/yyyy"));
                     }
 
-                    // Fetch the membership user 
-                    ApplicationUser applicationUser = userRepository.GetUserByUsername(ads.Key);
+                    // Send the email to the user
+                    ExpirationReminder reminder = new ExpirationReminder
+                    {
+                        AdReference = adReference.ToString(),
+                        LinkForExtension = _applicationConfig.BaseUrl + "/MemberAccount/Bookings.aspx"
+                    };
 
-                    // Construct the parameters for broadcasting
-                    EmailRecipientView recipient = new EmailRecipientView { Email = applicationUser.Email, Name = applicationUser.Username }.AddTemplateItem("adReference", sb.ToString()).AddTemplateItem("linkForExtension", _applicationConfig.BaseUrl + "/MemberAccount/Bookings.aspx");
-                    email.Recipients.Add(recipient);
+                    ApplicationUser applicationUser = _userRepository.GetUserByUsername(ads.Key);
+
+                    _broadcastManager.SendEmail(reminder, applicationUser.Email);
                 }
-
-                // Send
-                email.Send();
             }
         }
 

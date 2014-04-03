@@ -48,7 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdExpiryNotification.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="Email.cs" />
     <Compile Include="EmailBroadcastController.cs" />

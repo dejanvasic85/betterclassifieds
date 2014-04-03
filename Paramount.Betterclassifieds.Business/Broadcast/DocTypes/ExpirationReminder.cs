@@ -5,7 +5,7 @@
         public string DocumentType { get { return GetType().Name; } }
 
         [Placeholder("AdReference")]
-        public string AdRefernece { get; set; }
+        public string AdReference { get; set; }
 
         [Placeholder("LinkForExtension")]
         public string LinkForExtension { get; set; }

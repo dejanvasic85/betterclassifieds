@@ -11,21 +11,21 @@ namespace Paramount.Services.Proxy
     {
         private const string SectionName = "paramount/services";
         
-        public static BroadcastServiceClient BroadcastServiceHost
-        {
-            get
-            {
-                return new BroadcastServiceClient(BasicHttpBinding, CreateEndpointAddress(ServiceDefinition.Broadcast.Address));
-            }
-        }
+        //public static BroadcastServiceClient BroadcastServiceHost
+        //{
+        //    get
+        //    {
+        //        return new BroadcastServiceClient(BasicHttpBinding, CreateEndpointAddress(ServiceDefinition.Broadcast.Address));
+        //    }
+        //}
 
-        public static IBannerService BannerServiceClient
-        {
-            get
-            {
-                return CreateClient<IBannerService>(ServiceDefinition.Banner.SectionKey);
-            }
-        }
+        //public static IBannerService BannerServiceClient
+        //{
+        //    get
+        //    {
+        //        return CreateClient<IBannerService>(ServiceDefinition.Banner.SectionKey);
+        //    }
+        //}
 
         public static IBetterclassifiedService BetterclassifiedServiceClient
         {
@@ -35,21 +35,21 @@ namespace Paramount.Services.Proxy
             }
         }
 
-        public static IBillingService BillingServiceClient
-        {
-            get
-            {
-                return CreateClient<IBillingService>(ServiceDefinition.Billing.SectionKey);
-            }
-        }
+        //public static IBillingService BillingServiceClient
+        //{
+        //    get
+        //    {
+        //        return CreateClient<IBillingService>(ServiceDefinition.Billing.SectionKey);
+        //    }
+        //}
 
-        public static IMembershipService MembershipServiceClient
-        {
-            get
-            {
-                return CreateClient<IMembershipService>(ServiceDefinition.Membership.SectionKey);
-            }
-        }
+        //public static IMembershipService MembershipServiceClient
+        //{
+        //    get
+        //    {
+        //        return CreateClient<IMembershipService>(ServiceDefinition.Membership.SectionKey);
+        //    }
+        //}
         
         private static EndpointAddress CreateEndpointAddress(string serviceName)
         {

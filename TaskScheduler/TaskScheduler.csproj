@@ -195,10 +195,6 @@
       <Project>{377f2216-9202-4df9-9c5b-c2a4e627ffe2}</Project>
       <Name>Common.DataTransferObjects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Services\Paramount.Services.Proxy\Services.Proxy.csproj">
-      <Project>{e560d316-27e8-4f4c-a6a4-f23b82651770}</Project>
-      <Name>Services.Proxy</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Services\ServiceContracts\Common.ServiceContracts.csproj">
       <Project>{97d730a7-d86a-4fa1-90e2-3dfcfd4c337a}</Project>
       <Name>Common.ServiceContracts</Name>

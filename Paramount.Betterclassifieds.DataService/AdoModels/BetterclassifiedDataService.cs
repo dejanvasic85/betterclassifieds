@@ -1,16 +1,17 @@
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using Paramount.ApplicationBlock.Data;
+
 namespace Paramount.Betterclassifieds.DataService
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Linq;
-    using ApplicationBlock.Data;
-
+    [Obsolete]
     public class BetterclassifiedDataService
     {
         private const string ConfigSection = @"paramount/services";
         private const string ConfigKey = "Betterclassifieds";
-
+        
         public static List<ExpiredAdRow> GetExpiredAdByLastEdition(DateTime editionDate)
         {
             var df = new DatabaseProxy("psp_Betterclassified_GetLineAdBookingByLastEdition", ConfigSection, ConfigKey);

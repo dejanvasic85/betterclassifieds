@@ -158,10 +158,6 @@
       <Project>{32E18B88-521E-4887-BFBF-26B64797AF75}</Project>
       <Name>Common.UI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Services\Paramount.Services.Proxy\Services.Proxy.csproj">
-      <Project>{E560D316-27E8-4F4C-A6A4-F23B82651770}</Project>
-      <Name>Services.Proxy</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\ApplicationBlock\Utility\Paramount.Utility.csproj">
       <Project>{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}</Project>
       <Name>Paramount.Utility</Name>

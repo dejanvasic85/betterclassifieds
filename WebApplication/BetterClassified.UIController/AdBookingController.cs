@@ -10,11 +10,6 @@ using Paramount.Utility.DataAccess;
 
 namespace BetterClassified.UIController
 {
-    using Paramount.ApplicationBlock.Configuration;
-    using Paramount.Common.DataTransferObjects.Betterclassifieds.Messages;
-    using Paramount.Services.Proxy;
-    using ViewObjects;
-
     public class AdBookingController
     {
         const string configSection = "paramount/services";
@@ -85,19 +80,6 @@ namespace BetterClassified.UIController
         public static int SearchAdBookingsCount(ObjectDataSourceSelectingEventArgs e)
         {
             return e.Arguments.TotalRowCount;
-        }
-
-        public static List<ExpiredAdView> GetExpiredAdList(DateTime expiryDate)
-        {
-            var request = new GetExpiredAdListByLastEditionRequest
-            {
-                EditionDate = expiryDate,
-                ApplicationName = ConfigSettingReader.ApplicationName
-                
-            };
-            var response = WebServiceHostManager.BetterclassifiedServiceClient.GetExpiredAdListByLastEdition(request);
-
-            return response.ExpiryAdList.Convert();
         }
     }
 }

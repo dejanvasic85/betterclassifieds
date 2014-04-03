@@ -1,8 +1,8 @@
-﻿using BetterClassified.UIController;
-using Paramount.Betterclassifieds.Business;
+﻿using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.Business.Repository;
+using Paramount.Betterclassifieds.DataService;
 using Paramount.Betterclassifieds.DataService.Broadcast;
 using Paramount.Betterclassifieds.DataService.Repository;
 using System;
@@ -41,29 +41,31 @@ namespace Paramount.TaskScheduler
             DateTime expiryDate = DateTime.Today.AddDays(int.Parse(parameters[DaysBeforeExpiry]));
 
             // Fetch the expiry list
-            var expiryAdList = AdBookingController.GetExpiredAdList(expiryDate);
-            if (expiryAdList.Count > 0)
+            // var expiryAdList = AdBookingController.GetExpiredAdList(expiryDate);
+            var expiryAdList = BetterclassifiedDataService.GetExpiredAdByLastEdition(expiryDate);
+
+            if (expiryAdList.Count == 0) 
+                return;
+
+            foreach (var ads in expiryAdList.GroupBy(e => e.Username))
             {
-                foreach (var ads in expiryAdList.GroupBy(e => e.Username))
+                // Construct the email content
+                var adReference = new StringBuilder();
+                foreach (var expiredAd in ads)
                 {
-                    // Construct the email content
-                    var adReference = new StringBuilder();
-                    foreach (var expiredAd in ads)
-                    {
-                        adReference.AppendFormat("Ad ID: {0} has last print date of {1}<br />", expiredAd.AdId, expiredAd.LastPrintInsertionDate.ToString("dd/MM/yyyy"));
-                    }
-
-                    // Send the email to the user
-                    ExpirationReminder reminder = new ExpirationReminder
-                    {
-                        AdReference = adReference.ToString(),
-                        LinkForExtension = _applicationConfig.BaseUrl + "/MemberAccount/Bookings.aspx"
-                    };
-
-                    ApplicationUser applicationUser = _userRepository.GetUserByUsername(ads.Key);
-
-                    _broadcastManager.SendEmail(reminder, applicationUser.Email);
+                    adReference.AppendFormat("Ad ID: {0} has last print date of {1}<br />", expiredAd.AdBookingId, expiredAd.LastEditionDate.ToString("dd/MM/yyyy"));
                 }
+
+                // Send the email to the user
+                ExpirationReminder reminder = new ExpirationReminder
+                {
+                    AdReference = adReference.ToString(),
+                    LinkForExtension = _applicationConfig.BaseUrl + "/MemberAccount/Bookings.aspx"
+                };
+
+                ApplicationUser applicationUser = _userRepository.GetUserByUsername(ads.Key);
+
+                _broadcastManager.SendEmail(reminder, applicationUser.Email);
             }
         }
 

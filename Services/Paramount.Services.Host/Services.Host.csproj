@@ -82,7 +82,6 @@
     <Content Include="Nodes\EvenService.svc" />
     <Content Include="Global.asax" />
     <Content Include="Nodes\BroadcastWebService.svc" />
-    <Content Include="Nodes\BannerService.svc" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -100,9 +99,6 @@
   <ItemGroup>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Handler1.ashx.cs">
-      <DependentUpon>Handler1.ashx</DependentUpon>
     </Compile>
     <Compile Include="IPLocation\LocationHandler.ashx.cs">
       <DependentUpon>LocationHandler.ashx</DependentUpon>
@@ -144,9 +140,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="IPLocation\LocationHandler.ashx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Handler1.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

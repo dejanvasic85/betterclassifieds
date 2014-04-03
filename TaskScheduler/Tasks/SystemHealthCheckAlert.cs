@@ -1,5 +1,7 @@
 using Dapper;
 using Paramount.ApplicationBlock.Configuration;
+using Paramount.Betterclassifieds.Business.Broadcast;
+using Paramount.Betterclassifieds.DataService.Broadcast;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -12,29 +14,34 @@ namespace Paramount.TaskScheduler
 {
     public class SystemHealthCheckAlert : IScheduler
     {
+        private readonly IBroadcastManager _broadcastManager;
+
+        public SystemHealthCheckAlert()
+        {
+            IBroadcastRepository broadcastRepository = new BroadcastRepository();
+            INotificationProcessor processor = new EmailProcessor(broadcastRepository);
+
+            _broadcastManager = new BroadcastManager(broadcastRepository, new[] { processor });
+        }
+
         public void Run(SchedulerParameters parameters)
         {
-            var recipients = parameters.First().Value.Split(';');
-            DateTime reportDate = DateTime.Today;
-            
+            var report = new ActivityReport
+            {
+                ReportDate = DateTime.Today.ToString("D"),
+                Environment = ConfigManager.ConfigurationContext
+            };
+
             var classifiedsResultsTask = Task<Dictionary<string, string>>.Factory.StartNew(GetClassifiedsStatistics);
-            var classifiedResultsAsHtml = classifiedsResultsTask.Result.ToHtmlTable();
+            report.ClassifiedsTable = classifiedsResultsTask.Result.ToHtmlTable();
             
             var todaysLogsTask = Task<IEnumerable<Models.LogItem>>.Factory.StartNew(GetTodaysLogs);
-            var todaysLogsAsHtml = todaysLogsTask.Result.ToList().ToHtmlTable();
+            report.LogTable = todaysLogsTask.Result.ToList().ToHtmlTable();
 
             // Block until all have completed
             Task.WaitAll(classifiedsResultsTask, todaysLogsTask);
 
-            // Use the built in broadcaster to send out the emails
-            Broadcast.Components.EmailBroadcastController
-                .SendHealthCheckNotification(
-                    reportDate,
-                    ConfigManager.ConfigurationContext,
-                    recipients,
-                    classifiedResultsAsHtml,
-                    todaysLogsAsHtml
-                );
+            _broadcastManager.SendEmail(report, parameters.First().Value.Split(';'));
         }
 
         public string Name

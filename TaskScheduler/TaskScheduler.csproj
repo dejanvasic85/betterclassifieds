@@ -183,10 +183,6 @@
       <Project>{7f2cf5fe-6ad1-4dde-9f7d-a6fb3a1124e5}</Project>
       <Name>Paramount.Utility</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Modules\Broadcast.Components\Modules.Broadcast.Components.csproj">
-      <Project>{3091f288-c6f8-4e2d-9622-48b00ace526b}</Project>
-      <Name>Modules.Broadcast.Components</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Paramount.Betterclassifieds.Business\Paramount.Betterclassifieds.Business.csproj">
       <Project>{5C1BE481-DB9E-48CC-9048-5B10E6535D02}</Project>
       <Name>Paramount.Betterclassifieds.Business</Name>

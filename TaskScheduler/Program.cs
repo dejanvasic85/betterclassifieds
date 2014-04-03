@@ -18,8 +18,8 @@ namespace Paramount.TaskScheduler
         static void Main(string[] args)
         {
 #if DEBUG
-            //ProcessJob(new[] { "SYSTEMHEALTHCHECKALERT/dejanvasic@outlook.com" });
-            ProcessJob(new[] {"EXPAD/1", "DAYSBEFOREEXPIRY/11"});
+            ProcessJob(new[] { "SYSTEMHEALTHCHECKALERT/dejanvasic@outlook.com" });
+            //ProcessJob(new[] {"EXPAD/1", "DAYSBEFOREEXPIRY/11"});
             //ProcessJob(new[] { "EMAILPROCESSING/" });
 #else
             ProcessJob(args);

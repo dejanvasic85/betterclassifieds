@@ -204,10 +204,6 @@
       <Project>{32E18B88-521E-4887-BFBF-26B64797AF75}</Project>
       <Name>Common.UI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Modules\Broadcast.Components\Modules.Broadcast.Components.csproj">
-      <Project>{3091F288-C6F8-4E2D-9622-48B00ACE526B}</Project>
-      <Name>Modules.Broadcast.Components</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Modules\DSL.UIController\Modules.DSL.UIController.csproj">
       <Project>{E745F9B8-3967-44D3-9ADB-ABED1B3E3F9D}</Project>
       <Name>Modules.DSL.UIController</Name>

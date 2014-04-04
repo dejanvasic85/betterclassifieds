@@ -115,37 +115,14 @@
     <Compile Include="Entities\CacheItemEntity.cs" />
     <Compile Include="Entities\SeoLocationMappingEntity.cs" />
     <Compile Include="Entities\SeoNameMappingEntity.cs" />
-    <Compile Include="LinqObjects\BillingDatabaseModel.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BillingDatabaseModel.dbml</DependentUpon>
-    </Compile>
     <Compile Include="LinqObjects\Classifieds.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Classifieds.dbml</DependentUpon>
     </Compile>
-    <Compile Include="LinqObjects\Common.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Common.dbml</DependentUpon>
-    </Compile>
     <Compile Include="LinqObjects\DataContextFactory.cs" />
     <Compile Include="AdoModels\DslDataService.cs" />
-    <Compile Include="LinqObjects\EvenServiceClasses.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EvenServiceClasses.dbml</DependentUpon>
-    </Compile>
     <Compile Include="AdoModels\IDataProvider.cs" />
-    <Compile Include="LinqObjects\BannerDatabaseModel.cs">
-      <DependentUpon>BannerDatabaseModel.dbml</DependentUpon>
-    </Compile>
-    <Compile Include="LinqObjects\BannerDatabaseModel.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BannerDatabaseModel.dbml</DependentUpon>
-    </Compile>
     <Compile Include="LinqObjects\PagedSource.cs" />
     <Compile Include="LinqObjects\UserMembership.cs">
       <DependentUpon>UserMembership.dbml</DependentUpon>
@@ -209,29 +186,9 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="LinqObjects\BillingDatabaseModel.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>BillingDatabaseModel.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
     <None Include="LinqObjects\Classifieds.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>Classifieds.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="LinqObjects\Common.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>Common.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="LinqObjects\EvenServiceClasses.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>EvenServiceClasses.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="LinqObjects\BannerDatabaseModel.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>BannerDatabaseModel.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
     <None Include="LinqObjects\UserMembership.dbml">
@@ -253,26 +210,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="LinqObjects\BannerDatabaseModel.dbml.layout">
-      <DependentUpon>BannerDatabaseModel.dbml</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="LinqObjects\EvenServiceClasses.dbml.layout">
-      <DependentUpon>EvenServiceClasses.dbml</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="LinqObjects\BillingDatabaseModel.dbml.layout">
-      <DependentUpon>BillingDatabaseModel.dbml</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="LinqObjects\Common.dbml.layout">
-      <DependentUpon>Common.dbml</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

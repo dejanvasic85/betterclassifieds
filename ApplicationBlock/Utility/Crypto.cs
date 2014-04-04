@@ -2,25 +2,18 @@
 using System.Text;
 using System.Security.Cryptography;
 using System.IO;
+using System.Web;
 
 namespace Paramount.Utility
 {
     public class CryptoHelper
     {
-
-        #region Fields
-
         private static byte[] key = { };
 
         private static byte[] IV = { 38, 55, 206, 48, 28, 64, 20, 16 };
 
         //private static string stringKey = "!5663a#KN";
         private static string stringKey = "$bffg!%%NM12";
-
-        #endregion
-
-        #region Public Methods
-
 
         public static string Encrypt(string text)
         {
@@ -60,9 +53,17 @@ namespace Paramount.Utility
             }
         }
 
+        public static string GenerateToken()
+        {
+            var data = new byte[0x10];
 
+            using (var crypto = new RNGCryptoServiceProvider())
+            {
+                crypto.GetBytes(data);
 
-        #endregion
+                return HttpServerUtility.UrlTokenEncode(data);
+            }
+        }
 
     }
 }

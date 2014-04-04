@@ -31,13 +31,13 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         [Required]
         [Display(Name = "Email")]
         [DataType(DataType.EmailAddress)]
-        public string RegisterUsername { get; set; }
+        public string RegisterEmail { get; set; }
 
         [Required]
         [Display(Name = "Confirm Email")]
-        [Compare("RegisterUsername")]
+        [Compare("RegisterEmail")]
         [DataType(DataType.EmailAddress)]
-        public string ConfirmUsername { get; set; }
+        public string ConfirmEmail { get; set; }
 
         [Required]
         [Display(Name = "Password")]

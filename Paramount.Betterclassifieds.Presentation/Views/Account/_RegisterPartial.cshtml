@@ -5,13 +5,13 @@
 <form role="form" method="POST" action="@Url.Action("Register")">
     @Html.AntiForgeryToken()
     <div class="form-group">
-        @Html.LabelFor(m => m.RegisterUsername)
-        @Html.TextBoxFor(m => m.RegisterUsername, new { @class = "form-control", required = "" })
+        @Html.LabelFor(m => m.RegisterEmail)
+        @Html.TextBoxFor(m => m.RegisterEmail, new { @class = "form-control", required = "" })
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmUsername)
-        @Html.TextBoxFor(m => m.ConfirmUsername, new { @class = "form-control", required = "" })
+        @Html.LabelFor(m => m.ConfirmEmail)
+        @Html.TextBoxFor(m => m.ConfirmEmail, new { @class = "form-control", required = "" })
     </div>
     
     <div class="form-group">

@@ -17,7 +17,7 @@ namespace Paramount.Betterclassifieds.Business
 
         public bool AuthenticateUser(IAuthManager authManager, string password, bool persistAuthCookie = true)
         {
-            if (! authManager.ValidatePassword(Username, password))
+            if (!authManager.ValidatePassword(Username, password))
                 return false;
 
             authManager.Login(Username, persistAuthCookie);

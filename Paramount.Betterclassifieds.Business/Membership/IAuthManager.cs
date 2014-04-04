@@ -6,5 +6,6 @@
         void Logout();
         bool ValidatePassword(string username, string password);
         void CreateMembership(string username, string password);
+        bool CheckUsernameExists(string username);
     }
 }

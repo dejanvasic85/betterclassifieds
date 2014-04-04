@@ -71,5 +71,10 @@ namespace Paramount.Betterclassifieds.Security
         {
             Membership.CreateUser(username, password, email: username);
         }
+
+        public bool CheckUsernameExists(string username)
+        {
+            return Membership.GetUser(username) != null;
+        }
     }
 }

@@ -67,10 +67,11 @@
     <Compile Include="Broadcast\DocTypes\IDocType.cs" />
     <Compile Include="EditionManager.cs" />
     <Compile Include="Managers\IApplicationConfig.cs" />
-    <Compile Include="Managers\IAuthManager.cs" />
+    <Compile Include="Membership\IAuthManager.cs" />
     <Compile Include="Managers\ICategoryManager.cs" />
     <Compile Include="Managers\ICookiesManager.cs" />
-    <Compile Include="Managers\IUserManager.cs" />
+    <Compile Include="Membership\IUserManager.cs" />
+    <Compile Include="Membership\RegistrationModel.cs" />
     <Compile Include="Models\Ad.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Comparers\PublicationIdComparer.cs" />

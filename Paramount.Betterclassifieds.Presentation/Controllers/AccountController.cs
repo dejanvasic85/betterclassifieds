@@ -1,34 +1,28 @@
-﻿using Paramount.Betterclassifieds.Business;
+﻿using AutoMapper;
+using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Broadcast;
+using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 using System.Web.Mvc;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
-    public class AccountController : BaseController
+    public class AccountController : BaseController, IMappingBehaviour
     {
         private readonly IUserManager _userManager;
         private readonly IAuthManager _authManager;
         private readonly IBroadcastManager _broadcastManager;
+        private readonly IApplicationConfig _config;
 
         public const string ReturnUrlKey = "ReturnUrlForLogin";
 
-        public AccountController(IUserManager userManager, IAuthManager authManager, IBroadcastManager broadcastManager)
+        public AccountController(IUserManager userManager, IAuthManager authManager, IBroadcastManager broadcastManager, IApplicationConfig config)
         {
             _userManager = userManager;
             _authManager = authManager;
             _broadcastManager = broadcastManager;
+            _config = config;
         }
-
-        //
-        // GET: /Account/
-
-        // Todo - Home page for the user ( part of the membership pages - could be a SPA!)
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
-
 
         [HttpGet]
         [RequireHttps]
@@ -83,27 +77,33 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [RequireHttps]
-        public ActionResult Register(RegisterViewModel registerModel)
+        public ActionResult Register(RegisterViewModel viewModel)
         {
             if (this.IsUserLoggedIn())
             {
                 ModelState.AddModelError("UserAlreadyRegistered", "You are already logged in.");
-                return View("Login", new LoginOrRegisterModel { RegisterViewModel = registerModel });
+                return View("Login", new LoginOrRegisterModel { RegisterViewModel = viewModel });
             }
 
             if (!this.ModelState.IsValid)
             {
-                return View("Login", new LoginOrRegisterModel { RegisterViewModel = registerModel });
+                return View("Login", new LoginOrRegisterModel { RegisterViewModel = viewModel });
             }
 
-            // Create the membership, then create the profile
+            // Ensure the user does not already exist
+
+
+            // Store the registration model temporarily with a registered token ( until the confirmation is completed )
+            var registrationModel = this.Map<RegisterViewModel, RegistrationModel>(viewModel);
+            registrationModel.GenerateUniqueUsername(_authManager.CheckUsernameExists)
+                .GenerateToken();
 
             // Todo - the registrationModel just needs to be persisted temporarily
             //_authManager.CreateMembership(registerModel.RegisterUsername, registerModel.RegisterPassword);
             //_userManager.CreateUserProfile(registerModel.RegisterUsername, registerModel.FirstName,
             //    registerModel.LastName, registerModel.PostCode);
 
-            _broadcastManager.SendEmail(new NewRegistration { FirstName = registerModel.FirstName, VerificationLink = registerModel.LastName }, registerModel.RegisterUsername);
+            _broadcastManager.SendEmail(new NewRegistration { FirstName = viewModel.FirstName, VerificationLink = viewModel.LastName }, viewModel.RegisterEmail);
 
             return RedirectToAction("Index", "Home");
         }
@@ -116,6 +116,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             // Redirect to the home page - since this is where they can only hit this anyway
             return RedirectToAction("Index", "Home");
+        }
+
+        public void OnRegisterMaps(IConfiguration configuration)
+        {
+            configuration.CreateMap<RegisterViewModel, RegistrationModel>();
+
         }
     }
 }

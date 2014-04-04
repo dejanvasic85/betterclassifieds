@@ -95,16 +95,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdoModels\BannerDataProvider.cs" />
-    <Compile Include="AdoModels\BannerGroupDataProvider.cs" />
-    <Compile Include="AdoModels\BannerRow.cs" />
     <Compile Include="AdoModels\BetterclassifiedDataService.cs" />
     <Compile Include="AdoModels\ActivitySummaryRow.cs" />
-    <Compile Include="AdoModels\BillingSettingsDataProvider.cs" />
     <Compile Include="AdoModels\BroadcastActivityRow.cs" />
-    <Compile Include="AdoModels\CommonDataProvider.cs" />
     <Compile Include="AdoModels\ExpiredAdRow.cs" />
-    <Compile Include="AdoModels\InvoiceDataProvider.cs" />
     <Compile Include="Broadcast\BroadcastContext.cs" />
     <Compile Include="Broadcast\BroadcastRepository.cs" />
     <Compile Include="Broadcast\MappingConfig\DeliveryConfiguration.cs" />
@@ -137,21 +131,12 @@
       <DependentUpon>Common.dbml</DependentUpon>
     </Compile>
     <Compile Include="LinqObjects\DataContextFactory.cs" />
-    <Compile Include="AdoModels\ShoppingCartDataProvider.cs" />
-    <Compile Include="AdoModels\BillingDataService.cs" />
-    <Compile Include="AdoModels\BroadcastDataService.cs" />
-    <Compile Include="AdoModels\EmailBroadcastEntryRow.cs" />
-    <Compile Include="AdoModels\EmailBroadcastRow.cs" />
-    <Compile Include="AdoModels\EmailTemplateRow.cs" />
-    <Compile Include="AdoModels\CRMDataService.cs" />
     <Compile Include="AdoModels\DslDataService.cs" />
     <Compile Include="LinqObjects\EvenServiceClasses.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EvenServiceClasses.dbml</DependentUpon>
     </Compile>
-    <Compile Include="AdoModels\EventDataProvider.cs" />
-    <Compile Include="AdoModels\Extensions.cs" />
     <Compile Include="AdoModels\IDataProvider.cs" />
     <Compile Include="LinqObjects\BannerDatabaseModel.cs">
       <DependentUpon>BannerDatabaseModel.dbml</DependentUpon>
@@ -170,9 +155,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="AdoModels\LocationDataService.cs" />
-    <Compile Include="AdoModels\MembershipDataProvider.cs" />
-    <Compile Include="AdoModels\ParamountAccountDataService.cs" />
     <Compile Include="AdoModels\Proc.cs" />
     <Compile Include="Managers\CookiesManager.cs" />
     <Compile Include="Repository\CategoryRepository.cs" />
@@ -183,8 +165,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="AdoModels\RoleDataProvider.cs" />
-    <Compile Include="AdoModels\Utils.cs" />
     <Compile Include="Repository\AdRepository.cs" />
     <Compile Include="Repository\AppConfig.cs" />
     <Compile Include="Repository\BookingRepository.cs" />

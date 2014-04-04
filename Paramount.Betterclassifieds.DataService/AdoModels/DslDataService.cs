@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.DataService
+﻿using System.Collections.Generic;
+
+namespace Paramount.Betterclassifieds.DataService
 {
     using System;
     using System.Data;
@@ -336,5 +338,51 @@
         }
 
         #endregion
+    }
+
+    internal static class Extensions
+    {
+        public static DslDocument ToDslDocument(this DataRow row)
+        {
+            var document = new DslDocument();
+
+            document.DocumentId = (Guid)row["DocumentId"];
+            document.ApplicationCode = row["ApplicationCode"].ToString();
+            document.EntityCode = row["EntityCode"].ToString();
+            document.AccounId = (row["AccountId"].ToString().HasValue() ? (Guid)row["AccountId"] : new Guid?());
+            document.DocumentCategory = (DslDocumentCategoryType)row["DocumentCategoryId"];
+            document.Username = row["Username"].ToString();
+            document.FileType = row["FileType"].ToString();
+            document.FileLength = (int)row["FileLength"];
+            document.FileName = row["FileName"].ToString();
+            document.Reference = row["Reference"].ToString();
+            document.IsPrivate = (bool)row["IsPrivate"];
+            document.StartDate = (row["StartDate"].ToString().HasValue() ? (DateTime)row["StartDate"] : new DateTime?());
+            document.EndDate = (row["EndDate"].ToString().HasValue() ? (DateTime)row["EndDate"] : new DateTime?());
+            document.CreatedDate = (row["CreatedDate"].ToString().HasValue() ? (DateTime)row["CreatedDate"] : new DateTime?());
+            document.UpdatedDate = (row["UpdatedDate"].ToString().HasValue() ? (DateTime)row["UpdatedDate"] : new DateTime?());
+
+            return document;
+        }
+
+        public static DslDocumentCategory ToDslDocumentCategory(this DataRow row)
+        {
+            var documentCategory = new DslDocumentCategory();
+            documentCategory.DocumentCategoryId = (int)row["DocumentCategoryId"];
+            documentCategory.Title = row["Title"].ToString();
+            documentCategory.Code = (DslDocumentCategoryType)row["Code"];
+            documentCategory.ExpiryPurgeDays = (row["ExpiryPurgeDays"].ToString().HasValue() ? (int?)row["ExpiryPurgeDays"] : null);
+
+            // extract the accepted file types
+            string[] acceptedFiles = row["AcceptedFileTypes"].ToString().Split(';');
+            documentCategory.AcceptedFileTypes = new List<string>();
+            foreach (string file in acceptedFiles)
+            {
+                documentCategory.AcceptedFileTypes.Add(file.ToLower());
+            }
+
+            documentCategory.MaximumFileSize = (row["MaximumFileSize"].ToString().HasValue() ? (int?)row["MaximumFileSize"] : null);
+            return documentCategory;
+        }
     }
 }

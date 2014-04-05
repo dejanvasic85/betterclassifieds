@@ -3,6 +3,10 @@
   font-family: alternate-gothic-no-2-d;
   src: url('fonts/ufonts.com_alternate_gothic_no2_d.ttf');
 }
+.container-body {
+  background-color: #fff;
+  padding: 8px;
+}
 .themusic-background {
   background-image: url('http://themusic.com.au/images/body-grad.png'), url('http://themusic.com.au/images/bg.png');
   background-attachment: scroll, scroll;
@@ -65,4 +69,3 @@
 .themusic-logo {
   max-width: 250px;
 }
-/*# sourceMappingURL=themusic.css.map */

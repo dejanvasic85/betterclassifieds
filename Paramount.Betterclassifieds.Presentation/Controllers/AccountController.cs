@@ -105,9 +105,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             _broadcastManager.SendEmail(new NewRegistration { FirstName = viewModel.FirstName, VerificationLink = viewModel.LastName }, viewModel.RegisterEmail);
 
-            return RedirectToAction("Index", "Home");
+            return View("ThankYou");
         }
-
+        
         [HttpGet]
         public ActionResult Logout()
         {

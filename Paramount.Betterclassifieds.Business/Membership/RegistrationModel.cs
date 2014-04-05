@@ -5,6 +5,7 @@ namespace Paramount.Betterclassifieds.Business
 {
     public class RegistrationModel
     {
+        public int RegistrationId { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public string FirstName { get; set; }
@@ -13,14 +14,18 @@ namespace Paramount.Betterclassifieds.Business
 
         public string Username { get; private set; }
         public string Token { get; private set; }
-        public DateTime? ExpirationDate { get; set; }
-        public DateTime? ExpirationDateUtc { get; set; }
+        public DateTime? ExpirationDate { get; private set; }
+        public DateTime? ExpirationDateUtc { get; private set; }
+        public DateTime? LastModifiedDate { get; private set; }
+        public DateTime? LastModifiedDateUtc { get; private set; }
 
         public RegistrationModel GenerateToken()
         {
             this.Token = CryptoHelper.GenerateToken();
             this.ExpirationDate = DateTime.Now.AddMinutes(10);
             this.ExpirationDateUtc = DateTime.UtcNow.AddMinutes(10);
+            this.LastModifiedDate = DateTime.Now;
+            this.LastModifiedDateUtc = DateTime.UtcNow;
             return this;
         }
 

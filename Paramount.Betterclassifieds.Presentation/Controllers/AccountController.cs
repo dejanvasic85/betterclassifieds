@@ -79,35 +79,48 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [RequireHttps]
         public ActionResult Register(RegisterViewModel viewModel)
         {
-            if (this.IsUserLoggedIn())
+            if (IsUserLoggedIn())
             {
                 ModelState.AddModelError("UserAlreadyRegistered", "You are already logged in.");
                 return View("Login", new LoginOrRegisterModel { RegisterViewModel = viewModel });
             }
-
-            if (!this.ModelState.IsValid)
+            
+            if (!ModelState.IsValid)
             {
                 return View("Login", new LoginOrRegisterModel { RegisterViewModel = viewModel });
             }
-
-            // Ensure the user does not already exist
-
 
             // Store the registration model temporarily with a registered token ( until the confirmation is completed )
             var registrationModel = this.Map<RegisterViewModel, RegistrationModel>(viewModel);
             registrationModel.GenerateUniqueUsername(_authManager.CheckUsernameExists)
                 .GenerateToken();
 
-            // Todo - the registrationModel just needs to be persisted temporarily
+            _authManager.CreateRegistration(registrationModel);
+
+            var confirmUrl = Url.Action("Confirm", new
+            {
+                registrationModel.RegistrationId,
+                registrationModel.Token
+            });
+
+            _broadcastManager.SendEmail(new NewRegistration
+            {
+                FirstName = viewModel.FirstName,
+                VerificationLink = _config.BaseUrl.Append(confirmUrl)
+            }, viewModel.RegisterEmail);
+
+            return View("ThankYou");
+        }
+
+        public ActionResult Confirm(string registrationId, string token)
+        {
             //_authManager.CreateMembership(registerModel.RegisterUsername, registerModel.RegisterPassword);
             //_userManager.CreateUserProfile(registerModel.RegisterUsername, registerModel.FirstName,
             //    registerModel.LastName, registerModel.PostCode);
 
-            _broadcastManager.SendEmail(new NewRegistration { FirstName = viewModel.FirstName, VerificationLink = viewModel.LastName }, viewModel.RegisterEmail);
-
-            return View("ThankYou");
+            return View("Complete");
         }
-        
+
         [HttpGet]
         public ActionResult Logout()
         {
@@ -120,7 +133,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public void OnRegisterMaps(IConfiguration configuration)
         {
-            configuration.CreateMap<RegisterViewModel, RegistrationModel>();
+            configuration.CreateMap<RegisterViewModel, RegistrationModel>()
+                .ForMember(member => member.Email, options => options.MapFrom(source => source.RegisterEmail))
+                .ForMember(member => member.Password, options => options.MapFrom(source => source.RegisterPassword));
 
         }
     }

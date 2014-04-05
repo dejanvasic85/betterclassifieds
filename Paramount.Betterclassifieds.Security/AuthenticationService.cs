@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Web;
 using System.Web.Security;
+using AutoMapper;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Managers;
+using Paramount.Betterclassifieds.DataService;
 
 namespace Paramount.Betterclassifieds.Security
 {
-    public class AuthenticationService : IAuthManager
+    public class AuthenticationService : IAuthManager, IMappingBehaviour
     {
         private readonly IApplicationConfig _applicationConfig;
         private const string ForceSSLCookieName = "ClassifiedsSSL";
@@ -75,6 +77,35 @@ namespace Paramount.Betterclassifieds.Security
         public bool CheckUsernameExists(string username)
         {
             return Membership.GetUser(username) != null;
+        }
+
+        public bool CheckEmailExists(string email)
+        {
+            return Membership.GetUserNameByEmail(email) != null;
+        }
+
+        public int CreateRegistration(RegistrationModel registrationModel)
+        {
+            using (var context = DataContextFactory.CreateMembershipContext())
+            {
+                var registrationData = this.Map<RegistrationModel, DataService.LinqObjects.Registration>(registrationModel);
+
+                context.Registrations.InsertOnSubmit(registrationData);
+                context.SubmitChanges();
+
+                registrationModel.RegistrationId = registrationData.RegistrationId;
+                return registrationModel.RegistrationId;
+            }
+        }
+
+        public void OnRegisterMaps(IConfiguration configuration)
+        {
+            configuration.CreateProfile("AuthServiceMappings");
+            
+            // From Model to database
+            configuration.CreateMap<RegistrationModel, DataService.LinqObjects.Registration>();
+
+            // From database to Model
         }
     }
 }

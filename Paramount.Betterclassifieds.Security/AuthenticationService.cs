@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web;
 using System.Web.Security;
 using AutoMapper;
@@ -69,9 +70,25 @@ namespace Paramount.Betterclassifieds.Security
             return Membership.ValidateUser(username, password);
         }
 
-        public void CreateMembership(string username, string password)
+        public void CreateMembership(string username, string email, string password)
         {
-            Membership.CreateUser(username, password, email: username);
+            Membership.CreateUser(username, password, email);
+        }
+
+        public void CreateMembershipFromRegistration(RegistrationModel registerModel)
+        {
+            CreateMembership(registerModel.Username, registerModel.Email, registerModel.DecryptPassword());
+
+            registerModel.ConfirmationDate = DateTime.Now;
+            registerModel.ConfirmationDateUtc = DateTime.UtcNow;
+
+            using (var context = DataContextFactory.CreateMembershipContext())
+            {
+                var registrationData = this.Map<RegistrationModel, DataService.LinqObjects.Registration>(registerModel);
+
+                context.Registrations.Attach(registrationData, true);
+                context.SubmitChanges();
+            }
         }
 
         public bool CheckUsernameExists(string username)
@@ -98,14 +115,30 @@ namespace Paramount.Betterclassifieds.Security
             }
         }
 
+        public RegistrationModel GetRegistration(int registrationId, string token, string username)
+        {
+            using (var context = DataContextFactory.CreateMembershipContext())
+            {
+                var registrationData = context.Registrations.FirstOrDefault(r =>
+                    r.RegistrationId == registrationId &&
+                    r.Token == token &&
+                    r.Username == username);
+
+                return this.Map<DataService.LinqObjects.Registration, RegistrationModel>(registrationData);
+            }
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateProfile("AuthServiceMappings");
-            
+
             // From Model to database
-            configuration.CreateMap<RegistrationModel, DataService.LinqObjects.Registration>();
+            configuration.CreateMap<RegistrationModel, DataService.LinqObjects.Registration>()
+                .ForMember(member => member.Password, options => options.MapFrom(source => source.EncryptedPassword));
 
             // From database to Model
+            configuration.CreateMap<DataService.LinqObjects.Registration, RegistrationModel>()
+                .ForMember(member => member.EncryptedPassword, options => options.MapFrom(source => source.Password));
         }
     }
 }

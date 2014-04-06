@@ -7,7 +7,7 @@ namespace Paramount.Betterclassifieds.Business
     {
         public int RegistrationId { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
+        public string EncryptedPassword { get; private set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PostCode { get; set; }
@@ -31,6 +31,20 @@ namespace Paramount.Betterclassifieds.Business
             return this;
         }
 
+        public RegistrationModel SetPasswordFromPlaintext(string plaintextPassword)
+        {
+            EncryptedPassword = CryptoHelper.Encrypt(plaintextPassword);
+            return this;
+        }
+
+        public string DecryptPassword()
+        {
+            if (EncryptedPassword.IsNullOrEmpty())
+                return string.Empty;
+
+            return CryptoHelper.Decrypt(EncryptedPassword);
+        }
+
         public RegistrationModel GenerateUniqueUsername(Func<string, bool> verifier)
         {
             // We always generate a username based on the email address
@@ -51,6 +65,16 @@ namespace Paramount.Betterclassifieds.Business
             }
 
             return this;
+        }
+
+        public bool HasExpired()
+        {
+            return DateTime.UtcNow > ExpirationDateUtc;
+        }
+
+        public bool HasConfirmedAlready()
+        {
+            return ConfirmationDate.HasValue && ConfirmationDateUtc.HasValue;
         }
     }
 }

@@ -146,6 +146,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="LegacyIntegration\LegacyLinks.cs" />
+    <Compile Include="ViewModels\AccountConfirmationViewModel.cs" />
     <Compile Include="ViewModels\AdViewModel.cs" />
     <Compile Include="ViewModels\CategoryViewModel.cs" />
     <Compile Include="ViewModels\HomeModel.cs" />
@@ -224,6 +225,7 @@
     <Content Include="Views\Account\_LoginPartial.cshtml" />
     <Content Include="Views\Account\_RegisterPartial.cshtml" />
     <Content Include="Views\Account\ThankYou.cshtml" />
+    <Content Include="Views\Account\Confirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\EastGippslandNews\" />

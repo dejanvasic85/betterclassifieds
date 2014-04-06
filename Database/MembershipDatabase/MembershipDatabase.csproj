@@ -80,6 +80,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <EmbeddedResource Include="Scripts\0007-IX_Registration_Token.sql" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

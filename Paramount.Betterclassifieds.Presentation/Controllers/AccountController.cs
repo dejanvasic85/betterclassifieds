@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Broadcast;
-using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 using System.Web.Mvc;
 
@@ -82,7 +81,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 ModelState.AddModelError("UserAlreadyRegistered", "You are already logged in.");
                 return View("Login", new LoginOrRegisterModel { RegisterViewModel = viewModel });
             }
-            
+
             if (!ModelState.IsValid)
             {
                 return View("Login", new LoginOrRegisterModel { RegisterViewModel = viewModel });
@@ -90,27 +89,55 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             // Store the registration model temporarily with a registered token ( until the confirmation is completed )
             var registrationModel = this.Map<RegisterViewModel, RegistrationModel>(viewModel);
-            registrationModel.GenerateUniqueUsername(_authManager.CheckUsernameExists)
-                .GenerateToken();
+            registrationModel
+                .GenerateUniqueUsername(_authManager.CheckUsernameExists)
+                .GenerateToken()
+                .SetPasswordFromPlaintext(viewModel.RegisterPassword);
 
             _authManager.CreateRegistration(registrationModel);
 
             _broadcastManager.SendEmail(new NewRegistration
             {
                 FirstName = viewModel.FirstName,
-                VerificationLink = Url.ActionAbsolute("Confirm", "Account", new { registrationModel.RegistrationId, registrationModel.Token })
+                VerificationLink = Url.ActionAbsolute("Confirmation", "Account", new
+                {
+                    registrationModel.RegistrationId,
+                    registrationModel.Token,
+                    registrationModel.Username
+                })
             }, viewModel.RegisterEmail);
 
             return View("ThankYou");
         }
 
-        public ActionResult Confirm(string registrationId, string token)
+        public ActionResult Confirmation(int registrationId, string token, string username)
         {
-            //_authManager.CreateMembership(registerModel.RegisterUsername, registerModel.RegisterPassword);
-            //_userManager.CreateUserProfile(registerModel.RegisterUsername, registerModel.FirstName,
-            //    registerModel.LastName, registerModel.PostCode);
+            // Fetch the registration record
+            RegistrationModel registerModel = _authManager.GetRegistration(registrationId, token, username);
 
-            return View("Complete");
+            if (registerModel == null || registerModel.HasExpired())
+            {
+                return View(new AccountConfirmationViewModel { RegistrationExpiredOrNotExists = true });
+            }
+
+            if (registerModel.HasConfirmedAlready())
+            {
+                return View(new AccountConfirmationViewModel { AccountAlreadyConfirmed = true });
+            }
+
+            if (_authManager.CheckEmailExists(registerModel.Email) || _authManager.CheckUsernameExists(registerModel.Username))
+            {
+                return View(new AccountConfirmationViewModel { DuplicateUsernameOrEmail = true, Username = registerModel.Username });
+            }
+
+            // Register 
+            _authManager.CreateMembershipFromRegistration(registerModel);
+            _userManager.CreateUserProfile(registerModel.Username, registerModel.FirstName, registerModel.LastName, registerModel.PostCode);
+
+            // Login
+            _authManager.Login(registerModel.Username, createPersistentCookie: false);
+
+            return View(new AccountConfirmationViewModel { IsSuccessfulConfirmation = true });
         }
 
         [HttpGet]
@@ -126,8 +153,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateMap<RegisterViewModel, RegistrationModel>()
-                .ForMember(member => member.Email, options => options.MapFrom(source => source.RegisterEmail))
-                .ForMember(member => member.Password, options => options.MapFrom(source => source.RegisterPassword));
+                .ForMember(member => member.Email, options => options.MapFrom(source => source.RegisterEmail));
 
         }
     }

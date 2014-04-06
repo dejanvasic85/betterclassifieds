@@ -1,0 +1,64 @@
+﻿@using Paramount.Betterclassifieds.Presentation.LegacyIntegration
+@model Paramount.Betterclassifieds.Presentation.ViewModels.AccountConfirmationViewModel
+
+@{
+    ViewBag.Title = "Account confirmation result";
+    Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayout.cshtml");
+}
+
+<div class="container-fluid container-body">
+    <div class="row">
+        <div class="col-xs-12">
+            @if (Model.IsSuccessfulConfirmation)
+            {
+                <h2>Confirmation Successful</h2>
+                <p>Account Confirmed! Your email has been verified successfully.</p>
+                <p>Where to from here? How about <a href="@LegacyLinks.StartBooking">placing a new ad?</a> </p>
+            }
+
+            @if (Model.RegistrationExpiredOrNotExists)
+            {
+                <h2>Ooops...</h2>
+                <p>
+                    <div class="alert alert-error">
+                        We were not able to confirm your account. The registration
+                        is not valid or has expired.
+                    </div>
+                </p>
+                <p>
+                    @Html.ActionLink(" Please visit our registration page to start over.", "Login")
+                </p>
+            }
+
+            @if (Model.AccountAlreadyConfirmed)
+            {
+                <h2>Ooops...</h2>
+                <p>
+                    <div class="alert alert-error">
+                        The requested email has already been confirmed.
+                    </div>
+                </p>
+                <p>
+                    If you believe that this should not be the case, 
+                    
+                    <a href="@LegacyLinks.Contact">
+                        please contact our friendly staff.
+                    </a>
+                </p>
+            }
+            
+            @if (Model.DuplicateUsernameOrEmail)
+            {
+                <h2>Ooops...</h2>
+                <p>
+                    <div class="alert alert-error">
+                        The requested email or username '@Model.Username' is already registered.
+                    </div>
+                </p>
+                <p>
+                    @Html.ActionLink(" Please visit our registration page to start over.", "Login")
+                </p>
+            }
+        </div>
+    </div>
+</div>

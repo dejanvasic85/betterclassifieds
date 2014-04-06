@@ -127,11 +127,13 @@
       <Column Name="FirstName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="LastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="PostCode" Type="System.String" DbType="VarChar(6)" CanBeNull="true" />
-      <Column Name="Token" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Token" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="ExpirationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="ExpirationDateUtc" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="LastModifiedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="LastModifiedDateUtc" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ConfirmationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ConfirmationDateUtc" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

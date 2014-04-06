@@ -2774,6 +2774,10 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 		
 		private System.Nullable<System.DateTime> _LastModifiedDateUtc;
 		
+		private System.Nullable<System.DateTime> _ConfirmationDate;
+		
+		private System.Nullable<System.DateTime> _ConfirmationDateUtc;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -2802,6 +2806,10 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
     partial void OnLastModifiedDateChanged();
     partial void OnLastModifiedDateUtcChanging(System.Nullable<System.DateTime> value);
     partial void OnLastModifiedDateUtcChanged();
+    partial void OnConfirmationDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnConfirmationDateChanged();
+    partial void OnConfirmationDateUtcChanging(System.Nullable<System.DateTime> value);
+    partial void OnConfirmationDateUtcChanged();
     #endregion
 		
 		public Registration()
@@ -2949,7 +2957,7 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Token", DbType="NVarChar(10) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Token", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
 		public string Token
 		{
 			get
@@ -3045,6 +3053,46 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 					this._LastModifiedDateUtc = value;
 					this.SendPropertyChanged("LastModifiedDateUtc");
 					this.OnLastModifiedDateUtcChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ConfirmationDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ConfirmationDate
+		{
+			get
+			{
+				return this._ConfirmationDate;
+			}
+			set
+			{
+				if ((this._ConfirmationDate != value))
+				{
+					this.OnConfirmationDateChanging(value);
+					this.SendPropertyChanging();
+					this._ConfirmationDate = value;
+					this.SendPropertyChanged("ConfirmationDate");
+					this.OnConfirmationDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ConfirmationDateUtc", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ConfirmationDateUtc
+		{
+			get
+			{
+				return this._ConfirmationDateUtc;
+			}
+			set
+			{
+				if ((this._ConfirmationDateUtc != value))
+				{
+					this.OnConfirmationDateUtcChanging(value);
+					this.SendPropertyChanging();
+					this._ConfirmationDateUtc = value;
+					this.SendPropertyChanged("ConfirmationDateUtc");
+					this.OnConfirmationDateUtcChanged();
 				}
 			}
 		}

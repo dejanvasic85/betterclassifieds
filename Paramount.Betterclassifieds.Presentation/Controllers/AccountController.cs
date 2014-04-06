@@ -12,16 +12,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IUserManager _userManager;
         private readonly IAuthManager _authManager;
         private readonly IBroadcastManager _broadcastManager;
-        private readonly IApplicationConfig _config;
 
         public const string ReturnUrlKey = "ReturnUrlForLogin";
 
-        public AccountController(IUserManager userManager, IAuthManager authManager, IBroadcastManager broadcastManager, IApplicationConfig config)
+        public AccountController(IUserManager userManager, IAuthManager authManager, IBroadcastManager broadcastManager)
         {
             _userManager = userManager;
             _authManager = authManager;
             _broadcastManager = broadcastManager;
-            _config = config;
         }
 
         [HttpGet]
@@ -97,16 +95,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             _authManager.CreateRegistration(registrationModel);
 
-            var confirmUrl = Url.Action("Confirm", new
-            {
-                registrationModel.RegistrationId,
-                registrationModel.Token
-            });
-
             _broadcastManager.SendEmail(new NewRegistration
             {
                 FirstName = viewModel.FirstName,
-                VerificationLink = _config.BaseUrl.Append(confirmUrl)
+                VerificationLink = Url.ActionAbsolute("Confirm", "Account", new { registrationModel.RegistrationId, registrationModel.Token })
             }, viewModel.RegisterEmail);
 
             return View("ThankYou");

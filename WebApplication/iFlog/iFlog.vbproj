@@ -281,6 +281,11 @@
     <Content Include="Scripts\jquery-1.11.0.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />
+    <Content Include="Scripts\jquery.validate-1.12.0.js" />
+    <Content Include="Scripts\jquery.validate-1.12.0.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\paramount-validate-tooltip.js" />
+    <None Include="Scripts\_references.js" />
     <Content Include="Service\AjaxMethods.asmx" />
     <Content Include="TestPage.aspx" />
     <Content Include="Web.config">

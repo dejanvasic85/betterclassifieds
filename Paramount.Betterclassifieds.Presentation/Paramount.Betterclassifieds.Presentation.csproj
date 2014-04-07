@@ -196,6 +196,10 @@
     <None Include="Content\site.less" />
     <Content Include="Content\TheMusic\fonts\ufonts.com_alternate_gothic_no2_d.ttf" />
     <Content Include="Content\TheMusic\themusic.less" />
+    <Content Include="Scripts\jquery.validate-1.12.0.js" />
+    <Content Include="Scripts\jquery.validate-1.12.0.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\paramount-validate-tooltip.js" />
     <Content Include="Views\Listings\Index.cshtml" />
     <Content Include="Content\TheMusic\themusic.css.map">
       <DependentUpon>themusic.css</DependentUpon>
@@ -229,7 +233,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\EastGippslandNews\" />
-    <Folder Include="Scripts\home\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

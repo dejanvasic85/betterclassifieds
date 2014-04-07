@@ -79,6 +79,11 @@
     <Compile Include="Base\TestPageAttribute.cs" />
     <Compile Include="Base\PageFactory.cs" />
     <Compile Include="Base\WebDriverExtensions.cs" />
+    <Compile Include="Features\AccountConfirmation.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AccountConfirmation.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\ExtendBooking.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -128,6 +133,10 @@
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="Features\AccountConfirmation.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AccountConfirmation.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\ExtendBooking.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

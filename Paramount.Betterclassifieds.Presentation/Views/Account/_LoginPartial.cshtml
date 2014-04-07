@@ -2,11 +2,12 @@
 
 <h2>Login</h2>
 <p>Have an account? Login with your email and password</p>
-<form role="form" method="POST" action="@Url.Action("Login")">
+<form role="form" method="POST" id="loginForm" action="@Url.Action("Login")">
     @Html.AntiForgeryToken()
+    
     <div class="form-group">
         @Html.LabelFor(m => m.Username)
-        @Html.TextBoxFor(m => m.Username, new { @class = "form-control", required = "" })
+        @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
         <span class="help-block">
             Existing users can use either email or username.
         </span>

@@ -56,7 +56,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             // Authenticate
-            if (!user.AuthenticateUser(_authManager, loginViewModel.Password))
+            if (!user.AuthenticateUser(_authManager, loginViewModel.Password, loginViewModel.RememberMe))
             {
                 ModelState.AddModelError("BadPassword", "Username/email or password is invalid.");
                 //return View(loginOrRegister);

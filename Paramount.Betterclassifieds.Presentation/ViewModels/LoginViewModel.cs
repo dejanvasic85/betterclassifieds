@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
@@ -32,13 +33,16 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         [Display(Name = "Email")]
         [DataType(DataType.EmailAddress)]
         [StringLength(50)]
+        [EmailAddress]
+        [Remote("IsEmailUnique", "Account", ErrorMessage = "Email is already taken.")]
         public string RegisterEmail { get; set; }
 
         [Required]
         [Display(Name = "Confirm Email")]
-        [Compare("RegisterEmail")]
+        [System.ComponentModel.DataAnnotations.Compare("RegisterEmail", ErrorMessage = "Email and Confirm email do not match")]
         [DataType(DataType.EmailAddress)]
         [StringLength(50)]
+        [EmailAddress]
         public string ConfirmEmail { get; set; }
 
         [Required]
@@ -51,6 +55,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         [Display(Name = "Confirm Password")]
         [DataType(DataType.Password)]
         [StringLength(50)]
+        [System.ComponentModel.DataAnnotations.Compare("RegisterPassword", ErrorMessage = "Confirm Password and Password do not match")]
         public string ConfirmPassword { get; set; }
 
         [Required]
@@ -66,7 +71,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         [Required]
         [Display(Name = "Post Code")]
         [DataType(DataType.PostalCode)]
-        [StringLength(6)]
+        [StringLength(6, ErrorMessage = "Please enter a valid postcode")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "Postcode must be a number")]
         public string PostCode { get; set; }
     }
 }

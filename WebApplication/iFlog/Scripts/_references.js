@@ -6,3 +6,4 @@
 /// <reference path="jquery.validate-1.12.0.js" />
 /// <reference path="jquery.validate.unobtrusive.js" />
 /// <reference path="paramount-validate-tooltip.js" />
+/// <reference path="paramount-validate-default.js" />

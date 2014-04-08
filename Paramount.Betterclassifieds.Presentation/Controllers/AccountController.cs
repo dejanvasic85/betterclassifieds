@@ -150,6 +150,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public JsonResult IsEmailUnique(string registerEmail)
+        {
+            return Json( !_authManager.CheckEmailExists(registerEmail), JsonRequestBehavior.AllowGet);
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateMap<RegisterViewModel, RegistrationModel>()

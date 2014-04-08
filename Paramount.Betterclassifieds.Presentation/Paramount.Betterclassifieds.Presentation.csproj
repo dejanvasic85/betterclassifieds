@@ -199,6 +199,7 @@
     <Content Include="Scripts\jquery.validate-1.12.0.js" />
     <Content Include="Scripts\jquery.validate-1.12.0.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\paramount-validate-default.js" />
     <Content Include="Scripts\paramount-validate-tooltip.js" />
     <Content Include="Views\Listings\Index.cshtml" />
     <Content Include="Content\TheMusic\themusic.css.map">

@@ -2,6 +2,7 @@
 
 - [New login and registration pages in nextgen](https://trello.com/c/RNFtQc4s/136-nextgen-login-and-registration-mobile-friendly)
 - [Account verification with new email template](https://trello.com/c/Zg0SoqjW/156-registration-to-require-email-verification')
+- [Forgot Password popup with 2 step verification](https://trello.com/c/s4PrIdLp/158-forgot-password-email-and-functionality)
 
 **Bug Fixes**
 

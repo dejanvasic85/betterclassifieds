@@ -9,5 +9,8 @@
 
         [Placeholder("Password")]
         public string Password { get; set; }
+
+        [Placeholder("Email")]
+        public string Email { get; set; }
     }
 }

@@ -7,3 +7,4 @@
 /// <reference path="jquery.validate.unobtrusive.js" />
 /// <reference path="paramount-validate-tooltip.js" />
 /// <reference path="paramount-validate-default.js" />
+/// <reference path="account/login.js" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Linq;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
@@ -86,7 +87,7 @@ namespace Paramount.Betterclassifieds.Security
             {
                 var registrationData = this.Map<RegistrationModel, DataService.LinqObjects.Registration>(registerModel);
 
-                context.Registrations.Attach(registrationData, true);
+                context.Registrations.Attach(registrationData, asModified: true);
                 context.SubmitChanges();
             }
         }
@@ -126,6 +127,27 @@ namespace Paramount.Betterclassifieds.Security
 
                 return this.Map<DataService.LinqObjects.Registration, RegistrationModel>(registrationData);
             }
+        }
+
+        public string SetRandomPassword(string email)
+        {
+            // Use the membership provider
+            var password = Membership.GeneratePassword(length: 6, numberOfNonAlphanumericCharacters: 2);
+
+            var username = Membership.GetUserNameByEmail(email);
+
+            ChangePassword(username , password);
+            
+            return password;
+        }
+
+        public void ChangePassword(string username, string newPassword)
+        {
+            var user = Membership.GetUser(username);
+            
+            Guard.NotNull(user);
+
+            user.ChangePassword(user.GetPassword(), newPassword);
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

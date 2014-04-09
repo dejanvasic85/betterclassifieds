@@ -11,5 +11,6 @@
         bool CheckEmailExists(string email);
         int CreateRegistration(RegistrationModel registrationModel);
         RegistrationModel GetRegistration(int registrationId, string token, string username);
+        string SetRandomPassword(string email);
     }
 }

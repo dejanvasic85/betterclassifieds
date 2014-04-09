@@ -20,6 +20,7 @@ namespace Paramount.Betterclassifieds.Business
         public DateTime? LastModifiedDateUtc { get; private set; }
         public DateTime? ConfirmationDate { get; set; }
         public DateTime? ConfirmationDateUtc { get; set; }
+        public byte[] Version { get; set; }
 
         public RegistrationModel GenerateToken()
         {

@@ -2778,6 +2778,8 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 		
 		private System.Nullable<System.DateTime> _ConfirmationDateUtc;
 		
+		private byte[] _Version;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -2810,6 +2812,8 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
     partial void OnConfirmationDateChanged();
     partial void OnConfirmationDateUtcChanging(System.Nullable<System.DateTime> value);
     partial void OnConfirmationDateUtcChanged();
+    partial void OnVersionChanging(byte[] value);
+    partial void OnVersionChanged();
     #endregion
 		
 		public Registration()
@@ -2817,7 +2821,7 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RegistrationId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RegistrationId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
 		public int RegistrationId
 		{
 			get
@@ -2837,7 +2841,7 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Username", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Username", DbType="NVarChar(256) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
 		public string Username
 		{
 			get
@@ -2857,7 +2861,7 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="NVarChar(256) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
 		public string Email
 		{
 			get
@@ -2877,7 +2881,7 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Password", DbType="NVarChar(256) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Password", DbType="NVarChar(256) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
 		public string Password
 		{
 			get
@@ -2897,7 +2901,7 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstName", DbType="VarChar(100)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstName", DbType="VarChar(100)", UpdateCheck=UpdateCheck.Never)]
 		public string FirstName
 		{
 			get
@@ -2917,7 +2921,7 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="VarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="VarChar(50)", UpdateCheck=UpdateCheck.Never)]
 		public string LastName
 		{
 			get
@@ -2937,7 +2941,7 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostCode", DbType="VarChar(6)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PostCode", DbType="VarChar(6)", UpdateCheck=UpdateCheck.Never)]
 		public string PostCode
 		{
 			get
@@ -2957,7 +2961,7 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Token", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Token", DbType="NVarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
 		public string Token
 		{
 			get
@@ -2977,7 +2981,7 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpirationDate", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpirationDate", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.DateTime> ExpirationDate
 		{
 			get
@@ -2997,7 +3001,7 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpirationDateUtc", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpirationDateUtc", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.DateTime> ExpirationDateUtc
 		{
 			get
@@ -3017,7 +3021,7 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastModifiedDate", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastModifiedDate", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.DateTime> LastModifiedDate
 		{
 			get
@@ -3037,7 +3041,7 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastModifiedDateUtc", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastModifiedDateUtc", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.DateTime> LastModifiedDateUtc
 		{
 			get
@@ -3057,7 +3061,7 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ConfirmationDate", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ConfirmationDate", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.DateTime> ConfirmationDate
 		{
 			get
@@ -3077,7 +3081,7 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ConfirmationDateUtc", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ConfirmationDateUtc", DbType="DateTime", UpdateCheck=UpdateCheck.Never)]
 		public System.Nullable<System.DateTime> ConfirmationDateUtc
 		{
 			get
@@ -3093,6 +3097,26 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 					this._ConfirmationDateUtc = value;
 					this.SendPropertyChanged("ConfirmationDateUtc");
 					this.OnConfirmationDateUtcChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Version", AutoSync=AutoSync.Always, DbType="rowversion", IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.WhenChanged)]
+		public byte[] Version
+		{
+			get
+			{
+				return this._Version;
+			}
+			set
+			{
+				if ((this._Version != value))
+				{
+					this.OnVersionChanging(value);
+					this.SendPropertyChanging();
+					this._Version = value;
+					this.SendPropertyChanged("Version");
+					this.OnVersionChanged();
 				}
 			}
 		}

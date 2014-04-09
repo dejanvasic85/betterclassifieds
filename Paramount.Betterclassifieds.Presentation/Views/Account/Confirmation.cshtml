@@ -12,7 +12,7 @@
             @if (Model.IsSuccessfulConfirmation)
             {
                 <h2>Confirmation Successful</h2>
-                <p>Account Confirmed! Your email has been verified successfully.</p>
+                <div class="alert alert-success">Account Confirmed! Your email has been verified successfully.</div>
                 <p>Where to from here? How about <a href="@LegacyLinks.StartBooking">placing a new ad?</a> </p>
             }
 
@@ -20,7 +20,7 @@
             {
                 <h2>Ooops...</h2>
                 <p>
-                    <div class="alert alert-error">
+                    <div class="alert alert-danger">
                         We were not able to confirm your account. The registration
                         is not valid or has expired.
                     </div>
@@ -34,7 +34,7 @@
             {
                 <h2>Ooops...</h2>
                 <p>
-                    <div class="alert alert-error">
+                    <div class="alert alert-danger">
                         The requested email has already been confirmed.
                     </div>
                 </p>
@@ -51,7 +51,7 @@
             {
                 <h2>Ooops...</h2>
                 <p>
-                    <div class="alert alert-error">
+                    <div class="alert alert-danger">
                         The requested email or username '@Model.Username' is already registered.
                     </div>
                 </p>

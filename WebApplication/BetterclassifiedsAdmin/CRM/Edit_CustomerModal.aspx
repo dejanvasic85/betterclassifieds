@@ -17,7 +17,10 @@
     
         <%-- ajax update panel start --%>
         <asp:updatepanel ID="UpdatePanel1" runat="server">
+            
             <ContentTemplate>
+                
+                <asp:HiddenField runat="server" ID="hdnEmailOriginal"/>
 
                 <%-- ajax tab container start --%>
                 <cc1:TabContainer ID="tcntUserInfo" runat="server" ActiveTabIndex="0" 

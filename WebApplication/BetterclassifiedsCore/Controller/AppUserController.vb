@@ -32,6 +32,13 @@ Public Class AppUserController
         End Using
     End Function
 
+    Public Shared Function EmailExists(ByVal email As String) As Boolean
+        Using db = AppUserDataContext.NewContext
+            Return db.UserProfiles.Any(Function(u) u.Email.ToLower = email.ToLower) _
+                Or db.aspnet_Memberships.Any(Function(m) m.LoweredEmail = email.ToLower)
+        End Using
+    End Function
+
     Public Shared Function GetIndustries() As IList
         Using db = AppUserDataContext.NewContext
             Return db.Industries.OrderBy(Function(i) i.Title).ToList
@@ -98,12 +105,32 @@ Public Class AppUserController
                 .BusinessCategory = category
             End With
 
+            ' Also update the aspnet_Membership ( maintain consistency )
+            Dim member = db.aspnet_Memberships.Single(Function(m) m.UserId = userId)
+            member.Email = email
+            member.LoweredEmail = email.ToLower
+
             db.SubmitChanges()
             Return True
         End Using
 
     End Function
 
+    Public Shared Sub UpdateProfileEmailForUsername(ByVal username As String, ByVal newEmail As String)
+
+        If EmailExists(newEmail) Then
+            Throw New ArgumentException("Email belongs to another registered account")
+        End If
+
+        Using db = AppUserDataContext.NewContext
+            Dim user = db.aspnet_Users.Single(Function(u) u.UserName = username)
+            Dim profile = db.UserProfiles.Single(Function(p) p.UserID = user.UserId)
+
+            profile.Email = newEmail
+            db.SubmitChanges()
+        End Using
+
+    End Sub
 #End Region
 
 End Class

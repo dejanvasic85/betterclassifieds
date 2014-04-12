@@ -1,13 +1,18 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="MemberDetails.ascx.vb"
     Inherits="BetterclassifiedsWeb.MemberDetails2" %>
 
+<asp:HiddenField runat="server" ID="hdnEmail" />
+
 <%--Alert--%>
 <div class="accountRow">
     <asp:Panel runat="server" ID="pnlAlertSuccess" Visible="False" CssClass="alert alert-success">
-            Details have been updated successfully
+        Details have been updated successfully
     </asp:Panel>
+    <div id="memberUpdateError" runat="server" class="alert alert-error">
+        
+    </div>
 </div>
- 
+
 <%--First and Last name--%>
 <div id="myAccountTableChgDet">
     <table width="750" border="0" cellspacing="10px 10px 0px 10px" cellpadding="0px">

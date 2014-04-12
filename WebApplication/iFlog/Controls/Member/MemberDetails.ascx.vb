@@ -5,16 +5,14 @@ Partial Public Class MemberDetails2
     Inherits System.Web.UI.UserControl
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
+        memberUpdateError.Visible = False
+        pnlAlertSuccess.Visible = False
     End Sub
 
     Public Sub BindUserDetails(ByVal profile As UserProfile)
 
         ' perform databinding on the controls
-
-
         ddlIndustry.DataSource = AppUserController.GetIndustries()
-
         Me.DataBind()
 
         Dim item As New ListItem("", -1)
@@ -22,6 +20,7 @@ Partial Public Class MemberDetails2
 
         With profile
             UserId = profile.UserID
+            Me.hdnEmail.Value = .Email
             Me.FirstNameTextBox.Text = .FirstName
             Me.LastNameTextBox.Text = .LastName
             Me.Address1TextBox.Text = .Address1
@@ -59,7 +58,6 @@ Partial Public Class MemberDetails2
                 ddlCategory.SelectedValue = category.BusinessCategoryId
             End If
 
-            'ddlCategory.SelectedValue = AppUserController.GetBusinessCategoryByCode(profile.BusinessCategory).BusinessCategoryId
         End If
 
     End Sub
@@ -85,13 +83,26 @@ Partial Public Class MemberDetails2
             businessCategory = ddlCategory.SelectedValue
         End If
 
+        ' Validate the email address ( need to maintain unique emails )
+        ' But only if the emails is different to the original
+        If (String.Compare(hdnEmail.Value, txtEmail.Text) <> 0 _
+            And AppUserController.EmailExists(txtEmail.Text)) Then
+
+            memberUpdateError.Visible = True
+            memberUpdateError.InnerText = "The updated email address belongs to another registered account."
+
+            Return
+
+        End If
+
+
         pnlAlertSuccess.Visible = AppUserController.UpdateUserProfile(UserId, FirstNameTextBox.Text, LastNameTextBox.Text, _
                                                Address1TextBox.Text, "", CityTextBox.Text, _
                                                StateDropDownList.SelectedValue, ZipCodeTextBox.Text, _
                                                PhoneNumberTextBox.Text, SecondaryPhoneTextBox.Text, txtABN.Text, _
                                                txtBusinessName.Text, industryId, businessCategory, txtEmail.Text)
 
-
+        hdnEmail.Value = txtEmail.Text
 
     End Sub
 

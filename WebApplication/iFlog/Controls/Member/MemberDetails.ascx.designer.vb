@@ -14,6 +14,15 @@ Option Explicit On
 Partial Public Class MemberDetails2
 
     '''<summary>
+    '''hdnEmail control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hdnEmail As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
     '''pnlAlertSuccess control.
     '''</summary>
     '''<remarks>
@@ -21,6 +30,15 @@ Partial Public Class MemberDetails2
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents pnlAlertSuccess As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''memberUpdateError control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents memberUpdateError As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
     '''FirstNameTextBox control.

@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationBlock.Configuration", "ApplicationBlock\Configuration\ApplicationBlock.Configuration.csproj", "{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Framework", "01 Framework", "{14255EFB-C9DC-4626-88E5-303AEB802EC8}"
@@ -54,8 +52,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 Tests", "05 Tests", "{1E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassifiedsDatabase", "Database\ClassifiedsDatabase\ClassifiedsDatabase.csproj", "{E17C5429-4810-4589-9640-6D1828A6C71E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreDatabase", "Database\CoreDatabase\CoreDatabase.csproj", "{6B9ABBAE-F1A9-456B-AAA5-24AD1D459777}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MembershipDatabase", "Database\MembershipDatabase\MembershipDatabase.csproj", "{0E32F93E-8E53-4469-BD63-3BFCE23468DD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogDatabase", "Database\LogDatabase\LogDatabase.csproj", "{04979BB2-2132-46AF-B359-D83A243B97DE}"
@@ -102,7 +98,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BroadcastDatabase", "Databa
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 33
+		SccNumberOfProjects = 32
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://paramountit.visualstudio.com/defaultcollection
 		SccLocalPath0 = .
@@ -182,58 +178,54 @@ Global
 		SccProjectTopLevelParentUniqueName19 = Betterclassifieds.sln
 		SccProjectName19 = Database/ClassifiedsDatabase
 		SccLocalPath19 = Database\\ClassifiedsDatabase
-		SccProjectUniqueName20 = Database\\CoreDatabase\\CoreDatabase.csproj
+		SccProjectUniqueName20 = Database\\MembershipDatabase\\MembershipDatabase.csproj
 		SccProjectTopLevelParentUniqueName20 = Betterclassifieds.sln
-		SccProjectName20 = Database/CoreDatabase
-		SccLocalPath20 = Database\\CoreDatabase
-		SccProjectUniqueName21 = Database\\MembershipDatabase\\MembershipDatabase.csproj
+		SccProjectName20 = Database/MembershipDatabase
+		SccLocalPath20 = Database\\MembershipDatabase
+		SccProjectUniqueName21 = Database\\LogDatabase\\LogDatabase.csproj
 		SccProjectTopLevelParentUniqueName21 = Betterclassifieds.sln
-		SccProjectName21 = Database/MembershipDatabase
-		SccLocalPath21 = Database\\MembershipDatabase
-		SccProjectUniqueName22 = Database\\LogDatabase\\LogDatabase.csproj
+		SccProjectName21 = Database/LogDatabase
+		SccLocalPath21 = Database\\LogDatabase
+		SccProjectUniqueName22 = ApplicationBlock\\Paramount.ApplicationBlock.Mvc\\Paramount.ApplicationBlock.Mvc.csproj
 		SccProjectTopLevelParentUniqueName22 = Betterclassifieds.sln
-		SccProjectName22 = Database/LogDatabase
-		SccLocalPath22 = Database\\LogDatabase
-		SccProjectUniqueName23 = ApplicationBlock\\Paramount.ApplicationBlock.Mvc\\Paramount.ApplicationBlock.Mvc.csproj
+		SccProjectName22 = ApplicationBlock/Paramount.ApplicationBlock.Mvc
+		SccLocalPath22 = ApplicationBlock\\Paramount.ApplicationBlock.Mvc
+		SccProjectUniqueName23 = Paramount.Betterclassifieds.Console\\Paramount.Betterclassifieds.Console.csproj
 		SccProjectTopLevelParentUniqueName23 = Betterclassifieds.sln
-		SccProjectName23 = ApplicationBlock/Paramount.ApplicationBlock.Mvc
-		SccLocalPath23 = ApplicationBlock\\Paramount.ApplicationBlock.Mvc
-		SccProjectUniqueName24 = Paramount.Betterclassifieds.Console\\Paramount.Betterclassifieds.Console.csproj
+		SccProjectName23 = Paramount.Betterclassifieds.Console
+		SccLocalPath23 = Paramount.Betterclassifieds.Console
+		SccProjectUniqueName24 = Paramount.Betterclassifieds.Business\\Paramount.Betterclassifieds.Business.csproj
 		SccProjectTopLevelParentUniqueName24 = Betterclassifieds.sln
-		SccProjectName24 = Paramount.Betterclassifieds.Console
-		SccLocalPath24 = Paramount.Betterclassifieds.Console
-		SccProjectUniqueName25 = Paramount.Betterclassifieds.Business\\Paramount.Betterclassifieds.Business.csproj
+		SccProjectName24 = Paramount.Betterclassifieds.Business
+		SccLocalPath24 = Paramount.Betterclassifieds.Business
+		SccProjectUniqueName25 = Paramount.Betterclassifieds.DataService\\Paramount.Betterclassifieds.DataService.csproj
 		SccProjectTopLevelParentUniqueName25 = Betterclassifieds.sln
-		SccProjectName25 = Paramount.Betterclassifieds.Business
-		SccLocalPath25 = Paramount.Betterclassifieds.Business
-		SccProjectUniqueName26 = Paramount.Betterclassifieds.DataService\\Paramount.Betterclassifieds.DataService.csproj
+		SccProjectName25 = Paramount.Betterclassifieds.DataService
+		SccLocalPath25 = Paramount.Betterclassifieds.DataService
+		SccProjectUniqueName26 = Database\\DocumentDatabase\\DocumentDatabase.csproj
 		SccProjectTopLevelParentUniqueName26 = Betterclassifieds.sln
-		SccProjectName26 = Paramount.Betterclassifieds.DataService
-		SccLocalPath26 = Paramount.Betterclassifieds.DataService
-		SccProjectUniqueName27 = Database\\DocumentDatabase\\DocumentDatabase.csproj
+		SccProjectName26 = Database/DocumentDatabase
+		SccLocalPath26 = Database\\DocumentDatabase
+		SccProjectUniqueName27 = Paramount.Betterclassifieds.Security\\Paramount.Betterclassifieds.Security.csproj
 		SccProjectTopLevelParentUniqueName27 = Betterclassifieds.sln
-		SccProjectName27 = Database/DocumentDatabase
-		SccLocalPath27 = Database\\DocumentDatabase
-		SccProjectUniqueName28 = Paramount.Betterclassifieds.Security\\Paramount.Betterclassifieds.Security.csproj
+		SccProjectName27 = Paramount.Betterclassifieds.Security
+		SccLocalPath27 = Paramount.Betterclassifieds.Security
+		SccProjectUniqueName28 = Paramount.Betterclassifieds.Tests\\Paramount.Betterclassifieds.Tests.csproj
 		SccProjectTopLevelParentUniqueName28 = Betterclassifieds.sln
-		SccProjectName28 = Paramount.Betterclassifieds.Security
-		SccLocalPath28 = Paramount.Betterclassifieds.Security
-		SccProjectUniqueName29 = Paramount.Betterclassifieds.Tests\\Paramount.Betterclassifieds.Tests.csproj
+		SccProjectName28 = Paramount.Betterclassifieds.Tests
+		SccLocalPath28 = Paramount.Betterclassifieds.Tests
+		SccProjectUniqueName29 = Paramount.Betterclassifieds.Tests.Functional\\Paramount.Betterclassifieds.Tests.Functional.csproj
 		SccProjectTopLevelParentUniqueName29 = Betterclassifieds.sln
-		SccProjectName29 = Paramount.Betterclassifieds.Tests
-		SccLocalPath29 = Paramount.Betterclassifieds.Tests
-		SccProjectUniqueName30 = Paramount.Betterclassifieds.Tests.Functional\\Paramount.Betterclassifieds.Tests.Functional.csproj
+		SccProjectName29 = Paramount.Betterclassifieds.Tests.Functional
+		SccLocalPath29 = Paramount.Betterclassifieds.Tests.Functional
+		SccProjectUniqueName30 = Paramount.Betterclassifieds.Presentation\\Paramount.Betterclassifieds.Presentation.csproj
 		SccProjectTopLevelParentUniqueName30 = Betterclassifieds.sln
-		SccProjectName30 = Paramount.Betterclassifieds.Tests.Functional
-		SccLocalPath30 = Paramount.Betterclassifieds.Tests.Functional
-		SccProjectUniqueName31 = Paramount.Betterclassifieds.Presentation\\Paramount.Betterclassifieds.Presentation.csproj
+		SccProjectName30 = Paramount.Betterclassifieds.Presentation
+		SccLocalPath30 = Paramount.Betterclassifieds.Presentation
+		SccProjectUniqueName31 = Database\\BroadcastDatabase\\BroadcastDatabase.csproj
 		SccProjectTopLevelParentUniqueName31 = Betterclassifieds.sln
-		SccProjectName31 = Paramount.Betterclassifieds.Presentation
-		SccLocalPath31 = Paramount.Betterclassifieds.Presentation
-		SccProjectUniqueName32 = Database\\BroadcastDatabase\\BroadcastDatabase.csproj
-		SccProjectTopLevelParentUniqueName32 = Betterclassifieds.sln
-		SccProjectName32 = Database/BroadcastDatabase
-		SccLocalPath32 = Database\\BroadcastDatabase
+		SccProjectName31 = Database/BroadcastDatabase
+		SccLocalPath31 = Database\\BroadcastDatabase
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -394,14 +386,6 @@ Global
 		{E17C5429-4810-4589-9640-6D1828A6C71E}.Test|Any CPU.Build.0 = Release|Any CPU
 		{E17C5429-4810-4589-9640-6D1828A6C71E}.Testing|Any CPU.ActiveCfg = Release|Any CPU
 		{E17C5429-4810-4589-9640-6D1828A6C71E}.Testing|Any CPU.Build.0 = Release|Any CPU
-		{6B9ABBAE-F1A9-456B-AAA5-24AD1D459777}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6B9ABBAE-F1A9-456B-AAA5-24AD1D459777}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6B9ABBAE-F1A9-456B-AAA5-24AD1D459777}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6B9ABBAE-F1A9-456B-AAA5-24AD1D459777}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6B9ABBAE-F1A9-456B-AAA5-24AD1D459777}.Test|Any CPU.ActiveCfg = Release|Any CPU
-		{6B9ABBAE-F1A9-456B-AAA5-24AD1D459777}.Test|Any CPU.Build.0 = Release|Any CPU
-		{6B9ABBAE-F1A9-456B-AAA5-24AD1D459777}.Testing|Any CPU.ActiveCfg = Release|Any CPU
-		{6B9ABBAE-F1A9-456B-AAA5-24AD1D459777}.Testing|Any CPU.Build.0 = Release|Any CPU
 		{0E32F93E-8E53-4469-BD63-3BFCE23468DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0E32F93E-8E53-4469-BD63-3BFCE23468DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E32F93E-8E53-4469-BD63-3BFCE23468DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -531,7 +515,6 @@ Global
 		{EF41A36C-ADA3-433B-9307-1CB642517544} = {328F405C-3398-4608-B8DA-62CCB3EE8627}
 		{16A1594A-F9A2-468B-BF45-2D716A72469E} = {328F405C-3398-4608-B8DA-62CCB3EE8627}
 		{E17C5429-4810-4589-9640-6D1828A6C71E} = {06813343-424A-4B8F-9CA9-A109CEA6303B}
-		{6B9ABBAE-F1A9-456B-AAA5-24AD1D459777} = {06813343-424A-4B8F-9CA9-A109CEA6303B}
 		{0E32F93E-8E53-4469-BD63-3BFCE23468DD} = {06813343-424A-4B8F-9CA9-A109CEA6303B}
 		{04979BB2-2132-46AF-B359-D83A243B97DE} = {06813343-424A-4B8F-9CA9-A109CEA6303B}
 		{CF649D5B-4AB9-4CA3-98D8-B2973C6D8941} = {06813343-424A-4B8F-9CA9-A109CEA6303B}

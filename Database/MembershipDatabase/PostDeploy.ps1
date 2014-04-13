@@ -49,7 +49,9 @@ if ( $DropCreateDatabase -eq $true ) {
 
 # Sanitize database
 if ( $SanitizeDatabase -eq $true ) {	
-	Invoke-SqlCmd "UPDATE aspnet_Membership SET Email = '$($Sanitize_Email)'" -ServerInstance $sqlConnectionBuilder.DataSource -Database $sqlConnectionBuilder.InitialCatalog
+	Write-Host "Sanitization = Updating Membership with $($Sanitize_Email) email"
+	Invoke-SqlCmd "UPDATE aspnet_Membership SET Email = '$($Sanitize_Email)', LoweredEmail = '$($Sanitize_Email)'" -ServerInstance $sqlConnectionBuilder.DataSource -Database $sqlConnectionBuilder.InitialCatalog
+	Write-Host "Sanitization = Updating Profiles with $($Sanitize_Email) email"
 	Invoke-SqlCmd "UPDATE UserProfile SET Email = '$($Sanitize_Email)'" -ServerInstance $sqlConnectionBuilder.DataSource -Database $sqlConnectionBuilder.InitialCatalog
 }
 

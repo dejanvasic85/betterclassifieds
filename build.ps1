@@ -7,8 +7,6 @@ $msbuild = Join-Path -Path (Get-ItemProperty $regKey).$regProperty -ChildPath "m
 
 & "Database\MembershipDatabase\bin\Debug\MembershipDatabase.exe"
 
-& "Database\CoreDatabase\bin\Debug\CoreDatabase.exe"
-
 & "Database\ClassifiedsDatabase\bin\Debug\ClassifiedsDatabase.exe"
 
 & "Database\LogDatabase\bin\Debug\LogDatabase.exe"

@@ -47,6 +47,12 @@ if ( $DropCreateDatabase -eq $true ) {
     Invoke-Sqlcmd -Query "CREATE DATABASE $($sqlConnectionBuilder.InitialCatalog)" -ServerInstance $sqlConnectionBuilder.DataSource
 }
 
+# Sanitize database
+if ( $SanitizeDatabase -eq $true ) {	
+	Invoke-SqlCmd "UPDATE aspnet_Membership SET Email = '$($Sanitize_Email)'" -ServerInstance $sqlConnectionBuilder.DataSource -Database $sqlConnectionBuilder.InitialCatalog
+	Invoke-SqlCmd "UPDATE UserProfile SET Email = '$($Sanitize_Email)'" -ServerInstance $sqlConnectionBuilder.DataSource -Database $sqlConnectionBuilder.InitialCatalog
+}
+
 Set-Location $scriptPath
 
 & .\MembershipDatabase.exe | Write-Host

@@ -1,11 +1,10 @@
 ﻿using System.Web.Http;
+using System.Web.Mvc;
+using Microsoft.Practices.Unity;
+using Paramount.ApplicationBlock.Mvc;
 
 namespace Paramount.Betterclassifieds.Presentation
 {
-    using System.Web.Mvc;
-    using ApplicationBlock.Mvc;
-    using Microsoft.Practices.Unity;
-
     public class PresentationInitialiser : ModuleRegistration
     {
         public override string Name
@@ -42,7 +41,6 @@ namespace Paramount.Betterclassifieds.Presentation
               "listings/{seoName}",
               new { controller = "listings", action = "Index", module = Name },
               new[] { GetType().Namespace });
-           // routes.MapPageRoute("seoName", "listings/{seoName}", "~/OnlineAds/Default.aspx");
 
             // Default
             routes.MapRoute(

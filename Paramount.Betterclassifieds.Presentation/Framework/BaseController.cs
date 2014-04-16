@@ -7,6 +7,7 @@ namespace Paramount.Betterclassifieds.Presentation
     public class BaseController : Controller
     {
 
+        // Todo - legacy integration removal
         [HttpPost]
         public ActionResult Search(string searchKeyword, int? searchCategoryId)
         {
@@ -18,6 +19,7 @@ namespace Paramount.Betterclassifieds.Presentation
         }
 
 
+        // Todo - legacy integration removal
         // Currently this is legacy integration
         // So just set the session parameter to the search and redirect...
         // todo - legacy integration

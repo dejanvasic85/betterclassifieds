@@ -1,8 +1,5 @@
-﻿using System;
+﻿using BetterclassifiedsCore.DataModel;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BetterclassifiedsCore.DataModel;
 
 namespace BetterClassified.UIController
 {

@@ -1,10 +1,7 @@
-﻿using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using Paramount.Betterclassifieds.Business.Managers;
-using Paramount.Betterclassifieds.Business.Models;
-using System.Collections.Generic;
-using System.Web.Http;
-using Paramount.Betterclassifieds.Presentation.ViewModels;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
@@ -18,21 +15,17 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [OutputCache(Duration = 10000)]
-        public ActionResult GetTopLevel()
+        public ActionResult GetCategoryOptions(bool includeAllOption = true)
         {
-            var categories = _manager.GetTopLevelCategories();
-
-            var models = this.MapList<Category, CategoryViewModel>(categories);
-            models.Insert(0, new CategoryViewModel { CategoryId  = null, CategoryName = "All Categories"});
-            
-            return Json(models, JsonRequestBehavior.AllowGet);
+            var list = _manager.GetTopLevelCategories().Select(c => new SelectListItem { Text = c.Title, Value = c.CategoryId.ToString() }).ToList();
+            if (includeAllOption)
+                list.Insert(0, new SelectListItem { Text = "All Categories", Value = string.Empty });
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
 
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateProfile("CategoryCtrlProfile");
-            configuration.CreateMap<Category, CategoryViewModel>()
-                .ForMember(member => member.CategoryName, options => options.MapFrom(source => source.Title));
         }
     }
 }

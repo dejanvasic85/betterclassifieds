@@ -285,7 +285,7 @@
     <Content Include="Scripts\jquery.validate-1.12.0.js" />
     <Content Include="Scripts\jquery.validate-1.12.0.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\paramount-bootstrap.js" />
+    <Content Include="Scripts\paramount-site.js" />
     <Content Include="Scripts\paramount-validate-default.js" />
     <Content Include="Scripts\paramount-validate-tooltip.js" />
     <None Include="Scripts\_references.js" />

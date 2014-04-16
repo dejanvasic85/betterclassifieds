@@ -99,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientViewEngine.cs" />
+    <Compile Include="HtmlHelpers\BootstrapInputExtensions.cs" />
     <Compile Include="Unity\Bootstrapper.cs" />
     <Compile Include="Configuration\ModuleRegistrationConfigurationSection.cs" />
     <Compile Include="Modules\IModuleInfo.cs" />

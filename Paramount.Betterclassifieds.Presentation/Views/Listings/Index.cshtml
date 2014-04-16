@@ -19,32 +19,32 @@
         <div class="list-group">
 
             @foreach (var ad in Model)
-{
-        <a href="@Url.AdUrl(@ad.TitleSlug, @ad.AdId)" class="list-group-item">
-        <div class="media">
-            @if (string.IsNullOrEmpty(ad.DocumentID))
             {
-                <img class="media-object pull-right thumbnail"
-                     alt="84x84"
-                     src="@Url.Action("Render", "Image", new { documentId = ad.DocumentID, height = 84, width = 84 })" />
-            }
-
-            <div class="media-body">
-                <h4 class="media-heading">@ad.Title</h4>
-                <p>
-                    @ad.Description.TruncateOnWordBoundary(150)
-                </p>
-                <p>
-                    <span class="label label-category">@ad.CategoryTitle</span>
-                    @*@foreach (var publication in ad.Publications)
+                <a href="@Url.AdUrl(@ad.TitleSlug, @ad.AdId)" class="list-group-item">
+                    <div class="media">
+                        @if (string.IsNullOrEmpty(ad.DocumentID))
                         {
-                            <span class="label label-publication">@publication</span>
-                        }*@
-                </p>
-            </div>
-        </div>
-    </a>
-}
+                            <img class="media-object pull-right thumbnail"
+                                 alt="84x84"
+                                 src="@Url.Action("Render", "Image", new { documentId = ad.DocumentID, height = 84, width = 84 })" />
+                        }
+
+                        <div class="media-body">
+                            <h4 class="media-heading">@ad.Title</h4>
+                            <p>
+                                @ad.Description.TruncateOnWordBoundary(150)
+                            </p>
+                            <p>
+                                <span class="label label-category">@ad.CategoryTitle</span>
+                                @*@foreach (var publication in ad.Publications)
+                                    {
+                                        <span class="label label-publication">@publication</span>
+                                    }*@
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            }
         </div>
     </div>
 </div>

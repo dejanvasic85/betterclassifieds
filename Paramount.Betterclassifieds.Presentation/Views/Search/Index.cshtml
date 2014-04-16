@@ -1,0 +1,81 @@
+﻿@using Paramount
+@model Paramount.Betterclassifieds.Presentation.ViewModels.SearchModel
+
+@{
+    Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayout.cshtml");
+}
+
+<div class="row top-buffer-20">
+
+    @*Filters*@
+    <div class="col-sm-3 hidden-xs">
+        <div class="panel panel-default" style="border: 1px solid #eee">
+            <div class="panel-heading">
+                <h4>Refine Search</h4>
+            </div>
+            <div class="panel-body">
+                <form role="form" method="GET" action="@Url.Action("Index")">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.SearchFilters.Keyword)
+                        @Html.TextBox("Keyword", Model.SearchFilters.Keyword, new { @class = "form-control input-sm" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.SearchFilters.CategoryId)
+                        <select id="CategoryId" class="form-control input-sm js-select"
+                                data-url="@Url.Action("GetCategoryOptions", "Categories")"
+                                data-selected="@Model.SearchFilters.CategoryId"></select>
+                    </div>
+                    <button type="submit" class="btn btn-default btn-sm">
+                        Go
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    @*Ad Details*@
+    <div class="col-sm-9">
+        <div class="well">
+            <div class="form-inline" role="form">
+                <div class="form-group">
+                    <label for="sortByList">Sort By</label>
+                    <select id="sortByList" class="form-control input-sm">
+                        <option value="Newest">Newest First</option>
+                        <option value="Oldest">Expiring First</option>
+                        <option value="PriceLow">Price - Lowest First</option>
+                        <option value="PriceHigh">Price - Highest First</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="list-group">
+            @foreach (var ad in Model.SearchResults)
+            {
+                <a href="@Url.AdUrl(@ad.TitleSlug, @ad.AdId)" class="list-group-item">
+                    <div class="media">
+                        @if (ad.ImageUrls.Any())
+                        {
+                            <img class="media-object pull-right thumbnail"
+                                 alt="84x84"
+                                 src="@Url.Action("Render", "Image", new { documentId = ad.ImageUrls.First(), height = 84, width = 84 })" />
+                        }
+
+                        <div class="media-body">
+                            <h4 class="media-heading">@ad.Title</h4>
+                            <p>
+                                @ad.Description.TruncateOnWordBoundary(150)
+                            </p>
+                            <p>
+                                <span class="label label-category">@ad.CategoryName</span>
+                                @foreach (var publication in ad.Publications)
+                                {
+                                    <span class="label label-publication">@publication</span>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            }
+        </div>
+    </div>
+</div>

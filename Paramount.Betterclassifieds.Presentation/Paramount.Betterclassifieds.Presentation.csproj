@@ -141,6 +141,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\ListingsController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Framework\BaseController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -148,13 +149,14 @@
     <Compile Include="LegacyIntegration\LegacyLinks.cs" />
     <Compile Include="ViewModels\AccountConfirmationViewModel.cs" />
     <Compile Include="ViewModels\AdViewModel.cs" />
-    <Compile Include="ViewModels\CategoryViewModel.cs" />
     <Compile Include="ViewModels\HomeModel.cs" />
     <Compile Include="PresentationInitialiser.cs" />
     <Compile Include="ViewModels\AdSummaryViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ListingSummaryViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\SearchFilters.cs" />
+    <Compile Include="ViewModels\SearchModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -200,7 +202,7 @@
     <Content Include="Scripts\jquery.validate-1.12.0.js" />
     <Content Include="Scripts\jquery.validate-1.12.0.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\paramount-bootstrap.js" />
+    <Content Include="Scripts\paramount-site.js" />
     <Content Include="Scripts\paramount-validate-default.js" />
     <Content Include="Scripts\paramount-validate-tooltip.js" />
     <Content Include="Views\Listings\Index.cshtml" />
@@ -233,6 +235,7 @@
     <Content Include="Views\Account\_RegisterPartial.cshtml" />
     <Content Include="Views\Account\ThankYou.cshtml" />
     <Content Include="Views\Account\Confirmation.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\EastGippslandNews\" />

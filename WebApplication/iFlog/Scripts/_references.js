@@ -8,3 +8,4 @@
 /// <reference path="paramount-validate-tooltip.js" />
 /// <reference path="paramount-validate-default.js" />
 /// <reference path="account/login.js" />
+/// <reference path="paramount-site.js" />

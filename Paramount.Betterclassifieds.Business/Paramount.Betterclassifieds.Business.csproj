@@ -73,6 +73,7 @@
     <Compile Include="Membership\IUserManager.cs" />
     <Compile Include="Membership\RegistrationModel.cs" />
     <Compile Include="Models\Ad.cs" />
+    <Compile Include="Models\AdImage.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Comparers\PublicationIdComparer.cs" />
     <Compile Include="Models\OnlineListingModel.cs" />

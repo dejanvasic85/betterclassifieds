@@ -1,35 +1,51 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.Business.Models;
-using System.Web.Mvc;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
-    public class HomeController : BaseController, IMappingBehaviour
+    public class SearchController : Controller, IMappingBehaviour
     {
-        private readonly IBookingManager _bookingManager;
+        private readonly IBookingManager _manager;
 
-        public HomeController(IBookingManager bookingManager)
+        public SearchController(IBookingManager manager)
         {
-            _bookingManager = bookingManager;
+            _manager = manager;
         }
 
-        [OutputCache(Duration = 120)]
-        public ActionResult Index()
+        //
+        // GET: /Search/
+        public ActionResult Index(string keyword = "")
         {
-            var ads = this.MapList<AdBookingModel, AdSummaryViewModel>(_bookingManager.GetLatestBookings());
+            var bookings = _manager.GetLatestBookings(1000);
             
-            return View(new HomeModel
+            var results = this.MapList<AdBookingModel,AdSummaryViewModel>(bookings).AsEnumerable();
+
+            if (keyword.HasValue())
+                results = results.Where(b => b.Description.Contains(keyword) || b.Title.Contains(keyword));
+            
+            ViewBag.Title = "Search results";
+
+            var searchModel = new SearchModel
             {
-                AdSummaryList = ads
-            });
+                SearchResults = results.ToList(),
+                SearchFilters = new SearchFilters
+                {
+                    Keyword = keyword
+                }
+            };
+
+            return View(searchModel);
         }
 
         public void OnRegisterMaps(IConfiguration configuration)
         {
-            // From Business
             configuration.CreateMap<AdBookingModel, AdSummaryViewModel>()
                 .ForMember(member => member.AdId, options => options.MapFrom(source => source.AdBookingId))
                 .ForMember(member => member.Description,
@@ -40,7 +56,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                     options => options.MapFrom(source => source.Publications.Select(p => p.Title)))
                 .ForMember(member => member.ImageUrls,
                     options => options.MapFrom(source => source.OnlineAd.Images.Select(i => i.ImageUrl)));
-
         }
     }
 }

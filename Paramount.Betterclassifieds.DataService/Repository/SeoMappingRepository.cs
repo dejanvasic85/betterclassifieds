@@ -4,24 +4,11 @@ using AutoMapper;
 using Paramount.Betterclassifieds.Business.Models.Seo;
 using Paramount.Betterclassifieds.Business.Repository;
 using Paramount.Betterclassifieds.DataService.Classifieds;
-using Paramount.Betterclassifieds.DataService.SeoSettings;
 
 namespace Paramount.Betterclassifieds.DataService.Repository
 {
     public class SeoMappingRepository : ISeoMappingRepository, IMappingBehaviour
     {
-        #region Dependencies
-        private readonly ISeoNameMappingDataSource dataSource;
-
-        #endregion
-
-        public SeoMappingRepository(ISeoNameMappingDataSource dataSource)
-
-        {
-            this.dataSource = dataSource;
-        }
-
-        
         public SeoNameMappingModel GetSeoMapping(string seoName)
         {
             using (var context = DataContextFactory.CreateClassifiedContext())

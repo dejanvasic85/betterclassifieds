@@ -1,84 +1,76 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using AutoMapper;
+using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.Business.Models;
-using Paramount.Betterclassifieds.Business.Models.Seo;
-using Paramount.Betterclassifieds.Business.Repository;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
-    public class ListingsController : Controller
+    public class ListingsController : Controller, IMappingBehaviour
     {
-        private readonly IAdRepository adRepository;
-        private readonly ISeoMappingRepository seoMappingRepository;
-        private readonly IBookingRepository bookingRepository;
+        private readonly IBookingManager _manager;
 
-        public ListingsController(IAdRepository adRepository, ISeoMappingRepository seoMappingRepository, IBookingRepository bookingRepository)
+
+        public ListingsController( IBookingManager manager)
         {
-            this.adRepository = adRepository;
-            this.seoMappingRepository = seoMappingRepository;
-            this.bookingRepository = bookingRepository;
+            _manager = manager;
         }
 
-        //
-        // GET: /Listings/
-        //e.g: listings/employment
-        public ActionResult Index(string seoName, int index = 0, int pageSize = 10)
+        public ActionResult Find(string keyword = "")
         {
-            var onlineAds = new List<ListingSummaryViewModel>();
-            if (string.IsNullOrEmpty(seoName))
+            var bookings = _manager.GetLatestBookings(1000);
+            var results = this.MapList<AdBookingModel, AdSummaryViewModel>(bookings).AsEnumerable();
+
+            if (keyword.HasValue())
+                results = results.Where(b => b.Description.Contains(keyword) || b.Title.Contains(keyword));
+
+            ViewBag.Title = "Search results";
+
+            var searchModel = new SearchModel
             {
-                return View(onlineAds);
-            }
+                SearchResults = results.ToList(),
+                SearchFilters = new SearchFilters
+                {
+                    Keyword = keyword
+                }
+            };
 
-            var seoModel = GetMappingModel(seoName);
-
-            if (seoModel == null)
-            {
-                return View(onlineAds);
-            }
-
-            onlineAds = GetListingBySeo(seoModel, index, pageSize).Select(a => new ListingSummaryViewModel(a)).ToList();
-
-            return View(onlineAds);
+            return View(searchModel);
         }
 
-        public ActionResult TestIndex(string seoName, int index = 0, int pageSize = 25)
+        //public ActionResult Index(string seoName, int index = 0, int pageSize = 10)
+        //{
+        //    var onlineAds = new List<ListingSummaryViewModel>();
+        //    if (string.IsNullOrEmpty(seoName))
+        //    {
+        //        return View(onlineAds);
+        //    }
+
+        //    var seoModel = GetMappingModel(seoName);
+
+        //    if (seoModel == null)
+        //    {
+        //        return View(onlineAds);
+        //    }
+
+        //    onlineAds = GetListingBySeo(seoModel, index, pageSize).Select(a => new ListingSummaryViewModel(a)).ToList();
+
+        //    return View(onlineAds);
+        //}
+
+        public void OnRegisterMaps(IConfiguration configuration)
         {
-            if (string.IsNullOrEmpty(seoName))
-            {
-                return Json(null, JsonRequestBehavior.AllowGet);
-            }
-
-            SeoNameMappingModel seoModel = GetMappingModel(seoName);
-
-            if (seoModel == null)
-            {
-                return Json(null, JsonRequestBehavior.AllowGet);
-            }
-
-            List<OnlineListingModel> onlineAds = GetListingBySeo(seoModel, index, pageSize);
-
-            return Json(onlineAds, JsonRequestBehavior.AllowGet); ;
+            configuration.CreateMap<AdBookingModel, AdSummaryViewModel>()
+                .ForMember(member => member.AdId, options => options.MapFrom(source => source.AdBookingId))
+                .ForMember(member => member.Description,
+                    options => options.MapFrom(source => source.OnlineAd.Description))
+                .ForMember(member => member.Title, options => options.MapFrom(source => source.OnlineAd.Heading))
+                .ForMember(member => member.CategoryName, options => options.MapFrom(source => source.Category.Title))
+                .ForMember(member => member.Publications,
+                    options => options.MapFrom(source => source.Publications.Select(p => p.Title)))
+                .ForMember(member => member.ImageUrls,
+                    options => options.MapFrom(source => source.OnlineAd.Images.Select(i => i.ImageUrl)));
         }
-
-        private List<OnlineListingModel> GetListingBySeo(SeoNameMappingModel seoModel, int index = 0, int pageSize = 25)
-        {
-            List<OnlineListingModel> onlineAds = adRepository.SearchOnlineListing(seoModel.SearchTerm, seoModel.CategoryIds, seoModel.LocationIds,
-               seoModel.AreaIds, index, pageSize);
-
-            return onlineAds;
-        }
-
-        private SeoNameMappingModel GetMappingModel(string seoName)
-        {
-            SeoNameMappingModel seo = seoMappingRepository.GetSeoMapping(seoName);
-            return seo;
-        }
-
-       
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace Paramount.ApplicationBlock.Mvc
+namespace Paramount
 {
     public static class ModuleUrlHelper
     {
@@ -46,15 +46,17 @@ namespace Paramount.ApplicationBlock.Mvc
         /// </summary>
         public static string ListingsUrl(this UrlHelper urlHelper, string seoName)
         {
-            RouteValueDictionary dictionary = new RouteValueDictionary
-            {
-                {"seoName", seoName}
-            };
+            //RouteValueDictionary dictionary = new RouteValueDictionary
+            //{
+            //    {"seoName", seoName}
+            //};
 
-            VirtualPathData data = RouteTable.Routes.GetVirtualPath(null, "seoName", dictionary);
-            var path = data.VirtualPath;
+            //VirtualPathData data = RouteTable.Routes.GetVirtualPath(null, "seoName", dictionary);
+            //var path = data.VirtualPath;
 
-            return path;
+            //return path;
+            return urlHelper.Action("Index", "Listings",
+                new { seoName });
         }
     }
 }

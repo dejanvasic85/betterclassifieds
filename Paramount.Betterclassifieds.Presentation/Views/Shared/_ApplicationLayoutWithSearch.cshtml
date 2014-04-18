@@ -1,4 +1,6 @@
-﻿
+﻿@using Paramount
+
+
 @*This layout inherits the application layout and ads a quick search (with some scripts)*@
 
 @{
@@ -8,7 +10,7 @@
 @section QuickSearch{
     @*Quick Search Bar*@
     <div class="row">
-        <form role="form" method="POST" action="@Url.Action("Search")">
+        <form role="form" method="GET" action="@Url.Action("Find", "Listings")">
             <div class="col-sm-5">
                 <input type="text" name="searchKeyword" id="searchKeyword" class="form-control" placeholder="Keyword or Ad ID">
             </div>

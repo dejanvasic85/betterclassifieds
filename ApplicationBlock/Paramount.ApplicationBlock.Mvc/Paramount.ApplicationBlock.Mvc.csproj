@@ -113,7 +113,6 @@
     <Compile Include="Unity\SessionLifetimeManager.cs" />
     <Compile Include="Unity\UnityDependencyResolver.cs" />
     <Compile Include="Unity\UnityPageHandlerFactory.cs" />
-    <Compile Include="ModuleUrlHelper.cs" />
     <Compile Include="UrlExtensions.cs" />
     <Compile Include="WebClientApplication.cs" />
   </ItemGroup>

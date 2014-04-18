@@ -35,12 +35,12 @@ namespace Paramount.Betterclassifieds.Presentation
             // Ad (temporary)
             routes.MapPageRoute("adRoute", "Ad/{title}/{id}", "~/OnlineAds/AdView.aspx", checkPhysicalUrlAccess: false);
 
-            // Listing search (seo friendly)
-            routes.MapRoute(
-              "seoName",
-              "listings/{seoName}",
-              new { controller = "listings", action = "Index", module = Name },
-              new[] { GetType().Namespace });
+            // TODO - Listing search ( this needs improvement )
+            //routes.MapRoute(
+            //  "seoName",
+            //  "listings/{seoName}",
+            //  new { controller = "listings", action = "Index", module = Name },
+            //  new[] { GetType().Namespace });
 
             // Default
             routes.MapRoute(

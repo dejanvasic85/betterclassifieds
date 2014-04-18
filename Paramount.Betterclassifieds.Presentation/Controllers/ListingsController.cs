@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
-using Paramount.Betterclassifieds.Business.Managers;
-using Paramount.Betterclassifieds.Business.Models;
+using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 using System.Linq;
 using System.Web.Mvc;
@@ -9,27 +8,29 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     public class ListingsController : Controller, IMappingBehaviour
     {
-        private readonly IBookingManager _manager;
+        private readonly ISearchService _searchService;
 
-
-        public ListingsController( IBookingManager manager)
+        public ListingsController( ISearchService searchService )
         {
-            _manager = manager;
+            _searchService = searchService;
         }
 
-        public ActionResult Find(string keyword = "")
+        public ActionResult Find(string keyword = "", int? categoryId = null, int? locationId = null )
         {
-            var bookings = _manager.GetLatestBookings(1000);
-            var results = this.MapList<AdBookingModel, AdSummaryViewModel>(bookings).AsEnumerable();
+            // We should pass the filters to the search 
+            // But this is just to get the front end cshtml files functioning
+            var results =  _searchService.Search();
 
             if (keyword.HasValue())
                 results = results.Where(b => b.Description.Contains(keyword) || b.Title.Contains(keyword));
 
-            ViewBag.Title = "Search results";
+            results = results.OrderByDescending(b => b.AdId).Take(5);
+
+            ViewBag.Title = "Search results...";
 
             var searchModel = new SearchModel
             {
-                SearchResults = results.ToList(),
+                SearchResults = this.MapList<AdSearchResult, AdSummaryViewModel>(results.ToList()),
                 SearchFilters = new SearchFilters
                 {
                     Keyword = keyword
@@ -39,38 +40,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View(searchModel);
         }
 
-        //public ActionResult Index(string seoName, int index = 0, int pageSize = 10)
-        //{
-        //    var onlineAds = new List<ListingSummaryViewModel>();
-        //    if (string.IsNullOrEmpty(seoName))
-        //    {
-        //        return View(onlineAds);
-        //    }
-
-        //    var seoModel = GetMappingModel(seoName);
-
-        //    if (seoModel == null)
-        //    {
-        //        return View(onlineAds);
-        //    }
-
-        //    onlineAds = GetListingBySeo(seoModel, index, pageSize).Select(a => new ListingSummaryViewModel(a)).ToList();
-
-        //    return View(onlineAds);
-        //}
-
         public void OnRegisterMaps(IConfiguration configuration)
         {
-            configuration.CreateMap<AdBookingModel, AdSummaryViewModel>()
-                .ForMember(member => member.AdId, options => options.MapFrom(source => source.AdBookingId))
-                .ForMember(member => member.Description,
-                    options => options.MapFrom(source => source.OnlineAd.Description))
-                .ForMember(member => member.Title, options => options.MapFrom(source => source.OnlineAd.Heading))
-                .ForMember(member => member.CategoryName, options => options.MapFrom(source => source.Category.Title))
-                .ForMember(member => member.Publications,
-                    options => options.MapFrom(source => source.Publications.Select(p => p.Title)))
-                .ForMember(member => member.ImageUrls,
-                    options => options.MapFrom(source => source.OnlineAd.Images.Select(i => i.ImageUrl)));
+            configuration.CreateMap<AdSearchResult, AdSummaryViewModel>();
         }
     }
 }

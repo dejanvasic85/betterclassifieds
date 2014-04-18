@@ -119,6 +119,7 @@
     <Compile Include="Repository\RateRepository.cs" />
     <Compile Include="Repository\SeoMappingRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="SearchService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ApplicationBlock\Configuration\ApplicationBlock.Configuration.csproj">

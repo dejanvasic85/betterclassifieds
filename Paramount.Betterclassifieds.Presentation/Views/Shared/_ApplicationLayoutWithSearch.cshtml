@@ -12,10 +12,10 @@
     <div class="row">
         <form role="form" method="GET" action="@Url.Action("Find", "Listings")">
             <div class="col-sm-5">
-                <input type="text" name="searchKeyword" id="searchKeyword" class="form-control" placeholder="Keyword or Ad ID">
+                <input type="text" name="keyword" id="keyword" class="form-control" placeholder="Keyword or Ad ID">
             </div>
             <div class="col-sm-5">
-                <select name="searchCategoryId" id="searchCategoryId" class="form-control js-select" data-url="@Url.Action("GetCategoryOptions", "Categories")"></select>
+                <select name="categoryId" id="categoryId" class="form-control js-select" data-url="@Url.Action("GetCategoryOptions", "Categories")"></select>
             </div>
             <div class="col-sm-2">
                 <button type="submit" class="btn btn-default btn-block">Search</button>

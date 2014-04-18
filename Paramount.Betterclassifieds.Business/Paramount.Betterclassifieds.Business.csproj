@@ -67,6 +67,8 @@
     <Compile Include="Broadcast\DocTypes\IDocType.cs" />
     <Compile Include="EditionManager.cs" />
     <Compile Include="Managers\IApplicationConfig.cs" />
+    <Compile Include="Search\AdSearchResult.cs" />
+    <Compile Include="Search\ISearchService.cs" />
     <Compile Include="Membership\IAuthManager.cs" />
     <Compile Include="Managers\ICategoryManager.cs" />
     <Compile Include="Managers\ICookiesManager.cs" />

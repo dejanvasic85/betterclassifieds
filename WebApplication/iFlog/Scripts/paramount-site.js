@@ -25,7 +25,11 @@
             $.getJSON(url).done(function (data) {
                 me.empty();
                 $.each(data, function (index, option) {
-                    me.append('<option value="' + option.Value + '">' + option.Text + '</option>');
+                    if (selected === option.Value) {
+                        me.append('<option selected value="' + option.Value + '">' + option.Text + '</option>');
+                    } else {
+                        me.append('<option value="' + option.Value + '">' + option.Text + '</option>');
+                    }
                 });
                 me.removeAttr('disabled');
             });

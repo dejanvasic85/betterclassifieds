@@ -111,14 +111,6 @@ namespace Paramount.Betterclassifieds.Business
             Extend(extension, payment);
         }
 
-        public List<AdBookingModel> GetLatestBookings(int takeAmount = 10)
-        {
-            // This method should probably be the root (maybe aggregate) way of retrieving ads
-            var bookings = _bookingRepository.GetBookings(takeAmount);
-
-            return bookings;
-        }
-
         public IEnumerable<PublicationEditionModel> GenerateExtensionDates(int adBookingId, int numberOfInsertions)
         {
             foreach (var publicationEntries in _bookingRepository.GetBookEntriesForBooking(adBookingId).GroupBy(be => be.PublicationId))

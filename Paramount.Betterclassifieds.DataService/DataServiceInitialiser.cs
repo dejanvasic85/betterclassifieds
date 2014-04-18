@@ -28,7 +28,9 @@ namespace Paramount.Betterclassifieds.DataService
                      .RegisterType<IClientConfig, ClientConfig>()
                      .RegisterType<IApplicationConfig, AppConfig>()
                      .RegisterType<IClientIdentifierManager, CookiesManager>()
-                     .RegisterType<Business.Broadcast.IBroadcastRepository, Broadcast.BroadcastRepository>();
+                     .RegisterType<Business.Broadcast.IBroadcastRepository, Broadcast.BroadcastRepository>()
+
+                     .RegisterType<Business.Search.ISearchService, SearchService>();
 
         }
     }

@@ -21,6 +21,7 @@
             me.attr('disabled', 'disabled');
             me.append('<option>Loading...</option>');
             var url = me.data().url;
+            var selected = me.data().selected;
             $.getJSON(url).done(function (data) {
                 me.empty();
                 $.each(data, function (index, option) {

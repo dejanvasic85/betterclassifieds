@@ -2,6 +2,9 @@
 .top-buffer-10 {
   margin-top: 10px;
 }
+.bottom-buffer-10 {
+  margin-bottom: 10px;
+}
 .top-buffer-20 {
   margin-top: 20px;
 }
@@ -18,4 +21,3 @@
 .label-category {
   background-color: #f0ad4e;
 }
-/*# sourceMappingURL=site.css.map */

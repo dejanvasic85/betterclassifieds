@@ -15,5 +15,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
         // Filters
         public SearchFilters SearchFilters { get; set; }
+        
     }
 }

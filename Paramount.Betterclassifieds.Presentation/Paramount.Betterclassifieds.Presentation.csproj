@@ -206,6 +206,7 @@
     <Content Include="Scripts\jquery.validate-1.12.0.js" />
     <Content Include="Scripts\jquery.validate-1.12.0.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\Listings\Find.js" />
     <Content Include="Scripts\paramount-site.js" />
     <Content Include="Scripts\paramount-validate-default.js" />
     <Content Include="Scripts\paramount-validate-tooltip.js" />
@@ -213,11 +214,8 @@
     <Content Include="Content\TheMusic\themusic.css.map">
       <DependentUpon>themusic.css</DependentUpon>
     </Content>
-    <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\jquery-1.11.0.js" />
     <Content Include="Scripts\jquery-1.11.0.min.js" />
-    <Content Include="Scripts\jquery-2.0.3.js" />
-    <Content Include="Scripts\jquery-2.0.3.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -227,7 +225,6 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Scripts\jquery-2.0.3.min.map" />
     <Content Include="Views\Shared\_Layout.TheMusic.cshtml" />
     <Content Include="Views\Shared\_ApplicationLayout.cshtml" />
     <Content Include="Views\Shared\_Navbar.cshtml" />

@@ -6,11 +6,16 @@
     Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayout.cshtml");
 }
 
-<div class="row top-buffer-20">
+@section Scripts{
+    @*<script src="@Url.Content("~/Scripts/Listings/Find.js")"></script>*@
+}
 
+
+<div class="row top-buffer-20">
+    
     @*Filters*@
     <div class="col-sm-3 hidden-xs">
-        <div class="panel panel-default" style="border: 1px solid #eee">
+        <div class="panel panel-default">
             <div class="panel-heading">
                 <h4>Refine Search</h4>
             </div>
@@ -36,7 +41,7 @@
 
     @*Ad Details*@
     <div class="col-sm-9">
-        <div class="well">
+        <div class="well" id="topSort">
             <div class="form-inline" role="form">
                 <div class="form-group">
                     <label for="sortByList">Sort By</label>
@@ -52,5 +57,18 @@
 
         @Html.Partial("_ListingResults", Model.SearchResults)
 
+        <div class="row">
+            <div class="col-xs-10">
+                @*Fetch more ads*@
+                <a class="btn btn-default btn-block">
+                    Show more ...
+                </a>
+            </div>
+            <div class="col-xs-2">
+                <a class="btn btn-default btn-block" href="#topSort" title="Back To Top">
+                    <i class="glyphicon glyphicon-arrow-up"></i>
+                </a>
+            </div>
+        </div>
     </div>
 </div>

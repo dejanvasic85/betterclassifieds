@@ -15,6 +15,9 @@
             }
         });
 
+        // Wire up the bootstrap tooltips
+        $("[rel='tooltip']").tooltip();
+
         // Every js-select will load the select items from data-url attribute
         $('.js-select').each(function () {
             var me = $(this);
@@ -34,6 +37,7 @@
                 me.removeAttr('disabled');
             });
         });
+
     });
 
 })(jQuery);

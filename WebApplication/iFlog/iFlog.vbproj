@@ -278,6 +278,7 @@
     <Content Include="Scripts\jquery-1.11.0.js" />
     <Content Include="Scripts\jquery.validate-1.12.0.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\Listings\Find.js" />
     <Content Include="Scripts\paramount-site.js" />
     <Content Include="Scripts\paramount-validate-default.js" />
     <Content Include="Scripts\paramount-validate-tooltip.js" />

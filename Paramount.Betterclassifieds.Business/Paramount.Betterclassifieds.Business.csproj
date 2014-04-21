@@ -67,6 +67,7 @@
     <Compile Include="Broadcast\DocTypes\IDocType.cs" />
     <Compile Include="EditionManager.cs" />
     <Compile Include="Managers\IApplicationConfig.cs" />
+    <Compile Include="Search\AdSearchFilter.cs" />
     <Compile Include="Search\AdSearchResult.cs" />
     <Compile Include="Search\CategorySearchResult.cs" />
     <Compile Include="Search\ISearchService.cs" />

@@ -28,9 +28,11 @@ namespace Paramount.Betterclassifieds.DataService
                                   Description = onl.Description,
                                   CategoryName = cat.Title,
                                   CategoryId = cat.MainCategoryId,
-                                  ParentCategoryId = cat.ParentId
+                                  ParentCategoryId = cat.ParentId,
+                                  ImageUrls = onl.AdDesign.AdGraphics.Select(g=> g.DocumentID).ToArray(),
+                                  Publications = bk.BookEntries.Select(be => be.Publication.Title).Distinct().ToArray()
                               };
-
+                
                 return results.ToList();
             }
         }

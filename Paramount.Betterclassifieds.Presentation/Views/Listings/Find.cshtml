@@ -97,16 +97,30 @@
 @helper AdSearchFilter()
 {
     <form role="form" method="GET" action="@Url.Action("Find")">
+        
+        @*Keyword or AdId*@
         <div class="form-group">
             @Html.LabelFor(m => m.SearchFilters.Keyword)
             @Html.TextBox("Keyword", Model.SearchFilters.Keyword, new { @class = "form-control input-sm" })
         </div>
+
+        @*Categories*@
         <div class="form-group">
             @Html.LabelFor(m => m.SearchFilters.CategoryId)
             <select id="CategoryId" class="form-control input-sm js-select"
                     data-url="@Url.Action("GetCategoryOptions", "Categories")"
                     data-selected="@Model.SearchFilters.CategoryId"></select>
         </div>
+        
+        @*Locations*@
+        <div class="form-group">
+            @Html.LabelFor(m => m.SearchFilters.LocationId)
+            <select id="LocationId" class="form-control input-sm js-select"
+                    data-url="@Url.Action("GetLocationOptions", "Location")"
+                    data-selected="@Model.SearchFilters.LocationId"></select>
+        </div>
+        
+        @*Sorting*@
         <div class="form-group">
             @Html.LabelFor(m => m.SearchFilters.SortBy)
             <select id="SortBy" class="form-control input-sm">

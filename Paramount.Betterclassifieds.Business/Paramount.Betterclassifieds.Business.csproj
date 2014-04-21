@@ -68,6 +68,7 @@
     <Compile Include="EditionManager.cs" />
     <Compile Include="Managers\IApplicationConfig.cs" />
     <Compile Include="Search\AdSearchResult.cs" />
+    <Compile Include="Search\CategorySearchResult.cs" />
     <Compile Include="Search\ISearchService.cs" />
     <Compile Include="Membership\IAuthManager.cs" />
     <Compile Include="Managers\ICategoryManager.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Repository\IRateRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\IUserRepository.cs" />
+    <Compile Include="Search\LocationSearchResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ApplicationBlock\Utility\Paramount.Utility.csproj">

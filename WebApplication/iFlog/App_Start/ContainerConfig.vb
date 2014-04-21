@@ -24,7 +24,6 @@ Public Class ContainerConfig
             .RegisterType(Of IApplicationConfig, AppConfig)() _
             .RegisterType(Of IBookingManager, BookingManager)() _
             .RegisterType(Of IEditionManager, EditionManager)() _
-            .RegisterType(Of ICategoryManager, CategoryManager)() _
             .RegisterType(Of IUserManager, UserManager)() _
             .RegisterType(Of IAuthManager, AuthenticationService)() _
             .RegisterType(Of IBroadcastManager, BroadcastManager)() _

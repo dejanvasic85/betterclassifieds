@@ -18,13 +18,14 @@
         // Wire up the bootstrap tooltips
         $("[rel='tooltip']").tooltip();
 
-        // Every js-select will load the select items from data-url attribute
+        // Wire up js-select dropdowns
         $('.js-select').each(function () {
             var me = $(this);
             me.attr('disabled', 'disabled');
             me.append('<option>Loading...</option>');
             var url = me.data().url;
             var selected = me.data().selected;
+            console.log(url);
             $.getJSON(url).done(function (data) {
                 me.empty();
                 $.each(data, function (index, option) {
@@ -37,7 +38,6 @@
                 me.removeAttr('disabled');
             });
         });
-
     });
 
 })(jQuery);

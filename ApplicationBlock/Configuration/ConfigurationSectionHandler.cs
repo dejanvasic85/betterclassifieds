@@ -1,4 +1,6 @@
-﻿namespace Paramount.ApplicationBlock.Configuration
+﻿using System.Runtime.Remoting.Messaging;
+
+namespace Paramount.ApplicationBlock.Configuration
 {
     using System.Collections.Generic;
     using System.Configuration;
@@ -59,12 +61,17 @@
             {
                 var credential = (string)item.Attribute("credential");
                 var key = (string)item.Attribute("key");
+
+                if (key == null || ContainsKey(key))
+                    return;
+
                 var itemValue = new ConfigurationItem
                                     {
                                         Value = (string)item.Attribute("value"),
                                         Credential = (credential == null) ? string.Empty : credential.EndsWith("=") ? GetCredential(credential) : credential
                                     };
-                if (key != null) this[key] = itemValue;
+
+                this[key] = itemValue;
             }
         }
 

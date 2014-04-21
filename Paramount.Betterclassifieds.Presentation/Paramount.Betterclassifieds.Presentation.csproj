@@ -146,6 +146,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\ListingsController.cs" />
+    <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Framework\BaseController.cs" />
     <Compile Include="Framework\ModuleUrlHelper.cs" />
     <Compile Include="Global.asax.cs">

@@ -27,7 +27,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             results = results.OrderByDescending(b => b.AdId).Take(5);
 
             ViewBag.Title = "Search results...";
-
+            
             var searchModel = new SearchModel
             {
                 SearchResults = this.MapList<AdSearchResult, AdSummaryViewModel>(results.ToList()),
@@ -42,6 +42,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public void OnRegisterMaps(IConfiguration configuration)
         {
+            configuration.CreateProfile("ListingsCtrlProfile");
             configuration.CreateMap<AdSearchResult, AdSummaryViewModel>();
         }
     }

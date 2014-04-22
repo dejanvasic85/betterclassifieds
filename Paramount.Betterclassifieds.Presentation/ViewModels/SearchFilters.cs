@@ -9,12 +9,12 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
         [Display(Name = "Category")]
         public int? CategoryId { get; set; }
-
-
+        
         [Display(Name = "Sort By")]
         public string SortBy { get; set; }
 
         [Display(Name = "Location")]
         public int? LocationId { get; set; }
+       
     }
 }

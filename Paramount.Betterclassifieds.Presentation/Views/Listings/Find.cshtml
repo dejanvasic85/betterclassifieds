@@ -35,29 +35,10 @@
                 </a>
             </div>
         </div>
-
-
-        @*
-            Don't show the sort by here...
-            Maybe we could put different display type (grid -blocks or table)
-            Also, we could show a summary e.g. Displaying results for Ad Id: 94949
-        *@
-
-        @*<div class="row">
-                <div class="col-xs-12">
-                    <div class="form-inline well" role="form">
-                        <div class="form-group">
-                            <label for="sortByList">Sort By</label>
-                            <select id="sortByList" class="form-control input-sm">
-                                <option value="Newest">Newest First</option>
-                                <option value="Oldest">Expiring First</option>
-                                <option value="PriceLow">Price - Lowest First</option>
-                                <option value="PriceHigh">Price - Highest First</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>*@
+        
+        <div class="well">
+            displaying 10 results for ""
+        </div>
 
         <div class="row">
             <div class="col-xs-12">
@@ -68,9 +49,9 @@
         <div class="row">
             <div class="col-xs-10">
                 @*Fetch more ads*@
-                <a class="btn btn-default btn-block">
+                <button id="btnShowMore" class="btn btn-default btn-block" data-url="@Url.Action("ShowMore")">
                     Show more ...
-                </a>
+                </button>
             </div>
             <div class="col-xs-2">
                 <a class="btn btn-default btn-block" href="#top" title="Back To Top">
@@ -97,7 +78,7 @@
 @helper AdSearchFilter()
 {
     <form role="form" method="GET" action="@Url.Action("Find")">
-        
+
         @*Keyword or AdId*@
         <div class="form-group">
             @Html.LabelFor(m => m.SearchFilters.Keyword)
@@ -111,7 +92,7 @@
                     data-url="@Url.Action("GetCategoryOptions", "Categories")"
                     data-selected="@Model.SearchFilters.CategoryId"></select>
         </div>
-        
+
         @*Locations*@
         <div class="form-group">
             @Html.LabelFor(m => m.SearchFilters.LocationId)
@@ -119,7 +100,7 @@
                     data-url="@Url.Action("GetLocationOptions", "Location")"
                     data-selected="@Model.SearchFilters.LocationId"></select>
         </div>
-        
+
         @*Sorting*@
         <div class="form-group">
             @Html.LabelFor(m => m.SearchFilters.SortBy)

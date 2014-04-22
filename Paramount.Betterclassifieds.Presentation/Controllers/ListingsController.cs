@@ -15,6 +15,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _searchService = searchService;
         }
 
+        [HttpGet]
         public ActionResult Find(string keyword = "", int? categoryId = null, int? locationId = null )
         {
             // We should pass the filters to the search 
@@ -40,10 +41,23 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View(searchModel);
         }
 
+
+        [HttpPost]
+        public ActionResult ShowMore()
+        {
+            var results = _searchService.Search().OrderByDescending(b=> b.AdId).Skip(5).Take(5);
+            
+            var viewModel = this.MapList<AdSearchResult, AdSummaryViewModel>(results.ToList());
+
+            // Return partial view
+            return View("_ListingResults", viewModel);
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateProfile("ListingsCtrlProfile");
             configuration.CreateMap<AdSearchResult, AdSummaryViewModel>();
         }
+
     }
 }

@@ -11,6 +11,11 @@
             return content.Truncate(maxLength, ellipsis);
         }
 
+        public static string NullIfEmpty(this string content)
+        {
+            return string.IsNullOrWhiteSpace(content) ? null : content;
+        }
+
         public static string Truncate(this string content, int maxLength, string suffix)
         {
             if (maxLength < 1)

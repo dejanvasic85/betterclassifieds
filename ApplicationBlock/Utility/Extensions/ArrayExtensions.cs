@@ -24,10 +24,7 @@ namespace Paramount
             return result;
         }
 
-        public static IEnumerable<T> EmptyIfNull<T>(this IEnumerable<T> data)
-        {
-            return data ?? new List<T>();
-        }
+        
 
         public static string[] EmptyIfNull(this string[] data)
         {

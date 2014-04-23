@@ -10,6 +10,24 @@ namespace Paramount.Betterclassifieds.DataService
 {
     public class SearchService : ISearchService, IMappingBehaviour
     {
+        public List<OnlineListingModel> SearchOnlineListing(string searchterm, IEnumerable<int> categoryIds, IEnumerable<int> locationIds, IEnumerable<int> areaIds, int index = 0, int pageSize = 25)
+        {
+            using (var context = DataContextFactory.CreateClassifiedContext())
+            {
+                // Get the latest online ads
+                var categoryList = string.Join(",", categoryIds.EmptyIfNull()).NullIfEmpty();
+                var locationList = string.Join(",", locationIds.EmptyIfNull()).NullIfEmpty();
+                var areaList = string.Join(",", areaIds.EmptyIfNull()).NullIfEmpty();
+
+                searchterm = searchterm.NullIfEmpty();
+                
+                List<OnlineAdView> ads = context.spSearchOnlineAdFREETEXT(searchterm, categoryList, locationList, areaList).Skip(index * pageSize).Take(pageSize).ToList();
+
+                // Map to the models
+                return this.MapList<OnlineAdView, OnlineListingModel>(ads);
+            }
+        }
+
         public IEnumerable<AdSearchResult> Search()
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
@@ -68,6 +86,7 @@ namespace Paramount.Betterclassifieds.DataService
             // From DB
             configuration.CreateMap<MainCategory, CategorySearchResult>();
             configuration.CreateMap<Location, LocationSearchResult>();
+            configuration.CreateMap<OnlineAdView, OnlineListingModel>();
         }
     }
 }

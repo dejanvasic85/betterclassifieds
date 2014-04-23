@@ -9,6 +9,7 @@ EXEC dbo.sp_executesql @statement = N'-- =======================================
 -- Author:		Uche Njoku
 -- Create date: 1/02/2014
 -- Description:	Search for ad using FREETEXT 
+-- Todo (23rd-04-2014) - needto add paging
 -- =============================================
 CREATE PROCEDURE [dbo].[spSearchOnlineAdFREETEXT]
 	@searchTerm nvarchar(50) = ''~'',
@@ -22,7 +23,7 @@ BEGIN
 
 	SET @searchTerm=isnull(@searchTerm,''~'')
 
-	select  t1.*, ( 
+	select top 120  t1.*, ( 
 				select top 1 DocumentID from dbo.AdGraphic
 					inner join dbo.AdDesign
 						on AdDesign.AdDesignId = AdGraphic.AdDesignId

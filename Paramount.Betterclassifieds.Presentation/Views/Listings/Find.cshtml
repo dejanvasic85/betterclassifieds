@@ -10,6 +10,9 @@
     <script src="@Url.Content("~/Scripts/Listings/Find.js")"></script>
 }
 
+<input type="hidden" id="hdnResultsPerPage" value="@ViewBag.ResultsPerPage"/>
+<input type="hidden" id="hdnMaxPageRequests" value="@ViewBag.MaxPageRequests"/>
+
 <div class="row top-buffer-20" id="top">
 
     @*Filters*@
@@ -36,9 +39,10 @@
             </div>
         </div>
         
-        <div class="well">
+        @*todo*@
+        @*<div class="well">
             displaying 10 results for ""
-        </div>
+        </div>*@
 
         <div class="row">
             <div class="col-xs-12">
@@ -54,7 +58,7 @@
                 </button>
             </div>
             <div class="col-xs-2">
-                <a class="btn btn-default btn-block" href="#top" title="Back To Top">
+                <a class="btn btn-default btn-block" href="#navbar" title="Back To Top">
                     <i class="glyphicon glyphicon-arrow-up"></i>
                 </a>
             </div>

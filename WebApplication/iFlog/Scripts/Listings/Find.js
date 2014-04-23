@@ -5,23 +5,21 @@
 
 (function ($) {
 
-    var page = 1;
+    var resultsPerPage = Number.parseInt( $('#hdnResultsPerPage').val() );
+    var maxPageRequests = Number.parseInt( $('#hdnMaxPageRequests').val() );
+    var currentPage = 1;
 
     // JQuery on-ready
     $(function () {
         $('#btnShowMore').on('click', function () {
             var me = $(this);
-            me.button('loading');
+            me.button('loading');  
 
-            $.post(me.data().url).done(function (ads) {
-
-                $('.list-group').append(ads);
-
+            $.post(me.data().url, {page : currentPage}).done(function (adListHtml) {
+                $('.list-group').append( $(adListHtml).find('.list-group-item') );
             }).always(function () {
-                page++;
-
-                // 5 pages are enough so just hide the more button
-                if (page === 5) {
+                currentPage++;
+                if (currentPage === maxPageRequests) {
                     me.hide();
                 }
                 me.button('reset');

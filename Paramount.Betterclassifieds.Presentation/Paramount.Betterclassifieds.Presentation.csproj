@@ -160,6 +160,7 @@
     <Compile Include="ViewModels\AdSummaryViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\PageRequest.cs" />
     <Compile Include="ViewModels\SearchFilters.cs" />
     <Compile Include="ViewModels\SearchModel.cs" />
   </ItemGroup>

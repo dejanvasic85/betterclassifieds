@@ -27,11 +27,11 @@ namespace Paramount
         /// <summary>
         /// Generates outgoing URL for an Ad and particularly useful for the legacy integration piece
         /// </summary>
-        public static string AdUrl(this UrlHelper urlHelper, string title, int id)
+        public static string AdUrl(this UrlHelper urlHelper, string titleSlug, int id)
         {
             RouteValueDictionary dictionary = new RouteValueDictionary
             {
-                {"title", title},
+                {"title", titleSlug},
                 {"id", id}
             };
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Paramount.Betterclassifieds.Business.Search;
+using Paramount.Betterclassifieds.Presentation.ViewModels;
 
 namespace Paramount.Betterclassifieds.Tests.Search
 {
@@ -7,13 +8,13 @@ namespace Paramount.Betterclassifieds.Tests.Search
     /// Summary description for AdSearchFilterTests
     /// </summary>
     [TestClass]
-    public class AdSearchFilterTests
+    public class SearchFilterTests
     {
         [TestMethod]
         public void GetAdId_KeywordIsText_ReturnsNull()
         {
             // Arrange
-            var filter = new AdSearchFilter {Keyword = "random"};
+            var filter = new SearchFilters {Keyword = "random"};
 
             // Act
             // Assert
@@ -24,7 +25,7 @@ namespace Paramount.Betterclassifieds.Tests.Search
         public void GetAdId_KeywordIsNumber_HasValue()
         {
             // Arrange
-            var filter = new AdSearchFilter {Keyword = "848772"};
+            var filter = new SearchFilters {Keyword = "848772"};
 
             // Act
             // Assert
@@ -36,7 +37,7 @@ namespace Paramount.Betterclassifieds.Tests.Search
         public void GetAdId_KeywordContainsPublicationPrefix_HasValue()
         {
             // Arrange
-            var filter = new AdSearchFilter { Keyword = "8-3748" };
+            var filter = new SearchFilters { Keyword = "8-3748" };
 
             // Act
             // Assert
@@ -48,7 +49,7 @@ namespace Paramount.Betterclassifieds.Tests.Search
         public void GetAdId_KeywordContainsPublicationPrefixWithMultiDigits_HasValue()
         {
             // Arrange
-            var filter = new AdSearchFilter { Keyword = "1008-3748" };
+            var filter = new SearchFilters { Keyword = "1008-3748" };
 
             // Act
             // Assert
@@ -60,7 +61,7 @@ namespace Paramount.Betterclassifieds.Tests.Search
         public void GetAdId_BadAdId_ReturnsNull()
         {
             // Arrange
-            var filter = new AdSearchFilter { Keyword = "8-blsdfj" };
+            var filter = new SearchFilters { Keyword = "8-blsdfj" };
 
             // Act
             // Assert
@@ -71,7 +72,7 @@ namespace Paramount.Betterclassifieds.Tests.Search
         public void GetAdId_BadPublicationId_ReturnsNull()
         {
             // Arrange
-            var filter = new AdSearchFilter { Keyword = "blsdfj-9" };
+            var filter = new SearchFilters { Keyword = "blsdfj-9" };
 
             // Act
             // Assert

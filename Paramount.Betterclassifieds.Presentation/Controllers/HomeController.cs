@@ -10,17 +10,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     public class HomeController : BaseController, IMappingBehaviour
     {
-        private readonly ISearchService searchService;
-
-        public HomeController( ISearchService searchService)
-        {
-            this.searchService = searchService;
-        }
+        public HomeController(ISearchService searchService)
+            : base(searchService)
+        { }
 
         public ActionResult Index()
         {
-            var results = searchService.Search().OrderByDescending(b => b.AdId).Take(5);
-            
+            var results = _searchService.Search().OrderByDescending(b => b.AdId).Take(5);
+
             return View(new HomeModel
             {
                 AdSummaryList = this.MapList<AdSearchResult, AdSummaryViewModel>(results.ToList())
@@ -29,7 +26,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public ActionResult Test()
         {
-            var results = searchService.SearchOnlineListing(string.Empty,null,null,null);
+            var results = _searchService.SearchOnlineListing(string.Empty, null, null, null);
 
             return Json(results, JsonRequestBehavior.AllowGet);
         }

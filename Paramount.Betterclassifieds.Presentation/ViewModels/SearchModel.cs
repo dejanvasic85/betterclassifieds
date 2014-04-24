@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
@@ -12,9 +13,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
         // Results
         public List<AdSummaryViewModel> SearchResults { get; set; }
+        public bool HasResults { get { return SearchResults.Any(); } }
 
         // Filters
         public SearchFilters SearchFilters { get; set; }
-        
     }
 }

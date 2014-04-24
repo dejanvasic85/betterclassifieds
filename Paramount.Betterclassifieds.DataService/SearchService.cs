@@ -28,6 +28,31 @@ namespace Paramount.Betterclassifieds.DataService
             }
         }
 
+        public AdSearchResult GetAdById(int id)
+        {
+            using (var context = DataContextFactory.CreateClassifiedContext())
+            {
+                var results = from onl in context.OnlineAds
+                              join ds in context.AdDesigns on onl.AdDesignId equals ds.AdDesignId
+                              join bk in context.AdBookings on ds.AdId equals bk.AdId
+                              join cat in context.MainCategories on bk.MainCategoryId equals cat.MainCategoryId
+                              where bk.AdBookingId == id
+                              select new AdSearchResult
+                              {
+                                  AdId = bk.AdBookingId,
+                                  Title = onl.Heading,
+                                  Description = onl.Description,
+                                  CategoryName = cat.Title,
+                                  CategoryId = cat.MainCategoryId,
+                                  ParentCategoryId = cat.ParentId,
+                                  ImageUrls = onl.AdDesign.AdGraphics.Select(g => g.DocumentID).ToArray(),
+                                  Publications = bk.BookEntries.Select(be => be.Publication.Title).Distinct().ToArray()
+                              };
+
+                return results.FirstOrDefault();
+            }   
+        }
+
         public IEnumerable<AdSearchResult> Search()
         {
             using (var context = DataContextFactory.CreateClassifiedContext())

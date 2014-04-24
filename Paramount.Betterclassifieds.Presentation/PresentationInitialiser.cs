@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using Paramount.ApplicationBlock.Mvc;
+using Paramount.Betterclassifieds.Presentation.ViewModels;
 
 namespace Paramount.Betterclassifieds.Presentation
 {
@@ -52,6 +53,7 @@ namespace Paramount.Betterclassifieds.Presentation
 
         public override void RegisterTypes(IUnityContainer container)
         {
+            container.RegisterType<SearchFilters>(new SessionLifetimeManager<SearchFilters>());
         }
     }
 }

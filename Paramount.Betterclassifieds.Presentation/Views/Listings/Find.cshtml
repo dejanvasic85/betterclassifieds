@@ -49,20 +49,22 @@
                 @Html.Partial("_ListingResults", Model.SearchResults)
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-xs-10">
-                @*Fetch more ads*@
-                <button id="btnShowMore" class="btn btn-default btn-block" data-url="@Url.Action("ShowMore")">
-                    Show more ...
-                </button>
+       
+        @if (Model.HasResults) { 
+            <div class="row">
+                <div class="col-xs-10">
+                    @*Fetch more ads*@
+                    <button id="btnShowMore" class="btn btn-default btn-block" data-url="@Url.Action("ShowMore")">
+                        Show more ...
+                    </button>
+                </div>
+                <div class="col-xs-2">
+                    <a class="btn btn-default btn-block" href="#navbar" title="Back To Top">
+                        <i class="glyphicon glyphicon-arrow-up"></i>
+                    </a>
+                </div>
             </div>
-            <div class="col-xs-2">
-                <a class="btn btn-default btn-block" href="#navbar" title="Back To Top">
-                    <i class="glyphicon glyphicon-arrow-up"></i>
-                </a>
-            </div>
-        </div>
+        }
     </div>
 </div>
 

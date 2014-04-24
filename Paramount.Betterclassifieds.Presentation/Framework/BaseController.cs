@@ -1,16 +1,31 @@
 ﻿using AutoMapper;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using Paramount.Betterclassifieds.Business.Search;
+using Paramount.Betterclassifieds.Presentation.ViewModels;
 
 namespace Paramount.Betterclassifieds.Presentation
 {
-    public class BaseController : Controller
+    public  abstract class BaseController : Controller
     {
+        protected readonly ISearchService _searchService;
+
+        protected BaseController(ISearchService searchService)
+        {
+            _searchService = searchService;
+        }
 
         // Todo - legacy integration removal
         [HttpPost]
         public ActionResult Search(string searchKeyword, int? searchCategoryId)
         {
+            SearchFilters filters = new SearchFilters { Keyword = searchKeyword};
+            var adId = filters.AdId;
+            if (adId.HasValue)
+            {
+                var ad = _searchService.GetAdById(adId.Value);
+                Redirect(Url.AdUrl(ad.TitleSlug, adId.Value));
+            }
 
             OnlineSearchParam["SearchKeywordParam"] = searchKeyword;
             OnlineSearchParam["CategoryIdParam"] = searchCategoryId;

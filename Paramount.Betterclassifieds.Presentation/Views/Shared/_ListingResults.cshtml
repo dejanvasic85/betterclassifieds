@@ -1,7 +1,15 @@
 ﻿@using Paramount
+
 @model List<Paramount.Betterclassifieds.Presentation.ViewModels.AdSummaryViewModel>
 
 <div class="list-group">
+    @if (Model.IsNullOrEmpty())
+    {
+        <div class="well">
+            Sorry ... There are no results to display for your search. Try again with a less specific filters.
+        </div>
+    }
+
     @foreach (var ad in Model)
     {
         <a href="@Url.AdUrl(@ad.TitleSlug, @ad.AdId)" class="list-group-item">

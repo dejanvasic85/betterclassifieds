@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
+using Microsoft.Ajax.Utilities;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _searchFilters.CategoryId = categoryId;
             _searchFilters.LocationId = locationId;
 
-            var searchModel = new SearchModel
+            var searchModel = new FindModel
             {
                 SearchResults = new List<AdSummaryViewModel>(),
                 SearchFilters = _searchFilters
@@ -76,6 +77,42 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             // Return partial view
             return View("_ListingResults", viewModel);
+        }
+
+        [HttpGet]
+        public ActionResult SeoAds(string seoName)
+        {
+            // Setup the view model
+            var searchModel = new FindModel
+            {
+                SearchFilters = _searchFilters.Clear(),
+                SearchResults = new List<AdSummaryViewModel>()
+            };
+
+            // Display the search page with the SEO driving the filters
+            if (seoName.IsNullOrWhiteSpace())
+            {
+                // Simply show no results
+                return View("Find", searchModel);
+            }
+
+            // Fetch the SEO details
+            var seoMapping = _searchService.GetSeoMapping(seoName);
+            if (seoMapping == null)
+            {
+                return View("Find", searchModel);
+            }
+
+            /* 
+             * Todo - uncomment this line once the right models are returned from search service
+            var ads = _searchService.SearchOnlineListing(seoMapping.SearchTerm, seoMapping.CategoryIds,
+                seoMapping.LocationIds, seoMapping.AreaIds, index: 0, pageSize: ResultsPerPage);
+
+            */
+
+            _searchFilters.ApplySeoMapping(seoMapping);
+
+            return View("Find", searchModel);
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

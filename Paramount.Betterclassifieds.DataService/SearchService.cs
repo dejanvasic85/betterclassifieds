@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business.Models;
+using Paramount.Betterclassifieds.Business.Models.Seo;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.DataService.Classifieds;
 
@@ -20,7 +21,7 @@ namespace Paramount.Betterclassifieds.DataService
                 var areaList = string.Join(",", areaIds.EmptyIfNull()).NullIfEmpty();
 
                 searchterm = searchterm.NullIfEmpty();
-                
+
                 List<OnlineAdView> ads = context.spSearchOnlineAdFREETEXT(searchterm, categoryList, locationList, areaList).Skip(index * pageSize).Take(pageSize).ToList();
 
                 // Map to the models
@@ -50,7 +51,7 @@ namespace Paramount.Betterclassifieds.DataService
                               };
 
                 return results.FirstOrDefault();
-            }   
+            }
         }
 
         public IEnumerable<AdSearchResult> Search()
@@ -72,10 +73,10 @@ namespace Paramount.Betterclassifieds.DataService
                                   CategoryName = cat.Title,
                                   CategoryId = cat.MainCategoryId,
                                   ParentCategoryId = cat.ParentId,
-                                  ImageUrls = onl.AdDesign.AdGraphics.Select(g=> g.DocumentID).ToArray(),
+                                  ImageUrls = onl.AdDesign.AdGraphics.Select(g => g.DocumentID).ToArray(),
                                   Publications = bk.BookEntries.Select(be => be.Publication.Title).Distinct().ToArray()
                               };
-                
+
                 return results.ToList();
             }
         }
@@ -99,10 +100,22 @@ namespace Paramount.Betterclassifieds.DataService
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 var categories = context.MainCategories.ToList();
-
                 return this.MapList<MainCategory, CategorySearchResult>(categories);
             }
         }
+
+        public SeoNameMappingModel GetSeoMapping(string seoName)
+        {
+            using (var context = DataContextFactory.CreateClassifiedContext())
+            {
+                var seoMappings = context.SeoMappings.FirstOrDefault(seo => seo.SeoName.Equals(seoName.Trim()));
+                if (seoMappings == null)
+                    return null;
+
+                return this.Map<SeoMapping, SeoNameMappingModel>(seoMappings);
+            }
+        }
+
 
         public void OnRegisterMaps(IConfiguration configuration)
         {
@@ -112,6 +125,16 @@ namespace Paramount.Betterclassifieds.DataService
             configuration.CreateMap<MainCategory, CategorySearchResult>();
             configuration.CreateMap<Location, LocationSearchResult>();
             configuration.CreateMap<OnlineAdView, OnlineListingModel>();
+            configuration.CreateMap<SeoNameMappingModel, SeoMapping>();
+            configuration.CreateMap<SeoMapping, SeoNameMappingModel>().ForMember(dest => dest.CategoryIds,
+                opt => opt.MapFrom(src => src.CategoryIds.IsNullOrEmpty() ? new List<int>() : src.CategoryIds.Split(',').Select(int.Parse).ToList()));
+            configuration.CreateMap<SeoMapping, SeoNameMappingModel>().ForMember(dest => dest.LocationIds,
+                opt => opt.MapFrom(src => src.LocationIds.IsNullOrEmpty() ? new List<int>() : src.LocationIds.Split(',').Select(int.Parse).ToList()));
+            configuration.CreateMap<SeoMapping, SeoNameMappingModel>().ForMember(dest => dest.AreaIds,
+                opt => opt.MapFrom(src => src.AreaIds.IsNullOrEmpty() ? new List<int>() : src.AreaIds.Split(',').Select(int.Parse).ToList()));
+            configuration.CreateMap<SeoMapping, SeoNameMappingModel>().ForMember(dest => dest.ParentCategoryId,
+                opt => opt.MapFrom(src => src.ParentCategoryIds));
+
         }
     }
 }

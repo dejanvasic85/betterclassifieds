@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
-    public class SearchModel
+    public class FindModel
     {
-        public SearchModel()
+        public FindModel()
         {
             SearchResults = new List<AdSummaryViewModel>();
             SearchFilters = new SearchFilters();

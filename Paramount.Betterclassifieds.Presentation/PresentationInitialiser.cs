@@ -36,12 +36,11 @@ namespace Paramount.Betterclassifieds.Presentation
             // Ad (temporary)
             routes.MapPageRoute("adRoute", "Ad/{title}/{id}", "~/OnlineAds/AdView.aspx", checkPhysicalUrlAccess: false);
 
-            // TODO - Listing search ( this needs improvement )
-            //routes.MapRoute(
-            //  "seoName",
-            //  "listings/{seoName}",
-            //  new { controller = "listings", action = "Index", module = Name },
-            //  new[] { GetType().Namespace });
+            routes.MapRoute(
+              "seoName",
+              "{seoName}/listings",
+              new { controller = "listings", action = "SeoAds", module = Name },
+              new[] { GetType().Namespace });
 
             // Default
             routes.MapRoute(
@@ -49,6 +48,7 @@ namespace Paramount.Betterclassifieds.Presentation
                 "{controller}/{action}/{id}",
                 new { controller = "Home", action = "Index", module = Name, id = UrlParameter.Optional},
                 new[] { GetType().Namespace });
+
         }
 
         public override void RegisterTypes(IUnityContainer container)

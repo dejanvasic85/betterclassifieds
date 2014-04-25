@@ -18,7 +18,6 @@ namespace Paramount.Betterclassifieds.DataService
         {
             container.RegisterType<IAdRepository, AdRepository>()
                      .RegisterType<ICategoryRepository, CategoryRepository>()
-                     .RegisterType<ISeoMappingRepository, SeoMappingRepository>()
                      .RegisterType<IBookingRepository, BookingRepository>()
                      .RegisterType<IPublicationRepository, PublicationRepository>()
                      .RegisterType<IRateRepository, RateRepository>()

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
+using Paramount.Betterclassifieds.Business.Models.Seo;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
@@ -12,7 +15,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
         [Display(Name = "Category")]
         public int? CategoryId { get; set; }
-        
+
         [Display(Name = "Sort By")]
         public string SortBy { get; set; }
 
@@ -22,7 +25,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public int? AdId
         {
             get
-            {   
+            {
                 int id;
 
                 // Ensure that only a number was provided
@@ -42,5 +45,20 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             }
         }
 
+        public SearchFilters Clear()
+        {
+            // Clears all the current search filters
+            Keyword = string.Empty;
+            LocationId = CategoryId = null;
+            return this;
+        }
+
+        public SearchFilters ApplySeoMapping(SeoNameMappingModel seoMapping)
+        {
+            this.Keyword = seoMapping.SearchTerm;
+            this.CategoryId = seoMapping.ParentCategoryId;
+            this.LocationId = seoMapping.LocationIds.FirstOrDefault();
+            return this;
+        }
     }
 }

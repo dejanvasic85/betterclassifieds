@@ -162,7 +162,7 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\PageRequest.cs" />
     <Compile Include="ViewModels\SearchFilters.cs" />
-    <Compile Include="ViewModels\SearchModel.cs" />
+    <Compile Include="ViewModels\FindModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />

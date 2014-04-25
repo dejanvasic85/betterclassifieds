@@ -5,8 +5,8 @@
 
 (function ($) {
 
-    var resultsPerPage = Number.parseInt( $('#hdnResultsPerPage').val() );
-    var maxPageRequests = Number.parseInt( $('#hdnMaxPageRequests').val() );
+    var resultsPerPage = parseInt( $('#hdnResultsPerPage').val() );
+    var maxPageRequests = parseInt( $('#hdnMaxPageRequests').val() );
     var currentPage = 1;
 
     // JQuery on-ready

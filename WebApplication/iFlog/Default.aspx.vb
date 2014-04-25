@@ -5,12 +5,7 @@ Imports Microsoft.Practices.Unity
 Partial Public Class _Default4
     Inherits System.Web.UI.Page
 
-    Private seoMappingRepository As ISeoMappingRepository
-    Protected Sub New()
-
-    End Sub
-    Public Sub New(seoMappingRepository As ISeoMappingRepository)
-        Me.seoMappingRepository = seoMappingRepository
+    Public Sub New()
         categorySelector = New BetterClassified.UI.CategorySelector()
     End Sub
     Protected Overrides Sub OnInit(ByVal e As System.EventArgs)

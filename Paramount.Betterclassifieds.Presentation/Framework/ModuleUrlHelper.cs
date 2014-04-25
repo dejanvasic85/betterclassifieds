@@ -42,21 +42,11 @@ namespace Paramount
         }
 
         /// <summary>
-        /// Generates outgoing URL for an Ad and particularly useful for the legacy integration piece
+        /// Generates a nice SEO URL for a particular listings
         /// </summary>
-        public static string ListingsUrl(this UrlHelper urlHelper, string seoName)
+        public static string SeoUrl(this UrlHelper urlHelper, string seoName)
         {
-            //RouteValueDictionary dictionary = new RouteValueDictionary
-            //{
-            //    {"seoName", seoName}
-            //};
-
-            //VirtualPathData data = RouteTable.Routes.GetVirtualPath(null, "seoName", dictionary);
-            //var path = data.VirtualPath;
-
-            //return path;
-            return urlHelper.Action("Index", "Listings",
-                new { seoName });
+            return urlHelper.Action("SeoAds", "Listings", new { seoName });
         }
     }
 }

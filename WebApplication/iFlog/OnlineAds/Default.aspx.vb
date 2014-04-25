@@ -6,24 +6,14 @@ Imports BetterclassifiedsCore.ParameterAccess
 Imports Paramount.Betterclassified.Utilities.Configuration
 Imports Paramount.Utility.Dsl
 Imports Paramount.Utility
-Imports Paramount.Betterclassifieds.Business.Repository
 Imports Microsoft.Practices.Unity
-Imports Paramount.ApplicationBlock.Mvc
-Imports System.Linq
-Imports Paramount
 
 Partial Public Class _Default5
     Inherits System.Web.UI.Page
-    Private seoMappingRepository As ISeoMappingRepository
     Protected Overrides Sub OnInit(ByVal e As System.EventArgs)
         MyBase.OnInit(e)
         AddHandler categorySelector.OnCategoryClick, AddressOf CategoryClicked
     End Sub
-
-    Public Sub New()
-        seoMappingRepository = BetterClassified.Unity.DefaultContainer.Resolve(Of ISeoMappingRepository)()
-    End Sub
-
 
     Private Sub CategoryClicked(ByVal sender As Object, ByVal e As EventArgs)
         '' redirect them to search values
@@ -98,21 +88,21 @@ Partial Public Class _Default5
             Return
         End If
         OnlineSearchParameter.Clear()
-        Dim seoModel = seoMappingRepository.GetSeoMapping(seoName)
-        If seoModel IsNot Nothing Then
-            OnlineSearchParameter.Category = seoModel.ParentCategoryId
+        'Dim seoModel = seoMappingRepository.GetSeoMapping(seoName)
+        'If seoModel IsNot Nothing Then
+        '    OnlineSearchParameter.Category = seoModel.ParentCategoryId
 
-            If Not seoModel.AreaIds.IsNullOrEmpty Then
-                OnlineSearchParameter.Area = seoModel.AreaIds.First
-            End If
+        '    If Not seoModel.AreaIds.IsNullOrEmpty Then
+        '        OnlineSearchParameter.Area = seoModel.AreaIds.First
+        '    End If
 
-            If Not seoModel.LocationIds.IsNullOrEmpty Then
-                OnlineSearchParameter.Location = seoModel.LocationIds.First
-            End If
+        '    If Not seoModel.LocationIds.IsNullOrEmpty Then
+        '        OnlineSearchParameter.Location = seoModel.LocationIds.First
+        '    End If
 
 
 
-        End If
+        'End If
 
     End Sub
 

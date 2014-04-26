@@ -14,5 +14,6 @@ namespace Paramount.Betterclassifieds.Business.Search
             IEnumerable<int> locationIds, IEnumerable<int> areaIds, int index = 0, int pageSize = 25, int order = 4);
         AdSearchResult GetAdById(int id);
         SeoNameMappingModel GetSeoMapping(string seoName);
+        List<AdSearchResult> SearchOnlineAds(string searchterm, int categoryId, int locationId, int index = 0, int pageSize = 25, int order = 4);
     }
 }

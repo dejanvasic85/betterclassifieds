@@ -29,6 +29,24 @@ namespace Paramount.Betterclassifieds.DataService
             }
         }
 
+        public List<AdSearchResult> SearchOnlineAds(string searchterm, int categoryId, int locationId, int index = 0, int pageSize = 25, int order = 4)
+        {
+            var result = SearchOnlineListing(searchterm, new List<int> {{categoryId}}, new List<int> {{locationId}},
+                null, index, pageSize, order).Select(a => new AdSearchResult
+                                                          {
+                                                              AdId = a.AdId,
+                                                              CategoryId = a.CategoryId,
+                                                              CategoryName = a.CategoryTitle,
+                                                              Description = a.HtmlText,
+                                                              Title = a.Heading,
+                                                              Publications = a.Publications.Split(','),
+                                                              ImageUrls = a.DocumentIds.Split(',')
+                                                             
+                                                          });
+
+            return result.ToList();
+        }
+
         public AdSearchResult GetAdById(int id)
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
@@ -125,6 +143,9 @@ namespace Paramount.Betterclassifieds.DataService
             configuration.CreateMap<MainCategory, CategorySearchResult>();
             configuration.CreateMap<Location, LocationSearchResult>();
             configuration.CreateMap<OnlineAdView, OnlineListingModel>();
+
+            configuration.CreateMap<OnlineAdView, AdSearchResult>();
+
             configuration.CreateMap<SeoNameMappingModel, SeoMapping>();
             configuration.CreateMap<SeoMapping, SeoNameMappingModel>().ForMember(dest => dest.CategoryIds,
                 opt => opt.MapFrom(src => src.CategoryIds.IsNullOrEmpty() ? new List<int>() : src.CategoryIds.Split(',').Select(int.Parse).ToList()));

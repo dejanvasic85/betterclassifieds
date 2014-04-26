@@ -9,7 +9,9 @@ namespace Paramount.Betterclassifieds.Business.Search
         IEnumerable<AdSearchResult> Search();
         List<CategorySearchResult> GetTopLevelCategories();
         List<LocationSearchResult> GetLocations();
-        List<OnlineListingModel> SearchOnlineListing(string searchterm, IEnumerable<int> categoryIds, IEnumerable<int> locationIds, IEnumerable<int> areaIds, int index = 0, int pageSize = 25);
+
+        List<OnlineListingModel> SearchOnlineListing(string searchterm, IEnumerable<int> categoryIds,
+            IEnumerable<int> locationIds, IEnumerable<int> areaIds, int index = 0, int pageSize = 25, int order = 4);
         AdSearchResult GetAdById(int id);
         SeoNameMappingModel GetSeoMapping(string seoName);
     }

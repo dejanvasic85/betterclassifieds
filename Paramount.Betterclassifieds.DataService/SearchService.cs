@@ -11,7 +11,7 @@ namespace Paramount.Betterclassifieds.DataService
 {
     public class SearchService : ISearchService, IMappingBehaviour
     {
-        public List<OnlineListingModel> SearchOnlineListing(string searchterm, IEnumerable<int> categoryIds, IEnumerable<int> locationIds, IEnumerable<int> areaIds, int index = 0, int pageSize = 25)
+        public List<OnlineListingModel> SearchOnlineListing(string searchterm, IEnumerable<int> categoryIds, IEnumerable<int> locationIds, IEnumerable<int> areaIds, int index = 0, int pageSize = 25, int order = 4)
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
@@ -22,7 +22,7 @@ namespace Paramount.Betterclassifieds.DataService
 
                 searchterm = searchterm.NullIfEmpty();
 
-                List<OnlineAdView> ads = context.spSearchOnlineAdFREETEXT(searchterm, categoryList, locationList, areaList).Skip(index * pageSize).Take(pageSize).ToList();
+                List<OnlineAdView> ads = context.spSearchOnlineAdFREETEXT(searchterm, categoryList, locationList, areaList, order, index,pageSize).ToList();
 
                 // Map to the models
                 return this.MapList<OnlineAdView, OnlineListingModel>(ads);

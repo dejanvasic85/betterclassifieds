@@ -22,5 +22,9 @@
         public string DocumentID { get; set; }
         public string CategoryTitle { get; set; }
         public int AdId { get; set; }
+
+        public string Publications { get; set; }
+
+        public string DocumentIds { get; set; }
     }
 }

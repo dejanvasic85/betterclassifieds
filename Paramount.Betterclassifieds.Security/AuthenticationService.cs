@@ -94,12 +94,18 @@ namespace Paramount.Betterclassifieds.Security
 
         public bool CheckUsernameExists(string username)
         {
-            return Membership.GetUser(username) != null;
+            using (var context = DataContextFactory.CreateMembershipContext())
+            {
+                return context.aspnet_Users.Any(u => u.LoweredUserName.Equals(username.ToLower()));
+            }
         }
 
         public bool CheckEmailExists(string email)
         {
-            return Membership.GetUserNameByEmail(email) != null;
+            using (var context = DataContextFactory.CreateMembershipContext())
+            {
+                return context.aspnet_Memberships.Any(m => m.LoweredEmail.Equals(email.ToLower()));
+            }
         }
 
         public int CreateRegistration(RegistrationModel registrationModel)

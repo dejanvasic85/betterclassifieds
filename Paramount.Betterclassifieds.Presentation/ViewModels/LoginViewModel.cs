@@ -35,7 +35,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         [DataType(DataType.EmailAddress)]
         [StringLength(50)]
         [EmailAddress]
-        [Remote("IsEmailUnique", "Account", ErrorMessage = "Email is already taken.")]
+        [Remote("IsEmailUnique", "Account", ErrorMessage = "Email provided is not available.")]
         public string RegisterEmail { get; set; }
 
         [Required]

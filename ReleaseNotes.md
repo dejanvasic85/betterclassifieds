@@ -4,8 +4,10 @@
 
 **Bug Fixes**
 
-- todo
+- [Logout not working intermittently](https://trello.com/c/WiulnA0M/167-coming-back-to-the-site-the-logout-doesn-t-work)
+- [Checking unique email address now includes existing admins as well](https://trello.com/c/GrdTDL8T/165-unique-email-check-not-including-administrators-consistently)
 
 **Technical Debt**
 
-- todo
+- [Updated EntityFramework datalayer to version 6](https://trello.com/c/TOSTe0bp/164-update-entity-framework-to-version-6)
+- [Performance issues for searching home page](https://trello.com/c/8NeiEqhe/162-spike-investigate-performance-issues)

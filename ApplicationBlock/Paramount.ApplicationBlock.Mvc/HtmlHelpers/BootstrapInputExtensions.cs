@@ -10,11 +10,17 @@ namespace Paramount.ApplicationBlock.Mvc.HtmlHelpers
     {
         public static MvcHtmlString BootstrapTextBoxFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> attributes = null)
         {
-            if(attributes == null)
+            return htmlHelper.TextBoxFor(expression, format: null, htmlAttributes: AddFormControlClass(attributes));
+        }
+        
+        private static IDictionary<string, object> AddFormControlClass(IDictionary<string, object> attributes)
+        {
+            if (attributes == null)
                 attributes = new Dictionary<string, object>();
 
             attributes.Add("class", "form-control");
-            return htmlHelper.TextBoxFor(expression, format: null, htmlAttributes: attributes);
+            return attributes;
         }
+
     }
 }

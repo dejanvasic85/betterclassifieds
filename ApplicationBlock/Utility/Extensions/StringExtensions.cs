@@ -1,4 +1,6 @@
-﻿namespace Paramount
+﻿using System.Text;
+
+namespace Paramount
 {
     using System;
 
@@ -58,13 +60,15 @@
             return content.IsNullOrEmpty() ? null : content;
         }
 
-        public static bool DoesNotEqual(this string source, string value, StringComparison comparison = StringComparison.OrdinalIgnoreCase)
+        public static bool DoesNotEqual(this string source, string value,
+            StringComparison comparison = StringComparison.OrdinalIgnoreCase)
         {
             return !source.Equals(value, comparison);
         }
 
-        public static bool EqualTo(this string source, string value, StringComparison comparison = StringComparison.OrdinalIgnoreCase)
-        {   
+        public static bool EqualTo(this string source, string value,
+            StringComparison comparison = StringComparison.OrdinalIgnoreCase)
+        {
             return source.Equals(value, comparison);
         }
 
@@ -101,6 +105,40 @@
             if (int.TryParse(value, out convertedValue))
                 return convertedValue;
             return null;
+        }
+
+        public static int ToEnumValue<T>(this string value)
+        {
+            return (int)Enum.Parse(typeof(T), value);
+        }
+
+        /// <summary>
+        /// Adds spaces to camel cased words e.g. NewestFirst becomes "Newest First"
+        /// </summary>
+        ///<remarks>
+        /// See http://stackoverflow.com/questions/272633/add-spaces-before-capital-letters for more info.
+        /// </remarks>
+        public static string ToCamelCaseWithSpaces(this string text, bool preserveAcronyms = true)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+                return string.Empty;
+
+            var newText = new StringBuilder(text.Length * 2);
+            newText.Append(text[0]);
+            for (int i = 1; i < text.Length; i++)
+            {
+                if (char.IsUpper(text[i]))
+                {
+                    if ((text[i - 1] != ' ' && !char.IsUpper(text[i - 1])) ||
+                        (preserveAcronyms && char.IsUpper(text[i - 1]) &&
+                         i < text.Length - 1 && !char.IsUpper(text[i + 1])))
+                    {
+                        newText.Append(' ');
+                    }
+                }
+                newText.Append(text[i]);
+            }
+            return newText.ToString();
         }
     }
 }

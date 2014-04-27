@@ -1,4 +1,5 @@
 ﻿@using Paramount
+@using Paramount.ApplicationBlock.Mvc.HtmlHelpers
 
 @model Paramount.Betterclassifieds.Presentation.ViewModels.FindModel
 
@@ -10,8 +11,8 @@
     <script src="@Url.Content("~/Scripts/Listings/Find.js")"></script>
 }
 
-<input type="hidden" id="hdnResultsPerPage" value="@ViewBag.ResultsPerPage"/>
-<input type="hidden" id="hdnMaxPageRequests" value="@ViewBag.MaxPageRequests"/>
+<input type="hidden" id="hdnResultsPerPage" value="@ViewBag.ResultsPerPage" />
+<input type="hidden" id="hdnMaxPageRequests" value="@ViewBag.MaxPageRequests" />
 
 <div class="row top-buffer-20" id="top">
 
@@ -38,19 +39,20 @@
                 </a>
             </div>
         </div>
-        
+
         @*todo*@
         @*<div class="well">
-            displaying 10 results for ""
-        </div>*@
+                displaying 10 results for ""
+            </div>*@
 
         <div class="row">
             <div class="col-xs-12">
                 @Html.Partial("_ListingResults", Model.SearchResults)
             </div>
         </div>
-       
-        @if (Model.HasResults) { 
+
+        @if (Model.HasResults)
+        {
             <div class="row">
                 <div class="col-xs-10">
                     @*Fetch more ads*@
@@ -110,12 +112,7 @@
         @*Sorting*@
         <div class="form-group">
             @Html.LabelFor(m => m.SearchFilters.SortBy)
-            <select id="SortBy" class="form-control input-sm">
-                <option value="Newest">Newest First</option>
-                <option value="Oldest">Expiring First</option>
-                <option value="PriceLow">Price - Lowest First</option>
-                <option value="PriceHigh">Price - Highest First</option>
-            </select>
+            @Html.DropDownListForEnum(m => m.SearchFilters.SortBy, Model.SortByOptions, new Dictionary<string, object> { { "class", "form-control input-sm" } })
         </div>
         <button type="submit" class="btn btn-primary">
             Go

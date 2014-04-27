@@ -1,10 +1,8 @@
 ﻿namespace Paramount.ApplicationBlock.Data
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.Specialized;
-    using System.Configuration;
     using Configuration;
+    using System;
+    using System.Configuration;
 
     public class ConfigReader : IDisposable
     {

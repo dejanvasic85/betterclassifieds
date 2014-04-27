@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business.Models;
-using Paramount.Betterclassifieds.Business.Models.Seo;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.DataService.Classifieds;
 
@@ -11,7 +10,7 @@ namespace Paramount.Betterclassifieds.DataService
 {
     public class SearchService : ISearchService, IMappingBehaviour
     {
-        public List<OnlineListingModel> SearchOnlineListing(string searchterm, IEnumerable<int> categoryIds, IEnumerable<int> locationIds, IEnumerable<int> areaIds, int index = 0, int pageSize = 25, int order = 4)
+        public List<AdSearchResult> GetAds(string searchterm, IEnumerable<int> categoryIds, IEnumerable<int> locationIds, IEnumerable<int> areaIds, int index = 0, int pageSize = 25, AdSearchSortOrder sortOrder = AdSearchSortOrder.MostRelevant)
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
@@ -22,31 +21,29 @@ namespace Paramount.Betterclassifieds.DataService
 
                 searchterm = searchterm.NullIfEmpty();
 
-                List<OnlineAdView> ads = context.spSearchOnlineAdFREETEXT(searchterm, categoryList, locationList, areaList, order, index,pageSize).ToList();
+                List<OnlineAdView> ads = context.spSearchOnlineAdFREETEXT(searchterm, categoryList, locationList, areaList, (int)sortOrder, index, pageSize).ToList();
 
                 // Map to the models
-                return this.MapList<OnlineAdView, OnlineListingModel>(ads);
+                return this.MapList<OnlineAdView, AdSearchResult>(ads);
             }
         }
 
-        public List<AdSearchResult> SearchOnlineAds(string searchterm, int categoryId, int locationId, int index = 0, int pageSize = 25, int order = 4)
+        public List<AdSearchResult> GetAds(string searchterm, int? categoryId, int? locationId, int index = 0, int pageSize = 25, AdSearchSortOrder order = AdSearchSortOrder.MostRelevant)
         {
-            var result = SearchOnlineListing(searchterm, new List<int> {{categoryId}}, new List<int> {{locationId}},
-                null, index, pageSize, order).Select(a => new AdSearchResult
-                                                          {
-                                                              AdId = a.AdId,
-                                                              CategoryId = a.CategoryId,
-                                                              CategoryName = a.CategoryTitle,
-                                                              Description = a.HtmlText,
-                                                              Title = a.Heading,
-                                                              Publications = a.Publications.Split(','),
-                                                              ImageUrls = a.DocumentIds.Split(',')
-                                                             
-                                                          });
-
-            return result.ToList();
+            return GetAds(searchterm,
+                categoryId.HasValue ? new[] { categoryId.Value } : null,
+                locationId.HasValue ? new[] { locationId.Value } : null,
+                null,
+                index,
+                pageSize,
+                order);
         }
 
+        public List<AdSearchResult> GetLatestAds(int pageSize = 10)
+        {
+            return GetAds(searchterm: null, categoryIds: null, locationIds: null, areaIds: null, index: 0, pageSize: pageSize, sortOrder: AdSearchSortOrder.NewestFirst);
+        }
+        
         public AdSearchResult GetAdById(int id)
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
@@ -59,7 +56,7 @@ namespace Paramount.Betterclassifieds.DataService
                               select new AdSearchResult
                               {
                                   AdId = bk.AdBookingId,
-                                  Title = onl.Heading,
+                                  Heading = onl.Heading,
                                   Description = onl.Description,
                                   CategoryName = cat.Title,
                                   CategoryId = cat.MainCategoryId,
@@ -72,34 +69,6 @@ namespace Paramount.Betterclassifieds.DataService
             }
         }
 
-        public IEnumerable<AdSearchResult> Search()
-        {
-            using (var context = DataContextFactory.CreateClassifiedContext())
-            {
-                var results = from onl in context.OnlineAds
-                              join ds in context.AdDesigns on onl.AdDesignId equals ds.AdDesignId
-                              join bk in context.AdBookings on ds.AdId equals bk.AdId
-                              join cat in context.MainCategories on bk.MainCategoryId equals cat.MainCategoryId
-                              where bk.StartDate <= DateTime.Today &&
-                              bk.EndDate >= DateTime.Today &&
-                              bk.BookingStatus == (int)BookingStatusType.Booked
-                              select new AdSearchResult
-                              {
-                                  AdId = bk.AdBookingId,
-                                  Title = onl.Heading,
-                                  Description = onl.Description,
-                                  CategoryName = cat.Title,
-                                  CategoryId = cat.MainCategoryId,
-                                  ParentCategoryId = cat.ParentId,
-                                  ImageUrls = onl.AdDesign.AdGraphics.Select(g => g.DocumentID).ToArray(),
-                                  Publications = bk.BookEntries.Select(be => be.Publication.Title).Distinct().ToArray()
-                              };
-
-                return results.ToList();
-            }
-        }
-
-
         public List<LocationSearchResult> GetLocations()
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
@@ -107,7 +76,7 @@ namespace Paramount.Betterclassifieds.DataService
                 return this.MapList<Location, LocationSearchResult>(context.Locations.ToList());
             }
         }
-
+        
         public List<CategorySearchResult> GetTopLevelCategories()
         {
             return GetCategories().Where(c => c.ParentId.IsNullValue()).ToList();
@@ -134,6 +103,32 @@ namespace Paramount.Betterclassifieds.DataService
             }
         }
 
+        public IEnumerable<AdSearchResult> Search()
+        {
+            using (var context = DataContextFactory.CreateClassifiedContext())
+            {
+                var results = from onl in context.OnlineAds
+                              join ds in context.AdDesigns on onl.AdDesignId equals ds.AdDesignId
+                              join bk in context.AdBookings on ds.AdId equals bk.AdId
+                              join cat in context.MainCategories on bk.MainCategoryId equals cat.MainCategoryId
+                              where bk.StartDate <= DateTime.Today &&
+                              bk.EndDate >= DateTime.Today &&
+                              bk.BookingStatus == (int)BookingStatusType.Booked
+                              select new AdSearchResult
+                              {
+                                  AdId = bk.AdBookingId,
+                                  Heading = onl.Heading,
+                                  Description = onl.Description,
+                                  CategoryName = cat.Title,
+                                  CategoryId = cat.MainCategoryId,
+                                  ParentCategoryId = cat.ParentId,
+                                  ImageUrls = onl.AdDesign.AdGraphics.Select(g => g.DocumentID).ToArray(),
+                                  Publications = bk.BookEntries.Select(be => be.Publication.Title).Distinct().ToArray()
+                              };
+
+                return results.ToList();
+            }
+        }
 
         public void OnRegisterMaps(IConfiguration configuration)
         {
@@ -142,19 +137,24 @@ namespace Paramount.Betterclassifieds.DataService
             // From DB
             configuration.CreateMap<MainCategory, CategorySearchResult>();
             configuration.CreateMap<Location, LocationSearchResult>();
-            configuration.CreateMap<OnlineAdView, OnlineListingModel>();
+            configuration.CreateMap<OnlineAdView, AdSearchResult>()
+                .ForMember(member => member.CategoryName, options => options.MapFrom(source => source.CategoryTitle))
+                .ForMember(member => member.ParentCategoryId, options => options.MapFrom(source => source.CategoryParentId))
+                .ForMember(member => member.Username, options => options.MapFrom(source => source.UserId))
+                .ForMember(member => member.ImageUrls, options => options.MapFrom(source => source.DocumentIds.HasValue() ? source.DocumentIds.Split(',') : new string[0]))
+                .ForMember(member => member.Publications, options => options.MapFrom(source => source.Publications.HasValue() ? source.Publications.Split(',') : new string[0]))
+                ;
 
-            configuration.CreateMap<OnlineAdView, AdSearchResult>();
+            configuration.CreateMap<SeoMapping, SeoNameMappingModel>()
+                .ForMember(dest => dest.CategoryIds, opt => opt.MapFrom(src => src.CategoryIds.IsNullOrEmpty() ? new List<int>() : src.CategoryIds.Split(',').Select(int.Parse).ToList()))
+                .ForMember(dest => dest.LocationIds, opt => opt.MapFrom(src => src.LocationIds.IsNullOrEmpty() ? new List<int>() : src.LocationIds.Split(',').Select(int.Parse).ToList()))
+                .ForMember(dest => dest.AreaIds, opt => opt.MapFrom(src => src.AreaIds.IsNullOrEmpty() ? new List<int>() : src.AreaIds.Split(',').Select(int.Parse).ToList()))
+                .ForMember(dest => dest.ParentCategoryId, opt => opt.MapFrom(src => src.ParentCategoryIds))
+                ;
 
+            // To DB
             configuration.CreateMap<SeoNameMappingModel, SeoMapping>();
-            configuration.CreateMap<SeoMapping, SeoNameMappingModel>().ForMember(dest => dest.CategoryIds,
-                opt => opt.MapFrom(src => src.CategoryIds.IsNullOrEmpty() ? new List<int>() : src.CategoryIds.Split(',').Select(int.Parse).ToList()));
-            configuration.CreateMap<SeoMapping, SeoNameMappingModel>().ForMember(dest => dest.LocationIds,
-                opt => opt.MapFrom(src => src.LocationIds.IsNullOrEmpty() ? new List<int>() : src.LocationIds.Split(',').Select(int.Parse).ToList()));
-            configuration.CreateMap<SeoMapping, SeoNameMappingModel>().ForMember(dest => dest.AreaIds,
-                opt => opt.MapFrom(src => src.AreaIds.IsNullOrEmpty() ? new List<int>() : src.AreaIds.Split(',').Select(int.Parse).ToList()));
-            configuration.CreateMap<SeoMapping, SeoNameMappingModel>().ForMember(dest => dest.ParentCategoryId,
-                opt => opt.MapFrom(src => src.ParentCategoryIds));
+
 
         }
     }

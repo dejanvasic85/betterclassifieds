@@ -24,7 +24,7 @@ namespace Paramount.Betterclassifieds.Presentation
             if (adId.HasValue)
             {
                 var ad = _searchService.GetAdById(adId.Value);
-                Redirect(Url.AdUrl(ad.TitleSlug, adId.Value));
+                Redirect(Url.AdUrl(ad.HeadingSlug, adId.Value));
             }
 
             OnlineSearchParam["SearchKeywordParam"] = searchKeyword;

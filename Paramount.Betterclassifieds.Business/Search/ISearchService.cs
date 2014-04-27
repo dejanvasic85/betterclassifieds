@@ -1,19 +1,16 @@
 ﻿using System.Collections.Generic;
-using Paramount.Betterclassifieds.Business.Models;
-using Paramount.Betterclassifieds.Business.Models.Seo;
 
 namespace Paramount.Betterclassifieds.Business.Search
 {
     public interface ISearchService
     {
-        IEnumerable<AdSearchResult> Search();
+        List<AdSearchResult> GetAds(string searchterm, IEnumerable<int> categoryIds, IEnumerable<int> locationIds, IEnumerable<int> areaIds, int index = 0, int pageSize = 25, AdSearchSortOrder order = AdSearchSortOrder.MostRelevant);
+        List<AdSearchResult> GetAds(string searchterm, int? categoryId, int? locationId, int index = 0, int pageSize = 25, AdSearchSortOrder order = AdSearchSortOrder.MostRelevant);
+        List<AdSearchResult> GetLatestAds(int pageSize = 10);
         List<CategorySearchResult> GetTopLevelCategories();
         List<LocationSearchResult> GetLocations();
-
-        List<OnlineListingModel> SearchOnlineListing(string searchterm, IEnumerable<int> categoryIds,
-            IEnumerable<int> locationIds, IEnumerable<int> areaIds, int index = 0, int pageSize = 25, int order = 4);
         AdSearchResult GetAdById(int id);
         SeoNameMappingModel GetSeoMapping(string seoName);
-        List<AdSearchResult> SearchOnlineAds(string searchterm, int categoryId, int locationId, int index = 0, int pageSize = 25, int order = 4);
+        IEnumerable<AdSearchResult> Search();
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Paramount.Betterclassifieds.Business.Models.Seo
+namespace Paramount.Betterclassifieds.Business.Search
 {
     public class SeoNameMappingModel
     {

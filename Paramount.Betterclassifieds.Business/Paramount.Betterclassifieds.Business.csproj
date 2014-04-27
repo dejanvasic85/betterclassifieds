@@ -67,8 +67,8 @@
     <Compile Include="Broadcast\DocTypes\IDocType.cs" />
     <Compile Include="EditionManager.cs" />
     <Compile Include="Managers\IApplicationConfig.cs" />
-    <Compile Include="Models\OnlineListingModel.cs" />
     <Compile Include="Search\AdSearchResult.cs" />
+    <Compile Include="Search\AdSearchSortOrder.cs" />
     <Compile Include="Search\CategorySearchResult.cs" />
     <Compile Include="Search\ISearchService.cs" />
     <Compile Include="Membership\IAuthManager.cs" />
@@ -86,7 +86,7 @@
     <Compile Include="Repository\IClientSideCacheRepository.cs" />
     <Compile Include="Managers\IEditionManager.cs" />
     <Compile Include="Managers\IBookingManager.cs" />
-    <Compile Include="Models\Seo\SeoNameMappingModel.cs" />
+    <Compile Include="Search\SeoNameMappingModel.cs" />
     <Compile Include="Repository\IDocumentRepository.cs" />
     <Compile Include="Models\AdBookingExtensionModel.cs" />
     <Compile Include="Models\AdBookingModel.cs" />
@@ -131,7 +131,9 @@
       <Name>Paramount.Utility</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Models\Seo\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

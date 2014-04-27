@@ -82,9 +82,9 @@ BEGIN
                where @searchTerm = ''~'')  
               ) as t1
        where
-       (@categoryIds is null or t1.CategoryId in (select [data] from dbo.splitstring(@categoryIds)) or t1.CategoryParentId in (select data from dbo.splitstring(@categoryIds)))
-       and (@locationIds is null or t1.LocationId in (select data from dbo.splitstring(@locationIds)))
-       and (@areaIds is null or t1.LocationAreaId in (select data from dbo.splitstring(@areaIds)))   
+       (@categoryIds is null or t1.CategoryId in (select [data] from dbo.SplitStringToInt(@categoryIds, '','')) or t1.CategoryParentId in (select data from dbo.SplitStringToInt(@categoryIds, '','')))
+       and (@locationIds is null or t1.LocationId in (select data from dbo.SplitStringToInt(@locationIds, '','')))
+       and (@areaIds is null or t1.LocationAreaId in (select data from dbo.SplitStringToInt(@areaIds, '','')))   
        )
        
        Select *, 

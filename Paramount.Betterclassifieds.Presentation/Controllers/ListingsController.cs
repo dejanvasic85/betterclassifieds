@@ -22,7 +22,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpGet]
-        public ActionResult Find(string keyword = "", int? categoryId = null, int? locationId = null)
+        public ActionResult Find(string keyword = "", int? categoryId = null, int? locationId = null, int sortOrder = 4)
         {
             // Set the search filters 
             _searchFilters.Keyword = keyword;
@@ -43,35 +43,34 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 if (ad == null)
                     return View(searchModel);
 
-                return Redirect(Url.AdUrl(ad.TitleSlug, adid.Value));
+                return Redirect(Url.AdUrl(ad.HeadingSlug, adid.Value));
             }
 
             // We should pass the filters to the search 
             // But this is just to get the front end cshtml files functioning
-            var results = _searchService.Search();
-
-            if (keyword.HasValue())
-                results = results.Where(b => b.Description.Contains(keyword) || b.Title.Contains(keyword));
-
-            results = results.OrderByDescending(b => b.AdId).Take(ResultsPerPage);
+            var results = _searchService.GetAds(_searchFilters.Keyword, _searchFilters.CategoryId, _searchFilters.LocationId, index: 0, pageSize: ResultsPerPage, order: (AdSearchSortOrder)_searchFilters.SortBy);
 
             // Map the results for the view model
             searchModel.SearchResults = this.MapList<AdSearchResult, AdSummaryViewModel>(results.ToList());
-            
+
             // ViewBag.Title = "Search results...";
             ViewBag.ResultsPerPage = ResultsPerPage;
             ViewBag.MaxPageRequests = MaxPageRequests;
-            
+
             return View(searchModel);
         }
 
         [HttpPost]
         public ActionResult ShowMore(PageRequest pageRequest)
         {
-            var results = _searchService.Search()
-                .OrderByDescending(b => b.AdId)
-                .Skip(pageRequest.Page * ResultsPerPage)
-                .Take(ResultsPerPage);
+            //var results = _searchService.Search()
+            //    .OrderByDescending(b => b.AdId)
+            //    .Skip(pageRequest.Page * ResultsPerPage)
+            //    .Take(ResultsPerPage);
+
+            var results = _searchService.GetAds(_searchFilters.Keyword, _searchFilters.CategoryId,
+                _searchFilters.LocationId, index: pageRequest.Page, pageSize: ResultsPerPage,
+                order: (AdSearchSortOrder) _searchFilters.SortBy);
 
             var viewModel = this.MapList<AdSearchResult, AdSummaryViewModel>(results.ToList());
 

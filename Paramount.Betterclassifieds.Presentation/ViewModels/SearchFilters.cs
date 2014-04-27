@@ -1,9 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
-using Paramount.Betterclassifieds.Business.Models.Seo;
+using Paramount.Betterclassifieds.Business.Search;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
@@ -17,7 +16,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public int? CategoryId { get; set; }
 
         [Display(Name = "Sort By")]
-        public string SortBy { get; set; }
+        public int SortBy { get; set; }
 
         [Display(Name = "Location")]
         public int? LocationId { get; set; }

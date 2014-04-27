@@ -5,10 +5,10 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE FUNCTION [dbo].[SplitStringToInt]
+ALTER FUNCTION [dbo].[SplitStringToInt]
 (
     @String NVARCHAR(4000),
-    @Delimiter NCHAR(1)
+    @Delimiter NCHAR(1) = ','
 )
 RETURNS TABLE 
 AS

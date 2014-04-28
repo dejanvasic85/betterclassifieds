@@ -12,8 +12,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
     {
         private readonly ISearchService _searchService;
         private readonly SearchFilters _searchFilters;
-        private const int ResultsPerPage = 5;
-        private const int MaxPageRequests = 5;
+        private const int ResultsPerPage = 10;
+        private const int MaxPageRequests = 10;
 
         public ListingsController(ISearchService searchService, SearchFilters searchFilters)
         {
@@ -22,7 +22,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpGet]
-        public ActionResult Find(string keyword = "", int? categoryId = null, int? locationId = null, int sortOrder = 4)
+        public ActionResult Find(string keyword = "", int? categoryId = null, int? locationId = null, int sort = 4)
         {
             // Set the search filters 
             _searchFilters.Keyword = keyword;
@@ -48,12 +48,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             // We should pass the filters to the search 
             // But this is just to get the front end cshtml files functioning
-            var results = _searchService.GetAds(_searchFilters.Keyword, _searchFilters.CategoryId, _searchFilters.LocationId, index: 0, pageSize: ResultsPerPage, order: (AdSearchSortOrder)_searchFilters.SortBy);
+            var results = _searchService.GetAds(_searchFilters.Keyword, _searchFilters.CategoryId, _searchFilters.LocationId, index: 0, pageSize: ResultsPerPage, order: (AdSearchSortOrder)_searchFilters.Sort);
 
             // Map the results for the view model
             searchModel.SearchResults = this.MapList<AdSearchResult, AdSummaryViewModel>(results.ToList());
 
-            // ViewBag.Title = "Search results...";
+            ViewBag.Title = "Search results for classies";
             ViewBag.ResultsPerPage = ResultsPerPage;
             ViewBag.MaxPageRequests = MaxPageRequests;
 
@@ -63,14 +63,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost]
         public ActionResult ShowMore(PageRequest pageRequest)
         {
-            //var results = _searchService.Search()
-            //    .OrderByDescending(b => b.AdId)
-            //    .Skip(pageRequest.Page * ResultsPerPage)
-            //    .Take(ResultsPerPage);
-
             var results = _searchService.GetAds(_searchFilters.Keyword, _searchFilters.CategoryId,
                 _searchFilters.LocationId, index: pageRequest.Page, pageSize: ResultsPerPage,
-                order: (AdSearchSortOrder) _searchFilters.SortBy);
+                order: (AdSearchSortOrder) _searchFilters.Sort);
 
             var viewModel = this.MapList<AdSearchResult, AdSummaryViewModel>(results.ToList());
 
@@ -102,14 +97,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return View("Find", searchModel);
             }
 
-            /* 
-             * Todo - uncomment this line once the right models are returned from search service
-            var ads = _searchService.SearchOnlineListing(seoMapping.SearchTerm, seoMapping.CategoryIds,
+            _searchFilters.ApplySeoMapping(seoMapping);
+
+            var results = _searchService.GetAds(seoMapping.SearchTerm, seoMapping.CategoryIds,
                 seoMapping.LocationIds, seoMapping.AreaIds, index: 0, pageSize: ResultsPerPage);
 
-            */
-
-            _searchFilters.ApplySeoMapping(seoMapping);
+            // Map the results for the view model
+            searchModel.SearchResults = this.MapList<AdSearchResult, AdSummaryViewModel>(results.ToList());
+            searchModel.SearchFilters = _searchFilters;
 
             return View("Find", searchModel);
         }

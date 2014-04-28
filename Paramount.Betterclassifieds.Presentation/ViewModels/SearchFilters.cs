@@ -16,7 +16,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public int? CategoryId { get; set; }
 
         [Display(Name = "Sort By")]
-        public int SortBy { get; set; } // This should map to the AdSearchSortOrder enum from the search business model
+        public int Sort { get; set; } // This should map to the AdSearchSortOrder enum from the search business model
 
         [Display(Name = "Location")]
         public int? LocationId { get; set; }

@@ -95,7 +95,7 @@
         @*Categories*@
         <div class="form-group">
             @Html.LabelFor(m => m.SearchFilters.CategoryId)
-            <select id="CategoryId" class="form-control input-sm js-select"
+            <select id="categoryId" name="categoryId" class="form-control input-sm js-select"
                     data-url="@Url.Action("GetCategoryOptions", "Categories")"
                     data-selected="@Model.SearchFilters.CategoryId"></select>
         </div>
@@ -103,16 +103,15 @@
         @*Locations*@
         <div class="form-group">
             @Html.LabelFor(m => m.SearchFilters.LocationId)
-            <select id="LocationId" class="form-control input-sm js-select"
+            <select id="locationId" name="locationId" class="form-control input-sm js-select"
                     data-url="@Url.Action("GetLocationOptions", "Location")"
                     data-selected="@Model.SearchFilters.LocationId"></select>
         </div>
 
         @*Sorting*@
         <div class="form-group">
-            @Html.LabelFor(m => m.SearchFilters.SortBy)
-            @*@Html.DropDownListForEnum(m => m.SearchFilters.SortBy, Model.SortByOptions, new Dictionary<string, object> { { "class", "form-control input-sm" } })*@
-            <select id="SortBy" name="SortBy" class="form-control input-sm">
+            @Html.LabelFor(m => m.SearchFilters.Sort)
+            <select id="SortOrder" name="SortOrder" class="form-control input-sm">
                 <option value="0">Newest First</option>
                 <option value="1">Oldest First</option>
                 <option value="2">Lowest Price</option>

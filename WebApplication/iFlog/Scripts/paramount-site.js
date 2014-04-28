@@ -25,7 +25,6 @@
             me.append('<option>Loading...</option>');
             var url = me.data().url;
             var selected = me.data().selected;
-            console.log(url);
             $.getJSON(url).done(function (data) {
                 me.empty();
                 $.each(data, function (index, option) {

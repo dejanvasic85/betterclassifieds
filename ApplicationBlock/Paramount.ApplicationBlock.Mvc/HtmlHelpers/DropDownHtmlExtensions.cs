@@ -5,10 +5,11 @@ using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
-namespace Paramount.ApplicationBlock.Mvc.HtmlHelpers
+namespace Paramount
 {
     public static class DropDownHtmlExtensions
     {
+        [Obsolete("Currently this doesn't really work because the selected value is not persisting when calling DropDownListFor.")]
         public static MvcHtmlString DropDownListForEnum<TModel, TProperty, TEnum>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression, 
             TEnum selectedValue, IDictionary<string, object> attributes)
         {

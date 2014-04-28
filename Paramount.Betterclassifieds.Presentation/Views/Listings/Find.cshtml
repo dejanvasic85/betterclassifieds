@@ -1,5 +1,4 @@
 ﻿@using Paramount
-@using Paramount.ApplicationBlock.Mvc.HtmlHelpers
 
 @model Paramount.Betterclassifieds.Presentation.ViewModels.FindModel
 
@@ -112,7 +111,14 @@
         @*Sorting*@
         <div class="form-group">
             @Html.LabelFor(m => m.SearchFilters.SortBy)
-            @Html.DropDownListForEnum(m => m.SearchFilters.SortBy, Model.SortByOptions, new Dictionary<string, object> { { "class", "form-control input-sm" } })
+            @*@Html.DropDownListForEnum(m => m.SearchFilters.SortBy, Model.SortByOptions, new Dictionary<string, object> { { "class", "form-control input-sm" } })*@
+            <select id="SortBy" name="SortBy" class="form-control input-sm">
+                <option value="0">Newest First</option>
+                <option value="1">Oldest First</option>
+                <option value="2">Lowest Price</option>
+                <option value="3">Highest Price</option>
+                <option value="4" selected="selected">Most Relevant</option>
+            </select>
         </div>
         <button type="submit" class="btn btn-primary">
             Go

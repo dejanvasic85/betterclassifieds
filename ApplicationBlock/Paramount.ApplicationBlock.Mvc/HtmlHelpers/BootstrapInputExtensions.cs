@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
-namespace Paramount.ApplicationBlock.Mvc.HtmlHelpers
+namespace Paramount
 {
     public static class BootstrapInputExtensions
     {

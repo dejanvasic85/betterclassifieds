@@ -90,6 +90,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ApplicationBlock\HtmlHelperTests.cs" />
     <Compile Include="AssertExtensions.cs" />
     <Compile Include="Bookings\EditionManagerTests.cs" />
     <Compile Include="Bookings\TheMusicHtmlScraperTests.cs" />
@@ -102,13 +103,17 @@
     <Compile Include="Controllers\HomeControllerTests.cs" />
     <Compile Include="ExpectException.cs" />
     <Compile Include="Membership\RegistrationModelTests.cs" />
-    <Compile Include="Mocks\MockFactory.cs" />
+    <Compile Include="Mocks\MoqExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\StringExtensionTests.cs" />
     <Compile Include="ViewModels\SearchFilterTests.cs" />
     <Compile Include="Utility\DictionaryExtensionTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ApplicationBlock\Paramount.ApplicationBlock.Mvc\Paramount.ApplicationBlock.Mvc.csproj">
+      <Project>{0C2B4EBB-3D4D-45EF-9622-214F9EF80B1A}</Project>
+      <Name>Paramount.ApplicationBlock.Mvc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ApplicationBlock\Utility\Paramount.Utility.csproj">
       <Project>{7f2cf5fe-6ad1-4dde-9f7d-a6fb3a1124e5}</Project>
       <Name>Paramount.Utility</Name>

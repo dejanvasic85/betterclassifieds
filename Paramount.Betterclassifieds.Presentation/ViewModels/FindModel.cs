@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Paramount.Betterclassifieds.Business.Search;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
@@ -10,7 +9,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         {
             SearchResults = new List<AdSummaryViewModel>();
             SearchFilters = new SearchFilters();
-            SortByOptions = AdSearchSortOrder.MostRelevant;
         }
 
         // Results
@@ -19,6 +17,5 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
         // Filters
         public SearchFilters SearchFilters { get; set; }
-        public AdSearchSortOrder SortByOptions { get; set; }
     }
 }

@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Microsoft.Practices.Unity;
+using Moq;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using Microsoft.Practices.Unity;
-using Moq;
 
 namespace Paramount.Betterclassifieds.Tests.Mocks
 {
-    public static class MockFactory
+    public static class MoqExtensions
     {
         public static Mock<T> CreateMockOf<T>(this MockRepository mockRepository, IUnityContainer container = null,
             List<Action> verifications = null, MockBehavior defaultBehaviour = MockBehavior.Strict) where T : class

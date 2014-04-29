@@ -55,9 +55,14 @@
             <div class="row">
                 <div class="col-xs-10">
                     @*Fetch more ads*@
-                    <button id="btnShowMore" class="btn btn-default btn-block" data-url="@Url.Action("ShowMore")">
-                        Show more ...
-                    </button>
+                    @if ((int) ViewBag.ResultsPerPage == Model.SearchResults.Count)
+                    {
+                      
+                        <button id="btnShowMore" class="btn btn-default btn-block" data-url="@Url.Action("ShowMore")">
+                            Show more ...
+                        </button>
+                          
+                    }
                 </div>
                 <div class="col-xs-2">
                     <a class="btn btn-default btn-block" href="#navbar" title="Back To Top">
@@ -111,13 +116,14 @@
         @*Sorting*@
         <div class="form-group">
             @Html.LabelFor(m => m.SearchFilters.Sort)
-            <select id="SortOrder" name="SortOrder" class="form-control input-sm">
-                <option value="0">Newest First</option>
-                <option value="1">Oldest First</option>
-                <option value="2">Lowest Price</option>
-                <option value="3">Highest Price</option>
-                <option value="4" selected="selected">Most Relevant</option>
-            </select>
+            @Html.DropDownListFor(m => m.SearchFilters.Sort, (List<SelectListItem>)ViewBag.SortOptions, new { @class = "form-control input-sm", id = "sort", Name = "sort" })
+            @*<select id="sort" name="sort" class="form-control input-sm">
+                    <option value="0">Newest First</option>
+                    <option value="1">Oldest First</option>
+                    <option value="2">Lowest Price</option>
+                    <option value="3">Highest Price</option>
+                    <option value="4" selected="selected">Most Relevant</option>
+                </select>*@
         </div>
         <button type="submit" class="btn btn-primary">
             Go

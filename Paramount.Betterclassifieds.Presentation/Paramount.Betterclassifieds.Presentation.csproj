@@ -163,6 +163,7 @@
     <Compile Include="ViewModels\PageRequest.cs" />
     <Compile Include="ViewModels\SearchFilters.cs" />
     <Compile Include="ViewModels\FindModel.cs" />
+    <Compile Include="ViewModels\SortType.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />

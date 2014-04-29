@@ -24,10 +24,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpGet]
         public ActionResult Find(string keyword = "", int? categoryId = null, int? locationId = null, int sort = 4)
         {
-            // Set the search filters 
+            // Set the search filters that should be available (in session) all the time
             _searchFilters.Keyword = keyword;
             _searchFilters.CategoryId = categoryId;
             _searchFilters.LocationId = locationId;
+            _searchFilters.Sort = sort;
 
             var searchModel = new FindModel
             {
@@ -56,15 +57,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             ViewBag.Title = "Search results for classies";
             ViewBag.ResultsPerPage = ResultsPerPage;
             ViewBag.MaxPageRequests = MaxPageRequests;
-            ViewBag.SortOptions = new List<SelectListItem>
-            {
-                new SelectListItem { Text = "Newest First", Value = "0"},
-                new SelectListItem { Text = "Oldest First", Value = "1"},
-                new SelectListItem { Text = "Lowest Price", Value = "2"},
-                new SelectListItem { Text = "Highest Price", Value = "3"},
-                new SelectListItem { Selected = true, Text = "Most Relevant", Value = "4"},
-            };
-
             return View(searchModel);
         }
 

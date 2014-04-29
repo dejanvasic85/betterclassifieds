@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,7 +11,7 @@ namespace Paramount.Betterclassifieds.Tests.ApplicationBlock
     public class HtmlHelperTests
     {
         [TestMethod]
-        public void BootstrapTextBoxFor_ReturnsMvcString()
+        public void BootstrapTextBoxFor_WithFakeModel_ReturnsMvcString()
         {
             // Arrange
             var fakeModel = new FakeViewModelForHtmlHelperTest { Name = "John Snow" };
@@ -23,6 +24,48 @@ namespace Paramount.Betterclassifieds.Tests.ApplicationBlock
             result.IsTypeOf<MvcHtmlString>();
             Assert.IsTrue(result.ToHtmlString().Contains("form-control"));
         }
+
+        [TestMethod]
+        public void DropDownListForEnum_WithFakeModel_ReturnsMvcString()
+        {
+            // Arrange
+            var fakeModel = new FakeViewModelForHtmlHelperTest {MyType = MyType.HelloWorld};
+            var fakeHelper = CreateFakeModelHelper(new ViewDataDictionary(fakeModel));
+
+            // Action
+            var result = fakeHelper.DropDownListForEnum(m => m.MyType, MyType.FooBar);
+
+            // Assert
+            result.IsTypeOf<MvcHtmlString>();
+            Assert.IsTrue(result.ToHtmlString().StartsWith("<select id=\"MyType\" name=\"MyType\""));
+        }
+
+        [TestMethod]
+        public void DropDownListForEnum_WithFakeModelAndName_ReturnsMvcString()
+        {
+            // Arrange
+            var fakeModel = new FakeViewModelForHtmlHelperTest { MyType = MyType.HelloWorld };
+            var fakeHelper = CreateFakeModelHelper(new ViewDataDictionary(fakeModel));
+
+            // Action
+            var result = fakeHelper.DropDownListForEnum(m => m.MyType, MyType.FooBar, name: "randomId");
+
+            // Assert
+            result.IsTypeOf<MvcHtmlString>();
+            Assert.IsTrue(result.ToHtmlString().StartsWith("<select Name=\"randomId\" id=\"randomId\""));
+        }
+
+        [TestMethod]
+        public void DropDownListForEnum_ModelNotAnEnum_ReturnsMvcString()
+        {
+            // Arrange
+            var fakeModel = new FakeViewModelForHtmlHelperTest { MyType = MyType.HelloWorld };
+            var fakeHelper = CreateFakeModelHelper(new ViewDataDictionary(fakeModel));
+
+            // Action
+            // Assert
+            Expect.Exception<ArgumentException>(() => fakeHelper.DropDownListForEnum(m => m.MyType, ""));
+       }
 
         /// <summary>
         /// Helper method for generating a mock HtmlHelper :) SWeet!

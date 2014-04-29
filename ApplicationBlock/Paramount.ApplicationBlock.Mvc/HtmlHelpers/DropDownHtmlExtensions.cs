@@ -10,12 +10,9 @@ namespace Paramount
 {
     public static class DropDownHtmlExtensions
     {
-        // [Obsolete("Currently this doesn't really work because the selected value is not persisting when calling DropDownListFor.")]
         public static MvcHtmlString DropDownListForEnum<TModel, TProperty, TEnum>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression,
-            string selectedValue = "", IDictionary<string, object> attributes = null)
+            TEnum defaultValue, string name = "", string @class = "")
         {
-            ModelMetadata metaData = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
-
             IEnumerable<SelectListItem> items = Enum.GetValues(typeof(TEnum))
                 .Cast<TEnum>()
                 .Select(e => new SelectListItem
@@ -24,9 +21,19 @@ namespace Paramount
                     Value = e.ToString().ToEnumValue<TEnum>().ToString(CultureInfo.InvariantCulture)
                 });
 
-            var dropDown = helper.DropDownListFor(expression, items, attributes);
+            IDictionary<string, object> attributes = new Dictionary<string, object>();
+            if (name.HasValue())
+            {
+                attributes.Add("id", name);
+                attributes.Add("Name", name); // Need capital to override the default! Crazy... I know
+            }
 
-            return dropDown;
+            if (@class.HasValue())
+            {
+                attributes.Add("class", @class);
+            }
+            
+            return helper.DropDownListFor(expression, items, attributes);
         }
     }
 }

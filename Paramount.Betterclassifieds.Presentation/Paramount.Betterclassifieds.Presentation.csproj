@@ -190,6 +190,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Account\Login.js" />
+    <Content Include="Scripts\Account\Login.min.js">
+      <DependentUpon>Login.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\bootstrap-3.1.0.js" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
@@ -199,13 +202,36 @@
     <None Include="Content\site.less" />
     <Content Include="Content\TheMusic\fonts\ufonts.com_alternate_gothic_no2_d.ttf" />
     <Content Include="Content\TheMusic\themusic.less" />
+    <Content Include="Scripts\bootstrap-3.1.0.min.js">
+      <DependentUpon>bootstrap-3.1.0.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-1.11.0.min.js">
+      <DependentUpon>jquery-1.11.0.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery.validate-1.12.0.js" />
-    <Content Include="Scripts\jquery.validate-1.12.0.min.js" />
+    <Content Include="Scripts\jquery.validate-1.12.0.min.js">
+      <DependentUpon>jquery.validate-1.12.0.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js">
+      <DependentUpon>jquery.validate.unobtrusive.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\Listings\Find.js" />
+    <Content Include="Scripts\Listings\Find.min.js">
+      <DependentUpon>Find.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\paramount-site.js" />
+    <Content Include="Scripts\paramount-site.min.js">
+      <DependentUpon>paramount-site.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\paramount-validate-default.js" />
+    <Content Include="Scripts\paramount-validate-default.min.js">
+      <DependentUpon>paramount-validate-default.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\paramount-validate-tooltip.js" />
+    <Content Include="Scripts\paramount-validate-tooltip.min.js">
+      <DependentUpon>paramount-validate-tooltip.js</DependentUpon>
+    </Content>
     <Content Include="Views\Listings\Find.cshtml" />
     <Content Include="Content\TheMusic\themusic.css.map">
       <DependentUpon>themusic.css</DependentUpon>
@@ -231,6 +257,33 @@
     <Content Include="Views\Account\ThankYou.cshtml" />
     <Content Include="Views\Account\Confirmation.cshtml" />
     <Content Include="Views\Shared\_ListingResults.cshtml" />
+    <Content Include="Scripts\Account\Login.min.js.map">
+      <DependentUpon>Login.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Listings\Find.min.js.map">
+      <DependentUpon>Find.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\bootstrap-3.1.0.min.js.map">
+      <DependentUpon>bootstrap-3.1.0.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery-1.11.0.min.js.map">
+      <DependentUpon>jquery-1.11.0.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.validate-1.12.0.min.js.map">
+      <DependentUpon>jquery.validate-1.12.0.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js.map">
+      <DependentUpon>jquery.validate.unobtrusive.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\paramount-site.min.js.map">
+      <DependentUpon>paramount-site.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\paramount-validate-default.min.js.map">
+      <DependentUpon>paramount-validate-default.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\paramount-validate-tooltip.min.js.map">
+      <DependentUpon>paramount-validate-tooltip.min.js</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\EastGippslandNews\" />

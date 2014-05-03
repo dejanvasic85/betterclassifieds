@@ -34,10 +34,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return RedirectToAction("Index", "Home");
 
             if (returnUrl.HasValue())
+            {
                 TempData[ReturnUrlKey] = returnUrl;
+            }
 
             // Render Login page
-            return View(new LoginOrRegisterModel());
+            return View(new LoginOrRegisterModel { LoginViewModel = new LoginViewModel { ReturnUrl = returnUrl } });
         }
 
         [HttpPost]
@@ -69,11 +71,17 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             // Finally, the user is ok.. so redirect them appropriately
-            if (TempData[ReturnUrlKey] == null)
+            if (TempData[ReturnUrlKey] != null)
             {
-                return RedirectToAction("Index", "Home");
+                return Redirect((string)TempData[ReturnUrlKey]);
             }
-            return Redirect((string)TempData[ReturnUrlKey]);
+
+            if (loginViewModel.ReturnUrl.HasValue())
+            {
+                return Redirect(loginViewModel.ReturnUrl);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]

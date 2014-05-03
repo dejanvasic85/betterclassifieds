@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
@@ -26,6 +27,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
         [Display(Name = "Remember me")]
         public bool RememberMe { get; set; }
+
+        [HiddenInput]
+        public string ReturnUrl { get; set; }
     }
 
     public class RegisterViewModel

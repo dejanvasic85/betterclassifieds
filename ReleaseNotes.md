@@ -8,6 +8,7 @@
 - [Checking unique email address now includes existing admins as well](https://trello.com/c/GrdTDL8T/165-unique-email-check-not-including-administrators-consistently)
 - [The tuition SEO links are now working by making use of search results](https://trello.com/b/Ht5NWhN2/betterclassifieds)
 - [Users can reset password and send only once per page load](https://trello.com/c/3meRosqz/168-sending-forgotten-password-should-change-the-button-to-ok-and-close-the-popup)
+- [Return url is persisted in a more reliant fashion](https://trello.com/c/uxPptjQh/166-return-url-on-login-does-not-stick)
 
 **Technical Debt**
 

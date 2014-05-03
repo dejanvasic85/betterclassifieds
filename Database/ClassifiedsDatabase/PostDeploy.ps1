@@ -47,6 +47,13 @@ if ( $DropCreateDatabase -eq $true ) {
     Invoke-Sqlcmd -Query "CREATE DATABASE $($sqlConnectionBuilder.InitialCatalog)" -ServerInstance $sqlConnectionBuilder.DataSource
 }
 
+# Sanitize database
+if ( $SanitizeDatabase -eq $true ) {	
+	Write-Host "Sanitization = Updating AppSetting emails with $($Sanitize_Email) address"
+	Invoke-SqlCmd "UPDATE AppSetting SET [SettingValue] = '$($Sanitize_Email)' where [AppKey] = 'AdminNotificationAccounts'" -ServerInstance $sqlConnectionBuilder.DataSource -Database $sqlConnectionBuilder.InitialCatalog
+	Invoke-SqlCmd "UPDATE AppSetting SET [SettingValue] = '$($Sanitize_Email)' where [AppKey] = 'SupportNotificationAccounts'" -ServerInstance $sqlConnectionBuilder.DataSource -Database $sqlConnectionBuilder.InitialCatalog
+}
+
 Set-Location $scriptPath
 
 # Execute upgrade script

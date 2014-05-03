@@ -13,5 +13,6 @@
 
 **Technical Debt**
 
-- [Updated EntityFramework datalayer to version 6](https://trello.com/c/TOSTe0bp/164-update-entity-framework-to-version-6)
+- [Upgraded EntityFramework datalayer to version 6](https://trello.com/c/TOSTe0bp/164-update-entity-framework-to-version-6)
 - [Performance issues for searching home page](https://trello.com/c/8NeiEqhe/162-spike-investigate-performance-issues)
+- [Upgraded Unity IoC to version 3.5](https://trello.com/c/YRPrSAI6/140-update-unity-to-3-5-for-all-applications-and-use-nuget)

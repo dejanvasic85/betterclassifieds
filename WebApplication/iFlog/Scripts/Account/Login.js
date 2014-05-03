@@ -7,7 +7,7 @@
 
     // JQuery on-ready
     $(function () {
-        
+
         // Forgot password functionality
         var $firstStep = $('#passwordReset');
         var $btn = $('#btnSubmit');
@@ -31,6 +31,8 @@
                 }
                 $successMessage.show();
                 $failMessage.hide();
+
+                $btn.hide();
             })
             .always(function () {
                 $btn.button('reset');

@@ -35,6 +35,36 @@
     </div>
 </div>
 
+@*Login Modal*@
+<div class="modal fade" id="passwordResetModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Recover your password
+            </div>
+            <div class="modal-body">
+                <div id="passwordReset" data-url="@Url.Action("ForgotPassword")">
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" class="form-control" id="EmailForRecovery" />
+                    </div>
+                    <div class="alert alert-success" id="forgotPassword_Success">
+                        A new password has been generated and sent to your email.
+                    </div>
+                    <div class="alert alert-danger" id="forgotPassword_Fail">
+                        @*Set by javascript*@
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="btnSubmit">Send me a new one</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @section Scripts{
     <script src="@Url.Content("~/Scripts/Account/Login.js")"></script>
 }

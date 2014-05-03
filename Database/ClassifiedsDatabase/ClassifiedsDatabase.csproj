@@ -70,7 +70,6 @@
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Scripts\0000-BadScript.sql" />
     <EmbeddedResource Include="Scripts\0009-SplitStringToInt.sql" />
     <EmbeddedResource Include="Scripts\0016-spSearchOnlineAdFREETEXT-Alter.sql" />
     <EmbeddedResource Include="Scripts\0012-FullTextIndex-OnlineAdView-Create.sql" />

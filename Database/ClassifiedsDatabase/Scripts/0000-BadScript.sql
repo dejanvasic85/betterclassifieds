@@ -1,1 +1,0 @@
-﻿UPDATE somethingBad SET ABADVALUE = 'WhoCares-JustATest'

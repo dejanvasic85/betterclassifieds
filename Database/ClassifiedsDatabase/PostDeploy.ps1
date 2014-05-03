@@ -58,3 +58,9 @@ Set-Location $scriptPath
 
 # Execute upgrade script
 & .\ClassifiedsDatabase.exe
+
+<#
+if ( $LASTEXITCODE  -ne 0 ) { 
+	throw "Upgrade failed. Please check the script log."
+}
+#>

@@ -55,7 +55,7 @@
             <div class="row">
                 <div class="col-xs-10">
                     @*Fetch more ads*@
-                    @if ((int)ViewBag.ResultsPerPage == Model.SearchResults.Count)
+                    @if (Model.HasResults)
                     {
 
                         <button id="btnShowMore" class="btn btn-default btn-block" data-url="@Url.Action("ShowMore")">

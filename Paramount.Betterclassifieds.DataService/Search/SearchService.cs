@@ -1,18 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.DataService.Classifieds;
+using Paramount.Betterclassifieds.DataService.Search;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Paramount.Betterclassifieds.DataService
 {
     public class SearchService : ISearchService, IMappingBehaviour
     {
+        public List<AdSearchResult> GetAdsFromEf(string searchterm, IEnumerable<int> categoryIds, IEnumerable<int> locationIds, IEnumerable<int> areaIds, int index = 0, int pageSize = 25, AdSearchSortOrder sortOrder = AdSearchSortOrder.MostRelevant)
+        {
+            using (var context = new ClassifiedsEntityContext())
+            {
+                // Call stored procedure
+                List<AdSearchResult> results = context.Database.SqlQuery<AdSearchResult>(
+                    "spSearchBookedAds", 
+                    searchterm.NullIfEmpty(),
+                    string.Join(",", categoryIds.EmptyIfNull()).NullIfEmpty(),
+                    string.Join(",", locationIds.EmptyIfNull()).NullIfEmpty(),
+                    string.Join(",", areaIds.EmptyIfNull()).NullIfEmpty()
+                    )
+                    .ToList();
+
+                return results;
+            }
+        }
+
         public List<AdSearchResult> GetAds(string searchterm, IEnumerable<int> categoryIds, IEnumerable<int> locationIds, IEnumerable<int> areaIds, int index = 0, int pageSize = 25, AdSearchSortOrder sortOrder = AdSearchSortOrder.MostRelevant)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DataContextFactory.CreateClassifiedSearchContext())
             {
                 // Get the latest online ads
                 var categoryList = string.Join(",", categoryIds.EmptyIfNull()).NullIfEmpty();
@@ -21,10 +40,15 @@ namespace Paramount.Betterclassifieds.DataService
 
                 searchterm = searchterm.NullIfEmpty();
 
-                List<OnlineAdView> ads = context.spSearchOnlineAdFREETEXT(searchterm, categoryList, locationList, areaList, (int)sortOrder, index, pageSize).ToList();
+                var results = context.spSearchBookedAds(searchterm,
+                    categoryList,
+                    locationList,
+                    areaList,
+                    (int)sortOrder,
+                    index,
+                    pageSize).ToList();
 
-                // Map to the models
-                return this.MapList<OnlineAdView, AdSearchResult>(ads);
+                return this.MapList<BookedAd, AdSearchResult>(results);
             }
         }
 
@@ -43,7 +67,7 @@ namespace Paramount.Betterclassifieds.DataService
         {
             return GetAds(searchterm: null, categoryIds: null, locationIds: null, areaIds: null, index: 0, pageSize: pageSize, sortOrder: AdSearchSortOrder.NewestFirst);
         }
-        
+
         public AdSearchResult GetAdById(int id)
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
@@ -76,7 +100,7 @@ namespace Paramount.Betterclassifieds.DataService
                 return this.MapList<Location, LocationSearchResult>(context.Locations.ToList());
             }
         }
-        
+
         public List<CategorySearchResult> GetTopLevelCategories()
         {
             return GetCategories().Where(c => c.ParentId.IsNullValue()).ToList();
@@ -137,11 +161,10 @@ namespace Paramount.Betterclassifieds.DataService
             // From DB
             configuration.CreateMap<MainCategory, CategorySearchResult>();
             configuration.CreateMap<Location, LocationSearchResult>();
-            configuration.CreateMap<OnlineAdView, AdSearchResult>()
-                .ForMember(member => member.CategoryName, options => options.MapFrom(source => source.CategoryTitle))
-                .ForMember(member => member.ParentCategoryId, options => options.MapFrom(source => source.CategoryParentId))
+           
+            configuration.CreateMap<BookedAd, AdSearchResult>()
                 .ForMember(member => member.Username, options => options.MapFrom(source => source.UserId))
-                .ForMember(member => member.ImageUrls, options => options.MapFrom(source => source.DocumentIds.HasValue() ? source.DocumentIds.Split(',') : new string[0]))
+                // .ForMember(member => member.ImageUrls, options => options.MapFrom(source => source.DocumentIds.HasValue() ? source.DocumentIds.Split(',') : new string[0]))
                 .ForMember(member => member.Publications, options => options.MapFrom(source => source.Publications.HasValue() ? source.Publications.Split(',') : new string[0]))
                 ;
 

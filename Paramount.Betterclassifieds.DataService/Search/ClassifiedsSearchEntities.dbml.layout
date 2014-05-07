@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="ClassifiedsSearchEntities">
+  <DataContextMoniker Name="/ClassifiedsSearchEntitiesDataContext" />
+  <nestedChildShapes>
+    <classShape Id="44a6c0d8-392a-46ee-aefc-a531e799c2e4" absoluteBounds="0.75, 0.5, 2, 5.6169254557291657">
+      <DataClassMoniker Name="/ClassifiedsSearchEntitiesDataContext/BookedAd" />
+      <nestedChildShapes>
+        <elementListCompartment Id="946b2113-6a55-405f-98db-58bd164ec4e0" absoluteBounds="0.76500000000000012, 0.96, 1.9700000000000002, 5.0569254557291661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

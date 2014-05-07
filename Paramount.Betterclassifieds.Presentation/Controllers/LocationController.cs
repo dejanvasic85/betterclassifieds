@@ -20,6 +20,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 .OrderBy(l => l.Text)
                 .ToList();
 
+            // Set the any location to a null value
+            list.First(l => l.Text.Contains("Any Location")).Value = null;
+
             return Json(list, JsonRequestBehavior.AllowGet);
         }
     }

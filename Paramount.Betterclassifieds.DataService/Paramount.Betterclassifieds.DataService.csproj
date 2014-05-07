@@ -85,6 +85,7 @@
     <Compile Include="Broadcast\MappingConfig\DeliveryConfiguration.cs" />
     <Compile Include="Broadcast\MappingConfig\EmailDeliveryConfiguration.cs" />
     <Compile Include="Broadcast\MappingConfig\EmailTemplateConfiguration.cs" />
+    <Compile Include="ClassifiedsEntityContext.cs" />
     <Compile Include="Comparers\PublicationDataIdComparer.cs" />
     <Compile Include="DataServiceInitialiser.cs" />
     <Compile Include="DocumentStorage\DocumentContext.cs" />
@@ -92,6 +93,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Classifieds.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Search\ClassifiedsSearchEntities.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClassifiedsSearchEntities.dbml</DependentUpon>
     </Compile>
     <Compile Include="LinqObjects\DataContextFactory.cs" />
     <Compile Include="AdoModels\DslDataService.cs" />
@@ -125,7 +131,7 @@
     <Compile Include="Repository\PublicationRepository.cs" />
     <Compile Include="Repository\RateRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
-    <Compile Include="SearchService.cs" />
+    <Compile Include="Search\SearchService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ApplicationBlock\Configuration\ApplicationBlock.Configuration.csproj">
@@ -162,6 +168,11 @@
       <LastGenOutput>Classifieds.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
+    <None Include="Search\ClassifiedsSearchEntities.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>ClassifiedsSearchEntities.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="LinqObjects\UserMembership.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>UserMembership.designer.cs</LastGenOutput>
@@ -182,7 +193,11 @@
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Search\ClassifiedsSearchEntities.dbml.layout">
+      <DependentUpon>ClassifiedsSearchEntities.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <None Include="LinqObjects\Classifieds.dbml.layout">
       <DependentUpon>Classifieds.dbml</DependentUpon>

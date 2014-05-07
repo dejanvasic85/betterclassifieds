@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.Ajax.Utilities;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -22,13 +22,21 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpGet]
-        public ActionResult Find(string keyword = "", int? categoryId = null, int? locationId = null, int sort = 4)
+        public ActionResult Find(string keyword = "", int? categoryId = null, int? locationId = null, int? sort = null)
         {
             // Set the search filters that should be available (in session) all the time
             _searchFilters.Keyword = keyword;
             _searchFilters.CategoryId = categoryId;
             _searchFilters.LocationId = locationId;
-            _searchFilters.Sort = sort;
+
+            if (sort.HasValue)
+            {
+                _searchFilters.Sort = sort.Value;
+            }
+            else if(keyword.HasValue())
+            {
+                _searchFilters.Sort = (int) AdSearchSortOrder.MostRelevant;
+            }
 
             var searchModel = new FindModel
             {
@@ -65,7 +73,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var results = _searchService.GetAds(_searchFilters.Keyword, _searchFilters.CategoryId,
                 _searchFilters.LocationId, index: pageRequest.Page, pageSize: ResultsPerPage,
-                order: (AdSearchSortOrder) _searchFilters.Sort);
+                order: (AdSearchSortOrder)_searchFilters.Sort);
 
             var viewModel = this.MapList<AdSearchResult, AdSummaryViewModel>(results.ToList());
 

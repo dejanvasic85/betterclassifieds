@@ -26,15 +26,5 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult GetLocationOptions()
-        {
-            var list = _searchService.GetLocations()
-                .Select(l => new SelectListItem { Text = l.Title, Value = l.LocationId.ToString() })
-                .OrderBy(l => l.Text)
-                .ToList();
-
-            return Json(list, JsonRequestBehavior.AllowGet);
-        }
-
     }
 }

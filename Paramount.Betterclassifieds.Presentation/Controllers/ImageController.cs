@@ -16,7 +16,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpGet]
-        [OutputCache(Duration = 120, VaryByParam = "documentId;height;width")]
+        [OutputCache(Duration = 120 * 120, VaryByParam = "documentId;height;width")]
         public ActionResult Render(Guid documentId, int? height = null, int? width = null)
         {
             // Fetch the document from repository

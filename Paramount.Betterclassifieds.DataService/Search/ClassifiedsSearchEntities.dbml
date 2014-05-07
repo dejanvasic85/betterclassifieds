@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="iFlog" Class="ClassifiedsSearchEntitiesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost;Initial Catalog=iFlog;Integrated Security=True" SettingsObjectName="Paramount.Betterclassifieds.DataService.Properties.Settings" SettingsPropertyName="iFlogConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.BookedAds" Member="BookedAds">
+    <Type Name="BookedAd" Id="ID1">
+      <Column Name="OnlineAdId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AdDesignId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Heading" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="HtmlText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="LocationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LocationAreaId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ContactName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="ContactType" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="ContactValue" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="NumOfViews" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OnlineAdTag" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="AdId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BookingDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CategoryName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ParentCategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LocationName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LocationAreaName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DocumentIds" Type="System.String" CanBeNull="false" />
+      <Column Name="Publications" Type="System.String" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Function Name="dbo.spSearchBookedAds" Method="spSearchBookedAds">
+    <Parameter Name="searchTerm" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="categoryIds" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="locationIds" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="areaIds" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="order" Type="System.Int32" DbType="Int" />
+    <Parameter Name="pageIndex" Type="System.Int32" DbType="Int" />
+    <Parameter Name="pageSize" Type="System.Int32" DbType="Int" />
+    <ElementType IdRef="ID1" />
+  </Function>
+</Database>

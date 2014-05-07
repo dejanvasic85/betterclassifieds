@@ -29,5 +29,6 @@ namespace Paramount.Betterclassifieds.Business.Search
         public string LocationTitle { get; set; }
         public string AreaTitle { get; set; }
         public int LocationAreaId { get; set; }
+        public int TotalCount { get; set; }
     }
 }

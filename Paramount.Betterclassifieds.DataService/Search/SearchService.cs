@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System.Data;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
+using AutoMapper;
+using Paramount.ApplicationBlock.Data;
 using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.DataService.Classifieds;
@@ -11,13 +14,13 @@ namespace Paramount.Betterclassifieds.DataService
 {
     public class SearchService : ISearchService, IMappingBehaviour
     {
-        public List<AdSearchResult> GetAdsFromEf(string searchterm, IEnumerable<int> categoryIds, IEnumerable<int> locationIds, IEnumerable<int> areaIds, int index = 0, int pageSize = 25, AdSearchSortOrder sortOrder = AdSearchSortOrder.MostRelevant)
+        public List<AdSearchResult> GetAdsEf(string searchterm, IEnumerable<int> categoryIds, IEnumerable<int> locationIds, IEnumerable<int> areaIds, int index = 0, int pageSize = 25, AdSearchSortOrder sortOrder = AdSearchSortOrder.MostRelevant)
         {
             using (var context = new ClassifiedsEntityContext())
             {
                 // Call stored procedure
                 List<AdSearchResult> results = context.Database.SqlQuery<AdSearchResult>(
-                    "spSearchBookedAds", 
+                    "spSearchBookedAds",
                     searchterm.NullIfEmpty(),
                     string.Join(",", categoryIds.EmptyIfNull()).NullIfEmpty(),
                     string.Join(",", locationIds.EmptyIfNull()).NullIfEmpty(),
@@ -29,7 +32,7 @@ namespace Paramount.Betterclassifieds.DataService
             }
         }
 
-        public List<AdSearchResult> GetAds(string searchterm, IEnumerable<int> categoryIds, IEnumerable<int> locationIds, IEnumerable<int> areaIds, int index = 0, int pageSize = 25, AdSearchSortOrder sortOrder = AdSearchSortOrder.MostRelevant)
+        public List<AdSearchResult> GetAdsLinq(string searchterm, IEnumerable<int> categoryIds, IEnumerable<int> locationIds, IEnumerable<int> areaIds, int index = 0, int pageSize = 25, AdSearchSortOrder sortOrder = AdSearchSortOrder.MostRelevant)
         {
             using (var context = DataContextFactory.CreateClassifiedSearchContext())
             {
@@ -50,6 +53,25 @@ namespace Paramount.Betterclassifieds.DataService
 
                 return this.MapList<BookedAd, AdSearchResult>(results);
             }
+        }
+
+        public List<AdSearchResult> GetAds(string searchterm, IEnumerable<int> categoryIds, IEnumerable<int> locationIds, IEnumerable<int> areaIds, int index = 0, int pageSize = 25, AdSearchSortOrder sortOrder = AdSearchSortOrder.MostRelevant)
+        {
+            DatabaseProxy proxy = new DatabaseProxy("spSearchBookedAds", "paramount/services", "BetterclassifiedsConnection");
+            proxy.AddParameter("searchTerm", searchterm, StringType.VarChar);
+
+            var dt = proxy.ExecuteQuery().Tables[0];
+            var results = dt.Rows.OfType<DataRow>().Select(row => new AdSearchResult
+            {
+                AdId = row.Field<int>("AdId"),
+                Heading = row.Field<string>("Heading"),
+                Description = row.Field<string>("Description"),
+                HtmlText = row.Field<string>("HtmlText"),
+                LocationId = row.Field<int>("LocationId"),
+                CategoryName = row.Field<string>("CategoryName")
+            }).ToList();
+
+            return results;
         }
 
         public List<AdSearchResult> GetAds(string searchterm, int? categoryId, int? locationId, int index = 0, int pageSize = 25, AdSearchSortOrder order = AdSearchSortOrder.MostRelevant)
@@ -161,7 +183,7 @@ namespace Paramount.Betterclassifieds.DataService
             // From DB
             configuration.CreateMap<MainCategory, CategorySearchResult>();
             configuration.CreateMap<Location, LocationSearchResult>();
-           
+
             configuration.CreateMap<BookedAd, AdSearchResult>()
                 .ForMember(member => member.Username, options => options.MapFrom(source => source.UserId))
                 // .ForMember(member => member.ImageUrls, options => options.MapFrom(source => source.DocumentIds.HasValue() ? source.DocumentIds.Split(',') : new string[0]))

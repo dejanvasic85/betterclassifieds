@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Paramount.Betterclassifieds.Business.Search;
+using Paramount.Betterclassifieds.DataService;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 using System.Linq;
 using System.Web.Mvc;
@@ -10,6 +11,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
     {
         public HomeController(ISearchService searchService)
             : base(searchService)
+        { }
+
+        public HomeController()
+            : this(new SearchService())
         { }
 
         public ActionResult Index()

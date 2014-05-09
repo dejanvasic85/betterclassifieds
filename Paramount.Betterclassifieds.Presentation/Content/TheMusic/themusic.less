@@ -12,6 +12,12 @@
     src: url('fonts/ufonts.com_alternate_gothic_no2_d.ttf');
 }
 
+.container-body
+{
+    background-color: #fff;
+    padding: 8px;
+}
+
 .themusic-background {
     background-image: url('http://themusic.com.au/images/body-grad.png'), url('http://themusic.com.au/images/bg.png');
     background-attachment: scroll, scroll;
@@ -29,15 +35,6 @@
 .navbar-default .navbar-nav > li > a:focus {
     color: @grayfont;
     text-decoration: underline;
-}
-
-.navbar-default .navbar-nav > li > a.seperator {
-    color: @grayfont;
-}
-
-.navbar-default .navbar-nav > li > a.seperator:focus,
-.navbar-default .navbar-nav > li > a.seperator:hover {
-    text-decoration: none;
 }
 
 .navbar-default {
@@ -61,8 +58,8 @@
     }
 
 .btn-primary {
-    color: @grayfont;
-    background-color: @darkblue;
+    color: @white;
+    background-color: @backgroundred;
     border-color: @darkblue;
 }
 
@@ -87,3 +84,22 @@
 .label-category {
     background-color: @darkblue;
 }
+
+.google-top-ad {
+    width: 728px;
+    height: 90px;
+}
+
+.themusic-logo{
+    max-width: 250px
+}
+
+.tooltip-inner {
+    max-width: 300px;
+    padding: 0;
+}
+.tooltip-alert{
+    padding: 8px 10px;
+    font-weight: bolder;
+    color: #A94442;
+} 

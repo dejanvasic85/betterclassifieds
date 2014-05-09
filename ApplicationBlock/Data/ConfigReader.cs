@@ -45,6 +45,9 @@
 
         private string ConnectionString()
         {
+            if(configSection == null)
+                throw new ConfigurationErrorsException("Config section has not been set up");
+
             return this.configSection[string.IsNullOrEmpty(this.configKey) ? "ConnectionString" : this.configKey].Value;
         }
 

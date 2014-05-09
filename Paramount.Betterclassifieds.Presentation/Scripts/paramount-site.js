@@ -15,16 +15,24 @@
             }
         });
 
-        // Every js-select will load the select items from data-url attribute
+        // Wire up the bootstrap tooltips
+        $("[rel='tooltip']").tooltip();
+
+        // Wire up js-select dropdowns
         $('.js-select').each(function () {
             var me = $(this);
             me.attr('disabled', 'disabled');
             me.append('<option>Loading...</option>');
             var url = me.data().url;
+            var selected = me.data().selected;
             $.getJSON(url).done(function (data) {
                 me.empty();
                 $.each(data, function (index, option) {
-                    me.append('<option value="' + option.Value + '">' + option.Text + '</option>');
+                    if (selected == option.Value) {
+                        me.append('<option selected value="' + option.Value + '">' + option.Text + '</option>');
+                    } else {
+                        me.append('<option value="' + option.Value + '">' + option.Text + '</option>');
+                    }
                 });
                 me.removeAttr('disabled');
             });

@@ -3,6 +3,10 @@
   font-family: alternate-gothic-no-2-d;
   src: url('fonts/ufonts.com_alternate_gothic_no2_d.ttf');
 }
+.container-body {
+  background-color: #fff;
+  padding: 8px;
+}
 .themusic-background {
   background-image: url('http://themusic.com.au/images/body-grad.png'), url('http://themusic.com.au/images/bg.png');
   background-attachment: scroll, scroll;
@@ -18,13 +22,6 @@
 .navbar-default .navbar-nav > li > a:focus {
   color: #e7e7e7;
   text-decoration: underline;
-}
-.navbar-default .navbar-nav > li > a.seperator {
-  color: #e7e7e7;
-}
-.navbar-default .navbar-nav > li > a.seperator:focus,
-.navbar-default .navbar-nav > li > a.seperator:hover {
-  text-decoration: none;
 }
 .navbar-default {
   text-transform: uppercase;
@@ -43,8 +40,8 @@
   color: #e7e7e7;
 }
 .btn-primary {
-  color: #e7e7e7;
-  background-color: #263745;
+  color: #ffffff;
+  background-color: #d64c0f;
   border-color: #263745;
 }
 .btn-primary:hover,
@@ -65,4 +62,19 @@
 .label-category {
   background-color: #263745;
 }
-/*# sourceMappingURL=themusic.css.map */
+.google-top-ad {
+  width: 728px;
+  height: 90px;
+}
+.themusic-logo {
+  max-width: 250px;
+}
+.tooltip-inner {
+  max-width: 300px;
+  padding: 0;
+}
+.tooltip-alert {
+  padding: 8px 10px;
+  font-weight: bolder;
+  color: #A94442;
+}

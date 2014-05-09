@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
+using System.Data.SqlClient;
 using AutoMapper;
 using Paramount.ApplicationBlock.Data;
 using Paramount.Betterclassifieds.Business.Models;
@@ -14,25 +15,7 @@ namespace Paramount.Betterclassifieds.DataService
 {
     public class SearchService : ISearchService, IMappingBehaviour
     {
-        public List<AdSearchResult> GetAdsEf(string searchterm, IEnumerable<int> categoryIds, IEnumerable<int> locationIds, IEnumerable<int> areaIds, int index = 0, int pageSize = 25, AdSearchSortOrder sortOrder = AdSearchSortOrder.MostRelevant)
-        {
-            using (var context = new ClassifiedsEntityContext())
-            {
-                // Call stored procedure
-                List<AdSearchResult> results = context.Database.SqlQuery<AdSearchResult>(
-                    "spSearchBookedAds",
-                    searchterm.NullIfEmpty(),
-                    string.Join(",", categoryIds.EmptyIfNull()).NullIfEmpty(),
-                    string.Join(",", locationIds.EmptyIfNull()).NullIfEmpty(),
-                    string.Join(",", areaIds.EmptyIfNull()).NullIfEmpty()
-                    )
-                    .ToList();
-
-                return results;
-            }
-        }
-
-        public List<AdSearchResult> GetAdsLinq(string searchterm, IEnumerable<int> categoryIds, IEnumerable<int> locationIds, IEnumerable<int> areaIds, int index = 0, int pageSize = 25, AdSearchSortOrder sortOrder = AdSearchSortOrder.MostRelevant)
+        public List<AdSearchResult> GetAds(string searchterm, IEnumerable<int> categoryIds, IEnumerable<int> locationIds, IEnumerable<int> areaIds, int index = 0, int pageSize = 25, AdSearchSortOrder sortOrder = AdSearchSortOrder.MostRelevant)
         {
             using (var context = DataContextFactory.CreateClassifiedSearchContext())
             {
@@ -55,7 +38,7 @@ namespace Paramount.Betterclassifieds.DataService
             }
         }
 
-        public List<AdSearchResult> GetAds(string searchterm, IEnumerable<int> categoryIds, IEnumerable<int> locationIds, IEnumerable<int> areaIds, int index = 0, int pageSize = 25, AdSearchSortOrder sortOrder = AdSearchSortOrder.MostRelevant)
+        public List<AdSearchResult> GetAdsWithAdo(string searchterm, IEnumerable<int> categoryIds, IEnumerable<int> locationIds, IEnumerable<int> areaIds, int index = 0, int pageSize = 25, AdSearchSortOrder sortOrder = AdSearchSortOrder.MostRelevant)
         {
             DatabaseProxy proxy = new DatabaseProxy("spSearchBookedAds", "paramount/services", "BetterclassifiedsConnection");
             proxy.AddParameter("searchTerm", searchterm, StringType.VarChar);

@@ -8,5 +8,7 @@
         bool IsOnlineAdFree { get; }
         string PublisherHomeUrl { get; }
         string FacebookAppId { get; }
+        int SearchResultsPerPage { get; }
+        int SearchMaxPagedRequests { get; }
     }
 }

@@ -17,12 +17,13 @@
 
             $.post(me.data().url, {page : currentPage}).done(function (adListHtml) {
                 var $items = $(adListHtml).find('.list-group-item');
-                debugger;
-                if ($items.length == 0 || $items.length < resultsPerPage) {
-                    me.hide();
-                } else {
+
+                if ($items.length > 0)
                     $('.list-group').append($(adListHtml).find('.list-group-item'));
-                }
+
+                if ($items.length == 0 || $items.length < resultsPerPage)
+                    me.hide();
+
             }).always(function () {
                 currentPage++;
                 if (currentPage === maxPageRequests) {

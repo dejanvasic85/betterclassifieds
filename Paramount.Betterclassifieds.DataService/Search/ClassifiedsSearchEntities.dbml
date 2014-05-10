@@ -27,6 +27,7 @@
       <Column Name="LocationAreaName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="DocumentIds" Type="System.String" CanBeNull="false" />
       <Column Name="Publications" Type="System.String" CanBeNull="false" />
+      <Column Name="TotalCount" Type="System.Int32" CanBeNull="false" />
     </Type>
   </Table>
   <Function Name="dbo.spSearchBookedAds" Method="spSearchBookedAds">

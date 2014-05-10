@@ -13,6 +13,10 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
         public string PublisherHomeUrl { get { return ConfigManager.ReadAppSetting<string>("PublisherHomeUrl"); } }
         public string FacebookAppId { get { return ConfigManager.ReadAppSetting<string>("FacebookAppId"); } }
+
+        public int SearchResultsPerPage { get { return 10; } }
+           
+        public int SearchMaxPagedRequests { get { return 100; } }
         
     }
 }

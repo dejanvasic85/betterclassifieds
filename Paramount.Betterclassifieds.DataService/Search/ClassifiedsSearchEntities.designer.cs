@@ -132,6 +132,8 @@ namespace Paramount.Betterclassifieds.DataService.Search
 		
 		private string _Publications;
 		
+		private int _TotalCount;
+		
 		public BookedAd()
 		{
 		}
@@ -532,6 +534,22 @@ namespace Paramount.Betterclassifieds.DataService.Search
 				if ((this._Publications != value))
 				{
 					this._Publications = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalCount")]
+		public int TotalCount
+		{
+			get
+			{
+				return this._TotalCount;
+			}
+			set
+			{
+				if ((this._TotalCount != value))
+				{
+					this._TotalCount = value;
 				}
 			}
 		}

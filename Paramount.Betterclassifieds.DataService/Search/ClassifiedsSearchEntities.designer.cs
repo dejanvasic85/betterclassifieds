@@ -134,6 +134,8 @@ namespace Paramount.Betterclassifieds.DataService.Search
 		
 		private int _TotalCount;
 		
+		private string _ParentCategoryName;
+		
 		public BookedAd()
 		{
 		}
@@ -550,6 +552,22 @@ namespace Paramount.Betterclassifieds.DataService.Search
 				if ((this._TotalCount != value))
 				{
 					this._TotalCount = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParentCategoryName", CanBeNull=false)]
+		public string ParentCategoryName
+		{
+			get
+			{
+				return this._ParentCategoryName;
+			}
+			set
+			{
+				if ((this._ParentCategoryName != value))
+				{
+					this._ParentCategoryName = value;
 				}
 			}
 		}

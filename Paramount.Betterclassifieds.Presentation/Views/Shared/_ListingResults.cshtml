@@ -6,7 +6,7 @@
     @if (Model.IsNullOrEmpty())
     {
         <div class="well">
-            Oooops... There are no results to display for your search. Modify your search filters and try again.
+            Oh No! There are no results to display for your search. Modify the filters on the left and try again.
         </div>
     }
 
@@ -17,22 +17,22 @@
                 @if (ad.ImageUrls.Any())
                 {
                     <img class="media-object pull-right thumbnail"
-                         alt="84x84"
+                         alt="100x100"
                          src="@Url.Action("Render", "Image", new { documentId = ad.ImageUrls.First(), height = 100, width = 100 })" />
                 }
 
                 <div class="media-body">
                     <h4 class="media-heading">@ad.Heading</h4>
+                    <p>@ad.Description.TruncateOnWordBoundary(150)</p>
                     <p>
-                        @ad.Description.TruncateOnWordBoundary(150)
-                    </p>
-                    <p>
+                        <span class="label label-category">@ad.ParentCategoryName</span>
                         <span class="label label-category">@ad.CategoryName</span>
                         @foreach (var publication in ad.Publications)
                         {
                             <span class="label label-publication">@publication</span>
                         }
                     </p>
+                    <p>@ad.BookingDateFriendly</p>
                 </div>
             </div>
         </a>

@@ -28,6 +28,7 @@
       <Column Name="DocumentIds" Type="System.String" CanBeNull="false" />
       <Column Name="Publications" Type="System.String" CanBeNull="false" />
       <Column Name="TotalCount" Type="System.Int32" CanBeNull="false" />
+      <Column Name="ParentCategoryName" Type="System.String" CanBeNull="false" />
     </Type>
   </Table>
   <Function Name="dbo.spSearchBookedAds" Method="spSearchBookedAds">

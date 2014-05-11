@@ -30,5 +30,6 @@ namespace Paramount.Betterclassifieds.Business.Search
         public string AreaTitle { get; set; }
         public int LocationAreaId { get; set; }
         public int TotalCount { get; set; }
+        public string ParentCategoryName { get; set; }
     }
 }

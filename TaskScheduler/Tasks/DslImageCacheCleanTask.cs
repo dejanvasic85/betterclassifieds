@@ -5,34 +5,45 @@ namespace Paramount.TaskScheduler
 
     public class DslImageCacheCleanTask : IScheduler
     {
-        private const int DslFileDurationHours = 6;
+        private const int DaysToRetainImageCache = -1; // This is a good number because it's usually how long online ads run
 
         public void Run(SchedulerParameters parameters)
         {
-            CleanUpDslImageCache(parameters[Name]);
+            // Create directory info based on the first parameter passed in to the arg
+            // e.g. IMAGECACHECLEAN/c:\Paramount\ImageCache\
+            var directoryToClean = new DirectoryInfo(parameters[Name]);
+
+            CleanDirectory(directoryToClean);
         }
 
         public string Name
         {
             get { return "IMAGECACHECLEAN"; }
         }
-
-        static void CleanUpDslImageCache(string path)
+        
+        static void CleanDirectory(DirectoryInfo dir)
         {
-            // Only perform clean of cache for files older than 24 hours
-            var directoryInfo = new DirectoryInfo(path);
-            var files = directoryInfo.GetFiles();
-
-            foreach (var file in files)
+            // Clean this directory
+            foreach (var file in dir.GetFiles())
             {
-                TimeSpan ts = DateTime.Now.Subtract(file.LastAccessTime);
-                Console.WriteLine(ts.Hours.ToString());
+                var ts = DateTime.Now.Subtract(file.LastAccessTime);
 
-                if (ts.TotalHours > DslFileDurationHours)
+                if (ts.Days <= DaysToRetainImageCache) continue;
+                Console.WriteLine("Attempting to delete file " + file.FullName);
+                try
                 {
-                    Console.WriteLine("Deleting File " + file.FullName);
                     file.Delete();
                 }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Failed\nMessage: {0}\nStackTrace{1}", ex.Message, ex.StackTrace);
+                }
+            }
+
+            // Make recursive call for all sub directories
+            foreach (var childDirectory in dir.GetDirectories())
+            {
+                CleanDirectory(childDirectory);
             }
         }
     }

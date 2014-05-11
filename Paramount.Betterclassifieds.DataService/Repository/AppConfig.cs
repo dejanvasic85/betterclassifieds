@@ -45,5 +45,13 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                 return ConfigManager.ReadAppSetting("UseHttps", false);
             }
         }
+
+        public string ImageCacheDirectory
+        {
+            get
+            {
+                return ConfigManager.GetSetting("paramount/dsl", "ImageCacheDirectory");
+            }
+        }
     }
 }

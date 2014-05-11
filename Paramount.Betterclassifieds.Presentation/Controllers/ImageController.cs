@@ -1,6 +1,9 @@
-﻿using Paramount.Betterclassifieds.Business.Repository;
-using Paramount.Utility;
+﻿using Paramount.Betterclassifieds.Business.Managers;
+using Paramount.Betterclassifieds.Business.Repository;
+using Paramount.Betterclassifieds.Presentation.Framework;
+using Simple.ImageResizer.MvcExtensions;
 using System;
+using System.IO;
 using System.Web.Caching;
 using System.Web.Mvc;
 
@@ -9,31 +12,27 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
     public class ImageController : Controller
     {
         private readonly IDocumentRepository _documentRepository;
+        private readonly IApplicationConfig _applicationConfig;
 
-        public ImageController(IDocumentRepository documentRepository)
+        public ImageController(IDocumentRepository documentRepository, IApplicationConfig applicationConfig)
         {
             _documentRepository = documentRepository;
+            _applicationConfig = applicationConfig;
         }
 
         [HttpGet]
-        [OutputCache(Duration = 120 * 120, VaryByParam = "documentId;height;width")]
+        [OutputCache(Duration = 60*60*72, VaryByParam = "*")] // 60 x 60 x 72 should equal 3 days
         public ActionResult Render(Guid documentId, int? height = null, int? width = null)
         {
-            // Fetch the document from repository
-            var document = _documentRepository.GetDocument(documentId);
+            // Construct the temporary filepath to where the original image may be cached
+            // var targetFilePath = Path.Combine(Server.MapPath("~/ImageCache"), documentId.ToString()) + ".jpg";
+            var targetFilePath = Path.Combine(_applicationConfig.ImageCacheDirectory, documentId.ToString().Append(".jpg"));
 
-            if (document == null)
-                return new EmptyResult();
-
-            // Only resize the image if both values are provided
-            if (height.HasValue && width.HasValue)
-            {
-                // Use the helper to do the work...
-                var resizedData = ImageHelper.ResizeFixedSize(document.Data, width.Value, height.Value);
-                return File(resizedData, document.ContentType);
-            }
-
-            return File(document.Data, document.ContentType);
+            // Use the ImageResult from the Simple.ImageResultLibrary to the work
+            // And pass in the retrieval for the document
+            return ImageMvcResizer.FromDocument(
+                () => _documentRepository.GetDocument(documentId), 
+                targetFilePath, width ?? 0, height ?? 0);
         }
     }
 }

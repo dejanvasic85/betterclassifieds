@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Paramount.Betterclassifieds.Business.Repository
+namespace Paramount.Betterclassifieds.Business
 {
     public class Document
     {

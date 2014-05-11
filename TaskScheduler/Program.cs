@@ -19,7 +19,8 @@ namespace Paramount.TaskScheduler
         {
 #if DEBUG
             //ProcessJob(new[] { "SYSTEMHEALTHCHECKALERT/dejanvasic@outlook.com" });
-            ProcessJob(new[] {"EXPAD/1", "DAYSBEFOREEXPIRY/11"});
+            //ProcessJob(new[] {"EXPAD/1", "DAYSBEFOREEXPIRY/11"});
+            ProcessJob(new[] { @"IMAGECACHECLEAN/c:\Paramount\ImageCache\"});
             //ProcessJob(new[] { "EMAILPROCESSING/" });
 #else
             ProcessJob(args);

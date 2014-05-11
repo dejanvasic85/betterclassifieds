@@ -1,4 +1,5 @@
 ﻿using Paramount.ApplicationBlock.Data;
+using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Repository;
 using System.Data.Entity;
 

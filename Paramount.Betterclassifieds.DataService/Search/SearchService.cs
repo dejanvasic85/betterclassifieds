@@ -169,7 +169,7 @@ namespace Paramount.Betterclassifieds.DataService
 
             configuration.CreateMap<BookedAd, AdSearchResult>()
                 .ForMember(member => member.Username, options => options.MapFrom(source => source.UserId))
-                // .ForMember(member => member.ImageUrls, options => options.MapFrom(source => source.DocumentIds.HasValue() ? source.DocumentIds.Split(',') : new string[0]))
+                .ForMember(member => member.ImageUrls, options => options.MapFrom(source => source.DocumentIds.HasValue() ? source.DocumentIds.Split(',') : new string[0]))
                 .ForMember(member => member.Publications, options => options.MapFrom(source => source.Publications.HasValue() ? source.Publications.Split(',') : new string[0]))
                 ;
 

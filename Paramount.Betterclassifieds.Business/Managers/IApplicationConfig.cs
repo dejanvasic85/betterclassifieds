@@ -7,5 +7,6 @@
         string ClientCode { get; }
         string ConfigurationContext { get; }
         bool UseHttps { get; }
+        string ImageCacheDirectory { get; }
     }
 }

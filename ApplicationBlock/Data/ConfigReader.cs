@@ -1,4 +1,6 @@
-﻿namespace Paramount.ApplicationBlock.Data
+﻿using System.Collections.Generic;
+
+namespace Paramount.ApplicationBlock.Data
 {
     using Configuration;
     using System;
@@ -9,6 +11,20 @@
         private readonly string configKey;
         private readonly string configSectionName;
         private ConfigurationDictionary configSection;
+        private static Dictionary<string, ConfigReader> settings;
+
+        internal static Dictionary<string, ConfigReader> Settings
+        {
+            get
+            {
+                if (settings != null)
+                {
+                    return settings;
+                }
+
+                return settings = new Dictionary<string, ConfigReader>();
+            }
+        }
 
         private ConfigReader(string configSectionName) : this(configSectionName, null) { }
 
@@ -16,28 +32,50 @@
         {
             this.configSectionName = configSectionName;
             this.configKey = configKey;
-            this.LoadConnectionSettingsFromConfig();
+            LoadConnectionSettingsFromConfig();
         }
 
         public static string GetConnectionString(string configSectionName)
         {
-            using (var configReader = new ConfigReader(configSectionName))
+            if (Settings.ContainsKey(configSectionName))
             {
-                return configReader.ConnectionString();
+                return Settings[configSectionName].ConnectionString();
             }
+
+            //add
+            lock (settings)
+            {
+                if (!Settings.ContainsKey(configSectionName))
+                {
+                    Settings.Add(configSectionName, new ConfigReader(configSectionName));
+                }
+            }
+            return Settings[configSectionName].ConnectionString();
         }
 
         public static string GetConnectionString(string configSectionName, string configKey)
         {
-            using (var configReader = new ConfigReader(configSectionName, configKey))
+            var key = string.Format("{0}/{1}", configSectionName, configKey);
+
+            if (Settings.ContainsKey(key))
             {
-                return configReader.ConnectionString();
+                return Settings[key].ConnectionString();
             }
+
+            //add
+            lock (settings)
+            {
+                if (!Settings.ContainsKey(key))
+                {
+                    Settings.Add(key, new ConfigReader(configSectionName, configKey));
+                }
+            }
+            return Settings[key].ConnectionString();
         }
 
         public void Dispose()
         {
-            this.Dispose(true);
+            Dispose(true);
             GC.SuppressFinalize(this);
         }
 
@@ -45,15 +83,15 @@
 
         private string ConnectionString()
         {
-            if(configSection == null)
+            if (configSection == null)
                 throw new ConfigurationErrorsException("Config section has not been set up");
 
-            return this.configSection[string.IsNullOrEmpty(this.configKey) ? "ConnectionString" : this.configKey].Value;
+            return configSection[string.IsNullOrEmpty(configKey) ? "ConnectionString" : configKey].Value;
         }
 
         private void LoadConnectionSettingsFromConfig()
         {
-            this.configSection = (ConfigurationDictionary)ConfigurationManager.GetSection(this.configSectionName);
+            configSection = (ConfigurationDictionary)ConfigurationManager.GetSection(configSectionName);
         }
     }
 }

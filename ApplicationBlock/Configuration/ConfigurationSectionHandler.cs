@@ -11,6 +11,7 @@ namespace Paramount.ApplicationBlock.Configuration
 
     public class ConfigurationSectionHandler : ConfigurationDictionary, IConfigurationSectionHandler
     {
+        private object lockObject = new object();
         public object Create(object parent, object configContext, XmlNode section)
         {
             this.Clear();
@@ -71,7 +72,20 @@ namespace Paramount.ApplicationBlock.Configuration
                                         Credential = (credential == null) ? string.Empty : credential.EndsWith("=") ? GetCredential(credential) : credential
                                     };
 
-                this[key] = itemValue;
+                lock (lockObject)
+                {
+                    if (this.ContainsKey(key))
+                    {
+                        this[key] = itemValue;
+                    }
+                    else
+                    {
+                        Add(key, itemValue);
+                    }
+                }
+                
+
+                
             }
         }
 

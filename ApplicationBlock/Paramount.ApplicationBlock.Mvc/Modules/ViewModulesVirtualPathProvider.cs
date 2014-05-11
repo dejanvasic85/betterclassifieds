@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Caching;
 using System.Web.Hosting;
 using System.Web.Optimization;
+using System.Web.SessionState;
 
 namespace Paramount.ApplicationBlock.Mvc
 {
@@ -21,7 +22,8 @@ namespace Paramount.ApplicationBlock.Mvc
     public class ViewModulesVirtualPathProvider : VirtualPathProvider
     {
         #region public 
-     
+
+       
         public override CacheDependency GetCacheDependency(string virtualPath, IEnumerable virtualPathDependencies, DateTime utcStart)
         {
             if (virtualPathDependencies == null)
@@ -31,13 +33,13 @@ namespace Paramount.ApplicationBlock.Mvc
 
             if (mappedPath != null)
             {
-                var fullPath = new List<string>();
-                foreach (string virtualPathDependency in virtualPathDependencies)
-                {
-                    fullPath.Add(virtualPathDependency);
-                }
+                //var fullPath = new List<string>();
+                //foreach (string virtualPathDependency in virtualPathDependencies)
+                //{
+                //    fullPath.Add(virtualPathDependency);
+                //}
 
-                return new CacheDependency(new[] { mappedPath }, fullPath.ToArray(), utcStart);
+                return new CacheDependency( mappedPath, utcStart);
             }
 
 
@@ -55,26 +57,6 @@ namespace Paramount.ApplicationBlock.Mvc
             return base.DirectoryExists(virtualDir);
         }
 
-        public class CustomScriptBundle : ScriptBundle
-        {
-            public CustomScriptBundle(string virtualPath) : base(virtualPath)
-            {
-            }
-
-
-            public CustomScriptBundle(string virtualPath, string cdnPath) : base(virtualPath, cdnPath)
-            {
-            }
-        }
-
-        public class Ob : System.Web.Optimization.Bundle
-        {
-            public Ob(): base()
-            {
-            }
-        }
-
-      
 
         /// <summary>
         /// Does file exists at vpath?
@@ -95,16 +77,29 @@ namespace Paramount.ApplicationBlock.Mvc
             }
         }
 
+        private static Dictionary<string, VirtualDirectory> virtualDirectories ;
+        
+
+        Dictionary<string, VirtualDirectory> GetVirtualDirectories
+        {
+            get {return  virtualDirectories ?? (virtualDirectories = new Dictionary<string, VirtualDirectory>()); }
+        }
 
         public override System.Web.Hosting.VirtualDirectory GetDirectory(string virtualDir)
         {
-            string mappedPath = GetMappedPath(virtualDir);
-            if (mappedPath != null)
+            var mappedPath = GetMappedPath(virtualDir);
+            if (mappedPath == null) return base.GetDirectory(virtualDir);
+            var key = string.Format("{0}/{1}", virtualDir, mappedPath);
+
+            if (!GetVirtualDirectories.ContainsKey(key))
             {
-                return new VirtualDirectory(virtualDir, mappedPath);
+                lock (GetVirtualDirectories)
+                {
+                    GetVirtualDirectories.Add(key, new VirtualDirectory(virtualDir, mappedPath));
+                }
             }
 
-            return base.GetDirectory(virtualDir);
+            return GetVirtualDirectories[key];
         }
 
         /// <summary>
@@ -197,27 +192,11 @@ namespace Paramount.ApplicationBlock.Mvc
         /// <param name="virtualPath">virtual path</param>
         /// <returns>the physical path if it is a view-module mapped path, else null</returns>
         /// <remarks>
-        /// 1. [Garth] This function is called *many* times and is very performance sensitive: 
-        /// hence the memory cache. Ensure all changes are performance tested pre and post change!
-        /// 
-        /// 2. [Raj] - MSDN says you cannot store ASP.NET application folders or files that generate 
-        /// application-level assemblies in a virtual file system. eg: 
-        /// Global.asax/Sitemap/bin/AppCode/App_LocalResources/App_GlobaResources
-        /// but this VPP stores some of these... no idea!
         /// </remarks> 
         private static string GetMappedPath(string virtualPath)
         {
             string mappedPath;
-        
-                if (System.Web.Optimization.BundleTable.Bundles.GetRegisteredBundles()
-                    .Any(a => a.Path.Equals(virtualPath, StringComparison.InvariantCultureIgnoreCase)))
-                {
-
-                    var t =
-                        System.Web.Optimization.BundleTable.Bundles.FirstOrDefault(
-                            a => a.Path.Equals(virtualPath, StringComparison.InvariantCultureIgnoreCase));
-                }
-
+              
             //
             if (!VirtualPathMappings.TryGetValue(virtualPath, out mappedPath))
             {
@@ -227,7 +206,7 @@ namespace Paramount.ApplicationBlock.Mvc
                 foreach (KeyValuePair<string, string> mapping in ModulePathMappings.Where(mapping => appVirtualPath.StartsWith(mapping.Key)))
                 {
                     mappedPath = Path.GetFullPath((mapping.Value + appVirtualPath.ToLower().Replace(mapping.Key.ToLower(), "")).Replace("/", @"\"));
-                    Trace.TraceInformation("ViewModulesVirtualPathProvider: mapped path '{0}' to: '{1}'", virtualPath, mappedPath);
+                    //Trace.TraceInformation("ViewModulesVirtualPathProvider: mapped path '{0}' to: '{1}'", virtualPath, mappedPath);
 
                     lock (VirtualPathMappings)
                     {

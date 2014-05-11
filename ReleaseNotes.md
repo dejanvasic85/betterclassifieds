@@ -3,6 +3,7 @@
 - [All new search page](https://trello.com/c/M1kllDhd/133-nextgen-all-new-search-results-and-filter-page)
 - [Minify all javascript files for performancy and security](https://trello.com/c/v5gHSM1x/169-apply-script-and-css-minification-for-performance-and-security)
 - [Larger images are now displayed on the home page with better caching](https://trello.com/c/WsDAOwL2/180-increase-the-image-thumbnails-in-search-results-to-100x100)
+- [The music logo is now responsive as well](https://trello.com/c/9IZJOCaQ/172-themusic-brand-layout-has-the-logo-too-big-for-mobile)
 
 **Bug Fixes**
 

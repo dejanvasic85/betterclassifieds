@@ -1,8 +1,6 @@
-﻿using Paramount.Betterclassifieds.Business;
-
-namespace Paramount.Betterclassifieds.Tests.BusinessModel
+﻿namespace Paramount.Betterclassifieds.Tests.BusinessModel
 {
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using NUnit.Framework;
     using Microsoft.Practices.Unity;
     using Moq;
     using System;
@@ -11,16 +9,17 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
     using Business.Managers;
     using Business.Repository;
     using Business.Models;
+    using Business;
     using Mocks;
     
-    [TestClass]
+    [TestFixture]
     public class EditionManagerTests
     {
         private MockRepository _mockRepository;
         private List<Action> _verifyList;
         private IUnityContainer _container;
 
-        [TestInitialize]
+        [TestFixtureSetUp]
         public void InitTest()
         {
             _mockRepository = new MockRepository(MockBehavior.Strict);
@@ -28,7 +27,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
             _container = new UnityContainer().RegisterType<IEditionManager, EditionManager>();
         }
 
-        [TestCleanup]
+        [TestFixtureTearDown]
         public void CleanTest()
         {
             _verifyList.ForEach(verifyMe => verifyMe());
@@ -39,7 +38,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
             return _container.Resolve<IEditionManager>();
         }
 
-        [TestMethod]
+        [Test]
         public void RemoveEdition_BookingsExist_RemovesEditionAndExtends()
         {
             // Arrange 
@@ -84,7 +83,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
                     It.Is<PaymentType>(payment => payment == PaymentType.None)), Times.AtLeast(3));
         }
 
-        [TestMethod]
+        [Test]
         public void RemoveEdition_NullBookingsFound_BookingManagerNotCalled()
         {
             // Arrange 

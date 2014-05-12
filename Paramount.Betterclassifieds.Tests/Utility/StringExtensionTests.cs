@@ -1,32 +1,32 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Paramount.Betterclassifieds.Tests.Utility
 {
-    [TestClass]
+    [TestFixture]
     public class StringExtensionTests
     {
-        [TestMethod]
+        [Test]
         public void ToCamelCaseWithSpaces_EmptyString_ReturnsEmptyString()
         {
             var result = "".ToCamelCaseWithSpaces();
             result.IsEqualTo("");
         }
 
-        [TestMethod]
+        [Test]
         public void ToCamelCaseWithSpaces_NoCapitals_ReturnsSameResult()
         {
             var result = "helloworld".ToCamelCaseWithSpaces();
             result.IsEqualTo("helloworld");
         }
 
-        [TestMethod]
+        [Test]
         public void ToCamelCaseWithSpaces_CamelCasedWord_ReturnsSameValueWithSpaces()
         {
             var result = "fooBarWithHelloWorld".ToCamelCaseWithSpaces();
             result.IsEqualTo("foo Bar With Hello World");
         }
 
-        [TestMethod]
+        [Test]
         public void ToCamelCaseWithSpaces_ContainsAcronymAndPreservesAcronym_ReturnsSameValueWithSpaces()
         {
             var result = "fooBarWithHelloWorldAndABC".ToCamelCaseWithSpaces();

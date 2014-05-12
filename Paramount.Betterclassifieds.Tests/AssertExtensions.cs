@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Paramount.Betterclassifieds.Tests
 {
     public static class AssertExtensions
     {
-        #region IsNotNull 
+        #region IsNotNull
         public static T IsNotNull<T>(this T target, string message = null, params object[] parameters)
         {
-            Assert.IsNotNull(target, message, parameters );
+            Assert.IsNotNull(target, message, parameters);
 
             return target;
         }
@@ -25,7 +25,7 @@ namespace Paramount.Betterclassifieds.Tests
         #region AreEqual
         public static string AreEqual(this string target, string expected, bool ignoreCase, string message = null, params object[] parameters)
         {
-            Assert.AreEqual( expected, target, ignoreCase, message, parameters );
+            Assert.AreEqual(expected, target);
             return target;
         }
 
@@ -40,7 +40,7 @@ namespace Paramount.Betterclassifieds.Tests
         #region IsEqualTo
         public static string IsEqualTo(this string target, string expected, bool ignoreCase, string message = null, params object[] parameters)
         {
-            Assert.AreEqual(expected, target, ignoreCase, message, parameters);
+            Assert.AreEqual(expected, target);
             return target;
         }
 
@@ -54,7 +54,7 @@ namespace Paramount.Betterclassifieds.Tests
         #region IsNotEqualTo
         public static string IsNotEqualTo(this string target, string expected, bool ignoreCase, string message = null, params object[] parameters)
         {
-            Assert.AreNotEqual(expected, target, ignoreCase, message, parameters);
+            Assert.AreNotEqual(expected, target);
             return target;
         }
 
@@ -101,9 +101,9 @@ namespace Paramount.Betterclassifieds.Tests
             Assert.IsTrue(target > compareTo);
         }
 
-        public static void IsSameAs<T>( this T target, T toCompare)
+        public static void IsSameAs<T>(this T target, T toCompare)
         {
-            Assert.AreSame( toCompare, target );
+            Assert.AreSame(toCompare, target);
         }
 
         public static void IsDifferentTo<T>(this T target, T toCompare)
@@ -113,7 +113,7 @@ namespace Paramount.Betterclassifieds.Tests
 
         public static void IsTypeOf<T>(this object target, string message = null, params object[] parameters)
         {
-            Assert.IsInstanceOfType( target, typeof(T), message, parameters);
+            Assert.IsInstanceOf<T>(target);
         }
 
         public static void AreAllTrue<T>(this IEnumerable<T> items, Predicate<T> predicate)

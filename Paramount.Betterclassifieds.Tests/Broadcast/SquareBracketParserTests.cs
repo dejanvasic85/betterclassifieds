@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Paramount.Betterclassifieds.Business.Broadcast;
 
 namespace Paramount.Betterclassifieds.Tests.Broadcast
 {
-    [TestClass]
+    [TestFixture]
     public class SquareBracketParserTests
     {
-        [TestMethod]
+        [Test]
         public void ParseToString_ValidTemplateWithOneToken_ReturnsTransformedString()
         {
             // Arrange 
@@ -23,7 +23,7 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
             result.IsEqualTo("foo bar");
         }
 
-        [TestMethod]
+        [Test]
         public void ParseToString_NoTokensProvided_ReturnsOriginalTemplate()
         {
             // Arrange 
@@ -38,7 +38,7 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
             result.IsEqualTo(template);
         }
 
-        [TestMethod]
+        [Test]
         public void ParseToString_TemplateHasNoPlaceholders_ReturnsOriginalTemplate()
         {
             // Arrange 
@@ -53,7 +53,7 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
             result.IsEqualTo(template);
         }
 
-        [TestMethod]
+        [Test]
         public void ParseToString_TemplateIsNullOrEmpty_ReturnsEmptyString()
         {
             // Arrange 
@@ -70,7 +70,7 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
             result2.IsEqualTo(string.Empty);
         }
 
-        [TestMethod]
+        [Test]
         public void ParseToString_TokensAreNull_ReturnsEmptyString()
         {
             // Arrange 

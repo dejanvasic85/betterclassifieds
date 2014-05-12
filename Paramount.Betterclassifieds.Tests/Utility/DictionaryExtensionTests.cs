@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Paramount.Betterclassifieds.Tests.Utility
 {
-    [TestClass]
+    [TestFixture]
     public class DictionaryExtensionTests
     {
-        [TestMethod]
+        [Test]
         public void AddOrUpdate_KeyExistsValueExists_ReturnsSelf()
         {
             IDictionary<string, int> pairs = new Dictionary<string, int>{{ "one", 1}, {"two", 2}}.AddOrUpdate("one", 1);
@@ -17,7 +17,7 @@ namespace Paramount.Betterclassifieds.Tests.Utility
             pairs["one"].IsEqualTo(1);
         }
 
-        [TestMethod]
+        [Test]
         public void AddOrUpdate_KeyExistsValueToUpdate_ReturnsSelfWithNewKey()
         {
             IDictionary<string, int> pairs = new Dictionary<string, int> { { "one", 1 }, { "two", 2 } }.AddOrUpdate("two", 0);
@@ -27,7 +27,7 @@ namespace Paramount.Betterclassifieds.Tests.Utility
             pairs["two"].IsEqualTo(0);
         }
 
-        [TestMethod]
+        [Test]
         public void AddOrUpdate_KeyDoesNotExists_ReturnsSelfWithNewKey()
         {
             IDictionary<string, int> pairs = new Dictionary<string, int> { { "one", 1 }, { "two", 2 } }.AddOrUpdate("three", 3);

@@ -1,5 +1,5 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Moq;
 using System.Web;
 using System.Web.Mvc;
@@ -7,10 +7,10 @@ using System.Web.Routing;
 
 namespace Paramount.Betterclassifieds.Tests.ApplicationBlock
 {
-    [TestClass]
+    [TestFixture]
     public class HtmlHelperTests
     {
-        [TestMethod]
+        [Test]
         public void BootstrapTextBoxFor_WithFakeModel_ReturnsMvcString()
         {
             // Arrange
@@ -21,26 +21,26 @@ namespace Paramount.Betterclassifieds.Tests.ApplicationBlock
             var result = fakeHelper.BootstrapTextBoxFor(m => m.Name);
 
             // Assert
-            result.IsTypeOf<MvcHtmlString>();
+            Assert.IsInstanceOf<MvcHtmlString>(result);
             Assert.IsTrue(result.ToHtmlString().Contains("form-control"));
         }
 
-        [TestMethod]
+        [Test]
         public void DropDownListForEnum_WithFakeModel_ReturnsMvcString()
         {
             // Arrange
-            var fakeModel = new FakeViewModelForHtmlHelperTest {MyType = MyType.HelloWorld};
+            var fakeModel = new FakeViewModelForHtmlHelperTest { MyType = MyType.HelloWorld };
             var fakeHelper = CreateFakeModelHelper(new ViewDataDictionary(fakeModel));
 
             // Action
             var result = fakeHelper.DropDownListForEnum(m => m.MyType, MyType.FooBar);
 
             // Assert
-            result.IsTypeOf<MvcHtmlString>();
+            Assert.IsInstanceOf<MvcHtmlString>(result);
             Assert.IsTrue(result.ToHtmlString().StartsWith("<select id=\"MyType\" name=\"MyType\""));
         }
 
-        [TestMethod]
+        [Test]
         public void DropDownListForEnum_WithFakeModelAndName_ReturnsMvcString()
         {
             // Arrange
@@ -51,11 +51,11 @@ namespace Paramount.Betterclassifieds.Tests.ApplicationBlock
             var result = fakeHelper.DropDownListForEnum(m => m.MyType, MyType.FooBar, name: "randomId");
 
             // Assert
-            result.IsTypeOf<MvcHtmlString>();
+            Assert.IsInstanceOf<MvcHtmlString>(result);
             Assert.IsTrue(result.ToHtmlString().StartsWith("<select Name=\"randomId\" id=\"randomId\""));
         }
 
-        [TestMethod]
+        [Test]
         public void DropDownListForEnum_ModelNotAnEnum_ReturnsMvcString()
         {
             // Arrange
@@ -64,8 +64,8 @@ namespace Paramount.Betterclassifieds.Tests.ApplicationBlock
 
             // Action
             // Assert
-            Expect.Exception<ArgumentException>(() => fakeHelper.DropDownListForEnum(m => m.MyType, ""));
-       }
+            Assert.Throws<ArgumentException>(() => fakeHelper.DropDownListForEnum(m => m.MyType, ""));
+        }
 
         /// <summary>
         /// Helper method for generating a mock HtmlHelper :) SWeet!

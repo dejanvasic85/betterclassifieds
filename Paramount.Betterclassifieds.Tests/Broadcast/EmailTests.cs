@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Net.Mail;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Moq;
 using Paramount.Betterclassifieds.Business.Broadcast;
 
 namespace Paramount.Betterclassifieds.Tests.Broadcast
 {
-    [TestClass]
+    [TestFixture]
     public class EmailTests
     {
-        [TestMethod]
+        [Test]
         public void BuildWithTemplate_EmailTemplateIsNull_ThrowsArgumentNullException()
         {
             // Arrange
@@ -17,10 +17,10 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
 
             // Act
             // Assert
-            Expect.Exception<ArgumentNullException>(() => Email.BuildWithTemplate(registration, null, new Guid(), "someone@somewhere.com"));
+            Assert.Throws<ArgumentNullException>(() => Email.BuildWithTemplate(registration, null, new Guid(), "someone@somewhere.com"));
         }
 
-        [TestMethod]
+        [Test]
         public void BuildWithTemplate_NewRegistration_CreatesDeliveryInstance()
         {
             // Arrange
@@ -46,7 +46,7 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
             result.From.IsEqualTo("blah@email.com");
         }
 
-        [TestMethod]
+        [Test]
         public void BuildWithTemplate_DefaultGuid_ThrowsArgumentException()
         {
             // Arrange
@@ -55,10 +55,10 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
 
             // Act
             // Assert
-            Expect.Exception<ArgumentException>(() => Email.BuildWithTemplate(registration, template, new Guid(), "someone@somewhere.com"));
+            Assert.Throws<ArgumentException>(() => Email.BuildWithTemplate(registration, template, new Guid(), "someone@somewhere.com"));
         }
 
-        [TestMethod]
+        [Test]
         public void BuildWithTemplate_BadParserSupplied_ThrowsArgumentException()
         {
             // Arrange
@@ -67,11 +67,11 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
 
             // Act
             // Assert
-            Expect.Exception<ArgumentException>(() => Email.BuildWithTemplate(registration, template, Guid.NewGuid(), "someone@somewhere.com"),
+            Assert.Throws<ArgumentException>(() => Email.BuildWithTemplate(registration, template, Guid.NewGuid(), "someone@somewhere.com"),
                 "'BadParser' is not a registered template parser");
         }
 
-        [TestMethod]
+        [Test]
         public void BuildWithTemplate_NoRecipientSupplied_ThrowsArgumentException()
         {
             // Arrange
@@ -80,10 +80,10 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
 
             // Act
             // Assert
-            Expect.Exception<ArgumentException>(() => Email.BuildWithTemplate(registration, template, Guid.NewGuid()));
+            Assert.Throws<ArgumentException>(() => Email.BuildWithTemplate(registration, template, Guid.NewGuid()));
         }
 
-        [TestMethod]
+        [Test]
         public void Send_WithFakeMailer_PropertiesAreSet()
         {
             // Arrange
@@ -107,7 +107,7 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
             email.Attempts.IsEqualTo(2);
         }
 
-        [TestMethod]
+        [Test]
         public void LogException_PropertiesAreSet()
         {
             // Arrange
@@ -119,7 +119,7 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
             email.LastErrorMessage.IsEqualTo("Unable to send email");
         }
 
-        [TestMethod]
+        [Test]
         public void HasCompleted_NoAttempts_ReturnsFalse()
         {
             // Arrange
@@ -133,7 +133,7 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
             result.IsFalse();
         }
 
-        [TestMethod]
+        [Test]
         public void HasCompleted_MaxAttemptsReachedWithEvilMailer_ReturnsTrue()
         {
             // Arrange
@@ -157,7 +157,7 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
             email.SentDate.IsNull();
         }
 
-        [TestMethod]
+        [Test]
         public void HasCompleted_MaxAttemptsNotReachedWithEvilMailer_ReturnsFalse()
         {
             // Arrange
@@ -180,7 +180,7 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
         }
 
 
-        [TestMethod]
+        [Test]
         public void HasCompleted_GoodMailerSendsSuccessfully_ReturnsTrue()
         {
             // Arrange

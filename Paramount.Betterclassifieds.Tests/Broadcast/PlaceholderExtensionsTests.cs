@@ -1,13 +1,13 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Paramount.Betterclassifieds.Business.Broadcast;
 
 namespace Paramount.Betterclassifieds.Tests.Broadcast
 {
-    [TestClass]
+    [TestFixture]
     public class PlaceholderExtensionsTests
     {
-        [TestMethod]
+        [Test]
         public void ToPlaceholderDictionary_ReturnsDictionary()
         {
             // Arrange a class that uses placeholder attribute
@@ -26,7 +26,7 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
             Assert.AreEqual(result["LastName"], "Bar");
         }
 
-        [TestMethod]
+        [Test]
         public void ToPlaceholderDictionary_NullProperties_ReturnsDictionaryWithEmptyValues()
         {
             // Arrange a class that uses placeholder attribute
@@ -45,7 +45,7 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
             Assert.AreEqual(result["LastName"], string.Empty);
         }
 
-        [TestMethod]
+        [Test]
         public void ToPlaceholderDictionary_WithDifferentNames_ReturnsDictionary()
         {
             // Arrange a class that uses placeholder attribute

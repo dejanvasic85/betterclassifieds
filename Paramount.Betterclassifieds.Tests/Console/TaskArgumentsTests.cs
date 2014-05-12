@@ -1,55 +1,56 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Paramount.Betterclassifieds.Console;
 
 namespace Paramount.Betterclassifieds.Tests.Console
 {
-    [TestClass]
+    [TestFixture]
     public class TaskArgumentsTests
     {
-        [TestMethod]
+        [Test]
         public void FromArray_OneItemInArray_ThrowsArgumentException()
         {
             // Arrange
             var args = new[] { "Value" };
 
             // Act and Assert
-            Expect.Exception<ArgumentException>(() => TaskArguments.FromArray(args), "Number of arguments is invalid.");
+            
+            Assert.Throws<ArgumentException>(() => TaskArguments.FromArray(args), "Number of arguments is invalid.");
         }
 
-        [TestMethod]
+        [Test]
         public void FromArray_ThreeItemsInArray_ThrowsArgumentException()
         {
             // Arrange
             var args = new[] { TaskArguments.TaskFullArgName, "CoolTaskName", "-FirstCmdArg" };
 
             // Act and Assert
-            Expect.Exception<ArgumentException>(() => TaskArguments.FromArray(args), "Number of arguments is invalid.");
+            Assert.Throws<ArgumentException>(() => TaskArguments.FromArray(args), "Number of arguments is invalid.");
         }
 
-        [TestMethod]
+        [Test]
         public void FromArray_NoTaskNameInArray_ThrowsArgumentExeption()
         {
             // Arrange
             var args = new[] { "Arg1", "Val" };
 
             // Act and Assert
-            Expect.Exception<ArgumentException>(
+            Assert.Throws<ArgumentException>(
                 () => TaskArguments.FromArray(args),
                 string.Format("Task name argument must be supplied in format of {0} <Name>. Unable to start program.", TaskArguments.TaskFullArgName));
         }
 
-        [TestMethod]
+        [Test]
         public void FromArray_NoArgs_ThrowsArgumentExeption()
         {
             // Arrange
             var args = new string[] { };
 
             // Act and Assert
-            Expect.Exception<ArgumentException>(() => TaskArguments.FromArray(args), "Number of arguments is invalid.");
+            Assert.Throws<ArgumentException>(() => TaskArguments.FromArray(args), "Number of arguments is invalid.");
         }
 
-        [TestMethod]
+        [Test]
         public void FromArray_NullArgs_ThrowsArgumentExeption()
         {
             // Arrange
@@ -57,23 +58,23 @@ namespace Paramount.Betterclassifieds.Tests.Console
 
             // Act and Assert
             // ReSharper disable ExpressionIsAlwaysNull
-            Expect.Exception<ArgumentException>(() => TaskArguments.FromArray(args), "Number of arguments is invalid.");
+            Assert.Throws<ArgumentException>(() => TaskArguments.FromArray(args), "Number of arguments is invalid.");
             // ReSharper restore ExpressionIsAlwaysNull
         }
 
-        [TestMethod]
+        [Test]
         public void FromArray_TaskNameValueNotSupplied_ThrowsArgumentException()
         {
             // Arrange
             var args = new[] { TaskArguments.TaskFullArgName, "" };
 
             // Act and Assert
-            Expect.Exception<ArgumentException>(
+            Assert.Throws<ArgumentException>(
                 () => TaskArguments.FromArray(args),
                 "Task name has no value supplied.");
         }
 
-        [TestMethod]
+        [Test]
         public void FromArray_TaskWithNoOtherArgs_IsEmpty()
         {
             // Arrange 
@@ -87,7 +88,7 @@ namespace Paramount.Betterclassifieds.Tests.Console
             Assert.AreEqual(0, taskArguments.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void FromArray_TaskNameWithOneArg_HasOneItem()
         {
             // Arrange 
@@ -101,19 +102,19 @@ namespace Paramount.Betterclassifieds.Tests.Console
             Assert.AreEqual(1, taskArguments.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void FromArray_ArgNameNotPrefixed_ThrowsArgumentException()
         {
             // Arrange
             var args = new[] { TaskArguments.TaskFullArgName, "CoolTaskName", "BadArgWithNoDashPrefix", "RandomValue" };
 
             // Act and Assert
-            Expect.Exception<ArgumentException>(
+            Assert.Throws<ArgumentException>(
                 () => TaskArguments.FromArray(args),
                 string.Format("Bad argument {0}. Please specify arguments with a preceding [{1}] and value after it.", "BadArgWithNoDashPrefix", TaskArguments.ArgumentPrefix));
         }
 
-        [TestMethod]
+        [Test]
         public void FromArray_TaskNameNotFirstItem_HasOneItem()
         {
             // Arrange 
@@ -127,7 +128,7 @@ namespace Paramount.Betterclassifieds.Tests.Console
             Assert.AreEqual(1, taskArguments.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void FromArray_TenArguments_HasFourItems()
         {
             // Arrange 
@@ -148,7 +149,7 @@ namespace Paramount.Betterclassifieds.Tests.Console
             Assert.AreEqual(4, taskArguments.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void ReadArgument_RequiredArgNotExistsNoDefaultSupplied_ThrowsArgumentException()
         {
             // Arrange
@@ -160,10 +161,10 @@ namespace Paramount.Betterclassifieds.Tests.Console
 
             // Act 
             // Assert
-            Expect.Exception<ArgumentException>(() => taskArguments.ReadArgument("blah", isRequired: true));
+            Assert.Throws<ArgumentException>(() => taskArguments.ReadArgument("blah", isRequired: true));
         }
 
-        [TestMethod]
+        [Test]
         public void ReadArgument_RequiredArgNotExistsUseDefault_ThrowsArgumentException()
         {
             // Arrange
@@ -174,10 +175,10 @@ namespace Paramount.Betterclassifieds.Tests.Console
                 });
 
             // Act 
-            Expect.Exception<ArgumentException>(() => taskArguments.ReadArgument("blah", isRequired: true, readDefault: () => "defaultValue"));
+            Assert.Throws<ArgumentException>(() => taskArguments.ReadArgument("blah", isRequired: true, readDefault: () => "defaultValue"));
         }
 
-        [TestMethod]
+        [Test]
         public void ReadArgument_ArgNotExistsUseDefault_ReturnsDefault()
         {
             // Arrange
@@ -194,7 +195,7 @@ namespace Paramount.Betterclassifieds.Tests.Console
             Assert.AreEqual("defaultValue", value);
         }
 
-        [TestMethod]
+        [Test]
         public void ReadArgument_IntegerArgNotExistsUseDefault_ReturnsDefault()
         {
             // Arrange
@@ -211,7 +212,7 @@ namespace Paramount.Betterclassifieds.Tests.Console
             Assert.AreEqual(1, value);
         }
 
-        [TestMethod]
+        [Test]
         public void ReadArgument_ArgExists_ReturnsArgValue()
         {
             // Arrange
@@ -228,7 +229,7 @@ namespace Paramount.Betterclassifieds.Tests.Console
             Assert.AreEqual("nunit.exe", value);
         }
 
-        [TestMethod]
+        [Test]
         public void ReadArgument_NonRequiredArgNotExists_ReturnsNull()
         {
             // Arrange
@@ -245,7 +246,7 @@ namespace Paramount.Betterclassifieds.Tests.Console
             Assert.IsNull(value);
         }
 
-        [TestMethod]
+        [Test]
         public void ReadArgument_ArgIsIntegerIsAvailable_ReturnsInteger()
         {
             // Arrange
@@ -262,7 +263,7 @@ namespace Paramount.Betterclassifieds.Tests.Console
             Assert.AreEqual(1, value);
         }
 
-        [TestMethod]
+        [Test]
         public void ReadArgument_ArgIsIntegerNotExistsNoDefault_ThrowsArgumentException()
         {
             // Arrange
@@ -273,10 +274,10 @@ namespace Paramount.Betterclassifieds.Tests.Console
                 });
 
             // Act 
-            Expect.Exception<ArgumentException>(() => taskArguments.ReadArgument<int>("NotValidArgName"));
+            Assert.Throws<ArgumentException>(() => taskArguments.ReadArgument<int>("NotValidArgName"));
         }
 
-        [TestMethod]
+        [Test]
         public void ReadArgument_ArgValueCannotCast_ThrowsFormatException()
         {
             // Arrange
@@ -287,10 +288,10 @@ namespace Paramount.Betterclassifieds.Tests.Console
                 });
 
             // Act 
-            Expect.Exception<FormatException>(() => taskArguments.ReadArgument<int>("Number"));
+            Assert.Throws<FormatException>(() => taskArguments.ReadArgument<int>("Number"));
         }
 
-        [TestMethod]
+        [Test]
         public void ReadArgument_WithOneEmbeddedValue_DoesSubsitution()
         {
             // Arrange
@@ -308,7 +309,7 @@ namespace Paramount.Betterclassifieds.Tests.Console
             Assert.AreEqual("Captain - America", value);
         }
 
-        [TestMethod]
+        [Test]
         public void ReadArgument_WithMultipleEmbeddedValues_DoesSubsitution()
         {
             // Arrange
@@ -327,7 +328,7 @@ namespace Paramount.Betterclassifieds.Tests.Console
             Assert.AreEqual("Captain - America Is Number One", value);
         }
 
-        [TestMethod]
+        [Test]
         public void ReadArgument_WithOneEmbeddedValueCaseSensitive_DoesNotDoSubsitution()
         {
             // Arrange

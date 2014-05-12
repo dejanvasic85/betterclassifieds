@@ -1,13 +1,13 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Paramount.Betterclassifieds.Business;
 
 namespace Paramount.Betterclassifieds.Tests.Membership
 {
-    [TestClass]
+    [TestFixture]
     public class RegistrationModelTests
     {
-        [TestMethod]
+        [Test]
         public void GenerateUniqueUsername_EmailIsNull_ThrowsArgumentException()
         {
             // Arrange
@@ -15,10 +15,10 @@ namespace Paramount.Betterclassifieds.Tests.Membership
 
             // Act
             // Assert
-            Expect.Exception<ArgumentNullException>( () => model.GenerateUniqueUsername(s => true) );
+            Assert.Throws<ArgumentNullException>( () => model.GenerateUniqueUsername(s => true) );
         }
 
-        [TestMethod]
+        [Test]
         public void GenerateUniqueUsername_EmailHasValue_ReturnsSelf()
         {
             // Arrange

@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 
@@ -7,10 +7,10 @@ namespace Paramount.Betterclassifieds.Tests.Search
     /// <summary>
     /// Summary description for AdSearchFilterTests
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class SearchFilterTests
     {
-        [TestMethod]
+        [Test]
         public void GetAdId_KeywordIsText_ReturnsNull()
         {
             // Arrange
@@ -21,7 +21,7 @@ namespace Paramount.Betterclassifieds.Tests.Search
             filter.AdId.IsNull();
         }
 
-        [TestMethod]
+        [Test]
         public void GetAdId_KeywordIsNumber_HasValue()
         {
             // Arrange
@@ -33,7 +33,7 @@ namespace Paramount.Betterclassifieds.Tests.Search
             filter.AdId.IsEqualTo(848772);
         }
 
-        [TestMethod]
+        [Test]
         public void GetAdId_KeywordContainsPublicationPrefix_HasValue()
         {
             // Arrange
@@ -45,7 +45,7 @@ namespace Paramount.Betterclassifieds.Tests.Search
             filter.AdId.IsEqualTo(3748);
         }
 
-        [TestMethod]
+        [Test]
         public void GetAdId_KeywordContainsPublicationPrefixWithMultiDigits_HasValue()
         {
             // Arrange
@@ -57,7 +57,7 @@ namespace Paramount.Betterclassifieds.Tests.Search
             filter.AdId.IsEqualTo(3748);
         }
 
-        [TestMethod]
+        [Test]
         public void GetAdId_BadAdId_ReturnsNull()
         {
             // Arrange
@@ -68,7 +68,7 @@ namespace Paramount.Betterclassifieds.Tests.Search
             filter.AdId.IsNull();
         }
 
-        [TestMethod]
+        [Test]
         public void GetAdId_BadPublicationId_ReturnsNull()
         {
             // Arrange

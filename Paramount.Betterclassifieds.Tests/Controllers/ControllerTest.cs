@@ -1,5 +1,5 @@
 ﻿using Microsoft.Practices.Unity;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Moq;
 using Paramount.Betterclassifieds.Tests.Mocks;
 using System;
@@ -11,7 +11,7 @@ using System.Web.Routing;
 
 namespace Paramount.Betterclassifieds.Tests.Controllers
 {
-    [TestClass]
+    [TestFixture]
     public abstract class ControllerTest<T>
         where T : Controller
     {
@@ -19,7 +19,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private List<Action> _verifyList;
         private IUnityContainer _containerBuilder;
 
-        [TestInitialize]
+        [TestFixtureSetUp]
         public void Initialise()
         {
             _mockRepository = new MockRepository(MockBehavior.Strict);
@@ -27,7 +27,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _containerBuilder = new UnityContainer();
         }
 
-        [TestCleanup]
+        [TestFixtureTearDown]
         public void Cleanup()
         {
             _verifyList.ForEach(action => action());

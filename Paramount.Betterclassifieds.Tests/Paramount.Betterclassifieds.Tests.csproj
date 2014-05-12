@@ -56,6 +56,9 @@
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.1.1311.0615\lib\net40\Moq.dll</HintPath>
     </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -89,17 +92,12 @@
         <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
       </ItemGroup>
     </When>
-    <Otherwise>
-      <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
-      </ItemGroup>
-    </Otherwise>
+    <Otherwise />
   </Choose>
   <ItemGroup>
     <Compile Include="ApplicationBlock\HtmlHelperTests.cs" />
     <Compile Include="AssertExtensions.cs" />
     <Compile Include="Bookings\EditionManagerTests.cs" />
-    <Compile Include="Bookings\TheMusicHtmlScraperTests.cs" />
     <Compile Include="Broadcast\BroadcastManagerTests.cs" />
     <Compile Include="Broadcast\SquareBracketParserTests.cs" />
     <Compile Include="Broadcast\PlaceholderExtensionsTests.cs" />
@@ -107,7 +105,6 @@
     <Compile Include="Console\TaskArgumentsTests.cs" />
     <Compile Include="Controllers\ControllerTest.cs" />
     <Compile Include="Controllers\HomeControllerTests.cs" />
-    <Compile Include="ExpectException.cs" />
     <Compile Include="Membership\RegistrationModelTests.cs" />
     <Compile Include="Mocks\MoqExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -150,14 +147,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Content Include="Artefacts\TheMusicBadHtml.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Artefacts\TheMusicValidHtml.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

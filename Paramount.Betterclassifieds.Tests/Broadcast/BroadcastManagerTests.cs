@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Practices.Unity;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Moq;
 using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Tests.Mocks;
 
 namespace Paramount.Betterclassifieds.Tests.Broadcast
 {
-    [TestClass]
+    [TestFixture]
     public class BroadcastManagerTests
     {
         private IUnityContainer _container;
         private MockRepository _mockRepository;
         private List<Action> _verifications;
 
-        [TestInitialize]
+        [TestFixtureSetUp]
         public void InitialiseTest()
         {
             _container = new UnityContainer();
@@ -23,7 +23,7 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
             _verifications = new List<Action>();
         }
 
-        [TestCleanup]
+        [TestFixtureTearDown]
         public void Cleanup()
         {
             _verifications.ForEach(verify => verify());
@@ -31,7 +31,7 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
             _container.Dispose();
         }
 
-        [TestMethod]
+        [Test]
         public void ProcessUnsent_OneProcessorReturnsTrueForTwoNotifications_CompletesSuccessfully()
         {
             // Arrange
@@ -55,7 +55,7 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
             // Assert ( happens on clean up)
         }
 
-        [TestMethod]
+        [Test]
         public void ProcessUnsent_BadProcessorAndGoodProcessor_CompletesSuccessfully()
         {
             // Arrange

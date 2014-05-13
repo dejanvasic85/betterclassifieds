@@ -30,10 +30,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
                 if (!HasResults)
                     return string.Empty;
 
-                string searchSummary = string.Format("Found {0} results that matched your search. ", TotalCount);
+                string searchSummary = string.Format("Found {0} results", TotalCount);
 
                 if (SearchFilters.Keyword.HasValue())
-                    searchSummary = searchSummary.Append(string.Format("Keyword '{0}'", SearchFilters.Keyword));
+                    searchSummary = searchSummary.Append(string.Format(" for '{0}'", SearchFilters.Keyword));
 
                 return searchSummary;
             }

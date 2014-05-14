@@ -7,7 +7,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public int AdId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public string ImageUrl { get; set; }
+        public String[] ImageUrls { get; set; }
         public string ParentCategoryName { get; set; }
         public string ChildCategoryName { get; set; }
         public DateTime PostedDate { get; set; }
@@ -15,5 +15,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public string ContactName { get; set; }
         public string ContactDetail { get; set; }
         public int HitCount { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
     }
 }

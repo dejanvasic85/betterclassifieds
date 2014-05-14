@@ -306,6 +306,7 @@
     <Content Include="Scripts\paramount-validate-tooltip.min.js.map">
       <DependentUpon>paramount-validate-tooltip.min.js</DependentUpon>
     </Content>
+    <Content Include="Views\Listings\ViewAd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\EastGippslandNews\" />

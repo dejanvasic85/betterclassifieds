@@ -70,8 +70,15 @@ namespace Paramount.Betterclassifieds.DataService.Search
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.spSearchBookedAds")]
-		public ISingleResult<BookedAd> spSearchBookedAds([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(50)")] string searchTerm, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string categoryIds, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string locationIds, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string areaIds, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> order, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> pageIndex, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> pageSize)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.BookedAd_GetById")]
+		public ISingleResult<BookedAd> BookedAd_GetById([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> adId)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), adId);
+			return ((ISingleResult<BookedAd>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.BookedAd_Search")]
+		public ISingleResult<BookedAd> BookedAd_Search([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(50)")] string searchTerm, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string categoryIds, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string locationIds, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string areaIds, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> order, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> pageIndex, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> pageSize)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), searchTerm, categoryIds, locationIds, areaIds, order, pageIndex, pageSize);
 			return ((ISingleResult<BookedAd>)(result.ReturnValue));

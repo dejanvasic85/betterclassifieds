@@ -1,14 +1,10 @@
-﻿using System.Data;
-using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
-using System.Data.SqlClient;
-using AutoMapper;
+﻿using AutoMapper;
 using Paramount.ApplicationBlock.Data;
-using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.DataService.Classifieds;
 using Paramount.Betterclassifieds.DataService.Search;
-using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 
 namespace Paramount.Betterclassifieds.DataService
@@ -26,7 +22,7 @@ namespace Paramount.Betterclassifieds.DataService
 
                 searchterm = searchterm.NullIfEmpty();
 
-                var results = context.spSearchBookedAds(searchterm,
+                var results = context.BookedAd_Search(searchterm,
                     categoryList,
                     locationList,
                     areaList,
@@ -37,26 +33,7 @@ namespace Paramount.Betterclassifieds.DataService
                 return this.MapList<BookedAd, AdSearchResult>(results);
             }
         }
-
-        public List<AdSearchResult> GetAdsWithAdo(string searchterm, IEnumerable<int> categoryIds, IEnumerable<int> locationIds, IEnumerable<int> areaIds, int index = 0, int pageSize = 25, AdSearchSortOrder sortOrder = AdSearchSortOrder.MostRelevant)
-        {
-            DatabaseProxy proxy = new DatabaseProxy("spSearchBookedAds", "paramount/services", "BetterclassifiedsConnection");
-            proxy.AddParameter("searchTerm", searchterm, StringType.VarChar);
-
-            var dt = proxy.ExecuteQuery().Tables[0];
-            var results = dt.Rows.OfType<DataRow>().Select(row => new AdSearchResult
-            {
-                AdId = row.Field<int>("AdId"),
-                Heading = row.Field<string>("Heading"),
-                Description = row.Field<string>("Description"),
-                HtmlText = row.Field<string>("HtmlText"),
-                LocationId = row.Field<int>("LocationId"),
-                CategoryName = row.Field<string>("CategoryName")
-            }).ToList();
-
-            return results;
-        }
-
+        
         public List<AdSearchResult> GetAds(string searchterm, int? categoryId, int? locationId, int index = 0, int pageSize = 25, AdSearchSortOrder order = AdSearchSortOrder.MostRelevant)
         {
             return GetAds(searchterm,
@@ -75,26 +52,10 @@ namespace Paramount.Betterclassifieds.DataService
 
         public AdSearchResult GetAdById(int id)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DataContextFactory.CreateClassifiedSearchContext())
             {
-                var results = from onl in context.OnlineAds
-                              join ds in context.AdDesigns on onl.AdDesignId equals ds.AdDesignId
-                              join bk in context.AdBookings on ds.AdId equals bk.AdId
-                              join cat in context.MainCategories on bk.MainCategoryId equals cat.MainCategoryId
-                              where bk.AdBookingId == id
-                              select new AdSearchResult
-                              {
-                                  AdId = bk.AdBookingId,
-                                  Heading = onl.Heading,
-                                  Description = onl.Description,
-                                  CategoryName = cat.Title,
-                                  CategoryId = cat.MainCategoryId,
-                                  ParentCategoryId = cat.ParentId,
-                                  ImageUrls = onl.AdDesign.AdGraphics.Select(g => g.DocumentID).ToArray(),
-                                  Publications = bk.BookEntries.Select(be => be.Publication.Title).Distinct().ToArray()
-                              };
-
-                return results.FirstOrDefault();
+                // Simply get the booked at view
+                return this.Map<BookedAd, AdSearchResult>(context.BookedAd_GetById(id).FirstOrDefault());
             }
         }
 
@@ -131,34 +92,7 @@ namespace Paramount.Betterclassifieds.DataService
                 return this.Map<SeoMapping, SeoNameMappingModel>(seoMappings);
             }
         }
-
-        public IEnumerable<AdSearchResult> Search()
-        {
-            using (var context = DataContextFactory.CreateClassifiedContext())
-            {
-                var results = from onl in context.OnlineAds
-                              join ds in context.AdDesigns on onl.AdDesignId equals ds.AdDesignId
-                              join bk in context.AdBookings on ds.AdId equals bk.AdId
-                              join cat in context.MainCategories on bk.MainCategoryId equals cat.MainCategoryId
-                              where bk.StartDate <= DateTime.Today &&
-                              bk.EndDate >= DateTime.Today &&
-                              bk.BookingStatus == (int)BookingStatusType.Booked
-                              select new AdSearchResult
-                              {
-                                  AdId = bk.AdBookingId,
-                                  Heading = onl.Heading,
-                                  Description = onl.Description,
-                                  CategoryName = cat.Title,
-                                  CategoryId = cat.MainCategoryId,
-                                  ParentCategoryId = cat.ParentId,
-                                  ImageUrls = onl.AdDesign.AdGraphics.Select(g => g.DocumentID).ToArray(),
-                                  Publications = bk.BookEntries.Select(be => be.Publication.Title).Distinct().ToArray()
-                              };
-
-                return results.ToList();
-            }
-        }
-
+        
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateProfile("SearchingProfile");

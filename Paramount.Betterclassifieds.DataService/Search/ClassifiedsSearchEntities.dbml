@@ -31,7 +31,11 @@
       <Column Name="ParentCategoryName" Type="System.String" CanBeNull="false" />
     </Type>
   </Table>
-  <Function Name="dbo.spSearchBookedAds" Method="spSearchBookedAds">
+  <Function Name="dbo.BookedAd_GetById" Method="BookedAd_GetById">
+    <Parameter Name="adId" Type="System.Int32" DbType="Int" />
+    <ElementType IdRef="ID1" />
+  </Function>
+  <Function Name="dbo.BookedAd_Search" Method="BookedAd_Search">
     <Parameter Name="searchTerm" Type="System.String" DbType="NVarChar(50)" />
     <Parameter Name="categoryIds" Type="System.String" DbType="VarChar(20)" />
     <Parameter Name="locationIds" Type="System.String" DbType="VarChar(20)" />

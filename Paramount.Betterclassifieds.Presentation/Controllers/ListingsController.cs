@@ -34,9 +34,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 _searchFilters.Sort = sort.Value;
             }
-            else if(keyword.HasValue())
+            else if (keyword.HasValue())
             {
-                _searchFilters.Sort = (int) AdSearchSortOrder.MostRelevant;
+                _searchFilters.Sort = (int)AdSearchSortOrder.MostRelevant;
             }
 
             var searchModel = new FindModel
@@ -67,7 +67,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             // Map the results for the view model
             searchModel.SearchResults = this.MapList<AdSearchResult, AdSummaryViewModel>(results.ToList());
-            
+
             ViewBag.Title = string.Format("Classified Search | {0}", searchModel.SearchSummary);
             ViewBag.AllowUserToFetchMore = searchModel.TotalCount > _clientConfig.SearchResultsPerPage;
             ViewBag.ResultsPerPage = _clientConfig.SearchResultsPerPage;
@@ -124,10 +124,29 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View("Find", searchModel);
         }
 
+        [HttpGet]
+        public ActionResult ViewAd(int id, string titleSlug = "")
+        {
+            // Remember - Id is always AdBookingId
+            var adSearchResult = _searchService.GetAdById(id);
+            if (adSearchResult == null || adSearchResult.HasExpired() || adSearchResult.HasNotStarted())
+            {
+                // Ad doesn't exist so return 404
+                return View("404");
+            }
+
+            var adViewModel = this.Map<AdSearchResult, AdViewModel>(adSearchResult);
+
+            ViewBag.Title = adViewModel.Title;
+
+            return View(adViewModel);
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateProfile("ListingsCtrlProfile");
             configuration.CreateMap<AdSearchResult, AdSummaryViewModel>();
+            configuration.CreateMap<AdSearchResult, AdViewModel>();
         }
 
     }

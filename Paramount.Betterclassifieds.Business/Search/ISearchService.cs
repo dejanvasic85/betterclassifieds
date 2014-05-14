@@ -11,6 +11,5 @@ namespace Paramount.Betterclassifieds.Business.Search
         List<LocationSearchResult> GetLocations();
         AdSearchResult GetAdById(int id);
         SeoNameMappingModel GetSeoMapping(string seoName);
-        IEnumerable<AdSearchResult> Search();
     }
 }

@@ -1,24 +1,15 @@
 ﻿Imports BetterclassifiedsCore
 Imports BetterclassifiedsCore.DataModel
-Imports System.Threading
 Imports BetterclassifiedsCore.ParameterAccess
 Imports BetterClassified.UI.WebPage
 
 Partial Public Class Step3
-    Inherits BaseBookingPage
+    Inherits BaseOnlineBookingPage
 
     Private Const adTypeState As String = "vsAdType"
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
-
-        If BookingController.AdBookCart Is Nothing Then
-            Response.Redirect(PageUrl.BookingStep_1 + "?action=expired")
-        End If
-
-        If AdController.TempRecordExist(BookingController.AdBookCart.BookReference) Then
-            Response.Redirect(PageUrl.BookingStep_1 + "?action=expired")
-        End If
-
+        
         If Not Page.IsPostBack Then
 
             Dim adType As String = BookingController.AdBookCart.MainAdType().Code.Trim

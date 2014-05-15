@@ -121,6 +121,16 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             searchModel.SearchResults = this.MapList<AdSearchResult, AdSummaryViewModel>(results.ToList());
             searchModel.SearchFilters = _searchFilters;
 
+            if (results.Count > 0)
+            {
+                searchModel.TotalCount = results.First().TotalCount;
+            }
+
+            ViewBag.Title = "Classifieds for Tutors";
+            ViewBag.AllowUserToFetchMore = searchModel.TotalCount > _clientConfig.SearchResultsPerPage;
+            ViewBag.ResultsPerPage = _clientConfig.SearchResultsPerPage;
+            ViewBag.MaxPageRequests = _clientConfig.SearchMaxPagedRequests;
+
             return View("Find", searchModel);
         }
 

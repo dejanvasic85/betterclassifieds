@@ -59,7 +59,7 @@
         <div class="row top-buffer-40">
             <div class="col-sm-4 left-buffer-20">
                 <a href="http://themusic.com.au/">
-                    <img class="themusic-logo" src="@Url.Content("~/Content/TheMusic/img/tmlogo.png")" 
+                    <img class="themusic-logo" src="@Url.Content("~/Content/TheMusic/img/tmlogo.png")"
                          alt="The Music | theMusic.com.au | Australia’s Premier Music News &amp; Reviews Website" />
                 </a>
             </div>
@@ -68,10 +68,10 @@
                     <script type="text/javascript">
                         googletag.cmd.push(function () { googletag.display('leadboard'); });
                     </script>
-                </div> 
+                </div>
             </div>
         </div>
-        
+
         @*Render the application layout*@
         @RenderBody()
 
@@ -80,10 +80,49 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate-1.12.0.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/bootstrap-3.1.0.min.js")"></script>
-    
+
     <script type="text/javascript" src="@Url.Content("~/Scripts/paramount-validate-default.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/paramount-site.min.js")"></script>
 
     @RenderSection("Scripts", false)
+
+    @*Facebook integration*@
+    <div id="fb-root"></div>
+    <script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=143183162513319";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    @*Google Integration*@
+    <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+        try {
+            var pageTracker = _gat._getTracker("UA-12017002-5");
+            pageTracker._trackPageview();
+
+        } catch (err) { }
+
+    </script>
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-19118426-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
 </body>
 </html>

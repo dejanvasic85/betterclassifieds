@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web;
+﻿using BetterclassifiedsCore;
+using BetterclassifiedsCore.BundleBooking;
 using BetterclassifiedsCore.BusinessEntities;
-using BetterclassifiedsCore;
+using System;
+using System.Web;
 
 namespace BetterClassified.UI.WebPage
 {
@@ -22,10 +20,40 @@ namespace BetterClassified.UI.WebPage
             
             if (exception is BookingExpiredException)
             {
+                Elmah.ErrorSignal.FromCurrentContext().Raise(exception);
+
                 // Clear the last error and do a redirect to the first booking step
                 context.Server.ClearError();
                 context.Response.Redirect("~/Booking/Step1.aspx?action=expired");
             }
+        }
+    }
+
+    public class BaseBundlePage : BaseBookingPage
+    {
+        protected override void OnLoad(EventArgs e)
+        {
+            if(BundleController.BundleCart == null)
+                throw new BookingExpiredException("BundleController.BundleCart is null");
+
+            if (AdController.TempRecordExist(BundleController.BundleCart.BookReference))
+                throw new BookingExpiredException("BundleController.BundleCart.BookReference already exists in TempBookingRecord");
+
+            base.OnLoad(e);
+        }
+    }
+
+    public class BaseOnlineBookingPage : BaseBookingPage
+    {
+        protected override void OnLoad(EventArgs e)
+        {
+            if (BookingController.AdBookCart == null)
+                throw new BookingExpiredException("BookingController.AdBookCart is null");
+
+            if (AdController.TempRecordExist(BookingController.AdBookCart.BookReference))
+                throw new BookingExpiredException("BookingController.AdBookCart.BookReference already exists in TempBookingRecord");
+
+            base.OnLoad(e);
         }
     }
 }

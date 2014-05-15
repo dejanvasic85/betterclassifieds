@@ -4,7 +4,7 @@ Imports BetterclassifiedsCore.BusinessEntities
 Imports BetterClassified.UI.WebPage
 
 Partial Public Class BundlePage2
-    Inherits BaseBookingPage
+    Inherits BaseBundlePage
 
     Private _bundleController As BundleController
     Private _queryAction As String
@@ -13,15 +13,6 @@ Partial Public Class BundlePage2
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        ' check if the bundle booking cart is expired
-        If BundleController.BundleCart Is Nothing Then
-            Response.Redirect(PageUrl.BookingStep_1 + "?action=expired")
-        End If
-
-        'make sure ad has not been saved in temp booking
-        If (AdController.TempRecordExist(BundleController.BundleCart.BookReference)) Then
-            Response.Redirect(PageUrl.BookingStep_1 + "?action=expired")
-        End If
         _bundleController = New BundleController
 
         ' load query string values

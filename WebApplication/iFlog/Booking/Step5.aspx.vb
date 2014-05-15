@@ -3,21 +3,14 @@ Imports BetterclassifiedsCore.ParameterAccess
 Imports BetterClassified.UI.WebPage
 
 Partial Public Class Step5
-    Inherits BaseBookingPage
+    Inherits BaseOnlineBookingPage
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If BookingController.IsZeroValueTransaction Then
             Me.paymentPanel.Visible = False
         End If
         If Not Page.IsPostBack Then
-            If BookingController.AdBookCart Is Nothing Then
-                Response.Redirect(PageUrl.BookingStep_1 + "?action=expired")
-            End If
-
-            If (AdController.TempRecordExist(BookingController.AdBookCart.BookReference)) Then
-                Response.Redirect(PageUrl.BookingStep_1 + "?action=expired")
-            End If
-
+           
             radOnlineWindow.OpenerElementID = btnPreviewOnline.ClientID
 
             ' perform the databinding on all the selections

@@ -1,10 +1,9 @@
 ﻿Imports BetterclassifiedsCore
 Imports BetterclassifiedsCore.BundleBooking
-
 Imports BetterClassified.UI.WebPage
 
 Partial Public Class BundlePage4
-    Inherits BaseBookingPage
+    Inherits BaseBundlePage
 
     Private _bundleController As BundleController
     Private ReadOnly _daysPriorPrint As Integer = -7
@@ -13,16 +12,6 @@ Partial Public Class BundlePage4
 #Region "Page Load / Pre render"
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
-        ' check if the bundle booking cart is expired
-        If BundleController.BundleCart Is Nothing Then
-            Response.Redirect(PageUrl.BookingStep_1 + "?action=expired")
-        End If
-
-        'make sure ad has not been saved in temp booking
-        If (AdController.TempRecordExist(BundleController.BundleCart.BookReference)) Then
-            Response.Redirect(PageUrl.BookingStep_1 + "?action=expired")
-        End If
 
         ' initiate the global variables
         _bundleController = New BundleController()

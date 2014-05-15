@@ -1,23 +1,14 @@
 ﻿Imports BetterclassifiedsCore
-
 Imports BetterClassified.UI.WebPage
 
 Partial Public Class Step4
-    Inherits BaseBookingPage
+    Inherits BaseOnlineBookingPage
 
     Private Const _selectableDates As String = "vsDates"
     Private Const _adTypeState As String = "vsAdType"
     Private _maxInsertSetting As Integer
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
-        If BookingController.AdBookCart Is Nothing Then
-            Response.Redirect(PageUrl.BookingStep_1 + "?action=expired")
-        End If
-
-        If (AdController.TempRecordExist(BookingController.AdBookCart.BookReference)) Then
-            Response.Redirect(PageUrl.BookingStep_1 + "?action=expired")
-        End If
 
         ' load variable maximum insertions from App Settings
         _maxInsertSetting = AppKeyReader(Of Integer).ReadFromStore(AppKey.MaximumInsertions, 10)

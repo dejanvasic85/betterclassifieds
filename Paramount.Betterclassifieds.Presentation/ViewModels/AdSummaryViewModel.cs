@@ -15,16 +15,19 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public string[] Publications { get; set; }
         public string HeadingSlug { get; set; }
         public DateTime? BookingDate { get; set; }
-
+        public DateTime StartDate { get; set; }
         public string BookingDateFriendly
         {
             get
             {
                 if (BookingDate.HasValue)
                 {
-                    return BookingDate.Value.Humanize();
+                    // Booking date has a time component, but start date does not
+                    // So if the dates are the same day, then use the booking date
+                    if (BookingDate.Value.Day == StartDate.Day)
+                        return BookingDate.Value.Humanize(utcDate: false);
                 }
-                return string.Empty;
+                return StartDate.Humanize(utcDate: false);
             }
         }
     }

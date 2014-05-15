@@ -2,23 +2,18 @@
 Imports BetterclassifiedsCore.BundleBooking
 Imports BetterclassifiedsCore.ParameterAccess
 Imports BetterClassified.UI.WebPage
-Imports BetterClassified
 
+Imports BetterclassifiedsCore.BusinessEntities
 Imports Paramount.Betterclassifieds.Business.Models
 
 Partial Public Class BundlePage3
-    Inherits BaseBookingPage
+    Inherits BaseBundlePage
 
     Private _bundleController As BundleController
 
 #Region "Page Load / Pre render"
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
-        ' check if the bundle booking cart is expired
-        If BundleController.BundleCart Is Nothing Or AdController.TempRecordExist(BundleController.BundleCart.BookReference) Then
-            Response.Redirect(PageUrl.BookingStep_1 + "?action=expired")
-        End If
 
         _bundleController = New BundleController
 
@@ -59,6 +54,7 @@ Partial Public Class BundlePage3
 #Region "Displaying / Calculate Single Price Information"
 
     Private Sub LoadCurrentSessionData()
+
         ' first check if the bundle cart is not null
         If BundleController.BundleCart IsNot Nothing Then
             ' bind the line ad - don't impose limit on the text box for ad description

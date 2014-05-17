@@ -147,7 +147,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var adViewModel = this.Map<AdSearchResult, AdViewModel>(adSearchResult);
 
-            ViewBag.Title = adViewModel.Title;
+            ViewBag.Title = adViewModel.Heading;
 
             return View(adViewModel);
         }

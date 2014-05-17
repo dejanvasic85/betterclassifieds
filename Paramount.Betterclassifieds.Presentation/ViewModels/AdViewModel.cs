@@ -5,8 +5,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
     public class AdViewModel
     {
         public int AdId { get; set; }
-        public string Title { get; set; }
+        public string Heading { get; set; }
         public string Description { get; set; }
+        public string HtmlText { get; set; }
         public String[] ImageUrls { get; set; }
         public string ParentCategoryName { get; set; }
         public string ChildCategoryName { get; set; }

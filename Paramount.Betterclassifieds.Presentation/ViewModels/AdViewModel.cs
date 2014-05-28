@@ -4,6 +4,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
     public class AdViewModel
     {
+        public AdViewModel()
+        {
+            AdEnquiry = new AdEnquiryViewModel();
+        }
         public int AdId { get; set; }
         public string Heading { get; set; }
         public string Description { get; set; }
@@ -28,5 +32,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         {
             get { return this.HasImages && this.ImageUrls.Length > 1; }
         }
+
+        public AdEnquiryViewModel AdEnquiry { get; set; }
     }
 }

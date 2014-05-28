@@ -92,15 +92,22 @@
                         @Html.AntiForgeryToken()
                         @Html.HiddenFor(m => m.AdId)
                         <div class="form-group">
-                            <label>Full Name</label>
-                            <input type="text" name="fullName" id="fullName" class="form-control"/>
+                            <label for="fullName">Full Name</label>
+                            <input type="text" name="fullName" id="fullName" class="form-control"
+                                   data-val="true" data-val-required="Full name is required"
+                                   data-val-length="Full Name must be no longer than 100 characters" data-val-max-length="100" />
+                            <span class="field-validation-valid help-block" data-valmsg-for="fullName" data-valmsg-replace="true"></span>
                         </div>
                         <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" name="email" id="email" class="form-control"/>
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" class="form-control"
+                                   data-val="true" data-val-required="Email is required"
+                                   data-val-length="Email must be no longer than 100 characters" data-val-max-length="100"
+                                   data-val-email="Email does not appear to be in valid format." />
+                            <span class="field-validation-valid help-block" data-valmsg-for="email" data-valmsg-replace="true"></span>
                         </div>
                         <div class="form-group">
-                            <label>Your Question</label>
+                            <label for="question">Your Question</label>
                             <textarea name="question" id="question" class="form-control input-text" rows="5"></textarea>
                         </div>
                         <div class="form-group">
@@ -115,29 +122,33 @@
 
 @section Scripts{
     <script>
-        
+
         $(function () {
             $('#submitEnquiryBtn').on('click', function () {
                 submitEnquiry();
             });
 
             $('#adEnquiryForm').submit(function () {
-                debugger;
                 submitEnquiry();
-                e.preventDefault();
             });
 
             function submitEnquiry() {
+                 
                 var $btn = $('#btnSubmit');
                 $btn.button('loading');
+                var validation = $('#adEnquiryForm').validate();
+                if (!validation)
+                    return false;
                 $.ajax({
                     method: 'POST',
                     url: '@Url.Action("AdEnquiry")',
                     data: $('#adEnquiryForm').serialize()
-                }).done(function() {
+                }).done(function () {
                     $btn.button('reset');
-                    
+                }).success(function () {
+
                 });
+                return true;
             }
         });
     </script>

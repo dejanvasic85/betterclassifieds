@@ -6,37 +6,38 @@
     Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayout.cshtml");
 }
 
-<div class="container-fluid container-body" style="padding: 20px">
 
-    @*todo - breadcrumb*@
-    @*todo - back to search results*@
+<ol class="breadcrumb">
+    <li>@Model.ParentCategoryName</li>
+    <li>@Model.CategoryName</li>
+    <li>Ad ID : @Model.AdId</li>
+</ol>
 
-    @*Top Header for Ad*@
-    <div class="row">
-        <div class="col-xs-12">
-            <h1 class="page-header">@Model.Heading</h1>
-            <p>
-                @Model.AdId
-            </p>
-        </div>
-    </div>
+<div class="container-fluid container-body left-buffer-20">
+
+    <h2 class="ad-title-h2">@Model.Heading</h2>
 
     <div class="row">
+
         @*Ad Details*@
         <div class="col-sm-8">
-            @if (Model.ImageUrls.Length > 0)
+            @if (Model.HasImages)
             {
                 @*Image Gallery*@
                 <div id="imageGallery" class="carousel slide" data-ride="carousel">
+
                     <!-- Indicators -->
-                    <ol class="carousel-indicators">
-                        <li data-target="#imageGallery" data-slide-to="0" class="active"></li>
-                        @for (var i = 1; i <= Model.ImageUrls.Length - 1; i++)
-                        {
-                            <li data-target="#imageGallery" data-slide-to="@i"></li>
-                        }
-                    </ol>
-                    
+                    @if (Model.ShowImageSlideshow)
+                    {
+                        <ol class="carousel-indicators">
+                            <li data-target="#imageGallery" data-slide-to="0" class="active"></li>
+                            @for (var i = 1; i <= Model.ImageUrls.Length - 1; i++)
+                            {
+                                <li data-target="#imageGallery" data-slide-to="@i"></li>
+                            }
+                        </ol>
+                    }
+
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner">
                         <div class="item active">
@@ -45,31 +46,99 @@
                         @foreach (var img in Model.ImageUrls.Skip(1))
                         {
                             <div class="item">
-                                <img src="@Url.Action("Render", "Image", new { documentId = img, height = 500, width = 900})"/>
+                                <img src="@Url.Action("Render", "Image", new { documentId = img, height = 500, width = 900})" />
                             </div>
                         }
                     </div>
-                    
-                    <!-- Controls -->
-                    <a class="left carousel-control" href="#imageGallery" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left"></span>
-                    </a>
-                    <a class="right carousel-control" href="#imageGallery" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
+
+                    <!-- Controls for more than one image -->
+                    @if (Model.ShowImageSlideshow)
+                    {
+                        <a class="left carousel-control" href="#imageGallery" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                        </a>
+                        <a class="right carousel-control" href="#imageGallery" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
+                    }
                 </div>
             }
-            
-            @*Description*@
-            <div>
-                
-            </div>
 
+            @*Description*@
+            <div class="top-buffer-40">
+                @Html.Raw(Model.HtmlText)
+            </div>
         </div>
 
         @*Social buttons and Contact*@
         <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Advertiser Details
+                </div>
+                <div class="panel-body">
+                </div>
+                <div class="panel-footer">
+                    Visits : @Model.NumOfViews
+                </div>
+            </div>
 
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Get in touch
+                </div>
+                <div class="panel-body">
+                    <form id="adEnquiryForm">
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(m => m.AdId)
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" name="fullName" id="fullName" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" name="email" id="email" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Your Question</label>
+                            <textarea name="question" id="question" class="form-control input-text" rows="5"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button id="btnSubmit" class="btn btn-primary btn-block" data-loading-text="Please wait..">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script>
+        
+        $(function () {
+            $('#submitEnquiryBtn').on('click', function () {
+                submitEnquiry();
+            });
+
+            $('#adEnquiryForm').submit(function () {
+                debugger;
+                submitEnquiry();
+                e.preventDefault();
+            });
+
+            function submitEnquiry() {
+                var $btn = $('#btnSubmit');
+                $btn.button('loading');
+                $.ajax({
+                    method: 'POST',
+                    url: '@Url.Action("AdEnquiry")',
+                    data: $('#adEnquiryForm').serialize()
+                }).done(function() {
+                    $btn.button('reset');
+                    
+                });
+            }
+        });
+    </script>
+}

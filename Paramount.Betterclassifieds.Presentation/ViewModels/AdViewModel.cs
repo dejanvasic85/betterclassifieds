@@ -10,13 +10,23 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public string HtmlText { get; set; }
         public String[] ImageUrls { get; set; }
         public string ParentCategoryName { get; set; }
-        public string ChildCategoryName { get; set; }
+        public string CategoryName { get; set; }
         public DateTime PostedDate { get; set; }
         public string[] Publications { get; set; }
         public string ContactName { get; set; }
         public string ContactDetail { get; set; }
-        public int HitCount { get; set; }
+        public int NumOfViews { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+
+        public bool HasImages
+        {
+            get { return this.ImageUrls != null && this.ImageUrls.Length > 0; }
+        }
+
+        public bool ShowImageSlideshow
+        {
+            get { return this.HasImages && this.ImageUrls.Length > 1; }
+        }
     }
 }

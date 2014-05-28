@@ -34,12 +34,15 @@ namespace Paramount.Betterclassifieds.Presentation
                 new { controller = "Image", action = "Render", width = UrlParameter.Optional, height = UrlParameter.Optional });
 
             // Ad (temporary)
-            routes.MapPageRoute("adRoute", "Ad/{title}/{id}", "~/OnlineAds/AdView.aspx", checkPhysicalUrlAccess: false);
+            // routes.MapPageRoute("adRoute", "Ad/{title}/{id}", "~/OnlineAds/AdView.aspx", checkPhysicalUrlAccess: false);
+            routes.MapRoute("adRoute", "Ad/{title}/{id}",
+                new {controller = "Listings", action = "ViewAd", module = Name},
+                new[] {this.GetType().Namespace});
 
             routes.MapRoute(
               "seoName",
               "{seoName}/listings",
-              new { controller = "listings", action = "SeoAds", module = Name },
+              new { controller = "Listings", action = "SeoAds", module = Name },
               new[] { GetType().Namespace });
 
             // Default

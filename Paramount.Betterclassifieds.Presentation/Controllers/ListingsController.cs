@@ -144,12 +144,17 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 // Ad doesn't exist so return 404
                 return View("404");
             }
-
             var adViewModel = this.Map<AdSearchResult, AdViewModel>(adSearchResult);
-
             ViewBag.Title = adViewModel.Heading;
-
             return View(adViewModel);
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult AdEnquiry(AdEnquiryViewModel adEnquiry)
+        {
+            System.Threading.Thread.Sleep(2000);
+            return Json(new { complete = true });
         }
 
         public void OnRegisterMaps(IConfiguration configuration)
@@ -158,6 +163,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<AdSearchResult, AdSummaryViewModel>();
             configuration.CreateMap<AdSearchResult, AdViewModel>();
         }
+
 
     }
 }

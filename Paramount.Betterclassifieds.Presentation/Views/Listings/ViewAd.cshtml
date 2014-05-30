@@ -88,6 +88,7 @@
                     Get in touch
                 </div>
                 <div class="panel-body">
+                    <div class="alert alert-success hidden" id="enquirySuccessful">Your message has been sent successfully</div>
                     <form id="adEnquiryForm">
                         @Html.AntiForgeryToken()
                         @Html.HiddenFor(m => m.OnlineAdId)
@@ -156,7 +157,9 @@
                 }).always(function() {
                     $btn.button('reset');
                 }).success(function() {
-                    $('#adEnquiryForm').slideUp();
+                    $('#adEnquiryForm').slideUp(500, function() {
+                        $('#enquirySuccessful').removeClass('hidden');
+                    });
                 });
 
                 return false;

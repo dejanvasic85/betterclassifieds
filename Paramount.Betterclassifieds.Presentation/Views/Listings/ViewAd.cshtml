@@ -72,7 +72,7 @@
 
         @*Social buttons and Contact*@
         <div class="col-sm-4">
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     Advertiser Details
                 </div>
@@ -83,7 +83,7 @@
                 </div>
             </div>
 
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     Get in touch
                 </div>
@@ -143,10 +143,11 @@
             function submitEnquiry() {
 
                 var $btn = $('#btnSubmit');
-                $btn.button('loading');
                 var validation = $('#adEnquiryForm').validate();
-                if (!validation)
+                if (!validation.valid())
                     return false;
+
+                $btn.button('loading');
 
                 $.ajax({
                     method: 'POST',
@@ -156,8 +157,6 @@
                     $btn.button('reset');
                 }).success(function() {
                     $('#adEnquiryForm').slideUp();
-                }).fail(function() {
-                    alert('something failed');
                 });
 
                 return false;

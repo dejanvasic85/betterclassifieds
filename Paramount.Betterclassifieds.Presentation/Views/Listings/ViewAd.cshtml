@@ -134,11 +134,9 @@
     <script>
 
         $(function () {
-            $('#submitEnquiryBtn').on('click', function () {
-                submitEnquiry();
-            });
-
-            $('#adEnquiryForm').submit(function () {
+            
+            $('#adEnquiryForm').submit(function (e) {
+                e.preventDefault();
                 submitEnquiry();
             });
 
@@ -154,11 +152,14 @@
                     method: 'POST',
                     url: '@Url.Action("AdEnquiry")',
                     data: $('#adEnquiryForm').serialize()
-                }).done(function () {
+                }).always(function() {
                     $btn.button('reset');
-                }).success(function () {
-
+                }).success(function() {
+                    $('#adEnquiryForm').slideUp();
+                }).fail(function() {
+                    alert('something failed');
                 });
+
                 return false;
             }
         });

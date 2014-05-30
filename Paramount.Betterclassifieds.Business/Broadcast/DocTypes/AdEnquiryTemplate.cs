@@ -4,7 +4,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
     {
         public string DocumentType
         {
-            get { return GetType().Name; }
+            get { return "AdEnquiry"; }
         }
 
         [Placeholder("adNumber")]

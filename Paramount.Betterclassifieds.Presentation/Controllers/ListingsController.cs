@@ -15,17 +15,21 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
     {
         private readonly ISearchService _searchService;
         private readonly IAdRepository _adRepository;
+        private readonly IBookingRepository _bookingRepository;
+        private readonly IUserRepository _userRepository;
         private readonly SearchFilters _searchFilters;
         private readonly IBroadcastManager _broadcastManager;
         private readonly IClientConfig _clientConfig;
 
-        public ListingsController(ISearchService searchService, SearchFilters searchFilters, IClientConfig clientConfig, IAdRepository adRepository, IBroadcastManager broadcastManager)
+        public ListingsController(ISearchService searchService, SearchFilters searchFilters, IClientConfig clientConfig, IAdRepository adRepository, IBroadcastManager broadcastManager, IBookingRepository bookingRepository, IUserRepository userRepository)
         {
             _searchService = searchService;
             _searchFilters = searchFilters;
             _clientConfig = clientConfig;
             _adRepository = adRepository;
             _broadcastManager = broadcastManager;
+            _bookingRepository = bookingRepository;
+            _userRepository = userRepository;
         }
 
         [HttpGet]
@@ -163,8 +167,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return Json(new {complete = false});
 
             _adRepository.CreateAdEnquiry(this.Map<AdEnquiryViewModel, Business.Models.AdEnquiry>(adEnquiry));
-            var recipientEmail = _adRepository.GetAdvertiserEmailForAd(adEnquiry.AdId);
-            _broadcastManager.SendEmail(new AdEnquiryTemplate {AdNumber = adEnquiry.AdId.ToString()}, recipientEmail);
+
+            var booking = _bookingRepository.GetBooking(adEnquiry.AdId);
+            var bookingUser = _userRepository.GetUserByUsername(booking.UserId);
+            
+            _broadcastManager.SendEmail(new AdEnquiryTemplate {AdNumber = adEnquiry.AdId.ToString()}, bookingUser.Email);
 
             return Json(new { complete = true });
         }

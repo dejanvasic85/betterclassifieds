@@ -9,6 +9,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             AdEnquiry = new AdEnquiryViewModel();
         }
         public int AdId { get; set; }
+        public int OnlineAdId { get; set; }
         public string Heading { get; set; }
         public string Description { get; set; }
         public string HtmlText { get; set; }

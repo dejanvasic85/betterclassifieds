@@ -5,6 +5,7 @@ namespace Paramount.Betterclassifieds.Business.Search
     public class AdSearchResult
     {
         public int AdId { get; set; }
+        public int OnlineAdId { get; set; }
         public string Heading { get; set; }
         public string HeadingSlug
         {

@@ -226,7 +226,7 @@ namespace BetterClassified.UI
                 
                 // Send the email - using the new broadcast implementation
                 IBroadcastManager manager = Unity.DefaultContainer.Resolve<IBroadcastManager>();
-                manager.SendEmail<AdEnquiry>(new AdEnquiry {AdNumber = AdId.ToString()}, recipient);
+                manager.SendEmail<AdEnquiryTemplate>(new AdEnquiryTemplate {AdNumber = AdId.ToString()}, recipient);
 
             }
             successText.Text = GetResources(EntityGroup.OnlineAdMessaging, ContentItem.Form, "success.Text");

@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.Ajax.Utilities;
+using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Managers;
+using Paramount.Betterclassifieds.Business.Repository;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 using System.Collections.Generic;
@@ -12,14 +14,18 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
     public class ListingsController : Controller, IMappingBehaviour
     {
         private readonly ISearchService _searchService;
+        private readonly IAdRepository _adRepository;
         private readonly SearchFilters _searchFilters;
+        private readonly IBroadcastManager _broadcastManager;
         private readonly IClientConfig _clientConfig;
 
-        public ListingsController(ISearchService searchService, SearchFilters searchFilters, IClientConfig clientConfig)
+        public ListingsController(ISearchService searchService, SearchFilters searchFilters, IClientConfig clientConfig, IAdRepository adRepository, IBroadcastManager broadcastManager)
         {
             _searchService = searchService;
             _searchFilters = searchFilters;
             _clientConfig = clientConfig;
+            _adRepository = adRepository;
+            _broadcastManager = broadcastManager;
         }
 
         [HttpGet]
@@ -153,7 +159,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost]
         public ActionResult AdEnquiry(AdEnquiryViewModel adEnquiry)
         {
-            System.Threading.Thread.Sleep(2000);
+            if (!ModelState.IsValid)
+                return Json(new {complete = false});
+
+            _adRepository.CreateAdEnquiry(this.Map<AdEnquiryViewModel, Business.Models.AdEnquiry>(adEnquiry));
+            var recipientEmail = _adRepository.GetAdvertiserEmailForAd(adEnquiry.AdId);
+            _broadcastManager.SendEmail(new AdEnquiryTemplate {AdNumber = adEnquiry.AdId.ToString()}, recipientEmail);
+
             return Json(new { complete = true });
         }
 
@@ -162,6 +174,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateProfile("ListingsCtrlProfile");
             configuration.CreateMap<AdSearchResult, AdSummaryViewModel>();
             configuration.CreateMap<AdSearchResult, AdViewModel>();
+            configuration.CreateMap<AdEnquiryViewModel, Business.Models.AdEnquiry>();
         }
 
 

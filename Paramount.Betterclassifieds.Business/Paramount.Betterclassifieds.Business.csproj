@@ -50,7 +50,7 @@
     <Compile Include="Broadcast\INotificationProcessor.cs" />
     <Compile Include="Broadcast\Notification.cs" />
     <Compile Include="Broadcast\DocTypes\ActivityReport.cs" />
-    <Compile Include="Broadcast\DocTypes\AdEnquiry.cs" />
+    <Compile Include="Broadcast\DocTypes\AdEnquiryTemplate.cs" />
     <Compile Include="Broadcast\DocTypes\ExpirationReminder.cs" />
     <Compile Include="Broadcast\DocTypes\ForgottenPassword.cs" />
     <Compile Include="Broadcast\DocTypes\NewBooking.cs" />
@@ -67,6 +67,7 @@
     <Compile Include="Broadcast\DocTypes\IDocType.cs" />
     <Compile Include="EditionManager.cs" />
     <Compile Include="Managers\IApplicationConfig.cs" />
+    <Compile Include="Models\AdEnquiry.cs" />
     <Compile Include="Search\AdSearchResult.cs" />
     <Compile Include="Search\AdSearchSortOrder.cs" />
     <Compile Include="Search\CategorySearchResult.cs" />

@@ -90,6 +90,7 @@
                 <div class="panel-body">
                     <form id="adEnquiryForm">
                         @Html.AntiForgeryToken()
+                        @Html.HiddenFor(m => m.OnlineAdId)
                         @Html.HiddenFor(m => m.AdId)
                         <div class="form-group">
                             <label for="fullName">Full Name</label>
@@ -106,9 +107,18 @@
                                    data-val-email="Email does not appear to be in valid format." />
                             <span class="field-validation-valid help-block" data-valmsg-for="email" data-valmsg-replace="true"></span>
                         </div>
+                        @*<div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="text" name="phone" id="phone" class="form-control"
+                                   data-val="true"
+                                   data-val-length="Phone must be no longer than 20 characters" data-val-max-length="20" />
+                            <span class="field-validation-valid help-block" data-valmsg-for="phone" data-valmsg-replace="true"></span>
+                        </div>*@
                         <div class="form-group">
                             <label for="question">Your Question</label>
-                            <textarea name="question" id="question" class="form-control input-text" rows="5"></textarea>
+                            <textarea name="question" id="question" class="form-control" rows="3"
+                                      data-val="true" data-val-required="Question is required"></textarea>
+                            <span class="field-validation-valid help-block" data-valmsg-for="question" data-valmsg-replace="true"></span>
                         </div>
                         <div class="form-group">
                             <button id="btnSubmit" class="btn btn-primary btn-block" data-loading-text="Please wait..">Submit</button>
@@ -133,12 +143,13 @@
             });
 
             function submitEnquiry() {
-                 
+
                 var $btn = $('#btnSubmit');
                 $btn.button('loading');
                 var validation = $('#adEnquiryForm').validate();
                 if (!validation)
                     return false;
+
                 $.ajax({
                     method: 'POST',
                     url: '@Url.Action("AdEnquiry")',
@@ -148,7 +159,7 @@
                 }).success(function () {
 
                 });
-                return true;
+                return false;
             }
         });
     </script>

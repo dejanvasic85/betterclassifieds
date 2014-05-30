@@ -1,6 +1,6 @@
 namespace Paramount.Betterclassifieds.Business.Broadcast
 {
-    public class AdEnquiry : IDocType
+    public class AdEnquiryTemplate : IDocType
     {
         public string DocumentType
         {

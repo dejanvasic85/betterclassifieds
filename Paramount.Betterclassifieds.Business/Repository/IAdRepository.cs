@@ -6,5 +6,7 @@ namespace Paramount.Betterclassifieds.Business.Repository
     {
         TutorAdModel GetTutorAd(int onlineAdId);
         void UpdateTutor(TutorAdModel tutorAdModel);
+        void CreateAdEnquiry(AdEnquiry adEnquiryTemplate);
+        string GetAdvertiserEmailForAd(int adId);
     }
 }

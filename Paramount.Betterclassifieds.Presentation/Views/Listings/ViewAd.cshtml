@@ -106,6 +106,10 @@
                             <td>@Model.Price.ToString()</td>
                         </tr>
                     }
+                    <tr title="Location">
+                        <td><span class="glyphicon glyphicon-globe"></span></td>
+                        <td>@Model.LocationName > @Model.LocationAreaName</td>
+                    </tr>
                     <tr title="Listing date">
                         <td><span class="glyphicon glyphicon-dashboard" title="Listing date"></span></td>
                         <td>@Model.PostedDate</td>

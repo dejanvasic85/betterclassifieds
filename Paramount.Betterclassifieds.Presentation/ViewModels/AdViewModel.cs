@@ -21,6 +21,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public string[] Publications { get; set; }
         public string ContactName { get; set; }
         public string ContactValue { get; set; }
+        public string LocationName { get; set; }
+        public string LocationAreaName { get; set; }
 
         public bool IsContactEmail
         {

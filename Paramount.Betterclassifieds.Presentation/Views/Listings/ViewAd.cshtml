@@ -6,7 +6,6 @@
     Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayout.cshtml");
 }
 
-
 <ol class="breadcrumb">
     <li>@Model.ParentCategoryName</li>
     <li>@Model.CategoryName</li>
@@ -16,7 +15,6 @@
 <div class="container-fluid container-body left-buffer-20">
 
     <h2 class="ad-title-h2">@Model.Heading</h2>
-
     <div class="row">
 
         @*Ad Details*@
@@ -74,19 +72,56 @@
         <div class="col-sm-4">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Advertiser Details
+                    Details
                 </div>
-                <div class="panel-body">
-                </div>
-                <div class="panel-footer">
-                    Visits : @Model.NumOfViews
-                </div>
+                <table class="table table-striped">
+                    
+                    @if (Model.ContactName.HasValue())
+                    {
+                        <tr title="Contact Name">
+                            <td><span class="glyphicon glyphicon-user"></span></td>
+                            <td>@Model.ContactName</td>
+                        </tr>
+                    }
+                    @if (Model.ContactValue.HasValue())
+                    {
+                        <tr>
+                            <td>
+                                @if (Model.IsContactEmail)
+                                {
+                                    <span class="glyphicon glyphicon-envelope"></span>
+                                }
+                                else
+                                {
+                                    <span class="glyphicon glyphicon-phone"></span>
+                                }
+                            </td>
+                            <td>@Model.ContactValue</td>
+                        </tr>
+                    }
+                    @if (Model.Price.HasValue)
+                    {
+                        <tr title="Price">
+                            <td><span class="glyphicon glyphicon-usd"></span></td>
+                            <td>@Model.Price.ToString()</td>
+                        </tr>
+                    }
+                    <tr title="Listing date">
+                        <td><span class="glyphicon glyphicon-dashboard" title="Listing date"></span></td>
+                        <td>@Model.PostedDate</td>
+                    </tr>
+                    <tr title="Visits">
+                        <td><span class="glyphicon glyphicon-eye-open"></span></td>
+                        <td>@Model.NumOfViews</td>
+                    </tr>
+                </table>
             </div>
 
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Get in touch
+                    Contact Advertiser
                 </div>
+                
                 <div class="panel-body">
                     <div class="alert alert-success hidden" id="enquirySuccessful">Your message has been sent successfully</div>
                     <form id="adEnquiryForm">
@@ -108,13 +143,6 @@
                                    data-val-email="Email does not appear to be in valid format." />
                             <span class="field-validation-valid help-block" data-valmsg-for="email" data-valmsg-replace="true"></span>
                         </div>
-                        @*<div class="form-group">
-                            <label for="phone">Phone</label>
-                            <input type="text" name="phone" id="phone" class="form-control"
-                                   data-val="true"
-                                   data-val-length="Phone must be no longer than 20 characters" data-val-max-length="20" />
-                            <span class="field-validation-valid help-block" data-valmsg-for="phone" data-valmsg-replace="true"></span>
-                        </div>*@
                         <div class="form-group">
                             <label for="question">Your Question</label>
                             <textarea name="question" id="question" class="form-control" rows="3"

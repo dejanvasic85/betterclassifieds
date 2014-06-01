@@ -164,14 +164,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult AdEnquiry(AdEnquiryViewModel adEnquiry)
         {
             if (!ModelState.IsValid)
-                return Json(new {complete = false});
+                return Json(new { complete = false });
 
             _adRepository.CreateAdEnquiry(this.Map<AdEnquiryViewModel, Business.Models.AdEnquiry>(adEnquiry));
 
             var booking = _bookingRepository.GetBooking(adEnquiry.AdId);
             var bookingUser = _userRepository.GetUserByUsername(booking.UserId);
-            
-            _broadcastManager.SendEmail(new AdEnquiryTemplate {AdNumber = adEnquiry.AdId.ToString()}, bookingUser.Email);
+
+            _broadcastManager.SendEmail(new AdEnquiryTemplate { AdNumber = adEnquiry.AdId.ToString() }, bookingUser.Email);
 
             return Json(new { complete = true });
         }
@@ -180,10 +180,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             configuration.CreateProfile("ListingsCtrlProfile");
             configuration.CreateMap<AdSearchResult, AdSummaryViewModel>();
-            configuration.CreateMap<AdSearchResult, AdViewModel>();
+            configuration.CreateMap<AdSearchResult, AdViewModel>()
+                .ForMember(member => member.Price, options => options.Condition(v => v.Price > 0));
             configuration.CreateMap<AdEnquiryViewModel, Business.Models.AdEnquiry>();
         }
-
-
+        
     }
 }

@@ -21,7 +21,7 @@ namespace Paramount.Betterclassifieds.Business.Models
         public string ContactName { get; set; }
         public string ContactType { get; set; }
         public string ContactValue { get; set; }
-        public int NumOfViews { get; set; }
+        public int NumOfViews { get; private set; }
 
         public List<AdImage> Images { get; set; }
 
@@ -32,6 +32,11 @@ namespace Paramount.Betterclassifieds.Business.Models
             return from type in types
                    where type.HasCustomAttribute<OnlineAdTypeAttribute>()
                    select type.GetCustomAttribute<OnlineAdTypeAttribute>().OnlineAdName;
+        }
+
+        public void IncrementHits()
+        {
+            this.NumOfViews++;
         }
     }
 }

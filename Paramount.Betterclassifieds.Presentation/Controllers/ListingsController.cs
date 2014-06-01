@@ -16,12 +16,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly ISearchService _searchService;
         private readonly IAdRepository _adRepository;
         private readonly IBookingRepository _bookingRepository;
+        private readonly IBookingManager _bookingManager;
         private readonly IUserRepository _userRepository;
         private readonly SearchFilters _searchFilters;
         private readonly IBroadcastManager _broadcastManager;
         private readonly IClientConfig _clientConfig;
 
-        public ListingsController(ISearchService searchService, SearchFilters searchFilters, IClientConfig clientConfig, IAdRepository adRepository, IBroadcastManager broadcastManager, IBookingRepository bookingRepository, IUserRepository userRepository)
+        public ListingsController(ISearchService searchService, SearchFilters searchFilters, IClientConfig clientConfig, IAdRepository adRepository, IBroadcastManager broadcastManager, IBookingRepository bookingRepository, IUserRepository userRepository, IBookingManager bookingManager)
         {
             _searchService = searchService;
             _searchFilters = searchFilters;
@@ -30,6 +31,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _broadcastManager = broadcastManager;
             _bookingRepository = bookingRepository;
             _userRepository = userRepository;
+            _bookingManager = bookingManager;
         }
 
         [HttpGet]
@@ -147,15 +149,21 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpGet]
         public ActionResult ViewAd(int id, string titleSlug = "")
         {
+            // Increment the hits first
+            _bookingManager.IncrementHits(id);
+
             // Remember - Id is always AdBookingId
             var adSearchResult = _searchService.GetAdById(id);
+            
             if (adSearchResult == null || adSearchResult.HasExpired() || adSearchResult.HasNotStarted())
             {
                 // Ad doesn't exist so return 404
                 return View("404");
             }
+
             var adViewModel = this.Map<AdSearchResult, AdViewModel>(adSearchResult);
             ViewBag.Title = adViewModel.Heading;
+            
             return View(adViewModel);
         }
 

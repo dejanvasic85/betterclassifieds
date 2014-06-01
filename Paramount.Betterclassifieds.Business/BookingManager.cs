@@ -10,6 +10,7 @@ namespace Paramount.Betterclassifieds.Business
     public class BookingManager : IBookingManager
     {
         private readonly IBookingRepository _bookingRepository;
+        private readonly IAdRepository _adRepository;
         private readonly IPublicationRepository _publicationRepository;
         private readonly IClientConfig _clientConfigSettings;
         private readonly IPaymentsRepository _payments;
@@ -17,12 +18,13 @@ namespace Paramount.Betterclassifieds.Business
         public BookingManager(IBookingRepository bookingRepository,
             IPublicationRepository publicationRepository,
             IClientConfig clientConfigSettings,
-            IPaymentsRepository payments)
+            IPaymentsRepository payments, IAdRepository adRepository)
         {
             this._bookingRepository = bookingRepository;
             this._publicationRepository = publicationRepository;
             this._clientConfigSettings = clientConfigSettings;
             this._payments = payments;
+            _adRepository = adRepository;
         }
 
         public AdBookingExtensionModel CreateExtension(int adBookingId, int numberOfInsertions, string username, decimal price, ExtensionStatus status, bool isOnlineOnly)
@@ -109,6 +111,13 @@ namespace Paramount.Betterclassifieds.Business
             // Then extend it :)
             // Single responsibility = EXTEND
             Extend(extension, payment);
+        }
+
+        public void IncrementHits(int adId)
+        {
+            var onlineAd = _adRepository.GetOnlineAd(adId);
+            onlineAd.IncrementHits();
+            _adRepository.UpdateOnlineAd(onlineAd);
         }
 
         public IEnumerable<PublicationEditionModel> GenerateExtensionDates(int adBookingId, int numberOfInsertions)

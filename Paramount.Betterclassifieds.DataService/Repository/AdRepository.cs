@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Cryptography;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Repository;
@@ -9,6 +10,33 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 {
     public class AdRepository : IAdRepository, IMappingBehaviour
     {
+        public OnlineAdModel GetOnlineAd(int adId)
+        {
+            using (var context = DataContextFactory.CreateClassifiedContext())
+            {
+                var ad = from adBooking in context.AdBookings
+                    where adBooking.AdBookingId == adId
+                    join design in context.AdDesigns on adBooking.AdId equals design.AdId
+                    join onlineAd in context.OnlineAds on design.AdDesignId equals onlineAd.AdDesignId
+                    select onlineAd;
+
+                return this.Map<OnlineAd, OnlineAdModel>(ad.Single());
+            }
+        }
+
+        public void UpdateOnlineAd(OnlineAdModel onlineAd)
+        {
+            using (var context = DataContextFactory.CreateClassifiedContext())
+            {
+                // Fetch original
+                var original = context.OnlineAds.Single(o => o.OnlineAdId == onlineAd.OnlineAdId);
+                // Map new property changes
+                this.Map(onlineAd, original);
+                // Commit the changes
+                context.SubmitChanges();
+            }
+        }
+
         public TutorAdModel GetTutorAd(int onlineAdId)
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
@@ -66,7 +94,11 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
             // To Db
             configuration.CreateMap<OnlineAdModel, OnlineAd>()
-                .ForMember(member => member.AdDesignId, options => options.Ignore());
+                .ForMember(member => member.Location, options => options.Ignore())
+                .ForMember(member => member.TutorAds, options => options.Ignore())
+                .ForMember(member => member.LocationArea, options => options.Ignore())
+                .ForMember(member => member.AdDesign, options => options.Ignore())
+                ;
             configuration.CreateMap<TutorAdModel, TutorAd>().ForMember(member => member.OnlineAd, options => options.Ignore());
             configuration.CreateMap<AdEnquiry, OnlineAdEnquiry>()
                 .ForMember(member => member.EnquiryText, options => options.MapFrom(source => source.Question))

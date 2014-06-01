@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Repository;
@@ -14,17 +15,21 @@ namespace Paramount.Betterclassifieds.Business
         private readonly IPublicationRepository _publicationRepository;
         private readonly IClientConfig _clientConfigSettings;
         private readonly IPaymentsRepository _payments;
+        private readonly IUserManager _userManager;
+        private readonly IBroadcastManager _broadcastManager;
 
         public BookingManager(IBookingRepository bookingRepository,
             IPublicationRepository publicationRepository,
             IClientConfig clientConfigSettings,
-            IPaymentsRepository payments, IAdRepository adRepository)
+            IPaymentsRepository payments, IAdRepository adRepository, IUserManager userManager, IBroadcastManager broadcastManager)
         {
             this._bookingRepository = bookingRepository;
             this._publicationRepository = publicationRepository;
             this._clientConfigSettings = clientConfigSettings;
             this._payments = payments;
             _adRepository = adRepository;
+            _userManager = userManager;
+            _broadcastManager = broadcastManager;
         }
 
         public AdBookingExtensionModel CreateExtension(int adBookingId, int numberOfInsertions, string username, decimal price, ExtensionStatus status, bool isOnlineOnly)
@@ -118,6 +123,17 @@ namespace Paramount.Betterclassifieds.Business
             var onlineAd = _adRepository.GetOnlineAd(adId);
             onlineAd.IncrementHits();
             _adRepository.UpdateOnlineAd(onlineAd);
+        }
+
+        public void SubmitAdEnquiry(AdEnquiry adEnquiry)
+        {
+            // Create enquiry in Db
+            _adRepository.CreateAdEnquiry(adEnquiry);
+
+            var booking = _bookingRepository.GetBooking(adEnquiry.AdId);
+            var bookingUser = _userManager.GetUserByEmailOrUsername(booking.UserId);
+
+            _broadcastManager.SendEmail(new AdEnquiryTemplate { AdNumber = adEnquiry.AdId.ToString() }, bookingUser.Email);
         }
 
         public IEnumerable<PublicationEditionModel> GenerateExtensionDates(int adBookingId, int numberOfInsertions)

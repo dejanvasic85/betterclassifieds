@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.Ajax.Utilities;
+using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Managers;
+using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Repository;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
@@ -14,23 +16,22 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
     public class ListingsController : Controller, IMappingBehaviour
     {
         private readonly ISearchService _searchService;
-        private readonly IAdRepository _adRepository;
-        private readonly IBookingRepository _bookingRepository;
+        //private readonly IAdRepository _adRepository;
+        //private readonly IBookingRepository _bookingRepository;
         private readonly IBookingManager _bookingManager;
-        private readonly IUserRepository _userRepository;
         private readonly SearchFilters _searchFilters;
         private readonly IBroadcastManager _broadcastManager;
         private readonly IClientConfig _clientConfig;
 
-        public ListingsController(ISearchService searchService, SearchFilters searchFilters, IClientConfig clientConfig, IAdRepository adRepository, IBroadcastManager broadcastManager, IBookingRepository bookingRepository, IUserRepository userRepository, IBookingManager bookingManager)
+        public ListingsController(ISearchService searchService, SearchFilters searchFilters, IClientConfig clientConfig, IAdRepository adRepository, IBroadcastManager broadcastManager, IBookingRepository bookingRepository, IUserRepository userRepository, IBookingManager bookingManager, IUserManager userManager)
         {
             _searchService = searchService;
             _searchFilters = searchFilters;
             _clientConfig = clientConfig;
-            _adRepository = adRepository;
+            //_adRepository = adRepository;
             _broadcastManager = broadcastManager;
-            _bookingRepository = bookingRepository;
-            _userRepository = userRepository;
+            // _bookingRepository = bookingRepository;
+            // _userRepository = userRepository;
             _bookingManager = bookingManager;
         }
 
@@ -174,13 +175,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (!ModelState.IsValid)
                 return Json(new { complete = false });
 
-            _adRepository.CreateAdEnquiry(this.Map<AdEnquiryViewModel, Business.Models.AdEnquiry>(adEnquiry));
-
-            var booking = _bookingRepository.GetBooking(adEnquiry.AdId);
-            var bookingUser = _userRepository.GetUserByUsername(booking.UserId);
-
-            _broadcastManager.SendEmail(new AdEnquiryTemplate { AdNumber = adEnquiry.AdId.ToString() }, bookingUser.Email);
-
+            var enquiry = this.Map<AdEnquiryViewModel, Business.Models.AdEnquiry>(adEnquiry);
+            _bookingManager.SubmitAdEnquiry(enquiry);
+            
             return Json(new { complete = true });
         }
 

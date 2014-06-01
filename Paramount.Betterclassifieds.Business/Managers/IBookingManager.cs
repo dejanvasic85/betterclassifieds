@@ -11,5 +11,6 @@ namespace Paramount.Betterclassifieds.Business.Managers
         void Extend(AdBookingExtensionModel extensionModel, PaymentType paymentType = PaymentType.None);
         void Extend(int adBookingId, int numberOfInsertions, bool? isOnlineOnly = null, ExtensionStatus extensionStatus = ExtensionStatus.Complete, int price = 0, string username = "admin", PaymentType payment = PaymentType.None);
         void IncrementHits(int id);
+        void SubmitAdEnquiry(AdEnquiry enquiry);
     }
 }

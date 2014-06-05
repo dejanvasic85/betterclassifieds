@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Tests.BusinessModel
+﻿using Paramount.Betterclassifieds.DataService.Classifieds;
+
+namespace Paramount.Betterclassifieds.Tests.BusinessModel
 {
     using NUnit.Framework;
     using Microsoft.Practices.Unity;
@@ -11,7 +13,7 @@
     using Business.Models;
     using Business;
     using Mocks;
-    
+
     [TestFixture]
     public class EditionManagerTests
     {
@@ -89,7 +91,7 @@
             // Arrange 
             var editionDate = new DateTime(2013, 12, 25);
             var bookings = new List<AdBookingModel>();
-            
+
             _mockRepository.CreateMockOf<IEditionRepository>(_container, _verifyList)
                 .SetupWithVerification(call => call.DeleteEditionByDate(It.IsAny<DateTime>()));
 

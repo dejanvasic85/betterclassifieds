@@ -97,6 +97,7 @@
   <ItemGroup>
     <Compile Include="ApplicationBlock\HtmlHelperTests.cs" />
     <Compile Include="AssertExtensions.cs" />
+    <Compile Include="Bookings\BookingManagerTests.cs" />
     <Compile Include="Bookings\EditionManagerTests.cs" />
     <Compile Include="Broadcast\BroadcastManagerTests.cs" />
     <Compile Include="Broadcast\SquareBracketParserTests.cs" />

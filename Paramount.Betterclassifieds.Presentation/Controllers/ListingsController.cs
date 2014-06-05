@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.Ajax.Utilities;
-using Paramount.Betterclassifieds.Business;
-using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Managers;
-using Paramount.Betterclassifieds.Business.Models;
-using Paramount.Betterclassifieds.Business.Repository;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 using System.Collections.Generic;
@@ -16,22 +12,18 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
     public class ListingsController : Controller, IMappingBehaviour
     {
         private readonly ISearchService _searchService;
-        //private readonly IAdRepository _adRepository;
-        //private readonly IBookingRepository _bookingRepository;
         private readonly IBookingManager _bookingManager;
         private readonly SearchFilters _searchFilters;
-        private readonly IBroadcastManager _broadcastManager;
         private readonly IClientConfig _clientConfig;
 
-        public ListingsController(ISearchService searchService, SearchFilters searchFilters, IClientConfig clientConfig, IAdRepository adRepository, IBroadcastManager broadcastManager, IBookingRepository bookingRepository, IUserRepository userRepository, IBookingManager bookingManager, IUserManager userManager)
+        private const string Tempdata_ComingFromSearch = "IsComingFromSearch";
+
+        public ListingsController(ISearchService searchService, SearchFilters searchFilters, IClientConfig clientConfig,
+            IBookingManager bookingManager)
         {
             _searchService = searchService;
             _searchFilters = searchFilters;
             _clientConfig = clientConfig;
-            //_adRepository = adRepository;
-            _broadcastManager = broadcastManager;
-            // _bookingRepository = bookingRepository;
-            // _userRepository = userRepository;
             _bookingManager = bookingManager;
         }
 
@@ -85,6 +77,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             ViewBag.AllowUserToFetchMore = searchModel.TotalCount > _clientConfig.SearchResultsPerPage;
             ViewBag.ResultsPerPage = _clientConfig.SearchResultsPerPage;
             ViewBag.MaxPageRequests = _clientConfig.SearchMaxPagedRequests;
+            TempData[Tempdata_ComingFromSearch] = true;
             return View(searchModel);
         }
 
@@ -150,21 +143,25 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpGet]
         public ActionResult ViewAd(int id, string titleSlug = "")
         {
-            // Increment the hits first
-            _bookingManager.IncrementHits(id);
-
             // Remember - Id is always AdBookingId
             var adSearchResult = _searchService.GetAdById(id);
-            
+
             if (adSearchResult == null || adSearchResult.HasExpired() || adSearchResult.HasNotStarted())
             {
                 // Ad doesn't exist so return 404
                 return View("404");
             }
 
+            _bookingManager.IncrementHits(id);
+
             var adViewModel = this.Map<AdSearchResult, AdViewModel>(adSearchResult);
+            ViewBag.IsComingFromSearch = false;
+            if (TempData[Tempdata_ComingFromSearch] != null)
+            {
+                ViewBag.IsComingFromSearch = (bool)TempData[Tempdata_ComingFromSearch];
+            }
             ViewBag.Title = adViewModel.Heading;
-            
+
             return View(adViewModel);
         }
 
@@ -177,7 +174,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var enquiry = this.Map<AdEnquiryViewModel, Business.Models.AdEnquiry>(adEnquiry);
             _bookingManager.SubmitAdEnquiry(enquiry);
-            
+
             return Json(new { complete = true });
         }
 
@@ -189,6 +186,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 .ForMember(member => member.Price, options => options.Condition(v => v.Price > 0));
             configuration.CreateMap<AdEnquiryViewModel, Business.Models.AdEnquiry>();
         }
-        
+
     }
 }

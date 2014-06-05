@@ -121,6 +121,9 @@ namespace Paramount.Betterclassifieds.Business
         public void IncrementHits(int adId)
         {
             var onlineAd = _adRepository.GetOnlineAd(adId);
+            if (onlineAd == null)
+                return;
+
             onlineAd.IncrementHits();
             _adRepository.UpdateOnlineAd(onlineAd);
         }

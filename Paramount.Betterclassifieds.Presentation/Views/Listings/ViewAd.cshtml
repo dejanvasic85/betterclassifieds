@@ -7,9 +7,13 @@
 }
 
 <ol class="breadcrumb">
+    @if ((bool) ViewBag.IsComingFromSearch)
+    {
+        <li>Back to Search</li>
+    }
     <li>@Model.ParentCategoryName</li>
     <li>@Model.CategoryName</li>
-    <li>Ad ID : @Model.AdId</li>
+    <li><strong>@Model.AdId</strong></li>
 </ol>
 
 <div class="container-fluid container-body left-buffer-20">
@@ -75,7 +79,7 @@
                     Details
                 </div>
                 <table class="table table-striped">
-                    
+
                     @if (Model.ContactName.HasValue())
                     {
                         <tr title="Contact Name">
@@ -125,7 +129,7 @@
                 <div class="panel-heading">
                     Contact Advertiser
                 </div>
-                
+
                 <div class="panel-body">
                     <div class="alert alert-success hidden" id="enquirySuccessful">Your message has been sent successfully</div>
                     <form id="adEnquiryForm">
@@ -167,7 +171,7 @@
     <script>
 
         $(function () {
-            
+
             $('#adEnquiryForm').submit(function (e) {
                 e.preventDefault();
                 submitEnquiry();
@@ -186,10 +190,10 @@
                     method: 'POST',
                     url: '@Url.Action("AdEnquiry")',
                     data: $('#adEnquiryForm').serialize()
-                }).always(function() {
+                }).always(function () {
                     $btn.button('reset');
-                }).success(function() {
-                    $('#adEnquiryForm').slideUp(500, function() {
+                }).success(function () {
+                    $('#adEnquiryForm').slideUp(500, function () {
                         $('#enquirySuccessful').removeClass('hidden');
                     });
                 });

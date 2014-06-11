@@ -41,4 +41,20 @@ namespace BetterClassified.Repository
             return HttpCacher.FetchOrCreate("TheMusicFooter", () => htmlScraper.ParseFooterHtml(), minutesToCache: 0, seconds: 5);
         }
     }
+
+    public class OfflineMenuRepository : IMenuRepository
+    {
+        public IDictionary<string, string> GetMenuItemLinkNamePairs()
+        {
+            return new Dictionary<string, string>
+            {
+                {"Home", "http://localhost/iFlog"}
+            };
+        }
+
+        public string GetFooterContent()
+        {
+            return string.Empty;
+        }
+    }
 }

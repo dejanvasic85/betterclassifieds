@@ -21,6 +21,11 @@ namespace Paramount.Betterclassifieds.DataService
             return new ClassifiedsSearchEntitiesDataContext(connection);
         }
 
+        public static ClassifiedsEntityContext CreateClassifiedEntitiesContext()
+        {
+            return new ClassifiedsEntityContext();
+        }
+
         public static UserMembershipDataContext CreateMembershipContext()
         {
             var connection = ConfigReader.GetConnectionString(SectionName, "AppUserConnection");

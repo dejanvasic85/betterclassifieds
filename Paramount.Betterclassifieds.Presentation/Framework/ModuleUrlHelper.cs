@@ -1,5 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System.Security.Policy;
+using System.Web.Mvc;
 using System.Web.Routing;
+using Paramount.Betterclassifieds.Presentation.ViewModels;
 
 namespace Paramount
 {

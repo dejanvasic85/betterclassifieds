@@ -184,6 +184,7 @@
     <Compile Include="ViewModels\SearchFilters.cs" />
     <Compile Include="ViewModels\FindModel.cs" />
     <Compile Include="ViewModels\SortType.cs" />
+    <Compile Include="ViewModels\TutorAdView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -310,6 +311,7 @@
     </Content>
     <Content Include="Views\Listings\ViewAd.cshtml" />
     <Content Include="Views\Listings\404.cshtml" />
+    <Content Include="Views\Listings\DisplayTemplates\TutorAdView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\EastGippslandNews\" />

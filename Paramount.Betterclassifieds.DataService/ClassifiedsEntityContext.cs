@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using Paramount.ApplicationBlock.Data;
-using Paramount.Betterclassifieds.Business.Search;
+using System.Data.Entity;
+using Paramount.Betterclassifieds.Business.Models;
 
 namespace Paramount.Betterclassifieds.DataService
 {
@@ -18,8 +14,12 @@ namespace Paramount.Betterclassifieds.DataService
             Configuration.LazyLoadingEnabled = false;
         }
 
+        public IDbSet<TutorAdModel> TutorAds { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<TutorAdModel>().ToTable("TutorAd");
+            modelBuilder.Entity<TutorAdModel>().HasKey(k => k.OnlineAdId);
         }
     }
 }

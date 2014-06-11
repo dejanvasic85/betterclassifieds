@@ -7,9 +7,9 @@
 }
 
 <ol class="breadcrumb">
-    @if ((bool) ViewBag.IsComingFromSearch)
+    @if ((bool)ViewBag.IsComingFromSearch)
     {
-        <li>Back to Search</li>
+        <li> <a href="@ViewBag.BackToSearchUrl.ToString()">Back to Search results</a> </li>
     }
     <li>@Model.ParentCategoryName</li>
     <li>@Model.CategoryName</li>
@@ -66,17 +66,23 @@
                 </div>
             }
 
-            @*Description*@
             <div class="top-buffer-40">
+                @if (Model.TutorAd != null)
+                {
+                    @Html.DisplayFor(m => m.TutorAd)
+                }
+
+                @*Description*@
                 @Html.Raw(Model.HtmlText)
             </div>
+
         </div>
 
         @*Social buttons and Contact*@
         <div class="col-sm-4">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Details
+                    Details (Ad ID: @Model.AdId) 
                 </div>
                 <table class="table table-striped">
 

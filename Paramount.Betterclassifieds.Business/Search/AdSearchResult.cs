@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Reflection;
 
 namespace Paramount.Betterclassifieds.Business.Search
 {
@@ -20,6 +23,7 @@ namespace Paramount.Betterclassifieds.Business.Search
         public string ContactName { get; set; }
         public string ContactType { get; set; }
         public string ContactValue { get; set; }
+        public string OnlineAdTag { get; set; }
         public string Username { get; set; }
         public string[] ImageUrls { get; set; }
         public string[] Publications { get; set; }

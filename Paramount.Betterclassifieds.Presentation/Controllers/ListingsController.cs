@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.Ajax.Utilities;
 using Paramount.Betterclassifieds.Business.Managers;
+using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 using System.Collections.Generic;
@@ -152,13 +153,20 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return View("404");
             }
 
+            // Increment the hits ( the retrieve was successfull )
             _bookingManager.IncrementHits(id);
 
+            // Map to the view model now
             var adViewModel = this.Map<AdSearchResult, AdViewModel>(adSearchResult);
+
+            if (adViewModel.OnlineAdTag.HasValue())
+                adViewModel.TutorAd = this.Map<TutorAdModel, TutorAdView>(_searchService.GetTutorAd(id));
+
             ViewBag.IsComingFromSearch = false;
             if (TempData[Tempdata_ComingFromSearch] != null)
             {
                 ViewBag.IsComingFromSearch = (bool)TempData[Tempdata_ComingFromSearch];
+                ViewBag.BackToSearchUrl = Url.Action("Find", _searchFilters);
             }
             ViewBag.Title = adViewModel.Heading;
 
@@ -184,6 +192,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<AdSearchResult, AdSummaryViewModel>();
             configuration.CreateMap<AdSearchResult, AdViewModel>()
                 .ForMember(member => member.Price, options => options.Condition(v => v.Price > 0));
+            configuration.CreateMap<TutorAdModel, TutorAdView>();
             configuration.CreateMap<AdEnquiryViewModel, Business.Models.AdEnquiry>();
         }
 

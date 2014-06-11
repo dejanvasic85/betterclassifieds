@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Humanizer;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels
@@ -15,6 +17,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public string Description { get; set; }
         public string HtmlText { get; set; }
         public String[] ImageUrls { get; set; }
+        public string OnlineAdTag { get; set; }
         public string ParentCategoryName { get; set; }
         public string CategoryName { get; set; }
         public DateTime? BookingDate { get; set; }
@@ -23,6 +26,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public string ContactValue { get; set; }
         public string LocationName { get; set; }
         public string LocationAreaName { get; set; }
+        public Dictionary<string, string> AdditionalAttributes { get; set; }
 
         public bool IsContactEmail
         {
@@ -77,5 +81,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
                 return StartDate.Humanize(utcDate: false);
             }
         }
+
+        public TutorAdView TutorAd { get; set; }
     }
 }

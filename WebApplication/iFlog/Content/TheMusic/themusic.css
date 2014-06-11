@@ -5,7 +5,7 @@
 }
 .container-body {
   background-color: #fff;
-  padding: 15px;
+  padding: 8px;
 }
 .themusic-background {
   background-image: url('http://themusic.com.au/images/body-grad.png'), url('http://themusic.com.au/images/bg.png');
@@ -52,6 +52,25 @@
   color: #e7e7e7;
   background-color: #263745;
   border-color: #263745;
+}
+.btn-primary.disabled,
+.btn-primary[disabled],
+fieldset[disabled] .btn-primary,
+.btn-primary.disabled:hover,
+.btn-primary[disabled]:hover,
+fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus,
+.btn-primary[disabled]:focus,
+fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled:active,
+.btn-primary[disabled]:active,
+fieldset[disabled] .btn-primary:active,
+.btn-primary.disabled.active,
+.btn-primary[disabled].active,
+fieldset[disabled] .btn-primary.active {
+  background-color: #fff;
+  border-color: #ccc;
+  color: #333;
 }
 .breadcrumb {
   background-color: #e3e3e3;

@@ -1,7 +1,12 @@
-﻿using AutoMapper;
+﻿using System.Reflection;
+using System.Security.Cryptography;
+using AutoMapper;
 using Paramount.ApplicationBlock.Data;
+using Paramount.Betterclassifieds.Business.Models;
+using Paramount.Betterclassifieds.Business.Repository;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.DataService.Classifieds;
+using Paramount.Betterclassifieds.DataService.Repository;
 using Paramount.Betterclassifieds.DataService.Search;
 using System.Collections.Generic;
 using System.Data;
@@ -33,7 +38,7 @@ namespace Paramount.Betterclassifieds.DataService
                 return this.MapList<BookedAd, AdSearchResult>(results);
             }
         }
-        
+
         public List<AdSearchResult> GetAds(string searchterm, int? categoryId, int? locationId, int index = 0, int pageSize = 25, AdSearchSortOrder order = AdSearchSortOrder.MostRelevant)
         {
             return GetAds(searchterm,
@@ -92,7 +97,22 @@ namespace Paramount.Betterclassifieds.DataService
                 return this.Map<SeoMapping, SeoNameMappingModel>(seoMappings);
             }
         }
-        
+
+        public TutorAdModel GetTutorAd(int id)
+        {
+            using (var context = DataContextFactory.CreateClassifiedContext())
+            {
+                var ad = from adBooking in context.AdBookings
+                         where adBooking.AdBookingId == id
+                         join adDesign in context.AdDesigns on adBooking.AdId equals adDesign.AdId
+                         join onlineAd in context.OnlineAds on adDesign.AdDesignId equals onlineAd.AdDesignId
+                         join tutorAd in context.TutorAds on onlineAd.OnlineAdId equals tutorAd.OnlineAdId
+                         select tutorAd;
+
+                return this.Map<TutorAd, TutorAdModel>(ad.SingleOrDefault());
+            }
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateProfile("SearchingProfile");
@@ -113,6 +133,8 @@ namespace Paramount.Betterclassifieds.DataService
                 .ForMember(dest => dest.AreaIds, opt => opt.MapFrom(src => src.AreaIds.IsNullOrEmpty() ? new List<int>() : src.AreaIds.Split(',').Select(int.Parse).ToList()))
                 .ForMember(dest => dest.ParentCategoryId, opt => opt.MapFrom(src => src.ParentCategoryIds))
                 ;
+
+            configuration.CreateMap<TutorAd, TutorAdModel>();
 
             // To DB
             configuration.CreateMap<SeoNameMappingModel, SeoMapping>();

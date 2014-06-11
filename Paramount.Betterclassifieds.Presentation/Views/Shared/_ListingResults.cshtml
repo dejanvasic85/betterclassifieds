@@ -22,17 +22,19 @@
                 }
 
                 <div class="media-body">
-                    <h4 class="media-heading">@ad.Heading</h4>
+                    <h4 class="media-heading">@ad.Heading <small><strong>(@ad.AdId)</strong></small></h4>
                     <p>@ad.Description.TruncateOnWordBoundary(150)</p>
                     <p>
+                        
                         <span class="label label-category">@ad.ParentCategoryName</span>
                         <span class="label label-category">@ad.CategoryName</span>
                         @foreach (var publication in ad.Publications)
                         {
                             <span class="label label-publication">@publication</span>
                         }
+                        
                     </p>
-                    <p>@ad.BookingDateFriendly</p>
+                    <p><small>@ad.BookingDateFriendly</small> </p>
                 </div>
             </div>
         </a>

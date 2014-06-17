@@ -4,4 +4,6 @@
 
 **Bug Fixes**
 
+- [Show more ads was not working if loading tuition ads from home page]()
+
 **Technical Debt**

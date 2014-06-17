@@ -17,7 +17,7 @@ Public Class ContainerConfig
             .RegisterType(Of IUserRepository, UserRepository)() _
             .RegisterType(Of IPaymentsRepository, PaymentsRepository)() _
             .RegisterType(Of ILookupRepository, LookupRepository)() _
-            .RegisterType(Of IMenuRepository, OfflineMenuRepository)()
+            .RegisterType(Of IMenuRepository, TheMusicMenuRepository)()
 
         ' Managers
         container.RegisterType(Of IClientConfig, ClientConfig)() _

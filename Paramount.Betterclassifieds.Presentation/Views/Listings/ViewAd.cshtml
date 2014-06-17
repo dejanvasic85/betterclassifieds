@@ -1,9 +1,11 @@
-﻿@using Paramount
+﻿@using CaptchaMvc.HtmlHelpers
+@using Paramount
 
 @model Paramount.Betterclassifieds.Presentation.ViewModels.AdViewModel
 
 @{
     Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayout.cshtml");
+    var captcha = Html.Captcha("Try Another", "What is the text in the image above?", 5);
 }
 
 <ol class="breadcrumb">
@@ -82,7 +84,7 @@
         <div class="col-sm-4">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Details (Ad ID: @Model.AdId) 
+                    Details (Ad ID: @Model.AdId)
                 </div>
                 <table class="table table-striped">
 
@@ -164,8 +166,14 @@
                             <span class="field-validation-valid help-block" data-valmsg-for="question" data-valmsg-replace="true"></span>
                         </div>
                         <div class="form-group">
+                            <label for="CaptchaInputText">Human Test</label>
+                            @*@Html.Captcha("Try Another", "What is the text in the image above?", 5)*@
+                            @captcha
+                        </div>
+                        <div class="form-group">
                             <button id="btnSubmit" class="btn btn-primary btn-block" data-loading-text="Please wait..">Submit</button>
                         </div>
+                        <div class="alert alert-danger hidden" id="enquiryFailed">The human test failed. Please verify the image and try again.</div>
                     </form>
                 </div>
             </div>
@@ -178,6 +186,7 @@
 
         $(function () {
 
+            $('#CaptchaInputText').addClass("form-control");
             $('#adEnquiryForm').submit(function (e) {
                 e.preventDefault();
                 submitEnquiry();
@@ -187,6 +196,7 @@
 
                 var $btn = $('#btnSubmit');
                 var validation = $('#adEnquiryForm').validate();
+                $('#enquiryFailed').addClass('hidden');
                 if (!validation.valid())
                     return false;
 
@@ -198,7 +208,15 @@
                     data: $('#adEnquiryForm').serialize()
                 }).always(function () {
                     $btn.button('reset');
-                }).success(function () {
+                }).success(function (result) {
+                    if (!result.isValid) {
+                        $('#enquiryFailed').removeClass('hidden');
+                        $('#@captcha.BuildInfo.ImageElementId').attr('src', result.imageElementId);
+                        $('#@captcha.BuildInfo.TokenElementId').attr('value', result.tokenElementId);
+                        $('#@captcha.BuildInfo.InputElementId').val('');
+                        return;
+                    }
+                    
                     $('#adEnquiryForm').slideUp(500, function () {
                         $('#enquirySuccessful').removeClass('hidden');
                     });

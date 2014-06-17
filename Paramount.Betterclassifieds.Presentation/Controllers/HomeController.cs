@@ -27,6 +27,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             });
         }
 
+        public ActionResult Rates()
+        {
+
+
+            return View();
+        }
+
 
         public void OnRegisterMaps(IConfiguration configuration)
         {

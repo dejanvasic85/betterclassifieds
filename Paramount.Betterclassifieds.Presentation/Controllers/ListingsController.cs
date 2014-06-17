@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using CaptchaMvc.Attributes;
+using CaptchaMvc.HtmlHelpers;
+using CaptchaMvc.Interface;
 using Microsoft.Ajax.Utilities;
 using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.Business.Models;
@@ -174,16 +177,24 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [ValidateAntiForgeryToken]
-        [HttpPost]
+        [HttpPost, CaptchaVerify("Captcha is not valid")]
         public ActionResult AdEnquiry(AdEnquiryViewModel adEnquiry)
         {
             if (!ModelState.IsValid)
-                return Json(new { complete = false });
+            {
+                IUpdateInfoModel updatedCaptcha = this.GenerateCaptchaValue(5);
+                return Json(new
+                {
+                    isValid = false,
+                    imageElementId = updatedCaptcha.ImageUrl,
+                    tokenElementId = updatedCaptcha.TokenValue
+                });
+            }
 
             var enquiry = this.Map<AdEnquiryViewModel, Business.Models.AdEnquiry>(adEnquiry);
             _bookingManager.SubmitAdEnquiry(enquiry);
 
-            return Json(new { complete = true });
+            return Json(new{ isValid = true });
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

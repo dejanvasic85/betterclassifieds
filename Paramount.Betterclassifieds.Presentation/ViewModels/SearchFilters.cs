@@ -52,11 +52,14 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             return this;
         }
 
-        public SearchFilters ApplySeoMapping(SeoNameMappingModel seoMapping)
+        public SearchFilters FromSeoMapping(SeoNameMappingModel seoMapping)
         {
             this.Keyword = seoMapping.SearchTerm;
             this.CategoryId = seoMapping.ParentCategoryId;
             this.LocationId = seoMapping.LocationIds.FirstOrDefault();
+            if (LocationId == 0)
+                LocationId = null;
+
             return this;
         }
     }

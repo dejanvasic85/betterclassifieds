@@ -122,7 +122,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return View("Find", searchModel);
             }
 
-            _searchFilters.ApplySeoMapping(seoMapping);
+            _searchFilters.FromSeoMapping(seoMapping);
 
             var results = _searchService.GetAds(seoMapping.SearchTerm, seoMapping.CategoryIds,
                 seoMapping.LocationIds, seoMapping.AreaIds, index: 0, pageSize: _clientConfig.SearchResultsPerPage);

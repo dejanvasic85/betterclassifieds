@@ -21,6 +21,11 @@
 <div class="container-fluid container-body left-buffer-20">
 
     <h2 class="ad-title-h2">@Model.Heading</h2>
+
+    <div class="container">
+
+    </div>
+
     <div class="row">
 
         @*Ad Details*@
@@ -82,6 +87,17 @@
 
         @*Social buttons and Contact*@
         <div class="col-sm-4">
+
+            <div class="btn-group bottom-buffer-10">
+                <button class="btn btn-default btn-lg disabled">Share:</button>
+                <a class="btn btn-default btn-lg" id="shareOnFacebook" title="On Facebook" >
+                    <i class="fa fa-facebook fa-lg fb"></i>
+                </a>
+                <a class="btn btn-default btn-lg" id="shareOnTwitter" title="On Twitter">
+                    <i class="fa fa-twitter fa-lg tw"></i>
+                </a>
+            </div>
+
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     Details (Ad ID: @Model.AdId)
@@ -182,7 +198,24 @@
 </div>
 
 @section Scripts{
+
     <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '143183162513319',
+                xfbml: true,
+                version: 'v2.0'
+            });
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
 
         $(function () {
 
@@ -190,6 +223,13 @@
             $('#adEnquiryForm').submit(function (e) {
                 e.preventDefault();
                 submitEnquiry();
+            });
+
+            $('#shareOnFacebook').on('click', function() {
+                FB.ui({
+                    method: 'share',
+                    href: '@Url.AdUrl(@Model.HeadingSlug, @Model.AdId)',
+                }, function (response) { });
             });
 
             function submitEnquiry() {
@@ -216,7 +256,7 @@
                         $('#@captcha.BuildInfo.InputElementId').val('');
                         return;
                     }
-                    
+
                     $('#adEnquiryForm').slideUp(500, function () {
                         $('#enquirySuccessful').removeClass('hidden');
                     });

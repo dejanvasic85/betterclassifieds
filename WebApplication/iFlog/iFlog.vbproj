@@ -238,6 +238,10 @@
     <Content Include="Content\bootstrap.min.css">
       <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css">
+      <DependentUpon>font-awesome.css</DependentUpon>
+    </Content>
     <Content Include="Content\site.css">
       <DependentUpon>site.less</DependentUpon>
     </Content>
@@ -260,6 +264,7 @@
     <Content Include="Controls\TutorAdForm.ascx" />
     <Content Include="Controls\TutorAdView.ascx" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="MemberAccount\ExtendBooking.aspx" />
     <Content Include="MemberAccount\Bookings.aspx" />
@@ -347,6 +352,10 @@
     <Content Include="Scripts\Listings\Find.min.js.map">
       <DependentUpon>Find.min.js</DependentUpon>
     </Content>
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\paramount-validate-tooltip.min.js">
       <DependentUpon>paramount-validate-tooltip.js</DependentUpon>

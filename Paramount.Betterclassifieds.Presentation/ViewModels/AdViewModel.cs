@@ -14,6 +14,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public int AdId { get; set; }
         public int OnlineAdId { get; set; }
         public string Heading { get; set; }
+        public string HeadingSlug { get; set; }
         public string Description { get; set; }
         public string HtmlText { get; set; }
         public String[] ImageUrls { get; set; }

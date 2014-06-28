@@ -90,7 +90,7 @@
 
             <div class="btn-group bottom-buffer-10">
                 <button class="btn btn-default btn-lg disabled">Share:</button>
-                <a class="btn btn-default btn-lg" id="shareOnFacebook" title="On Facebook" >
+                <a class="btn btn-default btn-lg" id="shareOnFacebook" title="On Facebook">
                     <i class="fa fa-facebook fa-lg fb"></i>
                 </a>
                 <a class="btn btn-default btn-lg" id="shareOnTwitter" title="On Twitter">
@@ -207,7 +207,7 @@
                 version: 'v2.0'
             });
         };
-
+        
         (function (d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) { return; }
@@ -225,10 +225,10 @@
                 submitEnquiry();
             });
 
-            $('#shareOnFacebook').on('click', function() {
+            $('#shareOnFacebook').on('click', function () {
                 FB.ui({
                     method: 'share',
-                    href: '@Url.AdUrl(@Model.HeadingSlug, @Model.AdId)',
+                    href: '@Url.AdUrl(@Model.HeadingSlug, @Model.AdId, true)',
                 }, function (response) { });
             });
 

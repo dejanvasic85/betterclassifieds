@@ -22,14 +22,14 @@ namespace Paramount
             {
                 return relativePath.Replace("~/", string.Format("~/{0}/", moduleName));
             }
-            
+
             return relativePath;
         }
 
         /// <summary>
         /// Generates outgoing URL for an Ad and particularly useful for the legacy integration piece
         /// </summary>
-        public static string AdUrl(this UrlHelper urlHelper, string titleSlug, int id)
+        public static string AdUrl(this UrlHelper urlHelper, string titleSlug, int id, bool includeSchemeAndProtocol = false)
         {
             RouteValueDictionary dictionary = new RouteValueDictionary
             {
@@ -40,7 +40,14 @@ namespace Paramount
             VirtualPathData data = RouteTable.Routes.GetVirtualPath(null, "adRoute", dictionary);
             var path = data.VirtualPath;
 
-            return path;
+            if (!includeSchemeAndProtocol)
+                return path;
+
+            var contextUri = urlHelper.RequestContext.HttpContext.Request.Url;
+            var baseUri = string.Format("{0}://{1}{2}", contextUri.Scheme,
+              contextUri.Host, contextUri.Port == 80 ? string.Empty : ":" + contextUri.Port);
+
+            return string.Format("{0}{1}", baseUri, path);
         }
 
         /// <summary>

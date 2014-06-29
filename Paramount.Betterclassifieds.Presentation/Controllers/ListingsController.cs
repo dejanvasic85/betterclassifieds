@@ -172,6 +172,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 ViewBag.BackToSearchUrl = Url.Action("Find", _searchFilters);
             }
             ViewBag.Title = adViewModel.Heading;
+            ViewBag.FacebookAppId = _clientConfig.FacebookAppId;
 
             return View(adViewModel);
         }

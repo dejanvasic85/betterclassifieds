@@ -8,6 +8,19 @@
     var captcha = Html.Captcha("Try Another", "What is the text in the image above?", 5);
 }
 
+@section HeadSection{
+    <meta property="fb:app_id" content="@ViewBag.FacebookAppId" />
+    <meta property="og:url" content="@Url.AdUrl(@Model.HeadingSlug, @Model.AdId, true)" />
+    <meta property="og:type" content="classified" />
+    <meta property="og:locale" content="en_AU" />
+    <meta property="og:title" content="@Model.Heading" />
+    <meta property="og:description" content="@Model.Description" />
+    @if (Model.HasImages)
+    {
+        <meta property="og:image" content="@Url.Action("Render", "Image", new{ documentId = @Model.ImageUrls.First(), height = 630, width = 1200} )"  />
+    }
+}
+
 <ol class="breadcrumb">
     @if ((bool)ViewBag.IsComingFromSearch)
     {
@@ -19,15 +32,8 @@
 </ol>
 
 <div class="container-fluid container-body left-buffer-20">
-
     <h2 class="ad-title-h2">@Model.Heading</h2>
-
-    <div class="container">
-
-    </div>
-
     <div class="row">
-
         @*Ad Details*@
         <div class="col-sm-8">
             @if (Model.HasImages)
@@ -202,12 +208,12 @@
     <script>
         window.fbAsyncInit = function () {
             FB.init({
-                appId: '143183162513319',
+                appId: '@ViewBag.FacebookAppId',
                 xfbml: true,
                 version: 'v2.0'
             });
         };
-        
+
         (function (d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) { return; }

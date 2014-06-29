@@ -4,10 +4,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>@ViewBag.Title</title>
     <meta name="description" content="themusic.com.au - Australia's # 1 print and online classifieds network!" />
     <meta name="keywords" content="themusic, classifieds, classified, newspaper, deal, sell, buy, trade, paypal, online, streetpress, street press, Inpress, Time Off, Drum Media Sydney, Drum Media Perth, 3D World, Drum Media, Lure, magazine, Sydney, Brisbane, Melbourne, Perth, Adelaide, Tasmania, Darwin, New South Wales, Victoria, Queensland, Tasmania, Northern Territory, South Australia, Western Australia,  Employment, For Sale, Music Services, Musicians Available, Musicians Wanted, Services, Wanted, Bass Player, DJ, Drummer, Guiarist, Keyboard, Singer, Song Writer, Band Merchandise, Booking Agents, Duplication, Mastering, EP Release, Hire Services, Legal, Accounting, Management, Mastering, PA, Audio, Engineering, Photography, Posters, Printing, Recording Studios, Rehearsal Rooms, Repairs, Studio Hire, Transport, Tuition, Video, Production, Amps, Bass, Cases, CD, DVD, Computers, Decks, Furniture, Guitars, Keyboards, Mixers, PA Equipment, Recreational Equipment, Beauty Services, Graphic Design, Piercing, Tattoo, Tuition" />
+    <meta property="og:site_name" content="TheMusic Classifieds" />
+
+    @RenderSection("HeadSection", false)
+
+    <title>@ViewBag.Title</title>
+
     <link rel="shortcut icon" href="@Url.Content("~/Content/TheMusic/img/themusic_favicon.ico")" type="image/x-icon" />
     <link rel="icon" href="@Url.Content("~/Content/TheMusic/img/themusic_favicon.ico")" type="image/ico" />
 
@@ -49,12 +53,9 @@
             googletag.enableServices();
         });
     </script>
-
-
-    @RenderSection("HeadSection", false)
 </head>
 <body class="themusic-background">
-    
+
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.11.0.js")"></script>
 
     <div class="container">

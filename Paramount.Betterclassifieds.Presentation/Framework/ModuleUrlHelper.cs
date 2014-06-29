@@ -1,4 +1,5 @@
 ﻿using System.Security.Policy;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
@@ -56,6 +57,11 @@ namespace Paramount
         public static string SeoUrl(this UrlHelper urlHelper, string seoName)
         {
             return urlHelper.Action("SeoAds", "Listings", new { seoName });
+        }
+
+        public static string ToEncodedUrl(this string url)
+        {
+            return HttpUtility.HtmlEncode(url);
         }
     }
 }

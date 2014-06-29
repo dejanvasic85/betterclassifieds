@@ -6,18 +6,20 @@
 @{
     Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayout.cshtml");
     var captcha = Html.Captcha("Try Another", "What is the text in the image above?", 5);
+    var urlWithProtocol = Url.AdUrl(Model.HeadingSlug, Model.AdId);
+    var encodedUrl = HttpUtility.UrlEncode(urlWithProtocol);
 }
 
 @section HeadSection{
     <meta property="fb:app_id" content="@ViewBag.FacebookAppId" />
-    <meta property="og:url" content="@Url.AdUrl(@Model.HeadingSlug, @Model.AdId, true)" />
+    <meta property="og:url" content="@urlWithProtocol" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_AU" />
     <meta property="og:title" content="@Model.Heading" />
     <meta property="og:description" content="@Model.Description" />
     @if (Model.HasImages)
     {
-        <meta property="og:image" content="@Url.Action("Render", "Image", new{ documentId = @Model.ImageUrls.First(), height = 630, width = 1200} )"  />
+        <meta property="og:image" content="@Url.Action("Render", "Image", new{ documentId = @Model.ImageUrls.First(), height = 630, width = 1200} )" />
     }
 }
 
@@ -79,31 +81,41 @@
                 </div>
             }
 
-            <div class="top-buffer-40">
-                @if (Model.TutorAd != null)
-                {
-                    @Html.DisplayFor(m => m.TutorAd)
-                }
-
-                @*Description*@
-                @Html.Raw(Model.HtmlText)
+            <div class="container top-buffer-40">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="btn-group bottom-buffer-10">
+                            <button class="btn btn-default btn-lg disabled">Share:</button>
+                            <a class="btn btn-default btn-lg" id="shareOnFacebook" title="On Facebook">
+                                <i class="fa fa-facebook fa-lg fb"></i>
+                            </a>
+                            <a class="btn btn-default btn-lg" id="shareOnTwitter" title="On Twitter" href="http://twitter.com/share?@encodedUrl&text=@Model.Heading" target="_blank">
+                                <i class="fa fa-twitter fa-lg tw"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        @if (Model.TutorAd != null)
+                        {
+                            @Html.DisplayFor(m => m.TutorAd)
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        @*Description*@
+                        @Html.Raw(Model.HtmlText)
+                    </div>
+                </div>
             </div>
 
         </div>
 
-        @*Social buttons and Contact*@
         <div class="col-sm-4">
 
-            <div class="btn-group bottom-buffer-10">
-                <button class="btn btn-default btn-lg disabled">Share:</button>
-                <a class="btn btn-default btn-lg" id="shareOnFacebook" title="On Facebook">
-                    <i class="fa fa-facebook fa-lg fb"></i>
-                </a>
-                <a class="btn btn-default btn-lg" id="shareOnTwitter" title="On Twitter">
-                    <i class="fa fa-twitter fa-lg tw"></i>
-                </a>
-            </div>
-
+            @*Ad Details*@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     Details (Ad ID: @Model.AdId)
@@ -155,6 +167,7 @@
                 </table>
             </div>
 
+            @*Contact Advertiser*@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     Contact Advertiser
@@ -234,7 +247,7 @@
             $('#shareOnFacebook').on('click', function () {
                 FB.ui({
                     method: 'share',
-                    href: '@Url.AdUrl(@Model.HeadingSlug, @Model.AdId, true)',
+                    href: '@urlWithProtocol',
                 }, function (response) { });
             });
 

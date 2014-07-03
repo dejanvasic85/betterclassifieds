@@ -50,8 +50,10 @@
                         <table>
                             <tr>
                                 <td valign="bottom">
-                                    <div style="font-size: 0.8em; border: 2px solid #646D7E; padding: 5px; background-color: #E3E4FA;">
-                                        Click button below to upload and manage Print and Online Ad Images.
+                                    <div class="alert alert-info">
+                                        Your pictures will be resized to 900 pixel width and 500 pixel height. 
+                                        If you prefer no automatic resizing, please upload an image with this 
+                                        size ratio. Click 'Upload' to begin.
                                     </div>
                                 </td>
                                 <td valign="top">
@@ -70,7 +72,7 @@
                             <tr>
                                 <td>
                                     <div class="wordcount">
-                                        <asp:LinkButton ID="lnkUploadImages" runat="server" Text="Manage" />
+                                        <asp:LinkButton ID="lnkUploadImages" runat="server" Text="Upload" />
                                     </div>
                                 </td>
                             </tr>

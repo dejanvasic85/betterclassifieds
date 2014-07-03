@@ -32,15 +32,6 @@ Partial Public Class Step3
     Protected WithEvents helpContextPanel As Global.Paramount.Common.UI.HelpContextControl
 
     '''<summary>
-    '''lblInfoImages control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblInfoImages As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
     '''lnkUploadImages control.
     '''</summary>
     '''<remarks>

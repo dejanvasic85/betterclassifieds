@@ -63,6 +63,9 @@
     <Reference Include="Humanizer">
       <HintPath>..\packages\Humanizer.1.25.4\lib\portable-win+net40+sl50+wp8\Humanizer.dll</HintPath>
     </Reference>
+    <Reference Include="ImageProcessor">
+      <HintPath>..\packages\ImageProcessor.1.9.4.0\lib\ImageProcessor.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -83,12 +86,6 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Simple.ImageResizer">
-      <HintPath>..\packages\Simple.ImageResizer.2.0.0\lib\Simple.ImageResizer.dll</HintPath>
-    </Reference>
-    <Reference Include="Simple.ImageResizer.MvcExtensions">
-      <HintPath>..\packages\Simple.ImageResizer.MvcExtensions.1.0.0\lib\net45\Simple.ImageResizer.MvcExtensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -169,6 +166,8 @@
     <Compile Include="Controllers\ListingsController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Framework\BaseController.cs" />
+    <Compile Include="Framework\FilesystemExtensionMethods.cs" />
+    <Compile Include="Framework\HttpResponseExtensions.cs" />
     <Compile Include="Framework\ImageMvcResizer.cs" />
     <Compile Include="Framework\ModuleUrlHelper.cs" />
     <Compile Include="Global.asax.cs">

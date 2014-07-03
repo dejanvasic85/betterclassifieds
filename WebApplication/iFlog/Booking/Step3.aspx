@@ -23,6 +23,7 @@
 
                     <div id="bookAdMainContent">
                         <h1>Upload Images</h1>
+                        
                         <div class="help-context-panel">
                             <paramountItCommon:HelpContextControl Position="Bottom" ID="helpContextPanel" ImageUrl="~/Resources/Images/question_button.gif"
                                 runat="server" CssClass="upload-help">
@@ -37,8 +38,11 @@
                         </div>
                     </div>
                     <div id="bookAdMainContent">
-                        <asp:Label ID="lblInfoImages" runat="server" CssClass="message-info-blue" Text="Use our new upload manager to submit your images. You can always open this window to add and remove at any time." /><br />
-                        <br />
+                        <div class="alert alert-info">
+                                        Your pictures will be resized to 900 pixel width and 500 pixel height. 
+                                        If you prefer no automatic resizing, please upload an image with this 
+                                        size ratio. Click 'Upload' to begin.
+                                    </div>
                         <div class="wordcount">
                             <asp:LinkButton ID="lnkUploadImages" runat="server" Text="Upload" />
                         </div>

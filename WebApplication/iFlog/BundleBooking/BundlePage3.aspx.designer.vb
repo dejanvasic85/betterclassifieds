@@ -47,7 +47,7 @@ Partial Public Class BundlePage3
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lineAdNewDesign As BetterClassified.UI.LineAdNewDesign
+    Protected WithEvents lineAdNewDesign As Global.BetterClassified.UI.LineAdNewDesign
 
     '''<summary>
     '''HelpContextControl1 control.
@@ -110,7 +110,7 @@ Partial Public Class BundlePage3
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents paramountOrderSummary As BetterClassified.UI.AdOrderSummary
+    Protected WithEvents paramountOrderSummary As Global.BetterClassified.UI.AdOrderSummary
 
     '''<summary>
     '''btnPrevious control.

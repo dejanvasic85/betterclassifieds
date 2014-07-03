@@ -35,56 +35,61 @@
 
 <div class="container-fluid container-body left-buffer-20">
     <h2 class="ad-title-h2">@Model.Heading</h2>
-    <div class="row">
+    <div class="row visible-xs">
+        <div class="col-xs-12">
+            <a class="btn btn-block btn-default" href="#contactAdvertiserPanel">Contact Advertiser</a>
+        </div>
+    </div>
+    <div class="row top-buffer-10">
         @*Ad Details*@
         <div class="col-sm-8">
             @if (Model.HasImages)
             {
-                @*Image Gallery*@
-                <div id="imageGallery" class="carousel slide" data-ride="carousel">
+            @*Image Gallery*@
+            <div id="imageGallery" class="carousel slide" data-ride="carousel">
 
-                    <!-- Indicators -->
-                    @if (Model.ShowImageSlideshow)
+                <!-- Indicators -->
+                @if (Model.ShowImageSlideshow)
                     {
-                        <ol class="carousel-indicators">
-                            <li data-target="#imageGallery" data-slide-to="0" class="active"></li>
-                            @for (var i = 1; i <= Model.ImageUrls.Length - 1; i++)
+                    <ol class="carousel-indicators">
+                        <li data-target="#imageGallery" data-slide-to="0" class="active"></li>
+                        @for (var i = 1; i <= Model.ImageUrls.Length - 1; i++)
                             {
-                                <li data-target="#imageGallery" data-slide-to="@i"></li>
+                            <li data-target="#imageGallery" data-slide-to="@i"></li>
                             }
-                        </ol>
+                    </ol>
                     }
 
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <img src="@Url.Action("Render", "Image", new{ documentId = @Model.ImageUrls.First(), height = 500, width = 900} )" alt="900x500">
-                        </div>
-                        @foreach (var img in Model.ImageUrls.Skip(1))
-                        {
-                            <div class="item">
-                                <img src="@Url.Action("Render", "Image", new { documentId = img, height = 500, width = 900})" />
-                            </div>
-                        }
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <img src="@Url.Action("Render", "Image", new{ documentId = @Model.ImageUrls.First(), height = 500, width = 900} )" alt="900x500">
                     </div>
-
-                    <!-- Controls for more than one image -->
-                    @if (Model.ShowImageSlideshow)
-                    {
-                        <a class="left carousel-control" href="#imageGallery" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
-                        </a>
-                        <a class="right carousel-control" href="#imageGallery" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                        </a>
-                    }
+                    @foreach (var img in Model.ImageUrls.Skip(1))
+                        {
+                        <div class="item">
+                            <img src="@Url.Action("Render", "Image", new { documentId = img, height = 500, width = 900})" />
+                        </div>
+                        }
                 </div>
+
+                <!-- Controls for more than one image -->
+                @if (Model.ShowImageSlideshow)
+                    {
+                    <a class="left carousel-control" href="#imageGallery" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#imageGallery" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                    }
+            </div>
             }
 
             <div class="top-buffer-40">
                 @if (Model.TutorAd != null)
                 {
-                    @Html.DisplayFor(m => m.TutorAd)
+                @Html.DisplayFor(m => m.TutorAd)
                 }
                 @*Description*@
                 @Html.Raw(Model.HtmlText)
@@ -106,7 +111,7 @@
             </div>
 
             @*Ad Details*@
-            <div class="panel panel-primary">
+            <div class="panel panel-primary" id="adDetailsPanel">
                 <div class="panel-heading">
                     Details (Ad ID: @Model.AdId)
                 </div>
@@ -114,33 +119,33 @@
 
                     @if (Model.ContactName.HasValue())
                     {
-                        <tr title="Contact Name">
-                            <td><span class="glyphicon glyphicon-user"></span></td>
-                            <td>@Model.ContactName</td>
-                        </tr>
+                    <tr title="Contact Name">
+                        <td><span class="glyphicon glyphicon-user"></span></td>
+                        <td>@Model.ContactName</td>
+                    </tr>
                     }
                     @if (Model.ContactValue.HasValue())
                     {
-                        <tr>
-                            <td>
-                                @if (Model.IsContactEmail)
+                    <tr>
+                        <td>
+                            @if (Model.IsContactEmail)
                                 {
-                                    <span class="glyphicon glyphicon-envelope"></span>
+                                <span class="glyphicon glyphicon-envelope"></span>
                                 }
                                 else
                                 {
-                                    <span class="glyphicon glyphicon-phone"></span>
+                                <span class="glyphicon glyphicon-phone"></span>
                                 }
-                            </td>
-                            <td>@Model.ContactValue</td>
-                        </tr>
+                        </td>
+                        <td>@Model.ContactValue</td>
+                    </tr>
                     }
                     @if (Model.Price.HasValue)
                     {
-                        <tr title="Price">
-                            <td><span class="glyphicon glyphicon-usd"></span></td>
-                            <td>@Model.PriceFriendlyDisplay</td>
-                        </tr>
+                    <tr title="Price">
+                        <td><span class="glyphicon glyphicon-usd"></span></td>
+                        <td>@Model.PriceFriendlyDisplay</td>
+                    </tr>
                     }
                     <tr title="Location">
                         <td><span class="glyphicon glyphicon-globe"></span></td>
@@ -158,7 +163,7 @@
             </div>
 
             @*Contact Advertiser*@
-            <div class="panel panel-primary">
+            <div class="panel panel-primary" id="contactAdvertiserPanel">
                 <div class="panel-heading">
                     Contact Advertiser
                 </div>
@@ -202,6 +207,13 @@
                     </form>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row visible-xs">
+        <div class="col-xs-12">
+            <a class="btn btn-default btn-block" href="#navbar" title="Back To Top">
+                <i class="glyphicon glyphicon-arrow-up"></i>
+            </a>
         </div>
     </div>
 </div>

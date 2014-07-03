@@ -1,7 +1,6 @@
 ﻿using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.Business.Repository;
 using Paramount.Betterclassifieds.Presentation.Framework;
-using Simple.ImageResizer.MvcExtensions;
 using System;
 using System.IO;
 using System.Web.Caching;
@@ -25,12 +24,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult Render(Guid documentId, int? height = null, int? width = null)
         {
             // Construct the temporary filepath to where the original image may be cached
-            // var targetFilePath = Path.Combine(Server.MapPath("~/ImageCache"), documentId.ToString()) + ".jpg";
             var targetFilePath = Path.Combine(_applicationConfig.ImageCacheDirectory, documentId.ToString().Append(".jpg"));
 
             // Use the ImageResult from the Simple.ImageResultLibrary to the work
             // And pass in the retrieval for the document
-            return ImageMvcResizer.FromDocument(
+            return ImageResult.FromDocument(
                 () => _documentRepository.GetDocument(documentId), 
                 targetFilePath, width ?? 0, height ?? 0);
         }

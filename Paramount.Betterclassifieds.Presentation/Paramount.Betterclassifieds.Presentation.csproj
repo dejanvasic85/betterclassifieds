@@ -200,6 +200,10 @@
     <Content Include="Content\bootstrap-theme-3.1.0.min.css">
       <DependentUpon>bootstrap-theme-3.1.0.css</DependentUpon>
     </Content>
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css">
+      <DependentUpon>font-awesome.css</DependentUpon>
+    </Content>
     <Content Include="Content\site.css">
       <DependentUpon>site.less</DependentUpon>
     </Content>
@@ -214,6 +218,10 @@
     </Content>
     <Content Include="Content\TheMusic\img\themusic_favicon.ico" />
     <Content Include="Content\TheMusic\img\tmlogo.png" />
+    <Content Include="Content\toastr-2.0.1.css" />
+    <Content Include="Content\toastr-2.0.1.min.css">
+      <DependentUpon>toastr-2.0.1.css</DependentUpon>
+    </Content>
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="robots.txt" />
@@ -258,7 +266,14 @@
     <Content Include="Scripts\paramount-validate-tooltip.min.js">
       <DependentUpon>paramount-validate-tooltip.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\toastr-2.0.1.min.js.map">
+      <DependentUpon>toastr-2.0.1.min.js</DependentUpon>
+    </Content>
     <None Include="Scripts\_references.js" />
+    <Content Include="Scripts\toastr-2.0.1.js" />
+    <Content Include="Scripts\toastr-2.0.1.min.js">
+      <DependentUpon>toastr-2.0.1.js</DependentUpon>
+    </Content>
     <Content Include="Views\Listings\Find.cshtml" />
     <Content Include="Content\TheMusic\themusic.css.map">
       <DependentUpon>themusic.css</DependentUpon>

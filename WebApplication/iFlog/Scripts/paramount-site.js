@@ -6,6 +6,13 @@
 (function ($) {
 
     $(function () {
+        
+        // Global ajax error handler
+        $.ajaxSetup({
+            error : function() {
+                toastr.error('Oh no. We were unable to connect to our server. Check your internet connection and try again.');
+            }
+        });
 
         // Every submit form button will have a Please Wait... while submitting the form to server ( non-ajax )
         $('form').find('button[type=submit]').attr('data-loading-text', 'Please wait...');

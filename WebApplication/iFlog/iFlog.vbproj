@@ -264,6 +264,10 @@
     <Content Include="Content\TheMusic\themusic.min.css">
       <DependentUpon>themusic.css</DependentUpon>
     </Content>
+    <Content Include="Content\toastr-2.0.1.css" />
+    <Content Include="Content\toastr-2.0.1.min.css">
+      <DependentUpon>toastr-2.0.1.css</DependentUpon>
+    </Content>
     <Content Include="Controls\TutorAdForm.ascx" />
     <Content Include="Controls\TutorAdView.ascx" />
     <Content Include="favicon.ico" />
@@ -359,9 +363,16 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Scripts\toastr-2.0.1.min.js.map">
+      <DependentUpon>toastr-2.0.1.min.js</DependentUpon>
+    </Content>
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\paramount-validate-tooltip.min.js">
       <DependentUpon>paramount-validate-tooltip.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\toastr-2.0.1.js" />
+    <Content Include="Scripts\toastr-2.0.1.min.js">
+      <DependentUpon>toastr-2.0.1.js</DependentUpon>
     </Content>
     <Content Include="Service\AjaxMethods.asmx" />
     <Content Include="TestPage.aspx" />

@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using CaptchaMvc.Attributes;
 using CaptchaMvc.HtmlHelpers;
 using CaptchaMvc.Interface;
@@ -194,7 +195,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var enquiry = this.Map<AdEnquiryViewModel, Business.Models.AdEnquiry>(adEnquiry);
             _bookingManager.SubmitAdEnquiry(enquiry);
-
             return Json(new{ isValid = true });
         }
 

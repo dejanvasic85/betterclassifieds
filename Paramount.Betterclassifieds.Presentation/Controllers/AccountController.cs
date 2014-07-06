@@ -170,30 +170,21 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public JsonResult ForgotPassword(string email)
         {
-            // Generate new password and send email to the user
-            try
+            var user = _userManager.GetUserByEmailOrUsername(email);
+
+            if (user == null)
+                return Json(new { Error = "The provided email is not valid or does not exist." });
+
+            var password = _authManager.SetRandomPassword(user.Email);
+
+            _broadcastManager.SendEmail(new ForgottenPassword
             {
-                var user = _userManager.GetUserByEmailOrUsername(email);
+                Email = email,
+                Password = password,
+                Username = user.Username
+            }, email);
 
-                if (user == null)
-                    return Json(new { Error = "The provided email is not valid or does not exist." });
-
-                var password = _authManager.SetRandomPassword(email);
-
-                _broadcastManager.SendEmail(new ForgottenPassword
-                {
-                    Email = email,
-                    Password = password,
-                    Username = user.Username
-                }, email);
-
-                return Json(new { Completed = true });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { Error = "Something has gone wrong on the server. Please try again." });
-            }
-
+            return Json(new { Completed = true });
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

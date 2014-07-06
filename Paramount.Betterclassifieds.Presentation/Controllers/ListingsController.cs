@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.Caching;
 using AutoMapper;
 using CaptchaMvc.Attributes;
 using CaptchaMvc.HtmlHelpers;

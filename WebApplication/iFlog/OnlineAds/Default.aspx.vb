@@ -37,6 +37,11 @@ Partial Public Class _Default5
     End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
+        ' We are moving to MVC now ( so this page is redundant )
+        ' Just go to the home page
+        Response.RedirectPermanent("~")
+
         If Not Page.IsPostBack Then
             SetFiltersFromParamers()
 

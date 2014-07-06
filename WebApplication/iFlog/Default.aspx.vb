@@ -13,6 +13,13 @@ Partial Public Class _Default4
         AddHandler categorySelector.OnCategoryClick, AddressOf CategoryClicked
     End Sub
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        '''''''''''''''''''''
+        'Redirecting to new MVC home page
+        '''''''''''''''''''''
+        'Dim urlHelper As New System.Web.Mvc.UrlHelper(Me.Request.RequestContext)
+        'Dim action = urlHelper.Action("Home", "Index")
+        Response.RedirectPermanent("~")
+
         If Not Page.IsPostBack Then
             OnlineSearchParameter.Clear()
         End If

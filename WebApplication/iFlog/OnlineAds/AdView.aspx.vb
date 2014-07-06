@@ -37,6 +37,10 @@ Partial Public Class AdView
     End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        ' We are going to MVC, so this page is redundant
+        ' Just go to the home page
+        Response.RedirectPermanent("~")
+
         Response.Cache.SetCacheability(HttpCacheability.NoCache)
 
         _adRepository = BetterClassified.Unity.DefaultContainer.Resolve(Of IAdRepository)()

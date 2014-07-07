@@ -84,8 +84,8 @@ Partial Public Class Step3
                 BookingController.SetOnlineAd(ucxDesignOnlineAd.Heading, ucxDesignOnlineAd.Description, _
                                                ucxDesignOnlineAd.HtmlText, ucxDesignOnlineAd.Price, _
                                                ucxDesignOnlineAd.LocationId, ucxDesignOnlineAd.LocationArea, _
-                                               ucxDesignOnlineAd.ContactName, ucxDesignOnlineAd.ContactType, _
-                                               ucxDesignOnlineAd.ContactValue)
+                                               ucxDesignOnlineAd.ContactName, ucxDesignOnlineAd.ContactPhone, _
+                                               ucxDesignOnlineAd.ContactEmail)
 
 
                 If ucxTutors.Visible Then

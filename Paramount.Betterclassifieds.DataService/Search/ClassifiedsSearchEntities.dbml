@@ -11,8 +11,8 @@
       <Column Name="LocationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="LocationAreaId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ContactName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Column Name="ContactType" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="ContactValue" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ContactPhone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ContactEmail" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="NumOfViews" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="OnlineAdTag" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="AdId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />

@@ -358,7 +358,7 @@ Public Class BookingController
     ''' Creates an Online Ad Object and places into the booking session object.
     ''' </summary>
     Public Shared Sub SetOnlineAd(ByVal heading As String, ByVal description As String, ByVal html As String, ByVal price As Decimal, ByVal locationId As Integer, ByVal locationAreaId As Integer, ByVal contactName As String, _
-                                  ByVal contactType As String, ByVal contactValue As String)
+                                  ByVal contactPhone As String, ByVal contactEmail As String)
 
         If Not AdBookCart Is Nothing Then
             ' first clear any data in the session before we begin
@@ -367,8 +367,8 @@ Public Class BookingController
 
             ' create an Online Ad
             Dim a As New DataModel.OnlineAd With {.Heading = heading, .Description = description, .HtmlText = html, .Price = price, _
-                                         .ContactName = contactName, .ContactType = contactType, _
-                                         .ContactValue = contactValue}
+                                         .ContactName = contactName, .ContactPhone = contactPhone, _
+                                         .ContactEmail = contactEmail}
             If (locationId > 0) Then
                 a.LocationId = locationId
             End If
@@ -383,7 +383,7 @@ Public Class BookingController
     ''' Creates an Online Ad Object and places into the booking session object.
     ''' </summary>
     Public Shared Sub SetOnlineAd(ByVal heading As String, ByVal description As String, ByVal html As String, ByVal price As Decimal, ByVal locationId As Integer, ByVal locationAreaId As Integer, ByVal contactName As String, _
-                                  ByVal contactType As String, ByVal contactValue As String, ByVal imageList As List(Of String))
+                                  ByVal contactPhone As String, ByVal contactEmail As String, ByVal imageList As List(Of String))
 
         If Not AdBookCart Is Nothing Then
             ' first clear any data in the session before we begin
@@ -392,8 +392,8 @@ Public Class BookingController
 
             ' create an Online Ad
             Dim onlineAd As New DataModel.OnlineAd With {.Heading = heading, .Description = description, .HtmlText = html, .Price = price, _
-                                         .ContactName = contactName, .ContactType = contactType, _
-                                         .ContactValue = contactValue, .OnlineAdTag = GetOnlineAdTypeTagForBooking()}
+                                         .ContactName = contactName, .ContactPhone = contactPhone, _
+                                         .ContactEmail = contactEmail, .OnlineAdTag = GetOnlineAdTypeTagForBooking()}
             If (locationId > 0) Then
                 onlineAd.LocationId = locationId
             End If

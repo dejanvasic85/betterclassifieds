@@ -74,7 +74,7 @@ Partial Public Class EditOnlineAd
             With ucxOnlineAd
                 ' Update the ad details - without images
                 Dim onlineAd = AdController.OnlineAdByBookingId(_adBookingId)
-                AdController.UpdateOnlineAd(onlineAd.AdDesignId, .Heading, .Description, .HtmlText, .Price, .LocationId, .LocationArea, .ContactName, .ContactType, .ContactValue)
+                AdController.UpdateOnlineAd(onlineAd.AdDesignId, .Heading, .Description, .HtmlText, .Price, .LocationId, .LocationArea, .ContactName, .ContactPhone, .ContactEmail)
 
                 If (ucxTutors.Visible) Then
                     Dim tutorAdModel = ucxTutors.GetTutorAd()

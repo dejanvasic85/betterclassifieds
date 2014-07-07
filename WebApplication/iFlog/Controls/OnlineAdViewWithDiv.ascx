@@ -76,13 +76,22 @@
                     <h7><asp:Label ID="lblContactName" runat="server" Text=""></asp:Label></h7>
                 </td>
             </tr>
-            <tr runat="server" id="objContactDetail">
+            <tr runat="server" id="objContactPhone">
                 <td width="100">
                     <h6>
                         Contact Detail:</h6>
                 </td>
                 <td>
-                    <h7><asp:Literal ID="litContactDetails" runat="server" /></h7>
+                    <h7><asp:Literal ID="litContactPhone" runat="server" /></h7>
+                </td>
+            </tr>
+            <tr runat="server" id="objContactEmail">
+                <td width="100">
+                    <h6>
+                        Contact Email:</h6>
+                </td>
+                <td>
+                    <h7><asp:Literal ID="litContactEmail" runat="server" /></h7>
                 </td>
             </tr>
             <tr>

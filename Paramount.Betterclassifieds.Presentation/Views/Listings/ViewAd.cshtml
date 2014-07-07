@@ -124,22 +124,22 @@
                         <td>@Model.ContactName</td>
                     </tr>
                     }
-                    @if (Model.ContactValue.HasValue())
+                    @if (Model.ContactPhone.HasValue())
                     {
-                    <tr>
-                        <td>
-                            @if (Model.IsContactEmail)
-                                {
-                                <span class="glyphicon glyphicon-envelope"></span>
-                                }
-                                else
-                                {
-                                <span class="glyphicon glyphicon-phone"></span>
-                                }
-                        </td>
-                        <td>@Model.ContactValue</td>
-                    </tr>
+                        <tr title="Contact Phone">
+                            <td><span class="glyphicon glyphicon-envelope"></span></td>
+                            <td><a href="mailto:@Model.ContactEmail?Subject=@Model.Heading" target="_top">@Model.ContactEmail</a></td>
+                        </tr>
                     }
+                    @if (Model.ContactPhone.HasValue())
+                    {
+                        <tr title="Contact Phone">
+                            <td><span class="glyphicon glyphicon-phone"></span></td>
+                            <td><a href="tel:+@Model.ContactPhone">@Model.ContactPhone</a></td>
+                        </tr>
+                    }
+                        
+
                     @if (Model.Price.HasValue)
                     {
                     <tr title="Price">

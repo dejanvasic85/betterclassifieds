@@ -19,8 +19,8 @@ namespace Paramount.Betterclassifieds.Business.Models
         public int LocationId { get; set; }
         public int LocationAreaId { get; set; }
         public string ContactName { get; set; }
-        public string ContactType { get; set; }
-        public string ContactValue { get; set; }
+        public string ContactPhone { get; set; }
+        public string ContactEmail { get; set; }
         public int NumOfViews { get; private set; }
 
         public List<AdImage> Images { get; set; }

@@ -45,16 +45,6 @@ Partial Public Class DesignOnlineAd
 
     End Sub
 
-    Private Sub chkNamePrivate_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chkNamePrivate.CheckedChanged
-        If (chkNamePrivate.Checked) Then
-            txtSeller.Enabled = False
-            txtSeller.Text = "Private"
-        Else
-            txtSeller.Enabled = True
-            txtSeller.Text = ""
-        End If
-    End Sub
-
     Private Sub ddlLocation_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles ddlOnlineLocation.SelectedIndexChanged
         BindLocationAreas(ddlOnlineLocation.SelectedValue)
     End Sub
@@ -93,8 +83,8 @@ Partial Public Class DesignOnlineAd
             Me.ddlOnlineLocationArea.SelectedValue = .LocationAreaId
 
             Me.ContactName = .ContactName
-            Me.ContactType = .ContactType
-            Me.ContactValue = .ContactValue
+            Me.ContactPhone = .ContactPhone
+            Me.ContactEmail = .ContactEmail
             Me.Images = images
 
         End With
@@ -115,8 +105,8 @@ Partial Public Class DesignOnlineAd
                 Me.ddlOnlineLocationArea.SelectedValue = .LocationAreaId
 
                 Me.ContactName = .ContactName
-                Me.ContactType = .ContactType
-                Me.ContactValue = .ContactValue
+                Me.ContactPhone = .ContactPhone
+                Me.ContactEmail = .ContactEmail
 
                 If Me.Images IsNot Nothing And imageList IsNot Nothing Then
                     ' check if there's no images in the control's session and there's images in bundled booking session
@@ -196,21 +186,21 @@ Partial Public Class DesignOnlineAd
         End Set
     End Property
 
-    Public Property ContactType() As String
+    Public Property ContactPhone() As String
         Get
-            Return ddlContactType.SelectedValue
+            Return txtContactPhone.Text
         End Get
         Set(ByVal value As String)
-            ddlContactType.SelectedValue = value
+            txtContactPhone.Text = value
         End Set
     End Property
 
-    Public Property ContactValue() As String
+    Public Property ContactEmail() As String
         Get
-            Return HttpUtility.HtmlEncode(txtContactValue.Text)
+            Return txtContactEmail.Text
         End Get
         Set(ByVal value As String)
-            txtContactValue.Text = HttpUtility.HtmlEncode(value)
+            txtContactEmail.Text = value
         End Set
     End Property
 

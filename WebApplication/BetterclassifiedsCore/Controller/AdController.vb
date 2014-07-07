@@ -225,8 +225,8 @@ Public Class AdController
             If onlineAd IsNot Nothing Then
                 Return New DataModel.OnlineAd With {.AdDesignId = onlineAd.AdDesignId, _
                                                     .ContactName = onlineAd.ContactName, _
-                                                    .ContactType = onlineAd.ContactType, _
-                                                    .ContactValue = onlineAd.ContactValue, _
+                                                    .ContactPhone = onlineAd.ContactPhone, _
+                                                    .ContactEmail = onlineAd.ContactEmail, _
                                                     .Description = onlineAd.Description, _
                                                     .Heading = onlineAd.Description, _
                                                     .HtmlText = onlineAd.HtmlText, _
@@ -256,7 +256,7 @@ Public Class AdController
                             Select New With {.OnlineAdID = ad.OnlineAdId, .AdDesignId = ad.AdDesignId, .Heading = ad.Heading, _
                                              .Description = ad.Description, .Price = ad.Price, .Location = location.Title, _
                                              .LocationArea = locationArea.Title, .ContactName = ad.ContactName, _
-                                             .ContactType = ad.ContactType, .ContactValue = ad.ContactValue, _
+                                             .ContactPhone = ad.ContactPhone, .ContactEmail = ad.ContactEmail, _
                                              .NumOfViews = ad.NumOfViews}
                 Return query.ToList
             End Using
@@ -284,8 +284,8 @@ Public Class AdController
                                                                        .LocationValue = o.Location.Title, _
                                                                        .AreaValue = o.LocationArea.Title, _
                                                                        .ContactName = o.ContactName, _
-                                                                       .ContactType = o.ContactType, _
-                                                                       .ContactValue = o.ContactValue, _
+                                                                       .ContactPhone = o.ContactPhone, _
+                                                                       .ContactEmail = o.ContactEmail, _
                                                                        .NumOfViews = o.NumOfViews, _
                                                                        .DatePosted = bk.StartDate, _
                                                                        .BookingReference = bk.BookReference, _
@@ -326,8 +326,8 @@ Public Class AdController
                                                                        .LocationValue = o.Location.Title, _
                                                                        .AreaValue = o.LocationArea.Title, _
                                                                        .ContactName = o.ContactName, _
-                                                                       .ContactType = o.ContactType, _
-                                                                       .ContactValue = o.ContactValue, _
+                                                                       .ContactPhone = o.ContactPhone, _
+                                                                       .ContactEmail = o.ContactEmail, _
                                                                        .NumOfViews = o.NumOfViews, _
                                                                        .DatePosted = bk.StartDate, _
                                                                        .BookingReference = bk.BookReference, _
@@ -368,8 +368,8 @@ Public Class AdController
                                                                        .LocationValue = o.Location.Title, _
                                                                        .AreaValue = o.LocationArea.Title, _
                                                                        .ContactName = o.ContactName, _
-                                                                       .ContactType = o.ContactType, _
-                                                                       .ContactValue = o.ContactValue, _
+                                                                       .ContactPhone = o.ContactPhone, _
+                                                                       .ContactEmail = o.ContactEmail, _
                                                                        .NumOfViews = o.NumOfViews, _
                                                                        .DatePosted = bk.StartDate, _
                                                                        .BookingReference = bk.BookReference, _
@@ -412,8 +412,8 @@ Public Class AdController
                                                                        .LocationValue = o.Location.Title, _
                                                                        .AreaValue = o.LocationArea.Title, _
                                                                        .ContactName = o.ContactName, _
-                                                                       .ContactType = o.ContactType, _
-                                                                       .ContactValue = o.ContactValue, _
+                                                                       .ContactPhone = o.ContactPhone, _
+                                                                       .ContactEmail = o.ContactEmail, _
                                                                        .NumOfViews = o.NumOfViews, _
                                                                        .DatePosted = book.StartDate, _
                                                                        .BookingReference = book.BookReference, _
@@ -621,55 +621,53 @@ Public Class AdController
     End Function
 
     Public Shared Function UpdateOnlineAd(ByVal adDesignId As Integer, ByVal header As String, ByVal description As String, ByVal html As String, ByVal price As Decimal, _
-        ByVal locationId As Integer, ByVal locationAreaId As Integer, ByVal contactName As String, ByVal contactType As String, ByVal contactValue As String, ByVal images As List(Of String)) As Boolean
+        ByVal locationId As Integer, ByVal locationAreaId As Integer, ByVal contactName As String, ByVal contactPhone As String, ByVal contactEmail As String, ByVal images As List(Of String)) As Boolean
 
-        Try
-            Using db = BetterclassifiedsDataContext.NewContext
-                Dim onlineAd = (From o In db.OnlineAds Where o.AdDesignId = adDesignId Select o).Single
 
-                With onlineAd
-                    .Heading = header
-                    .Description = description
-                    .HtmlText = html
-                    .Price = price
-                    If locationId > 0 Then
-                        .LocationId = locationId
-                    End If
-                    If locationAreaId > 0 Then
-                        .LocationAreaId = locationAreaId
-                    End If
-                    .ContactName = contactName
-                    .ContactType = contactType
-                    .ContactValue = contactValue
-                End With
+        Using db = BetterclassifiedsDataContext.NewContext
+            Dim onlineAd = (From o In db.OnlineAds Where o.AdDesignId = adDesignId Select o).Single
 
-                ' delete the graphics if we have any
-                Dim graphics = (From g In db.AdGraphics Where g.AdDesignId = adDesignId Select g).ToList
-
-                If (graphics.Count > 0) Then
-                    For Each gr In graphics
-                        db.AdGraphics.DeleteOnSubmit(gr)
-                    Next
+            With onlineAd
+                .Heading = header
+                .Description = description
+                .HtmlText = html
+                .Price = price
+                If locationId > 0 Then
+                    .LocationId = locationId
                 End If
-
-                ' now we add the graphics
-                If images.Count > 0 Then
-                    For Each id In images
-                        Dim gr As New AdGraphic With {.DocumentID = id, .ModifiedDate = DateTime.Now}
-                        onlineAd.AdDesign.AdGraphics.Add(gr)
-                    Next
+                If locationAreaId > 0 Then
+                    .LocationAreaId = locationAreaId
                 End If
+                .ContactName = contactName
+                .ContactPhone = contactPhone
+                .ContactEmail = contactEmail
+            End With
 
-                db.SubmitChanges() ' submit all the changes
-                Return True
-            End Using
-        Catch ex As Exception
-            Throw ex
-        End Try
+            ' delete the graphics if we have any
+            Dim graphics = (From g In db.AdGraphics Where g.AdDesignId = adDesignId Select g).ToList
+
+            If (graphics.Count > 0) Then
+                For Each gr In graphics
+                    db.AdGraphics.DeleteOnSubmit(gr)
+                Next
+            End If
+
+            ' now we add the graphics
+            If images.Count > 0 Then
+                For Each id In images
+                    Dim gr As New AdGraphic With {.DocumentID = id, .ModifiedDate = DateTime.Now}
+                    onlineAd.AdDesign.AdGraphics.Add(gr)
+                Next
+            End If
+
+            db.SubmitChanges() ' submit all the changes
+            Return True
+        End Using
+
     End Function
 
     Public Shared Function UpdateOnlineAd(ByVal adDesignId As Integer, ByVal header As String, ByVal description As String, ByVal html As String, ByVal price As Decimal, _
-        ByVal locationId As Integer, ByVal locationAreaId As Integer, ByVal contactName As String, ByVal contactType As String, ByVal contactValue As String) As Boolean
+        ByVal locationId As Integer, ByVal locationAreaId As Integer, ByVal contactName As String, ByVal contactPhone As String, ByVal contactEmail As String) As Boolean
 
         Try
             Using db = BetterclassifiedsDataContext.NewContext
@@ -687,8 +685,8 @@ Public Class AdController
                         .LocationAreaId = locationAreaId
                     End If
                     .ContactName = contactName
-                    .ContactType = contactType
-                    .ContactValue = contactValue
+                    .ContactPhone = contactPhone
+                    .ContactEmail = contactEmail
                 End With
 
                 db.SubmitChanges()

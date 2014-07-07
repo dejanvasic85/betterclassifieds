@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="LIVE-iFlog-v106" EntityNamespace="Paramount.Betterclassifieds.DataService.Classifieds" ContextNamespace="Paramount.Betterclassifieds.DataService.Classifieds" Class="ClassifiedsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=dexterii;Initial Catalog=LIVE-iFlog-v106;Integrated Security=True" SettingsObjectName="Paramount.Betterclassifieds.DataService.Properties.Settings" SettingsPropertyName="LIVE_iFlog_v106ConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="iFlog" EntityNamespace="Paramount.Betterclassifieds.DataService.Classifieds" ContextNamespace="Paramount.Betterclassifieds.DataService.Classifieds" Class="ClassifiedsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost;Initial Catalog=iFlog;Integrated Security=True" SettingsObjectName="Paramount.Betterclassifieds.DataService.Properties.Settings" SettingsPropertyName="iFlogConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Ad" Member="Ads">
     <Type Name="Ad">
       <Column Name="AdId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -256,28 +256,6 @@
       <Association Name="Publication_NonPublicationDate" Member="Publication" ThisKey="PublicationId" OtherKey="PublicationId" Type="Publication" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.OnlineAd" Member="OnlineAds">
-    <Type Name="OnlineAd">
-      <Column Name="OnlineAdId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="AdDesignId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Heading" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="HtmlText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="LocationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="LocationAreaId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ContactName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Column Name="ContactType" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="ContactValue" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="NumOfViews" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="OnlineAdTag" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="OnlineAd_OnlineAdEnquiry" Member="OnlineAdEnquiries" ThisKey="OnlineAdId" OtherKey="OnlineAdId" Type="OnlineAdEnquiry" />
-      <Association Name="OnlineAd_TutorAd" Member="TutorAds" ThisKey="OnlineAdId" OtherKey="OnlineAdId" Type="TutorAd" />
-      <Association Name="AdDesign_OnlineAd" Member="AdDesign" ThisKey="AdDesignId" OtherKey="AdDesignId" Type="AdDesign" IsForeignKey="true" />
-      <Association Name="Location_OnlineAd" Member="Location" ThisKey="LocationId" OtherKey="LocationId" Type="Location" IsForeignKey="true" />
-      <Association Name="LocationArea_OnlineAd" Member="LocationArea" ThisKey="LocationAreaId" OtherKey="LocationAreaId" Type="LocationArea" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.OnlineAdEnquiry" Member="OnlineAdEnquiries">
     <Type Name="OnlineAdEnquiry">
       <Column Name="OnlineAdEnquiryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -489,6 +467,40 @@
       <Association Name="WebAdSpaceSetting_WebAdSpace" Member="WebAdSpaces" ThisKey="SettingId" OtherKey="SettingID" Type="WebAdSpace" />
     </Type>
   </Table>
+  <Table Name="dbo.SeoMapping" Member="SeoMappings">
+    <Type Name="SeoMapping">
+      <Column Name="SeoNameId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SeoName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="CategoryIds" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ParentCategoryIds" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LocationIds" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="AreaIds" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="SearchTerm" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OnlineAd" Member="OnlineAds">
+    <Type Name="OnlineAd">
+      <Column Name="OnlineAdId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AdDesignId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Heading" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="HtmlText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="LocationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LocationAreaId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ContactName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="NumOfViews" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OnlineAdTag" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ContactEmail" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ContactPhone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="OnlineAd_OnlineAdEnquiry" Member="OnlineAdEnquiries" ThisKey="OnlineAdId" OtherKey="OnlineAdId" Type="OnlineAdEnquiry" />
+      <Association Name="OnlineAd_TutorAd" Member="TutorAds" ThisKey="OnlineAdId" OtherKey="OnlineAdId" Type="TutorAd" />
+      <Association Name="AdDesign_OnlineAd" Member="AdDesign" ThisKey="AdDesignId" OtherKey="AdDesignId" Type="AdDesign" IsForeignKey="true" />
+      <Association Name="Location_OnlineAd" Member="Location" ThisKey="LocationId" OtherKey="LocationId" Type="Location" IsForeignKey="true" />
+      <Association Name="LocationArea_OnlineAd" Member="LocationArea" ThisKey="LocationAreaId" OtherKey="LocationAreaId" Type="LocationArea" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.OnlineAds" Member="OnlineClassies">
     <Type Name="OnlineClassie">
       <Column Name="OnlineAdId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -500,8 +512,8 @@
       <Column Name="LocationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="LocationAreaId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ContactName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Column Name="ContactType" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="ContactValue" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ContactPhone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ContactEmail" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="NumOfViews" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="UserId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="TotalPrice" Type="System.Decimal" DbType="Money" CanBeNull="true" />
@@ -519,18 +531,6 @@
       <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Area" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="AdId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SeoMapping" Member="SeoMappings">
-    <Type Name="SeoMapping">
-      <Column Name="SeoNameId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="SeoName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Description" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
-      <Column Name="CategoryIds" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="ParentCategoryIds" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="LocationIds" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="AreaIds" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
-      <Column Name="SearchTerm" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
     </Type>
   </Table>
   <Function Name="dbo.usp_RateCard__Search" Method="usp_RateCard__Search">
@@ -720,23 +720,6 @@
       <Column Name="AdText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Category" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="DocumentId" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.spOnlineAdSelectByLineAdDesign" Method="spOnlineAdSelectByLineAdDesign">
-    <Parameter Name="LineDesignId" Parameter="lineDesignId" Type="System.Int32" DbType="Int" />
-    <ElementType Name="spOnlineAdSelectByLineAdDesignResult">
-      <Column Name="AdDesignId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ContactName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Column Name="ContactType" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="ContactValue" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Heading" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="HtmlText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="LocationAreaId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="LocationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="NumOfViews" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="OnlineAdId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
     </ElementType>
   </Function>
   <Function Name="dbo.spOnlineAdSelectRecentlyAdded" Method="spOnlineAdSelectRecentlyAdded">
@@ -1040,6 +1023,23 @@
       <Column Name="StartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="TotalPrice" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.spOnlineAdSelectByLineAdDesign" Method="spOnlineAdSelectByLineAdDesign">
+    <Parameter Name="LineDesignId" Parameter="lineDesignId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="spOnlineAdSelectByLineAdDesignResult">
+      <Column Name="AdDesignId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ContactName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="ContactPhone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ContactEmail" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Heading" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="HtmlText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="LocationAreaId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LocationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NumOfViews" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OnlineAdId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

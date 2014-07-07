@@ -67,7 +67,6 @@ Partial Public Class Edit_AdDesigns
     End Sub
 
     Private Sub dtlOnlineAd_ItemUpdating(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.DetailsViewUpdateEventArgs) Handles dtlOnlineAd.ItemUpdating
-        e.NewValues.Add("ContactType", DirectCast(dtlOnlineAd.FindControl("ddlContactType"), DropDownList).SelectedValue)
         e.NewValues.Add("LocationId", ddlLocation.SelectedValue)
         e.NewValues.Add("LocationAreaId", ddlLocationArea.SelectedValue)
         e.NewValues.Add("HtmlText", DirectCast(dtlOnlineAd.FindControl("radEditor"), RadEditor).Content)
@@ -83,8 +82,8 @@ Partial Public Class Edit_AdDesigns
             With ad
                 .AdDesignId = e.OriginalObject.AdDesignId
                 .ContactName = e.NewObject.ContactName
-                .ContactType = e.NewObject.ContactType
-                .ContactValue = e.NewObject.ContactValue
+                .ContactPhone = e.NewObject.ContactPhone
+                .ContactEmail = e.NewObject.ContactEmail
                 .Heading = e.NewObject.Heading
                 .Description = e.NewObject.Description
                 .HtmlText = e.NewObject.HtmlText

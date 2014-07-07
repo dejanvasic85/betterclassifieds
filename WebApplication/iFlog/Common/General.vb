@@ -127,7 +127,7 @@ Module General
                 onlineAd = New DataModel.OnlineAd With {.Heading = lineAd.AdHeader, .Description = lineAd.AdText, _
                                                         .HtmlText = lineAd.AdText, .LocationId = anyLocationId, _
                                                         .LocationAreaId = anyAreaId, .Price = 0, .ContactName = String.Empty, _
-                                                        .ContactType = "Email", .ContactValue = String.Empty}
+                                                        .ContactPhone = String.Empty, .ContactEmail = String.Empty}
             End If
         ElseIf type = SystemAdType.ONLINE Then
             ' get the online ad
@@ -148,7 +148,7 @@ Module General
         Dim controller As New BundleController
         ' set online details
         With onlineAd
-            controller.SetOnlineAdDetails(.Heading, .Description, .HtmlText, .Price, .LocationId, .LocationAreaId, .ContactName, .ContactType, .ContactValue)
+            controller.SetOnlineAdDetails(.Heading, .Description, .HtmlText, .Price, .LocationId, .LocationAreaId, .ContactName, .ContactPhone, .ContactEmail)
             controller.SetOnlineAdGraphics(onlineGraphics)
         End With
 

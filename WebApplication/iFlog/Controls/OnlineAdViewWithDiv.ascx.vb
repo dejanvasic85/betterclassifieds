@@ -84,21 +84,8 @@ Namespace Controls
                     lblContactName.Text = .ContactName
                 End If
 
-                If .ContactValue = "" Or .ContactName = "Private" Then
-                    objContactDetail.Visible = False
-                Else
-                    If .ContactType.ToLower = "email" Then
-                        Dim r As Regex = New Regex("\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b", RegexOptions.IgnoreCase)
-                        Dim m As Match = r.Match(.ContactValue)
-                        If m.Success Then
-                            litContactDetails.Text = String.Format("<a href=""mailto:{0}"">{1}</a>", .ContactValue, .ContactValue)
-                        Else
-                            litContactDetails.Text = .ContactValue
-                        End If
-                    Else
-                        litContactDetails.Text = .ContactValue
-                    End If
-                End If
+                litContactEmail.Text = .ContactEmail
+                litContactPhone.Text = .ContactPhone
 
                 objPrice.Visible = onlineAd.Price > 0
                 lblPrice.Text = String.Format("{0:C}", .Price)
@@ -133,26 +120,14 @@ Namespace Controls
                 lblNumOfViews.Text = .NumOfViews.ToString
                 lblDatePosted.Text = String.Format("{0:D}", datePosted)
 
-                'If .AdDesignId > 0 Then
-                '    lblIFlogID.Text = .AdDesignId
-                '    lblID.Text = .AdDesignId
-                'End If
-
                 If .ContactName = "" Or .ContactName = "Private" Then
                     objContactName.Visible = False
                 Else
                     lblContactName.Text = .ContactName
                 End If
 
-                If .ContactValue = "" Or .ContactName = "Private" Then
-                    objContactDetail.Visible = False
-                Else
-                    If .ContactType.ToLower = "email" Then
-                        litContactDetails.Text = String.Format("<a href='mailto:{0}'></a>", .ContactValue)
-                    Else
-                        litContactDetails.Text = .ContactValue
-                    End If
-                End If
+                litContactEmail.Text = .ContactEmail
+                litContactPhone.Text = .ContactPhone
 
                 objPrice.Visible = onlineAd.Price > 0
                 lblPrice.Text = String.Format("{0:C}", .Price)

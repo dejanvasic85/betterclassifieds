@@ -88,10 +88,18 @@
             </tr>
             <tr runat="server" id="objContactDetail">
                 <td width="100">
-                    <h6>Contact Detail:</h6>
+                    <h6>Contact Phone:</h6>
                 </td>
                 <td>
-                    <asp:Literal ID="litContactDetails" runat="server" />
+                    <asp:Literal ID="litContactPhone" runat="server" />
+                </td>
+            </tr>
+            <tr runat="server" id="objContactEmail">
+                <td width="100">
+                    <h6>Contact Email:</h6>
+                </td>
+                <td>
+                    <asp:Literal ID="litContactEmail" runat="server" />
                 </td>
             </tr>
             <tr>

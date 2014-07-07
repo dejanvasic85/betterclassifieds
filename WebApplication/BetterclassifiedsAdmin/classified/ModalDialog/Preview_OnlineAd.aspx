@@ -22,8 +22,8 @@
                 <asp:BoundField HeaderText="Location" DataField="Location" />
                 <asp:BoundField HeaderText="Area" DataField="LocationArea" />
                 <asp:BoundField HeaderText="Name" DataField="ContactName" />
-                <asp:BoundField HeaderText="Type" DataField="ContactType" />
-                <asp:BoundField HeaderText="Value" DataField="ContactValue" />
+                <asp:BoundField HeaderText="Phone" DataField="ContactPhone" />
+                <asp:BoundField HeaderText="Email" DataField="ContactEmail" />
             </Fields>
         </asp:DetailsView>
         

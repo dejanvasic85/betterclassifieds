@@ -46,16 +46,8 @@
                         <asp:BoundField DataField="OnlineAdId" HeaderText="Ad Id" ReadOnly="true" Visible="false" />
                         <asp:BoundField DataField="Price" HeaderText="Price" />
                         <asp:BoundField DataField="ContactName" HeaderText="Contact Name" />
-                        <asp:TemplateField HeaderText="Contact Type">
-                            <ItemTemplate>
-                                <asp:DropDownList ID="ddlContactType" runat="server" DataValueField='<%# Eval("ContactType") %>'>
-                                    <asp:ListItem>Email</asp:ListItem>
-                                    <asp:ListItem>Phone</asp:ListItem>
-                                    <asp:ListItem>Fax</asp:ListItem>
-                                </asp:DropDownList>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:BoundField DataField="ContactValue" HeaderText="Contact Detail" />
+                        <asp:BoundField DataField="ContactPhone" HeaderText="Contact Phone" />
+                        <asp:BoundField DataField="ContactEmail" HeaderText="Contact Email" />
                         <asp:BoundField DataField="Heading" HeaderText="Heading" ControlStyle-Width="250px" />
                         <asp:TemplateField HeaderText="HTML Text">
                             <ItemTemplate>

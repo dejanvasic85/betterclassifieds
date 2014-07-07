@@ -134,59 +134,70 @@
                     <td width="320">
                         <asp:TextBox ID="txtSeller" runat="server" size="40%" MaxLength="199" ToolTip="Private contact won't display any contact details in the ad." />
                     </td>
-                    <td width="200" align="left">
-                        <div class="floatLeftBlock">
-                            <h6>
-                                <asp:CheckBox ID="chkNamePrivate" runat="server" Text="Check to make Private." AutoPostBack="true"
-                                    ToolTip="Private contact won't display any contact details in the ad." /></h6>
-                        </div>
-                    </td>
                 </tr>
             </table>
         </ContentTemplate>
     </asp:UpdatePanel>
 </div>
-<%--Contact Details--%>
+<%--Contact Phone --%>
 <div id="bookAdMainContent">
     <table >
         <tr>
-            <td><h2> Contact Details</h2></td>
-            <td style=" vertical-align:middle;"> <h5 style="margin-top:15px;">Select method of contact</h5></td>
+            <td><h2> Contact Phone</h2></td>
+            <td style=" vertical-align:middle;"> <h5 style="margin-top:15px;">You can leave a phone number for direct contact (optional)</h5></td>
             <td><div class="help-context-panel" style=" margin-top:10px">
         <paramountItCommon:HelpContextControl Position="Bottom" ID="HelpContextControl4"
             ImageUrl="~/Resources/Images/question_button.gif" runat="server">
             <ContentTemplate>
                 <span class="text-wrapper"><b>Contact Details: </b>To make it easier for people to contact
-                    you, select either the email, phone or fax option and leave the relevant details.
+                    you.
                 </span>
             </ContentTemplate>
         </paramountItCommon:HelpContextControl>
     </div></td>
         </tr>
     </table>
-    
-    
 </div>
 <div id="bookAdMainContent" style="vertical-align: middle;">
     <table width="520" border="0" cellspacing="0px" cellpadding="0px">
         <tr>
             <td width="320" height="35">
-                <asp:TextBox ID="txtContactValue" runat="server" size="40%" MaxLength="100" />
-            </td>
-            <td width="200" height="35" valign="top">
-                <div class="floatLeftBlockPrick" style="line-height: 35px; vertical-align: middle;
-                    text-align: center;">
-                    <asp:Label ID="lblCType" runat="server" Text="Contact type:" CssClass="spanFormTitle" />
-                    <asp:DropDownList ID="ddlContactType" runat="server" Width="100px">
-                        <asp:ListItem>Email</asp:ListItem>
-                        <asp:ListItem>Phone</asp:ListItem>
-                        <asp:ListItem>Fax</asp:ListItem>
-                    </asp:DropDownList>
-                </div>
+                <asp:TextBox ID="txtContactPhone" runat="server" size="40%" MaxLength="100" />
             </td>
         </tr>
     </table>
 </div>
+
+<%--Contact Email --%>
+<div id="bookAdMainContent">
+    <table >
+        <tr>
+            <td><h2> Contact Email</h2></td>
+            <td style=" vertical-align:middle;"> <h5 style="margin-top:15px;">You can leave a phone email for direct contact (optional)</h5></td>
+            <td><div class="help-context-panel" style=" margin-top:10px">
+        <paramountItCommon:HelpContextControl Position="Bottom" ID="HelpContextControl7"
+            ImageUrl="~/Resources/Images/question_button.gif" runat="server">
+            <ContentTemplate>
+                <span class="text-wrapper"><b>Contact Email: </b>To make it easier for people to contact
+                    you using emails.
+                </span>
+            </ContentTemplate>
+        </paramountItCommon:HelpContextControl>
+    </div></td>
+        </tr>
+    </table>
+</div>
+<div id="bookAdMainContent" style="vertical-align: middle;">
+    <table width="520" border="0" cellspacing="0px" cellpadding="0px">
+        <tr>
+            <td width="320" height="35">
+                <asp:TextBox ID="txtContactEmail" runat="server" size="40%" MaxLength="100" />
+            </td>
+        </tr>
+    </table>
+</div>
+
+
 <%--Price--%>
 <div id="bookAdMainContent">
 <table >

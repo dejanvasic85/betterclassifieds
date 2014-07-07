@@ -350,8 +350,8 @@ Public Module GeneralRoutine
                             .LocationId = design.OnlineAds(0).LocationId
                             .LocationAreaId = design.OnlineAds(0).LocationAreaId
                             .ContactName = design.OnlineAds(0).ContactName
-                            .ContactType = design.OnlineAds(0).ContactType
-                            .ContactValue = design.OnlineAds(0).ContactValue
+                            .ContactPhone = design.OnlineAds(0).ContactPhone
+                            .ContactEmail = design.OnlineAds(0).ContactEmail
                             .OnlineAdTag = design.OnlineAds(0).OnlineAdTag
                             .NumOfViews = 1
                         End With
@@ -468,7 +468,7 @@ Public Module GeneralRoutine
                                                              .Status = AdDesignStatus.Approved}
 
             Dim onlineAd As New DataModel.OnlineAd With {.AdDesign = onlineDesign, .ContactName = cart.OnlineAd.ContactName, _
-                                                         .ContactType = cart.OnlineAd.ContactType, .ContactValue = cart.OnlineAd.ContactValue, _
+                                                         .ContactPhone = cart.OnlineAd.ContactPhone, .ContactEmail = cart.OnlineAd.ContactEmail, _
                                                          .Description = cart.OnlineAd.Description, .Heading = cart.OnlineAd.Heading, _
                                                          .HtmlText = cart.OnlineAd.HtmlText, .LocationId = cart.OnlineAd.LocationId, _
                                                          .LocationAreaId = cart.OnlineAd.LocationAreaId, .NumOfViews = cart.OnlineAd.NumOfViews, _

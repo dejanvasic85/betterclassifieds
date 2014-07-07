@@ -82,8 +82,8 @@ Namespace BusinessEntities
                 .LocationId = onlineAd.LocationId
                 .LocationAreaId = onlineAd.LocationAreaId
                 .ContactName = onlineAd.ContactName
-                .ContactType = onlineAd.ContactType
-                .ContactValue = onlineAd.ContactValue
+                .ContactPhone = onlineAd.ContactPhone
+                .ContactEmail = onlineAd.ContactEmail
                 .NumOfViews = onlineAd.NumOfViews
                 .ImageList = imageList
                 .DatePosted = datePosted

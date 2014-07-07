@@ -95,15 +95,6 @@ Partial Public Class DesignOnlineAd
     Protected WithEvents txtSeller As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''chkNamePrivate control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents chkNamePrivate As Global.System.Web.UI.WebControls.CheckBox
-
-    '''<summary>
     '''HelpContextControl4 control.
     '''</summary>
     '''<remarks>
@@ -113,31 +104,31 @@ Partial Public Class DesignOnlineAd
     Protected WithEvents HelpContextControl4 As Global.Paramount.Common.UI.HelpContextControl
 
     '''<summary>
-    '''txtContactValue control.
+    '''txtContactPhone control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtContactValue As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtContactPhone As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''lblCType control.
+    '''HelpContextControl7 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblCType As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents HelpContextControl7 As Global.Paramount.Common.UI.HelpContextControl
 
     '''<summary>
-    '''ddlContactType control.
+    '''txtContactEmail control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlContactType As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents txtContactEmail As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''HelpContextControl5 control.

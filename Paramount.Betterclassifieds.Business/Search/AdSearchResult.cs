@@ -21,8 +21,8 @@ namespace Paramount.Betterclassifieds.Business.Search
         public DateTime? BookingDate { get; set; }
         public int NumOfViews { get; set; }
         public string ContactName { get; set; }
-        public string ContactType { get; set; }
-        public string ContactValue { get; set; }
+        public string ContactPhone { get; set; }
+        public string ContactEmail { get; set; }
         public string OnlineAdTag { get; set; }
         public string Username { get; set; }
         public string[] ImageUrls { get; set; }

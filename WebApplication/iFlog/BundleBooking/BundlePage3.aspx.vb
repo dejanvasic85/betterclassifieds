@@ -98,8 +98,8 @@ Partial Public Class BundlePage3
                                                lineAdNewDesign.IsColourBackgroundSelected, lineAdNewDesign.BackgroundColourCode)
 
             _bundleController.SetOnlineAdDetails(ucxOnlineAd.Heading, ucxOnlineAd.Description, ucxOnlineAd.HtmlText, ucxOnlineAd.Price, ucxOnlineAd.LocationId, _
-                                                 ucxOnlineAd.LocationArea, ucxOnlineAd.ContactName, ucxOnlineAd.ContactType, _
-                                                 ucxOnlineAd.ContactValue)
+                                                 ucxOnlineAd.LocationArea, ucxOnlineAd.ContactName, ucxOnlineAd.ContactPhone, _
+                                                 ucxOnlineAd.ContactEmail)
 
             If ucxTutors.Visible Then
                 Dim tutorAd = ucxTutors.GetTutorAd

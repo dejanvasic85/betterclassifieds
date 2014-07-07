@@ -287,7 +287,7 @@ Namespace BundleBooking
         End Sub
 
         Public Sub SetOnlineAdDetails(ByVal heading As String, ByVal description As String, ByVal html As String, ByVal price As Decimal, ByVal locationId As Integer, ByVal locationAreaId As Integer, _
-                                      ByVal contactName As String, ByVal contactType As String, ByVal contactValue As String)
+                                      ByVal contactName As String, ByVal contactPhone As String, ByVal contactEmail As String)
             ' ensure that the session object is not null
             If BundleCart IsNot Nothing Then
                 Dim onlineAd As New DataModel.OnlineAd With {.Heading = heading, _
@@ -297,8 +297,8 @@ Namespace BundleBooking
                                                              .LocationId = locationId, _
                                                              .LocationAreaId = locationAreaId, _
                                                              .ContactName = contactName, _
-                                                             .ContactValue = contactValue, _
-                                                             .ContactType = contactType, _
+                                                             .ContactEmail = contactEmail, _
+                                                             .ContactPhone = contactPhone, _
                                                              .OnlineAdTag = GetOnlineAdTypeTagForBooking()}
                 ' save the ad in the session
                 BundleCart.OnlineAd = onlineAd

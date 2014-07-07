@@ -24,15 +24,11 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public DateTime? BookingDate { get; set; }
         public string[] Publications { get; set; }
         public string ContactName { get; set; }
-        public string ContactValue { get; set; }
+        public string ContactPhone { get; set; }
+        public string ContactEmail { get; set; }
         public string LocationName { get; set; }
         public string LocationAreaName { get; set; }
         public Dictionary<string, string> AdditionalAttributes { get; set; }
-
-        public bool IsContactEmail
-        {
-            get { return ContactValue.Contains("@"); }
-        }
 
         public int NumOfViews { get; set; }
         public DateTime StartDate { get; set; }
@@ -60,12 +56,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         {
             get { return this.HasImages && this.ImageUrls.Length > 1; }
         }
-
-        public bool HasContactInformation
-        {
-            get { return this.ContactName.HasValue() && this.ContactValue.HasValue(); }
-        }
-
+        
         public AdEnquiryViewModel AdEnquiry { get; set; }
 
         public string PostedDate

@@ -167,13 +167,31 @@ Partial Public Class OnlineAdView
     Protected WithEvents objContactDetail As Global.System.Web.UI.HtmlControls.HtmlTableRow
 
     '''<summary>
-    '''litContactDetails control.
+    '''litContactPhone control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents litContactDetails As Global.System.Web.UI.WebControls.Literal
+    Protected WithEvents litContactPhone As Global.System.Web.UI.WebControls.Literal
+
+    '''<summary>
+    '''objContactEmail control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents objContactEmail As Global.System.Web.UI.HtmlControls.HtmlTableRow
+
+    '''<summary>
+    '''litContactEmail control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents litContactEmail As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
     '''lblDatePosted control.

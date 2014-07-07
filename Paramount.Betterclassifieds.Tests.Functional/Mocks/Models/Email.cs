@@ -4,7 +4,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 {
     public class Email
     {
-        public DateTime CreateDateTime { get; set; }
-        public string Subject { get; set; }
+        public DateTime ModifiedDate { get; set; }
+        public string DocType { get; set; }
+        public string To { get; set; }
+
     }
 }

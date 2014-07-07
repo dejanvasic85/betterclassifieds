@@ -24,7 +24,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
         // Users
         void DropUserIfExists(string username);
-        bool UserExists(string username);
+        bool RegistrationExistsForEmail(string email);
         Guid? AddUserIfNotExists(string username, string password, string email);
 
         // Emails / Notifications

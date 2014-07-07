@@ -193,13 +193,15 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                     membershipDb.Execute("DELETE FROM aspnet_Users WHERE UserId = @userId", new { userId });
                     membershipDb.Execute("DELETE FROM UserProfile WHERE UserID = @userId", new { userId });
                 }
+
+                membershipDb.Execute("DELETE FROM Registration WHERE Email = @username", new { username });
                 scope.Complete();
             }
         }
 
-        public bool UserExists(string username)
+        public bool RegistrationExistsForEmail(string email)
         {
-            return membershipDb.Query("SELECT UserId FROM aspnet_Users WHERE UserName = @username", new { username }).Any();
+            return membershipDb.Query("SELECT Username FROM Registration WHERE Email = @email", new { email }).Any();
         }
 
         public Guid? AddUserIfNotExists(string username, string password, string email)
@@ -228,7 +230,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 
         public List<Email> GetSentEmailsFor(string email)
         {
-            return broadcastDb.Query<Email>("SELECT Subject, ModifiedDate FROM EmailDelivery WHERE To = @email", new { email }).ToList();
+            return broadcastDb.Query<Email>("SELECT [To], DocType, ModifiedDate FROM EmailDelivery WHERE [To] = @email", new { email }).ToList();
         }
 
         public void AddRatecardIfNotExists(string ratecardName, decimal minCharge, decimal maxCharge, string category = "", bool autoAssign = true)

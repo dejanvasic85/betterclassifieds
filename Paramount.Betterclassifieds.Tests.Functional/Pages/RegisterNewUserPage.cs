@@ -1,113 +1,98 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
-    [TestPage(RelativeUrl = "Register.aspx")]
+    [TestPage(RelativeUrl = "Account/Login")]
     public class RegisterNewUserTestPage : BaseTestPage
     {
         public RegisterNewUserTestPage(IWebDriver webdriver, IConfig config)
             : base(webdriver, config)
         { }
 
-        // todo : We need to extract the elements in to properties for better practice
-
-        public void SetPersonalDetails(string firstName, string lastName, string address, string suburb, string state, string postcode, string telephone)
+        #region Page Elements
+        private IWebElement EmailElement
         {
-            SetFirstName(firstName);
-            SetLastName(lastName);
-            SetAddress(address);
-            SetSuburb(suburb);
-            SetState(state);
-            SetPostcode(postcode);
-            SetTelephone(telephone);
+            get { return FindElement(By.Id("RegisterEmail")); }
         }
 
-        private void SetTelephone(string telephone)
+        private IWebElement EmailConfirmElement
         {
-            FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxRegister_SiteCreateUserWizard_PhoneNumberTextBox")).SendKeys(telephone);
+            get { return FindElement(By.Id("ConfirmEmail")); }
         }
 
-        private void SetPostcode(string postcode)
+        private IWebElement PasswordElement
         {
-            FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxRegister_SiteCreateUserWizard_ZipCodeTextBox")).SendKeys(postcode);
+            get { return FindElement(By.Id("RegisterPassword")); }
         }
 
-        private void SetState(string state)
+        private IWebElement PasswordConfirmElement
         {
-            var stateSelection = new SelectElement(FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxRegister_SiteCreateUserWizard_StateDropDownList")));
-            stateSelection.SelectByValue(state);
+            get { return FindElement(By.Id("ConfirmPassword")); }
         }
 
-        private void SetSuburb(string suburb)
+        private IWebElement FirstNameElement
         {
-            FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxRegister_SiteCreateUserWizard_CityTextBox")).SendKeys(suburb);
+            get { return FindElement(By.Id("FirstName")); }
         }
 
-        private void SetAddress(string address)
+        private IWebElement LastNameElement
         {
-            FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxRegister_SiteCreateUserWizard_Address1TextBox")).SendKeys(address);
-        }
-
-        private void SetLastName(string lastName)
-        {
-            FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxRegister_SiteCreateUserWizard_LastNameTextBox")).SendKeys(lastName);
-        }
-
-        private void SetFirstName(string firstName)
-        {
-            FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxRegister_SiteCreateUserWizard_FirstNameTextBox")).SendKeys(firstName);
-        }
-
-        public void ClickNextOnPersonalDetailsView()
-        {
-            FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxRegister_SiteCreateUserWizard_StartNavigationTemplateContainerID_StartNextButton")).Click();
-        }
-
-        public void SetUsername(string username)
-        {
-            FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxRegister_SiteCreateUserWizard_CreateUserStepContainer_UserName")).SendKeys(username);
+            get { return FindElement(By.Id("LastName")); }
         }
         
-        public void SetPassword(string password)
+        private IWebElement PostCodeElement
         {
-            FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxRegister_SiteCreateUserWizard_CreateUserStepContainer_Password")).SendKeys(password);
+            get { return FindElement(By.Id("PostCode")); }
+        }
+
+        private IWebElement RegisterButton
+        {
+            get { return FindElement(By.Id("btnRegister")); }
+        }
+#endregion
+
+        #region Public Methods
+
+        public void SetPostcode(string postcode)
+        {
+            PostCodeElement.SendKeys(postcode);
+        }
+        
+        public void SetLastName(string lastName)
+        {
+            LastNameElement.SendKeys(lastName);
+        }
+
+        public void SetFirstName(string firstName)
+        {
+            FirstNameElement.SendKeys(firstName);
         }
 
         public void SetEmail(string email)
         {
-            FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxRegister_SiteCreateUserWizard_CreateUserStepContainer_Email")).SendKeys(email);
+            EmailElement.SendKeys(email);
         }
 
         public void SetEmailConfirmation(string email)
         {
-            FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxRegister_SiteCreateUserWizard_CreateUserStepContainer_txtConfirmEmail")).SendKeys(email);
+            EmailConfirmElement.SendKeys(email);
+        }
+        
+        public void SetPassword(string password)
+        {
+            PasswordElement.SendKeys(password);
         }
 
         public void SetPasswordConfirmation(string password)
         {
-            FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxRegister_SiteCreateUserWizard_CreateUserStepContainer_ConfirmPassword")).SendKeys(password);
+            PasswordConfirmElement.SendKeys(password);
         }
 
-        public void ClickCheckAvailability()
+        public void ClickRegister()
         {
-            FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxRegister_SiteCreateUserWizard_CreateUserStepContainer_btnCheckUsername")).Click();
+            RegisterButton.Click();
         }
 
-        public string GetUsernameAvailabilityMessage()
-        {
-            var element = FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxRegister_SiteCreateUserWizard_CreateUserStepContainer_lblUsernameAvailability"));            
-            return element.Text;
-        }
-
-        public void ClickCreateUser()
-        {
-            FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxRegister_SiteCreateUserWizard___CustomNav1_StepNextButtonButton")).Click();
-        }
-
-        public string GetRegistrationCompletedMessage()
-        {
-            return FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxRegister_SiteCreateUserWizard_CompleteStepContainer_Label17")).Text;
-        }
+        #endregion
     }
 }

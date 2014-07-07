@@ -11,11 +11,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
     {
         private readonly PageFactory _pageFactory;
         private readonly ITestDataManager _dataManager;
+        private readonly RegistrationContext _registrationContext;
 
-        public RegistrationSteps(PageFactory pageFactory, ITestDataManager dataManager)
+        public RegistrationSteps(PageFactory pageFactory, ITestDataManager dataManager, RegistrationContext registrationContext)
         {
             _pageFactory = pageFactory;
             _dataManager = dataManager;
+            _registrationContext = registrationContext;
         }
 
         [Given(@"I am a registered user with username ""(.*)"" and password ""(.*)"" and email ""(.*)""")]
@@ -40,77 +42,60 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         public void GivenIHaveEnteredMyPersonalDetails(string firstName, string lastName, string address, string suburb, string state, string postcode, string telephone)
         {
             var registrationPage = _pageFactory.Init<RegisterNewUserTestPage>();
-            registrationPage.SetPersonalDetails(firstName, lastName, address, suburb, state,
-                postcode, telephone);
+            registrationPage.SetFirstName(firstName);
+            registrationPage.SetLastName(lastName);
+            registrationPage.SetPostcode(postcode);
         }
 
-        [Given(@"I have entered my account details ""(.*)"", ""(.*)"", ""(.*)""")]
-        public void GivenIHaveEnteredMyAccountDetails(string username, string password, string email)
+        [Given(@"I have entered my account details ""(.*)"", ""(.*)""")]
+        public void GivenIHaveEnteredMyAccountDetails(string email, string password)
         {
             var registrationPage = _pageFactory.Init<RegisterNewUserTestPage>();
-            registrationPage.SetUsername(username);
             registrationPage.SetPassword(password);
             registrationPage.SetPasswordConfirmation(password);
             registrationPage.SetEmail(email);
             registrationPage.SetEmailConfirmation(email);
         }
 
-        [Given(@"I click Next to proceed to account details")]
-        public void GivenIClickNextToProceedToAccountDetails()
-        {
-            var registrationPage = _pageFactory.Init<RegisterNewUserTestPage>();
-            registrationPage.ClickNextOnPersonalDetailsView();
-        }
-
-        [Given(@"I click check availability button")]
-        public void GivenIClickCheckAvailabilityButton()
-        {
-            var registrationPage = _pageFactory.Init<RegisterNewUserTestPage>();
-            registrationPage.ClickCheckAvailability();
-        }
-
-        [Then(@"user availability message should display ""(.*)""")]
-        public void ThenUserAvailabilityMessageShouldDisplay(string expectedMessage)
-        {
-            var registrationPage = _pageFactory.Init<RegisterNewUserTestPage>();
-            var message = registrationPage.GetUsernameAvailabilityMessage();
-            Assert.IsTrue(message.StartsWith(expectedMessage));
-        }
-
-        [When(@"I click Create User button")]
-        public void WhenIClickCreateUserButton()
+        [When(@"I click register button")]
+        public void WhenIClickRegisterButton()
         {
             // Store the time that this was clicked
             // See ThenARegistrationEmailShouldBeSentTo method where this is retrieved
-            ScenarioContext.Current.Add("StartRegistrationTime", DateTime.Now);
+            _registrationContext.StartRegistrationTime = DateTime.Now;
 
             var registrationPage = _pageFactory.Init<RegisterNewUserTestPage>();
-            registrationPage.ClickCreateUser();
+            registrationPage.ClickRegister();
         }
 
         [Then(@"the user ""(.*)"" should be created successfully")]
         public void ThenTheUserShouldBeCreatedSuccessfully(string username)
         {
             // Assert
-            Assert.IsTrue(_dataManager.UserExists(username));
+            Assert.IsTrue(_dataManager.RegistrationExistsForEmail(username));
         }
 
         [Then(@"a registration email should be sent to ""(.*)""")]
         public void ThenARegistrationEmailShouldBeSentTo(string userEmail)
         {
-            var registrationTime = ScenarioContext.Current.Get<DateTime>("StartRegistrationTime");
             var emailsQueued = _dataManager.GetSentEmailsFor(userEmail);
 
-            Assert.IsTrue(emailsQueued.Any(e => e.CreateDateTime >= registrationTime && e.Subject == "New Registration"));
+            Assert.IsTrue(emailsQueued.Any(e => 
+                e.ModifiedDate >= _registrationContext.StartRegistrationTime &&
+                e.DocType == "NewRegistration"));
         }
 
-        [Then(@"I should see registration message displayed ""(.*)""")]
-        public void ThenIShouldSeeRegistrationMessageDisplayed(string expectedMessage)
+        [Then(@"I should see a thank you page with confirmation")]
+        public void ThenIShouldSeeAThankYouPageWithConfirmation()
         {
-            var registrationPage = _pageFactory.Init<RegisterNewUserTestPage>();
-            var currentMessage = registrationPage.GetRegistrationCompletedMessage();
-
-            Assert.IsTrue(currentMessage.StartsWith(expectedMessage));
+            var registrationSuccess = _pageFactory.Init<RegistrationSuccessPage>();
+            Assert.That(registrationSuccess.GetConfirmationText(), Is.EqualTo("Please click on the confirmation link sent to your email and you will be able to start using your account!"));
+            Assert.That(registrationSuccess.GetThankYouHeading(), Is.EqualTo("Thank you for signing up"));
         }
+    }
+
+    public class RegistrationContext
+    {
+        public DateTime StartRegistrationTime { get; set; }
     }
 }

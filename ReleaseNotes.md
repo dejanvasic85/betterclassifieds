@@ -7,4 +7,6 @@
 
 **Bug Fixes**
 
+- [The support image should be displaying again](https://trello.com/c/9pBVDify/200-investigate-estreamdesk-not-working-in-admin-site)
+
 **Technical Debt**

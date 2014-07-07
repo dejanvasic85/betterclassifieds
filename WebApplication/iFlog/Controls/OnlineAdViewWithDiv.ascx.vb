@@ -86,6 +86,8 @@ Namespace Controls
 
                 litContactEmail.Text = .ContactEmail
                 litContactPhone.Text = .ContactPhone
+                objContactPhone.Visible = Not String.IsNullOrEmpty(.ContactPhone)
+                objContactEmail.Visible = Not String.IsNullOrEmpty(.ContactEmail)
 
                 objPrice.Visible = onlineAd.Price > 0
                 lblPrice.Text = String.Format("{0:C}", .Price)
@@ -128,6 +130,8 @@ Namespace Controls
 
                 litContactEmail.Text = .ContactEmail
                 litContactPhone.Text = .ContactPhone
+                objContactPhone.Visible = Not String.IsNullOrEmpty(.ContactPhone)
+                objContactEmail.Visible = Not String.IsNullOrEmpty(.ContactEmail)
 
                 objPrice.Visible = onlineAd.Price > 0
                 lblPrice.Text = String.Format("{0:C}", .Price)

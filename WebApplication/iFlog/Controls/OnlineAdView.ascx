@@ -86,7 +86,7 @@
                     <h7><asp:Label ID="lblContactName" runat="server" Text="" Font-Size="14px" ></asp:Label></h7>
                 </td>
             </tr>
-            <tr runat="server" id="objContactDetail">
+            <tr runat="server" id="objContactPhone">
                 <td width="100">
                     <h6>Contact Phone:</h6>
                 </td>

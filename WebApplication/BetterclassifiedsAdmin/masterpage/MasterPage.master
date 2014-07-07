@@ -81,7 +81,7 @@
     </form>
     <script src="http://paramount.estreamdesk.com/JS/ticketDialog.js" language="javascript" type="text/javascript"></script>
     <script type="text/javascript">
-        TicketDialog.helpdeskUrl = 'http://paramount.estreamdesk.com/'; TicketDialog.buttonImageUrl = 'http://vmh12754.hosting24.com.au/publicimages/support.png'; TicketDialog.dialogWidth = 600; TicketDialog.dialogHeight = 500; TicketDialog.init();
+        TicketDialog.helpdeskUrl = 'http://paramount.estreamdesk.com/'; TicketDialog.buttonImageUrl = 'http://vmh12754.hosting24.com.au:8787/support.png'; TicketDialog.dialogWidth = 600; TicketDialog.dialogHeight = 500; TicketDialog.init();
     </script>
     <script type="text/javascript">
         $().ready(function () {

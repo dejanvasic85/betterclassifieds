@@ -6,5 +6,6 @@
 /// <reference path="paramount-site.js" />
 /// <reference path="paramount-validate-default.js" />
 /// <reference path="paramount-validate-tooltip.js" />
+/// <reference path="toastr-2.0.1.js" />
 /// <reference path="account/login.js" />
 /// <reference path="listings/find.js" />

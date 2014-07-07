@@ -78,5 +78,43 @@
             public const string WebAdSpaceSetting = "WebAdSpaceSetting";
             public const string WebContent = "WebContent";
         }
+
+        /// <summary>
+        /// List of table names from the membership (appuser) database
+        /// </summary>
+        /// <remarks>
+        /// SELECT 'public const string ' + TABLE_NAME + ' = "' + TABLE_NAME + '";'
+        /// FROM INFORMATION_SCHEMA.TABLES
+        /// WHERE TABLE_TYPE = 'BASE TABLE' 
+        /// </remarks>
+        public struct MembershipTable
+        {
+            public const string EmailTemplate = "EmailTemplate";
+            public const string UserProfile = "UserProfile";
+            public const string aspnet_WebEvent_Events = "aspnet_WebEvent_Events";
+            public const string aspnet_Applications = "aspnet_Applications";
+            public const string ASPStateTempSessions = "ASPStateTempSessions";
+            public const string Industry = "Industry";
+            public const string aspnet_PersonalizationPerUser = "aspnet_PersonalizationPerUser";
+            public const string BusinessCategory = "BusinessCategory";
+            public const string aspnet_UsersInRoles = "aspnet_UsersInRoles";
+            public const string EmailFrom = "EmailFrom";
+            public const string aspnet_Membership = "aspnet_Membership";
+            public const string smtpClient = "smtpClient";
+            public const string Transaction = "Transaction";
+            public const string aspnet_Function = "aspnet_Function";
+            public const string aspnet_Profile = "aspnet_Profile";
+            public const string aspnet_UsersInFunction = "aspnet_UsersInFunction";
+            public const string aspnet_PersonalizationAllUsers = "aspnet_PersonalizationAllUsers";
+            public const string Correspondence = "Correspondence";
+            public const string SchemaVersions = "SchemaVersions";
+            public const string aspnet_Paths = "aspnet_Paths";
+            public const string Registration = "Registration";
+            public const string aspnet_Roles = "aspnet_Roles";
+            public const string aspnet_Users = "aspnet_Users";
+            public const string ASPStateTempApplications = "ASPStateTempApplications";
+            public const string aspnet_SchemaVersions = "aspnet_SchemaVersions";
+            public const string ContentResource = "ContentResource";
+        }
     }
 }

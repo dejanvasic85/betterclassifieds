@@ -20,10 +20,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
         {
             var queryBuilder = BuildInsertQuery(table, param);
             string typeName;
-            switch (typeof(T).Name)
+            switch (typeof(T).Name.ToLower())
             {
                 case "string":
                     typeName = "varchar";
+                    break;
+                case "guid":
+                    typeName = "uniqueidentifier";
                     break;
                 default:
                     typeName = "int";
@@ -59,31 +62,31 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
         /// <summary>
         /// Returns the record Id as integer for the required query as filter
         /// </summary>
-        public static int? SingleOrDefault(this IDbConnection connection, string table, string queryFilter, string findBy = "Title")
+        public static int? SingleOrDefault(this IDbConnection connection, string table, string filterByValue, string findByColumnName = "Title")
         {
             // Use the convention of tableName+Id as the primary key (used for all classifieds tables)
             var primaryKey = string.Format("{0}{1}", table, "Id");
 
             // Construct the query
-            var query = string.Format("SELECT {0} FROM {1} WHERE {2} = @queryParam", primaryKey, table, findBy);
-            return connection.Query<int?>(query, new { queryParam = queryFilter }).FirstOrDefault();
+            var query = string.Format("SELECT {0} FROM {1} WHERE {2} = @queryParam", primaryKey, table, findByColumnName);
+            return connection.Query<int?>(query, new { queryParam = filterByValue }).FirstOrDefault();
         }
 
-        public static int? SingleOrDefault<T>(this IDbConnection connection, string table, T queryFilter, string findBy = "Title")
+        public static int? SingleOrDefault<T>(this IDbConnection connection, string table, T filterByValue, string findByColumnName = "Title")
         {
-            return connection.SingleOrDefault(table, queryFilter.ToString(), findBy);
+            return connection.SingleOrDefault(table, filterByValue.ToString(), findByColumnName);
         }
 
-        public static int? AddIfNotExists(this IDbConnection connection, string table, object param, string queryFilter, string findBy = "Title")
+        public static int? AddIfNotExists(this IDbConnection connection, string table, object param, string filterByValue, string findByColumnName = "Title")
         {
             // Check if the table record exists
-            var id = connection.SingleOrDefault(table, queryFilter, findBy);
+            var id = connection.SingleOrDefault(table, filterByValue, findByColumnName);
             return id.HasValue ? id : connection.Add(table, param);
         }
 
-        public static bool Any(this IDbConnection connection, string table, string queryFilter, string findBy = "Title")
+        public static bool Any(this IDbConnection connection, string table, string filterByValue, string findByColumnName = "Title")
         {
-            var id = connection.SingleOrDefault(table, queryFilter, findBy);
+            var id = connection.SingleOrDefault(table, filterByValue, findByColumnName);
             return id.HasValue;
         }
 

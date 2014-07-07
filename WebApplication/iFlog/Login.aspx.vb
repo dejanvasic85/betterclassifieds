@@ -5,6 +5,12 @@ Partial Public Class Login1
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
+        ' Go to the new login page
+        Dim urlHelper = New System.Web.Mvc.UrlHelper(Me.Context.Request.RequestContext)
+        Dim action = urlHelper.Action("Login", "Account")
+        Response.RedirectPermanent(action)
+
         'this is the current url
         Dim currentUrl As System.Uri = System.Web.HttpContext.Current.Request.Url
         'don't redirect if this is localhost

@@ -3,7 +3,7 @@ using OpenQA.Selenium.Support.PageObjects;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
-    [TestPage(RelativeUrl = "Login.aspx")]
+    [TestPage(RelativeUrl = "Account/Login")]
     public class LoginTestPage : BaseTestPage
     {
         public LoginTestPage(IWebDriver webdriver, IConfig config)
@@ -13,17 +13,17 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         private IWebElement UsernameElement
         {
-            get { return FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxLogin_Login1_UserName")); }
+            get { return FindElement(By.Id("Username")); }
         }
 
         private IWebElement PasswordElement
         {
-            get { return FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxLogin_Login1_Password")); }
+            get { return FindElement(By.Id("Password")); }
         }
 
         private IWebElement LoginButtonElement
         {
-            get { return FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxLogin_Login1_btnLogin")); }
+            get { return FindElement(By.Id("btnLogin")); }
         }
 
         #region Public Methods

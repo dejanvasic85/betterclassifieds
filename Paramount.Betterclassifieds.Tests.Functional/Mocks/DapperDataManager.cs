@@ -14,13 +14,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
     {
         // Create IDbConnections
         private readonly IDbConnection classifiedDb;
-        private readonly IDbConnection coreDb;
+        private readonly IDbConnection broadcastDb;
         private readonly IDbConnection membershipDb;
 
         public DapperDataManager()
         {
             classifiedDb = new SqlConnection(ConfigurationManager.ConnectionStrings["ClassifiedsDb"].ConnectionString);
-            coreDb = new SqlConnection(ConfigurationManager.ConnectionStrings["CoreDb"].ConnectionString);
+            broadcastDb = new SqlConnection(ConfigurationManager.ConnectionStrings["BroadcastDb"].ConnectionString);
             membershipDb = new SqlConnection(ConfigurationManager.ConnectionStrings["AppUserConnection"].ConnectionString);
         }
 
@@ -40,7 +40,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                     Active = true
                 };
 
-                var publicationId = classifiedDb.AddIfNotExists(Constants.Table.Publication, publication, queryFilter: publicationName);
+                var publicationId = classifiedDb.AddIfNotExists(Constants.Table.Publication, publication, filterByValue: publicationName);
 
                 scope.Complete();
 
@@ -54,7 +54,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             if (!publicationId.HasValue)
                 throw new ArgumentNullException("publicationName", "PublicationName " + publicationName + " does not exist and cannot create publication ad type");
 
-            var adTypeId = classifiedDb.SingleOrDefault(Constants.Table.AdType, adTypeCode, findBy: "Code");
+            var adTypeId = classifiedDb.SingleOrDefault(Constants.Table.AdType, adTypeCode, findByColumnName: "Code");
             if (!adTypeId.HasValue)
                 throw new ArgumentNullException("adTypeCode", "AdType " + adTypeCode + " does not exist and cannot create publication ad type");
 
@@ -214,6 +214,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                 // Use the membership library to add the user (the easiest)
                 Membership.CreateUser(username, password, email);
                 userId = membershipDb.Query<Guid?>("SELECT UserId FROM aspnet_Users WHERE UserName = @username", new { username }).First();
+
+                string sql = string.Format(
+                    "INSERT INTO {0} (UserID, FirstName, LastName, Email, PostCode, ProfileVersion, LastUpdatedDate) VALUES ('{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}')",
+                    Constants.MembershipTable.UserProfile, userId, username, username, email, 1000, 1, DateTime.Now);
+
+                membershipDb.Execute(sql);
                 scope.Complete();
             }
 
@@ -222,7 +228,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 
         public List<Email> GetSentEmailsFor(string email)
         {
-            return coreDb.Query<Email>("SELECT Subject, CreateDateTime FROM EmailBroadcastEntry WHERE Email = @email", new { email }).ToList();
+            return broadcastDb.Query<Email>("SELECT Subject, ModifiedDate FROM EmailDelivery WHERE To = @email", new { email }).ToList();
         }
 
         public void AddRatecardIfNotExists(string ratecardName, decimal minCharge, decimal maxCharge, string category = "", bool autoAssign = true)
@@ -231,7 +237,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             {
                 var baseRateId = classifiedDb.AddIfNotExists(Constants.Table.BaseRate, new { Title = ratecardName, Description = ratecardName }, ratecardName);
 
-                var ratecardId = classifiedDb.AddIfNotExists(Constants.Table.Ratecard, new { BaseRateId = baseRateId, MinCharge = minCharge, MaxCharge = maxCharge }, baseRateId.ToString(), findBy: "BaseRateId");
+                var ratecardId = classifiedDb.AddIfNotExists(Constants.Table.Ratecard, new { BaseRateId = baseRateId, MinCharge = minCharge, MaxCharge = maxCharge }, baseRateId.ToString(), findByColumnName: "BaseRateId");
 
                 if (category.HasValue() && autoAssign)
                 {
@@ -276,7 +282,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
         {
             using (var scope = new TransactionScope())
             {
-                var locationId = classifiedDb.AddIfNotExists(Constants.Table.Location, new { Title = parentLocation }, queryFilter: parentLocation);
+                var locationId = classifiedDb.AddIfNotExists(Constants.Table.Location, new { Title = parentLocation }, filterByValue: parentLocation);
 
                 foreach (var locationArea in areas)
                 {
@@ -333,7 +339,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
         {
             classifiedDb.Close();
             membershipDb.Close();
-            coreDb.Close();
+            broadcastDb.Close();
         }
 
 

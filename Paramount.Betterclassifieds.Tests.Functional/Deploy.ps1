@@ -14,7 +14,7 @@ Set-Location $deployPath
 if ( $RunIntegrationTests -eq $true ){
 	
 	Write-Host "Starting functional tests using selenium with nunit ..."
-	& $nunit "Paramount.Betterclassifieds.Tests.Functional.dll" "/noshadow" "/framework:net-4.0" ("/xml:" + $resultsFileName) # "/include:ci"
+	& $nunit "Paramount.Betterclassifieds.Tests.Functional.dll" "/noshadow" "/framework:net-4.0" "/include:booking" ("/xml:" + $resultsFileName) # "/include:ci"
 
 	Write-Host "Generating report..."
 	& $specflow "nunitexecutionreport" "Paramount.Betterclassifieds.Tests.Functional.csproj" ("/xmlTestResult:" + $resultsFileName) ("/out:" + $reportFileName)

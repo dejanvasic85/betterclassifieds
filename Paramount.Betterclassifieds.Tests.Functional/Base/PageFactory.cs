@@ -18,16 +18,21 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
         public T Init<T>(bool ensureUrl = true) where T : BaseTestPage
         {
-            Type pageType = typeof(T);
+            var pageType = typeof(T);
             var page = (T)Activator.CreateInstance(pageType, _webDriver, _config);
 
             if (ensureUrl)
             {
-                var acceptedUrls = pageType.GetCustomAttributes<TestPageAttribute>().Select(attr => GetBaseUrl() + attr.RelativeUrl);
+                // Some pages may by accessed by more than one URL
+                var attr = pageType.GetCustomAttributes<TestPageAttribute>();
+
+                var acceptedUrls = attr.Select(a => GetBaseUrl() + a.RelativeUrl)
+                    .Concat(attr.Select(b => GetBaseUrl(secure:true) + b.RelativeUrl));
 
                 var webDriverUrl = _webDriver.Url.Split('?')[0];
 
-                WebDriverWait wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(5));
+                // Let's wait until the page is loaded before we initialise the elements
+                var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(5));
                 wait.Until(driver => acceptedUrls.Any(url => url.Equals(webDriverUrl, StringComparison.OrdinalIgnoreCase)));
             }
 
@@ -65,8 +70,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             return GetBaseUrl() + relativePath;
         }
 
-        private string GetBaseUrl()
+        private string GetBaseUrl(bool secure = false)
         {
+            if (!_config.BaseUrl.Contains("https") && secure)
+                return _config.BaseUrl.Replace("http", "https");
+
             return _config.BaseUrl;
         }
     }

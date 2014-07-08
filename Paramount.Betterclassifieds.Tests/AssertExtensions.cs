@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Moq;
 using NUnit.Framework;
 
 namespace Paramount.Betterclassifieds.Tests
@@ -46,7 +47,7 @@ namespace Paramount.Betterclassifieds.Tests
 
         public static T IsEqualTo<T>(this T target, T expected, string message = null, params object[] parameters)
         {
-            Assert.AreEqual(expected, target, message, parameters);
+            Assert.That(target, Is.EqualTo(expected), message, parameters);
             return target;
         }
         #endregion

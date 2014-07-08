@@ -26,18 +26,16 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 AdSummaryList = this.MapList<AdSearchResult, AdSummaryViewModel>(results.ToList())
             });
         }
-
-        public ActionResult Rates()
+        
+        public ActionResult ContactUs()
         {
-
-
             return View();
         }
-
 
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateMap<AdSearchResult, AdSummaryViewModel>();
         }
+
     }
 }

@@ -331,7 +331,7 @@
     <Content Include="Views\Listings\ViewAd.cshtml" />
     <Content Include="Views\Listings\404.cshtml" />
     <Content Include="Views\Listings\DisplayTemplates\TutorAdView.cshtml" />
-    <Content Include="Views\Home\Rates.cshtml" />
+    <Content Include="Views\Home\ContactUs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\EastGippslandNews\" />

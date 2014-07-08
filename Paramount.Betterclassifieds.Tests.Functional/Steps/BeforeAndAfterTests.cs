@@ -73,7 +73,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             dataManager.AddRatecardIfNotExists("Selenium Free Rate", 0, 0, TestData.SubCategory);
 
             // Location and Area
-            dataManager.AddLocationIfNotExists("Australia", "Victoria");
+            dataManager.AddLocationIfNotExists("Australia", "Victoria", "Melbourne");
         }
 
         [BeforeFeature("booking", "extendbooking")]

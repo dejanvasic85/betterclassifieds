@@ -100,7 +100,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             }
         }
 
-        public int DropAndAddOnlineAd(string adTitle, string categoryName, string subCategoryName)
+        public int DropCreateOnlineAd(string adTitle, string categoryName, string subCategoryName)
         {
             DropOnlineAdIfExists(adTitle);
 
@@ -117,8 +117,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 
                 int? bookingId = classifiedDb.Add(Constants.Table.AdBooking, new
                 {
-                    @StartDate = DateTime.Now.AddDays(-1),
-                    @EndDate = DateTime.Now.AddDays(30),
+                    @StartDate = DateTime.Now.AddDays(-1).Date,
+                    @EndDate = DateTime.Now.AddDays(30).Date,
                     @TotalPrice = 0,
                     @BookReference = "SEL-001",
                     @AdId = adId,
@@ -126,10 +126,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                     @BookingStatus = 1,
                     @MainCategoryId = mainCategoryId,
                     @BookingDate = DateTime.Now,
-                    @Insertions = 1
+                    @Insertions = 1,
+                    @BookingType = "Regular"
                 });
 
                 var adDesignId = classifiedDb.Add(Constants.Table.AdDesign, new { adId, @adTypeId = 2 });
+
+                var locationId = classifiedDb.SingleOrDefault(Constants.Table.Location, TestData.Location_Australia);
+                var areaId = classifiedDb.SingleOrDefault(Constants.Table.LocationArea, TestData.Location_Victoria);
 
                 var onlineAdid = classifiedDb.Add(Constants.Table.OnlineAd, new
                 {
@@ -139,7 +143,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                     @HtmlText = adTitle,
                     @NumOfViews = 100,
                     @Price = 1500,
-                    @ContactName = "Sample Contact"
+                    @ContactName = "Sample Contact",
+                    @ContactPhone = "111 222 333",
+                    @ContactEmail = "sample@fake.com",
+                    @LocationId = locationId,
+                    @LocationAreaId = areaId
                 });
 
                 // Commit transaction

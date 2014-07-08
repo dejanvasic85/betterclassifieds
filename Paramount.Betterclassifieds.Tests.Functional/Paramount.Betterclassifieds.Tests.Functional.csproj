@@ -91,10 +91,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UserRegistration.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\OnlineAdRoute.feature.cs">
+    <Compile Include="Features\OnlineAdView.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OnlineAdRoute.feature</DependentUpon>
+      <DependentUpon>OnlineAdView.feature</DependentUpon>
     </Compile>
     <Compile Include="Base\BaseTestPage.cs" />
     <Compile Include="Base\IConfig.cs" />
@@ -141,9 +141,9 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>UserRegistration.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\OnlineAdRoute.feature">
+    <None Include="Features\OnlineAdView.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>OnlineAdRoute.feature.cs</LastGenOutput>
+      <LastGenOutput>OnlineAdView.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
     <None Include="Paramount.Betterclassifieds.Tests.Functional.nuspec" />

@@ -11,7 +11,17 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         private IWebElement ContactNameElement
         {
-            get { return FindElement(By.Id("ctl00_ContentPlaceHolder1_ucxOnlineAdDetailView_lblContactName")); }
+            get { return FindElement(By.Id("contactName")); }
+        }
+
+        private IWebElement ContactEmailElement
+        {
+            get { return FindElement(By.Id("contactEmail")); }
+        }
+
+        private IWebElement ContactPhoneElement
+        {
+            get { return FindElement(By.Id("contactPhone")); }
         }
 
         public string GetContactName()
@@ -19,5 +29,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             return ContactNameElement.Text;
         }
 
+        public string GetContactPhone()
+        {
+            return ContactPhoneElement.Text;
+        }
+
+        public string GetContactEmail()
+        {
+            return ContactEmailElement.Text;
+        }
     }
 }

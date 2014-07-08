@@ -19,7 +19,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         void AddEditionsToPublication(string publicationName, int numberOfEditions);
         
         // Ads
-        int DropAndAddOnlineAd(string adTitle, string categoryName, string subCategoryName);
+        int DropCreateOnlineAd(string adTitle, string categoryName, string subCategoryName);
         void DropOnlineAdIfExists(string adTitle);
 
         // Users

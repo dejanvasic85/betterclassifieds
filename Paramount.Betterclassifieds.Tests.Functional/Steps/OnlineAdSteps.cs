@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using Paramount.Betterclassifieds.Tests.Functional.Mocks;
 using Paramount.Betterclassifieds.Tests.Functional.Pages;
 using System;
 using TechTalk.SpecFlow;
@@ -22,8 +23,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         {
             // Call the given that creates the categories first
             GivenParentCategoryAndSubCategory(parentCategory, childCategory);
+            GivenLocationAndArea(TestData.Location_Australia, TestData.Location_Victoria);
 
-            int? adId = _dataManager.DropAndAddOnlineAd(adTitle, parentCategory, childCategory);
+            int? adId = _dataManager.DropCreateOnlineAd(adTitle, parentCategory, childCategory);
 
             ScenarioContext.Current.Add("AdId", adId);
         }
@@ -32,6 +34,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         public void GivenParentCategoryAndSubCategory(string parentCategory, string childCategory)
         {
             _dataManager.AddCategoryIfNotExists(childCategory, parentCategory);
+        }
+
+        [Given(@"The location ""(.*)"" and sub area ""(.*)""")]
+        public void GivenLocationAndArea(string location, string area)
+        {
+            _dataManager.AddLocationIfNotExists(location, area);
         }
 
         [When(@"I navigate to ""(.*)""")]
@@ -55,6 +63,20 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         {
             OnlineAdTestPage onlineAdTestPage = _pageFactory.Init<OnlineAdTestPage>(false);
             Assert.AreEqual(sampleContact, onlineAdTestPage.GetContactName());
+        }
+
+        [Then(@"the online ad contact email should be ""(.*)""")]
+        public void ThenTheOnlineAdContactEmailShouldBe(string expected)
+        {
+            OnlineAdTestPage onlineAdTestPage = _pageFactory.Init<OnlineAdTestPage>(false);
+            Assert.That(onlineAdTestPage.GetContactEmail(), Is.EqualTo(expected));
+        }
+
+        [Then(@"the online ad contact phone should be ""(.*)""")]
+        public void ThenTheOnlineAdContactPhoneShouldBe(string expected)
+        {
+            OnlineAdTestPage onlineAdTestPage = _pageFactory.Init<OnlineAdTestPage>(false);
+            Assert.That(onlineAdTestPage.GetContactPhone(), Is.EqualTo(expected));
         }
 
     }

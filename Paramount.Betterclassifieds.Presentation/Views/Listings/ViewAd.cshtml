@@ -121,21 +121,25 @@
                     {
                     <tr title="Contact Name">
                         <td><span class="glyphicon glyphicon-user"></span></td>
-                        <td>@Model.ContactName</td>
+                        <td><span id="contactName">@Model.ContactName</span></td>
                     </tr>
                     }
                     @if (Model.ContactPhone.HasValue())
                     {
                         <tr title="Contact Phone">
                             <td><span class="glyphicon glyphicon-envelope"></span></td>
-                            <td><a href="mailto:@Model.ContactEmail?Subject=@Model.Heading" target="_top">@Model.ContactEmail</a></td>
+                            <td><a href="mailto:@Model.ContactEmail?Subject=@Model.Heading" target="_top">
+                                    <span id="contactEmail">@Model.ContactEmail</span>
+                                </a></td>
                         </tr>
                     }
                     @if (Model.ContactPhone.HasValue())
                     {
                         <tr title="Contact Phone">
                             <td><span class="glyphicon glyphicon-phone"></span></td>
-                            <td><a href="tel:+@Model.ContactPhone">@Model.ContactPhone</a></td>
+                            <td><a href="tel:+@Model.ContactPhone">
+                                    <span id="contactPhone">@Model.ContactPhone</span>
+                                </a></td>
                         </tr>
                     }
                         

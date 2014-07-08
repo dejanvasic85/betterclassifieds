@@ -77,7 +77,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.Given("The user with username \"bdd@somefakeaddress.com\" does not exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("The user with username \"bdduser\" does not exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
  testRunner.And("I navigate to the registration page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 10

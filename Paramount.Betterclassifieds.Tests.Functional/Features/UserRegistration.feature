@@ -5,7 +5,7 @@
 
 @web @registration
 Scenario: Create new account successfully
-	Given The user with username "bdd@somefakeaddress.com" does not exist
+	Given The user with username "bdduser" does not exist
 	And I navigate to the registration page
 	And I have entered my personal details "Bdd FirstName", "Bdd Lastname", "1 Anderson Road", "Sydney", "NSW", "2000", "02 9999 9999"
 	And I have entered my account details "bdd@somefakeaddress.com", "password123"

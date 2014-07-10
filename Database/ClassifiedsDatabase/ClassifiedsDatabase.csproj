@@ -76,6 +76,7 @@
     <EmbeddedResource Include="Scripts\0022-UpdateExistingContact_Data.sql" />
     <EmbeddedResource Include="Scripts\0023-BookedAds_UpdateViewAndIndex.sql" />
     <EmbeddedResource Include="Scripts\0026-ContactValueAndType_DropColumns.sql" />
+    <EmbeddedResource Include="Scripts\0024-OnlineAdView_DropAgain.sql" />
     <EmbeddedResource Include="Scripts\0020-BookedAd_GetById.sql" />
     <EmbeddedResource Include="Scripts\0019-BookedAd_Search.sql" />
     <EmbeddedResource Include="Scripts\0018-SetupNewSearchAdObjects.sql" />

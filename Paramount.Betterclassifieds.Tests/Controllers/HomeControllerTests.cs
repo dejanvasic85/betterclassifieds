@@ -18,6 +18,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         public void Index_CallsSearchServiceForLatestTen_ReturnsSummary()
         {
             // Arrange
+            CreateMockOf<IClientConfig>();
             CreateMockOf<ISearchService>()
                 .SetupWithVerification(call => call.GetLatestAds(It.Is<int>(a => a == 10)),
                 new List<AdSearchResult>
@@ -48,7 +49,9 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             // Act
             var result = CreateController().ContactUs();
 
+            
             // Assert
+
         }
     }
 }

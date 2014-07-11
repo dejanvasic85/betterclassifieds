@@ -12,4 +12,7 @@ begin
 	drop view dbo.OnlineAdView
 end
 
-drop fulltext catalog OnlineAdSearch
+IF EXISTS (SELECT * FROM sys.fulltext_catalogs where name = 'OnlineAdSearch')
+begin
+	drop fulltext catalog OnlineAdSearch
+end

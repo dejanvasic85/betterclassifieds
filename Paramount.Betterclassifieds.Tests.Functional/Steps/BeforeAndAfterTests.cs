@@ -113,8 +113,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             //Add a line break in the Console output for better readability
             Console.WriteLine();
 
-            IConfig config = _container.Resolve<IConfig>();
-            IWebDriver webdriver = _container.Resolve<IWebDriver>();
+            var config = _container.Resolve<IConfig>();
+            var webdriver = _container.Resolve<IWebDriver>();
             
             if (ScenarioContext.Current.TestError == null 
                 || string.IsNullOrEmpty(config.ErrorEmail)
@@ -125,12 +125,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             Stream screenshotStream = new MemoryStream(screenshot.AsByteArray);
 
             Stream pageSourceStream = new MemoryStream();
-            StreamWriter writer = new StreamWriter(pageSourceStream);
+            var writer = new StreamWriter(pageSourceStream);
             writer.Write(webdriver.PageSource);
             writer.Flush();
             pageSourceStream.Position = 0;
 
-            MailMessage msg = new MailMessage("smoketest@paramountit.com.au", config.ErrorEmail)
+            var msg = new MailMessage("smoketest@paramountit.com.au", config.ErrorEmail)
                 {
                     Subject = "Specflow Scenario failed: " + ScenarioContext.Current.ScenarioInfo.Title
                 };

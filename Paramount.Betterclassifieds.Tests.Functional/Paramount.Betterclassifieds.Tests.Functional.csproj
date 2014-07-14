@@ -81,6 +81,11 @@
     <Compile Include="Base\PageFactory.cs" />
     <Compile Include="Base\WebDriverExtensions.cs" />
     <Compile Include="Base\WebElementExtensions.cs" />
+    <Compile Include="Features\ContactUs.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ContactUs.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\SubmitNewBooking.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -125,6 +130,10 @@
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="Features\ContactUs.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ContactUs.feature.cs</LastGenOutput>
     </None>
     <None Include="Paramount.Betterclassifieds.Tests.Functional.dll.CI.config">
       <DependentUpon>App.Config</DependentUpon>

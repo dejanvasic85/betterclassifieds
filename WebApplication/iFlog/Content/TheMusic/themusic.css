@@ -7,11 +7,6 @@
   background-color: #fff;
   padding: 8px;
 }
-.themusic-background {
-  background-image: url('http://themusic.com.au/images/body-grad.png'), url('http://themusic.com.au/images/bg.png');
-  background-attachment: scroll, scroll;
-  background-repeat: repeat-x, repeat;
-}
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
@@ -114,3 +109,4 @@ fieldset[disabled] .btn-primary.active {
   border-color: #263745;
   background-color: #263745;
 }
+/*# sourceMappingURL=themusic.css.map */

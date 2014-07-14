@@ -177,6 +177,7 @@
     <Compile Include="ViewModels\AccountConfirmationViewModel.cs" />
     <Compile Include="ViewModels\AdEnquiryViewModel.cs" />
     <Compile Include="ViewModels\AdViewModel.cs" />
+    <Compile Include="ViewModels\ContactUsModel.cs" />
     <Compile Include="ViewModels\HomeModel.cs" />
     <Compile Include="PresentationInitialiser.cs" />
     <Compile Include="ViewModels\AdSummaryViewModel.cs" />

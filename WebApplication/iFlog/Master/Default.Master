@@ -40,7 +40,7 @@
 	    });
 	</script>
 </head>
-<body class="customBackground">
+<body>
     
     <form id="form1" runat="server">
         <paramountItCommon:SessionRefresher SessionUrl="~/SessionRefresher.ashx" TimeOutPeriod="5" runat="server" ID="refresher" />

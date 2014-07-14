@@ -1,6 +1,7 @@
 ﻿# Check whether the integration tests should run ( specified in an octopus variable )
 if ( $RunIntegrationTests -eq $false ) {
 	Write-Host "Integration tests are not enabled... so getting outta here"
+	exit
 }
 
 # Map incoming variables from octopus

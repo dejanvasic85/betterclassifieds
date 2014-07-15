@@ -8,20 +8,40 @@
 }
 @section Scripts{
     <script>
-        
+
     </script>
 }
 
-<h2>Contact Us</h2>
 
-<div class="container">
-    <div class="row"></div>
     <div class="row">
-        <div class="col-md-6">
-            
-        </div>
-        <div class="col-md-6">
-            @address.AddressLine1
+        <div class="col-xs-12">
+            <div class="well">
+                <h2>Find Us</h2>
+            </div>
         </div>
     </div>
-</div>
+    <div class="row">
+        <div class="col-md-6 col-sm-6">
+            <div class="well">
+                <h2>Contact Us</h2>
+                <form id="contactUsForm">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <label></label>
+                        @Html.BootstrapTextBoxFor()
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+            <div class="well">
+                <h2>Address</h2>
+                <address>
+                    <strong>@address.AddressLine1</strong><br/>
+                    @address.AddressLine2<br/>
+                    @address.Suburb, @address.State @address.Postcode<br/>
+                    P: <a href="tel:+@address.PhoneNumber">@address.PhoneNumber</a>
+                </address>
+            </div>
+        </div>
+    </div>

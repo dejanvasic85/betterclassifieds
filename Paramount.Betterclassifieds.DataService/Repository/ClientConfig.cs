@@ -31,7 +31,8 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                     Suburb = "Fitzroy",
                     State = "VIC",
                     Postcode = "3068",
-                    Country = "Australia"
+                    Country = "Australia",
+                    PhoneNumber = "61 3 9421 4499"
                 };
             }
         }

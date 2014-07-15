@@ -3,6 +3,7 @@ using System.Web.Security;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Broadcast;
+using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 using System.Web.Mvc;
@@ -18,7 +19,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public const string ReturnUrlKey = "ReturnUrlForLogin";
 
-        public AccountController(IUserManager userManager, IAuthManager authManager, IBroadcastManager broadcastManager, ISearchService searchService)
+        public AccountController(IUserManager userManager, IAuthManager authManager, 
+            IBroadcastManager broadcastManager, ISearchService searchService)
             : base(searchService)
         {
             _userManager = userManager;

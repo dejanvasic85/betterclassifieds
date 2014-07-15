@@ -1,14 +1,13 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Web.Mvc;
-using Moq;
+﻿using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business.Managers;
+using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Controllers;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 using Paramount.Betterclassifieds.Tests.Mocks;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace Paramount.Betterclassifieds.Tests.Controllers
 {
@@ -39,19 +38,34 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         }
 
         [Test]
-        [Ignore]
-        public void ContactUs_ReadsContactAndMapFromService_ReturnsContactModel()
+        public void ContactUs_Get_ReturnsContactModelAndAddress()
         {
             // Arrange
             CreateMockOf<ISearchService>();
-            CreateMockOf<IClientConfig>();
+            CreateMockOf<IClientConfig>()
+                .SetupGet(prop => prop.ClientAddress)
+                .Returns(new Address
+                {
+                    AddressLine1 = "Company co...",
+                    AddressLine2 = "123 Smith Street",
+                    Country = "Australia",
+                    Postcode = "1111",
+                    State = "VIC",
+                    Suburb = "Melbourne"
+                });
 
             // Act
             var result = CreateController().ContactUs();
 
-            
             // Assert
-
+            result.IsTypeOf<ViewResult>();
+            var viewResult = (ViewResult) result;
+            var model = viewResult.Model;
+            model.IsTypeOf<ContactUsModel>();
+            var address = viewResult.ViewBag.Address as AddressViewModel;
+            Assert.IsNotNull(address);
+            address.AddressLine1.IsEqualTo("Company co...");
+            address.Country.IsEqualTo("Australia");
         }
     }
 }

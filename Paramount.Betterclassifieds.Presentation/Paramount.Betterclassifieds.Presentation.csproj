@@ -175,6 +175,7 @@
     </Compile>
     <Compile Include="LegacyIntegration\LegacyLinks.cs" />
     <Compile Include="ViewModels\AccountConfirmationViewModel.cs" />
+    <Compile Include="ViewModels\AddressViewModel.cs" />
     <Compile Include="ViewModels\AdEnquiryViewModel.cs" />
     <Compile Include="ViewModels\AdViewModel.cs" />
     <Compile Include="ViewModels\ContactUsModel.cs" />

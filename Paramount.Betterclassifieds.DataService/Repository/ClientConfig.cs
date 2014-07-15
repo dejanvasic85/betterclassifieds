@@ -1,5 +1,6 @@
 ﻿using Paramount.ApplicationBlock.Configuration;
 using Paramount.Betterclassifieds.Business.Managers;
+using Paramount.Betterclassifieds.Business.Models;
 
 namespace Paramount.Betterclassifieds.DataService.Repository
 {
@@ -17,6 +18,22 @@ namespace Paramount.Betterclassifieds.DataService.Repository
         public int SearchResultsPerPage { get { return 10; } }
            
         public int SearchMaxPagedRequests { get { return 100; } }
-        
+
+        public Address ClientAddress
+        {
+            get
+            {
+                // Hard code this just for now
+                return new Address
+                {
+                    AddressLine1 = "Street Press Australia Pty Ltd",
+                    AddressLine2 = "Level 1, 221 Kerr Street",
+                    Suburb = "Fitzroy",
+                    State = "VIC",
+                    Postcode = "3068",
+                    Country = "Australia"
+                };
+            }
+        }
     }
 }

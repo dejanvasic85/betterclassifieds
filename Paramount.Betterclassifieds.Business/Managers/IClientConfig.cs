@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Business.Managers
+﻿using Paramount.Betterclassifieds.Business.Models;
+
+namespace Paramount.Betterclassifieds.Business.Managers
 {
     public interface IClientConfig
     {
@@ -10,5 +12,6 @@
         string FacebookAppId { get; }
         int SearchResultsPerPage { get; }
         int SearchMaxPagedRequests { get; }
+        Address ClientAddress { get; }
     }
 }

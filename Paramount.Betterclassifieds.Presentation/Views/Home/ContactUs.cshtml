@@ -1,9 +1,27 @@
 ﻿@using Paramount
+@using Paramount.Betterclassifieds.Presentation.ViewModels
 
 @{
     Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayoutWithSearch.cshtml");
     ViewBag.Title = "Classifieds Home - Find everything you're looking for right here";
+    var address = (AddressViewModel)ViewBag.Address;
+}
+@section Scripts{
+    <script>
+        
+    </script>
 }
 
-
 <h2>Contact Us</h2>
+
+<div class="container">
+    <div class="row"></div>
+    <div class="row">
+        <div class="col-md-6">
+            
+        </div>
+        <div class="col-md-6">
+            @address.AddressLine1
+        </div>
+    </div>
+</div>

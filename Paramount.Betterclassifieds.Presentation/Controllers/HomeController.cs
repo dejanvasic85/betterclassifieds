@@ -9,13 +9,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     public class HomeController : BaseController, IMappingBehaviour
     {
-        public HomeController(ISearchService searchService)
-            : base(searchService)
-        { }
+        private readonly Business.Managers.IClientConfig _clientConfig;
 
-        public HomeController()
-            : this(new SearchService())
-        { }
+        public HomeController(ISearchService searchService, Business.Managers.IClientConfig clientConfig)
+            : base(searchService)
+        {
+            _clientConfig = clientConfig;
+        }
 
         public ActionResult Index()
         {
@@ -26,15 +26,19 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 AdSummaryList = this.MapList<AdSearchResult, AdSummaryViewModel>(results.ToList())
             });
         }
-        
+
         public ActionResult ContactUs()
         {
-            return View();
+            var contactUs = new ContactUsModel();
+            ViewBag.Address = this.Map<Business.Models.Address, AddressViewModel>(_clientConfig.ClientAddress);
+            return View(contactUs);
         }
 
         public void OnRegisterMaps(IConfiguration configuration)
         {
+            configuration.CreateProfile("HomeControllerProfile");
             configuration.CreateMap<AdSearchResult, AdSummaryViewModel>();
+            configuration.CreateMap<Business.Models.Address, AddressViewModel>();
         }
 
     }

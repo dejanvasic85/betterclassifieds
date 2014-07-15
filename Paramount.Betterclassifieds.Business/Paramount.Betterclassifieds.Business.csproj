@@ -68,6 +68,7 @@
     <Compile Include="Broadcast\DocTypes\IDocType.cs" />
     <Compile Include="EditionManager.cs" />
     <Compile Include="Managers\IApplicationConfig.cs" />
+    <Compile Include="Models\Address.cs" />
     <Compile Include="Models\AdEnquiry.cs" />
     <Compile Include="Search\AdSearchResult.cs" />
     <Compile Include="Search\AdSearchSortOrder.cs" />

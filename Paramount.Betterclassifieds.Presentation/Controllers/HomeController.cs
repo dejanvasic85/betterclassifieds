@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Paramount.Betterclassifieds.Business.Search;
-using Paramount.Betterclassifieds.DataService;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 using System.Linq;
 using System.Web.Mvc;
@@ -34,12 +33,20 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View(contactUs);
         }
 
+        [HttpPost]
+        public ActionResult ContactUs(ContactUsModel contactUsModel)
+        {
+            // Todo - Email the support team
+            // Todo - Store record of the contact in the database
+            
+            return Json(new {IsValid = true});
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateProfile("HomeControllerProfile");
             configuration.CreateMap<AdSearchResult, AdSummaryViewModel>();
             configuration.CreateMap<Business.Models.Address, AddressViewModel>();
         }
-
     }
 }

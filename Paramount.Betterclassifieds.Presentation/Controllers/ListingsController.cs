@@ -196,7 +196,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var enquiry = this.Map<AdEnquiryViewModel, Business.Models.AdEnquiry>(adEnquiry);
             _bookingManager.SubmitAdEnquiry(enquiry);
-            return Json(new{ isValid = true });
+            return Json(new { isValid = true });
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

@@ -1,47 +1,109 @@
 ﻿@using Paramount
 @using Paramount.Betterclassifieds.Presentation.ViewModels
 
+@model ContactUsModel
+
 @{
     Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayoutWithSearch.cshtml");
     ViewBag.Title = "Classifieds Home - Find everything you're looking for right here";
     var address = (AddressViewModel)ViewBag.Address;
 }
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="well">
+            <h2>Find Us</h2>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 col-sm-6">
+        <div class="well">
+            <h2>Contact Us</h2>
+            <div class="alert alert-success hidden" id="enquirySuccessful">Your message has been sent successfully</div>
+            <form id="contactUsForm">
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    @Html.LabelFor(m => m.FullName)
+                    @Html.BootstrapTextBoxFor(m => m.FullName)
+                    @Html.ValidationMessageFor(m => m.FullName)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email)
+                    @Html.BootstrapEmailFor(m => m.Email)
+                    @Html.ValidationMessageFor(m => m.Email)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Phone)
+                    @Html.BootstrapTextBoxFor(m => m.Phone)
+                    @Html.ValidationMessageFor(m => m.Phone)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Comment)
+                    @Html.BootstrapTextBoxFor(m => m.Comment)
+                    @Html.ValidationMessageFor(m => m.Comment)
+                </div>
+                <div class="form-group">
+                    <button id="btnSubmit" class="btn btn-default">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-6">
+        <div class="well">
+            <h2>Address</h2>
+            <address>
+                <strong>@address.AddressLine1</strong><br />
+                @address.AddressLine2<br />
+                @address.Suburb, @address.State @address.Postcode<br />
+                P: <a href="tel:+@address.PhoneNumber">@address.PhoneNumber</a>
+            </address>
+        </div>
+    </div>
+</div>
+
 @section Scripts{
     <script>
+        $(function() {
+            $('#contactUsForm').submit(function (e) {
 
+                e.preventDefault();
+                submitContactForm();
+            });
+
+            function submitContactForm() {
+                var $btn = $('#btnSubmit');
+
+                var validation = $('#contactUsForm').validate();
+
+                if (!validation.valid())
+                    return false;
+
+                $btn.button('loading');
+
+                $.ajax({
+                    method: 'POST',
+                    url: '@Url.Action("ContactUs")',
+                    data: $('#contactUsForm').serialize()
+                }).always(function () {
+                    $btn.button('reset');
+                }).success(function (result) {
+                    @*if (!result.isValid) {
+                        $('#@captcha.BuildInfo.ImageElementId').attr('src', result.imageElementId);
+                        $('#@captcha.BuildInfo.TokenElementId').attr('value', result.tokenElementId);
+                        $('#@captcha.BuildInfo.InputElementId').val('');
+                        return;
+                    }*@
+
+                    $('#contactUsForm').slideUp(500, function () {
+                        $('#enquirySuccessful').removeClass('hidden');
+                    }); 
+                });
+
+                return false;
+            };
+        });
     </script>
 }
-
-
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="well">
-                <h2>Find Us</h2>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 col-sm-6">
-            <div class="well">
-                <h2>Contact Us</h2>
-                <form id="contactUsForm">
-                    @Html.AntiForgeryToken()
-                    <div class="form-group">
-                        <label></label>
-                        @Html.BootstrapTextBoxFor()
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="col-md-6 col-sm-6">
-            <div class="well">
-                <h2>Address</h2>
-                <address>
-                    <strong>@address.AddressLine1</strong><br/>
-                    @address.AddressLine2<br/>
-                    @address.Suburb, @address.State @address.Postcode<br/>
-                    P: <a href="tel:+@address.PhoneNumber">@address.PhoneNumber</a>
-                </address>
-            </div>
-        </div>
-    </div>

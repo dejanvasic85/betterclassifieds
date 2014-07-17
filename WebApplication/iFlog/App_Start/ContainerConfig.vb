@@ -17,7 +17,8 @@ Public Class ContainerConfig
             .RegisterType(Of IUserRepository, UserRepository)() _
             .RegisterType(Of IPaymentsRepository, PaymentsRepository)() _
             .RegisterType(Of ILookupRepository, LookupRepository)() _
-            .RegisterType(Of IMenuRepository, TheMusicMenuRepository)()
+            .RegisterType(Of IMenuRepository, TheMusicMenuRepository)() _
+            .RegisterType(Of IEnquiryRepository, EnquiryRepository)()
 
         ' Managers
         container.RegisterType(Of IClientConfig, ClientConfig)() _
@@ -28,7 +29,8 @@ Public Class ContainerConfig
             .RegisterType(Of IAuthManager, AuthenticationService)() _
             .RegisterType(Of IBroadcastManager, BroadcastManager)() _
             .RegisterType(Of INotificationProcessor, EmailProcessor)("emailProcessingEngine") _
-            .RegisterType(Of ISmtpMailer, DefaultMailer)()
+            .RegisterType(Of ISmtpMailer, DefaultMailer)() _
+            .RegisterType(Of IEnquiryManager, EnquiryManager)()
 
 
     End Sub

@@ -1,4 +1,5 @@
-﻿using Paramount.ApplicationBlock.Configuration;
+﻿using System.Collections.Generic;
+using Paramount.ApplicationBlock.Configuration;
 using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.Business.Models;
 
@@ -34,6 +35,14 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                     Country = "Australia",
                     PhoneNumber = "61 3 9421 4499"
                 };
+            }
+        }
+
+        public string[] SupportEmailList
+        {
+            get
+            {
+                return ConfigManager.ReadAppSetting("SupportEmails").Split(';');
             }
         }
     }

@@ -14,7 +14,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         [Required]
         public string Email { get; set; }
 
-        [Phone]
         [StringLength(12)]
         public string Phone { get; set; }
 

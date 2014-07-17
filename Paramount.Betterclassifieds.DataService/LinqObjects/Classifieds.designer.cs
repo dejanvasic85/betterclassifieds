@@ -123,9 +123,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
     partial void InsertSpecialRate(SpecialRate instance);
     partial void UpdateSpecialRate(SpecialRate instance);
     partial void DeleteSpecialRate(SpecialRate instance);
-    partial void InsertSupportEnquiry(SupportEnquiry instance);
-    partial void UpdateSupportEnquiry(SupportEnquiry instance);
-    partial void DeleteSupportEnquiry(SupportEnquiry instance);
     partial void InsertTempBookingRecord(TempBookingRecord instance);
     partial void UpdateTempBookingRecord(TempBookingRecord instance);
     partial void DeleteTempBookingRecord(TempBookingRecord instance);
@@ -147,6 +144,9 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
     partial void InsertOnlineAd(OnlineAd instance);
     partial void UpdateOnlineAd(OnlineAd instance);
     partial void DeleteOnlineAd(OnlineAd instance);
+    partial void InsertSupportEnquiry(SupportEnquiry instance);
+    partial void UpdateSupportEnquiry(SupportEnquiry instance);
+    partial void DeleteSupportEnquiry(SupportEnquiry instance);
     #endregion
 		
 		public ClassifiedsDataContext() : 
@@ -427,14 +427,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			}
 		}
 		
-		public System.Data.Linq.Table<SupportEnquiry> SupportEnquiries
-		{
-			get
-			{
-				return this.GetTable<SupportEnquiry>();
-			}
-		}
-		
 		public System.Data.Linq.Table<TempBookingRecord> TempBookingRecords
 		{
 			get
@@ -496,6 +488,14 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			get
 			{
 				return this.GetTable<OnlineClassie>();
+			}
+		}
+		
+		public System.Data.Linq.Table<SupportEnquiry> SupportEnquiries
+		{
+			get
+			{
+				return this.GetTable<SupportEnquiry>();
 			}
 		}
 		
@@ -9020,236 +9020,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SupportEnquiry")]
-	public partial class SupportEnquiry : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _SupportEnquiryId;
-		
-		private string _EnquiryTypeName;
-		
-		private string _FullName;
-		
-		private string _Email;
-		
-		private string _Phone;
-		
-		private string _Subject;
-		
-		private string _EnquiryText;
-		
-		private System.Nullable<System.DateTime> _CreatedDate;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnSupportEnquiryIdChanging(int value);
-    partial void OnSupportEnquiryIdChanged();
-    partial void OnEnquiryTypeNameChanging(string value);
-    partial void OnEnquiryTypeNameChanged();
-    partial void OnFullNameChanging(string value);
-    partial void OnFullNameChanged();
-    partial void OnEmailChanging(string value);
-    partial void OnEmailChanged();
-    partial void OnPhoneChanging(string value);
-    partial void OnPhoneChanged();
-    partial void OnSubjectChanging(string value);
-    partial void OnSubjectChanged();
-    partial void OnEnquiryTextChanging(string value);
-    partial void OnEnquiryTextChanged();
-    partial void OnCreatedDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnCreatedDateChanged();
-    #endregion
-		
-		public SupportEnquiry()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SupportEnquiryId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int SupportEnquiryId
-		{
-			get
-			{
-				return this._SupportEnquiryId;
-			}
-			set
-			{
-				if ((this._SupportEnquiryId != value))
-				{
-					this.OnSupportEnquiryIdChanging(value);
-					this.SendPropertyChanging();
-					this._SupportEnquiryId = value;
-					this.SendPropertyChanged("SupportEnquiryId");
-					this.OnSupportEnquiryIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EnquiryTypeName", DbType="VarChar(50)")]
-		public string EnquiryTypeName
-		{
-			get
-			{
-				return this._EnquiryTypeName;
-			}
-			set
-			{
-				if ((this._EnquiryTypeName != value))
-				{
-					this.OnEnquiryTypeNameChanging(value);
-					this.SendPropertyChanging();
-					this._EnquiryTypeName = value;
-					this.SendPropertyChanged("EnquiryTypeName");
-					this.OnEnquiryTypeNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FullName", DbType="VarChar(100)")]
-		public string FullName
-		{
-			get
-			{
-				return this._FullName;
-			}
-			set
-			{
-				if ((this._FullName != value))
-				{
-					this.OnFullNameChanging(value);
-					this.SendPropertyChanging();
-					this._FullName = value;
-					this.SendPropertyChanged("FullName");
-					this.OnFullNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(100)")]
-		public string Email
-		{
-			get
-			{
-				return this._Email;
-			}
-			set
-			{
-				if ((this._Email != value))
-				{
-					this.OnEmailChanging(value);
-					this.SendPropertyChanging();
-					this._Email = value;
-					this.SendPropertyChanged("Email");
-					this.OnEmailChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phone", DbType="VarChar(15)")]
-		public string Phone
-		{
-			get
-			{
-				return this._Phone;
-			}
-			set
-			{
-				if ((this._Phone != value))
-				{
-					this.OnPhoneChanging(value);
-					this.SendPropertyChanging();
-					this._Phone = value;
-					this.SendPropertyChanged("Phone");
-					this.OnPhoneChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Subject", DbType="VarChar(100)")]
-		public string Subject
-		{
-			get
-			{
-				return this._Subject;
-			}
-			set
-			{
-				if ((this._Subject != value))
-				{
-					this.OnSubjectChanging(value);
-					this.SendPropertyChanging();
-					this._Subject = value;
-					this.SendPropertyChanged("Subject");
-					this.OnSubjectChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EnquiryText", DbType="VarChar(MAX)")]
-		public string EnquiryText
-		{
-			get
-			{
-				return this._EnquiryText;
-			}
-			set
-			{
-				if ((this._EnquiryText != value))
-				{
-					this.OnEnquiryTextChanging(value);
-					this.SendPropertyChanging();
-					this._EnquiryText = value;
-					this.SendPropertyChanged("EnquiryText");
-					this.OnEnquiryTextChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CreatedDate
-		{
-			get
-			{
-				return this._CreatedDate;
-			}
-			set
-			{
-				if ((this._CreatedDate != value))
-				{
-					this.OnCreatedDateChanging(value);
-					this.SendPropertyChanging();
-					this._CreatedDate = value;
-					this.SendPropertyChanged("CreatedDate");
-					this.OnCreatedDateChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TempBookingRecord")]
 	public partial class TempBookingRecord : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -9621,7 +9391,7 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RowTimeStamp", AutoSync=AutoSync.Always, DbType="rowversion", IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RowTimeStamp", AutoSync=AutoSync.Always, DbType="rowversion", CanBeNull=true, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary RowTimeStamp
 		{
 			get
@@ -11730,6 +11500,260 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 				{
 					this._AdId = value;
 				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SupportEnquiry")]
+	public partial class SupportEnquiry : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _SupportEnquiryId;
+		
+		private string _EnquiryTypeName;
+		
+		private string _FullName;
+		
+		private string _Email;
+		
+		private string _Phone;
+		
+		private string _Subject;
+		
+		private string _EnquiryText;
+		
+		private System.Nullable<System.DateTime> _CreatedDate;
+		
+		private System.Nullable<System.DateTime> _CreatedDateUtc;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSupportEnquiryIdChanging(int value);
+    partial void OnSupportEnquiryIdChanged();
+    partial void OnEnquiryTypeNameChanging(string value);
+    partial void OnEnquiryTypeNameChanged();
+    partial void OnFullNameChanging(string value);
+    partial void OnFullNameChanged();
+    partial void OnEmailChanging(string value);
+    partial void OnEmailChanged();
+    partial void OnPhoneChanging(string value);
+    partial void OnPhoneChanged();
+    partial void OnSubjectChanging(string value);
+    partial void OnSubjectChanged();
+    partial void OnEnquiryTextChanging(string value);
+    partial void OnEnquiryTextChanged();
+    partial void OnCreatedDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedDateChanged();
+    partial void OnCreatedDateUtcChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedDateUtcChanged();
+    #endregion
+		
+		public SupportEnquiry()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SupportEnquiryId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int SupportEnquiryId
+		{
+			get
+			{
+				return this._SupportEnquiryId;
+			}
+			set
+			{
+				if ((this._SupportEnquiryId != value))
+				{
+					this.OnSupportEnquiryIdChanging(value);
+					this.SendPropertyChanging();
+					this._SupportEnquiryId = value;
+					this.SendPropertyChanged("SupportEnquiryId");
+					this.OnSupportEnquiryIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EnquiryTypeName", DbType="VarChar(50)")]
+		public string EnquiryTypeName
+		{
+			get
+			{
+				return this._EnquiryTypeName;
+			}
+			set
+			{
+				if ((this._EnquiryTypeName != value))
+				{
+					this.OnEnquiryTypeNameChanging(value);
+					this.SendPropertyChanging();
+					this._EnquiryTypeName = value;
+					this.SendPropertyChanged("EnquiryTypeName");
+					this.OnEnquiryTypeNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FullName", DbType="VarChar(100)")]
+		public string FullName
+		{
+			get
+			{
+				return this._FullName;
+			}
+			set
+			{
+				if ((this._FullName != value))
+				{
+					this.OnFullNameChanging(value);
+					this.SendPropertyChanging();
+					this._FullName = value;
+					this.SendPropertyChanged("FullName");
+					this.OnFullNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(100)")]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this.OnEmailChanging(value);
+					this.SendPropertyChanging();
+					this._Email = value;
+					this.SendPropertyChanged("Email");
+					this.OnEmailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phone", DbType="VarChar(15)")]
+		public string Phone
+		{
+			get
+			{
+				return this._Phone;
+			}
+			set
+			{
+				if ((this._Phone != value))
+				{
+					this.OnPhoneChanging(value);
+					this.SendPropertyChanging();
+					this._Phone = value;
+					this.SendPropertyChanged("Phone");
+					this.OnPhoneChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Subject", DbType="VarChar(100)")]
+		public string Subject
+		{
+			get
+			{
+				return this._Subject;
+			}
+			set
+			{
+				if ((this._Subject != value))
+				{
+					this.OnSubjectChanging(value);
+					this.SendPropertyChanging();
+					this._Subject = value;
+					this.SendPropertyChanged("Subject");
+					this.OnSubjectChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EnquiryText", DbType="VarChar(MAX)")]
+		public string EnquiryText
+		{
+			get
+			{
+				return this._EnquiryText;
+			}
+			set
+			{
+				if ((this._EnquiryText != value))
+				{
+					this.OnEnquiryTextChanging(value);
+					this.SendPropertyChanging();
+					this._EnquiryText = value;
+					this.SendPropertyChanged("EnquiryText");
+					this.OnEnquiryTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedDate
+		{
+			get
+			{
+				return this._CreatedDate;
+			}
+			set
+			{
+				if ((this._CreatedDate != value))
+				{
+					this.OnCreatedDateChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedDate = value;
+					this.SendPropertyChanged("CreatedDate");
+					this.OnCreatedDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedDateUtc", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedDateUtc
+		{
+			get
+			{
+				return this._CreatedDateUtc;
+			}
+			set
+			{
+				if ((this._CreatedDateUtc != value))
+				{
+					this.OnCreatedDateUtcChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedDateUtc = value;
+					this.SendPropertyChanged("CreatedDateUtc");
+					this.OnCreatedDateUtcChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

@@ -78,7 +78,6 @@
   <ItemGroup>
     <Compile Include="AdoModels\BetterclassifiedDataService.cs" />
     <Compile Include="AdoModels\ActivitySummaryRow.cs" />
-    <Compile Include="AdoModels\BroadcastActivityRow.cs" />
     <Compile Include="AdoModels\ExpiredAdRow.cs" />
     <Compile Include="Broadcast\BroadcastContext.cs" />
     <Compile Include="Broadcast\BroadcastRepository.cs" />
@@ -94,6 +93,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Classifieds.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Repository\EnquiryRepository.cs" />
     <Compile Include="Search\ClassifiedsSearchEntities.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

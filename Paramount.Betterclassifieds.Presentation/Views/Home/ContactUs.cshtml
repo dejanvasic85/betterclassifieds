@@ -1,4 +1,5 @@
-﻿@using Paramount
+﻿@using CaptchaMvc.HtmlHelpers
+@using Paramount
 @using Paramount.Betterclassifieds.Presentation.ViewModels
 
 @model ContactUsModel
@@ -6,6 +7,7 @@
 @{
     Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayoutWithSearch.cshtml");
     ViewBag.Title = "Classifieds Home - Find everything you're looking for right here";
+    var captcha = Html.Captcha("Try Another", "What is the text in the image above?", 5);
     var address = (AddressViewModel)ViewBag.Address;
 }
 
@@ -22,6 +24,10 @@
             <h2>Contact Us</h2>
             <div class="alert alert-success hidden" id="enquirySuccessful">Your message has been sent successfully</div>
             <form id="contactUsForm">
+                <p>
+                    Have a suggestion, complaint or general feedback? Provide details below
+                    and one of our team members will be in touch with you shortly.
+                </p>
                 @Html.AntiForgeryToken()
                 <div class="form-group">
                     @Html.LabelFor(m => m.FullName)
@@ -43,6 +49,11 @@
                     @Html.BootstrapTextBoxFor(m => m.Comment)
                     @Html.ValidationMessageFor(m => m.Comment)
                 </div>
+                <div class="form-group">
+                    <label for="CaptchaInputText">Human Test</label>
+                    @captcha
+                </div>
+                <div class="alert alert-danger hidden" id="enquiryFailed">The human test failed. Please verify the image and try again.</div>
                 <div class="form-group">
                     <button id="btnSubmit" class="btn btn-default">
                         Submit
@@ -75,14 +86,10 @@
 
             function submitContactForm() {
                 var $btn = $('#btnSubmit');
-
                 var validation = $('#contactUsForm').validate();
-
                 if (!validation.valid())
                     return false;
-
                 $btn.button('loading');
-
                 $.ajax({
                     method: 'POST',
                     url: '@Url.Action("ContactUs")',
@@ -90,13 +97,13 @@
                 }).always(function () {
                     $btn.button('reset');
                 }).success(function (result) {
-                    @*if (!result.isValid) {
+                    if (!result.IsValid) {
+                        $('#enquiryFailed').removeClass('hidden');
                         $('#@captcha.BuildInfo.ImageElementId').attr('src', result.imageElementId);
                         $('#@captcha.BuildInfo.TokenElementId').attr('value', result.tokenElementId);
                         $('#@captcha.BuildInfo.InputElementId').val('');
                         return;
-                    }*@
-
+                    }
                     $('#contactUsForm').slideUp(500, function () {
                         $('#enquirySuccessful').removeClass('hidden');
                     }); 

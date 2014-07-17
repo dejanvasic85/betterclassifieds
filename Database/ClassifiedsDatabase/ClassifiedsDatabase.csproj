@@ -70,6 +70,7 @@
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Scripts\0028-SupportEnquiry.AddCreatedDateUtc.sql" />
     <EmbeddedResource Include="Scripts\0027-spOnlineAdSelectByLineAdDesign_Alter.sql" />
     <EmbeddedResource Include="Scripts\0025-OnlineAds_UpdateView.sql" />
     <EmbeddedResource Include="Scripts\0021-ContactEmailAndPhone_CreateColumns.sql" />

@@ -20,6 +20,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("OnlineAdView")]
+    [NUnit.Framework.CategoryAttribute("web")]
+    [NUnit.Framework.CategoryAttribute("onlineAd")]
     public partial class OnlineAdViewFeature
     {
         
@@ -33,7 +35,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "OnlineAdView", "In order to view details of an ad online\r\nAs a an anonymous user\r\nI want to be to" +
-                    " navigate to a SEO friendly URL", ProgrammingLanguage.CSharp, ((string[])(null)));
+                    " navigate to a SEO friendly URL", ProgrammingLanguage.CSharp, new string[] {
+                        "web",
+                        "onlineAd"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -67,13 +71,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Open Online Ad Url Successfully")]
-        [NUnit.Framework.CategoryAttribute("web")]
-        [NUnit.Framework.CategoryAttribute("onlineAd")]
         public virtual void OpenOnlineAdUrlSuccessfully()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Open Online Ad Url Successfully", new string[] {
-                        "web",
-                        "onlineAd"});
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Open Online Ad Url Successfully", ((string[])(null)));
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8

@@ -81,6 +81,11 @@
     <Compile Include="Base\PageFactory.cs" />
     <Compile Include="Base\WebDriverExtensions.cs" />
     <Compile Include="Base\WebElementExtensions.cs" />
+    <Compile Include="Features\ContactUs.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ContactUs.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\SubmitNewBooking.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -104,6 +109,7 @@
     <Compile Include="Pages\Booking\BookingBasePage.cs" />
     <Compile Include="Pages\Booking\BookingStep1TestPage.cs" />
     <Compile Include="Pages\Booking\BookingStep2TestPage.cs" />
+    <Compile Include="Pages\ContactUsPage.cs" />
     <Compile Include="Pages\LoginPage.cs" />
     <Compile Include="Pages\Booking\BookingStep3TestPage.cs" />
     <Compile Include="Pages\Booking\BookingStep4TestPage.cs" />
@@ -118,6 +124,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\BookingExtensionSteps.cs" />
     <Compile Include="Steps\BookingSteps.cs" />
+    <Compile Include="Steps\ContactUsSteps.cs" />
     <Compile Include="Steps\LoginSteps.cs" />
     <Compile Include="Steps\RegistrationSteps.cs" />
     <Compile Include="Steps\OnlineAdSteps.cs" />
@@ -125,6 +132,10 @@
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="Features\ContactUs.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ContactUs.feature.cs</LastGenOutput>
     </None>
     <None Include="Paramount.Betterclassifieds.Tests.Functional.dll.CI.config">
       <DependentUpon>App.Config</DependentUpon>

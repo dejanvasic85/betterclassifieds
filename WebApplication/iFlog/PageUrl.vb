@@ -113,7 +113,7 @@ Public Class PageUrl
     Public Const ErrorAccessDenied As String = "~/Error/AccessDenied.aspx"
 
     ' Help Pages
-    Public Const HelpContact As String = "~/Help/Contact.aspx"
+    Public Const HelpContact As String = "~/Home/ContactUs"
     Public Const RatesPage As String = "~/Rates.aspx"
 
 

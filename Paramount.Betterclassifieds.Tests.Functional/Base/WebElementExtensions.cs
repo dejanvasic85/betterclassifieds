@@ -8,7 +8,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 {
     public static class WebElementExtensions
     {
-        public static void ClickOnElement(this IWebElement element)
+        public static IWebElement ClickOnElement(this IWebElement element)
         {
             RetryElementAction(() =>
             {
@@ -22,6 +22,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional
                     return false;
                 }
             });
+
+            return element;
         }
 
         public static void SelectOption(this IWebElement webElement, string optionValue)
@@ -77,6 +79,23 @@ namespace Paramount.Betterclassifieds.Tests.Functional
                 Thread.Sleep(1000);
                 attempts++;
             }
+        }
+
+        public static IWebElement FillText(this IWebElement webElement, string text)
+        {
+            webElement.Clear();
+            webElement.SendKeys(text);
+            return webElement;
+        }
+
+        public static bool HasAttributeValue(this IWebElement webElement, string attr, string value)
+        {
+            var webElementAttribute = webElement.GetAttribute(attr);
+
+            if (webElementAttribute.IsNullOrEmpty())
+                return false;
+
+            return webElementAttribute.Equals(value, StringComparison.OrdinalIgnoreCase);
         }
     }
 }

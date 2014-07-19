@@ -11,6 +11,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         {
         }
 
+        #region Elements
+
         private IWebElement UsernameElement
         {
             get { return FindElement(By.Id("Username")); }
@@ -26,14 +28,16 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             get { return FindElement(By.Id("btnLogin")); }
         }
 
+        #endregion 
+
         #region Public Methods
 
-        public void SetUsername(string username)
+        public void WithUsername(string username)
         {
             UsernameElement.SendKeys(username);
         }
 
-        public void SetPassword(string password)
+        public void WithPassword(string password)
         {
             PasswordElement.SendKeys(password);
         }

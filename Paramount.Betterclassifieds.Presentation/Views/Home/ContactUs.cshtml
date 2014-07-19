@@ -92,7 +92,7 @@
                 $btn.button('loading');
                 $.ajax({
                     method: 'POST',
-                    url: '@Url.Action("ContactUs")',
+                    url: '@Url.Action("ContactUs", "Home")',
                     data: $('#contactUsForm').serialize()
                 }).always(function () {
                     $btn.button('reset');

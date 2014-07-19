@@ -19,8 +19,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             // Navigate to the login page
             var loginPage = _pageFactory.NavigateToAndInit<LoginTestPage>();
 
-            loginPage.SetUsername(username);
-            loginPage.SetPassword(password);
+            loginPage.WithUsername(username);
+            loginPage.WithPassword(password);
             loginPage.ClickLogin();
         }
     }

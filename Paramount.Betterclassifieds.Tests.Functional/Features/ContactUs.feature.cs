@@ -19,25 +19,25 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("UserRegistration")]
+    [NUnit.Framework.DescriptionAttribute("ContactUs")]
     [NUnit.Framework.CategoryAttribute("web")]
-    [NUnit.Framework.CategoryAttribute("registration")]
-    public partial class UserRegistrationFeature
+    [NUnit.Framework.CategoryAttribute("contactUs")]
+    public partial class ContactUsFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "UserRegistration.feature"
+#line 1 "ContactUs.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "UserRegistration", "In order become a member of betterclassifieds\nAs an anonymous user\nI want to be a" +
-                    "ble to register a new account", ProgrammingLanguage.CSharp, new string[] {
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ContactUs", "In order to submit a compaint, feedback or just a suggestion\nAs a member or anony" +
+                    "mous visitor\nI want the ability to submit the request to the support team", ProgrammingLanguage.CSharp, new string[] {
                         "web",
-                        "registration"});
+                        "contactUs"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -70,29 +70,37 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Create new account successfully")]
-        public virtual void CreateNewAccountSuccessfully()
+        [NUnit.Framework.DescriptionAttribute("Submit form without completing required fields")]
+        public virtual void SubmitFormWithoutCompletingRequiredFields()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create new account successfully", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Submit form without completing required fields", ((string[])(null)));
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.Given("The user with username \"bdduser\" does not exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I navigate to the contact us page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
- testRunner.And("I navigate to the registration page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("I submit the contact us form", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 10
- testRunner.And("I have entered my personal details \"Bdd FirstName\", \"Bdd Lastname\", \"1 Anderson R" +
-                    "oad\", \"Sydney\", \"NSW\", \"2000\", \"02 9999 9999\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 11
- testRunner.And("I have entered my account details \"bdd@somefakeaddress.com\", \"password123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Then("I should see a required validation message for First Name, Email and Comment", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Submit form without captcha")]
+        public virtual void SubmitFormWithoutCaptcha()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Submit form without captcha", ((string[])(null)));
 #line 12
- testRunner.When("I click register button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+this.ScenarioSetup(scenarioInfo);
 #line 13
- testRunner.Then("the user \"bdd@somefakeaddress.com\" should be created successfully", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Given("I navigate to the contact us page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 14
- testRunner.And("a registration email should be sent to \"bdd@somefakeaddress.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("I provide my comment and contact details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 15
- testRunner.And("I should see a thank you page with confirmation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I submit the contact us form", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 16
+ testRunner.Then("I should see a human test validation message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

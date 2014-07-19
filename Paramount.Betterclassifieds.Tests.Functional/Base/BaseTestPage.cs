@@ -29,7 +29,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             WebDriver.Manage().Window.Size = new System.Drawing.Size(1200, 768);
         }
 
-        public bool IsElementPresentBy(By by)
+        protected bool IsElementPresentBy(By by)
         {
             return WebDriver.FindElements(by).Any();
         }

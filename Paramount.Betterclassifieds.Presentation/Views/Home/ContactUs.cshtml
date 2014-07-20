@@ -10,15 +10,6 @@
     var captcha = Html.Captcha("Try Another", "What is the text in the image above?", 5);
     var address = (AddressViewModel)ViewBag.Address;
 }
-
-@*<div class="row">
-        <div class="col-xs-12">
-            <div class="well">
-                <h2>Find Us</h2>
-
-            </div>
-        </div>
-    </div>*@
 <div class="row">
     <div class="col-md-6 col-sm-6">
         <div class="well">
@@ -80,6 +71,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div id="map-canvas" style="height: 200px">
+                    Loading map...
                     @*Map goes here*@
                 </div>
             </div>
@@ -92,14 +84,21 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
     <script>
 
-        var map;
+        var map, latLng;
         function initialize() {
+            latLng = new google.maps.LatLng(-37.796973, 144.984072);
             var mapOptions = {
-                zoom: 8,
-                center: new google.maps.LatLng(-34.397, 150.644)
+                zoom: 15,
+                center: latLng,
+                draggable: false
             };
-            map = new google.maps.Map(document.getElementById('map-canvas'),
-                mapOptions);
+            map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+            var marker = new google.maps.Marker({
+                position: latLng,
+                title: "This is us!",
+                visible: true
+            });
+            marker.setMap(map);
         }
 
         google.maps.event.addDomListener(window, 'load', initialize);

@@ -57,7 +57,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 });
             }
 
-            _broadcastManager.SendEmail(new SupportRequest { RequestDetails = contactUsModel.Comment }, _clientConfig.SupportEmailList);
+            _broadcastManager.SendEmail(new SupportRequest
+            {
+                RequestDetails = contactUsModel.Comment,
+                Email = contactUsModel.Email,
+                Name = contactUsModel.FullName,
+                Phone = contactUsModel.Phone
+            }, _clientConfig.SupportEmailList);
 
             _enquiryManager.CreateSupportEnquiry(contactUsModel.FullName,
                 contactUsModel.Email,

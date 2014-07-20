@@ -7,5 +7,13 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         [Placeholder("content")]
         public string RequestDetails { get; set; }
 
+        [Placeholder("name")]
+        public string Name { get; set; }
+
+        [Placeholder("email")]
+        public string Email { get; set; }
+
+        [Placeholder("phone")]
+        public string Phone { get; set; }
     }
 }

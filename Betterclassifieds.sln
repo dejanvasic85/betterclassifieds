@@ -74,7 +74,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Betterclassifieds
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Src", "01 Src", "{C030D05C-AA23-4C91-A40A-047C4C8989DF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 Tools", "03 Tools", "{767D0413-71AD-4641-8C51-E07B6CF2F6B6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 Build", "03 Build", "{767D0413-71AD-4641-8C51-E07B6CF2F6B6}"
 	ProjectSection(SolutionItems) = preProject
 		build.ps1 = build.ps1
 	EndProjectSection

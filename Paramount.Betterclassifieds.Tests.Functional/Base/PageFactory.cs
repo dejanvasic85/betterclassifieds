@@ -45,7 +45,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             var relativeUrl = typeof(TPage).GetCustomAttribute<TestPageAttribute>().RelativeUrl;
             var fullPageUrl = GetBaseUrl() + string.Format(relativeUrl, query);
             _webDriver.Navigate().GoToUrl(fullPageUrl);
-
+            _webDriver.WaitForAjax();
             return Init<TPage>();
         }
 

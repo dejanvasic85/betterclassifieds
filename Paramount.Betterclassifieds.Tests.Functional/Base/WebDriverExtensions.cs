@@ -7,12 +7,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 {
     public static class WebDriverExtensions
     {
-        public static void WaitForAjax(this IWebDriver webDriver, int timeOutSeconds = 5)
+        public static void WaitForAjax(this IWebDriver webDriver, int timeOutSeconds = 30)
         {
             var startTime = DateTime.Now;
 
             while (true)
             {
+                Thread.Sleep(1000); // Wait just a second for jQuery to load first
+
                 var javaScriptExecutor = webDriver as IJavaScriptExecutor;
                 var ajaxIsComplete = javaScriptExecutor != null && (bool)javaScriptExecutor.ExecuteScript("return jQuery.active == 0");
 

@@ -147,7 +147,12 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SubmitNewBooking.feature.cs</LastGenOutput>
     </None>
-    <None Include="Deploy.ps1" />
+    <Content Include="chromedriver.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Deploy.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Features\UserRegistration.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>UserRegistration.feature.cs</LastGenOutput>
@@ -158,11 +163,6 @@
     </None>
     <None Include="packages.config" />
     <None Include="Paramount.Betterclassifieds.Tests.Functional.nuspec" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="chromedriver.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

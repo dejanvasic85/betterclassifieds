@@ -7,6 +7,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
+using OpenQA.Selenium.Remote;
 using Paramount.Betterclassifieds.Tests.Functional.Mocks;
 using TechTalk.SpecFlow;
 
@@ -92,6 +93,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             switch (browserName)
             {
                 case "chrome":
+                    ChromeOptions chromeOptions = new ChromeOptions();
+                    chromeOptions.AddArgument("--test-type");
                     driver = new ChromeDriver();
                     break;
                 case "firefox":

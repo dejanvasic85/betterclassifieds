@@ -44,7 +44,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         public void SelectSeleniumPublication()
         {
             // Find the publication element by class
-            SeleniumPublicationElement.Click();
+            SeleniumPublicationElement.ClickOnElement();
         }
     }
 }

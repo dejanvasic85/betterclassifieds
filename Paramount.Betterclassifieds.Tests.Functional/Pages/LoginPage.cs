@@ -44,7 +44,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         public void ClickLogin()
         {
-            LoginButtonElement.Click();
+            LoginButtonElement.ClickOnElement();
         }
 
         #endregion

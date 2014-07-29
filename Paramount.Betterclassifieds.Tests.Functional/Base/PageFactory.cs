@@ -32,7 +32,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
                 var webDriverUrl = _webDriver.Url.Split('?')[0];
 
                 // Let's wait until the page is loaded before we initialise the elements
-                var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(5));
+                var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(30));
                 wait.Until(driver => acceptedUrls.Any(url => url.Equals(webDriverUrl, StringComparison.OrdinalIgnoreCase)));
             }
 

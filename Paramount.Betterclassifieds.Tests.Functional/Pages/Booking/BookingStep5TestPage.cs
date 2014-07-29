@@ -24,8 +24,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         
         public void AgreeToTermsAndConditions()
         {
-            DetailsConfirmedElement.Click();
-            TermsAndConditionsElement.Click();
+            DetailsConfirmedElement.ClickOnElement();
+            TermsAndConditionsElement.ClickOnElement();
         }
     }
 }

@@ -28,12 +28,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         public void SelectOnlineAdBooking()
         {
-            OnlineOnlyBookingOptionElement.Click();
+            OnlineOnlyBookingOptionElement.ClickOnElement();
         }
 
         public void SelectBundleBooking()
         {
-            BundleOptionElement.Click();
+            BundleOptionElement.ClickOnElement();
         }
 
         #endregion

@@ -33,7 +33,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
                 .FindElements(By.CssSelector("#ctl00_ContentPlaceHolder1_calStartDate > tbody > tr > td > a[title]"))
                 .FirstOrDefault(link => link.GetAttribute("title").EqualTo(date.ToString("MMMM dd")));
 
-            if (linkToClick != null) linkToClick.Click();
+            if (linkToClick != null) linkToClick.ClickOnElement();
         }
 
         public void SelectFirstEditionDate()

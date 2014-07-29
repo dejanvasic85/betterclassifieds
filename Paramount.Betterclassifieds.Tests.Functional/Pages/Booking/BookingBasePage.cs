@@ -22,7 +22,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         public void Proceed()
         {
-            NextButtonElement.Click();
+            NextButtonElement.ClickOnElement();
         }
     }
 }

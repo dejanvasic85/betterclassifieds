@@ -273,7 +273,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             // From data
             configuration.CreateProfile("BookingMapProfile");
             configuration.CreateMap<AdBooking, AdBookingModel>()
-                .ForMember(member => member.BookingType, options => options.Ignore());
+                .ForMember(member => member.BookingType, options => options.ResolveUsing<BookingTypeResolver>());
             configuration.CreateMap<Classifieds.BookEntry, BookEntryModel>();
             configuration.CreateMap<AdBookingExtension, AdBookingExtensionModel>();
             configuration.CreateMap<LineAd, LineAdModel>();
@@ -289,6 +289,19 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             configuration.CreateMap<BookEntryModel, Classifieds.BookEntry>()
                 .ForMember(member => member.AdBooking, options => options.Ignore())
                 .ForMember(member => member.Publication, options => options.Ignore());
+        }
+    }
+
+    public class BookingTypeResolver : ValueResolver<AdBooking, BookingType>
+    {
+        protected override BookingType ResolveCore(AdBooking source)
+        {
+            switch (source.BookingType.ToLower())
+            {
+                case "regular": return BookingType.Regular;
+                case "bundled": return BookingType.Bundled;
+                default : return BookingType.Special;
+            }
         }
     }
 }

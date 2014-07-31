@@ -34,13 +34,16 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             return WebDriver.FindElements(by).Any();
         }
 
-        public IWebElement FindElement(By by, int maxSecondsToTimeout = 10)
+        public IWebElement FindElement(By by, int maxSecondsToTimeout = 30)
         {
-            // Wait for element to appear first (just in case)
-            WebDriverWait wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(maxSecondsToTimeout));
-            wait.Until(ExpectedConditions.ElementIsVisible(by));
+            var wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(maxSecondsToTimeout));
+            var element = wait.Until(drv => drv.FindElement(by));
+         
+            // Scroll to this element because Chrome looks to be a little fussy acting on it if not in view.
+            var jsExecutor = (WebDriver as IJavaScriptExecutor);
+            jsExecutor.ExecuteScript("arguments[0].scrollIntoView(true)", element);
 
-            return WebDriver.FindElement(by);
+            return element;
         }
 
         public IWebElement FindElement(params string[] identifiers)

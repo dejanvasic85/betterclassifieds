@@ -22,6 +22,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         public void Proceed()
         {
+            WebDriver.WaitForAjax();
             NextButtonElement.ClickOnElement();
         }
     }

@@ -43,7 +43,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             _container.RegisterInstanceAs(driver, typeof (IWebDriver));
 
             // Create instance and register for the page factory
-            _container.RegisterInstanceAs(new PageFactory(driver, config), typeof (PageFactory));
+            _container.RegisterInstanceAs(new PageBrowser(driver, config), typeof (PageBrowser));
         }
 
         [AfterScenario("web")]
@@ -93,8 +93,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             switch (browserName)
             {
                 case "chrome":
-                    ChromeOptions chromeOptions = new ChromeOptions();
-                    chromeOptions.AddArgument("--test-type");
+                    var chromeOptions = new ChromeOptions();
+                    chromeOptions.AddArgument("test-type");
                     driver = new ChromeDriver();
                     break;
                 case "firefox":

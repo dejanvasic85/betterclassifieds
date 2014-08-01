@@ -6,18 +6,18 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
     [Binding]
     public class LoginSteps
     {
-        private readonly PageFactory _pageFactory;
+        private readonly PageBrowser _pageBrowser;
 
-        public LoginSteps(PageFactory pageFactory)
+        public LoginSteps(PageBrowser pageBrowser)
         {
-            _pageFactory = pageFactory;
+            _pageBrowser = pageBrowser;
         }
 
         [Given(@"I am logged in as ""(.*)"" with password ""(.*)""")]
         public void GivenIAmLoggedInAsWithPassword(string username, string password)
         {
             // Navigate to the login page
-            var loginPage = _pageFactory.NavigateToAndInit<LoginTestPage>();
+            var loginPage = _pageBrowser.GoTo<LoginTestPage>();
 
             loginPage.WithUsername(username);
             loginPage.WithPassword(password);

@@ -7,29 +7,29 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
     [Binding]
     public class ContactUsSteps
     {
-        private readonly PageFactory _pageFactory;
+        private readonly PageBrowser _pageBrowser;
 
-        public ContactUsSteps(PageFactory pageFactory)
+        public ContactUsSteps(PageBrowser pageBrowser)
         {
-            _pageFactory = pageFactory;
+            _pageBrowser = pageBrowser;
         }
 
         [Given(@"I navigate to the contact us page")]
         public void GivenINavigateToTheContactUsPage()
         {
-            _pageFactory.NavigateTo<ContactUsPage>();
+            _pageBrowser.NavigateTo<ContactUsPage>();
         }
 
         [When(@"I submit the contact us form")]
         public void WhenISubmitTheContactUsForm()
         {
-            _pageFactory.Init<ContactUsPage>().Submit();
+            _pageBrowser.Init<ContactUsPage>().Submit();
         }
 
         [Then(@"I should see a required validation message for First Name, Email and Comment")]
         public void ThenIShouldSeeARequiredValidationMessageForFirstNameEmailAndComment()
         {
-            var page = _pageFactory.Init<ContactUsPage>();
+            var page = _pageBrowser.Init<ContactUsPage>();
             Assert.That( page.IsFirstNameRequiredMsgShown(), Is.True );
             Assert.That( page.IsEmailRequiredMsgShown(), Is.True);
             Assert.That(page.IsRequiredPhoneMsgShown(), Is.True);
@@ -38,7 +38,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [When(@"I provide my comment and contact details")]
         public void WhenIProvideMyCommentAndContactDetails()
         {
-            _pageFactory.Init<ContactUsPage>()
+            _pageBrowser.Init<ContactUsPage>()
                 .WithFullName()
                 .WithEmail()
                 .WithPhone()
@@ -48,7 +48,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Then(@"I should see a human test validation message")]
         public void ThenIShouldSeeAHumanTestValidationMessage()
         {
-            Assert.That(_pageFactory.Init<ContactUsPage>().IsHumanTestValidationMsgShown(), Is.True);
+            Assert.That(_pageBrowser.Init<ContactUsPage>().IsHumanTestValidationMsgShown(), Is.True);
         }
     }
 }

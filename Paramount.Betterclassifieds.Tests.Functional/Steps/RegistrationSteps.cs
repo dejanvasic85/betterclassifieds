@@ -9,13 +9,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
     [Binding]
     public class RegistrationSteps
     {
-        private readonly PageFactory _pageFactory;
+        private readonly PageBrowser _pageBrowser;
         private readonly ITestDataManager _dataManager;
         private readonly RegistrationContext _registrationContext;
 
-        public RegistrationSteps(PageFactory pageFactory, ITestDataManager dataManager, RegistrationContext registrationContext)
+        public RegistrationSteps(PageBrowser pageBrowser, ITestDataManager dataManager, RegistrationContext registrationContext)
         {
-            _pageFactory = pageFactory;
+            _pageBrowser = pageBrowser;
             _dataManager = dataManager;
             _registrationContext = registrationContext;
         }
@@ -35,13 +35,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Given(@"I navigate to the registration page")]
         public void GivenINavigateToTheRegistrationPage()
         {
-            _pageFactory.NavigateTo<RegisterNewUserTestPage>();
+            _pageBrowser.NavigateTo<RegisterNewUserTestPage>();
         }
 
         [Given(@"I have entered my personal details ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)""")]
         public void GivenIHaveEnteredMyPersonalDetails(string firstName, string lastName, string address, string suburb, string state, string postcode, string telephone)
         {
-            var registrationPage = _pageFactory.Init<RegisterNewUserTestPage>();
+            var registrationPage = _pageBrowser.Init<RegisterNewUserTestPage>();
             registrationPage.SetFirstName(firstName);
             registrationPage.SetLastName(lastName);
             registrationPage.SetPostcode(postcode);
@@ -50,7 +50,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Given(@"I have entered my account details ""(.*)"", ""(.*)""")]
         public void GivenIHaveEnteredMyAccountDetails(string email, string password)
         {
-            var registrationPage = _pageFactory.Init<RegisterNewUserTestPage>();
+            var registrationPage = _pageBrowser.Init<RegisterNewUserTestPage>();
             registrationPage.SetPassword(password);
             registrationPage.SetPasswordConfirmation(password);
             registrationPage.SetEmail(email);
@@ -64,7 +64,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             // See ThenARegistrationEmailShouldBeSentTo method where this is retrieved
             _registrationContext.StartRegistrationTime = DateTime.Now;
 
-            var registrationPage = _pageFactory.Init<RegisterNewUserTestPage>();
+            var registrationPage = _pageBrowser.Init<RegisterNewUserTestPage>();
             registrationPage.ClickRegister();
         }
 
@@ -88,7 +88,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Then(@"I should see a thank you page with confirmation")]
         public void ThenIShouldSeeAThankYouPageWithConfirmation()
         {
-            var registrationSuccess = _pageFactory.Init<RegistrationSuccessPage>();
+            var registrationSuccess = _pageBrowser.Init<RegistrationSuccessPage>();
             Assert.That(registrationSuccess.GetConfirmationText(), Is.EqualTo("Please click on the confirmation link sent to your email and you will be able to start using your account!"));
             Assert.That(registrationSuccess.GetThankYouHeading(), Is.EqualTo("Thank you for signing up"));
         }

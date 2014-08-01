@@ -5,12 +5,12 @@ using OpenQA.Selenium.Support.UI;
 
 namespace Paramount.Betterclassifieds.Tests.Functional
 {
-    public class PageFactory
+    public class PageBrowser
     {
         private readonly IWebDriver _webDriver;
         private readonly IConfig _config;
 
-        public PageFactory(IWebDriver webDriver, IConfig config)
+        public PageBrowser(IWebDriver webDriver, IConfig config)
         {
             _webDriver = webDriver;
             _config = config;
@@ -40,7 +40,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             return page;
         }
 
-        public TPage NavigateToAndInit<TPage>(params object[] query) where TPage : BaseTestPage
+        public TPage GoTo<TPage>(params object[] query) where TPage : BaseTestPage
         {
             var relativeUrl = typeof(TPage).GetCustomAttribute<TestPageAttribute>().RelativeUrl;
             var fullPageUrl = GetBaseUrl() + string.Format(relativeUrl, query);

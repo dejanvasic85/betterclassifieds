@@ -5,11 +5,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
     [Binding]
     public class BookingExtensionSteps
     {
-        private readonly PageFactory _pageFactory;
+        private readonly PageBrowser _pageBrowser;
 
-        public BookingExtensionSteps(PageFactory pageFactory)
+        public BookingExtensionSteps(PageBrowser pageBrowser)
         {
-            _pageFactory = pageFactory;
+            _pageBrowser = pageBrowser;
         }
 
         

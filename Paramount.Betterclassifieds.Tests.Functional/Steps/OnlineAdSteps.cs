@@ -9,12 +9,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
     [Binding]
     public class OnlineAdSteps
     {
-        private readonly PageFactory _pageFactory;
+        private readonly PageBrowser _pageBrowser;
         private readonly ITestDataManager _dataManager;
 
-        public OnlineAdSteps(PageFactory pageFactory, ITestDataManager dataManager)
+        public OnlineAdSteps(PageBrowser pageBrowser, ITestDataManager dataManager)
         {
-            _pageFactory = pageFactory;
+            _pageBrowser = pageBrowser;
             _dataManager = dataManager;
         }
 
@@ -48,34 +48,34 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             string urlWithId = string.Format(url, ScenarioContext.Current.Get<int>("AdId"));
 
             // Route to an exact URL becuase this is what we're testing!
-            _pageFactory.NavigateTo(urlWithId);
+            _pageBrowser.NavigateTo(urlWithId);
         }
 
         [Then(@"the page title should start with ""(.*)""")]
         public void ThenThePageTitleShouldStartWith(string title)
         {
-            var onlineAdPage = _pageFactory.Init<OnlineAdTestPage>(false);
+            var onlineAdPage = _pageBrowser.Init<OnlineAdTestPage>(false);
             Assert.IsTrue(onlineAdPage.GetTitle().StartsWith(title, StringComparison.OrdinalIgnoreCase));
         }
 
         [Then(@"the online ad contact name should be ""(.*)""")]
         public void ThenTheOnlineAdContactNameShouldBe(string sampleContact)
         {
-            OnlineAdTestPage onlineAdTestPage = _pageFactory.Init<OnlineAdTestPage>(false);
+            OnlineAdTestPage onlineAdTestPage = _pageBrowser.Init<OnlineAdTestPage>(false);
             Assert.AreEqual(sampleContact, onlineAdTestPage.GetContactName());
         }
 
         [Then(@"the online ad contact email should be ""(.*)""")]
         public void ThenTheOnlineAdContactEmailShouldBe(string expected)
         {
-            OnlineAdTestPage onlineAdTestPage = _pageFactory.Init<OnlineAdTestPage>(false);
+            OnlineAdTestPage onlineAdTestPage = _pageBrowser.Init<OnlineAdTestPage>(false);
             Assert.That(onlineAdTestPage.GetContactEmail(), Is.EqualTo(expected));
         }
 
         [Then(@"the online ad contact phone should be ""(.*)""")]
         public void ThenTheOnlineAdContactPhoneShouldBe(string expected)
         {
-            OnlineAdTestPage onlineAdTestPage = _pageFactory.Init<OnlineAdTestPage>(false);
+            OnlineAdTestPage onlineAdTestPage = _pageBrowser.Init<OnlineAdTestPage>(false);
             Assert.That(onlineAdTestPage.GetContactPhone(), Is.EqualTo(expected));
         }
 

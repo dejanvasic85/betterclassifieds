@@ -31,10 +31,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
         public static void WaitForLoader(this IWebDriver webDriver, int timeOutSeconds = 30)
         {
-            WebDriverWait waitForElement = new WebDriverWait(webDriver, TimeSpan.FromSeconds(timeOutSeconds));
+            var waitForElement = new WebDriverWait(webDriver, TimeSpan.FromSeconds(timeOutSeconds));
             waitForElement.Until(ExpectedConditions.ElementExists(By.ClassName("loader")));
 
-            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(timeOutSeconds));
+            var wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(timeOutSeconds));
             wait.Until(driver =>
             {
                 var classAttr = driver.FindElement(By.ClassName("loader")).GetAttribute("class");

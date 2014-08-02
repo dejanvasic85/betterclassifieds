@@ -22,7 +22,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             var bookingStep1 = _pageBrowser.GoTo<BookingStep1TestPage>();
             bookingStep1.SelectOnlineAdBooking();
             bookingStep1.Proceed();
-
+            Assert.Fail("Testing the screenshot stuff");
             var bookingStep2 = _pageBrowser.Init<BookingStep2TestPage>();
             bookingStep2.SelectParentCategory(TestData.ParentCategory);
             bookingStep2.SelectSubCategory(TestData.SubCategory);

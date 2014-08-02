@@ -1,16 +1,12 @@
-﻿using System;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Net.Mail;
-using System.Net.Mime;
-using BoDi;
+﻿using BoDi;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
-using OpenQA.Selenium.Remote;
 using Paramount.Betterclassifieds.Tests.Functional.Mocks;
+using System.Drawing.Imaging;
+using System.IO;
 using TechTalk.SpecFlow;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Steps
@@ -51,7 +47,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [AfterScenario("web")]
         public void DisposeSeleniumWebDriver()
         {
-            _container.Resolve<IWebDriver>().Dispose();
+            _container.Resolve<IWebDriver>().Close();
         }
 
         [BeforeFeature("booking")]
@@ -87,8 +83,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             // Setup a demo user
             dataManager.AddUserIfNotExists(TestData.Username, TestData.Password, TestData.UserEmail);
         }
-
-
+        
         private static IWebDriver GetDriverForBrowser(string browserName)
         {
             IWebDriver driver;
@@ -113,18 +108,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         }
 
         [AfterStep("web")]
-        public void ScreenshotOnError()
+        public void TakeScreenshotForWebTestFailure()
         {
-            //Add a line break in the Console output for better readability
-            Console.WriteLine();
-
-            var config = _container.Resolve<IConfig>();
             var webdriver = _container.Resolve<IWebDriver>();
-            
-            if (ScenarioContext.Current.TestError == null 
-                || string.IsNullOrEmpty(config.ErrorEmail)
-                || config.SendScreenshotOneError == false)
+            if (ScenarioContext.Current.TestError == null)
                 return;
+            
+            // Max the size and take a screenshot of it.
+            webdriver.Manage().Window.Maximize();
 
             Screenshot screenshot = ((ITakesScreenshot) webdriver).GetScreenshot();
 
@@ -132,7 +123,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             if (!Directory.Exists(screenShotDir))
                 Directory.CreateDirectory(screenShotDir);
 
-            screenshot.SaveAsFile(string.Format("{0}\\{1}",
+            screenshot.SaveAsFile(string.Format("{0}\\{1}.jpg",
                 screenShotDir,
                 TestContext.CurrentContext.Test.Name), ImageFormat.Jpeg);
         }

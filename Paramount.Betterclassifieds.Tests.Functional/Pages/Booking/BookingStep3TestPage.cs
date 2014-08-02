@@ -59,18 +59,21 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
             // Switch back to the main frame
             WebDriver.SwitchTo().DefaultContent();
+
         }
 
         public void FillLineAdHeader(string adTitle)
         {
             LineAdHeaderElement.Clear();
             LineAdHeaderElement.SendKeys(adTitle);
+            WebDriver.WaitForAjax();
         }
         
         public void FillLineAdDescription(string adTitle)
         {
             LineAdDescriptionElement.Clear();
             LineAdDescriptionElement.SendKeys(adTitle);
+            WebDriver.WaitForAjax();
         }
     }
 }

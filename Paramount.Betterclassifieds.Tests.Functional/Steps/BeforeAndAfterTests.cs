@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Net.Mail;
 using System.Net.Mime;
 using BoDi;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
@@ -125,33 +127,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 return;
 
             Screenshot screenshot = ((ITakesScreenshot) webdriver).GetScreenshot();
-            Stream screenshotStream = new MemoryStream(screenshot.AsByteArray);
 
-            Stream pageSourceStream = new MemoryStream();
-            var writer = new StreamWriter(pageSourceStream);
-            writer.Write(webdriver.PageSource);
-            writer.Flush();
-            pageSourceStream.Position = 0;
+            const string screenShotDir = "Screenshots";
+            if (!Directory.Exists(screenShotDir))
+                Directory.CreateDirectory(screenShotDir);
 
-            var msg = new MailMessage("smoketest@paramountit.com.au", config.ErrorEmail)
-                {
-                    Subject = "Specflow Scenario failed: " + ScenarioContext.Current.ScenarioInfo.Title
-                };
-            msg.Attachments.Add(new Attachment(screenshotStream, ScenarioContext.Current.ScenarioInfo.Title + ".png", null));
-            msg.Attachments.Add(new Attachment(pageSourceStream, webdriver.Title + ".html"));
-
-            var plainTextEmailBody = ScenarioContext.Current.TestError.Message;
-
-            var resource = new LinkedResource(screenshotStream);
-            var htmlEmailBody = string.Format("<p>{0}</p><img src=\"cid:{1}\">", ScenarioContext.Current.TestError.Message, resource.ContentId);
-
-            msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(plainTextEmailBody, null, MediaTypeNames.Text.Plain));
-            var htmlView = AlternateView.CreateAlternateViewFromString(htmlEmailBody, null, MediaTypeNames.Text.Html);
-            htmlView.LinkedResources.Add(resource);
-            msg.AlternateViews.Add(htmlView);
-
-            var smtp = new SmtpClient();
-            smtp.Send(msg);
+            screenshot.SaveAsFile(string.Format("{0}\\{1}",
+                screenShotDir,
+                TestContext.CurrentContext.Test.Name), ImageFormat.Jpeg);
         }
     }
 }

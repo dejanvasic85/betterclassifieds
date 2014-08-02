@@ -46,7 +46,7 @@ if ( ($errorCount -gt 0) -or ($failureCount -gt 0) ) {
     $message.Body = Get-Content ($deployPath + "\" + $reportFileName)
 
     $smtp = New-Object Net.Mail.SmtpClient -ArgumentList ("smtpcorp.com", 2525)
-    $smtp.Credentials = New-Object System.Net.NetworkCredential("support@paramountit.com.au", "rs-101");
+    $smtp.Credentials = New-Object System.Net.NetworkCredential("dejan.vasic@paramountit.com.au", "rs-101");
     $smtp.Send($message)
 		
 	if ( $FailDeployOnFailedTests -eq $true ){

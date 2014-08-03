@@ -78,13 +78,7 @@ namespace Paramount
 
             private static IMappingEngine MappingEngine(IMappingBehaviour target)
             {
-                AutoMapper.Configuration configuration =
-                    new AutoMapper.Configuration(new TypeMapFactory(),
-                        AutoMapper.Mappers.MapperRegistry.AllMappers());
-
-                // Allow the convention of Source.PropertyId <=> Target.Property
-                configuration.RecognizePostfixes("Id");
-                configuration.RecognizeDestinationPostfixes("Id");
+                var configuration = new ConfigurationStore(new TypeMapFactory(), AutoMapper.Mappers.MapperRegistry.Mappers);
                 
                 target.OnRegisterMaps(configuration);
                 

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading;
 using OpenQA.Selenium;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
@@ -22,7 +23,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         public void Proceed()
         {
-            WebDriver.WaitForAjax();
+
+            WebDriver.WaitForAjax(); // This might not actually have JQuery.. so just sleep for a second
+            Thread.Sleep(2000); // It slows down just a little bit.
             NextButtonElement.ClickOnElement();
         }
     }

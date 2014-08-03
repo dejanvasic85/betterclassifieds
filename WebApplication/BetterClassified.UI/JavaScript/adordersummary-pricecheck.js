@@ -23,6 +23,7 @@ function getPrices() {
         error: function (event, request, settings) {
             // do nothing for now
             alert('an error occurred');
+            console.log('An error occurred when getting the price summary');
         }
     });
 }

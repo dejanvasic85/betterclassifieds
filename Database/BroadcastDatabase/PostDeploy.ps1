@@ -14,10 +14,9 @@ $sqlConnectionBuilder = New-Object -TypeName System.Data.SqlClient.SqlConnection
 
 $db = Invoke-SqlCmd -Query "SELECT name from master.dbo.sysdatabases WHERE name = '$($sqlConnectionBuilder.InitialCatalog)';" -ServerInstance $sqlConnectionBuilder.DataSource
 
-$backupFile = $BackupDatabaseLocation + $sqlConnectionBuilder.InitialCatalog + ".bak"
-
 # Backup-SqlDatabase 
 if ( $BackupDatabase -eq $true ){
+	$backupFile = $BackupDatabaseLocation + $sqlConnectionBuilder.InitialCatalog + ".bak"  
     Write-Host "Backing Up..."
     Backup-SqlDatabase -ServerInstance $sqlConnectionBuilder.DataSource -Database $sqlConnectionBuilder.InitialCatalog -BackupFile $backupFile -BackupAction Database -Initialize
     Set-Location $scriptPath
@@ -25,6 +24,7 @@ if ( $BackupDatabase -eq $true ){
 
 # Restore-SqlDatabase
 if ( ($RestoreDatabase -eq $true) -and (Test-Path $backupFile)  ){	
+	$backupFile = $BackupDatabasePath + $sqlConnectionBuilder.InitialCatalog + ".bak"
 	Invoke-Sqlcmd "ALTER DATABASE [$($sqlConnectionBuilder.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ServerInstance $sqlConnectionBuilder.DataSource -ErrorAction SilentlyContinue
 	Invoke-Sqlcmd "ALTER DATABASE [$($sqlConnectionBuilder.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ServerInstance $sqlConnectionBuilder.DataSource -ErrorAction SilentlyContinue
 

@@ -86,6 +86,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ContactUs.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\NotFound.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NotFound.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\SubmitNewBooking.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -113,6 +118,7 @@
     <Compile Include="Pages\LoginPage.cs" />
     <Compile Include="Pages\Booking\BookingStep3TestPage.cs" />
     <Compile Include="Pages\Booking\BookingStep4TestPage.cs" />
+    <Compile Include="Pages\NotFoundTestPage.cs" />
     <Compile Include="Pages\RegistrationSuccessPage.cs" />
     <Compile Include="Steps\BeforeAndAfterTests.cs" />
     <Compile Include="Mocks\DapperExtensions.cs" />
@@ -126,6 +132,7 @@
     <Compile Include="Steps\BookingSteps.cs" />
     <Compile Include="Steps\ContactUsSteps.cs" />
     <Compile Include="Steps\LoginSteps.cs" />
+    <Compile Include="Steps\NotFoundSteps.cs" />
     <Compile Include="Steps\RegistrationSteps.cs" />
     <Compile Include="Steps\OnlineAdSteps.cs" />
   </ItemGroup>
@@ -136,6 +143,10 @@
     <None Include="Features\ContactUs.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ContactUs.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\NotFound.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>NotFound.feature.cs</LastGenOutput>
     </None>
     <None Include="Paramount.Betterclassifieds.Tests.Functional.dll.CI.config">
       <DependentUpon>App.Config</DependentUpon>

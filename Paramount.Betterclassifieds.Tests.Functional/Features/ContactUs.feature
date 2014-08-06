@@ -1,6 +1,6 @@
 ﻿@web @contactUs
 Feature: ContactUs
-	In order to submit a compaint, feedback or just a suggestion
+	In order to submit a complaint, feedback or just a suggestion
 	As a member or anonymous visitor
 	I want the ability to submit the request to the support team
 

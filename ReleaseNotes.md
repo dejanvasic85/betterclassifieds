@@ -2,9 +2,7 @@ Here's a list of the latest changes for the current release:
 
 **Enhancements/Features**
 
-- [New 404 Not Found responsive error page](https://trello.com/c/EEAbtgOU/212-nextgen-error-pages-for-404-and-500)
-
-**Bug Fixes**
+- [New 404 Not Found and 500 Server error pages](https://trello.com/c/EEAbtgOU/212-nextgen-error-pages-for-404-and-500)
 
 **Technical Debt**
 

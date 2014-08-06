@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using CaptchaMvc.Attributes;
 using CaptchaMvc.HtmlHelpers;
 using CaptchaMvc.Interface;
@@ -28,7 +29,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult Index()
         {
             var results = _searchService.GetLatestAds();
-
             return View(new HomeModel
             {
                 AdSummaryList = this.MapList<AdSearchResult, AdSummaryViewModel>(results.ToList())

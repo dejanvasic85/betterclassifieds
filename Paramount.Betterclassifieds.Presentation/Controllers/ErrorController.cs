@@ -9,12 +9,19 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
     public class ErrorController : Controller
     {
         //
-        // GET: /Error/
+        // GET: /Error/NotFound
 
         public ActionResult NotFound()
         {
             return View();
         }
 
+        // 
+        // GET: /Error/Server
+
+        public ActionResult Server()
+        {
+            return View();
+        }
     }
 }

@@ -8,6 +8,9 @@ Partial Public Class _Default7
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
+        Response.RedirectPermanent("~/Error/Server")
+        ' This was just silly... Why on earth would we connect to a database if it's down :(
+
         _type = Request.QueryString("type")
 
         Select Case _type

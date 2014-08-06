@@ -24,8 +24,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         public void ThenIShouldSeeANotFoundPage()
         {
             var page = _pageBrowser.Init<NotFoundTestPage>();
-            Assert.That(page.GetHeadingText(), Is.EqualTo("Oooops. It's a 404! The page you are looking for does not exist."));
-            Assert.That(page.GetDescriptionText(), Is.EqualTo("Say what? This is a very common problem on the internet that appears when something you have clicked on or provided an address to something that seems to have moved or never existed..."));
+            Assert.That(page.GetHeadingText(), Is.EqualTo("404 Not Found"));
+            Assert.That(page.GetDescriptionText(), Is.EqualTo("A 404 error status implies that the file or page that you're looking for could not be found."));
         }
     }
 }

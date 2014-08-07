@@ -23,7 +23,7 @@ if ( $BackupDatabase -eq $true ){
 }
 
 # Restore-SqlDatabase
-if ( ($RestoreDatabase -eq $true) -and (Test-Path $backupFile)  ){	
+if ( $RestoreDatabase -eq $true ){	
 	$backupFile = $BackupDatabasePath + $sqlConnectionBuilder.InitialCatalog + ".bak"
 	Invoke-Sqlcmd "ALTER DATABASE [$($sqlConnectionBuilder.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ServerInstance $sqlConnectionBuilder.DataSource -ErrorAction SilentlyContinue -QueryTimeout 0
 	Invoke-Sqlcmd "ALTER DATABASE [$($sqlConnectionBuilder.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ServerInstance $sqlConnectionBuilder.DataSource -ErrorAction SilentlyContinue -QueryTimeout 0

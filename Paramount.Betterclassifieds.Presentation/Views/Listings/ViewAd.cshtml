@@ -124,9 +124,9 @@
                         <td><span id="contactName">@Model.ContactName</span></td>
                     </tr>
                     }
-                    @if (Model.ContactPhone.HasValue())
+                    @if (Model.ContactEmail.HasValue())
                     {
-                        <tr title="Contact Phone">
+                        <tr title="Contact Email">
                             <td><span class="glyphicon glyphicon-envelope"></span></td>
                             <td><a href="mailto:@Model.ContactEmail?Subject=@Model.Heading" target="_top">
                                     <span id="contactEmail">@Model.ContactEmail</span>

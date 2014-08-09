@@ -20,7 +20,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("ContactUs")]
-    [NUnit.Framework.CategoryAttribute("web")]
     [NUnit.Framework.CategoryAttribute("contactUs")]
     public partial class ContactUsFeature
     {
@@ -36,7 +35,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ContactUs", "In order to submit a complaint, feedback or just a suggestion\nAs a member or anon" +
                     "ymous visitor\nI want the ability to submit the request to the support team", ProgrammingLanguage.CSharp, new string[] {
-                        "web",
                         "contactUs"});
             testRunner.OnFeatureStart(featureInfo);
         }

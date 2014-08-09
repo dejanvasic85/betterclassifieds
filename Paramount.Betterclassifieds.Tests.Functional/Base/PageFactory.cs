@@ -10,6 +10,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         private readonly IWebDriver _webDriver;
         private readonly IConfig _config;
 
+        public PageBrowser()
+        {
+            
+        }
+
         public PageBrowser(IWebDriver webDriver, IConfig config)
         {
             _webDriver = webDriver;

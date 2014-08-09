@@ -1,4 +1,4 @@
-﻿@web @onlineAd
+﻿@onlineAd
 Feature: OnlineAdView
 	In order to view details of an ad online
 	As a an anonymous user

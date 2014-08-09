@@ -20,7 +20,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("NotFound")]
-    [NUnit.Framework.CategoryAttribute("web")]
     public partial class NotFoundFeature
     {
         
@@ -34,8 +33,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "NotFound", "In order to handle not found error messages\nAs a member or anonymous visitor\nI wa" +
-                    "nt to see a user-friendly 404 not found message", ProgrammingLanguage.CSharp, new string[] {
-                        "web"});
+                    "nt to see a user-friendly 404 not found message", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -74,11 +72,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Resource does not exist", new string[] {
                         "404"});
-#line 8
+#line 7
 this.ScenarioSetup(scenarioInfo);
-#line 9
+#line 8
  testRunner.Given("I navigate to a page that does not exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 10
+#line 9
  testRunner.Then("I should see a not found page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

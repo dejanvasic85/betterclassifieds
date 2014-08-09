@@ -21,7 +21,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("SubmitNewBooking")]
     [NUnit.Framework.CategoryAttribute("booking")]
-    [NUnit.Framework.CategoryAttribute("web")]
     public partial class SubmitNewBookingFeature
     {
         
@@ -36,8 +35,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "SubmitNewBooking", "In order to have an ad appear on betterclassifieds\r\nAs a registered user\r\nI want " +
                     "to be able to go through the booking steps and submit a new booking", ProgrammingLanguage.CSharp, new string[] {
-                        "booking",
-                        "web"});
+                        "booking"});
             testRunner.OnFeatureStart(featureInfo);
         }
         

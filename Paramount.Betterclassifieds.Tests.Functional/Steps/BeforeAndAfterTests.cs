@@ -1,4 +1,6 @@
-﻿using BoDi;
+﻿using System.Configuration;
+using System.Web.UI;
+using BoDi;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -16,39 +18,82 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
     {
         private readonly IObjectContainer _container;
 
+        private static IWebDriver _webDriver;
+        private static TestConfiguration _configuration;
+
         public BeforeAndAfterTests(IObjectContainer container)
         {
             _container = container;
+            _container.RegisterInstanceAs(new PageBrowser(_webDriver, _configuration), typeof(PageBrowser));
         }
 
-        /// <summary>
-        /// All scenarios will require some implementations injected
-        /// </summary>
+        #region Test Setup ( all )
+
+        [BeforeTestRun]
+        public static void SetupPageBrowser()
+        {
+            _configuration = new TestConfiguration();
+            _webDriver = GetDriverForBrowser(_configuration.BrowserType);
+        }
+
         [BeforeScenario]
         public void RegisterConfigAndRepository()
         {
-            _container.RegisterInstanceAs(new TestConfiguration(), typeof (IConfig));
-            _container.RegisterInstanceAs(new DapperDataManager(), typeof (ITestDataManager));
+            _container.RegisterInstanceAs(new TestConfiguration(), typeof(IConfig));
+            _container.RegisterInstanceAs(new DapperDataManager(), typeof(ITestDataManager));
+             _webDriver.Manage().Cookies.DeleteAllCookies();
         }
 
-        [BeforeScenario("web")]
-        public void RegisterSeleniumDriver()
+        [AfterTestRun]
+        public static void CloseBrowser()
         {
-            IConfig config = _container.Resolve<IConfig>();
-
-            // Create a web driver for all web tests
-            IWebDriver driver = GetDriverForBrowser(config.BrowserType);
-            _container.RegisterInstanceAs(driver, typeof (IWebDriver));
-
-            // Create instance and register for the page factory
-            _container.RegisterInstanceAs(new PageBrowser(driver, config), typeof (PageBrowser));
+            _webDriver.Dispose();
         }
 
-        [AfterScenario("web")]
-        public void DisposeSeleniumWebDriver()
+        [AfterStep]
+        public void TakeScreenshotForWebTestFailure()
         {
-            _container.Resolve<IWebDriver>().Close();
+            if (ScenarioContext.Current.TestError == null)
+                return;
+
+            // Max the size and take a screenshot of it.
+            _webDriver.Manage().Window.Maximize();
+
+            Screenshot screenshot = ((ITakesScreenshot)_webDriver).GetScreenshot();
+
+            const string screenShotDir = "Screenshots";
+            if (!Directory.Exists(screenShotDir))
+                Directory.CreateDirectory(screenShotDir);
+
+            screenshot.SaveAsFile(string.Format("{0}\\{1}.jpg",
+                screenShotDir,
+                TestContext.CurrentContext.Test.Name), ImageFormat.Jpeg);
         }
+
+        private static IWebDriver GetDriverForBrowser(string browserName)
+        {
+            IWebDriver driver;
+            switch (browserName)
+            {
+                case "chrome":
+                    var chromeOptions = new ChromeOptions();
+                    chromeOptions.AddArgument("test-type");
+                    driver = new ChromeDriver();
+                    break;
+                case "firefox":
+                    driver = new FirefoxDriver();
+                    break;
+                case "ie":
+                    driver = new InternetExplorerDriver();
+                    break;
+                default:
+                    driver = new FirefoxDriver();
+                    break;
+            }
+            return driver;
+        }
+
+        #endregion
 
         [BeforeFeature("booking")]
         public static void SetupBookingFeature()
@@ -79,53 +124,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         public static void SetupBookingExtensionFeature()
         {
             ITestDataManager dataManager = new DapperDataManager();
-            
+
             // Setup a demo user
             dataManager.AddUserIfNotExists(TestData.Username, TestData.Password, TestData.UserEmail);
         }
         
-        private static IWebDriver GetDriverForBrowser(string browserName)
-        {
-            IWebDriver driver;
-            switch (browserName)
-            {
-                case "chrome":
-                    var chromeOptions = new ChromeOptions();
-                    chromeOptions.AddArgument("test-type");
-                    driver = new ChromeDriver();
-                    break;
-                case "firefox":
-                    driver = new FirefoxDriver();
-                    break;
-                case "ie":
-                    driver = new InternetExplorerDriver();
-                    break;
-                default:
-                    driver = new FirefoxDriver();
-                    break;
-            }
-            return driver;
-        }
-
-        [AfterStep("web")]
-        public void TakeScreenshotForWebTestFailure()
-        {
-            var webdriver = _container.Resolve<IWebDriver>();
-            if (ScenarioContext.Current.TestError == null)
-                return;
-            
-            // Max the size and take a screenshot of it.
-            webdriver.Manage().Window.Maximize();
-
-            Screenshot screenshot = ((ITakesScreenshot) webdriver).GetScreenshot();
-
-            const string screenShotDir = "Screenshots";
-            if (!Directory.Exists(screenShotDir))
-                Directory.CreateDirectory(screenShotDir);
-
-            screenshot.SaveAsFile(string.Format("{0}\\{1}.jpg",
-                screenShotDir,
-                TestContext.CurrentContext.Test.Name), ImageFormat.Jpeg);
-        }
     }
 }

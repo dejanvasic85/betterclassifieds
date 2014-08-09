@@ -1,5 +1,4 @@
-﻿@web
-Feature: NotFound
+﻿Feature: NotFound
 	In order to handle not found error messages
 	As a member or anonymous visitor
 	I want to see a user-friendly 404 not found message

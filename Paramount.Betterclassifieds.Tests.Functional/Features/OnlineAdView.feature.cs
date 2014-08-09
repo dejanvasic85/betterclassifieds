@@ -20,7 +20,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("OnlineAdView")]
-    [NUnit.Framework.CategoryAttribute("web")]
     [NUnit.Framework.CategoryAttribute("onlineAd")]
     public partial class OnlineAdViewFeature
     {
@@ -36,7 +35,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "OnlineAdView", "In order to view details of an ad online\r\nAs a an anonymous user\r\nI want to be to" +
                     " navigate to a SEO friendly URL", ProgrammingLanguage.CSharp, new string[] {
-                        "web",
                         "onlineAd"});
             testRunner.OnFeatureStart(featureInfo);
         }

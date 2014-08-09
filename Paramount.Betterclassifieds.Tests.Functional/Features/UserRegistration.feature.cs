@@ -20,7 +20,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("UserRegistration")]
-    [NUnit.Framework.CategoryAttribute("web")]
     [NUnit.Framework.CategoryAttribute("registration")]
     public partial class UserRegistrationFeature
     {
@@ -36,7 +35,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "UserRegistration", "In order become a member of betterclassifieds\nAs an anonymous user\nI want to be a" +
                     "ble to register a new account", ProgrammingLanguage.CSharp, new string[] {
-                        "web",
                         "registration"});
             testRunner.OnFeatureStart(featureInfo);
         }

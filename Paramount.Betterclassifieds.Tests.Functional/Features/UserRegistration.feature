@@ -1,4 +1,4 @@
-﻿@web @registration
+﻿@registration
 Feature: UserRegistration
 	In order become a member of betterclassifieds
 	As an anonymous user

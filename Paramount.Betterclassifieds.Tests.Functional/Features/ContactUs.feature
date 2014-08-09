@@ -1,4 +1,4 @@
-﻿@web @contactUs
+﻿@contactUs
 Feature: ContactUs
 	In order to submit a complaint, feedback or just a suggestion
 	As a member or anonymous visitor

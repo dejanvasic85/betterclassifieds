@@ -5,7 +5,8 @@ Here's a list of the latest changes for the current release:
 - [New 404 Not Found responsive error page](https://trello.com/c/EEAbtgOU/212-nextgen-error-pages-for-404-and-500)
 
 **Bug Fixes**
-- [Email contact row is not displayed if the user does not provide an Email] (https://trello.com/c/BNtlnlBA/219-bug-on-the-ad-view-page-when-email-or-phone-is-not-provided-it-shows-an-empty-field)
+
+- [Email contact row is not displayed if the user does not provide an Email](https://trello.com/c/BNtlnlBA/219-bug-on-the-ad-view-page-when-email-or-phone-is-not-provided-it-shows-an-empty-field)
 
 **Technical Debt**
 

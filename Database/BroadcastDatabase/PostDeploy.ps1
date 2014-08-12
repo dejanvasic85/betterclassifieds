@@ -15,7 +15,7 @@ $connection = New-Object -TypeName System.Data.SqlClient.SqlConnectionStringBuil
 $db = Invoke-SqlCmd -Query "SELECT name from master.dbo.sysdatabases WHERE name = '$($connection.InitialCatalog)';" -ServerInstance $connection.DataSource -QueryTimeout 0 -Username $connection.UserID -Password $connection.Password
 
 # Backup-SqlDatabase 
-if ( $BackupDatabase -eq $true ){
+if ( $BackupDatabase -eq $true -and $db -ne $null ){
 	$backupFile = $BackupDatabaseLocation + $connection.InitialCatalog + ".bak"  
     Write-Host "Backing Up..."
     Backup-SqlDatabase -ServerInstance $connection.DataSource -Database $connection.InitialCatalog -BackupFile $backupFile -BackupAction Database -Initialize

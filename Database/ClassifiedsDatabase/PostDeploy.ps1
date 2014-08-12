@@ -10,12 +10,12 @@ Set-Location $scriptPath
 [xml]$appConfig = Get-Content .\ClassifiedsDatabase.exe.config
 
 # Use connection builder to get variables we need for backup and stuff
-$connection = New-Object -TypeName System.Data.SqlClient.SqlConnectionStringBuilder -ArgumentList $appConfig.configuration.connectionStrings.add.connectionString  -Username $connection.UserID -Password $connection.Password
+$connection = New-Object -TypeName System.Data.SqlClient.SqlConnectionStringBuilder -ArgumentList $appConfig.configuration.connectionStrings.add.connectionString
 
-$db = Invoke-SqlCmd -Query "SELECT name from master.dbo.sysdatabases WHERE name = '$($connection.InitialCatalog)';" -ServerInstance $connection.DataSource -QueryTimeout 0
+$db = Invoke-SqlCmd -Query "SELECT name from master.dbo.sysdatabases WHERE name = '$($connection.InitialCatalog)';" -ServerInstance $connection.DataSource -QueryTimeout 0 -Username $connection.UserID -Password $connection.Password
 
 # Backup-SqlDatabase 
-if ( $BackupDatabase -eq $true ){
+if ( $BackupDatabase -eq $true -and $db -ne $null ){
 	$backupFile = $BackupDatabaseLocation + $connection.InitialCatalog + ".bak"    
     Write-Host "Backing Up..."
     Backup-SqlDatabase -ServerInstance $connection.DataSource -Database $connection.InitialCatalog -BackupFile $backupFile -BackupAction Database -Initialize

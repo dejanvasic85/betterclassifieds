@@ -6,8 +6,8 @@ namespace Paramount.Betterclassifieds.Business.Models
     [OnlineAdType(OnlineAdName = "Tutors")]
     public class TutorAdModel
     {
-        public long OnlineAdId { get; set; }
-        public long TutorAdId { get; set; }
+        public int OnlineAdId { get; set; }
+        public int TutorAdId { get; set; }
         public int? AgeGroupMin { get; set; }
         public int? AgeGroupMax { get; set; }
         public string ExpertiseLevel { get; set; }

@@ -78,9 +78,14 @@
   <ItemGroup>
     <Compile Include="Base\Constants.cs" />
     <Compile Include="Base\TestPageAttribute.cs" />
-    <Compile Include="Base\PageFactory.cs" />
+    <Compile Include="Base\PageBrowser.cs" />
     <Compile Include="Base\WebDriverExtensions.cs" />
     <Compile Include="Base\WebElementExtensions.cs" />
+    <Compile Include="AdminFeatures\AdminLogin.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AdminLogin.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\ContactUs.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -109,6 +114,7 @@
     <Compile Include="Base\BaseTestPage.cs" />
     <Compile Include="Base\IConfig.cs" />
     <Compile Include="Mocks\TestData.cs" />
+    <Compile Include="Pages\Admin\AdminLoginPage.cs" />
     <Compile Include="Pages\Booking\BookingCompletePage.cs" />
     <Compile Include="Pages\Booking\BookingStep5TestPage.cs" />
     <Compile Include="Pages\Booking\BookingBasePage.cs" />
@@ -120,6 +126,7 @@
     <Compile Include="Pages\Booking\BookingStep4TestPage.cs" />
     <Compile Include="Pages\NotFoundTestPage.cs" />
     <Compile Include="Pages\RegistrationSuccessPage.cs" />
+    <Compile Include="StepsAdmin\AdminLoginPageSteps.cs" />
     <Compile Include="Steps\BeforeAndAfterTests.cs" />
     <Compile Include="Mocks\DapperExtensions.cs" />
     <Compile Include="Base\ITestDataManager.cs" />
@@ -139,6 +146,10 @@
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="AdminFeatures\AdminLogin.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AdminLogin.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\ContactUs.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

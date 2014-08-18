@@ -7,13 +7,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 {
     public class PageBrowser
     {
-        private readonly IWebDriver _webDriver;
-        private readonly IConfig _config;
+        protected readonly IWebDriver _webDriver;
+        protected readonly IConfig _config;
 
-        public PageBrowser()
-        {
-            
-        }
+        public PageBrowser(){ }
 
         public PageBrowser(IWebDriver webDriver, IConfig config)
         {
@@ -70,17 +67,36 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             _webDriver.Navigate().GoToUrl(webPath);
         }
 
-        private string GetAbsoluteUrl(string relativePath)
+        public string GetAbsoluteUrl(string relativePath)
         {
             return GetBaseUrl() + relativePath;
         }
 
-        private string GetBaseUrl(bool secure = false)
+        public string GetBaseUrl(bool secure = false)
         {
-            if (!_config.BaseUrl.Contains("https") && secure)
-                return _config.BaseUrl.Replace("http", "https");
+            var url = GetConfiguredUrl();
 
+            if (!url.Contains("https") && secure)
+                return url.Replace("http", "https");
+
+            return url;
+        }
+
+        public virtual string GetConfiguredUrl()
+        {
             return _config.BaseUrl;
+        }
+    }
+
+    public class AdminPageBrowser : PageBrowser
+    {
+        public AdminPageBrowser(IWebDriver webDriver, IConfig config)
+            : base(webDriver, config)
+        { }
+
+        public override string GetConfiguredUrl()
+        {
+            return _config.BaseAdminUrl;
         }
     }
 }

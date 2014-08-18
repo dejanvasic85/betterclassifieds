@@ -25,6 +25,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         {
             _container = container;
             _container.RegisterInstanceAs(new PageBrowser(_webDriver, _configuration), typeof(PageBrowser));
+            _container.RegisterInstanceAs(new AdminPageBrowser(_webDriver, _configuration), typeof(AdminPageBrowser));
         }
 
         #region Test Setup ( all )

@@ -28,8 +28,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             _container.RegisterInstanceAs(new AdminPageBrowser(_webDriver, _configuration), typeof(AdminPageBrowser));
         }
 
-        #region Test Setup ( all )
-
         [BeforeTestRun]
         public static void SetupPageBrowser()
         {
@@ -93,42 +91,5 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             }
             return driver;
         }
-
-        #endregion
-
-        [BeforeFeature("booking")]
-        public static void SetupBookingFeature()
-        {
-            // Use the dapper manager to initialise some baseline test data for our booking scenarios
-            ITestDataManager dataManager = new DapperDataManager();
-
-            // Online Publication  ( this should be removed later - no such thing as online publication ! )
-            dataManager.AddPublicationIfNotExists(TestData.OnlinePublication, Constants.PublicationType.Online, frequency: "Online", frequencyValue: null);
-            dataManager.AddPublicationAdTypeIfNotExists(TestData.OnlinePublication, Constants.AdType.OnlineAd);
-
-            // Print Publication
-            dataManager.AddPublicationIfNotExists(TestData.SeleniumPublication);
-            dataManager.AddPublicationAdTypeIfNotExists(TestData.SeleniumPublication, Constants.AdType.LineAd);
-            dataManager.AddEditionsToPublication(TestData.SeleniumPublication, 50);
-
-            // Categories ( assign to each publication automatically )
-            dataManager.AddCategoryIfNotExists(TestData.SubCategory, TestData.ParentCategory);
-
-            // Ratecard
-            dataManager.AddRatecardIfNotExists("Selenium Free Rate", 0, 0, TestData.SubCategory);
-
-            // Location and Area
-            dataManager.AddLocationIfNotExists("Australia", "Victoria", "Melbourne");
-        }
-
-        [BeforeFeature("booking", "extendbooking")]
-        public static void SetupBookingExtensionFeature()
-        {
-            ITestDataManager dataManager = new DapperDataManager();
-
-            // Setup a demo user
-            dataManager.AddUserIfNotExists(TestData.Username, TestData.Password, TestData.UserEmail);
-        }
-        
     }
 }

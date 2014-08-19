@@ -5,6 +5,6 @@
 
 @admin @login @ignore
 Scenario: User exists login successful
-	Given I have a registered admin account name ""
-	When I login with username "" and password
+	Given I have a registered admin account name "Selenium Admin"
+	When I login to administration with username "SeleniumAdmin" password "password123"
 	Then I should see the admin home page

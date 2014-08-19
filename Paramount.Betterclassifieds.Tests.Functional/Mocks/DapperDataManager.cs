@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Transactions;
+using System.Web.Profile;
 using System.Web.Security;
 using Dapper;
 
@@ -212,16 +213,30 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             return membershipDb.Query("SELECT Username FROM Registration WHERE Email = @email", new { email }).Any();
         }
 
-        public Guid? AddUserIfNotExists(string username, string password, string email)
+        public Guid? AddUserIfNotExists(string username, string password, string email, RoleType roleType)
         {
             var userId = membershipDb.Query<Guid?>("SELECT UserId FROM aspnet_Users WHERE UserName = @username", new { username }).FirstOrDefault();
 
             if (userId.HasValue)
                 return userId;
-
+            
             using (var scope = new TransactionScope())
             {
+                MembershipProvider membershipProvider = null;
                 // Use the membership library to add the user (the easiest)
+                switch (roleType)
+                {
+                    case RoleType.Advertiser:
+                        membershipProvider = Membership.Providers["AppUserProvider"];
+                        break;
+                    case RoleType.Administrator:
+                        membershipProvider = Membership.Providers["UserAdminMembershipProvider"];
+                        break;
+                    default:
+                        throw new NotSupportedException();
+                }
+
+                ProfileManager.ApplicationName = membershipProvider.ApplicationName;
                 Membership.CreateUser(username, password, email);
                 userId = membershipDb.Query<Guid?>("SELECT UserId FROM aspnet_Users WHERE UserName = @username", new { username }).First();
 

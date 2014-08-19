@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Paramount.Betterclassifieds.Tests.Functional.AdminFeatures
+namespace Paramount.Betterclassifieds.Tests.Functional.FeaturesAdmin
 {
     using TechTalk.SpecFlow;
     
@@ -79,9 +79,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.AdminFeatures
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.Given("I have a registered admin account name \"\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I have a registered admin account name \"Selenium Admin\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
- testRunner.When("I login with username \"\" and password", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I login to administration with username \"SeleniumAdmin\" password \"password123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 10
  testRunner.Then("I should see the admin home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden

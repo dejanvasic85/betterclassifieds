@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
+using Paramount.Betterclassifieds.Tests.Functional.Mocks;
 using Paramount.Betterclassifieds.Tests.Functional.Pages;
 using TechTalk.SpecFlow;
 
@@ -23,7 +24,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Given(@"I am a registered user with username ""(.*)"" and password ""(.*)"" and email ""(.*)""")]
         public void GivenIAmARegisteredUserWithUsernameAndPassword(string username, string password, string email)
         {
-            _dataManager.AddUserIfNotExists(username, password, email);
+            _dataManager.AddUserIfNotExists(username, password, email, RoleType.Advertiser);
         }
 
         [Given(@"The user with username ""(.*)"" does not exist")]

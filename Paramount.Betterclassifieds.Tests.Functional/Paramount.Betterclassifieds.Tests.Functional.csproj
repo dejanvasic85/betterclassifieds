@@ -81,7 +81,7 @@
     <Compile Include="Base\PageBrowser.cs" />
     <Compile Include="Base\WebDriverExtensions.cs" />
     <Compile Include="Base\WebElementExtensions.cs" />
-    <Compile Include="AdminFeatures\AdminLogin.feature.cs">
+    <Compile Include="FeaturesAdmin\AdminLogin.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AdminLogin.feature</DependentUpon>
@@ -113,6 +113,7 @@
     </Compile>
     <Compile Include="Base\BaseTestPage.cs" />
     <Compile Include="Base\IConfig.cs" />
+    <Compile Include="Mocks\Models\RoleType.cs" />
     <Compile Include="Mocks\TestData.cs" />
     <Compile Include="Pages\Admin\AdminLoginPage.cs" />
     <Compile Include="Pages\Booking\BookingCompletePage.cs" />
@@ -127,7 +128,7 @@
     <Compile Include="Pages\NotFoundTestPage.cs" />
     <Compile Include="Pages\RegistrationSuccessPage.cs" />
     <Compile Include="StepsAdmin\AdminLoginPageSteps.cs" />
-    <Compile Include="Steps\BeforeAndAfterTests.cs" />
+    <Compile Include="BeforeAndAfterTests.cs" />
     <Compile Include="Mocks\DapperExtensions.cs" />
     <Compile Include="Base\ITestDataManager.cs" />
     <Compile Include="Mocks\Models\Email.cs" />
@@ -147,7 +148,7 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="AdminFeatures\AdminLogin.feature">
+    <None Include="FeaturesAdmin\AdminLogin.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AdminLogin.feature.cs</LastGenOutput>
     </None>
@@ -188,6 +189,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\ApplicationBlock\Betterclassifieds.Utility\Paramount.Betterclassified.Utilities.csproj">
+      <Project>{c1b1d4cc-e982-472d-8fe3-8719ba24d272}</Project>
+      <Name>Paramount.Betterclassified.Utilities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ApplicationBlock\Configuration\ApplicationBlock.Configuration.csproj">
       <Project>{ca9b2482-2a5b-4666-b6ee-0be6034fd9c7}</Project>
       <Name>ApplicationBlock.Configuration</Name>

@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Web.UI;
 using BoDi;
 using NUnit.Framework;
@@ -11,7 +12,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using TechTalk.SpecFlow;
 
-namespace Paramount.Betterclassifieds.Tests.Functional.Steps
+namespace Paramount.Betterclassifieds.Tests.Functional
 {
     [Binding]
     public class BeforeAndAfterTests
@@ -20,12 +21,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
 
         private static IWebDriver _webDriver;
         private static TestConfiguration _configuration;
+        private static ITestDataManager _testDataManager;
 
         public BeforeAndAfterTests(IObjectContainer container)
         {
             _container = container;
             _container.RegisterInstanceAs(new PageBrowser(_webDriver, _configuration), typeof(PageBrowser));
             _container.RegisterInstanceAs(new AdminPageBrowser(_webDriver, _configuration), typeof(AdminPageBrowser));
+            _container.RegisterInstanceAs(new DapperDataManager(), typeof(ITestDataManager));
         }
 
         [BeforeTestRun]
@@ -64,7 +67,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             if (!Directory.Exists(screenShotDir))
                 Directory.CreateDirectory(screenShotDir);
 
-            screenshot.SaveAsFile(string.Format("{0}\\{1}.jpg",
+            screenshot.SaveAsFile(String.Format("{0}\\{1}.jpg",
                 screenShotDir,
                 TestContext.CurrentContext.Test.Name), ImageFormat.Jpeg);
         }
@@ -91,5 +94,43 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             }
             return driver;
         }
+
+        #region Data Setup
+        
+        [BeforeFeature("booking")]
+        public static void SetupBookingFeature()
+        {
+            // Use the dapper manager to initialise some baseline test data for our booking scenarios
+            ITestDataManager dataManager = new DapperDataManager();
+
+            // Online Publication  ( this should be removed later - no such thing as online publication ! )
+            dataManager.AddPublicationIfNotExists(TestData.OnlinePublication, Constants.PublicationType.Online, frequency: "Online", frequencyValue: null);
+            dataManager.AddPublicationAdTypeIfNotExists(TestData.OnlinePublication, Constants.AdType.OnlineAd);
+
+            // Print Publication
+            dataManager.AddPublicationIfNotExists(TestData.SeleniumPublication);
+            dataManager.AddPublicationAdTypeIfNotExists(TestData.SeleniumPublication, Constants.AdType.LineAd);
+            dataManager.AddEditionsToPublication(TestData.SeleniumPublication, 50);
+
+            // Categories ( assign to each publication automatically )
+            dataManager.AddCategoryIfNotExists(TestData.SubCategory, TestData.ParentCategory);
+
+            // Ratecard
+            dataManager.AddRatecardIfNotExists("Selenium Free Rate", 0, 0, TestData.SubCategory);
+
+            // Location and Area
+            dataManager.AddLocationIfNotExists("Australia", "Victoria", "Melbourne");
+        }
+
+        [BeforeFeature("booking", "extendbooking")]
+        public static void AddMembershipUser()
+        {
+            ITestDataManager dataManager = new DapperDataManager();
+
+            // Setup a demo user
+            dataManager.AddUserIfNotExists(TestData.Username, TestData.Password, TestData.UserEmail, RoleType.Advertiser);
+        }
+
+        #endregion
     }
 }

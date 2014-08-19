@@ -32,14 +32,16 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         #region Public Methods
 
-        public void WithUsername(string username)
+        public LoginTestPage WithUsername(string username)
         {
-            UsernameElement.SendKeys(username);
+            UsernameElement.FillText(username);
+            return this;
         }
 
-        public void WithPassword(string password)
+        public LoginTestPage WithPassword(string password)
         {
             PasswordElement.SendKeys(password);
+            return this;
         }
 
         public void ClickLogin()

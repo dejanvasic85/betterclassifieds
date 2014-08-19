@@ -17,11 +17,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         public void GivenIAmLoggedInAsWithPassword(string username, string password)
         {
             // Navigate to the login page
-            var loginPage = _pageBrowser.GoTo<LoginTestPage>();
-
-            loginPage.WithUsername(username);
-            loginPage.WithPassword(password);
-            loginPage.ClickLogin();
+            _pageBrowser.GoTo<LoginTestPage>()
+                .WithUsername(username)
+                .WithPassword(password)
+                .ClickLogin();
         }
     }
 }

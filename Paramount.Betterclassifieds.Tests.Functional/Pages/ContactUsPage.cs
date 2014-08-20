@@ -5,7 +5,7 @@ using OpenQA.Selenium;
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
     [TestPage(RelativeUrl = "Home/ContactUs")]
-    public class ContactUsPage : BaseTestPage
+    public class ContactUsPage : TestPage
     {
         public ContactUsPage(IWebDriver webdriver, IConfig config) : base(webdriver, config)
         { }

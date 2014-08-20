@@ -18,7 +18,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             _config = config;
         }
 
-        public T Init<T>(bool ensureUrl = true) where T : BaseTestPage
+        public T Init<T>(bool ensureUrl = true) where T : TestPage
         {
             var pageType = typeof(T);
             var page = (T)Activator.CreateInstance(pageType, _webDriver, _config);
@@ -42,7 +42,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             return page;
         }
 
-        public TPage GoTo<TPage>(params object[] query) where TPage : BaseTestPage
+        public TPage GoTo<TPage>(params object[] query) where TPage : TestPage
         {
             var relativeUrl = typeof(TPage).GetCustomAttribute<TestPageAttribute>().RelativeUrl;
             var fullPageUrl = GetBaseUrl() + string.Format(relativeUrl, query);
@@ -51,7 +51,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             return Init<TPage>();
         }
 
-        public void NavigateTo<TPage>(params object[] query) where TPage : BaseTestPage
+        public void NavigateTo<TPage>(params object[] query) where TPage : TestPage
         {
             var relativeUrl = typeof(TPage).GetCustomAttribute<TestPageAttribute>().RelativeUrl;
             var fullPageUrl = GetBaseUrl() + string.Format(relativeUrl, query);

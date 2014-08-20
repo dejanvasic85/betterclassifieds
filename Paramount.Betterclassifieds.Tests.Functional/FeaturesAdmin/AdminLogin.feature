@@ -3,8 +3,8 @@
 	As an administrator
 	I want the ability to login
 
-@admin @login @ignore
+@admin @login
 Scenario: User exists login successful
-	Given I have a registered admin account name "Selenium Admin"
-	When I login to administration with username "SeleniumAdmin" password "password123"
+	Given I have a registered admin account with username "autoadmin@email.com" and password "password"
+	When I login to administration with username "autoadmin@email.com" and password "password"
 	Then I should see the admin home page

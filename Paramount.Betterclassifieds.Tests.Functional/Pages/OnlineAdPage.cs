@@ -3,7 +3,7 @@
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
     [TestPage(RelativeUrl = "Ad/{0}/{1}")]
-    public class OnlineAdTestPage : BaseTestPage
+    public class OnlineAdTestPage : TestPage
     {
         public OnlineAdTestPage(IWebDriver webdriver, IConfig config)
             : base(webdriver, config)

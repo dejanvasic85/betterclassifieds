@@ -3,7 +3,7 @@
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
     [TestPage(RelativeUrl = "Account/Register")]
-    public class RegistrationSuccessPage : BaseTestPage
+    public class RegistrationSuccessPage : TestPage
     {
         public RegistrationSuccessPage(IWebDriver webdriver, IConfig config) 
             : base(webdriver, config)

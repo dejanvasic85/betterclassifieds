@@ -111,10 +111,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>OnlineAdView.feature</DependentUpon>
     </Compile>
-    <Compile Include="Base\BaseTestPage.cs" />
+    <Compile Include="Base\TestPage.cs" />
     <Compile Include="Base\IConfig.cs" />
     <Compile Include="Mocks\Models\RoleType.cs" />
     <Compile Include="Mocks\TestData.cs" />
+    <Compile Include="Pages\Admin\AdminDashboardPage.cs" />
     <Compile Include="Pages\Admin\AdminLoginPage.cs" />
     <Compile Include="Pages\Booking\BookingCompletePage.cs" />
     <Compile Include="Pages\Booking\BookingStep5TestPage.cs" />

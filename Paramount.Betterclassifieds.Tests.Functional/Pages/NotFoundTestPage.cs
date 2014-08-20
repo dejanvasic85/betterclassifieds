@@ -9,7 +9,7 @@ using OpenQA.Selenium.Support.PageObjects;
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
     [TestPage(RelativeUrl = "Error/NotFound")]
-    public class NotFoundTestPage : BaseTestPage
+    public class NotFoundTestPage : TestPage
     {
         public NotFoundTestPage(IWebDriver webdriver, IConfig config) : base(webdriver, config)
         {

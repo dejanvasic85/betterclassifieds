@@ -5,12 +5,12 @@ using System.Linq;
 
 namespace Paramount.Betterclassifieds.Tests.Functional
 {
-    public abstract class BaseTestPage
+    public abstract class TestPage
     {
         public readonly IWebDriver WebDriver;
         private readonly IConfig _config;
 
-        protected BaseTestPage(IWebDriver webdriver, IConfig config)
+        protected TestPage(IWebDriver webdriver, IConfig config)
         {
             this.WebDriver = webdriver;
             _config = config;

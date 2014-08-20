@@ -67,21 +67,21 @@ namespace Paramount.Betterclassifieds.Tests.Functional.FeaturesAdmin
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("User exists login successful")]
-        [NUnit.Framework.IgnoreAttribute()]
         [NUnit.Framework.CategoryAttribute("admin")]
         [NUnit.Framework.CategoryAttribute("login")]
         public virtual void UserExistsLoginSuccessful()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User exists login successful", new string[] {
                         "admin",
-                        "login",
-                        "ignore"});
+                        "login"});
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.Given("I have a registered admin account name \"Selenium Admin\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I have a registered admin account with username \"autoadmin@email.com\" and passwor" +
+                    "d \"password\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
- testRunner.When("I login to administration with username \"SeleniumAdmin\" password \"password123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I login to administration with username \"autoadmin@email.com\" and password \"passw" +
+                    "ord\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 10
  testRunner.Then("I should see the admin home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden

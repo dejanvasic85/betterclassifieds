@@ -6,7 +6,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
     [TestPage(RelativeUrl = "Booking/Step5.aspx")]
     [TestPage(RelativeUrl = "BundleBooking/BundlePage5.aspx")]
-    public class BookingStep5TestPage : BookingBaseTestPage
+    public class BookingStep5TestPage : BookingTestPage
     {
         public BookingStep5TestPage(IWebDriver webdriver, IConfig config)
             : base(webdriver, config)

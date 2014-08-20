@@ -4,9 +4,9 @@ using OpenQA.Selenium;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
-    public abstract class BookingBaseTestPage : BaseTestPage
+    public abstract class BookingTestPage : TestPage
     {
-        protected BookingBaseTestPage(IWebDriver webdriver, IConfig config)
+        protected BookingTestPage(IWebDriver webdriver, IConfig config)
             : base(webdriver, config)
         {
         }

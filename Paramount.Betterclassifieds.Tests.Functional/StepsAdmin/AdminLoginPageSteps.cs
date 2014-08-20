@@ -21,6 +21,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.StepsAdmin
         [Given(@"I have a registered admin account with username ""(.*)"" and password ""(.*)""")]
         public void GivenIHaveARegisteredAdminAccountWithUsernameAndPassword(string username, string password)
         {
+            _dataManager.DropUserIfExists(username);
             _dataManager.AddUserIfNotExists(username, password, username, RoleType.Administrator);
         }
 

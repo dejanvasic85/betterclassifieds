@@ -221,25 +221,32 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 
         public Guid? AddUserIfNotExists(string username, string password, string email, RoleType roleType)
         {
-            var applicationName = Membership.Providers[RoleProviderDictionary[roleType]].ApplicationName;
-            var applicationId = membershipDb.Query<Guid?>("SELECT ApplicationId FROM aspnet_Applications WHERE ApplicationName = @applicationName", new { applicationName }).First();
-            var userId = membershipDb.Query<Guid?>("SELECT UserId FROM aspnet_Users WHERE UserName = @username AND ApplicationId = @applicationId", new { username, applicationId }).FirstOrDefault();
+            using (var scope = new TransactionScope())
+            {
+                var membershipProvider = Membership.Providers[RoleProviderDictionary[roleType]];
+                if (membershipProvider == null)
+                    throw new NullReferenceException();
 
-            if (userId.HasValue)
+                var applicationName = membershipProvider.ApplicationName;
+                var applicationId = membershipDb.Query<Guid?>("SELECT ApplicationId FROM aspnet_Applications WHERE ApplicationName = @applicationName", new { applicationName }).First();
+                var userId = membershipDb.Query<Guid?>("SELECT UserId FROM aspnet_Users WHERE UserName = @username AND ApplicationId = @applicationId", new { username, applicationId }).FirstOrDefault();
+
+                if (userId.HasValue)
+                    return userId;
+
+                MembershipCreateStatus createStatus;
+                membershipProvider.CreateUser(username, password, username, null, null, true, Guid.NewGuid(), out createStatus);
+
+                userId = membershipDb.Query<Guid?>("SELECT UserId FROM aspnet_Users WHERE UserName = @username", new { username }).First();
+
+                string sql = string.Format(
+                    "INSERT INTO {0} (UserID, FirstName, LastName, Email, PostCode, ProfileVersion, LastUpdatedDate) VALUES ('{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}')",
+                    Constants.MembershipTable.UserProfile, userId, username, username, email, 1000, 1, DateTime.Now);
+
+                membershipDb.Execute(sql);
+                scope.Complete();
                 return userId;
-
-            MembershipCreateStatus createStatus;
-
-            Membership.Providers[RoleProviderDictionary[roleType]].CreateUser(username, password, username, null, null, true, Guid.NewGuid(), out createStatus);
-
-            userId = membershipDb.Query<Guid?>("SELECT UserId FROM aspnet_Users WHERE UserName = @username", new { username }).First();
-
-            string sql = string.Format(
-                "INSERT INTO {0} (UserID, FirstName, LastName, Email, PostCode, ProfileVersion, LastUpdatedDate) VALUES ('{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}')",
-                Constants.MembershipTable.UserProfile, userId, username, username, email, 1000, 1, DateTime.Now);
-
-            membershipDb.Execute(sql);
-            return userId;
+            }
         }
 
         public List<Email> GetSentEmailsFor(string email)

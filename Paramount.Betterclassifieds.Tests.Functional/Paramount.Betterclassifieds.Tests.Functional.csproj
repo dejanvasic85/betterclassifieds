@@ -115,8 +115,8 @@
     <Compile Include="Base\IConfig.cs" />
     <Compile Include="Mocks\Models\RoleType.cs" />
     <Compile Include="Mocks\TestData.cs" />
-    <Compile Include="Pages\Admin\AdminDashboardPage.cs" />
-    <Compile Include="Pages\Admin\AdminLoginPage.cs" />
+    <Compile Include="PagesAdmin\AdminDashboardPage.cs" />
+    <Compile Include="PagesAdmin\AdminLoginPage.cs" />
     <Compile Include="Pages\Booking\BookingCompletePage.cs" />
     <Compile Include="Pages\Booking\BookingStep5TestPage.cs" />
     <Compile Include="Pages\Booking\BookingBasePage.cs" />
@@ -188,7 +188,9 @@
     <None Include="packages.config" />
     <None Include="Paramount.Betterclassifieds.Tests.Functional.nuspec" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Pages\Admin\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ApplicationBlock\Betterclassifieds.Utility\Paramount.Betterclassified.Utilities.csproj">
       <Project>{c1b1d4cc-e982-472d-8fe3-8719ba24d272}</Project>

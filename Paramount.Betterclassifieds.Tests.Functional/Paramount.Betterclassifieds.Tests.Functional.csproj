@@ -188,9 +188,7 @@
     <None Include="packages.config" />
     <None Include="Paramount.Betterclassifieds.Tests.Functional.nuspec" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\Admin\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ApplicationBlock\Betterclassifieds.Utility\Paramount.Betterclassified.Utilities.csproj">
       <Project>{c1b1d4cc-e982-472d-8fe3-8719ba24d272}</Project>

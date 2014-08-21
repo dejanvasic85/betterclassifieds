@@ -228,11 +228,15 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                     throw new NullReferenceException();
 
                 var applicationName = membershipProvider.ApplicationName;
-                var applicationId = membershipDb.Query<Guid?>("SELECT ApplicationId FROM aspnet_Applications WHERE ApplicationName = @applicationName", new { applicationName }).First();
-                var userId = membershipDb.Query<Guid?>("SELECT UserId FROM aspnet_Users WHERE UserName = @username AND ApplicationId = @applicationId", new { username, applicationId }).FirstOrDefault();
+                var applicationId = membershipDb.Query<Guid?>("SELECT ApplicationId FROM aspnet_Applications WHERE ApplicationName = @applicationName", new { applicationName }).FirstOrDefault();
+                Guid? userId;
+                if (applicationId.HasValue)
+                {
+                    userId = membershipDb.Query<Guid?>("SELECT UserId FROM aspnet_Users WHERE UserName = @username AND ApplicationId = @applicationId", new { username, applicationId }).FirstOrDefault();
 
-                if (userId.HasValue)
-                    return userId;
+                    if (userId.HasValue)
+                        return userId;
+                }
 
                 MembershipCreateStatus createStatus;
                 membershipProvider.CreateUser(username, password, username, null, null, true, Guid.NewGuid(), out createStatus);

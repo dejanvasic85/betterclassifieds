@@ -1,7 +1,10 @@
-﻿namespace Paramount.Betterclassifieds.Business
+﻿using System.Security.Principal;
+
+namespace Paramount.Betterclassifieds.Business
 {
     public interface IAuthManager
     {
+        bool IsUserIdentityLoggedIn(IPrincipal user);
         void Login(string username, bool createPersistentCookie, string role = "User");
         void Logout();
         bool ValidatePassword(string username, string password);

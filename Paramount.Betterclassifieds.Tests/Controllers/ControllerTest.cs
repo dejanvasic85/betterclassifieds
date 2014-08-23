@@ -1,4 +1,5 @@
-﻿using Microsoft.Practices.Unity;
+﻿using System.Security.Principal;
+using Microsoft.Practices.Unity;
 using NUnit.Framework;
 using Moq;
 using Paramount.Betterclassifieds.Tests.Mocks;
@@ -33,18 +34,18 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _verifyList.ForEach(action => action());
             _verifyList.Clear();
         }
-        
+
         /// <summary>
         /// Creates a controller with a mock of the HttpContextBase with optional base url and route information (for testing routes)
         /// </summary>
-        protected T CreateController(string mockUrl = "~/MockUrl/", RouteData routeData = null, RouteCollection routes = null)
+        protected T CreateController(string mockUrl = "~/MockUrl/", RouteData routeData = null, RouteCollection routes = null, Mock<IPrincipal> mockUser = null )
         {
             _containerBuilder.RegisterType(typeof(T));
 
             var controller = _containerBuilder.Resolve<T>();
 
             // Mock all the required http context stuff ( really helpful for resolving Http crap like Routes )
-            var mockHttpContext = CreateHttpContextBase(mockUrl);
+            var mockHttpContext = CreateHttpContextBase(mockUrl, mockUser);
             if (routeData == null)
                 routeData = new RouteData();
 
@@ -59,6 +60,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             controller.Url = new UrlHelper(mockRequestContext, routes);
             controller.ControllerContext = mockControllerContext;
+
 
             return controller;
         }
@@ -83,7 +85,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             return _mockRepository.CreateMockOf<TMock>(_containerBuilder, _verifyList);
         }
 
-        private Mock<HttpContextBase> CreateHttpContextBase(string url)
+        private Mock<HttpContextBase> CreateHttpContextBase(string url, Mock<IPrincipal> mockUser = null)
         {
             var context = CreateMockOf<HttpContextBase>();
             var request = CreateMockOf<HttpRequestBase>();
@@ -110,6 +112,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             context.Setup(ctx => ctx.Session).Returns(session.Object);
             context.Setup(ctx => ctx.Server).Returns(server.Object);
 
+            if (mockUser != null)
+                context.Setup(call => call.User).Returns(mockUser.Object);
 
             return context;
         }

@@ -1,16 +1,13 @@
-﻿using System;
-using System.Web.Security;
-using AutoMapper;
-using Paramount.Betterclassifieds.Business;
-using Paramount.Betterclassifieds.Business.Broadcast;
-using Paramount.Betterclassifieds.Business.Managers;
-using Paramount.Betterclassifieds.Business.Search;
-using Paramount.Betterclassifieds.Presentation.ViewModels;
+﻿using AutoMapper;
 using System.Web.Mvc;
-using Paramount.Utility;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
+    using Business;
+    using Business.Broadcast;
+    using Business.Search;
+    using ViewModels;
+
     public class AccountController : BaseController, IMappingBehaviour
     {
         private readonly IUserManager _userManager;
@@ -32,7 +29,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [RequireHttps]
         public ActionResult Login(string returnUrl = "")
         {
-            if (IsUserLoggedIn())
+            if (_authManager.IsUserIdentityLoggedIn(this.User))
                 return RedirectToAction("Index", "Home");
 
             if (returnUrl.HasValue())
@@ -91,7 +88,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [RequireHttps]
         public ActionResult Register(RegisterViewModel viewModel)
         {
-            if (IsUserLoggedIn())
+            if (_authManager.IsUserIdentityLoggedIn(this.User))
             {
                 ModelState.AddModelError("UserAlreadyRegistered", "You are already logged in.");
                 return View("Login", new LoginOrRegisterModel { RegisterViewModel = viewModel });

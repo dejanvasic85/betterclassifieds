@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Linq;
 using System.Linq;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
 using AutoMapper;
@@ -18,6 +19,11 @@ namespace Paramount.Betterclassifieds.Security
         public AuthenticationService(IApplicationConfig applicationConfig)
         {
             _applicationConfig = applicationConfig;
+        }
+
+        public bool IsUserIdentityLoggedIn(IPrincipal user)
+        {
+            return user != null && user.Identity.IsAuthenticated;
         }
 
         public void Login(string username, bool createPersistentCookie, string role = "User")

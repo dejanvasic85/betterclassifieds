@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq;
+using System.Security.Principal;
+using System.Web.Security;
 using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business;
@@ -30,16 +33,16 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                     new AdSearchResult{AdId = 1, CategoryId = 1, CategoryName = "MockCategory", Heading = "Ad 1", Description = "Description 1"},
                     new AdSearchResult{AdId = 2, CategoryId = 1, CategoryName = "MockCategory", Heading = "Ad 2", Description = "Description 2"}
                 });
-            
+
             // Act
             var result = CreateController().Index();
 
             // Assert
             result.IsTypeOf<ViewResult>();
-            var viewResult = (ViewResult) result;
+            var viewResult = (ViewResult)result;
             var homeModel = viewResult.Model;
             homeModel.IsTypeOf<HomeModel>();
-            ((HomeModel) homeModel).AdSummaryList.Count.IsEqualTo(2);
+            ((HomeModel)homeModel).AdSummaryList.Count.IsEqualTo(2);
         }
 
         [Test]
@@ -66,7 +69,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // Assert
             result.IsTypeOf<ViewResult>();
-            var viewResult = (ViewResult) result;
+            var viewResult = (ViewResult)result;
             var model = viewResult.Model;
             model.IsTypeOf<ContactUsModel>();
             var address = viewResult.ViewBag.Address as AddressViewModel;
@@ -79,7 +82,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         public void ContactUs_Post_SendsEmailAndCallsManager_ReturnsJsonResult()
         {
             // Arrange
-            var supportEmails = new []{"fake@email.com"};
+            var supportEmails = new[] { "fake@email.com" };
             var mockModel = new ContactUsModel
             {
                 FullName = "George C",
@@ -92,7 +95,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             CreateMockOf<IBroadcastManager>()
                 .SetupWithVerification(call => call.SendEmail(
                     It.IsAny<SupportRequest>(),
-                    It.Is<string[]>(s => s == supportEmails)), 
+                    It.Is<string[]>(s => s == supportEmails)),
                     result: It.IsAny<Guid>());
 
             CreateMockOf<IEnquiryManager>()
@@ -102,7 +105,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                     It.Is<string>(s => s == mockModel.Phone),
                     It.Is<string>(s => s == mockModel.Comment),
                     It.IsAny<string>()));
-            
+
             CreateMockOf<IClientConfig>()
                 .SetupGet(prop => prop.SupportEmailList).Returns(supportEmails).Verifiable();
 
@@ -112,6 +115,61 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             // Assert
             var result = controller.ContactUs(mockModel);
             result.IsTypeOf<JsonResult>();
+        }
+    }
+
+    [TestFixture]
+    public class AccountControllerTests : ControllerTest<AccountController>
+    {
+        private Mock<IUserManager> mockUserMgr;
+        private Mock<IAuthManager> mockAuthMgr;
+        private Mock<IBroadcastManager> mockBroadcastMgr;
+        private Mock<ISearchService> searchServiceMgr;
+
+        [SetUp]
+        public void SetupCotroller()
+        {
+            mockUserMgr = CreateMockOf<IUserManager>();
+            mockAuthMgr = CreateMockOf<IAuthManager>();
+            mockBroadcastMgr = CreateMockOf<IBroadcastManager>();
+            searchServiceMgr = CreateMockOf<ISearchService>();
+        }
+
+        [Test]
+        public void Login_UserAlreadyLoggedIn_RedirectsToHome()
+        {
+            // arrange            
+            mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(It.IsAny<IPrincipal>()), true);
+            var mockUser = CreateMockOf<IPrincipal>();
+
+            // act
+            var controller = CreateController(mockUser: mockUser);
+            var result = controller.Login(string.Empty);
+
+            // assert
+            result.IsTypeOf<RedirectToRouteResult>();
+            var redirectResult = (RedirectToRouteResult) result;
+            redirectResult.RouteValues.ElementAt(0).Value.IsEqualTo("Index");
+            redirectResult.RouteValues.ElementAt(1).Value.IsEqualTo("Home");
+        }
+
+        [Test]
+        public void Login_UserNeedsToLoginOrRegister_ReturnsLoginOrRegisterModel()
+        {
+            // arrange
+            mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(It.IsAny<IPrincipal>()), false);
+            var mockUser = CreateMockOf<IPrincipal>();
+            
+            // act
+            var ctrl = CreateController(mockUser: mockUser);
+            var result = ctrl.Login("/fakeReturnUrl");
+
+            // assert
+            ctrl.TempData.ContainsKey(AccountController.ReturnUrlKey);
+            ctrl.TempData.ContainsValue("/fakeReturnUrl");
+            result.IsTypeOf<ViewResult>();
+            var viewResult = ((ViewResult) result);
+            viewResult.Model.IsTypeOf<LoginOrRegisterModel>();
         }
     }
 }

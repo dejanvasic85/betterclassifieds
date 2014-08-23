@@ -11,11 +11,6 @@ namespace Paramount.Betterclassifieds.Presentation
         protected BaseController(ISearchService searchService)
         {
             _searchService = searchService;
-        }
-
-        public bool IsUserLoggedIn()
-        {
-            return this.User != null && this.User.Identity.IsAuthenticated;
-        }
+        }   
     }
 }

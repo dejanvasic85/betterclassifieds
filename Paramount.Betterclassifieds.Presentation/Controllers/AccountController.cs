@@ -46,7 +46,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [RequireHttps]
         public ActionResult Login(LoginViewModel loginViewModel)
         {
-            if (User != null && User.Identity.IsAuthenticated)
+            if (_authManager.IsUserIdentityLoggedIn(this.User))
             {
                 ModelState.AddModelError("AlreadyLoggedIn", "You are already logged in!");
                 return View();

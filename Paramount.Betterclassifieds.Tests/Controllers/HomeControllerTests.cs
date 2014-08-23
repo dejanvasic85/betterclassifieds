@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Security.Principal;
 using System.Web.Security;
 using Moq;
 using NUnit.Framework;
@@ -115,61 +113,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             // Assert
             var result = controller.ContactUs(mockModel);
             result.IsTypeOf<JsonResult>();
-        }
-    }
-
-    [TestFixture]
-    public class AccountControllerTests : ControllerTest<AccountController>
-    {
-        private Mock<IUserManager> mockUserMgr;
-        private Mock<IAuthManager> mockAuthMgr;
-        private Mock<IBroadcastManager> mockBroadcastMgr;
-        private Mock<ISearchService> searchServiceMgr;
-
-        [SetUp]
-        public void SetupCotroller()
-        {
-            mockUserMgr = CreateMockOf<IUserManager>();
-            mockAuthMgr = CreateMockOf<IAuthManager>();
-            mockBroadcastMgr = CreateMockOf<IBroadcastManager>();
-            searchServiceMgr = CreateMockOf<ISearchService>();
-        }
-
-        [Test]
-        public void Login_UserAlreadyLoggedIn_RedirectsToHome()
-        {
-            // arrange            
-            mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(It.IsAny<IPrincipal>()), true);
-            var mockUser = CreateMockOf<IPrincipal>();
-
-            // act
-            var controller = CreateController(mockUser: mockUser);
-            var result = controller.Login(string.Empty);
-
-            // assert
-            result.IsTypeOf<RedirectToRouteResult>();
-            var redirectResult = (RedirectToRouteResult) result;
-            redirectResult.RouteValues.ElementAt(0).Value.IsEqualTo("Index");
-            redirectResult.RouteValues.ElementAt(1).Value.IsEqualTo("Home");
-        }
-
-        [Test]
-        public void Login_UserNeedsToLoginOrRegister_ReturnsLoginOrRegisterModel()
-        {
-            // arrange
-            mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(It.IsAny<IPrincipal>()), false);
-            var mockUser = CreateMockOf<IPrincipal>();
-            
-            // act
-            var ctrl = CreateController(mockUser: mockUser);
-            var result = ctrl.Login("/fakeReturnUrl");
-
-            // assert
-            ctrl.TempData.ContainsKey(AccountController.ReturnUrlKey);
-            ctrl.TempData.ContainsValue("/fakeReturnUrl");
-            result.IsTypeOf<ViewResult>();
-            var viewResult = ((ViewResult) result);
-            viewResult.Model.IsTypeOf<LoginOrRegisterModel>();
         }
     }
 }

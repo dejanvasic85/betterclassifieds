@@ -15,7 +15,7 @@ namespace Paramount.Betterclassifieds.Business
         public string State { get; set; }
         public string Postcode { get; set; }
 
-        public bool AuthenticateUser(IAuthManager authManager, string password, bool persistAuthCookie = true)
+        public virtual bool AuthenticateUser(IAuthManager authManager, string password, bool persistAuthCookie = true)
         {
             if (!authManager.ValidatePassword(Username, password))
                 return false;

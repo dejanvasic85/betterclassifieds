@@ -61,25 +61,28 @@ namespace BetterClassified.Repository
 
         public string ParseFooterHtml()
         {
-            var footerNode = document.DocumentNode.SelectSingleNode("//footer");
+            return string.Empty;
+            // The footer has completely changed
+            // So we are just returning nothing for now.
+            //var footerNode = document.DocumentNode.SelectSingleNode("//div[@id='footer']");
 
-            if (footerNode == null)
-                return string.Empty;
+            //if (footerNode == null)
+            //    return string.Empty;
 
-            var links = footerNode.Descendants().Where(a => a.Name == "a");
-            
-            foreach (var link in links)
-            {
-                var href = link.Attributes["href"];
+            //var links = footerNode.Descendants().Where(a => a.Name == "a");
 
-                if (href != null && !href.Value.StartsWith("http") && !href.Value.StartsWith("mailto"))
-                {
-                    href.Value = href.Value.TrimStart('/').Prefix(homeUrl);
-                }
-            }
+            //foreach (var link in links)
+            //{
+            //    var href = link.Attributes["href"];
 
-            // Sanitise the footer links to contain the full link back to the music
-            return footerNode.InnerHtml;
+            //    if (href != null && !href.Value.StartsWith("http") && !href.Value.StartsWith("mailto"))
+            //    {
+            //        href.Value = href.Value.TrimStart('/').Prefix(homeUrl);
+            //    }
+            //}
+
+            //// Sanitise the footer links to contain the full link back to the music
+            //return footerNode.InnerHtml;
         }
     }
 }

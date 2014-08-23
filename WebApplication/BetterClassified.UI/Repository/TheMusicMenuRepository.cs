@@ -9,22 +9,18 @@ namespace BetterClassified.Repository
     public class TheMusicMenuRepository : IMenuRepository
     {
         private readonly IClientConfig _clientConfigSettings;
-        private readonly TheMusicHtmlScraper htmlScraper;
 
         public TheMusicMenuRepository(IClientConfig _clientConfigSettings)
         {
             this._clientConfigSettings = _clientConfigSettings;
-
-            // Attempt to fetch theMusic html
-            WebClient client = new WebClient();
-            var theMusicContent = client.DownloadString(_clientConfigSettings.PublisherHomeUrl);
-            htmlScraper = new TheMusicHtmlScraper(theMusicContent, _clientConfigSettings.PublisherHomeUrl);
         }
 
         public IDictionary<string, string> GetMenuItemLinkNamePairs()
         {
             return HttpCacher.FetchOrCreate("TheMusicMenuCache", () =>
             {
+                var htmlScraper = GetHtmlScraper();
+
                 // Parse the items and add home link in case nothing comes back
                 var parsedItems = htmlScraper.ParseMenuItems().AddOrUpdate("Home", _clientConfigSettings.PublisherHomeUrl);
 
@@ -33,12 +29,28 @@ namespace BetterClassified.Repository
                     parsedItems.Remove("Classies");
 
                 return parsedItems;
-            });
+            }, minutesToCache: 1440);
         }
 
         public string GetFooterContent()
         {
-            return HttpCacher.FetchOrCreate("TheMusicFooter", () => htmlScraper.ParseFooterHtml(), minutesToCache: 0, seconds: 5);
+            return HttpCacher.FetchOrCreate("TheMusicFooter", () => GetHtmlScraper().ParseFooterHtml(), 1440);
+        }
+
+        private TheMusicHtmlScraper GetHtmlScraper()
+        {
+            return new TheMusicHtmlScraper(GetTheMusicContent(), _clientConfigSettings.PublisherHomeUrl);
+        }
+
+        private string _theMusicContent;
+        private string GetTheMusicContent()
+        {
+            if (_theMusicContent.HasValue())
+                return _theMusicContent;
+
+            WebClient client = new WebClient();
+            _theMusicContent = client.DownloadString(_clientConfigSettings.PublisherHomeUrl);
+            return _theMusicContent;
         }
     }
 

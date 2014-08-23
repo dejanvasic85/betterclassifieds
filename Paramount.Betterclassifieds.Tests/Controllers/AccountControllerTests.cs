@@ -126,9 +126,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             ctrl.ModelState.ElementAt(0).Key.IsEqualTo("BadPassword");
         }
 
-        [Ignore]
         [Test]
-        public void Login_Post_CorrectPassword_RedirectToReturnUrl()
+        public void Login_Post_CorrectPassword_RedirectToReturnUrlInTempData()
         {
             // arrange
             var mockTempData = new TempDataDictionary {
@@ -149,6 +148,10 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // assert - that we have an error
             result.IsTypeOf<RedirectResult>();
+            var redirectResult = ((RedirectResult) result);
+            redirectResult.Url.IsEqualTo("/fakeReturnUrl");
         }
+
+
     }
 }

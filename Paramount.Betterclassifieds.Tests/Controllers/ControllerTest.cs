@@ -38,7 +38,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         /// <summary>
         /// Creates a controller with a mock of the HttpContextBase with optional base url and route information (for testing routes)
         /// </summary>
-        protected T CreateController(string mockUrl = "~/MockUrl/", RouteData routeData = null, RouteCollection routes = null, Mock<IPrincipal> mockUser = null )
+        protected T CreateController(string mockUrl = "~/MockUrl/", RouteData routeData = null, 
+            RouteCollection routes = null, TempDataDictionary mockTempData = null, Mock<IPrincipal> mockUser = null)
         {
             _containerBuilder.RegisterType(typeof(T));
 
@@ -60,7 +61,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             controller.Url = new UrlHelper(mockRequestContext, routes);
             controller.ControllerContext = mockControllerContext;
-
+            controller.TempData = mockTempData;
 
             return controller;
         }

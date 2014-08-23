@@ -125,5 +125,30 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             ctrl.ModelState.Count.IsEqualTo(1);
             ctrl.ModelState.ElementAt(0).Key.IsEqualTo("BadPassword");
         }
+
+        [Ignore]
+        [Test]
+        public void Login_Post_CorrectPassword_RedirectToReturnUrl()
+        {
+            // arrange
+            var mockTempData = new TempDataDictionary {
+                {
+                    AccountController.ReturnUrlKey, "/fakeReturnUrl"
+                }};
+            var mockApplicationUser = CreateMockOf<ApplicationUser>();
+            mockApplicationUser
+                .SetupWithVerification(call => call.AuthenticateUser(mockAuthMgr.Object, It.IsAny<string>(), It.IsAny<bool>()), true);
+            mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(It.IsAny<IPrincipal>()), false);
+            mockUserMgr.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.Is<string>(s => s == "fakeUser")), mockApplicationUser.Object);
+            var mockUser = CreateMockOf<IPrincipal>();
+            var mockLoginViewModel = new LoginViewModel { Username = "fakeUser" };
+
+            // act
+            var ctrl = CreateController(mockUser: mockUser, mockTempData: mockTempData);
+            var result = ctrl.Login(mockLoginViewModel);
+
+            // assert - that we have an error
+            result.IsTypeOf<RedirectResult>();
+        }
     }
 }

@@ -20,9 +20,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             get { return FindElement(By.Id("ctl00_ContentPlaceHolder1_ddlUpcomingEditions")); }
         }
 
-        private IWebElement InsertionsElement
+        private SelectElement InsertionsElement
         {
-            get { return FindElement(By.Id("ctl00_ContentPlaceHolder1_ddlInserts")); }
+            get { return new SelectElement(FindElement(By.Id("ctl00_ContentPlaceHolder1_ddlInserts"))); }
         }
 
         #endregion
@@ -43,7 +43,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         public void SelectInsertionCount(int insertions)
         {
-            InsertionsElement.SelectOptionIndex(insertions);
+            InsertionsElement.SelectByIndex(insertions);
         }
     }
 }

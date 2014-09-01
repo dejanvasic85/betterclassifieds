@@ -63,7 +63,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
 
             var bookingStep4 = _pageBrowser.Init<BookingStep4TestPage>();
             bookingStep4.SelectFirstEditionDate();
-            bookingStep4.SelectInsertionCount(5);
+            bookingStep4.SelectInsertionCount(2);
             bookingStep4.Proceed();
 
             var bookingStep5 = _pageBrowser.Init<BookingStep5TestPage>();

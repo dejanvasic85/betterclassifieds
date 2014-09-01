@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
@@ -20,9 +21,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             get { return FindElement(By.Id("ctl00_ContentPlaceHolder1_ddlUpcomingEditions")); }
         }
 
-        private SelectElement InsertionsElement
+        private IWebElement InsertionsElement
         {
-            get { return new SelectElement(FindElement(By.Id("ctl00_ContentPlaceHolder1_ddlInserts"))); }
+            get { return FindElement(By.Id("ctl00_ContentPlaceHolder1_ddlInserts")); }
         }
 
         #endregion
@@ -43,7 +44,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         public void SelectInsertionCount(int insertions)
         {
-            InsertionsElement.SelectByIndex(insertions);
+            Thread.Sleep(1000); // For some reason we need to slow this down a little bit.
+            InsertionsElement.SelectOptionIndex(insertions);
         }
     }
 }

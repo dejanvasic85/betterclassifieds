@@ -306,6 +306,7 @@
     <Content Include="Scripts\Account\Login.min.js">
       <DependentUpon>Login.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\Booking\BookingCart.js" />
     <Content Include="Scripts\bootstrap-3.1.0.js" />
     <Content Include="Content\TheMusic\fonts\ufonts.com_alternate_gothic_no2_d.ttf" />
     <Content Include="Scripts\bootstrap-3.1.0.min.js">
@@ -322,6 +323,10 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js">
       <DependentUpon>jquery.validate.unobtrusive.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\knockout-3.2.0.js" />
+    <Content Include="Scripts\knockout-3.2.0.min.js">
+      <DependentUpon>knockout-3.2.0.js</DependentUpon>
     </Content>
     <Content Include="Scripts\Listings\Find.js" />
     <Content Include="Scripts\Listings\Find.min.js">
@@ -369,6 +374,9 @@
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="Scripts\toastr-2.0.1.min.js.map">
       <DependentUpon>toastr-2.0.1.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\knockout-3.2.0.min.js.map">
+      <DependentUpon>knockout-3.2.0.min.js</DependentUpon>
     </Content>
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\paramount-validate-tooltip.min.js">

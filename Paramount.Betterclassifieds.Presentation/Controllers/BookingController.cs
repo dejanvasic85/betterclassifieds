@@ -40,7 +40,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpPost]
-        public ActionResult Step1(int categoryId, int[] publications)
+        public ActionResult Step1(int categoryId, int subCategory, int[] publications)
         {
             // Create new booking here if doesn't exist
             var id = _bookingCartSessionManager.GetId();
@@ -53,7 +53,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             // Persist and move on
             _bookingCartRepository.SaveBookingCart(bookingCart);
-
 
             return Json("success");
         }

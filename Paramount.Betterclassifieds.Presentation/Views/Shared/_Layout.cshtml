@@ -23,18 +23,27 @@
     
 </head>
     <body>
+        
+        @*JQuery should go before anything*@
         <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.11.0.js")"></script>
+
         <div class="container">
             @*Render the application layout*@
             @RenderBody()
         </div>
 
-        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate-1.12.0.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/bootstrap-3.1.0.js")"></script>
+        @*Third party*@
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate-1.12.0.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/knockout-3.2.0.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/bootstrap-3.1.0.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/toastr-2.0.1.min.js")"></script>
+        
+        @*Paramount Scripts*@
+        <script type="text/javascript" src="@Url.Content("~/Scripts/paramount-validate-default.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/paramount-site.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/Booking/BookingCart.js")"></script>
 
-        <script type="text/javascript" src="@Url.Content("~/Scripts/paramount-validate-default.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/paramount-site.js")"></script>
         @RenderSection("Scripts", false)
     </body>
 </html>

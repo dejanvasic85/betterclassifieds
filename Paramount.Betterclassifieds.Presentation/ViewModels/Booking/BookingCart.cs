@@ -16,6 +16,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 
         public int? CategoryId { get; set; }
 
+        public int? SubCategoryId { get; set; }
+
         public List<int> Publications { get; set; }
 
         public BookingCart()
@@ -25,7 +27,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 
         public bool IsStep1NotValid()
         {
-            return !CategoryId.HasValue;
+            return !CategoryId.HasValue || SubCategoryId.HasValue;
         }
     }
 

@@ -3,6 +3,7 @@ using System.Web;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 {
+    // todo - Move this in to a lifetime managed object for Unity. So that we don't keep calling GetId
     public class BookingCartSessionManager
     {
         public string GetId()

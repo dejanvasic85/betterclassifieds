@@ -9,9 +9,11 @@ namespace Paramount.Betterclassifieds.Business.Search
         List<AdSearchResult> GetAds(string searchterm, int? categoryId, int? locationId, int index = 0, int pageSize = 25, AdSearchSortOrder order = AdSearchSortOrder.MostRelevant);
         List<AdSearchResult> GetLatestAds(int pageSize = 10);
         List<CategorySearchResult> GetTopLevelCategories();
+        List<CategorySearchResult> GetCategories();
         List<LocationSearchResult> GetLocations();
         AdSearchResult GetAdById(int id);
         SeoNameMappingModel GetSeoMapping(string seoName);
         TutorAdModel GetTutorAd(int id);
+        List<PublicationModel> GetPublications();
     }
 }

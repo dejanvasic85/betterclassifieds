@@ -2,13 +2,15 @@
 
 @label-publication: #428bca;
 @label-category: #f0ad4e;
+@success: #c1e2b3;
+@help: #5bc0de;
 
 .top-buffer-10 {
     margin-top: 10px;
 }
 
-.bottom-buffer-10{
-    margin-bottom: 10px
+.bottom-buffer-10 {
+    margin-bottom: 10px;
 }
 
 .top-buffer-20 {
@@ -29,20 +31,53 @@
 }
 
 
-.label-publication{
+.label-publication {
     background-color: @label-publication;
 }
 
-.label-category{
+.label-category {
     background-color: @label-category;
 }
 
-@media (max-width: 766px){
+@media (max-width: 766px) {
     /* Smaller widths stack controls on top of another with no margin */
     .form-control {
         margin-top: 5px;
     }
-    .btn{
+
+    .btn {
         margin-top: 5px;
     }
+}
+
+.no-display {
+    display: none;
+}
+
+.button-options {
+    .btn {
+        margin-top: 10px;
+    }
+
+    .btn-default.active {
+        background-color: @success;
+    }
+}
+
+.bs-callout {
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
+}
+
+.bs-callout-info {
+    border-left-color: @help;
+    h4 {
+        color: @help;
+    }
+}
+.padded-20{
+    padding:20px;
 }

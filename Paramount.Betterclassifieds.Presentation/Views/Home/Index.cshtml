@@ -1,5 +1,4 @@
 ﻿@using Paramount
-@using Paramount.Betterclassifieds.Presentation.LegacyIntegration
 @model Paramount.Betterclassifieds.Presentation.ViewModels.HomeModel
 
 @{
@@ -18,7 +17,7 @@
                 Start designing your online and print ad now!
             </p>
             <p>
-                <a class="btn btn-lg btn-primary" href="@Url.Content(LegacyLinks.StartBooking)" role="button">Place New Ad &raquo;</a>
+                <a class="btn btn-lg btn-primary" href="@Url.Action("Step1", "Booking")" role="button">Place New Ad &raquo;</a>
             </p>
         </div>
         <div class="jumbotron">

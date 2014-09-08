@@ -6,10 +6,10 @@
 (function ($) {
 
     $(function () {
-        
+
         // Global ajax error handler
         $.ajaxSetup({
-            error : function() {
+            error: function () {
                 toastr.error('Oh no. We were unable to connect to our server. Check your internet connection and try again.');
             }
         });
@@ -46,6 +46,27 @@
                 });
                 me.removeAttr('disabled');
             });
+        });
+
+        // JQuery extensions
+        $.fn.extend({
+            loadSubCategories: function (url, parentCategoryId) {
+                var me = this;
+                me.empty();
+                if (parentCategoryId === "") {
+                    me.addClass('hidden');
+                    return me;
+                }
+                me.attr('disabled', 'disabled').append('<option>Loading...</option>');
+                $.getJSON(url, { parentId: parentCategoryId }).done(function (data) {
+                    me.empty().append('<option>-- Sub Category --</option>');
+                    $.each(data, function (index, option) {
+                        me.append('<option value=' + option.CategoryId + '>' + option.Title + '</option>');
+                    });
+                    me.removeAttr('disabled').removeClass('hidden');
+                });
+                return me;
+            }
         });
     });
 

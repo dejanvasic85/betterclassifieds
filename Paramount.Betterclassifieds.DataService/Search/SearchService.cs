@@ -1,15 +1,9 @@
-﻿using System.Reflection;
-using System.Security.Cryptography;
-using AutoMapper;
-using Paramount.ApplicationBlock.Data;
+﻿using AutoMapper;
 using Paramount.Betterclassifieds.Business.Models;
-using Paramount.Betterclassifieds.Business.Repository;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.DataService.Classifieds;
-using Paramount.Betterclassifieds.DataService.Repository;
 using Paramount.Betterclassifieds.DataService.Search;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 
 namespace Paramount.Betterclassifieds.DataService
@@ -113,6 +107,19 @@ namespace Paramount.Betterclassifieds.DataService
             }
         }
 
+        public List<PublicationModel> GetPublications()
+        {
+            using (var context = DataContextFactory.CreateClassifiedContext())
+            {
+                var publications = context.Publications
+                    .Where(p => ( p.PublicationTypeId == Constants.NewsPublicationTypeId || 
+                        p.PublicationTypeId == Constants.MagPublicationTypeId) && p.Active == true)
+                    .ToList();
+
+                return this.MapList<Publication, PublicationModel>(publications);
+            }
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateProfile("SearchingProfile");
@@ -135,11 +142,10 @@ namespace Paramount.Betterclassifieds.DataService
                 ;
 
             configuration.CreateMap<TutorAd, TutorAdModel>();
+            configuration.CreateMap<Publication, PublicationModel>();
 
             // To DB
             configuration.CreateMap<SeoNameMappingModel, SeoMapping>();
-
-
         }
     }
 }

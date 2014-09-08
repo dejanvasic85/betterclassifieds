@@ -2,7 +2,9 @@
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using Paramount.ApplicationBlock.Mvc;
+using Paramount.Betterclassifieds.Presentation.Framework;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
+using Paramount.Betterclassifieds.Presentation.ViewModels.Booking;
 
 namespace Paramount.Betterclassifieds.Presentation
 {
@@ -22,41 +24,31 @@ namespace Paramount.Betterclassifieds.Presentation
             routes.Ignore("Image/View.ashx");
 
             // Api
-            routes.MapHttpRoute(
-                name: "API Default",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional });
+            routes.MapHttpRoute(name: "API Default", routeTemplate: "api/{controller}/{id}", defaults: new { id = RouteParameter.Optional });
 
             // Images
-            routes.MapRoute(
-                "imageRoute",
-                "Image/{documentId}/{width}/{height}",
-                new { controller = "Image", action = "Render", width = UrlParameter.Optional, height = UrlParameter.Optional });
+            routes.MapRoute("imageRoute", "Image/{documentId}/{width}/{height}", new { controller = "Image", action = "Render", width = UrlParameter.Optional, height = UrlParameter.Optional });
 
-            // Ad (temporary)
-            // routes.MapPageRoute("adRoute", "Ad/{title}/{id}", "~/OnlineAds/AdView.aspx", checkPhysicalUrlAccess: false);
-            routes.MapRoute("adRoute", "Ad/{title}/{id}",
-                new {controller = "Listings", action = "ViewAd", module = Name},
-                new[] {this.GetType().Namespace});
+            // Ad route
+            routes.MapRoute("adRoute", "Ad/{title}/{id}", new { controller = "Listings", action = "ViewAd", module = Name }, new[] { GetType().Namespace });
 
-            routes.MapRoute(
-              "seoName",
-              "{seoName}/listings",
-              new { controller = "Listings", action = "SeoAds", module = Name },
-              new[] { GetType().Namespace });
+            // Seo route
+            routes.MapRoute("seoName", "{seoName}/listings", new { controller = "Listings", action = "SeoAds", module = Name }, new[] { GetType().Namespace });
 
+            // Booking step routes
+            routes.MapRoute("bookingRoute1", "Booking/Step/1", new { controller = "Booking", action = "Step1", module = Name }, new[] { GetType().Namespace });
+            routes.MapRoute("bookingRoute2", "Booking/Step/2", new { controller = "Booking", action = "Step2", module = Name }, new[] { GetType().Namespace });
+            routes.MapRoute("bookingRoute3", "Booking/Step/3", new { controller = "Booking", action = "Step3", module = Name }, new[] { GetType().Namespace });
+            routes.MapRoute("bookingRoute4", "Booking/Step/4", new { controller = "Booking", action = "Step4", module = Name }, new[] { GetType().Namespace });
+            
             // Default
-            routes.MapRoute(
-                "defaultRoute",
-                "{controller}/{action}/{id}",
-                new { controller = "Home", action = "Index", module = Name, id = UrlParameter.Optional},
-                new[] { GetType().Namespace });
-
+            routes.MapRoute("defaultRoute", "{controller}/{action}/{id}", new { controller = "Home", action = "Index", module = Name, id = UrlParameter.Optional }, new[] { GetType().Namespace });
         }
 
         public override void RegisterTypes(IUnityContainer container)
         {
             container.RegisterType<SearchFilters>(new SessionLifetimeManager<SearchFilters>());
+            container.RegisterInstance(new BookingCartSessionManager());
         }
     }
 }

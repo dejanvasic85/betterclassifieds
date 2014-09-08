@@ -1,0 +1,84 @@
+﻿@using Paramount
+@model Paramount.Betterclassifieds.Presentation.ViewModels.Booking.Step1View
+
+@{
+    ViewBag.Title = "Classifieds - Place new Ad";
+    Layout = @Url.ClientUrl("~/Views/Shared/_ApplicationLayout.cshtml");
+}
+
+<div class="container">
+
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a href="#">Step 1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+    </ul>
+   
+    @*Category selection*@
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="bs-callout bs-callout-info">
+                <h4>Category</h4>
+                <p>Please select category and sub category appropriate for your ad.</p>
+            </div>
+        </div> 
+
+        <div class="col-xs-12" id="Categories">
+            <div class="form-group-lg">
+                @Html.DropDownList("parentCategoryId", @Model.ParentCategories, "-- Category --", htmlAttributes: new { @class = "form-control input-lg" })
+                <br />
+                <select id="subCategoryId" name="subCategoryId" class="form-control input-lg hidden"></select>
+            </div>
+        </div>
+    </div>
+
+    @*Newspapers*@
+    @if (@Model.Publications.Any())
+    {
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="bs-callout bs-callout-info">
+                    <h4>Publications</h4>
+                    <p>Simply click on the papers your like your ad to appear in.</p>
+                </div>
+            </div>
+
+            <div class="col-xs-12 button-options">
+                @foreach (var publication in Model.Publications)
+                {
+                    <div class="center-block">
+                        <button class="btn btn-default btn-block btn-lg" id="@publication.PublicationId" data-toggle="button">
+                            @publication.Title
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    @*Pager*@
+    <ul class="pager">
+        @*<li class="next"><a id="submit" href="#">Next &rarr;</a></li>*@
+        <li class="next"><a id="submit" href="#submit">Next &rarr;</a></li>
+    </ul>
+
+</div>
+
+@section Scripts{
+    <script>
+        (function ($) {
+            $('#parentCategoryId').on('change', function () {
+                // Fetch the children
+                var me = $(this);
+                $('#subCategoryId')
+                    .loadSubCategories('@Url.Action("GetCategories", "Categories")', me.val());
+            });
+
+            $('#submit').on('click', function() {
+                $.post('@Url.Action("Step1")', { categoryId: 1, publications: [] }, function(response) {
+                    console.log(response);
+                });
+            });
+        })(jQuery);
+    </script>
+}

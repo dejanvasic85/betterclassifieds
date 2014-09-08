@@ -1,4 +1,4 @@
-/*Application based styling ( built on top of the bootstrap core css */
+﻿/*Application based styling ( built on top of the bootstrap core css */
 .top-buffer-10 {
   margin-top: 10px;
 }
@@ -21,3 +21,7 @@
 .label-category {
   background-color: #f0ad4e;
 }
+.padded-20 {
+  padding: 20px;
+}
+/*# sourceMappingURL=site.css.map */

@@ -1,7 +1,6 @@
 using System.Linq;
 using System.Security.Principal;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
 using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business;

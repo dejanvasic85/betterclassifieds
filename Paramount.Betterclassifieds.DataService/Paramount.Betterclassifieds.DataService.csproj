@@ -135,6 +135,7 @@
     <Compile Include="Repository\PublicationRepository.cs" />
     <Compile Include="Repository\RateRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Search\SearchService.cs" />
   </ItemGroup>
   <ItemGroup>

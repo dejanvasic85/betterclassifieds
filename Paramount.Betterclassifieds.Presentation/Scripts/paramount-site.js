@@ -7,6 +7,13 @@
 
     $(function () {
 
+        // Global ajax error handler
+        $.ajaxSetup({
+            error: function () {
+                toastr.error('Oh no. We were unable to connect to our server. Check your internet connection and try again.');
+            }
+        });
+
         // Every submit form button will have a Please Wait... while submitting the form to server ( non-ajax )
         $('form').find('button[type=submit]').attr('data-loading-text', 'Please wait...');
         $('form').submit(function () {
@@ -14,6 +21,9 @@
                 $(this).find('button[type=submit]').button('loading');
             }
         });
+
+        // Any captcha input should add the form-control css class
+        $('#CaptchaInputText').addClass("form-control");
 
         // Wire up the bootstrap tooltips
         $("[rel='tooltip']").tooltip();
@@ -28,7 +38,7 @@
             $.getJSON(url).done(function (data) {
                 me.empty();
                 $.each(data, function (index, option) {
-                    if (selected == option.Value) {
+                    if (selected === option.Value) {
                         me.append('<option selected value="' + option.Value + '">' + option.Text + '</option>');
                     } else {
                         me.append('<option value="' + option.Value + '">' + option.Text + '</option>');
@@ -36,6 +46,27 @@
                 });
                 me.removeAttr('disabled');
             });
+        });
+
+        // JQuery extensions
+        $.fn.extend({
+            loadSubCategories: function (url, parentCategoryId) {
+                var me = this;
+                me.empty();
+                if (parentCategoryId === "") {
+                    me.addClass('hidden');
+                    return me;
+                }
+                me.attr('disabled', 'disabled').append('<option>Loading...</option>');
+                $.getJSON(url, { parentId: parentCategoryId }).done(function (data) {
+                    me.empty().append('<option>-- Sub Category --</option>');
+                    $.each(data, function (index, option) {
+                        me.append('<option value=' + option.CategoryId + '>' + option.Title + '</option>');
+                    });
+                    me.removeAttr('disabled').removeClass('hidden');
+                });
+                return me;
+            }
         });
     });
 

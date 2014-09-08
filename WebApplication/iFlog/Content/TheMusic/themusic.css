@@ -109,4 +109,10 @@ fieldset[disabled] .btn-primary.active {
   border-color: #263745;
   background-color: #263745;
 }
+.bs-callout-info {
+  border-left-color: #263745;
+}
+.bs-callout-info h4 {
+  color: #263745;
+}
 /*# sourceMappingURL=themusic.css.map */

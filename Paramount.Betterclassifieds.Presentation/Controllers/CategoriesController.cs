@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Paramount.Betterclassifieds.Business.Search;
 using System.Web.Mvc;
+using Paramount.Betterclassifieds.Presentation.ViewModels.Booking;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
@@ -26,5 +27,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GetCategories(int? parentId)
+        {
+            var list = _searchService.GetCategories()
+                .Where(c => c.ParentId == parentId)
+                .Select(c => new CategoryView { CategoryId = c.MainCategoryId, Title = c.Title })
+                .ToList();
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
     }
 }

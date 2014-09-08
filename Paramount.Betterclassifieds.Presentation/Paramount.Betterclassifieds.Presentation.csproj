@@ -164,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -183,6 +184,13 @@
     <Compile Include="ViewModels\AddressViewModel.cs" />
     <Compile Include="ViewModels\AdEnquiryViewModel.cs" />
     <Compile Include="ViewModels\AdViewModel.cs" />
+    <Compile Include="ViewModels\Booking\BookingCart.cs" />
+    <Compile Include="ViewModels\Booking\BookingCartRepository.cs" />
+    <Compile Include="ViewModels\Booking\BookingNotValidException.cs" />
+    <Compile Include="ViewModels\Booking\BookingSessionManager.cs" />
+    <Compile Include="ViewModels\Booking\Step2View.cs" />
+    <Compile Include="ViewModels\CategoryView.cs" />
+    <Compile Include="ViewModels\PublicationView.cs" />
     <Compile Include="ViewModels\ContactUsModel.cs" />
     <Compile Include="ViewModels\HomeModel.cs" />
     <Compile Include="PresentationInitialiser.cs" />
@@ -193,6 +201,7 @@
     <Compile Include="ViewModels\SearchFilters.cs" />
     <Compile Include="ViewModels\FindModel.cs" />
     <Compile Include="ViewModels\SortType.cs" />
+    <Compile Include="ViewModels\Booking\Step1View.cs" />
     <Compile Include="ViewModels\TutorAdView.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -201,6 +210,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Content\bootstrap-3.1.0.min.css">
       <DependentUpon>bootstrap-3.1.0.css</DependentUpon>
+    </Content>
+    <Content Include="Content\bootstrap-select.css" />
+    <Content Include="Content\bootstrap-select.min.css">
+      <DependentUpon>bootstrap-select.css</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap-theme-3.1.0.css" />
     <Content Include="Content\bootstrap-3.1.0.css" />
@@ -341,6 +354,8 @@
     <Content Include="Views\Home\ContactUs.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Error\Server.cshtml" />
+    <Content Include="Views\Booking\Step1.cshtml" />
+    <Content Include="Views\Booking\Step2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\EastGippslandNews\" />

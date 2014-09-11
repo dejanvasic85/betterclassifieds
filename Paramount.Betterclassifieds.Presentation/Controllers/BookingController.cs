@@ -12,13 +12,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
     public class BookingController : Controller, IMappingBehaviour
     {
         private readonly ISearchService _searchService;
-        private readonly BookingCartSessionManager _bookingCartSessionManager;
+        private readonly IBookingId _bookingId;
         private readonly BookingCartRepository _bookingCartRepository;
 
-        public BookingController(ISearchService searchService, BookingCartSessionManager bookingCartSessionManager)
+        public BookingController(ISearchService searchService, IBookingId bookingId)
         {
             _searchService = searchService;
-            _bookingCartSessionManager = bookingCartSessionManager;
+            _bookingId = bookingId;
             _bookingCartRepository = new BookingCartRepository();
         }
 
@@ -27,26 +27,23 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpGet]
         public ActionResult Step1()
         {
-            var bookingId = _bookingCartSessionManager.GetId();
-
             var stepOneView = new Step1View
             {
                 ParentCategories = _searchService.GetTopLevelCategories().Select(c => new SelectListItem { Text = c.Title, Value = c.MainCategoryId.ToString() }),
                 Publications = this.MapList<PublicationModel, PublicationView>(_searchService.GetPublications()),
-                BookingCart = _bookingCartRepository.GetBookingCart(bookingId)
+                BookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id)
             };
 
             return View(stepOneView);
         }
 
         [HttpPost]
-        public ActionResult Step1(int categoryId, int subCategory, int[] publications)
+        public ActionResult Step1(int categoryId, int[] publications)
         {
             // Create new booking here if doesn't exist
-            var id = _bookingCartSessionManager.GetId();
-            BookingCart bookingCart = id.HasValue() 
-                ? _bookingCartRepository.GetBookingCart(id) 
-                : BookingCartFactory.CreateBookingCart(Session.SessionID, User.Identity.Name);
+            var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.ToString());
+            if (bookingCart == null)
+                bookingCart = BookingCartFactory.CreateBookingCart(Session.SessionID, User.Identity.Name, _bookingId);
 
             bookingCart.CategoryId = categoryId;
             bookingCart.Publications = publications == null ? new List<int>() : publications.ToList();
@@ -59,7 +56,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public ActionResult Step2()
         {
-            var bookingCart = _bookingCartRepository.GetBookingCart(  _bookingCartSessionManager.GetId() );
+            var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.ToString());
 
             if (bookingCart == null || bookingCart.IsStep1NotValid())
                 throw new BookingNotValidException();

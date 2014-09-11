@@ -6,12 +6,12 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
     {
         public BookingCart GetBookingCart(string id)
         {
-            return HttpContext.Current.Session["bookingSession"] as BookingCart;
+            return HttpContext.Current.Session["booking"] as BookingCart;
         }
 
         public BookingCart SaveBookingCart(BookingCart bookingCart)
         {
-            HttpContext.Current.Session["bookingSession"] = bookingCart;
+            HttpContext.Current.Session["booking"] = bookingCart;
             return bookingCart;
         }
     }

@@ -48,7 +48,7 @@ namespace Paramount.Betterclassifieds.Presentation
         public override void RegisterTypes(IUnityContainer container)
         {
             container.RegisterType<SearchFilters>(new SessionLifetimeManager<SearchFilters>());
-            container.RegisterInstance(new BookingCartSessionManager());
+            container.RegisterType<IBookingId, BookingCookie>();
         }
     }
 }

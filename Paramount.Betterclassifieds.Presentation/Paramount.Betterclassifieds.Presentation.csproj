@@ -186,8 +186,8 @@
     <Compile Include="ViewModels\AdViewModel.cs" />
     <Compile Include="ViewModels\Booking\BookingCart.cs" />
     <Compile Include="ViewModels\Booking\BookingCartRepository.cs" />
+    <Compile Include="ViewModels\Booking\BookingId.cs" />
     <Compile Include="ViewModels\Booking\BookingNotValidException.cs" />
-    <Compile Include="ViewModels\Booking\BookingSessionManager.cs" />
     <Compile Include="ViewModels\Booking\Step2View.cs" />
     <Compile Include="ViewModels\CategoryView.cs" />
     <Compile Include="ViewModels\PublicationView.cs" />

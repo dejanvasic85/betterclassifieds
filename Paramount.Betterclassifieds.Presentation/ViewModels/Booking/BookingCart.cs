@@ -34,14 +34,18 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 
     public class BookingCartFactory
     {
-        public static BookingCart CreateBookingCart(string sessionId, string username)
+        public static BookingCart CreateBookingCart(string sessionId, string username, IBookingId bookingId)
         {
-            return new BookingCart
+            var cart = new BookingCart
             {
                 SessionId = sessionId,
                 UserId = username,
                 Id = Guid.NewGuid().ToString()
             };
+
+            bookingId.SetId(cart.Id);
+
+            return cart;
         }
     }
 }

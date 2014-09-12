@@ -51,7 +51,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var expectedModel = result.CastTo<ViewResult>().Model.CastTo<Step1View>();
             Assert.That(expectedModel, Is.Not.Null);
             Assert.That(expectedModel.Publications.Count(), Is.EqualTo(1));
-            Assert.That(expectedModel.ParentCategories.Count(), Is.EqualTo(1));
+            Assert.That(expectedModel.ParentCategoryOptions.Count(), Is.EqualTo(1));
         }
 
         [Test]

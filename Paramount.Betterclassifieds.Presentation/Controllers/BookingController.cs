@@ -29,17 +29,22 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpGet]
         public ActionResult Step1()
         {
-            BookingCart bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
+            var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
+            var categories = _searchService.GetCategories();
 
             var stepOneView = new Step1View
             {
-                ParentCategories = _searchService.GetTopLevelCategories().Select(c => new SelectListItem { Text = c.Title, Value = c.MainCategoryId.ToString() }),
+                ParentCategoryOptions = categories.Where(c => c.ParentId == null).Select(c => new SelectListItem { Text = c.Title, Value = c.MainCategoryId.ToString() }),
                 Publications = this.MapList<PublicationModel, PublicationView>(_searchService.GetPublications()),
             };
 
             if (bookingCart != null)
             {
                 stepOneView.SelectedCategoryId = bookingCart.CategoryId;
+                if (bookingCart.CategoryId.HasValue)
+                {
+                    stepOneView.SubCategoryOptions = categories.Where(c => c.ParentId == bookingCart.CategoryId.Value).Select(c => new SelectListItem { Text = c.Title, Value = c.MainCategoryId.ToString() });
+                }
                 stepOneView.SelectedSubCategoryId = bookingCart.SubCategoryId;
                 stepOneView.SelectedPublications = bookingCart.Publications;
             }
@@ -48,13 +53,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpPost]
-        public ActionResult Step1(int categoryId, int[] publications)
+        public ActionResult Step1(int categoryId, int subCategoryId, int[] publications)
         {
             // Fetch the booking cart from repository
             // If null, then use the the container to resolve it ( using a factory - see PresentationInitialiser )
             BookingCart bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id) ?? _container.Resolve<BookingCart>();
 
             bookingCart.CategoryId = categoryId;
+            bookingCart.SubCategoryId = subCategoryId;
             bookingCart.Publications = publications;
 
             // Persist and move on

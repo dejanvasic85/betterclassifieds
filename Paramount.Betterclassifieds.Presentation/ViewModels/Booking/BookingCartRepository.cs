@@ -16,7 +16,11 @@
             if (id.IsNullOrEmpty())
                 return null;
 
-            return Collection.FindOneByIdAs<BookingCart>(id);
+            var cart = Collection.FindOneByIdAs<BookingCart>(id);
+            if (cart.Completed)
+                return null;
+
+            return cart;
         }
 
         public BookingCart SaveBookingCart(BookingCart bookingCart)

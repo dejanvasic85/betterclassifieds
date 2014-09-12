@@ -6,7 +6,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 {
     public class Step1View
     {
-        public IEnumerable<SelectListItem> ParentCategories { get; set; }
+        public IEnumerable<SelectListItem> ParentCategoryOptions { get; set; }
+
+        public IEnumerable<SelectListItem> SubCategoryOptions { get; set; } 
+
         public IEnumerable<PublicationView> Publications { get; set; }
 
         public int? SelectedCategoryId { get; set; }

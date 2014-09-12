@@ -14,6 +14,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 
         public string Id { get; set; }
 
+        public bool Completed { get; set; }
+
         public string UserId { get; set; }
 
         public int? CategoryId { get; set; }
@@ -29,7 +31,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 
         public bool IsStep1NotValid()
         {
-            return !CategoryId.HasValue || SubCategoryId.HasValue;
+            return !CategoryId.HasValue || !SubCategoryId.HasValue;
         }
     }
 

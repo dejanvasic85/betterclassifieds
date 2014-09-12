@@ -50,11 +50,13 @@
 
         // JQuery extensions
         $.fn.extend({
-            loadSubCategories: function (url, parentCategoryId) {
+            loadSubCategories: function (url, parentCategoryId, showHide) {
                 var me = this;
                 me.empty();
                 if (parentCategoryId === "") {
-                    me.addClass('hidden');
+                    if (showHide) {
+                        me.addClass('hidden');
+                    }
                     return me;
                 }
                 me.attr('disabled', 'disabled').append('<option>Loading...</option>');
@@ -63,7 +65,10 @@
                     $.each(data, function (index, option) {
                         me.append('<option value=' + option.CategoryId + '>' + option.Title + '</option>');
                     });
-                    me.removeAttr('disabled').removeClass('hidden');
+                    me.removeAttr('disabled');
+                    if (showHide) {
+                        me.removeClass('hidden');   
+                    }
                 });
                 return me;
             }

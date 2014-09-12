@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
+using Microsoft.Practices.Unity;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
@@ -11,15 +12,17 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
     public class BookingController : Controller, IMappingBehaviour
     {
+        private readonly IUnityContainer _container;
         private readonly ISearchService _searchService;
         private readonly IBookingId _bookingId;
-        private readonly BookingCartRepository _bookingCartRepository;
+        private readonly IBookingCartRepository _bookingCartRepository;
 
-        public BookingController(ISearchService searchService, IBookingId bookingId)
+        public BookingController(IUnityContainer container, ISearchService searchService, IBookingId bookingId, IBookingCartRepository bookingCartRepository)
         {
             _searchService = searchService;
             _bookingId = bookingId;
-            _bookingCartRepository = new BookingCartRepository();
+            _bookingCartRepository = bookingCartRepository;
+            _container = container;
         }
 
         //
@@ -40,10 +43,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost]
         public ActionResult Step1(int categoryId, int[] publications)
         {
-            // Create new booking here if doesn't exist
-            var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.ToString());
-            if (bookingCart == null)
-                bookingCart = BookingCartFactory.CreateBookingCart(Session.SessionID, User.Identity.Name, _bookingId);
+            // Fetch the booking cart from repository
+            // If null, then use the the container to resolve it ( using a factory - see PresentationInitialiser )
+            BookingCart bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id) ?? _container.Resolve<BookingCart>();
 
             bookingCart.CategoryId = categoryId;
             bookingCart.Publications = publications == null ? new List<int>() : publications.ToList();
@@ -51,7 +53,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             // Persist and move on
             _bookingCartRepository.SaveBookingCart(bookingCart);
 
-            return Json("success");
+            return Json(Url.Action("Step2"));
         }
 
         public ActionResult Step2()

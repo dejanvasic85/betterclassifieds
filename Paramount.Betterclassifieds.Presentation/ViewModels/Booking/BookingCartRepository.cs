@@ -1,17 +1,27 @@
-﻿using System.Web;
-
-namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
+﻿namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 {
-    public class BookingCartRepository
+    public interface IBookingCartRepository
     {
+        BookingCart GetBookingCart(string id);
+        BookingCart SaveBookingCart(BookingCart bookingCart);
+    }
+
+    public class BookingCartRepository : MongoRepository<BookingCart>, IBookingCartRepository
+    {
+        public BookingCartRepository() : base("bookings")
+        { }
+
         public BookingCart GetBookingCart(string id)
         {
-            return HttpContext.Current.Session["booking"] as BookingCart;
+            if (id.IsNullOrEmpty())
+                return null;
+
+            return Collection.FindOneByIdAs<BookingCart>(id);
         }
 
         public BookingCart SaveBookingCart(BookingCart bookingCart)
         {
-            HttpContext.Current.Session["booking"] = bookingCart;
+            Collection.Save(bookingCart);
             return bookingCart;
         }
     }

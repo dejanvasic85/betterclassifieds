@@ -40,15 +40,25 @@ namespace Paramount.Betterclassifieds.Presentation
             routes.MapRoute("bookingRoute2", "Booking/Step/2", new { controller = "Booking", action = "Step2", module = Name }, new[] { GetType().Namespace });
             routes.MapRoute("bookingRoute3", "Booking/Step/3", new { controller = "Booking", action = "Step3", module = Name }, new[] { GetType().Namespace });
             routes.MapRoute("bookingRoute4", "Booking/Step/4", new { controller = "Booking", action = "Step4", module = Name }, new[] { GetType().Namespace });
-            
+
             // Default
             routes.MapRoute("defaultRoute", "{controller}/{action}/{id}", new { controller = "Home", action = "Index", module = Name, id = UrlParameter.Optional }, new[] { GetType().Namespace });
         }
 
         public override void RegisterTypes(IUnityContainer container)
         {
+
+            // Here we are registering view model specific stuff ( Presentation only )
+            
+
+            // Searching throughout the website allows to save in to the session ( at the moment )
             container.RegisterType<SearchFilters>(new SessionLifetimeManager<SearchFilters>());
-            container.RegisterType<IBookingId, BookingCookie>();
+
+            // Booking specific objects
+            container.RegisterType<IBookingId, BookingCookie>()
+                .RegisterType<BookingCart>(new InjectionFactory(BookingCartFactory.Create))
+                .RegisterType<IBookingCartRepository, BookingCartRepository>()
+                ;
         }
     }
 }

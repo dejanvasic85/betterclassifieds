@@ -88,6 +88,12 @@
       <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\packages\mongocsharpdriver.1.9.2\lib\net35\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\packages\mongocsharpdriver.1.9.2\lib\net35\MongoDB.Driver.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -188,6 +194,7 @@
     <Compile Include="ViewModels\Booking\BookingCartRepository.cs" />
     <Compile Include="ViewModels\Booking\BookingId.cs" />
     <Compile Include="ViewModels\Booking\BookingNotValidException.cs" />
+    <Compile Include="Framework\MongoRepository.cs" />
     <Compile Include="ViewModels\Booking\Step2View.cs" />
     <Compile Include="ViewModels\CategoryView.cs" />
     <Compile Include="ViewModels\PublicationView.cs" />
@@ -249,7 +256,6 @@
     <Content Include="Scripts\Account\Login.min.js">
       <DependentUpon>Login.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\Booking\BookingCart.js" />
     <Content Include="Scripts\bootstrap-3.1.0.js" />
     <Content Include="Content\site.css.map">
       <DependentUpon>site.css</DependentUpon>

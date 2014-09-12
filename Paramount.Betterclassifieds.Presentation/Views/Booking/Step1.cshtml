@@ -68,6 +68,7 @@
     <script>
         (function ($) {
 
+
             $('#parentCategoryId').on('change', function () {
                 // Fetch the children
                 var me = $(this);
@@ -78,6 +79,7 @@
             $('#submit').on('click', function() {
                 $.post('@Url.Action("Step1")', { categoryId: 1, publications: [] }, function(response) {
                     console.log(response);
+                    window.location = response;
                 });
             });
         })(jQuery);

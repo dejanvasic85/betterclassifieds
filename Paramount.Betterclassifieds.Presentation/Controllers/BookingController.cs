@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Microsoft.Practices.Unity;
@@ -30,12 +29,20 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpGet]
         public ActionResult Step1()
         {
+            BookingCart bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
+
             var stepOneView = new Step1View
             {
                 ParentCategories = _searchService.GetTopLevelCategories().Select(c => new SelectListItem { Text = c.Title, Value = c.MainCategoryId.ToString() }),
                 Publications = this.MapList<PublicationModel, PublicationView>(_searchService.GetPublications()),
-                BookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id)
             };
+
+            if (bookingCart != null)
+            {
+                stepOneView.SelectedCategoryId = bookingCart.CategoryId;
+                stepOneView.SelectedSubCategoryId = bookingCart.SubCategoryId;
+                stepOneView.SelectedPublications = bookingCart.Publications;
+            }
 
             return View(stepOneView);
         }
@@ -48,7 +55,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             BookingCart bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id) ?? _container.Resolve<BookingCart>();
 
             bookingCart.CategoryId = categoryId;
-            bookingCart.Publications = publications == null ? new List<int>() : publications.ToList();
+            bookingCart.Publications = publications;
 
             // Persist and move on
             _bookingCartRepository.SaveBookingCart(bookingCart);

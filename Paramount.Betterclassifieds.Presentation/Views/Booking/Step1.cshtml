@@ -1,4 +1,6 @@
-﻿@using Paramount
+﻿@using MongoDB.Bson
+@using Paramount
+@using Paramount.Betterclassifieds.Presentation.Framework
 @model Paramount.Betterclassifieds.Presentation.ViewModels.Booking.Step1View
 
 @{
@@ -13,7 +15,7 @@
         <li><a href="#">2</a></li>
         <li><a href="#">3</a></li>
     </ul>
-   
+
     @*Category selection*@
     <div class="row">
         <div class="col-xs-12">
@@ -21,13 +23,25 @@
                 <h4>Category</h4>
                 <p>Please select category and sub category appropriate for your ad.</p>
             </div>
-        </div> 
+        </div>
 
         <div class="col-xs-12" id="Categories">
             <div class="form-group-lg">
-                @Html.DropDownList("parentCategoryId", @Model.ParentCategories, "-- Category --", htmlAttributes: new { @class = "form-control input-lg" })
+
+                <select id="parentCategoryId" data-bind="value: selectedCategoryId" class="form-control input-lg">
+                    <option value="">-- Category --</option>
+                    @foreach (var category in Model.ParentCategories)
+                    {
+                        <option value="@category.Value">@category.Text</option>
+                    }
+                </select>
+
                 <br />
-                <select id="subCategoryId" name="subCategoryId" class="form-control input-lg hidden"></select>
+
+                <select id="subCategoryId" name="subCategoryId" class="form-control input-lg"
+                        data-bind="visible: shouldShowSubCategory()">
+                    <option>-- Sub Category --</option>
+                </select>
             </div>
         </div>
     </div>
@@ -66,21 +80,36 @@
 
 @section Scripts{
     <script>
-        (function ($) {
 
+        var StepOne = function(data) {
+            var self = this;
+            self.selectedCategoryId= ko.observable(data.selectedCategoryId);
+            self.selectedSubCategoryId = ko.observable(data.selectedSubCategoryId);
+            self.selectedPublications = ko.observable(data.selectedPublications);
+            self.shouldShowSubCategory = ko.pureComputed(function() {
+                return self.selectedCategoryId() !== '';
+            });
+        };
 
-            $('#parentCategoryId').on('change', function () {
-                // Fetch the children
+        var data = @Html.Raw(Model.ToJsonString());
+        var stepOneModel = new StepOne(data);
+
+        ko.applyBindings(stepOneModel);
+
+        (function($) {
+
+            $('#parentCategoryId').on('change', function() {
                 var me = $(this);
-                $('#subCategoryId')
-                    .loadSubCategories('@Url.Action("GetCategories", "Categories")', me.val());
+                // Todo - load the sub category
+                $('#subCategoryId').loadSubCategories('@Url.Action("GetCategories", "Categories")', me.val());
             });
 
             $('#submit').on('click', function() {
-                $.post('@Url.Action("Step1")', { categoryId: 1, publications: [] }, function(response) {
+                debugger;
+                @*$.post('@Url.Action("Step1")', { categoryId: 1, publications: [] }, function(response) {
                     console.log(response);
                     window.location = response;
-                });
+                });*@
             });
         })(jQuery);
     </script>

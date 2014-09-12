@@ -20,11 +20,11 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 
         public int? SubCategoryId { get; set; }
 
-        public List<int> Publications { get; set; }
+        public int[] Publications { get; set; }
 
         public BookingCart()
         {
-            Publications = new List<int>();
+            Publications = new int[] { };
         }
 
         public bool IsStep1NotValid()

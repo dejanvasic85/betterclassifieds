@@ -35,35 +35,42 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var stepOneView = new Step1View
             {
                 ParentCategoryOptions = categories.Where(c => c.ParentId == null).Select(c => new SelectListItem { Text = c.Title, Value = c.MainCategoryId.ToString() }),
-                Publications = this.MapList<PublicationModel, PublicationView>(_searchService.GetPublications()),
+                Publications = this.MapList<PublicationModel, PublicationSelectionView>(_searchService.GetPublications()),
             };
 
             if (bookingCart != null)
             {
-                stepOneView.SelectedCategoryId = bookingCart.CategoryId;
+                stepOneView.CategoryId = bookingCart.CategoryId;
+                stepOneView.SubCategoryId = bookingCart.SubCategoryId;
+
+                // Set selected publications
+                if (bookingCart.Publications != null)
+                {
+                    stepOneView.SetSelectedPublications(bookingCart.Publications);
+                }
+
+                // Load subcategories (if parent is selected)
                 if (bookingCart.CategoryId.HasValue)
                 {
                     stepOneView.SubCategoryOptions = categories.Where(c => c.ParentId == bookingCart.CategoryId.Value).Select(c => new SelectListItem { Text = c.Title, Value = c.MainCategoryId.ToString() });
                 }
-                stepOneView.SelectedSubCategoryId = bookingCart.SubCategoryId;
-                stepOneView.SelectedPublications = bookingCart.Publications;
             }
 
             return View(stepOneView);
         }
 
         [HttpPost]
-        public ActionResult Step1(int categoryId, int subCategoryId, int[] publications)
+        public ActionResult Step1(Step1View viewModel)
         {
             // Fetch the booking cart from repository
             // If null, then use the the container to resolve it ( using a factory - see PresentationInitialiser )
-            BookingCart bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id) ?? _container.Resolve<BookingCart>();
+            var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id) ?? _container.Resolve<BookingCart>();
 
-            bookingCart.CategoryId = categoryId;
-            bookingCart.SubCategoryId = subCategoryId;
-            bookingCart.Publications = publications;
+            bookingCart.CategoryId = viewModel.CategoryId;
+            bookingCart.SubCategoryId = viewModel.SubCategoryId;
+            bookingCart.Publications = viewModel.Publications.Where(p => p.IsSelected).Select(p => p.PublicationId).ToArray();
 
-            // Persist and move on
+            //// Persist and move on
             _bookingCartRepository.SaveBookingCart(bookingCart);
 
             return Json(Url.Action("Step2"));
@@ -81,7 +88,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public void OnRegisterMaps(IConfiguration configuration)
         {
-            configuration.CreateMap<PublicationModel, PublicationView>();
+            configuration.CreateMap<PublicationModel, PublicationSelectionView>();
         }
     }
 

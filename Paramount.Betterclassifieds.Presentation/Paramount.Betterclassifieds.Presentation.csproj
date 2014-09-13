@@ -198,7 +198,7 @@
     <Compile Include="Framework\MongoRepository.cs" />
     <Compile Include="ViewModels\Booking\Step2View.cs" />
     <Compile Include="ViewModels\CategoryView.cs" />
-    <Compile Include="ViewModels\PublicationView.cs" />
+    <Compile Include="ViewModels\Booking\PublicationView.cs" />
     <Compile Include="ViewModels\ContactUsModel.cs" />
     <Compile Include="ViewModels\HomeModel.cs" />
     <Compile Include="PresentationInitialiser.cs" />

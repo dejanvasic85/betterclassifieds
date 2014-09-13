@@ -17,7 +17,7 @@
                 return null;
 
             var cart = Collection.FindOneByIdAs<BookingCart>(id);
-            if (cart.Completed)
+            if (cart == null || cart.Completed)
                 return null;
 
             return cart;

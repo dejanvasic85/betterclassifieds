@@ -40,10 +40,5 @@ namespace Paramount
         {
             return data == null || !data.Any();
         }
-
-        public static bool IsNullOrEmpty(this Array data)
-        {
-            return data == null || data.Length == 0 ;
-        }
     }
 }

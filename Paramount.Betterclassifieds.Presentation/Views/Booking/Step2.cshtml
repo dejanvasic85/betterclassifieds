@@ -12,13 +12,56 @@
         <li class="active"><a href="#">Step 2</a></li>
         <li><a href="#">3</a></li>
     </ul>
-    
-    Todo
+
+    <form role="form">
+        @Html.AntiForgeryToken()
+        
+        <div class="row top-buffer-20">
+            <div class="col-xs-12">
+
+                <div class="bs-callout bs-callout-info">
+                    <h4>Online Ad Details</h4>
+                    <p>Ok. You might want to entice the readers with an impact heading.</p>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.OnlineAdHeading)
+                    @Html.BootstrapLargeTextBoxFor(m => m.OnlineAdHeading)
+                    @Html.ValidationMessageFor(m => m.OnlineAdHeading)
+                </div>
+                
+                <div class="form-group">
+                    @Html.LabelFor(m => m.OnlineAdDescription)
+                    @Html.BootstrapLargeTextBoxFor(m => m.OnlineAdDescription)
+                    @Html.ValidationMessageFor(m => m.OnlineAdDescription)
+                </div>
+                
+                <div class="form-group">
+                    @Html.LabelFor(m => m.OnlineAdContactName)
+                    @Html.BootstrapLargeTextBoxFor(m => m.OnlineAdContactName)
+                    @Html.ValidationMessageFor(m => m.OnlineAdContactName)
+                </div>
+                
+                <div class="form-group">
+                    @Html.LabelFor(m => m.OnlineAdEmail)
+                    @Html.BootstrapLargeTextBoxFor(m => m.OnlineAdEmail)
+                    @Html.ValidationMessageFor(m => m.OnlineAdEmail)
+                </div>
+                
+                <div class="form-group">
+                    @Html.LabelFor(m => m.OnlineAdPhone)
+                    @Html.BootstrapLargeTextBoxFor(m => m.OnlineAdPhone)
+                    @Html.ValidationMessageFor(m => m.OnlineAdPhone)
+                </div>
+
+            </div>
+        </div>
+    </form>
 
     @*Pager*@
     <ul class="pager">
-        <li class="previous"><a>&larr; Previous</a></li>
-        <li class="next"><a>Next &rarr;</a></li>
+        <li class="previous"><a href="@Url.Action("Step1")">&larr; Previous</a></li>
+        <li class="next"><a href="@Url.Action("Step3")">Next &rarr;</a></li>
     </ul>
 
 </div>

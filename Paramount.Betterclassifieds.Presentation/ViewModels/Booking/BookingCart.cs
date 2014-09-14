@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-using Microsoft.Practices.Unity;
-
-namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
+﻿namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 {
     /// <summary>
     /// View model representing what can be selected in a regular booking steps/stages
@@ -24,39 +19,34 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 
         public int[] Publications { get; set; }
 
+        public string OnlineAdHeading { get; set; }
+
+        public string OnlineAdDescription { get; set; }
+
+        public string OnlineAdContactName { get; set; }
+
+        public string OnlineAdPhone { get; set; }
+
+        public string OnlineAdEmail { get; set; }
+
+        public decimal? OnlineAdPrice { get; set; }
+
+        public int? OnlineAdLocationAreaId { get; set; }
+
         public BookingCart()
         {
             Publications = new int[] { };
         }
 
-        public bool IsStep1NotValid()
+        public bool IsStep1NotComplete()
         {
             return !CategoryId.HasValue || !SubCategoryId.HasValue;
         }
-    }
-
-
-    public class BookingCartFactory
-    {
-        public static BookingCart Create(IUnityContainer container)
+            
+        public bool IsStep2NotComplete()
         {
-            return CreateBookingCart(HttpContext.Current.Session.SessionID,
-                HttpContext.Current.User.Identity.Name,
-                container.Resolve<IBookingId>());
-        }
-
-        public static BookingCart CreateBookingCart(string sessionId, string username, IBookingId bookingId)
-        {
-            var cart = new BookingCart
-            {
-                SessionId = sessionId,
-                UserId = username,
-                Id = Guid.NewGuid().ToString()
-            };
-
-            bookingId.SetId(cart.Id);
-
-            return cart;
+            return this.OnlineAdHeading.IsNullOrEmpty() ||
+                   this.OnlineAdDescription.IsNullOrEmpty();
         }
     }
 }

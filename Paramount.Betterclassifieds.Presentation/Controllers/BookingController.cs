@@ -25,7 +25,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         //
-        // GET: /Booking/
+        // GET: /Booking/Step/1 - Category and publications
         [HttpGet]
         public ActionResult Step1()
         {
@@ -80,13 +80,22 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(Url.Action("Step2"));
         }
 
+        //
+        // GET: /Booking/Step/2 - ad details
         public ActionResult Step2()
         {
             var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.ToString());
 
-            if (bookingCart == null || bookingCart.IsStep1NotValid())
+            if (bookingCart == null || bookingCart.IsStep1NotComplete())
                 throw new BookingNotValidException();
 
+            // 
+            var stepTwoModel = new Step2View();
+            return View();
+        }
+
+        public ActionResult Step3()
+        {
             return View();
         }
 

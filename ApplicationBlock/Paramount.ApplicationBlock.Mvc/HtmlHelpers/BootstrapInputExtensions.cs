@@ -14,7 +14,17 @@ namespace Paramount
         /// </summary>
         public static MvcHtmlString BootstrapTextBoxFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> attributes = null)
         {
-            return htmlHelper.TextBoxFor(expression, format: null, htmlAttributes: AddFormControlClass(attributes));
+            return htmlHelper.TextBoxFor(expression, format: null, htmlAttributes: WithFormControl(attributes));
+        }
+
+        /// <summary>
+        /// Generates an input element only with a form-control css class and large input
+        /// </summary>
+        public static MvcHtmlString BootstrapLargeTextBoxFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> attributes = null)
+        {
+            return htmlHelper.TextBoxFor(expression, 
+                format: null, 
+                htmlAttributes: WithLargeInput(attributes));
         }
 
         /// <summary>
@@ -29,7 +39,7 @@ namespace Paramount
             return new MvcHtmlString(email);
         }
 
-        private static IDictionary<string, object> AddFormControlClass(IDictionary<string, object> attributes)
+        private static IDictionary<string, object> WithFormControl(IDictionary<string, object> attributes)
         {
             if (attributes == null)
                 attributes = new Dictionary<string, object>();
@@ -38,6 +48,14 @@ namespace Paramount
             return attributes;
         }
 
+        private static IDictionary<string, object> WithLargeInput(IDictionary<string, object> attributes)
+        {
+            if (attributes == null)
+                attributes = new Dictionary<string, object>();
+
+            attributes.Add("class", "form-control input-lg");
+            return attributes;
+        }
     }
 
 }

@@ -62,10 +62,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost]
         public ActionResult Step1(Step1View viewModel)
         {
+            if (!ModelState.IsValid)
+                return View(viewModel);
+
             // Fetch the booking cart from repository
             // If null, then use the the container to resolve it ( using a factory - see PresentationInitialiser )
             var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id) ?? _container.Resolve<BookingCart>();
 
+            // Map step 1 model to the view cart
             bookingCart.CategoryId = viewModel.CategoryId;
             bookingCart.SubCategoryId = viewModel.SubCategoryId;
             bookingCart.Publications = viewModel.Publications.Where(p => p.IsSelected).Select(p => p.PublicationId).ToArray();

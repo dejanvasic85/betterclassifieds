@@ -77,6 +77,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             //// Persist and move on
             _bookingCartRepository.SaveBookingCart(bookingCart);
 
+            // Our view can't "submit" the form
             return Json(Url.Action("Step2"));
         }
 
@@ -89,19 +90,61 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (bookingCart == null || bookingCart.IsStep1NotComplete())
                 throw new BookingNotValidException();
 
-            // 
-            var stepTwoModel = new Step2View();
-            return View();
+            var stepTwoModel = this.Map<BookingCart, Step2View>(bookingCart);
+
+            return View(stepTwoModel);
         }
 
+        [HttpPost]
+        public ActionResult Step2(Step2View viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
+            // Map from view
+            var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
+            this.Map(viewModel, bookingCart);
+
+            // Save and continue
+            _bookingCartRepository.SaveBookingCart(bookingCart);
+
+            return Step3();
+        }
+
+        // 
+        // GET /Booking/Step/3 - Scheduling
         public ActionResult Step3()
         {
-            return View();
+            // Validate current state of the booking
+            var booking = _bookingCartRepository.GetBookingCart(_bookingId.Id);
+            if (booking == null || booking.IsStep2NotComplete())
+                throw new BookingNotValidException();
+
+            var viewModel = this.Map<BookingCart, Step3View>(booking);
+
+            return View(viewModel);
         }
 
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateMap<PublicationModel, PublicationSelectionView>();
+
+            configuration.CreateMap<BookingCart, Step2View>()
+                // IsLineAdIncluded should be set only if there are publications selected in step 1
+                .ForMember(member => member.IsLineAdIncluded, options => options.MapFrom(source => source.Publications.Any()))
+                ;
+
+            configuration.CreateMap<BookingCart, Step3View>()
+                // IsLineAdIncluded should be set only if there are publications selected in step 1
+               .ForMember(member => member.IsLineAdIncluded, options => options.MapFrom(source => source.Publications.Any()))
+               ;
+
+
+            configuration.CreateMap<Step2View, BookingCart>();
+            configuration.CreateMap<Step3View, BookingCart>();
+
         }
     }
 

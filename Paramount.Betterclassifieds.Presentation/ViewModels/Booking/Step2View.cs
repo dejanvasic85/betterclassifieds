@@ -30,5 +30,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         public decimal? OnlineAdPrice { get; set; }
 
         public int? OnlineAdLocationAreaId { get; set; }
+
+        public bool IsLineAdIncluded { get; set; }
     }
 }

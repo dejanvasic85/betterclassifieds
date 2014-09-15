@@ -13,7 +13,7 @@
         <li><a href="#">3</a></li>
     </ul>
 
-    <form role="form" id="onlineDetailsForm" action="@Url.Action("Step2", "Booking")">
+    <form role="form" id="adDesignForm" action="@Url.Action("Step2", "Booking")" method="POST">
         @Html.AntiForgeryToken()
 
         <div class="row top-buffer-20">
@@ -68,17 +68,19 @@
                 </div>
             </div>
         }
+
+        @*Pager*@
+        <ul class="pager">
+            <li class="previous">
+                <button id="btnPrev" class="btn btn-large btn-default" data-nav='@Url.Action("Step1")'>&larr; Previous</button>
+            </li>
+            <li class="next">
+                <button id="btnSubmit" class="btn btn-large btn-default">Next &rarr;</button>
+            </li>
+        </ul>
     </form>
 
-    @*Pager*@
-    <ul class="pager">
-        <li class="previous">
-            <button id="btnPrev" class="btn btn-large btn-default" data-nav='@Url.Action("Step1")'>&larr; Previous</button>
-        </li>
-        <li class="next">
-            <button id="btnSubmit" class="btn btn-large btn-default">Next &rarr;</button>
-        </li>
-    </ul>
+
 
 </div>
 
@@ -92,9 +94,17 @@
                 return false;
             });
 
-            $('#btnSubmit').on('click', function() {
-                alert('todo - submit form');
-            });
+            //$('#btnSubmit').on('click', function () {
+
+            //    var validation = $('#adDesignForm').validate();
+            //    if (!validation.valid()) {
+            //        return false;
+            //    }
+
+            //    $('#adDesignForm').submit();
+            //    return true;
+
+            //});
         })(jQuery);
     </script>
 }

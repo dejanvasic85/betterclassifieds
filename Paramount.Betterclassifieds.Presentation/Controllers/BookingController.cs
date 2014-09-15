@@ -96,6 +96,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Step2(Step2View viewModel)
         {
             if (!ModelState.IsValid)
@@ -110,7 +111,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             // Save and continue
             _bookingCartRepository.SaveBookingCart(bookingCart);
 
-            return Step3();
+            return RedirectToAction("Step3");
         }
 
         // 

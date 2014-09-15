@@ -58,4 +58,10 @@
 .padded-20 {
   padding: 20px;
 }
+.pager .next > button {
+  float: right;
+}
+.pager .previous > button {
+  float: left;
+}
 /*# sourceMappingURL=site.css.map */

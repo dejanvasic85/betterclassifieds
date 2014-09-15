@@ -127,6 +127,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View(viewModel);
         }
 
+        [HttpPost]
+        public ActionResult Step3(Step3View viewModel)
+        {
+            return View();
+        }
+
+        
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateMap<PublicationModel, PublicationSelectionView>();

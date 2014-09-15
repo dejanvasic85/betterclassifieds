@@ -13,7 +13,7 @@
         <li><a href="#">3</a></li>
     </ul>
 
-    <form role="form" id="onlineDetailsForm">
+    <form role="form" id="onlineDetailsForm" action="@Url.Action("Step2", "Booking")">
         @Html.AntiForgeryToken()
 
         <div class="row top-buffer-20">
@@ -56,7 +56,7 @@
 
             </div>
         </div>
-        
+
         @if (Model.IsLineAdIncluded)
         {
             <div class="row top-buffer-10">
@@ -65,8 +65,6 @@
                         <h4>Print Ad Details</h4>
                         <p>Coming soon</p>
                     </div>
-                    
-                    
                 </div>
             </div>
         }
@@ -74,8 +72,12 @@
 
     @*Pager*@
     <ul class="pager">
-        <li class="previous"><a href="@Url.Action("Step1")">&larr; Previous</a></li>
-        <li class="next"><a href="@Url.Action("Step3")">Next &rarr;</a></li>
+        <li class="previous">
+            <button id="btnPrev" class="btn btn-large btn-default" data-nav='@Url.Action("Step1")'>&larr; Previous</button>
+        </li>
+        <li class="next">
+            <button id="btnSubmit" class="btn btn-large btn-default">Next &rarr;</button>
+        </li>
     </ul>
 
 </div>
@@ -83,7 +85,16 @@
 @section Scripts{
     <script>
         (function ($) {
+            // todo - submit the fkn form
 
+            $('#btnPrev').on('click', function () {
+                window.location = $(this).data().nav;
+                return false;
+            });
+
+            $('#btnSubmit').on('click', function() {
+                alert('todo - submit form');
+            });
         })(jQuery);
     </script>
 }

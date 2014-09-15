@@ -82,7 +82,9 @@
     
     @*Pager*@
     <ul class="pager">
-        <li class="next"><a id="submit" href="#submit">Next &rarr;</a></li>
+        <li class="next">
+            <button id="btnSubmit" class="btn btn-large btn-default">Next &rarr;</button>
+        </li>
     </ul>
 
 </div>
@@ -127,7 +129,7 @@
                 $('#subCategoryId').loadSubCategories('@Url.Action("GetCategories", "Categories")', me.val(), false);
             });
 
-            $('#submit').on('click', function() {
+            $('#btnSubmit').on('click', function() {
                 var modelToPost = ko.toJS(stepOneModel);
 
                 // Validate
@@ -136,6 +138,8 @@
                     return;
                 }
 
+                // Post
+                // Todo - use a form instead of ajax ( more practical )
                 $.ajax({
                     url: '@Url.Action("Step1")',
                     data : JSON.stringify(modelToPost),
@@ -146,7 +150,7 @@
                         window.location = respondUrl;
                     },
                     error : function(errorMsg) {
-                        
+                        validateError(errorMsg);
                     }
                 });
             });

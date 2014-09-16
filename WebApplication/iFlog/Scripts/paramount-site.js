@@ -48,6 +48,12 @@
             });
         });
 
+        // Buttons that navigate    
+        $('button[data-nav]').on('click', function () {
+            window.location = $(this).data().nav;
+            return false;
+        });
+
         // JQuery extensions
         $.fn.extend({
             loadSubCategories: function (url, parentCategoryId) {

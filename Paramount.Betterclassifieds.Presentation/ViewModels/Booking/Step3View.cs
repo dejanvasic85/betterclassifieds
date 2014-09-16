@@ -14,6 +14,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         public PublicationEditionView[] Editions { get; set; } 
 
         public bool IsLineAdIncluded { get; set; }
-
+        
+        public int DurationDays { get; set; }
     }
 }

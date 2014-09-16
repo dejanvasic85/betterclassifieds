@@ -128,8 +128,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 throw new BookingNotValidException();
 
             var viewModel = this.Map<BookingCart, Step3View>(bookingCart);
-
+            
             // Fetch the up-coming available editions
+            viewModel.DurationDays = _clientConfig.RestrictedOnlineDaysCount;
 
             return View(viewModel);
         }

@@ -75,23 +75,8 @@
                 <button id="btnPrev" class="btn btn-large btn-default" data-nav='@Url.Action("Step1")'>&larr; Previous</button>
             </li>
             <li class="next">
-                <button id="btnSubmit" class="btn btn-large btn-default">Next &rarr;</button>
+                <button id="btnSubmit" type="submit" class="btn btn-large btn-default">Next &rarr;</button>
             </li>
         </ul>
     </form>
-
-
-
 </div>
-
-@section Scripts{
-    <script>
-        (function ($) {
-            $('#btnPrev').on('click', function () {
-                window.location = $(this).data().nav;
-                return false;
-            });
-          
-        })(jQuery);
-    </script>
-}

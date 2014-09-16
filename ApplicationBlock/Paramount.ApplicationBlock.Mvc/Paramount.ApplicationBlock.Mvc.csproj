@@ -107,6 +107,7 @@
     <Compile Include="ClientViewEngine.cs" />
     <Compile Include="HtmlHelpers\BootstrapInputExtensions.cs" />
     <Compile Include="HtmlHelpers\DropDownHtmlExtensions.cs" />
+    <Compile Include="HtmlHelpers\HtmlAttributeExtensions.cs" />
     <Compile Include="Unity\Bootstrapper.cs" />
     <Compile Include="Configuration\ModuleRegistrationConfigurationSection.cs" />
     <Compile Include="Modules\IModuleInfo.cs" />

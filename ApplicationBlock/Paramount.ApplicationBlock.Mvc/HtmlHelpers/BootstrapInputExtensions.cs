@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
 namespace Paramount
 {
+    using ApplicationBlock.Mvc;
+
     public static class BootstrapInputExtensions
     {
         /// <summary>
@@ -14,7 +15,10 @@ namespace Paramount
         /// </summary>
         public static MvcHtmlString BootstrapTextBoxFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> attributes = null)
         {
-            return htmlHelper.TextBoxFor(expression, format: null, htmlAttributes: WithFormControl(attributes));
+            if (attributes == null)
+                attributes = new Dictionary<string, object>();
+
+            return htmlHelper.TextBoxFor(expression, format: null, htmlAttributes: attributes.WithFormControl());
         }
 
         /// <summary>
@@ -22,9 +26,21 @@ namespace Paramount
         /// </summary>
         public static MvcHtmlString BootstrapLargeTextBoxFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> attributes = null)
         {
-            return htmlHelper.TextBoxFor(expression, 
-                format: null, 
-                htmlAttributes: WithLargeInput(attributes));
+            if (attributes == null)
+                attributes = new Dictionary<string, object>();
+
+            return htmlHelper.TextBoxFor(expression,
+                format: null,
+                htmlAttributes: attributes.WithLargeInput());
+        }
+
+        public static MvcHtmlString BootstrapLargeTextAreaFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, int rows, IDictionary<string, object> attributes = null)
+        {
+            if (attributes == null)
+                attributes = new Dictionary<string, object>();
+
+            return htmlHelper.TextAreaFor(expression,
+                htmlAttributes: attributes.WithLargeInput().WithRows(rows));
         }
 
         /// <summary>
@@ -39,23 +55,9 @@ namespace Paramount
             return new MvcHtmlString(email);
         }
 
-        private static IDictionary<string, object> WithFormControl(IDictionary<string, object> attributes)
-        {
-            if (attributes == null)
-                attributes = new Dictionary<string, object>();
 
-            attributes.Add("class", "form-control");
-            return attributes;
-        }
-
-        private static IDictionary<string, object> WithLargeInput(IDictionary<string, object> attributes)
-        {
-            if (attributes == null)
-                attributes = new Dictionary<string, object>();
-
-            attributes.Add("class", "form-control input-lg");
-            return attributes;
-        }
     }
+
+
 
 }

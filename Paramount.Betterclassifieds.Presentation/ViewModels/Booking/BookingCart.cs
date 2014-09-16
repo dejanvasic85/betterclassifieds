@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
+﻿using System.Linq;
+
+namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 {
     /// <summary>
     /// View model representing what can be selected in a regular booking steps/stages
@@ -36,6 +38,11 @@
         public BookingCart()
         {
             Publications = new int[] { };
+        }
+
+        public bool IsLineAdIncluded
+        {
+            get { return this.Publications != null && this.Publications.Any(); }
         }
 
         public bool IsStep1NotComplete()

@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using AutoMapper;
 using Microsoft.Practices.Unity;
+using Paramount.Betterclassifieds.Business.Managers;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
@@ -15,12 +16,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly ISearchService _searchService;
         private readonly IBookingId _bookingId;
         private readonly IBookingCartRepository _bookingCartRepository;
+        private readonly IClientConfig _clientConfig;
 
-        public BookingController(IUnityContainer container, ISearchService searchService, IBookingId bookingId, IBookingCartRepository bookingCartRepository)
+        public BookingController(IUnityContainer container, ISearchService searchService, IBookingId bookingId, IBookingCartRepository bookingCartRepository, IClientConfig clientConfig)
         {
             _searchService = searchService;
             _bookingId = bookingId;
             _bookingCartRepository = bookingCartRepository;
+            _clientConfig = clientConfig;
             _container = container;
         }
 
@@ -32,7 +35,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
             var categories = _searchService.GetCategories();
 
-            var stepOneView = new Step1View
+            var viewModel = new Step1View
             {
                 ParentCategoryOptions = categories.Where(c => c.ParentId == null).Select(c => new SelectListItem { Text = c.Title, Value = c.MainCategoryId.ToString() }),
                 Publications = this.MapList<PublicationModel, PublicationSelectionView>(_searchService.GetPublications()),
@@ -40,23 +43,23 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             if (bookingCart != null)
             {
-                stepOneView.CategoryId = bookingCart.CategoryId;
-                stepOneView.SubCategoryId = bookingCart.SubCategoryId;
+                viewModel.CategoryId = bookingCart.CategoryId;
+                viewModel.SubCategoryId = bookingCart.SubCategoryId;
 
                 // Set selected publications
                 if (bookingCart.Publications != null)
                 {
-                    stepOneView.SetSelectedPublications(bookingCart.Publications);
+                    viewModel.SetSelectedPublications(bookingCart.Publications);
                 }
 
                 // Load subcategories (if parent is selected)
                 if (bookingCart.CategoryId.HasValue)
                 {
-                    stepOneView.SubCategoryOptions = categories.Where(c => c.ParentId == bookingCart.CategoryId.Value).Select(c => new SelectListItem { Text = c.Title, Value = c.MainCategoryId.ToString() });
+                    viewModel.SubCategoryOptions = categories.Where(c => c.ParentId == bookingCart.CategoryId.Value).Select(c => new SelectListItem { Text = c.Title, Value = c.MainCategoryId.ToString() });
                 }
             }
 
-            return View(stepOneView);
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -120,11 +123,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult Step3()
         {
             // Todo - move this to a filter? People shouldn't reach this method if they haven't done previous steps
-            var booking = _bookingCartRepository.GetBookingCart(_bookingId.Id);
-            if (booking == null || booking.IsStep2NotComplete())
+            var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
+            if (bookingCart == null || bookingCart.IsStep2NotComplete())
                 throw new BookingNotValidException();
 
-            var viewModel = this.Map<BookingCart, Step3View>(booking);
+            var viewModel = this.Map<BookingCart, Step3View>(bookingCart);
+
+            // Fetch the up-coming available editions
 
             return View(viewModel);
         }
@@ -138,22 +143,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         
         public void OnRegisterMaps(IConfiguration configuration)
         {
+            // To view model
             configuration.CreateMap<PublicationModel, PublicationSelectionView>();
-
-            configuration.CreateMap<BookingCart, Step2View>()
-                // IsLineAdIncluded should be set only if there are publications selected in step 1
-                .ForMember(member => member.IsLineAdIncluded, options => options.MapFrom(source => source.Publications.Any()))
-                ;
-
-            configuration.CreateMap<BookingCart, Step3View>()
-                // IsLineAdIncluded should be set only if there are publications selected in step 1
-               .ForMember(member => member.IsLineAdIncluded, options => options.MapFrom(source => source.Publications.Any()))
-               ;
-
-
+            configuration.CreateMap<BookingCart, Step2View>();
+            configuration.CreateMap<BookingCart, Step3View>();
+            
+            // From ViewModel
             configuration.CreateMap<Step2View, BookingCart>();
             configuration.CreateMap<Step3View, BookingCart>();
-
         }
     }
 

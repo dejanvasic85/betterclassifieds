@@ -197,6 +197,7 @@
     <Compile Include="ViewModels\Booking\BookingId.cs" />
     <Compile Include="ViewModels\Booking\BookingNotValidException.cs" />
     <Compile Include="Framework\MongoRepository.cs" />
+    <Compile Include="ViewModels\Booking\PublicationEditionView.cs" />
     <Compile Include="ViewModels\Booking\Step2View.cs" />
     <Compile Include="ViewModels\Booking\Step3View.cs" />
     <Compile Include="ViewModels\CategoryView.cs" />

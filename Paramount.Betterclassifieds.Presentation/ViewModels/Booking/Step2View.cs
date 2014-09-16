@@ -2,6 +2,9 @@
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 {
+    /// <summary>
+    /// Ad Details
+    /// </summary>
     public class Step2View
     {
         [Required]

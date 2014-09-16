@@ -85,8 +85,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         // GET: /Booking/Step/2 - ad details
         public ActionResult Step2()
         {
-            var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.ToString());
 
+            // Todo - move this to a filter? People shouldn't reach this method if they haven't done previous steps
+            var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.ToString());
             if (bookingCart == null || bookingCart.IsStep1NotComplete())
                 throw new BookingNotValidException();
 
@@ -118,7 +119,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         // GET /Booking/Step/3 - Scheduling
         public ActionResult Step3()
         {
-            // Validate current state of the booking
+            // Todo - move this to a filter? People shouldn't reach this method if they haven't done previous steps
             var booking = _bookingCartRepository.GetBookingCart(_bookingId.Id);
             if (booking == null || booking.IsStep2NotComplete())
                 throw new BookingNotValidException();

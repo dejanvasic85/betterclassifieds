@@ -11,3 +11,4 @@
 /// <reference path="account/login.js" />
 /// <reference path="booking/bookingcart.js" />
 /// <reference path="listings/find.js" />
+/// <reference path="bootstrap-datepicker.js" />

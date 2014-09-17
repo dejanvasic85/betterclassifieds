@@ -79,7 +79,7 @@
             <div class="alert alert-danger hidden"></div>
         </div>
     </div>
-    
+
     @*Pager*@
     <ul class="pager">
         <li class="next">
@@ -116,7 +116,7 @@
         var stepOneModel = new StepOne(data);
 
         ko.applyBindings(stepOneModel);
-        
+
         (function($) {
 
             function validateError(msg) {
@@ -133,7 +133,7 @@
                 var modelToPost = ko.toJS(stepOneModel);
 
                 // Validate
-                if (isNaN(stepOneModel.subCategoryId())) {
+                if (isNaN(stepOneModel.subCategoryId()) || stepOneModel.subCategoryId() === null) {
                     validateError('You must select a sub category for your ad');
                     return;
                 }

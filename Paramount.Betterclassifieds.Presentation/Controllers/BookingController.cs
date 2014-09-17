@@ -138,7 +138,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost]
         public ActionResult Step3(Step3View viewModel)
         {
-            return View();
+            if (!ModelState.IsValid)
+                return View(viewModel);
+
+            return View(viewModel);
         }
 
         

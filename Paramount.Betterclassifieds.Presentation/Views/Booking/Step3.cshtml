@@ -25,7 +25,8 @@
 
                 <div class="form-group">
                     <label>Start Date</label>
-                    <input id="startDate" class="datepicker form-control input-lg" data-provide="datepicker" />
+                    <input id="startDate" name="startDate" class="datepicker form-control input-lg" data-provide="datepicker" required data-val="true" data-val-required="Start Date is required"/>
+                    <span class="field-validation-valid help-block" data-valmsg-for="startDate" data-valmsg-replace="true"></span>
                 </div>
 
             </div>
@@ -37,7 +38,7 @@
                 <button id="btnPrev" class="btn btn-large btn-default js-load" data-nav='@Url.Action("Step2")'>&larr; Previous</button>
             </li>
             <li class="next">
-                <button id="btnSubmit" class="btn btn-large btn-default">Next &rarr;</button>
+                <button id="btnSubmit" type="submit" class="btn btn-large btn-default">Next &rarr;</button>
             </li>
         </ul>
     </form>
@@ -46,7 +47,7 @@
 @section Scripts{
     <script>
         (function ($) {
-
+            
         })(jQuery);
     </script>
 }

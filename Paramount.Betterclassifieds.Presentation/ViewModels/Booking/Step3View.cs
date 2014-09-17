@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
@@ -9,6 +10,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
     public class Step3View
     {
         [Required]
+        [DisplayName("Start Date")]
         public DateTime? StartDate { get; set; }
 
         public PublicationEditionView[] Editions { get; set; } 

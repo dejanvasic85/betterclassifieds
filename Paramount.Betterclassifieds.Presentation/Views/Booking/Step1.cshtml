@@ -83,7 +83,7 @@
     @*Pager*@
     <ul class="pager">
         <li class="next">
-            <button id="btnSubmit" type="submit" class="btn btn-large btn-default">Next &rarr;</button>
+            <button id="btnSubmit" type="submit" class="btn btn-large btn-default" data-loading-text="Please wait...">Next &rarr;</button>
         </li>
     </ul>
 
@@ -130,11 +130,13 @@
             });
 
             $('#btnSubmit').on('click', function() {
+                $(this).button('loading');
                 var modelToPost = ko.toJS(stepOneModel);
 
                 // Validate
                 if (isNaN(stepOneModel.subCategoryId()) || stepOneModel.subCategoryId() === null) {
                     validateError('You must select a sub category for your ad');
+                    $(this).button('reset');
                     return;
                 }
 
@@ -151,6 +153,9 @@
                     },
                     error : function(errorMsg) {
                         validateError(errorMsg);
+                    },
+                    complete : function() {
+                        $(this).button('reset');
                     }
                 });
             });

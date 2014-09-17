@@ -22,10 +22,10 @@
                     <h4>Schedule</h4>
                     <p>Your ad will be available for @Model.DurationDays  days from the date you select below.</p>
                 </div>
-                
+
                 <div class="form-group">
                     <label>Start Date</label>
-                    <input id="startDate" class="form-control input-lg" data-provide="datepicker" />
+                    <input id="startDate" class="datepicker form-control input-lg" data-provide="datepicker" />
                 </div>
 
             </div>
@@ -34,7 +34,7 @@
         @*Pager*@
         <ul class="pager">
             <li class="previous">
-                <button id="btnPrev" class="btn btn-large btn-default" data-nav='@Url.Action("Step2")'>&larr; Previous</button>
+                <button id="btnPrev" class="btn btn-large btn-default js-load" data-nav='@Url.Action("Step2")'>&larr; Previous</button>
             </li>
             <li class="next">
                 <button id="btnSubmit" class="btn btn-large btn-default">Next &rarr;</button>
@@ -45,6 +45,8 @@
 
 @section Scripts{
     <script>
+        (function ($) {
 
+        })(jQuery);
     </script>
 }

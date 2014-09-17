@@ -21,6 +21,7 @@
                 $(this).find('button[type=submit]').button('loading');
             }
         });
+        $('button.js-load').attr('data-loading-text', 'Please wait...').on('click', function() { $(this).button('loading'); });
 
         // Any captcha input should add the form-control css class
         $('#CaptchaInputText').addClass("form-control");
@@ -53,6 +54,15 @@
             window.location = $(this).data().nav;
             return false;
         });
+
+        // Wire up the datepickers (using bootstrap-datepicker.js library)
+        $('.datepicker').datepicker({
+            autoclose: true,
+            format: 'dd/mm/yyyy',
+            todateBtn: true,
+            todayHighlight : true
+        });
+
 
         // JQuery extensions
         $.fn.extend({

@@ -222,6 +222,7 @@
     <Content Include="Content\bootstrap-3.1.0.min.css">
       <DependentUpon>bootstrap-3.1.0.css</DependentUpon>
     </Content>
+    <Content Include="Content\bootstrap-markdown.min.css" />
     <Content Include="Content\bootstrap-select.css" />
     <Content Include="Content\bootstrap-select.min.css">
       <DependentUpon>bootstrap-select.css</DependentUpon>
@@ -282,6 +283,10 @@
     <Content Include="Scripts\bootstrap-datepicker.min.js">
       <DependentUpon>bootstrap-datepicker.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\bootstrap-markdown.js" />
+    <Content Include="Scripts\bootstrap-markdown.min.js">
+      <DependentUpon>bootstrap-markdown.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery-1.11.0.min.js">
       <DependentUpon>jquery-1.11.0.js</DependentUpon>
     </Content>
@@ -321,6 +326,9 @@
     </Content>
     <Content Include="Scripts\bootstrap-datepicker.min.js.map">
       <DependentUpon>bootstrap-datepicker.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\bootstrap-markdown.min.js.map">
+      <DependentUpon>bootstrap-markdown.min.js</DependentUpon>
     </Content>
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\toastr-2.0.1.js" />

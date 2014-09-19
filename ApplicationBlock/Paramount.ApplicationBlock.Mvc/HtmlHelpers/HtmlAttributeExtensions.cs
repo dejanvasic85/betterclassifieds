@@ -6,13 +6,13 @@ namespace Paramount.ApplicationBlock.Mvc
     {
         internal static IDictionary<string, object> WithFormControl(this IDictionary<string, object> attributes)
         {
-            attributes.Add("class", "form-control");
+            AddClass(attributes, "form-control");
             return attributes;
-        }   
+        }
 
         internal static IDictionary<string, object> WithLargeInput(this IDictionary<string, object> attributes)
         {
-            attributes.Add("class", "form-control input-lg");
+            AddClass(attributes, "form-control input-lg");
             return attributes;
         } 
         
@@ -20,6 +20,18 @@ namespace Paramount.ApplicationBlock.Mvc
         {
             attributes.Add("rows", rows.ToString());
             return attributes;
+        }
+
+        private static void AddClass(IDictionary<string, object> attributes, string classValue)
+        {
+            if (attributes.ContainsKey("class"))
+            {
+                attributes["class"] = string.Format("{0} {1}", attributes["class"], classValue);
+            }
+            else
+            {
+                attributes["class"] = classValue;
+            }
         }
     }
 }

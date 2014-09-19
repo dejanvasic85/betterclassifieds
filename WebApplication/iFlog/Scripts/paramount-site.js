@@ -63,12 +63,6 @@
             todayHighlight : true
         });
 
-        // Wire up all the markdown editors on load
-        $('.markdown-editor').markdown({
-            autofocus: false,
-            savable: false
-        });
-
         // JQuery extensions
         $.fn.extend({
             loadSubCategories: function (url, parentCategoryId) {

@@ -349,6 +349,10 @@
     <Content Include="Scripts\Listings\Find.min.js">
       <DependentUpon>Find.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\markdown.js" />
+    <Content Include="Scripts\markdown.min.js">
+      <DependentUpon>markdown.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\paramount-site.js" />
     <Content Include="Scripts\paramount-site.min.js">
       <DependentUpon>paramount-site.js</DependentUpon>
@@ -389,6 +393,10 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Scripts\to-markdown.js" />
+    <Content Include="Scripts\to-markdown.min.js">
+      <DependentUpon>to-markdown.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\toastr-2.0.1.min.js.map">
       <DependentUpon>toastr-2.0.1.min.js</DependentUpon>
     </Content>
@@ -400,6 +408,12 @@
     </Content>
     <Content Include="Scripts\bootstrap-markdown.min.js.map">
       <DependentUpon>bootstrap-markdown.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\markdown.min.js.map">
+      <DependentUpon>markdown.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\to-markdown.min.js.map">
+      <DependentUpon>to-markdown.min.js</DependentUpon>
     </Content>
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\paramount-validate-tooltip.min.js">

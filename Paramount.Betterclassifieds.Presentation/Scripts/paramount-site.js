@@ -21,6 +21,7 @@
                 $(this).find('button[type=submit]').button('loading');
             }
         });
+        $('button.js-load').attr('data-loading-text', 'Please wait...').on('click', function() { $(this).button('loading'); });
 
         // Any captcha input should add the form-control css class
         $('#CaptchaInputText').addClass("form-control");
@@ -48,15 +49,27 @@
             });
         });
 
+        // Buttons that navigate    
+        $('button[data-nav]').on('click', function () {
+            window.location = $(this).data().nav;
+            return false;
+        });
+
+        // Wire up the datepickers (using bootstrap-datepicker.js library)
+        $('.datepicker').datepicker({
+            autoclose: true,
+            format: 'dd/mm/yyyy',
+            todateBtn: true,
+            todayHighlight : true
+        });
+
         // JQuery extensions
         $.fn.extend({
-            loadSubCategories: function (url, parentCategoryId, showHide) {
+            loadSubCategories: function (url, parentCategoryId) {
                 var me = this;
                 me.empty();
                 if (parentCategoryId === "") {
-                    if (showHide) {
-                        me.addClass('hidden');
-                    }
+                    me.addClass('hidden');
                     return me;
                 }
                 me.attr('disabled', 'disabled').append('<option>Loading...</option>');
@@ -65,10 +78,7 @@
                     $.each(data, function (index, option) {
                         me.append('<option value=' + option.CategoryId + '>' + option.Title + '</option>');
                     });
-                    me.removeAttr('disabled');
-                    if (showHide) {
-                        me.removeClass('hidden');   
-                    }
+                    me.removeAttr('disabled').removeClass('hidden');
                 });
                 return me;
             }

@@ -32,7 +32,7 @@
 
                 <div class="form-group">
                     @Html.LabelFor(m => m.OnlineAdDescription)
-                    @Html.BootstrapLargeTextAreaFor(m => m.OnlineAdDescription, 5)
+                    @Html.BootstrapLargeTextAreaFor(m => m.OnlineAdDescription, 8, new Dictionary<string, object> { { "class", "markdown-editor" }, { "data-provide", "markdown-editable" } })
                     @Html.ValidationMessageFor(m => m.OnlineAdDescription)
                 </div>
 
@@ -80,3 +80,16 @@
         </ul>
     </form>
 </div>
+
+@section Scripts{
+    Testing One two three
+
+    <script>
+        (function ($) {
+            $('.markdown-editor').markdown({
+                autofocus: false,
+                savable: false
+            });
+        })(jQuery);
+    </script>
+}

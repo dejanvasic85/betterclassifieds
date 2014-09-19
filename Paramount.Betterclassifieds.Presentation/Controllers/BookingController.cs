@@ -108,6 +108,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return View(viewModel);
             }
 
+            // Todo - convert markdown to html
+            // var markdown = new MarkdownDeep.Markdown();
+            // markdown.Transform(viewModel.OnlineAdDescription);
+
             // Map from view
             var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
             this.Map(viewModel, bookingCart);

@@ -200,9 +200,11 @@
     <Compile Include="ViewModels\Booking\BookingId.cs" />
     <Compile Include="ViewModels\Booking\BookingNotValidException.cs" />
     <Compile Include="Framework\MongoRepository.cs" />
+    <Compile Include="ViewModels\Booking\OnlineAdCart.cs" />
     <Compile Include="ViewModels\Booking\PublicationEditionView.cs" />
     <Compile Include="ViewModels\Booking\Step2View.cs" />
     <Compile Include="ViewModels\Booking\Step3View.cs" />
+    <Compile Include="ViewModels\Booking\Step4View.cs" />
     <Compile Include="ViewModels\CategoryView.cs" />
     <Compile Include="ViewModels\Booking\PublicationView.cs" />
     <Compile Include="ViewModels\ContactUsModel.cs" />
@@ -415,6 +417,7 @@
     <Content Include="Views\Booking\Step1.cshtml" />
     <Content Include="Views\Booking\Step2.cshtml" />
     <Content Include="Views\Booking\Step3.cshtml" />
+    <Content Include="Views\Booking\Step4.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\EastGippslandNews\" />

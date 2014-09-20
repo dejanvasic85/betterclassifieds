@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 {
@@ -20,6 +21,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         public int? SubCategoryId { get; set; }
 
         public int[] Publications { get; set; }
+
+        public DateTime? StartDate { get; set; }
 
         public OnlineAdCart OnlineAdCart { get; set; }
 
@@ -44,22 +47,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
                     (this.OnlineAdCart.Heading.IsNullOrEmpty() ||
                    this.OnlineAdCart.Description.IsNullOrEmpty());
         }
-    }
 
-    public class OnlineAdCart
-    {
-        public string Heading { get; set; }
-
-        public string Description { get; set; }
-
-        public string ContactName { get; set; }
-
-        public string Phone { get; set; }
-
-        public string Email { get; set; }
-
-        public decimal? Price { get; set; }
-
-        public int? LocationAreaId { get; set; }
+        public bool IsStep3NotComplete()
+        {
+            return !this.StartDate.HasValue;
+        }
     }
 }

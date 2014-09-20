@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Security.AccessControl;
 using System.Web.Mvc;
 using AutoMapper;
 using Microsoft.Practices.Unity;
@@ -130,10 +131,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (bookingCart == null || bookingCart.IsStep2NotComplete())
                 throw new BookingNotValidException();
 
-            var viewModel = this.Map<BookingCart, Step3View>(bookingCart);
+            var viewModel = new Step3View
+            {
+                StartDate = bookingCart.StartDate,
+                DurationDays = _clientConfig.RestrictedOnlineDaysCount
+            };
             
             // Fetch the up-coming available editions
-            viewModel.DurationDays = _clientConfig.RestrictedOnlineDaysCount;
 
             return View(viewModel);
         }
@@ -144,24 +148,44 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (!ModelState.IsValid)
                 return View(viewModel);
 
+            var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
+            if(bookingCart == null || bookingCart.IsStep3NotComplete())
+                throw new BookingNotValidException();
+
+            bookingCart.StartDate = viewModel.StartDate;
+
             return View(viewModel);
         }
 
-        
+        // 
+        // GET /Booking/Step/4 - Confirmation
+        public ActionResult Step4()
+        {
+            var viewModel = new Step4View();
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Step4(Step4View viewModel)
+        {
+            
+            // todo - determine whether any payment is required and redirect appropriately
+            return View();
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
+            // Step 2 view is very flat with OnlineAd Prefix on properties
             configuration.RecognizeDestinationPrefixes("OnlineAd");
             configuration.RecognizePrefixes("OnlineAd");
 
             // To view model
             configuration.CreateMap<PublicationModel, PublicationSelectionView>();
-            configuration.CreateMap<OnlineAdCart, Step2View>()
-                ;
-            configuration.CreateMap<BookingCart, Step3View>();
+            configuration.CreateMap<OnlineAdCart, Step2View>();
             
             // From ViewModel
             configuration.CreateMap<Step2View, OnlineAdCart>();
-            configuration.CreateMap<Step3View, BookingCart>();
         }
     }
 

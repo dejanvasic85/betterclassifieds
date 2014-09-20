@@ -1,0 +1,25 @@
+﻿@using Paramount
+@model Paramount.Betterclassifieds.Presentation.ViewModels.Booking.Step4View
+
+@{
+    ViewBag.Title = "Classifieds - Place new Ad";
+    Layout = @Url.ClientUrl("~/Views/Shared/_ApplicationLayout.cshtml");
+}
+
+<div class="container">
+    <ul class="nav nav-tabs" role="tablist">
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li class="active"><a href="#">Step 4</a></li>
+    </ul>
+
+    <form id="confirmationForm" action="@Url.Action("Step4", "Booking")" method="POST" role="form">
+
+    </form>
+</div>
+
+@section Scripts{
+    <script>
+    </script>
+}

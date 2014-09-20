@@ -19,7 +19,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
             {
                 SessionId = sessionId,
                 UserId = username,
-                Id = Guid.NewGuid().ToString()
+                Id = Guid.NewGuid().ToString(),
+                OnlineAdCart = new OnlineAdCart()
             };
 
             bookingId.SetId(cart.Id);

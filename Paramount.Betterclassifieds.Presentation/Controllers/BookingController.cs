@@ -88,13 +88,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         // GET: /Booking/Step/2 - ad details
         public ActionResult Step2()
         {
-
             // Todo - move this to a filter? People shouldn't reach this method if they haven't done previous steps
             var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.ToString());
             if (bookingCart == null || bookingCart.IsStep1NotComplete())
                 throw new BookingNotValidException();
 
-            var stepTwoModel = this.Map<BookingCart, Step2View>(bookingCart);
+            var stepTwoModel = this.Map<OnlineAdCart, Step2View>(bookingCart.OnlineAdCart);
 
             return View(stepTwoModel);
         }
@@ -114,8 +113,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             // Map from view
             var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
-            this.Map(viewModel, bookingCart);
-
+            bookingCart.OnlineAdCart = this.Map<Step2View, OnlineAdCart>(viewModel);
+            
             // Save and continue
             _bookingCartRepository.SaveBookingCart(bookingCart);
 
@@ -151,13 +150,17 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         
         public void OnRegisterMaps(IConfiguration configuration)
         {
+            configuration.RecognizeDestinationPrefixes("OnlineAd");
+            configuration.RecognizePrefixes("OnlineAd");
+
             // To view model
             configuration.CreateMap<PublicationModel, PublicationSelectionView>();
-            configuration.CreateMap<BookingCart, Step2View>();
+            configuration.CreateMap<OnlineAdCart, Step2View>()
+                ;
             configuration.CreateMap<BookingCart, Step3View>();
             
             // From ViewModel
-            configuration.CreateMap<Step2View, BookingCart>();
+            configuration.CreateMap<Step2View, OnlineAdCart>();
             configuration.CreateMap<Step3View, BookingCart>();
         }
     }

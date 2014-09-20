@@ -21,19 +21,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 
         public int[] Publications { get; set; }
 
-        public string OnlineAdHeading { get; set; }
-
-        public string OnlineAdDescription { get; set; }
-
-        public string OnlineAdContactName { get; set; }
-
-        public string OnlineAdPhone { get; set; }
-
-        public string OnlineAdEmail { get; set; }
-
-        public decimal? OnlineAdPrice { get; set; }
-
-        public int? OnlineAdLocationAreaId { get; set; }
+        public OnlineAdCart OnlineAdCart { get; set; }
 
         public BookingCart()
         {
@@ -49,11 +37,29 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         {
             return !CategoryId.HasValue || !SubCategoryId.HasValue;
         }
-            
+
         public bool IsStep2NotComplete()
         {
-            return this.OnlineAdHeading.IsNullOrEmpty() ||
-                   this.OnlineAdDescription.IsNullOrEmpty();
+            return this.OnlineAdCart != null &&
+                    (this.OnlineAdCart.Heading.IsNullOrEmpty() ||
+                   this.OnlineAdCart.Description.IsNullOrEmpty());
         }
+    }
+
+    public class OnlineAdCart
+    {
+        public string Heading { get; set; }
+
+        public string Description { get; set; }
+
+        public string ContactName { get; set; }
+
+        public string Phone { get; set; }
+
+        public string Email { get; set; }
+
+        public decimal? Price { get; set; }
+
+        public int? LocationAreaId { get; set; }
     }
 }

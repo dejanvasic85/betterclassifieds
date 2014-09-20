@@ -60,7 +60,8 @@
             autoclose: true,
             format: 'dd/mm/yyyy',
             todateBtn: true,
-            todayHighlight : true
+            todayHighlight: true,
+            startDate : new Date()
         });
 
         // JQuery extensions

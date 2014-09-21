@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 {
@@ -22,6 +23,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 
         public int[] Publications { get; set; }
 
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime? StartDate { get; set; }
 
         public OnlineAdCart OnlineAdCart { get; set; }

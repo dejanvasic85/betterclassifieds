@@ -21,7 +21,7 @@
                 $(this).find('button[type=submit]').button('loading');
             }
         });
-        $('button.js-load').attr('data-loading-text', 'Please wait...').on('click', function() { $(this).button('loading'); });
+        $('button.js-load').attr('data-loading-text', 'Please wait...').on('click', function () { $(this).button('loading'); });
 
         // Any captcha input should add the form-control css class
         $('#CaptchaInputText').addClass("form-control");
@@ -61,8 +61,13 @@
             format: 'dd/mm/yyyy',
             todateBtn: true,
             todayHighlight: true,
-            startDate : new Date()
+            startDate: new Date()
         });
+
+        // JQuery validation extensions
+        $.validator.methods.date = function (value, element) {
+            return this.optional(element) || moment(value, 'dd/MM/yyyy').isValid();
+        };
 
         // JQuery extensions
         $.fn.extend({

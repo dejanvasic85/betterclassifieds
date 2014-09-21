@@ -15,3 +15,4 @@
 /// <reference path="account/login.js" />
 /// <reference path="booking/bookingcart.js" />
 /// <reference path="listings/find.js" />
+/// <reference path="moment-2.8.2.js" />

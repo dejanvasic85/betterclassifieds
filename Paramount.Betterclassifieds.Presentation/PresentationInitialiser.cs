@@ -1,8 +1,9 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Web.Http;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using Paramount.ApplicationBlock.Mvc;
-using Paramount.Betterclassifieds.Presentation.Framework;
+using Paramount.ApplicationBlock.Mvc.ModelBinders;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Booking;
 
@@ -47,18 +48,13 @@ namespace Paramount.Betterclassifieds.Presentation
 
         public override void RegisterTypes(IUnityContainer container)
         {
-
-            // Here we are registering view model specific stuff ( Presentation only )
-            
-
             // Searching throughout the website allows to save in to the session ( at the moment )
             container.RegisterType<SearchFilters>(new SessionLifetimeManager<SearchFilters>());
 
             // Booking specific objects
             container.RegisterType<IBookingId, BookingCookie>()
                 .RegisterType<BookingCart>(new InjectionFactory(BookingCartFactory.Create))
-                .RegisterType<IBookingCartRepository, BookingCartRepository>()
-                ;
+                .RegisterType<IBookingCartRepository, BookingCartRepository>();
         }
     }
 }

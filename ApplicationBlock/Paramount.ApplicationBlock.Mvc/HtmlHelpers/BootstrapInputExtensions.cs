@@ -24,13 +24,13 @@ namespace Paramount
         /// <summary>
         /// Generates an input element only with a form-control css class and large input
         /// </summary>
-        public static MvcHtmlString BootstrapLargeTextBoxFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> attributes = null)
+        public static MvcHtmlString BootstrapLargeTextBoxFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> attributes = null, string format = "")
         {
             if (attributes == null)
                 attributes = new Dictionary<string, object>();
 
             return htmlHelper.TextBoxFor(expression,
-                format: null,
+                format: format,
                 htmlAttributes: attributes.WithLargeFormControl());
         }
 
@@ -66,7 +66,7 @@ namespace Paramount
             if (attributes == null)
                 attributes = new Dictionary<string, object>();
             attributes.WithLargeFormControl().WithCalendar();
-            return htmlHelper.BootstrapLargeTextBoxFor(expression, attributes);
+            return htmlHelper.BootstrapLargeTextBoxFor(expression, attributes, "{0:dd/MM/yyyy}");
         }
     }
 }

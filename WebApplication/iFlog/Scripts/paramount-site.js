@@ -64,6 +64,11 @@
             startDate : new Date()
         });
 
+        // JQuery validation extensions
+        $.validator.methods.date = function(value, element) {
+            return this.optional(element) || moment(value, 'dd/MM/yyyy').isValid();
+        };
+
         // JQuery extensions
         $.fn.extend({
             loadSubCategories: function (url, parentCategoryId) {

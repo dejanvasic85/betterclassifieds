@@ -10,12 +10,19 @@ namespace Paramount.ApplicationBlock.Mvc
             return attributes;
         }
 
-        internal static IDictionary<string, object> WithLargeInput(this IDictionary<string, object> attributes)
+        internal static IDictionary<string, object> WithLargeFormControl(this IDictionary<string, object> attributes)
         {
             AddClass(attributes, "form-control input-lg");
             return attributes;
+        }
+
+        internal static IDictionary<string, object> WithCalendar(this IDictionary<string, object> attributes)
+        {
+            AddClass(attributes, "datepicker");
+            attributes.Add("data-provide", "datepicker");
+            return attributes;
         } 
-        
+
         internal static IDictionary<string, object> WithRows(this IDictionary<string, object> attributes, int rows)
         {
             attributes.Add("rows", rows.ToString());

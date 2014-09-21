@@ -11,6 +11,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
     {
         [Required]
         [DisplayName("Start Date")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? StartDate { get; set; }
 
         public PublicationEditionView[] Editions { get; set; } 

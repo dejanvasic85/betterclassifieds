@@ -31,16 +31,19 @@ namespace Paramount
 
             return htmlHelper.TextBoxFor(expression,
                 format: null,
-                htmlAttributes: attributes.WithLargeInput());
+                htmlAttributes: attributes.WithLargeFormControl());
         }
 
+        /// <summary>
+        /// Generates an textarea element only with a form-control css class and large input
+        /// </summary>
         public static MvcHtmlString BootstrapLargeTextAreaFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, int rows, IDictionary<string, object> attributes = null)
         {
             if (attributes == null)
                 attributes = new Dictionary<string, object>();
 
             return htmlHelper.TextAreaFor(expression,
-                htmlAttributes: attributes.WithLargeInput().WithRows(rows));
+                htmlAttributes: attributes.WithLargeFormControl().WithRows(rows));
         }
 
         /// <summary>
@@ -55,9 +58,15 @@ namespace Paramount
             return new MvcHtmlString(email);
         }
 
-
+        /// <summary>
+        /// Generates an input element with calendar class and data-provide attributes
+        /// </summary>
+        public static MvcHtmlString BootstrapCalendar<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> attributes = null)
+        {
+            if (attributes == null)
+                attributes = new Dictionary<string, object>();
+            attributes.WithLargeFormControl().WithCalendar();
+            return htmlHelper.BootstrapLargeTextBoxFor(expression, attributes);
+        }
     }
-
-
-
 }

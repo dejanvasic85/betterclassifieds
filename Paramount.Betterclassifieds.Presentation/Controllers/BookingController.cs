@@ -114,6 +114,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             // Map from view
             var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
+            if (bookingCart == null || bookingCart.IsStep1NotComplete())
+                throw new BookingNotValidException();
+
             bookingCart.OnlineAdCart = this.Map<Step2View, OnlineAdCart>(viewModel);
             
             // Save and continue
@@ -126,7 +129,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         // GET /Booking/Step/3 - Scheduling
         public ActionResult Step3()
         {
-            // Todo - move this to a filter? People shouldn't reach this method if they haven't done previous steps
             var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
             if (bookingCart == null || bookingCart.IsStep2NotComplete())
                 throw new BookingNotValidException();
@@ -137,7 +139,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 DurationDays = _clientConfig.RestrictedOnlineDaysCount
             };
             
-            // Fetch the up-coming available editions
+            // todo - Line Ads - Fetch the up-coming available editions
 
             return View(viewModel);
         }
@@ -149,18 +151,24 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return View(viewModel);
 
             var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
-            if(bookingCart == null || bookingCart.IsStep3NotComplete())
+            if(bookingCart == null || bookingCart.IsStep2NotComplete())
                 throw new BookingNotValidException();
 
             bookingCart.StartDate = viewModel.StartDate;
 
-            return View(viewModel);
+            _bookingCartRepository.SaveBookingCart(bookingCart);
+
+            return RedirectToAction("Step4");
         }
 
         // 
         // GET /Booking/Step/4 - Confirmation
         public ActionResult Step4()
         {
+            var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
+            if (bookingCart == null || bookingCart.IsStep3NotComplete())
+                throw new BookingNotValidException();
+
             var viewModel = new Step4View();
 
             return View(viewModel);

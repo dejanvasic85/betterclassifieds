@@ -25,45 +25,5 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             mockBookingManager = CreateMockOf<IBookingManager>();
         }
 
-        [Test]
-        [Ignore]
-        public void Step1_Get_ReturnsViewModel()
-        {
-            // arrange
-            var mockCategories = new List<CategorySearchResult>
-            {
-                new CategorySearchResult{ Title = "MockCategory"}
-            };
-            var mockPublications = new List<PublicationModel>
-            {
-                new PublicationModel{ Title = "MockPublication"}
-            };
-            mockSearchService
-                .SetupWithVerification(call => call.GetTopLevelCategories(), mockCategories)
-                .SetupWithVerification(call => call.GetPublications(), mockPublications)
-                ;
-            
-            // act
-            var result = CreateController().Step1();
-
-            // assert
-            Assert.That(result, Is.TypeOf<ViewResult>());
-            var expectedModel = result.CastTo<ViewResult>().Model.CastTo<Step1View>();
-            Assert.That(expectedModel, Is.Not.Null);
-            Assert.That(expectedModel.Publications.Count(), Is.EqualTo(1));
-            Assert.That(expectedModel.ParentCategoryOptions.Count(), Is.EqualTo(1));
-        }
-
-        [Test]
-        [Ignore]
-        public void Step1_Post_ReturnsRedirectResult()
-        {
-            // arrange
-            
-
-            // act
-
-            // assert
-        }
     }
 }

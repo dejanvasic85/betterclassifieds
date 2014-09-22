@@ -122,6 +122,7 @@
     <Compile Include="Unity\RequestLifetimeHttpModule.cs" />
     <Compile Include="Unity\SessionLifetimeManager.cs" />
     <Compile Include="Unity\UnityDependencyResolver.cs" />
+    <Compile Include="Unity\UnityFilterAttributeFilterProvider.cs" />
     <Compile Include="Unity\UnityPageHandlerFactory.cs" />
     <Compile Include="UrlExtensions.cs" />
     <Compile Include="Validators\MustBeTrue.cs" />

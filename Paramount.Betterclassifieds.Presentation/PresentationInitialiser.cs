@@ -1,11 +1,11 @@
-﻿using System;
-using System.Web.Http;
-using System.Web.Mvc;
-using Microsoft.Practices.Unity;
+﻿using Microsoft.Practices.Unity;
 using Paramount.ApplicationBlock.Mvc;
-using Paramount.ApplicationBlock.Mvc.ModelBinders;
+using Paramount.ApplicationBlock.Mvc.Unity;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Booking;
+using System.Linq;
+using System.Web.Http;
+using System.Web.Mvc;
 
 namespace Paramount.Betterclassifieds.Presentation
 {
@@ -48,6 +48,15 @@ namespace Paramount.Betterclassifieds.Presentation
 
         public override void RegisterTypes(IUnityContainer container)
         {
+            // Use the filter provider that 
+            var oldProvider = FilterProviders.Providers.Single(f => f is FilterAttributeFilterProvider);
+            FilterProviders.Providers.Remove(oldProvider);
+
+            var provider = new UnityFilterAttributeFilterProvider(container);
+            FilterProviders.Providers.Add(provider);
+
+
+
             // Searching throughout the website allows to save in to the session ( at the moment )
             container.RegisterType<SearchFilters>(new SessionLifetimeManager<SearchFilters>());
 

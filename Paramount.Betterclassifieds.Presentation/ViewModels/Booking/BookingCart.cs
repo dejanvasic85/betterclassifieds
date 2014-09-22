@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -9,6 +10,13 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
     /// </summary>
     public class BookingCart
     {
+
+        public BookingCart()
+        {
+            Publications = new int[] { };
+            CompletedSteps = new List<int>();
+        }
+
         public string SessionId { get; set; }
 
         public string Id { get; set; }
@@ -28,31 +36,29 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 
         public OnlineAdCart OnlineAdCart { get; set; }
 
-        public BookingCart()
-        {
-            Publications = new int[] { };
-        }
-
         public bool IsLineAdIncluded
         {
             get { return this.Publications != null && this.Publications.Any(); }
         }
 
-        public bool IsStep1NotComplete()
-        {
-            return !CategoryId.HasValue || !SubCategoryId.HasValue;
-        }
+        public List<int> CompletedSteps { get; set; }
+        
 
-        public bool IsStep2NotComplete()
-        {
-            return this.OnlineAdCart != null &&
-                    (this.OnlineAdCart.Heading.IsNullOrEmpty() ||
-                   this.OnlineAdCart.Description.IsNullOrEmpty());
-        }
+        //public bool IsStep1NotComplete()
+        //{
+        //    return !CategoryId.HasValue || !SubCategoryId.HasValue;
+        //}
 
-        public bool IsStep3NotComplete()
-        {
-            return !this.StartDate.HasValue;
-        }
+        //public bool IsStep2NotComplete()
+        //{
+        //    return this.OnlineAdCart != null &&
+        //            (this.OnlineAdCart.Heading.IsNullOrEmpty() ||
+        //           this.OnlineAdCart.Description.IsNullOrEmpty());
+        //}
+
+        //public bool IsStep3NotComplete()
+        //{
+        //    return !this.StartDate.HasValue;
+        //}
     }
 }

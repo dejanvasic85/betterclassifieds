@@ -1,9 +1,9 @@
 ﻿using System.Linq;
-using System.Security.AccessControl;
 using System.Web.Mvc;
 using AutoMapper;
 using Microsoft.Practices.Unity;
 using Paramount.Betterclassifieds.Business.Managers;
+using Paramount.Betterclassifieds.Presentation.Framework;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
@@ -30,7 +30,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         //
         // GET: /Booking/Step/1 - Category and publications
-        [HttpGet]
+        [HttpGet, BookingStep(1)]
         public ActionResult Step1()
         {
             var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
@@ -42,6 +42,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 Publications = this.MapList<PublicationModel, PublicationSelectionView>(_searchService.GetPublications()),
             };
 
+            // There is an existing booking cart already
             if (bookingCart != null)
             {
                 viewModel.CategoryId = bookingCart.CategoryId;
@@ -63,7 +64,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View(viewModel);
         }
 
-        [HttpPost]
+        [HttpPost, BookingStep(1)]
         public ActionResult Step1(Step1View viewModel)
         {
             if (!ModelState.IsValid)
@@ -77,6 +78,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             bookingCart.CategoryId = viewModel.CategoryId;
             bookingCart.SubCategoryId = viewModel.SubCategoryId;
             bookingCart.Publications = viewModel.Publications.Where(p => p.IsSelected).Select(p => p.PublicationId).ToArray();
+            bookingCart.CompletedSteps.Add(1);
 
             //// Persist and move on
             _bookingCartRepository.SaveBookingCart(bookingCart);
@@ -87,20 +89,16 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         //
         // GET: /Booking/Step/2 - ad details
+        [HttpGet, BookingStep(2)]
         public ActionResult Step2()
         {
-            // Todo - move this to a filter? People shouldn't reach this method if they haven't done previous steps
             var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.ToString());
-            if (bookingCart == null || bookingCart.IsStep1NotComplete())
-                throw new BookingNotValidException();
-
             var stepTwoModel = this.Map<OnlineAdCart, Step2View>(bookingCart.OnlineAdCart);
 
             return View(stepTwoModel);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken, BookingStep(2)]
         public ActionResult Step2(Step2View viewModel)
         {
             if (!ModelState.IsValid)
@@ -111,13 +109,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             // Todo - convert markdown to html
             // var markdown = new MarkdownDeep.Markdown();
             // markdown.Transform(viewModel.OnlineAdDescription);
-
-            // Map from view
             var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
-            if (bookingCart == null || bookingCart.IsStep1NotComplete())
-                throw new BookingNotValidException();
-
             bookingCart.OnlineAdCart = this.Map<Step2View, OnlineAdCart>(viewModel);
+            bookingCart.CompletedSteps.Add(2);
             
             // Save and continue
             _bookingCartRepository.SaveBookingCart(bookingCart);
@@ -127,12 +121,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         // 
         // GET /Booking/Step/3 - Scheduling
+        [HttpGet, BookingStep(3)]
         public ActionResult Step3()
         {
             var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
-            if (bookingCart == null || bookingCart.IsStep2NotComplete())
-                throw new BookingNotValidException();
-
             var viewModel = new Step3View
             {
                 StartDate = bookingCart.StartDate,
@@ -144,17 +136,15 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View(viewModel);
         }
 
-        [HttpPost]
+        [HttpPost, BookingStep(4)]
         public ActionResult Step3(Step3View viewModel)
         {
             if (!ModelState.IsValid)
                 return View(viewModel);
 
             var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
-            if(bookingCart == null || bookingCart.IsStep2NotComplete())
-                throw new BookingNotValidException();
-
             bookingCart.StartDate = viewModel.StartDate;
+            bookingCart.CompletedSteps.Add(3);
 
             _bookingCartRepository.SaveBookingCart(bookingCart);
 
@@ -163,18 +153,16 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         // 
         // GET /Booking/Step/4 - Confirmation
+        [HttpGet, BookingStep(4)]
         public ActionResult Step4()
         {
             var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
-            if (bookingCart == null || bookingCart.IsStep3NotComplete())
-                throw new BookingNotValidException();
-
             var viewModel = new Step4View();
 
             return View(viewModel);
         }
 
-        [HttpPost]
+        [HttpPost, BookingStep(4)]
         public ActionResult Step4(Step4View viewModel)
         {
             
@@ -187,7 +175,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             // Step 2 view is very flat with OnlineAd Prefix on properties
             configuration.RecognizeDestinationPrefixes("OnlineAd");
             configuration.RecognizePrefixes("OnlineAd");
-
+            
             // To view model
             configuration.CreateMap<PublicationModel, PublicationSelectionView>();
             configuration.CreateMap<OnlineAdCart, Step2View>();

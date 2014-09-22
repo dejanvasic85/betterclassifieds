@@ -92,7 +92,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpGet, BookingStep(2)]
         public ActionResult Step2()
         {
-            var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.ToString());
+            var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
             var stepTwoModel = this.Map<OnlineAdCart, Step2View>(bookingCart.OnlineAdCart);
 
             return View(stepTwoModel);
@@ -136,7 +136,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View(viewModel);
         }
 
-        [HttpPost, BookingStep(4)]
+        [HttpPost, BookingStep(3)]
         public ActionResult Step3(Step3View viewModel)
         {
             if (!ModelState.IsValid)
@@ -165,9 +165,19 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost, BookingStep(4)]
         public ActionResult Step4(Step4View viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
             
             // todo - determine whether any payment is required and redirect appropriately
-            return View();
+            var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
+            bookingCart.CompletedSteps.Add(4);
+            bookingCart.Completed = true;
+
+            _bookingCartRepository.SaveBookingCart(bookingCart);
+            
+            return View(viewModel);
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

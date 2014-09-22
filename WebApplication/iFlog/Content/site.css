@@ -64,4 +64,16 @@
 .pager .previous > button {
   float: left;
 }
+.form-control-checkbox {
+  display: block;
+  width: 100%;
+  padding: 6px 12px;
+  font-size: 14px;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
 /*# sourceMappingURL=site.css.map */

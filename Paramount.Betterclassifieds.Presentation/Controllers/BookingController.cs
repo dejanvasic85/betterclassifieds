@@ -2,13 +2,12 @@
 using System.Web.Mvc;
 using AutoMapper;
 using Microsoft.Practices.Unity;
-using Paramount.Betterclassifieds.Business.Managers;
-using Paramount.Betterclassifieds.Presentation.Framework;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     using Business.Models;
     using Business.Search;
+    using Business.Managers;
     using ViewModels.Booking;
 
     public class BookingController : Controller, IMappingBehaviour
@@ -170,8 +169,16 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return View(viewModel);
             }
             
-            // todo - determine whether any payment is required and redirect appropriately
             var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
+            if (bookingCart.NoPaymentRequired())
+            {
+                // Todo - submit the booking and redirect to success
+            }
+            else
+            {
+                // Todo - hook up the payments
+            }
+
             bookingCart.CompletedSteps.Add(4);
             bookingCart.Completed = true;
 
@@ -179,6 +186,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             
             return View(viewModel);
         }
+
 
         public void OnRegisterMaps(IConfiguration configuration)
         {

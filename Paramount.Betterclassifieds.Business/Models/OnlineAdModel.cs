@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Paramount.Betterclassifieds.Business.Models
 {
-    public class OnlineAdModel : Ad
+    public class OnlineAdModel : IAd
     {
         public OnlineAdModel()
         {

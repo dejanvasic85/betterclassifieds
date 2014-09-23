@@ -8,14 +8,20 @@ namespace Paramount.Betterclassifieds.Business.Models
     {
         public AdBookingModel()
         {
-            Ads = new List<Ad>();
+            Ads = new List<IAd>();
             Publications = new List<PublicationModel>();
         }
 
         public int AdBookingId { get; set; }
+
+        public DateTime StartDate { get; set; }
+
         public DateTime EndDate { get; set; }
+
         public BookingType BookingType { get; set; }
+
         public decimal TotalPrice { get; set; }
+
         public string UserId { get; set; }
 
         public bool IsExpired
@@ -24,6 +30,7 @@ namespace Paramount.Betterclassifieds.Business.Models
         }
 
         public BookingStatusType BookingStatus { get; set; }
+
         public string BookReference { get; set; }
 
         public string ExtensionReference
@@ -32,8 +39,10 @@ namespace Paramount.Betterclassifieds.Business.Models
         }
 
         public List<PublicationModel> Publications { get; set; }
+
         public Category Category { get; set; }
-        public List<Ad> Ads { get; set; }
+
+        public List<IAd> Ads { get; set; }
 
         public OnlineAdModel OnlineAd
         {

@@ -10,7 +10,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
     /// </summary>
     public class BookingCart
     {
-
         public BookingCart()
         {
             Publications = new int[] { };
@@ -36,6 +35,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 
         public OnlineAdCart OnlineAdCart { get; set; }
 
+        public decimal TotalPrice { get; set; }
+
         public bool IsLineAdIncluded
         {
             get { return this.Publications != null && this.Publications.Any(); }
@@ -43,22 +44,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 
         public List<int> CompletedSteps { get; set; }
         
-
-        //public bool IsStep1NotComplete()
-        //{
-        //    return !CategoryId.HasValue || !SubCategoryId.HasValue;
-        //}
-
-        //public bool IsStep2NotComplete()
-        //{
-        //    return this.OnlineAdCart != null &&
-        //            (this.OnlineAdCart.Heading.IsNullOrEmpty() ||
-        //           this.OnlineAdCart.Description.IsNullOrEmpty());
-        //}
-
-        //public bool IsStep3NotComplete()
-        //{
-        //    return !this.StartDate.HasValue;
-        //}
+        public bool NoPaymentRequired()
+        {
+            return this.TotalPrice == 0;
+        }
     }
 }

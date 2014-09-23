@@ -1,6 +1,6 @@
 ﻿namespace Paramount.Betterclassifieds.Business.Models
 {
-    public class LineAdModel : Ad
+    public class LineAdModel : IAd
     {
         public int? LineAdId { get; set; }
         public string AdHeader { get; set; }

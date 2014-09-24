@@ -36,20 +36,30 @@ namespace Paramount
             return content.TruncateOnWordBoundary(maxLength, ellipsis);
         }
 
+        public static string StripLineBreaks(this string content)
+        {
+            return content.Replace("\n\r", " ").Replace('\n', ' ').Replace('\r', ' ');
+        }
+
         public static string TruncateOnWordBoundary(this string content, int maxLength, string suffix)
         {
             if (content.IsNullOrEmpty())
                 return String.Empty;
 
-            if (content.Length < maxLength)
+            if (content.Length < maxLength - 1)
                 return content;
 
-            int i = maxLength;
+            int i = maxLength - 1;
             while (i > 0)
             {
                 if (Char.IsWhiteSpace(content[i]))
                     break;
                 i--;
+            }
+
+            if (i == 0)
+            {
+                return content;
             }
 
             return content.Truncate(i, suffix);
@@ -60,14 +70,12 @@ namespace Paramount
             return content.IsNullOrEmpty() ? null : content;
         }
 
-        public static bool DoesNotEqual(this string source, string value,
-            StringComparison comparison = StringComparison.OrdinalIgnoreCase)
+        public static bool DoesNotEqual(this string source, string value, StringComparison comparison = StringComparison.OrdinalIgnoreCase)
         {
             return !source.Equals(value, comparison);
         }
 
-        public static bool EqualTo(this string source, string value,
-            StringComparison comparison = StringComparison.OrdinalIgnoreCase)
+        public static bool EqualTo(this string source, string value, StringComparison comparison = StringComparison.OrdinalIgnoreCase)
         {
             return source.Equals(value, comparison);
         }

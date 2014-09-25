@@ -30,15 +30,15 @@ namespace Paramount
                 ? content
                 : content.Substring(0, maxLength).TrimEnd() + suffix;
         }
+        
+        public static string StripLineBreaks(this string content)
+        {
+            return content.Replace("\n\r", " ").Replace('\n', ' ').Replace('\r', ' ');
+        }
 
         public static string TruncateOnWordBoundary(this string content, int maxLength)
         {
             return content.TruncateOnWordBoundary(maxLength, ellipsis);
-        }
-
-        public static string StripLineBreaks(this string content)
-        {
-            return content.Replace("\n\r", " ").Replace('\n', ' ').Replace('\r', ' ');
         }
 
         public static string TruncateOnWordBoundary(this string content, int maxLength, string suffix)
@@ -46,7 +46,9 @@ namespace Paramount
             if (content.IsNullOrEmpty())
                 return String.Empty;
 
-            if (content.Length < maxLength - 1)
+            content = content.StripLineBreaks();
+
+            if (content.Length <= maxLength - 1)
                 return content;
 
             int i = maxLength - 1;

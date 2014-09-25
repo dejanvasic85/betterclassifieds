@@ -34,11 +34,11 @@ namespace Paramount.Betterclassifieds.Tests.Utility
         }
 
         [Test]
-        public void TruncateOnWordBoundary_Exactly150Characters_ReturnsTruncatedValue()
+        public void TruncateOnWordBoundary_StringLengthSameAsMax_ReturnsTruncatedValue()
         {
-            var result = "Experienced 54 yo keyboard player (some lead/backing vocals) interested in joining Duo, Trio or Band - 60's, 70's, 80's etc covers.\n Tony 0407-414-883".TruncateOnWordBoundary(150);
+            var result = "This is it".TruncateOnWordBoundary(10);
 
-            Assert.That(result, Is.EqualTo("Experienced 54 yo keyboard player (some lead/backing vocals) interested in joining Duo, Trio or Band - 60's, 70's, 80's etc covers.\n Tony..."));
+            Assert.That(result, Is.EqualTo("This is..."));
         }
 
         [Test]
@@ -74,9 +74,18 @@ namespace Paramount.Betterclassifieds.Tests.Utility
         }
 
         [Test]
+        public void TruncateOnWordBoundary_FailingString()
+        {
+            var stringInProd =
+                "Experienced 54 yo keyboard player (some lead/backing vocals) interested in joining Duo, Trio or Band - 60's, 70's, 80's etc covers. Tony 0407-414-883".TruncateOnWordBoundary(150);
+
+
+        }
+
+        [Test]
         public void StripLineBreaks_NoLineBreaks_ReturnsSameValue()
         {
-            Assert.That( "ladida".StripLineBreaks(), Is.EqualTo("ladida"));
+            Assert.That("ladida".StripLineBreaks(), Is.EqualTo("ladida"));
         }
 
         [Test]

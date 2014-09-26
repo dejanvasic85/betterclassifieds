@@ -181,6 +181,7 @@
     <Compile Include="Controllers\ListingsController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Framework\BaseController.cs" />
+    <Compile Include="Framework\BookingRequiredAttribute.cs" />
     <Compile Include="Framework\BookingStepAttribute.cs" />
     <Compile Include="Framework\Extensions.cs" />
     <Compile Include="Framework\FilesystemExtensionMethods.cs" />

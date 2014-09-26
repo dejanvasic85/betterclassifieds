@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using AutoMapper;
 using Microsoft.Practices.Unity;
+using Paramount.Betterclassifieds.Business.Repository;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
@@ -17,13 +18,15 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IBookingId _bookingId;
         private readonly IBookingCartRepository _bookingCartRepository;
         private readonly IClientConfig _clientConfig;
+        private readonly IDocumentRepository _documentRepository;
 
-        public BookingController(IUnityContainer container, ISearchService searchService, IBookingId bookingId, IBookingCartRepository bookingCartRepository, IClientConfig clientConfig)
+        public BookingController(IUnityContainer container, ISearchService searchService, IBookingId bookingId, IBookingCartRepository bookingCartRepository, IClientConfig clientConfig, IDocumentRepository documentRepository)
         {
             _searchService = searchService;
             _bookingId = bookingId;
             _bookingCartRepository = bookingCartRepository;
             _clientConfig = clientConfig;
+            _documentRepository = documentRepository;
             _container = container;
         }
 
@@ -187,10 +190,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View(viewModel);
         }
 
-        [HttpPost]
+        [HttpPost, BookingRequired]
         public ActionResult UploadImage()
         {
-            return Json(new { completed = true });
+            return Json(new { completed = true }, JsonRequestBehavior.AllowGet);
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

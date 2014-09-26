@@ -29,8 +29,7 @@ namespace Paramount.Betterclassifieds.Presentation
 
             // Images
             routes.MapRoute("imageRoute", "Image/{documentId}/{width}/{height}", new { controller = "Image", action = "Render", width = UrlParameter.Optional, height = UrlParameter.Optional });
-            routes.MapRoute("imageUploadRoute", "Image/Upload", new { controller = "Image", action = "Upload" });
-
+            
             // Ad route
             routes.MapRoute("adRoute", "Ad/{title}/{id}", new { controller = "Listings", action = "ViewAd", module = Name }, new[] { GetType().Namespace });
 
@@ -49,14 +48,12 @@ namespace Paramount.Betterclassifieds.Presentation
 
         public override void RegisterTypes(IUnityContainer container)
         {
-            // Use the filter provider that 
+            // Use the filter provider that uses unity container so it can resolve any dependencies
             var oldProvider = FilterProviders.Providers.Single(f => f is FilterAttributeFilterProvider);
             FilterProviders.Providers.Remove(oldProvider);
 
             var provider = new UnityFilterAttributeFilterProvider(container);
             FilterProviders.Providers.Add(provider);
-
-
 
             // Searching throughout the website allows to save in to the session ( at the moment )
             container.RegisterType<SearchFilters>(new SessionLifetimeManager<SearchFilters>());

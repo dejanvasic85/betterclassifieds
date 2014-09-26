@@ -32,11 +32,5 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 () => _documentRepository.GetDocument(documentId), 
                 targetFilePath, width ?? 0, height ?? 0);
         }
-
-        [HttpPost]
-        public ActionResult Upload()
-        {
-            return Json(new {complete = true});
-        }
     }
 }

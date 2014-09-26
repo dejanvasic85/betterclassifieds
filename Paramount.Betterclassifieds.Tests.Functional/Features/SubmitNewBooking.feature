@@ -1,4 +1,4 @@
-﻿@booking
+﻿@booking @ignore
 Feature: SubmitNewBooking
 	In order to have an ad appear on betterclassifieds
 	As a registered user

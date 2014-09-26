@@ -111,7 +111,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
             bookingCart.OnlineAdCart = this.Map<Step2View, OnlineAdCart>(viewModel);
             bookingCart.CompletedSteps.Add(2);
-            
+
             // Save and continue
             _bookingCartRepository.SaveBookingCart(bookingCart);
 
@@ -129,7 +129,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 StartDate = bookingCart.StartDate,
                 DurationDays = _clientConfig.RestrictedOnlineDaysCount
             };
-            
+
             // todo - Line Ads - Fetch the up-coming available editions
 
             return View(viewModel);
@@ -168,7 +168,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 return View(viewModel);
             }
-            
+
             var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
             if (bookingCart.NoPaymentRequired())
             {
@@ -183,21 +183,26 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             bookingCart.Completed = true;
 
             _bookingCartRepository.SaveBookingCart(bookingCart);
-            
+
             return View(viewModel);
         }
 
+        [HttpPost]
+        public ActionResult UploadImage()
+        {
+            return Json(new { completed = true });
+        }
 
         public void OnRegisterMaps(IConfiguration configuration)
         {
             // Step 2 view is very flat with OnlineAd Prefix on properties
             configuration.RecognizeDestinationPrefixes("OnlineAd");
             configuration.RecognizePrefixes("OnlineAd");
-            
+
             // To view model
             configuration.CreateMap<PublicationModel, PublicationSelectionView>();
             configuration.CreateMap<OnlineAdCart, Step2View>();
-            
+
             // From ViewModel
             configuration.CreateMap<Step2View, OnlineAdCart>();
         }

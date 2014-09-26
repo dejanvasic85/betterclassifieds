@@ -29,6 +29,7 @@ namespace Paramount.Betterclassifieds.Presentation
 
             // Images
             routes.MapRoute("imageRoute", "Image/{documentId}/{width}/{height}", new { controller = "Image", action = "Render", width = UrlParameter.Optional, height = UrlParameter.Optional });
+            routes.MapRoute("imageUploadRoute", "Image/Upload", new { controller = "Image", action = "Upload" });
 
             // Ad route
             routes.MapRoute("adRoute", "Ad/{title}/{id}", new { controller = "Listings", action = "ViewAd", module = Name }, new[] { GetType().Namespace });

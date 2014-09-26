@@ -54,7 +54,20 @@
                     @Html.BootstrapLargeTextBoxFor(m => m.OnlineAdPhone)
                     @Html.ValidationMessageFor(m => m.OnlineAdPhone)
                 </div>
-
+                
+                @*<div class="panel panel-default">
+        <div class="panel-heading">
+            <span class="btn btn-success fileinput-button">
+                <i class="glyphicon glyphicon-plus"></i>
+                <span>Select images...</span>
+                <!-- The file input field used as target for the file upload widget -->
+                <input id="fileupload" type="file" name="files[]" multiple>
+            </span>
+        </div>
+        <div class="panel-body hidden">
+            Panel content
+        </div>
+    </div>*@
             </div>
         </div>
 
@@ -83,7 +96,6 @@
 </div>
 
 @section Scripts{
-    Testing One two three
 
     <script>
         (function ($) {
@@ -91,6 +103,8 @@
                 autofocus: false,
                 savable: false
             });
+
+
         })(jQuery);
     </script>
 }

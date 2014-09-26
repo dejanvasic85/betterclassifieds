@@ -35,5 +35,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         public int? OnlineAdLocationAreaId { get; set; }
 
         public bool IsLineAdIncluded { get; set; }
+
+        public string[] OnlineAdImages { get; set; }
     }
 }

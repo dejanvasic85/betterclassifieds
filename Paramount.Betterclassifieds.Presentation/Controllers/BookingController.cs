@@ -1,16 +1,19 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using Microsoft.Practices.Unity;
-using Paramount.Betterclassifieds.Business.Repository;
+using Paramount.Betterclassifieds.Business;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     using Business.Models;
     using Business.Search;
     using Business.Managers;
+    using Business.Repository;
     using ViewModels.Booking;
-
+    
     public class BookingController : Controller, IMappingBehaviour
     {
         private readonly IUnityContainer _container;
@@ -193,8 +196,34 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost, BookingRequired]
         public ActionResult UploadImage()
         {
+            foreach (var file in Request.Files.OfType<HttpPostedFileBase>())
+            {
+                if (file.ContentLength == 0)
+                    continue;
+
+                //Document document = new Document
+                //{
+                //    ContentType = file.ContentType,
+                //    Data = file.InputStream.Write()
+                //}
+            }
+
             return Json(new { completed = true }, JsonRequestBehavior.AllowGet);
         }
+
+        //public static byte[] ReadFully(Stream input)
+        //{
+        //    byte[] buffer = new byte[16 * 1024];
+        //    using (MemoryStream ms = new MemoryStream())
+        //    {
+        //        int read;
+        //        while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+        //        {
+        //            ms.Write(buffer, 0, read);
+        //        }
+        //        return ms.ToArray();
+        //    }
+        //}
 
         public void OnRegisterMaps(IConfiguration configuration)
         {
@@ -210,5 +239,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<Step2View, OnlineAdCart>();
         }
     }
+
 
 }

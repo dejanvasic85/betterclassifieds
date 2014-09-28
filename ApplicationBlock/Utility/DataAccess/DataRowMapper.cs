@@ -7,6 +7,7 @@ using System.Reflection;
 
 namespace Paramount.Utility.DataAccess
 {
+    [Obsolete]
     public static class DataRowMapper
     {
         /// <summary>

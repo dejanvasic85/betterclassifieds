@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 
 namespace Paramount.Utility.DataAccess
 {
+    [Obsolete]
     public static class DataExecuteHelper
     {
         public static DataTable GetDataTable(this SqlCommand sqlCommand, string connectionString)

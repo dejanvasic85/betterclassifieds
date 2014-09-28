@@ -1,7 +1,10 @@
-﻿namespace Paramount.Utility.Dsl
+﻿using System;
+
+namespace Paramount.Utility.Dsl
 {
     using System.Collections.Specialized;
 
+    [Obsolete]
     public class DslQueryParam
     {
         private NameValueCollection collectionData;

@@ -27,6 +27,16 @@ namespace Paramount.Betterclassifieds.Presentation
                 return;
 
             var bookingCart = BookingCartRepository.GetBookingCart(CurrentBookingId.Id);
+            if (bookingCart == null)
+            {
+                // There was never a booking so redirect to step 1
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary
+                {
+                    {"controller", "Booking"},
+                    {"action", "Step1"}
+                });
+                return;
+            }
 
             // Do not allow them to view this screen, so instead route them to the next step to complete
             var lastCompleted = bookingCart.CompletedSteps.Last();
@@ -38,7 +48,7 @@ namespace Paramount.Betterclassifieds.Presentation
                 // Redirect to the 
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary
                 {
-                    {"controller", "booking"},
+                    {"controller", "Booking"},
                     {"action", string.Format("Step{0}", nextStep)}
                 });
             }

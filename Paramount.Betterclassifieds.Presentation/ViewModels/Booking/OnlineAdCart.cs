@@ -24,5 +24,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         public int? LocationAreaId { get; set; }
 
         public List<string> Images { get; set; }
+
+        public int? MaxImages { get; set; }
     }
 }

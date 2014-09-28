@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Paramount.ApplicationBlock.Configuration;
+﻿using Paramount.ApplicationBlock.Configuration;
 using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.Business.Models;
 
@@ -44,6 +43,11 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             {
                 return ConfigManager.ReadAppSetting("SupportEmails").Split(';');
             }
+        }
+
+        public int? MaxOnlineImages
+        {
+            get { return 2; }
         }
     }
 }

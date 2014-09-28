@@ -1,4 +1,5 @@
 ﻿@using Paramount
+@using Paramount.Betterclassifieds.Presentation.Framework
 @model Paramount.Betterclassifieds.Presentation.ViewModels.Booking.Step2View
 
 @{
@@ -71,14 +72,11 @@
                             </div>
                         </div>
 
-
-                        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
-
-                            <img class="img-thumbnail" alt="140x140" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNDAiIGhlaWdodD0iMTQwIj48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjcwIiB5PSI3MCIgc3R5bGU9ImZpbGw6I2FhYTtmb250LXdlaWdodDpib2xkO2ZvbnQtc2l6ZToxMnB4O2ZvbnQtZmFtaWx5OkFyaWFsLEhlbHZldGljYSxzYW5zLXNlcmlmO2RvbWluYW50LWJhc2VsaW5lOmNlbnRyYWwiPjE0MHgxNDA8L3RleHQ+PC9zdmc+" style="width: 140px; height: 140px;">
-
+                        <div class="row" data-bind="foreach: adImages">
+                            <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                                <img class="img-thumbnail" data-bind="attr: {src: '/iflog/Image/' + $data + '/100/100'}" />
+                            </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -112,14 +110,17 @@
 
     <script>
         (function ($) {
-            var onlineImages = function (data) {
-                this.images = ko.observable(data);
+            var OnlineAd = function (data) {
+                // Images 
+                this.adImages = ko.observableArray(data);
             };
 
+            var rawJson = @Html.Raw(Model.OnlineAdImages.ToJsonString()) ;
+            var onlineAdModel = new OnlineAd(rawJson);
 
+            ko.applyBindings(onlineAdModel);
 
             var $imageUploadProgress = $('#onlineImages .progress-bar');
-
             $('.markdown-editor').markdown({
                 autofocus: false,
                 savable: false
@@ -130,13 +131,15 @@
                 url: '@Url.Action("UploadOnlineImage", "Booking")',
                 autoUpload: true,
                 done: function (e, data) {
-                    if (data.documentId) {
-
+                    if (data.result.documentId) {
+                        onlineAdModel.adImages.push(data.result.documentId);
+                    } else {
+                        // display error
                     }
                 }
             }).on('fileuploadprogressall', function (e, data) {
-                console.log('progress ' + data.loaded);
-                console.log('progress ' + data.total);
+                //console.log('progress ' + data.loaded);
+                //console.log('progress ' + data.total);
             }).on('fileuploadstart', function (e, data) {
                 $imageUploadProgress.parent().removeClass('hidden');
             });

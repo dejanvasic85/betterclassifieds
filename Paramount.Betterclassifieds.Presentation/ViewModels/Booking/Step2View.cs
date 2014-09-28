@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 {
@@ -36,6 +38,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 
         public bool IsLineAdIncluded { get; set; }
 
-        public string[] OnlineAdImages { get; set; }
+        public List<string> OnlineAdImages { get; set; }
     }
 }

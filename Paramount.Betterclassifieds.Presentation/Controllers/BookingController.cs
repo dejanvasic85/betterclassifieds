@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -118,6 +119,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             // markdown.Transform(viewModel.OnlineAdDescription);
             var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
             bookingCart.OnlineAdCart = this.Map<Step2View, OnlineAdCart>(viewModel);
+            bookingCart.OnlineAdCart.MaxImages = _clientConfig.MaxOnlineImages;
             bookingCart.CompletedSteps.Add(2);
 
             // Save and continue
@@ -200,24 +202,25 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
             Guid? documentId = null;
-            
-            foreach (string file in Request.Files)
-            {
-                var postedFile = Request.Files[file].CastTo<HttpPostedFileBase>();
-                
-                if (postedFile == null || postedFile.ContentLength == 0)
-                    continue;
-                
-                // todo - validation
 
+            var files = Request.Files.Cast<string>()
+                .Select(file => Request.Files[file].CastTo<HttpPostedFileBase>())
+                .Where(postedFile => postedFile != null && postedFile.ContentLength != 0);
+
+            // Todo validation - just another filter (where statement)
+
+            foreach (var postedFile in files)
+            {
                 documentId = Guid.NewGuid();
 
-                var imageDocument = new Document(documentId.Value, postedFile.InputStream.FromStream(), postedFile.ContentType);
+                var imageDocument = new Document(documentId.Value, postedFile.InputStream.FromStream(), postedFile.ContentType,
+                    postedFile.FileName, postedFile.ContentLength, this.User.Identity.Name);
 
                 _documentRepository.Save(imageDocument);
 
                 // Persist to the booking cart also
                 bookingCart.OnlineAdCart.Images.Add(documentId.ToString());
+                _bookingCartRepository.SaveBookingCart(bookingCart);
             }
 
             return Json(new { documentId }, JsonRequestBehavior.AllowGet);

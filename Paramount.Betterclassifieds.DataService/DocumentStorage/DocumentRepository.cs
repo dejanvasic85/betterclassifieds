@@ -22,7 +22,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             using (var context = new DocumentContext())
             {
                 context.Documents.Add(document);
-                context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
     }

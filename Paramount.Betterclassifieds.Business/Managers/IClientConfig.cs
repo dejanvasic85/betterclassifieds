@@ -15,5 +15,6 @@ namespace Paramount.Betterclassifieds.Business.Managers
         int SearchMaxPagedRequests { get; }
         Address ClientAddress { get; }
         string[] SupportEmailList { get; }
+        int? MaxOnlineImages { get; }
     }
 }

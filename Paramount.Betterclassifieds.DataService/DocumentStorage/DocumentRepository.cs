@@ -1,10 +1,11 @@
 ﻿using System.Linq;
-using Paramount.Betterclassifieds.Business;
-using Paramount.Betterclassifieds.Business.Repository;
 using System;
 
 namespace Paramount.Betterclassifieds.DataService.Repository
 {
+    using Business;
+    using Business.Repository;
+
     public class DocumentRepository : IDocumentRepository
     {
         public Document GetDocument(Guid documentId)
@@ -12,8 +13,16 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             using (var context = new DocumentContext())
             {
                 var document = context.Documents.FirstOrDefault(d => d.DocumentId == documentId);
-
                 return document;
+            }
+        }
+
+        public void Save(Document document)
+        {
+            using (var context = new DocumentContext())
+            {
+                context.Documents.Add(document);
+                context.SaveChangesAsync();
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 namespace Paramount
 {
@@ -23,9 +24,7 @@ namespace Paramount
 
             return result;
         }
-
         
-
         public static string[] EmptyIfNull(this string[] data)
         {
             return data ?? new List<string>().ToArray();
@@ -40,5 +39,19 @@ namespace Paramount
         {
             return data == null || !data.Any();
         }
-    }
+
+        public static byte[] FromStream(this Stream stream)
+        {
+            var buffer = new byte[16 * 1024];
+            using (var ms = new MemoryStream())
+            {
+                int read;
+                while ((read = stream.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    ms.Write(buffer, 0, read);
+                }
+                return ms.ToArray();
+            }
+        }
+    } 
 }

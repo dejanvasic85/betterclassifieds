@@ -1,9 +1,11 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using Microsoft.Practices.Unity;
+using MongoDB.Driver.Linq;
 using Paramount.Betterclassifieds.Business;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
@@ -194,36 +196,32 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpPost, BookingRequired]
-        public ActionResult UploadImage()
+        public ActionResult UploadOnlineImage()
         {
-            foreach (var file in Request.Files.OfType<HttpPostedFileBase>())
+            var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
+            Guid? documentId = null;
+            
+            foreach (string file in Request.Files)
             {
-                if (file.ContentLength == 0)
+                var postedFile = Request.Files[file].CastTo<HttpPostedFileBase>();
+                
+                if (postedFile == null || postedFile.ContentLength == 0)
                     continue;
+                
+                // todo - validation
 
-                //Document document = new Document
-                //{
-                //    ContentType = file.ContentType,
-                //    Data = file.InputStream.Write()
-                //}
+                documentId = Guid.NewGuid();
+
+                var imageDocument = new Document(documentId.Value, postedFile.InputStream.FromStream(), postedFile.ContentType);
+
+                _documentRepository.Save(imageDocument);
+
+                // Persist to the booking cart also
+                bookingCart.OnlineAdCart.Images.Add(documentId.ToString());
             }
 
-            return Json(new { completed = true }, JsonRequestBehavior.AllowGet);
+            return Json(new { documentId }, JsonRequestBehavior.AllowGet);
         }
-
-        //public static byte[] ReadFully(Stream input)
-        //{
-        //    byte[] buffer = new byte[16 * 1024];
-        //    using (MemoryStream ms = new MemoryStream())
-        //    {
-        //        int read;
-        //        while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
-        //        {
-        //            ms.Write(buffer, 0, read);
-        //        }
-        //        return ms.ToArray();
-        //    }
-        //}
 
         public void OnRegisterMaps(IConfiguration configuration)
         {

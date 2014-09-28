@@ -1,7 +1,14 @@
+using System.Collections.Generic;
+
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 {
     public class OnlineAdCart
     {
+        public OnlineAdCart()
+        {
+            Images = new List<string>();
+        }
+
         public string Heading { get; set; }
 
         public string Description { get; set; }
@@ -15,5 +22,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         public decimal? Price { get; set; }
 
         public int? LocationAreaId { get; set; }
+
+        public List<string> Images { get; set; }
     }
 }

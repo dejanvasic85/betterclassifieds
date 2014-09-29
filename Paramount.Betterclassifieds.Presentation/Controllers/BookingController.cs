@@ -102,7 +102,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
             var stepTwoModel = this.Map<OnlineAdCart, Step2View>(bookingCart.OnlineAdCart);
-
+            stepTwoModel.MaxOnlineImages = _clientConfig.MaxOnlineImages;
             return View(stepTwoModel);
         }
 
@@ -118,8 +118,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             // var markdown = new MarkdownDeep.Markdown();
             // markdown.Transform(viewModel.OnlineAdDescription);
             var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
-            bookingCart.OnlineAdCart = this.Map<Step2View, OnlineAdCart>(viewModel);
-            bookingCart.OnlineAdCart.MaxImages = _clientConfig.MaxOnlineImages;
+            this.Map(viewModel, bookingCart.OnlineAdCart);
             bookingCart.CompletedSteps.Add(2);
 
             // Save and continue
@@ -225,6 +224,19 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             return Json(new { documentId }, JsonRequestBehavior.AllowGet);
         }
+        
+        [HttpPost, BookingRequired]
+        public ActionResult RemoveOnlineImage(Guid documentId)
+        {
+            // Remove the image from the document repository
+            _documentRepository.DeleteDocument(documentId);
+
+            var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
+            bookingCart.OnlineAdCart.Images.Remove(documentId.ToString());
+            _bookingCartRepository.SaveBookingCart(bookingCart);
+
+            return Json(new {removed = true});
+        }
 
         public void OnRegisterMaps(IConfiguration configuration)
         {
@@ -237,7 +249,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<OnlineAdCart, Step2View>();
 
             // From ViewModel
-            configuration.CreateMap<Step2View, OnlineAdCart>();
+            configuration.CreateMap<Step2View, OnlineAdCart>()
+                .ForMember(member => member.Images, options => options.Ignore());
         }
     }
 

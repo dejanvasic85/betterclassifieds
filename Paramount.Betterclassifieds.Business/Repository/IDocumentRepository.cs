@@ -7,5 +7,7 @@ namespace Paramount.Betterclassifieds.Business.Repository
         Document GetDocument(Guid documentId);
 
         void Save(Document document);
+        
+        void DeleteDocument(Guid documentId);
     }
-}   
+}

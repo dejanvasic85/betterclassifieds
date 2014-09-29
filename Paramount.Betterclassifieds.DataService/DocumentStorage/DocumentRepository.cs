@@ -25,5 +25,15 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                 context.SaveChanges();
             }
         }
+
+        public void DeleteDocument(Guid documentId)
+        {
+            using (var context = new DocumentContext())
+            {
+                var toRemove = context.Documents.FirstOrDefault(d => d.DocumentId == documentId);
+                context.Documents.Remove(toRemove);
+                context.SaveChanges();
+            }
+        }
     }
 }

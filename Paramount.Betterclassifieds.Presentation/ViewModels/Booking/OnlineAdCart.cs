@@ -25,6 +25,5 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 
         public List<string> Images { get; set; }
 
-        public int? MaxImages { get; set; }
     }
 }

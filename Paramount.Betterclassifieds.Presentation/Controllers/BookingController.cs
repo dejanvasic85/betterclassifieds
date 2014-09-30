@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using Microsoft.Practices.Unity;
-using MongoDB.Driver.Linq;
-using Paramount.Betterclassifieds.Business;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
+    using Business;
     using Business.Models;
     using Business.Search;
     using Business.Managers;
@@ -23,16 +20,18 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly ISearchService _searchService;
         private readonly IBookingId _bookingId;
         private readonly IBookingCartRepository _bookingCartRepository;
+        private readonly IBookingManager _bookingManager;
         private readonly IClientConfig _clientConfig;
         private readonly IDocumentRepository _documentRepository;
 
-        public BookingController(IUnityContainer container, ISearchService searchService, IBookingId bookingId, IBookingCartRepository bookingCartRepository, IClientConfig clientConfig, IDocumentRepository documentRepository)
+        public BookingController(IUnityContainer container, ISearchService searchService, IBookingId bookingId, IBookingCartRepository bookingCartRepository, IClientConfig clientConfig, IDocumentRepository documentRepository, IBookingManager bookingManager)
         {
             _searchService = searchService;
             _bookingId = bookingId;
             _bookingCartRepository = bookingCartRepository;
             _clientConfig = clientConfig;
             _documentRepository = documentRepository;
+            _bookingManager = bookingManager;
             _container = container;
         }
 
@@ -182,6 +181,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (bookingCart.NoPaymentRequired())
             {
                 // Todo - submit the booking and redirect to success
+                var bookingModel = this.Map<BookingCart, AdBookingModel>(bookingCart);
+                return RedirectToAction("SuccessTemp");
             }
             else
             {
@@ -194,6 +195,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _bookingCartRepository.SaveBookingCart(bookingCart);
 
             return View(viewModel);
+        }
+
+        public ActionResult SuccessTemp()
+        {
+            return View();
         }
 
         [HttpPost, BookingRequired]

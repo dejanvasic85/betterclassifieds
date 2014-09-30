@@ -441,6 +441,7 @@
     <Content Include="Views\Booking\Step2.cshtml" />
     <Content Include="Views\Booking\Step3.cshtml" />
     <Content Include="Views\Booking\Step4.cshtml" />
+    <Content Include="Views\Booking\SuccessTemp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\EastGippslandNews\" />

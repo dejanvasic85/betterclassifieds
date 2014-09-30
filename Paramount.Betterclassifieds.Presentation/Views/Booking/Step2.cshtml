@@ -143,6 +143,8 @@
                 dataType: 'json',
                 url: '@Url.Action("UploadOnlineImage", "Booking")',
                 autoUpload: true,
+                singleFileUploads: true,
+                limitMultiFileUploads : 1,
                 done: function(e, data) {
                     if (data.result.documentId) {
                         onlineAdModel.adImages.push(data.result.documentId);

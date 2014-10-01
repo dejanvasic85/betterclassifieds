@@ -206,13 +206,20 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult UploadOnlineImage()
         {
             var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
+
             Guid? documentId = null;
 
             var files = Request.Files.Cast<string>()
                 .Select(file => Request.Files[file].CastTo<HttpPostedFileBase>())
-                .Where(postedFile => postedFile != null && postedFile.ContentLength != 0);
+                .Where(postedFile => postedFile != null && postedFile.ContentLength != 0)
+                .ToList();
 
-            // Todo validation - just another filter (where statement)
+            if (bookingCart.OnlineAdCart.Images.Count + files.Count > _clientConfig.MaxOnlineImages)
+            {
+                return Json(new { errorMsg = string.Format("File limit reached. Up to {0} are accepted.", _clientConfig.MaxOnlineImages) });
+            }
+
+            // Todo validation on file types and file size - just another filter (where statement)
 
             foreach (var postedFile in files)
             {

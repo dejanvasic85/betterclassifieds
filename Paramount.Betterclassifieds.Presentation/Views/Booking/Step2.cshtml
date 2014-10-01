@@ -58,7 +58,7 @@
 
                 <div class="panel panel-default" id="onlineImages">
                     <div class="panel-heading">
-                        <span class="btn btn-success fileinput-button">
+                        <span class="btn btn-success fileinput-button" data-bind="css : { hidden : !maxLimitNotReached() }">
                             <i class="glyphicon glyphicon-plus"></i>
                             <span>Select images...</span>
                             <!-- The file input field used as target for the file upload widget -->
@@ -71,9 +71,7 @@
                         }
                     </div>
                     <div class="panel-body upload-thumbs">
-                        <div id="maxImagesAtOneTimeError" class="alert alert-danger hidden">
-                            Please upload one image at a time.
-                        </div>
+                        <div class="alert alert-danger" data-bind="text : errorMsg, css : { hidden : errorMsg().length == 0 }"></div>
                         <div class="progress hidden">
                             <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
                                 <span class="sr-only">0% complete</span>
@@ -128,24 +126,29 @@
                     savable: false
                 });
 
-                var OnlineAd = function(data, maxNumberOfImages) {
+                var OnlineAd = function(data, maxImages) {
                     // Images
                     var self = this;
                     self.adImages = ko.observableArray(data);
+                    self.errorMsg = ko.observable("");
                     self.removeImage = function(img) {
-
                         $.post('@Url.Action("RemoveOnlineImage")', { documentId: img }, function(result) {
                             if (result.removed) {
                                 self.adImages.remove(img);
                             }
                         });
+                        $('#fileupload').removeClass('hidden');
                     };
-                    self.maxNumberOfImages = ko.observable(maxNumberOfImages);
+                    self.maxImages = ko.observable(maxImages);
+                    self.maxLimitNotReached = function() {
+                        return self.adImages().length < self.maxImages();
+                    };
                 };
 
                 var rawJson = @Html.Raw(Model.OnlineAdImages.ToJsonString());
-                var onlineAdModel = new OnlineAd(rawJson);
-
+                var onlineAdModel = new OnlineAd(rawJson, @Model.MaxOnlineImages);
+                
+                
                 ko.applyBindings(onlineAdModel);
 
                 var $imageUploadProgress = $('#onlineImages .progress-bar');
@@ -154,25 +157,29 @@
                     dataType: 'json',
                     url: '@Url.Action("UploadOnlineImage", "Booking")',
                     autoUpload: true,
-                    singleFileUploads : false,
-                    done: function(e, data) {
-                        if (data.result.documentId) {
-                            onlineAdModel.adImages.push(data.result.documentId);
-                        } else {
-                            // display error
-                        }
+                    singleFileUploads: false
+                });
+                
+                upload.on('fileuploaddone', function(e, data) {
+                    if (data.result.documentId) {
+                        onlineAdModel.adImages.push(data.result.documentId);
+                        return true;
                     }
-                }).on('fileuploadprogressall', function(e, data) {
-                    //console.log('progress ' + data.loaded);
-                    //console.log('progress ' + data.total);
-                }).on('fileuploadstart', function(e, data) {
-                    $imageUploadProgress.parent().removeClass('hidden');
                 });
 
+                //upload.on('fileuploadprogressall', function(e, data) {
+                    //console.log('progress ' + data.loaded);
+                    //console.log('progress ' + data.total);
+                //});
+                
+                //upload.on('fileuploadstart', function(e, data) {
+                //    $imageUploadProgress.parent().removeClass('hidden');
+                //});
+
                 upload.on('fileuploadadd', function(e, data) {
-                    $('#maxImagesAtOneTimeError').addClass('hidden');
+                    onlineAdModel.errorMsg("");
                     if (data.files.length > 1) {
-                        $('#maxImagesAtOneTimeError').removeClass('hidden');
+                        onlineAdModel.errorMsg("Please select one image at a time.");
                         return false;
                     }
                     return true;

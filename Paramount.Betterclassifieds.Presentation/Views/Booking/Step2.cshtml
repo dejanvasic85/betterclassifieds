@@ -163,7 +163,8 @@
                 upload.on('fileuploaddone', function(e, data) {
                     if (data.result.documentId) {
                         onlineAdModel.adImages.push(data.result.documentId);
-                        return true;
+                    } else {
+                        onlineAdModel.errorMsg(data.result.errorMsg);
                     }
                 });
 

@@ -216,7 +216,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             if (bookingCart.OnlineAdCart.Images.Count + files.Count > _clientConfig.MaxOnlineImages)
             {
-                return Json(new { errorMsg = string.Format("File limit reached. Up to {0} are accepted.", _clientConfig.MaxOnlineImages) });
+                return Json(new { errorMsg = string.Format("File limit reached. You can upload up to {0} images.", _clientConfig.MaxOnlineImages) });
             }
 
             // Todo validation on file types and file size - just another filter (where statement)

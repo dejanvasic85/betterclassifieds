@@ -64,14 +64,22 @@
                             <!-- The file input field used as target for the file upload widget -->
                             <input id="fileupload" type="file" name="files[]" multiple>
                         </span>
+                        
+                        @if (Model.MaxOnlineImages.HasValue)
+                        {
+                            <span>You can upload up to @Model.MaxOnlineImages images.</span>
+                        }
                     </div>
                     <div class="panel-body upload-thumbs">
-                        <div class="progress">
+                        <div id="maxImagesAtOneTimeError" class="alert alert-danger hidden">
+                            Please upload one image at a time.
+                        </div>
+                        <div class="progress hidden">
                             <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
                                 <span class="sr-only">0% complete</span>
                             </div>
                         </div>
-                            
+
                         <div class="row" data-bind="foreach: adImages">
                             <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
                                 <img class="img-thumbnail" data-bind="attr: {src: '/iflog/Image/' + $data + '/140/140'}" />
@@ -113,52 +121,63 @@
 
     <script>
         (function($) {
-            var OnlineAd = function(data) {
-                // Images 
-                var self = this;
-                self.adImages = ko.observableArray(data);
-                self.removeImage = function(img) {
 
-                    $.post('@Url.Action("RemoveOnlineImage")', { documentId : img } , function(result) {
-                        if (result.removed) {
-                            self.adImages.remove(img);
-                        }
-                    });
+            $(function() {
+                $('.markdown-editor').markdown({
+                    autofocus: false,
+                    savable: false
+                });
 
+                var OnlineAd = function(data, maxNumberOfImages) {
+                    // Images
+                    var self = this;
+                    self.adImages = ko.observableArray(data);
+                    self.removeImage = function(img) {
+
+                        $.post('@Url.Action("RemoveOnlineImage")', { documentId: img }, function(result) {
+                            if (result.removed) {
+                                self.adImages.remove(img);
+                            }
+                        });
+                    };
+                    self.maxNumberOfImages = ko.observable(maxNumberOfImages);
                 };
-            };
 
-            var rawJson = @Html.Raw(Model.OnlineAdImages.ToJsonString());
-            var onlineAdModel = new OnlineAd(rawJson);
+                var rawJson = @Html.Raw(Model.OnlineAdImages.ToJsonString());
+                var onlineAdModel = new OnlineAd(rawJson);
 
-            ko.applyBindings(onlineAdModel);
+                ko.applyBindings(onlineAdModel);
 
-            var $imageUploadProgress = $('#onlineImages .progress-bar');
-            $('.markdown-editor').markdown({
-                autofocus: false,
-                savable: false
-            });
+                var $imageUploadProgress = $('#onlineImages .progress-bar');
 
-            $('#fileupload').fileupload({
-                dataType: 'json',
-                url: '@Url.Action("UploadOnlineImage", "Booking")',
-                autoUpload: true,
-                singleFileUploads: true,
-                limitMultiFileUploads : 1,
-                done: function(e, data) {
-                    if (data.result.documentId) {
-                        onlineAdModel.adImages.push(data.result.documentId);
-                    } else {
-                        // display error
+                var upload = $('#fileupload').fileupload({
+                    dataType: 'json',
+                    url: '@Url.Action("UploadOnlineImage", "Booking")',
+                    autoUpload: true,
+                    singleFileUploads : false,
+                    done: function(e, data) {
+                        if (data.result.documentId) {
+                            onlineAdModel.adImages.push(data.result.documentId);
+                        } else {
+                            // display error
+                        }
                     }
-                }
-            }).on('fileuploadprogressall', function(e, data) {
-                //console.log('progress ' + data.loaded);
-                //console.log('progress ' + data.total);
-            }).on('fileuploadstart', function(e, data) {
-                $imageUploadProgress.parent().removeClass('hidden');
-            });
+                }).on('fileuploadprogressall', function(e, data) {
+                    //console.log('progress ' + data.loaded);
+                    //console.log('progress ' + data.total);
+                }).on('fileuploadstart', function(e, data) {
+                    $imageUploadProgress.parent().removeClass('hidden');
+                });
 
+                upload.on('fileuploadadd', function(e, data) {
+                    $('#maxImagesAtOneTimeError').addClass('hidden');
+                    if (data.files.length > 1) {
+                        $('#maxImagesAtOneTimeError').removeClass('hidden');
+                        return false;
+                    }
+                    return true;
+                });
+            }); 
         })(jQuery);
     </script>
 }

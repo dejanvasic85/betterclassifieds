@@ -5,6 +5,6 @@
         Booked = 1,
         Expired = 2,
         Cancelled = 3,
-        Unpaid = 4
+        Unpaid = 4,
     }
 }

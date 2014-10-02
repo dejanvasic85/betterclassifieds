@@ -114,11 +114,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return View(viewModel);
             }
 
-            // Todo - convert markdown to html
-            // var markdown = new MarkdownDeep.Markdown();
-            // markdown.Transform(viewModel.OnlineAdDescription);
             var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
             this.Map(viewModel, bookingCart.OnlineAdCart);
+            bookingCart.OnlineAdCart.DescriptionHtml = new MarkdownDeep.Markdown().Transform(viewModel.OnlineAdDescription);
             bookingCart.CompletedSteps.Add(2);
 
             // Save and continue
@@ -265,8 +263,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             // From ViewModel
             configuration.CreateMap<Step2View, OnlineAdCart>()
                 .ForMember(member => member.Images, options => options.Ignore());
+            configuration.CreateMap<BookingCart, AdBookingModel>()
+                .ConvertUsing<BookingCartToModelConverter>();
         }
     }
-
 
 }

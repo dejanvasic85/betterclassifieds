@@ -33,6 +33,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime? StartDate { get; set; }
 
+        public DateTime? EndDate { get; set; }
+
         public OnlineAdCart OnlineAdCart { get; set; }
 
         public decimal TotalPrice { get; set; }
@@ -44,6 +46,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 
         public List<int> CompletedSteps { get; set; }
         
+
         public bool NoPaymentRequired()
         {
             return this.TotalPrice == 0;

@@ -18,6 +18,7 @@ namespace Paramount.Betterclassifieds.Business.Models
 
         public DateTime EndDate { get; set; }
 
+        [Obsolete]
         public BookingType BookingType { get; set; }
 
         public decimal TotalPrice { get; set; }

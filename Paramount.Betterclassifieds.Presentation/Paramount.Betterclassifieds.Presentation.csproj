@@ -199,6 +199,7 @@
     <Compile Include="ViewModels\Booking\BookingCart.cs" />
     <Compile Include="ViewModels\Booking\BookingCartFactory.cs" />
     <Compile Include="ViewModels\Booking\BookingCartRepository.cs" />
+    <Compile Include="ViewModels\Booking\BookingCartToModelConverter.cs" />
     <Compile Include="ViewModels\Booking\BookingId.cs" />
     <Compile Include="Framework\MongoRepository.cs" />
     <Compile Include="ViewModels\Booking\OnlineAdCart.cs" />

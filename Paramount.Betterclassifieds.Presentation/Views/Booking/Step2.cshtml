@@ -67,14 +67,14 @@
                         
                         @if (Model.MaxOnlineImages.HasValue)
                         {
-                            <span>You can upload up to @Model.MaxOnlineImages images.</span>
+                            <span>&nbsp; You can upload up to @Model.MaxOnlineImages images.</span>
                         }
                     </div>
                     <div class="panel-body upload-thumbs">
                         <div class="alert alert-danger" data-bind="text : errorMsg, css : { hidden : errorMsg().length == 0 }"></div>
-                        <div class="progress hidden">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-                                <span class="sr-only">0% complete</span>
+                        <div class="progress progress-striped active" data-bind="visible: uploadImageInProgress">
+                            <div class="progress-bar active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                                <span data-bind="visible: uploadImageInProgress">Uploading...</span>
                             </div>
                         </div>
 
@@ -121,6 +121,7 @@
         (function($) {
 
             $(function() {
+                var $progressBar = $('#onlineImages .progress');
                 $('.markdown-editor').markdown({
                     autofocus: false,
                     savable: false
@@ -143,16 +144,16 @@
                     self.maxLimitNotReached = function() {
                         return self.adImages().length < self.maxImages();
                     };
+                    self.uploadImageInProgress = ko.observable(false);
                 };
 
                 var rawJson = @Html.Raw(Model.OnlineAdImages.ToJsonString());
                 var onlineAdModel = new OnlineAd(rawJson, @Model.MaxOnlineImages);
                 
-                
                 ko.applyBindings(onlineAdModel);
 
-                var $imageUploadProgress = $('#onlineImages .progress-bar');
 
+                // Setup upload ctrl
                 var upload = $('#fileupload').fileupload({
                     dataType: 'json',
                     url: '@Url.Action("UploadOnlineImage", "Booking")',
@@ -168,15 +169,21 @@
                     }
                 });
 
-                //upload.on('fileuploadprogressall', function(e, data) {
-                    //console.log('progress ' + data.loaded);
-                    //console.log('progress ' + data.total);
-                //});
-                
-                //upload.on('fileuploadstart', function(e, data) {
-                //    $imageUploadProgress.parent().removeClass('hidden');
-                //});
+                upload.on('fileuploadstart', function() {
+                    console.log('start');
+                    onlineAdModel.uploadImageInProgress(true);
+                });
 
+                upload.on('fileuploadalways', function() {
+                    onlineAdModel.uploadImageInProgress(false);
+                    $progressBar.find('.progress-bar').width('0');
+                });
+
+                upload.on('fileuploadprogressall', function(e, data) {
+                    var progress = parseInt(data.loaded / data.total * 100, 10);
+                    $progressBar.find('.progress-bar').css('width', progress + '%');
+                });
+               
                 upload.on('fileuploadadd', function(e, data) {
                     onlineAdModel.errorMsg("");
                     if (data.files.length > 1) {

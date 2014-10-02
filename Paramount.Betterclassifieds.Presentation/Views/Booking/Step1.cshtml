@@ -120,44 +120,48 @@
 
         (function($) {
 
-            function validateError(msg) {
-                $('.alert-danger').removeClass('hidden').text(msg);
-            }
-
-            $('#parentCategoryId').on('change', function() {
-                var me = $(this);
-                stepOneModel.subCategoryId = ko.observable(null); // clear
-                $('#subCategoryId').loadSubCategories('@Url.Action("GetCategories", "Categories")', me.val(), false);
-            });
-
-            $('#btnSubmit').on('click', function() {
-                $(this).button('loading');
-                var modelToPost = ko.toJS(stepOneModel);
-
-                // Validate
-                if (isNaN(stepOneModel.subCategoryId()) || stepOneModel.subCategoryId() === null) {
-                    validateError('You must select a sub category for your ad');
-                    $(this).button('reset');
-                    return;
+            // jQuery ready
+            $(function() {
+                
+                function validateError(msg) {
+                    $('.alert-danger').removeClass('hidden').text(msg);
                 }
 
-                // Post
-                // Todo - use a form instead of ajax ( more practical )
-                $.ajax({
-                    url: '@Url.Action("Step1")',
-                    data : JSON.stringify(modelToPost),
-                    contentType : 'application/json',
-                    type : 'POST',
-                    dataType : 'json',
-                    success : function(respondUrl) {
-                        window.location = respondUrl;
-                    },
-                    error : function(errorMsg) {
-                        validateError(errorMsg);
-                    },
-                    complete : function() {
+                $('#parentCategoryId').on('change', function() {
+                    var me = $(this);
+                    stepOneModel.subCategoryId = ko.observable(null); // clear
+                    $('#subCategoryId').loadSubCategories('@Url.Action("GetCategories", "Categories")', me.val(), false);
+                });
+
+                $('#btnSubmit').on('click', function() {
+                    $(this).button('loading');
+                    var modelToPost = ko.toJS(stepOneModel);
+
+                    // Validate
+                    if (isNaN(stepOneModel.subCategoryId()) || stepOneModel.subCategoryId() === null) {
+                        validateError('You must select a sub category for your ad');
                         $(this).button('reset');
+                        return;
                     }
+
+                    // Post
+                    // Todo - use a form instead of ajax ( more practical )
+                    $.ajax({
+                        url: '@Url.Action("Step1")',
+                        data: JSON.stringify(modelToPost),
+                        contentType: 'application/json',
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function(respondUrl) {
+                            window.location = respondUrl;
+                        },
+                        error: function(errorMsg) {
+                            validateError(errorMsg);
+                        },
+                        complete: function() {
+                            $(this).button('reset');
+                        }
+                    });
                 });
             });
         })(jQuery);

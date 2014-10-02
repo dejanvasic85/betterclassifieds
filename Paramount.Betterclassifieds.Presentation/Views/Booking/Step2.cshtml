@@ -64,7 +64,7 @@
                             <!-- The file input field used as target for the file upload widget -->
                             <input id="fileupload" type="file" name="files[]" multiple>
                         </span>
-                        
+
                         @if (Model.MaxOnlineImages.HasValue)
                         {
                             <span>&nbsp; You can upload up to @Model.MaxOnlineImages images.</span>
@@ -80,10 +80,14 @@
 
                         <div class="row" data-bind="foreach: adImages">
                             <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
-                                <img class="img-thumbnail" data-bind="attr: {src: '/iflog/Image/' + $data + '/140/140'}" />
-                                <button class="btn btn-warning btn-block" title="Remove" data-bind="click: $parent.removeImage">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </button>
+                                <div class="thumbnail">
+                                    <img data-bind="attr: {src: '/iflog/Image/' + $data + '/140/140'}" />
+                                    <div class="caption">
+                                        <button class="btn btn-warning btn-block" title="Remove" data-bind="click: $parent.removeImage">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -149,7 +153,7 @@
 
                 var rawJson = @Html.Raw(Model.OnlineAdImages.ToJsonString());
                 var onlineAdModel = new OnlineAd(rawJson, @Model.MaxOnlineImages);
-                
+
                 ko.applyBindings(onlineAdModel);
 
 
@@ -160,7 +164,7 @@
                     autoUpload: true,
                     singleFileUploads: false
                 });
-                
+
                 upload.on('fileuploaddone', function(e, data) {
                     if (data.result.documentId) {
                         onlineAdModel.adImages.push(data.result.documentId);
@@ -183,7 +187,7 @@
                     var progress = parseInt(data.loaded / data.total * 100, 10);
                     $progressBar.find('.progress-bar').css('width', progress + '%');
                 });
-               
+
                 upload.on('fileuploadadd', function(e, data) {
                     onlineAdModel.errorMsg("");
                     if (data.files.length > 1) {
@@ -192,7 +196,7 @@
                     }
                     return true;
                 });
-            }); 
+            });
         })(jQuery);
     </script>
 }

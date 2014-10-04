@@ -44,7 +44,7 @@ namespace Paramount.Betterclassifieds.Business
         public AdBookingExtensionModel CreateExtension(int adBookingId, int numberOfInsertions, string username, decimal price, ExtensionStatus status, bool isOnlineOnly)
         {
             // Create a new extension model
-            AdBookingExtensionModel extension = new AdBookingExtensionModel
+            var extension = new AdBookingExtensionModel
                 {
                     AdBookingId = adBookingId,
                     Insertions = numberOfInsertions,
@@ -67,7 +67,7 @@ namespace Paramount.Betterclassifieds.Business
 
         public void Extend(AdBookingExtensionModel extensionModel, PaymentType paymentType = PaymentType.None)
         {
-            AdBookingModel adBooking = _bookingRepository.GetBooking(extensionModel.AdBookingId);
+            var adBooking = _bookingRepository.GetBooking(extensionModel.AdBookingId);
 
             if (extensionModel.IsOnlineOnly)
             {

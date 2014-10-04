@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Web.UI;
 using Microsoft.Practices.Unity;
 using Moq;
 using NUnit.Framework;
@@ -28,7 +29,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
         private Mock<IBroadcastManager> _broadcastManagerMock;
         private Mock<IBookingSessionIdentifier> _sessionIdentifierMock;
         private Mock<IBookingCartRepository> _cartRepositoryMock;
-        
+
 
         [SetUp]
         public void Setup()
@@ -72,7 +73,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
         {
             // Arrange
             var onlineAdMock = new OnlineAdModel();
-            
+
             var adRepositoryMock = _mockRepository.CreateMockOf<IAdRepository>(_container, _verifyList);
             adRepositoryMock.SetupWithVerification(call => call.GetOnlineAd(It.Is<int>(v => v == 100)), onlineAdMock);
             adRepositoryMock.SetupWithVerification(call => call.UpdateOnlineAd(It.IsAny<OnlineAdModel>()));
@@ -83,6 +84,69 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
             // Assert
             Assert.That(onlineAdMock.NumOfViews, Is.EqualTo(1));
             adRepositoryMock.Verify(call => call.UpdateOnlineAd(It.IsAny<OnlineAdModel>()), Times.Once);
+        }
+
+        [Test]
+        public void GetCart_NoCartNoCreator_ThrowsNullReferenceException()
+        {
+            // Arrange
+            _sessionIdentifierMock.SetupWithVerification(call => call.Id, string.Empty);
+            _cartRepositoryMock.SetupWithVerification(call => call.GetBookingCart(It.IsAny<string>()), null);
+
+            // Act
+            // Assert
+            var bookingManager = _container.Resolve<IBookingManager>();
+            Assert.Throws<NullReferenceException>(() => bookingManager.GetCart());
+        }
+
+        [Test]
+        public void GetCart_NoCartUseCreatorInstead_ReturnsBookingCart()
+        {
+            // Arrange
+            var mockCart = new BookingCart
+            {
+                Id = "123",
+                CategoryId = 1,
+                SubCategoryId = 2
+            };
+
+            _sessionIdentifierMock.SetupWithVerification(call => call.Id, "123");
+            _cartRepositoryMock.SetupWithVerification(call => call.GetBookingCart(It.IsAny<string>()), null);
+            _cartRepositoryMock.SetupWithVerification(call => call.SaveBookingCart(It.Is<BookingCart>(b => b == mockCart)), null);
+
+            // Act
+            var bookingManager = _container.Resolve<IBookingManager>();
+            var cart = bookingManager.GetCart(() => mockCart);
+
+            // Assert
+            Assert.That(cart, Is.EqualTo(mockCart));
+        }
+
+        [Test]
+        public void GetCart_CartExists_ReturnsBookingCart()
+        {
+            // Arrange
+            var mockCart = new BookingCart
+            {
+                Id = "123",
+                CategoryId = 1,
+                SubCategoryId = 2
+            };
+
+            _sessionIdentifierMock.SetupWithVerification(call => call.Id, "123");
+            _cartRepositoryMock.SetupWithVerification(call => call.GetBookingCart(It.Is<string>(str=> str == "123")), mockCart);
+
+            // Act
+            var bookingManager = _container.Resolve<IBookingManager>();
+            var cart = bookingManager.GetCart(() => new BookingCart
+            {
+                Id = "321",
+                CategoryId = 1999,
+                SubCategoryId = 9000
+            });
+
+            // Assert
+            Assert.That(cart, Is.EqualTo(mockCart));
         }
     }
 }

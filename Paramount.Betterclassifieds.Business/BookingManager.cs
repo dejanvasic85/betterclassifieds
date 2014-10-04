@@ -11,25 +11,34 @@ namespace Paramount.Betterclassifieds.Business
     public class BookingManager : IBookingManager
     {
         private readonly IBookingRepository _bookingRepository;
+        private readonly IBookingCartRepository _cartRepository;
         private readonly IAdRepository _adRepository;
         private readonly IPublicationRepository _publicationRepository;
         private readonly IClientConfig _clientConfigSettings;
         private readonly IPaymentsRepository _payments;
         private readonly IUserManager _userManager;
         private readonly IBroadcastManager _broadcastManager;
+        private readonly IBookingSessionIdentifier _bookingSessionIdentifier;
 
         public BookingManager(IBookingRepository bookingRepository,
             IPublicationRepository publicationRepository,
             IClientConfig clientConfigSettings,
-            IPaymentsRepository payments, IAdRepository adRepository, IUserManager userManager, IBroadcastManager broadcastManager)
+            IPaymentsRepository payments, 
+            IAdRepository adRepository, 
+            IUserManager userManager, 
+            IBroadcastManager broadcastManager, 
+            IBookingSessionIdentifier bookingSessionIdentifier, 
+            IBookingCartRepository cartRepository)
         {
-            this._bookingRepository = bookingRepository;
-            this._publicationRepository = publicationRepository;
-            this._clientConfigSettings = clientConfigSettings;
-            this._payments = payments;
+            _bookingRepository = bookingRepository;
+            _publicationRepository = publicationRepository;
+            _clientConfigSettings = clientConfigSettings;
+            _payments = payments;
             _adRepository = adRepository;
             _userManager = userManager;
             _broadcastManager = broadcastManager;
+            _bookingSessionIdentifier = bookingSessionIdentifier;
+            _cartRepository = cartRepository;
         }
 
         public AdBookingExtensionModel CreateExtension(int adBookingId, int numberOfInsertions, string username, decimal price, ExtensionStatus status, bool isOnlineOnly)
@@ -176,6 +185,32 @@ namespace Paramount.Betterclassifieds.Business
                     Editions = upComingEditions
                 };
             }
+        }
+
+        public BookingCart GetCart(Func<BookingCart> creator = null)
+        {
+            // Fetch the booking based on the current session id
+            var bookingCart = _cartRepository.GetBookingCart(_bookingSessionIdentifier.Id);
+
+            if (bookingCart == null && creator != null)
+            {
+                // The booking cart is not available so use the creation function instead
+                var newCart = creator();
+                SaveBookingCart(newCart);
+                return newCart;
+            }
+
+            if (bookingCart == null)
+            {
+                throw new NullReferenceException("Booking cart is null and creator function was not supplied.");
+            }
+            
+            return bookingCart;
+        }
+
+        public void SaveBookingCart(BookingCart bookingCart)
+        {
+            _cartRepository.SaveBookingCart(bookingCart);
         }
     }
 }

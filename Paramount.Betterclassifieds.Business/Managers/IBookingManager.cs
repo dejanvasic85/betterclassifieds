@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Paramount.Betterclassifieds.Business.Models;
 
 namespace Paramount.Betterclassifieds.Business.Managers
@@ -12,5 +13,9 @@ namespace Paramount.Betterclassifieds.Business.Managers
         void Extend(int adBookingId, int numberOfInsertions, bool? isOnlineOnly = null, ExtensionStatus extensionStatus = ExtensionStatus.Complete, int price = 0, string username = "admin", PaymentType payment = PaymentType.None);
         void IncrementHits(int id);
         void SubmitAdEnquiry(AdEnquiry enquiry);
+
+        // Booking cart management
+        BookingCart GetCart(Func<BookingCart> creator = null);
+        void SaveBookingCart(BookingCart bookingCart);
     }
 }

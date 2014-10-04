@@ -60,9 +60,8 @@ namespace Paramount.Betterclassifieds.Presentation
             container.RegisterType<SearchFilters>(new SessionLifetimeManager<SearchFilters>());
 
             // Booking specific objects
-            container.RegisterType<IBookingId, BookingCookie>()
-                .RegisterType<BookingCart>(new InjectionFactory(BookingCartFactory.Create))
-                .RegisterType<IBookingCartRepository, BookingCartRepository>();
+            container.RegisterType<IBookingSessionIdentifier, BookingCookie>()
+                .RegisterType<BookingCart>(new InjectionFactory(BookingCartFactory.Create));
         }
     }
 }

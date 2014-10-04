@@ -49,6 +49,8 @@
   <ItemGroup>
     <Compile Include="BookingManager.cs" />
     <Compile Include="Booking\BookingCart.cs" />
+    <Compile Include="Booking\IBookingCartRepository.cs" />
+    <Compile Include="Booking\IBookingSessionIdentifier.cs" />
     <Compile Include="Booking\OnlineAdCart.cs" />
     <Compile Include="Broadcast\INotificationProcessor.cs" />
     <Compile Include="Broadcast\Notification.cs" />

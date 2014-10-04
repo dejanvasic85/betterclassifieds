@@ -1,6 +1,9 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Options;
+using MongoDB.Driver;
+using Paramount.Betterclassifieds.Business;
 
-namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
+namespace Paramount.Betterclassifieds.DataService
 {
     // Todo - Move this class to more re-usable assembly
     public abstract class MongoRepository<T>
@@ -18,6 +21,11 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         protected MongoCollection<T> Collection
         {
             get { return _database.GetCollection<T>(_collectionName); }
-        } 
+        }
+
+        protected virtual void OnSerializationSettings()
+        {
+            
+        }
     }
 }

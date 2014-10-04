@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
@@ -14,25 +13,24 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
     using Business.Managers;
     using Business.Repository;
     using ViewModels.Booking;
-    
+
     public class BookingController : Controller, IMappingBehaviour
     {
         private readonly IUnityContainer _container;
         private readonly ISearchService _searchService;
-        private readonly IBookingId _bookingId;
-        private readonly IBookingCartRepository _bookingCartRepository;
         private readonly IBookingManager _bookingManager;
         private readonly IClientConfig _clientConfig;
         private readonly IDocumentRepository _documentRepository;
         private readonly IUserManager _userManager;
 
-        public BookingController(IUnityContainer container, ISearchService searchService, IBookingId bookingId, 
-            IBookingCartRepository bookingCartRepository, IClientConfig clientConfig, IDocumentRepository documentRepository, 
-            IBookingManager bookingManager, IUserManager userManager)
+        public BookingController(IUnityContainer container,
+            ISearchService searchService,
+            IClientConfig clientConfig,
+            IDocumentRepository documentRepository,
+            IBookingManager bookingManager,
+            IUserManager userManager)
         {
             _searchService = searchService;
-            _bookingId = bookingId;
-            _bookingCartRepository = bookingCartRepository;
             _clientConfig = clientConfig;
             _documentRepository = documentRepository;
             _bookingManager = bookingManager;
@@ -45,7 +43,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpGet, BookingStep(1)]
         public ActionResult Step1()
         {
-            var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
+            // Fetch the cart but provider a creating method because it's the first step...
+            var bookingCart = _bookingManager.GetCart(() => _container.Resolve<BookingCart>());
             var categories = _searchService.GetCategories();
 
             var viewModel = new Step1View
@@ -54,24 +53,21 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 Publications = this.MapList<PublicationModel, PublicationSelectionView>(_searchService.GetPublications()),
             };
 
-            // There is an existing booking cart already
-            if (bookingCart != null)
+            viewModel.CategoryId = bookingCart.CategoryId;
+            viewModel.SubCategoryId = bookingCart.SubCategoryId;
+
+            // Set selected publications
+            if (bookingCart.Publications != null)
             {
-                viewModel.CategoryId = bookingCart.CategoryId;
-                viewModel.SubCategoryId = bookingCart.SubCategoryId;
-
-                // Set selected publications
-                if (bookingCart.Publications != null)
-                {
-                    viewModel.SetSelectedPublications(bookingCart.Publications);
-                }
-
-                // Load subcategories (if parent is selected)
-                if (bookingCart.CategoryId.HasValue)
-                {
-                    viewModel.SubCategoryOptions = categories.Where(c => c.ParentId == bookingCart.CategoryId.Value).Select(c => new SelectListItem { Text = c.Title, Value = c.MainCategoryId.ToString() });
-                }
+                viewModel.SetSelectedPublications(bookingCart.Publications);
             }
+
+            // Load subcategories (if parent is selected)
+            if (bookingCart.CategoryId.HasValue)
+            {
+                viewModel.SubCategoryOptions = categories.Where(c => c.ParentId == bookingCart.CategoryId.Value).Select(c => new SelectListItem { Text = c.Title, Value = c.MainCategoryId.ToString() });
+            }
+
 
             return View(viewModel);
         }
@@ -82,9 +78,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (!ModelState.IsValid)
                 return View(viewModel);
 
-            // Fetch the booking cart from repository
-            // If null, then use the the container to resolve it ( using a factory - see PresentationInitialiser )
-            var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id) ?? _container.Resolve<BookingCart>();
+            var bookingCart = _bookingManager.GetCart();
 
             // Map step 1 model to the view cart
             bookingCart.CategoryId = viewModel.CategoryId;
@@ -93,7 +87,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             bookingCart.CompletedSteps.Add(1);
 
             //// Persist and move on
-            _bookingCartRepository.SaveBookingCart(bookingCart);
+            _bookingManager.SaveBookingCart(bookingCart);
 
             // Our view can't "submit" the form
             return Json(Url.Action("Step2"));
@@ -104,12 +98,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpGet, BookingStep(2)]
         public ActionResult Step2()
         {
-            var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
+            var bookingCart = _bookingManager.GetCart();
             var stepTwoModel = this.Map<OnlineAdCart, Step2View>(bookingCart.OnlineAdCart);
-            
+
             // Set max number of images available for upload ( available on global client configuration object )
             stepTwoModel.MaxOnlineImages = _clientConfig.MaxOnlineImages;
-            
+
             // Set convenient contact details for the user
             var applicationUser = _userManager.GetCurrentUser(this.User);
             if (applicationUser != null)
@@ -130,13 +124,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return View(viewModel);
             }
 
-            var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
+            var bookingCart = _bookingManager.GetCart();
             this.Map(viewModel, bookingCart.OnlineAdCart);
             bookingCart.OnlineAdCart.DescriptionHtml = new MarkdownDeep.Markdown().Transform(viewModel.OnlineAdDescription);
             bookingCart.CompletedSteps.Add(2);
 
             // Save and continue
-            _bookingCartRepository.SaveBookingCart(bookingCart);
+            _bookingManager.SaveBookingCart(bookingCart);
 
             return RedirectToAction("Step3");
         }
@@ -146,7 +140,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpGet, BookingStep(3)]
         public ActionResult Step3()
         {
-            var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
+            var bookingCart = _bookingManager.GetCart();
             var viewModel = new Step3View
             {
                 StartDate = bookingCart.StartDate,
@@ -164,11 +158,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (!ModelState.IsValid)
                 return View(viewModel);
 
-            var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
+            var bookingCart = _bookingManager.GetCart();
             bookingCart.StartDate = viewModel.StartDate;
             bookingCart.CompletedSteps.Add(3);
 
-            _bookingCartRepository.SaveBookingCart(bookingCart);
+            _bookingManager.SaveBookingCart(bookingCart);
 
             return RedirectToAction("Step4");
         }
@@ -178,7 +172,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpGet, BookingStep(4)]
         public ActionResult Step4()
         {
-            var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
+            var bookingCart = _bookingManager.GetCart();
             var viewModel = new Step4View();
 
             return View(viewModel);
@@ -192,7 +186,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return View(viewModel);
             }
 
-            var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
+            var bookingCart = _bookingManager.GetCart();
             if (bookingCart.NoPaymentRequired())
             {
                 // Todo - submit the booking and redirect to success
@@ -207,7 +201,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             bookingCart.CompletedSteps.Add(4);
             bookingCart.Completed = true;
 
-            _bookingCartRepository.SaveBookingCart(bookingCart);
+            _bookingManager.SaveBookingCart(bookingCart);
 
             return View(viewModel);
         }
@@ -220,7 +214,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost, BookingRequired]
         public ActionResult UploadOnlineImage()
         {
-            var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
+            var bookingCart = _bookingManager.GetCart();
 
             Guid? documentId = null;
 
@@ -247,23 +241,23 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
                 // Persist to the booking cart also
                 bookingCart.OnlineAdCart.Images.Add(documentId.ToString());
-                _bookingCartRepository.SaveBookingCart(bookingCart);
+                _bookingManager.SaveBookingCart(bookingCart);
             }
 
             return Json(new { documentId }, JsonRequestBehavior.AllowGet);
         }
-        
+
         [HttpPost, BookingRequired]
         public ActionResult RemoveOnlineImage(Guid documentId)
         {
             // Remove the image from the document repository
             _documentRepository.DeleteDocument(documentId);
 
-            var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
+            var bookingCart = _bookingManager.GetCart();
             bookingCart.OnlineAdCart.Images.Remove(documentId.ToString());
-            _bookingCartRepository.SaveBookingCart(bookingCart);
+            _bookingManager.SaveBookingCart(bookingCart);
 
-            return Json(new {removed = true});
+            return Json(new { removed = true });
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

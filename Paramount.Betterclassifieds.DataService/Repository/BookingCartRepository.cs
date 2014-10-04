@@ -1,17 +1,21 @@
-﻿namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
+﻿using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Options;
+
+namespace Paramount.Betterclassifieds.DataService
 {
     using Business;
-
-    public interface IBookingCartRepository
-    {
-        BookingCart GetBookingCart(string id);
-        BookingCart SaveBookingCart(BookingCart bookingCart);
-    }
+    using Business.Repository;
 
     public class BookingCartRepository : MongoRepository<BookingCart>, IBookingCartRepository
     {
         public BookingCartRepository() : base("bookings")
-        { }
+        {
+            BsonClassMap.RegisterClassMap<BookingCart>(c =>
+            {
+                c.AutoMap();
+                c.MapMember(member => member.StartDate).SetSerializationOptions(new DateTimeSerializationOptions { DateOnly = true });
+            });
+        }
 
         public BookingCart GetBookingCart(string id)
         {

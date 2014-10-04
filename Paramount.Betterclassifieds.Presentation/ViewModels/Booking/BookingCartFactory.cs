@@ -11,10 +11,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         {
             return CreateBookingCart(HttpContext.Current.Session.SessionID,
                 HttpContext.Current.User.Identity.Name,
-                container.Resolve<IBookingId>());
+                container.Resolve<IBookingSessionIdentifier>());
         }
 
-        public static BookingCart CreateBookingCart(string sessionId, string username, IBookingId bookingId)
+        public static BookingCart CreateBookingCart(string sessionId, string username, IBookingSessionIdentifier bookingSessionIdentifier)
         {
             var cart = new BookingCart
             {
@@ -24,7 +24,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
                 OnlineAdCart = new OnlineAdCart()
             };
 
-            bookingId.SetId(cart.Id);
+            bookingSessionIdentifier.SetId(cart.Id);
 
             return cart;
         }

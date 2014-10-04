@@ -28,7 +28,7 @@ namespace Paramount.Betterclassifieds.DataService
                      .RegisterType<IApplicationConfig, AppConfig>()
                      .RegisterType<IClientIdentifierManager, CookiesManager>()
                      .RegisterType<Business.Broadcast.IBroadcastRepository, Broadcast.BroadcastRepository>()
-
+                     .RegisterType<IBookingCartRepository, BookingCartRepository>(new ContainerControlledLifetimeManager())
                      .RegisterType<Business.Search.ISearchService, SearchService>();
 
         }

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Web;
+using Paramount.Betterclassifieds.Business;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 {
-    public class BookingCookie : IBookingId
+    public class BookingCookie : IBookingSessionIdentifier
     {
         public string Id { get { return GetCookie()["id"]; } }
 
@@ -30,9 +31,5 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         }
     }
 
-    public interface IBookingId
-    {
-        string Id { get; }
-        void SetId(string value);
-    }
+    
 }

@@ -2,7 +2,8 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 using Microsoft.Practices.Unity;
-using Paramount.Betterclassifieds.Presentation.ViewModels.Booking;
+using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Repository;
 
 namespace Paramount.Betterclassifieds.Presentation
 {
@@ -16,7 +17,7 @@ namespace Paramount.Betterclassifieds.Presentation
         public int? StepNumber { get; set; }
 
         [Dependency]
-        public IBookingId CurrentBookingId { get; set; }
+        public IBookingSessionIdentifier CurrentBookingId { get; set; }
 
         [Dependency]
         public IBookingCartRepository BookingCartRepository { get; set; }

@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 
 namespace Paramount.Betterclassifieds.DataService
 {
+    [Obsolete]
     public interface IDataProvider<T> where T : class, IDataProvider 
     {
         string ConnectionString { get;}
@@ -18,6 +19,7 @@ namespace Paramount.Betterclassifieds.DataService
         void Commit();
     }
 
+    [Obsolete]
     public interface IDataProvider:IDisposable
     {
         void Commit();

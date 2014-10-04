@@ -3,6 +3,7 @@ namespace Paramount.Betterclassifieds.DataService
     using System;
     using System.Data;
 
+    [Obsolete]
     struct Fields
     {
         public const string Username = "UserId";
@@ -17,6 +18,7 @@ namespace Paramount.Betterclassifieds.DataService
         public const string TotalPrice = "TotalPrice";
     }
 
+    [Obsolete]
     public class ExpiredAdRow
     {
         private readonly DataRow _row;

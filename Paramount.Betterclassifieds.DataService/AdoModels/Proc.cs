@@ -1,5 +1,8 @@
-﻿namespace Paramount.Betterclassifieds.DataService
+﻿using System;
+
+namespace Paramount.Betterclassifieds.DataService
 {
+    [Obsolete]
     internal struct Proc
     {
         public struct GetNextBanner

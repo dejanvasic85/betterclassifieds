@@ -86,53 +86,6 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             }
         }
 
-        public List<AdBookingModel> GetBookings(int takeAmount = 10)
-        {
-            using (var context = DataContextFactory.CreateClassifiedContext())
-            {
-                var data = context.AdBookings
-                    .Where(b => b.BookingStatus == (int)BookingStatusType.Booked && b.EndDate > DateTime.Today && b.StartDate <= DateTime.Today)
-                    .OrderByDescending(b => b.BookingDate) // Latest first
-                    .Take(takeAmount)
-                    .AsEnumerable();
-
-                IEnumerable<AdBookingModel> bookings = data
-                    .Select(b =>
-                    {
-                        var booking = this.Map<AdBooking, AdBookingModel>(b);
-
-                        // Fetch category
-                        booking.Category = this.Map<MainCategory, Category>(b.MainCategory);
-
-                        // Fetch online ad
-                        var onlineAdData = context.OnlineAds.FirstOrDefault(o => o.AdDesign.AdId == b.AdId);
-                        var onlineAdModel = this.Map<OnlineAd, OnlineAdModel>(onlineAdData);
-
-                        // Fetch the images
-                        if (onlineAdModel != null)
-                        {
-                            var graphics = onlineAdData.AdDesign.AdGraphics.ToList();
-                            onlineAdModel.Images = this.MapList<AdGraphic, AdImage>(graphics);
-                        }
-
-                        booking.Ads.Add(onlineAdModel);
-
-                        
-                        // Fetch publications
-                        var publications = b.BookEntries.Select(entry => entry.Publication)
-                            .Distinct(new PublicationDataIdComparer())
-                            .Where(p => p.PublicationTypeId != (int)PublicationTypeModel.Online)// Do not get online publications
-                            .ToList();
-
-                        booking.Publications = this.MapList<Publication, PublicationModel>(publications);
-
-                        return booking;
-                    });
-
-                return bookings.ToList();
-            }
-        }
-
         public int AddBookingExtension(AdBookingExtensionModel extension)
         {
             using (var context = DataContextFactory.CreateClassifiedContext())

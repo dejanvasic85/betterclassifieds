@@ -1,7 +1,9 @@
+using System;
 using System.Data;
 
 namespace Paramount.Betterclassifieds.DataService
 {
+    [Obsolete]
     public class ActivitySummaryRow
     {
         private readonly DataRow row;

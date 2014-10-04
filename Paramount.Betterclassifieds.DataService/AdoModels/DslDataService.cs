@@ -10,7 +10,8 @@ namespace Paramount.Betterclassifieds.DataService
     using ApplicationBlock.Configuration;
     using ApplicationBlock.Data;
     using Common.DataTransferObjects.DSL;
-
+    
+    [Obsolete]
     public static class DslDataService
     {
         private const string ConfigSection = @"paramount/dsl";

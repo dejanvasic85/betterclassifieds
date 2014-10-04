@@ -9,7 +9,6 @@ namespace Paramount.Betterclassifieds.Business.Models
         public AdBookingModel()
         {
             Ads = new List<IAd>();
-            Publications = new List<PublicationModel>();
         }
 
         public int AdBookingId { get; set; }
@@ -39,9 +38,6 @@ namespace Paramount.Betterclassifieds.Business.Models
             get { return string.Format("{0}EX", BookReference); }
         }
 
-        public List<PublicationModel> Publications { get; set; }
-
-        public Category Category { get; set; }
 
         public List<IAd> Ads { get; set; }
 

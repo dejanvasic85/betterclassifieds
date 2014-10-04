@@ -11,7 +11,6 @@ namespace Paramount.Betterclassifieds.Business.Repository
         List<BookEntryModel> GetBookEntriesForBooking(int adBookingId);
         List<UserBookingModel> GetBookingsForUser(string username);
         List<AdBookingModel> GetBookingsForEdition(DateTime editionDate);
-        List<AdBookingModel> GetBookings(int takeAmount = 10);
         AdBookingExtensionModel GetBookingExtension(int extensionId);
 
         // Add

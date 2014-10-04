@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using MongoDB.Bson.Serialization.Attributes;
 
-namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
+namespace Paramount.Betterclassifieds.Business
 {
     /// <summary>
     /// View model representing what can be selected in a regular booking steps/stages
@@ -30,7 +29,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 
         public int[] Publications { get; set; }
 
-        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
+        //[BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime? StartDate { get; set; }
 
         public DateTime? EndDate { get; set; }

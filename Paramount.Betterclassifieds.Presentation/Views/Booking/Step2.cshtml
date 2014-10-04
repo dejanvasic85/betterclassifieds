@@ -81,7 +81,7 @@
                         <div class="row" data-bind="foreach: adImages">
                             <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
                                 <div class="thumbnail">
-                                    <img data-bind="attr: {src: '$parent.imageUrl' + $data + '/140/140'}" />
+                                    <img data-bind="attr: {src: $parent.imageUrl($data) }" />
                                     <div class="caption">
                                         <button class="btn btn-warning btn-block" title="Remove" data-bind="click: $parent.removeImage">
                                             <span class="glyphicon glyphicon-trash"></span>
@@ -149,7 +149,10 @@
                         return self.adImages().length < self.maxImages();
                     };
                     self.uploadImageInProgress = ko.observable(false);
-                    self.imageUrl = '@Url.Action("Render", "Image")';
+                    self.imageUrlTemplate = '@Url.Action("Render", "Image", new {documentId = "id", height = 100, width = 100})';
+                    self.imageUrl = function(id) {
+                        return self.imageUrlTemplate.replace('id', id);
+                    };
                 };
 
                 var rawJson = @Html.Raw(Model.OnlineAdImages.ToJsonString());

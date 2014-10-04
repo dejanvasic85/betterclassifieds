@@ -48,6 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookingManager.cs" />
+    <Compile Include="Booking\BookingCart.cs" />
+    <Compile Include="Booking\OnlineAdCart.cs" />
     <Compile Include="Broadcast\INotificationProcessor.cs" />
     <Compile Include="Broadcast\Notification.cs" />
     <Compile Include="Broadcast\DocTypes\ActivityReport.cs" />

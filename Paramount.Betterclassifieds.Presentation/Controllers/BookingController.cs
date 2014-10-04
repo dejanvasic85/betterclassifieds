@@ -279,8 +279,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             // From ViewModel
             configuration.CreateMap<Step2View, OnlineAdCart>()
                 .ForMember(member => member.Images, options => options.Ignore());
-            configuration.CreateMap<BookingCart, AdBookingModel>()
-                .ConvertUsing<BookingCartToModelConverter>();
         }
     }
 

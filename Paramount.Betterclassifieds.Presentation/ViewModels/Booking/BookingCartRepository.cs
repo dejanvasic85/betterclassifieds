@@ -1,5 +1,7 @@
 ﻿namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 {
+    using Business;
+
     public interface IBookingCartRepository
     {
         BookingCart GetBookingCart(string id);

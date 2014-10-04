@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
+namespace Paramount.Betterclassifieds.Business
 {
     public class OnlineAdCart
     {

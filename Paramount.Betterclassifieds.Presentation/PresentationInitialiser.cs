@@ -1,6 +1,7 @@
 ﻿using Microsoft.Practices.Unity;
 using Paramount.ApplicationBlock.Mvc;
 using Paramount.ApplicationBlock.Mvc.Unity;
+using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Booking;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace Paramount.Betterclassifieds.Presentation
 
             // Images
             routes.MapRoute("imageRoute", "Image/{documentId}/{width}/{height}", new { controller = "Image", action = "Render", width = UrlParameter.Optional, height = UrlParameter.Optional });
-            
+
             // Ad route
             routes.MapRoute("adRoute", "Ad/{title}/{id}", new { controller = "Listings", action = "ViewAd", module = Name }, new[] { GetType().Namespace });
 

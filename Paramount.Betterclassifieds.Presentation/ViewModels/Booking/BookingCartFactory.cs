@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web;
 using Microsoft.Practices.Unity;
+using Paramount.Betterclassifieds.Business;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 {

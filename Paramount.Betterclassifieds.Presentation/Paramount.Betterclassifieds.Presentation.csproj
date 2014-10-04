@@ -196,13 +196,10 @@
     <Compile Include="ViewModels\AddressViewModel.cs" />
     <Compile Include="ViewModels\AdEnquiryViewModel.cs" />
     <Compile Include="ViewModels\AdViewModel.cs" />
-    <Compile Include="ViewModels\Booking\BookingCart.cs" />
     <Compile Include="ViewModels\Booking\BookingCartFactory.cs" />
     <Compile Include="ViewModels\Booking\BookingCartRepository.cs" />
-    <Compile Include="ViewModels\Booking\BookingCartToModelConverter.cs" />
     <Compile Include="ViewModels\Booking\BookingId.cs" />
     <Compile Include="Framework\MongoRepository.cs" />
-    <Compile Include="ViewModels\Booking\OnlineAdCart.cs" />
     <Compile Include="ViewModels\Booking\PublicationEditionView.cs" />
     <Compile Include="ViewModels\Booking\Step2View.cs" />
     <Compile Include="ViewModels\Booking\Step3View.cs" />

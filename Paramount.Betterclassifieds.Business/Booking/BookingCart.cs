@@ -30,7 +30,6 @@ namespace Paramount.Betterclassifieds.Business
 
         public int[] Publications { get; set; }
 
-        //[BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime? StartDate { get; set; }
 
         public DateTime? EndDate { get; set; }
@@ -45,6 +44,7 @@ namespace Paramount.Betterclassifieds.Business
         }
 
         public List<int> CompletedSteps { get; set; }
+        public string Reference { get; set; }
 
         public bool NoPaymentRequired()
         {

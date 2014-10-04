@@ -16,11 +16,13 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 
         public static BookingCart CreateBookingCart(string sessionId, string username, IBookingSessionIdentifier bookingSessionIdentifier)
         {
+            var id = Guid.NewGuid().ToString();
             var cart = new BookingCart
             {
                 SessionId = sessionId,
                 UserId = username,
-                Id = Guid.NewGuid().ToString(),
+                Id = id,
+                Reference = id.Substring(0, 6).ToUpper(),
                 OnlineAdCart = new OnlineAdCart()
             };
 

@@ -26,5 +26,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         public string OnlineAdDescriptionHtml { get; set; }
         public string OnlineAdHeading { get; set; }
         public string[] OnlineAdImages { get; set; }
+        public string Reference { get; set; }
     }
 }

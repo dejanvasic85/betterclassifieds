@@ -1,6 +1,8 @@
 Here's a list of the latest changes for the current release:
 
-*todo*
+**Enhancements**
+
+- [All new booking system](https://trello.com/c/prXqhrqH/135-nextgen-booking-engine-and-user-interface-revamp)
 
 Other useful resources:
 

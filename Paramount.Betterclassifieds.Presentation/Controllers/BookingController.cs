@@ -24,8 +24,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IBookingManager _bookingManager;
         private readonly IClientConfig _clientConfig;
         private readonly IDocumentRepository _documentRepository;
+        private readonly IUserManager _userManager;
 
-        public BookingController(IUnityContainer container, ISearchService searchService, IBookingId bookingId, IBookingCartRepository bookingCartRepository, IClientConfig clientConfig, IDocumentRepository documentRepository, IBookingManager bookingManager)
+        public BookingController(IUnityContainer container, ISearchService searchService, IBookingId bookingId, 
+            IBookingCartRepository bookingCartRepository, IClientConfig clientConfig, IDocumentRepository documentRepository, 
+            IBookingManager bookingManager, IUserManager userManager)
         {
             _searchService = searchService;
             _bookingId = bookingId;
@@ -33,6 +36,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _clientConfig = clientConfig;
             _documentRepository = documentRepository;
             _bookingManager = bookingManager;
+            _userManager = userManager;
             _container = container;
         }
 
@@ -102,7 +106,19 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var bookingCart = _bookingCartRepository.GetBookingCart(_bookingId.Id);
             var stepTwoModel = this.Map<OnlineAdCart, Step2View>(bookingCart.OnlineAdCart);
+            
+            // Set max number of images available for upload ( available on global client configuration object )
             stepTwoModel.MaxOnlineImages = _clientConfig.MaxOnlineImages;
+            
+            // Set convenient contact details for the user
+            var applicationUser = _userManager.GetCurrentUser(this.User);
+            if (applicationUser != null)
+            {
+                stepTwoModel.OnlineAdContactName = applicationUser.FirstName;
+                stepTwoModel.OnlineAdPhone = applicationUser.Phone;
+                stepTwoModel.OnlineAdEmail = applicationUser.Email;
+            }
+
             return View(stepTwoModel);
         }
 

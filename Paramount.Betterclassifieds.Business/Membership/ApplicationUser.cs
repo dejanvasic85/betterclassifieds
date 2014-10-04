@@ -14,6 +14,7 @@ namespace Paramount.Betterclassifieds.Business
         public string City { get; set; }
         public string State { get; set; }
         public string Postcode { get; set; }
+        public string Phone { get; set; }
 
         public virtual bool AuthenticateUser(IAuthManager authManager, string password, bool persistAuthCookie = true)
         {

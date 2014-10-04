@@ -92,7 +92,6 @@
     <Compile Include="Models\PublicationTypeModel.cs" />
     <Compile Include="DocumentStorage\Document.cs" />
     <Compile Include="Repository\ICategoryRepository.cs" />
-    <Compile Include="Repository\IClientSideCacheRepository.cs" />
     <Compile Include="Managers\IEditionManager.cs" />
     <Compile Include="Managers\IBookingManager.cs" />
     <Compile Include="Search\SeoNameMappingModel.cs" />

@@ -24,6 +24,7 @@ namespace Paramount.Betterclassifieds.Business
         public int? LocationAreaId { get; set; }
 
         public List<string> Images { get; set; }
+
         public string DescriptionHtml { get; set; }
     }
 }

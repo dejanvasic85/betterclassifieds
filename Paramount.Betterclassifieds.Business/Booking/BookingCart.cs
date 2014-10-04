@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Paramount.Betterclassifieds.Business.Managers;
 
 namespace Paramount.Betterclassifieds.Business
 {
@@ -40,15 +41,24 @@ namespace Paramount.Betterclassifieds.Business
 
         public bool IsLineAdIncluded
         {
-            get { return this.Publications != null && this.Publications.Any(); }
+            get { return Publications != null && Publications.Any(); }
         }
 
         public List<int> CompletedSteps { get; set; }
-        
 
         public bool NoPaymentRequired()
         {
-            return this.TotalPrice == 0;
+            return TotalPrice == 0;
+        }
+
+        public void SetEndDate(IClientConfig clientConfig)
+        {
+            if (!StartDate.HasValue)
+            {
+                throw new NullReferenceException("StartDate cannot be null when setting the end date");
+            }
+
+            EndDate = StartDate.Value.AddDays(clientConfig.RestrictedOnlineDaysCount);
         }
     }
 }

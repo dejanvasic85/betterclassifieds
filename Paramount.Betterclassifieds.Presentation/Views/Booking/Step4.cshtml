@@ -22,8 +22,63 @@
                     <h4>Confirmation</h4>
                     <p>Please verify your details below before submitting your booking.</p>
                 </div>
-                
+
                 @Html.ValidationSummary()
+
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Price and Schedule</h4>
+                    </div>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>Sub Total</td>
+                                <td>$ @Model.TotalPrice.ToString("00.00")</td>
+                            </tr>
+                            <tr>
+                                <td>Start Date</td>
+                                <td>@Model.StartDate.ToString("dd-MMM-yyyy")</td>
+                            </tr>
+                            <tr>
+                                <td>End Date</td>
+                                <td>@Model.EndDate.ToString("dd-MMM-yyyy")</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel panel-success hidden">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a href="#onlineAdPreview" data-toggle="collapse">
+                                Online Ad Details 
+                                <span class="glyphicon glyphicon-circle-arrow-down"></span>
+                            </a>
+                        </h4>
+                    </div>
+                    <div class="panel-collapse collapse" id="onlineAdPreview">
+                        <table class="table">
+                            <tr>
+                                <td>Heading</td>
+                                <td>@Model.OnlineAdHeading</td>
+                            </tr>
+                            <tr>
+                                <td>Description</td>
+                                <td>@Html.Raw(Model.OnlineAdDescriptionHtml)</td>
+                            </tr>
+                            <tr>
+                                <td>Images</td>
+                                <td>
+                                    @foreach (var img in Model.OnlineAdImages)
+                                    {
+                                        <div class="thumbnail" style="height: 140px; width: 140px">
+                                            <img src="@Url.Action("Render", "Image", new { documentId = img, height = 140, width = 140 })" />
+                                        </div>
+                                    }
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <div class="form-control-checkbox">
@@ -60,7 +115,3 @@
 
     </form>
 </div>
-
-@section Scripts{
-
-}

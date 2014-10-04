@@ -155,6 +155,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var bookingCart = _bookingManager.GetCart();
             bookingCart.StartDate = viewModel.StartDate;
+            bookingCart.SetEndDate(_clientConfig);
             bookingCart.CompletedSteps.Add(3);
 
             _bookingManager.SaveBookingCart(bookingCart);
@@ -168,20 +169,24 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult Step4()
         {
             var bookingCart = _bookingManager.GetCart();
-            var viewModel = new Step4View();
-
+            var viewModel = this.Map<BookingCart, Step4View>(bookingCart);
+            this.Map(bookingCart.OnlineAdCart, viewModel);
             return View(viewModel);
         }
 
         [HttpPost, BookingStep(4)]
         public ActionResult Step4(Step4View viewModel)
         {
+            var bookingCart = _bookingManager.GetCart();
+
             if (!ModelState.IsValid)
             {
+                // Return the mapped object from the booking cart
+                this.Map(bookingCart, viewModel);
+                this.Map(bookingCart.OnlineAdCart, viewModel);
                 return View(viewModel);
             }
-
-            var bookingCart = _bookingManager.GetCart();
+            
             if (bookingCart.NoPaymentRequired())
             {
                 // Todo - submit the booking and redirect to success
@@ -264,6 +269,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             // To view model
             configuration.CreateMap<PublicationModel, PublicationSelectionView>();
             configuration.CreateMap<OnlineAdCart, Step2View>();
+            configuration.CreateMap<BookingCart, Step4View>();
+            configuration.CreateMap<OnlineAdCart, Step4View>();
 
             // From ViewModel
             configuration.CreateMap<Step2View, OnlineAdCart>()

@@ -9,10 +9,10 @@
 
 <div class="container">
     <ul class="nav nav-tabs" role="tablist">
-        <li><a href="#">1</a></li>
+        <li>@Html.ActionLink("1", "Step1")</li>
         <li class="active"><a href="#">Step 2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
+        <li class="disabled"><a href="#">3</a></li>
+        <li class="disabled"><a href="#">4</a></li>
     </ul>
 
     <form role="form" id="adDesignForm" action="@Url.Action("Step2", "Booking")" method="POST">

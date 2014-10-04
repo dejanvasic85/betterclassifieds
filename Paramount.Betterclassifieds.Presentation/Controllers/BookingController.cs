@@ -49,25 +49,20 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var viewModel = new Step1View
             {
-                ParentCategoryOptions = categories.Where(c => c.ParentId == null).Select(c => new SelectListItem { Text = c.Title, Value = c.MainCategoryId.ToString() }),
+                ParentCategoryOptions = categories.Where(c => c.ParentId == null).Select(c => new SelectListItem {Text = c.Title, Value = c.MainCategoryId.ToString()}),
                 Publications = this.MapList<PublicationModel, PublicationSelectionView>(_searchService.GetPublications()),
+                CategoryId = bookingCart.CategoryId,
+                SubCategoryId = bookingCart.SubCategoryId,
             };
 
-            viewModel.CategoryId = bookingCart.CategoryId;
-            viewModel.SubCategoryId = bookingCart.SubCategoryId;
-
             // Set selected publications
-            if (bookingCart.Publications != null)
-            {
-                viewModel.SetSelectedPublications(bookingCart.Publications);
-            }
+            viewModel.SetSelectedPublications(bookingCart.Publications);
 
             // Load subcategories (if parent is selected)
             if (bookingCart.CategoryId.HasValue)
             {
                 viewModel.SubCategoryOptions = categories.Where(c => c.ParentId == bookingCart.CategoryId.Value).Select(c => new SelectListItem { Text = c.Title, Value = c.MainCategoryId.ToString() });
             }
-
 
             return View(viewModel);
         }

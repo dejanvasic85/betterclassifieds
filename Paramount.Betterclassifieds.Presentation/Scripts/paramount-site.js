@@ -1,4 +1,14 @@
 ﻿
+
+/*
+** _pg (paramount global) object used for utility functions
+*/
+
+var _pg = _pg || {};
+_pg.formatCurrency = function (value) {
+    return "$" + value.toFixed(2);
+};
+
 /*
 ** General element hooks for the entire website
 */

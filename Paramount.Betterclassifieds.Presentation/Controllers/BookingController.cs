@@ -49,7 +49,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var viewModel = new Step1View
             {
-                ParentCategoryOptions = categories.Where(c => c.ParentId == null).Select(c => new SelectListItem {Text = c.Title, Value = c.MainCategoryId.ToString()}),
+                ParentCategoryOptions = categories.Where(c => c.ParentId == null).Select(c => new SelectListItem { Text = c.Title, Value = c.MainCategoryId.ToString() }),
                 Publications = this.MapList<PublicationModel, PublicationSelectionView>(_searchService.GetPublications()),
                 CategoryId = bookingCart.CategoryId,
                 SubCategoryId = bookingCart.SubCategoryId,
@@ -71,19 +71,15 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult Step1(Step1View viewModel)
         {
             if (!ModelState.IsValid)
-                return View(viewModel);
+                return Json(new { errorMsg = "Please ensure you select a category before next step." });
 
             var bookingCart = _bookingManager.GetCart();
-
-            // Map step 1 model to the view cart
             bookingCart.CategoryId = viewModel.CategoryId;
             bookingCart.SubCategoryId = viewModel.SubCategoryId;
             bookingCart.Publications = viewModel.Publications.Where(p => p.IsSelected).Select(p => p.PublicationId).ToArray();
             bookingCart.CompletedSteps.Add(1);
-
-            //// Persist and move on
             _bookingManager.SaveBookingCart(bookingCart);
-
+            
             // Our view can't "submit" the form
             return Json(Url.Action("Step2"));
         }
@@ -186,7 +182,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 this.Map(bookingCart.OnlineAdCart, viewModel);
                 return View(viewModel);
             }
-            
+
             if (bookingCart.NoPaymentRequired())
             {
                 // Todo - submit the booking and redirect to success

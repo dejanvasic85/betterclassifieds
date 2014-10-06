@@ -19,7 +19,7 @@
     <meta property="og:description" content="@Model.Description" />
     @if (Model.HasImages)
     {
-        <meta property="og:image" content="@Url.Action("Render", "Image", new{ documentId = @Model.ImageUrls.First(), height = 630, width = 1200} )" />
+        <meta property="og:image" content="@Url.Action("Render", "Image", new{ documentId = @Model.ImageUrls.First(), height = 630, width = 1200}, "http" )" />
     }
 }
 

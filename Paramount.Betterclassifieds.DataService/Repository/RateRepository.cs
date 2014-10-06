@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Repository;
@@ -20,6 +21,14 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
                 return model;
             }
+        }
+
+        public OnlineAdRate GetOnlineRateByCategory(int? categoryId)
+        {
+            // Todo - Simple fetch by category Id.
+            // however, if no results we should try finding by parent?
+
+            throw new NotImplementedException();
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

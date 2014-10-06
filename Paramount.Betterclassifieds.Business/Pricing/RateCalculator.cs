@@ -1,10 +1,13 @@
-﻿using Paramount.Betterclassifieds.Business.Repository;
+﻿using System.Linq;
+using Paramount.Betterclassifieds.Business.Repository;
 
 namespace Paramount.Betterclassifieds.Business.Models
 {
     public interface IRateCalculator
     {
         decimal Calculate(int ratecardId, LineAdModel lineAd, bool isOnlineAd, int editions = 1);
+
+        PriceBreakdown Calculate(int? categoryId);
     }
 
     public class RateCalculator : IRateCalculator
@@ -52,6 +55,15 @@ namespace Paramount.Betterclassifieds.Business.Models
             return price;
         }
 
-        public PriceBreakdown Calculate(int subCategoryId)
+        public PriceBreakdown Calculate(int? categoryId)
+        {
+            var breakDown = new PriceBreakdown();
+
+            var onlineAdRate = _rateRepository.GetOnlineRateByCategory(categoryId);
+
+            breakDown.Total = onlineAdRate.MinimumCharge;
+
+            return breakDown;
+        }
     }
 }

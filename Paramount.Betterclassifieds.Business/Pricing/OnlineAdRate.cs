@@ -1,6 +1,6 @@
 ﻿namespace Paramount.Betterclassifieds.Business.Models
 {
-    public class OnlineRate
+    public class OnlineAdRate
     {
         public int OnlineRateId { get; set; }
         public int? CategoryId { get; set; }

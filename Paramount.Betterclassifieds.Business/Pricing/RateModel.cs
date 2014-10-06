@@ -4,6 +4,7 @@ namespace Paramount.Betterclassifieds.Business.Models
 {
     public class RateModel
     {
+        [Obsolete]
         public int BaseRateId { get; set; }
         public decimal? MinCharge { get; set; }
         public decimal? MaxCharge { get; set; }

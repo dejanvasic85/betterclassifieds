@@ -70,6 +70,8 @@
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Scripts\0030-OnlineAdRate.DefaultValue.sql" />
+    <EmbeddedResource Include="Scripts\0029-OnlineAdRate.Table.sql" />
     <EmbeddedResource Include="Scripts\0028-SupportEnquiry.AddCreatedDateUtc.sql" />
     <EmbeddedResource Include="Scripts\0027-spOnlineAdSelectByLineAdDesign_Alter.sql" />
     <EmbeddedResource Include="Scripts\0025-OnlineAds_UpdateView.sql" />

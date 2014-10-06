@@ -76,6 +76,8 @@
     <Compile Include="Managers\IEnquiryManager.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\AdEnquiry.cs" />
+    <Compile Include="Pricing\OnlineRate.cs" />
+    <Compile Include="Pricing\PriceBreakdown.cs" />
     <Compile Include="Repository\IEnquiryRepository.cs" />
     <Compile Include="Search\AdSearchResult.cs" />
     <Compile Include="Search\AdSearchSortOrder.cs" />
@@ -114,8 +116,8 @@
     <Compile Include="Models\PaymentType.cs" />
     <Compile Include="Models\PublicationEditionModel.cs" />
     <Compile Include="Models\PublicationModel.cs" />
-    <Compile Include="Models\RateCalculator.cs" />
-    <Compile Include="Models\RateModel.cs" />
+    <Compile Include="Pricing\RateCalculator.cs" />
+    <Compile Include="Pricing\RateModel.cs" />
     <Compile Include="Models\TutorAdModel.cs" />
     <Compile Include="Models\UserBookingModel.cs" />
     <Compile Include="Models\UserBookingViewType.cs" />

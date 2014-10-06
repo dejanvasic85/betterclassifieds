@@ -38,6 +38,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _container = container;
         }
 
+        #region Steps
         //
         // GET: /Booking/Step/1 - Category and publications
         [HttpGet, BookingStep(1)]
@@ -79,7 +80,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             bookingCart.Publications = viewModel.Publications.Where(p => p.IsSelected).Select(p => p.PublicationId).ToArray();
             bookingCart.CompletedSteps.Add(1);
             _bookingManager.SaveBookingCart(bookingCart);
-            
+
             // Our view can't "submit" the form
             return Json(Url.Action("Step2"));
         }
@@ -202,6 +203,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View(viewModel);
         }
 
+        #endregion
+
+        #region Json Requests
         public ActionResult SuccessTemp()
         {
             return View();
@@ -255,7 +259,20 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             return Json(new { removed = true });
         }
+        
+        [HttpGet, BookingRequired]
+        public ActionResult GetRate()
+        {
+            var bookingCart = _bookingManager.GetCart();
 
+            
+
+            return Json(new { totalPrice = 0 });
+        }
+
+        #endregion
+
+        #region Mappings
         public void OnRegisterMaps(IConfiguration configuration)
         {
             // Step 2 view is very flat with OnlineAd Prefix on properties
@@ -272,6 +289,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<Step2View, OnlineAdCart>()
                 .ForMember(member => member.Images, options => options.Ignore());
         }
+        #endregion
+
     }
 
 }

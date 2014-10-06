@@ -152,8 +152,6 @@
                         },
                         error: function(resp) {
                             stepOneModel.errorMsg(resp.statusText);
-                        },
-                        complete: function() {
                             $btn.button('reset');
                         }
                     });

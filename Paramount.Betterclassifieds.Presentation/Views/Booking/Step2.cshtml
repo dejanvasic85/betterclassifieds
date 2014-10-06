@@ -124,7 +124,7 @@
 
     <script>
         (function($) {
-            
+
             $(function() {
                 var $progressBar = $('#onlineImages .progress');
                 $('.markdown-editor').markdown({
@@ -155,7 +155,9 @@
                         return self.imageUrlTemplate.replace('id', id);
                     };
                     self.currentTotal = ko.pureComputed(function() {
-                        return 0;
+                        @*$.getJSON('@Url.Action("GetRate", "Booking")', null, function() {
+
+                        });*@
                     });
                 };
 

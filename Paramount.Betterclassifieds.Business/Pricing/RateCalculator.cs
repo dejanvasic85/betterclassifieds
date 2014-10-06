@@ -2,19 +2,24 @@
 
 namespace Paramount.Betterclassifieds.Business.Models
 {
-    public class RateCalculator
+    public interface IRateCalculator
     {
-        private readonly IRateRepository rateRepository;
+        decimal Calculate(int ratecardId, LineAdModel lineAd, bool isOnlineAd, int editions = 1);
+    }
+
+    public class RateCalculator : IRateCalculator
+    {
+        private readonly IRateRepository _rateRepository;
 
         public RateCalculator(IRateRepository rateRepository)
         {
-            this.rateRepository = rateRepository;
+            _rateRepository = rateRepository;
         }
 
         public decimal Calculate(int ratecardId, LineAdModel lineAd, bool isOnlineAd, int editions = 1)
         {
             // Fetch the ratecard by the baseRate
-            RateModel rateModel = rateRepository.GetRatecard(ratecardId);
+            RateModel rateModel = _rateRepository.GetRatecard(ratecardId);
             decimal price = 0;
             
             // Calculate line ad price
@@ -46,5 +51,7 @@ namespace Paramount.Betterclassifieds.Business.Models
 
             return price;
         }
+
+        public PriceBreakdown Calculate(int subCategoryId)
     }
 }

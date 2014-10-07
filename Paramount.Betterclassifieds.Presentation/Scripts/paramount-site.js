@@ -6,6 +6,9 @@
 
 var _pg = _pg || {};
 _pg.formatCurrency = function (value) {
+    if (value == undefined)
+        return '';
+
     return "$" + value.toFixed(2);
 };
 

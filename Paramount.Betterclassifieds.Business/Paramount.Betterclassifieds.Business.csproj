@@ -72,6 +72,7 @@
     <Compile Include="Broadcast\DocTypes\IDocType.cs" />
     <Compile Include="EditionManager.cs" />
     <Compile Include="EnquiryManager.cs" />
+    <Compile Include="Exceptions\SetupException.cs" />
     <Compile Include="Managers\IApplicationConfig.cs" />
     <Compile Include="Managers\IEnquiryManager.cs" />
     <Compile Include="Models\Address.cs" />

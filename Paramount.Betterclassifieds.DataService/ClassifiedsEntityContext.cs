@@ -1,7 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Paramount.ApplicationBlock.Data;
+﻿using Paramount.ApplicationBlock.Data;
 using System.Data.Entity;
-using Paramount.Betterclassifieds.Business.Models;
+using Paramount.Betterclassifieds.Business;
 
 namespace Paramount.Betterclassifieds.DataService
 {
@@ -14,12 +13,13 @@ namespace Paramount.Betterclassifieds.DataService
             Configuration.LazyLoadingEnabled = false;
         }
 
-        public IDbSet<TutorAdModel> TutorAds { get; set; }
+        public IDbSet<OnlineAdRate> OnlineAdRates { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<TutorAdModel>().ToTable("TutorAd");
-            modelBuilder.Entity<TutorAdModel>().HasKey(k => k.OnlineAdId);
+            modelBuilder.Entity<OnlineAdRate>().ToTable("OnlineAdRate");
+            modelBuilder.Entity<OnlineAdRate>().HasKey(k => k.OnlineAdRateId);
+            modelBuilder.Entity<OnlineAdRate>().Property(prop => prop.CategoryId).HasColumnName("MainCategoryId");
         }
     }
 }

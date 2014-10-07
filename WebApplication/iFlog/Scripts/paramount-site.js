@@ -6,8 +6,13 @@
 
 var _pg = _pg || {};
 _pg.formatCurrency = function (value) {
+    debugger;
+    if (value == undefined)
+        return '';
+
     return "$" + value.toFixed(2);
 };
+
 
 /*
 ** General element hooks for the entire website

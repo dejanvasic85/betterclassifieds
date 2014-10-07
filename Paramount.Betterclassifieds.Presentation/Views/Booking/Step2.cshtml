@@ -14,9 +14,9 @@
         <li class="disabled"><a href="#">3</a></li>
         <li class="disabled"><a href="#">4</a></li>
     </ul>
-    
+
     @Html.Partial("_PriceSummary")
-    
+
     <form role="form" id="adDesignForm" action="@Url.Action("Step2", "Booking")" method="POST">
         @Html.AntiForgeryToken()
 
@@ -132,41 +132,6 @@
                     savable: false
                 });
 
-                var DesignAd = function(data, maxImages) {
-                    // Images
-                    var self = this;
-                    self.adImages = ko.observableArray(data);
-                    self.errorMsg = ko.observable("");
-                    self.removeImage = function(img) {
-                        $.post('@Url.Action("RemoveOnlineImage")', { documentId: img }, function(result) {
-                            if (result.removed) {
-                                self.adImages.remove(img);
-                            }
-                        });
-                        $('#fileupload').removeClass('hidden');
-                    };
-                    self.maxImages = ko.observable(maxImages);
-                    self.maxLimitNotReached = function() {
-                        return self.adImages().length < self.maxImages();
-                    };
-                    self.uploadImageInProgress = ko.observable(false);
-                    self.imageUrlTemplate = '@Url.Action("Render", "Image", new {documentId = "id", height = 100, width = 100})';
-                    self.imageUrl = function(id) {
-                        return self.imageUrlTemplate.replace('id', id);
-                    };
-                    self.currentTotal = ko.pureComputed(function() {
-                        @*$.getJSON('@Url.Action("GetRate", "Booking")', null, function() {
-
-                        });*@
-                    });
-                };
-
-                var rawJson = @Html.Raw(Model.OnlineAdImages.ToJsonString());
-                var designAdModel = new DesignAd(rawJson, @Model.MaxOnlineImages);
-
-                ko.applyBindings(designAdModel);
-
-
                 // Setup upload ctrl
                 var upload = $('#fileupload').fileupload({
                     dataType: 'json',
@@ -205,6 +170,44 @@
                     }
                     return true;
                 });
+
+                var DesignAd = function(data, maxImages) {
+                    var self = this;
+
+                    // Images
+                    self.adImages = ko.observableArray(data);
+                    self.errorMsg = ko.observable("");
+                    self.removeImage = function(img) {
+                        $.post('@Url.Action("RemoveOnlineImage")', { documentId: img }, function(result) {
+                            if (result.removed) {
+                                self.adImages.remove(img);
+                            }
+                        });
+                        $('#fileupload').removeClass('hidden');
+                    };
+                    self.maxImages = ko.observable(maxImages);
+                    self.maxLimitNotReached = function() {
+                        return self.adImages().length < self.maxImages();
+                    };
+                    self.uploadImageInProgress = ko.observable(false);
+                    self.imageUrlTemplate = '@Url.Action("Render", "Image", new {documentId = "id", height = 100, width = 100})';
+                    self.imageUrl = function(id) {
+                        return self.imageUrlTemplate.replace('id', id);
+                    };
+
+                    // Prices
+                    self.pricelist = ko.observable();
+                    ko.computed(function() {
+                        $.getJSON('@Url.Action("GetRate", "Booking")', null, this.pricelist);
+                    }, this);
+                };
+
+                var rawJson = @Html.Raw(Model.OnlineAdImages.ToJsonString());
+                var designAdModel = new DesignAd(rawJson, @Model.MaxOnlineImages);
+
+                ko.applyBindings(designAdModel);
+
+
             });
         })(jQuery);
     </script>

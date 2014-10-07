@@ -20,6 +20,14 @@ namespace Paramount
                 throw new ArgumentNullException(typeof(T).Name);
         }
 
+        public static void NotNullIn(params object[] values)
+        {
+            foreach (var value in values)
+            {
+                NotNull(value);
+            }   
+        }
+
         /// <summary>
         /// Ensures the given string <paramref name="value"/> is not null or empty.
         ///             Throws <see cref="T:System.ArgumentNullException"/> in the first case, or

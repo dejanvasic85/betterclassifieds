@@ -22,19 +22,22 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IClientConfig _clientConfig;
         private readonly IDocumentRepository _documentRepository;
         private readonly IUserManager _userManager;
+        private readonly IRateCalculator _rateCalculator;
 
         public BookingController(IUnityContainer container,
             ISearchService searchService,
             IClientConfig clientConfig,
             IDocumentRepository documentRepository,
             IBookingManager bookingManager,
-            IUserManager userManager)
+            IUserManager userManager,
+            IRateCalculator rateCalculator)
         {
             _searchService = searchService;
             _clientConfig = clientConfig;
             _documentRepository = documentRepository;
             _bookingManager = bookingManager;
             _userManager = userManager;
+            _rateCalculator = rateCalculator;
             _container = container;
         }
 
@@ -259,15 +262,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             return Json(new { removed = true });
         }
-        
+
         [HttpGet, BookingRequired]
         public ActionResult GetRate()
         {
             var bookingCart = _bookingManager.GetCart();
-
-            
-
-            return Json(new { totalPrice = 0 });
+            return Json(_rateCalculator.GetPriceBreakDown(bookingCart), JsonRequestBehavior.AllowGet);
         }
 
         #endregion

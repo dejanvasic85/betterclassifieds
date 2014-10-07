@@ -1,13 +1,14 @@
 ﻿using System.Linq;
+using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Repository;
 
-namespace Paramount.Betterclassifieds.Business.Models
+namespace Paramount.Betterclassifieds.Business
 {
     public interface IRateCalculator
     {
         decimal Calculate(int ratecardId, LineAdModel lineAd, bool isOnlineAd, int editions = 1);
 
-        PriceBreakdown Calculate(int? categoryId);
+        PriceBreakdown GetPriceBreakDown(BookingCart bookingCart);
     }
 
     public class RateCalculator : IRateCalculator
@@ -24,7 +25,7 @@ namespace Paramount.Betterclassifieds.Business.Models
             // Fetch the ratecard by the baseRate
             RateModel rateModel = _rateRepository.GetRatecard(ratecardId);
             decimal price = 0;
-            
+
             // Calculate line ad price
             if (lineAd != null)
             {
@@ -55,13 +56,21 @@ namespace Paramount.Betterclassifieds.Business.Models
             return price;
         }
 
-        public PriceBreakdown Calculate(int? categoryId)
+        public PriceBreakdown GetPriceBreakDown(BookingCart bookingCart)
         {
+            Guard.NotNullIn(bookingCart, bookingCart.CategoryId, bookingCart.SubCategoryId);
+
             var breakDown = new PriceBreakdown();
+            var onlineAdRate = _rateRepository.GetOnlineRateForCategories(bookingCart.SubCategoryId, bookingCart.CategoryId);
+            if (onlineAdRate == null)
+            {
+                throw new SetupException("No available online rate has been setup.");
+            }
+            // Todo - Really need to think about this one... 
+            // Should we consider storing descriptions in database also and making them 'rows' rather than columns?
+            breakDown.AddItem("Online Ad Cost", onlineAdRate.MinimumCharge);
 
-            var onlineAdRate = _rateRepository.GetOnlineRateByCategory(categoryId);
-
-            breakDown.Total = onlineAdRate.MinimumCharge;
+            // Todo - Line Ads :)
 
             return breakDown;
         }

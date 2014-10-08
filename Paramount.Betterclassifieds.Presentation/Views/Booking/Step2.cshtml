@@ -195,21 +195,17 @@
                         return self.imageUrlTemplate.replace('id', id);
                     };
                     
-                    self.pricelist = ko.observable({ Total: 0, LineItems : { 'Online Ad Cost' : 1 } });
-                    self.calculatePrice = ko.pureComputed(function() {
-                        var p = self.adImages().length;
-                        console.log('pure computed');
-                        return p;
+                    self.pricelist = ko.observable({ Total: 0, LineItems : { 'Online Ad Cost' : 0 } });
+                    self.calculate = ko.computed(function() {
+                        $.get('@Url.Action("GetRate")', null, function(resp) {
+                            self.pricelist(resp);
+                        });
                     });
                 };
 
                 var rawJson = @Html.Raw(Model.OnlineAdImages.ToJsonString());
                 var designAdModel = new DesignAd(rawJson, @Model.MaxOnlineImages);
-
-                $.get('@Url.Action("GetRate")', null, function(resp) {
-                    designAdModel.pricelist(resp);
-                });
-
+                
                 ko.applyBindings(designAdModel);
             });
         })(jQuery);

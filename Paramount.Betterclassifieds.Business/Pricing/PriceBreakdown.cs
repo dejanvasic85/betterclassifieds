@@ -12,6 +12,8 @@ namespace Paramount.Betterclassifieds.Business
             get { return _items.Sum(lineItem => lineItem.Value); }
         }
 
+        public IReadOnlyDictionary<string, decimal> LineItems { get { return _items; } } 
+
         public PriceBreakdown()
         {
             _items = new Dictionary<string, decimal>();

@@ -11,11 +11,18 @@
                     </span>
                 </a>
             </h4>
-        </div>  
-        <div id="priceBreakDown" class="panel-collapse collapse">
-            <div class="panel-body">
-                Todo - Do a price breadkdown
-            </div>
+        </div>
+        <div id="priceBreakDown" class="panel panel-collapse collapse">
+
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    <tr>
+                        <td>Online Base Price</td>
+                        <td data-bind="text: _pg.formatCurrency( pricelist().LineItems['Online Ad Cost'] )"></td>
+                    </tr>
+                </tbody>
+            </table>
+
         </div>
     </div>
 </div>

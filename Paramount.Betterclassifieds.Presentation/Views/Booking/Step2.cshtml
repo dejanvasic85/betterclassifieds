@@ -195,7 +195,12 @@
                         return self.imageUrlTemplate.replace('id', id);
                     };
                     
-                    self.pricelist = ko.observable({ Total: 0 });
+                    self.pricelist = ko.observable({ Total: 0, LineItems : { 'Online Ad Cost' : 1 } });
+                    self.calculatePrice = ko.pureComputed(function() {
+                        var p = self.adImages().length;
+                        console.log('pure computed');
+                        return p;
+                    });
                 };
 
                 var rawJson = @Html.Raw(Model.OnlineAdImages.ToJsonString());
@@ -204,6 +209,7 @@
                 $.get('@Url.Action("GetRate")', null, function(resp) {
                     designAdModel.pricelist(resp);
                 });
+
                 ko.applyBindings(designAdModel);
             });
         })(jQuery);

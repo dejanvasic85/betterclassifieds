@@ -178,7 +178,7 @@
                     self.adImages = ko.observableArray(data);
                     self.errorMsg = ko.observable("");
                     self.removeImage = function(img) {
-                        $.post('@Url.Action("RemoveOnlineImage")', { documentId: img }, function(result) {
+                        $.post('@Url.Action("RemoveOnlineImage", "Booking")', { documentId: img }, function(result) {
                             if (result.removed) {
                                 self.adImages.remove(img);
                             }
@@ -194,20 +194,17 @@
                     self.imageUrl = function(id) {
                         return self.imageUrlTemplate.replace('id', id);
                     };
-
-                    // Prices
-                    self.pricelist = ko.observable();
-                    ko.computed(function() {
-                        $.getJSON('@Url.Action("GetRate", "Booking")', null, this.pricelist);
-                    }, this);
+                    
+                    self.pricelist = ko.observable({ Total: 0 });
                 };
 
                 var rawJson = @Html.Raw(Model.OnlineAdImages.ToJsonString());
                 var designAdModel = new DesignAd(rawJson, @Model.MaxOnlineImages);
 
+                $.get('@Url.Action("GetRate")', null, function(resp) {
+                    designAdModel.pricelist(resp);
+                });
                 ko.applyBindings(designAdModel);
-
-
             });
         })(jQuery);
     </script>

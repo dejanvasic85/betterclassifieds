@@ -132,6 +132,13 @@
                     savable: false
                 });
 
+                // Fix the total price 
+                $('#priceSummary').on('affix.bs.affix', function() {
+                    $(this).css({ top: -20, width: $('.col-xs-12').width(), 'z-index': '100' });
+                }).on('affix-top.bs.affix', function() {
+                    $(this).css({ width: $('.col-xs-12').width()});
+                });
+
                 // Setup upload ctrl
                 var upload = $('#fileupload').fileupload({
                     dataType: 'json',
@@ -194,8 +201,8 @@
                     self.imageUrl = function(id) {
                         return self.imageUrlTemplate.replace('id', id);
                     };
-                    
-                    self.pricelist = ko.observable({ Total: 0, LineItems : { 'Online Ad Cost' : 0 } });
+
+                    self.pricelist = ko.observable({ Total: 0, LineItems: { 'Online Ad Cost': 0 } });
                     self.calculate = ko.computed(function() {
                         $.get('@Url.Action("GetRate")', null, function(resp) {
                             self.pricelist(resp);
@@ -205,7 +212,7 @@
 
                 var rawJson = @Html.Raw(Model.OnlineAdImages.ToJsonString());
                 var designAdModel = new DesignAd(rawJson, @Model.MaxOnlineImages);
-                
+
                 ko.applyBindings(designAdModel);
             });
         })(jQuery);

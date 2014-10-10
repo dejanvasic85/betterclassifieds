@@ -133,7 +133,12 @@
                 });
 
                 // Fix the total price 
-                $('#priceSummary').on('affix.bs.affix', function() {
+                $('#priceSummary').affix({
+                    offset : { 
+                        top : 320, 
+                        bottom: 450
+                    }        
+                }).on('affix.bs.affix', function() {
                     $(this).css({ top: -20, width: $('.col-xs-12').width(), 'z-index': '100' });
                 }).on('affix-top.bs.affix', function() {
                     $(this).css({ width: $('.col-xs-12').width()});

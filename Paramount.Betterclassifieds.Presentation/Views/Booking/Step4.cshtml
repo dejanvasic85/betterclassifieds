@@ -13,7 +13,7 @@
         <li>@Html.ActionLink("3", "Step3")</li>
         <li class="active"><a href="#">Step 4</a></li>
     </ul>
-
+    
     <form id="confirmationForm" action="@Url.Action("Step4", "Booking")" method="POST" role="form">
 
         <div class="row top-buffer-20">
@@ -25,7 +25,7 @@
 
                 @Html.ValidationSummary()
 
-                <div class="panel panel-success">
+                <div class="panel panel-info">
                     <div class="panel-heading">
                         <h4 class="panel-title">Price and Schedule</h4>
                     </div>

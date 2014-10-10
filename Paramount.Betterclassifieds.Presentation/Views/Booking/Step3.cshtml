@@ -13,6 +13,8 @@
         <li class="active"><a href="#">Step 3</a></li>
         <li class="disabled"><a href="#">4</a></li>
     </ul>
+   
+    @Html.Partial("_PriceSummary")
 
     <form id="schedulingForm" action="@Url.Action("Step3", "Booking")" method="POST" role="form">
 
@@ -43,3 +45,26 @@
         </ul>
     </form>
 </div>
+
+@section Scripts{
+    <script>
+
+        $(function () {
+            
+            var Step3 = function() {
+                var self = this;
+                self.pricelist = ko.observable({ Total: 0, LineItems: { 'Online Ad Cost': 0 } });
+                self.calculate = ko.computed(function () {
+                    $.get('@Url.Action("GetRate")', null, function (resp) {
+                        self.pricelist(resp);
+                    });
+                });
+            };
+
+            var step3Model = new Step3();
+
+            ko.applyBindings(step3Model);
+        });
+
+    </script>
+}

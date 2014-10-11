@@ -57,6 +57,41 @@
                     @Html.ValidationMessageFor(m => m.OnlineAdPhone)
                 </div>
 
+                <div class="form-group">
+                    @Html.LabelFor(m => m.OnlineAdLocationId)
+                    <select id="OnlineAdLocationId" name="OnlineAdLocationId" class="form-control input-lg">
+                        @foreach (var location in Model.LocationOptions)
+                        {
+                            if (Model.OnlineAdLocationId == int.Parse(location.Value))
+                            {
+                                <option value="@location.Value" selected="selected">@location.Text</option>
+                            }
+                            else
+                            {
+                                <option value="@location.Value">@location.Text</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.OnlineAdLocationAreaId)
+                    <select id="OnlineAdLocationAreaId" name="OnlineAdLocationAreaId" class="form-control input-lg">
+                        @foreach (var area in Model.LocationAreaOptions)
+                        {
+                            if (Model.OnlineAdLocationAreaId == int.Parse(area.Value))
+                            {
+                                <option value="@area.Value" selected="selected">@area.Text</option>
+                            }
+                            else
+                            {
+                                <option value="@area.Value">@area.Text</option>
+                            }
+
+                        }
+                    </select>
+                </div>
+
                 <div class="panel panel-default" id="onlineImages">
                     <div class="panel-heading">
                         <span class="btn btn-success fileinput-button" data-bind="css : { hidden : !maxLimitNotReached() }">
@@ -132,12 +167,16 @@
                     savable: false
                 });
 
-                // Fix the total price 
+                $('#OnlineAdLocationId').on('change', function() {
+                    $('#OnlineAdLocationAreaId').loadLocationAreas('@Url.Action("GetLocationAreas", "Location")', $(this).val(), false);
+                });
+
+                // Fix the total price
                 $('#priceSummary').affix({
-                    offset : { 
-                        top : 320, 
+                    offset : {
+                        top : 320,
                         bottom: 450
-                    }        
+                    }
                 }).on('affix.bs.affix', function() {
                     $(this).css({ top: -20, width: $('.col-xs-12').width(), 'z-index': '100' });
                 }).on('affix-top.bs.affix', function() {

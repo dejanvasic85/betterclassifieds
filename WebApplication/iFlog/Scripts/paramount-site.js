@@ -6,7 +6,6 @@
 
 var _pg = _pg || {};
 _pg.formatCurrency = function (value) {
-    debugger;
     if (value == undefined)
         return '';
 
@@ -98,6 +97,26 @@ _pg.formatCurrency = function (value) {
                     me.empty().append('<option>-- Sub Category --</option>');
                     $.each(data, function (index, option) {
                         me.append('<option value=' + option.CategoryId + '>' + option.Title + '</option>');
+                    });
+                    me.removeAttr('disabled').removeClass('hidden');
+                });
+                return me;
+            }
+        });
+
+        $.fn.extend({
+            loadLocationAreas: function (url, locationId) {
+                var me = this;
+                me.empty();
+                if (locationId === "") {
+                    me.addClass('hidden');
+                    return me;
+                }
+                me.attr('disabled', 'disabled').append('<option>Loading...</option>');
+                $.getJSON(url, { locationId: locationId }).done(function (data) {
+                    me.empty();
+                    $.each(data, function (index, option) {
+                        me.append('<option value=' + option.LocationAreaId + '>' + option.Title + '</option>');
                     });
                     me.removeAttr('disabled').removeClass('hidden');
                 });

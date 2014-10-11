@@ -70,7 +70,7 @@
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\0031-Booking_Create.StoredProc.sql" />
+    <EmbeddedResource Include="Scripts\0031-Booking_Create.StoredProc.sql" />
     <EmbeddedResource Include="Scripts\0030-OnlineAdRate.DefaultValue.sql" />
     <EmbeddedResource Include="Scripts\0029-OnlineAdRate.Table.sql" />
     <EmbeddedResource Include="Scripts\0028-SupportEnquiry.AddCreatedDateUtc.sql" />

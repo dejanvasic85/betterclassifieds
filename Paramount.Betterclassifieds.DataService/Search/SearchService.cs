@@ -57,6 +57,19 @@ namespace Paramount.Betterclassifieds.DataService
                 return this.Map<BookedAd, AdSearchResult>(context.BookedAd_GetById(id).FirstOrDefault());
             }
         }
+        public List<LocationAreaSearchResult> GetLocationAreas(int locationId, bool includeAllAreas = true)
+        {
+            using (var context = DataContextFactory.CreateClassifiedContext())
+            {
+                if (includeAllAreas)
+                {
+                    return this.MapList<LocationArea, LocationAreaSearchResult>(
+                        context.LocationAreas.Where(l => l.LocationId == locationId || l.Title.Trim().Equals("Any Area")).ToList());
+                }
+
+                return this.MapList<LocationArea, LocationAreaSearchResult>(context.LocationAreas.Where(l => l.LocationId == locationId).ToList());
+            }
+        }
 
         public List<LocationSearchResult> GetLocations()
         {
@@ -112,7 +125,7 @@ namespace Paramount.Betterclassifieds.DataService
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 var publications = context.Publications
-                    .Where(p => ( p.PublicationTypeId == Constants.NewsPublicationTypeId || 
+                    .Where(p => (p.PublicationTypeId == Constants.NewsPublicationTypeId ||
                         p.PublicationTypeId == Constants.MagPublicationTypeId) && p.Active == true)
                     .ToList();
 
@@ -127,6 +140,7 @@ namespace Paramount.Betterclassifieds.DataService
             // From DB
             configuration.CreateMap<MainCategory, CategorySearchResult>();
             configuration.CreateMap<Location, LocationSearchResult>();
+            configuration.CreateMap<LocationArea, LocationAreaSearchResult>();
 
             configuration.CreateMap<BookedAd, AdSearchResult>()
                 .ForMember(member => member.Username, options => options.MapFrom(source => source.UserId))

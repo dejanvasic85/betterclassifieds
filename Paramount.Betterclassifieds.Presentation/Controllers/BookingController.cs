@@ -96,6 +96,16 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var bookingCart = _bookingManager.GetCart();
             var stepTwoModel = this.Map<OnlineAdCart, Step2View>(bookingCart.OnlineAdCart);
 
+            // Load the location options
+            stepTwoModel.LocationOptions = _searchService.GetLocations().Select(l => new SelectListItem { Text = l.Title, Value = l.LocationId.ToString() }).OrderBy(l => l.Text).ToList();
+            int locationAreaId = stepTwoModel.OnlineAdLocationId.HasValue
+                ? stepTwoModel.OnlineAdLocationId.Value
+                : int.Parse(stepTwoModel.LocationOptions.First(l => l.Text.Trim().Equals("Any Location")).Value);
+
+            stepTwoModel.LocationAreaOptions = _searchService.GetLocationAreas(locationAreaId)
+                    .Select(l => new SelectListItem { Text = l.Title, Value = l.LocationAreaId.ToString() })
+                    .OrderBy(l => l.Text).ToList();
+            
             // Set max number of images available for upload ( available on global client configuration object )
             stepTwoModel.MaxOnlineImages = _clientConfig.MaxOnlineImages;
 
@@ -122,6 +132,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var bookingCart = _bookingManager.GetCart();
             this.Map(viewModel, bookingCart.OnlineAdCart);
             bookingCart.OnlineAdCart.DescriptionHtml = new MarkdownDeep.Markdown().Transform(viewModel.OnlineAdDescription);
+           
             bookingCart.CompleteStep(2);
 
             // Save and continue
@@ -186,17 +197,17 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return View(viewModel);
             }
             // Complete the booking cart (needs to move on now)
-
             bookingCart.CompleteStep(4);
+            bookingCart.UserId = _userManager.GetCurrentUser(this.User).Username;
 
             _bookingManager.SaveBookingCart(bookingCart);
 
             if (bookingCart.NoPaymentRequired())
             {
-                 _bookingManager.CompleteCurrentBooking(bookingCart);
+                _bookingManager.CompleteCurrentBooking(bookingCart);
                 return RedirectToAction("SuccessTemp");
             }
-            
+
             // Todo - payment providers
 
             return View(viewModel);

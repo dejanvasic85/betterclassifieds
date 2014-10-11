@@ -102,6 +102,25 @@ _pg.formatCurrency = function (value) {
                 return me;
             }
         });
+
+        $.fn.extend({
+            loadLocationAreas: function (url, locationId) {
+                var me = this;
+                me.empty();
+                if (locationId === "") {
+                    me.addClass('hidden');
+                    return me;
+                }
+                me.attr('disabled', 'disabled').append('<option>Loading...</option>');
+                $.getJSON(url, { locationId: locationId }).done(function (data) {
+                    $.each(data, function (index, option) {
+                        me.append('<option value=' + option.CategoryId + '>' + option.Title + '</option>');
+                    });
+                    me.removeAttr('disabled').removeClass('hidden');
+                });
+                return me;
+            }
+        });
     });
 
 })(jQuery);

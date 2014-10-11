@@ -97,6 +97,7 @@
     <Compile Include="Repository\ICategoryRepository.cs" />
     <Compile Include="Managers\IEditionManager.cs" />
     <Compile Include="Managers\IBookingManager.cs" />
+    <Compile Include="Search\LocationAreaSearchResult.cs" />
     <Compile Include="Search\SeoNameMappingModel.cs" />
     <Compile Include="Repository\IDocumentRepository.cs" />
     <Compile Include="Models\AdBookingExtensionModel.cs" />

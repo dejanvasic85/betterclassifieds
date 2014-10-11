@@ -29,5 +29,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult GetLocationAreas(int locationId)
+        {
+            var list = _searchService.GetLocationAreas(locationId).OrderBy(l => l.Title).ToList();
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
     }
 }

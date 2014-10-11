@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.Ajax.Utilities;
+using System.Web.Mvc;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 {
@@ -46,6 +45,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         public List<string> OnlineAdImages { get; set; }
 
         public int? MaxOnlineImages { get; set; }
+        
+        public IEnumerable<SelectListItem> LocationOptions { get; set; }
 
+        public IEnumerable<SelectListItem> LocationAreaOptions { get; set; }
     }
 }

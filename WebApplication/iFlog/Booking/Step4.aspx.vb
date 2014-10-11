@@ -10,6 +10,8 @@ Partial Public Class Step4
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
+        Response.RedirectPermanent("~/Booking/Step/1")
+
         ' load variable maximum insertions from App Settings
         _maxInsertSetting = AppKeyReader(Of Integer).ReadFromStore(AppKey.MaximumInsertions, 10)
 

@@ -16,6 +16,9 @@ Partial Public Class AdType
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         ' first check if we are coming back to this page.
+
+        Response.RedirectPermanent("~/Booking/Step/1")
+
         _action = Request.QueryString("action")
 
         Me.lblSessionExpired.Visible = (_action = "expired")

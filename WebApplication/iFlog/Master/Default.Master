@@ -74,7 +74,7 @@
                             <li><asp:HyperLink ID="lnkDeadlines" runat="server" NavigateUrl="~/Publications.aspx" Text="Deadlines"></asp:HyperLink></li>
                             <li><asp:HyperLink ID="lnkContact" runat="server" NavigateUrl="~/Home/ContactUs" Text="Contact"></asp:HyperLink></li>
                             <li><asp:HyperLink ID="lnkMyAccount" runat="server" NavigateUrl="~/MemberAccount/MemberDetails.aspx" Text="My Account"></asp:HyperLink></li>
-                            <li><asp:HyperLink ID="lnkNewAd" CssClass="upper" runat="server" NavigateUrl="~/Booking/Step1.aspx" Text="Place New Ad"></asp:HyperLink></li>
+                            <li><asp:HyperLink ID="lnkNewAd" CssClass="upper" runat="server" NavigateUrl="~/Booking/Step/1" Text="Place New Ad"></asp:HyperLink></li>
                         </ul>
                     </li>
                 </ul>

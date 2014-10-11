@@ -6,11 +6,13 @@ Partial Public Class Step5
     Inherits BaseOnlineBookingPage
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        Response.RedirectPermanent("~/Booking/Step/1")
+
         If BookingController.IsZeroValueTransaction Then
             Me.paymentPanel.Visible = False
         End If
         If Not Page.IsPostBack Then
-           
+
             radOnlineWindow.OpenerElementID = btnPreviewOnline.ClientID
 
             ' perform the databinding on all the selections

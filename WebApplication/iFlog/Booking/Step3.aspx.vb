@@ -9,7 +9,8 @@ Partial Public Class Step3
     Private Const adTypeState As String = "vsAdType"
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
-        
+        Response.RedirectPermanent("~/Booking/Step/1")
+
         If Not Page.IsPostBack Then
 
             Dim adType As String = BookingController.AdBookCart.MainAdType().Code.Trim

@@ -7,6 +7,8 @@ Partial Public Class Step2
 
     Protected Sub Page_Load (ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
+        Response.RedirectPermanent("~/Booking/Step/1")
+
         If Not Page.IsPostBack Then
 
             DataBindMainCategories()

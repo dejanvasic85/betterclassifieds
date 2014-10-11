@@ -20,6 +20,8 @@ Partial Public Class Success
     End Function
 
     Private Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        Response.RedirectPermanent("~/Booking/Step/1")
+
         ''if the user came to this page by mistake, then redirect to default page
         If (String.IsNullOrEmpty(NotifyParameterAccess.ReferenceId)) Then
             Response.Redirect("~/Booking/Default.aspx")
@@ -44,7 +46,7 @@ Partial Public Class Success
                 Response.Redirect("~/Booking/Default.aspx?action=fail")
             End If
         End If
-        
+
     End Sub
 
 

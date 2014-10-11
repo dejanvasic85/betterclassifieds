@@ -6,6 +6,7 @@ Partial Public Class _Default2
     Inherits BaseBookingPage
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        Response.RedirectPermanent("~/Booking/Step/1")
         If Not Page.IsPostBack Then
 
             Dim action As String = Request.QueryString("action")

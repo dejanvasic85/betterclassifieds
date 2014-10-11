@@ -80,7 +80,7 @@ Public Class PageUrl
     Public Const SearchSeoCategoryResults As String = "~/listings/{0}/{1}"
 
     ' booking steps
-    Public Const BookingStep_1 As String = "~/Booking/Step1.aspx"
+    Public Const BookingStep_1 As String = "~/Booking/Step/1" ' Changing in case we have any incoming links from other places to legacy
     Public Const BookingStep_2 As String = "~/Booking/Step2.aspx"
     Public Const BookingStep_3 As String = "~/Booking/Step3.aspx"
     Public Const BookingStep_4 As String = "~/Booking/Step4.aspx"

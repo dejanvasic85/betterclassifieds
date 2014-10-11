@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Web;
 
 namespace Paramount
 {
@@ -64,6 +66,27 @@ namespace Paramount
 
             builder.Append("</table>");
             return builder.ToString();
+        }
+
+        /// <summary>
+        /// Uses the html agility pack to convert the html string to plaintext 
+        /// </summary>
+        public static string FromHtmlToPlaintext(this string html)
+        {
+            // create whitespace between html elements, so that words do not run together
+            html = html.Replace(">", "> ");
+
+            // parse html
+            var doc = new HtmlAgilityPack.HtmlDocument();
+            doc.LoadHtml(html);
+
+            // strip html decoded text from html
+            string text = HttpUtility.HtmlDecode(doc.DocumentNode.InnerText);
+
+            // replace all whitespace with a single space and remove leading and trailing whitespace
+            var result = Regex.Replace(text, @"\s+", " ").Trim();
+
+            return result;
         }
     }
 }

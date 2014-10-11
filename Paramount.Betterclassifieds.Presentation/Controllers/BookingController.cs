@@ -131,8 +131,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var bookingCart = _bookingManager.GetCart();
             this.Map(viewModel, bookingCart.OnlineAdCart);
-            bookingCart.OnlineAdCart.DescriptionHtml = new MarkdownDeep.Markdown().Transform(viewModel.OnlineAdDescription);
-           
+            bookingCart.OnlineAdCart.SetDescriptionHtml(new MarkdownDeep.Markdown().Transform(viewModel.OnlineAdDescription));
             bookingCart.CompleteStep(2);
 
             // Save and continue

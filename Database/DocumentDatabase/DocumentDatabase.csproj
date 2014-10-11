@@ -71,6 +71,7 @@
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Scripts\0003-dsl_DocumentStorageSelect.Alter.sql" />
     <EmbeddedResource Include="Scripts\0002-BaselineData.sql" />
     <EmbeddedResource Include="Scripts\0001-BaselineSchema.sql" />
     <None Include="DocumentDatabase.nuspec">

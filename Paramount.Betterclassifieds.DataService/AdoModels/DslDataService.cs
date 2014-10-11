@@ -357,7 +357,7 @@ namespace Paramount.Betterclassifieds.DataService
             document.FileLength = (int)row["FileLength"];
             document.FileName = row["FileName"].ToString();
             document.Reference = row["Reference"].ToString();
-            document.IsPrivate = (bool)row["IsPrivate"];
+            document.IsPrivate = false;
             document.StartDate = (row["StartDate"].ToString().HasValue() ? (DateTime)row["StartDate"] : new DateTime?());
             document.EndDate = (row["EndDate"].ToString().HasValue() ? (DateTime)row["EndDate"] : new DateTime?());
             document.CreatedDate = (row["CreatedDate"].ToString().HasValue() ? (DateTime)row["CreatedDate"] : new DateTime?());

@@ -11,7 +11,7 @@ namespace Paramount.Betterclassifieds.Business
 
         public string Heading { get; set; }
 
-        public string Description { get; set; }
+        public string Description { get; private set; }
 
         public string ContactName { get; set; }
 
@@ -27,6 +27,16 @@ namespace Paramount.Betterclassifieds.Business
 
         public List<string> Images { get; set; }
 
-        public string DescriptionHtml { get; set; }
+        public string DescriptionHtml { get; private set; }
+
+
+        public void SetDescriptionHtml(string html)
+        {
+            // Set the Description Html
+            this.DescriptionHtml = html;
+
+            // We also want to convert the html to normal plaintext to appear normally everywhere else
+            this.Description = html.FromHtmlToPlaintext();
+        }
     }
 }

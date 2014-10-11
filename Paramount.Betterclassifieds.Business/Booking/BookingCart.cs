@@ -82,5 +82,7 @@ namespace Paramount.Betterclassifieds.Business
 
             return CompletedSteps.Last();
         }
+
+       
     }
 }

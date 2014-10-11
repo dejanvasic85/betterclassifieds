@@ -40,7 +40,7 @@ namespace Paramount.Betterclassifieds.Presentation
             }
 
             // Do not allow them to view this screen, so instead route them to the next step to complete
-            var lastCompleted = bookingCart.CompletedSteps.Last();
+            var lastCompleted = bookingCart.GetLastCompletedStepNumber();
 
             var nextStep = lastCompleted + 1;
 

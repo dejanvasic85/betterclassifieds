@@ -242,7 +242,8 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                     onlineAdDescription: bookingCart.OnlineAdCart.Description,
                     onlineAdHtml: bookingCart.OnlineAdCart.DescriptionHtml,
                     onlineAdPrice: null,
-                    locationAreaId: null, // Todo
+                    locationId: bookingCart.OnlineAdCart.LocationId,
+                    locationAreaId: bookingCart.OnlineAdCart.LocationAreaId,
                     contactName: bookingCart.OnlineAdCart.ContactName,
                     contactEmail: bookingCart.OnlineAdCart.Email,
                     contactPhone: bookingCart.OnlineAdCart.Phone,

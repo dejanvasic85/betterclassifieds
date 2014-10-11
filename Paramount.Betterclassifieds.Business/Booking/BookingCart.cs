@@ -10,6 +10,8 @@ namespace Paramount.Betterclassifieds.Business
     /// </summary>
     public class BookingCart
     {
+        private const int LastStepNumber = 4;
+
         public BookingCart()
         {
             Publications = new int[] { };
@@ -20,7 +22,9 @@ namespace Paramount.Betterclassifieds.Business
 
         public string Id { get; set; }
 
-        public bool Completed { get; set; }
+        public bool Completed { get; private set; }
+
+        public List<int> CompletedSteps { get; private set; }
 
         public string UserId { get; set; }
 
@@ -43,7 +47,6 @@ namespace Paramount.Betterclassifieds.Business
             get { return Publications != null && Publications.Any(); }
         }
 
-        public List<int> CompletedSteps { get; set; }
         public string Reference { get; set; }
 
         public bool NoPaymentRequired()
@@ -51,14 +54,33 @@ namespace Paramount.Betterclassifieds.Business
             return TotalPrice == 0;
         }
 
-        public void SetEndDate(IClientConfig clientConfig)
+        public void SetSchedule(IClientConfig clientConfig, DateTime startDate)
         {
-            if (!StartDate.HasValue)
+            this.StartDate = startDate;
+            EndDate = StartDate.Value.AddDays(clientConfig.RestrictedOnlineDaysCount);
+        }
+
+        public void CompleteStep(int step)
+        {
+            if (CompletedSteps.Contains(step))
             {
-                throw new NullReferenceException("StartDate cannot be null when setting the end date");
+                return;
             }
 
-            EndDate = StartDate.Value.AddDays(clientConfig.RestrictedOnlineDaysCount);
+            CompletedSteps.Add(step);
+
+            if (LastStepNumber == step)
+            {
+                Completed = true;
+            }
+        }
+
+        public int GetLastCompletedStepNumber()
+        {
+            if (CompletedSteps.Count == 0)
+                return 0;
+
+            return CompletedSteps.Last();
         }
     }
 }

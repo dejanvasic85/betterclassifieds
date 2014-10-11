@@ -1,5 +1,6 @@
 ﻿GO
-/****** Object:  StoredProcedure [dbo].[Booking_Create]    Script Date: 11/10/2014 3:47:50 PM ******/
+
+/****** Object:  StoredProcedure [dbo].[Booking_Create]    Script Date: 11/10/2014 4:46:04 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12,7 +13,8 @@ CREATE PROCEDURE [dbo].[Booking_Create]
 	   @userId				VARCHAR(50),
 	   @mainCategoryId		INT,
 	   @insertions			INT,
-	   @locationAreaId		INT = NULL,
+	   @locationId			INT,
+	   @locationAreaId		INT,
 	   @onlineAdHeading		VARCHAR(255),
 	   @onlineAdDescription	VARCHAR(max),
 	   @onlineAdHtml		VARCHAR(max),
@@ -27,23 +29,12 @@ BEGIN TRANSACTION
 	
 	declare	@adId INT;
 	declare @lineAdDesignId INT;
-	declare @locationId INT;
 	declare @createdDateTime DATETIME = GETDATE();
 	declare @onlineAdTypeId INT;
 	declare @lineAdTypeId INT;
 	declare @bookedStatusId INT = 1; -- Booked/Completed
 	declare @regularBookingType VARCHAR(20) = 'Regular';
 
-	-- Default the location area ID to any (if none was provided)
-	IF		@locationAreaId IS NULL
-	begin
-		SELECT	@locationAreaId = l.LocationAreaId
-		FROM	LocationArea l
-		WHERE	Title = ' Any Area';
-	end
-	
-	-- Get Location and Area
-	SELECT	@locationId = l.LocationId FROM LocationArea l WHERE l.LocationAreaId = @locationAreaId ;
 	
 	-- Get Ad Type Id
 	SELECT	@onlineAdTypeId = at.AdTypeId FROM AdType at WHERE at.Code = 'ONLINE';

@@ -795,6 +795,7 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string userId, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> mainCategoryId, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> insertions, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> locationId, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> locationAreaId, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(255)")] string onlineAdHeading, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(MAX)")] string onlineAdDescription, 
@@ -806,9 +807,9 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> adBookingId, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> onlineDesignId)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), startDate, endDate, totalPrice, bookReference, userId, mainCategoryId, insertions, locationAreaId, onlineAdHeading, onlineAdDescription, onlineAdHtml, onlineAdPrice, contactName, contactEmail, contactPhone, adBookingId, onlineDesignId);
-			adBookingId = ((System.Nullable<int>)(result.GetParameterValue(15)));
-			onlineDesignId = ((System.Nullable<int>)(result.GetParameterValue(16)));
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), startDate, endDate, totalPrice, bookReference, userId, mainCategoryId, insertions, locationId, locationAreaId, onlineAdHeading, onlineAdDescription, onlineAdHtml, onlineAdPrice, contactName, contactEmail, contactPhone, adBookingId, onlineDesignId);
+			adBookingId = ((System.Nullable<int>)(result.GetParameterValue(16)));
+			onlineDesignId = ((System.Nullable<int>)(result.GetParameterValue(17)));
 			return ((int)(result.ReturnValue));
 		}
 	}

@@ -1051,6 +1051,7 @@
     <Parameter Name="userId" Type="System.String" DbType="VarChar(50)" />
     <Parameter Name="mainCategoryId" Type="System.Int32" DbType="Int" />
     <Parameter Name="insertions" Type="System.Int32" DbType="Int" />
+    <Parameter Name="locationId" Type="System.Int32" DbType="Int" />
     <Parameter Name="locationAreaId" Type="System.Int32" DbType="Int" />
     <Parameter Name="onlineAdHeading" Type="System.String" DbType="VarChar(255)" />
     <Parameter Name="onlineAdDescription" Type="System.String" DbType="VarChar(MAX)" />

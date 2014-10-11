@@ -41,7 +41,8 @@ namespace Paramount.Betterclassifieds.Tests.Database
                     onlineAdDescription:"test only",
                     onlineAdHtml: "test Only",
                     onlineAdPrice: null,
-                    locationAreaId: null,
+                    locationId: 8, // Any Location
+                    locationAreaId: 27, // Any Area
                     contactName: "dejan",
                     contactEmail: "dejanvasic@outlook.com",
                     contactPhone: "0433095822",

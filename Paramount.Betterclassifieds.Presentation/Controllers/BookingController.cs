@@ -81,7 +81,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             bookingCart.CategoryId = viewModel.CategoryId;
             bookingCart.SubCategoryId = viewModel.SubCategoryId;
             bookingCart.Publications = viewModel.Publications.Where(p => p.IsSelected).Select(p => p.PublicationId).ToArray();
-            bookingCart.CompletedSteps.Add(1);
+            bookingCart.CompleteStep(1);
             _bookingManager.SaveBookingCart(bookingCart);
 
             // Our view can't "submit" the form
@@ -122,7 +122,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var bookingCart = _bookingManager.GetCart();
             this.Map(viewModel, bookingCart.OnlineAdCart);
             bookingCart.OnlineAdCart.DescriptionHtml = new MarkdownDeep.Markdown().Transform(viewModel.OnlineAdDescription);
-            bookingCart.CompletedSteps.Add(2);
+            bookingCart.CompleteStep(2);
 
             // Save and continue
             _bookingManager.SaveBookingCart(bookingCart);
@@ -154,10 +154,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return View(viewModel);
 
             var bookingCart = _bookingManager.GetCart();
-            bookingCart.StartDate = viewModel.StartDate;
-            bookingCart.SetEndDate(_clientConfig);
-            bookingCart.CompletedSteps.Add(3);
-
+            bookingCart.SetSchedule(_clientConfig, viewModel.StartDate.GetValueOrDefault());
+            bookingCart.CompleteStep(3);
             _bookingManager.SaveBookingCart(bookingCart);
 
             return RedirectToAction("Step4");
@@ -165,7 +163,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         // 
         // GET /Booking/Step/4 - Confirmation
-        [HttpGet, BookingStep(4)]
+        [HttpGet, BookingStep(4), Authorize]
         public ActionResult Step4()
         {
             var bookingCart = _bookingManager.GetCart();
@@ -175,7 +173,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View(viewModel);
         }
 
-        [HttpPost, BookingStep(4)]
+        [HttpPost, BookingStep(4), Authorize]
         public ActionResult Step4(Step4View viewModel)
         {
             var bookingCart = _bookingManager.GetCart();
@@ -187,22 +185,19 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 this.Map(bookingCart.OnlineAdCart, viewModel);
                 return View(viewModel);
             }
+            // Complete the booking cart (needs to move on now)
+
+            bookingCart.CompleteStep(4);
+
+            _bookingManager.SaveBookingCart(bookingCart);
 
             if (bookingCart.NoPaymentRequired())
             {
-                // Todo - submit the booking and redirect to success
-                 _bookingManager.CompleteCurrentBooking();
+                 _bookingManager.CompleteCurrentBooking(bookingCart);
                 return RedirectToAction("SuccessTemp");
             }
-            else
-            {
-                // Todo - hook up the payments
-            }
-
-            bookingCart.CompletedSteps.Add(4);
-            bookingCart.Completed = true;
-
-            _bookingManager.SaveBookingCart(bookingCart);
+            
+            // Todo - payment providers
 
             return View(viewModel);
         }
@@ -290,6 +285,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<Step2View, OnlineAdCart>()
                 .ForMember(member => member.Images, options => options.Ignore());
         }
+
         #endregion
 
     }

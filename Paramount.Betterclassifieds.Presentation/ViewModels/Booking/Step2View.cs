@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.Ajax.Utilities;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 {
@@ -34,6 +35,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         [Display(Name = "Price")]
         public decimal? OnlineAdPrice { get; set; }
 
+        [Display(Name = "Location")]
+        public int? OnlineAdLocationId { get; set; }
+
+        [Display(Name = "Area")]
         public int? OnlineAdLocationAreaId { get; set; }
 
         public bool IsLineAdIncluded { get; set; }

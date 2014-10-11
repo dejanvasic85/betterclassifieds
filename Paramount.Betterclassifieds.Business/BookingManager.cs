@@ -217,9 +217,9 @@ namespace Paramount.Betterclassifieds.Business
         /// <summary>
         /// Gets the current booking and saves it to the database
         /// </summary>
-        public int? CompleteCurrentBooking()
+        public int? CompleteCurrentBooking(BookingCart bookingCart)
         {
-            return _bookingRepository.SubmitBooking(GetCart());
+            return _bookingRepository.SubmitBooking(bookingCart);
         }
     }
 }

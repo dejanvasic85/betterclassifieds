@@ -21,7 +21,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 .ToList();
 
             // Set the any location to a null value
-            list.First(l => l.Text.Contains("Any Location")).Value = null;
+            var anyLocation = list.FirstOrDefault(l => l.Text.Contains("Any Location"));
+            if (anyLocation != null)
+            {
+                anyLocation.Value = null;
+            }
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }

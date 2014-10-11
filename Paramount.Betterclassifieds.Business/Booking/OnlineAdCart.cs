@@ -21,6 +21,8 @@ namespace Paramount.Betterclassifieds.Business
 
         public decimal? Price { get; set; }
 
+        public int? LocationId { get; set; }
+
         public int? LocationAreaId { get; set; }
 
         public List<string> Images { get; set; }

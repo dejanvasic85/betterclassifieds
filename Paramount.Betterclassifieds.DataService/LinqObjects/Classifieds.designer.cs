@@ -785,6 +785,32 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), lineDesignId);
 			return ((ISingleResult<spOnlineAdSelectByLineAdDesignResult>)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Booking_Create")]
+		public int Booking_Create(
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> startDate, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> endDate, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Money")] System.Nullable<decimal> totalPrice, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(10)")] string bookReference, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string userId, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> mainCategoryId, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> insertions, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> locationAreaId, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(255)")] string onlineAdHeading, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(MAX)")] string onlineAdDescription, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(MAX)")] string onlineAdHtml, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Money")] System.Nullable<decimal> onlineAdPrice, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string contactName, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(100)")] string contactEmail, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string contactPhone, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> adBookingId, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> onlineDesignId)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), startDate, endDate, totalPrice, bookReference, userId, mainCategoryId, insertions, locationAreaId, onlineAdHeading, onlineAdDescription, onlineAdHtml, onlineAdPrice, contactName, contactEmail, contactPhone, adBookingId, onlineDesignId);
+			adBookingId = ((System.Nullable<int>)(result.GetParameterValue(15)));
+			onlineDesignId = ((System.Nullable<int>)(result.GetParameterValue(16)));
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Ad")]

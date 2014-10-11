@@ -169,6 +169,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult Step4()
         {
             var bookingCart = _bookingManager.GetCart();
+            bookingCart.TotalPrice = _rateCalculator.GetPriceBreakDown(bookingCart).Total;
             var viewModel = this.Map<BookingCart, Step4View>(bookingCart);
             this.Map(bookingCart.OnlineAdCart, viewModel);
             return View(viewModel);
@@ -190,7 +191,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (bookingCart.NoPaymentRequired())
             {
                 // Todo - submit the booking and redirect to success
-                var bookingModel = this.Map<BookingCart, AdBookingModel>(bookingCart);
+                 _bookingManager.CompleteCurrentBooking();
                 return RedirectToAction("SuccessTemp");
             }
             else

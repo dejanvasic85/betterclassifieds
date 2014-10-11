@@ -210,7 +210,16 @@ namespace Paramount.Betterclassifieds.Business
 
         public void SaveBookingCart(BookingCart bookingCart)
         {
+            // Save it to the mongo db store ( until the booking is complete )
             _cartRepository.SaveBookingCart(bookingCart);
+        }
+
+        /// <summary>
+        /// Gets the current booking and saves it to the database
+        /// </summary>
+        public int? CompleteCurrentBooking()
+        {
+            return _bookingRepository.SubmitBooking(GetCart());
         }
     }
 }

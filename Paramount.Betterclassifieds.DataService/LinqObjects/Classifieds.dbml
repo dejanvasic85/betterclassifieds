@@ -1043,4 +1043,24 @@
       <Column Name="Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.Booking_Create" Method="Booking_Create">
+    <Parameter Name="startDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="endDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="totalPrice" Type="System.Decimal" DbType="Money" />
+    <Parameter Name="bookReference" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="userId" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="mainCategoryId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="insertions" Type="System.Int32" DbType="Int" />
+    <Parameter Name="locationAreaId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="onlineAdHeading" Type="System.String" DbType="VarChar(255)" />
+    <Parameter Name="onlineAdDescription" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="onlineAdHtml" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="onlineAdPrice" Type="System.Decimal" DbType="Money" />
+    <Parameter Name="contactName" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="contactEmail" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="contactPhone" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="adBookingId" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Parameter Name="onlineDesignId" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>

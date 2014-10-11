@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Data.Linq;
 using System.Linq;
 using AutoMapper;
+using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Models.Comparers;
 using Paramount.Betterclassifieds.Business.Repository;
 using Paramount.Betterclassifieds.DataService.Classifieds;
-using Paramount.Betterclassifieds.DataService.Comparers;
 
 namespace Paramount.Betterclassifieds.DataService.Repository
 {
@@ -221,6 +221,43 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             return this.IsBookingOnline(adBookingId) && !this.IsBookingInPrint(adBookingId);
         }
 
+        public int? SubmitBooking(BookingCart bookingCart)
+        {
+            using (var context = DataContextFactory.CreateClassifiedContext())
+            {
+                int? adBookingId = null;
+                int? onlineDesignId = null;
+
+                // Save booking to database
+                context.Booking_Create(
+                    startDate: bookingCart.StartDate,
+                    endDate: bookingCart.EndDate,
+                    totalPrice: bookingCart.TotalPrice,
+                    bookReference: bookingCart.Reference,
+                    userId: bookingCart.UserId,
+                    mainCategoryId: bookingCart.SubCategoryId,
+                    insertions: 1,
+                    adBookingId: ref adBookingId,
+                    onlineAdHeading: bookingCart.OnlineAdCart.Heading,
+                    onlineAdDescription: bookingCart.OnlineAdCart.Description,
+                    onlineAdHtml: bookingCart.OnlineAdCart.DescriptionHtml,
+                    onlineAdPrice: null,
+                    locationAreaId: null, // Todo
+                    contactName: bookingCart.OnlineAdCart.ContactName,
+                    contactEmail: bookingCart.OnlineAdCart.Email,
+                    contactPhone: bookingCart.OnlineAdCart.Phone,
+                    onlineDesignId: ref onlineDesignId
+                    );
+
+                // Save the images for online ad
+                var graphics = bookingCart.OnlineAdCart.Images.Select(img => new AdGraphic{ AdDesignId = onlineDesignId, DocumentID = img});
+                context.AdGraphics.InsertAllOnSubmit(graphics);
+                context.SubmitChanges();
+
+                return adBookingId;
+            }
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             // From data
@@ -253,7 +290,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             {
                 case "regular": return BookingType.Regular;
                 case "bundled": return BookingType.Bundled;
-                default : return BookingType.Special;
+                default: return BookingType.Special;
             }
         }
     }

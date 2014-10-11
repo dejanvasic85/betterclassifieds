@@ -29,5 +29,6 @@ namespace Paramount.Betterclassifieds.Business.Repository
         bool IsBookingOnline(int adBookingId);
         bool IsBookingInPrint(int adBookingId);
         bool IsBookingOnlineOnly(int adBookingId);
+        int? SubmitBooking(BookingCart getCart);
     }
 }

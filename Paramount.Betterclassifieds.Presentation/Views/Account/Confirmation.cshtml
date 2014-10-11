@@ -1,5 +1,4 @@
 ﻿@using Paramount
-@using Paramount.Betterclassifieds.Presentation.LegacyIntegration
 @model Paramount.Betterclassifieds.Presentation.ViewModels.AccountConfirmationViewModel
 
 @{
@@ -14,7 +13,7 @@
             {
                 <h2>Confirmation Successful</h2>
                 <div class="alert alert-success">Account Confirmed! Your email has been verified successfully.</div>
-                <p>Where to from here? How about <a href="@Url.Content(LegacyLinks.StartBooking)">placing a new ad?</a> </p>
+                <p>Where to from here? How about @Html.ActionLink("placing a new ad?", "Step1", "Booking") </p>
             }
 
             @if (Model.RegistrationExpiredOrNotExists)

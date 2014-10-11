@@ -24,7 +24,7 @@
     </div>
     <div class="col-xs-6">
         <div class="btn-group pull-right">
-            <a href="@Url.Content(LegacyLinks.StartBooking)" class="btn btn-primary">Place New Ad</a>
+            @Html.ActionLink("Place New Ad", actionName: "Step1", controllerName: "Booking", routeValues: null, htmlAttributes: new { @class = "btn btn-primary" })
         </div>
     </div>
 </div>
@@ -35,7 +35,7 @@
 @Html.Partial("_Navbar")
 
 
-@RenderSection("QuickSearch", required:false)
+@RenderSection("QuickSearch", required: false)
 
 <div class="top-buffer-20"></div>
 

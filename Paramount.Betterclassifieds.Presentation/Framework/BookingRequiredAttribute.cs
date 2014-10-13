@@ -6,6 +6,9 @@ using Paramount.Betterclassifieds.Business.Repository;
 
 namespace Paramount.Betterclassifieds.Presentation
 {
+    /// <summary>
+    /// Ensures access only if the booking is in progress otherwise redirects to the first step
+    /// </summary>
     public class BookingRequiredAttribute : ActionFilterAttribute
     {
         [Dependency]

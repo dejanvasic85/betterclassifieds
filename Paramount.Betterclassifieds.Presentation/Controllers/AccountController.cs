@@ -105,7 +105,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 .GenerateUniqueUsername(_authManager.CheckUsernameExists)
                 .GenerateToken()
                 .SetPasswordFromPlaintext(viewModel.RegisterPassword);
-
+             
             _authManager.CreateRegistration(registrationModel);
 
             _broadcastManager.SendEmail(new NewRegistration

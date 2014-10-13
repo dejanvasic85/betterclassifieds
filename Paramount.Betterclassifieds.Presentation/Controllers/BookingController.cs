@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,6 +9,7 @@ using Microsoft.Practices.Unity;
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     using Business;
+    using Business.Broadcast;
     using Business.Models;
     using Business.Search;
     using Business.Managers;
@@ -23,6 +25,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IDocumentRepository _documentRepository;
         private readonly IUserManager _userManager;
         private readonly IRateCalculator _rateCalculator;
+        private readonly IBroadcastManager _broadcastManager;
 
         public BookingController(IUnityContainer container,
             ISearchService searchService,
@@ -30,7 +33,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             IDocumentRepository documentRepository,
             IBookingManager bookingManager,
             IUserManager userManager,
-            IRateCalculator rateCalculator)
+            IRateCalculator rateCalculator,
+            IBroadcastManager broadcastManager)
         {
             _searchService = searchService;
             _clientConfig = clientConfig;
@@ -38,6 +42,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _bookingManager = bookingManager;
             _userManager = userManager;
             _rateCalculator = rateCalculator;
+            _broadcastManager = broadcastManager;
             _container = container;
         }
 
@@ -204,7 +209,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (bookingCart.NoPaymentRequired())
             {
                 _bookingManager.CompleteCurrentBooking(bookingCart);
-                return RedirectToAction("SuccessTemp");
+                return RedirectToAction("Success");
             }
 
             // Todo - payment providers
@@ -212,14 +217,27 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View(viewModel);
         }
 
+        // 
+        // GET /Booking/Success/{adId}
+        [HttpGet, Authorize, AuthorizeBookingIdentity()]
+        public ActionResult Success(string bookingId)
+        {
+            var bookingCart = _bookingManager.GetCart();
+
+            var successView = new SuccessView
+            {
+                BookingID = bookingId,
+                //ExistingUserContacts = _userNetworkRepository.GetUserNetworkForUserId(User.Identity.Name)
+                //    .Select(user => user.UserNetworkEmail).ToList()
+            };
+            return View(successView);
+        }
+
+
         #endregion
 
         #region Json Requests
-        public ActionResult SuccessTemp()
-        {
-            return View();
-        }
-
+        
         [HttpPost, BookingRequired]
         public ActionResult UploadOnlineImage()
         {
@@ -274,6 +292,25 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var bookingCart = _bookingManager.GetCart();
             return Json(_rateCalculator.GetPriceBreakDown(bookingCart), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult NotifyContactsAboutMyAd(int adId, IEnumerable<string> contactEmails)
+        {
+            var adSearchRTesult = _searchService.GetAdById(adId);
+
+            foreach (var contactEmail in contactEmails)
+            {
+                _broadcastManager.SendEmail(new AdShare
+                {
+                    AdvertiserName = adSearchRTesult.ContactName,
+                    AdDescription = adSearchRTesult.Description,
+                    AdTitle = adSearchRTesult.Heading,
+                    ClientName = contactEmail//change this to client name
+                }, contactEmail);
+            }
+
+            return Json("completed");
         }
 
         #endregion

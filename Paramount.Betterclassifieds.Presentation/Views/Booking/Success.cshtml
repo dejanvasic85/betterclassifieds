@@ -1,0 +1,129 @@
+﻿@using Paramount
+@model Paramount.Betterclassifieds.Presentation.ViewModels.Booking.SuccessView
+
+@{
+    ViewBag.Title = "Classifieds - Place new Ad";
+    Layout = @Url.ClientUrl("~/Views/Shared/_ApplicationLayout.cshtml");
+}
+
+<div class="jumbotron">
+    <h1><span class="glyphicon glyphicon-thumbs-up"></span> Booking Complete</h1>
+    <p class="lead">Your booking has been placed successfully! Don't forget to let your friends know.</p>
+</div>
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="well">
+            <h2>Tell your friends</h2>
+            <div class="row top-buffer-20">
+                <div class="col-md-12">
+                    <span data-bind="visible: hasNoContacts()">There are no friends at the moment ...</span>
+                    <table class="table" data-bind="visible: hasContacts()">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Notify</th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: contacts">
+                            <tr data-bind="css: {success : selected } ">
+                                <td data-bind="text: name"></td>
+                                <td data-bind="text: email"></td>
+                                <td>
+                                    <input type="checkbox" class="checkbox" data-bind="checked: selected, event: {change : $parent.toggleSelected}" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row top-buffer-20">
+                <form data-bind="submit: addContact" novalidate>
+                    <div class="col-md-5">
+                        <input type="text" id="contactName" class="form-control" data-bind="value: contactName" placeholder="Friends Name" />
+                    </div>
+                    <div class="col-md-5">
+                        <input type="email" id="contactEmail" class="form-control" data-bind="value: contactEmail" placeholder="Friends Email" />
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-default btn-block" id="addFriend">Add</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="row top-buffer-20">
+                <div class="col-xs-12">
+                    <button class="btn btn-block btn-default" data-bind="enable: hasSelectedContacts()">Notify My Friends</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="well">
+            <h2>Where do you want to go?</h2>
+            <div class="list-group">
+                @if (Model.IsBookingActive)
+                {
+                    @Html.ActionLink("Go to my ad", "ViewAd", "Listings", routeValues: new { id = Model.AdId }, htmlAttributes: new { @class = "list-group-item list-group-item-info" })
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        (function ($) {
+            $(function () {
+                var ContactPerson = function (name, email, selected) {
+                    var me = this;
+                    me.name = ko.observable(name);
+                    me.email = ko.observable(email);
+                    me.selected = ko.observable(selected);
+                };
+
+                var ContactNetwork = function () {
+                    var me = this;
+                    me.contactName = ko.observable("");
+                    me.contactEmail = ko.observable("");
+                    me.contacts = ko.observableArray();
+                    me.selectedContactCount = ko.observable(0);
+
+                    me.addContact = function () {
+                        $('#addFriend').button('reset'); // todo - remove this out of here - it's not a clean solution...
+                        var person = new ContactPerson(me.contactName(), me.contactEmail(), true);
+                        me.selectedContactCount(me.selectedContactCount() + 1);
+                        me.contacts.push(person);
+                        me.contactName("");
+                        me.contactEmail("");
+                        $('#contactName').focus();
+                    };
+
+                    me.toggleSelected = function (item) {
+                        if (!item.selected()) {
+                            // This is very weird because I expected this to be the other way around (silly knockout! or event system is screwed)
+                            me.selectedContactCount(me.selectedContactCount() + 1);
+                        } else {
+                            me.selectedContactCount(me.selectedContactCount() - 1);
+                        }
+                    };
+
+                    me.hasContacts = function () { return me.contacts().length > 0; }
+                    me.hasNoContacts = function () { return !me.hasContacts(); }
+
+                    me.hasSelectedContacts = function () {
+                        return me.selectedContactCount() > 0;
+                    };
+                };
+
+                var contactNetworkModel = new ContactNetwork();
+                ko.applyBindings(contactNetworkModel);
+            });
+
+
+        })(jQuery);
+    </script>
+}

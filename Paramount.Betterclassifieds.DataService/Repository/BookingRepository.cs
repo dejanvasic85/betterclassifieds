@@ -273,7 +273,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             configuration.CreateMap<AdGraphic, AdImage>()
                 .ForMember(member => member.ImageUrl, options => options.MapFrom(source => source.DocumentID));
             configuration.CreateMap<Publication, PublicationModel>();
-
+            
             // To data
             configuration.CreateMap<AdBookingExtensionModel, AdBookingExtension>()
                 .ForMember(member => member.AdBookingExtensionId, options => options.Condition(con => con.AdBookingExtensionId > 0));

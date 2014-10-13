@@ -2,46 +2,59 @@
 .top-buffer-10 {
   margin-top: 10px;
 }
+
 .bottom-buffer-10 {
   margin-bottom: 10px;
 }
+
 .top-buffer-20 {
   margin-top: 20px;
 }
+
 .top-buffer-40 {
   margin-top: 40px;
 }
+
 .left-buffer-20 {
   padding-left: 20px;
 }
+
 .bordered-1 {
   border: 1px solid #eee;
   padding: 2px;
 }
+
 .label-publication {
   background-color: #428bca;
 }
+
 .label-category {
   background-color: #f0ad4e;
 }
+
 @media (max-width: 766px) {
   /* Smaller widths stack controls on top of another with no margin */
   .form-control {
     margin-top: 5px;
   }
+
   .btn {
     margin-top: 5px;
   }
 }
+
 .no-display {
   display: none;
 }
+
 .button-options .btn {
   margin-top: 10px;
 }
+
 .button-options .btn-default.active {
   background-color: #c1e2b3;
 }
+
 .bs-callout {
   padding: 10px;
   padding-left: 20px;
@@ -51,21 +64,27 @@
   border-radius: 3px;
   background-color: #f7f7f7;
 }
+
 .bs-callout-info {
   border-left-color: #5bc0de;
 }
+
 .bs-callout-info h4 {
   color: #5bc0de;
 }
+
 .padded-20 {
   padding: 20px;
 }
+
 .pager .next > button {
   float: right;
 }
+
 .pager .previous > button {
   float: left;
 }
+
 .form-control-checkbox {
   display: block;
   width: 100%;
@@ -76,6 +95,6 @@
   background-image: none;
   border: 1px solid #ccc;
   border-radius: 4px;
-  margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 /*# sourceMappingURL=site.css.map */

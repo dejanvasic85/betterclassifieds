@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookingManager.cs" />
+    <Compile Include="Broadcast\DocTypes\AdShare.cs" />
     <Compile Include="Booking\BookingCart.cs" />
     <Compile Include="Booking\IBookingCartRepository.cs" />
     <Compile Include="Booking\IBookingSessionIdentifier.cs" />
@@ -77,9 +78,11 @@
     <Compile Include="Managers\IEnquiryManager.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\AdEnquiry.cs" />
+    <Compile Include="Models\UserNetworkModel.cs" />
     <Compile Include="Pricing\OnlineAdRate.cs" />
     <Compile Include="Pricing\PriceBreakdown.cs" />
     <Compile Include="Repository\IEnquiryRepository.cs" />
+    <Compile Include="Repository\IUserNetworkRepository.cs" />
     <Compile Include="Search\AdSearchResult.cs" />
     <Compile Include="Search\AdSearchSortOrder.cs" />
     <Compile Include="Search\CategorySearchResult.cs" />

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Microsoft.Practices.Unity;
@@ -7,6 +8,9 @@ using Paramount.Betterclassifieds.Business.Repository;
 
 namespace Paramount.Betterclassifieds.Presentation
 {
+    /// <summary>
+    /// Ensures that the user does not attempt access to a step ahead of the process
+    /// </summary>
     public class BookingStepAttribute : ActionFilterAttribute
     {
         public BookingStepAttribute(int stepNumber)

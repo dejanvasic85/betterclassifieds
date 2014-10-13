@@ -53,6 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\0013-Data.EmailTemplate-AdShare.sql" />
     <EmbeddedResource Include="Scripts\0012-Update.EmailTemplate-SupportRequest.sql" />
     <EmbeddedResource Include="Scripts\0011-Update.EmailTemplate-NewRegistration.sql" />
     <EmbeddedResource Include="Scripts\0010-Table.Notification.sql" />

@@ -4,6 +4,7 @@ Imports BetterclassifiedsCore.Controller
 Imports System.Data.SqlClient
 Imports System.Text
 Imports BetterclassifiedsCore.Booking
+Imports BetterclassifiedsCore.BundleBooking
 Imports Paramount.DSL.UIController
 Imports System.Configuration
 Imports System.Collections.Specialized
@@ -110,6 +111,15 @@ Public Class BookingController
             HttpContext.Current.Session(bookingTypeAction) = Nothing
         End If
 
+    End Sub
+
+    Public Shared Sub ClearAllBookings()
+        Select Case BookingType
+            Case BookingAction.BundledBooking
+                BundleController.ClearBundleBooking()
+            Case Else
+                ClearAdBooking()
+        End Select
     End Sub
 
     ''' <summary>
@@ -759,6 +769,21 @@ Public Class BookingController
             Else
                 Return Nothing
             End If
+        End Using
+    End Function
+
+    Public Shared Function GetCurrentBookingId() As Integer
+        Select Case BookingType
+            Case BookingAction.BundledBooking
+                Return GetAdBookingByRef(BundleController.BundleCart.BookReference).AdBookingId
+            Case Else
+                Return GetAdBookingByRef(AdBookCart.BookReference).AdBookingId
+        End Select
+    End Function
+
+    Public Shared Function GetAdBookingByRef(ByVal reference As String) As DataModel.AdBooking
+        Using db = BetterclassifiedsDataContext.NewContext()
+            Return db.AdBookings.FirstOrDefault(Function(bk) bk.BookReference.Equals(reference))
         End Using
     End Function
 

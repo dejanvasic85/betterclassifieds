@@ -91,7 +91,9 @@ namespace Paramount.Betterclassifieds.Console
                 .RegisterType<IBroadcastRepository, BroadcastRepository>()
                 .RegisterType<IEditionRepository, EditionRepository>()
                 .RegisterType<IPublicationRepository, PublicationRepository>()
-                .RegisterType<IPaymentsRepository, PaymentsRepository>();
+                .RegisterType<IPaymentsRepository, PaymentsRepository>()
+                .RegisterType<IUserNetworkRepository, UserNetworkRepository>();
+            
 
             // Tasks (anything that implements ITask)
             TypeRegistrations.ActionEach(task => _container.RegisterType(typeof(ITask), task, task.Name));

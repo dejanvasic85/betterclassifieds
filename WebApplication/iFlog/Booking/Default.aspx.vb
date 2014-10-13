@@ -9,11 +9,23 @@ Partial Public Class _Default2
         Response.RedirectPermanent("~/Booking/Step/1")
         If Not Page.IsPostBack Then
 
+
+            Dim bookingId As Integer = BookingController.AdBookCart.AdId
+
+            ' clear any bookings
+            BookingController.ClearAdBooking()
+            BundleController.ClearBundleBooking()
+
             Dim action As String = Request.QueryString("action")
 
             If (action = "successful") Then
 
-                lblBookingSuccess.Text = "Your booking has been successful."
+                ' lblBookingSuccess.Text = "Your booking has been successful."
+                ' Todo - Find out how to fetch the current ID of the completed booking
+                ' Todo - Append ID to the route /{}
+
+                Response.RedirectPermanent(String.Format("~/Booking/Success/{0}", bookingId))
+
 
             ElseIf (action = "fail") Then
 
@@ -29,9 +41,7 @@ Partial Public Class _Default2
                 lblHeader.Text = ""
             End If
 
-            ' clear any bookings
-            BookingController.ClearAdBooking()
-            BundleController.ClearBundleBooking()
+
 
         End If
     End Sub

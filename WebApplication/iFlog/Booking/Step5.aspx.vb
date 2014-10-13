@@ -52,7 +52,7 @@ Partial Public Class Step5
                 End If
             End If
 
-            ' set the booking pcoess reference
+            ' set the booking process reference
             ParameterAccess.BookingProcess.PaymentReferenceId = Guid.NewGuid.ToString
             If paymentOption.SelectedValue = Common.Constants.PaymentOption.CreditCard Then
                 BookingProcess.PaymentOption = Common.Constants.PaymentOption.CreditCard

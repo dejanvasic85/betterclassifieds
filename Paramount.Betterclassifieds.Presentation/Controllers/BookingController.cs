@@ -26,6 +26,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IUserManager _userManager;
         private readonly IRateCalculator _rateCalculator;
         private readonly IBroadcastManager _broadcastManager;
+        private readonly IUserNetworkManager _userNetworkManager;
 
         public BookingController(IUnityContainer container,
             ISearchService searchService,
@@ -34,7 +35,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             IBookingManager bookingManager,
             IUserManager userManager,
             IRateCalculator rateCalculator,
-            IBroadcastManager broadcastManager)
+            IBroadcastManager broadcastManager,
+            IUserNetworkManager userNetworkManager)
         {
             _searchService = searchService;
             _clientConfig = clientConfig;
@@ -44,6 +46,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _rateCalculator = rateCalculator;
             _broadcastManager = broadcastManager;
             _container = container;
+            _userNetworkManager = userNetworkManager;
         }
 
         #region Steps
@@ -110,7 +113,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             stepTwoModel.LocationAreaOptions = _searchService.GetLocationAreas(locationAreaId)
                     .Select(l => new SelectListItem { Text = l.Title, Value = l.LocationAreaId.ToString() })
                     .OrderBy(l => l.Text).ToList();
-            
+
             // Set max number of images available for upload ( available on global client configuration object )
             stepTwoModel.MaxOnlineImages = _clientConfig.MaxOnlineImages;
 
@@ -219,25 +222,27 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         // 
         // GET /Booking/Success/{adId}
-        [HttpGet, Authorize, AuthorizeBookingIdentity()]
-        public ActionResult Success(string bookingId)
+        [HttpGet, Authorize, AuthorizeBookingIdentity]
+        public ActionResult Success(string adId)
         {
-            var bookingCart = _bookingManager.GetCart();
+            var currentUser = _userManager.GetCurrentUser(User).Username;
 
             var successView = new SuccessView
             {
-                BookingID = bookingId,
-                //ExistingUserContacts = _userNetworkRepository.GetUserNetworkForUserId(User.Identity.Name)
-                //    .Select(user => user.UserNetworkEmail).ToList()
+                AdId = adId,
+                ExistingUserNetwork = _userNetworkManager.GetUserNetworksForUserId(currentUser).Select(usr => new UserNetworkEmailView
+                {
+                    Email = usr.UserNetworkEmail,
+                    IsSelected = true
+                }).ToArray()
             };
             return View(successView);
         }
 
-
         #endregion
 
         #region Json Requests
-        
+
         [HttpPost, BookingRequired]
         public ActionResult UploadOnlineImage()
         {

@@ -78,11 +78,12 @@
     <Compile Include="Managers\IEnquiryManager.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\AdEnquiry.cs" />
-    <Compile Include="Models\UserNetworkModel.cs" />
+    <Compile Include="UserNetworking\IUserNetworkManager.cs" />
+    <Compile Include="UserNetworking\UserNetworkModel.cs" />
     <Compile Include="Pricing\OnlineAdRate.cs" />
     <Compile Include="Pricing\PriceBreakdown.cs" />
     <Compile Include="Repository\IEnquiryRepository.cs" />
-    <Compile Include="Repository\IUserNetworkRepository.cs" />
+    <Compile Include="UserNetworking\IUserNetworkRepository.cs" />
     <Compile Include="Search\AdSearchResult.cs" />
     <Compile Include="Search\AdSearchSortOrder.cs" />
     <Compile Include="Search\CategorySearchResult.cs" />
@@ -135,7 +136,7 @@
     <Compile Include="Repository\IMenuRepository.cs" />
     <Compile Include="Repository\IPaymentsRepository.cs" />
     <Compile Include="Repository\IPublicationRepository.cs" />
-    <Compile Include="Repository\IRateRepository.cs" />
+    <Compile Include="Pricing\IRateRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\IUserRepository.cs" />
     <Compile Include="Search\LocationSearchResult.cs" />

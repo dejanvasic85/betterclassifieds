@@ -7,6 +7,7 @@ using Paramount.Betterclassifieds.DataService.Repository;
 
 namespace Paramount.Betterclassifieds.DataService
 {
+    
     public class DataServiceInitialiser : ModuleRegistration
     {
         public override string Name
@@ -29,7 +30,9 @@ namespace Paramount.Betterclassifieds.DataService
                      .RegisterType<IClientIdentifierManager, CookiesManager>()
                      .RegisterType<Business.Broadcast.IBroadcastRepository, Broadcast.BroadcastRepository>()
                      .RegisterType<IBookingCartRepository, BookingCartRepository>(new ContainerControlledLifetimeManager())
-                     .RegisterType<Business.Search.ISearchService, SearchService>();
+                     .RegisterType<Business.Search.ISearchService, SearchService>()
+                     .RegisterType<Business.IUserNetworkRepository, UserNetworkRepository>()
+                     ;
 
         }
     }

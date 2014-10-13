@@ -5,6 +5,7 @@ using Microsoft.Practices.Unity;
 using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Repository;
@@ -24,7 +25,9 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IDocumentRepository> mockDocumentRepository;
         private Mock<IUserManager> mockUserManager;
         private Mock<IRateCalculator> mockRateCalculator;
-
+        private Mock<IBroadcastManager> mockBroadcastManager;
+        private Mock<IUserNetworkManager> mockUserNetworkManager;
+        
         [SetUp]
         public void SetupDependencies()
         {
@@ -34,6 +37,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             mockDocumentRepository = CreateMockOf<IDocumentRepository>();
             mockUserManager = CreateMockOf<IUserManager>();
             mockRateCalculator = CreateMockOf<IRateCalculator>();
+            mockBroadcastManager = CreateMockOf<IBroadcastManager>();
+            mockUserNetworkManager = CreateMockOf<IUserNetworkManager>();
         }
 
         [Test]

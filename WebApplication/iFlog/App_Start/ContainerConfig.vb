@@ -31,7 +31,8 @@ Public Class ContainerConfig
             .RegisterType(Of INotificationProcessor, EmailProcessor)("emailProcessingEngine") _
             .RegisterType(Of ISmtpMailer, DefaultMailer)() _
             .RegisterType(Of IEnquiryManager, EnquiryManager)() _
-            .RegisterType(Of IRateCalculator, RateCalculator)()
+            .RegisterType(Of IRateCalculator, RateCalculator)() _
+            .RegisterType(Of IUserNetworkManager, UserNetworkManager)()
 
 
     End Sub

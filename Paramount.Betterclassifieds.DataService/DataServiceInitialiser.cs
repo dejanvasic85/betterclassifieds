@@ -1,5 +1,6 @@
 ﻿using Microsoft.Practices.Unity;
 using Paramount.ApplicationBlock.Mvc;
+using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.Business.Repository;
 using Paramount.Betterclassifieds.DataService.Managers;
@@ -31,7 +32,7 @@ namespace Paramount.Betterclassifieds.DataService
                      .RegisterType<Business.Broadcast.IBroadcastRepository, Broadcast.BroadcastRepository>()
                      .RegisterType<IBookingCartRepository, BookingCartRepository>(new ContainerControlledLifetimeManager())
                      .RegisterType<Business.Search.ISearchService, SearchService>()
-                     .RegisterType<Business.IUserNetworkRepository, UserNetworkRepository>()
+                     .RegisterType<IBookingCartRepository, BookingCartRepository>()
                      ;
 
         }

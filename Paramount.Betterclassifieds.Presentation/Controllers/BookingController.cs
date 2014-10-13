@@ -26,7 +26,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IUserManager _userManager;
         private readonly IRateCalculator _rateCalculator;
         private readonly IBroadcastManager _broadcastManager;
-        private readonly IUserNetworkManager _userNetworkManager;
 
         public BookingController(IUnityContainer container,
             ISearchService searchService,
@@ -35,8 +34,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             IBookingManager bookingManager,
             IUserManager userManager,
             IRateCalculator rateCalculator,
-            IBroadcastManager broadcastManager,
-            IUserNetworkManager userNetworkManager)
+            IBroadcastManager broadcastManager)
         {
             _searchService = searchService;
             _clientConfig = clientConfig;
@@ -46,7 +44,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _rateCalculator = rateCalculator;
             _broadcastManager = broadcastManager;
             _container = container;
-            _userNetworkManager = userNetworkManager;
         }
 
         #region Steps
@@ -223,14 +220,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         // 
         // GET /Booking/Success/{adId}
         [HttpGet, Authorize, AuthorizeBookingIdentity]
-        public ActionResult Success(string adId)
+        public ActionResult Success(string id)
         {
             var currentUser = _userManager.GetCurrentUser(User).Username;
 
             var successView = new SuccessView
             {
-                AdId = adId,
-                ExistingUserNetwork = _userNetworkManager.GetUserNetworksForUserId(currentUser).Select(usr => new UserNetworkEmailView
+                AdId = id,
+                ExistingUserNetwork = _userManager.GetUserNetworksForUserId(currentUser).Select(usr => new UserNetworkEmailView
                 {
                     Email = usr.UserNetworkEmail,
                     IsSelected = true

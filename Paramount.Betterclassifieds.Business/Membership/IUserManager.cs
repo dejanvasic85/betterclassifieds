@@ -1,12 +1,13 @@
-﻿using System.Security.Principal;
-using Paramount.Betterclassifieds.Business.Repository;
+﻿using System.Collections.Generic;
+using System.Security.Principal;
 
 namespace Paramount.Betterclassifieds.Business
 {
     public interface IUserManager
     {
         ApplicationUser GetUserByEmailOrUsername(string emailOrUsername);
-        ApplicationUser GetCurrentUser(IPrincipal principal); 
+        ApplicationUser GetCurrentUser(IPrincipal principal);
+        IEnumerable<UserNetworkModel> GetUserNetworksForUserId(string userId);
         void CreateUserProfile(string email, string firstName, string lastName, string postCode);
     }
 
@@ -37,6 +38,11 @@ namespace Paramount.Betterclassifieds.Business
                 return null;
 
             return GetUserByEmailOrUsername(principal.Identity.Name);
+        }
+
+        public IEnumerable<UserNetworkModel> GetUserNetworksForUserId(string userId)
+        {
+            return _userRepository.GetUserNetworksForUserId(userId);
         }
 
         public void CreateUserProfile(string email, string firstName, string lastName, string postCode)

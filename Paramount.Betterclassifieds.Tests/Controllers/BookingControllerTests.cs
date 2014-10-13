@@ -26,7 +26,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IUserManager> mockUserManager;
         private Mock<IRateCalculator> mockRateCalculator;
         private Mock<IBroadcastManager> mockBroadcastManager;
-        private Mock<IUserNetworkManager> mockUserNetworkManager;
         
         [SetUp]
         public void SetupDependencies()
@@ -38,7 +37,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             mockUserManager = CreateMockOf<IUserManager>();
             mockRateCalculator = CreateMockOf<IRateCalculator>();
             mockBroadcastManager = CreateMockOf<IBroadcastManager>();
-            mockUserNetworkManager = CreateMockOf<IUserNetworkManager>();
         }
 
         [Test]

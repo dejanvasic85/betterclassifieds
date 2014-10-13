@@ -467,10 +467,6 @@
       <Project>{5c1be481-db9e-48cc-9048-5b10e6535d02}</Project>
       <Name>Paramount.Betterclassifieds.Business</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Paramount.Betterclassifieds.DataService\Paramount.Betterclassifieds.DataService.csproj">
-      <Project>{E51B8388-9A02-40AD-97B4-2802AE77FB69}</Project>
-      <Name>Paramount.Betterclassifieds.DataService</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />

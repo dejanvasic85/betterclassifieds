@@ -2,8 +2,6 @@
 using Paramount.ApplicationBlock.Mvc;
 using Paramount.ApplicationBlock.Mvc.Unity;
 using Paramount.Betterclassifieds.Business.Repository;
-using Paramount.Betterclassifieds.DataService;
-using Paramount.Betterclassifieds.DataService.Repository;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Booking;
@@ -64,9 +62,7 @@ namespace Paramount.Betterclassifieds.Presentation
 
             // Booking specific objects
             container.RegisterType<IBookingSessionIdentifier, BookingCookie>()
-                .RegisterType<BookingCart>(new InjectionFactory(BookingCartFactory.Create))
-                .RegisterType<IBookingCartRepository, BookingCartRepository>()
-                .RegisterType<IUserNetworkRepository, UserNetworkRepository>();
+                .RegisterType<BookingCart>(new InjectionFactory(BookingCartFactory.Create));
         }
     }
 }

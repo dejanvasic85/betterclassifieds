@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business;
@@ -54,6 +55,14 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                 var username = context.aspnet_Users.First(u => u.UserId == profile.UserID).UserName;
 
                 return CreateApplicationUser(profile, username);
+            }
+        }
+
+        public IEnumerable<UserNetworkModel> GetUserNetworksForUserId(string userId)
+        {
+            using (var context = DataContextFactory.CreateClassifiedEntitiesContext())
+            {
+                return context.UserNetworks.Where(u => u.UserId.Equals(userId, StringComparison.OrdinalIgnoreCase)).ToList();
             }
         }
 

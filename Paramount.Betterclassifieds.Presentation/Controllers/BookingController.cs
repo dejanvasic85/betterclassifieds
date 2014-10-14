@@ -26,6 +26,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IUserManager _userManager;
         private readonly IRateCalculator _rateCalculator;
         private readonly IBroadcastManager _broadcastManager;
+        private readonly IApplicationConfig _applicationConfig;
 
         public BookingController(IUnityContainer container,
             ISearchService searchService,
@@ -34,7 +35,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             IBookingManager bookingManager,
             IUserManager userManager,
             IRateCalculator rateCalculator,
-            IBroadcastManager broadcastManager)
+            IBroadcastManager broadcastManager,
+            IApplicationConfig applicationConfig)
         {
             _searchService = searchService;
             _clientConfig = clientConfig;
@@ -44,6 +46,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _rateCalculator = rateCalculator;
             _broadcastManager = broadcastManager;
             _container = container;
+            _applicationConfig = applicationConfig;
         }
 
         #region Steps
@@ -113,6 +116,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             // Set max number of images available for upload ( available on global client configuration object )
             stepTwoModel.MaxOnlineImages = _clientConfig.MaxOnlineImages;
+
+            // Set the configured max image size
+            stepTwoModel.MaxImageUploadBytes = _applicationConfig.MaxImageUploadBytes;
 
             // Set convenient contact details for the user
             var applicationUser = _userManager.GetCurrentUser(this.User);
@@ -257,21 +263,29 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return Json(new { errorMsg = string.Format("File limit reached. You can upload up to {0} images.", _clientConfig.MaxOnlineImages) });
             }
 
-            // Todo validation on file types and file size - just another filter (where statement)
-
-            foreach (var postedFile in files)
+            // There should only be 1 uploaded file so just check the size ...
+            var uploadedFile = files.First();
+            if (uploadedFile.ContentLength > _applicationConfig.MaxImageUploadBytes)
             {
-                documentId = Guid.NewGuid();
-
-                var imageDocument = new Document(documentId.Value, postedFile.InputStream.FromStream(), postedFile.ContentType,
-                    postedFile.FileName, postedFile.ContentLength, this.User.Identity.Name);
-
-                _documentRepository.Save(imageDocument);
-
-                // Persist to the booking cart also
-                bookingCart.OnlineAdCart.Images.Add(documentId.ToString());
-                _bookingManager.SaveBookingCart(bookingCart);
+                return Json(new { errorMsg = "The file exceeds the maximum file size." });
             }
+
+            if (!_applicationConfig.AcceptedImageFileTypes.Any(type => type.Equals(uploadedFile.ContentType)))
+            {
+                return Json(new { errorMsg = "Not an accepted file type." });
+            }
+
+            documentId = Guid.NewGuid();
+
+            var imageDocument = new Document(documentId.Value, uploadedFile.InputStream.FromStream(), uploadedFile.ContentType,
+                uploadedFile.FileName, uploadedFile.ContentLength, this.User.Identity.Name);
+
+            _documentRepository.Save(imageDocument);
+
+            // Persist to the booking cart also
+            bookingCart.OnlineAdCart.Images.Add(documentId.ToString());
+            _bookingManager.SaveBookingCart(bookingCart);
+
 
             return Json(new { documentId }, JsonRequestBehavior.AllowGet);
         }

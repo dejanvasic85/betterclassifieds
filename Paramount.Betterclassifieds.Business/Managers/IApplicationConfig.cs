@@ -8,5 +8,7 @@
         string ConfigurationContext { get; }
         bool UseHttps { get; }
         string ImageCacheDirectory { get; }
+        int MaxImageUploadBytes { get; }
+        string[] AcceptedImageFileTypes { get; }
     }
 }

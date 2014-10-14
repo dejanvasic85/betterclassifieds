@@ -53,5 +53,15 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                 return ConfigManager.GetSetting("paramount/dsl", "ImageCacheDirectory");
             }
         }
+
+        public int MaxImageUploadBytes
+        {
+            get { return int.Parse(ConfigManager.GetSetting("paramount/dsl", "MaxImageUploadBytes")); }
+        }
+
+        public string[] AcceptedImageFileTypes
+        {
+            get { return ConfigManager.GetSetting("paramount/dsl", "AcceptedFileTypes").Split('|'); }
+        }
     }
 }

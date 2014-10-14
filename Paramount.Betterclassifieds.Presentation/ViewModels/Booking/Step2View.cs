@@ -45,9 +45,17 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         public List<string> OnlineAdImages { get; set; }
 
         public int? MaxOnlineImages { get; set; }
-        
+
+        public int MaxImageUploadBytes { get; set; }
+
+        public decimal MaxImageUploadInMegabytes
+        {
+            get { return MaxImageUploadBytes / (decimal)1000000; }
+        }
+
         public IEnumerable<SelectListItem> LocationOptions { get; set; }
 
         public IEnumerable<SelectListItem> LocationAreaOptions { get; set; }
+
     }
 }

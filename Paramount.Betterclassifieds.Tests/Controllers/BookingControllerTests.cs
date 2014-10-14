@@ -11,7 +11,6 @@ using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Repository;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Controllers;
-using Paramount.Betterclassifieds.Presentation.ViewModels.Booking;
 using Paramount.Betterclassifieds.Tests.Mocks;
 
 namespace Paramount.Betterclassifieds.Tests.Controllers
@@ -26,6 +25,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IUserManager> mockUserManager;
         private Mock<IRateCalculator> mockRateCalculator;
         private Mock<IBroadcastManager> mockBroadcastManager;
+        private Mock<IApplicationConfig> mockApplicationConfig;
         
         [SetUp]
         public void SetupDependencies()
@@ -37,6 +37,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             mockUserManager = CreateMockOf<IUserManager>();
             mockRateCalculator = CreateMockOf<IRateCalculator>();
             mockBroadcastManager = CreateMockOf<IBroadcastManager>();
+            mockApplicationConfig = CreateMockOf<IApplicationConfig>();
         }
 
         [Test]

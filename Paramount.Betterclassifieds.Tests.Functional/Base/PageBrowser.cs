@@ -86,6 +86,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         {
             return _config.BaseUrl;
         }
+
+        public bool IsAspNotFoundDisplayed(int secondsToWait = 10)
+        {
+            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(secondsToWait));
+            return wait.Until(ExpectedConditions.TitleContains("The resource cannot be found"));
+        }
     }
 
     public class AdminPageBrowser : PageBrowser

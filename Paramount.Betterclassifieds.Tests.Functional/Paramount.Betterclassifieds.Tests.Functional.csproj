@@ -128,6 +128,7 @@
     <Compile Include="Pages\Booking\BookingStep4TestPage.cs" />
     <Compile Include="Pages\NotFoundTestPage.cs" />
     <Compile Include="Pages\RegistrationSuccessPage.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="StepsAdmin\AdminLoginPageSteps.cs" />
     <Compile Include="BeforeAndAfterTests.cs" />
     <Compile Include="Mocks\DapperExtensions.cs" />

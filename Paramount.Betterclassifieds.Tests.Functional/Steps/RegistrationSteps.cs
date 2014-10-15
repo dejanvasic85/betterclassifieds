@@ -11,26 +11,26 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
     public class RegistrationSteps
     {
         private readonly PageBrowser _pageBrowser;
-        private readonly ITestDataManager _dataManager;
+        private readonly ITestDataRepository _dataRepository;
         private readonly RegistrationContext _registrationContext;
 
-        public RegistrationSteps(PageBrowser pageBrowser, ITestDataManager dataManager, RegistrationContext registrationContext)
+        public RegistrationSteps(PageBrowser pageBrowser, ITestDataRepository dataRepository, RegistrationContext registrationContext)
         {
             _pageBrowser = pageBrowser;
-            _dataManager = dataManager;
+            _dataRepository = dataRepository;
             _registrationContext = registrationContext;
         }
 
         [Given(@"I am a registered user with username ""(.*)"" and password ""(.*)"" and email ""(.*)""")]
         public void GivenIAmARegisteredUserWithUsernameAndPassword(string username, string password, string email)
         {
-            _dataManager.AddUserIfNotExists(username, password, email, RoleType.Advertiser);
+            _dataRepository.AddUserIfNotExists(username, password, email, RoleType.Advertiser);
         }
 
         [Given(@"The user with username ""(.*)"" does not exist")]
         public void GivenTheUserWithUsernameDoesNotExist(string username)
         {
-            _dataManager.DropUserIfExists(username);
+            _dataRepository.DropUserIfExists(username);
         }
 
         [Given(@"I navigate to the registration page")]
@@ -73,13 +73,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         public void ThenTheUserShouldBeCreatedSuccessfully(string username)
         {
             // Assert
-            Assert.IsTrue(_dataManager.RegistrationExistsForEmail(username));
+            Assert.IsTrue(_dataRepository.RegistrationExistsForEmail(username));
         }
 
         [Then(@"a registration email should be sent to ""(.*)""")]
         public void ThenARegistrationEmailShouldBeSentTo(string userEmail)
         {
-            var emailsQueued = _dataManager.GetSentEmailsFor(userEmail);
+            var emailsQueued = _dataRepository.GetSentEmailsFor(userEmail);
 
             Assert.IsTrue(emailsQueued.Any(e => 
                 e.ModifiedDate >= _registrationContext.StartRegistrationTime &&

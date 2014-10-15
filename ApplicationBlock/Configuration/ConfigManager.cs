@@ -7,7 +7,6 @@ namespace Paramount.ApplicationBlock.Configuration
     public static class ConfigManager
     {
         private const string ApplicationNameKey = "ApplicationName";
-        private const string MaxRetriesKey = "MaxRetries";
         private const string DomainNameKey = "Domain";
 
         public static object GetSection(string name)

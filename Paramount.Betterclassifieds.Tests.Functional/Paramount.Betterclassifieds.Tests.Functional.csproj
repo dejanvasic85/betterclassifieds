@@ -131,7 +131,7 @@
     <Compile Include="StepsAdmin\AdminLoginPageSteps.cs" />
     <Compile Include="BeforeAndAfterTests.cs" />
     <Compile Include="Mocks\DapperExtensions.cs" />
-    <Compile Include="Base\ITestDataManager.cs" />
+    <Compile Include="Base\ITestDataRepository.cs" />
     <Compile Include="Mocks\Models\Email.cs" />
     <Compile Include="Mocks\DapperDataManager.cs" />
     <Compile Include="Pages\OnlineAdPage.cs" />

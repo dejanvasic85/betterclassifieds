@@ -10,12 +10,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
     public class OnlineAdSteps
     {
         private readonly PageBrowser _pageBrowser;
-        private readonly ITestDataManager _dataManager;
+        private readonly ITestDataRepository _dataRepository;
 
-        public OnlineAdSteps(PageBrowser pageBrowser, ITestDataManager dataManager)
+        public OnlineAdSteps(PageBrowser pageBrowser, ITestDataRepository dataRepository)
         {
             _pageBrowser = pageBrowser;
-            _dataManager = dataManager;
+            _dataRepository = dataRepository;
         }
 
         [Given(@"I have an online ad titled ""(.*)"" in parent category ""(.*)"" and sub category ""(.*)""")]
@@ -25,7 +25,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             GivenParentCategoryAndSubCategory(parentCategory, childCategory);
             GivenLocationAndArea(TestData.Location_Australia, TestData.Location_Victoria);
 
-            int? adId = _dataManager.DropCreateOnlineAd(adTitle, parentCategory, childCategory);
+            int? adId = _dataRepository.DropCreateOnlineAd(adTitle, parentCategory, childCategory);
 
             ScenarioContext.Current.Add("AdId", adId);
         }
@@ -33,13 +33,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Given(@"The parent category ""(.*)"" and sub category ""(.*)""")]
         public void GivenParentCategoryAndSubCategory(string parentCategory, string childCategory)
         {
-            _dataManager.AddCategoryIfNotExists(childCategory, parentCategory);
+            _dataRepository.AddCategoryIfNotExists(childCategory, parentCategory);
         }
 
         [Given(@"The location ""(.*)"" and sub area ""(.*)""")]
         public void GivenLocationAndArea(string location, string area)
         {
-            _dataManager.AddLocationIfNotExists(location, area);
+            _dataRepository.AddLocationIfNotExists(location, area);
         }
 
         [When(@"I navigate to ""(.*)""")]

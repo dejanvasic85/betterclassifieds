@@ -1,25 +1,16 @@
-﻿using System;
-
-namespace Paramount.ApplicationBlock.Configuration
+﻿namespace Paramount.ApplicationBlock.Configuration
 {
     using System.Configuration;
     using System.IO;
     using System.Web.Configuration;
-    using Utility;
 
     public static class ConfigSettingReader
     {
         private const string DslSectionName = "paramount/dsl";
-        private const string BillingStepsSectionName = "paramount/billingSteps";
         private const string DslDefaultResolutionKey = "DefaultDslResolution";
         private const string DslChunkLengthKey = "ChunkLength";
         private const string DslIsServerCachingKey = "IsServerImageCaching";
         private const string DslImageCacheDirectoryKey = "ImageCacheDirectory";
-        private const string DslImageHandlerKey = "ImageHandlerUrl";
-        
-
-        private const string ParamountSectionName = "paramount/services";
-        private const string WebServiceCredentialKey = "WebServiceCredential";
         private const string ClientCodeKey = "ClientCode";
         private const string ApplicationNameKey = "ApplicationName";
         private const string DomainNameKey = "Domain";
@@ -43,12 +34,7 @@ namespace Paramount.ApplicationBlock.Configuration
         {
             get { return ConfigurationManager.AppSettings[ClientCodeKey]; }
         }
-
-        public static string ClientCodeEncrypted
-        {
-            get { return Paramount.Utility.CryptoHelper.Encrypt(ConfigurationManager.AppSettings[ClientCodeKey]); }
-        }
-
+        
         public static int FileAppendMaxRetry
         {
             get
@@ -57,26 +43,7 @@ namespace Paramount.ApplicationBlock.Configuration
                 return int.TryParse(ConfigurationManager.AppSettings[FileAppendMaxRetryKey], out value) ? value : DefaultFileAppendMaxRetry;
             }
         }
-
-        public static string WebServiceCredential
-        {
-            get
-            {
-                var value = ConfigManager.GetSetting(ParamountSectionName, WebServiceCredentialKey);
-                if (string.IsNullOrEmpty(value))
-                {
-                    return string.Empty;
-                }
-
-                if (Equals(value[value.Length - 1], "="))
-                {
-                    return CryptoHelper.Decrypt(value);
-                }
-
-                return value;
-            }
-        }
-
+        
         public static int DslDefaultResolution
         {
             get { return int.Parse(ConfigManager.GetSetting(DslSectionName, DslDefaultResolutionKey)); }
@@ -119,48 +86,5 @@ namespace Paramount.ApplicationBlock.Configuration
             get { return ConfigManager.ReadAppSetting<string>("DslImageUrlHandler"); }
         }
         
-        public static string BillingStepAddressUrl
-        {
-            get { return ConfigManager.GetSetting(BillingStepsSectionName, "BillingStepAddressUrl"); }
-        }
-
-        public static string BillingStepPaymentOptionUrl
-        {
-            get { return (ConfigManager.GetSetting(BillingStepsSectionName, "BillingStepPaymentOptionUrl")); }
-        }
-
-       
-
-        public static string BillingStepFinalInvoiceUrl
-        {
-            get { return (ConfigManager.GetSetting(BillingStepsSectionName, "BillingStepFinalInvoiceUrl")); }
-        }
-
-        public static string BillingStepPayPalPayment
-        {
-            get { return (ConfigManager.GetSetting(BillingStepsSectionName, "BillingStepPayPalPayment")); }
-        }
-
-        public static string BillingStepBankPayment
-        {
-            get { return (ConfigManager.GetSetting(BillingStepsSectionName, "BillingStepBankPayment")); }
-        }
-
-        public static string BillingStepCancelPurchase
-        {
-            get { return (ConfigManager.GetSetting(BillingStepsSectionName, "BillingStepCancelPurchase")); }
-        }
-
-        public static string BillingStepFailed
-        {
-            get { return (ConfigManager.GetSetting(BillingStepsSectionName, "BillingStepFailed")); }
-        }
-
-        public static string BillingStepSuccessWaiting
-        {
-            get { return (ConfigManager.GetSetting(BillingStepsSectionName, "BillingStepSuccessWaiting")); }
-        }
-
-     
     }
 }

@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using Paramount.Betterclassifieds.Tests.Functional.Mocks;
 
 namespace Paramount.Betterclassifieds.Tests.Functional
 {
+    using Mocks;
+
     /// <summary>
     /// Used directly by the tests to setup and assert scenarios
     /// </summary>
-    public interface ITestDataManager : IDisposable
+    public interface ITestDataRepository : IDisposable
     {
         // Categories
         int AddCategoryIfNotExists(string subCategory, string parentCategory);
@@ -29,9 +30,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
         // Emails / Notifications
         List<Email> GetSentEmailsFor(string email);
-        
-        // Ratecards
-        void AddRatecardIfNotExists(string ratecardName, decimal minCharge, decimal maxCharge, string category, bool autoAssign = true);
         
         // Location Area
         void AddLocationIfNotExists(string parentLocation, params string[] areas);

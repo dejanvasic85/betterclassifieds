@@ -5,27 +5,28 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Transactions;
-using System.Web.Profile;
 using System.Web.Security;
 using Dapper;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 {
-    public class DapperDataManager : ITestDataManager
+    public class DapperDataRepository : ITestDataRepository
     {
         // Create IDbConnections
         private readonly IDbConnection classifiedDb;
         private readonly IDbConnection broadcastDb;
         private readonly IDbConnection membershipDb;
 
+        // Used for membership database
         private Dictionary<RoleType, string> RoleProviderDictionary = new Dictionary<RoleType, string>
         {
             { RoleType.Administrator, "UserAdminMembershipProvider"},
             { RoleType.Advertiser, "AppUserProvider"}
         };
 
-        public DapperDataManager()
+        public DapperDataRepository()
         {
+            // Connections
             classifiedDb = new SqlConnection(ConfigurationManager.ConnectionStrings["ClassifiedsDb"].ConnectionString);
             broadcastDb = new SqlConnection(ConfigurationManager.ConnectionStrings["BroadcastDb"].ConnectionString);
             membershipDb = new SqlConnection(ConfigurationManager.ConnectionStrings["AppUserConnection"].ConnectionString);

@@ -1,13 +1,11 @@
-﻿using System;
-using System.Configuration;
-using System.Web.UI;
-using BoDi;
+﻿using BoDi;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using Paramount.Betterclassifieds.Tests.Functional.Mocks;
+using System;
 using System.Drawing.Imaging;
 using System.IO;
 using TechTalk.SpecFlow;
@@ -21,14 +19,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
         private static IWebDriver _webDriver;
         private static TestConfiguration _configuration;
-        private static ITestDataManager _testDataManager;
 
         public BeforeAndAfterTests(IObjectContainer container)
         {
             _container = container;
             _container.RegisterInstanceAs(new PageBrowser(_webDriver, _configuration), typeof(PageBrowser));
             _container.RegisterInstanceAs(new AdminPageBrowser(_webDriver, _configuration), typeof(AdminPageBrowser));
-            _container.RegisterInstanceAs(new DapperDataManager(), typeof(ITestDataManager));
+            _container.RegisterInstanceAs(new DapperDataRepository(), typeof(ITestDataRepository));
         }
 
         [BeforeTestRun]
@@ -42,7 +39,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         public void RegisterConfigAndRepository()
         {
             _container.RegisterInstanceAs(new TestConfiguration(), typeof(IConfig));
-            _container.RegisterInstanceAs(new DapperDataManager(), typeof(ITestDataManager));
+            _container.RegisterInstanceAs(new DapperDataRepository(), typeof(ITestDataRepository));
              _webDriver.Manage().Cookies.DeleteAllCookies();
         }
 
@@ -101,34 +98,36 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         public static void SetupBookingFeature()
         {
             // Use the dapper manager to initialise some baseline test data for our booking scenarios
-            ITestDataManager dataManager = new DapperDataManager();
-
+            ITestDataRepository dataRepository = new DapperDataRepository();
+            /*
             // Online Publication  ( this should be removed later - no such thing as online publication ! )
-            dataManager.AddPublicationIfNotExists(TestData.OnlinePublication, Constants.PublicationType.Online, frequency: "Online", frequencyValue: null);
-            dataManager.AddPublicationAdTypeIfNotExists(TestData.OnlinePublication, Constants.AdType.OnlineAd);
+            dataRepository.AddPublicationIfNotExists(TestData.OnlinePublication, Constants.PublicationType.Online, frequency: "Online", frequencyValue: null);
+            dataRepository.AddPublicationAdTypeIfNotExists(TestData.OnlinePublication, Constants.AdType.OnlineAd);
 
             // Print Publication
-            dataManager.AddPublicationIfNotExists(TestData.SeleniumPublication);
-            dataManager.AddPublicationAdTypeIfNotExists(TestData.SeleniumPublication, Constants.AdType.LineAd);
-            dataManager.AddEditionsToPublication(TestData.SeleniumPublication, 50);
+            dataRepository.AddPublicationIfNotExists(TestData.SeleniumPublication);
+            dataRepository.AddPublicationAdTypeIfNotExists(TestData.SeleniumPublication, Constants.AdType.LineAd);
+            dataRepository.AddEditionsToPublication(TestData.SeleniumPublication, 50);*/
 
             // Categories ( assign to each publication automatically )
-            dataManager.AddCategoryIfNotExists(TestData.SubCategory, TestData.ParentCategory);
+            dataRepository.AddCategoryIfNotExists(TestData.SubCategory, TestData.ParentCategory);
 
+            /*
             // Ratecard
-            dataManager.AddRatecardIfNotExists("Selenium Free Rate", 0, 0, TestData.SubCategory);
+            dataRepository.AddRatecardIfNotExists("Selenium Free Rate", 0, 0, TestData.SubCategory);
+             */
 
             // Location and Area
-            dataManager.AddLocationIfNotExists("Australia", "Victoria", "Melbourne");
+            dataRepository.AddLocationIfNotExists("Australia", "Victoria", "Melbourne");
         }
 
         [BeforeFeature("booking", "extendbooking")]
         public static void AddMembershipUser()
         {
-            ITestDataManager dataManager = new DapperDataManager();
+            ITestDataRepository dataRepository = new DapperDataRepository();
 
             // Setup a demo user
-            dataManager.AddUserIfNotExists(TestData.Username, TestData.Password, TestData.UserEmail, RoleType.Advertiser);
+            dataRepository.AddUserIfNotExists(TestData.Username, TestData.Password, TestData.UserEmail, RoleType.Advertiser);
         }
 
         #endregion

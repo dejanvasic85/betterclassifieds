@@ -19,7 +19,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         private IWebElement ParagraphElement;
 
 
-        public string GetHeadingText(bool isYellowScreenOfDeath)
+        public string GetHeadingText()
         {
             return HeadingElement.Text;
         }

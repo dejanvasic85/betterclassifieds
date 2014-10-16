@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
@@ -9,6 +10,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
     {
         protected readonly IWebDriver _webDriver;
         protected readonly IConfig _config;
+        private Dictionary<Type, bool> _pageInitialisations = new Dictionary<Type, bool>();
 
         public PageBrowser(){ }
 

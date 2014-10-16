@@ -67,6 +67,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         public ContactUsPage Submit()
         {
+            Thread.Sleep(1000); // Sometimes google maps take a while to load
             SubmitButton.ClickOnElement();
             WebDriver.WaitForAjax();
             return this;

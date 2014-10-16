@@ -67,6 +67,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             screenshot.SaveAsFile(String.Format("{0}\\{1}.jpg",
                 screenShotDir,
                 TestContext.CurrentContext.Test.Name), ImageFormat.Jpeg);
+
+            File.WriteAllText(string.Format("{0}\\{1}.html",
+                screenShotDir,
+                TestContext.CurrentContext.Test.Name), _webDriver.PageSource);
         }
 
         private static IWebDriver GetDriverForBrowser(string browserName)

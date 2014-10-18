@@ -190,7 +190,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var bookingCart = _bookingManager.GetCart();
             bookingCart.TotalPrice = _rateCalculator.GetPriceBreakDown(bookingCart).Total;
             var viewModel = this.Map<BookingCart, Step4View>(bookingCart);
-            this.Map(bookingCart.OnlineAdCart, viewModel);
+
+            if (!bookingCart.NoPaymentRequired())
+            {
+                // Get payment options
+                viewModel.PaymentOptions = _applicationConfig.AvailablePaymentProviders;
+            }
+
             return View(viewModel);
         }
 
@@ -204,6 +210,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 // Return the mapped object from the booking cart
                 this.Map(bookingCart, viewModel);
                 this.Map(bookingCart.OnlineAdCart, viewModel);
+
+                if (!bookingCart.NoPaymentRequired())
+                {
+                    // Get payment options
+                    viewModel.PaymentOptions = _applicationConfig.AvailablePaymentProviders;
+                }
+
                 return View(viewModel);
             }
             // Complete the booking cart (needs to move on now)
@@ -341,8 +354,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             // To view model
             configuration.CreateMap<PublicationModel, PublicationSelectionView>();
             configuration.CreateMap<OnlineAdCart, Step2View>();
-            configuration.CreateMap<BookingCart, Step4View>();
             configuration.CreateMap<OnlineAdCart, Step4View>();
+            configuration.CreateMap<BookingCart, Step4View>();
 
             // From ViewModel
             configuration.CreateMap<Step2View, OnlineAdCart>()

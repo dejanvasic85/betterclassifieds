@@ -13,7 +13,7 @@
         <li>@Html.ActionLink("3", "Step3")</li>
         <li class="active"><a href="#">Step 4</a></li>
     </ul>
-    
+
     <form id="confirmationForm" action="@Url.Action("Step4", "Booking")" method="POST" role="form">
 
         <div class="row top-buffer-20">
@@ -29,59 +29,30 @@
                     <div class="panel-heading">
                         <h4 class="panel-title">Price and Schedule</h4>
                     </div>
-                    <table class="table">
+                    <table class="table table-striped">
                         <tbody>
                             <tr>
+                                <td><span class="glyphicon glyphicon-list"></span></td>
                                 <td>Reference Number</td>
                                 <td>@Model.Reference</td>
                             </tr>
                             <tr>
+                                <td><span class="glyphicon glyphicon-usd"></span></td>
                                 <td>Sub Total</td>
                                 <td>$ @Model.TotalPrice.ToString("00.00")</td>
                             </tr>
                             <tr>
+                                <td><span class="glyphicon glyphicon-calendar"></span></td>
                                 <td>Start Date</td>
                                 <td>@Model.StartDate.ToString("dd-MMM-yyyy")</td>
                             </tr>
                             <tr>
+                                <td><span class="glyphicon glyphicon-calendar"></span></td>
                                 <td>End Date</td>
                                 <td>@Model.EndDate.ToString("dd-MMM-yyyy")</td>
                             </tr>
                         </tbody>
                     </table>
-                </div>
-                <div class="panel panel-success hidden">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a href="#onlineAdPreview" data-toggle="collapse">
-                                Online Ad Details 
-                                <span class="glyphicon glyphicon-circle-arrow-down"></span>
-                            </a>
-                        </h4>
-                    </div>
-                    <div class="panel-collapse collapse" id="onlineAdPreview">
-                        <table class="table">
-                            <tr>
-                                <td>Heading</td>
-                                <td>@Model.OnlineAdHeading</td>
-                            </tr>
-                            <tr>
-                                <td>Description</td>
-                                <td>@Html.Raw(Model.OnlineAdDescriptionHtml)</td>
-                            </tr>
-                            <tr>
-                                <td>Images</td>
-                                <td>
-                                    @foreach (var img in Model.OnlineAdImages)
-                                    {
-                                        <div class="thumbnail" style="height: 140px; width: 140px">
-                                            <img src="@Url.Action("Render", "Image", new { documentId = img, height = 140, width = 140 })" />
-                                        </div>
-                                    }
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
                 </div>
 
                 <div class="form-group">
@@ -107,15 +78,51 @@
             </div>
         </div>
 
-        @*Pager*@
-        <ul class="pager">
-            <li class="previous">
-                <button id="btnPrev" class="btn btn-large btn-default js-load" data-nav='@Url.Action("Step3")'>&larr; Previous</button>
-            </li>
-            <li class="next">
-                <button id="btnSubmit" type="submit" class="btn btn-large btn-default">Submit &rarr;</button>
-            </li>
-        </ul>
+        @if (Model.IsPaymentRequired)
+        {
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="bs-callout bs-callout-info">
+                        <h4>Payment</h4>
+                        <p>Select your choice of payment</p>
+                    </div>
 
+                    <input type="hidden" id="SelectedPaymentOption" name="SelectedPaymentOption" value="@Model.SelectedPaymentOption" />
+                    <div class="btn-group btn-group-justified" data-toggle="buttons">
+                        @foreach (var paymentOption in Model.PaymentOptions)
+                        {
+                            <label class="btn btn-default" data-maptohdnfield="SelectedPaymentOption">
+                                <input type="radio"> @paymentOption
+                            </label>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
+        @*Pager*@
+    <ul class="pager">
+        <li class="previous">
+            <button id="btnPrev" class="btn btn-large btn-default js-load" data-nav='@Url.Action("Step3")'>&larr; Previous</button>
+        </li>
+        <li class="next">
+            <button id="btnSubmit" type="submit" class="btn btn-large btn-default">Submit &rarr;</button>
+        </li>
+    </ul>
     </form>
 </div>
+
+@section Scripts{
+    <script>
+        (function ($) {
+
+            $(function() {
+                $('label.btn').on('click',function () {
+                    var me = $(this);
+                    $('#' + me.data().maptohdnfield).val(me.text());
+                });
+            });
+
+        })(jQuery);
+    </script>
+}

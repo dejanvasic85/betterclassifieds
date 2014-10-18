@@ -78,6 +78,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Base\AdminPageBrowser.cs" />
     <Compile Include="Base\Constants.cs" />
     <Compile Include="Base\TestPageAttribute.cs" />
     <Compile Include="Base\PageBrowser.cs" />
@@ -120,14 +121,13 @@
     <Compile Include="PagesAdmin\AdminDashboardPage.cs" />
     <Compile Include="PagesAdmin\AdminLoginPage.cs" />
     <Compile Include="Pages\Booking\BookingCompletePage.cs" />
-    <Compile Include="Pages\Booking\BookingStep5TestPage.cs" />
+    <Compile Include="Pages\Booking\BookingStep4Page.cs" />
     <Compile Include="Pages\Booking\BookingBasePage.cs" />
-    <Compile Include="Pages\Booking\BookingStep1TestPage.cs" />
-    <Compile Include="Pages\Booking\BookingStep2TestPage.cs" />
+    <Compile Include="Pages\Booking\BookingStep1Page.cs" />
     <Compile Include="Pages\ContactUsPage.cs" />
     <Compile Include="Pages\LoginPage.cs" />
-    <Compile Include="Pages\Booking\BookingStep3TestPage.cs" />
-    <Compile Include="Pages\Booking\BookingStep4TestPage.cs" />
+    <Compile Include="Pages\Booking\BookingStep2Page.cs" />
+    <Compile Include="Pages\Booking\BookingStep3Page.cs" />
     <Compile Include="Pages\NotFoundTestPage.cs" />
     <Compile Include="Pages\RegistrationSuccessPage.cs" />
     <Compile Include="Properties\Annotations.cs" />

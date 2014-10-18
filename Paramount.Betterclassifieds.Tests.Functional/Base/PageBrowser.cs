@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
@@ -10,9 +9,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional
     {
         protected readonly IWebDriver _webDriver;
         protected readonly IConfig _config;
-        private Dictionary<Type, bool> _pageInitialisations = new Dictionary<Type, bool>();
 
-        public PageBrowser(){ }
+        public PageBrowser() { }
 
         public PageBrowser(IWebDriver webDriver, IConfig config)
         {
@@ -30,14 +28,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional
                 // Some pages may by accessed by more than one URL
                 var attr = pageType.GetCustomAttributes<TestPageAttribute>();
 
-                var acceptedUrls = attr.Select(a => GetBaseUrl() + a.RelativeUrl)
-                    .Concat(attr.Select(b => GetBaseUrl(secure:true) + b.RelativeUrl));
+                var acceptedUrls = attr.Select(a => GetBaseUrl().ToLower() + a.RelativeUrl.ToLower())
+                    .Concat(attr.Select(b => string.Format("{0}{1}", GetBaseUrl(secure: true), b.RelativeUrl).ToLower()));
 
                 var webDriverUrl = _webDriver.Url.Split('?')[0];
 
                 // Let's wait until the page is loaded before we initialise the elements
                 var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(30));
-                wait.Until(driver => acceptedUrls.Any(url => url.Equals(webDriverUrl, StringComparison.OrdinalIgnoreCase)));
+                wait.Until(driver => acceptedUrls.Any(webDriverUrl.ToLower().Contains));
             }
 
 
@@ -94,18 +92,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         {
             var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(secondsToWait));
             return wait.Until(ExpectedConditions.TitleContains("The resource cannot be found"));
-        }
-    }
-
-    public class AdminPageBrowser : PageBrowser
-    {
-        public AdminPageBrowser(IWebDriver webDriver, IConfig config)
-            : base(webDriver, config)
-        { }
-
-        public override string GetConfiguredUrl()
-        {
-            return _config.BaseAdminUrl;
         }
     }
 }

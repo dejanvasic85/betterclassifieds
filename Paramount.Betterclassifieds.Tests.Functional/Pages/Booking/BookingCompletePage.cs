@@ -2,13 +2,12 @@ using OpenQA.Selenium;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
-    [TestPage(RelativeUrl = "Booking/Default.aspx", Title = "Booking Complete")]
-    public class BookingCompleteTestPage : TestPage
+    [TestPage(RelativeUrl = "Booking/Success", Title = "Booking Complete")]
+    public class BookingCompletePage : TestPage
     {
-        public BookingCompleteTestPage(IWebDriver webdriver, IConfig config) : base(webdriver, config)
+        public BookingCompletePage(IWebDriver webdriver, IConfig config) : base(webdriver, config)
         {
         }
-
         
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Threading;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
@@ -10,23 +8,19 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             : base(webdriver, config)
         {
         }
-
+        
         protected IWebElement NextButtonElement
         {
             get
             {
-                return FindElement("ContentPlaceHolder1_btnNext",
-                                   "ctl00_ContentPlaceHolder1_ucxNavButtons_btnNext",
-                                   "ctl00_ContentPlaceHolder1_btnNext");
+                return FindElement("btnSubmit");
             }
         }
 
         public void Proceed()
         {
-
-            WebDriver.WaitForAjax(); // This might not actually have JQuery.. so just sleep for a second
-            Thread.Sleep(2000); // It slows down just a little bit.
-            NextButtonElement.ClickOnElement();
+            NextButtonElement.Click();
+            WaitForAjax(initElements: false);
         }
     }
 }

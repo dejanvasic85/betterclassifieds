@@ -69,13 +69,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Submit online ad")]
-        [NUnit.Framework.IgnoreAttribute()]
         [NUnit.Framework.CategoryAttribute("OnlineBooking")]
         public virtual void SubmitOnlineAd()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Submit online ad", new string[] {
-                        "OnlineBooking",
-                        "ignore"});
+                        "OnlineBooking"});
 #line 8
 this.ScenarioSetup(scenarioInfo);
 #line 9

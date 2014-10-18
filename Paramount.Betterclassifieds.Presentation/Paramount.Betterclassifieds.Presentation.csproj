@@ -442,7 +442,6 @@
     <Content Include="Views\Booking\Step2.cshtml" />
     <Content Include="Views\Booking\Step3.cshtml" />
     <Content Include="Views\Booking\Step4.cshtml" />
-    <Content Include="Views\Booking\SuccessTemp.cshtml" />
     <Content Include="Views\Booking\_PriceSummary.cshtml" />
     <Content Include="Views\Booking\Success.cshtml" />
   </ItemGroup>

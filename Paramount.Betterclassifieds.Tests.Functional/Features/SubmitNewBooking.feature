@@ -4,7 +4,7 @@ Feature: SubmitNewBooking
 	As a registered user
 	I want to be able to go through the booking steps and submit a new booking
 
-@OnlineBooking @ignore
+@OnlineBooking
 Scenario: Submit online ad
 	Given I am logged in as "bdduser" with password "password123"
 	When I submit a new Online Ad titled "This is a Selenium Ad" starting from today

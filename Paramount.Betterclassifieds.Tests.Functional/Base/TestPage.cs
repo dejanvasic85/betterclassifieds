@@ -8,8 +8,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 {
     public abstract class TestPage
     {
-        public readonly IWebDriver WebDriver;
-        private readonly IConfig _config;
+        protected readonly IWebDriver WebDriver;
+        protected readonly IConfig _config;
 
         protected TestPage(IWebDriver webdriver, IConfig config)
         {
@@ -41,7 +41,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         {
             var wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(maxSecondsToTimeout));
             var element = wait.Until(drv => drv.FindElement(by));
-         
+
             // Scroll to this element because Chrome looks to be a little fussy acting on it if not in view.
             var jsExecutor = (WebDriver as IJavaScriptExecutor);
             jsExecutor.ExecuteScript("arguments[0].scrollIntoView(true)", element);
@@ -61,10 +61,18 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             throw new NoSuchElementException("Unable to locate any of the identifiers in the web page.");
         }
 
+        protected void WaitForAjax(bool initElements = true)
+        {
+            WebDriver.WaitForAjax();
+
+            if (initElements)
+                InitElements();
+        }
+
         public bool IsDisplayed()
         {
             var fullUrl = _config.BaseUrl + GetType().GetCustomAttribute<TestPageAttribute>().RelativeUrl;
-            return WebDriver.Url.StartsWith(fullUrl, StringComparison.OrdinalIgnoreCase);
+            return WebDriver.Url.ToLower().Contains(fullUrl.ToLower());
         }
     }
 }

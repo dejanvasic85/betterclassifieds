@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
+using Paramount.Betterclassifieds.Tests.Functional.Annotations;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
@@ -13,20 +14,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         #region Elements
 
-        private IWebElement UsernameElement
-        {
-            get { return FindElement(By.Id("Username")); }
-        }
+        [FindsBy(How = How.Id, Using = "Username"), UsedImplicitly]
+        private IWebElement UsernameElement;
+        
+        [FindsBy(How =  How.Id, Using = "Password"), UsedImplicitly]
+        private IWebElement PasswordElement;
 
-        private IWebElement PasswordElement
-        {
-            get { return FindElement(By.Id("Password")); }
-        }
-
-        private IWebElement LoginButtonElement
-        {
-            get { return FindElement(By.Id("btnLogin")); }
-        }
+        [FindsBy(How = How.Id, Using = "btnLogin"), UsedImplicitly]
+        private IWebElement LoginButtonElement;
 
         #endregion 
 

@@ -40,6 +40,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
                 wait.Until(driver => acceptedUrls.Any(url => url.Equals(webDriverUrl, StringComparison.OrdinalIgnoreCase)));
             }
 
+
             page.InitElements();
             return page;
         }

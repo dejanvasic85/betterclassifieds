@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System.Threading;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Linq;
@@ -23,8 +24,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
         public virtual void InitElements()
         {
+            Thread.Sleep(1000);
             OpenQA.Selenium.Support.PageObjects.PageFactory.InitElements(WebDriver, this);
-
+            System.Console.WriteLine("PageFactory.Initialised elements. Url {0}", WebDriver.Url);
+            Thread.Sleep(1000);
             // Ensure the window size is good ( really useful for the testing in "offline" mode )
             WebDriver.Manage().Window.Size = new System.Drawing.Size(1200, 768);
         }

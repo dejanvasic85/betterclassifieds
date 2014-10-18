@@ -20,7 +20,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("SubmitNewBooking")]
-    [NUnit.Framework.IgnoreAttribute()]
     [NUnit.Framework.CategoryAttribute("booking")]
     public partial class SubmitNewBookingFeature
     {
@@ -36,8 +35,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "SubmitNewBooking", "In order to have an ad appear on betterclassifieds\r\nAs a registered user\r\nI want " +
                     "to be able to go through the booking steps and submit a new booking", ProgrammingLanguage.CSharp, new string[] {
-                        "booking",
-                        "ignore"});
+                        "booking"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -71,11 +69,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Submit online ad")]
+        [NUnit.Framework.IgnoreAttribute()]
         [NUnit.Framework.CategoryAttribute("OnlineBooking")]
         public virtual void SubmitOnlineAd()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Submit online ad", new string[] {
-                        "OnlineBooking"});
+                        "OnlineBooking",
+                        "ignore"});
 #line 8
 this.ScenarioSetup(scenarioInfo);
 #line 9
@@ -90,11 +90,13 @@ this.ScenarioSetup(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Submit online and line ad bundle")]
+        [NUnit.Framework.IgnoreAttribute()]
         [NUnit.Framework.CategoryAttribute("BundleBooking")]
         public virtual void SubmitOnlineAndLineAdBundle()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Submit online and line ad bundle", new string[] {
-                        "BundleBooking"});
+                        "BundleBooking",
+                        "ignore"});
 #line 14
 this.ScenarioSetup(scenarioInfo);
 #line 15

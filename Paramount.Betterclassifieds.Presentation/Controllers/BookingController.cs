@@ -189,6 +189,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var bookingCart = _bookingManager.GetCart();
             bookingCart.TotalPrice = _rateCalculator.GetPriceBreakDown(bookingCart).Total;
+            _bookingManager.SaveBookingCart(bookingCart);
+
             var viewModel = this.Map<BookingCart, Step4View>(bookingCart);
 
             if (!bookingCart.NoPaymentRequired())

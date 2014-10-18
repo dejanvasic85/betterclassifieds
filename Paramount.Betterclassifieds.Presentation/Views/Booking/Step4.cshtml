@@ -119,7 +119,7 @@
             $(function() {
                 $('label.btn').on('click',function () {
                     var me = $(this);
-                    $('#' + me.data().maptohdnfield).val(me.text());
+                    $('#' + me.data().maptohdnfield).val(me.text().trim());
                 });
             });
 

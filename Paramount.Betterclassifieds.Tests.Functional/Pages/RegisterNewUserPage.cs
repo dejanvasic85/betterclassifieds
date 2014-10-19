@@ -1,4 +1,6 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.PageObjects;
+using Paramount.Betterclassifieds.Tests.Functional.Annotations;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
@@ -10,82 +12,69 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         { }
 
         #region Page Elements
-        private IWebElement EmailElement
-        {
-            get { return FindElement(By.Id("RegisterEmail")); }
-        }
 
-        private IWebElement EmailConfirmElement
-        {
-            get { return FindElement(By.Id("ConfirmEmail")); }
-        }
 
-        private IWebElement PasswordElement
-        {
-            get { return FindElement(By.Id("RegisterPassword")); }
-        }
+        [FindsBy(How = How.Id, Using = "RegisterEmail"), UsedImplicitly]
+        private IWebElement EmailElement;
 
-        private IWebElement PasswordConfirmElement
-        {
-            get { return FindElement(By.Id("ConfirmPassword")); }
-        }
+        [FindsBy(How = How.Id, Using = "ConfirmEmail"), UsedImplicitly]
+        private IWebElement EmailConfirmElement;
 
-        private IWebElement FirstNameElement
-        {
-            get { return FindElement(By.Id("FirstName")); }
-        }
+        [FindsBy(How = How.Id, Using = "RegisterPassword"), UsedImplicitly]
+        private IWebElement PasswordElement;
 
-        private IWebElement LastNameElement
-        {
-            get { return FindElement(By.Id("LastName")); }
-        }
-        
-        private IWebElement PostCodeElement
-        {
-            get { return FindElement(By.Id("PostCode")); }
-        }
+        [FindsBy(How = How.Id, Using = "ConfirmPassword"), UsedImplicitly]
+        private IWebElement PasswordConfirmElement;
 
-        private IWebElement RegisterButton
-        {
-            get { return FindElement(By.Id("btnRegister")); }
-        }
-#endregion
+        [FindsBy(How = How.Id, Using = "FirstName"), UsedImplicitly]
+        private IWebElement FirstNameElement;
 
-        #region Public Methods
+        [FindsBy(How = How.Id, Using = "LastName"), UsedImplicitly]
+        private IWebElement LastNameElement;
+
+        [FindsBy(How = How.Id, Using = "PostCode"), UsedImplicitly]
+        private IWebElement PostCodeElement;
+
+        [FindsBy(How = How.Id, Using = "btnRegister"), UsedImplicitly]
+        private IWebElement RegisterButton;
+
+        #endregion
+
+        #region Driving Methods
 
         public void SetPostcode(string postcode)
         {
-            PostCodeElement.SendKeys(postcode);
+            PostCodeElement.FillText(postcode);
         }
-        
+
         public void SetLastName(string lastName)
         {
-            LastNameElement.SendKeys(lastName);
+            LastNameElement.FillText(lastName);
         }
 
         public void SetFirstName(string firstName)
         {
-            FirstNameElement.SendKeys(firstName);
+            FirstNameElement.FillText(firstName);
         }
 
         public void SetEmail(string email)
         {
-            EmailElement.SendKeys(email);
+            EmailElement.FillText(email);
         }
 
         public void SetEmailConfirmation(string email)
         {
-            EmailConfirmElement.SendKeys(email);
+            EmailConfirmElement.FillText(email);
         }
-        
+
         public void SetPassword(string password)
         {
-            PasswordElement.SendKeys(password);
+            PasswordElement.FillText(password);
         }
 
         public void SetPasswordConfirmation(string password)
         {
-            PasswordConfirmElement.SendKeys(password);
+            PasswordConfirmElement.FillText(password);
         }
 
         public void ClickRegister()

@@ -78,7 +78,7 @@
             </div>
         </div>
 
-        @if (Model.IsPaymentRequired)
+        @*@if (Model.IsPaymentRequired)
         {
             <div class="row">
                 <div class="col-xs-12">
@@ -98,7 +98,7 @@
                     </div>
                 </div>
             </div>
-        }
+        }*@
 
         @*Pager*@
     <ul class="pager">
@@ -117,10 +117,10 @@
         (function ($) {
 
             $(function() {
-                $('label.btn').on('click',function () {
-                    var me = $(this);
-                    $('#' + me.data().maptohdnfield).val(me.text().trim());
-                });
+                //$('label.btn').on('click',function () {
+                //    var me = $(this);
+                //    $('#' + me.data().maptohdnfield).val(me.text().trim());
+                //});
             });
 
         })(jQuery);

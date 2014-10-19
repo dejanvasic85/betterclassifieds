@@ -1,29 +1,26 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.PageObjects;
+using Paramount.Betterclassifieds.Tests.Functional.Annotations;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
     [TestPage(RelativeUrl = "Account/Register")]
     public class RegistrationSuccessPage : TestPage
     {
-        public RegistrationSuccessPage(IWebDriver webdriver, IConfig config) 
+        public RegistrationSuccessPage(IWebDriver webdriver, IConfig config)
             : base(webdriver, config)
         { }
 
         #region Page Elements
 
-        private IWebElement ThankYouHeading
-        {
-            get { return FindElement(By.Id("thankYouHeading")); }
-        }
+        [FindsBy(How = How.Id, Using = "thankYouHeading"), UsedImplicitly]
+        private IWebElement ThankYouHeading;
 
-        private IWebElement Confirmation
-        {
-            get { return FindElement(By.Id("confirmationLink")); }
-        }
-
+        [FindsBy(How = How.Id, Using = "confirmationLink"), UsedImplicitly]
+        private IWebElement Confirmation;
         #endregion
 
-        #region Public Methods
+        #region Driving Methods
 
         public string GetThankYouHeading()
         {

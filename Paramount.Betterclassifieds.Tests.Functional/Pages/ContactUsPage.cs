@@ -1,47 +1,40 @@
 using System.Linq;
 using System.Threading;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.PageObjects;
+using Paramount.Betterclassifieds.Tests.Functional.Annotations;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
     [TestPage(RelativeUrl = "Home/ContactUs")]
     public class ContactUsPage : TestPage
     {
-        public ContactUsPage(IWebDriver webdriver, IConfig config) : base(webdriver, config)
+        public ContactUsPage(IWebDriver webdriver, IConfig config)
+            : base(webdriver, config)
         { }
 
         #region Elements
 
-        private IWebElement FullName
-        {
-            get { return WebDriver.FindElement(By.Id("FullName")); }
-        }
+        [FindsBy(How = How.Id, Using = "FullName"), UsedImplicitly]
+        private IWebElement FullName;
 
-        private IWebElement Email
-        {
-            get { return WebDriver.FindElement(By.Id("Email")); }
-        }
+        [FindsBy(How = How.Id, Using = "Email"), UsedImplicitly]
+        private IWebElement Email;
 
-        private IWebElement Phone
-        {
-            get { return WebDriver.FindElement(By.Id("Phone")); }
-        }
+        [FindsBy(How = How.Id, Using = "Phone"), UsedImplicitly]
+        private IWebElement Phone;
 
-        private IWebElement Comment
-        {
-            get { return WebDriver.FindElement(By.Id("Comment")); }
-        }
+        [FindsBy(How = How.Id, Using = "Comment"), UsedImplicitly]
+        private IWebElement Comment;
 
-        private IWebElement SubmitButton
-        {
-            get { return WebDriver.FindElement(By.Id("btnSubmit")); }
-        }
+        [FindsBy(How = How.Id, Using = "btnSubmit"), UsedImplicitly]
+        private IWebElement SubmitButton;
 
         #endregion
 
         #region Public Driver Methods
 
-        public ContactUsPage WithFullName(string fullName= "Default Name")
+        public ContactUsPage WithFullName(string fullName = "Default Name")
         {
             FullName.FillText(fullName);
             return this;
@@ -95,11 +88,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
                 .Any(e => e.HasAttributeValue("data-valmsg-for", "Phone"));
         }
 
-        #endregion
-
         public bool IsHumanTestValidationMsgShown()
         {
             return IsElementPresentBy(By.Id("enquiryFailed"));
         }
+
+        #endregion
+
     }
 }

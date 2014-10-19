@@ -14,9 +14,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         [Display(Name = "I have ensured that the booking details are correct")]
         public bool DetailsAreCorrect { get; set; }
 
-        [Required(ErrorMessage = "You must select a payment option")]
-        public string SelectedPaymentOption { get; set; }
-        
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public decimal TotalPrice { get; set; }
@@ -25,7 +22,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         {
             get { return this.TotalPrice > 0; }
         }
-        public string[] PaymentOptions { get; set; }
         
     }
 }

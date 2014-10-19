@@ -10,6 +10,6 @@
         string ImageCacheDirectory { get; }
         int MaxImageUploadBytes { get; }
         string[] AcceptedImageFileTypes { get; }
-        string[] AvailablePaymentProviders { get; }
+        bool IsPaymentEnabled { get; }
     }
 }

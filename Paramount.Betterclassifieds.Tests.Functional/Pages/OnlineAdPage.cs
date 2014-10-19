@@ -1,4 +1,6 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.PageObjects;
+using Paramount.Betterclassifieds.Tests.Functional.Annotations;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
@@ -9,20 +11,17 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             : base(webdriver, config)
         { }
 
-        private IWebElement ContactNameElement
-        {
-            get { return FindElement(By.Id("contactName")); }
-        }
+        #region Page Elements
 
-        private IWebElement ContactEmailElement
-        {
-            get { return FindElement(By.Id("contactEmail")); }
-        }
+        [FindsBy(How = How.Id, Using = "contactName"), UsedImplicitly] private IWebElement ContactNameElement;
 
-        private IWebElement ContactPhoneElement
-        {
-            get { return FindElement(By.Id("contactPhone")); }
-        }
+        [FindsBy(How = How.Id, Using = "contactEmail"), UsedImplicitly] private IWebElement ContactEmailElement;
+
+        [FindsBy(How = How.Id, Using = "contactPhone"), UsedImplicitly] private IWebElement ContactPhoneElement;
+
+        #endregion
+
+        #region Driving Methods
 
         public string GetContactName()
         {
@@ -38,5 +37,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         {
             return ContactEmailElement.Text;
         }
+
+        #endregion
     }
 }

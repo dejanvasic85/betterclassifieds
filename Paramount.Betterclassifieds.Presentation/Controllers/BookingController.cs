@@ -193,12 +193,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var viewModel = this.Map<BookingCart, Step4View>(bookingCart);
 
-            if (!bookingCart.NoPaymentRequired())
-            {
-                // Get payment options
-                viewModel.PaymentOptions = _applicationConfig.AvailablePaymentProviders;
-            }
-
             return View(viewModel);
         }
 
@@ -212,13 +206,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 // Return the mapped object from the booking cart
                 this.Map(bookingCart, viewModel);
                 this.Map(bookingCart.OnlineAdCart, viewModel);
-
-                if (!bookingCart.NoPaymentRequired())
-                {
-                    // Get payment options
-                    viewModel.PaymentOptions = _applicationConfig.AvailablePaymentProviders;
-                }
-
                 return View(viewModel);
             }
             // Complete the booking cart (needs to move on now)
@@ -227,15 +214,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             _bookingManager.SaveBookingCart(bookingCart);
 
-            if (bookingCart.NoPaymentRequired())
-            {
-                _bookingManager.CompleteCurrentBooking(bookingCart);
-                return RedirectToAction("Success");
-            }
-
-            // Todo - payment providers
-
-            return View(viewModel);
+            _bookingManager.CompleteCurrentBooking(bookingCart);
+            return RedirectToAction("Success");
         }
 
         // 

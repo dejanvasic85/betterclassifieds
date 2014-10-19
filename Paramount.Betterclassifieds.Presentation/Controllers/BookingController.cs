@@ -88,7 +88,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var bookingCart = _bookingManager.GetCart();
             bookingCart.CategoryId = viewModel.CategoryId;
             bookingCart.SubCategoryId = viewModel.SubCategoryId;
-            bookingCart.Publications = viewModel.Publications.Where(p => p.IsSelected).Select(p => p.PublicationId).ToArray();
+
+            if (viewModel.Publications != null)
+                bookingCart.Publications = viewModel.Publications.Where(p => p.IsSelected).Select(p => p.PublicationId).ToArray();
+
             bookingCart.CompleteStep(1);
             _bookingManager.SaveBookingCart(bookingCart);
 

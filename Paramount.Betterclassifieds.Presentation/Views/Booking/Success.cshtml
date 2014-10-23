@@ -32,7 +32,7 @@
                                 <td data-bind="text: fullName"></td>
                                 <td data-bind="text: email"></td>
                                 <td>
-                                    <input type="checkbox" class="checkbox" data-bind="checked: selected, event: {change : $parent.toggleSelected}" />
+                                    <input type="checkbox" class="checkbox" data-bind="checked: selected" />
                                 </td>
                             </tr>
                         </tbody>
@@ -89,7 +89,11 @@
                     var me = this;
                     me.contactName = ko.observable("");
                     me.contactEmail = ko.observable("");
-                    me.contacts = ko.observableArray(existingUsers);
+                    me.contacts = ko.observableArray();
+                    existingUsers.forEach(function(item) {
+                        var cp = new ContactPerson(item.fullName, item.email, item.selected);
+                        me.contacts.push(cp);
+                    });
                     me.selectedContactCount = ko.computed( function() {
                         var selected = me.contacts().filter(function(item) {
                             return item.selected === true;
@@ -100,7 +104,6 @@
                         // Todo error handling 
                         $.post('@Url.Action("AddUserNetwork", "Booking")', { fullName: me.contactName(), email: me.contactEmail() }, function () {
                             var person = new ContactPerson(me.contactName(), me.contactEmail(), true);
-                            me.selectedContactCount(me.selectedContactCount() + 1);
                             me.contacts.push(person);
                             me.contactName("");
                             me.contactEmail("");
@@ -108,14 +111,6 @@
                             // Todo - remove this out of here - it's not a clean solution because it's using jQuery inside knockout...
                             $('#addFriend').button('reset'); 
                         });
-                    };
-                    me.toggleSelected = function(item) {
-                        if (!item.selected()) {
-                            // This is very weird because I expected this to be the other way around (silly knockout! or event system is screwed)
-                            me.selectedContactCount(me.selectedContactCount() + 1);
-                        } else {
-                            me.selectedContactCount(me.selectedContactCount() - 1);
-                        }
                     };
                     me.hasContacts = function() { return me.contacts().length > 0; }
                     me.hasNoContacts = function() { return !me.hasContacts(); }

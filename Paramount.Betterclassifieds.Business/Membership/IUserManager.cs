@@ -9,6 +9,7 @@ namespace Paramount.Betterclassifieds.Business
         ApplicationUser GetCurrentUser(IPrincipal principal);
         IEnumerable<UserNetworkModel> GetUserNetworksForUserId(string userId);
         void CreateUserProfile(string email, string firstName, string lastName, string postCode);
+        void CreateUserNetwork(IPrincipal user, string email, string fullName);
     }
 
     public class UserManager : IUserManager
@@ -49,6 +50,13 @@ namespace Paramount.Betterclassifieds.Business
         {
             // Simply persist directly to the repository
             _userRepository.CreateUser(email, firstName, lastName, postCode);
+        }
+
+        public void CreateUserNetwork(IPrincipal user, string email, string fullName)
+        {
+            var userNetworkModel = new UserNetworkModel(user.Identity.Name, email, fullName);
+
+            _userRepository.CreateUserNetwork(userNetworkModel);
         }
     }
 }

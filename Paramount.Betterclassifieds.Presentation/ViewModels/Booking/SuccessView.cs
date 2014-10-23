@@ -5,6 +5,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
     {
         public bool IsBookingActive  { get; set; }
         public string AdId { get; set; }
-        public UserNetworkEmailView[] ExistingUserNetwork { get; set; }
+        public UserNetworkEmailView[] ExistingUsers { get; set; }
     }
 }

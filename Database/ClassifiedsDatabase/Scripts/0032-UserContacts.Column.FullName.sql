@@ -1,0 +1,2 @@
+﻿ALTER TABLE UserNetwork ADD  FullName VARCHAR(100) NULL
+ALTER TABLE UserNetwork ADD LastModifiedDateUtc DATETIME NULL

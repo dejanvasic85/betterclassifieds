@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using Microsoft.Practices.Unity;
+using Paramount.Betterclassifieds.Presentation.ViewModels;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
@@ -223,7 +224,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         // 
         // GET /Booking/Success/{adId}
-        [HttpGet, Authorize, AuthorizeBookingIdentity]
+        [HttpGet, Authorize]
         public ActionResult Success(string id)
         {
             var currentUser = _userManager.GetCurrentUser(User).Username;
@@ -231,13 +232,23 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var successView = new SuccessView
             {
                 AdId = id,
-                ExistingUserNetwork = _userManager.GetUserNetworksForUserId(currentUser).Select(usr => new UserNetworkEmailView
+                ExistingUsers = _userManager.GetUserNetworksForUserId(currentUser).Select(usr => new UserNetworkEmailView
                 {
                     Email = usr.UserNetworkEmail,
-                    IsSelected = true
+                    FullName = usr.FullName,
+                    Selected = true
                 }).ToArray()
             };
             return View(successView);
+        }
+
+        [HttpPost, Authorize, AuthorizeBookingIdentity]
+        public ActionResult AddUserNetwork(UserNetworkEmailView userNetwork)
+        {
+            // Adds a contact for the existing (logged in user)
+            _userManager.CreateUserNetwork(this.User, userNetwork.Email, userNetwork.FullName);
+            
+            return Json(true);
         }
 
         #endregion
@@ -345,10 +356,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             // From ViewModel
             configuration.CreateMap<Step2View, OnlineAdCart>()
                 .ForMember(member => member.Images, options => options.Ignore());
+            configuration.CreateMap<UserNetworkEmailView, UserNetworkModel>();
         }
 
         #endregion
 
     }
-
 }

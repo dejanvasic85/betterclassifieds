@@ -1,4 +1,5 @@
 ﻿@using Paramount
+@using Paramount.Betterclassifieds.Presentation.Framework
 @model Paramount.Betterclassifieds.Presentation.ViewModels.Booking.SuccessView
 
 @{
@@ -28,7 +29,7 @@
                         </thead>
                         <tbody data-bind="foreach: contacts">
                             <tr data-bind="css: {success : selected } ">
-                                <td data-bind="text: name"></td>
+                                <td data-bind="text: fullName"></td>
                                 <td data-bind="text: email"></td>
                                 <td>
                                     <input type="checkbox" class="checkbox" data-bind="checked: selected, event: {change : $parent.toggleSelected}" />
@@ -55,7 +56,7 @@
 
             <div class="row top-buffer-20">
                 <div class="col-xs-12">
-                    <button class="btn btn-block btn-default" data-bind="enable: hasSelectedContacts()">Notify My Friends</button>
+                    <button class="btn btn-block btn-default" data-bind="enable: selectedContactCount() > 0, click : notifyContacts()">Notify My Friends</button>
                 </div>
             </div>
         </div>
@@ -76,33 +77,39 @@
 
 @section Scripts{
     <script>
-        (function ($) {
-            $(function () {
-                var ContactPerson = function (name, email, selected) {
+        (function($) {
+            $(function() {
+                var ContactPerson = function(fullName, email, selected) {
                     var me = this;
-                    me.name = ko.observable(name);
+                    me.fullName = ko.observable(fullName);
                     me.email = ko.observable(email);
                     me.selected = ko.observable(selected);
                 };
-
-                var ContactNetwork = function () {
+                var ContactNetwork = function(existingUsers) {
                     var me = this;
                     me.contactName = ko.observable("");
                     me.contactEmail = ko.observable("");
-                    me.contacts = ko.observableArray();
-                    me.selectedContactCount = ko.observable(0);
-
-                    me.addContact = function () {
-                        $('#addFriend').button('reset'); // todo - remove this out of here - it's not a clean solution...
-                        var person = new ContactPerson(me.contactName(), me.contactEmail(), true);
-                        me.selectedContactCount(me.selectedContactCount() + 1);
-                        me.contacts.push(person);
-                        me.contactName("");
-                        me.contactEmail("");
-                        $('#contactName').focus();
+                    me.contacts = ko.observableArray(existingUsers);
+                    me.selectedContactCount = ko.computed( function() {
+                        var selected = me.contacts().filter(function(item) {
+                            return item.selected === true;
+                        });
+                        return selected.length;
+                    });
+                    me.addContact = function() {
+                        // Todo error handling 
+                        $.post('@Url.Action("AddUserNetwork", "Booking")', { fullName: me.contactName(), email: me.contactEmail() }, function () {
+                            var person = new ContactPerson(me.contactName(), me.contactEmail(), true);
+                            me.selectedContactCount(me.selectedContactCount() + 1);
+                            me.contacts.push(person);
+                            me.contactName("");
+                            me.contactEmail("");
+                            $('#contactName').focus();
+                            // Todo - remove this out of here - it's not a clean solution because it's using jQuery inside knockout...
+                            $('#addFriend').button('reset'); 
+                        });
                     };
-
-                    me.toggleSelected = function (item) {
+                    me.toggleSelected = function(item) {
                         if (!item.selected()) {
                             // This is very weird because I expected this to be the other way around (silly knockout! or event system is screwed)
                             me.selectedContactCount(me.selectedContactCount() + 1);
@@ -110,20 +117,16 @@
                             me.selectedContactCount(me.selectedContactCount() - 1);
                         }
                     };
-
-                    me.hasContacts = function () { return me.contacts().length > 0; }
-                    me.hasNoContacts = function () { return !me.hasContacts(); }
-
-                    me.hasSelectedContacts = function () {
-                        return me.selectedContactCount() > 0;
+                    me.hasContacts = function() { return me.contacts().length > 0; }
+                    me.hasNoContacts = function() { return !me.hasContacts(); }
+                    me.notifyContacts = function() {
+                        // Todo - Wire up this call
                     };
                 };
-
-                var contactNetworkModel = new ContactNetwork();
+                var existingContacts = @Html.Raw( Model.ExistingUsers.ToJsonString() );
+                var contactNetworkModel = new ContactNetwork(existingContacts);
                 ko.applyBindings(contactNetworkModel);
             });
-
-
         })(jQuery);
     </script>
 }

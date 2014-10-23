@@ -91,6 +91,15 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             }
         }
 
+        public void CreateUserNetwork(UserNetworkModel userNetworkModel)
+        {
+            using (var context = DataContextFactory.CreateClassifiedEntitiesContext())
+            {
+                context.UserNetworks.Add(userNetworkModel);
+                context.SaveChanges();
+            }
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateProfile("UserRepositoryProfile");

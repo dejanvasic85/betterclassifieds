@@ -72,6 +72,7 @@
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Scripts\0032-UserContacts.Column.FullName.sql" />
     <EmbeddedResource Include="Scripts\0029-UserContacts_Create.sql" />
     <EmbeddedResource Include="Scripts\0031-Booking_Create.StoredProc.sql" />
     <EmbeddedResource Include="Scripts\0030-OnlineAdRate.DefaultValue.sql" />

@@ -8,5 +8,6 @@ namespace Paramount.Betterclassifieds.Business
         ApplicationUser GetUserByEmail(string email);
         IEnumerable<UserNetworkModel> GetUserNetworksForUserId(string userId); 
         void CreateUser(string email, string firstName, string lastName, string postCode);
+        void CreateUserNetwork(UserNetworkModel userNetworkModel);
     }
 }

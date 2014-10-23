@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
+namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
     public class UserNetworkEmailView
     {
@@ -14,6 +14,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         public string Email { get; set; }
 
         [Display(Name = "Send")]
-        public bool IsSelected { get; set; }
+        public bool Selected { get; set; }
     }
 }

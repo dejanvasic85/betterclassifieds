@@ -1159,7 +1159,6 @@
     <Content Include="GetPassword.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Master\MemberDetails.master" />
-    <Content Include="Booking\Web.config" />
     <Content Include="MemberAccount\Web.config" />
     <Content Include="Master\MasterWithRightBar.Master" />
     <Content Include="BundleBooking\Web.config" />

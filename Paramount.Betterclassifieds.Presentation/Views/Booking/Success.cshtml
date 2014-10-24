@@ -41,17 +41,26 @@
             </div>
 
             <div class="row top-buffer-20">
-                <form data-bind="submit: addContact" novalidate>
-                    <div class="col-md-5">
-                        <input type="text" id="contactName" class="form-control" data-bind="value: contactName" placeholder="Friends Name" />
+                <div class="col-xs-12">
+                    <form data-bind="submit: addContact" novalidate class="form-inline">
+                        <div class="form-group">
+                            <label class="sr-only" for="contactName">Full Name</label>
+                            <input type="text" id="contactName" class="form-control" data-bind="value: contactName" placeholder="Full Name" />
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="contactEmail">Email</label>
+                            <input type="email" id="contactEmail" class="form-control" data-bind="value: contactEmail" placeholder="Friends Email" />
+                        </div>
+
+                        <button type="submit" class="btn btn-default" id="addFriend">Add</button>
+
+                    </form>
+                    <div class="alert alert-danger top-buffer-10" data-bind="visible: errors().length > 0">
+                        <ul data-bind="foreach: errors">
+                            <li data-bind="text: $data"></li>
+                        </ul>
                     </div>
-                    <div class="col-md-5">
-                        <input type="email" id="contactEmail" class="form-control" data-bind="value: contactEmail" placeholder="Friends Email" />
-                    </div>
-                    <div class="col-md-2">
-                        <button type="submit" class="btn btn-default btn-block" id="addFriend">Add</button>
-                    </div>
-                </form>
+                </div>
             </div>
 
             <div class="row top-buffer-20">
@@ -90,32 +99,41 @@
                     me.contactName = ko.observable("");
                     me.contactEmail = ko.observable("");
                     me.contacts = ko.observableArray();
+                    me.errors = ko.observableArray();
                     existingUsers.forEach(function(item) {
                         var cp = new ContactPerson(item.fullName, item.email, item.selected);
                         me.contacts.push(cp);
                     });
                     me.selectedContactCount = ko.computed( function() {
                         var selected = me.contacts().filter(function(item) {
-                            return item.selected === true;
+                            return item.selected() === true;
                         });
                         return selected.length;
                     });
                     me.addContact = function() {
-                        // Todo error handling 
-                        $.post('@Url.Action("AddUserNetwork", "Booking")', { fullName: me.contactName(), email: me.contactEmail() }, function () {
-                            var person = new ContactPerson(me.contactName(), me.contactEmail(), true);
-                            me.contacts.push(person);
-                            me.contactName("");
-                            me.contactEmail("");
-                            $('#contactName').focus();
-                            // Todo - remove this out of here - it's not a clean solution because it's using jQuery inside knockout...
-                            $('#addFriend').button('reset'); 
+                        $('#addFriend').button('loading');
+                        // Todo error handling
+                        $.post('@Url.Action("AddUserNetwork", "Booking")', { fullName: me.contactName(), email: me.contactEmail() }, function (response) {
+                            if (response.valid) {
+                                var person = new ContactPerson(me.contactName(), me.contactEmail(), true);
+                                me.contacts.push(person);
+                                me.contactName("");
+                                me.contactEmail("");
+                                $('#contactName').focus();
+                                me.errors.removeAll();
+                            } else {
+                                response.errors.forEach(function(err) {
+                                    me.errors.push(err);
+                                });
+                            }
+                        }).complete(function() {
+                            $('#addFriend').button('reset');
                         });
                     };
                     me.hasContacts = function() { return me.contacts().length > 0; }
                     me.hasNoContacts = function() { return !me.hasContacts(); }
                     me.notifyContacts = function() {
-                        // Todo - Wire up this call
+                        console.log('do me');
                     };
                 };
                 var existingContacts = @Html.Raw( Model.ExistingUsers.ToJsonString() );

@@ -224,7 +224,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         // 
         // GET /Booking/Success/{adId}
-        [HttpGet, Authorize]
+        [HttpGet, Authorize]//, AuthorizeBookingIdentity]
         public ActionResult Success(string id)
         {
             var currentUser = _userManager.GetCurrentUser(User).Username;
@@ -240,15 +240,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 }).ToArray()
             };
             return View(successView);
-        }
-
-        [HttpPost, Authorize, AuthorizeBookingIdentity]
-        public ActionResult AddUserNetwork(UserNetworkEmailView userNetwork)
-        {
-            // Adds a contact for the existing (logged in user)
-            _userManager.CreateUserNetwork(this.User, userNetwork.Email, userNetwork.FullName);
-            
-            return Json(true);
         }
 
         #endregion
@@ -336,6 +327,22 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             return Json("completed");
+        }
+
+
+        [HttpPost, Authorize]
+        public ActionResult AddUserNetwork(UserNetworkEmailView userNetwork)
+        {
+            if (!ModelState.IsValid)
+            {
+                string[] errorList = ModelState.Values.SelectMany(m => m.Errors).Select(m => m.ErrorMessage).ToArray();
+                return Json(new { valid = false, errors = errorList });
+            }
+
+            // Adds a contact for the existing (logged in user)
+            _userManager.CreateUserNetwork(this.User, userNetwork.Email, userNetwork.FullName);
+
+            return Json(new { valid = true });
         }
 
         #endregion

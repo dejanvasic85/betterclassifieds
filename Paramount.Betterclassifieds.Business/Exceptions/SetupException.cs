@@ -8,9 +8,8 @@ namespace Paramount.Betterclassifieds.Business
 {
     public class SetupException : Exception
     {
-        public SetupException(string msg) : base(msg)
-        {
-            
-        }
+        public SetupException(string msg)
+            : base(msg)
+        { }
     }
 }

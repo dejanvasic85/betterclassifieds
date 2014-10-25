@@ -1,6 +1,8 @@
+using System;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
-using Paramount.Betterclassifieds.Business.Managers;
+using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Search;
 
 namespace Paramount.Betterclassifieds.Presentation
 {
@@ -10,12 +12,29 @@ namespace Paramount.Betterclassifieds.Presentation
     public class AuthorizeBookingIdentity : ActionFilterAttribute
     {
         [Dependency]
-        public IBookingManager BookingManager { get; set; }
+        public ISearchService SearchService { get; set; }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            
-            // todo   
+            object id = filterContext.ActionParameters["id"] ?? filterContext.RouteData.Values["id"];
+
+            if (id == null)
+            {
+                throw new BookingAuthorisationException("id is not available in routeData");
+            }
+
+            int adId;
+            if (!Int32.TryParse(id.ToString(), out adId))
+            {
+                throw new BookingAuthorisationException("id is not available in routeData");
+            }
+
+            var ad = SearchService.GetAdById(adId);
+            var loggedInUser = filterContext.HttpContext.User.Identity.Name;
+            if (ad == null || !ad.Username.Equals(loggedInUser))
+            {
+                throw new BookingAuthorisationException(string.Format("Ad Id {0} does not belong to {1}", adId, loggedInUser));
+            }
         }
     }
 }

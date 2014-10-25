@@ -73,6 +73,7 @@
     <Compile Include="Broadcast\DocTypes\IDocType.cs" />
     <Compile Include="EditionManager.cs" />
     <Compile Include="EnquiryManager.cs" />
+    <Compile Include="Exceptions\BookingAuthorisationException.cs" />
     <Compile Include="Exceptions\SetupException.cs" />
     <Compile Include="Managers\IApplicationConfig.cs" />
     <Compile Include="Managers\IEnquiryManager.cs" />
@@ -148,7 +149,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\Seo\" />
-    <Folder Include="UserNetworking\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

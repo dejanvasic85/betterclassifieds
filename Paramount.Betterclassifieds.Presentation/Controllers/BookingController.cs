@@ -310,7 +310,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(_rateCalculator.GetPriceBreakDown(bookingCart), JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost, AuthorizeBookingIdentity]
+        [HttpPost, Authorize, AuthorizeBookingIdentity]
         public ActionResult NotifyContactsAboutMyAd(string id, List<UserNetworkEmailView> users)
         {
             int adId;

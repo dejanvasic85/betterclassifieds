@@ -218,13 +218,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             _bookingManager.SaveBookingCart(bookingCart);
 
-            _bookingManager.CompleteCurrentBooking(bookingCart);
-            return RedirectToAction("Success");
+            var adId = _bookingManager.CompleteCurrentBooking(bookingCart);
+            return RedirectToAction("Success", new { id = adId.ToString() });
         }
 
         // 
         // GET /Booking/Success/{adId}
-        [HttpGet, Authorize]//, AuthorizeBookingIdentity]
+        [HttpGet, Authorize, AuthorizeBookingIdentity]
         public ActionResult Success(string id)
         {
             var currentUser = _userManager.GetCurrentUser(User).Username;
@@ -310,25 +310,30 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(_rateCalculator.GetPriceBreakDown(bookingCart), JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public ActionResult NotifyContactsAboutMyAd(int adId, IEnumerable<string> contactEmails)
+        [HttpPost, AuthorizeBookingIdentity]
+        public ActionResult NotifyContactsAboutMyAd(string id, List<UserNetworkEmailView> users)
         {
-            var adSearchRTesult = _searchService.GetAdById(adId);
+            int adId;
+            // This should be a valid ad because AuthorizeBookingIdentity would have filtered it out
+            if (!int.TryParse(id, out adId))
+            {
+                throw new ArgumentException("Invalid ad ID.");
+            }
 
-            foreach (var contactEmail in contactEmails)
+            var adSearchResult = _searchService.GetAdById(adId);
+
+            foreach (var contactEmail in users.Where(u => u.Selected).Select(u => u.Email))
             {
                 _broadcastManager.SendEmail(new AdShare
                 {
-                    AdvertiserName = adSearchRTesult.ContactName,
-                    AdDescription = adSearchRTesult.Description,
-                    AdTitle = adSearchRTesult.Heading,
+                    AdvertiserName = adSearchResult.ContactName,
+                    AdDescription = adSearchResult.HtmlText,
+                    AdTitle = adSearchResult.Heading,
                     ClientName = contactEmail//change this to client name
                 }, contactEmail);
             }
-
             return Json("completed");
         }
-
 
         [HttpPost, Authorize]
         public ActionResult AddUserNetwork(UserNetworkEmailView userNetwork)

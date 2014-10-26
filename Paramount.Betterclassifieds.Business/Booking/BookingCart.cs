@@ -10,8 +10,6 @@ namespace Paramount.Betterclassifieds.Business
     /// </summary>
     public class BookingCart
     {
-        private const int LastStepNumber = 4;
-
         public BookingCart()
         {
             Publications = new int[] { };
@@ -20,9 +18,9 @@ namespace Paramount.Betterclassifieds.Business
 
         public string SessionId { get; set; }
 
-        public string Id { get; set; }
+        public virtual string Id { get; set; }
 
-        public bool Completed { get; private set; }
+        public bool Completed { get; set; }
 
         public List<int> CompletedSteps { get; private set; }
 
@@ -41,6 +39,8 @@ namespace Paramount.Betterclassifieds.Business
         public OnlineAdCart OnlineAdCart { get; set; }
 
         public decimal TotalPrice { get; set; }
+
+        public string PaymentReference { get; set; }
 
         public bool IsLineAdIncluded
         {
@@ -68,11 +68,6 @@ namespace Paramount.Betterclassifieds.Business
             }
 
             CompletedSteps.Add(step);
-
-            if (LastStepNumber == step)
-            {
-                Completed = true;
-            }
         }
 
         public int GetLastCompletedStepNumber()
@@ -82,7 +77,5 @@ namespace Paramount.Betterclassifieds.Business
 
             return CompletedSteps.Last();
         }
-
-       
     }
 }

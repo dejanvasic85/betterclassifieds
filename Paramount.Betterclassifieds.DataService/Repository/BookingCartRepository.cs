@@ -17,7 +17,7 @@ namespace Paramount.Betterclassifieds.DataService
             });
         }
 
-        public BookingCart GetBookingCart(string id)
+        public BookingCart GetBookingCart(string id)    
         {
             if (id.IsNullOrEmpty())
                 return null;

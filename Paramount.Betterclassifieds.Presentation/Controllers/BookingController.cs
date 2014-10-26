@@ -1,21 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using AutoMapper;
-using Microsoft.Practices.Unity;
-using Paramount.Betterclassifieds.Presentation.ViewModels;
-
-namespace Paramount.Betterclassifieds.Presentation.Controllers
+﻿namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Mvc;
+    using AutoMapper;
+    using Microsoft.Practices.Unity;
+
     using Business;
     using Business.Broadcast;
     using Business.Models;
     using Business.Search;
     using Business.Managers;
     using Business.Repository;
+    using Business.Payment;
     using ViewModels.Booking;
+    using ViewModels;
 
     public class BookingController : Controller, IMappingBehaviour
     {
@@ -216,26 +217,47 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             bookingCart.CompleteStep(4);
             bookingCart.UserId = _userManager.GetCurrentUser(this.User).Username;
 
-            _bookingManager.SaveBookingCart(bookingCart);
+            if (bookingCart.NoPaymentRequired()) 
+                return RedirectToAction("Success");
+            
+            // We only support paypal just for now
+            var paymentServce = _container.Resolve<IPaymentService>("PayPalService");
+            var response = paymentServce.SubmitPayment(new PaymentRequest
+            {
+                PayReference = bookingCart.Reference,
+                PriceBreakdown = _rateCalculator.GetPriceBreakDown(bookingCart)
+            });
 
-            var adId = _bookingManager.CompleteCurrentBooking(bookingCart);
-            return RedirectToAction("Success", new { id = adId.ToString() });
+            bookingCart.PaymentReference = response.PaymentId;
+            _bookingManager.SaveBookingCart(bookingCart);
+            return Redirect(response.ApprovalUrl);
+        }
+
+        public ActionResult AuthorisePayment(string payerId)
+        {
+            var bookingCart = _bookingManager.GetCart();
+            var paymentService = _container.Resolve<IPaymentService>("PayPalService");
+            paymentService.CompletePayment(new PaymentRequest { PayerId = payerId, PayReference = bookingCart.PaymentReference });
+            return RedirectToAction("Success");
         }
 
         // 
-        // GET /Booking/Success/{adId}
-        [HttpGet, Authorize, AuthorizeBookingIdentity]
-        public ActionResult Success(string id)
+        // GET /Booking/Success
+       [HttpGet, Authorize, AuthorizeBookingIdentity]
+        public ActionResult Success()
         {
+            var bookingCart = _bookingManager.GetCart();
+
+            var id = _bookingManager.CompleteCurrentBooking(bookingCart);
+
             var currentUser = _userManager.GetCurrentUser(User).Username;
 
             var successView = new SuccessView
             {
-                AdId = id,
+                AdId = id.ToString(),
                 ExistingUsers = _userManager.GetUserNetworksForUserId(currentUser).Select(usr => new UserNetworkEmailView
                 {
                     Email = usr.UserNetworkEmail,
-                    FullName = usr.FullName,
                     Selected = true
                 }).ToArray()
             };
@@ -372,6 +394,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         #endregion
-
+        
     }
 }

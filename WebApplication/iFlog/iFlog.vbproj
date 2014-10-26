@@ -457,36 +457,42 @@
     </Compile>
     <Compile Include="Booking\Default.aspx.vb">
       <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Booking\Step1.aspx.designer.vb">
       <DependentUpon>Step1.aspx</DependentUpon>
     </Compile>
     <Compile Include="Booking\Step1.aspx.vb">
       <DependentUpon>Step1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Booking\Step2.aspx.designer.vb">
       <DependentUpon>Step2.aspx</DependentUpon>
     </Compile>
     <Compile Include="Booking\Step2.aspx.vb">
       <DependentUpon>Step2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Booking\Step3.aspx.designer.vb">
       <DependentUpon>Step3.aspx</DependentUpon>
     </Compile>
     <Compile Include="Booking\Step3.aspx.vb">
       <DependentUpon>Step3.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Booking\Step4.aspx.designer.vb">
       <DependentUpon>Step4.aspx</DependentUpon>
     </Compile>
     <Compile Include="Booking\Step4.aspx.vb">
       <DependentUpon>Step4.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Booking\Step5.aspx.designer.vb">
       <DependentUpon>Step5.aspx</DependentUpon>
     </Compile>
     <Compile Include="Booking\Step5.aspx.vb">
       <DependentUpon>Step5.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Booking\Success.aspx.designer.vb">
       <DependentUpon>Success.aspx</DependentUpon>
@@ -500,24 +506,28 @@
     </Compile>
     <Compile Include="BundleBooking\BundlePage2.aspx.vb">
       <DependentUpon>BundlePage2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BundleBooking\BundlePage3.aspx.designer.vb">
       <DependentUpon>BundlePage3.aspx</DependentUpon>
     </Compile>
     <Compile Include="BundleBooking\BundlePage3.aspx.vb">
       <DependentUpon>BundlePage3.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BundleBooking\BundlePage4.aspx.designer.vb">
       <DependentUpon>BundlePage4.aspx</DependentUpon>
     </Compile>
     <Compile Include="BundleBooking\BundlePage4.aspx.vb">
       <DependentUpon>BundlePage4.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BundleBooking\BundlePage5.aspx.designer.vb">
       <DependentUpon>BundlePage5.aspx</DependentUpon>
     </Compile>
     <Compile Include="BundleBooking\BundlePage5.aspx.vb">
       <DependentUpon>BundlePage5.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Common\Constants.vb" />
     <Compile Include="Common\General.vb" />
@@ -777,6 +787,7 @@
     </Compile>
     <Compile Include="MemberAccount\ExtendBooking.aspx.vb">
       <DependentUpon>ExtendBooking.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="MemberAccount\MemberHeading.ascx.designer.vb">
       <DependentUpon>MemberHeading.ascx</DependentUpon>
@@ -797,6 +808,7 @@
     </Compile>
     <Compile Include="MemberAccount\Bookings.aspx.vb">
       <DependentUpon>Bookings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="MemberAccount\ViewTransaction.aspx.designer.vb">
       <DependentUpon>ViewTransaction.aspx</DependentUpon>
@@ -883,6 +895,7 @@
     </Compile>
     <Compile Include="Service\AjaxMethods.asmx.vb">
       <DependentUpon>AjaxMethods.asmx</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SessionRefresher.ashx.vb">
       <DependentUpon>SessionRefresher.ashx</DependentUpon>
@@ -1210,6 +1223,10 @@
     <ProjectReference Include="..\..\Paramount.Betterclassifieds.DataService\Paramount.Betterclassifieds.DataService.csproj">
       <Project>{e51b8388-9a02-40ad-97b4-2802ae77fb69}</Project>
       <Name>Paramount.Betterclassifieds.DataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Paramount.Betterclassifieds.Payments.PayPal\Paramount.Betterclassifieds.Payments.PayPal.csproj">
+      <Project>{27640c6a-7c6f-446d-93dd-3e938da05f24}</Project>
+      <Name>Paramount.Betterclassifieds.Payments.PayPal</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Paramount.Betterclassifieds.Presentation\Paramount.Betterclassifieds.Presentation.csproj">
       <Project>{16a1594a-f9a2-468b-bf45-2d716a72469e}</Project>

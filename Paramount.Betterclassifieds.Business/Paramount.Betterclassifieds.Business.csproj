@@ -81,6 +81,9 @@
     <Compile Include="Models\AdEnquiry.cs" />
     <Compile Include="Membership\UserNetworkModel.cs" />
     <Compile Include="Payment\IPaymentService.cs" />
+    <Compile Include="Payment\PaymentRequest.cs" />
+    <Compile Include="Payment\PaymentResponse.cs" />
+    <Compile Include="Payment\PaymentStatus.cs" />
     <Compile Include="Pricing\OnlineAdRate.cs" />
     <Compile Include="Pricing\PriceBreakdown.cs" />
     <Compile Include="Repository\IEnquiryRepository.cs" />

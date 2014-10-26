@@ -122,7 +122,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional
              */
 
             // Location and Area
-            dataRepository.AddLocationIfNotExists("Australia", "Victoria", "Melbourne");
+            dataRepository.AddLocationIfNotExists(parentLocation: " Any Location", areas: " Any Area");
+            dataRepository.AddLocationIfNotExists("Australia", "Victoria", "Melbourne"); 
         }
 
         [BeforeFeature("booking", "extendbooking")]

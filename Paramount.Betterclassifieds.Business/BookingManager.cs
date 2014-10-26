@@ -219,6 +219,7 @@ namespace Paramount.Betterclassifieds.Business
         /// </summary>
         public int? CompleteCurrentBooking(BookingCart bookingCart)
         {
+            bookingCart.Completed = true;
             return _bookingRepository.SubmitBooking(bookingCart);
         }
     }

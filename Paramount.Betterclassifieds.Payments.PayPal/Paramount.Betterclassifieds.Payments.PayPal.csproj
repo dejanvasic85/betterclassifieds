@@ -7,7 +7,7 @@
     <ProjectGuid>{27640C6A-7C6F-446D-93DD-3E938DA05F24}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Paramount.Betterclassifieds.Payments.PayPal</RootNamespace>
+    <RootNamespace>Paramount.Betterclassifieds.Payments.pp</RootNamespace>
     <AssemblyName>Paramount.Betterclassifieds.Payments.PayPal</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

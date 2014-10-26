@@ -2,7 +2,7 @@
 using Paramount.ApplicationBlock.Mvc;
 using Paramount.Betterclassifieds.Business.Payment;
 
-namespace Paramount.Betterclassifieds.Payments.PayPal
+namespace Paramount.Betterclassifieds.Payments.pp
 {
     public class PayPalPaymentModule : ModuleRegistration
     {

@@ -217,15 +217,17 @@
             bookingCart.CompleteStep(4);
             bookingCart.UserId = _userManager.GetCurrentUser(this.User).Username;
 
-            if (bookingCart.NoPaymentRequired()) 
+            if (bookingCart.NoPaymentRequired())
                 return RedirectToAction("Success");
-            
+
             // We only support paypal just for now
             var paymentServce = _container.Resolve<IPaymentService>("PayPalService");
             var response = paymentServce.SubmitPayment(new PaymentRequest
             {
                 PayReference = bookingCart.Reference,
-                PriceBreakdown = _rateCalculator.GetPriceBreakDown(bookingCart)
+                PriceBreakdown = _rateCalculator.GetPriceBreakDown(bookingCart),
+                ReturnUrl = Url.ActionAbsolute("AuthorisePayment", "Booking"),
+                CancelUrl = Url.ActionAbsolute("CancelPayment", "Booking")
             });
 
             bookingCart.PaymentReference = response.PaymentId;
@@ -233,6 +235,7 @@
             return Redirect(response.ApprovalUrl);
         }
 
+        [BookingRequired]
         public ActionResult AuthorisePayment(string payerId)
         {
             var bookingCart = _bookingManager.GetCart();
@@ -241,9 +244,15 @@
             return RedirectToAction("Success");
         }
 
+        [BookingRequired]
+        public ActionResult CancelPayment()
+        {
+            return Content("Your booking is cancelled.");
+        }
+
         // 
         // GET /Booking/Success
-       [HttpGet, Authorize, AuthorizeBookingIdentity]
+        [HttpGet, Authorize, AuthorizeCartIdentity]
         public ActionResult Success()
         {
             var bookingCart = _bookingManager.GetCart();
@@ -258,6 +267,7 @@
                 ExistingUsers = _userManager.GetUserNetworksForUserId(currentUser).Select(usr => new UserNetworkEmailView
                 {
                     Email = usr.UserNetworkEmail,
+                    FullName = usr.FullName,
                     Selected = true
                 }).ToArray()
             };
@@ -332,7 +342,7 @@
             return Json(_rateCalculator.GetPriceBreakDown(bookingCart), JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost, Authorize, AuthorizeBookingIdentity]
+        [HttpPost, Authorize]
         public ActionResult NotifyContactsAboutMyAd(string id, List<UserNetworkEmailView> users)
         {
             int adId;
@@ -394,6 +404,6 @@
         }
 
         #endregion
-        
+
     }
 }

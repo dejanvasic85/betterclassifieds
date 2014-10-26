@@ -5,13 +5,13 @@ using Paramount.Betterclassifieds.Business.Payment;
 using PayPal;
 using PayPal.Api.Payments;
 
-namespace Paramount.Betterclassifieds.Payments.PayPal
+namespace Paramount.Betterclassifieds.Payments.pp
 {
     public class PayPalPaymentService : IPaymentService
     {
         public PaymentResponse SubmitPayment(PaymentRequest request)
         {
-            APIContext apiContext = Configuration.GetAPIContext();
+            APIContext apiContext = ApiContextFactory.CreateApiContext();
 
             var paypalItems = new ItemList
             {
@@ -35,8 +35,8 @@ namespace Paramount.Betterclassifieds.Payments.PayPal
             // # Redirect URLS
             var redirUrls = new RedirectUrls
             {
-                cancel_url = "http://dejan.paramountit.com.au/iflog/booking/pay",
-                return_url = "http://dejan.paramountit.com.au/iflog/booking/AuthorisePayment"
+                cancel_url = request.CancelUrl,
+                return_url = request.ReturnUrl
             };
 
             // ###Details
@@ -105,7 +105,7 @@ namespace Paramount.Betterclassifieds.Payments.PayPal
 
         public void CompletePayment(PaymentRequest paymentRequest)
         {
-            var apiContext = Configuration.GetAPIContext();
+            var apiContext = ApiContextFactory.CreateApiContext();
             var payment = new Payment { id = paymentRequest.PayReference };
             var paymentExecution = new PaymentExecution { payer_id = paymentRequest.PayerId };
 

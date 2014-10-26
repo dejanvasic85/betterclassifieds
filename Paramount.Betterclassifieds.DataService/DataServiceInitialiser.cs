@@ -35,6 +35,19 @@ namespace Paramount.Betterclassifieds.DataService
                      .RegisterType<IBookingCartRepository, BookingCartRepository>()
                      ;
 
+           
+            InitializeContexts();
+        }
+
+        /// <summary>
+        /// Entity Framework initializes on the first query and it's too slow. This will be forced on app startup instead now
+        /// </summary>
+        private static void InitializeContexts()
+        {
+            using (var context = DataContextFactory.CreateClassifiedEntitiesContext())
+            {
+                context.Database.Initialize(false);
+            }
         }
     }
 }

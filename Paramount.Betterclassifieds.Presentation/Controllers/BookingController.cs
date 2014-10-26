@@ -190,13 +190,17 @@
         // 
         // GET /Booking/Step/4 - Confirmation
         [HttpGet, BookingStep(4), Authorize]
-        public ActionResult Step4()
+        public ActionResult Step4(string cancel)
         {
+            bool isPaymentCancelled;
+            bool.TryParse(cancel, out isPaymentCancelled);
+
             var bookingCart = _bookingManager.GetCart();
             bookingCart.TotalPrice = _rateCalculator.GetPriceBreakDown(bookingCart).Total;
             _bookingManager.SaveBookingCart(bookingCart);
 
             var viewModel = this.Map<BookingCart, Step4View>(bookingCart);
+            viewModel.IsPaymentCancelled = isPaymentCancelled;
 
             return View(viewModel);
         }
@@ -227,7 +231,7 @@
                 PayReference = bookingCart.Reference,
                 PriceBreakdown = _rateCalculator.GetPriceBreakDown(bookingCart),
                 ReturnUrl = Url.ActionAbsolute("AuthorisePayment", "Booking"),
-                CancelUrl = Url.ActionAbsolute("CancelPayment", "Booking")
+                CancelUrl = Url.ActionAbsolute("Step4", "Booking").Append("?cancel=true")
             });
 
             bookingCart.PaymentReference = response.PaymentId;
@@ -243,13 +247,7 @@
             paymentService.CompletePayment(new PaymentRequest { PayerId = payerId, PayReference = bookingCart.PaymentReference });
             return RedirectToAction("Success");
         }
-
-        [BookingRequired]
-        public ActionResult CancelPayment()
-        {
-            return Content("Your booking is cancelled.");
-        }
-
+        
         // 
         // GET /Booking/Success
         [HttpGet, Authorize, AuthorizeCartIdentity]

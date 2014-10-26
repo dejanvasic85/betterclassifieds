@@ -22,6 +22,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         {
             get { return this.TotalPrice > 0; }
         }
-        
+
+        public bool IsPaymentCancelled { get; set; }
     }
 }

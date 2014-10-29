@@ -1060,6 +1060,7 @@
     <Parameter Name="contactName" Type="System.String" DbType="VarChar(200)" />
     <Parameter Name="contactEmail" Type="System.String" DbType="VarChar(100)" />
     <Parameter Name="contactPhone" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="transactionType" Type="System.Int32" DbType="Int" />
     <Parameter Name="adBookingId" Type="System.Int32" DbType="Int" Direction="InOut" />
     <Parameter Name="onlineDesignId" Type="System.Int32" DbType="Int" Direction="InOut" />
     <Return Type="System.Int32" />

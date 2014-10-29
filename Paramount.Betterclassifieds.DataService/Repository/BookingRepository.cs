@@ -227,6 +227,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             {
                 int? adBookingId = null;
                 int? onlineDesignId = null;
+                int transactionType = bookingCart.TotalPrice == 0 ? 3 : 2;
 
                 // Save booking to database
                 context.Booking_Create(
@@ -247,7 +248,8 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                     contactName: bookingCart.OnlineAdCart.ContactName,
                     contactEmail: bookingCart.OnlineAdCart.Email,
                     contactPhone: bookingCart.OnlineAdCart.Phone,
-                    onlineDesignId: ref onlineDesignId
+                    onlineDesignId: ref onlineDesignId,
+                    transactionType: transactionType
                     );
 
                 // Save the images for online ad

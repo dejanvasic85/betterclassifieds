@@ -46,7 +46,8 @@ namespace Paramount.Betterclassifieds.Tests.Database
                     contactName: "dejan",
                     contactEmail: "dejanvasic@outlook.com",
                     contactPhone: "0433095822",
-                    onlineDesignId: ref onlineDesignId
+                    onlineDesignId: ref onlineDesignId,
+                    transactionType: 2
                     );
                
                 context.AdGraphics.InsertOnSubmit(new AdGraphic

@@ -804,12 +804,13 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string contactName, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(100)")] string contactEmail, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string contactPhone, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> transactionType, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> adBookingId, 
 					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> onlineDesignId)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), startDate, endDate, totalPrice, bookReference, userId, mainCategoryId, insertions, locationId, locationAreaId, onlineAdHeading, onlineAdDescription, onlineAdHtml, onlineAdPrice, contactName, contactEmail, contactPhone, adBookingId, onlineDesignId);
-			adBookingId = ((System.Nullable<int>)(result.GetParameterValue(16)));
-			onlineDesignId = ((System.Nullable<int>)(result.GetParameterValue(17)));
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), startDate, endDate, totalPrice, bookReference, userId, mainCategoryId, insertions, locationId, locationAreaId, onlineAdHeading, onlineAdDescription, onlineAdHtml, onlineAdPrice, contactName, contactEmail, contactPhone, transactionType, adBookingId, onlineDesignId);
+			adBookingId = ((System.Nullable<int>)(result.GetParameterValue(17)));
+			onlineDesignId = ((System.Nullable<int>)(result.GetParameterValue(18)));
 			return ((int)(result.ReturnValue));
 		}
 	}

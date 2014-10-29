@@ -12,6 +12,8 @@ Here's a list of the latest changes for the current release:
 
 - [Cancelling payment should allow users to come back for another chance](https://trello.com/c/1lKjxrmf/250-cancel-payment-screen)
 
+- [Inserting transaction record for every booking](https://trello.com/c/H0LwqKtd/249-insert-record-for-transaction-table-on-authorise-payment)
+
 Other useful resources:
 
 - [Up-Coming features](https://trello.com/b/Ht5NWhN2/betterclassifieds)

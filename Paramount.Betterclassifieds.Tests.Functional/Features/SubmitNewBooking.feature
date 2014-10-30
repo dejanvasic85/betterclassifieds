@@ -4,11 +4,13 @@ Feature: SubmitNewBooking
 	As a registered user
 	I want to be able to go through the booking steps and submit a new booking
 
-@OnlineBooking
-Scenario: Submit online ad
+@OnlineBooking @UserNetwork
+Scenario: Submit online ad and notify friends
 	Given I am logged in as "bdduser" with password "password123"
 	When I submit a new Online Ad titled "This is a Selenium Ad" starting from today
+	And I create notify my friend "Emmanual Adebayor" "ade@spurs.com" about my add
 	Then the booking should be successful
+	And my friend has been sent a notification
 
 @BundleBooking @ignore
 Scenario: Submit online and line ad bundle

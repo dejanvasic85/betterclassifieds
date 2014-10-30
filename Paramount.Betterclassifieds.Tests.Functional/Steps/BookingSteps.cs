@@ -10,10 +10,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
     public class BookingSteps
     {
         private readonly PageBrowser _pageBrowser;
+        private readonly ITestDataRepository _repository;
 
-        public BookingSteps(PageBrowser pageBrowser)
+        public BookingSteps(PageBrowser pageBrowser, ITestDataRepository repository)
         {
             _pageBrowser = pageBrowser;
+            _repository = repository;
         }
 
         [When(@"I submit a new Online Ad titled ""(.*)"" starting from today")]
@@ -32,8 +34,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             _pageBrowser.Init<BookingStep3Page>()
                 .WithStartDate(DateTime.Today.Date)
                 .Proceed();
-
-            _pageBrowser.Init<BookingStep4Page>()
+            
+            var bookingStep4Page = _pageBrowser.Init<BookingStep4Page>();
+            ScenarioContext.Current["BookingReference"] = bookingStep4Page.GetBookingReference();
+            bookingStep4Page
                 .AgreeToTermsAndConditions()
                 .Proceed();
         }
@@ -41,9 +45,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Then(@"the booking should be successful")]
         public void ThenTheBookingShouldBeSuccessful()
         {
-            // Just confirm that we are on the success page
-            var bookingCompletePage = _pageBrowser.Init<BookingCompletePage>();
-            Assert.IsTrue(bookingCompletePage.IsDisplayed());
+            // Go to the database and check whether the booking has been inserted
+            var bookingReference = ScenarioContext.Current["BookingReference"].ToString();
+            var result = _repository.IsAdBookingCreated(bookingReference);
+            Assert.That(result, Is.True);
         }
     }
 }

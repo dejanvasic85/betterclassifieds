@@ -43,22 +43,22 @@
                             <tr>
                                 <td><span class="glyphicon glyphicon-list"></span></td>
                                 <td>Reference Number</td>
-                                <td>@Model.Reference</td>
+                                <td><span id="BookingReference">@Model.Reference</span></td>
                             </tr>
                             <tr>
                                 <td><span class="glyphicon glyphicon-usd"></span></td>
                                 <td>Sub Total</td>
-                                <td>$ @Model.TotalPrice.ToString("00.00")</td>
+                                <td><span id="BookingTotal">$ @Model.TotalPrice.ToString("00.00")</span></td>
                             </tr>
                             <tr>
                                 <td><span class="glyphicon glyphicon-calendar"></span></td>
                                 <td>Start Date</td>
-                                <td>@Model.StartDate.ToString("dd-MMM-yyyy")</td>
+                                <td><span id="BookingStartDate">@Model.StartDate.ToString("dd-MMM-yyyy")</span></td>
                             </tr>
                             <tr>
                                 <td><span class="glyphicon glyphicon-calendar"></span></td>
                                 <td>End Date</td>
-                                <td>@Model.EndDate.ToString("dd-MMM-yyyy")</td>
+                                <td><span id="BookingEndDate">@Model.EndDate.ToString("dd-MMM-yyyy")</span></td>
                             </tr>
                         </tbody>
                     </table>

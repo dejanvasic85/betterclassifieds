@@ -12,5 +12,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
         public const string UserEmail = "bdd@somefakeaddress.com";
         public const string Location_Australia = "Australia";
         public const string Location_Victoria = "Victoria";
+        public const string Location_Any = " Any Location";
+        public const string LocationArea_Any = " Any Area";
     }
 }
+    

@@ -33,5 +33,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         
         // Location Area
         void AddLocationIfNotExists(string parentLocation, params string[] areas);
+        bool IsAdBookingCreated(string bookingReference);
     }
 }

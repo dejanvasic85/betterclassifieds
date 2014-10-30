@@ -19,6 +19,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         [FindsBy(How = How.Id, Using = "AgreeToTerms"), UsedImplicitly]
         private IWebElement AgreeToTermsCheckBox;
 
+        [FindsBy(How = How.Id, Using = "BookingReference"), UsedImplicitly] 
+        private IWebElement BookingReferenceSpan;
+
         #endregion
 
         public BookingStep4Page AgreeToTermsAndConditions()
@@ -26,6 +29,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             DetailsAreCorrectCheckBox.Click();
             AgreeToTermsCheckBox.Click();
             return this;
+        }
+
+        public string GetBookingReference()
+        {
+            return BookingReferenceSpan.Text;
         }
     }
 }

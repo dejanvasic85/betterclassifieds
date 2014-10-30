@@ -321,6 +321,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             }
         }
 
+        public bool IsAdBookingCreated(string bookingReference)
+        {
+            var count = classifiedDb.Query<int>("SELECT COUNT(*) FROM AdBooking WHERE BookReference = @bookingReference", new { bookingReference }).Single();
+            return count > 0;
+        }
+
         public int AddCategoryIfNotExists(string subCategory, string parentCategory)
         {
             using (var scope = new TransactionScope())

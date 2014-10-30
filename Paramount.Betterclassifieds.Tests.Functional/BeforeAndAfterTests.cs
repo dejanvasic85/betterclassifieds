@@ -25,7 +25,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             _container = container;
             _container.RegisterInstanceAs(new PageBrowser(_webDriver, _configuration), typeof(PageBrowser));
             _container.RegisterInstanceAs(new AdminPageBrowser(_webDriver, _configuration), typeof(AdminPageBrowser));
-            _container.RegisterInstanceAs(new DapperDataRepository(), typeof(ITestDataRepository));
+            _container.RegisterInstanceAs(DataRepositoryFactory.Create(), typeof(ITestDataRepository));
         }
 
         [BeforeTestRun]
@@ -102,7 +102,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         public static void SetupBookingFeature()
         {
             // Use the dapper manager to initialise some baseline test data for our booking scenarios
-            ITestDataRepository dataRepository = new DapperDataRepository();
+            ITestDataRepository dataRepository = DataRepositoryFactory.Create();
             /*
             // Online Publication  ( this should be removed later - no such thing as online publication ! )
             dataRepository.AddPublicationIfNotExists(TestData.OnlinePublication, Constants.PublicationType.Online, frequency: "Online", frequencyValue: null);
@@ -129,12 +129,18 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         [BeforeFeature("booking", "extendbooking")]
         public static void AddMembershipUser()
         {
-            ITestDataRepository dataRepository = new DapperDataRepository();
+            var dataRepository = DataRepositoryFactory.Create();
 
             // Setup a demo user
-            dataRepository.AddUserIfNotExists(TestData.Username, TestData.Password, TestData.UserEmail, RoleType.Advertiser);
+            dataRepository.AddUserIfNotExists(TestData.DefaultUsername, TestData.DefaultPassword, TestData.UserEmail, RoleType.Advertiser);
         }
-
+        
+        [BeforeFeature("usernetwork")]
+        public static void SetupUserNetworkFeature()
+        {
+            var dataRepository = DataRepositoryFactory.Create();
+            dataRepository.DropUserNetwork(TestData.DefaultUsername);
+        }
         #endregion
     }
 }

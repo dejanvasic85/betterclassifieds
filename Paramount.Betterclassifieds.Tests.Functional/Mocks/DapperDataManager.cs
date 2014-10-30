@@ -254,6 +254,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             }
         }
 
+        public void DropUserNetwork(string userId)
+        {
+            classifiedDb.ExecuteSql("DELETE FROM UserNetwork WHERE UserId = @userId", new {userId});
+        }
+
         public List<Email> GetSentEmailsFor(string email)
         {
             return broadcastDb.Query<Email>("SELECT [To], DocType, ModifiedDate FROM EmailDelivery WHERE [To] = @email", new { email }).ToList();

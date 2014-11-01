@@ -115,7 +115,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
             // Categories ( assign to each publication automatically )
             dataRepository.AddCategoryIfNotExists(TestData.SubCategory, TestData.ParentCategory);
-
             
             // Rates
             dataRepository.AddOnlineRateForCategoryIfNotExists(price : 0, categoryName: TestData.SubCategory);
@@ -123,6 +122,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             // Location and Area
             dataRepository.AddLocationIfNotExists(parentLocation: TestData.Location_Any, areas: TestData.LocationArea_Any);
             dataRepository.AddLocationIfNotExists(TestData.Location_Australia, TestData.Location_Victoria, "Melbourne"); 
+
+            // Drop any existing user network
+            dataRepository.DropUserNetwork(TestData.DefaultUsername);
         }
 
         [BeforeFeature("booking", "extendbooking")]

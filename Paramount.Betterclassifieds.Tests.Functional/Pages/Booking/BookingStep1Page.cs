@@ -24,20 +24,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         
         public BookingStep1Page WithParentCategory(string categoryName)
         {
-            ParentCategoryElement
-                .FindElements(By.TagName("option"))
-                .First(elm => elm.Text.Equals(categoryName))
-                .Click();
+            ParentCategoryElement.SelectOption(categoryName);
             WaitForAjax();
             return this;
         }
 
         public BookingStep1Page WithSubCategory(string categoryName)
         {
-            SubCategoryElement
-                .FindElements(By.TagName("option"))
-                .First(elm => elm.Text.Equals(categoryName))
-                .Click();
+            SubCategoryElement.SelectOption(categoryName);
             WaitForAjax();
             return this;
         }

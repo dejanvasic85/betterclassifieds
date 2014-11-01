@@ -48,9 +48,5 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             return _webdriver.Title;
         }
 
-        public IWebDriver GetDriver()
-        {
-            return _webdriver;
-        }
     }
 }

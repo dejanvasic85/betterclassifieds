@@ -6,11 +6,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
     {
         protected readonly IWebDriver _webdriver;
 
-        public IWebDriver GetDriver()
-        {
-            return _webdriver;
-        }
-
         protected BookingTestPage(IWebDriver webdriver)
         {
             _webdriver = webdriver;

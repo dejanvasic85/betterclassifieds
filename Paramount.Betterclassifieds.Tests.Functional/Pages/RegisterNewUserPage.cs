@@ -87,9 +87,5 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         #endregion
 
-        public IWebDriver GetDriver()
-        {
-            return _webdriver;
-        }
     }
 }

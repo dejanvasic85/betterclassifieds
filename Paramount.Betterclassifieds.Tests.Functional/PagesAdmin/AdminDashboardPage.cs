@@ -2,12 +2,12 @@
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Admin
 {
-    [TestPage(RelativeUrl = "Default.aspx")]
+    [NavRoute(RelativeUrl = "Default.aspx")]
     public class AdminDashboardPage : ITestPage
     {
         private readonly IWebDriver _webdriver;
 
-        public AdminDashboardPage(IWebDriver webdriver, IConfig config)
+        public AdminDashboardPage(IWebDriver webdriver)
         {
             _webdriver = webdriver;
         }

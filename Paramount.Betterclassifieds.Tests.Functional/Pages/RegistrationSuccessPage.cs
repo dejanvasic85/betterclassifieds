@@ -4,7 +4,7 @@ using Paramount.Betterclassifieds.Tests.Functional.Annotations;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
-    [TestPage(RelativeUrl = "Account/Register")]
+    [NavRoute(RelativeUrl = "Account/Register")]
     public class RegistrationSuccessPage : ITestPage
     {
         private readonly IWebDriver _webdriver;

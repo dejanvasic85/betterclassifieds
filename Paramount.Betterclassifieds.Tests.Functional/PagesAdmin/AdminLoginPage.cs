@@ -3,12 +3,12 @@ using OpenQA.Selenium.Support.PageObjects;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Admin
 {
-    [TestPage(RelativeUrl = "Login.aspx")]
+    [NavRoute(RelativeUrl = "Login.aspx")]
     public class AdminLoginPage : ITestPage
     {
         private readonly IWebDriver _webdriver;
 
-        public AdminLoginPage(IWebDriver webdriver, IConfig config)
+        public AdminLoginPage(IWebDriver webdriver)
         {
             _webdriver = webdriver;
         }

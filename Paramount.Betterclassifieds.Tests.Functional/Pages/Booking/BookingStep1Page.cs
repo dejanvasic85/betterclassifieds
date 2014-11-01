@@ -5,7 +5,7 @@ using Paramount.Betterclassifieds.Tests.Functional.Annotations;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
-    [TestPage(RelativeUrl = "Booking/Step/1")]
+    [NavRoute(RelativeUrl = "Booking/Step/1")]
     public class BookingStep1Page : BookingTestPage
     {
         #region Page Elements

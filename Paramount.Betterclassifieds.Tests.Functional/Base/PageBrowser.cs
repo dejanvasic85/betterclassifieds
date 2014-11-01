@@ -26,7 +26,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             if (ensureUrl)
             {
                 // Some pages may by accessed by more than one URL
-                var attr = typeof(T).GetCustomAttributes<TestPageAttribute>();
+                var attr = typeof(T).GetCustomAttributes<NavRouteAttribute>();
 
                 var acceptedUrls = attr
                     .Select(a => GetBaseUrl().ToLower() + a.RelativeUrl.ToLower())
@@ -55,7 +55,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
         public TPage GoTo<TPage>(params object[] query) where TPage : ITestPage
         {
-            var relativeUrl = typeof(TPage).GetCustomAttribute<TestPageAttribute>().RelativeUrl;
+            var relativeUrl = typeof(TPage).GetCustomAttribute<NavRouteAttribute>().RelativeUrl;
             var fullPageUrl = GetBaseUrl() + string.Format(relativeUrl, query);
             WebDriver.Navigate().GoToUrl(fullPageUrl);
             return Init<TPage>();
@@ -63,7 +63,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
         public void NavigateTo<TPage>(params object[] query) where TPage : ITestPage
         {
-            var relativeUrl = typeof(TPage).GetCustomAttribute<TestPageAttribute>().RelativeUrl;
+            var relativeUrl = typeof(TPage).GetCustomAttribute<NavRouteAttribute>().RelativeUrl;
             var fullPageUrl = GetBaseUrl() + string.Format(relativeUrl, query);
             WebDriver.Navigate().GoToUrl(fullPageUrl);
         }

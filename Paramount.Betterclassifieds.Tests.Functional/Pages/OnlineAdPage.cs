@@ -4,7 +4,7 @@ using Paramount.Betterclassifieds.Tests.Functional.Annotations;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
-    [TestPage(RelativeUrl = "Ad/{0}/{1}")]
+    [NavRoute(RelativeUrl = "Ad/{0}/{1}")]
     public class OnlineAdTestPage : ITestPage
     {
         private readonly IWebDriver _webdriver;

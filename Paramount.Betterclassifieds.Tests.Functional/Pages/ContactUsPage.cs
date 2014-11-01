@@ -6,7 +6,7 @@ using Paramount.Betterclassifieds.Tests.Functional.Annotations;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
-    [TestPage(RelativeUrl = "Home/ContactUs")]
+    [NavRoute(RelativeUrl = "Home/ContactUs")]
     public class ContactUsPage : ITestPage
     {
         private readonly IWebDriver _webdriver;

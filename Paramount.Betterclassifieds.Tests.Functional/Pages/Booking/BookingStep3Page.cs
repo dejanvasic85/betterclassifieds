@@ -5,7 +5,7 @@ using System;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
-    [TestPage(RelativeUrl = "Booking/Step/3")]
+    [NavRoute(RelativeUrl = "Booking/Step/3")]
     public class BookingStep3Page : BookingTestPage
     {
         public BookingStep3Page(IWebDriver webdriver)

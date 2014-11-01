@@ -4,7 +4,7 @@ using Paramount.Betterclassifieds.Tests.Functional.Annotations;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
-    [TestPage(RelativeUrl = "Error/NotFound")]
+    [NavRoute(RelativeUrl = "Error/NotFound")]
     public class NotFoundTestPage : ITestPage
     {
         private readonly IWebDriver _webdriver;

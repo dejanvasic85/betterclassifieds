@@ -77,7 +77,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             return connection.SingleOrDefault(table, filterByValue.ToString(), findByColumnName);
         }
 
-        public static int? AddIfNotExists(this IDbConnection connection, string table, object param, string filterByValue, string findByColumnName = "Title")
+        public static int? AddIfNotExists(this IDbConnection connection, string table, object param, object filterByValue, string findByColumnName = "Title")
         {
             // Check if the table record exists
             var id = connection.SingleOrDefault(table, filterByValue, findByColumnName);

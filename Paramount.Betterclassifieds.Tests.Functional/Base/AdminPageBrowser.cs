@@ -10,7 +10,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
         public override string GetConfiguredUrl()
         {
-            return _config.BaseAdminUrl;
+            return Config.BaseAdminUrl;
         }
     }
 }

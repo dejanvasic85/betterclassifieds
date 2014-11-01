@@ -332,6 +332,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             return count > 0;
         }
 
+        public void AddOnlineRateForCategoryIfNotExists(decimal price, string categoryName)
+        {
+            var categoryId = GetCategoryIdForTitle(categoryName);
+
+            classifiedDb.AddIfNotExists(Constants.Table.OnlineAdRate, new { MainCategoryId = categoryId, MinimumCharge = price }, categoryId, "MainCategoryId");
+        }
+
         public int AddCategoryIfNotExists(string subCategory, string parentCategory)
         {
             using (var scope = new TransactionScope())

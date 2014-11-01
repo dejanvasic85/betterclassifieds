@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System.Linq;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using Paramount.Betterclassifieds.Tests.Functional.Annotations;
 
@@ -16,21 +17,27 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         [FindsBy(How = How.Id, Using = "parentCategoryId"), UsedImplicitly]
         private IWebElement ParentCategoryElement;
 
-        [FindsBy(How =  How.Id, Using = "subCategoryId"), UsedImplicitly]
+        [FindsBy(How = How.Id, Using = "subCategoryId"), UsedImplicitly]
         private IWebElement SubCategoryElement;
 
         #endregion
         
         public BookingStep1Page WithParentCategory(string categoryName)
         {
-            ParentCategoryElement.SelectOption(categoryName);
+            ParentCategoryElement
+                .FindElements(By.TagName("option"))
+                .First(elm => elm.Text.Equals(categoryName))
+                .Click();
             WaitForAjax();
             return this;
         }
 
         public BookingStep1Page WithSubCategory(string categoryName)
         {
-            SubCategoryElement.SelectOption(categoryName);
+            SubCategoryElement
+                .FindElements(By.TagName("option"))
+                .First(elm => elm.Text.Equals(categoryName))
+                .Click();
             WaitForAjax();
             return this;
         }

@@ -60,6 +60,7 @@
             public const string MainCategory = "MainCategory";
             public const string NonPublicationDate = "NonPublicationDate";
             public const string OnlineAd = "OnlineAd";
+            public const string OnlineAdRate = "OnlineAdRate";
             public const string OnlineAdEnquiry = "OnlineAdEnquiry";
             public const string Publication = "Publication";
             public const string PublicationAdType = "PublicationAdType";

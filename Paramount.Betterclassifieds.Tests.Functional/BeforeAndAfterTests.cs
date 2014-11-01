@@ -116,11 +116,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             // Categories ( assign to each publication automatically )
             dataRepository.AddCategoryIfNotExists(TestData.SubCategory, TestData.ParentCategory);
 
-            /*
-            // Ratecard
-            dataRepository.AddRatecardIfNotExists("Selenium Free Rate", 0, 0, TestData.SubCategory);
-             */
-
+            
+            // Rates
+            dataRepository.AddOnlineRateForCategoryIfNotExists(price : 0, categoryName: TestData.SubCategory);
+            
             // Location and Area
             dataRepository.AddLocationIfNotExists(parentLocation: TestData.Location_Any, areas: TestData.LocationArea_Any);
             dataRepository.AddLocationIfNotExists(TestData.Location_Australia, TestData.Location_Victoria, "Melbourne"); 

@@ -5,11 +5,14 @@ using Paramount.Betterclassifieds.Tests.Functional.Annotations;
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
     [TestPage(RelativeUrl = "Booking/Success", Title = "Booking Complete")]
-    public class BookingCompletePage : TestPage
+    public class BookingCompletePage : ITestPage
     {
-        public BookingCompletePage(IWebDriver webdriver, IConfig config)
-            : base(webdriver, config)
-        { }
+        private readonly IWebDriver _webdriver;
+
+        public BookingCompletePage(IWebDriver webdriver)
+        {
+            _webdriver = webdriver;
+        }
 
         [FindsBy(How = How.Id, Using = "contactName"), UsedImplicitly]
         private IWebElement ContactNameField;
@@ -28,15 +31,20 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             ContactNameField.FillText(fullName);
             ContactEmailField.FillText(email);
             AddFriendButton.Click();
-            WaitForAjax();
+            _webdriver.WaitForJqueryAjax();
             return this;
         }
 
         public BookingCompletePage NotifyFriends()
         {
             NotifyContactsButton.Click();
-            WaitForAjax();
+            _webdriver.WaitForJqueryAjax();
             return this;
+        }
+
+        public IWebDriver GetDriver()
+        {
+            return _webdriver;
         }
     }
 }

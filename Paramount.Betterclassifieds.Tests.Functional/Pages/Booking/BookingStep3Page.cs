@@ -8,8 +8,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
     [TestPage(RelativeUrl = "Booking/Step/3")]
     public class BookingStep3Page : BookingTestPage
     {
-        public BookingStep3Page(IWebDriver webdriver, IConfig config)
-            : base(webdriver, config)
+        public BookingStep3Page(IWebDriver webdriver)
+            : base(webdriver)
         { }
 
         #region Private Elements

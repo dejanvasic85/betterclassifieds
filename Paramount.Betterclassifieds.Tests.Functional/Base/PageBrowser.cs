@@ -1,7 +1,8 @@
-﻿using System;
-using System.Linq;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Paramount.Betterclassifieds.Tests.Functional
 {
@@ -18,17 +19,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             Config = config;
         }
 
-        public T Init<T>(bool ensureUrl = true) where T : TestPage
+        public T Init<T>(bool ensureUrl = true) where T : ITestPage
         {
             WebDriver.WaitForJqueryAjax();
-
-            var pageType = typeof(T);
-            var page = (T)Activator.CreateInstance(pageType, WebDriver, Config);
-
+            var page = Create<T>();
             if (ensureUrl)
             {
                 // Some pages may by accessed by more than one URL
-                var attr = pageType.GetCustomAttributes<TestPageAttribute>();
+                var attr = typeof(T).GetCustomAttributes<TestPageAttribute>();
 
                 var acceptedUrls = attr
                     .Select(a => GetBaseUrl().ToLower() + a.RelativeUrl.ToLower())
@@ -39,11 +37,23 @@ namespace Paramount.Betterclassifieds.Tests.Functional
                 wait.Until(drv => acceptedUrls.Any(drv.Url.ToLower().Contains));
             }
 
-            page.InitElements();
+            page.InitialiseElements();
             return page;
         }
 
-        public TPage GoTo<TPage>(params object[] query) where TPage : TestPage
+        public T Create<T>() where T : ITestPage
+        {
+            // So far all our pages have only two types of constructors WebDriver or WebDriver,Config
+            List<object> objectsToPassToCtor = new List<object> { WebDriver };
+            var typeOfPage = typeof(T);
+            var ctorParams = typeOfPage.GetConstructors()[0].GetParameters();
+            if (ctorParams.Length > 1)
+                objectsToPassToCtor.Add(Config);
+
+            return (T)Activator.CreateInstance(typeOfPage, objectsToPassToCtor.ToArray());
+        }
+
+        public TPage GoTo<TPage>(params object[] query) where TPage : ITestPage
         {
             var relativeUrl = typeof(TPage).GetCustomAttribute<TestPageAttribute>().RelativeUrl;
             var fullPageUrl = GetBaseUrl() + string.Format(relativeUrl, query);
@@ -51,7 +61,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             return Init<TPage>();
         }
 
-        public void NavigateTo<TPage>(params object[] query) where TPage : TestPage
+        public void NavigateTo<TPage>(params object[] query) where TPage : ITestPage
         {
             var relativeUrl = typeof(TPage).GetCustomAttribute<TestPageAttribute>().RelativeUrl;
             var fullPageUrl = GetBaseUrl() + string.Format(relativeUrl, query);

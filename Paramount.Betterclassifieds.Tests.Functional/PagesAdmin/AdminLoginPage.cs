@@ -4,10 +4,13 @@ using OpenQA.Selenium.Support.PageObjects;
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Admin
 {
     [TestPage(RelativeUrl = "Login.aspx")]
-    public class AdminLoginPage : TestPage
+    public class AdminLoginPage : ITestPage
     {
-        public AdminLoginPage(IWebDriver webdriver, IConfig config) : base(webdriver, config)
+        private readonly IWebDriver _webdriver;
+
+        public AdminLoginPage(IWebDriver webdriver, IConfig config)
         {
+            _webdriver = webdriver;
         }
 
         [FindsBy(How = How.Id, Using = "ctl00_cphContentBody_LoginControl1_Login1_UserName")]
@@ -35,6 +38,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Admin
         {
             this.LoginButton.ClickOnElement();
             return this;
+        }
+
+        public IWebDriver GetDriver()
+        {
+            return _webdriver;
         }
     }
 }

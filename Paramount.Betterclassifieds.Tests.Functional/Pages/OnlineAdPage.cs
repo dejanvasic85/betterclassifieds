@@ -5,11 +5,14 @@ using Paramount.Betterclassifieds.Tests.Functional.Annotations;
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
     [TestPage(RelativeUrl = "Ad/{0}/{1}")]
-    public class OnlineAdTestPage : TestPage
+    public class OnlineAdTestPage : ITestPage
     {
-        public OnlineAdTestPage(IWebDriver webdriver, IConfig config)
-            : base(webdriver, config)
-        { }
+        private readonly IWebDriver _webdriver;
+
+        public OnlineAdTestPage(IWebDriver webdriver)
+        {
+            _webdriver = webdriver;
+        }
 
         #region Page Elements
 
@@ -39,5 +42,15 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         }
 
         #endregion
+
+        public string GetTitle()
+        {
+            return _webdriver.Title;
+        }
+
+        public IWebDriver GetDriver()
+        {
+            return _webdriver;
+        }
     }
 }

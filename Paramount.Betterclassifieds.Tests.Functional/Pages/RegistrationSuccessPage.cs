@@ -5,11 +5,14 @@ using Paramount.Betterclassifieds.Tests.Functional.Annotations;
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
     [TestPage(RelativeUrl = "Account/Register")]
-    public class RegistrationSuccessPage : TestPage
+    public class RegistrationSuccessPage : ITestPage
     {
-        public RegistrationSuccessPage(IWebDriver webdriver, IConfig config)
-            : base(webdriver, config)
-        { }
+        private readonly IWebDriver _webdriver;
+
+        public RegistrationSuccessPage(IWebDriver webdriver)
+        {
+            _webdriver = webdriver;
+        }
 
         #region Page Elements
 
@@ -33,5 +36,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         }
 
         #endregion
+
+        public IWebDriver GetDriver()
+        {
+            return _webdriver;
+        }
     }
 }

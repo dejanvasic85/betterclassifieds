@@ -2,25 +2,24 @@
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
-    public abstract class BookingTestPage : TestPage
+    public abstract class BookingTestPage : ITestPage
     {
-        protected BookingTestPage(IWebDriver webdriver, IConfig config)
-            : base(webdriver, config)
+        protected readonly IWebDriver _webdriver;
+
+        public IWebDriver GetDriver()
         {
+            return _webdriver;
         }
-        
-        protected IWebElement NextButtonElement
+
+        protected BookingTestPage(IWebDriver webdriver)
         {
-            get
-            {
-                return FindElement("btnSubmit");
-            }
+            _webdriver = webdriver;
         }
 
         public void Proceed()
         {
-            NextButtonElement.Click();
-            WaitForAjax(initElements: false);
+            _webdriver.FindElement(By.Id("btnSubmit")).Click();
+            _webdriver.WaitForJqueryAjax();
         }
     }
 }

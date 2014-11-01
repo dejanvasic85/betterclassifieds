@@ -3,12 +3,24 @@
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Admin
 {
     [TestPage(RelativeUrl = "Default.aspx")]
-    public class AdminDashboardPage : TestPage
+    public class AdminDashboardPage : ITestPage
     {
-        public AdminDashboardPage(IWebDriver webdriver, IConfig config) : base(webdriver, config)
+        private readonly IWebDriver _webdriver;
+
+        public AdminDashboardPage(IWebDriver webdriver, IConfig config)
         {
+            _webdriver = webdriver;
         }
 
 
+        public string GetTitle()
+        {
+            return _webdriver.Title;
+        }
+
+        public IWebDriver GetDriver()
+        {
+            return _webdriver;
+        }
     }
 }

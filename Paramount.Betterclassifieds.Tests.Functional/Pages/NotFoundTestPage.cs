@@ -5,11 +5,13 @@ using Paramount.Betterclassifieds.Tests.Functional.Annotations;
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
     [TestPage(RelativeUrl = "Error/NotFound")]
-    public class NotFoundTestPage : TestPage
+    public class NotFoundTestPage : ITestPage
     {
-        public NotFoundTestPage(IWebDriver webdriver, IConfig config)
-            : base(webdriver, config)
+        private readonly IWebDriver _webdriver;
+
+        public NotFoundTestPage(IWebDriver webdriver)
         {
+            _webdriver = webdriver;
         }
 
         [FindsBy(How = How.Id, Using = "notFoundHeading"), UsedImplicitly]
@@ -27,6 +29,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         public string GetDescriptionText()
         {
             return ParagraphElement.Text;
+        }
+
+        public IWebDriver GetDriver()
+        {
+            return _webdriver;
         }
     }
 }

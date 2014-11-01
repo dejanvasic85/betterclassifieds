@@ -7,11 +7,14 @@ using Paramount.Betterclassifieds.Tests.Functional.Annotations;
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
     [TestPage(RelativeUrl = "Home/ContactUs")]
-    public class ContactUsPage : TestPage
+    public class ContactUsPage : ITestPage
     {
-        public ContactUsPage(IWebDriver webdriver, IConfig config)
-            : base(webdriver, config)
-        { }
+        private readonly IWebDriver _webdriver;
+
+        public ContactUsPage(IWebDriver webdriver)
+        {
+            _webdriver = webdriver;
+        }
 
         #region Elements
 
@@ -60,9 +63,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         public ContactUsPage Submit()
         {
-            Thread.Sleep(1000); // Sometimes google maps take a while to load
+            Thread.Sleep(2000); // Sometimes google maps take a while to load
             SubmitButton.ClickOnElement();
-            WebDriver.WaitForJqueryAjax(10);
+            _webdriver.WaitForJqueryAjax(10);
+            this.InitialiseElements();
             return this;
         }
 
@@ -72,28 +76,32 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         public bool IsFirstNameRequiredMsgShown()
         {
-            return WebDriver.FindElements(By.TagName("span"))
+            return _webdriver.FindElements(By.TagName("span"))
                 .Any(e => e.HasAttributeValue("data-valmsg-for", "FullName"));
         }
 
         public bool IsEmailRequiredMsgShown()
         {
-            return WebDriver.FindElements(By.TagName("span"))
+            return _webdriver.FindElements(By.TagName("span"))
                 .Any(e => e.HasAttributeValue("data-valmsg-for", "Email"));
         }
 
         public bool IsRequiredPhoneMsgShown()
         {
-            return WebDriver.FindElements(By.TagName("span"))
+            return _webdriver.FindElements(By.TagName("span"))
                 .Any(e => e.HasAttributeValue("data-valmsg-for", "Phone"));
         }
 
         public bool IsHumanTestValidationMsgShown()
         {
-            return IsElementPresentBy(By.Id("enquiryFailed"));
+            return _webdriver.IsElementPresentBy(By.Id("enquiryFailed"));
         }
 
         #endregion
 
+        public IWebDriver GetDriver()
+        {
+            return _webdriver;
+        }
     }
 }

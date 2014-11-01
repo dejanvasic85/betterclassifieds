@@ -8,10 +8,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
     [TestPage(RelativeUrl = "Booking/Step/1")]
     public class BookingStep1Page : BookingTestPage
     {
-        public BookingStep1Page(IWebDriver webdriver, IConfig config)
-            : base(webdriver, config)
-        { }
-
         #region Page Elements
 
         [FindsBy(How = How.Id, Using = "parentCategoryId"), UsedImplicitly]
@@ -21,18 +17,24 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         private IWebElement SubCategoryElement;
 
         #endregion
-        
+
+        public BookingStep1Page(IWebDriver webdriver) : base(webdriver)
+        {
+        }
+
         public BookingStep1Page WithParentCategory(string categoryName)
         {
             ParentCategoryElement.SelectOption(categoryName);
-            WaitForAjax();
+            _webdriver.WaitForJqueryAjax();
+            this.InitialiseElements();
             return this;
         }
 
         public BookingStep1Page WithSubCategory(string categoryName)
         {
             SubCategoryElement.SelectOption(categoryName);
-            WaitForAjax();
+            _webdriver.WaitForJqueryAjax();
+            this.InitialiseElements();
             return this;
         }
     }

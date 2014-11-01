@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Threading;
+using System.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
@@ -14,6 +14,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
             WebDriverWait waitForJqueryAjaxToFinish = new WebDriverWait(webDriver, TimeSpan.FromSeconds(timeOutSeconds));
             waitForJqueryAjaxToFinish.Until(drv => IsJqueryAjaxComplete((IJavaScriptExecutor)drv));
+        }
+
+        public static bool IsElementPresentBy(this IWebDriver webDriver, By by)
+        {
+            return webDriver.FindElements(by).Any();
         }
 
         public static bool IsJqueryDefined(this IJavaScriptExecutor executor)

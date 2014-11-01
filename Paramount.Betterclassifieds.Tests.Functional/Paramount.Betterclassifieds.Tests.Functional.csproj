@@ -80,8 +80,10 @@
   <ItemGroup>
     <Compile Include="Base\AdminPageBrowser.cs" />
     <Compile Include="Base\Constants.cs" />
+    <Compile Include="Base\ITestPage.cs" />
     <Compile Include="Base\TestPageAttribute.cs" />
     <Compile Include="Base\PageBrowser.cs" />
+    <Compile Include="Base\TestPageExtesions.cs" />
     <Compile Include="Base\WebDriverExtensions.cs" />
     <Compile Include="Base\WebElementExtensions.cs" />
     <Compile Include="Base\DataRepositoryFactory.cs" />
@@ -115,7 +117,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>OnlineAdView.feature</DependentUpon>
     </Compile>
-    <Compile Include="Base\TestPage.cs" />
     <Compile Include="Base\IConfig.cs" />
     <Compile Include="Mocks\Models\RoleType.cs" />
     <Compile Include="Mocks\TestData.cs" />

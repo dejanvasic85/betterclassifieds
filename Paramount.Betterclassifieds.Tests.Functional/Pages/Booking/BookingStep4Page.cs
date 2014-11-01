@@ -7,8 +7,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
     [TestPage(RelativeUrl = "Booking/Step/4")]
     public class BookingStep4Page : BookingTestPage
     {
-        public BookingStep4Page(IWebDriver webdriver, IConfig config)
-            : base(webdriver, config)
+        public BookingStep4Page(IWebDriver webdriver)
+            : base(webdriver)
         { }
 
         #region Page Elements

@@ -1,4 +1,5 @@
-﻿using Paramount.ApplicationBlock.Data;
+﻿using System.Configuration;
+using Paramount.ApplicationBlock.Data;
 using Paramount.Betterclassifieds.Business.Broadcast;
 using System.Data.Entity;
 
@@ -7,7 +8,7 @@ namespace Paramount.Betterclassifieds.DataService.Broadcast
     public class BroadcastContext : DbContext
     {
         public BroadcastContext()
-            : base(ConfigReader.GetConnectionString("paramount/broadcast"))
+            : base(ConfigurationManager.ConnectionStrings["BroadcastConnection"].ConnectionString)
         {
             Configuration.ProxyCreationEnabled = false;
             Configuration.LazyLoadingEnabled = false;

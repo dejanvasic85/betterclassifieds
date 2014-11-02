@@ -67,18 +67,6 @@
     <EmbeddedResource Include="Scripts\0002-Table.EmailTemplate.sql" />
     <EmbeddedResource Include="Scripts\0001-Table.EmailDelivery.sql" />
     <None Include="App.config" />
-    <Content Include="BroadcastDatabase.exe.Release.config">
-      <DependentUpon>App.config</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="BroadcastDatabase.exe.Test.config">
-      <DependentUpon>App.config</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="BroadcastDatabase.exe.CI.config">
-      <DependentUpon>App.config</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

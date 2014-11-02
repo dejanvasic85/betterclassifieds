@@ -9,7 +9,7 @@ namespace BroadcastDatabase
     {
         static void Main(string[] args)
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["DatabaseConnection"].ConnectionString;
+            var connectionString = ConfigurationManager.ConnectionStrings["BroadcastConnection"].ConnectionString;
 
             //CreateDbIfNotExists(connectionString);
 

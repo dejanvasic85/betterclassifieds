@@ -13,7 +13,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         public void Proceed()
         {
-            _webdriver.FindElement(By.Id("btnSubmit")).Click();
+            _webdriver.FindElement(By.Id("btnSubmit")).ClickOnElement();
             _webdriver.WaitForJqueryAjax();
         }
     }

@@ -37,13 +37,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         public LoginTestPage WithPassword(string password)
         {
-            PasswordElement.SendKeys(password);
+            PasswordElement.FillText(password);
             return this;
         }
 
         public void ClickLogin()
         {
             LoginButtonElement.ClickOnElement();
+            System.Threading.Thread.Sleep(1000); // Sleep for 1 second to ensure cookie in firefox is stored.
         }
 
         #endregion

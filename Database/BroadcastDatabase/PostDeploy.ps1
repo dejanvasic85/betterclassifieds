@@ -24,12 +24,12 @@ if ( $BackupDatabase -eq $true -and $db -ne $null ){
 
 # Restore-SqlDatabase
 if ( $RestoreDatabase -eq $true ){	
-	$backupFile = $BackupDatabasePath + $connection.InitialCatalog + ".bak"
+	$backupFile = "Broadcast.bak"
 	Invoke-Sqlcmd "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ServerInstance $connection.DataSource -ErrorAction SilentlyContinue -QueryTimeout 0  -Username $connection.UserID -Password $connection.Password
 	Invoke-Sqlcmd "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ServerInstance $connection.DataSource -ErrorAction SilentlyContinue -QueryTimeout 0  -Username $connection.UserID -Password $connection.Password
 
-	$mdfRelocate = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile -ArgumentList ("Broadcast", "C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\$($connection.InitialCatalog).mdf")
-    $logRelocate = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile -ArgumentList ("Broadcast_log", "C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\$($connection.InitialCatalog)_log.ldf")
+	$mdfRelocate = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile -ArgumentList ("$($connection.InitialCatalog)", "C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\$($connection.InitialCatalog).mdf")
+    $logRelocate = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile -ArgumentList ("$($connection.InitialCatalog)_log", "C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\$($connection.InitialCatalog)_log.ldf")
 
 	Write-Host "Restoring Database $($connection.InitialCatalog) from $($backupFile) ..."
 	
@@ -37,7 +37,7 @@ if ( $RestoreDatabase -eq $true ){
 }
 
 # Drop Create Database
-if ( $DropCreateDatabase -eq $true -and $db -ne $null ) {
+if ( $DropCreateDatabase -eq $true -and $db -ne $null )
     Invoke-Sqlcmd "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ServerInstance $connection.DataSource -ErrorAction SilentlyContinue -QueryTimeout 0  -Username $connection.UserID -Password $connection.Password
 	Invoke-Sqlcmd "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ServerInstance $connection.DataSource -ErrorAction SilentlyContinue -QueryTimeout 0  -Username $connection.UserID -Password $connection.Password
 	

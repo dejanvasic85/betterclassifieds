@@ -51,7 +51,7 @@ namespace Paramount.TaskScheduler
 
         private IEnumerable<Models.LogItem> GetTodaysLogs()
         {
-            using (IDbConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["LogConnection"].ConnectionString))
+            using (IDbConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["LogDbConnection"].ConnectionString))
             {
                 var startDateUtc = DateTime.UtcNow.AddHours(-24);
                 var endDateUtc = DateTime.UtcNow;

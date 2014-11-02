@@ -9,7 +9,7 @@ namespace LogDatabase
     {
         static int Main(string[] args)
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["LogDatabase"].ConnectionString;
+            var connectionString = ConfigurationManager.ConnectionStrings["LogDbConnection"].ConnectionString;
 
             var upgrader =
                 DeployChanges.To

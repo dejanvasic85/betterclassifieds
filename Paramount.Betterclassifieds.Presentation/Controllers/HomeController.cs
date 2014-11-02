@@ -28,6 +28,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public ActionResult Index()
         {
+            throw new Exception("Hello world");
             var results = _searchService.GetLatestAds();
             return View(new HomeModel
             {

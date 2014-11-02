@@ -56,18 +56,7 @@
     <Content Include="App.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="DocumentDatabase.exe.Release.Config">
-      <DependentUpon>App.Config</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="DocumentDatabase.exe.CI.Config">
-      <DependentUpon>App.Config</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="DocumentDatabase.exe.Test.Config">
-      <DependentUpon>App.Config</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+   
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

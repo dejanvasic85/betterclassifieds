@@ -11,7 +11,7 @@ namespace DocumentDatabase
     {
         static int Main(string[] args)
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["DocumentDb"].ConnectionString;
+            var connectionString = ConfigurationManager.ConnectionStrings["DocumentConnection"].ConnectionString;
 
             var upgrader =
                 DeployChanges.To

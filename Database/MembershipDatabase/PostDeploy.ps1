@@ -35,6 +35,7 @@ if ( $RestoreDatabase -eq $true ){
 	Write-Host "Restoring Database $($connection.InitialCatalog) from $($backupFile) ..."
 	
     Restore-SqlDatabase -ServerInstance $connection.DataSource -Database $connection.InitialCatalog -ReplaceDatabase -BackupFile $backupFile -RelocateFile ($mdfRelocate, $logRelocate)
+	$db = "DatabaseRestored"
 }
 
 # Drop Create Database

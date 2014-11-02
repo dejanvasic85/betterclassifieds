@@ -37,7 +37,7 @@ if ( $RestoreDatabase -eq $true ){
 }
 
 # Drop Create Database
-if ( $DropCreateDatabase -eq $true -and $db -ne $null )
+if ( $DropCreateDatabase -eq $true -and $db -ne $null ){
     Invoke-Sqlcmd "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ServerInstance $connection.DataSource -ErrorAction SilentlyContinue -QueryTimeout 0  -Username $connection.UserID -Password $connection.Password
 	Invoke-Sqlcmd "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ServerInstance $connection.DataSource -ErrorAction SilentlyContinue -QueryTimeout 0  -Username $connection.UserID -Password $connection.Password
 	

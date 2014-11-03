@@ -1,9 +1,7 @@
-﻿using System;
+﻿using DbUp;
+using System;
 using System.Configuration;
-using System.Data.SqlClient;
 using System.Reflection;
-using DbUp;
-using DbUp.Helpers;
 
 namespace ClassifiedsDatabase
 {
@@ -11,7 +9,7 @@ namespace ClassifiedsDatabase
     {
         static int Main(string[] args)
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["ClassifiedsDb"].ConnectionString;
+            var connectionString = ConfigurationManager.ConnectionStrings["ClassifiedConnection"].ConnectionString;
 
             //CreateDbIfNotExists(connectionString);
 

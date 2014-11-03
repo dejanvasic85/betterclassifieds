@@ -16,7 +16,7 @@ namespace Paramount.Betterclassifieds.Tests.Database
         [SetUp]
         public void SetupConnection()
         {
-            _connectionString = ConfigurationManager.ConnectionStrings["BetterclassifiedsConnection"].ConnectionString;
+            _connectionString = ConfigurationManager.ConnectionStrings["ClassifiedConnection"].ConnectionString;
         }
 
         [Test(Description = "Tests the Booking_Create stored procedure")]

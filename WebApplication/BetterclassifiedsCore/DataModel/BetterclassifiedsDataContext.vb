@@ -1,12 +1,11 @@
 Imports Paramount.ApplicationBlock.Data
+Imports System.Configuration
 
 Namespace DataModel
     Partial Public Class BetterclassifiedsDataContext
-        Private Const configSection As String = "paramount/services"
-        Private Const betterclassifiedConnection As String = "BetterclassifiedsConnection"
 
         Public Shared Function NewContext() As BetterclassifiedsDataContext
-            Return New BetterclassifiedsDataContext(ConfigReader.GetConnectionString(configSection, betterclassifiedConnection))
+            Return New BetterclassifiedsDataContext(ConfigurationManager.ConnectionStrings("ClassifiedConnection").ConnectionString)
         End Function
 
     End Class

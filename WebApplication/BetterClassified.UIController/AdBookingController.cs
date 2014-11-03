@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Linq;
 using System.Collections.Generic;
 using System.Data;
@@ -12,8 +13,6 @@ namespace BetterClassified.UIController
 {
     public class AdBookingController
     {
-        const string configSection = "paramount/services";
-        const string betterclassifiedConnection = "BetterclassifiedsConnection";
 
         public List<BookingSearchResult> SearchAdBookings(string sortBy, ObjectDataSourceSelectingEventArgs e, 
             int? adBookingId, string bookReference, string userName, DateTime? bookingStartDate, DateTime? bookingEndDate,
@@ -57,7 +56,7 @@ namespace BetterClassified.UIController
             command.Parameters.Add(outputParameter);
 
             // Fetch the Data from the database
-            DataTable dt = command.GetDataTable(ConfigReader.GetConnectionString(configSection, betterclassifiedConnection));
+            DataTable dt = command.GetDataTable(connectionString: ConfigurationManager.ConnectionStrings["ClassifiedConnection"].ConnectionString);
 
             string[] ignoreMappingProperties = new string[] { "RowNumber" };
 

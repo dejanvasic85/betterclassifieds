@@ -1,4 +1,4 @@
-﻿using Paramount.ApplicationBlock.Data;
+﻿using System.Configuration;
 using System.Data.Entity;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Models;
@@ -8,7 +8,7 @@ namespace Paramount.Betterclassifieds.DataService
     public class ClassifiedsEntityContext : DbContext
     {
         public ClassifiedsEntityContext()
-            : base(ConfigReader.GetConnectionString("paramount/services", "BetterclassifiedsConnection"))
+            : base(ConfigurationManager.ConnectionStrings["ClassifiedConnection"].ConnectionString)
         {
             Configuration.ProxyCreationEnabled = false;
             Configuration.LazyLoadingEnabled = false;

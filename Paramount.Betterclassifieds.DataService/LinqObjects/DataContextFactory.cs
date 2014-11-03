@@ -1,5 +1,4 @@
 ﻿using System.Configuration;
-using Paramount.ApplicationBlock.Data;
 using Paramount.Betterclassifieds.DataService.Classifieds;
 using Paramount.Betterclassifieds.DataService.LinqObjects;
 using Paramount.Betterclassifieds.DataService.Search;
@@ -8,17 +7,16 @@ namespace Paramount.Betterclassifieds.DataService
 {
     public class DataContextFactory
     {
-        private const string SectionName = "paramount/services";
 
         public static ClassifiedsDataContext CreateClassifiedContext()
         {
-            var connection = ConfigReader.GetConnectionString(SectionName, "BetterclassifiedsConnection");
+            var connection = ConfigurationManager.ConnectionStrings["ClassifiedConnection"].ConnectionString;
             return new ClassifiedsDataContext(connection);
         }
 
         public static ClassifiedsSearchEntitiesDataContext CreateClassifiedSearchContext()
         {
-            var connection = ConfigReader.GetConnectionString(SectionName, "BetterclassifiedsConnection");
+            var connection = ConfigurationManager.ConnectionStrings["ClassifiedConnection"].ConnectionString;
             return new ClassifiedsSearchEntitiesDataContext(connection);
         }
 

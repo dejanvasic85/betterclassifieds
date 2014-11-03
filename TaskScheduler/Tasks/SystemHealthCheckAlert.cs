@@ -65,7 +65,7 @@ namespace Paramount.TaskScheduler
 
         private Dictionary<string, string> GetClassifiedsStatistics()
         {
-            using (IDbConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["BetterclassifiedsConnection"].ConnectionString))
+            using (IDbConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ClassifiedConnection"].ConnectionString))
             {
                 var dictionary = connection.Query("psp_Betterclassified_GetActivitySummary", commandType: CommandType.StoredProcedure)
                                            .ToDictionary(row => (string)row.StatisticName, row => (string)row.StatisticValue);

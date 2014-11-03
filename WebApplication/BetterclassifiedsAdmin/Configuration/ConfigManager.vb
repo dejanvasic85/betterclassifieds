@@ -5,7 +5,6 @@ Namespace Configuration
     Public Class ConfigManager
         Private Const _customerMembershipProvider As String = "CustomerMembershipProvider"
         Private Const _userAdminMembershipProvider As String = "UserAdminMembershipProvider"
-        Private Const classifiedConnectionString As String = "BetterclassifiedsConnection"
         Private Const appuserConnection As String = "AppUserConnection"
         Private Const configSection As String = "paramount/services"
 
@@ -57,7 +56,8 @@ Namespace Configuration
 
         Public Shared ReadOnly Property ClassifiedDBConnection() As String
             Get
-                Return ConfigReader.GetConnectionString(configSection, classifiedConnectionString)
+                Return ConfigurationManager.ConnectionStrings("ClassifiedConnection").ConnectionString
+
             End Get
         End Property
 

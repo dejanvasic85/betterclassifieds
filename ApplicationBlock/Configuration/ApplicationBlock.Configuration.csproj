@@ -89,8 +89,6 @@
     <Compile Include="ConfigurationDictionary.cs" />
     <Compile Include="ConfigurationItem.cs" />
     <Compile Include="ConfigurationSectionHandler.cs" />
-    <Compile Include="ConfigurationSettings.cs" />
-    <Compile Include="PaymentProvidersSection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

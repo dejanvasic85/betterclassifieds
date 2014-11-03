@@ -1,4 +1,5 @@
-﻿using Paramount.ApplicationBlock.Data;
+﻿using System.Configuration;
+using Paramount.ApplicationBlock.Data;
 using Paramount.Betterclassifieds.DataService.Classifieds;
 using Paramount.Betterclassifieds.DataService.LinqObjects;
 using Paramount.Betterclassifieds.DataService.Search;
@@ -28,7 +29,7 @@ namespace Paramount.Betterclassifieds.DataService
 
         public static UserMembershipDataContext CreateMembershipContext()
         {
-            var connection = ConfigReader.GetConnectionString(SectionName, "AppUserConnection");
+            var connection = ConfigurationManager.ConnectionStrings["AppUserConnection"].ConnectionString;
             return new UserMembershipDataContext(connection);
         }
     }

@@ -212,6 +212,10 @@
       <Project>{04e24b49-191f-44b6-833f-361c559f7b18}</Project>
       <Name>BetterClassified.UI</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WebApplication\Xavier\Paramount.Betterclassified.Xavier.vbproj">
+      <Project>{b8a0e004-2aab-4ddb-852d-bf8e740975c2}</Project>
+      <Name>Paramount.Betterclassified.Xavier</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

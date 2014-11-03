@@ -40,7 +40,9 @@ Namespace ProfileProvider
             End If
             MyBase.Initialize(name, config)
 
-            _sqlConnectionString = Paramount.ApplicationBlock.Data.ConfigReader.GetConnectionString("paramount/services", "AppUserConnection")
+            '_sqlConnectionString = Paramount.ApplicationBlock.Data.ConfigReader.GetConnectionString("paramount/services", "AppUserConnection")
+            _sqlConnectionString = ConfigurationManager.ConnectionStrings("AppUserConnection").ConnectionString
+
             If [String].IsNullOrEmpty(_sqlConnectionString) Then
                 Throw New ProviderException("connectionStringName not specified")
             End If

@@ -1,4 +1,5 @@
-﻿using BoDi;
+﻿using System.Drawing;
+using BoDi;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -93,6 +94,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
                     driver = new FirefoxDriver();
                     break;
             }
+            driver.Manage().Window.Size = new Size(1290, 800);
             return driver;
         }
 

@@ -11,7 +11,7 @@ namespace MembershipDatabase
     {
         static int Main(string[] args)
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["MembershipDatabaseDb"].ConnectionString;
+            var connectionString = ConfigurationManager.ConnectionStrings["AppUserConnection"].ConnectionString;
 
             // Create the database if not exists
             //CreateDbIfNotExists(connectionString);

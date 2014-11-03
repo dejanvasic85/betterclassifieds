@@ -1,6 +1,4 @@
-﻿using System.Runtime.Remoting.Messaging;
-
-namespace Paramount.ApplicationBlock.Configuration
+﻿namespace Paramount.ApplicationBlock.Configuration
 {
     using System.Collections.Generic;
     using System.Configuration;

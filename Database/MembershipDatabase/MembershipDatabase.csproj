@@ -61,19 +61,7 @@
     <EmbeddedResource Include="Scripts\0004-SetSchemaVersions.sql" />
     <EmbeddedResource Include="Scripts\0002-BaselineStoredProc.sql" />
     <EmbeddedResource Include="Scripts\0001-BaselineSchema.sql" />
-    <None Include="App.config" />
-    <Content Include="MembershipDatabase.exe.Release.config">
-      <DependentUpon>App.config</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MembershipDatabase.exe.Test.config">
-      <DependentUpon>App.config</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MembershipDatabase.exe.CI.config">
-      <DependentUpon>App.config</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <None Include="App.config" />    
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

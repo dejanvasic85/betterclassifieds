@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -16,7 +17,8 @@ namespace BetterClassified.UI.Framework.Security
         {
             base.Initialize(name, config);
 
-            var connectionString = ConfigReader.GetConnectionString("paramount/services", "AppUserConnection");
+            //var connectionString = ConfigReader.GetConnectionString("paramount/services", "AppUserConnection");
+            var connectionString = ConfigurationManager.ConnectionStrings["AppUserConnection"].ConnectionString;
 
             // Set private property of Membership provider.
             var baseType = GetType().BaseType;

@@ -1,6 +1,5 @@
 ﻿@using Paramount
 @using Paramount.ApplicationBlock.Configuration
-@using Paramount.Betterclassifieds.Presentation.LegacyIntegration
 
 @{
     var brand = ConfigManager.ReadAppSetting<string>("Brand");
@@ -25,6 +24,10 @@
     <div class="col-xs-6">
         <div class="btn-group pull-right">
             @Html.ActionLink("Place New Ad", actionName: "Step1", controllerName: "Booking", routeValues: null, htmlAttributes: new { @class = "btn btn-primary" })
+            @if (!Request.IsAuthenticated)
+            {
+                @Html.ActionLink("Login/Register", actionName: "Login", controllerName: "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-primary" })
+            }
         </div>
     </div>
 </div>

@@ -26,8 +26,8 @@ if ( $BackupDatabase -eq $true -and $db -ne $null ){
 # Restore-SqlDatabase
 if ( $RestoreDatabase -eq $true ){	
 	$backupFile = $BackupDatabasePath + "DocumentStorage.bak"
-	Invoke-Sqlcmd "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ServerInstance $connection.DataSource -ErrorAction SilentlyContinue -QueryTimeout 0 -Username $connection.UserID -Password $connection.Password
-	Invoke-Sqlcmd "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ServerInstance $connection.DataSource -ErrorAction SilentlyContinue -QueryTimeout 0 -Username $connection.UserID -Password $connection.Password
+	Invoke-Sqlcmd "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ServerInstance $connection.DataSource -ErrorAction Continue -QueryTimeout 0 -Username $connection.UserID -Password $connection.Password
+	Invoke-Sqlcmd "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ServerInstance $connection.DataSource -ErrorAction Continue -QueryTimeout 0 -Username $connection.UserID -Password $connection.Password
 
 	$mdfRelocate = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile -ArgumentList ("DocumentStorage", "$($SqlFilesPath)DATA\$($connection.InitialCatalog).mdf")
     $logRelocate = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile -ArgumentList ("DocumentStorage_log", "$($SqlFilesPath)DATA\$($connection.InitialCatalog)_log.ldf")

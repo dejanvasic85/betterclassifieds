@@ -444,6 +444,7 @@
     <Content Include="Scripts\jquery.fileupload-5.42.0.min.js.map">
       <DependentUpon>jquery.fileupload-5.42.0.min.js</DependentUpon>
     </Content>
+    <Content Include="PostDeploy.ps1" />
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\paramount-validate-tooltip.min.js">
       <DependentUpon>paramount-validate-tooltip.js</DependentUpon>

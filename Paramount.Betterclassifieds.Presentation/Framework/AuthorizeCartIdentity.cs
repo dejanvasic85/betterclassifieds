@@ -1,3 +1,4 @@
+using System;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using Paramount.Betterclassifieds.Business;
@@ -23,9 +24,20 @@ namespace Paramount.Betterclassifieds.Presentation
             }
 
             var loggedInUser = filterContext.HttpContext.User.Identity.Name;
-            if (bookingCart.UserId.IsNullOrEmpty() || bookingCart.UserId.DoesNotEqual(loggedInUser))
+
+            if (filterContext.HttpContext.User == null || filterContext.HttpContext.User.Identity.Name.IsNullOrEmpty())
             {
-                throw new BookingAuthorisationException(string.Format("Booking Cart does not belong to {0}", loggedInUser));
+                throw new BookingAuthorisationException("User is not logged in.");
+            }
+
+            if (bookingCart.UserId.IsNullOrEmpty())
+            {
+                throw new BookingAuthorisationException("Booking cart user id is null or empty");
+            }
+
+            if (bookingCart.UserId.DoesNotEqual(loggedInUser))
+            {
+                throw new BookingAuthorisationException(string.Format("Booking Cart does not belong to {0}. Cart belongs to {1}", loggedInUser, bookingCart.UserId));
             }
         }
     }

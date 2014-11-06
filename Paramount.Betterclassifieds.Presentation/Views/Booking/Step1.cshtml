@@ -7,72 +7,71 @@
     Layout = @Url.ClientUrl("~/Views/Shared/_ApplicationLayout.cshtml");
 }
 
-<div class="container">
 
-    <ul class="nav nav-tabs" role="tablist">
-        <li class="active"><a href="#">Step 1</a></li>
-        <li class="disabled"><a href="#">2</a></li>
-        <li class="disabled"><a href="#">3</a></li>
-        <li class="disabled"><a href="#">4</a></li>
-    </ul>
+<ul class="nav nav-tabs" role="tablist">
+    <li class="active"><a href="#">Step 1</a></li>
+    <li class="disabled"><a href="#">2</a></li>
+    <li class="disabled"><a href="#">3</a></li>
+    <li class="disabled"><a href="#">4</a></li>
+</ul>
 
-    @*Category selection*@
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="bs-callout bs-callout-info">
-                <h4>Category</h4>
-                <p>Please select category and sub category appropriate for your ad.</p>
-            </div>
-        </div>
-
-        <div class="col-xs-12" id="Categories">
-            <div class="form-group">
-
-                <select id="parentCategoryId" data-bind="value: categoryId" class="form-control input-lg">
-                    <option value="">-- Category --</option>
-                    @foreach (var category in Model.ParentCategoryOptions)
-                    {
-                        <option value="@category.Value">@category.Text</option>
-                    }
-                </select>
-
-                <br />
-
-                <select id="subCategoryId" name="subCategoryId" class="form-control input-lg"
-                        data-bind="value: subCategoryId, visible: shouldShowSubCategory">
-                    <option>-- Sub Category --</option>
-                    @if (Model.SubCategoryOptions != null)
-                    {
-                        foreach (var category in Model.SubCategoryOptions)
-                        {
-                            <option value="@category.Value">@category.Text</option>
-                        }
-                    }
-                </select>
-            </div>
+@*Category selection*@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="bs-callout bs-callout-info">
+            <h4>Category</h4>
+            <p>Please select category and sub category appropriate for your ad.</p>
         </div>
     </div>
 
-    @*Newspapers*@
-    @if (@Model.Publications.Any())
-    {
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="bs-callout bs-callout-info">
-                    <h4>Publications</h4>
-                    <p>Simply click on the papers your like your ad to appear in.</p>
-                </div>
-            </div>
+    <div class="col-xs-12" id="Categories">
+        <div class="form-group">
 
-            <div class="col-xs-12 button-options">
-                <div class="center-block" data-bind="foreach: publications">
-                    <button class="btn btn-default btn-block btn-lg"
-                            data-bind="id: publicationId, text: title, css: {active : isSelected}, click : $parent.togglePublication"
-                            data-toggle="button"></button>
-                </div>
+            <select id="parentCategoryId" data-bind="value: categoryId" class="form-control input-lg">
+                <option value="">-- Category --</option>
+                @foreach (var category in Model.ParentCategoryOptions)
+                {
+                    <option value="@category.Value">@category.Text</option>
+                }
+            </select>
+
+            <br />
+
+            <select id="subCategoryId" name="subCategoryId" class="form-control input-lg"
+                    data-bind="value: subCategoryId, visible: shouldShowSubCategory">
+                <option>-- Sub Category --</option>
+                @if (Model.SubCategoryOptions != null)
+                {
+                    foreach (var category in Model.SubCategoryOptions)
+                    {
+                        <option value="@category.Value">@category.Text</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+</div>
+
+@*Newspapers*@
+@if (@Model.Publications.Any())
+{
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="bs-callout bs-callout-info">
+                <h4>Publications</h4>
+                <p>Simply click on the papers your like your ad to appear in.</p>
             </div>
         </div>
-    }
+
+        <div class="col-xs-12 button-options">
+            <div class="center-block" data-bind="foreach: publications">
+                <button class="btn btn-default btn-block btn-lg"
+                        data-bind="id: publicationId, text: title, css: {active : isSelected}, click : $parent.togglePublication"
+                        data-toggle="button"></button>
+            </div>
+        </div>
+    </div>
+}
 
     @*Validation errors*@
     <div class="row top-buffer-10">
@@ -88,76 +87,75 @@
         </li>
     </ul>
 
-</div>
 
-@section Scripts{
-    <script>
-        
-        (function($) {
+    @section Scripts{
+        <script>
 
-            // jQuery ready
-            $(function() {
-                var StepOne = function(data) {
-                    var self = this;
-                    self.categoryId = ko.observable(data.categoryId);
-                    self.subCategoryId = ko.observable(data.subCategoryId);
-                    self.publications = ko.observableArray(data.publications);
-                    self.shouldShowSubCategory = ko.computed(function() {
-                        return self.categoryId() !== "";
-                    });
-                    self.togglePublication = function(pub) {
-                        if (!pub) {
-                            return;
-                        }
+            (function($) {
 
-                        if (pub.isSelected === 'undefined') {
-                            return;
-                        }
+                // jQuery ready
+                $(function() {
+                    var StepOne = function(data) {
+                        var self = this;
+                        self.categoryId = ko.observable(data.categoryId);
+                        self.subCategoryId = ko.observable(data.subCategoryId);
+                        self.publications = ko.observableArray(data.publications);
+                        self.shouldShowSubCategory = ko.computed(function() {
+                            return self.categoryId() !== "";
+                        });
+                        self.togglePublication = function(pub) {
+                            if (!pub) {
+                                return;
+                            }
 
-                        pub.isSelected = !pub.isSelected;
+                            if (pub.isSelected === 'undefined') {
+                                return;
+                            }
+
+                            pub.isSelected = !pub.isSelected;
+                        };
+                        self.errorMsg = ko.observable("");
                     };
-                    self.errorMsg = ko.observable("");
-                };
 
-                var data = @Html.Raw(Model.ToJsonString());
-                var stepOneModel = new StepOne(data);
+                    var data = @Html.Raw(Model.ToJsonString());
+                    var stepOneModel = new StepOne(data);
 
-                ko.applyBindings(stepOneModel);
+                    ko.applyBindings(stepOneModel);
 
-                $('#parentCategoryId').on('change', function() {
-                    var me = $(this);
-                    stepOneModel.subCategoryId = ko.observable(null); // clear
-                    $('#subCategoryId').loadSubCategories('@Url.Action("GetCategories", "Categories")', me.val(), false);
-                });
+                    $('#parentCategoryId').on('change', function() {
+                        var me = $(this);
+                        stepOneModel.subCategoryId = ko.observable(null); // clear
+                        $('#subCategoryId').loadSubCategories('@Url.Action("GetCategories", "Categories")', me.val(), false);
+                    });
 
-                $('#btnSubmit').on('click', function() {
-                    var $btn = $(this);
-                    $btn.button('loading');
-                    var modelToPost = ko.toJS(stepOneModel);
+                    $('#btnSubmit').on('click', function() {
+                        var $btn = $(this);
+                        $btn.button('loading');
+                        var modelToPost = ko.toJS(stepOneModel);
 
-                    // Validate
-                    if (isNaN(stepOneModel.subCategoryId()) || stepOneModel.subCategoryId() === null) {
-                        stepOneModel.errorMsg('You must select a sub category for your ad');
-                        $(this).button('reset');
-                        return;
-                    }
-
-                    $.ajax({
-                        url: '@Url.Action("Step1")',
-                        data: JSON.stringify(modelToPost),
-                        contentType: 'application/json',
-                        type: 'POST',
-                        dataType: 'json',
-                        success: function(respondUrl) {
-                            window.location = respondUrl;
-                        },
-                        error: function(resp) {
-                            stepOneModel.errorMsg(resp.statusText);
-                            $btn.button('reset');
+                        // Validate
+                        if (isNaN(stepOneModel.subCategoryId()) || stepOneModel.subCategoryId() === null) {
+                            stepOneModel.errorMsg('You must select a sub category for your ad');
+                            $(this).button('reset');
+                            return;
                         }
+
+                        $.ajax({
+                            url: '@Url.Action("Step1")',
+                            data: JSON.stringify(modelToPost),
+                            contentType: 'application/json',
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function(respondUrl) {
+                                window.location = respondUrl;
+                            },
+                            error: function(resp) {
+                                stepOneModel.errorMsg(resp.statusText);
+                                $btn.button('reset');
+                            }
+                        });
                     });
                 });
-            });
-        })(jQuery);
-    </script>
-}
+            })(jQuery);
+        </script>
+    }

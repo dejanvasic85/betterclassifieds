@@ -93,7 +93,16 @@
             <button id="btnPrev" class="btn btn-large btn-default js-load" data-nav='@Url.Action("Step3")'>&larr; Previous</button>
         </li>
         <li class="next">
-            <button id="btnSubmit" type="submit" class="btn btn-large btn-default">Submit &rarr;</button>
+            @if (Model.IsPaymentRequired)
+            {
+                <button id="btnSubmit" type="submit" class="btn btn-large btn-default">
+                    <i class="fa fa-cc-paypal fa-2x"></i> Payment 
+                </button>
+            }
+            else
+            {
+                <button id="btnSubmit" type="submit" class="btn btn-large btn-default">Submit &rarr;</button>
+            }
         </li>
     </ul>
 </form>

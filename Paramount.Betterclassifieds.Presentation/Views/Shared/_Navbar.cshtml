@@ -1,5 +1,4 @@
-﻿@using Paramount.Betterclassifieds.Presentation.LegacyIntegration
-@*Navbar*@
+﻿@*Navbar*@
 <div class="navbar navbar-default" role="navigation" id="navbar">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -14,18 +13,16 @@
 
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="@Url.Content(LegacyLinks.Rates)">Rates</a></li>
-                <li><a href="@Url.Content(LegacyLinks.Publications)">Deadlines</a></li>
                 <li><a href="@Url.Action("ContactUs", "Home")">Contact</a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
+            @*<ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href="@Url.Content(LegacyLinks.MemberAccount)">
                         <span class="glyphicon glyphicon-user"></span>&nbsp;
                         My Account
                     </a>
                 </li>
-            </ul>
+            </ul>*@
         </div>
         <!--/.nav-collapse -->
     </div>

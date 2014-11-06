@@ -239,6 +239,7 @@
     <Content Include="Content\bootstrap-theme-3.1.0.min.css">
       <DependentUpon>bootstrap-theme-3.1.0.css</DependentUpon>
     </Content>
+    <Content Include="Content\bootstrap-theme-yeti.css" />
     <Content Include="Content\datepicker.css" />
     <Content Include="Content\datepicker.min.css">
       <DependentUpon>datepicker.css</DependentUpon>
@@ -252,6 +253,9 @@
       <DependentUpon>font-awesome.css</DependentUpon>
     </Content>
     <Content Include="Content\jquery.fileupload-1.3.0.css" />
+    <Content Include="Content\bootstrap-theme-yeti.min.css">
+      <DependentUpon>bootstrap-theme-yeti.css</DependentUpon>
+    </Content>
     <Content Include="Content\site.css">
       <DependentUpon>site.less</DependentUpon>
     </Content>
@@ -444,8 +448,11 @@
     <Content Include="Views\Booking\Step4.cshtml" />
     <Content Include="Views\Booking\_PriceSummary.cshtml" />
     <Content Include="Views\Booking\Success.cshtml" />
+    <Content Include="Views\Shared\_Layout.KandoBay.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Content\KandoBay\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>

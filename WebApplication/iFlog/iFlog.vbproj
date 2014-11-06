@@ -230,27 +230,15 @@
     <Compile Include="api\OnlineAdController.vb" />
     <Compile Include="App_Start\ContainerConfig.vb" />
     <Compile Include="Common\HttpExtensions.vb" />
-    <Content Include="Content\bootstrap-3.1.0.css" />
-    <Content Include="Content\bootstrap-3.1.0.min.css">
-      <DependentUpon>bootstrap-3.1.0.css</DependentUpon>
+    <Content Include="Content\bootstrap-3.3.0.min.css">
+      <DependentUpon>bootstrap-3.3.0.css</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap-markdown.min.css" />
     <Content Include="Content\bootstrap-select.css" />
     <Content Include="Content\bootstrap-select.min.css">
       <DependentUpon>bootstrap-select.css</DependentUpon>
     </Content>
-    <Content Include="Content\bootstrap-theme-3.1.0.css" />
-    <Content Include="Content\bootstrap-theme-3.1.0.min.css">
-      <DependentUpon>bootstrap-theme-3.1.0.css</DependentUpon>
-    </Content>
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css">
-      <DependentUpon>bootstrap-theme.css</DependentUpon>
-    </Content>
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
+    <Content Include="Content\bootstrap-3.3.0.css" />
     <Content Include="Content\datepicker.css" />
     <Content Include="Content\datepicker.min.css">
       <DependentUpon>datepicker.css</DependentUpon>
@@ -324,10 +312,10 @@
       <DependentUpon>Login.js</DependentUpon>
     </Content>
     <Content Include="Scripts\Booking\BookingCart.js" />
-    <Content Include="Scripts\bootstrap-3.1.0.js" />
     <Content Include="Content\TheMusic\fonts\ufonts.com_alternate_gothic_no2_d.ttf" />
-    <Content Include="Scripts\bootstrap-3.1.0.min.js">
-      <DependentUpon>bootstrap-3.1.0.js</DependentUpon>
+    <Content Include="Scripts\bootstrap-3.3.0.js" />
+    <Content Include="Scripts\bootstrap-3.3.0.min.js">
+      <DependentUpon>bootstrap-3.3.0.js</DependentUpon>
     </Content>
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js">
@@ -382,9 +370,6 @@
       <DependentUpon>paramount-validate-default.js</DependentUpon>
     </Content>
     <Content Include="Scripts\paramount-validate-tooltip.js" />
-    <Content Include="Scripts\bootstrap-3.1.0.min.js.map">
-      <DependentUpon>bootstrap-3.1.0.min.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\jquery-1.11.0.min.js.map">
       <DependentUpon>jquery-1.11.0.min.js</DependentUpon>
     </Content>
@@ -445,6 +430,9 @@
       <DependentUpon>jquery.fileupload-5.42.0.min.js</DependentUpon>
     </Content>
     <Content Include="PostDeploy.ps1" />
+    <Content Include="Scripts\bootstrap-3.3.0.min.js.map">
+      <DependentUpon>bootstrap-3.3.0.min.js</DependentUpon>
+    </Content>
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\paramount-validate-tooltip.min.js">
       <DependentUpon>paramount-validate-tooltip.js</DependentUpon>

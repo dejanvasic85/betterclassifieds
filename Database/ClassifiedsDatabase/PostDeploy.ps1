@@ -25,12 +25,12 @@ if ( $BackupDatabase -eq $true -and $db -ne $null ){
 
 # Restore-SqlDatabase
 if ( $RestoreDatabase -eq $true ){	
-    $backupFile = $BackupDatabasePath + "iFlog.bak"
+    $backupFile = $BackupDatabasePath + "$($Brand)_Classifieds.bak"
 	Invoke-Sqlcmd "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ServerInstance $connection.DataSource -QueryTimeout 0 -ErrorAction SilentlyContinue -Username $connection.UserID -Password $connection.Password
 	Invoke-Sqlcmd "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ServerInstance $connection.DataSource -QueryTimeout 0 -ErrorAction SilentlyContinue -Username $connection.UserID -Password $connection.Password
 
-	$mdfRelocate = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile -ArgumentList ("Betterclassifieds", "$($SqlFilesPath)DATA\$($connection.InitialCatalog).mdf")
-    $logRelocate = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile -ArgumentList ("Betterclassifieds_log", "$($SqlFilesPath)DATA\$($connection.InitialCatalog)_log.ldf")
+	$mdfRelocate = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile -ArgumentList ("$($ClassifiedDbFileName)", "$($SqlFilesPath)DATA\$($connection.InitialCatalog).mdf")
+    $logRelocate = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile -ArgumentList ("$($ClassifiedDbFileName)_log", "$($SqlFilesPath)DATA\$($connection.InitialCatalog)_log.ldf")
 
 	Write-Host "Restoring Database $($connection.InitialCatalog) from $($backupFile) ..."
 	

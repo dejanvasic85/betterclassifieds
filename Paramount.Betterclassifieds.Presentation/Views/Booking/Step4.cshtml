@@ -90,18 +90,21 @@
     @*Pager*@
     <ul class="pager">
         <li class="previous">
-            <button id="btnPrev" class="btn btn-large btn-default js-load" data-nav='@Url.Action("Step3")'>&larr; Previous</button>
+            <button id="btnPrev" class="btn btn-large btn-default js-load" data-nav='@Url.Action("Step3")'>
+                <i class="glyphicon glyphicon-arrow-left"></i>
+                Previous
+            </button>
         </li>
         <li class="next">
             @if (Model.IsPaymentRequired)
             {
                 <button id="btnSubmit" type="submit" class="btn btn-large btn-default">
-                    <i class="fa fa-cc-paypal fa-2x"></i> Payment 
+                    <i class="fa fa-cc-paypal"></i> Payment 
                 </button>
             }
             else
             {
-                <button id="btnSubmit" type="submit" class="btn btn-large btn-default">Submit &rarr;</button>
+                <button id="btnSubmit" type="submit" class="btn btn-large btn-default">Submit <i class="glyphicon glyphicon-arrow-right"></i></button>
             }
         </li>
     </ul>

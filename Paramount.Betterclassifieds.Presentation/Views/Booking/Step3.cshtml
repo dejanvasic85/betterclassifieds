@@ -36,10 +36,12 @@
     @*Pager*@
     <ul class="pager">
         <li class="previous">
-            <button id="btnPrev" class="btn btn-large btn-default js-load" data-nav='@Url.Action("Step2")'>&larr; Previous</button>
+            <button id="btnPrev" class="btn btn-large btn-default js-load" data-nav='@Url.Action("Step2")'>
+                <i class="glyphicon glyphicon-arrow-left"></i> Previous
+            </button>
         </li>
         <li class="next">
-            <button id="btnSubmit" type="submit" class="btn btn-large btn-default">Next &rarr;</button>
+            <button id="btnSubmit" type="submit" class="btn btn-large btn-default">Next <i class="glyphicon glyphicon-arrow-right"></i></button>
         </li>
     </ul>
 </form>

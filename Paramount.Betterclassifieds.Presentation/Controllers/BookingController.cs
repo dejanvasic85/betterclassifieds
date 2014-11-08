@@ -222,7 +222,10 @@
             bookingCart.UserId = _userManager.GetCurrentUser(this.User).Username;
 
             if (bookingCart.NoPaymentRequired())
+            {
+                _bookingManager.SaveBookingCart(bookingCart);
                 return RedirectToAction("Success");
+            }
 
             // We only support paypal just for now
             var paymentServce = _container.Resolve<IPaymentService>("PayPalService");

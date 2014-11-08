@@ -15,5 +15,5 @@
 /// <reference path="to-markdown.js" />
 /// <reference path="toastr-2.0.1.js" />
 /// <reference path="account/login.js" />
-/// <reference path="listings/find.js" />
 /// <reference path="bootstrap-3.3.0.js" />
+/// <reference path="listings/find.js" />

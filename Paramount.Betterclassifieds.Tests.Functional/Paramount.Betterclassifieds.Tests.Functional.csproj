@@ -137,7 +137,7 @@
     <Compile Include="Mocks\DapperExtensions.cs" />
     <Compile Include="Base\ITestDataRepository.cs" />
     <Compile Include="Mocks\Models\Email.cs" />
-    <Compile Include="Mocks\DapperDataManager.cs" />
+    <Compile Include="Mocks\DapperDataRepository.cs" />
     <Compile Include="Pages\OnlineAdPage.cs" />
     <Compile Include="Pages\RegisterNewUserPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

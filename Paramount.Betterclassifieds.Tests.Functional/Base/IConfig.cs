@@ -44,4 +44,36 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             return !url.EndsWith("/") ? url.Append("/") : url;
         }
     }
+
+    public class EnvironmentConfiguration : IConfig
+    {
+        public string BaseUrl
+        {
+            get { return System.Environment.GetEnvironmentVariable("BaseUrl"); }
+        }
+
+        public string BrowserType
+        {
+            get { return System.Environment.GetEnvironmentVariable("BrowserType"); }
+        }
+
+        public string BaseAdminUrl
+        {
+            get { return System.Environment.GetEnvironmentVariable("BaseAdminUrl"); }
+        }
+    }
+
+    internal class ConfigFactory
+    {
+        public IConfig CreateConfig()
+        {
+            if (System.Environment.GetEnvironmentVariable("TEAMCITY_JRE").HasValue())
+            {
+                return new EnvironmentConfiguration();
+            }
+
+            return new TestConfiguration();
+        }
+    }
+
 }

@@ -19,7 +19,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         private readonly IObjectContainer _container;
 
         private static IWebDriver _webDriver;
-        private static TestConfiguration _configuration;
+        private static IConfig _configuration;
 
         public BeforeAndAfterTests(IObjectContainer container)
         {

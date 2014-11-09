@@ -265,11 +265,12 @@
             var successView = new SuccessView
             {
                 AdId = id.ToString(),
+                IsBookingActive = bookingCart.StartDate <= DateTime.Today,
                 ExistingUsers = _userManager.GetUserNetworksForUserId(currentUser).Select(usr => new UserNetworkEmailView
                 {
                     Email = usr.UserNetworkEmail,
                     FullName = usr.FullName,
-                    Selected = true
+                    Selected = true,
                 }).ToArray()
             };
             return View(successView);

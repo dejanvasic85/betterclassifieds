@@ -5,8 +5,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional
     public interface IConfig
     {
         string BaseUrl { get; }
-        string BrowserType { get; }
         string BaseAdminUrl { get; }
+        string ClassifiedsDbConnection { get; }
+        string BroadcastDbConnection { get; }
+        string AppUserDbConnection { get; }
     }
 
     public class TestConfiguration : IConfig
@@ -19,20 +21,27 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             }
         }
 
-        public string BrowserType
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings.Get("Browser");
-            }
-        }
-
         public string BaseAdminUrl
         {
             get
             {
                 return GetSafeUrl("BaseAdminUrl");
             }
+        }
+
+        public string ClassifiedsDbConnection
+        {
+            get { return ConfigurationManager.ConnectionStrings["ClassifiedsDb"].ConnectionString; }
+        }
+
+        public string BroadcastDbConnection
+        {
+            get { return ConfigurationManager.ConnectionStrings["BroadcastDb"].ConnectionString; }
+        }
+
+        public string AppUserDbConnection
+        {
+            get { return ConfigurationManager.ConnectionStrings["AppUserConnection"].ConnectionString; }
         }
 
         private string GetSafeUrl(string urlSettingName)
@@ -52,21 +61,32 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             get { return System.Environment.GetEnvironmentVariable("BaseUrl"); }
         }
 
-        public string BrowserType
-        {
-            get { return System.Environment.GetEnvironmentVariable("BrowserType"); }
-        }
-
         public string BaseAdminUrl
         {
             get { return System.Environment.GetEnvironmentVariable("BaseAdminUrl"); }
+        }
+
+        public string ClassifiedsDbConnection
+        {
+            get { return System.Environment.GetEnvironmentVariable("ClassifiedsDbConnection"); }
+        }
+
+        public string BroadcastDbConnection
+        {
+            get { return System.Environment.GetEnvironmentVariable("BroadcastDbConnection"); }
+        }
+
+        public string AppUserDbConnection
+        {
+            get { return System.Environment.GetEnvironmentVariable("AppUserDbConnection"); }
         }
     }
 
     internal class ConfigFactory
     {
-        public IConfig CreateConfig()
+        public static IConfig CreateConfig()
         {
+            // We use environment variables in Team City
             if (System.Environment.GetEnvironmentVariable("TEAMCITY_JRE").HasValue())
             {
                 return new EnvironmentConfiguration();

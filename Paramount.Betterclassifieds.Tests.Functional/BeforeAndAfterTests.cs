@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Runtime.InteropServices;
 using BoDi;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -26,21 +27,21 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             _container = container;
             _container.RegisterInstanceAs(new PageBrowser(_webDriver, _configuration), typeof(PageBrowser));
             _container.RegisterInstanceAs(new AdminPageBrowser(_webDriver, _configuration), typeof(AdminPageBrowser));
-            _container.RegisterInstanceAs(DataRepositoryFactory.Create(), typeof(ITestDataRepository));
+            _container.RegisterInstanceAs(DataRepositoryFactory.Create(_configuration), typeof(ITestDataRepository));
         }
 
         [BeforeTestRun]
         public static void SetupPageBrowser()
         {
-            _configuration = new TestConfiguration();
-            _webDriver = GetDriverForBrowser(_configuration.BrowserType);
+            _configuration = ConfigFactory.CreateConfig();
+            _webDriver = GetDriverForBrowser("firefox");
         }
 
         [BeforeScenario]
         public void RegisterConfigAndRepository()
         {
-            _container.RegisterInstanceAs(new TestConfiguration(), typeof(IConfig));
-            _container.RegisterInstanceAs(new DapperDataRepository(), typeof(ITestDataRepository));
+            _container.RegisterInstanceAs(ConfigFactory.CreateConfig(), typeof(IConfig));
+            _container.RegisterInstanceAs(new DapperDataRepository(ConfigFactory.CreateConfig()), typeof(ITestDataRepository));
              _webDriver.Manage().Cookies.DeleteAllCookies();
         }
 
@@ -104,7 +105,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         public static void SetupBookingFeature()
         {
             // Use the dapper manager to initialise some baseline test data for our booking scenarios
-            ITestDataRepository dataRepository = DataRepositoryFactory.Create();
+            ITestDataRepository dataRepository = DataRepositoryFactory.Create(_configuration);
             /*
             // Online Publication  ( this should be removed later - no such thing as online publication ! )
             dataRepository.AddPublicationIfNotExists(TestData.OnlinePublication, Constants.PublicationType.Online, frequency: "Online", frequencyValue: null);
@@ -132,7 +133,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         [BeforeFeature("booking", "extendbooking")]
         public static void AddMembershipUser()
         {
-            var dataRepository = DataRepositoryFactory.Create();
+            var dataRepository = DataRepositoryFactory.Create(_configuration);
 
             // Setup a demo user
             dataRepository.AddUserIfNotExists(TestData.DefaultUsername, TestData.DefaultPassword, TestData.UserEmail, RoleType.Advertiser);
@@ -141,7 +142,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         [BeforeFeature("usernetwork")]
         public static void SetupUserNetworkFeature()
         {
-            var dataRepository = DataRepositoryFactory.Create();
+            var dataRepository = DataRepositoryFactory.Create(_configuration);
             dataRepository.DropUserNetwork(TestData.DefaultUsername);
         }
         #endregion

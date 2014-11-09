@@ -4,9 +4,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 {
     public class DataRepositoryFactory
     {
-        public static ITestDataRepository Create()
+        public static ITestDataRepository Create(IConfig config)
         {
-            return new DapperDataRepository();
+            return new DapperDataRepository(config);
         }
     }
 }

@@ -24,12 +24,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             { RoleType.Advertiser, "AppUserProvider"}
         };
 
-        public DapperDataRepository()
+        public DapperDataRepository(IConfig config)
         {
             // Connections
-            classifiedDb = new SqlConnection(ConfigurationManager.ConnectionStrings["ClassifiedsDb"].ConnectionString);
-            broadcastDb = new SqlConnection(ConfigurationManager.ConnectionStrings["BroadcastDb"].ConnectionString);
-            membershipDb = new SqlConnection(ConfigurationManager.ConnectionStrings["AppUserConnection"].ConnectionString);
+            classifiedDb = new SqlConnection(config.ClassifiedsDbConnection);
+            broadcastDb = new SqlConnection(config.BroadcastDbConnection);
+            membershipDb = new SqlConnection(config.AppUserDbConnection);
         }
 
         public int AddPublicationIfNotExists(string publicationName, string publicationType = Constants.PublicationType.Newspaper, string frequency = Constants.FrequencyType.Weekly, int? frequencyValue = 3)

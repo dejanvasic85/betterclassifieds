@@ -449,6 +449,7 @@
     <Content Include="Views\Booking\_PriceSummary.cshtml" />
     <Content Include="Views\Booking\Success.cshtml" />
     <Content Include="Views\Shared\_Layout.KandoBay.cshtml" />
+    <Content Include="Views\Shared\_Terms.TheMusic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\KandoBay\" />

@@ -77,7 +77,9 @@
                     <div class="checkbox">
                         <label>
                             @Html.CheckBoxFor(m => m.AgreeToTerms)
-                            @Html.LabelFor(m => m.AgreeToTerms)
+                            <label>
+                                I have read and agree to the <a data-toggle="modal" data-target="#termsModal">terms and conditions</a>
+                            </label>
                         </label>
                     </div>
                 </div>
@@ -99,7 +101,7 @@
             @if (Model.IsPaymentRequired)
             {
                 <button id="btnSubmit" type="submit" class="btn btn-large btn-default">
-                    <i class="fa fa-cc-paypal"></i> Payment 
+                    <i class="fa fa-cc-paypal"></i> Payment
                 </button>
             }
             else
@@ -110,15 +112,28 @@
     </ul>
 </form>
 
+<div id="termsModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                @Html.Partial("_Terms")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Got it, thanks</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts{
     <script>
         (function ($) {
 
             $(function () {
-                //$('label.btn').on('click',function () {
-                //    var me = $(this);
-                //    $('#' + me.data().maptohdnfield).val(me.text().trim());
-                //});
+                // Styling the modal dialog
+                $('#termsModal').on('show.bs.modal', function () {
+                    $('.modal-content').css('max-height', $(window).height() * 0.8).css('overflow', 'auto');
+                });
             });
 
         })(jQuery);

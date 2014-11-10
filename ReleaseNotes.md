@@ -14,6 +14,8 @@ Here's a list of the latest changes for the current release:
 
 - [Inserting transaction record for every booking](https://trello.com/c/H0LwqKtd/249-insert-record-for-transaction-table-on-authorise-payment)
 
+- [Terms and Conditions as modal popup in final step](https://trello.com/c/Tb1RS9He/246-nextgen-terms-and-conditions-for-booking)
+
 - [Upgrading the bootstrap library to 3.3](https://trello.com/c/Bqljq2kl/233-upgrade-ui-bootstrap-library-to-3-2)
 
 Other useful resources:

@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 
 namespace Paramount.Betterclassifieds.Tests.Functional
 {
@@ -86,13 +87,15 @@ namespace Paramount.Betterclassifieds.Tests.Functional
     {
         public static IConfig CreateConfig()
         {
-            // We use environment variables in Team City
-            if (System.Environment.GetEnvironmentVariable("TEAMCITY_JRE").HasValue())
-            {
-                return new EnvironmentConfiguration();
-            }
+            Console.WriteLine("Resolving configuration");
+            Console.WriteLine("TEAMCITY_JRE variable value {0}", Environment.GetEnvironmentVariable("TEAMCITY_JRE"));
 
+#if DEBUG
             return new TestConfiguration();
+#else
+            return new EnvironmentConfiguration();
+
+#endif
         }
     }
 

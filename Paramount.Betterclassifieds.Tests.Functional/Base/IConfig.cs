@@ -89,6 +89,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         {
             Console.WriteLine("Resolving configuration");
             Console.WriteLine("TEAMCITY_JRE variable value {0}", Environment.GetEnvironmentVariable("TEAMCITY_JRE"));
+            Console.WriteLine("env.TEAMCITY_JRE variable value {0}", Environment.GetEnvironmentVariable("env.TEAMCITY_JRE"));
+
 
 #if DEBUG
             return new TestConfiguration();

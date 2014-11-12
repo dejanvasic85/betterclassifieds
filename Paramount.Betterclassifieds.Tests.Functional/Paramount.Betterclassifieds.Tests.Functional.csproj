@@ -192,6 +192,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Paramount.Betterclassifieds.Tests.Functional.nuspec" />
+    <None Include="TeamCityTransform.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

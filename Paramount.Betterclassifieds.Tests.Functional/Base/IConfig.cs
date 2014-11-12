@@ -55,34 +55,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         }
     }
 
-    public class EnvironmentConfiguration : IConfig
-    {
-        public string BaseUrl
-        {
-            get { return System.Environment.GetEnvironmentVariable("BaseUrl"); }
-        }
-
-        public string BaseAdminUrl
-        {
-            get { return System.Environment.GetEnvironmentVariable("BaseAdminUrl"); }
-        }
-
-        public string ClassifiedsDbConnection
-        {
-            get { return System.Environment.GetEnvironmentVariable("ClassifiedsDbConnection"); }
-        }
-
-        public string BroadcastDbConnection
-        {
-            get { return System.Environment.GetEnvironmentVariable("BroadcastDbConnection"); }
-        }
-
-        public string AppUserDbConnection
-        {
-            get { return System.Environment.GetEnvironmentVariable("AppUserDbConnection"); }
-        }
-    }
-
     internal class ConfigFactory
     {
         public static IConfig CreateConfig()
@@ -92,12 +64,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             Console.WriteLine("env.TEAMCITY_JRE variable value {0}", Environment.GetEnvironmentVariable("env.TEAMCITY_JRE"));
 
 
-#if DEBUG
             return new TestConfiguration();
-#else
-            return new EnvironmentConfiguration();
 
-#endif
         }
     }
 

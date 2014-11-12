@@ -59,10 +59,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional
     {
         public static IConfig CreateConfig()
         {
-            Console.WriteLine("Resolving configuration");
-            Console.WriteLine("TEAMCITY_JRE variable value {0}", Environment.GetEnvironmentVariable("TEAMCITY_JRE"));
-            Console.WriteLine("env.TEAMCITY_JRE variable value {0}", Environment.GetEnvironmentVariable("env.TEAMCITY_JRE"));
-
 
             return new TestConfiguration();
 

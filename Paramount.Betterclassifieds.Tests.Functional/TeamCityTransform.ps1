@@ -1,4 +1,9 @@
-﻿Function ReplaceInFile($TargetFile, [HashTable] $Values){
+﻿
+param (
+    [parameter(Mandatory=$true)][string]$CurrentPath
+)
+
+Function ReplaceInFile($TargetFile, [HashTable] $Values){
     
     if ( (Test-Path $TargetFile ) -eq $false){
         throw "The target file '$($TargetFile)' does not exist."
@@ -16,7 +21,6 @@
     Write-Host "--- Done"
 }
 
-$CurrentPath = ( split-path $MyInvocation.MyCommand.Path ) 
 
 
 # Swap everything for File.txt

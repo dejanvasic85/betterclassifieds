@@ -27,4 +27,6 @@ ReplaceInFile -TargetFile $AppConfig -Values @{
     'Data Source=localhost;Initial Catalog=iFlog;Integrated Security=True' = (Get-ChildItem env:ClassifiedsDbConnection).Value;
 	'Data Source=localhost;Initial Catalog=Broadcast;Integrated Security=True' = (Get-ChildItem env:BroadcastDbConnection).Value;
 	'Data Source=localhost;Initial Catalog=iFlogAppUser;Integrated Security=True' = (Get-ChildItem env:AppUserDbConnection).Value;
+	'http://localhost/iFlog/' = (Get-ChildItem env:BaseUrl).Value;
+	'http://localhost/iFlogAdmin/' = (Get-ChildItem env:BaseAdminUrl).Value;
 } 

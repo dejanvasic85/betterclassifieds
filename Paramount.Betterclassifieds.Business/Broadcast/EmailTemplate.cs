@@ -33,6 +33,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
 
         // Type of parser that is required
         public string ParserName { get; private set; }
-        
+
+        public string Brand { get; private set; }
     }
 }

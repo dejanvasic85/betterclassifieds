@@ -17,6 +17,7 @@ namespace Paramount.Betterclassifieds.DataService.Broadcast
             Property(prop => prop.From).HasMaxLength(200);
             Property(prop => prop.ParserName).HasMaxLength(50);
             Property(prop => prop.ModifiedBy).HasMaxLength(50);
+            Property(prop => prop.Brand).HasMaxLength(50);
         }
     }
 }

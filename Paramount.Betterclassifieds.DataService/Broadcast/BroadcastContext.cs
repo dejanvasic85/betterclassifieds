@@ -7,6 +7,13 @@ namespace Paramount.Betterclassifieds.DataService.Broadcast
 {
     public class BroadcastContext : DbContext
     {
+        static BroadcastContext()
+        {
+            // Entity framework is crazy.
+            // If we don't set a null ininitializer, the default one will create the database automatically
+            System.Data.Entity.Database.SetInitializer<BroadcastContext>(null);
+        }
+
         public BroadcastContext()
             : base(ConfigurationManager.ConnectionStrings["BroadcastConnection"].ConnectionString)
         {

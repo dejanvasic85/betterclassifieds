@@ -9,6 +9,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Paramount.Betterclassifieds.DataService.Repository;
 
 namespace Paramount.TaskScheduler
 {
@@ -19,7 +20,7 @@ namespace Paramount.TaskScheduler
         public SystemHealthCheckAlert()
         {
             IBroadcastRepository broadcastRepository = new BroadcastRepository();
-            INotificationProcessor processor = new EmailProcessor(broadcastRepository);
+            INotificationProcessor processor = new EmailProcessor(broadcastRepository, new AppConfig());
 
             _broadcastManager = new BroadcastManager(broadcastRepository, new[] { processor });
         }

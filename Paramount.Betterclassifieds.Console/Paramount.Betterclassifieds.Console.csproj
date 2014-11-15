@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="HelpAttribute.cs" />
     <Compile Include="Tasks\ProcessUnsentNotifications.cs" />
+    <Compile Include="Tasks\TestEmailTemplate.cs" />
     <Compile Include="TypeRegistrations.cs" />
     <Compile Include="TaskHelper.cs" />
     <Compile Include="Tasks\RemoveEdition.cs" />

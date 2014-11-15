@@ -1,5 +1,6 @@
 using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.DataService.Broadcast;
+using Paramount.Betterclassifieds.DataService.Repository;
 
 namespace Paramount.TaskScheduler
 {
@@ -10,7 +11,7 @@ namespace Paramount.TaskScheduler
         public EmailProcessing()
         {
             IBroadcastRepository broadcastRepository = new BroadcastRepository();
-            INotificationProcessor processor = new EmailProcessor(broadcastRepository);
+            INotificationProcessor processor = new EmailProcessor(broadcastRepository, new AppConfig());
 
             _broadcastManager = new BroadcastManager(broadcastRepository, new[] { processor });
         }

@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Configuration;
-using Paramount.ApplicationBlock.Configuration;
-using Paramount.ApplicationBlock.Data;
-using Paramount.Betterclassifieds.Business.Managers;
-
-namespace Paramount.Betterclassifieds.DataService.Repository
+﻿namespace Paramount.Betterclassifieds.DataService.Repository
 {
+    using Business.Managers;
+    using ApplicationBlock.Configuration;
+
     public class AppConfig : IApplicationConfig
     {
         public string BaseUrl
@@ -70,6 +67,11 @@ namespace Paramount.Betterclassifieds.DataService.Repository
         public bool IsPaymentEnabled
         {
             get { return ConfigManager.ReadAppSetting<bool>("IsPaymentEnabled"); }
+        }
+
+        public string Brand
+        {
+            get { return ConfigManager.ReadAppSetting<string>("Brand"); }
         }
     }
 }

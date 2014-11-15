@@ -3,7 +3,7 @@
 namespace Paramount.Betterclassifieds.Console.Tasks
 {
     [Help(Description = "Calls the broadcasting manager to send all un-processed notificaions")]
-    public class ProcessUnsentNotifications : ITask
+    internal class ProcessUnsentNotifications : ITask
     {
         public ProcessUnsentNotifications(IBroadcastManager broadcastManager)
         {

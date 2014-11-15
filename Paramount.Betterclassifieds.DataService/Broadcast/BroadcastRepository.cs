@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using Paramount.Betterclassifieds.Business.Broadcast;
-
-namespace Paramount.Betterclassifieds.DataService.Broadcast
+﻿namespace Paramount.Betterclassifieds.DataService.Broadcast
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+    using Business.Broadcast;
+
     public class BroadcastRepository : IBroadcastRepository
     {
         public void CreateNotification(Notification notification)
@@ -50,11 +50,11 @@ namespace Paramount.Betterclassifieds.DataService.Broadcast
             }
         }
 
-        public EmailTemplate GetTemplateByName(string templateName)
+        public EmailTemplate GetTemplateByName(string templateName, string brand)
         {
             using (var context = new BroadcastContext())
             {
-                return context.EmailTemplates.FirstOrDefault(t => t.DocType.Equals(templateName));
+                return context.EmailTemplates.FirstOrDefault(t => t.DocType == templateName && t.Brand == brand);
             }
         }
 

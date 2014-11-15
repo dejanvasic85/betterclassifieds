@@ -10,7 +10,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         List<Notification> GetIncompleteNotifications(int takeAmount);
 
         // Templates
-        EmailTemplate GetTemplateByName(string templateName);
+        EmailTemplate GetTemplateByName(string templateName, string brand);
 
         // Emails
         int CreateOrUpdateEmail(Email email);

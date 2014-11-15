@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using Paramount.Betterclassifieds.Business.Managers;
 
 namespace Paramount.Betterclassifieds.Business.Broadcast
 {
@@ -8,18 +9,20 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
     {
         private readonly IBroadcastRepository _broadcastRepository;
         private readonly ISmtpMailer _mailer;
+        private readonly IApplicationConfig _config;
         private readonly int _maxAttempts;
 
-        public EmailProcessor(IBroadcastRepository broadcastRepository)
-            : this(broadcastRepository, new DefaultMailer())
+        public EmailProcessor(IBroadcastRepository broadcastRepository, IApplicationConfig config)
+            : this(broadcastRepository, config, new DefaultMailer())
         {
             // Overloaded constructor
         }
 
-        public EmailProcessor(IBroadcastRepository broadcastRepository, ISmtpMailer mailer)
+        public EmailProcessor(IBroadcastRepository broadcastRepository, IApplicationConfig config, ISmtpMailer mailer)
         {
             _broadcastRepository = broadcastRepository;
             _mailer = mailer;
+            _config = config;
 
             // Todo - read max attempts from a config provider
             _maxAttempts = 3;
@@ -32,7 +35,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             where T : IDocType
         {
             // Template is required for emails, so fetch it
-            var emailTemplate = _broadcastRepository.GetTemplateByName(docType.DocumentType);
+            var emailTemplate = _broadcastRepository.GetTemplateByName(docType.DocumentType, _config.Brand);
 
             var delivery = Email.BuildWithTemplate(docType, emailTemplate, broadcastId, to);
 

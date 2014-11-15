@@ -24,7 +24,7 @@ namespace Paramount.TaskScheduler
             _applicationConfig = new AppConfig();
             
             IBroadcastRepository broadcastRepository = new BroadcastRepository();
-            INotificationProcessor processor = new EmailProcessor(broadcastRepository);
+            INotificationProcessor processor = new EmailProcessor(broadcastRepository, new AppConfig());
 
             _broadcastManager = new BroadcastManager(broadcastRepository, new[] {processor});
 

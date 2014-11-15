@@ -11,5 +11,6 @@
         int MaxImageUploadBytes { get; }
         string[] AcceptedImageFileTypes { get; }
         bool IsPaymentEnabled { get; }
+        string Brand { get; }
     }
 }

@@ -6,7 +6,7 @@ using Paramount.Betterclassifieds.Business.Managers;
 namespace Paramount.Betterclassifieds.Console.Tasks
 {
     [Help(Description = "Removes an edition from the system and ensures that any bookings made are also extended.")]
-    public class RemoveEdition : ITask
+    internal class RemoveEdition : ITask
     {
         private IEnumerable<DateTime> _editionsToRemove;
         private readonly IEditionManager _editionManager;

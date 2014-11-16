@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Presentation.Controllers
+﻿using System.IO;
+
+namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -250,7 +252,7 @@
             paymentService.CompletePayment(new PaymentRequest { PayerId = payerId, PayReference = bookingCart.PaymentReference });
             return RedirectToAction("Success");
         }
-        
+
         // 
         // GET /Booking/Success
         [HttpGet, Authorize, AuthorizeCartIdentity]
@@ -260,19 +262,27 @@
 
             var id = _bookingManager.CompleteCurrentBooking(bookingCart);
 
-            var currentUser = _userManager.GetCurrentUser(User).Username;
+            var currentUser = _userManager.GetCurrentUser(User);
 
+            // Send email to the user and support staff
+            var newBookingEmail = this.Map<BookingCart, NewBooking>(bookingCart);
+            newBookingEmail.AdId = id.ToString(); // We can only get the Id 
+            _broadcastManager.SendEmail(newBookingEmail, _clientConfig.SupportEmailList);
+            _broadcastManager.SendEmail(newBookingEmail, currentUser.Email);
+
+            // Build the view model
             var successView = new SuccessView
             {
                 AdId = id.ToString(),
                 IsBookingActive = bookingCart.StartDate <= DateTime.Today,
-                ExistingUsers = _userManager.GetUserNetworksForUserId(currentUser).Select(usr => new UserNetworkEmailView
+                ExistingUsers = _userManager.GetUserNetworksForUserId(currentUser.Username).Select(usr => new UserNetworkEmailView
                 {
                     Email = usr.UserNetworkEmail,
                     FullName = usr.FullName,
                     Selected = true,
                 }).ToArray()
             };
+            
             return View(successView);
         }
 
@@ -403,9 +413,19 @@
             configuration.CreateMap<Step2View, OnlineAdCart>()
                 .ForMember(member => member.Images, options => options.Ignore());
             configuration.CreateMap<UserNetworkEmailView, UserNetworkModel>();
+
+            // To Email Template
+            configuration.CreateMap<BookingCart, NewBooking>()
+                .ForMember(member => member.AdDescription, options => options.MapFrom(source => source.OnlineAdCart.DescriptionHtml))
+                .ForMember(member => member.AdHeading, options => options.MapFrom(source => source.OnlineAdCart.Heading))
+                .ForMember(member => member.StartDate, options => options.MapFrom(source => source.StartDate.Value.ToString("dd-MMM-yyyy")))
+                .ForMember(member => member.EndDate, options => options.MapFrom(source => source.EndDate.Value.ToString("dd-MMM-yyyy")))
+                .ForMember(member => member.TotalPrice, options => options.MapFrom(source => source.TotalPrice.ToString("N")))
+                ;
         }
 
         #endregion
-
+        
     }
+
 }

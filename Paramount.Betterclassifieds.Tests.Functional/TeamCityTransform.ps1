@@ -22,11 +22,10 @@ Function ReplaceInFile($TargetFile, [HashTable] $Values){
 }
 
 
-
-# Swap everything for File.txt
+# Get the configuration file used for testing
 $AppConfig =  Join-Path $CurrentPath -ChildPath "Paramount.Betterclassifieds.Tests.Functional.dll.config" 
 
-
+# Swap all the values that are used for endpoints for testing 
 ReplaceInFile -TargetFile $AppConfig -Values @{
     'Data Source=localhost;Initial Catalog=iFlog;Integrated Security=True' = (Get-ChildItem env:ClassifiedsDbConnection).Value;
 	'Data Source=localhost;Initial Catalog=Broadcast;Integrated Security=True' = (Get-ChildItem env:BroadcastDbConnection).Value;

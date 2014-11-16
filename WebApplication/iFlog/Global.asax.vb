@@ -41,19 +41,22 @@ Public Class Global_asax
     End Sub
 
     Sub SucessfulPayment(ByVal bookRef As String)
-        Dim content = BookingController.GetBookingStringContentByRef(bookRef)
-        Dim emailString As String = AppKeyReader(Of String).ReadFromStore(AppKey.AdminNotificationAccounts, defaultIfNotExists:="support@paramountit.com.au")
 
-        Dim broadcastManager = DefaultContainer.Resolve(Of IBroadcastManager)()
+        ' Legacy - this is now done by the MVC BookingController Success action
 
-        For Each recipient In emailString.Split(";")
+        'Dim content = BookingController.GetBookingStringContentByRef(bookRef)
+        'Dim emailString As String = AppKeyReader(Of String).ReadFromStore(AppKey.AdminNotificationAccounts, defaultIfNotExists:="support@paramountit.com.au")
 
-            If recipient.HasValue() Then
-                ' Always create a new email ( broadcast ) per recipient
-                broadcastManager.SendEmail(Of NewBooking)(New NewBooking() With {.Content = content}, recipient)
-            End If
+        'Dim broadcastManager = DefaultContainer.Resolve(Of IBroadcastManager)()
 
-        Next
+        'For Each recipient In emailString.Split(";")
+
+        '    If recipient.HasValue() Then
+        '        ' Always create a new email ( broadcast ) per recipient
+        '        broadcastManager.SendEmail(Of NewBooking)(New NewBooking() With {.Content = content}, recipient)
+        '    End If
+
+        'Next
 
     End Sub
 

@@ -5,9 +5,24 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         public string DocumentType { get { return GetType().Name; } }
 
         [Placeholder("username")]
-        public string Username { get; set; }
+        public string UserId { get; set; }
 
-        [Placeholder("content")]
-        public string Content { get; set; }
+        [Placeholder("adid")]
+        public string AdId { get; set; }
+
+        [Placeholder("price")]
+        public string TotalPrice { get; set; }
+        
+        [Placeholder("adheading")]
+        public string AdHeading { get; set; }
+
+        [Placeholder("addescription")]
+        public string AdDescription { get; set; }
+        
+        [Placeholder("startdate")]
+        public string StartDate { get; set; }
+
+        [Placeholder("enddate")]
+        public string EndDate { get; set; }
     }
 }

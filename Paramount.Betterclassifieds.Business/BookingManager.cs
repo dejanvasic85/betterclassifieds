@@ -23,11 +23,11 @@ namespace Paramount.Betterclassifieds.Business
         public BookingManager(IBookingRepository bookingRepository,
             IPublicationRepository publicationRepository,
             IClientConfig clientConfigSettings,
-            IPaymentsRepository payments, 
-            IAdRepository adRepository, 
-            IUserManager userManager, 
-            IBroadcastManager broadcastManager, 
-            IBookingSessionIdentifier bookingSessionIdentifier, 
+            IPaymentsRepository payments,
+            IAdRepository adRepository,
+            IUserManager userManager,
+            IBroadcastManager broadcastManager,
+            IBookingSessionIdentifier bookingSessionIdentifier,
             IBookingCartRepository cartRepository)
         {
             _bookingRepository = bookingRepository;
@@ -145,14 +145,20 @@ namespace Paramount.Betterclassifieds.Business
             var booking = _bookingRepository.GetBooking(adEnquiry.AdId);
             var bookingUser = _userManager.GetUserByEmailOrUsername(booking.UserId);
 
-            _broadcastManager.SendEmail(new AdEnquiryTemplate { AdNumber = adEnquiry.AdId.ToString() }, bookingUser.Email);
+            // Send email to the advertiser about the enquiry
+            _broadcastManager.SendEmail(new AdEnquiryTemplate
+            {
+                AdNumber = adEnquiry.AdId.ToString(),
+                Name = adEnquiry.FullName,
+                Email = adEnquiry.Email,
+            }, bookingUser.Email);
         }
 
         public IEnumerable<PublicationEditionModel> GenerateExtensionDates(int adBookingId, int numberOfInsertions)
         {
             foreach (var publicationEntries in _bookingRepository.GetBookEntriesForBooking(adBookingId).GroupBy(be => be.PublicationId))
             {
-                if (_publicationRepository.IsOnlinePublication(publicationEntries.Key))  
+                if (_publicationRepository.IsOnlinePublication(publicationEntries.Key))
                     continue;
 
                 // Fetch the last edition (used continuing the dates and price)
@@ -204,7 +210,7 @@ namespace Paramount.Betterclassifieds.Business
             {
                 throw new NullReferenceException("Booking cart is null and creator function was not supplied.");
             }
-            
+
             return bookingCart;
         }
 

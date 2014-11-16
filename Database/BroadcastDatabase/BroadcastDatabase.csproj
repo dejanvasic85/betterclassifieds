@@ -53,6 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Scripts\0016-Data.EmailTemplates-KandoBay.sql" />
     <EmbeddedResource Include="Scripts\0015-Data.EmailTemplates-TheMusic.sql" />
     <EmbeddedResource Include="Scripts\0014.Column.BrandName.sql" />
     <EmbeddedResource Include="Scripts\0013-Data.EmailTemplate-AdShare.sql" />

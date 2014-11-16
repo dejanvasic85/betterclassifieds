@@ -3,8 +3,37 @@ DECLARE @currentDateTime AS DATETIME;
 SET		@currentDateTime = GETDATE();
 DECLARE @currentDateTimeUtc AS DATETIME;
 SET		@currentDateTimeUtc = GETUTCDATE();
+DECLARE @kandoBayBrand AS VARCHAR(20);
+SET		@kandoBayBrand = 'KandoBay';
 
 -- Account Confirmation
+IF NOT EXISTS ( SELECT 1 FROM EmailTemplate WHERE DocType = 'NewRegistration' AND Brand = @kandoBayBrand )
+begin
+	INSERT INTO [dbo].[EmailTemplate]
+			   ([DocType]
+			   ,[Description]
+			   ,[SubjectTemplate]
+			   ,[BodyTemplate]
+			   ,[IsBodyHtml]
+			   ,[From]
+			   ,[ParserName]
+			   ,[ModifiedBy]
+			   ,[ModifiedDate]
+			   ,[ModifiedDateUtc]
+			   ,[Brand])
+		 VALUES
+			   ('NewRegistration'
+			   ,'New User Registration - Welcome and confirmation email'
+			   ,'KandoBay Account Confirmation' -- Subject
+			   ,'<todo>' -- Body
+			   ,1
+			   ,'no-reply@kandobay.com.au' -- From
+			   ,'SquareBracketParser'
+			   ,'System'
+			   ,@currentDateTime
+			   ,@currentDateTimeUtc
+			   ,@kandoBayBrand)
+end
 UPDATE	EmailTemplate
 SET	[BodyTemplate] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -242,25 +271,25 @@ a.bottomicontext:visited {
       -ms-user-select: none;
           user-select: none;
   background-image: none;
-  border: 1px solid transparent;
-  
+  border: 1px solid #222;  
   padding: 10px 16px;
   font-size: 18px;
   line-height: 1.33;
   border-radius: 6px;
 }
 .btn-primary {
-  color: #fff;
-  background-color: #263745;
-  border-color: #357ebd;
+  color: #222;
+  background-color: #fff;
+  border-color: #222;
 }
 .btn-primary .badge {
-  color: #428bca;
+  color: #222;
   background-color: #fff;
 }
-
-.btn-lg {
-  
+.btn:hover{
+  color: #fff;
+  background-color: #222;
+  text-decoration: none;
 }
 
 </style>
@@ -307,7 +336,9 @@ a.bottomicontext:visited {
             <!--Logo Start-->
             <table width="250" border="0" align="left" cellpadding="0" cellspacing="0" class="logo">
               <tr>
-                <td align="center" valign="top"><a href="#" target="_blank"><img editable="true" src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" width="250" height="100" alt="logo" style="display:block;"/></a></td>
+                <td align="center" valign="top">
+                  <!-- <a href="#" target="_blank"><img editable="true" src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" width="250" height="100" alt="logo" style="display:block;"/></a> -->
+                </td>
               </tr>
             </table>
             <!--Logo End-->
@@ -328,9 +359,9 @@ a.bottomicontext:visited {
                         <td width="5">&nbsp;</td>
                         <td></td>
                         <td width="5">&nbsp;</td>
-                        <td><a href="https://twitter.com/TheMusicComAu" target="_blank"><img editable="true" mc:edit="social-2" src="http://classies.themusic.com.au:8787/twitter-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
+                        <td><a href="https://twitter.com/" target="_blank"><img editable="true" mc:edit="social-2" src="http://classies.themusic.com.au:8787/twitter-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
                         <td width="5">&nbsp;</td>
-                        <td><a href="https://www.facebook.com/themusic.com.au" target="_blank"><img editable="true" mc:edit="social-1" src="http://classies.themusic.com.au:8787/facebook-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
+                        <td><a href="https://www.facebook.com" target="_blank"><img editable="true" mc:edit="social-1" src="http://classies.themusic.com.au:8787/facebook-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
                       </tr>
                     </table></td>
                   </tr>
@@ -357,7 +388,7 @@ a.bottomicontext:visited {
     <!--Content Start-->
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
-        <td valign="top" style="background-color : #263745">
+        <td valign="top" style="background-color : #222">
         
         <!--Heading Text Start-->
         <table width="610" border="0" align="center" cellpadding="0" cellspacing="0" class="main">
@@ -385,9 +416,9 @@ a.bottomicontext:visited {
                 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                   <tbody><tr>
-                    <td valign="top" style="padding:20px 25px 30px 25px;background-color: #b01e00"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <td valign="top" style="padding:20px 25px 30px 25px;background-color: #006687"><table width="100%" border="0" cellspacing="0" cellpadding="0">
                       <tbody><tr>
-                        <td valign="top" mc:edit="text-area-heading" class="headingcontent"><singleline>Welcome to TheMusic!</singleline></td>
+                        <td valign="top" mc:edit="text-area-heading" class="headingcontent"><singleline>Welcome to KandoBay!</singleline></td>
                       </tr>
                       <tr>
                         <td valign="top" mc:edit="text-area-content" class="textcontent" style="padding:10px 0px 20px 0px;"><singleline>Thank you
@@ -432,23 +463,14 @@ a.bottomicontext:visited {
         <!--Content Body End-->
         
         </td>
-      </tr>
-      <tr>
-        <td valign="top" style="background-color : #b01e00">
-        
-        <!--Icon Bottom Start-->
-       
-        <!--Icon Bottom End-->
-        
-        </td>
-      </tr>
+      </tr>      
     </table>
     <!--Content End-->
     
     </td>
   </tr>
   <tr>
-    <td valign="top" style="background-color : #263745">
+    <td valign="top" style="background-color : #222">
     
     <!--Footer Start-->
     <table width="610" border="0" align="center" cellpadding="0" cellspacing="0" class="main">
@@ -462,16 +484,15 @@ a.bottomicontext:visited {
             <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
               
               <tr>
-                <td valign="top" mc:edit="address-contact" class="textfooter" style="padding:15px 0px 17px 0px;"><singleline>TheMusic <br />
-                  PH: 61 3 9421 4499<br />
-                  <a href="#" class="headerlink">info@themusic.com.au</a></singleline></td>
+                <td valign="top" mc:edit="address-contact" class="textfooter" style="padding:15px 0px 17px 0px;"><singleline>KandoBay <br />
+                  info@kandobay.com.au</singleline></td>
               </tr>
               <tr>
                 <td valign="top"><table width="100" border="0" cellspacing="0" cellpadding="0">
                   <tr>
-                    <td><a href="https://twitter.com/TheMusicComAu" target="_blank"><img editable="true" mc:edit="social-2" src="http://classies.themusic.com.au:8787/twitter-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
+                    <td><a href="https://twitter.com/" target="_blank"><img editable="true" mc:edit="social-2" src="http://classies.themusic.com.au:8787/twitter-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
                     <td width="5">&nbsp;</td>
-                    <td><a href="https://www.facebook.com/themusic.com.au" target="_blank"><img editable="true" mc:edit="social-1" src="http://classies.themusic.com.au:8787/facebook-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
+                    <td><a href="https://www.facebook.com/" target="_blank"><img editable="true" mc:edit="social-1" src="http://classies.themusic.com.au:8787/facebook-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
                     <td width="5">&nbsp;</td>
                     <td></td>
                     <td width="5">&nbsp;</td>
@@ -496,25 +517,27 @@ a.bottomicontext:visited {
               <tr>
                 <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
                   <tr>
-                    <td valign="top" mc:edit="recommend" class="footerheading"><singleline>Classies</singleline></td>
+                    <td valign="top" mc:edit="recommend" class="footerheading"><singleline>Our Website</singleline></td>
                   </tr>
                   <tr>
                     <td valign="top" mc:edit="recommend-link" class="textfooter" style="padding-top:12px;">
                       
-                      <singleline><a href="http://classies.themusic.com.au" target="_blank" class="headerlink">Classies Home</a></singleline><br />
-                      <singleline><a href="http://classies.themusic.com.au/Booking/Step/1" target="_blank" class="headerlink">Place New Ad</a></singleline><br />
-                      <singleline><a href="http://classies.themusic.com.au/Home/ContactUs" target="_blank" class="headerlink">Contact Us</a></singleline><br />
+                      <singleline><a href="http://kandobay.com.au" target="_blank" class="headerlink">Classies Home</a></singleline><br />
+                      <singleline><a href="http://kandobay.com.au/Booking/Step/1" target="_blank" class="headerlink">Place New Ad</a></singleline><br />
+                      <singleline><a href="http://kandobay.com.au/Home/ContactUs" target="_blank" class="headerlink">Contact Us</a></singleline><br />
                   </tr>
                 </table></td>
-                <td width="50" valign="top" style="padding-left:10px;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td valign="top" mc:edit="newsletter" class="footerheading"><singleline>TheMusic</singleline></td>
-                  </tr>
-                  <tr>
-                    <td valign="top" mc:edit="newsletter-link" class="textfooter" style="padding-top:12px;">
-                      <singleline><a href="http://themusic.com.au" target="_blank" class="headerlink">Home</a></singleline><br />
-                  </tr>
-                </table></td>
+                <!-- <td width="50" valign="top" style="padding-left:10px;">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td valign="top" mc:edit="newsletter" class="footerheading"><singleline>TheMusic</singleline></td>
+                    </tr>
+                    <tr>
+                      <td valign="top" mc:edit="newsletter-link" class="textfooter" style="padding-top:12px;">
+                        <singleline><a href="http://themusic.com.au" target="_blank" class="headerlink">Home</a></singleline><br />
+                    </tr>
+                  </table>
+                </td> -->
               </tr>
             </table></td>
           </tr>
@@ -531,20 +554,44 @@ a.bottomicontext:visited {
   </tr>
 </table>
 <!--Table End-->
-
 </body>
 </html>
-', 
-Brand = 'TheMusic'
-WHERE	DocType	= 'NewRegistration'
+'
+WHERE	DocType	= 'NewRegistration' AND Brand = 'KandoBay'
 
 -- Password Reset
-UPDATE	EmailTemplate
-SET [BodyTemplate] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+IF NOT EXISTS ( SELECT 1 FROM EmailTemplate WHERE DocType = 'ForgottenPassword' AND Brand = @kandoBayBrand )
+begin
+	INSERT INTO [dbo].[EmailTemplate]
+			   ([DocType]
+			   ,[Description]
+			   ,[SubjectTemplate]
+			   ,[BodyTemplate]
+			   ,[IsBodyHtml]
+			   ,[From]
+			   ,[ParserName]
+			   ,[ModifiedBy]
+			   ,[ModifiedDate]
+			   ,[ModifiedDateUtc]
+			   ,[Brand])
+		 VALUES
+			   ('ForgottenPassword'
+			   ,'User will be sent a new temporary password'
+			   ,'KandoBay Password Reset' -- Subject
+			   ,'<todo>' -- Body
+			   ,1
+			   ,'no-reply@kandobay.com.au' -- From
+			   ,'SquareBracketParser'
+			   ,'System'
+			   ,@currentDateTime
+			   ,@currentDateTimeUtc
+			   ,@kandoBayBrand)
+end
+UPDATE EmailTemplate
+SET		BodyTemplate = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Password Recovery</title>
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700,700italic,800,800italic"/>
 <style type="text/css">
@@ -776,25 +823,25 @@ a.bottomicontext:visited {
       -ms-user-select: none;
           user-select: none;
   background-image: none;
-  border: 1px solid transparent;
-  
+  border: 1px solid #222;  
   padding: 10px 16px;
   font-size: 18px;
   line-height: 1.33;
   border-radius: 6px;
 }
 .btn-primary {
-  color: #fff;
-  background-color: #263745;
-  border-color: #357ebd;
+  color: #222;
+  background-color: #fff;
+  border-color: #222;
 }
 .btn-primary .badge {
-  color: #428bca;
+  color: #222;
   background-color: #fff;
 }
-
-.btn-lg {
-  
+.btn:hover{
+  color: #fff;
+  background-color: #222;
+  text-decoration: none;
 }
 
 </style>
@@ -841,7 +888,9 @@ a.bottomicontext:visited {
             <!--Logo Start-->
             <table width="250" border="0" align="left" cellpadding="0" cellspacing="0" class="logo">
               <tr>
-                <td align="center" valign="top"><a href="#" target="_blank"><img editable="true" src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" width="250" height="100" alt="logo" style="display:block;"/></a></td>
+                <td align="center" valign="top">
+                  <!-- <a href="#" target="_blank"><img editable="true" src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" width="250" height="100" alt="logo" style="display:block;"/></a> -->
+                </td>
               </tr>
             </table>
             <!--Logo End-->
@@ -862,9 +911,9 @@ a.bottomicontext:visited {
                         <td width="5">&nbsp;</td>
                         <td></td>
                         <td width="5">&nbsp;</td>
-                        <td><a href="https://twitter.com/TheMusicComAu" target="_blank"><img editable="true" mc:edit="social-2" src="http://classies.themusic.com.au:8787/twitter-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
+                        <td><a href="https://twitter.com/" target="_blank"><img editable="true" mc:edit="social-2" src="http://classies.themusic.com.au:8787/twitter-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
                         <td width="5">&nbsp;</td>
-                        <td><a href="https://www.facebook.com/themusic.com.au" target="_blank"><img editable="true" mc:edit="social-1" src="http://classies.themusic.com.au:8787/facebook-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
+                        <td><a href="https://www.facebook.com" target="_blank"><img editable="true" mc:edit="social-1" src="http://classies.themusic.com.au:8787/facebook-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
                       </tr>
                     </table></td>
                   </tr>
@@ -891,7 +940,7 @@ a.bottomicontext:visited {
     <!--Content Start-->
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
-        <td valign="top" style="background-color : #263745">
+        <td valign="top" style="background-color : #222">
         
         <!--Heading Text Start-->
         <table width="610" border="0" align="center" cellpadding="0" cellspacing="0" class="main">
@@ -919,15 +968,13 @@ a.bottomicontext:visited {
                 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                   <tbody><tr>
-                    <td valign="top" style="padding:20px 25px 30px 25px;background-color: #b01e00"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <td valign="top" style="padding:20px 25px 30px 25px;background-color: #006687"><table width="100%" border="0" cellspacing="0" cellpadding="0">
                       <tbody><tr>
                         <td valign="top" mc:edit="text-area-heading" class="headingcontent"><singleline>Forgot your password?</singleline></td>
                       </tr>
                       <tr>
                         <td valign="top" mc:edit="text-area-content" class="textcontent" style="padding:10px 0px 20px 0px;"><singleline>That''s ok,
-                        we have reset your password for you and it has been set to:</singleline>
-
-                        </td>
+                        we have reset your password for you and it has been set to:</singleline></td>
                       </tr>
                     
                     </tbody></table></td>
@@ -936,14 +983,10 @@ a.bottomicontext:visited {
 
 
                 <!--Main Image Start-->
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                 
-                  <tr>
-                    <td valign="top" style="padding:20px 25px 30px 25px; border: 1px solid #263745; color: #263745; background-color: #fff">
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border: 1px solid #eee">
                      
                       <tr>
-                        <td valign="top" class="textcontent on-white-bg" mc:edit="main-image-content" style="padding:10px 0px 20px 0px;">
+                        <td valign="top" class="textcontent on-white-bg" style="padding:20px;">
                           <table>
                             <tr><td>Username</td><td><strong>[/Username/]</strong></td></tr>
                             <tr><td>Password</td><td><strong>[/Password/]</strong></td></tr>
@@ -953,12 +996,10 @@ a.bottomicontext:visited {
                       </tr>
                     
                       <tr>
-                        <td align="center" valign="top">
-                        <a href="http://classies.themusic.com.au/" target="_blank" class="btn btn-lg btn-primary">Go To Login</a></td>
+                        <td align="center" valign="top" style="padding: 20px"> 
+                        <a href="http://kandobay.com.au/" target="_blank" class="btn btn-lg btn-primary">Go To Login</a></td>
                       </tr>
-                    </table></td>
-                  </tr>
-                </table>
+                    </table>
                 <!--Main Image End-->
                 
                 </td>
@@ -974,23 +1015,14 @@ a.bottomicontext:visited {
         <!--Content Body End-->
         
         </td>
-      </tr>
-      <tr>
-        <td valign="top" style="background-color : #b01e00">
-        
-        <!--Icon Bottom Start-->
-       
-        <!--Icon Bottom End-->
-        
-        </td>
-      </tr>
+      </tr>      
     </table>
     <!--Content End-->
     
     </td>
   </tr>
   <tr>
-    <td valign="top" style="background-color : #263745">
+    <td valign="top" style="background-color : #222">
     
     <!--Footer Start-->
     <table width="610" border="0" align="center" cellpadding="0" cellspacing="0" class="main">
@@ -1004,16 +1036,15 @@ a.bottomicontext:visited {
             <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
               
               <tr>
-                <td valign="top" mc:edit="address-contact" class="textfooter" style="padding:15px 0px 17px 0px;"><singleline>TheMusic <br />
-                  PH: 61 3 9421 4499<br />
-                  <a href="#" class="headerlink">info@themusic.com.au</a></singleline></td>
+                <td valign="top" mc:edit="address-contact" class="textfooter" style="padding:15px 0px 17px 0px;"><singleline>KandoBay <br />
+                  info@kandobay.com.au</singleline></td>
               </tr>
               <tr>
                 <td valign="top"><table width="100" border="0" cellspacing="0" cellpadding="0">
                   <tr>
-                    <td><a href="https://twitter.com/TheMusicComAu" target="_blank"><img editable="true" mc:edit="social-2" src="http://classies.themusic.com.au:8787/twitter-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
+                    <td><a href="https://twitter.com/" target="_blank"><img editable="true" mc:edit="social-2" src="http://classies.themusic.com.au:8787/twitter-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
                     <td width="5">&nbsp;</td>
-                    <td><a href="https://www.facebook.com/themusic.com.au" target="_blank"><img editable="true" mc:edit="social-1" src="http://classies.themusic.com.au:8787/facebook-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
+                    <td><a href="https://www.facebook.com/" target="_blank"><img editable="true" mc:edit="social-1" src="http://classies.themusic.com.au:8787/facebook-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
                     <td width="5">&nbsp;</td>
                     <td></td>
                     <td width="5">&nbsp;</td>
@@ -1038,25 +1069,27 @@ a.bottomicontext:visited {
               <tr>
                 <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
                   <tr>
-                    <td valign="top" mc:edit="recommend" class="footerheading"><singleline>Classies</singleline></td>
+                    <td valign="top" mc:edit="recommend" class="footerheading"><singleline>Our Website</singleline></td>
                   </tr>
                   <tr>
                     <td valign="top" mc:edit="recommend-link" class="textfooter" style="padding-top:12px;">
                       
-                      <singleline><a href="http://classies.themusic.com.au" target="_blank" class="headerlink">Classies Home</a></singleline><br />
-                      <singleline><a href="http://classies.themusic.com.au/Booking/Step/1" target="_blank" class="headerlink">Place New Ad</a></singleline><br />
-                      <singleline><a href="http://classies.themusic.com.au/Home/ContactUs" target="_blank" class="headerlink">Contact Us</a></singleline><br />
+                      <singleline><a href="http://kandobay.com.au" target="_blank" class="headerlink">Classies Home</a></singleline><br />
+                      <singleline><a href="http://kandobay.com.au/Booking/Step/1" target="_blank" class="headerlink">Place New Ad</a></singleline><br />
+                      <singleline><a href="http://kandobay.com.au/Home/ContactUs" target="_blank" class="headerlink">Contact Us</a></singleline><br />
                   </tr>
                 </table></td>
-                <td width="50" valign="top" style="padding-left:10px;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td valign="top" mc:edit="newsletter" class="footerheading"><singleline>TheMusic</singleline></td>
-                  </tr>
-                  <tr>
-                    <td valign="top" mc:edit="newsletter-link" class="textfooter" style="padding-top:12px;">
-                      <singleline><a href="http://themusic.com.au" target="_blank" class="headerlink">Home</a></singleline><br />
-                  </tr>
-                </table></td>
+                <!-- <td width="50" valign="top" style="padding-left:10px;">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td valign="top" mc:edit="newsletter" class="footerheading"><singleline>TheMusic</singleline></td>
+                    </tr>
+                    <tr>
+                      <td valign="top" mc:edit="newsletter-link" class="textfooter" style="padding-top:12px;">
+                        <singleline><a href="http://themusic.com.au" target="_blank" class="headerlink">Home</a></singleline><br />
+                    </tr>
+                  </table>
+                </td> -->
               </tr>
             </table></td>
           </tr>
@@ -1076,13 +1109,39 @@ a.bottomicontext:visited {
 
 </body>
 </html>
-', 
-Brand = 'TheMusic'
-WHERE	DocType	= 'ForgottenPassword'
-
+'
+WHERE	DocType = 'ForgottenPassword' and Brand = @kandoBayBrand
+	
 -- ExpirationReminder
-UPDATE	EmailTemplate
-SET [BodyTemplate] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+IF NOT EXISTS ( SELECT 1 FROM EmailTemplate WHERE DocType = 'ExpirationReminder' AND Brand = @kandoBayBrand )
+begin
+	INSERT INTO [dbo].[EmailTemplate]
+			   ([DocType]
+			   ,[Description]
+			   ,[SubjectTemplate]
+			   ,[BodyTemplate]
+			   ,[IsBodyHtml]
+			   ,[From]
+			   ,[ParserName]
+			   ,[ModifiedBy]
+			   ,[ModifiedDate]
+			   ,[ModifiedDateUtc]
+			   ,[Brand])
+		 VALUES
+			   ('ExpirationReminder'
+			   ,'Reminder to the user that their booking is about to expire'
+			   ,'Your KandoBay ad is Expiring' -- Subject
+			   ,'<todo>' -- Body
+			   ,1
+			   ,'no-reply@kandobay.com.au' -- From
+			   ,'SquareBracketParser'
+			   ,'System'
+			   ,@currentDateTime
+			   ,@currentDateTimeUtc
+			   ,@kandoBayBrand)
+end
+UPDATE EmailTemplate
+SET		BodyTemplate = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -1128,7 +1187,7 @@ a img {
 	text-align: left;
 }
 .on-white-bg{
-  color: #263745;
+  color: #222;
 }
 .headingcontent {
 	font-family: ''Open Sans'', sans-serif;
@@ -1327,7 +1386,7 @@ a.bottomicontext:visited {
 }
 .btn-primary {
   color: #fff;
-  background-color: #263745;
+  background-color: #222;
   border-color: #357ebd;
 }
 .btn-primary .badge {
@@ -1382,9 +1441,9 @@ a.bottomicontext:visited {
             
             <!--Logo Start-->
             <table width="250" border="0" align="left" cellpadding="0" cellspacing="0" class="logo">
-              <tr>
+              <!-- <tr>
                 <td align="center" valign="top"><a href="#" target="_blank"><img editable="true" src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" width="250" height="100" alt="logo" style="display:block;"/></a></td>
-              </tr>
+              </tr> -->
             </table>
             <!--Logo End-->
             
@@ -1433,7 +1492,7 @@ a.bottomicontext:visited {
     <!--Content Start-->
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
-        <td valign="top" style="background-color : #263745">
+        <td valign="top" style="background-color : #222">
         
         <!--Heading Text Start-->
         <table width="610" border="0" align="center" cellpadding="0" cellspacing="0" class="main">
@@ -1461,7 +1520,7 @@ a.bottomicontext:visited {
                 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                   <tbody><tr>
-                    <td valign="top" style="padding:20px 25px 30px 25px;background-color: #b01e00"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <td valign="top" style="padding:20px 25px 30px 25px;background-color: #006687"><table width="100%" border="0" cellspacing="0" cellpadding="0">
                       <tbody><tr>
                         <td valign="top" mc:edit="text-area-heading" class="headingcontent"><singleline>Your ad is expiring soon.</singleline></td>
                       </tr>
@@ -1482,7 +1541,7 @@ a.bottomicontext:visited {
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                  
                   <tr>
-                    <td valign="top" style="padding:20px 25px 30px 25px; border: 1px solid #263745; color: #263745; background-color: #fff">
+                    <td valign="top" style="padding:20px 25px 30px 25px; border: 1px solid #222; color: #222; background-color: #fff">
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">                     
                       <tr>
                         <td valign="top" class="textcontent on-white-bg" mc:edit="main-image-content" style="padding:10px 0px 20px 0px;">
@@ -1514,7 +1573,7 @@ a.bottomicontext:visited {
         </td>
       </tr>
       <tr>
-        <td valign="top" style="background-color : #b01e00">
+        <td valign="top" style="background-color : #006687">
         
         <!--Icon Bottom Start-->
        
@@ -1528,7 +1587,7 @@ a.bottomicontext:visited {
     </td>
   </tr>
   <tr>
-    <td valign="top" style="background-color : #263745">
+    <td valign="top" style="background-color : #222">
     
     <!--Footer Start-->
     <table width="610" border="0" align="center" cellpadding="0" cellspacing="0" class="main">
@@ -1614,13 +1673,39 @@ a.bottomicontext:visited {
 
 </body>
 </html>
-', 
-Brand = 'TheMusic'
-WHERE	DocType	= 'ExpirationReminder'
+'
+WHERE	DocType = 'ExpirationReminder' and Brand = @kandoBayBrand
 
 -- NewBooking
-UPDATE	EmailTemplate
-SET [BodyTemplate] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+IF NOT EXISTS ( SELECT 1 FROM EmailTemplate WHERE DocType = 'NewBooking' AND Brand = @kandoBayBrand )
+begin
+	INSERT INTO [dbo].[EmailTemplate]
+			   ([DocType]
+			   ,[Description]
+			   ,[SubjectTemplate]
+			   ,[BodyTemplate]
+			   ,[IsBodyHtml]
+			   ,[From]
+			   ,[ParserName]
+			   ,[ModifiedBy]
+			   ,[ModifiedDate]
+			   ,[ModifiedDateUtc]
+			   ,[Brand])
+		 VALUES
+			   ('NewBooking'
+			   ,'Email containing full details of the new Ad Booking'
+			   ,'KandoBay Booking Complete' -- Subject
+			   ,'<todo>' -- Body
+			   ,1
+			   ,'no-reply@kandobay.com.au' -- From
+			   ,'SquareBracketParser'
+			   ,'System'
+			   ,@currentDateTime
+			   ,@currentDateTimeUtc
+			   ,@kandoBayBrand)
+end
+UPDATE EmailTemplate
+SET		BodyTemplate = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -1666,7 +1751,7 @@ a img {
 	text-align: left;
 }
 .on-white-bg{
-  color: #263745;
+  color: #222;
 }
 .headingcontent {
 	font-family: ''Open Sans'', sans-serif;
@@ -1865,7 +1950,7 @@ a.bottomicontext:visited {
 }
 .btn-primary {
   color: #fff;
-  background-color: #263745;
+  background-color: #222;
   border-color: #357ebd;
 }
 .btn-primary .badge {
@@ -1920,9 +2005,9 @@ a.bottomicontext:visited {
             
             <!--Logo Start-->
             <table width="250" border="0" align="left" cellpadding="0" cellspacing="0" class="logo">
-              <tr>
+              <!-- <tr>
                 <td align="center" valign="top"><a href="#" target="_blank"><img editable="true" src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" width="250" height="100" alt="logo" style="display:block;"/></a></td>
-              </tr>
+              </tr> -->
             </table>
             <!--Logo End-->
             
@@ -1971,7 +2056,7 @@ a.bottomicontext:visited {
     <!--Content Start-->
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
-        <td valign="top" style="background-color : #263745">
+        <td valign="top" style="background-color : #222">
         
         <!--Heading Text Start-->
         <table width="610" border="0" align="center" cellpadding="0" cellspacing="0" class="main">
@@ -1999,7 +2084,7 @@ a.bottomicontext:visited {
                 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                   <tbody><tr>
-                    <td valign="top" style="padding:20px 25px 30px 25px;background-color: #b01e00"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <td valign="top" style="padding:20px 25px 30px 25px;background-color: #006687"><table width="100%" border="0" cellspacing="0" cellpadding="0">
                       <tbody><tr>
                         <td valign="top" mc:edit="text-area-heading" class="headingcontent"><singleline>Ad was booked successfully</singleline></td>
                       </tr>
@@ -2020,16 +2105,16 @@ a.bottomicontext:visited {
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                  
                   <tr>
-                    <td valign="top" style="padding:20px 25px 30px 25px; border: 1px solid #eee; color: #263745; background-color: #fff">
+                    <td valign="top" style="padding:20px 25px 30px 25px; border: 1px solid #eee; color: #222; background-color: #fff">
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                      
                       <tr>
                         <td valign="top" class="textcontent on-white-bg" mc:edit="main-image-content" style="padding:10px 0px 20px 0px;">
                           <table>
-                            <tr><td>Ad ID</td><td>[/adid/]</td></tr>
-                            <tr><td>Booking Price</td><td>[/price/]</td></tr>
-                            <tr><td>Start Date</td><td>[/startdate/]</td></tr>
-                            <tr><td>End Date</td><td>[/enddate/]</td></tr>
+                            <tr><td>Ad ID</td><td><strong>[/adid/]</strong></td></tr>
+                            <tr><td>Price</td><td><strong>[/price/]</strong></td></tr>
+                            <tr><td>Start Date</td><td><strong>[/startdate/]</strong></td></tr>
+                            <tr><td>End Date</td><td><strong>[/enddate/]</strong></td></tr>
                           </table>
                          </td>
                       </tr>
@@ -2102,7 +2187,7 @@ a.bottomicontext:visited {
         </td>
       </tr>
       <tr>
-        <td valign="top" style="background-color : #b01e00">
+        <td valign="top" style="background-color : #006687">
         
         <!--Icon Bottom Start-->
        
@@ -2118,30 +2203,29 @@ a.bottomicontext:visited {
     </td>
   </tr>
   <tr>
-    <td valign="top" style="background-color : #263745">
+    <td valign="top" style="background-color : #222">
     
     <!--Footer Start-->
     <table width="610" border="0" align="center" cellpadding="0" cellspacing="0" class="main">
-      <tr>
+      <tbody><tr>
         <td width="5">&nbsp;</td>
         <td valign="top" style="padding:35px 0px;">
         
         <!--Address Contact Start-->
         <table width="300" border="0" align="left" cellpadding="0" cellspacing="0" class="footerbox">
-          <tr>
+          <tbody><tr>
             <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
               
-              <tr>
-                <td valign="top" mc:edit="address-contact" class="textfooter" style="padding:15px 0px 17px 0px;"><singleline>TheMusic <br />
-                  PH: 61 3 9421 4499<br />
-                  <a href="#" class="headerlink">info@themusic.com.au</a></singleline></td>
+              <tbody><tr>
+                <td valign="top" mc:edit="address-contact" class="textfooter" style="padding:15px 0px 17px 0px;"><singleline>KandoBay <br>
+                  info@kandobay.com.au</singleline></td>
               </tr>
               <tr>
                 <td valign="top"><table width="100" border="0" cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td><a href="https://twitter.com/TheMusicComAu" target="_blank"><img editable="true" mc:edit="social-2" src="http://classies.themusic.com.au:8787/twitter-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
+                  <tbody><tr>
+                    <td><a href="https://twitter.com/" target="_blank"><img editable="true" mc:edit="social-2" src="http://classies.themusic.com.au:8787/twitter-icon.png" width="36" height="36" alt="social icon" style="display:block;"></a></td>
                     <td width="5">&nbsp;</td>
-                    <td><a href="https://www.facebook.com/themusic.com.au" target="_blank"><img editable="true" mc:edit="social-1" src="http://classies.themusic.com.au:8787/facebook-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
+                    <td><a href="https://www.facebook.com/" target="_blank"><img editable="true" mc:edit="social-1" src="http://classies.themusic.com.au:8787/facebook-icon.png" width="36" height="36" alt="social icon" style="display:block;"></a></td>
                     <td width="5">&nbsp;</td>
                     <td></td>
                     <td width="5">&nbsp;</td>
@@ -2149,52 +2233,54 @@ a.bottomicontext:visited {
                     <td width="5">&nbsp;</td>
                     <td></td>
                   </tr>
-                </table></td>
+                </tbody></table></td>
               </tr>
-            </table></td>
+            </tbody></table></td>
           </tr>
-        </table>
+        </tbody></table>
         <!--Address Contact End-->
         
         <!--Footer Link Start-->
         <table width="300" border="0" align="right" cellpadding="0" cellspacing="0" class="footerbox">
-          <tr>
+          <tbody><tr>
             <td class="hidebox-footer" style="display:none;"></td>
           </tr>
           <tr>
             <td valign="top"><table width="100%" border="0" cellpadding="0" cellspacing="0">
-              <tr>
+              <tbody><tr>
                 <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td valign="top" mc:edit="recommend" class="footerheading"><singleline>Classies</singleline></td>
+                  <tbody><tr>
+                    <td valign="top" mc:edit="recommend" class="footerheading"><singleline>Our Website</singleline></td>
                   </tr>
                   <tr>
                     <td valign="top" mc:edit="recommend-link" class="textfooter" style="padding-top:12px;">
                       
-                      <singleline><a href="http://classies.themusic.com.au" target="_blank" class="headerlink">Classies Home</a></singleline><br />
-                      <singleline><a href="http://classies.themusic.com.au/Booking/Step/1" target="_blank" class="headerlink">Place New Ad</a></singleline><br />
-                      <singleline><a href="http://classies.themusic.com.au/Home/ContactUs" target="_blank" class="headerlink">Contact Us</a></singleline><br />
-                  </tr>
-                </table></td>
-                <td width="50" valign="top" style="padding-left:10px;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td valign="top" mc:edit="newsletter" class="footerheading"><singleline>TheMusic</singleline></td>
-                  </tr>
-                  <tr>
-                    <td valign="top" mc:edit="newsletter-link" class="textfooter" style="padding-top:12px;">
-                      <singleline><a href="http://themusic.com.au" target="_blank" class="headerlink">Home</a></singleline><br />
-                  </tr>
-                </table></td>
+                      <singleline><a href="http://kandobay.com.au" target="_blank" class="headerlink">Classies Home</a></singleline><br>
+                      <singleline><a href="http://kandobay.com.au/Booking/Step/1" target="_blank" class="headerlink">Place New Ad</a></singleline><br>
+                      <singleline><a href="http://kandobay.com.au/Home/ContactUs" target="_blank" class="headerlink">Contact Us</a></singleline><br>
+                  </td></tr>
+                </tbody></table></td>
+                <!-- <td width="50" valign="top" style="padding-left:10px;">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td valign="top" mc:edit="newsletter" class="footerheading"><singleline>TheMusic</singleline></td>
+                    </tr>
+                    <tr>
+                      <td valign="top" mc:edit="newsletter-link" class="textfooter" style="padding-top:12px;">
+                        <singleline><a href="http://themusic.com.au" target="_blank" class="headerlink">Home</a></singleline><br />
+                    </tr>
+                  </table>
+                </td> -->
               </tr>
-            </table></td>
+            </tbody></table></td>
           </tr>
-        </table>
+        </tbody></table>
         <!--Footer Link End-->
         
         </td>
         <td width="5">&nbsp;</td>
       </tr>
-    </table>
+    </tbody></table>
     <!--Footer End-->
     
     </td>
@@ -2203,14 +2289,39 @@ a.bottomicontext:visited {
 <!--Table End-->
 
 </body>
-</html>
-', 
-Brand = 'TheMusic'
-WHERE	DocType	= 'NewBooking'
+</html>'
+WHERE	DocType = 'NewBooking' and Brand = @kandoBayBrand
 
 -- SupportRequest
-UPDATE	EmailTemplate
-SET [BodyTemplate] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+IF NOT EXISTS ( SELECT 1 FROM EmailTemplate WHERE DocType = 'SupportRequest' AND Brand = @kandoBayBrand )
+begin
+	INSERT INTO [dbo].[EmailTemplate]
+			   ([DocType]
+			   ,[Description]
+			   ,[SubjectTemplate]
+			   ,[BodyTemplate]
+			   ,[IsBodyHtml]
+			   ,[From]
+			   ,[ParserName]
+			   ,[ModifiedBy]
+			   ,[ModifiedDate]
+			   ,[ModifiedDateUtc]
+			   ,[Brand])
+		 VALUES
+			   ('SupportRequest'
+			   ,'Anonymous support request submitted through public website'
+			   ,'KandoBay Support Request' -- Subject
+			   ,'<todo>' -- Body
+			   ,1
+			   ,'no-reply@kandobay.com.au' -- From
+			   ,'SquareBracketParser'
+			   ,'System'
+			   ,@currentDateTime
+			   ,@currentDateTimeUtc
+			   ,@kandoBayBrand)
+end
+UPDATE EmailTemplate
+SET		BodyTemplate = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -2256,7 +2367,7 @@ a img {
 	text-align: left;
 }
 .on-white-bg{
-  color: #263745;
+  color: #222;
 }
 .headingcontent {
 	font-family: ''Open Sans'', sans-serif;
@@ -2455,7 +2566,7 @@ a.bottomicontext:visited {
 }
 .btn-primary {
   color: #fff;
-  background-color: #263745;
+  background-color: #222;
   border-color: #357ebd;
 }
 .btn-primary .badge {
@@ -2510,9 +2621,9 @@ a.bottomicontext:visited {
             
             <!--Logo Start-->
             <table width="250" border="0" align="left" cellpadding="0" cellspacing="0" class="logo">
-              <tr>
+             <!--  <tr>
                 <td align="center" valign="top"><a href="#" target="_blank"><img editable="true" src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" width="250" height="100" alt="logo" style="display:block;"/></a></td>
-              </tr>
+              </tr> -->
             </table>
             <!--Logo End-->
             
@@ -2561,7 +2672,7 @@ a.bottomicontext:visited {
     <!--Content Start-->
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
-        <td valign="top" style="background-color : #263745">
+        <td valign="top" style="background-color : #222">
         
         <!--Heading Text Start-->
         <table width="610" border="0" align="center" cellpadding="0" cellspacing="0" class="main">
@@ -2589,7 +2700,7 @@ a.bottomicontext:visited {
                 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                   <tbody><tr>
-                    <td valign="top" style="padding:20px 25px 30px 25px;background-color: #b01e00"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <td valign="top" style="padding:20px 25px 30px 25px;background-color: #006687"><table width="100%" border="0" cellspacing="0" cellpadding="0">
                       <tbody><tr>
                         <td valign="top" mc:edit="text-area-heading" class="headingcontent"><singleline>A user has submitted a support request</singleline></td>
                       </tr>
@@ -2611,7 +2722,7 @@ a.bottomicontext:visited {
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                  
                   <tr>
-                    <td valign="top" style="padding:20px 25px 30px 25px; border: 1px solid #eee; color: #263745; background-color: #fff">
+                    <td valign="top" style="padding:20px 25px 30px 25px; border: 1px solid #eee; color: #222; background-color: #fff">
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                      
                       <tr>
@@ -2692,7 +2803,7 @@ a.bottomicontext:visited {
         </td>
       </tr>
       <tr>
-        <td valign="top" style="background-color : #b01e00">
+        <td valign="top" style="background-color : #006687">
         
         <!--Icon Bottom Start-->
        
@@ -2708,30 +2819,29 @@ a.bottomicontext:visited {
     </td>
   </tr>
   <tr>
-    <td valign="top" style="background-color : #263745">
+    <td valign="top" style="background-color : #222">
     
     <!--Footer Start-->
     <table width="610" border="0" align="center" cellpadding="0" cellspacing="0" class="main">
-      <tr>
+      <tbody><tr>
         <td width="5">&nbsp;</td>
         <td valign="top" style="padding:35px 0px;">
         
         <!--Address Contact Start-->
         <table width="300" border="0" align="left" cellpadding="0" cellspacing="0" class="footerbox">
-          <tr>
+          <tbody><tr>
             <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
               
-              <tr>
-                <td valign="top" mc:edit="address-contact" class="textfooter" style="padding:15px 0px 17px 0px;"><singleline>TheMusic <br />
-                  PH: 61 3 9421 4499<br />
-                  <a href="#" class="headerlink">info@themusic.com.au</a></singleline></td>
+              <tbody><tr>
+                <td valign="top" mc:edit="address-contact" class="textfooter" style="padding:15px 0px 17px 0px;"><singleline>KandoBay <br>
+                  info@kandobay.com.au</singleline></td>
               </tr>
               <tr>
                 <td valign="top"><table width="100" border="0" cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td><a href="https://twitter.com/TheMusicComAu" target="_blank"><img editable="true" mc:edit="social-2" src="http://classies.themusic.com.au:8787/twitter-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
+                  <tbody><tr>
+                    <td><a href="https://twitter.com/" target="_blank"><img editable="true" mc:edit="social-2" src="http://classies.themusic.com.au:8787/twitter-icon.png" width="36" height="36" alt="social icon" style="display:block;"></a></td>
                     <td width="5">&nbsp;</td>
-                    <td><a href="https://www.facebook.com/themusic.com.au" target="_blank"><img editable="true" mc:edit="social-1" src="http://classies.themusic.com.au:8787/facebook-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
+                    <td><a href="https://www.facebook.com/" target="_blank"><img editable="true" mc:edit="social-1" src="http://classies.themusic.com.au:8787/facebook-icon.png" width="36" height="36" alt="social icon" style="display:block;"></a></td>
                     <td width="5">&nbsp;</td>
                     <td></td>
                     <td width="5">&nbsp;</td>
@@ -2739,52 +2849,54 @@ a.bottomicontext:visited {
                     <td width="5">&nbsp;</td>
                     <td></td>
                   </tr>
-                </table></td>
+                </tbody></table></td>
               </tr>
-            </table></td>
+            </tbody></table></td>
           </tr>
-        </table>
+        </tbody></table>
         <!--Address Contact End-->
         
         <!--Footer Link Start-->
         <table width="300" border="0" align="right" cellpadding="0" cellspacing="0" class="footerbox">
-          <tr>
+          <tbody><tr>
             <td class="hidebox-footer" style="display:none;"></td>
           </tr>
           <tr>
             <td valign="top"><table width="100%" border="0" cellpadding="0" cellspacing="0">
-              <tr>
+              <tbody><tr>
                 <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td valign="top" mc:edit="recommend" class="footerheading"><singleline>Classies</singleline></td>
+                  <tbody><tr>
+                    <td valign="top" mc:edit="recommend" class="footerheading"><singleline>Our Website</singleline></td>
                   </tr>
                   <tr>
                     <td valign="top" mc:edit="recommend-link" class="textfooter" style="padding-top:12px;">
                       
-                      <singleline><a href="http://classies.themusic.com.au" target="_blank" class="headerlink">Classies Home</a></singleline><br />
-                      <singleline><a href="http://classies.themusic.com.au/Booking/Step/1" target="_blank" class="headerlink">Place New Ad</a></singleline><br />
-                      <singleline><a href="http://classies.themusic.com.au/Home/ContactUs" target="_blank" class="headerlink">Contact Us</a></singleline><br />
-                  </tr>
-                </table></td>
-                <td width="50" valign="top" style="padding-left:10px;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td valign="top" mc:edit="newsletter" class="footerheading"><singleline>TheMusic</singleline></td>
-                  </tr>
-                  <tr>
-                    <td valign="top" mc:edit="newsletter-link" class="textfooter" style="padding-top:12px;">
-                      <singleline><a href="http://themusic.com.au" target="_blank" class="headerlink">Home</a></singleline><br />
-                  </tr>
-                </table></td>
+                      <singleline><a href="http://kandobay.com.au" target="_blank" class="headerlink">Classies Home</a></singleline><br>
+                      <singleline><a href="http://kandobay.com.au/Booking/Step/1" target="_blank" class="headerlink">Place New Ad</a></singleline><br>
+                      <singleline><a href="http://kandobay.com.au/Home/ContactUs" target="_blank" class="headerlink">Contact Us</a></singleline><br>
+                  </td></tr>
+                </tbody></table></td>
+                <!-- <td width="50" valign="top" style="padding-left:10px;">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td valign="top" mc:edit="newsletter" class="footerheading"><singleline>TheMusic</singleline></td>
+                    </tr>
+                    <tr>
+                      <td valign="top" mc:edit="newsletter-link" class="textfooter" style="padding-top:12px;">
+                        <singleline><a href="http://themusic.com.au" target="_blank" class="headerlink">Home</a></singleline><br />
+                    </tr>
+                  </table>
+                </td> -->
               </tr>
-            </table></td>
+            </tbody></table></td>
           </tr>
-        </table>
+        </tbody></table>
         <!--Footer Link End-->
         
         </td>
         <td width="5">&nbsp;</td>
       </tr>
-    </table>
+    </tbody></table>
     <!--Footer End-->
     
     </td>
@@ -2793,18 +2905,42 @@ a.bottomicontext:visited {
 <!--Table End-->
 
 </body>
-</html>
-', 
-Brand = 'TheMusic'
-WHERE	DocType	= 'SupportRequest'
+</html>'
+WHERE	DocType = 'SupportRequest' and Brand = @kandoBayBrand
 
 -- AdEnquiry
-UPDATE	EmailTemplate
-SET [BodyTemplate] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+IF NOT EXISTS ( SELECT 1 FROM EmailTemplate WHERE DocType = 'AdEnquiry' AND Brand = @kandoBayBrand )
+begin
+	INSERT INTO [dbo].[EmailTemplate]
+			   ([DocType]
+			   ,[Description]
+			   ,[SubjectTemplate]
+			   ,[BodyTemplate]
+			   ,[IsBodyHtml]
+			   ,[From]
+			   ,[ParserName]
+			   ,[ModifiedBy]
+			   ,[ModifiedDate]
+			   ,[ModifiedDateUtc]
+			   ,[Brand])
+		 VALUES
+			   ('AdEnquiry'
+			   ,'Anonymous request made to the advertiser when previewing an Ad.'
+			   ,'KandoBay Ad Enquiry' -- Subject
+			   ,'<todo>' -- Body
+			   ,1
+			   ,'no-reply@kandobay.com.au' -- From
+			   ,'SquareBracketParser'
+			   ,'System'
+			   ,@currentDateTime
+			   ,@currentDateTimeUtc
+			   ,@kandoBayBrand)
+end
+UPDATE EmailTemplate
+SET		BodyTemplate = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>New Classies Ad</title>
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700,700italic,800,800italic"/>
 <style type="text/css">
@@ -2846,7 +2982,7 @@ a img {
 	text-align: left;
 }
 .on-white-bg{
-  color: #263745;
+  color: #222;
 }
 .headingcontent {
 	font-family: ''Open Sans'', sans-serif;
@@ -3036,25 +3172,25 @@ a.bottomicontext:visited {
       -ms-user-select: none;
           user-select: none;
   background-image: none;
-  border: 1px solid transparent;
-  
+  border: 1px solid #222;  
   padding: 10px 16px;
   font-size: 18px;
   line-height: 1.33;
   border-radius: 6px;
 }
 .btn-primary {
-  color: #fff;
-  background-color: #263745;
-  border-color: #357ebd;
+  color: #222;
+  background-color: #fff;
+  border-color: #222;
 }
 .btn-primary .badge {
-  color: #428bca;
+  color: #222;
   background-color: #fff;
 }
-
-.btn-lg {
-  
+.btn:hover{
+  color: #fff;
+  background-color: #222;
+  text-decoration: none;
 }
 
 </style>
@@ -3101,7 +3237,9 @@ a.bottomicontext:visited {
             <!--Logo Start-->
             <table width="250" border="0" align="left" cellpadding="0" cellspacing="0" class="logo">
               <tr>
-                <td align="center" valign="top"><a href="#" target="_blank"><img editable="true" src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" width="250" height="100" alt="logo" style="display:block;"/></a></td>
+                <td align="center" valign="top">
+                  <!-- <a href="#" target="_blank"><img editable="true" src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" width="250" height="100" alt="logo" style="display:block;"/></a> -->
+                </td>
               </tr>
             </table>
             <!--Logo End-->
@@ -3122,9 +3260,9 @@ a.bottomicontext:visited {
                         <td width="5">&nbsp;</td>
                         <td></td>
                         <td width="5">&nbsp;</td>
-                        <td><a href="https://twitter.com/TheMusicComAu" target="_blank"><img editable="true" mc:edit="social-2" src="http://classies.themusic.com.au:8787/twitter-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
+                        <td><a href="https://twitter.com/" target="_blank"><img editable="true" mc:edit="social-2" src="http://classies.themusic.com.au:8787/twitter-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
                         <td width="5">&nbsp;</td>
-                        <td><a href="https://www.facebook.com/themusic.com.au" target="_blank"><img editable="true" mc:edit="social-1" src="http://classies.themusic.com.au:8787/facebook-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
+                        <td><a href="https://www.facebook.com" target="_blank"><img editable="true" mc:edit="social-1" src="http://classies.themusic.com.au:8787/facebook-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
                       </tr>
                     </table></td>
                   </tr>
@@ -3151,7 +3289,7 @@ a.bottomicontext:visited {
     <!--Content Start-->
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
-        <td valign="top" style="background-color : #263745">
+        <td valign="top" style="background-color : #222">
         
         <!--Heading Text Start-->
         <table width="610" border="0" align="center" cellpadding="0" cellspacing="0" class="main">
@@ -3179,16 +3317,12 @@ a.bottomicontext:visited {
                 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                   <tbody><tr>
-                    <td valign="top" style="padding:20px 25px 30px 25px;background-color: #b01e00"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <td valign="top" style="padding:20px 25px 30px 25px;background-color: #006687"><table width="100%" border="0" cellspacing="0" cellpadding="0">
                       <tbody><tr>
                         <td valign="top" mc:edit="text-area-heading" class="headingcontent"><singleline>Your ad is getting attention!</singleline></td>
                       </tr>
                       <tr>
-                        <td valign="top" mc:edit="text-area-content" class="textcontent" style="padding:10px 0px 20px 0px;"><singleline>
-                          Hi, a user submitted the contact advertiser form and they need some help. Please contact them back as soon as possible.
-                        </singleline>
-
-                        </td>
+                        <td valign="top" mc:edit="text-area-content" class="textcontent" style="padding:10px 0px 20px 0px;"><singleline>Hi, a user submitted the contact advertiser form and they need some help. Please contact them back as soon as possible.</singleline></td>
                       </tr>
                     
                     </tbody></table></td>
@@ -3197,53 +3331,20 @@ a.bottomicontext:visited {
 
 
                 <!--Main Image Start-->
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                 
-                  <tr>
-                    <td valign="top" style="padding:20px 25px 30px 25px; border: 1px solid #eee; color: #263745; background-color: #fff">
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                     
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border: 1px solid #eee">                     
                       <tr>
-                        <td valign="top" class="textcontent on-white-bg" mc:edit="main-image-content" style="padding:10px 0px 20px 0px;">
+                        <td valign="top" class="textcontent on-white-bg" style="padding:20px;">
                           <table>
                             <tr><td>Name</td><td><strong>[/name/]</strong></td></tr>
                             <tr><td>Email</td><td><strong>[/email/]</strong></td></tr>
                           </table>
-                          <p>Go to our classifieds website to see the full details and comments of their request.</p>
                          </td>
-                      </tr>
+                      </tr>                    
                       <tr>
-                        <td align="center" valign="top">                        
-                        <a href="http://classies.themusic.com.au" target="_blank" class="btn btn-lg btn-primary">Go to our Website</a></td>
-                      </tr>                     
-                    </table></td>
-                  </tr>
-                </table>
-
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                  <tbody>
-                    <tr>
-                      <td valign="top" style="padding:20px 0px;"><table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
-                        <tr>
-                          <td valign="top">
-                           
-                            <!-- End of Ad Details -->
-                          </td>
-                        </tr>
-
-                      </tbody></table>
-                        <table width="203" border="0" align="right" cellpadding="0" cellspacing="0" class="contentbox">
-                          <tbody><tr>
-                            <td class="maincontent-hidebox" style="display:none;"></td>
-                          </tr>
-                          <tr>
-                            
-                          </tr>
-                        </tbody></table></td>
-                    </tr>
-                  </tbody>
-                </table>
-
+                        <td align="center" valign="top" style="padding: 20px">
+                        <a href="http://kandobay.com.au/" target="_blank" class="btn btn-lg btn-primary">Go to our Website</a></td>
+                      </tr>
+                    </table>
                 <!--Main Image End-->
                 
                 </td>
@@ -3259,25 +3360,14 @@ a.bottomicontext:visited {
         <!--Content Body End-->
         
         </td>
-      </tr>
-      <tr>
-        <td valign="top" style="background-color : #b01e00">
-        
-        <!--Icon Bottom Start-->
-       
-        <!--Icon Bottom End-->
-        
-        </td>
-      </tr>
+      </tr>      
     </table>
-    
-
     <!--Content End-->
     
     </td>
   </tr>
   <tr>
-    <td valign="top" style="background-color : #263745">
+    <td valign="top" style="background-color : #222">
     
     <!--Footer Start-->
     <table width="610" border="0" align="center" cellpadding="0" cellspacing="0" class="main">
@@ -3291,16 +3381,15 @@ a.bottomicontext:visited {
             <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
               
               <tr>
-                <td valign="top" mc:edit="address-contact" class="textfooter" style="padding:15px 0px 17px 0px;"><singleline>TheMusic <br />
-                  PH: 61 3 9421 4499<br />
-                  <a href="#" class="headerlink">info@themusic.com.au</a></singleline></td>
+                <td valign="top" mc:edit="address-contact" class="textfooter" style="padding:15px 0px 17px 0px;"><singleline>KandoBay <br />
+                  info@kandobay.com.au</singleline></td>
               </tr>
               <tr>
                 <td valign="top"><table width="100" border="0" cellspacing="0" cellpadding="0">
                   <tr>
-                    <td><a href="https://twitter.com/TheMusicComAu" target="_blank"><img editable="true" mc:edit="social-2" src="http://classies.themusic.com.au:8787/twitter-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
+                    <td><a href="https://twitter.com/" target="_blank"><img editable="true" mc:edit="social-2" src="http://classies.themusic.com.au:8787/twitter-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
                     <td width="5">&nbsp;</td>
-                    <td><a href="https://www.facebook.com/themusic.com.au" target="_blank"><img editable="true" mc:edit="social-1" src="http://classies.themusic.com.au:8787/facebook-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
+                    <td><a href="https://www.facebook.com/" target="_blank"><img editable="true" mc:edit="social-1" src="http://classies.themusic.com.au:8787/facebook-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
                     <td width="5">&nbsp;</td>
                     <td></td>
                     <td width="5">&nbsp;</td>
@@ -3325,25 +3414,27 @@ a.bottomicontext:visited {
               <tr>
                 <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
                   <tr>
-                    <td valign="top" mc:edit="recommend" class="footerheading"><singleline>Classies</singleline></td>
+                    <td valign="top" mc:edit="recommend" class="footerheading"><singleline>Our Website</singleline></td>
                   </tr>
                   <tr>
                     <td valign="top" mc:edit="recommend-link" class="textfooter" style="padding-top:12px;">
                       
-                      <singleline><a href="http://classies.themusic.com.au" target="_blank" class="headerlink">Classies Home</a></singleline><br />
-                      <singleline><a href="http://classies.themusic.com.au/Booking/Step/1" target="_blank" class="headerlink">Place New Ad</a></singleline><br />
-                      <singleline><a href="http://classies.themusic.com.au/Home/ContactUs" target="_blank" class="headerlink">Contact Us</a></singleline><br />
+                      <singleline><a href="http://kandobay.com.au" target="_blank" class="headerlink">Classies Home</a></singleline><br />
+                      <singleline><a href="http://kandobay.com.au/Booking/Step/1" target="_blank" class="headerlink">Place New Ad</a></singleline><br />
+                      <singleline><a href="http://kandobay.com.au/Home/ContactUs" target="_blank" class="headerlink">Contact Us</a></singleline><br />
                   </tr>
                 </table></td>
-                <td width="50" valign="top" style="padding-left:10px;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td valign="top" mc:edit="newsletter" class="footerheading"><singleline>TheMusic</singleline></td>
-                  </tr>
-                  <tr>
-                    <td valign="top" mc:edit="newsletter-link" class="textfooter" style="padding-top:12px;">
-                      <singleline><a href="http://themusic.com.au" target="_blank" class="headerlink">Home</a></singleline><br />
-                  </tr>
-                </table></td>
+                <!-- <td width="50" valign="top" style="padding-left:10px;">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td valign="top" mc:edit="newsletter" class="footerheading"><singleline>TheMusic</singleline></td>
+                    </tr>
+                    <tr>
+                      <td valign="top" mc:edit="newsletter-link" class="textfooter" style="padding-top:12px;">
+                        <singleline><a href="http://themusic.com.au" target="_blank" class="headerlink">Home</a></singleline><br />
+                    </tr>
+                  </table>
+                </td> -->
               </tr>
             </table></td>
           </tr>
@@ -3363,24 +3454,80 @@ a.bottomicontext:visited {
 
 </body>
 </html>
-', 
-Brand = 'TheMusic'
-WHERE	DocType	= 'AdEnquiry'
+'
+WHERE	DocType = 'AdEnquiry' and Brand = @kandoBayBrand
 
 -- ActivityReport
-UPDATE  EmailTemplate
-SET		Brand = 'TheMusic'
-WHERE	DocType = 'ActivityReport'
+IF NOT EXISTS ( SELECT 1 FROM EmailTemplate WHERE DocType = 'ActivityReport' AND Brand = @kandoBayBrand )
+begin
+	INSERT INTO [dbo].[EmailTemplate]
+			   ([DocType]
+			   ,[Description]
+			   ,[SubjectTemplate]
+			   ,[BodyTemplate]
+			   ,[IsBodyHtml]
+			   ,[From]
+			   ,[ParserName]
+			   ,[ModifiedBy]
+			   ,[ModifiedDate]
+			   ,[ModifiedDateUtc]
+			   ,[Brand])
+		 VALUES
+			   ('ActivityReport'
+			   ,'Email contains details of what happened for the day (sent at night).'
+			   ,'KandoBay HealthCheck' -- Subject
+			   ,'<todo>' -- Body
+			   ,1
+			   ,'no-reply@kandobay.com.au' -- From
+			   ,'SquareBracketParser'
+			   ,'System'
+			   ,@currentDateTime
+			   ,@currentDateTimeUtc
+			   ,@kandoBayBrand)
+end
+UPDATE EmailTemplate
+SET		BodyTemplate = '<h3>Daily Activity for [/ReportDate/] Environment : [/Environment/]</h3>
+[/ClassifiedsTable/]
+<br>
+<h3>Elmah Errors</h3>
+<br>
+[/LogTable/]
+'
+WHERE	DocType = 'ActivityReport' and Brand = @kandoBayBrand
 
 -- AdShare
-UPDATE	EmailTemplate
-SET		Brand = 'TheMusic',
-		SubjectTemplate = '[/AdTitle/] - by [/AdvertiserName/]',
-		BodyTemplate = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+IF NOT EXISTS ( SELECT 1 FROM EmailTemplate WHERE DocType = 'AdShare' AND Brand = @kandoBayBrand )
+begin
+	INSERT INTO [dbo].[EmailTemplate]
+			   ([DocType]
+			   ,[Description]
+			   ,[SubjectTemplate]
+			   ,[BodyTemplate]
+			   ,[IsBodyHtml]
+			   ,[From]
+			   ,[ParserName]
+			   ,[ModifiedBy]
+			   ,[ModifiedDate]
+			   ,[ModifiedDateUtc]
+			   ,[Brand])
+		 VALUES
+			   ('AdShare'
+			   ,'Support for advertiser to send an email with ad details to their user network contacts after they place the ad.'
+			   ,'[/AdTitle/] - by [/AdvertiserName/] - at KandoBay' -- Subject
+			   ,'<todo>' -- Body
+			   ,1
+			   ,'no-reply@kandobay.com.au' -- From
+			   ,'SquareBracketParser'
+			   ,'System'
+			   ,@currentDateTime
+			   ,@currentDateTimeUtc
+			   ,@kandoBayBrand)
+end
+UPDATE EmailTemplate
+SET		BodyTemplate = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>New Classies Ad</title>
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700,700italic,800,800italic"/>
 <style type="text/css">
@@ -3612,25 +3759,25 @@ a.bottomicontext:visited {
       -ms-user-select: none;
           user-select: none;
   background-image: none;
-  border: 1px solid transparent;
-  
+  border: 1px solid #222;  
   padding: 10px 16px;
   font-size: 18px;
   line-height: 1.33;
   border-radius: 6px;
 }
 .btn-primary {
-  color: #fff;
-  background-color: #263745;
-  border-color: #357ebd;
+  color: #222;
+  background-color: #fff;
+  border-color: #222;
 }
 .btn-primary .badge {
-  color: #428bca;
+  color: #222;
   background-color: #fff;
 }
-
-.btn-lg {
-  
+.btn:hover{
+  color: #fff;
+  background-color: #222;
+  text-decoration: none;
 }
 
 </style>
@@ -3677,7 +3824,9 @@ a.bottomicontext:visited {
             <!--Logo Start-->
             <table width="250" border="0" align="left" cellpadding="0" cellspacing="0" class="logo">
               <tr>
-                <td align="center" valign="top"><a href="#" target="_blank"><img editable="true" src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" width="250" height="100" alt="logo" style="display:block;"/></a></td>
+                <td align="center" valign="top">
+                  <!-- <a href="#" target="_blank"><img editable="true" src="http://dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" width="250" height="100" alt="logo" style="display:block;"/></a> -->
+                </td>
               </tr>
             </table>
             <!--Logo End-->
@@ -3698,9 +3847,9 @@ a.bottomicontext:visited {
                         <td width="5">&nbsp;</td>
                         <td></td>
                         <td width="5">&nbsp;</td>
-                        <td><a href="https://twitter.com/TheMusicComAu" target="_blank"><img editable="true" mc:edit="social-2" src="http://classies.themusic.com.au:8787/twitter-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
+                        <td><a href="https://twitter.com/" target="_blank"><img editable="true" mc:edit="social-2" src="http://classies.themusic.com.au:8787/twitter-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
                         <td width="5">&nbsp;</td>
-                        <td><a href="https://www.facebook.com/themusic.com.au" target="_blank"><img editable="true" mc:edit="social-1" src="http://classies.themusic.com.au:8787/facebook-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
+                        <td><a href="https://www.facebook.com" target="_blank"><img editable="true" mc:edit="social-1" src="http://classies.themusic.com.au:8787/facebook-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
                       </tr>
                     </table></td>
                   </tr>
@@ -3727,7 +3876,7 @@ a.bottomicontext:visited {
     <!--Content Start-->
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
-        <td valign="top" style="background-color : #263745">
+        <td valign="top" style="background-color : #222">
         
         <!--Heading Text Start-->
         <table width="610" border="0" align="center" cellpadding="0" cellspacing="0" class="main">
@@ -3755,50 +3904,31 @@ a.bottomicontext:visited {
                 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                   <tbody><tr>
-                    <td valign="top" style="padding:20px 25px 30px 25px;background-color: #b01e00"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <td valign="top" style="padding:20px 25px 30px 25px;background-color: #006687"><table width="100%" border="0" cellspacing="0" cellpadding="0">
                       <tbody><tr>
                         <td valign="top" mc:edit="text-area-heading" class="headingcontent"><singleline>Your friend [/AdvertiserName/] has posted the ad below at TheMusic website. They requested us to let you know.</singleline></td>
                       </tr>
-                      
+                     
                     </tbody></table></td>
                   </tr>
                 </tbody></table>
 
 
                 <!--Main Image Start-->
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                 
-                  <tr>
-                    <td valign="top" style="padding:20px 25px 30px 25px; border: 1px solid #eee; color: #263745; background-color: #fff">
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                    <tr>
-                                      <td valign="top" mc:edit="maintitle" class="headingcontent on-white-bg">
-                                        <span class="on-white-bg"> 
-                                          [/AdTitle/] 
-                                        </span>
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td valign="top" mc:edit="maincontent" class="textcontent on-white-bg" style="padding:10px 0px 21px 0px;">
-                                          [/AdDescription/]
-                                      </td>
-                                    </tr>
-                                  </table>  </td>
-                  </tr>
-                </table>
-
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                  <tbody>
+                <table width="100%" cellspacing="0" cellpadding="10" style="border: 1px solid #eee">                     
                     <tr>
-                      <td valign="top" style="padding:20px 0px;"><table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
-                        
-
-                      </tbody></table>
-                        </td>
+                      <td valign="top" class="headingcontent on-white-bg">
+                        <span class="on-white-bg"> 
+                          [/AdTitle/] 
+                        </span>
+                      </td>
                     </tr>
-                  </tbody>
-                </table>
-
+                    <tr>
+                      <td valign="top" class="textcontent on-white-bg">
+                          [/AdDescription/]
+                      </td>
+                    </tr>
+                  </table>
                 <!--Main Image End-->
                 
                 </td>
@@ -3808,31 +3938,20 @@ a.bottomicontext:visited {
               </tr>
              
             </table></td>
-           
+            <td width="5">&nbsp;</td>
           </tr>
         </table>
         <!--Content Body End-->
         
         </td>
-      </tr>
-      <tr>
-        <td valign="top" style="background-color : #b01e00">
-        
-        <!--Icon Bottom Start-->
-       
-        <!--Icon Bottom End-->
-        
-        </td>
-      </tr>
+      </tr>      
     </table>
-    
-
     <!--Content End-->
     
     </td>
   </tr>
   <tr>
-    <td valign="top" style="background-color : #263745">
+    <td valign="top" style="background-color : #222">
     
     <!--Footer Start-->
     <table width="610" border="0" align="center" cellpadding="0" cellspacing="0" class="main">
@@ -3846,16 +3965,15 @@ a.bottomicontext:visited {
             <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
               
               <tr>
-                <td valign="top" mc:edit="address-contact" class="textfooter" style="padding:15px 0px 17px 0px;"><singleline>TheMusic <br />
-                  PH: 61 3 9421 4499<br />
-                  <a href="#" class="headerlink">info@themusic.com.au</a></singleline></td>
+                <td valign="top" mc:edit="address-contact" class="textfooter" style="padding:15px 0px 17px 0px;"><singleline>KandoBay <br />
+                  info@kandobay.com.au</singleline></td>
               </tr>
               <tr>
                 <td valign="top"><table width="100" border="0" cellspacing="0" cellpadding="0">
                   <tr>
-                    <td><a href="https://twitter.com/TheMusicComAu" target="_blank"><img editable="true" mc:edit="social-2" src="http://classies.themusic.com.au:8787/twitter-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
+                    <td><a href="https://twitter.com/" target="_blank"><img editable="true" mc:edit="social-2" src="http://classies.themusic.com.au:8787/twitter-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
                     <td width="5">&nbsp;</td>
-                    <td><a href="https://www.facebook.com/themusic.com.au" target="_blank"><img editable="true" mc:edit="social-1" src="http://classies.themusic.com.au:8787/facebook-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
+                    <td><a href="https://www.facebook.com/" target="_blank"><img editable="true" mc:edit="social-1" src="http://classies.themusic.com.au:8787/facebook-icon.png" width="36" height="36" alt="social icon" style="display:block;"/></a></td>
                     <td width="5">&nbsp;</td>
                     <td></td>
                     <td width="5">&nbsp;</td>
@@ -3880,25 +3998,27 @@ a.bottomicontext:visited {
               <tr>
                 <td width="50%" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
                   <tr>
-                    <td valign="top" mc:edit="recommend" class="footerheading"><singleline>Classies</singleline></td>
+                    <td valign="top" mc:edit="recommend" class="footerheading"><singleline>Our Website</singleline></td>
                   </tr>
                   <tr>
                     <td valign="top" mc:edit="recommend-link" class="textfooter" style="padding-top:12px;">
                       
-                      <singleline><a href="http://classies.themusic.com.au" target="_blank" class="headerlink">Classies Home</a></singleline><br />
-                      <singleline><a href="http://classies.themusic.com.au/Booking/Step/1" target="_blank" class="headerlink">Place New Ad</a></singleline><br />
-                      <singleline><a href="http://classies.themusic.com.au/Home/ContactUs" target="_blank" class="headerlink">Contact Us</a></singleline><br />
+                      <singleline><a href="http://kandobay.com.au" target="_blank" class="headerlink">Classies Home</a></singleline><br />
+                      <singleline><a href="http://kandobay.com.au/Booking/Step/1" target="_blank" class="headerlink">Place New Ad</a></singleline><br />
+                      <singleline><a href="http://kandobay.com.au/Home/ContactUs" target="_blank" class="headerlink">Contact Us</a></singleline><br />
                   </tr>
                 </table></td>
-                <td width="50" valign="top" style="padding-left:10px;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td valign="top" mc:edit="newsletter" class="footerheading"><singleline>TheMusic</singleline></td>
-                  </tr>
-                  <tr>
-                    <td valign="top" mc:edit="newsletter-link" class="textfooter" style="padding-top:12px;">
-                      <singleline><a href="http://themusic.com.au" target="_blank" class="headerlink">Home</a></singleline><br />
-                  </tr>
-                </table></td>
+                <!-- <td width="50" valign="top" style="padding-left:10px;">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td valign="top" mc:edit="newsletter" class="footerheading"><singleline>TheMusic</singleline></td>
+                    </tr>
+                    <tr>
+                      <td valign="top" mc:edit="newsletter-link" class="textfooter" style="padding-top:12px;">
+                        <singleline><a href="http://themusic.com.au" target="_blank" class="headerlink">Home</a></singleline><br />
+                    </tr>
+                  </table>
+                </td> -->
               </tr>
             </table></td>
           </tr>
@@ -3917,5 +4037,6 @@ a.bottomicontext:visited {
 <!--Table End-->
 
 </body>
-</html>' 
-WHERE	DocType = 'AdShare'
+</html>
+'
+WHERE	DocType = 'AdShare' and Brand = @kandoBayBrand

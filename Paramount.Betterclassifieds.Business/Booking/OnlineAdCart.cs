@@ -13,6 +13,10 @@ namespace Paramount.Betterclassifieds.Business
 
         public string Description { get; private set; }
 
+        public string DescriptionHtml { get; private set; }
+
+        public string DescriptionMarkdown { get; private set; }
+
         public string ContactName { get; set; }
 
         public string Phone { get; set; }
@@ -25,12 +29,10 @@ namespace Paramount.Betterclassifieds.Business
 
         public int? LocationAreaId { get; set; }
 
-        public List<string> Images { get; set; }
+        public List<string> Images { get; private set; }
+        
 
-        public string DescriptionHtml { get; private set; }
-
-
-        public void SetDescriptionHtml(string html)
+        public void SetDescription(string html)
         {
             // Set the Description Html
             this.DescriptionHtml = html;

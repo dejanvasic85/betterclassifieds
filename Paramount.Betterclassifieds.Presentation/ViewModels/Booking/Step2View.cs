@@ -16,7 +16,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 
         [Required]
         [Display(Name = "Details")]
-        public string OnlineAdDescription { get; set; }
+        public string OnlineAdDescriptionMarkdown { get; set; }
 
         [Display(Name = "Contact Name")]
         [StringLength(200)]

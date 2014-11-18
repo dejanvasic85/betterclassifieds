@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace Paramount.Betterclassifieds.Presentation.Controllers
+﻿namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -113,10 +111,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             // Load the location options
             stepTwoModel.LocationOptions = _searchService.GetLocations().Select(l => new SelectListItem { Text = l.Title, Value = l.LocationId.ToString() }).OrderBy(l => l.Text).ToList();
+            
+            // Todo - We need to fix this! Any location and Any Area are hardcoded values!! And are getting stored to DB!
             int locationAreaId = stepTwoModel.OnlineAdLocationId.HasValue
                 ? stepTwoModel.OnlineAdLocationId.Value
                 : int.Parse(stepTwoModel.LocationOptions.First(l => l.Text.Trim().Equals("Any Location")).Value);
 
+            // Todo - fix this also! See above
             stepTwoModel.LocationAreaOptions = _searchService.GetLocationAreas(locationAreaId)
                     .Select(l => new SelectListItem { Text = l.Title, Value = l.LocationAreaId.ToString() })
                     .OrderBy(l => l.Text).ToList();
@@ -149,7 +150,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var bookingCart = _bookingManager.GetCart();
             this.Map(viewModel, bookingCart.OnlineAdCart);
-            bookingCart.OnlineAdCart.SetDescriptionHtml(new MarkdownDeep.Markdown().Transform(viewModel.OnlineAdDescription));
+            bookingCart.OnlineAdCart.SetDescription(new MarkdownDeep.Markdown().Transform(viewModel.OnlineAdDescriptionMarkdown));
             bookingCart.CompleteStep(2);
 
             // Save and continue
@@ -282,7 +283,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                     Selected = true,
                 }).ToArray()
             };
-            
+
             return View(successView);
         }
 
@@ -406,7 +407,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             // To view model
             configuration.CreateMap<PublicationModel, PublicationSelectionView>();
             configuration.CreateMap<OnlineAdCart, Step2View>();
-            configuration.CreateMap<OnlineAdCart, Step4View>();
             configuration.CreateMap<BookingCart, Step4View>();
 
             // From ViewModel
@@ -425,7 +425,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         #endregion
-        
+
     }
 
 }

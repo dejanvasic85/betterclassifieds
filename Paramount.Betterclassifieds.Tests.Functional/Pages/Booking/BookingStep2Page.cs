@@ -16,7 +16,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         [FindsBy(How = How.Id, Using = "OnlineAdHeading"), UsedImplicitly]
         private IWebElement OnlineHeaderElement;
 
-        [FindsBy(How = How.Id, Using = "OnlineAdDescription"), UsedImplicitly]
+        [FindsBy(How = How.Id, Using = "OnlineAdDescriptionMarkdown"), UsedImplicitly]
         private IWebElement OnlineAdDescriptionElement;
 
         #endregion

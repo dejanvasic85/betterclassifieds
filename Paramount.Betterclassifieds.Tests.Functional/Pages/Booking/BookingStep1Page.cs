@@ -37,5 +37,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             this.InitialiseElements();
             return this;
         }
+
+        public override void Proceed()
+        {
+            _webdriver.WaitForJqueryAjax(10);
+            base.Proceed();
+        }
     }
 }

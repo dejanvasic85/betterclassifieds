@@ -11,10 +11,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             _webdriver = webdriver;
         }
 
-        public void Proceed()
+        public virtual void Proceed()
         {
             _webdriver.FindElement(By.Id("btnSubmit")).ClickOnElement();
-            _webdriver.WaitForJqueryAjax();
         }
     }
 }

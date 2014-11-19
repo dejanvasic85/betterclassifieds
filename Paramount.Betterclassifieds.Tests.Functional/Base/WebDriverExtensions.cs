@@ -9,10 +9,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional
     {
         public static void WaitForJqueryAjax(this IWebDriver webDriver, int timeOutSeconds = 30)
         {
-            WebDriverWait waitForJqueryToBeAvailable = new WebDriverWait(webDriver, TimeSpan.FromSeconds(timeOutSeconds));
+            var waitForJqueryToBeAvailable = new WebDriverWait(webDriver, TimeSpan.FromSeconds(timeOutSeconds));
             waitForJqueryToBeAvailable.Until(drv => IsJqueryDefined((IJavaScriptExecutor)drv));
 
-            WebDriverWait waitForJqueryAjaxToFinish = new WebDriverWait(webDriver, TimeSpan.FromSeconds(timeOutSeconds));
+            var waitForJqueryAjaxToFinish = new WebDriverWait(webDriver, TimeSpan.FromSeconds(timeOutSeconds));
             waitForJqueryAjaxToFinish.Until(drv => IsJqueryAjaxComplete((IJavaScriptExecutor)drv));
         }
 

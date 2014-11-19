@@ -21,7 +21,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
         public T Init<T>(bool ensureUrl = true) where T : ITestPage
         {
-            WebDriver.WaitForJqueryAjax();
             var page = Create<T>();
             if (ensureUrl)
             {
@@ -44,7 +43,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         public T Create<T>() where T : ITestPage
         {
             // So far all our pages have only two types of constructors WebDriver or WebDriver,Config
-            List<object> objectsToPassToCtor = new List<object> { WebDriver };
+            var objectsToPassToCtor = new List<object> { WebDriver };
             var typeOfPage = typeof(T);
             var ctorParams = typeOfPage.GetConstructors()[0].GetParameters();
             if (ctorParams.Length > 1)

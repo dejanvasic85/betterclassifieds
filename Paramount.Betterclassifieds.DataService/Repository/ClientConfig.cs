@@ -1,4 +1,7 @@
-﻿using Paramount.ApplicationBlock.Configuration;
+﻿using System;
+using System.Configuration;
+using System.Linq;
+using Paramount.ApplicationBlock.Configuration;
 using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.Business.Models;
 
@@ -6,19 +9,61 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 {
     public class ClientConfig : IClientConfig
     {
-        // Todo - read from database (but default these for TheMusic)
-        public int RestrictedEditionCount { get { return 10; } }
-        public int RestrictedOnlineDaysCount { get { return 30; } }
-        public int NumberOfDaysAfterLastEdition { get { return 6; } }
-        public bool IsOnlineAdFree { get { return true; } }
+        private T GetValueFromDatabase<T>(string settingName, bool required = true)
+        {
+            using (var context = DataContextFactory.CreateClassifiedContext())
+            {
+                var appSetting = context.AppSettings.FirstOrDefault(setting => setting.AppKey == settingName);
+                if (appSetting == null && required)
+                {
+                    throw new ConfigurationErrorsException("Setting does not exist for Client");
+                }
 
-        public string PublisherHomeUrl { get { return ConfigManager.ReadAppSetting<string>("PublisherHomeUrl"); } }
-        public string FacebookAppId { get { return ConfigManager.ReadAppSetting<string>("FacebookAppId"); } }
+                if (appSetting == null)
+                {
+                    // Setting is not required - so just return the default value
+                    return default(T);
+                }
 
-        public int SearchResultsPerPage { get { return 10; } }
-           
-        public int SearchMaxPagedRequests { get { return 100; } }
+                var converted = Convert.ChangeType(appSetting.SettingValue, typeof(T));
 
+                return (T)converted;
+            }
+        }
+
+        public int RestrictedEditionCount
+        {
+            // Print setting
+            get { return GetValueFromDatabase<int>("MaximumInsertions", false); }
+        }
+
+        public int RestrictedOnlineDaysCount
+        {
+            get { return GetValueFromDatabase<int>("AdDurationDays"); }
+        }
+
+        public int NumberOfDaysAfterLastEdition
+        {
+            // Print setting
+            get { return GetValueFromDatabase<int>("NumberOfDaysAfterLastEdition", false); }
+        }
+
+        public string FacebookAppId
+        {
+            get { return ConfigManager.ReadAppSetting<string>("FacebookAppId"); }
+        }
+
+        public int SearchResultsPerPage
+        {
+            get { return GetValueFromDatabase<int>("SearchResultsPerPage"); }
+        }
+
+        public int SearchMaxPagedRequests
+        {
+            get { return GetValueFromDatabase<int>("SearchMaxPagedRequests"); }
+        }
+
+        // Todo
         public Address ClientAddress
         {
             get
@@ -39,10 +84,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
         public string[] SupportEmailList
         {
-            get
-            {
-                return ConfigManager.ReadAppSetting("SupportEmails").Split(';');
-            }
+            get { return GetValueFromDatabase<string>("SupportNotificationAccounts").Split(';'); }
         }
 
         public int? MaxOnlineImages

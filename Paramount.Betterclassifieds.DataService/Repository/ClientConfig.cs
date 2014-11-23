@@ -91,5 +91,10 @@ namespace Paramount.Betterclassifieds.DataService.Repository
         {
             get { return 2; }
         }
+
+        public string PublisherHomeUrl
+        {
+            get { return ConfigManager.ReadAppSetting<string>("PublisherHomeUrl"); }
+        }
     }
 }

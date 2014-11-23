@@ -11,9 +11,10 @@ BEGIN
 END
 GO
 
-execute temp_createAppSetting @Key = 'NumberOfDaysAfterLastEdition', @Setting = '6'
 execute temp_createAppSetting @Key = 'SearchResultsPerPage', @Setting = '10'
 execute temp_createAppSetting @Key = 'SearchMaxPagedRequests', @Setting = '100'
-execute temp_createAppSetting @Key = 'MaxOnlineImages', @Setting = '2'
+execute temp_createAppSetting @Key = 'MaxOnlineImages', @Setting = '5'
+execute temp_createAppSetting @Key = 'SupportNotificationAccounts', @Setting = 'dejanvasic@outlook.com'
+
 
 drop procedure temp_createAppSetting

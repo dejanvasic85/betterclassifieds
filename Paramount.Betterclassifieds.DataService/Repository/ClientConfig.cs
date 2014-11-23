@@ -89,7 +89,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
         public int? MaxOnlineImages
         {
-            get { return 2; }
+            get { return GetValueFromDatabase<int>("MaxOnlineImages"); }
         }
 
         public string PublisherHomeUrl

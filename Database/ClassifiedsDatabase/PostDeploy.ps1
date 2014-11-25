@@ -5,7 +5,6 @@
 	$DropCreateDatabase = $true
 	$SqlFilesPath = "C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\"
 #>
-
 $scriptPath = Split-Path -Parent $MyInvocation.MyCommand.Definition
 Set-Location $scriptPath
 [xml]$appConfig = Get-Content .\ClassifiedsDatabase.exe.config
@@ -55,6 +54,14 @@ if ( $db -eq $null ) {
     Invoke-Sqlcmd -Query "CREATE DATABASE $($connection.InitialCatalog)" -ServerInstance $connection.DataSource -QueryTimeout 0 -Username $connection.UserID -Password $connection.Password
 }
 
+
+Set-Location $scriptPath
+
+# Run the setup scripts ( application configurations )
+Write-Host "Running setup script for $Brand"
+Invoke-Sqlcmd -InputFile "AppSetting-$($Brand).sql" -ServerInstance $connection.DataSource -Database $connection.InitialCatalog -QueryTimeout 0 -Username $connection.UserID -Password $connection.Password
+
+ 
 # Sanitize database
 if ( $SanitizeDatabase -eq $true ) {	
 	Write-Host "Sanitization = Updating AppSetting emails with $($Sanitize_Email) address"
@@ -62,7 +69,6 @@ if ( $SanitizeDatabase -eq $true ) {
 	Invoke-SqlCmd "UPDATE AppSetting SET [SettingValue] = '$($Sanitize_Email)' where [AppKey] = 'SupportNotificationAccounts'" -ServerInstance $connection.DataSource -Database $connection.InitialCatalog -QueryTimeout 0 -Username $connection.UserID -Password $connection.Password
 }
 
-Set-Location $scriptPath
 
 # Execute upgrade script
 & .\ClassifiedsDatabase.exe

@@ -6,7 +6,11 @@ $scriptPath = ( Split-Path $MyInvocation.MyCommand.Path )
 
 # Compile source code
 & $msbuild "Betterclassifieds.sln" "/p:Configuration=Debug" "/t:Clean,Build"
-# Create \ Upgrade databases
+
+# Set the variables for the database setup
+Set-Variable -Name 'Brand' -Value 'TheMusic' -Scope Global
+
+# Run each!
 @("MembershipDatabase", "ClassifiedsDatabase", "DocumentDatabase", "BroadcastDatabase", "LogDatabase") | 
 	foreach { 
 		$pathToDeploy = "Database\$_\bin\Debug\PostDeploy.ps1" 

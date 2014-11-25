@@ -57,6 +57,10 @@ if ( $db -eq $null ) {
 
 Set-Location $scriptPath
 
+# Upgrade the schema
+& .\ClassifiedsDatabase.exe
+
+
 # Run the setup scripts ( application configurations )
 Write-Host "Running setup script for $Brand"
 Invoke-Sqlcmd -InputFile "AppSetting-$($Brand).sql" -ServerInstance $connection.DataSource -Database $connection.InitialCatalog -QueryTimeout 0 -Username $connection.UserID -Password $connection.Password
@@ -69,6 +73,3 @@ if ( $SanitizeDatabase -eq $true ) {
 	Invoke-SqlCmd "UPDATE AppSetting SET [SettingValue] = '$($Sanitize_Email)' where [AppKey] = 'SupportNotificationAccounts'" -ServerInstance $connection.DataSource -Database $connection.InitialCatalog -QueryTimeout 0 -Username $connection.UserID -Password $connection.Password
 }
 
-
-# Execute upgrade script
-& .\ClassifiedsDatabase.exe

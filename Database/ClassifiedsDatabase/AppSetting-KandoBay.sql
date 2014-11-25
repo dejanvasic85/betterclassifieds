@@ -22,6 +22,6 @@ execute temp_createAppSetting @Key = 'SearchResultsPerPage', @Setting = '10'
 execute temp_createAppSetting @Key = 'SearchMaxPagedRequests', @Setting = '100'
 execute temp_createAppSetting @Key = 'MaxOnlineImages', @Setting = '5'
 execute temp_createAppSetting @Key = 'SupportNotificationAccounts', @Setting = 'support@paramountit.com.au;'
-
+execute temp_createAppSetting @Key = 'AdDurationDays', @Setting = '60'
 
 drop procedure temp_createAppSetting

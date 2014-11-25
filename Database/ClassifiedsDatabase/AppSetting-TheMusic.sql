@@ -18,12 +18,14 @@ BEGIN
 END
 GO
 
--- These are production ready settings
+-- These are production ready settings. Use force parameter if you need to ensure it overrides any existing setting
 -- Please update the sanitisation script if required 
 execute temp_createAppSetting @Key = 'NumberOfDaysAfterLastEdition', @Setting = '6'
 execute temp_createAppSetting @Key = 'SearchResultsPerPage', @Setting = '10'
 execute temp_createAppSetting @Key = 'SearchMaxPagedRequests', @Setting = '100'
 execute temp_createAppSetting @Key = 'MaxOnlineImages', @Setting = '2'
 execute temp_createAppSetting @Key = 'SupportNotificationAccounts', @Setting = 'leanne@timeoff.com.au;incoming@iflog.com.au'
+execute temp_createAppSetting @Key = 'AdDurationDays', @Setting = '60'
+
 
 drop procedure temp_createAppSetting

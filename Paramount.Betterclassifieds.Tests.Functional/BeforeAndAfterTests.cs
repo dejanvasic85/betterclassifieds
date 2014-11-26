@@ -1,5 +1,4 @@
 ﻿using System.Drawing;
-using System.Runtime.InteropServices;
 using BoDi;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -19,6 +18,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
     {
         private readonly IObjectContainer _container;
 
+        // This should be the only instance of the Selenium WebDriver
         private static IWebDriver _webDriver;
         private static IConfig _configuration;
 

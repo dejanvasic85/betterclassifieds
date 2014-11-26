@@ -72,18 +72,25 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Then(@"the user ""(.*)"" should be created successfully")]
         public void ThenTheUserShouldBeCreatedSuccessfully(string username)
         {
+            var registrationResult = _pageBrowser.WaitUntil(() => _dataRepository.RegistrationExistsForEmail(username));   
+            
             // Assert
-            Assert.IsTrue(_dataRepository.RegistrationExistsForEmail(username));
+            Assert.That(registrationResult, Is.True);
         }
 
         [Then(@"a registration email should be sent to ""(.*)""")]
         public void ThenARegistrationEmailShouldBeSentTo(string userEmail)
         {
-            var emailsQueued = _dataRepository.GetSentEmailsFor(userEmail);
+            var isRegistrationEmailQueued = _pageBrowser.WaitUntil(() =>
+            {
+                var emailsQueued = _dataRepository.GetSentEmailsFor(userEmail);
 
-            Assert.IsTrue(emailsQueued.Any(e => 
-                e.ModifiedDate >= _registrationContext.StartRegistrationTime &&
-                e.DocType == "NewRegistration"));
+                return emailsQueued.Any(e =>
+                    e.ModifiedDate >= _registrationContext.StartRegistrationTime &&
+                    e.DocType == "NewRegistration");
+            });
+
+            Assert.That(isRegistrationEmailQueued, Is.True);
         }
 
         [Then(@"I should see a thank you page with confirmation")]

@@ -101,5 +101,23 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             var wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(secondsToWait));
             return wait.Until(ExpectedConditions.TitleContains("The resource cannot be found"));
         }
+
+        /// <summary>
+        /// Runs the required action until it returns true
+        /// </summary>
+        public bool WaitUntil(Func<bool> func, int maxSecondsToWait = 5)
+        {
+            try
+            {
+                var wait = new WebDriverWait(this.WebDriver, TimeSpan.FromSeconds(maxSecondsToWait));
+                wait.Until(drv => func);
+                return true; // If we got here then we didn't time out!
+            }
+            catch (WebDriverTimeoutException)
+            {
+                // Boom - the method kept returning false so return false!
+                return false;
+            }
+        }
     }
 }

@@ -200,9 +200,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             // Drop from user table
             using (var scope = new TransactionScope())
             {
-                var userId =
-                    membershipDb.Query<Guid?>("SELECT UserId FROM aspnet_Users WHERE UserName = @username",
-                                              new { username }).FirstOrDefault();
+                var userId = membershipDb.Query<Guid?>("SELECT UserId FROM aspnet_Users WHERE UserName = @username", new { username }).FirstOrDefault();
                 if (userId.HasValue)
                 {
                     membershipDb.Execute("DELETE FROM aspnet_Membership WHERE UserId = @userId", new { userId });
@@ -256,7 +254,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 
         public void DropUserNetwork(string userId)
         {
-            classifiedDb.Execute("DELETE FROM UserNetwork WHERE UserId = @userId", new {userId});
+            classifiedDb.Execute("DELETE FROM UserNetwork WHERE UserId = @userId", new { userId });
         }
 
         public List<Email> GetSentEmailsFor(string email)

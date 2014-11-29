@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Paramount.Betterclassifieds.Business.Models;
 
 namespace Paramount.Betterclassifieds.Business.Managers
@@ -12,6 +13,8 @@ namespace Paramount.Betterclassifieds.Business.Managers
         int SearchResultsPerPage { get; }
         int SearchMaxPagedRequests { get; }
         Address ClientAddress { get; }
+        Tuple<string, string> ClientAddressLatLong { get; }
+        string ClientPhoneNumber { get; }
         string[] SupportEmailList { get; }
         int? MaxOnlineImages { get; }
         string PublisherHomeUrl { get; }

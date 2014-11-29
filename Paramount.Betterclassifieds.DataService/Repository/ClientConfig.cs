@@ -63,23 +63,23 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             get { return GetValueFromDatabase<int>("SearchMaxPagedRequests"); }
         }
 
-        // Todo
         public Address ClientAddress
+        {
+            get { return Address.FromCsvString(GetValueFromDatabase<string>("ClientAddress"), ','); }
+        }
+
+        public Tuple<string,string> ClientAddressLatLong
         {
             get
             {
-                // Hard code this just for now
-                return new Address
-                {
-                    AddressLine1 = "Street Press Australia Pty Ltd",
-                    AddressLine2 = "Level 1, 221 Kerr Street",
-                    Suburb = "Fitzroy",
-                    State = "VIC",
-                    Postcode = "3068",
-                    Country = "Australia",
-                    PhoneNumber = "61 3 9421 4499"
-                };
+                var clientAddressLatLong = GetValueFromDatabase<string>("ClientAddressLatLong").Split(',');
+                return new Tuple<string, string>(clientAddressLatLong[0], clientAddressLatLong[1]);
             }
+        }
+
+        public string ClientPhoneNumber
+        {
+            get { return GetValueFromDatabase<string>("ClientPhoneNumber", false); }
         }
 
         public string[] SupportEmailList

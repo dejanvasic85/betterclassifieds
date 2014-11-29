@@ -63,7 +63,10 @@
                         <strong>@address.AddressLine1</strong><br />
                         @address.AddressLine2<br />
                         @address.Suburb, @address.State @address.Postcode<br />
-                        P: <a href="tel:+@address.PhoneNumber">@address.PhoneNumber</a>
+                        @if (ViewBag.PhoneNumber != null)
+                        {
+                            <text>P:</text> <a href="tel:+@ViewBag.PhoneNumber">@ViewBag.PhoneNumber</a>
+                        }
                     </address>
                 </div>
             </div>
@@ -86,7 +89,7 @@
 
         var map, latLng;
         function initialize() {
-            latLng = new google.maps.LatLng(-37.796973, 144.984072);
+            latLng = new google.maps.LatLng('@ViewBag.AddressLatitude', '@ViewBag.AddressLongitude');
             var mapOptions = {
                 zoom: 15,
                 center: latLng,

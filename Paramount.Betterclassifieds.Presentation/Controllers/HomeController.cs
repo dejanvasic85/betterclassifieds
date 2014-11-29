@@ -39,6 +39,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var contactUs = new ContactUsModel();
             ViewBag.Address = this.Map<Business.Models.Address, AddressViewModel>(_clientConfig.ClientAddress);
+            ViewBag.PhoneNumber = _clientConfig.ClientPhoneNumber;
+            ViewBag.AddressLatitude = _clientConfig.ClientAddressLatLong.Item1;
+            ViewBag.AddressLongitude = _clientConfig.ClientAddressLatLong.Item2;
+
             return View(contactUs);
         }
 

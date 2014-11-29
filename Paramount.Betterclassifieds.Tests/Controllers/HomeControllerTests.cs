@@ -50,30 +50,33 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             CreateMockOf<IBroadcastManager>();
             CreateMockOf<IEnquiryManager>();
             CreateMockOf<ISearchService>();
-            CreateMockOf<IClientConfig>()
-                .SetupGet(prop => prop.ClientAddress)
-                .Returns(new Address
-                {
-                    AddressLine1 = "Company co...",
-                    AddressLine2 = "123 Smith Street",
-                    Country = "Australia",
-                    Postcode = "1111",
-                    State = "VIC",
-                    Suburb = "Melbourne"
-                });
+            var clientConfigMock = CreateMockOf<IClientConfig>();
+            clientConfigMock.SetupGet(prop => prop.ClientAddress)
+            .Returns(new Address
+            {
+                AddressLine1 = "Company co...",
+                AddressLine2 = "123 Smith Street",
+                Country = "Australia",
+                Postcode = "1111",
+                State = "VIC",
+                Suburb = "Melbourne"
+            });
+            clientConfigMock.SetupGet(prop => prop.ClientPhoneNumber).Returns("03999999");
+            clientConfigMock.SetupGet(prop => prop.ClientAddressLatLong).Returns(new Tuple<string, string>("1","2"));
+
 
             // Act
             var result = CreateController().ContactUs();
 
             // Assert
             result.IsTypeOf<ViewResult>();
+            
             var viewResult = (ViewResult)result;
-            var model = viewResult.Model;
-            model.IsTypeOf<ContactUsModel>();
-            var address = viewResult.ViewBag.Address as AddressViewModel;
-            Assert.IsNotNull(address);
-            address.AddressLine1.IsEqualTo("Company co...");
-            address.Country.IsEqualTo("Australia");
+            Assert.That(viewResult.Model, Is.TypeOf<ContactUsModel>());
+            Assert.That(viewResult.ViewBag.Address, Is.Not.Null);
+            Assert.That(viewResult.ViewBag.PhoneNumber, Is.Not.Null);
+            Assert.That(viewResult.ViewBag.AddressLatitude, Is.Not.Null);
+            Assert.That(viewResult.ViewBag.AddressLongitude, Is.Not.Null);
         }
 
         [Test]

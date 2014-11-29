@@ -256,6 +256,7 @@
     <Content Include="Content\bootstrap-theme-yeti.min.css">
       <DependentUpon>bootstrap-theme-yeti.css</DependentUpon>
     </Content>
+    <Content Include="Content\KandoBay\kandobay_favicon.ico" />
     <Content Include="Content\site.css">
       <DependentUpon>site.less</DependentUpon>
     </Content>
@@ -1278,7 +1279,6 @@
   <ItemGroup>
     <Folder Include="App_GlobalResources\" />
     <Folder Include="bin\Image\" />
-    <Folder Include="Content\KandoBay\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

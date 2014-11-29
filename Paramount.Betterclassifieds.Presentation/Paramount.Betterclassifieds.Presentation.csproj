@@ -256,6 +256,7 @@
     <Content Include="Content\bootstrap-theme-yeti.min.css">
       <DependentUpon>bootstrap-theme-yeti.css</DependentUpon>
     </Content>
+    <Content Include="Content\KandoBay\kandobay_favicon.ico" />
     <Content Include="Content\site.css">
       <DependentUpon>site.less</DependentUpon>
     </Content>
@@ -452,9 +453,7 @@
     <Content Include="Views\Shared\_Terms.cshtml" />
     <Content Include="Views\Shared\_Terms.TheMusic.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Content\KandoBay\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Configuration;
 using System.Linq;
-using Paramount.ApplicationBlock.Configuration;
 using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.Business.Models;
 
@@ -16,7 +15,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                 var appSetting = context.AppSettings.FirstOrDefault(setting => setting.AppKey == settingName);
                 if (appSetting == null && required)
                 {
-                    throw new ConfigurationErrorsException("Setting does not exist for Client");
+                    throw new ConfigurationErrorsException(string.Format("Setting [{0}] does not exist for Client", settingName));
                 }
 
                 if (appSetting == null)
@@ -50,7 +49,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
         public string FacebookAppId
         {
-            get { return GetValueFromDatabase<string>("FacebookAppId"); }
+            get { return GetValueFromDatabase<string>("FacebookAppId", required:false); }
         }
 
         public int SearchResultsPerPage

@@ -29,6 +29,8 @@ execute temp_createAppSetting @Key = 'AdDurationDays', @Setting = '30'
 execute temp_createAppSetting @Key = 'ClientAddress', @Setting = 'Street Press Australia Pty Ltd,Level 1, 221 Kerr Street,Fitzroy,VIC,3068,Australia', @Force = 1
 execute temp_createAppSetting @Key = 'ClientAddressLatLong', @Setting = '-37.796973, 144.984072', @Force = 1
 execute temp_createAppSetting @Key = 'ClientPhoneNumber', @Setting = '61 3 9421 4499', @Force = 1
+execute temp_createAppSetting @Key = 'PublisherHomeUrl', @Setting = 'http://themusic.com.au'
+execute temp_createAppSetting @Key = 'FacebookAppId', @Setting = '143183162513319'
 
 
 drop procedure temp_createAppSetting

@@ -50,7 +50,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
         public string FacebookAppId
         {
-            get { return ConfigManager.ReadAppSetting<string>("FacebookAppId"); }
+            get { return GetValueFromDatabase<string>("FacebookAppId"); }
         }
 
         public int SearchResultsPerPage
@@ -94,7 +94,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
         public string PublisherHomeUrl
         {
-            get { return ConfigManager.ReadAppSetting<string>("PublisherHomeUrl"); }
+            get { return GetValueFromDatabase<string>("PublisherHomeUrl", false); }
         }
     }
 }

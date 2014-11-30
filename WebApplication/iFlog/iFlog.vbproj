@@ -257,6 +257,7 @@
       <DependentUpon>bootstrap-theme-yeti.css</DependentUpon>
     </Content>
     <Content Include="Content\KandoBay\kandobay_favicon.ico" />
+    <Content Include="Content\KandoBay\img\Kandobay_Logo.png" />
     <Content Include="Content\site.css">
       <DependentUpon>site.less</DependentUpon>
     </Content>

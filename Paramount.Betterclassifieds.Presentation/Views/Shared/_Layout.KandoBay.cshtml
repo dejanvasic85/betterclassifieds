@@ -38,6 +38,17 @@
         <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.11.0.js")"></script>
 
         <div class="container">
+            <div class="row top-buffer-40">
+                <div class="col-sm-4 left-buffer-20">
+                    <a href="@Url.Action("Index", "Home")">
+                        <img class="themusic-logo" 
+                             src="@Url.Content("~/Content/KandoBay/img/Kandobay_Logo.png")" 
+                             width="300"
+                             alt="Kandobay Classifieds" />
+                    </a>
+                </div>
+            </div>
+
             @*Render the application layout*@
             @RenderBody()
         </div>

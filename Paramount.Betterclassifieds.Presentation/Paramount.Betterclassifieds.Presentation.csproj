@@ -263,6 +263,7 @@
     <Content Include="Content\site.min.css">
       <DependentUpon>site.css</DependentUpon>
     </Content>
+    <Content Include="Content\KandoBay\img\Kandobay_Logo.png" />
     <Content Include="Content\TheMusic\themusic.css">
       <DependentUpon>themusic.less</DependentUpon>
     </Content>

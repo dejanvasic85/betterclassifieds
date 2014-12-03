@@ -1,4 +1,4 @@
-/* Specific style for TheMusic */
+﻿/* Specific style for TheMusic */
 @font-face {
   font-family: alternate-gothic-no-2-d;
   src: url('fonts/ufonts.com_alternate_gothic_no2_d.ttf');
@@ -78,3 +78,4 @@
   font-weight: bolder;
   color: #A94442;
 }
+/*# sourceMappingURL=themusic.css.map */

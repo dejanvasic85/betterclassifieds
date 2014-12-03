@@ -56,6 +56,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         public IEnumerable<SelectListItem> LocationOptions { get; set; }
 
         public IEnumerable<SelectListItem> LocationAreaOptions { get; set; }
-
+        [Display(Name = "Heading")]
+        [StringLength(100)]
+        public string LineAdHeader { get; set; }
+        [Display(Name = "Description")]
+        public string LineAdText { get; set; }
     }
 }

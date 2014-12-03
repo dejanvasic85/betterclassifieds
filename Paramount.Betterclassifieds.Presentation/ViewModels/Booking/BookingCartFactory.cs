@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web;
 using Microsoft.Practices.Unity;
 using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Models;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 {
@@ -23,7 +25,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
                 UserId = username,
                 Id = id,
                 Reference = id.Substring(0, 6).ToUpper(),
-                OnlineAdCart = new OnlineAdCart()
+                OnlineAdCart = new OnlineAdCart(),
+                LineAdModel = new LineAdModel()
             };
 
             bookingSessionIdentifier.SetId(cart.Id);

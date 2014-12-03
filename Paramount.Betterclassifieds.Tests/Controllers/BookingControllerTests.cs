@@ -13,6 +13,7 @@ using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Repository;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Controllers;
+using Paramount.Betterclassifieds.Presentation.Framework;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Booking;
 using Paramount.Betterclassifieds.Tests.Mocks;
 
@@ -99,7 +100,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             Assert.That(viewModel.SubCategoryOptions.Count(), Is.EqualTo(2));
         }
 
-
         [Test]
         public void Step1_Get_PublicationSelected_SetSelectedPublications_ReturnsView()
         {
@@ -128,6 +128,18 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var viewModel = ((ViewResult)result).Model as Step1View;
             Assert.That(viewModel, Is.Not.Null);
             Assert.That(viewModel.Publications.Any(p => p.IsSelected), Is.True);
+        }
+
+        [Test]
+        public void GetPlaintextFromMarkdown_ConvertsWithMkDeep_ReturnsString()
+        {
+            var controller = CreateController();
+            var result = controller.GetPlaintextFromMarkdown("**one bold value**");
+
+            Assert.That(result, Is.TypeOf<JsonResult>());
+            var json = (JsonResult) result;
+            Assert.That(json.Data, Has.Property("plaintext"));
+            Assert.That(json.Data.ToJsonString(), Is.StringContaining("one bold value"));
         }
     }
 }

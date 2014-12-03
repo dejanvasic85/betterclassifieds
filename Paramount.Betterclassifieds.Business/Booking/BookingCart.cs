@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Paramount.Betterclassifieds.Business.Managers;
+using Paramount.Betterclassifieds.Business.Models;
 
 namespace Paramount.Betterclassifieds.Business
 {
@@ -37,6 +38,8 @@ namespace Paramount.Betterclassifieds.Business
         public DateTime? EndDate { get; set; }
 
         public OnlineAdCart OnlineAdCart { get; set; }
+
+        public LineAdModel LineAdModel { get; set; }
 
         public decimal TotalPrice { get; set; }
 

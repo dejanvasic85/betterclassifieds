@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Presentation.Controllers
+﻿using System.Threading;
+
+namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -108,6 +110,7 @@
         {
             var bookingCart = _bookingManager.GetCart();
             var stepTwoModel = this.Map<OnlineAdCart, Step2View>(bookingCart.OnlineAdCart);
+            this.Map(bookingCart.LineAdModel, stepTwoModel);
 
             // Load the location options
             stepTwoModel.LocationOptions = _searchService.GetLocations().Select(l => new SelectListItem { Text = l.Title, Value = l.LocationId.ToString() }).OrderBy(l => l.Text).ToList();
@@ -127,6 +130,9 @@
 
             // Set the configured max image size
             stepTwoModel.MaxImageUploadBytes = _applicationConfig.MaxImageUploadBytes;
+
+            // Map the flag for line ad
+            stepTwoModel.IsLineAdIncluded = bookingCart.IsLineAdIncluded;
 
             // Set convenient contact details for the user
             var applicationUser = _userManager.GetCurrentUser(this.User);
@@ -150,6 +156,7 @@
 
             var bookingCart = _bookingManager.GetCart();
             this.Map(viewModel, bookingCart.OnlineAdCart);
+            this.Map(viewModel, bookingCart.LineAdModel);
             bookingCart.OnlineAdCart.SetDescription(new MarkdownDeep.Markdown().Transform(viewModel.OnlineAdDescriptionMarkdown));
             bookingCart.CompleteStep(2);
 
@@ -253,7 +260,7 @@
             paymentService.CompletePayment(new PaymentRequest { PayerId = payerId, PayReference = bookingCart.PaymentReference });
             return RedirectToAction("Success");
         }
-
+        
         // 
         // GET /Booking/Success
         [HttpGet, Authorize, AuthorizeCartIdentity]
@@ -395,23 +402,35 @@
             return Json(new { valid = true });
         }
 
+        [HttpPost]
+        public ActionResult GetPlaintextFromMarkdown(string markdown)
+        {
+            // Converts the markdown text in the request to a plaintext version 
+            // Used for preparing the print ad text
+            var mk = new MarkdownDeep.Markdown().Transform(markdown);
+            return Json(new { plaintext = mk.FromHtmlToPlaintext() });
+        }
+
         #endregion
 
         #region Mappings
         public void OnRegisterMaps(IConfiguration configuration)
         {
             // Step 2 view is very flat with OnlineAd Prefix on properties
-            configuration.RecognizeDestinationPrefixes("OnlineAd");
-            configuration.RecognizePrefixes("OnlineAd");
+            configuration.RecognizeDestinationPrefixes("OnlineAd", "Line");
+            configuration.RecognizePrefixes("OnlineAd", "Line");
 
             // To view model
             configuration.CreateMap<PublicationModel, PublicationSelectionView>();
             configuration.CreateMap<OnlineAdCart, Step2View>();
+            configuration.CreateMap<LineAdModel, Step2View>();
+            configuration.CreateMap<OnlineAdCart, Step4View>();
             configuration.CreateMap<BookingCart, Step4View>();
 
             // From ViewModel
             configuration.CreateMap<Step2View, OnlineAdCart>()
                 .ForMember(member => member.Images, options => options.Ignore());
+            configuration.CreateMap<Step2View, LineAdModel>();
             configuration.CreateMap<UserNetworkEmailView, UserNetworkModel>();
 
             // To Email Template

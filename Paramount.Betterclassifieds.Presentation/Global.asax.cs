@@ -1,4 +1,6 @@
-﻿using System.Web.Optimization;
+﻿using System.Globalization;
+using System.Threading;
+using System.Web.Optimization;
 
 namespace Paramount.Betterclassifieds.Presentation
 {
@@ -18,6 +20,9 @@ namespace Paramount.Betterclassifieds.Presentation
 
         protected void Application_Start()
         {
+            // Force the UI Culture for now
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
             
             AreaRegistration.RegisterAllAreas();
 

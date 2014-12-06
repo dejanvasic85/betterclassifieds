@@ -14,6 +14,7 @@ namespace Paramount.Betterclassifieds.DataService
             {
                 c.AutoMap();
                 c.MapMember(member => member.StartDate).SetSerializationOptions(new DateTimeSerializationOptions { DateOnly = true });
+                c.MapMember(member => member.EndDate).SetSerializationOptions(new DateTimeSerializationOptions { DateOnly = true });
             });
         }
 

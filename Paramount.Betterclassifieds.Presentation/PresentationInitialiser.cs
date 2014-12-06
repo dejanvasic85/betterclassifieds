@@ -1,4 +1,6 @@
-﻿using Microsoft.Practices.Unity;
+﻿using System.Globalization;
+using System.Threading;
+using Microsoft.Practices.Unity;
 using Paramount.ApplicationBlock.Mvc;
 using Paramount.ApplicationBlock.Mvc.Unity;
 using Paramount.Betterclassifieds.Business.Repository;
@@ -20,6 +22,9 @@ namespace Paramount.Betterclassifieds.Presentation
 
         public override void CreateContextAndRegister(System.Web.Routing.RouteCollection routes, object state)
         {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+
             // Ignored routes
             routes.Ignore("{resource}.axd/{*pathInfo}");
             routes.Ignore("{resource}.aspx/{*pathInfo}");

@@ -67,7 +67,8 @@
             <div class="center-block" data-bind="foreach: publications">
                 <button class="btn btn-default btn-block btn-lg"
                         data-bind="id: publicationId, text: title, css: {active : isSelected}, click : $parent.togglePublication"
-                        data-toggle="button"></button>
+                        data-toggle="button">
+                </button>
             </div>
         </div>
     </div>
@@ -97,11 +98,11 @@
 
                 // jQuery ready
                 $(function() {
-                    var StepOne = function(data) {
+                    var StepOne = function(stepData) {
                         var self = this;
-                        self.categoryId = ko.observable(data.categoryId);
-                        self.subCategoryId = ko.observable(data.subCategoryId);
-                        self.publications = ko.observableArray(data.publications);
+                        self.categoryId = ko.observable(stepData.categoryId);
+                        self.subCategoryId = ko.observable(stepData.subCategoryId);
+                        self.publications = ko.observableArray(stepData.publications);
                         self.shouldShowSubCategory = ko.computed(function() {
                             return self.categoryId() !== "";
                         });
@@ -116,7 +117,7 @@
 
                             pub.isSelected = !pub.isSelected;
                         };
-                        self.errorMsg = ko.observable("");
+                        self.errorMsg = ko.observable("");                        
                     };
 
                     var data = @Html.Raw(Model.ToJsonString());

@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.DataService.Repository
+﻿using System.Configuration;
+
+namespace Paramount.Betterclassifieds.DataService.Repository
 {
     using Business.Managers;
     using ApplicationBlock.Configuration;
@@ -50,7 +52,7 @@
         {
             get
             {
-                return ConfigManager.GetSetting("paramount/dsl", "ImageCacheDirectory");
+                return ConfigurationManager.AppSettings["ImageCacheDirectory"];
             }
         }
 

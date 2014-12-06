@@ -9,12 +9,12 @@ namespace BetterClassified.UIController.Repository
     public partial class LinqDaoRepository : IDataRepository
     {
         #region Read
-        
+
         public IList<MainCategory> GetMainCategories()
         {
             using (var db = BetterclassifiedsDataContext.NewContext())
             {
-                return db.MainCategories.ToList();
+                return db.MainCategories.ToList().OrderBy(c => c.Title).ToList();
             }
         }
 

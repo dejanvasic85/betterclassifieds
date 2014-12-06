@@ -88,7 +88,7 @@ namespace Paramount.Betterclassifieds.DataService
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
-                var categories = context.MainCategories.ToList();
+                var categories = context.MainCategories.OrderBy(c => c.Title).ToList();
                 return this.MapList<MainCategory, CategorySearchResult>(categories);
             }
         }

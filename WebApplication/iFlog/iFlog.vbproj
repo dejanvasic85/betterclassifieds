@@ -256,6 +256,9 @@
     <Content Include="Content\bootstrap-theme-yeti.min.css">
       <DependentUpon>bootstrap-theme-yeti.css</DependentUpon>
     </Content>
+    <Content Include="Content\KandoBay\img\BookUsingThePhone.PNG" />
+    <Content Include="Content\KandoBay\img\FederationSquare.png" />
+    <Content Include="Content\KandoBay\img\WinTablet.png" />
     <Content Include="Content\KandoBay\kandobay_favicon.ico" />
     <Content Include="Content\KandoBay\img\Kandobay_Logo.png" />
     <Content Include="Content\site.css">

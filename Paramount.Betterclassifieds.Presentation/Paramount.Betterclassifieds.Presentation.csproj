@@ -256,6 +256,9 @@
     <Content Include="Content\bootstrap-theme-yeti.min.css">
       <DependentUpon>bootstrap-theme-yeti.css</DependentUpon>
     </Content>
+    <Content Include="Content\KandoBay\img\BookUsingThePhone.PNG" />
+    <Content Include="Content\KandoBay\img\FederationSquare.png" />
+    <Content Include="Content\KandoBay\img\WinTablet.png" />
     <Content Include="Content\KandoBay\kandobay_favicon.ico" />
     <Content Include="Content\site.css">
       <DependentUpon>site.less</DependentUpon>
@@ -286,7 +289,7 @@
     <Content Include="Content\site.css.map">
       <DependentUpon>site.css</DependentUpon>
     </Content>
-    <None Include="Content\site.less" />
+    <Content Include="Content\site.less" />
     <Content Include="Content\TheMusic\fonts\ufonts.com_alternate_gothic_no2_d.ttf" />
     <None Include="Content\TheMusic\themusic.less" />
     <Content Include="Scripts\bootstrap-3.3.0.js" />
@@ -453,6 +456,7 @@
     <Content Include="Views\Shared\_Layout.KandoBay.cshtml" />
     <Content Include="Views\Shared\_Terms.cshtml" />
     <Content Include="Views\Shared\_Terms.TheMusic.cshtml" />
+    <Content Include="Views\Home\Index.KandoBay.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

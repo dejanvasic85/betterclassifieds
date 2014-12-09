@@ -372,15 +372,15 @@
 
             var adSearchResult = _searchService.GetAdById(adId);
 
-            foreach (var contactEmail in users.Where(u => u.Selected).Select(u => u.Email))
+            foreach (var friendEmail in users.Where(u => u.Selected).Select(u => u.Email))
             {
                 _broadcastManager.SendEmail(new AdShare
                 {
                     AdvertiserName = adSearchResult.ContactName,
-                    AdDescription = adSearchResult.HtmlText,
+                    AdDescription = adSearchResult.HtmlText.TruncateOnWordBoundary(100),
                     AdTitle = adSearchResult.Heading,
-                    ClientName = contactEmail//change this to client name
-                }, contactEmail);
+                    ClientName = friendEmail
+                }, friendEmail);
             }
             return Json("completed");
         }

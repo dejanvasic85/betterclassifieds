@@ -117,7 +117,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                     registrationModel.Token,
                     registrationModel.Username
                 })
-            }, viewModel.RegisterEmail);
+            }, "dejan.vasic@paramountit.com.au");
 
             return View("ThankYou");
         }
@@ -162,6 +162,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+
+        // Todo this should be a post and not a GET! No wonder it was caching the result (BAD)
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")] 
         public JsonResult IsEmailUnique(string registerEmail)
         {
             return Json(!_authManager.CheckEmailExists(registerEmail), JsonRequestBehavior.AllowGet);

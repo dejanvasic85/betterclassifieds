@@ -151,6 +151,7 @@ namespace Paramount.Betterclassifieds.Business
                 AdNumber = adEnquiry.AdId.ToString(),
                 Name = adEnquiry.FullName,
                 Email = adEnquiry.Email,
+                Question = adEnquiry.Question
             }, bookingUser.Email);
         }
 

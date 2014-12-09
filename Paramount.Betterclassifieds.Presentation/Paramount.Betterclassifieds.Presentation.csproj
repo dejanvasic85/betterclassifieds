@@ -457,6 +457,7 @@
     <Content Include="Views\Shared\_Terms.cshtml" />
     <Content Include="Views\Shared\_Terms.TheMusic.cshtml" />
     <Content Include="Views\Home\Index.KandoBay.cshtml" />
+    <Content Include="Views\Shared\_Terms.KandoBay.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -230,6 +230,10 @@
     <Compile Include="api\OnlineAdController.vb" />
     <Compile Include="App_Start\ContainerConfig.vb" />
     <Compile Include="Common\HttpExtensions.vb" />
+    <Content Include="Content\animate.css" />
+    <Content Include="Content\animate.min.css">
+      <DependentUpon>animate.css</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-3.3.0.min.css">
       <DependentUpon>bootstrap-3.3.0.css</DependentUpon>
     </Content>
@@ -261,6 +265,9 @@
     <Content Include="Content\KandoBay\img\WinTablet.png" />
     <Content Include="Content\KandoBay\kandobay_favicon.ico" />
     <Content Include="Content\KandoBay\img\Kandobay_Logo.png" />
+    <Content Include="Content\morphext.min.css">
+      <DependentUpon>morphext.css</DependentUpon>
+    </Content>
     <Content Include="Content\site.css">
       <DependentUpon>site.less</DependentUpon>
     </Content>
@@ -341,6 +348,9 @@
     <Content Include="Scripts\jquery.fileupload-5.42.0.min.js">
       <DependentUpon>jquery.fileupload-5.42.0.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\jquery.morphext.min.js">
+      <DependentUpon>jquery.morphext.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery.ui.widget-1.11.1.js" />
     <Content Include="Scripts\jquery.ui.widget-1.11.1.min.js">
       <DependentUpon>jquery.ui.widget-1.11.1.js</DependentUpon>
@@ -369,6 +379,8 @@
     <Content Include="Scripts\moment-2.8.2.min.js">
       <DependentUpon>moment-2.8.2.js</DependentUpon>
     </Content>
+    <Content Include="Content\morphext.css" />
+    <Content Include="Scripts\jquery.morphext.js" />
     <Content Include="Scripts\paramount-site.js" />
     <Content Include="Scripts\paramount-site.min.js">
       <DependentUpon>paramount-site.js</DependentUpon>
@@ -438,6 +450,9 @@
       <DependentUpon>bootstrap-3.3.0.min.js</DependentUpon>
     </Content>
     <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="Scripts\jquery.morphext.min.js.map">
+      <DependentUpon>jquery.morphext.min.js</DependentUpon>
+    </Content>
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\paramount-validate-tooltip.min.js">
       <DependentUpon>paramount-validate-tooltip.js</DependentUpon>

@@ -11,7 +11,7 @@
 
     <title>@ViewBag.Title - KandoBay Classifieds</title>
     
-    
+        
     <!-- Bootstrap -->
     <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-3.3.0.min.css")" />
     <link rel="stylesheet" href="@Url.Content("~/Content/font-awesome-4.2.0.min.css")" />
@@ -22,6 +22,8 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-markdown.min.css")"/>
     <link rel="stylesheet" href="@Url.Content("~/Content/jquery.fileupload-1.3.0.css")"/>
     <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-theme-yeti.min.css")"/>
+    <link rel="stylesheet" href="@Url.Content("~/Content/morphext.min.css")"/>
+    <link rel="stylesheet" href="@Url.Content("~/Content/animate.min.css")"/>
     
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -39,13 +41,18 @@
 
         <div class="container">
             <div class="row top-buffer-40">
-                <div class="col-sm-4 left-buffer-20">
+                <div class="col-md-4 left-buffer-20">
                     <a href="@Url.Action("Index", "Home")">
                         <img class="themusic-logo" 
                              src="@Url.Content("~/Content/KandoBay/img/Kandobay_Logo.png")" 
                              width="300"
                              alt="Kandobay Classifieds" />
                     </a>
+                </div>
+                <div class="col-md-8">
+                    <div class="well well-lg" id="leadtext">
+                        Free classifieds for the African Community|Buy, Sell, Trade|Teach and Learn|Find us at the African Music and Culture Festival
+                    </div>
                 </div>
             </div>
 
@@ -66,11 +73,21 @@
         <script type="text/javascript" src="@Url.Content("~/Scripts/moment-2.8.2.min.js")"></script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.ui.widget-1.11.1.js")"></script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.fileupload-5.42.0.js")"></script>
-
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.morphext.min.js")"></script>
+        
         
         @*Paramount Scripts*@
         <script type="text/javascript" src="@Url.Content("~/Scripts/paramount-validate-default.min.js")"></script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/paramount-site.min.js")"></script>
+        
+        @*Rotator for the home page*@
+        <script type="text/javascript">
+            $("#leadtext").Morphext({
+                animation: "fadeInRight",
+                separator: "|", 
+                speed: 3500 
+            });
+        </script>
 
         @RenderSection("Scripts", false)
     </body>

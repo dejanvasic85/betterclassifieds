@@ -226,6 +226,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\animate.css" />
+    <Content Include="Content\animate.min.css">
+      <DependentUpon>animate.css</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-3.3.0.css" />
     <Content Include="Content\bootstrap-3.3.0.min.css">
       <DependentUpon>bootstrap-3.3.0.css</DependentUpon>
@@ -260,6 +264,10 @@
     <Content Include="Content\KandoBay\img\FederationSquare.png" />
     <Content Include="Content\KandoBay\img\WinTablet.png" />
     <Content Include="Content\KandoBay\kandobay_favicon.ico" />
+    <Content Include="Content\morphext.css" />
+    <Content Include="Content\morphext.min.css">
+      <DependentUpon>morphext.css</DependentUpon>
+    </Content>
     <Content Include="Content\site.css">
       <DependentUpon>site.less</DependentUpon>
     </Content>
@@ -310,6 +318,10 @@
     <Content Include="Scripts\jquery.fileupload-5.42.0.js" />
     <Content Include="Scripts\jquery.fileupload-5.42.0.min.js">
       <DependentUpon>jquery.fileupload-5.42.0.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.morphext.js" />
+    <Content Include="Scripts\jquery.morphext.min.js">
+      <DependentUpon>jquery.morphext.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery.ui.widget-1.11.1.js" />
     <Content Include="Scripts\jquery.ui.widget-1.11.1.min.js">
@@ -384,6 +396,9 @@
     </Content>
     <Content Include="Scripts\bootstrap-3.3.0.min.js.map">
       <DependentUpon>bootstrap-3.3.0.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.morphext.min.js.map">
+      <DependentUpon>jquery.morphext.min.js</DependentUpon>
     </Content>
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\toastr-2.0.1.js" />

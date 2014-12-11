@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
     public class UserDetailsEditView
     {
-        public UserDetailsEditView()
-        {
-
-        }
-
         public SelectList StateList
         {
             get

@@ -189,20 +189,26 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(new { Completed = true });
         }
 
-        public void OnRegisterMaps(IConfiguration configuration)
-        {
-            configuration.CreateMap<RegisterViewModel, RegistrationModel>()
-                .ForMember(member => member.Email, options => options.MapFrom(source => source.RegisterEmail));
-
-        }
 
         [Authorize]
         public ActionResult Details()
         {
             var identity = _userManager.GetCurrentUser(this.User);
             var applicationUser = _userManager.GetUserByEmailOrUsername(identity.Username);
-            
-            return View();
+
+            UserDetailsEditView viewModel = this.Map<ApplicationUser, UserDetailsEditView>(applicationUser);
+
+            return View(viewModel);
         }
+
+        public void OnRegisterMaps(IConfiguration configuration)
+        {
+            configuration.CreateProfile("accountCtrlMap");
+            configuration.CreateMap<RegisterViewModel, RegistrationModel>()
+                .ForMember(member => member.Email, options => options.MapFrom(source => source.RegisterEmail));
+
+            configuration.CreateMap<ApplicationUser, UserDetailsEditView>();
+        }
+
     }
 }

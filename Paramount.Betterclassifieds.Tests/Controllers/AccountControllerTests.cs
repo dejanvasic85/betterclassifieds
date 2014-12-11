@@ -152,27 +152,30 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             redirectResult.Url.IsEqualTo("/fakeReturnUrl");
         }
 
-        [Test]
-        public void Details_Get_RetrievesUserProfileDetails_ReturnsViewModel_ForEdit()
-        {
-            mockUserMgr.Setup(call => call.GetCurrentUser(It.IsAny<IPrincipal>()))
-                .Returns(new ApplicationUser
-                {
-                    FirstName = "Aaron",
-                    LastName = "Ramsey",
-                    City = "Melbourne",
-                    Username = "aramsay",
-                    AddressLine1 = "1 Flinders Street",
-                    AddressLine2 = "Vic",
-                    State = "VIC",
-                    Email = "ramsey@arsenal.com",
-                    Phone = "04333333333",
-                    Postcode = "3000"
-                });
+        //[Test]
+        //public void Details_Get_RetrievesUserProfileDetails_ReturnsViewModel_ForEdit()
+        //{
 
-            var controller = this.CreateController();
+        //    mockUserMgr.Setup(call => call.GetCurrentUser(It.IsAny<IPrincipal>()))
+        //        .Returns(new ApplicationUser
+        //        {
+        //            FirstName = "Aaron",
+        //            LastName = "Ramsey",
+        //            City = "Melbourne",
+        //            Username = "aramsay",
+        //            AddressLine1 = "1 Flinders Street",
+        //            AddressLine2 = "Vic",
+        //            State = "VIC",
+        //            Email = "ramsey@arsenal.com",
+        //            Phone = "04333333333",
+        //            Postcode = "3000"
+        //        });
 
-            var result = controller.Details();
-        }
+        //    var controller = this.CreateController();
+
+        //    var result = controller.Details();
+
+
+        //}
     }
 }

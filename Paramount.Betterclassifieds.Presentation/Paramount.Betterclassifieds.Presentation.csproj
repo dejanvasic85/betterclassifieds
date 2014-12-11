@@ -476,6 +476,7 @@
     <Content Include="Views\Shared\_Terms.TheMusic.cshtml" />
     <Content Include="Views\Home\Index.KandoBay.cshtml" />
     <Content Include="Views\Shared\_Terms.KandoBay.cshtml" />
+    <Content Include="Views\Account\Details.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

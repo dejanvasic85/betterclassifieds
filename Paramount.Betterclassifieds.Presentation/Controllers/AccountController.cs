@@ -195,5 +195,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 .ForMember(member => member.Email, options => options.MapFrom(source => source.RegisterEmail));
 
         }
+
+        [Authorize]
+        public ActionResult Details()
+        {
+            var identity = _userManager.GetCurrentUser(this.User);
+            var applicationUser = _userManager.GetUserByEmailOrUsername(identity.Username);
+            
+            return View();
+        }
     }
 }

@@ -37,7 +37,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public ActionResult ContactUs()
         {
-            var contactUs = new ContactUsModel();
+            var contactUs = new ContactUsView();
             ViewBag.Address = this.Map<Business.Models.Address, AddressViewModel>(_clientConfig.ClientAddress);
             ViewBag.PhoneNumber = _clientConfig.ClientPhoneNumber;
             ViewBag.AddressLatitude = _clientConfig.ClientAddressLatLong.Item1;
@@ -48,7 +48,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost, CaptchaVerify("Captcha is not valid")]
-        public ActionResult ContactUs(ContactUsModel contactUsModel)
+        public ActionResult ContactUs(ContactUsView contactUsView)
         {
             if (!ModelState.IsValid)
             {
@@ -63,16 +63,16 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             _broadcastManager.SendEmail(new SupportRequest
             {
-                RequestDetails = contactUsModel.Comment,
-                Email = contactUsModel.Email,
-                Name = contactUsModel.FullName,
-                Phone = contactUsModel.Phone
+                RequestDetails = contactUsView.Comment,
+                Email = contactUsView.Email,
+                Name = contactUsView.FullName,
+                Phone = contactUsView.Phone
             }, _clientConfig.SupportEmailList);
 
-            _enquiryManager.CreateSupportEnquiry(contactUsModel.FullName,
-                contactUsModel.Email,
-                contactUsModel.Phone,
-                contactUsModel.Comment);
+            _enquiryManager.CreateSupportEnquiry(contactUsView.FullName,
+                contactUsView.Email,
+                contactUsView.Phone,
+                contactUsView.Comment);
             
             return Json(new { IsValid = true });
         }

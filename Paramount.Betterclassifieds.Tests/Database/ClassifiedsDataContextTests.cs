@@ -39,7 +39,7 @@ namespace Paramount.Betterclassifieds.Tests.Database
                     adBookingId: ref adBookingId,
                     onlineAdHeading: "Test only",
                     onlineAdDescription:"test only",
-                    onlineAdHtml: "test Only",
+                    onlineAdHtml: "<h2>test Only</h2>",
                     onlineAdPrice: null,
                     locationId: 8, // Any Location
                     locationAreaId: 27, // Any Area
@@ -47,7 +47,8 @@ namespace Paramount.Betterclassifieds.Tests.Database
                     contactEmail: "dejanvasic@outlook.com",
                     contactPhone: "0433095822",
                     onlineDesignId: ref onlineDesignId,
-                    transactionType: 2
+                    transactionType: 2,
+                    onlineAdMarkdownText: "##Test Only"
                     );
                
                 context.AdGraphics.InsertOnSubmit(new AdGraphic

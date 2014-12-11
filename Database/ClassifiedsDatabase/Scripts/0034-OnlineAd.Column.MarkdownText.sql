@@ -1,0 +1,1 @@
+﻿ALTER TABLE OnlineAd ADD  MarkdownText VARCHAR(MAX) NULL

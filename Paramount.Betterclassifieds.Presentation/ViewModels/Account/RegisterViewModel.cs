@@ -1,37 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
-    public class LoginOrRegisterModel
-    {
-        public LoginOrRegisterModel()
-        {
-            LoginViewModel = new LoginViewModel();
-            RegisterViewModel = new RegisterViewModel();
-        }
-
-        public LoginViewModel LoginViewModel { get; set; }
-        public RegisterViewModel RegisterViewModel { get; set; }
-    }
-
-    public class LoginViewModel
-    {
-        [Required]
-        [Display(Name = "Email")]
-        public string Username { get; set; }
-
-        [Required]
-        public string Password { get; set; }
-
-        [Display(Name = "Remember me")]
-        public bool RememberMe { get; set; }
-
-        [HiddenInput]
-        public string ReturnUrl { get; set; }
-    }
-
     public class RegisterViewModel
     {
         [Required]

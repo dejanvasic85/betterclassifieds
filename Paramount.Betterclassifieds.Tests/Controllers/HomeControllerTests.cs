@@ -72,7 +72,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             result.IsTypeOf<ViewResult>();
             
             var viewResult = (ViewResult)result;
-            Assert.That(viewResult.Model, Is.TypeOf<ContactUsModel>());
+            Assert.That(viewResult.Model, Is.TypeOf<ContactUsView>());
             Assert.That(viewResult.ViewBag.Address, Is.Not.Null);
             Assert.That(viewResult.ViewBag.PhoneNumber, Is.Not.Null);
             Assert.That(viewResult.ViewBag.AddressLatitude, Is.Not.Null);
@@ -84,7 +84,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         {
             // Arrange
             var supportEmails = new[] { "fake@email.com" };
-            var mockModel = new ContactUsModel
+            var mockModel = new ContactUsView
             {
                 FullName = "George C",
                 Comment = "I love masterchef",

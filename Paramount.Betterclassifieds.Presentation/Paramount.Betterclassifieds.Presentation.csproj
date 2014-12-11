@@ -195,7 +195,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="LegacyIntegration\LegacyLinks.cs" />
-    <Compile Include="ViewModels\AccountConfirmationViewModel.cs" />
+    <Compile Include="ViewModels\Account\AccountConfirmationViewModel.cs" />
+    <Compile Include="ViewModels\Account\LoginOrRegisterModel.cs" />
+    <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
     <Compile Include="ViewModels\AddressViewModel.cs" />
     <Compile Include="ViewModels\AdEnquiryViewModel.cs" />
     <Compile Include="ViewModels\AdViewModel.cs" />
@@ -209,18 +211,19 @@
     <Compile Include="ViewModels\Booking\UserNetworkEmailView.cs" />
     <Compile Include="ViewModels\CategoryView.cs" />
     <Compile Include="ViewModels\Booking\PublicationView.cs" />
-    <Compile Include="ViewModels\ContactUsModel.cs" />
+    <Compile Include="ViewModels\ContactUsView.cs" />
     <Compile Include="ViewModels\HomeModel.cs" />
     <Compile Include="PresentationInitialiser.cs" />
     <Compile Include="ViewModels\AdSummaryViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\Account\LoginViewModel.cs" />
     <Compile Include="ViewModels\PageRequest.cs" />
     <Compile Include="ViewModels\SearchFilters.cs" />
     <Compile Include="ViewModels\FindModel.cs" />
     <Compile Include="ViewModels\SortType.cs" />
     <Compile Include="ViewModels\Booking\Step1View.cs" />
     <Compile Include="ViewModels\TutorAdView.cs" />
+    <Compile Include="ViewModels\Account\UserDetailsEditView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />

@@ -2,7 +2,7 @@
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
-    public class ContactUsModel
+    public class ContactUsView
     {
         [Required]
         [Display(Name =  "Name")]

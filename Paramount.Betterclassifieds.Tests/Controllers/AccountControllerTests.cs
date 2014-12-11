@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Principal;
 using System.Web.Mvc;
 using Moq;
@@ -42,7 +43,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // assert
             result.IsTypeOf<RedirectToRouteResult>();
-            var redirectResult = (RedirectToRouteResult) result;
+            var redirectResult = (RedirectToRouteResult)result;
             redirectResult.RouteValues.ElementAt(0).Value.IsEqualTo("Index");
             redirectResult.RouteValues.ElementAt(1).Value.IsEqualTo("Home");
         }
@@ -53,7 +54,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             // arrange
             mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(It.IsAny<IPrincipal>()), false);
             var mockUser = CreateMockOf<IPrincipal>();
-            
+
             // act
             var ctrl = CreateController(mockUser: mockUser);
             var result = ctrl.Login("/fakeReturnUrl");
@@ -62,7 +63,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             ctrl.TempData.ContainsKey(AccountController.ReturnUrlKey);
             ctrl.TempData.ContainsValue("/fakeReturnUrl");
             result.IsTypeOf<ViewResult>();
-            var viewResult = ((ViewResult) result);
+            var viewResult = ((ViewResult)result);
             viewResult.Model.IsTypeOf<LoginOrRegisterModel>();
         }
 
@@ -91,8 +92,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(It.IsAny<IPrincipal>()), false);
             mockUserMgr.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.Is<string>(s => s == "fakeUser")), null);
             var mockUser = CreateMockOf<IPrincipal>();
-            var mockLoginViewModel = new LoginViewModel {Username = "fakeUser"};
-            
+            var mockLoginViewModel = new LoginViewModel { Username = "fakeUser" };
+
             // act
             var ctrl = CreateController(mockUser: mockUser);
             var result = ctrl.Login(mockLoginViewModel);
@@ -114,7 +115,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             mockUserMgr.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.Is<string>(s => s == "fakeUser")), mockApplicationUser.Object);
             var mockUser = CreateMockOf<IPrincipal>();
             var mockLoginViewModel = new LoginViewModel { Username = "fakeUser" };
-            
+
             // act
             var ctrl = CreateController(mockUser: mockUser);
             var result = ctrl.Login(mockLoginViewModel);
@@ -147,10 +148,31 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // assert - that we have an error
             result.IsTypeOf<RedirectResult>();
-            var redirectResult = ((RedirectResult) result);
+            var redirectResult = ((RedirectResult)result);
             redirectResult.Url.IsEqualTo("/fakeReturnUrl");
         }
 
+        [Test]
+        public void Details_Get_RetrievesUserProfileDetails_ReturnsViewModel_ForEdit()
+        {
+            mockUserMgr.Setup(call => call.GetCurrentUser(It.IsAny<IPrincipal>()))
+                .Returns(new ApplicationUser
+                {
+                    FirstName = "Aaron",
+                    LastName = "Ramsey",
+                    City = "Melbourne",
+                    Username = "aramsay",
+                    AddressLine1 = "1 Flinders Street",
+                    AddressLine2 = "Vic",
+                    State = "VIC",
+                    Email = "ramsey@arsenal.com",
+                    Phone = "04333333333",
+                    Postcode = "3000"
+                });
 
+            var controller = this.CreateController();
+
+            var result = controller.Details();
+        }
     }
 }

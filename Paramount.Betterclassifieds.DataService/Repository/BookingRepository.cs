@@ -20,7 +20,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                 var booking = context.AdBookings.FirstOrDefault(b => b.AdBookingId == id);
                 if (booking == null)
                     return null;
-
+                    
                 AdBookingModel model = this.Map<AdBooking, AdBookingModel>(booking);
 
                 // Fetch line ad if required
@@ -249,7 +249,8 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                     contactEmail: bookingCart.OnlineAdCart.Email,
                     contactPhone: bookingCart.OnlineAdCart.Phone,
                     onlineDesignId: ref onlineDesignId,
-                    transactionType: transactionType
+                    transactionType: transactionType,
+                    onlineAdMarkdownText: bookingCart.OnlineAdCart.DescriptionMarkdown
                     );
 
                 // Save the images for online ad

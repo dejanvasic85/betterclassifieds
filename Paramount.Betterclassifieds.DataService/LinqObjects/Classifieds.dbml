@@ -1055,6 +1055,7 @@
     <Parameter Name="locationAreaId" Type="System.Int32" DbType="Int" />
     <Parameter Name="onlineAdHeading" Type="System.String" DbType="VarChar(255)" />
     <Parameter Name="onlineAdDescription" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="onlineAdMarkdownText" Type="System.String" DbType="VarChar(MAX)" />
     <Parameter Name="onlineAdHtml" Type="System.String" DbType="VarChar(MAX)" />
     <Parameter Name="onlineAdPrice" Type="System.Decimal" DbType="Money" />
     <Parameter Name="contactName" Type="System.String" DbType="VarChar(200)" />

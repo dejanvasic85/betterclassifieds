@@ -249,8 +249,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                     contactEmail: bookingCart.OnlineAdCart.Email,
                     contactPhone: bookingCart.OnlineAdCart.Phone,
                     onlineDesignId: ref onlineDesignId,
-                    transactionType: transactionType,
-                    onlineAdMarkdownText: bookingCart.OnlineAdCart.DescriptionMarkdown
+                    transactionType: transactionType
                     );
 
                 // Save the images for online ad

@@ -66,8 +66,6 @@
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Scripts\0035-Booking_Create.StoredProc.Alter.sql" />
-    <EmbeddedResource Include="Scripts\0034-OnlineAd.Column.MarkdownText.sql" />
     <EmbeddedResource Include="Scripts\0033-Booking_Create.StoredProc.Alter.sql" />
     <EmbeddedResource Include="Scripts\0032-UserContacts.Column.FullName.sql" />
     <EmbeddedResource Include="Scripts\0029-UserContacts_Create.sql" />

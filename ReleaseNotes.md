@@ -26,6 +26,8 @@ Here's a list of the latest changes for the current release:
 
 - [Switching to html editor - replacing markdown](https://trello.com/c/GmaH54M0/263-nextgen-switch-back-to-html-editor-away-from-markdown)
 
+- [Dropping mongo collections on deployment - powershell step in octopus](https://trello.com/c/yUfj3WPJ/265-drop-existing-bookings-in-progress-during-release)
+
 Other useful resources:
 
 - [Up-Coming features](https://trello.com/b/Ht5NWhN2/betterclassifieds)

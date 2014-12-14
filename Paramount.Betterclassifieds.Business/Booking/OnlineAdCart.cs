@@ -15,8 +15,6 @@ namespace Paramount.Betterclassifieds.Business
 
         public string DescriptionHtml { get; private set; }
 
-        public string DescriptionMarkdown { get; private set; }
-
         public string ContactName { get; set; }
 
         public string Phone { get; set; }
@@ -31,7 +29,6 @@ namespace Paramount.Betterclassifieds.Business
 
         public List<string> Images { get; private set; }
         
-
         public void SetDescription(string html)
         {
             // Set the Description Html

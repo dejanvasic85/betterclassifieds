@@ -32,9 +32,9 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(m => m.OnlineAdDescriptionMarkdown)
-                @Html.BootstrapLargeTextAreaFor(m => m.OnlineAdDescriptionMarkdown, 8, new Dictionary<string, object> { { "class", "markdown-editor" }, { "data-provide", "markdown-editable" } })
-                @Html.ValidationMessageFor(m => m.OnlineAdDescriptionMarkdown)
+                @Html.LabelFor(m => m.OnlineAdDescription)
+                @Html.BootstrapLargeTextAreaFor(m => m.OnlineAdDescription, 8)
+                @Html.ValidationMessageFor(m => m.OnlineAdDescription)
             </div>
 
             <div class="form-group">
@@ -193,15 +193,22 @@
 </form>
 
 @section Scripts{
-
+    
+    <script src="@Url.Content("~/Scripts/jquery.cleditor.min.js")"></script>
     <script>
         (function($) {
-
             $(function() {
                 var $progressBar = $('#onlineImages .progress');
-                $('.markdown-editor').markdown({
-                    autofocus: false,
-                    savable: false
+                $('#OnlineAdDescription').cleditor({
+                    controls: "bold italic underline strikethrough subscript superscript | font size " +
+                    "style | color highlight removeformat | bullets numbering | outdent " +
+                    "indent | alignleft center alignright justify | undo redo | " +
+                    "rule image link unlink | cut copy paste pastetext",
+                    fonts: " Arial,Arial Black,Comic Sans MS,Courier New,Narrow,Garamond," +
+                    "Georgia,Impact,Sans Serif,Serif,Tahoma,Trebuchet MS,Verdana",
+                    sizes: "1,2,3,4,5,6,7",
+                    styles: [["Paragraph", "<p>"], ["Header 3", "<h3>"],  ["Header 4","<h4>"],  ["Header 5","<h5>"], ["Header 6","<h6>"]],
+                    bodyStyle: "margin:4px; font:14pt Arial; cursor:text"
                 });
 
                 $('#OnlineAdLocationId').on('change', function() {
@@ -218,8 +225,6 @@
                         type: 'POST',
                         dataType: 'json',
                         success: function(response) {
-                            //$('#LineAdText').val(response.plaintext);
-                            //$('#LineAdHeader').val($('#OnlineAdHeading').val());
                             designAdModel.lineAdText(response.plaintext);
                             designAdModel.lineAdHeader($('#OnlineAdHeading').val());
                         },

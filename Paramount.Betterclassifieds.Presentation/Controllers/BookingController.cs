@@ -155,7 +155,7 @@
             var bookingCart = _bookingManager.GetCart();
             this.Map(viewModel, bookingCart.OnlineAdCart);
             this.Map(viewModel, bookingCart.LineAdModel);
-            bookingCart.OnlineAdCart.SetDescription(new MarkdownDeep.Markdown().Transform(viewModel.OnlineAdDescriptionMarkdown));
+            bookingCart.OnlineAdCart.SetDescription(viewModel.OnlineAdDescription);
             bookingCart.CompleteStep(2);
 
             // Save and continue

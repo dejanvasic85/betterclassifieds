@@ -19,3 +19,5 @@
 /// <reference path="account/login.js" />
 /// <reference path="booking/bookingcart.js" />
 /// <reference path="listings/find.js" />
+/// <reference path="jquery.cleditor.min.js" />
+/// <reference path="jquery.cleditor.js" />

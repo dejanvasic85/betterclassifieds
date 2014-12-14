@@ -24,6 +24,8 @@ Here's a list of the latest changes for the current release:
 
 - [Better top login and 'place ad' button layout](https://trello.com/c/I6SnFos8/262-the-place-new-ad-and-login-register-need-better-layout)
 
+- [Switching to html editor - replacing markdown](https://trello.com/c/GmaH54M0/263-nextgen-switch-back-to-html-editor-away-from-markdown)
+
 Other useful resources:
 
 - [Up-Coming features](https://trello.com/b/Ht5NWhN2/betterclassifieds)

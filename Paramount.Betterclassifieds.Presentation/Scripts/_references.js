@@ -18,3 +18,5 @@
 /// <reference path="account/login.js" />
 /// <reference path="jquery.morphext.js" />
 /// <reference path="listings/find.js" />
+/// <reference path="jquery.cleditor.min.js" />
+/// <reference path="jquery.cleditor.js" />

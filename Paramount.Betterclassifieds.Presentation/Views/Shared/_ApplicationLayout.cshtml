@@ -14,8 +14,8 @@
 <div class="row top-buffer-10">
     <div class="col-sm-6 col-md-8"></div>
     <div class="col-xs-12 col-sm-6 col-md-4">
-        <div class="btn-group pull-right btn-group-justified">
-            <a class="btn btn-primary" href="@Url.Action("Step1", "Booking")"><i class="fa fa-pencil"></i> Place new Ad</a>
+        <div class="btn-group btn-group-justified">
+            <a class="btn btn-primary" style="margin-top: 0" href="@Url.Action("Step1", "Booking")"><i class="fa fa-pencil"></i> Place new Ad</a>
 
             @if (!Request.IsAuthenticated)
             {
@@ -24,7 +24,7 @@
             else
             {
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                         <i class="glyphicon glyphicon-user"></i> @User.Identity.Name 
                         <span class="caret"></span>
                     </button>

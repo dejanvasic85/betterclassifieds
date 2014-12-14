@@ -16,5 +16,5 @@
 /// <reference path="to-markdown.js" />
 /// <reference path="toastr-2.0.1.js" />
 /// <reference path="account/login.js" />
-/// <reference path="listings/find.js" />
 /// <reference path="jquery.morphext.js" />
+/// <reference path="listings/find.js" />

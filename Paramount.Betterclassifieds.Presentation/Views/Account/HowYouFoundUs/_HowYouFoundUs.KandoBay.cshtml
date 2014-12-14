@@ -1,0 +1,8 @@
+﻿@model Paramount.Betterclassifieds.Presentation.ViewModels.RegisterViewModel
+           
+
+<div class="form-group">
+    
+    @Html.LabelFor(m => m.HowYouFoundUs)
+    @Html.DropDownListFor(m => m.HowYouFoundUs, Model.HowYouFoundUsOptions, new{@class ="form-control"})
+</div>

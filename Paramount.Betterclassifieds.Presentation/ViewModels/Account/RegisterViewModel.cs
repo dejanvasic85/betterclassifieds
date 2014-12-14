@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
@@ -25,6 +26,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         [Display(Name = "Password")]
         [DataType(DataType.Password)]
         [StringLength(50)]
+        [MinLength(6, ErrorMessage = "The password must be at least 6 characters long")]
         public string RegisterPassword { get; set; }
 
         [Required]
@@ -50,5 +52,24 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         [StringLength(6, ErrorMessage = "Please enter a valid postcode")]
         [RegularExpression(@"^\d+$", ErrorMessage = "Postcode must be a number")]
         public string PostCode { get; set; }
+        
+        
+        [Display(Name = "How did you hear about us")]
+        [StringLength(100)]
+        public string HowYouFoundUs { get; set; }
+
+        public IEnumerable<SelectListItem> HowYouFoundUsOptions
+        {
+            get
+            {
+                return new List<SelectListItem>
+                {
+                    new SelectListItem(){Text = "African Music and Culture Festival"},
+                    new SelectListItem(){Text = "Google"},
+                    new SelectListItem(){Text = "Friend"},
+                    new SelectListItem(){Text = "Other"},
+                };
+            }
+        }
     }
 }

@@ -55,13 +55,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Scripts\0010-UserProfile.Column.HowYouFoundUs.sql" />
+    <EmbeddedResource Include="Scripts\0009-Registation.Column.HowYouFoundUs..sql" />
     <EmbeddedResource Include="Scripts\0008-Column.Version.sql" />
     <EmbeddedResource Include="Scripts\0006-Column.ConfirmationDate.sql" />
     <EmbeddedResource Include="Scripts\0005-Table.Registration.sql" />
     <EmbeddedResource Include="Scripts\0004-SetSchemaVersions.sql" />
     <EmbeddedResource Include="Scripts\0002-BaselineStoredProc.sql" />
     <EmbeddedResource Include="Scripts\0001-BaselineSchema.sql" />
-    <None Include="App.config" />    
+    <None Include="App.config" />
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

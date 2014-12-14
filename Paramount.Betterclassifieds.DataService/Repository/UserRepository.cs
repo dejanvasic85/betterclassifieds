@@ -66,7 +66,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             }
         }
 
-        public void CreateUser(string email, string firstName, string lastName, string postCode)
+        public void CreateUser(string email, string firstName, string lastName, string postCode, string howYouFoundUs)
         {
             using (var context = DataContextFactory.CreateMembershipContext())
             {
@@ -85,6 +85,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                     LastName = lastName,
                     PostCode = postCode,
                     LastUpdatedDate = DateTime.UtcNow,
+                    HowYouFoundUs = howYouFoundUs,
                     ProfileVersion = 1
                 });
                 context.SubmitChanges();

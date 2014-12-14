@@ -16,24 +16,8 @@
     <div class="col-xs-12 col-sm-6 col-md-4">
         <div class="btn-group btn-group-justified">
             <a class="btn btn-primary" style="margin-top: 0" href="@Url.Action("Step1", "Booking")"><i class="fa fa-pencil"></i> Place new Ad</a>
-
-            @if (!Request.IsAuthenticated)
-            {
-                <a class="btn btn-primary" href="@Url.Action("Login", "Account")"><i class="fa fa-sign-in"></i> Login/Register</a>
-            }
-            else
-            {
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <i class="glyphicon glyphicon-user"></i> @User.Identity.Name 
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="@Url.Action("Details", "Account")"> <i class="fa fa-th-list"></i> Account Details</a> </li>
-                        <li><a href="@Url.Action("Logout", "Account")"><i class="fa fa-sign-out"></i> Logout</a></li>
-                    </ul>
-                </div>
-            }
+            
+            @Html.Partial("_LoginStatus")
         </div>
     </div>
 </div>

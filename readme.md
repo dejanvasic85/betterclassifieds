@@ -38,3 +38,9 @@ If you like to have a GUI for managing Mongo collections, RoboMongo is awesome t
 
 Running the powershell build should setup the databases automatically under localhost.
 
+## Troubleshooting
+
+#### Registration object Version property cannot be mapped 
+
+The Linq-2-Sql tables that have a "Timestamp" column property, have to have that
+property mapped to a byte[] so that the automapper will work.

@@ -8,7 +8,7 @@ namespace Paramount.Betterclassifieds.Business
         ApplicationUser GetUserByEmailOrUsername(string emailOrUsername);
         ApplicationUser GetCurrentUser(IPrincipal principal);
         IEnumerable<UserNetworkModel> GetUserNetworksForUserId(string userId);
-        void CreateUserProfile(string email, string firstName, string lastName, string postCode);
+        void CreateUserProfile(string email, string firstName, string lastName, string postCode, string howYouFoundUs);
         void CreateUserNetwork(IPrincipal user, string email, string fullName);
     }
 
@@ -46,10 +46,10 @@ namespace Paramount.Betterclassifieds.Business
             return _userRepository.GetUserNetworksForUserId(userId);
         }
 
-        public void CreateUserProfile(string email, string firstName, string lastName, string postCode)
+        public void CreateUserProfile(string email, string firstName, string lastName, string postCode, string howYouFoundUs)
         {
             // Simply persist directly to the repository
-            _userRepository.CreateUser(email, firstName, lastName, postCode);
+            _userRepository.CreateUser(email, firstName, lastName, postCode, howYouFoundUs);
         }
 
         public void CreateUserNetwork(IPrincipal user, string email, string fullName)

@@ -487,6 +487,10 @@
     <Content Include="Views\Home\Index.KandoBay.cshtml" />
     <Content Include="Views\Shared\_Terms.KandoBay.cshtml" />
     <Content Include="Views\Account\Details.cshtml" />
+    <Content Include="Views\Shared\_LoginStatus.cshtml" />
+    <Content Include="Views\Shared\_LoginStatus.TheMusic.cshtml" />
+    <Content Include="Views\Account\HowYouFoundUs\_HowYouFoundUs.cshtml" />
+    <Content Include="Views\Account\HowYouFoundUs\_HowYouFoundUs.KandoBay.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

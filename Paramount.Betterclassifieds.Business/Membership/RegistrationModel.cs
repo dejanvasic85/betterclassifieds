@@ -22,6 +22,8 @@ namespace Paramount.Betterclassifieds.Business
         public DateTime? ConfirmationDateUtc { get; set; }
         public byte[] Version { get; set; }
 
+        public string HowYouFoundUs { get; set; }
+
         public RegistrationModel GenerateToken()
         {
             this.Token = CryptoHelper.GenerateToken();

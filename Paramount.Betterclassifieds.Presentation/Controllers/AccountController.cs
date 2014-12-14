@@ -144,7 +144,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             // Register 
             _authManager.CreateMembershipFromRegistration(registerModel);
-            _userManager.CreateUserProfile(registerModel.Email, registerModel.FirstName, registerModel.LastName, registerModel.PostCode);
+            _userManager.CreateUserProfile(registerModel.Email, registerModel.FirstName, registerModel.LastName, registerModel.PostCode, registerModel.HowYouFoundUs);
 
             // Login
             _authManager.Login(registerModel.Username, createPersistentCookie: false);

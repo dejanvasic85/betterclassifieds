@@ -5,7 +5,7 @@ $msbuild = Join-Path -Path (Get-ItemProperty $regKey).$regProperty -ChildPath "m
 $scriptPath = ( Split-Path $MyInvocation.MyCommand.Path ) 
 
 # Compile source code
-& $msbuild "Betterclassifieds.sln" "/p:Configuration=Debug" "/t:Clean,Build"
+#& $msbuild "Betterclassifieds.sln" "/p:Configuration=Debug" "/t:Clean,Build"
 
 # Set the variables for the database setup
 Set-Variable -Name 'Brand' -Value 'TheMusic' -Scope Global

@@ -148,15 +148,15 @@ namespace Paramount.Betterclassifieds.Security
 
             var username = Membership.GetUserNameByEmail(email);
 
-            ChangePassword(username , password);
-            
+            ChangePassword(username, password);
+
             return password;
         }
 
         public void ChangePassword(string username, string newPassword)
         {
             var user = Membership.GetUser(username);
-            
+
             Guard.NotNull(user);
 
             user.ChangePassword(user.GetPassword(), newPassword);
@@ -172,7 +172,8 @@ namespace Paramount.Betterclassifieds.Security
 
             // From database to Model
             configuration.CreateMap<DataService.LinqObjects.Registration, RegistrationModel>()
-                .ForMember(member => member.EncryptedPassword, options => options.MapFrom(source => source.Password));
+                .ForMember(member => member.EncryptedPassword, options => options.MapFrom(source => source.Password))
+                ;
         }
     }
 }

@@ -28,6 +28,8 @@ Here's a list of the latest changes for the current release:
 
 - [Dropping mongo collections on deployment - powershell step in octopus](https://trello.com/c/yUfj3WPJ/265-drop-existing-bookings-in-progress-during-release)
 
+- [Capturing the 'How you heard about us field in registration'](https://trello.com/c/zY0RSeDm/266-capture-how-you-heard-about-us-in-registration-form)
+
 Other useful resources:
 
 - [Up-Coming features](https://trello.com/b/Ht5NWhN2/betterclassifieds)

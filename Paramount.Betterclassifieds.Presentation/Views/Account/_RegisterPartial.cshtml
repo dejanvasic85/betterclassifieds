@@ -6,45 +6,48 @@
     @Html.AntiForgeryToken()
     <div class="form-group">
         @Html.LabelFor(m => m.RegisterEmail)
-        @Html.TextBoxFor(m => m.RegisterEmail, new { @class = "form-control", required = "", autocomplete = "off"})
+        @Html.TextBoxFor(m => m.RegisterEmail, new { @class = "form-control", required = "", autocomplete = "off" })
         @Html.ValidationMessageFor(m => m.RegisterEmail)
     </div>
 
     <div class="form-group">
         @Html.LabelFor(m => m.ConfirmEmail)
-        @Html.TextBoxFor(m => m.ConfirmEmail, new { @class = "form-control", required = "", autocomplete = "off"})
+        @Html.TextBoxFor(m => m.ConfirmEmail, new { @class = "form-control", required = "", autocomplete = "off" })
         @Html.ValidationMessageFor(m => m.ConfirmEmail)
     </div>
-    
+
     <div class="form-group">
         @Html.LabelFor(m => m.RegisterPassword)
-        @Html.PasswordFor(m => m.RegisterPassword, new { @class = "form-control", required = "", autocomplete = "off" })
+        @Html.PasswordFor(m => m.RegisterPassword, new { @class = "form-control", required = "", autocomplete = "off", @pattern = ".{6,50}" })
         @Html.ValidationMessageFor(m => m.RegisterPassword)
+        <p class="help-block">Must be between 6 and 50 characters.</p>
     </div>
-    
+
     <div class="form-group">
         @Html.LabelFor(m => m.ConfirmPassword)
         @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", required = "", autocomplete = "off" })
         @Html.ValidationMessageFor(m => m.ConfirmPassword)
     </div>
-    
+
     <div class="form-group">
         @Html.LabelFor(m => m.FirstName)
         @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", required = "" })
         @Html.ValidationMessageFor(m => m.FirstName)
     </div>
-    
+
     <div class="form-group">
         @Html.LabelFor(m => m.LastName)
         @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", required = "" })
         @Html.ValidationMessageFor(m => m.LastName)
     </div>
-    
+
     <div class="form-group">
         @Html.LabelFor(m => m.PostCode)
         @Html.TextBoxFor(m => m.PostCode, new { @class = "form-control", required = "" })
         @Html.ValidationMessageFor(m => m.PostCode)
     </div>
+
+    @Html.Partial("HowYouFoundUs/_HowYouFoundUs", Model)
 
     <div class="form-group">
         <button type="submit" id="btnRegister" class="btn btn-default">Register</button>

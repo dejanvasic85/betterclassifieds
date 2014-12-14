@@ -196,20 +196,22 @@
     
     <script src="@Url.Content("~/Scripts/jquery.cleditor.min.js")"></script>
     <script>
+        _pg = _pg || {};
+        _pg.onlineEditor = $('#OnlineAdDescription').cleditor({
+            controls: "bold italic underline strikethrough subscript superscript | font size " +
+                "style | color highlight removeformat | bullets numbering | outdent " +
+                "indent | alignleft center alignright justify | undo redo | " +
+                "rule image link unlink | cut copy paste pastetext",
+            fonts: " Arial,Arial Black,Comic Sans MS,Courier New,Narrow,Garamond," +
+                "Georgia,Impact,Sans Serif,Serif,Tahoma,Trebuchet MS,Verdana",
+            sizes: "1,2,3,4,5,6,7",
+            styles: [["Paragraph", "<p>"], ["Header 3", "<h3>"], ["Header 4", "<h4>"], ["Header 5", "<h5>"], ["Header 6", "<h6>"]],
+            bodyStyle: "margin:4px; font:14pt Arial; cursor:text"
+        });
+
         (function($) {
             $(function() {
                 var $progressBar = $('#onlineImages .progress');
-                $('#OnlineAdDescription').cleditor({
-                    controls: "bold italic underline strikethrough subscript superscript | font size " +
-                    "style | color highlight removeformat | bullets numbering | outdent " +
-                    "indent | alignleft center alignright justify | undo redo | " +
-                    "rule image link unlink | cut copy paste pastetext",
-                    fonts: " Arial,Arial Black,Comic Sans MS,Courier New,Narrow,Garamond," +
-                    "Georgia,Impact,Sans Serif,Serif,Tahoma,Trebuchet MS,Verdana",
-                    sizes: "1,2,3,4,5,6,7",
-                    styles: [["Paragraph", "<p>"], ["Header 3", "<h3>"],  ["Header 4","<h4>"],  ["Header 5","<h5>"], ["Header 6","<h6>"]],
-                    bodyStyle: "margin:4px; font:14pt Arial; cursor:text"
-                });
 
                 $('#OnlineAdLocationId').on('change', function() {
                     $('#OnlineAdLocationAreaId').loadLocationAreas('@Url.Action("GetLocationAreas", "Location")', $(this).val(), false);
@@ -237,14 +239,14 @@
 
                 // Fix the total price
                 $('#priceSummary').affix({
-                    offset : {
-                        top : 320,
+                    offset: {
+                        top: 320,
                         bottom: 450
                     }
                 }).on('affix.bs.affix', function() {
                     $(this).css({ top: -20, width: $('.col-xs-12').width(), 'z-index': '100' });
                 }).on('affix-top.bs.affix', function() {
-                    $(this).css({ width: $('.col-xs-12').width()});
+                    $(this).css({ width: $('.col-xs-12').width() });
                 });
 
                 // Setup upload ctrl
@@ -279,7 +281,7 @@
 
                 upload.on('fileuploadadd', function(e, data) {
                     var acceptFileTypes = /^image\/(gif|jpe?g|png)$/i;
-                    if(data.originalFiles[0]['type'].length && !acceptFileTypes.test(data.originalFiles[0]['type'])) {
+                    if (data.originalFiles[0]['type'].length && !acceptFileTypes.test(data.originalFiles[0]['type'])) {
                         designAdModel.errorMsg('Not an accepted file type.');
                         return false;
                     }
@@ -338,7 +340,7 @@
                 var rawOnlineImages = @Html.Raw(Model.OnlineAdImages.ToJsonString());
 
                 var designAdModel = new DesignAd(rawOnlineImages, @Model.MaxOnlineImages,
-                    '@Model.LineAdHeader','@Model.LineAdText');
+                    '@Model.LineAdHeader', '@Model.LineAdText');
 
                 ko.applyBindings(designAdModel);
             });

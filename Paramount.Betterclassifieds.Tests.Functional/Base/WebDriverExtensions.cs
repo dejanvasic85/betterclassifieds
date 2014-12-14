@@ -30,5 +30,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         {
             return (bool) executor.ExecuteScript("return jQuery.active === 0");
         }
+
+        public static void ExecuteJavaScript(this IWebDriver driver, string script, params object[] args)
+        {
+            var javaScriptExecutor = driver as IJavaScriptExecutor;
+            if (javaScriptExecutor == null)
+                throw new WebDriverException("Driver does not implement IJavaScriptExecutor");
+
+            javaScriptExecutor.ExecuteScript(script);
+        }
     }
 }

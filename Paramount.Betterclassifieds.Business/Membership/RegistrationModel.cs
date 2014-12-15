@@ -24,6 +24,8 @@ namespace Paramount.Betterclassifieds.Business
 
         public string HowYouFoundUs { get; set; }
 
+        public string Phone { get; set; }
+
         public RegistrationModel GenerateToken()
         {
             this.Token = CryptoHelper.GenerateToken();

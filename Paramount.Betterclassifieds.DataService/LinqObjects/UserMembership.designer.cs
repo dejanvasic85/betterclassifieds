@@ -2737,6 +2737,8 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 		
 		private string _HowYouFoundUs;
 		
+		private string _Phone;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -2773,6 +2775,8 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
     partial void OnVersionChanged();
     partial void OnHowYouFoundUsChanging(string value);
     partial void OnHowYouFoundUsChanged();
+    partial void OnPhoneChanging(string value);
+    partial void OnPhoneChanged();
     #endregion
 		
 		public Registration()
@@ -3096,6 +3100,26 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 					this._HowYouFoundUs = value;
 					this.SendPropertyChanged("HowYouFoundUs");
 					this.OnHowYouFoundUsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phone", DbType="VarChar(100)", UpdateCheck=UpdateCheck.Never)]
+		public string Phone
+		{
+			get
+			{
+				return this._Phone;
+			}
+			set
+			{
+				if ((this._Phone != value))
+				{
+					this.OnPhoneChanging(value);
+					this.SendPropertyChanging();
+					this._Phone = value;
+					this.SendPropertyChanged("Phone");
+					this.OnPhoneChanged();
 				}
 			}
 		}

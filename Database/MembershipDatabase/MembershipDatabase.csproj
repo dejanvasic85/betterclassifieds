@@ -55,6 +55,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Scripts\0011-Registration.Column.Phone.sql" />
     <EmbeddedResource Include="Scripts\0010-UserProfile.Column.HowYouFoundUs.sql" />
     <EmbeddedResource Include="Scripts\0009-Registation.Column.HowYouFoundUs..sql" />
     <EmbeddedResource Include="Scripts\0008-Column.Version.sql" />

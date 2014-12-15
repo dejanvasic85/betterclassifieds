@@ -30,6 +30,8 @@ Here's a list of the latest changes for the current release:
 
 - [Capturing the 'How you heard about us field in registration'](https://trello.com/c/zY0RSeDm/266-capture-how-you-heard-about-us-in-registration-form)
 
+- [Capturing phone number during registation](https://trello.com/c/MLE9lLT9/267-capture-phone-number-during-registration)
+
 Other useful resources:
 
 - [Up-Coming features](https://trello.com/b/Ht5NWhN2/betterclassifieds)

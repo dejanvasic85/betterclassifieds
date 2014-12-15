@@ -135,6 +135,7 @@
       <Column Name="ConfirmationDateUtc" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Version" Type="System.Byte[]" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
       <Column Name="HowYouFoundUs" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

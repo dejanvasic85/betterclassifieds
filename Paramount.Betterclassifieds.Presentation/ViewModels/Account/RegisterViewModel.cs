@@ -64,12 +64,16 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             {
                 return new List<SelectListItem>
                 {
-                    new SelectListItem(){Text = "African Music and Culture Festival"},
-                    new SelectListItem(){Text = "Google"},
-                    new SelectListItem(){Text = "Friend"},
-                    new SelectListItem(){Text = "Other"},
+                    new SelectListItem {Text = "African Music and Culture Festival"},
+                    new SelectListItem {Text = "Google"},
+                    new SelectListItem {Text = "Friend"},
+                    new SelectListItem {Text = "Other"},
                 };
             }
         }
+
+        [Display(Name = "Phone Number")]
+        [StringLength(12)]
+        public string Phone { get; set; }
     }
 }

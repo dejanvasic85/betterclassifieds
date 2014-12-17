@@ -199,8 +199,7 @@
         [Authorize]
         public ActionResult Details()
         {
-            var identity = _userManager.GetCurrentUser(this.User);
-            var applicationUser = _userManager.GetUserByEmailOrUsername(identity.Username);
+            var applicationUser = _userManager.GetCurrentUser(this.User);
 
             UserDetailsEditView viewModel = this.Map<ApplicationUser, UserDetailsEditView>(applicationUser);
 
@@ -219,6 +218,10 @@
                 return View(userDetailsView);
             }
 
+            var applicationUser = this.Map<UserDetailsEditView, ApplicationUser>(userDetailsView);
+            applicationUser.Username = this.User.Identity.Name;
+            _userManager.UpdateUserProfile(applicationUser);
+
             ViewBag.Updated = true;
             return View(userDetailsView);
         }
@@ -226,9 +229,13 @@
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateProfile("accountCtrlMap");
+            
+            // From View Model
             configuration.CreateMap<RegisterViewModel, RegistrationModel>()
                 .ForMember(member => member.Email, options => options.MapFrom(source => source.RegisterEmail));
+            configuration.CreateMap<UserDetailsEditView, ApplicationUser>();
 
+            // To View Model
             configuration.CreateMap<ApplicationUser, UserDetailsEditView>();
         }
 

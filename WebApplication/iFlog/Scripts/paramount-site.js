@@ -18,9 +18,9 @@ _pg.formatCurrency = function (value) {
 */
 
 (function ($) {
-    
+
     $(function () {
-        
+
         // Global ajax error handler
         $.ajaxSetup({
             error: function () {
@@ -35,7 +35,7 @@ _pg.formatCurrency = function (value) {
                 $(this).find('button[type=submit]').button('loading');
             }
         });
-        $('button.js-load').attr('data-loading-text', 'Please wait...').on('click', function() { $(this).button('loading'); });
+        $('button.js-load').attr('data-loading-text', 'Please wait...').on('click', function () { $(this).button('loading'); });
 
         // Any captcha input should add the form-control css class
         $('#CaptchaInputText').addClass("form-control");
@@ -75,11 +75,22 @@ _pg.formatCurrency = function (value) {
             format: 'dd/mm/yyyy',
             todateBtn: true,
             todayHighlight: true,
-            startDate : new Date()
+            startDate: new Date()
+        });
+
+        $('input[data-numbers-only]').on('keypress', function (e) {
+            if ((e.which < 48 || e.which > 57)) {
+                if (e.which == 8 || e.which == 46 || e.which == 0) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
         });
 
         // JQuery validation extensions
-        $.validator.methods.date = function(value, element) {
+        $.validator.methods.date = function (value, element) {
             return this.optional(element) || moment(value, 'dd/MM/yyyy').isValid();
         };
 

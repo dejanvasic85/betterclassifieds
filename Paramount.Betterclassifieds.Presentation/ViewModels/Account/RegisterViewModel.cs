@@ -25,8 +25,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         [Required]
         [Display(Name = "Password")]
         [DataType(DataType.Password)]
-        [StringLength(50)]
-        [MinLength(6, ErrorMessage = "The password must be at least 6 characters long")]
+        [StringLength(50, MinimumLength = 6, ErrorMessage = "The password must be between 6 and 50 characters long")]
         public string RegisterPassword { get; set; }
 
         [Required]
@@ -73,6 +72,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         }
 
         [Display(Name = "Phone Number")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "Phone must be a number")]
         [StringLength(12)]
         public string Phone { get; set; }
     }

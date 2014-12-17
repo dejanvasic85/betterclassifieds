@@ -2,7 +2,7 @@
 @model Paramount.Betterclassifieds.Presentation.ViewModels.UserDetailsEditView
 
 @{
-    ViewBag.Title = "Update my Details";
+    ViewBag.Title = "My Details";
     Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayoutWithSearch.cshtml");
 }
 
@@ -10,7 +10,10 @@
 
 @if (ViewBag.Updated)
 {
-    <div class="alert alert-success">
+    <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+        </button>
         Your details have been updated successfully.
     </div>
 }
@@ -19,25 +22,25 @@
     @Html.AntiForgeryToken()
     <div class="form-group">
         @Html.LabelFor(m => m.FirstName)
-        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", required = "", autocomplete = "off" })
+        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", required = "" })
         @Html.ValidationMessageFor(m => m.FirstName)
     </div>
 
     <div class="form-group">
         @Html.LabelFor(m => m.LastName)
-        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", required = "", autocomplete = "off" })
+        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", required = "" })
         @Html.ValidationMessageFor(m => m.LastName)
     </div>
 
     <div class="form-group">
         @Html.LabelFor(m => m.AddressLine1)
-        @Html.TextBoxFor(m => m.AddressLine1, new { @class = "form-control", autocomplete = "off" })
+        @Html.TextBoxFor(m => m.AddressLine1, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.AddressLine1)
     </div>
 
     <div class="form-group">
         @Html.LabelFor(m => m.AddressLine2)
-        @Html.TextBoxFor(m => m.AddressLine2, new { @class = "form-control", autocomplete = "off" })
+        @Html.TextBoxFor(m => m.AddressLine2, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.AddressLine2)
     </div>
 
@@ -48,8 +51,14 @@
 
     <div class="form-group">
         @Html.LabelFor(m => m.PostCode)
-        @Html.TextBoxFor(m => m.PostCode, new { @class = "form-control", required = "" })
+        @Html.TextBoxFor(m => m.PostCode, new { @class = "form-control", required = "", data_numbers_only = "true", @maxlength = 4 })
         @Html.ValidationMessageFor(m => m.PostCode)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Phone)
+        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", data_numbers_only = "true", @maxlength = 12 })
+        @Html.ValidationMessageFor(m => m.Phone)
     </div>
 
     <div class="form-group">

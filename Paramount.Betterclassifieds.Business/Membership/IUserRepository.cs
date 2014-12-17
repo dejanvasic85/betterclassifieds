@@ -11,5 +11,6 @@ namespace Paramount.Betterclassifieds.Business
         void CreateUserNetwork(UserNetworkModel userNetworkModel);
         void CreateRegistration(RegistrationModel registrationModel);
         void UpdateRegistrationByToken(RegistrationModel registerModel);
+        void UpdateUserProfile(ApplicationUser applicationUser);
     }
 }

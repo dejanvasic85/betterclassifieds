@@ -12,6 +12,7 @@ _pg.formatCurrency = function (value) {
     return "$" + value.toFixed(2);
 };
 
+
 /*
 ** General element hooks for the entire website
 */
@@ -77,6 +78,17 @@ _pg.formatCurrency = function (value) {
             startDate: new Date()
         });
 
+        $('input[data-numbers-only]').on('keypress', function (e) {
+            if ((e.which < 48 || e.which > 57)) {
+                if (e.which == 8 || e.which == 46 || e.which == 0) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        });
+
         // JQuery validation extensions
         $.validator.methods.date = function (value, element) {
             return this.optional(element) || moment(value, 'dd/MM/yyyy').isValid();
@@ -113,8 +125,9 @@ _pg.formatCurrency = function (value) {
                 }
                 me.attr('disabled', 'disabled').append('<option>Loading...</option>');
                 $.getJSON(url, { locationId: locationId }).done(function (data) {
+                    me.empty();
                     $.each(data, function (index, option) {
-                        me.append('<option value=' + option.CategoryId + '>' + option.Title + '</option>');
+                        me.append('<option value=' + option.LocationAreaId + '>' + option.Title + '</option>');
                     });
                     me.removeAttr('disabled').removeClass('hidden');
                 });

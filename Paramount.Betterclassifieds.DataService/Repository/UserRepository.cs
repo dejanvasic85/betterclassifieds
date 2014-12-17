@@ -118,6 +118,22 @@
             }
         }
 
+        public void UpdateUserProfile(ApplicationUser applicationUser)
+        {
+            using (var context = DataContextFactory.CreateMembershipContext())
+            {
+                var application = context.aspnet_Applications.Single(a => a.LoweredApplicationName == BetterclassifiedsAppId);
+
+                var user = context.aspnet_Users.Single(u => u.UserName == applicationUser.Username && u.ApplicationId == application.ApplicationId);
+                
+                var profile = context.UserProfiles.First(p => p.UserID == user.UserId);
+
+                this.Map(applicationUser, profile);
+
+                context.SubmitChanges();
+            }
+        }
+
         public void CreateUserNetwork(UserNetworkModel userNetworkModel)
         {
             using (var context = DataContextFactory.CreateClassifiedEntitiesContext())
@@ -131,12 +147,19 @@
         {
             configuration.CreateProfile("UserRepositoryProfile");
 
+            // To Db
             configuration.CreateMap<RegistrationModel, LinqObjects.Registration>()
                 .ForMember(member => member.Password, options => options.MapFrom(source => source.EncryptedPassword))
                 .ForMember(member => member.RegistrationId, options => options.Ignore())
                 .ForMember(member => member.Version, options => options.Ignore())
                 ;
-            
+
+            configuration.CreateMap<ApplicationUser, LinqObjects.UserProfile>()
+                .ForMember(member => member.Address1, options => options.MapFrom(source => source.AddressLine1))
+                .ForMember(member => member.Address2, options => options.MapFrom(source => source.AddressLine2))
+                .ForMember(member => member.PostCode, options => options.MapFrom(source => source.Postcode))
+                ;
+
             // From Db
             configuration.CreateMap<LinqObjects.UserProfile, ApplicationUser>()
                 .ForMember(member => member.AddressLine1, options => options.MapFrom(source => source.Address1))

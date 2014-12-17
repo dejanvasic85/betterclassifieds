@@ -13,6 +13,7 @@
         void CreateUserNetwork(IPrincipal user, string email, string fullName);
         RegistrationResult RegisterUser(RegistrationModel registrationModel, string plaintextPassword);
         void ConfirmRegistration(RegistrationModel registerModel);
+        void UpdateUserProfile(ApplicationUser applicationUser);
     }
 
     public class UserManager : IUserManager
@@ -77,6 +78,22 @@
         {
             registerModel.Confirm();
             _userRepository.UpdateRegistrationByToken(registerModel);
+        }
+
+        public void UpdateUserProfile(ApplicationUser applicationUser)
+        {
+            // Fetch the original and only update certain properties
+            var original = GetUserByEmailOrUsername(applicationUser.Username);
+
+            original.FirstName = applicationUser.FirstName;
+            original.LastName = applicationUser.LastName;
+            original.AddressLine1 = applicationUser.AddressLine1;
+            original.AddressLine2 = applicationUser.AddressLine2;
+            original.Postcode = applicationUser.Postcode;
+            original.State = applicationUser.State;
+            
+            // Update
+            _userRepository.UpdateUserProfile(original);
         }
     }
 }

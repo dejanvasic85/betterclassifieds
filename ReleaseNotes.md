@@ -34,6 +34,8 @@ Here's a list of the latest changes for the current release:
 
 - [Making two-factor auth configurable](https://trello.com/c/O6Obiml4/268-make-two-way-factor-auth-optional-client-config-for-marketing)
 
+- [Users can now update their personal details/profile](https://trello.com/c/dluPFvHC/260-nextgen-edit-personal-details)
+
 Other useful resources:
 
 - [Up-Coming features](https://trello.com/b/Ht5NWhN2/betterclassifieds)

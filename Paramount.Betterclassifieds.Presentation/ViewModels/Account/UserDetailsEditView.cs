@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
     public class UserDetailsEditView
     {
-        public SelectList StateList
+        public IEnumerable<SelectListItem> StateList
         {
             get
             {
-                IEnumerable<SelectListItem> items = new[]
+                return new[]
                 {
                     new SelectListItem {Text = "VIC", Value = "VIC"},
                     new SelectListItem {Text = "NSW", Value = "NSW"},
@@ -19,9 +20,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
                     new SelectListItem {Text = "WA", Value = "WA"},
                     new SelectListItem {Text = "ACT", Value = "ACT"},
                     new SelectListItem {Text = "TAS", Value = "TAS"}
-                };
-
-                return new SelectList(items);
+                }.AsEnumerable();
             }
         }
 

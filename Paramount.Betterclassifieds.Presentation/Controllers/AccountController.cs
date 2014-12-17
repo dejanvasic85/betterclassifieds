@@ -204,7 +204,23 @@
 
             UserDetailsEditView viewModel = this.Map<ApplicationUser, UserDetailsEditView>(applicationUser);
 
+            ViewBag.Updated = false;
             return View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult Details(UserDetailsEditView userDetailsView)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                ViewBag.Updated = false;
+                return View(userDetailsView);
+            }
+
+            ViewBag.Updated = true;
+            return View(userDetailsView);
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

@@ -6,5 +6,54 @@
     Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayoutWithSearch.cshtml");
 }
 
-<h2>Update my Details</h2>
+<h2>My Details</h2>
 
+@if (ViewBag.Updated)
+{
+    <div class="alert alert-success">
+        Your details have been updated successfully.
+    </div>
+}
+
+<form role="form" method="POST" action="@Url.Action("Details", "Account")">
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.LabelFor(m => m.FirstName)
+        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", required = "", autocomplete = "off" })
+        @Html.ValidationMessageFor(m => m.FirstName)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.LastName)
+        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", required = "", autocomplete = "off" })
+        @Html.ValidationMessageFor(m => m.LastName)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.AddressLine1)
+        @Html.TextBoxFor(m => m.AddressLine1, new { @class = "form-control", autocomplete = "off" })
+        @Html.ValidationMessageFor(m => m.AddressLine1)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.AddressLine2)
+        @Html.TextBoxFor(m => m.AddressLine2, new { @class = "form-control", autocomplete = "off" })
+        @Html.ValidationMessageFor(m => m.AddressLine2)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.State)
+        @Html.DropDownListFor(m => m.State, Model.StateList, "Please Select", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.PostCode)
+        @Html.TextBoxFor(m => m.PostCode, new { @class = "form-control", required = "" })
+        @Html.ValidationMessageFor(m => m.PostCode)
+    </div>
+
+    <div class="form-group">
+        <button type="submit" id="btnRegister" class="btn btn-default">Update Details</button>
+    </div>
+
+</form>

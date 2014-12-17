@@ -2,7 +2,7 @@
 Imports BetterclassifiedsCore.ParameterAccess
 Imports BetterClassified
 Imports Microsoft.Practices.Unity
-Imports Paramount.Betterclassifieds.Business.Managers
+Imports Paramount.Betterclassifieds.Business
 
 Partial Public Class OnlineAdView
     Inherits System.Web.UI.UserControl

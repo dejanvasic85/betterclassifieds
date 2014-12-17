@@ -12,6 +12,7 @@
             @if (Model.IsSuccessfulConfirmation)
             {
                 <h2>Confirmation Successful</h2>
+                <h3>Welcome to KandoBay @Model.Username</h3>
                 <div class="alert alert-success">Account Confirmed! Your email has been verified successfully.</div>
                 <p>Where to from here? How about @Html.ActionLink("placing a new ad?", "Step1", "Booking") </p>
             }

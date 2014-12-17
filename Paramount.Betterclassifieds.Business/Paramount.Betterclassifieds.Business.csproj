@@ -77,6 +77,7 @@
     <Compile Include="Exceptions\SetupException.cs" />
     <Compile Include="Managers\IApplicationConfig.cs" />
     <Compile Include="Managers\IEnquiryManager.cs" />
+    <Compile Include="Membership\RegistrationResult.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\AdEnquiry.cs" />
     <Compile Include="Membership\UserNetworkModel.cs" />

@@ -1,26 +1,33 @@
-﻿using System.Collections.Generic;
-using System.Security.Principal;
-
-namespace Paramount.Betterclassifieds.Business
+﻿namespace Paramount.Betterclassifieds.Business
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Security.Principal;
+    using Broadcast;
+
     public interface IUserManager
     {
         ApplicationUser GetUserByEmailOrUsername(string emailOrUsername);
         ApplicationUser GetCurrentUser(IPrincipal principal);
         IEnumerable<UserNetworkModel> GetUserNetworksForUserId(string userId);
-        void CreateUserProfile(string email, string firstName, string lastName, string postCode, string howYouFoundUs, string phone);
         void CreateUserNetwork(IPrincipal user, string email, string fullName);
+        RegistrationResult RegisterUser(RegistrationModel registrationModel, string plaintextPassword);
+        void ConfirmRegistration(RegistrationModel registerModel);
     }
 
     public class UserManager : IUserManager
     {
         private readonly IUserRepository _userRepository;
         private readonly IAuthManager _authManager;
+        private readonly IBroadcastManager _broadcastManager;
+        private readonly IClientConfig _clientConfig;
 
-        public UserManager(IUserRepository userRepository, IAuthManager authManager)
+        public UserManager(IUserRepository userRepository, IAuthManager authManager, IBroadcastManager broadcastManager, IClientConfig clientConfig)
         {
             _userRepository = userRepository;
             _authManager = authManager;
+            _broadcastManager = broadcastManager;
+            _clientConfig = clientConfig;
         }
 
         public ApplicationUser GetUserByEmailOrUsername(string emailOrUsername)
@@ -45,18 +52,31 @@ namespace Paramount.Betterclassifieds.Business
         {
             return _userRepository.GetUserNetworksForUserId(userId);
         }
-
-        public void CreateUserProfile(string email, string firstName, string lastName, string postCode, string howYouFoundUs, string phone)
-        {
-            // Simply persist directly to the repository
-            _userRepository.CreateUser(email, firstName, lastName, postCode, howYouFoundUs, phone);
-        }
-
+        
         public void CreateUserNetwork(IPrincipal user, string email, string fullName)
         {
             var userNetworkModel = new UserNetworkModel(user.Identity.Name, email, fullName);
 
             _userRepository.CreateUserNetwork(userNetworkModel);
+        }
+
+        public RegistrationResult RegisterUser(RegistrationModel registrationModel, string plaintextPassword)
+        {
+            registrationModel
+                .GenerateUniqueUsername(_authManager.CheckUsernameExists)
+                .SetPasswordFromPlaintext(plaintextPassword)
+                .GenerateToken();
+            
+            // Create the registration in the db
+            _userRepository.CreateRegistration(registrationModel);
+            
+            return new RegistrationResult(registrationModel, _clientConfig.IsTwoFactorAuthEnabled);
+        }
+
+        public void ConfirmRegistration(RegistrationModel registerModel)
+        {
+            registerModel.Confirm();
+            _userRepository.UpdateRegistrationByToken(registerModel);
         }
     }
 }

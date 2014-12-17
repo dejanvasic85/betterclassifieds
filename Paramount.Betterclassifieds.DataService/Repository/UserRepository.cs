@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
-using Paramount.Betterclassifieds.Business;
-using Paramount.Betterclassifieds.Business.Repository;
-using Paramount.Betterclassifieds.DataService.LinqObjects;
-
-namespace Paramount.Betterclassifieds.DataService.Repository
+﻿namespace Paramount.Betterclassifieds.DataService.Repository
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using AutoMapper;
+    using Business;
+    //using Paramount.Betterclassifieds.DataService.LinqObjects;
+
+
     public class UserRepository : IUserRepository, IMappingBehaviour
     {
         private const string BetterclassifiedsAppId = "betterclassified";
@@ -34,9 +34,9 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             }
         }
 
-        private ApplicationUser CreateApplicationUser(UserProfile profile, string username)
+        private ApplicationUser CreateApplicationUser(LinqObjects.UserProfile profile, string username)
         {
-            var applicationUser = this.Map<UserProfile, ApplicationUser>(profile);
+            var applicationUser = this.Map<LinqObjects.UserProfile, ApplicationUser>(profile);
             applicationUser.Username = username;
             return applicationUser;
         }
@@ -77,7 +77,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
                 var member = context.aspnet_Memberships.Single(m => m.Email == email);
 
-                context.UserProfiles.InsertOnSubmit(new UserProfile
+                context.UserProfiles.InsertOnSubmit(new LinqObjects.UserProfile
                 {
                     UserID = member.UserId,
                     Email = email,
@@ -89,6 +89,31 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                     Phone = phone,
                     ProfileVersion = 1
                 });
+                context.SubmitChanges();
+            }
+        }
+
+        public void CreateRegistration(RegistrationModel registrationModel)
+        {
+            using (var context = DataContextFactory.CreateMembershipContext())
+            {
+                var registrationData = this.Map<RegistrationModel, LinqObjects.Registration>(registrationModel);
+
+                context.Registrations.InsertOnSubmit(registrationData);
+                context.SubmitChanges();
+
+                registrationModel.RegistrationId = registrationData.RegistrationId;
+            }
+        }
+
+        public void UpdateRegistrationByToken(RegistrationModel registerModel)
+        {
+            using (var context = DataContextFactory.CreateMembershipContext())
+            {
+                var dataModel = context.Registrations.Single(r => r.Token == registerModel.Token);
+
+                this.Map(registerModel, dataModel);
+
                 context.SubmitChanges();
             }
         }
@@ -106,11 +131,21 @@ namespace Paramount.Betterclassifieds.DataService.Repository
         {
             configuration.CreateProfile("UserRepositoryProfile");
 
+            configuration.CreateMap<RegistrationModel, LinqObjects.Registration>()
+                .ForMember(member => member.Password, options => options.MapFrom(source => source.EncryptedPassword))
+                .ForMember(member => member.RegistrationId, options => options.Ignore())
+                .ForMember(member => member.Version, options => options.Ignore())
+                ;
+            
             // From Db
-            configuration.CreateMap<UserProfile, ApplicationUser>()
+            configuration.CreateMap<LinqObjects.UserProfile, ApplicationUser>()
                 .ForMember(member => member.AddressLine1, options => options.MapFrom(source => source.Address1))
                 .ForMember(member => member.AddressLine2, options => options.MapFrom(source => source.Address2))
                 .ForMember(member => member.Postcode, options => options.MapFrom(source => source.PostCode));
+
+            configuration.CreateMap<LinqObjects.Registration, RegistrationModel>()
+                .ForMember(member => member.EncryptedPassword, options => options.MapFrom(source => source.Password))
+                ;
         }
     }
 }

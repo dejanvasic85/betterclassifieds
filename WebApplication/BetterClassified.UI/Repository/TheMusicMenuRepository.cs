@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Net;
-using Paramount;
-using Paramount.Betterclassifieds.Business.Managers;
-using Paramount.Betterclassifieds.Business.Repository;
-
-namespace BetterClassified.Repository
+﻿namespace BetterClassified.Repository
 {
+    using System.Collections.Generic;
+    using System.Net;
+    using Paramount;
+    using Paramount.Betterclassifieds.Business;
+    using Paramount.Betterclassifieds.Business.Repository;
+    
     public class TheMusicMenuRepository : IMenuRepository
     {
         private readonly IClientConfig _clientConfigSettings;

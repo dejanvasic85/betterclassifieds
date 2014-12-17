@@ -1,18 +1,19 @@
-﻿using AutoMapper;
-using CaptchaMvc.Attributes;
-using CaptchaMvc.HtmlHelpers;
-using CaptchaMvc.Interface;
-using Microsoft.Ajax.Utilities;
-using Paramount.Betterclassifieds.Business.Managers;
-using Paramount.Betterclassifieds.Business.Models;
-using Paramount.Betterclassifieds.Business.Search;
-using Paramount.Betterclassifieds.Presentation.ViewModels;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-
-namespace Paramount.Betterclassifieds.Presentation.Controllers
+﻿namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
+    using AutoMapper;
+    using CaptchaMvc.Attributes;
+    using CaptchaMvc.HtmlHelpers;
+    using CaptchaMvc.Interface;
+    using Microsoft.Ajax.Utilities;
+    using Business;
+    using Business.Managers;
+    using Business.Models;
+    using Business.Search;
+    using ViewModels;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
+    
     public class ListingsController : Controller, IMappingBehaviour
     {
         private readonly ISearchService _searchService;

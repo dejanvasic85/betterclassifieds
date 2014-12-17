@@ -32,6 +32,8 @@ Here's a list of the latest changes for the current release:
 
 - [Capturing phone number during registation](https://trello.com/c/MLE9lLT9/267-capture-phone-number-during-registration)
 
+- [Making two-factor auth configurable](https://trello.com/c/O6Obiml4/268-make-two-way-factor-auth-optional-client-config-for-marketing)
+
 Other useful resources:
 
 - [Up-Coming features](https://trello.com/b/Ht5NWhN2/betterclassifieds)

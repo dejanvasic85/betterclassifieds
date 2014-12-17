@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Security;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.DataService;
 
@@ -14,6 +15,7 @@ namespace Paramount.Betterclassifieds.Security
     public class AuthenticationService : IAuthManager, IMappingBehaviour
     {
         private readonly IApplicationConfig _applicationConfig;
+
         private const string ForceSSLCookieName = "ClassifiedsSSL";
 
         public AuthenticationService(IApplicationConfig applicationConfig)
@@ -82,21 +84,21 @@ namespace Paramount.Betterclassifieds.Security
             Membership.CreateUser(username, password, email);
         }
 
-        public void CreateMembershipFromRegistration(RegistrationModel registerModel)
-        {
-            CreateMembership(registerModel.Username, registerModel.Email, registerModel.DecryptPassword());
+        //public void CreateMembershipFromRegistration(RegistrationModel registrationModel)
+        //{
+        //    CreateMembership(registrationModel.Username, registrationModel.Email, registrationModel.DecryptPassword());
 
-            registerModel.ConfirmationDate = DateTime.Now;
-            registerModel.ConfirmationDateUtc = DateTime.UtcNow;
+        //    registrationModel.ConfirmationDate = DateTime.Now;
+        //    registrationModel.ConfirmationDateUtc = DateTime.UtcNow;
 
-            using (var context = DataContextFactory.CreateMembershipContext())
-            {
-                var registrationData = this.Map<RegistrationModel, DataService.LinqObjects.Registration>(registerModel);
+        //    using (var context = DataContextFactory.CreateMembershipContext())
+        //    {
+        //        var registrationData = this.Map<RegistrationModel, DataService.LinqObjects.Registration>(registrationModel);
 
-                context.Registrations.Attach(registrationData, asModified: true);
-                context.SubmitChanges();
-            }
-        }
+        //        context.Registrations.Attach(registrationData, asModified: true);
+        //        context.SubmitChanges();
+        //    }
+        //}
 
         public bool CheckUsernameExists(string username)
         {
@@ -111,20 +113,6 @@ namespace Paramount.Betterclassifieds.Security
             using (var context = DataContextFactory.CreateMembershipContext())
             {
                 return context.aspnet_Memberships.Any(m => m.LoweredEmail.Equals(email.ToLower()));
-            }
-        }
-
-        public int CreateRegistration(RegistrationModel registrationModel)
-        {
-            using (var context = DataContextFactory.CreateMembershipContext())
-            {
-                var registrationData = this.Map<RegistrationModel, DataService.LinqObjects.Registration>(registrationModel);
-
-                context.Registrations.InsertOnSubmit(registrationData);
-                context.SubmitChanges();
-
-                registrationModel.RegistrationId = registrationData.RegistrationId;
-                return registrationModel.RegistrationId;
             }
         }
 

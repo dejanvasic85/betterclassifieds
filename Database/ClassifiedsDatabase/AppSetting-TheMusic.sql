@@ -31,6 +31,7 @@ execute temp_createAppSetting @Key = 'ClientAddressLatLong', @Setting = '-37.796
 execute temp_createAppSetting @Key = 'ClientPhoneNumber', @Setting = '61 3 9421 4499', @Force = 1
 execute temp_createAppSetting @Key = 'PublisherHomeUrl', @Setting = 'http://themusic.com.au'
 execute temp_createAppSetting @Key = 'FacebookAppId', @Setting = '143183162513319'
+execute temp_createAppSetting @Key = 'EnableTwoFactorAuth', @Setting = 'true', @Force = 1
 
 
 drop procedure temp_createAppSetting

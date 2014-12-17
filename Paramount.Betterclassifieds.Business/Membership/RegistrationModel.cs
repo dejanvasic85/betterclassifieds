@@ -5,7 +5,7 @@ namespace Paramount.Betterclassifieds.Business
 {
     public class RegistrationModel
     {
-        public int RegistrationId { get; set; }
+        public int? RegistrationId { get; set; }
         public string Email { get; set; }
         public string EncryptedPassword { get; private set; }
         public string FirstName { get; set; }
@@ -80,6 +80,12 @@ namespace Paramount.Betterclassifieds.Business
         public bool HasConfirmedAlready()
         {
             return ConfirmationDate.HasValue && ConfirmationDateUtc.HasValue;
+        }
+
+        public void Confirm()
+        {
+            this.ConfirmationDate = DateTime.Now;
+            this.ConfirmationDateUtc = DateTime.UtcNow;
         }
     }
 }

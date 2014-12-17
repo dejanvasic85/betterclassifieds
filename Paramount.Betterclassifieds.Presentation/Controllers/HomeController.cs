@@ -1,24 +1,23 @@
-﻿using System;
-using AutoMapper;
-using CaptchaMvc.Attributes;
-using CaptchaMvc.HtmlHelpers;
-using CaptchaMvc.Interface;
-using Paramount.Betterclassifieds.Business;
-using Paramount.Betterclassifieds.Business.Broadcast;
-using Paramount.Betterclassifieds.Business.Search;
-using Paramount.Betterclassifieds.Presentation.ViewModels;
-using System.Linq;
-using System.Web.Mvc;
-
-namespace Paramount.Betterclassifieds.Presentation.Controllers
+﻿namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
+    using AutoMapper;
+    using CaptchaMvc.Attributes;
+    using CaptchaMvc.HtmlHelpers;
+    using CaptchaMvc.Interface;
+    using Business;
+    using Business.Broadcast;
+    using Business.Search;
+    using ViewModels;
+    using System.Linq;
+    using System.Web.Mvc;
+
     public class HomeController : BaseController, IMappingBehaviour
     {
-        private readonly Business.Managers.IClientConfig _clientConfig;
+        private readonly IClientConfig _clientConfig;
         private readonly IBroadcastManager _broadcastManager;
         private readonly IEnquiryManager _enquiryManager;
 
-        public HomeController(ISearchService searchService, Business.Managers.IClientConfig clientConfig, IBroadcastManager broadcastManager, IEnquiryManager enquiryManager)
+        public HomeController(ISearchService searchService, IClientConfig clientConfig, IBroadcastManager broadcastManager, IEnquiryManager enquiryManager)
             : base(searchService)
         {
             _clientConfig = clientConfig;

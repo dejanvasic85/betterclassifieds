@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Paramount.Betterclassifieds.Business.Models;
 
-namespace Paramount.Betterclassifieds.Business.Managers
+namespace Paramount.Betterclassifieds.Business
 {
     public interface IClientConfig
     {
@@ -18,5 +18,6 @@ namespace Paramount.Betterclassifieds.Business.Managers
         string[] SupportEmailList { get; }
         int? MaxOnlineImages { get; }
         string PublisherHomeUrl { get; }
+        bool IsTwoFactorAuthEnabled { get; }
     }
 }

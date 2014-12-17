@@ -9,5 +9,7 @@ namespace Paramount.Betterclassifieds.Business
         IEnumerable<UserNetworkModel> GetUserNetworksForUserId(string userId); 
         void CreateUser(string email, string firstName, string lastName, string postCode, string howYouFoundUs, string phone);
         void CreateUserNetwork(UserNetworkModel userNetworkModel);
+        void CreateRegistration(RegistrationModel registrationModel);
+        void UpdateRegistrationByToken(RegistrationModel registerModel);
     }
 }

@@ -1,11 +1,10 @@
-﻿using AutoMapper;
-using System.Web.Mvc;
-
-namespace Paramount.Betterclassifieds.Presentation.Controllers
+﻿namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
+    using AutoMapper;
     using Business;
     using Business.Broadcast;
     using Business.Search;
+    using System.Web.Mvc;
     using ViewModels;
 
     public class AccountController : BaseController, IMappingBehaviour
@@ -16,7 +15,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public const string ReturnUrlKey = "ReturnUrlForLogin";
 
-        public AccountController(IUserManager userManager, IAuthManager authManager, 
+        public AccountController(IUserManager userManager, IAuthManager authManager,
             IBroadcastManager broadcastManager, ISearchService searchService)
             : base(searchService)
         {
@@ -101,25 +100,31 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             // Store the registration model temporarily with a registered token ( until the confirmation is completed )
             var registrationModel = this.Map<RegisterViewModel, RegistrationModel>(viewModel);
-            registrationModel
-                .GenerateUniqueUsername(_authManager.CheckUsernameExists)
-                .GenerateToken()
-                .SetPasswordFromPlaintext(viewModel.RegisterPassword);
-             
-            _authManager.CreateRegistration(registrationModel);
 
-            _broadcastManager.SendEmail(new NewRegistration
+            var registrationResult = _userManager.RegisterUser(registrationModel, viewModel.RegisterPassword);
+
+            if (registrationResult.RequiresConfirmation)
             {
-                FirstName = viewModel.FirstName,
-                VerificationLink = Url.ActionAbsolute("Confirmation", "Account", new
+                _broadcastManager.SendEmail(new NewRegistration
                 {
-                    registrationModel.RegistrationId,
-                    registrationModel.Token,
-                    registrationModel.Username
-                })
-            }, "dejan.vasic@paramountit.com.au");
+                    FirstName = registrationModel.FirstName,
+                    VerificationLink = Url.ActionAbsolute("Confirmation", "Account", new
+                    {
+                        registrationResult.Registration.RegistrationId,
+                        registrationResult.Registration.Token,
+                        registrationResult.Registration.Username
+                    })
+                }, registrationModel.Email);
 
-            return View("ThankYou");
+                return View("ThankYou");
+            }
+
+            return RedirectToAction("Confirmation", new
+            {
+                registrationId = registrationResult.Registration.RegistrationId,
+                token = registrationResult.Registration.Token,
+                username = registrationResult.Registration.Username
+            });
         }
 
         public ActionResult Confirmation(int registrationId, string token, string username)
@@ -143,13 +148,16 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             // Register 
-            _authManager.CreateMembershipFromRegistration(registerModel);
-            _userManager.CreateUserProfile(registerModel.Email, registerModel.FirstName, registerModel.LastName, registerModel.PostCode, registerModel.HowYouFoundUs, registerModel.Phone);
+            // _authManager.CreateMembershipFromRegistration(registerModel);
+            _authManager.CreateMembership(registerModel.Username, registerModel.Email, registerModel.DecryptPassword());
+
+            // Update the registration
+            _userManager.ConfirmRegistration(registerModel);
 
             // Login
             _authManager.Login(registerModel.Username, createPersistentCookie: false);
 
-            return View(new AccountConfirmationViewModel { IsSuccessfulConfirmation = true });
+            return View(new AccountConfirmationViewModel { IsSuccessfulConfirmation = true, Username = registerModel.Username});
         }
 
         [HttpGet]
@@ -162,9 +170,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
         // Todo this should be a post and not a GET! No wonder it was caching the result (BAD)
-        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")] 
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public JsonResult IsEmailUnique(string registerEmail)
         {
             return Json(!_authManager.CheckEmailExists(registerEmail), JsonRequestBehavior.AllowGet);
@@ -188,7 +195,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             return Json(new { Completed = true });
         }
-
 
         [Authorize]
         public ActionResult Details()

@@ -1,4 +1,5 @@
-﻿using System.Security.Principal;
+﻿using System;
+using System.Security.Principal;
 
 namespace Paramount.Betterclassifieds.Business
 {
@@ -9,10 +10,8 @@ namespace Paramount.Betterclassifieds.Business
         void Logout();
         bool ValidatePassword(string username, string password);
         void CreateMembership(string username, string email, string password);
-        void CreateMembershipFromRegistration(RegistrationModel registerModel);
         bool CheckUsernameExists(string username);
         bool CheckEmailExists(string email);
-        int CreateRegistration(RegistrationModel registrationModel);
         RegistrationModel GetRegistration(int registrationId, string token, string username);
         string SetRandomPassword(string email);
     }

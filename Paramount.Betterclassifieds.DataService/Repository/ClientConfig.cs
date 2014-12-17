@@ -1,12 +1,11 @@
-﻿using System;
-using System.Configuration;
-using System.Linq;
-using Paramount.Betterclassifieds.Business.Managers;
-using Paramount.Betterclassifieds.Business.Models;
-
-namespace Paramount.Betterclassifieds.DataService.Repository
+﻿namespace Paramount.Betterclassifieds.DataService.Repository
 {
-    public class ClientConfig : IClientConfig
+    using System;
+    using System.Configuration;
+    using System.Linq;
+    using Business.Models;
+
+    public class ClientConfig : Business.IClientConfig
     {
         private T GetValueFromDatabase<T>(string settingName, bool required = true)
         {
@@ -94,6 +93,11 @@ namespace Paramount.Betterclassifieds.DataService.Repository
         public string PublisherHomeUrl
         {
             get { return GetValueFromDatabase<string>("PublisherHomeUrl", false); }
+        }
+
+        public bool IsTwoFactorAuthEnabled
+        {
+            get { return GetValueFromDatabase<bool>("EnableTwoFactorAuth"); }
         }
     }
 }

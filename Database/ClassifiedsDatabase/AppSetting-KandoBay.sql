@@ -25,6 +25,6 @@ execute temp_createAppSetting @Key = 'SupportNotificationAccounts', @Setting = '
 execute temp_createAppSetting @Key = 'AdDurationDays', @Setting = '60'
 execute temp_createAppSetting @Key = 'ClientAddress', @Setting = 'Uche Njoku,PO Box 333,Richmond,VIC,3121,Australia', @Force = 1
 execute temp_createAppSetting @Key = 'ClientAddressLatLong', @Setting = '-37.818635,145.001470', @Force = 1
-
+execute temp_createAppSetting @Key = 'EnableTwoFactorAuth', @Setting = 'true', @Force = 1
 
 drop procedure temp_createAppSetting

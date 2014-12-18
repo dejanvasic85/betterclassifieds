@@ -141,7 +141,12 @@ namespace Paramount.Betterclassifieds.Security
             return password;
         }
 
-        public void ChangePassword(string username, string newPassword)
+        public void SetPassword(string username, string newPassword)
+        {
+            ChangePassword(username, newPassword);
+        }
+
+        private void ChangePassword(string username, string newPassword)
         {
             var user = Membership.GetUser(username);
 

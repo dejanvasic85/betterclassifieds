@@ -14,5 +14,6 @@ namespace Paramount.Betterclassifieds.Business
         bool CheckEmailExists(string email);
         RegistrationModel GetRegistration(int registrationId, string token, string username);
         string SetRandomPassword(string email);
+        void SetPassword(string username, string newPassword);
     }
 }

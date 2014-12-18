@@ -127,6 +127,7 @@
             });
         }
 
+        [HttpGet]
         public ActionResult Confirmation(int registrationId, string token, string username)
         {
             // Fetch the registration record
@@ -224,6 +225,38 @@
 
             ViewBag.Updated = true;
             return View(userDetailsView);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult ChangePassword()
+        {
+            var changePasswordView = new ChangePasswordView();
+
+            return View(changePasswordView);
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(ChangePasswordView changePasswordView)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(changePasswordView);
+            }
+
+            // Validate the existing password
+            if (!_authManager.ValidatePassword(this.User.Identity.Name, changePasswordView.OldPassword))
+            {
+                changePasswordView.PasswordIsNotValid = true;
+                return View(changePasswordView);
+            }
+
+            _authManager.SetPassword(this.User.Identity.Name, changePasswordView.NewPassword);
+
+            changePasswordView.UpdatedSuccessfully = true;
+            return View(changePasswordView);
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

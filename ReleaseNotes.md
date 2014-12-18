@@ -36,6 +36,8 @@ Here's a list of the latest changes for the current release:
 
 - [Users can now update their personal details/profile](https://trello.com/c/dluPFvHC/260-nextgen-edit-personal-details)
 
+- [Change password is now available for users logged in](https://trello.com/c/4ceE0ybv/273-nextgen-reset-password)
+
 Other useful resources:
 
 - [Up-Coming features](https://trello.com/b/Ht5NWhN2/betterclassifieds)

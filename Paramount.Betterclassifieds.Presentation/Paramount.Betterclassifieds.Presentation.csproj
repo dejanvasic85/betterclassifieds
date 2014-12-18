@@ -198,6 +198,7 @@
     <Compile Include="ViewModels\Account\AccountConfirmationViewModel.cs" />
     <Compile Include="ViewModels\Account\LoginOrRegisterModel.cs" />
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\Account\ChangePasswordView.cs" />
     <Compile Include="ViewModels\AddressViewModel.cs" />
     <Compile Include="ViewModels\AdEnquiryViewModel.cs" />
     <Compile Include="ViewModels\AdViewModel.cs" />
@@ -491,6 +492,7 @@
     <Content Include="Views\Shared\_LoginStatus.TheMusic.cshtml" />
     <Content Include="Views\Account\HowYouFoundUs\_HowYouFoundUs.cshtml" />
     <Content Include="Views\Account\HowYouFoundUs\_HowYouFoundUs.KandoBay.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

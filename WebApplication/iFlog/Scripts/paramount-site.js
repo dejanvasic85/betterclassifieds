@@ -12,9 +12,16 @@ _pg.formatCurrency = function (value) {
     return "$" + value.toFixed(2);
 };
 
+_pg.isMobile = function () {
+    var detector = new MobileDetect(window.navigator.userAgent);
+    return detector.mobile() !== null;
+};
+
+var mobile = _pg.isMobile();
+console.log(mobile);
 
 /*
-** General element hooks for the entire website
+** General element hooks for the entire website (jQuery)
 */
 
 (function ($) {

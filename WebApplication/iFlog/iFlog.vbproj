@@ -382,6 +382,10 @@
     <Content Include="Scripts\markdown.min.js">
       <DependentUpon>markdown.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\mobile-detect.js" />
+    <Content Include="Scripts\mobile-detect.min.js">
+      <DependentUpon>mobile-detect.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\moment-2.8.2.js" />
     <Content Include="Scripts\moment-2.8.2.min.js">
       <DependentUpon>moment-2.8.2.js</DependentUpon>
@@ -462,6 +466,9 @@
     </Content>
     <Content Include="Scripts\jquery.cleditor.min.js.map">
       <DependentUpon>jquery.cleditor.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\mobile-detect.min.js.map">
+      <DependentUpon>mobile-detect.min.js</DependentUpon>
     </Content>
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\paramount-validate-tooltip.min.js">

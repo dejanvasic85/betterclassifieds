@@ -83,23 +83,7 @@ namespace Paramount.Betterclassifieds.Security
         {
             Membership.CreateUser(username, password, email);
         }
-
-        //public void CreateMembershipFromRegistration(RegistrationModel registrationModel)
-        //{
-        //    CreateMembership(registrationModel.Username, registrationModel.Email, registrationModel.DecryptPassword());
-
-        //    registrationModel.ConfirmationDate = DateTime.Now;
-        //    registrationModel.ConfirmationDateUtc = DateTime.UtcNow;
-
-        //    using (var context = DataContextFactory.CreateMembershipContext())
-        //    {
-        //        var registrationData = this.Map<RegistrationModel, DataService.LinqObjects.Registration>(registrationModel);
-
-        //        context.Registrations.Attach(registrationData, asModified: true);
-        //        context.SubmitChanges();
-        //    }
-        //}
-
+        
         public bool CheckUsernameExists(string username)
         {
             using (var context = DataContextFactory.CreateMembershipContext())

@@ -104,6 +104,9 @@
   background-color: #f9f9f9;
   border: 1px solid #fff;
 }
+.user-menu ul li .icon-padded {
+  margin-top: 12px;
+}
 .user-menu ul li .menu-item-text {
   display: block;
   text-align: center;

@@ -11,6 +11,7 @@
 /// <reference path="jquery.validate.unobtrusive.js" />
 /// <reference path="knockout-3.2.0.js" />
 /// <reference path="markdown.js" />
+/// <reference path="mobile-detect.js" />
 /// <reference path="moment-2.8.2.js" />
 /// <reference path="paramount-site.js" />
 /// <reference path="paramount-validate-default.js" />

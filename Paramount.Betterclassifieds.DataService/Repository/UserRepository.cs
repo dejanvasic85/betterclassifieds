@@ -66,7 +66,7 @@
             }
         }
 
-        public void CreateUser(string email, string firstName, string lastName, string postCode, string howYouFoundUs, string phone)
+        public void CreateUserProfile(RegistrationModel registrationModel)
         {
             using (var context = DataContextFactory.CreateMembershipContext())
             {
@@ -75,18 +75,18 @@
                 // Should be addressed when moving authentication later
                 // So, this is tight coupling for ID instead of more appropriately, a username!
 
-                var member = context.aspnet_Memberships.Single(m => m.Email == email);
+                var member = context.aspnet_Memberships.Single(m => m.Email == registrationModel.Email);
 
                 context.UserProfiles.InsertOnSubmit(new LinqObjects.UserProfile
                 {
                     UserID = member.UserId,
-                    Email = email,
-                    FirstName = firstName,
-                    LastName = lastName,
-                    PostCode = postCode,
+                    Email = registrationModel.Email,
+                    FirstName = registrationModel.FirstName,
+                    LastName = registrationModel.LastName,
+                    PostCode = registrationModel.PostCode,
                     LastUpdatedDate = DateTime.UtcNow,
-                    HowYouFoundUs = howYouFoundUs,
-                    Phone = phone,
+                    HowYouFoundUs = registrationModel.HowYouFoundUs,
+                    Phone = registrationModel.Phone,
                     ProfileVersion = 1
                 });
                 context.SubmitChanges();
@@ -98,10 +98,8 @@
             using (var context = DataContextFactory.CreateMembershipContext())
             {
                 var registrationData = this.Map<RegistrationModel, LinqObjects.Registration>(registrationModel);
-
                 context.Registrations.InsertOnSubmit(registrationData);
                 context.SubmitChanges();
-
                 registrationModel.RegistrationId = registrationData.RegistrationId;
             }
         }
@@ -111,9 +109,7 @@
             using (var context = DataContextFactory.CreateMembershipContext())
             {
                 var dataModel = context.Registrations.Single(r => r.Token == registerModel.Token);
-
                 this.Map(registerModel, dataModel);
-
                 context.SubmitChanges();
             }
         }
@@ -123,13 +119,9 @@
             using (var context = DataContextFactory.CreateMembershipContext())
             {
                 var application = context.aspnet_Applications.Single(a => a.LoweredApplicationName == BetterclassifiedsAppId);
-
                 var user = context.aspnet_Users.Single(u => u.UserName == applicationUser.Username && u.ApplicationId == application.ApplicationId);
-                
                 var profile = context.UserProfiles.First(p => p.UserID == user.UserId);
-
                 this.Map(applicationUser, profile);
-
                 context.SubmitChanges();
             }
         }

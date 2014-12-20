@@ -70,14 +70,14 @@
             
             // Create the registration in the db
             _userRepository.CreateRegistration(registrationModel);
-            
             return new RegistrationResult(registrationModel, _clientConfig.IsTwoFactorAuthEnabled);
         }
 
-        public void ConfirmRegistration(RegistrationModel registerModel)
+        public void ConfirmRegistration(RegistrationModel registrationModel)
         {
-            registerModel.Confirm();
-            _userRepository.UpdateRegistrationByToken(registerModel);
+            registrationModel.Confirm();
+            _userRepository.CreateUserProfile(registrationModel);
+            _userRepository.UpdateRegistrationByToken(registrationModel);
         }
 
         public void UpdateUserProfile(ApplicationUser applicationUser)

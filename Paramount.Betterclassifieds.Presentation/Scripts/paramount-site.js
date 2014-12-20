@@ -1,27 +1,43 @@
 ﻿
 
 /*
-** _pg (paramount global) object used for utility functions
+** $paramount utility class
 */
 
-var _pg = _pg || {};
-_pg.formatCurrency = function (value) {
-    if (value == undefined)
-        return '';
+var $paramount = $paramount || {};
 
-    return "$" + value.toFixed(2);
-};
+(function($window, $jQuery, $mobileDetect) {
 
-_pg.isMobile = function () {
-    var detector = new MobileDetect(window.navigator.userAgent);
-    return detector.mobile() !== null;
-};
+    var me = this;
+    me.isMobileDevice = null;
 
-_pg.setOnlineEditor = function(setupCallback) {
-    if (!_pg.isMobile()) {
-        _pg.onlineEditor = setupCallback();
-    }
-};
+    // Lazy loading for mobile checking
+    me.evaluateMobile = function() {
+        if (isMobileDevice !== null) {
+            return isMobileDevice;
+        }
+        me.isMobileDevice = new $mobileDetect($window.navigator.userAgent);
+        return me.isMobileDevice;
+    };
+    
+    $paramount.formatCurrency = function (value) {
+        if (value == undefined)
+            return '';
+        return "$" + value.toFixed(2);
+    };
+
+    $paramount.isMobile = function () {
+        return evaluateMobile();
+    };
+
+    $paramount.setOnlineEditor = function (setupCallback) {
+        if (!me.evaluateMobile()) {
+            $paramount.onlineEditor = setupCallback();
+        }
+    };
+
+})(window, jQuery, MobileDetect);
+
 
 /*
 ** General element hooks for the entire website (jQuery)

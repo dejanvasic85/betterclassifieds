@@ -31,9 +31,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         public BookingStep2Page WithOnlineDescription(string description)
         {
             // The CLEditor is just weird. It uses a damn frame so we have to insert it via javascript
-            // So we had to move the online editor to the _pg (paramount global) namespace
+            // So we had to move the online editor to the $paramount library
             // And call the cleditor directly (ughhh ugly)
-            _webdriver.ExecuteJavaScript("_pg.onlineEditor[0].clear().execCommand('inserthtml', '" + description + "', null, null)");
+            _webdriver.ExecuteJavaScript("$paramount.onlineEditor[0].clear().execCommand('inserthtml', '" + description + "', null, null)");
             return this;
         }
     }

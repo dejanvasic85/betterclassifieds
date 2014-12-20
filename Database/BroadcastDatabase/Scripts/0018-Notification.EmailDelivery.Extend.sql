@@ -1,0 +1,2 @@
+﻿ALTER TABLE EmailDelivery
+ALTER COLUMN LastErrorMessage VARCHAR(MAX) NULL

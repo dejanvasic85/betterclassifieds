@@ -421,6 +421,9 @@
     <Content Include="Scripts\knockout-3.2.0.min.js.map">
       <DependentUpon>knockout-3.2.0.min.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\paramount-site.min.js.map">
+      <DependentUpon>paramount-site.min.js</DependentUpon>
+    </Content>
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\toastr-2.0.1.js" />
     <Content Include="Scripts\toastr-2.0.1.min.js">
@@ -467,9 +470,6 @@
     </Content>
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js.map">
       <DependentUpon>jquery.validate.unobtrusive.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\paramount-site.min.js.map">
-      <DependentUpon>paramount-site.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\paramount-validate-default.min.js.map">
       <DependentUpon>paramount-validate-default.min.js</DependentUpon>

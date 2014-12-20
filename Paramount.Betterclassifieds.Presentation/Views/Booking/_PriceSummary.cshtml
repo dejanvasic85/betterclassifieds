@@ -5,7 +5,7 @@
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#priceSummary" href="#priceBreakDown">
                     Current Total
-                    <span id="currentTotal" data-bind="text: _pg.formatCurrency( pricelist().Total )"></span>
+                    <span id="currentTotal" data-bind="text: $paramount.formatCurrency( pricelist().Total )"></span>
                     <span class="pull-right" data-toggle="collapse" data-parent="#priceSummary" href="#priceBreakDown">
                         <span class="glyphicon glyphicon-chevron-down"></span>
                     </span>
@@ -17,7 +17,7 @@
                 <tbody>
                     <tr>
                         <td>Online Base Price</td>
-                        <td data-bind="text: _pg.formatCurrency( pricelist().LineItems['Online Ad Cost'] )"></td>
+                        <td data-bind="text: $paramount.formatCurrency( pricelist().LineItems['Online Ad Cost'] )"></td>
                     </tr>
                 </tbody>
             </table>

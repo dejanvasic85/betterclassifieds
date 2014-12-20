@@ -432,9 +432,6 @@
     <Content Include="Scripts\toastr-2.0.1.min.js.map">
       <DependentUpon>toastr-2.0.1.min.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\knockout-3.2.0.min.js.map">
-      <DependentUpon>knockout-3.2.0.min.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\bootstrap-datepicker.min.js.map">
       <DependentUpon>bootstrap-datepicker.min.js</DependentUpon>
     </Content>
@@ -469,6 +466,9 @@
     </Content>
     <Content Include="Scripts\mobile-detect.min.js.map">
       <DependentUpon>mobile-detect.min.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\knockout-3.2.0.min.js.map">
+      <DependentUpon>knockout-3.2.0.min.js</DependentUpon>
     </Content>
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\paramount-validate-tooltip.min.js">

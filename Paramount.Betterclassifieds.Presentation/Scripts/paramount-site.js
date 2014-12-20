@@ -12,9 +12,19 @@ _pg.formatCurrency = function (value) {
     return "$" + value.toFixed(2);
 };
 
+_pg.isMobile = function () {
+    var detector = new MobileDetect(window.navigator.userAgent);
+    return detector.mobile() !== null;
+};
+
+_pg.setOnlineEditor = function (setupCallback) {
+    if (!_pg.isMobile()) {
+        setupCallback();
+    }
+};
 
 /*
-** General element hooks for the entire website
+** General element hooks for the entire website (jQuery)
 */
 
 (function ($) {

@@ -17,8 +17,11 @@ _pg.isMobile = function () {
     return detector.mobile() !== null;
 };
 
-var mobile = _pg.isMobile();
-console.log(mobile);
+_pg.setOnlineEditor = function(setupCallback) {
+    if (!_pg.isMobile()) {
+        setupCallback();
+    }
+};
 
 /*
 ** General element hooks for the entire website (jQuery)

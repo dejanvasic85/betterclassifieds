@@ -86,6 +86,9 @@
   margin-left: 0;
   margin-right: 0;
 }
+.user-menu a {
+  text-decoration: none;
+}
 .user-menu ul {
   list-style: none;
   padding-left: 0;
@@ -100,5 +103,11 @@
   text-align: center;
   background-color: #f9f9f9;
   border: 1px solid #fff;
+}
+.user-menu ul li .menu-item-text {
+  display: block;
+  text-align: center;
+  word-wrap: break-word;
+  padding-top: 5px;
 }
 /*# sourceMappingURL=site.css.map */

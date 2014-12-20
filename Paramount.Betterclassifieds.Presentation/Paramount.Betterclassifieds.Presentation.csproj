@@ -500,7 +500,7 @@
     <Content Include="Views\Account\HowYouFoundUs\_HowYouFoundUs.cshtml" />
     <Content Include="Views\Account\HowYouFoundUs\_HowYouFoundUs.KandoBay.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
-    <Content Include="Views\Account\_UserMenu.cshtml.cshtml" />
+    <Content Include="Views\Account\_UserMenu.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

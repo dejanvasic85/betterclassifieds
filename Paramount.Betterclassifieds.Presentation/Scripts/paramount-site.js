@@ -17,9 +17,9 @@ _pg.isMobile = function () {
     return detector.mobile() !== null;
 };
 
-_pg.setOnlineEditor = function (setupCallback) {
+_pg.setOnlineEditor = function(setupCallback) {
     if (!_pg.isMobile()) {
-        setupCallback();
+        _pg.onlineEditor = setupCallback();
     }
 };
 

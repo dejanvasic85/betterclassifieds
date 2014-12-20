@@ -19,7 +19,7 @@ _pg.isMobile = function () {
 
 _pg.setOnlineEditor = function(setupCallback) {
     if (!_pg.isMobile()) {
-        setupCallback();
+        _pg.onlineEditor = setupCallback();
     }
 };
 

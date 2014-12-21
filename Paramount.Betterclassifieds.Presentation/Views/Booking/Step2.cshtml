@@ -13,6 +13,7 @@
     <li class="disabled"><a href="#">4</a></li>
 </ul>
 
+
 @Html.Partial("_PriceSummary")
 
 <form role="form" id="adDesignForm" action="@Url.Action("Step2", "Booking")" method="POST">
@@ -241,16 +242,16 @@
                 });
 
                 // Fix the total price
-                $('#priceSummary').affix({
-                    offset: {
-                        top: 320,
-                        bottom: 450
-                    }
-                }).on('affix.bs.affix', function() {
-                    $(this).css({ top: -20, width: $('.col-xs-12').width(), 'z-index': '100' });
-                }).on('affix-top.bs.affix', function() {
-                    $(this).css({ width: $('.col-xs-12').width() });
-                });
+                //$('#priceSummary').affix({
+                //    offset: {
+                //        top: 320,
+                //        bottom: 450
+                //    }
+                //}).on('affix.bs.affix', function() {
+                //    $(this).css({ top: -20, width: $('.col-xs-12').width(), 'z-index': '100' });
+                //}).on('affix-top.bs.affix', function() {
+                //    $(this).css({ width: $('.col-xs-12').width() });
+                //});
 
                 // Setup upload ctrl
                 var upload = $('#fileupload').fileupload({

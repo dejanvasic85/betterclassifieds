@@ -21,7 +21,7 @@ GO
 execute temp_createAppSetting @Key = 'SearchResultsPerPage', @Setting = '10'
 execute temp_createAppSetting @Key = 'SearchMaxPagedRequests', @Setting = '100'
 execute temp_createAppSetting @Key = 'MaxOnlineImages', @Setting = '5'
-execute temp_createAppSetting @Key = 'SupportNotificationAccounts', @Setting = 'support@paramountit.com.au;'
+execute temp_createAppSetting @Key = 'SupportNotificationAccounts', @Setting = 'support@paramountit.com.au'
 execute temp_createAppSetting @Key = 'AdDurationDays', @Setting = '60'
 execute temp_createAppSetting @Key = 'ClientAddress', @Setting = 'Uche Njoku,PO Box 333,Richmond,VIC,3121,Australia', @Force = 1
 execute temp_createAppSetting @Key = 'ClientAddressLatLong', @Setting = '-37.818635,145.001470', @Force = 1

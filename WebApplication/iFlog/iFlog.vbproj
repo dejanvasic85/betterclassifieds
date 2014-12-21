@@ -255,6 +255,7 @@
     <Content Include="Content\font-awesome-4.2.0.min.css">
       <DependentUpon>font-awesome-4.2.0.css</DependentUpon>
     </Content>
+    <Content Include="Content\images\BookUsingThePhone.PNG" />
     <Content Include="Content\images\buttons.gif" />
     <Content Include="Content\images\toolbar.gif" />
     <Content Include="Content\jquery.cleditor.css" />

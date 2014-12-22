@@ -13,8 +13,6 @@ Partial Public Class BundlePage2
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        Response.RedirectPermanent("~/Booking/Step/1")
-
         _bundleController = New BundleController
 
         ' load query string values

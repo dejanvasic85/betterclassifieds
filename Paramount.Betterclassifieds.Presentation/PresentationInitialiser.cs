@@ -38,6 +38,7 @@ namespace Paramount.Betterclassifieds.Presentation
             routes.Ignore("{resource}.axd/{*pathInfo}");
             routes.Ignore("{resource}.aspx/{*pathInfo}");
             routes.Ignore("{resources}.ashx/{*pathInfo}");
+            routes.Ignore("Booking/Step1.aspx");
             routes.Ignore("Image/View.ashx");
 
             // Api

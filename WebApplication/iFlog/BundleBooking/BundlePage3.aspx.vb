@@ -15,8 +15,6 @@ Partial Public Class BundlePage3
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        Response.RedirectPermanent("~/Booking/Step/1")
-
         _bundleController = New BundleController
 
         If Not Page.IsPostBack Then

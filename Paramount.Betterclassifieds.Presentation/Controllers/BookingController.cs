@@ -64,7 +64,7 @@
             var viewModel = new Step1View
             {
                 ParentCategoryOptions = categories.Where(c => c.ParentId == null).Select(c => new SelectListItem { Text = c.Title, Value = c.MainCategoryId.ToString() }),
-                Publications = this.MapList<PublicationModel, PublicationSelectionView>(_searchService.GetPublications()),
+                Publications = this.MapList<PublicationModel, PublicationSelectionView>(new List<PublicationModel>()),
                 CategoryId = bookingCart.CategoryId,
                 SubCategoryId = bookingCart.SubCategoryId,
             };

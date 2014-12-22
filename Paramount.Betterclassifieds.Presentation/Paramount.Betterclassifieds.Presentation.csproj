@@ -501,6 +501,8 @@
     <Content Include="Views\Account\HowYouFoundUs\_HowYouFoundUs.KandoBay.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Account\_UserMenu.cshtml" />
+    <Content Include="Views\Booking\_BookingInformationPanel.cshtml" />
+    <Content Include="Views\Booking\_BookingInformationPanel.TheMusic.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -52,7 +52,7 @@ SET	[From] = 'classies@themusic.com.au',
 </html>
 '
 WHERE	DocType	= 'NewRegistration'
-AND Brand="TheMusic"
+AND Brand='TheMusic'
 
 
 
@@ -110,7 +110,7 @@ SET	[From] = 'classies@themusic.com.au',
 </html>
 '
 WHERE	DocType	= 'AdEnquiry'
-AND Brand="TheMusic"
+AND Brand='TheMusic'
 
 -- AdShare
 UPDATE	EmailTemplate
@@ -166,7 +166,7 @@ SET	[From] = 'classies@themusic.com.au',
 </html>
 '
 WHERE	DocType	= 'AdShare'
-AND Brand="TheMusic"
+AND Brand='TheMusic'
 
 -- ExpirationReminder
 UPDATE	EmailTemplate
@@ -214,7 +214,7 @@ SET	[From] = 'classies@themusic.com.au',
 </html>
 '
 WHERE	DocType	= 'ExpirationReminder'
-AND Brand="TheMusic"
+AND Brand='TheMusic'
 
 -- Forgotten Password
 UPDATE	EmailTemplate
@@ -260,7 +260,7 @@ SET	[From] = 'classies@themusic.com.au',
 </body>
 </html>'
 WHERE	DocType	= 'ForgottenPassword'
-AND Brand="TheMusic"
+AND Brand='TheMusic'
 
 -- New Booking
 UPDATE	EmailTemplate
@@ -325,7 +325,7 @@ SET	[From] = 'classies@themusic.com.au',
 </body>
 </html>'
 WHERE	DocType	= 'NewBooking'
-AND Brand="TheMusic"
+AND Brand='TheMusic'
 
 -- Support Request
 UPDATE	EmailTemplate
@@ -381,5 +381,5 @@ SET	[From] = 'classies@themusic.com.au',
 </body>
 </html>'
 WHERE	DocType	= 'SupportRequest'
-AND Brand="TheMusic"
+AND Brand='TheMusic'
 

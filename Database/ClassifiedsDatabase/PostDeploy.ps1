@@ -16,7 +16,7 @@ $db = Invoke-SqlCmd -Query "SELECT name from master.dbo.sysdatabases WHERE name 
 
 # Backup-SqlDatabase 
 if ( $BackupDatabase -eq $true -and $db -ne $null ){
-	$backupFile = $BackupDatabasePath + $connection.InitialCatalog + ".bak"    
+	$backupFile = $BackupDatabasePath + "$($DbNameConvention)_Classifieds.bak"
     Write-Host "Backing Up..."
     Backup-SqlDatabase -ServerInstance $connection.DataSource -Database $connection.InitialCatalog -BackupFile $backupFile -BackupAction Database -Initialize
     Set-Location $scriptPath
@@ -51,8 +51,7 @@ if ( $DropCreateDatabase -eq $true -and $db -ne $null ) {
 
 # Create database because it does not exist or it was dropped
 if ( $db -eq $null ) {
-	Write-Host $SqlFilesPath
-	return;
+	
 	$newDatabaseName = "$($connection.InitialCatalog)"
 	$newLogicalName = "Classifieds"
 	$newMdfFile = "$($SqlFilesPath)$($connection.InitialCatalog).mdf"

@@ -28,8 +28,7 @@ if ( $DropCreateDatabase -eq $true -and $db -ne $null ) {
 
 # Create database because it does not exist or it was dropped
 if ( $db -eq $null ) {
-	Write-Host $SqlFilesPath
-	return;
+	
 	$newDatabaseName = "$($connection.InitialCatalog)"
 	$newLogicalName = "Logs"
 	$newMdfFile = "$($SqlFilesPath)$($connection.InitialCatalog).mdf"

@@ -5,13 +5,16 @@ $msbuild = Join-Path -Path (Get-ItemProperty $regKey).$regProperty -ChildPath "m
 $scriptPath = ( Split-Path $MyInvocation.MyCommand.Path ) 
 
 # Compile source code
-& $msbuild "Betterclassifieds.sln" "/p:Configuration=Debug" "/t:Clean,Build"
+#& $msbuild "Betterclassifieds.sln" "/p:Configuration=Debug" "/t:Clean,Build"
 
 # Set the variables for the database setup
 Set-Variable -Name 'Brand' -Value 'TheMusic' -Scope Global
+Set-Variable -Name 'SqlFilesPath' -Value 'D:\Dejan\SQLData\MSSQL11.MSSQLSERVER\MSSQL\DATA\' -Scope Global
+#Set-Variable -Name 'SqlFilesPath' -Value 'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\' -Scope Global
 
 # Run each!
-@("MembershipDatabase", "ClassifiedsDatabase", "DocumentDatabase", "BroadcastDatabase", "LogDatabase") | 
+#@("MembershipDatabase", "ClassifiedsDatabase", "DocumentDatabase", "BroadcastDatabase", "LogDatabase") | 
+@("ClassifiedsDatabase") | 
 	foreach { 
 		$pathToDeploy = "Database\$_\bin\Debug\PostDeploy.ps1" 
 		Write-Host "Upgrading $_"

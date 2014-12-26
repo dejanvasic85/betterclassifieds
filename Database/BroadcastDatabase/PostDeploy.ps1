@@ -45,15 +45,32 @@ if ( $DropCreateDatabase -eq $true -and $db -ne $null ){
 	
 	Write-Host "Dropping database..."        
     Invoke-Sqlcmd -Query "DROP DATABASE $($connection.InitialCatalog)" -ServerInstance $connection.DataSource -QueryTimeout 0  -Username $connection.UserID -Password $connection.Password
-    Write-Host "Creating Database..."
-    Invoke-Sqlcmd -Query "CREATE DATABASE $($connection.InitialCatalog)" -ServerInstance $connection.DataSource -QueryTimeout 0  -Username $connection.UserID -Password $connection.Password
-	$db = "DatabaseCreated"
+	
+	$db = $null
 }
 
-# Create database if not exists at this point
+
+# Create database because it does not exist or it was dropped
 if ( $db -eq $null ) {
-	Write-Host "Creating Database..."
-    Invoke-Sqlcmd -Query "CREATE DATABASE $($connection.InitialCatalog)" -ServerInstance $connection.DataSource -QueryTimeout 0  -Username $connection.UserID -Password $connection.Password
+	Write-Host $SqlFilesPath
+	return;
+	$newDatabaseName = "$($connection.InitialCatalog)"
+	$newLogicalName = "Broadcast"
+	$newMdfFile = "$($SqlFilesPath)$($connection.InitialCatalog).mdf"
+	$newLogFile = "$($SqlFilesPath)$($connection.InitialCatalog)_log.ldf"
+
+	Write-Host "Creating Database:  $newDatabaseName"
+	Write-Host "Logical Name: $newLogicalName"
+	Write-Host "MdfFile: $newMdfFile"
+	Write-Host "LogFile: $newLogFile"
+
+    Invoke-Sqlcmd -Query @"
+	CREATE DATABASE $($newDatabaseName)	
+	CONTAINMENT = NONE ON  PRIMARY ( NAME = N'Classifieds', FILENAME = N'$($newMdfFile)' , SIZE = 5120KB , FILEGROWTH = 1024KB )  
+	LOG ON ( NAME = N'$($newLogicalName)_log', FILENAME = N'$($newLogFile)' , SIZE = 1024KB , FILEGROWTH = 10%) 
+"@  -ServerInstance $connection.DataSource -QueryTimeout 0 -Username $connection.UserID -Password $connection.Password
+
+
 }
 
 Set-Location $scriptPath

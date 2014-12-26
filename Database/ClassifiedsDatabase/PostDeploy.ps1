@@ -24,12 +24,12 @@ if ( $BackupDatabase -eq $true -and $db -ne $null ){
 
 # Restore-SqlDatabase
 if ( $RestoreDatabase -eq $true ){	
-    $backupFile = $BackupDatabasePath + "$($Brand)_Classifieds.bak"
+    $backupFile = $BackupDatabasePath + "$($DbNameConvention)_Classifieds.bak"
 	Invoke-Sqlcmd "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ServerInstance $connection.DataSource -QueryTimeout 0 -ErrorAction SilentlyContinue -Username $connection.UserID -Password $connection.Password
 	Invoke-Sqlcmd "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ServerInstance $connection.DataSource -QueryTimeout 0 -ErrorAction SilentlyContinue -Username $connection.UserID -Password $connection.Password
 
-	$mdfRelocate = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile -ArgumentList ("$($ClassifiedDbFileName)", "$($SqlFilesPath)DATA\$($connection.InitialCatalog).mdf")
-    $logRelocate = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile -ArgumentList ("$($ClassifiedDbFileName)_log", "$($SqlFilesPath)DATA\$($connection.InitialCatalog)_log.ldf")
+	$mdfRelocate = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile -ArgumentList ("Classifieds", "$($SqlFilesPath)DATA\$($connection.InitialCatalog).mdf")
+    $logRelocate = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile -ArgumentList ("Classifieds_log", "$($SqlFilesPath)DATA\$($connection.InitialCatalog)_log.ldf")
 
 	Write-Host "Restoring Database $($connection.InitialCatalog) from $($backupFile) ..."
 	
@@ -44,14 +44,32 @@ if ( $DropCreateDatabase -eq $true -and $db -ne $null ) {
 
     Write-Host "Dropping database..."        
     Invoke-Sqlcmd -Query "DROP DATABASE $($connection.InitialCatalog)" -ServerInstance $connection.DataSource -QueryTimeout 0 -Username $connection.UserID -Password $connection.Password
-    Write-Host "Creating Database..."
-    Invoke-Sqlcmd -Query "CREATE DATABASE $($connection.InitialCatalog)" -ServerInstance $connection.DataSource -QueryTimeout 0 -Username $connection.UserID -Password $connection.Password
-	$db = "DatabaseCreated"
+   
+	# Ensure is it null so it gets created
+	$db = $null
 }
 
+# Create database because it does not exist or it was dropped
 if ( $db -eq $null ) {
-	Write-Host "Creating Database..."
-    Invoke-Sqlcmd -Query "CREATE DATABASE $($connection.InitialCatalog)" -ServerInstance $connection.DataSource -QueryTimeout 0 -Username $connection.UserID -Password $connection.Password
+	Write-Host $SqlFilesPath
+	return;
+	$newDatabaseName = "$($connection.InitialCatalog)"
+	$newLogicalName = "Classifieds"
+	$newMdfFile = "$($SqlFilesPath)$($connection.InitialCatalog).mdf"
+	$newLogFile = "$($SqlFilesPath)$($connection.InitialCatalog)_log.ldf"
+
+	Write-Host "Creating Database:  $newDatabaseName"
+	Write-Host "Logical Name: $newLogicalName"
+	Write-Host "MdfFile: $newMdfFile"
+	Write-Host "LogFile: $newLogFile"
+
+    Invoke-Sqlcmd -Query @"
+	CREATE DATABASE $($newDatabaseName)	
+	CONTAINMENT = NONE ON  PRIMARY ( NAME = N'Classifieds', FILENAME = N'$($newMdfFile)' , SIZE = 5120KB , FILEGROWTH = 1024KB )  
+	LOG ON ( NAME = N'$($newLogicalName)_log', FILENAME = N'$($newLogFile)' , SIZE = 1024KB , FILEGROWTH = 10%) 
+"@  -ServerInstance $connection.DataSource -QueryTimeout 0 -Username $connection.UserID -Password $connection.Password
+
+
 }
 
 

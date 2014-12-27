@@ -28,8 +28,8 @@ if ( $RestoreDatabase -eq $true ){
 	Invoke-Sqlcmd "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ServerInstance $connection.DataSource -QueryTimeout 0 -ErrorAction SilentlyContinue -Username $connection.UserID -Password $connection.Password
 	Invoke-Sqlcmd "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ServerInstance $connection.DataSource -QueryTimeout 0 -ErrorAction SilentlyContinue -Username $connection.UserID -Password $connection.Password
 
-	$mdfRelocate = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile -ArgumentList ("Classifieds", "$($SqlFilesPath)DATA\$($connection.InitialCatalog).mdf")
-    $logRelocate = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile -ArgumentList ("Classifieds_log", "$($SqlFilesPath)DATA\$($connection.InitialCatalog)_log.ldf")
+	$mdfRelocate = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile -ArgumentList ("Classifieds", "$($SqlFilesPath)$($connection.InitialCatalog).mdf")
+    $logRelocate = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile -ArgumentList ("Classifieds_log", "$($SqlFilesPath)$($connection.InitialCatalog)_log.ldf")
 
 	Write-Host "Restoring Database $($connection.InitialCatalog) from $($backupFile) ..."
 	

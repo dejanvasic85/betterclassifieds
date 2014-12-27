@@ -17,7 +17,7 @@ $db = Invoke-SqlCmd -Query "SELECT name from master.dbo.sysdatabases WHERE name 
 
 # Backup-SqlDatabase 
 if ( $BackupDatabase -eq $true -and $db -ne $null ){
-	$backupFile = $BackupDatabasePath + $BackupAppUserFile
+	$backupFile = $BackupDatabasePath + "$($DbNameConvention)_AppUser.bak"
     Write-Host "Backing Up..."
     Backup-SqlDatabase -ServerInstance $connection.DataSource -Database $connection.InitialCatalog -BackupFile $backupFile -BackupAction Database -Initialize
     Set-Location $scriptPath
@@ -25,7 +25,7 @@ if ( $BackupDatabase -eq $true -and $db -ne $null ){
 
 # Restore-SqlDatabase
 if ( $RestoreDatabase -eq $true ){	
-    $backupFile = $BackupDatabasePath + "$($DbNameConvention)_AppUser.bak"
+    $backupFile = $BackupDatabasePath + $BackupAppUserFile
 	Invoke-Sqlcmd "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ServerInstance $connection.DataSource -QueryTimeout 0  -Username $connection.UserID -Password $connection.Password -ErrorAction SilentlyContinue  
 	Invoke-Sqlcmd "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ServerInstance $connection.DataSource -QueryTimeout 0  -Username $connection.UserID -Password $connection.Password -ErrorAction SilentlyContinue
 

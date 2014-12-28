@@ -55,7 +55,7 @@ namespace Paramount.Betterclassified.Utilities.PayPal
 
         private PayPalSettings(XmlNode section)
         {
-            XmlNode configContent = section.SelectSingleNode("/paypal");
+            XmlNode configContent = section.SelectSingleNode("/paypal-classic");
             if (configContent != null)
             {
                 BusinessEmail = configContent.Attributes["BusinessEmail"].InnerText;

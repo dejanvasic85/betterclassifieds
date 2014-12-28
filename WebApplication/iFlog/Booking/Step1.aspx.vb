@@ -17,7 +17,11 @@ Partial Public Class AdType
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         ' first check if we are coming back to this page.
 
-        _action = Request.QueryString("action")
+        Dim user = Membership.GetUser()
+
+        If user Is Nothing Then
+            Response.Redirect("~/Account/Login")
+        End If
 
         Me.lblSessionExpired.Visible = (_action = "expired")
         If Not Page.IsPostBack Then
@@ -34,7 +38,7 @@ Partial Public Class AdType
                 BundleController.StartNewBundleBooking(Membership.GetUser().UserName)
                 BookingController.BookingType = Booking.BookingAction.BundledBooking
                 Response.Redirect(PageUrl.BookingBundle_2)
-           
+
             Case PackageSelection.NoSelection
                 ' Display an error that nothing was selected
                 Dim pageErrors As List(Of String) = New List(Of String)

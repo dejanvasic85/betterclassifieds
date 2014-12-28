@@ -1,10 +1,7 @@
 ﻿Imports Paramount.ApplicationBlock.Data
 
 Partial Public Class CRMDataContext
-    Private Const configSection As String = "paramount/services"
-    Private Const appuserConnection As String = "AppUserConnection"
-
     Public Shared Function NewContext() As CRMDataContext
-        Return New CRMDataContext(ConfigReader.GetConnectionString(configSection, appuserConnection))
+        Return New CRMDataContext(ConfigReader.GetConnectionString("AppUserConnection"))
     End Function
 End Class

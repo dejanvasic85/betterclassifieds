@@ -7,7 +7,7 @@ Partial Public Class Success
 
     Public Shared ReadOnly Property Settings() As PayPalSettings
         Get
-            Return ConfigurationManager.GetSection("paypal")
+            Return ConfigurationManager.GetSection("paypal-classic")
         End Get
     End Property
 

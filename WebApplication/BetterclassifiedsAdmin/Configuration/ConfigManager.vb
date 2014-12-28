@@ -42,15 +42,9 @@ Namespace Configuration
             Return Profile.ProfileManager.Providers("CustomerProfileProvider")
         End Function
 
-        Public Shared ReadOnly Property WebResourcesDBConnection() As String
-            Get
-                Return ConfigReader.GetConnectionString(configSection, appuserConnection)
-            End Get
-        End Property
-
         Public Shared ReadOnly Property DBConnection() As String
             Get
-                Return ConfigReader.GetConnectionString(configSection, appuserConnection)
+                Return ConfigReader.GetConnectionString("ClassifiedConnection")
             End Get
         End Property
 
@@ -63,7 +57,7 @@ Namespace Configuration
 
         Public Shared ReadOnly Property ASPNetStateConnection() As String
             Get
-                Return ConfigReader.GetConnectionString(configSection, appuserConnection)
+                Return ConfigReader.GetConnectionString("AppUserConnection")
             End Get
         End Property
 

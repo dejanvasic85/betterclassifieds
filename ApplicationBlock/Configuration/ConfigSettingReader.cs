@@ -64,7 +64,7 @@
             get
             {
                 // Get the image path from the Master config
-                var imageCachePath = ConfigManager.GetSetting(DslSectionName, DslImageCacheDirectoryKey);
+                var imageCachePath = ConfigManager.ReadAppSetting("ImageCacheDirectory");
                 if (string.IsNullOrEmpty(imageCachePath))
                 {
                     return null;

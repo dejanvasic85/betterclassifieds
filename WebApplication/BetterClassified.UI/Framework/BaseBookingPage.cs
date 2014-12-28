@@ -1,4 +1,5 @@
-﻿using BetterclassifiedsCore;
+﻿using System.Web.Security;
+using BetterclassifiedsCore;
 using BetterclassifiedsCore.BundleBooking;
 using BetterclassifiedsCore.BusinessEntities;
 using System;
@@ -33,6 +34,13 @@ namespace BetterClassified.UI.WebPage
     {
         protected override void OnLoad(EventArgs e)
         {
+            var user = Membership.GetUser();
+            if (user == null || !user.IsOnline)
+            {
+                // Redirect to the log in page
+                Response.Redirect("~/Account/Login");
+            }
+
             if(BundleController.BundleCart == null)
                 throw new BookingExpiredException("BundleController.BundleCart is null");
 

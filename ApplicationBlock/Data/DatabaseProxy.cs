@@ -1,10 +1,9 @@
-﻿using System.Configuration;
-
-namespace Paramount.ApplicationBlock.Data
+﻿namespace Paramount.ApplicationBlock.Data
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Configuration;
     using System.Data;
     using System.Globalization;
     using System.Text;
@@ -16,16 +15,15 @@ namespace Paramount.ApplicationBlock.Data
         private readonly Collection<Parameter> _paramList;
         private readonly string _procName;
 
-        public DatabaseProxy(string procName, string configSectionName) : this(procName, configSectionName, string.Empty) { }
-
-        public DatabaseProxy(string procName, string configSectionName, string configKey)
+        public DatabaseProxy(string procName, string connectionName)
         {
-            if (string.IsNullOrEmpty(configSectionName))
+            if (string.IsNullOrEmpty(connectionName))
             {
                 throw new DatabaseProxyException("configSection cannot be null or empty");
             }
 
-            this._connectionString = string.IsNullOrEmpty(configKey) ? ConfigReader.GetConnectionString(configSectionName) : ConfigReader.GetConnectionString(configSectionName, configKey);
+            this._connectionString = ConfigurationManager.ConnectionStrings[connectionName].ConnectionString;
+
             if (this._connectionString.StartsWith("provider", StringComparison.OrdinalIgnoreCase))
             {
                 var providerEndIndex = this._connectionString.IndexOf(';');

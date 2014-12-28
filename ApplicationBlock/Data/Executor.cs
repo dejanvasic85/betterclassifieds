@@ -99,13 +99,7 @@
             TransactionExecutorByConnectionString(worker, ConfigReader.GetConnectionString(configSectionName));
         }
 
-        public static void TransactionExecutorByConfigSectionName(
-            Worker worker, string configSectionName, string configKey)
-        {
-            TransactionExecutorByConnectionString(
-                worker, ConfigReader.GetConnectionString(configSectionName, configKey));
-        }
-
+       
         public static void TransactionExecutorByConnectionString(Worker worker, string connectionString)
         {
             // Begin Transaction

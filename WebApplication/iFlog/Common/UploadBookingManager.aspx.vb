@@ -24,7 +24,9 @@ Partial Public Class UploadBookingManager
             ' Set the required properties on the controls
             paramountFileUpload.ReferenceData = UploadParameter.BookingReference
             paramountFileUpload.ImageList = GetImageGraphicsFromBookingSession()
-            paramountFileUpload.MaxFiles = GeneralRoutine.GetAppSetting(Utilities.Constants.CONST_MODULE_ONLINE_ADS, Utilities.Constants.CONST_KEY_Maximum_Image_Files)
+            'paramountFileUpload.MaxFiles = GeneralRoutine.GetAppSetting(Utilities.Constants.CONST_MODULE_ONLINE_ADS, Utilities.Constants.CONST_KEY_Maximum_Image_Files)
+            paramountFileUpload.MaxFiles = AppKeyReader(Of String).ReadFromStore("MaxOnlineImages")
+
         End If
     End Sub
 

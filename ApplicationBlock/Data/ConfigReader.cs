@@ -26,8 +26,6 @@ namespace Paramount.ApplicationBlock.Data
             }
         }
 
-        private ConfigReader(string configSectionName) : this(configSectionName, null) { }
-
         private ConfigReader(string configSectionName, string configKey)
         {
             this.configSectionName = configSectionName;
@@ -35,44 +33,11 @@ namespace Paramount.ApplicationBlock.Data
             LoadConnectionSettingsFromConfig();
         }
 
-        public static string GetConnectionString(string configSectionName)
+        public static string GetConnectionString(string connectionName)
         {
-            if (Settings.ContainsKey(configSectionName))
-            {
-                return Settings[configSectionName].ConnectionString();
-            }
-
-            //add
-            lock (settings)
-            {
-                if (!Settings.ContainsKey(configSectionName))
-                {
-                    Settings.Add(configSectionName, new ConfigReader(configSectionName));
-                }
-            }
-            return Settings[configSectionName].ConnectionString();
+            return ConfigurationManager.ConnectionStrings[connectionName].ConnectionString;
         }
-
-        public static string GetConnectionString(string configSectionName, string configKey)
-        {
-            var key = string.Format("{0}/{1}", configSectionName, configKey);
-
-            if (Settings.ContainsKey(key))
-            {
-                return Settings[key].ConnectionString();
-            }
-
-            //add
-            lock (settings)
-            {
-                if (!Settings.ContainsKey(key))
-                {
-                    Settings.Add(key, new ConfigReader(configSectionName, configKey));
-                }
-            }
-            return Settings[key].ConnectionString();
-        }
-
+        
         public void Dispose()
         {
             Dispose(true);

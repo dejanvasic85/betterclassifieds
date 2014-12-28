@@ -1,5 +1,13 @@
 Here's a list of the latest changes for the current release:
 
+**2.14.1 Fixes**
+
+- [Support email request now contains the all important content](https://trello.com/c/GKPsDVLO/276-the-support-email-doesn-t-contain-the-comments)
+
+- [Connection string was removed from DSL and broke it!](https://trello.com/c/lEooIPi4/277-connection-string-was-removed-for-dsl-for-old-booking-process)
+
+- [PayPal settings have been fixed properly now](https://trello.com/c/zVdEaCI2/278-pp-aspx-vb-is-configured-with-hardcoded-paypal-section-name)
+
 **Enhancements**
 
 - [All new booking system](https://trello.com/c/prXqhrqH/135-nextgen-booking-engine-and-user-interface-revamp)

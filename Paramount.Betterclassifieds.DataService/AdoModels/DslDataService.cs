@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 
 namespace Paramount.Betterclassifieds.DataService
 {
@@ -14,13 +15,13 @@ namespace Paramount.Betterclassifieds.DataService
     [Obsolete]
     public static class DslDataService
     {
-        private const string ConfigSection = @"paramount/dsl";
+        private const string ConnectionName = "DocumentConnection";
         private const int DefaultStreamSize = 4096;
 
         public static void AppendChunk(Guid documentId, byte[] buffer, int offSet)
         {
             //ClearFile(documentId);
-            var df = new DatabaseProxy(Proc.DocumentStorageUpdateChunks.Name, ConfigSection);
+            var df = new DatabaseProxy(Proc.DocumentStorageUpdateChunks.Name, ConnectionName);
             df.AddParameter(Proc.DocumentStorageUpdateChunks.Params.DocumentId, documentId);
             df.AddParameter(Proc.DocumentStorageUpdateChunks.Params.FileData, buffer);
             df.AddParameter(Proc.DocumentStorageUpdateChunks.Params.Offset, offSet);
@@ -42,7 +43,7 @@ namespace Paramount.Betterclassifieds.DataService
             string reference,
             int fileLength)
         {
-            var df = new DatabaseProxy(Proc.DocumentStorageInsert.Name, ConfigSection);
+            var df = new DatabaseProxy(Proc.DocumentStorageInsert.Name, ConnectionName);
 
             #region Insert Parameters
 
@@ -91,7 +92,7 @@ namespace Paramount.Betterclassifieds.DataService
 
         public static void ClearFile(Guid documentId)
         {
-            var spClearUpdate = new DatabaseProxy(Proc.DocumentStorageClearUpdate.Name, ConfigSection);
+            var spClearUpdate = new DatabaseProxy(Proc.DocumentStorageClearUpdate.Name, ConnectionName);
             spClearUpdate.AddParameter(Proc.DocumentStorageClearUpdate.Params.DocumentId, documentId);
             spClearUpdate.ExecuteNonQuery();
         }
@@ -101,7 +102,7 @@ namespace Paramount.Betterclassifieds.DataService
             string fileType, string username, bool isPrivate, string reference, int fileLength)
         {
             // Stored proc to insert reference data
-            var df = new DatabaseProxy(Proc.DocumentStorageInsert.Name, ConfigSection);
+            var df = new DatabaseProxy(Proc.DocumentStorageInsert.Name, ConnectionName);
 
             #region Insert Parameters
 
@@ -155,12 +156,12 @@ namespace Paramount.Betterclassifieds.DataService
             DslDocument document = table.Rows[0].ToDslDocument();
 
             // Call stored proc to clear update
-            var spClearUpdate = new DatabaseProxy(Proc.DocumentStorageClearUpdate.Name, ConfigSection);
+            var spClearUpdate = new DatabaseProxy(Proc.DocumentStorageClearUpdate.Name, ConnectionName);
             spClearUpdate.AddParameter(Proc.DocumentStorageClearUpdate.Params.DocumentId, document.DocumentId);
             spClearUpdate.ExecuteNonQuery();
 
             // Perform Chunking to DB
-            var spUpdateChunks = new DatabaseProxy(Proc.DocumentStorageUpdateChunks.Name, ConfigSection);
+            var spUpdateChunks = new DatabaseProxy(Proc.DocumentStorageUpdateChunks.Name, ConnectionName);
             int chunkLength = ConfigSettingReader.DslChunkLength;
             var byteData = new byte[chunkLength];
             int totalSizeCount = 0;
@@ -211,7 +212,7 @@ namespace Paramount.Betterclassifieds.DataService
 
         public static DslDocument GetDocumentItem(Guid documentId, string entityCode)
         {
-            var spDocumentSelect = new DatabaseProxy(Proc.DocumentStorageSelect.Name, ConfigSection);
+            var spDocumentSelect = new DatabaseProxy(Proc.DocumentStorageSelect.Name, ConnectionName);
             spDocumentSelect.AddParameter(Proc.DocumentStorageSelect.Param.DocumentId, documentId);
             if (entityCode.HasValue())
             {
@@ -234,7 +235,7 @@ namespace Paramount.Betterclassifieds.DataService
             if (offset > document.FileLength)
                 CustomSoapException("Invalid Download Offset", String.Format("The file size is {0}, received request for offset {1}", document.FileLength, offset));
 
-            var sqlConnection = new SqlConnection(ConfigReader.GetConnectionString(ConfigSection));
+            var sqlConnection = new SqlConnection(ConfigReader.GetConnectionString(ConnectionName));
 
             var tempBuffer = new byte[bufferSize];
             using (var sqlCommand = new SqlCommand(Proc.DocumentStorageSelectFileData.Name, sqlConnection))
@@ -272,7 +273,7 @@ namespace Paramount.Betterclassifieds.DataService
             int chunkLength = ConfigSettingReader.DslChunkLength;
             byte[] bytes = new byte[chunkLength];
 
-            var sqlConnection = new SqlConnection(ConfigReader.GetConnectionString(ConfigSection));
+            var sqlConnection = new SqlConnection(ConfigReader.GetConnectionString(ConnectionName));
             using (var sqlCommand = new SqlCommand(Proc.DocumentStorageSelectFileData.Name, sqlConnection))
             {
                 sqlCommand.CommandType = CommandType.StoredProcedure;
@@ -305,7 +306,7 @@ namespace Paramount.Betterclassifieds.DataService
         {
             DslDocumentCategory documentCategory = new DslDocumentCategory();
 
-            var spDocumentCategory = new DatabaseProxy(Proc.DocumentCategorySelect.Name, ConfigSection);
+            var spDocumentCategory = new DatabaseProxy(Proc.DocumentCategorySelect.Name, ConnectionName);
             spDocumentCategory.AddParameter(Proc.DocumentCategorySelect.Param.CategoryCode, (int)documentCategoryType);
 
             var table = spDocumentCategory.ExecuteQuery().Tables[0];
@@ -320,7 +321,7 @@ namespace Paramount.Betterclassifieds.DataService
 
         public static void DeleteDocument(Guid documentId)
         {
-            var spDocumentDelete = new DatabaseProxy(Proc.DocumentStorageDelete.Name, ConfigSection);
+            var spDocumentDelete = new DatabaseProxy(Proc.DocumentStorageDelete.Name, ConnectionName);
             spDocumentDelete.AddParameter(Proc.DocumentStorageDelete.Param.DocumentId, documentId.ToString(), StringType.VarChar);
             spDocumentDelete.ExecuteNonQuery();
         }

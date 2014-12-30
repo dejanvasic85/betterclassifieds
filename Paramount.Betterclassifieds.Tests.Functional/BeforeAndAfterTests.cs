@@ -145,6 +145,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             var dataRepository = DataRepositoryFactory.Create(_configuration);
             dataRepository.DropUserNetwork(TestData.DefaultUsername);
         }
+
         #endregion
     }
 }

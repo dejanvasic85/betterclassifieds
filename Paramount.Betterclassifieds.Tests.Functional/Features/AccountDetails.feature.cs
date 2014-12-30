@@ -19,23 +19,21 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("OnlineAdView")]
-    [NUnit.Framework.CategoryAttribute("onlineAd")]
-    public partial class OnlineAdViewFeature
+    [NUnit.Framework.DescriptionAttribute("AccountDetails")]
+    public partial class AccountDetailsFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "OnlineAdView.feature"
+#line 1 "AccountDetails.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "OnlineAdView", "In order to view details of an ad online\r\nAs a an anonymous user\r\nI want to be to" +
-                    " navigate to a SEO friendly URL", ProgrammingLanguage.CSharp, new string[] {
-                        "onlineAd"});
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "AccountDetails", "In order to keep my details up to date\nAs an advertiser\nI want to be able to logi" +
+                    "n and update my personal details", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -68,25 +66,29 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Open Online Ad Url Successfully")]
-        public virtual void OpenOnlineAdUrlSuccessfully()
+        [NUnit.Framework.DescriptionAttribute("Update details successfully")]
+        [NUnit.Framework.IgnoreAttribute()]
+        [NUnit.Framework.CategoryAttribute("accountDetails")]
+        public virtual void UpdateDetailsSuccessfully()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Open Online Ad Url Successfully", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update details successfully", new string[] {
+                        "accountDetails",
+                        "ignore"});
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.Given("I have an online ad titled \"Ad with cool route\" in parent category \"Selenium pare" +
-                    "nt\" and sub category \"Selenium child\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("The user with username \"accountTesting\" does not exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
- testRunner.When("I navigate to online ad \"Ad/ad-with-cool-route/{0}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("I am a registered user with username \"accountTesting\" and password \"accountTestin" +
+                    "g123\" and email \"account@testing.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 10
- testRunner.Then("the page title should start with \"Ad with cool route\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I am logged in as \"accountTesting\" with password \"accountTesting123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 11
- testRunner.And("the online ad contact name should be \"Sample Contact\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("I go to MyAccountDetails page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 12
- testRunner.And("the online ad contact email should be \"sample@fake.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("Update my address \"1 AutomatedTesting Street\", PhoneNumber \"0399991111\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 13
- testRunner.And("the online ad contact phone should be \"111 222 333\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Then("I should see details updated message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

@@ -42,7 +42,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             _dataRepository.AddLocationIfNotExists(location, area);
         }
 
-        [When(@"I navigate to ""(.*)""")]
+        [When(@"I navigate to online ad ""(.*)""")]
         public void WhenINavigate(string url)
         {
             string urlWithId = string.Format(url, ScenarioContext.Current.Get<int>("AdId"));

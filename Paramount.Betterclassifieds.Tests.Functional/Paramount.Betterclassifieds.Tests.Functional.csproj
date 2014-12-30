@@ -91,6 +91,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AdminLogin.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\AccountDetails.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AccountDetails.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\ContactUs.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -119,8 +124,10 @@
     <Compile Include="Base\IConfig.cs" />
     <Compile Include="Mocks\Models\RoleType.cs" />
     <Compile Include="Mocks\TestData.cs" />
+    <Compile Include="NavigationSteps.cs" />
     <Compile Include="PagesAdmin\AdminDashboardPage.cs" />
     <Compile Include="PagesAdmin\AdminLoginPage.cs" />
+    <Compile Include="Pages\AccountDetailsTestPage.cs" />
     <Compile Include="Pages\Booking\BookingCompletePage.cs" />
     <Compile Include="Pages\Booking\BookingStep4Page.cs" />
     <Compile Include="Pages\Booking\BookingBasePage.cs" />
@@ -141,6 +148,7 @@
     <Compile Include="Pages\OnlineAdPage.cs" />
     <Compile Include="Pages\RegisterNewUserPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Steps\AccountDetailSteps.cs" />
     <Compile Include="Steps\BookingSteps.cs" />
     <Compile Include="Steps\ContactUsSteps.cs" />
     <Compile Include="Steps\LoginSteps.cs" />
@@ -155,6 +163,10 @@
     <None Include="FeaturesAdmin\AdminLogin.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AdminLogin.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\AccountDetails.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AccountDetails.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\ContactUs.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

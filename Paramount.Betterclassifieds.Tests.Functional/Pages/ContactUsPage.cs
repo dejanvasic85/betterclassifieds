@@ -98,6 +98,5 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         }
 
         #endregion
-
     }
 }

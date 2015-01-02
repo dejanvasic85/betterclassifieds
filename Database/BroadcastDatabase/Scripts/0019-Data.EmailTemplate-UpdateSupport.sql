@@ -2,8 +2,8 @@
 -- Support Request
 UPDATE	EmailTemplate
 SET	[From] = 'classies@themusic.com.au',
-	[ModifiedDate] = @currentDateTime,
-	[ModifiedDateUtc] = @currentDateTimeUtc,
+	[ModifiedDate] = GETDATE(),
+	[ModifiedDateUtc] = GETUTCDATE(),
 	[BodyTemplate] = '<!DOCTYPE html>
 <html lang="en">
 <head>

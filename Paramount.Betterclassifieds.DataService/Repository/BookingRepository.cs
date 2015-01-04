@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.DataService.Repository
+﻿using Paramount.Betterclassifieds.Business.Print;
+
+namespace Paramount.Betterclassifieds.DataService.Repository
 {
     using AutoMapper;
     using Business;

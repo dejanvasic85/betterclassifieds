@@ -3,6 +3,7 @@ Imports BetterclassifiedsCore
 Imports BetterClassified
 Imports BetterclassifiedsCore.ParameterAccess
 Imports Paramount.Betterclassifieds.Business
+Imports Paramount.Betterclassifieds.Business.Print
 
 Public Class ExtendBooking
     Inherits BasePage(Of Presenters.ExtendBookingPresenter, Views.IExtendBookingView)
@@ -20,7 +21,7 @@ Public Class ExtendBooking
         End Get
     End Property
 
-    Public Sub DataBindEditions(editions As IEnumerable(Of Models.PublicationEditionModel), lastOnlineDate As DateTime, pricePerEdition As Decimal, totalPrice As Decimal) Implements Views.IExtendBookingView.DataBindEditions
+    Public Sub DataBindEditions(editions As IEnumerable(Of PublicationEditionModel), lastOnlineDate As DateTime, pricePerEdition As Decimal, totalPrice As Decimal) Implements Views.IExtendBookingView.DataBindEditions
         rptEditions.DataSource = editions
         rptEditions.DataBind()
 

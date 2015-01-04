@@ -71,7 +71,7 @@
     <Compile Include="Broadcast\EmailTemplate.cs" />
     <Compile Include="Broadcast\ITemplateParser.cs" />
     <Compile Include="Broadcast\DocTypes\IDocType.cs" />
-    <Compile Include="EditionManager.cs" />
+    <Compile Include="Print\EditionManager.cs" />
     <Compile Include="EnquiryManager.cs" />
     <Compile Include="Booking\BookingAuthorisationException.cs" />
     <Compile Include="SetupException.cs" />
@@ -100,7 +100,7 @@
     <Compile Include="Models\AdImage.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Comparers\PublicationIdComparer.cs" />
-    <Compile Include="Models\PublicationTypeModel.cs" />
+    <Compile Include="Print\PublicationTypeModel.cs" />
     <Compile Include="DocumentStorage\Document.cs" />
     <Compile Include="Repository\ICategoryRepository.cs" />
     <Compile Include="Managers\IEditionManager.cs" />
@@ -112,19 +112,19 @@
     <Compile Include="Models\AdBookingModel.cs" />
     <Compile Include="Models\AdTypeCode.cs" />
     <Compile Include="Membership\ApplicationUser.cs" />
-    <Compile Include="Models\BookEntry.cs" />
+    <Compile Include="Print\BookEntry.cs" />
     <Compile Include="Models\BookEntryModel.cs" />
     <Compile Include="Models\BookingStatusType.cs" />
     <Compile Include="Models\BookingType.cs" />
     <Compile Include="Models\Comparers\AdBookingIdComparer.cs" />
     <Compile Include="Models\ExtensionStatus.cs" />
-    <Compile Include="Models\LineAdModel.cs" />
+    <Compile Include="Print\LineAdModel.cs" />
     <Compile Include="Models\LookupType.cs" />
     <Compile Include="Models\OnlineAdModel.cs" />
     <Compile Include="Models\OnlineAdTypeAttribute.cs" />
     <Compile Include="Models\PaymentType.cs" />
-    <Compile Include="Models\PublicationEditionModel.cs" />
-    <Compile Include="Models\PublicationModel.cs" />
+    <Compile Include="Print\PublicationEditionModel.cs" />
+    <Compile Include="Print\PublicationModel.cs" />
     <Compile Include="Pricing\RateCalculator.cs" />
     <Compile Include="Pricing\RateModel.cs" />
     <Compile Include="Models\TutorAdModel.cs" />
@@ -138,9 +138,9 @@
     <Compile Include="Repository\ILookupRepository.cs" />
     <Compile Include="Repository\IMenuRepository.cs" />
     <Compile Include="Repository\IPaymentsRepository.cs" />
-    <Compile Include="Repository\IPublicationRepository.cs" />
+    <Compile Include="Print\IPublicationRepository.cs" />
     <Compile Include="Pricing\IRateRepository.cs" />
-    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="IRepository.cs" />
     <Compile Include="Membership\IUserRepository.cs" />
     <Compile Include="Search\LocationSearchResult.cs" />
   </ItemGroup>
@@ -150,9 +150,7 @@
       <Name>Paramount.Utility</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Exceptions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

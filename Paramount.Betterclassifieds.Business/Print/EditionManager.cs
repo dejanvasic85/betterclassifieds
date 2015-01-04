@@ -1,10 +1,9 @@
-﻿namespace Paramount.Betterclassifieds.Business
+﻿namespace Paramount.Betterclassifieds.Business.Print
 {
     using Managers;
     using System;
     using Booking;
-    using Print;
-
+    
     public class EditionManager : IEditionManager
     {
         private readonly IBookingRepository _bookingRepository;

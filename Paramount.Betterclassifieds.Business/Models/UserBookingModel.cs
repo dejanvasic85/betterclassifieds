@@ -2,6 +2,8 @@
 
 namespace Paramount.Betterclassifieds.Business.Models
 {
+
+    [Obsolete]
     public class UserBookingModel
     {
         public const int ExpiringAdDaysBeforeToday = 7;

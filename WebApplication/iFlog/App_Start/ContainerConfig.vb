@@ -7,6 +7,7 @@ Imports Paramount.Betterclassifieds.Security
 Imports Paramount.Betterclassifieds.DataService.Repository
 Imports Paramount.Betterclassifieds.Business.Broadcast
 Imports Paramount.Betterclassifieds.Business.Booking
+Imports Paramount.Betterclassifieds.Business.Print
 
 Public Class ContainerConfig
     Public Shared Sub RegisterIocContainer(ByVal container As IUnityContainer)

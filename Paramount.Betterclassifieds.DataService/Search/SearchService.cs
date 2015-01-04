@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Paramount.Betterclassifieds.Business.Models;
+using Paramount.Betterclassifieds.Business.Print;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.DataService.Classifieds;
 using Paramount.Betterclassifieds.DataService.Search;

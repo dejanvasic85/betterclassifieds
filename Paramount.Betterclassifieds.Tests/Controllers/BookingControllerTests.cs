@@ -10,6 +10,7 @@ using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Payment;
+using Paramount.Betterclassifieds.Business.Print;
 using Paramount.Betterclassifieds.Business.Repository;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Controllers;

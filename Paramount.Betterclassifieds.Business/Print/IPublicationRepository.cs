@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Paramount.Betterclassifieds.Business.Models;
-
-namespace Paramount.Betterclassifieds.Business.Repository
+﻿namespace Paramount.Betterclassifieds.Business.Print
 {
+    using System;
+    using System.Collections.Generic;
+    using Models;
+    
     public interface IPublicationRepository
     {
         PublicationModel GetPublication(int publicationId);

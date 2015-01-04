@@ -1,19 +1,20 @@
-using System;
-using System.Collections.Generic;
-using System.Web.UI;
-using Microsoft.Practices.Unity;
-using Moq;
-using NUnit.Framework;
-using Paramount.Betterclassifieds.Business;
-using Paramount.Betterclassifieds.Business.Booking;
-using Paramount.Betterclassifieds.Business.Broadcast;
-using Paramount.Betterclassifieds.Business.Managers;
-using Paramount.Betterclassifieds.Business.Models;
-using Paramount.Betterclassifieds.Business.Repository;
-using Paramount.Betterclassifieds.Tests.Mocks;
-
 namespace Paramount.Betterclassifieds.Tests.BusinessModel
 {
+    using Microsoft.Practices.Unity;
+    using Moq;
+    using NUnit.Framework;
+    using Business;
+    using Business.Booking;
+    using Business.Broadcast;
+    using Business.Managers;
+    using Business.Models;
+    using Business.Print;
+    using Business.Repository;
+    using Tests.Mocks;
+    using System;
+    using System.Collections.Generic;
+
+
     [TestFixture]
     public class BookingManagerTests
     {

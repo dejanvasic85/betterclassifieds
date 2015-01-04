@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Business.Models
+﻿using Paramount.Betterclassifieds.Business.Models;
+
+namespace Paramount.Betterclassifieds.Business.Print
 {
     public class LineAdModel : IAd
     {

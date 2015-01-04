@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using BetterClassified.UI.Views;
-using Paramount;
-using Paramount.Betterclassifieds.Business;
-using Paramount.Betterclassifieds.Business.Managers;
-using Paramount.Betterclassifieds.Business.Models;
-using Paramount.Betterclassifieds.Business.Repository;
-
-namespace BetterClassified.UI.Presenters
+﻿namespace BetterClassified.UI.Presenters
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using BetterClassified.UI.Views;
+    using Paramount;
+    using Paramount.Betterclassifieds.Business;
+    using Paramount.Betterclassifieds.Business.Booking;
+    using Paramount.Betterclassifieds.Business.Managers;
+    using Paramount.Betterclassifieds.Business.Models;
+    using Paramount.Betterclassifieds.Business.Print;
     public class ExtendBookingPresenter : Controller<IExtendBookingView>
     {
         private readonly IBookingRepository BookingRepository;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business.Models;
-using Paramount.Betterclassifieds.Business.Repository;
+using Paramount.Betterclassifieds.Business.Print;
 using Paramount.Betterclassifieds.DataService.Classifieds;
 
 namespace Paramount.Betterclassifieds.DataService.Repository

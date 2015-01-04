@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Presentation.Controllers
+﻿using Paramount.Betterclassifieds.Business.Print;
+
+namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     using System;
     using System.Collections.Generic;

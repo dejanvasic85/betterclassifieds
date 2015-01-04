@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.Business.Models;
+using Paramount.Betterclassifieds.Business.Print;
 
 namespace Paramount.Betterclassifieds.Business
 {

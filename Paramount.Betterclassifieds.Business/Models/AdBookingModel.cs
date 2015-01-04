@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Paramount.Betterclassifieds.Business.Print;
 
 namespace Paramount.Betterclassifieds.Business.Models
 {

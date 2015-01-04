@@ -8,6 +8,7 @@
     using Models;
     using Repository;
     using Booking;
+    using Print;
 
     public class BookingManager : IBookingManager
     {

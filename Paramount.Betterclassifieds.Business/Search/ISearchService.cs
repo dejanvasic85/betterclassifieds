@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Paramount.Betterclassifieds.Business.Models;
+using Paramount.Betterclassifieds.Business.Print;
 
 namespace Paramount.Betterclassifieds.Business.Search
 {

@@ -3,6 +3,7 @@ using Paramount.ApplicationBlock.Mvc;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Managers;
+using Paramount.Betterclassifieds.Business.Print;
 using Paramount.Betterclassifieds.Business.Repository;
 using Paramount.Betterclassifieds.DataService.Managers;
 using Paramount.Betterclassifieds.DataService.Repository;

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Linq;
-using AutoMapper;
-using Paramount.Betterclassifieds.Business.Repository;
-
-namespace Paramount.Betterclassifieds.DataService.Repository
+﻿namespace Paramount.Betterclassifieds.DataService.Repository
 {
+    using System;
+    using System.Linq;
+    using AutoMapper;
+    using Business.Print;
+
     public class EditionRepository : IEditionRepository, IMappingBehaviour
     {
         public void DeleteEditionByDate(DateTime editionDate)

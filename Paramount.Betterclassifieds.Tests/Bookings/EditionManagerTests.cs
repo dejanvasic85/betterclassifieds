@@ -1,4 +1,5 @@
-﻿using Paramount.Betterclassifieds.DataService.Classifieds;
+﻿using Paramount.Betterclassifieds.Business.Booking;
+using Paramount.Betterclassifieds.Business.Print;
 
 namespace Paramount.Betterclassifieds.Tests.BusinessModel
 {

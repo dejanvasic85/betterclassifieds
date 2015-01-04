@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Paramount.Betterclassifieds.Business.Broadcast;
-using Paramount.Betterclassifieds.Business.Managers;
-using Paramount.Betterclassifieds.Business.Models;
-using Paramount.Betterclassifieds.Business.Repository;
-
-namespace Paramount.Betterclassifieds.Business
+﻿namespace Paramount.Betterclassifieds.Business
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Broadcast;
+    using Managers;
+    using Models;
+    using Repository;
+    using Booking;
+
     public class BookingManager : IBookingManager
     {
         private readonly IBookingRepository _bookingRepository;

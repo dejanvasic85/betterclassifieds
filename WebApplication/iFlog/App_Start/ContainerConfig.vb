@@ -6,6 +6,7 @@ Imports Microsoft.Practices.Unity
 Imports Paramount.Betterclassifieds.Security
 Imports Paramount.Betterclassifieds.DataService.Repository
 Imports Paramount.Betterclassifieds.Business.Broadcast
+Imports Paramount.Betterclassifieds.Business.Booking
 
 Public Class ContainerConfig
     Public Shared Sub RegisterIocContainer(ByVal container As IUnityContainer)

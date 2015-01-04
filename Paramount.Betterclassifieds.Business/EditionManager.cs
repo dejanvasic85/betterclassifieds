@@ -2,7 +2,8 @@
 {
     using Managers;
     using System;
-    using Repository;
+    using Booking;
+    using Print;
 
     public class EditionManager : IEditionManager
     {

@@ -1,16 +1,18 @@
-﻿using System;
-using System.Linq;
-using Microsoft.Practices.Unity;
-using Paramount.Betterclassifieds.Business;
-using Paramount.Betterclassifieds.Business.Broadcast;
-using Paramount.Betterclassifieds.Business.Managers;
-using Paramount.Betterclassifieds.Business.Repository;
-using Paramount.Betterclassifieds.Console.Tasks;
-using Paramount.Betterclassifieds.DataService.Broadcast;
-using Paramount.Betterclassifieds.DataService.Repository;
-
-namespace Paramount.Betterclassifieds.Console
+﻿namespace Paramount.Betterclassifieds.Console
 {
+    using Microsoft.Practices.Unity;
+    using Business;
+    using Business.Booking;
+    using Business.Broadcast;
+    using Business.Managers;
+    using Business.Print;
+    using Business.Repository;
+    using Console.Tasks;
+    using DataService.Broadcast;
+    using DataService.Repository;
+    using System;
+    using System.Linq;
+
     class Program
     {
         private IUnityContainer _container;

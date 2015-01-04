@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Linq;
-using System.Linq;
-using AutoMapper;
-using Paramount.Betterclassifieds.Business;
-using Paramount.Betterclassifieds.Business.Models;
-using Paramount.Betterclassifieds.Business.Models.Comparers;
-using Paramount.Betterclassifieds.Business.Repository;
-using Paramount.Betterclassifieds.DataService.Classifieds;
-
-namespace Paramount.Betterclassifieds.DataService.Repository
+﻿namespace Paramount.Betterclassifieds.DataService.Repository
 {
+    using AutoMapper;
+    using Business;
+    using Business.Booking;
+    using Business.Models;
+    using Business.Models.Comparers;
+    using Classifieds;
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Linq;
+    using System.Linq;
+
     public class BookingRepository : IBookingRepository, IMappingBehaviour
     {
         public AdBookingModel GetBooking(int id, bool withLineAd = false)

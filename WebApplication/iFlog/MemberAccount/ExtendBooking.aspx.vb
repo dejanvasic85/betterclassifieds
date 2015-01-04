@@ -95,7 +95,8 @@ Public Class ExtendBooking
         ExtensionContext.ExtensionId = extensionId
         ExtensionContext.BookingReference = bookingReference
         ExtensionContext.TotalCost = Me.TotalPrice
-        BookingController.BookingType = Booking.BookingAction.Extension
+        BookingController.BookingType = BetterclassifiedsCore.Booking.BookingAction.Extension
+
 
         If rdoCreditCard.Checked Then
             BookingProcess.PaymentOption = Common.Constants.PaymentOption.CreditCard

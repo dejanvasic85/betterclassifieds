@@ -1,13 +1,13 @@
-﻿using Paramount.Betterclassifieds.Business.Managers;
-using Paramount.Betterclassifieds.Business.Repository;
-using Paramount.Betterclassifieds.Presentation.Framework;
-using System;
-using System.IO;
-using System.Web.Caching;
-using System.Web.Mvc;
-
-namespace Paramount.Betterclassifieds.Presentation.Controllers
+﻿namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
+    using Business;
+    using Business.Repository;
+    using Framework;
+    using System;
+    using System.IO;
+    using System.Web.Mvc;
+
+
     public class ImageController : Controller
     {
         private readonly IDocumentRepository _documentRepository;

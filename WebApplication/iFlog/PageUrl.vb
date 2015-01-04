@@ -4,6 +4,7 @@ Imports Microsoft.Practices.Unity
 Imports Paramount
 Imports Paramount.Betterclassifieds.Business.Managers
 Imports Paramount.Betterclassifieds.Business.Models
+Imports Paramount.Betterclassifieds.Business
 
 Public Class NextGenUrl
     Public Const LoginAndRegistration As String = "~/Account/Login"

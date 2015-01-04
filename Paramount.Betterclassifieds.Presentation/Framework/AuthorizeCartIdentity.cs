@@ -1,11 +1,11 @@
-using System;
-using System.Web.Mvc;
-using Microsoft.Practices.Unity;
-using Paramount.Betterclassifieds.Business;
-using Paramount.Betterclassifieds.Business.Managers;
-
 namespace Paramount.Betterclassifieds.Presentation
 {
+    using Microsoft.Practices.Unity;
+    using Business.Managers;
+    using Business.Booking;
+    using System.Web.Mvc;
+
+
     /// <summary>
     /// Authorizes the user to the ad they are requesting only if it belongs to them.
     /// </summary>

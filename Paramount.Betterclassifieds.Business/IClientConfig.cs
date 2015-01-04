@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using Paramount.Betterclassifieds.Business.Models;
-
-namespace Paramount.Betterclassifieds.Business
+﻿namespace Paramount.Betterclassifieds.Business
 {
+    using Models;
+    using System;
+
     public interface IClientConfig
     {
         int RestrictedEditionCount { get; }

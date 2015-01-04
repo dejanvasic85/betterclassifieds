@@ -73,9 +73,9 @@
     <Compile Include="Broadcast\DocTypes\IDocType.cs" />
     <Compile Include="EditionManager.cs" />
     <Compile Include="EnquiryManager.cs" />
-    <Compile Include="Exceptions\BookingAuthorisationException.cs" />
-    <Compile Include="Exceptions\SetupException.cs" />
-    <Compile Include="Managers\IApplicationConfig.cs" />
+    <Compile Include="Booking\BookingAuthorisationException.cs" />
+    <Compile Include="SetupException.cs" />
+    <Compile Include="IApplicationConfig.cs" />
     <Compile Include="Managers\IEnquiryManager.cs" />
     <Compile Include="Membership\RegistrationResult.cs" />
     <Compile Include="Models\Address.cs" />
@@ -120,7 +120,6 @@
     <Compile Include="Models\ExtensionStatus.cs" />
     <Compile Include="Models\LineAdModel.cs" />
     <Compile Include="Models\LookupType.cs" />
-    <Compile Include="Models\MemberMenuItem.cs" />
     <Compile Include="Models\OnlineAdModel.cs" />
     <Compile Include="Models\OnlineAdTypeAttribute.cs" />
     <Compile Include="Models\PaymentType.cs" />
@@ -134,7 +133,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IAdRepository.cs" />
     <Compile Include="Repository\IBookingRepository.cs" />
-    <Compile Include="Managers\IClientConfig.cs" />
+    <Compile Include="IClientConfig.cs" />
     <Compile Include="Repository\IEditionRepository.cs" />
     <Compile Include="Repository\ILookupRepository.cs" />
     <Compile Include="Repository\IMenuRepository.cs" />
@@ -152,7 +151,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\Seo\" />
+    <Folder Include="Exceptions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,15 +1,15 @@
-﻿using Microsoft.Practices.Unity;
-using Paramount.ApplicationBlock.Mvc;
-using Paramount.Betterclassifieds.Business;
-using Paramount.Betterclassifieds.Business.Booking;
-using Paramount.Betterclassifieds.Business.Managers;
-using Paramount.Betterclassifieds.Business.Print;
-using Paramount.Betterclassifieds.Business.Repository;
-using Paramount.Betterclassifieds.DataService.Managers;
-using Paramount.Betterclassifieds.DataService.Repository;
-
-namespace Paramount.Betterclassifieds.DataService
+﻿namespace Paramount.Betterclassifieds.DataService
 {
+    using Microsoft.Practices.Unity;
+    using ApplicationBlock.Mvc;
+    using Business;
+    using Business.Booking;
+    using Business.Managers;
+    using Business.Print;
+    using Business.Repository;
+    using Managers;
+    using Repository;
+
     
     public class DataServiceInitialiser : ModuleRegistration
     {

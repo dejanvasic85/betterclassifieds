@@ -32,17 +32,23 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
         public string ClassifiedsDbConnection
         {
-            get { return ConfigurationManager.ConnectionStrings["ClassifiedsDb"].ConnectionString; }
+            get { return FromEnvironmentOrConfig("ClassifiedsConnection"); }
         }
 
         public string BroadcastDbConnection
         {
-            get { return ConfigurationManager.ConnectionStrings["BroadcastDb"].ConnectionString; }
+            get { return FromEnvironmentOrConfig("BroadcastConnection"); }
         }
 
         public string AppUserDbConnection
         {
-            get { return ConfigurationManager.ConnectionStrings["AppUserConnection"].ConnectionString; }
+            get { return FromEnvironmentOrConfig("AppUserConnection"); }
+        }
+
+        private static string FromEnvironmentOrConfig(string key)
+        {
+            return Environment.GetEnvironmentVariable(key)
+                .Default(ConfigurationManager.ConnectionStrings[key].ConnectionString);
         }
 
         private string GetSafeUrl(string urlSettingName)

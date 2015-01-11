@@ -176,12 +176,6 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>NotFound.feature.cs</LastGenOutput>
     </None>
-    <None Include="Paramount.Betterclassifieds.Tests.Functional.dll.CI.config">
-      <DependentUpon>App.Config</DependentUpon>
-    </None>
-    <None Include="Paramount.Betterclassifieds.Tests.Functional.dll.Test.config">
-      <DependentUpon>App.Config</DependentUpon>
-    </None>
     <None Include="Features\SubmitNewBooking.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SubmitNewBooking.feature.cs</LastGenOutput>

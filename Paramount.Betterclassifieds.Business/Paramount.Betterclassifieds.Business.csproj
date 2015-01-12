@@ -78,8 +78,8 @@
     <Compile Include="IApplicationConfig.cs" />
     <Compile Include="IEnquiryManager.cs" />
     <Compile Include="Membership\RegistrationResult.cs" />
-    <Compile Include="Models\Address.cs" />
-    <Compile Include="Models\AdEnquiry.cs" />
+    <Compile Include="Address.cs" />
+    <Compile Include="AdEnquiry.cs" />
     <Compile Include="Membership\UserNetworkModel.cs" />
     <Compile Include="Payment\IPaymentService.cs" />
     <Compile Include="Payment\PaymentRequest.cs" />
@@ -96,9 +96,9 @@
     <Compile Include="ICookiesManager.cs" />
     <Compile Include="Membership\IUserManager.cs" />
     <Compile Include="Membership\RegistrationModel.cs" />
-    <Compile Include="Models\IAd.cs" />
-    <Compile Include="Models\AdImage.cs" />
-    <Compile Include="Models\Category.cs" />
+    <Compile Include="IAd.cs" />
+    <Compile Include="AdImage.cs" />
+    <Compile Include="Category.cs" />
     <Compile Include="Print\PublicationIdComparer.cs" />
     <Compile Include="Print\PublicationTypeModel.cs" />
     <Compile Include="DocumentStorage\Document.cs" />
@@ -108,25 +108,25 @@
     <Compile Include="Search\LocationAreaSearchResult.cs" />
     <Compile Include="Search\SeoNameMappingModel.cs" />
     <Compile Include="Repository\IDocumentRepository.cs" />
-    <Compile Include="Models\AdBookingExtensionModel.cs" />
-    <Compile Include="Models\AdBookingModel.cs" />
-    <Compile Include="Models\AdTypeCode.cs" />
+    <Compile Include="Booking\AdBookingExtensionModel.cs" />
+    <Compile Include="Booking\AdBookingModel.cs" />
+    <Compile Include="AdTypeCode.cs" />
     <Compile Include="Membership\ApplicationUser.cs" />
     <Compile Include="Print\BookEntry.cs" />
-    <Compile Include="Models\BookEntryModel.cs" />
-    <Compile Include="Models\BookingStatusType.cs" />
-    <Compile Include="Models\BookingType.cs" />
+    <Compile Include="Print\BookEntryModel.cs" />
+    <Compile Include="BookingStatusType.cs" />
+    <Compile Include="BookingType.cs" />
     <Compile Include="Booking\AdBookingIdComparer.cs" />
-    <Compile Include="Models\ExtensionStatus.cs" />
+    <Compile Include="Booking\ExtensionStatus.cs" />
     <Compile Include="Print\LineAdModel.cs" />
-    <Compile Include="Models\OnlineAdModel.cs" />
+    <Compile Include="Booking\OnlineAdModel.cs" />
     <Compile Include="Payment\PaymentType.cs" />
     <Compile Include="Print\PublicationEditionModel.cs" />
     <Compile Include="Print\PublicationModel.cs" />
     <Compile Include="Pricing\RateCalculator.cs" />
     <Compile Include="Pricing\RateModel.cs" />
-    <Compile Include="Models\UserBookingModel.cs" />
-    <Compile Include="Models\UserBookingViewType.cs" />
+    <Compile Include="UserBookingModel.cs" />
+    <Compile Include="UserBookingViewType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IAdRepository.cs" />
     <Compile Include="Booking\IBookingRepository.cs" />
@@ -148,7 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Managers\" />
-    <Folder Include="Models\Comparers\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

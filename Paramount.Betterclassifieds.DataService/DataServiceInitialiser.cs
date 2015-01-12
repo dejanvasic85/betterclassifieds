@@ -8,6 +8,8 @@
     using Business.Repository;
     using Managers;
     using Repository;
+    using Business.DocumentStorage;
+    using Business.Payment;
 
     
     public class DataServiceInitialiser : ModuleRegistration

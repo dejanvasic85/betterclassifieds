@@ -5,12 +5,12 @@
     using Business.Booking;
     using Business.Broadcast;
     using Business.Print;
-    using Business.Repository;
-    using Console.Tasks;
+    using Tasks;
     using DataService.Broadcast;
     using DataService.Repository;
     using System;
     using System.Linq;
+    using Business.Payment;
 
     class Program
     {

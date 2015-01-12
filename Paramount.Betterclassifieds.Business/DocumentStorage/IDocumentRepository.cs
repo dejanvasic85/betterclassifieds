@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Paramount.Betterclassifieds.Business.Repository
+namespace Paramount.Betterclassifieds.Business.DocumentStorage
 {
     public interface IDocumentRepository
     {

@@ -87,7 +87,7 @@
     <Compile Include="Payment\PaymentStatus.cs" />
     <Compile Include="Pricing\OnlineAdRate.cs" />
     <Compile Include="Pricing\PriceBreakdown.cs" />
-    <Compile Include="Repository\IEnquiryRepository.cs" />
+    <Compile Include="IEnquiryRepository.cs" />
     <Compile Include="Search\AdSearchResult.cs" />
     <Compile Include="Search\AdSearchSortOrder.cs" />
     <Compile Include="Search\CategorySearchResult.cs" />
@@ -102,12 +102,12 @@
     <Compile Include="Print\PublicationIdComparer.cs" />
     <Compile Include="Print\PublicationTypeModel.cs" />
     <Compile Include="DocumentStorage\Document.cs" />
-    <Compile Include="Repository\ICategoryRepository.cs" />
+    <Compile Include="ICategoryRepository.cs" />
     <Compile Include="Print\IEditionManager.cs" />
     <Compile Include="Booking\IBookingManager.cs" />
     <Compile Include="Search\LocationAreaSearchResult.cs" />
     <Compile Include="Search\SeoNameMappingModel.cs" />
-    <Compile Include="Repository\IDocumentRepository.cs" />
+    <Compile Include="DocumentStorage\IDocumentRepository.cs" />
     <Compile Include="Booking\AdBookingExtensionModel.cs" />
     <Compile Include="Booking\AdBookingModel.cs" />
     <Compile Include="AdTypeCode.cs" />
@@ -128,12 +128,12 @@
     <Compile Include="UserBookingModel.cs" />
     <Compile Include="UserBookingViewType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\IAdRepository.cs" />
+    <Compile Include="IAdRepository.cs" />
     <Compile Include="Booking\IBookingRepository.cs" />
     <Compile Include="IClientConfig.cs" />
     <Compile Include="Print\IEditionRepository.cs" />
-    <Compile Include="Repository\IMenuRepository.cs" />
-    <Compile Include="Repository\IPaymentsRepository.cs" />
+    <Compile Include="IMenuRepository.cs" />
+    <Compile Include="Payment\IPaymentsRepository.cs" />
     <Compile Include="Print\IPublicationRepository.cs" />
     <Compile Include="Pricing\IRateRepository.cs" />
     <Compile Include="IRepository.cs" />
@@ -146,7 +146,9 @@
       <Name>Paramount.Utility</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Repository\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

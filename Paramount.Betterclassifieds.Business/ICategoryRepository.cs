@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Paramount.Betterclassifieds.Business.Repository
+namespace Paramount.Betterclassifieds.Business
 {
     public interface ICategoryRepository
     {

@@ -4,7 +4,7 @@ using System;
 namespace Paramount.Betterclassifieds.DataService.Repository
 {
     using Business;
-    using Business.Repository;
+    using Business.DocumentStorage;
 
     public class DocumentRepository : IDocumentRepository
     {

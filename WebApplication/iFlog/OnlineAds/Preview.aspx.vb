@@ -4,6 +4,7 @@ Imports BetterClassified
 
 Imports Paramount
 Imports Paramount.Betterclassifieds.Business.Repository
+Imports Paramount.Betterclassifieds.Business
 
 Partial Public Class Preview
     Inherits System.Web.UI.Page
@@ -22,7 +23,7 @@ Partial Public Class Preview
                 ucxOnlineAd.BindOnlineAd(onlineAd)
 
             Case "session"
-                If BookingController.BookingType = Booking.BookingAction.BundledBooking Then
+                If BookingController.BookingType = BetterclassifiedsCore.Booking.BookingAction.BundledBooking Then
                     ' grab the session values from the booking cart
                     With BundleBooking.BundleController.BundleCart
                         Dim imageList As New List(Of String)

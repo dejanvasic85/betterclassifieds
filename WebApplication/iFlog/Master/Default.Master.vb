@@ -9,6 +9,7 @@ Imports BetterclassifiedsCore.DataModel
 Imports System.Net
 Imports Microsoft.Practices.Unity
 Imports Paramount.Betterclassifieds.Business.Repository
+Imports Paramount.Betterclassifieds.Business
 
 Partial Public Class _Default1
     Inherits System.Web.UI.MasterPage

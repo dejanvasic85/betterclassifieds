@@ -1,5 +1,5 @@
 using System;
-using Paramount.Betterclassifieds.Business.Repository;
+using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.DataService.Classifieds;
 
 namespace Paramount.Betterclassifieds.DataService.Repository

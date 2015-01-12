@@ -1,7 +1,7 @@
 ﻿namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     using Business;
-    using Business.Repository;
+    using Business.DocumentStorage;
     using Framework;
     using System;
     using System.IO;

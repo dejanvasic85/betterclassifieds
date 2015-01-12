@@ -1,4 +1,4 @@
-namespace Paramount.Betterclassifieds.Business.Repository
+namespace Paramount.Betterclassifieds.Business
 {
     public interface IEnquiryRepository
     {

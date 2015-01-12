@@ -13,7 +13,7 @@
     using Business.Print;
     using Business.Broadcast;
     using Business.Search;
-    using Business.Repository;
+    using Business.DocumentStorage;
     using Business.Payment;
     using ViewModels.Booking;
     using ViewModels;

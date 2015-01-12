@@ -11,6 +11,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
     using Tests.Mocks;
     using System;
     using System.Collections.Generic;
+    using Business.Payment;
 
 
     [TestFixture]

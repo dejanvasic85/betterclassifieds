@@ -6,6 +6,7 @@ Imports Microsoft.Practices.Unity
 
 Imports Paramount
 Imports Paramount.Betterclassifieds.Business.Repository
+Imports Paramount.Betterclassifieds.Business
 
 Partial Public Class AdView
     Inherits System.Web.UI.Page

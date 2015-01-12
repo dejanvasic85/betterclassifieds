@@ -5,6 +5,7 @@ Imports BetterClassified
 Imports Microsoft.Practices.Unity
 Imports Paramount
 Imports Paramount.Betterclassifieds.Business.Repository
+Imports Paramount.Betterclassifieds.Business
 
 Partial Public Class EditOnlineAd
     Inherits System.Web.UI.Page

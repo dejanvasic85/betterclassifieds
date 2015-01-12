@@ -6,8 +6,6 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
     using Business;
     using Business.Booking;
     using Business.Broadcast;
-    using Business.Managers;
-    using Business.Models;
     using Business.Print;
     using Business.Repository;
     using Tests.Mocks;

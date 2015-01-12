@@ -4,7 +4,6 @@ Imports BetterclassifiedsCore.ParameterAccess
 Imports BetterClassified.UI.WebPage
 
 Imports BetterclassifiedsCore.BusinessEntities
-Imports Paramount.Betterclassifieds.Business.Models
 
 Partial Public Class BundlePage3
     Inherits BaseBundlePage
@@ -32,12 +31,6 @@ Partial Public Class BundlePage3
             ' Load the marketing content
             DataBindMarketingContent()
 
-            ' Display the appropriate online ad
-            Dim onlineAdType = String.Format("ucx{0}", _bundleController.GetOnlineAdTypeTagForBooking)
-            Dim onlineControl = OnlineAdTypes.FindControl(onlineAdType)
-            If onlineControl IsNot Nothing Then
-                onlineControl.Visible = True
-            End If
 
         End If
     End Sub
@@ -63,23 +56,6 @@ Partial Public Class BundlePage3
             ' also set the booking reference
             ucxOnlineAd.BookingReference = BundleController.BundleCart.BookReference
 
-            Dim tutorAd = BundleController.BundleCart.TutorAd
-            If tutorAd Is Nothing Then
-                Return
-            End If
-            With BundleController.BundleCart.TutorAd
-                ucxTutors.DatabindAd(New TutorAdModel With { _
-                                      .AgeGroupMin = tutorAd.AgeGroupMin, _
-                                      .AgeGroupMax = tutorAd.AgeGroupMax, _
-                                      .ExpertiseLevel = tutorAd.ExpertiseLevel, _
-                                      .TravelOption = tutorAd.TravelOption, _
-                                      .PricingOption = tutorAd.PricingOption, _
-                                      .WhatToBring = tutorAd.WhatToBring, _
-                                      .Objective = tutorAd.Objective, _
-                                      .Subjects = tutorAd.Subjects, _
-                                      .OnlineAdId = tutorAd.OnlineAdId, _
-                                      .TutorAdId = tutorAd.TutorAdId})
-            End With
         End If
     End Sub
 
@@ -100,11 +76,6 @@ Partial Public Class BundlePage3
             _bundleController.SetOnlineAdDetails(ucxOnlineAd.Heading, ucxOnlineAd.Description, ucxOnlineAd.HtmlText, ucxOnlineAd.Price, ucxOnlineAd.LocationId, _
                                                  ucxOnlineAd.LocationArea, ucxOnlineAd.ContactName, ucxOnlineAd.ContactPhone, _
                                                  ucxOnlineAd.ContactEmail)
-
-            If ucxTutors.Visible Then
-                Dim tutorAd = ucxTutors.GetTutorAd
-                _bundleController.SetTutorAdDetails(tutorAd.AgeGroupMax, tutorAd.AgeGroupMin, tutorAd.ExpertiseLevel, tutorAd.Objective, tutorAd.PricingOption, tutorAd.Subjects, tutorAd.TravelOption, tutorAd.WhatToBring)
-            End If
 
             Response.Redirect(PageUrl.BookingBundle_4)
         End If

@@ -76,7 +76,7 @@
     <Compile Include="Booking\BookingAuthorisationException.cs" />
     <Compile Include="SetupException.cs" />
     <Compile Include="IApplicationConfig.cs" />
-    <Compile Include="Managers\IEnquiryManager.cs" />
+    <Compile Include="IEnquiryManager.cs" />
     <Compile Include="Membership\RegistrationResult.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\AdEnquiry.cs" />
@@ -93,18 +93,18 @@
     <Compile Include="Search\CategorySearchResult.cs" />
     <Compile Include="Search\ISearchService.cs" />
     <Compile Include="Membership\IAuthManager.cs" />
-    <Compile Include="Managers\ICookiesManager.cs" />
+    <Compile Include="ICookiesManager.cs" />
     <Compile Include="Membership\IUserManager.cs" />
     <Compile Include="Membership\RegistrationModel.cs" />
     <Compile Include="Models\IAd.cs" />
     <Compile Include="Models\AdImage.cs" />
     <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\Comparers\PublicationIdComparer.cs" />
+    <Compile Include="Print\PublicationIdComparer.cs" />
     <Compile Include="Print\PublicationTypeModel.cs" />
     <Compile Include="DocumentStorage\Document.cs" />
     <Compile Include="Repository\ICategoryRepository.cs" />
-    <Compile Include="Managers\IEditionManager.cs" />
-    <Compile Include="Managers\IBookingManager.cs" />
+    <Compile Include="Print\IEditionManager.cs" />
+    <Compile Include="Booking\IBookingManager.cs" />
     <Compile Include="Search\LocationAreaSearchResult.cs" />
     <Compile Include="Search\SeoNameMappingModel.cs" />
     <Compile Include="Repository\IDocumentRepository.cs" />
@@ -116,18 +116,15 @@
     <Compile Include="Models\BookEntryModel.cs" />
     <Compile Include="Models\BookingStatusType.cs" />
     <Compile Include="Models\BookingType.cs" />
-    <Compile Include="Models\Comparers\AdBookingIdComparer.cs" />
+    <Compile Include="Booking\AdBookingIdComparer.cs" />
     <Compile Include="Models\ExtensionStatus.cs" />
     <Compile Include="Print\LineAdModel.cs" />
-    <Compile Include="Models\LookupType.cs" />
     <Compile Include="Models\OnlineAdModel.cs" />
-    <Compile Include="Models\OnlineAdTypeAttribute.cs" />
-    <Compile Include="Models\PaymentType.cs" />
+    <Compile Include="Payment\PaymentType.cs" />
     <Compile Include="Print\PublicationEditionModel.cs" />
     <Compile Include="Print\PublicationModel.cs" />
     <Compile Include="Pricing\RateCalculator.cs" />
     <Compile Include="Pricing\RateModel.cs" />
-    <Compile Include="Models\TutorAdModel.cs" />
     <Compile Include="Models\UserBookingModel.cs" />
     <Compile Include="Models\UserBookingViewType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -135,7 +132,6 @@
     <Compile Include="Booking\IBookingRepository.cs" />
     <Compile Include="IClientConfig.cs" />
     <Compile Include="Print\IEditionRepository.cs" />
-    <Compile Include="Repository\ILookupRepository.cs" />
     <Compile Include="Repository\IMenuRepository.cs" />
     <Compile Include="Repository\IPaymentsRepository.cs" />
     <Compile Include="Print\IPublicationRepository.cs" />
@@ -150,7 +146,10 @@
       <Name>Paramount.Utility</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Managers\" />
+    <Folder Include="Models\Comparers\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,5 +1,4 @@
-﻿using Paramount.Betterclassifieds.Business.Managers;
-using Paramount.Betterclassifieds.Business.Search;
+﻿using Paramount.Betterclassifieds.Business.Search;
 using System.Web.Mvc;
 
 namespace Paramount.Betterclassifieds.Presentation

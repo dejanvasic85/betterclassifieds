@@ -109,7 +109,7 @@ Public Class ExtendBooking
     End Sub
 
     Public Sub NavigateToBookings(successful As Boolean) Implements Views.IExtendBookingView.NavigateToBookings
-        Response.Redirect(PageUrl.MemberBookings(Models.UserBookingViewType.Current, True))
+        Response.Redirect(PageUrl.MemberBookings(Paramount.Betterclassifieds.Business.UserBookingViewType.Current, True))
     End Sub
 
     Public Property PaymentReference As String Implements Views.IExtendBookingView.PaymentReference

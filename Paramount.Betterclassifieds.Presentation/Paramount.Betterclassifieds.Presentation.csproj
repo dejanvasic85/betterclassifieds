@@ -223,7 +223,6 @@
     <Compile Include="ViewModels\FindModel.cs" />
     <Compile Include="ViewModels\SortType.cs" />
     <Compile Include="ViewModels\Booking\Step1View.cs" />
-    <Compile Include="ViewModels\TutorAdView.cs" />
     <Compile Include="ViewModels\Account\UserDetailsEditView.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -480,7 +479,6 @@
     </Content>
     <Content Include="Views\Listings\ViewAd.cshtml" />
     <Content Include="Views\Listings\404.cshtml" />
-    <Content Include="Views\Listings\DisplayTemplates\TutorAdView.cshtml" />
     <Content Include="Views\Home\ContactUs.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Error\Server.cshtml" />

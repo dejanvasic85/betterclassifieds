@@ -1,8 +1,8 @@
-﻿using System;
-using Paramount.Betterclassifieds.Business.Models;
-
-namespace Paramount.Betterclassifieds.Business.Print
+﻿namespace Paramount.Betterclassifieds.Business.Print
 {
+    using Booking;
+    using System;
+
     public class BookEntry
     {
         public int BookEntryId { get; set; }

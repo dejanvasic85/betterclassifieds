@@ -41,24 +41,6 @@ Partial Public Class AdView
     Protected WithEvents ucxOnlineAdDetailView As Global.BetterclassifiedsWeb.OnlineAdView
 
     '''<summary>
-    '''pnlAdDetails control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents pnlAdDetails As Global.System.Web.UI.WebControls.Panel
-
-    '''<summary>
-    '''ucxTutors control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ucxTutors As Global.BetterclassifiedsWeb.TutorAdView
-
-    '''<summary>
     '''pnlResult control.
     '''</summary>
     '''<remarks>

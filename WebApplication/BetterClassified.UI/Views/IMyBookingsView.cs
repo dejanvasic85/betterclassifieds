@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Paramount.Betterclassifieds.Business.Models;
+using Paramount.Betterclassifieds.Business;
 
 namespace BetterClassified.UI.Views
 {

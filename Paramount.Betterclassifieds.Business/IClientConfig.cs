@@ -1,6 +1,5 @@
 ﻿namespace Paramount.Betterclassifieds.Business
 {
-    using Models;
     using System;
 
     public interface IClientConfig

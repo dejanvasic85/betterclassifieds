@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Paramount.Betterclassifieds.Business.Models;
+using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Print;
 
-namespace Paramount.Betterclassifieds.Business.Managers
+namespace Paramount.Betterclassifieds.Business.Booking
 {
     public interface IBookingManager
     {

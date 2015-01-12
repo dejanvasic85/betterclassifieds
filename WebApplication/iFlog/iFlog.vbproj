@@ -298,8 +298,6 @@
     <Content Include="Content\toastr-2.0.1.min.css">
       <DependentUpon>toastr-2.0.1.css</DependentUpon>
     </Content>
-    <Content Include="Controls\TutorAdForm.ascx" />
-    <Content Include="Controls\TutorAdView.ascx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="MemberAccount\ExtendBooking.aspx" />
@@ -698,20 +696,6 @@
     </Compile>
     <Compile Include="Controls\RecentOnlineAdList.ascx.vb">
       <DependentUpon>RecentOnlineAdList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\TutorAdForm.ascx.designer.vb">
-      <DependentUpon>TutorAdForm.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TutorAdForm.ascx.vb">
-      <DependentUpon>TutorAdForm.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\TutorAdView.ascx.designer.vb">
-      <DependentUpon>TutorAdView.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TutorAdView.ascx.vb">
-      <DependentUpon>TutorAdView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Error\AccessDenied.aspx.designer.vb">

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Print;
 
 namespace Paramount.Betterclassifieds.Business.Search
@@ -15,7 +14,6 @@ namespace Paramount.Betterclassifieds.Business.Search
         List<LocationAreaSearchResult> GetLocationAreas(int locationId, bool incldueAllAreas = true);
         AdSearchResult GetAdById(int id);
         SeoNameMappingModel GetSeoMapping(string seoName);
-        TutorAdModel GetTutorAd(int id);
         List<PublicationModel> GetPublications();
     }
 }

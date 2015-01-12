@@ -6,7 +6,6 @@
 <%@ Register Src="~/Controls/Booking/DesignOnlineAd.ascx" TagName="DesignOnlineAd" TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/Booking/NavigationButtons.ascx" TagName="NavigationButtons" TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/ErrorList.ascx" TagName="PageErrors" TagPrefix="ucx" %>
-<%@ Register Src="~/Controls/TutorAdForm.ascx" TagName="TutorForm" TagPrefix="ucx" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="clearFloat">
@@ -51,13 +50,7 @@
                     <telerik:RadWindow ID="radWindowImages" runat="server" NavigateUrl="~/Common/UploadBookingManager.aspx"
                         Title="Upload Images" Width="680px" Height="580px" Behaviors="Close" Modal="true" ReloadOnShow="true" VisibleStatusbar="false" />
 
-                    <ucx:DesignLineAd ID="ucxLineAdDesign" runat="server" Visible="false" ShowWordCount="true" />
-
-                    <%--Online Ad types--%>
-                    <div class="additionalOnlineDetails" id="divOnlineAdTypes" runat="server">
-                        <%-- Tutors --%>
-                        <ucx:TutorForm ID="ucxTutors" runat="server" Visible="False" />
-                    </div>
+                    <ucx:DesignLineAd ID="ucxLineAdDesign" runat="server" Visible="false" ShowWordCount="true" />                
 
                     <ucx:DesignOnlineAd ID="ucxDesignOnlineAd" runat="server" Visible="false" />
                     <br />

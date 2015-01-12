@@ -163,16 +163,6 @@ Namespace BundleBooking
             End Set
         End Property
 
-        Private _tutorAd As DataModel.TutorAd
-        Public Property TutorAd() As DataModel.TutorAd
-            Get
-                Return _tutorAd
-            End Get
-            Set(value As DataModel.TutorAd)
-                _tutorAd = value
-            End Set
-        End Property
-
         Private _onlineAdGraphics As List(Of DataModel.AdGraphic)
         Public Property OnlineAdGraphics() As List(Of DataModel.AdGraphic)
             Get

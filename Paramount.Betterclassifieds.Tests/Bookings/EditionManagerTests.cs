@@ -1,18 +1,13 @@
-﻿using Paramount.Betterclassifieds.Business.Booking;
-using Paramount.Betterclassifieds.Business.Print;
-
-namespace Paramount.Betterclassifieds.Tests.BusinessModel
+﻿namespace Paramount.Betterclassifieds.Tests.BusinessModel
 {
     using NUnit.Framework;
     using Microsoft.Practices.Unity;
     using Moq;
     using System;
     using System.Collections.Generic;
-
-    using Business.Managers;
-    using Business.Repository;
-    using Business.Models;
-    using Business;
+    using Business.Booking;
+    using Business.Print;
+    using Business.Payment;
     using Mocks;
 
     [TestFixture]

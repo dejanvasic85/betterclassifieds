@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Paramount.Betterclassifieds.Business.Models
+namespace Paramount.Betterclassifieds.Business
 {
     [Obsolete]
     public class AdTypeCode

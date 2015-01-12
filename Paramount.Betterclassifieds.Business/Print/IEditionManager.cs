@@ -1,4 +1,4 @@
-﻿namespace Paramount.Betterclassifieds.Business.Managers
+﻿namespace Paramount.Betterclassifieds.Business.Print
 {
     using System;
 

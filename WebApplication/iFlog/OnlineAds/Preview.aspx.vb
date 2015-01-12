@@ -21,13 +21,6 @@ Partial Public Class Preview
                 ' bind the online ad to the user control
                 ucxOnlineAd.BindOnlineAd(onlineAd)
 
-                If (onlineAd.OnlineAdTag.HasValue) Then
-                    ' Find the control
-                    Dim adTypeControl = pnlAdTypes.FindControl(Of OnlineAdViewControl)("ucx" + onlineAd.OnlineAdTag)
-                    adTypeControl.Visible = True
-                    adTypeControl.DatabindAd(_adRepository.GetTutorAd(onlineAd.OnlineAdId))
-                End If
-
             Case "session"
                 If BookingController.BookingType = Booking.BookingAction.BundledBooking Then
                     ' grab the session values from the booking cart
@@ -44,12 +37,6 @@ Partial Public Class Preview
                     ' Bind the online ad to the user control
                     ucxOnlineAd.BindOnlineAd(onlineAd)
 
-                    ' Display the ad details 
-                    If BundleBooking.BundleController.BundleCart.TutorAd IsNot Nothing Then
-                        Dim adControl = pnlAdTypes.FindControl(Of OnlineAdViewControl)("ucxTutors")
-                        adControl.Visible = True
-                        adControl.DatabindAd(BundleBooking.BundleController.BundleCart.TutorAd.ToTutorAdModel)
-                    End If
 
                 ElseIf BookingController.AdBookCart IsNot Nothing Then
                     With BookingController.AdBookCart
@@ -67,12 +54,6 @@ Partial Public Class Preview
                                                               areaValue)
                         ucxOnlineAd.BindOnlineAd(onlineAd, BookingController.AdBookCart.ImageList, DateTime.Now, parentCategory.MainCategoryId, subCategory.MainCategoryId)
 
-                        ' Display the ad details 
-                        If BookingController.AdBookCart.TutorAd IsNot Nothing Then
-                            Dim adControl = pnlAdTypes.FindControl(Of OnlineAdViewControl)("ucxTutors")
-                            adControl.Visible = True
-                            adControl.DatabindAd(BookingController.AdBookCart.TutorAd.ToTutorAdModel)
-                        End If
 
                     End With
                 End If

@@ -138,7 +138,6 @@
     <Compile Include="ClientConfig.cs" />
     <Compile Include="DocumentStorage\DocumentRepository.cs" />
     <Compile Include="EditionRepository.cs" />
-    <Compile Include="LookupRepository.cs" />
     <Compile Include="PaymentsRepository.cs" />
     <Compile Include="PublicationRepository.cs" />
     <Compile Include="RateRepository.cs" />

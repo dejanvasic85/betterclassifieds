@@ -1,10 +1,10 @@
-﻿using System;
-using Paramount.Betterclassifieds.Business.Models;
-using Paramount.Betterclassifieds.Business.Repository;
-using Paramount.Betterclassifieds.DataService.Classifieds;
-
-namespace Paramount.Betterclassifieds.DataService.Repository
+﻿namespace Paramount.Betterclassifieds.DataService.Repository
 {
+    using System;
+    using Business.Payment;
+    using Business.Repository;
+    using DataService.Classifieds;
+
     public class PaymentsRepository : IPaymentsRepository
     {
         public void CreateTransaction(string userId, string reference, string description, decimal amount, PaymentType paymentType)

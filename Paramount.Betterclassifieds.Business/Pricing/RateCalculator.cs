@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using Paramount.Betterclassifieds.Business.Models;
-using Paramount.Betterclassifieds.Business.Print;
+﻿using Paramount.Betterclassifieds.Business.Print;
 using Paramount.Betterclassifieds.Business.Repository;
 
 namespace Paramount.Betterclassifieds.Business

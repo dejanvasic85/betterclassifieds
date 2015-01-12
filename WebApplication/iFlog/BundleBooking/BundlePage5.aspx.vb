@@ -9,13 +9,10 @@ Partial Public Class BundlePage5
     Inherits BaseBundlePage
 
     Private _bundleController As BundleController
-    Private _lookupRepository As ILookupRepository
 
 #Region "Page Load"
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
-        _lookupRepository = BetterClassified.Unity.DefaultContainer.Resolve(Of ILookupRepository)()
 
         ' initiate the global variables
         _bundleController = New BundleController()

@@ -3,7 +3,6 @@
 
 <%@ Register Src="~/Controls/Booking/DesignOnlineAd.ascx" TagName="OnlineAd" TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/ErrorList.ascx" TagName="PageErrors" TagPrefix="ucx" %>
-<%@ Register src="~/Controls/TutorAdForm.ascx" tagName="TutorForm" tagPrefix="ucx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
@@ -85,10 +84,6 @@
                     ReloadOnShow="true" VisibleStatusbar="false" OnClientClose="imageWindowClosed">
                 </telerik:RadWindow>
                 
-                <div class="additionalOnlineDetails" id="OnlineAdTypes" runat="server">
-                    <ucx:TutorForm ID="ucxTutors" runat="server" Visible="False" />
-                </div>
-
                 <%--Online Ad Details--%>
                 <ucx:OnlineAd ID="ucxOnlineAd" runat="server" />
                 

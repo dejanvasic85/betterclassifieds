@@ -50,12 +50,6 @@ Partial Public Class Step3
             UploadParameter.BookingReference = BookingController.AdBookCart.BookReference
             radWindowImages.OpenerElementID = lnkUploadImages.ClientID
 
-            ' Display the appropriate ad type ( using ucx naming convention )
-            Dim onlineAdType = String.Format("ucx{0}", BookingController.GetOnlineAdTypeTagForBooking)
-            Dim onlineControl = divOnlineAdTypes.FindControl(onlineAdType)
-            If onlineControl IsNot Nothing Then
-                onlineControl.Visible = True
-            End If
         End If
 
     End Sub
@@ -89,10 +83,6 @@ Partial Public Class Step3
                                                ucxDesignOnlineAd.ContactEmail)
 
 
-                If ucxTutors.Visible Then
-                    Dim tutorAd = ucxTutors.GetTutorAd
-                    BookingController.SetTutorAdDetails(tutorAd.AgeGroupMax, tutorAd.AgeGroupMin, tutorAd.ExpertiseLevel, tutorAd.Objective, tutorAd.PricingOption, tutorAd.Subjects, tutorAd.TravelOption, tutorAd.WhatToBring)
-                End If
                 totalPrice = CalculatePrice(adTypeCode, ucxDesignOnlineAd.Description)
                 End If
 

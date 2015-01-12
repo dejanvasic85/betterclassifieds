@@ -1,6 +1,4 @@
-﻿using Paramount.Betterclassifieds.Business.Print;
-
-namespace Paramount.Betterclassifieds.Presentation.Controllers
+﻿namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -11,10 +9,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
     using Microsoft.Practices.Unity;
 
     using Business;
+    using Business.Booking;
+    using Business.Print;
     using Business.Broadcast;
-    using Business.Models;
     using Business.Search;
-    using Business.Managers;
     using Business.Repository;
     using Business.Payment;
     using ViewModels.Booking;

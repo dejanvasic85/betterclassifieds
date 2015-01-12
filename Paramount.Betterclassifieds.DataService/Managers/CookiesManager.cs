@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Web;
-using Paramount.Betterclassifieds.Business.Managers;
 
 namespace Paramount.Betterclassifieds.DataService.Managers
 {
+    using Business;
     public class CookiesManager : IClientIdentifierManager
     {
         private const string CookieName = "p_client_id";

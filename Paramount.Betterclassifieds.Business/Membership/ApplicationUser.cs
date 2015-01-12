@@ -1,6 +1,4 @@
-﻿using Paramount.Betterclassifieds.Business.Managers;
-
-namespace Paramount.Betterclassifieds.Business
+﻿namespace Paramount.Betterclassifieds.Business
 {
     public class ApplicationUser
     {

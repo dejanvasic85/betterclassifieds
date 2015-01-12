@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Web;
 using Microsoft.Practices.Unity;
 using Paramount.Betterclassifieds.Business;
-using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Print;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking

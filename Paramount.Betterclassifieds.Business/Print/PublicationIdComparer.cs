@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Paramount.Betterclassifieds.Business.Print;
 
-namespace Paramount.Betterclassifieds.Business.Models.Comparers
+namespace Paramount.Betterclassifieds.Business.Print
 {
     public class PublicationIdComparer : IEqualityComparer<PublicationModel>
     {

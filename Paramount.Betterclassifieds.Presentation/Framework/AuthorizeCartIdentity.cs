@@ -1,7 +1,6 @@
 namespace Paramount.Betterclassifieds.Presentation
 {
     using Microsoft.Practices.Unity;
-    using Business.Managers;
     using Business.Booking;
     using System.Web.Mvc;
 

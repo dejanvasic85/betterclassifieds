@@ -3,7 +3,6 @@
 <%@ Register Src="~/MemberAccount/MemberHeading.ascx" TagName="MemberHeading" TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/Booking/DesignOnlineAd.ascx" TagName="OnlineAd" TagPrefix="ucx" %>
 <%@ Register Src="~/Controls/ErrorList.ascx" TagName="PageError" TagPrefix="ucx" %>
-<%@ Register Src="~/Controls/TutorAdForm.ascx" TagName="TutorForm" TagPrefix="ucx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="memberContentMain" runat="server">
 
@@ -29,13 +28,7 @@
             ReloadOnShow="true" Behaviors="Close" VisibleStatusbar="false" />
 
         <ucx:OnlineAd ID="ucxOnlineAd" runat="server" />
-
-        <%--Ad specific details--%>
-        <asp:Panel runat="server" ID="pnlAdDetails" Style="padding-left: 10px; padding-top: 20px;">
-            <ucx:TutorForm ID="ucxTutors" runat="server" Visible="False" />
-        </asp:Panel>
-
-
+        
         <div class="accountRow">
             <div class="alert alert-info">
                 Your pictures will be resized to 900 pixel width and 500 pixel height. 

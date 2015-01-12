@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Data.Linq;
 using System.Linq;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business;
-using Paramount.Betterclassifieds.Business.Broadcast;
-using Paramount.Betterclassifieds.Business.Managers;
 using Paramount.Betterclassifieds.DataService;
 
 namespace Paramount.Betterclassifieds.Security

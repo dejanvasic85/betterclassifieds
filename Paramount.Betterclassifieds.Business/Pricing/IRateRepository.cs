@@ -1,6 +1,4 @@
-﻿using Paramount.Betterclassifieds.Business.Models;
-
-namespace Paramount.Betterclassifieds.Business.Repository
+﻿namespace Paramount.Betterclassifieds.Business.Repository
 {
     public interface IRateRepository
     {

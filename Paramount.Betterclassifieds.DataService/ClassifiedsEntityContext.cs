@@ -1,7 +1,6 @@
 ﻿using System.Configuration;
 using System.Data.Entity;
 using Paramount.Betterclassifieds.Business;
-using Paramount.Betterclassifieds.Business.Models;
 
 namespace Paramount.Betterclassifieds.DataService
 {
@@ -15,14 +14,10 @@ namespace Paramount.Betterclassifieds.DataService
         }
 
         public IDbSet<OnlineAdRate> OnlineAdRates { get; set; }
-        public IDbSet<TutorAdModel> TutorAds { get; set; }
         public IDbSet<UserNetworkModel> UserNetworks { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<TutorAdModel>().ToTable("TutorAd");
-            modelBuilder.Entity<TutorAdModel>().HasKey(k => k.OnlineAdId);
-
             modelBuilder.Entity<UserNetworkModel>().ToTable("UserNetwork");
             modelBuilder.Entity<UserNetworkModel>().HasKey(k => k.UserNetworkId);
 

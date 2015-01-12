@@ -1,18 +1,17 @@
 ﻿namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     using AutoMapper;
+    using Business;
+    using Business.Booking;
+    using Business.Search;
     using CaptchaMvc.Attributes;
     using CaptchaMvc.HtmlHelpers;
     using CaptchaMvc.Interface;
     using Microsoft.Ajax.Utilities;
-    using Business;
-    using Business.Managers;
-    using Business.Models;
-    using Business.Search;
-    using ViewModels;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using ViewModels;
     
     public class ListingsController : Controller, IMappingBehaviour
     {
@@ -163,9 +162,6 @@
             // Map to the view model now
             var adViewModel = this.Map<AdSearchResult, AdViewModel>(adSearchResult);
 
-            if (adViewModel.OnlineAdTag.HasValue())
-                adViewModel.TutorAd = this.Map<TutorAdModel, TutorAdView>(_searchService.GetTutorAd(id));
-
             ViewBag.IsComingFromSearch = false;
             if (TempData[Tempdata_ComingFromSearch] != null)
             {
@@ -193,7 +189,7 @@
                 });
             }
 
-            var enquiry = this.Map<AdEnquiryViewModel, Business.Models.AdEnquiry>(adEnquiry);
+            var enquiry = this.Map<AdEnquiryViewModel, AdEnquiry>(adEnquiry);
             _bookingManager.SubmitAdEnquiry(enquiry);
             return Json(new { isValid = true });
         }
@@ -204,8 +200,7 @@
             configuration.CreateMap<AdSearchResult, AdSummaryViewModel>();
             configuration.CreateMap<AdSearchResult, AdViewModel>()
                 .ForMember(member => member.Price, options => options.Condition(v => v.Price > 0));
-            configuration.CreateMap<TutorAdModel, TutorAdView>();
-            configuration.CreateMap<AdEnquiryViewModel, Business.Models.AdEnquiry>();
+            configuration.CreateMap<AdEnquiryViewModel, AdEnquiry>();
         }
 
     }

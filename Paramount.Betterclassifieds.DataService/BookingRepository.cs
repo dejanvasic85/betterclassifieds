@@ -1,17 +1,14 @@
-﻿using Paramount.Betterclassifieds.Business.Print;
-
-namespace Paramount.Betterclassifieds.DataService.Repository
+﻿namespace Paramount.Betterclassifieds.DataService.Repository
 {
     using AutoMapper;
     using Business;
     using Business.Booking;
-    using Business.Models;
-    using Business.Models.Comparers;
     using Classifieds;
     using System;
     using System.Collections.Generic;
     using System.Data.Linq;
     using System.Linq;
+    using Business.Print;
 
     public class BookingRepository : IBookingRepository, IMappingBehaviour
     {

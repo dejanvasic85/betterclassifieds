@@ -1,6 +1,5 @@
 ﻿Imports BetterClassified.Repository
 Imports Paramount.Betterclassifieds.Business.Repository
-Imports Paramount.Betterclassifieds.Business.Managers
 Imports Paramount.Betterclassifieds.Business
 Imports Microsoft.Practices.Unity
 Imports Paramount.Betterclassifieds.Security
@@ -18,7 +17,6 @@ Public Class ContainerConfig
             .RegisterType(Of IRateRepository, RateRepository)() _
             .RegisterType(Of IUserRepository, UserRepository)() _
             .RegisterType(Of IPaymentsRepository, PaymentsRepository)() _
-            .RegisterType(Of ILookupRepository, LookupRepository)() _
             .RegisterType(Of IMenuRepository, TheMusicMenuRepository)() _
             .RegisterType(Of IEnquiryRepository, EnquiryRepository)()
 

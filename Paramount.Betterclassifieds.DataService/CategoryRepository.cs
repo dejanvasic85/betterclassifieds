@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using Paramount.Betterclassifieds.Business.Models;
+using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Repository;
 using Paramount.Betterclassifieds.DataService.Classifieds;
 

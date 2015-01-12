@@ -4,11 +4,10 @@
     using System.Collections.Generic;
     using System.Linq;
     using Broadcast;
-    using Managers;
-    using Models;
     using Repository;
     using Booking;
     using Print;
+    using Payment;
 
     public class BookingManager : IBookingManager
     {

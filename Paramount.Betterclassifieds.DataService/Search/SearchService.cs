@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Print;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.DataService.Classifieds;
@@ -106,20 +105,6 @@ namespace Paramount.Betterclassifieds.DataService
             }
         }
 
-        public TutorAdModel GetTutorAd(int id)
-        {
-            using (var context = DataContextFactory.CreateClassifiedContext())
-            {
-                var ad = from adBooking in context.AdBookings
-                         where adBooking.AdBookingId == id
-                         join adDesign in context.AdDesigns on adBooking.AdId equals adDesign.AdId
-                         join onlineAd in context.OnlineAds on adDesign.AdDesignId equals onlineAd.AdDesignId
-                         join tutorAd in context.TutorAds on onlineAd.OnlineAdId equals tutorAd.OnlineAdId
-                         select tutorAd;
-
-                return this.Map<TutorAd, TutorAdModel>(ad.SingleOrDefault());
-            }
-        }
 
         public List<PublicationModel> GetPublications()
         {
@@ -156,7 +141,6 @@ namespace Paramount.Betterclassifieds.DataService
                 .ForMember(dest => dest.ParentCategoryId, opt => opt.MapFrom(src => src.ParentCategoryIds))
                 ;
 
-            configuration.CreateMap<TutorAd, TutorAdModel>();
             configuration.CreateMap<Publication, PublicationModel>();
 
             // To DB

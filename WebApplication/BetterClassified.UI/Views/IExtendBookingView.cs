@@ -1,5 +1,4 @@
 ﻿using System;
-using Paramount.Betterclassifieds.Business.Models;
 using Paramount.Betterclassifieds.Business.Print;
 
 namespace BetterClassified.UI.Views

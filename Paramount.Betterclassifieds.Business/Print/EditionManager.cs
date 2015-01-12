@@ -1,6 +1,5 @@
 ﻿namespace Paramount.Betterclassifieds.Business.Print
 {
-    using Managers;
     using System;
     using Booking;
     

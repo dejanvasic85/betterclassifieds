@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
-namespace Paramount.Betterclassifieds.Business.Models
+namespace Paramount.Betterclassifieds.Business
 {
     public class OnlineAdModel : IAd
     {
@@ -25,15 +23,6 @@ namespace Paramount.Betterclassifieds.Business.Models
         public int NumOfViews { get; private set; }
 
         public List<AdImage> Images { get; set; }
-
-        public static IEnumerable<string> GetOnlineAdTypeNames()
-        {
-            var types = System.Reflection.Assembly.GetExecutingAssembly().GetTypes();
-
-            return from type in types
-                   where type.HasCustomAttribute<OnlineAdTypeAttribute>()
-                   select type.GetCustomAttribute<OnlineAdTypeAttribute>().OnlineAdName;
-        }
 
         public void IncrementHits()
         {

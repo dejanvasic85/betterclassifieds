@@ -1,4 +1,4 @@
-﻿namespace Paramount.Betterclassifieds.Business.Models
+﻿namespace Paramount.Betterclassifieds.Business.Payment
 {
     public enum PaymentType
     {

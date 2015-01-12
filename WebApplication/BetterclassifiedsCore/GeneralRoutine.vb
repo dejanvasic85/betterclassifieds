@@ -358,10 +358,6 @@ Public Module GeneralRoutine
                         d.Status = AdDesignStatus.Approved
                         d.OnlineAds.Add(onlineAd)
 
-                        If cart.TutorAd IsNot Nothing Then
-                            onlineAd.TutorAds.Add(cart.TutorAd)
-                        End If
-
                 End Select
 
                 '' AD GRAPHICS
@@ -479,10 +475,7 @@ Public Module GeneralRoutine
                                                                           .ImageType = onlineGraphic.ImageType, .ModifiedDate = onlineGraphic.ModifiedDate})
             Next
 
-            '' TUTOR AD
-            If cart.TutorAd IsNot Nothing Then
-                onlineAd.TutorAds.Add(cart.TutorAd)
-            End If
+        
 
             ' ************
             ' Book Entries

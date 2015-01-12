@@ -1,5 +1,8 @@
-﻿namespace Paramount.Betterclassifieds.Business.Models
+﻿using System;
+
+namespace Paramount.Betterclassifieds.Business
 {
+    [Obsolete]
     public enum UserBookingViewType
     {
         All,

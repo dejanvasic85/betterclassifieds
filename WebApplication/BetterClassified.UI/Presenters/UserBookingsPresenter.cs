@@ -1,10 +1,11 @@
-﻿namespace BetterClassified.UI.Presenters
+﻿using Paramount.Betterclassifieds.Business;
+
+namespace BetterClassified.UI.Presenters
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using Paramount.Betterclassifieds.Business.Booking;
-    using Paramount.Betterclassifieds.Business.Models;
     using Views;
 
     public class UserBookingsPresenter : Controller<IMyBookingsView>

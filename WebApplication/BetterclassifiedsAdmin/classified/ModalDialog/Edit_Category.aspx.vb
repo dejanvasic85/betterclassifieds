@@ -16,12 +16,6 @@ Partial Public Class Edit_Category
         _categoryId = Request.QueryString("categoryId")
         _isParent = Request.QueryString("isParent")
         lblCategoryMsg.Text = ""
-        If Not Page.IsPostBack Then
-
-            ddlOnlineTypes.DataSource = OnlineAdModel.GetOnlineAdTypeNames()
-            ddlOnlineTypes.DataBind()
-            ddlOnlineTypes.Items.Insert(0, New ListItem("-- None --", ""))
-        End If
     End Sub
 
 #End Region

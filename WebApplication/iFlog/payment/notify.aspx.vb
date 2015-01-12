@@ -5,8 +5,8 @@ Imports Paramount.ApplicationBlock.Configuration
 Imports Paramount.Betterclassified.Utilities.PayPal
 Imports Microsoft.Practices.Unity
 Imports BetterClassified.UI.Presenters
-Imports Paramount.Betterclassifieds.Business.Models
-Imports Paramount.Betterclassifieds.Business.Managers
+Imports Paramount.Betterclassifieds.Business.Payment
+Imports Paramount.Betterclassifieds.Business.Booking
 
 Partial Public Class notify
     Inherits System.Web.UI.Page

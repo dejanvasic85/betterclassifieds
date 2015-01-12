@@ -40,14 +40,6 @@ Partial Public Class EditOnlineAd
                 ucxOnlineAd.BookingReference = _bookingReference
                 ucxOnlineAd.BindOnlineAd(onlineAd, images)
 
-                ' Bind the ad specific details
-                If (onlineAd.OnlineAdTag.HasValue) Then
-                    Dim adTypeControl = pnlAdDetails.FindControl(Of OnlineAdViewControl)("ucx" + onlineAd.OnlineAdTag)
-                    ' todo - use a factory here to determine which ad to fetch
-                    DirectCast(adTypeControl, Control).Visible = True
-                    adTypeControl.DatabindAd(_adRepository.GetTutorAd(onlineAd.OnlineAdId))
-                End If
-
                 ' Set up the online upload parameters
                 UploadParameter.Clear()
                 UploadParameter.AdDesignId = onlineAd.AdDesignId
@@ -75,11 +67,6 @@ Partial Public Class EditOnlineAd
                 ' Update the ad details - without images
                 Dim onlineAd = AdController.OnlineAdByBookingId(_adBookingId)
                 AdController.UpdateOnlineAd(onlineAd.AdDesignId, .Heading, .Description, .HtmlText, .Price, .LocationId, .LocationArea, .ContactName, .ContactPhone, .ContactEmail)
-
-                If (ucxTutors.Visible) Then
-                    Dim tutorAdModel = ucxTutors.GetTutorAd()
-                    _adRepository.UpdateTutor(tutorAdModel)
-                End If
 
                 lblUserMsg.Text = "Online Ad Details have been updated successfully."
                 pnlSuccess.Visible = True

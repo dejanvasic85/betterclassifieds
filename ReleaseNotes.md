@@ -2,6 +2,10 @@ Here's a list of the latest changes for the current release:
 
 **Enhancements**
 
+**Change Requests**
+
+- [Remove the tutor extra fields](https://trello.com/c/XX4DGmzV/214-tuition-database-backend-cleanup)
+
 **Technical Changes**
 
 - Re-Organised the backend

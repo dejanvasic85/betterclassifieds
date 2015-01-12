@@ -2,9 +2,12 @@ Here's a list of the latest changes for the current release:
 
 **Enhancements**
 
-- Coming soon
+**Technical Changes**
 
-Other useful resources:
+- Re-Organised the backend
+
+
+**Other useful resources:**
 
 - [Up-Coming features](https://trello.com/b/Ht5NWhN2/betterclassifieds)
 

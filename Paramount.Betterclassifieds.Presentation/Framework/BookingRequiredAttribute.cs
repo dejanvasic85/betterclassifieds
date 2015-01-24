@@ -2,6 +2,7 @@
 using System.Web.Routing;
 using Microsoft.Practices.Unity;
 using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Repository;
 
 namespace Paramount.Betterclassifieds.Presentation

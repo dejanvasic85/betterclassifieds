@@ -1,4 +1,5 @@
-﻿using Paramount.Betterclassifieds.Business.Print;
+﻿using Paramount.Betterclassifieds.Business.Booking;
+using Paramount.Betterclassifieds.Business.Print;
 using Paramount.Betterclassifieds.Business.Repository;
 
 namespace Paramount.Betterclassifieds.Business

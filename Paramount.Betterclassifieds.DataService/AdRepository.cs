@@ -2,6 +2,7 @@
 using System.Linq;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Repository;
 using Paramount.Betterclassifieds.DataService.Classifieds;
 

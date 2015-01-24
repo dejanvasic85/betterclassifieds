@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Web;
 using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Booking;
+using Paramount.Betterclassifieds.Business.Repository;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 {
     public class BookingCookie : IBookingSessionIdentifier
     {
+        public BookingCookie(IBookingCartRepository bookingManager)
+        {
+            
+        }
+
         public string Id { get { return GetCookie()["id"]; } }
 
         public void SetId(string value)

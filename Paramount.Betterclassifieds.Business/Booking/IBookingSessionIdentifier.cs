@@ -1,4 +1,4 @@
-namespace Paramount.Betterclassifieds.Business
+namespace Paramount.Betterclassifieds.Business.Booking
 {
     public interface IBookingSessionIdentifier
     {

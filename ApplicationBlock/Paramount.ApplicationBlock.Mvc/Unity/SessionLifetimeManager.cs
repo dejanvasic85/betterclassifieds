@@ -1,4 +1,5 @@
 ﻿using System.Web;
+using Microsoft.Practices.Unity;
 
 namespace Paramount.ApplicationBlock.Mvc
 {

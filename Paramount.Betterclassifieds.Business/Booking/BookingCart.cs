@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Paramount.Betterclassifieds.Business.Print;
 
-namespace Paramount.Betterclassifieds.Business
+namespace Paramount.Betterclassifieds.Business.Booking
 {
+    using Print;
+
     /// <summary>
     /// View model representing what can be selected in a regular booking steps/stages
     /// </summary>

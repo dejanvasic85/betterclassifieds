@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Business
+﻿using Paramount.Betterclassifieds.Business.Booking;
+
+namespace Paramount.Betterclassifieds.Business
 {
     public interface IAdRepository
     {

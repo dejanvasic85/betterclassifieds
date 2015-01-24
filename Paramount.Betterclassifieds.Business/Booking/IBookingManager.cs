@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Paramount.Betterclassifieds.Business.Payment;
-using Paramount.Betterclassifieds.Business.Print;
 
 namespace Paramount.Betterclassifieds.Business.Booking
 {
+    using Print;
+    using Payment;
+
     public interface IBookingManager
     {
         IEnumerable<PublicationEditionModel> GenerateExtensionDates(int adBookingId, int numberOfInsertions);

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Paramount.Betterclassifieds.Business
+namespace Paramount.Betterclassifieds.Business.Booking
 {
     public class OnlineAdModel : IAd
     {

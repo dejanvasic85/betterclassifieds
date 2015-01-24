@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Options;
+using Paramount.Betterclassifieds.Business.Booking;
 
 namespace Paramount.Betterclassifieds.DataService
 {

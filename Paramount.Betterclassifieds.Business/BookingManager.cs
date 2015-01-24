@@ -19,7 +19,7 @@
         private readonly IPaymentsRepository _payments;
         private readonly IUserManager _userManager;
         private readonly IBroadcastManager _broadcastManager;
-        private readonly IBookingSessionIdentifier _bookingSessionIdentifier;
+        private readonly IBookingContext _bookingContext;
 
         public BookingManager(IBookingRepository bookingRepository,
             IPublicationRepository publicationRepository,
@@ -28,7 +28,7 @@
             IAdRepository adRepository,
             IUserManager userManager,
             IBroadcastManager broadcastManager,
-            IBookingSessionIdentifier bookingSessionIdentifier,
+            IBookingContext bookingContext,
             IBookingCartRepository cartRepository)
         {
             _bookingRepository = bookingRepository;
@@ -38,7 +38,7 @@
             _adRepository = adRepository;
             _userManager = userManager;
             _broadcastManager = broadcastManager;
-            _bookingSessionIdentifier = bookingSessionIdentifier;
+            _bookingContext = bookingContext;
             _cartRepository = cartRepository;
         }
 
@@ -195,25 +195,9 @@
             }
         }
 
-        public BookingCart GetCart(Func<BookingCart> creator = null)
+        public BookingCart GetCart()
         {
-            // Fetch the booking based on the current session id
-            var bookingCart = _cartRepository.GetBookingCart(_bookingSessionIdentifier.Id);
-
-            if (bookingCart == null && creator != null)
-            {
-                // The booking cart is not available so use the creation function instead
-                var newCart = creator();
-                SaveBookingCart(newCart);
-                return newCart;
-            }
-
-            if (bookingCart == null)
-            {
-                throw new NullReferenceException("Booking cart is null and creator function was not supplied.");
-            }
-
-            return bookingCart;
+            return _bookingContext.Current();
         }
 
         public void SaveBookingCart(BookingCart bookingCart)

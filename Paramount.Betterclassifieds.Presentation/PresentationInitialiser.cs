@@ -1,16 +1,15 @@
-﻿using System;
-using System.Web.Routing;
-using Microsoft.Practices.Unity;
+﻿using Microsoft.Practices.Unity;
 using Paramount.ApplicationBlock.Mvc;
 using Paramount.ApplicationBlock.Mvc.ModelBinders;
 using Paramount.ApplicationBlock.Mvc.Unity;
-using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
-using Paramount.Betterclassifieds.Presentation.ViewModels.Booking;
+using System;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
+using System.Web.Routing;
+using Paramount.Betterclassifieds.Presentation.ViewModels.Booking;
 
 namespace Paramount.Betterclassifieds.Presentation
 {
@@ -85,10 +84,7 @@ namespace Paramount.Betterclassifieds.Presentation
 
             // Searching throughout the website allows to save in to the session ( at the moment )
             container.RegisterType<SearchFilters>(new SessionLifetimeManager<SearchFilters>());
-
-            // Booking specific objects
-            container.RegisterType<IBookingSessionIdentifier, BookingCookie>()
-                .RegisterType<BookingCart>(new InjectionFactory(BookingCartFactory.Create));
+            container.RegisterType<IBookingContext, BookingContextInCookie>();
         }
     }
 

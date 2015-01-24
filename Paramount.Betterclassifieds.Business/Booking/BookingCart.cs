@@ -11,15 +11,22 @@ namespace Paramount.Betterclassifieds.Business.Booking
     /// </summary>
     public class BookingCart
     {
-        public BookingCart()
+
+        public BookingCart(string sessionId, string userId)
         {
+            Id = Guid.NewGuid().ToString();
+            SessionId = sessionId;
+            UserId = userId;
+            Reference = Id.Substring(0, 6).ToUpper();
             Publications = new int[] { };
             CompletedSteps = new List<int>();
+            OnlineAdCart = new OnlineAdCart();
+            LineAdModel = new LineAdModel();
         }
 
         public string SessionId { get; set; }
 
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
 
         public bool Completed { get; set; }
 

@@ -17,7 +17,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         void SubmitAdEnquiry(AdEnquiry enquiry);
 
         // Booking cart management
-        BookingCart GetCart(Func<BookingCart> creator = null);
+        BookingCart GetCart();
         void SaveBookingCart(BookingCart bookingCart);
         int? CompleteCurrentBooking(BookingCart bookingCart);
     }

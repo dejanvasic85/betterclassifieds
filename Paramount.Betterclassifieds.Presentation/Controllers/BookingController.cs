@@ -58,7 +58,7 @@
         public ActionResult Step1()
         {
             // Fetch the cart but provider a creating method because it's the first step...
-            var bookingCart = _bookingManager.GetCart(() => _container.Resolve<BookingCart>());
+            var bookingCart = _bookingManager.GetCart();
             var categories = _searchService.GetCategories();
 
             var viewModel = new Step1View

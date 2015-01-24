@@ -1,11 +1,7 @@
-﻿using System;
-using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 using Microsoft.Practices.Unity;
-using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
-using Paramount.Betterclassifieds.Business.Repository;
 
 namespace Paramount.Betterclassifieds.Presentation
 {
@@ -22,7 +18,7 @@ namespace Paramount.Betterclassifieds.Presentation
         public int? StepNumber { get; set; }
 
         [Dependency]
-        public IBookingSessionIdentifier CurrentBookingId { get; set; }
+        public IBookingContext BookingContext { get; set; }
 
         [Dependency]
         public IBookingCartRepository BookingCartRepository { get; set; }
@@ -32,8 +28,7 @@ namespace Paramount.Betterclassifieds.Presentation
             if (StepNumber == 1)
                 return;
 
-            var bookingCart = BookingCartRepository.GetBookingCart(CurrentBookingId.Id);
-            if (bookingCart == null)
+            if (!BookingContext.IsAvailable())
             {
                 // There was never a booking so redirect to step 1
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary
@@ -45,7 +40,7 @@ namespace Paramount.Betterclassifieds.Presentation
             }
 
             // Do not allow them to view this screen, so instead route them to the next step to complete
-            var lastCompleted = bookingCart.GetLastCompletedStepNumber();
+            var lastCompleted = BookingContext.Current().GetLastCompletedStepNumber();
 
             var nextStep = lastCompleted + 1;
 

@@ -15,7 +15,7 @@ namespace Paramount.Betterclassifieds.Payments.pp
 
         public override void RegisterTypes(IUnityContainer container)
         {
-            container.RegisterType<IPaymentService, PayPalPaymentService>(PayPalServiceName);
+            container.RegisterType<IPaymentService, PayPalPaymentService>();
         }
     }
 }

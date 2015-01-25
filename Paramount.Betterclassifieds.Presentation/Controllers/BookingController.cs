@@ -20,7 +20,6 @@
 
     public class BookingController : Controller, IMappingBehaviour
     {
-        private readonly IUnityContainer _container;
         private readonly ISearchService _searchService;
         private readonly IBookCartRepository _cartRepository;
         private readonly IBookingContext _bookingContext;
@@ -31,8 +30,9 @@
         private readonly IBroadcastManager _broadcastManager;
         private readonly IApplicationConfig _applicationConfig;
         private readonly IBookingManager _bookingManager;
+        private readonly IPaymentService _paymentService;
 
-        public BookingController(IUnityContainer container,
+        public BookingController(
             ISearchService searchService,
             IClientConfig clientConfig,
             IDocumentRepository documentRepository,
@@ -41,7 +41,9 @@
             IRateCalculator rateCalculator,
             IBroadcastManager broadcastManager,
             IApplicationConfig applicationConfig, 
-            IBookingContext bookingContext, IBookingManager bookingManager)
+            IBookingContext bookingContext,
+            IBookingManager bookingManager, 
+            IPaymentService paymentService)
         {
             _searchService = searchService;
             _clientConfig = clientConfig;
@@ -50,10 +52,10 @@
             _userManager = userManager;
             _rateCalculator = rateCalculator;
             _broadcastManager = broadcastManager;
-            _container = container;
             _applicationConfig = applicationConfig;
             _bookingContext = bookingContext;
             _bookingManager = bookingManager;
+            _paymentService = paymentService;
         }
 
         #region Steps
@@ -241,8 +243,7 @@
             }
 
             // We only support paypal just for now
-            var paymentServce = _container.Resolve<IPaymentService>("PayPalService");
-            var response = paymentServce.SubmitPayment(new PaymentRequest
+            var response = _paymentService.SubmitPayment(new PaymentRequest
             {
                 PayReference = bookingCart.Reference,
                 PriceBreakdown = _rateCalculator.GetPriceBreakDown(bookingCart),
@@ -259,8 +260,7 @@
         public ActionResult AuthorisePayment(string payerId)
         {
             var bookingCart = _bookingContext.Current();
-            var paymentService = _container.Resolve<IPaymentService>("PayPalService");
-            paymentService.CompletePayment(new PaymentRequest { PayerId = payerId, PayReference = bookingCart.PaymentReference });
+            _paymentService.CompletePayment(new PaymentRequest { PayerId = payerId, PayReference = bookingCart.PaymentReference });
             return RedirectToAction("Success");
         }
         
@@ -275,6 +275,7 @@
             
             // Complete the booking
             bookingCart.Complete();
+            _cartRepository.Save(bookingCart);
 
             var currentUser = _userManager.GetCurrentUser(User);
 

@@ -1,9 +1,9 @@
 ﻿namespace Paramount.Betterclassifieds.Business.Booking
 {
-    public interface IBookingCartRepository
+    public interface IBookCartRepository
     {
         BookingCart GetBookingCart(string id);
-        BookingCart SaveBookingCart(BookingCart bookingCart);
+        BookingCart Save(BookingCart bookingCart);
     }
     
 }

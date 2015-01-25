@@ -24,11 +24,11 @@ namespace Paramount.Betterclassifieds.Business.Booking
             LineAdModel = new LineAdModel();
         }
 
-        public string SessionId { get; set; }
+        public string SessionId { get; private set; }
 
-        public string Id { get; set; }
+        public string Id { get; private set; }
 
-        public bool Completed { get; set; }
+        public bool Completed { get; private set; }
 
         public List<int> CompletedSteps { get; private set; }
 
@@ -86,6 +86,11 @@ namespace Paramount.Betterclassifieds.Business.Booking
                 return 0;
 
             return CompletedSteps.Last();
+        }
+
+        public void Complete()
+        {
+            this.Completed = true;
         }
     }
 }

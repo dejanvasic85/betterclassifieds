@@ -4,9 +4,9 @@ using Paramount.Betterclassifieds.Business.Booking;
 
 namespace Paramount.Betterclassifieds.DataService
 {
-    public class BookingCartRepository : MongoRepository<BookingCart>, IBookingCartRepository
+    public class BookCartRepository : MongoRepository<BookingCart>, IBookCartRepository
     {
-        public BookingCartRepository()
+        public BookCartRepository()
             : base("bookings")
         {
             BsonClassMap.RegisterClassMap<BookingCart>(c =>
@@ -29,7 +29,7 @@ namespace Paramount.Betterclassifieds.DataService
             return cart;
         }
 
-        public BookingCart SaveBookingCart(BookingCart bookingCart)
+        public BookingCart Save(BookingCart bookingCart)
         {
             Collection.Save(bookingCart);
             return bookingCart;

@@ -6,9 +6,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 {
     public class BookingContextInCookie : IBookingContext
     {
-        private readonly IBookingCartRepository _repository;
+        private readonly IBookCartRepository _repository;
 
-        public BookingContextInCookie(IBookingCartRepository repository)
+        public BookingContextInCookie(IBookCartRepository repository)
         {
             _repository = repository;
         }
@@ -20,7 +20,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
             if (booking == null)
             {
                 booking = new BookingCart(HttpContext.Current.Session.SessionID, HttpContext.Current.User.Identity.Name);
-                _repository.SaveBookingCart(booking);
+                _repository.Save(booking);
                 Id = booking.Id;
             }
 

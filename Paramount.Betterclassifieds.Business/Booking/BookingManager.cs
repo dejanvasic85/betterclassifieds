@@ -1,18 +1,28 @@
-﻿namespace Paramount.Betterclassifieds.Business
+﻿namespace Paramount.Betterclassifieds.Business.Booking
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using Broadcast;
-    using Repository;
-    using Booking;
     using Print;
     using Payment;
+
+    public interface IBookingManager
+    {
+        IEnumerable<PublicationEditionModel> GenerateExtensionDates(int adBookingId, int numberOfInsertions);
+        AdBookingExtensionModel CreateExtension(int adBookingId, int numberOfInsertions, string username, decimal price, ExtensionStatus status, bool isOnlineOnly);
+        AdBookingExtensionModel GetExtension(int extensionId);
+        void Extend(AdBookingExtensionModel extensionModel, PaymentType paymentType = PaymentType.None);
+        void Extend(int adBookingId, int numberOfInsertions, bool? isOnlineOnly = null, ExtensionStatus extensionStatus = ExtensionStatus.Complete, int price = 0, string username = "admin", PaymentType payment = PaymentType.None);
+        void IncrementHits(int id);
+        void SubmitAdEnquiry(AdEnquiry enquiry);
+        int? CreateBooking(BookingCart bookingCart);
+    }
 
     public class BookingManager : IBookingManager
     {
         private readonly IBookingRepository _bookingRepository;
-        private readonly IBookingCartRepository _cartRepository;
+        private readonly IBookCartRepository _cartRepository;
         private readonly IAdRepository _adRepository;
         private readonly IPublicationRepository _publicationRepository;
         private readonly IClientConfig _clientConfigSettings;
@@ -29,7 +39,7 @@
             IUserManager userManager,
             IBroadcastManager broadcastManager,
             IBookingContext bookingContext,
-            IBookingCartRepository cartRepository)
+            IBookCartRepository cartRepository)
         {
             _bookingRepository = bookingRepository;
             _publicationRepository = publicationRepository;
@@ -156,6 +166,11 @@
             }, bookingUser.Email);
         }
 
+        public int? CreateBooking(BookingCart bookingCart)
+        {
+            return _bookingRepository.SubmitBooking(bookingCart);
+        }
+
         public IEnumerable<PublicationEditionModel> GenerateExtensionDates(int adBookingId, int numberOfInsertions)
         {
             foreach (var publicationEntries in _bookingRepository.GetBookEntriesForBooking(adBookingId).GroupBy(be => be.PublicationId))
@@ -199,21 +214,6 @@
         {
             return _bookingContext.Current();
         }
-
-        public void SaveBookingCart(BookingCart bookingCart)
-        {
-            // Save it to the mongo db store ( until the booking is complete )
-            _cartRepository.SaveBookingCart(bookingCart);
-        }
-
-        /// <summary>
-        /// Gets the current booking and saves it to the database
-        /// </summary>
-        public int? CompleteCurrentBooking(BookingCart bookingCart)
-        {
-            bookingCart.Completed = true;
-            SaveBookingCart(bookingCart);
-            return _bookingRepository.SubmitBooking(bookingCart);
-        }
+        
     }
 }

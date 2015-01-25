@@ -29,7 +29,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
         private Mock<IUserManager> _userManagerMock;
         private Mock<IBroadcastManager> _broadcastManagerMock;
         private Mock<IBookingContext> _bookingContext;
-        private Mock<IBookingCartRepository> _cartRepositoryMock;
+        private Mock<IBookCartRepository> _cartRepositoryMock;
 
 
         [SetUp]
@@ -47,7 +47,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
             _userManagerMock = _mockRepository.CreateMockOf<IUserManager>(_container);
             _broadcastManagerMock = _mockRepository.CreateMockOf<IBroadcastManager>(_container);
             _bookingContext = _mockRepository.CreateMockOf<IBookingContext>(_container);
-            _cartRepositoryMock = _mockRepository.CreateMockOf<IBookingCartRepository>(_container);
+            _cartRepositoryMock = _mockRepository.CreateMockOf<IBookCartRepository>(_container);
         }
 
         [TearDown]

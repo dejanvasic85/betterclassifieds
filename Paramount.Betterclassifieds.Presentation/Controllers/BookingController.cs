@@ -22,33 +22,38 @@
     {
         private readonly IUnityContainer _container;
         private readonly ISearchService _searchService;
-        private readonly IBookingManager _bookingManager;
+        private readonly IBookCartRepository _cartRepository;
+        private readonly IBookingContext _bookingContext;
         private readonly IClientConfig _clientConfig;
         private readonly IDocumentRepository _documentRepository;
         private readonly IUserManager _userManager;
         private readonly IRateCalculator _rateCalculator;
         private readonly IBroadcastManager _broadcastManager;
         private readonly IApplicationConfig _applicationConfig;
+        private readonly IBookingManager _bookingManager;
 
         public BookingController(IUnityContainer container,
             ISearchService searchService,
             IClientConfig clientConfig,
             IDocumentRepository documentRepository,
-            IBookingManager bookingManager,
+            IBookCartRepository cartRepository,
             IUserManager userManager,
             IRateCalculator rateCalculator,
             IBroadcastManager broadcastManager,
-            IApplicationConfig applicationConfig)
+            IApplicationConfig applicationConfig, 
+            IBookingContext bookingContext, IBookingManager bookingManager)
         {
             _searchService = searchService;
             _clientConfig = clientConfig;
             _documentRepository = documentRepository;
-            _bookingManager = bookingManager;
+            _cartRepository = cartRepository;
             _userManager = userManager;
             _rateCalculator = rateCalculator;
             _broadcastManager = broadcastManager;
             _container = container;
             _applicationConfig = applicationConfig;
+            _bookingContext = bookingContext;
+            _bookingManager = bookingManager;
         }
 
         #region Steps
@@ -58,7 +63,7 @@
         public ActionResult Step1()
         {
             // Fetch the cart but provider a creating method because it's the first step...
-            var bookingCart = _bookingManager.GetCart();
+            var bookingCart = _bookingContext.Current();
             var categories = _searchService.GetCategories();
 
             var viewModel = new Step1View
@@ -87,7 +92,7 @@
             if (!ModelState.IsValid)
                 return Json(new { errorMsg = "Please ensure you select a category before next step." });
 
-            var bookingCart = _bookingManager.GetCart();
+            var bookingCart = _bookingContext.Current();
             bookingCart.CategoryId = viewModel.CategoryId;
             bookingCart.SubCategoryId = viewModel.SubCategoryId;
 
@@ -95,7 +100,7 @@
                 bookingCart.Publications = viewModel.Publications.Where(p => p.IsSelected).Select(p => p.PublicationId).ToArray();
 
             bookingCart.CompleteStep(1);
-            _bookingManager.SaveBookingCart(bookingCart);
+            _cartRepository.Save(bookingCart);
 
             // Our view can't "submit" the form
             return Json(Url.Action("Step2"));
@@ -106,7 +111,7 @@
         [HttpGet, BookingStep(2)]
         public ActionResult Step2()
         {
-            var bookingCart = _bookingManager.GetCart();
+            var bookingCart = _bookingContext.Current();
             var stepTwoModel = this.Map<OnlineAdCart, Step2View>(bookingCart.OnlineAdCart);
             this.Map(bookingCart.LineAdModel, stepTwoModel);
 
@@ -152,14 +157,14 @@
                 return View(viewModel);
             }
 
-            var bookingCart = _bookingManager.GetCart();
+            var bookingCart = _bookingContext.Current();
             this.Map(viewModel, bookingCart.OnlineAdCart);
             this.Map(viewModel, bookingCart.LineAdModel);
             bookingCart.OnlineAdCart.SetDescription(viewModel.OnlineAdDescription);
             bookingCart.CompleteStep(2);
 
             // Save and continue
-            _bookingManager.SaveBookingCart(bookingCart);
+            _cartRepository.Save(bookingCart);
 
             return RedirectToAction("Step3");
         }
@@ -169,7 +174,7 @@
         [HttpGet, BookingStep(3)]
         public ActionResult Step3()
         {
-            var bookingCart = _bookingManager.GetCart();
+            var bookingCart = _bookingContext.Current();
             var viewModel = new Step3View
             {
                 StartDate = bookingCart.StartDate,
@@ -187,10 +192,10 @@
             if (!ModelState.IsValid)
                 return View(viewModel);
 
-            var bookingCart = _bookingManager.GetCart();
+            var bookingCart = _bookingContext.Current();
             bookingCart.SetSchedule(_clientConfig, viewModel.StartDate.GetValueOrDefault());
             bookingCart.CompleteStep(3);
-            _bookingManager.SaveBookingCart(bookingCart);
+            _cartRepository.Save(bookingCart);
 
             return RedirectToAction("Step4");
         }
@@ -203,9 +208,9 @@
             bool isPaymentCancelled;
             bool.TryParse(cancel, out isPaymentCancelled);
 
-            var bookingCart = _bookingManager.GetCart();
+            var bookingCart = _bookingContext.Current();
             bookingCart.TotalPrice = _rateCalculator.GetPriceBreakDown(bookingCart).Total;
-            _bookingManager.SaveBookingCart(bookingCart);
+            _cartRepository.Save(bookingCart);
 
             var viewModel = this.Map<BookingCart, Step4View>(bookingCart);
             viewModel.IsPaymentCancelled = isPaymentCancelled;
@@ -216,7 +221,7 @@
         [HttpPost, BookingStep(4), Authorize]
         public ActionResult Step4(Step4View viewModel)
         {
-            var bookingCart = _bookingManager.GetCart();
+            var bookingCart = _bookingContext.Current();
 
             if (!ModelState.IsValid)
             {
@@ -231,7 +236,7 @@
 
             if (bookingCart.NoPaymentRequired())
             {
-                _bookingManager.SaveBookingCart(bookingCart);
+                _cartRepository.Save(bookingCart);
                 return RedirectToAction("Success");
             }
 
@@ -246,14 +251,14 @@
             });
 
             bookingCart.PaymentReference = response.PaymentId;
-            _bookingManager.SaveBookingCart(bookingCart);
+            _cartRepository.Save(bookingCart);
             return Redirect(response.ApprovalUrl);
         }
 
         [BookingRequired]
         public ActionResult AuthorisePayment(string payerId)
         {
-            var bookingCart = _bookingManager.GetCart();
+            var bookingCart = _bookingContext.Current();
             var paymentService = _container.Resolve<IPaymentService>("PayPalService");
             paymentService.CompletePayment(new PaymentRequest { PayerId = payerId, PayReference = bookingCart.PaymentReference });
             return RedirectToAction("Success");
@@ -264,9 +269,12 @@
         [HttpGet, Authorize, AuthorizeCartIdentity]
         public ActionResult Success()
         {
-            var bookingCart = _bookingManager.GetCart();
+            var bookingCart = _bookingContext.Current();
 
-            var id = _bookingManager.CompleteCurrentBooking(bookingCart);
+            var id = _bookingManager.CreateBooking(bookingCart);
+            
+            // Complete the booking
+            bookingCart.Complete();
 
             var currentUser = _userManager.GetCurrentUser(User);
 
@@ -299,7 +307,7 @@
         [HttpPost, BookingRequired]
         public ActionResult UploadOnlineImage()
         {
-            var bookingCart = _bookingManager.GetCart();
+            var bookingCart = _bookingContext.Current();
 
             Guid? documentId = null;
 
@@ -334,7 +342,7 @@
 
             // Persist to the booking cart also
             bookingCart.OnlineAdCart.Images.Add(documentId.ToString());
-            _bookingManager.SaveBookingCart(bookingCart);
+            _cartRepository.Save(bookingCart);
 
 
             return Json(new { documentId }, JsonRequestBehavior.AllowGet);
@@ -346,9 +354,9 @@
             // Remove the image from the document repository
             _documentRepository.DeleteDocument(documentId);
 
-            var bookingCart = _bookingManager.GetCart();
+            var bookingCart = _bookingContext.Current();
             bookingCart.OnlineAdCart.Images.Remove(documentId.ToString());
-            _bookingManager.SaveBookingCart(bookingCart);
+            _cartRepository.Save(bookingCart);
 
             return Json(new { removed = true });
         }
@@ -356,7 +364,7 @@
         [HttpGet, BookingRequired]
         public ActionResult GetRate()
         {
-            var bookingCart = _bookingManager.GetCart();
+            var bookingCart = _bookingContext.Current();
             return Json(_rateCalculator.GetPriceBreakDown(bookingCart), JsonRequestBehavior.AllowGet);
         }
 

@@ -47,11 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BookingManager.cs" />
+    <Compile Include="Booking\BookingManager.cs" />
     <Compile Include="Booking\IBookingContext.cs" />
     <Compile Include="Broadcast\DocTypes\AdShare.cs" />
     <Compile Include="Booking\BookingCart.cs" />
-    <Compile Include="Booking\IBookingCartRepository.cs" />
+    <Compile Include="Booking\IBookCartRepository.cs" />
     <Compile Include="Booking\OnlineAdCart.cs" />
     <Compile Include="Broadcast\INotificationProcessor.cs" />
     <Compile Include="Broadcast\Notification.cs" />
@@ -104,7 +104,6 @@
     <Compile Include="DocumentStorage\Document.cs" />
     <Compile Include="ICategoryRepository.cs" />
     <Compile Include="Print\IEditionManager.cs" />
-    <Compile Include="Booking\IBookingManager.cs" />
     <Compile Include="Search\LocationAreaSearchResult.cs" />
     <Compile Include="Search\SeoNameMappingModel.cs" />
     <Compile Include="DocumentStorage\IDocumentRepository.cs" />

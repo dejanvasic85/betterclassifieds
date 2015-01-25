@@ -104,7 +104,7 @@
       <DependentUpon>Classifieds.dbml</DependentUpon>
     </Compile>
     <Compile Include="MongoRepository.cs" />
-    <Compile Include="BookingCartRepository.cs" />
+    <Compile Include="BookCartRepository.cs" />
     <Compile Include="EnquiryRepository.cs" />
     <Compile Include="Search\ClassifiedsSearchEntities.designer.cs">
       <AutoGen>True</AutoGen>

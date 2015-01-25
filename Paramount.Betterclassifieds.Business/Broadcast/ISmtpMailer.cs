@@ -11,7 +11,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
     {
         public void SendEmail(string subject, string body, string from, params string[] to)
         {
-            MailMessage mailMessage = new MailMessage
+            var mailMessage = new MailMessage
             {
                 IsBodyHtml = true,
                 Body = body,
@@ -20,8 +20,8 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             mailMessage.To.Add(string.Join(",", to));
             mailMessage.From = new MailAddress(from);
 
-            SmtpClient client = new SmtpClient();
-            client.Send(mailMessage);
+            var client = new SmtpClient();
+            client.SendAsync(mailMessage, null);
         }
     }
 }

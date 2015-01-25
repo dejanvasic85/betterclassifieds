@@ -11,13 +11,11 @@ namespace Paramount.Betterclassifieds.Presentation
     public class AuthorizeCartIdentity : ActionFilterAttribute
     {
         [Dependency]
-        public IBookingManager BookingManager { get; set; }
+        public IBookingContext BookingContext { get; set; }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var bookingCart = BookingManager.GetCart();
-
-            if (bookingCart == null)
+            if (!BookingContext.IsAvailable())
             {
                 throw new BookingAuthorisationException("Booking cart is not available");
             }
@@ -28,6 +26,8 @@ namespace Paramount.Betterclassifieds.Presentation
             {
                 throw new BookingAuthorisationException("User is not logged in.");
             }
+
+            var bookingCart = BookingContext.Current();
 
             if (bookingCart.UserId.IsNullOrEmpty())
             {

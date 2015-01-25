@@ -33,9 +33,9 @@
                      .RegisterType<IApplicationConfig, AppConfig>()
                      .RegisterType<IClientIdentifierManager, CookiesManager>()
                      .RegisterType<Business.Broadcast.IBroadcastRepository, Broadcast.BroadcastRepository>()
-                     .RegisterType<IBookingCartRepository, BookingCartRepository>(new ContainerControlledLifetimeManager())
+                     .RegisterType<IBookCartRepository, BookCartRepository>(new ContainerControlledLifetimeManager())
                      .RegisterType<Business.Search.ISearchService, SearchService>()
-                     .RegisterType<IBookingCartRepository, BookingCartRepository>()
+                     .RegisterType<IBookCartRepository, BookCartRepository>()
                      ;
 
            

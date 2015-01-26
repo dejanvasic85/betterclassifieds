@@ -40,9 +40,9 @@
             IUserManager userManager,
             IRateCalculator rateCalculator,
             IBroadcastManager broadcastManager,
-            IApplicationConfig applicationConfig, 
+            IApplicationConfig applicationConfig,
             IBookingContext bookingContext,
-            IBookingManager bookingManager, 
+            IBookingManager bookingManager,
             IPaymentService paymentService)
         {
             _searchService = searchService;
@@ -59,12 +59,12 @@
         }
 
         #region Steps
+
         //
         // GET: /Booking/Step/1 - Category and publications
         [HttpGet, BookingStep(1)]
         public ActionResult Step1()
         {
-            // Fetch the cart but provider a creating method because it's the first step...
             var bookingCart = _bookingContext.Current();
             var categories = _searchService.GetCategories();
 
@@ -92,7 +92,9 @@
         public ActionResult Step1(Step1View viewModel)
         {
             if (!ModelState.IsValid)
+            {
                 return Json(new { errorMsg = "Please ensure you select a category before next step." });
+            }
 
             var bookingCart = _bookingContext.Current();
             bookingCart.CategoryId = viewModel.CategoryId;
@@ -119,7 +121,7 @@
 
             // Load the location options
             stepTwoModel.LocationOptions = _searchService.GetLocations().Select(l => new SelectListItem { Text = l.Title, Value = l.LocationId.ToString() }).OrderBy(l => l.Text).ToList();
-            
+
             // Todo - We need to fix this! Any location and Any Area are hardcoded values!! And are getting stored to DB!
             int locationAreaId = stepTwoModel.OnlineAdLocationId.HasValue
                 ? stepTwoModel.OnlineAdLocationId.Value
@@ -263,7 +265,7 @@
             _paymentService.CompletePayment(new PaymentRequest { PayerId = payerId, PayReference = bookingCart.PaymentReference });
             return RedirectToAction("Success");
         }
-        
+
         // 
         // GET /Booking/Success
         [HttpGet, Authorize, AuthorizeCartIdentity]
@@ -272,7 +274,7 @@
             var bookingCart = _bookingContext.Current();
 
             var id = _bookingManager.CreateBooking(bookingCart);
-            
+
             // Complete the booking
             bookingCart.Complete();
             _cartRepository.Save(bookingCart);

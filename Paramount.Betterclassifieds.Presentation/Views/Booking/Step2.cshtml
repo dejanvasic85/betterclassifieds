@@ -169,7 +169,7 @@
                     @Html.LabelFor(m => m.LineAdText)
                     @Html.BootstrapLargeTextAreaFor(m => m.LineAdText, 5, attributes: new Dictionary<string, object>()
                     {
-                        {"data-bind", "html: lineAdText, valueUpdate: 'afterkeydown'"}
+                        {"data-bind", "value: lineAdText, html: lineAdText, valueUpdate: ['afterkeydown', 'input']"}
                     })
                     <span class="help-block">Word Count: <span data-bind="text: wordCount"></span></span>
                     @Html.ValidationMessageFor(m => m.LineAdText)
@@ -323,7 +323,6 @@
                         });
                     });
                     self.lineAdHeader = ko.observable(lineAdHeader);
-                    debugger;   
                     self.lineAdText = ko.observable(lineAdText);
                     self.wordCount = ko.computed(function() {
                         return self.lineAdText().split(' ').length;
@@ -333,7 +332,7 @@
                 var rawOnlineImages = @Html.Raw(Model.OnlineAdImages.ToJsonString());
 
                 var designAdModel = new DesignAd(rawOnlineImages, @Model.MaxOnlineImages,
-                    '@Model.LineAdHeader', '@Model.LineAdText');
+                    "@Model.LineAdHeader", "@Html.Raw( Model.LineAdText.Replace("\"","\\\"") )");
 
                 ko.applyBindings(designAdModel);
             });

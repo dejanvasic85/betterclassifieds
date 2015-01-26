@@ -4,6 +4,9 @@ using System.Web;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 {
+    /// <summary>
+    /// Manages the booking cart with the user's cookie
+    /// </summary>
     public class BookingContextInCookie : IBookingContext
     {
         private readonly IBookCartRepository _repository;

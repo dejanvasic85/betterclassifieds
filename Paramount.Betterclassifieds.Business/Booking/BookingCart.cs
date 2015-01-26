@@ -40,7 +40,18 @@ namespace Paramount.Betterclassifieds.Business.Booking
 
         public int[] Publications { get; set; }
 
-        public DateTime? StartDate { get; set; }
+        public DateTime? StartDate { get; private set; }
+
+        public DateTime? GetStartDateOrMinimum()
+        {
+            if (!StartDate.HasValue)
+                return null;
+
+            if (StartDate < DateTime.Today)
+                return DateTime.Today;
+
+            return StartDate;
+        }
 
         public DateTime? EndDate { get; set; }
 

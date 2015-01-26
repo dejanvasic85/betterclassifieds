@@ -181,7 +181,7 @@
             var bookingCart = _bookingContext.Current();
             var viewModel = new Step3View
             {
-                StartDate = bookingCart.StartDate,
+                StartDate = bookingCart.GetStartDateOrMinimum(),
                 DurationDays = _clientConfig.RestrictedOnlineDaysCount
             };
 

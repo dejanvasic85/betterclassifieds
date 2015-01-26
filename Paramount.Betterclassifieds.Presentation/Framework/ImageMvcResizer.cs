@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using ImageProcessor;
@@ -39,7 +40,21 @@ namespace Paramount.Betterclassifieds.Presentation.Framework
                 return null;
 
             // Store the original image to the disk
-            File.WriteAllBytes(targetFilePath, document.Data);
+            try
+            {
+                File.WriteAllBytes(targetFilePath, document.Data);
+            }
+            catch
+            {
+                // Image is already currently in middle of storing
+                // Wait until it's available
+                int attempts = 0;
+                while (!File.Exists(targetFilePath) && attempts < 20)
+                {
+                    attempts++;
+                    Thread.Sleep(100);
+                }
+            }
 
             // Use the image result that will do the work and caching!
             return new ImageResult(targetFilePath, width, height);
@@ -83,7 +98,7 @@ namespace Paramount.Betterclassifieds.Presentation.Framework
 
                 if (!Directory.Exists(resizedPath))
                     Directory.CreateDirectory(new FileInfo(resizedPath).DirectoryName);
-                
+
                 if (!File.Exists(resizedPath))
                 {
                     ResizeImageToFile(filepath, width, height, resizedPath);

@@ -104,9 +104,15 @@
                 <div class="panel-body upload-thumbs">
                     <div class="alert alert-warning">
                         Max image size @Model.MaxImageUploadInMegabytes.ToString("F1") MB.
+
                         @if (Model.MaxOnlineImages.HasValue)
                         {
                             <span>You can upload up to @Model.MaxOnlineImages images.</span>
+                        }
+
+                        @if (Model.IsLineAdIncluded)
+                        {
+                            <strong>The first (primary) image will be used for print</strong>
                         }
                     </div>
                     <div class="alert alert-danger" data-bind="text : errorMsg, css : { hidden : errorMsg().length == 0 }"></div>
@@ -160,11 +166,16 @@
                         {"data-bind", "value: lineAdHeader"}
                     })
                     @Html.ValidationMessageFor(m => m.LineAdHeader)
-                    <label>
-                        @Html.CheckBoxFor(m => m.LineIsSuperBoldHeading) @Html.LabelFor( m => m.LineIsSuperBoldHeading)
-                    </label>
-                </div>
 
+                </div>
+                <div class="form-group">
+                    <div class="form-control">
+                        <label>
+                            @Html.CheckBoxFor(m => m.LineIsSuperBoldHeading) @Html.LabelFor(m => m.LineIsSuperBoldHeading)
+                        </label>
+                    </div>
+
+                </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.LineAdText)
                     @Html.BootstrapLargeTextAreaFor(m => m.LineAdText, 5, attributes: new Dictionary<string, object>()
@@ -174,9 +185,15 @@
                     <span class="help-block">Word Count: <span data-bind="text: wordCount"></span></span>
                     @Html.ValidationMessageFor(m => m.LineAdText)
                 </div>
+
+                <div class="form-group" data-bind="visible: adImages().length > 0">
+                    <label>Prepare Image for Print</label>
+                    <div class="thumbnail">
+                        <img data-bind="attr: {src: primaryImgForPrint}" />
+                    </div>
+                </div>
             </div>
         </div>
-
     }
 
     @*Pager*@
@@ -194,10 +211,10 @@
 </form>
 
 @section Scripts{
-    
+
     <script src="@Url.Content("~/Scripts/jquery.cleditor.min.js")"></script>
     <script>
-        
+
         (function($, $paramount) {
 
             $paramount.setOnlineEditor(function() {
@@ -224,7 +241,7 @@
                 $('#copyOnlineAdDetails').click(function() {
                     var $btn = $(this);
                     $btn.button('loading');
-                    $.ajax({
+                    @*$.ajax({
                         url: '@Url.Action("GetPlaintextFromMarkdown", "Booking")',
                         data: JSON.stringify({ markdown: $('#OnlineAdDescriptionMarkdown').val() }),
                         contentType: 'application/json',
@@ -237,10 +254,10 @@
                         complete: function() {
                             $btn.button('reset');
                         }
-                    });
+                    });*@
                     return false; // So we don't submit form on pressing the button
                 });
-                
+
                 // Setup upload ctrl
                 var upload = $('#fileupload').fileupload({
                     dataType: 'json',
@@ -312,9 +329,17 @@
                     };
                     self.uploadImageInProgress = ko.observable(false);
                     self.imageUrlTemplate = '@Url.Action("Render", "Image", new {documentId = "id", height = 100, width = 100})';
+                    self.imageUrlPrintTemplate = '@Url.Action("Render", "Image", new {documentId = "id", height = 400, width = 400})';
                     self.imageUrl = function(id) {
                         return self.imageUrlTemplate.replace('id', id);
                     };
+                    self.primaryImgForPrint = ko.computed(function() {
+                        if (self.adImages().length === 0) {
+                            return '';
+                        }
+
+                        return self.imageUrlPrintTemplate.replace('id', self.adImages()[0]);
+                    });
 
                     self.pricelist = ko.observable({ Total: 0, LineItems: { 'Online Ad Cost': 0 } });
                     self.calculate = ko.computed(function() {

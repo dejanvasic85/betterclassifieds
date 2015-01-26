@@ -32,7 +32,7 @@
         private readonly IBookingManager _bookingManager;
         private readonly IPaymentService _paymentService;
 
-        public BookingController(
+        public BookingController( 
             ISearchService searchService,
             IClientConfig clientConfig,
             IDocumentRepository documentRepository,
@@ -71,7 +71,7 @@
             var viewModel = new Step1View
             {
                 ParentCategoryOptions = categories.Where(c => c.ParentId == null).Select(c => new SelectListItem { Text = c.Title, Value = c.MainCategoryId.ToString() }),
-                Publications = this.MapList<PublicationModel, PublicationSelectionView>(new List<PublicationModel>()),
+                Publications = this.MapList<PublicationModel, PublicationSelectionView>(_searchService.GetPublications()),
                 CategoryId = bookingCart.CategoryId,
                 SubCategoryId = bookingCart.SubCategoryId,
             };
@@ -104,7 +104,7 @@
             bookingCart.CompleteStep(1);
             _cartRepository.Save(bookingCart);
 
-            // Our view can't "submit" the form
+            // Our view can't "submit" the form so just return json with the redirection url
             return Json(Url.Action("Step2"));
         }
 

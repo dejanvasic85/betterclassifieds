@@ -57,10 +57,17 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         public IEnumerable<SelectListItem> LocationOptions { get; set; }
 
         public IEnumerable<SelectListItem> LocationAreaOptions { get; set; }
+        
         [Display(Name = "Heading")]
         [StringLength(100)]
         public string LineAdHeader { get; set; }
+        
         [Display(Name = "Description")]
+        [AllowHtml]
         public string LineAdText { get; set; }
+
+        
+        [Display(Name = "Super Bold Heading - make your heading really stand out")]
+        public bool LineIsSuperBoldHeading { get; set; }
     }
 }

@@ -161,7 +161,7 @@
                     })
                     @Html.ValidationMessageFor(m => m.LineAdHeader)
                     <label>
-                        <input type="checkbox"/> Super Bold Heading - make your heading really stand out
+                        @Html.CheckBoxFor(m => m.LineIsSuperBoldHeading) @Html.LabelFor( m => m.LineIsSuperBoldHeading)
                     </label>
                 </div>
 
@@ -169,7 +169,7 @@
                     @Html.LabelFor(m => m.LineAdText)
                     @Html.BootstrapLargeTextAreaFor(m => m.LineAdText, 5, attributes: new Dictionary<string, object>()
                     {
-                        {"data-bind", "value: lineAdText, valueUpdate: 'afterkeydown'"}
+                        {"data-bind", "html: lineAdText, valueUpdate: 'afterkeydown'"}
                     })
                     <span class="help-block">Word Count: <span data-bind="text: wordCount"></span></span>
                     @Html.ValidationMessageFor(m => m.LineAdText)
@@ -240,19 +240,7 @@
                     });
                     return false; // So we don't submit form on pressing the button
                 });
-
-                // Fix the total price
-                //$('#priceSummary').affix({
-                //    offset: {
-                //        top: 320,
-                //        bottom: 450
-                //    }
-                //}).on('affix.bs.affix', function() {
-                //    $(this).css({ top: -20, width: $('.col-xs-12').width(), 'z-index': '100' });
-                //}).on('affix-top.bs.affix', function() {
-                //    $(this).css({ width: $('.col-xs-12').width() });
-                //});
-
+                
                 // Setup upload ctrl
                 var upload = $('#fileupload').fileupload({
                     dataType: 'json',
@@ -335,6 +323,7 @@
                         });
                     });
                     self.lineAdHeader = ko.observable(lineAdHeader);
+                    debugger;   
                     self.lineAdText = ko.observable(lineAdText);
                     self.wordCount = ko.computed(function() {
                         return self.lineAdText().split(' ').length;

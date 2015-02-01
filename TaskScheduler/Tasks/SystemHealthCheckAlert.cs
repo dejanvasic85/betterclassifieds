@@ -58,7 +58,9 @@ namespace Paramount.TaskScheduler
                 var endDateUtc = DateTime.UtcNow;
 
                 return connection.Query<Models.LogItem>(
-                    "SELECT Application, Host, Type, Source, Message, User, StatusCode, TimeUtc FROM ELMAH_Error WHERE TimeUtc BETWEEN @StartDate AND @EndDate ORDER BY Sequence",
+                    "SELECT Application, Host, Type, Source, Message, User, StatusCode, TimeUtc FROM ELMAH_Error" +
+                    "WHERE TimeUtc BETWEEN @StartDate AND @EndDate AND @StatusCode != 404 " +
+                    "ORDER BY Sequence",
                     new { StartDate = startDateUtc, EndDate = endDateUtc }
                 );
             }

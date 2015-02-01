@@ -104,6 +104,7 @@ Public Class AppUserController
                 .Industry = industry
                 .BusinessCategory = category
             End With
+            db.SubmitChanges()
 
             ' Also update the aspnet_Membership ( maintain consistency )
             Dim member = db.aspnet_Memberships.Single(Function(m) m.UserId = userId)

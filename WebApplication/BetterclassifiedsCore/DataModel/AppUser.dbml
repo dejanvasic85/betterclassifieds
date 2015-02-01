@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="iFlogAppUser" EntityNamespace="DataModel" ContextNamespace="DataModel" Class="AppUserDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost;Initial Catalog=iFlogAppUser;Integrated Security=True" SettingsObjectName="BetterclassifiedsCore.My.MySettings" SettingsPropertyName="iFlogAppUserConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AppUser" EntityNamespace="DataModel" ContextNamespace="DataModel" Class="AppUserDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost;Initial Catalog=AppUser;Integrated Security=True" SettingsObjectName="BetterclassifiedsCore.My.MySettings" SettingsPropertyName="AppUserConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.aspnet_Users" Member="aspnet_Users">
     <Type Name="aspnet_User">
       <Column Name="ApplicationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
@@ -28,31 +28,6 @@
       <Column Name="Title" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Description" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
       <Association Name="Industry_BusinessCategory" Member="Industry" ThisKey="IndustryId" OtherKey="IndustryId" Type="Industry" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.UserProfile" Member="UserProfiles">
-    <Type Name="UserProfile">
-      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="RefNumber" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="FirstName" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
-      <Column Name="LastName" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
-      <Column Name="Email" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Address1" Type="System.String" DbType="NVarChar(75) NOT NULL" CanBeNull="false" />
-      <Column Name="Address2" Type="System.String" DbType="NVarChar(75)" CanBeNull="true" />
-      <Column Name="City" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="State" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="PostCode" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
-      <Column Name="Phone" Type="System.String" DbType="NVarChar(12) NOT NULL" CanBeNull="false" />
-      <Column Name="SecondaryPhone" Type="System.String" DbType="NVarChar(12)" CanBeNull="true" />
-      <Column Name="PreferedContact" Type="System.String" DbType="NVarChar(12)" CanBeNull="true" />
-      <Column Name="BusinessName" Type="System.String" DbType="NVarChar(75)" CanBeNull="true" />
-      <Column Name="ABN" Type="System.String" DbType="NVarChar(12)" CanBeNull="true" />
-      <Column Name="Industry" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="BusinessCategory" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ProfileVersion" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="LastUpdatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="UserProfile_UserProfile" Member="UserProfile1" ThisKey="UserID" OtherKey="UserID" Type="UserProfile" Cardinality="One" />
-      <Association Name="UserProfile_UserProfile" Member="UserProfile" ThisKey="UserID" OtherKey="UserID" Type="UserProfile" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.aspnet_Applications" Member="aspnet_Applications">
@@ -90,6 +65,31 @@
       <Column Name="Comment" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="aspnet_Application_aspnet_Membership" Member="aspnet_Application" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="aspnet_Application" IsForeignKey="true" />
       <Association Name="aspnet_User_aspnet_Membership" Member="aspnet_User" ThisKey="UserId" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserProfile" Member="UserProfiles">
+    <Type Name="UserProfile">
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RefNumber" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Address1" Type="System.String" DbType="NVarChar(75)" CanBeNull="true" />
+      <Column Name="Address2" Type="System.String" DbType="NVarChar(75)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="PostCode" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(12)" CanBeNull="true" />
+      <Column Name="SecondaryPhone" Type="System.String" DbType="NVarChar(12)" CanBeNull="true" />
+      <Column Name="PreferedContact" Type="System.String" DbType="NVarChar(12)" CanBeNull="true" />
+      <Column Name="BusinessName" Type="System.String" DbType="NVarChar(75)" CanBeNull="true" />
+      <Column Name="ABN" Type="System.String" DbType="NVarChar(12)" CanBeNull="true" />
+      <Column Name="Industry" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BusinessCategory" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProfileVersion" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LastUpdatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="NewsletterSubscription" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="HowYouFoundUs" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

@@ -156,12 +156,17 @@
         [HttpPost, ValidateAntiForgeryToken, BookingStep(2)]
         public ActionResult Step2(Step2View viewModel)
         {
+            var bookingCart = _bookingContext.Current();
+
             if (!ModelState.IsValid)
             {
+                viewModel.MaxOnlineImages = _clientConfig.MaxOnlineImages;
+                viewModel.MaxImageUploadBytes = _applicationConfig.MaxImageUploadBytes;
+                viewModel.IsLineAdIncluded = bookingCart.IsLineAdIncluded;
                 return View(viewModel);
             }
 
-            var bookingCart = _bookingContext.Current();
+            
             this.Map(viewModel, bookingCart.OnlineAdCart);
             this.Map(viewModel, bookingCart.LineAdModel);
             bookingCart.OnlineAdCart.SetDescription(viewModel.OnlineAdDescription);

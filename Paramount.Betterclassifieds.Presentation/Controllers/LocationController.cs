@@ -17,22 +17,22 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var list = _searchService.GetLocations()
                 .Select(l => new SelectListItem { Text = l.Title, Value = l.LocationId.ToString() })
-                .OrderBy(l => l.Text)
-                .ToList();
-
-            // Set the any location to a null value
-            var anyLocation = list.FirstOrDefault(l => l.Text.Contains("Any Location"));
-            if (anyLocation != null)
-            {
-                anyLocation.Value = null;
-            }
+                .OrderBy(l => l.Text);
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult GetLocationAreas(int locationId)
+        public ActionResult GetLocationAreas(int? locationId)
         {
-            var list = _searchService.GetLocationAreas(locationId).OrderBy(l => l.Title).ToList();
+            if (!locationId.HasValue)
+            {
+                return Json(new[] { new SelectListItem { Value = null, Text = "Any Area" } });
+            }
+
+            var list = _searchService.GetLocationAreas(locationId.Value)
+                .Select(l => new SelectListItem { Text = l.Title, Value = l.LocationAreaId.ToString() })
+                .OrderBy(l => l.Text);
+
             return Json(list, JsonRequestBehavior.AllowGet);
         }
     }

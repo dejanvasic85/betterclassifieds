@@ -18,6 +18,7 @@
 
 <form role="form" id="adDesignForm" action="@Url.Action("Step2", "Booking")" method="POST">
     @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.IsLineAdIncluded)
 
     <div class="row top-buffer-20">
         <div class="col-xs-12">
@@ -55,42 +56,28 @@
                 @Html.BootstrapLargeTextBoxFor(m => m.OnlineAdPhone)
                 @Html.ValidationMessageFor(m => m.OnlineAdPhone)
             </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.OnlineAdLocationId)
-                <select id="OnlineAdLocationId" name="OnlineAdLocationId" class="form-control input-lg">
-                    @foreach (var location in Model.LocationOptions)
-                    {
-                        if (Model.OnlineAdLocationId == int.Parse(location.Value))
-                        {
-                            <option value="@location.Value" selected="selected">@location.Text</option>
-                        }
-                        else
-                        {
-                            <option value="@location.Value">@location.Text</option>
-                        }
-                    }
-                </select>
+            
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.OnlineAdLocationId)
+                        <select id="OnlineAdLocationId" name="OnlineAdLocationId"
+                                class="form-control input-lg js-select"
+                                data-selected="@Model.OnlineAdLocationId"
+                                data-url="@Url.LocationOptions()"></select>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.OnlineAdLocationAreaId)
+                        <select id="OnlineAdLocationAreaId" name="OnlineAdLocationAreaId"
+                                class="form-control input-lg js-select"
+                                data-selected="@Model.OnlineAdLocationAreaId"
+                                data-url="@Url.LocationAreaOptions(Model.OnlineAdLocationId)"></select>
+                    </div>
+                </div>
             </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.OnlineAdLocationAreaId)
-                <select id="OnlineAdLocationAreaId" name="OnlineAdLocationAreaId" class="form-control input-lg">
-                    @foreach (var area in Model.LocationAreaOptions)
-                    {
-                        if (Model.OnlineAdLocationAreaId == int.Parse(area.Value))
-                        {
-                            <option value="@area.Value" selected="selected">@area.Text</option>
-                        }
-                        else
-                        {
-                            <option value="@area.Value">@area.Text</option>
-                        }
-
-                    }
-                </select>
-            </div>
-
+            
             <div class="panel panel-default" id="onlineImages">
                 <div class="panel-heading">
                     <span class="btn btn-success fileinput-button" data-bind="css : { hidden : !maxLimitNotReached() }">
@@ -241,20 +228,6 @@
                 $('#copyOnlineAdDetails').click(function() {
                     var $btn = $(this);
                     $btn.button('loading');
-                    @*$.ajax({
-                        url: '@Url.Action("GetPlaintextFromMarkdown", "Booking")',
-                        data: JSON.stringify({ markdown: $('#OnlineAdDescriptionMarkdown').val() }),
-                        contentType: 'application/json',
-                        type: 'POST',
-                        dataType: 'json',
-                        success: function(response) {
-                            designAdModel.lineAdText(response.plaintext);
-                            designAdModel.lineAdHeader($('#OnlineAdHeading').val());
-                        },
-                        complete: function() {
-                            $btn.button('reset');
-                        }
-                    });*@
                     return false; // So we don't submit form on pressing the button
                 });
 
@@ -357,7 +330,8 @@
                 var rawOnlineImages = @Html.Raw(Model.OnlineAdImages.ToJsonString());
 
                 var designAdModel = new DesignAd(rawOnlineImages, @Model.MaxOnlineImages,
-                    "@Model.LineAdHeader", "@Html.Raw( Model.LineAdText.Replace("\"","\\\"") )");
+                    '@Model.LineAdHeader', '@Html.Raw( Model.LineAdText )');
+
 
                 ko.applyBindings(designAdModel);
             });

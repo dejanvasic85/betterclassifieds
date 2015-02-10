@@ -191,6 +191,7 @@
     <Compile Include="Framework\HttpResponseExtensions.cs" />
     <Compile Include="Framework\ImageMvcResizer.cs" />
     <Compile Include="Framework\ModuleUrlHelper.cs" />
+    <Compile Include="Framework\UrlExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

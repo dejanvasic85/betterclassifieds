@@ -6,6 +6,21 @@ namespace Paramount
 {
     public static class UrlExtensions
     {
+        public static string Home(this UrlHelper urlHelper)
+        {
+            return urlHelper.Action("Index", "Home");
+        }
+
+        public static string LocationOptions(this UrlHelper urlHelper)
+        {
+            return urlHelper.Action("GetLocationOptions", "Location");
+        }
+
+        public static string LocationAreaOptions(this UrlHelper urlHelper, int? locationId)
+        {
+            return urlHelper.Action("GetLocationAreas", "Location", new { locationId });
+        }
+
         public static string ContentAbsolute(this UrlHelper urlhelper, string relativeContentPath)
         {
             Uri contextUri = HttpContext.Current.Request.Url;
@@ -16,8 +31,7 @@ namespace Paramount
             return string.Format("{0}{1}", baseUri, VirtualPathUtility.ToAbsolute(relativeContentPath));
         }
 
-        public static string ActionAbsolute(this UrlHelper urlHelper, string actionName, string controllerName,
-                                            object routeValues = null)
+        public static string ActionAbsolute(this UrlHelper urlHelper, string actionName, string controllerName, object routeValues = null)
         {
             string scheme = urlHelper.RequestContext.HttpContext.Request.Url.Scheme;
 

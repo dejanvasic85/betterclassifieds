@@ -80,7 +80,7 @@ var $paramount = $paramount || {};
             $.getJSON(url).done(function (data) {
                 me.empty();
                 $.each(data, function (index, option) {
-                    if (selected === option.Value) {
+                    if (selected == option.Value) {
                         me.append('<option selected value="' + option.Value + '">' + option.Text + '</option>');
                     } else {
                         me.append('<option value="' + option.Value + '">' + option.Text + '</option>');
@@ -154,7 +154,7 @@ var $paramount = $paramount || {};
                 $.getJSON(url, { locationId: locationId }).done(function (data) {
                     me.empty();
                     $.each(data, function (index, option) {
-                        me.append('<option value=' + option.LocationAreaId + '>' + option.Title + '</option>');
+                        me.append('<option value=' + option.Value + '>' + option.Text + '</option>');
                     });
                     me.removeAttr('disabled').removeClass('hidden');
                 });

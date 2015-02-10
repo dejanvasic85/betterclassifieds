@@ -4,12 +4,12 @@ using Paramount.ApplicationBlock.Mvc.ModelBinders;
 using Paramount.ApplicationBlock.Mvc.Unity;
 using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
+using Paramount.Betterclassifieds.Presentation.ViewModels.Booking;
 using System;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Paramount.Betterclassifieds.Presentation.ViewModels.Booking;
 
 namespace Paramount.Betterclassifieds.Presentation
 {
@@ -25,11 +25,13 @@ namespace Paramount.Betterclassifieds.Presentation
             RegisterRoutes(routes);
 
             RegisterModelBinders();
+
         }
 
         private void RegisterModelBinders()
         {
             ModelBinders.Binders.Add(typeof(DateTime?), new ModelSpecificDateModelBinder());
+            DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(RequiredIfAttribute), typeof(RequiredAttributeAdapter));
         }
 
         private void RegisterRoutes(RouteCollection routes)

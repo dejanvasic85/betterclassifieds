@@ -63,7 +63,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         public string LineAdHeader { get; set; }
         
         [Display(Name = "Description")]
-        // [RequiredIf("IsLineAdIncluded", true)]
+        [RequiredIf("IsLineAdIncluded", true)]
         [AllowHtml]
         public string LineAdText { get; set; }
 

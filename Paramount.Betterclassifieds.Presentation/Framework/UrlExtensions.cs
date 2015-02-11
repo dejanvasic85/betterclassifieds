@@ -21,6 +21,11 @@ namespace Paramount
             return urlHelper.Action("GetLocationAreas", "Location", new { locationId });
         }
 
+        public static string Image(this UrlHelper urlHelper, string documentId, int height = 100, int width = 100)
+        {
+            return urlHelper.Action("Render", "Image", new { documentId, height, width });
+        }
+
         public static string ContentAbsolute(this UrlHelper urlhelper, string relativeContentPath)
         {
             Uri contextUri = HttpContext.Current.Request.Url;

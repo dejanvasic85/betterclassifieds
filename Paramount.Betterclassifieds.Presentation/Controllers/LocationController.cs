@@ -26,7 +26,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             if (!locationId.HasValue)
             {
-                return Json(new[] { new SelectListItem { Value = null, Text = "Any Area" } });
+                return Json(new[] { new SelectListItem { Value = null, Text = "Any Area" } }, JsonRequestBehavior.AllowGet);
             }
 
             var list = _searchService.GetLocationAreas(locationId.Value)

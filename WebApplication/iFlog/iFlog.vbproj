@@ -243,6 +243,7 @@
       <DependentUpon>bootstrap-select.css</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap-3.3.0.css" />
+    <Content Include="Content\cropper.css" />
     <Content Include="Content\datepicker.css" />
     <Content Include="Content\datepicker.min.css">
       <DependentUpon>datepicker.css</DependentUpon>
@@ -341,6 +342,7 @@
     <Content Include="Scripts\bootstrap-markdown.min.js">
       <DependentUpon>bootstrap-markdown.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\cropper.js" />
     <Content Include="Scripts\jquery-1.11.0.js" />
     <Content Include="Scripts\jquery-1.11.0.min.js">
       <DependentUpon>jquery-1.11.0.js</DependentUpon>

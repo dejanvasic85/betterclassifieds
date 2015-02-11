@@ -96,6 +96,10 @@
                         {
                             <span>You can upload up to @Model.MaxOnlineImages images.</span>
                         }
+                        @if (Model.IsLineAdIncluded)
+                        {
+                            <span></span>
+                        }
                     </div>
                     <div class="alert alert-danger" data-bind="text : errorMsg, css : { hidden : errorMsg().length == 0 }"></div>
                     <div class="progress progress-striped active" data-bind="visible: uploadImageInProgress">
@@ -195,6 +199,7 @@
 @section Scripts{
 
     <script src="@Url.Content("~/Scripts/jquery.cleditor.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/cropper.js")"></script>
     <script>
 
         (function($, $paramount) {
@@ -314,7 +319,7 @@
                         if (self.adImages().length === 0) {
                             return '';
                         }
-                        //return self.imageUrlPrintTemplate.replace('id', self.adImages()[0]);
+                        return self.imageUrlPrintTemplate.replace('id', self.adImages()[0]);
                     });
 
                     self.pricelist = ko.observable({ Total: 0, LineItems: { 'Online Ad Cost': 0 } });

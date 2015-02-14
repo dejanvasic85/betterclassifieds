@@ -30,7 +30,7 @@ namespace Paramount
                 ? content
                 : content.Substring(0, maxLength).TrimEnd() + suffix;
         }
-        
+
         public static string StripLineBreaks(this string content)
         {
             return content.Replace("\n\r", " ").Replace('\n', ' ').Replace('\r', ' ');
@@ -149,6 +149,24 @@ namespace Paramount
                 newText.Append(text[i]);
             }
             return newText.ToString();
+        }
+
+        public static string FileExtension(this string text)
+        {
+            if (text.IndexOf('.') == -1)
+                return string.Empty;
+
+            return text.Substring(text.LastIndexOf('.') + 1);
+        }
+
+        public static string WithoutFileExtension(this string fileName)
+        {
+            var index = fileName.LastIndexOf('.');
+
+            if (index == -1 || index == 1)
+                return fileName;
+
+            return fileName.Substring(0, index);
         }
     }
 }

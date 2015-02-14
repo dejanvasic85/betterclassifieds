@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Web.UI;
+using NUnit.Framework;
 
 namespace Paramount.Betterclassifieds.Tests.Utility
 {
@@ -98,6 +99,62 @@ namespace Paramount.Betterclassifieds.Tests.Utility
         public void StripLineBreaks_NewLineAndBreak_SwapsNewLineWithSpaces()
         {
             Assert.That("\n\rladi\n\rda\n".StripLineBreaks(), Is.EqualTo(" ladi da "));
+        }
+
+        [Test]
+        public void FileExtension_ValidFileName_ReturnsExtension()
+        {
+            var result = "myfilename.jpg".FileExtension();
+
+            Assert.That(result, Is.EqualTo("jpg"));
+        }
+
+        [Test]
+        public void FileExtension_NoExtension_ReturnsEmpty()
+        {
+            var result = "myfilename".FileExtension();
+
+            Assert.That(result, Is.EqualTo(""));
+        }
+
+        [Test]
+        public void FileExtension_EmptyString_ReturnsEmpty()
+        {
+            var result = "".FileExtension();
+
+            Assert.That(result, Is.EqualTo(""));
+        }
+
+        [Test]
+        public void WithoutFileExtension_ValidFileName_ReturnsFileNameWithoutExtension()
+        {
+            var result = "myfilename.jpg".WithoutFileExtension();
+
+            Assert.That(result, Is.EqualTo("myfilename"));
+        }
+
+        [Test]
+        public void WithoutFileExtension_EmptyString_ReturnsEmptyString()
+        {
+            var result = "".WithoutFileExtension();
+
+            Assert.That(result, Is.EqualTo(""));
+        }
+
+        [Test]
+        public void WithoutFileExtension_IndexAtOne_ReturnsEmptyString()
+        {
+            var result = ".something".WithoutFileExtension();
+
+            Assert.That(result, Is.EqualTo(""));
+        }
+
+        [Test]
+        public void WithoutFileExtension_FilenameWithoutExtenion_ReturnsFilename()
+        {
+            var result = "something".WithoutFileExtension();
+
+            Assert.That(result, Is.EqualTo("something"));
         }
     }
 }

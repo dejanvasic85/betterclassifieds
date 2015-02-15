@@ -86,7 +86,6 @@
                         <!-- The file input field used as target for the file upload widget -->
                         <input id="fileupload" type="file" name="files[]" multiple>
                     </span>
-
                 </div>
                 <div class="panel-body upload-thumbs">
                     <div class="alert alert-warning">
@@ -101,6 +100,7 @@
                             <span></span>
                         }
                     </div>
+
                     <div class="alert alert-danger" data-bind="text : errorMsg, css : { hidden : errorMsg().length == 0 }"></div>
                     <div class="progress progress-striped active" data-bind="visible: uploadImageInProgress">
                         <div class="progress-bar active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
@@ -135,8 +135,8 @@
                     <p>These details will be displayed on the selected publications.</p>
                 </div>
                 <a id="copyOnlineAdDetails"
-                        class="btn btn-primary pull-right cancel"
-                        data-loading-text="Converting...">
+                   class="btn btn-primary pull-right cancel"
+                   data-loading-text="Converting...">
                     Copy From Online Ad <i class="glyphicon glyphicon-arrow-down"></i>
                 </a>
             </div>
@@ -172,12 +172,24 @@
                     @Html.ValidationMessageFor(m => m.LineAdText)
                 </div>
 
-                <div class="form-group" data-bind="visible: adImages().length > 0">
-                    <label>Prepare Image for Print</label>
-                    <div class="thumbnail">
-                        <img data-bind="attr: {src: primaryImgForPrint}" />
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Print Image
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="row" id="printImageSelector">
+                            <div class="col-xs-6">
+
+                            </div>
+                            <div class="col-xs-6">
+
+                            </div>
+                        </div>
+
                     </div>
                 </div>
+
             </div>
         </div>
     }
@@ -220,14 +232,12 @@
             });
 
             $(function() {
-                var $progressBar = $('#onlineImages .progress');
 
                 $('#OnlineAdLocationId').on('change', function() {
                     $('#OnlineAdLocationAreaId').loadLocationAreas('@Url.Action("GetLocationAreas", "Location")', $(this).val(), false);
                 });
 
                 $('#copyOnlineAdDetails').click(function() {
-                    
                     // copy header
                     $('#LineAdHeader').val( $('#OnlineAdHeading').val() );
 
@@ -236,60 +246,30 @@
                     var content = '<p>' + $('#OnlineAdDescription').val().replace(regex, "\n") + '</p>';
                     var newContent = $(content).text();
                     $('#LineAdText').val(newContent);
-
-                    return false; // So we don't submit form on pressing the button
                 });
 
-                // Setup upload ctrl
-                var upload = $('#fileupload').fileupload({
-                    dataType: 'json',
+                $paramount.upload({
+
                     url: '@Url.Action("UploadOnlineImage", "Booking")',
-                    autoUpload: true,
-                    singleFileUploads: false
-                });
-
-                upload.on('fileuploaddone', function(e, data) {
-                    if (data.result.documentId) {
-                        designAdModel.adImages.push(data.result.documentId);
-                    } else {
-                        designAdModel.errorMsg(data.result.errorMsg);
+                    element: $('#fileupload'),
+                    progressBar : $('#onlineImages .progress'),
+                    start : function() {
+                        // Start
+                        designAdModel.errorMsg('');
+                        designAdModel.uploadImageInProgress(true);
+                    },
+                    complete : function(fileId) {
+                        // Complete
+                        designAdModel.adImages.push(fileId);
+                        designAdModel.uploadImageInProgress(false);
+                    },
+                    error : function(err) {
+                        // Error
+                        designAdModel.errorMsg(err);
+                        designAdModel.uploadImageInProgress(false);
                     }
                 });
 
-                upload.on('fileuploadstart', function(data) {
-                    designAdModel.uploadImageInProgress(true);
-                });
-
-                upload.on('fileuploadalways', function() {
-                    designAdModel.uploadImageInProgress(false);
-                    $progressBar.find('.progress-bar').width('0');
-                });
-
-                upload.on('fileuploadprogressall', function(e, data) {
-                    var progress = parseInt(data.loaded / data.total * 100, 10);
-                    $progressBar.find('.progress-bar').css('width', progress + '%');
-                });
-
-                upload.on('fileuploadadd', function(e, data) {
-                    var acceptFileTypes = /^image\/(gif|jpe?g|png)$/i;
-                    if (data.originalFiles[0]['type'].length && !acceptFileTypes.test(data.originalFiles[0]['type'])) {
-                        designAdModel.errorMsg('Not an accepted file type.');
-                        return false;
-                    }
-
-                    if (data.originalFiles[0].size > '@Model.MaxImageUploadBytes') {
-                        designAdModel.errorMsg("The file exceeds the maximum file size.");
-                        return false;
-                    }
-
-                    if (data.files.length > 1) {
-                        designAdModel.errorMsg("Please select one image at a time.");
-                        return false;
-                    }
-
-                    designAdModel.errorMsg("");
-                    return true;
-                });
 
                 var DesignAd = function(data, maxImages, lineAdHeader, lineAdText) {
                     var self = this;
@@ -315,13 +295,6 @@
                     self.imageUrl = function(id) {
                         return self.imageUrlTemplate.replace("-1", id);
                     };
-                    self.primaryImgForPrint = ko.computed(function() {
-                        if (self.adImages().length === 0) {
-                            return '';
-                        }
-                        return self.imageUrlPrintTemplate.replace('id', self.adImages()[0]);
-                    });
-
                     self.pricelist = ko.observable({ Total: 0, LineItems: { 'Online Ad Cost': 0 } });
                     self.calculate = ko.computed(function() {
                         $.get('@Url.Action("GetRate")', null, function(resp) {
@@ -331,6 +304,10 @@
                     self.lineAdHeader = ko.observable(lineAdHeader);
                     self.lineAdText = ko.observable(lineAdText);
                     self.wordCount = ko.computed(function() {
+                        if (self.lineAdText().length === 0) {
+                            return 0;
+                        }
+
                         return self.lineAdText().split(' ').length;
                     });
                 };
@@ -339,7 +316,7 @@
 
                 var designAdModel = new DesignAd(rawOnlineImages, @Model.MaxOnlineImages,
                     '@Model.LineAdHeader', '@Html.Raw( Model.LineAdText )');
-                
+
                 ko.applyBindings(designAdModel);
             });
         })(jQuery, $paramount);

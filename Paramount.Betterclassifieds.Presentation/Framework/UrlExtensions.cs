@@ -26,6 +26,11 @@ namespace Paramount
             return urlHelper.Action("Render", "Image", new { documentId, height, width });
         }
 
+        public static string ImagePrintUpload(this UrlHelper urlHelper)
+        {
+            return urlHelper.Action("UploadPrintImage", "Booking");
+        }
+
         public static string ContentAbsolute(this UrlHelper urlhelper, string relativeContentPath)
         {
             Uri contextUri = HttpContext.Current.Request.Url;

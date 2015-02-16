@@ -369,6 +369,19 @@
             return Json(new { removed = true });
         }
 
+        [HttpPost]
+        public ActionResult UploadPrintImage()
+        {
+            var documentId = Guid.NewGuid();
+
+            var files = Request.Files.Cast<string>()
+                .Select(file => Request.Files[file].CastTo<HttpPostedFileBase>())
+                .Where(postedFile => postedFile != null && postedFile.ContentLength != 0)
+                .ToList();
+
+            return Json(new { documentId }, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpGet, BookingRequired]
         public ActionResult GetRate()
         {

@@ -50,6 +50,8 @@ namespace Paramount.Betterclassifieds.Presentation
             // Images
             routes.MapRoute("imageRoute", "Image/{documentId}/{width}/{height}",
                 new { controller = "Image", action = "Render", width = UrlParameter.Optional, height = UrlParameter.Optional });
+            routes.MapRoute("imageUploadRoute", "UploadImage",
+                new { controller = "Image", action = "UploadImage", width = UrlParameter.Optional, height = UrlParameter.Optional });
 
             // Ad route
             routes.MapRoute("adRoute", "Ad/{title}/{id}", new { controller = "Listings", action = "ViewAd", module = Name },

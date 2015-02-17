@@ -77,10 +77,14 @@ var $paramount = $paramount || {};
         });
 
         upload.on('fileuploadstart', function (data) {
+            // Start showing the progress bar
+            options.progressBar.show();
             options.start(data);
         });
 
         upload.on('fileuploadalways', function () {
+            // Reset the width of the progress bar
+            options.progressBar.hide();
             options.progressBar.find('.progress-bar').width('0');
         });
 

@@ -369,19 +369,6 @@
             return Json(new { removed = true });
         }
 
-        [HttpPost]
-        public ActionResult UploadPrintImage()
-        {
-            var documentId = Guid.NewGuid();
-
-            var files = Request.Files.Cast<string>()
-                .Select(file => Request.Files[file].CastTo<HttpPostedFileBase>())
-                .Where(postedFile => postedFile != null && postedFile.ContentLength != 0)
-                .ToList();
-
-            return Json(new { documentId }, JsonRequestBehavior.AllowGet);
-        }
-
         [HttpGet, BookingRequired]
         public ActionResult GetRate()
         {
@@ -428,16 +415,7 @@
 
             return Json(new { valid = true });
         }
-
-        [HttpPost]
-        public ActionResult GetPlaintextFromMarkdown(string markdown)
-        {
-            // Converts the markdown text in the request to a plaintext version 
-            // Used for preparing the print ad text
-            var mk = new MarkdownDeep.Markdown().Transform(markdown);
-            return Json(new { plaintext = mk.FromHtmlToPlaintext() });
-        }
-
+        
         #endregion
 
         #region Mappings

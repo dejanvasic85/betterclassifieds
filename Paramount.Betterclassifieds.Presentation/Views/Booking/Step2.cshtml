@@ -200,6 +200,7 @@
                                         <span>Uploading...</span>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
 
@@ -225,7 +226,7 @@
 
 <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="printCropModal" aria-hidden="true" id="printImageCropDialog">
     <div class="modal-dialog">
-        
+
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -233,14 +234,16 @@
             </div>
             <div class="modal-body">
                 <p>Print image requires specific dimentions. Please select the area of the image you like to be printed.</p>
-                <img id="printCropImg" class="thumbnail" />
+                <div id="imgCropContainer">
+                    <img id="printCropImg" style="width: 100%" />
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Done</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="btnDoneCropping">Done</button>
             </div>
         </div>
-        
+
     </div>
 </div>
 
@@ -283,7 +286,7 @@
                     var newContent = $(content).text();
                     $('#LineAdText').val(newContent);
                 });
-                
+
                 $paramount.upload({
 
                     url: '@Url.Action("UploadOnlineImage", "Booking")',
@@ -306,22 +309,53 @@
                     }
                 });
 
-                // Upload control for print
+                var $printImg = $('#imgCropContainer > img');
 
+                // Upload control for print
                 $paramount.upload({
                     url : '@Url.ImageUpload()',
                     element: $('#fileuploadPrint'),
                     progressBar: $('#fileUploadPrintProgress'),
                     start: function() {
-                        console.log('start');
                     },
                     complete : function(imageId) {
-                        $('#printCropImg').attr('src', "http://localhost/iflog/image/" + imageId + "/400/400");
+                        $('#printCropImg').attr('src', "http://localhost/iflog/image/" + imageId + "/1280/720");
                         $('#printImageCropDialog').modal('show');
                     },
                     error : function(err) {
                         console.log(err);
                     }
+                });
+
+                $('#printImageCropDialog').on('shown.bs.modal', function() {
+
+                    $printImg.cropper({
+                        aspectRatio: 1,
+                        data: {
+                            x: 50,
+                            y: 50,
+                            height: 400,
+                            width: 400
+                        },
+                        modal : true,
+                        dashed: false,
+                        done: function(data) {
+                            //$dataX.val(Math.round(data.x));
+                            //$dataY.val(Math.round(data.y));
+                            //$dataHeight.val(Math.round(data.height));
+                            //$dataWidth.val(Math.round(data.width));
+                        }
+                    });
+
+                });
+
+                $('#printImageCropDialog').on('hide.bs.modal', function(e) {
+                    $printImg.cropper('destroy');
+                });
+
+                $('#btnDoneCropping').on('click', function() {
+                    var data = $printImg.cropper("getData");
+                    debugger;
                 });
 
                 var DesignAd = function(data, maxImages, lineAdHeader, lineAdText) {

@@ -501,6 +501,8 @@
     <Content Include="Views\Account\_UserMenu.cshtml" />
     <Content Include="Views\Booking\_BookingInformationPanel.cshtml" />
     <Content Include="Views\Booking\_BookingInformationPanel.TheMusic.cshtml" />
+    <Content Include="Views\Shared\_ApplicationScripts.cshtml" />
+    <Content Include="Views\Shared\_ApplicationStyles.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.DataService.Repository
+﻿using System.IO;
+
+namespace Paramount.Betterclassifieds.DataService.Repository
 {
     using System.Configuration;
     using Business;
@@ -52,6 +54,20 @@
             get
             {
                 return ConfigurationManager.AppSettings["ImageCacheDirectory"];
+            }
+        }
+
+        public DirectoryInfo ImageCropDirectory
+        {
+            get
+            {
+                var dir = new DirectoryInfo(ConfigurationManager.AppSettings["ImageCropDirectory"]);
+                if (!dir.Exists)
+                {
+                    dir.Create();
+                }
+
+                return dir;
             }
         }
 

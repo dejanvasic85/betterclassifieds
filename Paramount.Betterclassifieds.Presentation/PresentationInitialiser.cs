@@ -48,10 +48,15 @@ namespace Paramount.Betterclassifieds.Presentation
                 defaults: new { id = RouteParameter.Optional });
 
             // Images
-            routes.MapRoute("imageRoute", "Image/{documentId}/{width}/{height}",
+            //routes.MapRoute("imageCropUpload", "Image/Crop/Upload",
+            //    new { controller = "Image", action = "UploadCropImage", width = UrlParameter.Optional, height = UrlParameter.Optional });
+            
+            //routes.MapRoute("imageCropRender", "Image/Crop/{documentId}",
+            //    new { controller = "Image", action = "RenderCropImage", documentId = UrlParameter.Optional });
+            
+            routes.MapRoute("imageRoute", "img/{documentId}/{width}/{height}",
                 new { controller = "Image", action = "Render", width = UrlParameter.Optional, height = UrlParameter.Optional });
-            routes.MapRoute("imageUploadRoute", "UploadImage",
-                new { controller = "Image", action = "UploadImage", width = UrlParameter.Optional, height = UrlParameter.Optional });
+
 
             // Ad route
             routes.MapRoute("adRoute", "Ad/{title}/{id}", new { controller = "Listings", action = "ViewAd", module = Name },

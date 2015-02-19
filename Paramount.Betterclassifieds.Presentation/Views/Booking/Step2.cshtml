@@ -232,9 +232,9 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Prepare Image</h4>
             </div>
-            <div class="modal-body">
-                <p>Print image requires specific dimentions. Please select the area of the image you like to be printed.</p>
-                <div id="imgCropContainer">
+            <div class="modal-body">    
+                <p>Print image requires specific dimension (aspect ratio). Please crop the image to fit for print.</p>
+                <div id="imgCropContainer" style="max-height: 400px; max-width: 400px;">
                     <img id="printCropImg" style="width: 100%" />
                 </div>
             </div>
@@ -288,7 +288,6 @@
                 });
 
                 $paramount.upload({
-
                     url: '@Url.Action("UploadOnlineImage", "Booking")',
                     element: $('#fileupload'),
                     progressBar : $('#onlineImages .progress'),
@@ -319,7 +318,7 @@
                     start: function() {
                     },
                     complete : function(imageId) {
-                        $('#printCropImg').attr('src', "http://localhost/iflog/image/" + imageId + "/1280/720");
+                        $('#printCropImg').attr('src', "http://localhost/iflog/Image/RenderCropImage?documentId=" + imageId);
                         $('#printImageCropDialog').modal('show');
                     },
                     error : function(err) {
@@ -334,8 +333,8 @@
                         data: {
                             x: 50,
                             y: 50,
-                            height: 400,
-                            width: 400
+                            height: 700,
+                            width: 700
                         },
                         modal : true,
                         dashed: false,

@@ -36,7 +36,7 @@
         }
 
         [HttpPost]
-        public ActionResult UploadImage()
+        public ActionResult UploadCropImage()
         {
             var documentId = Guid.NewGuid();
 
@@ -45,12 +45,22 @@
                 .Select(file => Request.Files[file].CastTo<HttpPostedFileBase>())
                 .First(postedFile => postedFile != null && postedFile.ContentLength != 0);
 
-            var imageDocument = new Document(documentId, uploadedFile.InputStream.FromStream(), uploadedFile.ContentType,
-               uploadedFile.FileName, uploadedFile.ContentLength, this.User.Identity.Name);
+            //var imageDocument = new Document(documentId, uploadedFile.InputStream.FromStream(), uploadedFile.ContentType,
+            //   uploadedFile.FileName, uploadedFile.ContentLength, this.User.Identity.Name);
             
-            _documentRepository.Save(imageDocument);
+            //_documentRepository.Save(imageDocument);
 
-            return Json(new { documentId }, JsonRequestBehavior.AllowGet);
+            // Store on the disk for now to see if this will work
+            var fileName = string.Format("{0}-{1}.jpg", documentId, uploadedFile.FileName);
+
+            uploadedFile.SaveAs( string.Format("{0}{1}", _applicationConfig.ImageCropDirectory.FullName, fileName) );
+
+            return Json(new { documentId = fileName }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult RenderCropImage(string documentId)
+        {
+            return File(string.Format("{0}{1}", _applicationConfig.ImageCropDirectory, documentId), "image/jpg");
         }
     }
 }

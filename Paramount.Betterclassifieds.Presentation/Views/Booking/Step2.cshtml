@@ -79,7 +79,9 @@
             </div>
 
             <div class="panel panel-default" id="onlineImages">
+                
                 <div class="panel-heading">
+                    Online Images &nbsp;
                     <span class="btn btn-success fileinput-button" data-bind="css : { hidden : !maxLimitNotReached() }">
                         <i class="fa fa-upload"></i>
                         <span>Upload Image</span>
@@ -94,10 +96,6 @@
                         @if (Model.MaxOnlineImages.HasValue)
                         {
                             <span>You can upload up to @Model.MaxOnlineImages images.</span>
-                        }
-                        @if (Model.IsLineAdIncluded)
-                        {
-                            <span></span>
                         }
                     </div>
 
@@ -175,22 +173,23 @@
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Print Image
+                        Print Image &nbsp;
+                        <span class="btn btn-default btn-success fileinput-button" data-bind="visible: lineAdImageId() === ''">
+                            <i class="fa fa-upload"></i>
+                            <span>Upload for Print</span>
+                            <!-- The file input field used as target for the file upload widget -->
+                            <input id="fileuploadPrint" type="file" name="files[]" multiple>
+                        </span>
                     </div>
                     <div class="panel-body">
 
-                        <div class="row" id="printImageSelector" data-bind="visible: lineAdImageId() === ''">
-                            <div class=" col-xs-6">
-                                <span class="btn btn-default btn-block fileinput-button">
-                                    <i class="fa fa-upload"></i>
-                                    <span>Upload New Image...</span>
-                                    <!-- The file input field used as target for the file upload widget -->
-                                    <input id="fileuploadPrint" type="file" name="files[]" multiple>
-                                </span>
-
-                            </div>
-                            <div class="col-xs-6">
-                                <button class="btn btn-default btn-block">Use Existing</button>
+                        <div class="row" id="printImageSelector">
+                            <div class="col-xs-12">
+                                <div class="alert alert-warning">
+                                    Max image size @Model.MaxImageUploadInMegabytes.ToString("F1") MB.
+                                    Print image requires specific dimension (aspect ratio). Please upload a new 
+                                    image to prepare it for print.
+                                </div>
                             </div>
                         </div>
 

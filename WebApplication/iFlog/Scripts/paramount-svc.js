@@ -4,8 +4,13 @@ var $paramount = (function (me, $) {
     me.svc = {
         removeImage: removeImage,
         cancelCropImage: cancelCropImage,
-        cropImage: cropImage
+        cropImage: cropImage,
+        getImageUrl : getImageUrl
     };
+
+    function getImageUrl(id) {
+        return me.url.imgThumb.replace('-1', id);
+    }
 
     function removeImage(documentId) {
         return post(me.url.removeImage, { documentId: documentId });

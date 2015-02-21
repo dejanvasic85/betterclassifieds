@@ -32,6 +32,9 @@ execute temp_createAppSetting @Key = 'ClientPhoneNumber', @Setting = '61 3 9421 
 execute temp_createAppSetting @Key = 'PublisherHomeUrl', @Setting = 'http://themusic.com.au'
 execute temp_createAppSetting @Key = 'FacebookAppId', @Setting = '143183162513319'
 execute temp_createAppSetting @Key = 'EnableTwoFactorAuth', @Setting = 'true', @Force = 1
+execute temp_createAppSetting @Key = 'PrintImagePixelsHeight', @Setting = '330'
+execute temp_createAppSetting @Key = 'PrintImagePixelsWidth', @Setting = '354'
+execute temp_createAppSetting @Key = 'PrintImageResolution', @Setting = '300'
 
 
 drop procedure temp_createAppSetting

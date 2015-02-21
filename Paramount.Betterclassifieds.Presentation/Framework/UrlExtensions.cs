@@ -31,6 +31,11 @@ namespace Paramount
             return urlHelper.Action("UploadCropImage", "Image");
         }
 
+        public static string CropImage(this UrlHelper urlHelper)
+        {
+            return urlHelper.Action("CropImage", "Image");
+        }
+
         public static string ContentAbsolute(this UrlHelper urlhelper, string relativeContentPath)
         {
             Uri contextUri = HttpContext.Current.Request.Url;

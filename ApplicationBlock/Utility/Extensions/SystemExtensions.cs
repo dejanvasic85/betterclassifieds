@@ -1,3 +1,5 @@
+using System.IO;
+
 namespace Paramount
 {
     public static class SystemExtensions

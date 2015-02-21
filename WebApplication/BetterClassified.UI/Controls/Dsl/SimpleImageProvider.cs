@@ -216,7 +216,7 @@ namespace BetterClassified.UI.Dsl
             if (doRescale)
             {
                 Image rawImage = Image.FromStream(uploadedFile.InputStream);
-                Image rawImageMaximised = Paramount.Utility.ImageHelper.ResizeFixedSize(rawImage, 600, 600, 300);
+                Image rawImageMaximised = Paramount.ImageHelper.Resize(rawImage, 600, 600, 300);
                 rawImageMaximised.Save(filePath);
             }
             else

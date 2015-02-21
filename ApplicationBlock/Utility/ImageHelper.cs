@@ -3,16 +3,16 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 
-namespace Paramount.Utility
+namespace Paramount
 {
     public static class ImageHelper
     {
-        public static byte[] ResizeFixedSize(byte[] imageToResize, int width, int height)
+        public static byte[] Resize(byte[] imageToResize, int width, int height)
         {
             using (MemoryStream originalImageStream = new MemoryStream(imageToResize))
             {
                 var image = Image.FromStream(originalImageStream);
-                var resized = ResizeFixedSize(image, width, height);
+                var resized = Resize(image, width, height);
 
                 MemoryStream destinationStream = new MemoryStream();
                 resized.Save(destinationStream, ImageFormat.Jpeg);
@@ -20,7 +20,7 @@ namespace Paramount.Utility
             }
         }
 
-        public static Image ResizeFixedSize(Image imgToResize, int width, int height, int resolution = 94)
+        public static Image Resize(this Image imgToResize, int width, int height, int resolution = 94)
         {
             int sourceWidth = imgToResize.Width;
             int sourceHeight = imgToResize.Height;
@@ -57,6 +57,13 @@ namespace Paramount.Utility
                 if (codecs[i].MimeType == mimeType)
                     return codecs[i];
             return null;
+        }
+
+        public static Image Crop(this Image img, int x, int y, int width, int height)
+        {
+            var bitmap = new Bitmap(img);
+            var cropped = bitmap.Clone(new Rectangle(x, y, width, height), bitmap.PixelFormat);
+            return cropped;
         }
     }
 }

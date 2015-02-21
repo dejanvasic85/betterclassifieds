@@ -17,5 +17,8 @@
         int? MaxOnlineImages { get; }
         string PublisherHomeUrl { get; }
         bool IsTwoFactorAuthEnabled { get; }
+        int PrintImagePixelsWidth { get; }
+        int PrintImagePixelsHeight { get;}
+        int PrintImageResolution { get;}
     }
 }

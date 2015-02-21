@@ -309,6 +309,7 @@
                 });
 
                 var $printImg = $('#imgCropContainer > img');
+                var printImageId;
 
                 // Upload control for print
                 $paramount.upload({
@@ -318,8 +319,10 @@
                     start: function() {
                     },
                     complete : function(imageId) {
-                        $('#printCropImg').attr('src', "http://localhost/iflog/Image/RenderCropImage?documentId=" + imageId);
+                        printImageId = imageId;
+                        $('#printCropImg').attr('src', "http://localhost/iflog/Image/RenderCropImage?documentId=" + printImageId);
                         $('#printImageCropDialog').modal('show');
+                        
                     },
                     error : function(err) {
                         console.log(err);
@@ -337,13 +340,7 @@
                             width: 700
                         },
                         modal : true,
-                        dashed: false,
-                        done: function(data) {
-                            //$dataX.val(Math.round(data.x));
-                            //$dataY.val(Math.round(data.y));
-                            //$dataHeight.val(Math.round(data.height));
-                            //$dataWidth.val(Math.round(data.width));
-                        }
+                        dashed: false
                     });
 
                 });
@@ -354,7 +351,13 @@
 
                 $('#btnDoneCropping').on('click', function() {
                     var data = $printImg.cropper("getData");
-                    debugger;
+                    data.documentId = printImageId;
+                    $.ajax({
+                        url: '@Url.CropImage()',
+                        data : data,
+                        type : 'POST'
+                    });
+                    $('#printImageCropDialog').modal('hide');
                 });
 
                 var DesignAd = function(data, maxImages, lineAdHeader, lineAdText) {

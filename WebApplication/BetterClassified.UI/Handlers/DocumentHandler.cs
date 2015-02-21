@@ -4,6 +4,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Web;
 using System.Web.SessionState;
+using Paramount;
 using Paramount.ApplicationBlock.Configuration;
 using Paramount.DSL.UIController;
 using Paramount.Utility;
@@ -52,7 +53,7 @@ namespace BetterClassified.UI.Handlers
             if (isRaw && dslQuery.Width != null && dslQuery.Height != null)
             {
                 // Prepare the image to be right size
-                image = ImageHelper.ResizeFixedSize(image, (int)dslQuery.Width, (int)dslQuery.Height, dslQuery.Resolution);
+                image = ImageHelper.Resize(image, (int)dslQuery.Width, (int)dslQuery.Height, dslQuery.Resolution);
             }
 
             // Prepare the image for better quality

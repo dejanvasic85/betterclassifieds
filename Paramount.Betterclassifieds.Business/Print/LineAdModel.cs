@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Business.Print
+﻿using System;
+
+namespace Paramount.Betterclassifieds.Business.Print
 {
     public class LineAdModel : IAd
     {
@@ -6,6 +8,7 @@
         public string AdHeader { get; set; }
         public string AdText { get; set; }
         public int NumOfWords { get; set; }
+        public string AdImageId { get; set; }   
         public bool UsePhoto { get; set; }
         public bool UseBoldHeader { get; set; }
         public bool IsColourBoldHeading { get; set; }

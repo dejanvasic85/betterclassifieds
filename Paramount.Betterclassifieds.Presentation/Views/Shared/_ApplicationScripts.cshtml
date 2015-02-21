@@ -27,8 +27,9 @@
             uploadCropImage: '@Url.ImageUpload()',
             imgThumb : '@Url.Image("-1")',
             cancelCropImage: '@Url.Action("CancelCrop", "Image")',
-            removeImage: '@Url.Action("RemoveImage", "Image")',
-            cropImage: '@Url.Action("CropImage", "Image")'
+            cropImage: '@Url.Action("CropImage", "Image")',
+            bookingLineAdImage: '@Url.SetLineAdImageId()',
+            removeLineAdImage : '@Url.RemoveLineAdImage()'
         }
 
         return me;

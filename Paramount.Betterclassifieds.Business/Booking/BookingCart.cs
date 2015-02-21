@@ -103,5 +103,6 @@ namespace Paramount.Betterclassifieds.Business.Booking
         {
             this.Completed = true;
         }
+
     }
 }

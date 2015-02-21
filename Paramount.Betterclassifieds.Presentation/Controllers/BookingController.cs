@@ -354,7 +354,7 @@
 
             return Json(new { documentId }, JsonRequestBehavior.AllowGet);
         }
-
+        
         [HttpPost, BookingRequired]
         public ActionResult RemoveOnlineImage(Guid documentId)
         {
@@ -366,6 +366,27 @@
             _cartRepository.Save(bookingCart);
 
             return Json(new { removed = true });
+        }
+        
+        [HttpPost, BookingRequired]
+        public ActionResult SetLineAdImage(Guid documentId)
+        {
+            var bookingCart = _bookingContext.Current();
+            bookingCart.LineAdModel.AdImageId = documentId.ToString();
+            _cartRepository.Save(bookingCart);
+            return Json(true);
+        }
+
+        [HttpPost]
+        public ActionResult RemoveLineAdImage(Guid documentId)
+        {
+            var bookingCart = _bookingContext.Current();
+            bookingCart.LineAdModel.AdImageId = null;
+            _cartRepository.Save(bookingCart);
+
+            // Remove it from the document repository
+            _documentRepository.DeleteDocument(documentId);
+            return Json(true);
         }
 
         [HttpGet, BookingRequired]

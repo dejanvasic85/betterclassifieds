@@ -2,26 +2,34 @@
 var $paramount = (function (me, $) {
 
     me.svc = {
-        removeImage: removeImage,
         cancelCropImage: cancelCropImage,
         cropImage: cropImage,
-        getImageUrl : getImageUrl
+        getImageUrl: getImageUrl,
+        setLineAdImageForBooking: setLineAdImageForBooking,
+        removeLineAdImageForBooking: removeLineAdImageForBooking,
     };
 
     function getImageUrl(id) {
-        return me.url.imgThumb.replace('-1', id);
-    }
-
-    function removeImage(documentId) {
-        return post(me.url.removeImage, { documentId: documentId });
+        if(id){
+            return me.url.imgThumb.replace('-1', id);
+        }
+        return null;
     }
 
     function cancelCropImage(documentId) {
         return post(me.url.cancelCropImage, { documentId: documentId });
     }
 
-    function cropImage(documentId, x, y, width, height) {
-        return post(me.url.cropImage, { documentId: documentId, x: x, y: y, width: width, height: height });
+    function cropImage(fileName, x, y, width, height) {
+        return post(me.url.cropImage, { fileName: fileName, x: x, y: y, width: width, height: height });
+    }
+
+    function setLineAdImageForBooking(documentId) {
+        return post(me.url.bookingLineAdImage, { documentId: documentId });
+    }
+
+    function removeLineAdImageForBooking(documentId) {
+        return post(me.url.removeLineAdImage, { documentId: documentId });
     }
 
     function post(url, data) {

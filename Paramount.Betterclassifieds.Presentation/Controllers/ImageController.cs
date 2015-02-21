@@ -70,15 +70,15 @@
             {
                 return Json(false);
             }
-
-            var img = Image.FromFile(file.FullName)
-                .Crop(x, y, width, height)
-                .Resize(_clientConfig.PrintImagePixelsWidth, _clientConfig.PrintImagePixelsHeight, _clientConfig.PrintImageResolution);
-
+            
             // Store the cropped img to the document database 
+            using(var img = Image.FromFile(file.FullName))
             using (var stream = new MemoryStream())
             {
-                img.Save(stream, ImageFormat.Jpeg);
+                img.Crop(x, y, width, height)
+                .Resize(_clientConfig.PrintImagePixelsWidth, _clientConfig.PrintImagePixelsHeight, _clientConfig.PrintImageResolution)
+                .Save(stream, ImageFormat.Jpeg);
+                
                 var document = new Document(Guid.NewGuid(), stream.ToArray(), "image/jpeg", documentId, (int)stream.Length,
                     string.Empty);
 

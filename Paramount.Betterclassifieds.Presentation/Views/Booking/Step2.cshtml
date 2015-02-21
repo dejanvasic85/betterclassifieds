@@ -240,7 +240,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="btnDoneCropping">Done</button>
+                <button type="button" class="btn btn-primary" id="btnDoneCropping" data-loading-text="Preparing...">Done</button>
             </div>
         </div>
 
@@ -350,14 +350,19 @@
                 });
 
                 $('#btnDoneCropping').on('click', function() {
+                    $(this).button('loading');
                     var data = $printImg.cropper("getData");
                     data.documentId = printImageId;
                     $.ajax({
                         url: '@Url.CropImage()',
-                        data : data,
+                        data : JSON.stringify(data),
+                        contentType : 'application/json',
+                        dataType : 'json',
                         type : 'POST'
+                    }).complete(function() {
+                        $(this).button('reset');
+                        $('#printImageCropDialog').modal('hide');
                     });
-                    $('#printImageCropDialog').modal('hide');
                 });
 
                 var DesignAd = function(data, maxImages, lineAdHeader, lineAdText) {

@@ -35,7 +35,7 @@ namespace Paramount
         {
             return urlHelper.Action("CropImage", "Image");
         }
-
+        
         public static string ContentAbsolute(this UrlHelper urlhelper, string relativeContentPath)
         {
             Uri contextUri = HttpContext.Current.Request.Url;
@@ -44,6 +44,11 @@ namespace Paramount
                contextUri.Host, contextUri.Port == 80 ? string.Empty : ":" + contextUri.Port);
 
             return string.Format("{0}{1}", baseUri, VirtualPathUtility.ToAbsolute(relativeContentPath));
+        }
+
+        public static string GetRate(this UrlHelper urlHelper)
+        {
+            return urlHelper.Action("GetRate", "Booking");
         }
 
         public static string ActionAbsolute(this UrlHelper urlHelper, string actionName, string controllerName, object routeValues = null)

@@ -503,6 +503,7 @@
     <Content Include="Views\Booking\_BookingInformationPanel.TheMusic.cshtml" />
     <Content Include="Views\Shared\_ApplicationScripts.cshtml" />
     <Content Include="Views\Shared\_ApplicationStyles.cshtml" />
+    <Content Include="Views\Shared\_CropImage.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

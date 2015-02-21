@@ -125,6 +125,7 @@
         </div>
     </div>
 
+    <hr />
     @*line ad details*@
     @if (Model.IsLineAdIncluded)
     {
@@ -178,8 +179,8 @@
                     </div>
                     <div class="panel-body">
 
-                        <div class="row" id="printImageSelector">
-                            <div class="col-xs-6">
+                        <div class="row" id="printImageSelector" data-bind="visible: lineAdImageId() === ''">
+                            <div class=" col-xs-6">
                                 <span class="btn btn-default btn-block fileinput-button">
                                     <i class="fa fa-upload"></i>
                                     <span>Upload New Image...</span>
@@ -190,6 +191,19 @@
                             </div>
                             <div class="col-xs-6">
                                 <button class="btn btn-default btn-block">Use Existing</button>
+                            </div>
+                        </div>
+
+                        <div class="row" id="printImagePreview" data-bind="visible: lineAdImageId() !== ''">
+                            <div class="col-xs-12">
+                                <div class="thumbnail">
+                                    <img id="printImg" />
+                                    <div class="caption">
+                                        <button class="btn btn-warning btn-block" title="Remove" data-bind="click: clearPrintImage">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -224,28 +238,7 @@
 
 </form>
 
-<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="printCropModal" aria-hidden="true" id="printImageCropDialog">
-    <div class="modal-dialog">
-
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Prepare Image</h4>
-            </div>
-            <div class="modal-body">    
-                <p>Print image requires specific dimension (aspect ratio). Please crop the image to fit for print.</p>
-                <div id="imgCropContainer" style="max-height: 400px; max-width: 400px;">
-                    <img id="printCropImg" style="width: 100%" />
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="btnDoneCropping" data-loading-text="Preparing...">Done</button>
-            </div>
-        </div>
-
-    </div>
-</div>
+@Html.Partial("_CropImage")
 
 @section Scripts{
 
@@ -271,6 +264,7 @@
             });
 
             $(function() {
+                // on ready
 
                 $('#OnlineAdLocationId').on('change', function() {
                     $('#OnlineAdLocationAreaId').loadLocationAreas('@Url.Action("GetLocationAreas", "Location")', $(this).val(), false);
@@ -313,7 +307,7 @@
 
                 // Upload control for print
                 $paramount.upload({
-                    url : '@Url.ImageUpload()',
+                    url : $paramount.url.uploadCropImage,
                     element: $('#fileuploadPrint'),
                     progressBar: $('#fileUploadPrintProgress'),
                     start: function() {
@@ -322,7 +316,6 @@
                         printImageId = imageId;
                         $('#printCropImg').attr('src', "http://localhost/iflog/Image/RenderCropImage?documentId=" + printImageId);
                         $('#printImageCropDialog').modal('show');
-                        
                     },
                     error : function(err) {
                         console.log(err);
@@ -330,7 +323,6 @@
                 });
 
                 $('#printImageCropDialog').on('shown.bs.modal', function() {
-
                     $printImg.cropper({
                         aspectRatio: 1,
                         data: {
@@ -342,7 +334,6 @@
                         modal : true,
                         dashed: false
                     });
-
                 });
 
                 $('#printImageCropDialog').on('hide.bs.modal', function(e) {
@@ -350,24 +341,21 @@
                 });
 
                 $('#btnDoneCropping').on('click', function() {
-                    $(this).button('loading');
+                    var $btn = $(this);
+                    $btn.button('loading');
                     var data = $printImg.cropper("getData");
                     data.documentId = printImageId;
-                    $.ajax({
-                        url: '@Url.CropImage()',
-                        data : JSON.stringify(data),
-                        contentType : 'application/json',
-                        dataType : 'json',
-                        type : 'POST'
-                    }).complete(function() {
-                        $(this).button('reset');
-                        $('#printImageCropDialog').modal('hide');
-                    });
+                    $paramount.svc
+                        .cropImage(printImageId, data.x, data.y, data.width, data.height)
+                        .complete(function() {
+                            $btn.button('reset');
+                            $('#printImageCropDialog').modal('hide');
+                            designAdModel.lineAdImageId(printImageId);
+                        });
                 });
 
-                var DesignAd = function(data, maxImages, lineAdHeader, lineAdText) {
+                var DesignAd = function(data, maxImages, lineAdHeader, lineAdText, lineAdImageId) {
                     var self = this;
-
                     // Images
                     self.adImages = ko.observableArray(data);
                     self.errorMsg = ko.observable("");
@@ -385,13 +373,12 @@
                     };
                     self.uploadImageInProgress = ko.observable(false);
                     self.imageUrlTemplate = '@Url.Image("-1")';
-                    self.imageUrlPrintTemplate = '@Url.Action("Render", "Image", new {documentId = "id", height = 400, width = 400})';
                     self.imageUrl = function(id) {
                         return self.imageUrlTemplate.replace("-1", id);
                     };
                     self.pricelist = ko.observable({ Total: 0, LineItems: { 'Online Ad Cost': 0 } });
                     self.calculate = ko.computed(function() {
-                        $.get('@Url.Action("GetRate")', null, function(resp) {
+                        $.get('@Url.Action("GetRate", "Booking")', null, function(resp) {
                             self.pricelist(resp);
                         });
                     });
@@ -404,12 +391,19 @@
 
                         return self.lineAdText().split(' ').length;
                     });
+                    self.lineAdImageId = ko.observable(lineAdImageId);
+                    self.clearPrintImage = function() {
+                        // Clear
+                        $paramount.svc.removeImage(printImageId);
+
+                        self.lineAdImageId("");
+                    }
                 };
 
                 var rawOnlineImages = @Html.Raw(Model.OnlineAdImages.ToJsonString());
 
                 var designAdModel = new DesignAd(rawOnlineImages, @Model.MaxOnlineImages,
-                    '@Model.LineAdHeader', '@Html.Raw( Model.LineAdText )');
+                    '@Model.LineAdHeader', '@Html.Raw( Model.LineAdText )', '@Model.LineAdImageId');
 
                 ko.applyBindings(designAdModel);
             });

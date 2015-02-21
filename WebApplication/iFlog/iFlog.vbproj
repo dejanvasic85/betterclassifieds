@@ -396,6 +396,7 @@
     <Content Include="Scripts\paramount-site.min.js">
       <DependentUpon>paramount-site.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\paramount-svc.js" />
     <Content Include="Scripts\paramount-validate-default.js" />
     <Content Include="Scripts\paramount-validate-default.min.js">
       <DependentUpon>paramount-validate-default.js</DependentUpon>

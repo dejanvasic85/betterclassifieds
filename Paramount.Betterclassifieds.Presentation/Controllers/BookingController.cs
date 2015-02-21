@@ -320,7 +320,7 @@
             Guid? documentId = null;
 
             var files = Request.Files.Cast<string>()
-                .Select(file => Request.Files[file].CastTo<HttpPostedFileBase>())
+                .Select(file => Request.Files[file].As<HttpPostedFileBase>())
                 .Where(postedFile => postedFile != null && postedFile.ContentLength != 0)
                 .ToList();
 

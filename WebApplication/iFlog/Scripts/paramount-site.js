@@ -3,11 +3,9 @@
 /*
 ** $paramount utility class
 */
-
 var $paramount = $paramount || {};
 
 (function($window, $, $mobileDetect) {
-
     var me = this;
     me.isMobileDevice = null;
 

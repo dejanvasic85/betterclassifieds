@@ -33,9 +33,7 @@
 
             // Use the ImageResult from the Simple.ImageResultLibrary to the work
             // And pass in the retrieval for the document
-            return ImageResult.FromDocument(
-                () => _documentRepository.GetDocument(documentId),
-                targetFilePath, width ?? 0, height ?? 0);
+            return ImageResult.FromDocument(() => _documentRepository.GetDocument(documentId), targetFilePath, width ?? 0, height ?? 0);
         }
 
         [HttpPost]
@@ -45,11 +43,11 @@
 
             // Should be 1 uploaded file
             var uploadedFile = Request.Files.Cast<string>()
-                .Select(file => Request.Files[file].CastTo<HttpPostedFileBase>())
+                .Select(file => Request.Files[file].As<HttpPostedFileBase>())
                 .First(postedFile => postedFile != null && postedFile.ContentLength != 0);
-            
+
             // Store on the disk for now to see if this will work
-            var fileName = string.Format("{0}-{1}.jpg", documentId, uploadedFile.FileName);
+            var fileName = string.Format("{0}.jpg", documentId);
 
             uploadedFile.SaveAs(string.Format("{0}{1}", _applicationConfig.ImageCropDirectory.FullName, fileName));
 
@@ -58,7 +56,7 @@
 
         public ActionResult RenderCropImage(string documentId)
         {
-            return File(string.Format("{0}{1}", _applicationConfig.ImageCropDirectory, documentId), "image/jpg");
+            return File(string.Format("{0}{1}", _applicationConfig.ImageCropDirectory, documentId), "image/jpeg");
         }
 
         [HttpPost]
@@ -70,17 +68,17 @@
             {
                 return Json(false);
             }
-            
+
             // Store the cropped img to the document database 
-            using(var img = Image.FromFile(file.FullName))
+            using (var img = Image.FromFile(file.FullName))
             using (var stream = new MemoryStream())
             {
-                img.Crop(x, y, width, height)
-                .Resize(_clientConfig.PrintImagePixelsWidth, _clientConfig.PrintImagePixelsHeight, _clientConfig.PrintImageResolution)
-                .Save(stream, ImageFormat.Jpeg);
-                
-                var document = new Document(Guid.NewGuid(), stream.ToArray(), "image/jpeg", documentId, (int)stream.Length,
-                    string.Empty);
+                img
+                    .Crop(x, y, width, height)
+                    .Resize(_clientConfig.PrintImagePixelsWidth, _clientConfig.PrintImagePixelsHeight, _clientConfig.PrintImageResolution)
+                    .Save(stream, ImageFormat.Jpeg);
+
+                var document = new Document(new Guid(documentId.WithoutFileExtension()), stream.ToArray(), "image/jpeg", documentId, (int)stream.Length);
 
                 _documentRepository.Save(document);
             }
@@ -92,10 +90,42 @@
             }
             catch (IOException)
             {
-                // Don't worry...
+                // Don't worry... there will be a clean up process that runs later
             }
 
+            return Json(documentId.WithoutFileExtension());
+        }
+
+        [HttpPost]
+        public ActionResult RemoveImage(string documentId)
+        {
+            // The user decided not to go ahead with the prepared image
+            // So destroy it from the document service
+            _documentRepository.DeleteDocument(new Guid(documentId.WithoutFileExtension()));
+
             return Json(true);
+        }
+
+        [HttpPost]
+        public ActionResult CancelCrop(string documentId)
+        {
+            // Crop the image
+            var file = new FileInfo(Path.Combine(_applicationConfig.ImageCropDirectory.FullName, documentId));
+            if (!file.Exists)
+            {
+                return Json(true);
+            }
+            // Clean the existing document
+            try
+            {
+                file.Delete();
+                return Json(true);
+            }
+            catch (IOException)
+            {
+                // Couldn't clean it
+                return Json(false);
+            }
         }
     }
 }

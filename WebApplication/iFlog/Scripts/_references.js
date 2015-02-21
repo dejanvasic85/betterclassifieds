@@ -22,3 +22,4 @@
 /// <reference path="booking/bookingcart.js" />
 /// <reference path="listings/find.js" />
 /// <reference path="cropper.js" />
+/// <reference path="paramount-svc.js" />

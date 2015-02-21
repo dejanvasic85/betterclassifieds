@@ -7,7 +7,7 @@ namespace Paramount.Betterclassifieds.Business
         public Document()
         { }
 
-        public Document(Guid documentId, byte[] data, string contentType, string fileName, int fileLength, string user)
+        public Document(Guid documentId, byte[] data, string contentType, string fileName, int fileLength, string user = "")
         {
             this.DocumentId = documentId;
             this.Data = data;

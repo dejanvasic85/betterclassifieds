@@ -30,13 +30,13 @@ namespace Paramount.Betterclassifieds.Business
         public decimal Calculate(int ratecardId, LineAdModel lineAd, bool isOnlineAd, int editions = 1)
         {
             // Fetch the ratecard by the baseRate
-            RateModel rateModel = _rateRepository.GetRatecard(ratecardId);
+            var rateModel = _rateRepository.GetRatecard(ratecardId);
             decimal price = 0;
 
             // Calculate line ad price
             if (lineAd != null)
             {
-                int wordCount = lineAd.GetWordCount();
+                int wordCount = lineAd.NumOfWords;
                 if (wordCount > rateModel.FreeWords)
                 {
                     price += (wordCount - rateModel.FreeWords) * rateModel.RatePerWord.GetValueOrDefault();

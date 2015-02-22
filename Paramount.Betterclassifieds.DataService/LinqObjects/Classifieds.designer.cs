@@ -820,6 +820,14 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), publicationId, categoryId);
 			return ((ISingleResult<Ratecard>)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.LineAd_Create")]
+		public int LineAd_Create([global::System.Data.Linq.Mapping.ParameterAttribute(Name="AdBookingId", DbType="Int")] System.Nullable<int> adBookingId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="AdHeader", DbType="NVarChar(255)")] string adHeader, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="AdText", DbType="NVarChar(MAX)")] string adText, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NumOfWords", DbType="Int")] System.Nullable<int> numOfWords, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UsePhoto", DbType="Bit")] System.Nullable<bool> usePhoto, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UseBoldHeader", DbType="Bit")] System.Nullable<bool> useBoldHeader, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IsColourBoldHeading", DbType="Bit")] System.Nullable<bool> isColourBoldHeading, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IsColourBorder", DbType="Bit")] System.Nullable<bool> isColourBorder, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IsColourBackground", DbType="Bit")] System.Nullable<bool> isColourBackground, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IsSuperBoldHeading", DbType="Bit")] System.Nullable<bool> isSuperBoldHeading, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="BoldHeadingColourCode", DbType="VarChar(10)")] string boldHeadingColourCode, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="BorderColourCode", DbType="VarChar(10)")] string borderColourCode, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="BackgroundColourCode", DbType="VarChar(10)")] string backgroundColourCode, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IsSuperHeadingPurchased", DbType="Bit")] System.Nullable<bool> isSuperHeadingPurchased, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> lineAdId)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), adBookingId, adHeader, adText, numOfWords, usePhoto, useBoldHeader, isColourBoldHeading, isColourBorder, isColourBackground, isSuperBoldHeading, boldHeadingColourCode, borderColourCode, backgroundColourCode, isSuperHeadingPurchased, lineAdId);
+			lineAdId = ((System.Nullable<int>)(result.GetParameterValue(14)));
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Ad")]

@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Net.Mime;
+using System.Text;
 
 namespace Paramount
 {
@@ -16,6 +17,11 @@ namespace Paramount
         public static string NullIfEmpty(this string content)
         {
             return string.IsNullOrWhiteSpace(content) ? null : content;
+        }
+
+        public static string EmptyIfNull(this string content)
+        {
+            return content ?? string.Empty;
         }
 
         public static string Truncate(this string content, int maxLength, string suffix)
@@ -65,11 +71,6 @@ namespace Paramount
             }
 
             return content.Truncate(i, suffix);
-        }
-
-        public static string EmptyAsNull(this string content)
-        {
-            return content.IsNullOrEmpty() ? null : content;
         }
 
         public static bool DoesNotEqual(this string source, string value, StringComparison comparison = StringComparison.OrdinalIgnoreCase)

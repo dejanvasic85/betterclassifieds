@@ -7,7 +7,12 @@ namespace Paramount.Betterclassifieds.Business.Print
         public int? LineAdId { get; set; }
         public string AdHeader { get; set; }
         public string AdText { get; set; }
-        public int NumOfWords { get; set; }
+
+        public int NumOfWords
+        {
+            get { return AdText.EmptyIfNull().Split(' ').Length; }
+        }
+
         public string AdImageId { get; set; }   
         public bool UsePhoto { get; set; }
         public bool UseBoldHeader { get; set; }
@@ -20,11 +25,5 @@ namespace Paramount.Betterclassifieds.Business.Print
         public string BackgroundColourCode { get; set; }
         public bool IsSuperHeadingPurchased { get; set; }
 
-        public int GetWordCount()
-        {
-            if (!string.IsNullOrEmpty(AdText))
-                return AdText.Split(' ').Length;
-            return 0;
-        }
     }
 }

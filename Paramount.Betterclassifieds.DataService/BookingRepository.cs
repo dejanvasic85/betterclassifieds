@@ -260,6 +260,29 @@
             }
         }
 
+        public void SubmitLineAd(int? adBookingId, LineAdModel lineAdModel)
+        {
+            using (var context = DataContextFactory.CreateClassifiedContext())
+            {
+                int? lineAdId = null;
+
+                context.LineAd_Create(adBookingId, 
+                    lineAdModel.AdHeader,
+                    lineAdModel.AdText,
+                    lineAdModel.NumOfWords,
+                    lineAdModel.UsePhoto,
+                    lineAdModel.UseBoldHeader,
+                    lineAdModel.IsColourBoldHeading,
+                    lineAdModel.IsColourBorder,
+                    lineAdModel.IsColourBackground,
+                    lineAdModel.IsSuperBoldHeading,
+                    lineAdModel.BoldHeadingColourCode,
+                    lineAdModel.BorderColourCode,
+                    lineAdModel.BackgroundColourCode,
+                    lineAdModel.IsSuperHeadingPurchased, ref lineAdId);
+            }
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             // From data

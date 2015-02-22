@@ -168,7 +168,16 @@
 
         public int? CreateBooking(BookingCart bookingCart)
         {
-            return _bookingRepository.SubmitBooking(bookingCart);
+            var adBookingId = _bookingRepository.SubmitBooking(bookingCart);
+
+            // Create the line ad
+            if (bookingCart.IsLineAdIncluded)
+            {
+                _bookingRepository.SubmitLineAd(adBookingId, bookingCart.LineAdModel);
+            }
+
+
+            return adBookingId;
         }
 
         public IEnumerable<PublicationEditionModel> GenerateExtensionDates(int adBookingId, int numberOfInsertions)

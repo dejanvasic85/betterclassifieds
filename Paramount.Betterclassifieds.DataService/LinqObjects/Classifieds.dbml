@@ -1070,4 +1070,22 @@
     <Parameter Name="categoryId" Type="System.Int32" DbType="Int" />
     <ElementType IdRef="ID3" />
   </Function>
+  <Function Name="dbo.LineAd_Create" Method="LineAd_Create">
+    <Parameter Name="AdBookingId" Parameter="adBookingId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="AdHeader" Parameter="adHeader" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="AdText" Parameter="adText" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="NumOfWords" Parameter="numOfWords" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UsePhoto" Parameter="usePhoto" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="UseBoldHeader" Parameter="useBoldHeader" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="IsColourBoldHeading" Parameter="isColourBoldHeading" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="IsColourBorder" Parameter="isColourBorder" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="IsColourBackground" Parameter="isColourBackground" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="IsSuperBoldHeading" Parameter="isSuperBoldHeading" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="BoldHeadingColourCode" Parameter="boldHeadingColourCode" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="BorderColourCode" Parameter="borderColourCode" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="BackgroundColourCode" Parameter="backgroundColourCode" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="IsSuperHeadingPurchased" Parameter="isSuperHeadingPurchased" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="lineAdId" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>

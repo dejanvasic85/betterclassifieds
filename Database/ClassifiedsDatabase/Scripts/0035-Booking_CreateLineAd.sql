@@ -1,5 +1,4 @@
-﻿USE [Classifieds]
-GO
+﻿GO
 /****** Object:  StoredProcedure [dbo].[Booking_Create]    Script Date: 22/02/2015 7:04:48 PM ******/
 SET ANSI_NULLS ON
 GO

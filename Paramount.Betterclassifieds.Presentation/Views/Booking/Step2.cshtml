@@ -196,6 +196,7 @@
                         <div class="row" id="printImagePreview" data-bind="visible: lineAdImageId() !== ''">
                             <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
                                 <div class="thumbnail">
+                                    <input type="hidden" name="LineAdImageId" id="LineAdImageId" data-bind="value : lineAdImageId"/>
                                     <img id="printImg" data-bind="attr : { src : $paramount.svc.getImageUrl(lineAdImageId()) }" />
                                     <div class="caption">
                                         <button class="btn btn-warning btn-block" title="Remove" data-bind="click: removePrintImage">
@@ -315,9 +316,6 @@
                         printImgFileName = fileName;
                         $('#printCropImg').attr('src', "http://localhost/iflog/Image/RenderCropImage?fileName=" + fileName);
                         $('#printImageCropDialog').modal('show');
-                    },
-                    error : function(err) {
-                        console.log(err);
                     }
                 });
 
@@ -384,7 +382,6 @@
                         if (self.lineAdText().length === 0) {
                             return 0;
                         }
-
                         return self.lineAdText().split(' ').length;
                     });
                     self.lineAdImageId = ko.observable(lineAdImageId);

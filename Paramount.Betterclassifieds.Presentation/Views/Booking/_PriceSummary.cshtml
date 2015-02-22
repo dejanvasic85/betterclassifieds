@@ -1,11 +1,12 @@
 ﻿
+
 <div class="panel-group top-buffer-20" id="priceSummary">
     <div class="panel panel-info">
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#priceSummary" href="#priceBreakDown">
                     Current Total
-                    <span id="currentTotal" data-bind="text: $paramount.formatCurrency( pricelist().Total )"></span>
+                    <span id="currentTotal" data-bind="text: pricetotal"></span>
                     <span class="pull-right" data-toggle="collapse" data-parent="#priceSummary" href="#priceBreakDown">
                         <span class="glyphicon glyphicon-chevron-down"></span>
                     </span>
@@ -13,11 +14,12 @@
             </h4>
         </div>
         <div id="priceBreakDown" class="panel panel-collapse collapse">
+            
             <table class="table table-bordered table-hover">
-                <tbody>
+                <tbody data-bind="foreach: priceitems">
                     <tr>
-                        <td>Online Base Price</td>
-                        <td data-bind="text: $paramount.formatCurrency( pricelist().LineItems['Online Ad Cost'] )"></td>
+                        <td><span data-bind="text: item"></span></td>
+                        <td><span data-bind="text: price"></span></td>
                     </tr>
                 </tbody>
             </table>

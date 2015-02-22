@@ -8,14 +8,14 @@ var $paramount = (function (me, $) {
         setLineAdImageForBooking: setLineAdImageForBooking,
         removeLineAdImageForBooking: removeLineAdImageForBooking,
     };
-
+    
     function getImageUrl(id) {
         if(id){
             return me.url.imgThumb.replace('-1', id);
         }
         return null;
     }
-
+    
     function cancelCropImage(documentId) {
         return post(me.url.cancelCropImage, { documentId: documentId });
     }

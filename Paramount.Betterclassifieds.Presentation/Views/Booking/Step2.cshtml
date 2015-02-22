@@ -226,7 +226,7 @@
     <ul class="pager">
         <li class="previous">
             <button id="btnPrev" class="btn btn-large btn-default js-load" data-nav='@Url.Action("Step1", "Booking")'>
-            <i class="glyphicon glyphicon-arrow-left"></i> Previous
+                <i class="glyphicon glyphicon-arrow-left"></i> Previous
             </button>
         </li>
         <li class="next">
@@ -270,7 +270,7 @@
 
                 $('#copyOnlineAdDetails').click(function() {
                     // copy header
-                    $('#LineAdHeader').val( $('#OnlineAdHeading').val() );
+                    $('#LineAdHeader').val($('#OnlineAdHeading').val());
 
                     // copy body
                     var regex = /<br\s*[\/]?>/gi;
@@ -282,18 +282,18 @@
                 $paramount.upload({
                     url: '@Url.Action("UploadOnlineImage", "Booking")',
                     element: $('#fileupload'),
-                    progressBar : $('#onlineImages .progress'),
-                    start : function() {
+                    progressBar: $('#onlineImages .progress'),
+                    start: function() {
                         // Start
                         designAdModel.errorMsg('');
                         designAdModel.uploadImageInProgress(true);
                     },
-                    complete : function(fileId) {
+                    complete: function(fileId) {
                         // Complete
                         designAdModel.adImages.push(fileId);
                         designAdModel.uploadImageInProgress(false);
                     },
-                    error : function(err) {
+                    error: function(err) {
                         // Error
                         designAdModel.errorMsg(err);
                         designAdModel.uploadImageInProgress(false);
@@ -305,14 +305,14 @@
 
                 // Upload control for print
                 $paramount.upload({
-                    url : $paramount.url.uploadCropImage,
+                    url: $paramount.url.uploadCropImage,
                     element: $('#fileuploadPrint'),
                     progressBar: $('#fileUploadPrintProgress'),
                     start: function() {
                     },
-                    complete : function(fileName) {
+                    complete: function(fileName) {
                         printImgFileName = fileName;
-                        $('#printCropImg').attr('src', "http://localhost/iflog/Image/RenderCropImage?fileName=" + fileName);
+                        $('#printCropImg').attr('src', $paramount.url.renderCropImage + "?fileName=" + fileName);
                         $('#printImageCropDialog').modal('show');
                     }
                 });
@@ -320,8 +320,8 @@
                 $('#printImageCropDialog').on('shown.bs.modal', function() {
                     $printImg.cropper({
                         aspectRatio: 1,
-                        data: {x: 500,y: 500,height: 700,width: 700},
-                        modal : true,
+                        data: { x: 500, y: 500, height: 700, width: 700 },
+                        modal: true,
                         dashed: false
                     });
                 });
@@ -347,7 +347,8 @@
 
                 var DesignAd = function(data, maxImages, lineAdHeader, lineAdText, lineAdImageId) {
                     var self = this;
-                    // Images
+
+                    // Online Images
                     self.adImages = ko.observableArray(data);
                     self.errorMsg = ko.observable("");
                     self.removeImage = function(img) {
@@ -363,12 +364,20 @@
                         return self.adImages().length < self.maxImages();
                     };
                     self.uploadImageInProgress = ko.observable(false);
-                    self.pricelist = ko.observable({ Total: 0, LineItems: { 'Online Ad Cost': 0 } });
+
+                    // Prices
+                    self.pricetotal = ko.observable();
+                    self.priceitems = ko.observableArray([]);
                     self.calculate = ko.computed(function() {
-                        $.get('@Url.Action("GetRate", "Booking")', null, function(resp) {
-                            self.pricelist(resp);
+                        $.get($paramount.url.getRate, null, function(resp) {
+                            self.pricetotal( $paramount.formatCurrency( resp.Total) );
+                            $.each(resp.LineItems, function(prop, price) {
+                                self.priceitems.push({'item' : prop,'price' : $paramount.formatCurrency( price )});
+                            });
                         });
                     });
+
+                    // Line Ad
                     self.lineAdHeader = ko.observable(lineAdHeader);
                     self.lineAdText = ko.observable(lineAdText);
                     self.wordCount = ko.computed(function() {
@@ -379,7 +388,6 @@
                     });
                     self.lineAdImageId = ko.observable(lineAdImageId);
                     self.removePrintImage = function() {
-                        // Clear
                         $paramount.svc
                             .removeLineAdImageForBooking(self.lineAdImageId())
                             .complete(function() {
@@ -391,7 +399,7 @@
                 var rawOnlineImages = @Html.Raw(Model.OnlineAdImages.ToJsonString());
 
                 var designAdModel = new DesignAd(rawOnlineImages, @Model.MaxOnlineImages,
-                    '@Model.LineAdHeader', '@Html.Raw( Model.LineAdText )', '@Model.LineAdImageId');
+                    '@Model.LineAdHeader', '@Html.Raw(Model.LineAdText)', '@Model.LineAdImageId');
 
                 ko.applyBindings(designAdModel);
             });

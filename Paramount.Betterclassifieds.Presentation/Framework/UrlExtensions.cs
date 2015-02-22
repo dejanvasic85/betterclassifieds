@@ -45,6 +45,16 @@ namespace Paramount
         {
             return urlHelper.Action("CropImage", "Image");
         }
+
+        public static string CancelCrop(this UrlHelper urlHelper)
+        {
+            return urlHelper.Action("CancelCrop", "Image");
+        }
+
+        public static string RenderCropImage(this UrlHelper urlHelper)
+        {
+            return urlHelper.Action("RenderCropImage", "Image");
+        }
         
         public static string ContentAbsolute(this UrlHelper urlhelper, string relativeContentPath)
         {

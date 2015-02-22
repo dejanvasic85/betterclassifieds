@@ -21,6 +21,11 @@ namespace Paramount
             return urlHelper.Action("GetLocationAreas", "Location", new { locationId });
         }
 
+        public static string LocationAreaOptions(this UrlHelper urlHelper)
+        {
+            return urlHelper.Action("GetLocationAreas", "Location");
+        }
+
         public static string Image(this UrlHelper urlHelper, string documentId, int height = 100, int width = 100)
         {
             return urlHelper.Action("Render", "Image", new { documentId, height, width });
@@ -55,7 +60,12 @@ namespace Paramount
         {
             return urlHelper.Action("RenderCropImage", "Image");
         }
-        
+
+        public static string UploadOnlineImage(this UrlHelper urlHelper)
+        {
+            return urlHelper.Action("UploadOnlineImage", "Booking");
+        }
+
         public static string ContentAbsolute(this UrlHelper urlhelper, string relativeContentPath)
         {
             Uri contextUri = HttpContext.Current.Request.Url;

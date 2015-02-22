@@ -265,7 +265,7 @@
                 // on ready
 
                 $('#OnlineAdLocationId').on('change', function() {
-                    $('#OnlineAdLocationAreaId').loadLocationAreas('@Url.Action("GetLocationAreas", "Location")', $(this).val(), false);
+                    $('#OnlineAdLocationAreaId').loadLocationAreas( $paramount.url.getLocationAreas, $(this).val(), false);
                 });
 
                 $('#copyOnlineAdDetails').click(function() {
@@ -280,7 +280,7 @@
                 });
 
                 $paramount.upload({
-                    url: '@Url.Action("UploadOnlineImage", "Booking")',
+                    url: $paramount.url.uploadOnlineImage,
                     element: $('#fileupload'),
                     progressBar: $('#onlineImages .progress'),
                     start: function() {

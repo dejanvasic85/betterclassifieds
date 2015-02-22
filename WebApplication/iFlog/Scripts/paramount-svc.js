@@ -7,15 +7,16 @@ var $paramount = (function (me, $) {
         getImageUrl: getImageUrl,
         setLineAdImageForBooking: setLineAdImageForBooking,
         removeLineAdImageForBooking: removeLineAdImageForBooking,
+        getLocationAreas: getLocationAreas
     };
-    
+
     function getImageUrl(id) {
-        if(id){
+        if (id) {
             return me.url.imgThumb.replace('-1', id);
         }
         return null;
     }
-    
+
     function cancelCropImage(documentId) {
         return post(me.url.cancelCropImage, { documentId: documentId });
     }
@@ -30,6 +31,10 @@ var $paramount = (function (me, $) {
 
     function removeLineAdImageForBooking(documentId) {
         return post(me.url.removeLineAdImage, { documentId: documentId });
+    }
+
+    function getLocationAreas(locationId) {
+        return post(me.url.getLocationAreas, {locationId : locationId});
     }
 
     function post(url, data) {

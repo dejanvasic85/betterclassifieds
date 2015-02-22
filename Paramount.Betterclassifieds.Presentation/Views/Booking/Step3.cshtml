@@ -50,13 +50,16 @@
     <script>
 
         $(function () {
-
             var Step3 = function () {
-                var self = this;
-                self.pricelist = ko.observable({ Total: 0, LineItems: { 'Online Ad Cost': 0 } });
+                // Prices
+                self.pricetotal = ko.observable();
+                self.priceitems = ko.observableArray([]);
                 self.calculate = ko.computed(function () {
-                    $.get('@Url.Action("GetRate")', null, function (resp) {
-                        self.pricelist(resp);
+                    $.get($paramount.url.getRate, null, function (resp) {
+                        self.pricetotal($paramount.formatCurrency(resp.Total));
+                        $.each(resp.LineItems, function (prop, price) {
+                            self.priceitems.push({ 'item': prop, 'price': $paramount.formatCurrency(price) });
+                        });
                     });
                 });
             };

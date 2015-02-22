@@ -238,21 +238,21 @@
                     mainCategoryId: bookingCart.SubCategoryId,
                     insertions: 1,
                     adBookingId: ref adBookingId,
-                    onlineAdHeading: bookingCart.OnlineAdCart.Heading,
-                    onlineAdDescription: bookingCart.OnlineAdCart.Description,
-                    onlineAdHtml: bookingCart.OnlineAdCart.DescriptionHtml,
+                    onlineAdHeading: bookingCart.OnlineAdModel.Heading,
+                    onlineAdDescription: bookingCart.OnlineAdModel.Description,
+                    onlineAdHtml: bookingCart.OnlineAdModel.HtmlText,
                     onlineAdPrice: null,
-                    locationId: bookingCart.OnlineAdCart.LocationId,
-                    locationAreaId: bookingCart.OnlineAdCart.LocationAreaId,
-                    contactName: bookingCart.OnlineAdCart.ContactName,
-                    contactEmail: bookingCart.OnlineAdCart.Email,
-                    contactPhone: bookingCart.OnlineAdCart.Phone,
+                    locationId: bookingCart.OnlineAdModel.LocationId,
+                    locationAreaId: bookingCart.OnlineAdModel.LocationAreaId,
+                    contactName: bookingCart.OnlineAdModel.ContactName,
+                    contactEmail: bookingCart.OnlineAdModel.ContactEmail,
+                    contactPhone: bookingCart.OnlineAdModel.ContactPhone,
                     onlineDesignId: ref onlineDesignId,
                     transactionType: transactionType
                     );
 
                 // Save the images for online ad
-                var graphics = bookingCart.OnlineAdCart.Images.Select(img => new AdGraphic{ AdDesignId = onlineDesignId, DocumentID = img});
+                var graphics = bookingCart.OnlineAdModel.Images.Select(img => new AdGraphic{ AdDesignId = onlineDesignId, DocumentID = img.DocumentId});
                 context.AdGraphics.InsertAllOnSubmit(graphics);
                 context.SubmitChanges();
 
@@ -272,7 +272,7 @@
             configuration.CreateMap<MainCategory, Category>();
             configuration.CreateMap<OnlineAd, OnlineAdModel>();
             configuration.CreateMap<AdGraphic, AdImage>()
-                .ForMember(member => member.ImageUrl, options => options.MapFrom(source => source.DocumentID));
+                .ForMember(member => member.DocumentId, options => options.MapFrom(source => source.DocumentID));
             configuration.CreateMap<Publication, PublicationModel>();
             
             // To data

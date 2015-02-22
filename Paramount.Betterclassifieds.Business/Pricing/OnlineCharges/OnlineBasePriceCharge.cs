@@ -10,7 +10,7 @@ namespace Paramount.Betterclassifieds.Business
         {
             Guard.NotNullIn(rate, booking);
 
-            var price = booking.OnlineAdCart == null ? 0 : rate.MinimumCharge;
+            var price = booking.OnlineAdModel == null ? 0 : rate.MinimumCharge;
 
             return new AdCharge(price, LineItemName);
         }

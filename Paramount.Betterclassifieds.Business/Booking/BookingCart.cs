@@ -20,7 +20,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
             Reference = Id.Substring(0, 6).ToUpper();
             Publications = new int[] { };
             CompletedSteps = new List<int>();
-            OnlineAdCart = new OnlineAdCart();
+            OnlineAdModel = new OnlineAdModel();
             LineAdModel = new LineAdModel();
         }
 
@@ -55,7 +55,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
 
         public DateTime? EndDate { get; set; }
 
-        public OnlineAdCart OnlineAdCart { get; set; }
+        public OnlineAdModel OnlineAdModel { get; set; }
 
         public LineAdModel LineAdModel { get; set; }
 

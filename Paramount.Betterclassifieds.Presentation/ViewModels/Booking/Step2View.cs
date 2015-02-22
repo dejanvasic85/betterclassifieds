@@ -25,12 +25,12 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 
         [Display(Name = "Contact Phone")]
         [StringLength(50)]
-        public string OnlineAdPhone { get; set; }
+        public string OnlineAdContactPhone { get; set; }
 
         [EmailAddress]
         [Display(Name = "Contact Email")]
         [StringLength(100)]
-        public string OnlineAdEmail { get; set; }
+        public string OnlineAdContactEmail { get; set; }
 
         [Display(Name = "Price")]
         public decimal? OnlineAdPrice { get; set; }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Paramount.Betterclassifieds.Business.Booking
 {
@@ -27,6 +28,36 @@ namespace Paramount.Betterclassifieds.Business.Booking
         public void IncrementHits()
         {
             this.NumOfViews++;
+        }
+
+        public void SetDescription(string html)
+        {
+            // Set the Description Html
+            this.HtmlText = html;
+
+            // We also want to convert the html to normal plaintext to appear normally everywhere else
+            this.Description = html.FromHtmlToPlaintext();
+        }
+
+        public void AddImage(string documentId)
+        {
+            if (this.Images == null)
+                this.Images = new List<AdImage>();
+            this.Images.Add(new AdImage(documentId));
+        }
+
+        public void RemoveImage(string documentId)
+        {
+            if (this.Images == null || this.Images.Count == 0)
+            {
+                return;
+            }
+
+            var img = this.Images.FirstOrDefault(i => i.DocumentId == documentId);
+            if (img == null)
+                return;
+
+            this.Images.Remove(img);
         }
     }
 }

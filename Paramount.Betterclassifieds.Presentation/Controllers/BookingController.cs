@@ -31,7 +31,7 @@
         private readonly IBookingManager _bookingManager;
         private readonly IPaymentService _paymentService;
 
-        public BookingController( 
+        public BookingController(
             ISearchService searchService,
             IClientConfig clientConfig,
             IDocumentRepository documentRepository,
@@ -115,7 +115,7 @@
         public ActionResult Step2()
         {
             var bookingCart = _bookingContext.Current();
-            var stepTwoModel = this.Map<OnlineAdCart, Step2View>(bookingCart.OnlineAdCart);
+            var stepTwoModel = this.Map<OnlineAdModel, Step2View>(bookingCart.OnlineAdModel);
             this.Map(bookingCart.LineAdModel, stepTwoModel);
 
             // Load the location options
@@ -145,8 +145,8 @@
             if (applicationUser != null)
             {
                 stepTwoModel.OnlineAdContactName = applicationUser.FirstName;
-                stepTwoModel.OnlineAdPhone = applicationUser.Phone;
-                stepTwoModel.OnlineAdEmail = applicationUser.Email;
+                stepTwoModel.OnlineAdContactPhone = applicationUser.Phone;
+                stepTwoModel.OnlineAdContactEmail = applicationUser.Email;
             }
 
             return View(stepTwoModel);
@@ -165,10 +165,10 @@
                 return View(viewModel);
             }
 
-            
-            this.Map(viewModel, bookingCart.OnlineAdCart);
+
+            this.Map(viewModel, bookingCart.OnlineAdModel);
             this.Map(viewModel, bookingCart.LineAdModel);
-            bookingCart.OnlineAdCart.SetDescription(viewModel.OnlineAdDescription);
+            bookingCart.OnlineAdModel.SetDescription(viewModel.OnlineAdDescription);
             bookingCart.CompleteStep(2);
 
             // Save and continue
@@ -235,7 +235,7 @@
             {
                 // Return the mapped object from the booking cart
                 this.Map(bookingCart, viewModel);
-                this.Map(bookingCart.OnlineAdCart, viewModel);
+                this.Map(bookingCart.OnlineAdModel, viewModel);
                 return View(viewModel);
             }
             // Complete the booking cart (needs to move on now)
@@ -323,7 +323,7 @@
                 .Where(postedFile => postedFile != null && postedFile.ContentLength != 0)
                 .ToList();
 
-            if (bookingCart.OnlineAdCart.Images.Count + files.Count > _clientConfig.MaxOnlineImages)
+            if (bookingCart.OnlineAdModel.Images.Count + files.Count > _clientConfig.MaxOnlineImages)
             {
                 return Json(new { errorMsg = string.Format("File limit reached. You can upload up to {0} images.", _clientConfig.MaxOnlineImages) });
             }
@@ -348,13 +348,13 @@
             _documentRepository.Save(imageDocument);
 
             // Persist to the booking cart also
-            bookingCart.OnlineAdCart.Images.Add(documentId.ToString());
+            bookingCart.OnlineAdModel.AddImage(documentId.ToString());
             _cartRepository.Save(bookingCart);
 
 
             return Json(new { documentId }, JsonRequestBehavior.AllowGet);
         }
-        
+
         [HttpPost, BookingRequired]
         public ActionResult RemoveOnlineImage(Guid documentId)
         {
@@ -362,12 +362,12 @@
             _documentRepository.DeleteDocument(documentId);
 
             var bookingCart = _bookingContext.Current();
-            bookingCart.OnlineAdCart.Images.Remove(documentId.ToString());
+            bookingCart.OnlineAdModel.RemoveImage(documentId.ToString());
             _cartRepository.Save(bookingCart);
 
             return Json(new { removed = true });
         }
-        
+
         [HttpPost, BookingRequired]
         public ActionResult SetLineAdImage(Guid documentId)
         {
@@ -435,7 +435,7 @@
 
             return Json(new { valid = true });
         }
-        
+
         #endregion
 
         #region Mappings
@@ -447,21 +447,21 @@
 
             // To view model
             configuration.CreateMap<PublicationModel, PublicationSelectionView>();
-            configuration.CreateMap<OnlineAdCart, Step2View>();
+            configuration.CreateMap<OnlineAdModel, Step2View>();
             configuration.CreateMap<LineAdModel, Step2View>();
-            configuration.CreateMap<OnlineAdCart, Step4View>();
+            configuration.CreateMap<OnlineAdModel, Step4View>();
             configuration.CreateMap<BookingCart, Step4View>();
 
             // From ViewModel
-            configuration.CreateMap<Step2View, OnlineAdCart>()
+            configuration.CreateMap<Step2View, OnlineAdModel>()
                 .ForMember(member => member.Images, options => options.Ignore());
             configuration.CreateMap<Step2View, LineAdModel>();
             configuration.CreateMap<UserNetworkEmailView, UserNetworkModel>();
 
             // To Email Template
             configuration.CreateMap<BookingCart, NewBooking>()
-                .ForMember(member => member.AdDescription, options => options.MapFrom(source => source.OnlineAdCart.DescriptionHtml))
-                .ForMember(member => member.AdHeading, options => options.MapFrom(source => source.OnlineAdCart.Heading))
+                .ForMember(member => member.AdDescription, options => options.MapFrom(source => source.OnlineAdModel.HtmlText))
+                .ForMember(member => member.AdHeading, options => options.MapFrom(source => source.OnlineAdModel.Heading))
                 .ForMember(member => member.StartDate, options => options.MapFrom(source => source.StartDate.Value.ToString("dd-MMM-yyyy")))
                 .ForMember(member => member.EndDate, options => options.MapFrom(source => source.EndDate.Value.ToString("dd-MMM-yyyy")))
                 .ForMember(member => member.TotalPrice, options => options.MapFrom(source => source.TotalPrice.ToString("N")))

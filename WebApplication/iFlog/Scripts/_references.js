@@ -23,3 +23,4 @@
 /// <reference path="listings/find.js" />
 /// <reference path="cropper.js" />
 /// <reference path="paramount-svc.js" />
+/// <reference path="paramount-ui.js" />

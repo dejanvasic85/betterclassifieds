@@ -1,44 +1,4 @@
 ﻿
-
-/*
-** $paramount utility class
-*/
-
-var $paramount = $paramount || {};
-
-(function($window, $jQuery, $mobileDetect) {
-
-    var me = this;
-    me.isMobileDevice = null;
-
-    // Lazy loading for mobile checking
-    me.evaluateMobile = function() {
-        if (isMobileDevice !== null) {
-            return isMobileDevice;
-        }
-        me.isMobileDevice = new $mobileDetect($window.navigator.userAgent);
-        return me.isMobileDevice;
-    };
-    
-    $paramount.formatCurrency = function (value) {
-        if (value == undefined)
-            return '';
-        return "$" + value.toFixed(2);
-    };
-
-    $paramount.isMobile = function () {
-        return evaluateMobile();
-    };
-
-    $paramount.setOnlineEditor = function (setupCallback) {
-        if (!me.evaluateMobile()) {
-            $paramount.onlineEditor = setupCallback();
-        }
-    };
-
-})(window, jQuery, MobileDetect);
-
-
 /*
 ** General element hooks for the entire website (jQuery)
 */
@@ -79,7 +39,7 @@ var $paramount = $paramount || {};
             $.getJSON(url).done(function (data) {
                 me.empty();
                 $.each(data, function (index, option) {
-                    if (selected === option.Value) {
+                    if (selected == option.Value) {
                         me.append('<option selected value="' + option.Value + '">' + option.Text + '</option>');
                     } else {
                         me.append('<option value="' + option.Value + '">' + option.Text + '</option>');

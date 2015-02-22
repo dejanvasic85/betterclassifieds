@@ -366,10 +366,6 @@
     <Content Include="Scripts\moment-2.8.2.min.js">
       <DependentUpon>moment-2.8.2.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\paramount-site.js" />
-    <Content Include="Scripts\paramount-site.min.js">
-      <DependentUpon>paramount-site.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\paramount-validate-default.js" />
     <Content Include="Scripts\paramount-validate-default.min.js">
       <DependentUpon>paramount-validate-default.js</DependentUpon>
@@ -420,9 +416,6 @@
     </Content>
     <Content Include="Scripts\knockout-3.2.0.min.js.map">
       <DependentUpon>knockout-3.2.0.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\paramount-site.min.js.map">
-      <DependentUpon>paramount-site.min.js</DependentUpon>
     </Content>
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\toastr-2.0.1.js" />

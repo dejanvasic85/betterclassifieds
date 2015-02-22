@@ -67,7 +67,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         [AllowHtml]
         public string LineAdText { get; set; }
         
-        [Display(Name = "Super Bold Heading - make your heading really stand out")]
+        [Display(Name = "Super Bold Heading")]
         public bool LineIsSuperBoldHeading { get; set; }
 
         public string LineAdImageId { get; set; }

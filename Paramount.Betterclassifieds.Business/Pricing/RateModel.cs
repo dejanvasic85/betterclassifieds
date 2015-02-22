@@ -2,6 +2,9 @@
 
 namespace Paramount.Betterclassifieds.Business
 {
+    /// <summary>
+    /// Print rate model
+    /// </summary>
     public class RateModel
     {
         [Obsolete]
@@ -19,5 +22,7 @@ namespace Paramount.Betterclassifieds.Business
         public decimal? LineAdColourBackground { get; set; }
         public DateTime? CreatedDate { get; set; }
         public string CreatedByUser { get; set; }
+
     }
+
 }

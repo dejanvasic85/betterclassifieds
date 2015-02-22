@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business;
@@ -14,7 +14,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 // Fetch data objects
-                var rateCard = context.Ratecards.First(rate => rate.RatecardId == rateId);
+                var rateCard = context.Ratecards.Single(rate => rate.RatecardId == rateId);
 
                 // Convert to model
                 RateModel model = this.Map<Ratecard, RateModel>(rateCard);
@@ -23,9 +23,28 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             }
         }
 
+        public RateModel[] GetRatesForPublicationCategory(int[] publications, int? subCategoryId)
+        {
+            using (var context = DataContextFactory.CreateClassifiedContext())
+            {
+                var rates = new List<RateModel>();
+
+                foreach (var publication in publications)
+                {
+                    var rateCard = context.Ratecard_FetchForPublicationCategory(publication, subCategoryId).Single();
+                    rates.Add(this.Map<Ratecard, RateModel>(rateCard));
+                }
+
+                return rates.ToArray();
+            }
+        }
+
         /// <summary>
-        /// Fetches the first online ad rate that matches the 
+        /// Fetches the first online ad rate that matches the first category
         /// </summary>
+        /// <remarks>
+        /// Reason we do this is so that we can support 'inheritance'
+        /// </remarks>
         public OnlineAdRate GetOnlineRateForCategories(params int?[] categories)
         {
             using (var context = DataContextFactory.CreateClassifiedEntitiesContext())

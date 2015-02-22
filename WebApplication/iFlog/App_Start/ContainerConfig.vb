@@ -32,7 +32,18 @@ Public Class ContainerConfig
             .RegisterType(Of INotificationProcessor, EmailProcessor)("emailProcessingEngine") _
             .RegisterType(Of ISmtpMailer, DefaultMailer)() _
             .RegisterType(Of IEnquiryManager, EnquiryManager)() _
+            .RegisterType(Of IRateCalculator, RateCalculator)() _
             .RegisterType(Of IRateCalculator, RateCalculator)()
+
+        ' Online charges
+        container.RegisterType(Of IOnlineCharge, OnlineBasePriceCharge)("BasePrice")
+
+        ' Print charges
+        container.RegisterType(Of IPrintCharge, PrintPhotoCharge)("PrintPhoto") _
+            .RegisterType(Of IPrintCharge, PrintHeadingCharge)("PrintHeadingCharge") _
+            .RegisterType(Of IPrintCharge, PrintSuperBoldHeadingCharge)("SuperBoldHeadingCharge") _
+            .RegisterType(Of IPrintCharge, PrintWordCharge)("PrintWordCharge")
+
 
     End Sub
 End Class

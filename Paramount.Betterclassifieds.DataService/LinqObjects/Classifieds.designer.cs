@@ -22,7 +22,7 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="iFlog")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="Classifieds")]
 	public partial class ClassifiedsDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -150,7 +150,7 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
     #endregion
 		
 		public ClassifiedsDataContext() : 
-				base(global::Paramount.Betterclassifieds.DataService.Properties.Settings.Default.iFlogConnectionString, mappingSource)
+				base(global::Paramount.Betterclassifieds.DataService.Properties.Settings.Default.ClassifiedsConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -812,6 +812,13 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			adBookingId = ((System.Nullable<int>)(result.GetParameterValue(17)));
 			onlineDesignId = ((System.Nullable<int>)(result.GetParameterValue(18)));
 			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Ratecard_FetchForPublicationCategory")]
+		public ISingleResult<Ratecard> Ratecard_FetchForPublicationCategory([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> publicationId, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> categoryId)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), publicationId, categoryId);
+			return ((ISingleResult<Ratecard>)(result.ReturnValue));
 		}
 	}
 	

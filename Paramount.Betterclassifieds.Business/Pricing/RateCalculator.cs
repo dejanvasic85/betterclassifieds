@@ -1,9 +1,12 @@
-﻿using Paramount.Betterclassifieds.Business.Booking;
-using Paramount.Betterclassifieds.Business.Print;
-using Paramount.Betterclassifieds.Business.Repository;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Paramount.Betterclassifieds.Business
 {
+    using Repository;
+    using Print;
+    using Booking;
+
     public interface IRateCalculator
     {
         decimal Calculate(int ratecardId, LineAdModel lineAd, bool isOnlineAd, int editions = 1);
@@ -14,10 +17,14 @@ namespace Paramount.Betterclassifieds.Business
     public class RateCalculator : IRateCalculator
     {
         private readonly IRateRepository _rateRepository;
+        private readonly IOnlineCharge[] _onlineCharges;
+        private readonly IPrintCharge[] _printCharges;
 
-        public RateCalculator(IRateRepository rateRepository)
+        public RateCalculator(IRateRepository rateRepository, IOnlineCharge[] onlineCharges, IPrintCharge[] printCharges)
         {
             _rateRepository = rateRepository;
+            _onlineCharges = onlineCharges;
+            _printCharges = printCharges;
         }
 
         public decimal Calculate(int ratecardId, LineAdModel lineAd, bool isOnlineAd, int editions = 1)
@@ -60,17 +67,23 @@ namespace Paramount.Betterclassifieds.Business
         {
             Guard.NotNullIn(bookingCart, bookingCart.CategoryId, bookingCart.SubCategoryId);
 
-            var breakDown = new PriceBreakdown();
             var onlineAdRate = _rateRepository.GetOnlineRateForCategories(bookingCart.SubCategoryId, bookingCart.CategoryId);
             if (onlineAdRate == null)
             {
                 throw new SetupException("No available online rate has been setup.");
             }
-            // Todo - Really need to think about this one... 
-            // Should we consider storing descriptions in database also and making them 'rows' rather than columns?
-            breakDown.AddItem("Online Ad Cost", onlineAdRate.MinimumCharge);
 
-            // Todo - Line Ads :)
+            var breakDown = new PriceBreakdown();
+            breakDown.AddRange(_onlineCharges.Select(c => c.Calculate(onlineAdRate, bookingCart)).ToArray());
+
+            if (!bookingCart.IsLineAdIncluded)
+                return breakDown;
+
+            var printRates = _rateRepository.GetRatesForPublicationCategory(bookingCart.Publications, bookingCart.SubCategoryId);
+            foreach (var printRate in printRates)
+            {
+                breakDown.AddRange(_printCharges.Select(pr => pr.Calculate(printRate, bookingCart)).ToArray());
+            }
 
             return breakDown;
         }

@@ -71,6 +71,14 @@
     <Compile Include="Broadcast\EmailTemplate.cs" />
     <Compile Include="Broadcast\ITemplateParser.cs" />
     <Compile Include="Broadcast\DocTypes\IDocType.cs" />
+    <Compile Include="Pricing\AdCharge.cs" />
+    <Compile Include="Pricing\OnlineCharges\IOnlineCharge.cs" />
+    <Compile Include="Pricing\PrintCharges\IPrintCharge.cs" />
+    <Compile Include="Pricing\OnlineCharges\OnlineBasePriceCharge.cs" />
+    <Compile Include="Pricing\PrintCharges\PrintHeadingCharge.cs" />
+    <Compile Include="Pricing\PrintCharges\PrintPhotoCharge.cs" />
+    <Compile Include="Pricing\PrintCharges\PrintWordCharge.cs" />
+    <Compile Include="Pricing\PrintCharges\PrintSuperBoldHeadingCharge.cs" />
     <Compile Include="Print\EditionManager.cs" />
     <Compile Include="EnquiryManager.cs" />
     <Compile Include="Booking\BookingAuthorisationException.cs" />

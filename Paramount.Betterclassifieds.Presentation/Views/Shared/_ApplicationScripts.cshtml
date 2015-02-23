@@ -31,16 +31,17 @@
             renderCropImage : '@Url.RenderCropImage()',
             bookingLineAdImage: '@Url.SetLineAdImageId()',
             removeLineAdImage: '@Url.RemoveLineAdImage()',
+            removeOnlineAdImage: '@Url.RemoveOnlineImage()',
             uploadOnlineImage: '@Url.UploadOnlineImage()',
             getLocationAreas : '@Url.LocationAreaOptions()'
         }
 
         return me;
-
+    
     })($paramount || {});
 </script>
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/paramount-site.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/paramount-svc.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/paramount-ui.js")"></script>
-
+<script type="text/javascript" src="@Url.Content("~/Scripts/Booking/DesignAd.js")"></script>

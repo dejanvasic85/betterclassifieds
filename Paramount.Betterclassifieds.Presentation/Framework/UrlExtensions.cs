@@ -46,6 +46,11 @@ namespace Paramount
             return urlHelper.Action("RemoveLineAdImage", "Booking");
         }
 
+        public static string RemoveOnlineImage(this UrlHelper urlHelper)
+        {
+            return urlHelper.Action("RemoveOnlineImage", "Booking");
+        }
+
         public static string CropImage(this UrlHelper urlHelper)
         {
             return urlHelper.Action("CropImage", "Image");

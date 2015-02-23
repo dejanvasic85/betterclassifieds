@@ -330,6 +330,7 @@
     </Content>
     <Content Include="Scripts\Booking\BookingCart.js" />
     <Content Include="Content\TheMusic\fonts\ufonts.com_alternate_gothic_no2_d.ttf" />
+    <Content Include="Scripts\Booking\DesignAd.js" />
     <Content Include="Scripts\bootstrap-3.3.0.js" />
     <Content Include="Scripts\bootstrap-3.3.0.min.js">
       <DependentUpon>bootstrap-3.3.0.js</DependentUpon>

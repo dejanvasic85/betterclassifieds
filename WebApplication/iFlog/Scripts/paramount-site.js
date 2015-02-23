@@ -1,12 +1,12 @@
 ﻿/*
 ** $paramount utility class
 */
-(function($paramount, $window, $, $mobileDetect) {
+(function ($paramount, $window, $, $mobileDetect) {
     var me = this;
     me.isMobileDevice = null;
 
     // Lazy loading for mobile checking
-    me.evaluateMobile = function() {
+    me.evaluateMobile = function () {
         if (isMobileDevice !== null) {
             return isMobileDevice;
         }
@@ -23,7 +23,7 @@
             throw name + ' is required';
         }
     };
-    
+
     $paramount.formatCurrency = function (value) {
         if (value == undefined)
             return '';
@@ -53,6 +53,13 @@
         });
     };
 
+    $paramount.delay = function () {
+        var timer = 0;
+        return function (callback, ms) {
+            clearTimeout(timer);
+            timer = setTimeout(callback, ms);
+        };
+    };
 
     /*
      * File upload control
@@ -64,7 +71,7 @@
         guard(options.element, '');
 
         options.progressBar = options.progressBar || $('<div><span class=".progress-bar"></span></div>'); // Todo - popup a real progress bar somewhere
-        options.complete = options.complete || function() {};
+        options.complete = options.complete || function () { };
         options.start = options.start || function () { };
         options.error = options.error || function () { };
 

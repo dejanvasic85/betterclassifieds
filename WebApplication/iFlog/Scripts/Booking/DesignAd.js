@@ -1,5 +1,5 @@
-﻿(function($paramount, ko) {
-    
+﻿(function ($paramount, ko) {
+
     $paramount.models = $paramount.models || {};
 
     $paramount.models.DesignAd = function (data, maxImages, lineAdHeader, lineAdText, lineAdImageId) {
@@ -46,6 +46,7 @@
         self.priceitems = ko.observableArray([]);
         self.calculate = ko.computed(function () {
             // todo - need to trigger this on certain events like text change on heading
+
             $.get($paramount.url.getRate, null, function (resp) {
                 self.pricetotal($paramount.formatCurrency(resp.Total));
                 self.priceitems.removeAll();
@@ -53,7 +54,8 @@
                     self.priceitems.push({ 'item': prop, 'price': $paramount.formatCurrency(price) });
                 });
             });
-        });
+
+        }).extend({ throttle: 1000 });
     };
 
 

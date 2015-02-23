@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace Paramount.Betterclassifieds.Business
+﻿namespace Paramount.Betterclassifieds.Business
 {
-    using Repository;
-    using Print;
     using Booking;
+    using Print;
+    using Repository;
+    using System.Linq;
 
     public interface IRateCalculator
     {

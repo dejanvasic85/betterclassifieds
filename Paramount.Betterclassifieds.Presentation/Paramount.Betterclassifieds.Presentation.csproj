@@ -205,6 +205,7 @@
     <Compile Include="ViewModels\AdViewModel.cs" />
     <Compile Include="ViewModels\Booking\BookingContextInCookie.cs" />
     <Compile Include="ViewModels\Booking\PublicationEditionView.cs" />
+    <Compile Include="ViewModels\Booking\PricingFactorsView.cs" />
     <Compile Include="ViewModels\Booking\Step2View.cs" />
     <Compile Include="ViewModels\Booking\Step3View.cs" />
     <Compile Include="ViewModels\Booking\Step4View.cs" />

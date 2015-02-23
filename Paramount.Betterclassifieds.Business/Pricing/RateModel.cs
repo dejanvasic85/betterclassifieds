@@ -24,5 +24,4 @@ namespace Paramount.Betterclassifieds.Business
         public string CreatedByUser { get; set; }
 
     }
-
 }

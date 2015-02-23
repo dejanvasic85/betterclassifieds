@@ -8,7 +8,8 @@ var $paramount = (function (me, $) {
         setLineAdImageForBooking: setLineAdImageForBooking,
         removeLineAdImageForBooking: removeLineAdImageForBooking,
         removeOnlineAdImageForBooking: removeOnlineAdImageForBooking,
-        getLocationAreas: getLocationAreas
+        getLocationAreas: getLocationAreas,
+        updateBookingRates: updateBookingRates
     };
 
     function removeOnlineAdImageForBooking(documentId) {
@@ -40,6 +41,10 @@ var $paramount = (function (me, $) {
 
     function getLocationAreas(locationId) {
         return post(me.url.getLocationAreas, { locationId: locationId });
+    }
+
+    function updateBookingRates(model) {
+        return post($paramount.url.updateBookingRates, model);
     }
 
     function post(url, data) {

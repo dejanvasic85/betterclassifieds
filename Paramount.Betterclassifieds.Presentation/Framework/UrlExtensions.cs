@@ -81,7 +81,7 @@ namespace Paramount
             return string.Format("{0}{1}", baseUri, VirtualPathUtility.ToAbsolute(relativeContentPath));
         }
 
-        public static string GetRate(this UrlHelper urlHelper)
+        public static string UpdateBookingRates(this UrlHelper urlHelper)
         {
             return urlHelper.Action("GetRate", "Booking");
         }

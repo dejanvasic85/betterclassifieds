@@ -72,6 +72,7 @@
     <Compile Include="Broadcast\DocTypes\IDocType.cs" />
     <Compile Include="Pricing\AdCharge.cs" />
     <Compile Include="Pricing\OnlineCharges\IOnlineCharge.cs" />
+    <Compile Include="Pricing\PricingFactors.cs" />
     <Compile Include="Pricing\PrintCharges\IPrintCharge.cs" />
     <Compile Include="Pricing\OnlineCharges\OnlineBasePriceCharge.cs" />
     <Compile Include="Pricing\PrintCharges\PrintHeadingCharge.cs" />

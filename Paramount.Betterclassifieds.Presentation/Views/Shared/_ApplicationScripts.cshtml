@@ -21,23 +21,23 @@
 
 <script>
     var $paramount = (function (me) {
-        
+
         me.url = {
-            getRate: '@Url.GetRate()',
+            updateBookingRates: '@Url.UpdateBookingRates()',
             uploadCropImage: '@Url.ImageUpload()',
-            imgThumb : '@Url.Image("-1")',
+            imgThumb: '@Url.Image("-1")',
             cancelCropImage: '@Url.CancelCrop()',
             cropImage: '@Url.CropImage()',
-            renderCropImage : '@Url.RenderCropImage()',
+            renderCropImage: '@Url.RenderCropImage()',
             bookingLineAdImage: '@Url.SetLineAdImageId()',
             removeLineAdImage: '@Url.RemoveLineAdImage()',
             removeOnlineAdImage: '@Url.RemoveOnlineImage()',
             uploadOnlineImage: '@Url.UploadOnlineImage()',
-            getLocationAreas : '@Url.LocationAreaOptions()'
+            getLocationAreas: '@Url.LocationAreaOptions()',
         }
 
         return me;
-    
+
     })($paramount || {});
 </script>
 

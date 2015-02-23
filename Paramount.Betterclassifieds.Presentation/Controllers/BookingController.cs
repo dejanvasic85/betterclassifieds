@@ -389,11 +389,16 @@
             return Json(true);
         }
 
-        [HttpGet, BookingRequired]
-        public ActionResult GetRate()
+        [HttpPost, BookingRequired]
+        public ActionResult GetRate(PricingFactorsView pricingFactors)
         {
+            // Updates the booking cart and returns the updated price breakdown
+
             var bookingCart = _bookingContext.Current();
-            return Json(_rateCalculator.GetPriceBreakDown(bookingCart), JsonRequestBehavior.AllowGet);
+
+            bookingCart.UpdateByPricingFactors(this.Map<PricingFactorsView, PricingFactors>(pricingFactors));
+
+            return Json(_rateCalculator.GetPriceBreakDown(bookingCart));
         }
 
         [HttpPost, Authorize]
@@ -457,6 +462,7 @@
                 .ForMember(member => member.Images, options => options.Ignore());
             configuration.CreateMap<Step2View, LineAdModel>();
             configuration.CreateMap<UserNetworkEmailView, UserNetworkModel>();
+            configuration.CreateMap<PricingFactorsView, PricingFactors>();
 
             // To Email Template
             configuration.CreateMap<BookingCart, NewBooking>()

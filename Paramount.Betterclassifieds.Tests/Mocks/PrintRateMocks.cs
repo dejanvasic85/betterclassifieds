@@ -14,5 +14,17 @@ namespace Paramount.Betterclassifieds.Tests.Mocks
             rate.BoldHeading = amount;
             return rate;
         }
+
+        public static RateModel WithWordRate(this RateModel rate, decimal amount)
+        {
+            rate.RatePerWord = amount;
+            return rate;
+        }
+
+        public static RateModel WithFreeWords(this RateModel rate, int numberOfFreeWords)
+        {
+            rate.FreeWords = numberOfFreeWords;
+            return rate;
+        }
     }
 }

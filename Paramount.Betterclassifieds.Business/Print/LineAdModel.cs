@@ -10,10 +10,15 @@ namespace Paramount.Betterclassifieds.Business.Print
 
         public int NumOfWords
         {
-            get { return AdText.EmptyIfNull().Split(' ').Length - 1; }
+            get
+            {
+                return AdText.IsNullOrEmpty()
+                ? 0
+                : AdText.Split(' ').Length;
+            }
         }
 
-        public string AdImageId { get; set; }   
+        public string AdImageId { get; set; }
         public bool UsePhoto { get; set; }
         public bool UseBoldHeader { get; set; }
         public bool IsColourBoldHeading { get; set; }

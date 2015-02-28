@@ -58,7 +58,7 @@ namespace Paramount.Betterclassifieds.Tests.Pricing
             var lineAd = new LineAdModel { AdHeader = "hey Ya!" };
 
             // act
-            var result = new PrintHeadingCharge().Calculate(rate, lineAd, publications: 2, editions: 2);
+            var result = new PrintHeadingCharge().Calculate(rate, lineAd, editions: 2);
 
             // assert
             Assert.That(result, Is.TypeOf<PrintAdChargeItem>());

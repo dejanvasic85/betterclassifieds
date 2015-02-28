@@ -25,12 +25,46 @@ namespace Paramount.Betterclassifieds.Tests.Pricing
             var rate = PrintRateMocks.Create();
 
             // act
-            var result = new PrintWordCharge().Calculate(rate, lineAd, 0, 0);
+            var result = new PrintWordCharge().Calculate(rate, lineAd, 0);
 
             // assert
             Assert.That(result, Is.TypeOf<PrintAdChargeItem>());
             Assert.That(result.Name, Is.EqualTo("Print Words"));
             Assert.That(result.Quantity, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void Calculate_FiveWords_FiveDollarsPerWord_Returns_25_Total()
+        {
+            // arrange
+            var lineAd = new LineAdModel { AdText = "one two three four five" };
+            var rate = PrintRateMocks.Create().WithWordRate(5);
+
+            // act
+            var result = new PrintWordCharge().Calculate(rate, lineAd, editions: 1);
+
+            // assert
+            Assert.That(result, Is.TypeOf<PrintAdChargeItem>());
+            Assert.That(result.Name, Is.EqualTo("Print Words"));
+            Assert.That(result.Quantity, Is.EqualTo(5));
+            Assert.That(result.Total, Is.EqualTo(25));
+        }
+
+        [Test]
+        public void Calculate_FiveWords_FiveDollarsPerWord_MultiPublications()
+        {
+            // arrange
+            var lineAd = new LineAdModel { AdText = "one two three four five" };
+            var rate = PrintRateMocks.Create().WithWordRate(5);
+
+            // act
+            var result = new PrintWordCharge().Calculate(rate, lineAd, editions: 1);
+
+            // assert
+            Assert.That(result, Is.TypeOf<PrintAdChargeItem>());
+            Assert.That(result.Name, Is.EqualTo("Print Words"));
+            Assert.That(result.Quantity, Is.EqualTo(5));
+            Assert.That(result.Total, Is.EqualTo(25));
         }
     }
 }

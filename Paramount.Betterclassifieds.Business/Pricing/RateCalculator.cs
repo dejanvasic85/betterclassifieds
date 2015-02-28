@@ -81,7 +81,7 @@
             foreach (var printRate in printRates)
             {
                 breakDown.AddRange(_printCharges
-                    .Select(pr => pr.Calculate(printRate, bookingCart.LineAdModel, bookingCart.Publications.Length, bookingCart.Editions.Length))
+                    .Select(pr => pr.Calculate(printRate, bookingCart.LineAdModel, bookingCart.Editions.Length))
                     .ToArray());
             }
 

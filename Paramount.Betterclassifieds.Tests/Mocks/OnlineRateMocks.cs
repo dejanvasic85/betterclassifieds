@@ -2,7 +2,7 @@
 
 namespace Paramount.Betterclassifieds.Tests.Mocks
 {
-    internal static class RateMocks
+    internal static class OnlineRateMocks
     {
         public static OnlineAdRate Create()
         {

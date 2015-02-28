@@ -123,8 +123,10 @@
     <Compile Include="Database\ClassifiedsDataContextTests.cs" />
     <Compile Include="Membership\RegistrationModelTests.cs" />
     <Compile Include="Mocks\MoqExtensions.cs" />
-    <Compile Include="Mocks\RateMocks.cs" />
+    <Compile Include="Mocks\OnlineRateMocks.cs" />
+    <Compile Include="Mocks\PrintRateMocks.cs" />
     <Compile Include="Pricing\OnlineAdBaseChargeTests.cs" />
+    <Compile Include="Pricing\PrintHeadingChargeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TheMusicHtmlScraper\TheMusicHtmlScraperTests.cs" />
     <Compile Include="Utility\GuardTests.cs" />

@@ -1,5 +1,4 @@
 ﻿using System;
-using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
@@ -23,7 +22,7 @@ namespace Paramount.Betterclassifieds.Tests.Pricing
         {
             // arrange
             var charge = new OnlineBasePriceCharge();
-            var rate = RateMocks.Create().WithBaseRate(10);
+            var rate = OnlineRateMocks.Create().WithBaseRate(10);
             var onlineAd = new OnlineAdModel();
 
             // act

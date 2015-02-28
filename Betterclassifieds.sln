@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationBlock.Configuration", "ApplicationBlock\Configuration\ApplicationBlock.Configuration.csproj", "{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}"
 EndProject
@@ -48,7 +48,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskScheduler", "TaskSchedu
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 Database", "04 Database", "{06813343-424A-4B8F-9CA9-A109CEA6303B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 Tests", "05 Tests", "{1EAE4385-197F-413F-8AFB-C80EBBD5ED64}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 Tests", "02 Tests", "{1EAE4385-197F-413F-8AFB-C80EBBD5ED64}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassifiedsDatabase", "Database\ClassifiedsDatabase\ClassifiedsDatabase.csproj", "{E17C5429-4810-4589-9640-6D1828A6C71E}"
 EndProject
@@ -62,7 +62,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Betterclassifieds
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Betterclassifieds.Business", "Paramount.Betterclassifieds.Business\Paramount.Betterclassifieds.Business.csproj", "{5C1BE481-DB9E-48CC-9048-5B10E6535D02}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 Docs", "02 Docs", "{97624BE3-6BCD-46D3-A4FC-FFA0F09FC639}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 Docs", "04 Docs", "{97624BE3-6BCD-46D3-A4FC-FFA0F09FC639}"
 	ProjectSection(SolutionItems) = preProject
 		readme.md = readme.md
 		ReleaseNotes.md = ReleaseNotes.md
@@ -508,7 +508,6 @@ Global
 		{0790D756-48F2-42C5-9985-7915D15ED88C} = {7116FBB6-130D-4A59-9C8A-A15680F0D4A7}
 		{5A595E8C-7861-415F-A193-A295E94CA22F} = {7116FBB6-130D-4A59-9C8A-A15680F0D4A7}
 		{06813343-424A-4B8F-9CA9-A109CEA6303B} = {C030D05C-AA23-4C91-A40A-047C4C8989DF}
-		{1EAE4385-197F-413F-8AFB-C80EBBD5ED64} = {C030D05C-AA23-4C91-A40A-047C4C8989DF}
 		{E17C5429-4810-4589-9640-6D1828A6C71E} = {06813343-424A-4B8F-9CA9-A109CEA6303B}
 		{0E32F93E-8E53-4469-BD63-3BFCE23468DD} = {06813343-424A-4B8F-9CA9-A109CEA6303B}
 		{04979BB2-2132-46AF-B359-D83A243B97DE} = {06813343-424A-4B8F-9CA9-A109CEA6303B}

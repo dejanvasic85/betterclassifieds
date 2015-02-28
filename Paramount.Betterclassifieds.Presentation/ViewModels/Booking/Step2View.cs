@@ -54,9 +54,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
             get { return MaxImageUploadBytes / (decimal)1000000; }
         }
 
-        public IEnumerable<SelectListItem> LocationOptions { get; set; }
-
-        public IEnumerable<SelectListItem> LocationAreaOptions { get; set; }
         
         [Display(Name = "Heading")]
         [StringLength(100)]

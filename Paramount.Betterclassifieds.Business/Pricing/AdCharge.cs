@@ -10,5 +10,15 @@
 
         public decimal Price { get; set; }
         public string Item { get; set; }
+
+        public static implicit operator decimal(AdCharge adCharge)
+        {
+            return adCharge.Price;
+        }
+
+        public static decimal operator +(AdCharge charge1, AdCharge charge2)
+        {
+            return charge1.Price + charge2.Price;
+        }
     }
 }

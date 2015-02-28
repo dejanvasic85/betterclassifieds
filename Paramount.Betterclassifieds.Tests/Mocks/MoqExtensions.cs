@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace Paramount.Betterclassifieds.Tests.Mocks
 {
-    public static class MoqExtensions
+    internal static class MoqExtensions
     {
         public static Mock<T> CreateMockOf<T>(this MockRepository mockRepository, IUnityContainer container = null,
             List<Action> verifications = null, MockBehavior defaultBehaviour = MockBehavior.Strict) where T : class

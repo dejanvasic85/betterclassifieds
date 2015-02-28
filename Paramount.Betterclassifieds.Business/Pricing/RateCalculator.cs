@@ -72,7 +72,7 @@
             }
 
             var breakDown = new PriceBreakdown();
-            breakDown.AddRange(_onlineCharges.Select(c => c.Calculate(onlineAdRate, bookingCart)).ToArray());
+            breakDown.AddRange(_onlineCharges.Select(c => c.Calculate(onlineAdRate, bookingCart.OnlineAdModel)).ToArray());
 
             if (!bookingCart.IsLineAdIncluded)
                 return breakDown;

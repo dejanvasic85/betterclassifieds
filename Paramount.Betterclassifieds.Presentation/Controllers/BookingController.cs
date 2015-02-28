@@ -117,20 +117,7 @@
             var bookingCart = _bookingContext.Current();
             var stepTwoModel = this.Map<OnlineAdModel, Step2View>(bookingCart.OnlineAdModel);
             this.Map(bookingCart.LineAdModel, stepTwoModel);
-
-            // Load the location options
-            stepTwoModel.LocationOptions = _searchService.GetLocations().Select(l => new SelectListItem { Text = l.Title, Value = l.LocationId.ToString() }).OrderBy(l => l.Text).ToList();
-
-            // Todo - We need to fix this! Any location and Any Area are hardcoded values!! And are getting stored to DB!
-            int locationAreaId = stepTwoModel.OnlineAdLocationId.HasValue
-                ? stepTwoModel.OnlineAdLocationId.Value
-                : int.Parse(stepTwoModel.LocationOptions.First(l => l.Text.Trim().Equals("Any Location")).Value);
-
-            // Todo - fix this also! See above
-            stepTwoModel.LocationAreaOptions = _searchService.GetLocationAreas(locationAreaId)
-                    .Select(l => new SelectListItem { Text = l.Title, Value = l.LocationAreaId.ToString() })
-                    .OrderBy(l => l.Text).ToList();
-
+            
             // Set max number of images available for upload ( available on global client configuration object )
             stepTwoModel.MaxOnlineImages = _clientConfig.MaxOnlineImages;
 
@@ -453,7 +440,8 @@
             // To view model
             configuration.CreateMap<PublicationModel, PublicationSelectionView>();
             configuration.CreateMap<OnlineAdModel, Step2View>();
-            configuration.CreateMap<LineAdModel, Step2View>();
+            configuration.CreateMap<LineAdModel, Step2View>()
+                .ForMember(m => m.LineAdText, options => options.MapFrom(src => src.AdText.Replace("'", "''")));
             configuration.CreateMap<OnlineAdModel, Step4View>();
             configuration.CreateMap<BookingCart, Step4View>();
 

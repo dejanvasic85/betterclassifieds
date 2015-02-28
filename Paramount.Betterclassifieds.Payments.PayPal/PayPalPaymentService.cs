@@ -15,12 +15,12 @@ namespace Paramount.Betterclassifieds.Payments.pp
 
             var paypalItems = new ItemList
             {
-                items = request.PriceBreakdown.LineItems.Select(li => new Item
+                items = request.PriceBreakdown.GetItems().Select(li => new Item
                 {
-                    name = li.Key,
-                    price = li.Value.ToString("N"),
-                    currency = "AUD",
-                    quantity = "1",
+                    name = li.Name,
+                    price = li.Price.ToString("N"),
+                    currency = li.Currency,
+                    quantity = li.Quantity.ToString(),
                     sku = request.PayReference
                 }).ToList()
             };
@@ -45,7 +45,7 @@ namespace Paramount.Betterclassifieds.Payments.pp
             {
                 tax = "0",
                 shipping = "0",
-                subtotal = request.PriceBreakdown.Total.ToString("N"),
+                subtotal = request.PriceBreakdown.BookingTotal().ToString("N"),
             };
 
             // ###Amount
@@ -53,7 +53,7 @@ namespace Paramount.Betterclassifieds.Payments.pp
             var amount = new Amount
             {
                 currency = "AUD",
-                total = request.PriceBreakdown.Total.ToString("N"), // Total must be equal to sum of shipping, tax and subtotal.
+                total = request.PriceBreakdown.BookingTotal().ToString("N"), // Total must be equal to sum of shipping, tax and subtotal.
                 details = details
             };
 

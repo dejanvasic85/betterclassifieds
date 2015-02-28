@@ -3,40 +3,36 @@ using System.Linq;
 
 namespace Paramount.Betterclassifieds.Business
 {
-    public class PriceBreakdown
+    public class PriceBreakdown 
     {
-        private readonly Dictionary<string, decimal> _items;
-
-        public decimal Total
-        {
-            get { return _items.Sum(lineItem => lineItem.Value); }
-        }
-
-        public IReadOnlyDictionary<string, decimal> LineItems { get { return _items; } }
+        private List<ILineItem> Items { get; set; }
 
         public PriceBreakdown()
         {
-            _items = new Dictionary<string, decimal>();
+            Items = new List<ILineItem>();
         }
 
-        public void AddItem(AdCharge adCharge)
+        public void AddItem(ILineItem adLine)
         {
-            if (_items.ContainsKey(adCharge.Item))
-            {
-                _items[adCharge.Item] += adCharge.Price;
-            }
-            else
-            {
-                _items.Add(adCharge.Item, adCharge.Price);
-            }
+            this.Items.Add(adLine);
         }
 
-        public void AddRange(AdCharge[] charges)
+        public void AddRange<T>(T[] charges) where T : ILineItem
         {
             foreach (var adCharge in charges)
             {
                 this.AddItem(adCharge);
             }
+        }
+
+        public ILineItem[] GetItems()
+        {
+            return this.Items.ToArray();
+        }
+
+        public decimal BookingTotal()
+        {
+            return Items.Sum(c => c.Total);
         }
     }
 }

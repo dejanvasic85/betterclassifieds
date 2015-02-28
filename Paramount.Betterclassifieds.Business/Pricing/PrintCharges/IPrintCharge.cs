@@ -1,9 +1,9 @@
-﻿namespace Paramount.Betterclassifieds.Business
-{
-    using Booking;
+﻿using Paramount.Betterclassifieds.Business.Print;
 
+namespace Paramount.Betterclassifieds.Business
+{
     public interface IPrintCharge
     {
-        AdCharge Calculate(RateModel rateModel, BookingCart booking);
+        PrintAdChargeItem Calculate(RateModel rateModel, LineAdModel booking, int publications, int editions = 1);
     }
 }

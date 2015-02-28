@@ -1,16 +1,19 @@
-using Paramount.Betterclassifieds.Business.Booking;
+using Paramount.Betterclassifieds.Business.Print;
 
 namespace Paramount.Betterclassifieds.Business
 {
     public class PrintHeadingCharge : IPrintCharge
     {
-        public AdCharge Calculate(RateModel rateModel, BookingCart booking)
+        public PrintAdChargeItem Calculate(RateModel rateModel, LineAdModel lineAdModel, int publications, int editions = 1)
         {
-            Guard.NotNullIn(rateModel, booking, booking.LineAdModel);
-            var price = booking.LineAdModel.AdHeader.HasValue()
+            Guard.NotNull(rateModel);
+
+            var price = lineAdModel.AdHeader.HasValue()
                 ? rateModel.BoldHeading.GetValueOrDefault()
                 : 0;
-            return new AdCharge(price, "Print Heading");
+
+            return new PrintAdChargeItem(price, "Print Heading", publications, editions);
         }
+
     }
 }

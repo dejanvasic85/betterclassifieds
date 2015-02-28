@@ -1,16 +1,16 @@
-using Paramount.Betterclassifieds.Business.Booking;
+using Paramount.Betterclassifieds.Business.Print;
 
 namespace Paramount.Betterclassifieds.Business
 {
     public class PrintWordCharge : IPrintCharge
     {
-        public AdCharge Calculate(RateModel rateModel, BookingCart booking)
+        public PrintAdChargeItem Calculate(RateModel rateModel, LineAdModel lineAdModel, int publications, int editions = 1)
         {
-            Guard.NotNullIn(rateModel, booking, booking.LineAdModel);
-            
-            var price = rateModel.RatePerWord.GetValueOrDefault()*booking.LineAdModel.NumOfWords;
+            Guard.NotNull(rateModel);
 
-            return new AdCharge(price, string.Format("Print Words ({0})", booking.LineAdModel.NumOfWords));
+            var price = rateModel.RatePerWord.GetValueOrDefault();
+
+            return new PrintAdChargeItem(price, "Print Words", publications, editions, lineAdModel.NumOfWords);
         }
     }
 }

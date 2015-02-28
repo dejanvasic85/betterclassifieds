@@ -22,6 +22,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
             CompletedSteps = new List<int>();
             OnlineAdModel = new OnlineAdModel();
             LineAdModel = new LineAdModel();
+            Editions = new DateTime[0];
         }
 
         public string SessionId { get; private set; }
@@ -69,6 +70,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         }
 
         public string Reference { get; set; }
+        public DateTime[] Editions { get; set; }
 
         public bool NoPaymentRequired()
         {

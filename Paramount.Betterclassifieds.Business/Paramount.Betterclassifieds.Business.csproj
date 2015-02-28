@@ -70,9 +70,11 @@
     <Compile Include="Broadcast\EmailTemplate.cs" />
     <Compile Include="Broadcast\ITemplateParser.cs" />
     <Compile Include="Broadcast\DocTypes\IDocType.cs" />
-    <Compile Include="Pricing\AdCharge.cs" />
+    <Compile Include="Pricing\OnlineCharges\AdChargeItem.cs" />
+    <Compile Include="Pricing\ILineItem.cs" />
     <Compile Include="Pricing\OnlineCharges\IOnlineCharge.cs" />
     <Compile Include="Pricing\PricingFactors.cs" />
+    <Compile Include="Pricing\PrintAdChargeItem.cs" />
     <Compile Include="Pricing\PrintCharges\IPrintCharge.cs" />
     <Compile Include="Pricing\OnlineCharges\OnlineBasePriceCharge.cs" />
     <Compile Include="Pricing\PrintCharges\PrintHeadingCharge.cs" />

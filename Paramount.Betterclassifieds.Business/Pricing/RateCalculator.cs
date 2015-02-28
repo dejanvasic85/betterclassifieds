@@ -80,7 +80,9 @@
             var printRates = _rateRepository.GetRatesForPublicationCategory(bookingCart.Publications, bookingCart.SubCategoryId);
             foreach (var printRate in printRates)
             {
-                breakDown.AddRange(_printCharges.Select(pr => pr.Calculate(printRate, bookingCart)).ToArray());
+                breakDown.AddRange(_printCharges
+                    .Select(pr => pr.Calculate(printRate, bookingCart.LineAdModel, bookingCart.Publications.Length, bookingCart.Editions.Length))
+                    .ToArray());
             }
 
             return breakDown;

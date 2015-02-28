@@ -117,7 +117,7 @@
             var bookingCart = _bookingContext.Current();
             var stepTwoModel = this.Map<OnlineAdModel, Step2View>(bookingCart.OnlineAdModel);
             this.Map(bookingCart.LineAdModel, stepTwoModel);
-            
+
             // Set max number of images available for upload ( available on global client configuration object )
             stepTwoModel.MaxOnlineImages = _clientConfig.MaxOnlineImages;
 
@@ -204,7 +204,7 @@
             bool.TryParse(cancel, out isPaymentCancelled);
 
             var bookingCart = _bookingContext.Current();
-            bookingCart.TotalPrice = _rateCalculator.GetPriceBreakDown(bookingCart).Total;
+            bookingCart.TotalPrice = _rateCalculator.GetPriceBreakDown(bookingCart).BookingTotal();
             _cartRepository.Save(bookingCart);
 
             var viewModel = this.Map<BookingCart, Step4View>(bookingCart);
@@ -379,13 +379,17 @@
         [HttpPost, BookingRequired]
         public ActionResult GetRate(PricingFactorsView pricingFactors)
         {
+            // Map incoming
             // Updates the booking cart and returns the updated price breakdown
-
             var bookingCart = _bookingContext.Current();
-
             bookingCart.UpdateByPricingFactors(this.Map<PricingFactorsView, PricingFactors>(pricingFactors));
 
-            return Json(_rateCalculator.GetPriceBreakDown(bookingCart));
+            // Process
+            var priceBreakDown = _rateCalculator.GetPriceBreakDown(bookingCart);
+
+            // Return view model
+            var viewModel = this.Map<PriceBreakdown, PriceSummaryView>(priceBreakDown);
+            return Json(viewModel);
         }
 
         [HttpPost, Authorize]
@@ -444,7 +448,13 @@
                 .ForMember(m => m.LineAdText, options => options.MapFrom(src => src.AdText.Replace("'", "''")));
             configuration.CreateMap<OnlineAdModel, Step4View>();
             configuration.CreateMap<BookingCart, Step4View>();
-
+            configuration.CreateMap<PriceBreakdown, PriceSummaryView>()
+                .ForMember(m => m.BookingTotal, options => options.MapFrom(src => src.BookingTotal()))
+                .ForMember(m => m.OnlineItems, options => options.MapFrom(src => src.GetItems().OfType<AdChargeItem>()))
+                .ForMember(m => m.PrintItems, options => options.MapFrom(src => src.GetItems().OfType<PrintAdChargeItem>()));
+            configuration.CreateMap<AdChargeItem, OnlineSummaryItemView>();
+            configuration.CreateMap<PrintAdChargeItem, PrintSummaryItemView>();
+            
             // From ViewModel
             configuration.CreateMap<Step2View, OnlineAdModel>()
                 .ForMember(member => member.Images, options => options.Ignore());
@@ -465,5 +475,6 @@
         #endregion
 
     }
+
 
 }

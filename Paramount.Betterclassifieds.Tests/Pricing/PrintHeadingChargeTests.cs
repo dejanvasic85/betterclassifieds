@@ -18,7 +18,7 @@ namespace Paramount.Betterclassifieds.Tests.Pricing
         }
 
         [Test]
-        public void Calculate_Heading_IsNotProvided_Returns_ZeroTotal()
+        public void Calculate_HeadingIsNotProvided_Returns_ZeroTotal()
         {
             var rate = PrintRateMocks.Create().WithHeadingAmount(10);
             var lineAd = new LineAdModel {AdHeader = string.Empty};

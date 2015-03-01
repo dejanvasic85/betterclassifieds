@@ -204,7 +204,7 @@
             bool.TryParse(cancel, out isPaymentCancelled);
 
             var bookingCart = _bookingContext.Current();
-            bookingCart.TotalPrice = _rateCalculator.GetPriceBreakDown(bookingCart).BookingTotal();
+            bookingCart.TotalPrice = _rateCalculator.Calculate(bookingCart).Sum(p => p.BookingTotal());
             _cartRepository.Save(bookingCart);
 
             var viewModel = this.Map<BookingCart, Step4View>(bookingCart);
@@ -239,7 +239,7 @@
             var response = _paymentService.SubmitPayment(new PaymentRequest
             {
                 PayReference = bookingCart.Reference,
-                PriceBreakdown = _rateCalculator.GetPriceBreakDown(bookingCart),
+                BookingProducts = _rateCalculator.Calculate(bookingCart),
                 ReturnUrl = Url.ActionAbsolute("AuthorisePayment", "Booking"),
                 CancelUrl = Url.ActionAbsolute("Step4", "Booking").Append("?cancel=true")
             });
@@ -385,10 +385,10 @@
             bookingCart.UpdateByPricingFactors(this.Map<PricingFactorsView, PricingFactors>(pricingFactors));
 
             // Process
-            var priceBreakDown = _rateCalculator.GetPriceBreakDown(bookingCart);
+            var priceBreakDown = _rateCalculator.Calculate(bookingCart);
 
             // Return view model
-            var viewModel = this.Map<PriceBreakdown, PriceSummaryView>(priceBreakDown);
+            var viewModel = this.MapList<BookingProduct, PriceSummaryView>(priceBreakDown);
             return Json(viewModel);
         }
 
@@ -448,7 +448,7 @@
                 .ForMember(m => m.LineAdText, options => options.MapFrom(src => src.AdText.Replace("'", "''")));
             configuration.CreateMap<OnlineAdModel, Step4View>();
             configuration.CreateMap<BookingCart, Step4View>();
-            configuration.CreateMap<PriceBreakdown, PriceSummaryView>()
+            configuration.CreateMap<BookingProduct, PriceSummaryView>()
                 .ForMember(m => m.BookingTotal, options => options.MapFrom(src => src.BookingTotal()))
                 .ForMember(m => m.OnlineItems, options => options.MapFrom(src => src.GetItems().OfType<AdChargeItem>()))
                 .ForMember(m => m.PrintItems, options => options.MapFrom(src => src.GetItems().OfType<PrintAdChargeItem>()));

@@ -2,7 +2,7 @@
 
 namespace Paramount.Betterclassifieds.Business
 {
-    public class OnlineBasePriceCharge : IOnlineCharge
+    public class OnlineBasePriceCharge : IOnlineChargeableItem
     {
         private const string LineItemName = "Online Ad";
 

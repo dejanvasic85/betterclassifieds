@@ -21,10 +21,10 @@ namespace Paramount.Betterclassifieds.Tests.Pricing
         public void Calculate_HeadingIsNotProvided_Returns_ZeroTotal()
         {
             var rate = PrintRateMocks.Create().WithHeadingAmount(10);
-            var lineAd = new LineAdModel {AdHeader = string.Empty};
+            var lineAd = new LineAdModel { AdHeader = string.Empty };
 
             // act
-            var result = new PrintHeadingCharge().Calculate(rate, lineAd, 0);
+            var result = new PrintHeadingCharge().Calculate(rate, lineAd);
 
             // assert
             Assert.That(result, Is.TypeOf<PrintAdChargeItem>());
@@ -41,14 +41,14 @@ namespace Paramount.Betterclassifieds.Tests.Pricing
             var lineAd = new LineAdModel { AdHeader = "hey Ya!" };
 
             // act
-            var result = new PrintHeadingCharge().Calculate(rate, lineAd, 0);
+            var result = new PrintHeadingCharge().Calculate(rate, lineAd);
 
             // assert
             Assert.That(result, Is.TypeOf<PrintAdChargeItem>());
             Assert.That(result.Editions, Is.EqualTo(1));
             Assert.That(result.Name, Is.EqualTo("Print Heading"));
             Assert.That(result.Price, Is.EqualTo(10));
-            Assert.That(result.Total, Is.EqualTo(0));
+            Assert.That(result.Total, Is.EqualTo(10));
         }
 
         [Test]
@@ -66,7 +66,7 @@ namespace Paramount.Betterclassifieds.Tests.Pricing
             Assert.That(result.Name, Is.EqualTo("Print Heading"));
             Assert.That(result.Price, Is.EqualTo(10));
             Assert.That(result.Quantity, Is.EqualTo(1));
-            Assert.That(result.Total, Is.EqualTo(40));
+            Assert.That(result.Total, Is.EqualTo(20));
         }
     }
 }

@@ -2,7 +2,7 @@ using Paramount.Betterclassifieds.Business.Print;
 
 namespace Paramount.Betterclassifieds.Business
 {
-    public class PrintWordCharge : IPrintCharge
+    public class PrintWordCharge : IPrintChargeableItem
     {
         public PrintAdChargeItem Calculate(RateModel rateModel, LineAdModel lineAdModel, int editions = 1)
         {
@@ -13,11 +13,7 @@ namespace Paramount.Betterclassifieds.Business
             // Reduce the quantity based on the number of free words
             var quantity = lineAdModel.NumOfWords;
 
-            return new PrintAdChargeItem(
-                price, 
-                "Print Words", 
-                editions, 
-                quantity);
+            return new PrintAdChargeItem(price, "Print Words", editions, quantity);
         }
     }
 }

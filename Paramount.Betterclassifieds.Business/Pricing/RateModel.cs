@@ -23,5 +23,7 @@ namespace Paramount.Betterclassifieds.Business
         public DateTime? CreatedDate { get; set; }
         public string CreatedByUser { get; set; }
 
+        public int PublicationId { get; set; }
+
     }
 }

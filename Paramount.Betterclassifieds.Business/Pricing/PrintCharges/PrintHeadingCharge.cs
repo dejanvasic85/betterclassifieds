@@ -2,7 +2,7 @@ using Paramount.Betterclassifieds.Business.Print;
 
 namespace Paramount.Betterclassifieds.Business
 {
-    public class PrintHeadingCharge : IPrintCharge
+    public class PrintHeadingCharge : IPrintChargeableItem
     {
         public PrintAdChargeItem Calculate(RateModel rateModel, LineAdModel lineAdModel, int editions = 1)
         {
@@ -12,8 +12,9 @@ namespace Paramount.Betterclassifieds.Business
                 ? rateModel.BoldHeading.GetValueOrDefault()
                 : 0;
 
-            return new PrintAdChargeItem(price, "Print Heading", editions);
-        }
+            var quantity = lineAdModel.AdHeader.HasValue() ? 1 : 0;
 
+            return new PrintAdChargeItem(price, "Print Heading", editions, quantity);
+        }
     }
 }

@@ -36,13 +36,13 @@ Public Class ContainerConfig
             .RegisterType(Of IRateCalculator, RateCalculator)()
 
         ' Online charges
-        container.RegisterType(Of IOnlineCharge, OnlineBasePriceCharge)("BasePrice")
+        container.RegisterType(Of IOnlineChargeableItem, OnlineBasePriceCharge)("BasePrice")
 
         ' Print charges
-        container.RegisterType(Of IPrintCharge, PrintPhotoCharge)("PrintPhoto") _
-            .RegisterType(Of IPrintCharge, PrintHeadingCharge)("PrintHeadingCharge") _
-            .RegisterType(Of IPrintCharge, PrintSuperBoldHeadingCharge)("SuperBoldHeadingCharge") _
-            .RegisterType(Of IPrintCharge, PrintWordCharge)("PrintWordCharge")
+        container.RegisterType(Of IPrintChargeableItem, PrintPhotoCharge)("PrintPhoto") _
+            .RegisterType(Of IPrintChargeableItem, PrintHeadingCharge)("PrintHeadingCharge") _
+            .RegisterType(Of IPrintChargeableItem, PrintSuperBoldHeadingCharge)("SuperBoldHeadingCharge") _
+            .RegisterType(Of IPrintChargeableItem, PrintWordCharge)("PrintWordCharge")
 
 
     End Sub

@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Business.Payment
+﻿using System.Collections.Generic;
+
+namespace Paramount.Betterclassifieds.Business.Payment
 {
     public class PaymentRequest
     {
@@ -6,7 +8,7 @@
 
         public string PayerId { get; set; }
 
-        public PriceBreakdown PriceBreakdown { get; set; }
+        public List<BookingProduct> BookingProducts { get; set; }
 
         public string ReturnUrl { get; set; }
 

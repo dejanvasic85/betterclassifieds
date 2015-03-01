@@ -1,7 +1,7 @@
 ﻿namespace Paramount.Betterclassifieds.Business
 {
     using Booking;
-    public interface IOnlineCharge
+    public interface IOnlineChargeableItem
     {
         AdChargeItem Calculate(OnlineAdRate rate, OnlineAdModel onlineAdModel);
     }

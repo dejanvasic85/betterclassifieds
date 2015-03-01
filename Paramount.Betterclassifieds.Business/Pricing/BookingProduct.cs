@@ -3,18 +3,30 @@ using System.Linq;
 
 namespace Paramount.Betterclassifieds.Business
 {
-    public class PriceBreakdown 
+    public class BookingProduct
     {
+        public BookingProduct(string name, string referenceNumber)
+        {
+            Name = name;
+            Reference = referenceNumber;
+            Items = new List<ILineItem>();
+        }
+
+        public string Name { get; private set; }
+
+        public string Reference { get; private set; }
+
         private List<ILineItem> Items { get; set; }
 
-        public PriceBreakdown()
+        public BookingProduct()
         {
             Items = new List<ILineItem>();
         }
 
-        public void AddItem(ILineItem adLine)
+        public void AddItem(ILineItem lineItem)
         {
-            this.Items.Add(adLine);
+            if (lineItem.Quantity > 0)
+                this.Items.Add(lineItem);
         }
 
         public void AddRange<T>(T[] charges) where T : ILineItem
@@ -34,5 +46,7 @@ namespace Paramount.Betterclassifieds.Business
         {
             return Items.Sum(c => c.Total);
         }
+
+
     }
 }

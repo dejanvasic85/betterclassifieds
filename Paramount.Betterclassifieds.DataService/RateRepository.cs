@@ -32,7 +32,9 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                 foreach (var publication in publications)
                 {
                     var rateCard = context.Ratecard_FetchForPublicationCategory(publication, subCategoryId).Single();
-                    rates.Add(this.Map<Ratecard, RateModel>(rateCard));
+                    var rateModel = this.Map<Ratecard, RateModel>(rateCard);
+                    rateModel.PublicationId = publication;
+                    rates.Add(rateModel);
                 }
 
                 return rates.ToArray();

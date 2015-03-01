@@ -2,7 +2,7 @@
 
 namespace Paramount.Betterclassifieds.Business
 {
-    public interface IPrintCharge
+    public interface IPrintChargeableItem
     {
         PrintAdChargeItem Calculate(RateModel rateModel, LineAdModel booking, int editions = 1);
     }

@@ -4,25 +4,28 @@
     using Print;
     using Repository;
     using System.Linq;
+    using System.Collections.Generic;
 
     public interface IRateCalculator
     {
         decimal Calculate(int ratecardId, LineAdModel lineAd, bool isOnlineAd, int editions = 1);
 
-        PriceBreakdown GetPriceBreakDown(BookingCart bookingCart);
+        List<BookingProduct> Calculate(BookingCart bookingCart);
     }
 
     public class RateCalculator : IRateCalculator
     {
         private readonly IRateRepository _rateRepository;
-        private readonly IOnlineCharge[] _onlineCharges;
-        private readonly IPrintCharge[] _printCharges;
+        private readonly IPublicationRepository _publicationRepository;
+        private readonly IOnlineChargeableItem[] _onlineChargeableItems;
+        private readonly IPrintChargeableItem[] _printChargeableItems;
 
-        public RateCalculator(IRateRepository rateRepository, IOnlineCharge[] onlineCharges, IPrintCharge[] printCharges)
+        public RateCalculator(IRateRepository rateRepository, IPublicationRepository publicationRepository, IOnlineChargeableItem[] onlineChargeableItems, IPrintChargeableItem[] printChargeableItems)
         {
             _rateRepository = rateRepository;
-            _onlineCharges = onlineCharges;
-            _printCharges = printCharges;
+            _publicationRepository = publicationRepository;
+            _onlineChargeableItems = onlineChargeableItems;
+            _printChargeableItems = printChargeableItems;
         }
 
         public decimal Calculate(int ratecardId, LineAdModel lineAd, bool isOnlineAd, int editions = 1)
@@ -61,8 +64,13 @@
             return price;
         }
 
-        public PriceBreakdown GetPriceBreakDown(BookingCart bookingCart)
+        /// <summary>
+        /// Returns all the calculated line items for the booking cart grouped by publication / online
+        /// </summary>
+        public List<BookingProduct> Calculate(BookingCart bookingCart)
         {
+            List<BookingProduct> list = new List<BookingProduct>();
+
             Guard.NotNullIn(bookingCart, bookingCart.CategoryId, bookingCart.SubCategoryId);
 
             var onlineAdRate = _rateRepository.GetOnlineRateForCategories(bookingCart.SubCategoryId, bookingCart.CategoryId);
@@ -71,21 +79,27 @@
                 throw new SetupException("No available online rate has been setup.");
             }
 
-            var breakDown = new PriceBreakdown();
-            breakDown.AddRange(_onlineCharges.Select(c => c.Calculate(onlineAdRate, bookingCart.OnlineAdModel)).ToArray());
+            var onlinePrices = new BookingProduct("Online", bookingCart.Reference);
+            onlinePrices.AddRange(_onlineChargeableItems.Select(c => c.Calculate(onlineAdRate, bookingCart.OnlineAdModel)).ToArray());
+            list.Add(onlinePrices);
 
             if (!bookingCart.IsLineAdIncluded)
-                return breakDown;
+                return list;
 
             var printRates = _rateRepository.GetRatesForPublicationCategory(bookingCart.Publications, bookingCart.SubCategoryId);
             foreach (var printRate in printRates)
             {
-                breakDown.AddRange(_printCharges
+                var publicationName = _publicationRepository.GetPublication(printRate.PublicationId).Title;
+
+                var printBreakDown = new BookingProduct(publicationName, bookingCart.Reference);
+                printBreakDown.AddRange(_printChargeableItems
                     .Select(pr => pr.Calculate(printRate, bookingCart.LineAdModel, bookingCart.Editions.Length))
                     .ToArray());
+
+                list.Add(printBreakDown);
             }
 
-            return breakDown;
+            return list;
         }
     }
 }

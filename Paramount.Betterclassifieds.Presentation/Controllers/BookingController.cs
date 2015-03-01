@@ -385,10 +385,10 @@
             bookingCart.UpdateByPricingFactors(this.Map<PricingFactorsView, PricingFactors>(pricingFactors));
 
             // Process
-            var priceBreakDown = _rateCalculator.Calculate(bookingCart);
+            var bookingProducts = _rateCalculator.Calculate(bookingCart);
 
             // Return view model
-            var viewModel = this.MapList<BookingProduct, PriceSummaryView>(priceBreakDown);
+            var viewModel = this.MapList<BookingProduct, PriceSummaryView>(bookingProducts);
             return Json(viewModel);
         }
 

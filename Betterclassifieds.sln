@@ -15,9 +15,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationBlock.Membership
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Utility", "ApplicationBlock\Utility\Paramount.Utility.csproj", "{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06 Legacy - (ToRemove)", "06 Legacy - (ToRemove)", "{7116FBB6-130D-4A59-9C8A-A15680F0D4A7}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 Legacy - (ToRemove)", "04 Legacy - (ToRemove)", "{7116FBB6-130D-4A59-9C8A-A15680F0D4A7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 Applications", "03 Applications", "{328F405C-3398-4608-B8DA-62CCB3EE8627}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 Applications", "02 Applications", "{328F405C-3398-4608-B8DA-62CCB3EE8627}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.DataTransferObjects", "Services\DataTransferObjects\Common.DataTransferObjects.csproj", "{377F2216-9202-4DF9-9C5B-C2A4E627FFE2}"
 EndProject
@@ -46,7 +46,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskScheduler", "TaskSchedu
 		{FEB858C0-B35D-4A07-A0EE-16F5B5BFC7EE} = {FEB858C0-B35D-4A07-A0EE-16F5B5BFC7EE}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 Database", "04 Database", "{06813343-424A-4B8F-9CA9-A109CEA6303B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 Database", "03 Database", "{06813343-424A-4B8F-9CA9-A109CEA6303B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 Tests", "02 Tests", "{1EAE4385-197F-413F-8AFB-C80EBBD5ED64}"
 EndProject

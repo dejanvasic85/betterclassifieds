@@ -12,19 +12,7 @@ namespace Paramount.Betterclassifieds.Payments.pp
     {
         public PaymentResponse SubmitPayment(PaymentRequest request)
         {
-            APIContext apiContext = ApiContextFactory.CreateApiContext();
-
-            //var paypalItems = new ItemList
-            //{
-            //    items = request.BookingProducts.GetItems().Select(li => new Item
-            //    {
-            //        name = li.Name,
-            //        price = li.Price.ToString("N"),
-            //        currency = li.Currency,
-            //        quantity = li.Quantity.ToString(),
-            //        sku = request.PayReference
-            //    }).ToList()
-            //};
+            var apiContext = ApiContextFactory.CreateApiContext();
             var converter = new ChargeableItemsToPaypalConverter();
             var paypalItems = converter.Convert(request.BookingProducts);
 

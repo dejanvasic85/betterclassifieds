@@ -1,7 +1,7 @@
 ﻿namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 {
     // Contains all the ad properties that can change the price
-    public class PricingFactorsView
+    public class RatingFactorsView
     {
         public string LineAdText { get; set; }
 

@@ -2,7 +2,7 @@
 {
     public class PrintAdChargeItem : ILineItem
     {
-        public PrintAdChargeItem(decimal price, string name, int editions, int quantity = 1)
+        public PrintAdChargeItem(decimal price, string name, int editions = 1, int quantity = 1)
         {
             this.Price = price;
             this.Name = name;

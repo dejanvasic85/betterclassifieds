@@ -5,6 +5,8 @@ namespace Paramount.Betterclassifieds.Business
 {
     public class BookingProduct
     {
+        private const string OnlineProduct = "Online";
+
         public BookingProduct(string name, string referenceNumber)
         {
             Name = name;
@@ -12,12 +14,17 @@ namespace Paramount.Betterclassifieds.Business
             Items = new List<ILineItem>();
         }
 
+        public static BookingProduct CreateOnline(string reference)
+        {
+            return new BookingProduct(OnlineProduct, reference);
+        }
+
         public string Name { get; private set; }
 
         public string Reference { get; private set; }
 
         private List<ILineItem> Items { get; set; }
-
+        
         public BookingProduct()
         {
             Items = new List<ILineItem>();
@@ -42,11 +49,14 @@ namespace Paramount.Betterclassifieds.Business
             return this.Items.ToArray();
         }
 
-        public decimal BookingTotal()
+        public decimal ProductTotal()
         {
             return Items.Sum(c => c.Total);
         }
 
-
+        public bool IsOnline
+        {
+            get { return this.Name.Equals(OnlineProduct); }
+        }
     }
 }

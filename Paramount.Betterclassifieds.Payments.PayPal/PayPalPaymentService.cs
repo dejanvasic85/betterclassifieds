@@ -32,7 +32,7 @@ namespace Paramount.Betterclassifieds.Payments.pp
 
             // ###Details
             // Let's you specify details of a payment amount.
-            var sum = request.BookingProducts.Sum(b => b.BookingTotal());
+            var sum = request.BookingProducts.Sum(b => b.ProductTotal());
 
             var details = new Details
             {

@@ -69,7 +69,7 @@
         /// </summary>
         public List<BookingProduct> Calculate(BookingCart bookingCart)
         {
-            List<BookingProduct> list = new List<BookingProduct>();
+            var list = new List<BookingProduct>();
 
             Guard.NotNullIn(bookingCart, bookingCart.CategoryId, bookingCart.SubCategoryId);
 

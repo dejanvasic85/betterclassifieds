@@ -50,12 +50,13 @@
                 lineAdText: self.lineAdText(),
                 lineAdHeader: self.lineAdHeader()
             }).done(function (resp) {
-                    self.pricetotal($paramount.formatCurrency(resp.Total));
-                    self.priceitems.removeAll();
-                    $.each(resp.LineItems, function (prop, price) {
-                        self.priceitems.push({ 'item': prop, 'price': $paramount.formatCurrency(price) });
-                    });
+                debugger;
+                self.pricetotal($paramount.formatCurrency(resp.Total));
+                self.priceitems.removeAll();
+                $.each(resp.LineItems, function (prop, price) {
+                    self.priceitems.push({ 'item': prop, 'price': $paramount.formatCurrency(price) });
                 });
+            });
 
         }).extend({ throttle: 1000 });
     };

@@ -204,7 +204,7 @@
             bool.TryParse(cancel, out isPaymentCancelled);
 
             var bookingCart = _bookingContext.Current();
-            bookingCart.TotalPrice = _rateCalculator.Calculate(bookingCart).Sum(p => p.BookingTotal());
+            bookingCart.TotalPrice = _rateCalculator.Calculate(bookingCart).Sum(p => p.ProductTotal());
             _cartRepository.Save(bookingCart);
 
             var viewModel = this.Map<BookingCart, Step4View>(bookingCart);
@@ -377,18 +377,24 @@
         }
 
         [HttpPost, BookingRequired]
-        public ActionResult GetRate(PricingFactorsView pricingFactors)
+        public ActionResult GetRate(RatingFactorsView ratingFactors)
         {
             // Map incoming
             // Updates the booking cart and returns the updated price breakdown
             var bookingCart = _bookingContext.Current();
-            bookingCart.UpdateByPricingFactors(this.Map<PricingFactorsView, PricingFactors>(pricingFactors));
+            bookingCart.UpdateByPricingFactors(this.Map<RatingFactorsView, PricingFactors>(ratingFactors));
 
             // Process
             var bookingProducts = _rateCalculator.Calculate(bookingCart);
 
             // Return view model
-            var viewModel = this.MapList<BookingProduct, PriceSummaryView>(bookingProducts);
+            var viewModel = new PriceSummaryView
+            {
+                BookingTotal = bookingProducts.Sum(m => m.ProductTotal()),
+                OnlineProduct = this.Map<BookingProduct, OnlineProductSummary>(bookingProducts.Single(m => m.IsOnline)),
+                PrintProducts = this.MapList<BookingProduct, PrintProductSummary>(bookingProducts.Where(m => !m.IsOnline).ToList())
+            };
+
             return Json(viewModel);
         }
 
@@ -448,19 +454,21 @@
                 .ForMember(m => m.LineAdText, options => options.MapFrom(src => src.AdText.Replace("'", "''")));
             configuration.CreateMap<OnlineAdModel, Step4View>();
             configuration.CreateMap<BookingCart, Step4View>();
-            configuration.CreateMap<BookingProduct, PriceSummaryView>()
-                .ForMember(m => m.BookingTotal, options => options.MapFrom(src => src.BookingTotal()))
-                .ForMember(m => m.OnlineItems, options => options.MapFrom(src => src.GetItems().OfType<AdChargeItem>()))
+            configuration.CreateMap<BookingProduct, OnlineProductSummary>()
+                .ForMember(m => m.ProductTotal, options => options.MapFrom(src => src.ProductTotal()))
+                .ForMember(m => m.OnlineItems, options => options.MapFrom(src => src.GetItems().OfType<AdChargeItem>()));
+            configuration.CreateMap<BookingProduct, PrintProductSummary>()
+                .ForMember(m => m.ProductTotal, options => options.MapFrom(src => src.ProductTotal()))
                 .ForMember(m => m.PrintItems, options => options.MapFrom(src => src.GetItems().OfType<PrintAdChargeItem>()));
             configuration.CreateMap<AdChargeItem, OnlineSummaryItemView>();
             configuration.CreateMap<PrintAdChargeItem, PrintSummaryItemView>();
-            
+
             // From ViewModel
             configuration.CreateMap<Step2View, OnlineAdModel>()
                 .ForMember(member => member.Images, options => options.Ignore());
             configuration.CreateMap<Step2View, LineAdModel>();
             configuration.CreateMap<UserNetworkEmailView, UserNetworkModel>();
-            configuration.CreateMap<PricingFactorsView, PricingFactors>();
+            configuration.CreateMap<RatingFactorsView, PricingFactors>();
 
             // To Email Template
             configuration.CreateMap<BookingCart, NewBooking>()

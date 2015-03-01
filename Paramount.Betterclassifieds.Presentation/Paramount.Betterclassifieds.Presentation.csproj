@@ -204,11 +204,9 @@
     <Compile Include="ViewModels\AdEnquiryViewModel.cs" />
     <Compile Include="ViewModels\AdViewModel.cs" />
     <Compile Include="ViewModels\Booking\BookingContextInCookie.cs" />
-    <Compile Include="ViewModels\Booking\PriceSummaryItemView.cs" />
     <Compile Include="ViewModels\Booking\PriceSummaryView.cs" />
-    <Compile Include="ViewModels\Booking\PrintSummaryItemView.cs" />
     <Compile Include="ViewModels\Booking\PublicationEditionView.cs" />
-    <Compile Include="ViewModels\Booking\PricingFactorsView.cs" />
+    <Compile Include="ViewModels\Booking\RatingFactorsView.cs" />
     <Compile Include="ViewModels\Booking\Step2View.cs" />
     <Compile Include="ViewModels\Booking\Step3View.cs" />
     <Compile Include="ViewModels\Booking\Step4View.cs" />

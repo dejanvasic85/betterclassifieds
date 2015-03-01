@@ -93,7 +93,7 @@
 
                 var printBreakDown = new BookingProduct(publicationName, bookingCart.Reference);
                 printBreakDown.AddRange(_printChargeableItems
-                    .Select(pr => pr.Calculate(printRate, bookingCart.LineAdModel, bookingCart.Editions.Length))
+                    .Select(pr => pr.Calculate(printRate, bookingCart.LineAdModel, bookingCart.Editions == null ? 1 : bookingCart.Editions.Length))
                     .ToArray());
 
                 list.Add(printBreakDown);

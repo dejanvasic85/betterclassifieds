@@ -24,7 +24,7 @@
         <div class="col-xs-12">
             <div class="bs-callout bs-callout-info">
                 <h4>Online Ad Details</h4>
-                <p>Ok. You might want to entice the readers with an impact heading.</p>
+                <p>Please provide at least a heading and description for your online ad.</p>
             </div>
 
             <div class="form-group">
@@ -38,25 +38,33 @@
                 @Html.BootstrapLargeTextAreaFor(m => m.OnlineAdDescription, 8)
                 @Html.ValidationMessageFor(m => m.OnlineAdDescription)
             </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.OnlineAdContactName)
-                @Html.BootstrapLargeTextBoxFor(m => m.OnlineAdContactName)
-                @Html.ValidationMessageFor(m => m.OnlineAdContactName)
+            
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.OnlineAdContactName)
+                        @Html.BootstrapLargeTextBoxFor(m => m.OnlineAdContactName)
+                        @Html.ValidationMessageFor(m => m.OnlineAdContactName)
+                    </div>
+                </div>
+                
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.OnlineAdContactEmail)
+                        @Html.BootstrapLargeTextBoxFor(m => m.OnlineAdContactEmail)
+                        @Html.ValidationMessageFor(m => m.OnlineAdContactEmail)
+                    </div>
+                </div>
+                
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.OnlineAdContactPhone)
+                        @Html.BootstrapLargeTextBoxFor(m => m.OnlineAdContactPhone)
+                        @Html.ValidationMessageFor(m => m.OnlineAdContactPhone)
+                    </div>
+                </div>
             </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.OnlineAdContactEmail)
-                @Html.BootstrapLargeTextBoxFor(m => m.OnlineAdContactEmail)
-                @Html.ValidationMessageFor(m => m.OnlineAdContactEmail)
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.OnlineAdContactPhone)
-                @Html.BootstrapLargeTextBoxFor(m => m.OnlineAdContactPhone)
-                @Html.ValidationMessageFor(m => m.OnlineAdContactPhone)
-            </div>
-
+           
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
@@ -223,6 +231,35 @@
         </div>
     }
 
+    <hr/>
+
+    <div class="row top-buffer-20">
+        <div class="col-xs-12">
+            <div class="bs-callout bs-callout-info">
+                <h4>Online Schedule</h4>
+                <p>Your online ad will be available for @Model.ConfigDurationDays  days from the date you select below.</p>
+            </div>
+            
+            <div class="form-group">
+                @Html.LabelFor(m => m.StartDate)
+                @Html.BootstrapCalendar(m => m.StartDate)
+                @Html.ValidationMessageFor(m => m.StartDate)
+            </div>
+        </div>
+    </div>
+
+    <div class="row top-buffer-20">
+        <div class="col-xs-12">
+            <div class="bs-callout bs-callout-info">
+                <h4>Print Schedule</h4>
+                <p>Your online ad will be available for @Model.ConfigDurationDays  days from the date you select below.</p>
+            </div>
+        </div>
+        
+        Coming soon
+    </div>
+
+
     @*Pager*@
     <ul class="pager">
         <li class="previous">
@@ -267,6 +304,7 @@
                     var regex = /<br\s*[\/]?>/gi;
                     var content = '<p>' + $('#OnlineAdDescription').val().replace(regex, "\n") + '</p>';
                     var newContent = $(content).text();
+
                     $('#LineAdText').val(newContent);
                 });
 

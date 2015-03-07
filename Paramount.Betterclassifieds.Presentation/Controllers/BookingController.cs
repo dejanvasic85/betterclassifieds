@@ -120,9 +120,9 @@
 
             // Set max number of images available for upload ( available on global client configuration object )
             stepTwoModel.MaxOnlineImages = _clientConfig.MaxOnlineImages;
-
-            // Set the configured max image size
             stepTwoModel.MaxImageUploadBytes = _applicationConfig.MaxImageUploadBytes;
+            stepTwoModel.ConfigDurationDays = _clientConfig.RestrictedOnlineDaysCount;
+            stepTwoModel.StartDate = bookingCart.GetStartDateOrMinimum();
 
             // Map the flag for line ad
             stepTwoModel.IsLineAdIncluded = bookingCart.IsLineAdIncluded;
@@ -152,13 +152,18 @@
                 return View(viewModel);
             }
 
-
+            // Map online Ad
             this.Map(viewModel, bookingCart.OnlineAdModel);
-            this.Map(viewModel, bookingCart.LineAdModel);
             bookingCart.OnlineAdModel.SetDescription(viewModel.OnlineAdDescription);
-            bookingCart.CompleteStep(2);
-
+            
+            // Map Line Ad
+            this.Map(viewModel, bookingCart.LineAdModel);
+            
+            // Map Schedule
+            bookingCart.SetSchedule(_clientConfig, viewModel.StartDate.Value);
+            
             // Save and continue
+            bookingCart.CompleteStep(2);
             _cartRepository.Save(bookingCart);
 
             return RedirectToAction("Step3");
@@ -166,39 +171,39 @@
 
         // 
         // GET /Booking/Step/3 - Scheduling
-        [HttpGet, BookingStep(3)]
-        public ActionResult Step3()
-        {
-            var bookingCart = _bookingContext.Current();
-            var viewModel = new Step3View
-            {
-                StartDate = bookingCart.GetStartDateOrMinimum(),
-                DurationDays = _clientConfig.RestrictedOnlineDaysCount
-            };
+        //[HttpGet, BookingStep(3)]
+        //public ActionResult Step3()
+        //{
+        //    var bookingCart = _bookingContext.Current();
+        //    var viewModel = new Step3View
+        //    {
+        //        StartDate = bookingCart.GetStartDateOrMinimum(),
+        //        DurationDays = _clientConfig.RestrictedOnlineDaysCount
+        //    };
 
-            // todo - Line Ads - Fetch the up-coming available editions
+        //    // todo - Line Ads - Fetch the up-coming available editions
 
-            return View(viewModel);
-        }
+        //    return View(viewModel);
+        //}
 
-        [HttpPost, BookingStep(3)]
-        public ActionResult Step3(Step3View viewModel)
-        {
-            if (!ModelState.IsValid)
-                return View(viewModel);
+        //[HttpPost, BookingStep(3)]
+        //public ActionResult Step3(Step3View viewModel)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return View(viewModel);
 
-            var bookingCart = _bookingContext.Current();
-            bookingCart.SetSchedule(_clientConfig, viewModel.StartDate.GetValueOrDefault());
-            bookingCart.CompleteStep(3);
-            _cartRepository.Save(bookingCart);
+        //    var bookingCart = _bookingContext.Current();
+        //    bookingCart.SetSchedule(_clientConfig, viewModel.StartDate.GetValueOrDefault());
+        //    bookingCart.CompleteStep(3);
+        //    _cartRepository.Save(bookingCart);
 
-            return RedirectToAction("Step4");
-        }
+        //    return RedirectToAction("Step4");
+        //}
 
         // 
-        // GET /Booking/Step/4 - Confirmation
-        [HttpGet, BookingStep(4), Authorize]
-        public ActionResult Step4(string cancel)
+        // GET /Booking/Step/3 - Confirmation
+        [HttpGet, BookingStep(3), Authorize]
+        public ActionResult Step3(string cancel)
         {
             bool isPaymentCancelled;
             bool.TryParse(cancel, out isPaymentCancelled);
@@ -213,8 +218,8 @@
             return View(viewModel);
         }
 
-        [HttpPost, BookingStep(4), Authorize]
-        public ActionResult Step4(Step4View viewModel)
+        [HttpPost, BookingStep(3), Authorize]
+        public ActionResult Step3(Step4View viewModel)
         {
             var bookingCart = _bookingContext.Current();
 
@@ -241,7 +246,7 @@
                 PayReference = bookingCart.Reference,
                 BookingRateResult = _rateCalculator.Calculate(bookingCart),
                 ReturnUrl = Url.ActionAbsolute("AuthorisePayment", "Booking"),
-                CancelUrl = Url.ActionAbsolute("Step4", "Booking").Append("?cancel=true")
+                CancelUrl = Url.ActionAbsolute("Step3", "Booking").Append("?cancel=true")
             });
 
             bookingCart.PaymentReference = response.PaymentId;

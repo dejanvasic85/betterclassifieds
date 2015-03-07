@@ -69,11 +69,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Submit online ad and notify friends")]
+        [NUnit.Framework.IgnoreAttribute()]
         [NUnit.Framework.CategoryAttribute("OnlineBooking")]
         [NUnit.Framework.CategoryAttribute("UserNetwork")]
         public virtual void SubmitOnlineAdAndNotifyFriends()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Submit online ad and notify friends", new string[] {
+                        "ignore",
                         "OnlineBooking",
                         "UserNetwork"});
 #line 8
@@ -99,8 +101,8 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void SubmitOnlineAndLineAdBundle()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Submit online and line ad bundle", new string[] {
-                        "BundleBooking",
-                        "ignore"});
+                        "ignore",
+                        "BundleBooking"});
 #line 16
 this.ScenarioSetup(scenarioInfo);
 #line 17

@@ -482,8 +482,8 @@
     <Content Include="Views\Error\Server.cshtml" />
     <Content Include="Views\Booking\Step1.cshtml" />
     <Content Include="Views\Booking\Step2.cshtml" />
+    <Content Include="Views\Booking\Step3_Old.cshtml" />
     <Content Include="Views\Booking\Step3.cshtml" />
-    <Content Include="Views\Booking\Step4.cshtml" />
     <Content Include="Views\Booking\_PriceSummary.cshtml" />
     <Content Include="Views\Booking\Success.cshtml" />
     <Content Include="Views\Shared\_Layout.KandoBay.cshtml" />

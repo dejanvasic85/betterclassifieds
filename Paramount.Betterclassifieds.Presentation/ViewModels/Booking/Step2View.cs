@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
@@ -68,5 +69,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         public bool LineIsSuperBoldHeading { get; set; }
 
         public string LineAdImageId { get; set; }
+        public int ConfigDurationDays { get; set; }
+
+        [Required]
+        [Display(Name = "Start Date")]
+        public DateTime? StartDate { get; set; }
     }
 }

@@ -30,7 +30,7 @@ namespace Paramount.Betterclassifieds.Tests.Pricing
 
             // assert
             Assert.That(result.Price, Is.EqualTo(10));
-            Assert.That(result.Name, Is.EqualTo("Online Ad"));
+            Assert.That(result.Name, Is.EqualTo("Listing Fee"));
         }
     }
 }

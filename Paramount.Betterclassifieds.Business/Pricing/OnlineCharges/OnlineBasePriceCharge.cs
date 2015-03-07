@@ -4,7 +4,7 @@ namespace Paramount.Betterclassifieds.Business
 {
     public class OnlineBasePriceCharge : IOnlineChargeableItem
     {
-        private const string LineItemName = "Online Ad";
+        private const string LineItemName = "Listing Fee";
 
         public OnlineChargeItem Calculate(OnlineAdRate rate, OnlineAdModel onlineAdModel)
         {

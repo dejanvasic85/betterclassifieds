@@ -155,7 +155,8 @@
                 </div>
                 <div class="checkbox form-control">
                     <label>
-                        @Html.CheckBoxFor(m => m.LineIsSuperBoldHeading) @Html.LabelFor(m => m.LineIsSuperBoldHeading)
+                        @Html.CheckBoxFor(m => m.LineIsSuperBoldHeading, htmlAttributes: new { data_bind = "checked: lineAdSuperBoldHeader" })
+                        @Html.LabelFor(m => m.LineIsSuperBoldHeading)
                     </label>
                 </div>
 
@@ -247,9 +248,9 @@
         (function($, $paramount) {
 
             var rawOnlineImages = @Html.Raw(Model.OnlineAdImages.ToJsonString());
-            var designAdModel = new $paramount.models.DesignAd(rawOnlineImages, @Model.MaxOnlineImages, '@Model.LineAdHeader', '@Html.Raw(Model.LineAdText)', '@Model.LineAdImageId');
+            var designAdModel = new $paramount.models.DesignAd(rawOnlineImages, @Model.MaxOnlineImages, '@Model.LineAdHeader', '@Html.Raw(Model.LineAdText)', '@Model.LineAdImageId', '@Model.LineIsSuperBoldHeading');
             ko.applyBindings(designAdModel);
-            
+
             $(function() {
                 // jquery ready
                 $paramount.setOnlineEditor($('#OnlineAdDescription'));
@@ -268,7 +269,7 @@
                     var newContent = $(content).text();
                     $('#LineAdText').val(newContent);
                 });
-                
+
                 $paramount.upload({
                     url: $paramount.url.uploadOnlineImage,
                     element: $('#fileupload'),

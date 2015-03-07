@@ -1,10 +1,10 @@
-﻿namespace Paramount.Betterclassifieds.Business
+﻿using System.Linq;
+
+namespace Paramount.Betterclassifieds.Business
 {
     using Booking;
     using Print;
     using Repository;
-    using System.Linq;
-    using System.Collections.Generic;
 
     public interface IRateCalculator
     {
@@ -73,17 +73,21 @@
 
             Guard.NotNullIn(bookingCart, bookingCart.CategoryId, bookingCart.SubCategoryId);
 
+            // Online rates
             var onlineAdRate = _rateRepository.GetOnlineRateForCategories(bookingCart.SubCategoryId, bookingCart.CategoryId);
             if (onlineAdRate == null)
             {
                 throw new SetupException("No available online rate has been setup.");
             }
 
-            bookingRate.AddOnlineRate(_onlineChargeableItems.Select(c => c.Calculate(onlineAdRate, bookingCart.OnlineAdModel)).ToArray());
+            bookingRate.AddOnlineRate(_onlineChargeableItems
+                .Select(c => c.Calculate(onlineAdRate, bookingCart.OnlineAdModel))
+                .ToArray());
 
             if (!bookingCart.IsLineAdIncluded)
                 return bookingRate;
 
+            // Print Rates
             var printRates = _rateRepository.GetRatesForPublicationCategory(bookingCart.Publications, bookingCart.SubCategoryId);
             foreach (var printRate in printRates)
             {

@@ -5,5 +5,6 @@
         public string LineAdText { get; set; }
         public string LineAdHeader { get; set; }
         public bool IsSuperBoldHeader { get; set; }
+        public bool UsePhoto { get; set; }
     }
 }

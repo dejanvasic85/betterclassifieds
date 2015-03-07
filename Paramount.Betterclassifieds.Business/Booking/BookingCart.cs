@@ -111,6 +111,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
             this.LineAdModel.AdHeader = pricingFactors.LineAdHeader;
             this.LineAdModel.AdText = pricingFactors.LineAdText;
             this.LineAdModel.IsSuperBoldHeading = pricingFactors.IsSuperBoldHeader;
+            this.LineAdModel.UsePhoto = pricingFactors.UsePhoto;
         }
     }
 }

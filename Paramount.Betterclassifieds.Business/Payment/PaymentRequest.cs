@@ -8,7 +8,7 @@ namespace Paramount.Betterclassifieds.Business.Payment
 
         public string PayerId { get; set; }
 
-        public List<BookingProduct> BookingProducts { get; set; }
+        public BookingRateResult BookingRateResult { get; set; }
 
         public string ReturnUrl { get; set; }
 

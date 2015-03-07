@@ -3,6 +3,6 @@
     using Booking;
     public interface IOnlineChargeableItem
     {
-        AdChargeItem Calculate(OnlineAdRate rate, OnlineAdModel onlineAdModel);
+        OnlineChargeItem Calculate(OnlineAdRate rate, OnlineAdModel onlineAdModel);
     }
 }

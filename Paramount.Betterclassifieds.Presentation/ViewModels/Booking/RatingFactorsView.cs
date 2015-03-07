@@ -8,5 +8,7 @@
         public string LineAdHeader { get; set; }
 
         public bool IsSuperBoldHeader { get; set; }
+
+        public int? Editions { get; set; }
     }
 }

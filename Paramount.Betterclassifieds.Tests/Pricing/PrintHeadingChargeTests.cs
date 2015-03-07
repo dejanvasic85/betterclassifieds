@@ -31,7 +31,7 @@ namespace Paramount.Betterclassifieds.Tests.Pricing
             Assert.That(result.Editions, Is.EqualTo(1));
             Assert.That(result.Name, Is.EqualTo("Print Heading"));
             Assert.That(result.Price, Is.EqualTo(0));
-            Assert.That(result.Total, Is.EqualTo(0));
+            Assert.That(result.ItemTotal, Is.EqualTo(0));
         }
 
         [Test]
@@ -48,7 +48,7 @@ namespace Paramount.Betterclassifieds.Tests.Pricing
             Assert.That(result.Editions, Is.EqualTo(1));
             Assert.That(result.Name, Is.EqualTo("Print Heading"));
             Assert.That(result.Price, Is.EqualTo(10));
-            Assert.That(result.Total, Is.EqualTo(10));
+            Assert.That(result.ItemTotal, Is.EqualTo(10));
         }
 
         [Test]
@@ -66,7 +66,7 @@ namespace Paramount.Betterclassifieds.Tests.Pricing
             Assert.That(result.Name, Is.EqualTo("Print Heading"));
             Assert.That(result.Price, Is.EqualTo(10));
             Assert.That(result.Quantity, Is.EqualTo(1));
-            Assert.That(result.Total, Is.EqualTo(20));
+            Assert.That(result.ItemTotal, Is.EqualTo(20));
         }
     }
 }

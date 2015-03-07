@@ -48,7 +48,8 @@
 
             $paramount.svc.updateBookingRates({
                 lineAdText: self.lineAdText(),
-                lineAdHeader: self.lineAdHeader()
+                lineAdHeader: self.lineAdHeader(),
+                editions : 1
             }).done(function (resp) {
                 debugger;
                 self.pricetotal($paramount.formatCurrency(resp.Total));

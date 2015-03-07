@@ -1,8 +1,8 @@
 ﻿namespace Paramount.Betterclassifieds.Business
 {
-    public class AdChargeItem : ILineItem
+    public class OnlineChargeItem : ILineItem
     {
-        public AdChargeItem(decimal price, string name, int quantity = 1)
+        public OnlineChargeItem(decimal price, string name, int quantity = 1)
         {
             Quantity = quantity;
             Price = price;
@@ -18,17 +18,17 @@
             get { return "AUD"; }
         }
 
-        public decimal Total
+        public decimal ItemTotal
         {
             get { return Price * Quantity; }
         }
 
-        public static implicit operator decimal(AdChargeItem adChargeItem)
+        public static implicit operator decimal(OnlineChargeItem onlineChargeItem)
         {
-            return adChargeItem.Price;
+            return onlineChargeItem.Price;
         }
 
-        public static decimal operator +(AdChargeItem charge1, AdChargeItem charge2)
+        public static decimal operator +(OnlineChargeItem charge1, OnlineChargeItem charge2)
         {
             return charge1.Price + charge2.Price;
         }

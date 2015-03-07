@@ -6,6 +6,6 @@ namespace Paramount.Betterclassifieds.Business
         string Name { get; set; }
         int Quantity { get; set; }
         string Currency { get; }
-        decimal Total { get; }
+        decimal ItemTotal { get; }
     }
 }

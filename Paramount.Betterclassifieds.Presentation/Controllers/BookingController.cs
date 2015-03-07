@@ -204,7 +204,7 @@
             bool.TryParse(cancel, out isPaymentCancelled);
 
             var bookingCart = _bookingContext.Current();
-            bookingCart.TotalPrice = _rateCalculator.Calculate(bookingCart).Sum(p => p.ProductTotal());
+            bookingCart.TotalPrice = _rateCalculator.Calculate(bookingCart).Total;
             _cartRepository.Save(bookingCart);
 
             var viewModel = this.Map<BookingCart, Step4View>(bookingCart);
@@ -239,7 +239,7 @@
             var response = _paymentService.SubmitPayment(new PaymentRequest
             {
                 PayReference = bookingCart.Reference,
-                BookingProducts = _rateCalculator.Calculate(bookingCart),
+                BookingRateResult = _rateCalculator.Calculate(bookingCart),
                 ReturnUrl = Url.ActionAbsolute("AuthorisePayment", "Booking"),
                 CancelUrl = Url.ActionAbsolute("Step4", "Booking").Append("?cancel=true")
             });
@@ -377,23 +377,18 @@
         }
 
         [HttpPost, BookingRequired]
-        public ActionResult GetRate(RatingFactorsView ratingFactors)
+        public ActionResult GetRate(PricingFactorsView pricingFactors)
         {
             // Map incoming
             // Updates the booking cart and returns the updated price breakdown
             var bookingCart = _bookingContext.Current();
-            bookingCart.UpdateByPricingFactors(this.Map<RatingFactorsView, PricingFactors>(ratingFactors));
+            bookingCart.UpdateByPricingFactors(this.Map<PricingFactorsView, PricingFactors>(pricingFactors));
 
             // Process
-            var bookingProducts = _rateCalculator.Calculate(bookingCart);
+            var bookingRateResult = _rateCalculator.Calculate(bookingCart, pricingFactors.Editions);
 
             // Return view model
-            var viewModel = new PriceSummaryView
-            {
-                BookingTotal = bookingProducts.Sum(m => m.ProductTotal()),
-                OnlineProduct = this.Map<BookingProduct, OnlineProductSummary>(bookingProducts.Single(m => m.IsOnline)),
-                PrintProducts = this.MapList<BookingProduct, PrintProductSummary>(bookingProducts.Where(m => !m.IsOnline).ToList())
-            };
+            var viewModel = this.Map<BookingRateResult, PriceSummaryView>(bookingRateResult);
 
             return Json(viewModel);
         }
@@ -454,21 +449,15 @@
                 .ForMember(m => m.LineAdText, options => options.MapFrom(src => src.AdText.Replace("'", "''")));
             configuration.CreateMap<OnlineAdModel, Step4View>();
             configuration.CreateMap<BookingCart, Step4View>();
-            configuration.CreateMap<BookingProduct, OnlineProductSummary>()
-                .ForMember(m => m.ProductTotal, options => options.MapFrom(src => src.ProductTotal()))
-                .ForMember(m => m.OnlineItems, options => options.MapFrom(src => src.GetItems().OfType<AdChargeItem>()));
-            configuration.CreateMap<BookingProduct, PrintProductSummary>()
-                .ForMember(m => m.ProductTotal, options => options.MapFrom(src => src.ProductTotal()))
-                .ForMember(m => m.PrintItems, options => options.MapFrom(src => src.GetItems().OfType<PrintAdChargeItem>()));
-            configuration.CreateMap<AdChargeItem, OnlineSummaryItemView>();
-            configuration.CreateMap<PrintAdChargeItem, PrintSummaryItemView>();
+            configuration.CreateMap<BookingRateResult, PriceSummaryView>()
+                .ConvertUsing<PriceSummaryViewConverter>();
 
             // From ViewModel
             configuration.CreateMap<Step2View, OnlineAdModel>()
                 .ForMember(member => member.Images, options => options.Ignore());
             configuration.CreateMap<Step2View, LineAdModel>();
             configuration.CreateMap<UserNetworkEmailView, UserNetworkModel>();
-            configuration.CreateMap<RatingFactorsView, PricingFactors>();
+            configuration.CreateMap<PricingFactorsView, PricingFactors>();
 
             // To Email Template
             configuration.CreateMap<BookingCart, NewBooking>()

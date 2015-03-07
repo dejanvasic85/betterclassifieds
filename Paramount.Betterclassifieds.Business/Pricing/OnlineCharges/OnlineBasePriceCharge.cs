@@ -6,13 +6,13 @@ namespace Paramount.Betterclassifieds.Business
     {
         private const string LineItemName = "Online Ad";
 
-        public AdChargeItem Calculate(OnlineAdRate rate, OnlineAdModel onlineAdModel)
+        public OnlineChargeItem Calculate(OnlineAdRate rate, OnlineAdModel onlineAdModel)
         {
             Guard.NotNull(rate);
 
             var price = onlineAdModel == null ? 0 : rate.MinimumCharge;
 
-            return new AdChargeItem(price, LineItemName);
+            return new OnlineChargeItem(price, LineItemName);
         }
     }
 }

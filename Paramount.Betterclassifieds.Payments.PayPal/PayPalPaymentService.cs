@@ -14,7 +14,7 @@ namespace Paramount.Betterclassifieds.Payments.pp
         {
             var apiContext = ApiContextFactory.CreateApiContext();
             var converter = new ChargeableItemsToPaypalConverter();
-            var paypalItems = converter.Convert(request.BookingProducts);
+            var paypalItems = converter.Convert(request.BookingRateResult);
 
 
             // ###Payer
@@ -32,7 +32,7 @@ namespace Paramount.Betterclassifieds.Payments.pp
 
             // ###Details
             // Let's you specify details of a payment amount.
-            var sum = request.BookingProducts.Sum(b => b.ProductTotal());
+            var sum = request.BookingRateResult.Total;
 
             var details = new Details
             {
@@ -108,17 +108,15 @@ namespace Paramount.Betterclassifieds.Payments.pp
 
     public class ChargeableItemsToPaypalConverter
     {
-        public ItemList Convert(List<BookingProduct> products)
+        public ItemList Convert(BookingRateResult bookingRate)
         {
             ItemList list = new ItemList();
 
             // Use the same reference for all sku's for paypal
-            var reference = products.Select(m => m.Reference).Distinct().First();
+            var reference = bookingRate.BookingReference;
 
             // Online items will be listed separately
-            var onlineItems = products.SelectMany(b => b.GetItems().OfType<AdChargeItem>());
-
-            list.items.AddRange(onlineItems.Select(li => new Item
+            list.items.AddRange(bookingRate.OnlineBookingAdRate.GetItems().Select(li => new Item
             {
                 name = li.Name,
                 price = li.Price.ToString("N"),
@@ -127,8 +125,18 @@ namespace Paramount.Betterclassifieds.Payments.pp
                 sku = reference
             }));
 
-            // Publications will be grouped
+            if (bookingRate.PrintRates.Count == 0)
+                return list;
 
+            // Publications will be line items
+            list.items.AddRange(bookingRate.PrintRates.Select(p => new Item
+            {
+                name = p.Name,
+                price = p.Total.ToString("N"),
+                currency = "AUD",
+                quantity = "1",
+                sku = reference
+            }));
 
             return list;
 

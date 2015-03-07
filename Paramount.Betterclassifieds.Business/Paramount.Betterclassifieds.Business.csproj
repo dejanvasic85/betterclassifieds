@@ -70,7 +70,8 @@
     <Compile Include="Broadcast\EmailTemplate.cs" />
     <Compile Include="Broadcast\ITemplateParser.cs" />
     <Compile Include="Broadcast\DocTypes\IDocType.cs" />
-    <Compile Include="Pricing\OnlineCharges\AdChargeItem.cs" />
+    <Compile Include="Pricing\BookingRateResult.cs" />
+    <Compile Include="Pricing\OnlineCharges\OnlineChargeItem.cs" />
     <Compile Include="Pricing\ILineItem.cs" />
     <Compile Include="Pricing\OnlineCharges\IOnlineChargeableItem.cs" />
     <Compile Include="Pricing\PricingFactors.cs" />
@@ -96,7 +97,7 @@
     <Compile Include="Payment\PaymentResponse.cs" />
     <Compile Include="Payment\PaymentStatus.cs" />
     <Compile Include="Pricing\OnlineAdRate.cs" />
-    <Compile Include="Pricing\BookingProduct.cs" />
+    <Compile Include="Pricing\BookingAdRateResult.cs" />
     <Compile Include="IEnquiryRepository.cs" />
     <Compile Include="Search\AdSearchResult.cs" />
     <Compile Include="Search\AdSearchSortOrder.cs" />

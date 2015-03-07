@@ -3,20 +3,16 @@ using System.Linq;
 
 namespace Paramount.Betterclassifieds.Business
 {
-    public class BookingProduct
+    /// <summary>
+    /// Represents the ad (online or print) with collection of line items (heading, photos etc).
+    /// </summary>
+    public class BookingAdRateResult
     {
-        private const string OnlineProduct = "Online";
-
-        public BookingProduct(string name, string referenceNumber)
+        public BookingAdRateResult(string name, string referenceNumber)
         {
             Name = name;
             Reference = referenceNumber;
             Items = new List<ILineItem>();
-        }
-
-        public static BookingProduct CreateOnline(string reference)
-        {
-            return new BookingProduct(OnlineProduct, reference);
         }
 
         public string Name { get; private set; }
@@ -24,8 +20,8 @@ namespace Paramount.Betterclassifieds.Business
         public string Reference { get; private set; }
 
         private List<ILineItem> Items { get; set; }
-        
-        public BookingProduct()
+
+        public BookingAdRateResult()
         {
             Items = new List<ILineItem>();
         }
@@ -49,14 +45,11 @@ namespace Paramount.Betterclassifieds.Business
             return this.Items.ToArray();
         }
 
-        public decimal ProductTotal()
+        public decimal Total
         {
-            return Items.Sum(c => c.Total);
+            get { return Items.Count == 0 ? 0 : Items.Sum(i => i.ItemTotal); }
         }
 
-        public bool IsOnline
-        {
-            get { return this.Name.Equals(OnlineProduct); }
-        }
+
     }
 }

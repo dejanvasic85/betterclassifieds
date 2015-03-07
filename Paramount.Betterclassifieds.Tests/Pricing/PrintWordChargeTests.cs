@@ -47,7 +47,7 @@ namespace Paramount.Betterclassifieds.Tests.Pricing
             Assert.That(result, Is.TypeOf<PrintAdChargeItem>());
             Assert.That(result.Name, Is.EqualTo("Print Words"));
             Assert.That(result.Quantity, Is.EqualTo(5));
-            Assert.That(result.Total, Is.EqualTo(25));
+            Assert.That(result.ItemTotal, Is.EqualTo(25));
         }
 
         [Test]
@@ -64,7 +64,7 @@ namespace Paramount.Betterclassifieds.Tests.Pricing
             Assert.That(result, Is.TypeOf<PrintAdChargeItem>());
             Assert.That(result.Name, Is.EqualTo("Print Words"));
             Assert.That(result.Quantity, Is.EqualTo(5));
-            Assert.That(result.Total, Is.EqualTo(25));
+            Assert.That(result.ItemTotal, Is.EqualTo(25));
         }
     }
 }

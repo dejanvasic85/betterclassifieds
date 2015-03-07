@@ -15,6 +15,6 @@
         public string Name { get; set; }
         public int Quantity { get; set; }
         public string Currency { get { return "AUD"; } }
-        public decimal Total { get { return Price * Quantity * Editions; } }
+        public decimal ItemTotal { get { return Price * Quantity * Editions; } }
     }
 }

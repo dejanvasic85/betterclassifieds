@@ -10,7 +10,7 @@
     {
         decimal Calculate(int ratecardId, LineAdModel lineAd, bool isOnlineAd, int editions = 1);
 
-        List<BookingProduct> Calculate(BookingCart bookingCart);
+        BookingRateResult Calculate(BookingCart bookingCart, int? editionOverride = null);
     }
 
     public class RateCalculator : IRateCalculator
@@ -65,11 +65,11 @@
         }
 
         /// <summary>
-        /// Returns all the calculated line items for the booking cart grouped by publication / online
+        /// Constructs the booking rate result that contains calculated line items for each publication 
         /// </summary>
-        public List<BookingProduct> Calculate(BookingCart bookingCart)
+        public BookingRateResult Calculate(BookingCart bookingCart, int? editionOverride = null)
         {
-            var list = new List<BookingProduct>();
+            var bookingRate = new BookingRateResult(bookingCart.Reference);
 
             Guard.NotNullIn(bookingCart, bookingCart.CategoryId, bookingCart.SubCategoryId);
 
@@ -79,27 +79,22 @@
                 throw new SetupException("No available online rate has been setup.");
             }
 
-            var onlinePrices = new BookingProduct("Online", bookingCart.Reference);
-            onlinePrices.AddRange(_onlineChargeableItems.Select(c => c.Calculate(onlineAdRate, bookingCart.OnlineAdModel)).ToArray());
-            list.Add(onlinePrices);
+            bookingRate.AddOnlineRate(_onlineChargeableItems.Select(c => c.Calculate(onlineAdRate, bookingCart.OnlineAdModel)).ToArray());
 
             if (!bookingCart.IsLineAdIncluded)
-                return list;
+                return bookingRate;
 
             var printRates = _rateRepository.GetRatesForPublicationCategory(bookingCart.Publications, bookingCart.SubCategoryId);
             foreach (var printRate in printRates)
             {
                 var publicationName = _publicationRepository.GetPublication(printRate.PublicationId).Title;
 
-                var printBreakDown = new BookingProduct(publicationName, bookingCart.Reference);
-                printBreakDown.AddRange(_printChargeableItems
-                    .Select(pr => pr.Calculate(printRate, bookingCart.LineAdModel, bookingCart.Editions == null ? 1 : bookingCart.Editions.Length))
+                bookingRate.AddPublicationWithRates(publicationName, _printChargeableItems
+                    .Select(pr => pr.Calculate(printRate, bookingCart.LineAdModel, editionOverride ?? bookingCart.Editions.Length))
                     .ToArray());
-
-                list.Add(printBreakDown);
             }
 
-            return list;
+            return bookingRate;
         }
     }
 }

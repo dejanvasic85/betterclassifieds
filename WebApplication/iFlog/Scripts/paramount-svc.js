@@ -9,7 +9,8 @@ var $paramount = (function (me, $) {
         removeLineAdImageForBooking: removeLineAdImageForBooking,
         removeOnlineAdImageForBooking: removeOnlineAdImageForBooking,
         getLocationAreas: getLocationAreas,
-        updateBookingRates: updateBookingRates
+        updateBookingRates: updateBookingRates,
+        previewBookingEditions: previewBookingEditions
     };
 
     function removeOnlineAdImageForBooking(documentId) {
@@ -45,6 +46,13 @@ var $paramount = (function (me, $) {
 
     function updateBookingRates(model) {
         return post($paramount.url.updateBookingRates, model);
+    }
+
+    function previewBookingEditions(firstEdition, insertions) {
+        return post($paramount.url.previewBookingEditions, {
+            firstEdition: firstEdition,
+            insertions : insertions
+        });
     }
 
     function post(url, data) {

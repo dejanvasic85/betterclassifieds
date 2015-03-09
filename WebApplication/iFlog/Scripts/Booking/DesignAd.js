@@ -41,6 +41,9 @@
                 });
         }
 
+        // Editions
+        self.publicationEditions = ko.observableArray([]);
+
         // Prices
         self.pricetotal = ko.observable();
         self.publicationPrices = ko.observableArray([]);

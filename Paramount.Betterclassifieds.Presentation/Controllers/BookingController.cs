@@ -413,6 +413,14 @@
             return Json(viewModel);
         }
 
+        [HttpPost, BookingRequired]
+        public ActionResult PreviewEditions(DateTime firstEdition, int insertions)
+        {
+            var editions = _editionManager.GetUpcomingEditions(_bookingContext.Current().Publications);
+
+            return Json(editions);
+        }
+
         [HttpPost, Authorize]
         public ActionResult NotifyContactsAboutMyAd(string id, List<UserNetworkEmailView> users)
         {
@@ -452,6 +460,8 @@
 
             return Json(new { valid = true });
         }
+
+        
 
         #endregion
 

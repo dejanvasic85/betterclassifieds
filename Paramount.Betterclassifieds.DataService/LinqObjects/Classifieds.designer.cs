@@ -828,6 +828,13 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			lineAdId = ((System.Nullable<int>)(result.GetParameterValue(14)));
 			return ((int)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Editions_GetUpcomingForPublications")]
+		public ISingleResult<Editions_GetUpcomingForPublicationsResult> Editions_GetUpcomingForPublications([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string publications, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> minEditionDate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> minDeadlineDate)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), publications, minEditionDate, minDeadlineDate);
+			return ((ISingleResult<Editions_GetUpcomingForPublicationsResult>)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Ad")]
@@ -9434,7 +9441,7 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RowTimeStamp", AutoSync=AutoSync.Always, DbType="rowversion", IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RowTimeStamp", AutoSync=AutoSync.Always, DbType="rowversion", CanBeNull=true, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary RowTimeStamp
 		{
 			get
@@ -16810,6 +16817,32 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 				if ((this._Price != value))
 				{
 					this._Price = value;
+				}
+			}
+		}
+	}
+	
+	public partial class Editions_GetUpcomingForPublicationsResult
+	{
+		
+		private System.Nullable<System.DateTime> _EditionDate;
+		
+		public Editions_GetUpcomingForPublicationsResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EditionDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> EditionDate
+		{
+			get
+			{
+				return this._EditionDate;
+			}
+			set
+			{
+				if ((this._EditionDate != value))
+				{
+					this._EditionDate = value;
 				}
 			}
 		}

@@ -30,6 +30,7 @@
         private readonly IApplicationConfig _applicationConfig;
         private readonly IBookingManager _bookingManager;
         private readonly IPaymentService _paymentService;
+        private readonly IEditionManager _editionManager;
 
         public BookingController(
             ISearchService searchService,
@@ -42,7 +43,8 @@
             IApplicationConfig applicationConfig,
             IBookingContext bookingContext,
             IBookingManager bookingManager,
-            IPaymentService paymentService)
+            IPaymentService paymentService,
+            IEditionManager editionManager)
         {
             _searchService = searchService;
             _clientConfig = clientConfig;
@@ -55,6 +57,7 @@
             _bookingContext = bookingContext;
             _bookingManager = bookingManager;
             _paymentService = paymentService;
+            _editionManager = editionManager;
         }
 
         #region Steps
@@ -136,6 +139,18 @@
                 stepTwoModel.OnlineAdContactEmail = applicationUser.Email;
             }
 
+            if (bookingCart.IsLineAdIncluded)
+            {
+                // Fetch the editions for the selected publications
+                stepTwoModel.UpcomingEditions = _editionManager
+                    .GetUpcomingEditions(bookingCart.Publications)
+                    .Select(m => new SelectListItem { Text = m.ToString("dd-MMM-yyyy"), Value = m.ToString("dd-MMM-yyyy") });
+
+                stepTwoModel.AvailableInsertions = _editionManager
+                    .GetAvailableInsertions()
+                    .Select(m => new SelectListItem {Text = m.ToString(), Value = m.ToString()});
+            }
+
             return View(stepTwoModel);
         }
 
@@ -155,13 +170,13 @@
             // Map online Ad
             this.Map(viewModel, bookingCart.OnlineAdModel);
             bookingCart.OnlineAdModel.SetDescription(viewModel.OnlineAdDescription);
-            
+
             // Map Line Ad
             this.Map(viewModel, bookingCart.LineAdModel);
-            
+
             // Map Schedule
             bookingCart.SetSchedule(_clientConfig, viewModel.StartDate.Value);
-            
+
             // Save and continue
             bookingCart.CompleteStep(2);
             _cartRepository.Save(bookingCart);

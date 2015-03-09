@@ -36,6 +36,7 @@
                      .RegisterType<IBookCartRepository, BookCartRepository>(new ContainerControlledLifetimeManager())
                      .RegisterType<Business.Search.ISearchService, SearchService>()
                      .RegisterType<IBookCartRepository, BookCartRepository>()
+                     .RegisterType<IEditionRepository, EditionRepository>()
                      ;
 
            

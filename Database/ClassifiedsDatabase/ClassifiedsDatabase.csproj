@@ -66,7 +66,9 @@
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Scripts\0037-Editions_GetUpcomingForPublications_Proc.sql" />
     <EmbeddedResource Include="Scripts\0036-MainCategory_ViewMap_Alter.sql" />
+    <EmbeddedResource Include="Scripts\0036-BookedAd_Search_Update.sql" />
     <EmbeddedResource Include="Scripts\0035-Booking_CreateLineAd.sql" />
     <EmbeddedResource Include="Scripts\0034-Ratecard_FetchForPublicationCategory.sql" />
     <EmbeddedResource Include="Scripts\0033-Booking_Create.StoredProc.Alter.sql" />

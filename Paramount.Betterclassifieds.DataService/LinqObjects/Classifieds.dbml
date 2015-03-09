@@ -1088,4 +1088,12 @@
     <Parameter Name="lineAdId" Type="System.Int32" DbType="Int" Direction="InOut" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.Editions_GetUpcomingForPublications" Method="Editions_GetUpcomingForPublications">
+    <Parameter Name="publications" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="minEditionDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="minDeadlineDate" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="Editions_GetUpcomingForPublicationsResult">
+      <Column Name="EditionDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
 </Database>

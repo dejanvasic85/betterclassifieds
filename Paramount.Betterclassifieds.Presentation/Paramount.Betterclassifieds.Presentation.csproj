@@ -502,6 +502,7 @@
     <Content Include="Views\Shared\_ApplicationScripts.cshtml" />
     <Content Include="Views\Shared\_ApplicationStyles.cshtml" />
     <Content Include="Views\Shared\_CropImage.cshtml" />
+    <Content Include="Views\Shared\_EditionsDates.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

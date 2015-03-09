@@ -9,6 +9,10 @@
     margin-top: 10px;
 }
 
+.top-buffer-5{
+    margin-top:5px;
+}
+
 .bottom-buffer-10 {
     margin-bottom: 10px;
 }
@@ -37,17 +41,6 @@
 
 .label-category {
     background-color: @label-category;
-}
-
-@media (max-width: 766px) {
-    /* Smaller widths stack controls on top of another with no margin */
-    .form-control {
-        margin-top: 5px;
-    }
-
-    .btn {
-        margin-top: 5px;
-    }
 }
 
 .no-display {
@@ -146,5 +139,17 @@
                 padding-top: 5px;
             }     
         }
+    }
+}
+
+
+@media (max-width: 766px) {
+    /* Smaller widths stack controls on top of another with no margin */
+    .form-control {
+        margin-top: 5px;
+    }
+
+    .btn {
+        margin-top: 5px;
     }
 }

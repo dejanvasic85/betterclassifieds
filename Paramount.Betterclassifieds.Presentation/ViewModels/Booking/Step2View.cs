@@ -77,7 +77,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 
         [RequiredIf("IsLineAdIncluded", true)]
         [Display(Name = "First Print Edition")]
-        public DateTime? FirstPrintDate { get; set; }
+        public string FirstPrintDate { get; set; }
 
         [RequiredIf("IsLineAdIncluded", true)]
         [Display(Name = "Insertions")]

@@ -416,9 +416,24 @@
         [HttpPost, BookingRequired]
         public ActionResult PreviewEditions(DateTime firstEdition, int insertions)
         {
-            var editions = _editionManager.GetUpcomingEditions(_bookingContext.Current().Publications);
+            var list = new List<PublicationNameAndEditionListView>();
+            foreach (var publicationId in _bookingContext.Current().Publications)
+            {
+                string publicationName;
+                var dates = _editionManager
+                    .GetUpcomingEditionsForPublication(publicationId, firstEdition, out publicationName)
+                    .Select(e => e.Date.ToString("dd-MMM-yyyy"))
+                    .Take(insertions)
+                    .ToArray();
 
-            return Json(editions);
+                list.Add(new PublicationNameAndEditionListView
+                {
+                    Publication = publicationName,
+                    Editions = dates
+                });
+            }
+
+            return Json(list.ToArray());
         }
 
         [HttpPost, Authorize]

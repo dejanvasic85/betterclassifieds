@@ -1,22 +1,30 @@
-﻿using System.Linq;
-
-namespace Paramount.Betterclassifieds.Business.Print
+﻿namespace Paramount.Betterclassifieds.Business.Print
 {
     using System;
     using System.Collections.Generic;
     using Booking;
+
+    public interface IEditionManager
+    {
+        void RemoveEditionAndExtendBookings(DateTime edition);
+        List<DateTime> GetUpcomingEditions(params int[] publications);
+        List<DateTime> GetUpcomingEditionsForPublication(int publication, DateTime fromDate, out string publicationName);
+        IEnumerable<int> GetAvailableInsertions();
+    }
 
     public class EditionManager : IEditionManager
     {
         private readonly IBookingRepository _bookingRepository;
         private readonly IBookingManager _bookingManager;
         private readonly IEditionRepository _editionRepository;
+        private readonly IPublicationRepository _publicationRepository;
 
-        public EditionManager(IBookingRepository bookingRepository, IBookingManager bookingManager, IEditionRepository editionRepository)
+        public EditionManager(IBookingRepository bookingRepository, IBookingManager bookingManager, IEditionRepository editionRepository, IPublicationRepository publicationRepository)
         {
             _bookingRepository = bookingRepository;
             _bookingManager = bookingManager;
             _editionRepository = editionRepository;
+            _publicationRepository = publicationRepository;
         }
 
         /// <summary>
@@ -39,9 +47,22 @@ namespace Paramount.Betterclassifieds.Business.Print
             _editionRepository.DeleteEditionByDate(editionDate);
         }
 
+        private List<DateTime> GetUpcomingEditions(DateTime fromDate, DateTime fromDeadline, params int[] publications)
+        {
+            return _editionRepository.GetUpcomingEditions(fromDate, fromDeadline, publications);
+        }
+
         public List<DateTime> GetUpcomingEditions(params int[] publications)
         {
-            return _editionRepository.GetUpcomingEditions(DateTime.Today, DateTime.Now, publications);
+            return _editionRepository.GetUpcomingEditions(minEditionDate: DateTime.Today, minDeadlineDate: DateTime.Now, publicationIds: publications);
+        }
+
+        public List<DateTime> GetUpcomingEditionsForPublication(int publication, DateTime fromDate, out string publicationName)
+        {
+            // Fetch the publication name first
+            publicationName = _publicationRepository.GetPublication(publication).Title;
+
+            return GetUpcomingEditions(fromDate, fromDeadline: DateTime.Now, publications: publication);
         }
 
         public IEnumerable<int> GetAvailableInsertions()

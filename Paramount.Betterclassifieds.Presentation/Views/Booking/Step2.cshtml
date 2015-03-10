@@ -233,6 +233,7 @@
 
     <hr />
 
+    @*Online Schedule*@
     <div class="row top-buffer-20">
         <div class="col-xs-12">
             <div class="bs-callout bs-callout-info">
@@ -248,27 +249,42 @@
         </div>
     </div>
 
-    <div class="row top-buffer-20">
-        <div class="col-xs-12">
-            <div class="bs-callout bs-callout-info">
-                <h4>Print Schedule</h4>
-                <p>Your online ad will be available for @Model.ConfigDurationDays  days from the date you select below.</p>
-            </div>
-
-
-            <div class="row">
-                <div class="col-xs-5">
-                    @Html.LabelFor(m => m.FirstPrintDate)
-                    @Html.DropDownListFor(m => m.FirstPrintDate, Model.UpcomingEditions, new { @class = "form-control input-lg" })
+    @*Print Schedule*@
+    @if (Model.IsLineAdIncluded)
+    {
+        <div class="row top-buffer-20">
+            <div class="col-xs-12">
+                <div class="bs-callout bs-callout-info">
+                    <h4>Print Schedule</h4>
+                    <p>Your online ad will be available for @Model.ConfigDurationDays  days from the date you select below.</p>
                 </div>
-                <div class="col-xs-5">
-                    @Html.LabelFor(m => m.NumberOfInsertions)
-                    @Html.DropDownListFor(m => m.NumberOfInsertions, Model.AvailableInsertions, new { @class = "form-control input-lg" })
-                </div>
-            </div>
 
+                <div class="row">
+                    <div class="col-sm-5 col-xs-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.FirstPrintDate)
+                            @Html.DropDownListFor(m => m.FirstPrintDate, Model.UpcomingEditions, new { @class = "form-control input-lg" })
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-xs-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.NumberOfInsertions)
+                            @Html.DropDownListFor(m => m.NumberOfInsertions, Model.AvailableInsertions, new { @class = "form-control input-lg" })
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-xs-12">
+                        <div class="form-group">
+                            <label class="hidden-xs"> </label>
+                            <button id="previewEditions" class="btn btn-default form-control top-buffer-5">
+                                View Dates
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-    </div>
+    }
 
 
     @*Pager*@
@@ -286,6 +302,7 @@
 </form>
 
 @Html.Partial("_CropImage")
+@Html.Partial("_EditionsDates")
 
 @section Scripts{
 
@@ -317,6 +334,24 @@
                     var newContent = $(content).text();
 
                     $('#LineAdText').val(newContent);
+                });
+
+                $('#previewEditions').on('click', function(event) {
+                    event.preventDefault();
+                    var $btn = $(this);
+                    $btn.button('loading');
+                    $paramount.svc.previewBookingEditions($('#FirstPrintDate').val(), $('#NumberOfInsertions').val())
+                        .done(function(response) {
+                            designAdModel.publicationEditions.removeAll();
+                            $.each(response, function(index, item) {
+                                designAdModel.publicationEditions.push({
+                                    publicationName: item.Publication,
+                                    editions : ko.observableArray(item.Editions)
+                                });
+                            });
+                            $('#editionsModal').modal('show');
+                            $btn.button('reset');
+                        });
                 });
 
                 $paramount.upload({

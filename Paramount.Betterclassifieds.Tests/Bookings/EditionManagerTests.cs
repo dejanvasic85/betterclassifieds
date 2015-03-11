@@ -65,6 +65,7 @@
                     It.Is<int>(price => price == 0),
                     It.Is<string>(username => username == "admin"),
                     It.Is<PaymentType>(payment => payment == PaymentType.None)));
+            _mockRepository.CreateMockOf<IPublicationRepository>(_container, _verifyList);
 
             // Act 
             ResolveEditionManager().RemoveEditionAndExtendBookings(editionDate);
@@ -93,7 +94,7 @@
 
             _mockRepository.CreateMockOf<IBookingRepository>(_container, _verifyList)
                 .SetupWithVerification(call => call.GetBookingsForEdition(It.Is<DateTime>(d => d == editionDate)), result: bookings);
-
+            _mockRepository.CreateMockOf<IPublicationRepository>();
             var bookingManagerMock = _mockRepository.CreateMockOf<IBookingManager>(_container, _verifyList);
 
             // Act 

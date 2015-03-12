@@ -49,7 +49,7 @@
 
         private List<DateTime> GetUpcomingEditions(DateTime fromDate, DateTime fromDeadline, params int[] publications)
         {
-            return _editionRepository.GetUpcomingEditions(fromDate, fromDeadline, publications);
+            return _editionRepository.GetUpcomingEditions(fromDate, fromDeadline, 50, publications);
         }
 
         public List<DateTime> GetUpcomingEditions(params int[] publications)

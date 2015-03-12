@@ -144,7 +144,7 @@
                 // Fetch the editions for the selected publications
                 stepTwoModel.UpcomingEditions = _editionManager
                     .GetUpcomingEditions(bookingCart.Publications)
-                    .Select(m => new SelectListItem { Text = m.ToString("dd-MMM-yyyy"), Value = m.ToString("dd-MMM-yyyy") });
+                    .Select(m => new SelectListItem { Text = m.ToString("dd/MM/yyyy"), Value = m.ToString("dd/MM/yyyy") });
 
                 stepTwoModel.AvailableInsertions = _editionManager
                     .GetAvailableInsertions()
@@ -175,7 +175,7 @@
             this.Map(viewModel, bookingCart.LineAdModel);
 
             // Map Schedule
-            bookingCart.SetSchedule(_clientConfig, viewModel.StartDate.Value);
+            bookingCart.SetSchedule(_clientConfig, viewModel.StartDate.Value, viewModel.FirstPrintDateFormatted, viewModel.NumberOfInsertions);
 
             // Save and continue
             bookingCart.CompleteStep(2);
@@ -336,7 +336,7 @@
             }
 
             // There should only be 1 uploaded file so just check the size ...
-            var uploadedFile = files.First();
+            var uploadedFile = files.Single();
             if (uploadedFile.ContentLength > _applicationConfig.MaxImageUploadBytes)
             {
                 return Json(new { errorMsg = "The file exceeds the maximum file size." });
@@ -413,6 +413,9 @@
             return Json(viewModel);
         }
 
+        /// <summary>
+        /// Used for displaying list of editions for each publication based on user selection of start date and insertions
+        /// </summary>
         [HttpPost, BookingRequired]
         public ActionResult PreviewEditions(DateTime firstEdition, int insertions)
         {

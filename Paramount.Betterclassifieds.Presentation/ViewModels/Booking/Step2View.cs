@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Web.Mvc;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
@@ -85,5 +86,16 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 
         public IEnumerable<SelectListItem> UpcomingEditions { get; set; }
         public IEnumerable<SelectListItem> AvailableInsertions { get; set; }
+
+        public DateTime? FirstPrintDateFormatted
+        {
+            get
+            {
+                if (this.FirstPrintDate.IsNullOrEmpty())
+                    return null;
+
+                return DateTime.ParseExact(this.FirstPrintDate, "dd/MM/yyyy", new DateTimeFormatInfo());
+            }
+        }
     }
 }

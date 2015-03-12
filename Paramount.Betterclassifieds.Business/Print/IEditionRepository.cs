@@ -6,6 +6,6 @@ namespace Paramount.Betterclassifieds.Business.Print
     public interface IEditionRepository
     {
         void DeleteEditionByDate(DateTime editionDate);
-        List<DateTime> GetUpcomingEditions(DateTime minEditionDate, DateTime minDeadlineDate, params int[] publicationIds);
+        List<DateTime> GetUpcomingEditions(DateTime minEditionDate, DateTime minDeadlineDate, int max = 50, params int[] publicationIds);
     }
 }

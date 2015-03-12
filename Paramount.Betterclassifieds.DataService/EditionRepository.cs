@@ -21,13 +21,14 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             }
         }
 
-        public List<DateTime> GetUpcomingEditions(DateTime minEditionDate, DateTime minDeadlineDate, params int[] publicationIds)
+        public List<DateTime> GetUpcomingEditions(DateTime minEditionDate, DateTime minDeadlineDate, int max = 50, params int[] publicationIds)
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 var ids = string.Join(",", publicationIds);
                 var editions = context.Editions_GetUpcomingForPublications(ids, minDeadlineDate, minDeadlineDate)
                     .Select(r => r.EditionDate.GetValueOrDefault())
+                    .Take(max)
                     .ToList();
 
                 return editions;

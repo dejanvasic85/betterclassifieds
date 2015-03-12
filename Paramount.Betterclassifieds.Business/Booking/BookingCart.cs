@@ -76,11 +76,21 @@ namespace Paramount.Betterclassifieds.Business.Booking
             return TotalPrice == 0;
         }
 
-        public void SetSchedule(IClientConfig clientConfig, DateTime startDate)
+        public void SetSchedule(IClientConfig clientConfig, DateTime startDate, DateTime? firstEditionDate, int? numberOfInsertions = null)
         {
             this.StartDate = startDate;
             EndDate = StartDate.Value.AddDays(clientConfig.RestrictedOnlineDaysCount);
+
+            if (IsLineAdIncluded)
+            {
+                this.PrintFirstEditionDate = firstEditionDate;
+                this.PrintInsertions = numberOfInsertions;
+            }
         }
+
+        public int? PrintInsertions { get; private set; }
+
+        public DateTime? PrintFirstEditionDate { get; private set; }
 
         public void CompleteStep(int step)
         {

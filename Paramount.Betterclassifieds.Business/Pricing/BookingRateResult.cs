@@ -25,9 +25,9 @@ namespace Paramount.Betterclassifieds.Business
             {
                 var total = OnlineBookingAdRate.Total;
 
-                if (PrintRates.Count == 0)
+                if (PrintRates == null)
                     return total;
-
+                
                 total += PrintRates.Sum(p => p.Total);
 
                 return total;

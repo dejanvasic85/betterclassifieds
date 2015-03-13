@@ -69,8 +69,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         }
 
         public string Reference { get; set; }
-        public DateTime[] Editions { get; set; }
-
+        
         public bool NoPaymentRequired()
         {
             return TotalPrice == 0;

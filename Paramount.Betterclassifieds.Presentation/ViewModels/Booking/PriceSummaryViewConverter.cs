@@ -27,7 +27,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
             };
 
             // Get out if there's no print stuff
-            if (source.PrintRates.Count == 0)
+            if (source.PrintRates == null)
                 return summary;
 
             summary.PublicationPrices = source

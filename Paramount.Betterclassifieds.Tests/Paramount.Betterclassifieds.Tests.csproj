@@ -122,6 +122,7 @@
     <Compile Include="Controllers\HomeControllerTests.cs" />
     <Compile Include="Database\ClassifiedsDataContextTests.cs" />
     <Compile Include="Membership\RegistrationModelTests.cs" />
+    <Compile Include="Mocks\BookingCartMocks.cs" />
     <Compile Include="Mocks\MoqExtensions.cs" />
     <Compile Include="Mocks\OnlineRateMocks.cs" />
     <Compile Include="Mocks\PrintRateMocks.cs" />

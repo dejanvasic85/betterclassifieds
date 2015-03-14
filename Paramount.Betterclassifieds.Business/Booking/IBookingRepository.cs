@@ -31,5 +31,6 @@ namespace Paramount.Betterclassifieds.Business.Booking
         bool IsBookingOnlineOnly(int adBookingId);
         int? SubmitBooking(BookingCart getCart);
         void SubmitLineAd(int? adBookingId, LineAdModel lineAdModel);
+        void SubmitLineAdEditions(int? adBookingId, DateTime startDate, int insertions, int publicationId, decimal? publicationPrice = null, decimal? editionPrice = null, int? rateId = null);
     }
 }

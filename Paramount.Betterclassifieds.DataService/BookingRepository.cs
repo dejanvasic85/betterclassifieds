@@ -283,6 +283,21 @@
             }
         }
 
+        public void SubmitLineAdEditions(int? adBookingId, DateTime startDate, int insertions, int publicationId, decimal? publicationPrice = null, decimal? editionPrice = null, int? rateId = null)
+        {
+            using (var context = DataContextFactory.CreateClassifiedContext())
+            {
+                context.BookEntry_Create(adBookingId,
+                    startDate,
+                    insertions,
+                    publicationId,
+                    editionPrice: editionPrice,
+                    publicationPrice: publicationPrice,
+                    ratecardId: rateId,
+                    ratecardType: "Ratecard");
+            }
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             // From data

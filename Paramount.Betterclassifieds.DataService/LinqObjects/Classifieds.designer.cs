@@ -835,6 +835,13 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), publications, minEditionDate, minDeadlineDate);
 			return ((ISingleResult<Editions_GetUpcomingForPublicationsResult>)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.BookEntry_Create")]
+		public int BookEntry_Create([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> adBookingId, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> startDate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> insertions, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> publicationId, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Money")] System.Nullable<decimal> editionPrice, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Money")] System.Nullable<decimal> publicationPrice, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> ratecardId, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(10)")] string ratecardType)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), adBookingId, startDate, insertions, publicationId, editionPrice, publicationPrice, ratecardId, ratecardType);
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Ad")]
@@ -9441,7 +9448,7 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RowTimeStamp", AutoSync=AutoSync.Always, DbType="rowversion", CanBeNull=true, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RowTimeStamp", AutoSync=AutoSync.Always, DbType="rowversion", IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary RowTimeStamp
 		{
 			get

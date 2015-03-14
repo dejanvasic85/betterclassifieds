@@ -249,11 +249,11 @@
             bookingCart.CompleteStep(4);
             bookingCart.UserId = _userManager.GetCurrentUser(this.User).Username;
 
-            if (bookingCart.NoPaymentRequired())
-            {
+            //if (bookingCart.NoPaymentRequired())
+            //{
                 _cartRepository.Save(bookingCart);
                 return RedirectToAction("Success");
-            }
+            //}
 
             // We only support paypal just for now
             var response = _paymentService.SubmitPayment(new PaymentRequest
@@ -284,7 +284,8 @@
         {
             var bookingCart = _bookingContext.Current();
 
-            var id = _bookingManager.CreateBooking(bookingCart);
+            var bookingOrder = _rateCalculator.Calculate(bookingCart);
+            var id = _bookingManager.CreateBooking(bookingCart, bookingOrder);
 
             // Complete the booking
             bookingCart.Complete();

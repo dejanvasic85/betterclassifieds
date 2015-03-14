@@ -39,6 +39,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
             _verifyList = new List<Action>();
             _container = new UnityContainer().RegisterType<IBookingManager, BookingManager>();
 
+            // Register all the mocks with the container
             _bookingRepositoryMock = _mockRepository.CreateMockOf<IBookingRepository>(_container);
             _adRepository = _mockRepository.CreateMockOf<IAdRepository>(_container, _verifyList);
             _publicationRepositoryMock = _mockRepository.CreateMockOf<IPublicationRepository>(_container);
@@ -85,6 +86,20 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
             // Assert
             Assert.That(onlineAdMock.NumOfViews, Is.EqualTo(1));
             adRepositoryMock.Verify(call => call.UpdateOnlineAd(It.IsAny<OnlineAdModel>()), Times.Once);
+        }
+
+        [Test]
+        public void CreateBooking_WithNoLineAd_CallsBookingRepositoryOnce()
+        {
+            // arrange
+            _bookingRepositoryMock.Setup(call => call.SubmitBooking(It.IsAny<BookingCart>()));
+
+            // act
+            var bookingCart = new BookingCart("Session-123", "dvasic");
+            
+
+            // assert
+
         }
     }
 }

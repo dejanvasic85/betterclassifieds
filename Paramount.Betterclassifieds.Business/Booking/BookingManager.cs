@@ -16,13 +16,12 @@
         void Extend(int adBookingId, int numberOfInsertions, bool? isOnlineOnly = null, ExtensionStatus extensionStatus = ExtensionStatus.Complete, int price = 0, string username = "admin", PaymentType payment = PaymentType.None);
         void IncrementHits(int id);
         void SubmitAdEnquiry(AdEnquiry enquiry);
-        int? CreateBooking(BookingCart bookingCart);
+        int? CreateBooking(BookingCart bookingCart, BookingRateResult bookingOrder);
     }
 
     public class BookingManager : IBookingManager
     {
         private readonly IBookingRepository _bookingRepository;
-        private readonly IBookCartRepository _cartRepository;
         private readonly IAdRepository _adRepository;
         private readonly IPublicationRepository _publicationRepository;
         private readonly IClientConfig _clientConfigSettings;
@@ -38,8 +37,7 @@
             IAdRepository adRepository,
             IUserManager userManager,
             IBroadcastManager broadcastManager,
-            IBookingContext bookingContext,
-            IBookCartRepository cartRepository)
+            IBookingContext bookingContext)
         {
             _bookingRepository = bookingRepository;
             _publicationRepository = publicationRepository;
@@ -49,7 +47,6 @@
             _userManager = userManager;
             _broadcastManager = broadcastManager;
             _bookingContext = bookingContext;
-            _cartRepository = cartRepository;
         }
 
         public AdBookingExtensionModel CreateExtension(int adBookingId, int numberOfInsertions, string username, decimal price, ExtensionStatus status, bool isOnlineOnly)
@@ -166,16 +163,33 @@
             }, bookingUser.Email);
         }
 
-        public int? CreateBooking(BookingCart bookingCart)
+        public int? CreateBooking(BookingCart bookingCart, BookingRateResult bookingOrder)
         {
             var adBookingId = _bookingRepository.SubmitBooking(bookingCart);
 
-            // Create the line ad
-            if (bookingCart.IsLineAdIncluded)
-            {
-                _bookingRepository.SubmitLineAd(adBookingId, bookingCart.LineAdModel);
-            }
+            // Create the order details in the database 
+            // that are used for invoice details 
+            // todo
 
+            // Create the line ad
+            if (!bookingCart.IsLineAdIncluded)
+                return adBookingId;
+
+            _bookingRepository.SubmitLineAd(adBookingId, bookingCart.LineAdModel);
+
+            // Set the edition dates for each publication
+            bookingCart.Publications.ForEach(publicationId =>
+            {
+                var publicationValue = bookingOrder.GetPublicationTotal(publicationId);
+                var editionValue = publicationValue/bookingCart.PrintInsertions;
+
+                _bookingRepository.SubmitLineAdEditions(adBookingId,
+                    bookingCart.PrintFirstEditionDate.GetValueOrDefault(),
+                    bookingCart.PrintInsertions.GetValueOrDefault(),
+                    publicationId,
+                    editionValue,
+                    bookingOrder.RateId);
+            });
 
             return adBookingId;
         }
@@ -223,6 +237,6 @@
         {
             return _bookingContext.Current();
         }
-        
+
     }
 }

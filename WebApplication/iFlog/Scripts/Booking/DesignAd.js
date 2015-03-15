@@ -26,7 +26,7 @@
         self.lineAdHeader = ko.observable(lineAd.lineAdHeader);
         self.lineAdText = ko.observable(lineAd.lineAdText);
         self.wordCount = ko.computed(function () {
-            if (self.lineAdText().length === 0) {
+            if (self.lineAdText() == null || self.lineAdText().length === 0) {
                 return 0;
             }
             return self.lineAdText().split(' ').length;

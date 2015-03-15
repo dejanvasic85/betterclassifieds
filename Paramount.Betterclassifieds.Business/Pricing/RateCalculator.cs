@@ -94,7 +94,7 @@ namespace Paramount.Betterclassifieds.Business
                 var publicationName = _publicationRepository.GetPublication(printRate.PublicationId).Title;
 
                 bookingRate
-                    .AddPublicationWithRates(publicationName, printRate.PublicationId, printRate.BaseRateId,
+                    .AddPublicationWithRates(publicationName, printRate.PublicationId, printRate.RatecardId,
                         _printChargeableItems.Select(pr => pr.Calculate(printRate, bookingCart.LineAdModel, editionOverride ?? bookingCart.PrintInsertions.GetValueOrDefault()))
                     .ToArray());
             }

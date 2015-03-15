@@ -9,6 +9,7 @@ namespace Paramount.Betterclassifieds.Business
     {
         [Obsolete]
         public int BaseRateId { get; set; }
+        public int RatecardId { get; set; }
         public decimal? MinCharge { get; set; }
         public decimal? MaxCharge { get; set; }
         public decimal? RatePerWord { get; set; }

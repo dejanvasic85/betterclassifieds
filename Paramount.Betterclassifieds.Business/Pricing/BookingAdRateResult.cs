@@ -8,13 +8,16 @@ namespace Paramount.Betterclassifieds.Business
     /// </summary>
     public class BookingAdRateResult
     {
-        public BookingAdRateResult(string name, string referenceNumber, int? publicationId = null)
+        public BookingAdRateResult(string name, string referenceNumber, int? rateId, int? publicationId = null)
         {
             Name = name;
             Reference = referenceNumber;
             Items = new List<ILineItem>();
             PublicationId = publicationId;
+            RateId = rateId;
         }
+
+        public int? RateId { get; private set; }
 
         public string Name { get; private set; }
 

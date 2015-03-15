@@ -183,38 +183,7 @@
 
             return RedirectToAction("Step3");
         }
-
-        // 
-        // GET /Booking/Step/3 - Scheduling
-        //[HttpGet, BookingStep(3)]
-        //public ActionResult Step3()
-        //{
-        //    var bookingCart = _bookingContext.Current();
-        //    var viewModel = new Step3View
-        //    {
-        //        StartDate = bookingCart.GetStartDateOrMinimum(),
-        //        DurationDays = _clientConfig.RestrictedOnlineDaysCount
-        //    };
-
-        //    // todo - Line Ads - Fetch the up-coming available editions
-
-        //    return View(viewModel);
-        //}
-
-        //[HttpPost, BookingStep(3)]
-        //public ActionResult Step3(Step3View viewModel)
-        //{
-        //    if (!ModelState.IsValid)
-        //        return View(viewModel);
-
-        //    var bookingCart = _bookingContext.Current();
-        //    bookingCart.SetSchedule(_clientConfig, viewModel.StartDate.GetValueOrDefault());
-        //    bookingCart.CompleteStep(3);
-        //    _cartRepository.Save(bookingCart);
-
-        //    return RedirectToAction("Step4");
-        //}
-
+        
         // 
         // GET /Booking/Step/3 - Confirmation
         [HttpGet, BookingStep(3), Authorize]
@@ -249,11 +218,11 @@
             bookingCart.CompleteStep(4);
             bookingCart.UserId = _userManager.GetCurrentUser(this.User).Username;
 
-            //if (bookingCart.NoPaymentRequired())
-            //{
+            if (bookingCart.NoPaymentRequired())
+            {
                 _cartRepository.Save(bookingCart);
                 return RedirectToAction("Success");
-            //}
+            }
 
             // We only support paypal just for now
             var response = _paymentService.SubmitPayment(new PaymentRequest

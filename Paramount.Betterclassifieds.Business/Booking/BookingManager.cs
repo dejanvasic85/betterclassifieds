@@ -180,15 +180,17 @@
             // Set the edition dates for each publication
             bookingCart.Publications.ForEach(publicationId =>
             {
-                var publicationValue = bookingOrder.GetPublicationTotal(publicationId);
-                var editionValue = publicationValue/bookingCart.PrintInsertions;
+                var printRate = bookingOrder.GetPrintRateForPublication(publicationId);
+                var publicationPrice = printRate.Total;
+                var editionValue = publicationPrice/bookingCart.PrintInsertions;
 
                 _bookingRepository.SubmitLineAdEditions(adBookingId,
                     bookingCart.PrintFirstEditionDate.GetValueOrDefault(),
                     bookingCart.PrintInsertions.GetValueOrDefault(),
                     publicationId,
+                    publicationPrice,
                     editionValue,
-                    bookingOrder.RateId);
+                    printRate.RateId);
             });
 
             return adBookingId;

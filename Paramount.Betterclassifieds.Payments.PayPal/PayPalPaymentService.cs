@@ -110,12 +110,10 @@ namespace Paramount.Betterclassifieds.Payments.pp
     {
         public ItemList Convert(BookingRateResult bookingRate)
         {
-            ItemList list = new ItemList();
-
             // Use the same reference for all sku's for paypal
             var reference = bookingRate.BookingReference;
 
-            // Online items will be listed separately
+            ItemList list = new ItemList() { items = new List<Item>() };
             list.items.AddRange(bookingRate.OnlineBookingAdRate.GetItems().Select(li => new Item
             {
                 name = li.Name,

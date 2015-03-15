@@ -16,8 +16,6 @@ namespace Paramount.Betterclassifieds.Business
 
         public string BookingReference { get; private set; }
 
-        public int? RateId { get; set; }
-
         public BookingAdRateResult OnlineBookingAdRate { get; private set; }
 
         public List<BookingAdRateResult> PrintRates { get; private set; }
@@ -41,7 +39,7 @@ namespace Paramount.Betterclassifieds.Business
         {
             // Create the online 'publication'
             if (this.OnlineBookingAdRate == null)
-                this.OnlineBookingAdRate = new BookingAdRateResult("Online", BookingReference);
+                this.OnlineBookingAdRate = new BookingAdRateResult("Online", BookingReference, null);
 
             this.OnlineBookingAdRate.AddRange(onlineLineItems);
         }
@@ -51,24 +49,23 @@ namespace Paramount.Betterclassifieds.Business
             if (this.PrintRates == null)
                 this.PrintRates = new List<BookingAdRateResult>();
 
-            var bookingAdRateResult = new BookingAdRateResult(publicationName, BookingReference, publicationId);
+            var bookingAdRateResult = new BookingAdRateResult(publicationName, BookingReference, rateId, publicationId);
             bookingAdRateResult.AddRange(printItems);
 
             PrintRates.Add(bookingAdRateResult);
-            RateId = rateId;
         }
 
-        public decimal GetPublicationTotal(int publication)
+        public BookingAdRateResult GetPrintRateForPublication(int publication)
         {
             if (PrintRates == null)
-                return 0;
+                return null;
 
             var printRate = this.PrintRates.FirstOrDefault(p => p.PublicationId == publication);
-
+            
             if (printRate == null)
                 throw new ArgumentException("The required publication is not available in the calculated print rates");
 
-            return printRate.Total;
+            return printRate;
         }
     }
 }

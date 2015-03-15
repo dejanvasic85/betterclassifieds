@@ -45,9 +45,9 @@ namespace Paramount.Betterclassifieds.Business.Booking
         public DateTime? GetStartDateOrMinimum()
         {
             if (!StartDate.HasValue)
-                return null;
+                return DateTime.Today;
 
-            if (StartDate < DateTime.Today)
+            if (StartDate.Value < DateTime.Today)
                 return DateTime.Today;
 
             return StartDate;

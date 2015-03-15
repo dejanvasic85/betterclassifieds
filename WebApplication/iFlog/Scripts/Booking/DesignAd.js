@@ -2,7 +2,7 @@
 
     $paramount.models = $paramount.models || {};
 
-    $paramount.models.DesignAd = function (data, maxImages, lineAdHeader, lineAdText, lineAdImageId, lineAdSuperBoldHeader) {
+    $paramount.models.DesignAd = function (data, maxImages, lineAdHeader, lineAdText, lineAdImageId) {
         var self = this;
 
         // Online Images
@@ -25,7 +25,6 @@
         // Line Ad
         self.lineAdHeader = ko.observable(lineAdHeader);
         self.lineAdText = ko.observable(lineAdText);
-        self.lineAdSuperBoldHeader = ko.observable(lineAdSuperBoldHeader);
         self.wordCount = ko.computed(function () {
             if (self.lineAdText().length === 0) {
                 return 0;
@@ -53,7 +52,6 @@
                 lineAdText: self.lineAdText(),
                 lineAdHeader: self.lineAdHeader(),
                 usePhoto: self.lineAdImageId(),
-                isSuperBoldHeader: self.lineAdSuperBoldHeader(),
                 editions: 1 // Default to 1 edition
             }).done(function (resp) {
                 // Map Total

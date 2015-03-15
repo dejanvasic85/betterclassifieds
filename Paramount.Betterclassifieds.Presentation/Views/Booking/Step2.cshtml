@@ -160,13 +160,7 @@
                     @Html.ValidationMessageFor(m => m.LineAdHeader)
 
                 </div>
-                <div class="checkbox form-control">
-                    <label>
-                        @Html.CheckBoxFor(m => m.LineIsSuperBoldHeading, htmlAttributes: new { data_bind = "checked: lineAdSuperBoldHeader" })
-                        @Html.LabelFor(m => m.LineIsSuperBoldHeading)
-                    </label>
-                </div>
-
+                
                 <div class="form-group">
                     @Html.LabelFor(m => m.LineAdText)
                     @Html.BootstrapLargeTextAreaFor(m => m.LineAdText, 5, attributes: new Dictionary<string, object>()
@@ -312,7 +306,7 @@
         (function($, $paramount) {
 
             var rawOnlineImages = @Html.Raw(Model.OnlineAdImages.ToJsonString());
-            var designAdModel = new $paramount.models.DesignAd(rawOnlineImages, @Model.MaxOnlineImages, '@Model.LineAdHeader', '@Html.Raw(Model.LineAdText)', '@Model.LineAdImageId', '@Model.LineIsSuperBoldHeading');
+            var designAdModel = new $paramount.models.DesignAd(rawOnlineImages, @Model.MaxOnlineImages, '@Model.LineAdHeader', '@Html.Raw(Model.LineAdText)', '@Model.LineAdImageId');
             ko.applyBindings(designAdModel);
 
             $(function() {

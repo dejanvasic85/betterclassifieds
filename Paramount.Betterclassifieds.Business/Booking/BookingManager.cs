@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Business.Booking
+﻿using System.Data;
+
+namespace Paramount.Betterclassifieds.Business.Booking
 {
     using System;
     using System.Collections.Generic;
@@ -167,9 +169,12 @@
         {
             var adBookingId = _bookingRepository.SubmitBooking(bookingCart);
 
+            if(!adBookingId.HasValue)
+                throw new DataException("AdBookingId was not returned when trying to create a new booking");
+
             // Create the order details in the database 
             // that are used for invoice details 
-            // todo
+            _bookingRepository.SubmitBookingOrder(bookingOrder, adBookingId.Value);
 
             // Create the line ad
             if (!bookingCart.IsLineAdIncluded)
@@ -181,7 +186,7 @@
             bookingCart.Publications.ForEach(publicationId =>
             {
                 var printRate = bookingOrder.GetPrintRateForPublication(publicationId);
-                var publicationPrice = printRate.Total;
+                var publicationPrice = printRate.OrderTotal;
                 var editionValue = publicationPrice/bookingCart.PrintInsertions;
 
                 _bookingRepository.SubmitLineAdEditions(adBookingId,

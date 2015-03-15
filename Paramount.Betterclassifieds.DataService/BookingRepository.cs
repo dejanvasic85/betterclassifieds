@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.DataService.Repository
+﻿using System.Configuration;
+
+namespace Paramount.Betterclassifieds.DataService.Repository
 {
     using AutoMapper;
     using Business;
@@ -19,7 +21,7 @@
                 var booking = context.AdBookings.FirstOrDefault(b => b.AdBookingId == id);
                 if (booking == null)
                     return null;
-                    
+
                 AdBookingModel model = this.Map<AdBooking, AdBookingModel>(booking);
 
                 // Fetch line ad if required
@@ -252,7 +254,7 @@
                     );
 
                 // Save the images for online ad
-                var graphics = bookingCart.OnlineAdModel.Images.Select(img => new AdGraphic{ AdDesignId = onlineDesignId, DocumentID = img.DocumentId});
+                var graphics = bookingCart.OnlineAdModel.Images.Select(img => new AdGraphic { AdDesignId = onlineDesignId, DocumentID = img.DocumentId });
                 context.AdGraphics.InsertAllOnSubmit(graphics);
                 context.SubmitChanges();
 
@@ -266,7 +268,7 @@
             {
                 int? lineAdId = null;
 
-                context.LineAd_Create(adBookingId, 
+                context.LineAd_Create(adBookingId,
                     lineAdModel.AdHeader,
                     lineAdModel.AdText,
                     lineAdModel.NumOfWords,
@@ -298,6 +300,39 @@
             }
         }
 
+        public void SubmitBookingOrder(BookingOrderResult bookingOrder, int adBookingId)
+        {
+            using (var context = DataContextFactory.CreateClassifiedContext())
+            {
+                // Map online
+                var onlineOrder = this.Map<BookingAdRateResult, AdBookingOrder>(bookingOrder.OnlineBookingAdRate);
+                onlineOrder.AdBookingOrderItems.AddRange(this.MapList<ILineItem, AdBookingOrderItem>(bookingOrder.OnlineBookingAdRate.GetItems().ToList()));
+                onlineOrder.AdBookingId = adBookingId;
+                onlineOrder.CreatedDate = DateTime.Now;
+                onlineOrder.CreateDateUtc = DateTime.UtcNow;
+                context.AdBookingOrders.InsertOnSubmit(onlineOrder);
+
+                // Map Print
+                if (bookingOrder.PrintRates != null && bookingOrder.PrintRates.Count > 0)
+                {
+                    bookingOrder.PrintRates.ForEach(pr =>
+                    {
+                        var printDataModel = this.Map<BookingAdRateResult, AdBookingOrder>(pr);
+                        printDataModel.AdBookingId = adBookingId;
+                        printDataModel.CreatedDate = DateTime.Now;
+                        printDataModel.CreateDateUtc = DateTime.UtcNow;
+
+                        var items = this.MapList<ILineItem, AdBookingOrderItem>(pr.GetItems().ToList());
+                        printDataModel.AdBookingOrderItems.AddRange(items);
+                        
+                        context.AdBookingOrders.InsertOnSubmit(printDataModel);
+                    });
+                }
+
+                context.SubmitChanges();
+            }
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             // From data
@@ -312,13 +347,16 @@
             configuration.CreateMap<AdGraphic, AdImage>()
                 .ForMember(member => member.DocumentId, options => options.MapFrom(source => source.DocumentID));
             configuration.CreateMap<Publication, PublicationModel>();
-            
+
             // To data
             configuration.CreateMap<AdBookingExtensionModel, AdBookingExtension>()
                 .ForMember(member => member.AdBookingExtensionId, options => options.Condition(con => con.AdBookingExtensionId > 0));
             configuration.CreateMap<BookEntryModel, Classifieds.BookEntry>()
                 .ForMember(member => member.AdBooking, options => options.Ignore())
                 .ForMember(member => member.Publication, options => options.Ignore());
+            configuration.CreateMap<BookingAdRateResult, AdBookingOrder>();
+            configuration.CreateMap<PrintAdChargeItem, AdBookingOrderItem>();
+            configuration.CreateMap<OnlineChargeItem, AdBookingOrderItem>();
         }
     }
 

@@ -51,7 +51,7 @@ namespace Paramount.Betterclassifieds.Business
             return this.Items.ToArray();
         }
 
-        public decimal Total
+        public decimal OrderTotal
         {
             get { return Items.Count == 0 ? 0 : Items.Sum(i => i.ItemTotal); }
         }

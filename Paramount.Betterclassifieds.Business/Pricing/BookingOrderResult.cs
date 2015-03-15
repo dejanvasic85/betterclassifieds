@@ -24,12 +24,12 @@ namespace Paramount.Betterclassifieds.Business
         {
             get
             {
-                var total = OnlineBookingAdRate.Total;
+                var total = OnlineBookingAdRate.OrderTotal;
 
                 if (PrintRates == null)
                     return total;
 
-                total += PrintRates.Sum(p => p.Total);
+                total += PrintRates.Sum(p => p.OrderTotal);
 
                 return total;
             }

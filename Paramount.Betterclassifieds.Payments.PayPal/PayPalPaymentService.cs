@@ -130,7 +130,7 @@ namespace Paramount.Betterclassifieds.Payments.pp
             list.items.AddRange(bookingOrder.PrintRates.Select(p => new Item
             {
                 name = p.Name,
-                price = p.Total.ToString("N"),
+                price = p.OrderTotal.ToString("N"),
                 currency = "AUD",
                 quantity = "1",
                 sku = reference

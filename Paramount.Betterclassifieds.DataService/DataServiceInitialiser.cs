@@ -6,7 +6,6 @@
     using Business.Booking;
     using Business.Print;
     using Business.Repository;
-    using Managers;
     using Repository;
     using Business.DocumentStorage;
     using Business.Payment;
@@ -31,7 +30,6 @@
                      .RegisterType<IPaymentsRepository, PaymentsRepository>()
                      .RegisterType<IClientConfig, ClientConfig>()
                      .RegisterType<IApplicationConfig, AppConfig>()
-                     .RegisterType<IClientIdentifierManager, CookiesManager>()
                      .RegisterType<Business.Broadcast.IBroadcastRepository, Broadcast.BroadcastRepository>()
                      .RegisterType<IBookCartRepository, BookCartRepository>(new ContainerControlledLifetimeManager())
                      .RegisterType<Business.Search.ISearchService, SearchService>()

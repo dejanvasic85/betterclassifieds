@@ -15,7 +15,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
                 OnlinePrice = new OnlinePriceSummary
                 {
                     Name = source.OnlineBookingAdRate.Name,
-                    OnlineTotal = source.OnlineBookingAdRate.Total,
+                    OnlineTotal = source.OnlineBookingAdRate.OrderTotal,
                     Items = source.OnlineBookingAdRate.GetItems().Select(r => new OnlineSummaryItemView
                     {
                         ItemTotal = r.ItemTotal,
@@ -35,7 +35,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
                 .Select(publicationRate => new PublicationPriceSummary
                 {
                     Publication = publicationRate.Name,
-                    PublicationTotal = publicationRate.Total,
+                    PublicationTotal = publicationRate.OrderTotal,
                     Items = publicationRate.GetItems().OfType<PrintAdChargeItem>().Select(p => new PrintSummaryItemView
                         {
                             Editions = p.Editions,

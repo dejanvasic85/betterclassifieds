@@ -32,5 +32,6 @@ namespace Paramount.Betterclassifieds.Business.Booking
         int? SubmitBooking(BookingCart getCart);
         void SubmitLineAd(int? adBookingId, LineAdModel lineAdModel);
         void SubmitLineAdEditions(int? adBookingId, DateTime startDate, int insertions, int publicationId, decimal? publicationPrice = null, decimal? editionPrice = null, int? rateId = null);
+        void SubmitBookingOrder(BookingOrderResult bookingOrder, int adBookingId);
     }
 }

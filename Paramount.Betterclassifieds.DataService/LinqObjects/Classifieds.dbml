@@ -35,6 +35,7 @@
       <Column Name="BookingDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Insertions" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="AdBooking_BookEntry" Member="BookEntries" ThisKey="AdBookingId" OtherKey="AdBookingId" Type="BookEntry" />
+      <Association Name="AdBooking_AdBookingOrder" Member="AdBookingOrders" ThisKey="AdBookingId" OtherKey="AdBookingId" Type="AdBookingOrder" />
       <Association Name="Ad_AdBooking" Member="Ad" ThisKey="AdId" OtherKey="AdId" Type="Ad" IsForeignKey="true" />
       <Association Name="MainCategory_AdBooking" Member="MainCategory" ThisKey="MainCategoryId" OtherKey="MainCategoryId" Type="MainCategory" IsForeignKey="true" />
     </Type>
@@ -532,6 +533,33 @@
       <Column Name="EnquiryText" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="CreatedDateUtc" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AdBookingOrder" Member="AdBookingOrders">
+    <Type Name="AdBookingOrder">
+      <Column Name="AdBookingOrderId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AdBookingId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrderTotal" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="PublicationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Reference" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="CreateDateUtc" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="AdBookingOrder_AdBookingOrderItem" Member="AdBookingOrderItems" ThisKey="AdBookingOrderId" OtherKey="AdBookingOrderId" Type="AdBookingOrderItem" />
+      <Association Name="AdBooking_AdBookingOrder" Member="AdBooking" ThisKey="AdBookingId" OtherKey="AdBookingId" Type="AdBooking" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AdBookingOrderItem" Member="AdBookingOrderItems">
+    <Type Name="AdBookingOrderItem">
+      <Column Name="AdBookingOrderItemId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AdBookingOrderId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ItemTotal" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Currency" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Editions" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="AdBookingOrder_AdBookingOrderItem" Member="AdBookingOrder" ThisKey="AdBookingOrderId" OtherKey="AdBookingOrderId" Type="AdBookingOrder" IsForeignKey="true" />
     </Type>
   </Table>
   <Function Name="dbo.usp_RateCard__Search" Method="usp_RateCard__Search">

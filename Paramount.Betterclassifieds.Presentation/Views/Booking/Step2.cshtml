@@ -160,7 +160,7 @@
                     @Html.ValidationMessageFor(m => m.LineAdHeader)
 
                 </div>
-                
+
                 <div class="form-group">
                     @Html.LabelFor(m => m.LineAdText)
                     @Html.BootstrapLargeTextAreaFor(m => m.LineAdText, 5, attributes: new Dictionary<string, object>()
@@ -305,7 +305,13 @@
 
         (function($, $paramount) {
 
-            var designAdModel = new $paramount.models.DesignAd(@Html.Raw(Model.OnlineAdImages.ToJsonString()), @Model.MaxOnlineImages, @Html.Raw(Model.LineAdAsJson));
+            var lineAdJson = {};
+            @if (Model.IsLineAdIncluded)
+            {
+                <text>lineAdJson = @Html.Raw(Model.LineAdAsJson); </text>
+            }
+
+            var designAdModel = new $paramount.models.DesignAd(@Html.Raw(Model.OnlineAdImages.ToJsonString()), @Model.MaxOnlineImages, lineAdJson);
             ko.applyBindings(designAdModel);
 
             $(function() {
@@ -313,7 +319,7 @@
                 $paramount.setOnlineEditor($('#OnlineAdDescription'));
 
                 $('#OnlineAdLocationId').on('change', function() {
-                    $('#OnlineAdLocationAreaId').loadLocationAreas( $paramount.url.getLocationAreas, $(this).val(), false);
+                    $('#OnlineAdLocationAreaId').loadLocationAreas($paramount.url.getLocationAreas, $(this).val(), false);
                 });
 
                 $('#copyOnlineAdDetails').click(function() {
@@ -338,7 +344,7 @@
                             $.each(response, function(index, item) {
                                 designAdModel.publicationEditions.push({
                                     publicationName: item.Publication,
-                                    editions : ko.observableArray(item.Editions)
+                                    editions: ko.observableArray(item.Editions)
                                 });
                             });
                             $('#editionsModal').modal('show');
@@ -413,5 +419,5 @@
                 });
             });
         })(jQuery, $paramount);
-</script>
+    </script>
 }

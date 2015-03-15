@@ -105,7 +105,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
             {
                 if (!IsLineAdIncluded)
                 {
-                    return string.Empty;
+                    return null;
                 }
                 var lineAd = new
                 {

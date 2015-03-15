@@ -80,5 +80,6 @@ BEGIN
 	INNER JOIN	MainCategory mc 
 			ON	mc.MainCategoryId = r.ParentCategoryId
 	WHERE RowNumber between ((@pageSize * @pageIndex) + 1) and (@pageSize * (@pageIndex + 1))
+	ORDER BY r.BookingDate DESC
 END
 

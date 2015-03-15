@@ -1,6 +1,6 @@
 ﻿
 
-<div class="panel-group top-buffer-20" id="priceSummary">
+<div class="panel-group top-buffer-20" id="priceSummary" data-spy="affix" data-offset-top="320" data-offset-bottom="450">
     <div class="panel panel-info">
         <div class="panel-heading">
             <h4 class="panel-title">
@@ -67,3 +67,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Fix the total price 
+    $('#priceSummary').on('affix.bs.affix', function () {
+        $(this).css({ top: -20, width: $('.navbar').width(), 'z-index': '1000' });
+    }).on('affix-top.bs.affix', function () {
+        $(this).width($('.navbar').width());
+    });
+
+    $(window).resize(function() {
+        $('#priceSummary').width($('.navbar').width());
+    });
+</script>

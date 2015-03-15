@@ -305,8 +305,7 @@
 
         (function($, $paramount) {
 
-            var rawOnlineImages = @Html.Raw(Model.OnlineAdImages.ToJsonString());
-            var designAdModel = new $paramount.models.DesignAd(rawOnlineImages, @Model.MaxOnlineImages, '@Model.LineAdHeader', '@Html.Raw(Model.LineAdText)', '@Model.LineAdImageId');
+            var designAdModel = new $paramount.models.DesignAd(@Html.Raw(Model.OnlineAdImages.ToJsonString()), @Model.MaxOnlineImages, @Html.Raw(Model.LineAdAsJson));
             ko.applyBindings(designAdModel);
 
             $(function() {
@@ -414,5 +413,5 @@
                 });
             });
         })(jQuery, $paramount);
-    </script>
+</script>
 }

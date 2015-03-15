@@ -125,7 +125,6 @@
     <Compile Include="Guard.cs" />
     <Compile Include="HtmlExtensions.cs" />
     <Compile Include="HttpCacher.cs" />
-    <Compile Include="JsonHelper.cs" />
     <Compile Include="Mapping.cs" />
     <Compile Include="PDFGenerator.cs">
       <SubType>ASPXCodeBehind</SubType>

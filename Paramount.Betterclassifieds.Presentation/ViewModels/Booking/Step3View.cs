@@ -9,11 +9,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         [MustBeTrue(ErrorMessage = "You must agree to our terms and conditions")]
         [Display(Name = "I have read and agree to the terms and conditions")]
         public bool AgreeToTerms { get; set; }
-
         [MustBeTrue(ErrorMessage = "You must confirm your details")]
         [Display(Name = "I have ensured that the booking details are correct")]
         public bool DetailsAreCorrect { get; set; }
-
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public decimal TotalPrice { get; set; }
@@ -22,7 +20,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         {
             get { return this.TotalPrice > 0; }
         }
-
         public bool IsPaymentCancelled { get; set; }
         public DateTime? PrintFirstEditionDate { get; set; }
         public int? PrintInsertions { get; set; }

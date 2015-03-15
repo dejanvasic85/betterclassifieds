@@ -463,8 +463,7 @@
             // To view model
             configuration.CreateMap<PublicationModel, PublicationSelectionView>();
             configuration.CreateMap<OnlineAdModel, Step2View>();
-            configuration.CreateMap<LineAdModel, Step2View>()
-                .ForMember(m => m.LineAdText, options => options.MapFrom(src => src.AdText.Replace("'", "''")));
+            configuration.CreateMap<LineAdModel, Step2View>();
             configuration.CreateMap<BookingRateResult, PriceSummaryView>()
                 .ConvertUsing<PriceSummaryViewConverter>();
             configuration.CreateMap<BookingCart, Step3View>()

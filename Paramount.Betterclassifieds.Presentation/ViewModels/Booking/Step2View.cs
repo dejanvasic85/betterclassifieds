@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Web.Mvc;
+using Paramount.Betterclassifieds.Presentation.Framework;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 {
@@ -95,6 +96,26 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
                     return null;
 
                 return DateTime.ParseExact(this.FirstPrintDate, "dd/MM/yyyy", new DateTimeFormatInfo());
+            }
+        }
+
+        public string LineAdAsJson
+        {
+            get
+            {
+                if (!IsLineAdIncluded)
+                {
+                    return string.Empty;
+                }
+                var lineAd = new
+                {
+                    LineAdText,
+                    LineAdHeader,
+                    LineAdImageId
+                };
+
+                var json = lineAd.ToJsonString();
+                return json;
             }
         }
     }

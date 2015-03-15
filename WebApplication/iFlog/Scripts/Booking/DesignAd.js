@@ -2,7 +2,7 @@
 
     $paramount.models = $paramount.models || {};
 
-    $paramount.models.DesignAd = function (data, maxImages, lineAdHeader, lineAdText, lineAdImageId) {
+    $paramount.models.DesignAd = function (data, maxImages, lineAd) {
         var self = this;
 
         // Online Images
@@ -23,15 +23,15 @@
         self.uploadImageInProgress = ko.observable(false);
 
         // Line Ad
-        self.lineAdHeader = ko.observable(lineAdHeader);
-        self.lineAdText = ko.observable(lineAdText);
+        self.lineAdHeader = ko.observable(lineAd.lineAdHeader);
+        self.lineAdText = ko.observable(lineAd.lineAdText);
         self.wordCount = ko.computed(function () {
             if (self.lineAdText().length === 0) {
                 return 0;
             }
             return self.lineAdText().split(' ').length;
         });
-        self.lineAdImageId = ko.observable(lineAdImageId);
+        self.lineAdImageId = ko.observable(lineAd.lineAdImageId == null ? '' : lineAd.lineAdImageId);
         self.removePrintImage = function () {
             $paramount.svc
                 .removeLineAdImageForBooking(self.lineAdImageId())

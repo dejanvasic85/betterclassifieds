@@ -196,14 +196,14 @@
             bookingCart.TotalPrice = _rateCalculator.Calculate(bookingCart).Total;
             _cartRepository.Save(bookingCart);
 
-            var viewModel = this.Map<BookingCart, Step4View>(bookingCart);
+            var viewModel = this.Map<BookingCart, Step3View>(bookingCart);
             viewModel.IsPaymentCancelled = isPaymentCancelled;
 
             return View(viewModel);
         }
 
         [HttpPost, BookingStep(3), Authorize]
-        public ActionResult Step3(Step4View viewModel)
+        public ActionResult Step3(Step3View viewModel)
         {
             var bookingCart = _bookingContext.Current();
 
@@ -467,7 +467,7 @@
                 .ForMember(m => m.LineAdText, options => options.MapFrom(src => src.AdText.Replace("'", "''")));
             configuration.CreateMap<BookingRateResult, PriceSummaryView>()
                 .ConvertUsing<PriceSummaryViewConverter>();
-            configuration.CreateMap<BookingCart, Step4View>()
+            configuration.CreateMap<BookingCart, Step3View>()
                 .ForMember(m => m.PublicationCount, options => options.MapFrom(src => src.Publications.Length));
 
             // From ViewModel

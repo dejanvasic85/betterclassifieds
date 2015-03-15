@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 {
-    public class Step4View
+    public class Step3View
     {
         [MustBeTrue(ErrorMessage = "You must agree to our terms and conditions")]
         [Display(Name = "I have read and agree to the terms and conditions")]

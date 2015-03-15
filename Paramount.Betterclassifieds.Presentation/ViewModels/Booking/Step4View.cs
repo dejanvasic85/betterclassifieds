@@ -24,5 +24,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         }
 
         public bool IsPaymentCancelled { get; set; }
+        public DateTime? PrintFirstEditionDate { get; set; }
+        public int? PrintInsertions { get; set; }
+        public bool IsLineAdIncluded { get; set; }
+        public int? PublicationCount { get; set; }
     }
 }

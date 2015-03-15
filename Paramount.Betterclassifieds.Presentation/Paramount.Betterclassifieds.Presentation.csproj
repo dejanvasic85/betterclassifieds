@@ -212,7 +212,6 @@
     <Compile Include="ViewModels\Booking\PublicationEditionPreview.cs" />
     <Compile Include="ViewModels\Booking\PublicationEditionView.cs" />
     <Compile Include="ViewModels\Booking\Step2View.cs" />
-    <Compile Include="ViewModels\Booking\Step3View.cs" />
     <Compile Include="ViewModels\Booking\Step4View.cs" />
     <Compile Include="ViewModels\Booking\SuccessView.cs" />
     <Compile Include="ViewModels\Booking\UserNetworkEmailView.cs" />

@@ -148,7 +148,7 @@
 
                 stepTwoModel.AvailableInsertions = _editionManager
                     .GetAvailableInsertions()
-                    .Select(m => new SelectListItem {Text = m.ToString(), Value = m.ToString()});
+                    .Select(m => new SelectListItem { Text = m.ToString(), Value = m.ToString() });
             }
 
             return View(stepTwoModel);
@@ -183,7 +183,7 @@
 
             return RedirectToAction("Step3");
         }
-        
+
         // 
         // GET /Booking/Step/3 - Confirmation
         [HttpGet, BookingStep(3), Authorize]
@@ -449,7 +449,7 @@
             return Json(new { valid = true });
         }
 
-        
+
 
         #endregion
 
@@ -465,10 +465,10 @@
             configuration.CreateMap<OnlineAdModel, Step2View>();
             configuration.CreateMap<LineAdModel, Step2View>()
                 .ForMember(m => m.LineAdText, options => options.MapFrom(src => src.AdText.Replace("'", "''")));
-            configuration.CreateMap<OnlineAdModel, Step4View>();
-            configuration.CreateMap<BookingCart, Step4View>();
             configuration.CreateMap<BookingRateResult, PriceSummaryView>()
                 .ConvertUsing<PriceSummaryViewConverter>();
+            configuration.CreateMap<BookingCart, Step4View>()
+                .ForMember(m => m.PublicationCount, options => options.MapFrom(src => src.Publications.Length));
 
             // From ViewModel
             configuration.CreateMap<Step2View, OnlineAdModel>()

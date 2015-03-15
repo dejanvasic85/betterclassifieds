@@ -7,9 +7,9 @@ namespace Paramount.Betterclassifieds.Business
     /// <summary>
     /// Represents the total booking items with ads as children and their line items
     /// </summary>
-    public class BookingRateResult
+    public class BookingOrderResult
     {
-        public BookingRateResult(string bookingReference)
+        public BookingOrderResult(string bookingReference)
         {
             BookingReference = bookingReference;
         }

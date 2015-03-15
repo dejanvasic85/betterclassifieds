@@ -228,7 +228,7 @@
             var response = _paymentService.SubmitPayment(new PaymentRequest
             {
                 PayReference = bookingCart.Reference,
-                BookingRateResult = _rateCalculator.Calculate(bookingCart),
+                BookingOrderResult = _rateCalculator.Calculate(bookingCart),
                 ReturnUrl = Url.ActionAbsolute("AuthorisePayment", "Booking"),
                 CancelUrl = Url.ActionAbsolute("Step3", "Booking").Append("?cancel=true")
             });
@@ -378,7 +378,7 @@
             var bookingRateResult = _rateCalculator.Calculate(bookingCart, pricingFactors.Editions);
 
             // Return view model
-            var viewModel = this.Map<BookingRateResult, PriceSummaryView>(bookingRateResult);
+            var viewModel = this.Map<BookingOrderResult, PriceSummaryView>(bookingRateResult);
 
             return Json(viewModel);
         }
@@ -464,7 +464,7 @@
             configuration.CreateMap<PublicationModel, PublicationSelectionView>();
             configuration.CreateMap<OnlineAdModel, Step2View>();
             configuration.CreateMap<LineAdModel, Step2View>();
-            configuration.CreateMap<BookingRateResult, PriceSummaryView>()
+            configuration.CreateMap<BookingOrderResult, PriceSummaryView>()
                 .ConvertUsing<PriceSummaryViewConverter>();
             configuration.CreateMap<BookingCart, Step3View>()
                 .ForMember(m => m.PublicationCount, options => options.MapFrom(src => src.Publications.Length));

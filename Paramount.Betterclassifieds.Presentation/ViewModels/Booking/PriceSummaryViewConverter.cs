@@ -4,11 +4,11 @@ using Paramount.Betterclassifieds.Business;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 {
-    public class PriceSummaryViewConverter : ITypeConverter<BookingRateResult, PriceSummaryView>
+    public class PriceSummaryViewConverter : ITypeConverter<BookingOrderResult, PriceSummaryView>
     {
         public PriceSummaryView Convert(ResolutionContext context)
         {
-            var source = (BookingRateResult)context.SourceValue;
+            var source = (BookingOrderResult)context.SourceValue;
             var summary = new PriceSummaryView
             {
                 BookingTotal = source.Total,

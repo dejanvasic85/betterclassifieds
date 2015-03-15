@@ -14,7 +14,7 @@ namespace Paramount.Betterclassifieds.Payments.pp
         {
             var apiContext = ApiContextFactory.CreateApiContext();
             var converter = new ChargeableItemsToPaypalConverter();
-            var paypalItems = converter.Convert(request.BookingRateResult);
+            var paypalItems = converter.Convert(request.BookingOrderResult);
 
 
             // ###Payer
@@ -32,7 +32,7 @@ namespace Paramount.Betterclassifieds.Payments.pp
 
             // ###Details
             // Let's you specify details of a payment amount.
-            var sum = request.BookingRateResult.Total;
+            var sum = request.BookingOrderResult.Total;
 
             var details = new Details
             {
@@ -108,13 +108,13 @@ namespace Paramount.Betterclassifieds.Payments.pp
 
     public class ChargeableItemsToPaypalConverter
     {
-        public ItemList Convert(BookingRateResult bookingRate)
+        public ItemList Convert(BookingOrderResult bookingOrder)
         {
             // Use the same reference for all sku's for paypal
-            var reference = bookingRate.BookingReference;
+            var reference = bookingOrder.BookingReference;
 
             ItemList list = new ItemList() { items = new List<Item>() };
-            list.items.AddRange(bookingRate.OnlineBookingAdRate.GetItems().Select(li => new Item
+            list.items.AddRange(bookingOrder.OnlineBookingAdRate.GetItems().Select(li => new Item
             {
                 name = li.Name,
                 price = li.Price.ToString("N"),
@@ -123,11 +123,11 @@ namespace Paramount.Betterclassifieds.Payments.pp
                 sku = reference
             }));
 
-            if (bookingRate.PrintRates.Count == 0)
+            if (bookingOrder.PrintRates.Count == 0)
                 return list;
 
             // Publications will be line items
-            list.items.AddRange(bookingRate.PrintRates.Select(p => new Item
+            list.items.AddRange(bookingOrder.PrintRates.Select(p => new Item
             {
                 name = p.Name,
                 price = p.Total.ToString("N"),

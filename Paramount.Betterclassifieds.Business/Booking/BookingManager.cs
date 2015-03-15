@@ -16,7 +16,7 @@
         void Extend(int adBookingId, int numberOfInsertions, bool? isOnlineOnly = null, ExtensionStatus extensionStatus = ExtensionStatus.Complete, int price = 0, string username = "admin", PaymentType payment = PaymentType.None);
         void IncrementHits(int id);
         void SubmitAdEnquiry(AdEnquiry enquiry);
-        int? CreateBooking(BookingCart bookingCart, BookingRateResult bookingOrder);
+        int? CreateBooking(BookingCart bookingCart, BookingOrderResult bookingOrder);
     }
 
     public class BookingManager : IBookingManager
@@ -163,7 +163,7 @@
             }, bookingUser.Email);
         }
 
-        public int? CreateBooking(BookingCart bookingCart, BookingRateResult bookingOrder)
+        public int? CreateBooking(BookingCart bookingCart, BookingOrderResult bookingOrder)
         {
             var adBookingId = _bookingRepository.SubmitBooking(bookingCart);
 

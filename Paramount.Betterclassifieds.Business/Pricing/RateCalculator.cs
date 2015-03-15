@@ -10,7 +10,7 @@ namespace Paramount.Betterclassifieds.Business
     {
         decimal Calculate(int ratecardId, LineAdModel lineAd, bool isOnlineAd, int editions = 1);
 
-        BookingRateResult Calculate(BookingCart bookingCart, int? editionOverride = null);
+        BookingOrderResult Calculate(BookingCart bookingCart, int? editionOverride = null);
     }
 
     public class RateCalculator : IRateCalculator
@@ -67,9 +67,9 @@ namespace Paramount.Betterclassifieds.Business
         /// <summary>
         /// Constructs the booking rate result that contains calculated line items for each publication 
         /// </summary>
-        public BookingRateResult Calculate(BookingCart bookingCart, int? editionOverride = null)
+        public BookingOrderResult Calculate(BookingCart bookingCart, int? editionOverride = null)
         {
-            var bookingRate = new BookingRateResult(bookingCart.Reference);
+            var bookingRate = new BookingOrderResult(bookingCart.Reference);
 
             Guard.NotNullIn(bookingCart, bookingCart.CategoryId, bookingCart.SubCategoryId);
 

@@ -23,6 +23,7 @@
         self.uploadImageInProgress = ko.observable(false);
 
         // Line Ad
+        self.printInsertions = ko.observable(lineAd.printInsertions);
         self.lineAdHeader = ko.observable(lineAd.lineAdHeader);
         self.lineAdText = ko.observable(lineAd.lineAdText);
         self.wordCount = ko.computed(function () {
@@ -52,7 +53,7 @@
                 lineAdText: self.lineAdText(),
                 lineAdHeader: self.lineAdHeader(),
                 usePhoto: self.lineAdImageId(),
-                editions: 1 // Default to 1 edition
+                editions: self.printInsertions()
             }).done(function (resp) {
                 // Map Total
                 self.pricetotal($paramount.formatCurrency(resp.BookingTotal));

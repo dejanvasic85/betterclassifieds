@@ -83,7 +83,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 
         [RequiredIf("IsLineAdIncluded", true)]
         [Display(Name = "Insertions")]
-        public int NumberOfInsertions { get; set; }
+        public int PrintInsertions { get; set; }
 
         public IEnumerable<SelectListItem> UpcomingEditions { get; set; }
         public IEnumerable<SelectListItem> AvailableInsertions { get; set; }
@@ -111,7 +111,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
                 {
                     LineAdText,
                     LineAdHeader,
-                    LineAdImageId
+                    LineAdImageId,
+                    PrintInsertions
                 };
 
                 var json = lineAd.ToJsonString();

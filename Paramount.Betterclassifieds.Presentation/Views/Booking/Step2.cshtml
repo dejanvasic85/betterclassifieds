@@ -261,8 +261,8 @@
                     </div>
                     <div class="col-sm-5 col-xs-6">
                         <div class="form-group">
-                            @Html.LabelFor(m => m.NumberOfInsertions)
-                            @Html.DropDownListFor(m => m.NumberOfInsertions, Model.AvailableInsertions, new { @class = "form-control input-lg" })
+                            @Html.LabelFor(m => m.PrintInsertions)
+                            @Html.DropDownListFor(m => m.PrintInsertions, Model.AvailableInsertions, new { @class = "form-control input-lg", data_bind = "value: printInsertions" })
                         </div>
                     </div>
                     <div class="col-sm-2 col-xs-12">
@@ -324,21 +324,21 @@
 
                 $('#copyOnlineAdDetails').click(function() {
                     // copy header
-                    $('#LineAdHeader').val($('#OnlineAdHeading').val());
+                    designAdModel.lineAdHeader($('#OnlineAdHeading').val());
 
                     // copy body
                     var regex = /<br\s*[\/]?>/gi;
                     var content = '<p>' + $('#OnlineAdDescription').val().replace(regex, "\n") + '</p>';
                     var newContent = $(content).text();
 
-                    $('#LineAdText').val(newContent);
+                    designAdModel.lineAdText(newContent);
                 });
 
                 $('#previewEditions').on('click', function(event) {
                     event.preventDefault();
                     var $btn = $(this);
                     $btn.button('loading');
-                    $paramount.svc.previewBookingEditions($('#FirstPrintDate').val(), $('#NumberOfInsertions').val())
+                    $paramount.svc.previewBookingEditions($('#FirstPrintDate').val(), designAdModel.printInsertions())
                         .done(function(response) {
                             designAdModel.publicationEditions.removeAll();
                             $.each(response, function(index, item) {

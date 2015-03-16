@@ -126,6 +126,7 @@
             stepTwoModel.MaxImageUploadBytes = _applicationConfig.MaxImageUploadBytes;
             stepTwoModel.ConfigDurationDays = _clientConfig.RestrictedOnlineDaysCount;
             stepTwoModel.StartDate = bookingCart.GetStartDateOrMinimum();
+            stepTwoModel.PrintInsertions = bookingCart.PrintInsertions.GetValueOrDefault();
 
             // Map the flag for line ad
             stepTwoModel.IsLineAdIncluded = bookingCart.IsLineAdIncluded;
@@ -175,7 +176,7 @@
             this.Map(viewModel, bookingCart.LineAdModel);
 
             // Map Schedule
-            bookingCart.SetSchedule(_clientConfig, viewModel.StartDate.Value, viewModel.FirstPrintDateFormatted, viewModel.NumberOfInsertions);
+            bookingCart.SetSchedule(_clientConfig, viewModel.StartDate.Value, viewModel.FirstPrintDateFormatted, viewModel.PrintInsertions);
 
             // Save and continue
             bookingCart.CompleteStep(2);
@@ -387,7 +388,7 @@
         /// Used for displaying list of editions for each publication based on user selection of start date and insertions
         /// </summary>
         [HttpPost, BookingRequired]
-        public ActionResult PreviewEditions(DateTime firstEdition, int insertions)
+        public ActionResult PreviewEditions(DateTime firstEdition, int printInsertions)
         {
             var list = new List<PublicationNameAndEditionListView>();
             foreach (var publicationId in _bookingContext.Current().Publications)
@@ -396,7 +397,7 @@
                 var dates = _editionManager
                     .GetUpcomingEditionsForPublication(publicationId, firstEdition, out publicationName)
                     .Select(e => e.Date.ToString("dd-MMM-yyyy"))
-                    .Take(insertions)
+                    .Take(printInsertions)
                     .ToArray();
 
                 list.Add(new PublicationNameAndEditionListView

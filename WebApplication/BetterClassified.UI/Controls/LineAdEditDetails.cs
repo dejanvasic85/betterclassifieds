@@ -231,19 +231,19 @@ namespace BetterClassified.UI
             _boldHeaderPanel.Controls.Add(_boldHeaderTextbox);
             _boldHeaderPanel.Controls.Add(_superBoldHeaderPanel);
             _superBoldHeaderPanel.Controls.Add(_superBoldHeaderCheckbox);
-            _colourHeadingPanel.Controls.Add(_colourHeadingLabel);
-            _colourHeadingPanel.Controls.Add(_colourHeadingPicker);
-            _colourBorderPanel.Controls.Add(_colourBorderLabel);
-            _colourBorderPanel.Controls.Add(_colourBorderPicker);
-            _colourBackgroundPanel.Controls.Add(_colourBackgroundLabel);
-            _colourBackgroundPanel.Controls.Add(_colourBackgroundPicker);
+            //_colourHeadingPanel.Controls.Add(_colourHeadingLabel);
+            //_colourHeadingPanel.Controls.Add(_colourHeadingPicker);
+            //_colourBorderPanel.Controls.Add(_colourBorderLabel);
+            //_colourBorderPanel.Controls.Add(_colourBorderPicker);
+            //_colourBackgroundPanel.Controls.Add(_colourBackgroundLabel);
+            //_colourBackgroundPanel.Controls.Add(_colourBackgroundPicker);
 
             _paddedPanelContainer.Controls.Add(_boldHeaderPanel);
             _paddedPanelContainer.Controls.Add(_adTextLabel);
             _paddedPanelContainer.Controls.Add(_adTextBox);
-            _paddedPanelContainer.Controls.Add(_colourHeadingPanel);
-            _paddedPanelContainer.Controls.Add(_colourBorderPanel);
-            _paddedPanelContainer.Controls.Add(_colourBackgroundPanel);
+            //_paddedPanelContainer.Controls.Add(_colourHeadingPanel);
+            //_paddedPanelContainer.Controls.Add(_colourBorderPanel);
+            //_paddedPanelContainer.Controls.Add(_colourBackgroundPanel);
 
             _commandPanel.Controls.Add(_buttonCancel);
             _commandPanel.Controls.Add(_buttonViewImages);

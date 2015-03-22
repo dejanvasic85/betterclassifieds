@@ -29,14 +29,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             _pageBrowser.Init<BookingStep2Page>()
                 .WithOnlineHeader(adTitle)
                 .WithOnlineDescription(adTitle)
-                .Proceed();
-
-            _pageBrowser.Init<BookingStep3Page>()
                 .WithStartDate(DateTime.Today.Date)
                 .Proceed();
 
-            var bookingStep4Page = _pageBrowser.Init<BookingStep4Page>();
+            var bookingStep4Page = _pageBrowser.Init<BookingStep3Page>();
             ScenarioContext.Current["BookingReference"] = bookingStep4Page.GetBookingReference();
+            
             bookingStep4Page
                 .AgreeToTermsAndConditions()
                 .Proceed();

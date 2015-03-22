@@ -1,7 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using Paramount.Betterclassifieds.Tests.Functional.Annotations;
-using System;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
@@ -14,15 +13,27 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         #region Private Elements
 
-        [FindsBy(How = How.Id, Using = "StartDate"), UsedImplicitly]
-        private IWebElement StartDateElement;
+        [FindsBy(How = How.Id, Using = "DetailsAreCorrect"), UsedImplicitly]
+        private IWebElement DetailsAreCorrectCheckBox;
+
+        [FindsBy(How = How.Id, Using = "AgreeToTerms"), UsedImplicitly]
+        private IWebElement AgreeToTermsCheckBox;
+
+        [FindsBy(How = How.Id, Using = "BookingReference"), UsedImplicitly]
+        private IWebElement BookingReferenceSpan;
 
         #endregion
 
-        public BookingStep3Page WithStartDate(DateTime date)
+        public BookingStep3Page AgreeToTermsAndConditions()
         {
-            StartDateElement.FillText(date.ToString("dd/MM/yyyy"));
+            DetailsAreCorrectCheckBox.Click();
+            AgreeToTermsCheckBox.Click();
             return this;
+        }
+
+        public string GetBookingReference()
+        {
+            return BookingReferenceSpan.Text;
         }
     }
 }

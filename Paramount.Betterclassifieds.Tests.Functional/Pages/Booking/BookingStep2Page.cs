@@ -1,5 +1,5 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.Extensions;
+﻿using System;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using Paramount.Betterclassifieds.Tests.Functional.Annotations;
 
@@ -19,6 +19,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         [FindsBy(How = How.Id, Using = "OnlineAdDescription"), UsedImplicitly]
         private IWebElement OnlineAdDescriptionElement;
+        
+        [FindsBy(How = How.Id, Using = "StartDate"), UsedImplicitly]
+        private IWebElement StartDateElement;
 
         #endregion
 
@@ -34,6 +37,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             // So we had to move the online editor to the $paramount library
             // And call the cleditor directly (ughhh ugly)
             _webdriver.ExecuteJavaScript("$paramount.onlineEditor[0].clear().execCommand('inserthtml', '" + description + "', null, null)");
+            return this;
+        }
+
+        public BookingStep2Page WithStartDate(DateTime date)
+        {
+            StartDateElement.FillText(date.ToString("dd/MM/yyyy"));
             return this;
         }
     }

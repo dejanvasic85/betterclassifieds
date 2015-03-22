@@ -40,7 +40,7 @@
         }
 
         // Generic editor setup using the cleditor library
-        return element.cleditor({
+        $paramount.onlineEditor = element.cleditor({
             controls: "bold italic underline strikethrough subscript superscript | font size " +
                 "style | color highlight removeformat | bullets numbering | outdent " +
                 "indent | alignleft center alignright justify | undo redo | " +
@@ -51,6 +51,8 @@
             styles: [["Paragraph", "<p>"], ["Header 3", "<h3>"], ["Header 4", "<h4>"], ["Header 5", "<h5>"], ["Header 6", "<h6>"]],
             bodyStyle: "margin:4px; font:14pt Arial; cursor:text"
         });
+
+        return $paramount.onlineEditor;
     };
 
     $paramount.delay = (function () {

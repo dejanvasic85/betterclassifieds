@@ -129,7 +129,6 @@
     <Compile Include="PagesAdmin\AdminLoginPage.cs" />
     <Compile Include="Pages\AccountDetailsTestPage.cs" />
     <Compile Include="Pages\Booking\BookingCompletePage.cs" />
-    <Compile Include="Pages\Booking\BookingStep4Page.cs" />
     <Compile Include="Pages\Booking\BookingBasePage.cs" />
     <Compile Include="Pages\Booking\BookingStep1Page.cs" />
     <Compile Include="Pages\ContactUsPage.cs" />

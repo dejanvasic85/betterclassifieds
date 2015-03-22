@@ -11,7 +11,12 @@
     <li class="active"><a href="#">Step 2</a></li>
     <li class="disabled"><a href="#">3</a></li>
     <li class="pull-right">
-        <a data-toggle="modal" data-target="#priceSummaryModal" style="cursor: pointer" data-bind="text: pricetotal"></a>
+        <a data-toggle="modal"
+           data-target="#priceSummaryModal"
+           style="cursor: pointer; text-decoration: underline;">
+            <span data-bind="text: pricetotal"></span>
+            &nbsp;<i class="fa fa-chevron-down"></i>
+        </a>
     </li>
 </ul>
 

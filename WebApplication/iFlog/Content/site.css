@@ -111,6 +111,10 @@
   background-color: #fff;
   z-index: 100;
 }
+.total-price-link {
+  cursor: pointer;
+  text-decoration: underline;
+}
 @media (max-width: 766px) {
   /* Smaller widths stack controls on top of another with no margin */
   .form-control {

@@ -3,11 +3,10 @@
     using AutoMapper;
     using Business;
     using Business.Broadcast;
-    using Business.Search;
     using System.Web.Mvc;
     using ViewModels;
 
-    public class AccountController : BaseController, IMappingBehaviour
+    public class AccountController : Controller, IMappingBehaviour
     {
         private readonly IUserManager _userManager;
         private readonly IAuthManager _authManager;
@@ -15,9 +14,7 @@
 
         public const string ReturnUrlKey = "ReturnUrlForLogin";
 
-        public AccountController(IUserManager userManager, IAuthManager authManager,
-            IBroadcastManager broadcastManager, ISearchService searchService)
-            : base(searchService)
+        public AccountController(IUserManager userManager, IAuthManager authManager, IBroadcastManager broadcastManager)
         {
             _userManager = userManager;
             _authManager = authManager;

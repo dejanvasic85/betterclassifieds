@@ -11,15 +11,16 @@
     using System.Linq;
     using System.Web.Mvc;
 
-    public class HomeController : BaseController, IMappingBehaviour
+    public class HomeController : Controller, IMappingBehaviour
     {
+        private readonly ISearchService _searchService;
         private readonly IClientConfig _clientConfig;
         private readonly IBroadcastManager _broadcastManager;
         private readonly IEnquiryManager _enquiryManager;
 
         public HomeController(ISearchService searchService, IClientConfig clientConfig, IBroadcastManager broadcastManager, IEnquiryManager enquiryManager)
-            : base(searchService)
         {
+            _searchService = searchService;
             _clientConfig = clientConfig;
             _broadcastManager = broadcastManager;
             _enquiryManager = enquiryManager;

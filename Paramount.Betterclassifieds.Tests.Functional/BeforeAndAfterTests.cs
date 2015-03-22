@@ -105,7 +105,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         public static void SetupBookingFeature()
         {
             // Use the dapper manager to initialise some baseline test data for our booking scenarios
-            ITestDataRepository dataRepository = DataRepositoryFactory.Create(_configuration);
+            var dataRepository = DataRepositoryFactory.Create(_configuration);
+
+            dataRepository.AddPublicationIfNotExists(TestData.SeleniumPublication);
+
             /*
             // Online Publication  ( this should be removed later - no such thing as online publication ! )
             dataRepository.AddPublicationIfNotExists(TestData.OnlinePublication, Constants.PublicationType.Online, frequency: "Online", frequencyValue: null);
@@ -121,7 +124,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             
             // Rates
             dataRepository.AddOnlineRateForCategoryIfNotExists(price : 0, categoryName: TestData.SubCategory);
-            
+            dataRepository.AddPrintRateForCategoryIfNotExists(TestData.SubCategory);
+
             // Location and Area
             dataRepository.AddLocationIfNotExists(parentLocation: TestData.Location_Any, areas: TestData.LocationArea_Any);
             dataRepository.AddLocationIfNotExists(TestData.Location_Australia, TestData.Location_Victoria, "Melbourne"); 

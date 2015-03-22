@@ -337,6 +337,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             classifiedDb.AddIfNotExists(Constants.Table.OnlineAdRate, new { MainCategoryId = categoryId, MinimumCharge = price }, categoryId, "MainCategoryId");
         }
 
+        public void AddPrintRateForCategoryIfNotExists(string categoryName)
+        {
+            // We need to setup a lot here...
+            // Get out if there's anything in the 
+
+            
+        }
+
         public int AddCategoryIfNotExists(string subCategory, string parentCategory)
         {
             using (var scope = new TransactionScope())

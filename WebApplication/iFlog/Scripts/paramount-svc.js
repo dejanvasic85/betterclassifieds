@@ -51,7 +51,7 @@ var $paramount = (function (me, $) {
     function previewBookingEditions(firstEdition, insertions) {
         return post($paramount.url.previewBookingEditions, {
             firstEdition: firstEdition,
-            insertions : insertions
+            printInsertions : insertions
         });
     }
 

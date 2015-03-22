@@ -56,7 +56,7 @@
                 editions: self.printInsertions()
             }).done(function (resp) {
                 // Map Total
-                self.pricetotal($paramount.formatCurrency(resp.BookingTotal));
+                self.pricetotal('Total: ' + $paramount.formatCurrency(resp.BookingTotal));
 
                 // Map online line items
                 self.onlineItemPrices.removeAll();

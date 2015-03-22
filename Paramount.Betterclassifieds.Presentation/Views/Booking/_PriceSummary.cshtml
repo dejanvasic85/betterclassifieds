@@ -1,82 +1,69 @@
 ﻿
+<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="priceSummaryModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Price Breakdown</h4>
+            </div>
+            <div class="modal-body">
 
-<div class="panel-group top-buffer-20" id="priceSummary" data-spy="affix" data-offset-top="320" data-offset-bottom="450">
-    <div class="panel panel-info">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#priceSummary" href="#priceBreakDown">
-                    Current Total
-                    <span id="currentTotal" data-bind="text: pricetotal"></span>
-                    <span class="pull-right" data-toggle="collapse" data-parent="#priceSummary" href="#priceBreakDown">
-                        <span class="glyphicon glyphicon-chevron-down"></span>
-                    </span>
-                </a>
-            </h4>
-        </div>
-        <div id="priceBreakDown" class="panel panel-collapse collapse table-responsive">
-
-            @*Online Rate*@
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th colspan="3">Online Ad</th>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <th class="hidden-xs">Price</th>
-                        <th class="hidden-xs">Quantity</th>
-                        <th>Sub Total</th>
-                    </tr>
-                </thead>
-                <tbody data-bind="foreach: onlineItemPrices">
-                    <tr>
-                        <td><span data-bind="text: name"></span></td>
-                        <td class="hidden-xs"><span data-bind="text: price"></span></td>
-                        <td class="hidden-xs"><span data-bind="text: quantity"></span></td>
-                        <td><span data-bind="text: itemTotal"></span></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            @*Publication Rates*@
-            <div data-bind="foreach: {data : publicationPrices, as : 'publication'}">
+                @*Online Rate*@
                 <table class="table table-bordered table-hover">
                     <thead>
                         <tr class="success">
-                            <th colspan="5">Publication: <span data-bind="text: publicationName"></span></th>
+                            <th colspan="4">Online Ad</th>
                         </tr>
                         <tr>
                             <th></th>
                             <th class="hidden-xs">Price</th>
                             <th class="hidden-xs">Quantity</th>
-                            <th class="hidden-xs">Editions</th>
                             <th>Sub Total</th>
                         </tr>
                     </thead>
-                    <tbody data-bind="foreach : {data : lineItems, as : 'lineItem'}">
+                    <tbody data-bind="foreach: onlineItemPrices">
                         <tr>
-                            <td data-bind="text: name"></td>
-                            <td class="hidden-xs" data-bind="text: price"></td>
-                            <td class="hidden-xs" data-bind="text: quantity"></td>
-                            <td class="hidden-xs" data-bind="text: editions"></td>
-                            <td data-bind="text: itemTotal"></td>
+                            <td><span data-bind="text: name"></span></td>
+                            <td class="hidden-xs"><span data-bind="text: price"></span></td>
+                            <td class="hidden-xs"><span data-bind="text: quantity"></span></td>
+                            <td><span data-bind="text: itemTotal"></span></td>
                         </tr>
                     </tbody>
                 </table>
+
+                @*Publication Rates*@
+                <div data-bind="foreach: {data : publicationPrices, as : 'publication'}">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr class="success">
+                                <th colspan="5">Publication: <span data-bind="text: publicationName"></span></th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th class="hidden-xs">Price</th>
+                                <th class="hidden-xs">Quantity</th>
+                                <th class="hidden-xs">Editions</th>
+                                <th>Sub Total</th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach : {data : lineItems, as : 'lineItem'}">
+                            <tr>
+                                <td data-bind="text: name"></td>
+                                <td class="hidden-xs" data-bind="text: price"></td>
+                                <td class="hidden-xs" data-bind="text: quantity"></td>
+                                <td class="hidden-xs" data-bind="text: editions"></td>
+                                <td data-bind="text: itemTotal"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <div class="pull-left">
+                    <h4 data-bind="text: pricetotal"></h4>
+                </div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-    // Fix the total price 
-    $('#priceSummary').on('affix.bs.affix', function () {
-        $(this).css({ top: -20, width: $('.navbar').width(), 'z-index': '1000' });
-    }).on('affix-top.bs.affix', function () {
-        $(this).width($('.navbar').width());
-    });
-
-    $(window).resize(function() {
-        $('#priceSummary').width($('.navbar').width());
-    });
-</script>

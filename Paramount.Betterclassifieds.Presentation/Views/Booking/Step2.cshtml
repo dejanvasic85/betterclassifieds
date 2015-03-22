@@ -6,14 +6,19 @@
     ViewBag.Title = "Design Ad";
     Layout = @Url.ClientUrl("~/Views/Shared/_ApplicationLayout.cshtml");
 }
-<ul class="nav nav-tabs" role="tablist">
+<ul class="nav nav-tabs" role="tablist" id="bookingNavSteps" data-spy="affix" data-offset-top="280" data-offset-bottom="200">
     <li>@Html.ActionLink("1", "Step1")</li>
     <li class="active"><a href="#">Step 2</a></li>
     <li class="disabled"><a href="#">3</a></li>
+    <li class="pull-right">
+        <a data-toggle="modal" data-target="#priceSummaryModal" style="cursor: pointer" data-bind="text: pricetotal"></a>
+    </li>
 </ul>
 
-
+@*Modal Dialogs*@
 @Html.Partial("_PriceSummary")
+@Html.Partial("_CropImage")
+@Html.Partial("_EditionsDates")
 
 <form role="form" id="adDesignForm" action="@Url.Action("Step2", "Booking")" method="POST">
     @Html.AntiForgeryToken()
@@ -294,9 +299,6 @@
 
 </form>
 
-@Html.Partial("_CropImage")
-@Html.Partial("_EditionsDates")
-
 @section Scripts{
 
     <script src="@Url.Content("~/Scripts/jquery.cleditor.min.js")"></script>
@@ -304,6 +306,14 @@
     <script>
 
         (function($, $paramount) {
+
+            $('#bookingNavSteps').on('affix.bs.affix', function() {
+                $(this).css({ top: 0, width: $('.navbar').width() });
+            });
+
+            $(window).resize(function() {
+                $('#bookingNavSteps').width($('.navbar').width());
+            });
 
             var lineAdJson = {};
             @if (Model.IsLineAdIncluded)

@@ -26,6 +26,11 @@
         // Any captcha input should add the form-control css class
         $('#CaptchaInputText').addClass("form-control");
 
+        // Online Ad location should load areas
+        $('#OnlineAdLocationId').on('change', function () {
+            $('#OnlineAdLocationAreaId').loadLocationAreas($paramount.url.getLocationAreas, $(this).val(), false);
+        });
+
         // Wire up the bootstrap tooltips
         $("[rel='tooltip']").tooltip();
 

@@ -1,6 +1,6 @@
 ﻿@using Paramount
 
-@model dynamic
+@model Paramount.Betterclassifieds.Presentation.ViewModels.EditAdDetailsViewModel
 
 @{
     ViewBag.Title = "Update Ad Details";
@@ -30,7 +30,7 @@
 
 <form role="form" id="adDesignForm" action="@Url.Action("EditDetails", "Account")" method="POST">
     @Html.AntiForgeryToken()
-    
+
     <div class="row top-buffer-20">
         <div class="col-xs-12">
             <div class="bs-callout bs-callout-info">
@@ -38,18 +38,21 @@
                 <p>Please provide at least a heading and description for your online ad.</p>
             </div>
 
+            @*Heading*@
             <div class="form-group">
                 @Html.LabelFor(m => m.OnlineAdHeading)
                 @Html.BootstrapLargeTextBoxFor(m => m.OnlineAdHeading)
                 @Html.ValidationMessageFor(m => m.OnlineAdHeading)
             </div>
 
+            @*Description*@
             <div class="form-group">
                 @Html.LabelFor(m => m.OnlineAdDescription)
                 @Html.BootstrapLargeTextAreaFor(m => m.OnlineAdDescription, 8)
                 @Html.ValidationMessageFor(m => m.OnlineAdDescription)
             </div>
 
+            @*Contact Details*@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="form-group">
@@ -76,6 +79,7 @@
                 </div>
             </div>
 
+            @*Location and Area*@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
@@ -97,6 +101,7 @@
                 </div>
             </div>
 
+            @*Photos*@
             <div class="panel panel-default" id="onlineImages">
 
                 <div class="panel-heading">
@@ -114,7 +119,7 @@
 
                         @if (Model.MaxOnlineImages.HasValue)
                         {
-                            <span>You can upload up to @Model.MaxOnlineImages images.</span>
+                        <span>You can upload up to @Model.MaxOnlineImages images.</span>
                         }
                     </div>
 
@@ -143,3 +148,8 @@
     </div>
 
 </form>
+
+@section Scripts{
+    <script src="@Url.Content("~/Scripts/jquery.cleditor.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/cropper.js")"></script>
+}

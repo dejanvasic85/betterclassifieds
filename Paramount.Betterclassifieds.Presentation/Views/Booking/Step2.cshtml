@@ -333,10 +333,6 @@
                 // jquery ready
                 $paramount.setOnlineEditor($('#OnlineAdDescription'));
 
-                $('#OnlineAdLocationId').on('change', function() {
-                    $('#OnlineAdLocationAreaId').loadLocationAreas($paramount.url.getLocationAreas, $(this).val(), false);
-                });
-
                 $('#copyOnlineAdDetails').click(function() {
                     // copy header
                     designAdModel.lineAdHeader($('#OnlineAdHeading').val());

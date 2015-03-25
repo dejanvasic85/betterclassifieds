@@ -5,15 +5,12 @@ using System.Globalization;
 using System.Web.Mvc;
 using Paramount.Betterclassifieds.Presentation.Framework;
 
-namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
+namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
-    /// <summary>
-    /// Ad Details
-    /// </summary>
-    public class Step2View
+    public class EditAdDetailsViewModel
     {
         #region Online Ad Details
-        
+
         [Required]
         [Display(Name = "Heading")]
         [StringLength(255)]
@@ -52,22 +49,22 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         #endregion
 
         #region Print Ad Details
-        
+
         public bool IsLineAdIncluded { get; set; }
 
         public List<string> OnlineAdImages { get; set; }
-        
+
         [Display(Name = "Heading")]
         [StringLength(100)]
         public string LineAdHeader { get; set; }
-        
+
         [Display(Name = "Description")]
         [RequiredIf("IsLineAdIncluded", true)]
         [AllowHtml]
         public string LineAdText { get; set; }
-        
+
         public string LineAdImageId { get; set; }
-        
+
         public DateTime? FirstPrintDateFormatted
         {
             get
@@ -78,7 +75,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
                 return DateTime.ParseExact(this.FirstPrintDate, "dd/MM/yyyy", new DateTimeFormatInfo());
             }
         }
-        
+
         [RequiredIf("IsLineAdIncluded", true)]
         [Display(Name = "First Print Edition")]
         public string FirstPrintDate { get; set; }
@@ -122,7 +119,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         #region Configuration
 
         public int ConfigDurationDays { get; set; }
-        
+
         public int? MaxOnlineImages { get; set; }
 
         public int MaxImageUploadBytes { get; set; }
@@ -132,7 +129,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
             get { return MaxImageUploadBytes / (decimal)1000000; }
         }
 
-        #endregion
-
+        #endregion        
     }
 }

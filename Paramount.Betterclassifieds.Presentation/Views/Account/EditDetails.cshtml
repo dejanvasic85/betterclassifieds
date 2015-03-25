@@ -1,0 +1,145 @@
+﻿@using Paramount
+
+@model dynamic
+
+@{
+    ViewBag.Title = "Update Ad Details";
+    Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayoutWithSearch.cshtml");
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        @Html.Partial("_UserMenu")
+    </div>
+</div>
+
+<h1 class="page-header">Update Ad Details</h1>
+
+@if (ViewBag.Updated)
+{
+    <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+        </button>
+        Your details have been updated successfully.
+    </div>
+}
+
+
+@Html.Partial("_CropImage")
+
+<form role="form" id="adDesignForm" action="@Url.Action("EditDetails", "Account")" method="POST">
+    @Html.AntiForgeryToken()
+    
+    <div class="row top-buffer-20">
+        <div class="col-xs-12">
+            <div class="bs-callout bs-callout-info">
+                <h4>Online Ad Details</h4>
+                <p>Please provide at least a heading and description for your online ad.</p>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.OnlineAdHeading)
+                @Html.BootstrapLargeTextBoxFor(m => m.OnlineAdHeading)
+                @Html.ValidationMessageFor(m => m.OnlineAdHeading)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.OnlineAdDescription)
+                @Html.BootstrapLargeTextAreaFor(m => m.OnlineAdDescription, 8)
+                @Html.ValidationMessageFor(m => m.OnlineAdDescription)
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.OnlineAdContactName)
+                        @Html.BootstrapLargeTextBoxFor(m => m.OnlineAdContactName)
+                        @Html.ValidationMessageFor(m => m.OnlineAdContactName)
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.OnlineAdContactEmail)
+                        @Html.BootstrapLargeTextBoxFor(m => m.OnlineAdContactEmail)
+                        @Html.ValidationMessageFor(m => m.OnlineAdContactEmail)
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.OnlineAdContactPhone)
+                        @Html.BootstrapLargeTextBoxFor(m => m.OnlineAdContactPhone)
+                        @Html.ValidationMessageFor(m => m.OnlineAdContactPhone)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.OnlineAdLocationId)
+                        <select id="OnlineAdLocationId" name="OnlineAdLocationId"
+                                class="form-control input-lg js-select"
+                                data-selected="@Model.OnlineAdLocationId"
+                                data-url="@Url.LocationOptions()"></select>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.OnlineAdLocationAreaId)
+                        <select id="OnlineAdLocationAreaId" name="OnlineAdLocationAreaId"
+                                class="form-control input-lg js-select"
+                                data-selected="@Model.OnlineAdLocationAreaId"
+                                data-url="@Url.LocationAreaOptions(Model.OnlineAdLocationId)"></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default" id="onlineImages">
+
+                <div class="panel-heading">
+                    Online Images &nbsp;
+                    <span class="btn btn-success fileinput-button" data-bind="css : { hidden : !maxLimitNotReached() }">
+                        <i class="fa fa-upload"></i>
+                        <span>Upload Image</span>
+                        <!-- The file input field used as target for the file upload widget -->
+                        <input id="fileupload" type="file" name="files[]" multiple>
+                    </span>
+                </div>
+                <div class="panel-body upload-thumbs">
+                    <div class="alert alert-warning">
+                        Max image size @Model.MaxImageUploadInMegabytes.ToString("F1") MB.
+
+                        @if (Model.MaxOnlineImages.HasValue)
+                        {
+                            <span>You can upload up to @Model.MaxOnlineImages images.</span>
+                        }
+                    </div>
+
+                    <div class="alert alert-danger" data-bind="text : errorMsg, css : { hidden : errorMsg().length == 0 }"></div>
+                    <div class="progress progress-striped active" data-bind="visible: uploadImageInProgress">
+                        <div class="progress-bar active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                            <span data-bind="visible: uploadImageInProgress">Uploading...</span>
+                        </div>
+                    </div>
+
+                    <div class="row" data-bind="foreach: adImages">
+                        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                            <div class="thumbnail">
+                                <img data-bind="attr: {src: $paramount.svc.getImageUrl($data) }" />
+                                <div class="caption">
+                                    <button class="btn btn-warning btn-block" title="Remove" data-bind="click: $parent.removeImage">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

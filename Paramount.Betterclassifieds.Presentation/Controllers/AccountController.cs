@@ -3,28 +3,32 @@
     using AutoMapper;
     using Business;
     using Business.Broadcast;
+    using Business.Booking;
+    using Business.Search;
     using System.Web.Mvc;
     using ViewModels;
 
-    [Authorize]
     public class AccountController : Controller, IMappingBehaviour
     {
         private readonly IUserManager _userManager;
         private readonly IAuthManager _authManager;
         private readonly IBroadcastManager _broadcastManager;
+        private readonly IBookingManager _bookingManager;
+        private readonly ISearchService _searchService;
 
         public const string ReturnUrlKey = "ReturnUrlForLogin";
 
-        public AccountController(IUserManager userManager, IAuthManager authManager, IBroadcastManager broadcastManager)
+        public AccountController(IUserManager userManager, IAuthManager authManager, IBroadcastManager broadcastManager, IBookingManager bookingManager, ISearchService searchService)
         {
             _userManager = userManager;
             _authManager = authManager;
             _broadcastManager = broadcastManager;
+            _bookingManager = bookingManager;
+            _searchService = searchService;
         }
 
         [HttpGet]
         [RequireHttps]
-        [AllowAnonymous]
         public ActionResult Login(string returnUrl = "")
         {
             if (_authManager.IsUserIdentityLoggedIn(this.User))
@@ -42,7 +46,6 @@
         [HttpPost]
         [ValidateAntiForgeryToken]
         [RequireHttps]
-        [AllowAnonymous]
         public ActionResult Login(LoginViewModel loginViewModel)
         {
             if (_authManager.IsUserIdentityLoggedIn(this.User))
@@ -85,7 +88,6 @@
         [HttpPost]
         [ValidateAntiForgeryToken]
         [RequireHttps]
-        [AllowAnonymous]
         public ActionResult Register(RegisterViewModel viewModel)
         {
             if (_authManager.IsUserIdentityLoggedIn(this.User))
@@ -129,7 +131,6 @@
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public ActionResult Confirmation(int registrationId, string token, string username)
         {
             // Fetch the registration record
@@ -164,7 +165,6 @@
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public ActionResult Logout()
         {
             // Simply call the auth manager to get out of forms auth
@@ -172,6 +172,32 @@
 
             // Redirect to the home page - since this is where they can only hit this anyway
             return RedirectToAction("Index", "Home");
+        }
+
+        // Todo this should be a post and not a GET! No wonder it was caching the result (BAD)
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+        public JsonResult IsEmailUnique(string registerEmail)
+        {
+            return Json(!_authManager.CheckEmailExists(registerEmail), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ForgotPassword(string email)
+        {
+            var user = _userManager.GetUserByEmailOrUsername(email);
+
+            if (user == null)
+                return Json(new { Error = "The provided email is not valid or does not exist." });
+
+            var password = _authManager.SetRandomPassword(user.Email);
+
+            _broadcastManager.SendEmail(new ForgottenPassword
+            {
+                Email = email,
+                Password = password,
+                Username = user.Username
+            }, email);
+
+            return Json(new { Completed = true });
         }
 
         [Authorize]
@@ -186,6 +212,7 @@
         }
 
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Details(UserDetailsEditView userDetailsView)
         {
@@ -204,6 +231,7 @@
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult ChangePassword()
         {
             var changePasswordView = new ChangePasswordView();
@@ -212,6 +240,7 @@
         }
 
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult ChangePassword(ChangePasswordView changePasswordView)
         {
@@ -233,38 +262,32 @@
             return View(changePasswordView);
         }
 
-        #region json requests
-
-        // Todo this should be a post and not a GET! No wonder it was caching the result (BAD)
-        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        [AllowAnonymous]
-        public JsonResult IsEmailUnique(string registerEmail)
+        public ActionResult EditDetails(int adId)
         {
-            return Json(!_authManager.CheckEmailExists(registerEmail), JsonRequestBehavior.AllowGet);
+            ViewBag.Updated = false;
+            var viewModel = new EditAdDetailsViewModel();
+
+            // Fetch the ad booking
+            var adBooking = _searchService.GetAdById(adId);
+
+
+
+            return View(viewModel);
         }
 
-        [AllowAnonymous]
-        public JsonResult ForgotPassword(string email)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditDetails(EditAdDetailsViewModel viewModel)
         {
-            var user = _userManager.GetUserByEmailOrUsername(email);
-
-            if (user == null)
-                return Json(new { Error = "The provided email is not valid or does not exist." });
-
-            var password = _authManager.SetRandomPassword(user.Email);
-
-            _broadcastManager.SendEmail(new ForgottenPassword
+            if (!ModelState.IsValid)
             {
-                Email = email,
-                Password = password,
-                Username = user.Username
-            }, email);
+                ViewBag.Updated = false;
+            }
 
-            return Json(new { Completed = true });
+            ViewBag.Updated = true;
+            return View();
         }
 
-        #endregion
-       
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateProfile("accountCtrlMap");

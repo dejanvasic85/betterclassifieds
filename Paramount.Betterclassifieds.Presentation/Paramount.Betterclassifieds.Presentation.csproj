@@ -196,6 +196,7 @@
     </Compile>
     <Compile Include="LegacyIntegration\LegacyLinks.cs" />
     <Compile Include="ViewModels\Account\AccountConfirmationViewModel.cs" />
+    <Compile Include="ViewModels\Account\EditAdDetailsViewModel.cs" />
     <Compile Include="ViewModels\Account\LoginOrRegisterModel.cs" />
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
     <Compile Include="ViewModels\Account\ChangePasswordView.cs" />
@@ -501,6 +502,7 @@
     <Content Include="Views\Shared\_ApplicationStyles.cshtml" />
     <Content Include="Views\Shared\_CropImage.cshtml" />
     <Content Include="Views\Shared\_EditionsDates.cshtml" />
+    <Content Include="Views\Account\EditDetails.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

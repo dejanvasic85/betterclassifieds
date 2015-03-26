@@ -1,4 +1,5 @@
 ﻿@using Paramount
+@using Paramount.Betterclassifieds.Presentation.Framework
 
 @model Paramount.Betterclassifieds.Presentation.ViewModels.EditAdDetailsViewModel
 
@@ -119,7 +120,7 @@
 
                         @if (Model.MaxOnlineImages.HasValue)
                         {
-                        <span>You can upload up to @Model.MaxOnlineImages images.</span>
+                            <span>You can upload up to @Model.MaxOnlineImages images.</span>
                         }
                     </div>
 
@@ -152,4 +153,9 @@
 @section Scripts{
     <script src="@Url.Content("~/Scripts/jquery.cleditor.min.js")"></script>
     <script src="@Url.Content("~/Scripts/cropper.js")"></script>
+
+    <script>
+        var designAdModel = new $paramount.models.DesignAd(@Html.Raw(Model.OnlineAdImages.ToJsonString()), @Model.MaxOnlineImages, {});
+        ko.applyBindings(designAdModel);
+    </script>
 }

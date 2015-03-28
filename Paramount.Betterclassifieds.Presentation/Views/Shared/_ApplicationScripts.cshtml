@@ -22,19 +22,39 @@
 <script>
     var $paramount = (function (me) {
 
-        me.url = {
-            updateBookingRates: '@Url.UpdateBookingRates()',
+        me.url = {};
+
+        me.url.locations = {
+            getLocationAreas: '@Url.LocationAreaOptions()'
+        }
+
+        // Endpoints for managing images regardless of context
+        me.url.manageImg = {
+            cropImage: '@Url.CropImage()',
             uploadCropImage: '@Url.ImageUpload()',
             imgThumb: '@Url.Image("-1")',
             cancelCropImage: '@Url.CancelCrop()',
-            cropImage: '@Url.CropImage()',
-            renderCropImage: '@Url.RenderCropImage()',
+            renderCropImage: '@Url.RenderCropImage()'
+        }
+
+        // Endpoints for managing existing ad
+        me.url.adManagement = {
+            updateBookingRates: '',
+            previewBookingEditions: '',
+            bookingLineAdImage: '',
+            removeLineAdImage: '',
+            removeOnlineAdImage: '',
+            uploadOnlineImage: '',
+        }
+
+        // Endpoints for managing ad during booking
+        me.url.adBooking = {
+            updateBookingRates: '@Url.UpdateBookingRates()',
+            previewBookingEditions: '@Url.PreviewBookingEditions()',
             bookingLineAdImage: '@Url.SetLineAdImageId()',
             removeLineAdImage: '@Url.RemoveLineAdImage()',
             removeOnlineAdImage: '@Url.RemoveOnlineImage()',
             uploadOnlineImage: '@Url.UploadOnlineImage()',
-            getLocationAreas: '@Url.LocationAreaOptions()',
-            previewBookingEditions : '@Url.PreviewBookingEditions()',
         }
 
         return me;

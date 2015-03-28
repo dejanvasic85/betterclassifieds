@@ -2,14 +2,18 @@
 
     $paramount.models = $paramount.models || {};
 
-    $paramount.models.DesignAd = function (data, maxImages, lineAd) {
+    $paramount.models.DesignAd = function (adService, data, maxImages, lineAd) {
+
         var self = this;
 
+        // The ad management service to use is injected
+        self.svc = adService;
+        
         // Online Images
         self.adImages = ko.observableArray(data);
         self.errorMsg = ko.observable("");
         self.removeImage = function (img) {
-            $paramount.svc.removeOnlineAdImageForBooking(img)
+            self.svc.removeOnlineAdImageForBooking(img)
                 .done(function (result) {
                     if (result.removed) {
                         self.adImages.remove(img);
@@ -34,7 +38,7 @@
         });
         self.lineAdImageId = ko.observable(lineAd.lineAdImageId == null ? '' : lineAd.lineAdImageId);
         self.removePrintImage = function () {
-            $paramount.svc
+            self.svc
                 .removeLineAdImageForBooking(self.lineAdImageId())
                 .complete(function () {
                     self.lineAdImageId("");
@@ -49,7 +53,7 @@
         self.publicationPrices = ko.observableArray([]);
         self.onlineItemPrices = ko.observableArray([]);
         self.calculate = ko.computed(function () {
-            $paramount.svc.updateBookingRates({
+            self.svc.updateBookingRates({
                 lineAdText: self.lineAdText(),
                 lineAdHeader: self.lineAdHeader(),
                 usePhoto: self.lineAdImageId(),

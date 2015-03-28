@@ -25,3 +25,4 @@
 /// <reference path="paramount-svc.js" />
 /// <reference path="paramount-ui.js" />
 /// <reference path="booking/designad.js" />
+/// <reference path="paramount-adservice.js" />

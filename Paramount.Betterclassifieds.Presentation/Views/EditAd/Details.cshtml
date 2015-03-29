@@ -153,11 +153,13 @@
 @section Scripts{
     <script src="@Url.Content("~/Scripts/jquery.cleditor.min.js")"></script>
     <script src="@Url.Content("~/Scripts/cropper.js")"></script>
-    
+
 
     <script>
         var adService = new $paramount.adService($paramount.url.adManagement);
         var designAdModel = new $paramount.models.DesignAd(adService, @Html.Raw(Model.OnlineAdImages.ToJsonString()), @Model.MaxOnlineImages, {});
         ko.applyBindings(designAdModel);
+
+
     </script>
 }

@@ -6,7 +6,7 @@ namespace Paramount.Betterclassifieds.Presentation
 
 
     /// <summary>
-    /// Authorizes the user to the ad they are requesting only if it belongs to them.
+    /// Authorizes the user to the 'shopping cart' they are requesting only if it belongs to them.
     /// </summary>
     public class AuthorizeCartIdentity : ActionFilterAttribute
     {

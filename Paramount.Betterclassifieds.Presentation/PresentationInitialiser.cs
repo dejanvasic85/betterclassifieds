@@ -48,12 +48,6 @@ namespace Paramount.Betterclassifieds.Presentation
                 defaults: new { id = RouteParameter.Optional });
 
             // Images
-            //routes.MapRoute("imageCropUpload", "Image/Crop/Upload",
-            //    new { controller = "Image", action = "UploadCropImage", width = UrlParameter.Optional, height = UrlParameter.Optional });
-            
-            //routes.MapRoute("imageCropRender", "Image/Crop/{documentId}",
-            //    new { controller = "Image", action = "RenderCropImage", documentId = UrlParameter.Optional });
-            
             routes.MapRoute("imageRoute", "img/{documentId}/{width}/{height}",
                 new { controller = "Image", action = "Render", width = UrlParameter.Optional, height = UrlParameter.Optional });
 
@@ -72,8 +66,6 @@ namespace Paramount.Betterclassifieds.Presentation
             routes.MapRoute("bookingRoute2", "Booking/Step/2", new { controller = "Booking", action = "Step2", module = Name },
                 new[] { GetType().Namespace });
             routes.MapRoute("bookingRoute3", "Booking/Step/3", new { controller = "Booking", action = "Step3", module = Name },
-                new[] { GetType().Namespace });
-            routes.MapRoute("bookingRoute4", "Booking/Step/4", new { controller = "Booking", action = "Step4", module = Name },
                 new[] { GetType().Namespace });
 
             // Default

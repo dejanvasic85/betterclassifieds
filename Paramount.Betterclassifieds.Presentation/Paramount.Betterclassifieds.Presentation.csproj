@@ -177,11 +177,13 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\EditAdController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\ListingsController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
+    <Compile Include="Framework\AuthorizeBookingIdentity.cs" />
     <Compile Include="Framework\AuthorizeCartIdentity.cs" />
     <Compile Include="Framework\BookingRequiredAttribute.cs" />
     <Compile Include="Framework\BookingStepAttribute.cs" />
@@ -495,13 +497,13 @@
     <Content Include="Views\Account\HowYouFoundUs\_HowYouFoundUs.cshtml" />
     <Content Include="Views\Account\HowYouFoundUs\_HowYouFoundUs.KandoBay.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
-    <Content Include="Views\Account\_UserMenu.cshtml" />
+    <Content Include="Views\Shared\_UserMenu.cshtml" />
     <Content Include="Views\Booking\_BookingInformationPanel.cshtml" />
     <Content Include="Views\Shared\_ApplicationScripts.cshtml" />
     <Content Include="Views\Shared\_ApplicationStyles.cshtml" />
     <Content Include="Views\Shared\_CropImage.cshtml" />
     <Content Include="Views\Shared\_EditionsDates.cshtml" />
-    <Content Include="Views\Account\EditDetails.cshtml" />
+    <Content Include="Views\EditAd\Details.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

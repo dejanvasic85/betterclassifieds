@@ -19,6 +19,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         void IncrementHits(int id);
         void SubmitAdEnquiry(AdEnquiry enquiry);
         int? CreateBooking(BookingCart bookingCart, BookingOrderResult bookingOrder);
+        bool AdBelongsToUser(int adId, string username);
     }
 
     public class BookingManager : IBookingManager
@@ -199,6 +200,13 @@ namespace Paramount.Betterclassifieds.Business.Booking
             });
 
             return adBookingId;
+        }
+
+        public bool AdBelongsToUser(int adId, string username)
+        {
+            var booking = _bookingRepository.GetBooking(adId);
+
+            return booking.UserId.Equals(username, StringComparison.OrdinalIgnoreCase);
         }
 
         public IEnumerable<PublicationEditionModel> GenerateExtensionDates(int adBookingId, int numberOfInsertions)

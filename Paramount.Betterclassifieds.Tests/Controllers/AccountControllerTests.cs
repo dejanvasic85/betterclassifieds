@@ -21,9 +21,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IAuthManager> mockAuthMgr;
         private Mock<IBroadcastManager> mockBroadcastMgr;
         private Mock<ISearchService> searchServiceMgr;
-        private Mock<IClientConfig> mockClientConfig;
-        private Mock<IApplicationConfig> mockApplicationConfig;
-        private Mock<IBookingManager> mockBookingManager;
 
         [SetUp]
         public void SetupCotroller()
@@ -32,9 +29,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             mockAuthMgr = CreateMockOf<IAuthManager>();
             mockBroadcastMgr = CreateMockOf<IBroadcastManager>();
             searchServiceMgr = CreateMockOf<ISearchService>();
-            mockClientConfig = CreateMockOf<IClientConfig>();
-            mockApplicationConfig = CreateMockOf<IApplicationConfig>();
-            mockBookingManager = CreateMockOf<IBookingManager>();
         }
 
         [Test]

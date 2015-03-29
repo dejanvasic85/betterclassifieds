@@ -28,7 +28,7 @@
 
         // Online Ad location should load areas
         $('#OnlineAdLocationId').on('change', function () {
-            $('#OnlineAdLocationAreaId').loadLocationAreas($paramount.url.getLocationAreas, $(this).val(), false);
+            $('#OnlineAdLocationAreaId').loadLocationAreas($paramount.url.locations.getLocationAreas, $(this).val(), false);
         });
 
         // Wire up the bootstrap tooltips

@@ -393,15 +393,14 @@
 
                 // Upload control for print
                 $paramount.upload({
-                    url: $paramount.url.manageImg.cropImage,
+                    url: $paramount.url.manageImg.uploadCropImage,
                     element: $('#fileuploadPrint'),
                     progressBar: $('#fileUploadPrintProgress'),
                     start: function() {
                     },
                     complete: function(fileName) {
-                        debugger;
                         printImgFileName = fileName;
-                        $('#printCropImg').attr('src', $paramount.url.renderCropImage + "?fileName=" + fileName);
+                        $('#printCropImg').attr('src', $paramount.url.manageImg.renderCropImage + "?fileName=" + fileName);
                         $('#printImageCropDialog').modal('show');
                     }
                 });
@@ -424,7 +423,7 @@
                     $btn.button('loading');
                     var data = $printImg.cropper("getData");
                     data.documentId = printImgFileName;
-                    adService
+                    $paramount.imageService
                         .cropImage(printImgFileName, data.x, data.y, data.width, data.height)
                         .done(function(documentId) {
                             $btn.button('reset');

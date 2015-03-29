@@ -134,7 +134,7 @@
                     <div class="row" data-bind="foreach: adImages">
                         <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
                             <div class="thumbnail">
-                                <img data-bind="attr: {src: $paramount.svc.getImageUrl($data) }" />
+                                <img data-bind="attr: {src: $paramount.imageService.getImageUrl($data) }" />
                                 <div class="caption">
                                     <button class="btn btn-warning btn-block" title="Remove" data-bind="click: $parent.removeImage">
                                         <span class="glyphicon glyphicon-trash"></span>
@@ -153,7 +153,7 @@
 @section Scripts{
     <script src="@Url.Content("~/Scripts/jquery.cleditor.min.js")"></script>
     <script src="@Url.Content("~/Scripts/cropper.js")"></script>
-    <script src="@Url.Content("~/Scripts/paramount-adService.js")"></script>
+    
 
     <script>
         var adService = new $paramount.adService($paramount.url.adManagement);

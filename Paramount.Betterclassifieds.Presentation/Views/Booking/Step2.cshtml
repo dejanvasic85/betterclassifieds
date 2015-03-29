@@ -126,7 +126,7 @@
                     <div class="row" data-bind="foreach: adImages">
                         <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
                             <div class="thumbnail">
-                                <img data-bind="attr: {src: $paramount.svc.getImageUrl($data) }" />
+                                <img data-bind="attr: {src: $paramount.imageService.getImageUrl($data) }" />
                                 <div class="caption">
                                     <button class="btn btn-warning btn-block" title="Remove" data-bind="click: $parent.removeImage">
                                         <span class="glyphicon glyphicon-trash"></span>
@@ -207,7 +207,7 @@
                             <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
                                 <div class="thumbnail">
                                     <input type="hidden" name="LineAdImageId" id="LineAdImageId" data-bind="value : lineAdImageId" />
-                                    <img id="printImg" data-bind="attr : { src : $paramount.svc.getImageUrl(lineAdImageId()) }" />
+                                    <img id="printImg" data-bind="attr : { src : $paramount.imageService.getImageUrl(lineAdImageId()) }" />
                                     <div class="caption">
                                         <button class="btn btn-warning btn-block" title="Remove" data-bind="click: removePrintImage">
                                             <span class="glyphicon glyphicon-trash"></span>
@@ -308,7 +308,6 @@
 
     <script src="@Url.Content("~/Scripts/jquery.cleditor.min.js")"></script>
     <script src="@Url.Content("~/Scripts/cropper.js")"></script>
-    <script src="@Url.Content("~/Scripts/paramount-adService.js")"></script>
 
     <script>
 
@@ -400,6 +399,7 @@
                     start: function() {
                     },
                     complete: function(fileName) {
+                        debugger;
                         printImgFileName = fileName;
                         $('#printCropImg').attr('src', $paramount.url.renderCropImage + "?fileName=" + fileName);
                         $('#printImageCropDialog').modal('show');
@@ -424,13 +424,13 @@
                     $btn.button('loading');
                     var data = $printImg.cropper("getData");
                     data.documentId = printImgFileName;
-                    $paramount.svc
+                    adService
                         .cropImage(printImgFileName, data.x, data.y, data.width, data.height)
                         .done(function(documentId) {
                             $btn.button('reset');
                             $('#printImageCropDialog').modal('hide');
                             designAdModel.lineAdImageId(documentId);
-                            $paramount.svc.setLineAdImageForBooking(documentId);
+                            adService.setLineAdImageForBooking(documentId);
                         });
                 });
             });

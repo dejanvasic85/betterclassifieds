@@ -1,7 +1,7 @@
 ﻿
 var $paramount = (function (me, $) {
     
-    me.svc = {
+    me.imageService = {
         cancelCropImage: cancelCropImage,
         cropImage: cropImage,
         getImageUrl: getImageUrl

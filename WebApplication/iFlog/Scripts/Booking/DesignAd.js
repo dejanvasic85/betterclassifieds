@@ -20,6 +20,7 @@
                     }
                 });
         };
+
         self.maxImages = ko.observable(maxImages);
         self.maxLimitNotReached = function () {
             return self.adImages().length < self.maxImages();

@@ -2,7 +2,7 @@
 using AutoMapper;
 using Paramount.Betterclassifieds.Business;
 
-namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
+namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
     public class PriceSummaryViewConverter : ITypeConverter<BookingOrderResult, PriceSummaryView>
     {

@@ -2,13 +2,13 @@
 
     $paramount.models = $paramount.models || {};
 
-    $paramount.models.DesignAd = function (adService, data, maxImages, lineAd) {
+    $paramount.models.DesignAd = function (adService, data, maxImages, lineAd, updateRates) {
 
         var self = this;
 
         // The ad management service to use is injected
         self.svc = adService;
-        
+
         // Online Images
         self.adImages = ko.observableArray(data);
         self.errorMsg = ko.observable("");
@@ -50,36 +50,38 @@
         self.publicationEditions = ko.observableArray([]);
 
         // Prices
-        self.pricetotal = ko.observable();
-        self.publicationPrices = ko.observableArray([]);
-        self.onlineItemPrices = ko.observableArray([]);
-        self.calculate = ko.computed(function () {
-            self.svc.updateBookingRates({
-                lineAdText: self.lineAdText(),
-                lineAdHeader: self.lineAdHeader(),
-                usePhoto: self.lineAdImageId(),
-                editions: self.printInsertions()
-            }).done(function (resp) {
-                // Map Total
-                self.pricetotal('Total: ' + $paramount.formatCurrency(resp.BookingTotal));
+        if (updateRates) {
+            self.pricetotal = ko.observable();
+            self.publicationPrices = ko.observableArray([]);
+            self.onlineItemPrices = ko.observableArray([]);
+            self.calculate = ko.computed(function () {
+                self.svc.updateBookingRates({
+                    lineAdText: self.lineAdText(),
+                    lineAdHeader: self.lineAdHeader(),
+                    usePhoto: self.lineAdImageId(),
+                    editions: self.printInsertions()
+                }).done(function (resp) {
+                    // Map Total
+                    self.pricetotal('Total: ' + $paramount.formatCurrency(resp.BookingTotal));
 
-                // Map online line items
-                self.onlineItemPrices.removeAll();
-                $.each(resp.OnlinePrice.Items, function (index, serverItem) {
-                    self.onlineItemPrices.push(new OnlineLineItem(serverItem));
+                    // Map online line items
+                    self.onlineItemPrices.removeAll();
+                    $.each(resp.OnlinePrice.Items, function (index, serverItem) {
+                        self.onlineItemPrices.push(new OnlineLineItem(serverItem));
+                    });
+
+                    // Map publications 
+                    self.publicationPrices.removeAll();
+                    $.each(resp.PublicationPrices, function (index, serverItem) {
+                        var publicationPrice = new PublicationPrice(serverItem);
+                        if (publicationPrice.total > 0) {
+                            self.publicationPrices.push(publicationPrice);
+                        }
+                    });
                 });
 
-                // Map publications 
-                self.publicationPrices.removeAll();
-                $.each(resp.PublicationPrices, function (index, serverItem) {
-                    var publicationPrice = new PublicationPrice(serverItem);
-                    if (publicationPrice.total > 0) {
-                        self.publicationPrices.push(publicationPrice);
-                    }
-                });
-            });
-
-        }).extend({ throttle: 1000 });
+            }).extend({ throttle: 1000 });
+        }
     };
 
     var OnlineLineItem = function (serverItem) {

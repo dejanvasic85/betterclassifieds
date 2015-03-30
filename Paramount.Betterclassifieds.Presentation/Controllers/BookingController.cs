@@ -14,7 +14,6 @@
     using Business.Search;
     using Business.DocumentStorage;
     using Business.Payment;
-    using ViewModels.Booking;
     using ViewModels;
 
     public class BookingController : Controller, IMappingBehaviour

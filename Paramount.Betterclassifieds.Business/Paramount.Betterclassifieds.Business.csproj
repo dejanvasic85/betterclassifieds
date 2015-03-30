@@ -71,6 +71,7 @@
     <Compile Include="Broadcast\ITemplateParser.cs" />
     <Compile Include="Broadcast\DocTypes\IDocType.cs" />
     <Compile Include="Pricing\BookingOrderResult.cs" />
+    <Compile Include="Pricing\IAdRateContext.cs" />
     <Compile Include="Pricing\OnlineCharges\OnlineChargeItem.cs" />
     <Compile Include="Pricing\ILineItem.cs" />
     <Compile Include="Pricing\OnlineCharges\IOnlineChargeableItem.cs" />

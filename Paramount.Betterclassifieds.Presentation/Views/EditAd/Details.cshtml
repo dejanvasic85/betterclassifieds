@@ -36,7 +36,9 @@
         <div class="col-xs-12">
             <div class="bs-callout bs-callout-info">
                 <h4>Online Ad Details</h4>
-                <p>Please provide at least a heading and description for your online ad.</p>
+                <p>
+                    Please provide at least a heading and description for your online ad.
+                </p>
             </div>
 
             @*Heading*@
@@ -157,7 +159,7 @@
 
     <script>
         var adService = new $paramount.adService($paramount.url.adManagement);
-        var designAdModel = new $paramount.models.DesignAd(adService, @Html.Raw(Model.OnlineAdImages.ToJsonString()), @Model.MaxOnlineImages, {});
+        var designAdModel = new $paramount.models.DesignAd(adService, @Html.Raw(Model.OnlineAdImages.ToJsonString()), @Model.MaxOnlineImages, {}, false);
         ko.applyBindings(designAdModel);
 
 

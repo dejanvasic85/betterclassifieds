@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Paramount.Betterclassifieds.Business.Search;
 using System.Web.Mvc;
-using Paramount.Betterclassifieds.Presentation.ViewModels.Booking;
+using Paramount.Betterclassifieds.Presentation.ViewModels;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {

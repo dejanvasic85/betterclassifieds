@@ -1,6 +1,6 @@
 ﻿@using Paramount
 @using Paramount.Betterclassifieds.Presentation.Framework
-@model Paramount.Betterclassifieds.Presentation.ViewModels.Booking.Step2View
+@model Paramount.Betterclassifieds.Presentation.ViewModels.Step2View
 
 @{
     ViewBag.Title = "Design Ad";
@@ -329,7 +329,7 @@
 
             var adService = new $paramount.adService($paramount.url.adBooking);
 
-            var designAdModel = new $paramount.models.DesignAd(adService, @Html.Raw(Model.OnlineAdImages.ToJsonString()), @Model.MaxOnlineImages, lineAdJson);
+            var designAdModel = new $paramount.models.DesignAd(adService, @Html.Raw(Model.OnlineAdImages.ToJsonString()), @Model.MaxOnlineImages, lineAdJson, true);
             ko.applyBindings(designAdModel);
 
             $(function() {

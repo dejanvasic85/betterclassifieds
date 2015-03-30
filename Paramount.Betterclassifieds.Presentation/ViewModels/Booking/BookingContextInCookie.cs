@@ -2,7 +2,7 @@
 using System;
 using System.Web;
 
-namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
+namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
     /// <summary>
     /// Manages the booking cart with the user's cookie

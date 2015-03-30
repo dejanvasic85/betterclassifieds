@@ -1,30 +1,32 @@
 ﻿using System.Web.Mvc;
 using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     [Authorize]
-    [AuthorizeCartIdentity]
     public class EditAdController : Controller
     {
         private readonly ISearchService _searchService;
         private readonly IApplicationConfig _applicationConfig;
         private readonly IClientConfig _clientConfig;
+        private readonly IRateCalculator _rateCalulator;
 
         public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig,
-            IClientConfig clientConfig)
+            IClientConfig clientConfig, IRateCalculator rateCalulator)
         {
             _searchService = searchService;
             _applicationConfig = applicationConfig;
             _clientConfig = clientConfig;
+            _rateCalulator = rateCalulator;
         }
 
 
         //
         // GET: /EditAd/AdDetails/{id}
-        
+        [AuthorizeCartIdentity]
         public ActionResult Details(int id)
         {
             ViewBag.Updated = false;

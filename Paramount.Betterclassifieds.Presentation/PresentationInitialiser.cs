@@ -4,7 +4,6 @@ using Paramount.ApplicationBlock.Mvc.ModelBinders;
 using Paramount.ApplicationBlock.Mvc.Unity;
 using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
-using Paramount.Betterclassifieds.Presentation.ViewModels.Booking;
 using System;
 using System.Linq;
 using System.Web.Http;

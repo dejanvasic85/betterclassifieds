@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Web.Mvc;
 using Paramount.Betterclassifieds.Presentation.Framework;
 
-namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
+namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
     /// <summary>
     /// Ad Details

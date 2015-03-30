@@ -2,7 +2,6 @@
 
 namespace Paramount.Betterclassifieds.Business
 {
-    using Booking;
     using Print;
     using Repository;
 
@@ -10,7 +9,7 @@ namespace Paramount.Betterclassifieds.Business
     {
         decimal Calculate(int ratecardId, LineAdModel lineAd, bool isOnlineAd, int editions = 1);
 
-        BookingOrderResult Calculate(BookingCart bookingCart, int? editionOverride = null);
+        BookingOrderResult Calculate(IAdRateContext adRateContext, int? editionOverride = null);
     }
 
     public class RateCalculator : IRateCalculator
@@ -67,35 +66,35 @@ namespace Paramount.Betterclassifieds.Business
         /// <summary>
         /// Constructs the booking rate result that contains calculated line items for each publication 
         /// </summary>
-        public BookingOrderResult Calculate(BookingCart bookingCart, int? editionOverride = null)
+        public BookingOrderResult Calculate(IAdRateContext adRateContext, int? editionOverride = null)
         {
-            var bookingRate = new BookingOrderResult(bookingCart.Reference);
+            var bookingRate = new BookingOrderResult(adRateContext.Reference);
 
-            Guard.NotNullIn(bookingCart, bookingCart.CategoryId, bookingCart.SubCategoryId);
+            Guard.NotNullIn(adRateContext, adRateContext.CategoryId, adRateContext.SubCategoryId);
 
             // Online rates
-            var onlineAdRate = _rateRepository.GetOnlineRateForCategories(bookingCart.SubCategoryId, bookingCart.CategoryId);
+            var onlineAdRate = _rateRepository.GetOnlineRateForCategories(adRateContext.SubCategoryId, adRateContext.CategoryId);
             if (onlineAdRate == null)
             {
                 throw new SetupException("No available online rate has been setup.");
             }
 
             bookingRate.AddOnlineRate(_onlineChargeableItems
-                .Select(c => c.Calculate(onlineAdRate, bookingCart.OnlineAdModel))
+                .Select(c => c.Calculate(onlineAdRate, adRateContext.OnlineAdModel))
                 .ToArray());
 
-            if (!bookingCart.IsLineAdIncluded)
+            if (!adRateContext.IsLineAdIncluded)
                 return bookingRate;
 
             // Print Rates
-            var printRates = _rateRepository.GetRatesForPublicationCategory(bookingCart.Publications, bookingCart.SubCategoryId);
+            var printRates = _rateRepository.GetRatesForPublicationCategory(adRateContext.Publications, adRateContext.SubCategoryId);
             foreach (var printRate in printRates)
             {
                 var publicationName = _publicationRepository.GetPublication(printRate.PublicationId).Title;
 
                 bookingRate
                     .AddPublicationWithRates(publicationName, printRate.PublicationId, printRate.RatecardId,
-                        _printChargeableItems.Select(pr => pr.Calculate(printRate, bookingCart.LineAdModel, editionOverride ?? bookingCart.PrintInsertions.GetValueOrDefault()))
+                        _printChargeableItems.Select(pr => pr.Calculate(printRate, adRateContext.LineAdModel, editionOverride ?? adRateContext.PrintInsertions.GetValueOrDefault()))
                     .ToArray());
             }
 

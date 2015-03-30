@@ -1,5 +1,5 @@
 ﻿
-namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
+namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
     public class SuccessView
     {

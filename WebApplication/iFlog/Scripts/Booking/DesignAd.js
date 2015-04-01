@@ -13,7 +13,7 @@
         self.adImages = ko.observableArray(data);
         self.errorMsg = ko.observable("");
         self.removeImage = function (img) {
-            self.svc.removeOnlineAdImageForBooking(img)
+            self.svc.removeOnlineAdImage(img)
                 .done(function (result) {
                     if (result.removed) {
                         self.adImages.remove(img);

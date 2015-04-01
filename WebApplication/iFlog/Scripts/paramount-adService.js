@@ -1,6 +1,6 @@
 ﻿
 // Ad Management service
-var $paramount = (function (me, $) {
+(function (me, $) {
 
     // Constructor
     me.adService = function (endpoints) {
@@ -27,7 +27,7 @@ var $paramount = (function (me, $) {
         return post(this.endpoints.bookingLineAdImage, { documentId: documentId });
     }
 
-    me.adService.prototype.removeOnlineAdImageForBooking = function (documentId) {
+    me.adService.prototype.removeOnlineAdImage = function (documentId) {
         return post(this.endpoints.removeOnlineAdImage, { documentId: documentId });
     }
 

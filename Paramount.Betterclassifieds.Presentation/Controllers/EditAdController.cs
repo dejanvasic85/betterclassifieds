@@ -45,6 +45,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 MaxImageUploadBytes = _applicationConfig.MaxImageUploadBytes,
                 ConfigDurationDays = _clientConfig.RestrictedOnlineDaysCount,
                 StartDate = adBooking.StartDate,
+                IsFutureScheduledAd = adBooking.StartDate > DateTime.Today,
                 AdId = id,
                 OnlineAdHeading = adBooking.Heading,
                 OnlineAdDescription = adBooking.Description,
@@ -53,7 +54,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 OnlineAdContactPhone = adBooking.ContactPhone,
                 OnlineAdLocationId = adBooking.LocationId,
                 OnlineAdLocationAreaId = adBooking.LocationAreaId,
-                OnlineAdImages = adBooking.ImageUrls.ToList()
+                OnlineAdImages = adBooking.ImageUrls.ToList(),
             };
 
             return View(viewModel);
@@ -63,13 +64,20 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Details(EditAdDetailsViewModel viewModel)
         {
+            var adBooking = _searchService.GetAdById(viewModel.AdId);
+            viewModel.MaxOnlineImages = _clientConfig.MaxOnlineImages > adBooking.ImageUrls.Length ? _clientConfig.MaxOnlineImages : adBooking.ImageUrls.Length;
+            viewModel.MaxImageUploadBytes = _applicationConfig.MaxImageUploadBytes;
+            viewModel.ConfigDurationDays = _clientConfig.RestrictedOnlineDaysCount;
+            viewModel.OnlineAdImages = adBooking.ImageUrls.ToList();
+
             if (!ModelState.IsValid)
             {
                 ViewBag.Updated = false;
+                return View(viewModel);
             }
 
+            // Map the settings
             ViewBag.Updated = true;
-
             return View(viewModel);
         }
 

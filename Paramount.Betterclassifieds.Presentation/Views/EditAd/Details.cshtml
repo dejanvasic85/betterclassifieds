@@ -22,15 +22,16 @@
         <button type="button" class="close" data-dismiss="alert">
             <span aria-hidden="true">×</span><span class="sr-only">Close</span>
         </button>
-        Your details have been updated successfully.
+        Details have been updated successfully.
     </div>
 }
 
-
 @Html.Partial("_CropImage")
 
-<form role="form" id="adDesignForm" action="@Url.Action("EditDetails", "Account")" method="POST">
+<form role="form" id="adDesignForm" action="@Url.Action("Details", "EditAd")" method="POST">
     @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.AdId)
+    @Html.HiddenFor(m => m.IsFutureScheduledAd)
 
     <div class="row top-buffer-20">
         <div class="col-xs-12">
@@ -103,8 +104,47 @@
                     </div>
                 </div>
             </div>
+            @*Online Schedule - anyone can bring the date forward if the ad has not started yet...*@
+            <div class="row top-buffer-20">
+                <div class="col-xs-12">
+                    <div class="bs-callout bs-callout-info">
+                        <h4>Online Schedule</h4>
+                        @if (Model.IsFutureScheduledAd)
+                        {
+                            <p>
+                                You may bring your ad forward or schedule it for later if it has not started...
+                                It will be available for @Model.ConfigDurationDays  days from the date you select below.
+                            </p>
+                        }
+                        else
+                        {
+                            <div class="alert alert-info">
+                                Your ad is currently active. The option to adjust the schedule is not available at this time.
+                            </div>
+                        }
+                    </div>
 
+                    @if (Model.IsFutureScheduledAd)
+                    {
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.StartDate)
+                            @Html.BootstrapCalendar(m => m.StartDate)
+                            @Html.ValidationMessageFor(m => m.StartDate)
+                        </div>
+                    }
+                </div>
+            </div>
+            
             @*Photos*@
+            <div class="row top-buffer-20">
+                <div class="col-xs-12">
+                    <div class="bs-callout bs-callout-info">
+                        <h4>Online Photos</h4>
+                        <p>Enhance your ad with impact photos. Please Note: Uploading and removing images will update your ad instantly.</p>
+                    </div>
+                </div>
+            </div>
+
             <div class="panel panel-default" id="onlineImages">
 
                 <div class="panel-heading">
@@ -146,7 +186,14 @@
                         </div>
                     </div>
                 </div>
+
             </div>
+
+            @*Submit Buttons*@
+            <div class="form-group">
+                <button type="submit" id="btnUpdateAd" class="btn btn-default pull-right">Update Ad Details</button>
+            </div>
+
         </div>
     </div>
 
@@ -160,7 +207,7 @@
     <script>
 
         (function($, $p, $url, $models) {
-           
+
 
             var adService = new $p.adService($url.adManagement, @Model.AdId);
             var designOptions = {
@@ -174,6 +221,7 @@
             var designAdModel = new $models.DesignAd(designOptions);
             ko.applyBindings(designAdModel);
 
+            // Upload online images
             $p.upload({
                 url: $url.adBooking.uploadOnlineImage,
                 element: $('#fileupload'),
@@ -200,7 +248,7 @@
 
         })(jQuery, $paramount, $paramount.url, $paramount.models);
 
-        
+
 
 
     </script>

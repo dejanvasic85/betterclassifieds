@@ -43,9 +43,12 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         [Display(Name = "Area")]
         public int? OnlineAdLocationAreaId { get; set; }
 
-        [Required]
         [Display(Name = "Start Date")]
+        [RequiredIf("IsFutureScheduledAd", true)]
         public DateTime? StartDate { get; set; }
+
+        public bool IsFutureScheduledAd { get; set; }
+
         #endregion
 
         #region Print Ad Details

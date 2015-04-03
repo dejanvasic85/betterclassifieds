@@ -9,10 +9,10 @@
             onlineImages = options.onlineImages,
             maxImages = options.maxImages,
             lineAd = options.lineAd,
-            updateDates = options.updateRates || true;
+            updateRates = options.updateRates;
 
         var self = this;
-        
+
 
         // Online Images
         self.adImages = ko.observableArray(onlineImages);
@@ -32,30 +32,34 @@
         };
         self.uploadImageInProgress = ko.observable(false);
 
+
         // Line Ad
-        self.printInsertions = ko.observable(lineAd.printInsertions);
-        self.lineAdHeader = ko.observable(lineAd.lineAdHeader);
-        self.lineAdText = ko.observable(lineAd.lineAdText);
-        self.wordCount = ko.computed(function () {
-            if (self.lineAdText() == null || self.lineAdText().length === 0) {
-                return 0;
+        if (lineAd !== undefined && lineAd !== null) {
+            self.printInsertions = ko.observable(lineAd.printInsertions);
+            self.lineAdHeader = ko.observable(lineAd.lineAdHeader);
+            self.lineAdText = ko.observable(lineAd.lineAdText);
+            self.wordCount = ko.computed(function () {
+                if (self.lineAdText() == null || self.lineAdText().length === 0) {
+                    return 0;
+                }
+                return self.lineAdText().split(' ').length;
+            });
+            self.lineAdImageId = ko.observable(lineAd.lineAdImageId == null ? '' : lineAd.lineAdImageId);
+            self.removePrintImage = function () {
+                adService
+                    .removeLineAdImageForBooking(self.lineAdImageId())
+                    .complete(function () {
+                        self.lineAdImageId("");
+                    });
             }
-            return self.lineAdText().split(' ').length;
-        });
-        self.lineAdImageId = ko.observable(lineAd.lineAdImageId == null ? '' : lineAd.lineAdImageId);
-        self.removePrintImage = function () {
-            adService
-                .removeLineAdImageForBooking(self.lineAdImageId())
-                .complete(function () {
-                    self.lineAdImageId("");
-                });
         }
+
 
         // Editions
         self.publicationEditions = ko.observableArray([]);
 
         // Prices
-        if (updateRates) {
+        if (updateRates === true) {
             self.pricetotal = ko.observable();
             self.publicationPrices = ko.observableArray([]);
             self.onlineItemPrices = ko.observableArray([]);
@@ -77,12 +81,16 @@
 
                     // Map publications 
                     self.publicationPrices.removeAll();
-                    $.each(resp.PublicationPrices, function (index, serverItem) {
-                        var publicationPrice = new PublicationPrice(serverItem);
-                        if (publicationPrice.total > 0) {
-                            self.publicationPrices.push(publicationPrice);
-                        }
-                    });
+                    if (resp.PublicationPrices !== undefined && resp.PublicationPrices !== null) {
+
+                        $.each(resp.PublicationPrices, function (index, serverItem) {
+                            var publicationPrice = new PublicationPrice(serverItem);
+                            if (publicationPrice.total > 0) {
+                                self.publicationPrices.push(publicationPrice);
+                            }
+                        });
+
+                    }
                 });
 
             }).extend({ throttle: 1000 });

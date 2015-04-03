@@ -324,11 +324,7 @@
 
             _documentRepository.Save(imageDocument);
 
-            // Persist to the booking cart also
-            bookingCart.OnlineAdModel.AddImage(documentId.ToString());
-            _cartRepository.Save(bookingCart);
-
-
+           
             return Json(new { documentId }, JsonRequestBehavior.AllowGet);
         }
 
@@ -363,6 +359,18 @@
 
             // Remove it from the document repository
             _documentRepository.DeleteDocument(documentId);
+            return Json(true);
+        }
+
+        [HttpPost]
+        public ActionResult AssignOnlineImage(string documentId)
+        {
+            var bookingCart = _bookingContext.Current();
+
+            // Persist to the booking cart also
+            bookingCart.OnlineAdModel.AddImage(documentId);
+            _cartRepository.Save(bookingCart);
+            
             return Json(true);
         }
 
@@ -448,8 +456,7 @@
 
             return Json(new { valid = true });
         }
-
-
+        
 
         #endregion
 

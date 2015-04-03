@@ -45,7 +45,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             viewModel.MaxImageUploadBytes = _applicationConfig.MaxImageUploadBytes;
             viewModel.ConfigDurationDays = _clientConfig.RestrictedOnlineDaysCount; // maximum duration days for a booking
             viewModel.StartDate = adBooking.StartDate;
-          
+
+            viewModel.AdId = id;
             viewModel.OnlineAdHeading = adBooking.Heading;
             viewModel.OnlineAdDescription = adBooking.Description;
             viewModel.OnlineAdContactEmail = adBooking.ContactEmail;
@@ -102,7 +103,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpPost]
-        public ActionResult AssignOnlineImage(int adId)
+        public ActionResult AssignOnlineImage(int adId, string documentId)
         {
             return Json(true);
         }

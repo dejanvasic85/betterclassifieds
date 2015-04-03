@@ -3,9 +3,10 @@
 (function (me, $) {
 
     // Constructor
-    me.adService = function (endpoints) {
+    me.adService = function (endpoints, adId) {
         // Inject endpoints for ad management and img management
         this.endpoints = endpoints || me.url.adBooking;
+        this.adId = adId || null;
     };
 
     me.adService.prototype.updateBookingRates = function (model) {
@@ -15,20 +16,26 @@
     me.adService.prototype.previewBookingEditions = function (firstEdition, insertions) {
         return post(this.endpoints.previewBookingEditions, {
             firstEdition: firstEdition,
-            printInsertions: insertions
+            printInsertions: insertions,
+            adId : this.adId
         });
     }
 
     me.adService.prototype.removeLineAdImageForBooking = function (documentId) {
-        return post(this.endpoints.removeLineAdImage, { documentId: documentId });
+        return post(this.endpoints.removeLineAdImage, { documentId: documentId, adId : this.adId });
     }
 
     me.adService.prototype.setLineAdImageForBooking = function (documentId) {
-        return post(this.endpoints.bookingLineAdImage, { documentId: documentId });
+        return post(this.endpoints.bookingLineAdImage, { documentId: documentId, adId : this.adId });
+    }
+
+    me.adService.prototype.assignOnlineImage = function (documentId) {
+        debugger;
+        return post(this.endpoints.assignOnlineImageUrl, { documentId: documentId, adId: this.adId });
     }
 
     me.adService.prototype.removeOnlineAdImage = function (documentId) {
-        return post(this.endpoints.removeOnlineAdImage, { documentId: documentId });
+        return post(this.endpoints.removeOnlineAdImage, { documentId: documentId, adId: this.adId });
     }
 
     function post(url, data) {

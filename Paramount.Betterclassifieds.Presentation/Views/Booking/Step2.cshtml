@@ -375,7 +375,7 @@
                 });
 
                 $paramount.upload({
-                    url: $paramount.url.adBooking.uploadOnlineImage,
+                    url: $url.adBooking.uploadOnlineImage,
                     element: $('#fileupload'),
                     progressBar: $('#onlineImages .progress'),
                     start: function() {
@@ -385,11 +385,10 @@
                     },
                     complete: function(fileId) {
                         // Completed, so now we need to assign it to the booking
-                        adService.assignOnlineImage(fileId);
-
-                        designAdModel.adImages.push(fileId);
-                        designAdModel.uploadImageInProgress(false);
-
+                        adService.assignOnlineImage(fileId).done(function() {
+                            designAdModel.adImages.push(fileId);
+                            designAdModel.uploadImageInProgress(false);
+                        });
                     },
                     error: function(err) {
                         // Error
@@ -403,14 +402,14 @@
 
                 // Upload control for print
                 $paramount.upload({
-                    url: $paramount.url.manageImg.uploadCropImage,
+                    url: $url.manageImg.uploadCropImage,
                     element: $('#fileuploadPrint'),
                     progressBar: $('#fileUploadPrintProgress'),
                     start: function() {
                     },
                     complete: function(fileName) {
                         printImgFileName = fileName;
-                        $('#printCropImg').attr('src', $paramount.url.manageImg.renderCropImage + "?fileName=" + fileName);
+                        $('#printCropImg').attr('src', $url.manageImg.renderCropImage + "?fileName=" + fileName);
                         $('#printImageCropDialog').modal('show');
                     }
                 });

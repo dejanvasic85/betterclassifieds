@@ -20,7 +20,7 @@
         self.removeImage = function (img) {
             adService.removeOnlineAdImage(img)
                 .done(function (result) {
-                    if (result.removed) {
+                    if (result) {
                         self.adImages.remove(img);
                     }
                 });

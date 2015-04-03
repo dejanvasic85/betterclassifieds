@@ -324,11 +324,34 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
                         var items = this.MapList<ILineItem, AdBookingOrderItem>(pr.GetItems().ToList());
                         printDataModel.AdBookingOrderItems.AddRange(items);
-                        
+
                         context.AdBookingOrders.InsertOnSubmit(printDataModel);
                     });
                 }
 
+                context.SubmitChanges();
+            }
+        }
+
+        public void AddImage(int adBookingId, string documentId, int adTypeId = AdTypeCode.OnlineCodeId)
+        {
+            using (var context = DataContextFactory.CreateClassifiedContext())
+            {
+                var adDesign = context.AdBookings.First(bk => bk.AdBookingId == adBookingId).Ad.AdDesigns.Single(d => d.AdTypeId == adTypeId);
+                adDesign.AdGraphics.Add(new AdGraphic
+                {
+                    DocumentID = documentId
+                });
+                context.SubmitChanges();
+            }
+        }
+
+        public void RemoveImage(int adBookingId, string documentId, int adTypeId = AdTypeCode.OnlineCodeId)
+        {
+            using (var context = DataContextFactory.CreateClassifiedContext())
+            {
+                var adDesign = context.AdBookings.First(bk => bk.AdBookingId == adBookingId).Ad.AdDesigns.Single(d => d.AdTypeId == adTypeId);
+                context.AdGraphics.DeleteOnSubmit(adDesign.AdGraphics.Single(g => g.DocumentID == documentId));
                 context.SubmitChanges();
             }
         }

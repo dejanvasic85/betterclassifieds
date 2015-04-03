@@ -17,27 +17,32 @@
         return post(this.endpoints.previewBookingEditions, {
             firstEdition: firstEdition,
             printInsertions: insertions,
-            adId : this.adId
         });
     }
 
     me.adService.prototype.removeLineAdImageForBooking = function (documentId) {
-        return post(this.endpoints.removeLineAdImage, { documentId: documentId, adId : this.adId });
+        return post(this.endpoints.removeLineAdImage, this.prepareModel({ documentId: documentId }));
     }
 
     me.adService.prototype.setLineAdImageForBooking = function (documentId) {
-        return post(this.endpoints.bookingLineAdImage, { documentId: documentId, adId : this.adId });
+        return post(this.endpoints.bookingLineAdImage, this.prepareModel({ documentId: documentId }));
     }
 
     me.adService.prototype.assignOnlineImage = function (documentId) {
-        debugger;
-        return post(this.endpoints.assignOnlineImageUrl, { documentId: documentId, adId: this.adId });
+        return post(this.endpoints.assignOnlineImageUrl, this.prepareModel({ documentId: documentId }));
     }
 
     me.adService.prototype.removeOnlineAdImage = function (documentId) {
-        return post(this.endpoints.removeOnlineAdImage, { documentId: documentId, adId: this.adId });
+        return post(this.endpoints.removeOnlineAdImage, this.prepareModel({ documentId: documentId }));
     }
 
+    me.adService.prototype.prepareModel = function (model) {
+        if (this.adId !== null) {
+            model.adId = this.adId;
+        }
+        return model;
+    }
+    
     function post(url, data) {
         return $.ajax({
             url: url,
@@ -47,7 +52,7 @@
             contentType: 'application/json'
         });
     }
-
+    
     // Return the paramount module / namespace
     return me;
 

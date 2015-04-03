@@ -42,7 +42,7 @@
             previewBookingEditions: '',
             bookingLineAdImage: '',
             removeLineAdImage: '',
-            removeOnlineAdImage: '',
+            removeOnlineAdImage: '@Url.Action("RemoveOnlineImage", "EditAd")',
             uploadOnlineImage: '',
             assignOnlineImageUrl: '@Url.Action("AssignOnlineImage", "EditAd")'
         }
@@ -55,7 +55,7 @@
             removeLineAdImage: '@Url.RemoveLineAdImage()',
             removeOnlineAdImage: '@Url.RemoveOnlineImage()',
             uploadOnlineImage: '@Url.UploadOnlineImage()',
-            assignOnlineImage : '@Url.Action("AssignOnlineImage", "Booking")'
+            assignOnlineImageUrl: '@Url.Action("AssignOnlineImage", "Booking")'
         }
 
         return me;

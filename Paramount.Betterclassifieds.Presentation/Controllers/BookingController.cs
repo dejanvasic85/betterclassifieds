@@ -338,7 +338,7 @@
             bookingCart.OnlineAdModel.RemoveImage(documentId.ToString());
             _cartRepository.Save(bookingCart);
 
-            return Json(new { removed = true });
+            return Json(true);
         }
 
         [HttpPost, BookingRequired]

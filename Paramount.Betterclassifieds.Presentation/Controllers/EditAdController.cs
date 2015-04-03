@@ -35,25 +35,26 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult Details(int id)
         {
             ViewBag.Updated = false;
-            var viewModel = new EditAdDetailsViewModel();
-
             // Fetch the ad booking
             var adBooking = _searchService.GetAdById(id);
 
             // Todo - use automapper
-            viewModel.MaxOnlineImages = adBooking.ImageUrls.Length;
-            viewModel.MaxImageUploadBytes = _applicationConfig.MaxImageUploadBytes;
-            viewModel.ConfigDurationDays = _clientConfig.RestrictedOnlineDaysCount; // maximum duration days for a booking
-            viewModel.StartDate = adBooking.StartDate;
-
-            viewModel.AdId = id;
-            viewModel.OnlineAdHeading = adBooking.Heading;
-            viewModel.OnlineAdDescription = adBooking.Description;
-            viewModel.OnlineAdContactEmail = adBooking.ContactEmail;
-            viewModel.OnlineAdContactName = adBooking.ContactName;
-            viewModel.OnlineAdContactPhone = adBooking.ContactPhone;
-            viewModel.OnlineAdLocationId = adBooking.LocationId;
-            viewModel.OnlineAdLocationAreaId = adBooking.LocationAreaId;
+            var viewModel = new EditAdDetailsViewModel
+            {
+                MaxOnlineImages = _clientConfig.MaxOnlineImages > adBooking.ImageUrls.Length ? _clientConfig.MaxOnlineImages : adBooking.ImageUrls.Length,
+                MaxImageUploadBytes = _applicationConfig.MaxImageUploadBytes,
+                ConfigDurationDays = _clientConfig.RestrictedOnlineDaysCount,
+                StartDate = adBooking.StartDate,
+                AdId = id,
+                OnlineAdHeading = adBooking.Heading,
+                OnlineAdDescription = adBooking.Description,
+                OnlineAdContactEmail = adBooking.ContactEmail,
+                OnlineAdContactName = adBooking.ContactName,
+                OnlineAdContactPhone = adBooking.ContactPhone,
+                OnlineAdLocationId = adBooking.LocationId,
+                OnlineAdLocationAreaId = adBooking.LocationAreaId,
+                OnlineAdImages = adBooking.ImageUrls.ToList()
+            };
 
             return View(viewModel);
         }
@@ -105,6 +106,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost]
         public ActionResult AssignOnlineImage(int adId, string documentId)
         {
+            _bookingManager.AddOnlineImage(adId, documentId);
+            return Json(true);
+        }
+
+        [HttpPost]
+        public ActionResult RemoveOnlineImage(int adId, string documentId)
+        {
+            _bookingManager.RemoveOnlineImage(adId, documentId.Trim());
             return Json(true);
         }
     }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Globalization;
 using System.Web.Mvc;
 using Paramount.Betterclassifieds.Presentation.Framework;
 
@@ -57,6 +56,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public bool IsPrintDescriptionBooked { get; set; }
         public bool IsPrintHeaderBooked { get; set; }
         public bool IsPrintImageBooked { get; set; }
+        public int LineAdMaxWords { get; set; }
 
         public List<string> OnlineAdImages { get; set; }
 
@@ -67,11 +67,11 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
         [Display(Name = "Description")]
         [RequiredIf("IsPrintDescriptionBooked", true)]
-        [AllowHtml]
+        [MaxWords("LineAdMaxWords")]
         public string LineAdText { get; set; }
 
         public string LineAdImageId { get; set; }
-        
+
         /// <summary>
         /// Returns Print Details as json string
         /// </summary>
@@ -112,6 +112,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
         public int Id { get; set; }
 
-        #endregion        
+        #endregion
     }
 }

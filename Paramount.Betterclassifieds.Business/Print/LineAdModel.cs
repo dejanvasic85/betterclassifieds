@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Paramount.Betterclassifieds.Business.Print
+﻿namespace Paramount.Betterclassifieds.Business.Print
 {
     public class LineAdModel : IAd
     {
@@ -10,12 +8,7 @@ namespace Paramount.Betterclassifieds.Business.Print
 
         public int NumOfWords
         {
-            get
-            {
-                return AdText.IsNullOrEmpty()
-                ? 0
-                : AdText.Split(' ').Length;
-            }
+            get { return AdText.WordCount(); }
         }
 
         public string AdImageId { get; set; }

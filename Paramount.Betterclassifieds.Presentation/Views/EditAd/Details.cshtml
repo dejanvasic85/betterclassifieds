@@ -6,6 +6,13 @@
 @{
     ViewBag.Title = "Update Ad Details";
     Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayoutWithSearch.cshtml");
+
+    var onlineImgSizeWarning = "Max image size" + Model.MaxImageUploadInMegabytes.ToString("F1") + " Megabytes.";
+    if (Model.MaxOnlineImages.HasValue)
+    {
+        onlineImgSizeWarning += " You can upload up to " + Model.MaxOnlineImages + " images.";
+    }
+
 }
 
 <div class="row">
@@ -14,14 +21,16 @@
     </div>
 </div>
 
+
+
 @if (ViewBag.Updated)
 {
-    <div class="alert alert-success alert-dismissable">
-        <button type="button" class="close" data-dismiss="alert">
-            <span aria-hidden="true">×</span><span class="sr-only">Close</span>
-        </button>
-        Details have been updated successfully.
-    </div>
+    @Alert("Details have been updated successfully", "success")
+}
+
+@if (ViewBag.Invalid)
+{
+    @Alert("Ooops. Some details seem to be incorrect. Please check below", "danger")
 }
 
 @Html.Partial("_CropImage")
@@ -124,14 +133,8 @@
                     </span>
                 </div>
                 <div class="panel-body upload-thumbs">
-                    <div class="alert alert-warning">
-                        Max image size @Model.MaxImageUploadInMegabytes.ToString("F1") MB.
 
-                        @if (Model.MaxOnlineImages.HasValue)
-                        {
-                            <span>You can upload up to @Model.MaxOnlineImages images.</span>
-                        }
-                    </div>
+                    @Alert(onlineImgSizeWarning, "warning")
 
                     <div class="alert alert-danger" data-bind="text : errorMsg, css : { hidden : errorMsg().length == 0 }"></div>
                     <div class="progress progress-striped active" data-bind="visible: uploadImageInProgress">
@@ -170,9 +173,7 @@
                         }
                         else
                         {
-                            <div class="alert alert-info">
-                                Your ad is currently active. The option to adjust the schedule is not available at this time.
-                            </div>
+                            @Alert("Your ad is currently active. The option to adjust the schedule is not available at this time.", "info")
                         }
                     </div>
 
@@ -206,6 +207,7 @@
 
                 if (Model.IsPrintHeaderBooked)
                 {
+                    @Html.HiddenFor(m => m.IsPrintHeaderBooked)
                     <div class="form-group">
                         @Html.LabelFor(m => m.LineAdHeader)
                         @Html.BootstrapLargeTextBoxFor(m => m.LineAdHeader, attributes: new Dictionary<string, object> { { "data-bind", "value: lineAdHeader" } })
@@ -215,15 +217,25 @@
 
                 if (Model.IsPrintDescriptionBooked)
                 {
+                    @Html.HiddenFor(m => m.IsPrintDescriptionBooked)
+                    @Html.HiddenFor(m => m.LineAdMaxWords)
                     <div class="form-group">
                         @Html.LabelFor(m => m.LineAdText)
                         @Html.BootstrapLargeTextAreaFor(m => m.LineAdText, 5, attributes: new Dictionary<string, object>
                             {
                                 {"data-bind", "value: lineAdText, html: lineAdText, valueUpdate: ['afterkeydown', 'input']"}
                             })
-                        <span class="help-block">Word Count: <span data-bind="text: wordCount"></span></span>
+                        <span class="help-block">
+                            <strong>Please Note: You may edit existing text keeping the same number of words that was booked.</strong>
+                            Word Count: <span data-bind="text: wordCount"></span>.
+                        </span>
                         @Html.ValidationMessageFor(m => m.LineAdText)
                     </div>
+                }
+
+                if (Model.IsPrintImageBooked)
+                {
+                    <input type="hidden" name="LineAdImageId" id="LineAdImageId" data-bind="value : lineAdImageId" />
                 }
             }
 
@@ -295,4 +307,14 @@
 
 
     </script>
+}
+
+@helper Alert(string messsage, string type)
+{
+    <div class="alert alert-@type alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+        </button>
+        @messsage
+    </div>
 }

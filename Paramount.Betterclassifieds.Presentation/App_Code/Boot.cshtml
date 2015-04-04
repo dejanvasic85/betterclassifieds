@@ -1,0 +1,12 @@
+﻿
+@*This helper is unfortunately not available until we remove the modules*@ 
+
+@helper Alert(string messsage, string type)
+{
+    <div class="alert alert-@type alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+        </button>
+        @messsage
+    </div>
+}

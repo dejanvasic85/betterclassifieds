@@ -179,6 +179,25 @@
             }
         }
 
+        public void UpdateLineAd(int adBookingId, LineAdModel lineAd)
+        {
+            using (var context = DataContextFactory.CreateClassifiedContext())
+            {
+                // Fetch the original online ad
+                var originalLineAd = context
+                    .AdBookings.Single(bk => bk.AdBookingId == adBookingId)
+                    .Ad
+                    .AdDesigns.Single(ds => ds.AdTypeId == AdTypeCode.LineCodeId)
+                    .LineAds.Single();
+
+                // Map the changes
+                this.Map(lineAd, originalLineAd);
+
+                // And submit
+                context.SubmitChanges();
+            }
+        }
+
         public void AddBookEntries(BookEntryModel[] bookEntries)
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
@@ -420,7 +439,8 @@
             configuration.CreateMap<OnlineChargeItem, AdBookingOrderItem>();
             configuration.CreateMap<OnlineAdModel, OnlineAd>()
                 .ForMember(m => m.OnlineAdId, options => options.Ignore());
-
+            configuration.CreateMap<LineAdModel, LineAd>()
+                .ForMember(m => m.LineAdId, options => options.Ignore());
         }
     }
 

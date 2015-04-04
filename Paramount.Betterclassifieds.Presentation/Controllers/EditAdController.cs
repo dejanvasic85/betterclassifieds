@@ -18,15 +18,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly ISearchService _searchService;
         private readonly IApplicationConfig _applicationConfig;
         private readonly IClientConfig _clientConfig;
-        private readonly IDocumentRepository _documentRepository;
         private readonly IBookingManager _bookingManager;
 
-        public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IDocumentRepository documentRepository, IBookingManager bookingManager)
+        public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager)
         {
             _searchService = searchService;
             _applicationConfig = applicationConfig;
             _clientConfig = clientConfig;
-            _documentRepository = documentRepository;
             _bookingManager = bookingManager;
         }
 
@@ -36,6 +34,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult Details(int id)
         {
             ViewBag.Updated = false;
+            ViewBag.Invalid = false;
 
 
             // Fetch the ad booking
@@ -63,6 +62,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             // Line ad mapping
             viewModel.IsLineAdIncluded = true;
+            viewModel.LineAdMaxWords = adBooking.LineAd.NumOfWords;
             this.Map(adBooking.LineAd, viewModel);
 
             return View(viewModel);
@@ -70,7 +70,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public ActionResult Details(EditAdDetailsViewModel viewModel)
         {
             var adBooking = _searchService.GetAdById(viewModel.Id);
@@ -82,6 +81,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.Updated = false;
+                ViewBag.Invalid = true;
                 return View(viewModel);
             }
 
@@ -92,8 +92,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             // Update the online ad
             _bookingManager.UpdateOnlineAd(viewModel.Id, onlineAd);
 
-            // Map the settings
+            // Update the line ad
+            var lineAd = this.Map<EditAdDetailsViewModel, LineAdModel>(viewModel);
+            _bookingManager.UpdateLineAd(viewModel.Id, lineAd);
+
             ViewBag.Updated = true;
+            ViewBag.Invalid = false;
             return View(viewModel);
         }
 
@@ -132,6 +136,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<EditAdDetailsViewModel, OnlineAdModel>()
                .ForMember(member => member.Images, options => options.Ignore())
                .ForMember(member => member.HtmlText, options => options.MapFrom(src => src.OnlineAdDescription));
+
+            configuration.CreateMap<EditAdDetailsViewModel, LineAdModel>();
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         void AddOnlineImage(int adId, string documentId);
         void RemoveOnlineImage(int adId, string documentId);
         void UpdateOnlineAd(int adId, OnlineAdModel onlineAd);
-        
+        void UpdateLineAd(int id, LineAdModel lineAd);
     }
 
     public class BookingManager : IBookingManager
@@ -232,6 +232,11 @@ namespace Paramount.Betterclassifieds.Business.Booking
         public void UpdateOnlineAd(int adId, OnlineAdModel onlineAd)
         {
             _bookingRepository.UpdateOnlineAd(adId, onlineAd);
+        }
+
+        public void UpdateLineAd(int id, LineAdModel lineAd)
+        {
+            _bookingRepository.UpdateLineAd(id, lineAd);
         }
 
         public IEnumerable<PublicationEditionModel> GenerateExtensionDates(int adBookingId, int numberOfInsertions)

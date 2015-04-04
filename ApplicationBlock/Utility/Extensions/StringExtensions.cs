@@ -169,5 +169,13 @@ namespace Paramount
 
             return fileName.Substring(0, index);
         }
+
+        public static int WordCount(this string value)
+        {
+            if (value.IsNullOrEmpty())
+                return 0;
+
+            return value.Split(' ').Length;
+        }
     }
 }

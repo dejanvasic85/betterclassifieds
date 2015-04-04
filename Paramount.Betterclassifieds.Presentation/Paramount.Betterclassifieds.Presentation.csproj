@@ -310,6 +310,7 @@
     </Content>
     <Content Include="Content\site.less" />
     <Content Include="Content\TheMusic\fonts\ufonts.com_alternate_gothic_no2_d.ttf" />
+    <Content Include="App_Code\Boot.cshtml" />
     <None Include="Content\TheMusic\themusic.less" />
     <Content Include="Scripts\bootstrap-3.3.0.js" />
     <Content Include="Scripts\bootstrap-3.3.0.min.js">

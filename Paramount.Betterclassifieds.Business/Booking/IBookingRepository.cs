@@ -21,6 +21,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         void UpdateExtesion(int extensionId, int? status);
         void UpdateBooking(int adBookingId, DateTime? newEndDate = null, decimal? totalPrice = null);
         void UpdateOnlineAd(int adBookingId, OnlineAdModel onlineAd);
+        void UpdateLineAd(int id, LineAdModel lineAd);
         void CancelAndExpireBooking(int adBookingId);
         
         // Delete
@@ -38,5 +39,6 @@ namespace Paramount.Betterclassifieds.Business.Booking
         // Images
         void AddImage(int adId, string documentId, int adTypeId = AdTypeCode.OnlineCodeId);
         void RemoveImage(int adId, string documentId, int adTypeId = AdTypeCode.OnlineCodeId);
+        
     }
 }

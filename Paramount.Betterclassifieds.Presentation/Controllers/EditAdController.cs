@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.DocumentStorage;
@@ -11,7 +12,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     [Authorize]
     [AuthorizeBookingIdentity]
-    public class EditAdController : Controller
+    public class EditAdController : Controller, IMappingBehaviour
     {
         private readonly ISearchService _searchService;
         private readonly IApplicationConfig _applicationConfig;
@@ -76,6 +77,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return View(viewModel);
             }
 
+            // Convert to online ad
+            OnlineAdModel onlineAd = this.Map<EditAdDetailsViewModel, OnlineAdModel>(viewModel);
+
+            // Update the online ad
+            _bookingManager.UpdateOnlineAd(viewModel.Id, onlineAd);
+
             // Map the settings
             ViewBag.Updated = true;
             return View(viewModel);
@@ -93,6 +100,15 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             _bookingManager.RemoveOnlineImage(id, documentId.Trim());
             return Json(true);
+        }
+
+        public void OnRegisterMaps(IConfiguration configuration)
+        {
+            configuration.RecognizeDestinationPrefixes("OnlineAd", "Line");
+            configuration.RecognizePrefixes("OnlineAd", "Line");
+
+            configuration.CreateMap<EditAdDetailsViewModel, OnlineAdModel>()
+               .ForMember(member => member.Images, options => options.Ignore());
         }
     }
 }

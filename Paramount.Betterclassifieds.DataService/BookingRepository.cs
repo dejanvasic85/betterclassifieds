@@ -1,6 +1,4 @@
-﻿using System.Configuration;
-
-namespace Paramount.Betterclassifieds.DataService.Repository
+﻿namespace Paramount.Betterclassifieds.DataService.Repository
 {
     using AutoMapper;
     using Business;
@@ -138,6 +136,25 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
                 // Update
                 context.SubmitChanges(ConflictMode.ContinueOnConflict);
+            }
+        }
+
+        public void UpdateOnlineAd(int adBookingId, OnlineAdModel onlineAd)
+        {
+            using (var context = DataContextFactory.CreateClassifiedContext())
+            {
+                // Fetch the original online ad
+                var originalOnlineAd = context
+                    .AdBookings.Single(bk => bk.AdBookingId == adBookingId)
+                    .Ad
+                    .AdDesigns.Single(ds => ds.AdTypeId == AdTypeCode.OnlineCodeId)
+                    .OnlineAds.Single();
+
+                // Map the changes
+                this.Map(onlineAd, originalOnlineAd);
+
+                // And submit
+                context.SubmitChanges();
             }
         }
 
@@ -380,6 +397,9 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             configuration.CreateMap<BookingAdRateResult, AdBookingOrder>();
             configuration.CreateMap<PrintAdChargeItem, AdBookingOrderItem>();
             configuration.CreateMap<OnlineChargeItem, AdBookingOrderItem>();
+            configuration.CreateMap<OnlineAdModel, OnlineAd>()
+                .ForMember(m => m.OnlineAdId, options => options.Ignore());
+
         }
     }
 

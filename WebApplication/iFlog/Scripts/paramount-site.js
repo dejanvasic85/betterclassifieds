@@ -1,7 +1,7 @@
 ﻿/*
 ** $paramount utility class
 */
-(function ($paramount, $window, $, $mobileDetect) {
+(function ($paramount, $window, $, $mobileDetect, htmlEditor) {
     var me = this;
     me.isMobileDevice = null;
 
@@ -36,21 +36,22 @@
 
     $paramount.setOnlineEditor = function (element) {
         if (me.evaluateMobile()) {
-            return true;
+            return null;
         }
 
-        // Generic editor setup using the cleditor library
-        $paramount.onlineEditor = element.cleditor({
-            controls: "bold italic underline strikethrough subscript superscript | font size " +
-                "style | color highlight removeformat | bullets numbering | outdent " +
-                "indent | alignleft center alignright justify | undo redo | " +
-                "rule image link unlink | cut copy paste pastetext",
-            fonts: " Arial,Arial Black,Comic Sans MS,Courier New,Narrow,Garamond," +
-                "Georgia,Impact,Sans Serif,Serif,Tahoma,Trebuchet MS,Verdana",
-            sizes: "1,2,3,4,5,6,7",
-            styles: [["Paragraph", "<p>"], ["Header 3", "<h3>"], ["Header 4", "<h4>"], ["Header 5", "<h5>"], ["Header 6", "<h6>"]],
-            bodyStyle: "margin:4px; font:14pt Arial; cursor:text"
-        });
+        //// Generic editor setup using the cleditor library
+        //$paramount.onlineEditor = element.cleditor({
+        //    controls: "bold italic underline strikethrough subscript superscript | font size " +
+        //        "style | color highlight removeformat | bullets numbering | outdent " +
+        //        "indent | alignleft center alignright justify | undo redo | " +
+        //        "rule image link unlink | cut copy paste pastetext",
+        //    fonts: " Arial,Arial Black,Comic Sans MS,Courier New,Narrow,Garamond," +
+        //        "Georgia,Impact,Sans Serif,Serif,Tahoma,Trebuchet MS,Verdana",
+        //    sizes: "1,2,3,4,5,6,7",
+        //    styles: [["Paragraph", "<p>"], ["Header 3", "<h3>"], ["Header 4", "<h4>"], ["Header 5", "<h5>"], ["Header 6", "<h6>"]],
+        //    bodyStyle: "margin:4px; font:14pt Arial; cursor:text"
+        //});
+        $paramount.onlineEditor = htmlEditor.replace(element);
 
         return $paramount.onlineEditor;
     };
@@ -129,6 +130,6 @@
         });
     };
 
-})($paramount, window, jQuery, MobileDetect);
+})($paramount, window, jQuery, MobileDetect, CKEDITOR);
 
 

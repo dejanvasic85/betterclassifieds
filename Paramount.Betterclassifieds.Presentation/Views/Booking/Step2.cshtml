@@ -306,7 +306,6 @@
 
 @section Scripts{
 
-    <script src="@Url.Content("~/Scripts/jquery.cleditor.min.js")"></script>
     <script src="@Url.Content("~/Scripts/cropper.js")"></script>
 
     <script>
@@ -341,7 +340,7 @@
 
             $(function() {
                 // jquery ready
-                $paramount.setOnlineEditor($('#OnlineAdDescription'));
+                $paramount.setOnlineEditor('OnlineAdDescription');
 
                 $('#copyOnlineAdDetails').click(function() {
                     // copy header

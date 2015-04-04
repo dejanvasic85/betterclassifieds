@@ -54,39 +54,24 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         #region Print Ad Details
 
         public bool IsLineAdIncluded { get; set; }
+        public bool IsPrintDescriptionBooked { get; set; }
+        public bool IsPrintHeaderBooked { get; set; }
+        public bool IsPrintImageBooked { get; set; }
 
         public List<string> OnlineAdImages { get; set; }
 
         [Display(Name = "Heading")]
+        [RequiredIf("IsPrintHeaderBooked", true)]
         [StringLength(100)]
         public string LineAdHeader { get; set; }
 
         [Display(Name = "Description")]
-        [RequiredIf("IsLineAdIncluded", true)]
+        [RequiredIf("IsPrintDescriptionBooked", true)]
         [AllowHtml]
         public string LineAdText { get; set; }
 
         public string LineAdImageId { get; set; }
-
-        public DateTime? FirstPrintDateFormatted
-        {
-            get
-            {
-                if (this.FirstPrintDate.IsNullOrEmpty())
-                    return null;
-
-                return DateTime.ParseExact(this.FirstPrintDate, "dd/MM/yyyy", new DateTimeFormatInfo());
-            }
-        }
-
-        [RequiredIf("IsLineAdIncluded", true)]
-        [Display(Name = "First Print Edition")]
-        public string FirstPrintDate { get; set; }
-
-        [RequiredIf("IsLineAdIncluded", true)]
-        [Display(Name = "Insertions")]
-        public int PrintInsertions { get; set; }
-
+        
         /// <summary>
         /// Returns Print Details as json string
         /// </summary>
@@ -102,8 +87,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
                 {
                     LineAdText,
                     LineAdHeader,
-                    LineAdImageId,
-                    PrintInsertions
+                    LineAdImageId
                 };
 
                 var json = lineAd.ToJsonString();
@@ -112,12 +96,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         }
 
         #endregion
-
-        //#region Collections - Select Inputs
-        //public IEnumerable<SelectListItem> UpcomingEditions { get; set; }
-        //public IEnumerable<SelectListItem> AvailableInsertions { get; set; }
-
-        //#endregion
 
         #region Configuration
 

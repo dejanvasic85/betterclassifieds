@@ -286,7 +286,7 @@
         #endregion
 
         #region Json Requests
-        
+
         [HttpPost, BookingRequired]
         public ActionResult RemoveOnlineImage(Guid documentId)
         {
@@ -329,7 +329,7 @@
             // Persist to the booking cart also
             bookingCart.OnlineAdModel.AddImage(documentId);
             _cartRepository.Save(bookingCart);
-            
+
             return Json(true);
         }
 
@@ -415,7 +415,7 @@
 
             return Json(new { valid = true });
         }
-        
+
 
         #endregion
 
@@ -428,7 +428,8 @@
 
             // To view model
             configuration.CreateMap<PublicationModel, PublicationSelectionView>();
-            configuration.CreateMap<OnlineAdModel, Step2View>();
+            configuration.CreateMap<OnlineAdModel, Step2View>()
+                .ForMember(member => member.OnlineAdDescription, options => options.MapFrom(src => src.HtmlText));
             configuration.CreateMap<LineAdModel, Step2View>();
             configuration.CreateMap<BookingOrderResult, PriceSummaryView>()
                 .ConvertUsing<PriceSummaryViewConverter>();
@@ -437,7 +438,8 @@
 
             // From ViewModel
             configuration.CreateMap<Step2View, OnlineAdModel>()
-                .ForMember(member => member.Images, options => options.Ignore());
+                .ForMember(member => member.Images, options => options.Ignore())
+                .ForMember(member => member.HtmlText, options => options.MapFrom(src => src.OnlineAdDescription));
             configuration.CreateMap<Step2View, LineAdModel>();
             configuration.CreateMap<UserNetworkEmailView, UserNetworkModel>();
             configuration.CreateMap<PricingFactorsView, PricingFactors>();

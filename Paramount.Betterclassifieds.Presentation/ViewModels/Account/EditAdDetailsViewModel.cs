@@ -26,7 +26,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public string OnlineAdContactName { get; set; }
 
         [Display(Name = "Contact Phone")]
-        [StringLength(50)]
+        [StringLength(10)]
         public string OnlineAdContactPhone { get; set; }
 
         [EmailAddress]
@@ -113,11 +113,11 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
         #endregion
 
-        #region Collections - Select Inputs
-        public IEnumerable<SelectListItem> UpcomingEditions { get; set; }
-        public IEnumerable<SelectListItem> AvailableInsertions { get; set; }
+        //#region Collections - Select Inputs
+        //public IEnumerable<SelectListItem> UpcomingEditions { get; set; }
+        //public IEnumerable<SelectListItem> AvailableInsertions { get; set; }
 
-        #endregion
+        //#endregion
 
         #region Configuration
 

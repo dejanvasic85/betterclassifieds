@@ -57,6 +57,7 @@ namespace Paramount.Betterclassifieds.DataService
                 return this.Map<BookedAd, AdSearchResult>(context.BookedAd_GetById(id).FirstOrDefault());
             }
         }
+
         public List<LocationAreaSearchResult> GetLocationAreas(int locationId, bool includeAllAreas = true)
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
@@ -104,7 +105,6 @@ namespace Paramount.Betterclassifieds.DataService
                 return this.Map<SeoMapping, SeoNameMappingModel>(seoMappings);
             }
         }
-
 
         public List<PublicationModel> GetPublications()
         {

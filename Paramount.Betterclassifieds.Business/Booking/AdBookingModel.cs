@@ -45,13 +45,15 @@ namespace Paramount.Betterclassifieds.Business.Booking
         public OnlineAdModel OnlineAd
         {
             // There can only be a single online ad per booking 
-            get { return Ads.OfType<OnlineAdModel>().FirstOrDefault(); }
+            get { return Ads.OfType<OnlineAdModel>().SingleOrDefault(); }
         }
 
         public LineAdModel LineAd
         {
             // There can only be a single Line Ad per booking
-            get { return Ads.OfType<LineAdModel>().FirstOrDefault(); }
+            get { return Ads.OfType<LineAdModel>().SingleOrDefault(); }
         }
+
+        public bool HasLineAd { get { return this.LineAd != null; } }
     }
 }

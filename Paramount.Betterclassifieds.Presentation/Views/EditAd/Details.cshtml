@@ -75,7 +75,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         @Html.LabelFor(m => m.OnlineAdContactPhone)
-                        @Html.BootstrapLargeTextBoxFor(m => m.OnlineAdContactPhone)
+                        @Html.BootstrapLargeTextBoxFor(m => m.OnlineAdContactPhone, new Dictionary<string, object>{{"maxLength", "10"}})
                         @Html.ValidationMessageFor(m => m.OnlineAdContactPhone)
                     </div>
                 </div>
@@ -243,10 +243,10 @@
                 }
             });
 
+            $p.setOnlineEditor($('#OnlineAdDescription'));
+
         })(jQuery, $paramount, $paramount.url, $paramount.models);
-
-
-
+        
 
     </script>
 }

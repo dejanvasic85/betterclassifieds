@@ -20,17 +20,38 @@
                 if (booking == null)
                     return null;
 
-                AdBookingModel model = this.Map<AdBooking, AdBookingModel>(booking);
+                var adBookingModel = this.Map<AdBooking, AdBookingModel>(booking);
 
                 // Fetch line ad if required
                 if (withLineAd)
                 {
                     var design = booking.Ad.AdDesigns.FirstOrDefault(d => d.LineAds.Any());
                     if (design != null)
-                        model.Ads.Add(this.Map<LineAd, LineAdModel>(design.LineAds.First()));
+                    {
+                        var lineAdModel = this.Map<LineAd, LineAdModel>(design.LineAds.Single());
+                        adBookingModel.Ads.Add(lineAdModel);
+
+                        // Fetch the images
+                        var lineAdImg = context.AdGraphics.FirstOrDefault(gr => gr.AdDesignId == design.AdDesignId);
+                        if (lineAdImg != null)
+                        {
+                            lineAdModel.AdImageId = lineAdImg.DocumentID;
+                        }
+                    }
                 }
 
-                return model;
+                // Always fetch the online ad
+                var onlineDesign = booking.Ad.AdDesigns.FirstOrDefault(d => d.OnlineAds.Any());
+                if (onlineDesign != null)
+                {
+                    var onlineAdModel = this.Map<OnlineAd, OnlineAdModel>(onlineDesign.OnlineAds.Single());
+                    adBookingModel.Ads.Add(onlineAdModel);
+
+                    // Fetch the images
+                    onlineAdModel.Images = context.AdGraphics.Where(g => g.AdDesignId == onlineDesign.AdDesignId).Select(g => new AdImage(g.DocumentID)).ToList();
+                }
+
+                return adBookingModel;
             }
         }
 

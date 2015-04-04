@@ -5,6 +5,7 @@ using AutoMapper;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.DocumentStorage;
+using Paramount.Betterclassifieds.Business.Print;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 
@@ -35,34 +36,41 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult Details(int id)
         {
             ViewBag.Updated = false;
-            // Fetch the ad booking
-            var adBooking = _searchService.GetAdById(id);
 
-            // Todo - use automapper
+
+            // Fetch the ad booking
+            var adBooking = _bookingManager.GetBooking(id);
+            var onlineAd = adBooking.OnlineAd;
+
             var viewModel = new EditAdDetailsViewModel
             {
                 Id = id,
-                MaxOnlineImages = _clientConfig.MaxOnlineImages > adBooking.ImageUrls.Length ? _clientConfig.MaxOnlineImages : adBooking.ImageUrls.Length,
+                MaxOnlineImages = _clientConfig.MaxOnlineImages > onlineAd.Images.Count ? _clientConfig.MaxOnlineImages : onlineAd.Images.Count,
                 MaxImageUploadBytes = _applicationConfig.MaxImageUploadBytes,
                 ConfigDurationDays = _clientConfig.RestrictedOnlineDaysCount,
                 StartDate = adBooking.StartDate,
                 IsFutureScheduledAd = adBooking.StartDate > DateTime.Today,
-                OnlineAdHeading = adBooking.Heading,
-                OnlineAdDescription = adBooking.Description,
-                OnlineAdContactEmail = adBooking.ContactEmail,
-                OnlineAdContactName = adBooking.ContactName,
-                OnlineAdContactPhone = adBooking.ContactPhone,
-                OnlineAdLocationId = adBooking.LocationId,
-                OnlineAdLocationAreaId = adBooking.LocationAreaId,
-                OnlineAdImages = adBooking.ImageUrls.ToList(),
+                OnlineAdImages = onlineAd.Images.Select(a => a.DocumentId).ToList(),
             };
+
+            // Online ad mapping
+            this.Map(adBooking.OnlineAd, viewModel);
+
+            if (!adBooking.HasLineAd)
+            {
+                return View(viewModel);
+            }
+
+            // Line ad mapping
+            viewModel.IsLineAdIncluded = true;
+            this.Map(adBooking.LineAd, viewModel);
 
             return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-       
+
         public ActionResult Details(EditAdDetailsViewModel viewModel)
         {
             var adBooking = _searchService.GetAdById(viewModel.Id);
@@ -78,7 +86,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             // Convert to online ad
-            OnlineAdModel onlineAd = this.Map<EditAdDetailsViewModel, OnlineAdModel>(viewModel);
+            var onlineAd = this.Map<EditAdDetailsViewModel, OnlineAdModel>(viewModel);
 
             // Update the online ad
             _bookingManager.UpdateOnlineAd(viewModel.Id, onlineAd);
@@ -107,6 +115,15 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.RecognizeDestinationPrefixes("OnlineAd", "Line");
             configuration.RecognizePrefixes("OnlineAd", "Line");
 
+            // To view model
+            configuration.CreateMap<OnlineAdModel, EditAdDetailsViewModel>()
+                .ForMember(m => m.OnlineAdImages, options => options.Ignore())
+                .ForMember(m => m.Id, options => options.Ignore());
+
+            configuration.CreateMap<LineAdModel, EditAdDetailsViewModel>()
+                .ForMember(m => m.Id, options => options.Ignore());
+
+            // From view model
             configuration.CreateMap<EditAdDetailsViewModel, OnlineAdModel>()
                .ForMember(member => member.Images, options => options.Ignore());
         }

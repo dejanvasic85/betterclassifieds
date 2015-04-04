@@ -14,6 +14,8 @@ namespace Paramount.Betterclassifieds.Business.Booking
         IEnumerable<PublicationEditionModel> GenerateExtensionDates(int adBookingId, int numberOfInsertions);
         AdBookingExtensionModel CreateExtension(int adBookingId, int numberOfInsertions, string username, decimal price, ExtensionStatus status, bool isOnlineOnly);
         AdBookingExtensionModel GetExtension(int extensionId);
+        AdBookingModel GetBooking(int id);
+
         void Extend(AdBookingExtensionModel extensionModel, PaymentType paymentType = PaymentType.None);
         void Extend(int adBookingId, int numberOfInsertions, bool? isOnlineOnly = null, ExtensionStatus extensionStatus = ExtensionStatus.Complete, int price = 0, string username = "admin", PaymentType payment = PaymentType.None);
         void IncrementHits(int id);
@@ -23,6 +25,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         void AddOnlineImage(int adId, string documentId);
         void RemoveOnlineImage(int adId, string documentId);
         void UpdateOnlineAd(int adId, OnlineAdModel onlineAd);
+        
     }
 
     public class BookingManager : IBookingManager
@@ -77,6 +80,11 @@ namespace Paramount.Betterclassifieds.Business.Booking
         public AdBookingExtensionModel GetExtension(int extensionId)
         {
             return _bookingRepository.GetBookingExtension(extensionId);
+        }
+
+        public AdBookingModel GetBooking(int id)
+        {
+            return _bookingRepository.GetBooking(id, true);
         }
 
         public void Extend(AdBookingExtensionModel extensionModel, PaymentType paymentType = PaymentType.None)

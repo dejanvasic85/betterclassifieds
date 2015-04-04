@@ -56,7 +56,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public bool IsPrintDescriptionBooked { get; set; }
         public bool IsPrintHeaderBooked { get; set; }
         public bool IsPrintImageBooked { get; set; }
-        public int LineAdMaxWords { get; set; }
+        public int PrintWordsPurchased { get; set; }
 
         public List<string> OnlineAdImages { get; set; }
 
@@ -67,7 +67,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
         [Display(Name = "Description")]
         [RequiredIf("IsPrintDescriptionBooked", true)]
-        [MaxWords("LineAdMaxWords")]
+        [MaxWords("PrintWordsPurchased")]
         public string LineAdText { get; set; }
 
         public string LineAdImageId { get; set; }

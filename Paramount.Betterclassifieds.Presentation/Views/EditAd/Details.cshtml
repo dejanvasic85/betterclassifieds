@@ -218,7 +218,7 @@
                 if (Model.IsPrintDescriptionBooked)
                 {
                     @Html.HiddenFor(m => m.IsPrintDescriptionBooked)
-                    @Html.HiddenFor(m => m.LineAdMaxWords)
+                    @Html.HiddenFor(m => m.PrintWordsPurchased)
                     <div class="form-group">
                         @Html.LabelFor(m => m.LineAdText)
                         @Html.BootstrapLargeTextAreaFor(m => m.LineAdText, 5, attributes: new Dictionary<string, object>

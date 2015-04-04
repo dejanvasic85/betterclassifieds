@@ -62,7 +62,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             // Line ad mapping
             viewModel.IsLineAdIncluded = true;
-            viewModel.LineAdMaxWords = adBooking.LineAd.NumOfWords;
+            viewModel.PrintWordsPurchased = adBooking.LineAd.NumOfWords;
             this.Map(adBooking.LineAd, viewModel);
 
             return View(viewModel);

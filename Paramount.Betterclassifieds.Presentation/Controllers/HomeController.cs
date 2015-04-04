@@ -29,9 +29,10 @@
         public ActionResult Index()
         {
             var results = _searchService.GetLatestAds();
+            var adSummaryViewModels = this.MapList<AdSearchResult, AdSummaryViewModel>(results.ToList());
             return View(new HomeModel
             {
-                AdSummaryList = this.MapList<AdSearchResult, AdSummaryViewModel>(results.ToList())
+                AdSummaryList = adSummaryViewModels
             });
         }
 

@@ -102,37 +102,7 @@
                     </div>
                 </div>
             </div>
-            @*Online Schedule - anyone can bring the date forward if the ad has not started yet...*@
-            <div class="row top-buffer-20">
-                <div class="col-xs-12">
-                    <div class="bs-callout bs-callout-info">
-                        <h4>Online Schedule</h4>
-                        @if (Model.IsFutureScheduledAd)
-                        {
-                            <p>
-                                You may bring your ad forward or schedule it for later if it has not started...
-                                It will be available for @Model.ConfigDurationDays  days from the date you select below.
-                            </p>
-                        }
-                        else
-                        {
-                            <div class="alert alert-info">
-                                Your ad is currently active. The option to adjust the schedule is not available at this time.
-                            </div>
-                        }
-                    </div>
 
-                    @if (Model.IsFutureScheduledAd)
-                    {
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.StartDate)
-                            @Html.BootstrapCalendar(m => m.StartDate)
-                            @Html.ValidationMessageFor(m => m.StartDate)
-                        </div>
-                    }
-                </div>
-            </div>
-            
             @*Photos*@
             <div class="row top-buffer-20">
                 <div class="col-xs-12">
@@ -142,7 +112,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="panel panel-default" id="onlineImages">
 
                 <div class="panel-heading">
@@ -186,7 +155,38 @@
                 </div>
 
             </div>
+            
+            @*Online Schedule*@
+            <div class="row top-buffer-20">
+                <div class="col-xs-12">
+                    <div class="bs-callout bs-callout-info">
+                        <h4>Online Schedule</h4>
+                        @if (Model.IsFutureScheduledAd)
+                        {
+                            <p>
+                                You may bring your ad forward or schedule it for later if it has not started...
+                                It will be available for @Model.ConfigDurationDays  days from the date you select below.
+                            </p>
+                        }
+                        else
+                        {
+                            <div class="alert alert-info">
+                                Your ad is currently active. The option to adjust the schedule is not available at this time.
+                            </div>
+                        }
+                    </div>
 
+                    @if (Model.IsFutureScheduledAd)
+                    {
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.StartDate)
+                            @Html.BootstrapCalendar(m => m.StartDate)
+                            @Html.ValidationMessageFor(m => m.StartDate)
+                        </div>
+                    }
+                </div>
+            </div>
+            
             @*Submit Buttons*@
             <div class="form-group">
                 <button type="submit" id="btnUpdateAd" class="btn btn-default pull-right">Update Ad Details</button>
@@ -200,8 +200,7 @@
 @section Scripts{
     <script src="@Url.Content("~/Scripts/jquery.cleditor.min.js")"></script>
     <script src="@Url.Content("~/Scripts/cropper.js")"></script>
-
-
+    
     <script>
 
         (function($, $p, $url, $models) {

@@ -87,6 +87,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             // Convert to online ad
             var onlineAd = this.Map<EditAdDetailsViewModel, OnlineAdModel>(viewModel);
+            onlineAd.SetDescription(viewModel.OnlineAdDescription);
 
             // Update the online ad
             _bookingManager.UpdateOnlineAd(viewModel.Id, onlineAd);

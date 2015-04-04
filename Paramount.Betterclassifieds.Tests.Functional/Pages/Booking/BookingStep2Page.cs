@@ -33,9 +33,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         public BookingStep2Page WithOnlineDescription(string description)
         {
-            // The CLEditor is just weird. It uses a damn frame so we have to insert it via javascript
-            // So we had to move the online editor to the $paramount library
-            // And call the cleditor directly (ughhh ugly)
             _webdriver.ExecuteJavaScript("CKEDITOR.instances['OnlineAdDescription'].setData('" + description + "')");
             return this;
         }

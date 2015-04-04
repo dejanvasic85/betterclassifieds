@@ -75,7 +75,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         @Html.LabelFor(m => m.OnlineAdContactPhone)
-                        @Html.BootstrapLargeTextBoxFor(m => m.OnlineAdContactPhone, new Dictionary<string, object>{{"maxLength", "10"}})
+                        @Html.BootstrapLargeTextBoxFor(m => m.OnlineAdContactPhone, new Dictionary<string, object> { { "maxLength", "10" } })
                         @Html.ValidationMessageFor(m => m.OnlineAdContactPhone)
                     </div>
                 </div>
@@ -212,6 +212,19 @@
                         @Html.ValidationMessageFor(m => m.LineAdHeader)
                     </div>
                 }
+
+                if (Model.IsPrintDescriptionBooked)
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.LineAdText)
+                        @Html.BootstrapLargeTextAreaFor(m => m.LineAdText, 5, attributes: new Dictionary<string, object>
+                            {
+                                {"data-bind", "value: lineAdText, html: lineAdText, valueUpdate: ['afterkeydown', 'input']"}
+                            })
+                        <span class="help-block">Word Count: <span data-bind="text: wordCount"></span></span>
+                        @Html.ValidationMessageFor(m => m.LineAdText)
+                    </div>
+                }
             }
 
             @*Submit Buttons*@
@@ -225,7 +238,7 @@
 </form>
 
 @section Scripts{
-    
+
 
     <script>
 

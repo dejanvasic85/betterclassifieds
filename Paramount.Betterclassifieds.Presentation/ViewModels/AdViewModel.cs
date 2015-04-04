@@ -72,5 +72,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             }
         }
 
+        public bool VisitorIsTheOwner { get; set; }
     }
 }

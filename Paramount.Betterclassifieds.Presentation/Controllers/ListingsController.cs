@@ -12,23 +12,24 @@
     using System.Linq;
     using System.Web.Mvc;
     using ViewModels;
-    
+
     public class ListingsController : Controller, IMappingBehaviour
     {
         private readonly ISearchService _searchService;
         private readonly IBookingManager _bookingManager;
         private readonly SearchFilters _searchFilters;
         private readonly IClientConfig _clientConfig;
+        private readonly IAuthManager _authManager;
 
         private const string Tempdata_ComingFromSearch = "IsComingFromSearch";
 
-        public ListingsController(ISearchService searchService, SearchFilters searchFilters, IClientConfig clientConfig,
-            IBookingManager bookingManager)
+        public ListingsController(ISearchService searchService, SearchFilters searchFilters, IClientConfig clientConfig, IBookingManager bookingManager, IAuthManager authManager)
         {
             _searchService = searchService;
             _searchFilters = searchFilters;
             _clientConfig = clientConfig;
             _bookingManager = bookingManager;
+            _authManager = authManager;
         }
 
         [HttpGet]
@@ -149,7 +150,7 @@
         {
             // Remember - Id is always AdBookingId
             var adSearchResult = _searchService.GetAdById(id);
-
+            
             if (adSearchResult == null || adSearchResult.HasExpired() || adSearchResult.HasNotStarted())
             {
                 // Ad doesn't exist so return 404
@@ -161,6 +162,10 @@
 
             // Map to the view model now
             var adViewModel = this.Map<AdSearchResult, AdViewModel>(adSearchResult);
+            if (_authManager.IsUserIdentityLoggedIn(User))
+            {
+                adViewModel.VisitorIsTheOwner = adSearchResult.Username == User.Identity.Name;
+            }
 
             ViewBag.IsComingFromSearch = false;
             if (TempData[Tempdata_ComingFromSearch] != null)

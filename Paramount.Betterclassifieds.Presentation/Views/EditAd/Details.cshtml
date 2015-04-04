@@ -14,8 +14,6 @@
     </div>
 </div>
 
-<h1 class="page-header">Update Ad Details</h1>
-
 @if (ViewBag.Updated)
 {
     <div class="alert alert-success alert-dismissable">
@@ -30,7 +28,7 @@
 
 <form role="form" id="adDesignForm" action="@Url.Action("Details", "EditAd")" method="POST">
     @Html.AntiForgeryToken()
-    @Html.HiddenFor(m => m.AdId)
+    @Html.HiddenFor(m => m.Id)
     @Html.HiddenFor(m => m.IsFutureScheduledAd)
 
     <div class="row top-buffer-20">
@@ -209,7 +207,7 @@
         (function($, $p, $url, $models) {
 
 
-            var adService = new $p.adService($url.adManagement, @Model.AdId);
+            var adService = new $p.adService($url.adManagement, @Model.Id);
             var designOptions = {
                 adService: adService,
                 onlineImages: @Html.Raw(Model.OnlineAdImages.ToJsonString()),

@@ -95,7 +95,11 @@
         </div>
 
         <div class="col-sm-4">
-
+            @if (Model.VisitorIsTheOwner)
+            {
+                <a class="btn btn-block btn-warning" href="@Url.Action("Details", "EditAd", new{id = Model.AdId})">Edit Ad <i class="glyphicon glyphicon-pencil"></i></a>
+            }
+            
             @*Sharing buttons*@
             <div class="btn-group bottom-buffer-10">
                 <button class="btn btn-default disabled">Share:</button>

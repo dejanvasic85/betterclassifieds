@@ -31,7 +31,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         //
         // GET: /EditAd/AdDetails/{id}
-        [AuthorizeCartIdentity]
+        [AuthorizeBookingIdentity]
         public ActionResult Details(int id)
         {
             ViewBag.Updated = false;
@@ -41,12 +41,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             // Todo - use automapper
             var viewModel = new EditAdDetailsViewModel
             {
+                Id = id,
                 MaxOnlineImages = _clientConfig.MaxOnlineImages > adBooking.ImageUrls.Length ? _clientConfig.MaxOnlineImages : adBooking.ImageUrls.Length,
                 MaxImageUploadBytes = _applicationConfig.MaxImageUploadBytes,
                 ConfigDurationDays = _clientConfig.RestrictedOnlineDaysCount,
                 StartDate = adBooking.StartDate,
                 IsFutureScheduledAd = adBooking.StartDate > DateTime.Today,
-                AdId = id,
                 OnlineAdHeading = adBooking.Heading,
                 OnlineAdDescription = adBooking.Description,
                 OnlineAdContactEmail = adBooking.ContactEmail,
@@ -62,9 +62,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeBookingIdentity]
         public ActionResult Details(EditAdDetailsViewModel viewModel)
         {
-            var adBooking = _searchService.GetAdById(viewModel.AdId);
+            var adBooking = _searchService.GetAdById(viewModel.Id);
             viewModel.MaxOnlineImages = _clientConfig.MaxOnlineImages > adBooking.ImageUrls.Length ? _clientConfig.MaxOnlineImages : adBooking.ImageUrls.Length;
             viewModel.MaxImageUploadBytes = _applicationConfig.MaxImageUploadBytes;
             viewModel.ConfigDurationDays = _clientConfig.RestrictedOnlineDaysCount;

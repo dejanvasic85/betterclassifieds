@@ -132,7 +132,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             get { return MaxImageUploadBytes / (decimal)1000000; }
         }
 
-        public int AdId { get; set; }
+        public int Id { get; set; }
 
         #endregion        
     }

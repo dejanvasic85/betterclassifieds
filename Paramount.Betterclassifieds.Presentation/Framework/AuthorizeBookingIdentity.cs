@@ -15,8 +15,13 @@ namespace Paramount.Betterclassifieds.Presentation
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             int adId;
-            
-            if (!int.TryParse(filterContext.ActionParameters["id"].ToString(), out adId))
+
+            if (!filterContext.RouteData.Values.ContainsKey("id"))
+            {
+                throw new BookingAuthorisationException("Parameter was not specified that would authorise the user to edit the ad");
+            }
+
+            if (!int.TryParse(filterContext.RouteData.Values["id"].ToString(), out adId))
             {
                 throw new BookingAuthorisationException("Ad ID is not a valid integer");
             }

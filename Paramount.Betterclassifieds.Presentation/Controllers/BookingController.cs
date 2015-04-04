@@ -440,7 +440,8 @@
             configuration.CreateMap<Step2View, OnlineAdModel>()
                 .ForMember(member => member.Images, options => options.Ignore())
                 .ForMember(member => member.HtmlText, options => options.MapFrom(src => src.OnlineAdDescription));
-            configuration.CreateMap<Step2View, LineAdModel>();
+            configuration.CreateMap<Step2View, LineAdModel>()
+                .ForMember(member => member.WordsPurchased, options => options.MapFrom(src => src.LineAdText.WordCount()));
             configuration.CreateMap<UserNetworkEmailView, UserNetworkModel>();
             configuration.CreateMap<PricingFactorsView, PricingFactors>();
 

@@ -338,7 +338,8 @@
                     lineAdModel.BoldHeadingColourCode,
                     lineAdModel.BorderColourCode,
                     lineAdModel.BackgroundColourCode,
-                    lineAdModel.IsSuperHeadingPurchased, ref lineAdId);
+                    lineAdModel.IsSuperHeadingPurchased,
+                    lineAdModel.WordsPurchased, ref lineAdId);
             }
         }
 

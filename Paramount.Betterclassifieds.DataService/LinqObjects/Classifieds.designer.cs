@@ -69,9 +69,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
     partial void InsertEnquiryType(EnquiryType instance);
     partial void UpdateEnquiryType(EnquiryType instance);
     partial void DeleteEnquiryType(EnquiryType instance);
-    partial void InsertLineAd(LineAd instance);
-    partial void UpdateLineAd(LineAd instance);
-    partial void DeleteLineAd(LineAd instance);
     partial void InsertLineAdColourCode(LineAdColourCode instance);
     partial void UpdateLineAdColourCode(LineAdColourCode instance);
     partial void DeleteLineAdColourCode(LineAdColourCode instance);
@@ -153,6 +150,9 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
     partial void InsertAdBookingOrderItem(AdBookingOrderItem instance);
     partial void UpdateAdBookingOrderItem(AdBookingOrderItem instance);
     partial void DeleteAdBookingOrderItem(AdBookingOrderItem instance);
+    partial void InsertLineAd(LineAd instance);
+    partial void UpdateLineAd(LineAd instance);
+    partial void DeleteLineAd(LineAd instance);
     #endregion
 		
 		public ClassifiedsDataContext() : 
@@ -286,14 +286,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			get
 			{
 				return this.GetTable<EnquiryType>();
-			}
-		}
-		
-		public System.Data.Linq.Table<LineAd> LineAds
-		{
-			get
-			{
-				return this.GetTable<LineAd>();
 			}
 		}
 		
@@ -518,6 +510,14 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			get
 			{
 				return this.GetTable<AdBookingOrderItem>();
+			}
+		}
+		
+		public System.Data.Linq.Table<LineAd> LineAds
+		{
+			get
+			{
+				return this.GetTable<LineAd>();
 			}
 		}
 		
@@ -843,14 +843,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			return ((ISingleResult<Ratecard>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.LineAd_Create")]
-		public int LineAd_Create([global::System.Data.Linq.Mapping.ParameterAttribute(Name="AdBookingId", DbType="Int")] System.Nullable<int> adBookingId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="AdHeader", DbType="NVarChar(255)")] string adHeader, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="AdText", DbType="NVarChar(MAX)")] string adText, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NumOfWords", DbType="Int")] System.Nullable<int> numOfWords, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UsePhoto", DbType="Bit")] System.Nullable<bool> usePhoto, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UseBoldHeader", DbType="Bit")] System.Nullable<bool> useBoldHeader, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IsColourBoldHeading", DbType="Bit")] System.Nullable<bool> isColourBoldHeading, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IsColourBorder", DbType="Bit")] System.Nullable<bool> isColourBorder, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IsColourBackground", DbType="Bit")] System.Nullable<bool> isColourBackground, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IsSuperBoldHeading", DbType="Bit")] System.Nullable<bool> isSuperBoldHeading, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="BoldHeadingColourCode", DbType="VarChar(10)")] string boldHeadingColourCode, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="BorderColourCode", DbType="VarChar(10)")] string borderColourCode, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="BackgroundColourCode", DbType="VarChar(10)")] string backgroundColourCode, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IsSuperHeadingPurchased", DbType="Bit")] System.Nullable<bool> isSuperHeadingPurchased, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> lineAdId)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), adBookingId, adHeader, adText, numOfWords, usePhoto, useBoldHeader, isColourBoldHeading, isColourBorder, isColourBackground, isSuperBoldHeading, boldHeadingColourCode, borderColourCode, backgroundColourCode, isSuperHeadingPurchased, lineAdId);
-			lineAdId = ((System.Nullable<int>)(result.GetParameterValue(14)));
-			return ((int)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Editions_GetUpcomingForPublications")]
 		public ISingleResult<Editions_GetUpcomingForPublicationsResult> Editions_GetUpcomingForPublications([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(20)")] string publications, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> minEditionDate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> minDeadlineDate)
 		{
@@ -862,6 +854,30 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 		public int BookEntry_Create([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> adBookingId, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="DateTime")] System.Nullable<System.DateTime> startDate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> insertions, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> publicationId, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Money")] System.Nullable<decimal> editionPrice, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Money")] System.Nullable<decimal> publicationPrice, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> ratecardId, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(10)")] string ratecardType)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), adBookingId, startDate, insertions, publicationId, editionPrice, publicationPrice, ratecardId, ratecardType);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.LineAd_Create")]
+		public int LineAd_Create(
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="AdBookingId", DbType="Int")] System.Nullable<int> adBookingId, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="AdHeader", DbType="NVarChar(255)")] string adHeader, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="AdText", DbType="NVarChar(MAX)")] string adText, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="NumOfWords", DbType="Int")] System.Nullable<int> numOfWords, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="UsePhoto", DbType="Bit")] System.Nullable<bool> usePhoto, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="UseBoldHeader", DbType="Bit")] System.Nullable<bool> useBoldHeader, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IsColourBoldHeading", DbType="Bit")] System.Nullable<bool> isColourBoldHeading, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IsColourBorder", DbType="Bit")] System.Nullable<bool> isColourBorder, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IsColourBackground", DbType="Bit")] System.Nullable<bool> isColourBackground, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IsSuperBoldHeading", DbType="Bit")] System.Nullable<bool> isSuperBoldHeading, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="BoldHeadingColourCode", DbType="VarChar(10)")] string boldHeadingColourCode, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="BorderColourCode", DbType="VarChar(10)")] string borderColourCode, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="BackgroundColourCode", DbType="VarChar(10)")] string backgroundColourCode, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="IsSuperHeadingPurchased", DbType="Bit")] System.Nullable<bool> isSuperHeadingPurchased, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(Name="WordsPurchased", DbType="Int")] System.Nullable<int> wordsPurchased, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> lineAdId)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), adBookingId, adHeader, adText, numOfWords, usePhoto, useBoldHeader, isColourBoldHeading, isColourBorder, isColourBackground, isSuperBoldHeading, boldHeadingColourCode, borderColourCode, backgroundColourCode, isSuperHeadingPurchased, wordsPurchased, lineAdId);
+			lineAdId = ((System.Nullable<int>)(result.GetParameterValue(15)));
 			return ((int)(result.ReturnValue));
 		}
 	}
@@ -1930,9 +1946,9 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 		
 		private EntitySet<AdGraphic> _AdGraphics;
 		
-		private EntitySet<LineAd> _LineAds;
-		
 		private EntitySet<OnlineAd> _OnlineAds;
+		
+		private EntitySet<LineAd> _LineAds;
 		
 		private EntityRef<Ad> _Ad;
 		
@@ -1961,8 +1977,8 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 		public AdDesign()
 		{
 			this._AdGraphics = new EntitySet<AdGraphic>(new Action<AdGraphic>(this.attach_AdGraphics), new Action<AdGraphic>(this.detach_AdGraphics));
-			this._LineAds = new EntitySet<LineAd>(new Action<LineAd>(this.attach_LineAds), new Action<LineAd>(this.detach_LineAds));
 			this._OnlineAds = new EntitySet<OnlineAd>(new Action<OnlineAd>(this.attach_OnlineAds), new Action<OnlineAd>(this.detach_OnlineAds));
+			this._LineAds = new EntitySet<LineAd>(new Action<LineAd>(this.attach_LineAds), new Action<LineAd>(this.detach_LineAds));
 			this._Ad = default(EntityRef<Ad>);
 			this._AdType = default(EntityRef<AdType>);
 			OnCreated();
@@ -2129,19 +2145,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="AdDesign_LineAd", Storage="_LineAds", ThisKey="AdDesignId", OtherKey="AdDesignId")]
-		public EntitySet<LineAd> LineAds
-		{
-			get
-			{
-				return this._LineAds;
-			}
-			set
-			{
-				this._LineAds.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="AdDesign_OnlineAd", Storage="_OnlineAds", ThisKey="AdDesignId", OtherKey="AdDesignId")]
 		public EntitySet<OnlineAd> OnlineAds
 		{
@@ -2152,6 +2155,19 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			set
 			{
 				this._OnlineAds.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="AdDesign_LineAd", Storage="_LineAds", ThisKey="AdDesignId", OtherKey="AdDesignId")]
+		public EntitySet<LineAd> LineAds
+		{
+			get
+			{
+				return this._LineAds;
+			}
+			set
+			{
+				this._LineAds.Assign(value);
 			}
 		}
 		
@@ -2255,18 +2271,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			entity.AdDesign = null;
 		}
 		
-		private void attach_LineAds(LineAd entity)
-		{
-			this.SendPropertyChanging();
-			entity.AdDesign = this;
-		}
-		
-		private void detach_LineAds(LineAd entity)
-		{
-			this.SendPropertyChanging();
-			entity.AdDesign = null;
-		}
-		
 		private void attach_OnlineAds(OnlineAd entity)
 		{
 			this.SendPropertyChanging();
@@ -2274,6 +2278,18 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 		}
 		
 		private void detach_OnlineAds(OnlineAd entity)
+		{
+			this.SendPropertyChanging();
+			entity.AdDesign = null;
+		}
+		
+		private void attach_LineAds(LineAd entity)
+		{
+			this.SendPropertyChanging();
+			entity.AdDesign = this;
+		}
+		
+		private void detach_LineAds(LineAd entity)
 		{
 			this.SendPropertyChanging();
 			entity.AdDesign = null;
@@ -4030,493 +4046,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 		{
 			this.SendPropertyChanging();
 			entity.EnquiryType = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LineAd")]
-	public partial class LineAd : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _LineAdId;
-		
-		private int _AdDesignId;
-		
-		private string _AdHeader;
-		
-		private string _AdText;
-		
-		private System.Nullable<int> _NumOfWords;
-		
-		private System.Nullable<bool> _UsePhoto;
-		
-		private System.Nullable<bool> _UseBoldHeader;
-		
-		private System.Nullable<bool> _IsColourBoldHeading;
-		
-		private System.Nullable<bool> _IsColourBorder;
-		
-		private System.Nullable<bool> _IsColourBackground;
-		
-		private System.Nullable<bool> _IsSuperBoldHeading;
-		
-		private System.Nullable<bool> _IsFooterPhoto;
-		
-		private string _BoldHeadingColourCode;
-		
-		private string _BorderColourCode;
-		
-		private string _BackgroundColourCode;
-		
-		private string _FooterPhotoId;
-		
-		private System.Nullable<bool> _IsSuperHeadingPurchased;
-		
-		private EntityRef<AdDesign> _AdDesign;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnLineAdIdChanging(int value);
-    partial void OnLineAdIdChanged();
-    partial void OnAdDesignIdChanging(int value);
-    partial void OnAdDesignIdChanged();
-    partial void OnAdHeaderChanging(string value);
-    partial void OnAdHeaderChanged();
-    partial void OnAdTextChanging(string value);
-    partial void OnAdTextChanged();
-    partial void OnNumOfWordsChanging(System.Nullable<int> value);
-    partial void OnNumOfWordsChanged();
-    partial void OnUsePhotoChanging(System.Nullable<bool> value);
-    partial void OnUsePhotoChanged();
-    partial void OnUseBoldHeaderChanging(System.Nullable<bool> value);
-    partial void OnUseBoldHeaderChanged();
-    partial void OnIsColourBoldHeadingChanging(System.Nullable<bool> value);
-    partial void OnIsColourBoldHeadingChanged();
-    partial void OnIsColourBorderChanging(System.Nullable<bool> value);
-    partial void OnIsColourBorderChanged();
-    partial void OnIsColourBackgroundChanging(System.Nullable<bool> value);
-    partial void OnIsColourBackgroundChanged();
-    partial void OnIsSuperBoldHeadingChanging(System.Nullable<bool> value);
-    partial void OnIsSuperBoldHeadingChanged();
-    partial void OnIsFooterPhotoChanging(System.Nullable<bool> value);
-    partial void OnIsFooterPhotoChanged();
-    partial void OnBoldHeadingColourCodeChanging(string value);
-    partial void OnBoldHeadingColourCodeChanged();
-    partial void OnBorderColourCodeChanging(string value);
-    partial void OnBorderColourCodeChanged();
-    partial void OnBackgroundColourCodeChanging(string value);
-    partial void OnBackgroundColourCodeChanged();
-    partial void OnFooterPhotoIdChanging(string value);
-    partial void OnFooterPhotoIdChanged();
-    partial void OnIsSuperHeadingPurchasedChanging(System.Nullable<bool> value);
-    partial void OnIsSuperHeadingPurchasedChanged();
-    #endregion
-		
-		public LineAd()
-		{
-			this._AdDesign = default(EntityRef<AdDesign>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LineAdId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int LineAdId
-		{
-			get
-			{
-				return this._LineAdId;
-			}
-			set
-			{
-				if ((this._LineAdId != value))
-				{
-					this.OnLineAdIdChanging(value);
-					this.SendPropertyChanging();
-					this._LineAdId = value;
-					this.SendPropertyChanged("LineAdId");
-					this.OnLineAdIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdDesignId", DbType="Int NOT NULL")]
-		public int AdDesignId
-		{
-			get
-			{
-				return this._AdDesignId;
-			}
-			set
-			{
-				if ((this._AdDesignId != value))
-				{
-					if (this._AdDesign.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnAdDesignIdChanging(value);
-					this.SendPropertyChanging();
-					this._AdDesignId = value;
-					this.SendPropertyChanged("AdDesignId");
-					this.OnAdDesignIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdHeader", DbType="NVarChar(255)")]
-		public string AdHeader
-		{
-			get
-			{
-				return this._AdHeader;
-			}
-			set
-			{
-				if ((this._AdHeader != value))
-				{
-					this.OnAdHeaderChanging(value);
-					this.SendPropertyChanging();
-					this._AdHeader = value;
-					this.SendPropertyChanged("AdHeader");
-					this.OnAdHeaderChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdText", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string AdText
-		{
-			get
-			{
-				return this._AdText;
-			}
-			set
-			{
-				if ((this._AdText != value))
-				{
-					this.OnAdTextChanging(value);
-					this.SendPropertyChanging();
-					this._AdText = value;
-					this.SendPropertyChanged("AdText");
-					this.OnAdTextChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NumOfWords", DbType="Int")]
-		public System.Nullable<int> NumOfWords
-		{
-			get
-			{
-				return this._NumOfWords;
-			}
-			set
-			{
-				if ((this._NumOfWords != value))
-				{
-					this.OnNumOfWordsChanging(value);
-					this.SendPropertyChanging();
-					this._NumOfWords = value;
-					this.SendPropertyChanged("NumOfWords");
-					this.OnNumOfWordsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UsePhoto", DbType="Bit")]
-		public System.Nullable<bool> UsePhoto
-		{
-			get
-			{
-				return this._UsePhoto;
-			}
-			set
-			{
-				if ((this._UsePhoto != value))
-				{
-					this.OnUsePhotoChanging(value);
-					this.SendPropertyChanging();
-					this._UsePhoto = value;
-					this.SendPropertyChanged("UsePhoto");
-					this.OnUsePhotoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UseBoldHeader", DbType="Bit")]
-		public System.Nullable<bool> UseBoldHeader
-		{
-			get
-			{
-				return this._UseBoldHeader;
-			}
-			set
-			{
-				if ((this._UseBoldHeader != value))
-				{
-					this.OnUseBoldHeaderChanging(value);
-					this.SendPropertyChanging();
-					this._UseBoldHeader = value;
-					this.SendPropertyChanged("UseBoldHeader");
-					this.OnUseBoldHeaderChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsColourBoldHeading", DbType="Bit")]
-		public System.Nullable<bool> IsColourBoldHeading
-		{
-			get
-			{
-				return this._IsColourBoldHeading;
-			}
-			set
-			{
-				if ((this._IsColourBoldHeading != value))
-				{
-					this.OnIsColourBoldHeadingChanging(value);
-					this.SendPropertyChanging();
-					this._IsColourBoldHeading = value;
-					this.SendPropertyChanged("IsColourBoldHeading");
-					this.OnIsColourBoldHeadingChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsColourBorder", DbType="Bit")]
-		public System.Nullable<bool> IsColourBorder
-		{
-			get
-			{
-				return this._IsColourBorder;
-			}
-			set
-			{
-				if ((this._IsColourBorder != value))
-				{
-					this.OnIsColourBorderChanging(value);
-					this.SendPropertyChanging();
-					this._IsColourBorder = value;
-					this.SendPropertyChanged("IsColourBorder");
-					this.OnIsColourBorderChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsColourBackground", DbType="Bit")]
-		public System.Nullable<bool> IsColourBackground
-		{
-			get
-			{
-				return this._IsColourBackground;
-			}
-			set
-			{
-				if ((this._IsColourBackground != value))
-				{
-					this.OnIsColourBackgroundChanging(value);
-					this.SendPropertyChanging();
-					this._IsColourBackground = value;
-					this.SendPropertyChanged("IsColourBackground");
-					this.OnIsColourBackgroundChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSuperBoldHeading", DbType="Bit")]
-		public System.Nullable<bool> IsSuperBoldHeading
-		{
-			get
-			{
-				return this._IsSuperBoldHeading;
-			}
-			set
-			{
-				if ((this._IsSuperBoldHeading != value))
-				{
-					this.OnIsSuperBoldHeadingChanging(value);
-					this.SendPropertyChanging();
-					this._IsSuperBoldHeading = value;
-					this.SendPropertyChanged("IsSuperBoldHeading");
-					this.OnIsSuperBoldHeadingChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsFooterPhoto", DbType="Bit")]
-		public System.Nullable<bool> IsFooterPhoto
-		{
-			get
-			{
-				return this._IsFooterPhoto;
-			}
-			set
-			{
-				if ((this._IsFooterPhoto != value))
-				{
-					this.OnIsFooterPhotoChanging(value);
-					this.SendPropertyChanging();
-					this._IsFooterPhoto = value;
-					this.SendPropertyChanged("IsFooterPhoto");
-					this.OnIsFooterPhotoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BoldHeadingColourCode", DbType="VarChar(10)")]
-		public string BoldHeadingColourCode
-		{
-			get
-			{
-				return this._BoldHeadingColourCode;
-			}
-			set
-			{
-				if ((this._BoldHeadingColourCode != value))
-				{
-					this.OnBoldHeadingColourCodeChanging(value);
-					this.SendPropertyChanging();
-					this._BoldHeadingColourCode = value;
-					this.SendPropertyChanged("BoldHeadingColourCode");
-					this.OnBoldHeadingColourCodeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BorderColourCode", DbType="VarChar(10)")]
-		public string BorderColourCode
-		{
-			get
-			{
-				return this._BorderColourCode;
-			}
-			set
-			{
-				if ((this._BorderColourCode != value))
-				{
-					this.OnBorderColourCodeChanging(value);
-					this.SendPropertyChanging();
-					this._BorderColourCode = value;
-					this.SendPropertyChanged("BorderColourCode");
-					this.OnBorderColourCodeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BackgroundColourCode", DbType="VarChar(10)")]
-		public string BackgroundColourCode
-		{
-			get
-			{
-				return this._BackgroundColourCode;
-			}
-			set
-			{
-				if ((this._BackgroundColourCode != value))
-				{
-					this.OnBackgroundColourCodeChanging(value);
-					this.SendPropertyChanging();
-					this._BackgroundColourCode = value;
-					this.SendPropertyChanged("BackgroundColourCode");
-					this.OnBackgroundColourCodeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FooterPhotoId", DbType="VarChar(100)")]
-		public string FooterPhotoId
-		{
-			get
-			{
-				return this._FooterPhotoId;
-			}
-			set
-			{
-				if ((this._FooterPhotoId != value))
-				{
-					this.OnFooterPhotoIdChanging(value);
-					this.SendPropertyChanging();
-					this._FooterPhotoId = value;
-					this.SendPropertyChanged("FooterPhotoId");
-					this.OnFooterPhotoIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSuperHeadingPurchased", DbType="Bit")]
-		public System.Nullable<bool> IsSuperHeadingPurchased
-		{
-			get
-			{
-				return this._IsSuperHeadingPurchased;
-			}
-			set
-			{
-				if ((this._IsSuperHeadingPurchased != value))
-				{
-					this.OnIsSuperHeadingPurchasedChanging(value);
-					this.SendPropertyChanging();
-					this._IsSuperHeadingPurchased = value;
-					this.SendPropertyChanged("IsSuperHeadingPurchased");
-					this.OnIsSuperHeadingPurchasedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="AdDesign_LineAd", Storage="_AdDesign", ThisKey="AdDesignId", OtherKey="AdDesignId", IsForeignKey=true)]
-		public AdDesign AdDesign
-		{
-			get
-			{
-				return this._AdDesign.Entity;
-			}
-			set
-			{
-				AdDesign previousValue = this._AdDesign.Entity;
-				if (((previousValue != value) 
-							|| (this._AdDesign.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._AdDesign.Entity = null;
-						previousValue.LineAds.Remove(this);
-					}
-					this._AdDesign.Entity = value;
-					if ((value != null))
-					{
-						value.LineAds.Add(this);
-						this._AdDesignId = value.AdDesignId;
-					}
-					else
-					{
-						this._AdDesignId = default(int);
-					}
-					this.SendPropertyChanged("AdDesign");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 	
@@ -12410,6 +11939,517 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 						this._AdBookingOrderId = default(int);
 					}
 					this.SendPropertyChanged("AdBookingOrder");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LineAd")]
+	public partial class LineAd : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _LineAdId;
+		
+		private int _AdDesignId;
+		
+		private string _AdHeader;
+		
+		private string _AdText;
+		
+		private System.Nullable<int> _NumOfWords;
+		
+		private System.Nullable<bool> _UsePhoto;
+		
+		private System.Nullable<bool> _UseBoldHeader;
+		
+		private System.Nullable<bool> _IsColourBoldHeading;
+		
+		private System.Nullable<bool> _IsColourBorder;
+		
+		private System.Nullable<bool> _IsColourBackground;
+		
+		private System.Nullable<bool> _IsSuperBoldHeading;
+		
+		private System.Nullable<bool> _IsFooterPhoto;
+		
+		private string _BoldHeadingColourCode;
+		
+		private string _BorderColourCode;
+		
+		private string _BackgroundColourCode;
+		
+		private string _FooterPhotoId;
+		
+		private System.Nullable<bool> _IsSuperHeadingPurchased;
+		
+		private System.Nullable<int> _WordsPurchased;
+		
+		private EntityRef<AdDesign> _AdDesign;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnLineAdIdChanging(int value);
+    partial void OnLineAdIdChanged();
+    partial void OnAdDesignIdChanging(int value);
+    partial void OnAdDesignIdChanged();
+    partial void OnAdHeaderChanging(string value);
+    partial void OnAdHeaderChanged();
+    partial void OnAdTextChanging(string value);
+    partial void OnAdTextChanged();
+    partial void OnNumOfWordsChanging(System.Nullable<int> value);
+    partial void OnNumOfWordsChanged();
+    partial void OnUsePhotoChanging(System.Nullable<bool> value);
+    partial void OnUsePhotoChanged();
+    partial void OnUseBoldHeaderChanging(System.Nullable<bool> value);
+    partial void OnUseBoldHeaderChanged();
+    partial void OnIsColourBoldHeadingChanging(System.Nullable<bool> value);
+    partial void OnIsColourBoldHeadingChanged();
+    partial void OnIsColourBorderChanging(System.Nullable<bool> value);
+    partial void OnIsColourBorderChanged();
+    partial void OnIsColourBackgroundChanging(System.Nullable<bool> value);
+    partial void OnIsColourBackgroundChanged();
+    partial void OnIsSuperBoldHeadingChanging(System.Nullable<bool> value);
+    partial void OnIsSuperBoldHeadingChanged();
+    partial void OnIsFooterPhotoChanging(System.Nullable<bool> value);
+    partial void OnIsFooterPhotoChanged();
+    partial void OnBoldHeadingColourCodeChanging(string value);
+    partial void OnBoldHeadingColourCodeChanged();
+    partial void OnBorderColourCodeChanging(string value);
+    partial void OnBorderColourCodeChanged();
+    partial void OnBackgroundColourCodeChanging(string value);
+    partial void OnBackgroundColourCodeChanged();
+    partial void OnFooterPhotoIdChanging(string value);
+    partial void OnFooterPhotoIdChanged();
+    partial void OnIsSuperHeadingPurchasedChanging(System.Nullable<bool> value);
+    partial void OnIsSuperHeadingPurchasedChanged();
+    partial void OnWordsPurchasedChanging(System.Nullable<int> value);
+    partial void OnWordsPurchasedChanged();
+    #endregion
+		
+		public LineAd()
+		{
+			this._AdDesign = default(EntityRef<AdDesign>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LineAdId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int LineAdId
+		{
+			get
+			{
+				return this._LineAdId;
+			}
+			set
+			{
+				if ((this._LineAdId != value))
+				{
+					this.OnLineAdIdChanging(value);
+					this.SendPropertyChanging();
+					this._LineAdId = value;
+					this.SendPropertyChanged("LineAdId");
+					this.OnLineAdIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdDesignId", DbType="Int NOT NULL")]
+		public int AdDesignId
+		{
+			get
+			{
+				return this._AdDesignId;
+			}
+			set
+			{
+				if ((this._AdDesignId != value))
+				{
+					if (this._AdDesign.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnAdDesignIdChanging(value);
+					this.SendPropertyChanging();
+					this._AdDesignId = value;
+					this.SendPropertyChanged("AdDesignId");
+					this.OnAdDesignIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdHeader", DbType="NVarChar(255)")]
+		public string AdHeader
+		{
+			get
+			{
+				return this._AdHeader;
+			}
+			set
+			{
+				if ((this._AdHeader != value))
+				{
+					this.OnAdHeaderChanging(value);
+					this.SendPropertyChanging();
+					this._AdHeader = value;
+					this.SendPropertyChanged("AdHeader");
+					this.OnAdHeaderChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdText", DbType="NVarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string AdText
+		{
+			get
+			{
+				return this._AdText;
+			}
+			set
+			{
+				if ((this._AdText != value))
+				{
+					this.OnAdTextChanging(value);
+					this.SendPropertyChanging();
+					this._AdText = value;
+					this.SendPropertyChanged("AdText");
+					this.OnAdTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NumOfWords", DbType="Int")]
+		public System.Nullable<int> NumOfWords
+		{
+			get
+			{
+				return this._NumOfWords;
+			}
+			set
+			{
+				if ((this._NumOfWords != value))
+				{
+					this.OnNumOfWordsChanging(value);
+					this.SendPropertyChanging();
+					this._NumOfWords = value;
+					this.SendPropertyChanged("NumOfWords");
+					this.OnNumOfWordsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UsePhoto", DbType="Bit")]
+		public System.Nullable<bool> UsePhoto
+		{
+			get
+			{
+				return this._UsePhoto;
+			}
+			set
+			{
+				if ((this._UsePhoto != value))
+				{
+					this.OnUsePhotoChanging(value);
+					this.SendPropertyChanging();
+					this._UsePhoto = value;
+					this.SendPropertyChanged("UsePhoto");
+					this.OnUsePhotoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UseBoldHeader", DbType="Bit")]
+		public System.Nullable<bool> UseBoldHeader
+		{
+			get
+			{
+				return this._UseBoldHeader;
+			}
+			set
+			{
+				if ((this._UseBoldHeader != value))
+				{
+					this.OnUseBoldHeaderChanging(value);
+					this.SendPropertyChanging();
+					this._UseBoldHeader = value;
+					this.SendPropertyChanged("UseBoldHeader");
+					this.OnUseBoldHeaderChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsColourBoldHeading", DbType="Bit")]
+		public System.Nullable<bool> IsColourBoldHeading
+		{
+			get
+			{
+				return this._IsColourBoldHeading;
+			}
+			set
+			{
+				if ((this._IsColourBoldHeading != value))
+				{
+					this.OnIsColourBoldHeadingChanging(value);
+					this.SendPropertyChanging();
+					this._IsColourBoldHeading = value;
+					this.SendPropertyChanged("IsColourBoldHeading");
+					this.OnIsColourBoldHeadingChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsColourBorder", DbType="Bit")]
+		public System.Nullable<bool> IsColourBorder
+		{
+			get
+			{
+				return this._IsColourBorder;
+			}
+			set
+			{
+				if ((this._IsColourBorder != value))
+				{
+					this.OnIsColourBorderChanging(value);
+					this.SendPropertyChanging();
+					this._IsColourBorder = value;
+					this.SendPropertyChanged("IsColourBorder");
+					this.OnIsColourBorderChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsColourBackground", DbType="Bit")]
+		public System.Nullable<bool> IsColourBackground
+		{
+			get
+			{
+				return this._IsColourBackground;
+			}
+			set
+			{
+				if ((this._IsColourBackground != value))
+				{
+					this.OnIsColourBackgroundChanging(value);
+					this.SendPropertyChanging();
+					this._IsColourBackground = value;
+					this.SendPropertyChanged("IsColourBackground");
+					this.OnIsColourBackgroundChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSuperBoldHeading", DbType="Bit")]
+		public System.Nullable<bool> IsSuperBoldHeading
+		{
+			get
+			{
+				return this._IsSuperBoldHeading;
+			}
+			set
+			{
+				if ((this._IsSuperBoldHeading != value))
+				{
+					this.OnIsSuperBoldHeadingChanging(value);
+					this.SendPropertyChanging();
+					this._IsSuperBoldHeading = value;
+					this.SendPropertyChanged("IsSuperBoldHeading");
+					this.OnIsSuperBoldHeadingChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsFooterPhoto", DbType="Bit")]
+		public System.Nullable<bool> IsFooterPhoto
+		{
+			get
+			{
+				return this._IsFooterPhoto;
+			}
+			set
+			{
+				if ((this._IsFooterPhoto != value))
+				{
+					this.OnIsFooterPhotoChanging(value);
+					this.SendPropertyChanging();
+					this._IsFooterPhoto = value;
+					this.SendPropertyChanged("IsFooterPhoto");
+					this.OnIsFooterPhotoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BoldHeadingColourCode", DbType="VarChar(10)")]
+		public string BoldHeadingColourCode
+		{
+			get
+			{
+				return this._BoldHeadingColourCode;
+			}
+			set
+			{
+				if ((this._BoldHeadingColourCode != value))
+				{
+					this.OnBoldHeadingColourCodeChanging(value);
+					this.SendPropertyChanging();
+					this._BoldHeadingColourCode = value;
+					this.SendPropertyChanged("BoldHeadingColourCode");
+					this.OnBoldHeadingColourCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BorderColourCode", DbType="VarChar(10)")]
+		public string BorderColourCode
+		{
+			get
+			{
+				return this._BorderColourCode;
+			}
+			set
+			{
+				if ((this._BorderColourCode != value))
+				{
+					this.OnBorderColourCodeChanging(value);
+					this.SendPropertyChanging();
+					this._BorderColourCode = value;
+					this.SendPropertyChanged("BorderColourCode");
+					this.OnBorderColourCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BackgroundColourCode", DbType="VarChar(10)")]
+		public string BackgroundColourCode
+		{
+			get
+			{
+				return this._BackgroundColourCode;
+			}
+			set
+			{
+				if ((this._BackgroundColourCode != value))
+				{
+					this.OnBackgroundColourCodeChanging(value);
+					this.SendPropertyChanging();
+					this._BackgroundColourCode = value;
+					this.SendPropertyChanged("BackgroundColourCode");
+					this.OnBackgroundColourCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FooterPhotoId", DbType="VarChar(100)")]
+		public string FooterPhotoId
+		{
+			get
+			{
+				return this._FooterPhotoId;
+			}
+			set
+			{
+				if ((this._FooterPhotoId != value))
+				{
+					this.OnFooterPhotoIdChanging(value);
+					this.SendPropertyChanging();
+					this._FooterPhotoId = value;
+					this.SendPropertyChanged("FooterPhotoId");
+					this.OnFooterPhotoIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsSuperHeadingPurchased", DbType="Bit")]
+		public System.Nullable<bool> IsSuperHeadingPurchased
+		{
+			get
+			{
+				return this._IsSuperHeadingPurchased;
+			}
+			set
+			{
+				if ((this._IsSuperHeadingPurchased != value))
+				{
+					this.OnIsSuperHeadingPurchasedChanging(value);
+					this.SendPropertyChanging();
+					this._IsSuperHeadingPurchased = value;
+					this.SendPropertyChanged("IsSuperHeadingPurchased");
+					this.OnIsSuperHeadingPurchasedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WordsPurchased", DbType="Int")]
+		public System.Nullable<int> WordsPurchased
+		{
+			get
+			{
+				return this._WordsPurchased;
+			}
+			set
+			{
+				if ((this._WordsPurchased != value))
+				{
+					this.OnWordsPurchasedChanging(value);
+					this.SendPropertyChanging();
+					this._WordsPurchased = value;
+					this.SendPropertyChanged("WordsPurchased");
+					this.OnWordsPurchasedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="AdDesign_LineAd", Storage="_AdDesign", ThisKey="AdDesignId", OtherKey="AdDesignId", IsForeignKey=true)]
+		public AdDesign AdDesign
+		{
+			get
+			{
+				return this._AdDesign.Entity;
+			}
+			set
+			{
+				AdDesign previousValue = this._AdDesign.Entity;
+				if (((previousValue != value) 
+							|| (this._AdDesign.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._AdDesign.Entity = null;
+						previousValue.LineAds.Remove(this);
+					}
+					this._AdDesign.Entity = value;
+					if ((value != null))
+					{
+						value.LineAds.Add(this);
+						this._AdDesignId = value.AdDesignId;
+					}
+					else
+					{
+						this._AdDesignId = default(int);
+					}
+					this.SendPropertyChanged("AdDesign");
 				}
 			}
 		}

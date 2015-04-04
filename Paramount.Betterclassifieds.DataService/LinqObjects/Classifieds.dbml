@@ -61,8 +61,8 @@
       <Column Name="Version" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="FirstAdDesignId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="AdDesign_AdGraphic" Member="AdGraphics" ThisKey="AdDesignId" OtherKey="AdDesignId" Type="AdGraphic" />
-      <Association Name="AdDesign_LineAd" Member="LineAds" ThisKey="AdDesignId" OtherKey="AdDesignId" Type="LineAd" />
       <Association Name="AdDesign_OnlineAd" Member="OnlineAds" ThisKey="AdDesignId" OtherKey="AdDesignId" Type="OnlineAd" />
+      <Association Name="AdDesign_LineAd" Member="LineAds" ThisKey="AdDesignId" OtherKey="AdDesignId" Type="LineAd" />
       <Association Name="Ad_AdDesign" Member="Ad" ThisKey="AdId" OtherKey="AdId" Type="Ad" IsForeignKey="true" />
       <Association Name="AdType_AdDesign" Member="AdType" ThisKey="AdTypeId" OtherKey="AdTypeId" Type="AdType" IsForeignKey="true" />
     </Type>
@@ -153,28 +153,6 @@
       <Column Name="Active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Association Name="EnquiryType_OnlineAdEnquiry" Member="OnlineAdEnquiries" ThisKey="EnquiryTypeId" OtherKey="EnquiryTypeId" Type="OnlineAdEnquiry" />
-    </Type>
-  </Table>
-  <Table Name="dbo.LineAd" Member="LineAds">
-    <Type Name="LineAd">
-      <Column Name="LineAdId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="AdDesignId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="AdHeader" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="AdText" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="NumOfWords" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="UsePhoto" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="UseBoldHeader" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="IsColourBoldHeading" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="IsColourBorder" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="IsColourBackground" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="IsSuperBoldHeading" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="IsFooterPhoto" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="BoldHeadingColourCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Column Name="BorderColourCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Column Name="BackgroundColourCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Column Name="FooterPhotoId" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="IsSuperHeadingPurchased" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="AdDesign_LineAd" Member="AdDesign" ThisKey="AdDesignId" OtherKey="AdDesignId" Type="AdDesign" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.LineAdColourCode" Member="LineAdColourCodes">
@@ -560,6 +538,29 @@
       <Column Name="Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
       <Column Name="Editions" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="AdBookingOrder_AdBookingOrderItem" Member="AdBookingOrder" ThisKey="AdBookingOrderId" OtherKey="AdBookingOrderId" Type="AdBookingOrder" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LineAd" Member="LineAds">
+    <Type Name="LineAd">
+      <Column Name="LineAdId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AdDesignId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AdHeader" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="AdText" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="NumOfWords" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UsePhoto" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="UseBoldHeader" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsColourBoldHeading" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsColourBorder" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsColourBackground" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsSuperBoldHeading" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsFooterPhoto" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="BoldHeadingColourCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="BorderColourCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="BackgroundColourCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="FooterPhotoId" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="IsSuperHeadingPurchased" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="WordsPurchased" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="AdDesign_LineAd" Member="AdDesign" ThisKey="AdDesignId" OtherKey="AdDesignId" Type="AdDesign" IsForeignKey="true" />
     </Type>
   </Table>
   <Function Name="dbo.usp_RateCard__Search" Method="usp_RateCard__Search">
@@ -1098,24 +1099,6 @@
     <Parameter Name="categoryId" Type="System.Int32" DbType="Int" />
     <ElementType IdRef="ID3" />
   </Function>
-  <Function Name="dbo.LineAd_Create" Method="LineAd_Create">
-    <Parameter Name="AdBookingId" Parameter="adBookingId" Type="System.Int32" DbType="Int" />
-    <Parameter Name="AdHeader" Parameter="adHeader" Type="System.String" DbType="NVarChar(255)" />
-    <Parameter Name="AdText" Parameter="adText" Type="System.String" DbType="NVarChar(MAX)" />
-    <Parameter Name="NumOfWords" Parameter="numOfWords" Type="System.Int32" DbType="Int" />
-    <Parameter Name="UsePhoto" Parameter="usePhoto" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="UseBoldHeader" Parameter="useBoldHeader" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="IsColourBoldHeading" Parameter="isColourBoldHeading" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="IsColourBorder" Parameter="isColourBorder" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="IsColourBackground" Parameter="isColourBackground" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="IsSuperBoldHeading" Parameter="isSuperBoldHeading" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="BoldHeadingColourCode" Parameter="boldHeadingColourCode" Type="System.String" DbType="VarChar(10)" />
-    <Parameter Name="BorderColourCode" Parameter="borderColourCode" Type="System.String" DbType="VarChar(10)" />
-    <Parameter Name="BackgroundColourCode" Parameter="backgroundColourCode" Type="System.String" DbType="VarChar(10)" />
-    <Parameter Name="IsSuperHeadingPurchased" Parameter="isSuperHeadingPurchased" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="lineAdId" Type="System.Int32" DbType="Int" Direction="InOut" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.Editions_GetUpcomingForPublications" Method="Editions_GetUpcomingForPublications">
     <Parameter Name="publications" Type="System.String" DbType="VarChar(20)" />
     <Parameter Name="minEditionDate" Type="System.DateTime" DbType="DateTime" />
@@ -1133,6 +1116,25 @@
     <Parameter Name="publicationPrice" Type="System.Decimal" DbType="Money" />
     <Parameter Name="ratecardId" Type="System.Int32" DbType="Int" />
     <Parameter Name="ratecardType" Type="System.String" DbType="VarChar(10)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.LineAd_Create" Method="LineAd_Create">
+    <Parameter Name="AdBookingId" Parameter="adBookingId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="AdHeader" Parameter="adHeader" Type="System.String" DbType="NVarChar(255)" />
+    <Parameter Name="AdText" Parameter="adText" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="NumOfWords" Parameter="numOfWords" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UsePhoto" Parameter="usePhoto" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="UseBoldHeader" Parameter="useBoldHeader" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="IsColourBoldHeading" Parameter="isColourBoldHeading" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="IsColourBorder" Parameter="isColourBorder" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="IsColourBackground" Parameter="isColourBackground" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="IsSuperBoldHeading" Parameter="isSuperBoldHeading" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="BoldHeadingColourCode" Parameter="boldHeadingColourCode" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="BorderColourCode" Parameter="borderColourCode" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="BackgroundColourCode" Parameter="backgroundColourCode" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="IsSuperHeadingPurchased" Parameter="isSuperHeadingPurchased" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="WordsPurchased" Parameter="wordsPurchased" Type="System.Int32" DbType="Int" />
+    <Parameter Name="lineAdId" Type="System.Int32" DbType="Int" Direction="InOut" />
     <Return Type="System.Int32" />
   </Function>
 </Database>

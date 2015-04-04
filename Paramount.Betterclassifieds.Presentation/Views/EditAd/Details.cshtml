@@ -218,7 +218,7 @@
                 if (Model.IsPrintDescriptionBooked)
                 {
                     @Html.HiddenFor(m => m.IsPrintDescriptionBooked)
-                    @Html.HiddenFor(m => m.PrintWordsPurchased)
+                    @Html.HiddenFor(m => m.LineWordsPurchased)
                     <div class="form-group">
                         @Html.LabelFor(m => m.LineAdText)
                         @Html.BootstrapLargeTextAreaFor(m => m.LineAdText, 5, attributes: new Dictionary<string, object>
@@ -226,8 +226,8 @@
                                 {"data-bind", "value: lineAdText, html: lineAdText, valueUpdate: ['afterkeydown', 'input']"}
                             })
                         <span class="help-block">
-                            <strong>Please Note: You may edit existing text keeping the same number of words that was booked.</strong>
-                            Word Count: <span data-bind="text: wordCount"></span>.
+                            <strong>Puchased Words @Model.LineWordsPurchased.</strong>
+                            Current Word Count: <span data-bind="text: wordCount"></span>.
                         </span>
                         @Html.ValidationMessageFor(m => m.LineAdText)
                     </div>

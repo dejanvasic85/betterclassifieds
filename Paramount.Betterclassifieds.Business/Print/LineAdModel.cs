@@ -22,6 +22,6 @@
         public string BorderColourCode { get; set; }
         public string BackgroundColourCode { get; set; }
         public bool IsSuperHeadingPurchased { get; set; }
-
+        public int WordsPurchased { get; set; }
     }
 }

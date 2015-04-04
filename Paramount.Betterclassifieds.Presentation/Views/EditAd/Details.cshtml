@@ -221,7 +221,7 @@
 
             // Upload online images
             $p.upload({
-                url: $url.adBooking.uploadOnlineImage,
+                url: $url.adManagement.uploadOnlineImage,
                 element: $('#fileupload'),
                 progressBar: $('#onlineImages .progress'),
                 start: function() {
@@ -230,7 +230,6 @@
                     designAdModel.uploadImageInProgress(true);
                 },
                 complete: function(fileId) {
-                    // Completed, so now we need to assign it to the booking
                     adService.assignOnlineImage(fileId)
                         .done(function() {
                             designAdModel.adImages.push(fileId);

@@ -68,7 +68,7 @@ namespace Paramount
 
         public static string UploadOnlineImage(this UrlHelper urlHelper)
         {
-            return urlHelper.Action("UploadOnlineImage", "Booking");
+            return urlHelper.Action("UploadOnlineImage", "Image");
         }
 
         public static string ContentAbsolute(this UrlHelper urlhelper, string relativeContentPath)

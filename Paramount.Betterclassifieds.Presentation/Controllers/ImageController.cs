@@ -37,6 +37,36 @@
         }
 
         [HttpPost]
+        public ActionResult UploadOnlineImage()
+        {
+            var files = Request.Files.Cast<string>()
+               .Select(file => Request.Files[file].As<HttpPostedFileBase>())
+               .Where(postedFile => postedFile != null && postedFile.ContentLength != 0)
+               .ToList();
+
+            // There should only be 1 uploaded file so just check the size ...
+            var uploadedFile = files.Single();
+            if (uploadedFile.ContentLength > _applicationConfig.MaxImageUploadBytes)
+            {
+                return Json(new { errorMsg = "The file exceeds the maximum file size." });
+            }
+
+            if (!_applicationConfig.AcceptedImageFileTypes.Any(type => type.Equals(uploadedFile.ContentType)))
+            {
+                return Json(new { errorMsg = "Not an accepted file type." });
+            }
+
+            var documentId = Guid.NewGuid();
+
+            var imageDocument = new Document(documentId, uploadedFile.InputStream.FromStream(), uploadedFile.ContentType,
+                uploadedFile.FileName, uploadedFile.ContentLength, this.User.Identity.Name);
+
+            _documentRepository.Save(imageDocument);
+
+            return Json(new { documentId }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public ActionResult UploadCropImage()
         {
             // Should be 1 uploaded file

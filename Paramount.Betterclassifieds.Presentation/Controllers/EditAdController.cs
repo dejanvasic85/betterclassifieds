@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
@@ -11,6 +10,7 @@ using Paramount.Betterclassifieds.Presentation.ViewModels;
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     [Authorize]
+    [AuthorizeBookingIdentity]
     public class EditAdController : Controller
     {
         private readonly ISearchService _searchService;
@@ -31,7 +31,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         //
         // GET: /EditAd/AdDetails/{id}
-        [AuthorizeBookingIdentity]
         public ActionResult Details(int id)
         {
             ViewBag.Updated = false;
@@ -62,7 +61,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AuthorizeBookingIdentity]
+       
         public ActionResult Details(EditAdDetailsViewModel viewModel)
         {
             var adBooking = _searchService.GetAdById(viewModel.Id);
@@ -83,46 +82,16 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadOnlineImage()
+        public ActionResult AssignOnlineImage(int id, string documentId)
         {
-            var files = Request.Files.Cast<string>()
-               .Select(file => Request.Files[file].As<HttpPostedFileBase>())
-               .Where(postedFile => postedFile != null && postedFile.ContentLength != 0)
-               .ToList();
-
-            // There should only be 1 uploaded file so just check the size ...
-            var uploadedFile = files.Single();
-            if (uploadedFile.ContentLength > _applicationConfig.MaxImageUploadBytes)
-            {
-                return Json(new { errorMsg = "The file exceeds the maximum file size." });
-            }
-
-            if (!_applicationConfig.AcceptedImageFileTypes.Any(type => type.Equals(uploadedFile.ContentType)))
-            {
-                return Json(new { errorMsg = "Not an accepted file type." });
-            }
-
-            var documentId = Guid.NewGuid();
-
-            var imageDocument = new Document(documentId, uploadedFile.InputStream.FromStream(), uploadedFile.ContentType,
-                uploadedFile.FileName, uploadedFile.ContentLength, this.User.Identity.Name);
-
-            _documentRepository.Save(imageDocument);
-
-            return Json(new { documentId }, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public ActionResult AssignOnlineImage(int adId, string documentId)
-        {
-            _bookingManager.AddOnlineImage(adId, documentId);
+            _bookingManager.AddOnlineImage(id, documentId);
             return Json(true);
         }
 
         [HttpPost]
-        public ActionResult RemoveOnlineImage(int adId, string documentId)
+        public ActionResult RemoveOnlineImage(int id, string documentId)
         {
-            _bookingManager.RemoveOnlineImage(adId, documentId.Trim());
+            _bookingManager.RemoveOnlineImage(id, documentId.Trim());
             return Json(true);
         }
     }

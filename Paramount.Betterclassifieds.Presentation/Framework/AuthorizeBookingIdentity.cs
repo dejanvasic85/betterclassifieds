@@ -14,18 +14,13 @@ namespace Paramount.Betterclassifieds.Presentation
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            int adId;
+            var adId = GetIdFromContext(filterContext);
 
-            if (!filterContext.RouteData.Values.ContainsKey("id"))
+            if (!adId.HasValue)
             {
                 throw new BookingAuthorisationException("Parameter was not specified that would authorise the user to edit the ad");
             }
-
-            if (!int.TryParse(filterContext.RouteData.Values["id"].ToString(), out adId))
-            {
-                throw new BookingAuthorisationException("Ad ID is not a valid integer");
-            }
-
+            
             if (!filterContext.HttpContext.User.Identity.IsAuthenticated)
             {
                 throw new BookingAuthorisationException("User requesting Ad details is not authenticated");
@@ -33,10 +28,27 @@ namespace Paramount.Betterclassifieds.Presentation
 
             // Fetch the booking to check if is belongs to the user
             var username = filterContext.HttpContext.User.Identity.Name;
-            if (!BookingManager.AdBelongsToUser(adId, username))
+            if (!BookingManager.AdBelongsToUser(adId.Value, username))
             {
                 throw new BookingAuthorisationException(string.Format("User [{0}] attempted to retrieve ad [{1}] that does not belong to them.", username, adId));
             }
+        }
+
+        private int? GetIdFromContext(ActionExecutingContext filterContext)
+        {
+            int id;
+
+            if (filterContext.RouteData.Values.ContainsKey("id") && int.TryParse(filterContext.RouteData.Values["id"].ToString(), out id))
+            {
+                return id;
+            }
+
+            if (filterContext.ActionParameters.ContainsKey("id") && int.TryParse(filterContext.ActionParameters["id"].ToString(), out id))
+            {
+                return id;
+            }
+
+            return null;
         }
     }
 }

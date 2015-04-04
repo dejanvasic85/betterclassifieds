@@ -36,11 +36,11 @@
         return post(this.endpoints.removeOnlineAdImage, this.prepareModel({ documentId: documentId }));
     }
 
-    me.adService.prototype.prepareModel = function (model) {
+    me.adService.prototype.prepareModel = function (postModel) {
         if (this.adId !== null) {
-            model.adId = this.adId;
+            postModel.id = this.adId;
         }
-        return model;
+        return postModel;
     }
     
     function post(url, data) {

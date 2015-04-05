@@ -7,7 +7,7 @@
     ViewBag.Title = "Update Ad Details";
     Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayoutWithSearch.cshtml");
 
-    var onlineImgSizeWarning = "Max image size" + Model.MaxImageUploadInMegabytes.ToString("F1") + " Megabytes.";
+    var onlineImgSizeWarning = "Max image size " + Model.MaxImageUploadInMegabytes.ToString("F1") + " Megabytes.";
     if (Model.MaxOnlineImages.HasValue)
     {
         onlineImgSizeWarning += " You can upload up to " + Model.MaxOnlineImages + " images.";
@@ -134,7 +134,7 @@
                 </div>
                 <div class="panel-body upload-thumbs">
 
-                    @Alert(onlineImgSizeWarning, "warning")
+                    @Alert(onlineImgSizeWarning, "warning", false)
 
                     <div class="alert alert-danger" data-bind="text : errorMsg, css : { hidden : errorMsg().length == 0 }"></div>
                     <div class="progress progress-striped active" data-bind="visible: uploadImageInProgress">
@@ -173,7 +173,7 @@
                         }
                         else
                         {
-                            @Alert("Your ad is currently active. The option to adjust the schedule is not available at this time.", "info")
+                            @Alert("Your ad is currently active. The option to adjust the schedule is not available at this time.", "info", false)
                         }
                     </div>
 
@@ -205,9 +205,9 @@
                     </div>
                 </div>
 
-                if (Model.IsPrintHeaderBooked)
+                if (Model.HeaderPurchased)
                 {
-                    @Html.HiddenFor(m => m.IsPrintHeaderBooked)
+                    @Html.HiddenFor(m => m.HeaderPurchased)
                     <div class="form-group">
                         @Html.LabelFor(m => m.LineAdHeader)
                         @Html.BootstrapLargeTextBoxFor(m => m.LineAdHeader, attributes: new Dictionary<string, object> { { "data-bind", "value: lineAdHeader" } })
@@ -215,23 +215,20 @@
                     </div>
                 }
 
-                if (Model.IsPrintDescriptionBooked)
-                {
-                    @Html.HiddenFor(m => m.IsPrintDescriptionBooked)
-                    @Html.HiddenFor(m => m.LineWordsPurchased)
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.LineAdText)
-                        @Html.BootstrapLargeTextAreaFor(m => m.LineAdText, 5, attributes: new Dictionary<string, object>
+
+                @Html.HiddenFor(m => m.LineWordsPurchased)
+                <div class="form-group">
+                    @Html.LabelFor(m => m.LineAdText)
+                    @Html.BootstrapLargeTextAreaFor(m => m.LineAdText, 5, attributes: new Dictionary<string, object>
                             {
                                 {"data-bind", "value: lineAdText, html: lineAdText, valueUpdate: ['afterkeydown', 'input']"}
                             })
-                        <span class="help-block">
-                            <strong>Puchased Words @Model.LineWordsPurchased.</strong>
-                            Current Word Count: <span data-bind="text: wordCount"></span>.
-                        </span>
-                        @Html.ValidationMessageFor(m => m.LineAdText)
-                    </div>
-                }
+                    <span class="help-block">
+                        <strong>Puchased Words @Model.LineWordsPurchased.</strong>
+                        Current Word Count: <span data-bind="text: wordCount"></span>.
+                    </span>
+                    @Html.ValidationMessageFor(m => m.LineAdText)
+                </div>
 
                 if (Model.PhotoPurchased)
                 {
@@ -406,12 +403,16 @@
     </script>
 }
 
-@helper Alert(string messsage, string type)
+@helper Alert(string messsage, string type, bool dismissable = true)
 {
-    <div class="alert alert-@type alert-dismissable">
-        <button type="button" class="close" data-dismiss="alert">
-            <span aria-hidden="true">×</span><span class="sr-only">Close</span>
-        </button>
+    <div class="alert alert-@type @(dismissable ? Html.Raw("alert-dismissable") : Html.Raw(""))">
+
+        @if (dismissable)
+        {
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+            </button>
+        }
         @messsage
     </div>
 }

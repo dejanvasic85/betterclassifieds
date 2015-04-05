@@ -58,7 +58,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public List<string> OnlineAdImages { get; set; }
         
         [Display(Name = "Heading")]
-        [StringLength(100)]
+        [StringLength(30)]
+        [MaxLength(30)]
         public string LineAdHeader { get; set; }
         
         [Display(Name = "Description")]

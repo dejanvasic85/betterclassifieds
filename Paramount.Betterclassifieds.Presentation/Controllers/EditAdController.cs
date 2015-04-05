@@ -140,10 +140,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 .ForMember(m => m.OnlineAdDescription, options => options.MapFrom(src => src.HtmlText));
 
             configuration.CreateMap<LineAdModel, EditAdDetailsViewModel>()
-                .ForMember(m => m.Id, options => options.Ignore())
-                .ForMember(m => m.IsPrintDescriptionBooked, options => options.MapFrom(src => src.AdText.HasValue()))
-                .ForMember(m => m.IsPrintHeaderBooked, options => options.MapFrom(src => src.AdHeader.HasValue()))
-                .ForMember(m => m.PhotoPurchased, options => options.MapFrom(src => src.PhotoPurchased));
+                .ForMember(m => m.Id, options => options.Ignore());
 
             // From view model
             configuration.CreateMap<EditAdDetailsViewModel, OnlineAdModel>()

@@ -53,20 +53,20 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         #region Print Ad Details
 
         public bool IsLineAdIncluded { get; set; }
-        public bool IsPrintDescriptionBooked { get; set; }
-        public bool IsPrintHeaderBooked { get; set; }
+        public bool HeaderPurchased { get; set; }
         public bool PhotoPurchased { get; set; }
         public int LineWordsPurchased { get; set; }
 
         public List<string> OnlineAdImages { get; set; }
 
         [Display(Name = "Heading")]
-        [RequiredIf("IsPrintHeaderBooked", true)]
-        [StringLength(100)]
+        [RequiredIf("HeaderPurchased", true)]
+        [StringLength(30)]
+        [MaxLength(30)]
         public string LineAdHeader { get; set; }
 
         [Display(Name = "Description")]
-        [RequiredIf("IsPrintDescriptionBooked", true)]
+        [RequiredIf("IsLineAdIncluded", true)]
         [MaxWords("LineWordsPurchased")]
         public string LineAdText { get; set; }
 

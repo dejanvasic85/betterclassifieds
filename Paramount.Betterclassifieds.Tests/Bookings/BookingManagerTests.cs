@@ -92,7 +92,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
         public void CreateBooking_WithNoLineAd_CallsBookingRepositoryOnce()
         {
             // arrange
-            _bookingRepositoryMock.Setup(call => call.SubmitBooking(It.IsAny<BookingCart>()));
+            _bookingRepositoryMock.Setup(call => call.CreateBooking(It.IsAny<BookingCart>()));
 
             // act
             var bookingCart = new BookingCart("Session-123", "dvasic");

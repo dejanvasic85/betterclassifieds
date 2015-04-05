@@ -181,20 +181,20 @@ namespace Paramount.Betterclassifieds.Business.Booking
 
         public int? CreateBooking(BookingCart bookingCart, BookingOrderResult bookingOrder)
         {
-            var adBookingId = _bookingRepository.SubmitBooking(bookingCart);
+            var adBookingId = _bookingRepository.CreateBooking(bookingCart);
 
             if(!adBookingId.HasValue)
                 throw new DataException("AdBookingId was not returned when trying to create a new booking");
 
             // Create the order details in the database 
             // that are used for invoice details 
-            _bookingRepository.SubmitBookingOrder(bookingOrder, adBookingId.Value);
+            _bookingRepository.CreateBookingOrder(bookingOrder, adBookingId.Value);
 
             // Create the line ad
             if (!bookingCart.IsLineAdIncluded)
                 return adBookingId;
 
-            _bookingRepository.SubmitLineAd(adBookingId, bookingCart.LineAdModel);
+            _bookingRepository.CreateLineAd(adBookingId, bookingCart.LineAdModel);
 
             // Set the edition dates for each publication
             bookingCart.Publications.ForEach(publicationId =>
@@ -203,7 +203,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
                 var publicationPrice = printRate.OrderTotal;
                 var editionValue = publicationPrice/bookingCart.PrintInsertions;
 
-                _bookingRepository.SubmitLineAdEditions(adBookingId,
+                _bookingRepository.CreateLineAdEditions(adBookingId,
                     bookingCart.PrintFirstEditionDate.GetValueOrDefault(),
                     bookingCart.PrintInsertions.GetValueOrDefault(),
                     publicationId,
@@ -224,12 +224,12 @@ namespace Paramount.Betterclassifieds.Business.Booking
 
         public void AddOnlineImage(int adId, Guid documentId)
         {
-            _bookingRepository.AddImage(adId, documentId.ToString());
+            _bookingRepository.CreateImage(adId, documentId.ToString());
         }
 
         public void RemoveOnlineImage(int adId, Guid documentId)
         {
-            _bookingRepository.RemoveImage(adId, documentId.ToString());
+            _bookingRepository.DeleteImage(adId, documentId.ToString());
         }
         public void UpdateOnlineAd(int adId, OnlineAdModel onlineAd)
         {
@@ -243,12 +243,12 @@ namespace Paramount.Betterclassifieds.Business.Booking
 
         public void AssignLineAdImage(int id, Guid documentId)
         {
-            _bookingRepository.AddImage(id, documentId.ToString(), AdTypeCode.LineCodeId);
+            _bookingRepository.CreateImage(id, documentId.ToString(), AdTypeCode.LineCodeId);
         }
 
         public void RemoveLineAdImage(int id, Guid documentId)
         {
-            _bookingRepository.RemoveImage(id, documentId.ToString(), AdTypeCode.LineCodeId);
+            _bookingRepository.DeleteImage(id, documentId.ToString(), AdTypeCode.LineCodeId);
         }
 
         public IEnumerable<PublicationEditionModel> GenerateExtensionDates(int adBookingId, int numberOfInsertions)

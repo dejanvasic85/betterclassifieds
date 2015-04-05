@@ -279,7 +279,7 @@
             return this.IsBookingOnline(adBookingId) && !this.IsBookingInPrint(adBookingId);
         }
 
-        public int? SubmitBooking(BookingCart bookingCart)
+        public int? CreateBooking(BookingCart bookingCart)
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
@@ -319,7 +319,7 @@
             }
         }
 
-        public void SubmitLineAd(int? adBookingId, LineAdModel lineAdModel)
+        public void CreateLineAd(int? adBookingId, LineAdModel lineAdModel)
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
@@ -354,7 +354,7 @@
             }
         }
 
-        public void SubmitLineAdEditions(int? adBookingId, DateTime startDate, int insertions, int publicationId, decimal? publicationPrice = null, decimal? editionPrice = null, int? rateId = null)
+        public void CreateLineAdEditions(int? adBookingId, DateTime startDate, int insertions, int publicationId, decimal? publicationPrice = null, decimal? editionPrice = null, int? rateId = null)
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
@@ -369,7 +369,7 @@
             }
         }
 
-        public void SubmitBookingOrder(BookingOrderResult bookingOrder, int adBookingId)
+        public void CreateBookingOrder(BookingOrderResult bookingOrder, int adBookingId)
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
@@ -402,7 +402,7 @@
             }
         }
 
-        public void AddImage(int adBookingId, string documentId, int adTypeId = AdTypeCode.OnlineCodeId)
+        public void CreateImage(int adBookingId, string documentId, int adTypeId = AdTypeCode.OnlineCodeId)
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
@@ -428,7 +428,7 @@
             }
         }
 
-        public void RemoveImage(int adBookingId, string documentId, int adTypeId = AdTypeCode.OnlineCodeId)
+        public void DeleteImage(int adBookingId, string documentId, int adTypeId = AdTypeCode.OnlineCodeId)
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
             {

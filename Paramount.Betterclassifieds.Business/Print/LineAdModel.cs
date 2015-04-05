@@ -24,5 +24,6 @@
         public bool IsSuperHeadingPurchased { get; set; }
         public int WordsPurchased { get; set; }
         public bool PhotoPurchased { get; set; }
+        public bool HeaderPurchased { get; set; }
     }
 }

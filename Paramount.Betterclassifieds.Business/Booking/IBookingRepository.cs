@@ -31,14 +31,14 @@ namespace Paramount.Betterclassifieds.Business.Booking
         bool IsBookingOnline(int adBookingId);
         bool IsBookingInPrint(int adBookingId);
         bool IsBookingOnlineOnly(int adBookingId);
-        int? SubmitBooking(BookingCart getCart);
-        void SubmitLineAd(int? adBookingId, LineAdModel lineAdModel);
-        void SubmitLineAdEditions(int? adBookingId, DateTime startDate, int insertions, int publicationId, decimal? publicationPrice = null, decimal? editionPrice = null, int? rateId = null);
-        void SubmitBookingOrder(BookingOrderResult bookingOrder, int adBookingId);
+        int? CreateBooking(BookingCart getCart);
+        void CreateLineAd(int? adBookingId, LineAdModel lineAdModel);
+        void CreateLineAdEditions(int? adBookingId, DateTime startDate, int insertions, int publicationId, decimal? publicationPrice = null, decimal? editionPrice = null, int? rateId = null);
+        void CreateBookingOrder(BookingOrderResult bookingOrder, int adBookingId);
 
         // Images
-        void AddImage(int adId, string documentId, int adTypeId = AdTypeCode.OnlineCodeId);
-        void RemoveImage(int adId, string documentId, int adTypeId = AdTypeCode.OnlineCodeId);
+        void CreateImage(int adId, string documentId, int adTypeId = AdTypeCode.OnlineCodeId);
+        void DeleteImage(int adId, string documentId, int adTypeId = AdTypeCode.OnlineCodeId);
         
     }
 }

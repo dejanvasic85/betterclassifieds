@@ -561,6 +561,7 @@
       <Column Name="IsSuperHeadingPurchased" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="WordsPurchased" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="PhotoPurchased" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="HeaderPurchased" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="AdDesign_LineAd" Member="AdDesign" ThisKey="AdDesignId" OtherKey="AdDesignId" Type="AdDesign" IsForeignKey="true" />
     </Type>
   </Table>

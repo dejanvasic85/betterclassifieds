@@ -66,6 +66,7 @@
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Scripts\0045-LineAd_HeaderPurchased_Add.sql" />
     <EmbeddedResource Include="Scripts\0044-LineAd_PhotoPurchased_Add.sql" />
     <EmbeddedResource Include="Scripts\0043-LineAd_WordsPurchased_Add.sql" />
     <EmbeddedResource Include="Scripts\0042-AdBookingOrderItem_Alter.sql" />

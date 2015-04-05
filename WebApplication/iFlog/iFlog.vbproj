@@ -389,6 +389,7 @@
     <Content Include="Content\morphext.css" />
     <Content Include="Scripts\jquery.morphext.js" />
     <Content Include="Scripts\paramount-adService.js" />
+    <Content Include="Scripts\paramount-ko-extensions.js" />
     <Content Include="Scripts\paramount-site.js" />
     <Content Include="Scripts\paramount-site.min.js">
       <DependentUpon>paramount-site.js</DependentUpon>

@@ -231,7 +231,7 @@
                                     <input type="hidden" name="LineAdImageId" id="LineAdImageId" data-bind="value : lineAdImageId" />
                                     <img id="printImg" data-bind="attr : { src : $paramount.imageService.getImageUrl(lineAdImageId()) }" />
                                     <div class="caption">
-                                        <button class="btn btn-warning btn-block" title="Remove" data-bind="click: removePrintImage">
+                                        <button class="btn btn-warning btn-block" title="Remove" data-bind="click:  removePrintImage, clickBubble: false">
                                             <span class="glyphicon glyphicon-trash"></span>
                                         </button>
                                     </div>
@@ -440,7 +440,6 @@
                             $btn.button('reset');
                             $('#printImageCropDialog').modal('hide');
                             designAdModel.lineAdImageId(documentId);
-                            adService.setLineAdImageForBooking(documentId);
                         });
                 });
             });

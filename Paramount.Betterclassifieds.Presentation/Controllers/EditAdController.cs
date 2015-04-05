@@ -101,16 +101,30 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpPost]
-        public ActionResult AssignOnlineImage(int id, string documentId)
+        public ActionResult AssignOnlineImage(int id, Guid documentId)
         {
             _bookingManager.AddOnlineImage(id, documentId);
             return Json(true);
         }
 
         [HttpPost]
-        public ActionResult RemoveOnlineImage(int id, string documentId)
+        public ActionResult RemoveOnlineImage(int id, Guid documentId)
         {
-            _bookingManager.RemoveOnlineImage(id, documentId.Trim());
+            _bookingManager.RemoveOnlineImage(id, documentId);
+            return Json(true);
+        }
+
+        [HttpPost, BookingRequired]
+        public ActionResult AssignLineAdImage(int id, Guid documentId)
+        {
+            _bookingManager.AssignLineAdImage(id, documentId);
+            return Json(true);
+        }
+
+        [HttpPost]
+        public ActionResult RemoveLineAdImage(int id, Guid documentId)
+        {
+            _bookingManager.RemoveLineAdImage(id, documentId);
             return Json(true);
         }
 

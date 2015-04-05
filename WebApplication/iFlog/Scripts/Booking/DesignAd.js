@@ -35,22 +35,32 @@
 
         // Line Ad
         if (lineAd !== undefined && lineAd !== null) {
+
             self.printInsertions = ko.observable(lineAd.printInsertions);
+
             self.lineAdHeader = ko.observable(lineAd.lineAdHeader);
+
             self.lineAdText = ko.observable(lineAd.lineAdText);
+
             self.wordCount = ko.computed(function () {
                 if (self.lineAdText() == null || self.lineAdText().length === 0) {
                     return 0;
                 }
                 return self.lineAdText().split(' ').length;
             });
+
             self.lineAdImageId = ko.observable(lineAd.lineAdImageId == null ? '' : lineAd.lineAdImageId);
+
+            self.lineAdImageId.subscribeChanged(function (oldValue, newValue) {
+                if (newValue !== '') {
+                    adService.assignPrintImg(newValue); // Calls the service to set the value
+                } else {
+                    adService.removePrintImg(oldValue);
+                }
+            }, this);
+            
             self.removePrintImage = function () {
-                adService
-                    .removeLineAdImageForBooking(self.lineAdImageId())
-                    .complete(function () {
-                        self.lineAdImageId("");
-                    });
+                self.lineAdImageId("");
             }
         }
 

@@ -25,3 +25,4 @@
 /// <reference path="booking/designad.js" />
 /// <reference path="paramount-adservice.js" />
 /// <reference path="paramount-imageservice.js" />
+/// <reference path="paramount-ko-extensions.js" />

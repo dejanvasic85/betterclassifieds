@@ -22,10 +22,12 @@ namespace Paramount.Betterclassifieds.Business.Booking
         void SubmitAdEnquiry(AdEnquiry enquiry);
         int? CreateBooking(BookingCart bookingCart, BookingOrderResult bookingOrder);
         bool AdBelongsToUser(int adId, string username);
-        void AddOnlineImage(int adId, string documentId);
-        void RemoveOnlineImage(int adId, string documentId);
+        void AddOnlineImage(int adId, Guid documentId);
+        void RemoveOnlineImage(int adId, Guid documentId);
         void UpdateOnlineAd(int adId, OnlineAdModel onlineAd);
         void UpdateLineAd(int id, LineAdModel lineAd);
+        void AssignLineAdImage(int id, Guid documentId);
+        void RemoveLineAdImage(int id, Guid documentId);
     }
 
     public class BookingManager : IBookingManager
@@ -220,14 +222,14 @@ namespace Paramount.Betterclassifieds.Business.Booking
             return booking.UserId.Equals(username, StringComparison.OrdinalIgnoreCase);
         }
 
-        public void AddOnlineImage(int adId, string documentId)
+        public void AddOnlineImage(int adId, Guid documentId)
         {
-            _bookingRepository.AddImage(adId, documentId);
+            _bookingRepository.AddImage(adId, documentId.ToString());
         }
 
-        public void RemoveOnlineImage(int adId, string documentId)
+        public void RemoveOnlineImage(int adId, Guid documentId)
         {
-            _bookingRepository.RemoveImage(adId, documentId);
+            _bookingRepository.RemoveImage(adId, documentId.ToString());
         }
         public void UpdateOnlineAd(int adId, OnlineAdModel onlineAd)
         {
@@ -237,6 +239,16 @@ namespace Paramount.Betterclassifieds.Business.Booking
         public void UpdateLineAd(int id, LineAdModel lineAd)
         {
             _bookingRepository.UpdateLineAd(id, lineAd);
+        }
+
+        public void AssignLineAdImage(int id, Guid documentId)
+        {
+            _bookingRepository.AddImage(id, documentId.ToString(), AdTypeCode.LineCodeId);
+        }
+
+        public void RemoveLineAdImage(int id, Guid documentId)
+        {
+            _bookingRepository.RemoveImage(id, documentId.ToString(), AdTypeCode.LineCodeId);
         }
 
         public IEnumerable<PublicationEditionModel> GenerateExtensionDates(int adBookingId, int numberOfInsertions)

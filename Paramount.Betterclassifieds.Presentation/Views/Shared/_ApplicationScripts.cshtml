@@ -41,9 +41,8 @@
 
         // Endpoints for managing existing ad
         me.url.adManagement = {
-            previewBookingEditions: '',
-            bookingLineAdImage: '',
-            removeLineAdImage: '',
+            assignPrintImgUrl: '@Url.Action("AssignLineAdImage", "EditAd")',
+            removePrintImgUrl: '@Url.Action("RemoveLineAdImage", "EditAd")',
             removeOnlineAdImage: '@Url.Action("RemoveOnlineImage", "EditAd")',
             uploadOnlineImage: '@Url.UploadOnlineImage()',
             assignOnlineImageUrl: '@Url.Action("AssignOnlineImage", "EditAd")'
@@ -53,8 +52,8 @@
         me.url.adBooking = {
             updateBookingRates: '@Url.UpdateBookingRates()',
             previewBookingEditions: '@Url.PreviewBookingEditions()',
-            bookingLineAdImage: '@Url.SetLineAdImageId()',
-            removeLineAdImage: '@Url.RemoveLineAdImage()',
+            assignPrintImgUrl: '@Url.SetLineAdImageId()',
+            removePrintImgUrl: '@Url.RemoveLineAdImage()',
             removeOnlineAdImage: '@Url.RemoveOnlineImage()',
             uploadOnlineImage: '@Url.UploadOnlineImage()',
             assignOnlineImageUrl: '@Url.Action("AssignOnlineImage", "Booking")'
@@ -65,6 +64,7 @@
     })($paramount || {});
 </script>
 
+<script type="text/javascript" src="@Url.Content("~/Scripts/paramount-ko-extensions.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/paramount-site.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/paramount-imageService.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/paramount-adService.js")"></script>

@@ -20,12 +20,12 @@
         });
     }
 
-    me.adService.prototype.removeLineAdImageForBooking = function (documentId) {
-        return post(this.endpoints.removeLineAdImage, this.prepareModel({ documentId: documentId }));
+    me.adService.prototype.removePrintImg = function (documentId) {
+        return post(this.endpoints.removePrintImgUrl, this.prepareModel({ documentId: documentId }));
     }
 
-    me.adService.prototype.setLineAdImageForBooking = function (documentId) {
-        return post(this.endpoints.bookingLineAdImage, this.prepareModel({ documentId: documentId }));
+    me.adService.prototype.assignPrintImg = function (documentId) {
+        return post(this.endpoints.assignPrintImgUrl, this.prepareModel({ documentId: documentId }));
     }
 
     me.adService.prototype.assignOnlineImage = function (documentId) {

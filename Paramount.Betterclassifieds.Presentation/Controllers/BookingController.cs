@@ -172,7 +172,7 @@
 
             // Map Line Ad
             this.Map(viewModel, bookingCart.LineAdModel);
-
+            
             // Map Schedule
             bookingCart.SetSchedule(_clientConfig, viewModel.StartDate.Value, viewModel.FirstPrintDateFormatted, viewModel.PrintInsertions);
 
@@ -214,7 +214,7 @@
                 return View(viewModel);
             }
             // Complete the booking cart (needs to move on now)
-            bookingCart.CompleteStep(4);
+            bookingCart.CompleteStep(3);
             bookingCart.UserId = _userManager.GetCurrentUser(this.User).Username;
 
             if (bookingCart.NoPaymentRequired())
@@ -441,7 +441,9 @@
                 .ForMember(member => member.Images, options => options.Ignore())
                 .ForMember(member => member.HtmlText, options => options.MapFrom(src => src.OnlineAdDescription));
             configuration.CreateMap<Step2View, LineAdModel>()
-                .ForMember(member => member.WordsPurchased, options => options.MapFrom(src => src.LineAdText.WordCount()));
+                .ForMember(member => member.WordsPurchased, options => options.MapFrom(src => src.LineAdText.WordCount()))
+                .ForMember(member => member.UsePhoto, options => options.MapFrom(src => src.LineAdImageId.HasValue()))
+                ;
             configuration.CreateMap<UserNetworkEmailView, UserNetworkModel>();
             configuration.CreateMap<PricingFactorsView, PricingFactors>();
 

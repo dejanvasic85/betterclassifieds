@@ -61,9 +61,11 @@
             </div>
             <div class="row top-buffer-20">
                 <div class="col-xs-12">
-                    <button id="btnNotifyContacts" class="btn btn-block btn-default" 
+                    <button id="btnNotifyContacts" class="btn btn-block btn-default"
                             data-bind="enable: selectedContactCount() > 0, click : notifyContacts"
-                            data-loading-text="Please Wait...">Notify My Friends</button>
+                            data-loading-text="Please Wait...">
+                        Notify My Friends
+                    </button>
                 </div>
             </div>
         </div>
@@ -82,7 +84,7 @@
                         <i class="glyphicon glyphicon-check"></i> Check out my ad
                     </a>
                 }
-                <a href="@Url.Action("Details", "EditAd")" class="list-group-item">
+                <a href="@Url.Action("Details", "EditAd", new { Id = Model.AdId })" class="list-group-item">
                     <i class="glyphicon glyphicon-pencil"></i> Edit Ad Details
                 </a>
                 <a href="@Url.Action("Index", "Home")" class="list-group-item">

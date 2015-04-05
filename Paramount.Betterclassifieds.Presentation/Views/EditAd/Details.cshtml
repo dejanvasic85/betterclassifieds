@@ -236,6 +236,56 @@
                 if (Model.IsPrintImageBooked)
                 {
                     <input type="hidden" name="LineAdImageId" id="LineAdImageId" data-bind="value : lineAdImageId" />
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Print Image &nbsp;
+                            <span class="btn btn-default btn-success fileinput-button" data-bind="visible: lineAdImageId() === ''">
+                                <i class="fa fa-upload"></i>
+                                <span>Upload for Print</span>
+                                <!-- The file input field used as target for the file upload widget -->
+                                <input id="fileuploadPrint" type="file" name="files[]" multiple>
+                            </span>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row" id="printImageSelector">
+                                <div class="col-xs-12">
+                                    <div class="alert alert-warning">
+                                        Max image size @Model.MaxImageUploadInMegabytes.ToString("F1") MB.
+                                        Print image requires specific dimension (aspect ratio). Please upload a new
+                                        image to prepare it for print.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" id="printImagePreview" data-bind="visible: lineAdImageId() !== ''">
+                                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                                    <div class="thumbnail">
+                                        <input type="hidden" name="LineAdImageId" id="LineAdImageId" data-bind="value : lineAdImageId" />
+                                        <img id="printImg" data-bind="attr : { src : $paramount.imageService.getImageUrl(lineAdImageId()) }" />
+                                        <div class="caption">
+                                            <button class="btn btn-warning btn-block" title="Remove" data-bind="click: removePrintImage">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row top-buffer-10">
+                                <div class="col-xs-12">
+                                    <div id="fileUploadPrintProgress" class="progress progress-striped active no-display">
+                                        <div class="progress-bar active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                                            <span>Uploading...</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 }
             }
 

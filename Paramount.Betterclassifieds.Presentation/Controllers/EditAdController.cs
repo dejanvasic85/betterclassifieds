@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
-using Paramount.Betterclassifieds.Business.DocumentStorage;
 using Paramount.Betterclassifieds.Business.Print;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.ViewModels;

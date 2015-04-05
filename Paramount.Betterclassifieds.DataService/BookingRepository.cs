@@ -340,6 +340,17 @@
                     lineAdModel.BackgroundColourCode,
                     lineAdModel.IsSuperHeadingPurchased,
                     lineAdModel.WordsPurchased, ref lineAdId);
+
+                if (lineAdModel.AdImageId.HasValue())
+                {
+                    // Attach the ad graphic to the inserted line ad
+                    context
+                        .LineAds.Single(l => l.LineAdId == lineAdId)
+                        .AdDesign
+                        .AdGraphics.Add(new AdGraphic { DocumentID = lineAdModel.AdImageId });
+
+                    context.SubmitChanges();
+                }
             }
         }
 

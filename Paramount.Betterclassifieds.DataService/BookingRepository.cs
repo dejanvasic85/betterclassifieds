@@ -406,11 +406,24 @@
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
-                var adDesign = context.AdBookings.First(bk => bk.AdBookingId == adBookingId).Ad.AdDesigns.Single(d => d.AdTypeId == adTypeId);
+                var adDesign = context
+                    .AdBookings.First(bk => bk.AdBookingId == adBookingId)
+                    .Ad
+                    .AdDesigns
+                    .Single(d => d.AdTypeId == adTypeId);
+
                 adDesign.AdGraphics.Add(new AdGraphic
                 {
                     DocumentID = documentId
                 });
+
+                if (adTypeId == AdTypeCode.LineCodeId)
+                {
+                    adDesign
+                        .LineAds.Single()
+                        .UsePhoto = true;
+                }
+
                 context.SubmitChanges();
             }
         }
@@ -419,8 +432,18 @@
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
-                var adDesign = context.AdBookings.First(bk => bk.AdBookingId == adBookingId).Ad.AdDesigns.Single(d => d.AdTypeId == adTypeId);
+                var adDesign = context
+                    .AdBookings.First(bk => bk.AdBookingId == adBookingId)
+                    .Ad
+                    .AdDesigns.Single(d => d.AdTypeId == adTypeId);
+
                 context.AdGraphics.DeleteOnSubmit(adDesign.AdGraphics.Single(g => g.DocumentID == documentId));
+
+                if (adTypeId == AdTypeCode.LineCodeId)
+                {
+                    adDesign.LineAds.Single().UsePhoto = false;
+                }
+
                 context.SubmitChanges();
             }
         }

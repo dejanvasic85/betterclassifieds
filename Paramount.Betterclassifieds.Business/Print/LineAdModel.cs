@@ -23,5 +23,6 @@
         public string BackgroundColourCode { get; set; }
         public bool IsSuperHeadingPurchased { get; set; }
         public int WordsPurchased { get; set; }
+        public bool PhotoPurchased { get; set; }
     }
 }

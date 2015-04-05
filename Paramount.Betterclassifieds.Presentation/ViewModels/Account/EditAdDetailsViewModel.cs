@@ -55,7 +55,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public bool IsLineAdIncluded { get; set; }
         public bool IsPrintDescriptionBooked { get; set; }
         public bool IsPrintHeaderBooked { get; set; }
-        public bool IsPrintImageBooked { get; set; }
+        public bool PhotoPurchased { get; set; }
         public int LineWordsPurchased { get; set; }
 
         public List<string> OnlineAdImages { get; set; }

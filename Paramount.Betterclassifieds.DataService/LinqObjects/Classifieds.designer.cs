@@ -12006,6 +12006,8 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 		
 		private System.Nullable<int> _WordsPurchased;
 		
+		private System.Nullable<bool> _PhotoPurchased;
+		
 		private EntityRef<AdDesign> _AdDesign;
 		
     #region Extensibility Method Definitions
@@ -12048,6 +12050,8 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
     partial void OnIsSuperHeadingPurchasedChanged();
     partial void OnWordsPurchasedChanging(System.Nullable<int> value);
     partial void OnWordsPurchasedChanged();
+    partial void OnPhotoPurchasedChanging(System.Nullable<bool> value);
+    partial void OnPhotoPurchasedChanged();
     #endregion
 		
 		public LineAd()
@@ -12416,6 +12420,26 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 					this._WordsPurchased = value;
 					this.SendPropertyChanged("WordsPurchased");
 					this.OnWordsPurchasedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PhotoPurchased", DbType="Bit")]
+		public System.Nullable<bool> PhotoPurchased
+		{
+			get
+			{
+				return this._PhotoPurchased;
+			}
+			set
+			{
+				if ((this._PhotoPurchased != value))
+				{
+					this.OnPhotoPurchasedChanging(value);
+					this.SendPropertyChanging();
+					this._PhotoPurchased = value;
+					this.SendPropertyChanged("PhotoPurchased");
+					this.OnPhotoPurchasedChanged();
 				}
 			}
 		}

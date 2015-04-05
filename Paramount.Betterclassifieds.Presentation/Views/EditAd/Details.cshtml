@@ -233,10 +233,10 @@
                     </div>
                 }
 
-                if (Model.IsPrintImageBooked)
+                if (Model.PhotoPurchased)
                 {
                     <input type="hidden" name="LineAdImageId" id="LineAdImageId" data-bind="value : lineAdImageId" />
-                    @Html.HiddenFor(m => m.IsPrintImageBooked)
+                    @Html.HiddenFor(m => m.PhotoPurchased)
 
                     <div class="panel panel-default">
                         <div class="panel-heading">

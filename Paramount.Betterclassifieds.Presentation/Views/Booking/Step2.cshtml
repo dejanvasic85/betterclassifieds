@@ -351,7 +351,7 @@
 
                     // copy body
                     var regex = /<br\s*[\/]?>/gi;
-                    var content = '<p>' + $('#OnlineAdDescription').val().replace(regex, "\n") + '</p>';
+                    var content = '<p>' + $paramount.onlineEditor.getData().replace(regex, "\n") + '</p>';
                     var newContent = $(content).text();
 
                     designAdModel.lineAdText(newContent);

@@ -150,7 +150,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                .ForMember(member => member.Images, options => options.Ignore())
                .ForMember(member => member.HtmlText, options => options.MapFrom(src => src.OnlineAdDescription));
 
-            configuration.CreateMap<EditAdDetailsViewModel, LineAdModel>();
+            configuration.CreateMap<EditAdDetailsViewModel, LineAdModel>()
+                .ForMember(member => member.UsePhoto, options => options.MapFrom(src => src.LineAdImageId.HasValue()))
+                ;
         }
     }
 }

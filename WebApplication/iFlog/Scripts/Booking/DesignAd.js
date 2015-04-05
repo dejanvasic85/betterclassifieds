@@ -1,8 +1,7 @@
-﻿(function ($paramount, ko) {
+﻿(function ($, $paramount, ko) {
 
     $paramount.models = $paramount.models || {};
 
-    ///$paramount.models.DesignAd = function (adService, data, maxImages, lineAd, updateRates) {
     $paramount.models.DesignAd = function (options) {
 
         var adService = options.adService,
@@ -12,7 +11,6 @@
             updateRates = options.updateRates;
 
         var self = this;
-
 
         // Online Images
         self.adImages = ko.observableArray(onlineImages);
@@ -105,6 +103,8 @@
 
             }).extend({ throttle: 1000 });
         }
+
+        
     };
 
     var OnlineLineItem = function (serverItem) {
@@ -133,4 +133,4 @@
         this.itemTotal = $paramount.formatCurrency(serverItem.ItemTotal);
     };
 
-})($paramount, ko);
+})(jQuery, $paramount, ko);

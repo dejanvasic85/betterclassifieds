@@ -202,6 +202,7 @@
     <Compile Include="ViewModels\Account\LoginOrRegisterModel.cs" />
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
     <Compile Include="ViewModels\Account\ChangePasswordView.cs" />
+    <Compile Include="ViewModels\Account\UserBookingsViewModel.cs" />
     <Compile Include="ViewModels\AddressViewModel.cs" />
     <Compile Include="ViewModels\AdEnquiryViewModel.cs" />
     <Compile Include="ViewModels\AdViewModel.cs" />
@@ -495,6 +496,7 @@
     <Content Include="Views\Shared\_CropImage.cshtml" />
     <Content Include="Views\Shared\_EditionsDates.cshtml" />
     <Content Include="Views\EditAd\Details.cshtml" />
+    <Content Include="Views\Account\MyAds.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

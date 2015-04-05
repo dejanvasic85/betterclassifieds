@@ -107,6 +107,9 @@
   word-wrap: break-word;
   padding-top: 5px;
 }
+.user-menu ul li:hover {
+  background-color: #ededed;
+}
 .nav-tabs {
   background-color: #fff;
   z-index: 100;

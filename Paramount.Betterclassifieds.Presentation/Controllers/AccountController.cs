@@ -257,7 +257,13 @@
             changePasswordView.UpdatedSuccessfully = true;
             return View(changePasswordView);
         }
-        
+
+        [Authorize]
+        public ActionResult MyAds()
+        {
+            return View();
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateProfile("accountCtrlMap");

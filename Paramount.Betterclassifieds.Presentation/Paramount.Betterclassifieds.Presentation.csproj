@@ -202,7 +202,7 @@
     <Compile Include="ViewModels\Account\LoginOrRegisterModel.cs" />
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
     <Compile Include="ViewModels\Account\ChangePasswordView.cs" />
-    <Compile Include="ViewModels\Account\UserBookingsViewModel.cs" />
+    <Compile Include="ViewModels\Account\UserBookingViewModel.cs" />
     <Compile Include="ViewModels\AddressViewModel.cs" />
     <Compile Include="ViewModels\AdEnquiryViewModel.cs" />
     <Compile Include="ViewModels\AdViewModel.cs" />

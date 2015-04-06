@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Presentation.Controllers
+﻿using System.Collections.Generic;
+
+namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     using AutoMapper;
     using Business;
@@ -13,7 +15,7 @@
         private readonly IUserManager _userManager;
         private readonly IAuthManager _authManager;
         private readonly IBroadcastManager _broadcastManager;
-        
+
         public const string ReturnUrlKey = "ReturnUrlForLogin";
 
         public AccountController(IUserManager userManager, IAuthManager authManager, IBroadcastManager broadcastManager)
@@ -157,7 +159,7 @@
             // Login
             _authManager.Login(registerModel.Username, createPersistentCookie: false);
 
-            return View(new AccountConfirmationViewModel { IsSuccessfulConfirmation = true, Username = registerModel.Username});
+            return View(new AccountConfirmationViewModel { IsSuccessfulConfirmation = true, Username = registerModel.Username });
         }
 
         [HttpGet]
@@ -261,13 +263,22 @@
         [Authorize]
         public ActionResult MyAds()
         {
-            return View();
+            // Todo - Wire up the real backend
+
+            var viewModel = new List<UserBookingViewModel>
+            {
+                new UserBookingViewModel { ScheduleType = ScheduleTypeView.Current ,AdId = 14458, AdImageId = "6ba06205-5b1d-4f9f-b7c1-543665c17775", Ends = "20th May", Heading = "Title of the Ad", Messages = 2, Starts = "2 days ago", Visits = 20, Description = "Code School teaches web technologies in the comfort of your browser with video lessons, coding challenges, and screencasts."},
+                new UserBookingViewModel { ScheduleType = ScheduleTypeView.Future ,AdId = 14458, AdImageId = "6ba06205-5b1d-4f9f-b7c1-543665c17775", Ends = "20th May", Heading = "Title of the Ad", Messages = 2, Starts = "2 days ago", Visits = 20, Description = "Code School teaches web technologies in the comfort of your browser with video lessons, coding challenges, and screencasts."},
+                new UserBookingViewModel { ScheduleType = ScheduleTypeView.Expired ,AdId = 14458, AdImageId = "6ba06205-5b1d-4f9f-b7c1-543665c17775", Ends = "20th May", Heading = "Title of the Ad", Messages = 2, Starts = "2 days ago", Visits = 20, Description = "Code School teaches web technologies in the comfort of your browser with video lessons, coding challenges, and screencasts."},
+            };
+
+            return View(viewModel);
         }
 
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateProfile("accountCtrlMap");
-            
+
             // From View Model
             configuration.CreateMap<RegisterViewModel, RegistrationModel>()
                 .ForMember(member => member.Email, options => options.MapFrom(source => source.RegisterEmail));

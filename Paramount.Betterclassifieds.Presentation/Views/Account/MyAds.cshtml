@@ -1,5 +1,5 @@
 ﻿@using Paramount
-@model List<Paramount.Betterclassifieds.Presentation.ViewModels.UserBookingViewModel>
+@model dynamic
 
 @{
     Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayoutWithSearch.cshtml");
@@ -89,3 +89,12 @@
 
     </div>
 </div>
+
+@section Scripts{
+    <script src="@Url.Content("~/Scripts/Account/UserService.js")"></script>
+    <script src="@Url.Content("~/Scripts/Account/UserBookings.js")"></script>
+    
+    <script>
+        $paramount.userService.getAdsForUser();
+    </script>
+}

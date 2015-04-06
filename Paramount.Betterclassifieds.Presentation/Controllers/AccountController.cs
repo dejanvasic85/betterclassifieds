@@ -263,6 +263,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [Authorize]
         public ActionResult MyAds()
         {
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult GetAdsForUser()
+        {
             // Todo - Wire up the real backend
 
             var viewModel = new List<UserBookingViewModel>
@@ -272,7 +278,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 new UserBookingViewModel { ScheduleType = ScheduleTypeView.Expired ,AdId = 14458, AdImageId = "6ba06205-5b1d-4f9f-b7c1-543665c17775", Ends = "20th May", Heading = "Title of the Ad", Messages = 2, Starts = "2 days ago", Visits = 20, Description = "Code School teaches web technologies in the comfort of your browser with video lessons, coding challenges, and screencasts."},
             };
 
-            return View(viewModel);
+            return Json(viewModel);
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

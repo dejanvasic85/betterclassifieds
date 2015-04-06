@@ -10,13 +10,6 @@
         public string Ends { get; set; }
         public int Visits { get; set; }
         public int Messages { get; set; }
-        public ScheduleTypeView ScheduleType { get; set; }
-    }
-
-    public enum ScheduleTypeView
-    {
-        Current,
-        Future,
-        Expired
+        public string Status { get; set; }
     }
 }

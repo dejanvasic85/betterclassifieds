@@ -327,8 +327,7 @@
     <Content Include="Scripts\Account\Login.min.js">
       <DependentUpon>Login.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\Account\UserBookings.js" />
-    <Content Include="Scripts\Account\UserService.js" />
+    <Content Include="Scripts\Account\UserAds.js" />
     <Content Include="Scripts\Booking\BookingCart.js" />
     <Content Include="Content\TheMusic\fonts\ufonts.com_alternate_gothic_no2_d.ttf" />
     <Content Include="Scripts\Booking\DesignAd.js" />

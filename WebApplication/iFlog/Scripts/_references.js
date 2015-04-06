@@ -26,5 +26,4 @@
 /// <reference path="paramount-adservice.js" />
 /// <reference path="paramount-imageservice.js" />
 /// <reference path="paramount-ko-extensions.js" />
-/// <reference path="account/userbookings.js" />
-/// <reference path="account/userservice.js" />
+/// <reference path="account/userads.js" />

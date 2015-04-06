@@ -1,12 +1,8 @@
-﻿using System.Collections.Generic;
-
-namespace Paramount.Betterclassifieds.Presentation.Controllers
+﻿namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     using AutoMapper;
     using Business;
     using Business.Broadcast;
-    using Business.Booking;
-    using Business.Search;
     using System.Web.Mvc;
     using ViewModels;
 
@@ -258,27 +254,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             changePasswordView.UpdatedSuccessfully = true;
             return View(changePasswordView);
-        }
-
-        [Authorize]
-        public ActionResult MyAds()
-        {
-            return View();
-        }
-
-        [Authorize]
-        public ActionResult GetAdsForUser()
-        {
-            // Todo - Wire up the real backend
-
-            var viewModel = new List<UserBookingViewModel>
-            {
-                new UserBookingViewModel { ScheduleType = ScheduleTypeView.Current ,AdId = 14458, AdImageId = "6ba06205-5b1d-4f9f-b7c1-543665c17775", Ends = "20th May", Heading = "Title of the Ad", Messages = 2, Starts = "2 days ago", Visits = 20, Description = "Code School teaches web technologies in the comfort of your browser with video lessons, coding challenges, and screencasts."},
-                new UserBookingViewModel { ScheduleType = ScheduleTypeView.Future ,AdId = 14458, AdImageId = "6ba06205-5b1d-4f9f-b7c1-543665c17775", Ends = "20th May", Heading = "Title of the Ad", Messages = 2, Starts = "2 days ago", Visits = 20, Description = "Code School teaches web technologies in the comfort of your browser with video lessons, coding challenges, and screencasts."},
-                new UserBookingViewModel { ScheduleType = ScheduleTypeView.Expired ,AdId = 14458, AdImageId = "6ba06205-5b1d-4f9f-b7c1-543665c17775", Ends = "20th May", Heading = "Title of the Ad", Messages = 2, Starts = "2 days ago", Visits = 20, Description = "Code School teaches web technologies in the comfort of your browser with video lessons, coding challenges, and screencasts."},
-            };
-
-            return Json(viewModel);
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

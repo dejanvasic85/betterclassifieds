@@ -1,0 +1,125 @@
+﻿@using Paramount
+@model dynamic
+
+@{
+    Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayoutWithSearch.cshtml");
+    ViewBag.Title = "Manage my Ads";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        @Html.Partial("_UserMenu")
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6">
+        <h2 class="page-header">My Ads</h2>
+    </div>
+    <div class="col-sm-6">
+        <div class="btn-group btn-lg user-menu-filters pull-right" data-toggle="buttons">
+            <label class="btn btn-primary active" data-status="All" data-bind="click: setStatus">
+                <input type="radio" name="options" id="option1" autocomplete="off" checked> All
+            </label>
+            <label class="btn btn-primary" data-status="Current" data-bind="click: setStatus">
+                <input type="radio" name="options" id="option2" autocomplete="off"> Current
+            </label>
+            <label class="btn btn-primary" data-status="Future" data-bind="click: setStatus">
+                <input type="radio" name="options" id="option3" autocomplete="off"> Scheduled
+            </label>
+            <label class="btn btn-primary" data-status="Expired" data-bind="click: setStatus">
+                <input type="radio" name="options" id="option3" autocomplete="off"> Expired
+            </label>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                <span class="sr-only">Loading... Please wait</span>
+                Loading... Please Wait
+            </div>
+        </div>
+
+        <div id="adList" style="display: none" data-bind="foreach: ads">
+            <div class="panel panel-default" data-bind="visible: $data.status() === $parent.selectedStatus() || $parent.selectedStatus() === 'All'">
+                <div class="panel-heading">
+                    <strong>
+                        <span data-bind="text: adId"></span> -
+                        <span data-bind="text: heading"></span>
+                    </strong>
+                    <div class="pull-right">
+                        <strong>
+                            <a href="@Url.Action("Details", "EditAd", new { Id = 14458 })">
+                                Edit <i class="fa fa-pencil"></i>
+                            </a>
+                            &nbsp; | &nbsp;
+                            <a href="@Url.Action("Cancel", "UserAds", new { Id = 14458 })">
+                                Cancel <i class="fa fa-trash"></i>
+                            </a>
+                            &nbsp; | &nbsp;
+                            <a href="@Url.Action("ViewAd", "Listings", new { Id = 14458 })">
+                                View <i class="fa fa-eye"></i>
+                            </a>
+                        </strong>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-6" data-bind="text: description">
+
+                        </div>
+
+                        <div class="col-xs-2">
+                            <img class="thumbnail" alt="100x100" data-bind="attr : {src : $paramount.imageService.getImageUrl(adImageId())}">
+                        </div>
+
+                        <div class="col-xs-4">
+                            <dl class="dl-horizontal myads-date-info">
+                                <dt>Posted</dt>
+                                <dd data-bind="text: starts"></dd>
+                                <dt>Ends</dt>
+                                <dd data-bind="text: ends"></dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    Visits : <span data-bind="text: visits"></span>
+                    <div class="pull-right">
+                        <strong>
+                            Messages <i class="fa fa-envelope"></i> ( <span data-bind="text: messages"></span> )
+                            &nbsp; | &nbsp;
+                            Invoice <i class="fa fa-file"></i>
+                        </strong>
+                    </div>
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts{
+    <script src="@Url.Content("~/Scripts/Account/UserAds.js")"></script>
+
+    <script>
+
+        (function ($m, $, ko) {
+
+            $.getJSON('@Url.Action("GetAdsForUser", "UserAds")', null, function (data) {
+                $('.progress').hide(500, function () {
+                    var bookingsView = new $m.UserAdsView(data);
+                    ko.applyBindings(bookingsView);
+                    $('#adList').show();
+                });
+            });
+
+        })($paramount.models, jQuery, ko);
+
+    </script>
+}

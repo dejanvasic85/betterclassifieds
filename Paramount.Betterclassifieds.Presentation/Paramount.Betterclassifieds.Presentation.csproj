@@ -183,6 +183,7 @@
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\ListingsController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
+    <Compile Include="Controllers\UserAdsController.cs" />
     <Compile Include="Framework\AuthorizeBookingIdentity.cs" />
     <Compile Include="Framework\AuthorizeCartIdentity.cs" />
     <Compile Include="Framework\BookingRequiredAttribute.cs" />
@@ -496,7 +497,7 @@
     <Content Include="Views\Shared\_CropImage.cshtml" />
     <Content Include="Views\Shared\_EditionsDates.cshtml" />
     <Content Include="Views\EditAd\Details.cshtml" />
-    <Content Include="Views\Account\MyAds.cshtml" />
+    <Content Include="Views\UserAds\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

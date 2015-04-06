@@ -110,6 +110,9 @@
 .user-menu ul li:hover {
   background-color: #ededed;
 }
+.user-menu-filters {
+  margin: 30px 0 10px;
+}
 .nav-tabs {
   background-color: #fff;
   z-index: 100;
@@ -118,6 +121,15 @@
   cursor: pointer;
   text-decoration: underline;
 }
+.myads-date-info dd {
+  margin-left: 120px;
+}
+.myads-date-info dt {
+  width: 100px;
+}
+/*
+    Mobile
+*/
 @media (max-width: 766px) {
   /* Smaller widths stack controls on top of another with no margin */
   .form-control {
@@ -125,6 +137,15 @@
   }
   .btn {
     margin-top: 5px;
+  }
+  .user-menu-filters {
+    margin: 0;
+  }
+  .myads-date-info dd {
+    margin-left: 20px;
+  }
+  .myads-date-info dt {
+    margin-left: 20px;
   }
 }
 /*# sourceMappingURL=site.css.map */

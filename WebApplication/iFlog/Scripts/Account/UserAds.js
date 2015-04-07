@@ -15,7 +15,9 @@
     };
 
     $models.UserAd = function (item) {
-        this.adId = ko.observable(item.AdId);
+        var self = this;
+        self.adId = ko.observable(item.AdId);
+
         this.status = ko.observable(item.Status);
         this.heading = ko.observable(item.Heading);
         this.description = ko.observable(item.Description);
@@ -24,6 +26,10 @@
         this.ends = ko.observable(item.Ends);
         this.visits = ko.observable(item.Visits);
         this.messages = ko.observable(item.Messages);
+
+        this.cancelAd = function() {
+            console.log('todo - cancel ad ' + self.adId());
+        }
     };
 
 })($paramount.models || {}, ko, jQuery);

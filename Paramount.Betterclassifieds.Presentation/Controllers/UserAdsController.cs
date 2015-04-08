@@ -1,4 +1,6 @@
-﻿using Paramount.Betterclassifieds.Presentation.ViewModels;
+﻿using System.Linq;
+using Paramount.Betterclassifieds.Business.Booking;
+using Paramount.Betterclassifieds.Presentation.ViewModels;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -7,6 +9,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
     [Authorize]
     public class UserAdsController : Controller
     {
+        private IBookingManager _bookingManager;
+
+        public UserAdsController(IBookingManager bookingManager)
+        {
+            _bookingManager = bookingManager;
+        }
+
         //
         // GET: /UserAd/
 
@@ -17,16 +26,23 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public ActionResult GetAdsForUser()
         {
-            // Todo - Wire up the real backend
+            var userAds = _bookingManager.GetBookingsForUser(User.Identity.Name);
 
-            var viewModel = new List<UserBookingViewModel>
+            var viewModels = userAds.Select(ad => new UserBookingViewModel
             {
-                new UserBookingViewModel { Status = "Current" ,AdId = 14458, AdImageId = "6ba06205-5b1d-4f9f-b7c1-543665c17775", Ends = "20th May", Heading = "Title of the Ad", Messages = 2, Starts = "2 days ago", Visits = 20, Description = "Code School teaches web technologies in the comfort of your browser with video lessons, coding challenges, and screencasts."},
-                new UserBookingViewModel { Status = "Future" ,AdId = 14459, AdImageId = "6ba06205-5b1d-4f9f-b7c1-543665c17775", Ends = "20th May", Heading = "Title of the Ad", Messages = 2, Starts = "2 days ago", Visits = 20, Description = "Code School teaches web technologies in the comfort of your browser with video lessons, coding challenges, and screencasts."},
-                new UserBookingViewModel { Status = "Expired" ,AdId = 14490, AdImageId = "6ba06205-5b1d-4f9f-b7c1-543665c17775", Ends = "20th May", Heading = "Title of the Ad", Messages = 2, Starts = "2 days ago", Visits = 20, Description = "Code School teaches web technologies in the comfort of your browser with video lessons, coding challenges, and screencasts."},
-            };
+                AdId = ad.AdBookingId,
+                AdImageId = ad.OnlineAd.DefaultImageId != null ? ad.OnlineAd.DefaultImageId.DocumentId : string.Empty,
+                Heading = ad.OnlineAd.Heading,
+                Description = ad.OnlineAd.Description,
+                Starts = ad.StartDate.ToString("dd-MMM-yyyy"),
+                Ends = ad.EndDate.ToString("dd-MMM-yyyy"),
+                Messages = 0,
+                Status = "Current",
+                Visits = ad.OnlineAd.NumOfViews
+            });
 
-            return Json(viewModel, JsonRequestBehavior.AllowGet);
+
+            return Json(viewModels, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

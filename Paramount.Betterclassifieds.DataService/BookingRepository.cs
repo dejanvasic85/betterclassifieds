@@ -3,12 +3,13 @@
     using AutoMapper;
     using Business;
     using Business.Booking;
+    using Business.Print;
     using Classifieds;
     using System;
     using System.Collections.Generic;
     using System.Data.Linq;
     using System.Linq;
-    using Business.Print;
+    using System.Linq.Expressions;
 
     public class BookingRepository : IBookingRepository, IMappingBehaviour
     {
@@ -55,6 +56,63 @@
             }
         }
 
+        public List<AdBookingModel> GetUserBookings(string username)
+        {
+            return Query(bk => bk.UserId == username);
+        }
+
+        private List<AdBookingModel> Query(Expression<Func<AdBooking, bool>> expression)
+        {
+            using (var context = DataContextFactory.CreateClassifiedContext())
+            {
+                var adBookingModels = new List<AdBookingModel>();
+                var dataModels = context.AdBookings.Where(expression);
+
+                foreach (var dataModel in dataModels)
+                {
+                    var booking = this.Map<AdBooking, AdBookingModel>(dataModel);
+
+                    // Line ad
+                    var lineAdDesign = dataModel.Ad.AdDesigns.FirstOrDefault(ds => ds.LineAds.Any());
+                    if (lineAdDesign != null)
+                    {
+                        var lineAd = this.Map<LineAd, LineAdModel>(lineAdDesign.LineAds.Single());
+                        if (lineAdDesign.AdGraphics.Count > 0)
+                        {
+                            // Line ads can only have 1 graphic
+                            lineAd.AdImageId = lineAdDesign.AdGraphics.Single().DocumentID;
+                        }
+                        booking.Ads.Add(lineAd);
+                    }
+
+                    // Online ad
+                    var onlineAdDataModel = dataModel.Ad.AdDesigns.First(ds => ds.AdTypeId == AdTypeCode.OnlineCodeId).OnlineAds.Single();
+                    var onlineAd = this.Map<OnlineAd, OnlineAdModel>(onlineAdDataModel);
+                    if (onlineAdDataModel.AdDesign.AdGraphics.Any())
+                    {
+                        onlineAd.Images.AddRange(onlineAdDataModel.AdDesign.AdGraphics.Select(gr => new AdImage(gr.DocumentID)));
+                    }
+                    booking.Ads.Add(onlineAd);
+                    adBookingModels.Add(booking);
+                }
+
+                return adBookingModels;
+            }
+        }
+
+        private LineAdModel WithLineAd(AdBooking booking)
+        {
+            var design = booking.Ad.AdDesigns.FirstOrDefault(ds => ds.LineAds.Any());
+
+            if (design != null)
+            {
+                return this.Map<LineAd, LineAdModel>(design.LineAds.Single());
+
+            }
+
+            return null;
+        }
+
         public List<BookEntryModel> GetBookEntriesForBooking(int adBookingId)
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
@@ -64,6 +122,7 @@
             }
         }
 
+        [Obsolete]
         public List<UserBookingModel> GetBookingsForUser(string username)
         {
             using (var context = DataContextFactory.CreateClassifiedContext())

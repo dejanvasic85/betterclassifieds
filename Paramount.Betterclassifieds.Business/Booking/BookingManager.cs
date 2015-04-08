@@ -15,6 +15,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         AdBookingExtensionModel CreateExtension(int adBookingId, int numberOfInsertions, string username, decimal price, ExtensionStatus status, bool isOnlineOnly);
         AdBookingExtensionModel GetExtension(int extensionId);
         AdBookingModel GetBooking(int id);
+        IEnumerable<AdBookingModel> GetBookingsForUser(string username);
 
         void Extend(AdBookingExtensionModel extensionModel, PaymentType paymentType = PaymentType.None);
         void Extend(int adBookingId, int numberOfInsertions, bool? isOnlineOnly = null, ExtensionStatus extensionStatus = ExtensionStatus.Complete, int price = 0, string username = "admin", PaymentType payment = PaymentType.None);
@@ -28,6 +29,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         void UpdateLineAd(int id, LineAdModel lineAd);
         void AssignLineAdImage(int id, Guid documentId);
         void RemoveLineAdImage(int id, Guid documentId);
+
     }
 
     public class BookingManager : IBookingManager
@@ -87,6 +89,13 @@ namespace Paramount.Betterclassifieds.Business.Booking
         public AdBookingModel GetBooking(int id)
         {
             return _bookingRepository.GetBooking(id, true);
+        }
+
+        public IEnumerable<AdBookingModel> GetBookingsForUser(string username)
+        {
+            var bookings = _bookingRepository.GetUserBookings(username);
+
+            return bookings.AsEnumerable();
         }
 
         public void Extend(AdBookingExtensionModel extensionModel, PaymentType paymentType = PaymentType.None)
@@ -183,7 +192,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         {
             var adBookingId = _bookingRepository.CreateBooking(bookingCart);
 
-            if(!adBookingId.HasValue)
+            if (!adBookingId.HasValue)
                 throw new DataException("AdBookingId was not returned when trying to create a new booking");
 
             // Create the order details in the database 
@@ -201,7 +210,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
             {
                 var printRate = bookingOrder.GetPrintRateForPublication(publicationId);
                 var publicationPrice = printRate.OrderTotal;
-                var editionValue = publicationPrice/bookingCart.PrintInsertions;
+                var editionValue = publicationPrice / bookingCart.PrintInsertions;
 
                 _bookingRepository.CreateLineAdEditions(adBookingId,
                     bookingCart.PrintFirstEditionDate.GetValueOrDefault(),

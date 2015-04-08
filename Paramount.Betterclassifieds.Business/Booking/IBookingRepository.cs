@@ -8,7 +8,9 @@ namespace Paramount.Betterclassifieds.Business.Booking
     {
         // Fetch
         AdBookingModel GetBooking(int id, bool withLineAd = false);
+        List<AdBookingModel> GetUserBookings(string username);
         List<BookEntryModel> GetBookEntriesForBooking(int adBookingId);
+        [Obsolete("Please use GetUserBookings instead")]
         List<UserBookingModel> GetBookingsForUser(string username);
         List<AdBookingModel> GetBookingsForEdition(DateTime editionDate);
         AdBookingExtensionModel GetBookingExtension(int extensionId);

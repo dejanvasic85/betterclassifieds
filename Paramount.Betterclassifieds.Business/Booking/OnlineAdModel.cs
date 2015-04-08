@@ -57,5 +57,10 @@ namespace Paramount.Betterclassifieds.Business.Booking
 
             this.Images.Remove(img);
         }
+
+        public AdImage DefaultImageId
+        {
+            get { return this.Images.Count == 0 ? null : this.Images.First(); }
+        }
     }
 }

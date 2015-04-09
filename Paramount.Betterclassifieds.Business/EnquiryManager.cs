@@ -1,6 +1,4 @@
-﻿using Paramount.Betterclassifieds.Business.Repository;
-
-namespace Paramount.Betterclassifieds.Business
+﻿namespace Paramount.Betterclassifieds.Business
 {
     public class EnquiryManager : IEnquiryManager
     {

@@ -15,53 +15,15 @@
     {
         public AdBookingModel GetBooking(int id, bool withLineAd = false)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
-            {
-                var booking = context.AdBookings.FirstOrDefault(b => b.AdBookingId == id);
-                if (booking == null)
-                    return null;
-
-                var adBookingModel = this.Map<AdBooking, AdBookingModel>(booking);
-
-                // Fetch line ad if required
-                if (withLineAd)
-                {
-                    var design = booking.Ad.AdDesigns.FirstOrDefault(d => d.LineAds.Any());
-                    if (design != null)
-                    {
-                        var lineAdModel = this.Map<LineAd, LineAdModel>(design.LineAds.Single());
-                        adBookingModel.Ads.Add(lineAdModel);
-
-                        // Fetch the images
-                        var lineAdImg = context.AdGraphics.FirstOrDefault(gr => gr.AdDesignId == design.AdDesignId);
-                        if (lineAdImg != null)
-                        {
-                            lineAdModel.AdImageId = lineAdImg.DocumentID;
-                        }
-                    }
-                }
-
-                // Always fetch the online ad
-                var onlineDesign = booking.Ad.AdDesigns.FirstOrDefault(d => d.OnlineAds.Any());
-                if (onlineDesign != null)
-                {
-                    var onlineAdModel = this.Map<OnlineAd, OnlineAdModel>(onlineDesign.OnlineAds.Single());
-                    adBookingModel.Ads.Add(onlineAdModel);
-
-                    // Fetch the images
-                    onlineAdModel.Images = context.AdGraphics.Where(g => g.AdDesignId == onlineDesign.AdDesignId).Select(g => new AdImage(g.DocumentID)).ToList();
-                }
-
-                return adBookingModel;
-            }
+            return QueryBooking(bk => bk.AdBookingId == id).Single();
         }
 
         public List<AdBookingModel> GetUserBookings(string username)
         {
-            return Query(bk => bk.UserId == username);
+            return QueryBooking(bk => bk.UserId == username);
         }
 
-        private List<AdBookingModel> Query(Expression<Func<AdBooking, bool>> expression)
+        private List<AdBookingModel> QueryBooking(Expression<Func<AdBooking, bool>> expression)
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
@@ -93,24 +55,16 @@
                         onlineAd.Images.AddRange(onlineAdDataModel.AdDesign.AdGraphics.Select(gr => new AdImage(gr.DocumentID)));
                     }
                     booking.Ads.Add(onlineAd);
+
+
+                    // Ad Enquiry
+                    booking.Enquiries = onlineAdDataModel.OnlineAdEnquiries.Select(this.Map<OnlineAdEnquiry, Enquiry>).ToList();
+
                     adBookingModels.Add(booking);
                 }
 
                 return adBookingModels;
             }
-        }
-
-        private LineAdModel WithLineAd(AdBooking booking)
-        {
-            var design = booking.Ad.AdDesigns.FirstOrDefault(ds => ds.LineAds.Any());
-
-            if (design != null)
-            {
-                return this.Map<LineAd, LineAdModel>(design.LineAds.Single());
-
-            }
-
-            return null;
         }
 
         public List<BookEntryModel> GetBookEntriesForBooking(int adBookingId)
@@ -521,6 +475,8 @@
             configuration.CreateMap<AdGraphic, AdImage>()
                 .ForMember(member => member.DocumentId, options => options.MapFrom(source => source.DocumentID));
             configuration.CreateMap<Publication, PublicationModel>();
+            configuration.CreateMap<OnlineAdEnquiry, Enquiry>()
+                .ForMember(m => m.EnquiryId, options => options.MapFrom(src => src.OnlineAdEnquiryId));
 
             // To data
             configuration.CreateMap<AdBookingExtensionModel, AdBookingExtension>()

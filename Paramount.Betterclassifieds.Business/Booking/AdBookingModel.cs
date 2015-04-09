@@ -65,5 +65,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         }
 
         public bool HasLineAd { get { return this.LineAd != null; } }
+
+        public List<Enquiry> Enquiries { get; set; }
     }
 }

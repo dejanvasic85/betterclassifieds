@@ -36,7 +36,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 Description = ad.OnlineAd.Description.TruncateOnWordBoundary(200),
                 Starts = ad.StartDate.ToString("dd-MMM-yyyy"),
                 Ends = ad.EndDate.ToString("dd-MMM-yyyy"),
-                Messages = 0,
+                Messages = ad.Enquiries.Count,
                 Status = GetViewStatusFrom(ad),
                 Visits = ad.OnlineAd.NumOfViews
             });

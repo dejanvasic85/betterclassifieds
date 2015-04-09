@@ -240,6 +240,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         {
             _bookingRepository.DeleteImage(adId, documentId.ToString());
         }
+
         public void UpdateOnlineAd(int adId, OnlineAdModel onlineAd)
         {
             _bookingRepository.UpdateOnlineAd(adId, onlineAd);

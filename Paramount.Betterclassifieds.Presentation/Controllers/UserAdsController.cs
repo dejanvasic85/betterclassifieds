@@ -1,7 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
-using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
@@ -9,7 +9,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
     [Authorize]
     public class UserAdsController : Controller
     {
-        private IBookingManager _bookingManager;
+        private readonly IBookingManager _bookingManager;
 
         public UserAdsController(IBookingManager bookingManager)
         {
@@ -33,16 +33,29 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 AdId = ad.AdBookingId,
                 AdImageId = ad.OnlineAd.DefaultImageId != null ? ad.OnlineAd.DefaultImageId.DocumentId : string.Empty,
                 Heading = ad.OnlineAd.Heading,
-                Description = ad.OnlineAd.Description,
+                Description = ad.OnlineAd.Description.TruncateOnWordBoundary(200),
                 Starts = ad.StartDate.ToString("dd-MMM-yyyy"),
                 Ends = ad.EndDate.ToString("dd-MMM-yyyy"),
                 Messages = 0,
-                Status = "Current",
+                Status = GetViewStatusFrom(ad),
                 Visits = ad.OnlineAd.NumOfViews
             });
 
-
             return Json(viewModels, JsonRequestBehavior.AllowGet);
+        }
+
+        private string GetViewStatusFrom(AdBookingModel ad)
+        {
+            if (ad.IsExpired)
+                return "Expired";
+
+            if (ad.IsFutureAd)
+                return "Scheduled";
+
+            if (ad.IsCurrentAd)
+                return "Current";
+
+            throw new ArgumentException("Unable to retrieve view status from booking");
         }
 
         [HttpPost]

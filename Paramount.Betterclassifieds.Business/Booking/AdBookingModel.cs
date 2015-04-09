@@ -30,6 +30,16 @@ namespace Paramount.Betterclassifieds.Business.Booking
             get { return EndDate < DateTime.Today; }
         }
 
+        public bool IsFutureAd
+        {
+            get { return StartDate > DateTime.Today; }
+        }
+
+        public bool IsCurrentAd
+        {
+            get { return !IsFutureAd && !IsExpired; }
+        }
+
         public BookingStatusType BookingStatus { get; set; }
 
         public string BookReference { get; set; }

@@ -24,7 +24,7 @@
             <label class="btn btn-primary" data-status="Current" data-bind="click: setStatus">
                 <input type="radio" name="options" id="option2" autocomplete="off"> Current
             </label>
-            <label class="btn btn-primary" data-status="Future" data-bind="click: setStatus">
+            <label class="btn btn-primary" data-status="Scheduled" data-bind="click: setStatus">
                 <input type="radio" name="options" id="option3" autocomplete="off"> Scheduled
             </label>
             <label class="btn btn-primary" data-status="Expired" data-bind="click: setStatus">
@@ -45,7 +45,7 @@
         </div>
 
         <div id="adList" style="display: none" data-bind="foreach: ads">
-            <div class="panel panel-default" data-bind="visible: $data.status() === $parent.selectedStatus() || $parent.selectedStatus() === 'All'">
+            <div class="panel" data-bind="css : {'panel-danger' : $data.status() === 'Expired', 'panel-success' :  $data.status() === 'Current', 'panel-default' : $data.status() === 'Scheduled'} ,visible: $data.status() === $parent.selectedStatus() || $parent.selectedStatus() === 'All'">
                 <div class="panel-heading">
                     <strong>
                         <span data-bind="text: adId"></span> -
@@ -69,14 +69,15 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-xs-6" data-bind="text: description">
-
-                        </div>
-
+                        @*Descripton*@
+                        <div class="col-xs-6" data-bind="text: description"></div>
+                        
+                        @*Image*@
                         <div class="col-xs-2">
-                            <img class="thumbnail" alt="100x100" data-bind="attr : {src : $paramount.imageService.getImageUrl(adImageId())}">
+                            <img class="thumbnail" alt="100x100" data-bind="visible : adImageId() !== '',attr : {src : $paramount.imageService.getImageUrl(adImageId())}">
                         </div>
-
+                        
+                        @*Dates*@
                         <div class="col-xs-4">
                             <dl class="dl-horizontal myads-date-info">
                                 <dt>Posted</dt>
@@ -87,6 +88,8 @@
                         </div>
                     </div>
                 </div>
+                
+                @*Footer*@
                 <div class="panel-footer">
                     Visits : <span data-bind="text: visits"></span>
                     <div class="pull-right">

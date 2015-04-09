@@ -95,7 +95,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         {
             var bookings = _bookingRepository.GetUserBookings(username);
 
-            return bookings.AsEnumerable();
+            return bookings.AsEnumerable().OrderByDescending(b => b.AdBookingId);
         }
 
         public void Extend(AdBookingExtensionModel extensionModel, PaymentType paymentType = PaymentType.None)

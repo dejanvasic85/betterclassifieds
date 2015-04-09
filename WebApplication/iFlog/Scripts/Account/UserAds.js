@@ -17,8 +17,7 @@
     $models.UserAd = function (item) {
         var self = this;
         self.adId = ko.observable(item.AdId);
-
-        this.status = ko.observable(item.Status);
+        self.status = ko.observable(item.Status);
         this.heading = ko.observable(item.Heading);
         this.description = ko.observable(item.Description);
         this.adImageId = ko.observable(item.AdImageId);
@@ -30,6 +29,7 @@
         this.cancelAd = function() {
             console.log('todo - cancel ad ' + self.adId());
         }
+
     };
 
 })($paramount.models || {}, ko, jQuery);

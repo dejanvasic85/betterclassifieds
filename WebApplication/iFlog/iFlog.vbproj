@@ -267,6 +267,12 @@
     <Content Include="Content\KandoBay\img\BookUsingThePhone.PNG" />
     <Content Include="Content\KandoBay\img\FederationSquare.png" />
     <Content Include="Content\KandoBay\img\WinTablet.png" />
+    <Content Include="Content\KandoBay\kando.css">
+      <DependentUpon>kando.less</DependentUpon>
+    </Content>
+    <Content Include="Content\KandoBay\kando.min.css">
+      <DependentUpon>kando.css</DependentUpon>
+    </Content>
     <Content Include="Content\KandoBay\kandobay_favicon.ico" />
     <Content Include="Content\KandoBay\img\Kandobay_Logo.png" />
     <Content Include="Content\morphext.min.css">
@@ -286,6 +292,10 @@
     </Content>
     <Content Include="Content\TheMusic\themusic.css.map">
       <DependentUpon>themusic.css</DependentUpon>
+    </Content>
+    <Content Include="Content\KandoBay\kando.less" />
+    <Content Include="Content\KandoBay\kando.css.map">
+      <DependentUpon>kando.css</DependentUpon>
     </Content>
     <None Include="Content\TheMusic\themusic.less" />
     <Content Include="Content\TheMusic\themusic.css">

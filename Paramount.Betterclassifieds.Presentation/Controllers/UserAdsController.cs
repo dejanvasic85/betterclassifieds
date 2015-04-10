@@ -36,7 +36,17 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 Description = ad.OnlineAd.Description.TruncateOnWordBoundary(200),
                 Starts = ad.StartDate.ToString("dd-MMM-yyyy"),
                 Ends = ad.EndDate.ToString("dd-MMM-yyyy"),
-                Messages = ad.Enquiries.Select(enq => new AdEnquiryViewModel { FullName = enq.FullName }).ToArray(),
+                Messages = ad.Enquiries.Select(enq => new AdEnquiryViewModel
+                {
+                    FullName = enq.FullName,
+                    AdId = ad.AdBookingId,
+                    Email = enq.Email,
+                    Question = enq.EnquiryText,
+                    CreatedDate = enq.CreatedDate.ToString("dd-MMM-yyyy")
+                })
+                .OrderByDescending(enq => enq.CreatedDate)
+                .ToArray(),
+
                 Status = GetViewStatusFrom(ad),
                 Visits = ad.OnlineAd.NumOfViews
             });

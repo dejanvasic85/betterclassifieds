@@ -5,7 +5,7 @@
         var self = this;
         self.selectedStatus = ko.observable('All');
         self.ads = ko.observableArray();
-        self.msgsToView = ko.observableArray();
+        self.currentMsgs = ko.observableArray([]);
 
         $.each(data, function (idx, item) {
             var ad = new $models.UserAd(item);
@@ -14,10 +14,6 @@
 
         self.setStatus = function(item, val) {
             self.selectedStatus(val.currentTarget.attributes["data-status"].value);
-        }
-
-        self.loadMessages = function (msgs) {
-            self.msgsToView(msgs);
         }
     };
 
@@ -34,11 +30,22 @@
         this.ends = ko.observable(item.Ends);
         this.visits = ko.observable(item.Visits);
         this.messageCount = ko.observable(item.MessageCount);
-        this.messages = ko.observable(item.Messages);
+
+        self.messages = ko.observableArray([]);
+        $.each(item.Messages, function(idx, value) {
+            self.messages.push(new $models.UserMsg(value));
+        });
 
         this.cancelAd = function() {
             console.log('todo - cancel ad ' + self.adId());
         }
+    };
+
+    $models.UserMsg = function(item) {
+        this.fullName = ko.observable(item.FullName);
+        this.email = ko.observable(item.Email);
+        this.enquiryText = ko.observable(item.Question);
+        this.createdDate = ko.observable(item.CreatedDate);
     };
 
 })($paramount.models || {}, ko, jQuery);

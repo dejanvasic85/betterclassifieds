@@ -25,5 +25,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         [Required]
         [MaxLength(500, ErrorMessage = "Your question cannot exceed 500 characters")]
         public string Question { get; set; }
+
+        public string CreatedDate { get; set; }
     }
 }

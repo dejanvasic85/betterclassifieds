@@ -47,22 +47,22 @@
         </div>
 
         <div id="adList" style="display: none" data-bind="foreach: ads">
-            <div class="panel" data-bind="css : {'panel-danger' : $data.status() === 'Expired', 'panel-success' :  $data.status() === 'Current', 'panel-default' : $data.status() === 'Scheduled'} ,visible: $data.status() === $parent.selectedStatus() || $parent.selectedStatus() === 'All'">
+            <div class="panel" data-bind="css : {'panel-danger' : $data.status() === 'Expired', 'panel-success' :  $data.status() === 'Current', 'panel-warning' : $data.status() === 'Scheduled'} ,visible: $data.status() === $parent.selectedStatus() || $parent.selectedStatus() === 'All'">
                 <div class="panel-heading">
                     <strong>
                         <span data-bind="text: adId"></span> -
                         <span data-bind="text: heading"></span>
                     </strong>
-                    <div class="pull-right" data-bind="visible : $data.status() !== 'Expired'">
+                    <div class="pull-right userads-cmd-panel" data-bind="visible : $data.status() !== 'Expired'">
                         <strong>
                             <a data-bind="attr : {href : $paramount.url.userads.editAdDetails($data.adId())} ">
                                 Edit <i class="fa fa-pencil"></i>
                             </a>
-                            &nbsp; | &nbsp;
+                            | &nbsp;
                             <a data-bind="click: cancelAd" href="">
                                 Cancel <i class="fa fa-trash"></i>
                             </a>
-                            &nbsp; | &nbsp;
+                            | &nbsp;
                             <a data-bind="attr : {href : $paramount.url.userads.viewAd($data.adId())}">
                                 View <i class="fa fa-eye"></i>
                             </a>
@@ -96,14 +96,16 @@
                     Visits : <span data-bind="text: visits"></span>
                     <div class="pull-right">
                         <strong>
-                            <a href="" data-bind="click: $parent.loadMessages($data.messages())">
+                            <button data-bind="visible: messageCount() > 0" class="btn btn-default view-messages">
                                 Messages <i class="fa fa-envelope"></i> ( <span data-bind="text: messageCount"></span> )
-                            </a>
-                            &nbsp; | &nbsp;
-                            Invoice <i class="fa fa-file"></i>
+                            </button>
+                            <button class="btn btn-default">
+                                Invoice <i class="fa fa-file"></i>
+                            </button>
                         </strong>
+                        
                     </div>
-                    &nbsp;
+                    <div class="clearfix"></div>
                 </div>
             </div>
         </div>
@@ -111,20 +113,28 @@
     </div>
 </div>
 
-<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="priceSummaryModal">
-    <div class="modal-dialog">
+<div id="userMsgs" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4>Direct Messages</h4>
-                <div>
-                    <i class="glyphicon glyphicon-ok" data-toggle="tooltip" data-placement="top" title="Mark all as read"></i>
-                </div>
             </div>
             <div class="modal-body">
-                <table class="table">
-                    <tbody data-bind="foreach: msgsToView">
+                <table class="table table-bordered table-hover">
+                    <thead>
                         <tr>
-                            <td></td>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Enquiry</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach : currentMsgs">
+                        <tr>
+                            <td data-bind="text: fullName"></td>
+                            <td data-bind="text: email"></td>
+                            <td data-bind="text: enquiryText"></td>
+                            <td data-bind="text: createdDate"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -146,6 +156,12 @@
                     ko.applyBindings(bookingsView);
                     $('#adList').show();
                 });
+            });
+
+            $('#adList').on('click', '.view-messages', function () {
+                var context = ko.contextFor(this);
+                context.$parent.currentMsgs(context.$data.messages());
+                $('#userMsgs').modal('show');
             });
 
         })($paramount.models, jQuery, ko);

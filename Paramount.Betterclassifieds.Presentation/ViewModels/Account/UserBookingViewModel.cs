@@ -9,7 +9,9 @@
         public string Starts { get; set; }
         public string Ends { get; set; }
         public int Visits { get; set; }
-        public int Messages { get; set; }
+        public int MessageCount { get { return this.Messages.Length; } }
         public string Status { get; set; }
+        public AdEnquiryViewModel[] Messages { get; set; }
     }
+
 }

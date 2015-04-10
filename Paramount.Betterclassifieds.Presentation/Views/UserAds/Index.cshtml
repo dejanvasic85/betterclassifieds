@@ -73,12 +73,12 @@
                     <div class="row">
                         @*Descripton*@
                         <div class="col-xs-6" data-bind="text: description"></div>
-                        
+
                         @*Image*@
                         <div class="col-xs-2">
                             <img class="thumbnail" alt="100x100" data-bind="visible : adImageId() !== '',attr : {src : $paramount.imageService.getImageUrl(adImageId())}">
                         </div>
-                        
+
                         @*Dates*@
                         <div class="col-xs-4">
                             <dl class="dl-horizontal myads-date-info">
@@ -90,13 +90,15 @@
                         </div>
                     </div>
                 </div>
-                
+
                 @*Footer*@
                 <div class="panel-footer">
                     Visits : <span data-bind="text: visits"></span>
                     <div class="pull-right">
                         <strong>
-                            Messages <i class="fa fa-envelope"></i> ( <span data-bind="text: messages"></span> )
+                            <a href="" data-bind="click: $parent.loadMessages($data.messages())">
+                                Messages <i class="fa fa-envelope"></i> ( <span data-bind="text: messageCount"></span> )
+                            </a>
                             &nbsp; | &nbsp;
                             Invoice <i class="fa fa-file"></i>
                         </strong>
@@ -106,6 +108,28 @@
             </div>
         </div>
 
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="priceSummaryModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Direct Messages</h4>
+                <div>
+                    <i class="glyphicon glyphicon-ok" data-toggle="tooltip" data-placement="top" title="Mark all as read"></i>
+                </div>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <tbody data-bind="foreach: msgsToView">
+                        <tr>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 

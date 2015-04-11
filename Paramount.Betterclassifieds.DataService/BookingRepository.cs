@@ -20,7 +20,9 @@
 
         public List<AdBookingModel> GetUserBookings(string username)
         {
-            return QueryBooking(bk => bk.UserId == username);
+            // Return all the ads that belong to the user 
+            // But limit it for the last year...
+            return QueryBooking(bk => bk.UserId == username && bk.EndDate > DateTime.Today.AddYears(-1));
         }
 
         private List<AdBookingModel> QueryBooking(Expression<Func<AdBooking, bool>> expression)

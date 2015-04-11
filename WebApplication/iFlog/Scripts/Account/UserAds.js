@@ -5,7 +5,7 @@
         var self = this;
         self.selectedStatus = ko.observable('All');
         self.ads = ko.observableArray();
-        self.currentMsgs = ko.observableArray([]);
+        self.userEnquiries = ko.observableArray([]);
 
         $.each(data, function (idx, item) {
             var ad = new $models.UserAd(item);
@@ -14,15 +14,14 @@
 
         self.setStatus = function(item, val) {
             self.selectedStatus(val.currentTarget.attributes["data-status"].value);
-        }
+        };
     };
 
     $models.UserAd = function (item) {
         var self = this;
         self.adId = ko.observable(item.AdId);
         self.status = ko.observable(item.Status);
-
-
+        
         this.heading = ko.observable(item.Heading);
         this.description = ko.observable(item.Description);
         this.adImageId = ko.observable(item.AdImageId);
@@ -33,15 +32,15 @@
 
         self.messages = ko.observableArray([]);
         $.each(item.Messages, function(idx, value) {
-            self.messages.push(new $models.UserMsg(value));
+            self.messages.push(new $models.UserEnquiry(value));
         });
 
         this.cancelAd = function() {
-            console.log('todo - cancel ad ' + self.adId());
+            
         }
     };
 
-    $models.UserMsg = function(item) {
+    $models.UserEnquiry = function(item) {
         this.fullName = ko.observable(item.FullName);
         this.email = ko.observable(item.Email);
         this.enquiryText = ko.observable(item.Question);

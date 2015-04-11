@@ -13,23 +13,22 @@
 </div>
 
 
-
 <div class="row">
     <div class="col-sm-6">
-        <h2 class="page-header">My Ads</h2>
+        <h2 class="page-header">My Ads (<span data-bind="text : selectedStatus"></span>)</h2>
     </div>
     <div class="col-sm-6">
         <div class="btn-group btn-lg user-menu-filters pull-right" data-toggle="buttons">
             <label class="btn btn-primary active" data-status="All" data-bind="click: setStatus">
                 <input type="radio" name="options" id="option1" autocomplete="off" checked> All
             </label>
-            <label class="btn btn-primary" data-status="Current" data-bind="click: setStatus">
+            <label class="btn btn-success" data-status="Current" data-bind="click: setStatus">
                 <input type="radio" name="options" id="option2" autocomplete="off"> Current
             </label>
-            <label class="btn btn-primary" data-status="Scheduled" data-bind="click: setStatus">
+            <label class="btn btn-warning" data-status="Scheduled" data-bind="click: setStatus">
                 <input type="radio" name="options" id="option3" autocomplete="off"> Scheduled
             </label>
-            <label class="btn btn-primary" data-status="Expired" data-bind="click: setStatus">
+            <label class="btn btn-danger" data-status="Expired" data-bind="click: setStatus">
                 <input type="radio" name="options" id="option3" autocomplete="off"> Expired
             </label>
         </div>
@@ -45,7 +44,7 @@
                 Loading... Please Wait
             </div>
         </div>
-
+        
         <div id="adList" style="display: none" data-bind="foreach: ads">
             <div class="panel" data-bind="css : {'panel-danger' : $data.status() === 'Expired', 'panel-success' :  $data.status() === 'Current', 'panel-warning' : $data.status() === 'Scheduled'} ,visible: $data.status() === $parent.selectedStatus() || $parent.selectedStatus() === 'All'">
                 <div class="panel-heading">
@@ -59,7 +58,7 @@
                                 Edit <i class="fa fa-pencil"></i>
                             </a>
                             | &nbsp;
-                            <a data-bind="click: cancelAd" href="">
+                            <a href="" class="cancel-ad" data-bind="click: cancelAd">
                                 Cancel <i class="fa fa-trash"></i>
                             </a>
                             | &nbsp;
@@ -96,7 +95,7 @@
                     Visits : <span data-bind="text: visits"></span>
                     <div class="pull-right">
                         <strong>
-                            <button data-bind="visible: messageCount() > 0" class="btn btn-default view-messages">
+                            <button data-bind="visible: messageCount() > 0" class="btn btn-primary view-messages">
                                 Messages <i class="fa fa-envelope"></i> ( <span data-bind="text: messageCount"></span> )
                             </button>
                             <button class="btn btn-default">
@@ -113,7 +112,7 @@
     </div>
 </div>
 
-<div id="userMsgs" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="userEnquiriesDialog" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -129,7 +128,7 @@
                             <th>Date</th>
                         </tr>
                     </thead>
-                    <tbody data-bind="foreach : currentMsgs">
+                    <tbody data-bind="foreach : userEnquiries">
                         <tr>
                             <td data-bind="text: fullName"></td>
                             <td data-bind="text: email"></td>
@@ -139,9 +138,35 @@
                     </tbody>
                 </table>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+            </div>
         </div>
     </div>
 </div>
+
+<div id="cancelAdDialog" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Are you sure?</h4>
+            </div>
+            <div class="modal-body">
+                
+                <p>
+                    <strong>Danger: </strong>
+                    This action is not reversable. If a refund is available, 
+                    our team may be able to help you.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary cancel-ad">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @section Scripts{
     <script src="@Url.Content("~/Scripts/Account/UserAds.js")"></script>
@@ -160,8 +185,13 @@
 
             $('#adList').on('click', '.view-messages', function () {
                 var context = ko.contextFor(this);
-                context.$parent.currentMsgs(context.$data.messages());
-                $('#userMsgs').modal('show');
+                context.$parent.userEnquiries(context.$data.messages());
+                $('#userEnquiriesDialog').modal('show');
+            });
+
+            $('#adList').on('click', '.cancel-ad', function() {
+                var context = ko.contextFor(this);
+                $('#cancelAdDialog').modal('show');
             });
 
         })($paramount.models, jQuery, ko);

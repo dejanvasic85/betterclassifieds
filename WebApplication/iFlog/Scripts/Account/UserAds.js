@@ -6,6 +6,7 @@
         self.selectedStatus = ko.observable('All');
         self.ads = ko.observableArray();
         self.userEnquiries = ko.observableArray([]);
+        self.selectedAdToCancel = ko.observable();
 
         $.each(data, function (idx, item) {
             var ad = new $models.UserAd(item);
@@ -14,6 +15,18 @@
 
         self.setStatus = function(item, val) {
             self.selectedStatus(val.currentTarget.attributes["data-status"].value);
+        };
+
+        self.setAdForCancel = function(id) {
+            self.selectedAdToCancel(id);
+        };
+
+        self.confirmCancel = function() {
+            var itemToRemove = ko.utils.arrayFirst(self.ads(), function (item) {
+                return item.adId() == self.selectedAdToCancel();
+            });
+
+            self.ads.remove(itemToRemove);
         };
     };
 

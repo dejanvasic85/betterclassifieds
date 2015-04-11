@@ -44,7 +44,7 @@
                 Loading... Please Wait
             </div>
         </div>
-        
+
         <div id="adList" style="display: none" data-bind="foreach: ads">
             <div class="panel" data-bind="css : {'panel-danger' : $data.status() === 'Expired', 'panel-success' :  $data.status() === 'Current', 'panel-warning' : $data.status() === 'Scheduled'} ,visible: $data.status() === $parent.selectedStatus() || $parent.selectedStatus() === 'All'">
                 <div class="panel-heading">
@@ -96,13 +96,13 @@
                     <div class="pull-right">
                         <strong>
                             <button data-bind="visible: messageCount() > 0" class="btn btn-primary view-messages">
-                                Messages <i class="fa fa-envelope"></i> ( <span data-bind="text: messageCount"></span> )
+                                Enquiries <i class="fa fa-envelope"></i> ( <span data-bind="text: messageCount"></span> )
                             </button>
                             <button class="btn btn-default">
                                 Invoice <i class="fa fa-file"></i>
                             </button>
                         </strong>
-                        
+
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -152,16 +152,16 @@
                 <h4>Are you sure?</h4>
             </div>
             <div class="modal-body">
-                
+
                 <p>
                     <strong>Danger: </strong>
-                    This action is not reversable. If a refund is available, 
+                    This action is not reversable. If a refund is available,
                     our team may be able to help you.
                 </p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary cancel-ad">Confirm</button>
+                <button type="button" class="btn btn-primary confirm-cancel">Confirm</button>
             </div>
         </div>
     </div>
@@ -189,9 +189,21 @@
                 $('#userEnquiriesDialog').modal('show');
             });
 
-            $('#adList').on('click', '.cancel-ad', function() {
+            $('#adList').on('click', '.cancel-ad', function () {
                 var context = ko.contextFor(this);
+                context.$parent.setAdForCancel(context.$data.adId());
                 $('#cancelAdDialog').modal('show');
+            });
+
+            $('#cancelAdDialog').on('click', '.confirm-cancel', function () {
+                var context = ko.contextFor(this);
+                var $btn = $(this);
+                $btn.button('loading');
+                $.post('@Url.Action("Cancel", "UserAds")', { adId: context.$data.selectedAdToCancel() }, function () {
+                    $btn.button('reset');
+                    $('#cancelAdDialog').modal('hide');
+                    context.$data.confirmCancel();
+                });
             });
 
         })($paramount.models, jQuery, ko);

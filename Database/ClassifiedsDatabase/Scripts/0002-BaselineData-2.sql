@@ -26,4 +26,19 @@
 				   , 'Online'
 				   , 'Online - soon to be redundant');
 	end
+
+	IF NOT EXISTS ( SELECT 1 FROM EnquiryType WHERE Title = 'General')
+	begin
+
+	INSERT INTO [dbo].[EnquiryType]
+           ([Title]
+           ,[Active]
+           ,[CreatedDate])
+     VALUES
+           (
+		   'General',
+           1,
+           GETDATE())
+
+	end
 GO

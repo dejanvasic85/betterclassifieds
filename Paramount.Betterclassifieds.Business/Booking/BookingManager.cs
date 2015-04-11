@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-namespace Paramount.Betterclassifieds.Business.Booking
+﻿namespace Paramount.Betterclassifieds.Business.Booking
 {
     using System;
     using System.Collections.Generic;
@@ -30,6 +28,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         void AssignLineAdImage(int id, Guid documentId);
         void RemoveLineAdImage(int id, Guid documentId);
 
+        void CancelAd(int adId);
     }
 
     public class BookingManager : IBookingManager
@@ -193,7 +192,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
             var adBookingId = _bookingRepository.CreateBooking(bookingCart);
 
             if (!adBookingId.HasValue)
-                throw new DataException("AdBookingId was not returned when trying to create a new booking");
+                throw new Exception("AdBookingId was not returned when trying to create a new booking");
 
             // Create the order details in the database 
             // that are used for invoice details 
@@ -259,6 +258,11 @@ namespace Paramount.Betterclassifieds.Business.Booking
         public void RemoveLineAdImage(int id, Guid documentId)
         {
             _bookingRepository.DeleteImage(id, documentId.ToString(), AdTypeCode.LineCodeId);
+        }
+
+        public void CancelAd(int adId)
+        {
+            _bookingRepository.CancelAndExpireBooking(adId);
         }
 
         public IEnumerable<PublicationEditionModel> GenerateExtensionDates(int adBookingId, int numberOfInsertions)

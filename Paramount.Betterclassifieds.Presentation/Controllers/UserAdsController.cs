@@ -71,7 +71,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost]
         public ActionResult Cancel(int adId)
         {
-            // Todo - wire the backend
+            _bookingManager.CancelAd(adId);
 
             return Json(true);
         }

@@ -175,9 +175,9 @@ Public Module GeneralRoutine
 
             If PublicationController.GetPublicationType(publication.PublicationId) <> SystemAdType.ONLINE.ToString Then
 
-                Select Case publication.FrequencyType
+                Select Case publication.FrequencyType.ToUpper
                     ' check if this paper is a weekly paper
-                    Case PublicationFrequency.Weekly.ToString
+                    Case PublicationFrequency.Weekly.ToString.ToUpper
                         ' get the days of the week that this paper is published
                         Dim freq As String() = publication.FrequencyValue.Split(";")
 

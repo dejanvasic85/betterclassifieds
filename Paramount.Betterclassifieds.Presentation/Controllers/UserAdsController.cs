@@ -32,7 +32,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 AdId = ad.AdBookingId,
                 AdImageId = ad.OnlineAd.DefaultImageId != null ? ad.OnlineAd.DefaultImageId.DocumentId : string.Empty,
-                Heading = ad.OnlineAd.Heading,
+                Heading = ad.OnlineAd.Heading.TruncateOnWordBoundary(35),
                 Description = ad.OnlineAd.Description.TruncateOnWordBoundary(200),
                 Starts = ad.StartDate.ToString("dd-MMM-yyyy"),
                 Ends = ad.EndDate.ToString("dd-MMM-yyyy"),

@@ -18,7 +18,7 @@
         <h2 class="page-header">My Ads (<span data-bind="text : selectedStatus"></span>)</h2>
     </div>
     <div class="col-sm-6">
-        <div class="btn-group btn-lg user-menu-filters pull-right" data-toggle="buttons">
+        <div class="btn-group user-menu-filters pull-right" data-toggle="buttons">
             <label class="btn btn-primary active" data-status="All" data-bind="click: setStatus">
                 <input type="radio" name="options" id="option1" autocomplete="off" checked> All
             </label>
@@ -54,14 +54,6 @@
                     </strong>
                     <div class="pull-right userads-cmd-panel" data-bind="visible : $data.status() !== 'Expired'">
                         <strong>
-                            <a data-bind="attr : {href : $paramount.url.userads.editAdDetails($data.adId())} ">
-                                Edit <i class="fa fa-pencil"></i>
-                            </a>
-                            | &nbsp;
-                            <a href="" class="cancel-ad" data-bind="click: cancelAd">
-                                Cancel <i class="fa fa-trash"></i>
-                            </a>
-                            | &nbsp;
                             <a data-bind="attr : {href : $paramount.url.userads.viewAd($data.adId())}">
                                 View <i class="fa fa-eye"></i>
                             </a>
@@ -70,16 +62,17 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        @*Descripton*@
-                        <div class="col-xs-6" data-bind="text: description"></div>
-
                         @*Image*@
-                        <div class="col-xs-2">
+                        <div class="col-sm-2">
                             <img class="thumbnail" alt="100x100" data-bind="visible : adImageId() !== '',attr : {src : $paramount.imageService.getImageUrl(adImageId())}">
                         </div>
 
+                        @*Descripton*@
+                        <div class="col-sm-4" data-bind="text: description"></div>
+
+
                         @*Dates*@
-                        <div class="col-xs-4">
+                        <div class="col-sm-6">
                             <dl class="dl-horizontal myads-date-info">
                                 <dt>Posted</dt>
                                 <dd data-bind="text: starts"></dd>
@@ -94,14 +87,23 @@
                 <div class="panel-footer">
                     Visits : <span data-bind="text: visits"></span>
                     <div class="pull-right">
-                        <strong>
-                            <button data-bind="visible: messageCount() > 0" class="btn btn-primary view-messages">
-                                Enquiries <i class="fa fa-envelope"></i> ( <span data-bind="text: messageCount"></span> )
+
+                        <button data-bind="visible: messageCount() > 0" class="btn btn-primary view-messages">
+                            <span class="hidden-xs">Enquiries</span> <i class="fa fa-envelope"></i> ( <span data-bind="text: messageCount"></span> )
+                        </button>
+
+                        <a class="btn btn-default">
+                            <span class="hidden-xs">Invoice</span> <i class="fa fa-file"></i>
+                        </a>
+                        <div style="display:inline-block" data-bind="visible : $data.status() !== 'Expired'">
+                            <a class="btn btn-default" data-bind="attr : {href : $paramount.url.userads.editAdDetails($data.adId())} ">
+                                <span class="hidden-xs">Edit</span> <i class="fa fa-pencil"></i>
+                            </a>
+                            <button class="btn btn-default cancel-ad" data-bind="click: cancelAd">
+                                <span class="hidden-xs">Cancel</span> <i class="fa fa-trash"></i>
                             </button>
-                            <button class="btn btn-default">
-                                Invoice <i class="fa fa-file"></i>
-                            </button>
-                        </strong>
+                        </div>
+
 
                     </div>
                     <div class="clearfix"></div>

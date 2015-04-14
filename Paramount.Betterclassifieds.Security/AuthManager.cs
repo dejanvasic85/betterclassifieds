@@ -9,13 +9,13 @@ using Paramount.Betterclassifieds.DataService;
 
 namespace Paramount.Betterclassifieds.Security
 {
-    public class AuthenticationService : IAuthManager, IMappingBehaviour
+    public class AuthManager : IAuthManager, IMappingBehaviour
     {
         private readonly IApplicationConfig _applicationConfig;
 
         private const string ForceSSLCookieName = "ClassifiedsSSL";
 
-        public AuthenticationService(IApplicationConfig applicationConfig)
+        public AuthManager(IApplicationConfig applicationConfig)
         {
             _applicationConfig = applicationConfig;
         }

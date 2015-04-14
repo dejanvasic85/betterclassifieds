@@ -1,16 +1,10 @@
-﻿using System.Globalization;
-using System.Threading;
-using System.Web.Optimization;
-
-namespace Paramount.Betterclassifieds.Presentation
+﻿namespace Paramount.Betterclassifieds.Presentation
 {
-    using System.Web.Http;
+    using ApplicationBlock.Mvc;
     using System.Web.Mvc;
     using System.Web.Routing;
-    using System.Linq;
-
-    using App_Start;
-    using ApplicationBlock.Mvc;
+    using System.Globalization;
+    using System.Threading;
 
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
@@ -20,15 +14,13 @@ namespace Paramount.Betterclassifieds.Presentation
 
         protected void Application_Start()
         {
-            // Force the UI Culture for now
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-            
             AreaRegistration.RegisterAllAreas();
 
-            WebApiConfig.Register(GlobalConfiguration.Configuration);
+            //WebApiConfig.Register(GlobalConfiguration.Configuration);
+            UnityConfig.Initialise();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            ModelBindingConfig.Register(ModelBinders.Binders);
 
             // View engine ( for branding )
             ViewEngines.Engines.Clear();

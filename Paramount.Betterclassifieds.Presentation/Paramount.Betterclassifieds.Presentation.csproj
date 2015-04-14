@@ -169,11 +169,17 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Mvc4, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Mvc4.1.4.0.0\lib\net45\Unity.Mvc4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WebGrease">
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="Bootstrapper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
@@ -422,6 +428,7 @@
     <Content Include="Scripts\toastr-2.0.1.min.js">
       <DependentUpon>toastr-2.0.1.js</DependentUpon>
     </Content>
+    <Content Include="Unity.Mvc4.README.txt" />
     <Content Include="Views\Listings\Find.cshtml" />
     <Content Include="Content\TheMusic\themusic.css.map">
       <DependentUpon>themusic.css</DependentUpon>
@@ -516,6 +523,14 @@
     <ProjectReference Include="..\Paramount.Betterclassifieds.Business\Paramount.Betterclassifieds.Business.csproj">
       <Project>{5c1be481-db9e-48cc-9048-5b10e6535d02}</Project>
       <Name>Paramount.Betterclassifieds.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Paramount.Betterclassifieds.DataService\Paramount.Betterclassifieds.DataService.csproj">
+      <Project>{E51B8388-9A02-40AD-97B4-2802AE77FB69}</Project>
+      <Name>Paramount.Betterclassifieds.DataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Paramount.Betterclassifieds.Security\Paramount.Betterclassifieds.Security.csproj">
+      <Project>{9CE120EA-CB54-4F24-A68C-A80EB331DBDE}</Project>
+      <Name>Paramount.Betterclassifieds.Security</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

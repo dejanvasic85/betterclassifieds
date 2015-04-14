@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace Paramount.Betterclassifieds.Presentation.App_Start
+namespace Paramount.Betterclassifieds.Presentation
 {
     public class RouteConfig
     {

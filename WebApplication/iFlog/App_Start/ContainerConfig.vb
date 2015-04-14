@@ -27,7 +27,7 @@ Public Class ContainerConfig
             .RegisterType(Of IBookingManager, BookingManager)() _
             .RegisterType(Of IEditionManager, EditionManager)() _
             .RegisterType(Of IUserManager, UserManager)() _
-            .RegisterType(Of IAuthManager, AuthenticationService)() _
+            .RegisterType(Of IAuthManager, AuthManager)() _
             .RegisterType(Of IBroadcastManager, BroadcastManager)() _
             .RegisterType(Of INotificationProcessor, EmailProcessor)("emailProcessingEngine") _
             .RegisterType(Of ISmtpMailer, DefaultMailer)() _

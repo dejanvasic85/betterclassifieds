@@ -7,9 +7,20 @@ var $paramount = (function (me, $) {
         getImageUrl: getImageUrl
     };
 
-    function getImageUrl(id) {
+    function getImageUrl(id, height, width) {
         if (id) {
-            return me.url.manageImg.imgThumb.replace('-1', id);
+
+            var w = width || 100;
+            var h = height || 100;
+
+            var urlSections = me.url.manageImg.imgThumb.split('/');
+            urlSections[urlSections.length - 1] = w;
+            urlSections[urlSections.length - 2] = h;
+            urlSections[urlSections.length - 3] = id;
+
+            // Join back together
+            return urlSections.join('/');
+
         }
         return null;
     }

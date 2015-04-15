@@ -258,11 +258,8 @@
     <Content Include="Content\bootstrap-select.min.css">
       <DependentUpon>bootstrap-select.css</DependentUpon>
     </Content>
-    <Content Include="Content\bootstrap-theme-3.1.0.css" />
-    <Content Include="Content\bootstrap-theme-3.1.0.min.css">
-      <DependentUpon>bootstrap-theme-3.1.0.css</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap-theme-yeti.css" />
+    <Content Include="Content\cropper.css" />
     <Content Include="Content\datepicker.css" />
     <Content Include="Content\datepicker.min.css">
       <DependentUpon>datepicker.css</DependentUpon>
@@ -276,6 +273,8 @@
       <DependentUpon>font-awesome-4.2.0.css</DependentUpon>
     </Content>
     <Content Include="Content\images\BookUsingThePhone.PNG" />
+    <Content Include="Content\images\buttons.gif" />
+    <Content Include="Content\images\toolbar.gif" />
     <Content Include="Content\jquery.fileupload-1.3.0.css" />
     <Content Include="Content\bootstrap-theme-yeti.min.css">
       <DependentUpon>bootstrap-theme-yeti.css</DependentUpon>
@@ -283,6 +282,12 @@
     <Content Include="Content\KandoBay\img\BookUsingThePhone.PNG" />
     <Content Include="Content\KandoBay\img\FederationSquare.png" />
     <Content Include="Content\KandoBay\img\WinTablet.png" />
+    <Content Include="Content\KandoBay\kando.css">
+      <DependentUpon>kando.less</DependentUpon>
+    </Content>
+    <Content Include="Content\KandoBay\kando.min.css">
+      <DependentUpon>kando.css</DependentUpon>
+    </Content>
     <Content Include="Content\KandoBay\kandobay_favicon.ico" />
     <Content Include="Content\morphext.css" />
     <Content Include="Content\morphext.min.css">
@@ -320,6 +325,10 @@
     <Content Include="Content\site.less" />
     <Content Include="Content\TheMusic\fonts\ufonts.com_alternate_gothic_no2_d.ttf" />
     <Content Include="App_Code\Boot.cshtml" />
+    <Content Include="Content\KandoBay\kando.less" />
+    <Content Include="Content\KandoBay\kando.css.map">
+      <DependentUpon>kando.css</DependentUpon>
+    </Content>
     <None Include="Content\TheMusic\themusic.less" />
     <Content Include="Scripts\Account\UserAds.js" />
     <Content Include="Scripts\Booking\BookingCart.js" />

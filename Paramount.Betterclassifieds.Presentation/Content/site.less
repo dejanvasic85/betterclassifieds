@@ -9,6 +9,10 @@
     margin-top: 10px;
 }
 
+.top-buffer-5 {
+    margin-top: 5px;
+}
+
 .bottom-buffer-10 {
     margin-bottom: 10px;
 }
@@ -37,17 +41,6 @@
 
 .label-category {
     background-color: @label-category;
-}
-
-@media (max-width: 766px) {
-    /* Smaller widths stack controls on top of another with no margin */
-    .form-control {
-        margin-top: 5px;
-    }
-
-    .btn {
-        margin-top: 5px;
-    }
 }
 
 .no-display {
@@ -135,8 +128,8 @@
             background-color: #f9f9f9;
             border: 1px solid #fff;
 
-            .icon-padded{
-                margin-top:12px;
+            .icon-padded {
+                margin-top: 12px;
             }
 
             .menu-item-text {
@@ -144,7 +137,63 @@
                 text-align: center;
                 word-wrap: break-word;
                 padding-top: 5px;
-            }     
+            }
+        }
+
+        li:hover {
+            background-color: #ededed;
+        }
+    }
+}
+
+.user-menu-filters {
+    margin: 30px 0 10px;
+}
+
+.nav-tabs {
+    background-color: #fff;
+    z-index: 100;
+}
+
+.total-price-link {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.myads-date-info {
+    dd {
+        margin-left: 120px;
+    }
+
+    dt {
+        width: 100px;
+    }
+}
+
+/*
+    Mobile
+*/
+@media (max-width: 766px) {
+    /* Smaller widths stack controls on top of another with no margin */
+    .form-control {
+        margin-top: 5px;
+    }
+
+    .btn {
+        margin-top: 5px;
+    }
+
+    .user-menu-filters {
+        margin: 0;
+    }
+
+    .myads-date-info {
+        dd {
+            margin-left: 20px;
+        }
+
+        dt {
+            margin-left:20px;
         }
     }
 }

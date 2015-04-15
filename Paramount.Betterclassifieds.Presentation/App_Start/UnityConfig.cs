@@ -6,7 +6,10 @@
     using Business.Payment;
     using Business.Print;
     using Business.Repository;
+    using Business.Search;
+    using DataService;
     using DataService.Repository;
+    using DataService.Broadcast;
     using Microsoft.Practices.Unity;
     using Security;
     using System.Web.Mvc;
@@ -26,7 +29,10 @@
                 .RegisterType<IRateRepository, RateRepository>()
                 .RegisterType<IUserRepository, UserRepository>()
                 .RegisterType<IPaymentsRepository, PaymentsRepository>()
-                .RegisterType<IEnquiryRepository, EnquiryRepository>();
+                .RegisterType<IEnquiryRepository, EnquiryRepository>()
+                .RegisterType<ISearchService, SearchService>()
+                .RegisterType<IBroadcastRepository, BroadcastRepository>()
+                ;
 
             // Managers and Config
             container.RegisterType<IClientConfig, ClientConfig>()

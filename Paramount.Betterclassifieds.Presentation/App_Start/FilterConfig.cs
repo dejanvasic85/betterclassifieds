@@ -1,6 +1,4 @@
-﻿using System;
-using System.Web.Mvc;
-using Paramount.ApplicationBlock.Mvc.ModelBinders;
+﻿using System.Web.Mvc;
 
 namespace Paramount.Betterclassifieds.Presentation
 {
@@ -9,15 +7,6 @@ namespace Paramount.Betterclassifieds.Presentation
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
-        }
-    }
-
-    public class ModelBindingConfig
-    {
-        public static void Register(ModelBinderDictionary modelBinders)
-        {
-            modelBinders.Add(typeof(DateTime?), new ModelSpecificDateModelBinder());
-            DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(RequiredIfAttribute), typeof(RequiredAttributeAdapter));
         }
     }
 }

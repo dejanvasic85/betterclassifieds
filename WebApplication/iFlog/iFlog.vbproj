@@ -252,10 +252,7 @@
     <Content Include="Content\datepicker3.min.css">
       <DependentUpon>datepicker3.css</DependentUpon>
     </Content>
-    <Content Include="Content\font-awesome-4.2.0.css" />
-    <Content Include="Content\font-awesome-4.2.0.min.css">
-      <DependentUpon>font-awesome-4.2.0.css</DependentUpon>
-    </Content>
+    <Content Include="Content\font-awesome-4.3.0.css" />
     <Content Include="Content\images\BookUsingThePhone.PNG" />
     <Content Include="Content\images\buttons.gif" />
     <Content Include="Content\images\toolbar.gif" />
@@ -309,6 +306,7 @@
       <DependentUpon>toastr-2.0.1.css</DependentUpon>
     </Content>
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="MemberAccount\ExtendBooking.aspx" />
     <Content Include="MemberAccount\Bookings.aspx" />
@@ -478,6 +476,10 @@
     <Content Include="Scripts\knockout-3.2.0.min.js.map">
       <DependentUpon>knockout-3.2.0.min.js</DependentUpon>
     </Content>
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\paramount-validate-tooltip.min.js">
       <DependentUpon>paramount-validate-tooltip.js</DependentUpon>

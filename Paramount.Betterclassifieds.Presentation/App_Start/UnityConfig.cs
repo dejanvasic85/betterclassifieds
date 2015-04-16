@@ -1,19 +1,23 @@
 ﻿namespace Paramount.Betterclassifieds.Presentation
 {
+    using ApplicationBlock.Mvc;
     using Business;
     using Business.Booking;
     using Business.Broadcast;
+    using Business.DocumentStorage;
     using Business.Payment;
     using Business.Print;
     using Business.Repository;
     using Business.Search;
     using DataService;
-    using DataService.Repository;
     using DataService.Broadcast;
+    using DataService.Repository;
     using Microsoft.Practices.Unity;
     using Security;
     using System.Web.Mvc;
     using Unity.Mvc4;
+    using Payments.pp;
+    using ViewModels;
 
     public class UnityConfig
     {
@@ -32,6 +36,10 @@
                 .RegisterType<IEnquiryRepository, EnquiryRepository>()
                 .RegisterType<ISearchService, SearchService>()
                 .RegisterType<IBroadcastRepository, BroadcastRepository>()
+                .RegisterType<IDocumentRepository, DocumentRepository>()
+                .RegisterType<IAdRepository, AdRepository>()
+                .RegisterType<IBookCartRepository, BookCartRepository>()
+                .RegisterType<IEditionRepository, EditionRepository>()
                 ;
 
             // Managers and Config
@@ -46,8 +54,10 @@
                 .RegisterType<ISmtpMailer, DefaultMailer>()
                 .RegisterType<IEnquiryManager, EnquiryManager>()
                 .RegisterType<IRateCalculator, RateCalculator>()
-                .RegisterType<IRateCalculator, RateCalculator>();
-            
+                .RegisterType<IBookingContext, BookingContextInCookie>()
+                .RegisterType<IPaymentService, PayPalPaymentService>()
+                .RegisterType<SearchFilters>(new SessionLifetimeManager<SearchFilters>());
+                ;
             
             return container;
         }

@@ -267,10 +267,7 @@
     <Content Include="Content\datepicker3.min.css">
       <DependentUpon>datepicker3.css</DependentUpon>
     </Content>
-    <Content Include="Content\font-awesome-4.2.0.css" />
-    <Content Include="Content\font-awesome-4.2.0.min.css">
-      <DependentUpon>font-awesome-4.2.0.css</DependentUpon>
-    </Content>
+    <Content Include="Content\font-awesome-4.3.0.css" />
     <Content Include="Content\images\BookUsingThePhone.PNG" />
     <Content Include="Content\images\buttons.gif" />
     <Content Include="Content\images\toolbar.gif" />
@@ -311,6 +308,7 @@
     <Content Include="Content\toastr-2.0.1.min.css">
       <DependentUpon>toastr-2.0.1.css</DependentUpon>
     </Content>
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="robots.txt" />
@@ -442,12 +440,16 @@
       <DependentUpon>knockout-3.2.0.min.js</DependentUpon>
     </Content>
     <Content Include="PostDeploy.ps1" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\toastr-2.0.1.js" />
     <Content Include="Scripts\toastr-2.0.1.min.js">
       <DependentUpon>toastr-2.0.1.js</DependentUpon>
     </Content>
-    <Content Include="Unity.Mvc4.README.txt" />
     <Content Include="Views\Listings\Find.cshtml" />
     <Content Include="Content\TheMusic\themusic.css.map">
       <DependentUpon>themusic.css</DependentUpon>
@@ -546,6 +548,10 @@
     <ProjectReference Include="..\Paramount.Betterclassifieds.DataService\Paramount.Betterclassifieds.DataService.csproj">
       <Project>{E51B8388-9A02-40AD-97B4-2802AE77FB69}</Project>
       <Name>Paramount.Betterclassifieds.DataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Paramount.Betterclassifieds.Payments.PayPal\Paramount.Betterclassifieds.Payments.PayPal.csproj">
+      <Project>{27640C6A-7C6F-446D-93DD-3E938DA05F24}</Project>
+      <Name>Paramount.Betterclassifieds.Payments.PayPal</Name>
     </ProjectReference>
     <ProjectReference Include="..\Paramount.Betterclassifieds.Security\Paramount.Betterclassifieds.Security.csproj">
       <Project>{9CE120EA-CB54-4F24-A68C-A80EB331DBDE}</Project>

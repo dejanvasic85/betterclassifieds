@@ -1,10 +1,9 @@
 ﻿namespace Paramount.Betterclassifieds.Presentation
 {
+    using DataService;
     using ApplicationBlock.Mvc;
     using System.Web.Mvc;
     using System.Web.Routing;
-    using System.Globalization;
-    using System.Threading;
 
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
@@ -17,8 +16,9 @@
             AreaRegistration.RegisterAllAreas();
 
             //WebApiConfig.Register(GlobalConfiguration.Configuration);
-            UnityConfig.Initialise();
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            DocumentDataConfig.RegisterMappings();
+            var container = UnityConfig.Initialise(); 
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters, container);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             ModelBindingConfig.Register(ModelBinders.Binders);
 

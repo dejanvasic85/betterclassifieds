@@ -76,7 +76,7 @@
 
             // Store on the disk for now to see if this will work
             var fileName = string.Format("{0}.jpg", Guid.NewGuid());
-
+            
             uploadedFile.SaveAs(string.Format("{0}{1}", _applicationConfig.ImageCropDirectory.FullName, fileName));
 
             return Json(new { documentId = fileName }, JsonRequestBehavior.AllowGet);

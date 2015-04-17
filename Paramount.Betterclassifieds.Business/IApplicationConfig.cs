@@ -6,8 +6,6 @@ namespace Paramount.Betterclassifieds.Business
     {
         string BaseUrl { get; }
         string DslImageUrlHandler { get; }
-        string ClientCode { get; }
-        string ConfigurationContext { get; }
         bool UseHttps { get; }
         string ImageCacheDirectory { get; }
         DirectoryInfo ImageCropDirectory { get; }

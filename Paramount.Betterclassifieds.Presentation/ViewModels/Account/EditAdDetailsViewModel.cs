@@ -68,6 +68,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         [Display(Name = "Description")]
         [RequiredIf("IsLineAdIncluded", true)]
         [MaxWords("LineWordsPurchased")]
+        [AllowHtml]
         public string LineAdText { get; set; }
 
         public string LineAdImageId { get; set; }

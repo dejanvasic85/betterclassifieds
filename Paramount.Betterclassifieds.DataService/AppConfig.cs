@@ -16,6 +16,11 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             }
         }
 
+        public string Brand
+        {
+            get { return ConfigManager.ReadAppSetting<string>("Brand"); }
+        }
+
         public string DslImageUrlHandler
         {
             get
@@ -24,27 +29,10 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             }
         }
 
-        public string ClientCode
-        {
-            get
-            {
-                return ConfigManager.ReadAppSetting<string>("ClientCode");
-            }
-        }
-
-        public string ConfigurationContext
-        {
-            get
-            {
-                return ConfigManager.ReadAppSetting<string>("ConfigurationContext");
-            }
-        }
-
         public bool UseHttps
         {
             get
             {
-                // Todo - need to come back to this for the login page (very soon)
                 return ConfigManager.ReadAppSetting("UseHttps", false);
             }
         }
@@ -53,7 +41,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
         {
             get
             {
-                return ConfigurationManager.AppSettings["ImageCacheDirectory"];
+                return ConfigManager.ReadAppSetting<string>("ImageCacheDirectory");
             }
         }
 
@@ -61,7 +49,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
         {
             get
             {
-                var dir = new DirectoryInfo(ConfigurationManager.AppSettings["ImageCropDirectory"]);
+                var dir = new DirectoryInfo(ConfigManager.ReadAppSetting<string>("ImageCropDirectory"));
                 if (!dir.Exists)
                 {
                     dir.Create();
@@ -73,22 +61,17 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
         public int MaxImageUploadBytes
         {
-            get { return int.Parse(ConfigManager.GetSetting("paramount/dsl", "MaxImageUploadBytes")); }
+            get { return ConfigManager.ReadAppSetting<int>("MaxImageUploadBytes"); }
         }
 
         public string[] AcceptedImageFileTypes
         {
-            get { return ConfigManager.GetSetting("paramount/dsl", "AcceptedFileTypes").Split('|'); }
+            get { return ConfigManager.ReadAppSetting<string>("AcceptedFileTypes").Split('|'); }
         }
 
         public bool IsPaymentEnabled
         {
             get { return ConfigManager.ReadAppSetting<bool>("IsPaymentEnabled"); }
-        }
-
-        public string Brand
-        {
-            get { return ConfigManager.ReadAppSetting<string>("Brand"); }
         }
     }
 }

@@ -311,7 +311,6 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="robots.txt" />
     <Content Include="Scripts\Account\Login.js" />
     <Content Include="Scripts\Account\Login.min.js">
       <DependentUpon>Login.js</DependentUpon>
@@ -439,7 +438,6 @@
     <Content Include="Scripts\knockout-3.2.0.min.js.map">
       <DependentUpon>knockout-3.2.0.min.js</DependentUpon>
     </Content>
-    <Content Include="PostDeploy.ps1" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
@@ -462,6 +460,12 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Test.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.CI.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />

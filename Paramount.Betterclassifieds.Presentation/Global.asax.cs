@@ -1,4 +1,7 @@
-﻿namespace Paramount.Betterclassifieds.Presentation
+﻿using System.Web.Optimization;
+using Paramount.Betterclassifieds.Presentation.App_Start;
+
+namespace Paramount.Betterclassifieds.Presentation
 {
     using DataService;
     using ApplicationBlock.Mvc;
@@ -21,6 +24,7 @@
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters, container);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             ModelBindingConfig.Register(ModelBinders.Binders);
+            BundleConfig.Register(BundleTable.Bundles);
 
             // View engine ( for branding )
             ViewEngines.Engines.Clear();

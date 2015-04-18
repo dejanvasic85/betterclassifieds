@@ -1,0 +1,32 @@
+﻿using System.Web.Optimization;
+
+namespace Paramount.Betterclassifieds.Presentation.App_Start
+{
+    public class BundleConfig
+    {
+        public static void Register(BundleCollection bundles)
+        {
+            // The jQuery library
+            bundles.Add(new ScriptBundle("~/jquery")
+                .Include("~/Scripts/jquery-1.*"));
+
+            // jQuery modules
+            bundles.Add(new ScriptBundle("~/jquery-modules")
+                .Include("~/Scripts/jquery.*"));
+
+            // Bootstrap
+            bundles.Add(new ScriptBundle("~/bs")
+                .Include("~/Scripts/bootstrap-3.3.0.js")
+                .Include("~/Scripts/bootstrap-datepicker.js"));
+
+            // Knockout library
+            bundles.Add(new ScriptBundle("~/ko")
+                .Include("~/Scripts/knockout-3.2.0.js"));
+
+
+
+            // Enable this flag for development only when trying to force bundling and minification
+            //BundleTable.EnableOptimizations = true;
+        }
+    }
+}

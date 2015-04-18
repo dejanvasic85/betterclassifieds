@@ -54,7 +54,7 @@
 <body>
    
     @*JQuery should go before anything so let's place it at the top of body - a little better than head*@
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.11.0.js")"></script>
+    @Scripts.Render("~/jquery")
 
     <div class="container">
 

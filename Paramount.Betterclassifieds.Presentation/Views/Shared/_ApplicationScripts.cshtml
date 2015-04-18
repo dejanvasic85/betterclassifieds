@@ -1,19 +1,15 @@
 ﻿@using Paramount
 
 @*Third party*@
-<script src="@Url.Content("~/Scripts/jquery.validate-1.12.0.min.js")"></script>
-<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
-<script src="@Url.Content("~/Scripts/knockout-3.2.0.min.js")"></script>
-<script src="@Url.Content("~/Scripts/bootstrap-3.3.0.min.js")"></script>
+@Scripts.Render("~/jquery-modules")
+@Scripts.Render("~/bs")
+@Scripts.Render("~/ko")
+
+
 <script src="@Url.Content("~/Scripts/toastr-2.0.1.min.js")"></script>
-<script src="@Url.Content("~/Scripts/bootstrap-datepicker.min.js")"></script>
 <script src="@Url.Content("~/Scripts/markdown.min.js")"></script>
 <script src="@Url.Content("~/Scripts/to-markdown.min.js")"></script>
-<script src="@Url.Content("~/Scripts/bootstrap-markdown.min.js")"></script>
 <script src="@Url.Content("~/Scripts/moment-2.8.2.min.js")"></script>
-<script src="@Url.Content("~/Scripts/jquery.ui.widget-1.11.1.js")"></script>
-<script src="@Url.Content("~/Scripts/jquery.fileupload-5.42.0.js")"></script>
-<script src="@Url.Content("~/Scripts/jquery.morphext.min.js")"></script>
 <script src="@Url.Content("~/Scripts/mobile-detect.min.js")"></script>
 <script src="@Url.Content("~/Scripts/cropper.js")"></script>
 <script src="//cdn.ckeditor.com/4.4.7/standard/ckeditor.js"></script>

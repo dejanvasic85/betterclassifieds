@@ -1,7 +1,6 @@
 ﻿/// <autosync enabled="true" />
 /// <reference path="bootstrap-3.3.0.js" />
 /// <reference path="bootstrap-datepicker.js" />
-/// <reference path="bootstrap-markdown.js" />
 /// <reference path="jquery-1.11.0.js" />
 /// <reference path="jquery.fileupload-5.42.0.js" />
 /// <reference path="jquery.morphext.js" />

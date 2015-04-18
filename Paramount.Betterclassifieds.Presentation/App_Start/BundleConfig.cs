@@ -23,7 +23,13 @@ namespace Paramount.Betterclassifieds.Presentation.App_Start
             bundles.Add(new ScriptBundle("~/ko")
                 .Include("~/Scripts/knockout-3.2.0.js"));
 
-
+            // Components - all others
+            bundles.Add(new ScriptBundle("~/components")
+                .Include("~/Scripts/toastr-*")
+                .Include("~/Scripts/moment-*")
+                .Include("~/Scripts/mobile-detect.js")
+                .Include("~/Scripts/cropper.js")
+                );
 
             // Enable this flag for development only when trying to force bundling and minification
             //BundleTable.EnableOptimizations = true;

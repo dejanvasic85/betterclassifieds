@@ -5,13 +5,9 @@
 @Scripts.Render("~/bs")
 @Scripts.Render("~/ko")
 @Scripts.Render("~/components")
-
-
 <script src="//cdn.ckeditor.com/4.4.7/standard/ckeditor.js"></script>
 
-@*Paramount scripts*@
-<script src="@Url.Content("~/Scripts/paramount-validate-default.js")"></script>
-
+@*Outgoing Urls based on the MVC routes*@
 <script>
     var $paramount = (function (me) {
 
@@ -64,6 +60,8 @@
     })($paramount || {});
 </script>
 
+@*Paramount scripts*@
+<script src="@Url.Content("~/Scripts/paramount-validate-default.js")"></script>
 <script src="@Url.Content("~/Scripts/paramount-ko-extensions.js")"></script>
 <script src="@Url.Content("~/Scripts/paramount-site.js")"></script>
 <script src="@Url.Content("~/Scripts/paramount-imageService.js")"></script>

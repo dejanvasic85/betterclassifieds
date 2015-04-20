@@ -31,8 +31,12 @@ namespace Paramount.Betterclassifieds.Presentation.App_Start
                 .Include("~/Scripts/cropper.js")
                 );
 
+            bundles.Add(new ScriptBundle("~/ps")
+                .Include("")
+                );
+
             // Enable this flag for development only when trying to force bundling and minification
-            //BundleTable.EnableOptimizations = true;
+            BundleTable.EnableOptimizations = true;
         }
     }
 }

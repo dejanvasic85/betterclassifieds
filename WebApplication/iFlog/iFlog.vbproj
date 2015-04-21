@@ -332,162 +332,41 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Scripts\Account\Login.js" />
-    <Content Include="Scripts\Account\Login.min.js">
-      <DependentUpon>Login.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\Account\UserAds.js" />
-    <Content Include="Scripts\Booking\BookingCart.js" />
     <Content Include="Content\TheMusic\fonts\ufonts.com_alternate_gothic_no2_d.ttf" />
+    <Content Include="Scripts\Account\UserAds.js" />
     <Content Include="Scripts\Booking\DesignAd.js" />
     <Content Include="Scripts\bootstrap-3.3.0.js" />
-    <Content Include="Scripts\bootstrap-3.3.0.min.js">
-      <DependentUpon>bootstrap-3.3.0.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\bootstrap-datepicker.js" />
-    <Content Include="Scripts\bootstrap-datepicker.min.js">
-      <DependentUpon>bootstrap-datepicker.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\bootstrap-markdown.js" />
-    <Content Include="Scripts\bootstrap-markdown.min.js">
-      <DependentUpon>bootstrap-markdown.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\cropper.js" />
     <Content Include="Scripts\jquery-1.11.0.js" />
-    <Content Include="Scripts\jquery-1.11.0.min.js">
-      <DependentUpon>jquery-1.11.0.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\jquery.fileupload-5.42.0.js" />
-    <Content Include="Scripts\jquery.fileupload-5.42.0.min.js">
-      <DependentUpon>jquery.fileupload-5.42.0.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\jquery.morphext.min.js">
-      <DependentUpon>jquery.morphext.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\jquery.ui.widget-1.11.1.js" />
-    <Content Include="Scripts\jquery.ui.widget-1.11.1.min.js">
-      <DependentUpon>jquery.ui.widget-1.11.1.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\jquery.validate-1.12.0.js" />
-    <Content Include="Scripts\jquery.validate-1.12.0.min.js">
-      <DependentUpon>jquery.validate-1.12.0.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js">
-      <DependentUpon>jquery.validate.unobtrusive.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\knockout-3.2.0.js" />
-    <Content Include="Scripts\knockout-3.2.0.min.js">
-      <DependentUpon>knockout-3.2.0.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\Listings\Find.js" />
-    <Content Include="Scripts\Listings\Find.min.js">
-      <DependentUpon>Find.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\markdown.js" />
-    <Content Include="Scripts\markdown.min.js">
-      <DependentUpon>markdown.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\mobile-detect.js" />
-    <Content Include="Scripts\mobile-detect.min.js">
-      <DependentUpon>mobile-detect.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\moment-2.8.2.js" />
-    <Content Include="Scripts\moment-2.8.2.min.js">
-      <DependentUpon>moment-2.8.2.js</DependentUpon>
-    </Content>
     <Content Include="Content\morphext.css" />
     <Content Include="Scripts\jquery.morphext.js" />
     <Content Include="Scripts\paramount-adService.js" />
     <Content Include="Scripts\paramount-ko-extensions.js" />
     <Content Include="Scripts\paramount-site.js" />
-    <Content Include="Scripts\paramount-site.min.js">
-      <DependentUpon>paramount-site.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\paramount-imageService.js" />
     <Content Include="Scripts\paramount-ui.js" />
     <Content Include="Scripts\paramount-validate-default.js" />
-    <Content Include="Scripts\paramount-validate-default.min.js">
-      <DependentUpon>paramount-validate-default.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\paramount-validate-tooltip.js" />
-    <Content Include="Scripts\jquery-1.11.0.min.js.map">
-      <DependentUpon>jquery-1.11.0.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\jquery.validate-1.12.0.min.js.map">
-      <DependentUpon>jquery.validate-1.12.0.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js.map">
-      <DependentUpon>jquery.validate.unobtrusive.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\paramount-site.min.js.map">
-      <DependentUpon>paramount-site.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\paramount-validate-default.min.js.map">
-      <DependentUpon>paramount-validate-default.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\paramount-validate-tooltip.min.js.map">
-      <DependentUpon>paramount-validate-tooltip.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\Account\Login.min.js.map">
-      <DependentUpon>Login.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\Listings\Find.min.js.map">
-      <DependentUpon>Find.min.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\to-markdown.js" />
-    <Content Include="Scripts\to-markdown.min.js">
-      <DependentUpon>to-markdown.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\toastr-2.0.1.min.js.map">
-      <DependentUpon>toastr-2.0.1.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\bootstrap-datepicker.min.js.map">
-      <DependentUpon>bootstrap-datepicker.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\bootstrap-markdown.min.js.map">
-      <DependentUpon>bootstrap-markdown.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\markdown.min.js.map">
-      <DependentUpon>markdown.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\to-markdown.min.js.map">
-      <DependentUpon>to-markdown.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\moment-2.8.2.min.js.map">
-      <DependentUpon>moment-2.8.2.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\jquery.ui.widget-1.11.1.min.js.map">
-      <DependentUpon>jquery.ui.widget-1.11.1.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\jquery.fileupload-5.42.0.min.js.map">
-      <DependentUpon>jquery.fileupload-5.42.0.min.js</DependentUpon>
-    </Content>
     <Content Include="PostDeploy.ps1" />
-    <Content Include="Scripts\bootstrap-3.3.0.min.js.map">
-      <DependentUpon>bootstrap-3.3.0.min.js</DependentUpon>
-    </Content>
     <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="Scripts\jquery.morphext.min.js.map">
-      <DependentUpon>jquery.morphext.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\mobile-detect.min.js.map">
-      <DependentUpon>mobile-detect.min.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\knockout-3.2.0.min.js.map">
-      <DependentUpon>knockout-3.2.0.min.js</DependentUpon>
-    </Content>
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
     <None Include="Scripts\_references.js" />
-    <Content Include="Scripts\paramount-validate-tooltip.min.js">
-      <DependentUpon>paramount-validate-tooltip.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\toastr-2.0.1.js" />
-    <Content Include="Scripts\toastr-2.0.1.min.js">
-      <DependentUpon>toastr-2.0.1.js</DependentUpon>
-    </Content>
     <Content Include="Service\AjaxMethods.asmx" />
     <Content Include="TestPage.aspx" />
     <Content Include="Web.config">

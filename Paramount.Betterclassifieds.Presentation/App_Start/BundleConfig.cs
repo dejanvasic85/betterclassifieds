@@ -31,12 +31,17 @@ namespace Paramount.Betterclassifieds.Presentation.App_Start
                 .Include("~/Scripts/cropper.js")
                 );
 
-            bundles.Add(new ScriptBundle("~/ps")
-                .Include("")
+            bundles.Add(new ScriptBundle("~/bundle/paramount")
+                .Include("~/Scripts/paramount-site.js")
+                .Include("~/Scripts/paramount-ui.js")
+                .Include("~/Scripts/paramount-*")
+                .IncludeDirectory("~/Scripts/Account/", "*.js")
+                .IncludeDirectory("~/Scripts/Booking/", "*.js")
+                .IncludeDirectory("~/Scripts/Listings/", "*.js")
                 );
 
             // Enable this flag for development only when trying to force bundling and minification
-            BundleTable.EnableOptimizations = true;
+            //BundleTable.EnableOptimizations = true;
         }
     }
 }

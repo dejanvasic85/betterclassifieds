@@ -191,19 +191,20 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
+    <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\ListingsController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\UserAdsController.cs" />
-    <Compile Include="Framework\AuthorizeBookingIdentity.cs" />
-    <Compile Include="Framework\AuthorizeCartIdentity.cs" />
-    <Compile Include="Framework\BookingRequiredAttribute.cs" />
-    <Compile Include="Framework\BookingStepAttribute.cs" />
-    <Compile Include="Framework\Extensions.cs" />
-    <Compile Include="Framework\FilesystemExtensionMethods.cs" />
-    <Compile Include="Framework\HttpResponseExtensions.cs" />
-    <Compile Include="Framework\ImageMvcResizer.cs" />
-    <Compile Include="Framework\ModuleUrlHelper.cs" />
-    <Compile Include="Framework\UrlExtensions.cs" />
+    <Compile Include="Framework\Filters\AuthorizeBookingIdentity.cs" />
+    <Compile Include="Framework\Filters\AuthorizeCartIdentity.cs" />
+    <Compile Include="Framework\Filters\BookingRequiredAttribute.cs" />
+    <Compile Include="Framework\Filters\BookingStepAttribute.cs" />
+    <Compile Include="Framework\Extensions\JsonExtensions.cs" />
+    <Compile Include="Framework\Extensions\FilesystemExtensionMethods.cs" />
+    <Compile Include="Framework\Extensions\HttpResponseExtensions.cs" />
+    <Compile Include="Framework\CustomViewResults\ImageResult.cs" />
+    <Compile Include="Framework\UrlHelpers\ModuleUrlHelper.cs" />
+    <Compile Include="Framework\UrlHelpers\UrlExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -350,13 +351,13 @@
     </Content>
     <Content Include="Scripts\mobile-detect.js" />
     <Content Include="Scripts\moment-2.8.2.js" />
-    <Content Include="Scripts\paramount-adService.js" />
-    <Content Include="Scripts\paramount-imageService.js" />
-    <Content Include="Scripts\paramount-ko-extensions.js" />
-    <Content Include="Scripts\paramount-site.js" />
-    <Content Include="Scripts\paramount-ui.js" />
-    <Content Include="Scripts\paramount-validate-default.js" />
-    <Content Include="Scripts\paramount-validate-tooltip.js" />
+    <Content Include="Scripts\paramount\paramount-adService.js" />
+    <Content Include="Scripts\paramount\paramount-imageService.js" />
+    <Content Include="Scripts\paramount\paramount-ko-extensions.js" />
+    <Content Include="Scripts\paramount\paramount-site.js" />
+    <Content Include="Scripts\paramount\paramount-ui.js" />
+    <Content Include="Scripts\paramount\paramount-validate-default.js" />
+    <Content Include="Scripts\paramount\paramount-validate-tooltip.js" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
@@ -430,6 +431,7 @@
     <Content Include="Views\Shared\_EditionsDates.cshtml" />
     <Content Include="Views\EditAd\Details.cshtml" />
     <Content Include="Views\UserAds\Index.cshtml" />
+    <Content Include="Views\Invoice\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

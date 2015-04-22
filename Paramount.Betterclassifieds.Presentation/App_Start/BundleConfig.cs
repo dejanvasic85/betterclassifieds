@@ -31,10 +31,10 @@ namespace Paramount.Betterclassifieds.Presentation.App_Start
                 .Include("~/Scripts/cropper.js")
                 );
 
-            bundles.Add(new ScriptBundle("~/bundle/paramount")
-                .Include("~/Scripts/paramount-site.js")
-                .Include("~/Scripts/paramount-ui.js")
-                .Include("~/Scripts/paramount-*")
+            bundles.Add(new ScriptBundle("~/bundle/ps")
+                .Include("~/Scripts/paramount/paramount-site.js")
+                .Include("~/Scripts/paramount/paramount-ui.js")
+                .Include("~/Scripts/paramount/paramount-*")
                 .IncludeDirectory("~/Scripts/Account/", "*.js")
                 .IncludeDirectory("~/Scripts/Booking/", "*.js")
                 .IncludeDirectory("~/Scripts/Listings/", "*.js")

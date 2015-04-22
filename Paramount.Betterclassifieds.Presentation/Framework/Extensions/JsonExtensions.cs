@@ -3,7 +3,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace Paramount.Betterclassifieds.Presentation.Framework
 {
-    public static class Extensions
+    public static class JsonExtensions
     {
         // Converts to a json model
         public static string ToJsonString(this object model)

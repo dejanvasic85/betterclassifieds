@@ -30,6 +30,6 @@ ReplaceInFile -TargetFile $AppConfig -Values @{
     'Data Source=localhost;Initial Catalog=Classifieds;Integrated Security=True' = (Get-ChildItem env:ClassifiedsConnection).Value;
 	'Data Source=localhost;Initial Catalog=Broadcast;Integrated Security=True' = (Get-ChildItem env:BroadcastConnection).Value;
 	'Data Source=localhost;Initial Catalog=AppUser;Integrated Security=True' = (Get-ChildItem env:AppUserConnection).Value;
-	'http://localhost/iFlog/' = (Get-ChildItem env:BaseUrl).Value;
+	'http://localhost/betterclassifieds/' = (Get-ChildItem env:BaseUrl).Value;
 	'http://localhost/iFlogAdmin/' = (Get-ChildItem env:BaseAdminUrl).Value;
 } 

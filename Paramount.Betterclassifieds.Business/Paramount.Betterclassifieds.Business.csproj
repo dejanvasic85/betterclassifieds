@@ -47,6 +47,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Billing\DefaultInvoiceFactory.cs" />
+    <Compile Include="Billing\IInvoiceRepository.cs" />
+    <Compile Include="Billing\IInvoiceFactory.cs" />
+    <Compile Include="Billing\IInvoiceService.cs" />
+    <Compile Include="Billing\Invoice.cs" />
+    <Compile Include="Billing\InvoiceGroup.cs" />
+    <Compile Include="Billing\InvoiceLineItem.cs" />
     <Compile Include="Booking\BookingManager.cs" />
     <Compile Include="Booking\IBookingContext.cs" />
     <Compile Include="Broadcast\DocTypes\AdShare.cs" />

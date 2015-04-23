@@ -431,7 +431,7 @@
     <Content Include="Views\Shared\_EditionsDates.cshtml" />
     <Content Include="Views\EditAd\Details.cshtml" />
     <Content Include="Views\UserAds\Index.cshtml" />
-    <Content Include="Views\Invoice\Index.cshtml" />
+    <Content Include="Views\Invoice\Booking.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

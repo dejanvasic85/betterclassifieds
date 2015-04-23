@@ -99,6 +99,7 @@
     <Compile Include="DataServiceInitialiser.cs" />
     <Compile Include="DocumentDataConfig.cs" />
     <Compile Include="DocumentStorage\DocumentContext.cs" />
+    <Compile Include="InvoiceRepository.cs" />
     <Compile Include="LinqObjects\Classifieds.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

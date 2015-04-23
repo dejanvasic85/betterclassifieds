@@ -9,6 +9,10 @@ namespace Paramount.Betterclassifieds.Business
     /// </summary>
     public class BookingOrderResult
     {
+        public BookingOrderResult()
+        {
+            
+        }
         public BookingOrderResult(string bookingReference)
         {
             BookingReference = bookingReference;

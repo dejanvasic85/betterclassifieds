@@ -8,6 +8,11 @@ namespace Paramount.Betterclassifieds.Business
     /// </summary>
     public class BookingAdRateResult
     {
+        public BookingAdRateResult()
+        {
+            Items = new List<ILineItem>();
+        }
+
         public BookingAdRateResult(string name, string referenceNumber, int? rateId, int? publicationId = null)
         {
             Name = name;
@@ -26,12 +31,7 @@ namespace Paramount.Betterclassifieds.Business
         public string Reference { get; private set; }
 
         private List<ILineItem> Items { get; set; }
-
-        public BookingAdRateResult()
-        {
-            Items = new List<ILineItem>();
-        }
-
+        
         public void AddItem(ILineItem lineItem)
         {
             if (lineItem.Quantity > 0)
@@ -55,7 +55,5 @@ namespace Paramount.Betterclassifieds.Business
         {
             get { return Items.Count == 0 ? 0 : Items.Sum(i => i.ItemTotal); }
         }
-
-
     }
 }

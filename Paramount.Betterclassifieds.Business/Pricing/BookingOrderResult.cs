@@ -11,8 +11,9 @@ namespace Paramount.Betterclassifieds.Business
     {
         public BookingOrderResult()
         {
-            
+
         }
+
         public BookingOrderResult(string bookingReference)
         {
             BookingReference = bookingReference;
@@ -65,7 +66,7 @@ namespace Paramount.Betterclassifieds.Business
                 return null;
 
             var printRate = this.PrintRates.FirstOrDefault(p => p.PublicationId == publication);
-            
+
             if (printRate == null)
                 throw new ArgumentException("The required publication is not available in the calculated print rates");
 

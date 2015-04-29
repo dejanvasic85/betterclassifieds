@@ -35,6 +35,7 @@ execute temp_createAppSetting @Key = 'EnableTwoFactorAuth', @Setting = 'true', @
 execute temp_createAppSetting @Key = 'PrintImagePixelsHeight', @Setting = '330'
 execute temp_createAppSetting @Key = 'PrintImagePixelsWidth', @Setting = '354'
 execute temp_createAppSetting @Key = 'PrintImageResolution', @Setting = '300'
+execute temp_createAppSetting @Key = 'ClientName', @Setting = 'TheMusic', @Force = 1
 
 
 drop procedure temp_createAppSetting

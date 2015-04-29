@@ -5,7 +5,7 @@
 @Scripts.Render("~/bs")
 @Scripts.Render("~/ko")
 @Scripts.Render("~/components")
-<script src="//cdn.ckeditor.com/4.4.7/standard/ckeditor.js"></script>
+@*<script src="//cdn.ckeditor.com/4.4.7/standard/ckeditor.js"></script>*@
 
 @*Outgoing Urls based on the MVC routes*@
 <script>
@@ -21,7 +21,7 @@
             editAdDetails: function (id) {
                 return '@Url.Action("Details", "EditAd", new {id = -1})'.replace('-1', id);
             },
-            viewAd : function(id) {
+            viewAd: function (id) {
                 return '@Url.Action("ViewAd", "Listings", new { Id = -1 })'.replace('-1', id);
             }
         }
@@ -41,7 +41,10 @@
             removePrintImgUrl: '@Url.Action("RemoveLineAdImage", "EditAd")',
             removeOnlineAdImage: '@Url.Action("RemoveOnlineImage", "EditAd")',
             uploadOnlineImage: '@Url.UploadOnlineImage()',
-            assignOnlineImageUrl: '@Url.Action("AssignOnlineImage", "EditAd")'
+            assignOnlineImageUrl: '@Url.Action("AssignOnlineImage", "EditAd")',
+            bookingInvoiceUrl : function(bookingId) {
+                return '@Url.BookingInvoice()' + '/' + bookingId;
+            }
         }
 
         // Endpoints for managing ad during booking

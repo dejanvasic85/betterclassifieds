@@ -1,6 +1,12 @@
-﻿(function($models, ko, $) {
+﻿(function($p, ko, $) {
+    
+    // Assign the models/classes to the paramount models namespace
+    $p.models = $p.models || {};
+    $p.models.UserAdsView = UserAdsView;
+    $p.models.UserAd = UserAd;
+    $p.models.UserEnquiry = UserEnquiry;
 
-    $models.UserAdsView = function(data) {
+    function UserAdsView(data) {
 
         var self = this;
         self.selectedStatus = ko.observable('All');
@@ -9,7 +15,7 @@
         self.selectedAdToCancel = ko.observable();
 
         $.each(data, function (idx, item) {
-            var ad = new $models.UserAd(item);
+            var ad = new $p.models.UserAd(item);
             self.ads.push(ad);
         });
 
@@ -30,7 +36,7 @@
         };
     };
 
-    $models.UserAd = function (item) {
+    function UserAd(item) {
         var self = this;
         self.adId = ko.observable(item.AdId);
         self.status = ko.observable(item.Status);
@@ -45,19 +51,20 @@
 
         self.messages = ko.observableArray([]);
         $.each(item.Messages, function(idx, value) {
-            self.messages.push(new $models.UserEnquiry(value));
+            self.messages.push(new $p.models.UserEnquiry(value));
         });
 
-        this.cancelAd = function() {
-            
-        }
+        this.cancelAd = function() {}
     };
 
-    $models.UserEnquiry = function(item) {
+    function UserEnquiry(item) {
         this.fullName = ko.observable(item.FullName);
         this.email = ko.observable(item.Email);
         this.enquiryText = ko.observable(item.Question);
         this.createdDate = ko.observable(item.CreatedDate);
     };
 
-})($paramount.models || {}, ko, jQuery);
+  
+    
+
+})($paramount, ko, jQuery);

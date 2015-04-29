@@ -201,7 +201,7 @@
             // Create the line ad
             if (!bookingCart.IsLineAdIncluded)
                 return adBookingId;
-
+            
             _bookingRepository.CreateLineAd(adBookingId, bookingCart.LineAdModel);
 
             // Set the edition dates for each publication

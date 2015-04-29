@@ -1,4 +1,4 @@
-﻿@model dynamic
+﻿@model InvoiceView
 
 @{
     Layout = null;
@@ -7,12 +7,93 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <title>Invoice</title>
-    </head>
-    <body>
-        <div>
-              
-        </div>
-    </body>
+<head>
+    <title>Invoice Details</title>
+    @Styles.Render("~/css/base")
+</head>
+<body>
+    <div class="container-fluid">
+
+        @if (Model == null)
+        {
+            <div class="alert alert-danger">We are not able to generate an invoice for the selected booking. Please contact our friendly staff for more information.</div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>@Model.CompanyName</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>Inv Number : @Model.Reference</h4>
+                            <h5 class="pull-right">@Model.InvoiceDate.ToString("dd-MMM-yyyy")</h5>
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                @Model.CompanyName <br/>
+                                A: @Model.CompanyAddress <br>
+                                P: @Model.CompanyPhone <br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>To : @Model.RecipientName</h4>
+                        </div>
+                        <div class="panel-body">
+                            @Model.RecipientAddress <br/>
+                            @Model.RecipientPhoneNumber <br/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        @foreach (var group in @Model.InvoiceGroups)
+                        {
+                            <tr>
+                                <td colspan="4">
+                                    <strong>@group.Name</strong>
+                                </td>
+                            </tr>
+                            foreach (var item in group.InvoiceLineItems)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.Price.ToString("C")</td>
+                                    <td>@item.Quantity</td>
+                                    <td>@item.ItemTotal.ToString("C")</td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                    <div class="pull-right">
+                        <h2>Total: @Model.GrandTotal.ToString("C")</h2>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="alert alert-info">
+                        Note: All prices are tax inclusive
+                    </div>
+                </div>
+            </div>
+        }
+
+
+    </div>
+</body>
 </html>

@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Security.Policy;
 using System.Web;
 using System.Web.Mvc;
 
 namespace Paramount
 {
-    public static class UrlExtensions
+    public static class UrlPaths
     {
         public static string Home(this UrlHelper urlHelper)
         {
@@ -90,7 +91,11 @@ namespace Paramount
         {
             return urlHelper.Action("PreviewEditions", "Booking");
         }
-        
+
+        public static string BookingInvoice(this UrlHelper urlHelper, int? bookingId = null)
+        {
+            return urlHelper.Action("Booking", "Invoice", new { bookingId });
+        }
 
         public static string ActionAbsolute(this UrlHelper urlHelper, string actionName, string controllerName, object routeValues = null)
         {
@@ -98,5 +103,6 @@ namespace Paramount
 
             return urlHelper.Action(actionName, controllerName, routeValues, scheme);
         }
+
     }
 }

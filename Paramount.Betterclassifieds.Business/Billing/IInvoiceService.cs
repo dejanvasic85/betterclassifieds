@@ -18,10 +18,17 @@
 
         public Invoice GenerateBookingInvoice(int bookingId)
         {
-            var orders = _invoiceRepository.GetInvoiceData(bookingId);
+            var invoiceGroups = _invoiceRepository.GetInvoiceData(bookingId);
+
+            if (invoiceGroups == null || invoiceGroups.Count == 0)
+            {
+                return null;
+            }
 
             // Use the invoice factory to convert the order in to an invoice
-            var invoice = _invoiceFactory.CreateInvoice(orders);
+            var invoice = _invoiceFactory.CreateInvoice(invoiceGroups);
+
+            
 
             return invoice;
         }

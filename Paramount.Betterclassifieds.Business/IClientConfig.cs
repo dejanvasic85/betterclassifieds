@@ -18,7 +18,8 @@
         string PublisherHomeUrl { get; }
         bool IsTwoFactorAuthEnabled { get; }
         int PrintImagePixelsWidth { get; }
-        int PrintImagePixelsHeight { get;}
-        int PrintImageResolution { get;}
+        int PrintImagePixelsHeight { get; }
+        int PrintImageResolution { get; }
+        string ClientName { get; }
     }
 }

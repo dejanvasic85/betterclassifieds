@@ -99,7 +99,7 @@
                             <span class="hidden-xs">Enquiries</span> <i class="fa fa-envelope"></i> ( <span data-bind="text: messageCount"></span> )
                         </button>
 
-                        <a class="btn btn-default">
+                        <a class="btn btn-default" data-bind="attr : {href : $paramount.url.adManagement.bookingInvoiceUrl($data.adId())}" target="_blank">
                             <span class="hidden-xs">Invoice</span> <i class="fa fa-file"></i>
                         </a>
                         <div style="display:inline-block" data-bind="visible : $data.status() !== 'Expired'">
@@ -178,7 +178,7 @@
 
 
 @section Scripts{
-    <script src="@Url.Content("~/Scripts/Account/UserAds.js")"></script>
+   
 
     <script>
 

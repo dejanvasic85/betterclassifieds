@@ -25,7 +25,8 @@ namespace Paramount.Betterclassifieds.Presentation
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             ModelBindingConfig.Register(ModelBinders.Binders);
             BundleConfig.Register(BundleTable.Bundles);
-
+            BundleConfig.RegisterStyles(BundleTable.Bundles);
+            
             // View engine ( for branding )
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new ClientViewEngine());

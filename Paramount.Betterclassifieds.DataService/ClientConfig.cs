@@ -114,13 +114,20 @@
         {
             get { return GetValueFromDatabase<int>("PrintImagePixelsWidth"); }
         }
+
         public int PrintImagePixelsHeight
         {
             get { return GetValueFromDatabase<int>("PrintImagePixelsHeight"); }
         }
+
         public int PrintImageResolution
         {
             get { return GetValueFromDatabase<int>("PrintImageResolution"); }
+        }
+
+        public string ClientName
+        {
+            get { return GetValueFromDatabase<string>("ClientName"); }
         }
     }
 }

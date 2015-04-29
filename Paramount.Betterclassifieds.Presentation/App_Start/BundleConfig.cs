@@ -29,6 +29,7 @@ namespace Paramount.Betterclassifieds.Presentation.App_Start
                 .Include("~/Scripts/moment-*")
                 .Include("~/Scripts/mobile-detect.js")
                 .Include("~/Scripts/cropper.js")
+                .Include("~/Scripts/ckeditor.js")
                 );
 
             bundles.Add(new ScriptBundle("~/bundle/ps")
@@ -40,8 +41,15 @@ namespace Paramount.Betterclassifieds.Presentation.App_Start
                 .IncludeDirectory("~/Scripts/Listings/", "*.js")
                 );
 
+            
             // Enable this flag for development only when trying to force bundling and minification
             //BundleTable.EnableOptimizations = true;
+        }
+
+        public static void RegisterStyles(BundleCollection bundles)
+        {
+            bundles.Add(new Bundle("~/css/base")
+                .Include("~/Content/bootstrap-3.3.0.css"));
         }
     }
 }

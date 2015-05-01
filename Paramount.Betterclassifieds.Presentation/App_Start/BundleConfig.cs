@@ -29,9 +29,8 @@ namespace Paramount.Betterclassifieds.Presentation.App_Start
                 .Include("~/Scripts/moment-*")
                 .Include("~/Scripts/mobile-detect.js")
                 .Include("~/Scripts/cropper.js")
-                .Include("~/Scripts/ckeditor.js")
                 );
-
+                    
             bundles.Add(new ScriptBundle("~/bundle/ps")
                 .Include("~/Scripts/paramount/paramount-site.js")
                 .Include("~/Scripts/paramount/paramount-ui.js")

@@ -309,7 +309,7 @@
                     startDate: bookingCart.StartDate,
                     endDate: bookingCart.EndDate,
                     totalPrice: bookingCart.TotalPrice,
-                    bookReference: bookingCart.Reference,
+                    bookReference: bookingCart.BookingReference,
                     userId: bookingCart.UserId,
                     mainCategoryId: bookingCart.SubCategoryId,
                     insertions: 1,
@@ -390,6 +390,11 @@
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
+                // Map the summary 
+                var bookingSummaryData = this.Map<BookingOrderResult, AdBookingOrderSummary>(bookingOrder);
+                bookingSummaryData.AdBookingId = adBookingId;
+                context.AdBookingOrderSummaries.InsertOnSubmit(bookingSummaryData);
+
                 // Map online
                 var onlineOrder = this.Map<BookingAdRateResult, AdBookingOrder>(bookingOrder.OnlineBookingAdRate);
                 onlineOrder.AdBookingOrderItems.AddRange(this.MapList<ILineItem, AdBookingOrderItem>(bookingOrder.OnlineBookingAdRate.GetItems().ToList()));
@@ -469,32 +474,27 @@
         {
             // From data
             configuration.CreateProfile("BookingMapProfile");
-            configuration.CreateMap<AdBooking, AdBookingModel>()
-                .ForMember(member => member.BookingType, options => options.ResolveUsing<BookingTypeResolver>());
+            configuration.CreateMap<AdBooking, AdBookingModel>().ForMember(member => member.BookingType, options => options.ResolveUsing<BookingTypeResolver>());
             configuration.CreateMap<Classifieds.BookEntry, BookEntryModel>();
             configuration.CreateMap<AdBookingExtension, AdBookingExtensionModel>();
             configuration.CreateMap<LineAd, LineAdModel>();
             configuration.CreateMap<MainCategory, Category>();
             configuration.CreateMap<OnlineAd, OnlineAdModel>();
-            configuration.CreateMap<AdGraphic, AdImage>()
-                .ForMember(member => member.DocumentId, options => options.MapFrom(source => source.DocumentID));
+            configuration.CreateMap<AdGraphic, AdImage>().ForMember(member => member.DocumentId, options => options.MapFrom(source => source.DocumentID));
             configuration.CreateMap<Publication, PublicationModel>();
-            configuration.CreateMap<OnlineAdEnquiry, Enquiry>()
-                .ForMember(m => m.EnquiryId, options => options.MapFrom(src => src.OnlineAdEnquiryId));
+            configuration.CreateMap<OnlineAdEnquiry, Enquiry>().ForMember(m => m.EnquiryId, options => options.MapFrom(src => src.OnlineAdEnquiryId));
 
             // To data
-            configuration.CreateMap<AdBookingExtensionModel, AdBookingExtension>()
-                .ForMember(member => member.AdBookingExtensionId, options => options.Condition(con => con.AdBookingExtensionId > 0));
+            configuration.CreateMap<AdBookingExtensionModel, AdBookingExtension>().ForMember(member => member.AdBookingExtensionId, options => options.Condition(con => con.AdBookingExtensionId > 0));
             configuration.CreateMap<BookEntryModel, Classifieds.BookEntry>()
                 .ForMember(member => member.AdBooking, options => options.Ignore())
                 .ForMember(member => member.Publication, options => options.Ignore());
             configuration.CreateMap<BookingAdRateResult, AdBookingOrder>();
             configuration.CreateMap<PrintAdChargeItem, AdBookingOrderItem>();
             configuration.CreateMap<OnlineChargeItem, AdBookingOrderItem>();
-            configuration.CreateMap<OnlineAdModel, OnlineAd>()
-                .ForMember(m => m.OnlineAdId, options => options.Ignore());
-            configuration.CreateMap<LineAdModel, LineAd>()
-                .ForMember(m => m.LineAdId, options => options.Ignore());
+            configuration.CreateMap<OnlineAdModel, OnlineAd>().ForMember(m => m.OnlineAdId, options => options.Ignore());
+            configuration.CreateMap<LineAdModel, LineAd>().ForMember(m => m.LineAdId, options => options.Ignore());
+            configuration.CreateMap<BookingOrderResult, AdBookingOrderSummary>().ForMember(member => member.AdBooking, options => options.Ignore());
         }
     }
 

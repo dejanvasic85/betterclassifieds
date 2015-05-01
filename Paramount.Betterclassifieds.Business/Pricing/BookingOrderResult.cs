@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Paramount.Betterclassifieds.Business.Booking;
 
 namespace Paramount.Betterclassifieds.Business
 {
@@ -9,15 +10,41 @@ namespace Paramount.Betterclassifieds.Business
     /// </summary>
     public class BookingOrderResult
     {
-        public BookingOrderResult()
-        {
+        public BookingOrderResult() { }
 
+        public BookingOrderResult(IClientConfig clientConfig, IAdRateContext rateContext)
+        {
+            BookingReference = rateContext.BookingReference;
+            PaymentReference = rateContext.PaymentReference;
+
+            BusinessName = clientConfig.ClientName;
+            BusinessAddress = clientConfig.ClientAddress.ToString();
+            BusinessPhoneNumber = clientConfig.ClientPhoneNumber;
+
+            CreatedDate = DateTime.Now;
+            CreatedDateUtc = DateTime.UtcNow;
         }
 
-        public BookingOrderResult(string bookingReference)
+        public void SetRecipientDetails(ApplicationUser recipient)
         {
-            BookingReference = bookingReference;
+            RecipientName = recipient.FullName;
+            RecipientAddress = recipient.FullAddress;
+            RecipientPhoneNumber = recipient.Phone;
         }
+
+        public string RecipientPhoneNumber { get; private set; }
+
+        public string RecipientAddress { get; private set; }
+
+        public string RecipientName { get; private set; }
+
+        public string PaymentReference { get; private set; }
+
+        public string BusinessPhoneNumber { get; private set; }
+
+        public string BusinessAddress { get; private set; }
+
+        public string BusinessName { get; private set; }
 
         public string BookingReference { get; private set; }
 
@@ -39,6 +66,9 @@ namespace Paramount.Betterclassifieds.Business
                 return total;
             }
         }
+
+        public DateTime? CreatedDate { get; set; }
+        public DateTime? CreatedDateUtc { get; set; }
 
         public void AddOnlineRate(params OnlineChargeItem[] onlineLineItems)
         {

@@ -153,6 +153,9 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
     partial void InsertLineAd(LineAd instance);
     partial void UpdateLineAd(LineAd instance);
     partial void DeleteLineAd(LineAd instance);
+    partial void InsertAdBookingOrderSummary(AdBookingOrderSummary instance);
+    partial void UpdateAdBookingOrderSummary(AdBookingOrderSummary instance);
+    partial void DeleteAdBookingOrderSummary(AdBookingOrderSummary instance);
     #endregion
 		
 		public ClassifiedsDataContext() : 
@@ -518,6 +521,14 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			get
 			{
 				return this.GetTable<LineAd>();
+			}
+		}
+		
+		public System.Data.Linq.Table<AdBookingOrderSummary> AdBookingOrderSummaries
+		{
+			get
+			{
+				return this.GetTable<AdBookingOrderSummary>();
 			}
 		}
 		
@@ -1288,6 +1299,8 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 		
 		private EntitySet<AdBookingOrder> _AdBookingOrders;
 		
+		private EntitySet<AdBookingOrderSummary> _AdBookingOrderSummaries;
+		
 		private EntityRef<Ad> _Ad;
 		
 		private EntityRef<MainCategory> _MainCategory;
@@ -1326,6 +1339,7 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 		{
 			this._BookEntries = new EntitySet<BookEntry>(new Action<BookEntry>(this.attach_BookEntries), new Action<BookEntry>(this.detach_BookEntries));
 			this._AdBookingOrders = new EntitySet<AdBookingOrder>(new Action<AdBookingOrder>(this.attach_AdBookingOrders), new Action<AdBookingOrder>(this.detach_AdBookingOrders));
+			this._AdBookingOrderSummaries = new EntitySet<AdBookingOrderSummary>(new Action<AdBookingOrderSummary>(this.attach_AdBookingOrderSummaries), new Action<AdBookingOrderSummary>(this.detach_AdBookingOrderSummaries));
 			this._Ad = default(EntityRef<Ad>);
 			this._MainCategory = default(EntityRef<MainCategory>);
 			OnCreated();
@@ -1605,6 +1619,19 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="AdBooking_AdBookingOrderSummary", Storage="_AdBookingOrderSummaries", ThisKey="AdBookingId", OtherKey="AdBookingId")]
+		public EntitySet<AdBookingOrderSummary> AdBookingOrderSummaries
+		{
+			get
+			{
+				return this._AdBookingOrderSummaries;
+			}
+			set
+			{
+				this._AdBookingOrderSummaries.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Ad_AdBooking", Storage="_Ad", ThisKey="AdId", OtherKey="AdId", IsForeignKey=true)]
 		public Ad Ad
 		{
@@ -1712,6 +1739,18 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 		}
 		
 		private void detach_AdBookingOrders(AdBookingOrder entity)
+		{
+			this.SendPropertyChanging();
+			entity.AdBooking = null;
+		}
+		
+		private void attach_AdBookingOrderSummaries(AdBookingOrderSummary entity)
+		{
+			this.SendPropertyChanging();
+			entity.AdBooking = this;
+		}
+		
+		private void detach_AdBookingOrderSummaries(AdBookingOrderSummary entity)
 		{
 			this.SendPropertyChanging();
 			entity.AdBooking = null;
@@ -12498,6 +12537,397 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 						this._AdDesignId = default(int);
 					}
 					this.SendPropertyChanged("AdDesign");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AdBookingOrderSummary")]
+	public partial class AdBookingOrderSummary : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _AdBookingOrderSummaryId;
+		
+		private int _AdBookingId;
+		
+		private string _BookingReference;
+		
+		private string _PaymentReference;
+		
+		private System.Nullable<decimal> _Total;
+		
+		private string _BusinessName;
+		
+		private string _BusinessAddress;
+		
+		private string _BusinessPhoneNumber;
+		
+		private string _RecipientName;
+		
+		private string _RecipientAddress;
+		
+		private string _RecipientPhoneNumber;
+		
+		private System.Nullable<System.DateTime> _CreatedDate;
+		
+		private System.Nullable<System.DateTime> _CreatedDateUtc;
+		
+		private EntityRef<AdBooking> _AdBooking;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnAdBookingOrderSummaryIdChanging(int value);
+    partial void OnAdBookingOrderSummaryIdChanged();
+    partial void OnAdBookingIdChanging(int value);
+    partial void OnAdBookingIdChanged();
+    partial void OnBookingReferenceChanging(string value);
+    partial void OnBookingReferenceChanged();
+    partial void OnPaymentReferenceChanging(string value);
+    partial void OnPaymentReferenceChanged();
+    partial void OnTotalChanging(System.Nullable<decimal> value);
+    partial void OnTotalChanged();
+    partial void OnBusinessNameChanging(string value);
+    partial void OnBusinessNameChanged();
+    partial void OnBusinessAddressChanging(string value);
+    partial void OnBusinessAddressChanged();
+    partial void OnBusinessPhoneNumberChanging(string value);
+    partial void OnBusinessPhoneNumberChanged();
+    partial void OnRecipientNameChanging(string value);
+    partial void OnRecipientNameChanged();
+    partial void OnRecipientAddressChanging(string value);
+    partial void OnRecipientAddressChanged();
+    partial void OnRecipientPhoneNumberChanging(string value);
+    partial void OnRecipientPhoneNumberChanged();
+    partial void OnCreatedDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedDateChanged();
+    partial void OnCreatedDateUtcChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedDateUtcChanged();
+    #endregion
+		
+		public AdBookingOrderSummary()
+		{
+			this._AdBooking = default(EntityRef<AdBooking>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdBookingOrderSummaryId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int AdBookingOrderSummaryId
+		{
+			get
+			{
+				return this._AdBookingOrderSummaryId;
+			}
+			set
+			{
+				if ((this._AdBookingOrderSummaryId != value))
+				{
+					this.OnAdBookingOrderSummaryIdChanging(value);
+					this.SendPropertyChanging();
+					this._AdBookingOrderSummaryId = value;
+					this.SendPropertyChanged("AdBookingOrderSummaryId");
+					this.OnAdBookingOrderSummaryIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdBookingId", DbType="Int NOT NULL")]
+		public int AdBookingId
+		{
+			get
+			{
+				return this._AdBookingId;
+			}
+			set
+			{
+				if ((this._AdBookingId != value))
+				{
+					if (this._AdBooking.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnAdBookingIdChanging(value);
+					this.SendPropertyChanging();
+					this._AdBookingId = value;
+					this.SendPropertyChanged("AdBookingId");
+					this.OnAdBookingIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BookingReference", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string BookingReference
+		{
+			get
+			{
+				return this._BookingReference;
+			}
+			set
+			{
+				if ((this._BookingReference != value))
+				{
+					this.OnBookingReferenceChanging(value);
+					this.SendPropertyChanging();
+					this._BookingReference = value;
+					this.SendPropertyChanged("BookingReference");
+					this.OnBookingReferenceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PaymentReference", DbType="VarChar(20)")]
+		public string PaymentReference
+		{
+			get
+			{
+				return this._PaymentReference;
+			}
+			set
+			{
+				if ((this._PaymentReference != value))
+				{
+					this.OnPaymentReferenceChanging(value);
+					this.SendPropertyChanging();
+					this._PaymentReference = value;
+					this.SendPropertyChanged("PaymentReference");
+					this.OnPaymentReferenceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Total", DbType="Money")]
+		public System.Nullable<decimal> Total
+		{
+			get
+			{
+				return this._Total;
+			}
+			set
+			{
+				if ((this._Total != value))
+				{
+					this.OnTotalChanging(value);
+					this.SendPropertyChanging();
+					this._Total = value;
+					this.SendPropertyChanged("Total");
+					this.OnTotalChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BusinessName", DbType="VarChar(50)")]
+		public string BusinessName
+		{
+			get
+			{
+				return this._BusinessName;
+			}
+			set
+			{
+				if ((this._BusinessName != value))
+				{
+					this.OnBusinessNameChanging(value);
+					this.SendPropertyChanging();
+					this._BusinessName = value;
+					this.SendPropertyChanged("BusinessName");
+					this.OnBusinessNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BusinessAddress", DbType="VarChar(100)")]
+		public string BusinessAddress
+		{
+			get
+			{
+				return this._BusinessAddress;
+			}
+			set
+			{
+				if ((this._BusinessAddress != value))
+				{
+					this.OnBusinessAddressChanging(value);
+					this.SendPropertyChanging();
+					this._BusinessAddress = value;
+					this.SendPropertyChanged("BusinessAddress");
+					this.OnBusinessAddressChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BusinessPhoneNumber", DbType="VarChar(100)")]
+		public string BusinessPhoneNumber
+		{
+			get
+			{
+				return this._BusinessPhoneNumber;
+			}
+			set
+			{
+				if ((this._BusinessPhoneNumber != value))
+				{
+					this.OnBusinessPhoneNumberChanging(value);
+					this.SendPropertyChanging();
+					this._BusinessPhoneNumber = value;
+					this.SendPropertyChanged("BusinessPhoneNumber");
+					this.OnBusinessPhoneNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipientName", DbType="VarChar(50)")]
+		public string RecipientName
+		{
+			get
+			{
+				return this._RecipientName;
+			}
+			set
+			{
+				if ((this._RecipientName != value))
+				{
+					this.OnRecipientNameChanging(value);
+					this.SendPropertyChanging();
+					this._RecipientName = value;
+					this.SendPropertyChanged("RecipientName");
+					this.OnRecipientNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipientAddress", DbType="VarChar(100)")]
+		public string RecipientAddress
+		{
+			get
+			{
+				return this._RecipientAddress;
+			}
+			set
+			{
+				if ((this._RecipientAddress != value))
+				{
+					this.OnRecipientAddressChanging(value);
+					this.SendPropertyChanging();
+					this._RecipientAddress = value;
+					this.SendPropertyChanged("RecipientAddress");
+					this.OnRecipientAddressChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipientPhoneNumber", DbType="VarChar(15)")]
+		public string RecipientPhoneNumber
+		{
+			get
+			{
+				return this._RecipientPhoneNumber;
+			}
+			set
+			{
+				if ((this._RecipientPhoneNumber != value))
+				{
+					this.OnRecipientPhoneNumberChanging(value);
+					this.SendPropertyChanging();
+					this._RecipientPhoneNumber = value;
+					this.SendPropertyChanged("RecipientPhoneNumber");
+					this.OnRecipientPhoneNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedDate
+		{
+			get
+			{
+				return this._CreatedDate;
+			}
+			set
+			{
+				if ((this._CreatedDate != value))
+				{
+					this.OnCreatedDateChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedDate = value;
+					this.SendPropertyChanged("CreatedDate");
+					this.OnCreatedDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedDateUtc", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedDateUtc
+		{
+			get
+			{
+				return this._CreatedDateUtc;
+			}
+			set
+			{
+				if ((this._CreatedDateUtc != value))
+				{
+					this.OnCreatedDateUtcChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedDateUtc = value;
+					this.SendPropertyChanged("CreatedDateUtc");
+					this.OnCreatedDateUtcChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="AdBooking_AdBookingOrderSummary", Storage="_AdBooking", ThisKey="AdBookingId", OtherKey="AdBookingId", IsForeignKey=true)]
+		public AdBooking AdBooking
+		{
+			get
+			{
+				return this._AdBooking.Entity;
+			}
+			set
+			{
+				AdBooking previousValue = this._AdBooking.Entity;
+				if (((previousValue != value) 
+							|| (this._AdBooking.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._AdBooking.Entity = null;
+						previousValue.AdBookingOrderSummaries.Remove(this);
+					}
+					this._AdBooking.Entity = value;
+					if ((value != null))
+					{
+						value.AdBookingOrderSummaries.Add(this);
+						this._AdBookingId = value.AdBookingId;
+					}
+					else
+					{
+						this._AdBookingId = default(int);
+					}
+					this.SendPropertyChanged("AdBooking");
 				}
 			}
 		}

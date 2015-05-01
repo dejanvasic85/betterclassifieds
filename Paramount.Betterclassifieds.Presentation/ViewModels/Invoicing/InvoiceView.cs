@@ -10,17 +10,18 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             InvoiceGroups = new List<InvoiceGroupView>();
         }
 
-        public string Reference { get; set; }
+        public string BookingReference { get; set; }
+        public string PaymentReference { get; set; }
         public string CompanyName { get; set; }
         public string CompanyAddress { get; set; }
         public string CompanyPhone { get; set; }
         public decimal SubTotal { get; set; }
         public decimal GrandTotal { get; set; }
         public List<InvoiceGroupView> InvoiceGroups { get; set; }
+        public DateTime InvoiceDate { get; set; }
         public string RecipientName { get; set; }
         public string RecipientAddress { get; set; }
         public string RecipientPhoneNumber { get; set; }
-        public DateTime InvoiceDate { get; set; }
     }
 
     public class InvoiceGroupView

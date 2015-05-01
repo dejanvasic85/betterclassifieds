@@ -36,6 +36,7 @@
       <Column Name="Insertions" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="AdBooking_BookEntry" Member="BookEntries" ThisKey="AdBookingId" OtherKey="AdBookingId" Type="BookEntry" />
       <Association Name="AdBooking_AdBookingOrder" Member="AdBookingOrders" ThisKey="AdBookingId" OtherKey="AdBookingId" Type="AdBookingOrder" />
+      <Association Name="AdBooking_AdBookingOrderSummary" Member="AdBookingOrderSummaries" ThisKey="AdBookingId" OtherKey="AdBookingId" Type="AdBookingOrderSummary" />
       <Association Name="Ad_AdBooking" Member="Ad" ThisKey="AdId" OtherKey="AdId" Type="Ad" IsForeignKey="true" />
       <Association Name="MainCategory_AdBooking" Member="MainCategory" ThisKey="MainCategoryId" OtherKey="MainCategoryId" Type="MainCategory" IsForeignKey="true" />
     </Type>
@@ -563,6 +564,24 @@
       <Column Name="PhotoPurchased" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="HeaderPurchased" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="AdDesign_LineAd" Member="AdDesign" ThisKey="AdDesignId" OtherKey="AdDesignId" Type="AdDesign" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AdBookingOrderSummary" Member="AdBookingOrderSummaries">
+    <Type Name="AdBookingOrderSummary">
+      <Column Name="AdBookingOrderSummaryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AdBookingId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BookingReference" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="PaymentReference" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Total" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="BusinessName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BusinessAddress" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="BusinessPhoneNumber" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="RecipientName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="RecipientAddress" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="RecipientPhoneNumber" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedDateUtc" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="AdBooking_AdBookingOrderSummary" Member="AdBooking" ThisKey="AdBookingId" OtherKey="AdBookingId" Type="AdBooking" IsForeignKey="true" />
     </Type>
   </Table>
   <Function Name="dbo.usp_RateCard__Search" Method="usp_RateCard__Search">

@@ -13,7 +13,8 @@ namespace Paramount.Betterclassifieds.Business
         int[] Publications { get; }
         LineAdModel LineAdModel { get; }
         int? SubCategoryId { get; }
-        string Reference { get; }
+        string BookingReference { get; }
+        string PaymentReference { get; }
         int? CategoryId { get; }
         int? PrintInsertions { get; }
 

@@ -17,7 +17,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
             Id = Guid.NewGuid().ToString();
             SessionId = sessionId;
             UserId = userId;
-            Reference = Id.Substring(0, 6).ToUpper();
+            BookingReference = Id.Substring(0, 6).ToUpper();
             Publications = new int[] { };
             CompletedSteps = new List<int>();
             OnlineAdModel = new OnlineAdModel();
@@ -68,7 +68,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
             get { return Publications != null && Publications.Any(); }
         }
 
-        public string Reference { get; set; }
+        public string BookingReference { get; set; }
         
         public bool NoPaymentRequired()
         {

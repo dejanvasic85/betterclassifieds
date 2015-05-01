@@ -59,9 +59,17 @@
                 .RegisterType<IPaymentService, PayPalPaymentService>()
                 .RegisterType<IInvoiceFactory, DefaultInvoiceFactory>()
                 .RegisterType<IInvoiceService, InvoiceService>()
-                .RegisterType<SearchFilters>(new SessionLifetimeManager<SearchFilters>());
+                .RegisterType<SearchFilters>(new SessionLifetimeManager<SearchFilters>())
                 ;
             
+            // Rates/ prices (chargeable items)
+            container.RegisterType<IPrintChargeableItem, PrintHeadingCharge>("PrintHeadingCharge")
+                .RegisterType<IPrintChargeableItem, PrintPhotoCharge>("PrintPhotoCharge")
+                .RegisterType<IPrintChargeableItem, PrintSuperBoldHeadingCharge>("PrintSuperBoldHeadingCharge")
+                .RegisterType<IPrintChargeableItem, PrintWordCharge>("PrintWordCharge")
+                .RegisterType<IOnlineChargeableItem, OnlineBasePriceCharge>("OnlineBasePriceCharge")
+                ;
+
             return container;
         }
     }

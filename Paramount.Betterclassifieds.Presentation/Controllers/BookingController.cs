@@ -226,7 +226,7 @@
             // We only support paypal just for now
             var response = _paymentService.SubmitPayment(new PaymentRequest
             {
-                PayReference = bookingCart.Reference,
+                PayReference = bookingCart.BookingReference,
                 BookingOrderResult = _rateCalculator.Calculate(bookingCart),
                 ReturnUrl = Url.ActionAbsolute("AuthorisePayment", "Booking"),
                 CancelUrl = Url.ActionAbsolute("Step3", "Booking").Append("?cancel=true")
@@ -251,8 +251,10 @@
         public ActionResult Success()
         {
             var bookingCart = _bookingContext.Current();
-
+            
             var bookingOrder = _rateCalculator.Calculate(bookingCart);
+            bookingOrder.SetRecipientDetails(_userManager.GetCurrentUser(this.User));
+
             var id = _bookingManager.CreateBooking(bookingCart, bookingOrder);
 
             // Complete the booking

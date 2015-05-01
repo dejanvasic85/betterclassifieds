@@ -14,6 +14,16 @@
         public string Postcode { get; set; }
         public string Phone { get; set; }
 
+        public string FullName
+        {
+            get { return string.Format("{0} {1}", FirstName, LastName); }
+        }
+
+        public string FullAddress
+        {
+            get { return string.Format("{0}, {1}, {2}, {3}", AddressLine1, AddressLine2, State, Postcode); }
+        }
+
         public virtual bool AuthenticateUser(IAuthManager authManager, string password, bool persistAuthCookie = true)
         {
             if (!authManager.ValidatePassword(Username, password))

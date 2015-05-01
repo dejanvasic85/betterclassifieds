@@ -18,13 +18,15 @@ namespace Paramount.Betterclassifieds.Business
         private readonly IPublicationRepository _publicationRepository;
         private readonly IOnlineChargeableItem[] _onlineChargeableItems;
         private readonly IPrintChargeableItem[] _printChargeableItems;
+        private readonly IClientConfig _clientConfig;
 
-        public RateCalculator(IRateRepository rateRepository, IPublicationRepository publicationRepository, IOnlineChargeableItem[] onlineChargeableItems, IPrintChargeableItem[] printChargeableItems)
+        public RateCalculator(IRateRepository rateRepository, IPublicationRepository publicationRepository, IOnlineChargeableItem[] onlineChargeableItems, IPrintChargeableItem[] printChargeableItems, IClientConfig clientConfig)
         {
             _rateRepository = rateRepository;
             _publicationRepository = publicationRepository;
             _onlineChargeableItems = onlineChargeableItems;
             _printChargeableItems = printChargeableItems;
+            _clientConfig = clientConfig;
         }
 
         public decimal Calculate(int ratecardId, LineAdModel lineAd, bool isOnlineAd, int editions = 1)
@@ -68,7 +70,8 @@ namespace Paramount.Betterclassifieds.Business
         /// </summary>
         public BookingOrderResult Calculate(IAdRateContext adRateContext, int? editionOverride = null)
         {
-            var bookingRate = new BookingOrderResult(adRateContext.Reference);
+            // Fetch the user details so that we can construct the booking order result
+            var bookingRate = new BookingOrderResult(_clientConfig, adRateContext);
 
             Guard.NotNullIn(adRateContext, adRateContext.CategoryId, adRateContext.SubCategoryId);
 
@@ -93,8 +96,7 @@ namespace Paramount.Betterclassifieds.Business
                 var publicationName = _publicationRepository.GetPublication(printRate.PublicationId).Title;
 
                 bookingRate
-                    .AddPublicationWithRates(publicationName, printRate.PublicationId, printRate.RatecardId,
-                        _printChargeableItems.Select(pr => pr.Calculate(printRate, adRateContext.LineAdModel, editionOverride ?? adRateContext.PrintInsertions.GetValueOrDefault()))
+                    .AddPublicationWithRates(publicationName, printRate.PublicationId, printRate.RatecardId, _printChargeableItems.Select(pr => pr.Calculate(printRate, adRateContext.LineAdModel, editionOverride ?? adRateContext.PrintInsertions.GetValueOrDefault()))
                     .ToArray());
             }
 

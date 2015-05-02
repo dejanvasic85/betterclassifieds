@@ -1,9 +1,8 @@
-﻿@using Paramount
-@model Paramount.Betterclassifieds.Presentation.ViewModels.Step3View
+﻿@model Step3View
 
 @{
     ViewBag.Title = "Confirmation Step";
-    Layout = @Url.ClientUrl("~/Views/Shared/_ApplicationLayout.cshtml");
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
 }
 
 <ul class="nav nav-tabs" role="tablist">
@@ -19,10 +18,10 @@
 
             @if (Model.IsPaymentCancelled)
             {
-                <div class="alert alert-warning alert-dismissable">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    Your payment has been cancelled successfully. We have retained your booking details if you prefer to try again.
-                </div>
+            <div class="alert alert-warning alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                Your payment has been cancelled successfully. We have retained your booking details if you prefer to try again.
+            </div>
             }
 
             <div class="bs-callout bs-callout-info">
@@ -60,21 +59,21 @@
                         </tr>
                         @if (Model.IsLineAdIncluded)
                         {
-                            <tr>
-                                <td><span class="glyphicon glyphicon-calendar"></span></td>
-                                <td>Print Start</td>
-                                <td><span>@Model.PrintFirstEditionDate.GetValueOrDefault().ToString("dd-MMM-yyyy")</span></td>
-                            </tr>
-                            <tr>
-                                <td><span class="fa fa-newspaper-o"></span></td>
-                                <td>Publications</td>
-                                <td>@Model.PublicationCount</td>
-                            </tr>
-                            <tr>
-                                <td><span class="fa fa-list-ol"></span></td>
-                                <td>Editions</td>
-                                <td>@Model.PrintInsertions</td>
-                            </tr>
+                        <tr>
+                            <td><span class="glyphicon glyphicon-calendar"></span></td>
+                            <td>Print Start</td>
+                            <td><span>@Model.PrintFirstEditionDate.GetValueOrDefault().ToString("dd-MMM-yyyy")</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="fa fa-newspaper-o"></span></td>
+                            <td>Publications</td>
+                            <td>@Model.PublicationCount</td>
+                        </tr>
+                        <tr>
+                            <td><span class="fa fa-list-ol"></span></td>
+                            <td>Editions</td>
+                            <td>@Model.PrintInsertions</td>
+                        </tr>
                         }
                     </tbody>
 
@@ -118,13 +117,13 @@
         <li class="next">
             @if (Model.IsPaymentRequired)
             {
-                <button id="btnSubmit" type="submit" class="btn btn-large btn-default">
-                    <i class="fa fa-cc-paypal"></i> Payment
-                </button>
+            <button id="btnSubmit" type="submit" class="btn btn-large btn-default">
+                <i class="fa fa-cc-paypal"></i> Payment
+            </button>
             }
             else
             {
-                <button id="btnSubmit" type="submit" class="btn btn-large btn-default">Submit <i class="glyphicon glyphicon-arrow-right"></i></button>
+            <button id="btnSubmit" type="submit" class="btn btn-large btn-default">Submit <i class="glyphicon glyphicon-arrow-right"></i></button>
             }
         </li>
     </ul>
@@ -144,6 +143,7 @@
 </div>
 
 @section Scripts{
+    @Scripts.Render("~/bundle/paramount-booking")
     <script>
         (function ($) {
 

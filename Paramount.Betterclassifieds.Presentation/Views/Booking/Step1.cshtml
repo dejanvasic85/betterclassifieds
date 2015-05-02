@@ -1,10 +1,9 @@
-﻿@using Paramount
-@using Paramount.Betterclassifieds.Presentation.Framework
-@model Paramount.Betterclassifieds.Presentation.ViewModels.Step1View
+﻿@using Paramount.Betterclassifieds.Presentation.Framework
+@model Step1View
 
 @{
     ViewBag.Title = "Category";
-    Layout = @Url.ClientUrl("~/Views/Shared/_ApplicationLayout.cshtml");
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
 }
 
 
@@ -68,8 +67,7 @@
             <div class="center-block" data-bind="foreach: publications">
                 <button class="btn btn-default btn-block btn-lg"
                         data-bind="id: publicationId, text: title, css: {active : isSelected}, click : $parent.togglePublication"
-                        data-toggle="button">
-                </button>
+                        data-toggle="button"></button>
             </div>
         </div>
     </div>
@@ -93,7 +91,10 @@
 
 
     @section Scripts{
+        @Scripts.Render("~/bundle/paramount-booking")
         <script>
+
+
 
             (function($) {
 
@@ -118,7 +119,7 @@
 
                             pub.isSelected = !pub.isSelected;
                         };
-                        self.errorMsg = ko.observable("");                        
+                        self.errorMsg = ko.observable("");
                     };
 
                     var data = @Html.Raw(Model.ToJsonString());

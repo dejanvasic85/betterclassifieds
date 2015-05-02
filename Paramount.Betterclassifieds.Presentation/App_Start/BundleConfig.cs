@@ -1,6 +1,6 @@
 ﻿using System.Web.Optimization;
 
-namespace Paramount.Betterclassifieds.Presentation.App_Start
+namespace Paramount.Betterclassifieds.Presentation
 {
     public class BundleConfig
     {
@@ -34,11 +34,11 @@ namespace Paramount.Betterclassifieds.Presentation.App_Start
             bundles.Add(new ScriptBundle("~/bundle/ps")
                 .Include("~/Scripts/paramount/paramount-site.js")
                 .Include("~/Scripts/paramount/paramount-ui.js")
-                .Include("~/Scripts/paramount/paramount-*")
-                .IncludeDirectory("~/Scripts/Account/", "*.js")
-                .IncludeDirectory("~/Scripts/Booking/", "*.js")
-                .IncludeDirectory("~/Scripts/Listings/", "*.js")
-                );
+                .Include("~/Scripts/paramount/paramount-*"));
+
+            bundles.Add(new ScriptBundle("~/bundle/paramount-booking").IncludeDirectory("~/Scripts/Booking", "*.js"));
+            bundles.Add(new ScriptBundle("~/bundle/paramount-account").IncludeDirectory("~/Scripts/Account", "*.js"));
+            bundles.Add(new ScriptBundle("~/bundle/paramount-listings").IncludeDirectory("~/Scripts/Listings", "*.js"));
 
             
             // Enable this flag for development only when trying to force bundling and minification

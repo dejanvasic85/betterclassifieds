@@ -1,6 +1,6 @@
 ﻿using System.Web.Http;
 
-namespace Paramount.Betterclassifieds.Presentation.App_Start
+namespace Paramount.Betterclassifieds.Presentation
 {
     public static class WebApiConfig
     {

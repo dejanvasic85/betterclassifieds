@@ -1,5 +1,4 @@
 ﻿using System.Web.Optimization;
-using Paramount.Betterclassifieds.Presentation.App_Start;
 
 namespace Paramount.Betterclassifieds.Presentation
 {

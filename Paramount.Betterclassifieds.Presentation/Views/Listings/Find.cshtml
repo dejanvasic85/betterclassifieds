@@ -1,13 +1,13 @@
 ﻿@using Paramount
 
-@model Paramount.Betterclassifieds.Presentation.ViewModels.FindModel
+@model FindModel
 
 @{
-    Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayout.cshtml");
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
 }
 
 @section Scripts{
-    <script src="@Url.Content("~/Scripts/Listings/Find.min.js")"></script>
+    @Scripts.Render("~/bundle/paramount-listings")
 }
 
 <input type="hidden" id="hdnResultsPerPage" value="@ViewBag.ResultsPerPage" />

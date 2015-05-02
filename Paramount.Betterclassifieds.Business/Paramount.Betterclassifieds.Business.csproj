@@ -47,9 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Billing\DefaultInvoiceFactory.cs" />
     <Compile Include="Billing\IInvoiceRepository.cs" />
-    <Compile Include="Billing\IInvoiceFactory.cs" />
     <Compile Include="Billing\IInvoiceService.cs" />
     <Compile Include="Billing\Invoice.cs" />
     <Compile Include="Billing\InvoiceGroup.cs" />

@@ -11,15 +11,16 @@ namespace Paramount.Betterclassifieds.Business
         }
 
         public List<InvoiceGroup> InvoiceGroups { get; set; }
-        public string Reference { get; set; }
-        public string CompanyName { get; set; }
-        public string CompanyAddress { get; set; }
-        public string CompanyPhone { get; set; }
-        public decimal SubTotal { get; set; }
-        public decimal GrandTotal { get; set; }
+        public string BookingReference { get; set; }
+        public string PaymentReference { get; set; }
+        public string BusinessName { get; set; }
+        public string BusinessAddress { get; set; }
+        public string BusinessPhone { get; set; }
+        public decimal Total { get; set; }
         public string RecipientName { get; set; }
         public string RecipientAddress { get; set; }
         public string RecipientPhoneNumber { get; set; }
-        public DateTime InvoiceDate { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime CreatedDateUtc { get; set; }
     }
 }

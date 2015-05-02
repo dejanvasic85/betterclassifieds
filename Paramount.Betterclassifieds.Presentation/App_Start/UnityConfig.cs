@@ -57,7 +57,6 @@
                 .RegisterType<IRateCalculator, RateCalculator>()
                 .RegisterType<IBookingContext, BookingContextInCookie>()
                 .RegisterType<IPaymentService, PayPalPaymentService>()
-                .RegisterType<IInvoiceFactory, DefaultInvoiceFactory>()
                 .RegisterType<IInvoiceService, InvoiceService>()
                 .RegisterType<SearchFilters>(new SessionLifetimeManager<SearchFilters>())
                 ;

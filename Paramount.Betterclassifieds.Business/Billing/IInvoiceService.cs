@@ -8,28 +8,23 @@
     public class InvoiceService : IInvoiceService
     {
         private readonly IInvoiceRepository _invoiceRepository;
-        private readonly IInvoiceFactory _invoiceFactory;
+        private readonly IClientConfig _clientConfig;
 
-        public InvoiceService(IInvoiceRepository invoiceRepository, IInvoiceFactory invoiceFactory)
+        public InvoiceService(IInvoiceRepository invoiceRepository, IClientConfig clientConfig)
         {
             _invoiceRepository = invoiceRepository;
-            _invoiceFactory = invoiceFactory;
+            _clientConfig = clientConfig;
         }
 
         public Invoice GenerateBookingInvoice(int bookingId)
         {
-            var invoiceGroups = _invoiceRepository.GetInvoiceData(bookingId);
+            var invoice = _invoiceRepository.GetInvoiceDataForBooking(bookingId);
 
-            if (invoiceGroups == null || invoiceGroups.Count == 0)
-            {
-                return null;
-            }
-
-            // Use the invoice factory to convert the order in to an invoice
-            var invoice = _invoiceFactory.CreateInvoice(invoiceGroups);
-
+            // Map the client (business) details
+            invoice.BusinessAddress = _clientConfig.ClientAddress.ToString();
+            invoice.BusinessName = _clientConfig.ClientName;
+            invoice.BusinessPhone = _clientConfig.ClientPhoneNumber;
             
-
             return invoice;
         }
     }

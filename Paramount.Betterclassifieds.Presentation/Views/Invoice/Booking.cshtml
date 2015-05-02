@@ -21,11 +21,11 @@
         else
         {
             <div class="row">
-                <div class="col-xs-9">
-                    <h2>@Model.CompanyName</h2>
+                <div class="col-xs-6">
+                    <h2>@Model.BusinessName</h2>
                 </div>
-                <div class="col-xs-3">
-                    <h4 class="pull-right">Invoice Date : @Model.InvoiceDate.ToString("dd-MMM-yyyy")</h4>
+                <div class="col-xs-6">
+                    <h4 class="pull-right">Invoice Date : @Model.CreatedDate.ToString("dd-MMM-yyyy")</h4>
                 </div>
             </div>
             <div class="row">
@@ -36,9 +36,9 @@
                         </div>
                         <div class="panel-body">
                             <p>
-                                @Model.CompanyName <br/>
-                                A: @Model.CompanyAddress <br>
-                                P: @Model.CompanyPhone <br>
+                                @Model.BusinessName <br />
+                                A: @Model.BusinessAddress <br>
+                                P: @Model.BusinessPhone <br>
                             </p>
                         </div>
                     </div>
@@ -49,8 +49,10 @@
                             <h4>To : @Model.RecipientName</h4>
                         </div>
                         <div class="panel-body">
-                            @Model.RecipientAddress <br/>
-                            @Model.RecipientPhoneNumber <br/>
+                            @Model.RecipientAddress <br />
+                            @Model.RecipientPhoneNumber <br />
+
+                            Status : Paid
                         </div>
                     </div>
                 </div>
@@ -85,11 +87,14 @@
                         }
                     </table>
                     <div class="pull-right">
-                        <h2>Total: @Model.GrandTotal.ToString("C")</h2>
-                    </div>
+                        <h2>Total (paid): @Model.Total.ToString("C")</h2>
+                    </div><div class="clearfix"></div>
                     <div class="clearfix"></div>
                     <div class="alert alert-info">
-                        Note: All prices are tax inclusive
+                        Note: All prices are tax inclusive.
+                    </div>
+                    <div class="alert alert-success">
+                        PayPal transaction number : <strong>@Model.PaymentReference</strong>
                     </div>
                 </div>
             </div>

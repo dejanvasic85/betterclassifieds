@@ -3,18 +3,22 @@
     using AutoMapper;
     using System.Linq;
     using Classifieds;
-    using System.Collections.Generic;
 
     public class InvoiceRepository : Business.IInvoiceRepository, IMappingBehaviour
     {
-
-        public List<Business.InvoiceGroup> GetInvoiceData(int bookingId)
+        public Business.Invoice GetInvoiceDataForBooking(int bookingId)
         {
-            var result = new List<Business.InvoiceGroup>();
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
+                var summaryData = context.AdBookingOrderSummaries.FirstOrDefault(bk => bk.AdBookingId == bookingId);
+                if (summaryData == null)
+                    return null;
+
+                var invoice = this.Map<AdBookingOrderSummary, Business.Invoice>(summaryData);
+
                 var groupData = context.AdBookingOrders.Where(o => o.AdBookingId == bookingId).ToList();
 
+                // Fetch all the invoice line items (grouped)
                 foreach (var adBookingOrder in groupData)
                 {
                     var group = this.Map<AdBookingOrder, Business.InvoiceGroup>(adBookingOrder);
@@ -23,16 +27,20 @@
 
                     group.InvoiceLineItems.AddRange(this.MapList<AdBookingOrderItem, Business.InvoiceLineItem>(itemData));
 
-                    result.Add(group);
+                    invoice.InvoiceGroups.Add(group);
                 }
+                return invoice;
             }
-            return result;
         }
+
+
 
         public void OnRegisterMaps(IConfiguration configuration)
         {
+            // From data
             configuration.CreateMap<AdBookingOrder, Business.InvoiceGroup>();
             configuration.CreateMap<AdBookingOrderItem, Business.InvoiceLineItem>();
+            configuration.CreateMap<AdBookingOrderSummary, Business.Invoice>();
         }
     }
 }

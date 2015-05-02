@@ -1,4 +1,5 @@
-﻿using Paramount.Betterclassifieds.Business.Booking;
+﻿using System;
+using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Print;
 
 namespace Paramount.Betterclassifieds.Business
@@ -17,7 +18,7 @@ namespace Paramount.Betterclassifieds.Business
         string PaymentReference { get; }
         int? CategoryId { get; }
         int? PrintInsertions { get; }
-
         void UpdateByPricingFactors(PricingFactors pricingFactors);
+        DateTime? StartDate { get; }
     }
 }

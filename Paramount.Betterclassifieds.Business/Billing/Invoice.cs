@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Paramount.Betterclassifieds.Business
 {
@@ -11,6 +12,7 @@ namespace Paramount.Betterclassifieds.Business
         }
 
         public List<InvoiceGroup> InvoiceGroups { get; set; }
+        public DateTime BookingStartDate { get; set; }
         public string BookingReference { get; set; }
         public string PaymentReference { get; set; }
         public string BusinessName { get; set; }
@@ -22,5 +24,10 @@ namespace Paramount.Betterclassifieds.Business
         public string RecipientPhoneNumber { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime CreatedDateUtc { get; set; }
+
+        public bool IsLineAd
+        {
+            get { return InvoiceGroups.Any(g => g.PublicationId.HasValue); }
+        }
     }
 }

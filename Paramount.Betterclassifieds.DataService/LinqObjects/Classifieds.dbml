@@ -570,17 +570,18 @@
     <Type Name="AdBookingOrderSummary">
       <Column Name="AdBookingOrderSummaryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="AdBookingId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="BookingReference" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-      <Column Name="PaymentReference" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="BookingReference" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PaymentReference" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Total" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="BusinessName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="BusinessAddress" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="BusinessPhoneNumber" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="RecipientName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="RecipientAddress" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="RecipientPhoneNumber" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="BusinessName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="BusinessAddress" Type="System.String" DbType="VarChar(400)" CanBeNull="true" />
+      <Column Name="BusinessPhoneNumber" Type="System.String" DbType="VarChar(400)" CanBeNull="true" />
+      <Column Name="RecipientName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="RecipientAddress" Type="System.String" DbType="VarChar(400)" CanBeNull="true" />
+      <Column Name="RecipientPhoneNumber" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="CreatedDateUtc" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="BookingStartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Association Name="AdBooking_AdBookingOrderSummary" Member="AdBooking" ThisKey="AdBookingId" OtherKey="AdBookingId" Type="AdBooking" IsForeignKey="true" />
     </Type>
   </Table>

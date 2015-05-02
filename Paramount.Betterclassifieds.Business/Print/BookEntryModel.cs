@@ -10,6 +10,6 @@ namespace Paramount.Betterclassifieds.Business.Print
         public int AdBookingId { get; set;}
         public int BaseRateId { get; set; }
         public string RateType { get; set; }
-        public decimal PublicationPrice { get; set; }   
+        public decimal PublicationPrice { get; set; } 
     }
 }

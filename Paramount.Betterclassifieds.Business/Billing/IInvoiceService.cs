@@ -20,6 +20,7 @@
         {
             var invoice = _invoiceRepository.GetInvoiceDataForBooking(bookingId);
 
+
             // Map the client (business) details
             invoice.BusinessAddress = _clientConfig.ClientAddress.ToString();
             invoice.BusinessName = _clientConfig.ClientName;

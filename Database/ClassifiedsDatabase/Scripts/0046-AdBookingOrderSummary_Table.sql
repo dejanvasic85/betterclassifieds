@@ -12,6 +12,7 @@
     [RecipientPhoneNumber]    VARCHAR (20)  NULL,
     [CreatedDate]             DATETIME      NULL,
     [CreatedDateUtc]          DATETIME      NULL,
+    [BookingStartDate]          DATETIME      NULL,
     CONSTRAINT [PK_AdBookingOrderSummary] PRIMARY KEY CLUSTERED ([AdBookingOrderSummaryId] ASC),
     CONSTRAINT [FK_AdBookingOrderSummary_AdBooking] FOREIGN KEY ([AdBookingId]) REFERENCES [dbo].[AdBooking] ([AdBookingId])
 );

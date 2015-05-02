@@ -14,6 +14,7 @@ namespace Paramount.Betterclassifieds.Business
         public int? PublicationId { get; set; }
         public DateTime CreatedDate { get; set; }
         public string Reference { get; set; }
+        public int Editions { get; set; }
         public string Name { get; set; }
         public DateTime CreatedDateUtc { get; set; }
         public List<InvoiceLineItem> InvoiceLineItems { get; set; }

@@ -32,11 +32,10 @@
                 <div class="col-sm-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h4>Inv Number : @Model.BookingReference</h4>
+                            <h4>From : @Model.BusinessName</h4>
                         </div>
                         <div class="panel-body">
                             <p>
-                                @Model.BusinessName <br />
                                 A: @Model.BusinessAddress <br>
                                 P: @Model.BusinessPhone <br>
                             </p>
@@ -49,43 +48,78 @@
                             <h4>To : @Model.RecipientName</h4>
                         </div>
                         <div class="panel-body">
-                            @Model.RecipientAddress <br />
-                            @Model.RecipientPhoneNumber <br />
-
-                            Status : Paid
+                            A: @Model.RecipientAddress <br />
+                            P: @Model.RecipientPhoneNumber <br />
                         </div>
                     </div>
                 </div>
             </div>
+            
             <div class="row">
                 <div class="col-xs-12">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Item Name</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        @foreach (var group in @Model.InvoiceGroups)
-                        {
-                            <tr>
-                                <td colspan="4">
-                                    <strong>@group.Name</strong>
-                                </td>
-                            </tr>
-                            foreach (var item in group.InvoiceLineItems)
-                            {
-                                <tr>
-                                    <td>@item.Name</td>
-                                    <td>@item.Price.ToString("C")</td>
-                                    <td>@item.Quantity</td>
-                                    <td>@item.ItemTotal.ToString("C")</td>
-                                </tr>
-                            }
-                        }
-                    </table>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Summary
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item">Booking Number : @Model.BookingReference</li>
+                            <li class="list-group-item">Booking Start Date : @Model.BookingStartDate.ToString("dd-MMM-yyyy")</li>
+                            <li class="list-group-item">Total : @Model.Total.ToString("C")</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-xs-12">
+                    
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Item Details
+                        </div>
+                        
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Item Name</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        @if (Model.IsLineAd)
+                                        {
+                                            <th>
+                                                Editions
+                                            </th>
+                                        }
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                @foreach (var group in @Model.InvoiceGroups)
+                                {
+                                    <tr>
+                                        <td colspan="5">
+                                            <strong>@group.Name</strong>
+                                        </td>
+                                    </tr>
+                                    foreach (var item in group.InvoiceLineItems)
+                                    {
+                                        <tr>
+                                            <td>@item.Name</td>
+                                            <td>@item.Price.ToString("C")</td>
+                                            <td>@item.Quantity</td>
+
+                                            @if (Model.IsLineAd)
+                                            {
+                                                <td>@item.Editions</td>
+                                            }
+                                            <td>@item.ItemTotal.ToString("C")</td>
+                                        </tr>
+                                    }
+                                }
+                            </table>
+                        
+                    </div>
+
+                    
                     <div class="pull-right">
                         <h2>Total (paid): @Model.Total.ToString("C")</h2>
                     </div><div class="clearfix"></div>

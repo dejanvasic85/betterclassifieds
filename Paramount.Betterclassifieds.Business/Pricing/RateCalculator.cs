@@ -1,9 +1,8 @@
-﻿using System.Linq;
-
-namespace Paramount.Betterclassifieds.Business
+﻿namespace Paramount.Betterclassifieds.Business
 {
     using Print;
     using Repository;
+    using System.Linq;
 
     public interface IRateCalculator
     {

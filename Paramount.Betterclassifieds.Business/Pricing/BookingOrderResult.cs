@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Paramount.Betterclassifieds.Business.Booking;
 
 namespace Paramount.Betterclassifieds.Business
 {
@@ -16,6 +15,7 @@ namespace Paramount.Betterclassifieds.Business
         {
             BookingReference = rateContext.BookingReference;
             PaymentReference = rateContext.PaymentReference;
+            BookingStartDate = rateContext.StartDate.GetValueOrDefault();
 
             BusinessName = clientConfig.ClientName;
             BusinessAddress = clientConfig.ClientAddress.ToString();
@@ -24,6 +24,8 @@ namespace Paramount.Betterclassifieds.Business
             CreatedDate = DateTime.Now;
             CreatedDateUtc = DateTime.UtcNow;
         }
+
+        public DateTime BookingStartDate { get; private set; }
 
         public void SetRecipientDetails(ApplicationUser recipient)
         {
@@ -79,7 +81,10 @@ namespace Paramount.Betterclassifieds.Business
             this.OnlineBookingAdRate.AddRange(onlineLineItems);
         }
 
-        public void AddPublicationWithRates(string publicationName, int publicationId, int? rateId, params PrintAdChargeItem[] printItems)
+        public void AddPublicationWithRates(string publicationName, 
+            int publicationId, 
+            int? rateId,
+            params PrintAdChargeItem[] printItems)
         {
             if (this.PrintRates == null)
                 this.PrintRates = new List<BookingAdRateResult>();

@@ -11,6 +11,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         }
 
         public string BookingReference { get; set; }
+        public DateTime BookingStartDate { get; set; }
         public string PaymentReference { get; set; }
         public string BusinessName { get; set; }
         public string BusinessAddress { get; set; }
@@ -22,6 +23,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public string RecipientName { get; set; }
         public string RecipientAddress { get; set; }
         public string RecipientPhoneNumber { get; set; }
+        public bool IsLineAd { get; set; }
     }
 
     public class InvoiceGroupView

@@ -9066,7 +9066,7 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RowTimeStamp", AutoSync=AutoSync.Always, DbType="rowversion", IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RowTimeStamp", AutoSync=AutoSync.Always, DbType="rowversion", CanBeNull=true, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary RowTimeStamp
 		{
 			get
@@ -12594,6 +12594,8 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 		
 		private System.Nullable<System.DateTime> _CreatedDateUtc;
 		
+		private System.Nullable<System.DateTime> _BookingStartDate;
+		
 		private EntityRef<AdBooking> _AdBooking;
 		
     #region Extensibility Method Definitions
@@ -12626,6 +12628,8 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
     partial void OnCreatedDateChanged();
     partial void OnCreatedDateUtcChanging(System.Nullable<System.DateTime> value);
     partial void OnCreatedDateUtcChanged();
+    partial void OnBookingStartDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnBookingStartDateChanged();
     #endregion
 		
 		public AdBookingOrderSummary()
@@ -12678,7 +12682,7 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BookingReference", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BookingReference", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
 		public string BookingReference
 		{
 			get
@@ -12698,7 +12702,7 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PaymentReference", DbType="VarChar(20)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PaymentReference", DbType="VarChar(50)")]
 		public string PaymentReference
 		{
 			get
@@ -12738,7 +12742,7 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BusinessName", DbType="VarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BusinessName", DbType="VarChar(100)")]
 		public string BusinessName
 		{
 			get
@@ -12758,7 +12762,7 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BusinessAddress", DbType="VarChar(100)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BusinessAddress", DbType="VarChar(400)")]
 		public string BusinessAddress
 		{
 			get
@@ -12778,7 +12782,7 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BusinessPhoneNumber", DbType="VarChar(100)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BusinessPhoneNumber", DbType="VarChar(400)")]
 		public string BusinessPhoneNumber
 		{
 			get
@@ -12798,7 +12802,7 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipientName", DbType="VarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipientName", DbType="VarChar(100)")]
 		public string RecipientName
 		{
 			get
@@ -12818,7 +12822,7 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipientAddress", DbType="VarChar(100)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipientAddress", DbType="VarChar(400)")]
 		public string RecipientAddress
 		{
 			get
@@ -12838,7 +12842,7 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipientPhoneNumber", DbType="VarChar(15)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipientPhoneNumber", DbType="VarChar(20)")]
 		public string RecipientPhoneNumber
 		{
 			get
@@ -12894,6 +12898,26 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 					this._CreatedDateUtc = value;
 					this.SendPropertyChanged("CreatedDateUtc");
 					this.OnCreatedDateUtcChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BookingStartDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> BookingStartDate
+		{
+			get
+			{
+				return this._BookingStartDate;
+			}
+			set
+			{
+				if ((this._BookingStartDate != value))
+				{
+					this.OnBookingStartDateChanging(value);
+					this.SendPropertyChanging();
+					this._BookingStartDate = value;
+					this.SendPropertyChanged("BookingStartDate");
+					this.OnBookingStartDateChanged();
 				}
 			}
 		}

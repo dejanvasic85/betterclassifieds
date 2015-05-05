@@ -13,56 +13,103 @@
 
     public class BookingRepository : IBookingRepository, IMappingBehaviour
     {
-        public AdBookingModel GetBooking(int id, bool withLineAd = false)
+        #region Fetch Bookings
+
+
+        public AdBookingModel GetBooking(int id, bool withOnlineAd = false,
+            bool withLineAd = false,
+            bool withPublications = false,
+            bool withEnquiries = false)
         {
-            return QueryBooking(bk => bk.AdBookingId == id).Single();
+            return QueryBooking(bk => bk.AdBookingId == id, withOnlineAd, withLineAd, withPublications, withEnquiries).Single();
         }
 
         public List<AdBookingModel> GetUserBookings(string username)
         {
             // Return all the ads that belong to the user 
             // But limit it for the last year...
-            return QueryBooking(bk => bk.UserId == username 
-                && bk.EndDate > DateTime.Today.AddYears(-1)
-                && bk.BookingStatus != (int)BookingStatusType.Cancelled);
+            Expression<Func<AdBooking, bool>> query = bk => bk.UserId == username
+                                          && bk.EndDate > DateTime.Today.AddYears(-1)
+                                          && bk.BookingStatus != (int)BookingStatusType.Cancelled;
+
+
+            return QueryBooking(query, withOnlineAd: true, withLineAd: true, withPublications: true, withEnquiries: true);
         }
 
-        private List<AdBookingModel> QueryBooking(Expression<Func<AdBooking, bool>> expression)
+        public List<AdBookingModel> GetBookingsForEdition(DateTime editionDate)
+        {
+            using (var context = DataContextFactory.CreateClassifiedContext())
+            {
+                var bookings = context.AdBookings.Join(
+                    context.BookEntries.Where(b => b.EditionDate == editionDate),
+                        booking => booking.AdBookingId,
+                        entry => entry.AdBookingId,
+                        (booking, entry) => booking).ToList();
+
+                var models = this.MapList<AdBooking, AdBookingModel>(bookings.ToList());
+
+                return models.Distinct(new AdBookingIdComparer()).ToList();
+            }
+        }
+
+        private List<AdBookingModel> QueryBooking(Expression<Func<AdBooking, bool>> expression,
+            bool withOnlineAd = false,
+            bool withLineAd = false,
+            bool withPublications = false,
+            bool withEnquiries = false)
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 var adBookingModels = new List<AdBookingModel>();
                 var dataModels = context.AdBookings.Where(expression);
 
-                foreach (var dataModel in dataModels)
+                foreach (var adBookingData in dataModels)
                 {
-                    var booking = this.Map<AdBooking, AdBookingModel>(dataModel);
+                    var booking = this.Map<AdBooking, AdBookingModel>(adBookingData);
 
                     // Line ad
-                    var lineAdDesign = dataModel.Ad.AdDesigns.FirstOrDefault(ds => ds.LineAds.Any());
-                    if (lineAdDesign != null)
+                    if (withLineAd)
                     {
-                        var lineAd = this.Map<LineAd, LineAdModel>(lineAdDesign.LineAds.Single());
-                        if (lineAdDesign.AdGraphics.Count > 0)
+                        var lineAdDesign = adBookingData.Ad.AdDesigns.FirstOrDefault(ds => ds.LineAds.Any());
+                        if (lineAdDesign != null)
                         {
-                            // Line ads can only have 1 graphic
-                            lineAd.AdImageId = lineAdDesign.AdGraphics.Single().DocumentID;
+                            var lineAd = this.Map<LineAd, LineAdModel>(lineAdDesign.LineAds.Single());
+                            if (lineAdDesign.AdGraphics.Count > 0)
+                            {
+                                // Line ads can only have 1 graphic
+                                lineAd.AdImageId = lineAdDesign.AdGraphics.Single().DocumentID;
+                            }
+                            booking.Ads.Add(lineAd);
                         }
-                        booking.Ads.Add(lineAd);
                     }
 
                     // Online ad
-                    var onlineAdDataModel = dataModel.Ad.AdDesigns.First(ds => ds.AdTypeId == AdTypeCode.OnlineCodeId).OnlineAds.Single();
-                    var onlineAd = this.Map<OnlineAd, OnlineAdModel>(onlineAdDataModel);
-                    if (onlineAdDataModel.AdDesign.AdGraphics.Any())
+                    if (withOnlineAd)
                     {
-                        onlineAd.Images.AddRange(onlineAdDataModel.AdDesign.AdGraphics.Select(gr => new AdImage(gr.DocumentID)));
+                        var onlineAdDataModel = adBookingData.Ad.AdDesigns.First(ds => ds.AdTypeId == AdTypeCode.OnlineCodeId).OnlineAds.Single();
+                        var onlineAd = this.Map<OnlineAd, OnlineAdModel>(onlineAdDataModel);
+                        if (onlineAdDataModel.AdDesign.AdGraphics.Any())
+                        {
+                            onlineAd.Images.AddRange(
+                                onlineAdDataModel.AdDesign.AdGraphics.Select(gr => new AdImage(gr.DocumentID)));
+                        }
+                        booking.Ads.Add(onlineAd);
+
+                        // Ad Enquiry
+                        if (withEnquiries)
+                        {
+                            booking.Enquiries = onlineAdDataModel.OnlineAdEnquiries.Select(this.Map<OnlineAdEnquiry, Enquiry>).ToList();
+                        }
                     }
-                    booking.Ads.Add(onlineAd);
 
-
-                    // Ad Enquiry
-                    booking.Enquiries = onlineAdDataModel.OnlineAdEnquiries.Select(this.Map<OnlineAdEnquiry, Enquiry>).ToList();
+                    if (withPublications)
+                    {
+                        booking.Publications = context.BookEntries
+                            .Where(en => en.AdBookingId == adBookingData.AdBookingId)
+                            .Select(en => en.PublicationId.GetValueOrDefault())
+                            .Distinct()
+                            .ToArray();
+                    }
 
                     adBookingModels.Add(booking);
                 }
@@ -70,6 +117,8 @@
                 return adBookingModels;
             }
         }
+
+        #endregion
 
         public List<BookEntryModel> GetBookEntriesForBooking(int adBookingId)
         {
@@ -235,22 +284,6 @@
             }
         }
 
-        public List<AdBookingModel> GetBookingsForEdition(DateTime editionDate)
-        {
-            using (var context = DataContextFactory.CreateClassifiedContext())
-            {
-                var bookings = context.AdBookings.Join(
-                    context.BookEntries.Where(b => b.EditionDate == editionDate),
-                        booking => booking.AdBookingId,
-                        entry => entry.AdBookingId,
-                        (booking, entry) => booking).ToList();
-
-                var models = this.MapList<AdBooking, AdBookingModel>(bookings.ToList());
-
-                return models.Distinct(new AdBookingIdComparer()).ToList();
-            }
-        }
-
         public void DeleteBookEntriesForBooking(int adBookingId, DateTime editionDate)
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
@@ -312,7 +345,7 @@
                     bookReference: bookingCart.BookingReference,
                     userId: bookingCart.UserId,
                     mainCategoryId: bookingCart.SubCategoryId,
-                    insertions: 1,
+                    insertions: bookingCart.PrintInsertions,
                     adBookingId: ref adBookingId,
                     onlineAdHeading: bookingCart.OnlineAdModel.Heading,
                     onlineAdDescription: bookingCart.OnlineAdModel.Description,
@@ -474,7 +507,13 @@
         {
             // From data
             configuration.CreateProfile("BookingMapProfile");
-            configuration.CreateMap<AdBooking, AdBookingModel>().ForMember(member => member.BookingType, options => options.ResolveUsing<BookingTypeResolver>());
+
+            configuration.CreateMap<AdBooking, AdBookingModel>()
+                .ForMember(member => member.BookingType, options => options.ResolveUsing<BookingTypeResolver>())
+                .ForMember(m => m.SubCategoryId, options => options.MapFrom(src => src.MainCategoryId))
+                .ForMember(m => m.CategoryId, options => options.MapFrom(src => src.MainCategory.ParentId))
+                ;
+
             configuration.CreateMap<Classifieds.BookEntry, BookEntryModel>();
             configuration.CreateMap<AdBookingExtension, AdBookingExtensionModel>();
             configuration.CreateMap<LineAd, LineAdModel>();
@@ -483,6 +522,8 @@
             configuration.CreateMap<AdGraphic, AdImage>().ForMember(member => member.DocumentId, options => options.MapFrom(source => source.DocumentID));
             configuration.CreateMap<Publication, PublicationModel>();
             configuration.CreateMap<OnlineAdEnquiry, Enquiry>().ForMember(m => m.EnquiryId, options => options.MapFrom(src => src.OnlineAdEnquiryId));
+
+
 
             // To data
             configuration.CreateMap<AdBookingExtensionModel, AdBookingExtension>().ForMember(member => member.AdBookingExtensionId, options => options.Condition(con => con.AdBookingExtensionId > 0));
@@ -510,4 +551,5 @@
             }
         }
     }
+
 }

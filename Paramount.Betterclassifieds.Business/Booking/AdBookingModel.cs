@@ -18,6 +18,12 @@ namespace Paramount.Betterclassifieds.Business.Booking
 
         public DateTime EndDate { get; set; }
 
+        public int? SubCategoryId { get; set; }
+
+        public int? CategoryId { get; set; }
+
+        public int Insertions { get; set; }
+
         [Obsolete]
         public BookingType BookingType { get; set; }
 
@@ -67,5 +73,6 @@ namespace Paramount.Betterclassifieds.Business.Booking
         public bool HasLineAd { get { return this.LineAd != null; } }
 
         public List<Enquiry> Enquiries { get; set; }
+        public int[] Publications { get; set; }
     }
 }

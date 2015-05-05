@@ -12,6 +12,7 @@
         public int MessageCount { get { return this.Messages.Length; } }
         public string Status { get; set; }
         public AdEnquiryViewModel[] Messages { get; set; }
+        public decimal TotalPrice { get; set; }
     }
 
 }

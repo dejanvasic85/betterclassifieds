@@ -28,6 +28,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var userAds = _bookingManager.GetBookingsForUser(User.Identity.Name);
 
+            // Todo - use automapper here instead of manually mapping
             var viewModels = userAds.Select(ad => new UserBookingViewModel
             {
                 AdId = ad.AdBookingId,
@@ -36,6 +37,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 Description = ad.OnlineAd.Description.TruncateOnWordBoundary(200),
                 Starts = ad.StartDate.ToString("dd-MMM-yyyy"),
                 Ends = ad.EndDate.ToString("dd-MMM-yyyy"),
+                TotalPrice = ad.TotalPrice,
                 Messages = ad.Enquiries.Select(enq => new AdEnquiryViewModel
                 {
                     FullName = enq.FullName,

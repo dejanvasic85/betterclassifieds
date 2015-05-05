@@ -58,6 +58,20 @@
             _editionManager = editionManager;
         }
 
+        [HttpPost, AuthorizeBookingIdentity]
+        public ActionResult StartFromTemplate(int id)
+        {
+            var existingBooking = _bookingManager.GetBooking(id);
+
+            var cart = _bookingContext.NewFromTemplate(existingBooking);
+
+            return Json(new
+            {
+                IsCreated = true,
+                StartUrl = Url.Action("Step1")
+            });
+        }
+
         #region Steps
 
         //
@@ -281,6 +295,8 @@
                     Selected = true,
                 }).ToArray()
             };
+
+            _bookingContext.Clear();
 
             return View(successView);
         }

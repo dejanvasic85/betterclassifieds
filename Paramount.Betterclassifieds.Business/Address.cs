@@ -1,4 +1,6 @@
 ﻿
+using System.Text;
+
 namespace Paramount.Betterclassifieds.Business
 {
     public class Address
@@ -27,7 +29,20 @@ namespace Paramount.Betterclassifieds.Business
 
         public override string ToString()
         {
-            return string.Format("{0}, {1}, {2}, {3}", AddressLine1, AddressLine2, Suburb, Postcode);
+            var sb = new StringBuilder(AddressLine1);
+            if (AddressLine2.HasValue())
+            {
+                sb.AppendFormat(", {0}", AddressLine2);
+            }
+
+            if (Suburb.HasValue())
+            {
+                sb.AppendFormat(", {0}", Suburb);
+            }
+
+            sb.AppendFormat(", {0}, {1}", State, Postcode);
+
+            return sb.ToString();
         }
     }
 }

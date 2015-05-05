@@ -204,6 +204,7 @@
     <Compile Include="Framework\Extensions\HttpResponseExtensions.cs" />
     <Compile Include="Framework\CustomViewResults\ImageResult.cs" />
     <Compile Include="Framework\UrlHelpers\ModuleUrlHelper.cs" />
+    <Compile Include="Framework\UrlHelpers\RedirectResultFactory.cs" />
     <Compile Include="Framework\UrlHelpers\UrlPaths.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

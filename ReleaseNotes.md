@@ -10,11 +10,15 @@ Here's a list of the latest changes for the current release:
 
 - [All new good looking invoices](https://trello.com/c/gDZZOUyO/291-nextgen-invoices)
 
+- [Users have ability to book new ad with details from an existing ad](https://trello.com/c/indHuqZh/297-use-existing-ad-as-template-and-reschedule)
+
 **Bug Fixes**   
 
 **Change Requests**
 
 **Technical Changes**
+
+- [Decommission the iFlog website](https://trello.com/c/MTPNkKbQ/298-decommission-the-iflog-website-and-have-the-new-mvc-website-hosted-independent-of-modules)
 
 **Other useful resources:**
 

@@ -87,6 +87,9 @@
                 <a href="@Url.Action("Details", "EditAd", new { Id = Model.AdId })" class="list-group-item">
                     <i class="glyphicon glyphicon-pencil"></i> Edit Ad Details
                 </a>
+                <a href="@Url.Action("Booking", "Invoice", new { Id = Model.AdId })" target="_blank" class="list-group-item">
+                    <i class="fa fa-file"></i> View Invoice
+                </a>
                 <a href="@Url.Action("Index", "Home")" class="list-group-item">
                     <i class="glyphicon glyphicon-home"></i> Home
                 </a>

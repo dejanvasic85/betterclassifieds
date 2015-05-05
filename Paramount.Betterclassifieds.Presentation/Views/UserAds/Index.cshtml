@@ -90,7 +90,7 @@
                     </div>
                 </div>
 
-                @*Footer*@
+                @*Footer - Command Panel*@
                 <div class="panel-footer">
                     Visits : <span data-bind="text: visits"></span>
                     <div class="pull-right">
@@ -98,8 +98,10 @@
                         <button data-bind="visible: messageCount() > 0" class="btn btn-primary view-messages">
                             <span class="hidden-xs">Enquiries</span> <i class="fa fa-envelope"></i> ( <span data-bind="text: messageCount"></span> )
                         </button>
-
-                        <a class="btn btn-default" data-bind="attr : {href : $paramount.url.adManagement.bookingInvoiceUrl($data.adId())}" target="_blank">
+                        <button class="btn btn-default book-again" data-bind="click: bookAgain()">
+                            <span class="hidden-xs">Use as Template</span> <i class="fa fa-recycle"></i>
+                        </button>
+                        <a class="btn btn-default" data-bind="visible : $data.totalPrice() > 0 ,  attr : {href : $paramount.url.adManagement.bookingInvoiceUrl($data.adId())}" target="_blank">
                             <span class="hidden-xs">Invoice</span> <i class="fa fa-file"></i>
                         </a>
                         <div style="display:inline-block" data-bind="visible : $data.status() !== 'Expired'">
@@ -170,7 +172,25 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary confirm-cancel">Confirm</button>
+                <button type="button" class="btn btn-primary confirm-cancel js-load">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="bookAgainDialog" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Booking the same Ad</h4>
+            </div>
+            <div class="modal-body">
+                You will be taken through the booking steps with all forms prefilled 
+                with the selected ad details. Click Ok to get started.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary confirm-book-again js-load">Ok</button>
             </div>
         </div>
     </div>
@@ -182,36 +202,48 @@
 
     <script>
 
-        (function ($m, $, ko) {
+        (function($m, $, ko) {
 
-            $.getJSON('@Url.Action("GetAdsForUser", "UserAds")', null, function (data) {
-                $('.progress').hide(500, function () {
+            $.getJSON('@Url.Action("GetAdsForUser", "UserAds")', null, function(data) {
+                $('.progress').hide(500, function() {
                     var bookingsView = new $m.UserAdsView(data);
                     ko.applyBindings(bookingsView);
                     $('#adList').show();
                 });
             });
 
-            $('#adList').on('click', '.view-messages', function () {
+            $('#adList').on('click', '.view-messages', function() {
                 var context = ko.contextFor(this);
                 context.$parent.userEnquiries(context.$data.messages());
                 $('#userEnquiriesDialog').modal('show');
             });
 
-            $('#adList').on('click', '.cancel-ad', function () {
+            $('#adList').on('click', '.cancel-ad', function() {
                 var context = ko.contextFor(this);
-                context.$parent.setAdForCancel(context.$data.adId());
+                context.$parent.setSelectedAd(context.$data.adId());
                 $('#cancelAdDialog').modal('show');
             });
 
-            $('#cancelAdDialog').on('click', '.confirm-cancel', function () {
+            $('#adList').on('click', '.book-again', function() {
+                var context = ko.contextFor(this);
+                context.$parent.setSelectedAd(context.$data.adId());
+                $('#bookAgainDialog').modal('show');
+            });
+
+            $('#cancelAdDialog').on('click', '.confirm-cancel', function() {
                 var context = ko.contextFor(this);
                 var $btn = $(this);
-                $btn.button('loading');
-                $.post('@Url.Action("Cancel", "UserAds")', { adId: context.$data.selectedAdToCancel() }, function () {
+                $.post('@Url.Action("Cancel", "UserAds")', { adId: context.$data.selectedAd() }, function() {
                     $btn.button('reset');
                     $('#cancelAdDialog').modal('hide');
                     context.$data.confirmCancel();
+                });
+            });
+
+            $('#bookAgainDialog').on('click', '.confirm-book-again', function() {
+                var context = ko.contextFor(this);
+                $.post('@Url.Action("StartFromTemplate", "Booking")', { id: context.$data.selectedAd() }, function(response) {
+                    window.location = response.StartUrl;
                 });
             });
 

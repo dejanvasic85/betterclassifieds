@@ -7,7 +7,11 @@ namespace Paramount.Betterclassifieds.Business.Booking
     public interface IBookingRepository
     {
         // Fetch
-        AdBookingModel GetBooking(int id, bool withLineAd = false);
+        AdBookingModel GetBooking(int id, bool withOnlineAd = false,
+            bool withLineAd = false,
+            bool withPublications = false,
+            bool withEnquiries = false);
+
         List<AdBookingModel> GetUserBookings(string username);
         List<BookEntryModel> GetBookEntriesForBooking(int adBookingId);
         [Obsolete("Please use GetUserBookings instead")]

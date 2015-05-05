@@ -24,6 +24,24 @@ namespace Paramount.Betterclassifieds.Business.Booking
             LineAdModel = new LineAdModel();
         }
 
+        public static BookingCart FromBooking(string sessionId, string userId, AdBookingModel bookingModel, IClientConfig clientConfig)
+        {
+            // Create the new booking for user and session
+            // Map the online/linead and category details
+            var cart = new BookingCart(sessionId, userId)
+            {
+                OnlineAdModel = bookingModel.OnlineAd,
+                LineAdModel = bookingModel.LineAd,
+                CategoryId = bookingModel.CategoryId,
+                SubCategoryId = bookingModel.SubCategoryId,
+                Publications = bookingModel.Publications
+            };
+
+            // Set the schedule
+            cart.SetSchedule(clientConfig, DateTime.Today, firstEditionDate: DateTime.Today, numberOfInsertions: bookingModel.Insertions);
+            return cart;
+        }
+
         public string SessionId { get; private set; }
 
         public string Id { get; private set; }
@@ -69,7 +87,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         }
 
         public string BookingReference { get; set; }
-        
+
         public bool NoPaymentRequired()
         {
             return TotalPrice == 0;

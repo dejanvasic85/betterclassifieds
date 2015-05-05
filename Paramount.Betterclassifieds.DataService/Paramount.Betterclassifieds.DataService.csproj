@@ -95,7 +95,6 @@
     <Compile Include="Broadcast\MappingConfig\EmailDeliveryConfiguration.cs" />
     <Compile Include="Broadcast\MappingConfig\EmailTemplateConfiguration.cs" />
     <Compile Include="ClassifiedsEntityContext.cs" />
-    <Compile Include="Comparers\PublicationDataIdComparer.cs" />
     <Compile Include="DataServiceInitialiser.cs" />
     <Compile Include="DocumentDataConfig.cs" />
     <Compile Include="DocumentStorage\DocumentContext.cs" />

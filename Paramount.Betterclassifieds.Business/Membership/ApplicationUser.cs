@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Business
+﻿using System.Text;
+
+namespace Paramount.Betterclassifieds.Business
 {
     public class ApplicationUser
     {
@@ -21,7 +23,17 @@
 
         public string FullAddress
         {
-            get { return string.Format("{0}, {1}, {2}, {3}", AddressLine1, AddressLine2, State, Postcode); }
+            get
+            {
+                var sb = new StringBuilder(AddressLine1);
+                if (AddressLine2.HasValue())
+                {
+                    sb.AppendFormat(", {0}", AddressLine2);
+                }
+                sb.AppendFormat(", {0}, {1}", State, Postcode);
+
+                return sb.ToString();
+            }
         }
 
         public virtual bool AuthenticateUser(IAuthManager authManager, string password, bool persistAuthCookie = true)

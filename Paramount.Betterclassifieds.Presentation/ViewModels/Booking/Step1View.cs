@@ -26,7 +26,12 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
             foreach (var selectedPublication in publications)
             {
-               Publications.First(p => p.PublicationId == selectedPublication).IsSelected = true;
+                var publicationToSelect = Publications.SingleOrDefault(p => p.PublicationId == selectedPublication);
+
+                if (publicationToSelect != null)
+                {
+                    publicationToSelect.IsSelected = true;
+                }
             }
         }
     }

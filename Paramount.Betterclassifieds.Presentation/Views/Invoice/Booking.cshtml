@@ -16,7 +16,17 @@
 
         @if (Model == null)
         {
-            <div class="alert alert-danger">We are not able to generate an invoice for the selected booking. Please contact our friendly staff for more information.</div>
+            <div class="alert alert-danger">
+                <p>Good news: We have new and great looking invoices</p>
+                <p>
+                    Bad News : You have selected an older booking and we are unable to
+                    generate this new invoice for you.
+                </p>
+                <p>
+                    Please <a href="@Url.Action("ContactUs", "Home")">contact our friendly staff</a>
+                    if you need to organise a new copy. Thank you.
+                </p>
+            </div>
         }
         else
         {
@@ -54,7 +64,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="col-xs-12">
                     <div class="panel panel-default">
@@ -69,57 +79,57 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="col-xs-12">
-                    
+
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Item Details
                         </div>
-                        
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Item Name</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        @if (Model.IsLineAd)
-                                        {
-                                            <th>
-                                                Editions
-                                            </th>
-                                        }
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
-                                @foreach (var group in @Model.InvoiceGroups)
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Item Name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    @if (Model.IsLineAd)
+                                    {
+                                        <th>
+                                            Editions
+                                        </th>
+                                    }
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            @foreach (var group in @Model.InvoiceGroups)
+                            {
+                                <tr>
+                                    <td colspan="5">
+                                        <strong>@group.Name</strong>
+                                    </td>
+                                </tr>
+                                foreach (var item in group.InvoiceLineItems)
                                 {
                                     <tr>
-                                        <td colspan="5">
-                                            <strong>@group.Name</strong>
-                                        </td>
-                                    </tr>
-                                    foreach (var item in group.InvoiceLineItems)
-                                    {
-                                        <tr>
-                                            <td>@item.Name</td>
-                                            <td>@item.Price.ToString("C")</td>
-                                            <td>@item.Quantity</td>
+                                        <td>@item.Name</td>
+                                        <td>@item.Price.ToString("C")</td>
+                                        <td>@item.Quantity</td>
 
-                                            @if (Model.IsLineAd)
-                                            {
-                                                <td>@item.Editions</td>
-                                            }
-                                            <td>@item.ItemTotal.ToString("C")</td>
-                                        </tr>
-                                    }
+                                        @if (Model.IsLineAd)
+                                        {
+                                            <td>@item.Editions</td>
+                                        }
+                                        <td>@item.ItemTotal.ToString("C")</td>
+                                    </tr>
                                 }
-                            </table>
-                        
+                            }
+                        </table>
+
                     </div>
 
-                    
+
                     <div class="pull-right">
                         <h2>Total (paid): @Model.Total.ToString("C")</h2>
                     </div><div class="clearfix"></div>
@@ -137,4 +147,5 @@
 
     </div>
 </body>
+
 </html>

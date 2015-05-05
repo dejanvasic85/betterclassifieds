@@ -17,7 +17,9 @@ namespace Paramount.Betterclassifieds.Presentation
         {
             if (!BookingContext.IsAvailable())
             {
-                throw new BookingAuthorisationException("Booking cart is not available");
+                // Redirect to the first step of the booking process
+                filterContext.Result = RedirectResultFactory.Create("Step1", "Booking");
+                return;
             }
 
             var loggedInUser = filterContext.HttpContext.User.Identity.Name;

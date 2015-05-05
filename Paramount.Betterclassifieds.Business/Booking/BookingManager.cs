@@ -87,7 +87,7 @@
 
         public AdBookingModel GetBooking(int id)
         {
-            return _bookingRepository.GetBooking(id, true);
+            return _bookingRepository.GetBooking(id, withOnlineAd:true, withLineAd:true, withPublications: true, withEnquiries:true);
         }
 
         public IEnumerable<AdBookingModel> GetBookingsForUser(string username)

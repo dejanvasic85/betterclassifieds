@@ -19,7 +19,8 @@
         public Invoice GenerateBookingInvoice(int bookingId)
         {
             var invoice = _invoiceRepository.GetInvoiceDataForBooking(bookingId);
-
+            if (invoice == null)
+                return null;
 
             // Map the client (business) details
             invoice.BusinessAddress = _clientConfig.ClientAddress.ToString();

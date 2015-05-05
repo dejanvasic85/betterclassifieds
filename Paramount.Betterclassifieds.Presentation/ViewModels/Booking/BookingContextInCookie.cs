@@ -1,4 +1,5 @@
-﻿using Paramount.Betterclassifieds.Business.Booking;
+﻿using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Booking;
 using System;
 using System.Web;
 
@@ -10,10 +11,12 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
     public class BookingContextInCookie : IBookingContext
     {
         private readonly IBookCartRepository _repository;
+        private readonly IClientConfig _clientConfig;
 
-        public BookingContextInCookie(IBookCartRepository repository)
+        public BookingContextInCookie(IBookCartRepository repository, IClientConfig clientConfig)
         {
             _repository = repository;
+            _clientConfig = clientConfig;
         }
 
         public BookingCart Current()
@@ -30,9 +33,30 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             return booking;
         }
 
+        /// <summary>
+        /// Creates a new booking cart based on an existing ad
+        /// </summary>
+        public BookingCart NewFromTemplate(AdBookingModel adBookingTemplate)
+        {
+            var booking = BookingCart.FromBooking(HttpContext.Current.Session.SessionID,
+                HttpContext.Current.User.Identity.Name,
+                adBookingTemplate,
+                _clientConfig);
+
+            this.Id = booking.Id;
+            _repository.Save(booking);
+
+            return booking;
+        }
+
         public bool IsAvailable()
         {
             return Id.HasValue();
+        }
+
+        public void Clear()
+        {
+            this.Id = null;
         }
 
         private string Id

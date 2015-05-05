@@ -1,10 +1,10 @@
 ﻿@using Paramount
 
 @*Third party*@
-@Scripts.Render("~/jquery-modules")
-@Scripts.Render("~/bs")
-@Scripts.Render("~/ko")
-@Scripts.Render("~/components")
+@Scripts.Render("~/bundle/jquery-modules")
+@Scripts.Render("~/bundle/bootstrap")
+@Scripts.Render("~/bundle/ko")
+@Scripts.Render("~/bundle/components")
 <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")"></script>
     
 @*Outgoing Urls based on the MVC routes*@
@@ -64,5 +64,5 @@
 </script>
 
 @*Paramount scripts*@
-@Scripts.Render("~/bundle/ps")
+@Scripts.Render("~/bundle/paramount-gl")
 

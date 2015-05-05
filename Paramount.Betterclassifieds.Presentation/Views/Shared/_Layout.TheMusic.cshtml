@@ -15,7 +15,8 @@
     <link rel="shortcut icon" href="@Url.Content("~/Content/TheMusic/img/themusic_favicon.ico")" type="image/x-icon" />
     <link rel="icon" href="@Url.Content("~/Content/TheMusic/img/themusic_favicon.ico")" type="image/ico" />
 
-    @Html.Partial("_ApplicationStyles")
+    @*Base styles - see bundling configuration*@
+    @Styles.Render("~/Content/css-base")
 
     @*TheMusic styles*@
     <link rel="stylesheet" href="@Url.Content("~/Content/TheMusic/themusic.min.css")" />
@@ -54,7 +55,7 @@
 <body>
    
     @*JQuery should go before anything so let's place it at the top of body - a little better than head*@
-    @Scripts.Render("~/jquery")
+    @Scripts.Render("~/bundle/jquery")
 
     <div class="container">
 

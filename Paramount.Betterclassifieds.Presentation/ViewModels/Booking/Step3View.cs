@@ -15,7 +15,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public decimal TotalPrice { get; set; }
-        public string Reference { get; set; }
+        public string BookingReference { get; set; }
         public bool IsPaymentRequired
         {
             get { return this.TotalPrice > 0; }

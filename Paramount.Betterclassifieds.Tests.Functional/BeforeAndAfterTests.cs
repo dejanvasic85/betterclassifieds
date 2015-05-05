@@ -9,6 +9,7 @@ using Paramount.Betterclassifieds.Tests.Functional.Mocks;
 using System;
 using System.Drawing.Imaging;
 using System.IO;
+using Paramount.Betterclassifieds.Tests.Functional.Steps;
 using TechTalk.SpecFlow;
 
 namespace Paramount.Betterclassifieds.Tests.Functional

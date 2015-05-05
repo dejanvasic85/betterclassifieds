@@ -2,7 +2,7 @@ using Paramount.Betterclassifieds.Tests.Functional.Mocks;
 
 namespace Paramount.Betterclassifieds.Tests.Functional
 {
-    public class DataRepositoryFactory
+    internal class DataRepositoryFactory
     {
         public static ITestDataRepository Create(IConfig config)
         {

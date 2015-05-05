@@ -96,6 +96,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AccountDetails.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\ChangePassword.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangePassword.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\ContactUs.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -131,6 +136,7 @@
     <Compile Include="Pages\Booking\BookingCompletePage.cs" />
     <Compile Include="Pages\Booking\BookingBasePage.cs" />
     <Compile Include="Pages\Booking\BookingStep1Page.cs" />
+    <Compile Include="Pages\ChangePasswordTestPage.cs" />
     <Compile Include="Pages\ContactUsPage.cs" />
     <Compile Include="Pages\LoginPage.cs" />
     <Compile Include="Pages\Booking\BookingStep2Page.cs" />
@@ -149,6 +155,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\AccountDetailSteps.cs" />
     <Compile Include="Steps\BookingSteps.cs" />
+    <Compile Include="Steps\ChangePasswordSteps.cs" />
     <Compile Include="Steps\ContactUsSteps.cs" />
     <Compile Include="Steps\LoginSteps.cs" />
     <Compile Include="Steps\NotFoundSteps.cs" />
@@ -166,6 +173,10 @@
     <None Include="Features\AccountDetails.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AccountDetails.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\ChangePassword.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ChangePassword.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\ContactUs.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

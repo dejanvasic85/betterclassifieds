@@ -19,21 +19,21 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("AccountDetails")]
-    public partial class AccountDetailsFeature
+    [NUnit.Framework.DescriptionAttribute("ChangePassword")]
+    public partial class ChangePasswordFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "AccountDetails.feature"
+#line 1 "ChangePassword.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "AccountDetails", "In order to keep my details up to date\nAs an advertiser\nI want to be able to logi" +
-                    "n and update my personal details", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ChangePassword", "In order to maintain password security\nAs a registered user\nI want the ability to" +
+                    " change my password", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -66,25 +66,29 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Update details successfully")]
-        [NUnit.Framework.CategoryAttribute("accountDetails")]
-        public virtual void UpdateDetailsSuccessfully()
+        [NUnit.Framework.DescriptionAttribute("Change password successfully")]
+        [NUnit.Framework.CategoryAttribute("changePassword")]
+        public virtual void ChangePasswordSuccessfully()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update details successfully", new string[] {
-                        "accountDetails"});
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Change password successfully", new string[] {
+                        "changePassword"});
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.Given("I am a registered user with username \"accountTesting\" and password \"accountTestin" +
-                    "g123\" and email \"account@testing.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("The user with username \"usr_change_password\" does not exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
- testRunner.And("I am logged in as \"accountTesting\" with password \"accountTesting123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I am a registered user with username \"usr_change_password\" and password \"usr_chan" +
+                    "ge_password\" and email \"usr_change@email.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 10
- testRunner.When("I go to MyAccountDetails page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("I am logged in as the newly added user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 11
- testRunner.And("Update my address \"1 AutomatedTesting Street\", PhoneNumber \"0399991111\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("I navigate to relative url \"Account/ChangePassword\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 12
- testRunner.Then("I should see details updated message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("Set the old password \"usr_change_password\" and new password \"usr_password_new\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 13
+ testRunner.And("Wait until success message is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 14
+ testRunner.Then("the success message contain \"Password changed successfully.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

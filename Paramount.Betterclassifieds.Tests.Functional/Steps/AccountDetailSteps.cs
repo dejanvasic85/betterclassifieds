@@ -1,23 +1,19 @@
-﻿using NUnit.Framework;
-
-namespace Paramount.Betterclassifieds.Tests.Functional.Steps
+﻿namespace Paramount.Betterclassifieds.Tests.Functional.Steps
 {
-    using TechTalk.SpecFlow;
+    using NUnit.Framework;
     using Pages;
+    using TechTalk.SpecFlow;
 
     [Binding]
     public class AccountDetailSteps
     {
         private readonly PageBrowser _pageBrowser;
-        private readonly ITestDataRepository _dataRepository;
 
-        public AccountDetailSteps(PageBrowser pageBrowser, ITestDataRepository dataRepository)
+        public AccountDetailSteps(PageBrowser pageBrowser)
         {
             _pageBrowser = pageBrowser;
-            _dataRepository = dataRepository;
         }
-
-
+        
         [When(@"I go to MyAccountDetails page")]
         public void WhenIGoToMyAccountDetailsPage()
         {

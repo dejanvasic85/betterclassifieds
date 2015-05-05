@@ -1,19 +1,18 @@
-﻿using System.Drawing;
-using BoDi;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.IE;
-using Paramount.Betterclassifieds.Tests.Functional.Mocks;
-using System;
-using System.Drawing.Imaging;
-using System.IO;
-using Paramount.Betterclassifieds.Tests.Functional.Steps;
-using TechTalk.SpecFlow;
-
-namespace Paramount.Betterclassifieds.Tests.Functional
+﻿namespace Paramount.Betterclassifieds.Tests.Functional
 {
+    using BoDi;
+    using Mocks;
+    using NUnit.Framework;
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Chrome;
+    using OpenQA.Selenium.Firefox;
+    using OpenQA.Selenium.IE;
+    using System;
+    using System.Drawing;
+    using System.Drawing.Imaging;
+    using System.IO;
+    using TechTalk.SpecFlow;
+
     [Binding]
     public class BeforeAndAfterTests
     {

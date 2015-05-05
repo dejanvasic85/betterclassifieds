@@ -1,12 +1,12 @@
-﻿using System;
-using System.Linq;
-using NUnit.Framework;
-using Paramount.Betterclassifieds.Tests.Functional.Mocks;
-using Paramount.Betterclassifieds.Tests.Functional.Pages;
-using TechTalk.SpecFlow;
-
-namespace Paramount.Betterclassifieds.Tests.Functional.Steps
+﻿namespace Paramount.Betterclassifieds.Tests.Functional.Steps
 {
+    using Mocks;
+    using NUnit.Framework;
+    using Pages;
+    using System;
+    using System.Linq;
+    using TechTalk.SpecFlow;
+
     [Binding]
     public class RegistrationSteps
     {
@@ -25,8 +25,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         public void GivenIAmARegisteredUserWithUsernameAndPassword(string username, string password, string email)
         {
             _dataRepository.AddUserIfNotExists(username, password, email, RoleType.Advertiser);
-        }
 
+            _registrationContext.Username = username;
+            _registrationContext.Password = password;
+            _registrationContext.Email = email;
+        }
+        
         [Given(@"The user with username ""(.*)"" does not exist")]
         public void GivenTheUserWithUsernameDoesNotExist(string username)
         {
@@ -105,5 +109,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
     public class RegistrationContext
     {
         public DateTime StartRegistrationTime { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
     }
 }

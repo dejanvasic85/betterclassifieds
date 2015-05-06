@@ -1,4 +1,5 @@
 using System.Net.Mail;
+using System.Threading.Tasks;
 
 namespace Paramount.Betterclassifieds.Business.Broadcast
 {
@@ -21,7 +22,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             mailMessage.From = new MailAddress(from);
 
             var client = new SmtpClient();
-            client.SendAsync(mailMessage, null);
+            client.Send(mailMessage);
         }
     }
 }

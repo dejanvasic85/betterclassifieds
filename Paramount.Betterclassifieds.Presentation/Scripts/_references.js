@@ -17,7 +17,6 @@
 /// <reference path="account/userads.js" />
 /// <reference path="cropper.js" />
 /// <reference path="booking/categoryselection.js" />
-/// <reference path="paramount/paramount-validate-tooltip.js" />
 /// <reference path="paramount/paramount-validate-default.js" />
 /// <reference path="paramount/paramount-ui.js" />
 /// <reference path="paramount/paramount-site.js" />

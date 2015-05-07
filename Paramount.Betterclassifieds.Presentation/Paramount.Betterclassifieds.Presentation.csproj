@@ -566,7 +566,6 @@
     <Content Include="Scripts\paramount\paramount-site.js" />
     <Content Include="Scripts\paramount\paramount-ui.js" />
     <Content Include="Scripts\paramount\paramount-validate-default.js" />
-    <Content Include="Scripts\paramount\paramount-validate-tooltip.js" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\fontawesome-webfont.ttf" />

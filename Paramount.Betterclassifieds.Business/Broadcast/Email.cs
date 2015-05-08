@@ -97,13 +97,18 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             }
             catch (Exception ex)
             {
-                LogException(ex);
+                LogException(ex.InnerMostException().Message, ex.StackTrace);
             }
         }
 
-        public bool HasCompleted(int maxAttempts)
+        public bool ReachedMaxAttempts
         {
-            return this.SentDate.HasValue || this.Attempts >= maxAttempts;
+            get { return  Attempts >= 3; }
+        }
+
+        public bool IsComplete
+        {
+            get { return SentDate.HasValue || ReachedMaxAttempts; }
         }
     }
 }

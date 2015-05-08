@@ -8,8 +8,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         private readonly IBroadcastRepository _broadcastRepository;
         private readonly ISmtpMailer _mailer;
         private readonly IApplicationConfig _config;
-        private readonly int _maxAttempts;
-
+        
         public EmailProcessor(IBroadcastRepository broadcastRepository, IApplicationConfig config)
             : this(broadcastRepository, config, new DefaultMailer())
         {
@@ -21,9 +20,6 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             _broadcastRepository = broadcastRepository;
             _mailer = mailer;
             _config = config;
-
-            // Todo - read max attempts from a config provider
-            _maxAttempts = 3;
         }
 
         /// <summary>
@@ -45,12 +41,12 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             bool areAllComplete = true;
             
             // Fetch the email(s) per broadcast and process all of them (one by one)
-            var emailsToRetry = _broadcastRepository.GetUnsentEmails(broadcastId, _maxAttempts);
+            var emailsToRetry = _broadcastRepository.GetEmailsForNotification(broadcastId);
 
             foreach (var email in emailsToRetry)
             {
                 // Ensure that we don't really need to retry
-                if (email.HasCompleted(_maxAttempts))
+                if (email.ReachedMaxAttempts)
                     continue;
 
                 // Try again
@@ -72,7 +68,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
 
             _broadcastRepository.CreateOrUpdateEmail(email);
 
-            return email.HasCompleted(_maxAttempts);
+            return email.IsComplete;
         }
     }
 }

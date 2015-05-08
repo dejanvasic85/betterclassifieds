@@ -130,6 +130,7 @@
     <Compile Include="Pricing\PrintWordChargeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TheMusicHtmlScraper\TheMusicHtmlScraperTests.cs" />
+    <Compile Include="Utility\ExceptionExtenionTests.cs" />
     <Compile Include="Utility\GuardTests.cs" />
     <Compile Include="Utility\HtmlExtensionsTests.cs" />
     <Compile Include="Utility\MappingBehaviourTests.cs" />

@@ -14,7 +14,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
 
         // Emails
         int CreateOrUpdateEmail(Email email);
-        List<Email> GetUnsentEmails(Guid broadcastId, int maxAttempts);
+        Email[] GetEmailsForNotification(Guid broadcastId);
         
     }
 }

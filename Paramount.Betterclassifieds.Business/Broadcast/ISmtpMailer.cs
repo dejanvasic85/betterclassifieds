@@ -22,7 +22,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             mailMessage.From = new MailAddress(from);
 
             var client = new SmtpClient();
-            client.Send(mailMessage);
+            client.SendAsync(mailMessage, null);
         }
     }
 }

@@ -120,21 +120,21 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
         }
 
         [Test]
-        public void HasCompleted_NoAttempts_ReturnsFalse()
+        public void IsComplete_NoAttempts_ReturnsFalse()
         {
             // Arrange
             Email email = new Email(Guid.NewGuid(),
                 "Subject 123", "Body 123", false, "unknown-doctype", "sender@somewhere.com", "destination@somewhere.com");
 
             // Act
-            var result = email.HasCompleted(5);
+            var result = email.IsComplete;
 
             // Assert
             result.IsFalse();
         }
 
         [Test]
-        public void HasCompleted_MaxAttemptsReachedWithEvilMailer_ReturnsTrue()
+        public void IsComplete_MaxAttemptsReachedWithEvilMailer_ReturnsTrue()
         {
             // Arrange
             Email email = new Email(Guid.NewGuid(),
@@ -150,7 +150,7 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
             email.Send(evilMailer.Object);
             email.Send(evilMailer.Object);
             email.Send(evilMailer.Object);
-            var result = email.HasCompleted(maxAttempts: 3);
+            var result = email.IsComplete;
 
             // Assert
             result.IsTrue();
@@ -158,7 +158,7 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
         }
 
         [Test]
-        public void HasCompleted_MaxAttemptsNotReachedWithEvilMailer_ReturnsFalse()
+        public void IsComplete_MaxAttemptsNotReachedWithEvilMailer_ReturnsFalse()
         {
             // Arrange
             Email email = new Email(Guid.NewGuid(),
@@ -175,13 +175,13 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
             email.Send(evilMailer.Object);
             
             // Assert
-            email.HasCompleted(maxAttempts: 3).IsFalse();
+            email.IsComplete.IsFalse();
             email.SentDate.IsNull();
         }
 
 
         [Test]
-        public void HasCompleted_GoodMailerSendsSuccessfully_ReturnsTrue()
+        public void IsComplete_GoodMailerSendsSuccessfully_ReturnsTrue()
         {
             // Arrange
             Email email = new Email(Guid.NewGuid(),
@@ -195,7 +195,7 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
 
             // Act - 3 times (max)
             email.Send(smtpMock.Object);
-            var result = email.HasCompleted(maxAttempts: 3);
+            var result = email.IsComplete;
 
             // Assert
             result.IsTrue();

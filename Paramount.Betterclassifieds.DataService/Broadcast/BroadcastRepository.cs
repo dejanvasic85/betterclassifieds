@@ -81,15 +81,11 @@
             }
         }
 
-        public List<Email> GetUnsentEmails(Guid broadcastId, int maxAttempts)
+        public Email[] GetEmailsForNotification(Guid broadcastId)
         {
             using (var context = new BroadcastContext())
             {
-                var emails = context.Emails.Where(email => email.BroadcastId == broadcastId
-                                              && email.Attempts < maxAttempts
-                                              && email.SentDate == null);
-
-                return emails.ToList();
+                return context.Emails.Where(email => email.BroadcastId == broadcastId && email.SentDate == null).ToArray();
             }
         }
     }

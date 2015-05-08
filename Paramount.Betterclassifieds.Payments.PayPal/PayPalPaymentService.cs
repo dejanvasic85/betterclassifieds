@@ -123,7 +123,7 @@ namespace Paramount.Betterclassifieds.Payments.pp
                 sku = reference
             }));
 
-            if (bookingOrder.PrintRates.Count == 0)
+            if (!bookingOrder.IsPrintIncluded)
                 return list;
 
             // Publications will be line items

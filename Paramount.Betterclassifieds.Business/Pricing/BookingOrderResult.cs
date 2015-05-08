@@ -107,5 +107,18 @@ namespace Paramount.Betterclassifieds.Business
 
             return printRate;
         }
+
+        public bool IsPrintIncluded
+        {
+            get
+            {
+                if(PrintRates == null)
+                {
+                    return false;
+                }
+
+                return PrintRates.Count > 0;
+            }
+        }
     }
 }

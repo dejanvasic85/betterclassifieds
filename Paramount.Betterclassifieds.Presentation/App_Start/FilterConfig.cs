@@ -9,7 +9,8 @@ namespace Paramount.Betterclassifieds.Presentation
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters, IUnityContainer container)
         {
-            filters.Add(new HandleErrorAttribute());
+            // A custom error filter is not really needed because elmah does all the logging for us
+            //filters.Add(new CustomErrorFilter());
 
             // Use the filter provider that uses unity container so it can resolve any dependencies
             var oldProvider = FilterProviders.Providers.Single(f => f is FilterAttributeFilterProvider);

@@ -41,10 +41,9 @@
                 .RegisterType<IBookCartRepository, BookCartRepository>()
                 .RegisterType<IEditionRepository, EditionRepository>()
                 .RegisterType<IInvoiceRepository, InvoiceRepository>()
-                ;
 
-            // Managers and Config
-            container.RegisterType<IClientConfig, ClientConfig>()
+                // Managers and Config
+                .RegisterType<IClientConfig, ClientConfig>()
                 .RegisterType<IApplicationConfig, AppConfig>()
                 .RegisterType<IBookingManager, BookingManager>()
                 .RegisterType<IEditionManager, EditionManager>()
@@ -59,14 +58,14 @@
                 .RegisterType<IPaymentService, PayPalPaymentService>()
                 .RegisterType<IInvoiceService, InvoiceService>()
                 .RegisterType<SearchFilters>(new SessionLifetimeManager<SearchFilters>())
-                ;
-            
-            // Rates/ prices (chargeable items)
-            container.RegisterType<IPrintChargeableItem, PrintHeadingCharge>("PrintHeadingCharge")
+
+                // Rates/ prices (chargeable items)
+                .RegisterType<IPrintChargeableItem, PrintHeadingCharge>("PrintHeadingCharge")
                 .RegisterType<IPrintChargeableItem, PrintPhotoCharge>("PrintPhotoCharge")
                 .RegisterType<IPrintChargeableItem, PrintSuperBoldHeadingCharge>("PrintSuperBoldHeadingCharge")
                 .RegisterType<IPrintChargeableItem, PrintWordCharge>("PrintWordCharge")
                 .RegisterType<IOnlineChargeableItem, OnlineBasePriceCharge>("OnlineBasePriceCharge")
+                
                 ;
 
             return container;

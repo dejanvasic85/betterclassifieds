@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
@@ -19,7 +15,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         // 
         // GET: /Error/Server
 
-        public ActionResult Server()
+        public ActionResult ServerProblem()
         {
             return View();
         }

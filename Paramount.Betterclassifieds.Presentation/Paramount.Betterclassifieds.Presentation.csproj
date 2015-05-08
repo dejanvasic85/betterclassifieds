@@ -203,6 +203,7 @@
     <Compile Include="Framework\Extensions\FilesystemExtensionMethods.cs" />
     <Compile Include="Framework\Extensions\HttpResponseExtensions.cs" />
     <Compile Include="Framework\CustomViewResults\ImageResult.cs" />
+    <Compile Include="Framework\Filters\ErrorFilterWithLogging.cs" />
     <Compile Include="Framework\UrlHelpers\ModuleUrlHelper.cs" />
     <Compile Include="Framework\UrlHelpers\RedirectResultFactory.cs" />
     <Compile Include="Framework\UrlHelpers\UrlPaths.cs" />
@@ -643,7 +644,7 @@
     <Content Include="Views\Listings\404.cshtml" />
     <Content Include="Views\Home\ContactUs.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
-    <Content Include="Views\Error\Server.cshtml" />
+    <Content Include="Views\Error\ServerProblem.cshtml" />
     <Content Include="Views\Booking\Step1.cshtml" />
     <Content Include="Views\Booking\Step2.cshtml" />
     <Content Include="Views\Booking\Step3.cshtml" />

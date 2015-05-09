@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Print;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
+using System;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
@@ -27,7 +26,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _clientConfig = clientConfig;
             _bookingManager = bookingManager;
         }
-        
+
         //
         // GET: /EditAd/AdDetails/{id}
         public ActionResult Details(int id)
@@ -91,9 +90,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             // Update the online ad
             _bookingManager.UpdateOnlineAd(viewModel.Id, onlineAd);
 
-            // Update the line ad
-            var lineAd = this.Map<EditAdDetailsViewModel, LineAdModel>(viewModel);
-            _bookingManager.UpdateLineAd(viewModel.Id, lineAd);
+            if (viewModel.IsLineAdIncluded)
+            {
+                // Update the line ad
+                var lineAd = this.Map<EditAdDetailsViewModel, LineAdModel>(viewModel);
+                _bookingManager.UpdateLineAd(viewModel.Id, lineAd);
+            }
 
             ViewBag.Updated = true;
             ViewBag.Invalid = false;

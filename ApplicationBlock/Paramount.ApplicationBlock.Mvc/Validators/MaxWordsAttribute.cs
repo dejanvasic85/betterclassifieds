@@ -13,6 +13,9 @@ namespace Paramount
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
+            if (value == null)
+                return ValidationResult.Success;
+
             var propertyValue = validationContext.ObjectType
                 .GetProperty(LinkedPropertyName)
                 .GetValue(validationContext.ObjectInstance, null);

@@ -41,7 +41,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             return new Email(broadcastId, subject, body, emailTemplate.IsBodyHtml, emailTemplate.DocType, emailTemplate.From, to);
         }
 
-        public int? EmailDeliveryId { get; set; }
+        public long? EmailDeliveryId { get; set; }
         public Guid BroadcastId { get; private set; }
         public string To { get; private set; }
         public string Cc { get; private set; }

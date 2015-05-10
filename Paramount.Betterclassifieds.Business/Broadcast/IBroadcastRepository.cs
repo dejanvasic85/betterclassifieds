@@ -13,7 +13,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         EmailTemplate GetTemplateByName(string templateName, string brand);
 
         // Emails
-        int CreateOrUpdateEmail(Email email);
+        long CreateOrUpdateEmail(Email email);
         Email[] GetEmailsForNotification(Guid broadcastId);
         
     }

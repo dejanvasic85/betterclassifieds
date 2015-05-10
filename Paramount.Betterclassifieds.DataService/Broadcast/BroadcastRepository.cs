@@ -58,7 +58,7 @@
             }
         }
 
-        public int CreateOrUpdateEmail(Email email)
+        public long CreateOrUpdateEmail(Email email)
         {
             using (var context = new BroadcastContext())
             {

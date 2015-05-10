@@ -2,6 +2,7 @@ using Dapper;
 using Paramount.ApplicationBlock.Configuration;
 using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.DataService.Broadcast;
+using Paramount.Betterclassifieds.DataService.Repository;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -9,7 +10,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
-using Paramount.Betterclassifieds.DataService.Repository;
 
 namespace Paramount.TaskScheduler
 {
@@ -57,12 +57,11 @@ namespace Paramount.TaskScheduler
                 var startDateUtc = DateTime.UtcNow.AddHours(-24);
                 var endDateUtc = DateTime.UtcNow;
 
-                return connection.Query<Models.LogItem>(
-                    "SELECT Application, Host, Type, Source, Message, User, StatusCode, TimeUtc FROM ELMAH_Error" +
-                    "WHERE TimeUtc BETWEEN @StartDate AND @EndDate AND @StatusCode != 404 " +
-                    "ORDER BY Sequence",
-                    new { StartDate = startDateUtc, EndDate = endDateUtc }
-                );
+                var sql = "SELECT Application, Host, Type, Source, Message, User, StatusCode, TimeUtc FROM ELMAH_Error " +
+                          "WHERE TimeUtc BETWEEN @StartDate AND @EndDate AND StatusCode != 404 " +
+                          "ORDER BY Sequence";
+
+                return connection.Query<Models.LogItem>(sql, new { StartDate = startDateUtc.ToString("yyyy-MMM-dd"), EndDate = endDateUtc.ToString("yyyy-MMM-dd") });
             }
         }
 

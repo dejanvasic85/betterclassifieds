@@ -11,9 +11,3 @@ Scenario: Submit online ad and notify friends
 	And I notify my friend "Emmanual Adebayor" "ade@spurs.com" about my add
 	Then the booking should be successful
 	And my friends email "ade@spurs.com" should receive the notification
-	
-@ignore @BundleBooking 
-Scenario: Submit online and line ad bundle
-	Given I am logged in as "bdduser" with password "password123"
-	When I submit a new Bundled Ad titled "This is a bundled ad" starting from the next edition
-	Then the booking should be successful

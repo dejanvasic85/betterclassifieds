@@ -19,23 +19,21 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("SubmitNewBooking")]
-    [NUnit.Framework.CategoryAttribute("booking")]
-    public partial class SubmitNewBookingFeature
+    [NUnit.Framework.DescriptionAttribute("EditAd")]
+    public partial class EditAdFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "SubmitNewBooking.feature"
+#line 1 "EditAd.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "SubmitNewBooking", "In order to have an ad appear on betterclassifieds\r\nAs a registered user\r\nI want " +
-                    "to be able to go through the booking steps and submit a new booking", ProgrammingLanguage.CSharp, new string[] {
-                        "booking"});
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "EditAd", "In order to have my ad relevant for target audience\nAs an advertiser\nI want to be" +
+                    " able to udpate my existing ad details", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -68,26 +66,27 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Submit online ad and notify friends")]
-        [NUnit.Framework.CategoryAttribute("OnlineBooking")]
-        [NUnit.Framework.CategoryAttribute("UserNetwork")]
-        public virtual void SubmitOnlineAdAndNotifyFriends()
+        [NUnit.Framework.DescriptionAttribute("Edit online ad details successfully")]
+        [NUnit.Framework.CategoryAttribute("EditAd")]
+        public virtual void EditOnlineAdDetailsSuccessfully()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Submit online ad and notify friends", new string[] {
-                        "OnlineBooking",
-                        "UserNetwork"});
-#line 8
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Edit online ad details successfully", new string[] {
+                        "EditAd"});
+#line 7
 this.ScenarioSetup(scenarioInfo);
+#line 8
+ testRunner.Given("I have an online ad titled \"Ad for editing\" in parent category \"Selenium Parent\" " +
+                    "and sub category \"Selenium Child\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
- testRunner.Given("I am logged in as \"bdduser\" with password \"password123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.When("I navigate to relative url \"Account/UserAds\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 10
- testRunner.When("I submit a new Online Ad titled \"This is a Selenium Ad\" starting from today", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("I select to edit the newly placed ad", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 11
- testRunner.And("I notify my friend \"Emmanual Adebayor\" \"ade@spurs.com\" about my add", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I update the title to \"Ad has been updated\" and StartDate to tomorrow", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 12
- testRunner.Then("the booking should be successful", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I should see a success message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 13
- testRunner.And("my friends email \"ade@spurs.com\" should receive the notification", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the online ad should be updated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Paramount.Utility;
 
 namespace Paramount.Betterclassifieds.Business.Booking
 {
@@ -62,11 +63,13 @@ namespace Paramount.Betterclassifieds.Business.Booking
 
         public DateTime? GetStartDateOrMinimum()
         {
-            if (!StartDate.HasValue)
-                return DateTime.Today;
+            IDateService dateService = new ServerDateService();
 
-            if (StartDate.Value < DateTime.Today)
-                return DateTime.Today;
+            if (!StartDate.HasValue)
+                return dateService.Today;
+
+            if (StartDate.Value < dateService.Today)
+                return dateService.Today;
 
             return StartDate;
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using Paramount.ApplicationBlock.Mvc.Validators;
 using Paramount.Betterclassifieds.Presentation.Framework;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels
@@ -44,6 +45,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
         [Display(Name = "Start Date")]
         [RequiredIf("IsFutureScheduledAd", true)]
+        [MustNotBePastDate(ErrorMessage = "Start date cannot be a past date")]
         public DateTime? StartDate { get; set; }
 
         public bool IsFutureScheduledAd { get; set; }

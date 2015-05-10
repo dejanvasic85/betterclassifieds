@@ -7,7 +7,6 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
     using Business.Booking;
     using Business.Broadcast;
     using Business.Print;
-    using Business.Repository;
     using Tests.Mocks;
     using System;
     using System.Collections.Generic;
@@ -30,7 +29,6 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
         private Mock<IBroadcastManager> _broadcastManagerMock;
         private Mock<IBookingContext> _bookingContext;
         private Mock<IBookCartRepository> _cartRepositoryMock;
-
 
         [SetUp]
         public void Setup()
@@ -87,19 +85,27 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
             Assert.That(onlineAdMock.NumOfViews, Is.EqualTo(1));
             adRepositoryMock.Verify(call => call.UpdateOnlineAd(It.IsAny<OnlineAdModel>()), Times.Once);
         }
-
+        
         [Test]
-        public void CreateBooking_WithNoLineAd_CallsBookingRepositoryOnce()
+        public void UpdateSchedule_WithNewStartDate_GeneratesNewEndDate_CallsRepository()
         {
             // arrange
-            _bookingRepositoryMock.Setup(call => call.CreateBooking(It.IsAny<BookingCart>()));
+            var startDate = DateTime.Today;
+            var adId = 1;
+            var onlineDayDuration = 7;
+            var expectedEndDate = startDate.AddDays(onlineDayDuration);
+
+            _bookingRepositoryMock.Setup(call => call.UpdateBooking(
+                It.Is<int>(v => v == adId), 
+                It.Is<DateTime>(v => v == startDate),
+                It.Is<DateTime>(v => v == expectedEndDate), 
+                null));
+            
+            _clientConfigMock.Setup(call => call.RestrictedOnlineDaysCount)
+                .Returns(onlineDayDuration);
 
             // act
-            var bookingCart = new BookingCart("Session-123", "dvasic");
-            
-
-            // assert
-
+            _container.Resolve<BookingManager>().UpdateSchedule(adId, startDate);
         }
     }
 }

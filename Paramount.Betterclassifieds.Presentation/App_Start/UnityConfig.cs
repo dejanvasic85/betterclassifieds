@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Presentation
+﻿using Paramount.Utility;
+
+namespace Paramount.Betterclassifieds.Presentation
 {
     using ApplicationBlock.Mvc;
     using Business;
@@ -66,6 +68,8 @@
                 .RegisterType<IPrintChargeableItem, PrintWordCharge>("PrintWordCharge")
                 .RegisterType<IOnlineChargeableItem, OnlineBasePriceCharge>("OnlineBasePriceCharge")
                 
+                // Infrastructure
+                .RegisterType<IDateService, ServerDateService>()
                 ;
 
             return container;

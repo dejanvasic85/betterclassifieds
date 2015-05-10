@@ -29,6 +29,7 @@
         void RemoveLineAdImage(int id, Guid documentId);
 
         void CancelAd(int adId);
+        void UpdateSchedule(int id, DateTime startDate);
     }
 
     public class BookingManager : IBookingManager
@@ -106,7 +107,7 @@
                 // Only required to update the end date on the booking
                 // Fetch original booking
                 DateTime newEndDate = adBooking.EndDate.AddDays(extensionModel.Insertions);
-                _bookingRepository.UpdateBooking(extensionModel.AdBookingId, newEndDate);
+                _bookingRepository.UpdateBooking(extensionModel.AdBookingId, newEndDate: newEndDate);
             }
             else
             {
@@ -126,7 +127,7 @@
                 }
 
                 var price = adBooking.TotalPrice + extensionModel.ExtensionPrice;
-                _bookingRepository.UpdateBooking(adBooking.AdBookingId, lastEditionDate, price);
+                _bookingRepository.UpdateBooking(adBooking.AdBookingId, newEndDate: lastEditionDate, totalPrice: price);
             }
 
             // Mark the extension as complete
@@ -263,6 +264,14 @@
         public void CancelAd(int adId)
         {
             _bookingRepository.CancelAndExpireBooking(adId);
+        }
+
+        public void UpdateSchedule(int id, DateTime startDate)
+        {
+            // Generate the end date
+            var endDate = startDate.AddDays(_clientConfigSettings.RestrictedOnlineDaysCount);
+
+            _bookingRepository.UpdateBooking(id, newStartDate: startDate, newEndDate: endDate);
         }
 
         public IEnumerable<PublicationEditionModel> GenerateExtensionDates(int adBookingId, int numberOfInsertions)

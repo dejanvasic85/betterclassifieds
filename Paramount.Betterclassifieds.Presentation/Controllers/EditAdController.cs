@@ -46,7 +46,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 MaxImageUploadBytes = _applicationConfig.MaxImageUploadBytes,
                 ConfigDurationDays = _clientConfig.RestrictedOnlineDaysCount,
                 StartDate = adBooking.StartDate,
-                IsFutureScheduledAd = adBooking.StartDate > DateTime.Today,
+                IsFutureScheduledAd = adBooking.StartDate >= DateTime.Today,
                 OnlineAdImages = onlineAd.Images.Select(a => a.DocumentId).ToList(),
             };
 
@@ -95,6 +95,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 // Update the line ad
                 var lineAd = this.Map<EditAdDetailsViewModel, LineAdModel>(viewModel);
                 _bookingManager.UpdateLineAd(viewModel.Id, lineAd);
+            }
+
+            // Set the schedule
+            if (adBooking.StartDate != viewModel.StartDate)
+            {
+                _bookingManager.UpdateSchedule(viewModel.Id, viewModel.StartDate.GetValueOrDefault());
             }
 
             ViewBag.Updated = true;

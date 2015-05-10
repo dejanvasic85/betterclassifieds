@@ -209,11 +209,14 @@
             }
         }
 
-        public void UpdateBooking(int adBookingId, DateTime? newEndDate = null, decimal? totalPrice = null)
+        public void UpdateBooking(int adBookingId, DateTime? newStartDate = null, DateTime? newEndDate = null, decimal? totalPrice = null)
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 var adBooking = context.AdBookings.First(booking => booking.AdBookingId == adBookingId);
+
+                if (newStartDate.HasValue)
+                    adBooking.StartDate = newStartDate.Value;
 
                 if (newEndDate.HasValue)
                     adBooking.EndDate = newEndDate.Value;

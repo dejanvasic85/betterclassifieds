@@ -25,7 +25,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
 
         // Update
         void UpdateExtesion(int extensionId, int? status);
-        void UpdateBooking(int adBookingId, DateTime? newEndDate = null, decimal? totalPrice = null);
+        void UpdateBooking(int adBookingId, DateTime? newStartDate = null, DateTime? newEndDate = null, decimal? totalPrice = null);
         void UpdateOnlineAd(int adBookingId, OnlineAdModel onlineAd);
         void UpdateLineAd(int id, LineAdModel lineAd);
         void CancelAndExpireBooking(int adBookingId);

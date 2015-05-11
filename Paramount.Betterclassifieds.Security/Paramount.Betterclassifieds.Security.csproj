@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="AuthManager.cs" />
     <Compile Include="ClassifiedSqlMembershipProvider.cs" />
+    <Compile Include="ConfirmationCodeGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

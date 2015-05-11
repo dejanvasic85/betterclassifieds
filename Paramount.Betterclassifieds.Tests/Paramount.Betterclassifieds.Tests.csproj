@@ -120,6 +120,7 @@
     <Compile Include="Controllers\ControllerTest.cs" />
     <Compile Include="Controllers\HomeControllerTests.cs" />
     <Compile Include="Database\ClassifiedsDataContextTests.cs" />
+    <Compile Include="Membership\ConfirmationCodeGeneratorTests.cs" />
     <Compile Include="Membership\RegistrationModelTests.cs" />
     <Compile Include="Mocks\BookingCartMocks.cs" />
     <Compile Include="Mocks\MoqExtensions.cs" />
@@ -162,6 +163,10 @@
     <ProjectReference Include="..\Paramount.Betterclassifieds.Presentation\Paramount.Betterclassifieds.Presentation.csproj">
       <Project>{16A1594A-F9A2-468B-BF45-2D716A72469E}</Project>
       <Name>Paramount.Betterclassifieds.Presentation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Paramount.Betterclassifieds.Security\Paramount.Betterclassifieds.Security.csproj">
+      <Project>{9CE120EA-CB54-4F24-A68C-A80EB331DBDE}</Project>
+      <Name>Paramount.Betterclassifieds.Security</Name>
     </ProjectReference>
     <ProjectReference Include="..\WebApplication\BetterClassified.UI\BetterClassified.UI.csproj">
       <Project>{04e24b49-191f-44b6-833f-361c559f7b18}</Project>

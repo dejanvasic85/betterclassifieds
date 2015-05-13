@@ -12,13 +12,13 @@
     {
         private readonly PageBrowser _pageBrowser;
         private readonly ITestDataRepository _dataRepository;
-        private readonly RegistrationContext _registrationContext;
+        private readonly UserContext _userContext;
 
-        public RegistrationSteps(PageBrowser pageBrowser, ITestDataRepository dataRepository, RegistrationContext registrationContext)
+        public RegistrationSteps(PageBrowser pageBrowser, ITestDataRepository dataRepository, UserContext userContext)
         {
             _pageBrowser = pageBrowser;
             _dataRepository = dataRepository;
-            _registrationContext = registrationContext;
+            _userContext = userContext;
         }
 
         [Given(@"I am a registered user with username ""(.*)"" and password ""(.*)"" and email ""(.*)""")]
@@ -26,9 +26,9 @@
         {
             _dataRepository.AddUserIfNotExists(username, password, email, RoleType.Advertiser);
 
-            _registrationContext.Username = username;
-            _registrationContext.Password = password;
-            _registrationContext.Email = email;
+            _userContext.Username = username;
+            _userContext.Password = password;
+            _userContext.Email = email;
         }
         
         [Given(@"The user with username ""(.*)"" does not exist")]
@@ -67,7 +67,7 @@
         {
             // Store the time that this was clicked
             // See ThenARegistrationEmailShouldBeSentTo method where this is retrieved
-            _registrationContext.StartRegistrationTime = DateTime.Now;
+            _userContext.StartRegistrationTime = DateTime.Now;
 
             var registrationPage = _pageBrowser.Init<RegisterNewUserTestPage>();
             registrationPage.ClickRegister();
@@ -90,7 +90,7 @@
                 var emailsQueued = _dataRepository.GetSentEmailsFor(userEmail);
 
                 return emailsQueued.Any(e =>
-                    e.ModifiedDate >= _registrationContext.StartRegistrationTime &&
+                    e.ModifiedDate >= _userContext.StartRegistrationTime &&
                     e.DocType == "NewRegistration");
             });
 
@@ -104,13 +104,5 @@
             Assert.That(registrationSuccess.GetConfirmationText(), Is.EqualTo("Please click on the confirmation link sent to your email and you will be able to start using your account!"));
             Assert.That(registrationSuccess.GetThankYouHeading(), Is.EqualTo("Thank you for signing up"));
         }
-    }
-
-    public class RegistrationContext
-    {
-        public DateTime StartRegistrationTime { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Email { get; set; }
     }
 }

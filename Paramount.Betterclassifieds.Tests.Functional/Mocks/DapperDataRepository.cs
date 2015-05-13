@@ -108,14 +108,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             }
         }
 
-        public int DropCreateOnlineAd(string adTitle, string categoryName, string subCategoryName)
+        public int DropCreateOnlineAd(string adTitle, string categoryName, string subCategoryName, string username)
         {
             DropOnlineAdIfExists(adTitle);
 
-            return AddOnlineAd(adTitle, subCategoryName);
+            return AddOnlineAd(adTitle, subCategoryName, username);
         }
 
-        public int AddOnlineAd(string adTitle, string categoryName)
+        public int AddOnlineAd(string adTitle, string categoryName, string username)
         {
             using (var scope = new TransactionScope())
             {
@@ -128,9 +128,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                     @StartDate = DateTime.Now.AddDays(-1).Date,
                     @EndDate = DateTime.Now.AddDays(30).Date,
                     @TotalPrice = 0,
-                    @BookReference = "SEL-001",
+                    @BookReference = Guid.NewGuid().ToString().Substring(0, 5),
                     @AdId = adId,
-                    @UserId = "bdduser",
+                    @UserId = username.Default(TestData.DefaultUsername),
                     @BookingStatus = 1,
                     @MainCategoryId = mainCategoryId,
                     @BookingDate = DateTime.Now,
@@ -152,7 +152,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                     @NumOfViews = 100,
                     @Price = 1500,
                     @ContactName = "Sample Contact",
-                    @ContactPhone = "111 222 333",
+                    @ContactPhone = "0455555555",
                     @ContactEmail = "sample@fake.com",
                     @LocationId = locationId,
                     @LocationAreaId = areaId

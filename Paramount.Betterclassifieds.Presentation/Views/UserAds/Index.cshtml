@@ -105,7 +105,7 @@
                             <span class="hidden-xs">Invoice</span> <i class="fa fa-file"></i>
                         </a>
                         <div style="display:inline-block" data-bind="visible : $data.status() !== 'Expired'">
-                            <a class="btn btn-default" data-bind="attr : {href : $paramount.url.userads.editAdDetails($data.adId())} ">
+                            <a class="btn btn-default" data-bind="attr : { 'data-adid' : $data.adId(), href : $paramount.url.userads.editAdDetails($data.adId())} ">
                                 <span class="hidden-xs">Edit</span> <i class="fa fa-pencil"></i>
                             </a>
                             <button class="btn btn-default cancel-ad" data-bind="click: cancelAd">

@@ -8,12 +8,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
     public class LoginSteps
     {
         private readonly PageBrowser _pageBrowser;
-        private readonly RegistrationContext _registrationContext;
+        private readonly UserContext _userContext;
 
-        public LoginSteps(PageBrowser pageBrowser, RegistrationContext registrationContext)
+        public LoginSteps(PageBrowser pageBrowser, UserContext userContext)
         {
             _pageBrowser = pageBrowser;
-            _registrationContext = registrationContext;
+            _userContext = userContext;
         }
 
         [Given(@"I am logged in as ""(.*)"" with password ""(.*)""")]
@@ -24,18 +24,20 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 .WithUsername(username)
                 .WithPassword(password)
                 .ClickLogin();
+
+            _userContext.Username = username;
         }
 
         [Given("I am logged in as the newly added user")]
         public void LoggedInAsNewlyAddedUser()
         {
-            if (_registrationContext.Username.IsNullOrEmpty())
+            if (_userContext.Username.IsNullOrEmpty())
             {
                 Assert.Fail("RegistrationContext is not available");
             }
 
-            GivenIAmLoggedInAsWithPassword(_registrationContext.Username,
-                _registrationContext.Password);
+            GivenIAmLoggedInAsWithPassword(_userContext.Username,
+                _userContext.Password);
         }
     }
 }

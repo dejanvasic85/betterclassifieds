@@ -11,11 +11,15 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
     {
         private readonly PageBrowser _pageBrowser;
         private readonly ITestDataRepository _dataRepository;
+        private readonly UserContext _userContext;
+        private readonly AdContext _adContext;
 
-        public OnlineAdSteps(PageBrowser pageBrowser, ITestDataRepository dataRepository)
+        public OnlineAdSteps(PageBrowser pageBrowser, ITestDataRepository dataRepository, UserContext userContext, AdContext adContext)
         {
             _pageBrowser = pageBrowser;
             _dataRepository = dataRepository;
+            _userContext = userContext;
+            _adContext = adContext;
         }
 
         [Given(@"I have an online ad titled ""(.*)"" in parent category ""(.*)"" and sub category ""(.*)""")]
@@ -25,9 +29,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             GivenParentCategoryAndSubCategory(parentCategory, childCategory);
             GivenLocationAndArea(TestData.Location_Australia, TestData.Location_Victoria);
 
-            int? adId = _dataRepository.DropCreateOnlineAd(adTitle, parentCategory, childCategory);
+            int? adId = _dataRepository.DropCreateOnlineAd(adTitle, parentCategory, childCategory, _userContext.Username);
 
             ScenarioContext.Current.Add("AdId", adId);
+            _adContext.AdId = adId.GetValueOrDefault();
         }
         
         [Given(@"The parent category ""(.*)"" and sub category ""(.*)""")]
@@ -45,7 +50,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [When(@"I navigate to online ad ""(.*)""")]
         public void WhenINavigate(string url)
         {
-            string urlWithId = string.Format(url, ScenarioContext.Current.Get<int>("AdId"));
+            string urlWithId = string.Format(url, _adContext.AdId);
 
             // Route to an exact URL becuase this is what we're testing!
             _pageBrowser.NavigateTo(urlWithId);

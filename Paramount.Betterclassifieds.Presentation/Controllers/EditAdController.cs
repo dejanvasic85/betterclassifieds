@@ -98,7 +98,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             // Set the schedule
-            if (adBooking.StartDate != viewModel.StartDate)
+            if (viewModel.StartDate.HasValue && adBooking.StartDate != viewModel.StartDate)
             {
                 _bookingManager.UpdateSchedule(viewModel.Id, viewModel.StartDate.GetValueOrDefault());
             }

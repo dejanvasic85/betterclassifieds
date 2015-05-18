@@ -4,7 +4,6 @@ Feature: UserRegistration
 	As an anonymous user
 	I want to be able to register a new account
 
-@ignore
 Scenario: Create new account successfully
 	Given The user with username "bdduser" does not exist
 	And I navigate to the registration page
@@ -13,4 +12,4 @@ Scenario: Create new account successfully
 	When I click register button
 	Then the user "bdd@somefakeaddress.com" should be created successfully
 	And a registration email should be sent to "bdd@somefakeaddress.com"
-	And I should see a thank you page with confirmation
+	And I should see a code confirmation page

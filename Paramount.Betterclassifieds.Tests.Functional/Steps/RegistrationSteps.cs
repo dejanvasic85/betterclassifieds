@@ -57,9 +57,9 @@
         {
             var registrationPage = _pageBrowser.Init<RegisterNewUserTestPage>();
             registrationPage.SetPassword(password);
-            registrationPage.SetPasswordConfirmation(password);
+            //registrationPage.SetPasswordConfirmation(password);
             registrationPage.SetEmail(email);
-            registrationPage.SetEmailConfirmation(email);
+            //registrationPage.SetEmailConfirmation(email);
         }
 
         [When(@"I click register button")]
@@ -97,12 +97,15 @@
             Assert.That(isRegistrationEmailQueued, Is.True);
         }
 
-        [Then(@"I should see a thank you page with confirmation")]
-        public void ThenIShouldSeeAThankYouPageWithConfirmation()
+        [Then(@"I should see a code confirmation page")]
+        public void ThenIShouldSeeACodeConfirmationPage()
         {
-            var registrationSuccess = _pageBrowser.Init<RegistrationSuccessPage>();
-            Assert.That(registrationSuccess.GetConfirmationText(), Is.EqualTo("Please click on the confirmation link sent to your email and you will be able to start using your account!"));
-            Assert.That(registrationSuccess.GetThankYouHeading(), Is.EqualTo("Thank you for signing up"));
+            var registrationPage = _pageBrowser.Init<RegistrationConfirmationPage>();
+
+            Assert.That(registrationPage.GetConfirmationText(), Is.EqualTo("We sent you an email with a confirmation code. In order for us to ensure that the email belongs to you, please copy the number from the email in to the form below."));
+            Assert.That(registrationPage.GetThankYouHeading(), Is.EqualTo("Confirmation Required"));
+            Assert.That(registrationPage.IsCodeTextboxAvailable(), Is.True);
         }
+
     }
 }

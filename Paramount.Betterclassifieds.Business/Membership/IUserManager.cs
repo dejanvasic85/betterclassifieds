@@ -84,7 +84,7 @@
                 {
                     FirstName = registrationModel.FirstName,
                     LastName = registrationModel.LastName,
-                    VerificationCode = registrationModel.Token
+                    ConfirmationCode = registrationModel.Token
                 }, registrationModel.Email);
             }
 

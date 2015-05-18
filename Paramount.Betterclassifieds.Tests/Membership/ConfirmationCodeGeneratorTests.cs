@@ -22,8 +22,7 @@ namespace Paramount.Betterclassifieds.Tests.Membership
             var result = generator.GenerateCode();
 
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.GetType(), Is.TypeOf<ConfirmationCodeResult>());
-            Assert.That(result.ConfirmationCode, Is.EqualTo(4));
+            Assert.That(result.ConfirmationCode.Length, Is.EqualTo(ConfirmationCodeGenerator.CodeLength));
         }
     }
 }

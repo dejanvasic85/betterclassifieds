@@ -9,7 +9,7 @@
     public class ConfirmationCodeGenerator : IConfirmationCodeGenerator
     {
         private readonly IDateService _dateService;
-        private const int CodeLength = 4;
+        public const int CodeLength = 4;
 
         public ConfirmationCodeGenerator(IDateService dateService)
         {

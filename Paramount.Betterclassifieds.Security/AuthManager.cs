@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
@@ -25,7 +27,7 @@ namespace Paramount.Betterclassifieds.Security
             return user != null && user.Identity.IsAuthenticated;
         }
 
-        public void Login(string username, bool createPersistentCookie, string role = "User")
+        public void Login(string username, bool createPersistentCookie = false, string role = "User")
         {
             HttpContext context = HttpContext.Current;
 
@@ -76,11 +78,16 @@ namespace Paramount.Betterclassifieds.Security
             return Membership.ValidateUser(username, password);
         }
 
-        public void CreateMembership(string username, string email, string password)
+        public void CreateMembership(string username, string email, string password, bool login = false)
         {
             Membership.CreateUser(username, password, email);
+
+            if (login)
+            {
+                Login(username);
+            }
         }
-        
+
         public bool CheckUsernameExists(string username)
         {
             using (var context = DataContextFactory.CreateMembershipContext())
@@ -99,14 +106,24 @@ namespace Paramount.Betterclassifieds.Security
 
         public RegistrationModel GetRegistration(int registrationId, string token, string username)
         {
-            using (var context = DataContextFactory.CreateMembershipContext())
-            {
-                var registrationData = context.Registrations.FirstOrDefault(r =>
+            return QueryRegistration(r =>
                     r.RegistrationId == registrationId &&
                     r.Token == token &&
-                    r.Username == username);
+                    r.Username == username).FirstOrDefault();
+        }
 
-                return this.Map<DataService.LinqObjects.Registration, RegistrationModel>(registrationData);
+        public RegistrationModel GetRegistration(int registrationId)
+        {
+            return QueryRegistration(r => r.RegistrationId == registrationId).FirstOrDefault();
+        }
+
+        private IEnumerable<RegistrationModel> QueryRegistration(Expression<Func<DataService.LinqObjects.Registration, bool>> expression)
+        {
+            using (var context = DataContextFactory.CreateMembershipContext())
+            {
+                var registrationData = context.Registrations.Where(expression).ToList();
+
+                return this.MapList<DataService.LinqObjects.Registration, RegistrationModel>(registrationData);
             }
         }
 

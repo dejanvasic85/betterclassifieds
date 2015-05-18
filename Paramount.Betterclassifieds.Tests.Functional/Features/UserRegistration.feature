@@ -4,6 +4,7 @@ Feature: UserRegistration
 	As an anonymous user
 	I want to be able to register a new account
 
+@ignore
 Scenario: Create new account successfully
 	Given The user with username "bdduser" does not exist
 	And I navigate to the registration page

@@ -1,6 +1,4 @@
-﻿using Paramount.Utility;
-
-namespace Paramount.Betterclassifieds.Presentation
+﻿namespace Paramount.Betterclassifieds.Presentation
 {
     using ApplicationBlock.Mvc;
     using Business;
@@ -20,6 +18,7 @@ namespace Paramount.Betterclassifieds.Presentation
     using Unity.Mvc4;
     using Payments.pp;
     using ViewModels;
+    using Utility;
 
     public class UnityConfig
     {
@@ -70,6 +69,7 @@ namespace Paramount.Betterclassifieds.Presentation
                 
                 // Infrastructure
                 .RegisterType<IDateService, ServerDateService>()
+                .RegisterType<IConfirmationCodeGenerator, ConfirmationCodeGenerator>()
                 ;
 
             return container;

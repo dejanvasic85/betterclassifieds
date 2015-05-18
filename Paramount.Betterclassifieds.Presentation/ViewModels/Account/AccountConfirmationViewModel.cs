@@ -1,11 +1,15 @@
-﻿namespace Paramount.Betterclassifieds.Presentation.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
     public class AccountConfirmationViewModel
     {
-        public bool IsSuccessfulConfirmation { get; set; }
-        public bool RegistrationExpiredOrNotExists { get; set; }
-        public bool DuplicateUsernameOrEmail { get; set; }
-        public bool AccountAlreadyConfirmed { get; set; }
-        public string Username { get; set; }
+        [Required]
+        public int? RegistrationId { get; set; }
+        public string ReturnUrl { get; set; }
+        [Required]
+        [Display(Name = "Confirmation Code")]
+        public int Token { get; set; }
+        public bool TokenNotValid { get; set; }
     }
 }

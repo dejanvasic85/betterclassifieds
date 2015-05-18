@@ -97,6 +97,11 @@ namespace Paramount
             return urlHelper.Action("Booking", "Invoice", new { bookingId });
         }
 
+        public static string ConfirmRegistration(this UrlHelper urlHelper)
+        {
+            return urlHelper.Action("Confirmation", "Account");
+        }
+
         public static string ActionAbsolute(this UrlHelper urlHelper, string actionName, string controllerName, object routeValues = null)
         {
             string scheme = urlHelper.RequestContext.HttpContext.Request.Url.Scheme;

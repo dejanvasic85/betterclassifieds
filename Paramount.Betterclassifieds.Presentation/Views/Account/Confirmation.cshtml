@@ -1,5 +1,5 @@
 ﻿@using Paramount
-@model Paramount.Betterclassifieds.Presentation.ViewModels.AccountConfirmationViewModel
+@model AccountConfirmationViewModel
 
 @{
     ViewBag.Title = "Classifieds - Account confirmation result";
@@ -9,54 +9,34 @@
 <div class="container-fluid container-body">
     <div class="row">
         <div class="col-xs-12">
-            @if (Model.IsSuccessfulConfirmation)
-            {
-                <h2>Confirmation Successful</h2>
-                <h3>Welcome to KandoBay @Model.Username</h3>
-                <div class="alert alert-success">Account Confirmed! Your email has been verified successfully.</div>
-                <p>Where to from here? How about @Html.ActionLink("placing a new ad?", "Step1", "Booking") </p>
-            }
+            <h2>Confirmation Required</h2>
+            <div class="well well-lg">
+                We sent you an email with a confirmation code. In order for us to ensure that the email
+                belongs to you, please copy the number from the email in to the form below.
+            </div>
+            <form  method="POST" action="@Url.ConfirmRegistration()">
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.RegistrationId)
+                @Html.HiddenFor(m => m.ReturnUrl)
 
-            @if (Model.RegistrationExpiredOrNotExists)
-            {
-                <h2>Ooops...</h2>
-                <p>
-                    <div class="alert alert-danger">
-                        We were not able to confirm your account. The registration
-                        is not valid or has expired.
-                    </div>
-                </p>
-                <p>
-                    @Html.ActionLink(" Please visit our registration page to start over.", "Login")
-                </p>
-            }
+                <div class="form-group">
+                    <label for="token">Confirmation Code</label>
+                    <input type="text" id="token" name="token" class="form-control" data-numbers-only style="width: 80px" maxlength="4" />
+                    @Html.ValidationMessageFor(m => m.Token)
+                </div>
 
-            @if (Model.AccountAlreadyConfirmed)
-            {
-                <h2>Ooops...</h2>
-                <p>
+                @if (Model.TokenNotValid)
+                {
                     <div class="alert alert-danger">
-                        The requested email has already been confirmed.
+                        The token provided is not valid.
                     </div>
-                </p>
-                <p>
-                    If you believe that this should not be the case, 
-                    @Html.ActionLink("please contact our friendly staff.", "ContactUs", "Home")
-                </p>
-            }
-            
-            @if (Model.DuplicateUsernameOrEmail)
-            {
-                <h2>Ooops...</h2>
-                <p>
-                    <div class="alert alert-danger">
-                        The requested email or username '@Model.Username' is already registered.
-                    </div>
-                </p>
-                <p>
-                    @Html.ActionLink(" Please visit our registration page to start over.", "Login")
-                </p>
-            }
+                }
+
+                <button type="submit" class="btn btn-default">
+                    Submit
+                </button>
+            </form>
+            <hr />
         </div>
     </div>
 </div>

@@ -86,7 +86,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 12
  testRunner.And("the online ad contact email should be \"sample@fake.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 13
- testRunner.And("the online ad contact phone should be \"111 222 333\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the online ad contact phone should be \"0455555555\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

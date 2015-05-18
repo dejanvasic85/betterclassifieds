@@ -119,9 +119,11 @@
     <Compile Include="Controllers\AccountControllerTests.cs" />
     <Compile Include="Controllers\ControllerTest.cs" />
     <Compile Include="Controllers\HomeControllerTests.cs" />
+    <Compile Include="TestContext.cs" />
     <Compile Include="Database\ClassifiedsDataContextTests.cs" />
     <Compile Include="Membership\ConfirmationCodeGeneratorTests.cs" />
     <Compile Include="Membership\RegistrationModelTests.cs" />
+    <Compile Include="Membership\UserManagerTests.cs" />
     <Compile Include="Mocks\BookingCartMocks.cs" />
     <Compile Include="Mocks\MoqExtensions.cs" />
     <Compile Include="Mocks\OnlineRateMocks.cs" />

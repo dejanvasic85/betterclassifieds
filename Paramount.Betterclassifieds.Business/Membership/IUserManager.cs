@@ -1,9 +1,9 @@
 ﻿namespace Paramount.Betterclassifieds.Business
 {
-    using System;
     using System.Collections.Generic;
     using System.Security.Principal;
     using Broadcast;
+    using Utility;
 
     public interface IUserManager
     {
@@ -12,23 +12,29 @@
         IEnumerable<UserNetworkModel> GetUserNetworksForUserId(string userId);
         void CreateUserNetwork(IPrincipal user, string email, string fullName);
         RegistrationResult RegisterUser(RegistrationModel registrationModel, string plaintextPassword);
-        void ConfirmRegistration(RegistrationModel registerModel);
+        RegistrationConfirmationResult ConfirmRegistration(int registrationId, string token);
         void UpdateUserProfile(ApplicationUser applicationUser);
     }
 
     public class UserManager : IUserManager
     {
+        private const int MaxConfirmationTokenAttempts = 5;
+
         private readonly IUserRepository _userRepository;
         private readonly IAuthManager _authManager;
         private readonly IBroadcastManager _broadcastManager;
         private readonly IClientConfig _clientConfig;
+        private readonly IConfirmationCodeGenerator _confirmationCodeGenerator;
+        private readonly IDateService _dateService;
 
-        public UserManager(IUserRepository userRepository, IAuthManager authManager, IBroadcastManager broadcastManager, IClientConfig clientConfig)
+        public UserManager(IUserRepository userRepository, IAuthManager authManager, IBroadcastManager broadcastManager, IClientConfig clientConfig, IConfirmationCodeGenerator confirmationCodeGenerator, IDateService dateService)
         {
             _userRepository = userRepository;
             _authManager = authManager;
             _broadcastManager = broadcastManager;
             _clientConfig = clientConfig;
+            _confirmationCodeGenerator = confirmationCodeGenerator;
+            _dateService = dateService;
         }
 
         public ApplicationUser GetUserByEmailOrUsername(string emailOrUsername)
@@ -53,7 +59,7 @@
         {
             return _userRepository.GetUserNetworksForUserId(userId);
         }
-        
+
         public void CreateUserNetwork(IPrincipal user, string email, string fullName)
         {
             var userNetworkModel = new UserNetworkModel(user.Identity.Name, email, fullName);
@@ -66,18 +72,57 @@
             registrationModel
                 .GenerateUniqueUsername(_authManager.CheckUsernameExists)
                 .SetPasswordFromPlaintext(plaintextPassword)
-                .GenerateToken();
-            
-            // Create the registration in the db
+                .SetConfirmationCode(_confirmationCodeGenerator.GenerateCode());
+
+            // Create in the database
             _userRepository.CreateRegistration(registrationModel);
+
+            if (_clientConfig.IsTwoFactorAuthEnabled)
+            {
+                // Send the two factor authorisation email
+                _broadcastManager.SendEmail(new NewRegistration
+                {
+                    FirstName = registrationModel.FirstName,
+                    LastName = registrationModel.LastName,
+                    VerificationCode = registrationModel.Token
+                }, registrationModel.Email);
+            }
+
             return new RegistrationResult(registrationModel, _clientConfig.IsTwoFactorAuthEnabled);
         }
 
-        public void ConfirmRegistration(RegistrationModel registrationModel)
+        public RegistrationConfirmationResult ConfirmRegistration(int registrationId, string token)
         {
-            registrationModel.Confirm();
+            // Fetch the original registration
+            var registrationModel = _authManager.GetRegistration(registrationId);
+
+            if (registrationModel == null)
+            {
+                return RegistrationConfirmationResult.RegistrationDoesNotExist;
+            }
+
+            if (registrationModel.ExpirationDateUtc < _dateService.UtcNow)
+            {
+                return RegistrationConfirmationResult.RegistrationExpired;
+            }
+
+            if (registrationModel.ConfirmationAttempts >= MaxConfirmationTokenAttempts)
+            {
+                return RegistrationConfirmationResult.TokenExpired;
+            }
+
+            if (!registrationModel.Confirm(token))
+            {
+                // Save the registration that may increment the attempts
+                _userRepository.UpdateRegistrationByToken(registrationModel);
+                return RegistrationConfirmationResult.TokenNotCorrect;
+            }
+
+            _authManager.CreateMembership(registrationModel.Username, registrationModel.Email, registrationModel.DecryptPassword(), login: true);
             _userRepository.CreateUserProfile(registrationModel);
             _userRepository.UpdateRegistrationByToken(registrationModel);
+
+            return RegistrationConfirmationResult.Successful;
         }
 
         public void UpdateUserProfile(ApplicationUser applicationUser)
@@ -91,7 +136,7 @@
             original.AddressLine2 = applicationUser.AddressLine2;
             original.Postcode = applicationUser.Postcode;
             original.State = applicationUser.State;
-            
+
             // Update
             _userRepository.UpdateUserProfile(original);
         }

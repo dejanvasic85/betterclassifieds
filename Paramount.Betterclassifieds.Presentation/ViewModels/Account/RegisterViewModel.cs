@@ -15,25 +15,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public string RegisterEmail { get; set; }
 
         [Required]
-        [Display(Name = "Confirm Email")]
-        [System.ComponentModel.DataAnnotations.Compare("RegisterEmail", ErrorMessage = "Email and Confirm email do not match")]
-        [DataType(DataType.EmailAddress)]
-        [StringLength(50)]
-        [EmailAddress]
-        public string ConfirmEmail { get; set; }
-
-        [Required]
         [Display(Name = "Password")]
         [DataType(DataType.Password)]
         [StringLength(50, MinimumLength = 6, ErrorMessage = "The password must be between 6 and 50 characters long")]
         public string RegisterPassword { get; set; }
-
-        [Required]
-        [Display(Name = "Confirm Password")]
-        [DataType(DataType.Password)]
-        [StringLength(50)]
-        [System.ComponentModel.DataAnnotations.Compare("RegisterPassword", ErrorMessage = "Confirm Password and Password do not match")]
-        public string ConfirmPassword { get; set; }
 
         [Required]
         [Display(Name = "First Name")]

@@ -8,6 +8,8 @@ namespace Paramount.Utility
     public interface IDateService
     {
         DateTime Today { get; }
+        DateTime Now { get; }
+        DateTime UtcNow { get; }
     }
 
     /// <summary>
@@ -18,6 +20,16 @@ namespace Paramount.Utility
         public DateTime Today
         {
             get { return DateTime.Today; }
+        }
+
+        public DateTime Now
+        {
+            get { return DateTime.Now; }
+        }
+
+        public DateTime UtcNow
+        {
+            get { return DateTime.UtcNow; }
         }
     }
 }

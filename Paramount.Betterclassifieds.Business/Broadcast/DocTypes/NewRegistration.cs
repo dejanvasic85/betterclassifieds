@@ -13,7 +13,7 @@
         [Placeholder("LastName")]
         public string LastName { get; set; }
 
-        [Placeholder("VerificationLink")]
-        public string VerificationLink { get; set; }
+        [Placeholder("VerificationCode")]
+        public string VerificationCode { get; set; }
     }
 }

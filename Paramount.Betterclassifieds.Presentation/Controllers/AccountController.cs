@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Paramount.Betterclassifieds.DataService.LinqObjects;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
@@ -97,69 +97,40 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return View("Login", new LoginOrRegisterModel { RegisterViewModel = viewModel });
             }
 
-            // Store the registration model temporarily with a registered token ( until the confirmation is completed )
-            var registrationModel = this.Map<RegisterViewModel, RegistrationModel>(viewModel);
+            var registrationResult = _userManager.RegisterUser(this.Map<RegisterViewModel, RegistrationModel>(viewModel), viewModel.RegisterPassword);
 
-            var registrationResult = _userManager.RegisterUser(registrationModel, viewModel.RegisterPassword);
-
-            if (registrationResult.RequiresConfirmation)
+            return View("Confirmation", new AccountConfirmationViewModel
             {
-                _broadcastManager.SendEmail(new NewRegistration
-                {
-                    FirstName = registrationModel.FirstName,
-                    VerificationLink = Url.ActionAbsolute("Confirmation", "Account", new
-                    {
-                        registrationResult.Registration.RegistrationId,
-                        registrationResult.Registration.Token,
-                        registrationResult.Registration.Username
-                    })
-                }, registrationModel.Email);
-
-                return View("ThankYou");
-            }
-
-            return RedirectToAction("Confirmation", new
-            {
-                registrationId = registrationResult.Registration.RegistrationId,
-                token = registrationResult.Registration.Token,
-                username = registrationResult.Registration.Username
+                RegistrationId = registrationResult.Registration.RegistrationId,
+                ReturnUrl = TempData[ReturnUrlKey] == null ? string.Empty : TempData[ReturnUrlKey].ToString(),
             });
         }
 
-        [HttpGet]
-        public ActionResult Confirmation(int registrationId, string token, string username)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Confirmation(AccountConfirmationViewModel viewModel)
         {
-            // Fetch the registration record
-            RegistrationModel registerModel = _authManager.GetRegistration(registrationId, token, username);
-
-            if (registerModel == null || registerModel.HasExpired())
+            if (!ModelState.IsValid)
             {
-                return View(new AccountConfirmationViewModel { RegistrationExpiredOrNotExists = true });
+                return View(viewModel);
             }
 
-            if (registerModel.HasConfirmedAlready())
+            var result = _userManager.ConfirmRegistration(viewModel.RegistrationId.GetValueOrDefault(), viewModel.Token.ToString());
+
+            if (result != RegistrationConfirmationResult.Successful)
             {
-                return View(new AccountConfirmationViewModel { AccountAlreadyConfirmed = true });
+                ModelState.AddModelError("Token", "Token is not valid or expired.");
+                return View(viewModel);
             }
 
-            if (_authManager.CheckEmailExists(registerModel.Email) || _authManager.CheckUsernameExists(registerModel.Username))
+            if (viewModel.ReturnUrl.HasValue())
             {
-                return View(new AccountConfirmationViewModel { DuplicateUsernameOrEmail = true, Username = registerModel.Username });
+                return Redirect(viewModel.ReturnUrl);
             }
 
-            // Register 
-            // _authManager.CreateMembershipFromRegistration(registerModel);
-            _authManager.CreateMembership(registerModel.Username, registerModel.Email, registerModel.DecryptPassword());
-
-            // Update the registration
-            _userManager.ConfirmRegistration(registerModel);
-
-            // Login
-            _authManager.Login(registerModel.Username, createPersistentCookie: false);
-
-            return View(new AccountConfirmationViewModel { IsSuccessfulConfirmation = true, Username = registerModel.Username });
+            return RedirectToAction("Index", "Home");
         }
-
+        
         [HttpGet]
         public ActionResult Logout()
         {

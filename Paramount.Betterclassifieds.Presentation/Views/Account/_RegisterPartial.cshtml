@@ -1,4 +1,4 @@
-﻿@model Paramount.Betterclassifieds.Presentation.ViewModels.RegisterViewModel
+﻿@model RegisterViewModel
 
 <h2>Not a User?</h2>
 <p>Register now to start placing ads and more. We need just a few details. </p>
@@ -11,22 +11,10 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmEmail)
-        @Html.TextBoxFor(m => m.ConfirmEmail, new { @class = "form-control", required = "", autocomplete = "off" })
-        @Html.ValidationMessageFor(m => m.ConfirmEmail)
-    </div>
-
-    <div class="form-group">
         @Html.LabelFor(m => m.RegisterPassword)
         @Html.PasswordFor(m => m.RegisterPassword, new { @class = "form-control", required = "", autocomplete = "off", @pattern = ".{6,50}" })
         @Html.ValidationMessageFor(m => m.RegisterPassword)
         <p class="help-block">Must be between 6 and 50 characters.</p>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword)
-        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", required = "", autocomplete = "off" })
-        @Html.ValidationMessageFor(m => m.ConfirmPassword)
     </div>
 
     <div class="form-group">

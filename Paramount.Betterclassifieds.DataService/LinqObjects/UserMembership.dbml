@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="iFlogAppUser" Class="UserMembershipDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost;Initial Catalog=iFlogAppUser;Integrated Security=True" SettingsObjectName="Paramount.Betterclassifieds.DataService.Properties.Settings" SettingsPropertyName="iFlogAppUserConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AppUser" Class="UserMembershipDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Table Name="dbo.aspnet_Applications" Member="aspnet_Applications">
     <Type Name="aspnet_Application">
       <Column Name="ApplicationName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
@@ -126,7 +125,7 @@
       <Column Name="FirstName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="LastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="PostCode" Type="System.String" DbType="VarChar(6)" CanBeNull="true" />
-      <Column Name="Token" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Token" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="ExpirationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="ExpirationDateUtc" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="LastModifiedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
@@ -136,6 +135,7 @@
       <Column Name="Version" Type="System.Byte[]" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
       <Column Name="HowYouFoundUs" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="Phone" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ConfirmationAttempts" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

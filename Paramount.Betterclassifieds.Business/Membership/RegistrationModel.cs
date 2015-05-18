@@ -11,7 +11,6 @@ namespace Paramount.Betterclassifieds.Business
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PostCode { get; set; }
-
         public string Username { get; private set; }
         public string Token { get; private set; }
         public DateTime? ExpirationDate { get; private set; }
@@ -21,10 +20,9 @@ namespace Paramount.Betterclassifieds.Business
         public DateTime? ConfirmationDate { get; set; }
         public DateTime? ConfirmationDateUtc { get; set; }
         public byte[] Version { get; set; }
-
         public string HowYouFoundUs { get; set; }
-
         public string Phone { get; set; }
+        public int? ConfirmationAttempts { get; private set; }
 
         public RegistrationModel GenerateToken()
         {
@@ -72,20 +70,32 @@ namespace Paramount.Betterclassifieds.Business
             return this;
         }
 
-        public bool HasExpired()
-        {
-            return DateTime.UtcNow > ExpirationDateUtc;
-        }
-
         public bool HasConfirmedAlready()
         {
             return ConfirmationDate.HasValue && ConfirmationDateUtc.HasValue;
         }
 
-        public void Confirm()
+        public bool Confirm(string compareToken)
         {
-            this.ConfirmationDate = DateTime.Now;
-            this.ConfirmationDateUtc = DateTime.UtcNow;
+            if (this.Token.Equals(compareToken))
+            {
+                this.ConfirmationDate = DateTime.Now;
+                this.ConfirmationDateUtc = DateTime.UtcNow;
+                this.ConfirmationAttempts = null;
+                return true;
+            }
+            
+            this.ConfirmationDate = null;
+            this.ConfirmationDateUtc = null;
+            this.ConfirmationAttempts = this.ConfirmationAttempts.GetValueOrDefault() + 1;
+            return false;
+        }
+
+        public void SetConfirmationCode(ConfirmationCodeResult generatedCode)
+        {
+            this.Token = generatedCode.ConfirmationCode;
+            this.ExpirationDate = generatedCode.Expiry;
+            this.ExpirationDateUtc = generatedCode.ExpiryUtc;
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="iFlogAppUser")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="AppUser")]
 	public partial class UserMembershipDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -58,12 +58,6 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
     partial void UpdateRegistration(Registration instance);
     partial void DeleteRegistration(Registration instance);
     #endregion
-		
-		public UserMembershipDataContext() : 
-				base(global::Paramount.Betterclassifieds.DataService.Properties.Settings.Default.iFlogAppUserConnectionString, mappingSource)
-		{
-			OnCreated();
-		}
 		
 		public UserMembershipDataContext(string connection) : 
 				base(connection, mappingSource)
@@ -2739,6 +2733,8 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 		
 		private string _Phone;
 		
+		private System.Nullable<int> _ConfirmationAttempts;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -2777,6 +2773,8 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
     partial void OnHowYouFoundUsChanged();
     partial void OnPhoneChanging(string value);
     partial void OnPhoneChanged();
+    partial void OnConfirmationAttemptsChanging(System.Nullable<int> value);
+    partial void OnConfirmationAttemptsChanged();
     #endregion
 		
 		public Registration()
@@ -2924,7 +2922,7 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Token", DbType="NVarChar(50) NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Token", DbType="NVarChar(50)", UpdateCheck=UpdateCheck.Never)]
 		public string Token
 		{
 			get
@@ -3120,6 +3118,26 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 					this._Phone = value;
 					this.SendPropertyChanged("Phone");
 					this.OnPhoneChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ConfirmationAttempts", DbType="Int", UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<int> ConfirmationAttempts
+		{
+			get
+			{
+				return this._ConfirmationAttempts;
+			}
+			set
+			{
+				if ((this._ConfirmationAttempts != value))
+				{
+					this.OnConfirmationAttemptsChanging(value);
+					this.SendPropertyChanging();
+					this._ConfirmationAttempts = value;
+					this.SendPropertyChanged("ConfirmationAttempts");
+					this.OnConfirmationAttemptsChanged();
 				}
 			}
 		}

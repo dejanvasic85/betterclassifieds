@@ -1,6 +1,9 @@
-﻿using NUnit.Framework;
+﻿using System;
+using Moq;
+using NUnit.Framework;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Security;
+using Paramount.Utility;
 
 namespace Paramount.Betterclassifieds.Tests.Membership
 {
@@ -10,11 +13,17 @@ namespace Paramount.Betterclassifieds.Tests.Membership
         [Test]
         public void Generate_Returns_FourDigits()
         {
-            IConfirmationCodeGenerator generator = new ConfirmationCodeGenerator();
+            var dateService = new Mock<IDateService>();
+            dateService.Setup(call => call.Now).Returns(DateTime.Now);
+            dateService.Setup(call => call.UtcNow).Returns(DateTime.UtcNow);
+
+            IConfirmationCodeGenerator generator = new ConfirmationCodeGenerator(dateService.Object);
 
             var result = generator.GenerateCode();
 
-            Assert.That(result.Length, Is.EqualTo(4));
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.GetType(), Is.TypeOf<ConfirmationCodeResult>());
+            Assert.That(result.ConfirmationCode, Is.EqualTo(4));
         }
     }
 }

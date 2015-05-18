@@ -10,4 +10,4 @@ Scenario: Open Online Ad Url Successfully
 	Then the page title should start with "Ad with cool route"
 	And the online ad contact name should be "Sample Contact"
 	And the online ad contact email should be "sample@fake.com"
-	And the online ad contact phone should be "111 222 333"
+	And the online ad contact phone should be "0455555555"

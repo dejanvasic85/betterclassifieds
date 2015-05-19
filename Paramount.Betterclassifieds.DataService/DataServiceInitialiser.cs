@@ -21,7 +21,6 @@
         public override void RegisterTypes(IUnityContainer container)
         {
             container.RegisterType<IAdRepository, AdRepository>()
-                     .RegisterType<ICategoryRepository, CategoryRepository>()
                      .RegisterType<IBookingRepository, BookingRepository>()
                      .RegisterType<IPublicationRepository, PublicationRepository>()
                      .RegisterType<IRateRepository, RateRepository>()

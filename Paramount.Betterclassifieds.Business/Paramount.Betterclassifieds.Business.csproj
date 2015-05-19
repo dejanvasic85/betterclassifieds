@@ -121,7 +121,6 @@
     <Compile Include="Print\PublicationIdComparer.cs" />
     <Compile Include="Print\PublicationTypeModel.cs" />
     <Compile Include="DocumentStorage\Document.cs" />
-    <Compile Include="ICategoryRepository.cs" />
     <Compile Include="Print\IEditionManager.cs" />
     <Compile Include="Search\LocationAreaSearchResult.cs" />
     <Compile Include="Search\SeoNameMappingModel.cs" />

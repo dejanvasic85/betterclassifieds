@@ -31,5 +31,14 @@ namespace Paramount
             return data ?? null;
         }
 
+        public static IEnumerable<T> AddRange<T>(this IList<T> data, IEnumerable<T> newItems)
+        {
+            foreach (var item in newItems)
+            {
+                data.Add(item);
+            }
+
+            return data;
+        }
     }
 }

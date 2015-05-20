@@ -5285,6 +5285,8 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 		
 		private string _OnlineAdTag;
 		
+		private System.Nullable<bool> _IsOnlineOnly;
+		
 		private EntitySet<AdBooking> _AdBookings;
 		
 		private EntitySet<PublicationCategory> _PublicationCategories;
@@ -5305,6 +5307,8 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
     partial void OnParentIdChanged();
     partial void OnOnlineAdTagChanging(string value);
     partial void OnOnlineAdTagChanged();
+    partial void OnIsOnlineOnlyChanging(System.Nullable<bool> value);
+    partial void OnIsOnlineOnlyChanged();
     #endregion
 		
 		public MainCategory()
@@ -5430,6 +5434,26 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 					this._OnlineAdTag = value;
 					this.SendPropertyChanged("OnlineAdTag");
 					this.OnOnlineAdTagChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsOnlineOnly", DbType="Bit")]
+		public System.Nullable<bool> IsOnlineOnly
+		{
+			get
+			{
+				return this._IsOnlineOnly;
+			}
+			set
+			{
+				if ((this._IsOnlineOnly != value))
+				{
+					this.OnIsOnlineOnlyChanging(value);
+					this.SendPropertyChanging();
+					this._IsOnlineOnly = value;
+					this.SendPropertyChanged("IsOnlineOnly");
+					this.OnIsOnlineOnlyChanged();
 				}
 			}
 		}
@@ -9066,7 +9090,7 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RowTimeStamp", AutoSync=AutoSync.Always, DbType="rowversion", CanBeNull=true, IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RowTimeStamp", AutoSync=AutoSync.Always, DbType="rowversion", IsDbGenerated=true, IsVersion=true, UpdateCheck=UpdateCheck.Never)]
 		public System.Data.Linq.Binary RowTimeStamp
 		{
 			get

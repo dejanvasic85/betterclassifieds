@@ -4,5 +4,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
     {
         public int? CategoryId { get; set; }
         public string Title { get; set; }
+        public bool IsOnlineOnly { get; set; }
     }
 }

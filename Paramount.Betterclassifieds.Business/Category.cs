@@ -7,5 +7,6 @@
         public int? ParentId { get; set; }
         public string OnlineAdTag { get; set; }
         public string SeoName { get; set; }
+        public bool IsOnlineOnly { get; set; }
     }
 }

@@ -31,7 +31,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var list = _searchService.GetCategories()
                 .Where(c => c.ParentId == parentId)
-                .Select(c => new CategoryView { CategoryId = c.MainCategoryId, Title = c.Title })
+                .Select(c => new CategoryView
+                {
+                    CategoryId = c.MainCategoryId,
+                    Title = c.Title,
+                    IsOnlineOnly = c.IsOnlineOnly
+                })
                 .ToList();
 
             return Json(list, JsonRequestBehavior.AllowGet);

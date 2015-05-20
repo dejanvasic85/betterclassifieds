@@ -117,6 +117,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <EmbeddedResource Include="Scripts\0047-Categories.Column.IsOnlineOnly.sql" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Scripts\0001-BaselineSchema.sql" />

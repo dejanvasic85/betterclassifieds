@@ -1,14 +1,17 @@
 ﻿(function ($, $p) {
 
-    $p.categorySvc = function (endpoints) {
+    $p.categorySvc = {
+        getParentCategories: getParentCategories,
+        getChildCategories : getChildCategories
+    }
 
-        this.endpoints = endpoints;
+    function getParentCategories() {
+        return $.ajax({ url: $p.url.categories.get() });
+    }
 
-    };
-
-    $p.categorySvc.prototype.getParentCategories = function () {
-        return $.ajax({ url: endpoints.category.getParents });
-    };
+    function getChildCategories(parentId) {
+        return $.ajax({ url: $p.url.categories.get(parentId) });
+    }
 
     function post(url, data) {
         return $.ajax({

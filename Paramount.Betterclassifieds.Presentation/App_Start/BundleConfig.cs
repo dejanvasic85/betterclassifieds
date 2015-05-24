@@ -42,7 +42,7 @@ namespace Paramount.Betterclassifieds.Presentation
 
             
             // Enable this flag for development only when trying to force bundling and minification
-            BundleTable.EnableOptimizations = true;
+            //BundleTable.EnableOptimizations = true;
         }
 
         public static void RegisterStyles(BundleCollection bundles)

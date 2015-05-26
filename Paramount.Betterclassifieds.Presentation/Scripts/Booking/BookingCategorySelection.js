@@ -3,51 +3,27 @@
 
     $p.models = $p.models || {};
 
-    $p.models.BookingCategorySelection = function (options) {
+    $p.models.BookingCategorySelection = function (data) {
         
         var self = this;
-        self.inProgress = ko.observable(true);
-
-        // Options
-        self.parentCategoryOptions = ko.observableArray();
-        self.childCategoryOptions = ko.observableArray();
-        self.publicationOptions = ko.observableArray();
-
-        // Values
-        self.selectedParentCategory = ko.observable();
-        self.selectedChildCategory = ko.observable(options.selectedChildCategory);
-
-        // Load parent categories
-        options.categorySvc.getParentCategories().done(function(data) {
-            self.parentCategoryOptions.removeAll();
-            $.each(data, function (idx, c) {
-                var Category = new $p.models.Category(c.CategoryId, c.Title, c.IsOnlineOnly);
-                self.parentCategoryOptions.push(Category);
-
-                //if (options.selectedParentCategoryId !== undefined && options.selectedParentCategoryId === c.CategoryId) {
-                //    debugger;
-                //    self.selectedParentCategory(options.selectedParentCategoryId);
-                //}
-                self.selectedParentCategory(options.selectedParentCategoryId);
-            });
+        self.categoryId = ko.observable(data.categoryId);
+        self.subCategoryId = ko.observable(data.subCategoryId);
+        self.publications = ko.observableArray(data.publications);
+        self.shouldShowSubCategory = ko.computed(function () {
+            return self.categoryId() !== "";
         });
-    };
+        self.togglePublication = function (pub) {
+            if (!pub) {
+                return;
+            }
 
-    /*
-     * Category model
-     */
-    $p.models.Category = function(id, title, isOnlineOnly) {
-        this.id = ko.observable(id);
-        this.title = ko.observable(title);
-        this.isOnlineOnly = ko.observable(isOnlineOnly);
-    };
+            if (pub.isSelected === 'undefined') {
+                return;
+            }
 
-    /*
-     * Publication model
-     */
-    $p.models.Publication = function(id, title) {
-        this.id = ko.observable(id);
-        this.title = ko.observable(title);
+            pub.isSelected = !pub.isSelected;
+        };
+        self.errorMsg = ko.observable("");
     };
-
+    
 })(jQuery, ko, $paramount);

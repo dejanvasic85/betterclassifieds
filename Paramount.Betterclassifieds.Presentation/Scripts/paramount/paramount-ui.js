@@ -38,26 +38,17 @@
         $('.js-select').each(function () {
             var me = $(this);
             me.attr('disabled', 'disabled');
-            me.append("<option value=''>Loading...</option>");
+            me.append('<option>Loading...</option>');
             var url = me.data().url;
             var selected = me.data().selected;
             $.getJSON(url).done(function (data) {
                 me.empty();
                 $.each(data, function (index, option) {
-
-                    if (index === 0 && option.Value !== '') {
-                        me.append("<option value=''>-- Select --</option>");
+                    if (selected == option.Value) {
+                        me.append('<option selected value="' + option.Value + '">' + option.Text + '</option>');
+                    } else {
+                        me.append('<option value="' + option.Value + '">' + option.Text + '</option>');
                     }
-
-                    var opt = $('<option></option>');
-                    opt.text(option.Text);
-                    opt.attr('value', option.Value);
-
-                    if (selected === option.Value) {
-                        opt.attr('selected', '');
-                    }
-
-                    me.append(opt);
                 });
                 me.removeAttr('disabled');
             });

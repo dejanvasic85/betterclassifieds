@@ -27,12 +27,27 @@
     <div class="col-xs-12" id="Categories">
         <div class="form-group">
 
-            <select id="parentCategoryId" data-bind="value: categoryId" class="form-control input-lg js-select" 
-                    data-url="@Url.Action("GetCategoryOptions", "Categories", new{includeAllOption = false})"></select>
+            <select id="parentCategoryId" data-bind="value: categoryId" class="form-control input-lg">
+                <option value="">-- Category --</option>
+                @foreach (var category in Model.ParentCategoryOptions)
+                {
+                    <option value="@category.Value">@category.Text</option>
+                }
+            </select>
 
             <br />
 
-            <select id="subCategoryId" data-bind="value: subCategoryId, visible: shouldShowSubCategory" class="form-control input-lg"></select>
+            <select id="subCategoryId" name="subCategoryId" class="form-control input-lg"
+                    data-bind="value: subCategoryId, visible: shouldShowSubCategory">
+                <option>-- Sub Category --</option>
+                @if (Model.SubCategoryOptions != null)
+                {
+                    foreach (var category in Model.SubCategoryOptions)
+                    {
+                        <option value="@category.Value">@category.Text</option>
+                    }
+                }
+            </select>
         </div>
     </div>
 </div>
@@ -79,13 +94,36 @@
         @Scripts.Render("~/bundle/paramount-booking")
         <script>
 
+
+
             (function($) {
 
                 // jQuery ready
                 $(function() {
-               
+                    var StepOne = function(stepData) {
+                        var self = this;
+                        self.categoryId = ko.observable(stepData.categoryId);
+                        self.subCategoryId = ko.observable(stepData.subCategoryId);
+                        self.publications = ko.observableArray(stepData.publications);
+                        self.shouldShowSubCategory = ko.computed(function() {
+                            return self.categoryId() !== "";
+                        });
+                        self.togglePublication = function(pub) {
+                            if (!pub) {
+                                return;
+                            }
+
+                            if (pub.isSelected === 'undefined') {
+                                return;
+                            }
+
+                            pub.isSelected = !pub.isSelected;
+                        };
+                        self.errorMsg = ko.observable("");
+                    };
+
                     var data = @Html.Raw(Model.ToJsonString());
-                    var stepOneModel = new $paramount.models.BookingCategorySelection(data);
+                    var stepOneModel = new StepOne(data);
 
                     ko.applyBindings(stepOneModel);
 

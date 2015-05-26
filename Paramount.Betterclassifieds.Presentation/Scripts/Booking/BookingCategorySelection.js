@@ -3,27 +3,51 @@
 
     $p.models = $p.models || {};
 
-    $p.models.BookingCategorySelection = function (data) {
+    $p.models.BookingCategorySelection = function (options) {
         
         var self = this;
-        self.categoryId = ko.observable(data.categoryId);
-        self.subCategoryId = ko.observable(data.subCategoryId);
-        self.publications = ko.observableArray(data.publications);
-        self.shouldShowSubCategory = ko.computed(function () {
-            return self.categoryId() !== "";
+        self.inProgress = ko.observable(true);
+
+        // Options
+        self.parentCategoryOptions = ko.observableArray();
+        self.childCategoryOptions = ko.observableArray();
+        self.publicationOptions = ko.observableArray();
+
+        // Values
+        self.selectedParentCategory = ko.observable();
+        self.selectedChildCategory = ko.observable(options.selectedChildCategory);
+
+        // Load parent categories
+        options.categorySvc.getParentCategories().done(function(data) {
+            self.parentCategoryOptions.removeAll();
+            $.each(data, function (idx, c) {
+                var Category = new $p.models.Category(c.CategoryId, c.Title, c.IsOnlineOnly);
+                self.parentCategoryOptions.push(Category);
+
+                //if (options.selectedParentCategoryId !== undefined && options.selectedParentCategoryId === c.CategoryId) {
+                //    debugger;
+                //    self.selectedParentCategory(options.selectedParentCategoryId);
+                //}
+                self.selectedParentCategory(options.selectedParentCategoryId);
+            });
         });
-        self.togglePublication = function (pub) {
-            if (!pub) {
-                return;
-            }
-
-            if (pub.isSelected === 'undefined') {
-                return;
-            }
-
-            pub.isSelected = !pub.isSelected;
-        };
-        self.errorMsg = ko.observable("");
     };
-    
+
+    /*
+     * Category model
+     */
+    $p.models.Category = function(id, title, isOnlineOnly) {
+        this.id = ko.observable(id);
+        this.title = ko.observable(title);
+        this.isOnlineOnly = ko.observable(isOnlineOnly);
+    };
+
+    /*
+     * Publication model
+     */
+    $p.models.Publication = function(id, title) {
+        this.id = ko.observable(id);
+        this.title = ko.observable(title);
+    };
+
 })(jQuery, ko, $paramount);

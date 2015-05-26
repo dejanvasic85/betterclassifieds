@@ -7,6 +7,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
     public class Step1View
     {
+        public IEnumerable<SelectListItem> ParentCategoryOptions { get; set; }
+
+        public IEnumerable<SelectListItem> SubCategoryOptions { get; set; }
 
         public IEnumerable<PublicationSelectionView> Publications { get; set; }
 
@@ -15,6 +18,22 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
         [Required]
         public int? SubCategoryId { get; set; }
+
+        public void SetSelectedPublications(int[] publications)
+        {
+            if (publications.IsNullOrEmpty() || Publications.IsNullOrEmpty())
+                return;
+
+            foreach (var selectedPublication in publications)
+            {
+                var publicationToSelect = Publications.SingleOrDefault(p => p.PublicationId == selectedPublication);
+
+                if (publicationToSelect != null)
+                {
+                    publicationToSelect.IsSelected = true;
+                }
+            }
+        }
     }
 }
 

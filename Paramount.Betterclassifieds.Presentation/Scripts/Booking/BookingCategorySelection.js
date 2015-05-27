@@ -3,51 +3,81 @@
 
     $p.models = $p.models || {};
 
-    $p.models.BookingCategorySelection = function (options) {
-        
+    $p.models.BookingCategorySelection = function (stepData) {
         var self = this;
-        self.inProgress = ko.observable(true);
+        self.categoryId = ko.observable(stepData.categoryId);
+        self.subCategoryId = ko.observable(stepData.subCategoryId);
+        self.publications = ko.observableArray(stepData.publications);
+        self.shouldShowSubCategory = ko.computed(function () {
+            return self.categoryId() !== "";
+        });
+        self.shouldShowPublications = ko.observable(!stepData.isOnlineOnly);
+        self.togglePublication = function (pub) {
+            if (!pub) {
+                return;
+            }
 
-        // Options
-        self.parentCategoryOptions = ko.observableArray();
-        self.childCategoryOptions = ko.observableArray();
-        self.publicationOptions = ko.observableArray();
+            if (pub.isSelected === 'undefined') {
+                return;
+            }
 
-        // Values
-        self.selectedParentCategory = ko.observable();
-        self.selectedChildCategory = ko.observable(options.selectedChildCategory);
+            pub.isSelected = !pub.isSelected;
+        };
+        self.errorMsg = ko.observable("");
+    }
 
-        // Load parent categories
-        options.categorySvc.getParentCategories().done(function(data) {
-            self.parentCategoryOptions.removeAll();
-            $.each(data, function (idx, c) {
-                var Category = new $p.models.Category(c.CategoryId, c.Title, c.IsOnlineOnly);
-                self.parentCategoryOptions.push(Category);
+    $p.booking = $p.booking || {};
+    $p.booking.stepOne = function(contract) {
+        var categorySelection = new $p.models.BookingCategorySelection(contract);
+        ko.applyBindings(categorySelection);
 
-                //if (options.selectedParentCategoryId !== undefined && options.selectedParentCategoryId === c.CategoryId) {
-                //    debugger;
-                //    self.selectedParentCategory(options.selectedParentCategoryId);
-                //}
-                self.selectedParentCategory(options.selectedParentCategoryId);
+        $('#parentCategoryId').on('change', function () {
+            var me = $(this);
+            categorySelection.subCategoryId = ko.observable(null); // clear
+            if (me.val() === '') {
+                return;
+            }
+            $('#subCategoryId').loadSubCategories($p.url.categories.get(), me.val(), false);
+
+            $.post($p.url.categories.isOnlineOnly, { id: me.val() }, function (response) {
+                categorySelection.shouldShowPublications(!response.isOnlineOnly);
             });
         });
-    };
 
-    /*
-     * Category model
-     */
-    $p.models.Category = function(id, title, isOnlineOnly) {
-        this.id = ko.observable(id);
-        this.title = ko.observable(title);
-        this.isOnlineOnly = ko.observable(isOnlineOnly);
-    };
 
-    /*
-     * Publication model
-     */
-    $p.models.Publication = function(id, title) {
-        this.id = ko.observable(id);
-        this.title = ko.observable(title);
+        $('#btnSubmit').on('click', function () {
+            var $btn = $(this);
+            $btn.button('loading');
+            var modelToPost = ko.toJS(categorySelection);
+            if (categorySelection.shouldShowPublications() === false) {
+                $.each(modelToPost.publications, function (idx, p) {
+                    p.isSelected = false;
+                });
+            }
+
+            // Validate
+            if (isNaN(categorySelection.subCategoryId()) || categorySelection.subCategoryId() === null) {
+                categorySelection.errorMsg('You must select a sub category for your ad');
+                $(this).button('reset');
+                return;
+            }
+
+            $.ajax({
+                url: $p.url.adBooking.stepOne,
+                data: JSON.stringify(modelToPost),
+                contentType: 'application/json',
+                type: 'POST',
+                dataType: 'json',
+                success: function (respondUrl) {
+                    window.location = respondUrl;
+                },
+                error: function (resp) {
+                    categorySelection.errorMsg(resp.statusText);
+                    $btn.button('reset');
+                }
+            });
+        });
+
     };
 
 })(jQuery, ko, $paramount);

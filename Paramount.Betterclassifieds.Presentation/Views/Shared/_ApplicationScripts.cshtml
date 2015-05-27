@@ -49,6 +49,7 @@
 
         // Endpoints for managing ad during booking
         me.url.adBooking = {
+            stepOne : '@Url.Action("Step1", "Booking")',
             updateBookingRates: '@Url.UpdateBookingRates()',
             previewBookingEditions: '@Url.PreviewBookingEditions()',
             assignPrintImgUrl: '@Url.SetLineAdImageId()',
@@ -62,10 +63,11 @@
             get: function (parentId) {
                 var url = '@Url.Action("GetCategories", "Categories")';
                 if (parentId) {
-                    url += '/' + parentId;
+                    url += '?parentId=' + parentId;
                 }
                 return url;
-            }
+            },
+            isOnlineOnly: '@Url.Action("IsOnlineOnlyCategory", "Categories")'
         }
 
         return me;

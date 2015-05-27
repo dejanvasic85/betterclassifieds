@@ -100,83 +100,13 @@
         @Scripts.Render("~/bundle/paramount-booking")
         <script>
 
-            (function($) {
+            (function($, $p) {
                 // jQuery ready
                 $(function() {
-                    var StepOne = function(stepData) {
-                        var self = this;
-                        self.categoryId = ko.observable(stepData.categoryId);
-                        self.subCategoryId = ko.observable(stepData.subCategoryId);
-                        self.publications = ko.observableArray(stepData.publications);
-                        self.shouldShowSubCategory = ko.computed(function() {
-                            return self.categoryId() !== "";
-                        });
-                        self.shouldShowPublications = ko.observable(!stepData.isOnlineOnly);
-                        self.togglePublication = function(pub) {
-                            if (!pub) {
-                                return;
-                            }
-
-                            if (pub.isSelected === 'undefined') {
-                                return;
-                            }
-
-                            pub.isSelected = !pub.isSelected;
-                        };
-                        self.errorMsg = ko.observable("");
-                    };
 
                     var data = @Html.Raw(Model.ToJsonString());
-                    var stepOneModel = new StepOne(data);
-
-                    ko.applyBindings(stepOneModel);
-
-                    $('#parentCategoryId').on('change', function() {
-                        var me = $(this);
-                        stepOneModel.subCategoryId = ko.observable(null); // clear
-                        if (me.val() === '') {
-                            return;
-                        }
-                        $('#subCategoryId').loadSubCategories('@Url.Action("GetCategories", "Categories")', me.val(), false);
-
-                        $.post('@Url.Action("IsOnlineOnlyCategory", "Categories")', { id: me.val() }, function(response) {
-                            stepOneModel.shouldShowPublications(!response.isOnlineOnly);
-                        });
-                    });
-
-                    $('#btnSubmit').on('click', function() {
-                        var $btn = $(this);
-                        $btn.button('loading');
-                        var modelToPost = ko.toJS(stepOneModel);
-                        if (stepOneModel.shouldShowPublications() === false) {
-                            $.each(modelToPost.publications, function(idx, p) {
-                                p.isSelected = false;
-                            });
-                        }
-
-                        // Validate
-                        if (isNaN(stepOneModel.subCategoryId()) || stepOneModel.subCategoryId() === null) {
-                            stepOneModel.errorMsg('You must select a sub category for your ad');
-                            $(this).button('reset');
-                            return;
-                        }
-
-                        $.ajax({
-                            url: '@Url.Action("Step1")',
-                            data: JSON.stringify(modelToPost),
-                            contentType: 'application/json',
-                            type: 'POST',
-                            dataType: 'json',
-                            success: function(respondUrl) {
-                                window.location = respondUrl;
-                            },
-                            error: function(resp) {
-                                stepOneModel.errorMsg(resp.statusText);
-                                $btn.button('reset');
-                            }
-                        });
-                    });
+                    var stepOneModel = new $p.booking.stepOne(data);
                 });
-            })(jQuery);
+            })(jQuery, $paramount);
         </script>
     }

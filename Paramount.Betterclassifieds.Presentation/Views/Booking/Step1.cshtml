@@ -55,6 +55,7 @@
 @*Newspapers*@
 @if (@Model.Publications.Any())
 {
+
     <div class="row">
         <div class="col-xs-12">
             <div class="bs-callout bs-callout-info">
@@ -64,7 +65,12 @@
         </div>
 
         <div class="col-xs-12 button-options">
-            <div class="center-block" data-bind="foreach: publications">
+
+            <div class="alert alert-warning" data-bind="visible: shouldShowPublications() === false">
+                The category selected does not support print ads.
+            </div>
+
+            <div class="center-block" data-bind="foreach: publications, visible: shouldShowPublications">
                 <button class="btn btn-default btn-block btn-lg"
                         data-bind="id: publicationId, text: title, css: {active : isSelected}, click : $parent.togglePublication"
                         data-toggle="button"></button>
@@ -94,10 +100,7 @@
         @Scripts.Render("~/bundle/paramount-booking")
         <script>
 
-
-
             (function($) {
-
                 // jQuery ready
                 $(function() {
                     var StepOne = function(stepData) {
@@ -108,6 +111,7 @@
                         self.shouldShowSubCategory = ko.computed(function() {
                             return self.categoryId() !== "";
                         });
+                        self.shouldShowPublications = ko.observable(!stepData.isOnlineOnly);
                         self.togglePublication = function(pub) {
                             if (!pub) {
                                 return;
@@ -130,13 +134,25 @@
                     $('#parentCategoryId').on('change', function() {
                         var me = $(this);
                         stepOneModel.subCategoryId = ko.observable(null); // clear
+                        if (me.val() === '') {
+                            return;
+                        }
                         $('#subCategoryId').loadSubCategories('@Url.Action("GetCategories", "Categories")', me.val(), false);
+
+                        $.post('@Url.Action("IsOnlineOnlyCategory", "Categories")', { id: me.val() }, function(response) {
+                            stepOneModel.shouldShowPublications(!response.isOnlineOnly);
+                        });
                     });
 
                     $('#btnSubmit').on('click', function() {
                         var $btn = $(this);
                         $btn.button('loading');
                         var modelToPost = ko.toJS(stepOneModel);
+                        if (stepOneModel.shouldShowPublications() === false) {
+                            $.each(modelToPost.publications, function(idx, p) {
+                                p.isSelected = false;
+                            });
+                        }
 
                         // Validate
                         if (isNaN(stepOneModel.subCategoryId()) || stepOneModel.subCategoryId() === null) {

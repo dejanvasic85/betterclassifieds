@@ -80,24 +80,13 @@
         public ActionResult Step1()
         {
             var bookingCart = _bookingContext.Current();
-            var categories = _searchService.GetCategories();
 
-            var viewModel = new Step1View
-            {
-                ParentCategoryOptions = categories.Where(c => c.ParentId == null).Select(c => new SelectListItem { Text = c.Title, Value = c.MainCategoryId.ToString() }),
-                Publications = this.MapList<PublicationModel, PublicationSelectionView>(_searchService.GetPublications()),
-                CategoryId = bookingCart.CategoryId,
-                SubCategoryId = bookingCart.SubCategoryId,
-            };
-
-            // Set selected publications
-            viewModel.SetSelectedPublications(bookingCart.Publications);
-
-            // Load subcategories (if parent is selected)
-            if (bookingCart.CategoryId.HasValue)
-            {
-                viewModel.SubCategoryOptions = categories.Where(c => c.ParentId == bookingCart.CategoryId.Value).Select(c => new SelectListItem { Text = c.Title, Value = c.MainCategoryId.ToString() });
-            }
+            var viewModel = new Step1View(
+                _searchService.GetCategories(),
+                this.MapList<PublicationModel, PublicationSelectionView>(_searchService.GetPublications()),
+                bookingCart.CategoryId,
+                bookingCart.SubCategoryId,
+                bookingCart.Publications);
 
             return View(viewModel);
         }

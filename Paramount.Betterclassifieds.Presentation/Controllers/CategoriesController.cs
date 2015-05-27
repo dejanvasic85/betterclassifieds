@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using Paramount.Betterclassifieds.Business.Search;
-using System.Web.Mvc;
+﻿using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
@@ -40,6 +40,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 .ToList();
 
             return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult IsOnlineOnlyCategory(int id)
+        {
+            return Json(new { isOnlineOnly = _searchService.GetCategories().Single(c => c.MainCategoryId == id).IsOnlineOnly});
         }
     }
 }

@@ -437,6 +437,7 @@
             configuration.CreateMap<PublicationModel, PublicationSelectionView>();
             configuration.CreateMap<OnlineAdModel, Step2View>()
                 .ForMember(member => member.OnlineAdDescription, options => options.MapFrom(src => src.HtmlText));
+            configuration.CreateMap<OnlineAdModel, Step3View>();
             configuration.CreateMap<LineAdModel, Step2View>();
             configuration.CreateMap<BookingOrderResult, PriceSummaryView>()
                 .ConvertUsing<PriceSummaryViewConverter>();

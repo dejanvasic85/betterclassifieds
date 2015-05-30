@@ -5,14 +5,21 @@
     using Business.Booking;
     using Business.Print;
     using Classifieds;
+    using Utility;
     using System;
     using System.Collections.Generic;
     using System.Data.Linq;
     using System.Linq;
-    using System.Linq.Expressions;
 
     public class BookingRepository : IBookingRepository, IMappingBehaviour
     {
+        private readonly IDateService _dateService;
+
+        public BookingRepository(IDateService dateService)
+        {
+            _dateService = dateService;
+        }
+
         #region Fetch Bookings
 
 
@@ -24,22 +31,21 @@
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 var dataModels = context.AdBookings.Where(bk => bk.AdBookingId == id);
-
                 return MapToModels(dataModels, withOnlineAd, withLineAd, withPublications, withEnquiries).Single();
             }
         }
 
         public List<AdBookingModel> GetUserBookings(string username, int takeMax)
         {
-            // Return all the ads that belong to the user 
-            // But limit it for the last year...
-            Expression<Func<AdBooking, bool>> userQuery = bk => bk.UserId == username && bk.EndDate > DateTime.Today.AddYears(-1) && bk.BookingStatus != (int)BookingStatusType.Cancelled;
-            
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
-                // Get the current ads first
-                var datamodels = context.AdBookings.Where(userQuery).Take(takeMax);
-                
+                // Get the current ads first and if it's less than 
+                var datamodels = context.AdBookings
+                    .Where(bk => bk.UserId == username)
+                    .Where(bk => bk.EndDate > DateTime.Today.AddYears(-1))
+                    .OrderByDescending(bk => bk.AdBookingId)
+                    .Take(takeMax);
+
                 return MapToModels(datamodels, withOnlineAd: true, withLineAd: true, withPublications: true, withEnquiries: true);
             }
         }
@@ -289,8 +295,13 @@
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 var booking = context.AdBookings.First(bk => bk.AdBookingId == adBookingId);
-                booking.EndDate = DateTime.Today.AddDays(-1);
+                booking.EndDate = _dateService.Today.AddDays(-1);
                 booking.BookingStatus = (int)BookingStatusType.Cancelled;
+
+                // Delete all book entries after today
+                var entriesToDelete = context.BookEntries.Where(b => b.EditionDate >= _dateService.Today);
+                context.BookEntries.DeleteAllOnSubmit(entriesToDelete);
+                
                 context.SubmitChanges();
             }
         }

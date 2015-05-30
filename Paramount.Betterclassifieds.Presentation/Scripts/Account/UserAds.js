@@ -31,8 +31,8 @@
             var itemToRemove = ko.utils.arrayFirst(self.ads(), function (item) {
                 return item.adId() == self.selectedAd();
             });
-
-            self.ads.remove(itemToRemove);
+            itemToRemove.status('Expired');
+            //self.ads.remove(itemToRemove);
         };
     };
 

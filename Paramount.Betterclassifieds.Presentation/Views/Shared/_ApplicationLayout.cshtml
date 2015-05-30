@@ -3,9 +3,48 @@
 
 @{
     var brand = ConfigManager.ReadAppSetting<string>("Brand");
+    var configurationContext = ConfigManager.ReadAppSetting<string>("ConfigurationContext");
     Layout = brand.HasValue() ? string.Format(Url.ClientUrl("~/Views/Shared/_Layout.{0}.cshtml"), brand) : Url.ClientUrl("~/Views/Shared/_Layout.cshtml");
 }
+<script type="text/javascript">
+    var paramount = [];
+    paramount.init = function (app) {
+        var getConfigContext = function() {
+            return '@string.Format("{0}{1}", brand, configurationContext).ToLower()';
+        };
 
+        var getTrackingId = function () {
+            var ids = {
+                kandobaydev: "UA-19118426-6",
+                kandobaylive: "UA-19118426-4",
+                themusic: "UA-19118426-5"
+            };
+            return ids[getConfigContext()];
+        }
+
+        app.config = {
+            brand: '@brand',
+            configContext: getConfigContext(),
+            analytics: { trackingId: getTrackingId() }
+        };
+
+        function registerGa() {
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', getTrackingId(), 'auto');
+            ga('send', 'pageview');
+
+        };
+        //run initn methods
+        registerGa();
+    }(paramount);
+
+</script>
 @section HeadSection{
     @RenderSection("HeadSection", false)
 }

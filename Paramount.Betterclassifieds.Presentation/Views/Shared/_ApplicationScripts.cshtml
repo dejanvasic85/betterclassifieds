@@ -1,4 +1,11 @@
 ﻿@using Paramount
+@using Paramount.ApplicationBlock.Configuration
+
+@{
+    var brand = ConfigManager.ReadAppSetting<string>("Brand");
+    var environment = ConfigManager.ReadAppSetting<string>("Environment");
+    var googleTrackingId = ConfigManager.ReadAppSetting<string>("GoogleTrackingId");
+}
 
 @*Third party*@
 @Scripts.Render("~/bundle/jquery-modules")
@@ -6,6 +13,7 @@
 @Scripts.Render("~/bundle/ko")
 @Scripts.Render("~/bundle/components")
 <script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")"></script>
+<script src="@Url.Content("~/Scripts/paramount-googleTacking.js")"></script>
 
 @*Outgoing Urls based on the MVC routes*@
 <script>
@@ -49,7 +57,7 @@
 
         // Endpoints for managing ad during booking
         me.url.adBooking = {
-            stepOne : '@Url.Action("Step1", "Booking")',
+            stepOne: '@Url.Action("Step1", "Booking")',
             updateBookingRates: '@Url.UpdateBookingRates()',
             previewBookingEditions: '@Url.PreviewBookingEditions()',
             assignPrintImgUrl: '@Url.SetLineAdImageId()',
@@ -70,9 +78,35 @@
             isOnlineOnly: '@Url.Action("IsOnlineOnlyCategory", "Categories")'
         }
 
+
+
+        /*
+        *   Initialise the google analytics
+        */
+
+        var getConfigContext = function () {
+            return '@string.Format("{0}{1}", brand, environment).ToLower()';
+        };
+
+        var getTrackingId = function () {
+            return '@googleTrackingId';
+        }
+
+        me.config = {
+            brand: '@brand',
+            configContext: getConfigContext(),
+            analytics: { trackingId: getTrackingId() }
+        };
+        
+        //run initn methods
+        registerGa(getTrackingId());
+
+
         return me;
 
     })($paramount || {});
+
+
 </script>
 
 @*Paramount scripts*@

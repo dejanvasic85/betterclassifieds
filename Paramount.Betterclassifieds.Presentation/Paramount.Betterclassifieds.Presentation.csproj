@@ -562,6 +562,7 @@
     <Content Include="Scripts\moment-2.8.2.js" />
     <Content Include="Scripts\paramount\paramount-adService.js" />
     <Content Include="Scripts\paramount\paramount-categoryService.js" />
+    <Content Include="Scripts\paramount-googleTacking.js" />
     <Content Include="Scripts\paramount\paramount-imageService.js" />
     <Content Include="Scripts\paramount\paramount-ko-extensions.js" />
     <Content Include="Scripts\paramount\paramount-site.js" />

@@ -210,7 +210,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="LegacyIntegration\LegacyLinks.cs" />
     <Compile Include="ViewModels\Account\AccountConfirmationViewModel.cs" />
     <Compile Include="ViewModels\Account\EditAdDetailsViewModel.cs" />
     <Compile Include="ViewModels\Account\LoginOrRegisterModel.cs" />
@@ -627,7 +626,6 @@
     <Content Include="Views\Shared\_Layout.TheMusic.cshtml" />
     <Content Include="Views\Shared\_ApplicationLayout.cshtml" />
     <Content Include="Views\Shared\_Navbar.cshtml" />
-    <Content Include="Views\Shared\_Navbar.TheMusic.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\_ApplicationLayoutWithSearch.cshtml" />
     <Content Include="Views\Account\_LoginPartial.cshtml" />

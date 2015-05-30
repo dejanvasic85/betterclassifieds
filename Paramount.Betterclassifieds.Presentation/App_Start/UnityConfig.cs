@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Presentation
+﻿using System.Web;
+
+namespace Paramount.Betterclassifieds.Presentation
 {
     using ApplicationBlock.Mvc;
     using Business;
@@ -66,10 +68,11 @@
                 .RegisterType<IPrintChargeableItem, PrintSuperBoldHeadingCharge>("PrintSuperBoldHeadingCharge")
                 .RegisterType<IPrintChargeableItem, PrintWordCharge>("PrintWordCharge")
                 .RegisterType<IOnlineChargeableItem, OnlineBasePriceCharge>("OnlineBasePriceCharge")
-                
+
                 // Infrastructure
                 .RegisterType<IDateService, ServerDateService>()
                 .RegisterType<IConfirmationCodeGenerator, ConfirmationCodeGenerator>()
+                .RegisterType<HttpContextBase>(new InjectionFactory(c => new HttpContextWrapper(HttpContext.Current)))
                 ;
 
             return container;

@@ -15,7 +15,8 @@ Here's a list of the latest changes for the current release:
 **Change Requests**
 
 - [User can only see the last 20 ads they have booked](https://trello.com/c/9Ro2w3Vz/312-limit-the-number-of-ads-user-can-see-in-my-ads-page)
-
+- [Removing the expiration date on cookies so they are per session](https://trello.com/c/yRtmeigz/309-need-to-remove-expiration-for-the-booking-cookie)
+- [Encrypting the cookie value so ID is not exposed on browser](https://trello.com/c/n3gVvvIN/310-encrypt-the-booking-id-sent-to-the-browser-in-the-cookie)
 
 **Technical Changes**
 

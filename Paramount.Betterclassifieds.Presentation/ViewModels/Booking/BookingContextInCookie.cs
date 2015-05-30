@@ -1,7 +1,7 @@
 ﻿using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
-using System;
 using System.Web;
+using Paramount.Utility;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
@@ -12,11 +12,13 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
     {
         private readonly IBookCartRepository _repository;
         private readonly IClientConfig _clientConfig;
+        private readonly HttpContextBase _httpContext;
 
-        public BookingContextInCookie(IBookCartRepository repository, IClientConfig clientConfig)
+        public BookingContextInCookie(IBookCartRepository repository, IClientConfig clientConfig, HttpContextBase httpContext)
         {
             _repository = repository;
             _clientConfig = clientConfig;
+            _httpContext = httpContext;
         }
 
         public BookingCart Current()
@@ -63,16 +65,25 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         {
             get
             {
-                var httpCookie = HttpContext.Current.Request.Cookies["bookingCookie"];
+                var httpCookie = _httpContext.Request.Cookies["bookingCookie"];
                 if (httpCookie == null)
+                {
                     return string.Empty;
-                return httpCookie.Values["id"];
+                }
+                
+                try
+                {
+                    return CryptoHelper.Decrypt(httpCookie.Value);
+                }
+                catch
+                {
+                    return string.Empty;
+                }
             }
             set
             {
-                var cookie = new HttpCookie("bookingCookie") { Expires = DateTime.Now.AddDays(14) };
-                cookie["id"] = value;
-                HttpContext.Current.Response.Cookies.Add(cookie);
+                var cookie = new HttpCookie("bookingCookie") { Value = CryptoHelper.Encrypt(value) };
+                _httpContext.Response.Cookies.Add(cookie);
             }
         }
 

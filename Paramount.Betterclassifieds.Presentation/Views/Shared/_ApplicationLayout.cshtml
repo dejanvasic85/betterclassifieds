@@ -3,50 +3,61 @@
 
 @{
     var brand = ConfigManager.ReadAppSetting<string>("Brand");
-    var configurationContext = ConfigManager.ReadAppSetting<string>("ConfigurationContext");
+    var environment = ConfigManager.ReadAppSetting<string>("Environment");
     Layout = brand.HasValue() ? string.Format(Url.ClientUrl("~/Views/Shared/_Layout.{0}.cshtml"), brand) : Url.ClientUrl("~/Views/Shared/_Layout.cshtml");
 }
-<script type="text/javascript">
-    var paramount = [];
-    paramount.init = function (app) {
-        var getConfigContext = function() {
-            return '@string.Format("{0}{1}", brand, configurationContext).ToLower()';
-        };
 
-        var getTrackingId = function () {
-            var ids = {
-                kandobaydev: "UA-19118426-6",
-                kandobaylive: "UA-19118426-4",
-                themusiclive: "UA-19118426-5"
-            };
-            return ids[getConfigContext()];
-        }
-
-        app.config = {
-            brand: '@brand',
-            configContext: getConfigContext(),
-            analytics: { trackingId: getTrackingId() }
-        };
-
-        function registerGa() {
-            (function (i, s, o, g, r, a, m) {
-                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date(); a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
-            ga('create', getTrackingId(), 'auto');
-            ga('send', 'pageview');
-
-        };
-        //run initn methods
-        registerGa();
-    }(paramount);
-
-</script>
 @section HeadSection{
     @RenderSection("HeadSection", false)
+
+    <script type="text/javascript">
+        var $paramount = $paramount || {};
+        (function (app) {
+
+            var getConfigContext = function () {
+                return '@string.Format("{0}{1}", brand, environment).ToLower()';
+            };
+
+            var getTrackingId = function () {
+                var ids = {
+                    kandobaydev: "UA-19118426-6",
+                    kandobaylive: "UA-19118426-4",
+                    themusic: "UA-19118426-5"
+                };
+                return ids[getConfigContext()];
+            }
+
+            app.config = {
+                brand: '@brand',
+                configContext: getConfigContext(),
+                analytics: { trackingId: getTrackingId() }
+            };
+
+            function registerGa() {
+                (function (i, s, o, g, r, a, m) {
+                    i['GoogleAnalyticsObject'] = r;
+                    i[r] = i[r] || function () {
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date();
+                    a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                    a.async = 1;
+                    a.src = g;
+                    m.parentNode.insertBefore(a, m)
+                })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+                ga('create', getTrackingId(), 'auto');
+                ga('send', 'pageview');
+
+            };
+
+            //run initn methods
+            registerGa();
+        })($paramount);
+
+
+
+    </script>
 }
 
 @*Login and Place Ad Row*@
@@ -55,7 +66,7 @@
     <div class="col-xs-12 col-sm-6 col-md-4">
         <div class="btn-group btn-group-justified">
             <a class="btn btn-primary" style="margin-top: 0" href="@Url.Action("Step1", "Booking")"><i class="fa fa-pencil"></i> Place new Ad</a>
-            
+
             @Html.Partial("_LoginStatus")
         </div>
     </div>

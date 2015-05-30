@@ -12,7 +12,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
             bool withPublications = false,
             bool withEnquiries = false);
 
-        List<AdBookingModel> GetUserBookings(string username);
+        List<AdBookingModel> GetUserBookings(string username, int takeMax);
         List<BookEntryModel> GetBookEntriesForBooking(int adBookingId);
         [Obsolete("Please use GetUserBookings instead")]
         List<UserBookingModel> GetBookingsForUser(string username);

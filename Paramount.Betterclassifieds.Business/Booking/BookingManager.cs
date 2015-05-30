@@ -13,7 +13,7 @@
         AdBookingExtensionModel CreateExtension(int adBookingId, int numberOfInsertions, string username, decimal price, ExtensionStatus status, bool isOnlineOnly);
         AdBookingExtensionModel GetExtension(int extensionId);
         AdBookingModel GetBooking(int id);
-        IEnumerable<AdBookingModel> GetBookingsForUser(string username);
+        IEnumerable<AdBookingModel> GetBookingsForUser(string username, int takeMax);
 
         void Extend(AdBookingExtensionModel extensionModel, PaymentType paymentType = PaymentType.None);
         void Extend(int adBookingId, int numberOfInsertions, bool? isOnlineOnly = null, ExtensionStatus extensionStatus = ExtensionStatus.Complete, int price = 0, string username = "admin", PaymentType payment = PaymentType.None);
@@ -91,9 +91,9 @@
             return _bookingRepository.GetBooking(id, withOnlineAd:true, withLineAd:true, withPublications: true, withEnquiries:true);
         }
 
-        public IEnumerable<AdBookingModel> GetBookingsForUser(string username)
+        public IEnumerable<AdBookingModel> GetBookingsForUser(string username, int takeMax)
         {
-            var bookings = _bookingRepository.GetUserBookings(username);
+            var bookings = _bookingRepository.GetUserBookings(username, takeMax);
 
             return bookings.AsEnumerable().OrderByDescending(b => b.AdBookingId);
         }

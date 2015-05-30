@@ -52,7 +52,7 @@
                         <span data-bind="text: adId"></span> -
                         <span data-bind="text: heading"></span>
                     </strong>
-                    <div class="pull-right userads-cmd-panel" data-bind="visible : $data.status() !== 'Expired'">
+                    <div class="pull-right userads-cmd-panel" data-bind="visible : $data.status() === 'Current'">
                         <strong>
                             <a data-bind="attr : {href : $paramount.url.userads.viewAd($data.adId())}">
                                 View <i class="fa fa-eye"></i>

@@ -26,7 +26,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public ActionResult GetAdsForUser()
         {
-            var userAds = _bookingManager.GetBookingsForUser(User.Identity.Name);
+            var userAds = _bookingManager.GetBookingsForUser(User.Identity.Name, takeMax: 20);
 
             // Todo - use automapper here instead of manually mapping
             var viewModels = userAds.Select(ad => new UserBookingViewModel

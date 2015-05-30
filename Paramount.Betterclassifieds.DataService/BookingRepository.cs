@@ -21,19 +21,27 @@
             bool withPublications = false,
             bool withEnquiries = false)
         {
-            return QueryBooking(bk => bk.AdBookingId == id, withOnlineAd, withLineAd, withPublications, withEnquiries).Single();
+            using (var context = DataContextFactory.CreateClassifiedContext())
+            {
+                var dataModels = context.AdBookings.Where(bk => bk.AdBookingId == id);
+
+                return MapToModels(dataModels, withOnlineAd, withLineAd, withPublications, withEnquiries).Single();
+            }
         }
 
-        public List<AdBookingModel> GetUserBookings(string username)
+        public List<AdBookingModel> GetUserBookings(string username, int takeMax)
         {
             // Return all the ads that belong to the user 
             // But limit it for the last year...
-            Expression<Func<AdBooking, bool>> query = bk => bk.UserId == username
-                                          && bk.EndDate > DateTime.Today.AddYears(-1)
-                                          && bk.BookingStatus != (int)BookingStatusType.Cancelled;
-
-
-            return QueryBooking(query, withOnlineAd: true, withLineAd: true, withPublications: true, withEnquiries: true);
+            Expression<Func<AdBooking, bool>> userQuery = bk => bk.UserId == username && bk.EndDate > DateTime.Today.AddYears(-1) && bk.BookingStatus != (int)BookingStatusType.Cancelled;
+            
+            using (var context = DataContextFactory.CreateClassifiedContext())
+            {
+                // Get the current ads first
+                var datamodels = context.AdBookings.Where(userQuery).Take(takeMax);
+                
+                return MapToModels(datamodels, withOnlineAd: true, withLineAd: true, withPublications: true, withEnquiries: true);
+            }
         }
 
         public List<AdBookingModel> GetBookingsForEdition(DateTime editionDate)
@@ -52,7 +60,8 @@
             }
         }
 
-        private List<AdBookingModel> QueryBooking(Expression<Func<AdBooking, bool>> expression,
+        private List<AdBookingModel> MapToModels(
+            IEnumerable<AdBooking> dataModels,
             bool withOnlineAd = false,
             bool withLineAd = false,
             bool withPublications = false,
@@ -61,7 +70,6 @@
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 var adBookingModels = new List<AdBookingModel>();
-                var dataModels = context.AdBookings.Where(expression);
 
                 foreach (var adBookingData in dataModels)
                 {

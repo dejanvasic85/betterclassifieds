@@ -10,6 +10,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
     /// </summary>
     public class BookingContextInCookie : IBookingContext
     {
+        private const string BookingCookieName = "bookingCookie";
         private readonly IBookCartRepository _repository;
         private readonly IClientConfig _clientConfig;
         private readonly HttpContextBase _httpContext;
@@ -65,7 +66,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         {
             get
             {
-                var httpCookie = _httpContext.Request.Cookies["bookingCookie"];
+                var httpCookie = _httpContext.Request.Cookies[BookingCookieName];
                 if (httpCookie == null)
                 {
                     return string.Empty;
@@ -82,8 +83,12 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             }
             set
             {
-                var cookie = new HttpCookie("bookingCookie") { Value = CryptoHelper.Encrypt(value) };
-                _httpContext.Response.Cookies.Add(cookie);
+                var bookingCookie = new HttpCookie(BookingCookieName);
+                bookingCookie.Value = value.HasValue() 
+                    ? CryptoHelper.Encrypt(value) 
+                    : value;
+
+                _httpContext.Response.Cookies.Add(bookingCookie);
             }
         }
 

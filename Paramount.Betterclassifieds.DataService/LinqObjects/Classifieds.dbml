@@ -216,19 +216,6 @@
       <Column Name="LookupValue" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.MainCategory" Member="MainCategories">
-    <Type Name="MainCategory" Id="ID1">
-      <Column Name="MainCategoryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="ParentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="OnlineAdTag" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="IsOnlineOnly" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="MainCategory_AdBooking" Member="AdBookings" ThisKey="MainCategoryId" OtherKey="MainCategoryId" Type="AdBooking" />
-      <Association Name="MainCategory_PublicationCategory" Member="PublicationCategories" ThisKey="MainCategoryId" OtherKey="MainCategoryId" Type="PublicationCategory" />
-    </Type>
-  </Table>
   <Table Name="dbo.NonPublicationDate" Member="NonPublicationDates">
     <Type Name="NonPublicationDate">
       <Column Name="NonPublicationDateId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -255,7 +242,7 @@
     </Type>
   </Table>
   <Table Name="dbo.Publication" Member="Publications">
-    <Type Name="Publication" Id="ID2">
+    <Type Name="Publication" Id="ID1">
       <Column Name="PublicationId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
@@ -295,8 +282,8 @@
       <Column Name="PublicationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="PublicationCategory_PublicationRate" Member="PublicationRates" ThisKey="PublicationCategoryId" OtherKey="PublicationCategoryId" Type="PublicationRate" />
       <Association Name="PublicationCategory_PublicationSpecialRate" Member="PublicationSpecialRates" ThisKey="PublicationCategoryId" OtherKey="PublicationCategoryId" Type="PublicationSpecialRate" />
-      <Association Name="MainCategory_PublicationCategory" Member="MainCategory" ThisKey="MainCategoryId" OtherKey="MainCategoryId" Type="MainCategory" IsForeignKey="true" />
       <Association Name="Publication_PublicationCategory" Member="Publication" ThisKey="PublicationId" OtherKey="PublicationId" Type="Publication" IsForeignKey="true" />
+      <Association Name="MainCategory_PublicationCategory" Member="MainCategory" ThisKey="MainCategoryId" OtherKey="MainCategoryId" Type="MainCategory" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.PublicationRate" Member="PublicationRates">
@@ -331,7 +318,7 @@
     </Type>
   </Table>
   <Table Name="dbo.Ratecard" Member="Ratecards">
-    <Type Name="Ratecard" Id="ID3">
+    <Type Name="Ratecard" Id="ID2">
       <Column Name="RatecardId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="BaseRateId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="MinCharge" Type="System.Decimal" DbType="Money" CanBeNull="true" />
@@ -586,6 +573,21 @@
       <Association Name="AdBooking_AdBookingOrderSummary" Member="AdBooking" ThisKey="AdBookingId" OtherKey="AdBookingId" Type="AdBooking" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.MainCategory" Member="MainCategories">
+    <Type Name="MainCategory">
+      <Column Name="MainCategoryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="ParentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OnlineAdTag" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SeoName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="ViewMap" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="IsOnlineOnly" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="MainCategory_AdBooking" Member="AdBookings" ThisKey="MainCategoryId" OtherKey="MainCategoryId" Type="AdBooking" />
+      <Association Name="MainCategory_PublicationCategory" Member="PublicationCategories" ThisKey="MainCategoryId" OtherKey="MainCategoryId" Type="PublicationCategory" />
+    </Type>
+  </Table>
   <Function Name="dbo.usp_RateCard__Search" Method="usp_RateCard__Search">
     <ElementType Name="usp_RateCard__SearchResult">
       <Column Name="RatecardId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -637,13 +639,10 @@
       <Column Name="Designs" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
-  <Function Name="dbo.spGetMainParentCategories" Method="spGetMainParentCategories">
-    <ElementType IdRef="ID1" />
-  </Function>
   <Function Name="dbo.spGetPublicationsByAdType" Method="spGetPublicationsByAdType">
     <Parameter Name="adTypeId" Type="System.Int32" DbType="Int" />
     <Parameter Name="showOnline" Type="System.Boolean" DbType="Bit" />
-    <ElementType IdRef="ID2" />
+    <ElementType IdRef="ID1" />
   </Function>
   <Function Name="dbo.spLineAdById" Method="spLineAdById">
     <Parameter Name="LineAdId" Parameter="lineAdId" Type="System.Int32" DbType="Int" />
@@ -1120,7 +1119,7 @@
   <Function Name="dbo.Ratecard_FetchForPublicationCategory" Method="Ratecard_FetchForPublicationCategory">
     <Parameter Name="publicationId" Type="System.Int32" DbType="Int" />
     <Parameter Name="categoryId" Type="System.Int32" DbType="Int" />
-    <ElementType IdRef="ID3" />
+    <ElementType IdRef="ID2" />
   </Function>
   <Function Name="dbo.Editions_GetUpcomingForPublications" Method="Editions_GetUpcomingForPublications">
     <Parameter Name="publications" Type="System.String" DbType="VarChar(20)" />

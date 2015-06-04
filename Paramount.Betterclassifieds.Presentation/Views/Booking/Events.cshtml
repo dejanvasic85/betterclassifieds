@@ -1,0 +1,230 @@
+﻿@using Paramount
+@using Paramount.Betterclassifieds.Presentation.Framework
+@model Step2View
+
+@{
+    ViewBag.Title = "Event Details";
+    Layout = @Url.ClientUrl("~/Views/Shared/_ApplicationLayout.cshtml");
+}
+<ul class="nav nav-tabs" role="tablist" id="bookingNavSteps" data-spy="affix" data-offset-top="280" data-offset-bottom="200">
+    <li>@Html.ActionLink("1", "Step1")</li>
+    <li class="active"><a href="#">Step 2</a></li>
+    <li class="disabled"><a href="#">3</a></li>
+    <li class="pull-right">
+        <a data-toggle="modal"
+           data-target="#priceSummaryModal"
+           style="cursor: pointer; text-decoration: underline;">
+            <span data-bind="text: pricetotal"></span>
+            &nbsp;<i class="fa fa-chevron-down"></i>
+        </a>
+    </li>
+</ul>
+
+<form role="form" id="adDesignForm" action="@Url.Action("Step2", "Booking")" method="POST">
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.IsLineAdIncluded)
+
+    <div class="row top-buffer-20">
+
+        @*Online ad Details*@
+        <div class="col-xs-12">
+            <div class="bs-callout bs-callout-info">
+                <h4>Online Ad Details</h4>
+                <p>Please provide at least a heading and description for your online ad.</p>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.OnlineAdHeading)
+                @Html.BootstrapLargeTextBoxFor(m => m.OnlineAdHeading)
+                @Html.ValidationMessageFor(m => m.OnlineAdHeading)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.OnlineAdDescription)
+                @Html.BootstrapLargeTextAreaFor(m => m.OnlineAdDescription, 8)
+                @Html.ValidationMessageFor(m => m.OnlineAdDescription)
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.OnlineAdContactName)
+                        @Html.BootstrapLargeTextBoxFor(m => m.OnlineAdContactName)
+                        @Html.ValidationMessageFor(m => m.OnlineAdContactName)
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.OnlineAdContactEmail)
+                        @Html.BootstrapLargeTextBoxFor(m => m.OnlineAdContactEmail)
+                        @Html.ValidationMessageFor(m => m.OnlineAdContactEmail)
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.OnlineAdContactPhone)
+                        @Html.BootstrapLargeTextBoxFor(m => m.OnlineAdContactPhone)
+                        @Html.ValidationMessageFor(m => m.OnlineAdContactPhone)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.OnlineAdLocationId)
+                        <select id="OnlineAdLocationId" name="OnlineAdLocationId"
+                                class="form-control input-lg js-select"
+                                data-selected="@Model.OnlineAdLocationId"
+                                data-url="@Url.LocationOptions()"></select>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.OnlineAdLocationAreaId)
+                        <select id="OnlineAdLocationAreaId" name="OnlineAdLocationAreaId"
+                                class="form-control input-lg js-select"
+                                data-selected="@Model.OnlineAdLocationAreaId"
+                                data-url="@Url.LocationAreaOptions(Model.OnlineAdLocationId)"></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default" id="onlineImages">
+
+                <div class="panel-heading">
+                    Online Images &nbsp;
+                    <span class="btn btn-success fileinput-button" data-bind="css : { hidden : !maxLimitNotReached() }">
+                        <i class="fa fa-upload"></i>
+                        <span>Upload Image</span>
+                        <!-- The file input field used as target for the file upload widget -->
+                        <input id="fileupload" type="file" name="files[]" multiple>
+                    </span>
+                </div>
+                <div class="panel-body upload-thumbs">
+                    <div class="alert alert-warning">
+                        Max image size @Model.MaxImageUploadInMegabytes.ToString("F1") MB.
+
+                        @if (Model.MaxOnlineImages.HasValue)
+                        {
+                            <span>You can upload up to @Model.MaxOnlineImages images.</span>
+                        }
+                    </div>
+
+                    <div class="alert alert-danger" data-bind="text : errorMsg, css : { hidden : errorMsg().length == 0 }"></div>
+                    <div class="progress progress-striped active" data-bind="visible: uploadImageInProgress">
+                        <div class="progress-bar active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                            <span data-bind="visible: uploadImageInProgress">Uploading...</span>
+                        </div>
+                    </div>
+
+                    <div class="row" data-bind="foreach: adImages">
+                        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                            <div class="thumbnail">
+                                <img data-bind="attr: {src: $paramount.imageService.getImageUrl($data) }" />
+                                <div class="caption">
+                                    <button class="btn btn-warning btn-block" title="Remove" data-bind="click: $parent.removeImage">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Online Schedule*@
+    <div class="row top-buffer-20">
+        <div class="col-xs-12">
+            <div class="bs-callout bs-callout-info">
+                <h4>Online Schedule</h4>
+                <p>Your online ad will be available for @Model.ConfigDurationDays  days from the date you select below.</p>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.StartDate)
+                @Html.BootstrapCalendar(m => m.StartDate)
+                @Html.ValidationMessageFor(m => m.StartDate)
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+
+    @*Pager*@
+    <ul class="pager">
+        <li class="previous">
+            <button id="btnPrev" class="btn btn-large btn-default js-load" data-nav='@Url.Action("Step1", "Booking")'>
+                <i class="glyphicon glyphicon-arrow-left"></i> Previous
+            </button>
+        </li>
+        <li class="next">
+            <button id="btnSubmit" type="submit" class="btn btn-large btn-default">Next <i class="glyphicon glyphicon-arrow-right"></i></button>
+        </li>
+    </ul>
+
+</form>
+
+@section Scripts{
+    @Scripts.Render("~/bundle/paramount-booking")
+
+    <script>
+
+        (function($, $paramount, $url, $models) {
+
+            $('#bookingNavSteps').on('affix.bs.affix', function() {
+                $(this).css({ top: 0, width: $('.navbar').width() });
+            });
+
+            $(window).resize(function() {
+                $('#bookingNavSteps').width($('.navbar').width());
+            });
+
+
+            var adService = new $paramount.adService($url.adBooking);
+            var designOptions = {
+                adService: adService,
+                onlineImages: @Html.Raw(Model.OnlineAdImages.ToJsonString()),
+                maxImages : @Model.MaxOnlineImages,
+                updateRates : false
+            };
+
+            var designAdModel = new $models.DesignAd(designOptions);
+            ko.applyBindings(designAdModel);
+
+            $(function() {
+                // jquery ready
+                $paramount.setOnlineEditor('OnlineAdDescription');
+               
+                $paramount.upload({
+                    url: $url.adBooking.uploadOnlineImage,
+                    element: $('#fileupload'),
+                    progressBar: $('#onlineImages .progress'),
+                    start: function() {
+                        // Start
+                        designAdModel.errorMsg('');
+                        designAdModel.uploadImageInProgress(true);
+                    },
+                    complete: function(fileId) {
+                        // Completed, so now we need to assign it to the booking
+                        adService.assignOnlineImage(fileId).done(function() {
+                            designAdModel.adImages.push(fileId);
+                            designAdModel.uploadImageInProgress(false);
+                        });
+                    },
+                    error: function(err) {
+                        // Error
+                        designAdModel.errorMsg(err);
+                        designAdModel.uploadImageInProgress(false);
+                    }
+                });
+
+            });
+        })(jQuery, $paramount, $paramount.url, $paramount.models);
+    </script>
+}

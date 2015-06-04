@@ -128,7 +128,7 @@
             stepTwoModel.ConfigDurationDays = _clientConfig.RestrictedOnlineDaysCount;
             stepTwoModel.StartDate = bookingCart.GetStartDateOrMinimum();
             stepTwoModel.PrintInsertions = bookingCart.PrintInsertions.GetValueOrDefault();
-
+            
             // Map the flag for line ad
             stepTwoModel.IsLineAdIncluded = bookingCart.IsLineAdIncluded;
 
@@ -151,6 +151,12 @@
                 stepTwoModel.AvailableInsertions = _editionManager
                     .GetAvailableInsertions()
                     .Select(m => new SelectListItem { Text = m.ToString(), Value = m.ToString() });
+            }
+
+            var category = _searchService.GetCategories().Single(c => c.MainCategoryId == bookingCart.SubCategoryId);
+            if (category.ViewMap.HasValue())
+            {
+                return View(category.ViewMap, stepTwoModel);
             }
 
             return View(stepTwoModel);

@@ -56,7 +56,7 @@
                     adService.removePrintImg(oldValue);
                 }
             }, this);
-            
+
             self.removePrintImage = function () {
                 self.lineAdImageId("");
             }
@@ -72,12 +72,16 @@
             self.publicationPrices = ko.observableArray([]);
             self.onlineItemPrices = ko.observableArray([]);
             self.calculate = ko.computed(function () {
-                adService.updateBookingRates({
-                    lineAdText: self.lineAdText(),
-                    lineAdHeader: self.lineAdHeader(),
-                    usePhoto: self.lineAdImageId(),
-                    editions: self.printInsertions()
-                }).done(function (resp) {
+                var factors = {}
+                
+                if (lineAd != null) {
+                    factors.lineAdText = self.lineAdText();
+                    factors.lineAdHeader = self.lineAdHeader();
+                    factors.usePhoto = self.lineAdImageId();
+                    factors.editions = self.printInsertions();
+                }
+
+                adService.updateBookingRates(factors).done(function (resp) {
                     // Map Total
                     self.pricetotal('Total: ' + $paramount.formatCurrency(resp.BookingTotal));
 
@@ -104,7 +108,7 @@
             }).extend({ throttle: 1000 });
         }
 
-        
+
     };
 
     var OnlineLineItem = function (serverItem) {

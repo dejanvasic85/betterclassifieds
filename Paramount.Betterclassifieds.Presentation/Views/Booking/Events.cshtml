@@ -19,6 +19,9 @@
         </a>
     </li>
 </ul>
+@*Modal Dialogs*@
+@Html.Partial("_PriceSummary")
+
 
 <form role="form" id="adDesignForm" action="@Url.Action("Step2", "Booking")" method="POST">
     @Html.AntiForgeryToken()
@@ -191,7 +194,7 @@
                 adService: adService,
                 onlineImages: @Html.Raw(Model.OnlineAdImages.ToJsonString()),
                 maxImages : @Model.MaxOnlineImages,
-                updateRates : false
+                updateRates : true
             };
 
             var designAdModel = new $models.DesignAd(designOptions);

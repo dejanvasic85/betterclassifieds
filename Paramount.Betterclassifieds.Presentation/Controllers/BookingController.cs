@@ -156,7 +156,7 @@
             var category = _searchService.GetCategories().Single(c => c.MainCategoryId == bookingCart.SubCategoryId);
             if (category.ViewMap.HasValue())
             {
-                return View(category.ViewMap, stepTwoModel);
+                return View("Step2_" + category.ViewMap, stepTwoModel);
             }
 
             return View(stepTwoModel);

@@ -215,3 +215,4 @@
 /// <reference path="paramount/paramount-categoryservice.js" />
 /// <reference path="booking/bookingcategoryselection.js" />
 /// <reference path="paramount-googletacking.js" />
+/// <reference path="booking/designevent.js" />

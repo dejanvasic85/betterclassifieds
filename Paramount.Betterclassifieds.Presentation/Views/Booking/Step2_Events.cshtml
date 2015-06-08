@@ -1,0 +1,214 @@
+﻿@{
+    ViewBag.Title = "Event Details";
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
+}
+
+<ul class="nav nav-tabs" role="tablist" id="bookingNavSteps">
+    <li>@Html.ActionLink("1", "Step1")</li>
+    <li class="active"><a href="#">Step 2</a></li>
+    <li class="disabled"><a href="#">3</a></li>
+</ul>
+
+
+@*Event Details*@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="bs-callout bs-callout-info">
+            <h4><i class="fa fa-list"></i> &nbsp; Event Details</h4>
+            @*<p>Tell your visitors the location and what's the event about.</p>*@
+        </div>
+    </div>
+
+    <div class="col-xs-12">
+        <div class="form-group-lg">
+            <label>Event Name *</label>
+            <input type="text" class="form-control" id="Title" name="Title" placeholder="Provide a short impact title" />
+            <span class="help-block">
+                * Remaining characters : <span></span>
+            </span>
+        </div>
+    </div>
+
+    <div class="col-xs-12">
+        <div class="form-group">
+            <label>Details</label>
+            <textarea class="form-control input-lg" id="Description" name="Description" placeholder="What's the event about? Who will be there?" rows="5"></textarea>
+        </div>
+    </div>
+</div>
+
+@*Location*@
+<div class="row">
+
+    <div class="col-xs-12">
+        <div class="bs-callout bs-callout-info">
+            <h4><i class="fa fa-map-marker"></i> &nbsp;Location</h4>
+            @*<p>Tell your visitors the location and what's the event about.</p>*@
+        </div>
+    </div>
+
+    <div class="col-xs-12">
+        <div class="form-group-lg">
+            <label>Where is it?</label>
+            <input type="text" class="form-control" id="Address" name="Address" placeholder="Type address, and google should find it!" />
+        </div>
+    </div>
+
+    <div class="col-xs-12">
+        Google map goes here!
+    </div>
+</div>
+
+@*Schedule*@
+<div class="row">
+
+    <div class="col-xs-12">
+        <div class="bs-callout bs-callout-info">
+            <h4><i class="fa fa-clock-o"></i> &nbsp; Event Schedule</h4>
+            @*<p>Tell your visitors the location and what's the event about.</p>*@
+        </div>
+    </div>
+
+    <div class="col-xs-6 col-sm-3">
+        <div class="form-group-lg">
+            <label>Start Date</label>
+            <input name="StartDate" id="StartDate" class="form-control datepicker" type="text" data-provide="datepicker">
+        </div>
+    </div>
+
+    <div class="col-xs-6 col-sm-3">
+        <div class="form-group-lg">
+            <label>Start Time</label>
+            <input name="StartTime" id="StartTime" class="form-control" type="text" />
+        </div>
+    </div>
+
+    <div class="col-xs-6 col-sm-3">
+        <div class="form-group-lg">
+            <label>End Date</label>
+            <input name="EndDate" id="EndDate" class="form-control datepicker" type="text" data-provide="datepicker">
+        </div>
+    </div>
+
+    <div class="col-xs-6 col-sm-3">
+        <div class="form-group-lg">
+            <label>End Time</label>
+            <input name="EndTime" id="EndTime" class="form-control" type="text" />
+        </div>
+    </div>
+</div>
+
+
+@*Photos*@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="bs-callout bs-callout-info">
+            <h4><i class="fa fa-photo"></i>&nbsp; Event Photo</h4>
+            @*<p>Tell your visitors the location and what's the event about.</p>*@
+        </div>
+    </div>
+
+    <div class="col-xs-12">
+        <div class="panel panel-default" id="onlineImages">
+            <div class="panel-heading">
+                Online Images &nbsp;
+                <span class="btn btn-success fileinput-button" data-bind="css : { hidden : !maxLimitNotReached() }">
+                    <i class="fa fa-upload"></i>
+                    <span>Upload Image</span>
+                    <!-- The file input field used as target for the file upload widget -->
+                    <input name="files[]" id="fileupload" type="file" multiple="">
+                </span>
+            </div>
+            <div class="panel-body upload-thumbs">
+                <div class="alert alert-warning">
+                    Max image size 5.0 MB.
+
+                    <span>You can upload up to 5 images.</span>
+                </div>
+                <div class="alert alert-danger hidden" data-bind="text : errorMsg, css : { hidden : errorMsg().length == 0 }"></div>
+                <div class="progress progress-striped active" style="display: none;" data-bind="visible: uploadImageInProgress">
+                    <div class="progress-bar active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                        <span style="display: none;" data-bind="visible: uploadImageInProgress">Uploading...</span>
+                    </div>
+                </div>
+                <div class="row" data-bind="foreach: adImages"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Ticketing*@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="bs-callout bs-callout-info">
+            <h4><i class="fa fa-ticket"></i>&nbsp; Ticketing</h4>
+            @*<p>Tell your visitors the location and what's the event about.</p>*@
+        </div>
+        Coming soon
+    </div>
+</div>
+
+
+@*Additional Details*@
+<div class="row">
+
+    <div class="col-xs-12">
+        <div class="bs-callout bs-callout-info">
+            <h4><i class="fa fa-anchor"></i>&nbsp; Additional Details</h4>
+            @*<p>Tell your visitors the location and what's the event about.</p>*@
+        </div>
+
+    </div>
+
+    <div class="col-xs-6">
+        <div class="form-group-lg">
+            <label>Organiser Name</label>
+            <input type="text" class="form-control" placeholder="Who is responsible for the event?" />
+        </div>
+    </div>
+
+    <div class="col-xs-6">
+        <div class="form-group-lg">
+            <label>Organiser Phone</label>
+            <input type="text" class="form-control" placeholder="Direct contact number (optional)" />
+        </div>
+    </div>
+    
+    <div class="col-xs-12">
+        <div class="form-group-lg">
+            <label>Ad Start Date</label>
+            <input type="text" class="form-control datepicker" placeholder="" />
+        </div>
+    </div>
+</div>
+
+@*Pager*@
+<div class="row">
+    <div class="col-xs-12">
+        <ul class="pager">
+            <li class="previous">
+                <button id="btnPrev" class="btn btn-large btn-default js-load" data-nav='@Url.Action("Step1", "Booking")'>
+                    <i class="glyphicon glyphicon-arrow-left"></i> Previous
+                </button>
+            </li>
+            <li class="next">
+                <button id="btnSubmit" class="btn btn-large btn-default">Next <i class="glyphicon glyphicon-arrow-right"></i></button>
+            </li>
+        </ul>
+    </div>
+</div>
+
+@section Scripts{
+    @Scripts.Render("~/bundle/paramount-booking")
+
+    <script>
+        // Initialise the event designer
+        $(function () {
+            var options = {
+
+            };
+            var designEvent = new $paramount.models.DesignEvent(options);
+            ko.applyBindings(designEvent);
+        });
+    </script>
+}

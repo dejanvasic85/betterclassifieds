@@ -337,6 +337,7 @@
     <Content Include="Scripts\Account\UserAds.js" />
     <Content Include="Scripts\Booking\BookingCategorySelection.js" />
     <Content Include="Scripts\Booking\DesignAd.js" />
+    <Content Include="Scripts\Booking\DesignEvent.js" />
     <Content Include="Scripts\bootstrap-3.3.0.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
@@ -667,7 +668,7 @@
     <Content Include="Views\EditAd\Details.cshtml" />
     <Content Include="Views\UserAds\Index.cshtml" />
     <Content Include="Views\Invoice\Booking.cshtml" />
-    <Content Include="Views\Booking\Events.cshtml" />
+    <Content Include="Views\Booking\Step2_Events.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Framework\Validators\" />

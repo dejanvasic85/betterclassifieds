@@ -338,8 +338,8 @@
     <Content Include="Scripts\Booking\BookingCategorySelection.js" />
     <Content Include="Scripts\Booking\DesignAd.js" />
     <Content Include="Scripts\Booking\DesignEvent.js" />
-    <Content Include="Scripts\bootstrap-3.3.0.js" />
-    <Content Include="Scripts\bootstrap-datepicker.js" />
+    <Content Include="Scripts\vendor\bootstrap-3.3.0.js" />
+    <Content Include="Scripts\vendor\bootstrap-datepicker.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
     <Content Include="Scripts\ckeditor\config.js" />
@@ -547,20 +547,20 @@
     <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc.js" />
     <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc_ie.js" />
     <Content Include="Scripts\ckeditor\styles.js" />
-    <Content Include="Scripts\cropper.js" />
-    <Content Include="Scripts\jquery.fileupload-5.42.0.js" />
-    <Content Include="Scripts\jquery.morphext.js" />
-    <Content Include="Scripts\jquery.ui.widget-1.11.1.js" />
-    <Content Include="Scripts\jquery.validate-1.12.0.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\knockout-3.2.0.js" />
+    <Content Include="Scripts\vendor\cropper.js" />
+    <Content Include="Scripts\vendor\jquery.fileupload-5.42.0.js" />
+    <Content Include="Scripts\vendor\jquery.morphext.js" />
+    <Content Include="Scripts\vendor\jquery.ui.widget-1.11.1.js" />
+    <Content Include="Scripts\vendor\jquery.validate-1.12.0.js" />
+    <Content Include="Scripts\vendor\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\vendor\knockout-3.2.0.js" />
     <Content Include="Scripts\ckeditor\lang\en.js" />
     <Content Include="Scripts\Listings\Find.js" />
     <Content Include="Scripts\Listings\Find.min.js">
       <DependentUpon>Find.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\mobile-detect.js" />
-    <Content Include="Scripts\moment-2.8.2.js" />
+    <Content Include="Scripts\vendor\mobile-detect.js" />
+    <Content Include="Scripts\vendor\moment-2.8.2.js" />
     <Content Include="Scripts\paramount\paramount-adService.js" />
     <Content Include="Scripts\paramount\paramount-categoryService.js" />
     <Content Include="Scripts\paramount-googleTacking.js" />
@@ -602,12 +602,13 @@
     <Content Include="Scripts\ckeditor\skins\moono\images\lock-open.png" />
     <Content Include="Scripts\ckeditor\skins\moono\images\lock.png" />
     <Content Include="Scripts\ckeditor\skins\moono\images\refresh.png" />
-    <Content Include="Scripts\toastr-2.0.1.js" />
+    <Content Include="Scripts\vendor\toastr-2.0.1.js" />
+    <Content Include="Scripts\vendor\jquery.geocomplete.js" />
     <Content Include="Views\Listings\Find.cshtml" />
     <Content Include="Content\TheMusic\themusic.css.map">
       <DependentUpon>themusic.css</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery-1.11.0.js" />
+    <Content Include="Scripts\vendor\jquery-1.11.0.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

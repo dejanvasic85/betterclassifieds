@@ -8,29 +8,25 @@ namespace Paramount.Betterclassifieds.Presentation
         {
             // The jQuery library
             bundles.Add(new ScriptBundle("~/bundle/jquery")
-                .Include("~/Scripts/jquery-1.*"));
+                .Include("~/Scripts/vendor/jquery-1.*"));
 
             // jQuery modules
             bundles.Add(new ScriptBundle("~/bundle/jquery-modules")
-                .Include("~/Scripts/jquery.*"));
+                .Include("~/Scripts/vendor/jquery.*"));
 
             // Bootstrap
             bundles.Add(new ScriptBundle("~/bundle/bootstrap")
-                .Include("~/Scripts/bootstrap-3.3.0.js")
-                .Include("~/Scripts/bootstrap-datepicker.js"));
+                .Include("~/Scripts/vendor/bootstrap-3.3.0.js")
+                .Include("~/Scripts/vendor/bootstrap-datepicker.js"));
 
             // Knockout library
             bundles.Add(new ScriptBundle("~/bundle/ko")
-                .Include("~/Scripts/knockout-3.2.0.js"));
+                .Include("~/Scripts/vendor/knockout-3.2.0.js"));
 
             // Components - all others
-            bundles.Add(new ScriptBundle("~/bundle/components")
-                .Include("~/Scripts/toastr-*")
-                .Include("~/Scripts/moment-*")
-                .Include("~/Scripts/mobile-detect.js")
-                .Include("~/Scripts/cropper.js")
-                );
-                    
+            bundles.Add(new ScriptBundle("~/bundle/components").IncludeDirectory("~/Scripts/vendor", "*.js"));
+
+            // Paramount            
             bundles.Add(new ScriptBundle("~/bundle/paramount-gl")
                 .Include("~/Scripts/paramount/paramount-site.js")
                 .Include("~/Scripts/paramount/paramount-ui.js")
@@ -42,7 +38,7 @@ namespace Paramount.Betterclassifieds.Presentation
 
             
             // Enable this flag for development only when trying to force bundling and minification
-            //BundleTable.EnableOptimizations = true;
+            BundleTable.EnableOptimizations = true;
         }
 
         public static void RegisterStyles(BundleCollection bundles)

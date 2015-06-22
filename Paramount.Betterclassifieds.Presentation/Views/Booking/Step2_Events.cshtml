@@ -50,7 +50,7 @@
     <div class="col-xs-12">
         <div class="form-group-lg">
             <label>Where is it?</label>
-            <input type="text" class="form-control" id="Address" name="Address" placeholder="Type address, and google should find it!" />
+            <input type="text" class="form-control" id="Location" name="Location" placeholder="Type address, and google should find it!" />
         </div>
     </div>
 
@@ -199,7 +199,7 @@
 </div>
 
 @section Scripts{
-    @Scripts.Render("~/bundle/paramount-booking")
+    @Scripts.Render("~/bundle/events")
 
     <script>
         // Initialise the event designer
@@ -207,8 +207,8 @@
             var options = {
 
             };
-            var designEvent = new $paramount.models.DesignEvent(options);
-            ko.applyBindings(designEvent);
+            var designEvent = new $paramount.models.EventAd(options);
+            //ko.applyBindings(designEvent);
         });
     </script>
 }

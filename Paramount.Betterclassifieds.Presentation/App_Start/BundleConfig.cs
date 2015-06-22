@@ -35,10 +35,10 @@ namespace Paramount.Betterclassifieds.Presentation
             bundles.Add(new ScriptBundle("~/bundle/paramount-booking").IncludeDirectory("~/Scripts/Booking", "*.js"));
             bundles.Add(new ScriptBundle("~/bundle/paramount-account").IncludeDirectory("~/Scripts/Account", "*.js"));
             bundles.Add(new ScriptBundle("~/bundle/paramount-listings").IncludeDirectory("~/Scripts/Listings", "*.js"));
-
+            bundles.Add(new ScriptBundle("~/bundle/events").IncludeDirectory("~/Scripts/app/events", "*.js"));
             
             // Enable this flag for development only when trying to force bundling and minification
-            BundleTable.EnableOptimizations = true;
+            //BundleTable.EnableOptimizations = true;
         }
 
         public static void RegisterStyles(BundleCollection bundles)

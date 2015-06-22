@@ -219,3 +219,4 @@
 /// <reference path="app/events/eventbooking.service.js" />
 /// <reference path="app/events/eventad.model.js" />
 /// <reference path="app/events/eventedit.service.js" />
+/// <reference path="app/events/event.js" />

@@ -2,14 +2,15 @@
     'use strict';
 
     $paramount.models = $paramount.models || {};
+
+    // Knockout Model
     $paramount.models.EventAd = function (options) {
-        
-        
 
+        // Properties
+        this.location = ko.observable();
+        this.locationGeometry = ko.observable();
+        
     };
-
-    // Initialise the UI
-    $('location').geocomplete();
 
 
 })(jQuery, $paramount, ko);

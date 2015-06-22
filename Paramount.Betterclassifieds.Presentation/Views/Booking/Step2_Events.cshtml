@@ -49,13 +49,13 @@
 
     <div class="col-xs-12">
         <div class="form-group-lg">
-            <label>Where is it?</label>
+            <label>Address</label>
             <input type="text" class="form-control" id="Location" name="Location" placeholder="Type address, and google should find it!" />
         </div>
     </div>
 
     <div class="col-xs-12">
-        Google map goes here!
+        <div class="well" style="min-height: 200px" id="LocationMap"></div>
     </div>
 </div>
 
@@ -173,7 +173,7 @@
             <input type="text" class="form-control" placeholder="Direct contact number (optional)" />
         </div>
     </div>
-    
+
     <div class="col-xs-12">
         <div class="form-group-lg">
             <label>Ad Start Date</label>
@@ -199,16 +199,15 @@
 </div>
 
 @section Scripts{
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
     @Scripts.Render("~/bundle/events")
 
     <script>
         // Initialise the event designer
-        $(function () {
-            var options = {
-
-            };
-            var designEvent = new $paramount.models.EventAd(options);
-            //ko.applyBindings(designEvent);
+        var eventAdDesign = new $paramount.models.EventAd({
+            service: new $paramount.EventBookingService()
         });
+        $paramount.event.onReady(eventAdDesign);
+
     </script>
 }

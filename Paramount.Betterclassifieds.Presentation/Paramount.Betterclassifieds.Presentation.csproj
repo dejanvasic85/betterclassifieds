@@ -335,6 +335,7 @@
     </Content>
     <None Include="Content\TheMusic\themusic.less" />
     <Content Include="Scripts\Account\UserAds.js" />
+    <Content Include="Scripts\app\events\event.js" />
     <Content Include="Scripts\app\events\eventBooking.service.js" />
     <Content Include="Scripts\app\events\eventAd.model.js" />
     <Content Include="Scripts\app\events\eventEdit.service.js" />

@@ -128,7 +128,7 @@
             stepTwoModel.ConfigDurationDays = _clientConfig.RestrictedOnlineDaysCount;
             stepTwoModel.StartDate = bookingCart.GetStartDateOrMinimum();
             stepTwoModel.PrintInsertions = bookingCart.PrintInsertions.GetValueOrDefault();
-            
+
             // Map the flag for line ad
             stepTwoModel.IsLineAdIncluded = bookingCart.IsLineAdIncluded;
 
@@ -181,7 +181,7 @@
 
             // Map Line Ad
             this.Map(viewModel, bookingCart.LineAdModel);
-            
+
             // Map Schedule
             bookingCart.SetSchedule(_clientConfig, viewModel.StartDate.Value, viewModel.FirstPrintDateFormatted, viewModel.PrintInsertions);
 
@@ -260,7 +260,7 @@
         public ActionResult Success()
         {
             var bookingCart = _bookingContext.Current();
-            
+
             var bookingOrder = _rateCalculator.Calculate(bookingCart);
             bookingOrder.SetRecipientDetails(_userManager.GetCurrentUser(this.User));
 
@@ -429,6 +429,17 @@
             return Json(new { valid = true });
         }
 
+        [HttpGet, BookingRequired]
+
+        public ActionResult GetEventDetails()
+        {
+            return Json(new
+            {
+                Title = "Sample Data Only",
+                Description = "Description of an event",
+                Location = "9 Sophia Street, Sunshine West, Victoria, Australia"
+            }, JsonRequestBehavior.AllowGet);
+        }
 
         #endregion
 

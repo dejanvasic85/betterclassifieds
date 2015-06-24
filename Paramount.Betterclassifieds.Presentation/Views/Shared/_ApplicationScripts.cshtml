@@ -52,7 +52,8 @@
             assignOnlineImageUrl: '@Url.Action("AssignOnlineImage", "EditAd")',
             bookingInvoiceUrl: function (bookingId) {
                 return '@Url.BookingInvoice()' + '/' + bookingId;
-            }
+            },
+            getEventDetails : '@Url.Action("GetEventDetails", "Booking")'
         }
 
         // Endpoints for managing ad during booking
@@ -64,7 +65,8 @@
             removePrintImgUrl: '@Url.RemoveLineAdImage()',
             removeOnlineAdImage: '@Url.RemoveOnlineImage()',
             uploadOnlineImage: '@Url.UploadOnlineImage()',
-            assignOnlineImageUrl: '@Url.Action("AssignOnlineImage", "Booking")'
+            assignOnlineImageUrl: '@Url.Action("AssignOnlineImage", "Booking")',
+            getEventDetails: '@Url.Action("GetEventDetails", "Booking")'
         };
 
         me.url.categories = {

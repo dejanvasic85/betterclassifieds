@@ -554,7 +554,7 @@
     <Content Include="Scripts\vendor\jquery.ui.widget-1.11.1.js" />
     <Content Include="Scripts\vendor\jquery.validate-1.12.0.js" />
     <Content Include="Scripts\vendor\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\vendor\knockout-3.2.0.js" />
+    <Content Include="Scripts\knockout\knockout-3.2.0.js" />
     <Content Include="Scripts\ckeditor\lang\en.js" />
     <Content Include="Scripts\Listings\Find.js" />
     <Content Include="Scripts\Listings\Find.min.js">
@@ -609,7 +609,7 @@
     <Content Include="Content\TheMusic\themusic.css.map">
       <DependentUpon>themusic.css</DependentUpon>
     </Content>
-    <Content Include="Scripts\vendor\jquery-1.11.0.js" />
+    <Content Include="Scripts\jquery\jquery-1.11.0.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

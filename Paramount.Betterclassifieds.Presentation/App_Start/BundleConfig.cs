@@ -8,23 +8,14 @@ namespace Paramount.Betterclassifieds.Presentation
         {
             // The jQuery library
             bundles.Add(new ScriptBundle("~/bundle/jquery")
-                .Include("~/Scripts/vendor/jquery-1.*"));
-
-            // jQuery modules
-            bundles.Add(new ScriptBundle("~/bundle/jquery-modules")
-                .Include("~/Scripts/vendor/jquery.*"));
-
-            // Bootstrap
-            bundles.Add(new ScriptBundle("~/bundle/bootstrap")
-                .Include("~/Scripts/vendor/bootstrap-3.3.0.js")
-                .Include("~/Scripts/vendor/bootstrap-datepicker.js"));
+                .Include("~/Scripts/jquery/jquery-1.*"));
 
             // Knockout library
             bundles.Add(new ScriptBundle("~/bundle/ko")
-                .Include("~/Scripts/vendor/knockout-3.2.0.js"));
+                .Include("~/Scripts/knockout/knockout-3.2.0.js"));
 
             // Components - all others
-            bundles.Add(new ScriptBundle("~/bundle/components").IncludeDirectory("~/Scripts/vendor", "*.js"));
+            bundles.Add(new ScriptBundle("~/bundle/vendor").IncludeDirectory("~/Scripts/vendor", "*.js"));
 
             // Paramount            
             bundles.Add(new ScriptBundle("~/bundle/paramount-gl")
@@ -38,7 +29,7 @@ namespace Paramount.Betterclassifieds.Presentation
             bundles.Add(new ScriptBundle("~/bundle/events").IncludeDirectory("~/Scripts/app/events", "*.js"));
             
             // Enable this flag for development only when trying to force bundling and minification
-            //BundleTable.EnableOptimizations = true;
+            BundleTable.EnableOptimizations = false;
         }
 
         public static void RegisterStyles(BundleCollection bundles)

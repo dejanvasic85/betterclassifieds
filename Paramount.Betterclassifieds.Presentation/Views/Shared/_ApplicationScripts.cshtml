@@ -1,11 +1,16 @@
 ﻿@using Paramount
 @using Paramount.ApplicationBlock.Configuration
+@using Paramount.Utility
 
 @{
     var brand = ConfigManager.ReadAppSetting<string>("Brand");
     var environment = ConfigManager.ReadAppSetting<string>("Environment");
     var googleTrackingId = ConfigManager.ReadAppSetting<string>("GoogleTrackingId");
+    var membership = Membership.GetUser();
+    var email = membership != null ? membership.Email : null;
+    var emailHash = email != null ? ParamountEncryption.GetMd5Hash(email) : null;
 }
+
 
 @*Third party*@
 @Scripts.Render("~/bundle/jquery-modules")
@@ -94,10 +99,15 @@
             return '@googleTrackingId';
         }
 
+        var getEmailHash = function() {
+            return '@emailHash';
+        }
+
         me.config = {
             brand: '@brand',
             configContext: getConfigContext(),
-            analytics: { trackingId: getTrackingId() }
+            analytics: { trackingId: getTrackingId() },
+            emailHash: getEmailHash()
         };
         
         //run initn methods

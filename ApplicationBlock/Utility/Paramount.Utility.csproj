@@ -127,6 +127,7 @@
     <Compile Include="HtmlExtensions.cs" />
     <Compile Include="HttpCacher.cs" />
     <Compile Include="Mapping.cs" />
+    <Compile Include="ParamountEncryption.cs" />
     <Compile Include="PDFGenerator.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>

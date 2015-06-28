@@ -127,6 +127,9 @@
 .myads-date-info dt {
   width: 100px;
 }
+.top-action-buttons .login-options {
+  min-width: 175px;
+}
 /*
     Mobile
 */

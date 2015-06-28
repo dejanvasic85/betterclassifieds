@@ -13,10 +13,11 @@
 
 @*Login and Place Ad Row*@
 <div class="row top-buffer-10">
-    <div class="col-sm-6 col-md-8"></div>
-    <div class="col-xs-12 col-sm-6 col-md-4">
-        <div class="btn-group btn-group-justified">
-            <a class="btn btn-primary" style="margin-top: 0" href="@Url.Action("Step1", "Booking")"><i class="fa fa-pencil"></i> Place new Ad</a>
+    
+    <div class="col-xs-12 top-action-buttons">
+
+        <div class="btn-group pull-right" role="group">
+            <a class="btn btn-primary" href="@Url.Action("Step1", "Booking")"><i class="fa fa-pencil"></i> Place new Ad</a>
 
             @Html.Partial("_LoginStatus")
         </div>

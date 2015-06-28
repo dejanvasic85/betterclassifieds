@@ -234,6 +234,7 @@
     <Compile Include="ViewModels\CategoryView.cs" />
     <Compile Include="ViewModels\Booking\PublicationView.cs" />
     <Compile Include="ViewModels\ContactUsView.cs" />
+    <Compile Include="ViewModels\EventViewModel.cs" />
     <Compile Include="ViewModels\HomeModel.cs" />
     <Compile Include="PresentationInitialiser.cs" />
     <Compile Include="ViewModels\AdSummaryViewModel.cs" />

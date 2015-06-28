@@ -8,7 +8,7 @@
          * Prepares the user interface for designing event details
          * @/// <param name="eventModel" type="EventAd">Knockout object instance</param>
          */
-        init: function (url) {
+        init: function (options) {
 
             $(function () {
 
@@ -25,8 +25,8 @@
                      });
 
                 // Setup the knockout object, initalise based on the existing server object
-                $.getJSON(url.getEventDetails).done(function (response) {
-                    var eventDetails = new $paramount.models.EventAd(response);
+                $.getJSON(options.serviceEndpoint.getEventDetails).done(function (response) {
+                    var eventDetails = new $paramount.models.EventAd(response, options);
                     ko.applyBindings(eventDetails);
 
                     if (response.Location) {

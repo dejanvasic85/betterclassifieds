@@ -433,11 +433,14 @@
 
         public ActionResult GetEventDetails()
         {
-            return Json(new
+            return Json(new EventViewModel
             {
                 Title = "Sample Data Only",
                 Description = "Description of an event",
-                Location = "9 Sophia Street, Sunshine West, Victoria, Australia"
+                Location = "9 Sophia Street, Sunshine West, Victoria, Australia",
+                EventStartDate = DateTime.Today.AddDays(1).ToString("dd/MM/yyyy"),
+                EventStartTimeHours = 18
+
             }, JsonRequestBehavior.AllowGet);
         }
 

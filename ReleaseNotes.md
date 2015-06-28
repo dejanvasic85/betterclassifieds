@@ -10,7 +10,7 @@ Here's a list of the latest changes for the current release:
 **Bug Fixes**   
 
 - [Error was being thrown when user did not agree to terms](https://trello.com/c/3Cj6S9m0/307-confirmation-page-throws-error-when-not-confirming-details-and-t-c-s)
-
+- [Missing bookings in the administration portal](https://trello.com/c/UpLEi8HW/320-some-bookings-are-missing-in-the-administration-portal)
 
 **Change Requests**
 

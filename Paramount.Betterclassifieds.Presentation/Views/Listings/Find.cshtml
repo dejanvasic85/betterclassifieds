@@ -6,10 +6,6 @@
     Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
 }
 
-@section Scripts{
-    @Scripts.Render("~/bundle/paramount-listings")
-}
-
 <input type="hidden" id="hdnResultsPerPage" value="@ViewBag.ResultsPerPage" />
 <input type="hidden" id="hdnMaxPageRequests" value="@ViewBag.MaxPageRequests" />
 

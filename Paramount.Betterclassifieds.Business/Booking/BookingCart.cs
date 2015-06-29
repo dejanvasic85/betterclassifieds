@@ -132,16 +132,23 @@ namespace Paramount.Betterclassifieds.Business.Booking
 
         public void Complete()
         {
-            this.Completed = true;
+            Completed = true;
         }
 
         public void UpdateByPricingFactors(PricingFactors pricingFactors)
         {
-            if (!this.IsLineAdIncluded) return;
-            this.LineAdModel.AdHeader = pricingFactors.LineAdHeader;
-            this.LineAdModel.AdText = pricingFactors.LineAdText;
-            this.LineAdModel.IsSuperBoldHeading = pricingFactors.IsSuperBoldHeader;
-            this.LineAdModel.UsePhoto = pricingFactors.UsePhoto;
+            if (!IsLineAdIncluded) 
+                return;
+
+            if (LineAdModel == null)
+            {
+                LineAdModel = new LineAdModel();
+            }
+
+            LineAdModel.AdHeader = pricingFactors.LineAdHeader;
+            LineAdModel.AdText = pricingFactors.LineAdText;
+            LineAdModel.IsSuperBoldHeading = pricingFactors.IsSuperBoldHeader;
+            LineAdModel.UsePhoto = pricingFactors.UsePhoto;
         }
     }
 }

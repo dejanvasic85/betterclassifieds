@@ -320,8 +320,8 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\Account\Login.js" />
-    <Content Include="Scripts\Account\Login.min.js">
+    <Content Include="Scripts\app\account\Login.js" />
+    <Content Include="Scripts\app\account\Login.min.js">
       <DependentUpon>Login.js</DependentUpon>
     </Content>
     <Content Include="Content\site.css.map">
@@ -335,11 +335,11 @@
       <DependentUpon>kando.css</DependentUpon>
     </Content>
     <None Include="Content\TheMusic\themusic.less" />
-    <Content Include="Scripts\Account\UserAds.js" />
+    <Content Include="Scripts\app\account\UserAds.js" />
     <Content Include="Scripts\app\events\event.ui.js" />
     <Content Include="Scripts\app\events\eventAd.model.js" />
-    <Content Include="Scripts\Booking\BookingCategorySelection.js" />
-    <Content Include="Scripts\Booking\DesignAd.js" />
+    <Content Include="Scripts\app\booking\BookingCategorySelection.js" />
+    <Content Include="Scripts\app\booking\DesignAd.js" />
     <Content Include="Scripts\vendor\bootstrap-3.3.0.js" />
     <Content Include="Scripts\vendor\bootstrap-datepicker.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
@@ -557,20 +557,20 @@
     <Content Include="Scripts\vendor\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\knockout\knockout-3.2.0.js" />
     <Content Include="Scripts\ckeditor\lang\en.js" />
-    <Content Include="Scripts\Listings\Find.js" />
-    <Content Include="Scripts\Listings\Find.min.js">
+    <Content Include="Scripts\app\listings\Find.js" />
+    <Content Include="Scripts\app\listings\Find.min.js">
       <DependentUpon>Find.js</DependentUpon>
     </Content>
     <Content Include="Scripts\vendor\mobile-detect.js" />
     <Content Include="Scripts\vendor\moment-2.8.2.js" />
-    <Content Include="Scripts\paramount\paramount-adService.js" />
-    <Content Include="Scripts\paramount\paramount-categoryService.js" />
+    <Content Include="Scripts\app\booking\AdDesignService.js" />
+    <Content Include="Scripts\app-global\categoryService.js" />
     <Content Include="Scripts\paramount-googleTacking.js" />
-    <Content Include="Scripts\paramount\paramount-imageService.js" />
-    <Content Include="Scripts\paramount\paramount-ko-extensions.js" />
-    <Content Include="Scripts\paramount\paramount-site.js" />
-    <Content Include="Scripts\paramount\paramount-ui.js" />
-    <Content Include="Scripts\paramount\paramount-validate-default.js" />
+    <Content Include="Scripts\app-global\imageService.js" />
+    <Content Include="Scripts\app-global\ko-extensions.js" />
+    <Content Include="Scripts\app-global\site.js" />
+    <Content Include="Scripts\app-global\ui.js" />
+    <Content Include="Scripts\app-global\validation.js" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
@@ -638,10 +638,10 @@
     <Content Include="Views\Account\ThankYou.cshtml" />
     <Content Include="Views\Account\Confirmation.cshtml" />
     <Content Include="Views\Shared\_ListingResults.cshtml" />
-    <Content Include="Scripts\Account\Login.min.js.map">
+    <Content Include="Scripts\app\account\Login.min.js.map">
       <DependentUpon>Login.min.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\Listings\Find.min.js.map">
+    <Content Include="Scripts\app\listings\Find.min.js.map">
       <DependentUpon>Find.min.js</DependentUpon>
     </Content>
     <Content Include="Views\Listings\ViewAd.cshtml" />

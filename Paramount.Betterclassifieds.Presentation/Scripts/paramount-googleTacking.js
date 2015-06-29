@@ -1,4 +1,8 @@
-﻿function registerGa(trackingId) {
+﻿/*
+ * This is the script that needs to be referenced first!
+ */
+
+function registerGa(trackingId) {
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
         i[r] = i[r] || function () {

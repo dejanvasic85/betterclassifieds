@@ -18,15 +18,12 @@ namespace Paramount.Betterclassifieds.Presentation
             bundles.Add(new ScriptBundle("~/bundle/vendor").IncludeDirectory("~/Scripts/vendor", "*.js"));
 
             // Paramount            
-            bundles.Add(new ScriptBundle("~/bundle/paramount-gl")
-                .Include("~/Scripts/paramount/paramount-site.js")
-                .Include("~/Scripts/paramount/paramount-ui.js")
-                .Include("~/Scripts/paramount/paramount-*"));
-
-            bundles.Add(new ScriptBundle("~/bundle/paramount-booking").IncludeDirectory("~/Scripts/Booking", "*.js"));
-            bundles.Add(new ScriptBundle("~/bundle/paramount-account").IncludeDirectory("~/Scripts/Account", "*.js"));
-            bundles.Add(new ScriptBundle("~/bundle/paramount-listings").IncludeDirectory("~/Scripts/Listings", "*.js"));
-            bundles.Add(new ScriptBundle("~/bundle/events").IncludeDirectory("~/Scripts/app/events", "*.js"));
+            bundles.Add(new ScriptBundle("~/bundle/paramount-app")
+                .Include("~/Scripts/app-global/paramount-site.js")
+                .Include("~/Scripts/app-global/paramount-ui.js")
+                .IncludeDirectory("~/Scripts/app-global", "*.js", true)
+                .IncludeDirectory("~/Scripts/app", "*.js", true)
+                );
             
             // Enable this flag for development only when trying to force bundling and minification
             BundleTable.EnableOptimizations = false;

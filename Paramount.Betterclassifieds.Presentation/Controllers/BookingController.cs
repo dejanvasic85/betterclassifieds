@@ -439,7 +439,11 @@
                 Description = "Description of an event",
                 Location = "9 Sophia Street, Sunshine West, Victoria, Australia",
                 EventStartDate = DateTime.Today.AddDays(1).ToString("dd/MM/yyyy"),
-                EventStartTimeHours = 18
+                EventStartTimeHours = 18,
+                EventStartTimeMinutes = 30,
+                EventEndDate = DateTime.Today.AddDays(2).ToString("dd/MM/yyyy"),
+                EventEndTimeHours = 19,
+                EventEndTimeMinutes = 30
 
             }, JsonRequestBehavior.AllowGet);
         }

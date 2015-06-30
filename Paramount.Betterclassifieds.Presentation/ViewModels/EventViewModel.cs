@@ -13,5 +13,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public string EventStartDate { get; set; }
         public int? EventStartTimeHours { get; set; }
         public int? EventStartTimeMinutes { get; set; }
+
+        public string EventEndDate { get; set; }
+        public int? EventEndTimeHours { get; set; }
+        public int? EventEndTimeMinutes { get; set; }
     }
 }

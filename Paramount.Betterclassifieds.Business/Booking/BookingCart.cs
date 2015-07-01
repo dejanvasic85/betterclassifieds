@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Utility;
 
 namespace Paramount.Betterclassifieds.Business.Booking
@@ -111,6 +112,8 @@ namespace Paramount.Betterclassifieds.Business.Booking
         public int? PrintInsertions { get; private set; }
 
         public DateTime? PrintFirstEditionDate { get; private set; }
+
+        public EventModel Event { get; set; }
 
         public void CompleteStep(int step)
         {

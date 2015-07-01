@@ -51,6 +51,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         [Required]
         public int? SubCategoryId { get; set; }
 
+        public string AdType { get; set; }
+
         public bool IsOnlineOnly { get; set; }
 
         public void SetSelectedPublications(int[] publications)

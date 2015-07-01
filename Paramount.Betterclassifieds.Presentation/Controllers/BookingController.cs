@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Presentation.Controllers
+﻿using Paramount.Betterclassifieds.Business.Events;
+
+namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -109,15 +111,22 @@
             bookingCart.CompleteStep(1);
             _cartRepository.Save(bookingCart);
 
+            var category = _searchService.GetCategories().Single(c => c.MainCategoryId == bookingCart.SubCategoryId);
+            
             // Our view can't "submit" the form so just return json with the redirection url
-            return Json(Url.Action("Step2"));
+            return Json(Url.Action("Step2", new {adType = category.ViewMap}));
         }
 
         //
         // GET: /Booking/Step/2 - ad details
         [HttpGet, BookingStep(2)]
-        public ActionResult Step2()
+        public ActionResult Step2(string adType)
         {
+            if (adType.HasValue())
+            {
+                return View("Step2_" + adType);
+            }
+
             var bookingCart = _bookingContext.Current();
             var stepTwoModel = this.Map<OnlineAdModel, Step2View>(bookingCart.OnlineAdModel);
             this.Map(bookingCart.LineAdModel, stepTwoModel);
@@ -152,13 +161,7 @@
                     .GetAvailableInsertions()
                     .Select(m => new SelectListItem { Text = m.ToString(), Value = m.ToString() });
             }
-
-            var category = _searchService.GetCategories().Single(c => c.MainCategoryId == bookingCart.SubCategoryId);
-            if (category.ViewMap.HasValue())
-            {
-                return View("Step2_" + category.ViewMap, stepTwoModel);
-            }
-
+            
             return View(stepTwoModel);
         }
 
@@ -433,19 +436,17 @@
 
         public ActionResult GetEventDetails()
         {
-            return Json(new EventViewModel
-            {
-                Title = "Sample Data Only",
-                Description = "Description of an event",
-                Location = "9 Sophia Street, Sunshine West, Victoria, Australia",
-                EventStartDate = DateTime.Today.AddDays(1).ToString("dd/MM/yyyy"),
-                EventStartTimeHours = 18,
-                EventStartTimeMinutes = 30,
-                EventEndDate = DateTime.Today.AddDays(2).ToString("dd/MM/yyyy"),
-                EventEndTimeHours = 19,
-                EventEndTimeMinutes = 30
+            var eventDetails = _bookingContext.Current().Event;
 
-            }, JsonRequestBehavior.AllowGet);
+            var result = this.Map<EventModel, EventViewModel>(eventDetails);
+            
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateEventDetails(EventViewModel eventViewModel)
+        {
+            return Json(null);
         }
 
         #endregion
@@ -467,6 +468,7 @@
                 .ConvertUsing<PriceSummaryViewConverter>();
             configuration.CreateMap<BookingCart, Step3View>()
                 .ForMember(m => m.PublicationCount, options => options.MapFrom(src => src.Publications.Length));
+            configuration.CreateMap<EventModel, EventViewModel>();
 
             // From ViewModel
             configuration.CreateMap<Step2View, OnlineAdModel>()

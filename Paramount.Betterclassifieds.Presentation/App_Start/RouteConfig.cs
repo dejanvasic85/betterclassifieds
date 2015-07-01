@@ -31,7 +31,7 @@ namespace Paramount.Betterclassifieds.Presentation
 
             // Booking step routes
             routes.MapRoute("bookingRoute1", "Booking/Step/1", new { controller = "Booking", action = "Step1" });
-            routes.MapRoute("bookingRoute2", "Booking/Step/2", new { controller = "Booking", action = "Step2" });
+            routes.MapRoute("bookingRoute2", "Booking/Step/2/{adType}", new { controller = "Booking", action = "Step2", adType = UrlParameter.Optional});
             routes.MapRoute("bookingRoute3", "Booking/Step/3", new { controller = "Booking", action = "Step3" });
 
             // Default

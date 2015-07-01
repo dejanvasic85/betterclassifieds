@@ -1,9 +1,8 @@
-﻿using System.Web;
-
-namespace Paramount.Betterclassifieds.Presentation
+﻿namespace Paramount.Betterclassifieds.Presentation
 {
     using ApplicationBlock.Mvc;
     using Business;
+    using Business.Events;
     using Business.Booking;
     using Business.Broadcast;
     using Business.DocumentStorage;
@@ -16,6 +15,7 @@ namespace Paramount.Betterclassifieds.Presentation
     using DataService.Repository;
     using Microsoft.Practices.Unity;
     using Security;
+    using System.Web;
     using System.Web.Mvc;
     using Unity.Mvc4;
     using Payments.pp;
@@ -61,6 +61,7 @@ namespace Paramount.Betterclassifieds.Presentation
                 .RegisterType<IPaymentService, PayPalPaymentService>()
                 .RegisterType<IInvoiceService, InvoiceService>()
                 .RegisterType<SearchFilters>(new SessionLifetimeManager<SearchFilters>())
+                .RegisterType<IEventFactory, EventFactory>()
 
                 // Rates/ prices (chargeable items)
                 .RegisterType<IPrintChargeableItem, PrintHeadingCharge>("PrintHeadingCharge")

@@ -42,6 +42,7 @@ namespace Paramount.Betterclassifieds.Presentation
                 .Include("~/Content/morphext.css")
                 .Include("~/Content/animate.css")
                 .Include("~/Content/cropper.css")
+                .Include("~/Content/bootstrap-timepicker.css")
                 );
 
         }

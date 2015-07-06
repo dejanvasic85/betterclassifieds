@@ -294,14 +294,17 @@
         {
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
-                var booking = context.AdBookings.First(bk => bk.AdBookingId == adBookingId);
+                var booking = context.AdBookings.Single(adBooking => adBooking.AdBookingId == adBookingId);
                 booking.EndDate = _dateService.Today.AddDays(-1);
                 booking.BookingStatus = (int)BookingStatusType.Cancelled;
 
                 // Delete all book entries after today
-                var entriesToDelete = context.BookEntries.Where(b => b.EditionDate >= _dateService.Today);
+                var entriesToDelete = context
+                    .BookEntries
+                    .Where(bookEntry => bookEntry.EditionDate >= _dateService.Today)
+                    .Where(bookEntry => bookEntry.AdBookingId == adBookingId);
                 context.BookEntries.DeleteAllOnSubmit(entriesToDelete);
-                
+
                 context.SubmitChanges();
             }
         }

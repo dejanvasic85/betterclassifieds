@@ -19,6 +19,7 @@
         me.eventPhoto = ko.observable(data.EventPhoto);
 
         me.startDate = ko.observable(data.EventStartDate);
+        me.startTime = ko.observable(data.EventStartTime);
         me.startTimeHours = ko.observable(data.EventStartTimeHours);
         me.startTimeMinutes = ko.observable(data.EventStartTimeMinutes);
 

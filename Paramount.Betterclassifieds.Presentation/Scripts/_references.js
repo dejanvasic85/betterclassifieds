@@ -218,3 +218,4 @@
 /// <reference path="app-global/imageservice.js" />
 /// <reference path="app-global/categoryservice.js" />
 /// <reference path="app/booking/addesignservice.js" />
+/// <reference path="vendor/bootstrap-clockpicker.js" />

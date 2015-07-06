@@ -267,6 +267,7 @@
       <DependentUpon>bootstrap-select.css</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap-theme-yeti.css" />
+    <Content Include="Content\components\bootstrap-clockpicker.css" />
     <Content Include="Content\cropper.css" />
     <Content Include="Content\datepicker.css" />
     <Content Include="Content\datepicker.min.css">
@@ -341,6 +342,7 @@
     <Content Include="Scripts\app\booking\BookingCategorySelection.js" />
     <Content Include="Scripts\app\booking\DesignAd.js" />
     <Content Include="Scripts\vendor\bootstrap-3.3.0.js" />
+    <Content Include="Scripts\vendor\bootstrap-clockpicker.js" />
     <Content Include="Scripts\vendor\bootstrap-datepicker.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />

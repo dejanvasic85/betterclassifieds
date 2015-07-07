@@ -33,8 +33,6 @@
                         $map.geocomplete('find', response.Location);
                     }
                 });
-
-                $('#startTime').clockpicker();
             });
         }
     }

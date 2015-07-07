@@ -1,6 +1,4 @@
-﻿using Paramount.Betterclassifieds.Business.Events;
-
-namespace Paramount.Betterclassifieds.Presentation.Controllers
+﻿namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -15,6 +13,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
     using Business.Search;
     using Business.DocumentStorage;
     using Business.Payment;
+    using Business.Events;
     using ViewModels;
 
     public class BookingController : Controller, IMappingBehaviour
@@ -438,8 +437,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var eventDetails = _bookingContext.Current().Event;
 
-            var result = this.Map<EventModel, EventViewModel>(eventDetails);
-            
+            // var result = this.Map<EventModel, EventViewModel>(eventDetails);
+            var result = new EventViewModel();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 

@@ -81,9 +81,9 @@
     </div>
     
     <div class="col-xs-6 col-md-2">
-        <div class="form-group">
+        <div class="form-group-lg">
             <label class="control-label">Start Time</label>
-            <input type="text" id="StartTime" data-bind="clockpicker: startTime" class="form-control" />
+            <input type="text" data-bind="clockpicker: startTime" class="form-control" />
         </div>
     </div>
 
@@ -197,7 +197,6 @@
 
 @section Scripts{
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
-    @Scripts.Render("~/bundle/events")
 
     <script>
         // Initialise the event designer

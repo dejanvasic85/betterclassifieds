@@ -12,7 +12,7 @@ namespace Paramount.Betterclassifieds.Presentation
 
             // Knockout library
             bundles.Add(new ScriptBundle("~/bundle/ko")
-                .Include("~/Scripts/knockout/knockout-3.2.0.js"));
+                .IncludeDirectory("~/Scripts/knockout", "*.js"));
 
             // Components - all others
             bundles.Add(new ScriptBundle("~/bundle/vendor").IncludeDirectory("~/Scripts/vendor", "*.js"));

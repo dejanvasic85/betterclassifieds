@@ -11,6 +11,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             var start = DateTime.Now;
 
             EventStartDate = start.ToString("dd/MM/yyyy");
+            EventStartTime = "10:20";
             EventStartTimeHours = start.Hour;
             EventStartTimeMinutes = start.Minute;
 
@@ -19,6 +20,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             EventEndTimeHours = end.Hour;
             EventEndTimeMinutes = end.Minute;
         }
+
+        public string EventStartTime { get; set; }
 
         [Required, MaxLength(100)]
         public string Title { get; set; }

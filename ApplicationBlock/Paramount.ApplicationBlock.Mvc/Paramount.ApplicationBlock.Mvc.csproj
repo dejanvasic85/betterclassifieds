@@ -109,7 +109,6 @@
     <Compile Include="HtmlHelpers\BootstrapInputExtensions.cs" />
     <Compile Include="HtmlHelpers\DropDownHtmlExtensions.cs" />
     <Compile Include="HtmlHelpers\HtmlAttributeExtensions.cs" />
-    <Compile Include="ModelBinders\ModelSpecificDateModelBinder.cs" />
     <Compile Include="Unity\Bootstrapper.cs" />
     <Compile Include="Configuration\ModuleRegistrationConfigurationSection.cs" />
     <Compile Include="Modules\IModuleInfo.cs" />
@@ -128,6 +127,7 @@
     <Compile Include="Validators\MustBeTrue.cs" />
     <Compile Include="Validators\MustNotBePastDate.cs" />
     <Compile Include="Validators\RequiredIfAttribute.cs" />
+    <Compile Include="Validators\TimeAsStringAttribute.cs" />
     <Compile Include="WebClientApplication.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +144,7 @@
       <Name>Paramount.Utility</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

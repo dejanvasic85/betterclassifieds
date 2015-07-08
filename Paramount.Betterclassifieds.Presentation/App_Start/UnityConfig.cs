@@ -61,7 +61,7 @@
                 .RegisterType<IPaymentService, PayPalPaymentService>()
                 .RegisterType<IInvoiceService, InvoiceService>()
                 .RegisterType<SearchFilters>(new SessionLifetimeManager<SearchFilters>())
-                .RegisterType<IEventFactory, EventFactory>()
+                .RegisterType<IAdFactory, AdFactory>()
 
                 // Rates/ prices (chargeable items)
                 .RegisterType<IPrintChargeableItem, PrintHeadingCharge>("PrintHeadingCharge")

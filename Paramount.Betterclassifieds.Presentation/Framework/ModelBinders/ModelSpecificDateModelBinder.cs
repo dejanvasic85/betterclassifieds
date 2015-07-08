@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Web.Mvc;
 
-namespace Paramount.ApplicationBlock.Mvc.ModelBinders
+namespace Paramount.Betterclassifieds.Presentation.Framework.ModelBinders
 {
     public class ModelSpecificDateModelBinder : DefaultModelBinder
     {

@@ -76,8 +76,8 @@
     <Compile Include="Broadcast\ITemplateParser.cs" />
     <Compile Include="Broadcast\DocTypes\IDocType.cs" />
     <Compile Include="Enquiry.cs" />
-    <Compile Include="Events\EventFactory.cs" />
     <Compile Include="Events\EventModel.cs" />
+    <Compile Include="IAdFactory.cs" />
     <Compile Include="Membership\IConfirmationCodeGenerator.cs" />
     <Compile Include="Membership\RegistrationConfirmationResult.cs" />
     <Compile Include="Pricing\BookingOrderResult.cs" />

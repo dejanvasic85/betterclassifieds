@@ -7,6 +7,8 @@ namespace Paramount.Betterclassifieds.Business.Events
         public int EventId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public string OrganiserName { get; set; }
+        public string OraniserPhone { get; set; }
         public string Location { get; set; }
         public int? LocationLatitude { get; set; }
         public int? LocationLongitude { get; set; }

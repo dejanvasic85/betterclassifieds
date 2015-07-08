@@ -13,7 +13,6 @@
     using Business.Search;
     using Business.DocumentStorage;
     using Business.Payment;
-    using Business.Events;
     using ViewModels;
 
     public class BookingController : Controller, IMappingBehaviour
@@ -30,6 +29,7 @@
         private readonly IBookingManager _bookingManager;
         private readonly IPaymentService _paymentService;
         private readonly IEditionManager _editionManager;
+        private readonly IAdFactory _adFactory;
 
         public BookingController(
             ISearchService searchService,
@@ -43,7 +43,8 @@
             IBookingContext bookingContext,
             IBookingManager bookingManager,
             IPaymentService paymentService,
-            IEditionManager editionManager)
+            IEditionManager editionManager,
+            IAdFactory adFactory)
         {
             _searchService = searchService;
             _clientConfig = clientConfig;
@@ -57,6 +58,7 @@
             _bookingManager = bookingManager;
             _paymentService = paymentService;
             _editionManager = editionManager;
+            _adFactory = adFactory;
         }
 
         [HttpPost, AuthorizeBookingIdentity]
@@ -432,13 +434,10 @@
         }
 
         [HttpGet, BookingRequired]
-
-        public ActionResult GetEventDetails()
+        public ActionResult GetEventDetails(BookingCart bookingCart)
         {
-            var eventDetails = _bookingContext.Current().Event;
-
-            // var result = this.Map<EventModel, EventViewModel>(eventDetails);
-            var result = new EventViewModel();
+            var eventDetails = bookingCart.Event ?? _adFactory.CreateEvent();
+            var result = this.Map<Business.Events.EventModel, EventViewModel>(eventDetails);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -467,7 +466,12 @@
                 .ConvertUsing<PriceSummaryViewConverter>();
             configuration.CreateMap<BookingCart, Step3View>()
                 .ForMember(m => m.PublicationCount, options => options.MapFrom(src => src.Publications.Length));
-            configuration.CreateMap<EventModel, EventViewModel>();
+
+            configuration.CreateMap<Business.Events.EventModel, EventViewModel>()
+                .ForMember(m => m.EventStartDate, options => options.MapFrom(src => src.EventStartDate.GetValueOrDefault().ToString("dd/MM/yyyy")))
+                .ForMember(m => m.EventStartTime, options => options.MapFrom(src => src.EventStartDate.GetValueOrDefault().ToString("HH:mm")))
+                .ForMember(m => m.EventEndDate, options => options.MapFrom(src => src.EventEndDate.GetValueOrDefault().ToString("dd/MM/yyyy")))
+                .ForMember(m => m.EventEndTime, options => options.MapFrom(src => src.EventEndDate.GetValueOrDefault().ToString("HH:mm")));
 
             // From ViewModel
             configuration.CreateMap<Step2View, OnlineAdModel>()

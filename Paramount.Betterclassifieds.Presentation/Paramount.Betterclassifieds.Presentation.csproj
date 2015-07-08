@@ -204,6 +204,8 @@
     <Compile Include="Framework\Extensions\HttpResponseExtensions.cs" />
     <Compile Include="Framework\CustomViewResults\ImageResult.cs" />
     <Compile Include="Framework\Filters\ErrorFilterWithLogging.cs" />
+    <Compile Include="Framework\ModelBinders\BookingCartBinder.cs" />
+    <Compile Include="Framework\ModelBinders\ModelSpecificDateModelBinder.cs" />
     <Compile Include="Framework\UrlHelpers\ModuleUrlHelper.cs" />
     <Compile Include="Framework\UrlHelpers\RedirectResultFactory.cs" />
     <Compile Include="Framework\UrlHelpers\UrlPaths.cs" />
@@ -236,7 +238,6 @@
     <Compile Include="ViewModels\ContactUsView.cs" />
     <Compile Include="ViewModels\EventViewModel.cs" />
     <Compile Include="ViewModels\HomeModel.cs" />
-    <Compile Include="PresentationInitialiser.cs" />
     <Compile Include="ViewModels\AdSummaryViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Account\LoginViewModel.cs" />

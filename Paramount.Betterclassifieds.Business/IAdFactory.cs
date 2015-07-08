@@ -1,22 +1,23 @@
-﻿using Paramount.Utility;
-
-namespace Paramount.Betterclassifieds.Business.Events
+﻿namespace Paramount.Betterclassifieds.Business
 {
-    public interface IEventFactory
+    using Events;
+    using Utility;
+
+    public interface IAdFactory
     {
-        EventModel Create();
+        EventModel CreateEvent();
     }
 
-    public class EventFactory : IEventFactory
+    public class AdFactory : IAdFactory
     {
         private readonly IDateService _dateService;
 
-        public EventFactory(IDateService dateService)
+        public AdFactory(IDateService dateService)
         {
             _dateService = dateService;
         }
 
-        public EventModel Create()
+        public EventModel CreateEvent()
         {
             // Initialise with start date and hours to be close to the current time
             return new EventModel

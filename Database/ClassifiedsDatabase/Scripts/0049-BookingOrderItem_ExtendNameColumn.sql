@@ -1,0 +1,2 @@
+﻿ALTER TABLE AdBookingOrderItem
+ALTER COLUMN Name VARCHAR(50)

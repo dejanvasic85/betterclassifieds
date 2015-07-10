@@ -26,7 +26,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             using (var context = DataContextFactory.CreateClassifiedContext())
             {
                 var ids = string.Join(",", publicationIds);
-                var editions = context.Editions_GetUpcomingForPublications(ids, minDeadlineDate, minDeadlineDate)
+                var editions = context.Editions_GetUpcomingForPublications(ids, minEditionDate, minDeadlineDate)
                     .Select(r => r.EditionDate.GetValueOrDefault())
                     .Take(max)
                     .ToList();
@@ -34,10 +34,10 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                 return editions;
             }
         }
-        
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
-            
+
         }
     }
 }

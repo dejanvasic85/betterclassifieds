@@ -4,6 +4,12 @@
 
 (function (knockout, $) {
 
+    debugger;
+    ko.validation.init({
+        errorElementClass: 'has-error',
+        errorMessageClass: 'help-block',
+        decorateElement: true
+    });
 
     /*
      * subscribeChanged method exposes the old and new value in the callback
@@ -25,7 +31,10 @@
     ko.bindingHandlers.time = {
         init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
             var time = ko.unwrap(valueAccessor());
-            $(element).val(time).clockpicker({ donetext: 'OK' });
+            $(element).val(time).clockpicker({
+                donetext: 'OK',
+                autoclose: true
+            });
         }
     }
 
@@ -40,7 +49,8 @@
                     format: 'dd/mm/yyyy',
                     todateBtn: true,
                     todayHighlight: true,
-                    startDate: new Date()
+                    startDate: new Date(),
+                    orientation: 'bottom'
                 });
         }
     }

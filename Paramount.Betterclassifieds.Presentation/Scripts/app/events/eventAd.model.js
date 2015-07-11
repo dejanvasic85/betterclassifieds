@@ -8,7 +8,9 @@
         var me = this;
 
         // Properties
-        me.title = ko.observable(data.Title);
+        me.title = ko.observable(data.Title).extend({
+            required : true
+        });
         me.description = ko.observable(data.Description);
         me.eventPhoto = ko.observable(data.EventPhoto);
         me.adStartDate = ko.observable();

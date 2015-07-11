@@ -444,6 +444,7 @@
         [HttpPost]
         public ActionResult UpdateEventDetails(EventViewModel eventViewModel)
         {
+            // Coming soon
             return Json(null);
         }
 

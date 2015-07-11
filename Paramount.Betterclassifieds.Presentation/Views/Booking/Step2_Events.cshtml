@@ -9,180 +9,183 @@
     <li class="disabled"><a href="#">3</a></li>
 </ul>
 
-
-@*Event Details*@
-<div class="row">
-    <div class="col-xs-12">
-        <div class="bs-callout bs-callout-info">
-            <h4><i class="fa fa-list"></i> &nbsp; Event Details</h4>
+<form method="POST" action="@Url.Action("UpdateEventDetails", "Booking")" novalidate="novalidate">
+    
+    @*Event Details*@
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="bs-callout bs-callout-info">
+                <h4><i class="fa fa-list"></i> &nbsp; Event Details</h4>
+            </div>
         </div>
-    </div>
 
-    <div class="col-xs-12">
-        <div class="form-group-lg">
-            <label>Event Name *</label>
-            <input type="text" class="form-control" id="Title" name="Title" data-bind="value: title" placeholder="Provide a short impact title" />
-            <span class="help-block">
-                * Remaining characters : <span></span>
-            </span>
+        <div class="col-xs-12">
+            <div class="form-group-lg">
+                <label>Event Name *</label>
+                <input type="text" class="form-control" id="Title" name="Title" placeholder="Provide a short impact title" 
+                       data-bind="value: title"
+                       data-val="true"
+                       data-val-required="Event name is required" />
+                <span class="field-validation-valid help-block" data-valmsg-for="Title" data-valmsg-replace="true"></span>
+                <span class="help-block">
+                    * Remaining characters : <span></span>
+                </span>
+            </div>
         </div>
-    </div>
 
-    <div class="col-xs-12">
-        <div class="form-group">
-            <label>Details</label>
-            <textarea class="form-control input-lg" id="Description" name="Description" data-bind="value: description" placeholder="What's the event about? Who will be there?" rows="5"></textarea>
-        </div>
-    </div>
-</div>
-
-@*Location*@
-<div class="row">
-
-    <div class="col-xs-12">
-        <div class="bs-callout bs-callout-info">
-            <h4><i class="fa fa-map-marker"></i> &nbsp;Location</h4>
-            @*<p>Tell your visitors the location and what's the event about.</p>*@
-        </div>
-    </div>
-
-    <div class="col-xs-12">
-        <div class="form-group-lg">
-            <label class="control-label">Address</label>
-            <input type="text" class="form-control" id="Location" name="Location" data-bind="value: location" placeholder="Type address, and google should find it!" />
-        </div>
-    </div>
-
-    <div class="col-xs-12">
-        <div class="well" style="min-height: 200px" id="LocationMap"></div>
-    </div>
-</div>
-
-@*Schedule Start*@
-<div class="row">
-    <div class="col-xs-12">
-        <div class="bs-callout bs-callout-info">
-            <h4><i class="fa fa-clock-o"></i> &nbsp; Event Start</h4>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-
-    <div class="col-xs-6 col-md-3">
-        <div class="form-group-lg has-feedback">
-            <label class="control-label" for="StartDate">Start Date</label>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                <input name="StartDate" id="StartDate" data-bind="date: startDate" class="form-control" type="text">
+        <div class="col-xs-12">
+            <div class="form-group">
+                <label>Details</label>
+                <textarea class="form-control input-lg" id="Description" name="Description" data-bind="value: description" placeholder="What's the event about? Who will be there?" rows="5"></textarea>
             </div>
         </div>
     </div>
 
-    <div class="col-xs-6 col-md-3">
-        <div class="form-group-lg">
-            <label class="control-label">Start Time</label>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-                <input type="text" data-bind="time: startTime" class="form-control" />
+    @*Location*@
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="bs-callout bs-callout-info">
+                <h4><i class="fa fa-map-marker"></i> &nbsp;Location</h4>
+                @*<p>Tell your visitors the location and what's the event about.</p>*@
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+            <div class="form-group-lg">
+                <label class="control-label">Address</label>
+                <input type="text" class="form-control" id="Location" name="Location" data-bind="value: location" placeholder="Type address, and google should find it!" />
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+            <div class="well" style="min-height: 200px" id="LocationMap"></div>
+        </div>
+    </div>
+
+    @*Schedule Start*@
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="bs-callout bs-callout-info">
+                <h4><i class="fa fa-clock-o"></i> &nbsp; Event Start</h4>
             </div>
         </div>
     </div>
 
-    <div class="col-xs-6 col-md-3">
-        <div class="form-group-lg">
-            <label>End Date</label>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                <input name="EndDate" id="EndDate" data-bind="date: endDate" class="form-control datepicker" type="text" data-provide="datepicker">
+    <div class="row">
+        <div class="col-xs-6 col-md-3">
+            <div class="form-group-lg has-feedback">
+                <label class="control-label" for="StartDate">Start Date</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    <input name="StartDate" id="StartDate" data-bind="date: startDate" class="form-control" type="text">
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-xs-6 col-md-3">
-        <div class="form-group-lg">
-            <label class="control-label">End Time</label>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-                <input type="text" data-bind="time: endTime" class="form-control" />
+        <div class="col-xs-6 col-md-3">
+            <div class="form-group-lg">
+                <label class="control-label">Start Time</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                    <input type="text" data-bind="time: startTime" class="form-control" />
+                </div>
             </div>
         </div>
+
+        <div class="col-xs-6 col-md-3">
+            <div class="form-group-lg">
+                <label>End Date</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    <input name="EndDate" id="EndDate" data-bind="date: endDate" class="form-control datepicker" type="text" data-provide="datepicker">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-6 col-md-3">
+            <div class="form-group-lg">
+                <label class="control-label">End Time</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                    <input type="text" data-bind="time: endTime" class="form-control" />
+                </div>
+            </div>
+        </div>
+
     </div>
 
-</div>
-
-@*Photos*@
-<div class="row">
-    <div class="col-xs-12">
-        <div class="bs-callout bs-callout-info">
-            <h4><i class="fa fa-photo"></i>&nbsp; Event Photo</h4>
-            @*<p>Tell your visitors the location and what's the event about.</p>*@
+    @*Photos*@
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="bs-callout bs-callout-info">
+                <h4><i class="fa fa-photo"></i>&nbsp; Event Photo</h4>
+                @*<p>Tell your visitors the location and what's the event about.</p>*@
+            </div>
         </div>
-    </div>
 
-    Coming soon
-</div>
-
-@*Ticketing*@
-<div class="row">
-    <div class="col-xs-12">
-        <div class="bs-callout bs-callout-info">
-            <h4><i class="fa fa-ticket"></i>&nbsp; Ticketing</h4>
-            @*<p>Tell your visitors the location and what's the event about.</p>*@
-        </div>
         Coming soon
     </div>
-</div>
 
-
-@*Additional Details*@
-<div class="row">
-
-    <div class="col-xs-12">
-        <div class="bs-callout bs-callout-info">
-            <h4><i class="fa fa-anchor"></i>&nbsp; Additional Details</h4>
-            @*<p>Tell your visitors the location and what's the event about.</p>*@
-        </div>
-
-    </div>
-
-    <div class="col-xs-6">
-        <div class="form-group-lg">
-            <label>Organiser Name</label>
-            <input type="text" class="form-control" data-bind="value: organiserName" placeholder="Who is responsible for the event?" />
+    @*Ticketing*@
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="bs-callout bs-callout-info">
+                <h4><i class="fa fa-ticket"></i>&nbsp; Ticketing</h4>
+                @*<p>Tell your visitors the location and what's the event about.</p>*@
+            </div>
+            Coming soon
         </div>
     </div>
 
-    <div class="col-xs-6">
-        <div class="form-group-lg">
-            <label>Organiser Phone</label>
-            <input type="text" class="form-control" data-bind="value: organiserPhone" placeholder="Direct contact number (optional)" />
+
+    @*Additional Details*@
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="bs-callout bs-callout-info">
+                <h4><i class="fa fa-anchor"></i>&nbsp; Additional Details</h4>
+                @*<p>Tell your visitors the location and what's the event about.</p>*@
+            </div>
+
+        </div>
+
+        <div class="col-xs-6">
+            <div class="form-group-lg">
+                <label>Organiser Name</label>
+                <input type="text" class="form-control" data-bind="value: organiserName" placeholder="Who is responsible for the event?" />
+            </div>
+        </div>
+
+        <div class="col-xs-6">
+            <div class="form-group-lg">
+                <label>Organiser Phone</label>
+                <input type="text" class="form-control" data-bind="value: organiserPhone" placeholder="Direct contact number (optional)" />
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+            <div class="form-group-lg">
+                <label>Ad Start Date</label>
+                <input type="text" class="form-control" data-bind="value: adStartDate" />
+            </div>
         </div>
     </div>
 
-    <div class="col-xs-12">
-        <div class="form-group-lg">
-            <label>Ad Start Date</label>
-            <input type="text" class="form-control datepicker" data-bind="value: adStartDate" placeholder="" />
+    @*Pager*@
+    <div class="row">
+        <div class="col-xs-12">
+            <ul class="pager">
+                <li class="previous">
+                    <button id="btnPrev" class="btn btn-large btn-default js-load" data-nav='@Url.Action("Step1", "Booking")'>
+                        <i class="glyphicon glyphicon-arrow-left"></i> Previous
+                    </button>
+                </li>
+                <li class="next">
+                    <button id="btnSubmit" type="submit" class="btn btn-large btn-default">Next <i class="glyphicon glyphicon-arrow-right"></i></button>
+                </li>
+            </ul>
         </div>
     </div>
-</div>
-
-@*Pager*@
-<div class="row">
-    <div class="col-xs-12">
-        <ul class="pager">
-            <li class="previous">
-                <button id="btnPrev" class="btn btn-large btn-default js-load" data-nav='@Url.Action("Step1", "Booking")'>
-                    <i class="glyphicon glyphicon-arrow-left"></i> Previous
-                </button>
-            </li>
-            <li class="next">
-                <button id="btnSubmit" class="btn btn-large btn-default js-load" data-nav='@Url.Action("Step3", "Booking")'>Next <i class="glyphicon glyphicon-arrow-right"></i></button>
-            </li>
-        </ul>
-    </div>
-</div>
+</form>
 
 @section Scripts{
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>

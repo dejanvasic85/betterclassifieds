@@ -2,20 +2,13 @@
  * Contains any knockout extensions we may need
  */
 
-(function (knockout, $) {
-
-    debugger;
-    ko.validation.init({
-        errorElementClass: 'has-error',
-        errorMessageClass: 'help-block',
-        decorateElement: true
-    });
-
+(function (ko) {
+    
     /*
      * subscribeChanged method exposes the old and new value in the callback
      * e.g. this.observableValue.subscribeChanged(function(oldValue, newValue){ })
      */
-    knockout.subscribable.fn.subscribeChanged = function (callback) {
+    ko.subscribable.fn.subscribeChanged = function (callback) {
         var oldValue;
         this.subscribe(function (_oldValue) {
             oldValue = _oldValue;
@@ -28,31 +21,5 @@
         return subscription;
     };
 
-    ko.bindingHandlers.time = {
-        init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-            var time = ko.unwrap(valueAccessor());
-            $(element).val(time).clockpicker({
-                donetext: 'OK',
-                autoclose: true
-            });
-        }
-    }
 
-    ko.bindingHandlers.date = {
-        init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-            var date = ko.unwrap(valueAccessor());
-            $(element)
-                .attr('data-provide', "datepicker")
-                .val(date)
-                .datepicker({
-                    autoclose: true,
-                    format: 'dd/mm/yyyy',
-                    todateBtn: true,
-                    todayHighlight: true,
-                    startDate: new Date(),
-                    orientation: 'bottom'
-                });
-        }
-    }
-
-})(ko, jQuery);
+})(ko);

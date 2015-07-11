@@ -323,7 +323,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\app-global\ko-customBindings.js" />
-    <Content Include="Scripts\app-global\ko-customValidation.js" />
     <Content Include="Scripts\app\account\Login.js" />
     <Content Include="Scripts\app\account\Login.min.js">
       <DependentUpon>Login.js</DependentUpon>

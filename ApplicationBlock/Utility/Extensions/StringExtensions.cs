@@ -1,4 +1,5 @@
-﻿using System.Net.Mime;
+﻿using System.Globalization;
+using System.Net.Mime;
 using System.Text;
 
 namespace Paramount
@@ -176,6 +177,22 @@ namespace Paramount
                 return 0;
 
             return value.Split(' ').Length;
+        }
+
+        public static DateTime? ToDateTime(this string value)
+        {
+            if (value.IsNullOrEmpty())
+            {
+                return null;
+            }
+
+            DateTime result;
+            if (DateTime.TryParseExact(value, "dd/MM/yyyy", new DateTimeFormatInfo(), DateTimeStyles.None, out result))
+            {
+                return result;
+            }
+
+            return null;
         }
     }
 }

@@ -9,12 +9,15 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
         [Required]
         public string Description { get; set; }
-
+        [Required]
+        public string AdStartDate { get; set; }
+     
+        [Required]
         public string Location { get; set; }
 
-        public int? LocationLatitude { get; set; }
+        public decimal? LocationLatitude { get; set; }
 
-        public int? LocationLongitude { get; set; }
+        public decimal? LocationLongitude { get; set; }
 
         public string EventPhoto { get; set; }
 

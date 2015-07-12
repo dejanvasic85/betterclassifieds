@@ -57,6 +57,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         public int? CategoryId { get; set; }
 
         public int? SubCategoryId { get; set; }
+        public string ViewName { get; set; }
 
         public int[] Publications { get; set; }
 
@@ -97,12 +98,12 @@ namespace Paramount.Betterclassifieds.Business.Booking
             return TotalPrice == 0;
         }
 
-        public void SetSchedule(IClientConfig clientConfig, DateTime startDate, DateTime? firstEditionDate, int? numberOfInsertions = null)
+        public void SetSchedule(IClientConfig clientConfig, DateTime startDate, DateTime? firstEditionDate = null, int? numberOfInsertions = null)
         {
             this.StartDate = startDate;
             EndDate = StartDate.Value.AddDays(clientConfig.RestrictedOnlineDaysCount);
 
-            if (IsLineAdIncluded)
+            if (IsLineAdIncluded && firstEditionDate.HasValue)
             {
                 this.PrintFirstEditionDate = firstEditionDate;
                 this.PrintInsertions = numberOfInsertions;

@@ -6,18 +6,19 @@
 
     ko.bindingHandlers.time = {
         init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-            var time = ko.unwrap(valueAccessor());
+            var accessor = valueAccessor();
+            var time = ko.unwrap(accessor);
             $(element)
                 .val(time)
-                .attr('readonly', '')
-                .addClass('bs-clock-picker')
-                .on('focus', function(event) {
-                    event.preventDefault();
-                })
+                .attr('readonly', '')               // Prevents the user from inputting their own value
+                .addClass('bs-clock-picker')        // Prevents the user from inputting their own value
                 .clockpicker({
-                donetext: 'OK',
-                autoclose: true
-            });
+                    donetext: 'OK',
+                    autoclose: true,
+                    afterDone : function() {
+                        accessor($(element).val());
+                    }
+                });
         }
     }
 
@@ -26,14 +27,12 @@
      */
     ko.bindingHandlers.date = {
         init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-            var date = ko.unwrap(valueAccessor());
+            var value = valueAccessor();
+            var date = ko.unwrap(value);
             $(element)
                 .attr('data-provide', "datepicker")
-                .attr('readonly', "")
-                .addClass('bs-date-picker')
-                .on('focus', function (event) {
-                    event.preventDefault();
-                })
+                .attr('readonly', "") // Prevents the user from inputting their own value
+                .addClass('bs-date-picker') // Prevents the user from inputting their own value
                 .val(date)
                 .datepicker({
                     autoclose: true,
@@ -42,6 +41,10 @@
                     todayHighlight: true,
                     startDate: new Date(),
                     orientation: 'bottom'
+                })
+                .on('changeDate', function () {
+                    var changedDate = $(element).val();
+                    value(changedDate);
                 });
         }
     }

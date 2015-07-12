@@ -25,5 +25,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public int? PrintInsertions { get; set; }
         public bool IsLineAdIncluded { get; set; }
         public int? PublicationCount { get; set; }
+        public string PreviousStep { get; set; }
     }
 }

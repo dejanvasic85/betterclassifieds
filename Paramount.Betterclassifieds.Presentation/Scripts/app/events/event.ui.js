@@ -12,6 +12,8 @@
 
             $(function () {
 
+                var eventDetails; // Loaded on getJson callback
+
                 // Setup the UI 
                 var $map = $('#Location')
                      .geocomplete({
@@ -20,13 +22,14 @@
                              draggable: false
                          },
                      })
-                     .bind('geocode:result', function () {
-                         $('#LocationMap').show();
+                     .bind('geocode:result', function (event, geoData) {
+                         eventDetails.locationLat(geoData.geometry.location.A);
+                         eventDetails.locationLong(geoData.geometry.location.F);
                      });
 
                 // Setup the knockout object, initalise based on the existing server object
                 $.getJSON(options.serviceEndpoint.getEventDetails).done(function (response) {
-                    var eventDetails = new $paramount.models.EventAd(response, options);
+                    eventDetails = new $paramount.models.EventAd(response, options);
                     ko.applyBindings(eventDetails);
 
                     if (response.Location) {

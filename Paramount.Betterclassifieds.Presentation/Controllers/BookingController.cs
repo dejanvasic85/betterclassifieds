@@ -75,8 +75,6 @@
             });
         }
 
-        #region Steps
-
         //
         // GET: /Booking/Step/1 - Category and publications
         [HttpGet, BookingStep(1)]
@@ -108,14 +106,14 @@
 
             if (viewModel.Publications != null)
                 bookingCart.Publications = viewModel.Publications.Where(p => p.IsSelected).Select(p => p.PublicationId).ToArray();
+            
+            var category = _searchService.GetCategories().Single(c => c.MainCategoryId == bookingCart.SubCategoryId);
+            bookingCart.ViewName = category.ViewMap;
 
             bookingCart.CompleteStep(1);
             _cartRepository.Save(bookingCart);
-
-            var category = _searchService.GetCategories().Single(c => c.MainCategoryId == bookingCart.SubCategoryId);
             
-            // Our view can't "submit" the form so just return json with the redirection url
-            return Json(Url.Action("Step2", new {adType = category.ViewMap}));
+            return Json(Url.Action("Step2", new { adType = category.ViewMap }));
         }
 
         //
@@ -162,7 +160,7 @@
                     .GetAvailableInsertions()
                     .Select(m => new SelectListItem { Text = m.ToString(), Value = m.ToString() });
             }
-            
+
             return View(stepTwoModel);
         }
 
@@ -210,6 +208,7 @@
 
             var viewModel = this.Map<BookingCart, Step3View>(bookingCart);
             viewModel.IsPaymentCancelled = isPaymentCancelled;
+            viewModel.PreviousStep = Url.Action("Step2", new {adtype = bookingCart.ViewName});
 
             return View(viewModel);
         }
@@ -299,10 +298,6 @@
 
             return View(successView);
         }
-
-        #endregion
-
-        #region Json Requests
 
         [HttpPost, BookingRequired]
         public ActionResult RemoveOnlineImage(Guid documentId)
@@ -438,18 +433,23 @@
         {
             var eventDetails = bookingCart.Event ?? _adFactory.CreateEvent();
             var result = this.Map<Business.Events.EventModel, EventViewModel>(eventDetails);
+            result.AdStartDate = bookingCart.StartDate.GetValueOrDefault().ToString("dd/MM/yyyy");
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public ActionResult UpdateEventDetails(EventViewModel eventViewModel)
+        public ActionResult UpdateEventDetails(EventViewModel eventViewModel, BookingCart bookingCart)
         {
-            // Coming soon
-            return Json(null);
+            var eventModel = this.Map<EventViewModel, Business.Events.EventModel>(eventViewModel);
+
+            bookingCart.Event = eventModel;
+            bookingCart.SetSchedule(_clientConfig, eventViewModel.AdStartDate.ToDateTime().GetValueOrDefault());
+            bookingCart.CompleteStep(2);
+            _cartRepository.Save(bookingCart);
+            
+            return RedirectToAction("Step3");
         }
-
-        #endregion
-
+        
         #region Mappings
         public void OnRegisterMaps(IConfiguration configuration)
         {
@@ -485,6 +485,10 @@
                 ;
             configuration.CreateMap<UserNetworkEmailView, UserNetworkModel>();
             configuration.CreateMap<PricingFactorsView, PricingFactors>();
+            configuration.CreateMap<EventViewModel, Business.Events.EventModel>()
+                .ForMember(m => m.EventStartDate, options => options.MapFrom(source => source.EventStartDate.ToDateTime()))
+                .ForMember(m => m.EventEndDate, options => options.MapFrom(source => source.EventEndDate.ToDateTime()))
+                ;
 
             // To Email Template
             configuration.CreateMap<BookingCart, NewBooking>()

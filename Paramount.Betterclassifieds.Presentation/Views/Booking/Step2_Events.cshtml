@@ -23,20 +23,25 @@
             <div class="form-group-lg">
                 <label>Event Name *</label>
                 <input type="text" class="form-control" id="Title" name="Title" placeholder="Provide a short impact title" 
-                       data-bind="value: title"
-                       data-val="true"
-                       data-val-required="Event name is required" />
+                       data-bind="value: title, valueUpdate: 'keyup'" 
+                       data-val="true" data-val-required="Event name is required"
+                       maxlength="100" />
                 <span class="field-validation-valid help-block" data-valmsg-for="Title" data-valmsg-replace="true"></span>
                 <span class="help-block">
-                    * Remaining characters : <span></span>
+                    * Remaining characters : <span data-bind="text: titleRemaining"></span>
                 </span>
             </div>
         </div>
 
         <div class="col-xs-12">
             <div class="form-group">
-                <label>Details</label>
-                <textarea class="form-control input-lg" id="Description" name="Description" data-bind="value: description" placeholder="What's the event about? Who will be there?" rows="5"></textarea>
+                <label>Details *</label>
+                <textarea class="form-control input-lg" id="Description" name="Description" rows="5" placeholder="What's the event about? Who will be there?"
+                          data-bind="value: description"
+                          data-val="true"
+                          data-val-required="Event details are required"></textarea>
+                
+                <span class="field-validation-valid help-block" data-valmsg-for="Description" data-valmsg-replace="true"></span>
             </div>
         </div>
     </div>
@@ -52,8 +57,12 @@
 
         <div class="col-xs-12">
             <div class="form-group-lg">
-                <label class="control-label">Address</label>
-                <input type="text" class="form-control" id="Location" name="Location" data-bind="value: location" placeholder="Type address, and google should find it!" />
+                <label class="control-label">Address *</label>
+                <input type="text" class="form-control" id="Location" name="Location" placeholder="Type address, and google should find it!" maxlength="200"
+                       data-bind="value: location"
+                       data-val="true"
+                       data-val-required="Event location is required" />
+                <span class="field-validation-valid help-block" data-valmsg-for="Location" data-valmsg-replace="true"></span>
             </div>
         </div>
 
@@ -66,43 +75,53 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="bs-callout bs-callout-info">
-                <h4><i class="fa fa-clock-o"></i> &nbsp; Event Start</h4>
+                <h4><i class="fa fa-clock-o"></i> &nbsp; Event Schedule</h4>
             </div>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-xs-6 col-md-3">
+        <div class="col-md-3 col-xs-12">
             <div class="form-group-lg has-feedback">
-                <label class="control-label" for="StartDate">Start Date</label>
+                <label class="control-label" for="StartDate">Start Date *</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                    <input name="StartDate" id="StartDate" data-bind="date: startDate" class="form-control" type="text">
+                    <input name="StartDate" id="StartDate" data-bind="date: startDate" class="form-control" type="text"
+                           data-val="true"
+                           data-val-required="Start Date is required">
+                    <span class="field-validation-valid help-block" data-valmsg-for="StartDate" data-valmsg-replace="true"></span>
                 </div>
+                
             </div>
         </div>
 
-        <div class="col-xs-6 col-md-3">
+        <div class="col-md-3 col-xs-12">
             <div class="form-group-lg">
-                <label class="control-label">Start Time</label>
+                <label class="control-label">Start Time *</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-                    <input type="text" data-bind="time: startTime" class="form-control" />
+                    <input type="text" data-bind="time: startTime" class="form-control"
+                           data-val="true" 
+                           data-val-required="Start Time is required"/>
+                    <span class="field-validation-valid help-block" data-valmsg-for="StartTime" data-valmsg-replace="true"></span>
                 </div>
             </div>
         </div>
 
-        <div class="col-xs-6 col-md-3">
+        <div class="col-md-3 col-xs-12">
             <div class="form-group-lg">
-                <label>End Date</label>
+                <label>End Date *</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                    <input name="EndDate" id="EndDate" data-bind="date: endDate" class="form-control datepicker" type="text" data-provide="datepicker">
+                    <input name="EndDate" id="EndDate" data-bind="date: endDate" class="form-control datepicker" type="text"
+                           data-val-required="End Date is required" >
+                    <span class="field-validation-valid help-block" data-valmsg-for="EndDate" data-valmsg-replace="true"></span>
+                    <span class="help-block" data-bind="text: endDateValidation"></span>
                 </div>
             </div>
         </div>
 
-        <div class="col-xs-6 col-md-3">
+        <div class="col-md-3 col-xs-12">
             <div class="form-group-lg">
                 <label class="control-label">End Time</label>
                 <div class="input-group">

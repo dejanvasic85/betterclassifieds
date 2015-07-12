@@ -9,6 +9,8 @@
             var time = ko.unwrap(valueAccessor());
             $(element)
                 .val(time)
+                .attr('readonly', '')
+                .addClass('bs-clock-picker')
                 .on('focus', function(event) {
                     event.preventDefault();
                 })
@@ -20,13 +22,15 @@
     }
 
     /*
-     * Usage : <input type='text' />
+     * Usage : <input type='text' data-bind='date: modelProperty' />
      */
     ko.bindingHandlers.date = {
         init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
             var date = ko.unwrap(valueAccessor());
             $(element)
                 .attr('data-provide', "datepicker")
+                .attr('readonly', "")
+                .addClass('bs-date-picker')
                 .on('focus', function (event) {
                     event.preventDefault();
                 })

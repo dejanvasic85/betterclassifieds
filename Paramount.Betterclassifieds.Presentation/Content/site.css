@@ -131,6 +131,16 @@
   min-width: 175px;
 }
 /*
+    Form Overrides
+*/
+.form-group input[readonly].bs-date-picker,
+.form-group-lg input[readonly].bs-date-picker,
+.form-group input[readonly].bs-clock-picker,
+.form-group-lg input[readonly].bs-clock-picker {
+  cursor: pointer;
+  background-color: #fff;
+}
+/*
     Mobile
 */
 @media (max-width: 766px) {

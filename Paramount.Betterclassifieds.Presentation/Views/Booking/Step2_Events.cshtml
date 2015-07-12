@@ -1,4 +1,5 @@
-﻿@{
+﻿@using System.Web.UI.WebControls
+@{
     ViewBag.Title = "Event Details";
     Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
 }
@@ -92,7 +93,7 @@
                            data-val="true"
                            data-val-required="Start Date is required">
                 </div>
-                <span class="field-validation-valid help-block" data-valmsg-for="StartDate" data-valmsg-replace="true"></span>
+                <span class="field-validation-valid help-block" data-valmsg-for="EventStartDate" data-valmsg-replace="true"></span>
             </div>
         </div>
 
@@ -106,7 +107,7 @@
                            data-val="true"
                            data-val-required="Start Time is required" />
                 </div>
-                <span class="field-validation-valid help-block" data-valmsg-for="StartTime" data-valmsg-replace="true"></span>
+                <span class="field-validation-valid help-block" data-valmsg-for="EventStartTime" data-valmsg-replace="true"></span>
             </div>
         </div>
 
@@ -120,7 +121,7 @@
                            data-val="true"
                            data-val-required="End Date is required">
                 </div>
-                <span class="field-validation-valid help-block" data-valmsg-for="EndDate" data-valmsg-replace="true"></span>
+                <span class="field-validation-valid help-block" data-valmsg-for="EventEndDate" data-valmsg-replace="true"></span>
                 <div class="alert alert-danger" data-bind="text: endDateValidation, visible: endDateValidation().length>0"></div>
             </div>
         </div>
@@ -130,9 +131,9 @@
                 <label class="control-label">End Time</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-                    <input type="text" id="EventEndTime" name="EventEndTime" data-bind="time: endTime" class="form-control" />
+                    <input type="text" id="EventEndTime" name="EventEndTime" data-bind="time: endTime" class="form-control" data-val="true" />
                 </div>
-                <span class="field-validation-valid help-block" data-valmsg-for="EndTime" data-valmsg-replace="true"></span>
+                <span class="field-validation-valid help-block" data-valmsg-for="EventEndTime" data-valmsg-replace="true"></span>
                 <div class="alert alert-danger" data-bind="text: endTimeValidation, visible: endTimeValidation().length > 0"></div>
             </div>
         </div>
@@ -175,7 +176,7 @@
 
         <div class="col-xs-6">
             <div class="form-group-lg">
-                <label>Organiser Name</label>
+                <label>Organiser Name *</label>
                 <input type="text" class="form-control" id="OrganiserName" name="OrganiserName" data-bind="value: organiserName" placeholder="Who is responsible for the event?" />
             </div>
         </div>
@@ -189,8 +190,15 @@
 
         <div class="col-xs-12">
             <div class="form-group-lg">
-                <label>Ad Start Date</label>
-                <input type="text" class="form-control" id="AdStartDate" name="AdStartDate" data-bind="date: adStartDate" />
+                <label>Ad Start Date *</label>
+                <input type="text" class="form-control" id="AdStartDate" name="AdStartDate"
+                       data-bind="date: adStartDate"
+                       data-val="true"
+                       data-val-required="Start date for your ad is required" />
+                <span class="field-validation-valid help-block" data-valmsg-for="AdStartDate" data-valmsg-replace="true"></span>
+                <div class="alert alert-info" data-bind="visible: adEndDate().length > 0">
+                    Your ad will run for <span data-bind="text: configDurationDays"></span> days and expires <strong><span data-bind="text: adEndDate"></span></strong>
+                </div>
             </div>
         </div>
     </div>
@@ -218,8 +226,9 @@
     <script>
         // Initialise the event designer
         $paramount.event.init({
-            serviceEndpoint: $paramount.url.adBooking,
-            maxImages: 5
+            ServiceEndpoint: $paramount.url.adBooking,
+            MaxFreeImages: 5,
+            ConfigDurationDays: 60
         });
 
     </script>

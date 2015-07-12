@@ -4,22 +4,29 @@
     $paramount.models = $paramount.models || {};
 
     // Knockout Model
-    $paramount.models.EventAd = function (data) {
+    $paramount.models.EventAd = function (data, options) {
         
         var me = this,
-            maxTitleChars = 100,
-            dateFormat = 'DD/MM/yyyy';
+            MAX_TITLE_CHARS = 100,
+            DATE_FORMAT = 'DD/MM/yyyy';
 
         // Properties
         me.title = ko.observable(data.Title);
         me.titleRemaining = ko.computed(function () {
             if (me.title() === null)
                 return 100;
-            return maxTitleChars - me.title().length;
+            return MAX_TITLE_CHARS - me.title().length;
         });
         me.description = ko.observable(data.Description);
         me.eventPhoto = ko.observable(data.EventPhoto);
+        me.configDurationDays = ko.observable(options.ConfigDurationDays);
         me.adStartDate = ko.observable(data.AdStartDate);
+        me.adEndDate = ko.computed(function () {
+            if (me.adStartDate() === '') {
+                return '';
+            }
+            return moment(me.adStartDate(), DATE_FORMAT).add(options.ConfigDurationDays, 'days').format(DATE_FORMAT.toUpperCase());
+        });
 
         me.location = ko.observable(data.Location);
         me.locationLat = ko.observable(data.LocationLatitude);
@@ -30,7 +37,7 @@
         me.endDate = ko.observable(data.EventEndDate);
         me.endDateValidation = ko.computed(function() {
             // Ensure that the start date is less than end date
-            if (moment(me.startDate(), dateFormat).isAfter( moment(me.endDate(), dateFormat) )) {
+            if (moment(me.startDate(), DATE_FORMAT).isAfter( moment(me.endDate(), DATE_FORMAT) )) {
                 return 'End date must be after start date';
             }
             return '';
@@ -44,8 +51,8 @@
             var startTimeValues = me.startTime().split(':'),
                 endTimeValues = me.endTime().split(':');
 
-            var startDate = moment(me.startDate(), dateFormat).hours(startTimeValues[0]).minutes(startTimeValues[1]),
-                endDate = moment(me.endDate(), dateFormat).hours(endTimeValues[0]).minutes(endTimeValues[1]);
+            var startDate = moment(me.startDate(), DATE_FORMAT).hours(startTimeValues[0]).minutes(startTimeValues[1]),
+                endDate = moment(me.endDate(), DATE_FORMAT).hours(endTimeValues[0]).minutes(endTimeValues[1]);
 
             if (startDate.isAfter(endDate)) {
                 return 'End time must be after the start time';

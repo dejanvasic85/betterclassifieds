@@ -28,7 +28,7 @@
                      });
 
                 // Setup the knockout object, initalise based on the existing server object
-                $.getJSON(options.serviceEndpoint.getEventDetails).done(function (response) {
+                $.getJSON(options.ServiceEndpoint.getEventDetails).done(function (response) {
                     eventDetails = new $paramount.models.EventAd(response, options);
                     ko.applyBindings(eventDetails);
 

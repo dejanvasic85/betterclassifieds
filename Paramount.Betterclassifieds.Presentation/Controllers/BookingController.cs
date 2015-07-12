@@ -17,6 +17,8 @@
 
     public class BookingController : Controller, IMappingBehaviour
     {
+        private const string DATE_FORMAT = "dd/MM/yyyy";
+
         private readonly ISearchService _searchService;
         private readonly IBookCartRepository _cartRepository;
         private readonly IBookingContext _bookingContext;
@@ -154,7 +156,7 @@
                 // Fetch the editions for the selected publications
                 stepTwoModel.UpcomingEditions = _editionManager
                     .GetUpcomingEditions(bookingCart.Publications)
-                    .Select(m => new SelectListItem { Text = m.ToString("dd/MM/yyyy"), Value = m.ToString("dd/MM/yyyy") });
+                    .Select(m => new SelectListItem { Text = m.ToString(DATE_FORMAT), Value = m.ToString(DATE_FORMAT) });
 
                 stepTwoModel.AvailableInsertions = _editionManager
                     .GetAvailableInsertions()
@@ -208,7 +210,7 @@
 
             var viewModel = this.Map<BookingCart, Step3View>(bookingCart);
             viewModel.IsPaymentCancelled = isPaymentCancelled;
-            viewModel.PreviousStep = Url.Action("Step2", new {adtype = bookingCart.ViewName});
+            viewModel.PreviousStep = Url.Action("Step2", new { adtype = bookingCart.ViewName });
 
             return View(viewModel);
         }
@@ -374,7 +376,7 @@
                 string publicationName;
                 var dates = _editionManager
                     .GetUpcomingEditionsForPublication(publicationId, firstEdition, out publicationName)
-                    .Select(e => e.Date.ToString("dd-MMM-yyyy"))
+                    .Select(e => e.Date.ToString(DATE_FORMAT))
                     .Take(printInsertions)
                     .ToArray();
 
@@ -433,7 +435,7 @@
         {
             var eventDetails = bookingCart.Event ?? _adFactory.CreateEvent();
             var result = this.Map<Business.Events.EventModel, EventViewModel>(eventDetails);
-            result.AdStartDate = bookingCart.StartDate.GetValueOrDefault().ToString("dd/MM/yyyy");
+            result.AdStartDate = bookingCart.StartDate.HasValue ? bookingCart.StartDate.Value.ToString(DATE_FORMAT) : DateTime.Today.ToString(DATE_FORMAT);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -446,10 +448,10 @@
             bookingCart.SetSchedule(_clientConfig, eventViewModel.AdStartDate.ToDateTime().GetValueOrDefault());
             bookingCart.CompleteStep(2);
             _cartRepository.Save(bookingCart);
-            
+
             return RedirectToAction("Step3");
         }
-        
+
         #region Mappings
         public void OnRegisterMaps(IConfiguration configuration)
         {
@@ -469,9 +471,9 @@
                 .ForMember(m => m.PublicationCount, options => options.MapFrom(src => src.Publications.Length));
 
             configuration.CreateMap<Business.Events.EventModel, EventViewModel>()
-                .ForMember(m => m.EventStartDate, options => options.MapFrom(src => src.EventStartDate.GetValueOrDefault().ToString("dd/MM/yyyy")))
+                .ForMember(m => m.EventStartDate, options => options.MapFrom(src => src.EventStartDate.GetValueOrDefault().ToString(DATE_FORMAT)))
                 .ForMember(m => m.EventStartTime, options => options.MapFrom(src => src.EventStartDate.GetValueOrDefault().ToString("HH:mm")))
-                .ForMember(m => m.EventEndDate, options => options.MapFrom(src => src.EventEndDate.GetValueOrDefault().ToString("dd/MM/yyyy")))
+                .ForMember(m => m.EventEndDate, options => options.MapFrom(src => src.EventEndDate.GetValueOrDefault().ToString(DATE_FORMAT)))
                 .ForMember(m => m.EventEndTime, options => options.MapFrom(src => src.EventEndDate.GetValueOrDefault().ToString("HH:mm")));
 
             // From ViewModel

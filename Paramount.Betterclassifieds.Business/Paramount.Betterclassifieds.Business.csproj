@@ -53,6 +53,7 @@
     <Compile Include="Billing\InvoiceGroup.cs" />
     <Compile Include="Billing\InvoiceLineItem.cs" />
     <Compile Include="Booking\BookingManager.cs" />
+    <Compile Include="Booking\IBookingCart.cs" />
     <Compile Include="Booking\IBookingContext.cs" />
     <Compile Include="Broadcast\DocTypes\AdShare.cs" />
     <Compile Include="Booking\BookingCart.cs" />

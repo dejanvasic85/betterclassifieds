@@ -313,7 +313,7 @@
             }
         }
 
-        public BookingCart GetCart()
+        public IBookingCart GetCart()
         {
             return _bookingContext.Current();
         }

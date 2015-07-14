@@ -31,7 +31,7 @@
         private readonly IBookingManager _bookingManager;
         private readonly IPaymentService _paymentService;
         private readonly IEditionManager _editionManager;
-        private readonly IAdFactory _adFactory;
+        private readonly IDateService _dateService;
 
         public BookingController(
             ISearchService searchService,
@@ -46,7 +46,8 @@
             IBookingManager bookingManager,
             IPaymentService paymentService,
             IEditionManager editionManager,
-            IAdFactory adFactory)
+            IAdFactory adFactory,
+            IDateService dateService)
         {
             _searchService = searchService;
             _clientConfig = clientConfig;
@@ -60,7 +61,7 @@
             _bookingManager = bookingManager;
             _paymentService = paymentService;
             _editionManager = editionManager;
-            _adFactory = adFactory;
+            _dateService = dateService;
         }
 
         [HttpPost, AuthorizeBookingIdentity]
@@ -95,14 +96,13 @@
         }
 
         [HttpPost, BookingStep(1)]
-        public ActionResult Step1(Step1View viewModel)
+        public ActionResult Step1(Step1View viewModel, IBookingCart bookingCart)
         {
             if (!ModelState.IsValid)
             {
                 return Json(new { errorMsg = "Please ensure you select a category before next step." });
             }
 
-            var bookingCart = _bookingContext.Current();
             bookingCart.CategoryId = viewModel.CategoryId;
             bookingCart.SubCategoryId = viewModel.SubCategoryId;
 
@@ -121,14 +121,13 @@
         //
         // GET: /Booking/Step/2 - ad details
         [HttpGet, BookingStep(2)]
-        public ActionResult Step2(string adType)
+        public ActionResult Step2(string adType, IBookingCart bookingCart)
         {
             if (adType.HasValue())
             {
                 return View("Step2_" + adType);
             }
 
-            var bookingCart = _bookingContext.Current();
             var stepTwoModel = this.Map<OnlineAdModel, Step2View>(bookingCart.OnlineAdModel);
             this.Map(bookingCart.LineAdModel, stepTwoModel);
 
@@ -431,21 +430,18 @@
         }
 
         [HttpGet, BookingRequired]
-        public ActionResult GetEventDetails(BookingCart bookingCart)
+        public ActionResult GetEventDetails(IBookingCart bookingCart)
         {
-            var eventDetails = bookingCart.Event ?? _adFactory.CreateEvent();
-            var result = this.Map<Business.Events.EventModel, EventViewModel>(eventDetails);
-            result.AdStartDate = bookingCart.StartDate.HasValue ? bookingCart.StartDate.Value.ToString(DATE_FORMAT) : DateTime.Today.ToString(DATE_FORMAT);
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var eventViewModel = this.Map<IBookingCart, EventViewModel>(bookingCart);
+            return Json(eventViewModel, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public ActionResult UpdateEventDetails(EventViewModel eventViewModel, BookingCart bookingCart)
+        public ActionResult UpdateEventDetails(EventViewModel eventViewModel, IBookingCart bookingCart)
         {
-            var eventModel = this.Map<EventViewModel, Business.Events.EventModel>(eventViewModel);
-
-            bookingCart.Event = eventModel;
-            bookingCart.SetSchedule(_clientConfig, eventViewModel.AdStartDate.ToDateTime().GetValueOrDefault());
+            // Direct mapping using converter
+            this.Map(eventViewModel, bookingCart);
+            
             bookingCart.CompleteStep(2);
             _cartRepository.Save(bookingCart);
 
@@ -469,12 +465,7 @@
                 .ConvertUsing<PriceSummaryViewConverter>();
             configuration.CreateMap<BookingCart, Step3View>()
                 .ForMember(m => m.PublicationCount, options => options.MapFrom(src => src.Publications.Length));
-
-            configuration.CreateMap<Business.Events.EventModel, EventViewModel>()
-                .ForMember(m => m.EventStartDate, options => options.MapFrom(src => src.EventStartDate.GetValueOrDefault().ToString(DATE_FORMAT)))
-                .ForMember(m => m.EventStartTime, options => options.MapFrom(src => src.EventStartDate.GetValueOrDefault().ToString("HH:mm")))
-                .ForMember(m => m.EventEndDate, options => options.MapFrom(src => src.EventEndDate.GetValueOrDefault().ToString(DATE_FORMAT)))
-                .ForMember(m => m.EventEndTime, options => options.MapFrom(src => src.EventEndDate.GetValueOrDefault().ToString("HH:mm")));
+            configuration.CreateMap<IBookingCart, EventViewModel>().ConvertUsing(new BookingCartToEventView(_dateService));
 
             // From ViewModel
             configuration.CreateMap<Step2View, OnlineAdModel>()
@@ -483,14 +474,11 @@
             configuration.CreateMap<Step2View, LineAdModel>()
                 .ForMember(member => member.WordsPurchased, options => options.MapFrom(src => src.LineAdText.WordCount()))
                 .ForMember(member => member.UsePhoto, options => options.MapFrom(src => src.LineAdImageId.HasValue()))
-                .ForMember(member => member.UseBoldHeader, options => options.MapFrom(src => src.LineAdHeader.HasValue()))
-                ;
+                .ForMember(member => member.UseBoldHeader, options => options.MapFrom(src => src.LineAdHeader.HasValue()));
             configuration.CreateMap<UserNetworkEmailView, UserNetworkModel>();
             configuration.CreateMap<PricingFactorsView, PricingFactors>();
-            configuration.CreateMap<EventViewModel, Business.Events.EventModel>()
-                .ForMember(m => m.EventStartDate, options => options.MapFrom(source => source.EventStartDate.ToDateTime()))
-                .ForMember(m => m.EventEndDate, options => options.MapFrom(source => source.EventEndDate.ToDateTime()))
-                ;
+            configuration.CreateMap<EventViewModel, IBookingCart>().ConvertUsing(new EventViewToBookingCartConverter(_dateService, _clientConfig));
+            
 
             // To Email Template
             configuration.CreateMap<BookingCart, NewBooking>()

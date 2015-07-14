@@ -11,7 +11,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
     /// <summary>
     /// View model representing what can be selected in a regular booking steps/stages
     /// </summary>
-    public class BookingCart : IAdRateContext
+    public class BookingCart : IAdRateContext, IBookingCart
     {
 
         public BookingCart(string sessionId, string userId)

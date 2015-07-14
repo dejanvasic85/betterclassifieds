@@ -11,7 +11,7 @@ namespace Paramount.Betterclassifieds.Presentation
         {
             // Custom model binders
             modelBinders.Add(typeof(DateTime?), new ModelSpecificDateModelBinder());
-            modelBinders.Add(typeof(BookingCart), new BookingCartBinder());
+            modelBinders.Add(typeof(IBookingCart), new BookingCartBinder());
 
             // Attributes
             DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(RequiredIfAttribute), typeof(RequiredAttributeAdapter));

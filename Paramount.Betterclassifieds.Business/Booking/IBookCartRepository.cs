@@ -3,7 +3,7 @@
     public interface IBookCartRepository
     {
         BookingCart GetBookingCart(string id);
-        BookingCart Save(BookingCart bookingCart);
+        IBookingCart Save(IBookingCart bookingCart);
     }
     
 }

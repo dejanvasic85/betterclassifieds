@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {

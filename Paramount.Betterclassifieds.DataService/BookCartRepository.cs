@@ -22,7 +22,7 @@ namespace Paramount.Betterclassifieds.DataService
             return cart;
         }
 
-        public BookingCart Save(BookingCart bookingCart)
+        public IBookingCart Save(IBookingCart bookingCart)
         {
             Collection.Save(bookingCart);
             return bookingCart;

@@ -45,7 +45,7 @@
         /// </summary>
         private static void InitializeContexts()
         {
-            using (var context = DataContextFactory.CreateClassifiedEntitiesContext())
+            using (var context = DbContextFactory.CreateClassifiedEntitiesContext())
             {
                 context.Database.Initialize(false);
             }

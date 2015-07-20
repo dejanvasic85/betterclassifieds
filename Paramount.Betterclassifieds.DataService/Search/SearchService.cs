@@ -12,7 +12,7 @@ namespace Paramount.Betterclassifieds.DataService
     {
         public List<AdSearchResult> GetAds(string searchterm, IEnumerable<int> categoryIds, IEnumerable<int> locationIds, IEnumerable<int> areaIds, int index = 0, int pageSize = 25, AdSearchSortOrder sortOrder = AdSearchSortOrder.MostRelevant)
         {
-            using (var context = DataContextFactory.CreateClassifiedSearchContext())
+            using (var context = DbContextFactory.CreateClassifiedSearchContext())
             {
                 // Get the latest online ads
                 var categoryList = string.Join(",", categoryIds.EmptyIfNull()).NullIfEmpty();
@@ -51,7 +51,7 @@ namespace Paramount.Betterclassifieds.DataService
 
         public AdSearchResult GetAdById(int id)
         {
-            using (var context = DataContextFactory.CreateClassifiedSearchContext())
+            using (var context = DbContextFactory.CreateClassifiedSearchContext())
             {
                 // Simply get the booked at view
                 return this.Map<BookedAd, AdSearchResult>(context.BookedAd_GetById(id).FirstOrDefault());
@@ -60,7 +60,7 @@ namespace Paramount.Betterclassifieds.DataService
 
         public List<LocationAreaSearchResult> GetLocationAreas(int locationId, bool includeAllAreas = true)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 if (includeAllAreas)
                 {
@@ -74,7 +74,7 @@ namespace Paramount.Betterclassifieds.DataService
 
         public List<LocationSearchResult> GetLocations()
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 return this.MapList<Location, LocationSearchResult>(context.Locations.ToList());
             }
@@ -87,7 +87,7 @@ namespace Paramount.Betterclassifieds.DataService
 
         public List<CategorySearchResult> GetCategories()
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 var categories = context.MainCategories.OrderBy(c => c.Title).ToList();
                 return this.MapList<MainCategory, CategorySearchResult>(categories);
@@ -96,7 +96,7 @@ namespace Paramount.Betterclassifieds.DataService
 
         public SeoNameMappingModel GetSeoMapping(string seoName)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 var seoMappings = context.SeoMappings.FirstOrDefault(seo => seo.SeoName.Equals(seoName.Trim()));
                 if (seoMappings == null)
@@ -108,7 +108,7 @@ namespace Paramount.Betterclassifieds.DataService
 
         public List<PublicationModel> GetPublications()
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 var publications = context.Publications
                     .Where(p => (p.PublicationTypeId == Constants.NewsPublicationTypeId ||

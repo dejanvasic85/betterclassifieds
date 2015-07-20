@@ -199,6 +199,9 @@
             // that are used for invoice details 
             _bookingRepository.CreateBookingOrder(bookingOrder, adBookingId.Value);
 
+            // todo - Create specific ad type (if any)
+
+
             // Create the line ad
             if (!bookingCart.IsLineAdIncluded)
                 return adBookingId;

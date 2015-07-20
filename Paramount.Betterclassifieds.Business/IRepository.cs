@@ -7,8 +7,7 @@ namespace Paramount.Betterclassifieds.Business
     /// <summary>
     /// Generic repository that is suitable for an entity in a domain driven design pattern
     /// </summary>
-    public interface IRepository<T> : IDisposable
-        where T : class
+    public interface IRepository<T> where T : class
     {
         IQueryable<T> GetAll();
         IQueryable<T> GetAllIncluding(params Expression<Func<T, object>>[] properties);
@@ -19,6 +18,5 @@ namespace Paramount.Betterclassifieds.Business
         void Delete(T entity);
         void Update(T entity);
         void Attach(T entity);
-        void Commit();
     }
 }

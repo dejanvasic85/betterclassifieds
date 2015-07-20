@@ -9,7 +9,7 @@
     {
         private string GetValueFromDatabase(string settingName, bool required = true)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 var appSetting = context.AppSettings.FirstOrDefault(setting => setting.AppKey == settingName);
                 if (appSetting == null && required)

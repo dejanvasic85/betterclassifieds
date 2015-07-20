@@ -5,7 +5,16 @@ using Paramount.Betterclassifieds.DataService.Search;
 
 namespace Paramount.Betterclassifieds.DataService
 {
-    public class DataContextFactory
+    public interface IDbContextFactory
+    {
+        ClassifiedsDataContext CreateClassifiedContext();
+        ClassifiedsSearchEntitiesDataContext CreateClassifiedSearchContext();
+        ClassifiedsEntityContext CreateClassifiedEntitiesContext();
+        UserMembershipDataContext CreateMembershipContext();
+    }
+
+
+    public class DbContextFactory
     {
 
         public static ClassifiedsDataContext CreateClassifiedContext()

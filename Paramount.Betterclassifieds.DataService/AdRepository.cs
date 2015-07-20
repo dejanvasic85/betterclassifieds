@@ -12,7 +12,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
     {
         public OnlineAdModel GetOnlineAd(int adId)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 var ad = from adBooking in context.AdBookings
                     where adBooking.AdBookingId == adId
@@ -26,7 +26,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
         public void UpdateOnlineAd(OnlineAdModel onlineAd)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 // Fetch original
                 var original = context.OnlineAds.Single(o => o.OnlineAdId == onlineAd.OnlineAdId);
@@ -39,7 +39,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
         public void CreateAdEnquiry(AdEnquiry adEnquiry)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 var dbEnquiry = new OnlineAdEnquiry(); 
                 this.Map(adEnquiry, dbEnquiry);                
@@ -53,8 +53,8 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
         public string GetAdvertiserEmailForAd(int adId)
         {
-            using (var classifiedDb = DataContextFactory.CreateClassifiedContext())
-            using (var memberDb = DataContextFactory.CreateMembershipContext())
+            using (var classifiedDb = DbContextFactory.CreateClassifiedContext())
+            using (var memberDb = DbContextFactory.CreateMembershipContext())
             {
                 var username = classifiedDb.AdBookings.Single(bk => bk.AdBookingId == adId).UserId;
                 var userId = memberDb.aspnet_Users.Single(u => u.UserName == username).UserId;

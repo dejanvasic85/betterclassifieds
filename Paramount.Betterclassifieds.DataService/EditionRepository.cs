@@ -13,7 +13,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
     {
         public void DeleteEditionByDate(DateTime editionDate)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 var editionsForDeletion = context.Editions.Where(e => e.EditionDate == editionDate).ToList();
                 context.Editions.DeleteAllOnSubmit(editionsForDeletion);
@@ -23,7 +23,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
         public List<DateTime> GetUpcomingEditions(DateTime minEditionDate, DateTime minDeadlineDate, int max = 50, params int[] publicationIds)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 var ids = string.Join(",", publicationIds);
                 var editions = context.Editions_GetUpcomingForPublications(ids, minEditionDate, minDeadlineDate)

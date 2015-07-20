@@ -11,7 +11,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
     {
         public PublicationModel GetPublication(int publicationId)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 return this.Map<Publication, PublicationModel>(context.Publications.First(publication => publication.PublicationId == publicationId));
             }
@@ -19,7 +19,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
         public bool IsOnlinePublication(int publicationId)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 return context.Publications
                     .First(publication => publication.PublicationId == publicationId)
@@ -32,7 +32,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
         public List<BookEntryModel> GetEditionsForPublication(int publicationId, DateTime startDate, int numberOfEditions)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 return this.MapList<Edition, BookEntryModel>(context.Editions
                     .Where(edition => edition.PublicationId == publicationId && edition.EditionDate >= startDate)

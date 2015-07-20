@@ -41,7 +41,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         /// </summary>
         public BookingCart NewFromTemplate(AdBookingModel adBookingTemplate)
         {
-            var booking = BookingCart.FromBooking(HttpContext.Current.Session.SessionID,
+            var booking = BookingCart.Create(HttpContext.Current.Session.SessionID,
                 HttpContext.Current.User.Identity.Name,
                 adBookingTemplate,
                 _clientConfig);

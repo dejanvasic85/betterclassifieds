@@ -26,7 +26,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
             LineAdModel = new LineAdModel();
         }
 
-        public static BookingCart FromBooking(string sessionId, string userId, AdBookingModel bookingModel, IClientConfig clientConfig)
+        public static BookingCart Create(string sessionId, string userId, AdBookingModel bookingModel, IClientConfig clientConfig)
         {
             // Create the new booking for user and session
             // Map the online/linead and category details

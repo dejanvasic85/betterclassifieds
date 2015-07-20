@@ -8,7 +8,7 @@
     {
         public Business.Invoice GetInvoiceDataForBooking(int bookingId)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 var summaryData = context.AdBookingOrderSummaries.FirstOrDefault(bk => bk.AdBookingId == bookingId);
                 if (summaryData == null)

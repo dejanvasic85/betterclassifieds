@@ -9,7 +9,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
         public void CreateSupportEnquiry(string name, string email, string phone, string comments,
             string enquiryTypeName = "SupportGeneralEnquiry")
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 context.SupportEnquiries.InsertOnSubmit(new SupportEnquiry
                 {

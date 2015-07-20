@@ -28,7 +28,7 @@
             bool withPublications = false,
             bool withEnquiries = false)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 var dataModels = context.AdBookings.Where(bk => bk.AdBookingId == id);
                 return MapToModels(dataModels, withOnlineAd, withLineAd, withPublications, withEnquiries).Single();
@@ -37,7 +37,7 @@
 
         public List<AdBookingModel> GetUserBookings(string username, int takeMax)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 // Get the current ads first and if it's less than 
                 var datamodels = context.AdBookings
@@ -52,7 +52,7 @@
 
         public List<AdBookingModel> GetBookingsForEdition(DateTime editionDate)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 var bookings = context.AdBookings.Join(
                     context.BookEntries.Where(b => b.EditionDate == editionDate),
@@ -73,7 +73,7 @@
             bool withPublications = false,
             bool withEnquiries = false)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 var adBookingModels = new List<AdBookingModel>();
 
@@ -136,7 +136,7 @@
 
         public List<BookEntryModel> GetBookEntriesForBooking(int adBookingId)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 var bookEntryList = context.BookEntries.Where(entries => entries.AdBookingId == adBookingId).ToList();
                 return this.MapList<Classifieds.BookEntry, BookEntryModel>(bookEntryList);
@@ -146,7 +146,7 @@
         [Obsolete]
         public List<UserBookingModel> GetBookingsForUser(string username)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 IQueryable<AdBooking> bookings = context.AdBookings.Where(bk =>
                     bk.UserId == username &&
@@ -188,7 +188,7 @@
 
         public int AddBookingExtension(AdBookingExtensionModel extension)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 AdBookingExtension adBookingExtension = this.Map<AdBookingExtensionModel, AdBookingExtension>(extension);
                 context.AdBookingExtensions.InsertOnSubmit(adBookingExtension);
@@ -201,7 +201,7 @@
 
         public AdBookingExtensionModel GetBookingExtension(int extensionId)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 var adBookingExtension = context.AdBookingExtensions.FirstOrDefault(extension => extension.AdBookingExtensionId == extensionId);
                 return adBookingExtension == null
@@ -212,7 +212,7 @@
 
         public void UpdateExtesion(int extensionId, int? status)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 // Fetch and update
                 AdBookingExtension extension = context.AdBookingExtensions.First(e => e.AdBookingExtensionId == extensionId);
@@ -225,7 +225,7 @@
 
         public void UpdateBooking(int adBookingId, DateTime? newStartDate = null, DateTime? newEndDate = null, decimal? totalPrice = null)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 var adBooking = context.AdBookings.First(booking => booking.AdBookingId == adBookingId);
 
@@ -245,7 +245,7 @@
 
         public void UpdateOnlineAd(int adBookingId, OnlineAdModel onlineAd)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 // Fetch the original online ad
                 var originalOnlineAd = context
@@ -264,7 +264,7 @@
 
         public void UpdateLineAd(int adBookingId, LineAdModel lineAd)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 // Fetch the original online ad
                 var originalLineAd = context
@@ -283,7 +283,7 @@
 
         public void AddBookEntries(BookEntryModel[] bookEntries)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 context.BookEntries.InsertAllOnSubmit(this.MapList<BookEntryModel, Classifieds.BookEntry>(bookEntries.ToList()));
                 context.SubmitChanges();
@@ -292,7 +292,7 @@
 
         public void CancelAndExpireBooking(int adBookingId)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 var booking = context.AdBookings.Single(adBooking => adBooking.AdBookingId == adBookingId);
                 booking.EndDate = _dateService.Today.AddDays(-1);
@@ -311,7 +311,7 @@
 
         public void DeleteBookEntriesForBooking(int adBookingId, DateTime editionDate)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 var bookEntriesToDelete = context.BookEntries.Where(bookEntry => bookEntry.EditionDate == editionDate && bookEntry.AdBookingId == adBookingId);
                 context.BookEntries.DeleteAllOnSubmit(bookEntriesToDelete);
@@ -321,7 +321,7 @@
 
         public bool IsBookingOnline(int adBookingId)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 // Make sure there's just one ad design (online)
                 var onlineAd = from o in context.OnlineAds
@@ -336,7 +336,7 @@
 
         public bool IsBookingInPrint(int adBookingId)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 // Make sure there's just one ad design (online)
                 var printad = from o in context.LineAds
@@ -356,7 +356,7 @@
 
         public int? CreateBooking(BookingCart bookingCart)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 int? adBookingId = null;
                 int? onlineDesignId = null;
@@ -396,7 +396,7 @@
 
         public void CreateLineAd(int? adBookingId, LineAdModel lineAdModel)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 int? lineAdId = null;
 
@@ -431,7 +431,7 @@
 
         public void CreateLineAdEditions(int? adBookingId, DateTime startDate, int insertions, int publicationId, decimal? publicationPrice = null, decimal? editionPrice = null, int? rateId = null)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 context.BookEntry_Create(adBookingId,
                     startDate,
@@ -446,7 +446,7 @@
 
         public void CreateBookingOrder(BookingOrderResult bookingOrder, int adBookingId)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 // Map the summary 
                 var bookingSummaryData = this.Map<BookingOrderResult, AdBookingOrderSummary>(bookingOrder);
@@ -484,7 +484,7 @@
 
         public void CreateImage(int adBookingId, string documentId, int adTypeId = AdTypeCode.OnlineCodeId)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 var adDesign = context
                     .AdBookings.First(bk => bk.AdBookingId == adBookingId)
@@ -510,7 +510,7 @@
 
         public void DeleteImage(int adBookingId, string documentId, int adTypeId = AdTypeCode.OnlineCodeId)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 var adDesign = context
                     .AdBookings.First(bk => bk.AdBookingId == adBookingId)

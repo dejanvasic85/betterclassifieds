@@ -46,7 +46,6 @@
             IBookingManager bookingManager,
             IPaymentService paymentService,
             IEditionManager editionManager,
-            IAdFactory adFactory,
             IDateService dateService)
         {
             _searchService = searchService;
@@ -439,7 +438,6 @@
         [HttpPost]
         public ActionResult UpdateEventDetails(EventViewModel eventViewModel, IBookingCart bookingCart)
         {
-            // Direct mapping using converter
             this.Map(eventViewModel, bookingCart);
             
             bookingCart.CompleteStep(2);

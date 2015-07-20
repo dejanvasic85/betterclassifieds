@@ -9,7 +9,7 @@
     {
         public void CreateTransaction(string userId, string reference, string description, decimal amount, PaymentType paymentType)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 context.Transactions.InsertOnSubmit(
                     new Transaction

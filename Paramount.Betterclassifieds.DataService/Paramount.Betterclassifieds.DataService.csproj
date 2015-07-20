@@ -98,6 +98,7 @@
     <Compile Include="DataServiceInitialiser.cs" />
     <Compile Include="DocumentDataConfig.cs" />
     <Compile Include="DocumentStorage\DocumentContext.cs" />
+    <Compile Include="EventRepository.cs" />
     <Compile Include="InvoiceRepository.cs" />
     <Compile Include="LinqObjects\Classifieds.designer.cs">
       <AutoGen>True</AutoGen>
@@ -112,7 +113,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ClassifiedsSearchEntities.dbml</DependentUpon>
     </Compile>
-    <Compile Include="LinqObjects\DataContextFactory.cs" />
+    <Compile Include="DbContextFactory.cs" />
     <Compile Include="AdoModels\DslDataService.cs" />
     <Compile Include="AdoModels\IDataProvider.cs" />
     <Compile Include="LinqObjects\PagedSource.cs" />

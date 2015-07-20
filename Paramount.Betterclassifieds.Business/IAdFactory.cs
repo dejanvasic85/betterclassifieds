@@ -1,7 +1,6 @@
 ﻿namespace Paramount.Betterclassifieds.Business
 {
     using Events;
-    using Utility;
 
     public interface IAdFactory
     {

@@ -11,7 +11,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
     {
         public RateModel GetRatecard(int rateId)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 // Fetch data objects
                 var rateCard = context.Ratecards.Single(rate => rate.RatecardId == rateId);
@@ -25,7 +25,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
         public RateModel[] GetRatesForPublicationCategory(int[] publications, int? subCategoryId)
         {
-            using (var context = DataContextFactory.CreateClassifiedContext())
+            using (var context = DbContextFactory.CreateClassifiedContext())
             {
                 var rates = new List<RateModel>();
 
@@ -49,7 +49,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
         /// </remarks>
         public OnlineAdRate GetOnlineRateForCategories(params int?[] categories)
         {
-            using (var context = DataContextFactory.CreateClassifiedEntitiesContext())
+            using (var context = DbContextFactory.CreateClassifiedEntitiesContext())
             {
                 foreach (var categoryId in categories)
                 {

@@ -9,9 +9,16 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 {
     public class RateRepository : IRateRepository, IMappingBehaviour
     {
+        private readonly IDbContextFactory _dbContextFactory;
+
+        public RateRepository(IDbContextFactory dbContextFactory)
+        {
+            _dbContextFactory = dbContextFactory;
+        }
+
         public RateModel GetRatecard(int rateId)
         {
-            using (var context = DbContextFactory.CreateClassifiedContext())
+            using (var context = _dbContextFactory.CreateClassifiedContext())
             {
                 // Fetch data objects
                 var rateCard = context.Ratecards.Single(rate => rate.RatecardId == rateId);
@@ -25,7 +32,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
         public RateModel[] GetRatesForPublicationCategory(int[] publications, int? subCategoryId)
         {
-            using (var context = DbContextFactory.CreateClassifiedContext())
+            using (var context = _dbContextFactory.CreateClassifiedContext())
             {
                 var rates = new List<RateModel>();
 
@@ -49,7 +56,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
         /// </remarks>
         public OnlineAdRate GetOnlineRateForCategories(params int?[] categories)
         {
-            using (var context = DbContextFactory.CreateClassifiedEntitiesContext())
+            using (var context = _dbContextFactory.CreateClassifiedEntitiesContext())
             {
                 foreach (var categoryId in categories)
                 {

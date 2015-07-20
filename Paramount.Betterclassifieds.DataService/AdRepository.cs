@@ -3,16 +3,22 @@ using System.Linq;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
-using Paramount.Betterclassifieds.Business.Repository;
 using Paramount.Betterclassifieds.DataService.Classifieds;
 
 namespace Paramount.Betterclassifieds.DataService.Repository
 {
     public class AdRepository : IAdRepository, IMappingBehaviour
     {
+        private readonly IDbContextFactory _dbContextFactory;
+
+        public AdRepository(IDbContextFactory dbContextFactory)
+        {
+            _dbContextFactory = dbContextFactory;
+        }
+
         public OnlineAdModel GetOnlineAd(int adId)
         {
-            using (var context = DbContextFactory.CreateClassifiedContext())
+            using (var context = _dbContextFactory.CreateClassifiedContext())
             {
                 var ad = from adBooking in context.AdBookings
                     where adBooking.AdBookingId == adId
@@ -26,7 +32,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
         public void UpdateOnlineAd(OnlineAdModel onlineAd)
         {
-            using (var context = DbContextFactory.CreateClassifiedContext())
+            using (var context = _dbContextFactory.CreateClassifiedContext())
             {
                 // Fetch original
                 var original = context.OnlineAds.Single(o => o.OnlineAdId == onlineAd.OnlineAdId);
@@ -39,7 +45,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
         public void CreateAdEnquiry(AdEnquiry adEnquiry)
         {
-            using (var context = DbContextFactory.CreateClassifiedContext())
+            using (var context = _dbContextFactory.CreateClassifiedContext())
             {
                 var dbEnquiry = new OnlineAdEnquiry(); 
                 this.Map(adEnquiry, dbEnquiry);                
@@ -53,8 +59,8 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
         public string GetAdvertiserEmailForAd(int adId)
         {
-            using (var classifiedDb = DbContextFactory.CreateClassifiedContext())
-            using (var memberDb = DbContextFactory.CreateMembershipContext())
+            using (var classifiedDb = _dbContextFactory.CreateClassifiedContext())
+            using (var memberDb = _dbContextFactory.CreateMembershipContext())
             {
                 var username = classifiedDb.AdBookings.Single(bk => bk.AdBookingId == adId).UserId;
                 var userId = memberDb.aspnet_Users.Single(u => u.UserName == username).UserId;

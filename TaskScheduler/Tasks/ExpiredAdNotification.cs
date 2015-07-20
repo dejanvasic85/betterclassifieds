@@ -9,6 +9,7 @@ using System.Text;
 
 namespace Paramount.TaskScheduler
 {
+    [Obsolete("This email should not be sent at the moment because it's using old code and URLs")]
     public class ExpiredAdNotification : IScheduler
     {
         private const string DaysBeforeExpiry = "DAYSBEFOREEXPIRY";
@@ -18,10 +19,10 @@ namespace Paramount.TaskScheduler
 
         public ExpiredAdNotification()
         {
-            _userRepository = new UserRepository();  // hard code for now
+            _userRepository = new UserRepository(new DbContextFactory());  // hard code for now
             _applicationConfig = new AppConfig();
             
-            IBroadcastRepository broadcastRepository = new BroadcastRepository();
+            IBroadcastRepository broadcastRepository = new BroadcastRepository(new DbContextFactory());
             INotificationProcessor processor = new EmailProcessor(broadcastRepository, new AppConfig());
 
             _broadcastManager = new BroadcastManager(broadcastRepository, new[] {processor});
@@ -55,7 +56,7 @@ namespace Paramount.TaskScheduler
                 }
 
                 // Send the email to the user
-                ExpirationReminder reminder = new ExpirationReminder
+                var reminder = new ExpirationReminder
                 {
                     AdReference = adReference.ToString(),
                     LinkForExtension = _applicationConfig.BaseUrl + "/MemberAccount/Bookings.aspx"

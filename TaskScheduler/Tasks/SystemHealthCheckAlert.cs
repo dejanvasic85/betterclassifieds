@@ -1,6 +1,7 @@
 using Dapper;
 using Paramount.ApplicationBlock.Configuration;
 using Paramount.Betterclassifieds.Business.Broadcast;
+using Paramount.Betterclassifieds.DataService;
 using Paramount.Betterclassifieds.DataService.Broadcast;
 using Paramount.Betterclassifieds.DataService.Repository;
 using System;
@@ -19,7 +20,7 @@ namespace Paramount.TaskScheduler
 
         public SystemHealthCheckAlert()
         {
-            IBroadcastRepository broadcastRepository = new BroadcastRepository();
+            IBroadcastRepository broadcastRepository = new BroadcastRepository(new DbContextFactory());
             INotificationProcessor processor = new EmailProcessor(broadcastRepository, new AppConfig());
 
             _broadcastManager = new BroadcastManager(broadcastRepository, new[] { processor });

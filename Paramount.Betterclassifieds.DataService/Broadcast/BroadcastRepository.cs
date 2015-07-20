@@ -8,9 +8,16 @@
 
     public class BroadcastRepository : IBroadcastRepository
     {
+        private readonly IDbContextFactory _dbContextFactory;
+
+        public BroadcastRepository(IDbContextFactory dbContextFactory)
+        {
+            _dbContextFactory = dbContextFactory;
+        }
+
         public void CreateNotification(Notification notification)
         {
-            using (var context = new BroadcastContext())
+            using (var context = _dbContextFactory.CreateBroadcastContext())
             {
                 context.Notifications.Add(notification);
                 context.SaveChanges();
@@ -19,7 +26,7 @@
 
         public void CreateOrUpdateNotification(Notification notification)
         {
-            using (var context = new BroadcastContext())
+            using (var context = _dbContextFactory.CreateBroadcastContext())
             {
                 if (context.Notifications.Any(n => n.BroadcastId == notification.BroadcastId))
                 {
@@ -39,7 +46,7 @@
 
         public List<Notification> GetIncompleteNotifications(int takeAmount)
         {
-            using (var context = new BroadcastContext())
+            using (var context = _dbContextFactory.CreateBroadcastContext())
             {
                 var notifications = context.Notifications
                     .Where(n => !n.IsComplete)
@@ -52,7 +59,7 @@
 
         public EmailTemplate GetTemplateByName(string templateName, string brand)
         {
-            using (var context = new BroadcastContext())
+            using (var context = _dbContextFactory.CreateBroadcastContext())
             {
                 return context.EmailTemplates.FirstOrDefault(t => t.DocType == templateName && t.Brand == brand);
             }
@@ -60,7 +67,7 @@
 
         public long CreateOrUpdateEmail(Email email)
         {
-            using (var context = new BroadcastContext())
+            using (var context = _dbContextFactory.CreateBroadcastContext())
             {
                 if (email.EmailDeliveryId == null || email.EmailDeliveryId == default(int))
                 {
@@ -83,7 +90,7 @@
 
         public Email[] GetEmailsForNotification(Guid broadcastId)
         {
-            using (var context = new BroadcastContext())
+            using (var context = _dbContextFactory.CreateBroadcastContext())
             {
                 return context.Emails.Where(email => email.BroadcastId == broadcastId && email.SentDate == null).ToArray();
             }

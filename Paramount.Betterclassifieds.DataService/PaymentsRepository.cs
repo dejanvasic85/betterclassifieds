@@ -2,14 +2,20 @@
 {
     using System;
     using Business.Payment;
-    using Business.Repository;
     using DataService.Classifieds;
 
     public class PaymentsRepository : IPaymentsRepository
     {
+        private readonly IDbContextFactory _dbContextFactory;
+
+        public PaymentsRepository(IDbContextFactory dbContextFactory)
+        {
+            _dbContextFactory = dbContextFactory;
+        }
+
         public void CreateTransaction(string userId, string reference, string description, decimal amount, PaymentType paymentType)
         {
-            using (var context = DbContextFactory.CreateClassifiedContext())
+            using (var context = _dbContextFactory.CreateClassifiedContext())
             {
                 context.Transactions.InsertOnSubmit(
                     new Transaction

@@ -10,12 +10,18 @@
 
     public class UserRepository : IUserRepository, IMappingBehaviour
     {
+        private readonly IDbContextFactory _dbContextFactory;
         private const string BetterclassifiedsAppId = "betterclassified";
         private const string AdminAppId = "betterclassifiedadmin";
 
+        public UserRepository(IDbContextFactory dbContextFactory)
+        {
+            _dbContextFactory = dbContextFactory;
+        }
+
         public ApplicationUser GetUserByUsername(string username)
         {
-            using (var context = DbContextFactory.CreateMembershipContext())
+            using (var context = _dbContextFactory.CreateMembershipContext())
             {
                 var application = context.aspnet_Applications.Single(a => a.LoweredApplicationName == BetterclassifiedsAppId);
 
@@ -43,7 +49,7 @@
 
         public ApplicationUser GetUserByEmail(string email)
         {
-            using (var context = DbContextFactory.CreateMembershipContext())
+            using (var context = _dbContextFactory.CreateMembershipContext())
             {
                 var profile = context.UserProfiles
                     .FirstOrDefault(u => u.Email.ToLower() == email.ToLower());
@@ -60,7 +66,7 @@
 
         public IEnumerable<UserNetworkModel> GetUserNetworksForUserId(string userId)
         {
-            using (var context = DbContextFactory.CreateClassifiedEntitiesContext())
+            using (var context = _dbContextFactory.CreateClassifiedEntitiesContext())
             {
                 return context.UserNetworks.Where(u => u.UserId.Equals(userId, StringComparison.OrdinalIgnoreCase)).ToList();
             }
@@ -68,7 +74,7 @@
 
         public void CreateUserProfile(RegistrationModel registrationModel)
         {
-            using (var context = DbContextFactory.CreateMembershipContext())
+            using (var context = _dbContextFactory.CreateMembershipContext())
             {
                 // Need to fetch the new membership user
                 // This is not nice 
@@ -95,7 +101,7 @@
 
         public void CreateRegistration(RegistrationModel registrationModel)
         {
-            using (var context = DbContextFactory.CreateMembershipContext())
+            using (var context = _dbContextFactory.CreateMembershipContext())
             {
                 var registrationData = this.Map<RegistrationModel, LinqObjects.Registration>(registrationModel);
                 context.Registrations.InsertOnSubmit(registrationData);
@@ -106,7 +112,7 @@
 
         public void UpdateRegistrationByToken(RegistrationModel registerModel)
         {
-            using (var context = DbContextFactory.CreateMembershipContext())
+            using (var context = _dbContextFactory.CreateMembershipContext())
             {
                 var dataModel = context.Registrations.Single(r => r.Token == registerModel.Token);
                 this.Map(registerModel, dataModel);
@@ -116,7 +122,7 @@
 
         public void UpdateUserProfile(ApplicationUser applicationUser)
         {
-            using (var context = DbContextFactory.CreateMembershipContext())
+            using (var context = _dbContextFactory.CreateMembershipContext())
             {
                 var application = context.aspnet_Applications.Single(a => a.LoweredApplicationName == BetterclassifiedsAppId);
                 var user = context.aspnet_Users.Single(u => u.UserName == applicationUser.Username && u.ApplicationId == application.ApplicationId);
@@ -128,7 +134,7 @@
 
         public void CreateUserNetwork(UserNetworkModel userNetworkModel)
         {
-            using (var context = DbContextFactory.CreateClassifiedEntitiesContext())
+            using (var context = _dbContextFactory.CreateClassifiedEntitiesContext())
             {
                 context.UserNetworks.Add(userNetworkModel);
                 context.SaveChanges();

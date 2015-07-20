@@ -6,10 +6,17 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 {
     public class EnquiryRepository : IEnquiryRepository
     {
+        private readonly IDbContextFactory _dbContextFactory;
+
+        public EnquiryRepository(IDbContextFactory dbContextFactory)
+        {
+            _dbContextFactory = dbContextFactory;
+        }
+
         public void CreateSupportEnquiry(string name, string email, string phone, string comments,
             string enquiryTypeName = "SupportGeneralEnquiry")
         {
-            using (var context = DbContextFactory.CreateClassifiedContext())
+            using (var context = _dbContextFactory.CreateClassifiedContext())
             {
                 context.SupportEnquiries.InsertOnSubmit(new SupportEnquiry
                 {

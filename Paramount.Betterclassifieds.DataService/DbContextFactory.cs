@@ -1,4 +1,6 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
+using Paramount.Betterclassifieds.DataService.Broadcast;
 using Paramount.Betterclassifieds.DataService.Classifieds;
 using Paramount.Betterclassifieds.DataService.LinqObjects;
 using Paramount.Betterclassifieds.DataService.Search;
@@ -11,33 +13,38 @@ namespace Paramount.Betterclassifieds.DataService
         ClassifiedsSearchEntitiesDataContext CreateClassifiedSearchContext();
         ClassifiedsEntityContext CreateClassifiedEntitiesContext();
         UserMembershipDataContext CreateMembershipContext();
+        BroadcastContext CreateBroadcastContext();
     }
 
 
-    public class DbContextFactory
+    public class DbContextFactory : IDbContextFactory
     {
-
-        public static ClassifiedsDataContext CreateClassifiedContext()
+        public ClassifiedsDataContext CreateClassifiedContext()
         {
             var connection = ConfigurationManager.ConnectionStrings["ClassifiedConnection"].ConnectionString;
             return new ClassifiedsDataContext(connection);
         }
 
-        public static ClassifiedsSearchEntitiesDataContext CreateClassifiedSearchContext()
+        public ClassifiedsSearchEntitiesDataContext CreateClassifiedSearchContext()
         {
             var connection = ConfigurationManager.ConnectionStrings["ClassifiedConnection"].ConnectionString;
             return new ClassifiedsSearchEntitiesDataContext(connection);
         }
 
-        public static ClassifiedsEntityContext CreateClassifiedEntitiesContext()
+        public ClassifiedsEntityContext CreateClassifiedEntitiesContext()
         {
             return new ClassifiedsEntityContext();
         }
 
-        public static UserMembershipDataContext CreateMembershipContext()
+        public UserMembershipDataContext CreateMembershipContext()
         {
             var connection = ConfigurationManager.ConnectionStrings["AppUserConnection"].ConnectionString;
             return new UserMembershipDataContext(connection);
+        }
+
+        public BroadcastContext CreateBroadcastContext()
+        {
+            return new BroadcastContext();
         }
     }
 }

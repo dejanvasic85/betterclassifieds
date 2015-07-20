@@ -6,9 +6,16 @@
 
     public class InvoiceRepository : Business.IInvoiceRepository, IMappingBehaviour
     {
+        private readonly IDbContextFactory _dbContextFactory;
+
+        public InvoiceRepository(IDbContextFactory dbContextFactory)
+        {
+            _dbContextFactory = dbContextFactory;
+        }
+
         public Business.Invoice GetInvoiceDataForBooking(int bookingId)
         {
-            using (var context = DbContextFactory.CreateClassifiedContext())
+            using (var context = _dbContextFactory.CreateClassifiedContext())
             {
                 var summaryData = context.AdBookingOrderSummaries.FirstOrDefault(bk => bk.AdBookingId == bookingId);
                 if (summaryData == null)

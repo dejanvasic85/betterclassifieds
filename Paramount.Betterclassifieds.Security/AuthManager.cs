@@ -14,12 +14,14 @@ namespace Paramount.Betterclassifieds.Security
     public class AuthManager : IAuthManager, IMappingBehaviour
     {
         private readonly IApplicationConfig _applicationConfig;
+        private readonly IDbContextFactory _dbContextFactory;
 
         private const string ForceSSLCookieName = "ClassifiedsSSL";
 
-        public AuthManager(IApplicationConfig applicationConfig)
+        public AuthManager(IApplicationConfig applicationConfig, IDbContextFactory dbContextFactory)
         {
             _applicationConfig = applicationConfig;
+            _dbContextFactory = dbContextFactory;
         }
 
         public bool IsUserIdentityLoggedIn(IPrincipal user)
@@ -90,7 +92,7 @@ namespace Paramount.Betterclassifieds.Security
 
         public bool CheckUsernameExists(string username)
         {
-            using (var context = DbContextFactory.CreateMembershipContext())
+            using (var context = _dbContextFactory.CreateMembershipContext())
             {
                 return context.aspnet_Users.Any(u => u.LoweredUserName.Equals(username.ToLower()));
             }
@@ -98,7 +100,7 @@ namespace Paramount.Betterclassifieds.Security
 
         public bool CheckEmailExists(string email)
         {
-            using (var context = DbContextFactory.CreateMembershipContext())
+            using (var context = _dbContextFactory.CreateMembershipContext())
             {
                 return context.aspnet_Memberships.Any(m => m.LoweredEmail.Equals(email.ToLower()));
             }
@@ -119,7 +121,7 @@ namespace Paramount.Betterclassifieds.Security
 
         private IEnumerable<RegistrationModel> QueryRegistration(Expression<Func<DataService.LinqObjects.Registration, bool>> expression)
         {
-            using (var context = DbContextFactory.CreateMembershipContext())
+            using (var context = _dbContextFactory.CreateMembershipContext())
             {
                 var registrationData = context.Registrations.Where(expression).ToList();
 

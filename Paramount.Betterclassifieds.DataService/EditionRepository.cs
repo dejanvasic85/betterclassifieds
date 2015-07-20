@@ -11,9 +11,16 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
     public class EditionRepository : IEditionRepository, IMappingBehaviour
     {
+        private readonly IDbContextFactory _dbContextFactory;
+
+        public EditionRepository(IDbContextFactory dbContextFactory)
+        {
+            _dbContextFactory = dbContextFactory;
+        }
+
         public void DeleteEditionByDate(DateTime editionDate)
         {
-            using (var context = DbContextFactory.CreateClassifiedContext())
+            using (var context = _dbContextFactory.CreateClassifiedContext())
             {
                 var editionsForDeletion = context.Editions.Where(e => e.EditionDate == editionDate).ToList();
                 context.Editions.DeleteAllOnSubmit(editionsForDeletion);
@@ -23,7 +30,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
         public List<DateTime> GetUpcomingEditions(DateTime minEditionDate, DateTime minDeadlineDate, int max = 50, params int[] publicationIds)
         {
-            using (var context = DbContextFactory.CreateClassifiedContext())
+            using (var context = _dbContextFactory.CreateClassifiedContext())
             {
                 var ids = string.Join(",", publicationIds);
                 var editions = context.Editions_GetUpcomingForPublications(ids, minEditionDate, minDeadlineDate)

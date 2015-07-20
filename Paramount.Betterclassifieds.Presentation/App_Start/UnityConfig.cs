@@ -2,7 +2,6 @@
 {
     using ApplicationBlock.Mvc;
     using Business;
-    using Business.Events;
     using Business.Booking;
     using Business.Broadcast;
     using Business.DocumentStorage;
@@ -20,7 +19,6 @@
     using Unity.Mvc4;
     using Payments.pp;
     using ViewModels;
-    using Utility;
 
     public class UnityConfig
     {
@@ -31,7 +29,9 @@
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 
             // Repositories
-            container.RegisterType<IBookingRepository, BookingRepository>()
+            container
+                .RegisterType<IDbContextFactory, DbContextFactory>(new ContainerControlledLifetimeManager())
+                .RegisterType<IBookingRepository, BookingRepository>()
                 .RegisterType<IPublicationRepository, PublicationRepository>()
                 .RegisterType<IRateRepository, RateRepository>()
                 .RegisterType<IUserRepository, UserRepository>()

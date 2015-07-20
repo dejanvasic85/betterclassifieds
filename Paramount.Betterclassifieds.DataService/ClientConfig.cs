@@ -5,11 +5,18 @@
     using System.Linq;
     using Business;
 
-    public class ClientConfig : Business.IClientConfig
+    public class ClientConfig : IClientConfig
     {
+        private readonly IDbContextFactory _dbContextFactory;
+
+        public ClientConfig(IDbContextFactory dbContextFactory)
+        {
+            _dbContextFactory = dbContextFactory;
+        }
+
         private string GetValueFromDatabase(string settingName, bool required = true)
         {
-            using (var context = DbContextFactory.CreateClassifiedContext())
+            using (var context = _dbContextFactory.CreateClassifiedContext())
             {
                 var appSetting = context.AppSettings.FirstOrDefault(setting => setting.AppKey == settingName);
                 if (appSetting == null && required)

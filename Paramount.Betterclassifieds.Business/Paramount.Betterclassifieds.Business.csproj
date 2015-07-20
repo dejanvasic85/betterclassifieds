@@ -55,6 +55,8 @@
     <Compile Include="Booking\BookingManager.cs" />
     <Compile Include="Booking\IBookingCart.cs" />
     <Compile Include="Booking\IBookingContext.cs" />
+    <Compile Include="ICategoryAdRepository.cs" />
+    <Compile Include="ICategoryAdRepositoryFactory.cs" />
     <Compile Include="Broadcast\DocTypes\AdShare.cs" />
     <Compile Include="Booking\BookingCart.cs" />
     <Compile Include="Booking\IBookCartRepository.cs" />
@@ -78,6 +80,8 @@
     <Compile Include="Broadcast\DocTypes\IDocType.cs" />
     <Compile Include="Enquiry.cs" />
     <Compile Include="Events\EventModel.cs" />
+    <Compile Include="ICategoryAd.cs" />
+    <Compile Include="Events\IEventRepository.cs" />
     <Compile Include="IAdFactory.cs" />
     <Compile Include="Membership\IConfirmationCodeGenerator.cs" />
     <Compile Include="Membership\RegistrationConfirmationResult.cs" />

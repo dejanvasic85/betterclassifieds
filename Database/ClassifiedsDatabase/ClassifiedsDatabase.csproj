@@ -66,6 +66,8 @@
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Scripts\0051-Event_Table_Create.sql" />
+    <EmbeddedResource Include="Scripts\0050-Booking_Create_Alter.sql" />
     <EmbeddedResource Include="Scripts\0049-BookingOrderItem_ExtendNameColumn.sql" />
     <EmbeddedResource Include="Scripts\0048-psp_AdBookings_Select_UpdateProc.sql" />
     <EmbeddedResource Include="Scripts\0046-AdBookingOrderSummary_Table.sql" />

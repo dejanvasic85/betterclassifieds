@@ -154,5 +154,15 @@ namespace Paramount.Betterclassifieds.Business.Booking
             LineAdModel.IsSuperBoldHeading = pricingFactors.IsSuperBoldHeader;
             LineAdModel.UsePhoto = pricingFactors.UsePhoto;
         }
+
+        public ICategoryAd GetCategoryAd()
+        {
+            if (ViewName.IsNullOrEmpty())
+                return null;
+
+            // By convention, the ViewName should be the same property 
+            var prop = this.GetType().GetProperty(this.ViewName);
+            return prop.GetValue(this) as ICategoryAd;
+        }
     }
 }

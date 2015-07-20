@@ -195,6 +195,7 @@
     <Compile Include="Controllers\ListingsController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\UserAdsController.cs" />
+    <Compile Include="Framework\Factories\CategoryRepositoryFactory.cs" />
     <Compile Include="Framework\Filters\AuthorizeBookingIdentity.cs" />
     <Compile Include="Framework\Filters\AuthorizeCartIdentity.cs" />
     <Compile Include="Framework\Filters\BookingRequiredAttribute.cs" />
@@ -677,7 +678,7 @@
     <Content Include="Views\EditAd\Details.cshtml" />
     <Content Include="Views\UserAds\Index.cshtml" />
     <Content Include="Views\Invoice\Booking.cshtml" />
-    <Content Include="Views\Booking\Step2_Events.cshtml" />
+    <Content Include="Views\Booking\Step2_Event.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Framework\Validators\" />

@@ -2,7 +2,7 @@
 
 namespace Paramount.Betterclassifieds.Business.Events
 {
-    public class EventModel
+    public class EventModel : ICategoryAd
     {
         public int EventId { get; set; }
         public string Location { get; set; }

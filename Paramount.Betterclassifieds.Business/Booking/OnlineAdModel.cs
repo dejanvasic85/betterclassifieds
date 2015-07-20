@@ -14,8 +14,8 @@ namespace Paramount.Betterclassifieds.Business.Booking
         public string Heading { get; set; }
         public string Description { get; set; }
         public string HtmlText { get; set; }
-        public int LocationId { get; set; }
-        public int LocationAreaId { get; set; }
+        public int? LocationId { get; set; }
+        public int? LocationAreaId { get; set; }
         public string ContactName { get; set; }
         public string ContactPhone { get; set; }
         public string ContactEmail { get; set; }

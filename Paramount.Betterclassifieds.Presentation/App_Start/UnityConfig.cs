@@ -44,6 +44,10 @@
                 .RegisterType<IBookCartRepository, BookCartRepository>()
                 .RegisterType<IEditionRepository, EditionRepository>()
                 .RegisterType<IInvoiceRepository, InvoiceRepository>()
+                .RegisterType<ICategoryAdRepositoryFactory, CategoryRepositoryFactory>()
+                // Events
+                .RegisterType(typeof(ICategoryAdRepository<ICategoryAd>), typeof(Paramount.Betterclassifieds.DataService.Events.EventRepository), "Event")
+                .RegisterType<Business.Events.IEventRepository, DataService.Events.EventRepository>()
 
                 // Managers and Config
                 .RegisterType<IClientConfig, ClientConfig>()
@@ -62,6 +66,8 @@
                 .RegisterType<IInvoiceService, InvoiceService>()
                 .RegisterType<SearchFilters>(new SessionLifetimeManager<SearchFilters>())
                 .RegisterType<IAdFactory, AdFactory>()
+                
+
 
                 // Rates/ prices (chargeable items)
                 .RegisterType<IPrintChargeableItem, PrintHeadingCharge>("PrintHeadingCharge")

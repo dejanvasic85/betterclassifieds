@@ -11,9 +11,11 @@
 
             using (var entitiesContext = dbContextFactory.CreateClassifiedEntitiesContext())
             using (var broadcastContext = dbContextFactory.CreateBroadcastContext())
+            using (var eventContext = dbContextFactory.CreateEventContext())
             {
                 entitiesContext.Database.Initialize(false);
                 broadcastContext.Database.Initialize(false);
+                eventContext.Database.Initialize(false);
             }
         }
     }

@@ -41,7 +41,7 @@
         private readonly IPaymentsRepository _payments;
         private readonly IUserManager _userManager;
         private readonly IBroadcastManager _broadcastManager;
-        private readonly IBookingContext _bookingContext;
+        private readonly ICategoryAdRepositoryFactory _categoryAdRepositoryFactory;
 
         public BookingManager(IBookingRepository bookingRepository,
             IPublicationRepository publicationRepository,
@@ -49,8 +49,7 @@
             IPaymentsRepository payments,
             IAdRepository adRepository,
             IUserManager userManager,
-            IBroadcastManager broadcastManager,
-            IBookingContext bookingContext)
+            IBroadcastManager broadcastManager, ICategoryAdRepositoryFactory categoryAdRepositoryFactory)
         {
             _bookingRepository = bookingRepository;
             _publicationRepository = publicationRepository;
@@ -59,7 +58,7 @@
             _adRepository = adRepository;
             _userManager = userManager;
             _broadcastManager = broadcastManager;
-            _bookingContext = bookingContext;
+            _categoryAdRepositoryFactory = categoryAdRepositoryFactory;
         }
 
         public AdBookingExtensionModel CreateExtension(int adBookingId, int numberOfInsertions, string username, decimal price, ExtensionStatus status, bool isOnlineOnly)
@@ -199,8 +198,11 @@
             // that are used for invoice details 
             _bookingRepository.CreateBookingOrder(bookingOrder, adBookingId.Value);
 
-            // todo - Create specific ad type (if any)
-
+            if (bookingCart.ViewName.HasValue())
+            {
+                var categoryAdRepository = _categoryAdRepositoryFactory.Create(bookingCart);
+                categoryAdRepository.Add(bookingCart.GetCategoryAd());
+            }
 
             // Create the line ad
             if (!bookingCart.IsLineAdIncluded)
@@ -315,11 +317,5 @@
                 };
             }
         }
-
-        public IBookingCart GetCart()
-        {
-            return _bookingContext.Current();
-        }
-
     }
 }

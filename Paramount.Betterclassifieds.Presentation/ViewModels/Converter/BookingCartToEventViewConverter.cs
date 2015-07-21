@@ -5,11 +5,11 @@ using Paramount.Betterclassifieds.Business.Booking;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
-    public class BookingCartToEventView : ITypeConverter<IBookingCart, EventViewModel>
+    public class BookingCartToEventViewConverter : ITypeConverter<IBookingCart, EventViewModel>
     {
         private readonly IDateService _dateService;
 
-        public BookingCartToEventView(IDateService dateService)
+        public BookingCartToEventViewConverter(IDateService dateService)
         {
             _dateService = dateService;
         }
@@ -31,7 +31,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
                 eventViewModel.Title = bookingCart.OnlineAdModel.Heading;
                 if (bookingCart.OnlineAdModel.Description.HasValue())
                 {
-                    eventViewModel.Description = bookingCart.OnlineAdModel.Description.Replace("<br>", Environment.NewLine);
+                    eventViewModel.Description = bookingCart.OnlineAdModel.HtmlText.Replace("<br>", Environment.NewLine);
                 }
                 eventViewModel.OrganiserName = bookingCart.OnlineAdModel.ContactName;
                 eventViewModel.OrganiserPhone = bookingCart.OnlineAdModel.ContactPhone;

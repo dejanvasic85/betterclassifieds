@@ -463,7 +463,7 @@
                 .ConvertUsing<PriceSummaryViewConverter>();
             configuration.CreateMap<BookingCart, Step3View>()
                 .ForMember(m => m.PublicationCount, options => options.MapFrom(src => src.Publications.Length));
-            configuration.CreateMap<IBookingCart, EventViewModel>().ConvertUsing(new BookingCartToEventView(_dateService));
+            configuration.CreateMap<IBookingCart, EventViewModel>().ConvertUsing(new BookingCartToEventViewConverter(_dateService));
 
             // From ViewModel
             configuration.CreateMap<Step2View, OnlineAdModel>()

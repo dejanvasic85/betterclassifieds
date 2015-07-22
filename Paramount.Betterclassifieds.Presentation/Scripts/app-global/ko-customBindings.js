@@ -4,6 +4,9 @@
 
 (function (knockout, $) {
 
+    /*
+     * Time - Clock picker
+     */
     ko.bindingHandlers.time = {
         init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
             var accessor = valueAccessor();
@@ -24,6 +27,7 @@
 
 
     /*
+     * Date Picker
      * Usage : <input type='text' data-bind='date: modelProperty' />
      */
     ko.bindingHandlers.date = {
@@ -50,6 +54,10 @@
         }
     }
 
+    /*
+     * Google Map
+     * Usage : <input type='text' data-bind="googleMap: modelProperty, mapElement : '#LocationMap'" />
+     */
     ko.bindingHandlers.googleMap = {
         init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
             var existingValue = valueAccessor();
@@ -75,6 +83,7 @@
                     viewModel.locationLong(geoData.geometry.location.F);
                 });
 
+            // Bind the current address if any
             if (address) {
                 googleMap.geocomplete('find', address);
             }

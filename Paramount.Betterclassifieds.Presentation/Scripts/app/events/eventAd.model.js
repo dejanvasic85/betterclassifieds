@@ -31,11 +31,6 @@
         me.location = ko.observable(data.Location);
         me.locationLat = ko.observable(data.LocationLatitude);
         me.locationLong = ko.observable(data.LocationLongitude);
-        me.locationHandler = ko.computed(function() {
-            console.log(me.locationLat());
-            console.log(me.locationLong());
-        });
-        
         me.startDate = ko.observable(data.EventStartDate);
         me.startTime = ko.observable(data.EventStartTime);
         me.endDate = ko.observable(data.EventEndDate);

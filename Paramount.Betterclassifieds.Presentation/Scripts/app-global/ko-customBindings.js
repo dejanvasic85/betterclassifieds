@@ -15,12 +15,13 @@
                 .clockpicker({
                     donetext: 'OK',
                     autoclose: true,
-                    afterDone : function() {
+                    afterDone: function () {
                         accessor($(element).val());
                     }
                 });
         }
     }
+
 
     /*
      * Usage : <input type='text' data-bind='date: modelProperty' />
@@ -48,5 +49,37 @@
                 });
         }
     }
+
+    ko.bindingHandlers.googleMap = {
+        init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+            var existingValue = valueAccessor();
+            var address = ko.unwrap(existingValue);
+
+            var $map = $(allBindings.get('mapElement'));
+            
+            if ($map.length === 0) {
+                throw "googleMap binding requires a map binding";
+            }
+
+            var googleMap = $(element)
+                .val(address)
+                .geocomplete({
+                    map: $map,
+                    markerOptions: {
+                        draggable: false
+                    },
+                })
+                .bind('geocode:result', function (event, geoData) {
+                    // The 
+                    viewModel.locationLat(geoData.geometry.location.A);
+                    viewModel.locationLong(geoData.geometry.location.F);
+                });
+
+            if (address) {
+                googleMap.geocomplete('find', address);
+            }
+        }
+    }
+
 
 })(ko, jQuery);

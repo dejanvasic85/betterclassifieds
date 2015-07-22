@@ -59,7 +59,7 @@
             <div class="form-group-lg">
                 <label class="control-label">Address *</label>
                 <input type="text" class="form-control" id="Location" name="Location" placeholder="Type address, and google should find it!" maxlength="200"
-                       data-bind="value: location"
+                       data-bind="googleMap: location, mapElement : '#LocationMap'"
                        data-val="true"
                        data-val-required="Event location is required" />
                 <input type="hidden" name="LocationLatitude" data-bind="value: locationLat" />
@@ -67,7 +67,8 @@
                 <span class="field-validation-valid help-block" data-valmsg-for="Location" data-valmsg-replace="true"></span>
             </div>
         </div>
-
+        
+        @*Div to display the map using google maps*@
         <div class="col-xs-12">
             <div class="well" style="min-height: 200px" id="LocationMap"></div>
         </div>
@@ -153,7 +154,7 @@
                             <span data-bind="visible: uploadImageInProgress">Uploading...</span>
                         </div>
                     </div>
-
+                    
                     <div class="row" data-bind="foreach: adImages">
                         <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
                             <div class="thumbnail">

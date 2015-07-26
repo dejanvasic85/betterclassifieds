@@ -176,13 +176,38 @@
     }
 }
 
+
+.event-details {
+
+    .event-photo {
+
+        h4{
+            display: inline-block;
+        }
+
+        .photo-upload {
+            display: table;
+            width: 100%;
+
+            .photo {
+                display: table-cell;
+                vertical-align: middle;
+                text-align: center;
+                .btn-remove{
+                    min-width:100px;
+                }
+            }
+        }
+    }
+}
+
 /*
     Form Overrides
 */
 
 .form-group, .form-group-lg {
     input[readonly] {
-        &.bs-date-picker, 
+        &.bs-date-picker,
         &.bs-clock-picker {
             cursor: pointer;
             background-color: #fff;

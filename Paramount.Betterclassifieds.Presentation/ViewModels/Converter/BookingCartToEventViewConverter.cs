@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
@@ -35,6 +36,11 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
                 }
                 eventViewModel.OrganiserName = bookingCart.OnlineAdModel.ContactName;
                 eventViewModel.OrganiserPhone = bookingCart.OnlineAdModel.ContactPhone;
+                var photo = bookingCart.OnlineAdModel.Images.FirstOrDefault();
+                if (photo != null)
+                {
+                    eventViewModel.EventPhoto = photo.DocumentId;
+                }
             }
 
             if (bookingCart.Event == null)

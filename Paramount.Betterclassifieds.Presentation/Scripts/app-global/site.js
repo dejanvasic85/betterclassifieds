@@ -62,6 +62,7 @@
         guard(options.element, '');
 
         options.progressBar = options.progressBar || $('<div><span class=".progress-bar"></span></div>'); // Todo - popup a real progress bar somewhere
+        options.progressBar.hide();
         options.complete = options.complete || function () { };
         options.start = options.start || function () { };
         options.error = options.error || function () { };

@@ -130,6 +130,21 @@
 .top-action-buttons .login-options {
   min-width: 175px;
 }
+.event-details .event-photo h4 {
+  display: inline-block;
+}
+.event-details .event-photo .photo-upload {
+  display: table;
+  width: 100%;
+}
+.event-details .event-photo .photo-upload .photo {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+.event-details .event-photo .photo-upload .photo .btn-remove {
+  min-width: 100px;
+}
 /*
     Form Overrides
 */

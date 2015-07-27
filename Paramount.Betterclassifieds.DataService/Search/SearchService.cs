@@ -65,17 +65,17 @@ namespace Paramount.Betterclassifieds.DataService
             }
         }
 
-        public List<LocationAreaSearchResult> GetLocationAreas(int locationId, bool includeAllAreas = true)
+        public List<LocationAreaSearchResult> GetLocationAreas(int? locationId, bool includeAllAreas = true)
         {
             using (var context = _dbContextFactory.CreateClassifiedContext())
             {
+                var query = context.LocationAreas.Where(l => l.LocationId == locationId);
                 if (includeAllAreas)
                 {
-                    return this.MapList<LocationArea, LocationAreaSearchResult>(
-                        context.LocationAreas.Where(l => l.LocationId == locationId || l.Title.Trim().Equals("Any Area")).ToList());
+                    query = query.Union(context.LocationAreas.Where(l => l.Title.Trim().ToLower().Equals("any area")));
                 }
 
-                return this.MapList<LocationArea, LocationAreaSearchResult>(context.LocationAreas.Where(l => l.LocationId == locationId).ToList());
+                return this.MapList<LocationArea, LocationAreaSearchResult>(query.ToList());
             }
         }
 

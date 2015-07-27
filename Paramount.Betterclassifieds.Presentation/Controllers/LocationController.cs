@@ -24,12 +24,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public ActionResult GetLocationAreas(int? locationId)
         {
-            if (!locationId.HasValue)
-            {
-                return Json(new[] { new SelectListItem { Value = 27.ToString(), Text = "Any Area" } }, JsonRequestBehavior.AllowGet);
-            }
-
-            var list = _searchService.GetLocationAreas(locationId.Value)
+            var list = _searchService.GetLocationAreas(locationId)
                 .Select(l => new SelectListItem { Text = l.Title, Value = l.LocationAreaId.ToString() })
                 .OrderBy(l => l.Text);
 

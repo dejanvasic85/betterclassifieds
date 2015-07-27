@@ -11,7 +11,7 @@ namespace Paramount.Betterclassifieds.Business.Search
         List<CategorySearchResult> GetTopLevelCategories();
         List<CategorySearchResult> GetCategories();
         List<LocationSearchResult> GetLocations();
-        List<LocationAreaSearchResult> GetLocationAreas(int locationId, bool incldueAllAreas = true);
+        List<LocationAreaSearchResult> GetLocationAreas(int? locationId, bool incldueAllAreas = true);
         AdSearchResult GetAdById(int id);
         SeoNameMappingModel GetSeoMapping(string seoName);
         List<PublicationModel> GetPublications();

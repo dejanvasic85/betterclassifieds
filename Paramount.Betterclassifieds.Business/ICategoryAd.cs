@@ -2,5 +2,6 @@
 {
     public interface ICategoryAd
     {
+        int OnlineAdId { get; set; }
     }
 }

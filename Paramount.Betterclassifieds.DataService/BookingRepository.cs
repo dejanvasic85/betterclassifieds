@@ -361,6 +361,7 @@
             {
                 int? adBookingId = null;
                 int? onlineDesignId = null;
+                int? onlineAdId = null;
                 int transactionType = bookingCart.TotalPrice == 0 ? 3 : 2;
 
                 // Save booking to database
@@ -382,6 +383,7 @@
                     contactName: bookingCart.OnlineAdModel.ContactName,
                     contactEmail: bookingCart.OnlineAdModel.ContactEmail,
                     contactPhone: bookingCart.OnlineAdModel.ContactPhone,
+                    onlineAdId: ref onlineAdId,
                     onlineDesignId: ref onlineDesignId,
                     transactionType: transactionType
                     );
@@ -390,6 +392,9 @@
                 var graphics = bookingCart.OnlineAdModel.Images.Select(img => new AdGraphic { AdDesignId = onlineDesignId, DocumentID = img.DocumentId });
                 context.AdGraphics.InsertAllOnSubmit(graphics);
                 context.SubmitChanges();
+
+                // Update the object passed in with any returned ID
+                bookingCart.OnlineAdModel.OnlineAdId = onlineAdId.GetValueOrDefault();
 
                 return adBookingId;
             }

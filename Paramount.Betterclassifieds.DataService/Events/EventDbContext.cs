@@ -11,7 +11,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
         {
             // Entity framework is crazy.
             // If we don't set a null ininitializer, the default one will create the database automatically
-            //Database.SetInitializer<EventDbContext>(null);
+            Database.SetInitializer<EventDbContext>(null);
         }
 
         public EventDbContext(string connectionString)
@@ -23,10 +23,12 @@ namespace Paramount.Betterclassifieds.DataService.Events
         { }
 
         public IDbSet<EventModel> Events { get; set; }
+        public IDbSet<EventTicket> EventTickets { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new EventModelConfiguration());
+            modelBuilder.Configurations.Add(new EventTicketConfiguration());
         }
     }
 }

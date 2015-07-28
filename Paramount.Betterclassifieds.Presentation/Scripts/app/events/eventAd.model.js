@@ -73,6 +73,18 @@
 
         me.organiserName = ko.observable(data.OrganiserName);
         me.organiserPhone = ko.observable(data.OrganiserPhone);
+        me.tickets = ko.observableArray(data.Tickets);
+        //$.each(data.Tickets, function (idx, item) {
+        //    var ticketType = new $paramount.models.EventTicket(item);
+        //    self.tickets.push(ticketType);
+        //});
+        //me.ticketingEnabled = ko.observable(data.Tickets.length > 0);
     };
+
+    $paramount.models.EventTicket = function (data) {
+        this.ticketName = ko.observable(data.TicketName);
+        this.availableQuantity = ko.observable(data.AvailableQuantity);
+        this.price = ko.observable(data.Price);
+    }
 
 })(jQuery, $paramount, ko, moment);

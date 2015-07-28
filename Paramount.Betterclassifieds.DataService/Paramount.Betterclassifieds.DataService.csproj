@@ -101,6 +101,7 @@
     <Compile Include="Events\EventDbContext.cs" />
     <Compile Include="Events\EventModelConfiguration.cs" />
     <Compile Include="Events\EventRepository.cs" />
+    <Compile Include="Events\EventTicketConfiguration.cs" />
     <Compile Include="InvoiceRepository.cs" />
     <Compile Include="LinqObjects\Classifieds.designer.cs">
       <AutoGen>True</AutoGen>

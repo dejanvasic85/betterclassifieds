@@ -201,7 +201,9 @@
             if (bookingCart.ViewName.HasValue())
             {
                 var categoryAdRepository = _categoryAdRepositoryFactory.Create(bookingCart);
-                categoryAdRepository.Add(bookingCart.GetCategoryAd());
+                var categoryAd = bookingCart.GetCategoryAd();
+                categoryAd.OnlineAdId = bookingCart.OnlineAdModel.OnlineAdId;
+                categoryAdRepository.Add(categoryAd);
             }
 
             // Create the line ad

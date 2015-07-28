@@ -27,6 +27,7 @@ namespace Paramount.Betterclassifieds.Tests.Database
             {
                 int? adBookingId = null;
                 int? onlineDesignId = null;
+                int? onlineAdId = null;
 
                 var booking = context.Booking_Create(
                     startDate: DateTime.Today,
@@ -47,6 +48,7 @@ namespace Paramount.Betterclassifieds.Tests.Database
                     contactEmail: "dejanvasic@outlook.com",
                     contactPhone: "0433095822",
                     onlineDesignId: ref onlineDesignId,
+                    onlineAdId: ref onlineAdId,
                     transactionType: 2
                     );
                

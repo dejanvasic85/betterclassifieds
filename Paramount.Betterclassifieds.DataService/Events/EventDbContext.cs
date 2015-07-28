@@ -19,7 +19,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
         { }
 
         public EventDbContext()
-            : this(ConfigurationManager.ConnectionStrings["EventConnectionString"].ConnectionString)
+            : this(ConfigurationManager.ConnectionStrings["EventsConnection"].ConnectionString)
         { }
 
         public IDbSet<EventModel> Events { get; set; }

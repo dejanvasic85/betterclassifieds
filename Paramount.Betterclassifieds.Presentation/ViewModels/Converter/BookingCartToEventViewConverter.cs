@@ -3,6 +3,7 @@ using System.Linq;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
+using Paramount.Betterclassifieds.Business.Events;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
@@ -55,8 +56,21 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             eventViewModel.Location = bookingCart.Event.Location;
             eventViewModel.LocationLatitude = bookingCart.Event.LocationLatitude;
             eventViewModel.LocationLongitude = bookingCart.Event.LocationLongitude;
+            eventViewModel.Tickets = bookingCart.Event.Tickets.Select(ToViewModel).ToArray();
 
             return eventViewModel;
+        }
+
+        private EventTicketViewModel ToViewModel(EventTicket eventTicket)
+        {
+            return new EventTicketViewModel
+            {
+                EventId = eventTicket.EventId,
+                TicketId = eventTicket.TicketId,
+                TicketName = eventTicket.TicketName,
+                Price = eventTicket.Price,
+                AvailableQuantity = eventTicket.AvailableQuantity
+            };
         }
     }
 }

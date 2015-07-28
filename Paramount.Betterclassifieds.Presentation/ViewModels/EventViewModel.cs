@@ -1,10 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Globalization;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
     public class EventViewModel
     {
+        public EventViewModel()
+        {
+            Tickets = new List<EventTicketViewModel>().ToArray();
+        }
+
         [Required, MaxLength(100)]
         public string Title { get; set; }
 
@@ -39,5 +44,16 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         [Required]
         public string OrganiserName { get; set; }
         public string OrganiserPhone { get; set; }
+
+        public EventTicketViewModel[] Tickets { get; set; }
+    }
+
+    public class EventTicketViewModel
+    {
+        public int TicketId { get; set; }
+        public int EventId { get; set; }
+        public string TicketName { get; set; }
+        public int AvailableQuantity { get; set; }
+        public decimal Price { get; set; }
     }
 }

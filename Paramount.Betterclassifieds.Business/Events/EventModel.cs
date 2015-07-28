@@ -5,6 +5,11 @@ namespace Paramount.Betterclassifieds.Business.Events
 {
     public class EventModel : ICategoryAd
     {
+        public EventModel()
+        {
+            Tickets = new List<EventTicket>();
+        }
+
         public int EventId { get; set; }
         public int OnlineAdId { get; set; }
         public string Location { get; set; }
@@ -12,6 +17,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         public decimal? LocationLongitude { get; set; }
         public DateTime? EventStartDate { get; set; }
         public DateTime? EventEndDate { get; set; }
-        public virtual ICollection<EventTicket> Tickets { get; set; }
+        public ICollection<EventTicket> Tickets { get; set; }
     }
 }

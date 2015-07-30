@@ -64,13 +64,12 @@
             var address = ko.unwrap(existingValue);
 
             var $map = $(allBindings.get('mapElement'));
-            
+
             if ($map.length === 0) {
                 throw "googleMap binding requires a map binding";
             }
 
-            var googleMap = $(element)
-                .val(address)
+            var googleMap = $(element).val(address)
                 .geocomplete({
                     map: $map,
                     markerOptions: {
@@ -78,9 +77,9 @@
                     },
                 })
                 .bind('geocode:result', function (event, geoData) {
-                    // The 
-                    viewModel.locationLat(geoData.geometry.location.A);
-                    viewModel.locationLong(geoData.geometry.location.F);
+                    viewModel.location(geoData["formatted_address"]);
+                    viewModel.locationLatitude(geoData.geometry.location.lat());
+                    viewModel.locationLongitude(geoData.geometry.location.lng());
                 });
 
             // Bind the current address if any

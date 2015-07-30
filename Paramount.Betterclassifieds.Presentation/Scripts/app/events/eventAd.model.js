@@ -40,29 +40,29 @@
             return moment(me.adStartDate(), DATE_FORMAT).add(options.ConfigDurationDays, 'days').format(DATE_FORMAT.toUpperCase());
         });
         me.location = ko.observable(data.Location);
-        me.locationLat = ko.observable(data.LocationLatitude);
-        me.locationLong = ko.observable(data.LocationLongitude);
-        me.startDate = ko.observable(data.EventStartDate);
-        me.startTime = ko.observable(data.EventStartTime);
-        me.endDate = ko.observable(data.EventEndDate);
-        me.endDateValidation = ko.computed(function () {
+        me.locationLatitude = ko.observable(data.LocationLatitude);
+        me.locationLongitude = ko.observable(data.LocationLongitude);
+        me.eventStartDate = ko.observable(data.EventStartDate);
+        me.eventStartTime = ko.observable(data.EventStartTime);
+        me.eventEndDate = ko.observable(data.EventEndDate);
+        me.eventEndDateValidation = ko.computed(function () {
             // Ensure that the start date is less than end date
-            if (moment(me.startDate(), DATE_FORMAT).isAfter(moment(me.endDate(), DATE_FORMAT))) {
+            if (moment(me.eventStartDate(), DATE_FORMAT).isAfter(moment(me.eventEndDate(), DATE_FORMAT))) {
                 return 'End date must be after start date';
             }
             return '';
         });
-        me.endTime = ko.observable(data.EventEndTime);
-        me.endTimeValidation = ko.computed(function () {
-            if (me.endDateValidation().length > 0) {
+        me.eventEndTime = ko.observable(data.EventEndTime);
+        me.eventEndTimeValidation = ko.computed(function () {
+            if (me.eventEndDateValidation().length > 0) {
                 return '';
             }
 
-            var startTimeValues = me.startTime().split(':'),
-                endTimeValues = me.endTime().split(':');
+            var startTimeValues = me.eventStartTime().split(':'),
+                endTimeValues = me.eventEndTime().split(':');
 
-            var startDate = moment(me.startDate(), DATE_FORMAT).hours(startTimeValues[0]).minutes(startTimeValues[1]),
-                endDate = moment(me.endDate(), DATE_FORMAT).hours(endTimeValues[0]).minutes(endTimeValues[1]);
+            var startDate = moment(me.eventStartDate(), DATE_FORMAT).hours(startTimeValues[0]).minutes(startTimeValues[1]),
+                endDate = moment(me.eventEndDate(), DATE_FORMAT).hours(endTimeValues[0]).minutes(endTimeValues[1]);
 
             if (startDate.isAfter(endDate)) {
                 return 'End time must be after the start time';
@@ -80,6 +80,11 @@
             var ticketType = new $paramount.models.EventTicket(item);
             self.tickets.push(ticketType);
         });
+
+        me.submitChanges = function () {
+            var json = ko.toJS(me);
+            return adService.updateEventDetails(json);
+        }
     };
 
     $paramount.models.EventTicket = function (data) {

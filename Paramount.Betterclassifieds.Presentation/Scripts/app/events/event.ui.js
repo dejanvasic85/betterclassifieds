@@ -10,6 +10,7 @@
             // onReady function
             $(function () {
                 var eventDetails;
+
                 // Initally load the data
                 $.getJSON(options.ServiceEndpoint.getEventDetails).done(function (response) {
                     eventDetails = new $paramount.models.EventAd(response, options);
@@ -24,6 +25,21 @@
                     complete: function (documentId) {
                         eventDetails.eventPhoto(documentId);
                     }
+                });
+
+                $eventEditor.find('#eventForm').on('submit', function (e) {
+                    if ($(this).valid() === false) {
+                        return;
+                    }
+                    eventDetails.submitChanges().done(function(result) {
+                        if (result.nextUrl) {
+                            window.location = result.nextUrl;
+                            return;
+                        }
+                        $eventEditor.find('#submitFailed').show();
+                        $eventEditor.find('button').loading('reset');
+                    });
+                    e.preventDefault();
                 });
             });
         }

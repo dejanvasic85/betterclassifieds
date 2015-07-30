@@ -107,13 +107,13 @@
 
             if (viewModel.Publications != null)
                 bookingCart.Publications = viewModel.Publications.Where(p => p.IsSelected).Select(p => p.PublicationId).ToArray();
-            
+
             var category = _searchService.GetCategories().Single(c => c.MainCategoryId == bookingCart.SubCategoryId);
             bookingCart.ViewName = category.ViewMap;
 
             bookingCart.CompleteStep(1);
             _cartRepository.Save(bookingCart);
-            
+
             return Json(Url.Action("Step2", new { adType = category.ViewMap }));
         }
 
@@ -438,12 +438,16 @@
         [HttpPost]
         public ActionResult UpdateEventDetails(EventViewModel eventViewModel, IBookingCart bookingCart)
         {
+            if (!ModelState.IsValid)
+            {
+                return Json("Invalid model");
+            }
             this.Map(eventViewModel, bookingCart);
-            
+
             bookingCart.CompleteStep(2);
             _cartRepository.Save(bookingCart);
 
-            return RedirectToAction("Step3");
+            return Json(new { nextUrl = Url.Action("Step3") });
         }
 
         #region Mappings
@@ -476,7 +480,7 @@
             configuration.CreateMap<UserNetworkEmailView, UserNetworkModel>();
             configuration.CreateMap<PricingFactorsView, PricingFactors>();
             configuration.CreateMap<EventViewModel, IBookingCart>().ConvertUsing(new EventViewToBookingCartConverter(_dateService, _clientConfig));
-            
+
 
             // To Email Template
             configuration.CreateMap<BookingCart, NewBooking>()

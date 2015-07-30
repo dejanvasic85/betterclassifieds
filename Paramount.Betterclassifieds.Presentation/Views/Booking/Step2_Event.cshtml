@@ -10,7 +10,7 @@
 </ul>
 
 <div id="eventEditor" class="event-details">
-    <form method="POST" action="@Url.Action("UpdateEventDetails", "Booking")" novalidate="novalidate">
+    <form method="POST" id="eventForm" action="@Url.Action("UpdateEventDetails", "Booking")" novalidate="novalidate">
 
         @*Event Details*@
         <div class="row">
@@ -86,7 +86,7 @@
                     <h4><i class="fa fa-map-marker"></i> &nbsp;Location</h4>
                     @*<p>Tell your visitors the location and what's the event about.</p>*@
                 </div>
-            </div>
+            </div> 
 
             <div class="col-xs-12">
                 <div class="form-group-lg">
@@ -95,9 +95,9 @@
                            data-bind="googleMap: location, mapElement : '#LocationMap'"
                            data-val="true"
                            data-val-required="Event location is required" />
-                    <input type="hidden" name="LocationLatitude" data-bind="value: locationLat" />
-                    <input type="hidden" name="LocationLongitude" data-bind="value: locationLong" />
                     <span class="field-validation-valid help-block" data-valmsg-for="Location" data-valmsg-replace="true"></span>
+                    <input type="hidden" name="LocationLatitude" data-bind="value: locationLatitude" />
+                    <input type="hidden" name="LocationLongitude" data-bind="value: locationLongitude" />
                 </div>
             </div>
 
@@ -122,7 +122,7 @@
                     <label class="control-label" for="EventStartDate">Start Date *</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                        <input name="EventStartDate" id="EventStartDate" data-bind="date: startDate" class="form-control" type="text"
+                        <input name="EventStartDate" id="EventStartDate" data-bind="date: eventStartDate" class="form-control" type="text"
                                data-val="true"
                                data-val-required="Start Date is required">
                     </div>
@@ -136,7 +136,7 @@
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
                         <input type="text" class="form-control" id="EventStartTime" name="EventStartTime"
-                               data-bind="time: startTime"
+                               data-bind="time: eventStartTime"
                                data-val="true"
                                data-val-required="Start Time is required" />
                     </div>
@@ -150,12 +150,12 @@
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         <input name="EventEndDate" id="EventEndDate" class="form-control datepicker" type="text"
-                               data-bind="date: endDate"
+                               data-bind="date: eventEndDate"
                                data-val="true"
                                data-val-required="End Date is required">
                     </div>
                     <span class="field-validation-valid help-block" data-valmsg-for="EventEndDate" data-valmsg-replace="true"></span>
-                    <div class="alert alert-danger" data-bind="text: endDateValidation, visible: endDateValidation().length>0"></div>
+                    <div class="alert alert-danger" data-bind="text: eventEndDateValidation, visible: eventEndDateValidation().length>0"></div>
                 </div>
             </div>
 
@@ -164,10 +164,10 @@
                     <label class="control-label">End Time</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-                        <input type="text" id="EventEndTime" name="EventEndTime" data-bind="time: endTime" class="form-control" data-val="true" />
+                        <input type="text" id="EventEndTime" name="EventEndTime" data-bind="time: eventEndTime" class="form-control" data-val="true" />
                     </div>
                     <span class="field-validation-valid help-block" data-valmsg-for="EventEndTime" data-valmsg-replace="true"></span>
-                    <div class="alert alert-danger" data-bind="text: endTimeValidation, visible: endTimeValidation().length > 0"></div>
+                    <div class="alert alert-danger" data-bind="text: eventEndTimeValidation, visible: eventEndTimeValidation().length > 0"></div>
                 </div>
             </div>
 
@@ -226,6 +226,10 @@
                     </div>
                 </div>
             </div>
+        </div>
+        
+        <div id="submitFailed" class="alert alert-danger" style="display:none">
+            <span>Unable to submit request</span>
         </div>
 
         @*Pager*@

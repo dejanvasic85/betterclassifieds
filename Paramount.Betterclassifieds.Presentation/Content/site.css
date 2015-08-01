@@ -130,7 +130,7 @@
 .top-action-buttons .login-options {
   min-width: 175px;
 }
-.event-details .event-photo h4 {
+.event-details .bs-callout-info h4 {
   display: inline-block;
 }
 .event-details .event-photo .photo-upload {
@@ -144,6 +144,9 @@
 }
 .event-details .event-photo .photo-upload .photo .btn-remove {
   min-width: 100px;
+}
+.event-details .event-tickets .amount {
+  max-width: 200px;
 }
 /*
     Form Overrides

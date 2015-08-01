@@ -89,5 +89,23 @@
         }
     }
 
+    /*
+     * Toggle button
+     */
+    ko.bindingHandlers.toggle = {
+        init: function (element, valueAccessor) {
+            var $element = $(element),
+                observable = valueAccessor();
+            
+            // Set the current value
+            if (observable() === true) {
+                $element.attr('checked', 'checked');
+            }
+
+            $element.bootstrapToggle().on('change', function (e) {
+                observable($element.prop('checked'));
+            });
+        }
+    }
 
 })(ko, jQuery);

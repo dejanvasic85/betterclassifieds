@@ -44,7 +44,7 @@
 
             @*Photo*@
             <div class="col-xs-12 col-md-6 event-photo">
-                
+
                 <div class="bs-callout bs-callout-info">
                     <h4><i class="fa fa-photo"></i>&nbsp; Event Photo</h4>
                     <input id="eventPhoto" type="hidden" name="eventPhoto" data-bind="value: eventPhoto" />
@@ -54,7 +54,7 @@
                         <input id="eventPhotoUpload" type="file" name="files[]" multiple>
                     </span>
                 </div>
-                
+
                 <div class="well photo-upload">
                     <div class="photo">
                         <i class="fa fa-upload fa-5x" data-bind="visible: eventPhoto() === null"></i>
@@ -86,7 +86,7 @@
                     <h4><i class="fa fa-map-marker"></i> &nbsp;Location</h4>
                     @*<p>Tell your visitors the location and what's the event about.</p>*@
                 </div>
-            </div> 
+            </div>
 
             <div class="col-xs-12">
                 <div class="form-group-lg">
@@ -174,13 +174,47 @@
         </div>
 
         @*Ticketing*@
-        <div class="row">
+        <div class="row event-tickets">
             <div class="col-xs-12">
                 <div class="bs-callout bs-callout-info">
-                    <h4><i class="fa fa-ticket"></i>&nbsp; Ticketing</h4>
-                    @*<p>Tell your visitors the location and what's the event about.</p>*@
+                    <h4 style="display: inline-block;"><i class="fa fa-ticket"></i>&nbsp; Ticketing</h4>
+                    <div class="pull-right">
+                        <input type="checkbox" data-bind="toggle: ticketingEnabled" data-onstyle="success" data-on="Yes Please" data-off="No Thanks" />
+                    </div>
                 </div>
-                Coming soon
+            </div>
+            <div class="col-xs-12" data-bind="visible: ticketingEnabled">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Ticket Name</th>
+                            <th>Price</th>
+                            <th>Available Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: tickets">
+                        <tr>
+                            <td>
+                                <input type="text" class="form-control" data-bind="value: ticketName" placeholder="Platinum / VIP" />
+                            </td>
+                            <td>
+                                <div class="input-group amount">
+                                    <div class="input-group-addon">$</div>
+                                    <input type="text" class="form-control" placeholder="10.00" data-bind="value: price">
+                                </div>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control amount" data-bind="value: availableQuantity" placeholder="" />
+                            </td>
+                            <td>
+                                <button class="btn btn-block" data-bind="click: $parent.removeTicketType"><i class="fa fa-trash"></i> Remove</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-success" data-bind="click: addTicketType">
+                    <i class="fa fa-plus-circle"></i> Add Ticket Option
+                </button>
             </div>
         </div>
 
@@ -227,7 +261,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div id="submitFailed" class="alert alert-danger" style="display:none">
             <span>Unable to submit request</span>
         </div>

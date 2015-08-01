@@ -220,4 +220,4 @@
 /// <reference path="app/booking/addesignservice.js" />
 /// <reference path="vendor/bootstrap-clockpicker.js" />
 /// <reference path="app-global/ko-custombindings.js" />
-/// <reference path="app-global/ko-customvalidation.js" />
+/// <reference path="vendor/bootstrap-toggle.js" />

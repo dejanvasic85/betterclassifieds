@@ -82,10 +82,10 @@
         });
         me.ticketingEnabled = ko.observable(data.TicketingEnabled);
         me.addTicketType = function () {
-            var t = new $paramount.models.EventTicket({ticketName : '', availableQuantity: 0, price: 0});
+            var t = new $paramount.models.EventTicket({ ticketName: '', availableQuantity: 0, price: 0 });
             me.tickets.push(t);
         }
-        me.removeTicketType = function(ticket) {
+        me.removeTicketType = function (ticket) {
             me.tickets.remove(ticket);
         };
 

@@ -184,37 +184,34 @@
                 </div>
             </div>
             <div class="col-xs-12" data-bind="visible: ticketingEnabled">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Ticket Name</th>
-                            <th>Price</th>
-                            <th>Available Quantity</th>
-                        </tr>
-                    </thead>
-                    <tbody data-bind="foreach: tickets">
-                        <tr>
-                            <td>
-                                <input type="text" class="form-control" data-bind="value: ticketName" placeholder="Platinum / VIP" />
-                            </td>
-                            <td>
-                                <div class="input-group amount">
-                                    <div class="input-group-addon">$</div>
-                                    <input type="text" class="form-control" placeholder="10.00" data-bind="value: price">
-                                </div>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control amount" data-bind="value: availableQuantity" placeholder="" />
-                            </td>
-                            <td>
-                                <button class="btn btn-block" data-bind="click: $parent.removeTicketType"><i class="fa fa-trash"></i> Remove</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="row ticket-form" data-bind="foreach: tickets">
+                    <div class="col-sm-6 col-xs-12 control-group">
+                        <label>Ticket Name</label>
+                        <input type="text" class="form-control" data-bind="value: ticketName" placeholder="VIP / Platinum / Free" />
+                    </div>
+                    <div class="col-sm-2 col-xs-5 control-group">
+                        <label class="control-label">Price</label>
+                        <div class="input-group amount">
+                            <div class="input-group-addon">$</div>
+                            <input type="text" class="form-control" placeholder="e.g. 10.00" data-bind="value: price">
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-xs-5 control-group">
+                        <label class="control-label">Available Quantity</label>
+                        <input type="text" class="form-control amount" data-bind="value: availableQuantity" placeholder="e.g. 100" />
+                    </div>
+                    <div class="col-sm-2 col-xs-2 control-group">
+                        <label>&nbsp;</label>
+                        <button class="btn btn-block" data-bind="click: $parent.removeTicketType">
+                            <i class="fa fa-trash"></i><span class="hidden-xs"> Remove</span>
+                        </button>
+                    </div>
+                </div>
+
                 <button class="btn btn-success" data-bind="click: addTicketType">
                     <i class="fa fa-plus-circle"></i> Add Ticket Option
                 </button>
+
             </div>
         </div>
 

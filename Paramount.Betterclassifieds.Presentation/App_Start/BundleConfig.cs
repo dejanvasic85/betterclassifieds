@@ -15,7 +15,7 @@ namespace Paramount.Betterclassifieds.Presentation
                 .IncludeDirectory("~/Scripts/knockout", "*.js"));
 
             // Components - all others
-            bundles.Add(new ScriptBundle("~/bundle/vendor").IncludeDirectory("~/Scripts/vendor", "*.js"));
+            bundles.Add(new ScriptBundle("~/bundle/vendor").IncludeDirectory("~/Scripts/vendor", "*.js", false));
 
             // Paramount            
             bundles.Add(new ScriptBundle("~/bundle/paramount-app")

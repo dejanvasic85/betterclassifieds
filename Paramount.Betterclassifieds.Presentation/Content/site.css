@@ -148,6 +148,9 @@
 .event-details .event-tickets .amount {
   max-width: 200px;
 }
+.event-details .event-tickets .ticket-form {
+  border: 1px solid #e3e3e3;
+}
 /*
     Form Overrides
 */

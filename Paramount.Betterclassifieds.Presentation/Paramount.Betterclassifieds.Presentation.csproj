@@ -576,7 +576,7 @@
     <Content Include="Scripts\app-global\categoryService.js" />
     <Content Include="Scripts\paramount-googleTacking.js" />
     <Content Include="Scripts\app-global\imageService.js" />
-    <Content Include="Scripts\app-global\ko-extensions.js" />
+    <Content Include="Scripts\app-global\ko-customSubscribe.js" />
     <Content Include="Scripts\app-global\site.js" />
     <Content Include="Scripts\app-global\ui.js" />
     <Content Include="Scripts\app-global\validation.js" />

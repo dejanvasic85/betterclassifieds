@@ -17,6 +17,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         public decimal? LocationLongitude { get; set; }
         public DateTime? EventStartDate { get; set; }
         public DateTime? EventEndDate { get; set; }
-        public ICollection<EventTicket> Tickets { get; set; }
+        public IList<EventTicket> Tickets { get; set; }
     }
 }

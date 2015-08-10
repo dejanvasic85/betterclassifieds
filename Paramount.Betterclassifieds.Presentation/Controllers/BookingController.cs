@@ -208,7 +208,7 @@
 
             var viewModel = this.Map<BookingCart, Step3View>(bookingCart);
             viewModel.IsPaymentCancelled = isPaymentCancelled;
-            viewModel.PreviousStep = Url.Action("Step2", new { adtype = bookingCart.ViewName });
+            viewModel.PreviousStepUrl = Url.Action("Step2", new { adtype = bookingCart.ViewName });
 
             return View(viewModel);
         }

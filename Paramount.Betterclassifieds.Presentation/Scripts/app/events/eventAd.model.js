@@ -79,7 +79,7 @@
         me.tickets = ko.observableArray();
         $.each(data.Tickets, function (idx, item) {
             var ticketType = new $paramount.models.EventTicket(item);
-            self.tickets.push(ticketType);
+            me.tickets.push(ticketType);
         });
         me.ticketingEnabled = ko.observable(data.TicketingEnabled);
         me.addTicketType = function () {

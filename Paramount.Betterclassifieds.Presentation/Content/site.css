@@ -149,7 +149,9 @@
   max-width: 200px;
 }
 .event-details .event-tickets .ticket-form {
-  border: 1px solid #e3e3e3;
+  border-bottom: 1px solid #e3e3e3;
+  margin: 10px 0;
+  padding: 10px 0;
 }
 /*
     Form Overrides

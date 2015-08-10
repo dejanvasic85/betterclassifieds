@@ -7,7 +7,7 @@
 
 <ul class="nav nav-tabs" role="tablist">
     <li>@Html.ActionLink("1", "Step1")</li>
-    <li>@Html.ActionLink("2", "Step2")</li>
+    <li><a href="@Model.PreviousStepUrl">2</a></li>
     <li class="active"><a href="#">Step 3</a></li>
 </ul>
 
@@ -109,7 +109,7 @@
     @*Pager*@
     <ul class="pager">
         <li class="previous">
-            <button id="btnPrev" class="btn btn-large btn-default js-load" data-nav='@Model.PreviousStep'>
+            <button id="btnPrev" class="btn btn-large btn-default js-load" data-nav='@Model.PreviousStepUrl'>
                 <i class="glyphicon glyphicon-arrow-left"></i>
                 Previous
             </button>

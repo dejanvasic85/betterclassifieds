@@ -20,6 +20,7 @@
         });
         me.description = ko.observable(data.Description);
         me.eventPhoto = ko.observable(data.EventPhoto);
+        me.eventPhotoUploadError = ko.observable(null);
         me.eventPhotoUrl = ko.computed(function () {
             return $paramount.imageService.getImageUrl(me.eventPhoto());
         });

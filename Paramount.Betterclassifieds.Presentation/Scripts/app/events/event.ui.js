@@ -24,6 +24,10 @@
                     progressBar: $eventEditor.find('#eventPhotoUploadProgress'),
                     complete: function (documentId) {
                         eventDetails.eventPhoto(documentId);
+                        eventDetails.eventPhotoUploadError(null);
+                    },
+                    error: function(errorMsg) {
+                        eventDetails.eventPhotoUploadError(errorMsg);
                     }
                 });
 

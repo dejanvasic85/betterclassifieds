@@ -166,65 +166,58 @@ Public Module GeneralRoutine
 
     Public Function GetEditionDates(ByVal publication As Publication, ByVal startDate As Date, ByVal insertions As Integer) As List(Of Date)
 
-        Try
-            'create the return value
-            Dim editionList As New List(Of Date)
+        'create the return value
+        Dim editionList As New List(Of Date)
 
-            ' non publication dates to compare 
-            Dim nonEditionDates As New List(Of DateTime) '= 'PublicationController.GetNonPublicationDates(publication.PublicationId)
-
-            If PublicationController.GetPublicationType(publication.PublicationId) <> SystemAdType.ONLINE.ToString Then
-
-                Select Case publication.FrequencyType.ToUpper
-                    ' check if this paper is a weekly paper
-                    Case PublicationFrequency.Weekly.ToString.ToUpper
-                        ' get the days of the week that this paper is published
-                        Dim freq As String() = publication.FrequencyValue.Split(";")
-
-                        Dim f As Integer = 1 ' looping variable - may or may not increment 
-
-                        ' call method to check that the specified start date is already an edition date.
-                        If (CheckStartDateEdition(startDate, freq)) Then
-                            ' if so, we add the date into our list
-                            editionList.Add(startDate)
-                        Else
-                            ' otherwise we set the loop variable to start at 0 to capture all insertion dates.
-                            f = 0
-                        End If
-
-                        While f < insertions
-
-                            ' loop through the days of the week in the frequency array
-                            For c As Integer = 0 To freq.Length - 1
-
-                                ' store the next available date into a variable
-                                Dim nextDate = NextAvaliableDate(startDate, Str(freq(c)))
-
-                                ' check to ensure that this date is not part of non publications
-                                If (nonEditionDates.Contains(nextDate) = False) Then
-                                    ' add the date into the edition list
-                                    editionList.Add(nextDate)
-
-                                    ' increment the insertion
-                                    f = f + 1
-                                End If
-
-                                ' increment for one week
-                                startDate = startDate.AddDays(7)
-
-                            Next
-
-                        End While
-                End Select
-            Else
-                ' otherwise, online papers will just contain the start date
-                editionList.Add(startDate)
-            End If
-
+        If PublicationController.GetPublicationType(publication.PublicationId) = SystemAdType.ONLINE.ToString() Then
+            editionList.Add(startDate)
             Return editionList
-        Catch ex As Exception
-            Throw ex
-        End Try
+        End If
+
+
+        Select Case publication.FrequencyType.ToUpper
+            ' check if this paper is a weekly paper
+            Case PublicationFrequency.Weekly.ToString.ToUpper
+                ' get the days of the week that this paper is published
+                Dim freq As String() = publication.FrequencyValue.Split(";")
+
+                Dim f As Integer = 1 ' looping variable - may or may not increment 
+
+                ' call method to check that the specified start date is already an edition date.
+                If (CheckStartDateEdition(startDate, freq)) Then
+                    ' if so, we add the date into our list
+                    editionList.Add(startDate)
+                Else
+                    ' otherwise we set the loop variable to start at 0 to capture all insertion dates.
+                    f = 0
+                End If
+
+                While f < insertions
+
+                    For c As Integer = 0 To freq.Length - 1
+                        Dim nextDate = NextAvaliableDate(startDate, Str(freq(c)))
+                        editionList.Add(nextDate)
+                        f = f + 1
+                        startDate = startDate.AddDays(7)
+                    Next
+
+                End While
+            Case PublicationFrequency.Fortnightly.ToString().ToUpper()
+
+                If startDate.DayOfWeek <> CType(publication.FrequencyValue, DayOfWeek) Then
+                    Throw New ApplicationException("The start date needs to match the publications Day Of Week")
+                End If
+
+                For i As Integer = 0 To insertions - 1
+                    Dim daysToAdd = i * 14
+                    Dim nextEditionDate = startDate.AddDays(daysToAdd)
+                    editionList.Add(nextEditionDate)
+                Next
+        End Select
+        
+
+        Return editionList
+
 
     End Function
 
@@ -475,7 +468,7 @@ Public Module GeneralRoutine
                                                                           .ImageType = onlineGraphic.ImageType, .ModifiedDate = onlineGraphic.ModifiedDate})
             Next
 
-        
+
 
             ' ************
             ' Book Entries

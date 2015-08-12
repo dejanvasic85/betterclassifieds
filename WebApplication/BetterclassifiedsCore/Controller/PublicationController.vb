@@ -5,6 +5,7 @@ Public Enum PublicationFrequency
     Daily
     Weekly
     Online
+    Fortnightly
 End Enum
 
 

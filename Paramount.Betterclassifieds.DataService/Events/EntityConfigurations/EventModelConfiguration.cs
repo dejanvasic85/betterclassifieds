@@ -7,9 +7,8 @@ namespace Paramount.Betterclassifieds.DataService.Events
     {
         public EventModelConfiguration()
         {
-            ToTable("Event");
+            ToTable("Event");   
             HasKey(p => p.EventId);
-            HasMany(p => p.Tickets).WithRequired(t => t.EventModel).HasForeignKey(t => t.EventId);
         }
     }
 }

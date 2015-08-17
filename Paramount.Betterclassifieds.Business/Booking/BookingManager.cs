@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Business.Booking
+﻿using System.Transactions;
+
+namespace Paramount.Betterclassifieds.Business.Booking
 {
     using System;
     using System.Collections.Generic;
@@ -87,7 +89,7 @@
 
         public AdBookingModel GetBooking(int id)
         {
-            return _bookingRepository.GetBooking(id, withOnlineAd:true, withLineAd:true, withPublications: true, withEnquiries:true);
+            return _bookingRepository.GetBooking(id, withOnlineAd: true, withLineAd: true, withPublications: true, withEnquiries: true);
         }
 
         public IEnumerable<AdBookingModel> GetBookingsForUser(string username, int takeMax)
@@ -189,6 +191,8 @@
 
         public int? CreateBooking(BookingCart bookingCart, BookingOrderResult bookingOrder)
         {
+            //using (var scope = new TransactionScope())
+            //{
             var adBookingId = _bookingRepository.CreateBooking(bookingCart);
 
             if (!adBookingId.HasValue)
@@ -209,7 +213,7 @@
             // Create the line ad
             if (!bookingCart.IsLineAdIncluded)
                 return adBookingId;
-            
+
             _bookingRepository.CreateLineAd(adBookingId, bookingCart.LineAdModel);
 
             // Set the edition dates for each publication
@@ -228,8 +232,11 @@
                     printRate.RateId);
             });
 
+            //  scope.Complete();
+
             return adBookingId;
         }
+        //  }
 
         public bool AdBelongsToUser(int adId, string username)
         {

@@ -74,7 +74,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         {
             return new EventTicket
             {
-                EventId = eventTicket.EventId,
                 TicketId = eventTicket.TicketId,
                 TicketName = eventTicket.TicketName,
                 Price = eventTicket.Price,

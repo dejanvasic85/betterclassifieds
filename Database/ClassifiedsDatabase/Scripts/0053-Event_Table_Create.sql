@@ -36,7 +36,7 @@ SET ANSI_PADDING ON
 GO
 
 CREATE TABLE [dbo].[EventTicket](
-	[TicketId] [int] NOT NULL,
+	[TicketId] [int] IDENTITY(1,1) NOT NULL,
 	[EventId] [int] NOT NULL,
 	[TicketName] [varchar](100) NOT NULL,
 	[AvailableQuantity] [int] NOT NULL,

@@ -10,7 +10,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             Tickets = new List<EventTicket>();
         }
 
-        public int EventId { get; set; }
+        public int? EventId { get; set; }
         public int OnlineAdId { get; set; }
         public string Location { get; set; }
         public decimal? LocationLatitude { get; set; }

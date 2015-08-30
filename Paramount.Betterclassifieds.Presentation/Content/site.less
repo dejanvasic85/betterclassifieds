@@ -176,8 +176,7 @@
     }
 }
 
-
-.event-details {
+.event-editor {
     .bs-callout-info {
         h4 {
             display: inline-block;
@@ -214,6 +213,40 @@
     }
 }
 
+.event-details {
+    .google-map {
+        height: 300px;
+    }
+
+    .location-details {
+        display: block;
+        border: 1px solid @help;
+        padding: 10px;
+    }
+
+    .event-title {
+        vertical-align: top;
+        display: inline-block;
+        width: 49%;
+
+        h1 {
+            margin-top: 0;
+        }
+    }
+
+    .event-photo {
+        vertical-align: middle;
+        display: inline-block;
+        width: 49%;
+        text-align: center;
+
+        .thumbnail {
+            margin-left: auto;
+            margin-right: 15px;
+        }
+    }
+}
+
 /*
     Form Overrides
 */
@@ -229,8 +262,9 @@
 }
 
 
+
 /*
-    Mobile
+    Extra small devices
 */
 @media (max-width: 766px) {
     /* Smaller widths stack controls on top of another with no margin */
@@ -253,6 +287,56 @@
 
         dt {
             margin-left: 20px;
+        }
+    }
+
+    .event-details {
+        .event-title{
+            h1{
+                font-size: 25px;
+            }
+            p{
+                font-size: 15px;
+            }
+        }
+        .google-map {
+            height: 200px;
+        }
+
+        .event-photo {
+            .thumbnail {
+                max-width: 150px;
+                margin-right: 2px;
+            }
+        }
+    }
+
+    [class*='col-'] {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+/*
+    Small Devices
+*/
+
+
+@media (min-width: 768px) {
+    .event-details {
+        .thumbnail {
+            max-width: 200px;
+        }
+    }
+}
+
+/*
+    Medium Devices
+*/
+@media (min-width: 992px) {
+    .event-details {
+        .thumbnail {
+            max-width: 290px;
         }
     }
 }

@@ -1,0 +1,77 @@
+﻿@using Paramount
+@model EventViewModel
+
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_ApplicationLayoutWithSearch.cshtml";
+}
+
+<div class="event-details">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="jumbotron">
+                <div class="event-title">
+                    <h1>@Model.Title</h1>
+                    <p>@Html.Raw(Model.Description)</p>
+                </div>
+                <div class="event-photo">
+                    <img src="@Url.Image(Model.EventPhoto, height: 290, width: 290)" class="thumbnail" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="location-details">
+                <div class="row">
+                    <div class="col-xs-6">
+                        @Model.Location
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="pull-right">
+                            <a class="btn btn-default" href='http://maps.google.com/?q=@Model.LocationLatitude,@Model.LocationLongitude' target="_blank">
+                                <i class="fa fa-map-marker"></i> Open in Maps
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+            <div class="google-map" data-latitude="@Model.LocationLatitude" data-longitude="@Model.LocationLongitude" data-address="@Model.Location"></div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+
+    <script>
+        $(function () {
+            var $map = $('.google-map');
+            var data = $map.data();
+            var mapCanvas = $map.get(0);
+            function initialize() {
+                var latLng = new google.maps.LatLng(data.latitude, data.longitude);
+                var mapOptions = {
+                    center: latLng,
+                    zoom: 16,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    scrollwheel: false
+                };
+                var map = new google.maps.Map(mapCanvas, mapOptions);
+
+                var marker = new google.maps.Marker({
+                    position: latLng,
+                    title: data.address,
+                    visible: true
+                });
+                marker.setMap(map);
+            }
+            initialize();
+        });
+    </script>
+}

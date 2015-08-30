@@ -1,4 +1,6 @@
-﻿using Paramount.Betterclassifieds.Business;
+﻿using System.Data.Entity;
+using System.Linq;
+using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 
 namespace Paramount.Betterclassifieds.DataService.Events
@@ -10,6 +12,16 @@ namespace Paramount.Betterclassifieds.DataService.Events
         public EventRepository(IDbContextFactory dbContextFactory)
         {
             _dbContextFactory = dbContextFactory;
+        }
+
+        public EventModel GetEventDetails(int onlineAdId)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                return context.Events
+                    .Include(e => e.Tickets)
+                    .SingleOrDefault(e => e.OnlineAdId == onlineAdId);
+            }
         }
 
         public void Add(ICategoryAd model)

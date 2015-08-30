@@ -130,28 +130,54 @@
 .top-action-buttons .login-options {
   min-width: 175px;
 }
-.event-details .bs-callout-info h4 {
+.event-editor .bs-callout-info h4 {
   display: inline-block;
 }
-.event-details .event-photo .photo-upload {
+.event-editor .event-photo .photo-upload {
   display: table;
   width: 100%;
 }
-.event-details .event-photo .photo-upload .photo {
+.event-editor .event-photo .photo-upload .photo {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
 }
-.event-details .event-photo .photo-upload .photo .btn-remove {
+.event-editor .event-photo .photo-upload .photo .btn-remove {
   min-width: 100px;
 }
-.event-details .event-tickets .amount {
+.event-editor .event-tickets .amount {
   max-width: 200px;
 }
-.event-details .event-tickets .ticket-form {
+.event-editor .event-tickets .ticket-form {
   border-bottom: 1px solid #e3e3e3;
   margin: 10px 0;
   padding: 10px 0;
+}
+.event-details .google-map {
+  height: 300px;
+}
+.event-details .location-details {
+  display: block;
+  border: 1px solid #5bc0de;
+  padding: 10px;
+}
+.event-details .event-title {
+  vertical-align: top;
+  display: inline-block;
+  width: 49%;
+}
+.event-details .event-title h1 {
+  margin-top: 0;
+}
+.event-details .event-photo {
+  vertical-align: middle;
+  display: inline-block;
+  width: 49%;
+  text-align: center;
+}
+.event-details .event-photo .thumbnail {
+  margin-left: auto;
+  margin-right: 15px;
 }
 /*
     Form Overrides
@@ -164,7 +190,7 @@
   background-color: #fff;
 }
 /*
-    Mobile
+    Extra small devices
 */
 @media (max-width: 766px) {
   /* Smaller widths stack controls on top of another with no margin */
@@ -182,6 +208,39 @@
   }
   .myads-date-info dt {
     margin-left: 20px;
+  }
+  .event-details .event-title h1 {
+    font-size: 25px;
+  }
+  .event-details .event-title p {
+    font-size: 15px;
+  }
+  .event-details .google-map {
+    height: 200px;
+  }
+  .event-details .event-photo .thumbnail {
+    max-width: 150px;
+    margin-right: 2px;
+  }
+  [class*='col-'] {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+/*
+    Small Devices
+*/
+@media (min-width: 768px) {
+  .event-details .thumbnail {
+    max-width: 200px;
+  }
+}
+/*
+    Medium Devices
+*/
+@media (min-width: 992px) {
+  .event-details .thumbnail {
+    max-width: 290px;
   }
 }
 /*# sourceMappingURL=site.css.map */

@@ -236,7 +236,6 @@ namespace Paramount.Betterclassifieds.Business.Booking
 
             return adBookingId;
         }
-        //  }
 
         public bool AdBelongsToUser(int adId, string username)
         {

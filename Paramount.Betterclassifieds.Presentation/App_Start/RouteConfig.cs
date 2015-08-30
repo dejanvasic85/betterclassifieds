@@ -12,19 +12,17 @@ namespace Paramount.Betterclassifieds.Presentation
             routes.Ignore("{resource}.axd/{*pathInfo}");
             routes.Ignore("{resource}.aspx/{*pathInfo}");
             routes.Ignore("{resources}.ashx/{*pathInfo}");
-            routes.Ignore("Booking/Step1.aspx");
-            routes.Ignore("Image/View.ashx");
 
             // Api
             routes.MapHttpRoute(name: "API Default", routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional });
 
             // Images
-            routes.MapRoute("imageRoute", "img/{documentId}/{width}/{height}",
-                new { controller = "Image", action = "Render", width = UrlParameter.Optional, height = UrlParameter.Optional });
+            routes.MapRoute("imageRoute", "img/{documentId}/{width}/{height}", new { controller = "Image", action = "Render", width = UrlParameter.Optional, height = UrlParameter.Optional });
 
             // Ad route
             routes.MapRoute("adRoute", "Ad/{title}/{id}", new { controller = "Listings", action = "ViewAd" });
+            routes.MapRoute("eventAdRoute", "Event/{title}/{id}", new {controller = "EventAd", action = "Index"});
 
             // Seo route
             routes.MapRoute("seoName", "{seoName}/listings", new { controller = "Listings", action = "SeoAds" });

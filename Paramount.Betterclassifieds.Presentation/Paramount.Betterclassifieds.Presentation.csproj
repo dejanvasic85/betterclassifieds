@@ -94,6 +94,10 @@
       <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Monads, Version=1.1.5.0, Culture=neutral, PublicKeyToken=c45ad03d718dd7fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\Monads.1.1.5.0\lib\net40\Monads.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MongoDB.Bson">
       <HintPath>..\packages\mongocsharpdriver.1.9.2\lib\net35\MongoDB.Bson.dll</HintPath>
     </Reference>
@@ -189,6 +193,7 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\EditAdController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\EventAdController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\InvoiceController.cs" />
@@ -681,6 +686,7 @@
     <Content Include="Views\UserAds\Index.cshtml" />
     <Content Include="Views\Invoice\Booking.cshtml" />
     <Content Include="Views\Booking\Step2_Event.cshtml" />
+    <Content Include="Views\EventAd\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Framework\Validators\" />

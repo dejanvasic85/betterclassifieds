@@ -2,5 +2,6 @@
 {
     public interface IEventRepository
     {
+        EventModel GetEventDetails(int onlineAdId);
     }
 }

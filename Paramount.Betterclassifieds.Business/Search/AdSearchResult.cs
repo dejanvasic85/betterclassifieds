@@ -34,6 +34,7 @@ namespace Paramount.Betterclassifieds.Business.Search
         public string ParentCategoryName { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        public string CategoryAdType { get; set; }
 
         public bool HasExpired()
         {

@@ -9,6 +9,6 @@
         public string Title { get; set; }
 
         public bool IsOnlineOnly { get; set; }
-        public string ViewMap { get; set; }
+        public string CategoryAdType { get; set; }
     }
 }

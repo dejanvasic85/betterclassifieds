@@ -1,8 +1,6 @@
-﻿using System.Security.Policy;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Paramount.Betterclassifieds.Presentation.ViewModels;
 
 namespace Paramount
 {
@@ -30,7 +28,7 @@ namespace Paramount
         /// <summary>
         /// Generates outgoing URL for an Ad and particularly useful for the legacy integration piece
         /// </summary>
-        public static string AdUrl(this UrlHelper urlHelper, string titleSlug, int id, bool includeSchemeAndProtocol = false)
+        public static string AdUrl(this UrlHelper urlHelper, string titleSlug, int id, bool includeSchemeAndProtocol = false, string routeName = "adRoute")
         {
             RouteValueDictionary dictionary = new RouteValueDictionary
             {
@@ -38,7 +36,7 @@ namespace Paramount
                 {"id", id}
             };
 
-            VirtualPathData data = RouteTable.Routes.GetVirtualPath(null, "adRoute", dictionary);
+            VirtualPathData data = RouteTable.Routes.GetVirtualPath(null, routeName, dictionary);
             var path = data.VirtualPath;
 
             if (!includeSchemeAndProtocol)

@@ -582,8 +582,8 @@
       <Column Name="ParentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="OnlineAdTag" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="SeoName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="ViewMap" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
       <Column Name="IsOnlineOnly" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CategoryAdType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Association Name="MainCategory_AdBooking" Member="AdBookings" ThisKey="MainCategoryId" OtherKey="MainCategoryId" Type="AdBooking" />
       <Association Name="MainCategory_PublicationCategory" Member="PublicationCategories" ThisKey="MainCategoryId" OtherKey="MainCategoryId" Type="PublicationCategory" />
     </Type>

@@ -14,7 +14,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         string UserId { get; set; }
         int? CategoryId { get; set; }
         int? SubCategoryId { get; set; }
-        string ViewName { get; set; }
+        string CategoryAdType { get; set; }
         int[] Publications { get; set; }
         DateTime? StartDate { get; }
         DateTime? EndDate { get; set; }

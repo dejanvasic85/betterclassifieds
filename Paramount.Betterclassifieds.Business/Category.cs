@@ -8,6 +8,6 @@
         public string OnlineAdTag { get; set; }
         public string SeoName { get; set; }
         public bool IsOnlineOnly { get; set; }
-        public string ViewName { get; set; }
+        public string CategoryAdType { get; set; }
     }
 }

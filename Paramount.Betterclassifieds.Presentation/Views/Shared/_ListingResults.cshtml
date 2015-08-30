@@ -12,7 +12,7 @@
 
     @foreach (var ad in Model)
     {
-        <a href="@Url.AdUrl(@ad.HeadingSlug, @ad.AdId)" class="list-group-item">
+        <a href="@Url.AdUrl(ad.HeadingSlug, ad.AdId, routeName: ad.CategoryAdType)" class="list-group-item">
             <div class="media">
                 @if (ad.ImageUrls.Any())
                 {

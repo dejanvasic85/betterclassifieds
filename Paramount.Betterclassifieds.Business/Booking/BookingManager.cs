@@ -202,7 +202,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
             // that are used for invoice details 
             _bookingRepository.CreateBookingOrder(bookingOrder, adBookingId.Value);
 
-            if (bookingCart.ViewName.HasValue())
+            if (bookingCart.CategoryAdType.HasValue())
             {
                 var categoryAdRepository = _categoryAdRepositoryFactory.Create(bookingCart);
                 var categoryAd = bookingCart.GetCategoryAd();

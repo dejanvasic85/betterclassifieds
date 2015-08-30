@@ -109,12 +109,12 @@
                 bookingCart.Publications = viewModel.Publications.Where(p => p.IsSelected).Select(p => p.PublicationId).ToArray();
 
             var category = _searchService.GetCategories().Single(c => c.MainCategoryId == bookingCart.SubCategoryId);
-            bookingCart.ViewName = category.ViewMap;
+            bookingCart.CategoryAdType = category.CategoryAdType;
 
             bookingCart.CompleteStep(1);
             _cartRepository.Save(bookingCart);
 
-            return Json(Url.Action("Step2", new { adType = category.ViewMap }));
+            return Json(Url.Action("Step2", new { adType = category.CategoryAdType }));
         }
 
         //
@@ -208,7 +208,7 @@
 
             var viewModel = this.Map<BookingCart, Step3View>(bookingCart);
             viewModel.IsPaymentCancelled = isPaymentCancelled;
-            viewModel.PreviousStepUrl = Url.Action("Step2", new { adtype = bookingCart.ViewName });
+            viewModel.PreviousStepUrl = Url.Action("Step2", new { adtype = bookingCart.CategoryAdType });
 
             return View(viewModel);
         }

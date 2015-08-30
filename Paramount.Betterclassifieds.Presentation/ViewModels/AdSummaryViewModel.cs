@@ -6,6 +6,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
     public class AdSummaryViewModel
     {
+        public AdSummaryViewModel()
+        {
+            AdRouteName = "adRoute";
+        }
         public int AdId { get; set; }
         public string Heading { get; set; }
         public string Description { get; set; }
@@ -16,6 +20,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public string HeadingSlug { get; set; }
         public DateTime? BookingDate { get; set; }
         public DateTime StartDate { get; set; }
+        public string AdRouteName { get; set; }
         public string BookingDateFriendly
         {
             get
@@ -30,5 +35,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
                 return StartDate.Humanize(utcDate: false);
             }
         }
+
+        public string CategoryAdType { get; set; }
     }
 }

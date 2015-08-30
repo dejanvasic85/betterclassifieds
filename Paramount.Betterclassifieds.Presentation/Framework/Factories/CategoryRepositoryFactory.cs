@@ -18,12 +18,12 @@ namespace Paramount.Betterclassifieds.Presentation
         /// </summary>
         public ICategoryAdRepository<ICategoryAd> Create(IBookingCart bookingCart)
         {
-            if (bookingCart.ViewName.IsNullOrEmpty())
+            if (bookingCart.CategoryAdType.IsNullOrEmpty())
             {
                 return null;
             }
 
-            return _unityContainer.Resolve<ICategoryAdRepository<ICategoryAd>>(bookingCart.ViewName);
+            return _unityContainer.Resolve<ICategoryAdRepository<ICategoryAd>>(bookingCart.CategoryAdType);
         }
     }
 }

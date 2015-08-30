@@ -57,7 +57,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         public int? CategoryId { get; set; }
 
         public int? SubCategoryId { get; set; }
-        public string ViewName { get; set; }
+        public string CategoryAdType { get; set; }
 
         public int[] Publications { get; set; }
 
@@ -157,11 +157,11 @@ namespace Paramount.Betterclassifieds.Business.Booking
 
         public ICategoryAd GetCategoryAd()
         {
-            if (ViewName.IsNullOrEmpty())
+            if (CategoryAdType.IsNullOrEmpty())
                 return null;
 
             // By convention, the ViewName should be the same property 
-            var prop = this.GetType().GetProperty(this.ViewName);
+            var prop = this.GetType().GetProperty(this.CategoryAdType);
             return prop.GetValue(this) as ICategoryAd;
         }
     }

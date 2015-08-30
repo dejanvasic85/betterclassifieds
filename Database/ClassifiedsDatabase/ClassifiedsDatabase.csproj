@@ -67,7 +67,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Scripts\0056-MainCategory_CategoryAdType.sql" />
-    <Content Include="Scripts\0057-BookedAds_AddCategoryAdType.sql" />
+    <EmbeddedResource Include="Scripts\0057-BookedAds_AddCategoryAdType.sql" />
     <EmbeddedResource Include="Scripts\0054-Editions_GetUpcomingForPublications.sql" />
     <EmbeddedResource Include="Scripts\0055-Event_AddOnlineAdId.sql" />
     <EmbeddedResource Include="Scripts\0053-Event_Table_Create.sql" />

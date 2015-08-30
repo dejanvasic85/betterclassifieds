@@ -213,6 +213,7 @@
   <ItemGroup>
     <None Include="Search\ClassifiedsSearchEntities.dbml.layout">
       <DependentUpon>ClassifiedsSearchEntities.dbml</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>

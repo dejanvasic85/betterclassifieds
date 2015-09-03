@@ -39,7 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AjaxControlToolkit, Version=3.0.30512.20315, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\Release\ThirdParty\AjaxControlToolkit\3.0.30512.1\AjaxControlToolkit.dll</HintPath>
+      <HintPath>..\..\ThirdParty\AjaxControlToolkit\3.0.30512.1\AjaxControlToolkit.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -52,7 +52,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Telerik.Web.UI, Version=2011.3.1305.35, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\Release\ThirdParty\Telerik\2011.3.1305.35\Telerik.Web.UI.dll</HintPath>
+      <HintPath>..\..\ThirdParty\Telerik\2011.3.1305.35\Telerik.Web.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

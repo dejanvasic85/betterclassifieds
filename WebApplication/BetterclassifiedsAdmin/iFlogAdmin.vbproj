@@ -81,7 +81,7 @@
   <ItemGroup>
     <Reference Include="AjaxControlToolkit, Version=3.0.30512.20315, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Release\ThirdParty\AjaxControlToolkit\3.0.30512.1\AjaxControlToolkit.dll</HintPath>
+      <HintPath>..\..\ThirdParty\AjaxControlToolkit\3.0.30512.1\AjaxControlToolkit.dll</HintPath>
     </Reference>
     <Reference Include="Elmah">
       <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
@@ -111,10 +111,11 @@
     <Reference Include="System.Web.Mobile" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Telerik.Web.UI, Version=2011.3.1305.35, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\Release\ThirdParty\Telerik\2011.3.1305.35\Telerik.Web.UI.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ThirdParty\Telerik\2011.3.1305.35\Telerik.Web.UI.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Web.UI.Skins">
-      <HintPath>..\..\..\..\..\Release\ThirdParty\Telerik\2011.3.1305.35\Telerik.Web.UI.Skins.dll</HintPath>
+      <HintPath>..\..\ThirdParty\Telerik\2011.3.1305.35\Telerik.Web.UI.Skins.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

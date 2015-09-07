@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Humanizer;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
@@ -48,6 +49,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
         public List<EventTicketViewModel> Tickets { get; set; }
         public bool TicketingEnabled { get; set; }
+
     }
 
     public class EventTicketViewModel

@@ -34,6 +34,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var eventModel = _eventRepository.GetEventDetails(onlineAdModel.OnlineAdId);
             var eventViewModel = this.Map<Business.Events.EventModel, EventViewModel>(eventModel);
+
             eventViewModel.Title = onlineAdModel.Heading;
             eventViewModel.Description = onlineAdModel.Description;
             eventViewModel.OrganiserName = onlineAdModel.ContactName;
@@ -45,7 +46,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public void OnRegisterMaps(IConfiguration configuration)
         {
-            configuration.CreateMap<Business.Events.EventModel, EventViewModel>();
+            configuration.CreateMap<Business.Events.EventModel, EventViewModel>()
+                .ForMember(member => member.EventStartDate, options => options.ResolveUsing(src => src.EventStartDate.GetValueOrDefault().ToLongDateString()))
+                .ForMember(member => member.EventStartTime, options => options.ResolveUsing(src => src.EventStartDate.GetValueOrDefault().ToString("hh:mm tt")))
+                .ForMember(member => member.EventEndDate, options => options.ResolveUsing(src => src.EventEndDate.GetValueOrDefault().ToLongDateString()))
+                ;
             configuration.CreateMap<Business.Events.EventTicket, EventTicketViewModel>();
         }
     }

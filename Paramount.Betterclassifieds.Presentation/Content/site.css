@@ -169,6 +169,9 @@
 .event-details .event-title h1 {
   margin-top: 0;
 }
+.event-details .event-title p.details {
+  font-size: 1.1em;
+}
 .event-details .full-width {
   width: 100%;
 }
@@ -181,6 +184,10 @@
 .event-details .event-photo .thumbnail {
   margin-left: auto;
   margin-right: 15px;
+}
+.event-details .ticketing .ticket-info {
+  font-size: 16px;
+  vertical-align: middle;
 }
 /*
     Form Overrides

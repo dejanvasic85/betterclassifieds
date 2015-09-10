@@ -40,6 +40,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             eventViewModel.OrganiserName = onlineAdModel.ContactName;
             eventViewModel.OrganiserPhone = onlineAdModel.ContactPhone;
             eventViewModel.EventPhoto = onlineAdModel.ImageUrls.With(i => i.FirstOrDefault());
+            eventViewModel.Views = onlineAdModel.NumOfViews;
 
             return View(eventViewModel);
         }

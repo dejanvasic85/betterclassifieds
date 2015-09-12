@@ -17,12 +17,14 @@ Function Run-Sql{
 
     $sqlArgs.ServerInstance  = $connection.DataSource
     $sqlArgs.QueryTimeout = 0
-	$sqlArgs.Database = $connection.InitialCatalog
+	
 
     if ($connection.IntegratedSecurity -eq $false) {
         $sqlArgs.U = $connection.UserID
         $sqlArgs.P = $connection.Password 
     }
+
+	Write-Host "Executing: $($Query)"
 
     return Invoke-Sqlcmd @sqlArgs
 }

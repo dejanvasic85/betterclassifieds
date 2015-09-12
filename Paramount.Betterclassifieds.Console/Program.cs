@@ -20,7 +20,7 @@ namespace Paramount.Betterclassifieds.Console
 #if DEBUG
                 program.Start(new[]
                 {
-                    TaskArguments.TaskFullArgName, typeof(Tasks.EmailProcessor).Name
+                    TaskArguments.TaskFullArgName, typeof(Tasks.HealthCheck).Name, "-emails dejanvasic@outlook.com"
                 });
 
 #else

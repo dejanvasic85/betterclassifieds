@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Paramount.Betterclassifieds.Console.Tasks
+{
+    public class LogItem
+    {
+        public string Application { get; set; }
+        public string Host { get; set; }
+        public string Source { get; set; }
+        public string Message { get; set; }
+        public string User { get; set; }
+        public string StatusCode { get; set; }
+        public DateTime TimeUtc { get; set; }
+    }
+}

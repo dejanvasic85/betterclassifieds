@@ -2,7 +2,6 @@
 
 namespace Paramount.Betterclassifieds.DataService.Repository
 {
-    using System.Configuration;
     using Business;
     using ApplicationBlock.Configuration;
 
@@ -19,6 +18,11 @@ namespace Paramount.Betterclassifieds.DataService.Repository
         public string Brand
         {
             get { return ConfigManager.ReadAppSetting<string>("Brand"); }
+        }
+
+        public string Environment
+        {
+            get { return ConfigManager.ReadAppSetting<string>("Environment"); }
         }
 
         public string DslImageUrlHandler

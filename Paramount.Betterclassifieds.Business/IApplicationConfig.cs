@@ -13,5 +13,6 @@ namespace Paramount.Betterclassifieds.Business
         string[] AcceptedImageFileTypes { get; }
         bool IsPaymentEnabled { get; }
         string Brand { get; }
+        string Environment { get; }
     }
 }

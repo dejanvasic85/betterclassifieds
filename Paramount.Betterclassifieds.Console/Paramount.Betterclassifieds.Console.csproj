@@ -36,6 +36,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=1.12.1.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.13\lib\net45\Dapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -67,11 +71,13 @@
   <ItemGroup>
     <Compile Include="Framework\HelpAttribute.cs" />
     <Compile Include="Framework\UnitConfig.cs" />
-    <Compile Include="Tasks\EmailProcessor.cs" />
-    <Compile Include="Tasks\TestEmailTemplate.cs" />
+    <Compile Include="Tasks\EmailProcessor\EmailProcessor.cs" />
+    <Compile Include="Tasks\HealthCheck\HealthCheck.cs" />
+    <Compile Include="Tasks\HealthCheck\LogItem.cs" />
+    <Compile Include="Tasks\TestEmailTemplate\TestEmailTemplate.cs" />
     <Compile Include="Framework\TypeRegistrations.cs" />
     <Compile Include="Framework\TaskHelper.cs" />
-    <Compile Include="Tasks\RemoveEdition.cs" />
+    <Compile Include="Tasks\RemoveEdition\RemoveEdition.cs" />
     <Compile Include="Tasks\ITask.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,7 +85,10 @@
     <Compile Include="Framework\TaskArguments.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <Content Include="App.config" />
+    <Content Include="bc.exe.Release.config">
+      <DependentUpon>App.config</DependentUpon>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

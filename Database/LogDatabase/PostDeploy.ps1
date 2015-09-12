@@ -33,7 +33,6 @@ Function Run-Sql{
     return Invoke-Sqlcmd @sqlArgs
 }
 
-
 $scriptPath = Split-Path -Parent $MyInvocation.MyCommand.Definition
 Set-Location $scriptPath
 [xml]$appConfig = Get-Content .\LogDatabase.exe.config
@@ -46,12 +45,12 @@ $db = Run-Sql -Query "SELECT name from master.dbo.sysdatabases WHERE name = '$($
 # Drop Create Database
 if ( $DropCreateDatabase -eq $true -and $db -ne $null ) {
     Run-Sql "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ErrorAction SilentlyContinue
-	Run-Sql "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ErrorAction SilentlyContinue
+	#Run-Sql "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ErrorAction SilentlyContinue
     
     Write-Host "Dropping database..."        
     Run-Sql -Query "DROP DATABASE $($connection.InitialCatalog)"
 	
-	# Set the DB Variable so it's not created again
+	# Set the DB Variable so it's created again
 	$db = $null
 }
 

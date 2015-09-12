@@ -6,6 +6,29 @@
 	$SqlFilesPath = "C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\"
 #>
 
+
+Function Run-Sql{
+
+    param([Parameter(Mandatory=$false)][string] $Query, 
+          [Parameter(Mandatory=$false)][string] $InputFile )
+
+    $sqlArgs = @{}
+
+    if ($InputFile) {$sqlArgs.InputFile = $InputFile}
+    if ($Query) {$sqlArgs.Query = $Query}
+
+    $sqlArgs.ServerInstance  = $connection.DataSource
+    $sqlArgs.QueryTimeout = 0
+
+    if ($connection.IntegratedSecurity -eq $false) {
+        $sqlArgs.U = $connection.UserID
+        $sqlArgs.P = $connection.Password 
+    }
+
+    return Invoke-Sqlcmd @sqlArgs
+}
+
+
 $scriptPath = Split-Path -Parent $MyInvocation.MyCommand.Definition
 Set-Location $scriptPath
 [xml]$appConfig = Get-Content .\MembershipDatabase.exe.config
@@ -13,7 +36,7 @@ Set-Location $scriptPath
 # Use connection builder to get variables we need for backup and stuff
 $connection = New-Object -TypeName System.Data.SqlClient.SqlConnectionStringBuilder -ArgumentList $appConfig.configuration.connectionStrings.add.connectionString
 
-$db = Invoke-SqlCmd -Query "SELECT name from master.dbo.sysdatabases WHERE name = '$($connection.InitialCatalog)';" -ServerInstance $connection.DataSource  -QueryTimeout 0 -Username $connection.UserID -Password $connection.Password
+$db = Run-Sql -Query "SELECT name from master.dbo.sysdatabases WHERE name = '$($connection.InitialCatalog)';" 
 
 # Backup-SqlDatabase 
 if ( $BackupDatabase -eq $true -and $db -ne $null ){
@@ -26,8 +49,8 @@ if ( $BackupDatabase -eq $true -and $db -ne $null ){
 # Restore-SqlDatabase
 if ( $RestoreDatabase -eq $true ){	
     $backupFile = $BackupDatabasePath + $BackupAppUserFile
-	Invoke-Sqlcmd "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ServerInstance $connection.DataSource -QueryTimeout 0  -Username $connection.UserID -Password $connection.Password -ErrorAction SilentlyContinue  
-	Invoke-Sqlcmd "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ServerInstance $connection.DataSource -QueryTimeout 0  -Username $connection.UserID -Password $connection.Password -ErrorAction SilentlyContinue
+	Run-Sql -Query "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ErrorAction SilentlyContinue  
+	Run-Sql -Query "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ErrorAction SilentlyContinue
 
 	$mdfRelocate = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile -ArgumentList ("AppUser", "$($SqlFilesPath)$($connection.InitialCatalog).mdf")
     $logRelocate = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile -ArgumentList ("AppUser_log", "$($SqlFilesPath)$($connection.InitialCatalog)_log.ldf")
@@ -40,11 +63,11 @@ if ( $RestoreDatabase -eq $true ){
 
 # Drop Create Database
 if ( $DropCreateDatabase -eq $true -and $db -ne $null ) {
-    Invoke-Sqlcmd "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ServerInstance $connection.DataSource -QueryTimeout 0 -Username $connection.UserID -Password $connection.Password -ErrorAction SilentlyContinue
-	Invoke-Sqlcmd "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ServerInstance $connection.DataSource -QueryTimeout 0 -Username $connection.UserID -Password $connection.Password -ErrorAction SilentlyContinue
+    Run-Sql -Query "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ErrorAction SilentlyContinue
+	Run-Sql -Query "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ErrorAction SilentlyContinue
 	
     Write-Host "Dropping database..."        
-    Invoke-Sqlcmd -Query "DROP DATABASE $($connection.InitialCatalog)" -ServerInstance $connection.DataSource -QueryTimeout 0 -Username $connection.UserID -Password $connection.Password
+    Run-Sql -Query "DROP DATABASE $($connection.InitialCatalog)" 
 	$db = $null
 }
 
@@ -61,21 +84,23 @@ if ( $db -eq $null ) {
 	Write-Host "MdfFile: $newMdfFile"
 	Write-Host "LogFile: $newLogFile"
 
-    Invoke-Sqlcmd -Query @"
+    Run-Sql -Query @"
 	CREATE DATABASE $($newDatabaseName)	
 	CONTAINMENT = NONE ON  PRIMARY ( NAME = N'Classifieds', FILENAME = N'$($newMdfFile)' , SIZE = 5120KB , FILEGROWTH = 1024KB )  
 	LOG ON ( NAME = N'$($newLogicalName)_log', FILENAME = N'$($newLogFile)' , SIZE = 1024KB , FILEGROWTH = 10%) 
-"@  -ServerInstance $connection.DataSource -QueryTimeout 0 -Username $connection.UserID -Password $connection.Password
+"@ 
 
 }
 
 
 # Sanitize database
 if ( $SanitizeDatabase -eq $true ) {	
+
 	Write-Host "Sanitization = Updating Membership with $($Sanitize_Email) email"
-	Invoke-SqlCmd "UPDATE aspnet_Membership SET Email = '$($Sanitize_Email)', LoweredEmail = '$($Sanitize_Email)'" -ServerInstance $connection.DataSource -Database $connection.InitialCatalog -QueryTimeout 0 -Username $connection.UserID -Password $connection.Password
+	Run-Sql -Query "UPDATE aspnet_Membership SET Email = '$($Sanitize_Email)', LoweredEmail = '$($Sanitize_Email)'"
+
 	Write-Host "Sanitization = Updating Profiles with $($Sanitize_Email) email"
-	Invoke-SqlCmd "UPDATE UserProfile SET Email = '$($Sanitize_Email)'" -ServerInstance $connection.DataSource -Database $connection.InitialCatalog -QueryTimeout 0 -Username $connection.UserID -Password $connection.Password
+	Run-Sql -Query "UPDATE UserProfile SET Email = '$($Sanitize_Email)'"
 }
 
 Set-Location $scriptPath

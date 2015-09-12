@@ -6,6 +6,28 @@
 	$SqlFilesPath = "C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\"
 #>
 
+
+Function Run-Sql{
+
+    param([Parameter(Mandatory=$false)][string] $Query, 
+          [Parameter(Mandatory=$false)][string] $InputFile )
+
+    $sqlArgs = @{}
+
+    if ($InputFile) {$sqlArgs.InputFile = $InputFile}
+    if ($Query) {$sqlArgs.Query = $Query}
+
+    $sqlArgs.ServerInstance  = $connection.DataSource
+    $sqlArgs.QueryTimeout = 0
+
+    if ($connection.IntegratedSecurity -eq $false) {
+        $sqlArgs.U = $connection.UserID
+        $sqlArgs.P = $connection.Password 
+    }
+
+    return Invoke-Sqlcmd @sqlArgs
+}
+
 $scriptPath = Split-Path -Parent $MyInvocation.MyCommand.Definition
 Set-Location $scriptPath
 [xml]$appConfig = Get-Content .\DocumentDatabase.exe.config

@@ -6,19 +6,22 @@
 #>
 
 Function Run-Sql{
-
     param([Parameter(Mandatory=$false)][string] $Query, 
           [Parameter(Mandatory=$false)][string] $InputFile )
+    
+	$sqlArgs = @{}
 
-    $sqlArgs = @{}
+    if ( $InputFile ) {$sqlArgs.InputFile = $InputFile}
+    if ( $Query ) {
+		$sqlArgs.Query = $Query
 
-    if ($InputFile) {$sqlArgs.InputFile = $InputFile}
-    if ($Query) {$sqlArgs.Query = $Query}
-
+		if ( $false -eq ($Query -match "DROP DATABASE" -or $Query -match "CREATE DATABASE" ) ) { 
+			$sqlArgs.Database = $connection.InitialCatalog
+		}
+	}
     $sqlArgs.ServerInstance  = $connection.DataSource
     $sqlArgs.QueryTimeout = 0
 	
-
     if ($connection.IntegratedSecurity -eq $false) {
         $sqlArgs.U = $connection.UserID
         $sqlArgs.P = $connection.Password 

@@ -17,6 +17,7 @@ Function Run-Sql{
 
 		if ( $false -eq ($Query -match "DROP DATABASE" -or $Query -match "CREATE DATABASE" ) ) { 
 			$sqlArgs.Database = $connection.InitialCatalog
+			Write-Host "Set database " $sqlArgs.Database			
 		}
 	}
     $sqlArgs.ServerInstance  = $connection.DataSource

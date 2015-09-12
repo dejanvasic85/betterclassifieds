@@ -1,16 +1,9 @@
-﻿namespace Paramount.Betterclassifieds.Console
+﻿using System;
+using System.Linq;
+using Microsoft.Practices.Unity;
+
+namespace Paramount.Betterclassifieds.Console
 {
-    using Microsoft.Practices.Unity;
-    using Business;
-    using Business.Booking;
-    using Business.Broadcast;
-    using Business.Print;
-    using Tasks;
-    using DataService.Broadcast;
-    using DataService.Repository;
-    using System;
-    using System.Linq;
-    using Business.Payment;
 
     class Program
     {
@@ -23,27 +16,30 @@
 
             try
             {
+
 #if DEBUG
                 program.Start(new[]
-                                    {
-                                        TaskArguments.TaskFullArgName, typeof(ProcessUnsentNotifications).Name
-                                    });
-                System.Console.WriteLine("Press any key to exit...");
-                System.Console.ReadLine();
-//#else
+                {
+                    TaskArguments.TaskFullArgName, typeof(Tasks.EmailProcessor).Name
+                });
+
+#else
                 program.Start(args);
 #endif
             }
             catch (Exception ex)
             {
+
                 // If it gets to here then some unexpected exception occurred within a job.
                 // Log to the windows event viewer as last resort.
-                System.Console.WriteLine(ex.Message);
-                System.Console.WriteLine(ex.StackTrace);
+                LogError(ex.Message);
+                LogError(ex.StackTrace);
+#if !DEBUG
                 ex.ToEventLog();
+#endif
             }
         }
-        
+
         public void Start(string[] args)
         {
             // If the arguments contains "Help" then get the task helper to do the work
@@ -67,11 +63,16 @@
                 }
             }
 
+            LogInfo("Processing command arguments...");
+
             // Handle the arguments
             task.HandleArgs(taskArguments);
 
+            LogInfo("Starting " + taskArguments.TaskName);
+
             // Run the task!
             task.Run();
+            LogInfo("Completed successfully");
         }
 
         // When registering your task ensure that your register them here
@@ -79,25 +80,26 @@
         {
             _container = new UnityContainer();
 
-            // Register all managers and other components
-            _container.RegisterType<IBookingManager, BookingManager>()
-                .RegisterType<IEditionManager, EditionManager>()
-                .RegisterType<IClientConfig, ClientConfig>()
-                .RegisterType<IBroadcastManager, BroadcastManager>()
-                .RegisterType<INotificationProcessor, EmailProcessor>()
-                .RegisterType<ISmtpMailer, DefaultMailer>();
+            UnityConfig.Initialise(_container);
 
-            // Repositories
-            _container.RegisterType<IBookingRepository, BookingRepository>()
-                .RegisterType<IBroadcastRepository, BroadcastRepository>()
-                .RegisterType<IEditionRepository, EditionRepository>()
-                .RegisterType<IPublicationRepository, PublicationRepository>()
-                .RegisterType<IPaymentsRepository, PaymentsRepository>();
-            
-
-            // Tasks (anything that implements ITask)
+            // Register all Tasks (anything that implements ITask)
             TypeRegistrations.ActionEach(task => _container.RegisterType(typeof(ITask), task, task.Name));
         }
 
+        private static void LogInfo(string message)
+        {
+            System.Console.WriteLine();
+            System.Console.ForegroundColor = ConsoleColor.Cyan;
+            System.Console.WriteLine(message);
+            System.Console.ResetColor();
+        }
+
+        private static void LogError(string message)
+        {
+            System.Console.WriteLine();
+            System.Console.ForegroundColor = ConsoleColor.Red;
+            System.Console.WriteLine(message);
+            System.Console.ResetColor();
+        }
     }
 }

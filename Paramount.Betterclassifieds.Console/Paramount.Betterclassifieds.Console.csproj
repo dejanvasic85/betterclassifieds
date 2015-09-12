@@ -36,6 +36,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Practices.Unity">
       <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
@@ -57,17 +65,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HelpAttribute.cs" />
-    <Compile Include="Tasks\ProcessUnsentNotifications.cs" />
+    <Compile Include="Framework\HelpAttribute.cs" />
+    <Compile Include="Framework\UnitConfig.cs" />
+    <Compile Include="Tasks\EmailProcessor.cs" />
     <Compile Include="Tasks\TestEmailTemplate.cs" />
-    <Compile Include="TypeRegistrations.cs" />
-    <Compile Include="TaskHelper.cs" />
+    <Compile Include="Framework\TypeRegistrations.cs" />
+    <Compile Include="Framework\TaskHelper.cs" />
     <Compile Include="Tasks\RemoveEdition.cs" />
     <Compile Include="Tasks\ITask.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SingleInstance.cs" />
-    <Compile Include="TaskArguments.cs" />
+    <Compile Include="Framework\SingleInstance.cs" />
+    <Compile Include="Framework\TaskArguments.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -89,6 +98,14 @@
     <ProjectReference Include="..\Paramount.Betterclassifieds.DataService\Paramount.Betterclassifieds.DataService.csproj">
       <Project>{E51B8388-9A02-40AD-97B4-2802AE77FB69}</Project>
       <Name>Paramount.Betterclassifieds.DataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Paramount.Betterclassifieds.Presentation\Paramount.Betterclassifieds.Presentation.csproj">
+      <Project>{16A1594A-F9A2-468B-BF45-2D716A72469E}</Project>
+      <Name>Paramount.Betterclassifieds.Presentation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Paramount.Betterclassifieds.Security\Paramount.Betterclassifieds.Security.csproj">
+      <Project>{9CE120EA-CB54-4F24-A68C-A80EB331DBDE}</Project>
+      <Name>Paramount.Betterclassifieds.Security</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

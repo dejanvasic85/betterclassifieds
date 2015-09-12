@@ -1,4 +1,4 @@
-﻿namespace Paramount.Betterclassifieds.Console.Tasks
+﻿namespace Paramount.Betterclassifieds.Console
 {
     public interface ITask
     {

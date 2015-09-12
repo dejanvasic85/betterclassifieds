@@ -7,11 +7,11 @@
         public HelpAttribute()
         { }
 
-        public HelpAttribute(string description)
+        public HelpAttribute(string sampleCall)
         {
-            this.Description = description;
+            this.SampleCall = sampleCall;
         }
 
-        public string Description { get; set; }
+        public string SampleCall { get; set; }
     }
 }

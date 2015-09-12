@@ -288,6 +288,7 @@
       <DependentUpon>datepicker3.css</DependentUpon>
     </Content>
     <Content Include="Content\font-awesome-4.3.0.css" />
+    <Content Include="Content\font-awesome-4.4.0.css" />
     <Content Include="Content\images\BookUsingThePhone.PNG" />
     <Content Include="Content\images\buttons.gif" />
     <Content Include="Content\images\toolbar.gif" />

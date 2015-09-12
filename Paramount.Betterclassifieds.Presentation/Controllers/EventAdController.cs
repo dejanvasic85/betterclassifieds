@@ -41,6 +41,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             eventViewModel.OrganiserPhone = onlineAdModel.ContactPhone;
             eventViewModel.EventPhoto = onlineAdModel.ImageUrls.With(i => i.FirstOrDefault());
             eventViewModel.Views = onlineAdModel.NumOfViews;
+            eventViewModel.Posted = onlineAdModel.BookingDate.HasValue ? onlineAdModel.BookingDate.Value.Humanize(utcDate: false) : string.Empty;
 
             return View(eventViewModel);
         }

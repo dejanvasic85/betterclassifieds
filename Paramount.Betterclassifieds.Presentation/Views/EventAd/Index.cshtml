@@ -1,5 +1,4 @@
 ﻿@using Paramount
-@using Humanizer
 @using Paramount.ApplicationBlock.Mvc.HtmlHelpers
 
 @model EventViewModel
@@ -58,53 +57,50 @@
                 <div class="panel-heading">
                     <h4><i class="fa fa-ticket"></i> Available Tickets</h4>
                 </div>
-                <div class="panel-body">
-                    <ul class="list-group">
-                        @foreach (var t in Model.Tickets)
-                        {
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="col-xs-4">
-                                        <span class="ticket-info">@t.TicketName</span>
-                                    </div>
-                                    <div class="col-xs-2">
-                                        <span class="ticket-info">
-                                            @if (t.Price == 0)
-                                            {
-                                                <text>Free</text>
-                                            }
-                                            else
-                                            {
-                                                @t.Price.ToString("C")
-                                            }
-                                        </span>
-                                    </div>
-                                    <div class="col-xs-6">
-                                        <div class="form-inline pull-right">
-                                            <div class="form-group">
-                                                <span class="ticket-info">Quantity</span>
-                                                <select class="form-control">
-                                                    <option>0</option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                </select>
-                                            </div>
+                <ul class="list-group">
+                    @foreach (var t in Model.Tickets)
+                    {
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <span class="ticket-info">@t.TicketName</span>
+                                </div>
+                                <div class="col-xs-2">
+                                    <span class="ticket-info">
+                                        @if (t.Price == 0)
+                                        {
+                                            <text>Free</text>
+                                        }
+                                        else
+                                        {
+                                            @t.Price.ToString("C")
+                                        }
+                                    </span>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-inline pull-right">
+                                        <div class="form-group">
+                                            <span class="ticket-info">Quantity</span>
+                                            <select class="form-control">
+                                                <option>0</option>
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                            </li>
-                        }
-                    </ul>
+                            </div>
+                        </li>
+                    }
+                </ul>
 
-                    <div class="pull-right">
-                        <button class="btn btn-default pull-right">
-                            Book Now <i class="fa fa-arrow-right"></i>
-                        </button>
-                    </div>
-
+                <div class="panel-footer clearfix">
+                    <button class="btn btn-primary pull-right">
+                        Book Now <i class="fa fa-arrow-right"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -114,19 +110,42 @@
                 <div class="panel-heading">
                     <h4><i class="fa fa-phone"></i> Organiser Details</h4>
                 </div>
-                <div class="panel-body">
-                    <table class="table table-striped">
-                        @Html.AdContactDetail(m => m.OrganiserName, "user")
-                        @Html.AdContactDetail(m => m.OrganiserPhone, "phone")
-                        @Html.AdContactDetail(m => m.Views, "eye-open")
 
-                    </table>
-                </div>
+                <table class="table table-striped">
+                    @Html.AdContactDetail(m => m.OrganiserName, "user")
+                    @Html.AdContactDetail(m => m.OrganiserPhone, "phone")
+                    @Html.AdContactDetail(m => m.Views, "eye-open")
+                    @Html.AdContactDetail(m => m.Posted, fontIcon: "calendar-check-o")
+                </table>
+
             </div>
         </div>
 
-        <div class="col-xs-12 col-md-6">
-            Ad Details Go Here
+        @*Contact*@
+        <div class="col-xs-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4><i class="fa fa-user"></i> Contact for Info</h4>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        Need more information? Leave a message for the user and they will
+                        be notified immediately
+                    </p>
+                    <div class="form-group">
+                        <label class="control-label">Name</label>
+                        <input class="form-control input-lg" type="text" placeholder="Your Name"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Email</label>
+                        <input class="form-control input-lg" type="text" placeholder="Your email" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Question</label>
+                        <input class="form-control input-lg" type="text" placeholder="Your email" />
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

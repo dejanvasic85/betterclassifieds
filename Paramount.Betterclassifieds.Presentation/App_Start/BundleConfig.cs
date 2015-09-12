@@ -33,7 +33,7 @@ namespace Paramount.Betterclassifieds.Presentation
         {
             bundles.Add(new Bundle("~/Content/css-base")
                 .Include("~/Content/bootstrap-3.3.0.css")
-                .Include("~/Content/font-awesome-4.3.0.css")
+                .Include("~/Content/font-awesome-4.4.0.css")
                 .Include("~/Content/site.css")
                 .Include("~/Content/bootstrap-select.css")
                 .Include("~/Content/datepicker.css")

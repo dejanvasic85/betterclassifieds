@@ -50,6 +50,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public List<EventTicketViewModel> Tickets { get; set; }
         public bool TicketingEnabled { get; set; }
         public int Views { get; set; }
+        public string Posted { get; set; }
     }
 
     public class EventTicketViewModel

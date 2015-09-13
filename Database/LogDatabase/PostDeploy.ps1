@@ -15,10 +15,10 @@ Function Run-Sql{
     if ( $Query ) {
 		$sqlArgs.Query = $Query
 
-		<#if ( $false -eq ($Query -match "DROP DATABASE" -or $Query -match "CREATE DATABASE" ) ) { 
+		if ( $false -eq ($Query -match "DROP DATABASE" -or $Query -match "CREATE DATABASE"  -or $Query -match "ALTER DATABASE") ) { 
 			$sqlArgs.Database = $connection.InitialCatalog
 			Write-Host "Set database " $sqlArgs.Database			
-		}#>
+		}
 	}
     $sqlArgs.ServerInstance  = $connection.DataSource
     $sqlArgs.QueryTimeout = 0
@@ -47,7 +47,7 @@ if ( $DropCreateDatabase -eq $true -and $db -ne $null ) {
     Run-Sql "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ErrorAction SilentlyContinue
 	Run-Sql "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ErrorAction SilentlyContinue
     
-    Write-Host "Dropping database..."        
+    Write-Host "Dropping database..."
     Run-Sql -Query "DROP DATABASE $($connection.InitialCatalog)"
 	
 	# Set the DB Variable so it's created again
@@ -69,7 +69,7 @@ if ( $db -eq $null ) {
 
     Run-Sql -Query @"
 	CREATE DATABASE $($newDatabaseName)	
-	CONTAINMENT = NONE ON  PRIMARY ( NAME = N'Classifieds', FILENAME = N'$($newMdfFile)' , SIZE = 5120KB , FILEGROWTH = 1024KB )  
+	CONTAINMENT = NONE ON  PRIMARY ( NAME = N'$($newLogicalName)', FILENAME = N'$($newMdfFile)' , SIZE = 5120KB , FILEGROWTH = 1024KB )  
 	LOG ON ( NAME = N'$($newLogicalName)_log', FILENAME = N'$($newLogFile)' , SIZE = 1024KB , FILEGROWTH = 10%) 
 "@ 
 

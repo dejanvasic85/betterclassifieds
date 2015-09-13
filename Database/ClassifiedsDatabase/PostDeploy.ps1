@@ -6,16 +6,25 @@
 	$SqlFilesPath = "C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\"
 #>
 
+
 Function Run-Sql{
-    param([string] $Query, 
-          [string] $InputFile, 
-		  [switch] $UseMaster = $true)
+    param([string] $Script, 
+		  [string] $File,
+		  [boolean] $UseMaster = $true)
     
 	$sqlArgs = @{}
 
-    if ( $InputFile  -ne "") {$sqlArgs.InputFile = $InputFile}
-    if ( $Query  -ne "")     {$sqlArgs.Query = $Query}
-	if ( $UseMaster -eq $false ) {$sqlArgs.Database = $connection.InitialCatalog}
+    if ( $Script ) {
+		$sqlArgs.Query = $Script
+	}
+
+	if ( $File ) {
+		$sqlArgs.InputFile = $File
+	}
+
+	if ( $UseMaster -eq $false ) {
+		$sqlArgs.Database = $connection.InitialCatalog
+	}
 
     $sqlArgs.ServerInstance  = $connection.DataSource
     $sqlArgs.QueryTimeout = 0
@@ -25,7 +34,8 @@ Function Run-Sql{
         $sqlArgs.P = $connection.Password 
     }
 
-	Write-Host "Executing: $($Query)"
+	$sqlArgs.GetEnumerator() | ForEach-Object { Write-Host $_.Key " " $_.Value }
+	Write-Host "Executing: $($Script)"
 
     return Invoke-Sqlcmd @sqlArgs
 }
@@ -37,7 +47,7 @@ Set-Location $scriptPath
 # Use connection builder to get variables we need for backup and stuff
 $connection = New-Object -TypeName System.Data.SqlClient.SqlConnectionStringBuilder -ArgumentList $appConfig.configuration.connectionStrings.add.connectionString
 
-$db = Run-Sql -Query "SELECT name from master.dbo.sysdatabases WHERE name = '$($connection.InitialCatalog)';"
+$db = Run-Sql -Script "SELECT name from master.dbo.sysdatabases WHERE name = '$($connection.InitialCatalog)';"
 
 # Backup-SqlDatabase 
 if ( $BackupDatabase -eq $true -and $db -ne $null ){
@@ -50,8 +60,8 @@ if ( $BackupDatabase -eq $true -and $db -ne $null ){
 # Restore-SqlDatabase
 if ( $RestoreDatabase -eq $true ){	
     $backupFile = $BackupDatabasePath + $BackupClassifiedsFile
-	Run-Sql -Query "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;"
-	Run-Sql -Query "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;"
+	Run-Sql -Script "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;"
+	Run-Sql -Script "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;"
 
 	$mdfRelocate = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile -ArgumentList ("Classifieds", "$($SqlFilesPath)$($connection.InitialCatalog).mdf")
     $logRelocate = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile -ArgumentList ("Classifieds_log", "$($SqlFilesPath)$($connection.InitialCatalog)_log.ldf")
@@ -64,11 +74,11 @@ if ( $RestoreDatabase -eq $true ){
 
 # Drop Create Database
 if ( $DropCreateDatabase -eq $true -and $db -ne $null ) {
-    Run-Sql -Query "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ErrorAction SilentlyContinue 
-	Run-Sql -Query "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ErrorAction SilentlyContinue
+    Run-Sql -Script "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ErrorAction SilentlyContinue 
+	Run-Sql -Script "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ErrorAction SilentlyContinue
 
     Write-Host "Dropping database..."        
-    Run-Sql -Query "DROP DATABASE $($connection.InitialCatalog)"
+    Run-Sql -Script "DROP DATABASE $($connection.InitialCatalog)"
    
 	# Ensure is it null so it gets created
 	$db = $null
@@ -87,7 +97,7 @@ if ( $db -eq $null ) {
 	Write-Host "MdfFile: $newMdfFile"
 	Write-Host "LogFile: $newLogFile"
 
-    Run-Sql -Query @"
+    Run-Sql -Script @"
 	CREATE DATABASE $($newDatabaseName)	
 	CONTAINMENT = NONE ON  PRIMARY ( NAME = N'$($newLogicalName)', FILENAME = N'$($newMdfFile)' , SIZE = 5120KB , FILEGROWTH = 1024KB )  
 	LOG ON ( NAME = N'$($newLogicalName)_log', FILENAME = N'$($newLogFile)' , SIZE = 1024KB , FILEGROWTH = 10%) 
@@ -105,13 +115,12 @@ Set-Location $scriptPath
 
 # Run the setup scripts ( application configurations )
 Write-Host "Running setup script for $Brand"
-Invoke-Sqlcmd -InputFile "AppSetting-$($Brand).sql" -ServerInstance $connection.DataSource -Database $connection.InitialCatalog -QueryTimeout 0
-
+Run-Sql -File "AppSetting-$($Brand).sql" -UseMaster $false
  
 # Sanitize database
 if ( $SanitizeDatabase -eq $true ) {	
 	Write-Host "Sanitization = Updating AppSetting emails with $($Sanitize_Email) address"
-	Run-Sql -Query "UPDATE AppSetting SET [SettingValue] = '$($Sanitize_Email)' where [AppKey] = 'AdminNotificationAccounts'" -UseMaster $false
-	Run-Sql -Query "UPDATE AppSetting SET [SettingValue] = '$($Sanitize_Email)' where [AppKey] = 'SupportNotificationAccounts'" -UseMaster $false
+	Run-Sql -Script "UPDATE AppSetting SET [SettingValue] = '$($Sanitize_Email)' where [AppKey] = 'AdminNotificationAccounts'" -UseMaster $false
+	Run-Sql -Script "UPDATE AppSetting SET [SettingValue] = '$($Sanitize_Email)' where [AppKey] = 'SupportNotificationAccounts'" -UseMaster $false
 }
 

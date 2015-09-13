@@ -10,7 +10,7 @@
 Function Run-Sql{
     param([string] $Script, 
 		  [string] $File,
-		  [switch] $UseMaster = $true)
+		  [boolean] $UseMaster = $true)
     
 	$sqlArgs = @{}
 

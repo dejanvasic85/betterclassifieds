@@ -9,7 +9,7 @@
 
 Function Run-Sql{
     param([string] $Query, 
-          [string] $InputFile, 
+          [string] $InputFile = $null, 
 		  [switch] $UseMaster = $true)
     
 	$sqlArgs = @{}

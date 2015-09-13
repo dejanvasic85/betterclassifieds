@@ -14,8 +14,8 @@ Function Run-Sql{
     
 	$sqlArgs = @{}
 
-    if ( $InputFile -ne "") {$sqlArgs.InputFile = $InputFile}
-    if ( $Query -ne "")     {$sqlArgs.Query = $Query}
+    if ( $InputFile -ne $null) {$sqlArgs.InputFile = $InputFile}
+    if ( $Query -ne $null)     {$sqlArgs.Query = $Query}
 	if ( $UseMaster -eq $false ) {$sqlArgs.Database = $connection.InitialCatalog}
 
     $sqlArgs.ServerInstance  = $connection.DataSource

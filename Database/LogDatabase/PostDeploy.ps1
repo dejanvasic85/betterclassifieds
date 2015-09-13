@@ -15,10 +15,10 @@ Function Run-Sql{
     if ( $Query ) {
 		$sqlArgs.Query = $Query
 
-		if ( $false -eq ($Query -match "DROP DATABASE" -or $Query -match "CREATE DATABASE" ) ) { 
+		<#if ( $false -eq ($Query -match "DROP DATABASE" -or $Query -match "CREATE DATABASE" ) ) { 
 			$sqlArgs.Database = $connection.InitialCatalog
 			Write-Host "Set database " $sqlArgs.Database			
-		}
+		}#>
 	}
     $sqlArgs.ServerInstance  = $connection.DataSource
     $sqlArgs.QueryTimeout = 0
@@ -45,7 +45,7 @@ $db = Run-Sql -Query "SELECT name from master.dbo.sysdatabases WHERE name = '$($
 # Drop Create Database
 if ( $DropCreateDatabase -eq $true -and $db -ne $null ) {
     Run-Sql "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ErrorAction SilentlyContinue
-	#Run-Sql "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ErrorAction SilentlyContinue
+	Run-Sql "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ErrorAction SilentlyContinue
     
     Write-Host "Dropping database..."        
     Run-Sql -Query "DROP DATABASE $($connection.InitialCatalog)"

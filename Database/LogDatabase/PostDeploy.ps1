@@ -6,20 +6,16 @@
 #>
 
 Function Run-Sql{
-    param([Parameter(Mandatory=$false)][string] $Query, 
-          [Parameter(Mandatory=$false)][string] $InputFile )
+    param([string] $Query, 
+          [string] $InputFile, 
+		  [switch] $UseMaster = $true)
     
 	$sqlArgs = @{}
 
     if ( $InputFile ) {$sqlArgs.InputFile = $InputFile}
-    if ( $Query ) {
-		$sqlArgs.Query = $Query
+    if ( $Query )     {$sqlArgs.Query = $Query}
+	if ( $UseMaster -eq $false ) {$sqlArgs.Database = $connection.InitialCatalog}
 
-		if ( $false -eq ($Query -match "DROP DATABASE" -or $Query -match "CREATE DATABASE"  -or $Query -match "ALTER DATABASE") ) { 
-			$sqlArgs.Database = $connection.InitialCatalog
-			Write-Host "Set database " $sqlArgs.Database			
-		}
-	}
     $sqlArgs.ServerInstance  = $connection.DataSource
     $sqlArgs.QueryTimeout = 0
 	
@@ -44,7 +40,7 @@ $db = Run-Sql -Query "SELECT name from master.dbo.sysdatabases WHERE name = '$($
 
 # Drop Create Database
 if ( $DropCreateDatabase -eq $true -and $db -ne $null ) {
-    Run-Sql "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ErrorAction SilentlyContinue
+    Run-Sql "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ErrorAction SilentlyContinue 
 	Run-Sql "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ErrorAction SilentlyContinue
     
     Write-Host "Dropping database..."

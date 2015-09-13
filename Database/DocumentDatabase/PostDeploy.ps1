@@ -8,23 +8,25 @@
 
 
 Function Run-Sql{
+    param([string] $Query, 
+          [string] $InputFile, 
+		  [switch] $UseMaster = $true)
+    
+	$sqlArgs = @{}
 
-    param([Parameter(Mandatory=$false)][string] $Query, 
-          [Parameter(Mandatory=$false)][string] $InputFile )
-
-    $sqlArgs = @{}
-
-    if ($InputFile) {$sqlArgs.InputFile = $InputFile}
-    if ($Query) {$sqlArgs.Query = $Query}
+    if ( $InputFile ) {$sqlArgs.InputFile = $InputFile}
+    if ( $Query )     {$sqlArgs.Query = $Query}
+	if ( $UseMaster -eq $false ) {$sqlArgs.Database = $connection.InitialCatalog}
 
     $sqlArgs.ServerInstance  = $connection.DataSource
     $sqlArgs.QueryTimeout = 0
-	$sqlArgs.Database = $connection.InitialCatalog
-
+	
     if ($connection.IntegratedSecurity -eq $false) {
         $sqlArgs.U = $connection.UserID
         $sqlArgs.P = $connection.Password 
     }
+
+	Write-Host "Executing: $($Query)"
 
     return Invoke-Sqlcmd @sqlArgs
 }

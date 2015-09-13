@@ -9,13 +9,11 @@
 
 Function Run-Sql{
     param([string] $Query, 
-          [string] $InputFile = $null, 
 		  [switch] $UseMaster = $true)
     
 	$sqlArgs = @{}
 
-    if ( $InputFile -ne $null) {$sqlArgs.InputFile = $InputFile}
-    if ( $Query -ne $null)     {$sqlArgs.Query = $Query}
+    if ( $Query -ne $null )     {$sqlArgs.Query = $Query}
 	if ( $UseMaster -eq $false ) {$sqlArgs.Database = $connection.InitialCatalog}
 
     $sqlArgs.ServerInstance  = $connection.DataSource

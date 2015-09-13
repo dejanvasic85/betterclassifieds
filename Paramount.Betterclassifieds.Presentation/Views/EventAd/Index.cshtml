@@ -14,7 +14,7 @@
             <div class="jumbotron">
                 <div class='event-title @(Model.EventPhoto.IsNullOrEmpty() ? "full-width" : "")'>
                     <h1>@Model.Title</h1>
-                    <p class="details">@Model.EventStartDate at @Model.EventStartTime. Location details below.</p>
+                    <p class="details">@Model.EventStartDate at @Model.EventStartTime.</p>
                     <p>@Html.Raw(Model.Description)</p>
                     <p><a class="btn btn-lg btn-primary" href="#ticketing" role="button">Find Tickets</a></p>
                 </div>
@@ -33,7 +33,7 @@
             <div class="location-details">
                 <div class="row">
                     <div class="col-xs-6">
-                        @Model.Location
+                        <h4>@Model.Location</h4>
                     </div>
                     <div class="col-xs-6">
                         <div class="pull-right">
@@ -55,53 +55,62 @@
         <div class="col-xs-12 col-md-6 ticketing" id="ticketing">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h4><i class="fa fa-ticket"></i> Available Tickets</h4>
+                    <h4><i class="fa fa-ticket"></i> Ticketing</h4>
                 </div>
-                <ul class="list-group">
-                    @foreach (var t in Model.Tickets)
-                    {
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-xs-4">
-                                    <span class="ticket-info">@t.TicketName</span>
-                                </div>
-                                <div class="col-xs-2">
-                                    <span class="ticket-info">
-                                        @if (t.Price == 0)
-                                        {
-                                            <text>Free</text>
-                                        }
-                                        else
-                                        {
-                                            @t.Price.ToString("C")
-                                        }
-                                    </span>
-                                </div>
-                                <div class="col-xs-6">
-                                    <div class="form-inline pull-right">
-                                        <div class="form-group">
-                                            <span class="ticket-info">Quantity</span>
-                                            <select class="form-control">
-                                                <option>0</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
+                @if (Model.TicketingEnabled)
+                {
+                    <ul class="list-group">
+                        @foreach (var t in Model.Tickets)
+                        {
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <span class="ticket-info">@t.TicketName</span>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <span class="ticket-info">
+                                            @if (t.Price == 0)
+                                            {
+                                                <text>Free</text>
+                                            }
+                                            else
+                                            {
+                                                @t.Price.ToString("C")
+                                            }
+                                        </span>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="form-inline pull-right">
+                                            <div class="form-group">
+                                                <span class="ticket-info">Quantity</span>
+                                                <select class="form-control">
+                                                    <option>0</option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
-                    }
-                </ul>
+                            </li>
+                        }
+                    </ul>
 
-                <div class="panel-footer clearfix">
-                    <button class="btn btn-primary pull-right">
-                        Book Now <i class="fa fa-arrow-right"></i>
-                    </button>
-                </div>
+                    <div class="panel-footer clearfix">
+                        <button class="btn btn-primary pull-right">
+                            Book Now <i class="fa fa-arrow-right"></i>
+                        </button>
+                    </div>
+                }
+                else
+                {
+                    <div class="panel panel-body">
+                        This event does not require any tickets.
+                    </div>
+                }
             </div>
         </div>
 
@@ -125,16 +134,16 @@
         <div class="col-xs-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h4><i class="fa fa-user"></i> Contact for Info</h4>
+                    <h4><i class="fa fa-user"></i> Contact the organiser</h4>
                 </div>
                 <div class="panel-body">
                     <p>
-                        Need more information? Leave a message for the user and they will
+                        Need more information? Leave a message for the organiser and they will
                         be notified immediately
                     </p>
                     <div class="form-group">
                         <label class="control-label">Name</label>
-                        <input class="form-control input-lg" type="text" placeholder="Your Name"/>
+                        <input class="form-control input-lg" type="text" placeholder="Your Name" />
                     </div>
                     <div class="form-group">
                         <label class="control-label">Email</label>

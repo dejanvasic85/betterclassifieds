@@ -21,13 +21,13 @@ namespace Paramount.ApplicationBlock.Mvc.HtmlHelpers
             builder.Append("<tr>");
             if (glyph.HasValue())
             {
-                builder.AppendFormat("<td><i class='glyphicon glyphicon-{0}'><i></td>", glyph);
+                builder.AppendFormat("<td><h4><i class='glyphicon glyphicon-{0}'></i></h4></td>", glyph);
             }
             else if (fontIcon.HasValue())
             {
-                builder.AppendFormat("<td><i class='fa fa-{0}'><i></td>", fontIcon);
+                builder.AppendFormat("<td><h4><i class='fa fa-{0}'></i><h4></td>", fontIcon);
             }
-            builder.AppendFormat("<td><span id='{0}'>{1}</span></td>", data.PropertyName, data.Model);
+            builder.AppendFormat("<td><h4><span id='{0}'>{1}</span></h4></td>", data.PropertyName, data.Model);
             builder.Append("</tr>");
 
             return new MvcHtmlString(builder.ToString());

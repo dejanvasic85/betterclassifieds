@@ -8,6 +8,8 @@ Here's a list of the latest changes for the current release:
 
 **Technical Changes**
 
+- [Integrated security so we are no longer using super sql admin account](https://trello.com/c/pJOw5IIl/325-all-the-connection-strings-to-be-integrated-security)
+
 **Other useful resources:**
 
 - [Up-Coming features](https://trello.com/b/Ht5NWhN2/betterclassifieds)

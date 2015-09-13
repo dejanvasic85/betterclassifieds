@@ -27,7 +27,7 @@ namespace Paramount.ApplicationBlock.Mvc.HtmlHelpers
             {
                 builder.AppendFormat("<td><h4><i class='fa fa-{0}'></i><h4></td>", fontIcon);
             }
-            builder.AppendFormat("<td><h4><span id='{0}'>{1}</span></h4></td>", data.PropertyName, data.Model);
+            builder.AppendFormat("<td><h4><span id='{0}'>{1}</span></h4></td>", data.DisplayName, data.Model);
             builder.Append("</tr>");
 
             return new MvcHtmlString(builder.ToString());

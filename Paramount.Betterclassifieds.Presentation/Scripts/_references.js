@@ -221,3 +221,5 @@
 /// <reference path="app-global/ko-custombindings.js" />
 /// <reference path="vendor/bootstrap-toggle.js" />
 /// <reference path="app-global/ko-customsubscribe.js" />
+/// <reference path="app-global/google-map.js" />
+/// <reference path="app/contactadvertiser/contactadvertiser.model.js" />

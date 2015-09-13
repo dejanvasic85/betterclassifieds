@@ -332,6 +332,7 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\app-global\google-map.js" />
     <Content Include="Scripts\app-global\ko-customBindings.js" />
     <Content Include="Scripts\app\account\Login.js" />
     <Content Include="Scripts\app\account\Login.min.js">
@@ -349,6 +350,7 @@
     </Content>
     <None Include="Content\TheMusic\themusic.less" />
     <Content Include="Scripts\app\account\UserAds.js" />
+    <Content Include="Scripts\app\contactAdvertiser\contactAdvertiser.model.js" />
     <Content Include="Scripts\app\events\event.ui.js" />
     <Content Include="Scripts\app\events\eventAd.model.js" />
     <Content Include="Scripts\app\booking\BookingCategorySelection.js" />

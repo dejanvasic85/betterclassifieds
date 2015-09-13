@@ -109,10 +109,10 @@ if ( $db -eq $null ) {
 if ( $SanitizeDatabase -eq $true ) {	
 
 	Write-Host "Sanitization = Updating Membership with $($Sanitize_Email) email"
-	Run-Sql -Script "UPDATE aspnet_Membership SET Email = '$($Sanitize_Email)', LoweredEmail = '$($Sanitize_Email)'" -UseMaster $false
+	Run-Sql -UseMaster $false -Script "UPDATE aspnet_Membership SET Email = '$($Sanitize_Email)', LoweredEmail = '$($Sanitize_Email)'" 
 
 	Write-Host "Sanitization = Updating Profiles with $($Sanitize_Email) email"
-	Run-Sql -Script "UPDATE UserProfile SET Email = '$($Sanitize_Email)'" -UseMaster $false
+	Run-Sql -UseMaster $false -Script "UPDATE UserProfile SET Email = '$($Sanitize_Email)'"
 }
 
 Set-Location $scriptPath

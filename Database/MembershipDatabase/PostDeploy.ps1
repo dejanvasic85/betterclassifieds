@@ -8,13 +8,23 @@
 
 
 Function Run-Sql{
-    param([string] $Query, 
+    param([string] $Script, 
+		  [string] $File,
 		  [switch] $UseMaster = $true)
     
 	$sqlArgs = @{}
 
-    if ( $Query -ne $null )     {$sqlArgs.Query = $Query}
-	if ( $UseMaster -eq $false ) {$sqlArgs.Database = $connection.InitialCatalog}
+    if ( $Script ) {
+		$sqlArgs.Query = $Script
+	}
+
+	if ( $File ) {
+		$sqlArgs.InputFile = $File
+	}
+
+	if ( $UseMaster -eq $false ) {
+		$sqlArgs.Database = $connection.InitialCatalog
+	}
 
     $sqlArgs.ServerInstance  = $connection.DataSource
     $sqlArgs.QueryTimeout = 0
@@ -24,7 +34,8 @@ Function Run-Sql{
         $sqlArgs.P = $connection.Password 
     }
 
-	Write-Host "Executing: $($Query)"
+	$sqlArgs.GetEnumerator() | ForEach-Object { Write-Host $_.Key " " $_.Value }
+	Write-Host "Executing: $($Script)"
 
     return Invoke-Sqlcmd @sqlArgs
 }
@@ -37,7 +48,7 @@ Set-Location $scriptPath
 # Use connection builder to get variables we need for backup and stuff
 $connection = New-Object -TypeName System.Data.SqlClient.SqlConnectionStringBuilder -ArgumentList $appConfig.configuration.connectionStrings.add.connectionString
 
-$db = Run-Sql -Query "SELECT name from master.dbo.sysdatabases WHERE name = '$($connection.InitialCatalog)';" 
+$db = Run-Sql -Script "SELECT name from master.dbo.sysdatabases WHERE name = '$($connection.InitialCatalog)';" 
 
 # Backup-SqlDatabase 
 if ( $BackupDatabase -eq $true -and $db -ne $null ){
@@ -50,8 +61,8 @@ if ( $BackupDatabase -eq $true -and $db -ne $null ){
 # Restore-SqlDatabase
 if ( $RestoreDatabase -eq $true ){	
     $backupFile = $BackupDatabasePath + $BackupAppUserFile
-	Run-Sql -Query "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ErrorAction SilentlyContinue  
-	Run-Sql -Query "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ErrorAction SilentlyContinue
+	Run-Sql -Script "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ErrorAction SilentlyContinue  
+	Run-Sql -Script "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ErrorAction SilentlyContinue
 
 	$mdfRelocate = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile -ArgumentList ("AppUser", "$($SqlFilesPath)$($connection.InitialCatalog).mdf")
     $logRelocate = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile -ArgumentList ("AppUser_log", "$($SqlFilesPath)$($connection.InitialCatalog)_log.ldf")
@@ -64,11 +75,11 @@ if ( $RestoreDatabase -eq $true ){
 
 # Drop Create Database
 if ( $DropCreateDatabase -eq $true -and $db -ne $null ) {
-    Run-Sql -Query "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ErrorAction SilentlyContinue
-	Run-Sql -Query "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ErrorAction SilentlyContinue
+    Run-Sql -Script "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ErrorAction SilentlyContinue
+	Run-Sql -Script "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ErrorAction SilentlyContinue
 	
     Write-Host "Dropping database..."        
-    Run-Sql -Query "DROP DATABASE $($connection.InitialCatalog)" 
+    Run-Sql -Script "DROP DATABASE $($connection.InitialCatalog)" 
 	$db = $null
 }
 
@@ -85,7 +96,7 @@ if ( $db -eq $null ) {
 	Write-Host "MdfFile: $newMdfFile"
 	Write-Host "LogFile: $newLogFile"
 
-    Run-Sql -Query @"
+    Run-Sql -Script @"
 	CREATE DATABASE $($newDatabaseName)	
 	CONTAINMENT = NONE ON  PRIMARY ( NAME = N'$($newLogicalName)', FILENAME = N'$($newMdfFile)' , SIZE = 5120KB , FILEGROWTH = 1024KB )  
 	LOG ON ( NAME = N'$($newLogicalName)_log', FILENAME = N'$($newLogFile)' , SIZE = 1024KB , FILEGROWTH = 10%) 
@@ -98,10 +109,10 @@ if ( $db -eq $null ) {
 if ( $SanitizeDatabase -eq $true ) {	
 
 	Write-Host "Sanitization = Updating Membership with $($Sanitize_Email) email"
-	Run-Sql -Query "UPDATE aspnet_Membership SET Email = '$($Sanitize_Email)', LoweredEmail = '$($Sanitize_Email)'" -UseMaster $false
+	Run-Sql -Script "UPDATE aspnet_Membership SET Email = '$($Sanitize_Email)', LoweredEmail = '$($Sanitize_Email)'" -UseMaster $false
 
 	Write-Host "Sanitization = Updating Profiles with $($Sanitize_Email) email"
-	Run-Sql -Query "UPDATE UserProfile SET Email = '$($Sanitize_Email)'" -UseMaster $false
+	Run-Sql -Script "UPDATE UserProfile SET Email = '$($Sanitize_Email)'" -UseMaster $false
 }
 
 Set-Location $scriptPath

@@ -132,55 +132,7 @@
 
         @*Contact*@
         <div class="col-xs-12">
-            <div class="panel panel-primary" id="contactAdvertiserForm">
-                <div class="panel-heading">
-                    <h4><i class="fa fa-user"></i> Contact the organiser</h4>
-                </div>
-                
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <div class="panel-body">
-                        <p>
-                            Need more information? Leave a message for the organiser and they will
-                            be notified immediately.
-                        </p>
-                        <div class="form-group">
-                            <label class="control-label">Name</label>
-                            <input class="form-control input-lg" type="text" placeholder="Your Name" data-bind="value: name" />
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Email</label>
-                            <input class="form-control input-lg" type="text" placeholder="Your Email" data-bind="value: email" />
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Question</label>
-                            <input class="form-control input-lg" type="text" placeholder="Your Question" data-bind="value: message" />
-                        </div>
-                    </div>
-                    <div class="panel-footer clearfix">
-                        <button class="btn btn-primary pull-right" data-bind="click: submit">Submit</button>
-                    </div>
-                }
-                else
-                {
-                    <div class="panel-body">
-                        <p>
-                            Please @Html.ActionLink("login or register", "Login", "Account") to get in touch with the organiser.
-                        </p>
-                    </div>
-                }
-            </div>
+            @Html.Partial("_ContactAdvertiser.cshtml")
         </div>
     </div>
 </div>
-
-@section scripts
-{
-    <script>
-        $(function () {
-            var contactForm = new $paramount.models.ContactAdvertiser(@Model.AdId);
-            ko.applyBindings(contactForm, document.getElementById('contactAdvertiserForm'));
-        });
-    </script>
-
-}

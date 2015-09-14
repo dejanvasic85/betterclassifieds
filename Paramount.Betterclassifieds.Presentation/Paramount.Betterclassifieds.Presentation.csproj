@@ -690,6 +690,7 @@
     <Content Include="Views\Invoice\Booking.cshtml" />
     <Content Include="Views\Booking\Step2_Event.cshtml" />
     <Content Include="Views\EventAd\Index.cshtml" />
+    <Content Include="Views\Shared\_ContactAdvertiser.cshtml.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Framework\Validators\" />

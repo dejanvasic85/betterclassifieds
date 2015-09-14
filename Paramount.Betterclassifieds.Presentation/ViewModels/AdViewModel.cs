@@ -26,6 +26,12 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public string ContactEmail { get; set; }
         public string LocationName { get; set; }
         public string LocationAreaName { get; set; }
+
+        public string LocationAreaBreadcrumb
+        {
+            get { return this.LocationName + " > " + this.LocationAreaName; }
+        }
+
         public Dictionary<string, string> AdditionalAttributes { get; set; }
 
         public int NumOfViews { get; set; }

@@ -8,9 +8,11 @@
         me.email = ko.observable();
         me.message = ko.observable();
         me.submitted = ko.observable(false);
+        me.notSubmitted = ko.observable(true);
 
-        me.submit = function () {
+        me.sendMsg = function (event) {
             me.submitted(true);
+            console.log('submit');
         }
     }
 

@@ -18,6 +18,9 @@
          * data-address (for displaying tooltip marker)
          */
         var $map = $('.google-map');
+        if ($map.length === 0) {
+            return;
+        }
         var data = $map.data();
         var mapCanvas = $map.get(0);
         function initialize() {

@@ -16,11 +16,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         #region Page Elements
 
-        [FindsBy(How = How.Id, Using = "contactName"), UsedImplicitly] private IWebElement ContactNameElement;
+        [FindsBy(How = How.Id, Using = "ContactName"), UsedImplicitly] private IWebElement ContactNameElement;
 
-        [FindsBy(How = How.Id, Using = "contactEmail"), UsedImplicitly] private IWebElement ContactEmailElement;
+        [FindsBy(How = How.Id, Using = "ContactEmail"), UsedImplicitly] private IWebElement ContactEmailElement;
 
-        [FindsBy(How = How.Id, Using = "contactPhone"), UsedImplicitly] private IWebElement ContactPhoneElement;
+        [FindsBy(How = How.Id, Using = "ContactPhone"), UsedImplicitly] private IWebElement ContactPhoneElement;
 
         #endregion
 

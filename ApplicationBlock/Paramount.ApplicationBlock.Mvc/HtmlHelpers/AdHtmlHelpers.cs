@@ -17,7 +17,7 @@ namespace Paramount.ApplicationBlock.Mvc.HtmlHelpers
             if (data.Model.ToString().IsNullOrEmpty())
                 return MvcHtmlString.Empty;
 
-            var content = string.Format("<td><h4><span id='{0}'>{1}</span></h4></td>", data.DisplayName, data.Model);
+            var content = string.Format("<td><h4><span id='{0}'>{1}</span></h4></td>", data.PropertyName, data.Model);
             return CreateRowElementTemplate(content, glyph, fontIcon);
         }
 
@@ -28,7 +28,7 @@ namespace Paramount.ApplicationBlock.Mvc.HtmlHelpers
             if (data.Model.ToString().IsNullOrEmpty())
                 return MvcHtmlString.Empty;
 
-            var content = string.Format("<td><h4><a href='tel:+{1}'><span id='{0}'>{1}</span></a></h4></td>", data.DisplayName, data.Model);
+            var content = string.Format("<td><h4><a href='tel:+{1}'><span id='{0}'>{1}</span></a></h4></td>", data.PropertyName, data.Model);
 
             return CreateRowElementTemplate(content, glyph, fontIcon);
         }
@@ -40,7 +40,7 @@ namespace Paramount.ApplicationBlock.Mvc.HtmlHelpers
             if (data.Model.ToString().IsNullOrEmpty())
                 return MvcHtmlString.Empty;
 
-            var content = string.Format("<td><h4><a href='mailto:{1}?subject={2}'><span id='{0}'>{1}</span></a></h4></td>", data.DisplayName, data.Model, subject);
+            var content = string.Format("<td><h4><a href='mailto:{1}?subject={2}'><span id='{0}'>{1}</span></a></h4></td>", data.PropertyName, data.Model, subject);
 
             return CreateRowElementTemplate(content, glyph, fontIcon);
         }

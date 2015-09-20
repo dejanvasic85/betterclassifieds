@@ -18,7 +18,7 @@ namespace Paramount.Betterclassifieds.Console.Tasks
         {
             _max = args.ReadArgument("take", false, () => 100);
         }
-        
+
         public void Run()
         {
             // Runs the 

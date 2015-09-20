@@ -29,11 +29,10 @@ namespace Paramount.Betterclassifieds.Console
                 .RegisterType<IApplicationConfig, AppConfig>()
                 .RegisterType<IConfirmationCodeGenerator, ConfirmationCodeGenerator>()
                 .RegisterType<ICategoryAdRepositoryFactory, CategoryRepositoryFactory>()
-                ;
-
+                
 
             // Repositories
-            container.RegisterType<IBookingRepository, BookingRepository>()
+                .RegisterType<IBookingRepository, BookingRepository>()
                 .RegisterType<IBroadcastRepository, BroadcastRepository>()
                 .RegisterType<IEditionRepository, EditionRepository>()
                 .RegisterType<IPublicationRepository, PublicationRepository>()
@@ -41,6 +40,10 @@ namespace Paramount.Betterclassifieds.Console
                 .RegisterType<IAdRepository, AdRepository>()
                 .RegisterType<IUserRepository, UserRepository>()
                 .RegisterType<IDbContextFactory, DbContextFactory>()
+
+
+            // Console framework
+                .RegisterType<ILogger, ConsoleLogger>()
                 ;
             
         }

@@ -12,6 +12,13 @@
             this.SampleCall = sampleCall;
         }
 
+        public HelpAttribute(string sampleCall, string description)
+            : this(sampleCall)
+        {
+            this.Description = description;
+        }
+
         public string SampleCall { get; set; }
+        public string Description { get; set; }
     }
 }

@@ -2,9 +2,7 @@ Here's a list of the latest changes for the current release:
 
 **Enhancements**
 
-**Bug Fixes**   
-
-**Change Requests**
+- [Events - The beginning of something new. Beta only and half way through features](https://trello.com/c/Mmtk9Lek/292-events-epic)
 
 **Technical Changes**
 

@@ -1,6 +1,6 @@
 ﻿@using Paramount
 @using Paramount.Betterclassifieds.Presentation.Framework
-@model Paramount.Betterclassifieds.Presentation.ViewModels.SuccessView
+@model SuccessView
 
 @{
     ViewBag.Title = "Booking Complete";
@@ -80,7 +80,7 @@
             <div class="list-group">
                 @if (Model.IsBookingActive)
                 {
-                    <a href="@Url.Action("ViewAd", "Listings", routeValues: new { id = Model.AdId })" class="list-group-item">
+                    <a href="@Url.AdUrl(Model.TitleSlug, Model.AdId, routeName: Model.CategoryAdType)" class="list-group-item">
                         <i class="glyphicon glyphicon-check"></i> Check out my ad
                     </a>
                 }

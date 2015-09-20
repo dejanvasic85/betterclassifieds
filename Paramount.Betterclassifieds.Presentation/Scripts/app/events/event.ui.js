@@ -9,12 +9,12 @@
         init: function (options) {
             // onReady function
             $(function () {
-                var eventDetails;
+                var eventDetailsModel;
 
                 // Initally load the data
                 $.getJSON(options.ServiceEndpoint.getEventDetails).done(function (response) {
-                    eventDetails = new $paramount.models.EventAd(response, options);
-                    ko.applyBindings(eventDetails);
+                    eventDetailsModel = new $paramount.models.EventAd(response, options);
+                    ko.applyBindings(eventDetailsModel);
                 });
 
                 // Image upload handler
@@ -23,11 +23,11 @@
                     element: $eventEditor.find('#eventPhotoUpload'),
                     progressBar: $eventEditor.find('#eventPhotoUploadProgress'),
                     complete: function (documentId) {
-                        eventDetails.eventPhoto(documentId);
-                        eventDetails.eventPhotoUploadError(null);
+                        eventDetailsModel.eventPhoto(documentId);
+                        eventDetailsModel.eventPhotoUploadError(null);
                     },
                     error: function(errorMsg) {
-                        eventDetails.eventPhotoUploadError(errorMsg);
+                        eventDetailsModel.eventPhotoUploadError(errorMsg);
                     }
                 });
 
@@ -35,7 +35,7 @@
                     if ($(this).valid() === false) {
                         return;
                     }
-                    eventDetails.submitChanges().done(function(result) {
+                    eventDetailsModel.submitChanges().done(function(result) {
                         if (result.nextUrl) {
                             window.location = result.nextUrl;
                             return;

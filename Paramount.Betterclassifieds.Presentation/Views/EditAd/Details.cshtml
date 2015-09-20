@@ -35,7 +35,7 @@
 
 @Html.Partial("_CropImage")
 
-<form role="form" id="adDesignForm" action="@Url.Action("Details", "EditAd")" method="POST">
+<form role="form" id="editAdForm" action="@Url.Action("Details", "EditAd")" method="POST">
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.Id)
     @Html.HiddenFor(m => m.IsFutureScheduledAd)
@@ -300,10 +300,7 @@
 @section Scripts{
 
     <script>
-
         (function($, $p, $url, $models) {
-
-
             var adService = new $p.adService($url.adManagement, @Model.Id);
             var lineAdJson = {};
             @if (Model.IsLineAdIncluded)
@@ -320,85 +317,9 @@
             };
 
             var designAdModel = new $models.DesignAd(designOptions);
-            ko.applyBindings(designAdModel);
-
-            $(function() {
-                // Set online editor
-                $p.setOnlineEditor('OnlineAdDescription');
-
-                // Upload online images
-                $p.upload({
-                    url: $url.adManagement.uploadOnlineImage,
-                    element: $('#fileupload'),
-                    progressBar: $('#onlineImages .progress'),
-                    start: function() {
-                        // Start
-                        designAdModel.errorMsg('');
-                        designAdModel.uploadImageInProgress(true);
-                    },
-                    complete: function(fileId) {
-                        adService.assignOnlineImage(fileId)
-                            .done(function() {
-                                designAdModel.adImages.push(fileId);
-                                designAdModel.uploadImageInProgress(false);
-                            });
-                    },
-                    error: function(err) {
-                        // Error
-                        designAdModel.errorMsg(err);
-                        designAdModel.uploadImageInProgress(false);
-                    }
-                });
-
-                // Upload control for print
-                var $printImg = $('#imgCropContainer > img');
-                var printImgFileName;
-
-                $p.upload({
-                    url: $url.manageImg.uploadCropImage,
-                    element: $('#fileuploadPrint'),
-                    progressBar: $('#fileUploadPrintProgress'),
-                    start: function() {
-                    },
-                    complete: function(fileName) {
-                        printImgFileName = fileName;
-                        $('#printCropImg').attr('src', $url.manageImg.renderCropImage + "?fileName=" + fileName);
-                        $('#printImageCropDialog').modal('show');
-                    }
-                });
-
-                $('#printImageCropDialog').on('shown.bs.modal', function() {
-                    $printImg.cropper({
-                        aspectRatio: 1,
-                        data: { x: 500, y: 500, height: 700, width: 700 },
-                        modal: true,
-                        dashed: false
-                    });
-                });
-
-                $('#printImageCropDialog').on('hide.bs.modal', function(e) {
-                    $printImg.cropper('destroy');
-                });
-
-                $('#btnDoneCropping').on('click', function() {
-                    var $btn = $(this);
-                    $btn.button('loading');
-                    var data = $printImg.cropper("getData");
-                    data.documentId = printImgFileName;
-                    $p.imageService
-                        .cropImage(printImgFileName, data.x, data.y, data.width, data.height)
-                        .done(function(documentId) {
-                            $btn.button('reset');
-                            $('#printImageCropDialog').modal('hide');
-                            designAdModel.lineAdImageId(documentId);
-                        });
-                });
-
-            });
-
+            $p.editAd.init(designAdModel, adService);
+            
         })(jQuery, $paramount, $paramount.url, $paramount.models);
-
-
     </script>
 }
 

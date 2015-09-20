@@ -284,8 +284,10 @@
             // Build the view model
             var successView = new SuccessView
             {
-                AdId = id.ToString(),
+                AdId = id.GetValueOrDefault(),
+                TitleSlug =  Slug.Create(true, bookingCart.OnlineAdModel.Heading),
                 IsBookingActive = bookingCart.StartDate <= DateTime.Today,
+                CategoryAdType = bookingCart.CategoryAdType,
                 ExistingUsers = _userManager.GetUserNetworksForUserId(currentUser.Username).Select(usr => new UserNetworkEmailView
                 {
                     Email = usr.UserNetworkEmail,

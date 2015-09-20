@@ -1,12 +1,12 @@
 ﻿@using Paramount
 
-@model List<Paramount.Betterclassifieds.Presentation.ViewModels.AdSummaryViewModel>
+@model List<AdSummaryViewModel>
 
 <div class="list-group">
     @if (Model.IsNullOrEmpty())
     {
         <div class="well">
-            Oh No! There are no results to display for your search. Refine your search and try again.
+            Oh No! There are no results to display. If you were doing a search, try to relax the filters and try again.
         </div>
     }
 

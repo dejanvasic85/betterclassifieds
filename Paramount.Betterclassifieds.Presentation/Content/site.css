@@ -134,6 +134,7 @@
   display: inline-block;
 }
 .event-editor .event-photo .photo-upload {
+  margin-top: 44px;
   display: table;
   width: 100%;
 }

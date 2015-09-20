@@ -37,7 +37,11 @@
     {
         <div class="panel-body">
             <p>
-                Please @Html.ActionLink("login or register", "Login", "Account") to get in touch with the organiser.
+                Please
+                <a href="@Url.Action("Login", "Account")">
+                    login or register
+                </a>
+                to leave a message for the organiser.
             </p>
         </div>
     }

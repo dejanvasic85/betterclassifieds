@@ -22,7 +22,7 @@ namespace Paramount.Betterclassifieds.Presentation
 
             // Ad route
             routes.MapRoute("adRoute", "Ad/{title}/{id}", new { controller = "Listings", action = "ViewAd" });
-            routes.MapRoute("Event", "Event/{title}/{id}", new {controller = "EventAd", action = "Index"});
+            routes.MapRoute("Event", "Event/{title}/{id}", new {controller = "EventAd", action = "ViewEventAd"});
 
             // Seo route
             routes.MapRoute("seoName", "{seoName}/listings", new { controller = "Listings", action = "SeoAds" });

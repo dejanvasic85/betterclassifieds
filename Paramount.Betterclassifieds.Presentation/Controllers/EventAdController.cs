@@ -23,7 +23,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         //
         // GET: /EventDetail/
 
-        public ActionResult Index(int id, string titleSlug = "")
+        public ActionResult ViewEventAd(int id, string titleSlug = "")
         {
             var onlineAdModel = _searchService.GetAdById(id);
 
@@ -33,27 +33,30 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             var eventModel = _eventRepository.GetEventDetails(onlineAdModel.OnlineAdId);
-            var eventViewModel = this.Map<Business.Events.EventModel, EventViewModel>(eventModel);
-
-            eventViewModel.Title = onlineAdModel.Heading;
-            eventViewModel.Description = onlineAdModel.Description;
-            eventViewModel.OrganiserName = onlineAdModel.ContactName;
-            eventViewModel.OrganiserPhone = onlineAdModel.ContactPhone;
-            eventViewModel.EventPhoto = onlineAdModel.ImageUrls.With(i => i.FirstOrDefault());
-            eventViewModel.Views = onlineAdModel.NumOfViews;
-            eventViewModel.Posted = onlineAdModel.BookingDate.HasValue ? onlineAdModel.BookingDate.Value.Humanize(utcDate: false) : string.Empty;
-            eventViewModel.AdId = onlineAdModel.AdId;
+            var eventViewModel = this.Map<Business.Events.EventModel, EventViewDetailsModel>(eventModel);
+            this.Map(onlineAdModel, eventViewModel);
 
             return View(eventViewModel);
         }
 
         public void OnRegisterMaps(IConfiguration configuration)
         {
-            configuration.CreateMap<Business.Events.EventModel, EventViewModel>()
+            configuration.CreateMap<Business.Events.EventModel, EventViewDetailsModel>()
                 .ForMember(member => member.EventStartDate, options => options.ResolveUsing(src => src.EventStartDate.GetValueOrDefault().ToLongDateString()))
                 .ForMember(member => member.EventStartTime, options => options.ResolveUsing(src => src.EventStartDate.GetValueOrDefault().ToString("hh:mm tt")))
                 .ForMember(member => member.EventEndDate, options => options.ResolveUsing(src => src.EventEndDate.GetValueOrDefault().ToLongDateString()))
                 ;
+
+            configuration.CreateMap<Business.Search.AdSearchResult, EventViewDetailsModel>()
+                .ForMember(m => m.Posted, options => options.PreCondition(src => src.BookingDate.HasValue))
+                .ForMember(m => m.Posted, options => options.MapFrom(src => src.BookingDate.Value.Humanize(false, null)))
+                .ForMember(m => m.Title, options => options.MapFrom(src => src.Heading))
+                .ForMember(m => m.OrganiserName, options => options.MapFrom(src => src.ContactName))
+                .ForMember(m => m.OrganiserPhone, options => options.MapFrom(src => src.ContactPhone))
+                .ForMember(m => m.Views, options => options.MapFrom(src => src.NumOfViews))
+                .ForMember(m => m.EventPhoto, options => options.MapFrom(src => src.ImageUrls.FirstOrDefault()))
+                ;
+
             configuration.CreateMap<Business.Events.EventTicket, EventTicketViewModel>();
         }
     }

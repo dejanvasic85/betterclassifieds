@@ -243,6 +243,8 @@
     <Compile Include="ViewModels\Booking\PublicationView.cs" />
     <Compile Include="ViewModels\ContactUsView.cs" />
     <Compile Include="ViewModels\Converter\BookingCartToEventViewConverter.cs" />
+    <Compile Include="ViewModels\EventTicketViewModel.cs" />
+    <Compile Include="ViewModels\EventViewDetailsModel.cs" />
     <Compile Include="ViewModels\EventViewModel.cs" />
     <Compile Include="ViewModels\Converter\EventViewToBookingCartConverter.cs" />
     <Compile Include="ViewModels\HomeModel.cs" />
@@ -689,7 +691,7 @@
     <Content Include="Views\UserAds\Index.cshtml" />
     <Content Include="Views\Invoice\Booking.cshtml" />
     <Content Include="Views\Booking\Step2_Event.cshtml" />
-    <Content Include="Views\EventAd\Index.cshtml" />
+    <Content Include="Views\EventAd\ViewEventAd.cshtml" />
     <Content Include="Views\Shared\_ContactAdvertiser.cshtml.cshtml" />
   </ItemGroup>
   <ItemGroup>

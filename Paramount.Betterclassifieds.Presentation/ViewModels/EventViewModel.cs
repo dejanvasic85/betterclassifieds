@@ -16,9 +16,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
         [Required]
         public string Description { get; set; }
+
         [Required]
         public string AdStartDate { get; set; }
-     
+
         [Required]
         public string Location { get; set; }
 
@@ -44,20 +45,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
         [Required]
         public string OrganiserName { get; set; }
+
         public string OrganiserPhone { get; set; }
 
         public List<EventTicketViewModel> Tickets { get; set; }
         public bool TicketingEnabled { get; set; }
-        public int Views { get; set; }
-        public string Posted { get; set; }
-        public int AdId { get; set; }
-    }
-
-    public class EventTicketViewModel
-    {
-        public int? TicketId { get; set; }
-        public string TicketName { get; set; }
-        public int AvailableQuantity { get; set; }
-        public decimal Price { get; set; }
     }
 }

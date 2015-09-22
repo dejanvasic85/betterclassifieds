@@ -1,19 +1,39 @@
-﻿(function ($, $models, $url) {
+﻿(function ($, $models) {
 
-    $models.ContactAdvertiser = function (adId) {
+    $models.ContactAdvertiser = function (adId, url) {
         var me = this;
 
         me.adId = ko.observable(adId);
-        me.name = ko.observable();
+        me.fullName = ko.observable();
         me.email = ko.observable();
-        me.message = ko.observable();
+        me.question = ko.observable();
         me.submitted = ko.observable(false);
-        me.notSubmitted = ko.observable(true);
-
-        me.sendMsg = function (event) {
-            me.submitted(true);
-            console.log('submit');
+        
+        me.sendMsg = function () {
+            var $form = $('#contactAdvertiserForm');
+            var $btn = $form.find('button');
+            
+            if ($('#contactAdvertiserForm').valid()) {
+                $btn.button('loading');
+                var model = ko.toJSON(me);
+                console.log(model);
+                $.ajax({
+                    url: url,
+                    data: model,
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json'
+                }).success(function (response) {
+                    console.log('success');
+                    console.log(response);
+                }).done(function() {
+                    $btn.button('reset');
+                    me.submitted(true);
+                });
+            }
         }
     }
 
-})(jQuery, $paramount.models, $paramount.url);
+    return $models;
+
+})(jQuery, $paramount.models);

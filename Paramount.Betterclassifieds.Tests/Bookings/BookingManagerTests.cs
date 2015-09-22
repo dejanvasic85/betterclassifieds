@@ -87,7 +87,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
             Assert.That(onlineAdMock.NumOfViews, Is.EqualTo(1));
             adRepositoryMock.Verify(call => call.UpdateOnlineAd(It.IsAny<OnlineAdModel>()), Times.Once);
         }
-        
+
         [Test]
         public void UpdateSchedule_WithNewStartDate_GeneratesNewEndDate_CallsRepository()
         {
@@ -98,16 +98,41 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
             var expectedEndDate = startDate.AddDays(onlineDayDuration);
 
             _bookingRepositoryMock.Setup(call => call.UpdateBooking(
-                It.Is<int>(v => v == adId), 
+                It.Is<int>(v => v == adId),
                 It.Is<DateTime>(v => v == startDate),
-                It.Is<DateTime>(v => v == expectedEndDate), 
+                It.Is<DateTime>(v => v == expectedEndDate),
                 null));
-            
+
             _clientConfigMock.Setup(call => call.RestrictedOnlineDaysCount)
                 .Returns(onlineDayDuration);
 
             // act
             _container.Resolve<BookingManager>().UpdateSchedule(adId, startDate);
+        }
+
+        [Test]
+        public void SubmitAdEnquiry_CallRepository_And_SendsNotification()
+        {
+            var mockAdEnquiry = new AdEnquiryMockBuilder()
+                .WithAdId(1)
+                .WithEmail("mock@email.com")
+                .WithFullName("John Smith")
+                .WithPhone("04555555")
+                .WithQuestion("Can I ask you something")
+                .Build();
+
+            var mockBooking = new AdBookingMockBuilder().WithUser("user123").Build();
+            var mockApplicationUser = new ApplicationUserMockBuilder().WithEmail("me@email.com").Build();
+
+            // Setup all the calls that need to be made
+            _adRepository.Setup(call => call.CreateAdEnquiry(It.IsAny<AdEnquiry>())).Callback<AdEnquiry>(a => a.EnquiryId = 100);
+            _bookingRepositoryMock.Setup(call => call.GetBooking(It.Is<int>(i => i == mockAdEnquiry.AdId), false, false, false, false)).Returns(mockBooking);
+            _userManagerMock.Setup(call => call.GetUserByEmailOrUsername(It.Is<string>(s => s == mockBooking.UserId))).Returns(mockApplicationUser);
+            _broadcastManagerMock.Setup(call => call.SendEmail(It.IsAny<AdEnquiryTemplate>(), It.IsAny<string[]>())).Returns(Guid.NewGuid());
+
+            var bookingManager = _container.Resolve<BookingManager>();
+
+            bookingManager.SubmitAdEnquiry(mockAdEnquiry);
         }
     }
 }

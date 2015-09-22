@@ -66,6 +66,7 @@
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Scripts\0058-OnlineAdEnquiry_Create.sql" />
     <EmbeddedResource Include="Scripts\0056-MainCategory_CategoryAdType.sql" />
     <EmbeddedResource Include="Scripts\0057-BookedAds_AddCategoryAdType.sql" />
     <EmbeddedResource Include="Scripts\0054-Editions_GetUpcomingForPublications.sql" />

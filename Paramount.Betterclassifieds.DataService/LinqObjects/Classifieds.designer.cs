@@ -886,6 +886,14 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			onlineAdId = ((System.Nullable<int>)(result.GetParameterValue(19)));
 			return ((int)(result.ReturnValue));
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.OnlineAdEnquiry_Create")]
+		public int OnlineAdEnquiry_Create([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> adId, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(100)")] string fullName, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(100)")] string email, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(MAX)")] string enquiryText, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(12)")] string phone, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] ref System.Nullable<int> enquiryId)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), adId, fullName, email, enquiryText, phone, enquiryId);
+			enquiryId = ((System.Nullable<int>)(result.GetParameterValue(5)));
+			return ((int)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Ad")]

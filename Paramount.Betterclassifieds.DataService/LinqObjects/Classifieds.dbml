@@ -1160,4 +1160,13 @@
     <Parameter Name="onlineAdId" Type="System.Int32" DbType="Int" Direction="InOut" />
     <Return Type="System.Int32" />
   </Function>
+  <Function Name="dbo.OnlineAdEnquiry_Create" Method="OnlineAdEnquiry_Create">
+    <Parameter Name="adId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="fullName" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="email" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="enquiryText" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="phone" Type="System.String" DbType="VarChar(12)" />
+    <Parameter Name="enquiryId" Type="System.Int32" DbType="Int" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>

@@ -8,15 +8,13 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public int AdId { get; set; }
 
         [Required]
-        public int OnlineAdId { get; set; }
-        
-        [Required]
         [Display(Name = "Full Name")]
         [MaxLength(100, ErrorMessage = "Full Name cannot exceed 100 characters")]
         public string FullName { get; set; }
 
         [Required]
         [MaxLength(100, ErrorMessage = "Email cannot exceed 100 characters")]
+        [EmailAddress]
         public string Email { get; set; }
 
         [MaxLength(20, ErrorMessage = "Phone cannot exceed 20 characters")]

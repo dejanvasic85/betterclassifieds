@@ -47,13 +47,9 @@ namespace Paramount.Betterclassifieds.DataService.Repository
         {
             using (var context = _dbContextFactory.CreateClassifiedContext())
             {
-                var dbEnquiry = new OnlineAdEnquiry(); 
-                this.Map(adEnquiry, dbEnquiry);                
-                dbEnquiry.CreatedDate = DateTime.Now;
-                dbEnquiry.EnquiryTypeId = 1;
-                dbEnquiry.Active = true;
-                context.OnlineAdEnquiries.InsertOnSubmit(dbEnquiry);
-                context.SubmitChanges();
+                int? enquiryId = null;
+                context.OnlineAdEnquiry_Create(adEnquiry.AdId, adEnquiry.FullName, adEnquiry.Email, adEnquiry.Question, adEnquiry.Phone, ref enquiryId);
+                adEnquiry.EnquiryId = enquiryId;
             }
         }
 

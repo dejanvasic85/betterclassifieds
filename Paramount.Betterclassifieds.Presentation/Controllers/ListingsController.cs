@@ -179,19 +179,12 @@
             return View(adViewModel);
         }
 
-        [ValidateAntiForgeryToken]
-        [HttpPost, CaptchaVerify("Captcha is not valid")]
+        [HttpPost]
         public ActionResult AdEnquiry(AdEnquiryViewModel adEnquiry)
         {
             if (!ModelState.IsValid)
             {
-                IUpdateInfoModel updatedCaptcha = this.GenerateCaptchaValue(5);
-                return Json(new
-                {
-                    isValid = false,
-                    imageElementId = updatedCaptcha.ImageUrl,
-                    tokenElementId = updatedCaptcha.TokenValue
-                });
+                return Json(new {isValid = false});
             }
 
             var enquiry = this.Map<AdEnquiryViewModel, AdEnquiry>(adEnquiry);

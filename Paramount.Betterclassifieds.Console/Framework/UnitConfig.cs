@@ -21,7 +21,7 @@ namespace Paramount.Betterclassifieds.Console
                 .RegisterType<IEditionManager, EditionManager>()
                 .RegisterType<IClientConfig, ClientConfig>()
                 .RegisterType<IBroadcastManager, BroadcastManager>()
-                .RegisterType<INotificationProcessor, Business.Broadcast.EmailProcessor>()
+                .RegisterType<INotificationProcessor, Business.Broadcast.EmailProcessor>("EmailProcessor")
                 .RegisterType<ISmtpMailer, DefaultMailer>()
                 .RegisterType<IDateService, ServerDateService>()
                 .RegisterType<IUserManager, UserManager>()

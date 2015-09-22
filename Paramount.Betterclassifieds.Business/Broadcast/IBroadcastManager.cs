@@ -24,6 +24,11 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         {
             _broadcastRepository = broadcastRepository;
             _processors = notificationProcessors;
+
+            if (notificationProcessors == null || notificationProcessors.Length == 0)
+            {
+                throw new ArgumentNullException("notificationProcessors", "There are no notificationProcessors setup. Please check the unity config and try again.");
+            }
         }
 
         public Guid SendEmail<T>(T docType, params string[] to) where T : IDocType
@@ -35,6 +40,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             // Currently we only have an email processor - so just use that 
             // In the future, we'd like to have a bunch of processors 
             // that have a subscription system tied inside it ( per document type )
+
             var emailProcessor = _processors.OfType<EmailProcessor>().First();
             notification.IsComplete = emailProcessor.Send(docType, notification.BroadcastId, docType.ToPlaceholderDictionary(), to);
 

@@ -17,7 +17,10 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
         public string Brand
         {
-            get { return ConfigManager.ReadAppSetting<string>("Brand"); }
+            get
+            {
+                return ConfigManager.ReadAppSetting<string>("Brand");
+            }
         }
 
         public string Environment

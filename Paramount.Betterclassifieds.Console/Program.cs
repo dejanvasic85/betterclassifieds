@@ -18,15 +18,15 @@ namespace Paramount.Betterclassifieds.Console
             try
             {
 
-//#if DEBUG
-//                program.Start(new[]
-//                {
-//                    TaskArguments.TaskFullArgName, typeof(Tasks.HealthCheck).Name, "-emails dejanvasic@outlook.com"
-//                });
+#if DEBUG
+                program.Start(new[]
+                {
+                    TaskArguments.TaskFullArgName, typeof(Tasks.HealthCheck).Name, "-to", "dejanvasic@outlook.com"
+                });
 
-//#else
+#else
                 program.Start(args);
-//#endif
+#endif
             }
             catch (Exception ex)
             {

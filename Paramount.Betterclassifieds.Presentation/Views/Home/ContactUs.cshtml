@@ -1,13 +1,10 @@
-﻿@using CaptchaMvc.HtmlHelpers
-@using Paramount
-@using Paramount.Betterclassifieds.Presentation.ViewModels
+﻿@using Paramount
 
 @model ContactUsView
 
 @{
-    Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayoutWithSearch.cshtml");
+    Layout = "~/Views/Shared/_ApplicationLayoutWithSearch.cshtml";
     ViewBag.Title = "Classifieds Home - Find everything you're looking for right here";
-    var captcha = Html.Captcha("Try Another", "What is the text in the image above?", 5);
     var address = (AddressViewModel)ViewBag.Address;
 }
 <div class="row">
@@ -40,11 +37,7 @@
                     @Html.LabelFor(m => m.Comment)
                     @Html.BootstrapTextBoxFor(m => m.Comment)
                     @Html.ValidationMessageFor(m => m.Comment)
-                </div>
-                <div class="form-group">
-                    <label for="CaptchaInputText">Human Test</label>
-                    @captcha
-                </div>
+                </div>              
                 <div class="alert alert-danger hidden" id="enquiryFailed">The human test failed. Please verify the image and try again.</div>
                 <div class="form-group">
                     <button id="btnSubmit" class="btn btn-default">
@@ -84,7 +77,7 @@
 </div>
 
 @section Scripts{
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    
     <script>
 
         var map, latLng;
@@ -128,9 +121,6 @@
                 }).success(function (result) {
                     if (!result.IsValid) {
                         $('#enquiryFailed').removeClass('hidden');
-                        $('#@captcha.BuildInfo.ImageElementId').attr('src', result.imageElementId);
-                        $('#@captcha.BuildInfo.TokenElementId').attr('value', result.tokenElementId);
-                        $('#@captcha.BuildInfo.InputElementId').val('');
                         return;
                     }
                     $('#contactUsForm').slideUp(500, function () {

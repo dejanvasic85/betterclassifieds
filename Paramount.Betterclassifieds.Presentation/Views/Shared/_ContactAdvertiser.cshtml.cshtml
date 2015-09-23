@@ -1,6 +1,6 @@
 ﻿<div class="panel panel-primary" id="contactAdvertiserComponent">
     <div class="panel-heading">
-        <h4><i class="fa fa-user"></i> Contact the organiser</h4>
+        <h4><i class="fa fa-user"></i> Contact the advertiser</h4>
     </div>
 
     @if (User.Identity.IsAuthenticated)
@@ -8,7 +8,7 @@
         <form id="contactAdvertiserForm" data-bind="submit: sendMsg, visible: submitted() === false">
             <div class="panel-body">
                 <p>
-                    Need more information? Leave a message for the organiser and they will
+                    Need more information? Leave a message for the advertiser and they will
                     be notified immediately.
                 </p>
                 <div class="form-group">

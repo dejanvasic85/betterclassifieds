@@ -1,12 +1,10 @@
-﻿@using CaptchaMvc.HtmlHelpers
-@using Paramount
+﻿@using Paramount
 @using Paramount.ApplicationBlock.Mvc.HtmlHelpers
 
 @model AdViewModel
 
 @{
     Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayout.cshtml");
-    var captcha = Html.Captcha("Try Another", "What is the text in the image above?", 5);
     var urlWithProtocol = Url.AdUrl(Model.HeadingSlug, Model.AdId, true);
     var encodedUrl = HttpUtility.UrlEncode(urlWithProtocol);
 }
@@ -43,7 +41,7 @@
     </div>
     <div class="row top-buffer-10">
         @*Ad Details*@
-        <div class="col-sm-8">
+        <div class="col-md-8">
             @if (Model.HasImages)
             {
                 @*Image Gallery*@
@@ -95,7 +93,7 @@
 
         </div>
 
-        <div class="col-sm-4">
+        <div class="col-md-4">
             @if (Model.VisitorIsTheOwner)
             {
                 <a class="btn btn-block btn-warning bottom-buffer-10" href="@Url.Action("Details", "EditAd", new{id = Model.AdId})">Edit Ad <i class="glyphicon glyphicon-pencil"></i></a>
@@ -131,50 +129,12 @@
                 </table>
             </div>
 
-            @*Contact Advertiser*@
-            <div class="panel panel-primary" id="contactAdvertiserPanel">
-                <div class="panel-heading">
-                    Contact Advertiser
-                </div>
+        </div>
+    </div>
 
-                <div class="panel-body">
-                    <div class="alert alert-success hidden" id="enquirySuccessful">Your message has been sent successfully</div>
-                    <form id="adEnquiryForm">
-                        @Html.AntiForgeryToken()
-                        @Html.HiddenFor(m => m.OnlineAdId)
-                        @Html.HiddenFor(m => m.AdId)
-                        <div class="form-group">
-                            <label for="fullName">Full Name</label>
-                            <input type="text" name="fullName" id="fullName" class="form-control"
-                                   data-val="true" data-val-required="Full name is required"
-                                   data-val-length="Full Name must be no longer than 100 characters" data-val-max-length="100" />
-                            <span class="field-validation-valid help-block" data-valmsg-for="fullName" data-valmsg-replace="true"></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" name="email" id="email" class="form-control"
-                                   data-val="true" data-val-required="Email is required"
-                                   data-val-length="Email must be no longer than 100 characters" data-val-max-length="100"
-                                   data-val-email="Email does not appear to be in valid format." />
-                            <span class="field-validation-valid help-block" data-valmsg-for="email" data-valmsg-replace="true"></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="question">Your Question</label>
-                            <textarea name="question" id="question" class="form-control" rows="3"
-                                      data-val="true" data-val-required="Question is required"></textarea>
-                            <span class="field-validation-valid help-block" data-valmsg-for="question" data-valmsg-replace="true"></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="CaptchaInputText">Human Test</label>
-                            @captcha
-                        </div>
-                        <div class="form-group">
-                            <button id="btnSubmit" class="btn btn-primary btn-block">Submit</button>
-                        </div>
-                        <div class="alert alert-danger hidden" id="enquiryFailed">The human test failed. Please verify the image and try again.</div>
-                    </form>
-                </div>
-            </div>
+    <div class="row top-buffer-20">
+        <div class="col-xs-12" id="contactAdvertiserPanel">
+            @Html.Partial("_ContactAdvertiser.cshtml")
         </div>
     </div>
     <div class="row visible-xs">
@@ -205,13 +165,7 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 
-
         $(function () {
-
-            $('#adEnquiryForm').submit(function (e) {
-                e.preventDefault();
-                submitEnquiry();
-            });
 
             $('#shareOnFacebook').on('click', function () {
                 FB.ui({
@@ -219,39 +173,6 @@
                     href: '@urlWithProtocol',
                 }, function (response) { });
             });
-
-            function submitEnquiry() {
-
-                var $btn = $('#btnSubmit');
-                var validation = $('#adEnquiryForm').validate();
-                $('#enquiryFailed').addClass('hidden');
-                if (!validation.valid())
-                    return false;
-
-                $btn.button('loading');
-
-                $.ajax({
-                    method: 'POST',
-                    url: '@Url.Action("AdEnquiry")',
-                    data: $('#adEnquiryForm').serialize()
-                }).always(function () {
-                    $btn.button('reset');
-                }).success(function (result) {
-                    if (!result.isValid) {
-                        $('#enquiryFailed').removeClass('hidden');
-                        $('#@captcha.BuildInfo.ImageElementId').attr('src', result.imageElementId);
-                        $('#@captcha.BuildInfo.TokenElementId').attr('value', result.tokenElementId);
-                        $('#@captcha.BuildInfo.InputElementId').val('');
-                        return;
-                    }
-
-                    $('#adEnquiryForm').slideUp(500, function () {
-                        $('#enquirySuccessful').removeClass('hidden');
-                    });
-                });
-
-                return false;
-            }
         });
     </script>
 }

@@ -4,9 +4,6 @@
     using Business;
     using Business.Booking;
     using Business.Search;
-    using CaptchaMvc.Attributes;
-    using CaptchaMvc.HtmlHelpers;
-    using CaptchaMvc.Interface;
     using Microsoft.Ajax.Utilities;
     using System.Collections.Generic;
     using System.Linq;

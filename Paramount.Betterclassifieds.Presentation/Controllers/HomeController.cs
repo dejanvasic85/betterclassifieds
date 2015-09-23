@@ -1,9 +1,6 @@
 ﻿namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     using AutoMapper;
-    using CaptchaMvc.Attributes;
-    using CaptchaMvc.HtmlHelpers;
-    using CaptchaMvc.Interface;
     using Business;
     using Business.Broadcast;
     using Business.Search;
@@ -48,18 +45,12 @@
         }
 
         [ValidateAntiForgeryToken]
-        [HttpPost, CaptchaVerify("Captcha is not valid")]
+        [HttpPost]
         public ActionResult ContactUs(ContactUsView contactUsView)
         {
             if (!ModelState.IsValid)
             {
-                IUpdateInfoModel updatedCaptcha = this.GenerateCaptchaValue(5);
-                return Json(new
-                {
-                    isValid = false,
-                    imageElementId = updatedCaptcha.ImageUrl,
-                    tokenElementId = updatedCaptcha.TokenValue
-                });
+                return Json(new {isValid = false});
             }
 
             _broadcastManager.SendEmail(new SupportRequest

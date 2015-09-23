@@ -1,5 +1,4 @@
-﻿using System;
-using Paramount.Betterclassifieds.Business.Broadcast;
+﻿using Paramount.Betterclassifieds.Business.Broadcast;
 
 namespace Paramount.Betterclassifieds.Console.Tasks
 {
@@ -14,12 +13,12 @@ namespace Paramount.Betterclassifieds.Console.Tasks
 
         public void HandleArgs(TaskArguments args)
         {
-            
+
         }
 
         public void Run()
         {
-            _broadcastManager.SendEmail(new ForgottenPassword() {Email = "dejanvasic@outlook.com"});
+            _broadcastManager.SendEmail(new ForgottenPassword { Email = "dejanvasic@outlook.com" });
         }
 
         public bool Singleton { get; private set; }

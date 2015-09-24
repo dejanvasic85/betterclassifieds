@@ -224,3 +224,6 @@
 /// <reference path="app/booking/bookingcategoryselection.js" />
 /// <reference path="app/booking/designad.js" />
 /// <reference path="app/listings/Find.min.js" />
+/// <reference path="app/events/booktickets.ui.js" />
+/// <reference path="app/events/eventticket.model.js" />
+/// <reference path="app/events/booktickets.model.js" />

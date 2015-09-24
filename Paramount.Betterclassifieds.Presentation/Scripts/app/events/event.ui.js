@@ -4,8 +4,8 @@
 (function ($, ko, $paramount) {
 
     var $eventEditor = $('#eventEditor');
-
-    $paramount.event = {
+    $paramount.ui = $paramount.ui || {};
+    $paramount.ui.event = {
         init: function (options) {
             // onReady function
             $(function () {

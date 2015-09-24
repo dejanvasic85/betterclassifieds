@@ -190,7 +190,7 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\EditAdController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
-    <Compile Include="Controllers\EventAdController.cs" />
+    <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\InvoiceController.cs" />
@@ -240,9 +240,9 @@
     <Compile Include="ViewModels\Booking\PublicationView.cs" />
     <Compile Include="ViewModels\ContactUsView.cs" />
     <Compile Include="ViewModels\Converter\BookingCartToEventViewConverter.cs" />
-    <Compile Include="ViewModels\EventTicketViewModel.cs" />
-    <Compile Include="ViewModels\EventViewDetailsModel.cs" />
-    <Compile Include="ViewModels\EventViewModel.cs" />
+    <Compile Include="ViewModels\Events\EventTicketViewModel.cs" />
+    <Compile Include="ViewModels\Events\EventViewDetailsModel.cs" />
+    <Compile Include="ViewModels\Events\EventViewModel.cs" />
     <Compile Include="ViewModels\Converter\EventViewToBookingCartConverter.cs" />
     <Compile Include="ViewModels\HomeModel.cs" />
     <Compile Include="ViewModels\AdSummaryViewModel.cs" />
@@ -348,6 +348,9 @@
     <None Include="Content\TheMusic\themusic.less" />
     <Content Include="Scripts\app\account\userAds.model.js" />
     <Content Include="Scripts\app\contactAdvertiser\contactAdvertiser.model.js" />
+    <Content Include="Scripts\app\events\bookTickets.model.js" />
+    <Content Include="Scripts\app\events\eventTicket.model.js" />
+    <Content Include="Scripts\app\events\bookTickets.ui.js" />
     <Content Include="Scripts\app\events\event.ui.js" />
     <Content Include="Scripts\app\events\eventAd.model.js" />
     <Content Include="Scripts\app\booking\bookingCategorySelection.js" />
@@ -683,8 +686,9 @@
     <Content Include="Views\UserAds\Index.cshtml" />
     <Content Include="Views\Invoice\Booking.cshtml" />
     <Content Include="Views\Booking\Step2_Event.cshtml" />
-    <Content Include="Views\EventAd\ViewEventAd.cshtml" />
+    <Content Include="Views\Event\ViewEventAd.cshtml" />
     <Content Include="Views\Shared\_ContactAdvertiser.cshtml.cshtml" />
+    <Content Include="Views\Event\BookTickets.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Framework\Validators\" />

@@ -61,8 +61,10 @@ if ( $BackupDatabase -eq $true -and $db -ne $null ){
 # Restore-SqlDatabase
 if ( $RestoreDatabase -eq $true ){	
     $backupFile = $BackupDatabasePath + $BackupAppUserFile
-	Run-Sql -Script "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ErrorAction SilentlyContinue  
-	Run-Sql -Script "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ErrorAction SilentlyContinue
+	if ($db -ne $null) {
+		Run-Sql -Script "ALTER DATABASE [$($connection.InitialCatalog)] set SINGLE_USER with rollback immediate;" -ErrorAction SilentlyContinue  
+		Run-Sql -Script "ALTER DATABASE [$($connection.InitialCatalog)] set RESTRICTED_USER with rollback immediate;" -ErrorAction SilentlyContinue
+	}
 
 	$mdfRelocate = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile -ArgumentList ("AppUser", "$($SqlFilesPath)$($connection.InitialCatalog).mdf")
     $logRelocate = New-Object Microsoft.SqlServer.Management.Smo.RelocateFile -ArgumentList ("AppUser_log", "$($SqlFilesPath)$($connection.InitialCatalog)_log.ldf")

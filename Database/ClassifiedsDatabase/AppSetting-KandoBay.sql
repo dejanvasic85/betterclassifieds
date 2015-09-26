@@ -42,12 +42,20 @@ GO
  */
 create procedure temp_createParentCategory
 	@Title varchar(50),
-	@ParentCategoryId int = null,
+	@ParentCategory varchar(50) = null,
 	@CategoryAdType varchar(50) = null,
 	@IsOnlineOnly	bit	= null,
 	@MainCategoryId	int = null output
 as
 begin
+	declare @ParentCategoryId int = null
+	if @ParentCategory IS NOT NULL
+	begin
+		select @ParentCategoryId = MainCategoryId
+		from MainCategory
+		where Title = @ParentCategory
+	end
+
 	if not exists (select top 1 * from MainCategory where Title = @Title)
 	begin
 		insert into MainCategory (Title, ParentId, CategoryAdType, IsOnlineOnly)
@@ -66,8 +74,8 @@ begin
 end
 go
 exec temp_createParentCategory @Title = 'Events', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
-exec temp_createParentCategory @Title = 'Concerts', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
-exec temp_createParentCategory @Title = 'Event Services', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
-exec temp_createParentCategory @Title = 'Sports', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+exec temp_createParentCategory @Title = 'Concerts', @ParentCategory = 'Events', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+exec temp_createParentCategory @Title = 'Event Services', @ParentCategory = 'Events', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+exec temp_createParentCategory @Title = 'Sports', @ParentCategory = 'Events', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
 go
 drop procedure temp_createParentCategory

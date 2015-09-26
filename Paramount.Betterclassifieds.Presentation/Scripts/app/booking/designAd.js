@@ -83,19 +83,19 @@
 
                 adService.updateBookingRates(factors).done(function (resp) {
                     // Map Total
-                    self.pricetotal('Total: ' + $paramount.formatCurrency(resp.BookingTotal));
+                    self.pricetotal('Total: ' + $paramount.formatCurrency(resp.bookingTotal));
 
                     // Map online line items
                     self.onlineItemPrices.removeAll();
-                    $.each(resp.OnlinePrice.Items, function (index, serverItem) {
+                    $.each(resp.onlinePrice.items, function (index, serverItem) {
                         self.onlineItemPrices.push(new OnlineLineItem(serverItem));
                     });
 
                     // Map publications 
                     self.publicationPrices.removeAll();
-                    if (resp.PublicationPrices !== undefined && resp.PublicationPrices !== null) {
+                    if (resp.publicationPrices !== undefined && resp.publicationPrices !== null) {
 
-                        $.each(resp.PublicationPrices, function (index, serverItem) {
+                        $.each(resp.publicationPrices, function (index, serverItem) {
                             var publicationPrice = new PublicationPrice(serverItem);
                             if (publicationPrice.total > 0) {
                                 self.publicationPrices.push(publicationPrice);
@@ -112,29 +112,29 @@
     };
 
     var OnlineLineItem = function (serverItem) {
-        this.name = serverItem.Name;
-        this.price = $paramount.formatCurrency(serverItem.Price);
-        this.quantity = serverItem.Quantity;
-        this.itemTotal = $paramount.formatCurrency(serverItem.ItemTotal);
+        this.name = serverItem.name;
+        this.price = $paramount.formatCurrency(serverItem.price);
+        this.quantity = serverItem.quantity;
+        this.itemTotal = $paramount.formatCurrency(serverItem.itemTotal);
     };
 
     var PublicationPrice = function (serverItem) {
         var me = this;
-        me.publicationName = serverItem.Publication;
-        me.total = serverItem.PublicationTotal;
-        me.publicationTotal = $paramount.formatCurrency(serverItem.PublicationTotal);
+        me.publicationName = serverItem.publication;
+        me.total = serverItem.publicationTotal;
+        me.publicationTotal = $paramount.formatCurrency(serverItem.publicationTotal);
         me.lineItems = ko.observableArray([]);
-        $.each(serverItem.Items, function (index, lineItem) {
+        $.each(serverItem.items, function (index, lineItem) {
             me.lineItems.push(new PrintLineItem(lineItem));
         });
     };
 
     var PrintLineItem = function (serverItem) {
-        this.name = serverItem.Name;
-        this.price = $paramount.formatCurrency(serverItem.Price);
-        this.quantity = serverItem.Quantity;
-        this.editions = serverItem.Editions;
-        this.itemTotal = $paramount.formatCurrency(serverItem.ItemTotal);
+        this.name = serverItem.name;
+        this.price = $paramount.formatCurrency(serverItem.price);
+        this.quantity = serverItem.quantity;
+        this.editions = serverItem.editions;
+        this.itemTotal = $paramount.formatCurrency(serverItem.itemTotal);
     };
 
 })(jQuery, $paramount, ko);

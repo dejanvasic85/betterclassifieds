@@ -364,8 +364,8 @@
                             designAdModel.publicationEditions.removeAll();
                             $.each(response, function(index, item) {
                                 designAdModel.publicationEditions.push({
-                                    publicationName: item.Publication,
-                                    editions: ko.observableArray(item.Editions)
+                                    publicationName: item.publication,
+                                    editions: ko.observableArray(item.editions)
                                 });
                             });
                             $('#editionsModal').modal('show');

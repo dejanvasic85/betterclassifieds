@@ -16,16 +16,13 @@
             if ($('#contactAdvertiserForm').valid()) {
                 $btn.button('loading');
                 var model = ko.toJSON(me);
-                console.log(model);
+                
                 $.ajax({
                     url: url,
                     data: model,
                     type: 'POST',
                     dataType: 'json',
                     contentType: 'application/json'
-                }).success(function (response) {
-                    console.log('success');
-                    console.log(response);
                 }).done(function() {
                     $btn.button('reset');
                     me.submitted(true);

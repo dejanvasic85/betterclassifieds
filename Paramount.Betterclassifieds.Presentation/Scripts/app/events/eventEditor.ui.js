@@ -12,14 +12,14 @@
                 var eventDetailsModel;
 
                 // Initally load the data
-                $.getJSON(options.ServiceEndpoint.getEventDetails).done(function (response) {
+                $.getJSON(options.serviceEndpoint.getEventDetails).done(function (response) {
                     eventDetailsModel = new $paramount.models.EventAd(response, options);
                     ko.applyBindings(eventDetailsModel);
                 });
 
                 // Image upload handler
                 $paramount.upload({
-                    url: options.ServiceEndpoint.uploadOnlineImage,
+                    url: options.serviceEndpoint.uploadOnlineImage,
                     element: $eventEditor.find('#eventPhotoUpload'),
                     progressBar: $eventEditor.find('#eventPhotoUploadProgress'),
                     complete: function (documentId) {

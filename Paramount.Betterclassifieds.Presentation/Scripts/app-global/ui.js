@@ -44,10 +44,10 @@
             $.getJSON(url).done(function (data) {
                 me.empty();
                 $.each(data, function (index, option) {
-                    if (selected == option.Value) {
-                        me.append('<option selected value="' + option.Value + '">' + option.Text + '</option>');
+                    if (selected == option.value) {
+                        me.append('<option selected value="' + option.value + '">' + option.text + '</option>');
                     } else {
-                        me.append('<option value="' + option.Value + '">' + option.Text + '</option>');
+                        me.append('<option value="' + option.value + '">' + option.text + '</option>');
                     }
                 });
                 me.removeAttr('disabled');
@@ -98,7 +98,7 @@
                 $.getJSON(url, { parentId: parentCategoryId }).done(function (data) {
                     me.empty().append('<option>-- Sub Category --</option>');
                     $.each(data, function (index, option) {
-                        me.append('<option value=' + option.CategoryId + '>' + option.Title + '</option>');
+                        me.append('<option value=' + option.categoryId + '>' + option.title + '</option>');
                     });
                     me.removeAttr('disabled').removeClass('hidden');
                 });
@@ -118,7 +118,7 @@
                 $.getJSON(url, { locationId: locationId }).done(function (data) {
                     me.empty();
                     $.each(data, function (index, option) {
-                        me.append('<option value=' + option.Value + '>' + option.Text + '</option>');
+                        me.append('<option value=' + option.value + '>' + option.text + '</option>');
                     });
                     me.removeAttr('disabled').removeClass('hidden');
                 });

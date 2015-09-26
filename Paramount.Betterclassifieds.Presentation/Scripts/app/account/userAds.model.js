@@ -38,20 +38,20 @@
 
     function UserAd(item) {
         var self = this;
-        self.adId = ko.observable(item.AdId);
-        self.status = ko.observable(item.Status);
+        self.adId = ko.observable(item.adId);
+        self.status = ko.observable(item.status);
 
-        this.totalPrice = ko.observable(item.TotalPrice);
-        this.heading = ko.observable(item.Heading);
-        this.description = ko.observable(item.Description);
-        this.adImageId = ko.observable(item.AdImageId);
-        this.starts = ko.observable(item.Starts);
-        this.ends = ko.observable(item.Ends);
-        this.visits = ko.observable(item.Visits);
-        this.messageCount = ko.observable(item.MessageCount);
+        this.totalPrice = ko.observable(item.totalPrice);
+        this.heading = ko.observable(item.heading);
+        this.description = ko.observable(item.description);
+        this.adImageId = ko.observable(item.adImageId);
+        this.starts = ko.observable(item.starts);
+        this.ends = ko.observable(item.ends);
+        this.visits = ko.observable(item.visits);
+        this.messageCount = ko.observable(item.messageCount);
 
         self.messages = ko.observableArray([]);
-        $.each(item.Messages, function(idx, value) {
+        $.each(item.messages, function(idx, value) {
             self.messages.push(new $p.models.UserEnquiry(value));
         });
 
@@ -65,10 +65,10 @@
     };
 
     function UserEnquiry(item) {
-        this.fullName = ko.observable(item.FullName);
-        this.email = ko.observable(item.Email);
-        this.enquiryText = ko.observable(item.Question);
-        this.createdDate = ko.observable(item.CreatedDate);
+        this.fullName = ko.observable(item.fullName);
+        this.email = ko.observable(item.email);
+        this.enquiryText = ko.observable(item.question);
+        this.createdDate = ko.observable(item.createdDate);
     };
 
   

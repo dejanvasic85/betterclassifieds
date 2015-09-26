@@ -2,6 +2,7 @@
 using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Paramount.Betterclassifieds.Presentation
 {
@@ -32,7 +33,8 @@ namespace Paramount.Betterclassifieds.Presentation
         {
             Settings = new JsonSerializerSettings
             {
-                ReferenceLoopHandling = ReferenceLoopHandling.Error
+                ReferenceLoopHandling = ReferenceLoopHandling.Error,
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
             };
         }
 

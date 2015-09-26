@@ -3,6 +3,15 @@
     Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
 }
 
+@section Scripts{
+    <script>
+        $paramount.ui.eventEditor.init({
+            serviceEndpoint: $paramount.url.adBooking,
+            maxFreeImages: 5,
+            configDurationDays: 60
+        });
+    </script>
+}
 <ul class="nav nav-tabs" role="tablist" id="bookingNavSteps">
     <li>@Html.ActionLink("1", "Step1")</li>
     <li class="active"><a href="#">Step 2</a></li>
@@ -283,12 +292,3 @@
     </form>
 
 </div>
-@section Scripts{
-    <script>
-        $paramount.ui.eventEditor.init({
-            ServiceEndpoint: $paramount.url.adBooking,
-            MaxFreeImages: 5,
-            ConfigDurationDays: 60
-        });
-    </script>
-}

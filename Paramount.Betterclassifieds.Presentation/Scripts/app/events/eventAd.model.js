@@ -7,19 +7,19 @@
     $paramount.models.EventAd = function (data, options) {
 
         var me = this,
-            adService = new $paramount.adService(options.ServiceEndpoint),
+            adService = new $paramount.adService(options.serviceEndpoint),
             MAX_TITLE_CHARS = 100,
             DATE_FORMAT = 'DD/MM/yyyy';
 
         // Properties
-        me.title = ko.observable(data.Title);
+        me.title = ko.observable(data.title);
         me.titleRemaining = ko.computed(function () {
             if (me.title() === null)
                 return 100;
             return MAX_TITLE_CHARS - me.title().length;
         });
-        me.description = ko.observable(data.Description);
-        me.eventPhoto = ko.observable(data.EventPhoto);
+        me.description = ko.observable(data.description);
+        me.eventPhoto = ko.observable(data.eventPhoto);
         me.eventPhotoUploadError = ko.observable(null);
         me.eventPhotoUrl = ko.computed(function () {
             return $paramount.imageService.getImageUrl(me.eventPhoto());
@@ -32,20 +32,20 @@
             }
             return;
         }
-        me.configDurationDays = ko.observable(options.ConfigDurationDays);
-        me.adStartDate = ko.observable(data.AdStartDate);
+        me.configDurationDays = ko.observable(options.configDurationDays);
+        me.adStartDate = ko.observable(data.adStartDate);
         me.adEndDate = ko.computed(function () {
             if (me.adStartDate() === '') {
                 return '';
             }
-            return moment(me.adStartDate(), DATE_FORMAT).add(options.ConfigDurationDays, 'days').format(DATE_FORMAT.toUpperCase());
+            return moment(me.adStartDate(), DATE_FORMAT).add(options.configDurationDays, 'days').format(DATE_FORMAT.toUpperCase());
         });
-        me.location = ko.observable(data.Location);
-        me.locationLatitude = ko.observable(data.LocationLatitude);
-        me.locationLongitude = ko.observable(data.LocationLongitude);
-        me.eventStartDate = ko.observable(data.EventStartDate);
-        me.eventStartTime = ko.observable(data.EventStartTime);
-        me.eventEndDate = ko.observable(data.EventEndDate);
+        me.location = ko.observable(data.location);
+        me.locationLatitude = ko.observable(data.locationLatitude);
+        me.locationLongitude = ko.observable(data.locationLongitude);
+        me.eventStartDate = ko.observable(data.eventStartDate);
+        me.eventStartTime = ko.observable(data.eventStartTime);
+        me.eventEndDate = ko.observable(data.eventEndDate);
         me.eventEndDateValidation = ko.computed(function () {
             // Ensure that the start date is less than end date
             if (moment(me.eventStartDate(), DATE_FORMAT).isAfter(moment(me.eventEndDate(), DATE_FORMAT))) {
@@ -53,7 +53,7 @@
             }
             return '';
         });
-        me.eventEndTime = ko.observable(data.EventEndTime);
+        me.eventEndTime = ko.observable(data.eventEndTime);
         me.eventEndTimeValidation = ko.computed(function () {
             if (me.eventEndDateValidation().length > 0) {
                 return '';
@@ -72,16 +72,16 @@
             return '';
         });
 
-        me.organiserName = ko.observable(data.OrganiserName);
-        me.organiserPhone = ko.observable(data.OrganiserPhone);
+        me.organiserName = ko.observable(data.organiserName);
+        me.organiserPhone = ko.observable(data.organiserPhone);
 
         // Ticketing
         me.tickets = ko.observableArray();
-        $.each(data.Tickets, function (idx, item) {
+        $.each(data.tickets, function (idx, item) {
             var ticketType = new $paramount.models.EventTicket(item);
             me.tickets.push(ticketType);
         });
-        me.ticketingEnabled = ko.observable(data.TicketingEnabled);
+        me.ticketingEnabled = ko.observable(data.ticketingEnabled);
         me.addTicketType = function () {
             var t = new $paramount.models.EventTicket({ ticketName: '', availableQuantity: 0, price: 0 });
             me.tickets.push(t);

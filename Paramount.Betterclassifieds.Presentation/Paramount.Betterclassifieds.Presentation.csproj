@@ -351,10 +351,11 @@
     <Content Include="Scripts\app\events\bookTickets.model.js" />
     <Content Include="Scripts\app\events\eventTicket.model.js" />
     <Content Include="Scripts\app\events\bookTickets.ui.js" />
-    <Content Include="Scripts\app\events\event.ui.js" />
+    <Content Include="Scripts\app\events\eventEditor.ui.js" />
     <Content Include="Scripts\app\events\eventAd.model.js" />
     <Content Include="Scripts\app\booking\bookingCategorySelection.js" />
     <Content Include="Scripts\app\booking\designAd.js" />
+    <Content Include="Scripts\app\events\eventView.ui.js" />
     <Content Include="Scripts\vendor\bootstrap-3.3.0.js" />
     <Content Include="Scripts\vendor\bootstrap-clockpicker.js" />
     <Content Include="Scripts\vendor\bootstrap-datepicker.js" />

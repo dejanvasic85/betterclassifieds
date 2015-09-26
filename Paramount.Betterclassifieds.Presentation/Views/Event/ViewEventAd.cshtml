@@ -8,6 +8,17 @@
     Layout = "~/Views/Shared/_ApplicationLayoutWithSearch.cshtml";
 }
 
+@section scripts
+{
+    <script>
+        var ticketData = @Html.Raw( Model.Tickets.ToJsonString());
+
+        $paramount.ui.eventView.init({
+            ticketData : ticketData
+        });
+    </script>
+}
+
 <div class="event-details" id="eventView">
     <div class="row">
         <div class="col-xs-12">

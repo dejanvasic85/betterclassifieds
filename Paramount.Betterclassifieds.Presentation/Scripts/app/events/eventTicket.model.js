@@ -4,9 +4,13 @@
     $paramount.models = $paramount.models || {};
     
     $paramount.models.EventTicket = function (data) {
-        this.ticketName = ko.observable(data.TicketName);
-        this.availableQuantity = ko.observable(data.AvailableQuantity);
-        this.price = ko.observable(data.Price);
+        debugger;
+        var me = this;
+
+        me.ticketName = ko.observable(data.TicketName);
+        me.availableQuantity = ko.observable(data.AvailableQuantity);
+        me.price = ko.observable(data.Price);
+        me.selectedQuantity = ko.observable();
     }
 
 

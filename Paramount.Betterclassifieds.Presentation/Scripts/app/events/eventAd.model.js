@@ -96,10 +96,4 @@
         }
     };
 
-    $paramount.models.EventTicket = function (data) {
-        this.ticketName = ko.observable(data.TicketName);
-        this.availableQuantity = ko.observable(data.AvailableQuantity);
-        this.price = ko.observable(data.Price);
-    }
-
 })(jQuery, $paramount, ko, moment);

@@ -29,8 +29,8 @@ Function Run-Sql{
     $sqlArgs.QueryTimeout = 0
 	
     if ($connection.IntegratedSecurity -eq $false) {
-        $sqlArgs.U = $connection.UserID
-        $sqlArgs.P = $connection.Password 
+        $sqlArgs.Username = $connection.UserID
+        $sqlArgs.Password = $connection.Password 
     }
 
 	$sqlArgs.GetEnumerator() | ForEach-Object { Write-Host $_.Key " " $_.Value }

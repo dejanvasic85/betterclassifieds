@@ -18,6 +18,8 @@ namespace Paramount.Betterclassifieds.Presentation
 
             var provider = new UnityFilterAttributeFilterProvider(container);
             FilterProviders.Providers.Add(provider);
+
+            filters.Add(new JsonHandlerAttribute());
         }
     }
 }

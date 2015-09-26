@@ -207,6 +207,7 @@
     <Compile Include="Framework\Extensions\HttpResponseExtensions.cs" />
     <Compile Include="Framework\CustomViewResults\ImageResult.cs" />
     <Compile Include="Framework\Filters\ErrorFilterWithLogging.cs" />
+    <Compile Include="Framework\Filters\JsonHandlerAttribute.cs" />
     <Compile Include="Framework\ModelBinders\BookingCartBinder.cs" />
     <Compile Include="Framework\ModelBinders\ModelSpecificDateModelBinder.cs" />
     <Compile Include="Framework\UrlHelpers\ModuleUrlHelper.cs" />

@@ -1,3 +1,7 @@
+
+/*
+ * App Settings
+ */ 
 create procedure temp_createAppSetting
 	@Key		varchar(50),
 	@Setting	varchar(max),
@@ -29,3 +33,41 @@ execute temp_createAppSetting @Key = 'EnableTwoFactorAuth', @Setting = 'true', @
 execute temp_createAppSetting @Key = 'ClientName', @Setting = 'KandoBay', @Force = 1
 
 drop procedure temp_createAppSetting
+
+
+GO
+
+/*
+ *	Categories
+ */
+create procedure temp_createParentCategory
+	@Title varchar(50),
+	@ParentCategoryId int = null,
+	@CategoryAdType varchar(50) = null,
+	@IsOnlineOnly	bit	= null,
+	@MainCategoryId	int = null output
+as
+begin
+	if not exists (select top 1 * from MainCategory where Title = @Title)
+	begin
+		insert into MainCategory (Title, ParentId, CategoryAdType, IsOnlineOnly)
+		values	(@Title, @ParentCategoryId, @CategoryAdType, @IsOnlineOnly)
+
+		set @MainCategoryId = @@IDENTITY
+	end
+	else if @CategoryAdType IS NOT NULL
+	begin
+		update MainCategory
+		set CategoryAdType = @CategoryAdType,
+			IsOnlineOnly = @IsOnlineOnly
+		where Title = @Title
+	end
+
+end
+go
+exec temp_createParentCategory @Title = 'Events', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+exec temp_createParentCategory @Title = 'Concerts', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+exec temp_createParentCategory @Title = 'Event Services', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+exec temp_createParentCategory @Title = 'Sports', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+go
+drop procedure temp_createParentCategory

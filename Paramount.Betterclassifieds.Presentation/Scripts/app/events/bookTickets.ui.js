@@ -1,5 +1,5 @@
 ﻿(function ($, ko, $paramount) {
-
+    'use strict';
     var $bookTicketsView = $('#bookTicketsView');
 
     $paramount.ui = $paramount.ui || {};

@@ -11,10 +11,12 @@
 @section scripts
 {
     <script>
-        var ticketData = @Html.Raw( Model.Tickets.ToJsonString());
+        var ticketData = @Html.Raw( Model.Tickets.ToJsonString() );
 
         $paramount.ui.eventView.init({
-            ticketData : ticketData
+            ticketData : ticketData,
+            adId : @Model.AdId,
+            startTicketOrderUrl : '@Url.Action("StartTicketOrder", "Event")'
         });
     </script>
 }
@@ -75,48 +77,37 @@
                 </div>
                 @if (Model.TicketingEnabled)
                 {
-                    <ul class="list-group">
-                        @foreach (var t in Model.Tickets)
-                        {
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="col-xs-4">
-                                        <span class="ticket-info">@t.TicketName</span>
-                                    </div>
-                                    <div class="col-xs-2">
-                                        <span class="ticket-info">
-                                            @if (t.Price == 0)
-                                            {
-                                                <text>Free</text>
-                                            }
-                                            else
-                                            {
-                                                @t.Price.ToString("C")
-                                            }
-                                        </span>
-                                    </div>
-                                    <div class="col-xs-6">
-                                        <div class="form-inline pull-right">
-                                            <div class="form-group">
-                                                <span class="ticket-info">Quantity</span>
-                                                <select class="form-control">
-                                                    <option>0</option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                </select>
-                                            </div>
+                    <ul class="list-group" data-bind="foreach: tickets">
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <span class="ticket-info" data-bind="text: ticketName"></span>
+                                </div>
+                                <div class="col-xs-2">
+                                    <span class="ticket-info" data-bind="visible: price() === 0, text : 'Free'"></span>
+                                    <span class="ticket-info" data-bind="visible: price() > 0, text : priceFormatted"></span>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-inline pull-right">
+                                        <div class="form-group">
+                                            <span class="ticket-info">Quantity</span>
+                                            <select class="form-control" data-bind="value: selectedQuantity">
+                                                <option value="0">0</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                            </li>
-                        }
+                            </div>
+                        </li>
                     </ul>
 
                     <div class="panel-footer clearfix">
-                        <button class="btn btn-primary pull-right">
+                        <button class="btn btn-primary pull-right" data-bind="click: startOrder">
                             Book Now <i class="fa fa-arrow-right"></i>
                         </button>
                     </div>

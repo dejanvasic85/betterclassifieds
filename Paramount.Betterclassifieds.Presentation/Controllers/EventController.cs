@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Monads;
 using System.Web.Mvc;
 using AutoMapper;
 using Humanizer;
@@ -20,9 +19,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _searchService = searchService;
         }
 
-        //
-        // GET: /EventDetail/
-
         public ActionResult ViewEventAd(int id, string titleSlug = "")
         {
             var onlineAdModel = _searchService.GetAdById(id);
@@ -38,7 +34,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             return View(eventViewModel);
         }
-    
+
+        [HttpPost]
+        public ActionResult StartTicketOrder(BookTicketsViewModel bookTicketsViewModel)
+        {
+            return Json(new { Redirect = Url.Action("BookTickets") });
+        }
+
         [HttpGet]
         public ActionResult BookTickets()
         {

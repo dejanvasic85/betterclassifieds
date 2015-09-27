@@ -7,9 +7,4 @@
         public int AvailableQuantity { get; set; }
         public decimal Price { get; set; }
     }
-
-    public class BookTicketsViewModel
-    {
-        
-    }
 }

@@ -10,13 +10,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     public class EventController : Controller, IMappingBehaviour
     {
-        private readonly IEventRepository _eventRepository;
         private readonly ISearchService _searchService;
+        private readonly IEventManager _eventManager;
 
-        public EventController(IEventRepository eventRepository, ISearchService searchService)
+        public EventController(ISearchService searchService, IEventManager eventManager)
         {
-            _eventRepository = eventRepository;
             _searchService = searchService;
+            _eventManager = eventManager;
         }
 
         public ActionResult ViewEventAd(int id, string titleSlug = "")
@@ -28,7 +28,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return View("~/Views/Listings/404.cshtml");
             }
 
-            var eventModel = _eventRepository.GetEventDetails(onlineAdModel.OnlineAdId);
+            var eventModel = _eventManager.GetEventDetails(onlineAdModel.OnlineAdId);
             var eventViewModel = this.Map<Business.Events.EventModel, EventViewDetailsModel>(eventModel);
             this.Map(onlineAdModel, eventViewModel);
 
@@ -36,7 +36,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpPost]
-        public ActionResult StartTicketOrder(BookTicketsViewModel bookTicketsViewModel)
+        public ActionResult StartTicketOrder(int adId, EventTicketViewModel[] tickets)
         {
             return Json(new { Redirect = Url.Action("BookTickets") });
         }
@@ -65,7 +65,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 .ForMember(m => m.EventPhoto, options => options.MapFrom(src => src.ImageUrls.FirstOrDefault()))
                 ;
 
-            configuration.CreateMap<Business.Events.EventTicket, EventTicketViewModel>();
+            configuration.CreateMap<Business.Events.EventTicket, EventTicketViewModel>().ReverseMap();
         }
     }
 }

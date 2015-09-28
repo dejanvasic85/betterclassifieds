@@ -228,3 +228,4 @@
 /// <reference path="app/events/booktickets.model.js" />
 /// <reference path="app/events/eventeditor.ui.js" />
 /// <reference path="app/events/eventview.ui.js" />
+/// <reference path="app/events/event.service.js" />

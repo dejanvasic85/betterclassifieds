@@ -241,7 +241,6 @@
     <Compile Include="ViewModels\Booking\PublicationView.cs" />
     <Compile Include="ViewModels\ContactUsView.cs" />
     <Compile Include="ViewModels\Converter\BookingCartToEventViewConverter.cs" />
-    <Compile Include="ViewModels\Events\BookTicketsViewModel.cs" />
     <Compile Include="ViewModels\Events\EventTicketViewModel.cs" />
     <Compile Include="ViewModels\Events\EventViewDetailsModel.cs" />
     <Compile Include="ViewModels\Events\EventViewModel.cs" />
@@ -351,6 +350,7 @@
     <Content Include="Scripts\app\account\userAds.model.js" />
     <Content Include="Scripts\app\contactAdvertiser\contactAdvertiser.model.js" />
     <Content Include="Scripts\app\events\bookTickets.model.js" />
+    <Content Include="Scripts\app\events\event.service.js" />
     <Content Include="Scripts\app\events\eventTicket.model.js" />
     <Content Include="Scripts\app\events\bookTickets.ui.js" />
     <Content Include="Scripts\app\events\eventEditor.ui.js" />

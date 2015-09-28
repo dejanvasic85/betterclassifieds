@@ -12,13 +12,12 @@
                 // Fetch the ticketing details
                 if (options.ticketData) {
                     var ticketingInterface = document.getElementById('ticketing');
-
-                    // Create the model
-                    var ticketBookingModel = new $paramount.models.BookTickets({
+                    var eventService = new $paramount.EventService(options.baseUrl);
+                    var ticketBookingModel = new $paramount.models.BookTickets(eventService, {
                         ticketData: options.ticketData,
-                        adId: options.adId,
-                        startTicketOrderUrl: options.startTicketOrderUrl
+                        adId: options.adId
                     });
+
                     ko.applyBindings(ticketBookingModel, ticketingInterface);
                 }
             });

@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Monads;
+using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using Humanizer;
@@ -12,11 +15,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
     {
         private readonly ISearchService _searchService;
         private readonly IEventManager _eventManager;
+        private readonly HttpContextBase _httpContext;
 
-        public EventController(ISearchService searchService, IEventManager eventManager)
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext)
         {
             _searchService = searchService;
             _eventManager = eventManager;
+            _httpContext = httpContext;
         }
 
         public ActionResult ViewEventAd(int id, string titleSlug = "")
@@ -36,9 +41,18 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpPost]
-        public ActionResult StartTicketOrder(int adId, EventTicketViewModel[] tickets)
+        public ActionResult ReserveTickets(List<EventTicketReservervationViewModel> tickets)
         {
-            return Json(new { Redirect = Url.Action("BookTickets") });
+            if (!ModelState.IsValid)
+            {
+                return Json(new { IsValid = false, Errors = ModelState.ToErrors() });
+            }
+
+            var ticketRequests = this.MapList<EventTicketReservervationViewModel, EventTicketReservationRequest>(tickets.ToList());
+
+            var responses = _eventManager.ReserveTickets(_httpContext.With(s => s.Session).SessionID, ticketRequests);
+
+            return Json(new { IsValid = true, Redirect = Url.Action("BookTickets") });
         }
 
         [HttpGet]
@@ -49,6 +63,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public void OnRegisterMaps(IConfiguration configuration)
         {
+            #region To View Model
+            // To View Model
             configuration.CreateMap<Business.Events.EventModel, EventViewDetailsModel>()
                 .ForMember(member => member.EventStartDate, options => options.ResolveUsing(src => src.EventStartDate.GetValueOrDefault().ToLongDateString()))
                 .ForMember(member => member.EventStartTime, options => options.ResolveUsing(src => src.EventStartDate.GetValueOrDefault().ToString("hh:mm tt")))
@@ -66,6 +82,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 ;
 
             configuration.CreateMap<Business.Events.EventTicket, EventTicketViewModel>().ReverseMap();
+            #endregion
+
+            #region From View model
+            // From View Model
+            configuration.CreateMap<EventTicketReservervationViewModel, EventTicketReservationRequest>();
+            #endregion
         }
     }
 }

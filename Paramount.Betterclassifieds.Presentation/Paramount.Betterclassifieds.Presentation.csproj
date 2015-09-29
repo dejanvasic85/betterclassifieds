@@ -197,6 +197,7 @@
     <Compile Include="Controllers\ListingsController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\UserAdsController.cs" />
+    <Compile Include="Framework\Extensions\ModelStateExtensions.cs" />
     <Compile Include="Framework\Factories\CategoryRepositoryFactory.cs" />
     <Compile Include="Framework\Filters\AuthorizeBookingIdentity.cs" />
     <Compile Include="Framework\Filters\AuthorizeCartIdentity.cs" />
@@ -241,6 +242,7 @@
     <Compile Include="ViewModels\Booking\PublicationView.cs" />
     <Compile Include="ViewModels\ContactUsView.cs" />
     <Compile Include="ViewModels\Converter\BookingCartToEventViewConverter.cs" />
+    <Compile Include="ViewModels\Events\EventTicketReservervationViewModel.cs" />
     <Compile Include="ViewModels\Events\EventTicketViewModel.cs" />
     <Compile Include="ViewModels\Events\EventViewDetailsModel.cs" />
     <Compile Include="ViewModels\Events\EventViewModel.cs" />

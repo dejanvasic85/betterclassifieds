@@ -7,6 +7,5 @@
         public string TicketName { get; set; }
         public int AvailableQuantity { get; set; }
         public decimal Price { get; set; }
-        public int SelectedQuantity { get; set; }
     }
 }

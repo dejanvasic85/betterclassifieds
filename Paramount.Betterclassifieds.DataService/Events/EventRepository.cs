@@ -15,7 +15,17 @@ namespace Paramount.Betterclassifieds.DataService.Events
             _dbContextFactory = dbContextFactory;
         }
 
-        public EventModel GetEventDetails(int onlineAdId)
+        public EventModel GetEventDetails(int eventId)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                return context.Events
+                    .Include(e => e.Tickets)
+                    .SingleOrDefault(e => e.EventId == eventId);
+            }
+        }
+
+        public EventModel GetEventDetailsForOnlineAdId(int onlineAdId)
         {
             using (var context = _dbContextFactory.CreateEventContext())
             {
@@ -25,17 +35,40 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
-        public IEnumerable<EventTicketReservation> GetEventTicketReservationsForSession(string sessionId, bool activeOnly)
+        public EventTicket GetEventTicketDetails(int ticketId, bool includeReservations)
         {
-            return new List<EventTicketReservation>();
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                var query = context.EventTickets;
+                if (includeReservations) { query.Include(t => t.EventTicketReservations); }
+                return query.SingleOrDefault(e => e.TicketId == ticketId);
+            }
+        }
+
+        public IEnumerable<EventTicketReservation> GetEventTicketReservationsForSession(string sessionId)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                return context.EventTicketReservations.Where(reservation => reservation.SessionId == sessionId).ToList();
+            }
         }
 
         public IEnumerable<EventTicketReservation> GetEventTicketReservations(int ticketId, bool activeOnly)
         {
-            return new List<EventTicketReservation>();
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                var query = context.EventTicketReservations.Where(reservation => reservation.TicketId == ticketId);
+                if (activeOnly) { query = query.Where(reservation => reservation.Active); }
+                return query.ToList();
+            }
         }
 
-        public void UpdateEventTicketReservation(EventTicketReservation existingSessionReservation )
+        public void CreateEventTicketReservation(EventTicketReservation eventTicketReservation)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void UpdateEventTicketReservation(EventTicketReservation eventTicketReservation)
         {
             // Todo return only active and non-expired
         }

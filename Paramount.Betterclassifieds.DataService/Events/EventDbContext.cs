@@ -24,6 +24,8 @@ namespace Paramount.Betterclassifieds.DataService.Events
 
         public IDbSet<EventModel> Events { get; set; }
         public IDbSet<EventTicket> EventTickets { get; set; }
+        public IDbSet<EventTicketReservation> EventTicketReservations { get; set; }
+        public IDbSet<EventTicketBooking> EventTicketBookings { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

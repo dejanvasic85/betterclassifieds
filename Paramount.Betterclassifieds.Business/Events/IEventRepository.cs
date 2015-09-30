@@ -4,9 +4,14 @@ namespace Paramount.Betterclassifieds.Business.Events
 {
     public interface IEventRepository
     {
-        EventModel GetEventDetails(int onlineAdId);
-        IEnumerable<EventTicketReservation> GetEventTicketReservationsForSession(string sessionId, bool activeOnly);
+        EventModel GetEventDetails(int eventId);
+        EventModel GetEventDetailsForOnlineAdId(int onlineAdId);
+        EventTicket GetEventTicketDetails(int ticketId, bool includeReservations = false);
+        IEnumerable<EventTicketReservation> GetEventTicketReservationsForSession(string sessionId);
         IEnumerable<EventTicketReservation> GetEventTicketReservations(int ticketId, bool activeOnly);
-        void UpdateEventTicketReservation(EventTicketReservation existingSessionReservation);        
+
+        void CreateEventTicketReservation(EventTicketReservation eventTicketReservation);
+        void UpdateEventTicketReservation(EventTicketReservation eventTicketReservation);
+        
     }
 }

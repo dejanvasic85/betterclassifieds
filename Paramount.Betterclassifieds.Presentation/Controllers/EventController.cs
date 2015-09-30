@@ -33,7 +33,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return View("~/Views/Listings/404.cshtml");
             }
 
-            var eventModel = _eventManager.GetEventDetails(onlineAdModel.OnlineAdId);
+            var eventModel = _eventManager.GetEventDetailsForOnlineAdId(onlineAdModel.OnlineAdId);
             var eventViewModel = this.Map<Business.Events.EventModel, EventViewDetailsModel>(eventModel);
             this.Map(onlineAdModel, eventViewModel);
 
@@ -48,10 +48,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return Json(new { IsValid = false, Errors = ModelState.ToErrors() });
             }
 
-            var ticketRequests = this.MapList<EventTicketReservervationViewModel, EventTicketReservationRequest>(tickets.ToList());
+            var ticketRequests = this.MapList<EventTicketReservervationViewModel, EventTicketReservationRequest>(tickets);
 
-            var responses = _eventManager.ReserveTickets(_httpContext.With(s => s.Session).SessionID, ticketRequests);
-
+            var result = _eventManager.ReserveTickets(_httpContext.With(s => s.Session).SessionID, ticketRequests);
+            
             return Json(new { IsValid = true, Redirect = Url.Action("BookTickets") });
         }
 
@@ -86,7 +86,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             #region From View model
             // From View Model
-            configuration.CreateMap<EventTicketReservervationViewModel, EventTicketReservationRequest>();
+            configuration.CreateMap<EventTicketReservervationViewModel, EventTicket>();
+            configuration.CreateMap<EventTicketReservervationViewModel, EventTicketReservationRequest>()
+                .ConvertUsing(a => new EventTicketReservationRequest()
+                {
+                    Quantity = a.SelectedQuantity,
+                    EventTicket = this.Map<EventTicketReservervationViewModel, EventTicket>(a)
+                });
             #endregion
         }
     }

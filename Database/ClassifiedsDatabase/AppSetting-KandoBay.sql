@@ -31,6 +31,7 @@ execute temp_createAppSetting @Key = 'ClientAddress', @Setting = 'Uche Njoku,PO 
 execute temp_createAppSetting @Key = 'ClientAddressLatLong', @Setting = '-37.818635,145.001470', @Force = 1
 execute temp_createAppSetting @Key = 'EnableTwoFactorAuth', @Setting = 'true', @Force = 1
 execute temp_createAppSetting @Key = 'ClientName', @Setting = 'KandoBay', @Force = 1
+execute temp_createAppSetting @Key = 'EventTicketReservationExpiryMinutes', @Setting = '5'
 
 drop procedure temp_createAppSetting
 

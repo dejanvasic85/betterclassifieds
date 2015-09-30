@@ -15,7 +15,7 @@
     }
 
     EventService.prototype.startTicketOrder = function (order) {
-        return post(this.baseUrl + 'Event/ReserviceTickets', order);
+        return post(this.baseUrl + 'Event/ReserveTickets', order);
     }
 
     $paramount.EventService = EventService;

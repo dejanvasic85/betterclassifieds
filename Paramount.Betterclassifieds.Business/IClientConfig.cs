@@ -2,6 +2,7 @@
 {
     using System;
 
+    // Todo - these should actually all have a get and set, and have an associated audiatable object
     public interface IClientConfig
     {
         int RestrictedEditionCount { get; }
@@ -21,5 +22,6 @@
         int PrintImagePixelsHeight { get; }
         int PrintImageResolution { get; }
         string ClientName { get; }
+        int EventTicketReservationExpiryMinutes { get; }
     }
 }

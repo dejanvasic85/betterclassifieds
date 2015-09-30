@@ -136,5 +136,10 @@
         {
             get { return GetValueFromDatabase<string>("ClientName"); }
         }
+
+        public int EventTicketReservationExpiryMinutes
+        {
+            get { return GetValueFromDatabase<int>("EventTicketReservationExpiryMinutes"); }
+        }
     }
 }

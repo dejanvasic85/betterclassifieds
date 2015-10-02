@@ -6,7 +6,7 @@
         $.extend(data, {});
         var me = this;
         me.eventId = ko.observable(data.eventId);
-        me.ticketId = ko.observable(data.ticketId);
+        me.eventTicketId = ko.observable(data.eventTicketId);
         me.ticketName = ko.observable(data.ticketName);
         me.availableQuantity = ko.observable(data.availableQuantity);
         me.price = ko.observable(data.price);

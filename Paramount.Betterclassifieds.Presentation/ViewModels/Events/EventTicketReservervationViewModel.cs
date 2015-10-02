@@ -5,7 +5,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
     public class EventTicketReservervationViewModel
     {
         [Required] 
-        public int? TicketId { get; set; }
+        public int? EventTicketId { get; set; }
         [Required]
         public int? EventId { get; set; }
         [Required]

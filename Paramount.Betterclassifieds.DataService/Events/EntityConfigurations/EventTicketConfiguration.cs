@@ -9,7 +9,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
         public EventTicketConfiguration()
         {
             ToTable("EventTicket");
-            HasKey(prop => prop.TicketId);
+            HasKey(prop => prop.EventTicketId);
         }
     }
 }

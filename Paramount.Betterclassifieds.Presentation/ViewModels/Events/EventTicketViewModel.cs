@@ -2,7 +2,7 @@
 {
     public class EventTicketViewModel
     {
-        public int? TicketId { get; set; }
+        public int? EventTicketId { get; set; }
         public int? EventId { get; set; }
         public string TicketName { get; set; }
         public int AvailableQuantity { get; set; }

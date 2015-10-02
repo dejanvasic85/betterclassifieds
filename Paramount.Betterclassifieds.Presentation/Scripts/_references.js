@@ -229,3 +229,4 @@
 /// <reference path="app/events/eventeditor.ui.js" />
 /// <reference path="app/events/eventview.ui.js" />
 /// <reference path="app/events/event.service.js" />
+/// <reference path="vendor/lodash.js" />

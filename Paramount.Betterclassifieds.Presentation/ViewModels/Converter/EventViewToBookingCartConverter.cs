@@ -74,10 +74,11 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         {
             return new EventTicket
             {
-                TicketId = eventTicket.TicketId,
+                EventTicketId = eventTicket.EventTicketId,
                 TicketName = eventTicket.TicketName,
                 Price = eventTicket.Price,
-                AvailableQuantity = eventTicket.AvailableQuantity
+                AvailableQuantity = eventTicket.AvailableQuantity,
+                RemainingQuantity = eventTicket.AvailableQuantity
             };
         }
     }

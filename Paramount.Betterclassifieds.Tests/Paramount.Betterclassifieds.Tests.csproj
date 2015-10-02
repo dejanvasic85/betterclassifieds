@@ -119,6 +119,8 @@
     <Compile Include="Controllers\AccountControllerTests.cs" />
     <Compile Include="Controllers\ControllerTest.cs" />
     <Compile Include="Controllers\HomeControllerTests.cs" />
+    <Compile Include="Events\EventManagerTests.cs" />
+    <Compile Include="Events\SufficientTicketsRuleTests.cs" />
     <Compile Include="Mocks\AdBookingMockBuilder.cs" />
     <Compile Include="Mocks\AdEnquiryMockBuilder.cs" />
     <Compile Include="Mocks\MockBuilder%27T.cs" />

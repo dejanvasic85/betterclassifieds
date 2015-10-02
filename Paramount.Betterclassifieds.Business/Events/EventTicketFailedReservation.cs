@@ -5,6 +5,6 @@
         public int TicketId { get; set; }
         public string TicketName { get; set; }
         public int Quantity { get; set; }
-        public EventTicketReservationFailReason FailReason { get; set; }
+        public EventTicketReservationStatus Status { get; set; }
     }
 }

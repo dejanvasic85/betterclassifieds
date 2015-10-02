@@ -58,19 +58,27 @@ namespace Paramount.Betterclassifieds.DataService.Events
             using (var context = _dbContextFactory.CreateEventContext())
             {
                 var query = context.EventTicketReservations.Where(reservation => reservation.TicketId == ticketId);
-                if (activeOnly) { query = query.Where(reservation => reservation.Active); }
+                if (activeOnly) { query = query.Where(reservation => reservation.Status == EventTicketReservationStatus.Active); }
                 return query.ToList();
             }
         }
 
         public void CreateEventTicketReservation(EventTicketReservation eventTicketReservation)
         {
-            throw new System.NotImplementedException();
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                context.EventTicketReservations.Add(eventTicketReservation);
+                context.SaveChanges();
+            }
         }
 
         public void UpdateEventTicketReservation(EventTicketReservation eventTicketReservation)
         {
-            // Todo return only active and non-expired
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                context.EventTicketReservations.Attach(eventTicketReservation);
+                context.SaveChanges();
+            }
         }
 
         public void Add(ICategoryAd model)

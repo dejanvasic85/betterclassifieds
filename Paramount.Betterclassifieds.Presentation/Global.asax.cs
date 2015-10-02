@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace Paramount.Betterclassifieds.Presentation
 {
@@ -31,6 +32,11 @@ namespace Paramount.Betterclassifieds.Presentation
             // View engine ( for branding )
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new ClientViewEngine());
+        }
+
+        protected void Session_Start(Object sender, EventArgs e)
+        {
+            Session["init"] = 0;
         }
     }
 }

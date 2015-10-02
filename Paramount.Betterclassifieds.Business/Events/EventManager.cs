@@ -40,36 +40,47 @@ namespace Paramount.Betterclassifieds.Business.Events
             var ticketDetails = _eventRepository.GetEventTicketDetails(ticketId.Value, includeReservations: true);
 
             var reserved = ticketDetails.EventTicketReservations
-                .Where(reservation => reservation.Active)
+                .Where(reservation => reservation.Status == EventTicketReservationStatus.Active)
                 .Where(reservation => reservation.ExpiryDateUtc > currentDate).Sum(reservation => reservation.Quantity);
 
-            var booked = ticketDetails.EventTicketBookings.Where(b => b.Active).Sum(b => b.Quantity);
+            //var booked = ticketDetails.EventTicketBookings.Where(b => b.Active).Sum(b => b.Quantity);
 
-            var remainingTickets = ticketDetails.AvailableQuantity - reserved - booked;
+            var remainingTickets = ticketDetails.AvailableQuantity - reserved;// - booked;
             return remainingTickets;
         }
 
         public EventTicketReservationResult ReserveTickets(string sessionId, IEnumerable<EventTicketReservationRequest> requests)
         {
-            CancelReservationsForSession(sessionId, requests);
+            var requestsData = requests.ToArray();
+
+            CancelReservationsForSession(sessionId, requestsData);
 
             var eventTicketReservationResult = new EventTicketReservationResult();
 
             // Create reservation for each request
-            foreach (var reservationRequest in requests)
+            foreach (var reservationRequest in requestsData)
             {
-                var remaining = GetRemainingTicketCount(reservationRequest.EventTicket.TicketId);
-                if (remaining > reservationRequest.Quantity)
+                if (reservationRequest.EventTicket == null || !reservationRequest.EventTicket.TicketId.HasValue)
                 {
-                    // Convert the request to a reservation
-                    var eventTicketReservation = reservationRequest.ToReservation(_dateService.Now, _dateService.UtcNow, sessionId, _clientConfig.EventTicketReservationExpiryMinutes);
-                    eventTicketReservationResult.Reservations.Add(eventTicketReservation);
-                    _eventRepository.CreateEventTicketReservation(eventTicketReservation);
+                    throw new ArgumentNullException("requests", "Event or Ticket ID are null. Unable to proceed");
                 }
-                else
+
+                var reservation = new EventTicketReservation
                 {
-                    eventTicketReservationResult.FailedReservations.Add(reservationRequest.ToFailedReservation());
-                }
+                    CreatedDate = _dateService.Now,
+                    CreatedDateUtc = _dateService.UtcNow,
+                    ExpiryDate = _dateService.Now.AddMinutes(_clientConfig.EventTicketReservationExpiryMinutes),
+                    ExpiryDateUtc = _dateService.UtcNow.AddMinutes(_clientConfig.EventTicketReservationExpiryMinutes),
+                    SessionId = sessionId,
+                    Quantity = reservationRequest.Quantity,
+                    TicketId = reservationRequest.EventTicket.TicketId.Value,
+                    Status = new SufficientTicketsRule()
+                        .IsSatisfiedBy(new RemainingTicketsWithRequestInfo(reservationRequest.Quantity, GetRemainingTicketCount(reservationRequest.EventTicket.TicketId)))
+                        .Result,
+                };
+                
+                eventTicketReservationResult.Reservations.Add(reservation);
+                _eventRepository.CreateEventTicketReservation(reservation);
             }
 
             return eventTicketReservationResult;
@@ -84,7 +95,7 @@ namespace Paramount.Betterclassifieds.Business.Events
 
             foreach (var existingSessionReservation in existingSessionReservations)
             {
-                existingSessionReservation.Active = false;
+                existingSessionReservation.Status = EventTicketReservationStatus.Cancelled;
                 _eventRepository.UpdateEventTicketReservation(existingSessionReservation);
             }
         }

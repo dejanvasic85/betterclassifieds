@@ -37,6 +37,7 @@ execute temp_createAppSetting @Key = 'PrintImagePixelsWidth', @Setting = '354'
 execute temp_createAppSetting @Key = 'PrintImageResolution', @Setting = '300'
 execute temp_createAppSetting @Key = 'ClientName', @Setting = 'TheMusic', @Force = 1
 execute temp_createAppSetting @Key = 'EventTicketReservationExpiryMinutes', @Setting = '5'
+execute temp_createAppSetting @Key = 'EventMaxTicketsPerBooking', @Setting = '5'
 
 
 drop procedure temp_createAppSetting

@@ -1,13 +1,10 @@
 ﻿@using Paramount
 @using Paramount.ApplicationBlock.Mvc.HtmlHelpers
-
 @model EventViewDetailsModel
-
 @{
     ViewBag.Title = Model.Title;
     Layout = "~/Views/Shared/_ApplicationLayoutWithSearch.cshtml";
 }
-
 @section scripts
 {
     <script>
@@ -19,7 +16,6 @@
         });
     </script>
 }
-
 <div class="event-details" id="eventView">
     <div class="row">
         <div class="col-xs-12">
@@ -44,7 +40,6 @@
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-xs-12">
             <div class="location-details">
@@ -62,12 +57,10 @@
                 </div>
             </div>
         </div>
-
         <div class="col-xs-12">
             <div class="google-map" data-latitude="@Model.LocationLatitude" data-longitude="@Model.LocationLongitude" data-address="@Model.Location"></div>
         </div>
     </div>
-
     <div class="row top-buffer-20">
         <div class="col-xs-12 col-md-6 ticketing" id="ticketing">
             <div class="panel panel-primary">
@@ -91,12 +84,10 @@
                                         <div class="form-group">
                                             <span class="ticket-info">Quantity</span>
                                             <select class="form-control" data-bind="value: selectedQuantity">
-                                                <option value="0">0</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
+                                                @for (int i = 0; i < Model.MaxTicketsPerBooking + 1; i++)
+                                                {
+                                                    <option value="@i">@i</option>
+                                                }
                                             </select>
                                         </div>
                                     </div>
@@ -119,23 +110,19 @@
                 }
             </div>
         </div>
-
         <div class="col-xs-12 col-md-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h4><i class="fa fa-phone"></i> Organiser Details</h4>
                 </div>
-
                 <table class="table table-striped">
                     @Html.AdContactDetail(m => m.OrganiserName, "user")
                     @Html.AdContactDetail(m => m.OrganiserPhone, "phone")
                     @Html.AdContactDetail(m => m.Views, "eye-open")
                     @Html.AdContactDetail(m => m.Posted, fontIcon: "calendar-check-o")
                 </table>
-
             </div>
         </div>
-
         @*Contact*@
         <div class="col-xs-12">
             @Html.Partial("_ContactAdvertiser.cshtml")

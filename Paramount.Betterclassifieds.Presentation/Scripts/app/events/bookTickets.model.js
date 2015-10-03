@@ -14,7 +14,7 @@
 
         me.startOrder = function (element, event) {
             var $btn = $(event.target);
-            //$btn.button('loading');
+            $btn.button('loading');
 
             _.remove(me.tickets(), function (t) {
                 return t.selectedQuantity() === '0';

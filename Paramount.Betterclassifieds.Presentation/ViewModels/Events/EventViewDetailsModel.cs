@@ -27,5 +27,7 @@
         {
             get { return Tickets != null && Tickets.Length > 0; }
         }
+
+        public int MaxTicketsPerBooking { get; set; }
     }
 }

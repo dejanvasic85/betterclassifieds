@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using Humanizer;
+using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
@@ -16,12 +17,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly ISearchService _searchService;
         private readonly IEventManager _eventManager;
         private readonly HttpContextBase _httpContext;
+        private readonly IClientConfig _clientConfig;
 
-        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext)
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig)
         {
             _searchService = searchService;
             _eventManager = eventManager;
             _httpContext = httpContext;
+            _clientConfig = clientConfig;
         }
 
         public ActionResult ViewEventAd(int id, string titleSlug = "")
@@ -36,6 +39,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var eventModel = _eventManager.GetEventDetailsForOnlineAdId(onlineAdModel.OnlineAdId);
             var eventViewModel = this.Map<Business.Events.EventModel, EventViewDetailsModel>(eventModel);
             this.Map(onlineAdModel, eventViewModel);
+            this.Map(_clientConfig, eventViewModel);
 
             return View(eventViewModel);
         }
@@ -82,6 +86,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 ;
 
             configuration.CreateMap<Business.Events.EventTicket, EventTicketViewModel>().ReverseMap();
+            configuration.CreateMap<Business.IClientConfig, EventViewDetailsModel>().ForMember(m => m.MaxTicketsPerBooking, options => options.MapFrom(src=>src.EventMaxTicketsPerBooking));
             #endregion
 
             #region From View model

@@ -6,6 +6,7 @@
         public int? EventId { get; set; }
         public string TicketName { get; set; }
         public int AvailableQuantity { get; set; }
+        public int RemainingQuantity { get; set; }
         public decimal Price { get; set; }
     }
 }

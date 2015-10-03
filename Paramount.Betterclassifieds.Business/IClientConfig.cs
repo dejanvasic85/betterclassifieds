@@ -23,5 +23,6 @@
         int PrintImageResolution { get; }
         string ClientName { get; }
         int EventTicketReservationExpiryMinutes { get; }
+        int EventMaxTicketsPerBooking { get; }
     }
 }

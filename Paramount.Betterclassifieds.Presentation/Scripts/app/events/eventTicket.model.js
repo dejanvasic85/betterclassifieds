@@ -14,5 +14,6 @@
             return $paramount.formatCurrency(me.price());
         });
         me.selectedQuantity = ko.observable(data.selectedQuantity);
+        me.remainingQuantity = ko.observable(data.remainingQuantity);
     }
 })(jQuery, $paramount, ko);

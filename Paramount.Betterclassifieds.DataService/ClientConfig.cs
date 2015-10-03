@@ -141,5 +141,7 @@
         {
             get { return GetValueFromDatabase<int>("EventTicketReservationExpiryMinutes"); }
         }
+
+        public int EventMaxTicketsPerBooking { get { return GetValueFromDatabase<int>("EventMaxTicketsPerBooking"); } }
     }
 }

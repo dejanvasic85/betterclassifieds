@@ -6,7 +6,7 @@ namespace Paramount.Betterclassifieds.Business.Events
     {
         public EventTicket()
         {
-            
+            EventTicketReservations = new List<EventTicketReservation>();
         }
         public int? EventTicketId { get; set; }
         public int? EventId { get; set; }

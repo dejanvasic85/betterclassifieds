@@ -36,14 +36,14 @@ SET ANSI_PADDING ON
 GO
 
 CREATE TABLE [dbo].[EventTicket](
-	[TicketId] [int] IDENTITY(1,1) NOT NULL,
+	[EventTicketId] [int] IDENTITY(1,1) NOT NULL,
 	[EventId] [int] NOT NULL,
 	[TicketName] [varchar](100) NOT NULL,
 	[AvailableQuantity] [int] NOT NULL,
 	[Price] [money] NULL,
  CONSTRAINT [PK_EventTicket] PRIMARY KEY CLUSTERED 
 (
-	[TicketId] ASC
+	[EventTicketId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 

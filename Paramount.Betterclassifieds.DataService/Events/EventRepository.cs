@@ -39,9 +39,12 @@ namespace Paramount.Betterclassifieds.DataService.Events
         {
             using (var context = _dbContextFactory.CreateEventContext())
             {
-                var query = context.EventTickets;
-                if (includeReservations) { query.Include(t => t.EventTicketReservations); }
-                return query.SingleOrDefault(e => e.EventTicketId == ticketId);
+                var eventTicket = context.EventTickets.SingleOrDefault(e => e.EventTicketId == ticketId);
+                if (includeReservations && eventTicket != null)
+                {
+                    eventTicket.EventTicketReservations = context.EventTicketReservations.Where(r => r.EventTicketId == eventTicket.EventTicketId).ToList();
+                }
+                return eventTicket;
             }
         }
 

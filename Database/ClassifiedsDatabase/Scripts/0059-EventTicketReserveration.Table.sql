@@ -9,7 +9,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Ev
 BEGIN
 CREATE TABLE [dbo].[EventTicketReservation](
 	[EventTicketReservationId] [int] IDENTITY(1,1) NOT NULL,
-	[TicketId] [int] NOT NULL,
+	[EventTicketId] [int] NOT NULL,
 	[SessionId] [varchar](50) NOT NULL,
 	[Quantity] [int] NOT NULL,
 	[Status] [varchar](50) NOT NULL,
@@ -27,8 +27,8 @@ GO
 SET ANSI_PADDING OFF
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_EventTicketReservation_EventTicket]') AND parent_object_id = OBJECT_ID(N'[dbo].[EventTicketReservation]'))
-ALTER TABLE [dbo].[EventTicketReservation]  WITH CHECK ADD  CONSTRAINT [FK_EventTicketReservation_EventTicket] FOREIGN KEY([TicketId])
-REFERENCES [dbo].[EventTicket] ([TicketId])
+ALTER TABLE [dbo].[EventTicketReservation]  WITH CHECK ADD  CONSTRAINT [FK_EventTicketReservation_EventTicket] FOREIGN KEY([EventTicketId])
+REFERENCES [dbo].[EventTicket] ([EventTicketId])
 GO
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_EventTicketReservation_EventTicket]') AND parent_object_id = OBJECT_ID(N'[dbo].[EventTicketReservation]'))
 ALTER TABLE [dbo].[EventTicketReservation] CHECK CONSTRAINT [FK_EventTicketReservation_EventTicket]

@@ -114,6 +114,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EditAd.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\EventBooking.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EventBooking.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\NotFound.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -198,6 +203,10 @@
     <None Include="Features\EditAd.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>EditAd.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\EventBooking.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>EventBooking.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\NotFound.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

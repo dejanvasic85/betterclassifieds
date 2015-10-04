@@ -56,7 +56,7 @@
             if (adid.HasValue)
             {
                 // The user has submitted an actual adid - so go straight there... 
-                var ad = _searchService.GetAdById(adid.Value);
+                var ad = _searchService.GetByAdId(adid.Value);
                 if (ad == null)
                     return View(searchModel);
 
@@ -146,7 +146,7 @@
         public ActionResult ViewAd(int id, string titleSlug = "")
         {
             // Remember - Id is always AdBookingId
-            var adSearchResult = _searchService.GetAdById(id);
+            var adSearchResult = _searchService.GetByAdId(id);
             
             if (adSearchResult == null || adSearchResult.HasExpired() || adSearchResult.HasNotStarted())
             {

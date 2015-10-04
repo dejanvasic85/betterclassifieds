@@ -70,7 +70,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Details(EditAdDetailsViewModel viewModel)
         {
-            var adBooking = _searchService.GetAdById(viewModel.Id);
+            var adBooking = _searchService.GetByAdId(viewModel.Id);
             viewModel.MaxOnlineImages = _clientConfig.MaxOnlineImages > adBooking.ImageUrls.Length ? _clientConfig.MaxOnlineImages : adBooking.ImageUrls.Length;
             viewModel.MaxImageUploadBytes = _applicationConfig.MaxImageUploadBytes;
             viewModel.ConfigDurationDays = _clientConfig.RestrictedOnlineDaysCount;

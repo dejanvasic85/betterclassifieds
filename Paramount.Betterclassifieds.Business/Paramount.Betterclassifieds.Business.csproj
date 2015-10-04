@@ -58,11 +58,9 @@
     <Compile Include="Booking\IBookingContext.cs" />
     <Compile Include="Events\EventTicket.cs" />
     <Compile Include="Events\EventTicketBooking.cs" />
-    <Compile Include="Events\EventTicketFailedReservation.cs" />
     <Compile Include="Events\EventTicketReservation.cs" />
     <Compile Include="Events\EventTicketReservationStatus.cs" />
     <Compile Include="Events\EventTicketReservationRequest.cs" />
-    <Compile Include="Events\EventTicketReservationResult.cs" />
     <Compile Include="Events\EventManager.cs" />
     <Compile Include="Events\RemainingTicketsWithRequestInfo.cs" />
     <Compile Include="Events\SufficientTicketsRule.cs" />

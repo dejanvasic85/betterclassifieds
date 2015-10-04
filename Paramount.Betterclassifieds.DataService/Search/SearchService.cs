@@ -56,12 +56,25 @@ namespace Paramount.Betterclassifieds.DataService
             return GetAds(searchterm: null, categoryIds: null, locationIds: null, areaIds: null, index: 0, pageSize: pageSize, sortOrder: AdSearchSortOrder.NewestFirst);
         }
 
-        public AdSearchResult GetAdById(int id)
+        public AdSearchResult GetByAdId(int id)
         {
             using (var context = _dbContextFactory.CreateClassifiedSearchContext())
             {
                 // Simply get the booked at view
                 return this.Map<BookedAd, AdSearchResult>(context.BookedAd_GetById(id).FirstOrDefault());
+            }
+        }
+
+        public AdSearchResult GetByAdOnlineId(int id)
+        {
+            using (var context = _dbContextFactory.CreateClassifiedContext())
+            {
+                var onlineAd = context.OnlineAds.SingleOrDefault(o => o.OnlineAdId == id);
+                if (onlineAd == null)
+                    return null;
+
+                var b = context.AdDesigns.Single(a => a.AdDesignId == onlineAd.AdDesignId).Ad.AdBookings.Single();
+                return GetByAdId(b.AdBookingId);
             }
         }
 

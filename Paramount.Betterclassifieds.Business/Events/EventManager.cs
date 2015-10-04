@@ -7,9 +7,10 @@ namespace Paramount.Betterclassifieds.Business.Events
     public interface IEventManager
     {
         EventModel GetEventDetailsForOnlineAdId(int onlineAdId);
+        EventModel GetEventDetails(int eventId);
         int GetRemainingTicketCount(int? ticketId);
-
-        EventTicketReservationResult ReserveTickets(string sessionId, IEnumerable<EventTicketReservationRequest> requests);
+        IEnumerable<EventTicketReservation> GetTicketReservations(string sessionId);
+        void ReserveTickets(string sessionId, IEnumerable<EventTicketReservationRequest> requests);
     }
 
     public class EventManager : IEventManager
@@ -28,6 +29,11 @@ namespace Paramount.Betterclassifieds.Business.Events
         public EventModel GetEventDetailsForOnlineAdId(int onlineAdId)
         {
             return _eventRepository.GetEventDetailsForOnlineAdId(onlineAdId);
+        }
+
+        public EventModel GetEventDetails(int eventId)
+        {
+            return _eventRepository.GetEventDetails(eventId);
         }
 
         public int GetRemainingTicketCount(int? ticketId)
@@ -49,13 +55,11 @@ namespace Paramount.Betterclassifieds.Business.Events
             return remainingTickets;
         }
 
-        public EventTicketReservationResult ReserveTickets(string sessionId, IEnumerable<EventTicketReservationRequest> requests)
+        public void ReserveTickets(string sessionId, IEnumerable<EventTicketReservationRequest> requests)
         {
             var requestsData = requests.ToArray();
 
             CancelReservationsForSession(sessionId);
-
-            var eventTicketReservationResult = new EventTicketReservationResult();
 
             // Create reservation for each request
             foreach (var reservationRequest in requestsData)
@@ -79,11 +83,14 @@ namespace Paramount.Betterclassifieds.Business.Events
                         .Result,
                 };
 
-                eventTicketReservationResult.Reservations.Add(reservation);
                 _eventRepository.CreateEventTicketReservation(reservation);
             }
+        }
 
-            return eventTicketReservationResult;
+        public IEnumerable<EventTicketReservation> GetTicketReservations(string sessionId)
+        {
+            return _eventRepository.GetEventTicketReservationsForSession(sessionId)
+                .Where(e => e.Status == EventTicketReservationStatus.Active);
         }
 
         private void CancelReservationsForSession(string sessionId)

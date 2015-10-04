@@ -52,7 +52,10 @@ namespace Paramount.Betterclassifieds.DataService.Events
         {
             using (var context = _dbContextFactory.CreateEventContext())
             {
-                return context.EventTicketReservations.Where(reservation => reservation.SessionId == sessionId).ToList();
+                return context.EventTicketReservations
+                    .Where(reservation => reservation.SessionId == sessionId)
+                    .Include(e => e.EventTicket)
+                    .ToList();
             }
         }
 

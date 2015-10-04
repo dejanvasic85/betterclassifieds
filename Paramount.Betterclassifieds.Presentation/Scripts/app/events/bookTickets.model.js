@@ -24,7 +24,7 @@
 
             eventService.startTicketOrder(request).success(function (response) {
                 if (response.redirect) {
-                    //window.location = response.redirect;
+                    window.location = response.redirect;
                 }
             });
         }

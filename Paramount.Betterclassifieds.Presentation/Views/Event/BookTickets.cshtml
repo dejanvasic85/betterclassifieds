@@ -1,21 +1,24 @@
 ﻿@model BookTicketsViewModel
-
 @{
     ViewBag.Title = "Book Tickets";
     Layout = "~/Views/Shared/_ApplicationLayoutWithSearch.cshtml";
 }
-
 @section scripts
 {
     <script>
         $paramount.ui.bookTickets.init();
     </script>
 }
-
 <div id="bookTicketsView">
     <h2>Book Your Tickets</h2>
+    
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="bs-callout bs-callout-info">
+                <h4><i class="fa fa-list"></i> &nbsp; @Model.Title</h4>
+            </div>
 
-
+        </div>
+    </div>
 
 </div>
-

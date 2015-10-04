@@ -6,6 +6,7 @@ namespace Paramount.Betterclassifieds.Business.Events
     {
         public int? EventTicketReservationId { get; set; }
         public int? EventTicketId { get; set; }
+        public EventTicket EventTicket { get; set; }
         public int Quantity { get; set; }
         public string SessionId { get; set; }
         public EventTicketReservationStatus Status { get; set; }

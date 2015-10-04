@@ -400,7 +400,7 @@
                 throw new ArgumentException("Invalid ad ID.");
             }
 
-            var adSearchResult = _searchService.GetAdById(adId);
+            var adSearchResult = _searchService.GetByAdId(adId);
 
             foreach (var friendEmail in users.Where(u => u.Selected).Select(u => u.Email))
             {

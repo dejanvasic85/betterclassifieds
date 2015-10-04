@@ -29,7 +29,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public ActionResult ViewEventAd(int id, string titleSlug = "")
         {
-            var onlineAdModel = _searchService.GetAdById(id);
+            var onlineAdModel = _searchService.GetByAdId(id);
 
             if (onlineAdModel == null)
             {
@@ -45,22 +45,40 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpPost]
-        public ActionResult ReserveTickets(List<EventTicketReservervationViewModel> tickets)
+        public ActionResult ReserveTickets(List<EventTicketRequestViewModel> tickets)
         {
             if (!ModelState.IsValid)
             {
                 return Json(new { IsValid = false, Errors = ModelState.ToErrors() });
             }
 
-            var ticketRequests = this.MapList<EventTicketReservervationViewModel, EventTicketReservationRequest>(tickets);
+            var ticketRequests = this.MapList<EventTicketRequestViewModel, EventTicketReservationRequest>(tickets);
+            _eventManager.ReserveTickets(_httpContext.With(s => s.Session).SessionID, ticketRequests);
 
-            var result = _eventManager.ReserveTickets(_httpContext.With(s => s.Session).SessionID, ticketRequests);
-            
             return Json(new { IsValid = true, Redirect = Url.Action("BookTickets") });
         }
 
         [HttpGet]
         public ActionResult BookTickets()
+        {
+            var ticketReservations = _eventManager.GetTicketReservations(_httpContext.With(s => s.Session).SessionID);
+            var eventId = ticketReservations.FirstOrDefault().With(t => t.EventTicket.With(r => r.EventId));
+            if (!eventId.HasValue)
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
+            var eventDetails = _eventManager.GetEventDetails(eventId.Value);
+            var onlineAdModel = _searchService.GetByAdOnlineId(eventDetails.OnlineAdId);
+
+            var viewModel = new BookTicketsViewModel
+            {
+                Title = onlineAdModel.Heading
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult BookTickets(BookTicketsViewModel bookTicketsViewModel)
         {
             return View();
         }
@@ -68,6 +86,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public void OnRegisterMaps(IConfiguration configuration)
         {
             #region To View Model
+
             // To View Model
             configuration.CreateMap<Business.Events.EventModel, EventViewDetailsModel>()
                 .ForMember(member => member.EventStartDate, options => options.ResolveUsing(src => src.EventStartDate.GetValueOrDefault().ToLongDateString()))
@@ -86,17 +105,19 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 ;
 
             configuration.CreateMap<Business.Events.EventTicket, EventTicketViewModel>().ReverseMap();
-            configuration.CreateMap<Business.IClientConfig, EventViewDetailsModel>().ForMember(m => m.MaxTicketsPerBooking, options => options.MapFrom(src=>src.EventMaxTicketsPerBooking));
+            configuration.CreateMap<Business.IClientConfig, EventViewDetailsModel>().ForMember(m => m.MaxTicketsPerBooking, options => options.MapFrom(src => src.EventMaxTicketsPerBooking));
+            configuration.CreateMap<Business.Events.EventTicketReservation, EventTicketRequestViewModel>();
             #endregion
 
             #region From View model
+
             // From View Model
-            configuration.CreateMap<EventTicketReservervationViewModel, EventTicket>();
-            configuration.CreateMap<EventTicketReservervationViewModel, EventTicketReservationRequest>()
+            configuration.CreateMap<EventTicketRequestViewModel, EventTicket>();
+            configuration.CreateMap<EventTicketRequestViewModel, EventTicketReservationRequest>()
                 .ConvertUsing(a => new EventTicketReservationRequest()
                 {
                     Quantity = a.SelectedQuantity,
-                    EventTicket = this.Map<EventTicketReservervationViewModel, EventTicket>(a)
+                    EventTicket = this.Map<EventTicketRequestViewModel, EventTicket>(a)
                 });
             #endregion
         }

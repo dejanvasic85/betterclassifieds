@@ -9,6 +9,9 @@ namespace Paramount.Betterclassifieds.DataService.Events
         {
             ToTable("EventTicketReservation");
             HasKey(prop => prop.EventTicketReservationId);
+            HasRequired(prop => prop.EventTicket)
+                .WithMany(prop => prop.EventTicketReservations)
+                .HasForeignKey(prop => prop.EventTicketId);
             Property(prop => prop.StatusAsString).HasColumnName("Status");
             Ignore(prop => prop.Status);
         }

@@ -1,4 +1,4 @@
-﻿(function ($, $paramount, ko, moment) {
+﻿(function ($, $paramount, ko) {
     'use strict';
 
     $paramount.models = $paramount.models || {};
@@ -13,8 +13,8 @@
         me.secondsRemainingDisplay = ko.computed(function() {
             return ("0" + me.secondsRemaining()).slice(-2);
         });
-        var interval = setInterval(function (args) {
-            if (me.minsRemaining() === 0 && me.secondsRemaining() === 0) {
+        var interval = setInterval(function () {
+            if (me.minsRemaining() === 0 && me.secondsRemaining() === 1) {
                 window.clearInterval(interval);
             }
 
@@ -26,9 +26,7 @@
                 me.minsRemaining(updatedMins);
                 me.secondsRemaining(59);
             }
-
         }, 1000);
-
     }
 
-})(jQuery, $paramount, ko, moment);
+})(jQuery, $paramount, ko);

@@ -69,9 +69,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
             var eventDetails = _eventManager.GetEventDetails(eventId.Value);
             var onlineAdModel = _searchService.GetByAdOnlineId(eventDetails.OnlineAdId);
-
+            
             var viewModel = new BookTicketsViewModel
             {
+                ReservationExpiryMinutes = _clientConfig.EventTicketReservationExpiryMinutes,
                 Title = onlineAdModel.Heading
             };
             return View(viewModel);

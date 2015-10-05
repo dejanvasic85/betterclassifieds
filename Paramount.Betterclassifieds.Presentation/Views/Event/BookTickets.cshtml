@@ -6,18 +6,38 @@
 @section scripts
 {
     <script>
-        $paramount.ui.bookTickets.init();
+        var model = @Html.Raw(Model.ToJsonString());
+
+        $paramount.ui.bookTickets.init({
+            data : model
+        });
     </script>
 }
 <div id="bookTicketsView">
     <h2>Book Your Tickets</h2>
-    
+
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-sm-6">
             <div class="bs-callout bs-callout-info">
-                <h4><i class="fa fa-list"></i> &nbsp; @Model.Title</h4>
+                <h4><i class="fa fa-ticket"></i>&nbsp; Tickets</h4>
             </div>
 
+            <div class="alert alert-warning">
+                Your tickets have been reserved. Please confirm your ticket selection
+                and complete your details. <strong>
+                </strong>
+            </div>
+
+            <div class="alert alert-warning alert-border-only text-center">
+                Time Left:
+                <span data-bind="text: minsRemaining"></span>
+                <span data-bind="text: secsRemaining"></span>
+            </div>
+
+            <div class="bs-callout bs-callout-info">
+                <h4><i class="fa fa-anchor"></i> &nbsp; @Model.Title</h4>
+            </div>
+            <p></p>
         </div>
     </div>
 

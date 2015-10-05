@@ -5,19 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @RenderSection("HeadSection", false)
-    
+
     <link rel="shortcut icon" href="@Url.Content("~/Content/KandoBay/kandobay_favicon.ico")" type="image/x-icon" />
     <link rel="icon" href="@Url.Content("~/Content/KandoBay/kandobay_favicon.ico")" type="image/ico" />
 
     <title>@ViewBag.Title - KandoBay Classifieds</title>
-    
-    @*Base styles - see bundling configuration*@
-    @Styles.Render("~/Content/css-base")
-    
+
     @*KandoBay specific styles*@
     <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-theme-yeti.min.css")" />
     <link rel="stylesheet" href="@Url.Content("~/Content/KandoBay/kando.min.css")" />
-    
+
+    @*Base styles - see bundling configuration*@
+    @Styles.Render("~/Content/css-base")
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,45 +24,45 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
-</head>
-    <body>
-        
-        @*JQuery should go before anything*@
-        @Scripts.Render("~/bundle/jquery")
 
-        <div class="container">
-            <div class="row top-buffer-40">
-                <div class="col-md-4 left-buffer-20">
-                    <a href="@Url.Action("Index", "Home")">
-                        <img class="themusic-logo" 
-                             src="@Url.Content("~/Content/KandoBay/img/Kandobay_Logo.png")" 
-                             width="300"
-                             alt="Kandobay Classifieds" />
-                    </a>
-                </div>
-                <div class="col-md-8">
-                    <div class="well well-lg" id="leadtext">
-                        Free classifieds for the African Community|Buy, Sell, Trade|Teach and Learn|Advertise your business for free
-                    </div>
+</head>
+<body>
+
+    @*JQuery should go before anything*@
+    @Scripts.Render("~/bundle/jquery")
+
+    <div class="container">
+        <div class="row top-buffer-40">
+            <div class="col-md-4 left-buffer-20">
+                <a href="@Url.Action("Index", "Home")">
+                    <img class="themusic-logo"
+                         src="@Url.Content("~/Content/KandoBay/img/Kandobay_Logo.png")"
+                         width="300"
+                         alt="Kandobay Classifieds" />
+                </a>
+            </div>
+            <div class="col-md-8">
+                <div class="well well-lg" id="leadtext">
+                    Free classifieds for the African Community|Buy, Sell, Trade|Teach and Learn|Advertise your business for free
                 </div>
             </div>
-
-            @*Render the application layout*@
-            @RenderBody()
         </div>
 
-        @Html.Partial("_ApplicationScripts")
-        
-        @*Rotator for the home page*@
-        <script type="text/javascript">
-            $("#leadtext").Morphext({
-                animation: "fadeInRight",
-                separator: "|", 
-                speed: 3500 
-            });
-        </script>
+        @*Render the application layout*@
+        @RenderBody()
+    </div>
 
-        @RenderSection("Scripts", false)
-    </body>
+    @Html.Partial("_ApplicationScripts")
+
+    @*Rotator for the home page*@
+    <script type="text/javascript">
+        $("#leadtext").Morphext({
+            animation: "fadeInRight",
+            separator: "|",
+            speed: 3500
+        });
+    </script>
+
+    @RenderSection("Scripts", false)
+</body>
 </html>

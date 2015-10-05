@@ -203,6 +203,12 @@
   background-color: #fff;
 }
 /*
+    Alert overrides
+*/
+.alert-border-only {
+  background-color: #fff;
+}
+/*
     Extra small devices
 */
 @media (max-width: 766px) {

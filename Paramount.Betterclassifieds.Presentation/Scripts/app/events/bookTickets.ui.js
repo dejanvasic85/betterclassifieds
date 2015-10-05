@@ -6,8 +6,8 @@
     $paramount.ui.bookTickets = {
         init: function (options) {
             $(function () {
-                // Fetch the booking ticket request
-                console.log('init');
+                //var bookTickets = new $paramount.models.
+                //ko.applyBindings();
             });
         }
     }

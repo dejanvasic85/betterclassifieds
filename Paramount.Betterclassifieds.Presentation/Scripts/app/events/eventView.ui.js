@@ -13,7 +13,7 @@
                 if (options.ticketData) {
                     var ticketingInterface = document.getElementById('ticketing');
                     var eventService = new $paramount.EventService(options.baseUrl);
-                    var ticketBookingModel = new $paramount.models.BookTickets(eventService, {
+                    var ticketBookingModel = new $paramount.models.FindTickets(eventService, {
                         ticketData: options.ticketData
                     });
 

@@ -32,19 +32,17 @@ namespace Paramount.Betterclassifieds.Presentation
         public static void RegisterStyles(BundleCollection bundles)
         {
             bundles.Add(new Bundle("~/Content/css-base")
-                .Include("~/Content/bootstrap-3.3.0.css")
                 .Include("~/Content/font-awesome-4.4.0.css")
-                .Include("~/Content/site.css")
                 .Include("~/Content/bootstrap-select.css")
                 .Include("~/Content/datepicker.css")
                 .Include("~/Content/datepicker3.css")
                 .Include("~/Content/jquery.fileupload-1.3.0.css")
                 .Include("~/Content/morphext.css")
                 .Include("~/Content/animate.css")
-                .Include("~/Content/cropper.css")     
+                .Include("~/Content/cropper.css")
+                .Include("~/Content/site.css")
                 .IncludeDirectory("~/Content/components", "*.css")
                 );
-
         }
     }
 }

@@ -2,7 +2,7 @@
     'use strict';
 
     $paramount.models = $paramount.models || {};
-    $paramount.models.BookTickets = function (eventService, data) {
+    $paramount.models.FindTickets = function (eventService, data) {
         var me = this;
 
         $.extend(data, {});

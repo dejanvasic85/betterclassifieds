@@ -34,9 +34,7 @@ Function Run-Sql{
         $sqlArgs.Password = $connection.Password 
     }
 
-	$sqlArgs.GetEnumerator() | ForEach-Object { Write-Host $_.Key " " $_.Value }
-	Write-Host "Executing: $($Script)"
-
+	
     return Invoke-Sqlcmd @sqlArgs
 }
 

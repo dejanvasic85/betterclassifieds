@@ -230,3 +230,4 @@
 /// <reference path="app/events/event.service.js" />
 /// <reference path="vendor/lodash.js" />
 /// <reference path="app/events/findtickets.model.js" />
+/// <reference path="app/events/booktickets.model.js" />

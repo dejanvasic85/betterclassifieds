@@ -130,6 +130,9 @@
 .top-action-buttons .login-options {
   min-width: 175px;
 }
+/*
+    Event editor
+*/
 .event-editor .bs-callout-info h4 {
   display: inline-block;
 }
@@ -154,6 +157,9 @@
   margin: 10px 0;
   padding: 10px 0;
 }
+/*
+    Event Details
+*/
 .event-details .google-map {
   height: 300px;
 }
@@ -191,6 +197,15 @@
 .event-details .ticketing .ticket-info {
   font-size: 16px;
   vertical-align: middle;
+}
+/*
+    Event - Booking tickets
+*/
+.event-book-tickets .alert.alert-count-down {
+  background-color: #fff;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #333;
 }
 /*
     Form Overrides

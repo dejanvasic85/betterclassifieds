@@ -1,4 +1,4 @@
-﻿(function ($, $paramount, ko, moment) {
+﻿(function ($, $paramount, ko) {
     'use strict';
 
     $paramount.models = $paramount.models || {};
@@ -39,4 +39,4 @@
         });
     }
 
-})(jQuery, $paramount, ko, moment);
+})(jQuery, $paramount, ko);

@@ -352,6 +352,7 @@
     <None Include="Content\TheMusic\themusic.less" />
     <Content Include="Scripts\app\account\userAds.model.js" />
     <Content Include="Scripts\app\contactAdvertiser\contactAdvertiser.model.js" />
+    <Content Include="Scripts\app\events\bookTickets.model.js" />
     <Content Include="Scripts\app\events\findTickets.model.js" />
     <Content Include="Scripts\app\events\event.service.js" />
     <Content Include="Scripts\app\events\eventTicket.model.js" />

@@ -13,7 +13,7 @@
         });
     </script>
 }
-<div id="bookTicketsView">
+<div id="bookTicketsView" class="event-book-tickets">
     <h2>Book Your Tickets</h2>
 
     <div class="row">
@@ -24,14 +24,13 @@
 
             <div class="alert alert-warning">
                 Your tickets have been reserved. Please confirm your ticket selection
-                and complete your details. <strong>
+                and complete your details. You have @Model.ReservationExpiryMinutes minutes for your reservation.<strong>
                 </strong>
             </div>
 
-            <div class="alert alert-warning alert-border-only text-center">
+            <div class="alert alert-warning text-center alert-count-down">
                 Time Left:
-                <span data-bind="text: minsRemaining"></span>
-                <span data-bind="text: secsRemaining"></span>
+                <span data-bind="text: minsRemaining"></span>:<span data-bind="text: secondsRemainingDisplay"></span>
             </div>
 
             <div class="bs-callout bs-callout-info">

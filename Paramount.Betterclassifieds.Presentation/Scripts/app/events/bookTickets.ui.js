@@ -6,8 +6,8 @@
     $paramount.ui.bookTickets = {
         init: function (options) {
             $(function () {
-                //var bookTickets = new $paramount.models.
-                //ko.applyBindings();
+                var bookTickets = new $paramount.models.BookTickets(options.data);
+                ko.applyBindings(bookTickets, $bookTicketsView[0]);
             });
         }
     }

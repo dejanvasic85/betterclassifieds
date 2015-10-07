@@ -14,17 +14,14 @@
     </script>
 }
 <div id="bookTicketsView" class="event-book-tickets">
-    <h2>Book Your Tickets</h2>
+    <h2>Confirm tickets for event : @Model.Title</h2>
 
     <div class="row">
-        <div class="col-sm-6">
-            <div class="bs-callout bs-callout-info">
-                <h4><i class="fa fa-ticket"></i>&nbsp; Tickets</h4>
-            </div>
-
+        <div class="col-xs-12">
             <div class="alert alert-warning">
-                Your tickets have been reserved. Please confirm your ticket selection
-                and complete your details. You have @Model.ReservationExpiryMinutes minutes for your reservation.<strong>
+                <strong>
+                    Your tickets have been reserved. Please confirm your ticket selection
+                    and complete your details. You have @Model.ReservationExpiryMinutes minutes for your reservation.
                 </strong>
             </div>
 
@@ -32,11 +29,40 @@
                 Time Left:
                 <span data-bind="text: minsRemaining"></span>:<span data-bind="text: secondsRemainingDisplay"></span>
             </div>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col-sm-6">
             <div class="bs-callout bs-callout-info">
-                <h4><i class="fa fa-anchor"></i> &nbsp; @Model.Title</h4>
+                <h4><i class="fa fa-ticket"></i>&nbsp; Tickets</h4>
             </div>
-            <p></p>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="bs-callout bs-callout-info">
+                <h4><i class="fa fa-user"></i> &nbsp; Your Details</h4>
+            </div>
+            <div>
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-primary active">
+                        <input type="radio" name="options" id="option1" autocomplete="off" checked> New User
+                    </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" name="options" id="option2" autocomplete="off"> Existing User
+                    </label>
+                </div>
+            </div>
+            <div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" id="Email" />
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" id="Password"/>
+                </div>
+            </div>
         </div>
     </div>
 

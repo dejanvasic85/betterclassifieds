@@ -8,5 +8,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
         public List<EventTicketRequestViewModel> Reservations { get; set; }
         public int ReservationExpiryMinutes { get; set; }
+        public int ReservationExpirySeconds { get; set; }
+        public int TotelReservationExpiryMinutes { get; set; }
     }
 }

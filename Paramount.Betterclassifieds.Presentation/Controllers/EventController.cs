@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Monads;
 using System.Web;
@@ -61,7 +62,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpGet]
         public ActionResult BookTickets()
         {
-            var ticketReservations = _eventManager.GetTicketReservations(_httpContext.With(s => s.Session).SessionID);
+            var ticketReservations = _eventManager.GetTicketReservations(_httpContext.With(s => s.Session).SessionID).ToArray();
             var eventId = ticketReservations.FirstOrDefault().With(t => t.EventTicket.With(r => r.EventId));
             if (!eventId.HasValue)
             {
@@ -69,10 +70,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
             var eventDetails = _eventManager.GetEventDetails(eventId.Value);
             var onlineAdModel = _searchService.GetByAdOnlineId(eventDetails.OnlineAdId);
+            var remainingTimeToCompleteBooking = _eventManager.GetRemainingTimeForReservationCollection(ticketReservations);
             
             var viewModel = new BookTicketsViewModel
             {
-                ReservationExpiryMinutes = _clientConfig.EventTicketReservationExpiryMinutes,
+                ReservationExpiryMinutes = remainingTimeToCompleteBooking.Minutes,
+                ReservationExpirySeconds = remainingTimeToCompleteBooking.Seconds,
+                TotelReservationExpiryMinutes = _clientConfig.EventTicketReservationExpiryMinutes,
                 Title = onlineAdModel.Heading
             };
             return View(viewModel);

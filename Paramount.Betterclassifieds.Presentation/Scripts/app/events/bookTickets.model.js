@@ -6,10 +6,9 @@
         var me = this;
 
         $.extend(data, {});
-
-        // Initially start with 59 seconds so we take 1 min off automatically
-        me.minsRemaining = ko.observable(data.reservationExpiryMinutes - 1);
-        me.secondsRemaining = ko.observable(59);
+        debugger;
+        me.minsRemaining = ko.observable(data.reservationExpiryMinutes);
+        me.secondsRemaining = ko.observable(data.reservationExpirySeconds);
         me.secondsRemainingDisplay = ko.computed(function() {
             return ("0" + me.secondsRemaining()).slice(-2);
         });

@@ -11,6 +11,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         int GetRemainingTicketCount(int? ticketId);
         IEnumerable<EventTicketReservation> GetTicketReservations(string sessionId);
         void ReserveTickets(string sessionId, IEnumerable<EventTicketReservationRequest> requests);
+        TimeSpan GetRemainingTimeForReservationCollection(IEnumerable<EventTicketReservation> reservations);
     }
 
     public class EventManager : IEventManager
@@ -85,6 +86,17 @@ namespace Paramount.Betterclassifieds.Business.Events
 
                 _eventRepository.CreateEventTicketReservation(reservation);
             }
+        }
+
+        public TimeSpan GetRemainingTimeForReservationCollection(IEnumerable<EventTicketReservation> reservations)
+        {
+            var soonestEnding = reservations.OrderBy(r => r.ExpiryDateUtc).FirstOrDefault();
+            if (soonestEnding == null || !soonestEnding.ExpiryDateUtc.HasValue)
+            {
+                return new TimeSpan();
+            }
+
+            return soonestEnding.ExpiryDateUtc.Value - _dateService.UtcNow;
         }
 
         public IEnumerable<EventTicketReservation> GetTicketReservations(string sessionId)

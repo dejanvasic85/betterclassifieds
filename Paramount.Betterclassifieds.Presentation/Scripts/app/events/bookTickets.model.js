@@ -6,7 +6,7 @@
         var me = this;
 
         $.extend(data, {});
-        debugger;
+        
         me.minsRemaining = ko.observable(data.reservationExpiryMinutes);
         me.secondsRemaining = ko.observable(data.reservationExpirySeconds);
         me.secondsRemainingDisplay = ko.computed(function() {

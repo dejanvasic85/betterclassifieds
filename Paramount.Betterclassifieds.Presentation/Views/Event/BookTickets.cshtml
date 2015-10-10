@@ -109,7 +109,7 @@
         </div>
 
         <div class="col-xs-8 book-tickets-form">
-            <div class="pull-right" data-bind="visible: canContinue">
+            <div class="pull-right" data-bind="visible: canContinue() && outOfTime() === false">
                 <button class="btn btn-primary">
                     Submit
                 </button>

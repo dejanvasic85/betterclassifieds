@@ -23,7 +23,7 @@
         });
         
         // Timer
-        if (data.outOfTime === false || data.successfulReservationCount > 0) {
+        if (data.outOfTime !== true && data.successfulReservationCount > 0) {
             var interval = setInterval(function () {
                 if (me.minsRemaining() === 0 && me.secondsRemaining() === 1) {
                     window.clearInterval(interval);

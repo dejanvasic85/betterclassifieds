@@ -17,12 +17,12 @@
 <div id="bookTicketsView" class="event-book-tickets">
     <h2>Confirm tickets for event : @Model.Title</h2>
 
-    <div class="row" data-bind="visible: canContinue">
+    <div class="row reservation-countdown" data-bind="visible: canContinue">
         <div class="col-xs-12">
             <div class="alert alert-warning">
                 <strong>
-                    Your tickets have been reserved. Please confirm your ticket selection
-                    and complete your details. You have @Model.TotelReservationExpiryMinutes minutes for until your ticket reservation expires.
+                    Your tickets have been reserved for @Model.TotelReservationExpiryMinutes minutes.
+                    Please confirm your ticket selection, details and payment.
                 </strong>
             </div>
 
@@ -41,7 +41,7 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-8">
+        <div class="col-sm-8 book-tickets-form">
 
             @*Tickets*@
             <div class="bs-callout bs-callout-info">
@@ -51,14 +51,11 @@
                 <ul data-bind="foreach: reservedTickets" class="list-group">
                     <li class="list-group-item">
                         <div class="row">
-                            <div class="col-sm-6 col-xs-3" data-bind="text: ticketName"></div>
-                            <div class="col-sm-2 col-xs-3" data-bind="text: $paramount.formatCurrency( price() )"></div>
-                            <div class="col-sm-2 col-xs-3">
+                            <div class="col-sm-6 col-xs-4" data-bind="text: ticketName"></div>
+                            <div class="col-sm-2 col-xs-4" data-bind="text: $paramount.formatCurrency( price() )"></div>
+                            <div class="col-sm-4 col-xs-4">
+                                <span class="label" data-bind="text: (quantity), css : {'label-success' : status() === 'Reserved', 'label-danger' : status() === 'Request too large' }"></span>
                                 <span class="label" data-bind="text: status, css : {'label-success' : status() === 'Reserved', 'label-danger' : status() === 'Request too large' }"></span>
-                            </div>
-                            <div class="col-sm-2 col-xs-3">
-                                Requested:
-                                <span data-bind="text: quantity"></span>
                             </div>
                         </div>
                     </li>
@@ -90,7 +87,7 @@
 
             @*Payment*@
             <div class="bs-callout bs-callout-info">
-                <h4><i class="fa fa-money"></i> &nbsp; Payment</h4>
+                <h4><i class="fa fa-credit-card"></i> &nbsp; Payment</h4>
             </div>
             <p>Coming soon</p>
         </div>
@@ -111,7 +108,7 @@
             </div>
         </div>
 
-        <div class="col-xs-8">
+        <div class="col-xs-8 book-tickets-form">
             <div class="pull-right" data-bind="visible: canContinue">
                 <button class="btn btn-primary">
                     Submit

@@ -210,6 +210,12 @@
   font-weight: bold;
   color: #333;
 }
+.event-book-tickets .reservation-countdown {
+  border-bottom: 1px solid #eeeeee;
+}
+.event-book-tickets .book-tickets-form {
+  border-right: 1px solid #eeeeee;
+}
 /*
     Form Overrides
 */

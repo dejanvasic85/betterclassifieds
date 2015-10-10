@@ -54,8 +54,8 @@
                             <div class="col-sm-6 col-xs-4" data-bind="text: ticketName"></div>
                             <div class="col-sm-2 col-xs-4" data-bind="text: $paramount.formatCurrency( price() )"></div>
                             <div class="col-sm-4 col-xs-4">
-                                <span class="label" data-bind="text: (quantity), css : {'label-success' : status() === 'Reserved', 'label-danger' : status() === 'Request too large' }"></span>
-                                <span class="label" data-bind="text: status, css : {'label-success' : status() === 'Reserved', 'label-danger' : status() === 'Request too large' }"></span>
+                                <span class="label" data-bind="text: quantity, css : {'label-success' : isReserved, 'label-danger' : notReserved }"></span>
+                                <span class="label" data-bind="text: status, css : {'label-success' : isReserved, 'label-danger' : notReserved }"></span>
                             </div>
                         </div>
                     </li>

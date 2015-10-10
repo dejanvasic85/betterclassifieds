@@ -14,7 +14,8 @@
                     var ticketingInterface = document.getElementById('ticketing');
                     var eventService = new $paramount.EventService(options.baseUrl);
                     var ticketBookingModel = new $paramount.models.FindTickets(eventService, {
-                        ticketData: options.ticketData
+                        ticketData: options.ticketData,
+                        maxTicketsPerBooking: options.maxTicketsPerBooking
                     });
 
                     ko.applyBindings(ticketBookingModel, ticketingInterface);

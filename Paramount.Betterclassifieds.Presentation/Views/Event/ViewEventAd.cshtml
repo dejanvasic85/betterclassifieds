@@ -12,6 +12,7 @@
 
         $paramount.ui.eventView.init({
             ticketData : ticketData,
+            maxTicketsPerBooking : @Model.MaxTicketsPerBooking,
             baseUrl : '@Url.Action("Index", "Home")'
         });
     </script>
@@ -81,14 +82,10 @@
                                 </div>
                                 <div class="col-xs-6">
                                     <div class="form-inline pull-right">
-                                        <span data-bind="visible: remainingQuantity() === 0">SOLD OUT</span>
-                                        <div class="form-group" data-bind="visible: remainingQuantity() > 0">
+                                        <span data-bind="visible: soldOut, text: 'SOLD OUT'" class="label label-danger"></span>
+                                        <div class="form-group" data-bind="visible: isAvailable">
                                             <span class="ticket-info">Quantity</span>
-                                            <select class="form-control" data-bind="value: selectedQuantity">
-                                                @for (int i = 0; i < Model.MaxTicketsPerBooking + 1; i++)
-                                                {
-                                                    <option value="@i">@i</option>
-                                                }
+                                            <select class="form-control" data-bind="value: selectedQuantity, options: maxTicketsPerBooking, optionsText : 'label', optionsValue : 'value'">
                                             </select>
                                         </div>
                                     </div>

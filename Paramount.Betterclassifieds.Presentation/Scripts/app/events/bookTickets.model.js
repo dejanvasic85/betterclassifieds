@@ -6,7 +6,6 @@
         var me = this;
 
         $.extend(data, {});
-        console.log(data);
 
         me.minsRemaining = ko.observable(data.reservationExpiryMinutes);
         me.secondsRemaining = ko.observable(data.reservationExpirySeconds);

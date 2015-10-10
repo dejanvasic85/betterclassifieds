@@ -1,4 +1,5 @@
 ﻿(function ($, $paramount, ko) {
+
     'use strict';
 
     $paramount.models = $paramount.models || {};
@@ -9,5 +10,7 @@
         me.quantity = ko.observable(data.quantity);
         me.price = ko.observable(data.price);
         me.status = ko.observable(data.status);
+        me.isReserved = ko.observable(data.status.toLowerCase() === 'reserved');
+        me.notReserved = ko.observable(data.status.toLowerCase() !== 'reserved');
     }
 })(jQuery, $paramount, ko);

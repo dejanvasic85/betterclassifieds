@@ -30,6 +30,9 @@
 .no-display {
   display: none;
 }
+.strikethrough {
+  text-decoration: line-through;
+}
 .button-options .btn {
   margin-top: 10px;
 }

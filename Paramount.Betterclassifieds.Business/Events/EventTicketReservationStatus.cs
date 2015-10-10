@@ -2,9 +2,9 @@
 {
     public enum EventTicketReservationStatus
     {
-        Active,
+        Reserved,
         Cancelled,
         SoldOut,
-        NotEnoughTicketsForRequest
+        RequestTooLarge
     }
 }

@@ -21,7 +21,7 @@
                 $(this).find('button[type=submit]').button('loading');
             }
         });
-        $('button.js-load').attr('data-loading-text', 'Please wait...').on('click', function () { $(this).button('loading'); });
+        $('button.js-load, a.js-load').attr('data-loading-text', 'Please wait...').on('click', function () { $(this).button('loading'); });
 
         // Any captcha input should add the form-control css class
         $('#CaptchaInputText').addClass("form-control");

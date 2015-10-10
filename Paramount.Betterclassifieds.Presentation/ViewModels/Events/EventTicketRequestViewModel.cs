@@ -1,7 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Paramount.Betterclassifieds.Presentation.ViewModels
+namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 {
+    /// <summary>
+    /// Used for posting ticket requests  to the event controller
+    /// </summary>
     public class EventTicketRequestViewModel
     {
         [Required] 

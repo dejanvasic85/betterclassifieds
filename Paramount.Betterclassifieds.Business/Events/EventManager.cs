@@ -47,7 +47,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             var ticketDetails = _eventRepository.GetEventTicketDetails(ticketId.Value, includeReservations: true);
 
             var reserved = ticketDetails.EventTicketReservations
-                .Where(reservation => reservation.Status == EventTicketReservationStatus.Active)
+                .Where(reservation => reservation.Status == EventTicketReservationStatus.Reserved)
                 .Where(reservation => reservation.ExpiryDateUtc > currentDate).Sum(reservation => reservation.Quantity);
 
             //var booked = ticketDetails.EventTicketBookings.Where(b => b.Active).Sum(b => b.Quantity);
@@ -102,7 +102,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         public IEnumerable<EventTicketReservation> GetTicketReservations(string sessionId)
         {
             return _eventRepository.GetEventTicketReservationsForSession(sessionId)
-                .Where(e => e.Status == EventTicketReservationStatus.Active);
+                .Where(e => e.Status != EventTicketReservationStatus.Cancelled);
         }
 
         private void CancelReservationsForSession(string sessionId)

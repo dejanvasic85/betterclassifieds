@@ -11,10 +11,10 @@
 
             if (target.TicketsRemaining < target.TicketsRequested)
             {
-                return new RuleResult<EventTicketReservationStatus> { Result = EventTicketReservationStatus.NotEnoughTicketsForRequest };
+                return new RuleResult<EventTicketReservationStatus> { Result = EventTicketReservationStatus.RequestTooLarge };
             }
 
-            return new RuleResult<EventTicketReservationStatus> { IsSatisfied = true, Result = EventTicketReservationStatus.Active };
+            return new RuleResult<EventTicketReservationStatus> { IsSatisfied = true, Result = EventTicketReservationStatus.Reserved };
         }
     }
 }

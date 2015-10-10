@@ -1,4 +1,5 @@
-﻿@model BookTicketsViewModel
+﻿@using Paramount
+@model BookTicketsViewModel
 @{
     ViewBag.Title = "Book Tickets";
     Layout = "~/Views/Shared/_ApplicationLayoutWithSearch.cshtml";
@@ -16,42 +17,64 @@
 <div id="bookTicketsView" class="event-book-tickets">
     <h2>Confirm tickets for event : @Model.Title</h2>
 
-    <div class="row">
+    <div class="row" data-bind="visible: canContinue">
         <div class="col-xs-12">
             <div class="alert alert-warning">
                 <strong>
                     Your tickets have been reserved. Please confirm your ticket selection
-                    and complete your details. You have @Model.TotelReservationExpiryMinutes minutes for your reservation.
+                    and complete your details. You have @Model.TotelReservationExpiryMinutes minutes for until your ticket reservation expires.
                 </strong>
             </div>
 
             <div class="alert alert-warning text-center alert-count-down">
-                Time Left:
-                <span data-bind="text: minsRemaining"></span>:<span data-bind="text: secondsRemainingDisplay"></span>
+                <div data-bind="css : {strikethrough : outOfTime}">
+                    Time Left:
+                    <span data-bind="text: minsRemaining"></span>:<span data-bind="text: secondsRemainingDisplay"></span>
+                </div>
+                <div data-bind="visible: outOfTime()">
+                    Sorry, you have run out of time.<a href="@Url.AdUrl(Slug.Create(true, Model.Title), Model.AdId, routeName: Model.CategoryAdType)">
+                        Try Again.
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-8">
+
+            @*Tickets*@
             <div class="bs-callout bs-callout-info">
                 <h4><i class="fa fa-ticket"></i>&nbsp; Tickets</h4>
             </div>
-        </div>
+            <div>
+                <ul data-bind="foreach: reservedTickets" class="list-group">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-3" data-bind="text: ticketName"></div>
+                            <div class="col-sm-2 col-xs-3" data-bind="text: $paramount.formatCurrency( price() )"></div>
+                            <div class="col-sm-2 col-xs-3">
+                                <span class="label" data-bind="text: status, css : {'label-success' : status() === 'Reserved', 'label-danger' : status() === 'Request too large' }"></span>
+                            </div>
+                            <div class="col-sm-2 col-xs-3">
+                                Requested:
+                                <span data-bind="text: quantity"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div data-bind="visible : notAllRequestsAreFulfilled">
+                <span class="alert alert-danger">
+                    Unfortunately, one or more of your requests was greater than what is currently available.
+                    @TryAgainButton()
+                </span>
+            </div>
 
-        <div class="col-sm-6">
+
+            @*User Details*@
             <div class="bs-callout bs-callout-info">
                 <h4><i class="fa fa-user"></i> &nbsp; Your Details</h4>
-            </div>
-            <div>
-                <div class="btn-group" data-toggle="buttons">
-                    <label class="btn btn-primary active">
-                        <input type="radio" name="options" id="option1" autocomplete="off" checked> New User
-                    </label>
-                    <label class="btn btn-primary">
-                        <input type="radio" name="options" id="option2" autocomplete="off"> Existing User
-                    </label>
-                </div>
             </div>
             <div>
                 <div class="form-group">
@@ -60,10 +83,48 @@
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" class="form-control" id="Password"/>
+                    <input type="password" class="form-control" id="Password" />
                 </div>
+            </div>
+
+
+            @*Payment*@
+            <div class="bs-callout bs-callout-info">
+                <h4><i class="fa fa-money"></i> &nbsp; Payment</h4>
+            </div>
+            <p>Coming soon</p>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="bs-callout bs-callout-info">
+                <h4><i class="fa fa-list-alt"></i>&nbsp; Event Details</h4>
+            </div>
+            <p>Coming Soon</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12" data-bind="visible: !canContinue()">
+            <div class="alert alert-info">
+                Unable to continue. Your tickets could not be reserved due to availability.
+                @TryAgainButton()
+            </div>
+        </div>
+
+        <div class="col-xs-8">
+            <div class="pull-right" data-bind="visible: canContinue">
+                <button class="btn btn-primary">
+                    Submit
+                </button>
             </div>
         </div>
     </div>
 
 </div>
+
+@helper TryAgainButton()
+{
+    <a class="btn btn-default btn-sm js-load" href="@Url.AdUrl(Slug.Create(true, Model.Title), Model.AdId, routeName: Model.CategoryAdType)">
+        <i class="fa fa-refresh"></i> Try Again.
+    </a>
+}

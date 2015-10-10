@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Paramount.Betterclassifieds.Presentation.ViewModels
+namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 {
     public class EventViewModel
     {

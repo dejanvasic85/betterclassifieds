@@ -9,7 +9,7 @@ using Humanizer;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
-using Paramount.Betterclassifieds.Presentation.ViewModels;
+using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
@@ -62,7 +62,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpGet]
         public ActionResult BookTickets()
         {
-            var ticketReservations = _eventManager.GetTicketReservations(_httpContext.With(s => s.Session).SessionID).ToArray();
+            var ticketReservations = _eventManager.GetTicketReservations(_httpContext.With(s => s.Session).SessionID).ToList();
             var eventId = ticketReservations.FirstOrDefault().With(t => t.EventTicket.With(r => r.EventId));
             if (!eventId.HasValue)
             {
@@ -71,14 +71,29 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var eventDetails = _eventManager.GetEventDetails(eventId.Value);
             var onlineAdModel = _searchService.GetByAdOnlineId(eventDetails.OnlineAdId);
             var remainingTimeToCompleteBooking = _eventManager.GetRemainingTimeForReservationCollection(ticketReservations);
-            
+
+            // Construct the view model
             var viewModel = new BookTicketsViewModel
             {
-                ReservationExpiryMinutes = remainingTimeToCompleteBooking.Minutes,
-                ReservationExpirySeconds = remainingTimeToCompleteBooking.Seconds,
                 TotelReservationExpiryMinutes = _clientConfig.EventTicketReservationExpiryMinutes,
-                Title = onlineAdModel.Heading
+                Title = onlineAdModel.Heading,
+                AdId = onlineAdModel.AdId,
+                CategoryAdType = onlineAdModel.CategoryAdType,
+                Reservations = this.MapList<EventTicketReservation, EventTicketReservedViewModel>(ticketReservations),
+                SuccessfulReservationCount = ticketReservations.Count(r => r.Status == EventTicketReservationStatus.Reserved),
+                LargeRequestCount = ticketReservations.Count(r => r.Status == EventTicketReservationStatus.RequestTooLarge)
             };
+
+            if (remainingTimeToCompleteBooking <= TimeSpan.Zero)
+            {
+                viewModel.OutOfTime = true;
+            }
+            else
+            {
+                viewModel.ReservationExpiryMinutes = remainingTimeToCompleteBooking.Minutes;
+                viewModel.ReservationExpirySeconds = remainingTimeToCompleteBooking.Seconds;
+            }
+
             return View(viewModel);
         }
 
@@ -112,6 +127,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<Business.Events.EventTicket, EventTicketViewModel>().ReverseMap();
             configuration.CreateMap<Business.IClientConfig, EventViewDetailsModel>().ForMember(m => m.MaxTicketsPerBooking, options => options.MapFrom(src => src.EventMaxTicketsPerBooking));
             configuration.CreateMap<Business.Events.EventTicketReservation, EventTicketRequestViewModel>();
+            configuration.CreateMap<Business.Events.EventTicketReservation, EventTicketReservedViewModel>()
+                .ForMember(m => m.Status, options => options.MapFrom(s => s.StatusAsString.Humanize()))
+                .ForMember(m => m.Price, options => options.MapFrom(s => s.EventTicket.Price))
+                .ForMember(m => m.TicketName, options => options.MapFrom(s => s.EventTicket.TicketName))
+                ;
             #endregion
 
             #region From View model

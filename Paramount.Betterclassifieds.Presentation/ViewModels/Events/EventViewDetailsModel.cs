@@ -1,4 +1,4 @@
-﻿namespace Paramount.Betterclassifieds.Presentation.ViewModels
+﻿namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 {
     /// <summary>
     /// Used for viewing the event ad

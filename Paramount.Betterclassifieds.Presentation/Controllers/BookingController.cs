@@ -14,6 +14,7 @@
     using Business.DocumentStorage;
     using Business.Payment;
     using ViewModels;
+    using ViewModels.Events;
 
     public class BookingController : Controller, IMappingBehaviour
     {

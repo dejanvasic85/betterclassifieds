@@ -27,7 +27,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var result = rule.IsSatisfiedBy(data);
 
             Assert.That(result.IsSatisfied, Is.False);
-            Assert.That(result.Result, Is.EqualTo(EventTicketReservationStatus.NotEnoughTicketsForRequest));
+            Assert.That(result.Result, Is.EqualTo(EventTicketReservationStatus.RequestTooLarge));
         }
 
         [Test]
@@ -39,7 +39,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var result = rule.IsSatisfiedBy(data);
 
             Assert.That(result.IsSatisfied, Is.True);
-            Assert.That(result.Result, Is.EqualTo(EventTicketReservationStatus.Active));
+            Assert.That(result.Result, Is.EqualTo(EventTicketReservationStatus.Reserved));
         }
 
         [Test]
@@ -51,7 +51,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var result = rule.IsSatisfiedBy(data);
 
             Assert.That(result.IsSatisfied, Is.True);
-            Assert.That(result.Result, Is.EqualTo(EventTicketReservationStatus.Active));
+            Assert.That(result.Result, Is.EqualTo(EventTicketReservationStatus.Reserved));
         }
     }
 }

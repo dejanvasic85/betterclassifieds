@@ -20,10 +20,8 @@
     <div class="row reservation-countdown" data-bind="visible: canContinue">
         <div class="col-xs-12">
             <div class="alert alert-warning">
-                <strong>
-                    Your tickets have been reserved for @Model.TotelReservationExpiryMinutes minutes.
-                    Please confirm your ticket selection, details and payment.
-                </strong>
+                Your tickets have been reserved for @Model.TotelReservationExpiryMinutes minutes.
+                Please confirm your ticket selection, details and payment.
             </div>
 
             <div class="alert alert-warning text-center alert-count-down">
@@ -108,7 +106,7 @@
             </div>
         </div>
 
-        <div class="col-xs-8 book-tickets-form">
+        <div class="col-xs-12 col-sm-8 book-tickets-form">
             <div class="pull-right" data-bind="visible: canContinue() && outOfTime() === false">
                 <button class="btn btn-primary">
                     Submit

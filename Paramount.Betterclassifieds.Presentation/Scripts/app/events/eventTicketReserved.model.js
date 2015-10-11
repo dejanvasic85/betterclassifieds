@@ -6,6 +6,8 @@
     $paramount.models.EventTicketReserved = function (data) {
         $.extend(data, {});
         var me = this;
+        me.eventTicketId = ko.observable(data.eventTicketId);
+        me.eventTicketReservationId = ko.observable(data.eventTicketReservationId);
         me.ticketName = ko.observable(data.ticketName);
         me.quantity = ko.observable(data.quantity);
         me.price = ko.observable(data.price);

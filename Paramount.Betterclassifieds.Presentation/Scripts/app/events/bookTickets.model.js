@@ -14,6 +14,19 @@
         });
         me.canContinue = ko.observable(data.successfulReservationCount > 0);
         me.notAllRequestsAreFulfilled = ko.observable(data.reservations.length !== data.successfulReservationCount);
+        var requiresPayment = _.some(data.reservations, function(r) {
+            return r.price > 0;
+        });
+        me.requiresPayment = ko.observable(requiresPayment);
+
+        // User details
+        me.firstName = ko.observable(data.firstName);
+        me.lastName = ko.observable(data.lastName);
+        me.phone = ko.observable(data.phone);
+        me.postCode = ko.observable(data.postCode);
+        me.email = ko.observable(data.email);
+        me.password = ko.observable();
+        me.showPassword = ko.observable(data.isUserLoggedIn === false);
 
         // Tickets
         me.reservedTickets = ko.observableArray();
@@ -38,7 +51,7 @@
                 }
             }, 1000);
         }
-
+        
         // Time checking
         me.outOfTime = ko.computed(function () {
             if (data.outOfTime) {
@@ -49,6 +62,15 @@
         });
 
 
+        // Submit
+        me.submitTicketBooking = function() {
+            var $form = $('#bookTicketsUserDetailsForm');
+            var $btn = $form.find('button');
+
+            if ($form.valid()) {
+                $btn.button('loading');
+            }
+        }
     }
 
 })(jQuery, $paramount, ko);

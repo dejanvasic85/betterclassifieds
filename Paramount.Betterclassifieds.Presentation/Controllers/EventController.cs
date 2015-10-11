@@ -9,6 +9,7 @@ using Humanizer;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
+using Paramount.Betterclassifieds.Presentation.ViewModels;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
@@ -19,13 +20,15 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IEventManager _eventManager;
         private readonly HttpContextBase _httpContext;
         private readonly IClientConfig _clientConfig;
+        private readonly IUserManager _userManager;
 
-        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig)
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager)
         {
             _searchService = searchService;
             _eventManager = eventManager;
             _httpContext = httpContext;
             _clientConfig = clientConfig;
+            _userManager = userManager;
         }
 
         public ActionResult ViewEventAd(int id, string titleSlug = "")
@@ -78,6 +81,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 TotelReservationExpiryMinutes = _clientConfig.EventTicketReservationExpiryMinutes,
                 Title = onlineAdModel.Heading,
                 AdId = onlineAdModel.AdId,
+                Description = onlineAdModel.Description,
                 CategoryAdType = onlineAdModel.CategoryAdType,
                 Reservations = this.MapList<EventTicketReservation, EventTicketReservedViewModel>(ticketReservations),
                 SuccessfulReservationCount = ticketReservations.Count(r => r.Status == EventTicketReservationStatus.Reserved),
@@ -92,6 +96,17 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 viewModel.ReservationExpiryMinutes = remainingTimeToCompleteBooking.Minutes;
                 viewModel.ReservationExpirySeconds = remainingTimeToCompleteBooking.Seconds;
+            }
+
+            if (User.Identity.IsAuthenticated)
+            {
+                viewModel.IsUserLoggedIn = true;
+                var userDetails = _userManager.GetCurrentUser(this.User);
+                viewModel.FirstName = userDetails.FirstName;
+                viewModel.LastName = userDetails.LastName;
+                viewModel.Phone = userDetails.Phone;
+                viewModel.PostCode = userDetails.Postcode;
+                viewModel.Email = userDetails.Email;
             }
 
             return View(viewModel);

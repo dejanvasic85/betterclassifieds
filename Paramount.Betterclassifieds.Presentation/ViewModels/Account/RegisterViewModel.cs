@@ -26,7 +26,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public string FirstName { get; set; }
 
         [Required]
-        [Display(Name = "Last Name")]
+        [Display(Name = "Surname")]
         [StringLength(25)]
         public string LastName { get; set; }
 

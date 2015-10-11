@@ -115,7 +115,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost]
         public ActionResult BookTickets(BookTicketsViewModel bookTicketsViewModel)
         {
-            return View();
+
+            return Json(new { Successful = true });
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

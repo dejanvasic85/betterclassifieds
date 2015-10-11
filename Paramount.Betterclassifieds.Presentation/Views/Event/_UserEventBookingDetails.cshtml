@@ -1,0 +1,58 @@
+﻿<form id="bookTicketsUserDetailsForm">
+    <div class="bs-callout bs-callout-info">
+        <h4><i class="fa fa-user"></i> &nbsp; Your Details</h4>
+    </div>
+
+
+    <div class="form-group">
+        <label class="control-label" for="firstName">First Name</label>
+        <input type="text" class="form-control" id="firstName" name="firstName" maxlength="25" data-bind="value: firstName"
+               data-val="true"
+               data-val-required="First name is required" />
+        <span class="field-validation-valid help-block" data-valmsg-for="firstName" data-valmsg-replace="true"></span>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label" for="lastName">Surname</label>
+        <input type="text" class="form-control" id="lastName" name="lastName" maxlength="25" data-bind="value: lastName"
+               data-val="true"
+               data-val-required="Surname is required" />
+        <span class="field-validation-valid help-block" data-valmsg-for="lastName" data-valmsg-replace="true"></span>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label" for="phone">Phone</label>
+        <input type="text" class="form-control" id="phone" name="phone" maxlength="10" data-numbers-only data-bind="value: phone"
+               data-val="true"
+               data-val-required="Phone is required" />
+        <span class="field-validation-valid help-block" data-valmsg-for="phone" data-valmsg-replace="true"></span>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label" for="postCode">Post Code</label>
+        <input type="text" class="form-control" id="postCode" name="postCode" maxlength="4" data-numbers-only data-bind="value: postCode"
+               data-val="true"
+               data-val-required="Post Code is required" />
+        <span class="field-validation-valid help-block" data-valmsg-for="postCode" data-valmsg-replace="true"></span>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label" for="email">Email</label>
+        <input class="form-control" type="text" data-bind="value: email" id="email" name="email"
+               data-val="true"
+               data-val-required="Email is required"
+               data-val-email="Email is not a valid address" />
+        <span class="field-validation-valid help-block" data-valmsg-for="email" data-valmsg-replace="true"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" data-bind="password" id="password" name="password"
+               data-val="true"
+               data-val-required="Password is required" />
+        <span class="field-validation-valid help-block" data-valmsg-for="password" data-valmsg-replace="true"></span>
+        <span class="help-block">
+            Allows your to come back and manage your payments and bookings. Existing user? Just use your existing password.
+        </span>
+    </div>
+</form>

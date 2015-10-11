@@ -705,6 +705,7 @@
     <Content Include="Views\Event\ViewEventAd.cshtml" />
     <Content Include="Views\Shared\_ContactAdvertiser.cshtml.cshtml" />
     <Content Include="Views\Event\BookTickets.cshtml" />
+    <Content Include="Views\Event\_UserEventBookingDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Framework\Validators\" />

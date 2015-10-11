@@ -18,6 +18,10 @@
         return post(this.baseUrl + 'Event/ReserveTickets', order);
     }
 
+    EventService.prototype.bookTickets = function(ticketBookingDetails) {
+        return post(this.baseUrl + 'Event/BookTickets', ticketBookingDetails);
+    }
+
     $paramount.EventService = EventService;
     return $paramount;
 

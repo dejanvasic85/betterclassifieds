@@ -2,7 +2,7 @@
     'use strict';
 
     $paramount.models = $paramount.models || {};
-    $paramount.models.BookTickets = function (data) {
+    $paramount.models.BookTickets = function (data, eventService) {
         var me = this;
 
         $.extend(data, {});
@@ -14,7 +14,7 @@
         });
         me.canContinue = ko.observable(data.successfulReservationCount > 0);
         me.notAllRequestsAreFulfilled = ko.observable(data.reservations.length !== data.successfulReservationCount);
-        var requiresPayment = _.some(data.reservations, function(r) {
+        var requiresPayment = _.some(data.reservations, function (r) {
             return r.price > 0;
         });
         me.requiresPayment = ko.observable(requiresPayment);
@@ -29,11 +29,11 @@
         me.showPassword = ko.observable(data.isUserLoggedIn === false);
 
         // Tickets
-        me.reservedTickets = ko.observableArray();
+        me.reservations = ko.observableArray();
         $.each(data.reservations, function (idx, reservationData) {
-            me.reservedTickets.push(new $paramount.models.EventTicketReserved(reservationData));
+            me.reservations.push(new $paramount.models.EventTicketReserved(reservationData));
         });
-        
+
         // Timer
         if (data.outOfTime !== true && data.successfulReservationCount > 0) {
             var interval = setInterval(function () {
@@ -51,7 +51,7 @@
                 }
             }, 1000);
         }
-        
+
         // Time checking
         me.outOfTime = ko.computed(function () {
             if (data.outOfTime) {
@@ -63,12 +63,24 @@
 
 
         // Submit
-        me.submitTicketBooking = function() {
+        me.submitTicketBooking = function () {
+            if (me.outOfTime()) {
+                // Scroll to the top 
+                $('html, body').animate({ scrollTop: $('.alert-count-down').offset().top }, 1000);
+                return;
+            }
+
             var $form = $('#bookTicketsUserDetailsForm');
             var $btn = $('#bookTicketsView button');
 
             if ($form.valid()) {
                 $btn.button('loading');
+                var request = ko.toJSON(me);
+                eventService.bookTickets(request).success(function (response) {
+                    if (response.redirect) {
+                        window.location = response.redirect;
+                    }
+                });
             }
         }
     }

@@ -216,6 +216,9 @@
 .event-book-tickets .book-tickets-form {
   border-right: 1px solid #eeeeee;
 }
+.event-book-tickets .status .label {
+  font-size: 1.1em;
+}
 /*
     Form Overrides
 */

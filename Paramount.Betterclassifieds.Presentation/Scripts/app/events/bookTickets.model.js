@@ -65,7 +65,7 @@
         // Submit
         me.submitTicketBooking = function() {
             var $form = $('#bookTicketsUserDetailsForm');
-            var $btn = $form.find('button');
+            var $btn = $('#bookTicketsView button');
 
             if ($form.valid()) {
                 $btn.button('loading');

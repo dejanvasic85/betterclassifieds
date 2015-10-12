@@ -7,6 +7,7 @@
 
     public interface IUserManager
     {
+        ApplicationUser GetUserByEmail(string email);
         ApplicationUser GetUserByEmailOrUsername(string emailOrUsername);
         ApplicationUser GetCurrentUser(IPrincipal principal);
         IEnumerable<UserNetworkModel> GetUserNetworksForUserId(string userId);
@@ -14,6 +15,7 @@
         RegistrationResult RegisterUser(RegistrationModel registrationModel, string plaintextPassword);
         RegistrationConfirmationResult ConfirmRegistration(int registrationId, string token);
         void UpdateUserProfile(ApplicationUser applicationUser);
+        
     }
 
     public class UserManager : IUserManager
@@ -35,6 +37,11 @@
             _clientConfig = clientConfig;
             _confirmationCodeGenerator = confirmationCodeGenerator;
             _dateService = dateService;
+        }
+
+        public ApplicationUser GetUserByEmail(string email)
+        {
+            return _userRepository.GetUserByEmail(email);
         }
 
         public ApplicationUser GetUserByEmailOrUsername(string emailOrUsername)

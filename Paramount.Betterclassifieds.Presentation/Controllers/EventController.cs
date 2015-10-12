@@ -20,14 +20,16 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly HttpContextBase _httpContext;
         private readonly IClientConfig _clientConfig;
         private readonly IUserManager _userManager;
+        private readonly IAuthManager _authManager;
 
-        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager)
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IAuthManager authManager)
         {
             _searchService = searchService;
             _eventManager = eventManager;
             _httpContext = httpContext;
             _clientConfig = clientConfig;
             _userManager = userManager;
+            _authManager = authManager;
         }
 
         public ActionResult ViewEventAd(int id, string titleSlug = "")
@@ -114,6 +116,31 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost]
         public ActionResult BookTickets(BookTicketsRequestViewModel bookTicketsViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return Json(new { ValidationFailed = true, Errors = ModelState.ToErrors() });
+            }
+
+            if (!User.Identity.IsAuthenticated)
+            {
+                // Check if user exists and their password
+                var user = _userManager.GetUserByEmail(bookTicketsViewModel.Email);
+
+                if (user != null)
+                {
+                    var loginResult = _authManager.ValidatePassword(user.Username, bookTicketsViewModel.Password);
+                    if (!loginResult)
+                        return Json(new { LoginFailed = true });
+
+                    // Log the user in!
+                    _authManager.Login(user.Username, false);
+                }
+
+
+                // Email doesn't exist so create
+
+
+            }
 
             return Json(new { Successful = true });
         }

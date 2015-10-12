@@ -9,7 +9,6 @@ using Humanizer;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
-using Paramount.Betterclassifieds.Presentation.ViewModels;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
@@ -113,7 +112,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpPost]
-        public ActionResult BookTickets(BookTicketsViewModel bookTicketsViewModel)
+        public ActionResult BookTickets(BookTicketsRequestViewModel bookTicketsViewModel)
         {
 
             return Json(new { Successful = true });

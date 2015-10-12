@@ -248,6 +248,7 @@
     <Compile Include="ViewModels\Booking\PublicationView.cs" />
     <Compile Include="ViewModels\ContactUsView.cs" />
     <Compile Include="ViewModels\Converter\BookingCartToEventViewConverter.cs" />
+    <Compile Include="ViewModels\Events\BookTicketsRequestViewModel.cs" />
     <Compile Include="ViewModels\Events\BookTicketsViewModel.cs" />
     <Compile Include="ViewModels\Events\EventTicketRequestViewModel.cs" />
     <Compile Include="ViewModels\Events\EventTicketReservedViewModel.cs" />

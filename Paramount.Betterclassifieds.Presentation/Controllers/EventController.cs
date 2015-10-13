@@ -125,7 +125,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 // Check if user exists and their password
                 var user = _userManager.GetUserByEmail(bookTicketsViewModel.Email);
-
+                var username = string.Empty;
                 if (user != null)
                 {
                     var loginResult = _authManager.ValidatePassword(user.Username, bookTicketsViewModel.Password);
@@ -135,11 +135,16 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                     // Log the user in!
                     _authManager.Login(user.Username, false);
                 }
+                else
+                {// Email doesn't exist so create and confirm the registration
+                    // Todo we need to send 'another' confirmation and allow the user to login with first confirmation
+                    var registration = this.Map<BookTicketsRequestViewModel, RegistrationModel>(bookTicketsViewModel);
+                    var registrationResult = _userManager.RegisterUser(registration, bookTicketsViewModel.Password);
+                    _userManager.ConfirmRegistration(registrationResult.Registration.RegistrationId.GetValueOrDefault(), registrationResult.Registration.Token);
+                    username = registrationResult.Registration.Username;
+                }
 
-
-                // Email doesn't exist so create
-
-
+                _authManager.Login(username);
             }
 
             return Json(new { Successful = true });
@@ -186,6 +191,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                     Quantity = a.SelectedQuantity,
                     EventTicket = this.Map<EventTicketRequestViewModel, EventTicket>(a)
                 });
+            configuration.CreateMap<BookTicketsRequestViewModel, RegistrationModel>();
+
             #endregion
         }
     }

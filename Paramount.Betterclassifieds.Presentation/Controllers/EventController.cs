@@ -120,7 +120,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 return Json(new { ValidationFailed = true, Errors = ModelState.ToErrors() });
             }
-
+            
             if (!User.Identity.IsAuthenticated)
             {
                 // Check if user exists and their password
@@ -131,12 +131,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                     var loginResult = _authManager.ValidatePassword(user.Username, bookTicketsViewModel.Password);
                     if (!loginResult)
                         return Json(new { LoginFailed = true });
-
-                    // Log the user in!
-                    _authManager.Login(user.Username, false);
                 }
                 else
-                {// Email doesn't exist so create and confirm the registration
+                {
+                    // Email doesn't exist so create and confirm the registration
                     // Todo we need to send 'another' confirmation and allow the user to login with first confirmation
                     var registration = this.Map<BookTicketsRequestViewModel, RegistrationModel>(bookTicketsViewModel);
                     var registrationResult = _userManager.RegisterUser(registration, bookTicketsViewModel.Password);
@@ -146,8 +144,19 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
                 _authManager.Login(username);
             }
+            // Create the booking
+            // var eventBooking = _eventManager.CreateEventBooking();
+
+            // todo Process the payment 
+
+            
 
             return Json(new { Successful = true });
+        }
+
+        public ActionResult TicketsBookedSuccessfully()
+        {
+            return View();
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

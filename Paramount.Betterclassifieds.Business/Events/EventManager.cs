@@ -12,6 +12,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         IEnumerable<EventTicketReservation> GetTicketReservations(string sessionId);
         void ReserveTickets(string sessionId, IEnumerable<EventTicketReservationRequest> requests);
         TimeSpan GetRemainingTimeForReservationCollection(IEnumerable<EventTicketReservation> reservations);
+        EventBooking CreateEventBooking(int eventId, ApplicationUser applicationUser);
     }
 
     public class EventManager : IEventManager
@@ -97,6 +98,12 @@ namespace Paramount.Betterclassifieds.Business.Events
             }
 
             return soonestEnding.ExpiryDateUtc.Value - _dateService.UtcNow;
+        }
+
+        public EventBooking CreateEventBooking(int eventId, ApplicationUser applicationUser)
+        {
+            var eventBooking = new EventBooking();
+            return eventBooking;
         }
 
         public IEnumerable<EventTicketReservation> GetTicketReservations(string sessionId)

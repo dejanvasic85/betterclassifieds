@@ -26,5 +26,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string Phone { get; set; }
         public string PostCode { get; set; }
         public string Email { get; set; }
+        public int? EventId { get; set; }
     }
 }

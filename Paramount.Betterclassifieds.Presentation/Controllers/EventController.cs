@@ -79,6 +79,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             // Construct the view model
             var viewModel = new BookTicketsViewModel
             {
+                EventId = eventDetails.EventId,
                 TotelReservationExpiryMinutes = _clientConfig.EventTicketReservationExpiryMinutes,
                 Title = onlineAdModel.Heading,
                 AdId = onlineAdModel.AdId,
@@ -120,7 +121,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 return Json(new { ValidationFailed = true, Errors = ModelState.ToErrors() });
             }
-            
+
+            ApplicationUser applicationUser;
             if (!User.Identity.IsAuthenticated)
             {
                 // Check if user exists and their password
@@ -130,7 +132,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 {
                     var loginResult = _authManager.ValidatePassword(user.Username, bookTicketsViewModel.Password);
                     if (!loginResult)
-                        return Json(new { LoginFailed = true });
+                        return Json(new {LoginFailed = true});
+                    applicationUser = user;
                 }
                 else
                 {
@@ -140,15 +143,20 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                     var registrationResult = _userManager.RegisterUser(registration, bookTicketsViewModel.Password);
                     _userManager.ConfirmRegistration(registrationResult.Registration.RegistrationId.GetValueOrDefault(), registrationResult.Registration.Token);
                     username = registrationResult.Registration.Username;
+                    applicationUser = _userManager.GetUserByEmail(bookTicketsViewModel.Email);
                 }
 
                 _authManager.Login(username);
             }
+            else
+            {
+                applicationUser = _userManager.GetUserByEmailOrUsername(User.Identity.Name);
+            }
+
             // Create the booking
-            // var eventBooking = _eventManager.CreateEventBooking();
-
+            var eventBooking = _eventManager.CreateEventBooking(bookTicketsViewModel.EventId.Value, applicationUser);
+            
             // todo Process the payment 
-
             
 
             return Json(new { Successful = true });

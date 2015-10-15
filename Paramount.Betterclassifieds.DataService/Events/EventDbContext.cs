@@ -16,22 +16,27 @@ namespace Paramount.Betterclassifieds.DataService.Events
 
         public EventDbContext(string connectionString)
             : base(connectionString)
-        { }
+        {
+        }
 
         public EventDbContext()
             : this(ConfigurationManager.ConnectionStrings["EventsConnection"].ConnectionString)
-        { }
+        {
+        }
 
         public IDbSet<EventModel> Events { get; set; }
         public IDbSet<EventTicket> EventTickets { get; set; }
         public IDbSet<EventTicketReservation> EventTicketReservations { get; set; }
-        //public IDbSet<EventTicketBooking> EventTicketBookings { get; set; }
+        public IDbSet<EventBooking> EventBookings { get; set; }
+        public IDbSet<EventBookingTicket> EventBookingTickets { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+    protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new EventModelConfiguration());
             modelBuilder.Configurations.Add(new EventTicketConfiguration());
             modelBuilder.Configurations.Add(new EventTicketReservationConfiguration());
+            modelBuilder.Configurations.Add(new EventBookingConfiguration());
+            modelBuilder.Configurations.Add(new EventBookingTicketConfiguration());
         }
     }
 }

@@ -102,7 +102,22 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         public EventBooking CreateEventBooking(int eventId, ApplicationUser applicationUser)
         {
-            var eventBooking = new EventBooking();
+            var eventBooking = new EventBooking
+            {
+                EventId = eventId,
+                Status = EventBookingStatus.PaymentPending,
+                CreatedDateTimeUtc = _dateService.UtcNow,
+                CreatedDateTime = _dateService.Now,
+                FirstName = applicationUser.FirstName,
+                LastName = applicationUser.LastName,
+                Email = applicationUser.Email,
+                Phone = applicationUser.Phone,
+                PostCode = applicationUser.Postcode,
+                UserId = applicationUser.Username
+            };
+
+            _eventRepository.CreateBooking(eventBooking);
+
             return eventBooking;
         }
 

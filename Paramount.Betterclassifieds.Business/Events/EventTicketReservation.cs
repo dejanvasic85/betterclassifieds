@@ -15,6 +15,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         public DateTime? CreatedDate { get; set; }
         public DateTime? CreatedDateUtc { get; set; }
 
+        // Only because of entity framework
         public virtual string StatusAsString
         {
             get { return Status.ToString(); }

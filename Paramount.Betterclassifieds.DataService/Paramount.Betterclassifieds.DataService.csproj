@@ -98,6 +98,7 @@
     <Compile Include="DataServiceInitialiser.cs" />
     <Compile Include="DocumentDataConfig.cs" />
     <Compile Include="DocumentStorage\DocumentContext.cs" />
+    <Compile Include="Events\EntityConfigurations\EventBookingConfiguration.cs" />
     <Compile Include="Events\EntityConfigurations\EventTicketReservationConfiguration.cs" />
     <Compile Include="Events\EventDbContext.cs" />
     <Compile Include="Events\EntityConfigurations\EventModelConfiguration.cs" />

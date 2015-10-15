@@ -10,6 +10,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
     public class BookTicketsRequestViewModel
     {
         [Required]
+        public int? EventId { get; set; }
+        [Required]
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }

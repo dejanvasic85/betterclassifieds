@@ -12,7 +12,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         IEnumerable<EventTicketReservation> GetTicketReservations(string sessionId);
         void ReserveTickets(string sessionId, IEnumerable<EventTicketReservationRequest> requests);
         TimeSpan GetRemainingTimeForReservationCollection(IEnumerable<EventTicketReservation> reservations);
-        EventBooking CreateEventBooking(int eventId, ApplicationUser applicationUser);
+        EventBooking CreateEventBooking(int eventId, ApplicationUser applicationUser, IEnumerable<EventTicketReservation> currentReservations);
     }
 
     public class EventManager : IEventManager
@@ -20,12 +20,14 @@ namespace Paramount.Betterclassifieds.Business.Events
         private readonly IEventRepository _eventRepository;
         private readonly IDateService _dateService;
         private readonly IClientConfig _clientConfig;
+        private readonly EventBookingTicketFactory _eventBookingTicketFactory;
 
-        public EventManager(IEventRepository eventRepository, IDateService dateService, IClientConfig clientConfig)
+        public EventManager(IEventRepository eventRepository, IDateService dateService, IClientConfig clientConfig, EventBookingTicketFactory eventBookingTicketFactory)
         {
             _eventRepository = eventRepository;
             _dateService = dateService;
             _clientConfig = clientConfig;
+            _eventBookingTicketFactory = eventBookingTicketFactory;
         }
 
         public EventModel GetEventDetailsForOnlineAdId(int onlineAdId)
@@ -100,7 +102,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             return soonestEnding.ExpiryDateUtc.Value - _dateService.UtcNow;
         }
 
-        public EventBooking CreateEventBooking(int eventId, ApplicationUser applicationUser)
+        public EventBooking CreateEventBooking(int eventId, ApplicationUser applicationUser, IEnumerable<EventTicketReservation> currentReservations)
         {
             var eventBooking = new EventBooking
             {
@@ -116,6 +118,9 @@ namespace Paramount.Betterclassifieds.Business.Events
                 UserId = applicationUser.Username
             };
 
+            eventBooking.EventBookingTickets.AddRange(currentReservations.Select(r => _eventBookingTicketFactory.CreateFromReservation(r)));
+
+            // Call the repository
             _eventRepository.CreateBooking(eventBooking);
 
             return eventBooking;

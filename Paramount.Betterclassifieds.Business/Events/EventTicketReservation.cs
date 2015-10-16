@@ -28,6 +28,5 @@ namespace Paramount.Betterclassifieds.Business.Events
                 }
             }
         }
-
     }
 }

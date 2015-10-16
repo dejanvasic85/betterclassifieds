@@ -18,11 +18,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly ISearchService _searchService;
         private readonly IEventManager _eventManager;
         private readonly HttpContextBase _httpContext;
+        private readonly EventBookingContext _eventBookingContext;
         private readonly IClientConfig _clientConfig;
         private readonly IUserManager _userManager;
         private readonly IAuthManager _authManager;
 
-        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IAuthManager authManager)
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IAuthManager authManager, EventBookingContext eventBookingContext)
         {
             _searchService = searchService;
             _eventManager = eventManager;
@@ -30,6 +31,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _clientConfig = clientConfig;
             _userManager = userManager;
             _authManager = authManager;
+            _eventBookingContext = eventBookingContext;
         }
 
         public ActionResult ViewEventAd(int id, string titleSlug = "")
@@ -132,7 +134,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 {
                     var loginResult = _authManager.ValidatePassword(user.Username, bookTicketsViewModel.Password);
                     if (!loginResult)
-                        return Json(new {LoginFailed = true});
+                        return Json(new { LoginFailed = true });
+
                     applicationUser = user;
                 }
                 else
@@ -154,17 +157,30 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             // Create the booking
-            var eventBooking = _eventManager.CreateEventBooking(bookTicketsViewModel.EventId.Value, applicationUser);
-            
-            // todo Process the payment 
-            
+            var currentReservations = _eventManager.GetTicketReservations(_httpContext.With(ctx => ctx.Session).SessionID);
+            var eventBooking = _eventManager.CreateEventBooking(bookTicketsViewModel.EventId.GetValueOrDefault(), applicationUser, currentReservations);
 
-            return Json(new { Successful = true });
+            // Todo - Process Payment
+
+            // Set the event id and booking id in the session for the consecutive calls
+            _eventBookingContext.EventId = bookTicketsViewModel.EventId.GetValueOrDefault();
+            _eventBookingContext.EventBookingId = eventBooking.EventBookingId;
+
+            return Json(new { Successful = true, Redirect = Url.Action("TicketsBookedSuccessfully") });
         }
 
         public ActionResult TicketsBookedSuccessfully()
         {
-            return View();
+            if (!_eventBookingContext.EventId.HasValue)
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
+            var eventDetails = _eventManager.GetEventDetails(_eventBookingContext.EventId.Value);
+            var adDetails = _searchService.GetByAdId(eventDetails.OnlineAdId);
+
+            _eventBookingContext.Clear();
+
+            return View(new { Title = adDetails.Heading });
         }
 
         public void OnRegisterMaps(IConfiguration configuration)
@@ -209,6 +225,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                     EventTicket = this.Map<EventTicketRequestViewModel, EventTicket>(a)
                 });
             configuration.CreateMap<BookTicketsRequestViewModel, RegistrationModel>();
+            configuration.CreateMap<EventTicketReservedViewModel, Business.Events.EventTicketReservation>();
 
             #endregion
         }

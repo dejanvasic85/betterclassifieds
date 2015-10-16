@@ -6,8 +6,9 @@
         var me = this;
 
         $.extend(data, {});
+        
         me.tickets = ko.observableArray();
-
+        
         $.each(data.ticketData, function (index, item) {
             me.tickets.push(new $paramount.models.EventTicket(item, data.maxTicketsPerBooking));
         });

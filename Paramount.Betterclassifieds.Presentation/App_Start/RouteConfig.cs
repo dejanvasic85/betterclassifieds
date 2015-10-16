@@ -14,15 +14,15 @@ namespace Paramount.Betterclassifieds.Presentation
             routes.Ignore("{resources}.ashx/{*pathInfo}");
 
             // Api
-            routes.MapHttpRoute(name: "API Default", routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional });
+            routes.MapHttpRoute(name: "API Default", routeTemplate: "api/{controller}/{id}", defaults: new { id = RouteParameter.Optional });
 
             // Images
             routes.MapRoute("imageRoute", "img/{documentId}/{width}/{height}", new { controller = "Image", action = "Render", width = UrlParameter.Optional, height = UrlParameter.Optional });
 
             // Ad route
             routes.MapRoute("adRoute", "Ad/{title}/{id}", new { controller = "Listings", action = "ViewAd" });
-            routes.MapRoute("Event", "Event/{title}/{id}", new {controller = "Event", action = "ViewEventAd"});
+            routes.MapRoute("Event", "Event/{title}/{id}", new { controller = "Event", action = "ViewEventAd" }); // Need to be Pascal to suit the database record!
+
             // routes.MapRoute("EventBooking", "Event/{title}/{id}/buy-ticket", new {controller = ""});
 
             // Seo route
@@ -30,7 +30,7 @@ namespace Paramount.Betterclassifieds.Presentation
 
             // Booking step routes
             routes.MapRoute("bookingRoute1", "Booking/Step/1", new { controller = "Booking", action = "Step1" });
-            routes.MapRoute("bookingRoute2", "Booking/Step/2/{adType}", new { controller = "Booking", action = "Step2", adType = UrlParameter.Optional});
+            routes.MapRoute("bookingRoute2", "Booking/Step/2/{adType}", new { controller = "Booking", action = "Step2", adType = UrlParameter.Optional });
             routes.MapRoute("bookingRoute3", "Booking/Step/3", new { controller = "Booking", action = "Step3" });
 
             // Default

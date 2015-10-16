@@ -13,7 +13,8 @@
         $paramount.ui.eventView.init({
             ticketData : ticketData,
             maxTicketsPerBooking : @Model.MaxTicketsPerBooking,
-            baseUrl : '@Url.Action("Index", "Home")'
+            baseUrl : '@Url.Action("Index", "Home")',
+            eventId : @Model.EventId
         });
     </script>
 }

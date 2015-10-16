@@ -52,6 +52,7 @@ namespace Paramount.Betterclassifieds.Presentation
                 .RegisterType(typeof(ICategoryAdRepository<ICategoryAd>), typeof(Paramount.Betterclassifieds.DataService.Events.EventRepository), "Event")
                 .RegisterType<Business.Events.IEventRepository, DataService.Events.EventRepository>()
                 .RegisterType<IEventManager, EventManager>()
+                .RegisterType<Business.Events.EventBookingContext>(new SessionLifetimeManager<Business.Events.EventBookingContext>())
 
                 // Managers and Config
                 .RegisterType<IClientConfig, ClientConfig>()

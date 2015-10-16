@@ -8,6 +8,7 @@ using AutoMapper;
 using Humanizer;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
+using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 
@@ -22,8 +23,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IClientConfig _clientConfig;
         private readonly IUserManager _userManager;
         private readonly IAuthManager _authManager;
+        private readonly IPaymentService _paymentService;
 
-        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IAuthManager authManager, EventBookingContext eventBookingContext)
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IAuthManager authManager, EventBookingContext eventBookingContext, IPaymentService paymentService)
         {
             _searchService = searchService;
             _eventManager = eventManager;
@@ -32,6 +34,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _userManager = userManager;
             _authManager = authManager;
             _eventBookingContext = eventBookingContext;
+            _paymentService = paymentService;
         }
 
         public ActionResult ViewEventAd(int id, string titleSlug = "")
@@ -160,13 +163,26 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var currentReservations = _eventManager.GetTicketReservations(_httpContext.With(ctx => ctx.Session).SessionID);
             var eventBooking = _eventManager.CreateEventBooking(bookTicketsViewModel.EventId.GetValueOrDefault(), applicationUser, currentReservations);
 
-            // Todo - Process Payment
-
             // Set the event id and booking id in the session for the consecutive calls
             _eventBookingContext.EventId = bookTicketsViewModel.EventId.GetValueOrDefault();
             _eventBookingContext.EventBookingId = eventBooking.EventBookingId;
 
-            return Json(new { Successful = true, Redirect = Url.Action("TicketsBookedSuccessfully") });
+
+            if (eventBooking.Status == EventBookingStatus.Active)
+            {
+                return Json(new { Successful = true, Redirect = Url.Action("TicketsBookedSuccessfully") });    
+            }
+
+            // Todo
+            var response = _paymentService.SubmitPayment(new PaymentRequest
+            {
+                PayReference = eventBooking.EventBookingId.ToString(),
+                ReturnUrl = Url.ActionAbsolute("AuthorisePayment", "Booking"),
+                CancelUrl = Url.ActionAbsolute("Step3", "Booking").Append("?cancel=true")
+            });
+
+            // eventBooking.PaymentReference = response.PaymentId;
+            return Json(new { Successful = true, Redirect = response.ApprovalUrl});    
         }
 
         public ActionResult TicketsBookedSuccessfully()

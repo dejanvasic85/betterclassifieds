@@ -107,7 +107,6 @@ namespace Paramount.Betterclassifieds.Business.Events
             var eventBooking = new EventBooking
             {
                 EventId = eventId,
-                Status = EventBookingStatus.PaymentPending,
                 CreatedDateTimeUtc = _dateService.UtcNow,
                 CreatedDateTime = _dateService.Now,
                 FirstName = applicationUser.FirstName,
@@ -118,7 +117,12 @@ namespace Paramount.Betterclassifieds.Business.Events
                 UserId = applicationUser.Username
             };
 
-            eventBooking.EventBookingTickets.AddRange(currentReservations.Select(r => _eventBookingTicketFactory.CreateFromReservation(r)));
+            var reservations = currentReservations.ToList();
+            eventBooking.Status = reservations.Any(r => r.EventTicket != null && r.EventTicket.Price > 0)
+                ? EventBookingStatus.PaymentPending
+                : EventBookingStatus.Active;
+
+            eventBooking.EventBookingTickets.AddRange(reservations.Select(r => _eventBookingTicketFactory.CreateFromReservation(r)));
 
             // Call the repository
             _eventRepository.CreateBooking(eventBooking);

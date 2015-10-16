@@ -177,7 +177,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var response = _paymentService.SubmitPayment(new PaymentRequest
             {
                 PayReference = eventBooking.EventBookingId.ToString(),
-                ReturnUrl = Url.ActionAbsolute("AuthorisePayment", "Booking"),
+                ReturnUrl = Url.ActionAbsolute("BookTicketsCancelled", "Event"),
                 CancelUrl = Url.ActionAbsolute("Step3", "Booking").Append("?cancel=true")
             });
 
@@ -185,7 +185,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(new { Successful = true, Redirect = response.ApprovalUrl});    
         }
 
-        public ActionResult TicketsBookedSuccessfully()
+        public ActionResult CancelEventBooking()
+        {
+            _eventManager.CancelEventBooking(_eventBookingContext.EventBookingId);
+            return View();
+        }
+
+        public ActionResult EventBooked()
         {
             if (!_eventBookingContext.EventId.HasValue)
             {
@@ -196,7 +202,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             _eventBookingContext.Clear();
 
-            return View(new { Title = adDetails.Heading });
+            return View();
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

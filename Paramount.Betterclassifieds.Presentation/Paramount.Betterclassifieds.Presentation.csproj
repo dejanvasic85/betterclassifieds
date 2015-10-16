@@ -705,9 +705,10 @@
     <Content Include="Views\Booking\Step2_Event.cshtml" />
     <Content Include="Views\Event\ViewEventAd.cshtml" />
     <Content Include="Views\Shared\_ContactAdvertiser.cshtml.cshtml" />
-    <Content Include="Views\Event\BookTickets.cshtml" />
+    <Content Include="Views\Event\EventBooked.cshtml" />
     <Content Include="Views\Event\_UserEventBookingDetails.cshtml" />
     <Content Include="Views\Event\TicketsBookedSuccessfully.cshtml" />
+    <Content Include="Views\Event\CancelEventBooking.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Framework\Validators\" />

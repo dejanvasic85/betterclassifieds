@@ -13,6 +13,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         void ReserveTickets(string sessionId, IEnumerable<EventTicketReservationRequest> requests);
         TimeSpan GetRemainingTimeForReservationCollection(IEnumerable<EventTicketReservation> reservations);
         EventBooking CreateEventBooking(int eventId, ApplicationUser applicationUser, IEnumerable<EventTicketReservation> currentReservations);
+        void CancelEventBooking(int? eventBookingId);
     }
 
     public class EventManager : IEventManager
@@ -130,9 +131,18 @@ namespace Paramount.Betterclassifieds.Business.Events
             return eventBooking;
         }
 
+        public void CancelEventBooking(int? eventBookingId)
+        {
+            Guard.NotNull(eventBookingId);
+            var eventBooking = _eventRepository.GetEventBooking(eventBookingId.GetValueOrDefault());
+            eventBooking.Status = EventBookingStatus.Cancelled;
+            _eventRepository.UpdateEventBooking(eventBooking);
+        }
+
         public IEnumerable<EventTicketReservation> GetTicketReservations(string sessionId)
         {
-            return _eventRepository.GetEventTicketReservationsForSession(sessionId)
+            return _eventRepository
+                .GetEventTicketReservationsForSession(sessionId)
                 .Where(e => e.Status != EventTicketReservationStatus.Cancelled);
         }
 

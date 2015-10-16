@@ -48,6 +48,14 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
+        public EventBooking GetEventBooking(int eventBookingId)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                return context.EventBookings.SingleOrDefault(b => b.EventBookingId == eventBookingId);
+            }
+        }
+
         public IEnumerable<EventTicketReservation> GetEventTicketReservationsForSession(string sessionId)
         {
             using (var context = _dbContextFactory.CreateEventContext())
@@ -84,6 +92,16 @@ namespace Paramount.Betterclassifieds.DataService.Events
             {
                 context.EventTicketReservations.Attach(eventTicketReservation);
                 context.Entry(eventTicketReservation).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        public void UpdateEventBooking(EventBooking eventBooking)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                context.EventBookings.Attach(eventBooking);
+                context.Entry(eventBooking).State = EntityState.Modified;
                 context.SaveChanges();
             }
         }

@@ -42,7 +42,7 @@ GO
 /*
  *	Categories
  */
-create procedure temp_createParentCategory
+create procedure temp_createCategory
 	@Title varchar(50),
 	@ParentCategory varchar(50) = null,
 	@CategoryAdType varchar(50) = null,
@@ -75,9 +75,9 @@ begin
 
 end
 go
-exec temp_createParentCategory @Title = 'Events', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
-exec temp_createParentCategory @Title = 'Concerts', @ParentCategory = 'Events', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
-exec temp_createParentCategory @Title = 'Event Services', @ParentCategory = 'Events', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
-exec temp_createParentCategory @Title = 'Sports', @ParentCategory = 'Events', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+exec temp_createCategory @Title = 'Events', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+exec temp_createCategory @Title = 'Concerts', @ParentCategory = 'Events', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+exec temp_createCategory @Title = 'Event Services', @ParentCategory = 'Events', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+exec temp_createCategory @Title = 'Sports', @ParentCategory = 'Events', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
 go
-drop procedure temp_createParentCategory
+drop procedure temp_createCategory

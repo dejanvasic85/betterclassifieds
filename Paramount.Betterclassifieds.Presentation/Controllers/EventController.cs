@@ -170,14 +170,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             if (eventBooking.Status == EventBookingStatus.Active)
             {
-                return Json(new { Successful = true, Redirect = Url.Action("TicketsBookedSuccessfully") });    
+                return Json(new { Successful = true, Redirect = Url.Action("EventBooked") });
             }
 
             // Todo
             var response = _paymentService.SubmitPayment(new PaymentRequest
             {
                 PayReference = eventBooking.EventBookingId.ToString(),
-                ReturnUrl = Url.ActionAbsolute("BookTicketsCancelled", "Event"),
+                ReturnUrl = Url.ActionAbsolute("CancelEventBooking", "Event"),
                 CancelUrl = Url.ActionAbsolute("Step3", "Booking").Append("?cancel=true")
             });
 

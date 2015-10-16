@@ -19,7 +19,7 @@
             return r.price > 0;
         });
         me.requiresPayment = ko.observable(requiresPayment);
-
+        
         // User details
         me.firstName = ko.observable(data.firstName);
         me.lastName = ko.observable(data.lastName);
@@ -33,6 +33,14 @@
         me.reservations = ko.observableArray();
         $.each(data.reservations, function (idx, reservationData) {
             me.reservations.push(new $paramount.models.EventTicketReserved(reservationData));
+        });
+        me.totalCost = ko.computed(function () {
+            return _.sum(me.reservations(), function (r) {
+                if (r.notReserved()) {
+                    return 0;
+                }
+                return r.price() * r.quantity();
+            });
         });
 
         // Timer
@@ -61,7 +69,13 @@
 
             return me.minsRemaining() === 0 && me.secondsRemaining() === 0;
         });
-
+        me.paymentMethod = ko.observable();
+        me.setPayPal = function() {
+            me.paymentMethod('PayPal');
+        }
+        me.setCreditCard = function () {
+            me.paymentMethod('CreditCard');
+        }
 
         // Submit
         me.submitTicketBooking = function () {
@@ -71,7 +85,7 @@
                 return;
             }
 
-            var $form = $('#bookTicketsUserDetailsForm');
+            var $form = $('#bookTicketsForm');
             var $btn = $('#bookTicketsView button');
 
             if ($form.valid()) {

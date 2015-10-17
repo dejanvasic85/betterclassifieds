@@ -95,6 +95,7 @@
                     if (response.redirect) {
                         window.location = response.redirect;
                     }
+
                 });
             }
         }

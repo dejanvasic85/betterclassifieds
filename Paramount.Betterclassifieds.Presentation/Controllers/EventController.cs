@@ -10,6 +10,7 @@ using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Search;
+using Paramount.Betterclassifieds.Payments.pp;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
@@ -189,7 +190,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             // Process paypal payment
-            var response = _paymentService.SubmitPayment(new PaymentRequest
+            var response = _paymentService.SubmitPayment(new AdBookingPaymentRequest
             {
                 PayReference = eventBooking.EventBookingId.ToString(),
                 ReturnUrl = Url.ActionAbsolute("AuthorisePayPal", "Event"),
@@ -205,7 +206,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventManager.EventBookingPaymentCompleted(_eventBookingContext.EventBookingId, PaymentType.PayPal);
 
             // Call paypal to let them know we completed our end
-            _paymentService.CompletePayment(new PaymentRequest { PayerId = payerId, PayReference = _eventBookingContext.EventBookingId.ToString() });
+            _paymentService.CompletePayment(new AdBookingPaymentRequest { PayerId = payerId, PayReference = _eventBookingContext.EventBookingId.ToString() });
 
             return RedirectToAction("EventBooked");
         }

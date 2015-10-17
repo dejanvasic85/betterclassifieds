@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Payment;
-using PayPal;
 using PayPal.Api.Payments;
 
 namespace Paramount.Betterclassifieds.Payments.pp
 {
     public class PayPalPaymentService : IPaymentService
     {
-        public PaymentResponse SubmitPayment(PaymentRequest request)
+        public PaymentResponse SubmitPayment(IPaymentRequest request)
         {
             var apiContext = ApiContextFactory.CreateApiContext();
             var converter = new ChargeableItemsToPaypalConverter();
-            var paypalItems = converter.Convert(request.BookingOrderResult);
+            var paypalItems = converter.Convert(request);
 
 
             // ###Payer
@@ -32,7 +30,7 @@ namespace Paramount.Betterclassifieds.Payments.pp
 
             // ###Details
             // Let's you specify details of a payment amount.
-            var sum = request.BookingOrderResult.Total;
+            var sum = request.Total;
 
             var details = new Details
             {
@@ -96,7 +94,7 @@ namespace Paramount.Betterclassifieds.Payments.pp
             };
         }
 
-        public void CompletePayment(PaymentRequest paymentRequest)
+        public void CompletePayment(IPaymentRequest paymentRequest)
         {
             var apiContext = ApiContextFactory.CreateApiContext();
             var payment = new Payment { id = paymentRequest.PayReference };
@@ -104,42 +102,5 @@ namespace Paramount.Betterclassifieds.Payments.pp
 
             payment.Execute(apiContext, paymentExecution);
         }
-    }
-
-    public class ChargeableItemsToPaypalConverter
-    {
-        public ItemList Convert(BookingOrderResult bookingOrder)
-        {
-            // Use the same reference for all sku's for paypal
-            var reference = bookingOrder.BookingReference;
-
-            ItemList list = new ItemList() { items = new List<Item>() };
-            list.items.AddRange(bookingOrder.OnlineBookingAdRate.GetItems().Select(li => new Item
-            {
-                name = li.Name,
-                price = li.Price.ToString("N"),
-                currency = li.Currency,
-                quantity = li.Quantity.ToString(),
-                sku = reference
-            }));
-
-            if (!bookingOrder.IsPrintIncluded)
-                return list;
-
-            // Publications will be line items
-            list.items.AddRange(bookingOrder.PrintRates.Select(p => new Item
-            {
-                name = p.Name,
-                price = p.OrderTotal.ToString("N"),
-                currency = "AUD",
-                quantity = "1",
-                sku = reference
-            }));
-
-            return list;
-
-        }
-
-
     }
 }

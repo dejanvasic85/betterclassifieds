@@ -62,7 +62,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChargeableItemsToPaypalConverter.cs" />
     <Compile Include="Configuration.cs" />
+    <Compile Include="AdBookingPaymentRequest.cs" />
     <Compile Include="PayPalPaymentService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

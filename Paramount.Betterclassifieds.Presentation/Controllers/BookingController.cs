@@ -13,6 +13,7 @@
     using Business.Search;
     using Business.DocumentStorage;
     using Business.Payment;
+    using Payments.pp;
     using ViewModels;
     using ViewModels.Events;
 
@@ -237,7 +238,7 @@
             }
 
             // We only support paypal just for now
-            var response = _paymentService.SubmitPayment(new PaymentRequest
+            var response = _paymentService.SubmitPayment(new AdBookingPaymentRequest
             {
                 PayReference = bookingCart.BookingReference,
                 BookingOrderResult = _rateCalculator.Calculate(bookingCart),
@@ -254,7 +255,7 @@
         public ActionResult AuthorisePayment(string payerId)
         {
             var bookingCart = _bookingContext.Current();
-            _paymentService.CompletePayment(new PaymentRequest { PayerId = payerId, PayReference = bookingCart.PaymentReference });
+            _paymentService.CompletePayment(new AdBookingPaymentRequest { PayerId = payerId, PayReference = bookingCart.PaymentReference });
             return RedirectToAction("Success");
         }
 

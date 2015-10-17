@@ -99,6 +99,7 @@
     <Compile Include="IAdFactory.cs" />
     <Compile Include="Membership\IConfirmationCodeGenerator.cs" />
     <Compile Include="Membership\RegistrationConfirmationResult.cs" />
+    <Compile Include="Payment\IPaymentRequest.cs" />
     <Compile Include="Pricing\BookingOrderResult.cs" />
     <Compile Include="Pricing\IAdRateContext.cs" />
     <Compile Include="Pricing\OnlineCharges\OnlineChargeItem.cs" />
@@ -123,7 +124,6 @@
     <Compile Include="AdEnquiry.cs" />
     <Compile Include="Membership\UserNetworkModel.cs" />
     <Compile Include="Payment\IPaymentService.cs" />
-    <Compile Include="Payment\PaymentRequest.cs" />
     <Compile Include="Payment\PaymentResponse.cs" />
     <Compile Include="Payment\PaymentStatus.cs" />
     <Compile Include="Pricing\OnlineAdRate.cs" />

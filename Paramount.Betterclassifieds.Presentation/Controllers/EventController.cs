@@ -10,17 +10,16 @@ using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Search;
-using Paramount.Betterclassifieds.Payments.pp;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     public class EventController : Controller, IMappingBehaviour
     {
-        private readonly ISearchService _searchService;
-        private readonly IEventManager _eventManager;
         private readonly HttpContextBase _httpContext;
         private readonly EventBookingContext _eventBookingContext;
+        private readonly ISearchService _searchService;
+        private readonly IEventManager _eventManager;
         private readonly IClientConfig _clientConfig;
         private readonly IUserManager _userManager;
         private readonly IAuthManager _authManager;
@@ -172,7 +171,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventBookingContext.EventId = bookTicketsViewModel.EventId.GetValueOrDefault();
             _eventBookingContext.EventBookingId = eventBooking.EventBookingId;
 
-
             if (eventBooking.Status == EventBookingStatus.Active)
             {
                 return Json(new { Successful = true, Redirect = Url.Action("EventBooked") });
@@ -198,6 +196,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var response = _paymentService.SubmitPayment(payPalRequest);
 
             _eventManager.SetPaymentReferenceForBooking(eventBooking.EventBookingId, response.PaymentId, paymentType);
+            _eventBookingContext.EventBookingPaymentReference = response.PaymentId;
+
             return Json(new { Successful = true, Redirect = response.ApprovalUrl });
         }
 
@@ -207,7 +207,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventManager.EventBookingPaymentCompleted(_eventBookingContext.EventBookingId, PaymentType.PayPal);
 
             // Call paypal to let them know we completed our end
-            _paymentService.CompletePayment(_eventBookingContext.EventBookingId.ToString(), payerId);
+            _paymentService.CompletePayment(_eventBookingContext.EventBookingPaymentReference, payerId);
 
             return RedirectToAction("EventBooked");
         }

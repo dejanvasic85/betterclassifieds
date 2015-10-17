@@ -7,11 +7,13 @@
     {
         public int? EventId { get; set; }
         public int? EventBookingId { get; set; }
+        public string EventBookingPaymentReference { get; set; }
 
         public void Clear()
         {
             EventId = null;
             EventBookingId = null;
+            EventBookingPaymentReference = null;
         }
     }
 }

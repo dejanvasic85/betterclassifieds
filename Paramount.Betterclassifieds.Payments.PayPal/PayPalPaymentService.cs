@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using Paramount.Betterclassifieds.Business.Payment;
 using PayPal.Api.Payments;
 
 namespace Paramount.Betterclassifieds.Payments.pp
 {
-    public class PayPalPaymentService : IPaymentService
+    public class PayPalPaymentService : IPaymentService, IMappingBehaviour
     {
-        public PaymentResponse SubmitPayment(IPaymentRequest request)
+        public PaymentResponse SubmitPayment(PayPalPaymentRequest request)
         {
             var apiContext = ApiContextFactory.CreateApiContext();
-            var converter = new ChargeableItemsToPaypalConverter();
-            var paypalItems = converter.Convert(request);
-
+            // var converter = new ChargeableItemsToPaypalConverter();
+            var paypalItems = new ItemList() { items = new List<Item>()}; 
+            paypalItems.items.AddRange(this.MapList<PayPalChargeableItem, Item>(request.ChargeableItems.ToList()));
 
             // ###Payer
             // A resource representing a Payer that funds a payment
@@ -94,13 +95,19 @@ namespace Paramount.Betterclassifieds.Payments.pp
             };
         }
 
-        public void CompletePayment(IPaymentRequest paymentRequest)
+        public void CompletePayment(string payReference, string payerId)
         {
             var apiContext = ApiContextFactory.CreateApiContext();
-            var payment = new Payment { id = paymentRequest.PayReference };
-            var paymentExecution = new PaymentExecution { payer_id = paymentRequest.PayerId };
+            var payment = new Payment { id = payReference };
+            var paymentExecution = new PaymentExecution { payer_id = payerId };
 
             payment.Execute(apiContext, paymentExecution);
+        }
+
+        public void OnRegisterMaps(IConfiguration configuration)
+        {
+            configuration.CreateProfile("paypal converter");
+            configuration.CreateMap<PayPalChargeableItem, Item>();
         }
     }
 }

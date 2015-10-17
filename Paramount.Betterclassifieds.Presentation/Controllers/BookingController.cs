@@ -237,14 +237,12 @@
                 return RedirectToAction("Success");
             }
 
-            // We only support paypal just for now
-            var response = _paymentService.SubmitPayment(new AdBookingPaymentRequest
-            {
-                PayReference = bookingCart.BookingReference,
-                BookingOrderResult = _rateCalculator.Calculate(bookingCart),
-                ReturnUrl = Url.ActionAbsolute("AuthorisePayment", "Booking"),
-                CancelUrl = Url.ActionAbsolute("Step3", "Booking").Append("?cancel=true")
-            });
+            var bookingOrder = _rateCalculator.Calculate(bookingCart);
+            var request = new AdBookingPayPalRequestFactory().CreatePaymentRequest(bookingOrder,
+                bookingCart.BookingReference,
+                returnUrl: Url.ActionAbsolute("AuthorisePayment", "Booking"),
+                cancelUrl: Url.ActionAbsolute("Step3", "Booking").Append("?cancel=true"));
+            var response = _paymentService.SubmitPayment(request);
 
             bookingCart.PaymentReference = response.PaymentId;
             _cartRepository.Save(bookingCart);
@@ -255,7 +253,7 @@
         public ActionResult AuthorisePayment(string payerId)
         {
             var bookingCart = _bookingContext.Current();
-            _paymentService.CompletePayment(new AdBookingPaymentRequest { PayerId = payerId, PayReference = bookingCart.PaymentReference });
+            _paymentService.CompletePayment(bookingCart.PaymentReference, payerId);
             return RedirectToAction("Success");
         }
 

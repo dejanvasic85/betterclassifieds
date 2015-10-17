@@ -11,7 +11,9 @@ namespace Paramount.Betterclassifieds.DataService.Events
             HasKey(prop => prop.EventBookingId);
             HasRequired(prop => prop.Event).WithMany(prop=> prop.EventBookings).HasForeignKey(prop => prop.EventId);
             Property(prop => prop.StatusAsString).HasColumnName("Status");
+            Property(prop => prop.PaymentMethodAsString).HasColumnName("PaymentMethod");
             Ignore(prop => prop.Status);
+            Ignore(prop => prop.PaymentMethod);
         }
     }
 

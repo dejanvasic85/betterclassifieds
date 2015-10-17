@@ -99,7 +99,9 @@
     <Compile Include="IAdFactory.cs" />
     <Compile Include="Membership\IConfirmationCodeGenerator.cs" />
     <Compile Include="Membership\RegistrationConfirmationResult.cs" />
-    <Compile Include="Payment\IPaymentRequest.cs" />
+    <Compile Include="Payment\IPayPalRequestFactory.cs" />
+    <Compile Include="Payment\PayPalChargeableItem.cs" />
+    <Compile Include="Payment\PayPalPaymentRequest.cs" />
     <Compile Include="Pricing\BookingOrderResult.cs" />
     <Compile Include="Pricing\IAdRateContext.cs" />
     <Compile Include="Pricing\OnlineCharges\OnlineChargeItem.cs" />

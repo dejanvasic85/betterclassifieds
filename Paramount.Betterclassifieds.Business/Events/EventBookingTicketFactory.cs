@@ -25,7 +25,8 @@ namespace Paramount.Betterclassifieds.Business.Events
                 Quantity = reservation.Quantity,
                 TicketName = reservation.EventTicket.TicketName,
                 CreatedDateTime = _dateService.Now,
-                CreatedDateTimeUtc = _dateService.UtcNow
+                CreatedDateTimeUtc = _dateService.UtcNow,
+                Price = reservation.Price
             };
         }
     }

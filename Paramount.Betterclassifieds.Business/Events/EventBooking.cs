@@ -41,6 +41,17 @@ namespace Paramount.Betterclassifieds.Business.Events
             }
         }
 
-        
+        public string PaymentMethodAsString
+        {
+            get { return PaymentMethod.ToString(); }
+            set
+            {
+                PaymentType status;
+                if (Enum.TryParse(value, out status))
+                {
+                    this.PaymentMethod = status;
+                }
+            }
+        }
     }
 }

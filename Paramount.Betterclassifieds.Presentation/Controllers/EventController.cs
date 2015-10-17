@@ -190,12 +190,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             // Process paypal payment
-            var response = _paymentService.SubmitPayment(new AdBookingPaymentRequest
-            {
-                PayReference = eventBooking.EventBookingId.ToString(),
-                ReturnUrl = Url.ActionAbsolute("AuthorisePayPal", "Event"),
-                CancelUrl = Url.ActionAbsolute("CancelEventBooking", "Event")
-            });
+            var payPalRequest = new EventBookingPayPalRequestFactory().CreatePaymentRequest(eventBooking,
+                eventBooking.EventBookingId.ToString(),
+                Url.ActionAbsolute("AuthorisePayPal", "Event"),
+                Url.ActionAbsolute("CancelEventBooking", "Event"));
+
+            var response = _paymentService.SubmitPayment(payPalRequest);
 
             _eventManager.SetPaymentReferenceForBooking(eventBooking.EventBookingId, response.PaymentId, paymentType);
             return Json(new { Successful = true, Redirect = response.ApprovalUrl });
@@ -203,10 +203,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public ActionResult AuthorisePayPal(string payerId)
         {
+            // Mark booking as paid in our database
             _eventManager.EventBookingPaymentCompleted(_eventBookingContext.EventBookingId, PaymentType.PayPal);
 
             // Call paypal to let them know we completed our end
-            _paymentService.CompletePayment(new AdBookingPaymentRequest { PayerId = payerId, PayReference = _eventBookingContext.EventBookingId.ToString() });
+            _paymentService.CompletePayment(_eventBookingContext.EventBookingId.ToString(), payerId);
 
             return RedirectToAction("EventBooked");
         }

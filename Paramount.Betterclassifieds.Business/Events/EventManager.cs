@@ -86,6 +86,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                     SessionId = sessionId,
                     Quantity = reservationRequest.Quantity,
                     EventTicketId = reservationRequest.EventTicket.EventTicketId.Value,
+                    Price = reservationRequest.EventTicket.Price,
                     Status = new SufficientTicketsRule()
                         .IsSatisfiedBy(new RemainingTicketsWithRequestInfo(reservationRequest.Quantity, GetRemainingTicketCount(reservationRequest.EventTicket.EventTicketId)))
                         .Result,
@@ -109,6 +110,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         public EventBooking CreateEventBooking(int eventId, ApplicationUser applicationUser, IEnumerable<EventTicketReservation> currentReservations)
         {
             // Todo - create factory for this
+            var reservations = currentReservations.ToList();
             var eventBooking = new EventBooking
             {
                 EventId = eventId,
@@ -119,15 +121,17 @@ namespace Paramount.Betterclassifieds.Business.Events
                 Email = applicationUser.Email,
                 Phone = applicationUser.Phone,
                 PostCode = applicationUser.Postcode,
-                UserId = applicationUser.Username
+                UserId = applicationUser.Username,
+                Status = reservations.Any(r => r.EventTicket != null && r.EventTicket.Price > 0)
+                    ? EventBookingStatus.PaymentPending
+                    : EventBookingStatus.Active
             };
 
-            var reservations = currentReservations.ToList();
-            eventBooking.Status = reservations.Any(r => r.EventTicket != null && r.EventTicket.Price > 0)
-                ? EventBookingStatus.PaymentPending
-                : EventBookingStatus.Active;
-
+            // Add the ticket bookings
             eventBooking.EventBookingTickets.AddRange(reservations.Select(r => _eventBookingTicketFactory.CreateFromReservation(r)));
+
+            // Calculate the total
+            eventBooking.TotalCost = reservations.Sum(r => r.Price.GetValueOrDefault() * r.Quantity);
 
             // Call the repository
             _eventRepository.CreateBooking(eventBooking);
@@ -148,7 +152,6 @@ namespace Paramount.Betterclassifieds.Business.Events
             Guard.NotNull(eventBookingId);
             var eventBooking = _eventRepository.GetEventBooking(eventBookingId.GetValueOrDefault());
             eventBooking.Status = EventBookingStatus.Active;
-            eventBooking.PaymentMethod = paymentType;
             _eventRepository.UpdateEventBooking(eventBooking);
         }
 
@@ -156,6 +159,8 @@ namespace Paramount.Betterclassifieds.Business.Events
         {
             var eventBooking = _eventRepository.GetEventBooking(eventBookingId);
             eventBooking.PaymentReference = paymentReference;
+            eventBooking.PaymentMethod = paymentType;
+            _eventRepository.UpdateEventBooking(eventBooking);
         }
 
         public IEnumerable<EventTicketReservation> GetTicketReservations(string sessionId)

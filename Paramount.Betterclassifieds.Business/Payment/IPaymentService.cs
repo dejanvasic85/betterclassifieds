@@ -2,7 +2,7 @@
 {
     public interface IPaymentService
     {
-        PaymentResponse SubmitPayment(IPaymentRequest request);
-        void CompletePayment(IPaymentRequest paymentRequest);
+        PaymentResponse SubmitPayment(PayPalPaymentRequest request);
+        void CompletePayment(string payReference, string payerId);
     }
 }

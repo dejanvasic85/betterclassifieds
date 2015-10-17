@@ -59,6 +59,7 @@
                                 <div class="col-sm-4 col-xs-4 status">
                                     <span class="label" data-bind="text: quantity, css : {'label-success' : isReserved, 'label-danger' : notReserved }"></span>
                                     <span class="label" data-bind="text: status, css : {'label-success' : isReserved, 'label-danger' : notReserved }"></span>
+                                    = <span data-bind="text: totalCost()"></span>
                                 </div>
                             </div>
                         </li>
@@ -98,7 +99,7 @@
                 </div>  
             </div>
 
-            <div class="col-sm-4 visible-sm">
+            <div class="col-sm-4 hidden-xs">
                 <div class="bs-callout bs-callout-info">
                     <h4><i class="fa fa-list-alt"></i>&nbsp; @Model.Title</h4>
                 </div>

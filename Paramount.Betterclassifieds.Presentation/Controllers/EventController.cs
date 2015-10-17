@@ -127,6 +127,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return Json(new { ValidationFailed = true, Errors = ModelState.ToErrors() });
             }
 
+            // Todo - clean this code up a little bit
             ApplicationUser applicationUser;
             if (!User.Identity.IsAuthenticated)
             {
@@ -157,10 +158,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             else
             {
                 applicationUser = _userManager.GetUserByEmailOrUsername(User.Identity.Name);
+                if (!_authManager.ValidatePassword(applicationUser.Username, bookTicketsViewModel.Password))
+                    return Json(new { LoginFailed = true });
             }
 
-            // Create the booking
+            // Convert from view model
             var currentReservations = _eventManager.GetTicketReservations(_httpContext.With(ctx => ctx.Session).SessionID);
+
             var eventBooking = _eventManager.CreateEventBooking(bookTicketsViewModel.EventId.GetValueOrDefault(), applicationUser, currentReservations);
 
             // Set the event id and booking id in the session for the consecutive calls
@@ -173,16 +177,37 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return Json(new { Successful = true, Redirect = Url.Action("EventBooked") });
             }
 
-            // Todo
+            // Check the payment type and process
+            var paymentType = bookTicketsViewModel.TotalCost == 0
+                ? PaymentType.None
+                : bookTicketsViewModel.PaymentMethod.CastToEnum<PaymentType>();
+
+            if (paymentType == PaymentType.CreditCard)
+            {
+                // Todo Process credit card 
+                return Json(new { Successful = true, Redirect = Url.Action("EventBooked") });
+            }
+
+            // Process paypal payment
             var response = _paymentService.SubmitPayment(new PaymentRequest
             {
                 PayReference = eventBooking.EventBookingId.ToString(),
-                ReturnUrl = Url.ActionAbsolute("CancelEventBooking", "Event"),
-                CancelUrl = Url.ActionAbsolute("Step3", "Booking").Append("?cancel=true")
+                ReturnUrl = Url.ActionAbsolute("AuthorisePayPal", "Event"),
+                CancelUrl = Url.ActionAbsolute("CancelEventBooking", "Event")
             });
 
-            // eventBooking.PaymentReference = response.PaymentId;
-            return Json(new { Successful = true, Redirect = response.ApprovalUrl});    
+            _eventManager.SetPaymentReferenceForBooking(eventBooking.EventBookingId, response.PaymentId, paymentType);
+            return Json(new { Successful = true, Redirect = response.ApprovalUrl });
+        }
+
+        public ActionResult AuthorisePayPal(string payerId)
+        {
+            _eventManager.EventBookingPaymentCompleted(_eventBookingContext.EventBookingId, PaymentType.PayPal);
+
+            // Call paypal to let them know we completed our end
+            _paymentService.CompletePayment(new PaymentRequest { PayerId = payerId, PayReference = _eventBookingContext.EventBookingId.ToString() });
+
+            return RedirectToAction("EventBooked");
         }
 
         public ActionResult CancelEventBooking()

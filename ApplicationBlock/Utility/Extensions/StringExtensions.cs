@@ -124,6 +124,11 @@ namespace Paramount
             return (int)Enum.Parse(typeof(T), value);
         }
 
+        public static TEnum CastToEnum<TEnum>(this string value)
+        {
+            return (TEnum) Enum.Parse(typeof (TEnum), value);
+        }
+
         /// <summary>
         /// Adds spaces to camel cased words e.g. NewestFirst becomes "Newest First"
         /// </summary>

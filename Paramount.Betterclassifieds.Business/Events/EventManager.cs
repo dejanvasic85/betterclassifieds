@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Paramount.Betterclassifieds.Business.Payment;
 
 namespace Paramount.Betterclassifieds.Business.Events
 {
@@ -14,6 +15,8 @@ namespace Paramount.Betterclassifieds.Business.Events
         TimeSpan GetRemainingTimeForReservationCollection(IEnumerable<EventTicketReservation> reservations);
         EventBooking CreateEventBooking(int eventId, ApplicationUser applicationUser, IEnumerable<EventTicketReservation> currentReservations);
         void CancelEventBooking(int? eventBookingId);
+        void EventBookingPaymentCompleted(int? eventBookingId, PaymentType paymentType);
+        void SetPaymentReferenceForBooking(int eventBookingId, string paymentReference, PaymentType paymentType);
     }
 
     public class EventManager : IEventManager
@@ -105,6 +108,7 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         public EventBooking CreateEventBooking(int eventId, ApplicationUser applicationUser, IEnumerable<EventTicketReservation> currentReservations)
         {
+            // Todo - create factory for this
             var eventBooking = new EventBooking
             {
                 EventId = eventId,
@@ -137,6 +141,21 @@ namespace Paramount.Betterclassifieds.Business.Events
             var eventBooking = _eventRepository.GetEventBooking(eventBookingId.GetValueOrDefault());
             eventBooking.Status = EventBookingStatus.Cancelled;
             _eventRepository.UpdateEventBooking(eventBooking);
+        }
+
+        public void EventBookingPaymentCompleted(int? eventBookingId, PaymentType paymentType)
+        {
+            Guard.NotNull(eventBookingId);
+            var eventBooking = _eventRepository.GetEventBooking(eventBookingId.GetValueOrDefault());
+            eventBooking.Status = EventBookingStatus.Active;
+            eventBooking.PaymentMethod = paymentType;
+            _eventRepository.UpdateEventBooking(eventBooking);
+        }
+
+        public void SetPaymentReferenceForBooking(int eventBookingId, string paymentReference, PaymentType paymentType)
+        {
+            var eventBooking = _eventRepository.GetEventBooking(eventBookingId);
+            eventBooking.PaymentReference = paymentReference;
         }
 
         public IEnumerable<EventTicketReservation> GetTicketReservations(string sessionId)

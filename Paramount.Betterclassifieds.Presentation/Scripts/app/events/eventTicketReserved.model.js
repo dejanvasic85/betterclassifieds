@@ -14,5 +14,11 @@
         me.status = ko.observable(data.status);
         me.isReserved = ko.observable(data.status.toLowerCase() === 'reserved');
         me.notReserved = ko.observable(data.status.toLowerCase() !== 'reserved');
+        me.totalCost = function() {
+            if (me.price() === 0)
+                return 'FREE';
+
+            return $paramount.formatCurrency(me.price() * me.quantity());
+        };
     }
 })(jQuery, $paramount, ko);

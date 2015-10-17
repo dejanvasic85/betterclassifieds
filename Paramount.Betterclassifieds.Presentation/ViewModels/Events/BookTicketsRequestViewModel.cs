@@ -25,6 +25,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string Password { get; set; }
         [Required]
         public string PaymentMethod { get; set; }
+        [Required]
+        public decimal TotalCost { get; set; }
 
         public List<EventTicketReservedViewModel> Reservations { get; set; }
     }

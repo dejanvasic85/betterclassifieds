@@ -9,6 +9,7 @@ namespace Paramount.Betterclassifieds.Business.Events
     {
         EventModel GetEventDetailsForOnlineAdId(int onlineAdId);
         EventModel GetEventDetails(int eventId);
+        EventBooking GetEventBooking(int eventBookingId);
         int GetRemainingTicketCount(int? ticketId);
         IEnumerable<EventTicketReservation> GetTicketReservations(string sessionId);
         void ReserveTickets(string sessionId, IEnumerable<EventTicketReservationRequest> requests);
@@ -17,6 +18,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         void CancelEventBooking(int? eventBookingId);
         void EventBookingPaymentCompleted(int? eventBookingId, PaymentType paymentType);
         void SetPaymentReferenceForBooking(int eventBookingId, string paymentReference, PaymentType paymentType);
+        
     }
 
     public class EventManager : IEventManager
@@ -42,6 +44,11 @@ namespace Paramount.Betterclassifieds.Business.Events
         public EventModel GetEventDetails(int eventId)
         {
             return _eventRepository.GetEventDetails(eventId);
+        }
+
+        public EventBooking GetEventBooking(int eventBookingId)
+        {
+            return _eventRepository.GetEventBooking(eventBookingId);
         }
 
         public int GetRemainingTicketCount(int? ticketId)

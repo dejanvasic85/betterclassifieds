@@ -220,16 +220,24 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public ActionResult EventBooked()
         {
-            if (!_eventBookingContext.EventId.HasValue)
+            if (!_eventBookingContext.EventId.HasValue || !_eventBookingContext.EventBookingId.HasValue)
             {
                 return RedirectToAction("NotFound", "Error");
             }
+            
             var eventDetails = _eventManager.GetEventDetails(_eventBookingContext.EventId.Value);
             var adDetails = _searchService.GetByAdId(eventDetails.OnlineAdId);
+            var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.Value);
+
+            var viewModel = new EventBookedViewModel
+            {
+                Title = adDetails.Heading,
+                EmailAddress = eventBooking.Email
+            };
 
             _eventBookingContext.Clear();
 
-            return View();
+            return View(viewModel);
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

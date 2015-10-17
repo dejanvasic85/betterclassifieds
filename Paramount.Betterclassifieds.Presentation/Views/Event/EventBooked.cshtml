@@ -1,4 +1,4 @@
-﻿@model dynamic
+﻿@model EventBookedViewModel
 
 @{
     ViewBag.Title = "Tickets Booked Successfully";
@@ -6,8 +6,10 @@
 }
 
 <h1>
-    Done! You have booked the tickets to the event @Model.Title
+    Done! Your tickets have been booked for the event @Model.Title
 </h1>
+
+<p>The tickets have been emailed to the address @Model.EmailAddress</p>
 
 <p>Todo > Print the tickets</p>
 <p>Todo > invite your friends know</p>

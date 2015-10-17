@@ -30,9 +30,4 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
         public List<EventTicketReservedViewModel> Reservations { get; set; }
     }
-
-    public class EventBookedViewModel
-    {
-        public string Title { get; set; }
-    }
 }

@@ -18,7 +18,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         void CancelEventBooking(int? eventBookingId);
         void EventBookingPaymentCompleted(int? eventBookingId, PaymentType paymentType);
         void SetPaymentReferenceForBooking(int eventBookingId, string paymentReference, PaymentType paymentType);
-        
+        void AdjustRemainingQuantityAndCancelReservations(string sessionId, IList<EventBookingTicket> eventBookingTickets);
     }
 
     public class EventManager : IEventManager
@@ -48,7 +48,7 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         public EventBooking GetEventBooking(int eventBookingId)
         {
-            return _eventRepository.GetEventBooking(eventBookingId);
+            return _eventRepository.GetEventBooking(eventBookingId, includeTickets: true);
         }
 
         public int GetRemainingTicketCount(int? ticketId)
@@ -168,6 +168,18 @@ namespace Paramount.Betterclassifieds.Business.Events
             eventBooking.PaymentReference = paymentReference;
             eventBooking.PaymentMethod = paymentType;
             _eventRepository.UpdateEventBooking(eventBooking);
+        }
+
+        public void AdjustRemainingQuantityAndCancelReservations(string sessionId, IList<EventBookingTicket> eventBookingTickets)
+        {
+            CancelReservationsForSession(sessionId);
+
+            foreach (var eventBookingTicket in eventBookingTickets)
+            {
+                var eventTicket = _eventRepository.GetEventTicketDetails(eventBookingTicket.EventTicketId);
+                eventTicket.RemainingQuantity = eventTicket.RemainingQuantity - eventBookingTicket.Quantity;
+                _eventRepository.UpdateEventTicket(eventTicket);
+            }
         }
 
         public IEnumerable<EventTicketReservation> GetTicketReservations(string sessionId)

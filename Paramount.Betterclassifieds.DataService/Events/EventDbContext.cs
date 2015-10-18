@@ -12,6 +12,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
             // Entity framework is crazy.
             // If we don't set a null ininitializer, the default one will create the database automatically
             Database.SetInitializer<EventDbContext>(null);
+            
         }
 
         public EventDbContext(string connectionString)
@@ -22,6 +23,8 @@ namespace Paramount.Betterclassifieds.DataService.Events
         public EventDbContext()
             : this(ConfigurationManager.ConnectionStrings["EventsConnection"].ConnectionString)
         {
+            Configuration.ProxyCreationEnabled = false;
+            Configuration.LazyLoadingEnabled = false;
         }
 
         public IDbSet<EventModel> Events { get; set; }

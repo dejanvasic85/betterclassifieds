@@ -173,6 +173,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             if (eventBooking.Status == EventBookingStatus.Active)
             {
+
+                // No payment required so return a redirect to action json object
                 return Json(new { Successful = true, Redirect = Url.Action("EventBooked") });
             }
 
@@ -224,11 +226,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 return RedirectToAction("NotFound", "Error");
             }
-            
-            var eventDetails = _eventManager.GetEventDetails(_eventBookingContext.EventId.Value);
-            var adDetails = _searchService.GetByAdId(eventDetails.OnlineAdId);
-            var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.Value);
 
+            var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.Value);
+            var eventDetails = eventBooking.Event;
+            var adDetails = _searchService.GetByAdId(eventDetails.OnlineAdId);
+            
+            var sessionId = _httpContext.With(h => h.Session).SessionID;
+            _eventManager.AdjustRemainingQuantityAndCancelReservations(sessionId, eventBooking.EventBookingTickets);
+            
             var viewModel = new EventBookedViewModel
             {
                 Title = adDetails.Heading,

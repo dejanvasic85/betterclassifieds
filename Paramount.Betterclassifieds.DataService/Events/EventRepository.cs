@@ -41,18 +41,24 @@ namespace Paramount.Betterclassifieds.DataService.Events
             {
                 var eventTicket = context.EventTickets.SingleOrDefault(e => e.EventTicketId == ticketId);
                 if (includeReservations && eventTicket != null)
-                {
                     eventTicket.EventTicketReservations = context.EventTicketReservations.Where(r => r.EventTicketId == eventTicket.EventTicketId).ToList();
-                }
                 return eventTicket;
             }
         }
 
-        public EventBooking GetEventBooking(int eventBookingId)
+        public EventBooking GetEventBooking(int eventBookingId, bool includeTickets = false)
         {
             using (var context = _dbContextFactory.CreateEventContext())
             {
-                return context.EventBookings.SingleOrDefault(b => b.EventBookingId == eventBookingId);
+                var eventBooking = context.EventBookings
+                    .Where(b => b.EventBookingId == eventBookingId)
+                    .Include(b => b.Event)
+                    .SingleOrDefault();
+
+                if (includeTickets && eventBooking != null)
+                    eventBooking.EventBookingTickets = context.EventBookingTickets.Where(e => e.EventBookingId == eventBookingId).ToList();
+
+                return eventBooking;
             }
         }
 
@@ -102,6 +108,16 @@ namespace Paramount.Betterclassifieds.DataService.Events
             {
                 context.EventBookings.Attach(eventBooking);
                 context.Entry(eventBooking).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        public void UpdateEventTicket(EventTicket eventTicket)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                context.EventTickets.Attach(eventTicket);
+                context.Entry(eventTicket).State = EntityState.Modified;
                 context.SaveChanges();
             }
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business.Payment;
-using PayPal.Api.Payments;
+using PayPal.Api;
 
 namespace Paramount.Betterclassifieds.Payments.pp
 {
@@ -78,6 +78,7 @@ namespace Paramount.Betterclassifieds.Payments.pp
                 redirect_urls = redirUrls
             };
 
+            
             var myResponse = payment.Create(apiContext);
 
             if (myResponse == null || myResponse.links == null)

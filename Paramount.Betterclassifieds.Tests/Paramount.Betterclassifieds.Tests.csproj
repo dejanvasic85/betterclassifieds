@@ -123,6 +123,9 @@
     <Compile Include="Events\SufficientTicketsRuleTests.cs" />
     <Compile Include="Mocks\AdBookingMockBuilder.cs" />
     <Compile Include="Mocks\AdEnquiryMockBuilder.cs" />
+    <Compile Include="Mocks\ApplicationUserMockBuilder.cs" />
+    <Compile Include="Mocks\EventTicketMockBuilder.cs" />
+    <Compile Include="Mocks\EventTicketReservationMockBuilder.cs" />
     <Compile Include="Mocks\MockBuilder%27T.cs" />
     <Compile Include="TestContext.cs" />
     <Compile Include="Database\ClassifiedsDataContextTests.cs" />

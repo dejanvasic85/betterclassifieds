@@ -1,5 +1,4 @@
-﻿using Paramount.Betterclassifieds.Business;
-using Paramount.Betterclassifieds.Business.Booking;
+﻿using Paramount.Betterclassifieds.Business.Booking;
 
 namespace Paramount.Betterclassifieds.Tests
 {
@@ -8,14 +7,6 @@ namespace Paramount.Betterclassifieds.Tests
         public AdBookingMockBuilder WithUser(string user)
         {
             return WithBuildStep(s => s.UserId = user);
-        }
-    }
-
-    internal class ApplicationUserMockBuilder : MockBuilder<ApplicationUserMockBuilder, ApplicationUser>
-    {
-        public ApplicationUserMockBuilder WithEmail(string email)
-        {
-            return WithBuildStep(s => s.Email = email);
         }
     }
 }

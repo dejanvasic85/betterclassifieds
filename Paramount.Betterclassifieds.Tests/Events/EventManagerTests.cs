@@ -1,14 +1,52 @@
+using System;
+using Moq;
 using NUnit.Framework;
+using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Events;
+using Paramount.Betterclassifieds.Tests.Mocks;
 
 namespace Paramount.Betterclassifieds.Tests.Events
 {
     [TestFixture]
-    public class EventManagerTests
+    public class EventManagerTests : TestContext<EventManager>
     {
-        [Test]
-        public void ReserveTickets_()
+        private Mock<IEventRepository> _eventRepositoryMock;
+        private Mock<IDateService> _dateServiceMock;
+        private Mock<IClientConfig> _clientConfig;
+
+        [SetUp]
+        public void SetupDependencies()
         {
+            _eventRepositoryMock = CreateMockOf<IEventRepository>();
+            _dateServiceMock = CreateMockOf<IDateService>();
+            _clientConfig = CreateMockOf<IClientConfig>();
+        }
+
+        [Test]
+        public void GetRemainingTicketCount_TicketId_HasNoValue_ThrowsArgumentException()
+        {
+            var eventManager = BuildTargetObject();
+            Assert.Throws<ArgumentNullException>(() => eventManager.GetRemainingTicketCount(null));
+        }
+        [Test]
+        public void GetRemainingTicketCount_WithTenReserved_WithTwentyRemaining_ReturnsTen()
+        {
+            // arrange
+            var mockTicketDetails = new EventTicketMockBuilder()
+                .WithRemainingQuantity(20)
+                .WithEventTicketReservations(new EventTicketReservationMockBuilder()
+                    .WithStatus(EventTicketReservationStatus.Reserved)
+                    .WithExpiryDateUtc(DateTime.Now.AddMinutes(5))
+                    .WithQuantity(2), howMany: 5) // 5 reservations with 2 quantities each
+                .Build();
+
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventTicketDetails(It.Is<int>(t => t == 10), It.IsAny<bool>()), mockTicketDetails);
+            _dateServiceMock.Setup(call => call.UtcNow).Returns(DateTime.Now);
+
+            var eventManager = BuildTargetObject();
+            var result = eventManager.GetRemainingTicketCount(10);
             
+            Assert.That(result, Is.EqualTo(10));
         }
     }
 }

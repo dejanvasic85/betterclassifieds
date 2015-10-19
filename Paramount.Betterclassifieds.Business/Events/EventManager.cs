@@ -53,8 +53,7 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         public int GetRemainingTicketCount(int? ticketId)
         {
-            if (!ticketId.HasValue)
-                throw new ArgumentNullException("ticketId");
+            Guard.NotNull(ticketId);
 
             var currentDate = _dateService.UtcNow;
 
@@ -64,9 +63,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                 .Where(reservation => reservation.Status == EventTicketReservationStatus.Reserved)
                 .Where(reservation => reservation.ExpiryDateUtc > currentDate).Sum(reservation => reservation.Quantity);
 
-            //var booked = ticketDetails.EventTicketBookings.Where(b => b.Active).Sum(b => b.Quantity);
-
-            var remainingTickets = ticketDetails.RemainingQuantity - reserved;// - booked;
+            var remainingTickets = ticketDetails.RemainingQuantity - reserved;
             return remainingTickets;
         }
 

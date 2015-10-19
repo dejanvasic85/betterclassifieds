@@ -17,5 +17,10 @@ namespace Paramount.Betterclassifieds.Tests
             }
             return this;
         }
+
+        public EventTicketMockBuilder WithId(int id)
+        {
+            return WithBuildStep(prop => prop.EventTicketId = id);
+        }
     }
 }

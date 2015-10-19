@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business;
@@ -28,6 +30,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var eventManager = BuildTargetObject();
             Assert.Throws<ArgumentNullException>(() => eventManager.GetRemainingTicketCount(null));
         }
+
         [Test]
         public void GetRemainingTicketCount_WithTenReserved_WithTwentyRemaining_ReturnsTen()
         {
@@ -45,8 +48,93 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             var eventManager = BuildTargetObject();
             var result = eventManager.GetRemainingTicketCount(10);
-            
+
             Assert.That(result, Is.EqualTo(10));
+        }
+
+        [Test]
+        public void ReserveTickets_CancelsExistingReservations()
+        {
+            // arrange
+            var reservationBuilder = new EventTicketReservationMockBuilder();
+            var existingReservations = new[]
+            {
+                reservationBuilder.WithQuantity(5).WithStatus(EventTicketReservationStatus.Reserved).Build(),
+                reservationBuilder.WithQuantity(2).WithStatus(EventTicketReservationStatus.RequestTooLarge).Build()
+            };
+
+            // Mock to return the above data
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventTicketReservationsForSession(It.IsAny<string>()), existingReservations);
+            _eventRepositoryMock.SetupWithVerification(call => call.UpdateEventTicketReservation(It.IsAny<EventTicketReservation>()));
+
+            var eventManager = BuildTargetObject();
+            // Pass empty list so that we just test out the above call
+            eventManager.ReserveTickets("session123", new List<EventTicketReservationRequest>());
+
+            Assert.That(existingReservations[0].Status == EventTicketReservationStatus.Cancelled);
+            Assert.That(existingReservations[1].Status == EventTicketReservationStatus.Cancelled);
+        }
+
+        [Test]
+        public void ReserveTickets_WithTwoSufficientRequests_CreatesTwoReserved()
+        {
+            const int expiryMins = 5;
+            var eventTicketRequestMockBuilder = new EventTicketReservationRequestMockBuilder();
+            var eventTicketMockBuilder = new EventTicketMockBuilder()
+                .WithRemainingQuantity(10);
+
+
+            // arrange repository calls
+            _eventRepositoryMock.SetupWithVerification(call => call.CreateEventTicketReservation(It.IsAny<EventTicketReservation>()));
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventTicketDetails(It.IsAny<int>(), It.IsAny<bool>()), eventTicketMockBuilder.Build());
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventTicketReservationsForSession(It.IsAny<string>()), new EventTicketReservation[] { });
+            _dateServiceMock.SetupWithVerification(call => call.Now, DateTime.Now);
+            _dateServiceMock.SetupWithVerification(call => call.UtcNow, DateTime.UtcNow);
+            _clientConfig.SetupWithVerification(call => call.EventTicketReservationExpiryMinutes, expiryMins);
+
+
+            // act
+            var eventManager = BuildTargetObject();
+            eventManager.ReserveTickets("session123", new List<EventTicketReservationRequest>
+            {
+                eventTicketRequestMockBuilder
+                    .WithQuantity(1)
+                    .WithEventTicket(eventTicketMockBuilder.WithId(111))
+                    .Build(),
+
+                eventTicketRequestMockBuilder
+                    .WithQuantity(2)
+                    .WithEventTicket(eventTicketMockBuilder.WithId(222))
+                    .Build()
+            });
+
+            // assert - check teardown on all the repository calls (with verifications)
+        }
+
+        [Test]
+        public void ReserveTickets_WithNullEventTicket_ThrowsArgumentException()
+        {
+            const int expiryMins = 5;
+            var eventTicketRequestMockBuilder = new EventTicketReservationRequestMockBuilder();
+
+
+            // arrange repository calls
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventTicketReservationsForSession(It.IsAny<string>()), new EventTicketReservation[] { });
+
+            // act
+            var eventManager = BuildTargetObject();
+            Assert.Throws<ArgumentNullException>(() => eventManager.ReserveTickets("session123", new List<EventTicketReservationRequest>
+            {
+                eventTicketRequestMockBuilder
+                    .WithQuantity(1)
+                    .Build(),
+
+                eventTicketRequestMockBuilder
+                    .WithQuantity(2)
+                    .Build()
+            }));
+
+            // assert - check teardown on all the repository calls (with verifications)
         }
     }
 }

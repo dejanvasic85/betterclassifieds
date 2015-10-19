@@ -22,7 +22,7 @@ namespace Paramount.Betterclassifieds.Tests
             _containerBuilder = new UnityContainer();
         }
 
-        [TestFixtureTearDown]
+        [TearDown]
         public void Cleanup()
         {
             _verifyList.ForEach(action => action());

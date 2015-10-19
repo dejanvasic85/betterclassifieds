@@ -57,7 +57,7 @@ namespace Paramount.Betterclassifieds.Business.Events
 
             var currentDate = _dateService.UtcNow;
 
-            var ticketDetails = _eventRepository.GetEventTicketDetails(ticketId.Value, includeReservations: true);
+            var ticketDetails = _eventRepository.GetEventTicketDetails(ticketId.GetValueOrDefault(), includeReservations: true);
 
             var reserved = ticketDetails.EventTicketReservations
                 .Where(reservation => reservation.Status == EventTicketReservationStatus.Reserved)
@@ -76,10 +76,8 @@ namespace Paramount.Betterclassifieds.Business.Events
             // Create reservation for each request
             foreach (var reservationRequest in requestsData)
             {
-                if (reservationRequest.EventTicket == null || !reservationRequest.EventTicket.EventTicketId.HasValue)
-                {
-                    throw new ArgumentNullException("requests", "Event or Ticket ID are null. Unable to proceed");
-                }
+                Guard.NotNull(reservationRequest.EventTicket);
+                Guard.NotNull(reservationRequest.EventTicket.EventTicketId);
 
                 var reservation = new EventTicketReservation
                 {
@@ -89,7 +87,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                     ExpiryDateUtc = _dateService.UtcNow.AddMinutes(_clientConfig.EventTicketReservationExpiryMinutes),
                     SessionId = sessionId,
                     Quantity = reservationRequest.Quantity,
-                    EventTicketId = reservationRequest.EventTicket.EventTicketId.Value,
+                    EventTicketId = reservationRequest.EventTicket.EventTicketId.GetValueOrDefault(),
                     Price = reservationRequest.EventTicket.Price,
                     Status = new SufficientTicketsRule()
                         .IsSatisfiedBy(new RemainingTicketsWithRequestInfo(reservationRequest.Quantity, GetRemainingTicketCount(reservationRequest.EventTicket.EventTicketId)))

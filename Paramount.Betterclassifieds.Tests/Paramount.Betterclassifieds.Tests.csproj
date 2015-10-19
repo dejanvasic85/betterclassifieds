@@ -126,6 +126,7 @@
     <Compile Include="Mocks\ApplicationUserMockBuilder.cs" />
     <Compile Include="Mocks\EventTicketMockBuilder.cs" />
     <Compile Include="Mocks\EventTicketReservationMockBuilder.cs" />
+    <Compile Include="Mocks\EventTicketReservationRequestMockBuilder.cs" />
     <Compile Include="Mocks\MockBuilder%27T.cs" />
     <Compile Include="TestContext.cs" />
     <Compile Include="Database\ClassifiedsDataContextTests.cs" />

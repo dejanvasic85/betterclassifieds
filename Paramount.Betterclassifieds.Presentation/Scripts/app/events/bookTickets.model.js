@@ -19,7 +19,7 @@
             return r.price > 0;
         });
         me.requiresPayment = ko.observable(requiresPayment);
-        
+
         // User details
         me.firstName = ko.observable(data.firstName);
         me.lastName = ko.observable(data.lastName);
@@ -70,7 +70,7 @@
             return me.minsRemaining() === 0 && me.secondsRemaining() === 0;
         });
         me.paymentMethod = ko.observable();
-        me.setPayPal = function() {
+        me.setPayPal = function () {
             me.paymentMethod('PayPal');
         }
         me.setCreditCard = function () {
@@ -93,6 +93,9 @@
                 var request = ko.toJSON(me);
                 eventService.bookTickets(request).success(function (response) {
                     if (response.redirect) {
+                        if (response.isPayPal) {
+                            $btn.text('Waiting for PayPal');
+                        }
                         window.location = response.redirect;
                     }
 

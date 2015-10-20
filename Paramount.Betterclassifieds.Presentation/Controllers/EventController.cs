@@ -200,7 +200,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventManager.SetPaymentReferenceForBooking(eventBooking.EventBookingId, response.PaymentId, paymentType);
             _eventBookingContext.EventBookingPaymentReference = response.PaymentId;
 
-            return Json(new { Successful = true, Redirect = response.ApprovalUrl });
+            return Json(new { Successful = true, Redirect = response.ApprovalUrl, IsPayPal = true });
         }
 
         public ActionResult AuthorisePayPal(string payerId)
@@ -229,7 +229,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.Value);
             var eventDetails = eventBooking.Event;
-            var adDetails = _searchService.GetByAdId(eventDetails.OnlineAdId);
+            var adDetails = _searchService.GetByAdOnlineId(eventDetails.OnlineAdId);
             
             var sessionId = _httpContext.With(h => h.Session).SessionID;
             _eventManager.AdjustRemainingQuantityAndCancelReservations(sessionId, eventBooking.EventBookingTickets);
@@ -237,7 +237,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var viewModel = new EventBookedViewModel
             {
                 Title = adDetails.Heading,
-                EmailAddress = eventBooking.Email
+                EmailAddress = eventBooking.Email,
+                OrganiserName = adDetails.ContactName,
+                OrganiserEmail = adDetails.ContactPhone,
+                EventFullUrl = Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, includeSchemeAndProtocol: true, routeName: "Event")
             };
 
             _eventBookingContext.Clear();

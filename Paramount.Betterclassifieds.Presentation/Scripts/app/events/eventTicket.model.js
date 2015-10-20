@@ -25,7 +25,7 @@
             maxTicketsPerBooking = data.remainingQuantity;
         }
         me.maxTicketsPerBooking = ko.observableArray();
-        for (var i = 0; i < maxTicketsPerBooking; i++) {
+        for (var i = 0; i <= maxTicketsPerBooking; i++) {
             me.maxTicketsPerBooking.push({ label: i, value: i });
         }
     }

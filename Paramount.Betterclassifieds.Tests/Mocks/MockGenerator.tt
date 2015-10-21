@@ -1,0 +1,80 @@
+<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="$(TargetPath)" #>
+<#@ assembly name="$(SolutionDir)\Digital\bin\Debug\Digital.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Digital.Mocks" #>
+<#@ import namespace="Digital.Models" #>
+<#@ output extension=".cs" #>
+<#
+	var typesToGenerate = new Dictionary<string, string> 
+	{
+		{ "Digital.Models.Application",  "Application" },
+		{ "Digital.Models.PersonalDetail",  "PersonalDetail" },
+		{ "Digital.Models.Quote",  "Quote" },
+		{ "Digital.Models.CreditCard",  "CreditCard" },
+		{ "Digital.Models.DirectDebit",  "DirectDebit" },
+		{ "Digital.Models.PolicyManagement",  "PolicyManagement" }
+	};
+#>
+
+using Digital.Models;
+using System;
+using System.Collections.Generic;
+
+namespace Digital.Mocks
+{
+<#
+	foreach( var target in typesToGenerate ) 
+	{
+#>
+
+	internal partial class <#= target.Value #>MockBuilder : MockBuilder<<#= target.Value#>MockBuilder, <#= target.Value #>>
+	{	
+<# 
+		var type = typeof(Digital.Models.Application).Assembly.GetType(target.Key); 
+   		var props = type.GetProperties(BindingFlags.Public|BindingFlags.Instance);
+
+		foreach( var prop in props ) {
+			if( !prop.CanWrite || prop.GetSetMethod() == null )
+				continue;
+			
+			var propType = prop.PropertyType;
+			var propTypeName = GetDisplayName(propType);
+
+#>
+		public <#= target.Value#>MockBuilder With<#=prop.Name#>(<#=propTypeName#> val)
+		{ 
+			return WithBuildStep(p => p.<#=prop.Name#> = val);
+		}
+<#		
+		} // End of foreach( var prop in props )
+#>
+	}
+<#
+	} // End foreach( var target in typesToGenerate )
+#>
+}
+
+
+<#+
+
+	// Methods available for the T4 generator
+ public string GetDisplayName(Type t)
+        {
+            if (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(Nullable<>))
+                return string.Format("{0}?", GetDisplayName(t.GetGenericArguments()[0]));
+            if (t.IsGenericType)
+                return string.Format("{0}<{1}>",
+                                     t.Name.Remove(t.Name.IndexOf('`')),
+                                     string.Join(",", t.GetGenericArguments().Select(at => GetDisplayName(at))));
+            if (t.IsArray)
+                return string.Format("{0}[{1}]",
+                                     GetDisplayName(t.GetElementType()),
+                                     new string(',', t.GetArrayRank() - 1));
+            return t.Name;
+        }
+#>

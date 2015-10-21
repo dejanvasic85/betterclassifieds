@@ -260,6 +260,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View(viewModel);
         }
 
+        public ActionResult Tickets()
+        {
+            return View();
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             #region To View Model

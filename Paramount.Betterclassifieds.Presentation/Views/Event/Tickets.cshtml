@@ -1,0 +1,51 @@
+﻿@using Paramount
+@using Paramount.ApplicationBlock.Mvc.HtmlHelpers
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TicketPrint</title>
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-3.3.0.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/event-ticket.min.css")" />
+</head>
+<body>
+    <div class="ticket-container">
+        <div class="ticket">
+            <div class="event-picture">
+                <img src="@Url.Image("c1264452-b14d-4485-b7eb-e36775d277a9", height: 300, width: 300)" />
+            </div>
+            <div class="event-info">
+                <div class="event-title">
+                    <h3>
+                        The Comedy Store
+                    </h3>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ticket-container">
+        <div class="ticket">
+            <div class="event-picture">
+                <img src="@Url.Image("c1264452-b14d-4485-b7eb-e36775d277a9", height: 300, width: 300)" />
+            </div>
+            <div class="event-info">
+                <div class="event-title">
+                    <h3>
+                        The Comedy Store
+                    </h3>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

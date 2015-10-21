@@ -56,6 +56,7 @@
     <Compile Include="Booking\BookingManager.cs" />
     <Compile Include="Booking\IBookingCart.cs" />
     <Compile Include="Booking\IBookingContext.cs" />
+    <Compile Include="Broadcast\DocTypes\EventTicketsBookedNotification.cs" />
     <Compile Include="Events\EventBookingContext.cs" />
     <Compile Include="Events\EventBookingStatus.cs" />
     <Compile Include="Events\EventBookingTicket.cs" />

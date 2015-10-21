@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using Humanizer;
 using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Search;
@@ -24,8 +25,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IUserManager _userManager;
         private readonly IAuthManager _authManager;
         private readonly IPaymentService _paymentService;
+        private readonly IBroadcastManager _broadcastManager;
 
-        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IAuthManager authManager, EventBookingContext eventBookingContext, IPaymentService paymentService)
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IAuthManager authManager, EventBookingContext eventBookingContext, IPaymentService paymentService, IBroadcastManager broadcastManager)
         {
             _searchService = searchService;
             _eventManager = eventManager;
@@ -35,6 +37,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _authManager = authManager;
             _eventBookingContext = eventBookingContext;
             _paymentService = paymentService;
+            _broadcastManager = broadcastManager;
         }
 
         public ActionResult ViewEventAd(int id, string titleSlug = "")
@@ -230,18 +233,27 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.Value);
             var eventDetails = eventBooking.Event;
             var adDetails = _searchService.GetByAdOnlineId(eventDetails.OnlineAdId);
-            
+
             var sessionId = _httpContext.With(h => h.Session).SessionID;
             _eventManager.AdjustRemainingQuantityAndCancelReservations(sessionId, eventBooking.EventBookingTickets);
-            
+
             var viewModel = new EventBookedViewModel
             {
-                Title = adDetails.Heading,
-                EmailAddress = eventBooking.Email,
+                EventName = adDetails.Heading,
+                CustomerEmailAddress = eventBooking.Email,
+                CustomerFirstName = eventBooking.FirstName,
+                CustomerLastName = eventBooking.LastName,
                 OrganiserName = adDetails.ContactName,
                 OrganiserEmail = adDetails.ContactPhone,
-                EventFullUrl = Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, includeSchemeAndProtocol: true, routeName: "Event")
+                EventUrl = Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, includeSchemeAndProtocol: true, routeName: "Event"),
+                Address = eventDetails.Location,
+                LocationLatitude = eventDetails.LocationLatitude,
+                LocationLongitude = eventDetails.LocationLongitude,
+                StartDateTime = eventDetails.EventStartDate.GetValueOrDefault(),
+                EndDateTime = eventDetails.EventEndDate.GetValueOrDefault()
             };
+
+            _broadcastManager.SendEmail(this.Map<EventBookedViewModel, EventTicketsBookedNotification>(viewModel), eventBooking.Email);
 
             _eventBookingContext.Clear();
 
@@ -291,6 +303,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 });
             configuration.CreateMap<BookTicketsRequestViewModel, RegistrationModel>();
             configuration.CreateMap<EventTicketReservedViewModel, Business.Events.EventTicketReservation>();
+            configuration.CreateMap<EventBookedViewModel, EventTicketsBookedNotification>()
+                .ForMember(m => m.DocumentType, options => options.Ignore());
 
             #endregion
         }

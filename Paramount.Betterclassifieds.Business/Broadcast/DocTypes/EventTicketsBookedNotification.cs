@@ -1,9 +1,10 @@
 ﻿using System;
 
-namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
+namespace Paramount.Betterclassifieds.Business.Broadcast
 {
-    public class EventBookedViewModel
+    public class EventTicketsBookedNotification : IDocType
     {
+        public string DocumentType { get { return "EventTicketsBooked"; } }
         public string EventName { get; set; }
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }

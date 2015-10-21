@@ -19,6 +19,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         public DateTime? EventStartDate { get; set; }
         public DateTime? EventEndDate { get; set; }
         public IList<EventTicket> Tickets { get; set; }
-        public IList<EventBooking> EventBookings { get; set; } 
+        public IList<EventBooking> EventBookings { get; set; }
     }
 }

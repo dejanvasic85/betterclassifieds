@@ -121,12 +121,7 @@
     <Compile Include="Controllers\HomeControllerTests.cs" />
     <Compile Include="Events\EventManagerTests.cs" />
     <Compile Include="Events\SufficientTicketsRuleTests.cs" />
-    <Compile Include="Mocks\AdBookingMockBuilder.cs" />
-    <Compile Include="Mocks\AdEnquiryMockBuilder.cs" />
-    <Compile Include="Mocks\ApplicationUserMockBuilder.cs" />
     <Compile Include="Mocks\EventTicketMockBuilder.cs" />
-    <Compile Include="Mocks\EventTicketReservationMockBuilder.cs" />
-    <Compile Include="Mocks\EventTicketReservationRequestMockBuilder.cs" />
     <Compile Include="Mocks\MockBuilder%27T.cs" />
     <Compile Include="Mocks\MockGenerator.cs">
       <AutoGen>True</AutoGen>
@@ -140,8 +135,6 @@
     <Compile Include="Membership\UserManagerTests.cs" />
     <Compile Include="Mocks\BookingCartMocks.cs" />
     <Compile Include="Mocks\MoqExtensions.cs" />
-    <Compile Include="Mocks\OnlineRateMocks.cs" />
-    <Compile Include="Mocks\PrintRateMocks.cs" />
     <Compile Include="Pricing\OnlineAdBaseChargeTests.cs" />
     <Compile Include="Pricing\PrintHeadingChargeTests.cs" />
     <Compile Include="Pricing\PrintWordChargeTests.cs" />

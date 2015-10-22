@@ -121,7 +121,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
                 .WithQuestion("Can I ask you something")
                 .Build();
 
-            var mockBooking = new AdBookingMockBuilder().WithUser("user123").Build();
+            var mockBooking = new AdBookingModelMockBuilder().WithUserId("user123").Build();
             var mockApplicationUser = new ApplicationUserMockBuilder().WithEmail("me@email.com").Build();
 
             // Setup all the calls that need to be made

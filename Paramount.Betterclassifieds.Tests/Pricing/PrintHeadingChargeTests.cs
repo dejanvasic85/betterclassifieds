@@ -20,7 +20,7 @@ namespace Paramount.Betterclassifieds.Tests.Pricing
         [Test]
         public void Calculate_HeadingIsNotProvided_Returns_ZeroTotal()
         {
-            var rate = PrintRateMocks.Create().WithHeadingAmount(10);
+            var rate = new RateModelMockBuilder().WithBoldHeading(10).Build();
             var lineAd = new LineAdModel { AdHeader = string.Empty };
 
             // act
@@ -37,7 +37,7 @@ namespace Paramount.Betterclassifieds.Tests.Pricing
         [Test]
         public void Calculate_HeadingProvided_NoPublications_Returns_ZeroTotal()
         {
-            var rate = PrintRateMocks.Create().WithHeadingAmount(10);
+            var rate = new RateModelMockBuilder().WithBoldHeading(10).Build();
             var lineAd = new LineAdModel { AdHeader = "hey Ya!" };
 
             // act
@@ -54,7 +54,7 @@ namespace Paramount.Betterclassifieds.Tests.Pricing
         [Test]
         public void Calculate_HeadingProvided_TwoPublications_TwoEditions_Returns_Total()
         {
-            var rate = PrintRateMocks.Create().WithHeadingAmount(10);
+            var rate = new RateModelMockBuilder().WithBoldHeading(10).Build();
             var lineAd = new LineAdModel { AdHeader = "hey Ya!" };
 
             // act

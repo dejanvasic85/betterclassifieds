@@ -22,7 +22,7 @@ namespace Paramount.Betterclassifieds.Tests.Pricing
         {
             // arrange
             var lineAd = new LineAdModel {AdText = ""};
-            var rate = PrintRateMocks.Create();
+            var rate = new RateModelMockBuilder().Build();
 
             // act
             var result = new PrintWordCharge().Calculate(rate, lineAd, 0);
@@ -38,7 +38,7 @@ namespace Paramount.Betterclassifieds.Tests.Pricing
         {
             // arrange
             var lineAd = new LineAdModel { AdText = "one two three four five" };
-            var rate = PrintRateMocks.Create().WithWordRate(5);
+            var rate = new RateModelMockBuilder().WithRatePerWord(5).Build();
 
             // act
             var result = new PrintWordCharge().Calculate(rate, lineAd, editions: 1);
@@ -55,7 +55,7 @@ namespace Paramount.Betterclassifieds.Tests.Pricing
         {
             // arrange
             var lineAd = new LineAdModel { AdText = "one two three four five" };
-            var rate = PrintRateMocks.Create().WithWordRate(5);
+            var rate = new RateModelMockBuilder().WithRatePerWord(5).Build();
 
             // act
             var result = new PrintWordCharge().Calculate(rate, lineAd, editions: 1);

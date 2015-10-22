@@ -22,7 +22,7 @@ namespace Paramount.Betterclassifieds.Tests.Pricing
         {
             // arrange
             var charge = new OnlineBasePriceCharge();
-            var rate = OnlineRateMocks.Create().WithBaseRate(10);
+            var rate = new OnlineAdRateMockBuilder().WithMinimumCharge(10).Build();
             var onlineAd = new OnlineAdModel();
 
             // act

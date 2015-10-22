@@ -12,24 +12,26 @@
 <#
 	var typesToGenerate = new Dictionary<string, string> 
 	{
-		{ "Paramount.Betterclassifieds.Business.Events.EventTicket",  "EventTicket" }
+		{ "Paramount.Betterclassifieds.Business.Booking.AdBookingModel",  "AdBookingModel" },
+		{ "Paramount.Betterclassifieds.Business.OnlineAdRate",  "OnlineAdRate" },
+		{ "Paramount.Betterclassifieds.Business.RateModel",  "RateModel" },
+		{ "Paramount.Betterclassifieds.Business.AdEnquiry",  "AdEnquiry" },
+		{ "Paramount.Betterclassifieds.Business.ApplicationUser",  "ApplicationUser" },
+		{ "Paramount.Betterclassifieds.Business.Events.EventTicket",  "EventTicket" },
+		{ "Paramount.Betterclassifieds.Business.Events.EventTicketReservation",  "EventTicketReservation" },
+		{ "Paramount.Betterclassifieds.Business.Events.EventTicketReservationRequest",  "EventTicketReservationRequest" }
 	};
 #>
-
-<#
-	foreach(var pair in typesToGenerate){
-#>
-using <#=pair.Key.Replace("." + pair.Value, "")#>;
-<#
-	}
-#>
+using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Booking;
+using Paramount.Betterclassifieds.Business.Events;
 using System;
 using System.Collections.Generic;
 
 namespace Paramount.Betterclassifieds.Tests
 {
 	///
-	/// Auto-Generated code. See MockGenerator.tt 
+	/// Auto-Generated code. See MockGenerator.tt. All classes should be partial, so you can extend the methods for each!
 	///
 <#
 	foreach( var target in typesToGenerate ) 

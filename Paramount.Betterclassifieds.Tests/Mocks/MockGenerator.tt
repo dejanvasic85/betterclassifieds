@@ -1,32 +1,36 @@
 <#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ assembly name="System.Core" #>
 <#@ assembly name="$(TargetPath)" #>
-<#@ assembly name="$(SolutionDir)\Digital\bin\Debug\Digital.dll" #>
+<#@ assembly name="$(SolutionDir)\Paramount.Betterclassifieds.Business\bin\Debug\Paramount.Betterclassifieds.Business.dll" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Reflection" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#@ import namespace="Digital.Mocks" #>
-<#@ import namespace="Digital.Models" #>
+<#@ import namespace="Paramount.Betterclassifieds.Tests.Mocks" #>
+<#@ import namespace="Paramount.Betterclassifieds.Business" #>
 <#@ output extension=".cs" #>
 <#
 	var typesToGenerate = new Dictionary<string, string> 
 	{
-		{ "Digital.Models.Application",  "Application" },
-		{ "Digital.Models.PersonalDetail",  "PersonalDetail" },
-		{ "Digital.Models.Quote",  "Quote" },
-		{ "Digital.Models.CreditCard",  "CreditCard" },
-		{ "Digital.Models.DirectDebit",  "DirectDebit" },
-		{ "Digital.Models.PolicyManagement",  "PolicyManagement" }
+		{ "Paramount.Betterclassifieds.Business.Events.EventTicket",  "EventTicket" }
 	};
 #>
 
-using Digital.Models;
+<#
+	foreach(var pair in typesToGenerate){
+#>
+using <#=pair.Key.Replace("." + pair.Value, "")#>;
+<#
+	}
+#>
 using System;
 using System.Collections.Generic;
 
-namespace Digital.Mocks
+namespace Paramount.Betterclassifieds.Tests
 {
+	///
+	/// Auto-Generated code. See MockGenerator.tt 
+	///
 <#
 	foreach( var target in typesToGenerate ) 
 	{
@@ -35,7 +39,7 @@ namespace Digital.Mocks
 	internal partial class <#= target.Value #>MockBuilder : MockBuilder<<#= target.Value#>MockBuilder, <#= target.Value #>>
 	{	
 <# 
-		var type = typeof(Digital.Models.Application).Assembly.GetType(target.Key); 
+		var type = typeof(Paramount.Betterclassifieds.Business.Booking.AdBookingModel).Assembly.GetType(target.Key); 
    		var props = type.GetProperties(BindingFlags.Public|BindingFlags.Instance);
 
 		foreach( var prop in props ) {

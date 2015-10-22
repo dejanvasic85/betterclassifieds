@@ -128,6 +128,11 @@
     <Compile Include="Mocks\EventTicketReservationMockBuilder.cs" />
     <Compile Include="Mocks\EventTicketReservationRequestMockBuilder.cs" />
     <Compile Include="Mocks\MockBuilder%27T.cs" />
+    <Compile Include="Mocks\MockGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MockGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="TestContext.cs" />
     <Compile Include="Database\ClassifiedsDataContextTests.cs" />
     <Compile Include="Membership\ConfirmationCodeGeneratorTests.cs" />
@@ -188,8 +193,14 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Mocks\MockGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MockGenerator.cs</LastGenOutput>
+    </Content>
     <Content Include="TheMusicHtmlScraper\theMusic20140823.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

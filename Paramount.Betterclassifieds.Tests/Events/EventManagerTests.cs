@@ -99,12 +99,12 @@ namespace Paramount.Betterclassifieds.Tests.Events
             {
                 eventTicketRequestMockBuilder
                     .WithQuantity(1)
-                    .WithEventTicket(eventTicketMockBuilder.WithId(111))
+                    .WithEventTicket(eventTicketMockBuilder.WithEventTicketId(111))
                     .Build(),
 
                 eventTicketRequestMockBuilder
                     .WithQuantity(2)
-                    .WithEventTicket(eventTicketMockBuilder.WithId(222))
+                    .WithEventTicket(eventTicketMockBuilder.WithEventId(222))
                     .Build()
             });
 

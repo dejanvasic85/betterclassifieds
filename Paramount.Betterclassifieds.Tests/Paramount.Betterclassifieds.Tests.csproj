@@ -133,7 +133,6 @@
     <Compile Include="Membership\ConfirmationCodeGeneratorTests.cs" />
     <Compile Include="Membership\RegistrationModelTests.cs" />
     <Compile Include="Membership\UserManagerTests.cs" />
-    <Compile Include="Mocks\BookingCartMocks.cs" />
     <Compile Include="Mocks\MoqExtensions.cs" />
     <Compile Include="Pricing\OnlineAdBaseChargeTests.cs" />
     <Compile Include="Pricing\PrintHeadingChargeTests.cs" />

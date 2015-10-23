@@ -1,5 +1,5 @@
 ﻿@using Paramount
-@using Paramount.ApplicationBlock.Mvc.HtmlHelpers
+@model List<EventTicketPrintViewModel>
 
 @{
     Layout = null;
@@ -11,41 +11,64 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>TicketPrint</title>
-    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-3.3.0.min.css")" />
-    <link rel="stylesheet" href="@Url.Content("~/Content/event-ticket.min.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-3.3.0.min.css")" media="all" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/event-ticket-print.min.css")" media="all" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/font-awesome-4.4.0.css")" media="all" />
 </head>
 <body>
-    <div class="ticket-container">
-        <div class="ticket">
-            <div class="event-picture">
-                <img src="@Url.Image("c1264452-b14d-4485-b7eb-e36775d277a9", height: 300, width: 300)" />
-            </div>
-            <div class="event-info">
-                <div class="event-title">
-                    <h3>
-                        The Comedy Store
-                    </h3>
 
+    @foreach (var tick in Model)
+    {
+        <div class="ticket-container">
+            <div class="ticket">
+                <div class="event-picture">
+                    <img src="@Url.Image(@tick.ImageUrl, height: 200, width: 200)" />
+                </div>
+                <div class="event-info">
+                    <div class="event-title">
+                        <h3>
+                            @tick.EventName
+                        </h3>
+                    </div>
+                    <div class="event-details container-fluid">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <label>
+                                    <i class="fa fa-"></i> Number
+                                </label>
+                                <span>@tick.TicketNumber</span>
+                            </div>
+
+                            <div class="col-xs-6">
+                                <label>
+                                    <i class="fa fa-map-marker"></i> Address
+                                </label>
+                                <span>@tick.Location</span>
+                            </div>
+
+                            <div class="col-xs-6">
+                                <label>
+                                    <i class="fa fa-ticket"></i> Ticket
+                                </label>
+                                <span>@tick.TicketName @tick.Price.ToString("C")</span>
+                            </div>
+
+                            <div class="col-xs-6">
+                                <label>
+                                    <i class="fa fa-clock-o"></i> When
+                                </label>
+                                <span>@tick.StartDateTime</span>
+                            </div>
+
+                            
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    }
 
-    <div class="ticket-container">
-        <div class="ticket">
-            <div class="event-picture">
-                <img src="@Url.Image("c1264452-b14d-4485-b7eb-e36775d277a9", height: 300, width: 300)" />
-            </div>
-            <div class="event-info">
-                <div class="event-title">
-                    <h3>
-                        The Comedy Store
-                    </h3>
 
-                </div>
-            </div>
-        </div>
-    </div>
 
 </body>
 </html>

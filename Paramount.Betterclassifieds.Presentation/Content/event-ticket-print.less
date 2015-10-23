@@ -1,0 +1,56 @@
+﻿@page {
+    size: A4 portrait;
+    margin: 0;
+    padding: 0;
+}
+
+.ticket-container:nth-child(4n) {
+    page-break-after: always;
+}
+
+.ticket-container {
+    margin-top: 20px;
+    height: 220px;
+    border-bottom: 1px dashed;
+    width: 100%;
+
+
+    .ticket {
+
+        .event-picture {
+            float: left;
+            width: 200px;
+            vertical-align: top;
+        }
+
+        .event-info {
+            font-size: 0.8em;
+            margin-left: 200px;
+
+            .event-title {
+                background-color: #eee;
+                padding: 20px;
+                width: 100%;
+
+                h3 {
+                    margin: 0;
+                    line-height: none;
+                }
+            }
+
+            .event-details {
+                .col-xs-6 {
+                    margin-top: 10px;
+                }
+
+                label {
+                    display: block;
+                }
+            }
+        }
+
+        .event-barcode {
+            /*coming soon*/
+        }
+    }
+}

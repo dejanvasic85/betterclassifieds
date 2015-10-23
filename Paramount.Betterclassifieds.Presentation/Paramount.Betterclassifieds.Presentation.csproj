@@ -252,6 +252,7 @@
     <Compile Include="ViewModels\Events\BookTicketsRequestViewModel.cs" />
     <Compile Include="ViewModels\Events\BookTicketsViewModel.cs" />
     <Compile Include="ViewModels\Events\EventBookedViewModel.cs" />
+    <Compile Include="ViewModels\Events\EventTicketPrintViewModel.cs" />
     <Compile Include="ViewModels\Events\EventTicketRequestViewModel.cs" />
     <Compile Include="ViewModels\Events\EventTicketReservedViewModel.cs" />
     <Compile Include="ViewModels\Events\EventTicketViewModel.cs" />
@@ -300,13 +301,12 @@
     <Content Include="Content\datepicker3.min.css">
       <DependentUpon>datepicker3.css</DependentUpon>
     </Content>
-    <Content Include="Content\event-ticket.css">
-      <DependentUpon>event-ticket.less</DependentUpon>
+    <Content Include="Content\event-ticket-print.css">
+      <DependentUpon>event-ticket-print.less</DependentUpon>
     </Content>
-    <Content Include="Content\event-ticket.min.css">
-      <DependentUpon>event-ticket.css</DependentUpon>
+    <Content Include="Content\event-ticket-print.min.css">
+      <DependentUpon>event-ticket-print.css</DependentUpon>
     </Content>
-    <Content Include="Content\font-awesome-4.3.0.css" />
     <Content Include="Content\font-awesome-4.4.0.css" />
     <Content Include="Content\images\BookUsingThePhone.PNG" />
     <Content Include="Content\images\buttons.gif" />
@@ -365,9 +365,9 @@
     <Content Include="Content\KandoBay\kando.css.map">
       <DependentUpon>kando.css</DependentUpon>
     </Content>
-    <Content Include="Content\event-ticket.less" />
-    <Content Include="Content\event-ticket.css.map">
-      <DependentUpon>event-ticket.css</DependentUpon>
+    <Content Include="Content\event-ticket-print.less" />
+    <Content Include="Content\event-ticket-print.css.map">
+      <DependentUpon>event-ticket-print.css</DependentUpon>
     </Content>
     <None Include="Content\TheMusic\themusic.less" />
     <Content Include="Scripts\app\account\userAds.model.js" />

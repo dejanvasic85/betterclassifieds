@@ -262,7 +262,61 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public ActionResult Tickets()
         {
-            return View();
+            var tix = new List<EventTicketPrintViewModel>
+            {
+                new EventTicketPrintViewModel
+                {
+                    TicketNumber = 194459,
+                    TicketName = "Gold",
+                    Price = (decimal)109.99,
+                    EventName = "The Comedy Store",
+                    ImageUrl = "c1264452-b14d-4485-b7eb-e36775d277a9",
+                    Location = "100 Melbourne Place, Melbourne VIC",
+                    StartDateTime = "20th Dec 2015 8:30 PM",
+                },
+                new EventTicketPrintViewModel
+                {
+                    TicketNumber = 194459,
+                    EventName = "The Comedy Store",
+                    TicketName = "Gold",
+                    Price = (decimal)109.99,
+                    ImageUrl = "c1264452-b14d-4485-b7eb-e36775d277a9",
+                    Location = "100 Melbourne Place, Melbourne VIC",
+                    StartDateTime = "20th Dec 2015 8:30 PM",
+                },
+                new EventTicketPrintViewModel
+                {
+                    TicketNumber = 194459,
+                    TicketName = "Gold",
+                    Price = (decimal)109.99,
+                    EventName = "The Comedy Store",
+                    ImageUrl = "c1264452-b14d-4485-b7eb-e36775d277a9",
+                    Location = "100 Melbourne Place, Melbourne VIC",
+                    StartDateTime = "20th Dec 2015 8:30 PM",
+                },
+                new EventTicketPrintViewModel
+                {
+                    TicketNumber = 194459,
+                    TicketName = "Gold",
+                    Price = (decimal)109.99,
+                    EventName = "The Comedy Store",
+                    ImageUrl = "c1264452-b14d-4485-b7eb-e36775d277a9",
+                    Location = "100 Melbourne Place, Melbourne VIC",
+                    StartDateTime = "20th Dec 2015 8:30 PM",
+                },
+                new EventTicketPrintViewModel
+                {
+                    TicketNumber = 194459,
+                    TicketName = "Gold",
+                    Price = (decimal)109.99,
+                    EventName = "The Comedy Store",
+                    ImageUrl = "c1264452-b14d-4485-b7eb-e36775d277a9",
+                    Location = "100 Melbourne Place, Melbourne VIC",
+                    StartDateTime = "20th Dec 2015 8:30 PM",
+                },
+            };
+
+            return View(tix);
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

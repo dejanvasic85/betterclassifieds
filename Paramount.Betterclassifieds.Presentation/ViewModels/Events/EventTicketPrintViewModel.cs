@@ -10,5 +10,6 @@
         public string TicketName { get; set; }
         public decimal Price { get; set; }
         public string ContactNumber { get; set; }
+        public string BarcodeData { get; set; }
     }
 }

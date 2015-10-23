@@ -240,8 +240,8 @@
             var bookingOrder = _rateCalculator.Calculate(bookingCart);
             var request = new AdBookingPayPalRequestFactory().CreatePaymentRequest(bookingOrder,
                 bookingCart.BookingReference,
-                returnUrl: Url.ActionAbsolute("AuthorisePayment", "Booking"),
-                cancelUrl: Url.ActionAbsolute("Step3", "Booking").Append("?cancel=true"));
+                returnUrl: Url.ActionAbsolute("AuthorisePayment", "Booking").Build(),
+                cancelUrl: Url.ActionAbsolute("Step3", "Booking").Build().Append("?cancel=true"));
             var response = _paymentService.SubmitPayment(request);
 
             bookingCart.PaymentReference = response.PaymentId;

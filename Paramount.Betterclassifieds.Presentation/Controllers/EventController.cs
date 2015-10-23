@@ -197,8 +197,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             // Process paypal payment
             var payPalRequest = new EventBookingPayPalRequestFactory().CreatePaymentRequest(eventBooking,
                 eventBooking.EventBookingId.ToString(),
-                Url.ActionAbsolute("AuthorisePayPal", "Event"),
-                Url.ActionAbsolute("CancelEventBooking", "Event"));
+                Url.ActionAbsolute("AuthorisePayPal", "Event").Build(),
+                Url.ActionAbsolute("CancelEventBooking", "Event").Build());
 
             var response = _paymentService.SubmitPayment(payPalRequest);
 
@@ -262,7 +262,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Tickets()
+        public ActionResult Tickets(int eventBooking)
         {
             var tix = GetMockTickets();
 

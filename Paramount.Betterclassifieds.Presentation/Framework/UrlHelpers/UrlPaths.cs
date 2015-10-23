@@ -16,9 +16,9 @@ namespace Paramount
             return string.Format("{0}{1}", baseUri, VirtualPathUtility.ToAbsolute(relativeContentPath));
         }
 
-        public static string ActionAbsolute(this UrlHelper urlHelper, string actionName, string controllerName, object routeValues = null)
+        public static UrlBuilder ActionAbsolute(this UrlHelper urlHelper, string actionName, string controllerName, object routeValues = null)
         {
-            return new UrlBuilder(urlHelper, actionName, controllerName, routeValues).WithFullUrl().Build();
+            return new UrlBuilder(urlHelper, actionName, controllerName, routeValues).WithFullUrl();
         }
 
         public static UrlBuilder Home(this UrlHelper urlHelper)

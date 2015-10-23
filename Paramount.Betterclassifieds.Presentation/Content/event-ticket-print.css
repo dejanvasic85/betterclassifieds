@@ -12,6 +12,9 @@
   border-bottom: 1px dashed;
   width: 100%;
 }
+.ticket-container .ticket {
+  position: relative;
+}
 .ticket-container .ticket .event-picture {
   float: left;
   width: 200px;
@@ -20,6 +23,7 @@
 .ticket-container .ticket .event-info {
   font-size: 0.8em;
   margin-left: 200px;
+  width: 480px;
 }
 .ticket-container .ticket .event-info .event-title {
   border-top: 1px solid #eee;
@@ -37,10 +41,25 @@
 .ticket-container .ticket .event-info .event-details label {
   display: block;
 }
+.ticket-container .ticket .event-info .event-details label i {
+  width: 10px;
+}
 .ticket-container .ticket .event-info .event-details span.detail {
-  margin-left: 3px;
+  margin-left: 12px;
 }
 .ticket-container .ticket .event-barcode {
   /*coming soon*/
+  position: absolute;
+  right: -5%;
+  top: 38%;
+}
+.ticket-container .ticket .event-barcode img {
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+  -ms-filter: "FlipH";
+  filter: FlipH;
 }
 /*# sourceMappingURL=event-ticket-print.css.map */

@@ -12,6 +12,7 @@ using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Search;
+using Paramount.Betterclassifieds.Presentation.Framework;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
@@ -278,7 +279,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 result.View.Render(viewContext, writer);
                 result.ViewEngine.ReleaseView(this.ControllerContext, result.View);
                 var file = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(writer.GetStringBuilder().ToString());
-                return File(file, "application/pdf");
+                return File(file, ContentType.Pdf);
             }
         }
 

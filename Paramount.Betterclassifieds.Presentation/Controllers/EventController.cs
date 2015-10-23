@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Monads;
 using System.Web;
@@ -262,13 +263,34 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public ActionResult Tickets()
         {
+            var tix = GetMockTickets();
+
+            return View(tix);
+        }
+        
+        public ActionResult TicketPrint()
+        {
+            using (var writer = new StringWriter())
+            {
+                this.ViewData.Model = GetMockTickets();
+                var result = ViewEngines.Engines.FindPartialView(this.ControllerContext, "Tickets");
+                var viewContext = new ViewContext(this.ControllerContext, result.View, this.ViewData, this.TempData, writer);
+                result.View.Render(viewContext, writer);
+                result.ViewEngine.ReleaseView(this.ControllerContext, result.View);
+                var file = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(writer.GetStringBuilder().ToString());
+                return File(file, "application/pdf");
+            }
+        }
+
+        private static List<EventTicketPrintViewModel> GetMockTickets()
+        {
             var tix = new List<EventTicketPrintViewModel>
             {
                 new EventTicketPrintViewModel
                 {
                     TicketNumber = 194459,
                     TicketName = "Gold",
-                    Price = (decimal)109.99,
+                    Price = (decimal) 109.99,
                     ContactNumber = "03 9989 3388",
                     EventName = "The Comedy Store",
                     ImageUrl = "c1264452-b14d-4485-b7eb-e36775d277a9",
@@ -280,7 +302,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                     TicketNumber = 194459,
                     EventName = "The Comedy Store",
                     TicketName = "Gold",
-                    Price = (decimal)109.99,
+                    Price = (decimal) 109.99,
                     ContactNumber = "03 9989 3388",
                     ImageUrl = "c1264452-b14d-4485-b7eb-e36775d277a9",
                     Location = "100 Melbourne Place, Melbourne VIC",
@@ -290,7 +312,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 {
                     TicketNumber = 194459,
                     TicketName = "Gold",
-                    Price = (decimal)109.99,
+                    Price = (decimal) 109.99,
                     EventName = "The Comedy Store",
                     ImageUrl = "c1264452-b14d-4485-b7eb-e36775d277a9",
                     Location = "100 Melbourne Place, Melbourne VIC",
@@ -300,7 +322,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 {
                     TicketNumber = 194459,
                     TicketName = "Gold",
-                    Price = (decimal)109.99,
+                    Price = (decimal) 109.99,
                     EventName = "The Comedy Store",
                     ImageUrl = "c1264452-b14d-4485-b7eb-e36775d277a9",
                     Location = "100 Melbourne Place, Melbourne VIC",
@@ -310,15 +332,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 {
                     TicketNumber = 194459,
                     TicketName = "Gold",
-                    Price = (decimal)109.99,
+                    Price = (decimal) 109.99,
                     EventName = "The Comedy Store",
                     ImageUrl = "c1264452-b14d-4485-b7eb-e36775d277a9",
                     Location = "100 Melbourne Place, Melbourne VIC",
                     StartDateTime = "20th Dec 2015 8:30 PM",
                 },
             };
-
-            return View(tix);
+            return tix;
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

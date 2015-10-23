@@ -11,9 +11,9 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>TicketPrint</title>
-    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-3.3.0.min.css")" media="all" />
-    <link rel="stylesheet" href="@Url.Content("~/Content/event-ticket-print.min.css")" media="all" />
-    <link rel="stylesheet" href="@Url.Content("~/Content/font-awesome-4.4.0.css")" media="all" />
+    <link rel="stylesheet" href="@Url.ContentAbsolute("~/Content/bootstrap-3.3.0.min.css")" media="all" />
+    <link rel="stylesheet" href="@Url.ContentAbsolute("~/Content/event-ticket-print.min.css")" media="all" />
+    <link rel="stylesheet" href="@Url.ContentAbsolute("~/Content/font-awesome-4.4.0.css")" media="all" />
 </head>
 <body>
 
@@ -22,7 +22,7 @@
         <div class="ticket-container">
             <div class="ticket">
                 <div class="event-picture">
-                    <img src="@Url.Image(@tick.ImageUrl, height: 200, width: 200)" />
+                    <img src="@Url.Image(@tick.ImageUrl, height: 200, width: 200).WithFullUrl()" />
                 </div>
                 <div class="event-info">
                     <div class="event-title">

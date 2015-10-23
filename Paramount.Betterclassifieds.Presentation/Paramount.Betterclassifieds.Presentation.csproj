@@ -111,6 +111,10 @@
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NReco.PdfGenerator, Version=1.1.10.0, Culture=neutral, PublicKeyToken=231663d50a41b451, processorArchitecture=MSIL">
+      <HintPath>..\packages\NReco.PdfGenerator.1.1.10.0\lib\net20\NReco.PdfGenerator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
@@ -220,6 +224,7 @@
     <Compile Include="Framework\ModelBinders\ModelSpecificDateModelBinder.cs" />
     <Compile Include="Framework\UrlHelpers\ModuleUrlHelper.cs" />
     <Compile Include="Framework\UrlHelpers\RedirectResultFactory.cs" />
+    <Compile Include="Framework\UrlHelpers\UrlBuilder.cs" />
     <Compile Include="Framework\UrlHelpers\UrlPaths.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

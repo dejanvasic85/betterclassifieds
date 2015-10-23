@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Remoting.Messaging;
 using System.Security.Policy;
 using System.Web;
 using System.Web.Mvc;
@@ -27,9 +28,9 @@ namespace Paramount
             return urlHelper.Action("GetLocationAreas", "Location");
         }
 
-        public static string Image(this UrlHelper urlHelper, string documentId, int height = 100, int width = 100)
+        public static UrlBuilder Image(this UrlHelper urlHelper, string documentId, int height = 100, int width = 100)
         {
-            return urlHelper.Action("Render", "Image", new { documentId, height, width });
+            return new UrlBuilder(urlHelper, "Render", "Image", new { documentId, height, width });
         }
 
         public static string ImageUpload(this UrlHelper urlHelper)
@@ -74,7 +75,7 @@ namespace Paramount
 
         public static string ContentAbsolute(this UrlHelper urlhelper, string relativeContentPath)
         {
-            Uri contextUri = HttpContext.Current.Request.Url;
+            Uri contextUri = urlhelper.RequestContext.HttpContext.Request.Url;
 
             var baseUri = string.Format("{0}://{1}{2}", contextUri.Scheme,
                contextUri.Host, contextUri.Port == 80 ? string.Empty : ":" + contextUri.Port);

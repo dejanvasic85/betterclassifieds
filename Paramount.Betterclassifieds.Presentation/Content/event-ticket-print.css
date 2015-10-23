@@ -22,7 +22,8 @@
   margin-left: 200px;
 }
 .ticket-container .ticket .event-info .event-title {
-  background-color: #eee;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
   padding: 20px;
   width: 100%;
 }
@@ -35,6 +36,9 @@
 }
 .ticket-container .ticket .event-info .event-details label {
   display: block;
+}
+.ticket-container .ticket .event-info .event-details span.detail {
+  margin-left: 3px;
 }
 .ticket-container .ticket .event-barcode {
   /*coming soon*/

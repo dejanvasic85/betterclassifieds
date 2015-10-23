@@ -34,33 +34,41 @@
                         <div class="row">
                             <div class="col-xs-6">
                                 <label>
-                                    <i class="fa fa-"></i> Number
+                                    <i class="fa fa-list-ol"></i> Number
                                 </label>
-                                <span>@tick.TicketNumber</span>
+                                <span class="detail">@tick.TicketNumber</span>
                             </div>
 
                             <div class="col-xs-6">
                                 <label>
                                     <i class="fa fa-map-marker"></i> Address
                                 </label>
-                                <span>@tick.Location</span>
+                                <span class="detail">@tick.Location</span>
                             </div>
 
                             <div class="col-xs-6">
                                 <label>
                                     <i class="fa fa-ticket"></i> Ticket
                                 </label>
-                                <span>@tick.TicketName @tick.Price.ToString("C")</span>
+                                <span class="detail">@tick.TicketName @tick.Price.ToString("C")</span>
                             </div>
 
                             <div class="col-xs-6">
                                 <label>
                                     <i class="fa fa-clock-o"></i> When
                                 </label>
-                                <span>@tick.StartDateTime</span>
+                                <span class="detail">@tick.StartDateTime</span>
                             </div>
 
-                            
+                            @if (tick.ContactNumber.HasValue())
+                            {
+                                <div class="col-xs-6">
+                                    <label>
+                                        <i class="fa fa-phone"></i> Help
+                                    </label>
+                                    <span class="detail">@tick.ContactNumber</span>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>

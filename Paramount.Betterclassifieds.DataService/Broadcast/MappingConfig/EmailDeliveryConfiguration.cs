@@ -17,6 +17,7 @@ namespace Paramount.Betterclassifieds.DataService.Broadcast
             Property(prop => prop.Bcc).HasMaxLength(200);
             Property(prop => prop.From).HasMaxLength(200);
             Property(prop => prop.Subject).HasMaxLength(200);
+            Ignore(prop => prop.EmailAttachments);
         }
     }
 }

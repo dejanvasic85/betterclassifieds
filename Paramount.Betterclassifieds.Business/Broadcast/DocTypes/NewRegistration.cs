@@ -7,6 +7,8 @@
             get { return GetType().Name; }
         }
 
+        public EmailAttachment[] Attachments { get; private set; }
+
         [Placeholder("FirstName")]
         public string FirstName { get; set; }
 

@@ -92,7 +92,7 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
 
             Mock<ISmtpMailer> mailer = new Mock<ISmtpMailer>(MockBehavior.Strict);
             mailer.Setup(call => call.SendEmail(email.Subject,
-                email.Body, email.From, email.To));
+                email.Body, email.From, email.EmailAttachments, email.To));
 
             // Act - Assert
             email.Send(mailer.Object);
@@ -144,6 +144,7 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
             evilMailer.Setup(call => call.SendEmail(email.Subject,
                 email.Body,
                 email.From,
+                email.EmailAttachments,
                 email.To)).Throws<SmtpException>();
 
             // Act - 3 times (max)
@@ -168,6 +169,7 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
             evilMailer.Setup(call => call.SendEmail(email.Subject,
                 email.Body,
                 email.From,
+                email.EmailAttachments, 
                 email.To)).Throws<SmtpException>();
 
             // Act - 2 times ( less than max -3 )
@@ -191,6 +193,7 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
             smtpMock.Setup(call => call.SendEmail(email.Subject,
                 email.Body,
                 email.From,
+                email.EmailAttachments,
                 email.To));
 
             // Act - 3 times (max)

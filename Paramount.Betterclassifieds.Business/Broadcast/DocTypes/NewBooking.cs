@@ -3,6 +3,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
     public class NewBooking : IDocType
     {
         public string DocumentType { get { return GetType().Name; } }
+        public EmailAttachment[] Attachments { get; private set; }
 
         [Placeholder("username")]
         public string UserId { get; set; }

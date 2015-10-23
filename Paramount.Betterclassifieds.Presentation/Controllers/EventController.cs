@@ -265,21 +265,18 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 EndDateTime = eventDetails.EventEndDate.GetValueOrDefault()
             };
 
-            _broadcastManager.SendEmail(this.Map<EventBookedViewModel, EventTicketsBookedNotification>(viewModel), eventBooking.Email);
+            // Generate the PDF
+            var pdf = GenerateTickets(GetMockTickets());
+            var eventTicketsBookedNotification = this.Map<EventBookedViewModel, EventTicketsBookedNotification>(viewModel)
+                .WithTickets(pdf);
+            
+            _broadcastManager.SendEmail(eventTicketsBookedNotification, eventBooking.Email);
 
             _eventBookingContext.Clear();
-
             return View(viewModel);
         }
 
-        public ActionResult Tickets(int eventBooking)
-        {
-            var tix = GetMockTickets();
-
-            return View(tix);
-        }
-        
-        public ActionResult TicketPrint()
+        private byte[] GenerateTickets(List<EventTicketPrintViewModel> data)
         {
             using (var writer = new StringWriter())
             {
@@ -288,8 +285,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 var viewContext = new ViewContext(this.ControllerContext, result.View, this.ViewData, this.TempData, writer);
                 result.View.Render(viewContext, writer);
                 result.ViewEngine.ReleaseView(this.ControllerContext, result.View);
-                var file = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(writer.GetStringBuilder().ToString());
-                return File(file, ContentType.Pdf);
+                return new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(writer.GetStringBuilder().ToString());
+                //return File(file, ContentType.Pdf);
             }
         }
 
@@ -300,6 +297,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 new EventTicketPrintViewModel
                 {
                     TicketNumber = 194459,
+                    BarcodeData = "194459",
                     TicketName = "Gold",
                     Price = (decimal) 109.99,
                     ContactNumber = "03 9989 3388",
@@ -311,6 +309,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 new EventTicketPrintViewModel
                 {
                     TicketNumber = 194459,
+                    BarcodeData = "194459",
                     EventName = "The Comedy Store",
                     TicketName = "Gold",
                     Price = (decimal) 109.99,
@@ -322,6 +321,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 new EventTicketPrintViewModel
                 {
                     TicketNumber = 194459,
+                    BarcodeData = "194459",
                     TicketName = "Gold",
                     Price = (decimal) 109.99,
                     EventName = "The Comedy Store",
@@ -332,6 +332,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 new EventTicketPrintViewModel
                 {
                     TicketNumber = 194459,
+                    BarcodeData = "194459",
                     TicketName = "Gold",
                     Price = (decimal) 109.99,
                     EventName = "The Comedy Store",
@@ -342,6 +343,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 new EventTicketPrintViewModel
                 {
                     TicketNumber = 194459,
+                    BarcodeData = "194459",
                     TicketName = "Gold",
                     Price = (decimal) 109.99,
                     EventName = "The Comedy Store",

@@ -3,6 +3,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
     public class ActivityReport : IDocType
     {
         public string DocumentType { get { return GetType().Name; } }
+        public EmailAttachment[] Attachments { get; private set; }
 
         [Placeholder("ReportDate")]
         public string ReportDate { get; set; }

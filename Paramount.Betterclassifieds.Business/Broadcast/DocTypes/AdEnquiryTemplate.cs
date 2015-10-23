@@ -7,6 +7,8 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             get { return "AdEnquiry"; }
         }
 
+        public EmailAttachment[] Attachments { get; private set; }
+
         [Placeholder("adnumber")]
         public string AdNumber { get; set; }
         [Placeholder("name")]

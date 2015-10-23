@@ -3,6 +3,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
     public class SupportRequest : IDocType
     {
         public string DocumentType { get { return GetType().Name; } }
+        public EmailAttachment[] Attachments { get; private set; }
 
         [Placeholder("content")]
         public string RequestDetails { get; set; }

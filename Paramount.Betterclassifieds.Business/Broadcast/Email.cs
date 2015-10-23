@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Paramount.Betterclassifieds.Business.Broadcast
 {
@@ -37,8 +39,14 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             // Construct the body and subject by performing the parsing on each
             var subject = parser.ParseToString(emailTemplate.SubjectTemplate, docType.ToPlaceholderDictionary());
             var body = parser.ParseToString(emailTemplate.BodyTemplate, docType.ToPlaceholderDictionary());
+            
+            var email = new Email(broadcastId, subject, body, emailTemplate.IsBodyHtml, emailTemplate.DocType, emailTemplate.From, to);
 
-            return new Email(broadcastId, subject, body, emailTemplate.IsBodyHtml, emailTemplate.DocType, emailTemplate.From, to);
+            if (docType.Attachments != null)
+            {
+                email.EmailAttachments = docType.Attachments;
+            }
+            return email;
         }
 
         public long? EmailDeliveryId { get; set; }
@@ -60,6 +68,8 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         public DateTime? ModifiedDateUtc { get; private set; }
         public string LastErrorMessage { get; private set; }
         public string LastErrorStackTrace { get; private set; }
+        
+        public EmailAttachment[] EmailAttachments { get; private set; }
 
         private void IncrementAttempts()
         {
@@ -91,7 +101,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
 
             try
             {
-                smtp.SendEmail(Subject, Body, From, To);
+                smtp.SendEmail(Subject, Body, From, EmailAttachments, To);
                 
                 MarkAsSent();
             }

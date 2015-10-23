@@ -33,7 +33,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
 
         public Guid SendEmail<T>(T docType, params string[] to) where T : IDocType
         {
-            Notification notification = new Notification(Guid.NewGuid(), docType.DocumentType);
+            var notification = new Notification(Guid.NewGuid(), docType.DocumentType);
 
             _broadcastRepository.CreateOrUpdateNotification(notification);
 
@@ -49,6 +49,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
 
             return notification.BroadcastId;
         }
+       
 
         public void ProcessUnsent(int takeAmount = 10)
         {

@@ -210,6 +210,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public ActionResult AuthorisePayPal(string payerId)
         {
+            if (!_eventBookingContext.EventId.HasValue || !_eventBookingContext.EventBookingId.HasValue)
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
+
             // Mark booking as paid in our database
             _eventManager.EventBookingPaymentCompleted(_eventBookingContext.EventBookingId, PaymentType.PayPal);
 
@@ -221,6 +226,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public ActionResult CancelEventBooking()
         {
+            if (!_eventBookingContext.EventId.HasValue || !_eventBookingContext.EventBookingId.HasValue)
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
+
             _eventManager.CancelEventBooking(_eventBookingContext.EventBookingId);
             return View();
         }

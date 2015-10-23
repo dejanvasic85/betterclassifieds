@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Runtime.Remoting.Messaging;
-using System.Security.Policy;
 using System.Web;
 using System.Web.Mvc;
 
@@ -8,71 +6,6 @@ namespace Paramount
 {
     public static class UrlPaths
     {
-        public static string Home(this UrlHelper urlHelper)
-        {
-            return urlHelper.Action("Index", "Home");
-        }
-
-        public static string LocationOptions(this UrlHelper urlHelper)
-        {
-            return urlHelper.Action("GetLocationOptions", "Location");
-        }
-
-        public static string LocationAreaOptions(this UrlHelper urlHelper, int? locationId)
-        {
-            return urlHelper.Action("GetLocationAreas", "Location", new { locationId });
-        }
-
-        public static string LocationAreaOptions(this UrlHelper urlHelper)
-        {
-            return urlHelper.Action("GetLocationAreas", "Location");
-        }
-
-        public static UrlBuilder Image(this UrlHelper urlHelper, string documentId, int height = 100, int width = 100)
-        {
-            return new UrlBuilder(urlHelper, "Render", "Image", new { documentId, height, width });
-        }
-
-        public static string ImageUpload(this UrlHelper urlHelper)
-        {
-            return urlHelper.Action("UploadCropImage", "Image");
-        }
-
-        public static string SetLineAdImageId(this UrlHelper urlHelper)
-        {
-            return urlHelper.Action("SetLineAdImage", "Booking");
-        }
-
-        public static string RemoveLineAdImage(this UrlHelper urlHelper)
-        {
-            return urlHelper.Action("RemoveLineAdImage", "Booking");
-        }
-
-        public static string RemoveOnlineImage(this UrlHelper urlHelper)
-        {
-            return urlHelper.Action("RemoveOnlineImage", "Booking");
-        }
-
-        public static string CropImage(this UrlHelper urlHelper)
-        {
-            return urlHelper.Action("CropImage", "Image");
-        }
-
-        public static string CancelCrop(this UrlHelper urlHelper)
-        {
-            return urlHelper.Action("CancelCrop", "Image");
-        }
-
-        public static string RenderCropImage(this UrlHelper urlHelper)
-        {
-            return urlHelper.Action("RenderCropImage", "Image");
-        }
-
-        public static string UploadOnlineImage(this UrlHelper urlHelper)
-        {
-            return urlHelper.Action("UploadOnlineImage", "Image");
-        }
-
         public static string ContentAbsolute(this UrlHelper urlhelper, string relativeContentPath)
         {
             Uri contextUri = urlhelper.RequestContext.HttpContext.Request.Url;
@@ -83,32 +16,95 @@ namespace Paramount
             return string.Format("{0}{1}", baseUri, VirtualPathUtility.ToAbsolute(relativeContentPath));
         }
 
-        public static string UpdateBookingRates(this UrlHelper urlHelper)
-        {
-            return urlHelper.Action("GetRate", "Booking");
-        }
-
-        public static string PreviewBookingEditions(this UrlHelper urlHelper)
-        {
-            return urlHelper.Action("PreviewEditions", "Booking");
-        }
-
-        public static string BookingInvoice(this UrlHelper urlHelper, int? bookingId = null)
-        {
-            return urlHelper.Action("Booking", "Invoice", new { bookingId });
-        }
-
-        public static string ConfirmRegistration(this UrlHelper urlHelper)
-        {
-            return urlHelper.Action("Confirmation", "Account");
-        }
-
         public static string ActionAbsolute(this UrlHelper urlHelper, string actionName, string controllerName, object routeValues = null)
         {
-            string scheme = urlHelper.RequestContext.HttpContext.Request.Url.Scheme;
-
-            return urlHelper.Action(actionName, controllerName, routeValues, scheme);
+            return new UrlBuilder(urlHelper, actionName, controllerName, routeValues).WithFullUrl().Build();
         }
 
+        public static UrlBuilder Home(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper, "Index", "Home");
+        }
+
+        public static UrlBuilder LocationOptions(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper, "GetLocationOptions", "Location");
+        }
+
+        public static UrlBuilder LocationAreaOptions(this UrlHelper urlHelper, int? locationId)
+        {
+            return new UrlBuilder(urlHelper, "GetLocationAreas", "Location", new { locationId });
+        }
+
+        public static UrlBuilder LocationAreaOptions(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper, "GetLocationAreas", "Location");
+        }
+
+        public static UrlBuilder Image(this UrlHelper urlHelper, string documentId, int height = 100, int width = 100)
+        {
+            return new UrlBuilder(urlHelper, "Render", "Image", new { documentId, height, width });
+        }
+
+        public static UrlBuilder ImageUpload(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper, "UploadCropImage", "Image");
+        }
+
+        public static UrlBuilder SetLineAdImageId(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper, "SetLineAdImage", "Booking");
+        }
+
+        public static UrlBuilder RemoveLineAdImage(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper, "RemoveLineAdImage", "Booking");
+        }
+
+        public static UrlBuilder RemoveOnlineImage(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper, "RemoveOnlineImage", "Booking");
+        }
+
+        public static UrlBuilder CropImage(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper, "CropImage", "Image");
+        }
+
+        public static UrlBuilder CancelCrop(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper, "CancelCrop", "Image");
+        }
+
+        public static UrlBuilder RenderCropImage(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper, "RenderCropImage", "Image");
+        }
+
+        public static UrlBuilder UploadOnlineImage(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper, "UploadOnlineImage", "Image");
+        }
+        
+        public static UrlBuilder UpdateBookingRates(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper, "GetRate", "Booking");
+        }
+
+        public static UrlBuilder PreviewBookingEditions(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper, "PreviewEditions", "Booking");
+        }
+
+        public static UrlBuilder BookingInvoice(this UrlHelper urlHelper, int? bookingId = null)
+        {
+            return new UrlBuilder(urlHelper, "Booking", "Invoice", new { bookingId });
+        }
+
+        public static UrlBuilder ConfirmRegistration(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper, "Confirmation", "Account");
+        }
+        
     }
 }

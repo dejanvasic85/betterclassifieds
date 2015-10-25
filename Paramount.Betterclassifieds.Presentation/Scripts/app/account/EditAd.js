@@ -47,7 +47,7 @@
                     },
                     complete: function (fileName) {
                         printImgFileName = fileName;
-                        $('#printCropImg').attr('src', $url.manageImg.renderCropImage + "?fileName=" + fileName);
+                        $('#printCropImg').attr('src', imageService.renderCropImageUrl(fileName));
                         $('#printImageCropDialog').modal('show');
                     }
                 });

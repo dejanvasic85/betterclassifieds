@@ -27,6 +27,10 @@ var $paramount = (function (me, $) {
         return this.baseUrl + 'Image/UploadCropImage';
     }
 
+    ImageService.prototype.renderCropImageUrl = function (filename) {
+        return this.baseUrl + 'Image/RenderCropImage?fileName=' + filename;
+    }
+
     me.ImageService = ImageService;
 
     // Return the module/namespace

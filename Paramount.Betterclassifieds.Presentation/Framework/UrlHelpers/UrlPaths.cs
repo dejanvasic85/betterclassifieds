@@ -76,11 +76,6 @@ namespace Paramount
             return new UrlBuilder(urlHelper, "CancelCrop", "Image");
         }
 
-        public static UrlBuilder RenderCropImage(this UrlHelper urlHelper)
-        {
-            return new UrlBuilder(urlHelper, "RenderCropImage", "Image");
-        }
-
         public static UrlBuilder UploadOnlineImage(this UrlHelper urlHelper)
         {
             return new UrlBuilder(urlHelper, "UploadOnlineImage", "Image");

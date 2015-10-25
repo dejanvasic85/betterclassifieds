@@ -232,3 +232,4 @@
 /// <reference path="app/events/findtickets.model.js" />
 /// <reference path="app/events/booktickets.model.js" />
 /// <reference path="app/events/eventticketreserved.model.js" />
+/// <reference path="app/locations/location.service.js" />

@@ -28,7 +28,7 @@
 
         // Online Ad location should load areas
         $('#OnlineAdLocationId').on('change', function () {
-            $('#OnlineAdLocationAreaId').loadLocationAreas($paramount.url.locations.getLocationAreas, $(this).val(), false);
+            $('#OnlineAdLocationAreaId').loadLocationAreas($(this).val(), false);
         });
 
         // Wire up the bootstrap tooltips
@@ -107,7 +107,7 @@
         });
 
         $.fn.extend({
-            loadLocationAreas: function (url, locationId) {
+            loadLocationAreas: function (locationId) {
                 var me = this;
                 me.empty();
                 if (locationId === "") {
@@ -115,7 +115,10 @@
                     return me;
                 }
                 me.attr('disabled', 'disabled').append('<option>Loading...</option>');
-                $.getJSON(url, { locationId: locationId }).done(function (data) {
+
+                var locationService = new $paramount.LocationService();
+
+                locationService.getLocationAreas(locationId).done(function (data) {
                     me.empty();
                     $.each(data, function (index, option) {
                         me.append('<option value=' + option.value + '>' + option.text + '</option>');

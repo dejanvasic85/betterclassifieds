@@ -21,13 +21,20 @@
 
 @*Outgoing Urls based on the MVC routes*@
 <script>
-    var $paramount = (function (me) {
+    var $paramount = (function (me, $) {
         me.baseUrl = '@Url.Home()';
-        me.url = {};
-        me.url.locations = {
-            getLocationAreas: '@Url.LocationAreaOptions()'
+        me.httpPost = function(url, data) {
+            return $.ajax({
+                url: url,
+                data: data,
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json'
+            });
         }
-
+        
+        me.url = {};
+      
         me.url.userads = {
             editAdDetails: function (id) {
                 return '@Url.Action("Details", "EditAd", new {id = -1})'.replace('-1', id);
@@ -114,7 +121,7 @@
 
         return me;
 
-    })($paramount || {});
+    })($paramount || {}, jQuery);
 
 
 </script>

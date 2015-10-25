@@ -23,6 +23,10 @@ var $paramount = (function (me, $) {
         return me.httpPost(this.baseUrl + 'Image/CropImage', JSON.stringify({ fileName: fileName, x: x, y: y, width: width, height: height }));
     }
 
+    ImageService.prototype.uploadCropImageUrl = function() {
+        return this.baseUrl + 'Image/UploadCropImage';
+    }
+
     me.ImageService = ImageService;
 
     // Return the module/namespace

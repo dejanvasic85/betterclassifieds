@@ -40,7 +40,7 @@
                 var printImgFileName;
 
                 $p.upload({
-                    url: $url.manageImg.uploadCropImage,
+                    url: imageService.uploadCropImageUrl(),
                     element: $adEditor.find('#fileuploadPrint'),
                     progressBar: $adEditor.find('#fileUploadPrintProgress'),
                     start: function () {

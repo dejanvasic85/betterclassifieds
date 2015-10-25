@@ -398,10 +398,11 @@
 
                 var $printImg = $('#imgCropContainer > img');
                 var printImgFileName;
+                var imageService = new $paramount.ImageService();
 
                 // Upload control for print
                 $paramount.upload({
-                    url: $url.manageImg.uploadCropImage,
+                    url: imageService.uploadCropImageUrl(),
                     element: $('#fileuploadPrint'),
                     progressBar: $('#fileUploadPrintProgress'),
                     start: function() {
@@ -425,8 +426,7 @@
                 $('#printImageCropDialog').on('hide.bs.modal', function(e) {
                     $printImg.cropper('destroy');
                 });
-
-                var imageService = new $paramount.ImageService();
+                
                 $('#btnDoneCropping').on('click', function() {
                     var $btn = $(this);
                     $btn.button('loading');

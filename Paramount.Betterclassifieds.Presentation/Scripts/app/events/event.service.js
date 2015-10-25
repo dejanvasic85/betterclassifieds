@@ -1,4 +1,4 @@
-﻿(function () {
+﻿(function ($, $paramount) {
 
     function post(url, data) {
         return $.ajax({
@@ -11,7 +11,7 @@
     }
 
     function EventService(baseUrl) {
-        this.baseUrl = baseUrl;
+        this.baseUrl = baseUrl || $paramount.baseUrl;
     }
 
     EventService.prototype.startTicketOrder = function (order) {

@@ -6,7 +6,7 @@
     $paramount.ui.bookTickets = {
         init: function (options) {
             $(function () {
-                var eventService = new $paramount.EventService(options.baseUrl);
+                var eventService = new $paramount.EventService();
                 var bookTickets = new $paramount.models.BookTickets(options.data, eventService);
                 ko.applyBindings(bookTickets, $bookTicketsView[0]);
             });

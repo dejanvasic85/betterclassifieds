@@ -10,8 +10,7 @@
         var model = @Html.Raw(Model.ToJsonString());
 
         $paramount.ui.bookTickets.init({
-            data : model,
-            baseUrl : '@Url.Home()'
+            data : model
         });
     </script>
 }

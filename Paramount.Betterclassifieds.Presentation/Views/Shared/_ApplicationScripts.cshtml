@@ -22,9 +22,8 @@
 @*Outgoing Urls based on the MVC routes*@
 <script>
     var $paramount = (function (me) {
-
+        me.baseUrl = '@Url.Home()';
         me.url = {};
-        me.url.home = '@Url.Home()';
         me.url.locations = {
             getLocationAreas: '@Url.LocationAreaOptions()'
         }

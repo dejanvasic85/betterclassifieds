@@ -8,6 +8,7 @@
 
         var me = this,
             adService = new $paramount.adService(options.serviceEndpoint),
+            imageService = new $paramount.ImageService();
             MAX_TITLE_CHARS = 100,
             DATE_FORMAT = 'DD/MM/yyyy';
 
@@ -22,7 +23,7 @@
         me.eventPhoto = ko.observable(data.eventPhoto);
         me.eventPhotoUploadError = ko.observable(null);
         me.eventPhotoUrl = ko.computed(function () {
-            return $paramount.imageService.getImageUrl(me.eventPhoto());
+            return imageService.getImageUrl(me.eventPhoto());
         });
         me.removeEventPhoto = function () {
             if (me.eventPhoto() !== null) {

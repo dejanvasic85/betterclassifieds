@@ -127,10 +127,10 @@
         }
         
         [HttpPost]
-        public ActionResult CancelCrop(string documentId)
+        public ActionResult CancelCrop(string fileName)
         {
             // Crop the image
-            var file = new FileInfo(Path.Combine(_applicationConfig.ImageCropDirectory.FullName, documentId));
+            var file = new FileInfo(Path.Combine(_applicationConfig.ImageCropDirectory.FullName, fileName));
             if (!file.Exists)
             {
                 return Json(true);

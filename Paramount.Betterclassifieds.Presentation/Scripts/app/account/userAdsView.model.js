@@ -1,5 +1,5 @@
-﻿(function($p, ko, $) {
-    
+﻿(function ($p, ko, $) {
+
     function UserAdsView(data) {
 
         var self = this;
@@ -7,21 +7,21 @@
         self.ads = ko.observableArray();
         self.userEnquiries = ko.observableArray([]);
         self.selectedAd = ko.observable();
-        
+
         $.each(data, function (idx, item) {
             var ad = new $p.models.UserAd(item);
             self.ads.push(ad);
         });
 
-        self.setStatus = function(item, val) {
+        self.setStatus = function (item, val) {
             self.selectedStatus(val.currentTarget.attributes["data-status"].value);
         };
 
-        self.setSelectedAd = function(id) {
+        self.setSelectedAd = function (id) {
             self.selectedAd(id);
         };
-        
-        self.confirmCancel = function() {
+
+        self.confirmCancel = function () {
             var itemToRemove = ko.utils.arrayFirst(self.ads(), function (item) {
                 return item.adId() == self.selectedAd();
             });
@@ -31,7 +31,8 @@
     };
 
     function UserAd(item) {
-        var userAdService = new $p.UserAdService();
+        var userAdService = new $p.UserAdService(),
+            imageService = new $p.ImageService();
         var self = this;
         self.adId = ko.observable(item.adId);
         self.status = ko.observable(item.status);
@@ -62,6 +63,8 @@
         this.editHref = userAdService.getEditUrl(item.adId);
         this.bookingInvoiceHref = userAdService.getInvoiceUrl(item.adId);
         this.viewHref = userAdService.getViewUrl(item.adId);
+        this.imageUrl = imageService.getImageUrl(item.adImageId);
+        this.imageUrlSmaller = imageService.getImageUrl(item.adImageId, { h: 50, w: 50 });
     };
 
     $p.models = $p.models || {};

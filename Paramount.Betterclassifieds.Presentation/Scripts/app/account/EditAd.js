@@ -5,6 +5,8 @@
     $p.editAd = {
         init: function (designAdModel, adService) {
 
+            var imageService = new $p.ImageService();
+
             $(function () {
                 // Set online editor
                 $p.setOnlineEditor('OnlineAdDescription');
@@ -34,7 +36,7 @@
                 });
 
                 // Upload control for print
-                var $printImg = $adEditor.find('#imgCropContainer > img');
+                var $printImg = $('#imgCropContainer > img');
                 var printImgFileName;
 
                 $p.upload({
@@ -45,12 +47,12 @@
                     },
                     complete: function (fileName) {
                         printImgFileName = fileName;
-                        $adEditor.find('#printCropImg').attr('src', $url.manageImg.renderCropImage + "?fileName=" + fileName);
-                        $adEditor.find('#printImageCropDialog').modal('show');
+                        $('#printCropImg').attr('src', $url.manageImg.renderCropImage + "?fileName=" + fileName);
+                        $('#printImageCropDialog').modal('show');
                     }
                 });
 
-                $adEditor.find('#printImageCropDialog').on('shown.bs.modal', function () {
+                $('#printImageCropDialog').on('shown.bs.modal', function () {
                     $printImg.cropper({
                         aspectRatio: 1,
                         data: { x: 500, y: 500, height: 700, width: 700 },
@@ -59,22 +61,28 @@
                     });
                 });
 
-                $adEditor.find('#printImageCropDialog').on('hide.bs.modal', function (e) {
+                $('#printImageCropDialog').on('hide.bs.modal', function (e) {
                     $printImg.cropper('destroy');
                 });
 
-                $adEditor.find('#btnDoneCropping').on('click', function () {
+                $('#btnDoneCropping').on('click', function () {
                     var $btn = $(this);
                     $btn.button('loading');
                     var data = $printImg.cropper("getData");
                     data.documentId = printImgFileName;
-                    $p.imageService
+                    imageService
                         .cropImage(printImgFileName, data.x, data.y, data.width, data.height)
                         .done(function (documentId) {
                             $btn.button('reset');
-                            $adEditor.find('#printImageCropDialog').modal('hide');
+                            $('#printImageCropDialog').modal('hide');
                             designAdModel.lineAdImageId(documentId);
                         });
+                });
+
+                $('#btnCancelCropping').on('click', function () {
+                    if (printImgFileName) {
+                        imageService.cancelCropImage(printImgFileName);
+                    }
                 });
 
                 ko.applyBindings(designAdModel);

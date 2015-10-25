@@ -1,7 +1,7 @@
 ﻿@using Paramount
 @using Paramount.Betterclassifieds.Presentation.Framework
 
-@model Paramount.Betterclassifieds.Presentation.ViewModels.EditAdDetailsViewModel
+@model EditAdDetailsViewModel
 
 @{
     ViewBag.Title = "Update Ad Details";
@@ -146,7 +146,7 @@
                     <div class="row" data-bind="foreach: adImages">
                         <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
                             <div class="thumbnail">
-                                <img data-bind="attr: {src: $paramount.imageService.getImageUrl($data) }" />
+                                <img data-bind="attr: {src: $parent.getImageUrl($data) }" />
                                 <div class="caption">
                                     <button class="btn btn-warning btn-block" title="Remove" data-bind="click: $parent.removeImage">
                                         <span class="glyphicon glyphicon-trash"></span>
@@ -261,7 +261,7 @@
                                 <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
                                     <div class="thumbnail">
                                         <input type="hidden" name="LineAdImageId" id="LineAdImageId" data-bind="value : lineAdImageId" />
-                                        <img id="printImg" data-bind="attr : { src : $paramount.imageService.getImageUrl(lineAdImageId()) }" />
+                                        <img id="printImg" data-bind="attr : { src : lineAdImgUrl }" />
                                         <div class="caption">
                                             <button class="btn btn-warning btn-block" title="Remove" data-bind="click: removePrintImage">
                                                 <span class="glyphicon glyphicon-trash"></span>

@@ -66,11 +66,11 @@
                         <div class="col-sm-2 col-xs-3">
                             <img class="thumbnail hidden-xs" 
                                  alt="100x100" 
-                                 data-bind="visible : adImageId() !== '', attr : {src : $paramount.imageService.getImageUrl(adImageId())}">
+                                 data-bind="visible : adImageId() !== '', attr : {src : imageUrl}">
                             
                             <img class="thumbnail visible-xs"
                                  alt="50x50"
-                                 data-bind="visible : adImageId() !== '', attr : {src : $paramount.imageService.getImageUrl(adImageId(), 50, 50)}">
+                                 data-bind="visible : adImageId() !== '', attr : {src : imageUrlSmaller}">
 
                         </div>
 

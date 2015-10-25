@@ -8,12 +8,16 @@
             onlineImages = options.onlineImages,
             maxImages = options.maxImages,
             lineAd = options.lineAd,
-            updateRates = options.updateRates;
+            updateRates = options.updateRates,
+            imageService = new $paramount.ImageService();
 
         var self = this;
 
         // Online Images
         self.adImages = ko.observableArray(onlineImages);
+        self.getImageUrl = function (id) {
+            return imageService.getImageUrl(id);
+        }
         self.errorMsg = ko.observable("");
         self.removeImage = function (img) {
             adService.removeOnlineAdImage(img)
@@ -60,6 +64,12 @@
             self.removePrintImage = function () {
                 self.lineAdImageId("");
             }
+            self.lineAdImgUrl = ko.computed(function() {
+                if (self.lineAdImageId() === 'undefined' || self.lineAdImageId() === '') {
+                    return null;
+                }
+                return imageService.getImageUrl(self.lineAdImageId());
+            });
         }
 
 

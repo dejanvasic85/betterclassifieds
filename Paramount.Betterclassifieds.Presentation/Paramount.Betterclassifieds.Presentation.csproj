@@ -380,7 +380,9 @@
       <DependentUpon>event-ticket-print.css</DependentUpon>
     </Content>
     <None Include="Content\TheMusic\themusic.less" />
-    <Content Include="Scripts\app\account\userAds.model.js" />
+    <Content Include="Scripts\app\account\userEnquiry.model.js" />
+    <Content Include="Scripts\app\account\userAdsView.model.js" />
+    <Content Include="Scripts\app\account\userAds.service.js" />
     <Content Include="Scripts\app\contactAdvertiser\contactAdvertiser.model.js" />
     <Content Include="Scripts\app\events\bookTickets.model.js" />
     <Content Include="Scripts\app\events\eventTicketReserved.model.js" />

@@ -35,15 +35,6 @@
         
         me.url = {};
       
-        me.url.userads = {
-            editAdDetails: function (id) {
-                return '@Url.Action("Details", "EditAd", new {id = -1})'.replace('-1', id);
-            },
-            viewAd: function (id) {
-                return '@Url.Action("ViewAd", "Listings", new { Id = -1 })'.replace('-1', id);
-            }
-        }
-
         // Endpoints for managing images regardless of context
         me.url.manageImg = {
             cropImage: '@Url.CropImage()',
@@ -60,9 +51,6 @@
             removeOnlineAdImage: '@Url.Action("RemoveOnlineImage", "EditAd")',
             uploadOnlineImage: '@Url.UploadOnlineImage()',
             assignOnlineImageUrl: '@Url.Action("AssignOnlineImage", "EditAd")',
-            bookingInvoiceUrl: function (bookingId) {
-                return '@Url.BookingInvoice()' + '/' + bookingId;
-            }
         }
 
         // Endpoints for managing ad during booking

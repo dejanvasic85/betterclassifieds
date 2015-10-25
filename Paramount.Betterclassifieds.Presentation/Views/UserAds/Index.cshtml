@@ -54,7 +54,7 @@
                     </strong>
                     <div class="pull-right userads-cmd-panel" data-bind="visible : $data.status() === 'Current'">
                         <strong>
-                            <a data-bind="attr : {href : $paramount.url.userads.viewAd($data.adId())}">
+                            <a data-bind="attr : {href : viewHref}">
                                 View <i class="fa fa-eye"></i>
                             </a>
                         </strong>
@@ -101,11 +101,11 @@
                         <button class="btn btn-default book-again" data-bind="click: bookAgain()">
                             <span class="hidden-xs">Use as Template</span> <i class="fa fa-recycle"></i>
                         </button>
-                        <a class="btn btn-default" data-bind="visible : $data.totalPrice() > 0 ,  attr : {href : $paramount.url.adManagement.bookingInvoiceUrl($data.adId())}" target="_blank">
+                        <a class="btn btn-default" data-bind="visible : $data.totalPrice() > 0 ,  attr : {href : bookingInvoiceHref}" target="_blank">
                             <span class="hidden-xs">Invoice</span> <i class="fa fa-file"></i>
                         </a>
                         <div style="display:inline-block" data-bind="visible : $data.status() !== 'Expired'">
-                            <a class="btn btn-default" data-bind="attr : { 'data-adid' : $data.adId(), href : $paramount.url.userads.editAdDetails($data.adId())} ">
+                            <a class="btn btn-default" data-bind="attr : { 'data-adid' : $data.adId(), href : editHref} ">
                                 <span class="hidden-xs">Edit</span> <i class="fa fa-pencil"></i>
                             </a>
                             <button class="btn btn-default cancel-ad" data-bind="click: cancelAd">

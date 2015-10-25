@@ -27,7 +27,7 @@
     }
 
     $p.booking = $p.booking || {};
-    $p.booking.stepOne = function(contract) {
+    $p.booking.stepOne = function (contract) {
         var categorySelection = new $p.models.BookingCategorySelection(contract);
         ko.applyBindings(categorySelection);
 
@@ -37,7 +37,7 @@
             if (me.val() === '') {
                 return;
             }
-            $('#subCategoryId').loadSubCategories($p.url.categories.get(), me.val(), false);
+            $('#subCategoryId').loadSubCategories(me.val(), false);
 
             $.post($p.url.categories.isOnlineOnly, { id: me.val() }, function (response) {
                 categorySelection.shouldShowPublications(!response.isOnlineOnly);

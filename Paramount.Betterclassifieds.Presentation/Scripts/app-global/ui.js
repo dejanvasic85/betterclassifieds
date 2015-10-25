@@ -87,7 +87,7 @@
 
         // JQuery extensions
         $.fn.extend({
-            loadSubCategories: function (url, parentCategoryId) {
+            loadSubCategories: function (parentCategoryId) {
                 var me = this;
                 me.empty();
                 if (parentCategoryId === "") {
@@ -95,7 +95,10 @@
                     return me;
                 }
                 me.attr('disabled', 'disabled').append('<option>Loading...</option>');
-                $.getJSON(url, { parentId: parentCategoryId }).done(function (data) {
+
+                var service = new $paramount.CategoryService();
+                service.getChildCategories(parentCategoryId).done(function (data) {
+                    debugger;
                     me.empty().append('<option>-- Sub Category --</option>');
                     $.each(data, function (index, option) {
                         me.append('<option value=' + option.categoryId + '>' + option.title + '</option>');

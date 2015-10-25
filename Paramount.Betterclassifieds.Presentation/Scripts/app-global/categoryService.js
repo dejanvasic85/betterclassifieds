@@ -1,16 +1,17 @@
 ﻿(function ($, $p) {
 
-    $p.categorySvc = {
-        getParentCategories: getParentCategories,
-        getChildCategories : getChildCategories
+    function CategoryService(baseUrl) {
+        this.baseUrl = baseUrl || $p.baseUrl;
     }
 
-    function getParentCategories() {
-        return $.ajax({ url: $p.url.categories.get() });
+    CategoryService.prototype.getParentCategories = function() {
+        return $.ajax({ url: this.baseUrl + 'Categories/GetCategories'  });
     }
 
-    function getChildCategories(parentId) {
-        return $.ajax({ url: $p.url.categories.get(parentId) });
+    CategoryService.prototype.getChildCategories = function(parentId) {
+        return $.ajax({ url: this.baseUrl + 'Categories/GetCategories?parentId=' + parentId });
     }
+
+    $p.CategoryService = CategoryService;
 
 })(jQuery, $paramount);

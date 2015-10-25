@@ -58,18 +58,9 @@
             updateEvent: '@Url.Action("UpdateEventDetails", "Booking")'
         };
 
-        me.url.categories = {
-            get: function (parentId) {
-                var url = '@Url.Action("GetCategories", "Categories")';
-                if (parentId) {
-                    url += '?parentId=' + parentId;
-                }
-                return url;
-            },
+        me.url.categories = {            
             isOnlineOnly: '@Url.Action("IsOnlineOnlyCategory", "Categories")'
         }
-
-
 
         /*
         *   Initialise the google analytics

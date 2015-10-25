@@ -11,6 +11,7 @@ Here's a list of the latest changes for the current release:
 - [Integrated security so we are no longer using super sql admin account](https://trello.com/c/pJOw5IIl/325-all-the-connection-strings-to-be-integrated-security)
 - [Removed the dependency on the old task scheduler Powershell library](https://trello.com/c/FnvaUjRX/327-setup-the-deployment-to-use-the-new-create-scheduled-task-step-to-remove-dependency-on-the-powershell-modules)
 - [Replaced the old task scheduler console application with better console and argument handling](https://trello.com/c/GgVokvAZ/326-replace-task-scheduler-with-bc-exe)
+- [Removed exposed urls on every page for slightly better security and weight](https://trello.com/c/5zcQ1HrS/335-remove-exposed-urls-on-every-page)
 
 **Other useful resources:**
 

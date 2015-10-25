@@ -98,7 +98,6 @@
 
                 var service = new $paramount.CategoryService();
                 service.getChildCategories(parentCategoryId).done(function (data) {
-                    debugger;
                     me.empty().append('<option>-- Sub Category --</option>');
                     $.each(data, function (index, option) {
                         me.append('<option value=' + option.categoryId + '>' + option.title + '</option>');

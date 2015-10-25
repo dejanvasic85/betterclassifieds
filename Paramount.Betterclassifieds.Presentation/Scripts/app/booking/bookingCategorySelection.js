@@ -1,4 +1,4 @@
-﻿(function($, ko, $p) {
+﻿(function ($, ko, $p) {
     'use strict';
 
     $p.models = $p.models || {};
@@ -39,7 +39,8 @@
             }
             $('#subCategoryId').loadSubCategories(me.val(), false);
 
-            $.post($p.url.categories.isOnlineOnly, { id: me.val() }, function (response) {
+            var categoryService = new $p.CategoryService();
+            categoryService.isOnlineOnly(me.val()).done(function (response) {
                 categorySelection.shouldShowPublications(!response.isOnlineOnly);
             });
         });

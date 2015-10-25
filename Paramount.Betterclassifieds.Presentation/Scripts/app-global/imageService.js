@@ -16,14 +16,14 @@ var $paramount = (function (me, $) {
     }
 
     ImageService.prototype.cancelCropImage = function (filename) {
-        return me.httpPost(this.baseUrl + 'Image/CancelCrop', JSON.stringify({ filename: filename }));
+        return me.httpPost(this.baseUrl + 'Image/CancelCrop', { filename: filename });
     }
 
     ImageService.prototype.cropImage = function (fileName, x, y, width, height) {
-        return me.httpPost(this.baseUrl + 'Image/CropImage', JSON.stringify({ fileName: fileName, x: x, y: y, width: width, height: height }));
+        return me.httpPost(this.baseUrl + 'Image/CropImage', { fileName: fileName, x: x, y: y, width: width, height: height });
     }
 
-    ImageService.prototype.uploadCropImageUrl = function() {
+    ImageService.prototype.uploadCropImageUrl = function () {
         return this.baseUrl + 'Image/UploadCropImage';
     }
 

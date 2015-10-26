@@ -7,7 +7,7 @@ var $paramount = (function (me, $) {
 
     ImageService.prototype.getImageUrl = function (id, dimensions) {
         // Default to the thumb size
-        if (id === 'undefined' || id === '') {
+        if (_.isUndefined(id) || _.isEmpty(id)) {
             return null;
         }
         dimensions = dimensions || {};
@@ -29,6 +29,10 @@ var $paramount = (function (me, $) {
 
     ImageService.prototype.renderCropImageUrl = function (filename) {
         return this.baseUrl + 'Image/RenderCropImage?fileName=' + filename;
+    }
+
+    ImageService.prototype.getUploadOnlineImageUrl = function() {
+        return this.baseUrl + 'Image/UploadOnlineImage';
     }
 
     me.ImageService = ImageService;

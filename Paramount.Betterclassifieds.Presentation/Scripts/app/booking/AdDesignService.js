@@ -1,76 +1,77 @@
 ﻿
-// Ad Management service
+// Ad Booking service
 (function ($, $paramount) {
 
     var me = this;
-    
-    // Constructor
-    $paramount.adService = function (endpoints, adId) {
-        $.extend(me, {
-            endpoints: endpoints || $paramount.url.adBooking,
 
+    // Constructor
+    function AdDesignService(adId) {
+        $.extend(me, {
             // When editing an ad, we may always have to provide the ad id.
             // See AuthorizeBookingIdentity filter
             model: {
-                id : adId
-            }
+                id: adId
+            },
+            // If there adId is defined then we are pointing at the EditAdController
+            baseUrl: _.isUndefined(adId) || _.isEmpty(adId)
+                ? $paramount.baseUrl + 'Booking/'
+                : $paramount.baseUrl + 'EditAd/'
         });
     };
 
-    $paramount.adService.prototype.updateBookingRates = function (model) {
-        return post(me.endpoints.updateBookingRates, model);
+    AdDesignService.prototype.updateBookingRates = function (model) {
+        return $paramount.httpPost(me.baseUrl + 'GetRate', model);
     }
 
-    $paramount.adService.prototype.previewBookingEditions = function (firstEdition, insertions) {
-        return post(me.endpoints.previewBookingEditions, {
+    AdDesignService.prototype.previewBookingEditions = function (firstEdition, insertions) {
+        return $paramount.httpPost(me.baseUrl + 'PreviewEditions', {
             firstEdition: firstEdition,
-            printInsertions: insertions,
+            printInsertions: insertions
         });
     }
 
-    $paramount.adService.prototype.removePrintImg = function (documentId) {
+    AdDesignService.prototype.removePrintImg = function (documentId) {
         $.extend(me.model, {
             documentId: documentId
         });
-        return post(me.endpoints.removePrintImgUrl, me.model);
+        return $paramount.httpPost(me.baseUrl + 'RemoveLineAdImage', me.model);
     }
 
-    $paramount.adService.prototype.removeOnlineAdImage = function (documentId) {
-        $.extend(me.model, {
-            documentId : documentId
-        });
-        return post(me.endpoints.removeOnlineAdImage, me.model);
-    }
-
-    $paramount.adService.prototype.assignPrintImg = function (documentId) {
+    AdDesignService.prototype.removeOnlineAdImage = function (documentId) {
         $.extend(me.model, {
             documentId: documentId
         });
-        return post(me.endpoints.assignPrintImgUrl, me.model);
+        return $paramount.httpPost(me.baseUrl + 'RemoveOnlineImage', me.model);
     }
 
-    $paramount.adService.prototype.assignOnlineImage = function (documentId) {
+    AdDesignService.prototype.assignPrintImg = function (documentId) {
         $.extend(me.model, {
             documentId: documentId
         });
-        return post(me.endpoints.assignOnlineImageUrl, me.model);
+        return $paramount.httpPost(me.baseUrl + 'SetLineAdImage', me.model);
     }
 
-    $paramount.adService.prototype.updateEventDetails = function (event) {
+    AdDesignService.prototype.assignOnlineImage = function (documentId) {
+        $.extend(me.model, {
+            documentId: documentId
+        });
+        return $paramount.httpPost(me.baseUrl + 'AssignOnlineImage', me.model);
+    }
+
+    AdDesignService.prototype.updateEventDetails = function (event) {
         $.extend(me.model, event);
-        return post(me.endpoints.updateEvent, me.model);
-    }
-    
-    function post(url, data) {
-        return $.ajax({
-            url: url,
-            data: JSON.stringify(data),
-            type: 'POST',
-            dataType: 'json',
-            contentType: 'application/json'
-        });
+        return $paramount.httpPost(me.baseUrl + 'UpdateEventDetails', me.model);
     }
 
+    AdDesignService.prototype.setCategoryAndPublications = function (categoryPublicationModel) {
+        return $paramount.httpPost(me.baseUrl + 'Step1', categoryPublicationModel);
+    }
+
+    AdDesignService.prototype.getCurrentEventDetails = function() {
+        return $.getJSON(me.baseUrl + 'GetEventDetails');
+    }
+
+    $paramount.AdDesignService = AdDesignService;
     // Return the paramount module / namespace
     return $paramount;
 

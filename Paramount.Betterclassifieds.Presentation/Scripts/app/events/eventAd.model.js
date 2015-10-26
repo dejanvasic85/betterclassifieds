@@ -3,12 +3,12 @@
 
     $paramount.models = $paramount.models || {};
 
-    // Knockout Model
+    // Event ad details editing object used for knockout
     $paramount.models.EventAd = function (data, options) {
 
         var me = this,
-            adService = new $paramount.adService(options.serviceEndpoint),
-            imageService = new $paramount.ImageService(),
+            adService = options.adDesignService,
+            imageService = options.imageService,
             MAX_TITLE_CHARS = 100,
             DATE_FORMAT = 'DD/MM/yyyy';
 

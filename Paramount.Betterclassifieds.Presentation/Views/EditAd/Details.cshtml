@@ -300,8 +300,8 @@
 @section Scripts{
 
     <script>
-        (function($, $p, $url, $models) {
-            var adService = new $p.adService($url.adManagement, @Model.Id);
+        (function($, $p, $models) {
+            var adService = new $p.AdDesignService(@Model.Id);
             var lineAdJson = {};
             @if (Model.IsLineAdIncluded)
             {
@@ -319,7 +319,7 @@
             var designAdModel = new $models.DesignAd(designOptions);
             $p.editAd.init(designAdModel, adService);
             
-        })(jQuery, $paramount, $paramount.url, $paramount.models);
+        })(jQuery, $paramount, $paramount.models);
     </script>
 }
 

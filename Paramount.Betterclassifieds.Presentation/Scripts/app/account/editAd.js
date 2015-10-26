@@ -1,4 +1,4 @@
-﻿(function ($, $p, $url) {
+﻿(function ($, $p) {
 
     var $adEditor = $('#editAdForm');
 
@@ -13,7 +13,7 @@
 
                 // Upload online images
                 $p.upload({
-                    url: $url.adManagement.uploadOnlineImage,
+                    url: imageService.getUploadOnlineImageUrl(),
                     element: $adEditor.find('#fileupload'),
                     progressBar: $adEditor.find('#onlineImages .progress'),
                     start: function () {
@@ -91,4 +91,4 @@
     }
 
 
-})(jQuery, $paramount, $paramount.url, $paramount.models);
+})(jQuery, $paramount, $paramount.models);

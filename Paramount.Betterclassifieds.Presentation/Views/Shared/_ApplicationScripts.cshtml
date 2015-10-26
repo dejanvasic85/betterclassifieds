@@ -33,31 +33,6 @@
             });
         }
         
-        me.url = {};
-      
-        // Endpoints for managing existing ad
-        me.url.adManagement = {
-            assignPrintImgUrl: '@Url.Action("AssignLineAdImage", "EditAd")',
-            removePrintImgUrl: '@Url.Action("RemoveLineAdImage", "EditAd")',
-            removeOnlineAdImage: '@Url.Action("RemoveOnlineImage", "EditAd")',
-            uploadOnlineImage: '@Url.UploadOnlineImage()',
-            assignOnlineImageUrl: '@Url.Action("AssignOnlineImage", "EditAd")',
-        }
-
-        // Endpoints for managing ad during booking
-        me.url.adBooking = {
-            stepOne: '@Url.Action("Step1", "Booking")',
-            updateBookingRates: '@Url.UpdateBookingRates()',
-            previewBookingEditions: '@Url.PreviewBookingEditions()',
-            assignPrintImgUrl: '@Url.SetLineAdImageId()',
-            removePrintImgUrl: '@Url.RemoveLineAdImage()',
-            removeOnlineAdImage: '@Url.RemoveOnlineImage()',
-            uploadOnlineImage: '@Url.UploadOnlineImage()',
-            assignOnlineImageUrl: '@Url.Action("AssignOnlineImage", "Booking")',
-            getEventDetails: '@Url.Action("GetEventDetails", "Booking")',
-            updateEvent: '@Url.Action("UpdateEventDetails", "Booking")'
-        };
-
         /*
         *   Initialise the google analytics
         */

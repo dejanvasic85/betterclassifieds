@@ -310,7 +310,7 @@
 @section Scripts{
     <script>
 
-        (function($, $paramount, $url, $models) {
+        (function($, $paramount, $models) {
 
             $('#bookingNavSteps').on('affix.bs.affix', function() {
                 $(this).css({ top: 0, width: $('.navbar').width() });
@@ -326,7 +326,7 @@
                 <text>lineAdJson = @Html.Raw(Model.LineAdAsJson); </text>
             }
 
-            var adService = new $paramount.adService($url.adBooking);
+            var adService = new $paramount.AdDesignService();
             var designOptions = {
                 adService: adService,
                 onlineImages: @Html.Raw(Model.OnlineAdImages.ToJsonString()),
@@ -335,7 +335,9 @@
                 updateRates : true
             };
 
+            var imageService = new $paramount.ImageService();
             var designAdModel = new $models.DesignAd(designOptions);
+
             ko.applyBindings(designAdModel);
 
             $(function() {
@@ -374,7 +376,7 @@
                 });
 
                 $paramount.upload({
-                    url: $url.adBooking.uploadOnlineImage,
+                    url: imageService.getUploadOnlineImageUrl(),
                     element: $('#fileupload'),
                     progressBar: $('#onlineImages .progress'),
                     start: function() {
@@ -398,8 +400,7 @@
 
                 var $printImg = $('#imgCropContainer > img');
                 var printImgFileName;
-                var imageService = new $paramount.ImageService();
-
+                
                 // Upload control for print
                 $paramount.upload({
                     url: imageService.uploadCropImageUrl(),
@@ -426,7 +427,7 @@
                 $('#printImageCropDialog').on('hide.bs.modal', function(e) {
                     $printImg.cropper('destroy');
                 });
-                
+
                 $('#btnDoneCropping').on('click', function() {
                     var $btn = $(this);
                     $btn.button('loading');
@@ -447,6 +448,6 @@
                     }
                 });
             });
-        })(jQuery, $paramount, $paramount.url, $paramount.models);
+        })(jQuery, $paramount, $paramount.models);
     </script>
 }

@@ -6,7 +6,6 @@
 @section Scripts{
     <script>
         $paramount.ui.eventEditor.init({
-            serviceEndpoint: $paramount.url.adBooking,
             maxFreeImages: 5,
             configDurationDays: 60
         });
@@ -68,7 +67,7 @@
                     <div class="photo">
                         <i class="fa fa-upload fa-5x" data-bind="visible: eventPhoto() === null"></i>
                         <div class="thumbnail" data-bind="visible: eventPhoto() !== null">
-                            <img data-bind="attr: {src: eventPhotoUrl() }" />
+                            <img data-bind="visible: eventPhoto() !== null, attr: {src: eventPhotoUrl }" />
                             <div class="caption">
                                 <a class="btn btn-warning btn-remove" title="Remove" data-bind="click: removeEventPhoto">
                                     <span class="glyphicon glyphicon-trash"></span>

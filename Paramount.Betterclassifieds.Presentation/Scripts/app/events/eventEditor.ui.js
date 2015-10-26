@@ -9,17 +9,24 @@
         init: function (options) {
             // onReady function
             $(function () {
-                var eventDetailsModel;
+                var eventDetailsModel,
+                    adDesignService = new $paramount.AdDesignService(),
+                    imageService = new $paramount.ImageService();
 
+                $.extend(options, {
+                    adDesignService: adDesignService,
+                    imageService : imageService
+                });
+                
                 // Initally load the data
-                $.getJSON(options.serviceEndpoint.getEventDetails).done(function (response) {
+                adDesignService.getCurrentEventDetails().done(function (response) {
                     eventDetailsModel = new $paramount.models.EventAd(response, options);
                     ko.applyBindings(eventDetailsModel);
                 });
 
                 // Image upload handler
                 $paramount.upload({
-                    url: options.serviceEndpoint.uploadOnlineImage,
+                    url: imageService.getUploadOnlineImageUrl(),
                     element: $eventEditor.find('#eventPhotoUpload'),
                     progressBar: $eventEditor.find('#eventPhotoUploadProgress'),
                     complete: function (documentId) {

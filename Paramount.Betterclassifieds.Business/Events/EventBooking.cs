@@ -53,5 +53,9 @@ namespace Paramount.Betterclassifieds.Business.Events
                 }
             }
         }
+
+        public Guid? TicketsDocumentId { get; set; }
+        public DateTime? TicketsSentDate { get; set; }
+        public DateTime? TicketsSentDateUtc { get; set; }
     }
 }

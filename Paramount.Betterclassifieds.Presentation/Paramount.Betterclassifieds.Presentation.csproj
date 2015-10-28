@@ -212,7 +212,6 @@
     <Compile Include="Controllers\ListingsController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\UserAdsController.cs" />
-    <Compile Include="Framework\ContentType.cs" />
     <Compile Include="Framework\Extensions\ModelStateExtensions.cs" />
     <Compile Include="Framework\Factories\CategoryRepositoryFactory.cs" />
     <Compile Include="Framework\Filters\AuthorizeBookingIdentity.cs" />

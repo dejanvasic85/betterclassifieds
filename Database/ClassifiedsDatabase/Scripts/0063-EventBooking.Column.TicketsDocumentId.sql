@@ -1,0 +1,10 @@
+﻿ALTER TABLE EventBooking
+ADD TicketsDocumentId UNIQUEIDENTIFIER NULL
+
+GO
+ALTER TABLE EventBooking
+ADD TicketsSentDate DATETIME NULL
+
+GO
+ALTER TABLE EventBooking
+ADD TicketsSentDateUtc DATETIME NULL

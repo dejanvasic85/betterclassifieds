@@ -9,10 +9,10 @@ using AutoMapper;
 using Humanizer;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Broadcast;
+using Paramount.Betterclassifieds.Business.DocumentStorage;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Search;
-using Paramount.Betterclassifieds.Presentation.Framework;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
@@ -265,28 +265,34 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 EndDateTime = eventDetails.EventEndDate.GetValueOrDefault()
             };
 
-            // Generate the PDF
-            var pdf = GenerateTickets(GetMockTickets());
-            var eventTicketsBookedNotification = this.Map<EventBookedViewModel, EventTicketsBookedNotification>(viewModel)
-                .WithTickets(pdf);
-            
+            var ticketPdfData = GenerateTickets(GetMockTickets());
+            var eventTicketsBookedNotification = this.Map<EventBookedViewModel, EventTicketsBookedNotification>(viewModel).WithTickets(ticketPdfData);
             _broadcastManager.SendEmail(eventTicketsBookedNotification, eventBooking.Email);
+            _eventManager.CreateEventTicketsDocument(eventBooking.EventBookingId, ticketPdfData, DateTime.Now);
 
             _eventBookingContext.Clear();
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult GenerateTickets(int id)
+        {
+            var ticketPdfData = GenerateTickets(GetMockTickets());
+            var documentId = _eventManager.CreateEventTicketsDocument(id, ticketPdfData);
+
+            return Json(new { documentId });
         }
 
         private byte[] GenerateTickets(List<EventTicketPrintViewModel> data)
         {
             using (var writer = new StringWriter())
             {
-                this.ViewData.Model = GetMockTickets();
+                this.ViewData.Model = data;
                 var result = ViewEngines.Engines.FindPartialView(this.ControllerContext, "Tickets");
                 var viewContext = new ViewContext(this.ControllerContext, result.View, this.ViewData, this.TempData, writer);
                 result.View.Render(viewContext, writer);
                 result.ViewEngine.ReleaseView(this.ControllerContext, result.View);
                 return new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(writer.GetStringBuilder().ToString());
-                //return File(file, ContentType.Pdf);
             }
         }
 

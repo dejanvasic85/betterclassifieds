@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Paramount.Betterclassifieds.Business.DocumentStorage;
 using Paramount.Betterclassifieds.Business.Payment;
 
 namespace Paramount.Betterclassifieds.Business.Events
@@ -19,6 +20,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         void EventBookingPaymentCompleted(int? eventBookingId, PaymentType paymentType);
         void SetPaymentReferenceForBooking(int eventBookingId, string paymentReference, PaymentType paymentType);
         void AdjustRemainingQuantityAndCancelReservations(string sessionId, IList<EventBookingTicket> eventBookingTickets);
+        string CreateEventTicketsDocument(int eventBookingId, byte[] ticketPdfData, DateTime? ticketsSentDate = null);
     }
 
     public class EventManager : IEventManager
@@ -27,13 +29,15 @@ namespace Paramount.Betterclassifieds.Business.Events
         private readonly IDateService _dateService;
         private readonly IClientConfig _clientConfig;
         private readonly EventBookingTicketFactory _eventBookingTicketFactory;
+        private readonly IDocumentRepository _documentRepository;
 
-        public EventManager(IEventRepository eventRepository, IDateService dateService, IClientConfig clientConfig, EventBookingTicketFactory eventBookingTicketFactory)
+        public EventManager(IEventRepository eventRepository, IDateService dateService, IClientConfig clientConfig, EventBookingTicketFactory eventBookingTicketFactory, IDocumentRepository documentRepository)
         {
             _eventRepository = eventRepository;
             _dateService = dateService;
             _clientConfig = clientConfig;
             _eventBookingTicketFactory = eventBookingTicketFactory;
+            _documentRepository = documentRepository;
         }
 
         public EventModel GetEventDetailsForOnlineAdId(int onlineAdId)
@@ -175,6 +179,26 @@ namespace Paramount.Betterclassifieds.Business.Events
                 eventTicket.RemainingQuantity = eventTicket.RemainingQuantity - eventBookingTicket.Quantity;
                 _eventRepository.UpdateEventTicket(eventTicket);
             }
+        }
+
+        public string CreateEventTicketsDocument(int eventBookingId, byte[] ticketPdfData, DateTime? ticketsSentDate = null)
+        {
+            var pdfDocument = new Document(Guid.NewGuid(), ticketPdfData, ContentType.Pdf,
+                fileName: string.Format("{0}_.pdf", eventBookingId),
+                fileLength: ticketPdfData.Length);
+
+            _documentRepository.Save(pdfDocument);
+
+            var eventBooking = _eventRepository.GetEventBooking(eventBookingId);
+            eventBooking.TicketsDocumentId = pdfDocument.DocumentId;
+            if (ticketsSentDate.HasValue)
+            {
+                eventBooking.TicketsSentDate = ticketsSentDate;
+                eventBooking.TicketsSentDateUtc = ticketsSentDate.Value.ToUniversalTime();
+            }
+            _eventRepository.UpdateEventBooking(eventBooking);
+
+            return pdfDocument.DocumentId.ToString();
         }
 
         public IEnumerable<EventTicketReservation> GetTicketReservations(string sessionId)

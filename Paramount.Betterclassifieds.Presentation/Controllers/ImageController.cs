@@ -84,7 +84,7 @@
 
         public ActionResult RenderCropImage(string fileName)
         {
-            return File(string.Format("{0}{1}", _applicationConfig.ImageCropDirectory, fileName), "image/jpeg");
+            return File(string.Format("{0}{1}", _applicationConfig.ImageCropDirectory, fileName), ContentType.Jpeg);
         }
 
         [HttpPost]

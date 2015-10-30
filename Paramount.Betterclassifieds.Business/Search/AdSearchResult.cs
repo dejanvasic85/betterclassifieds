@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Paramount.Betterclassifieds.Business.Search
 {
@@ -36,6 +37,18 @@ namespace Paramount.Betterclassifieds.Business.Search
         public DateTime EndDate { get; set; }
         public string CategoryAdType { get; set; }
 
+        public string PrimaryImage
+        {
+            get
+            {
+                if (this.ImageUrls == null)
+                    return string.Empty;
+
+                // For the moment we'll just return the first image
+                return ImageUrls.FirstOrDefault();
+            }
+        }
+
         public bool HasExpired()
         {
             return EndDate < DateTime.Today;
@@ -45,6 +58,5 @@ namespace Paramount.Betterclassifieds.Business.Search
         {
             return StartDate > DateTime.Today;
         }
-
     }
 }

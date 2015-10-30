@@ -249,26 +249,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var sessionId = _httpContext.With(h => h.Session).SessionID;
             _eventManager.AdjustRemainingQuantityAndCancelReservations(sessionId, eventBooking.EventBookingTickets);
 
-            var viewModel = new EventBookedViewModel
-            {
-                EventName = adDetails.Heading,
-                CustomerEmailAddress = eventBooking.Email,
-                CustomerFirstName = eventBooking.FirstName,
-                CustomerLastName = eventBooking.LastName,
-                OrganiserName = adDetails.ContactName,
-                OrganiserEmail = adDetails.ContactPhone,
-                EventUrl = Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, includeSchemeAndProtocol: true, routeName: "Event"),
-                Address = eventDetails.Location,
-                LocationLatitude = eventDetails.LocationLatitude,
-                LocationLongitude = eventDetails.LocationLongitude,
-                StartDateTime = eventDetails.EventStartDate.GetValueOrDefault(),
-                EndDateTime = eventDetails.EventEndDate.GetValueOrDefault()
-            };
-
-            var ticketPdfData = GenerateTickets(GetMockTickets());
+            
+            var ticketPdfData = GenerateTickets(EventTicketPrintViewModel.Create(adDetails, eventDetails, eventBooking));
+            var viewModel = new EventBookedViewModel(adDetails, eventDetails, eventBooking, this.Url);
             var eventTicketsBookedNotification = this.Map<EventBookedViewModel, EventTicketsBookedNotification>(viewModel).WithTickets(ticketPdfData);
             _broadcastManager.SendEmail(eventTicketsBookedNotification, eventBooking.Email);
-            _eventManager.CreateEventTicketsDocument(eventBooking.EventBookingId, ticketPdfData, DateTime.Now);
+            _eventManager.CreateEventTicketsDocument(eventBooking.EventBookingId, ticketPdfData, ticketsSentDate: DateTime.Now);
 
             _eventBookingContext.Clear();
             return View(viewModel);
@@ -277,13 +263,17 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost]
         public ActionResult GenerateTickets(int id)
         {
-            var ticketPdfData = GenerateTickets(GetMockTickets());
+            var eventBooking = _eventManager.GetEventBooking(id);
+            var eventDetails = eventBooking.Event;
+            var onlineAd = _searchService.GetByAdOnlineId(eventDetails.OnlineAdId);
+
+            var ticketPdfData = GenerateTickets(EventTicketPrintViewModel.Create(onlineAd, eventDetails, eventBooking));
             var documentId = _eventManager.CreateEventTicketsDocument(id, ticketPdfData);
 
             return Json(new { documentId });
         }
 
-        private byte[] GenerateTickets(List<EventTicketPrintViewModel> data)
+        private byte[] GenerateTickets(IEnumerable<EventTicketPrintViewModel> data)
         {
             using (var writer = new StringWriter())
             {
@@ -294,71 +284,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 result.ViewEngine.ReleaseView(this.ControllerContext, result.View);
                 return new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(writer.GetStringBuilder().ToString());
             }
-        }
-
-        private static List<EventTicketPrintViewModel> GetMockTickets()
-        {
-            var tix = new List<EventTicketPrintViewModel>
-            {
-                new EventTicketPrintViewModel
-                {
-                    TicketNumber = 194459,
-                    BarcodeData = "194459",
-                    TicketName = "Gold",
-                    Price = (decimal) 109.99,
-                    ContactNumber = "03 9989 3388",
-                    EventName = "The Comedy Store",
-                    ImageUrl = "c1264452-b14d-4485-b7eb-e36775d277a9",
-                    Location = "100 Melbourne Place, Melbourne VIC",
-                    StartDateTime = "20th Dec 2015 8:30 PM",
-                },
-                new EventTicketPrintViewModel
-                {
-                    TicketNumber = 194459,
-                    BarcodeData = "194459",
-                    EventName = "The Comedy Store",
-                    TicketName = "Gold",
-                    Price = (decimal) 109.99,
-                    ContactNumber = "03 9989 3388",
-                    ImageUrl = "c1264452-b14d-4485-b7eb-e36775d277a9",
-                    Location = "100 Melbourne Place, Melbourne VIC",
-                    StartDateTime = "20th Dec 2015 8:30 PM",
-                },
-                new EventTicketPrintViewModel
-                {
-                    TicketNumber = 194459,
-                    BarcodeData = "194459",
-                    TicketName = "Gold",
-                    Price = (decimal) 109.99,
-                    EventName = "The Comedy Store",
-                    ImageUrl = "c1264452-b14d-4485-b7eb-e36775d277a9",
-                    Location = "100 Melbourne Place, Melbourne VIC",
-                    StartDateTime = "20th Dec 2015 8:30 PM",
-                },
-                new EventTicketPrintViewModel
-                {
-                    TicketNumber = 194459,
-                    BarcodeData = "194459",
-                    TicketName = "Gold",
-                    Price = (decimal) 109.99,
-                    EventName = "The Comedy Store",
-                    ImageUrl = "c1264452-b14d-4485-b7eb-e36775d277a9",
-                    Location = "100 Melbourne Place, Melbourne VIC",
-                    StartDateTime = "20th Dec 2015 8:30 PM",
-                },
-                new EventTicketPrintViewModel
-                {
-                    TicketNumber = 194459,
-                    BarcodeData = "194459",
-                    TicketName = "Gold",
-                    Price = (decimal) 109.99,
-                    EventName = "The Comedy Store",
-                    ImageUrl = "c1264452-b14d-4485-b7eb-e36775d277a9",
-                    Location = "100 Melbourne Place, Melbourne VIC",
-                    StartDateTime = "20th Dec 2015 8:30 PM",
-                },
-            };
-            return tix;
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
+﻿using Paramount.Betterclassifieds.Business.Events;
+
+namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 {
     public class EventTicketViewModel
     {

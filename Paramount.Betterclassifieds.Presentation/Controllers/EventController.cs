@@ -9,7 +9,6 @@ using AutoMapper;
 using Humanizer;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Broadcast;
-using Paramount.Betterclassifieds.Business.DocumentStorage;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Search;
@@ -248,15 +247,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var sessionId = _httpContext.With(h => h.Session).SessionID;
             _eventManager.AdjustRemainingQuantityAndCancelReservations(sessionId, eventBooking.EventBookingTickets);
+            _eventBookingContext.Clear(); // Kill the session at this point so this endpoint will return a 404 next time the user tries
 
-            
             var ticketPdfData = GenerateTickets(EventTicketPrintViewModel.Create(adDetails, eventDetails, eventBooking));
             var viewModel = new EventBookedViewModel(adDetails, eventDetails, eventBooking, this.Url);
             var eventTicketsBookedNotification = this.Map<EventBookedViewModel, EventTicketsBookedNotification>(viewModel).WithTickets(ticketPdfData);
             _broadcastManager.SendEmail(eventTicketsBookedNotification, eventBooking.Email);
             _eventManager.CreateEventTicketsDocument(eventBooking.EventBookingId, ticketPdfData, ticketsSentDate: DateTime.Now);
-
-            _eventBookingContext.Clear();
+            
             return View(viewModel);
         }
 

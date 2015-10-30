@@ -16,7 +16,7 @@
         });
         me.selectedQuantity = ko.observable(data.selectedQuantity);
         me.remainingQuantity = ko.observable(data.remainingQuantity);
-        me.soldOut = ko.observable(data.remainingQuantity === 0);
+        me.soldOut = ko.observable(data.remainingQuantity <= 0);
         me.isAvailable = ko.observable(data.remainingQuantity > 0);
 
 

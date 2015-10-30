@@ -26,7 +26,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
         public static IEnumerable<EventTicketPrintViewModel> Create(AdSearchResult adDetails, EventModel eventDetails, EventBooking eventBooking)
         {
-            return eventBooking.EventBookingTickets.Select(eventBookingTicket => new EventTicketPrintViewModel(adDetails, eventDetails, eventBookingTicket));
+            return eventBooking.EventBookingTickets
+                .Select(eventBookingTicket => new EventTicketPrintViewModel(adDetails, eventDetails, eventBookingTicket))
+                .ToList();
         }
 
         public string TicketNumber { get; set; }

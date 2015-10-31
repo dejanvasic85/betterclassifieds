@@ -26,34 +26,37 @@
                 </div>
                 <div class="event-info">
                     <div class="event-title">
-                        <h3>
+                        <h2>
                             @tick.EventName
-                        </h3>
+                        </h2>
                     </div>
                     <div class="event-details container-fluid">
                         <div class="row">
-                            <div class="col-xs-6">
+                            <div class="col-xs-12">
                                 <label>
-                                    <i class="fa fa-list-ol"></i> Number
+                                    <i class="fa fa-list-ol"></i> Ticket No
                                 </label>
                                 <span class="detail">@tick.TicketNumber</span>
                             </div>
 
-                            <div class="col-xs-6">
+                            <div class="col-xs-12">
                                 <label>
                                     <i class="fa fa-map-marker"></i> Address
                                 </label>
                                 <span class="detail">@tick.Location</span>
                             </div>
 
-                            <div class="col-xs-6">
-                                <label>
-                                    <i class="fa fa-ticket"></i> Ticket
-                                </label>
-                                <span class="detail">@tick.TicketName @tick.Price.ToString("C")</span>
-                            </div>
+                            @if (tick.Price > 0)
+                            {
+                                <div class="col-xs-12">
+                                    <label>
+                                        <i class="fa fa-ticket"></i> Paid
+                                    </label>
+                                    <span class="detail">@tick.TicketName @tick.Price.ToString("C")</span>
+                                </div>
+                            }
 
-                            <div class="col-xs-6">
+                            <div class="col-xs-12">
                                 <label>
                                     <i class="fa fa-clock-o"></i> When
                                 </label>
@@ -62,7 +65,7 @@
 
                             @if (tick.ContactNumber.HasValue())
                             {
-                                <div class="col-xs-6">
+                                <div class="col-xs-12">
                                     <label>
                                         <i class="fa fa-phone"></i> Help
                                     </label>

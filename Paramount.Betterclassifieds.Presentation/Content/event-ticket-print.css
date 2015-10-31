@@ -21,7 +21,7 @@
   vertical-align: top;
 }
 .ticket-container .ticket .event-info {
-  font-size: 0.8em;
+  font-size: 0.9em;
   margin-left: 200px;
   width: 480px;
 }
@@ -30,8 +30,9 @@
   border-bottom: 1px solid #eee;
   padding: 20px;
   width: 100%;
+  margin-bottom: 10px;
 }
-.ticket-container .ticket .event-info .event-title h3 {
+.ticket-container .ticket .event-info .event-title h2 {
   margin: 0;
   line-height: none;
 }
@@ -39,10 +40,10 @@
   margin-top: 10px;
 }
 .ticket-container .ticket .event-info .event-details label {
-  display: block;
+  min-width: 100px;
 }
 .ticket-container .ticket .event-info .event-details label i {
-  width: 10px;
+  width: 20px;
 }
 .ticket-container .ticket .event-info .event-details span.detail {
   margin-left: 12px;

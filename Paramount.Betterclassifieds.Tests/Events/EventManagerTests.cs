@@ -139,5 +139,25 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             // assert - check teardown on all the repository calls (with verifications)
         }
+
+        [Test]
+        public void CreateEventTicketsDocument_CallsDocumentRepository_ReturnsDocumentId()
+        {
+            var mockEventBookingId = 10;
+            var mockSentDateTime = DateTime.Now;
+            var mockEventBooking = new EventBookingMockBuilder().WithEventBookingId(mockEventBookingId).Build();
+
+            _documentRepository.SetupWithVerification(call => call.Save(It.IsAny<Document>()));
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBooking(It.IsAny<int>(), It.IsAny<bool>()), result: mockEventBooking);
+            _eventRepositoryMock.SetupWithVerification(call => call.UpdateEventBooking(It.Is<EventBooking>(eb => eb == mockEventBooking)));
+
+            var eventManager = this.BuildTargetObject();
+            var documentId = eventManager.CreateEventTicketsDocument(mockEventBookingId, new byte[0], ticketsSentDate: mockSentDateTime);
+
+            Assert.That(documentId, Is.Not.Null);
+            Assert.That(mockEventBooking.TicketsDocumentId, Is.Not.Null);
+            Assert.That(mockEventBooking.TicketsSentDate, Is.EqualTo(mockSentDateTime));
+            Assert.That(mockEventBooking.TicketsSentDateUtc, Is.Not.Null);
+        }
     }
 }

@@ -1,6 +1,7 @@
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Events;
+using Paramount.Betterclassifieds.Business.Payment;
 using System;
 using System.Collections.Generic;
 
@@ -259,6 +260,94 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventTicketMockBuilder WithEventBookingTickets(IList<EventBookingTicket> val)
 		{ 
 			return WithBuildStep(p => p.EventBookingTickets = val);
+		}
+	}
+
+	internal partial class EventBookingMockBuilder : MockBuilder<EventBookingMockBuilder, EventBooking>
+	{	
+		public EventBookingMockBuilder WithEventBookingId(Int32 val)
+		{ 
+			return WithBuildStep(p => p.EventBookingId = val);
+		}
+		public EventBookingMockBuilder WithEventId(Int32 val)
+		{ 
+			return WithBuildStep(p => p.EventId = val);
+		}
+		public EventBookingMockBuilder WithEvent(EventModel val)
+		{ 
+			return WithBuildStep(p => p.Event = val);
+		}
+		public EventBookingMockBuilder WithEventBookingTickets(IList<EventBookingTicket> val)
+		{ 
+			return WithBuildStep(p => p.EventBookingTickets = val);
+		}
+		public EventBookingMockBuilder WithUserId(String val)
+		{ 
+			return WithBuildStep(p => p.UserId = val);
+		}
+		public EventBookingMockBuilder WithEmail(String val)
+		{ 
+			return WithBuildStep(p => p.Email = val);
+		}
+		public EventBookingMockBuilder WithFirstName(String val)
+		{ 
+			return WithBuildStep(p => p.FirstName = val);
+		}
+		public EventBookingMockBuilder WithLastName(String val)
+		{ 
+			return WithBuildStep(p => p.LastName = val);
+		}
+		public EventBookingMockBuilder WithPostCode(String val)
+		{ 
+			return WithBuildStep(p => p.PostCode = val);
+		}
+		public EventBookingMockBuilder WithPhone(String val)
+		{ 
+			return WithBuildStep(p => p.Phone = val);
+		}
+		public EventBookingMockBuilder WithTotalCost(Decimal val)
+		{ 
+			return WithBuildStep(p => p.TotalCost = val);
+		}
+		public EventBookingMockBuilder WithPaymentMethod(PaymentType val)
+		{ 
+			return WithBuildStep(p => p.PaymentMethod = val);
+		}
+		public EventBookingMockBuilder WithPaymentReference(String val)
+		{ 
+			return WithBuildStep(p => p.PaymentReference = val);
+		}
+		public EventBookingMockBuilder WithStatus(EventBookingStatus val)
+		{ 
+			return WithBuildStep(p => p.Status = val);
+		}
+		public EventBookingMockBuilder WithCreatedDateTime(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.CreatedDateTime = val);
+		}
+		public EventBookingMockBuilder WithCreatedDateTimeUtc(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.CreatedDateTimeUtc = val);
+		}
+		public EventBookingMockBuilder WithStatusAsString(String val)
+		{ 
+			return WithBuildStep(p => p.StatusAsString = val);
+		}
+		public EventBookingMockBuilder WithPaymentMethodAsString(String val)
+		{ 
+			return WithBuildStep(p => p.PaymentMethodAsString = val);
+		}
+		public EventBookingMockBuilder WithTicketsDocumentId(Guid? val)
+		{ 
+			return WithBuildStep(p => p.TicketsDocumentId = val);
+		}
+		public EventBookingMockBuilder WithTicketsSentDate(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.TicketsSentDate = val);
+		}
+		public EventBookingMockBuilder WithTicketsSentDateUtc(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.TicketsSentDateUtc = val);
 		}
 	}
 

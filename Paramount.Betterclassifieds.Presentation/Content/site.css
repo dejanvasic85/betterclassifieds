@@ -216,6 +216,9 @@
 .event-book-tickets .book-tickets-form {
   border-right: 1px solid #eeeeee;
 }
+.event-book-tickets .book-tickets-form .label {
+  font-size: 12px;
+}
 .event-book-tickets .status .label {
   font-size: 1.1em;
 }
@@ -224,14 +227,30 @@
   padding: 10px;
   margin-bottom: 10px;
 }
-.event-ticket .event-photo-container {
-  vertical-align: middle;
-  display: inline-block;
-  width: 120px;
+.event-ticket h3 {
+  margin: 5px 0 10px 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #dddddd;
 }
-.event-ticket .event-details-container {
-  vertical-align: top;
-  display: inline-block;
+.event-ticket label {
+  font-size: 0.8em;
+  width: 80px;
+}
+.event-ticket label i {
+  min-width: 15px;
+}
+.event-ticket .label {
+  font-size: 12px;
+}
+.event-ticket span {
+  font-size: 0.8em;
+  font-weight: bold;
+}
+@media (max-width: 766px) {
+  .event-ticket [class*='col-'] {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 }
 /*
     Form Overrides

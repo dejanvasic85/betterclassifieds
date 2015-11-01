@@ -297,6 +297,10 @@
 
     .book-tickets-form {
         border-right: 1px solid @border_light;
+
+        .label{
+            font-size: 12px;
+        }
     }
 
     .status {
@@ -311,15 +315,34 @@
     padding: 10px;
     margin-bottom: 10px;
 
-    .event-photo-container {
-        vertical-align: middle;
-        display: inline-block;
-        width: 120px;
+    h3 {
+        margin: 5px 0 10px 0;
+        padding-bottom: 10px;
+        border-bottom: 1px solid @border_dark;
     }
 
-    .event-details-container {
-        vertical-align: top;
-        display: inline-block;       
+    label {
+        font-size: 0.8em;
+        width: 80px;
+        i {
+            min-width: 15px;
+        }
+    }
+
+    .label {
+        font-size: 12px;
+    }
+
+    span {
+        font-size: 0.8em;
+        font-weight: bold;
+    }
+
+    @media (max-width: 766px) {
+        [class*='col-'] {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
     }
 }
 

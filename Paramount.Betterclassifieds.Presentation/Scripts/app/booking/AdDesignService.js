@@ -13,7 +13,7 @@
                 id: adId
             },
             // If there adId is defined then we are pointing at the EditAdController
-            baseUrl: _.isUndefined(adId) || _.isEmpty(adId)
+            baseUrl: _.isUndefined(adId)
                 ? $paramount.baseUrl + 'Booking/'
                 : $paramount.baseUrl + 'EditAd/'
         });

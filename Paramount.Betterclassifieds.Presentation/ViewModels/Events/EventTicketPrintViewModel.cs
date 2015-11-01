@@ -40,5 +40,16 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public decimal Price { get; set; }
         public string ContactNumber { get; set; }
         public string BarcodeData { get; set; }
+
+        public string TickTypeAndPrice
+        {
+            get
+            {
+                if (Price == 0)
+                    return TicketName;
+
+                return string.Format("{0} {1:C}", TicketName, Price);
+            }
+        }
     }
 }

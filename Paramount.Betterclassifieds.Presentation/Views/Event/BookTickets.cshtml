@@ -15,7 +15,7 @@
     </script>
 }
 <div id="bookTicketsView" class="event-book-tickets">
-    <h2>Confirm tickets for event : @Model.Title</h2>
+    <h2>Ticket Checkout</h2>
 
     <form data-bind="submit: submitTicketBooking" id="bookTicketsForm">
 
@@ -32,7 +32,7 @@
                         <span data-bind="text: minsRemaining"></span>:<span data-bind="text: secondsRemainingDisplay"></span>
                     </div>
                     <div data-bind="visible: outOfTime()">
-                        Sorry, you have run out of time.<a href="@Url.AdUrl(Slug.Create(true, Model.Title), Model.AdId, routeName: Model.CategoryAdType)">
+                        Sorry, you have run out of time. <a class="btn btn-primary" href="@Url.AdUrl(Slug.Create(true, Model.Title), Model.AdId, routeName: Model.CategoryAdType)">
                             Try Again.
                         </a>
                     </div>
@@ -49,6 +49,14 @@
                 </div>
 
                 <div data-bind="foreach: reservations">
+                    <div class="row">
+                        <div class="col-xs-12 text-right">
+                            <span class="label" data-bind="text: status, css : {'label-success' : isReserved, 'label-danger' : notReserved }"></span>
+                            <span class="label" data-bind="text: quantityText, css : {'label-success' : isReserved, 'label-danger' : notReserved }"></span>
+                            <span class="label" data-bind="visible: isReserved, text: totalCost, css : {'label-success' : isReserved, 'label-danger' : notReserved }"></span>
+                        </div>
+                    </div>
+
                     <div class="event-ticket">
                         <div class="row">
                             <div class="col-xs-2">
@@ -63,21 +71,21 @@
                                 <div class="row">
                                     <div class="col-xs-12">
                                         <label>
-                                            <i class="fa fa-list-ol"></i> Ticket No
+                                            <i class="fa fa-ticket"></i> Ticket
                                         </label>
-                                        <span class="detail">-</span>
+                                        <span data-bind="text: ticketTypeAndPrice"></span>
                                     </div>
                                     <div class="col-xs-12">
                                         <label>
                                             <i class="fa fa-map-marker"></i> Address
                                         </label>
-                                        <span class="detail">@Model.Location</span>
+                                        <span>@Model.Location</span>
                                     </div>
                                     <div class="col-xs-12">
                                         <label>
-                                            <i class="fa fa-ticket"></i> Type
+                                            <i class="fa fa-list-ol"></i> Ticket ID
                                         </label>
-                                        <span class="detail" data-bind="text: price"></span>
+                                        <span>TBC</span>
                                     </div>
                                 </div>
                             </div>
@@ -85,23 +93,6 @@
                     </div>
                 </div>
 
-                <div>
-                    <ul data-bind="foreach: reservations" class="list-group">
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-sm-6 col-xs-4" data-bind="text: ticketName"></div>
-                                <div class="col-sm-2 col-xs-4">
-                                    <span data-bind="text: $paramount.formatCurrency( price() )"></span> ea
-                                </div>
-                                <div class="col-sm-4 col-xs-4 status">
-                                    <span class="label" data-bind="text: quantity, css : {'label-success' : isReserved, 'label-danger' : notReserved }"></span>
-                                    <span class="label" data-bind="text: status, css : {'label-success' : isReserved, 'label-danger' : notReserved }"></span>
-                                    = <span data-bind="text: totalCost()"></span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
                 <div class="well">
                     <div class="text-right">
                         Total Cost: <span data-bind="text: $paramount.formatCurrency(totalCost())"></span>
@@ -122,14 +113,19 @@
                     <h4><i class="fa fa-credit-card"></i> &nbsp; Payment</h4>
                 </div>
                 <div class="form-group">
+                    <p>
+                        Please select payment type.
+                    </p>
                     <div class="btn-group" data-toggle="buttons">
                         <label class="btn btn-primary" data-bind="click: setPayPal">
                             <input type="radio" name="paymentMethod" value="PayPal" autocomplete="off"
                                    data-val="true"
-                                   data-val-required="Payment method is required.">Pay Pal
+                                   data-val-required="Payment method is required.">
+                            <i class="fa fa-paypal"></i> &nbsp; Pay Pal
                         </label>
                         <label class="btn btn-primary" data-bind="click : setCreditCard">
-                            <input type="radio" name="paymentMethod" value="CreditCard" autocomplete="off">Credit Card
+                            <input type="radio" name="paymentMethod" value="CreditCard" autocomplete="off">
+                            <i class="fa fa-credit-card"></i>&nbsp; Credit Card
                         </label>
                     </div>
                     <span class="field-validation-error help-block" data-bind="visible: paymentMethod() === undefined" data-valmsg-for="paymentMethod" data-valmsg-replace="true"></span>

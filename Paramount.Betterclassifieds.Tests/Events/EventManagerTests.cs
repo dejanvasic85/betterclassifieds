@@ -4,6 +4,7 @@ using System.Linq;
 using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.DocumentStorage;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Tests.Mocks;
 
@@ -14,6 +15,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
     {
         private Mock<IEventRepository> _eventRepositoryMock;
         private Mock<IDateService> _dateServiceMock;
+        private Mock<IDocumentRepository> _documentRepository;
         private Mock<IClientConfig> _clientConfig;
 
         [SetUp]
@@ -22,6 +24,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _eventRepositoryMock = CreateMockOf<IEventRepository>();
             _dateServiceMock = CreateMockOf<IDateService>();
             _clientConfig = CreateMockOf<IClientConfig>();
+            _documentRepository = CreateMockOf<IDocumentRepository>();
         }
 
         [Test]

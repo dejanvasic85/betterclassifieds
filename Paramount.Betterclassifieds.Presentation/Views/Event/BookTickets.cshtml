@@ -47,6 +47,44 @@
                 <div class="bs-callout bs-callout-info">
                     <h4><i class="fa fa-ticket"></i>&nbsp; Tickets</h4>
                 </div>
+
+                <div data-bind="foreach: reservations">
+                    <div class="event-ticket">
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <img class="thumbnail img-responsive" src="@Url.Image(Model.EventPhoto)" />
+                            </div>
+                            <div class="col-xs-10">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <h3>@Model.Title</h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <label>
+                                            <i class="fa fa-list-ol"></i> Ticket No
+                                        </label>
+                                        <span class="detail">-</span>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <label>
+                                            <i class="fa fa-map-marker"></i> Address
+                                        </label>
+                                        <span class="detail">@Model.Location</span>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <label>
+                                            <i class="fa fa-ticket"></i> Type
+                                        </label>
+                                        <span class="detail" data-bind="text: price"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div>
                     <ul data-bind="foreach: reservations" class="list-group">
                         <li class="list-group-item">
@@ -95,7 +133,7 @@
                         </label>
                     </div>
                     <span class="field-validation-error help-block" data-bind="visible: paymentMethod() === undefined" data-valmsg-for="paymentMethod" data-valmsg-replace="true"></span>
-                </div>  
+                </div>
             </div>
 
             <div class="col-sm-4 hidden-xs">

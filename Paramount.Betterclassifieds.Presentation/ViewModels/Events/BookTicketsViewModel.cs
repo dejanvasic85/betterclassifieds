@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Events;
+using Paramount.Betterclassifieds.Business.Search;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 {
@@ -8,6 +11,33 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
     /// </summary>
     public class BookTicketsViewModel
     {
+        public BookTicketsViewModel()
+        { }
+
+        public BookTicketsViewModel(AdSearchResult onlineAdModel, EventModel eventDetails, IClientConfig clientConfig, ApplicationUser applicationUser, List<EventTicketReservation> ticketReservations)
+        {
+            EventId = eventDetails.EventId;
+            TotelReservationExpiryMinutes = clientConfig.EventTicketReservationExpiryMinutes;
+            Title = onlineAdModel.Heading;
+            AdId = onlineAdModel.AdId;
+            Description = onlineAdModel.Description;
+            CategoryAdType = onlineAdModel.CategoryAdType;
+            EventPhoto = onlineAdModel.PrimaryImage;
+            Location = eventDetails.Location;
+            SuccessfulReservationCount = ticketReservations.Count(r => r.Status == EventTicketReservationStatus.Reserved);
+            LargeRequestCount = ticketReservations.Count(r => r.Status == EventTicketReservationStatus.RequestTooLarge);
+
+            if (applicationUser != null)
+            {
+                IsUserLoggedIn = true;
+                FirstName = applicationUser.FirstName;
+                LastName = applicationUser.LastName;
+                Phone = applicationUser.Phone;
+                PostCode = applicationUser.Postcode;
+                Email = applicationUser.Email;
+            }
+        }
+
         public int AdId { get; set; }
         public string Title { get; set; }
 
@@ -27,5 +57,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string PostCode { get; set; }
         public string Email { get; set; }
         public int? EventId { get; set; }
+        public string EventPhoto { get; set; }
+        public string Location { get; set; }
     }
 }

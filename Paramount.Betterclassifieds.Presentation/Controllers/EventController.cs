@@ -86,17 +86,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var remainingTimeToCompleteBooking = _eventManager.GetRemainingTimeForReservationCollection(ticketReservations);
 
             // Construct the view model
-            var viewModel = new BookTicketsViewModel
+            ApplicationUser applicationUser = null;
+            if (this.User.Identity.IsAuthenticated)
             {
-                EventId = eventDetails.EventId,
-                TotelReservationExpiryMinutes = _clientConfig.EventTicketReservationExpiryMinutes,
-                Title = onlineAdModel.Heading,
-                AdId = onlineAdModel.AdId,
-                Description = onlineAdModel.Description,
-                CategoryAdType = onlineAdModel.CategoryAdType,
+                applicationUser = _userManager.GetCurrentUser(this.User);
+            }
+            var viewModel = new BookTicketsViewModel(onlineAdModel, eventDetails, _clientConfig, applicationUser, ticketReservations)
+            {
                 Reservations = this.MapList<EventTicketReservation, EventTicketReservedViewModel>(ticketReservations),
-                SuccessfulReservationCount = ticketReservations.Count(r => r.Status == EventTicketReservationStatus.Reserved),
-                LargeRequestCount = ticketReservations.Count(r => r.Status == EventTicketReservationStatus.RequestTooLarge)
             };
 
             if (remainingTimeToCompleteBooking <= TimeSpan.Zero)
@@ -109,16 +106,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 viewModel.ReservationExpirySeconds = remainingTimeToCompleteBooking.Seconds;
             }
 
-            if (User.Identity.IsAuthenticated)
-            {
-                viewModel.IsUserLoggedIn = true;
-                var userDetails = _userManager.GetCurrentUser(this.User);
-                viewModel.FirstName = userDetails.FirstName;
-                viewModel.LastName = userDetails.LastName;
-                viewModel.Phone = userDetails.Phone;
-                viewModel.PostCode = userDetails.Postcode;
-                viewModel.Email = userDetails.Email;
-            }
 
             return View(viewModel);
         }
@@ -254,7 +241,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var eventTicketsBookedNotification = this.Map<EventBookedViewModel, EventTicketsBookedNotification>(viewModel).WithTickets(ticketPdfData);
             _broadcastManager.SendEmail(eventTicketsBookedNotification, eventBooking.Email);
             _eventManager.CreateEventTicketsDocument(eventBooking.EventBookingId, ticketPdfData, ticketsSentDate: DateTime.Now);
-            
+
             return View(viewModel);
         }
 
@@ -269,6 +256,16 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var documentId = _eventManager.CreateEventTicketsDocument(id, ticketPdfData);
 
             return Json(new { documentId });
+        }
+
+        public ActionResult Tickets(int id)
+        {
+            var eventBooking = _eventManager.GetEventBooking(id);
+            var eventDetails = eventBooking.Event;
+            var onlineAd = _searchService.GetByAdOnlineId(eventDetails.OnlineAdId);
+
+            var data = EventTicketPrintViewModel.Create(onlineAd, eventDetails, eventBooking);
+            return View(data.ToList());
         }
 
         private byte[] GenerateTickets(IEnumerable<EventTicketPrintViewModel> data)

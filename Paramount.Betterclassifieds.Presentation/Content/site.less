@@ -5,6 +5,7 @@
 @success: #c1e2b3;
 @help: #5bc0de;
 @border_light: #eee;
+@border_dark: #ddd;
 
 .top-buffer-10 {
     margin-top: 10px;
@@ -290,18 +291,35 @@
         }
     }
 
-    .reservation-countdown{
+    .reservation-countdown {
         border-bottom: 1px solid @border_light;
     }
 
-    .book-tickets-form{
+    .book-tickets-form {
         border-right: 1px solid @border_light;
     }
 
     .status {
-        .label{
+        .label {
             font-size: 1.1em;
         }
+    }
+}
+
+.event-ticket {
+    border: 1px solid @border_dark;
+    padding: 10px;
+    margin-bottom: 10px;
+
+    .event-photo-container {
+        vertical-align: middle;
+        display: inline-block;
+        width: 120px;
+    }
+
+    .event-details-container {
+        vertical-align: top;
+        display: inline-block;       
     }
 }
 

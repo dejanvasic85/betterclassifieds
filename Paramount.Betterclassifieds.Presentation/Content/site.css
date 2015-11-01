@@ -219,6 +219,20 @@
 .event-book-tickets .status .label {
   font-size: 1.1em;
 }
+.event-ticket {
+  border: 1px solid #dddddd;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.event-ticket .event-photo-container {
+  vertical-align: middle;
+  display: inline-block;
+  width: 120px;
+}
+.event-ticket .event-details-container {
+  vertical-align: top;
+  display: inline-block;
+}
 /*
     Form Overrides
 */

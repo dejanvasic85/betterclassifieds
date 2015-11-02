@@ -3,6 +3,7 @@ Here's a list of the latest changes for the current release:
 **Enhancements**
 
 - [Events - The beginning of something new. Beta only and half way through features](https://trello.com/c/Mmtk9Lek/292-events-epic)
+- [Events - Generate printable tickets for event](https://trello.com/c/O3n6hIJt/336-events-generate-tickets-for-event-booking)
 - [Contact advertiser form now requires a login rather than a CAPTCHA](https://trello.com/c/5bxvSRBU/329-contact-advertiser-with-a-login-only-little-counter-intuitive-but-beats-the-captcha-usage-and-more-secure)
 - [No more captcha for contacting support team](https://trello.com/c/BBLPYpTa/331-remove-the-captcha-from-the-contact-us-page-no-need)
 

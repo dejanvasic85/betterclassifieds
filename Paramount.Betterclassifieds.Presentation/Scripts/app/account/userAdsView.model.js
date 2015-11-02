@@ -62,7 +62,7 @@
 
         this.editHref = userAdService.getEditUrl(item.adId);
         this.bookingInvoiceHref = userAdService.getInvoiceUrl(item.adId);
-        this.viewHref = userAdService.getViewUrl(item.adId);
+        this.viewHref = item.adViewUrl;
         this.imageUrl = imageService.getImageUrl(item.adImageId);
         this.imageUrlSmaller = imageService.getImageUrl(item.adImageId, { h: 50, w: 50 });
     };

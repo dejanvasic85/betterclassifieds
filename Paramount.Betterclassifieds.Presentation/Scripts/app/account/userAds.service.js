@@ -5,14 +5,14 @@
     }
 
     UserAdService.prototype.getAdsForUser = function () {
-        return $paramount.httpGet( this.baseUrl + 'UserAds/GetAdsForUser');
+        return $paramount.httpGet(this.baseUrl + 'UserAds/GetAdsForUser');
     }
 
-    UserAdService.prototype.cancelAd = function(adId) {
+    UserAdService.prototype.cancelAd = function (adId) {
         return $paramount.httpPost(this.baseUrl + 'UserAds/Cancel', { adId: adId });
     }
 
-    UserAdService.prototype.startNewBookingFromTemplate = function(adId) {
+    UserAdService.prototype.startNewBookingFromTemplate = function (adId) {
         return $paramount.httpPost(this.baseUrl + 'Booking/StartFromTemplate', { id: adId });
     }
 
@@ -22,10 +22,6 @@
 
     UserAdService.prototype.getInvoiceUrl = function (adId) {
         return this.baseUrl + 'Invoice/Booking/' + adId;
-    }
-
-    UserAdService.prototype.getViewUrl = function (adId) {
-        return this.baseUrl + 'Listings/ViewAd/' + adId;
     }
 
     $paramount.UserAdService = UserAdService;

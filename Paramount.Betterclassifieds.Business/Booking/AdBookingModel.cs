@@ -74,5 +74,6 @@ namespace Paramount.Betterclassifieds.Business.Booking
 
         public List<Enquiry> Enquiries { get; set; }
         public int[] Publications { get; set; }
+        public string CategoryAdType { get; set; }
     }
 }

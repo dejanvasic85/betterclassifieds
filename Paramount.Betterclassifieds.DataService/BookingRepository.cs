@@ -82,6 +82,8 @@
                 {
                     var booking = this.Map<AdBooking, AdBookingModel>(adBookingData);
 
+                    booking.CategoryAdType = adBookingData.MainCategory.CategoryAdType;
+
                     // Line ad
                     if (withLineAd)
                     {

@@ -235,3 +235,4 @@
 /// <reference path="app/account/userads.service.js" />
 /// <reference path="app/account/useradsview.model.js" />
 /// <reference path="app/account/userenquiry.model.js" />
+/// <reference path="app/account/userads.ui.js" />

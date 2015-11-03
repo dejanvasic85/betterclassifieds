@@ -24,6 +24,10 @@
         return this.baseUrl + 'Invoice/Booking/' + adId;
     }
 
+    UserAdService.prototype.getEditEventUrl = function(adId) {
+        return this.baseUrl + 'EditAd/Event/' + adId;
+    }
+
     $paramount.UserAdService = UserAdService;
     return $paramount;
 

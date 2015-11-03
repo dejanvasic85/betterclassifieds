@@ -65,6 +65,9 @@
         this.viewHref = item.adViewUrl;
         this.imageUrl = imageService.getImageUrl(item.adImageId);
         this.imageUrlSmaller = imageService.getImageUrl(item.adImageId, { h: 50, w: 50 });
+
+        this.editEventAvailable = item.categoryAdType === 'Event';
+        this.editEventUrl = userAdService.getEditEventUrl(item.adId);
     };
 
     $p.models = $p.models || {};

@@ -136,6 +136,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(true);
         }
 
+        public ActionResult Event(int id)
+        {
+            return View();
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.RecognizeDestinationPrefixes("OnlineAd", "Line");

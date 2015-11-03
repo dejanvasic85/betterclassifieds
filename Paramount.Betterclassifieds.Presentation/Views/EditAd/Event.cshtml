@@ -1,0 +1,33 @@
+﻿@model dynamic
+
+@{
+    Layout = "~/Views/Shared/_ApplicationLayoutWithSearch.cshtml";
+    ViewBag.Title = "Manage my Ads";
+}
+
+@section Scripts{
+
+}
+
+<div class="event-ticket-management">
+    <div class="row">
+        <div class="col-xs-12">
+            @Html.Partial("_UserMenu")
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="page-header">
+                Guest List
+            </h2>
+
+        </div>
+
+        <div class="col-md-6">
+            <h2 class="page-header">
+                Ticket Configuration
+            </h2>
+        </div>
+    </div>
+</div>

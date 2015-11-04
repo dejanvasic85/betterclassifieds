@@ -1,4 +1,6 @@
-﻿.userads-cmd-panel {
+﻿@color_primary : #008cba;
+
+.userads-cmd-panel {
     a, a:hover {
         color: #fff;
     }    
@@ -6,4 +8,13 @@
 
 .alert-warning{
     background-color: #c27802;
+}
+
+.event-ticket-management {
+    span {
+        &.badge {
+            color : #fff;
+            background-color: @color_primary;
+        }
+    }
 }

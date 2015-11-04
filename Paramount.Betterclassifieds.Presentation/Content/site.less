@@ -6,6 +6,7 @@
 @help: #5bc0de;
 @border_light: #eee;
 @border_dark: #ddd;
+@color_primary : #eee;
 
 .top-buffer-10 {
     margin-top: 10px;
@@ -298,7 +299,7 @@
     .book-tickets-form {
         border-right: 1px solid @border_light;
 
-        .label{
+        .label {
             font-size: 12px;
         }
     }
@@ -324,6 +325,7 @@
     label {
         font-size: 0.8em;
         width: 80px;
+
         i {
             min-width: 15px;
         }
@@ -342,6 +344,16 @@
         [class*='col-'] {
             margin-top: 0;
             margin-bottom: 0;
+        }
+    }
+}
+
+.event-ticket-management {
+    span {
+        &.badge {
+            font-size: 35px;
+            padding: 15px;
+            background-color: @color_primary;
         }
     }
 }

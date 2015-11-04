@@ -5,4 +5,8 @@
 .alert-warning {
   background-color: #c27802;
 }
+.event-ticket-management span.badge {
+  color: #fff;
+  background-color: #008cba;
+}
 /*# sourceMappingURL=kando.css.map */

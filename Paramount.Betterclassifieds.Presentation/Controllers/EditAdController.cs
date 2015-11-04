@@ -7,6 +7,8 @@ using Paramount.Betterclassifieds.Presentation.ViewModels;
 using System;
 using System.Linq;
 using System.Web.Mvc;
+using Paramount.Betterclassifieds.Business.Events;
+using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
@@ -18,13 +20,15 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IApplicationConfig _applicationConfig;
         private readonly IClientConfig _clientConfig;
         private readonly IBookingManager _bookingManager;
+        private readonly IEventManager _eventManager;
 
-        public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager)
+        public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager, IEventManager eventManager)
         {
             _searchService = searchService;
             _applicationConfig = applicationConfig;
             _clientConfig = clientConfig;
             _bookingManager = bookingManager;
+            _eventManager = eventManager;
         }
 
         //
@@ -138,7 +142,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public ActionResult Event(int id)
         {
-            return View();
+            var adDetails = _searchService.GetByAdId(id);
+            var eventDetails = _eventManager.GetEventDetailsForOnlineAdId(adDetails.OnlineAdId);
+            var evenTicketTypes = eventDetails.Tickets;
+            var eventEditViewModel = new EventEditViewModel
+            {
+                Tickets = this.MapList<EventTicket, EventTicketViewModel>(evenTicketTypes.ToList())
+            };
+            return View(eventEditViewModel);
         }
 
         public void OnRegisterMaps(IConfiguration configuration)
@@ -161,8 +172,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                .ForMember(member => member.HtmlText, options => options.MapFrom(src => src.OnlineAdDescription));
 
             configuration.CreateMap<EditAdDetailsViewModel, LineAdModel>()
-                .ForMember(member => member.UsePhoto, options => options.MapFrom(src => src.LineAdImageId.HasValue()))
-                ;
+                .ForMember(member => member.UsePhoto, options => options.MapFrom(src => src.LineAdImageId.HasValue()));
+
+            configuration.CreateMap<EventTicket, EventTicketViewModel>();
         }
     }
 }

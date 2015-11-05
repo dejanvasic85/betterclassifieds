@@ -237,3 +237,5 @@
 /// <reference path="app/account/userenquiry.model.js" />
 /// <reference path="app/account/userads.ui.js" />
 /// <reference path="vendor/chart.js" />
+/// <reference path="app/events/editevent.ui.js" />
+/// <reference path="app/events/editevent.model.js" />

@@ -7,28 +7,33 @@
 
 @section Scripts{
     <script>
+        $(function() {
+            var eventEditViewModel = @Html.Raw(Model.ToJsonString());
+            $paramount.ui.editEvent.init(eventEditViewModel);
+        });
+
         var ctx = document.getElementsByClassName("chart")[0].getContext("2d");
         var theChart = new Chart(ctx).Doughnut([
-    {
-        value: 300,
-        color: "#F7464A",
-        highlight: "#FF5A5E",
-        label: "Red"
-    },
-    {
-        value: 50,
-        color: "#46BFBD",
-        highlight: "#5AD3D1",
-        label: "Green"
-    },
-    {
-        value: 100,
-        color: "#FDB45C",
-        highlight: "#FFC870",
-        label: "Yellow"
-    }
+                {
+                    value: 300,
+                    color: "#F7464A",
+                    highlight: "#FF5A5E",
+                    label: "Red"
+                },
+                {
+                    value: 50,
+                    color: "#46BFBD",
+                    highlight: "#5AD3D1",
+                    label: "Green"
+                },
+                {
+                    value: 100,
+                    color: "#FDB45C",
+                    highlight: "#FFC870",
+                    label: "Yellow"
+                }
         ]
-            );
+        );
     </script>
 }
 
@@ -46,31 +51,43 @@
                 <i class="fa fa-ticket"></i>&nbsp;Ticketing
             </h2>
 
-            @foreach (var t in Model.Tickets)
-            {
+            <canvas class="chart" width="100px" height="100px"></canvas>
+
+            <div data-bind="foreach: tickets">
                 <div class="panel panel-default">
-                    <div class="panel-heading">@t.TicketName &nbsp; @t.Price.ToString("C")</div>
+                    <div class="panel-heading">
+                        <span data-bind="text: ticketName"></span> &nbsp;
+                        <span data-bind="text: priceFormatted"></span>
+                    </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-xs-12">
-                                <canvas class="chart" width="200px" height="200px"></canvas>
-                            </div>
-
                             <div class="col-xs-6 text-center">
-                                <h4>Available Qty</h4>
-                                <span class="badge">@t.AvailableQuantity</span>
+                                <h4>Tickets Sold</h4>
+                                <span class="badge" data-bind="text: soldQuantity"></span>
                             </div>
                             <div class="col-xs-6 text-center">
                                 <h4>Remaining Qty</h4>
-                                <span class="badge">@t.RemainingQuantity</span>
+                                <span class="badge" data-bind="text: remainingQuantity"></span>
                             </div>
                         </div>
                     </div>
                     <div class="panel-footer">
-
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Options <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><i class="fa fa-plus-square"></i> &nbsp; Add More</a></li>
+                                <li><a href="#"><i class="fa fa-pencil"></i>&nbsp; Rename</a></li>
+                                <li><a href="#"><i class="fa fa-dollar"></i>&nbsp; Price Change</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#"><i class="fa fa-minus-square"></i>&nbsp; Mark as Sold Out</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            }
+
+            </div>
 
             <div>
                 <button class="btn btn-primary">Add Ticket Type</button>

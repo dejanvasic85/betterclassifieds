@@ -16,17 +16,21 @@
         });
         me.selectedQuantity = ko.observable(data.selectedQuantity);
         me.remainingQuantity = ko.observable(data.remainingQuantity);
+        me.soldQuantity = ko.computed(function() {
+            return me.availableQuantity() - me.remainingQuantity();
+        });
         me.soldOut = ko.observable(data.remainingQuantity <= 0);
         me.isAvailable = ko.observable(data.remainingQuantity > 0);
 
-
         // MaxTickets Per booking setup
-        if (data.remainingQuantity < maxTicketsPerBooking) {
-            maxTicketsPerBooking = data.remainingQuantity;
-        }
-        me.maxTicketsPerBooking = ko.observableArray();
-        for (var i = 0; i <= maxTicketsPerBooking; i++) {
-            me.maxTicketsPerBooking.push({ label: i, value: i });
+        if (maxTicketsPerBooking) {
+            if (data.remainingQuantity < maxTicketsPerBooking) {
+                maxTicketsPerBooking = data.remainingQuantity;
+            }
+            me.maxTicketsPerBooking = ko.observableArray();
+            for (var i = 0; i <= maxTicketsPerBooking; i++) {
+                me.maxTicketsPerBooking.push({ label: i, value: i });
+            }
         }
     }
 })(jQuery, $paramount, ko);

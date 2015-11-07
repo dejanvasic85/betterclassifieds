@@ -1,10 +1,11 @@
-﻿(function ($, $paramount, ko) {
+﻿(function ($, $paramount, ko, notifier) {
     'use strict';
 
     $paramount.models = $paramount.models || {};
     $paramount.models.EventTicket = function (data, maxTicketsPerBooking) {
         $.extend(data, {});
         var me = this;
+        var eventService = new $paramount.EventService();
 
         me.eventId = ko.observable(data.eventId);
         me.eventTicketId = ko.observable(data.eventTicketId);
@@ -16,7 +17,7 @@
         });
         me.selectedQuantity = ko.observable(data.selectedQuantity);
         me.remainingQuantity = ko.observable(data.remainingQuantity);
-        me.soldQuantity = ko.computed(function() {
+        me.soldQuantity = ko.computed(function () {
             return me.availableQuantity() - me.remainingQuantity();
         });
         me.soldOut = ko.observable(data.remainingQuantity <= 0);
@@ -32,5 +33,16 @@
                 me.maxTicketsPerBooking.push({ label: i, value: i });
             }
         }
+
+        // Edit...
+        me.renameEnabled = ko.observable(false);
+        me.rename = function () {
+            eventService.renameTicket(me.eventTicketId(), me.ticketName()).success(function () {
+                notifier.success('Ticket named changed successfully');
+                me.renameEnabled(false);
+            });
+        }
+        me.enableRename = function () { me.renameEnabled(true); }
+        me.disableRename = function () { me.renameEnabled(false); }
     }
-})(jQuery, $paramount, ko);
+})(jQuery, $paramount, ko, toastr);

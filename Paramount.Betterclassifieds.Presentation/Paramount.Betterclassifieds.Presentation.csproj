@@ -204,6 +204,7 @@
     <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\EditAdController.cs" />
+    <Compile Include="Controllers\EditEventController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

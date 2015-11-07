@@ -22,19 +22,6 @@
 @*Outgoing Urls based on the MVC routes*@
 <script>
     var $paramount = (function (me, $) {
-        me.baseUrl = '@Url.Home()';
-        me.httpPost = function (url, data) {
-            return $.ajax({
-                url: url,
-                data: JSON.stringify(data),
-                type: 'POST',
-                dataType: 'json',
-                contentType: 'application/json'
-            });
-        }
-        me.httpGet = function (url, data) {
-            return call('GET', url, data);
-        }
 
         function call(type, url, data) {
             return $.ajax({
@@ -44,6 +31,14 @@
                 dataType: 'json',
                 contentType: 'application/json'
             });
+        }
+
+        me.baseUrl = '@Url.Home()';
+        me.httpPost = function (url, data) {
+            return call('POST', url, data);
+        }
+        me.httpGet = function (url, data) {
+            return call('GET', url, data);
         }
 
         /*

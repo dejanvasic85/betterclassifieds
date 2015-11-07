@@ -56,11 +56,20 @@
             <div data-bind="foreach: tickets">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <div class="pull-left">
-                            <h4>
-                                <span data-bind="text: ticketName"></span> &nbsp;
-                                <span data-bind="text: priceFormatted"></span>
-                            </h4>
+                        <div class="pull-left form-inline">
+                            <span data-bind="text: ticketName, visible: renameEnabled() === false"></span>
+                            <div class="input-group" data-bind="visible: renameEnabled">
+                                <input type="text" class="form-control" data-bind="value: ticketName" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-success" data-bind="click: rename">
+                                        <i class="fa fa-check"></i> Done
+                                    </button>
+                                    <button class="btn btn-default" data-bind="click: disableRename">
+                                        <i class="fa fa-times"></i>Cancel
+                                    </button>
+                                </span>
+                            </div>
+                            <span data-bind="text: priceFormatted"></span>
                         </div>
                         <div class="pull-right">
                             <div class="btn-group">
@@ -68,11 +77,17 @@
                                     Options <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="#"><i class="fa fa-pencil"></i>&nbsp; Rename</a></li>
-                                    <li><a href="#"><i class="fa fa-plus-square"></i> &nbsp; Adjust Remaining Tickets</a></li>
-                                    <li><a href="#"><i class="fa fa-dollar"></i>&nbsp; Price Change</a></li>
+                                    <li><a href="" data-bind="click: enableRename"><i class="fa fa-pencil"></i>&nbsp; Rename</a></li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-plus-square"></i> &nbsp; Change Quantity</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-dollar"></i>&nbsp; Price Change</a>
+                                    </li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="#"><i class="fa fa-minus-square"></i>&nbsp; Mark as Sold Out</a></li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-minus-square"></i>&nbsp; Mark as Sold Out</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -80,13 +95,19 @@
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-xs-6 text-center">
+                            <div class="col-xs-4 text-center">
                                 <h4>Tickets Sold</h4>
                                 <span class="badge" data-bind="text: soldQuantity"></span>
                             </div>
-                            <div class="col-xs-6 text-center">
+                            <div class="col-xs-4 text-center">
                                 <h4>Remaining Qty</h4>
                                 <span class="badge" data-bind="text: remainingQuantity"></span>
+                            </div>
+                            <div class="col-xs-4">
+                                <a href="" data-bind="click: enableRename" class="btn btn-default btn-block btn-info"><i class="fa fa-pencil"></i>&nbsp; Rename</a>
+                                <a href="#" class="btn btn-default btn-block btn-info"><i class="fa fa-sort-numeric-asc"></i> &nbsp; Change Quantity</a>
+                                <a href="#" class="btn btn-default btn-block btn-info"><i class="fa fa-dollar"></i>&nbsp; Price Change</a>
+                                <a href="#" class="btn btn-default btn-block btn-danger"><i class="fa fa-minus-square"></i>&nbsp; Mark as Sold Out</a>
                             </div>
                         </div>
                     </div>

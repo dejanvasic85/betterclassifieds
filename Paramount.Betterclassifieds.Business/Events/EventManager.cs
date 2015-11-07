@@ -219,5 +219,12 @@ namespace Paramount.Betterclassifieds.Business.Events
                 _eventRepository.UpdateEventTicketReservation(existingSessionReservation);
             }
         }
+
+        public void RenameTicket(int ticketId, string newName)
+        {
+            var ticket = _eventRepository.GetEventTicketDetails(ticketId);
+            ticket.TicketName = newName;
+            _eventRepository.UpdateEventTicket(ticket);
+        }
     }
 }

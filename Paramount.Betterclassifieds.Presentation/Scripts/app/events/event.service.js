@@ -18,8 +18,12 @@
         return post(this.baseUrl + 'Event/ReserveTickets', order);
     }
 
-    EventService.prototype.bookTickets = function(ticketBookingDetails) {
+    EventService.prototype.bookTickets = function (ticketBookingDetails) {
         return post(this.baseUrl + 'Event/BookTickets', ticketBookingDetails);
+    }
+
+    EventService.prototype.renameTicket = function (ticketId, newName) {
+        return $paramount.httpPost(this.baseUrl + 'EditEvent/RenameTicket', { ticketId: ticketId, newName: newName });
     }
 
     $paramount.EventService = EventService;

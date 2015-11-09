@@ -25,8 +25,13 @@
     };
 
     $paramount.formatCurrency = function (value) {
-        if (value == undefined)
+        if (value === undefined || value === null)
             return '';
+
+        if (typeof value === "string") {
+            value = Number.parseFloat(value);
+        }
+
         return "$" + value.toFixed(2);
     };
 

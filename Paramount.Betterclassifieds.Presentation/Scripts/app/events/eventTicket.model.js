@@ -7,6 +7,7 @@
         var me = this;
         var eventService = new $paramount.EventService();
 
+        me.adId = ko.observable(data.adId);
         me.eventId = ko.observable(data.eventId);
         me.eventTicketId = ko.observable(data.eventTicketId);
         me.ticketName = ko.observable(data.ticketName);
@@ -17,9 +18,7 @@
         });
         me.selectedQuantity = ko.observable(data.selectedQuantity);
         me.remainingQuantity = ko.observable(data.remainingQuantity);
-        me.soldQuantity = ko.computed(function () {
-            return me.availableQuantity() - me.remainingQuantity();
-        });
+        me.soldQuantity = ko.observable(data.availableQuantity - data.remainingQuantity);
         me.soldOut = ko.observable(data.remainingQuantity <= 0);
         me.isAvailable = ko.observable(data.remainingQuantity > 0);
 
@@ -34,15 +33,22 @@
             }
         }
 
-        // Edit...
-        me.renameEnabled = ko.observable(false);
-        me.rename = function () {
-            eventService.renameTicket(me.eventTicketId(), me.ticketName()).success(function () {
-                notifier.success('Ticket named changed successfully');
-                me.renameEnabled(false);
+        // Editing functionality (requires adId to go through the AuthoriseBookingIdentity server attribute)
+        me.editMode = ko.observable(false);
+        me.enableEdit = function() {
+            me.editMode(true);
+        }
+        me.saveTicketDetails = function (e, jQueryElement) {
+            var $button = $(jQueryElement.toElement);
+            $button.button('loading');
+            var ticketDetails = ko.toJS(me);
+            eventService.updateTicket(ticketDetails).done(function (response) {
+                if (response) {
+                    notifier.success("Ticket details updated successfully");
+                    me.editMode(false);
+                    $button.button('reset');
+                }
             });
         }
-        me.enableRename = function () { me.renameEnabled(true); }
-        me.disableRename = function () { me.renameEnabled(false); }
     }
 })(jQuery, $paramount, ko, toastr);

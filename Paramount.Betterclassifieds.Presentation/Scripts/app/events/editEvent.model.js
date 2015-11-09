@@ -5,6 +5,7 @@
         var me = this;
         me.tickets = ko.observableArray();
         $.each(editEventViewModel.tickets, function (idx, t) {
+            t.adId = editEventViewModel.adId;
             me.tickets.push(new $paramount.models.EventTicket(t));
         });
     }

@@ -147,9 +147,21 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var evenTicketTypes = eventDetails.Tickets;
             var eventEditViewModel = new EventEditViewModel
             {
+                AdId = id,
                 Tickets = this.MapList<EventTicket, EventTicketViewModel>(evenTicketTypes.ToList())
             };
             return View(eventEditViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult EventTicketUpdate(int id, EventTicketViewModel eventTicketViewModel)
+        {
+            _eventManager.UpdateEventTicket(eventTicketViewModel.EventTicketId.GetValueOrDefault(),
+                eventTicketViewModel.TicketName,
+                eventTicketViewModel.Price,
+                eventTicketViewModel.RemainingQuantity);
+
+            return Json(new { Updated = true });
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

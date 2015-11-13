@@ -239,3 +239,5 @@
 /// <reference path="vendor/chart.js" />
 /// <reference path="app/events/editevent.ui.js" />
 /// <reference path="app/events/editevent.model.js" />
+/// <reference path="knockout/knockout.validation-2.0.3.js" />
+/// <reference path="app-global/ko-customvalidation.js" />

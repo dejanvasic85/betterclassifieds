@@ -363,6 +363,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\app-global\google-map.js" />
     <Content Include="Scripts\app-global\ko-customBindings.js" />
+    <Content Include="Scripts\app-global\ko-customValidation.js" />
     <Content Include="Scripts\app\account\editAd.js" />
     <Content Include="Scripts\app\account\login.js" />
     <Content Include="Content\site.css.map">
@@ -399,6 +400,7 @@
     <Content Include="Scripts\app\booking\designAd.js" />
     <Content Include="Scripts\app\events\eventView.ui.js" />
     <Content Include="Scripts\app\locations\location.service.js" />
+    <Content Include="Scripts\knockout\knockout.validation-2.0.3.js" />
     <Content Include="Scripts\vendor\bootstrap-3.3.0.js" />
     <Content Include="Scripts\vendor\bootstrap-clockpicker.js" />
     <Content Include="Scripts\vendor\bootstrap-datepicker.js" />

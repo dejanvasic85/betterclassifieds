@@ -148,6 +148,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var eventEditViewModel = new EventEditViewModel
             {
                 AdId = id,
+                EventId = eventDetails.EventId.GetValueOrDefault(),
                 Tickets = this.MapList<EventTicket, EventTicketViewModel>(evenTicketTypes.ToList())
             };
             return View(eventEditViewModel);
@@ -156,11 +157,20 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost]
         public ActionResult EventTicketUpdate(int id, EventTicketViewModel eventTicketViewModel)
         {
-            _eventManager.UpdateEventTicket(eventTicketViewModel.EventTicketId.GetValueOrDefault(),
-                eventTicketViewModel.TicketName,
-                eventTicketViewModel.Price,
-                eventTicketViewModel.RemainingQuantity);
-
+            if (eventTicketViewModel.EventTicketId.HasValue)
+            {
+                _eventManager.UpdateEventTicket(eventTicketViewModel.EventTicketId.GetValueOrDefault(),
+                    eventTicketViewModel.TicketName,
+                    eventTicketViewModel.Price,
+                    eventTicketViewModel.RemainingQuantity);
+            }
+            else
+            {
+                _eventManager.CreateEventTicket(eventTicketViewModel.EventId, 
+                    eventTicketViewModel.TicketName, 
+                    eventTicketViewModel.Price,
+                    eventTicketViewModel.RemainingQuantity);
+            }
             return Json(new { Updated = true });
         }
 

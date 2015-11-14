@@ -18,5 +18,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         void UpdateEventTicketReservation(EventTicketReservation eventTicketReservation);
         void UpdateEventBooking(EventBooking eventBooking);
         void UpdateEventTicket(EventTicket eventTicket);
+        void CreateEventTicket(EventTicket ticket);
     }
 }

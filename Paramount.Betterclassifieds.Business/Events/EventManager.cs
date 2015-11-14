@@ -22,6 +22,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         void AdjustRemainingQuantityAndCancelReservations(string sessionId, IList<EventBookingTicket> eventBookingTickets);
         string CreateEventTicketsDocument(int eventBookingId, byte[] ticketPdfData, DateTime? ticketsSentDate = null);
         void UpdateEventTicket(int eventTicketId, string ticketName, decimal price, int remainingQuantity);
+        void CreateEventTicket(int? eventId, string ticketName, decimal price, int remainingQuantity);
     }
 
     public class EventManager : IEventManager
@@ -232,8 +233,21 @@ namespace Paramount.Betterclassifieds.Business.Events
                 eventTicket.AvailableQuantity += difference;
                 eventTicket.RemainingQuantity = remainingQuantity;
             }
-            
+
             _eventRepository.UpdateEventTicket(eventTicket);
+        }
+
+        public void CreateEventTicket(int? eventId, string ticketName, decimal price, int remainingQuantity)
+        {
+            var ticket = new EventTicket
+            {
+                AvailableQuantity = remainingQuantity,
+                RemainingQuantity = remainingQuantity,
+                EventId = eventId,
+                TicketName = ticketName,
+                Price = price
+            };
+            _eventRepository.CreateEventTicket(ticket);
         }
     }
 }

@@ -39,7 +39,7 @@ namespace Paramount.Betterclassifieds.Presentation
             int id;
 
             if (filterContext.RouteData.Values.ContainsKey("id") && int.TryParse(filterContext.RouteData.Values["id"].ToString(), out id))
-            {
+            {   
                 return id;
             }
 

@@ -8,8 +8,8 @@
 @section Scripts{
     <script>
         $(function() {
-            var eventEditViewModel = @Html.Raw(Model.ToJsonString());
-            $paramount.ui.editEvent.init(eventEditViewModel);
+            var eventDashboardViewModel = @Html.Raw(Model.ToJsonString());
+            $paramount.ui.eventDashboard.init(eventDashboardViewModel);
         });
 
         var ctx = document.getElementsByClassName("chart")[0].getContext("2d");
@@ -37,7 +37,7 @@
     </script>
 }
 
-<div class="event-ticket-management">
+<div class="event-dashboard">
     <div class="row">
         <div class="col-xs-12">
             @Html.Partial("_UserMenu")
@@ -97,7 +97,7 @@
                         </div>
                         <div class="panel-footer" data-bind="visible: editMode">
                             <div class="pull-right">
-                                <button class="btn btn-success" data-bind="click: saveTicketDetails, css : { 'disabled' : validator.isValid() === false }" data-loading-text="saving..."><i class="fa fa-floppy-o"></i>&nbsp;Save</button>
+                                <button class="btn btn-success" data-bind="click: saveTicketDetails, css : { 'disabled' : validator.isValid() === false }" data-loading-text="Saving..."><i class="fa fa-floppy-o"></i>&nbsp;Save</button>
                             </div>
                             <div class="clearfix"></div>
                         </div>

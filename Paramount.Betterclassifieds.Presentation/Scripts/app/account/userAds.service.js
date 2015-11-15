@@ -25,7 +25,7 @@
     }
 
     UserAdService.prototype.getEditEventUrl = function(adId) {
-        return this.baseUrl + 'EditAd/Event/' + adId;
+        return this.baseUrl + 'EditAd/EventDashboard/' + adId;
     }
 
     $paramount.UserAdService = UserAdService;

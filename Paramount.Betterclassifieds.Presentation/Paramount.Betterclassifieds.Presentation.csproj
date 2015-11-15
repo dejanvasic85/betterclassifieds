@@ -387,8 +387,8 @@
     <Content Include="Scripts\app\account\userAds.service.js" />
     <Content Include="Scripts\app\contactAdvertiser\contactAdvertiser.model.js" />
     <Content Include="Scripts\app\events\bookTickets.model.js" />
-    <Content Include="Scripts\app\events\editEvent.ui.js" />
-    <Content Include="Scripts\app\events\editEvent.model.js" />
+    <Content Include="Scripts\app\events\eventDashboard.ui.js" />
+    <Content Include="Scripts\app\events\eventDashboard.model.js" />
     <Content Include="Scripts\app\events\eventTicketReserved.model.js" />
     <Content Include="Scripts\app\events\findTickets.model.js" />
     <Content Include="Scripts\app\events\event.service.js" />
@@ -741,7 +741,7 @@
     <Content Include="Views\Event\EventBooked.cshtml" />
     <Content Include="Views\Event\CancelEventBooking.cshtml" />
     <Content Include="Views\Event\Tickets.cshtml" />
-    <Content Include="Views\EditAd\Event.cshtml" />
+    <Content Include="Views\EditAd\EventDashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Framework\Validators\" />

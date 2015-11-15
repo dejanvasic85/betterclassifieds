@@ -1,7 +1,7 @@
 ﻿(function ($, ko, $paramount) {
     'use strict';
 
-    function EditEventModel(editEventViewModel) {
+    function EventDashboardModel(editEventViewModel) {
         var me = this;  
         me.tickets = ko.observableArray();
         me.addTicketType = function () {
@@ -18,7 +18,7 @@
         me.bindEditEvent(editEventViewModel);
     }
 
-    EditEventModel.prototype.bindEditEvent = function (editEventViewModel) {
+    EventDashboardModel.prototype.bindEditEvent = function (editEventViewModel) {
         var me = this;
         $.each(editEventViewModel.tickets, function (idx, t) {
             t.adId = editEventViewModel.adId;
@@ -27,6 +27,6 @@
     }
 
     $paramount.models = $paramount.models || {};
-    $paramount.models.EditEventModel = EditEventModel;
+    $paramount.models.EventDashboardModel = EventDashboardModel;
 
 })(jQuery, ko, $paramount);

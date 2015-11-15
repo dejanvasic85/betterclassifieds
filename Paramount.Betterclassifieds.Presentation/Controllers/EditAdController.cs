@@ -140,7 +140,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(true);
         }
 
-        public ActionResult Event(int id)
+        public ActionResult EventDashboard(int id)
         {
             var adDetails = _searchService.GetByAdId(id);
             var eventDetails = _eventManager.GetEventDetailsForOnlineAdId(adDetails.OnlineAdId);

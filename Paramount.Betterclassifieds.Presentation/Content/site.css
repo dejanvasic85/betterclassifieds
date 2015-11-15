@@ -252,12 +252,12 @@
     margin-bottom: 0;
   }
 }
-.event-ticket-management span.badge {
+.event-dashboard span.badge {
   font-size: 35px;
   padding: 15px;
   background-color: #eeeeee;
 }
-.event-ticket-management .event-ticket-panel .panel-heading {
+.event-dashboard .event-ticket-panel .panel-heading {
   font-size: 1.5em;
 }
 /*

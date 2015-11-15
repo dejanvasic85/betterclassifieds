@@ -257,6 +257,9 @@
   padding: 15px;
   background-color: #eeeeee;
 }
+.event-ticket-management .event-ticket-panel .panel-heading {
+  font-size: 1.5em;
+}
 /*
     Form Overrides
 */

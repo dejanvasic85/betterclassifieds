@@ -18,15 +18,28 @@
         me.selectedQuantity = ko.observable();
         me.remainingQuantity = ko.observable();
         me.soldQuantity = ko.observable();
-        me.soldOut = ko.observable();
         me.isAvailable = ko.observable();
         me.maxTicketsPerBooking = ko.observableArray();
 
-        // Editing functionality (requires adId to go through the AuthoriseBookingIdentity server attribute)
+        /*
+         * Computed functions
+         */
+        me.soldOut = ko.computed(function () {
+            return me.remainingQuantity() <= 0;
+        });
+        
+        
+        /*
+         * Editing mode
+         */
         me.editMode = ko.observable();
         me.enableEdit = function () {
             me.editMode(true);
         }
+
+        /*
+         * Save
+         */
         me.saveTicketDetails = function (e, jQueryElement) {
             var $button = $(jQueryElement.toElement);
             $button.button('loading');
@@ -40,6 +53,9 @@
             });
         }
 
+        /*
+         * Validation
+         */
         me.validator = ko.validatedObservable({
             ticketName: me.ticketName.extend({ required: true }),
             availableQuantity: me.availableQuantity.extend({ min: 0, required: true }),
@@ -61,10 +77,9 @@
         me.price(data.price);
         me.selectedQuantity(data.selectedQuantity);
         me.remainingQuantity(data.remainingQuantity);
-        me.soldQuantity(data.availableQuantity - data.remainingQuantity);
-        me.soldOut(data.remainingQuantity <= 0);
         me.isAvailable(data.remainingQuantity > 0);
-        me.editMode(data.enableEdit === true);
+        me.editMode(data.editMode === true);
+        me.soldQuantity(data.availableQuantity - data.remainingQuantity);
 
         // MaxTickets Per booking setup
         if (maxTicketsPerBooking) {

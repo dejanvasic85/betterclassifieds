@@ -43,17 +43,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var adBooking = _bookingManager.GetBooking(id);
             var onlineAd = adBooking.OnlineAd;
 
-            var viewModel = new EditAdDetailsViewModel
-            {
-                Id = id,
-                MaxOnlineImages = _clientConfig.MaxOnlineImages > onlineAd.Images.Count ? _clientConfig.MaxOnlineImages : onlineAd.Images.Count,
-                MaxImageUploadBytes = _applicationConfig.MaxImageUploadBytes,
-                ConfigDurationDays = _clientConfig.RestrictedOnlineDaysCount,
-                StartDate = adBooking.StartDate,
-                IsFutureScheduledAd = adBooking.StartDate >= DateTime.Today,
-                OnlineAdImages = onlineAd.Images.Select(a => a.DocumentId).ToList(),
-            };
-
+            var viewModel = new EditAdDetailsViewModel(id, _clientConfig, onlineAd, adBooking, _applicationConfig);
+ 
             // Online ad mapping
             this.Map(adBooking.OnlineAd, viewModel);
 

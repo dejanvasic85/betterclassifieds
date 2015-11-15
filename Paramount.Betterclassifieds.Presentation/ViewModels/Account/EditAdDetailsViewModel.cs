@@ -1,14 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Web.Mvc;
 using Paramount.ApplicationBlock.Mvc.Validators;
+using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Presentation.Framework;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
     public class EditAdDetailsViewModel
     {
+        public EditAdDetailsViewModel()
+        { }
+
+        public EditAdDetailsViewModel(int id, IClientConfig clientConfig, OnlineAdModel onlineAd, AdBookingModel adBooking, IApplicationConfig applicationConfig)
+        {
+            Id = id;
+            
+            MaxOnlineImages = clientConfig.MaxOnlineImages > onlineAd.Images.Count ? clientConfig.MaxOnlineImages : onlineAd.Images.Count;
+            MaxImageUploadBytes = applicationConfig.MaxImageUploadBytes;
+            ConfigDurationDays = clientConfig.RestrictedOnlineDaysCount;
+            StartDate = adBooking.StartDate;
+            IsFutureScheduledAd = adBooking.StartDate >= DateTime.Today;
+            OnlineAdImages = onlineAd.Images.Select(a => a.DocumentId).ToList();
+        }
+
         #region Online Ad Details
 
         [Required]

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using Humanizer;
 using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Payment;
@@ -27,8 +28,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IAuthManager _authManager;
         private readonly IPaymentService _paymentService;
         private readonly IBroadcastManager _broadcastManager;
+        private readonly IBookingManager _bookingManager;
 
-        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IAuthManager authManager, EventBookingContext eventBookingContext, IPaymentService paymentService, IBroadcastManager broadcastManager)
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IAuthManager authManager, EventBookingContext eventBookingContext, IPaymentService paymentService, IBroadcastManager broadcastManager, IBookingManager bookingManager)
         {
             _searchService = searchService;
             _eventManager = eventManager;
@@ -39,6 +41,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventBookingContext = eventBookingContext;
             _paymentService = paymentService;
             _broadcastManager = broadcastManager;
+            _bookingManager = bookingManager;
         }
 
         public ActionResult ViewEventAd(int id, string titleSlug = "")
@@ -49,6 +52,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 return View("~/Views/Listings/404.cshtml");
             }
+
+            _bookingManager.IncrementHits(id);
 
             var eventModel = _eventManager.GetEventDetailsForOnlineAdId(onlineAdModel.OnlineAdId);
             var eventViewModel = this.Map<Business.Events.EventModel, EventViewDetailsModel>(eventModel);

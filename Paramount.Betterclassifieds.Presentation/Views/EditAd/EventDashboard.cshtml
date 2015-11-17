@@ -1,4 +1,4 @@
-﻿@model EventEditViewModel
+﻿@model EventDashboardViewModel
 
 @{
     Layout = "~/Views/Shared/_ApplicationLayoutWithSearch.cshtml";
@@ -28,15 +28,17 @@
 
     <div class="row statistics">
         <div class="col-sm-6 col-md-3">
-
             <div class="stat">
-                <i class="fa fa-eye fa-4x pull-left"></i>
+                <i class="fa fa-bar-chart fa-4x pull-left"></i>
                 <small>
-                    Page Views
+                    Total Ticket Sales
                 </small>
-                <h2>9299</h2>
+                <h2>
+                    <span data-bind="text: totalSoldAmountFormatted"></span>
+                </h2>
             </div>
         </div>
+
 
         <div class="col-sm-6 col-md-3">
             <div class="stat">
@@ -44,7 +46,7 @@
                 <small>
                     Guest Count
                 </small>
-                <h2>20</h2>
+                <h2><span data-bind="text: totalSoldQty"></span></h2>
             </div>
         </div>
 
@@ -54,19 +56,22 @@
                 <canvas id="ticketSalesChart"></canvas>
 
                 <small>
-                    Tickets Sold
+                    Sold / Remaining
                 </small>
-                <h2>10</h2>
+                <h2>
+                    <span data-bind="text: totalSoldQty"></span> /
+                    <span data-bind="text: totalRemainingQty"></span>
+                </h2>
             </div>
         </div>
 
         <div class="col-sm-6 col-md-3">
             <div class="stat">
-                <i class="fa fa-bar-chart fa-4x pull-left"></i>
+                <i class="fa fa-eye fa-4x pull-left"></i>
                 <small>
-                    Total Ticket Sales
+                    Page Views
                 </small>
-                <h2>$100.00</h2>
+                <h2><span data-bind="text: pageViews"></span></h2>
             </div>
         </div>
 

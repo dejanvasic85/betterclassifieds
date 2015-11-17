@@ -19,19 +19,30 @@ namespace Paramount.Betterclassifieds.DataService.Events
         {
             using (var context = _dbContextFactory.CreateEventContext())
             {
-                return context.Events
+                var eventModel = context.Events
                     .Include(e => e.Tickets)
                     .SingleOrDefault(e => e.EventId == eventId);
+
+                return eventModel;
             }
         }
 
-        public EventModel GetEventDetailsForOnlineAdId(int onlineAdId)
+        public EventModel GetEventDetailsForOnlineAdId(int onlineAdId, bool includeBookings = false)
         {
             using (var context = _dbContextFactory.CreateEventContext())
             {
-                return context.Events
+                var eventModel = context.Events
                     .Include(e => e.Tickets)
                     .SingleOrDefault(e => e.OnlineAdId == onlineAdId);
+
+                if (eventModel != null && includeBookings)
+                {
+                    eventModel.EventBookings = context.EventBookings.Where(b => b.EventId == eventModel.EventId)
+                        .Include(b => b.EventBookingTickets)
+                        .ToList();
+                }
+
+                return eventModel;
             }
         }
 

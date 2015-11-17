@@ -8,7 +8,7 @@ namespace Paramount.Betterclassifieds.Business.Events
 {
     public interface IEventManager
     {
-        EventModel GetEventDetailsForOnlineAdId(int onlineAdId);
+        EventModel GetEventDetailsForOnlineAdId(int onlineAdId, bool includeBookings = false);
         EventModel GetEventDetails(int eventId);
         EventBooking GetEventBooking(int eventBookingId);
         int GetRemainingTicketCount(int? ticketId);
@@ -42,9 +42,9 @@ namespace Paramount.Betterclassifieds.Business.Events
             _documentRepository = documentRepository;
         }
 
-        public EventModel GetEventDetailsForOnlineAdId(int onlineAdId)
+        public EventModel GetEventDetailsForOnlineAdId(int onlineAdId, bool includeBookings = false)
         {
-            return _eventRepository.GetEventDetailsForOnlineAdId(onlineAdId);
+            return _eventRepository.GetEventDetailsForOnlineAdId(onlineAdId, includeBookings);
         }
 
         public EventModel GetEventDetails(int eventId)

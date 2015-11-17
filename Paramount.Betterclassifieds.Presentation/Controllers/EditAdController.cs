@@ -44,7 +44,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var onlineAd = adBooking.OnlineAd;
 
             var viewModel = new EditAdDetailsViewModel(id, _clientConfig, onlineAd, adBooking, _applicationConfig);
- 
+
             // Online ad mapping
             this.Map(adBooking.OnlineAd, viewModel);
 
@@ -134,14 +134,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult EventDashboard(int id)
         {
             var adDetails = _searchService.GetByAdId(id);
-            var eventDetails = _eventManager.GetEventDetailsForOnlineAdId(adDetails.OnlineAdId);
-            var evenTicketTypes = eventDetails.Tickets;
-            var eventEditViewModel = new EventEditViewModel
-            {
-                AdId = id,
-                EventId = eventDetails.EventId.GetValueOrDefault(),
-                Tickets = this.MapList<EventTicket, EventTicketViewModel>(evenTicketTypes.ToList())
-            };
+            var eventDetails = _eventManager.GetEventDetailsForOnlineAdId(adDetails.OnlineAdId, true);
+            var eventTicketTypes = eventDetails.Tickets;
+            var eventEditViewModel = new EventDashboardViewModel(id, adDetails.NumOfViews, eventDetails, this.MapList<EventTicket, EventTicketViewModel>(eventTicketTypes.ToList()));
+
             return View(eventEditViewModel);
         }
 
@@ -157,8 +153,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
             else
             {
-                _eventManager.CreateEventTicket(eventTicketViewModel.EventId, 
-                    eventTicketViewModel.TicketName, 
+                _eventManager.CreateEventTicket(eventTicketViewModel.EventId,
+                    eventTicketViewModel.TicketName,
                     eventTicketViewModel.Price,
                     eventTicketViewModel.RemainingQuantity);
             }

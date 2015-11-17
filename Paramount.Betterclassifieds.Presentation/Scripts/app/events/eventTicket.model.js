@@ -79,7 +79,7 @@
         me.remainingQuantity(data.remainingQuantity);
         me.isAvailable(data.remainingQuantity > 0);
         me.editMode(data.editMode === true);
-        me.soldQuantity(data.availableQuantity - data.remainingQuantity);
+        me.soldQuantity(data.soldQty);
 
         // MaxTickets Per booking setup
         if (maxTicketsPerBooking) {

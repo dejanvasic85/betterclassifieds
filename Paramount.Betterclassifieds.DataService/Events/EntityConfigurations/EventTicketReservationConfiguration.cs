@@ -14,6 +14,8 @@ namespace Paramount.Betterclassifieds.DataService.Events
                 .HasForeignKey(prop => prop.EventTicketId);
             Property(prop => prop.StatusAsString).HasColumnName("Status");
             Ignore(prop => prop.Status);
+            Ignore(prop => prop.GuestFullName);
+            Ignore(prop => prop.GuestEmail);
         }
     }
 }

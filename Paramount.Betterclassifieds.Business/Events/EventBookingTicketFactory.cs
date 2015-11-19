@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Paramount.Betterclassifieds.Business.Events
 {
@@ -11,23 +12,25 @@ namespace Paramount.Betterclassifieds.Business.Events
             this._dateService = dateService;
         }
 
-        public EventBookingTicket CreateFromReservation(EventTicketReservation reservation)
+        public IEnumerable<EventBookingTicket> CreateFromReservation(EventTicketReservation reservation)
         {
-            if(!reservation.EventTicketId.HasValue)
+            if (!reservation.EventTicketId.HasValue)
                 throw new ArgumentNullException("reservation", "EventTicketId cannot be null in the reservation");
 
-            if(reservation.EventTicket == null)
+            if (reservation.EventTicket == null)
                 throw new ArgumentNullException("reservation", "EventTicket cannot be null in the reservation");
 
-            return new EventBookingTicket
+            for (int i = 0; i < reservation.Quantity; i++)
             {
-                EventTicketId = reservation.EventTicketId.Value,
-                Quantity = reservation.Quantity,
-                TicketName = reservation.EventTicket.TicketName,
-                CreatedDateTime = _dateService.Now,
-                CreatedDateTimeUtc = _dateService.UtcNow,
-                Price = reservation.Price
-            };
+                yield return new EventBookingTicket
+                {
+                    EventTicketId = reservation.EventTicketId.Value,
+                    TicketName = reservation.EventTicket.TicketName,
+                    CreatedDateTime = _dateService.Now,
+                    CreatedDateTimeUtc = _dateService.UtcNow,
+                    Price = reservation.Price,
+                };
+            }
         }
     }
 }

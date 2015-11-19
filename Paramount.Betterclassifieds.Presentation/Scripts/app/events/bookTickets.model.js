@@ -1,8 +1,8 @@
 ﻿(function ($, $paramount, ko) {
     'use strict';
 
-    $paramount.models = $paramount.models || {};
-    $paramount.models.BookTickets = function (data, eventService) {
+    
+    function BookTickets(data, eventService) {
         var me = this;
 
         $.extend(data, {});
@@ -39,7 +39,7 @@
                 if (r.notReserved()) {
                     return 0;
                 }
-                return r.price() * r.quantity();
+                return r.price();
             });
         });
 
@@ -103,5 +103,8 @@
             }
         }
     }
+
+    $paramount.models = $paramount.models || {};
+    $paramount.models.BookTickets = BookTickets;
 
 })(jQuery, $paramount, ko);

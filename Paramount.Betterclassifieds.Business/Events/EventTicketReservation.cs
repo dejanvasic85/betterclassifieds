@@ -29,5 +29,8 @@ namespace Paramount.Betterclassifieds.Business.Events
                 }
             }
         }
+
+        public string GuestFullName { get; set; }
+        public string GuestEmail { get; set; }
     }
 }

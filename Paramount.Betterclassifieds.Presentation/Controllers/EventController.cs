@@ -29,8 +29,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IPaymentService _paymentService;
         private readonly IBroadcastManager _broadcastManager;
         private readonly IBookingManager _bookingManager;
+        private readonly EventTicketReservationFactory _eventTicketReservationFactory;
 
-        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IAuthManager authManager, EventBookingContext eventBookingContext, IPaymentService paymentService, IBroadcastManager broadcastManager, IBookingManager bookingManager)
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IAuthManager authManager, EventBookingContext eventBookingContext, IPaymentService paymentService, IBroadcastManager broadcastManager, IBookingManager bookingManager, EventTicketReservationFactory eventTicketReservationFactory)
         {
             _searchService = searchService;
             _eventManager = eventManager;
@@ -42,6 +43,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _paymentService = paymentService;
             _broadcastManager = broadcastManager;
             _bookingManager = bookingManager;
+            _eventTicketReservationFactory = eventTicketReservationFactory;
         }
 
         public ActionResult ViewEventAd(int id, string titleSlug = "")
@@ -70,9 +72,18 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 return Json(new { IsValid = false, Errors = ModelState.ToErrors() });
             }
+            var sessionId = _httpContext.With(s => s.Session).SessionID;
 
-            var ticketRequests = this.MapList<EventTicketRequestViewModel, EventTicketReservationRequest>(tickets);
-            _eventManager.ReserveTickets(_httpContext.With(s => s.Session).SessionID, ticketRequests);
+            var reservations = new List<EventTicketReservation>();
+            foreach (var t in tickets)
+            {
+                reservations.AddRange(_eventTicketReservationFactory.CreateReservations(
+                    t.EventTicketId.GetValueOrDefault(),
+                    t.SelectedQuantity,
+                    sessionId));
+            }
+
+            _eventManager.ReserveTickets(sessionId, reservations);
 
             return Json(new { IsValid = true, Redirect = Url.Action("BookTickets") });
         }
@@ -123,7 +134,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return Json(new { ValidationFailed = true, Errors = ModelState.ToErrors() });
             }
 
-            // Todo - clean this code up a little bit
             ApplicationUser applicationUser;
             if (!User.Identity.IsAuthenticated)
             {
@@ -321,12 +331,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             // From View Model
             configuration.CreateMap<EventTicketRequestViewModel, EventTicket>();
-            configuration.CreateMap<EventTicketRequestViewModel, EventTicketReservationRequest>()
-                .ConvertUsing(a => new EventTicketReservationRequest()
-                {
-                    Quantity = a.SelectedQuantity,
-                    EventTicket = this.Map<EventTicketRequestViewModel, EventTicket>(a)
-                });
             configuration.CreateMap<BookTicketsRequestViewModel, RegistrationModel>();
             configuration.CreateMap<EventTicketReservedViewModel, Business.Events.EventTicketReservation>();
             configuration.CreateMap<EventBookedViewModel, EventTicketsBookedNotification>()

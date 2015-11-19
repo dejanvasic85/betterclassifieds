@@ -67,8 +67,8 @@
     <Compile Include="Events\EventBooking.cs" />
     <Compile Include="Events\EventTicketReservation.cs" />
     <Compile Include="Events\EventTicketReservationStatus.cs" />
-    <Compile Include="Events\EventTicketReservationRequest.cs" />
     <Compile Include="Events\EventManager.cs" />
+    <Compile Include="Events\EventTicketReservationFactory.cs" />
     <Compile Include="Events\RemainingTicketsWithRequestInfo.cs" />
     <Compile Include="Events\SufficientTicketsRule.cs" />
     <Compile Include="IBusinessRule.cs" />

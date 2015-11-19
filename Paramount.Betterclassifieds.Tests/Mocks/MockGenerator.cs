@@ -69,6 +69,10 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.Publications = val);
 		}
+		public AdBookingModelMockBuilder WithCategoryAdType(String val)
+		{ 
+			return WithBuildStep(p => p.CategoryAdType = val);
+		}
 	}
 
 	internal partial class OnlineAdRateMockBuilder : MockBuilder<OnlineAdRateMockBuilder, OnlineAdRate>
@@ -401,17 +405,13 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.StatusAsString = val);
 		}
-	}
-
-	internal partial class EventTicketReservationRequestMockBuilder : MockBuilder<EventTicketReservationRequestMockBuilder, EventTicketReservationRequest>
-	{	
-		public EventTicketReservationRequestMockBuilder WithQuantity(Int32 val)
+		public EventTicketReservationMockBuilder WithGuestFullName(String val)
 		{ 
-			return WithBuildStep(p => p.Quantity = val);
+			return WithBuildStep(p => p.GuestFullName = val);
 		}
-		public EventTicketReservationRequestMockBuilder WithEventTicket(EventTicket val)
+		public EventTicketReservationMockBuilder WithGuestEmail(String val)
 		{ 
-			return WithBuildStep(p => p.EventTicket = val);
+			return WithBuildStep(p => p.GuestEmail = val);
 		}
 	}
 }

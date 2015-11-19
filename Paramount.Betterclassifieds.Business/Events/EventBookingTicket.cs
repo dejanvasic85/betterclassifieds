@@ -10,9 +10,11 @@ namespace Paramount.Betterclassifieds.Business.Events
         public int EventTicketId { get; set; }
         public EventTicket EventTicket { get; set; }
         public string TicketName { get; set; }
-        public int Quantity { get; set; }
         public decimal? Price { get; set; }
+        public string GuestFullName { get; set; }
+        public string GuestEmail { get; set; }
         public DateTime? CreatedDateTime { get; set; }
         public DateTime? CreatedDateTimeUtc { get; set; }
+        
     }
 }

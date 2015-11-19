@@ -8,7 +8,7 @@ namespace Paramount.Betterclassifieds.Business.Payment
         public PayPalPaymentRequest CreatePaymentRequest(EventBooking model, string payReference, string returnUrl, string cancelUrl)
         {
             var lineItems = model.EventBookingTickets
-                .Select(t => new PayPalChargeableItem(t.TicketName, t.Price.GetValueOrDefault(), "AUD", t.Quantity, t.EventTicketId.ToString()))
+                .Select(t => new PayPalChargeableItem(t.TicketName, t.Price.GetValueOrDefault(), "AUD", 1, t.EventTicketId.ToString()))
                 .ToList();
 
             return new PayPalPaymentRequest

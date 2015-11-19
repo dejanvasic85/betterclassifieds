@@ -8,8 +8,9 @@
         public int EventTicketId { get; set; }
         public int EventTicketReservationId { get; set; }
         public string TicketName { get; set; }
-        public int Quantity { get; set; }
         public string Status { get; set; }
         public decimal Price { get; set; }
+        public string GuestFullName { get; set; }
+        public string GuestEmail { get; set; }
     }
 }

@@ -21,13 +21,13 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 this.TotalRemainingQty = eventModel.Tickets.Sum(t => t.RemainingQuantity);
 
                 var bookedTickets = eventModel.EventBookings.SelectMany(m => m.EventBookingTickets).ToList();
-                this.TotalSoldQty = bookedTickets.Sum(t => t.Quantity);
-                this.TotalSoldAmount = bookedTickets.Sum(t => t.Price * t.Quantity);
+                this.TotalSoldQty = bookedTickets.Count;
+                this.TotalSoldAmount = bookedTickets.Sum(t => t.Price);
 
                 // Get the sold quantity for each ticket type
                 foreach (var eventTicketType in tickets)
                 {
-                    eventTicketType.SoldQty = bookedTickets.Where(t => t.EventTicketId == eventTicketType.EventTicketId).Sum(t => t.Quantity);
+                    eventTicketType.SoldQty = bookedTickets.Count(t => t.EventTicketId == eventTicketType.EventTicketId);
                 }
             }
         }

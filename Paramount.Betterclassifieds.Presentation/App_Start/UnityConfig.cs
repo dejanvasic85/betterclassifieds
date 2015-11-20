@@ -1,6 +1,4 @@
-﻿using Paramount.Betterclassifieds.Business.Events;
-
-namespace Paramount.Betterclassifieds.Presentation
+﻿namespace Paramount.Betterclassifieds.Presentation
 {
     using ApplicationBlock.Mvc;
     using Business;
@@ -11,6 +9,7 @@ namespace Paramount.Betterclassifieds.Presentation
     using Business.Print;
     using Business.Repository;
     using Business.Search;
+    using Business.Events;
     using DataService;
     using DataService.Broadcast;
     using DataService.Repository;
@@ -71,7 +70,8 @@ namespace Paramount.Betterclassifieds.Presentation
                 .RegisterType<IInvoiceService, InvoiceService>()
                 .RegisterType<SearchFilters>(new SessionLifetimeManager<SearchFilters>())
                 .RegisterType<IAdFactory, AdFactory>()
-
+                .RegisterType<IEventTicketReservationFactory, EventTicketReservationFactory>()
+                
                 // Rates/ prices (chargeable items)
                 .RegisterType<IPrintChargeableItem, PrintHeadingCharge>("PrintHeadingCharge")
                 .RegisterType<IPrintChargeableItem, PrintPhotoCharge>("PrintPhotoCharge")

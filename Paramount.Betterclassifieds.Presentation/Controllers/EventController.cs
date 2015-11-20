@@ -29,9 +29,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IPaymentService _paymentService;
         private readonly IBroadcastManager _broadcastManager;
         private readonly IBookingManager _bookingManager;
-        private readonly EventTicketReservationFactory _eventTicketReservationFactory;
+        private readonly IEventTicketReservationFactory _eventTicketReservationFactory;
 
-        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IAuthManager authManager, EventBookingContext eventBookingContext, IPaymentService paymentService, IBroadcastManager broadcastManager, IBookingManager bookingManager, EventTicketReservationFactory eventTicketReservationFactory)
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IAuthManager authManager, EventBookingContext eventBookingContext, IPaymentService paymentService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory)
         {
             _searchService = searchService;
             _eventManager = eventManager;

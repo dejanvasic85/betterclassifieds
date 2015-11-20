@@ -16,7 +16,7 @@
         me.status = ko.observable();
         me.isReserved = ko.observable();
         me.notReserved = ko.observable();
-        
+
         /*
          * Computed functions
          */
@@ -33,6 +33,14 @@
                 t += " " + $paramount.formatCurrency(data.price);
             }
             return t;
+        });
+
+        /*
+         * Validation
+         */
+        me.validator = ko.validatedObservable({
+            guestFullName: me.guestFullName.extend({ required: true }),
+            guestEmail: me.guestEmail.extend({ required: true, email: true })
         });
 
         /*
@@ -53,8 +61,12 @@
         var isReserved = data.status.toLowerCase() === 'reserved';
         me.isReserved(isReserved);
         me.notReserved(isReserved === false);
-        me.guestFullName(data.guestFullName);
-        me.guestEmail(data.guestEmail);
+        if (data.guestFullName) {
+            me.guestFullName(data.guestFullName);
+        }
+        if (data.guestEmail) {
+            me.guestEmail(data.guestEmail);
+        }
 
     }
 

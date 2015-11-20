@@ -15,6 +15,7 @@
         });
         me.canContinue = ko.observable(data.successfulReservationCount > 0);
         me.notAllRequestsAreFulfilled = ko.observable(data.reservations.length !== data.successfulReservationCount);
+
         var requiresPayment = _.some(data.reservations, function (r) {
             return r.price > 0;
         });
@@ -82,18 +83,36 @@
             me.paymentMethod('CreditCard');
         }
 
-        // Submit
+        /*
+         * Submit ticket booking
+         */
         me.submitTicketBooking = function () {
+
             if (me.outOfTime()) {
                 // Scroll to the top 
                 $('html, body').animate({ scrollTop: $('.alert-count-down').offset().top }, 1000);
                 return;
             }
 
+            var reservationsNotValid = _.some(me.reservations(), function (r) {
+                var validator = r.validator;
+                var isValid = validator.isValid();
+                if (isValid === false) {
+                    validator.errors.showAllMessages();
+                }
+                return isValid === false;
+            });
+
+            if (reservationsNotValid === true) {
+                $paramount.goToFirstError();
+                return;
+            };
+
             var $form = $('#bookTicketsForm');
             var $btn = $('#bookTicketsView button');
 
-            if ($form.valid()) {
+
+            if ($form.valid() === true) {
                 $btn.button('loading');
                 var request = ko.toJSON(me);
                 eventService.bookTickets(request).success(function (response) {
@@ -103,7 +122,6 @@
                         }
                         window.location = response.redirect;
                     }
-
                 });
             }
         }

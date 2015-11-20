@@ -4,7 +4,7 @@
 (function ($paramount, $window, $, $mobileDetect, htmlEditor) {
     var me = this;
     me.isMobileDevice = null;
-    
+
     // Lazy loading for mobile checking
     me.evaluateMobile = function () {
         if (isMobileDevice !== null) {
@@ -43,7 +43,7 @@
         if (me.evaluateMobile()) {
             return null;
         }
-        
+
         $paramount.onlineEditor = htmlEditor.replace(element);
 
         return $paramount.onlineEditor;
@@ -123,6 +123,13 @@
             return true;
         });
     };
+
+    /*
+     * Puts focus on the first element with an error
+     */
+    $paramount.goToFirstError = function () {
+        $('.has-error').focus();
+    }
 
     return me;
 

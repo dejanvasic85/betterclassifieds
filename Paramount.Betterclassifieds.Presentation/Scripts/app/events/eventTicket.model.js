@@ -60,7 +60,7 @@
             ticketName: me.ticketName.extend({ required: true }),
             availableQuantity: me.availableQuantity.extend({ min: 0, required: true }),
             remainingQuantity: me.remainingQuantity.extend({ min: 0, required: true }),
-            price: me.price.extend({ min: 0, required: true })
+            price: me.price.extend({ min: 0, required: true })  
         });
 
         me.bindEventTicket(data, maxTicketsPerBooking);

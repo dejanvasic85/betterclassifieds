@@ -46,6 +46,7 @@
                 @*Tickets*@
                 <div class="bs-callout bs-callout-info">
                     <h4><i class="fa fa-ticket"></i>&nbsp; Tickets</h4>
+                    <p data-bind="visible: canContinue">We'll need some details for each guest. If you logged in we prefilled some details for you.</p>
                 </div>
 
                 <div data-bind="foreach: reservations">
@@ -93,16 +94,16 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
-                                <div class="control-group">
-                                    <label>Guest Name</label>
-                                    <input type="text" data-bind="value: guestFullName" class="form-control"/>
+                                <div class="control-group" data-bind="validationElement: guestFullName">
+                                    <label class="control-label">Guest Name</label>
+                                    <input type="text" data-bind="value: guestFullName" class="form-control" />
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
-                                <div class="control-group">
+                                <div class="control-group" data-bind="validationElement: guestEmail">
                                     <label class="control-label">Guest Email</label>
-                                    <input type="email" data-bind="value: guestEmail" class="form-control"/>
+                                    <input type="email" data-bind="value: guestEmail" class="form-control" />
                                 </div>
                             </div>
 

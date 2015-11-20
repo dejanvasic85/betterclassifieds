@@ -1,7 +1,7 @@
 ﻿(function ($, $paramount, ko) {
     'use strict';
 
-    
+
     function BookTickets(data, eventService) {
         var me = this;
 
@@ -32,6 +32,11 @@
         // Tickets
         me.reservations = ko.observableArray();
         $.each(data.reservations, function (idx, reservationData) {
+            if (data.isUserLoggedIn === true && idx === 0) {
+                reservationData.guestFullName = data.firstName + ' ' + data.lastName;
+                reservationData.guestEmail = data.email;
+            }
+
             me.reservations.push(new $paramount.models.EventTicketReserved(reservationData));
         });
         me.totalCost = ko.computed(function () {

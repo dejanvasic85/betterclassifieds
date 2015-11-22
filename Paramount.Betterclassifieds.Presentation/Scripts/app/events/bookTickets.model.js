@@ -28,6 +28,8 @@
         me.postCode = ko.observable(data.postCode);
         me.email = ko.observable(data.email);
         me.password = ko.observable();
+        me.invalidCredentials = ko.observable(false);
+        me.serverError = ko.observable(false);
         me.showPassword = ko.observable(data.isUserLoggedIn === false);
 
         // Tickets
@@ -114,15 +116,34 @@
 
             if ($form.valid() === true) {
                 $btn.button('loading');
+
+                // Reset all the errors
+                me.serverError(false);
+                me.invalidCredentials(false);
+
                 var request = ko.toJSON(me);
-                eventService.bookTickets(request).success(function (response) {
-                    if (response.redirect) {
-                        if (response.isPayPal) {
-                            $btn.text('Waiting for PayPal');
+                eventService.bookTickets(request)
+                    .success(function (response) {
+                        // Success
+                        if (response.redirect) {
+                            if (response.isPayPal) {
+                                $btn.text('Waiting for PayPal');
+                            }
+                            window.location = response.redirect;
+                            return;
                         }
-                        window.location = response.redirect;
-                    }
-                });
+
+                        // Login failed
+                        if (response.loginFailed === true) {
+                            me.invalidCredentials(true);
+                            $btn.button('reset');
+                            return;
+                        }
+
+                        // Something is wrong
+                        me.serverError(true);
+                        $btn.button('reset');
+                    });
             }
         }
     }

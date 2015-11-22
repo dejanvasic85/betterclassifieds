@@ -66,6 +66,8 @@
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Scripts\0065-EventBookingTicket.Column.GuestDetails.sql" />
+    <EmbeddedResource Include="Scripts\0064-EventBookingTicket.DropColumn.Quantity.sql" />
     <EmbeddedResource Include="Scripts\0063-EventBooking.Column.TicketsDocumentId.sql" />
     <EmbeddedResource Include="Scripts\0062-EventTicketReservation.Column.Price.sql" />
     <EmbeddedResource Include="Scripts\0062-EventBooking.Column.PaymentReference.sql" />

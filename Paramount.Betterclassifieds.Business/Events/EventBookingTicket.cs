@@ -15,6 +15,5 @@ namespace Paramount.Betterclassifieds.Business.Events
         public string GuestEmail { get; set; }
         public DateTime? CreatedDateTime { get; set; }
         public DateTime? CreatedDateTimeUtc { get; set; }
-        
     }
 }

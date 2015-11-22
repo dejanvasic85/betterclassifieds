@@ -23,10 +23,15 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string Email { get; set; }
         [Required]
         public string Password { get; set; }
-        [Required]
+        [RequiredIf("PaymentRequired", true)]
         public string PaymentMethod { get; set; }
         [Required]
         public decimal TotalCost { get; set; }
+
+        public bool PaymentRequired
+        {
+            get { return this.TotalCost > 0; }
+        }
 
         public List<EventTicketReservedViewModel> Reservations { get; set; }
     }

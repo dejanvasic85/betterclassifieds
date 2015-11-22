@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
+﻿using Paramount.Betterclassifieds.Business.Events;
+
+namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 {
     /// <summary>
     /// Used for displaying currently reserved individual reserved event ticket

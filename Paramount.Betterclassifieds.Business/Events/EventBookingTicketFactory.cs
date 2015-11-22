@@ -29,6 +29,8 @@ namespace Paramount.Betterclassifieds.Business.Events
                     CreatedDateTime = _dateService.Now,
                     CreatedDateTimeUtc = _dateService.UtcNow,
                     Price = reservation.Price,
+                    GuestEmail = reservation.GuestEmail,
+                    GuestFullName = reservation.GuestFullName
                 };
             }
         }

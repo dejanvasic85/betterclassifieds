@@ -169,8 +169,22 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             // Convert from view model
-            var currentReservations = _eventManager.GetTicketReservations(_httpContext.With(ctx => ctx.Session).SessionID);
+            var currentReservations = _eventManager.GetTicketReservations(_httpContext.With(ctx => ctx.Session).SessionID).ToArray();
 
+            // We need to capture the guest information per reservation / ticket
+            foreach (var reservationViewModel in bookTicketsViewModel.Reservations)
+            {
+                var viewModel = reservationViewModel;
+
+                currentReservations.SingleOrDefault(r => r.EventTicketReservationId == reservationViewModel.EventTicketReservationId)
+                    .Do(r =>
+                    {
+                        r.GuestEmail = viewModel.GuestEmail;
+                        r.GuestFullName = viewModel.GuestFullName;
+                    });
+            }
+
+            // Process the booking here!
             var eventBooking = _eventManager.CreateEventBooking(bookTicketsViewModel.EventId.GetValueOrDefault(), applicationUser, currentReservations);
 
             // Set the event id and booking id in the session for the consecutive calls

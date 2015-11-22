@@ -126,28 +126,31 @@
                 @*User Details*@
                 @Html.Partial("_UserEventBookingDetails")
 
-                @*Payment*@
-                <div class="bs-callout bs-callout-info">
-                    <h4><i class="fa fa-credit-card"></i> &nbsp; Payment</h4>
-                </div>
-                <div class="form-group">
-                    <p>
-                        Please select payment type.
-                    </p>
-                    <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-primary" data-bind="click: setPayPal">
-                            <input type="radio" name="paymentMethod" value="PayPal" autocomplete="off"
-                                   data-val="true"
-                                   data-val-required="Payment method is required.">
-                            <i class="fa fa-paypal"></i> &nbsp; Pay Pal
-                        </label>
-                        <label class="btn btn-primary" data-bind="click : setCreditCard">
-                            <input type="radio" name="paymentMethod" value="CreditCard" autocomplete="off">
-                            <i class="fa fa-credit-card"></i>&nbsp; Credit Card
-                        </label>
+                <div data-bind="visible: requiresPayment">
+                    @*Payment*@
+                    <div class="bs-callout bs-callout-info">
+                        <h4><i class="fa fa-credit-card"></i> &nbsp; Payment</h4>
                     </div>
-                    <span class="field-validation-error help-block" data-bind="visible: paymentMethod() === undefined" data-valmsg-for="paymentMethod" data-valmsg-replace="true"></span>
+                    <div class="form-group">
+                        <p>
+                            Please select payment type.
+                        </p>
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary" data-bind="click: setPayPal">
+                                <input type="radio" name="paymentMethod" value="PayPal" autocomplete="off"
+                                       data-val="true"
+                                       data-val-required="Payment method is required.">
+                                <i class="fa fa-paypal"></i> &nbsp; Pay Pal
+                            </label>
+                            <label class="btn btn-primary" data-bind="click : setCreditCard">
+                                <input type="radio" name="paymentMethod" value="CreditCard" autocomplete="off">
+                                <i class="fa fa-credit-card"></i>&nbsp; Credit Card
+                            </label>
+                        </div>
+                        <span class="field-validation-error help-block" data-bind="visible: paymentMethod() === undefined" data-valmsg-for="paymentMethod" data-valmsg-replace="true"></span>
+                    </div>
                 </div>
+
             </div>
 
             <div class="col-sm-4 hidden-xs">
@@ -159,10 +162,24 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-12" data-bind="visible: !canContinue()">
+            <div class="col-xs-12 col-sm-8" data-bind="visible: !canContinue()">
                 <div class="alert alert-info">
                     Unable to continue. Your tickets could not be reserved due to availability.
                     @TryAgainButton()
+                </div>
+            </div>
+
+
+            <div class="col-xs-12 col-sm-8" data-bind="visible: invalidCredentials">
+                <div class="alert alert-danger">
+                    It appears that the email and password combination are not correct.
+                </div>
+            </div>
+            
+            <div class="col-xs-12 col-sm-8" data-bind="visible: serverError">
+                <div class="alert alert-danger">
+                    Oooops. An error has occurred trying to process your request. Please try again 
+                    and if problem persists, contact our team for support.
                 </div>
             </div>
 

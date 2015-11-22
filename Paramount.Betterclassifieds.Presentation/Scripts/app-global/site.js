@@ -128,7 +128,7 @@
      * Puts focus on the first element with an error
      */
     $paramount.goToFirstError = function () {
-        $('.has-error').focus();
+        $('.has-error input').first().focus();
     }
 
     return me;

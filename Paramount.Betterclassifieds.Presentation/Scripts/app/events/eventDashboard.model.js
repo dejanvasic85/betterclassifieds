@@ -20,7 +20,8 @@
                 ticketName: 'Ticket Name',
                 price: 0,
                 availableQuantity: 0,
-                remainingQuantity: 0
+                remainingQuantity: 0,
+                soldQty: 0
             }));
         }
         me.bindEditEvent(editEventViewModel);
@@ -33,7 +34,7 @@
             me.tickets.push(new $paramount.models.EventTicket(t));
         });
         me.totalSoldAmount(editEventViewModel.totalSoldAmount);
-        me.totalSoldAmountFormatted = ko.computed(function() {
+        me.totalSoldAmountFormatted = ko.computed(function () {
             return $paramount.formatCurrency(me.totalSoldAmount());
         });
         me.totalSoldQty(editEventViewModel.totalSoldQty);

@@ -63,6 +63,13 @@
         return $paramount.httpPost(me.baseUrl + 'UpdateEventDetails', me.model);
     }
 
+    AdDesignService.prototype.updateEventTicketDetails = function(eventBookingTicketSetup) {
+        $.extend(me.model, eventBookingTicketSetup);
+        var promise = $paramount.httpPost(me.baseUrl + 'EventTickets', me.model);
+        handleResponse(promise);
+        return promise;
+    }
+
     AdDesignService.prototype.setCategoryAndPublications = function (categoryPublicationModel) {
         return $paramount.httpPost(me.baseUrl + 'Step1', categoryPublicationModel);
     }
@@ -74,5 +81,13 @@
     $paramount.AdDesignService = AdDesignService;
     // Return the paramount module / namespace
     return $paramount;
+
+    function handleResponse(promise) {
+        promise.success(function (response) {
+            if (response.nextUrl) {
+                window.location = response.nextUrl;
+            }
+        });
+    }
 
 })(jQuery, $paramount);

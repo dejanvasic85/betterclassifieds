@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Event Tickets";
+    Layout = "~/Views/Shared/_ApplicationLayoutWithSearch.cshtml";
+}
+
+@section Scripts{
+    <script>
+        $(function () {
+            var rootEl = $('#eventBookingTicketEditor').get(0);
+            var viewModel = new $paramount.models.EventTicketingSetup();
+            ko.applyBindings(viewModel, rootEl);
+        });
+    </script>
+}
+<ul class="nav nav-tabs" role="tablist" id="bookingNavSteps">
+    <li>@Html.ActionLink("1", "Step1")</li>
+    <li class="active"><a href="#">Step 2</a></li>
+    <li class="disabled"><a href="#">3</a></li>
+</ul>
+
+<div id="eventBookingTicketEditor">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="bs-callout bs-callout-info">
+                <h4><i class="fa fa-list"></i> &nbsp; Ticket Details</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 text-right">
+            <button class="btn btn-success" data-bind="click: addTicketType">
+                <i class="fa fa-plus-circle"></i> Add Ticket Option
+            </button>
+        </div>
+    </div>
+
+    @*Pager*@
+    <div class="row">
+        <div class="col-xs-12">
+            <ul class="pager">
+                <li class="previous">
+                    <button id="btnPrev" class="btn btn-large btn-default js-load"
+                            data-nav='@Url.Action("GetEventDetails", "Booking")'>
+                        <i class="glyphicon glyphicon-arrow-left"></i> Previous
+                    </button>
+                </li>
+                <li class="next">
+                    <button data-bind="click:submitTickets" class="btn btn-large btn-default">Next <i class="glyphicon glyphicon-arrow-right"></i></button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

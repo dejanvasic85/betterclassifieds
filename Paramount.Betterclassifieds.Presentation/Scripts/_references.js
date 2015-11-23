@@ -241,3 +241,5 @@
 /// <reference path="app-global/ko-customvalidation.js" />
 /// <reference path="app/events/eventdashboard.ui.js" />
 /// <reference path="app/events/eventdashboard.model.js" />
+/// <reference path="app/eventbooking/eventticketdefinition.model.js" />
+/// <reference path="app/eventbooking/eventticketingsetup.model.js" />

@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Presentation.Controllers
+﻿using Paramount.Betterclassifieds.Presentation.ViewModels.Booking;
+
+namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -285,7 +287,7 @@
             var successView = new SuccessView
             {
                 AdId = id.GetValueOrDefault(),
-                TitleSlug =  Slug.Create(true, bookingCart.OnlineAdModel.Heading),
+                TitleSlug = Slug.Create(true, bookingCart.OnlineAdModel.Heading),
                 IsBookingActive = bookingCart.StartDate <= DateTime.Today,
                 CategoryAdType = bookingCart.CategoryAdType,
                 ExistingUsers = _userManager.GetUserNetworksForUserId(currentUser.Username).Select(usr => new UserNetworkEmailView
@@ -450,7 +452,26 @@
             bookingCart.CompleteStep(2);
             _cartRepository.Save(bookingCart);
 
-            return Json(new { nextUrl = Url.Action("Step3") });
+            if (eventViewModel.TicketingEnabled)
+            {
+                return Json(new { NextUrl = Url.Action("EventTickets") });
+            }
+
+            return Json(new { NextUrl = Url.Action("Step3") });
+        }
+
+        [HttpGet, BookingRequired]
+        public ActionResult EventTickets(IBookingCart bookingCart)
+        {
+            // Todo
+            return View("Step2_EventTickets");
+        }
+
+        [HttpPost, BookingRequired]
+        public ActionResult EventTickets(IBookingCart bookingCart, BookingEventTicketSetupViewModel viewModel)
+        {
+            // Todo
+            return Json(new { NextUrl = Url.Action("Step3") });
         }
 
         #region Mappings

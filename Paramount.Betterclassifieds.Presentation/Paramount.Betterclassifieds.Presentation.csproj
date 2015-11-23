@@ -243,6 +243,8 @@
     <Compile Include="ViewModels\AdEnquiryViewModel.cs" />
     <Compile Include="ViewModels\AdViewModel.cs" />
     <Compile Include="ViewModels\Booking\BookingContextInCookie.cs" />
+    <Compile Include="ViewModels\Booking\BookingEventTicketSetupViewModel.cs" />
+    <Compile Include="ViewModels\Booking\BookingEventTicketViewModel.cs" />
     <Compile Include="ViewModels\Booking\PriceSummaryItemView.cs" />
     <Compile Include="ViewModels\Booking\PriceSummaryView.cs" />
     <Compile Include="ViewModels\Booking\PriceSummaryViewConverter.cs" />
@@ -386,6 +388,8 @@
     <Content Include="Scripts\app\account\userAdsView.model.js" />
     <Content Include="Scripts\app\account\userAds.service.js" />
     <Content Include="Scripts\app\contactAdvertiser\contactAdvertiser.model.js" />
+    <Content Include="Scripts\app\eventBooking\eventTicketingSetup.model.js" />
+    <Content Include="Scripts\app\eventBooking\eventTicketDefinition.model.js" />
     <Content Include="Scripts\app\events\bookTickets.model.js" />
     <Content Include="Scripts\app\events\eventDashboard.ui.js" />
     <Content Include="Scripts\app\events\eventDashboard.model.js" />
@@ -742,6 +746,7 @@
     <Content Include="Views\Event\CancelEventBooking.cshtml" />
     <Content Include="Views\Event\Tickets.cshtml" />
     <Content Include="Views\EditAd\EventDashboard.cshtml" />
+    <Content Include="Views\Booking\Step2_EventTickets.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Framework\Validators\" />

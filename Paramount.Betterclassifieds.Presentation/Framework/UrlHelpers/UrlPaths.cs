@@ -46,6 +46,11 @@ namespace Paramount
             return new UrlBuilder(urlHelper, "Render", "Image", new { documentId, height, width });
         }
 
+        public static UrlBuilder Booking(this UrlHelper urlHelper, int bookingStep, string adType = "")
+        {
+            return new UrlBuilder(urlHelper, "Step" + bookingStep, "Booking", new { adType });
+        }
+
         public static UrlBuilder ImageUpload(this UrlHelper urlHelper)
         {
             return new UrlBuilder(urlHelper, "UploadCropImage", "Image");
@@ -60,7 +65,7 @@ namespace Paramount
         {
             return new UrlBuilder(urlHelper, "CancelCrop", "Image");
         }
-        
+
         public static UrlBuilder BookingInvoice(this UrlHelper urlHelper, int? bookingId = null)
         {
             return new UrlBuilder(urlHelper, "Booking", "Invoice", new { bookingId });
@@ -70,6 +75,6 @@ namespace Paramount
         {
             return new UrlBuilder(urlHelper, "Confirmation", "Account");
         }
-        
+
     }
 }

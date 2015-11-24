@@ -7,7 +7,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
     {
         public EventViewModel()
         {
-            Tickets = new List<EventTicketViewModel>();
             TicketingEnabled = true;
         }
 
@@ -48,7 +47,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
         public string OrganiserPhone { get; set; }
 
-        public List<EventTicketViewModel> Tickets { get; set; }
         public bool TicketingEnabled { get; set; }
     }
 }

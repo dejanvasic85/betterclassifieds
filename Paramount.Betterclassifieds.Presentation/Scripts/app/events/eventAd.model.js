@@ -75,21 +75,8 @@
 
         me.organiserName = ko.observable(data.organiserName);
         me.organiserPhone = ko.observable(data.organiserPhone);
-
-        // Ticketing
-        me.tickets = ko.observableArray();
-        $.each(data.tickets, function (idx, item) {
-            var ticketType = new $paramount.models.EventTicket(item);
-            me.tickets.push(ticketType);
-        });
         me.ticketingEnabled = ko.observable(data.ticketingEnabled);
-        me.addTicketType = function () {
-            var t = new $paramount.models.EventTicket({ ticketName: '', availableQuantity: 0, price: 0 });
-            me.tickets.push(t);
-        }
-        me.removeTicketType = function (ticket) {
-            me.tickets.remove(ticket);
-        };
+      
 
         me.submitChanges = function () {
             var json = ko.toJS(me);

@@ -62,7 +62,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             bookingCart.Event.Location = eventViewModel.Location;
             bookingCart.Event.LocationLatitude = eventViewModel.LocationLatitude;
             bookingCart.Event.LocationLongitude = eventViewModel.LocationLongitude;
-            bookingCart.Event.Tickets = eventViewModel.Tickets.Select(ToModel).ToList();
 
             // Schedule
             bookingCart.SetSchedule(_clientConfig, _dateService.ConvertFromString(eventViewModel.AdStartDate));

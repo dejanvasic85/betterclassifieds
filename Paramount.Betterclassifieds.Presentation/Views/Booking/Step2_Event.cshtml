@@ -188,49 +188,6 @@
 
         </div>
 
-        @*Ticketing*@
-        <div class="row event-tickets">
-            <div class="col-xs-12">
-                <div class="bs-callout bs-callout-info">
-                    <h4 style="display: inline-block;"><i class="fa fa-ticket"></i>&nbsp; Ticketing</h4>
-                    <div class="pull-right">
-                        <input type="checkbox" data-bind="toggle: ticketingEnabled" data-onstyle="success" data-on="Yes Please" data-off="No Thanks"/>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12" data-bind="visible: ticketingEnabled">
-                <div data-bind="foreach: tickets">
-                    <div class="row ticket-form">
-                        <div class="col-sm-6 col-xs-12 control-group">
-                            <label>Ticket Name</label>
-                            <input type="text" class="form-control" data-bind="value: ticketName" placeholder="VIP / Platinum / Free" />
-                        </div>
-                        <div class="col-sm-2 col-xs-5 control-group">
-                            <label class="control-label">Price</label>
-                            <div class="input-group amount">
-                                <div class="input-group-addon">$</div>
-                                <input type="number" class="form-control" placeholder="e.g. 10.00" data-bind="value: price">
-                            </div>
-                        </div>
-                        <div class="col-sm-2 col-xs-5 control-group">
-                            <label class="control-label">Available Qty</label>
-                            <input type="number" class="form-control amount" data-bind="value: availableQuantity" placeholder="e.g. 100" />
-                        </div>
-                        <div class="col-sm-2 col-xs-2 control-group">
-                            <label>&nbsp;</label>
-                            <button class="btn btn-block" data-bind="click: $parent.removeTicketType">
-                                <i class="fa fa-trash"></i><span class="hidden-xs"> Remove</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <button class="btn btn-success" data-bind="click: addTicketType">
-                    <i class="fa fa-plus-circle"></i> Add Ticket Option
-                </button>
-
-            </div>
-        </div>
-
 
         @*Additional Details*@
         <div class="row">
@@ -272,6 +229,24 @@
                         Your ad will run for <span data-bind="text: configDurationDays"></span> days and expires <strong><span data-bind="text: adEndDate"></span></strong>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        @*Ticketing*@
+        <div class="row event-tickets">
+            <div class="col-xs-12">
+                <div class="bs-callout bs-callout-info">
+                    <h4 style="display: inline-block;"><i class="fa fa-ticket"></i>&nbsp; Ticketing</h4>
+                    <div class="pull-right">
+                        <input type="checkbox" data-bind="toggle: ticketingEnabled" data-onstyle="success" data-on="Yes Please" data-off="No Thanks" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 text-center" data-bind="visible: ticketingEnabled">
+                Click Next to configure your tickets.
+            </div>
+            <div class="col-xs-12 text-center" data-bind="visible: ticketingEnabled() === false">
+                Good news. You can always come back and turn on the ticketing feature after your ad is booked.
             </div>
         </div>
 

@@ -38,7 +38,7 @@ namespace Paramount
             this.IsFullUrl = true;
             return this;
         }
-
+        
         public string Build()
         {
             this.Path = IsFullUrl

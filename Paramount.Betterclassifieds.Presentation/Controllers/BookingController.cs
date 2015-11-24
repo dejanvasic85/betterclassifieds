@@ -1,4 +1,5 @@
-﻿using Paramount.Betterclassifieds.Presentation.ViewModels.Booking;
+﻿using Paramount.Betterclassifieds.Business.Events;
+using Paramount.Betterclassifieds.Presentation.ViewModels.Booking;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
@@ -463,8 +464,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpGet, BookingRequired]
         public ActionResult EventTickets(IBookingCart bookingCart)
         {
-            // Todo
-            return View("Step2_EventTickets");
+            var viewModel = new BookingEventTicketSetupViewModel
+            {
+                Tickets = this.MapList<EventTicket, BookingEventTicketViewModel>(bookingCart.Event.Tickets.ToList())
+            };
+            return View("Step2_EventTickets", viewModel);
         }
 
         [HttpPost, BookingRequired]
@@ -492,6 +496,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<BookingCart, Step3View>()
                 .ForMember(m => m.PublicationCount, options => options.MapFrom(src => src.Publications.Length));
             configuration.CreateMap<IBookingCart, EventViewModel>().ConvertUsing(new BookingCartToEventViewConverter(_dateService));
+            configuration.CreateMap<EventTicket, BookingEventTicketViewModel>();
 
             // From ViewModel
             configuration.CreateMap<Step2View, OnlineAdModel>()

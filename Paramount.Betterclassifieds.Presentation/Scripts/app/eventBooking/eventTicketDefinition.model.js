@@ -11,14 +11,16 @@
          */
         me.validator = ko.validatedObservable({
             ticketName: me.ticketName.extend({ required: true }),
-            availableQuantity: me.availableQuantity.extend({ required: true, min: 0 }),
+            availableQuantity: me.availableQuantity.extend({ min: 0, required: true }),
             price: me.price.extend({ min: 0, required: true })
         });
 
         /*
          * Sync existing data
          */
-        this.bindEventTicketDefinition(data);
+        if (data) {
+            this.bindEventTicketDefinition(data);
+        }
     }
 
     EventTicketDefinition.prototype.bindEventTicketDefinition = function (data) {

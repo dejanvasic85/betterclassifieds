@@ -474,7 +474,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost, BookingRequired]
         public ActionResult EventTickets(IBookingCart bookingCart, BookingEventTicketSetupViewModel viewModel)
         {
-            // Todo
+            bookingCart.Event.Tickets = this.MapList<BookingEventTicketViewModel, EventTicket>(viewModel.Tickets);
+            _cartRepository.Save(bookingCart);
             return Json(new { NextUrl = Url.Action("Step3") });
         }
 
@@ -487,16 +488,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             // To view model
             configuration.CreateMap<PublicationModel, PublicationSelectionView>();
-            configuration.CreateMap<OnlineAdModel, Step2View>()
-                .ForMember(member => member.OnlineAdDescription, options => options.MapFrom(src => src.HtmlText));
+            configuration.CreateMap<OnlineAdModel, Step2View>().ForMember(member => member.OnlineAdDescription, options => options.MapFrom(src => src.HtmlText));
             configuration.CreateMap<OnlineAdModel, Step3View>();
             configuration.CreateMap<LineAdModel, Step2View>();
-            configuration.CreateMap<BookingOrderResult, PriceSummaryView>()
-                .ConvertUsing<PriceSummaryViewConverter>();
-            configuration.CreateMap<BookingCart, Step3View>()
-                .ForMember(m => m.PublicationCount, options => options.MapFrom(src => src.Publications.Length));
+            configuration.CreateMap<BookingOrderResult, PriceSummaryView>().ConvertUsing<PriceSummaryViewConverter>();
+            configuration.CreateMap<BookingCart, Step3View>().ForMember(m => m.PublicationCount, options => options.MapFrom(src => src.Publications.Length));
             configuration.CreateMap<IBookingCart, EventViewModel>().ConvertUsing(new BookingCartToEventViewConverter(_dateService));
-            configuration.CreateMap<EventTicket, BookingEventTicketViewModel>();
+            configuration.CreateMap<EventTicket, BookingEventTicketViewModel>().ReverseMap();
 
             // From ViewModel
             configuration.CreateMap<Step2View, OnlineAdModel>()
@@ -517,8 +515,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 .ForMember(member => member.AdHeading, options => options.MapFrom(source => source.OnlineAdModel.Heading))
                 .ForMember(member => member.StartDate, options => options.MapFrom(source => source.StartDate.Value.ToString("dd-MMM-yyyy")))
                 .ForMember(member => member.EndDate, options => options.MapFrom(source => source.EndDate.Value.ToString("dd-MMM-yyyy")))
-                .ForMember(member => member.TotalPrice, options => options.MapFrom(source => source.TotalPrice.ToString("N")))
-                ;
+                .ForMember(member => member.TotalPrice, options => options.MapFrom(source => source.TotalPrice.ToString("N")));
         }
 
         #endregion

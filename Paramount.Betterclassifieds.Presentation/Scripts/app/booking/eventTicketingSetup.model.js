@@ -5,6 +5,7 @@
             adDesignService = new $paramount.AdDesignService();
 
         me.tickets = ko.observableArray();
+        me.ticketFields = ko.observableArray();
 
         /*
          * Functions
@@ -20,8 +21,12 @@
             me.tickets.push(new $paramount.models.EventTicketDefinition());
         }
 
-        me.removeTicketType = function(t) {
+        me.removeTicketType = function (t) {
             me.tickets.remove(t);
+        }
+
+        me.addField = function () {
+            me.ticketFields.push(new $paramount.models.EventTicketField());
         }
 
         /*
@@ -43,6 +48,11 @@
         $.each(data.tickets, function (idx, t) {
             me.tickets.push(new $paramount.models.EventTicketDefinition(t));
         });
+        if (data.ticketFields) {
+            $.each(data.ticketFields, function (idx, f) {
+                me.ticketFields.push(new $paramount.models.EventTicketField(f));
+            });
+        }
     }
 
     $paramount.models = $paramount.models || {};

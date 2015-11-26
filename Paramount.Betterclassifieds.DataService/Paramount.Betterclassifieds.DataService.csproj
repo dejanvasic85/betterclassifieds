@@ -104,6 +104,7 @@
     <Compile Include="DocumentStorage\DocumentContext.cs" />
     <Compile Include="Events\EntityConfigurations\EventBookingConfiguration.cs" />
     <Compile Include="Events\EntityConfigurations\EventBookingTicketConfiguration.cs" />
+    <Compile Include="Events\EntityConfigurations\EventTicketFieldConfiguration.cs" />
     <Compile Include="Events\EntityConfigurations\EventTicketReservationConfiguration.cs" />
     <Compile Include="Events\EventDbContext.cs" />
     <Compile Include="Events\EntityConfigurations\EventModelConfiguration.cs" />

@@ -475,6 +475,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult EventTickets(IBookingCart bookingCart, BookingEventTicketSetupViewModel viewModel)
         {
             bookingCart.Event.Tickets = this.MapList<BookingEventTicketViewModel, EventTicket>(viewModel.Tickets);
+            bookingCart.Event.TicketFields = this.MapList<BookingEventTicketField, EventTicketField>(viewModel.TicketFields);
             _cartRepository.Save(bookingCart);
             return Json(new { NextUrl = Url.Action("Step3") });
         }
@@ -495,6 +496,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<BookingCart, Step3View>().ForMember(m => m.PublicationCount, options => options.MapFrom(src => src.Publications.Length));
             configuration.CreateMap<IBookingCart, EventViewModel>().ConvertUsing(new BookingCartToEventViewConverter(_dateService));
             configuration.CreateMap<EventTicket, BookingEventTicketViewModel>().ReverseMap();
+            configuration.CreateMap<EventTicketField, BookingEventTicketField>().ReverseMap();
 
             // From ViewModel
             configuration.CreateMap<Step2View, OnlineAdModel>()

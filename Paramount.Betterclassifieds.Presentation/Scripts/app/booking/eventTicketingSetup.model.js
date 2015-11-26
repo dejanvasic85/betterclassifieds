@@ -29,6 +29,10 @@
             me.ticketFields.push(new $paramount.models.EventTicketField());
         }
 
+        me.removeTicketField = function(f) {
+            me.ticketFields.remove(f);
+        }
+
         /*
          * Validation
          */

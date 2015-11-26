@@ -54,7 +54,7 @@
                 </div>
                 <div class="col-sm-2 col-xs-2 control-group">
                     <label>&nbsp;</label>
-                    <button class="btn btn-block" data-bind="click: $parent.removeTicketType">
+                    <button class="btn btn-block btn-default" data-bind="click: $parent.removeTicketType">
                         <i class="fa fa-trash"></i><span class="hidden-xs"> Remove</span>
                     </button>
                 </div>
@@ -76,57 +76,60 @@
             <div class="bs-callout bs-callout-info">
                 <h4><i class="fa fa-list"></i> &nbsp; Guest Information</h4>
                 <p>
-                    What information do you need for your guests (per ticket)
+                    What information do you need for your guests (per ticket). Name and Email are already included!
                 </p>
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="alert alert-info">
-                <strong>Note: Name and Email are included by default!</strong>
+    <ul class="list-group">
+        <li class="list-group-item">
+            <div class="row ticket-field-edit">
+                <div class="col-xs-8 col-sm-6 form-group">
+                    <label>Field Name</label>
+                    <input type="text" class="form-control" value="Name" readonly/>
+                </div>
+                <div class="col-xs-4 col-sm-6 form-group">
+                    <label>Required</label>
+                    <div class="display-block">
+                        <h4>Yes</h4>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div class="col-xs-12">
-            <div class="form-inline">
-                <div class="form-group">
-                    <label class="sr-only">Label</label>
-                    <input type="text" class="form-control" value="Name" readonly>
+        </li>
+        <li class="list-group-item">
+            <div class="row ticket-field-edit">
+                <div class="col-xs-8 col-sm-6 form-group">
+                    <label>Field Name</label>
+                    <input type="text" class="form-control" value="Email" readonly />
                 </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" disabled="disabled" checked="checked"> Required
-                    </label>
+                <div class="col-xs-4 col-sm-6 form-group">
+                    <label>Required</label>
+                    <div class="display-block">
+                        <h4>Yes</h4>
+                    </div>
                 </div>
-                <button class="btn btn-default">
-                    <i class="fa fa-trash"></i>
-                    <span class="hidden-xs">Remove</span>
-                </button>
             </div>
+        </li>
+    </ul>
 
-            <div class="form-inline top-buffer-20">
-                <div class="form-group">
-                    <label class="sr-only">Label</label>
-                    <input type="email" class="form-control" value="Email" readonly>
+    <ul class="list-group" data-bind="foreach: ticketFields">
+        <li class="list-group-item">
+            <div class="row ticket-field-edit">
+                <div class="col-xs-8 col-sm-6 form-group" data-bind="validationElement: fieldName">
+                    <label>Field Name</label>
+                    <input type="text" class="form-control" data-bind="value: fieldName" placeholder="e.g. Age" />
                 </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" checked="checked" disabled="disabled"> Required
-                    </label>
+                <div class="col-xs-4 col-sm-6 form-group" data-bind="validationElement: fieldName">
+                    <label>Required</label>
+                    <div class="display-block">
+                        <input type="checkbox" data-bind="toggle: isRequired" data-on="Yes" data-off="No" />
+                        <button class="btn btn-default remove-field" data-bind="click: $parent.removeTicketField"><i class="fa fa-trash"></i> <span class="hidden-xs">Remove</span></button>
+                    </div>
                 </div>
-                <button class="btn btn-default">
-                    <i class="fa fa-trash"></i>
-                    <span class="hidden-xs">Remove</span>
-                </button>
             </div>
-        </div>
-
-        <div class="col-xs-12" data-bind="foreach: ticketFields">
-            Testing
-        </div>
-    </div>
+        </li>
+    </ul>
 
     <div class="row">
         <div class="col-xs-12 text-right">

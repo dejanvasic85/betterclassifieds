@@ -8,14 +8,19 @@
         if (data) {
             me.EventTicketField(data);
         }
+
+        // Validation
+        me.validator = ko.validatedObservable({
+            fieldName: me.fieldName.extend({ required: true })
+        });
     }
 
-    EventTicketField.prototype.bindEventTicketField = function(data) {
+    EventTicketField.prototype.bindEventTicketField = function (data) {
         var me = this;
         me.fieldName(data.fieldName);
         me.isRequired(data.isRequired);
     }
-    
+
     $paramount.models = $paramount.models || {};
     $paramount.models.EventTicketField = EventTicketField;
 

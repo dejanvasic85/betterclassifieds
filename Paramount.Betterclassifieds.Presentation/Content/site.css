@@ -152,6 +152,9 @@
 .event-editor .event-photo .photo-upload .photo .btn-remove {
   min-width: 100px;
 }
+.event-editor .ticket-field-edit button.remove-field {
+  margin-left: 5px;
+}
 /*
     Event Details
 */

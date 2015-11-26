@@ -96,17 +96,7 @@
                 return;
             }
 
-            var reservationsNotValid = _.some(me.reservations(), function (r) {
-                var validator = r.validator;
-                var isValid = validator.isValid();
-                if (isValid === false) {
-                    validator.errors.showAllMessages();
-                }
-                return isValid === false;
-            });
-
-            if (reservationsNotValid === true) {
-                $paramount.goToFirstError();
+            if ($paramount.checkValidity(me.reservations()) === false) {
                 return;
             };
 

@@ -10,13 +10,6 @@
         /*
          * Functions
          */
-        me.submitTickets = function (e, jQueryEl) {
-            var $button = $(jQueryEl.toElement);
-            $button.button('loading');
-            var eventTicketingSetup = ko.toJS(me);
-            adDesignService.updateEventTicketDetails(eventTicketingSetup);
-        }
-
         me.addTicketType = function () {
             me.tickets.push(new $paramount.models.EventTicketDefinition());
         }
@@ -29,10 +22,25 @@
             me.ticketFields.push(new $paramount.models.EventTicketField());
         }
 
-        me.removeTicketField = function(f) {
+        me.removeTicketField = function (f) {
             me.ticketFields.remove(f);
         }
 
+        me.submitTickets = function (e, jQueryEl) {
+
+            if ($paramount.checkValidity(me.tickets(), me.ticketFields()) === false) {
+                return;
+            }
+
+            var $button = $(jQueryEl.toElement);
+            $button.button('loading');
+            var eventTicketingSetup = ko.toJS(me);
+            adDesignService.updateEventTicketDetails(eventTicketingSetup);
+        }
+
+        me.showFieldOptionWarning = ko.computed(function () {
+            return me.ticketFields().length > 3;
+        });
         /*
          * Validation
          */

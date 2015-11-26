@@ -40,19 +40,19 @@
     <ul class="list-group" data-bind="foreach: tickets">
         <li class="list-group-item">
             <div class="row ticket-form">
-                <div class="col-sm-6 col-xs-12 control-group" data-bind="validationElement: ticketName">
+                <div class="col-sm-6 col-xs-12 form-group" data-bind="validationElement: ticketName">
                     <label>Ticket Name</label>
                     <input type="text" class="form-control" data-bind="value: ticketName" placeholder="e.g. VIP / Platinum / Free" />
                 </div>
-                <div class="col-sm-2 col-xs-5 control-group" data-bind="validationElement: price">
+                <div class="col-sm-2 col-xs-5 form-group" data-bind="validationElement: price">
                     <label class="control-label">Price</label>
                     <input type="number" class="form-control" data-bind="value: price">
                 </div>
-                <div class="col-sm-2 col-xs-5 control-group" data-bind="validationElement: availableQuantity">
+                <div class="col-sm-2 col-xs-5 form-group" data-bind="validationElement: availableQuantity">
                     <label class="control-label">Available Qty</label>
                     <input type="number" class="form-control amount" data-bind="value: availableQuantity" />
                 </div>
-                <div class="col-sm-2 col-xs-2 control-group">
+                <div class="col-sm-2 col-xs-2 form-group">
                     <label>&nbsp;</label>
                     <button class="btn btn-block btn-default" data-bind="click: $parent.removeTicketType">
                         <i class="fa fa-trash"></i><span class="hidden-xs"> Remove</span>
@@ -131,6 +131,12 @@
         </li>
     </ul>
 
+    <div class="row" data-bind="visible: showFieldOptionWarning">
+        <div class="col-xs-12">
+            <div class="alert alert-warning">Careful. It might get a little cumbersome for your users to provide a lot of information for every guest.</div>
+        </div>
+    </div>
+     
     <div class="row">
         <div class="col-xs-12 text-right">
             <button class="btn btn-success" data-bind="click: addField">

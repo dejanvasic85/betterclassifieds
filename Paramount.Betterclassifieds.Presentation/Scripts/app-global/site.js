@@ -131,6 +131,44 @@
         $('.has-error input').first().focus();
     }
 
+    /*
+     * Checks the knockout object validator property
+     */
+    $paramount.checkValidity = function () {
+        var result = true;
+        for (var i = 0; i < arguments.length ; i++) {
+            var obj = arguments[i];
+           
+
+            if (obj.constructor === Array) {
+                for (var j = 0; j < obj.length; j++) {
+                    // Recursive call
+                    var objResult = $paramount.checkValidity(obj[j]);
+                    if (objResult === false) {
+                        result = false;
+                    }
+                }
+
+            } else {
+                if (obj['validator']) {
+                    var validator = obj['validator'];
+                    result = validator.isValid();
+                    if (result === false) {
+                        validator.errors.showAllMessages();
+                    }
+                }
+            }
+        };
+
+        if (result === false) {
+            // Show all messages (from knockout validation library) would trigger the error msgs to fire
+            // So make the call to focus on the first error
+            $paramount.goToFirstError();
+        }
+
+        return result;
+    }
+
     return me;
 
 })($paramount, window, jQuery, MobileDetect, CKEDITOR);

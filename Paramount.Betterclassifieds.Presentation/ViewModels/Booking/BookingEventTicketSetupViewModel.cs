@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 {
@@ -6,6 +7,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
     {
         public List<BookingEventTicketViewModel> Tickets { get; set; }
 
-        public List<BookingEventTicketField> TicketFields { get; set; }
+        public List<EventTicketFieldViewModel> TicketFields { get; set; }
     }
 }

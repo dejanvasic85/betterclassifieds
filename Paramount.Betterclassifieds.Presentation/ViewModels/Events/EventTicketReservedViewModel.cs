@@ -1,4 +1,4 @@
-﻿using Paramount.Betterclassifieds.Business.Events;
+﻿using System.Collections.Generic;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 {
@@ -7,6 +7,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
     /// </summary>
     public class EventTicketReservedViewModel
     {
+        public EventTicketReservedViewModel()
+        {
+            TicketFields = new List<EventTicketFieldViewModel>();
+        }
         public int EventTicketId { get; set; }
         public int EventTicketReservationId { get; set; }
         public string TicketName { get; set; }
@@ -14,5 +18,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public decimal Price { get; set; }
         public string GuestFullName { get; set; }
         public string GuestEmail { get; set; }
+        public List<EventTicketFieldViewModel> TicketFields { get; set; }
     }
 }

@@ -243,7 +243,7 @@
     <Compile Include="ViewModels\AdEnquiryViewModel.cs" />
     <Compile Include="ViewModels\AdViewModel.cs" />
     <Compile Include="ViewModels\Booking\BookingContextInCookie.cs" />
-    <Compile Include="ViewModels\Booking\BookingEventTicketField.cs" />
+    <Compile Include="ViewModels\Events\EventTicketFieldViewModel.cs" />
     <Compile Include="ViewModels\Booking\BookingEventTicketSetupViewModel.cs" />
     <Compile Include="ViewModels\Booking\BookingEventTicketViewModel.cs" />
     <Compile Include="ViewModels\Booking\PriceSummaryItemView.cs" />

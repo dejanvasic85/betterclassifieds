@@ -150,10 +150,6 @@
       <Project>{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}</Project>
       <Name>ApplicationBlock.Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ApplicationBlock\Data\ApplicationBlock.Data.csproj">
-      <Project>{F119DDC3-24DD-411E-B509-B8E41A011741}</Project>
-      <Name>ApplicationBlock.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Services\DataTransferObjects\Common.DataTransferObjects.csproj">
       <Project>{377F2216-9202-4DF9-9C5B-C2A4E627FFE2}</Project>
       <Name>Common.DataTransferObjects</Name>

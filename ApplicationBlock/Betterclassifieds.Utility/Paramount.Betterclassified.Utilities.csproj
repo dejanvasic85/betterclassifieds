@@ -133,12 +133,6 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Data\ApplicationBlock.Data.csproj">
-      <Project>{F119DDC3-24DD-411E-B509-B8E41A011741}</Project>
-      <Name>ApplicationBlock.Data</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

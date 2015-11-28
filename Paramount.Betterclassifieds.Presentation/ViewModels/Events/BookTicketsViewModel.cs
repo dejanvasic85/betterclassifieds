@@ -27,6 +27,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             SuccessfulReservationCount = ticketReservations.Count(r => r.Status == EventTicketReservationStatus.Reserved);
             LargeRequestCount = ticketReservations.Count(r => r.Status == EventTicketReservationStatus.RequestTooLarge);
 
+
             if (applicationUser != null)
             {
                 IsUserLoggedIn = true;

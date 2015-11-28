@@ -63,10 +63,6 @@
       <Project>{E51B8388-9A02-40AD-97B4-2802AE77FB69}</Project>
       <Name>Paramount.Betterclassifieds.DataService</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Services\DataTransferObjects\Common.DataTransferObjects.csproj">
-      <Project>{377F2216-9202-4DF9-9C5B-C2A4E627FFE2}</Project>
-      <Name>Common.DataTransferObjects</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\ApplicationBlock\Utility\Paramount.Utility.csproj">
       <Project>{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}</Project>
       <Name>Paramount.Utility</Name>

@@ -90,9 +90,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdoModels\BetterclassifiedDataService.cs" />
-    <Compile Include="AdoModels\ActivitySummaryRow.cs" />
-    <Compile Include="AdoModels\ExpiredAdRow.cs" />
     <Compile Include="Broadcast\BroadcastContext.cs" />
     <Compile Include="Broadcast\BroadcastRepository.cs" />
     <Compile Include="Broadcast\MappingConfig\DeliveryConfiguration.cs" />
@@ -125,8 +122,6 @@
       <DependentUpon>ClassifiedsSearchEntities.dbml</DependentUpon>
     </Compile>
     <Compile Include="DbContextFactory.cs" />
-    <Compile Include="AdoModels\DslDataService.cs" />
-    <Compile Include="AdoModels\IDataProvider.cs" />
     <Compile Include="LinqObjects\PagedSource.cs" />
     <Compile Include="LinqObjects\UserMembership.cs">
       <DependentUpon>UserMembership.dbml</DependentUpon>
@@ -136,7 +131,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="AdoModels\Proc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -161,10 +155,6 @@
       <Project>{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}</Project>
       <Name>ApplicationBlock.Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ApplicationBlock\Data\ApplicationBlock.Data.csproj">
-      <Project>{F119DDC3-24DD-411E-B509-B8E41A011741}</Project>
-      <Name>ApplicationBlock.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ApplicationBlock\Paramount.ApplicationBlock.Mvc\Paramount.ApplicationBlock.Mvc.csproj">
       <Project>{0c2b4ebb-3d4d-45ef-9622-214f9ef80b1a}</Project>
       <Name>Paramount.ApplicationBlock.Mvc</Name>
@@ -172,10 +162,6 @@
     <ProjectReference Include="..\Paramount.Betterclassifieds.Business\Paramount.Betterclassifieds.Business.csproj">
       <Project>{5c1be481-db9e-48cc-9048-5b10e6535d02}</Project>
       <Name>Paramount.Betterclassifieds.Business</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Services\DataTransferObjects\Common.DataTransferObjects.csproj">
-      <Project>{377F2216-9202-4DF9-9C5B-C2A4E627FFE2}</Project>
-      <Name>Common.DataTransferObjects</Name>
     </ProjectReference>
     <ProjectReference Include="..\ApplicationBlock\Utility\Paramount.Utility.csproj">
       <Project>{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}</Project>

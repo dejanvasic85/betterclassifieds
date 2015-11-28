@@ -261,10 +261,6 @@
       <Project>{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}</Project>
       <Name>ApplicationBlock.Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ApplicationBlock\Data\ApplicationBlock.Data.csproj">
-      <Project>{F119DDC3-24DD-411E-B509-B8E41A011741}</Project>
-      <Name>ApplicationBlock.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Modules\DSL.UIController\Modules.DSL.UIController.csproj">
       <Project>{E745F9B8-3967-44D3-9ADB-ABED1B3E3F9D}</Project>
       <Name>Modules.DSL.UIController</Name>

@@ -1,5 +1,4 @@
 ﻿using System.Configuration;
-using Paramount.ApplicationBlock.Data;
 using Paramount.Betterclassifieds.Business.Broadcast;
 using System.Data.Entity;
 

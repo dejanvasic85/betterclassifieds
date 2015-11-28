@@ -108,10 +108,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Crypto.cs" />
-    <Compile Include="Broadcast\Email.cs" />
     <Compile Include="DataAccess\DataExecuteHelper.cs" />
     <Compile Include="DataAccess\DataRowMapper.cs" />
-    <Compile Include="Dsl\DslQueryParam.cs" />
     <Compile Include="Extensions\ArrayExtensions.cs" />
     <Compile Include="Extensions\AttributeExtensions.cs" />
     <Compile Include="DateTimeHelper.cs" />

@@ -240,10 +240,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\ApplicationBlock\Betterclassifieds.Utility\Paramount.Betterclassified.Utilities.csproj">
-      <Project>{c1b1d4cc-e982-472d-8fe3-8719ba24d272}</Project>
-      <Name>Paramount.Betterclassified.Utilities</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ApplicationBlock\Configuration\ApplicationBlock.Configuration.csproj">
       <Project>{ca9b2482-2a5b-4666-b6ee-0be6034fd9c7}</Project>
       <Name>ApplicationBlock.Configuration</Name>
@@ -251,14 +247,6 @@
     <ProjectReference Include="..\ApplicationBlock\Utility\Paramount.Utility.csproj">
       <Project>{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}</Project>
       <Name>Paramount.Utility</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WebApplication\BetterClassified.UI\BetterClassified.UI.csproj">
-      <Project>{04e24b49-191f-44b6-833f-361c559f7b18}</Project>
-      <Name>BetterClassified.UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WebApplication\Xavier\Paramount.Betterclassified.Xavier.vbproj">
-      <Project>{b8a0e004-2aab-4ddb-852d-bf8e740975c2}</Project>
-      <Name>Paramount.Betterclassified.Xavier</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

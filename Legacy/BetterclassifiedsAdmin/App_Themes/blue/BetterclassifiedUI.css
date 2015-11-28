@@ -1,0 +1,49 @@
+﻿/***********************
+LineAdEdit
+************************/
+
+.lineAdEdit
+{
+    font-family: Arial;
+    margin-top: 10px;
+    font-size: 11px;   
+}
+
+.editLineAd-HeaderInput
+{
+    width: 250px;
+    margin: 10px 10px 10px 0px;
+    width: 180px;
+}
+
+.editLineAd-Label
+{
+    display: block;
+    margin-top:10px;
+    font-weight: bold;
+    font-size: 12px;
+    height: 20px;
+}
+
+.editLineAd-superBoldPanel
+{
+    width: 150px;
+    display: inline-block;
+}
+
+.editLineAd-commandPanel
+{
+    float: right;
+    margin: 15px 10px 10px 0;
+}
+
+.editLineAd-button
+{
+    margin: 5px;
+}
+
+/***********************
+LineAdTextBox
+************************/
+.adBodyTextBox
+{}

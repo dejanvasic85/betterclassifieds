@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.75" name="CRM">
+  <DataContextMoniker Name="/CRMDataContext" />
+  <nestedChildShapes>
+    <classShape Id="d1895b10-8c3a-483e-8d73-d98e1d29818e" absoluteBounds="2, 1.375, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/CRMDataContext/EmailTemplate" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8a3fd9d4-0414-4553-bbeb-5a82acaba387" absoluteBounds="2.0149999999999997, 1.835, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="649fdbac-dd4d-4be1-9796-1d6791297592" absoluteBounds="1.75, 5.25, 2, 1.3862939453125">
+      <DataClassMoniker Name="/CRMDataContext/EmailFrom" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8af7e7de-8874-42c2-9d4b-80e29e59260c" absoluteBounds="1.7649999999999997, 5.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4baed96b-13e1-4c0e-8667-c21d99386be4" absoluteBounds="1.875, 3.375, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/CRMDataContext/SmtpClient" />
+      <nestedChildShapes>
+        <elementListCompartment Id="531b6d35-8087-4a72-805c-4aa8a901eec6" absoluteBounds="1.8899999999999997, 3.835, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ebf64956-9b6f-4d40-a992-9620be6882d3" absoluteBounds="4.375, 0.875, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/CRMDataContext/aspnet_Application" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3034c2dc-b64d-44e3-bab0-773bc783c6b3" absoluteBounds="4.39, 1.335, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="6de197ad-203c-430c-be32-942c28501590" absoluteBounds="4.375, 3.625, 2, 4.8477197265625">
+      <DataClassMoniker Name="/CRMDataContext/aspnet_Membership" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6d5b3a57-7933-47a5-b584-5f5e15fc90c9" absoluteBounds="4.39, 4.085, 1.9700000000000002, 4.2877197265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.375 : 2.45359537760417); (5.375 : 3.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CRMDataContext/aspnet_Application/aspnet_Application_aspnet_Membership" />
+      <nodes>
+        <classShapeMoniker Id="ebf64956-9b6f-4d40-a992-9620be6882d3" />
+        <classShapeMoniker Id="6de197ad-203c-430c-be32-942c28501590" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="d59e7d2f-5762-49d3-af14-971d8b2d9046" absoluteBounds="7.125, 3, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/CRMDataContext/aspnet_User" />
+      <nestedChildShapes>
+        <elementListCompartment Id="feaaf41c-7cac-4c48-94ba-b2311e1d6fe3" absoluteBounds="7.14, 3.46, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(7.125 : 4.39024983723958); (6.375 : 4.39024983723958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CRMDataContext/aspnet_User/aspnet_User_aspnet_Membership" />
+      <nodes>
+        <classShapeMoniker Id="d59e7d2f-5762-49d3-af14-971d8b2d9046" />
+        <classShapeMoniker Id="6de197ad-203c-430c-be32-942c28501590" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(6.375 : 1.66429768880208); (8.125 : 1.66429768880208); (8.125 : 3)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/CRMDataContext/aspnet_Application/aspnet_Application_aspnet_User" />
+      <nodes>
+        <classShapeMoniker Id="ebf64956-9b6f-4d40-a992-9620be6882d3" />
+        <classShapeMoniker Id="d59e7d2f-5762-49d3-af14-971d8b2d9046" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

@@ -1,0 +1,37 @@
+﻿div.genericmessagepanel-msg
+{
+    -moz-border-radius: 5px 5px 5px 5px;
+    margin-bottom: 10px;
+    padding: 10px 10px 10px 37px;
+    display:block;
+}
+
+div.error 
+{
+    background-color: #FAE8E8;
+    border: 1px solid #FFA2AA;
+}
+
+div.information 
+{
+    background-color: #E3F2F7;
+    border: 1px solid #B4DBE8;
+}
+
+div.warning 
+{
+    border: 1px solid #D6D61F;
+    background-color: #FFFFD3;
+}
+
+div.success 
+{
+    border: 1px solid #6CD858;
+    background-color: #E3FFDE;
+}
+
+div.suggestion 
+{
+    border: 1px solid #EE9A4D;
+    background-color: #E3F2F7;
+}

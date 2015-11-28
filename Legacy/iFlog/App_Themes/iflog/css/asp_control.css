@@ -1,0 +1,224 @@
+﻿.wizardCreateUser
+{
+	margin-left: 10px;
+}
+
+.modalPopup
+{
+    background-color: White;
+    border: 1px solid gray;
+    padding: 10px;
+    width: 400px;
+}
+
+.modalBackground
+{
+    background-color: Gray;
+    filter: alpha(opacity=70);
+    opacity: 0.7;
+}
+
+.calDayStyle
+{
+	border-bottom: 1px solid #BFBFBF;
+}
+
+.calHeadStyle
+{
+	background: url(../images/calHeadBg.jpg);
+	height: 28px;
+	margin: 0px;
+	padding: 0px;
+}
+
+.calNavStyle
+{
+	padding: 0px 8px
+}
+
+.progressWait
+{
+	font-size: 0.8em;
+	font-weight: bold;
+}
+
+.categoryHeader
+{
+	color: Black;
+	text-decoration: none;
+}
+
+
+.modalPopupLinePreview
+{
+    background-color: White;
+    border: 1px solid gray;
+    padding: 2px;
+    width: 600px;
+    max-height: 500px;
+    overflow: auto;
+}
+
+.modalPopupLinePreview h3
+{
+    font-size: 11px;
+    line-height: 15px;
+	margin-left: 5px;
+}
+
+
+.UserListHeading
+{
+	margin: 10px;
+}
+.UserListPanel
+{
+	margin-left: 10px;
+}
+
+
+/* MODAL Popup for Image Specification */
+
+.modalPopupImage
+{
+    background-color: #FFFFFF;
+	margin: 0px;
+	padding: 0px;
+	width: 520px;
+}
+
+#modalImageContainer .header
+{
+    margin: 0px 10px;
+	padding: 0px;
+	float: left;
+	width: 500px;
+	display: block;
+	padding-top: 20px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1.2em;
+	line-height: 1.2em;
+	color: #333;
+	display: block;
+	font-weight: bold;
+	border-bottom: 1px solid #333;
+}
+
+#modalImageContainer .subHeader
+{
+    margin: 0px 10px;
+	padding: 0px;
+	float: left;
+	width: 500px;
+	display: block;
+	padding-top: 10px;
+	font-family: Arial, Helvetica, sans-serif;
+	
+	line-height: 1.1em;
+	color: #666;
+	display: block;
+	font-weight: bold;
+}
+
+#modalImageContainer .image
+{
+    display: block;
+	margin: 10px;
+	padding: 0px;
+	float: left;
+	width: 500px;
+	border-width: 0px;
+	border-style: none;
+}
+
+#modalImageContainer .body
+{
+    margin: 0px 10px;
+    margin-bottom: 20px;
+	padding: 0px;
+	float: left;
+	width: 500px;
+	display: block;
+	padding-top: 10px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 0.9em;
+	line-height: 1.1em;
+	color: #333;
+	display: block;
+}
+
+.spanFormTitle
+{
+    font-weight: bold;
+	font-size: 0.8em;
+	color: #333;
+}
+
+.edition-dates-control
+{
+	max-height:300px;
+    max-width: 600px;
+	overflow: auto;
+	font-size: 12px;
+}
+
+.edition-dates-header
+{
+	background-color: #5D7B9D;
+	border: 1px solid #fff;
+	color: White;
+	padding: 4px;
+	width: 100%;
+}
+
+.modalPricePopupContainer
+{
+ max-height: 500px;
+ border: 2px solid black;
+ overflow: auto;
+}
+
+.line_ad_container {
+	margin: 10px;
+	padding: 0px;
+	width: 150px;
+	position: absolute;
+	text-align:center;
+}
+
+.line_ad_header {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	line-height: 12px;
+	font-weight: bolder;
+	text-transform: capitalize;
+	color: #000000;
+	text-align: center;
+	margin: 0px;
+	padding: 0px;
+	width: 150px;
+	position: relative;
+}
+.line_ad_image {
+	padding: 0px;
+	height: 142px;
+	width: 150px;
+	margin: 7px 0px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	position: relative;
+}
+.line_ad_main {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	line-height: 10px;
+	color: #000000;
+	text-align: justify;
+	margin: 0px;
+	padding: 0px;
+	width: 150px;
+	position: relative;
+}
+

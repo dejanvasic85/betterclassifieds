@@ -1,0 +1,52 @@
+﻿.lineadview-container 
+{
+	font-family: Arial, Helvetica, Sans-Serif;
+	margin: 10px;
+	padding: 5px;
+	width: 150px;
+	text-align:center;
+}
+
+.lineadview-header {
+	font-size: 12px;
+	font-weight: 900;
+	line-height: 12px;
+	text-transform: capitalize;
+	text-align: center;
+	margin: 0px;
+	padding: 0px;
+	width: 150px;
+	position: relative;
+}
+
+.lineadview-superboldheader {
+	font-size: 13px;
+    font-family: Arial Black;
+	line-height: 12px;
+	text-transform: capitalize;
+	text-align: center;
+	margin: 0px;
+	padding: 0px;
+	width: 150px;
+	position: relative;
+}
+
+.lineadview-image {
+	padding: 0px;
+	height: 142px;
+	width: 150px;
+	margin: 7px 0px;
+	border: none;
+	position: relative;
+}
+
+.lineadview-mainText {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	line-height: 10px;
+	text-align: justify;
+	margin: 0px;
+	padding: 0px;
+	width: 150px;
+	position: relative;
+}

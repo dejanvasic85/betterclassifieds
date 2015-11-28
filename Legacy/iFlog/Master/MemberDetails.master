@@ -1,0 +1,45 @@
+﻿<%@ Master Language="VB" MasterPageFile="~/Master/Default.Master" AutoEventWireup="false" CodeBehind="MemberDetails.master.vb" Inherits="BetterclassifiedsWeb.MemberDetails" %>
+
+<%@ Import Namespace="Paramount.Betterclassifieds.Business" %>
+
+<%@ Import Namespace="BetterclassifiedsWeb" %>
+
+
+<asp:Content ContentPlaceHolderID="head" ID="mainHead" runat="server">
+    <asp:ContentPlaceHolder ID="memberHeadContent" runat="server" />
+</asp:Content>
+
+<asp:Content ID="mainContent" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
+    
+    <div class="clearFloat">
+        <div id="contentBodyAccounts">
+
+            <div class="bs-sidebar">
+                <ul class="nav nav-pills nav-stacked">
+                    <li runat="server" id="Details"><a href="<%= Me.Page.ResolveUrl(PageUrl.MemberDetails)%>">Details</a></li>
+                    <li>
+                        <a href="<%= Me.Page.ResolveUrl(PageUrl.MemberBookings(UserBookingViewType.Current)) %>">Bookings</a>
+                        <ul class="nav">
+                            <li runat="server" id="BookingsAll"><a href="<%= Me.Page.ResolveUrl(PageUrl.MemberBookings(UserBookingViewType.All)) %>">All</a></li>
+                            <li runat="server" id="BookingsCurrent"><a href="<%= Me.Page.ResolveUrl(PageUrl.MemberBookings(UserBookingViewType.Current))%>">Current</a></li>
+                            <li runat="server" id="BookingsScheduled"><a href="<%= Me.Page.ResolveUrl(PageUrl.MemberBookings(UserBookingViewType.Scheduled))%>">Scheduled</a></li>
+                            <li runat="server" id="BookingsExpired"><a href="<%= Me.Page.ResolveUrl(PageUrl.MemberBookings(UserBookingViewType.Expired))%>">Expired</a></li>
+                        </ul>
+                    </li>
+                    <li runat="server" id="ChangePassword"><asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/MemberAccount/ChangePassword.aspx">Change Password</asp:HyperLink></li>
+                    <li runat="server" id="Messages"><asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="~/MemberAccount/Messages.aspx">Messages</asp:HyperLink></li>
+                </ul>
+            </div>
+
+            <div id="mainMyAccount">
+                <asp:ContentPlaceHolder ID="memberContentMain" runat="server" />
+            </div>
+            <div style="clear: both"></div>
+        </div>
+    </div>
+
+</asp:Content>
+
+<asp:Content runat="server" ID="scriptsPlaceholder" ContentPlaceHolderID="pageScripts">
+    <asp:ContentPlaceHolder runat="server" ID="memberPageScripts" />
+</asp:Content>

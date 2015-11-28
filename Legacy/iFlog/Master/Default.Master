@@ -1,0 +1,196 @@
+﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="Default.master.vb" Inherits="BetterclassifiedsWeb._Default1" %>
+
+<%@ Register Src="~/Controls/AdSpace.ascx" TagName="AdSpaces" TagPrefix="ucx" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <meta http-equiv="X-UA-Compatible" content="IE=9,IE=8" />
+
+    <%-- favicon setup --%>
+    <link id="Link3" runat="server" rel="shortcut icon" href="~/favicon.ico" type="image/x-icon" />
+    <link id="Link4" runat="server" rel="icon" href="~/favicon.ico" type="image/ico" />
+    
+    <asp:ContentPlaceHolder ID="head" runat="server" />
+    <title>themusic.com.au classies - Australia's # 1 print and online classifieds network</title>
+    <meta name="description" content="themusic.com.au - Australia's # 1 print and online classifieds network!" />
+    <meta name="keywords" content="themusic, classifieds, classified, newspaper, deal, sell, buy, trade, paypal, online, streetpress, street press, Inpress, Time Off, Drum Media Sydney, Drum Media Perth, 3D World, Drum Media, Lure, magazine, Sydney, Brisbane, Melbourne, Perth, Adelaide, Tasmania, Darwin, New South Wales, Victoria, Queensland, Tasmania, Northern Territory, South Australia, Western Australia,  Employment, For Sale, Music Services, Musicians Available, Musicians Wanted, Services, Wanted, Bass Player, DJ, Drummer, Guiarist, Keyboard, Singer, Song Writer, Band Merchandise, Booking Agents, Duplication, Mastering, EP Release, Hire Services, Legal, Accounting, Management, Mastering, PA, Audio, Engineering, Photography, Posters, Printing, Recording Studios, Rehearsal Rooms, Repairs, Studio Hire, Transport, Tuition, Video, Production, Amps, Bass, Cases, CD, DVD, Computers, Decks, Furniture, Guitars, Keyboards, Mixers, PA Equipment, Recreational Equipment, Beauty Services, Graphic Design, Piercing, Tattoo, Tuition" />
+    
+    <script type="text/javascript">
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+        (function () {
+            var gads = document.createElement("script");
+            gads.async = true;
+            gads.type = "text/javascript";
+            var useSSL = "https:" == document.location.protocol;
+            gads.src = (useSSL ? "https:" : "http:") + "//www.googletagservices.com/tag/js/gpt.js";
+            var node = document.getElementsByTagName("script")[0];
+            node.parentNode.insertBefore(gads, node);
+        })();
+	</script>
+	<script type="text/javascript">
+	    googletag.cmd.push(function () {
+	        // var adSlot1 = googletag.defineSlot('/6355419/Travel/Europe/France/Paris',[300, 250], "banner1");
+	        googletag.defineSlot('/4446275/Leaderboard_top', [728, 90], "leadboard").addService(googletag.pubads());
+	        googletag.defineSlot('/4446275/StripAd_top', [1110, 40], 'div-gpt-ad-1332716467013-20').addService(googletag.pubads()).setTargeting('Pages', 'Home');
+	        googletag.defineSlot('/4446275/skin_left', [150, 901], 'div-gpt-ad-1332716467013-18').addService(googletag.pubads()).setTargeting('Pages', 'Home');
+	        googletag.defineSlot('/4446275/skin_right', [150, 900], 'div-gpt-ad-1332716467013-19').addService(googletag.pubads()).setTargeting('Pages', 'Home');
+	        googletag.enableServices();
+	    });
+	</script>
+</head>
+<body>
+    
+    <form id="form1" runat="server">
+        <paramountItCommon:SessionRefresher SessionUrl="~/SessionRefresher.ashx" TimeOutPeriod="5" runat="server" ID="refresher" />
+        <telerik:RadScriptManager runat="server" ID="radScriptManager" />
+        <div id='div-gpt-ad-1332716467013-20' style='width:1020px; height:40px;margin: 0 auto;' class="gam">
+            <script>
+                googletag.cmd.push(function () { googletag.display('div-gpt-ad-1332716467013-20'); });
+            </script>
+	    </div>
+        <div id="container">
+            <div id="leadboard" style="width:728px; height:90px; float:right">
+              <script type="text/javascript">
+                  googletag.cmd.push(function () { googletag.display('leadboard'); });
+              </script>
+            </div>
+            <a href="http://themusic.com.au/" class="themusic">
+                <img src="//dc53ba3rukcsx.cloudfront.net/images/tmlogo.png" alt="The Music | theMusic.com.au | Australia’s Premier Music News &amp; Reviews Website" />
+            </a>
+            <div class="navigation">
+                <ul>
+                    <asp:Repeater runat="server" ID="menuRepeater">
+                        <ItemTemplate>
+                            <li><a href='<%#Eval("Link")%>'><%#Eval("Name")%></a></li>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                    <li class="active">
+                        <asp:HyperLink runat="server" NavigateUrl="~/" Text="Classies"></asp:HyperLink>
+                        <ul>
+                            <li><asp:HyperLink ID="lnkExplore" runat="server" NavigateUrl="~/" Text="Explore"></asp:HyperLink></li>
+                            <li><asp:HyperLink ID="lnkRates" runat="server" NavigateUrl="~/Rates.aspx" Text="Rates"></asp:HyperLink></li>
+                            <li><asp:HyperLink ID="lnkDeadlines" runat="server" NavigateUrl="~/Publications.aspx" Text="Deadlines"></asp:HyperLink></li>
+                            <li><asp:HyperLink ID="lnkContact" runat="server" NavigateUrl="~/Home/ContactUs" Text="Contact"></asp:HyperLink></li>
+                            <li><asp:HyperLink ID="lnkMyAccount" runat="server" NavigateUrl="~/MemberAccount/MemberDetails.aspx" Text="My Account"></asp:HyperLink></li>
+                            <li><asp:HyperLink ID="lnkNewAd" CssClass="upper" runat="server" NavigateUrl="~/Booking/Step/1" Text="Place New Ad"></asp:HyperLink></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <asp:UpdatePanel runat="server" ID="pnlAjaxSearch">
+                <ContentTemplate>
+                    <asp:Panel runat="server" CssClass="topSearch" ID="pnlSearchOptions" DefaultButton="btnSearch">
+                        <ul>
+                            <li>Quick Search</li>
+                            <li><asp:DropDownList runat="server" ID="ddlMainCategory" DataTextField="Title" DataValueField="MainCategoryId" AutoPostBack="true" Width="150px" OnSelectedIndexChanged="ddlMainCategory_SelectedIndexChanged" /></li>
+                            <li><asp:DropDownList runat="server" ID="ddlSubCategory" Width="150px" DataTextField="Title" DataValueField="MainCategoryId" AutoPostBack="true" /></li>
+                            <li><asp:DropDownList runat="server" ID="ddlLocation" DataTextField="Title" DataValueField="LocationId" Width="150px" OnSelectedIndexChanged="ddlLocation_SelectedIndexChanged" AutoPostBack="True" /></li>
+                            <li><asp:DropDownList runat="server" ID="ddlArea" DataTextField="Title" DataValueField="LocationAreaId" Width="150px" /></li>
+                            <li><asp:TextBox runat="server" ID="txtKeywords" placeholder="keywords..." Width="100px"></asp:TextBox></li>
+                            <li>| OR</li>
+                            <li><asp:TextBox runat="server" ID="txtAdId" placeholder="Ad ID" Width="50px"></asp:TextBox></li>
+                            <li><asp:Button runat="server" ID="btnSearch" Text="Search" CausesValidation="False" CssClass="btn btn-default" /></li>
+                        </ul>
+                    </asp:Panel>
+                </ContentTemplate>
+                <Triggers>
+                    <asp:PostBackTrigger ControlID="btnSearch"/>
+                </Triggers>
+            </asp:UpdatePanel>
+
+            <div id="loginRegister">
+                <asp:LoginView ID="LoginView1" runat="server">
+                    <AnonymousTemplate>
+                        <asp:LoginStatus ID="LoginStatus1" runat="server" LoginText="Login to the Classies OR" />
+                        <asp:HyperLink ID="HyperLink1" runat="server" Text="Register" NavigateUrl="~/Register.aspx" />
+                    </AnonymousTemplate>
+                    <LoggedInTemplate>
+                        <asp:Label ID="Label2" runat="server" Text="Hello"></asp:Label>
+                        <asp:LoginName ID="LoginName1" runat="server" />
+                        !
+                        <paramountIt:MessageNotifyControl ID="notifyControl" runat="server" />
+                        <asp:LoginStatus ID="LoginStatus1" runat="server" />
+                    </LoggedInTemplate>
+                </asp:LoginView>
+                <asp:Label ID="lblVersion" runat="server" Text="" />
+            </div>
+            <div class="mainContent">
+                
+                    <div id="content">
+                        <div id="contentMain">
+                            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
+                        </div>
+
+                        <div class="bottomBanner">
+                            <ucx:AdSpaces ID="ucxAds" runat="server" Location="Footer" />
+                        </div>
+                    </div>
+                
+            </div>
+
+            <div class="footer" id="theMusicFooterContent" runat="server"></div>
+        </div>
+        
+        <div class="skins">
+            <div class="left">
+                <!-- skin_left -->
+		        <div id='div-gpt-ad-1332716467013-18'>
+			        <script type='text/javascript'>
+			            googletag.cmd.push(function () { googletag.display('div-gpt-ad-1332716467013-18'); });
+			        </script>
+		        </div>
+            </div>
+            <div class="right">
+                <div id='div-gpt-ad-1332716467013-19'>
+			        <script type='text/javascript'>
+			            googletag.cmd.push(function () { googletag.display('div-gpt-ad-1332716467013-19'); });
+			        </script>
+		        </div>
+            </div>
+        </div>
+
+    </form>
+    
+    <%--Facebook integration--%>
+   <div id="fb-root"></div>
+    <script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=143183162513319";
+    fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    
+    <%--Google Integration--%>
+    <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+        try {
+            var pageTracker = _gat._getTracker("UA-12017002-5");
+            pageTracker._trackPageview();
+
+        } catch (err) { }
+
+    </script>
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-19118426-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+    
+    <asp:ContentPlaceHolder runat="server" ID="pageScripts"></asp:ContentPlaceHolder>
+</body>
+
+</html>

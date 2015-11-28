@@ -1,0 +1,166 @@
+﻿.message-control 
+{
+	width:200px;
+	}
+
+
+.message-control .label
+{
+	display:block;
+	margin-top:6px;
+}
+
+
+.rightSidebarMessage .input-text {
+	color:#333333;
+	float:left;
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:10px;
+	margin:4px;
+	padding:0;
+	width:146px;
+}
+
+.rightSidebarMessage {
+	display:block;
+	float:left;
+	margin-left:0;
+	
+	right:0;
+	top:0;
+	width:160px;
+}
+
+
+.rightSidebarMessage .messageButton {
+	display:block;
+	float:right;
+	margin:3px 5px 0;
+	padding:0;
+}
+
+.rightSidebarMessage .messageBottom {
+	background-image:url(../images/bottom_message.gif);
+	background-repeat:no-repeat;
+	display:block;
+	float:left;
+	height:10px;
+	margin:0;
+	padding:0;
+	width:162px;
+}
+
+.rightSidebarMessage .textFieldInput {
+	color:#333333;
+	float:left;
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:10px;
+	height:120px;
+	margin:4px;
+	padding:0;
+	width:150px;
+}
+
+.rightSidebarMessage .messageHead {
+	background-image:url(../images/top_message.gif);
+	background-repeat:no-repeat;
+	display:block;
+	float:left;
+	height:45px;
+	margin:0;
+	padding:0;
+	width:162px;
+}
+
+.rightSidebarMessage .infoMessage {
+	border-left:1px solid #666666;
+	border-right:1px solid #666666;
+	display:block;
+	float:left;
+	padding:5px 0 0;
+	width:160px;
+}
+
+.success-panel a
+{
+	text-transform:none;
+	text-decoration:none;
+	background:transparent url(../images/informationbar_right.gif) no-repeat scroll right top;
+	border:0 none;
+	cursor:pointer;
+	display:block;
+	font-size:12px !important;
+	font-style:italic;
+	font-weight:bold;
+	height:30px;
+	margin-bottom:10px !important;
+	margin-top:5px;
+	overflow:hidden;
+	padding:0 !important;
+}
+
+.success-panel .inner-text
+{
+	background:transparent url(../images/icon_success.gif) no-repeat scroll left top;
+	border:0 none;
+	color:#5A801B;
+	display:block;
+	height:30px;
+	padding:6px 10px 0 35px;
+	}
+
+.message-notification
+{
+	margin-right:5px;
+	padding-left:17px;
+	color:#FFFFFF;
+	text-decoration:none;
+	color:#333333;
+	
+	margin-right:50px;
+}
+
+.message-control .control-panel
+{
+	margin:12px;
+}
+.fieldset
+{
+	border-right:1px solid #CCCCCC !important;
+	margin-bottom:0;
+	border:1px solid #CCCCCC;
+	margin-bottom:15px;
+	padding:10px 15px 15px;
+}
+
+.fieldset legend {
+font-size:110%;
+padding:0 10px;
+}
+
+.fieldset  .back
+{
+	margin-left:20px;
+}
+
+.contact-advertiser
+{
+	font-size:13px;
+	text-align:right ;
+	margin-top :5px;
+	font-weight:bold;
+}
+
+
+.fieldset  .button
+{
+	margin-right:10px;
+}
+/*
+	background:#2A2A2A url(images/button.gif) repeat-x scroll 0 0;
+	border:1px solid #00487A;
+	color:#FFFFFF;
+	cursor:pointer;
+	padding:5px 9px;
+	text-shadow:1px 1px 0 #00487A;
+}*/

@@ -1,0 +1,37 @@
+﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="Dialog.master.vb" Inherits="BetterclassifiedAdmin.Dialog" %>
+
+<%@ Register Src="~/controls/UserMessage.ascx" TagName="UserMessage" TagPrefix="ucx" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <meta http-equiv="X-UA-Compatible" content="IE=8,IE=9" />
+
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <%--Script Manager--%>
+        <asp:ScriptManager ID="ScriptManager1" runat="server" />
+
+        <%--Header Placeholder--%>
+        <asp:ContentPlaceHolder ID="HeaderContent" runat="server" />
+
+        <%--User message display--%>
+        <div style="padding-left: 10px;">
+            <ucx:UserMessage ID="ucxUserMessage" runat="server" />
+        </div>
+
+        <%--Body Content Placeholder--%>
+        <div style="padding: 10px">
+            <asp:ContentPlaceHolder ID="BodyContent" runat="server" />  
+        </div>
+
+        <div style="clear:both"></div>
+    </div>
+    </form>
+</body>
+</html>

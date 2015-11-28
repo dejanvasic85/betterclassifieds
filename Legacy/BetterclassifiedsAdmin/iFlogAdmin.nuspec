@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>iFlogAdmin</id>
+    <title>iFlogAdmin</title>
+    <version>2.0.0</version>
+    <authors>Paramount IT Solutions</authors>
+    <owners>Paramount IT Solutions</owners>
+    <licenseUrl>http://paramountit.com.au</licenseUrl>
+    <projectUrl>http://paramountit.com.au</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Web portal for administering features for the iFlog application.</description>
+    <releaseNotes>
+      
+    </releaseNotes>
+  </metadata>
+</package>

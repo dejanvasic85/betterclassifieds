@@ -21,6 +21,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
             {
                 var eventModel = context.Events
                     .Include(e => e.Tickets)
+                    .Include(e => e.TicketFields)
                     .SingleOrDefault(e => e.EventId == eventId);
 
                 return eventModel;

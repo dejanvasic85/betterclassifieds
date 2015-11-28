@@ -108,8 +108,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Crypto.cs" />
-    <Compile Include="DataAccess\DataExecuteHelper.cs" />
-    <Compile Include="DataAccess\DataRowMapper.cs" />
     <Compile Include="Extensions\ArrayExtensions.cs" />
     <Compile Include="Extensions\AttributeExtensions.cs" />
     <Compile Include="DateTimeHelper.cs" />
@@ -119,11 +117,9 @@
     <Compile Include="Extensions\IntExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\SystemExtensions.cs" />
-    <Compile Include="GetControlString.cs" />
     <Compile Include="Globalization\IDateService.cs" />
     <Compile Include="Guard.cs" />
     <Compile Include="HtmlExtensions.cs" />
-    <Compile Include="HttpCacher.cs" />
     <Compile Include="Mapping.cs" />
     <Compile Include="ParamountEncryption.cs" />
     <Compile Include="PDFGenerator.cs">
@@ -136,7 +132,6 @@
     <Compile Include="Security\SecureQueryString.cs" />
     <Compile Include="Security\SecUtil.cs" />
     <Compile Include="Slug.cs" />
-    <Compile Include="XmlUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

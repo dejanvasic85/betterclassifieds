@@ -24,6 +24,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             CategoryAdType = onlineAdModel.CategoryAdType;
             EventPhoto = onlineAdModel.PrimaryImage;
             Location = eventDetails.Location;
+            TicketFields = eventDetails.TicketFields.Select(f => new EventTicketFieldViewModel { FieldName = f.FieldName, IsRequired = f.IsRequired }).ToList();
             SuccessfulReservationCount = ticketReservations.Count(r => r.Status == EventTicketReservationStatus.Reserved);
             LargeRequestCount = ticketReservations.Count(r => r.Status == EventTicketReservationStatus.RequestTooLarge);
 
@@ -38,6 +39,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 Email = applicationUser.Email;
             }
         }
+
+        public List<EventTicketFieldViewModel> TicketFields { get; set; }
 
         public int AdId { get; set; }
         public string Title { get; set; }

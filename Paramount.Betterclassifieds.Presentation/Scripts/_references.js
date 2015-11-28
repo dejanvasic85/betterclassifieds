@@ -242,5 +242,6 @@
 /// <reference path="app/events/eventdashboard.ui.js" />
 /// <reference path="app/events/eventdashboard.model.js" />
 /// <reference path="app/booking/eventticketingsetup.model.js" />
-/// <reference path="app/booking/eventticketfield.model.js" />
 /// <reference path="app/booking/eventticketdefinition.model.js" />
+/// <reference path="app/common/dynamicfielddefinition.js" />
+/// <reference path="app/common/dynamicfieldvalue.js" />

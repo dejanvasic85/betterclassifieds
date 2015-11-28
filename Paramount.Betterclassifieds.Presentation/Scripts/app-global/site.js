@@ -139,7 +139,6 @@
         for (var i = 0; i < arguments.length ; i++) {
             var obj = arguments[i];
            
-
             if (obj.constructor === Array) {
                 for (var j = 0; j < obj.length; j++) {
                     // Recursive call

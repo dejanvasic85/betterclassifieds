@@ -227,15 +227,12 @@
   padding-bottom: 10px;
   border-bottom: 1px solid #dddddd;
 }
-.event-ticket label {
+.event-ticket .ticket-label {
   font-size: 0.8em;
   width: 80px;
 }
-.event-ticket label i {
+.event-ticket .ticket-label i {
   min-width: 15px;
-}
-.event-ticket .label {
-  font-size: 12px;
 }
 .event-ticket span {
   font-size: 0.8em;

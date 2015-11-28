@@ -1,7 +1,6 @@
 ﻿(function ($, $paramount, ko) {
     'use strict';
 
-
     function BookTickets(data, eventService) {
         var me = this;
 
@@ -40,8 +39,9 @@
                 reservationData.guestEmail = data.email;
             }
 
-            me.reservations.push(new $paramount.models.EventTicketReserved(reservationData));
+            me.reservations.push(new $paramount.models.EventTicketReserved(reservationData, data.ticketFields));
         });
+        
         me.totalCost = ko.computed(function () {
             return _.sum(me.reservations(), function (r) {
                 if (r.notReserved()) {
@@ -96,7 +96,9 @@
                 return;
             }
 
-            if ($paramount.checkValidity(me.reservations()) === false) {
+            var fields = getAllDynamicFields();
+
+            if ($paramount.checkValidity(me.reservations(), fields) === false) {
                 return;
             };
 
@@ -136,7 +138,21 @@
                     });
             }
         }
+
+
+        function getAllDynamicFields() {
+
+            var result = [];
+            var fieldObservables = _.pluck(me.reservations(), 'ticketFields');
+            _.each(fieldObservables, function (f) {
+                _.each(f(), function(dynamicField) {
+                    result.push(dynamicField);
+                });
+            });
+            return result;
+        }
     }
+
 
     $paramount.models = $paramount.models || {};
     $paramount.models.BookTickets = BookTickets;

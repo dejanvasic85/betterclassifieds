@@ -21,8 +21,9 @@ namespace Paramount.Betterclassifieds.Presentation
             bundles.Add(new ScriptBundle("~/bundle/paramount-app")
                 .Include("~/Scripts/app-global/paramount-site.js")
                 .Include("~/Scripts/app-global/paramount-ui.js")
-                .IncludeDirectory("~/Scripts/app-global", "*.js", true)
-                .IncludeDirectory("~/Scripts/app", "*.js", true)
+                .IncludeDirectory("~/Scripts/app-global", "*.js", true) // Infrastructure and utiltiy functions (e.g. UI button loaders)
+                .IncludeDirectory("~/Scripts/app/common", "*.js", true) // All the global objects go here
+                .IncludeDirectory("~/Scripts/app", "*.js", true)        // All the knockout objects
                 );
             
             // Enable this flag for development only when trying to force bundling and minification

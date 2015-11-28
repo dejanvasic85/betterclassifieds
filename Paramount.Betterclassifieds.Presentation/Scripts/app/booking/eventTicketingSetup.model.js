@@ -19,7 +19,7 @@
         }
 
         me.addField = function () {
-            me.ticketFields.push(new $paramount.models.EventTicketField());
+            me.ticketFields.push(new $paramount.models.DynamicFieldDefinition());
         }
 
         me.removeTicketField = function (f) {

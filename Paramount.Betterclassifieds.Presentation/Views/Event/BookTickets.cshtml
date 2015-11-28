@@ -60,7 +60,7 @@
                     <div class="event-ticket">
                         <div class="row">
                             <div class="col-xs-2">
-                                <img class="thumbnail img-responsive" src="@Url.Image(Model.EventPhoto)" />
+                                <img class="thumbnail img-responsive" src="@Url.Image(Model.EventPhoto)"/>
                             </div>
                             <div class="col-xs-10">
                                 <div class="row">
@@ -70,21 +70,21 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-12">
-                                        <label>
+                                        <label class="ticket-label">
                                             <i class="fa fa-ticket"></i> Ticket
                                         </label>
                                         <span data-bind="text: ticketTypeAndPrice"></span>
                                     </div>
 
                                     <div class="col-xs-12">
-                                        <label>
+                                        <label class="ticket-label">
                                             <i class="fa fa-list-ol"></i> Ticket ID
                                         </label>
                                         <span>TBC</span>
                                     </div>
 
                                     <div class="col-xs-12">
-                                        <label>
+                                        <label class="ticket-label">
                                             <i class="fa fa-map-marker"></i> Address
                                         </label>
                                         <span>@Model.Location</span>
@@ -95,18 +95,27 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="control-group" data-bind="validationElement: guestFullName">
-                                    <label class="control-label">Guest Name</label>
-                                    <input type="text" data-bind="value: guestFullName" class="form-control" />
+                                    <label class="control-label">Guest Name</label> *
+                                    <input type="text" data-bind="value: guestFullName" class="form-control"/>
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <div class="control-group" data-bind="validationElement: guestEmail">
-                                    <label class="control-label">Guest Email</label>
-                                    <input type="email" data-bind="value: guestEmail" class="form-control" />
+                                    <label class="control-label">Guest Email</label> *
+                                    <input type="email" data-bind="value: guestEmail" class="form-control"/>
                                 </div>
                             </div>
-                            
+
+                        </div>
+                        <div class="row" data-bind="foreach: ticketFields">
+                            <div class="col-sm-6">
+                                <div class="control-group" data-bind="validationElement: fieldValue">
+                                    <label class="control-label" data-bind="text: fieldName"></label>
+                                    <span data-bind="visible: isRequired">*</span>
+                                    <input type="text" data-bind="value: fieldValue" class="form-control"/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -1,12 +1,8 @@
 ﻿(function ($, $paramount, ko) {
     'use strict';
-    function EventTicketReserved(data) {
+    function EventTicketReserved(data, ticketFieldData) {
 
         var me = this;
-
-        /*
-         * Model
-         */
         me.eventTicketId = ko.observable();
         me.eventTicketReservationId = ko.observable();
         me.ticketName = ko.observable();
@@ -16,6 +12,7 @@
         me.status = ko.observable();
         me.isReserved = ko.observable();
         me.notReserved = ko.observable();
+        me.ticketFields = ko.observableArray();
 
         /*
          * Computed functions
@@ -46,10 +43,11 @@
         /*
          * Update
          */
-        this.updateEventTicketReservartion(data);
+        this.updateEventTicketReservartion(data, ticketFieldData);
 
     }
-    EventTicketReserved.prototype.updateEventTicketReservartion = function (data) {
+
+    EventTicketReserved.prototype.updateEventTicketReservartion = function (data, ticketFieldData) {
         $.extend(data, {});
 
         var me = this;
@@ -68,6 +66,9 @@
             me.guestEmail(data.guestEmail);
         }
 
+        $.each(ticketFieldData, function (fieldIndex, f) {
+            me.ticketFields.push(new $paramount.models.DynamicFieldValue(f));
+        });
     }
 
     $paramount.models = $paramount.models || {};

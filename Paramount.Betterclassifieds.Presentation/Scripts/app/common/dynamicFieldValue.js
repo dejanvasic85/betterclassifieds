@@ -1,27 +1,29 @@
 ﻿(function ($, ko, $paramount) {
-
-    function EventTicketField(data) {
+    'use strict';
+    function DynamicFieldValue(data) {
         var me = this;
         me.fieldName = ko.observable();
+        me.fieldValue = ko.observable();
         me.isRequired = ko.observable();
 
         if (data) {
-            me.EventTicketField(data);
+            this.bindDynamicFieldValue(data);
         }
 
         // Validation
         me.validator = ko.validatedObservable({
-            fieldName: me.fieldName.extend({ required: true })
+            fieldValue: me.fieldValue.extend({ required: data.isRequired })
         });
     }
 
-    EventTicketField.prototype.bindEventTicketField = function (data) {
+    DynamicFieldValue.prototype.bindDynamicFieldValue = function (data) {
         var me = this;
         me.fieldName(data.fieldName);
+        me.fieldValue(data.fieldValue);
         me.isRequired(data.isRequired);
     }
 
     $paramount.models = $paramount.models || {};
-    $paramount.models.EventTicketField = EventTicketField;
+    $paramount.models.DynamicFieldValue = DynamicFieldValue;
 
 })(jQuery, ko, $paramount);

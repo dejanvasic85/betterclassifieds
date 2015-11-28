@@ -58,7 +58,6 @@
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="TechTalk.SpecFlow">
       <HintPath>..\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
     </Reference>
@@ -89,11 +88,6 @@
     <Compile Include="Base\WebDriverExtensions.cs" />
     <Compile Include="Base\WebElementExtensions.cs" />
     <Compile Include="Base\DataRepositoryFactory.cs" />
-    <Compile Include="FeaturesAdmin\AdminLogin.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AdminLogin.feature</DependentUpon>
-    </Compile>
     <Compile Include="Features\AccountDetails.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -143,8 +137,6 @@
     <Compile Include="Mocks\Models\RoleType.cs" />
     <Compile Include="Mocks\TestData.cs" />
     <Compile Include="NavigationSteps.cs" />
-    <Compile Include="PagesAdmin\AdminDashboardPage.cs" />
-    <Compile Include="PagesAdmin\AdminLoginPage.cs" />
     <Compile Include="Pages\AccountDetailsTestPage.cs" />
     <Compile Include="Pages\Booking\BookingCompletePage.cs" />
     <Compile Include="Pages\Booking\BookingBasePage.cs" />
@@ -160,7 +152,6 @@
     <Compile Include="Pages\UserAdsPage.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="LoginContext.cs" />
-    <Compile Include="StepsAdmin\AdminLoginPageSteps.cs" />
     <Compile Include="BeforeAndAfterTests.cs" />
     <Compile Include="Mocks\DapperExtensions.cs" />
     <Compile Include="Base\ITestDataRepository.cs" />
@@ -183,10 +174,6 @@
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="FeaturesAdmin\AdminLogin.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>AdminLogin.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\AccountDetails.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -247,6 +234,10 @@
     <ProjectReference Include="..\ApplicationBlock\Utility\Paramount.Utility.csproj">
       <Project>{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}</Project>
       <Name>Paramount.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Paramount.Betterclassifieds.Security\Paramount.Betterclassifieds.Security.csproj">
+      <Project>{9ce120ea-cb54-4f24-a68c-a80eb331dbde}</Project>
+      <Name>Paramount.Betterclassifieds.Security</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

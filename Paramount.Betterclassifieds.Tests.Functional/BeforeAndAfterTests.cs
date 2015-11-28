@@ -26,7 +26,6 @@
         {
             _container = container;
             _container.RegisterInstanceAs(new PageBrowser(_webDriver, _configuration), typeof(PageBrowser));
-            _container.RegisterInstanceAs(new AdminPageBrowser(_webDriver, _configuration), typeof(AdminPageBrowser));
             _container.RegisterInstanceAs(DataRepositoryFactory.Create(_configuration), typeof(ITestDataRepository));
         }
 

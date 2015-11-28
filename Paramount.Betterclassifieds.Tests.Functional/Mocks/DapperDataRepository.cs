@@ -20,7 +20,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
         // Used for membership database
         private Dictionary<RoleType, string> RoleProviderDictionary = new Dictionary<RoleType, string>
         {
-            { RoleType.Administrator, "UserAdminMembershipProvider"},
             { RoleType.Advertiser, "AppUserProvider"}
         };
 

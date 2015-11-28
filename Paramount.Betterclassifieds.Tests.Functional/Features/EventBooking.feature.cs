@@ -32,8 +32,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "EventBooking", "In order to advertise my event\nAs an advertiser\nI want to the ability to book an " +
-                    "ad for the event", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "EventBooking", "In order to advertise my event\r\nAs an advertiser\r\nI want to the ability to book a" +
+                    "n ad for the event", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         

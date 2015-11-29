@@ -13,9 +13,13 @@ namespace Paramount.Betterclassifieds.DataService.Events
                 .WithMany(prop => prop.EventTicketReservations)
                 .HasForeignKey(prop => prop.EventTicketId);
             Property(prop => prop.StatusAsString).HasColumnName("Status");
+            
             Ignore(prop => prop.Status);
+
+            // We don't store the guest fields in the reservation
             Ignore(prop => prop.GuestFullName);
             Ignore(prop => prop.GuestEmail);
+            Ignore(prop => prop.TicketFields);
         }
     }
 }

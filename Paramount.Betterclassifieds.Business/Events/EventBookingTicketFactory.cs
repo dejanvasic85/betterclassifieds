@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Paramount.Betterclassifieds.Business.Events
 {
@@ -30,7 +31,8 @@ namespace Paramount.Betterclassifieds.Business.Events
                     CreatedDateTimeUtc = _dateService.UtcNow,
                     Price = reservation.Price,
                     GuestEmail = reservation.GuestEmail,
-                    GuestFullName = reservation.GuestFullName
+                    GuestFullName = reservation.GuestFullName,
+                    TicketFieldValues = reservation.TicketFields.Select(r => new EventBookingTicketField { FieldName = r.FieldName, FieldValue = r.FieldValue }).ToList()
                 };
             }
         }

@@ -154,6 +154,10 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
+        /// <summary>
+        /// Supports the dynamic category ad types for the ad booking system. See <see cref="Business.Booking.BookingManager"/>
+        /// </summary>
+        /// <param name="model"></param>
         public void Add(ICategoryAd model)
         {
             using (var context = _dbContextFactory.CreateEventContext())

@@ -103,6 +103,7 @@
     <Compile Include="Events\EntityConfigurations\EventBookingTicketConfiguration.cs" />
     <Compile Include="Events\EntityConfigurations\EventTicketFieldConfiguration.cs" />
     <Compile Include="Events\EntityConfigurations\EventTicketReservationConfiguration.cs" />
+    <Compile Include="Events\EntityConfigurations\EventBookingTicketFieldConfiguration.cs" />
     <Compile Include="Events\EventDbContext.cs" />
     <Compile Include="Events\EntityConfigurations\EventModelConfiguration.cs" />
     <Compile Include="Events\EventRepository.cs" />

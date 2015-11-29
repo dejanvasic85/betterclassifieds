@@ -181,6 +181,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                     {
                         r.GuestEmail = viewModel.GuestEmail;
                         r.GuestFullName = viewModel.GuestFullName;
+                        r.TicketFields = viewModel.TicketFields.Select(vm => new EventBookingTicketField { FieldName = vm.FieldName, FieldValue = vm.FieldValue }).ToList();
                     });
             }
 

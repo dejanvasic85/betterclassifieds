@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Paramount.Betterclassifieds.Business.Events
 {
     public class EventTicketReservation
     {
+        public EventTicketReservation()
+        {
+            TicketFields = new List<EventBookingTicketField>();
+        }
         public int? EventTicketReservationId { get; set; }
         public int? EventTicketId { get; set; }
         public EventTicket EventTicket { get; set; }
@@ -32,5 +37,6 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         public string GuestFullName { get; set; }
         public string GuestEmail { get; set; }
+        public List<EventBookingTicketField> TicketFields { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace Paramount.Betterclassifieds.Business.Events
 {
     /// <summary>
-    /// Contains details about extra details that are required for each ticket
+    /// Contains details about extra details that are required for each ticket 
     /// </summary>
     public class EventTicketField
     {
@@ -9,6 +9,5 @@
         public int? EventId { get; set; }
         public string FieldName { get; set; }
         public bool IsRequired { get; set; }
-        
     }
 }

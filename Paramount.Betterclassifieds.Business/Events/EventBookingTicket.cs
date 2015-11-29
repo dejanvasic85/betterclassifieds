@@ -5,6 +5,10 @@ namespace Paramount.Betterclassifieds.Business.Events
 {
     public class EventBookingTicket
     {
+        public EventBookingTicket()
+        {
+            TicketFieldValues = new List<EventBookingTicketField>();
+        }
         public int EventBookingTicketId { get; set; }
         public int EventBookingId { get; set; }
         public EventBooking EventBooking { get; set; }
@@ -16,5 +20,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         public string GuestEmail { get; set; }
         public DateTime? CreatedDateTime { get; set; }
         public DateTime? CreatedDateTimeUtc { get; set; }
+        public List<EventBookingTicketField> TicketFieldValues { get; set; }
     }
 }

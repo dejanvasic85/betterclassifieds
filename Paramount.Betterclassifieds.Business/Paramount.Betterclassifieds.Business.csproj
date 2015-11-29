@@ -66,6 +66,7 @@
     <Compile Include="Events\EventTicket.cs" />
     <Compile Include="Events\EventBooking.cs" />
     <Compile Include="Events\EventTicketField.cs" />
+    <Compile Include="Events\EventBookingTicketField.cs" />
     <Compile Include="Events\EventTicketReservation.cs" />
     <Compile Include="Events\EventTicketReservationStatus.cs" />
     <Compile Include="Events\EventManager.cs" />

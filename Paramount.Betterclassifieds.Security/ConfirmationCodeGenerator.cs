@@ -4,7 +4,6 @@
     using System.Text;
 
     using Business;
-    using Utility;
 
     public class ConfirmationCodeGenerator : IConfirmationCodeGenerator
     {

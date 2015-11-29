@@ -760,10 +760,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ApplicationBlock\Utility\Paramount.Utility.csproj">
-      <Project>{7f2cf5fe-6ad1-4dde-9f7d-a6fb3a1124e5}</Project>
-      <Name>Paramount.Utility</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Paramount.Betterclassifieds.Business\Paramount.Betterclassifieds.Business.csproj">
       <Project>{5c1be481-db9e-48cc-9048-5b10e6535d02}</Project>
       <Name>Paramount.Betterclassifieds.Business</Name>
@@ -783,6 +779,10 @@
     <ProjectReference Include="..\Paramount.Betterclassifieds.Security\Paramount.Betterclassifieds.Security.csproj">
       <Project>{9CE120EA-CB54-4F24-A68C-A80EB331DBDE}</Project>
       <Name>Paramount.Betterclassifieds.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Paramount.Betterclassifieds.Utility\Paramount.Betterclassifieds.Utility.csproj">
+      <Project>{7f2cf5fe-6ad1-4dde-9f7d-a6fb3a1124e5}</Project>
+      <Name>Paramount.Betterclassifieds.Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

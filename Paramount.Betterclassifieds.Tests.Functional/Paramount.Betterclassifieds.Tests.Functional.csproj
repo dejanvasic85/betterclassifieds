@@ -227,13 +227,13 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\ApplicationBlock\Utility\Paramount.Utility.csproj">
-      <Project>{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}</Project>
-      <Name>Paramount.Utility</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Paramount.Betterclassifieds.Security\Paramount.Betterclassifieds.Security.csproj">
       <Project>{9ce120ea-cb54-4f24-a68c-a80eb331dbde}</Project>
       <Name>Paramount.Betterclassifieds.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Paramount.Betterclassifieds.Utility\Paramount.Betterclassifieds.Utility.csproj">
+      <Project>{7f2cf5fe-6ad1-4dde-9f7d-a6fb3a1124e5}</Project>
+      <Name>Paramount.Betterclassifieds.Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

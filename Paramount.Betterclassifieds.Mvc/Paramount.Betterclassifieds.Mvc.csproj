@@ -141,9 +141,9 @@
       <Project>{ca9b2482-2a5b-4666-b6ee-0be6034fd9c7}</Project>
       <Name>Paramount.Betterclassifieds.Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ApplicationBlock\Utility\Paramount.Utility.csproj">
+    <ProjectReference Include="..\Paramount.Betterclassifieds.Utility\Paramount.Betterclassifieds.Utility.csproj">
       <Project>{7f2cf5fe-6ad1-4dde-9f7d-a6fb3a1124e5}</Project>
-      <Name>Paramount.Utility</Name>
+      <Name>Paramount.Betterclassifieds.Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

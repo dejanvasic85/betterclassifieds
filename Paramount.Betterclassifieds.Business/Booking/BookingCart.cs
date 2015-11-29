@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Paramount.Betterclassifieds.Business.Events;
-using Paramount.Utility;
 
 namespace Paramount.Betterclassifieds.Business.Booking
 {

@@ -186,12 +186,11 @@
     <Compile Include="Search\LocationSearchResult.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ApplicationBlock\Utility\Paramount.Utility.csproj">
+    <ProjectReference Include="..\Paramount.Betterclassifieds.Utility\Paramount.Betterclassifieds.Utility.csproj">
       <Project>{7f2cf5fe-6ad1-4dde-9f7d-a6fb3a1124e5}</Project>
-      <Name>Paramount.Utility</Name>
+      <Name>Paramount.Betterclassifieds.Utility</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

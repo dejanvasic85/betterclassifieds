@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Security.Principal;
     using Broadcast;
-    using Utility;
 
     public interface IUserManager
     {

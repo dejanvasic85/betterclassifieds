@@ -1,9 +1,9 @@
 ﻿using System.IO;
+using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Configuration;
 
 namespace Paramount.Betterclassifieds.DataService.Repository
 {
-    using Business;
-    using ApplicationBlock.Configuration;
 
     public class AppConfig : IApplicationConfig
     {

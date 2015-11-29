@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Web.Mvc;
 using System.Linq;
-using Paramount.ApplicationBlock.Configuration;
+using Paramount.Betterclassifieds.Configuration;
 
 namespace Paramount.ApplicationBlock.Mvc
 {

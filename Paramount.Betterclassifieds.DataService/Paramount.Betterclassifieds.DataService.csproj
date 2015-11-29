@@ -152,10 +152,6 @@
     <Compile Include="Search\SearchService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ApplicationBlock\Configuration\ApplicationBlock.Configuration.csproj">
-      <Project>{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}</Project>
-      <Name>ApplicationBlock.Configuration</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ApplicationBlock\Paramount.ApplicationBlock.Mvc\Paramount.ApplicationBlock.Mvc.csproj">
       <Project>{0c2b4ebb-3d4d-45ef-9622-214f9ef80b1a}</Project>
       <Name>Paramount.ApplicationBlock.Mvc</Name>
@@ -167,6 +163,10 @@
     <ProjectReference Include="..\ApplicationBlock\Utility\Paramount.Utility.csproj">
       <Project>{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}</Project>
       <Name>Paramount.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Paramount.Betterclassifieds.Configuration\Paramount.Betterclassifieds.Configuration.csproj">
+      <Project>{ca9b2482-2a5b-4666-b6ee-0be6034fd9c7}</Project>
+      <Name>Paramount.Betterclassifieds.Configuration</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

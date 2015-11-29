@@ -243,6 +243,7 @@
     <Compile Include="ViewModels\AdEnquiryViewModel.cs" />
     <Compile Include="ViewModels\AdViewModel.cs" />
     <Compile Include="ViewModels\Booking\BookingContextInCookie.cs" />
+    <Compile Include="ViewModels\Events\EventGuestListViewModel.cs" />
     <Compile Include="ViewModels\Events\EventTicketFieldViewModel.cs" />
     <Compile Include="ViewModels\Booking\BookingEventTicketSetupViewModel.cs" />
     <Compile Include="ViewModels\Booking\BookingEventTicketViewModel.cs" />
@@ -396,6 +397,7 @@
     <Content Include="Scripts\app\events\bookTickets.model.js" />
     <Content Include="Scripts\app\events\eventDashboard.ui.js" />
     <Content Include="Scripts\app\events\eventDashboard.model.js" />
+    <Content Include="Scripts\app\events\eventGuest.model.js" />
     <Content Include="Scripts\app\events\eventTicketReserved.model.js" />
     <Content Include="Scripts\app\events\findTickets.model.js" />
     <Content Include="Scripts\app\events\event.service.js" />

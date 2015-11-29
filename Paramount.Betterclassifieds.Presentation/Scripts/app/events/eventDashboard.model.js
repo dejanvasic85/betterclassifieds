@@ -4,6 +4,7 @@
     function EventDashboardModel(editEventViewModel) {
         var me = this;
         me.tickets = ko.observableArray();
+        me.guests = ko.observableArray();
         me.totalSoldQty = ko.observable();
         me.totalRemainingQty = ko.computed(function () {
             return _.sum(me.tickets(), function (t) {
@@ -32,6 +33,9 @@
         $.each(editEventViewModel.tickets, function (idx, t) {
             t.adId = editEventViewModel.adId;
             me.tickets.push(new $paramount.models.EventTicket(t));
+        });
+        $.each(editEventViewModel.guests, function (idx, g) {
+            me.guests.push(new $paramount.models.EventGuest(g));
         });
         me.totalSoldAmount(editEventViewModel.totalSoldAmount);
         me.totalSoldAmountFormatted = ko.computed(function () {

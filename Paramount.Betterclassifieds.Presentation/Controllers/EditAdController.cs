@@ -135,8 +135,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var adDetails = _searchService.GetByAdId(id);
             var eventDetails = _eventManager.GetEventDetailsForOnlineAdId(adDetails.OnlineAdId, true);
+            var guestList = _eventManager.GetGuestList(eventDetails.EventId);
             var eventTicketTypes = eventDetails.Tickets;
-            var eventEditViewModel = new EventDashboardViewModel(id, adDetails.NumOfViews, eventDetails, this.MapList<EventTicket, EventTicketViewModel>(eventTicketTypes.ToList()));
+
+            var eventEditViewModel = new EventDashboardViewModel(id, adDetails.NumOfViews, eventDetails,
+                this.MapList<EventTicket, EventTicketViewModel>(eventTicketTypes.ToList()),
+                this.MapList<EventGuestDetails, EventGuestListViewModel>(guestList.ToList())
+                );
 
             return View(eventEditViewModel);
         }
@@ -174,6 +179,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             configuration.CreateMap<LineAdModel, EditAdDetailsViewModel>()
                 .ForMember(m => m.Id, options => options.Ignore());
+
+            configuration.CreateMap<EventGuestDetails, EventGuestListViewModel>();
+            configuration.CreateMap<EventBookingTicketField, EventTicketFieldViewModel>();
 
             // From view model
             configuration.CreateMap<EditAdDetailsViewModel, OnlineAdModel>()

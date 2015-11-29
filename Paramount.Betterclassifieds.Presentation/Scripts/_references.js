@@ -245,3 +245,4 @@
 /// <reference path="app/booking/eventticketdefinition.model.js" />
 /// <reference path="app/common/dynamicfielddefinition.js" />
 /// <reference path="app/common/dynamicfieldvalue.js" />
+/// <reference path="app/events/eventguest.model.js" />

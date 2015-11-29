@@ -150,6 +150,15 @@
                 <h4><i class="fa fa-users"></i>&nbsp; Guest List</h4>
                 <p>Check out who is coming to the event...</p>
             </div>
+
+            
+            <ul class="list-group" data-bind="foreach: guests">
+                <li class="list-group-item">
+                    <i class="fa fa-user"></i>&nbsp;
+                    <span data-bind="text: guestFullName"></span>
+                    &lt;<span data-bind="text: guestEmail"></span>&gt;
+                </li>
+            </ul>
         </div>
     </div>
 </div>

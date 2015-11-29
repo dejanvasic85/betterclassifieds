@@ -9,12 +9,13 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public EventDashboardViewModel()
         { }
 
-        public EventDashboardViewModel(int adId, int pageViews, EventModel eventModel, List<EventTicketViewModel> tickets)
+        public EventDashboardViewModel(int adId, int pageViews, EventModel eventModel, List<EventTicketViewModel> tickets, List<EventGuestListViewModel> guests)
         {
             this.AdId = adId;
             this.PageViews = pageViews;
             this.EventId = eventModel.EventId.GetValueOrDefault();
             this.Tickets = tickets;
+            this.Guests = guests;
 
             if (eventModel.EventBookings != null)
             {
@@ -35,7 +36,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public int AdId { get; set; }
         public int PageViews { get; set; }
         public int EventId { get; set; }
-        public List<EventTicketViewModel> Tickets { get; set; }
+        public List<EventTicketViewModel> Tickets { get; set; } // Ticket definitions
+        public List<EventGuestListViewModel> Guests { get; set; } // Tickets purchased (guests)
         public int TotalSoldQty { get; set; }
         public int TotalRemainingQty { get; set; }
         public decimal? TotalSoldAmount { get; set; }

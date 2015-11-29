@@ -52,7 +52,8 @@ namespace Paramount.Betterclassifieds.Business
         {
             // We always generate a username based on the email address
             // Generally, this should be unique, but you never know what is after @ :)
-            
+            Guard.NotNull(Email);
+
             var count = 1;
 
             while (true)

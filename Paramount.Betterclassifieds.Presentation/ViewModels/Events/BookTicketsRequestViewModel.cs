@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
+using Paramount.Betterclassifieds.Mvc.Validators;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 {

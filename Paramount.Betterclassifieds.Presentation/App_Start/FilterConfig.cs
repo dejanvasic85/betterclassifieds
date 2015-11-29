@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
-using Paramount.ApplicationBlock.Mvc.Unity;
+using Paramount.Betterclassifieds.Mvc.Unity;
 
 namespace Paramount.Betterclassifieds.Presentation
 {

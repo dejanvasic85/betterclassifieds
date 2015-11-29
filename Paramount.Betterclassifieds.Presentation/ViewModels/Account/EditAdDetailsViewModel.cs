@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
-using Paramount.ApplicationBlock.Mvc.Validators;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
+using Paramount.Betterclassifieds.Mvc.Validators;
 using Paramount.Betterclassifieds.Presentation.Framework;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels

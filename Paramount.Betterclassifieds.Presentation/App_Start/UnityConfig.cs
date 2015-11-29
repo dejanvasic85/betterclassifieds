@@ -1,6 +1,7 @@
-﻿namespace Paramount.Betterclassifieds.Presentation
+﻿using Paramount.Betterclassifieds.Mvc.Unity;
+
+namespace Paramount.Betterclassifieds.Presentation
 {
-    using ApplicationBlock.Mvc;
     using Business;
     using Business.Booking;
     using Business.Broadcast;

@@ -4,6 +4,7 @@ using Moq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Paramount.Betterclassifieds.Mvc.HtmlHelpers;
 
 namespace Paramount.Betterclassifieds.Tests.ApplicationBlock
 {

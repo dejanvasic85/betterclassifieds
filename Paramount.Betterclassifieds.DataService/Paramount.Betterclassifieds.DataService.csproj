@@ -152,10 +152,6 @@
     <Compile Include="Search\SearchService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ApplicationBlock\Paramount.ApplicationBlock.Mvc\Paramount.ApplicationBlock.Mvc.csproj">
-      <Project>{0c2b4ebb-3d4d-45ef-9622-214f9ef80b1a}</Project>
-      <Name>Paramount.ApplicationBlock.Mvc</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Paramount.Betterclassifieds.Business\Paramount.Betterclassifieds.Business.csproj">
       <Project>{5c1be481-db9e-48cc-9048-5b10e6535d02}</Project>
       <Name>Paramount.Betterclassifieds.Business</Name>

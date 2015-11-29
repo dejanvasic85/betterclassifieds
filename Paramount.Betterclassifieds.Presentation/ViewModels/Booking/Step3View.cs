@@ -1,6 +1,6 @@
-﻿using Paramount.ApplicationBlock.Mvc.Validators;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Paramount.Betterclassifieds.Mvc.Validators;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {

@@ -310,7 +310,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(writer.GetStringBuilder().ToString());
             }
         }
-
+        
         public void OnRegisterMaps(IConfiguration configuration)
         {
             #region To View Model

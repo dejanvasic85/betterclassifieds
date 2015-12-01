@@ -1,0 +1,42 @@
+﻿@using Paramount
+@model List<EventGuestListViewModel>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TicketPrint</title>
+    <link rel="stylesheet" href="@Url.ContentAbsolute("~/Content/bootstrap-3.3.0.min.css")" media="all" />
+    <link rel="stylesheet" href="@Url.ContentAbsolute("~/Content/font-awesome-4.4.0.css")" media="all" />
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul class="list-group">
+                    @foreach (var guest in Model)
+                    {
+
+                        <li class="list-group-item">
+                            <i class="fa fa-user"></i>&nbsp;
+                            <span>@guest.GuestFullName</span>
+                            &lt;<span>@guest.GuestEmail</span>&gt;
+                        </li>
+
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>

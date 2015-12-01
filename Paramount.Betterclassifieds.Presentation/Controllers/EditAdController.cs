@@ -5,6 +5,7 @@ using Paramount.Betterclassifieds.Business.Print;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 using System;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using Paramount.Betterclassifieds.Business.Events;
@@ -164,6 +165,23 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                     eventTicketViewModel.RemainingQuantity);
             }
             return Json(new { Updated = true });
+        }
+
+        public ActionResult EventGuestListPdf(int id)
+        {
+            var guests = this.MapList<EventGuestDetails, EventGuestListViewModel>(_eventManager.GetGuestList(id).ToList());
+
+            using (var writer = new StringWriter())
+            {
+                this.ViewData.Model = guests;
+                var result = ViewEngines.Engines.FindPartialView(this.ControllerContext, "EventGuestList");
+                var viewContext = new ViewContext(this.ControllerContext, result.View, this.ViewData, this.TempData, writer);
+                result.View.Render(viewContext, writer);
+                result.ViewEngine.ReleaseView(this.ControllerContext, result.View);
+                var pdf = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(writer.GetStringBuilder().ToString());
+
+                return File(pdf, ContentType.Pdf, "Guest List.pdf");
+            }
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

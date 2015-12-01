@@ -752,6 +752,7 @@
     <Content Include="Views\Event\Tickets.cshtml" />
     <Content Include="Views\EditAd\EventDashboard.cshtml" />
     <Content Include="Views\Booking\Step2_EventTickets.cshtml" />
+    <Content Include="Views\EditAd\EventGuestList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Framework\Validators\" />

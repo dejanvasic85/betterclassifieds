@@ -4,12 +4,13 @@ using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Print;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
-using System;
-using System.IO;
-using System.Linq;
-using System.Web.Mvc;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
+using System;
+using System.Linq;
+using System.Web.Mvc;
+using Paramount.Betterclassifieds.Presentation.Services;
+
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
@@ -22,6 +23,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IClientConfig _clientConfig;
         private readonly IBookingManager _bookingManager;
         private readonly IEventManager _eventManager;
+        private readonly ITemplatingService _templatingService;
 
         public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager, IEventManager eventManager)
         {
@@ -30,6 +32,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _clientConfig = clientConfig;
             _bookingManager = bookingManager;
             _eventManager = eventManager;
+            _templatingService = new TemplatingService(this); // This service is tightly coupled to an mvc controller
         }
 
         //
@@ -167,21 +170,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(new { Updated = true });
         }
 
-        public ActionResult EventGuestListPdf(int id)
+        public ActionResult EventGuestListDownloadPdf(int id, int eventId)
         {
-            var guests = this.MapList<EventGuestDetails, EventGuestListViewModel>(_eventManager.GetGuestList(id).ToList());
-
-            using (var writer = new StringWriter())
-            {
-                this.ViewData.Model = guests;
-                var result = ViewEngines.Engines.FindPartialView(this.ControllerContext, "EventGuestList");
-                var viewContext = new ViewContext(this.ControllerContext, result.View, this.ViewData, this.TempData, writer);
-                result.View.Render(viewContext, writer);
-                result.ViewEngine.ReleaseView(this.ControllerContext, result.View);
-                var pdf = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(writer.GetStringBuilder().ToString());
-
-                return File(pdf, ContentType.Pdf, "Guest List.pdf");
-            }
+            var guests = this.MapList<EventGuestDetails, EventGuestListViewModel>(_eventManager.GetGuestList(eventId).ToList());
+            var html = _templatingService.Generate(guests, "EventGuestList");
+            var pdf = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(html);
+            return File(pdf, ContentType.Pdf, "Guest List.pdf");
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

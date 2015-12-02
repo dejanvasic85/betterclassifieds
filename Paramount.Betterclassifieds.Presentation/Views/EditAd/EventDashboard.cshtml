@@ -151,7 +151,7 @@
                 <p>Check out who is coming to the event...</p>
             </div>
 
-            
+
             <ul class="list-group" data-bind="foreach: guests">
                 <li class="list-group-item">
                     <i class="fa fa-user"></i>&nbsp;
@@ -159,6 +159,11 @@
                     &lt;<span data-bind="text: guestEmail"></span>&gt;
                 </li>
             </ul>
+            <div class="text-right">
+                <a href="@Url.Action("EventGuestListDownloadPdf", "EditAd", new { id = Model.AdId, eventId = Model.EventId })" class="btn btn-default">
+                Download PDF
+                </a>
+            </div>
         </div>
     </div>
 </div>

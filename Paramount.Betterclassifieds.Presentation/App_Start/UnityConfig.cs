@@ -22,6 +22,7 @@ namespace Paramount.Betterclassifieds.Presentation
     using Payments.pp;
     using ViewModels;
 
+
     public class UnityConfig
     {
         public static IUnityContainer Initialise()
@@ -84,6 +85,7 @@ namespace Paramount.Betterclassifieds.Presentation
                 .RegisterType<IDateService, ServerDateService>()
                 .RegisterType<IConfirmationCodeGenerator, ConfirmationCodeGenerator>()
                 .RegisterType<HttpContextBase>(new InjectionFactory(c => new HttpContextWrapper(HttpContext.Current)))
+
                 ;
 
             return container;

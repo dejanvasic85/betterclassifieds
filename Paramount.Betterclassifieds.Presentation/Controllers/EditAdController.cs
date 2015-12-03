@@ -18,25 +18,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
     [AuthorizeBookingIdentity]
     public class EditAdController : Controller, IMappingBehaviour
     {
-        private readonly ISearchService _searchService;
-        private readonly IApplicationConfig _applicationConfig;
-        private readonly IClientConfig _clientConfig;
-        private readonly IBookingManager _bookingManager;
-        private readonly IEventManager _eventManager;
-        private readonly ITemplatingService _templatingService;
-
-        public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager, IEventManager eventManager)
-        {
-            _searchService = searchService;
-            _applicationConfig = applicationConfig;
-            _clientConfig = clientConfig;
-            _bookingManager = bookingManager;
-            _eventManager = eventManager;
-            _templatingService = new TemplatingService(this); // This service is tightly coupled to an mvc controller
-        }
-
-        //
-        // GET: /EditAd/AdDetails/{id}
+        [HttpGet]
         public ActionResult Details(int id)
         {
             ViewBag.Updated = false;
@@ -135,6 +117,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(true);
         }
 
+        [HttpGet]
         public ActionResult EventDashboard(int id)
         {
             var adDetails = _searchService.GetByAdId(id);
@@ -170,6 +153,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(new { Updated = true });
         }
 
+        [HttpGet]
         public ActionResult EventGuestListDownloadPdf(int id, int eventId)
         {
             var guests = this.MapList<EventGuestDetails, EventGuestListViewModel>(_eventManager.GetGuestList(eventId).ToList());
@@ -204,6 +188,23 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 .ForMember(member => member.UsePhoto, options => options.MapFrom(src => src.LineAdImageId.HasValue()));
 
             configuration.CreateMap<EventTicket, EventTicketViewModel>();
+        }
+
+        private readonly ISearchService _searchService;
+        private readonly IApplicationConfig _applicationConfig;
+        private readonly IClientConfig _clientConfig;
+        private readonly IBookingManager _bookingManager;
+        private readonly IEventManager _eventManager;
+        private readonly ITemplatingService _templatingService;
+
+        public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager, IEventManager eventManager, ITemplatingService templatingService)
+        {
+            _searchService = searchService;
+            _applicationConfig = applicationConfig;
+            _clientConfig = clientConfig;
+            _bookingManager = bookingManager;
+            _eventManager = eventManager;
+            _templatingService = templatingService.Init(this); // This service is tightly coupled to an mvc controller
         }
     }
 }

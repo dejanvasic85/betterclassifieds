@@ -6,14 +6,14 @@
         me.fieldValue = ko.observable();
         me.isRequired = ko.observable();
 
-        if (data) {
+        if ($paramount.notNullOrUndefined(data)) {
             this.bindDynamicFieldValue(data);
-        }
 
-        // Validation
-        me.validator = ko.validatedObservable({
-            fieldValue: me.fieldValue.extend({ required: data.isRequired })
-        });
+            // Validation
+            me.validator = ko.validatedObservable({
+                fieldValue: me.fieldValue.extend({ required: data.isRequired })
+            });
+        }
     }
 
     DynamicFieldValue.prototype.bindDynamicFieldValue = function (data) {

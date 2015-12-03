@@ -1,24 +1,32 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Web.Mvc;
 
 namespace Paramount.Betterclassifieds.Presentation.Services
 {
     public interface ITemplatingService
     {
+        ITemplatingService Init(Controller controller); // Must be called
         string Generate<TViewModel>(TViewModel model, string viewTarget) where TViewModel : new();
     }
 
     public class TemplatingService : ITemplatingService
     {
-        private readonly Controller _controller;
-
-        public TemplatingService(Controller controller)
+        private Controller _controller;
+        
+        public ITemplatingService Init(Controller controller)
         {
             _controller = controller;
+            return this;
         }
 
         public string Generate<TViewModel>(TViewModel model, string viewTarget) where TViewModel : new()
         {
+            if (_controller == null)
+            {
+                throw new NullReferenceException("Please call the Init method first passing in the Controller");
+            }
+
             using (var writer = new StringWriter())
             {
                 _controller.ViewData.Model = model;

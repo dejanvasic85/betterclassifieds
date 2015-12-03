@@ -138,7 +138,7 @@
         var result = true;
         for (var i = 0; i < arguments.length ; i++) {
             var obj = arguments[i];
-           
+
             if (obj.constructor === Array) {
                 for (var j = 0; j < obj.length; j++) {
                     // Recursive call
@@ -166,6 +166,16 @@
         }
 
         return result;
+    }
+
+    $paramount.notNullOrUndefined = function (arg) {
+        if (typeof arg === 'undefined') {
+            return false;
+        }
+        if (arg === null) {
+            return false;
+        }
+        return true;
     }
 
     return me;

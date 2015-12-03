@@ -1,4 +1,6 @@
-﻿using Paramount.Betterclassifieds.Mvc.Unity;
+﻿using System;
+using Paramount.Betterclassifieds.Mvc.Unity;
+using Paramount.Betterclassifieds.Presentation.Services;
 
 namespace Paramount.Betterclassifieds.Presentation
 {
@@ -73,7 +75,7 @@ namespace Paramount.Betterclassifieds.Presentation
                 .RegisterType<SearchFilters>(new SessionLifetimeManager<SearchFilters>())
                 .RegisterType<IAdFactory, AdFactory>()
                 .RegisterType<IEventTicketReservationFactory, EventTicketReservationFactory>()
-                
+
                 // Rates/ prices (chargeable items)
                 .RegisterType<IPrintChargeableItem, PrintHeadingCharge>("PrintHeadingCharge")
                 .RegisterType<IPrintChargeableItem, PrintPhotoCharge>("PrintPhotoCharge")
@@ -86,6 +88,7 @@ namespace Paramount.Betterclassifieds.Presentation
                 .RegisterType<IConfirmationCodeGenerator, ConfirmationCodeGenerator>()
                 .RegisterType<HttpContextBase>(new InjectionFactory(c => new HttpContextWrapper(HttpContext.Current)))
 
+                .RegisterType<ITemplatingService, TemplatingService>()
                 ;
 
             return container;

@@ -413,6 +413,26 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.GuestEmail = val);
 		}
+		public EventTicketReservationMockBuilder WithTicketFields(List<EventBookingTicketField> val)
+		{ 
+			return WithBuildStep(p => p.TicketFields = val);
+		}
+	}
+
+	internal partial class EventGuestDetailsMockBuilder : MockBuilder<EventGuestDetailsMockBuilder, EventGuestDetails>
+	{	
+		public EventGuestDetailsMockBuilder WithGuestFullName(String val)
+		{ 
+			return WithBuildStep(p => p.GuestFullName = val);
+		}
+		public EventGuestDetailsMockBuilder WithGuestEmail(String val)
+		{ 
+			return WithBuildStep(p => p.GuestEmail = val);
+		}
+		public EventGuestDetailsMockBuilder WithDynamicFields(IList<EventBookingTicketField> val)
+		{ 
+			return WithBuildStep(p => p.DynamicFields = val);
+		}
 	}
 }
 

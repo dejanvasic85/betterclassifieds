@@ -11,22 +11,8 @@ using Paramount.Betterclassifieds.Tests.Mocks;
 namespace Paramount.Betterclassifieds.Tests.Events
 {
     [TestFixture]
-    public class EventManagerTests : TestContext<EventManager>
+    internal class EventManagerTests : TestContext<EventManager>
     {
-        private Mock<IEventRepository> _eventRepositoryMock;
-        private Mock<IDateService> _dateServiceMock;
-        private Mock<IDocumentRepository> _documentRepository;
-        private Mock<IClientConfig> _clientConfig;
-
-        [SetUp]
-        public void SetupDependencies()
-        {
-            _eventRepositoryMock = CreateMockOf<IEventRepository>();
-            _dateServiceMock = CreateMockOf<IDateService>();
-            _clientConfig = CreateMockOf<IClientConfig>();
-            _documentRepository = CreateMockOf<IDocumentRepository>();
-        }
-
         [Test]
         public void GetRemainingTicketCount_TicketId_HasNoValue_ThrowsArgumentException()
         {
@@ -73,6 +59,19 @@ namespace Paramount.Betterclassifieds.Tests.Events
             Assert.That(mockEventBooking.TicketsDocumentId, Is.Not.Null);
             Assert.That(mockEventBooking.TicketsSentDate, Is.EqualTo(mockSentDateTime));
             Assert.That(mockEventBooking.TicketsSentDateUtc, Is.Not.Null);
+        }
+        private Mock<IEventRepository> _eventRepositoryMock;
+        private Mock<IDateService> _dateServiceMock;
+        private Mock<IDocumentRepository> _documentRepository;
+        private Mock<IClientConfig> _clientConfig;
+
+        [SetUp]
+        public void SetupDependencies()
+        {
+            _eventRepositoryMock = CreateMockOf<IEventRepository>();
+            _dateServiceMock = CreateMockOf<IDateService>();
+            _clientConfig = CreateMockOf<IClientConfig>();
+            _documentRepository = CreateMockOf<IDocumentRepository>();
         }
     }
 }

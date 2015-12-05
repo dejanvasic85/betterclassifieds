@@ -2,6 +2,9 @@
 
 namespace Paramount.Betterclassifieds.Business.Events
 {
+    /// <summary>
+    /// Ticket definition for an event
+    /// </summary>
     public class EventTicket
     {
         public EventTicket()

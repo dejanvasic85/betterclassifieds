@@ -7,6 +7,7 @@ using Paramount.Betterclassifieds.Presentation.ViewModels;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Paramount.Betterclassifieds.Presentation.Services;
@@ -156,7 +157,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpGet]
         public ActionResult EventGuestListDownloadPdf(int id, int eventId)
         {
-            var guests = this.MapList<EventGuestDetails, EventGuestListViewModel>(_eventManager.GetGuestList(eventId).ToList());
+            var eventGuestDetails = _eventManager.GetGuestList(eventId).ToList();
+            var guests = this.MapList<EventGuestDetails, EventGuestListViewModel>(eventGuestDetails);
             var html = _templatingService.Generate(guests, "EventGuestList");
             var pdf = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(html);
             return File(pdf, ContentType.Pdf, "Guest List.pdf");

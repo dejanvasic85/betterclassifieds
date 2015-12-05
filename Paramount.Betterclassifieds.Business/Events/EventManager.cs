@@ -237,13 +237,16 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         public IEnumerable<EventGuestDetails> GetGuestList(int? eventId)
         {
+            Guard.NotNull(eventId);
+            var eventModel = _eventRepository.GetEventDetails(eventId.GetValueOrDefault());
             var tickets = _eventRepository.GetEventBookingTicketsForEvent(eventId);
 
             return tickets.Select(t => new EventGuestDetails
             {
                 GuestFullName = t.GuestFullName,
                 GuestEmail = t.GuestEmail,
-                DynamicFields = t.TicketFieldValues
+                DynamicFields = t.TicketFieldValues,
+                BarcodeData = new TicketBarcodeService().Generate(eventModel, t)
             });
         }
     }

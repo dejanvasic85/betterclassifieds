@@ -1,11 +1,12 @@
 ﻿@using Paramount
-@model List<EventGuestListViewModel>
+@model EventGuestListDownloadViewModel
 
 @{
     Layout = null;
 }
 
 <!DOCTYPE html>
+
 
 <html>
 <head>
@@ -19,18 +20,34 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12">
-                <ul class="list-group">
-                    @foreach (var guest in Model)
-                    {
+                <h1>
+                    @Model.EventName
+                </h1>
 
-                        <li class="list-group-item">
-                            <i class="fa fa-user"></i>&nbsp;
-                            <span>@guest.GuestFullName</span>
-                            &lt;<span>@guest.GuestEmail</span>&gt;
-                        </li>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Guest Name</th>
+                            <th>Guest Email</th>
+                            <th>Ticket Type</th>
+                            <th>Ticket Number</th>
+                            <th>Barcode</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var g in Model.Guests)
+                        {
+                            <tr>
+                                <td>@g.GuestFullName</td>
+                                <td>@g.GuestEmail</td>
+                                <td>@g.TicketName</td>
+                                <td>@g.TicketNumber</td>
+                                <td><img src="@Url.ActionAbsolute("Barcode", "Image", new {data = g.BarcodeData})" /></td>
+                            </tr>
 
-                    }
-                </ul>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

@@ -24,7 +24,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         string CreateEventTicketsDocument(int eventBookingId, byte[] ticketPdfData, DateTime? ticketsSentDate = null);
         void UpdateEventTicket(int eventTicketId, string ticketName, decimal price, int remainingQuantity);
         void CreateEventTicket(int? eventId, string ticketName, decimal price, int remainingQuantity);
-        IEnumerable<EventGuestDetails> GetGuestList(int? eventId);
+        IEnumerable<EventGuestDetails> BuildGuestList(int? eventId);
     }
 
     public class EventManager : IEventManager
@@ -235,7 +235,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             _eventRepository.CreateEventTicket(ticket);
         }
 
-        public IEnumerable<EventGuestDetails> GetGuestList(int? eventId)
+        public IEnumerable<EventGuestDetails> BuildGuestList(int? eventId)
         {
             Guard.NotNull(eventId);
             var eventModel = _eventRepository.GetEventDetails(eventId.GetValueOrDefault());
@@ -246,7 +246,9 @@ namespace Paramount.Betterclassifieds.Business.Events
                 GuestFullName = t.GuestFullName,
                 GuestEmail = t.GuestEmail,
                 DynamicFields = t.TicketFieldValues,
-                BarcodeData = new TicketBarcodeService().Generate(eventModel, t)
+                BarcodeData = new TicketBarcodeService().Generate(eventModel, t),
+                TicketNumber = t.EventBookingTicketId,
+                TicketName = t.TicketName
             });
         }
     }

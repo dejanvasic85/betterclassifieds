@@ -8,5 +8,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string GuestEmail { get; set; }
         public List<EventTicketFieldViewModel> DynamicFields { get; set; }
         public string BarcodeData { get; set; }
+        public string TicketName { get; set; }
+        public int TicketNumber { get; set; }
     }
 }

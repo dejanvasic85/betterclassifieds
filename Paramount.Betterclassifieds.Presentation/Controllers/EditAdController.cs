@@ -123,7 +123,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var adDetails = _searchService.GetByAdId(id);
             var eventDetails = _eventManager.GetEventDetailsForOnlineAdId(adDetails.OnlineAdId, true);
-            var guestList = _eventManager.GetGuestList(eventDetails.EventId);
+            var guestList = _eventManager.BuildGuestList(eventDetails.EventId);
             var eventTicketTypes = eventDetails.Tickets;
 
             var eventEditViewModel = new EventDashboardViewModel(id, adDetails.NumOfViews, eventDetails,
@@ -157,9 +157,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpGet]
         public ActionResult EventGuestListDownloadPdf(int id, int eventId)
         {
-            var eventGuestDetails = _eventManager.GetGuestList(eventId).ToList();
+            var adDetails = _searchService.GetByAdId(id);
+            var eventGuestDetails = _eventManager.BuildGuestList(eventId).ToList();
             var guests = this.MapList<EventGuestDetails, EventGuestListViewModel>(eventGuestDetails);
-            var html = _templatingService.Generate(guests, "EventGuestList");
+            var viewModel = new EventGuestListDownloadViewModel { EventName = adDetails.Heading, Guests = guests};
+            var html = _templatingService.Generate(viewModel, "EventGuestList");
             var pdf = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(html);
             return File(pdf, ContentType.Pdf, "Guest List.pdf");
         }

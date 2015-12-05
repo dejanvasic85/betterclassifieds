@@ -13,5 +13,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         public string GuestEmail { get; set; }
         public IList<EventBookingTicketField> DynamicFields { get; set; }
         public string BarcodeData { get; set; }
+        public string TicketName { get; set; }
+        public int TicketNumber { get; set; }
     }
 }

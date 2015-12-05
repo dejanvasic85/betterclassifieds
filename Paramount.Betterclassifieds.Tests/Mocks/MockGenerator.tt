@@ -8,10 +8,12 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="Paramount.Betterclassifieds.Tests.Mocks" #>
 <#@ import namespace="Paramount.Betterclassifieds.Business" #>
+
 <#@ output extension=".cs" #>
 <#
 	var typesToGenerate = new Dictionary<string, string> 
 	{
+		{ "Paramount.Betterclassifieds.Business.Search.AdSearchResult",  "AdSearchResult" },
 		{ "Paramount.Betterclassifieds.Business.Booking.AdBookingModel",  "AdBookingModel" },
 		{ "Paramount.Betterclassifieds.Business.OnlineAdRate",  "OnlineAdRate" },
 		{ "Paramount.Betterclassifieds.Business.RateModel",  "RateModel" },
@@ -29,6 +31,7 @@ using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Payment;
+using Paramount.Betterclassifieds.Business.Search;
 using System;
 using System.Collections.Generic;
 

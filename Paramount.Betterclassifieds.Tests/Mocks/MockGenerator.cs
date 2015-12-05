@@ -1,7 +1,9 @@
+
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Payment;
+using Paramount.Betterclassifieds.Business.Search;
 using System;
 using System.Collections.Generic;
 
@@ -10,6 +12,114 @@ namespace Paramount.Betterclassifieds.Tests
 	///
 	/// Auto-Generated code. See MockGenerator.tt. All classes should be partial, so you can extend the methods for each!
 	///
+
+	internal partial class AdSearchResultMockBuilder : MockBuilder<AdSearchResultMockBuilder, AdSearchResult>
+	{	
+		public AdSearchResultMockBuilder WithAdId(Int32 val)
+		{ 
+			return WithBuildStep(p => p.AdId = val);
+		}
+		public AdSearchResultMockBuilder WithOnlineAdId(Int32 val)
+		{ 
+			return WithBuildStep(p => p.OnlineAdId = val);
+		}
+		public AdSearchResultMockBuilder WithHeading(String val)
+		{ 
+			return WithBuildStep(p => p.Heading = val);
+		}
+		public AdSearchResultMockBuilder WithDescription(String val)
+		{ 
+			return WithBuildStep(p => p.Description = val);
+		}
+		public AdSearchResultMockBuilder WithHtmlText(String val)
+		{ 
+			return WithBuildStep(p => p.HtmlText = val);
+		}
+		public AdSearchResultMockBuilder WithPrice(Decimal val)
+		{ 
+			return WithBuildStep(p => p.Price = val);
+		}
+		public AdSearchResultMockBuilder WithBookingDate(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.BookingDate = val);
+		}
+		public AdSearchResultMockBuilder WithNumOfViews(Int32 val)
+		{ 
+			return WithBuildStep(p => p.NumOfViews = val);
+		}
+		public AdSearchResultMockBuilder WithContactName(String val)
+		{ 
+			return WithBuildStep(p => p.ContactName = val);
+		}
+		public AdSearchResultMockBuilder WithContactPhone(String val)
+		{ 
+			return WithBuildStep(p => p.ContactPhone = val);
+		}
+		public AdSearchResultMockBuilder WithContactEmail(String val)
+		{ 
+			return WithBuildStep(p => p.ContactEmail = val);
+		}
+		public AdSearchResultMockBuilder WithUsername(String val)
+		{ 
+			return WithBuildStep(p => p.Username = val);
+		}
+		public AdSearchResultMockBuilder WithImageUrls(String[] val)
+		{ 
+			return WithBuildStep(p => p.ImageUrls = val);
+		}
+		public AdSearchResultMockBuilder WithPublications(String[] val)
+		{ 
+			return WithBuildStep(p => p.Publications = val);
+		}
+		public AdSearchResultMockBuilder WithCategoryId(Int32 val)
+		{ 
+			return WithBuildStep(p => p.CategoryId = val);
+		}
+		public AdSearchResultMockBuilder WithCategoryName(String val)
+		{ 
+			return WithBuildStep(p => p.CategoryName = val);
+		}
+		public AdSearchResultMockBuilder WithParentCategoryId(Int32? val)
+		{ 
+			return WithBuildStep(p => p.ParentCategoryId = val);
+		}
+		public AdSearchResultMockBuilder WithLocationId(Int32 val)
+		{ 
+			return WithBuildStep(p => p.LocationId = val);
+		}
+		public AdSearchResultMockBuilder WithLocationName(String val)
+		{ 
+			return WithBuildStep(p => p.LocationName = val);
+		}
+		public AdSearchResultMockBuilder WithLocationAreaName(String val)
+		{ 
+			return WithBuildStep(p => p.LocationAreaName = val);
+		}
+		public AdSearchResultMockBuilder WithLocationAreaId(Int32 val)
+		{ 
+			return WithBuildStep(p => p.LocationAreaId = val);
+		}
+		public AdSearchResultMockBuilder WithTotalCount(Int32 val)
+		{ 
+			return WithBuildStep(p => p.TotalCount = val);
+		}
+		public AdSearchResultMockBuilder WithParentCategoryName(String val)
+		{ 
+			return WithBuildStep(p => p.ParentCategoryName = val);
+		}
+		public AdSearchResultMockBuilder WithStartDate(DateTime val)
+		{ 
+			return WithBuildStep(p => p.StartDate = val);
+		}
+		public AdSearchResultMockBuilder WithEndDate(DateTime val)
+		{ 
+			return WithBuildStep(p => p.EndDate = val);
+		}
+		public AdSearchResultMockBuilder WithCategoryAdType(String val)
+		{ 
+			return WithBuildStep(p => p.CategoryAdType = val);
+		}
+	}
 
 	internal partial class AdBookingModelMockBuilder : MockBuilder<AdBookingModelMockBuilder, AdBookingModel>
 	{	
@@ -528,6 +638,18 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventGuestDetailsMockBuilder WithDynamicFields(IList<EventBookingTicketField> val)
 		{ 
 			return WithBuildStep(p => p.DynamicFields = val);
+		}
+		public EventGuestDetailsMockBuilder WithBarcodeData(String val)
+		{ 
+			return WithBuildStep(p => p.BarcodeData = val);
+		}
+		public EventGuestDetailsMockBuilder WithTicketName(String val)
+		{ 
+			return WithBuildStep(p => p.TicketName = val);
+		}
+		public EventGuestDetailsMockBuilder WithTicketNumber(Int32 val)
+		{ 
+			return WithBuildStep(p => p.TicketNumber = val);
 		}
 	}
 }

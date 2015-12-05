@@ -60,6 +60,37 @@ namespace Paramount.Betterclassifieds.Tests.Events
             Assert.That(mockEventBooking.TicketsSentDate, Is.EqualTo(mockSentDateTime));
             Assert.That(mockEventBooking.TicketsSentDateUtc, Is.Not.Null);
         }
+
+        [Test]
+        public void BuildGuestList_ForEvent_ReturnsListOfGuests_WithAllData()
+        {
+            var eventMock = new EventModelMockBuilder().WithEventId(10).Build();
+            var ticketBuilder = new EventBookingTicketMockBuilder()
+                .WithEventTicketId(900)
+                .WithTicketName("General Admission")
+                .WithGuestFullName("Morgan Freeman")
+                .WithGuestEmail("fake@email.com");
+
+            var mockTickets = new[]
+            {
+                ticketBuilder.WithEventBookingTicketId(1).Build(),
+                ticketBuilder.WithEventBookingTicketId(2).Build()
+            };
+
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.Is<int>(param => param == 10)), eventMock);
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingTicketsForEvent(It.Is<int>(param => param == 10)), mockTickets);
+
+            var result = this.BuildTargetObject().BuildGuestList(10).ToList();
+
+
+            Assert.That(result.Count, Is.EqualTo(2));
+            Assert.That(result[0].GuestFullName, Is.EqualTo("Morgan Freeman"));
+            Assert.That(result[0].GuestEmail, Is.EqualTo("fake@email.com"));
+            Assert.That(result[0].BarcodeData, Is.Not.Null);
+            Assert.That(result[0].TicketNumber, Is.EqualTo(1));
+            Assert.That(result[0].TicketName, Is.EqualTo("General Admission"));
+        }
+
         private Mock<IEventRepository> _eventRepositoryMock;
         private Mock<IDateService> _dateServiceMock;
         private Mock<IDocumentRepository> _documentRepository;

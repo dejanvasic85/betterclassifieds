@@ -11,7 +11,7 @@ using Paramount.Betterclassifieds.Tests.Mocks;
 
 namespace Paramount.Betterclassifieds.Tests.Controllers
 {
-    public class EditAdControllerTests : ControllerTest<EditAdController>
+    internal class EditAdControllerTests : ControllerTest<EditAdController>
     {
 
         [Test]
@@ -22,15 +22,19 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             const int eventId = 2;
             const string mockPdfOutput = "<html><body>Sample Data</body></html>";
 
+
             var builder = new EventGuestDetailsMockBuilder();
             var mockGuests = new[]
             {
                 builder.WithGuestEmail("foo@bar.com").WithGuestFullName("Foo bar").Build(),
                 builder.WithGuestEmail("foo@bar.com").WithGuestFullName("Foo bar").Build()
             };
-            
+
+            var mockSearchResult = new AdSearchResultMockBuilder().WithHeading("Testing").Build();
+
+            _searchServiceMock.SetupWithVerification(call => call.GetByAdId(It.Is<int>(p => p == 1)), mockSearchResult);
             _templatingServiceMock.SetupWithVerification(call => call.Generate(It.IsAny<object>(), It.Is<string>(param => param == "EventGuestList")), mockPdfOutput);
-            _eventManagerMock.SetupWithVerification(call => call.GetGuestList(It.Is<int?>(val => val == eventId)), mockGuests);
+            _eventManagerMock.SetupWithVerification(call => call.BuildGuestList(It.Is<int?>(val => val == eventId)), mockGuests);
 
 
             // act
@@ -38,8 +42,9 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // assert
             Assert.That(result, Is.TypeOf<FileContentResult>());
-            var fileContentResult = (FileContentResult) result;
+            var fileContentResult = (FileContentResult)result;
             Assert.That(fileContentResult.FileDownloadName, Is.EqualTo("Guest List.pdf"));
+            Assert.That(fileContentResult.ContentType, Is.EqualTo("application/pdf"));
 
         }
 

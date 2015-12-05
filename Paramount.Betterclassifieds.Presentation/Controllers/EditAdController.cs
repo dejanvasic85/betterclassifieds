@@ -7,7 +7,6 @@ using Paramount.Betterclassifieds.Presentation.ViewModels;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Paramount.Betterclassifieds.Presentation.Services;

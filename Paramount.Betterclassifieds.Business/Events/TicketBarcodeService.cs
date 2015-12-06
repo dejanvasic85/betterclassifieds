@@ -11,7 +11,7 @@
         {
             Guard.NotNull(eventModel);
             Guard.NotNull(eventTicket);
-            return $"{eventModel.EventId}-{eventTicket.EventTicketId}-{eventTicket.EventBookingTicketId}";
+            return string.Format("{0}-{1}-{2}", eventModel.EventId, eventTicket.EventTicketId, eventTicket.EventBookingTicketId);
         }
     }
 }

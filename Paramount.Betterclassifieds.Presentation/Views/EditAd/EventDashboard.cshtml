@@ -82,14 +82,27 @@
         <div class="col-xs-12">
             <div class="action-item clearfix">
                 <h3>
+                    Close Event
+                </h3>
+                <p class="action-info">Prevents people buying more tickets and payment can be requested.</p>
+                <div class="action-btn">
+                    <button class="btn btn-danger">Close <i class="fa fa-ban"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+            <div class="action-item clearfix">
+                <h3>
                     Payment Withdraw $93.00
                 </h3>
                 <p class="action-info"> = Total ticket sales of $100 with our fees of 7%.</p>
                 <div class="action-btn">
-                    <button class="btn btn-primary">Request Payment <i class="fa fa-arrow-right"></i> <i class="fa fa-user"></i></button>
+                    <button class="btn btn-primary">Pay Me <i class="fa fa-arrow-right"></i> <i class="fa fa-user"></i></button>
                 </div>
             </div>
         </div>
+
     </div>
 
     <div class="row">
@@ -176,7 +189,7 @@
             </ul>
             <div class="text-right">
                 <a href="@Url.Action("EventGuestListDownloadPdf", "EditAd", new { id = Model.AdId, eventId = Model.EventId })" class="btn btn-default">
-                Download PDF
+                    Download PDF <i class="fa fa-download"></i>
                 </a>
             </div>
         </div>

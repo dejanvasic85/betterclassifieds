@@ -244,6 +244,9 @@
     margin-bottom: 0;
   }
 }
+/*
+    Event Dashboard
+*/
 .event-dashboard span.badge {
   font-size: 35px;
   padding: 15px;
@@ -274,6 +277,24 @@
     margin-left: 15px;
     margin-right: 15px;
   }
+}
+.event-dashboard .action-item {
+  border-top: 1px solid #eeeeee;
+  padding: 10px 0;
+}
+.event-dashboard .action-item h3 {
+  display: inline-block;
+  margin-top: 0;
+}
+.event-dashboard .action-item .action-info {
+  margin-top: 0;
+  margin-left: 10px;
+  font-size: 0.8em;
+  display: inline-block;
+}
+.event-dashboard .action-item .action-btn {
+  display: inline-block;
+  float: right;
 }
 /*
     Form Overrides

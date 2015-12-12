@@ -6,27 +6,6 @@ using Paramount.Betterclassifieds.Business.Payment;
 
 namespace Paramount.Betterclassifieds.Business.Events
 {
-    public interface IEventManager
-    {
-        EventModel GetEventDetailsForOnlineAdId(int onlineAdId, bool includeBookings = false);
-        EventModel GetEventDetails(int eventId);
-        EventBooking GetEventBooking(int eventBookingId);
-        int GetRemainingTicketCount(int? ticketId);
-        int GetRemainingTicketCount(EventTicket eventTicket);
-        IEnumerable<EventTicketReservation> GetTicketReservations(string sessionId);
-        void ReserveTickets(string sessionId, IEnumerable<EventTicketReservation> reservations);
-        TimeSpan GetRemainingTimeForReservationCollection(IEnumerable<EventTicketReservation> reservations);
-        EventBooking CreateEventBooking(int eventId, ApplicationUser applicationUser, IEnumerable<EventTicketReservation> currentReservations);
-        void CancelEventBooking(int? eventBookingId);
-        void EventBookingPaymentCompleted(int? eventBookingId, PaymentType paymentType);
-        void SetPaymentReferenceForBooking(int eventBookingId, string paymentReference, PaymentType paymentType);
-        void AdjustRemainingQuantityAndCancelReservations(string sessionId, IList<EventBookingTicket> eventBookingTickets);
-        string CreateEventTicketsDocument(int eventBookingId, byte[] ticketPdfData, DateTime? ticketsSentDate = null);
-        void UpdateEventTicket(int eventTicketId, string ticketName, decimal price, int remainingQuantity);
-        void CreateEventTicket(int? eventId, string ticketName, decimal price, int remainingQuantity);
-        IEnumerable<EventGuestDetails> BuildGuestList(int? eventId);
-    }
-
     public class EventManager : IEventManager
     {
         private readonly IEventRepository _eventRepository;
@@ -250,6 +229,31 @@ namespace Paramount.Betterclassifieds.Business.Events
                 TicketNumber = t.EventBookingTicketId,
                 TicketName = t.TicketName
             });
+        }
+
+        public EventPaymentSummary BuildPaymentSummary(int? eventId)
+        {
+            Guard.NotNull(eventId);
+            var eventBookings = _eventRepository.GetEventBookingsForEvent(eventId.GetValueOrDefault());
+
+            var totalSales = eventBookings.Sum(e => e.TotalCost);
+            var ticketFee = _clientConfig.EventTicketFee; // Stored as a whole number
+            decimal totalTicketFee = 0;
+
+            // Make sure that the configured ticket fee is within 0.1 and 100 so that we can divide it
+            if (ticketFee != 0 && ticketFee > 0 && ticketFee <= 100)
+            {
+                totalTicketFee = totalSales*(ticketFee/100);
+            }
+
+            var organiserPaymentAmount = totalSales - totalTicketFee;
+
+            return  new EventPaymentSummary
+            {
+                TotalTicketSalesAmount = totalSales,
+                SystemTicketFee = _clientConfig.EventTicketFee,
+                EventOrganiserOwedAmount = organiserPaymentAmount
+            };
         }
     }
 }

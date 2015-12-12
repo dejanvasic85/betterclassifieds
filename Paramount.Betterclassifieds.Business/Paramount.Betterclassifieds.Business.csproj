@@ -59,6 +59,8 @@
     <Compile Include="Broadcast\EmailAttachment.cs" />
     <Compile Include="Broadcast\DocTypes\EventTicketsBookedNotification.cs" />
     <Compile Include="ContentType.cs" />
+    <Compile Include="Events\EventPaymentSummary.cs" />
+    <Compile Include="Events\IEventManager.cs" />
     <Compile Include="Events\TicketBarcodeService.cs" />
     <Compile Include="Events\EventBookingContext.cs" />
     <Compile Include="Events\EventBookingStatus.cs" />

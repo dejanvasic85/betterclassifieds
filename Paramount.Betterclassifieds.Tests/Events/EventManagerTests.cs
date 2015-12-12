@@ -91,6 +91,87 @@ namespace Paramount.Betterclassifieds.Tests.Events
             Assert.That(result[0].TicketName, Is.EqualTo("General Admission"));
         }
 
+        [Test]
+        public void BuildPaymentSummary_NullArg_ThrowsArgException()
+        {
+            Assert.Throws<ArgumentNullException>(() => BuildTargetObject().BuildPaymentSummary(null));
+        }
+
+        [Test]
+        public void BuildPaymentSummary_WithZeroFee_OrganiserShouldGetEntireSales()
+        {
+            // arrange
+            var eventId = 100;
+            var mockBuilder = new EventBookingMockBuilder().WithEventId(eventId);
+            var mockEventBookings = new[]
+            {
+                mockBuilder.WithEventBookingId(1).WithTotalCost(10).Build(),
+                mockBuilder.WithEventBookingId(2).WithTotalCost(20).Build(),
+                mockBuilder.WithEventBookingId(3).WithTotalCost(30).Build(),
+                mockBuilder.WithEventBookingId(4).WithTotalCost(40).Build()
+            };
+
+            _clientConfig.SetupWithVerification(call => call.EventTicketFee, 0);
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingsForEvent(It.Is<int>(i => i == eventId), false), mockEventBookings);
+
+            // act
+            var result = BuildTargetObject().BuildPaymentSummary(eventId);
+
+            // assert
+            Assert.That(result.TotalTicketSalesAmount, Is.EqualTo(100));
+            Assert.That(result.EventOrganiserOwedAmount, Is.EqualTo(100));
+        }
+
+        [Test]
+        public void BuildPaymentSummary_WithOneAndHalfPercentFee()
+        {
+            // arrange
+            var eventId = 100;
+            var mockBuilder = new EventBookingMockBuilder().WithEventId(eventId);
+            var mockEventBookings = new[]
+            {
+                mockBuilder.WithEventBookingId(1).WithTotalCost(10).Build(),
+                mockBuilder.WithEventBookingId(2).WithTotalCost(20).Build(),
+                mockBuilder.WithEventBookingId(3).WithTotalCost(30).Build(),
+                mockBuilder.WithEventBookingId(4).WithTotalCost(40).Build()
+            };
+
+            _clientConfig.SetupWithVerification(call => call.EventTicketFee, (decimal)1.5);
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingsForEvent(It.Is<int>(i => i == eventId), false), mockEventBookings);
+
+            // act
+            var result = BuildTargetObject().BuildPaymentSummary(eventId);
+
+            // assert
+            Assert.That(result.TotalTicketSalesAmount, Is.EqualTo(100));
+            Assert.That(result.EventOrganiserOwedAmount, Is.EqualTo((decimal)98.5));
+        }
+
+        [Test]
+        public void BuildPaymentSummary_WithHundredPercentFee_ClientGetsNothing()
+        {
+            // arrange
+            var eventId = 100;
+            var mockBuilder = new EventBookingMockBuilder().WithEventId(eventId);
+            var mockEventBookings = new[]
+            {
+                mockBuilder.WithEventBookingId(1).WithTotalCost(10).Build(),
+                mockBuilder.WithEventBookingId(2).WithTotalCost(20).Build(),
+                mockBuilder.WithEventBookingId(3).WithTotalCost(30).Build(),
+                mockBuilder.WithEventBookingId(4).WithTotalCost(40).Build()
+            };
+
+            _clientConfig.SetupWithVerification(call => call.EventTicketFee, 100);
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingsForEvent(It.Is<int>(i => i == eventId), false), mockEventBookings);
+
+            // act
+            var result = BuildTargetObject().BuildPaymentSummary(eventId);
+
+            // assert
+            Assert.That(result.TotalTicketSalesAmount, Is.EqualTo(100));
+            Assert.That(result.EventOrganiserOwedAmount, Is.EqualTo(0));
+        }
+
         private Mock<IEventRepository> _eventRepositoryMock;
         private Mock<IDateService> _dateServiceMock;
         private Mock<IDocumentRepository> _documentRepository;

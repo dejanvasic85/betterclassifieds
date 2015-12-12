@@ -24,5 +24,6 @@
         string ClientName { get; }
         int EventTicketReservationExpiryMinutes { get; }
         int EventMaxTicketsPerBooking { get; }
+        decimal EventTicketFee { get; }
     }
 }

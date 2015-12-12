@@ -5,6 +5,14 @@
     var me = this;
     me.isMobileDevice = null;
 
+    /*
+     * Constants
+     */
+    $paramount.PAYMENT = {
+        PAYPAL: 'PayPal',
+        DIRECT_DEBIT: 'DirectDebit'
+    }
+
     // Lazy loading for mobile checking
     me.evaluateMobile = function () {
         if (isMobileDevice !== null) {

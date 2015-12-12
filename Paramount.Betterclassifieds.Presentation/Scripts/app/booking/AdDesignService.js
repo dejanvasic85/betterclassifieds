@@ -70,6 +70,13 @@
         return promise;
     }
 
+    AdDesignService.prototype.requestEventPayment = function(paymentDetails) {
+        $.extend(me.model, paymentDetails);
+        var promise = $paramount.httpPost(me.baseUrl + 'EventPaymentRequest', me.model);
+        handleResponse(promise);
+        return promise;
+    }
+
     AdDesignService.prototype.setCategoryAndPublications = function (categoryPublicationModel) {
         return $paramount.httpPost(me.baseUrl + 'Step1', categoryPublicationModel);
     }

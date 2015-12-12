@@ -159,10 +159,35 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var adDetails = _searchService.GetByAdId(id);
             var eventGuestDetails = _eventManager.BuildGuestList(eventId).ToList();
             var guests = this.MapList<EventGuestDetails, EventGuestListViewModel>(eventGuestDetails);
-            var viewModel = new EventGuestListDownloadViewModel { EventName = adDetails.Heading, Guests = guests};
+            var viewModel = new EventGuestListDownloadViewModel { EventName = adDetails.Heading, Guests = guests };
             var html = _templatingService.Generate(viewModel, "EventGuestList");
             var pdf = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(html);
             return File(pdf, ContentType.Pdf, "Guest List.pdf");
+        }
+
+        [HttpGet]
+        public ActionResult EventPaymentRequest(int id, int eventId)
+        {
+            var userProfile = _userManager.GetCurrentUser(this.User);
+
+            var viewModel = new EventPaymentRequestViewModel
+            {
+                AdId = id,
+                EventId = eventId,
+                TotalTicketSalesAmount = 100,
+                OurFeesPercentage = 7,
+                AmountOwed = 93
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult EventPaymentRequest(int id, int eventId, string paymentMethod)
+        {
+            // todo - handle the payment type
+
+            return Json(new { NextUrl = Url.EventDashboard(id).ToString() });
         }
 
         public void OnRegisterMaps(IConfiguration configuration)
@@ -199,14 +224,16 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IBookingManager _bookingManager;
         private readonly IEventManager _eventManager;
         private readonly ITemplatingService _templatingService;
+        private readonly IUserManager _userManager;
 
-        public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager, IEventManager eventManager, ITemplatingService templatingService)
+        public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager, IEventManager eventManager, ITemplatingService templatingService, IUserManager userManager)
         {
             _searchService = searchService;
             _applicationConfig = applicationConfig;
             _clientConfig = clientConfig;
             _bookingManager = bookingManager;
             _eventManager = eventManager;
+            _userManager = userManager;
             _templatingService = templatingService.Init(this); // This service is tightly coupled to an mvc controller
         }
     }

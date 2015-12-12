@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "Content/event-ticket-print.css",
+    "inputFile": "Content/event-ticket-print.less"
+  },
+  {
+    "outputFile": "Content/site.css",
+    "inputFile": "Content/site.less"
+  }
+]

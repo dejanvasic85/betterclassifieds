@@ -15,7 +15,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
     {
 
         [Test]
-        public void EventGuestListDownloadPdf_Returns_FileResult()
+        public void EventGuestListDownloadPdf_Get_Returns_FileResult()
         {
             // arrange
             const int adId = 1;
@@ -46,6 +46,12 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             Assert.That(fileContentResult.FileDownloadName, Is.EqualTo("Guest List.pdf"));
             Assert.That(fileContentResult.ContentType, Is.EqualTo("application/pdf"));
 
+        }
+
+        [Test]
+        public void EventPaymentRequest_Get_Returns_View()
+        {
+            
         }
 
         private Mock<ISearchService> _searchServiceMock;

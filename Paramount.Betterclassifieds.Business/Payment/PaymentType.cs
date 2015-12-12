@@ -4,6 +4,7 @@
     {
         None = 0,
         CreditCard = 1,
-        PayPal = 2
+        PayPal = 2,
+        DirectDebit = 3
     }
 }

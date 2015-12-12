@@ -60,6 +60,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IBookingManager> _bookingManagerMock;
         private Mock<IEventManager> _eventManagerMock;
         private Mock<ITemplatingService> _templatingServiceMock;
+        private Mock<IUserManager> _userManagerMock;
 
         [SetUp]
         public void SetupDependencies()
@@ -71,6 +72,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventManagerMock = CreateMockOf<IEventManager>();
             _templatingServiceMock = CreateMockOf<ITemplatingService>();
             _templatingServiceMock.Setup(call => call.Init(It.IsAny<Controller>())).Returns(_templatingServiceMock.Object);
+            _userManagerMock = CreateMockOf<IUserManager>();
         }
     }
 }

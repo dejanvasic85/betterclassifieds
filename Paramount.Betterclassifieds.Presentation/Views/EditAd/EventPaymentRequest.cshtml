@@ -21,7 +21,7 @@
     </div>
 
     <h2 class="page-header">
-        Event Payment Request
+        Withdraw Funds
     </h2>
 
     <div class="well">
@@ -34,37 +34,49 @@
             <div class="col-xs-6 text-right"><h5>@Model.OurFeesPercentage %</h5></div>
         </div>
         <div class="row">
-            <div class="col-xs-6"><h4>Amount Owed:</h4>
-            </div>
-            <div class="col-xs-6 text-right"><h4>@Model.AmountOwed.ToString("C")</h4>
-            </div>
+            <div class="col-xs-6"><h4>Amount Owed:</h4></div>
+            <div class="col-xs-6 text-right"><h4>@Model.AmountOwed.ToString("C")</h4></div>
         </div>
 
         <div class="row top-buffer-40">
             <div class="col-xs-6 col-sm-3">
-                <button class="btn btn-block btn-default payment-btn" data-bind="click: selectPayPal">Pay Pal <i class="fa fa-paypal"></i></button>
+                <button class="btn btn-block btn-default payment-btn" data-bind="click: selectPayPal"><i class="fa fa-paypal"></i> Pay Pal</button>
             </div>
             <div class="col-xs-6 col-sm-3">
-                <button class="btn btn-block btn-default payment-btn" data-bind="click: selectDirectDebit">Direct Debit <i class="fa fa-bank"></i></button>
+                <button class="btn btn-block btn-default payment-btn" data-bind="click: selectDirectDebit"> <i class="fa fa-bank"></i> Direct Debit </button>
             </div>
         </div>
 
-        <div class="row top-buffer-20" data-bind="visible: selectedPaymentType() !== null">
+        <div class="row top-buffer-20">
 
             <div class="col-xs-12" data-bind="visible: isPayPalSelected">
-                Your PayPal Email:
+
+                <div class="alert alert-info" data-bind="visible: !isPayPalConfigured()">
+                    It appears you don't have a PayPal email configured.
+                    Go to <a href="@Url.Action("Details", "Account")">my account</a> to update this setting first.
+                </div>
+                <div class="alert alert-success" data-bind="visible: isPayPalConfigured">
+                    We will deposit the payment of @Model.AmountOwed.ToString("C") to @Model.PayPalEmail
+                </div>
+
             </div>
 
             <div class="col-xs-12" data-bind="visible: isDirectDebitSelected">
-                Your Direct Debit Details are :
+                <div class="alert alert-info" data-bind="visible: !isDirectDebitConfigured()">
+                    It appears you don't have Bank Details configured.
+                    Go to <a href="@Url.Action("Details", "Account")">my account</a> to update this setting first.
+                </div>
+                <div class="alert alert-success" data-bind="visible: isDirectDebitConfigured">
+                    
+                </div>
             </div>
 
-            <div class="col-xs-12 col-sm-6 text-right">
-                <button class="btn btn-primary" data-bind="click: submitPaymentRequest" data-loading-text="Please Wait...">Submit</button>
+            <div class="col-xs-12 text-right">
+                <button class="btn btn-primary" data-bind="click: submitPaymentRequest, visible: canSubmitPaymentRequest" data-loading-text="Please Wait...">Submit</button>
             </div>
         </div>
     </div>
 
 
-    
+
 </div>

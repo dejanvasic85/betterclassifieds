@@ -1,3 +1,4 @@
+using System.Security.Principal;
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
@@ -7,6 +8,7 @@ using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Controllers;
 using Paramount.Betterclassifieds.Presentation.Services;
+using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 using Paramount.Betterclassifieds.Tests.Mocks;
 
 namespace Paramount.Betterclassifieds.Tests.Controllers
@@ -51,7 +53,30 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         [Test]
         public void EventPaymentRequest_Get_Returns_View()
         {
-            
+            // arrange
+            var mockApplicationUser = new ApplicationUserMockBuilder().Build();
+            _userManagerMock.SetupWithVerification(call => call.GetCurrentUser(It.IsAny<IPrincipal>()), mockApplicationUser);
+            var mockPrincipal = CreateMockOf<IPrincipal>();
+            var mockPaymentSummary = new EventPaymentSummaryMockBuilder()
+                .WithEventOrganiserOwedAmount(90)
+                .WithSystemTicketFee(10)
+                .WithTotalTicketSalesAmount(100)
+                .Build();
+
+            _eventManagerMock.SetupWithVerification(call => call.BuildPaymentSummary(It.IsAny<int>()), mockPaymentSummary);
+
+
+            // act
+            var result = this.CreateController(mockUser: mockPrincipal).EventPaymentRequest(It.IsAny<int>(), It.IsAny<int>());
+
+            // assert
+            Assert.That(result, Is.TypeOf<ViewResult>());
+            var viewModel = ((ViewResult) result).Model as EventPaymentRequestViewModel;
+            Assert.That(viewModel, Is.Not.Null);
+            Assert.That(viewModel.AmountOwed, Is.EqualTo(90));
+            Assert.That(viewModel.OurFeesPercentage, Is.EqualTo(10));
+            Assert.That(viewModel.TotalTicketSalesAmount, Is.EqualTo(100));
+
         }
 
         private Mock<ISearchService> _searchServiceMock;

@@ -169,14 +169,15 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult EventPaymentRequest(int id, int eventId)
         {
             var userProfile = _userManager.GetCurrentUser(this.User);
-            
+            var paymentSummary = _eventManager.BuildPaymentSummary(eventId);
+
             var viewModel = new EventPaymentRequestViewModel
             {
                 AdId = id,
                 EventId = eventId,
-                TotalTicketSalesAmount = 100,
-                OurFeesPercentage = 7,
-                AmountOwed = 93
+                TotalTicketSalesAmount = paymentSummary.TotalTicketSalesAmount,
+                OurFeesPercentage = paymentSummary.SystemTicketFee,
+                AmountOwed = paymentSummary.EventOrganiserOwedAmount
             };
 
             return View(viewModel);

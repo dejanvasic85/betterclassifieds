@@ -251,7 +251,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             return  new EventPaymentSummary
             {
                 TotalTicketSalesAmount = totalSales,
-                SystemTicketFee = _clientConfig.EventTicketFee,
+                SystemTicketFee = ticketFee,
                 EventOrganiserOwedAmount = organiserPaymentAmount
             };
         }

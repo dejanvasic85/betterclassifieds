@@ -9,7 +9,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public EventDashboardViewModel()
         { }
 
-        public EventDashboardViewModel(int adId, int pageViews, EventModel eventModel, List<EventTicketViewModel> tickets, List<EventGuestListViewModel> guests)
+        public EventDashboardViewModel(int adId, int pageViews, EventModel eventModel, EventPaymentSummary paymentSummary, 
+            List<EventTicketViewModel> tickets, List<EventGuestListViewModel> guests)
         {
             this.AdId = adId;
             this.PageViews = pageViews;
@@ -23,7 +24,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
                 var bookedTickets = eventModel.EventBookings.SelectMany(m => m.EventBookingTickets).ToList();
                 this.TotalSoldQty = bookedTickets.Count;
-                this.TotalSoldAmount = bookedTickets.Sum(t => t.Price);
+                this.TotalSoldAmount = paymentSummary.TotalTicketSalesAmount;
+                this.EventOrganiserOwedAmount = paymentSummary.EventOrganiserOwedAmount;
+                this.SystemTicketFeeLabel = string.Format("{0}%", paymentSummary.SystemTicketFee);
+
 
                 // Get the sold quantity for each ticket type
                 foreach (var eventTicketType in tickets)
@@ -41,5 +45,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public int TotalSoldQty { get; set; }
         public int TotalRemainingQty { get; set; }
         public decimal? TotalSoldAmount { get; set; }
+        public decimal? EventOrganiserOwedAmount { get; set; }
+        public string SystemTicketFeeLabel { get; set; }
     }
 }

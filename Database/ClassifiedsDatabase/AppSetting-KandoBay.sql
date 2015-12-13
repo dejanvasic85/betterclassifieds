@@ -33,6 +33,7 @@ execute temp_createAppSetting @Key = 'EnableTwoFactorAuth', @Setting = 'true', @
 execute temp_createAppSetting @Key = 'ClientName', @Setting = 'KandoBay', @Force = 1
 execute temp_createAppSetting @Key = 'EventTicketReservationExpiryMinutes', @Setting = '5'
 execute temp_createAppSetting @Key = 'EventMaxTicketsPerBooking', @Setting = '5'
+execute temp_createAppSetting @Key = 'EventTicketFee', @Setting = '5'
 
 drop procedure temp_createAppSetting
 

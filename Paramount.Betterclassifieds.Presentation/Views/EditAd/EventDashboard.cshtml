@@ -85,19 +85,19 @@
                 <h3>
                     Close Event
                 </h3>
-                <p class="action-info">Prevents people buying more tickets and payment can be requested.</p>
+                <p class="action-info">Prevents people booking more tickets and payment can be requested.</p>
                 <div class="action-btn">
                     <button class="btn btn-danger">Close <i class="fa fa-ban"></i></button>
                 </div>
             </div>
         </div>
 
-        <div class="col-xs-12">
+        <div class="col-xs-12" data-bind="visible: eventOrganiserOwedAmount() > 0">
             <div class="action-item clearfix">
                 <h3>
-                    Withdraw $93.00
+                    Withdraw @Model.EventOrganiserOwedAmount.GetValueOrDefault().ToString("C")
                 </h3>
-                <p class="action-info"> = Total ticket sales of $100 with our fees of 7%.</p>
+                <p class="action-info"> = Total ticket sales of @Model.TotalSoldAmount.Value.ToString("C") with our fees of @Model.SystemTicketFeeLabel.</p>
                 <div class="action-btn">
                     <a class="btn btn-primary" href="@Url.EventPaymentRequest(Model.AdId, Model.EventId)">Pay Me <i class="fa fa-arrow-right"></i> <i class="fa fa-user"></i></a>
                 </div>

@@ -11,6 +11,7 @@
                 return t.remainingQuantity();
             });
         });
+        me.eventOrganiserOwedAmount = ko.observable();
         me.totalSoldAmount = ko.observable();
         me.pageViews = ko.observable();
         me.addTicketType = function () {
@@ -38,6 +39,7 @@
             me.guests.push(new $paramount.models.EventGuest(g));
         });
         me.totalSoldAmount(editEventViewModel.totalSoldAmount);
+        me.eventOrganiserOwedAmount(editEventViewModel.eventOrganiserOwedAmount);
         me.totalSoldAmountFormatted = ko.computed(function () {
             return $paramount.formatCurrency(me.totalSoldAmount());
         });

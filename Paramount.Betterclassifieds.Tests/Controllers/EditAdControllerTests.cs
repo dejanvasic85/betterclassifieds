@@ -29,10 +29,12 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var mockGuestList = new[] { mockGuestListBuilder.Build(), mockGuestListBuilder.Build() };
             var mockTicketBuilder = new EventTicketMockBuilder().WithRemainingQuantity(5).WithEventId(eventId);
             var mockEvent = new EventModelMockBuilder().WithEventId(eventId).WithTickets(new[] { mockTicketBuilder.Build() }).Build();
+            var mockPaymentSummary = new EventPaymentSummaryMockBuilder().WithEventOrganiserOwedAmount(90).WithSystemTicketFee(10).WithTotalTicketSalesAmount(100).Build();
 
             _searchServiceMock.SetupWithVerification(call => call.GetByAdId(It.Is<int>(p => p == adId)), mockSearchResult);
             _eventManagerMock.SetupWithVerification(call => call.GetEventDetailsForOnlineAdId(It.Is<int>(p => p == onlineAdId), It.Is<bool>(p => true)), mockEvent);
             _eventManagerMock.SetupWithVerification(call => call.BuildGuestList(It.Is<int>(p => p == eventId)), mockGuestList);
+            _eventManagerMock.SetupWithVerification(call => call.BuildPaymentSummary(It.Is<int>(p => p == eventId)), mockPaymentSummary);
 
             // Act 
             var result = CreateController().EventDashboard(adId);
@@ -48,6 +50,9 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             Assert.That(viewModel.EventId, Is.EqualTo(eventId));
             Assert.That(viewModel.Guests.Count, Is.EqualTo(2));
             Assert.That(viewModel.TotalRemainingQty, Is.EqualTo(5));
+            Assert.That(viewModel.SystemTicketFeeLabel, Is.EqualTo("10%"));
+            Assert.That(viewModel.EventOrganiserOwedAmount, Is.EqualTo(90));
+            Assert.That(viewModel.TotalSoldAmount, Is.EqualTo(100));
         }
 
         [Test]

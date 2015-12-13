@@ -8,6 +8,8 @@ Here's a list of the latest changes for the current release:
 - [Events - Generate printable tickets for event](https://trello.com/c/O3n6hIJt/336-events-generate-tickets-for-event-booking)
 - [Events - Capture guest name and email per ticket](https://trello.com/c/nEm83hZT/341-events-ability-to-specify-guests-details-per-ticket-e-g-email-name)
 - [Events - Dashboard now contains a guest list view](https://trello.com/c/Ia6Od3Wz/347-events-guest-list-in-events-dashboard)
+- [Events - Printable guest list](https://trello.com/c/qw6tccjV/346-events-printable-guest-list)
+- [Events - Request payment by event organiser](https://trello.com/c/RQTzQxoe/344-events-organiser-needs-ability-to-request-payment-for-all-the-ticket-fees)
 - [Contact advertiser form now requires a login rather than a CAPTCHA](https://trello.com/c/5bxvSRBU/329-contact-advertiser-with-a-login-only-little-counter-intuitive-but-beats-the-captcha-usage-and-more-secure)
 - [No more captcha for contacting support team](https://trello.com/c/BBLPYpTa/331-remove-the-captcha-from-the-contact-us-page-no-need)
 

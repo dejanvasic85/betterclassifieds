@@ -17,6 +17,40 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
     {
 
         [Test]
+        public void EventDashboard_Get_Returns_ViewResult()
+        {
+            // Arrange 
+            const int adId = 23;
+            const int onlineAdId = 90;
+            const int eventId = 10;
+
+            var mockSearchResult = new AdSearchResultMockBuilder().WithOnlineAdId(onlineAdId).WithNumOfViews(7).Build();
+            var mockGuestListBuilder = new EventGuestDetailsMockBuilder().WithGuestEmail("foo@bar.com").WithGuestFullName("Foo Bar").WithTicketNumber(123);
+            var mockGuestList = new[] { mockGuestListBuilder.Build(), mockGuestListBuilder.Build() };
+            var mockTicketBuilder = new EventTicketMockBuilder().WithRemainingQuantity(5).WithEventId(eventId);
+            var mockEvent = new EventModelMockBuilder().WithEventId(eventId).WithTickets(new[] { mockTicketBuilder.Build() }).Build();
+
+            _searchServiceMock.SetupWithVerification(call => call.GetByAdId(It.Is<int>(p => p == adId)), mockSearchResult);
+            _eventManagerMock.SetupWithVerification(call => call.GetEventDetailsForOnlineAdId(It.Is<int>(p => p == onlineAdId), It.Is<bool>(p => true)), mockEvent);
+            _eventManagerMock.SetupWithVerification(call => call.BuildGuestList(It.Is<int>(p => p == eventId)), mockGuestList);
+
+            // Act 
+            var result = CreateController().EventDashboard(adId);
+
+            // Assert
+            Assert.That(result, Is.TypeOf<ViewResult>());
+            var viewModel = ((ViewResult)result).Model as EventDashboardViewModel;
+            Assert.That(viewModel, Is.Not.Null);
+
+            Assert.That(viewModel.PageViews, Is.EqualTo(7));
+            Assert.That(viewModel.Tickets.Count, Is.EqualTo(1));
+            Assert.That(viewModel.AdId, Is.EqualTo(adId));
+            Assert.That(viewModel.EventId, Is.EqualTo(eventId));
+            Assert.That(viewModel.Guests.Count, Is.EqualTo(2));
+            Assert.That(viewModel.TotalRemainingQty, Is.EqualTo(5));
+        }
+
+        [Test]
         public void EventGuestListDownloadPdf_Get_Returns_FileResult()
         {
             // arrange
@@ -71,7 +105,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // assert
             Assert.That(result, Is.TypeOf<ViewResult>());
-            var viewModel = ((ViewResult) result).Model as EventPaymentRequestViewModel;
+            var viewModel = ((ViewResult)result).Model as EventPaymentRequestViewModel;
             Assert.That(viewModel, Is.Not.Null);
             Assert.That(viewModel.AmountOwed, Is.EqualTo(90));
             Assert.That(viewModel.OurFeesPercentage, Is.EqualTo(10));

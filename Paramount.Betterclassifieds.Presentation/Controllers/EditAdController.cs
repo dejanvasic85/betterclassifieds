@@ -186,12 +186,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpPost]
-        public ActionResult EventPaymentRequest(int id, int eventId, string paymentMethod)
+        public ActionResult EventPaymentRequest(int id, EventPaymentRequestViewModel eventPaymentRequestViewModel)
         {
-            var mappedPaymentMethod = paymentMethod.CastToEnum<PaymentType>();
+            var mappedPaymentMethod = eventPaymentRequestViewModel.PaymentMethod.CastToEnum<PaymentType>();
             var currentUserId = this.User.Identity.Name;
 
-            //_eventManager.CreateEventPaymentRequest(mappedPaymentMethod, currentUserId);
+            _eventManager.CreateEventPaymentRequest(eventPaymentRequestViewModel.EventId, mappedPaymentMethod, eventPaymentRequestViewModel.RequestedAmount, currentUserId);
 
             return Json(new { NextUrl = Url.EventDashboard(id).ToString() });
         }

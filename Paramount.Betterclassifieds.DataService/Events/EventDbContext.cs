@@ -32,6 +32,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
         public IDbSet<EventBooking> EventBookings { get; set; }
         public IDbSet<EventBookingTicket> EventBookingTickets { get; set; }
         public IDbSet<EventBookingTicketField> EventBookingTicketFields { get; set; }
+        public IDbSet<EventPaymentRequest> EventPaymentRequests { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -42,6 +43,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
             modelBuilder.Configurations.Add(new EventBookingConfiguration());
             modelBuilder.Configurations.Add(new EventBookingTicketConfiguration());
             modelBuilder.Configurations.Add(new EventBookingTicketFieldConfiguration());
+            modelBuilder.Configurations.Add(new EventPaymentRequestConfiguration());
         }
     }
 }

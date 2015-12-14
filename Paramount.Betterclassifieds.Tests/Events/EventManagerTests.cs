@@ -1,11 +1,11 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.DocumentStorage;
 using Paramount.Betterclassifieds.Business.Events;
+using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Tests.Mocks;
 
 namespace Paramount.Betterclassifieds.Tests.Events
@@ -170,6 +170,46 @@ namespace Paramount.Betterclassifieds.Tests.Events
             // assert
             Assert.That(result.TotalTicketSalesAmount, Is.EqualTo(100));
             Assert.That(result.EventOrganiserOwedAmount, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void CreateEventPaymentRequest_CallsRepository_AfterFactoryCreatesObject()
+        {
+            _dateServiceMock.SetupNow().SetupNowUtc();
+            _eventRepositoryMock.SetupWithVerification(call => call.CreateEventPaymentRequest(It.IsAny<EventPaymentRequest>()));
+
+            BuildTargetObject().CreateEventPaymentRequest(eventId: 10,
+                paymentType: PaymentType.PayPal,
+                requestedAmount: 100,
+                requestedByUser: "FooBarr");
+        }
+
+        [Test]
+        public void CreateEventPaymentRequest_WithPaymentType_None_ThrowsArgException()
+        {
+            Assert.Throws<ArgumentException>(() => BuildTargetObject()
+                .CreateEventPaymentRequest(1, PaymentType.None, 1, "fooBar"));
+        }
+
+        [Test]
+        public void CreateEventPaymentRequest_WithPaymentType_CreditCard_ThrowsArgException()
+        {
+            Assert.Throws<ArgumentException>(() => BuildTargetObject()
+                .CreateEventPaymentRequest(1, PaymentType.CreditCard, 1, "fooBar"));
+        }
+
+        [Test]
+        public void CreateEventPaymentRequest_With_EventIdAsZero_ThrowsArgException()
+        {
+            Assert.Throws<ArgumentException>(() => BuildTargetObject()
+                .CreateEventPaymentRequest(0, PaymentType.None, 0, "fooBar"));
+        }
+
+        [Test]
+        public void CreateEventPaymentRequest_With_RequestedAmountAsZero_ThrowsArgException()
+        {
+            Assert.Throws<ArgumentException>(() => BuildTargetObject()
+                .CreateEventPaymentRequest(1, PaymentType.None, 0, "fooBar"));
         }
 
         private Mock<IEventRepository> _eventRepositoryMock;

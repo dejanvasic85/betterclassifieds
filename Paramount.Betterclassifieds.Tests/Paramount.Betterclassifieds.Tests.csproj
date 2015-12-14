@@ -121,8 +121,10 @@
     <Compile Include="Controllers\EditAdControllerTests.cs" />
     <Compile Include="Controllers\HomeControllerTests.cs" />
     <Compile Include="Events\EventManagerTests.cs" />
+    <Compile Include="Events\EventPaymentRequestFactoryTests.cs" />
     <Compile Include="Events\SufficientTicketsRuleTests.cs" />
     <Compile Include="Events\TicketBarcodeServiceTests.cs" />
+    <Compile Include="Mocks\DateServiceMockExtensions.cs" />
     <Compile Include="Mocks\EventTicketMockBuilder.cs" />
     <Compile Include="Mocks\MockBuilder%27T.cs" />
     <Compile Include="Mocks\MockGenerator.cs">

@@ -243,17 +243,33 @@ namespace Paramount.Betterclassifieds.Business.Events
             // Make sure that the configured ticket fee is within 0.1 and 100 so that we can divide it
             if (ticketFee != 0 && ticketFee > 0 && ticketFee <= 100)
             {
-                totalTicketFee = totalSales*(ticketFee/100);
+                totalTicketFee = totalSales * (ticketFee / 100);
             }
 
             var organiserPaymentAmount = totalSales - totalTicketFee;
 
-            return  new EventPaymentSummary
+            return new EventPaymentSummary
             {
                 TotalTicketSalesAmount = totalSales,
                 SystemTicketFee = ticketFee,
                 EventOrganiserOwedAmount = organiserPaymentAmount
             };
+        }
+
+        public void CreateEventPaymentRequest(int eventId, PaymentType paymentType, decimal requestedAmount, string requestedByUser)
+        {
+            Guard.NotDefaultValue(eventId);
+            Guard.NotDefaultValue(requestedAmount);
+
+            if (paymentType == PaymentType.None || paymentType == PaymentType.CreditCard)
+            {
+                throw new ArgumentException("Payment cannot be set to none.", "paymentType");
+            }
+            
+            var request = new EventPaymentRequestFactory()
+                .Create(eventId, paymentType, requestedAmount, requestedByUser, _dateService.Now, _dateService.UtcNow);
+
+            _eventRepository.CreateEventPaymentRequest(request);
         }
     }
 }

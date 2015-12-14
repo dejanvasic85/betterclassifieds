@@ -11,15 +11,13 @@ namespace Paramount.Betterclassifieds.Business.Events
         private readonly IEventRepository _eventRepository;
         private readonly IDateService _dateService;
         private readonly IClientConfig _clientConfig;
-        private readonly EventBookingTicketFactory _eventBookingTicketFactory;
         private readonly IDocumentRepository _documentRepository;
 
-        public EventManager(IEventRepository eventRepository, IDateService dateService, IClientConfig clientConfig, EventBookingTicketFactory eventBookingTicketFactory, IDocumentRepository documentRepository)
+        public EventManager(IEventRepository eventRepository, IDateService dateService, IClientConfig clientConfig, IDocumentRepository documentRepository)
         {
             _eventRepository = eventRepository;
             _dateService = dateService;
             _clientConfig = clientConfig;
-            _eventBookingTicketFactory = eventBookingTicketFactory;
             _documentRepository = documentRepository;
         }
 
@@ -81,29 +79,10 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         public EventBooking CreateEventBooking(int eventId, ApplicationUser applicationUser, IEnumerable<EventTicketReservation> currentReservations)
         {
-            // Todo - create factory for this
-            var reservations = currentReservations.ToList();
-            var eventBooking = new EventBooking
-            {
-                EventId = eventId,
-                CreatedDateTimeUtc = _dateService.UtcNow,
-                CreatedDateTime = _dateService.Now,
-                FirstName = applicationUser.FirstName,
-                LastName = applicationUser.LastName,
-                Email = applicationUser.Email,
-                Phone = applicationUser.Phone,
-                PostCode = applicationUser.Postcode,
-                UserId = applicationUser.Username,
-                Status = reservations.Any(r => r.EventTicket != null && r.EventTicket.Price > 0)
-                    ? EventBookingStatus.PaymentPending
-                    : EventBookingStatus.Active
-            };
+            Guard.NotDefaultValue(eventId);
+            Guard.NotNull(applicationUser);
 
-            // Add the ticket bookings
-            eventBooking.EventBookingTickets.AddRange(reservations.SelectMany(r => _eventBookingTicketFactory.CreateFromReservation(r)));
-
-            // Calculate the total
-            eventBooking.TotalCost = reservations.Sum(r => r.Price.GetValueOrDefault() * r.Quantity);
+            var eventBooking = new EventBookingFactory().Create(eventId, applicationUser, currentReservations, _dateService.Now, _dateService.UtcNow);
 
             // Call the repository
             _eventRepository.CreateBooking(eventBooking);

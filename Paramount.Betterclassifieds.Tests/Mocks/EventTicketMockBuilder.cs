@@ -2,7 +2,7 @@
 {
     internal partial class EventTicketMockBuilder
     {
-        public EventTicketMockBuilder WithEventTicketReservations(EventTicketReservationMockBuilder eventTicketReservationMockBuilder , int howMany )
+        public EventTicketMockBuilder WithEventTicketReservations(EventTicketReservationMockBuilder eventTicketReservationMockBuilder, int howMany)
         {
             for (int i = 0; i < howMany; i++)
             {

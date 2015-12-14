@@ -59,6 +59,7 @@
     <Compile Include="Broadcast\EmailAttachment.cs" />
     <Compile Include="Broadcast\DocTypes\EventTicketsBookedNotification.cs" />
     <Compile Include="ContentType.cs" />
+    <Compile Include="Events\EventBookingFactory.cs" />
     <Compile Include="Events\EventPaymentRequest.cs" />
     <Compile Include="Events\EventPaymentRequestFactory.cs" />
     <Compile Include="Events\EventPaymentSummary.cs" />

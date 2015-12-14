@@ -6,14 +6,9 @@ namespace Paramount.Betterclassifieds.Business.Events
 {
     public class EventBookingTicketFactory
     {
-        private readonly IDateService _dateService;
 
-        public EventBookingTicketFactory(IDateService dateService)
-        {
-            this._dateService = dateService;
-        }
-
-        public IEnumerable<EventBookingTicket> CreateFromReservation(EventTicketReservation reservation)
+        public IEnumerable<EventBookingTicket> CreateFromReservation(EventTicketReservation reservation,
+            DateTime createdDate, DateTime createdDateUtc)
         {
             if (!reservation.EventTicketId.HasValue)
                 throw new ArgumentNullException("reservation", "EventTicketId cannot be null in the reservation");
@@ -27,8 +22,8 @@ namespace Paramount.Betterclassifieds.Business.Events
                 {
                     EventTicketId = reservation.EventTicketId.Value,
                     TicketName = reservation.EventTicket.TicketName,
-                    CreatedDateTime = _dateService.Now,
-                    CreatedDateTimeUtc = _dateService.UtcNow,
+                    CreatedDateTime = createdDate,
+                    CreatedDateTimeUtc = createdDateUtc,
                     Price = reservation.Price,
                     GuestEmail = reservation.GuestEmail,
                     GuestFullName = reservation.GuestFullName,

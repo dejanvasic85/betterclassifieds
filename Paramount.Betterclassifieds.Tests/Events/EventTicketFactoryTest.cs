@@ -1,10 +1,11 @@
 ﻿using NUnit.Framework;
+using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 
 namespace Paramount.Betterclassifieds.Tests.Events
 {
     [TestFixture]
-    public class EventTicketFactoryTest
+    public class EventTicketFactoryTests
     {
         [Test]
         public void Create_ReturnsNew_EventTicket()

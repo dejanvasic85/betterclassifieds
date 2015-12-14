@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
@@ -13,6 +14,38 @@ namespace Paramount.Betterclassifieds.Tests.Events
     [TestFixture]
     internal class EventManagerTests : TestContext<EventManager>
     {
+        [Test]
+        public void CreateEventBooking_CallsRepository_AfterFactory()
+        {
+            // arrange
+            var mockUser = new ApplicationUserMockBuilder().Build();
+
+            _dateServiceMock.SetupNow().SetupNowUtc();
+            _eventRepositoryMock.SetupWithVerification(call => call.CreateBooking(It.IsAny<EventBooking>()));
+
+            // act
+            var manager = BuildTargetObject();
+            manager.CreateEventBooking(10, mockUser, new List<EventTicketReservation>());
+        }
+
+        [Test]
+        public void CreateEventBooking_WithEventId_AsZero_ThrowsArgException()
+        {
+            Assert.Throws<ArgumentException>(() => BuildTargetObject().CreateEventBooking(
+                eventId: 0,
+                applicationUser: new ApplicationUserMockBuilder().Build(),
+                currentReservations: new List<EventTicketReservation>()));
+        }
+
+        [Test]
+        public void CreateEventBooking_WithUser_AsNull_ThrowsArgException()
+        {
+            Assert.Throws<ArgumentNullException>(() => BuildTargetObject().CreateEventBooking(
+                eventId: 10,
+                applicationUser: null,
+                currentReservations: new List<EventTicketReservation>()));
+        }
+
         [Test]
         public void GetRemainingTicketCount_TicketId_HasNoValue_ThrowsArgumentException()
         {

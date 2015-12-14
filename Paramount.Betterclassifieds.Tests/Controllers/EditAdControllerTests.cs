@@ -5,6 +5,7 @@ using NUnit.Framework;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Events;
+using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Controllers;
 using Paramount.Betterclassifieds.Presentation.Services;
@@ -121,7 +122,35 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         [Test]
         public void EventPaymentRequest_Post_Returns_Json_WithRedirectUrl()
         {
-             
+            // arrange
+            var username = "fooBarr";
+            var mockUser = new Mock<IPrincipal>().SetupUser(username);
+            var adId = 10;
+            var eventId = 1;
+            var requestedAmount = 100;
+            var paymentMethod = "PayPal";
+
+            mockUser.Setup(prop => prop.Identity).Returns(new GenericIdentity(username));
+            _eventManagerMock.SetupWithVerification(call => call.CreateEventPaymentRequest(
+                It.Is<int>(p => p == eventId),
+                It.Is<PaymentType>(p => p == PaymentType.PayPal),
+                It.Is<decimal>(p => p == requestedAmount),
+                It.Is<string>(p => p == username)));
+
+            // act
+            var controller = CreateController(mockUser: mockUser);
+
+            var result = controller.EventPaymentRequest(adId, new EventPaymentRequestViewModel
+            {
+                EventId = eventId,
+                PaymentMethod = paymentMethod,
+                RequestedAmount = requestedAmount
+            });
+
+            // assert
+            Assert.That(result, Is.TypeOf<JsonResult>());
+            var jsonResult = (JsonResult)result;
+            Assert.That(jsonResult.Data.ToString(), Is.EqualTo("{ NextUrl = /EditAd/EventDashboard?id=" + adId + " }"));
         }
 
         private Mock<ISearchService> _searchServiceMock;

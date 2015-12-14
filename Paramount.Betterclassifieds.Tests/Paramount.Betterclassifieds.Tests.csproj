@@ -127,6 +127,7 @@
     <Compile Include="Events\TicketBarcodeServiceTests.cs" />
     <Compile Include="Mocks\DateServiceMockExtensions.cs" />
     <Compile Include="Mocks\EventTicketMockBuilder.cs" />
+    <Compile Include="Mocks\IdentityMockExtensions.cs" />
     <Compile Include="Mocks\MockBuilder%27T.cs" />
     <Compile Include="Mocks\MockGenerator.cs">
       <AutoGen>True</AutoGen>

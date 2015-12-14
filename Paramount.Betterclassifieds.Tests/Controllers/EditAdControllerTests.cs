@@ -130,7 +130,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var requestedAmount = 100;
             var paymentMethod = "PayPal";
 
-            mockUser.Setup(prop => prop.Identity).Returns(new GenericIdentity(username));
             _eventManagerMock.SetupWithVerification(call => call.CreateEventPaymentRequest(
                 It.Is<int>(p => p == eventId),
                 It.Is<PaymentType>(p => p == PaymentType.PayPal),

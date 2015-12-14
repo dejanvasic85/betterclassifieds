@@ -9,6 +9,7 @@ using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 using System;
 using System.Linq;
 using System.Web.Mvc;
+using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Presentation.Services;
 
 
@@ -172,7 +173,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var userProfile = _userManager.GetCurrentUser(this.User);
             var paymentSummary = _eventManager.BuildPaymentSummary(eventId);
 
-            var viewModel = new EventPaymentRequestViewModel
+            var viewModel = new EventPaymentSummaryViewModel
             {
                 AdId = id,
                 EventId = eventId,
@@ -187,7 +188,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost]
         public ActionResult EventPaymentRequest(int id, int eventId, string paymentMethod)
         {
-            // todo - handle the payment type
+            var mappedPaymentMethod = paymentMethod.CastToEnum<PaymentType>();
+            var currentUserId = this.User.Identity.Name;
+
+            //_eventManager.CreateEventPaymentRequest(mappedPaymentMethod, currentUserId);
 
             return Json(new { NextUrl = Url.EventDashboard(id).ToString() });
         }

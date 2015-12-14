@@ -110,12 +110,18 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // assert
             Assert.That(result, Is.TypeOf<ViewResult>());
-            var viewModel = ((ViewResult)result).Model as EventPaymentRequestViewModel;
+            var viewModel = ((ViewResult)result).Model as EventPaymentSummaryViewModel;
             Assert.That(viewModel, Is.Not.Null);
             Assert.That(viewModel.AmountOwed, Is.EqualTo(90));
             Assert.That(viewModel.OurFeesPercentage, Is.EqualTo(10));
             Assert.That(viewModel.TotalTicketSalesAmount, Is.EqualTo(100));
 
+        }
+
+        [Test]
+        public void EventPaymentRequest_Post_Returns_Json_WithRedirectUrl()
+        {
+             
         }
 
         private Mock<ISearchService> _searchServiceMock;

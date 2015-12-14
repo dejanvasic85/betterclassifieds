@@ -201,16 +201,10 @@ namespace Paramount.Betterclassifieds.Business.Events
             _eventRepository.UpdateEventTicket(eventTicket);
         }
 
-        public void CreateEventTicket(int? eventId, string ticketName, decimal price, int remainingQuantity)
+        public void CreateEventTicket(int eventId, string ticketName, decimal price, int remainingQuantity)
         {
-            var ticket = new EventTicket
-            {
-                AvailableQuantity = remainingQuantity,
-                RemainingQuantity = remainingQuantity,
-                EventId = eventId,
-                TicketName = ticketName,
-                Price = price
-            };
+            Guard.NotDefaultValue(eventId);
+            var ticket = new EventTicketFactory().Create(remainingQuantity, eventId, ticketName, price);
             _eventRepository.CreateEventTicket(ticket);
         }
 
@@ -265,7 +259,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             {
                 throw new ArgumentException("Payment cannot be set to none.", "paymentType");
             }
-            
+
             var request = new EventPaymentRequestFactory()
                 .Create(eventId, paymentType, requestedAmount, requestedByUser, _dateService.Now, _dateService.UtcNow);
 

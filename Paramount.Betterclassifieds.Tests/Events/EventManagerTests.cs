@@ -212,6 +212,25 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 .CreateEventPaymentRequest(1, PaymentType.None, 0, "fooBar"));
         }
 
+        [Test]
+        public void CreateEventTicket_CallsRepository_AfterFactory()
+        {
+            _eventRepositoryMock.SetupWithVerification(call => call.CreateEventTicket(It.IsAny<EventTicket>()));
+            BuildTargetObject().CreateEventTicket(eventId: 10,
+                ticketName: "Adult",
+                price: 100,
+                remainingQuantity: 50);
+        }
+
+        [Test]
+        public void CreateEventTicket_With_EventIdAsZero_ThrowsArgException()
+        {
+            Assert.Throws<ArgumentException>(() => BuildTargetObject().CreateEventTicket(eventId: 0,
+                ticketName: "Adult",
+                price: 100,
+                remainingQuantity: 50));
+        }
+
         private Mock<IEventRepository> _eventRepositoryMock;
         private Mock<IDateService> _dateServiceMock;
         private Mock<IDocumentRepository> _documentRepository;

@@ -147,7 +147,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
             else
             {
-                _eventManager.CreateEventTicket(eventTicketViewModel.EventId,
+                _eventManager.CreateEventTicket(eventTicketViewModel.EventId.GetValueOrDefault(),
                     eventTicketViewModel.TicketName,
                     eventTicketViewModel.Price,
                     eventTicketViewModel.RemainingQuantity);

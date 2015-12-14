@@ -122,6 +122,7 @@
     <Compile Include="Controllers\HomeControllerTests.cs" />
     <Compile Include="Events\EventManagerTests.cs" />
     <Compile Include="Events\EventPaymentRequestFactoryTests.cs" />
+    <Compile Include="Events\EventTicketFactoryTest.cs" />
     <Compile Include="Events\SufficientTicketsRuleTests.cs" />
     <Compile Include="Events\TicketBarcodeServiceTests.cs" />
     <Compile Include="Mocks\DateServiceMockExtensions.cs" />

@@ -2,6 +2,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
+using Paramount.Betterclassifieds.Business.Payment;
+using Paramount.Betterclassifieds.Mvc.Validators;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels
 {
@@ -56,5 +58,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
                 }.AsEnumerable();
             }
         }
+
+        [Display(Name = "Preferred Payment Method")]
+        [MustBeOneOf("None", "PayPal", "DirectDebit")]
+        public string PreferredPaymentMethod { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Paramount.Betterclassifieds.Business.Payment;
 
 namespace Paramount.Betterclassifieds.Business
 {
@@ -6,7 +7,6 @@ namespace Paramount.Betterclassifieds.Business
     {
         public string Username { get; set; }
         public string Email { get; set; }
-
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string AddressLine1 { get; set; }
@@ -15,6 +15,7 @@ namespace Paramount.Betterclassifieds.Business
         public string State { get; set; }
         public string Postcode { get; set; }
         public string Phone { get; set; }
+        public PaymentType PreferredPaymentMethod { get; set; }
 
         public string FullName
         {

@@ -91,6 +91,28 @@
       <Association Name="aspnet_Role_aspnet_Function" Member="aspnet_Role" ThisKey="RoleId" OtherKey="RoleId" Type="aspnet_Role" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Registration" Member="Registrations">
+    <Type Name="Registration">
+      <Column Name="RegistrationId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Username" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PostCode" Type="System.String" DbType="VarChar(6)" CanBeNull="true" />
+      <Column Name="Token" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ExpirationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ExpirationDateUtc" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LastModifiedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LastModifiedDateUtc" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ConfirmationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ConfirmationDateUtc" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Version" Type="System.Byte[]" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
+      <Column Name="HowYouFoundUs" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ConfirmationAttempts" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.UserProfile" Member="UserProfiles">
     <Type Name="UserProfile">
       <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -114,28 +136,7 @@
       <Column Name="LastUpdatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="NewsletterSubscription" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="HowYouFoundUs" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Registration" Member="Registrations">
-    <Type Name="Registration">
-      <Column Name="RegistrationId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Username" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
-      <Column Name="Email" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
-      <Column Name="Password" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
-      <Column Name="FirstName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="LastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="PostCode" Type="System.String" DbType="VarChar(6)" CanBeNull="true" />
-      <Column Name="Token" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="ExpirationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ExpirationDateUtc" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="LastModifiedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="LastModifiedDateUtc" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ConfirmationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ConfirmationDateUtc" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Version" Type="System.Byte[]" DbType="rowversion NOT NULL" CanBeNull="false" IsVersion="true" />
-      <Column Name="HowYouFoundUs" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="Phone" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="ConfirmationAttempts" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PreferredPaymentMethod" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

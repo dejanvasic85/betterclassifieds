@@ -126,6 +126,7 @@
     <Compile Include="Unity\UnityFilterAttributeFilterProvider.cs" />
     <Compile Include="Unity\UnityPageHandlerFactory.cs" />
     <Compile Include="Validators\MaxWordsAttribute.cs" />
+    <Compile Include="Validators\MustBeOneOf.cs" />
     <Compile Include="Validators\MustBeTrue.cs" />
     <Compile Include="Validators\MustNotBePastDate.cs" />
     <Compile Include="Validators\RequiredIfAttribute.cs" />

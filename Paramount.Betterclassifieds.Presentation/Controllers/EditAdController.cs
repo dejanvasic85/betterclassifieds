@@ -10,6 +10,7 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 using Paramount.Betterclassifieds.Business.Payment;
+using Paramount.Betterclassifieds.Presentation.Framework;
 using Paramount.Betterclassifieds.Presentation.Services;
 
 
@@ -188,10 +189,18 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost]
         public ActionResult EventPaymentRequest(int id, EventPaymentRequestViewModel eventPaymentRequestViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return Json(new { IsValid = false, Errors = ModelState.ToErrors() });
+            }
+
             var mappedPaymentMethod = eventPaymentRequestViewModel.PaymentMethod.CastToEnum<PaymentType>();
             var currentUserId = this.User.Identity.Name;
 
-            _eventManager.CreateEventPaymentRequest(eventPaymentRequestViewModel.EventId, mappedPaymentMethod, eventPaymentRequestViewModel.RequestedAmount, currentUserId);
+            _eventManager.CreateEventPaymentRequest(eventPaymentRequestViewModel.EventId.GetValueOrDefault(), 
+                mappedPaymentMethod, 
+                eventPaymentRequestViewModel.RequestedAmount.GetValueOrDefault(), 
+                currentUserId);
 
             return Json(new { NextUrl = Url.EventDashboard(id).ToString() });
         }

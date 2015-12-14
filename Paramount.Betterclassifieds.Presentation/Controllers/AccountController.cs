@@ -1,6 +1,4 @@
-﻿using Paramount.Betterclassifieds.DataService.LinqObjects;
-
-namespace Paramount.Betterclassifieds.Presentation.Controllers
+﻿namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     using AutoMapper;
     using Business;

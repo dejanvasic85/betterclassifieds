@@ -142,6 +142,7 @@
             original.AddressLine2 = applicationUser.AddressLine2;
             original.Postcode = applicationUser.Postcode;
             original.State = applicationUser.State;
+            original.PreferredPaymentMethod = applicationUser.PreferredPaymentMethod;
 
             // Update
             _userRepository.UpdateUserProfile(original);

@@ -130,7 +130,7 @@
                 this.Map(applicationUser, profile);
                 context.SubmitChanges();
             }
-        }
+        }   
 
         public void CreateUserNetwork(UserNetworkModel userNetworkModel)
         {

@@ -20,7 +20,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private List<Action> _verifyList;
         private IUnityContainer _containerBuilder;
 
-        [TestFixtureSetUp]
+        [SetUp]
         public void Initialise()
         {
             _mockRepository = new MockRepository(MockBehavior.Strict);
@@ -28,7 +28,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _containerBuilder = new UnityContainer();
         }
 
-        [TestFixtureTearDown]
+        [TearDown]
         public void Cleanup()
         {
             _verifyList.ForEach(action => action());

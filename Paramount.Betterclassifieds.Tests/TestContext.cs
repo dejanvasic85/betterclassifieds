@@ -14,7 +14,7 @@ namespace Paramount.Betterclassifieds.Tests
         private List<Action> _verifyList;
         private IUnityContainer _containerBuilder;
 
-        [TestFixtureSetUp]
+        [SetUp]
         public void Initialise()
         {
             _mockRepository = new MockRepository(MockBehavior.Strict);

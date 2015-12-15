@@ -124,7 +124,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         {
             // arrange
             var username = "fooBarr";
-            var mockUser = CreateMockOf<IPrincipal>().SetupUser(username);
+            var mockUser = CreateMockOf<IPrincipal>().SetupIdentityCall(username);
             var adId = 10;
             var eventId = 1;
             var requestedAmount = 100;

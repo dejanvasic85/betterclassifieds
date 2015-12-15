@@ -17,29 +17,14 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
     [TestFixture]
     public class AccountControllerTests : ControllerTest<AccountController>
     {
-        private Mock<IUserManager> mockUserMgr;
-        private Mock<IAuthManager> mockAuthMgr;
-        private Mock<IBroadcastManager> mockBroadcastMgr;
-        private Mock<ISearchService> searchServiceMgr;
-
-        [SetUp]
-        public void SetupCotroller()
-        {
-            mockUserMgr = CreateMockOf<IUserManager>();
-            mockAuthMgr = CreateMockOf<IAuthManager>();
-            mockBroadcastMgr = CreateMockOf<IBroadcastManager>();
-            searchServiceMgr = CreateMockOf<ISearchService>();
-        }
-
         [Test]
         public void Login_Get_UserAlreadyLoggedIn_RedirectsToHome()
         {
             // arrange            
-            mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(It.IsAny<IPrincipal>()), true);
-            var mockUser = CreateMockOf<IPrincipal>();
+            _mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(It.IsAny<IPrincipal>()), true);
 
             // act
-            var controller = CreateController(mockUser: mockUser);
+            var controller = CreateController(mockUser: _mockLoggedInUser);
             var result = controller.Login(string.Empty);
 
             // assert
@@ -53,11 +38,10 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         public void Login_Get_UserNeedsToLoginOrRegister_ReturnsLoginOrRegisterModel()
         {
             // arrange
-            mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(It.IsAny<IPrincipal>()), false);
-            var mockUser = CreateMockOf<IPrincipal>();
-
+            _mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(It.IsAny<IPrincipal>()), false);
+           
             // act
-            var ctrl = CreateController(mockUser: mockUser);
+            var ctrl = CreateController(mockUser: _mockLoggedInUser);
             var result = ctrl.Login("/fakeReturnUrl");
 
             // assert
@@ -72,12 +56,11 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         public void Login_Post_UserAlreadyLoggedIn_ReturnsModelWithError()
         {
             // arrange
-            mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(It.IsAny<IPrincipal>()), true);
-            var mockUser = CreateMockOf<IPrincipal>();
+            _mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(It.IsAny<IPrincipal>()), true);
             var loginViewModel = CreateMockOf<LoginViewModel>();
 
             // act
-            var ctrl = CreateController(mockUser: mockUser);
+            var ctrl = CreateController(mockUser: _mockLoggedInUser);
             var result = ctrl.Login(loginViewModel.Object);
 
             // assert - that we have an error
@@ -90,13 +73,12 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         public void Login_Post_UserDoesNotExist_ReturnsModelWithError()
         {
             // arrange
-            mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(It.IsAny<IPrincipal>()), false);
-            mockUserMgr.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.Is<string>(s => s == "fakeUser")), null);
-            var mockUser = CreateMockOf<IPrincipal>();
+            _mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(It.IsAny<IPrincipal>()), false);
+            _mockUserMgr.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.Is<string>(s => s == "fakeUser")), null);
             var mockLoginViewModel = new LoginViewModel { Username = "fakeUser" };
 
             // act
-            var ctrl = CreateController(mockUser: mockUser);
+            var ctrl = CreateController(mockUser: _mockLoggedInUser);
             var result = ctrl.Login(mockLoginViewModel);
 
             // assert - that we have an error
@@ -110,15 +92,13 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         {
             // arrange
             var mockApplicationUser = CreateMockOf<ApplicationUser>();
-            mockApplicationUser
-                .SetupWithVerification(call => call.AuthenticateUser(mockAuthMgr.Object, It.IsAny<string>(), It.IsAny<bool>()), false);
-            mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(It.IsAny<IPrincipal>()), false);
-            mockUserMgr.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.Is<string>(s => s == "fakeUser")), mockApplicationUser.Object);
-            var mockUser = CreateMockOf<IPrincipal>();
+            mockApplicationUser.SetupWithVerification(call => call.AuthenticateUser(_mockAuthMgr.Object, It.IsAny<string>(), It.IsAny<bool>()), false);
+            _mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(It.IsAny<IPrincipal>()), false);
+            _mockUserMgr.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.Is<string>(s => s == "fakeUser")), mockApplicationUser.Object);
             var mockLoginViewModel = new LoginViewModel { Username = "fakeUser" };
 
             // act
-            var ctrl = CreateController(mockUser: mockUser);
+            var ctrl = CreateController(mockUser: _mockLoggedInUser);
             var result = ctrl.Login(mockLoginViewModel);
 
             // assert - that we have an error
@@ -136,15 +116,13 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                     AccountController.ReturnUrlKey, "/fakeReturnUrl"
                 }};
             var mockApplicationUser = CreateMockOf<ApplicationUser>();
-            mockApplicationUser
-                .SetupWithVerification(call => call.AuthenticateUser(mockAuthMgr.Object, It.IsAny<string>(), It.IsAny<bool>()), true);
-            mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(It.IsAny<IPrincipal>()), false);
-            mockUserMgr.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.Is<string>(s => s == "fakeUser")), mockApplicationUser.Object);
-            var mockUser = CreateMockOf<IPrincipal>();
+            mockApplicationUser.SetupWithVerification(call => call.AuthenticateUser(_mockAuthMgr.Object, It.IsAny<string>(), It.IsAny<bool>()), true);
+            _mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(It.IsAny<IPrincipal>()), false);
+            _mockUserMgr.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.Is<string>(s => s == "fakeUser")), mockApplicationUser.Object);
             var mockLoginViewModel = new LoginViewModel { Username = "fakeUser" };
 
             // act
-            var ctrl = CreateController(mockUser: mockUser, mockTempData: mockTempData);
+            var ctrl = CreateController(mockUser: _mockLoggedInUser, mockTempData: mockTempData);
             var result = ctrl.Login(mockLoginViewModel);
 
             // assert - that we have an error
@@ -153,30 +131,38 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             redirectResult.Url.IsEqualTo("/fakeReturnUrl");
         }
 
-        //[Test]
-        //public void Details_Get_RetrievesUserProfileDetails_ReturnsViewModel_ForEdit()
-        //{
+        [Test]
+        public void Details_Get_RetrievesUserProfileDetails_ReturnsViewModel_ForEdit()
+        {
+            // Arrange
+            var mockUserProfile = new ApplicationUserMockBuilder().Default().Build();
+            _mockUserMgr.SetupWithVerification(call => call.GetCurrentUser(It.IsAny<IPrincipal>()), result: mockUserProfile);
 
-        //    mockUserMgr.Setup(call => call.GetCurrentUser(It.IsAny<IPrincipal>()))
-        //        .Returns(new ApplicationUser
-        //        {
-        //            FirstName = "Aaron",
-        //            LastName = "Ramsey",
-        //            City = "Melbourne",
-        //            Username = "aramsay",
-        //            AddressLine1 = "1 Flinders Street",
-        //            AddressLine2 = "Vic",
-        //            State = "VIC",
-        //            Email = "ramsey@arsenal.com",
-        //            Phone = "04333333333",
-        //            Postcode = "3000"
-        //        });
+            // Act
+            var controller = this.CreateController(mockUser: _mockLoggedInUser);
+            var result = controller.Details();
 
-        //    var controller = this.CreateController();
+            // Assert
+            Assert.That(result, Is.TypeOf<ViewResult>());
+            var viewResult = (ViewResult)result;
+            Assert.That(viewResult.ViewBag.Updated, Is.Not.Null);
+            Assert.That(viewResult.ViewBag.Updated, Is.False);
+        }
 
-        //    var result = controller.Details();
+        private Mock<IUserManager> _mockUserMgr;
+        private Mock<IAuthManager> _mockAuthMgr;
+        private Mock<IBroadcastManager> _mockBroadcastMgr;
+        private Mock<ISearchService> _searchServiceMgr;
+        private Mock<IPrincipal> _mockLoggedInUser;
 
-
-        //}
+        [SetUp]
+        public void SetupCotroller()
+        {
+            _mockLoggedInUser = CreateMockOf<IPrincipal>();
+            _mockUserMgr = CreateMockOf<IUserManager>();
+            _mockAuthMgr = CreateMockOf<IAuthManager>();
+            _mockBroadcastMgr = CreateMockOf<IBroadcastManager>();
+            _searchServiceMgr = CreateMockOf<ISearchService>();
+        }
     }
 }

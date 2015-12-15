@@ -57,6 +57,18 @@ namespace Paramount.Betterclassifieds.Mvc.HtmlHelpers
         }
 
         /// <summary>
+        /// Simply replaces the type=text with type=number for html5 purposes and adds form-control css class
+        /// </summary>
+        public static MvcHtmlString BootstrapNumberFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> attributes = null)
+        {
+            var bootstrapTextBox = htmlHelper.BootstrapTextBoxFor(expression).ToHtmlString();
+
+            var numberInput = bootstrapTextBox.Replace("type=\"text\"", "type=\"number\"");
+
+            return new MvcHtmlString(numberInput);
+        }
+
+        /// <summary>
         /// Generates an input element with calendar class and data-provide attributes
         /// </summary>
         public static MvcHtmlString BootstrapCalendar<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IDictionary<string, object> attributes = null)

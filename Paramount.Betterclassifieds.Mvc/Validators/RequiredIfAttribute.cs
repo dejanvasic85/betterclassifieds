@@ -3,12 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Paramount.Betterclassifieds.Mvc.Validators
 {
-    public class RequiredIfAttribute : RequiredAttribute
+    public class RequiredIfAttribute : ValidationAttribute
     {
-        private String PropertyName { get; set; }
-        private Object DesiredValue { get; set; }
-        
-        public RequiredIfAttribute(String propertyName, Object desiredvalue)
+        private string PropertyName { get; set; }
+        private object DesiredValue { get; set; }
+        public string ValidationMessage { get; set; }
+
+        public RequiredIfAttribute(string propertyName, object desiredvalue)
         {
             PropertyName = propertyName;
             DesiredValue = desiredvalue;
@@ -16,13 +17,12 @@ namespace Paramount.Betterclassifieds.Mvc.Validators
 
         protected override ValidationResult IsValid(object value, ValidationContext context)
         {
-            Object instance = context.ObjectInstance;
-            Type type = instance.GetType();
-            Object proprtyvalue = type.GetProperty(PropertyName).GetValue(instance, null);
-            if (proprtyvalue.ToString() == DesiredValue.ToString())
+            var instance = context.ObjectInstance;
+            var type = instance.GetType();
+            var targetSiblingValue = type.GetProperty(PropertyName).GetValue(instance, null);
+            if (value == null && targetSiblingValue.ToString() == DesiredValue.ToString())
             {
-                ValidationResult result = base.IsValid(value, context);
-                return result;
+                return new ValidationResult(ValidationMessage, new[] { context.MemberName });
             }
             return ValidationResult.Success;
         }

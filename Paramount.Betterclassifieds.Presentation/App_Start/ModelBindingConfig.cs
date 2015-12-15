@@ -15,7 +15,7 @@ namespace Paramount.Betterclassifieds.Presentation
             modelBinders.Add(typeof(IBookingCart), new BookingCartBinder());
 
             // Attributes
-            DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(RequiredIfAttribute), typeof(RequiredAttributeAdapter));
+            //DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(RequiredIfAttribute), typeof(RequiredAttributeAdapter));
 
         }
     }

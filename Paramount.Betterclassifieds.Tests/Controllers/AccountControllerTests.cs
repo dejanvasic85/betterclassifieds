@@ -147,6 +147,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var viewResult = (ViewResult)result;
             Assert.That(viewResult.ViewBag.Updated, Is.Not.Null);
             Assert.That(viewResult.ViewBag.Updated, Is.False);
+            Assert.That(viewResult.ViewBag.ModelStateNotValid, Is.False);
         }
 
         [Test]
@@ -169,6 +170,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             Assert.That(result, Is.TypeOf<ViewResult>());
             var viewResult = (ViewResult) result;
             Assert.That(viewResult.ViewBag.Updated, Is.True);
+            Assert.That(viewResult.ViewBag.ModelStateNotValid, Is.False);
         }
 
         private Mock<IUserManager> _mockUserMgr;

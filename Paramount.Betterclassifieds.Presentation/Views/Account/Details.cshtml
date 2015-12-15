@@ -44,6 +44,16 @@
     </div>
 }
 
+@if (ViewBag.ModelStateNotValid)
+{
+    <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+        </button>
+        Seems that you missed something. Please see the validation messages below.
+    </div>
+}
+
 <form role="form" method="POST" action="@Url.Action("Details", "Account")">
     @Html.AntiForgeryToken()
 
@@ -128,10 +138,33 @@
 
             <div class="form-group top-buffer-10">
                 @Html.LabelFor(m => m.PayPalEmail)
-                @Html.BootstrapEmailFor(m => m.PayPalEmail)                
+                @Html.BootstrapEmailFor(m => m.PayPalEmail)
                 @Html.ValidationMessageFor(m => m.PayPalEmail)
             </div>
 
+            <div class="form-group">
+                @Html.LabelFor(m => m.BankName)
+                @Html.BootstrapTextBoxFor(m => m.BankName)
+                @Html.ValidationMessageFor(m => m.BankName)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.BankAccountName)
+                @Html.BootstrapTextBoxFor(m => m.BankAccountName)
+                @Html.ValidationMessageFor(m => m.BankAccountName)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.BankBsbNumber)
+                @Html.BootstrapTextBoxFor(m => m.BankBsbNumber, attributes: new Dictionary<string, object> { {"data-numbers-only", ""} })
+                @Html.ValidationMessageFor(m => m.BankBsbNumber)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.BankAccountNumber)
+                @Html.BootstrapTextBoxFor(m => m.BankAccountNumber, attributes: new Dictionary<string, object> { { "data-numbers-only", "" } })
+                @Html.ValidationMessageFor(m => m.BankAccountNumber)
+            </div>
         </div>
     </div>
 

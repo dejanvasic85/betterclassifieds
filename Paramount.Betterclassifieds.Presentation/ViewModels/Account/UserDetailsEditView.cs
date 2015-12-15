@@ -37,7 +37,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         [RegularExpression(@"^\d+$", ErrorMessage = "Postcode must be a number")]
         public string PostCode { get; set; }
 
-        
+
         [StringLength(12, MinimumLength = 8, ErrorMessage = "Phone number must be between 8 and 10 characters long")]
         [RegularExpression(@"^\d+$", ErrorMessage = "Phone must be a number")]
         public string Phone { get; set; }
@@ -63,9 +63,26 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         [MustBeOneOf("None", "PayPal", "DirectDebit")]
         public string PreferredPaymentMethod { get; set; }
 
-        [Display(Name ="PayPal Email")]
+        [Display(Name = "PayPal Email")]
         [EmailAddress]
         [MaxLength(255)]
+        [RequiredIf("PreferredPaymentMethod", PaymentType.PayPal, ValidationMessage = "Please provide PayPal email if preferred method is PayPal")]
         public string PayPalEmail { get; set; }
+
+        [Display(Name = "Bank Name")]
+        [RequiredIf("PreferredPaymentMethod", PaymentType.DirectDebit, ValidationMessage = "Please provide Bank Name if preferred method is Direct Debit")]
+        public string BankName { get; set; }
+
+        [Display(Name = "Account Name")]
+        [RequiredIf("PreferredPaymentMethod", PaymentType.DirectDebit, ValidationMessage = "Please provide Account Name if preferred method is Direct Debit")]
+        public string BankAccountName { get; set; }
+
+        [Display(Name = "Account Number")]
+        [RequiredIf("PreferredPaymentMethod", PaymentType.DirectDebit, ValidationMessage = "Please provide Account Number if preferred method is Direct Debit")]
+        public string BankAccountNumber { get; set; }
+
+        [Display(Name = "BSB")]
+        [RequiredIf("PreferredPaymentMethod", PaymentType.DirectDebit, ValidationMessage = "Please provide BSB if preferred method is Direct Debit")]
+        public string BankBsbNumber { get; set; }
     }
 }

@@ -128,7 +128,7 @@
 
             return RedirectToAction("Index", "Home");
         }
-        
+
         [HttpGet]
         public ActionResult Logout()
         {
@@ -173,6 +173,7 @@
             UserDetailsEditView viewModel = this.Map<ApplicationUser, UserDetailsEditView>(applicationUser);
 
             ViewBag.Updated = false;
+            ViewBag.ModelStateNotValid = false;
             return View(viewModel);
         }
 
@@ -184,6 +185,7 @@
             if (!this.ModelState.IsValid)
             {
                 ViewBag.Updated = false;
+                ViewBag.ModelStateNotValid = true;
                 return View(userDetailsView);
             }
 
@@ -192,6 +194,7 @@
             _userManager.UpdateUserProfile(applicationUser);
 
             ViewBag.Updated = true;
+            ViewBag.ModelStateNotValid = false;
             return View(userDetailsView);
         }
 

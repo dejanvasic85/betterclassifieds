@@ -17,6 +17,10 @@ namespace Paramount.Betterclassifieds.Business
         public string Phone { get; set; }
         public PaymentType PreferredPaymentMethod { get; set; }
         public string PayPalEmail { get; set; }
+        public string BankName { get; set; }
+        public string BankAccountName { get; set; }
+        public string BankAccountNumber { get; set; }
+        public string BankBsbNumber { get; set; }
         public string FullName
         {
             get { return string.Format("{0} {1}", FirstName, LastName); }

@@ -347,6 +347,22 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.PayPalEmail = val);
 		}
+		public ApplicationUserMockBuilder WithBankName(String val)
+		{ 
+			return WithBuildStep(p => p.BankName = val);
+		}
+		public ApplicationUserMockBuilder WithBankAccountName(String val)
+		{ 
+			return WithBuildStep(p => p.BankAccountName = val);
+		}
+		public ApplicationUserMockBuilder WithBankAccountNumber(String val)
+		{ 
+			return WithBuildStep(p => p.BankAccountNumber = val);
+		}
+		public ApplicationUserMockBuilder WithBankBsbNumber(String val)
+		{ 
+			return WithBuildStep(p => p.BankBsbNumber = val);
+		}
 	}
 
 	internal partial class EventModelMockBuilder : MockBuilder<EventModelMockBuilder, EventModel>

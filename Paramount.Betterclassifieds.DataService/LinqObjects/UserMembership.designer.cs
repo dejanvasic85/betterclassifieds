@@ -2673,6 +2673,14 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 		
 		private string _PayPalEmail;
 		
+		private string _BankName;
+		
+		private string _BankAccountName;
+		
+		private string _BankAccountNumber;
+		
+		private string _BankBsbNumber;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -2723,6 +2731,14 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
     partial void OnPreferredPaymentMethodChanged();
     partial void OnPayPalEmailChanging(string value);
     partial void OnPayPalEmailChanged();
+    partial void OnBankNameChanging(string value);
+    partial void OnBankNameChanged();
+    partial void OnBankAccountNameChanging(string value);
+    partial void OnBankAccountNameChanged();
+    partial void OnBankAccountNumberChanging(string value);
+    partial void OnBankAccountNumberChanged();
+    partial void OnBankBsbNumberChanging(string value);
+    partial void OnBankBsbNumberChanged();
     #endregion
 		
 		public UserProfile()
@@ -3186,6 +3202,86 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 					this._PayPalEmail = value;
 					this.SendPropertyChanged("PayPalEmail");
 					this.OnPayPalEmailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BankName", DbType="VarChar(50)")]
+		public string BankName
+		{
+			get
+			{
+				return this._BankName;
+			}
+			set
+			{
+				if ((this._BankName != value))
+				{
+					this.OnBankNameChanging(value);
+					this.SendPropertyChanging();
+					this._BankName = value;
+					this.SendPropertyChanged("BankName");
+					this.OnBankNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BankAccountName", DbType="VarChar(100)")]
+		public string BankAccountName
+		{
+			get
+			{
+				return this._BankAccountName;
+			}
+			set
+			{
+				if ((this._BankAccountName != value))
+				{
+					this.OnBankAccountNameChanging(value);
+					this.SendPropertyChanging();
+					this._BankAccountName = value;
+					this.SendPropertyChanged("BankAccountName");
+					this.OnBankAccountNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BankAccountNumber", DbType="VarChar(20)")]
+		public string BankAccountNumber
+		{
+			get
+			{
+				return this._BankAccountNumber;
+			}
+			set
+			{
+				if ((this._BankAccountNumber != value))
+				{
+					this.OnBankAccountNumberChanging(value);
+					this.SendPropertyChanging();
+					this._BankAccountNumber = value;
+					this.SendPropertyChanged("BankAccountNumber");
+					this.OnBankAccountNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BankBsbNumber", DbType="VarChar(10)")]
+		public string BankBsbNumber
+		{
+			get
+			{
+				return this._BankBsbNumber;
+			}
+			set
+			{
+				if ((this._BankBsbNumber != value))
+				{
+					this.OnBankBsbNumberChanging(value);
+					this.SendPropertyChanging();
+					this._BankBsbNumber = value;
+					this.SendPropertyChanged("BankBsbNumber");
+					this.OnBankBsbNumberChanged();
 				}
 			}
 		}

@@ -14,6 +14,11 @@
             WithPostcode("3000");
             WithState("State");
             WithPhone("0433 333 333");
+            WithPayPalEmail("foo@bar.com");
+            WithBankName("CommBank");
+            WithBankAccountName("Mr Foo Bar");
+            WithBankAccountNumber("112233");
+            WithBankBsbNumber("033900");
             return this;
         }
     }

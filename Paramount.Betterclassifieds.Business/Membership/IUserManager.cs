@@ -144,6 +144,10 @@
             original.State = applicationUser.State;
             original.PreferredPaymentMethod = applicationUser.PreferredPaymentMethod;
             original.PayPalEmail = applicationUser.PayPalEmail;
+            original.BankName = applicationUser.BankName;
+            original.BankAccountName = applicationUser.BankAccountName;
+            original.BankAccountNumber = applicationUser.BankAccountNumber;
+            original.BankBsbNumber = applicationUser.BankBsbNumber;
 
             // Update
             _userRepository.UpdateUserProfile(original);

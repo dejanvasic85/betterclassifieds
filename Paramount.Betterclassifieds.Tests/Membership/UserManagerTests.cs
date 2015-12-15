@@ -41,6 +41,10 @@ namespace Paramount.Betterclassifieds.Tests.Membership
                 .WithState("original State")
                 .WithPreferredPaymentMethod(PaymentType.None)
                 .WithPayPalEmail("original Paypal@email.com")
+                .WithBankName("original bank")
+                .WithBankAccountName("original account name")
+                .WithBankAccountNumber("original account number")
+                .WithBankBsbNumber("original account bsb")
                 .Build()
                 ;
 
@@ -59,6 +63,10 @@ namespace Paramount.Betterclassifieds.Tests.Membership
             Assert.That(mockUserOriginal.State, Is.EqualTo(mockUser.State));
             Assert.That(mockUserOriginal.PreferredPaymentMethod, Is.EqualTo(mockUser.PreferredPaymentMethod));
             Assert.That(mockUserOriginal.PayPalEmail, Is.EqualTo(mockUser.PayPalEmail));
+            Assert.That(mockUserOriginal.BankName, Is.EqualTo(mockUser.BankName));
+            Assert.That(mockUserOriginal.BankAccountName, Is.EqualTo(mockUser.BankAccountName));
+            Assert.That(mockUserOriginal.BankAccountNumber, Is.EqualTo(mockUser.BankAccountNumber));
+            Assert.That(mockUserOriginal.BankBsbNumber, Is.EqualTo(mockUser.BankBsbNumber));
         }
 
         private Mock<IUserRepository> _mockUserRepository;

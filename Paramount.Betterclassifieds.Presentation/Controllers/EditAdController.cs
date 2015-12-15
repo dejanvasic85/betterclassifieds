@@ -180,7 +180,15 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 EventId = eventId,
                 TotalTicketSalesAmount = paymentSummary.TotalTicketSalesAmount,
                 OurFeesPercentage = paymentSummary.SystemTicketFee,
-                AmountOwed = paymentSummary.EventOrganiserOwedAmount
+                AmountOwed = paymentSummary.EventOrganiserOwedAmount,
+                PayPalEmail = userProfile.PayPalEmail,
+                DirectDebitDetails = new DirectDebitViewModel
+                {
+                    BankName = userProfile.BankName,
+                    BSB = userProfile.BankBsbNumber,
+                    AccountNumber = userProfile.BankAccountNumber,
+                    AccountName = userProfile.BankAccountName
+                }
             };
 
             return View(viewModel);

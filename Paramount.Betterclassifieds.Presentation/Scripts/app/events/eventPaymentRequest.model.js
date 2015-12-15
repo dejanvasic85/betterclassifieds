@@ -6,7 +6,7 @@
         me.selectedPaymentType = ko.observable(data.preferredPaymentType);
         me.eventId = ko.observable(data.eventId);
         me.isPayPalConfigured = ko.observable(data.payPalEmail !== null);
-        me.isDirectDebitConfigured = ko.observable(data.directDebitDetails !== null);
+        me.isDirectDebitConfigured = ko.observable(data.hasDirectDebitDetails);
 
         me.selectPayPal = function () {
             me.selectedPaymentType($paramount.PAYMENT.PAYPAL);

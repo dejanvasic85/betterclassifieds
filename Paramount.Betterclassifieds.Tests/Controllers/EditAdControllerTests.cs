@@ -94,7 +94,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         public void EventPaymentRequest_Get_Returns_View()
         {
             // arrange
-            var mockApplicationUser = new ApplicationUserMockBuilder().Build();
+            var mockApplicationUser = new ApplicationUserMockBuilder().Default().Build();
             _userManagerMock.SetupWithVerification(call => call.GetCurrentUser(It.IsAny<IPrincipal>()), mockApplicationUser);
             var mockPrincipal = CreateMockOf<IPrincipal>();
             var mockPaymentSummary = new EventPaymentSummaryMockBuilder()
@@ -116,7 +116,12 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             Assert.That(viewModel.AmountOwed, Is.EqualTo(90));
             Assert.That(viewModel.OurFeesPercentage, Is.EqualTo(10));
             Assert.That(viewModel.TotalTicketSalesAmount, Is.EqualTo(100));
-
+            Assert.That(viewModel.PayPalEmail, Is.EqualTo(mockApplicationUser.PayPalEmail));
+            Assert.That(viewModel.DirectDebitDetails, Is.Not.Null);
+            Assert.That(viewModel.DirectDebitDetails.BankName, Is.EqualTo(mockApplicationUser.BankName));
+            Assert.That(viewModel.DirectDebitDetails.AccountName, Is.EqualTo(mockApplicationUser.BankAccountName));
+            Assert.That(viewModel.DirectDebitDetails.AccountNumber, Is.EqualTo(mockApplicationUser.BankAccountNumber));
+            Assert.That(viewModel.DirectDebitDetails.BSB, Is.EqualTo(mockApplicationUser.BankBsbNumber));
         }
 
         [Test]

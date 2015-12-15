@@ -30,7 +30,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 });
 
             // Act
-            var result = CreateController().Index();
+            var result = BuildController().Index();
 
             // Assert
             result.IsTypeOf<ViewResult>();
@@ -63,7 +63,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
 
             // Act
-            var result = CreateController().ContactUs();
+            var result = BuildController().ContactUs();
 
             // Assert
             result.IsTypeOf<ViewResult>();
@@ -108,7 +108,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 .SetupGet(prop => prop.SupportEmailList).Returns(supportEmails).Verifiable();
 
             // Act
-            var controller = CreateController();
+            var controller = BuildController();
 
             // Assert
             var result = controller.ContactUs(mockModel);

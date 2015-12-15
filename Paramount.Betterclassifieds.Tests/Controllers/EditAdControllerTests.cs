@@ -38,7 +38,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventManagerMock.SetupWithVerification(call => call.BuildPaymentSummary(It.Is<int>(p => p == eventId)), mockPaymentSummary);
 
             // Act 
-            var result = CreateController().EventDashboard(adId);
+            var result = BuildController().EventDashboard(adId);
 
             // Assert
             Assert.That(result, Is.TypeOf<ViewResult>());
@@ -80,7 +80,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
 
             // act
-            var result = CreateController().EventGuestListDownloadPdf(adId, eventId);
+            var result = BuildController().EventGuestListDownloadPdf(adId, eventId);
 
             // assert
             Assert.That(result, Is.TypeOf<FileContentResult>());
@@ -107,7 +107,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
 
             // act
-            var result = this.CreateController(mockUser: mockPrincipal).EventPaymentRequest(It.IsAny<int>(), It.IsAny<int>());
+            var result = this.BuildController(mockUser: mockPrincipal).EventPaymentRequest(It.IsAny<int>(), It.IsAny<int>());
 
             // assert
             Assert.That(result, Is.TypeOf<ViewResult>());
@@ -137,7 +137,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 It.Is<string>(p => p == username)));
 
             // act
-            var controller = CreateController(mockUser: mockUser);
+            var controller = BuildController(mockUser: mockUser);
 
             var result = controller.EventPaymentRequest(adId, new EventPaymentRequestViewModel
             {

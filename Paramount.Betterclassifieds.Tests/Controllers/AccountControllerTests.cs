@@ -24,7 +24,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(It.IsAny<IPrincipal>()), true);
 
             // act
-            var controller = CreateController(mockUser: _mockLoggedInUser);
+            var controller = BuildController(mockUser: _mockLoggedInUser);
             var result = controller.Login(string.Empty);
 
             // assert
@@ -39,9 +39,9 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         {
             // arrange
             _mockAuthMgr.SetupWithVerification(call => call.IsUserIdentityLoggedIn(It.IsAny<IPrincipal>()), false);
-           
+
             // act
-            var ctrl = CreateController(mockUser: _mockLoggedInUser);
+            var ctrl = BuildController(mockUser: _mockLoggedInUser);
             var result = ctrl.Login("/fakeReturnUrl");
 
             // assert
@@ -60,7 +60,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var loginViewModel = CreateMockOf<LoginViewModel>();
 
             // act
-            var ctrl = CreateController(mockUser: _mockLoggedInUser);
+            var ctrl = BuildController(mockUser: _mockLoggedInUser);
             var result = ctrl.Login(loginViewModel.Object);
 
             // assert - that we have an error
@@ -78,7 +78,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var mockLoginViewModel = new LoginViewModel { Username = "fakeUser" };
 
             // act
-            var ctrl = CreateController(mockUser: _mockLoggedInUser);
+            var ctrl = BuildController(mockUser: _mockLoggedInUser);
             var result = ctrl.Login(mockLoginViewModel);
 
             // assert - that we have an error
@@ -98,7 +98,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var mockLoginViewModel = new LoginViewModel { Username = "fakeUser" };
 
             // act
-            var ctrl = CreateController(mockUser: _mockLoggedInUser);
+            var ctrl = BuildController(mockUser: _mockLoggedInUser);
             var result = ctrl.Login(mockLoginViewModel);
 
             // assert - that we have an error
@@ -122,7 +122,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var mockLoginViewModel = new LoginViewModel { Username = "fakeUser" };
 
             // act
-            var ctrl = CreateController(mockUser: _mockLoggedInUser, mockTempData: mockTempData);
+            var ctrl = BuildController(mockUser: _mockLoggedInUser, mockTempData: mockTempData);
             var result = ctrl.Login(mockLoginViewModel);
 
             // assert - that we have an error
@@ -139,7 +139,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _mockUserMgr.SetupWithVerification(call => call.GetCurrentUser(It.IsAny<IPrincipal>()), result: mockUserProfile);
 
             // Act
-            var controller = this.CreateController(mockUser: _mockLoggedInUser);
+            var controller = this.BuildController(mockUser: _mockLoggedInUser);
             var result = controller.Details();
 
             // Assert
@@ -147,6 +147,28 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var viewResult = (ViewResult)result;
             Assert.That(viewResult.ViewBag.Updated, Is.Not.Null);
             Assert.That(viewResult.ViewBag.Updated, Is.False);
+        }
+
+        [Test]
+        public void Details_Post_CallsUserManager_ReturnsView()
+        {
+            // arrange
+            var mockViewModel = new UserDetailsEditView
+            {
+                FirstName = "Bob", PreferredPaymentMethod = "None", LastName = "Hope",
+                AddressLine1 = "1 Memory Lane", PostCode = "3000"
+            };
+            _mockLoggedInUser.SetupIdentityCall();
+            _mockUserMgr.SetupWithVerification(call => call.UpdateUserProfile(It.IsAny<ApplicationUser>()));
+
+            // act
+            var controller = BuildController(mockUser: _mockLoggedInUser);
+            var result = controller.Details(mockViewModel);
+
+            // assert
+            Assert.That(result, Is.TypeOf<ViewResult>());
+            var viewResult = (ViewResult) result;
+            Assert.That(viewResult.ViewBag.Updated, Is.True);
         }
 
         private Mock<IUserManager> _mockUserMgr;

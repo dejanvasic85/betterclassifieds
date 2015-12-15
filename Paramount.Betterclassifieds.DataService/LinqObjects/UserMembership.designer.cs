@@ -2671,6 +2671,8 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 		
 		private string _PreferredPaymentMethod;
 		
+		private string _PayPalEmail;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -2719,6 +2721,8 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
     partial void OnHowYouFoundUsChanged();
     partial void OnPreferredPaymentMethodChanging(string value);
     partial void OnPreferredPaymentMethodChanged();
+    partial void OnPayPalEmailChanging(string value);
+    partial void OnPayPalEmailChanged();
     #endregion
 		
 		public UserProfile()
@@ -3162,6 +3166,26 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 					this._PreferredPaymentMethod = value;
 					this.SendPropertyChanged("PreferredPaymentMethod");
 					this.OnPreferredPaymentMethodChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PayPalEmail", DbType="VarChar(30)")]
+		public string PayPalEmail
+		{
+			get
+			{
+				return this._PayPalEmail;
+			}
+			set
+			{
+				if ((this._PayPalEmail != value))
+				{
+					this.OnPayPalEmailChanging(value);
+					this.SendPropertyChanging();
+					this._PayPalEmail = value;
+					this.SendPropertyChanged("PayPalEmail");
+					this.OnPayPalEmailChanged();
 				}
 			}
 		}

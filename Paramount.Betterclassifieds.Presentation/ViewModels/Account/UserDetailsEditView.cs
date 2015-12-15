@@ -62,5 +62,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         [Display(Name = "Preferred Payment Method")]
         [MustBeOneOf("None", "PayPal", "DirectDebit")]
         public string PreferredPaymentMethod { get; set; }
+
+        [Display(Name ="PayPal Email")]
+        [EmailAddress]
+        [MaxLength(255)]
+        public string PayPalEmail { get; set; }
     }
 }

@@ -137,6 +137,7 @@
       <Column Name="NewsletterSubscription" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="HowYouFoundUs" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="PreferredPaymentMethod" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="PayPalEmail" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

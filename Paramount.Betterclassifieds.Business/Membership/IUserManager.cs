@@ -143,6 +143,7 @@
             original.Postcode = applicationUser.Postcode;
             original.State = applicationUser.State;
             original.PreferredPaymentMethod = applicationUser.PreferredPaymentMethod;
+            original.PayPalEmail = applicationUser.PayPalEmail;
 
             // Update
             _userRepository.UpdateUserProfile(original);

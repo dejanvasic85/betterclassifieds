@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12.375, 13.125" name="UserMembership">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12.375, 13" name="UserMembership">
   <DataContextMoniker Name="/UserMembershipDataContext" />
   <nestedChildShapes>
     <classShape Id="f1932e3b-7018-4b04-a9ce-a95257e08129" absoluteBounds="4.25, 0.5, 2, 1.5785953776041666">
@@ -113,10 +113,10 @@
         <elementListCompartment Id="273038b0-f1c1-4b8f-8cbe-3b10e41586d5" absoluteBounds="3.89, 7.96, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="f55e624d-2560-432d-be73-f4529162e124" absoluteBounds="1.5, 7.875, 2, 5.0400211588541657">
+    <classShape Id="58e426a1-d757-4344-8fe6-cabb3164e960" absoluteBounds="1, 7.5, 2, 5.2323225911458326">
       <DataClassMoniker Name="/UserMembershipDataContext/UserProfile" />
       <nestedChildShapes>
-        <elementListCompartment Id="7458be7e-2ca6-4146-b910-46990120087c" absoluteBounds="1.5150000000000001, 8.335, 1.9700000000000002, 4.4800211588541661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="98493b82-471a-41b9-916b-563a5fa27f77" absoluteBounds="1.0150000000000001, 7.9600000000000009, 1.9700000000000002, 4.672322591145833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

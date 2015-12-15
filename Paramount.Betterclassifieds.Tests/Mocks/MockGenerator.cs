@@ -339,6 +339,14 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.Phone = val);
 		}
+		public ApplicationUserMockBuilder WithPreferredPaymentMethod(PaymentType val)
+		{ 
+			return WithBuildStep(p => p.PreferredPaymentMethod = val);
+		}
+		public ApplicationUserMockBuilder WithPayPalEmail(String val)
+		{ 
+			return WithBuildStep(p => p.PayPalEmail = val);
+		}
 	}
 
 	internal partial class EventModelMockBuilder : MockBuilder<EventModelMockBuilder, EventModel>

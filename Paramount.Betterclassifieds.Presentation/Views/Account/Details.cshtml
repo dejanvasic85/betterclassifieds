@@ -104,7 +104,7 @@
             <div class="bs-callout bs-callout-info">
                 <h4><i class="fa fa-ticket"></i>&nbsp; Receiving Payments</h4>
                 <p>
-                    Sometimes, we may need to send you money. Please provide your PayPal or Bank details. Or both. Including
+                    Sometimes, we may need to send you money. Please provide your PayPal email and/or Bank details. Including
                     your preferred method.
                 </p>
             </div>
@@ -124,6 +124,12 @@
                         <i class="fa fa-bank"></i>&nbsp;Direct Debit
                     </button>
                 </div>
+            </div>
+
+            <div class="form-group top-buffer-10">
+                @Html.LabelFor(m => m.PayPalEmail)
+                @Html.BootstrapEmailFor(m => m.PayPalEmail)                
+                @Html.ValidationMessageFor(m => m.PayPalEmail)
             </div>
 
         </div>

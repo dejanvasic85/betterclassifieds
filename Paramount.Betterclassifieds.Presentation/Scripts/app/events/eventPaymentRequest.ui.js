@@ -6,16 +6,6 @@
         init: function (eventPaymentRequestViewModel) {
             var $rootElement = $('.event-payment-request');
 
-
-            /*
-             * Class toggling for the payment buttons
-             */
-            var $paymentBtns = $rootElement.find('.payment-btn');
-            $rootElement.find('.payment-btn').on('click', function () {
-                $paymentBtns.removeClass('btn-success');
-                $(this).addClass('btn-success');
-            });
-
             /*
              * Knockout model
              */

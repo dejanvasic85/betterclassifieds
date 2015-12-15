@@ -116,6 +116,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             Assert.That(viewModel.AmountOwed, Is.EqualTo(90));
             Assert.That(viewModel.OurFeesPercentage, Is.EqualTo(10));
             Assert.That(viewModel.TotalTicketSalesAmount, Is.EqualTo(100));
+            Assert.That(viewModel.PreferredPaymentType, Is.EqualTo(mockApplicationUser.PreferredPaymentMethod.ToString()));
             Assert.That(viewModel.PayPalEmail, Is.EqualTo(mockApplicationUser.PayPalEmail));
             Assert.That(viewModel.DirectDebitDetails, Is.Not.Null);
             Assert.That(viewModel.DirectDebitDetails.BankName, Is.EqualTo(mockApplicationUser.BankName));

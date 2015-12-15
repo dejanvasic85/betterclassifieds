@@ -7,6 +7,7 @@
         me.eventId = ko.observable(data.eventId);
         me.isPayPalConfigured = ko.observable(data.payPalEmail !== null);
         me.isDirectDebitConfigured = ko.observable(data.hasDirectDebitDetails);
+        me.amountOwed = ko.observable(data.amountOwed);
 
         me.selectPayPal = function () {
             me.selectedPaymentType($paramount.PAYMENT.PAYPAL);
@@ -40,6 +41,7 @@
 
             var paymentRequest = {
                 paymentMethod: me.selectedPaymentType(),
+                requestedAmount : me.amountOwed(),
                 eventId: me.eventId()
             }
             adDesignService.requestEventPayment(paymentRequest)

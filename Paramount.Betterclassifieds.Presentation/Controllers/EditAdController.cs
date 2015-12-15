@@ -181,6 +181,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 TotalTicketSalesAmount = paymentSummary.TotalTicketSalesAmount,
                 OurFeesPercentage = paymentSummary.SystemTicketFee,
                 AmountOwed = paymentSummary.EventOrganiserOwedAmount,
+                PreferredPaymentType = userProfile.PreferredPaymentMethod.ToString(),
                 PayPalEmail = userProfile.PayPalEmail,
                 DirectDebitDetails = new DirectDebitViewModel
                 {
@@ -204,6 +205,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var mappedPaymentMethod = eventPaymentRequestViewModel.PaymentMethod.CastToEnum<PaymentType>();
             var currentUserId = this.User.Identity.Name;
+
+            // Todo send email to the administrators 
 
             _eventManager.CreateEventPaymentRequest(eventPaymentRequestViewModel.EventId.GetValueOrDefault(), 
                 mappedPaymentMethod, 

@@ -13,6 +13,10 @@
         });
         me.eventOrganiserOwedAmount = ko.observable();
         me.totalSoldAmount = ko.observable();
+        me.requestPaymentStatus = ko.observable();
+        me.showPaymentStatusLabel = ko.observable();
+        me.showPayMeButton = ko.observable();
+        me.showWithdrawPayment = ko.observable();
         me.pageViews = ko.observable();
         me.addTicketType = function () {
             me.tickets.push(new $paramount.models.EventTicket({
@@ -45,6 +49,10 @@
         });
         me.totalSoldQty(editEventViewModel.totalSoldQty);
         me.pageViews(editEventViewModel.pageViews);
+        me.requestPaymentStatus(editEventViewModel.eventPaymentRequestStatus);
+        me.showPaymentStatusLabel(editEventViewModel.eventPaymentRequestStatus !== $paramount.EVENT_PAYMENT_STATUS.REQUEST_PENDING);
+        me.showPayMeButton(editEventViewModel.eventPaymentRequestStatus === $paramount.EVENT_PAYMENT_STATUS.REQUEST_PENDING);
+        me.showWithdrawPayment(editEventViewModel.eventPaymentRequestStatus !== $paramount.EVENT_PAYMENT_STATUS.NOT_AVAILABLE);
     }
 
     $paramount.models = $paramount.models || {};

@@ -186,7 +186,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
             {
                 context.EventPaymentRequests.Add(request);
                 context.Entry(request).State = EntityState.Added;
-                context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 

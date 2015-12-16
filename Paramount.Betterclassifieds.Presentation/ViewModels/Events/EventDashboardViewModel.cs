@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Humanizer;
 using Paramount.Betterclassifieds.Business.Events;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
@@ -16,8 +17,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             this.EventId = eventModel.EventId.GetValueOrDefault();
             this.Tickets = tickets;
             this.Guests = guests;
-            this.EventPaymentStatus = status.ToString();
-            
+            this.EventPaymentRequestStatus = status.Humanize(LetterCasing.Title);
+
             if (eventModel.EventBookings != null)
             {
                 this.TotalRemainingQty = eventModel.Tickets.Sum(t => t.RemainingQuantity);
@@ -37,7 +38,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             }
         }
 
-        public string EventPaymentStatus { get; set; }
+        public string EventPaymentRequestStatus { get; set; }
 
 
         public int AdId { get; set; }

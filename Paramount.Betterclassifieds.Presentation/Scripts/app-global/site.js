@@ -13,6 +13,12 @@
         DIRECT_DEBIT: 'DirectDebit'
     }
 
+    $paramount.EVENT_PAYMENT_STATUS = {
+        CLOSE_EVENT_FIRST: 'Close Event First',
+        REQUEST_PENDING: 'Request Pending',
+        NOT_AVAILABLE: 'Not Available'
+    }
+
     // Lazy loading for mobile checking
     me.evaluateMobile = function () {
         if (isMobileDevice !== null) {

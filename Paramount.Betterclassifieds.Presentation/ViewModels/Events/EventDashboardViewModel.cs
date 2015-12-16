@@ -9,15 +9,15 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public EventDashboardViewModel()
         { }
 
-        public EventDashboardViewModel(int adId, int pageViews, EventModel eventModel, EventPaymentSummary paymentSummary, 
-            List<EventTicketViewModel> tickets, List<EventGuestListViewModel> guests)
+        public EventDashboardViewModel(int adId, int pageViews, EventModel eventModel, EventPaymentSummary paymentSummary, EventPaymentRequestStatus status, List<EventTicketViewModel> tickets, List<EventGuestListViewModel> guests)
         {
             this.AdId = adId;
             this.PageViews = pageViews;
             this.EventId = eventModel.EventId.GetValueOrDefault();
             this.Tickets = tickets;
             this.Guests = guests;
-
+            this.EventPaymentStatus = status.ToString();
+            
             if (eventModel.EventBookings != null)
             {
                 this.TotalRemainingQty = eventModel.Tickets.Sum(t => t.RemainingQuantity);
@@ -36,6 +36,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 }
             }
         }
+
+        public string EventPaymentStatus { get; set; }
+
 
         public int AdId { get; set; }
         public int PageViews { get; set; }

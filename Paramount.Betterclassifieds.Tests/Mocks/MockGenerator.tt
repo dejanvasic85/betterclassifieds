@@ -26,6 +26,7 @@
 		{ "Paramount.Betterclassifieds.Business.Events.EventTicketReservation",  "EventTicketReservation" }	,	
 		{ "Paramount.Betterclassifieds.Business.Events.EventGuestDetails",  "EventGuestDetails" },	
 		{ "Paramount.Betterclassifieds.Business.Events.EventPaymentSummary",  "EventPaymentSummary" },	
+		{ "Paramount.Betterclassifieds.Business.Events.EventPaymentRequest",  "EventPaymentRequest" },	
 	};
 #>
 using Paramount.Betterclassifieds.Business;

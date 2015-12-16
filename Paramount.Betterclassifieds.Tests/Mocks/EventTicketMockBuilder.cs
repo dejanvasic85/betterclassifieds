@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Tests
+﻿using Paramount.Betterclassifieds.Business.Events;
+
+namespace Paramount.Betterclassifieds.Tests
 {
     internal partial class EventTicketMockBuilder
     {

@@ -31,11 +31,13 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var mockTicketBuilder = new EventTicketMockBuilder().WithRemainingQuantity(5).WithEventId(eventId);
             var mockEvent = new EventModelMockBuilder().WithEventId(eventId).WithTickets(new[] { mockTicketBuilder.Build() }).Build();
             var mockPaymentSummary = new EventPaymentSummaryMockBuilder().WithEventOrganiserOwedAmount(90).WithSystemTicketFee(10).WithTotalTicketSalesAmount(100).Build();
+            
 
             _searchServiceMock.SetupWithVerification(call => call.GetByAdId(It.Is<int>(p => p == adId)), mockSearchResult);
             _eventManagerMock.SetupWithVerification(call => call.GetEventDetailsForOnlineAdId(It.Is<int>(p => p == onlineAdId), It.Is<bool>(p => true)), mockEvent);
             _eventManagerMock.SetupWithVerification(call => call.BuildGuestList(It.Is<int>(p => p == eventId)), mockGuestList);
             _eventManagerMock.SetupWithVerification(call => call.BuildPaymentSummary(It.Is<int>(p => p == eventId)), mockPaymentSummary);
+            _eventManagerMock.SetupWithVerification(call => call.GetEventPaymentRequestStatus(It.Is<int>(p => p == eventId)), EventPaymentRequestStatus.Complete);
 
             // Act 
             var result = BuildController().EventDashboard(adId);

@@ -264,6 +264,119 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 remainingQuantity: 50));
         }
 
+        [Test]
+        public void GetEventPaymentRequest_WithNullEventId_ThrowsArgException()
+        {
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                BuildTargetObject().GetEventPaymentRequestStatus(null);
+            });
+        }
+
+        [Test]
+        public void GetEventPaymentRequestStatus_Complete()
+        {
+            // arrange
+            var eventId = 10;
+            var mockEvent = new EventModelMockBuilder().WithEventId(eventId).Build();
+            var mockEventPaymentRequest = new EventPaymentRequestMockBuilder()
+                .WithEventId(eventId)
+                .WithIsPaymentProcessed(true)
+                .Build();
+
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventPaymentRequestForEvent(It.Is<int>(p => p == eventId)), mockEventPaymentRequest);
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.Is<int>(p => p == eventId)), mockEvent);
+
+            // act
+            var result = BuildTargetObject().GetEventPaymentRequestStatus(eventId);
+
+            // assert
+            Assert.That(result, Is.TypeOf<EventPaymentRequestStatus>());
+            Assert.That(result, Is.EqualTo(EventPaymentRequestStatus.Complete));
+        }
+
+        [Test]
+        public void GetEventPaymentRequestStatus_PaymentPending()
+        {
+            // arrange
+            var eventId = 10;
+            var mockEvent = new EventModelMockBuilder().WithEventId(eventId).Build();
+            var mockEventPaymentRequest = new EventPaymentRequestMockBuilder()
+                .WithEventId(eventId)
+                .WithIsPaymentProcessed(false)
+                .Build();
+
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventPaymentRequestForEvent(It.Is<int>(p => p == eventId)), mockEventPaymentRequest);
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.Is<int>(p => p == eventId)), mockEvent);
+
+            // act
+            var result = BuildTargetObject().GetEventPaymentRequestStatus(eventId);
+
+            // assert
+            Assert.That(result, Is.TypeOf<EventPaymentRequestStatus>());
+            Assert.That(result, Is.EqualTo(EventPaymentRequestStatus.PaymentPending));
+        }
+
+        [Test]
+        public void GetEventPaymentRequestStatus_NotAvailable_WithNoTickets()
+        {
+            // arrange
+            var eventId = 10;
+            var mockEvent = new EventModelMockBuilder().WithEventId(eventId).WithTickets(null).Build();
+            
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventPaymentRequestForEvent(It.Is<int>(p => p == eventId)), null);
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.Is<int>(p => p == eventId)), mockEvent);
+
+            // act
+            var result = BuildTargetObject().GetEventPaymentRequestStatus(eventId);
+
+            // assert
+            Assert.That(result, Is.TypeOf<EventPaymentRequestStatus>());
+            Assert.That(result, Is.EqualTo(EventPaymentRequestStatus.NotAvailable));
+        }
+
+        [Test]
+        public void GetEventPaymentRequestStatus_NotAvailable_WithFreeTickets()
+        {
+            // arrange
+            var eventId = 10;
+            var mockEvent = new EventModelMockBuilder()
+                .WithEventId(eventId)
+                .WithTickets(new List<EventTicket> { new EventTicketMockBuilder().WithEventId(eventId).WithPrice(0).Build()})
+                .Build();
+
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventPaymentRequestForEvent(It.Is<int>(p => p == eventId)), null);
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.Is<int>(p => p == eventId)), mockEvent);
+
+            // act
+            var result = BuildTargetObject().GetEventPaymentRequestStatus(eventId);
+
+            // assert
+            Assert.That(result, Is.TypeOf<EventPaymentRequestStatus>());
+            Assert.That(result, Is.EqualTo(EventPaymentRequestStatus.NotAvailable));
+        }
+
+        [Test]
+        public void GetEventPaymentRequestStatus_RequestPending()
+        {
+            // arrange
+            var eventId = 10;
+            var mockEvent = new EventModelMockBuilder()
+                .WithEventId(eventId)
+                .WithTickets(new List<EventTicket> { new EventTicketMockBuilder().WithEventId(eventId).WithPrice(10).Build() })
+                .Build();
+
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventPaymentRequestForEvent(It.Is<int>(p => p == eventId)), null);
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.Is<int>(p => p == eventId)), mockEvent);
+
+            // act
+            var result = BuildTargetObject().GetEventPaymentRequestStatus(eventId);
+
+            // assert
+            Assert.That(result, Is.TypeOf<EventPaymentRequestStatus>());
+            Assert.That(result, Is.EqualTo(EventPaymentRequestStatus.RequestPending));
+        }
+
         private Mock<IEventRepository> _eventRepositoryMock;
         private Mock<IDateService> _dateServiceMock;
         private Mock<IDocumentRepository> _documentRepository;

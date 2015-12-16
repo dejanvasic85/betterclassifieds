@@ -244,5 +244,29 @@ namespace Paramount.Betterclassifieds.Business.Events
 
             _eventRepository.CreateEventPaymentRequest(request);
         }
+
+        public EventPaymentRequestStatus GetEventPaymentRequestStatus(int? eventId)
+        {
+            Guard.NotNull(eventId);
+            var eventPaymentRequest = _eventRepository.GetEventPaymentRequestForEvent(eventId.GetValueOrDefault());
+            var eventModel = _eventRepository.GetEventDetails(eventId.GetValueOrDefault());
+
+            if (eventPaymentRequest != null)
+            {
+                if (eventPaymentRequest.IsPaymentProcessed.HasValue && eventPaymentRequest.IsPaymentProcessed.Value)
+                {
+                    return EventPaymentRequestStatus.Complete;
+                }
+
+                return EventPaymentRequestStatus.PaymentPending;
+            }
+
+            if (eventModel.Tickets == null || !eventModel.Tickets.Any() || eventModel.Tickets.All(t => t.Price <= 0))
+            {
+                return EventPaymentRequestStatus.NotAvailable;
+            }
+
+            return EventPaymentRequestStatus.RequestPending;
+        }
     }
 }

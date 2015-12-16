@@ -692,6 +692,62 @@ namespace Paramount.Betterclassifieds.Tests
 			return WithBuildStep(p => p.EventOrganiserOwedAmount = val);
 		}
 	}
+
+	internal partial class EventPaymentRequestMockBuilder : MockBuilder<EventPaymentRequestMockBuilder, EventPaymentRequest>
+	{	
+		public EventPaymentRequestMockBuilder WithEventPaymentRequestId(Int32 val)
+		{ 
+			return WithBuildStep(p => p.EventPaymentRequestId = val);
+		}
+		public EventPaymentRequestMockBuilder WithEventId(Int32 val)
+		{ 
+			return WithBuildStep(p => p.EventId = val);
+		}
+		public EventPaymentRequestMockBuilder WithRequestedAmount(Decimal val)
+		{ 
+			return WithBuildStep(p => p.RequestedAmount = val);
+		}
+		public EventPaymentRequestMockBuilder WithCreatedByUser(String val)
+		{ 
+			return WithBuildStep(p => p.CreatedByUser = val);
+		}
+		public EventPaymentRequestMockBuilder WithCreatedDate(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.CreatedDate = val);
+		}
+		public EventPaymentRequestMockBuilder WithCreatedDateUtc(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.CreatedDateUtc = val);
+		}
+		public EventPaymentRequestMockBuilder WithPaymentMethod(PaymentType val)
+		{ 
+			return WithBuildStep(p => p.PaymentMethod = val);
+		}
+		public EventPaymentRequestMockBuilder WithPaymentMethodAsString(String val)
+		{ 
+			return WithBuildStep(p => p.PaymentMethodAsString = val);
+		}
+		public EventPaymentRequestMockBuilder WithIsPaymentProcessed(Boolean? val)
+		{ 
+			return WithBuildStep(p => p.IsPaymentProcessed = val);
+		}
+		public EventPaymentRequestMockBuilder WithPaymentProcessedDate(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.PaymentProcessedDate = val);
+		}
+		public EventPaymentRequestMockBuilder WithPaymentProcessedDateUtc(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.PaymentProcessedDateUtc = val);
+		}
+		public EventPaymentRequestMockBuilder WithPaymentProcessedBy(String val)
+		{ 
+			return WithBuildStep(p => p.PaymentProcessedBy = val);
+		}
+		public EventPaymentRequestMockBuilder WithPaymentReference(String val)
+		{ 
+			return WithBuildStep(p => p.PaymentReference = val);
+		}
+	}
 }
 
 

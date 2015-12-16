@@ -25,5 +25,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         IEnumerable<EventGuestDetails> BuildGuestList(int? eventId);
         EventPaymentSummary BuildPaymentSummary(int? eventId);
         void CreateEventPaymentRequest(int eventId, PaymentType paymentType, decimal requestedAmount, string requestedByUser);
+        EventPaymentRequestStatus GetEventPaymentRequestStatus(int? eventId);
     }
 }

@@ -74,6 +74,16 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
+        public EventPaymentRequest GetEventPaymentRequestForEvent(int eventId)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                return context.EventPaymentRequests.Where(p => p.EventId == eventId)
+                    .OrderBy(p => p.EventPaymentRequestId)
+                    .FirstOrDefault();
+            }
+        }
+
         public IEnumerable<EventBooking> GetEventBookingsForEvent(int eventId, bool includeTickets = false)
         {
             using (var context = _dbContextFactory.CreateEventContext())

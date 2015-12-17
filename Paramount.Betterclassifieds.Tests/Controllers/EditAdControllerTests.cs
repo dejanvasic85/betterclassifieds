@@ -1,9 +1,11 @@
+using System;
 using System.Security.Principal;
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
+using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Search;
@@ -128,7 +130,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         }
 
         [Test]
-        public void EventPaymentRequest_Post_Returns_Json_WithRedirectUrl()
+        public void EventPaymentRequest_Post_CallsManagerAndBroadcast_ReturnsJsonUrl()
         {
             // arrange
             var username = "fooBarr";
@@ -137,12 +139,18 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var eventId = 1;
             var requestedAmount = 100;
             var paymentMethod = "PayPal";
+            var supportEmails = new[] {"support@email.com"};
 
+            _clientConfigMock.SetupWithVerification(call => call.SupportEmailList, supportEmails);
             _eventManagerMock.SetupWithVerification(call => call.CreateEventPaymentRequest(
                 It.Is<int>(p => p == eventId),
                 It.Is<PaymentType>(p => p == PaymentType.PayPal),
                 It.Is<decimal>(p => p == requestedAmount),
                 It.Is<string>(p => p == username)));
+
+            _broadcastManagerMock.SetupWithVerification(call => call.SendEmail(
+                It.IsAny<Business.Broadcast.EventPaymentRequest>(),
+                It.Is<string[]>(p => p == supportEmails)), Guid.NewGuid());
 
             // act
             var controller = BuildController(mockUser: mockUser);
@@ -167,6 +175,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IEventManager> _eventManagerMock;
         private Mock<ITemplatingService> _templatingServiceMock;
         private Mock<IUserManager> _userManagerMock;
+        private Mock<IBroadcastManager> _broadcastManagerMock;
 
         [SetUp]
         public void SetupDependencies()
@@ -179,6 +188,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _templatingServiceMock = CreateMockOf<ITemplatingService>();
             _templatingServiceMock.Setup(call => call.Init(It.IsAny<Controller>())).Returns(_templatingServiceMock.Object);
             _userManagerMock = CreateMockOf<IUserManager>();
+            _broadcastManagerMock = CreateMockOf<IBroadcastManager>();
         }
     }
 }

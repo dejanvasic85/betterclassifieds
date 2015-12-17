@@ -9,8 +9,8 @@ using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 using System;
 using System.Linq;
 using System.Web.Mvc;
+using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Payment;
-using Paramount.Betterclassifieds.Presentation.Framework;
 using Paramount.Betterclassifieds.Presentation.Services;
 
 
@@ -129,7 +129,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var paymentSummary = _eventManager.BuildPaymentSummary(eventDetails.EventId);
             var status = _eventManager.GetEventPaymentRequestStatus(eventDetails.EventId);
 
-            var eventEditViewModel = new EventDashboardViewModel(id, adDetails.NumOfViews, eventDetails, paymentSummary,status,
+            var eventEditViewModel = new EventDashboardViewModel(id, adDetails.NumOfViews, eventDetails, paymentSummary, status,
                 this.MapList<EventTicket, EventTicketViewModel>(eventTicketTypes.ToList()),
                 this.MapList<EventGuestDetails, EventGuestListViewModel>(guestList.ToList())
                 );
@@ -207,12 +207,19 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var mappedPaymentMethod = eventPaymentRequestViewModel.PaymentMethod.CastToEnum<PaymentType>();
             var currentUserId = this.User.Identity.Name;
 
-            // Todo send email to the administrators 
-
-            _eventManager.CreateEventPaymentRequest(eventPaymentRequestViewModel.EventId.GetValueOrDefault(), 
-                mappedPaymentMethod, 
-                eventPaymentRequestViewModel.RequestedAmount.GetValueOrDefault(), 
+            _eventManager.CreateEventPaymentRequest(eventPaymentRequestViewModel.EventId.GetValueOrDefault(),
+                mappedPaymentMethod,
+                eventPaymentRequestViewModel.RequestedAmount.GetValueOrDefault(),
                 currentUserId);
+
+            _broadcastManager.SendEmail(new Business.Broadcast.EventPaymentRequest
+            {
+                AdId = id,
+                EventId = eventPaymentRequestViewModel.EventId.GetValueOrDefault(),
+                PreferredPaymentMethod = eventPaymentRequestViewModel.PaymentMethod,
+                RequestedAmount = eventPaymentRequestViewModel.RequestedAmount.GetValueOrDefault(),
+                Username = currentUserId
+            }, _clientConfig.SupportEmailList);
 
             return Json(new { NextUrl = Url.EventDashboard(id).ToString() });
         }
@@ -252,8 +259,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IEventManager _eventManager;
         private readonly ITemplatingService _templatingService;
         private readonly IUserManager _userManager;
+        private readonly IBroadcastManager _broadcastManager;
 
-        public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager, IEventManager eventManager, ITemplatingService templatingService, IUserManager userManager)
+        public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager, IEventManager eventManager, ITemplatingService templatingService, IUserManager userManager, IBroadcastManager broadcastManager)
         {
             _searchService = searchService;
             _applicationConfig = applicationConfig;
@@ -261,6 +269,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _bookingManager = bookingManager;
             _eventManager = eventManager;
             _userManager = userManager;
+            _broadcastManager = broadcastManager;
             _templatingService = templatingService.Init(this); // This service is tightly coupled to an mvc controller
         }
     }

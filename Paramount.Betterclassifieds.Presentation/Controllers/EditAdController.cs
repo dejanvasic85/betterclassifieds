@@ -224,6 +224,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(new { NextUrl = Url.EventDashboard(id).ToString() });
         }
 
+        [HttpPost]
+        public ActionResult CloseEvent(int id, int eventId)
+        {
+            _eventManager.CloseEvent(eventId);
+            return Json(new { Closed = true });
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.RecognizeDestinationPrefixes("OnlineAd", "Line");

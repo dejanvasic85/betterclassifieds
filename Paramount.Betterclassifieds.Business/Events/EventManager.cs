@@ -266,7 +266,20 @@ namespace Paramount.Betterclassifieds.Business.Events
                 return EventPaymentRequestStatus.NotAvailable;
             }
 
+            if (eventModel.ClosingDateUtc == null || eventModel.ClosingDateUtc > _dateService.UtcNow)
+            {
+                return EventPaymentRequestStatus.CloseEventFirst;
+            }
+
             return EventPaymentRequestStatus.RequestPending;
+        }
+
+        public void CloseEvent(int eventId)
+        {
+            var eventModel = _eventRepository.GetEventDetails(eventId);
+            eventModel.ClosingDate = DateTime.Now;
+            eventModel.ClosingDateUtc = DateTime.UtcNow;
+            _eventRepository.UpdateEvent(eventModel);
         }
     }
 }

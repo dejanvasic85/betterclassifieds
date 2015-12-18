@@ -278,12 +278,15 @@ namespace Paramount.Betterclassifieds.Tests.Events
         {
             // arrange
             var eventId = 10;
-            var mockEvent = new EventModelMockBuilder().WithEventId(eventId).Build();
+            var mockEvent = new EventModelMockBuilder().WithEventId(eventId)
+                .WithClosingDateUtc(DateTime.UtcNow.AddDays(-1))
+                .Build();
+
             var mockEventPaymentRequest = new EventPaymentRequestMockBuilder()
                 .WithEventId(eventId)
                 .WithIsPaymentProcessed(true)
                 .Build();
-
+            
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventPaymentRequestForEvent(It.Is<int>(p => p == eventId)), mockEventPaymentRequest);
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.Is<int>(p => p == eventId)), mockEvent);
 
@@ -300,7 +303,10 @@ namespace Paramount.Betterclassifieds.Tests.Events
         {
             // arrange
             var eventId = 10;
-            var mockEvent = new EventModelMockBuilder().WithEventId(eventId).Build();
+            var mockEvent = new EventModelMockBuilder().WithEventId(eventId)
+                .WithClosingDateUtc(DateTime.UtcNow.AddDays(-1))
+                .Build();
+
             var mockEventPaymentRequest = new EventPaymentRequestMockBuilder()
                 .WithEventId(eventId)
                 .WithIsPaymentProcessed(false)
@@ -322,8 +328,11 @@ namespace Paramount.Betterclassifieds.Tests.Events
         {
             // arrange
             var eventId = 10;
-            var mockEvent = new EventModelMockBuilder().WithEventId(eventId).WithTickets(null).Build();
-            
+            var mockEvent = new EventModelMockBuilder()
+                .WithEventId(eventId)
+                .WithClosingDateUtc(DateTime.UtcNow.AddDays(-1))
+                .WithTickets(null).Build();
+
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventPaymentRequestForEvent(It.Is<int>(p => p == eventId)), null);
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.Is<int>(p => p == eventId)), mockEvent);
 
@@ -342,7 +351,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var eventId = 10;
             var mockEvent = new EventModelMockBuilder()
                 .WithEventId(eventId)
-                .WithTickets(new List<EventTicket> { new EventTicketMockBuilder().WithEventId(eventId).WithPrice(0).Build()})
+                .WithClosingDateUtc(DateTime.UtcNow.AddDays(-1))
+                .WithTickets(new List<EventTicket> { new EventTicketMockBuilder().WithEventId(eventId).WithPrice(0).Build() })
                 .Build();
 
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventPaymentRequestForEvent(It.Is<int>(p => p == eventId)), null);
@@ -357,17 +367,19 @@ namespace Paramount.Betterclassifieds.Tests.Events
         }
 
         [Test]
-        public void GetEventPaymentRequestStatus_RequestPending()
+        public void GetEventPaymentRequestStatus_WithClosedEvent_RequestPending()
         {
             // arrange
             var eventId = 10;
             var mockEvent = new EventModelMockBuilder()
                 .WithEventId(eventId)
+                .WithClosingDateUtc(DateTime.UtcNow.AddDays(-1))
                 .WithTickets(new List<EventTicket> { new EventTicketMockBuilder().WithEventId(eventId).WithPrice(10).Build() })
                 .Build();
 
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventPaymentRequestForEvent(It.Is<int>(p => p == eventId)), null);
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.Is<int>(p => p == eventId)), mockEvent);
+            _dateServiceMock.SetupNowUtc();
 
             // act
             var result = BuildTargetObject().GetEventPaymentRequestStatus(eventId);
@@ -375,6 +387,66 @@ namespace Paramount.Betterclassifieds.Tests.Events
             // assert
             Assert.That(result, Is.TypeOf<EventPaymentRequestStatus>());
             Assert.That(result, Is.EqualTo(EventPaymentRequestStatus.RequestPending));
+        }
+
+        [Test]
+        public void GetEventPaymentRequestStatus_WithClosedDateAsNull_CloseEventFirst()
+        {
+            // arrange
+            var eventId = 10;
+            var mockEvent = new EventModelMockBuilder()
+                .WithEventId(eventId)
+                .WithClosingDateUtc(null)
+                .WithTickets(new List<EventTicket> { new EventTicketMockBuilder().WithEventId(eventId).WithPrice(10).Build() })
+                .Build();
+
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventPaymentRequestForEvent(It.Is<int>(p => p == eventId)), null);
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.Is<int>(p => p == eventId)), mockEvent);
+            
+            // act
+            var result = BuildTargetObject().GetEventPaymentRequestStatus(eventId);
+
+            // assert
+            Assert.That(result, Is.TypeOf<EventPaymentRequestStatus>());
+            Assert.That(result, Is.EqualTo(EventPaymentRequestStatus.CloseEventFirst));
+        }
+
+        [Test]
+        public void GetEventPaymentRequestStatus_WithClosedDateInFuture_CloseEventFirst()
+        {
+            // arrange
+            var eventId = 10;
+            var mockEvent = new EventModelMockBuilder()
+                .WithEventId(eventId)
+                .WithClosingDateUtc(DateTime.UtcNow.AddDays(10))
+                .WithTickets(new List<EventTicket> { new EventTicketMockBuilder().WithEventId(eventId).WithPrice(10).Build() })
+                .Build();
+
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventPaymentRequestForEvent(It.Is<int>(p => p == eventId)), null);
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.Is<int>(p => p == eventId)), mockEvent);
+            _dateServiceMock.SetupNowUtc();
+
+            // act
+            var result = BuildTargetObject().GetEventPaymentRequestStatus(eventId);
+
+            // assert
+            Assert.That(result, Is.TypeOf<EventPaymentRequestStatus>());
+            Assert.That(result, Is.EqualTo(EventPaymentRequestStatus.CloseEventFirst));
+        }
+
+        [Test]
+        public void CloseEvent()
+        {
+            int eventId = 100;
+            var mockEvent = new EventModelMockBuilder().WithEventId(eventId).Build();
+
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.Is<int>(p => p == eventId)), mockEvent);
+            _eventRepositoryMock.SetupWithVerification(call => call.UpdateEvent(It.Is<EventModel>(p => p == mockEvent)));
+
+            BuildTargetObject().CloseEvent(eventId);
+
+            Assert.That(mockEvent.ClosingDate, Is.Not.Null);
+            Assert.That(mockEvent.ClosingDateUtc, Is.Not.Null);
         }
 
         private Mock<IEventRepository> _eventRepositoryMock;

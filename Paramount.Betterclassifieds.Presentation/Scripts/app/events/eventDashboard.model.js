@@ -1,11 +1,13 @@
 ﻿(function ($, ko, $paramount) {
     'use strict';
 
-    function EventDashboardModel(editEventViewModel) {
+    function EventDashboardModel(editEventViewModel, adDesignService) {
         var me = this;
+        me.eventId = ko.observable();
         me.tickets = ko.observableArray();
         me.guests = ko.observableArray();
         me.totalSoldQty = ko.observable();
+        me.isClosed = ko.observable();
         me.totalRemainingQty = ko.computed(function () {
             return _.sum(me.tickets(), function (t) {
                 return t.remainingQuantity();
@@ -31,6 +33,39 @@
             }));
         }
         me.bindEditEvent(editEventViewModel);
+
+        /*
+         * Methods - Close event
+         */
+        me.closeEvent = function (element, event) {
+            var $btn = $(event.target); // Grab the jQuery element from knockout
+            $btn.button('loading');
+
+            adDesignService.closeEvent(me.eventId())
+                .done(function () {
+                    $('#closeEventDialog').modal('hide');
+                    me.isClosed(true);
+                    me.requestPaymentStatus($paramount.EVENT_PAYMENT_STATUS.REQUEST_PENDING);
+                })
+                .complete(function () {
+                    $btn.button('reset');
+                });
+        }
+
+        /*
+         * Computed Methods
+         */
+        me.showPaymentStatusLabel = ko.computed(function () {
+            return me.requestPaymentStatus() !== $paramount.EVENT_PAYMENT_STATUS.REQUEST_PENDING;
+        });
+
+        me.showPayMeButton = ko.computed(function () {
+            return me.requestPaymentStatus() === $paramount.EVENT_PAYMENT_STATUS.REQUEST_PENDING;
+        });
+
+        me.showWithdrawPayment = ko.computed(function () {
+            return me.requestPaymentStatus() !== $paramount.EVENT_PAYMENT_STATUS.NOT_AVAILABLE;
+        });
     }
 
     EventDashboardModel.prototype.bindEditEvent = function (editEventViewModel) {
@@ -42,6 +77,8 @@
         $.each(editEventViewModel.guests, function (idx, g) {
             me.guests.push(new $paramount.models.EventGuest(g));
         });
+        me.eventId(editEventViewModel.eventId);
+        me.isClosed(editEventViewModel.isClosed);
         me.totalSoldAmount(editEventViewModel.totalSoldAmount);
         me.eventOrganiserOwedAmount(editEventViewModel.eventOrganiserOwedAmount);
         me.totalSoldAmountFormatted = ko.computed(function () {
@@ -50,9 +87,9 @@
         me.totalSoldQty(editEventViewModel.totalSoldQty);
         me.pageViews(editEventViewModel.pageViews);
         me.requestPaymentStatus(editEventViewModel.eventPaymentRequestStatus);
-        me.showPaymentStatusLabel(editEventViewModel.eventPaymentRequestStatus !== $paramount.EVENT_PAYMENT_STATUS.REQUEST_PENDING);
-        me.showPayMeButton(editEventViewModel.eventPaymentRequestStatus === $paramount.EVENT_PAYMENT_STATUS.REQUEST_PENDING);
-        me.showWithdrawPayment(editEventViewModel.eventPaymentRequestStatus !== $paramount.EVENT_PAYMENT_STATUS.NOT_AVAILABLE);
+        // me.showPaymentStatusLabel(editEventViewModel.eventPaymentRequestStatus !== $paramount.EVENT_PAYMENT_STATUS.REQUEST_PENDING);
+        // me.showPayMeButton(editEventViewModel.eventPaymentRequestStatus === $paramount.EVENT_PAYMENT_STATUS.REQUEST_PENDING);
+        // me.showWithdrawPayment(editEventViewModel.eventPaymentRequestStatus !== $paramount.EVENT_PAYMENT_STATUS.NOT_AVAILABLE);
     }
 
     $paramount.models = $paramount.models || {};

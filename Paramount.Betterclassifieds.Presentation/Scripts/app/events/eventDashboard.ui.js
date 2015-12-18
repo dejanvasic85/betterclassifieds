@@ -6,7 +6,8 @@
     $paramount.ui.eventDashboard = {
         init: function (eventDashboardViewModel) {
             var rootElement = $('.event-dashboard');
-            var eventDashoardModel = new $paramount.models.EventDashboardModel(eventDashboardViewModel);
+            var adDesignService = new $paramount.AdDesignService(eventDashboardViewModel.adId);
+            var eventDashoardModel = new $paramount.models.EventDashboardModel(eventDashboardViewModel, adDesignService);
             ko.applyBindings(eventDashoardModel, rootElement.get(0));
 
             var ctx = document.getElementById("ticketSalesChart").getContext("2d");

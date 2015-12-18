@@ -26,5 +26,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         EventPaymentSummary BuildPaymentSummary(int? eventId);
         void CreateEventPaymentRequest(int eventId, PaymentType paymentType, decimal requestedAmount, string requestedByUser);
         EventPaymentRequestStatus GetEventPaymentRequestStatus(int? eventId);
+        void CloseEvent(int eventId);
     }
 }

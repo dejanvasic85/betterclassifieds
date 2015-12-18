@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Humanizer;
 using Paramount.Betterclassifieds.Business.Events;
@@ -18,6 +19,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             this.Tickets = tickets;
             this.Guests = guests;
             this.EventPaymentRequestStatus = status.Humanize(LetterCasing.Title);
+            this.IsClosed = eventModel.ClosingDateUtc <= DateTime.UtcNow;
 
             if (eventModel.EventBookings != null)
             {
@@ -51,5 +53,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public decimal? TotalSoldAmount { get; set; }
         public decimal? EventOrganiserOwedAmount { get; set; }
         public string SystemTicketFeeLabel { get; set; }
+        public bool IsClosed { get; set; }
     }
 }

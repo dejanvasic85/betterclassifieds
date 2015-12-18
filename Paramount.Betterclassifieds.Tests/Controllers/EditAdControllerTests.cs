@@ -31,7 +31,11 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var mockGuestListBuilder = new EventGuestDetailsMockBuilder().WithGuestEmail("foo@bar.com").WithGuestFullName("Foo Bar").WithTicketNumber(123);
             var mockGuestList = new[] { mockGuestListBuilder.Build(), mockGuestListBuilder.Build() };
             var mockTicketBuilder = new EventTicketMockBuilder().WithRemainingQuantity(5).WithEventId(eventId);
-            var mockEvent = new EventModelMockBuilder().WithEventId(eventId).WithTickets(new[] { mockTicketBuilder.Build() }).Build();
+            var mockEvent = new EventModelMockBuilder()
+                .WithEventId(eventId)
+                .WithTickets(new[] { mockTicketBuilder.Build() })
+                .WithClosingDateUtc(DateTime.Now.AddDays(-1))
+                .Build();
             var mockPaymentSummary = new EventPaymentSummaryMockBuilder().WithEventOrganiserOwedAmount(90).WithSystemTicketFee(10).WithTotalTicketSalesAmount(100).Build();
             
 
@@ -58,6 +62,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             Assert.That(viewModel.SystemTicketFeeLabel, Is.EqualTo("10%"));
             Assert.That(viewModel.EventOrganiserOwedAmount, Is.EqualTo(90));
             Assert.That(viewModel.TotalSoldAmount, Is.EqualTo(100));
+            Assert.That(viewModel.IsClosed, Is.True);
         }
 
         [Test]
@@ -166,6 +171,17 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             Assert.That(result, Is.TypeOf<JsonResult>());
             var jsonResult = (JsonResult)result;
             Assert.That(jsonResult.Data.ToString(), Is.EqualTo("{ NextUrl = /EditAd/EventDashboard?id=" + adId + " }"));
+        }
+
+        [Test]
+        public void CloseEvent_Post_CallsManager_ReturnsJson()
+        {
+            int eventId = 100;
+            int adId = 1949;
+            _eventManagerMock.SetupWithVerification(call => call.CloseEvent(It.Is<int>(p => p == eventId)));
+
+            var result = BuildController().CloseEvent(adId, eventId);
+            Assert.That(result, Is.TypeOf<JsonResult>());
         }
 
         private Mock<ISearchService> _searchServiceMock;

@@ -77,6 +77,13 @@
         return promise;
     }
 
+    AdDesignService.prototype.closeEvent = function(eventId) {
+        $.extend(me.model, { eventId: eventId });
+        var promise = $paramount.httpPost(me.baseUrl + 'CloseEvent', me.model);
+        handleResponse(promise);
+        return promise;
+    }
+
     AdDesignService.prototype.setCategoryAndPublications = function (categoryPublicationModel) {
         return $paramount.httpPost(me.baseUrl + 'Step1', categoryPublicationModel);
     }

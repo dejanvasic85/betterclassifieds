@@ -87,9 +87,10 @@
                 </h3>
                 <p class="action-info">Prevents people booking more tickets and payment can be requested.</p>
                 <div class="action-btn">
-                    <button class="btn btn-danger">Close <i class="fa fa-ban"></i></button>
+                    <button class="btn btn-primary" data-bind="visible: !isClosed()" data-toggle="modal" data-target="#closeEventDialog">Close <i class="fa fa-ban"></i></button>
+                    <span class="label label-warning" data-bind="visible: isClosed">Closed</span>
                 </div>
-            </div>
+            </div>  
         </div>
 
         <div class="col-xs-12" data-bind="visible: showWithdrawPayment">
@@ -103,7 +104,7 @@
                        data-bind="visible: showPayMeButton">
                         Pay Me <i class="fa fa-arrow-right"></i> <i class="fa fa-user"></i>
                     </a>
-                    <h2 class="label label-success" data-bind="text: requestPaymentStatus, visible: showPaymentStatusLabel"></h2>
+                    <span class="label label-success" data-bind="text: requestPaymentStatus, visible: showPaymentStatusLabel"></span>
                 </div>
             </div>
         </div>
@@ -193,10 +194,36 @@
                 </li>
             </ul>
             <div class="text-right">
-                <a href="@Url.Action("EventGuestListDownloadPdf", "EditAd", new { id = Model.AdId, eventId = Model.EventId })" class="btn btn-default">
+                <a href="@Url.Action("EventGuestListDownloadPdf", "EditAd", new {id = Model.AdId, eventId = Model.EventId})" class="btn btn-default">
                     Download PDF <i class="fa fa-download"></i>
                 </a>
             </div>
         </div>
     </div>
+
+
+
+    @*Close event modal confirmation*@
+
+    <div id="closeEventDialog" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Are you sure?</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <strong><i class="fa fa-warning"></i> Danger: </strong>
+                        This will prevent any more tickets purchased for this event and if any payment is owing can be requested.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary js-load" data-bind="click: closeEvent">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>

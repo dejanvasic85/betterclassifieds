@@ -1,0 +1,9 @@
+﻿ALTER TABLE [Event]
+ADD ClosingDate DATETIME NULL
+
+GO
+
+ALTER TABLE [Event]
+ADD ClosingDateUtc DATETIME NULL
+
+GO

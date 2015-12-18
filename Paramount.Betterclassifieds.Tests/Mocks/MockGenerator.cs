@@ -407,6 +407,14 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.EventBookings = val);
 		}
+		public EventModelMockBuilder WithClosingDate(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.ClosingDate = val);
+		}
+		public EventModelMockBuilder WithClosingDateUtc(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.ClosingDateUtc = val);
+		}
 	}
 
 	internal partial class EventTicketMockBuilder : MockBuilder<EventTicketMockBuilder, EventTicket>

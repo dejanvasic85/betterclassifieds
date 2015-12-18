@@ -21,5 +21,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         public IList<EventTicket> Tickets { get; set; }
         public IList<EventTicketField> TicketFields { get; set; }
         public IList<EventBooking> EventBookings { get; set; }
+        public DateTime? ClosingDate { get; set; }
+        public DateTime? ClosingDateUtc { get; set; }
     }
 }

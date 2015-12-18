@@ -103,8 +103,14 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         public void EventPaymentRequest_Get_Returns_View()
         {
             // arrange
+            int eventId = 1939;
+            var mockEvent = new EventModelMockBuilder()
+                .WithEventId(eventId)
+                .WithPastClosedDate()
+                .Build();
+            
             var mockApplicationUser = new ApplicationUserMockBuilder().Default().Build();
-            _userManagerMock.SetupWithVerification(call => call.GetCurrentUser(It.IsAny<IPrincipal>()), mockApplicationUser);
+            
             var mockPrincipal = CreateMockOf<IPrincipal>();
             var mockPaymentSummary = new EventPaymentSummaryMockBuilder()
                 .WithEventOrganiserOwedAmount(90)
@@ -112,11 +118,12 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 .WithTotalTicketSalesAmount(100)
                 .Build();
 
+            _userManagerMock.SetupWithVerification(call => call.GetCurrentUser(It.IsAny<IPrincipal>()), mockApplicationUser);
             _eventManagerMock.SetupWithVerification(call => call.BuildPaymentSummary(It.IsAny<int>()), mockPaymentSummary);
-
+            _eventManagerMock.SetupWithVerification(call => call.GetEventDetails(It.Is<int>(p => p == eventId)), mockEvent);
 
             // act
-            var result = this.BuildController(mockUser: mockPrincipal).EventPaymentRequest(It.IsAny<int>(), It.IsAny<int>());
+            var result = this.BuildController(mockUser: mockPrincipal).EventPaymentRequest(100, eventId);
 
             // assert
             Assert.That(result, Is.TypeOf<ViewResult>());
@@ -132,6 +139,27 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             Assert.That(viewModel.DirectDebitDetails.AccountName, Is.EqualTo(mockApplicationUser.BankAccountName));
             Assert.That(viewModel.DirectDebitDetails.AccountNumber, Is.EqualTo(mockApplicationUser.BankAccountNumber));
             Assert.That(viewModel.DirectDebitDetails.BSB, Is.EqualTo(mockApplicationUser.BankBsbNumber));
+        }
+
+        [Test]
+        public void EventPaymentRequest_Get_WithNotClosedEvent_View()
+        {
+            // arrange
+            int eventId = 1939;
+            var mockEvent = new EventModelMockBuilder()
+                .WithEventId(eventId )
+                .WithFutureClosedDate()
+                .Build();
+
+            _eventManagerMock.SetupWithVerification(call => call.GetEventDetails(It.Is<int>(p => p == eventId)), mockEvent);
+            
+            // act
+            var result = this.BuildController().EventPaymentRequest(2929, eventId);
+
+            // assert
+            Assert.That(result, Is.TypeOf<RedirectResult>());
+            var redirectResult = (RedirectResult) result;
+            Assert.That(redirectResult.Url, Is.EqualTo("/EditAd/EventDashboard?id=2929"));
         }
 
         [Test]

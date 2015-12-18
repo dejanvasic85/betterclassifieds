@@ -23,5 +23,10 @@ namespace Paramount.Betterclassifieds.Business.Events
         public IList<EventBooking> EventBookings { get; set; }
         public DateTime? ClosingDate { get; set; }
         public DateTime? ClosingDateUtc { get; set; }
+
+        public bool IsClosed
+        {
+            get { return this.ClosingDateUtc.HasValue && this.ClosingDateUtc <= DateTime.UtcNow; }
+        }
     }
 }

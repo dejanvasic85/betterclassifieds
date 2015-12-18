@@ -19,7 +19,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             this.Tickets = tickets;
             this.Guests = guests;
             this.EventPaymentRequestStatus = status.Humanize(LetterCasing.Title);
-            this.IsClosed = eventModel.ClosingDateUtc <= DateTime.UtcNow;
+            this.IsClosed = eventModel.IsClosed;
 
             if (eventModel.EventBookings != null)
             {

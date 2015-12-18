@@ -172,6 +172,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpGet]
         public ActionResult EventPaymentRequest(int id, int eventId)
         {
+            var eventDetails = _eventManager.GetEventDetails(eventId);
+            if (!eventDetails.IsClosed)
+            {
+                return Redirect(Url.EventDashboard(id));
+            }
+
             var userProfile = _userManager.GetCurrentUser(this.User);
             var paymentSummary = _eventManager.BuildPaymentSummary(eventId);
 

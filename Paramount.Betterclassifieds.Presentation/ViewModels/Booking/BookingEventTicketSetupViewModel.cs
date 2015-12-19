@@ -11,5 +11,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         public List<EventTicketFieldViewModel> TicketFields { get; set; }
 
         public DateTime? ClosingDate { get; set; }
+
+        public DateTime? AdStartDate { get; set; }
     }
 }

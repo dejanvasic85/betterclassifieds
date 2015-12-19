@@ -464,6 +464,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var viewModel = new BookingEventTicketSetupViewModel
             {
+                AdStartDate = bookingCart.StartDate,
                 Tickets = this.MapList<EventTicket, BookingEventTicketViewModel>(bookingCart.Event.Tickets.ToList())
             };
             return View("Step2_EventTickets", viewModel);
@@ -472,6 +473,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost, BookingRequired]
         public ActionResult EventTickets(IBookingCart bookingCart, BookingEventTicketSetupViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return Json(new { Errors = ModelState.ToErrors() });
+            }
+
             bookingCart.Event.Tickets = this.MapList<BookingEventTicketViewModel, EventTicket>(viewModel.Tickets);
             bookingCart.Event.TicketFields = this.MapList<EventTicketFieldViewModel, EventTicketField>(viewModel.TicketFields);
             _cartRepository.Save(bookingCart);

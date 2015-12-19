@@ -8,3 +8,8 @@
   border-color: #31708f;
   color: #31708f;
 }
+.alert.alert-info a {
+  color: #fff;
+  text-decoration: underline;
+}
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNpdGUtYnMtb3ZlcnJpZGUubGVzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7QUFPSSxNQUFDO0VBQ0csZ0JBQUE7RUFDQSxrQkFBQTtFQUNBLHNCQUFBO0VBQ0EscUJBQUE7RUFDQSxjQUFBOztBQUdKLE1BQUMsV0FDRztFQUNJLFdBQUE7RUFDQSwwQkFBQSIsImZpbGUiOiJ1bmRlZmluZWQifQ== */

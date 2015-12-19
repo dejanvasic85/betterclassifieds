@@ -87,7 +87,7 @@
             <div class="row ticket-field-edit">
                 <div class="col-xs-8 col-sm-6 form-group">
                     <label>Field Name</label>
-                    <input type="text" class="form-control" value="Name" readonly/>
+                    <input type="text" class="form-control" value="Name" readonly />
                 </div>
                 <div class="col-xs-4 col-sm-6 form-group">
                     <label>Required</label>
@@ -136,7 +136,7 @@
             <div class="alert alert-warning">Careful. It might get a little cumbersome for your users to provide a lot of information for every guest.</div>
         </div>
     </div>
-     
+
     <div class="row">
         <div class="col-xs-12 text-right">
             <button class="btn btn-success" data-bind="click: addField">
@@ -152,17 +152,19 @@
             <div class="bs-callout bs-callout-info">
                 <h4><i class="fa fa-calendar-check-o"></i> &nbsp; Ticketing Close Date</h4>
                 <p>
-                    Users will no longer be able to purchase tickets after the closing date. Please note, you can 
+                    Users will no longer be able to purchase tickets after the closing date. Please note, you can
                     always perform this action in the event dashboard and do not have to specify the date now.
                 </p>
             </div>
         </div>
-        
+
         <div class="col-xs-12">
-            <div class="input-group">
-                <input type="text" class="form-control" data-bind="date: closingDate">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button" data-bind="click: clearClosingDate">Clear</button>
+            <div class="input-group input-group-lg">
+                <input type="text" class="form-control input-lg" data-bind="date: closingDate">
+                <span class="input-group-btn input-group-lg">
+                    <button class="btn btn-default" type="button" data-bind="click: clearClosingDate">
+                        Clear
+                    </button>
                 </span>
             </div><!-- /input-group -->
         </div>
@@ -174,7 +176,7 @@
         </div>
 
     </div>
-    
+
 
 
     @*Pager*@

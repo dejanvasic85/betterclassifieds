@@ -38,6 +38,7 @@
             $(element)
                 .attr('data-provide', "datepicker")
                 .attr('readonly', "") // Prevents the user from inputting their own value
+                .attr('placeholder', 'Click here to show calendar ...')
                 .addClass('bs-date-picker') // Prevents the user from inputting their own value
                 .val(date)
                 .datepicker({

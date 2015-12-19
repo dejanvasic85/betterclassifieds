@@ -1,3 +1,5 @@
+using System;
+
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
 {
     public class BookingEventTicketViewModel

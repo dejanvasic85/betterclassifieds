@@ -43,6 +43,7 @@ namespace Paramount.Betterclassifieds.Presentation
                 .Include("~/Content/cropper.css")
                 .Include("~/Content/toastr-*")
                 .Include("~/Content/site.css")
+                .Include("~/Content/site-bs-override.css")
                 .IncludeDirectory("~/Content/components", "*.css")
                 );
         }

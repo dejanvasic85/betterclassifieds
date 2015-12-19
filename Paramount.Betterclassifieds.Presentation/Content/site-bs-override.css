@@ -1,0 +1,7 @@
+﻿/*
+    Contains bunch of styles that override the default bootstrap stylesheet
+*/
+.alert.alert-no-bg {
+  background-color: #fff;
+}
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNpdGUtYnMtb3ZlcnJpZGUubGVzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7QUFLSSxNQUFDO0VBQ0csc0JBQUEiLCJmaWxlIjoidW5kZWZpbmVkIn0= */

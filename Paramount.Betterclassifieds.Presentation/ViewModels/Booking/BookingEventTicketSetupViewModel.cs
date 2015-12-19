@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
@@ -8,5 +9,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         public List<BookingEventTicketViewModel> Tickets { get; set; }
 
         public List<EventTicketFieldViewModel> TicketFields { get; set; }
+
+        public DateTime? ClosingDate { get; set; }
     }
 }

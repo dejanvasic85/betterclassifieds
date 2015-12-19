@@ -349,6 +349,12 @@
     <Content Include="Content\morphext.min.css">
       <DependentUpon>morphext.css</DependentUpon>
     </Content>
+    <Content Include="Content\site-bs-override.css">
+      <DependentUpon>site-bs-override.less</DependentUpon>
+    </Content>
+    <Content Include="Content\site-bs-override.min.css">
+      <DependentUpon>site-bs-override.css</DependentUpon>
+    </Content>
     <Content Include="Content\site.css">
       <DependentUpon>site.less</DependentUpon>
     </Content>
@@ -391,9 +397,10 @@
       <DependentUpon>event-ticket-print.css</DependentUpon>
     </Content>
     <None Include="compilerconfig.json" />
-    <Content Include="compilerconfig.json.defaults">
+    <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
-    </Content>
+    </None>
+    <Content Include="Content\site-bs-override.less" />
     <None Include="Content\TheMusic\themusic.less" />
     <Content Include="Scripts\app\account\userAds.ui.js" />
     <Content Include="Scripts\app\account\userEnquiry.model.js" />

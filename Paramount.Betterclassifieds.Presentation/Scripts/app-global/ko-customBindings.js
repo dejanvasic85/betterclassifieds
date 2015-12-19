@@ -34,6 +34,7 @@
         init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
             var value = valueAccessor();
             var date = ko.unwrap(value);
+
             $(element)
                 .attr('data-provide', "datepicker")
                 .attr('readonly', "") // Prevents the user from inputting their own value
@@ -51,6 +52,12 @@
                     var changedDate = $(element).val();
                     value(changedDate);
                 });
+        },
+        update: function (element, valueAccessor) {
+            var newValue = ko.unwrap(valueAccessor());
+            if (newValue === null) {
+                $(element).val(''); // Force to clear the textbox
+            }
         }
     }
 
@@ -96,7 +103,7 @@
         init: function (element, valueAccessor) {
             var $element = $(element),
                 observable = valueAccessor();
-            
+
             // Set the current value
             if (observable() === true) {
                 $element.attr('checked', 'checked');
@@ -107,5 +114,5 @@
             });
         }
     }
-    
+
 })(ko, jQuery);

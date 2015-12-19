@@ -2,8 +2,14 @@
     Contains bunch of styles that override the default bootstrap stylesheet
 */
 
+@color_info: #31708f;
+
 .alert {
-    &.alert-no-bg{
+    &.alert-info-alt {
+        font-size: 1.1em;
+        text-align: center;
         background-color: #fff;
+        border-color: @color_info;
+        color: @color_info;
     }
 }

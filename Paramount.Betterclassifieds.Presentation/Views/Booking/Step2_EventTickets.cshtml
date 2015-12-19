@@ -152,17 +152,30 @@
             <div class="bs-callout bs-callout-info">
                 <h4><i class="fa fa-calendar-check-o"></i> &nbsp; Ticketing Close Date</h4>
                 <p>
-                    Tickets can no longer be purchased after the closing date.
+                    Users will no longer be able to purchase tickets after the closing date. Please note, you can 
+                    always perform this action in the event dashboard and do not have to specify the date now.
                 </p>
             </div>
         </div>
+        
+        <div class="col-xs-12">
+            <div class="input-group">
+                <input type="text" class="form-control" data-bind="date: closingDate">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" data-bind="click: clearClosingDate">Clear</button>
+                </span>
+            </div><!-- /input-group -->
+        </div>
 
         <div class="col-xs-12">
-            <div class="alert alert-info alert-no-bg">
-                Your ad is currently set to expire ...
+            <div class="alert alert-info-alt top-buffer-20" data-bind="visible: showClosingDateInfo">
+                <i class="fa fa-warning"></i> Your ad will now expire <span data-bind="text: closingDate"></span>
             </div>
         </div>
+
     </div>
+    
+
 
     @*Pager*@
     <div class="row">

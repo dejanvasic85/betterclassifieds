@@ -1,7 +1,10 @@
 ﻿/*
     Contains bunch of styles that override the default bootstrap stylesheet
 */
-.alert.alert-no-bg {
+.alert.alert-info-alt {
+  font-size: 1.1em;
+  text-align: center;
   background-color: #fff;
+  border-color: #31708f;
+  color: #31708f;
 }
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNpdGUtYnMtb3ZlcnJpZGUubGVzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7QUFLSSxNQUFDO0VBQ0csc0JBQUEiLCJmaWxlIjoidW5kZWZpbmVkIn0= */

@@ -6,7 +6,8 @@
 
         me.tickets = ko.observableArray();
         me.ticketFields = ko.observableArray();
-
+        me.closingDate = ko.observable();
+        
         /*
          * Functions
          */
@@ -41,6 +42,15 @@
         me.showFieldOptionWarning = ko.computed(function () {
             return me.ticketFields().length > 3;
         });
+
+        me.showClosingDateInfo = ko.computed(function() {
+            return me.closingDate() !== null;
+        });
+
+        me.clearClosingDate =function() {
+            me.closingDate(null);
+        }
+
         /*
          * Validation
          */
@@ -65,6 +75,7 @@
                 me.ticketFields.push(new $paramount.models.EventTicketField(f));
             });
         }
+        me.closingDate(data.closingDate);
     }
 
     $paramount.models = $paramount.models || {};

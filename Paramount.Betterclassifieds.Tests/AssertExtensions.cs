@@ -11,7 +11,7 @@ namespace Paramount.Betterclassifieds.Tests
         public static T IsNotNull<T>(this T target, string message = null, params object[] parameters)
         {
             Assert.IsNotNull(target, message, parameters);
-            
+
             return target;
         }
         #endregion
@@ -127,19 +127,25 @@ namespace Paramount.Betterclassifieds.Tests
 
         public static void IsRedirectingTo(this ActionResult actionResult, string expected)
         {
-            var redirectResult = (RedirectResult) actionResult;
+            var redirectResult = (RedirectResult)actionResult;
             Assert.That(redirectResult.Url, Is.EqualTo(expected));
         }
 
         public static void JsonResultContains(this ActionResult actionResult, string expected)
         {
-            var jsonResult = (JsonResult) actionResult;
-            Assert.That(jsonResult.Data.ToString(), Is.EqualTo(expected));
+            var jsonResult = (JsonResult)actionResult;
+            Assert.That(jsonResult.Data.ToString(), Is.StringContaining(expected));
         }
 
+        public static void JsonResultDoesNotContain(this ActionResult actionResult, string expected)
+        {
+            var jsonResult = (JsonResult)actionResult;
+            Assert.That(jsonResult.Data.ToString(), Is.Not.StringContaining(expected));
+        }
+        
         public static TExpected ViewResultModelIsTypeOf<TExpected>(this ActionResult actionResult)
         {
-            var viewResult = (ViewResult) actionResult;
+            var viewResult = (ViewResult)actionResult;
             var model = viewResult.Model;
             Assert.That(model, Is.TypeOf<TExpected>());
             return (TExpected)model;

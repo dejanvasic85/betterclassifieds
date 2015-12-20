@@ -13,6 +13,7 @@ using Paramount.Betterclassifieds.Business.Print;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Controllers;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Booking;
+using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 using Paramount.Betterclassifieds.Tests.Mocks;
 
 namespace Paramount.Betterclassifieds.Tests.Controllers
@@ -44,8 +45,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 .WithTickets(new[] { new EventTicket() })
                 .WithTicketFields(new[] { new EventTicketField() })
                 .Build();
-            var mockBookingCart = CreateMockOf<IBookingCart>();
 
+            var mockBookingCart = CreateMockOf<IBookingCart>();
             mockBookingCart.SetupWithVerification(call => call.Event, mockEvent);
             mockBookingCart.SetupWithVerification(call => call.StartDate, mockStartDate);
 
@@ -59,6 +60,49 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             model.ClosingDate.IsNotNull();
             model.Tickets.Count.IsEqualTo(1);
             model.TicketFields.Count.IsEqualTo(1);
+        }
+
+        [Test]
+        public void EventTickets_Post_ReturnsJsonResult()
+        {
+            var mockEvent = new EventModelMockBuilder().Build();
+
+            var mockBookingCart = CreateMockOf<IBookingCart>();
+            mockBookingCart.SetupWithVerification(call => call.Event, mockEvent);
+
+            var mockViewModel = new BookingEventTicketSetupViewModel
+            {
+                TicketFields = new List<EventTicketFieldViewModel> { new EventTicketFieldViewModel { FieldName = "test" } },
+                Tickets = new List<BookingEventTicketViewModel> { new BookingEventTicketViewModel { TicketName = "Adult", AvailableQuantity = 10, Price = 0 } }
+            };
+
+            _cartRepositoryMock.SetupWithVerification(call => call.Save(It.Is<IBookingCart>(p => p == mockBookingCart.Object)), mockBookingCart.Object);
+
+            // act
+            var result = BuildController().EventTickets(mockBookingCart.Object, mockViewModel);
+
+            // assert
+            result.IsTypeOf<JsonResult>();
+            result.JsonResultContains("/Booking/Step/3");
+        }
+
+        [Test]
+        public void EventTickets_Post_ClosingDateValidation_ReturnsJsonResult()
+        {
+            var mockBookingCart = CreateMockOf<IBookingCart>();
+            mockBookingCart.SetupWithVerification(call => call.StartDate, DateTime.Now.AddDays(11));
+
+            var mockViewModel = new BookingEventTicketSetupViewModel
+            {
+                ClosingDate = DateTime.Now.AddDays(10)
+            };
+            
+            // act
+            var result = BuildController().EventTickets(mockBookingCart.Object, mockViewModel);
+
+            // assert
+            result.IsTypeOf<JsonResult>();
+            result.JsonResultDoesNotContain("/Booking/Step/3");
         }
 
         private Mock<ISearchService> _searchServiceMock;

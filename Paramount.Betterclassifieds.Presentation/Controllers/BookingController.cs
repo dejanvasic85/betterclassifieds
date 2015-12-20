@@ -432,18 +432,19 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View("Step2_EventTickets", viewModel);
         }
 
-        [HttpPost, BookingRequired]
+        [HttpPost, BookingRequired, BookingCategoryTypeRequired("Event")]
         public ActionResult EventTickets(IBookingCart bookingCart, BookingEventTicketSetupViewModel viewModel)
         {
-            if (!ModelState.IsValid)
+            if (viewModel.ClosingDate.HasValue && viewModel.ClosingDate.Value < bookingCart.StartDate.GetValueOrDefault())
             {
-                return Json(new { Errors = ModelState.ToErrors() });
+                ModelState.AddModelError("ClosingDate", "Closing date cannot be before the ad start date");
+                return Json(new {Errors = ModelState.ToErrors()});
             }
 
             bookingCart.Event.Tickets = this.MapList<BookingEventTicketViewModel, EventTicket>(viewModel.Tickets);
             bookingCart.Event.TicketFields = this.MapList<EventTicketFieldViewModel, EventTicketField>(viewModel.TicketFields);
             _cartRepository.Save(bookingCart);
-            return Json(new { NextUrl = Url.Action("Step3") });
+            return Json(new { NextUrl = Url.Booking(3) });
         }
 
         #region Mappings

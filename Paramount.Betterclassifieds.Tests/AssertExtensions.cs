@@ -11,7 +11,7 @@ namespace Paramount.Betterclassifieds.Tests
         public static T IsNotNull<T>(this T target, string message = null, params object[] parameters)
         {
             Assert.IsNotNull(target, message, parameters);
-
+            
             return target;
         }
         #endregion
@@ -135,6 +135,14 @@ namespace Paramount.Betterclassifieds.Tests
         {
             var jsonResult = (JsonResult) actionResult;
             Assert.That(jsonResult.Data.ToString(), Is.EqualTo(expected));
+        }
+
+        public static TExpected ViewResultModelIsTypeOf<TExpected>(this ActionResult actionResult)
+        {
+            var viewResult = (ViewResult) actionResult;
+            var model = viewResult.Model;
+            Assert.That(model, Is.TypeOf<TExpected>());
+            return (TExpected)model;
         }
     }
 }

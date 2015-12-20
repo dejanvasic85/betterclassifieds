@@ -421,11 +421,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 return Redirect(Url.Booking(2, bookingCart.CategoryAdType));
             }
-            
+
             var viewModel = new BookingEventTicketSetupViewModel
             {
+                ClosingDate = bookingCart.Event.ClosingDate,
                 AdStartDate = bookingCart.StartDate,
-                Tickets = this.MapList<EventTicket, BookingEventTicketViewModel>(bookingCart.Event.Tickets.ToList())
+                Tickets = this.MapList<EventTicket, BookingEventTicketViewModel>(bookingCart.Event.Tickets.ToList()),
+                TicketFields = this.MapList<EventTicketField, EventTicketFieldViewModel>(bookingCart.Event.TicketFields.ToList())
             };
             return View("Step2_EventTickets", viewModel);
         }

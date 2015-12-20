@@ -37,7 +37,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 .WithClosingDateUtc(DateTime.Now.AddDays(-1))
                 .Build();
             var mockPaymentSummary = new EventPaymentSummaryMockBuilder().WithEventOrganiserOwedAmount(90).WithSystemTicketFee(10).WithTotalTicketSalesAmount(100).Build();
-            
+
 
             _searchServiceMock.SetupWithVerification(call => call.GetByAdId(It.Is<int>(p => p == adId)), mockSearchResult);
             _eventManagerMock.SetupWithVerification(call => call.GetEventDetailsForOnlineAdId(It.Is<int>(p => p == onlineAdId), It.Is<bool>(p => true)), mockEvent);
@@ -108,9 +108,9 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 .WithEventId(eventId)
                 .WithPastClosedDate()
                 .Build();
-            
+
             var mockApplicationUser = new ApplicationUserMockBuilder().Default().Build();
-            
+
             var mockPrincipal = CreateMockOf<IPrincipal>();
             var mockPaymentSummary = new EventPaymentSummaryMockBuilder()
                 .WithEventOrganiserOwedAmount(90)
@@ -147,12 +147,12 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             // arrange
             int eventId = 1939;
             var mockEvent = new EventModelMockBuilder()
-                .WithEventId(eventId )
+                .WithEventId(eventId)
                 .WithFutureClosedDate()
                 .Build();
 
             _eventManagerMock.SetupWithVerification(call => call.GetEventDetails(It.Is<int>(p => p == eventId)), mockEvent);
-            
+
             // act
             var result = this.BuildController().EventPaymentRequest(2929, eventId);
 
@@ -171,7 +171,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var eventId = 1;
             var requestedAmount = 100;
             var paymentMethod = "PayPal";
-            var supportEmails = new[] {"support@email.com"};
+            var supportEmails = new[] { "support@email.com" };
 
             _clientConfigMock.SetupWithVerification(call => call.SupportEmailList, supportEmails);
             _eventManagerMock.SetupWithVerification(call => call.CreateEventPaymentRequest(
@@ -207,7 +207,9 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventManagerMock.SetupWithVerification(call => call.CloseEvent(It.Is<int>(p => p == eventId)));
 
             var result = BuildController().CloseEvent(adId, eventId);
-            Assert.That(result, Is.TypeOf<JsonResult>());
+
+            // assert
+            result.IsTypeOf<JsonResult>();
         }
 
         private Mock<ISearchService> _searchServiceMock;

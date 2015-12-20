@@ -13,8 +13,6 @@ namespace Paramount.Betterclassifieds.Presentation
         [Dependency]
         public IBookingContext CurrentBookingId { get; set; }
 
-        [Dependency]
-        public IBookCartRepository Repository { get; set; }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {

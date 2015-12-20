@@ -17,54 +17,9 @@ using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
-
     public class BookingController : Controller, IMappingBehaviour
     {
         private const string DATE_FORMAT = "dd/MM/yyyy";
-
-        private readonly ISearchService _searchService;
-        private readonly IBookCartRepository _cartRepository;
-        private readonly IBookingContext _bookingContext;
-        private readonly IClientConfig _clientConfig;
-        private readonly IDocumentRepository _documentRepository;
-        private readonly IUserManager _userManager;
-        private readonly IRateCalculator _rateCalculator;
-        private readonly IBroadcastManager _broadcastManager;
-        private readonly IApplicationConfig _applicationConfig;
-        private readonly IBookingManager _bookingManager;
-        private readonly IPaymentService _paymentService;
-        private readonly IEditionManager _editionManager;
-        private readonly IDateService _dateService;
-
-        public BookingController(
-            ISearchService searchService,
-            IClientConfig clientConfig,
-            IDocumentRepository documentRepository,
-            IBookCartRepository cartRepository,
-            IUserManager userManager,
-            IRateCalculator rateCalculator,
-            IBroadcastManager broadcastManager,
-            IApplicationConfig applicationConfig,
-            IBookingContext bookingContext,
-            IBookingManager bookingManager,
-            IPaymentService paymentService,
-            IEditionManager editionManager,
-            IDateService dateService)
-        {
-            _searchService = searchService;
-            _clientConfig = clientConfig;
-            _documentRepository = documentRepository;
-            _cartRepository = cartRepository;
-            _userManager = userManager;
-            _rateCalculator = rateCalculator;
-            _broadcastManager = broadcastManager;
-            _applicationConfig = applicationConfig;
-            _bookingContext = bookingContext;
-            _bookingManager = bookingManager;
-            _paymentService = paymentService;
-            _editionManager = editionManager;
-            _dateService = dateService;
-        }
 
         [HttpPost, AuthorizeBookingIdentity]
         public ActionResult StartFromTemplate(int id)
@@ -459,9 +414,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(new { NextUrl = Url.Action("Step3") });
         }
 
-        [HttpGet, BookingRequired]
+        [HttpGet, BookingRequired, BookingCategoryTypeRequired("Event")]
         public ActionResult EventTickets(IBookingCart bookingCart)
         {
+            if (bookingCart.Event == null)
+            {
+                return Redirect(Url.Booking(2, bookingCart.CategoryAdType));
+            }
+            
             var viewModel = new BookingEventTicketSetupViewModel
             {
                 AdStartDate = bookingCart.StartDate,
@@ -525,6 +485,52 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         #endregion
+
+
+
+        private readonly ISearchService _searchService;
+        private readonly IBookCartRepository _cartRepository;
+        private readonly IBookingContext _bookingContext;
+        private readonly IClientConfig _clientConfig;
+        private readonly IDocumentRepository _documentRepository;
+        private readonly IUserManager _userManager;
+        private readonly IRateCalculator _rateCalculator;
+        private readonly IBroadcastManager _broadcastManager;
+        private readonly IApplicationConfig _applicationConfig;
+        private readonly IBookingManager _bookingManager;
+        private readonly IPaymentService _paymentService;
+        private readonly IEditionManager _editionManager;
+        private readonly IDateService _dateService;
+
+        public BookingController(
+            ISearchService searchService,
+            IClientConfig clientConfig,
+            IDocumentRepository documentRepository,
+            IBookCartRepository cartRepository,
+            IUserManager userManager,
+            IRateCalculator rateCalculator,
+            IBroadcastManager broadcastManager,
+            IApplicationConfig applicationConfig,
+            IBookingContext bookingContext,
+            IBookingManager bookingManager,
+            IPaymentService paymentService,
+            IEditionManager editionManager,
+            IDateService dateService)
+        {
+            _searchService = searchService;
+            _clientConfig = clientConfig;
+            _documentRepository = documentRepository;
+            _cartRepository = cartRepository;
+            _userManager = userManager;
+            _rateCalculator = rateCalculator;
+            _broadcastManager = broadcastManager;
+            _applicationConfig = applicationConfig;
+            _bookingContext = bookingContext;
+            _bookingManager = bookingManager;
+            _paymentService = paymentService;
+            _editionManager = editionManager;
+            _dateService = dateService;
+        }
 
     }
 

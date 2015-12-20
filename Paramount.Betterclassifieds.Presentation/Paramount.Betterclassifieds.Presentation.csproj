@@ -217,6 +217,7 @@
     <Compile Include="Framework\Factories\CategoryRepositoryFactory.cs" />
     <Compile Include="Framework\Filters\AuthorizeBookingIdentity.cs" />
     <Compile Include="Framework\Filters\AuthorizeCartIdentity.cs" />
+    <Compile Include="Framework\Filters\BookingCategoryTypeRequired.cs" />
     <Compile Include="Framework\Filters\BookingRequiredAttribute.cs" />
     <Compile Include="Framework\Filters\BookingStepAttribute.cs" />
     <Compile Include="Framework\Extensions\JsonExtensions.cs" />

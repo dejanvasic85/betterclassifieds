@@ -1,11 +1,9 @@
 using System.Linq;
-using System.Security.Claims;
 using System.Security.Principal;
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business;
-using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Controllers;
@@ -156,8 +154,11 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             // arrange
             var mockViewModel = new UserDetailsEditView
             {
-                FirstName = "Bob", PreferredPaymentMethod = "None", LastName = "Hope",
-                AddressLine1 = "1 Memory Lane", PostCode = "3000"
+                FirstName = "Bob",
+                PreferredPaymentMethod = "None",
+                LastName = "Hope",
+                AddressLine1 = "1 Memory Lane",
+                PostCode = "3000"
             };
             _mockLoggedInUser.SetupIdentityCall();
             _mockUserMgr.SetupWithVerification(call => call.UpdateUserProfile(It.IsAny<ApplicationUser>()));
@@ -168,7 +169,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // assert
             Assert.That(result, Is.TypeOf<ViewResult>());
-            var viewResult = (ViewResult) result;
+            var viewResult = (ViewResult)result;
             Assert.That(viewResult.ViewBag.Updated, Is.True);
             Assert.That(viewResult.ViewBag.ModelStateNotValid, Is.False);
         }

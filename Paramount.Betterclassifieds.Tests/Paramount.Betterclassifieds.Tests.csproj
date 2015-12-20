@@ -117,6 +117,7 @@
     <Compile Include="Broadcast\EmailTests.cs" />
     <Compile Include="Console\TaskArgumentsTests.cs" />
     <Compile Include="Controllers\AccountControllerTests.cs" />
+    <Compile Include="Controllers\BookingControllerTests.cs" />
     <Compile Include="Controllers\ControllerTest.cs" />
     <Compile Include="Controllers\EditAdControllerTests.cs" />
     <Compile Include="Controllers\HomeControllerTests.cs" />

@@ -157,9 +157,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var result = this.BuildController().EventPaymentRequest(2929, eventId);
 
             // assert
-            Assert.That(result, Is.TypeOf<RedirectResult>());
-            var redirectResult = (RedirectResult) result;
-            Assert.That(redirectResult.Url, Is.EqualTo("/EditAd/EventDashboard?id=2929"));
+            result.IsTypeOf<RedirectResult>();
+            result.IsRedirectingTo("/EditAd/EventDashboard/2929");
         }
 
         [Test]
@@ -196,9 +195,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             });
 
             // assert
-            Assert.That(result, Is.TypeOf<JsonResult>());
-            var jsonResult = (JsonResult)result;
-            Assert.That(jsonResult.Data.ToString(), Is.EqualTo("{ NextUrl = /EditAd/EventDashboard?id=" + adId + " }"));
+            result.IsTypeOf<JsonResult>();
+            result.JsonResultContains("{ NextUrl = /EditAd/EventDashboard/" + adId + " }");
         }
 
         [Test]

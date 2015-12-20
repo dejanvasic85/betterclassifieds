@@ -8,6 +8,7 @@ using System.Collections.Specialized;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.UI.WebControls;
 using Paramount.Betterclassifieds.Tests.Mocks;
 
 namespace Paramount.Betterclassifieds.Tests.Controllers
@@ -38,7 +39,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         /// <summary>
         /// Creates a controller with a mock of the HttpContextBase with optional base url and route information (for testing routes)
         /// </summary>
-        protected T BuildController(string mockUrl = "~/MockUrl/", RouteData routeData = null, 
+        protected T BuildController(string mockUrl = "~/MockUrl/", RouteData routeData = null,
             RouteCollection routes = null, TempDataDictionary mockTempData = null, Mock<IPrincipal> mockUser = null)
         {
             _containerBuilder.RegisterType(typeof(T));
@@ -53,7 +54,35 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             if (routes == null)
             {
                 routes = new RouteCollection();
-                routes.MapRoute("default", "{controller}/{action}");
+
+                // Ignored routes
+                routes.Ignore("{resource}.axd/{*pathInfo}");
+                routes.Ignore("{resource}.aspx/{*pathInfo}");
+                routes.Ignore("{resources}.ashx/{*pathInfo}");
+
+                // Images
+                routes.MapRoute("imageRoute", "img/{documentId}/{width}/{height}", new { controller = "Image", action = "Render", width = UrlParameter.Optional, height = UrlParameter.Optional });
+
+                // Ad route
+                routes.MapRoute("adRoute", "Ad/{title}/{id}", new { controller = "Listings", action = "ViewAd" });
+                routes.MapRoute("Event", "Event/{title}/{id}", new { controller = "Event", action = "ViewEventAd" }); // Need to be Pascal to suit the database record!
+
+                // routes.MapRoute("EventBooking", "Event/{title}/{id}/buy-ticket", new {controller = ""});
+
+                // Seo route
+                routes.MapRoute("seoName", "{seoName}/listings", new { controller = "Listings", action = "SeoAds" });
+
+                // Booking step routes
+                routes.MapRoute("bookingRoute1", "Booking/Step/1", new { controller = "Booking", action = "Step1" });
+                routes.MapRoute("bookingRoute2", "Booking/Step/2/{adType}", new { controller = "Booking", action = "Step2", adType = UrlParameter.Optional });
+                routes.MapRoute("bookingRoute3", "Booking/Step/3", new { controller = "Booking", action = "Step3" });
+
+                // Default
+                routes.MapRoute("defaultRoute", "{controller}/{action}/{id}", new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+
+
+                //routes.MapRoute("bookingRoute2", "Booking/Step/2/{adType}", new { controller = "Booking", action = "Step2", adType = UrlParameter.Optional });
+                //routes.MapRoute("default", "{controller}/{action}");
             }
 
             var mockRequestContext = new RequestContext(mockHttpContext.Object, routeData);

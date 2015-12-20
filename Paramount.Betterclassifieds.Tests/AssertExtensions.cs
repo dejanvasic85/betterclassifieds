@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web.Mvc;
 using NUnit.Framework;
 
 namespace Paramount.Betterclassifieds.Tests
@@ -124,5 +125,16 @@ namespace Paramount.Betterclassifieds.Tests
             }
         }
 
+        public static void IsRedirectingTo(this ActionResult actionResult, string expected)
+        {
+            var redirectResult = (RedirectResult) actionResult;
+            Assert.That(redirectResult.Url, Is.EqualTo(expected));
+        }
+
+        public static void JsonResultContains(this ActionResult actionResult, string expected)
+        {
+            var jsonResult = (JsonResult) actionResult;
+            Assert.That(jsonResult.Data.ToString(), Is.EqualTo(expected));
+        }
     }
 }

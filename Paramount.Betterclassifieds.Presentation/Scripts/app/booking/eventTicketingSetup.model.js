@@ -7,7 +7,7 @@
         me.tickets = ko.observableArray();
         me.ticketFields = ko.observableArray();
         me.closingDate = ko.observable();
-        
+
         /*
          * Functions
          */
@@ -29,25 +29,28 @@
 
         me.submitTickets = function (e, jQueryEl) {
 
-            if ($paramount.checkValidity(me.tickets(), me.ticketFields()) === false) {
+            if ($paramount.checkValidity(me, me.tickets(), me.ticketFields()) === false) {
                 return;
             }
 
             var $button = $(jQueryEl.toElement);
             $button.button('loading');
             var eventTicketingSetup = ko.toJS(me);
-            adDesignService.updateEventTicketDetails(eventTicketingSetup);
+            adDesignService.updateEventTicketDetails(eventTicketingSetup)
+                .complete(function () {
+                    $button.button('reset');
+                });
         }
 
         me.showFieldOptionWarning = ko.computed(function () {
             return me.ticketFields().length > 3;
         });
 
-        me.showClosingDateInfo = ko.computed(function() {
+        me.showClosingDateInfo = ko.computed(function () {
             return me.closingDate() !== null;
         });
 
-        me.clearClosingDate =function() {
+        me.clearClosingDate = function () {
             me.closingDate(null);
         }
 
@@ -55,6 +58,9 @@
          * Validation
          */
         me.validator = ko.validatedObservable({
+            closingDate: me.closingDate.extend({
+                pmtMinDate: new Date(data.adStartDate)
+            })
         });
 
         /*
@@ -76,6 +82,7 @@
             });
         }
         me.closingDate(data.closingDate);
+
     }
 
     $paramount.models = $paramount.models || {};

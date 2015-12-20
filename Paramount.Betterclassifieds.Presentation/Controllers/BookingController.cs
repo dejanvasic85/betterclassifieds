@@ -438,13 +438,15 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (viewModel.ClosingDate.HasValue && viewModel.ClosingDate.Value < bookingCart.StartDate.GetValueOrDefault())
             {
                 ModelState.AddModelError("ClosingDate", "Closing date cannot be before the ad start date");
-                return Json(new {Errors = ModelState.ToErrors()});
+                return Json(new { Errors = ModelState.ToErrors() });
             }
 
             bookingCart.Event.Tickets = this.MapList<BookingEventTicketViewModel, EventTicket>(viewModel.Tickets);
             bookingCart.Event.TicketFields = this.MapList<EventTicketFieldViewModel, EventTicketField>(viewModel.TicketFields);
             _cartRepository.Save(bookingCart);
-            return Json(new { NextUrl = Url.Booking(3) });
+            var nextUrl = Url.Action("Step3");
+
+            return Json(new { NextUrl = nextUrl });
         }
 
         #region Mappings

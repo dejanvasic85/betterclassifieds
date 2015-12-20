@@ -158,15 +158,19 @@
             </div>
         </div>
 
-        <div class="col-xs-12">
+        <div class="col-xs-12" data-bind="validationElement: closingDate">
             <div class="input-group input-group-lg">
                 <input type="text" class="form-control input-lg" data-bind="date: closingDate">
-                <span class="input-group-btn input-group-lg">
+                <div class="input-group-btn input-group-lg">
                     <button class="btn btn-default" type="button" data-bind="click: clearClosingDate">
                         Clear
                     </button>
-                </span>
+                </div>
+
             </div><!-- /input-group -->
+            <div class="help-block">
+                Please ensure that the Closing date is after the ad start date of @Model.AdStartDate.GetValueOrDefault().ToString("dd/MM/yyyy")
+            </div>
         </div>
 
         <div class="col-xs-12">

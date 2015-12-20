@@ -8,6 +8,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         public EventModel()
         {
             Tickets = new List<EventTicket>();
+            TicketFields = new List<EventTicketField>();
             EventBookings = new List<EventBooking>();
         }
 

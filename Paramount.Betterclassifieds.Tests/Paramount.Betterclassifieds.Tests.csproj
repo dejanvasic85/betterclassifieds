@@ -120,6 +120,7 @@
     <Compile Include="Controllers\BookingControllerTests.cs" />
     <Compile Include="Controllers\ControllerTest.cs" />
     <Compile Include="Controllers\EditAdControllerTests.cs" />
+    <Compile Include="Controllers\EventControllerTests.cs" />
     <Compile Include="Controllers\HomeControllerTests.cs" />
     <Compile Include="Events\EventBookingFactoryTests.cs" />
     <Compile Include="Events\EventManagerTests.cs" />

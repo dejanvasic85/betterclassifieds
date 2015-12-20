@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Monads;
 using System.Web.Mvc;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business;
@@ -424,7 +425,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var viewModel = new BookingEventTicketSetupViewModel
             {
-                ClosingDate = bookingCart.Event.ClosingDate,
+                ClosingDate = bookingCart.With(b => b.Event).ClosingDate,
                 AdStartDate = bookingCart.StartDate,
                 Tickets = this.MapList<EventTicket, BookingEventTicketViewModel>(bookingCart.Event.Tickets.ToList()),
                 TicketFields = this.MapList<EventTicketField, EventTicketFieldViewModel>(bookingCart.Event.TicketFields.ToList())

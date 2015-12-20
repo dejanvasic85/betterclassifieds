@@ -30,7 +30,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IBroadcastManager _broadcastManager;
         private readonly IBookingManager _bookingManager;
         private readonly IEventTicketReservationFactory _eventTicketReservationFactory;
-
+        
         public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IAuthManager authManager, EventBookingContext eventBookingContext, IPaymentService paymentService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory)
         {
             _searchService = searchService;
@@ -52,7 +52,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             if (onlineAdModel == null)
             {
-                return View("~/Views/Listings/404.cshtml");
+                return RedirectToAction("NotFound", "Error");
             }
 
             _bookingManager.IncrementHits(id);
@@ -310,7 +310,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(writer.GetStringBuilder().ToString());
             }
         }
-        
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             #region To View Model

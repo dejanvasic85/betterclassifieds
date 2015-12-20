@@ -112,9 +112,10 @@ namespace Paramount.Betterclassifieds.Tests
             Assert.AreNotSame(toCompare, target);
         }
 
-        public static void IsTypeOf<T>(this object target, string message = null, params object[] parameters)
+        public static TExpected IsTypeOf<TExpected>(this object target, string message = null, params object[] parameters)
         {
-            Assert.IsInstanceOf<T>(target);
+            Assert.IsInstanceOf<TExpected>(target);
+            return (TExpected)target;
         }
 
         public static void AreAllTrue<T>(this IEnumerable<T> items, Predicate<T> predicate)
@@ -142,13 +143,23 @@ namespace Paramount.Betterclassifieds.Tests
             var jsonResult = (JsonResult)actionResult;
             Assert.That(jsonResult.Data.ToString(), Is.Not.StringContaining(expected));
         }
-        
+
         public static TExpected ViewResultModelIsTypeOf<TExpected>(this ActionResult actionResult)
         {
             var viewResult = (ViewResult)actionResult;
             var model = viewResult.Model;
             Assert.That(model, Is.TypeOf<TExpected>());
             return (TExpected)model;
+        }
+
+        public static void RedirectResultControllerIs(this RedirectToRouteResult result, string expectedController)
+        {
+            Assert.That(result.RouteValues["controller"], Is.EqualTo(expectedController));
+        }
+
+        public static void RedirectResultActionIs(this RedirectToRouteResult result, string expectedAction)
+        {
+            Assert.That(result.RouteValues["action"], Is.EqualTo(expectedAction));
         }
     }
 }

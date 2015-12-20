@@ -22,6 +22,7 @@
         public int Views { get; set; }
         public string Posted { get; set; }
         public EventTicketViewModel[] Tickets { get; set; }
+        public bool IsClosed { get; set; }
 
         public bool TicketingEnabled
         {

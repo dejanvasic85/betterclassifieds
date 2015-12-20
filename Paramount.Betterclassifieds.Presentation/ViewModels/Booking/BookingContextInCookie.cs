@@ -1,4 +1,5 @@
-﻿using Paramount.Betterclassifieds.Business;
+﻿using System.Monads;
+using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
 using System.Web;
 using Paramount.Utility;
@@ -28,7 +29,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
             if (booking == null)
             {
-                booking = new BookingCart(HttpContext.Current.Session.SessionID, HttpContext.Current.User.Identity.Name);
+                booking = new BookingCart(_httpContext.With(c => c.Session).SessionID, _httpContext.User.Identity.Name);
                 _repository.Save(booking);
                 Id = booking.Id;
             }
@@ -41,10 +42,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         /// </summary>
         public BookingCart NewFromTemplate(AdBookingModel adBookingTemplate)
         {
-            var booking = BookingCart.Create(HttpContext.Current.Session.SessionID,
-                HttpContext.Current.User.Identity.Name,
-                adBookingTemplate,
-                _clientConfig);
+            var booking = BookingCart.Create(_httpContext.With(c => c.Session).SessionID, _httpContext.User.Identity.Name, adBookingTemplate, _clientConfig);
 
             this.Id = booking.Id;
             _repository.Save(booking);
@@ -71,7 +69,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
                 {
                     return string.Empty;
                 }
-                
+
                 try
                 {
                     return CryptoHelper.Decrypt(httpCookie.Value);
@@ -84,8 +82,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             set
             {
                 var bookingCookie = new HttpCookie(BookingCookieName);
-                bookingCookie.Value = value.HasValue() 
-                    ? CryptoHelper.Encrypt(value) 
+                bookingCookie.Value = value.HasValue()
+                    ? CryptoHelper.Encrypt(value)
                     : value;
 
                 _httpContext.Response.Cookies.Add(bookingCookie);

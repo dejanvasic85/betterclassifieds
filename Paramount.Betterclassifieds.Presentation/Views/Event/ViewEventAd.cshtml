@@ -15,7 +15,7 @@
             maxTicketsPerBooking : @Model.MaxTicketsPerBooking,
             baseUrl : '@Url.Action("Index", "Home")',
             eventId : @Model.EventId
-        });
+            });
     </script>
 }
 <div class="event-details" id="eventView">
@@ -63,13 +63,16 @@
             <div class="google-map" data-latitude="@Model.LocationLatitude" data-longitude="@Model.LocationLongitude" data-address="@Model.Location"></div>
         </div>
     </div>
+
+    @*Ticketing*@
     <div class="row top-buffer-20">
         <div class="col-xs-12 col-md-6 ticketing" id="ticketing">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h4><i class="fa fa-ticket"></i> Ticketing</h4>
                 </div>
-                @if (Model.TicketingEnabled)
+
+                @if (Model.TicketingEnabled && !Model.IsClosed)
                 {
                     <ul class="list-group" data-bind="foreach: tickets">
                         <li class="list-group-item">
@@ -86,8 +89,7 @@
                                         <span data-bind="visible: soldOut, text: 'SOLD OUT'" class="label label-danger"></span>
                                         <div class="form-group" data-bind="visible: isAvailable">
                                             <span class="ticket-info">Quantity</span>
-                                            <select class="form-control" data-bind="value: selectedQuantity, options: maxTicketsPerBooking, optionsText : 'label', optionsValue : 'value'">
-                                            </select>
+                                            <select class="form-control" data-bind="value: selectedQuantity, options: maxTicketsPerBooking, optionsText : 'label', optionsValue : 'value'"></select>
                                         </div>
                                     </div>
                                 </div>
@@ -101,14 +103,29 @@
                         </button>
                     </div>
                 }
-                else
+
+                @if (!Model.TicketingEnabled)
                 {
                     <div class="panel panel-body">
-                        Ticketing is not available for this event.
+                        <div class="well">
+                            Ticketing is not available for this event.
+                        </div>
+                    </div>
+                }
+
+
+                @if (Model.IsClosed)
+                {
+                    <div class="panel panel-body">
+                        <div class="well">
+                            The ticketing has been closed for this event. Please
+                            contact the organiser for any further queries.
+                        </div>
                     </div>
                 }
             </div>
         </div>
+
         <div class="col-xs-12 col-md-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">
@@ -122,6 +139,7 @@
                 </table>
             </div>
         </div>
+
         @*Contact*@
         <div class="col-xs-12">
             @Html.Partial("_ContactAdvertiser.cshtml")

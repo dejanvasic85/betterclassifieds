@@ -20,45 +20,39 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         [Test]
         public void ViewEventAd_Get_ReturnsViewResult()
         {
-            // arrange
-            var mockAdId = 458745;
-            var mockOnlineAdId = 232;
-            var mockEventId = 777;
-            var mockPhotoId = "photo.jpg";
-            var mockTitle = "Lord of the rings";
-            var mockDescription = "very average movie!";
-
+            
             var mockAd = new AdSearchResultMockBuilder()
-                .WithAdId(mockAdId)
-                .WithHeading(mockTitle)
-                .WithDescription(mockDescription)
-                .WithOnlineAdId(mockOnlineAdId)
-                .WithImageUrls(new [] { mockPhotoId })
+                .Default()
                 .Build();
 
             var mockEventAd = new EventModelMockBuilder()
-                .WithEventId(mockEventId)
+                .Default()
+                .WithOnlineAdId(mockAd.OnlineAdId)
                 .WithPastClosedDate()
                 .Build();
 
             // arrange services
-            _searchService.SetupWithVerification(call => call.GetByAdId(It.Is<int>(p => p == mockAdId)), mockAd);
-            _bookingManager.SetupWithVerification(call => call.IncrementHits(It.Is<int>(p => p == mockAdId)));
-            _eventManager.SetupWithVerification(call => call.GetEventDetailsForOnlineAdId(It.Is<int>(p => p == mockOnlineAdId), It.Is<bool>(p => p == false)), mockEventAd);
+            _searchService.SetupWithVerification(call => call.GetByAdId(It.Is<int>(p => p == mockAd.AdId)), mockAd);
+            _bookingManager.SetupWithVerification(call => call.IncrementHits(It.Is<int>(p => p == mockAd.AdId)));
+            _eventManager.SetupWithVerification(call => call.GetEventDetailsForOnlineAdId(It.Is<int>(p => p == mockEventAd.OnlineAdId), It.Is<bool>(p => p == false)), mockEventAd);
             _clientConfig.SetupWithVerification(call => call.EventMaxTicketsPerBooking, 10);
 
             // act
-            var result = BuildController().ViewEventAd(mockAdId);
+            var result = BuildController().ViewEventAd(mockAd.AdId);
 
             // assert
             result.IsTypeOf<ViewResult>();
             var eventViewModel = result.ViewResultModelIsTypeOf<EventViewDetailsModel>();
-            eventViewModel.AdId.IsEqualTo(mockAdId);
-            eventViewModel.EventId.IsEqualTo(mockEventId);
-            eventViewModel.Title.IsEqualTo(mockTitle);
-            eventViewModel.Description.IsEqualTo(mockDescription);
-            eventViewModel.EventPhoto.IsEqualTo(mockPhotoId);
+            eventViewModel.AdId.IsEqualTo(mockAd.AdId);
+            eventViewModel.EventId.IsEqualTo(mockEventAd.EventId.GetValueOrDefault());
+            eventViewModel.Title.IsEqualTo(mockAd.Heading);
+            eventViewModel.Description.IsEqualTo(mockAd.Description);
+            eventViewModel.EventPhoto.IsEqualTo(mockAd.PrimaryImage);
             eventViewModel.IsClosed.IsEqualTo(true);
+            eventViewModel.EventStartDate.IsEqualTo(mockEventAd.EventStartDate.GetValueOrDefault().ToLongDateString());
+            eventViewModel.EventStartTime.IsEqualTo(mockEventAd.EventStartDate.GetValueOrDefault().ToString("hh:mm tt"));
+            eventViewModel.EventEndDate.IsEqualTo(mockEventAd.EventEndDate.GetValueOrDefault().ToLongDateString());
+            
         }
 
         [Test]

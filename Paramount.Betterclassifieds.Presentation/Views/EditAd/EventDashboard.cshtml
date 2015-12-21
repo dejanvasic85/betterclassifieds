@@ -90,7 +90,7 @@
                     <button class="btn btn-primary" data-bind="visible: !isClosed()" data-toggle="modal" data-target="#closeEventDialog">Close <i class="fa fa-ban"></i></button>
                     <span class="label label-warning" data-bind="visible: isClosed">Closed</span>
                 </div>
-            </div>  
+            </div>
         </div>
 
         <div class="col-xs-12" data-bind="visible: showWithdrawPayment">
@@ -186,11 +186,20 @@
             </div>
 
 
-            <ul class="list-group" data-bind="foreach: guests">
+            <ul class="list-group guest-list" data-bind="foreach: guests">
                 <li class="list-group-item">
-                    <i class="fa fa-user"></i>&nbsp;
-                    <span data-bind="text: guestFullName"></span>
-                    &lt;<span data-bind="text: guestEmail"></span>&gt;
+                    <ul class="list-unstyled">
+                        <li>
+                            <i class="fa fa-user"></i>&nbsp;
+                            <span data-bind="text: guestFullName"></span>
+                            &lt;<span data-bind="text: guestEmail"></span>&gt;
+                        </li>
+                    </ul>
+                    <ul class="list-unstyled guest-fields" data-bind="foreach: dynamicFields">
+                        <li>
+                            <span data-bind="text: fieldName"></span> : <span data-bind="text: fieldValue"></span>
+                        </li>
+                    </ul>
                 </li>
             </ul>
             <div class="text-right">

@@ -1,11 +1,6 @@
 ﻿@using Paramount
 @model EventGuestListDownloadViewModel
 
-@{
-    Layout = "~/Views/Shared/_ApplicationLayoutWithSearch.cshtml";
-    ViewBag.Title = "Manage my Ads";
-}
-
 <!DOCTYPE html>
 
 
@@ -25,11 +20,12 @@
                     @Model.EventName
                 </h1>
 
+                <h3>Guest List</h3>
+
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Guest Name</th>
-                            <th>Guest Email</th>
+                            <th>Guest</th>
                             <th>Ticket Type</th>
                             <th>Ticket Number</th>
                             <th>Barcode</th>
@@ -39,8 +35,24 @@
                         @foreach (var g in Model.Guests)
                         {
                             <tr>
-                                <td>@g.GuestFullName</td>
-                                <td>@g.GuestEmail</td>
+                                <td>
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            @g.GuestFullName
+                                            &lt;<span>@g.GuestEmail</span>&gt;
+                                        </li>
+
+                                        @foreach (var f in g.DynamicFields)
+                                        {
+
+                                            <li>
+                                                @f.FieldName : @f.FieldValue
+                                            </li>
+
+                                        }
+
+                                    </ul>
+                                </td>
                                 <td>@g.TicketName</td>
                                 <td>@g.TicketNumber</td>
                                 <td><img src="@Url.ActionAbsolute("Barcode", "Image", new {data = g.BarcodeData})" /></td>

@@ -10,5 +10,9 @@
   {
     "outputFile": "Content/site-bs-override.css",
     "inputFile": "Content/site-bs-override.less"
+  },
+  {
+    "outputFile": "Content/TheMusic/themusic.css",
+    "inputFile": "Content/TheMusic/themusic.less"
   }
 ]

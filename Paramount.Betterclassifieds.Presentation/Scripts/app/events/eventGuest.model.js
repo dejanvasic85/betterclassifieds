@@ -6,7 +6,8 @@
         me.guestFullName = ko.observable(data.guestFullName);
         me.guestEmail = ko.observable(data.guestEmail);
         me.dynamicFields = ko.observableArray();
-        $.each(data, function (idx, f) {
+        $.each(data.dynamicFields, function (idx, f) {
+
             me.dynamicFields.push(new $paramount.models.DynamicFieldValue(f));
         });
     }

@@ -77,14 +77,7 @@
 
             return me.minsRemaining() === 0 && me.secondsRemaining() === 0;
         });
-        me.paymentMethod = ko.observable();
-        me.setPayPal = function () {
-            me.paymentMethod('PayPal');
-        }
-        me.setCreditCard = function () {
-            me.paymentMethod('CreditCard');
-        }
-
+        
         /*
          * Submit ticket booking
          */
@@ -119,7 +112,7 @@
                         // Success
                         if (response.redirect) {
                             if (response.isPayPal) {
-                                $btn.text('Waiting for PayPal');
+                                $btn.text('Directing to payment...');
                             }
                             window.location = response.redirect;
                             return;

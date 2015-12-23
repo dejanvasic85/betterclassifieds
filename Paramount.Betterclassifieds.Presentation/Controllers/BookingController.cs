@@ -445,6 +445,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             bookingCart.Event.Tickets = this.MapList<BookingEventTicketViewModel, EventTicket>(viewModel.Tickets);
             bookingCart.Event.TicketFields = this.MapList<EventTicketFieldViewModel, EventTicketField>(viewModel.TicketFields);
+
+            if (viewModel.ClosingDate.HasValue)
+            {
+                bookingCart.EndDate = viewModel.ClosingDate;
+            }
+
             _cartRepository.Save(bookingCart);
             var nextUrl = Url.Action("Step3");
 

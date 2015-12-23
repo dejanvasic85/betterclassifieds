@@ -65,23 +65,17 @@
 
     AdDesignService.prototype.updateEventTicketDetails = function(eventBookingTicketSetup) {
         $.extend(me.model, eventBookingTicketSetup);
-        var promise = $paramount.httpPost(me.baseUrl + 'EventTickets', me.model);
-        handleResponse(promise);
-        return promise;
+        return $paramount.httpPost(me.baseUrl + 'EventTickets', me.model);
     }
 
     AdDesignService.prototype.requestEventPayment = function(paymentDetails) {
         $.extend(me.model, paymentDetails);
-        var promise = $paramount.httpPost(me.baseUrl + 'EventPaymentRequest', me.model);
-        handleResponse(promise);
-        return promise;
+        return $paramount.httpPost(me.baseUrl + 'EventPaymentRequest', me.model);
     }
 
     AdDesignService.prototype.closeEvent = function(eventId) {
         $.extend(me.model, { eventId: eventId });
-        var promise = $paramount.httpPost(me.baseUrl + 'CloseEvent', me.model);
-        handleResponse(promise);
-        return promise;
+        return $paramount.httpPost(me.baseUrl + 'CloseEvent', me.model);
     }
 
     AdDesignService.prototype.setCategoryAndPublications = function (categoryPublicationModel) {
@@ -93,15 +87,7 @@
     }
 
     $paramount.AdDesignService = AdDesignService;
-    // Return the paramount module / namespace
+    
     return $paramount;
-
-    function handleResponse(promise) {
-        promise.success(function (response) {
-            if (response.nextUrl) {
-                window.location = response.nextUrl;
-            }
-        });
-    }
-
+    
 })(jQuery, $paramount);

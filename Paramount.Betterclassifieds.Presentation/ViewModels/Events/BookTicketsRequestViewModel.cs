@@ -21,7 +21,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string PostCode { get; set; }
         [Required]
         public string Email { get; set; }
-        [Required]
+        [RequiredIfNotLoggedIn]
         public string Password { get; set; }
         [RequiredIf("PaymentRequired", true)]
         public string PaymentMethod { get; set; }

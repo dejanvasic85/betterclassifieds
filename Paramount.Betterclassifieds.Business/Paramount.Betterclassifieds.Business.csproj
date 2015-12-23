@@ -113,7 +113,9 @@
     <Compile Include="Events\IEventRepository.cs" />
     <Compile Include="IAdFactory.cs" />
     <Compile Include="Membership\IConfirmationCodeGenerator.cs" />
+    <Compile Include="Membership\LoginResult.cs" />
     <Compile Include="Membership\RegistrationConfirmationResult.cs" />
+    <Compile Include="Membership\RegistrationOrLoginResult.cs" />
     <Compile Include="Payment\IPayPalRequestFactory.cs" />
     <Compile Include="Payment\PayPalChargeableItem.cs" />
     <Compile Include="Payment\PayPalPaymentRequest.cs" />

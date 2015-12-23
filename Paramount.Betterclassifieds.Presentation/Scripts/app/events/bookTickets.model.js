@@ -41,7 +41,7 @@
 
             me.reservations.push(new $paramount.models.EventTicketReserved(reservationData, data.ticketFields));
         });
-        
+
         me.totalCost = ko.computed(function () {
             return _.sum(me.reservations(), function (r) {
                 if (r.notReserved()) {
@@ -77,7 +77,7 @@
 
             return me.minsRemaining() === 0 && me.secondsRemaining() === 0;
         });
-        
+
         /*
          * Submit ticket booking
          */
@@ -103,30 +103,17 @@
                 $btn.button('loading');
 
                 // Reset all the errors
-                me.serverError(false);
                 me.invalidCredentials(false);
 
                 var request = ko.toJSON(me);
                 eventService.bookTickets(request)
                     .success(function (response) {
-                        // Success
-                        if (response.redirect) {
-                            if (response.isPayPal) {
-                                $btn.text('Directing to payment...');
-                            }
-                            window.location = response.redirect;
-                            return;
-                        }
-
-                        // Login failed
                         if (response.loginFailed === true) {
                             me.invalidCredentials(true);
-                            $btn.button('reset');
                             return;
                         }
-
-                        // Something is wrong
-                        me.serverError(true);
+                    })
+                    .complete(function() {
                         $btn.button('reset');
                     });
             }
@@ -138,7 +125,7 @@
             var result = [];
             var fieldObservables = _.pluck(me.reservations(), 'ticketFields');
             _.each(fieldObservables, function (f) {
-                _.each(f(), function(dynamicField) {
+                _.each(f(), function (dynamicField) {
                     result.push(dynamicField);
                 });
             });

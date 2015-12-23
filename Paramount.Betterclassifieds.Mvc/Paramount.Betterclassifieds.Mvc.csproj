@@ -130,6 +130,7 @@
     <Compile Include="Validators\MustBeTrue.cs" />
     <Compile Include="Validators\MustNotBePastDate.cs" />
     <Compile Include="Validators\RequiredIfAttribute.cs" />
+    <Compile Include="Validators\RequiredIfNotLoggedIn.cs" />
     <Compile Include="Validators\TimeAsStringAttribute.cs" />
     <Compile Include="WebClientApplication.cs" />
   </ItemGroup>

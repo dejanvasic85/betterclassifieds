@@ -11,10 +11,11 @@
         ApplicationUser GetCurrentUser(IPrincipal principal);
         IEnumerable<UserNetworkModel> GetUserNetworksForUserId(string userId);
         void CreateUserNetwork(IPrincipal user, string email, string fullName);
-        RegistrationResult RegisterUser(RegistrationModel registrationModel, string plaintextPassword);
+        RegistrationResult RegisterUser(RegistrationModel registrationModel, string plaintextPassword, bool disableTwoFactorAuth = false);
+        RegistrationOrLoginResult LoginOrRegisterUser(RegistrationModel registrationModel, string password);
         RegistrationConfirmationResult ConfirmRegistration(int registrationId, string token);
         void UpdateUserProfile(ApplicationUser applicationUser);
-        
+
     }
 
     public class UserManager : IUserManager
@@ -73,7 +74,7 @@
             _userRepository.CreateUserNetwork(userNetworkModel);
         }
 
-        public RegistrationResult RegisterUser(RegistrationModel registrationModel, string plaintextPassword)
+        public RegistrationResult RegisterUser(RegistrationModel registrationModel, string plaintextPassword, bool disableTwoFactorAuth = false)
         {
             registrationModel
                 .GenerateUniqueUsername(_authManager.CheckUsernameExists)
@@ -83,7 +84,7 @@
             // Create in the database
             _userRepository.CreateRegistration(registrationModel);
 
-            if (_clientConfig.IsTwoFactorAuthEnabled)
+            if (_clientConfig.IsTwoFactorAuthEnabled && !disableTwoFactorAuth)
             {
                 // Send the two factor authorisation email
                 _broadcastManager.SendEmail(new NewRegistration
@@ -95,6 +96,38 @@
             }
 
             return new RegistrationResult(registrationModel, _clientConfig.IsTwoFactorAuthEnabled);
+        }
+
+        /// <summary>
+        /// Checks if the user exists and attempts to log them in, otherwise it creates a new account
+        /// </summary>
+        public RegistrationOrLoginResult LoginOrRegisterUser(RegistrationModel registrationModel, string password)
+        {
+            var applicationUser = GetUserByEmail(registrationModel.Email);
+            if (applicationUser != null)
+            {
+                // Attempt to login the user
+                if (_authManager.ValidatePassword(registrationModel.Email, password))
+                {
+                    _authManager.Login(applicationUser.Username);
+                    return new RegistrationOrLoginResult(LoginResult.Success, applicationUser);
+                }
+                return new RegistrationOrLoginResult(LoginResult.BadUsernameOrPassword);
+            }
+
+            // Register the new user
+            var result = RegisterUser(registrationModel, password, disableTwoFactorAuth: true);
+
+            // Confirm user
+            if (result.RequiresConfirmation && result.Registration != null && result.Registration.RegistrationId.HasValue)
+            {
+                this.ConfirmRegistration(result.Registration.RegistrationId.Value, result.Registration.Token);
+            }
+
+            _authManager.Login(result.Registration.Username);
+            applicationUser = GetUserByEmail(registrationModel.Email);
+
+            return new RegistrationOrLoginResult(LoginResult.Success, applicationUser);
         }
 
         public RegistrationConfirmationResult ConfirmRegistration(int registrationId, string token)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Monads;
 using System.Web.Mvc;
 using AutoMapper;
+using MongoDB.Bson;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Broadcast;
@@ -539,6 +540,4 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
     }
-
-
 }

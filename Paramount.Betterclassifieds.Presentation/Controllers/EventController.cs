@@ -30,7 +30,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IBroadcastManager _broadcastManager;
         private readonly IBookingManager _bookingManager;
         private readonly IEventTicketReservationFactory _eventTicketReservationFactory;
-        
+
         public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IAuthManager authManager, EventBookingContext eventBookingContext, IPaymentService paymentService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory)
         {
             _searchService = searchService;
@@ -68,10 +68,16 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost]
         public ActionResult ReserveTickets(List<EventTicketRequestViewModel> tickets)
         {
+            if (tickets == null || tickets.Count == 0)
+            {
+                ModelState.AddModelError("Tickets", "No tickets have been selected");
+            }
+
             if (!ModelState.IsValid)
             {
-                return Json(new { IsValid = false, Errors = ModelState.ToErrors() });
+                return Json(new { Errors = ModelState.ToErrors() });
             }
+
             var sessionId = _httpContext.With(s => s.Session).SessionID;
 
             var reservations = new List<EventTicketReservation>();
@@ -137,35 +143,19 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             ApplicationUser applicationUser;
             if (!User.Identity.IsAuthenticated)
             {
-                // Check if user exists and their password
-                var user = _userManager.GetUserByEmail(bookTicketsViewModel.Email);
-                var username = string.Empty;
-                if (user != null)
-                {
-                    var loginResult = _authManager.ValidatePassword(user.Username, bookTicketsViewModel.Password);
-                    if (!loginResult)
-                        return Json(new { LoginFailed = true });
+                var registrationModel = this.Map<BookTicketsRequestViewModel, RegistrationModel>(bookTicketsViewModel);
+                var result = _userManager.LoginOrRegisterUser(registrationModel, bookTicketsViewModel.Password);
 
-                    applicationUser = user;
-                }
-                else
+                if (result.LoginResult == LoginResult.BadUsernameOrPassword)
                 {
-                    // Email doesn't exist so create and confirm the registration
-                    // Todo we need to send 'another' confirmation and allow the user to login with first confirmation
-                    var registration = this.Map<BookTicketsRequestViewModel, RegistrationModel>(bookTicketsViewModel);
-                    var registrationResult = _userManager.RegisterUser(registration, bookTicketsViewModel.Password);
-                    _userManager.ConfirmRegistration(registrationResult.Registration.RegistrationId.GetValueOrDefault(), registrationResult.Registration.Token);
-                    username = registrationResult.Registration.Username;
-                    applicationUser = _userManager.GetUserByEmail(bookTicketsViewModel.Email);
+                    return Json(new { LoginFailed = true });
                 }
 
-                _authManager.Login(username);
+                applicationUser = result.ApplicationUser;
             }
             else
             {
                 applicationUser = _userManager.GetUserByEmailOrUsername(User.Identity.Name);
-                if (!_authManager.ValidatePassword(applicationUser.Username, bookTicketsViewModel.Password))
-                    return Json(new { LoginFailed = true });
             }
 
             // Convert from view model
@@ -194,21 +184,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             if (eventBooking.Status == EventBookingStatus.Active)
             {
-
                 // No payment required so return a redirect to action json object
-                return Json(new { Successful = true, Redirect = Url.Action("EventBooked") });
+                return Json(new { NextUrl = Url.Action("EventBooked") });
             }
 
             // Check the payment type and process
             var paymentType = bookTicketsViewModel.TotalCost == 0
                 ? PaymentType.None
                 : bookTicketsViewModel.PaymentMethod.CastToEnum<PaymentType>();
-
-            if (paymentType == PaymentType.CreditCard)
-            {
-                // Todo Process credit card 
-                return Json(new { Successful = true, Redirect = Url.Action("EventBooked") });
-            }
 
             // Process paypal payment
             var payPalRequest = new EventBookingPayPalRequestFactory().CreatePaymentRequest(eventBooking,
@@ -221,7 +204,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventManager.SetPaymentReferenceForBooking(eventBooking.EventBookingId, response.PaymentId, paymentType);
             _eventBookingContext.EventBookingPaymentReference = response.PaymentId;
 
-            return Json(new { Successful = true, Redirect = response.ApprovalUrl, IsPayPal = true });
+            return Json(new { NextUrl = response.ApprovalUrl });
         }
 
         public ActionResult AuthorisePayPal(string payerId)

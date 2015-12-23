@@ -72,6 +72,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             var mockViewModel = new BookingEventTicketSetupViewModel
             {
+                ClosingDate = null,
                 TicketFields = new List<EventTicketFieldViewModel> { new EventTicketFieldViewModel { FieldName = "test" } },
                 Tickets = new List<BookingEventTicketViewModel> { new BookingEventTicketViewModel { TicketName = "Adult", AvailableQuantity = 10, Price = 0 } }
             };
@@ -84,6 +85,33 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             // assert
             result.IsTypeOf<JsonResult>();
             result.JsonResultContains("/Booking/Step/3");
+        }
+
+        [Test]
+        public void EventTickets_Post_SetsTheEndDate_ReturnsJsonResult()
+        {
+            var mockEvent = new EventModelMockBuilder().Build();
+
+            var mockBookingCart = CreateMockOf<IBookingCart>();
+            mockBookingCart.SetupWithVerification(call => call.Event, mockEvent);
+            mockBookingCart.SetupWithVerification(call => call.StartDate, DateTime.Now.AddDays(1));
+            mockBookingCart.SetupProperty(prop => prop.EndDate, null);
+
+            var mockClosingDate = DateTime.Now.AddDays(10);
+            var mockViewModel = new BookingEventTicketSetupViewModel
+            {
+                ClosingDate = mockClosingDate,
+            };
+
+            _cartRepositoryMock.SetupWithVerification(call => call.Save(It.Is<IBookingCart>(p => p == mockBookingCart.Object)), mockBookingCart.Object);
+
+            // act
+            var result = BuildController().EventTickets(mockBookingCart.Object, mockViewModel);
+
+            // assert
+            result.IsTypeOf<JsonResult>();
+            result.JsonResultContains("/Booking/Step/3");
+            mockBookingCart.Object.EndDate.IsEqualTo(mockClosingDate);
         }
 
         [Test]
@@ -104,7 +132,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             result.IsTypeOf<JsonResult>();
             result.JsonResultDoesNotContain("/Booking/Step/3");
         }
-
+        
         private Mock<ISearchService> _searchServiceMock;
         private Mock<IBookCartRepository> _cartRepositoryMock;
         private Mock<IBookingContext> _bookingContextMock;

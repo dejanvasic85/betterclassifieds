@@ -1,14 +1,12 @@
-﻿using Paramount.Betterclassifieds.Business.Payment;
+﻿using Moq;
+using NUnit.Framework;
+using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Broadcast;
+using Paramount.Betterclassifieds.Business.Payment;
+using Paramount.Betterclassifieds.Tests.Mocks;
 
 namespace Paramount.Betterclassifieds.Tests.Membership
 {
-    using Business;
-    using Business.Broadcast;
-    using Mocks;
-    using Moq;
-    using NUnit.Framework;
-    using Paramount.Utility;
-
     [TestFixture]
     public class UserManagerTests : TestContext<UserManager>
     {
@@ -70,7 +68,7 @@ namespace Paramount.Betterclassifieds.Tests.Membership
         }
 
         [Test]
-        public void LoginOrRegisterUser_UserExists_ValidatesPassword_ReturnsSuccess()
+        public void LoginOrRegister_UserExists_ValidatesPassword_ReturnsSuccess()
         {
             // arrange data
             var mockApplicationUser = new ApplicationUserMockBuilder().Default().Build();
@@ -82,11 +80,11 @@ namespace Paramount.Betterclassifieds.Tests.Membership
             // arrange service calls
             _mockUserRepository.SetupWithVerification(call => call.GetUserByEmail(It.Is<string>(str => str == mockApplicationUser.Email)), mockApplicationUser);
             _mockAuthManager.SetupWithVerification(call => call.ValidatePassword(It.Is<string>(str => str == mockApplicationUser.Username), It.Is<string>(str => str == mockPassword)), true);
-            _mockAuthManager.SetupWithVerification(call => call.Login(It.Is<string>(str => str == mockApplicationUser.Username), It.Is<bool>(p => p== false), It.IsAny<string>()));
+            _mockAuthManager.SetupWithVerification(call => call.Login(It.Is<string>(str => str == mockApplicationUser.Username), It.Is<bool>(p => p == false), It.IsAny<string>()));
 
             // act
             var userManager = BuildTargetObject();
-            var result = userManager.LoginOrRegisterUser(mockRegistrationModel, mockPassword);
+            var result = userManager.LoginOrRegister(mockRegistrationModel, mockPassword);
 
             // Assert
             Assert.That(result, Is.Not.Null);
@@ -94,6 +92,59 @@ namespace Paramount.Betterclassifieds.Tests.Membership
             Assert.That(result.ApplicationUser, Is.EqualTo(mockApplicationUser));
         }
 
+        [Test]
+        public void LoginOrRegister_UserExists_BadPassword()
+        {
+            // arrange data
+            var mockApplicationUser = new ApplicationUserMockBuilder().Default().Build();
+            var mockRegistrationModel = new RegistrationModelMockBuilder()
+                .WithEmail(mockApplicationUser.Email)
+                .Build();
+            var mockPassword = "password321";
+
+            // arrange service calls
+            _mockUserRepository.SetupWithVerification(call => call.GetUserByEmail(It.Is<string>(str => str == mockApplicationUser.Email)), mockApplicationUser);
+            _mockAuthManager.SetupWithVerification(call => call.ValidatePassword(It.Is<string>(str => str == mockApplicationUser.Username), It.Is<string>(str => str == mockPassword)), false);
+
+            // act
+            var userManager = BuildTargetObject();
+            var result = userManager.LoginOrRegister(mockRegistrationModel, mockPassword);
+
+            // Assert
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.LoginResult, Is.EqualTo(LoginResult.BadUsernameOrPassword));
+            Assert.That(result.ApplicationUser, Is.Null);
+        }
+
+        [Test]
+        public void LoginOrRegister_UserDoesNotExists_IsRegistered_AndLoggedIn()
+        {
+            // Arrange data
+            var mockApplicationUser = new ApplicationUserMockBuilder().Default().Build();
+            var mockRegistrationModel = new RegistrationModelMockBuilder()
+                .WithEmail(mockApplicationUser.Email)
+                .Build();
+            var mockPassword = "password321";
+
+            // Arrange service calls
+            _mockUserRepository.SetupSequence(call => call.GetUserByEmail(It.Is<string>(str => str == mockApplicationUser.Email)))
+                .Returns(null) // First time there is no user
+                .Returns(mockApplicationUser); // 2nd time we get the user :)
+            _mockUserRepository.SetupWithVerification(call => call.CreateRegistration(It.Is<RegistrationModel>(r => r == mockRegistrationModel)));
+            _mockAuthManager.SetupWithVerification(call => call.Login(It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<string>()));
+            _mockAuthManager.SetupWithVerification(call => call.CheckUsernameExists(It.IsAny<string>()), false);
+            _mockConfig.SetupWithVerification(call => call.IsTwoFactorAuthEnabled, true);
+            
+
+            // Act
+            var userManager = BuildTargetObject();
+            var result = userManager.LoginOrRegister(mockRegistrationModel, mockPassword);
+
+            // Assert
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.LoginResult, Is.EqualTo(LoginResult.Success));
+            Assert.That(result.ApplicationUser, Is.Not.Null);
+        }
 
         private Mock<IUserRepository> _mockUserRepository;
         private Mock<IAuthManager> _mockAuthManager;

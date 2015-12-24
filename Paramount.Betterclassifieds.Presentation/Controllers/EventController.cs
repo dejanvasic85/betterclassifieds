@@ -144,7 +144,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (!User.Identity.IsAuthenticated)
             {
                 var registrationModel = this.Map<BookTicketsRequestViewModel, RegistrationModel>(bookTicketsViewModel);
-                var result = _userManager.LoginOrRegisterUser(registrationModel, bookTicketsViewModel.Password);
+                var result = _userManager.LoginOrRegister(registrationModel, bookTicketsViewModel.Password);
 
                 if (result.LoginResult == LoginResult.BadUsernameOrPassword)
                 {

@@ -12,7 +12,7 @@
         IEnumerable<UserNetworkModel> GetUserNetworksForUserId(string userId);
         void CreateUserNetwork(IPrincipal user, string email, string fullName);
         RegistrationResult RegisterUser(RegistrationModel registrationModel, string plaintextPassword, bool disableTwoFactorAuth = false);
-        RegistrationOrLoginResult LoginOrRegisterUser(RegistrationModel registrationModel, string password);
+        RegistrationOrLoginResult LoginOrRegister(RegistrationModel registrationModel, string password);
         RegistrationConfirmationResult ConfirmRegistration(int registrationId, string token);
         void UpdateUserProfile(ApplicationUser applicationUser);
 
@@ -76,15 +76,21 @@
 
         public RegistrationResult RegisterUser(RegistrationModel registrationModel, string plaintextPassword, bool disableTwoFactorAuth = false)
         {
+            var isConfirmationRequired = _clientConfig.IsTwoFactorAuthEnabled && !disableTwoFactorAuth;
+
             registrationModel
                 .GenerateUniqueUsername(_authManager.CheckUsernameExists)
-                .SetPasswordFromPlaintext(plaintextPassword)
-                .SetConfirmationCode(_confirmationCodeGenerator.GenerateCode());
+                .SetPasswordFromPlaintext(plaintextPassword);
+
+            if (isConfirmationRequired)
+            {
+                registrationModel.SetConfirmationCode(_confirmationCodeGenerator.GenerateCode());
+            }    
 
             // Create in the database
             _userRepository.CreateRegistration(registrationModel);
 
-            if (_clientConfig.IsTwoFactorAuthEnabled && !disableTwoFactorAuth)
+            if (isConfirmationRequired)
             {
                 // Send the two factor authorisation email
                 _broadcastManager.SendEmail(new NewRegistration
@@ -101,7 +107,7 @@
         /// <summary>
         /// Checks if the user exists and attempts to log them in, otherwise it creates a new account
         /// </summary>
-        public RegistrationOrLoginResult LoginOrRegisterUser(RegistrationModel registrationModel, string password)
+        public RegistrationOrLoginResult LoginOrRegister(RegistrationModel registrationModel, string password)
         {
             var applicationUser = GetUserByEmail(registrationModel.Email);
             if (applicationUser != null)
@@ -117,13 +123,7 @@
 
             // Register the new user
             var result = RegisterUser(registrationModel, password, disableTwoFactorAuth: true);
-
-            // Confirm user
-            if (result.RequiresConfirmation && result.Registration != null && result.Registration.RegistrationId.HasValue)
-            {
-                this.ConfirmRegistration(result.Registration.RegistrationId.Value, result.Registration.Token);
-            }
-
+            
             _authManager.Login(result.Registration.Username);
             applicationUser = GetUserByEmail(registrationModel.Email);
 

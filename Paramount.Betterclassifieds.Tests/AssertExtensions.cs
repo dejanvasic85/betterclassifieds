@@ -163,6 +163,16 @@ namespace Paramount.Betterclassifieds.Tests
             Assert.That(jsonResult.Data.GetType().GetProperties().FirstOrDefault(p => p.Name.Equals(propertyName)), Is.Not.Null);
         }
 
+        public static void JsonResultContainsErrors(this JsonResult jsonResult)
+        {
+            JsonResultPropertyExists(jsonResult, "Errors");
+        }
+
+        public static void JsonResultNextUrlIs(this JsonResult jsonResult, string expectedNextUrl)
+        {
+            JsonResultPropertyEquals(jsonResult, "NextUrl", expectedNextUrl);
+        }
+
         public static TExpected ViewResultModelIsTypeOf<TExpected>(this ActionResult actionResult)
         {
             var viewResult = (ViewResult)actionResult;
@@ -179,6 +189,12 @@ namespace Paramount.Betterclassifieds.Tests
         public static void RedirectResultActionIs(this RedirectToRouteResult result, string expectedAction)
         {
             Assert.That(result.RouteValues["action"], Is.EqualTo(expectedAction));
+        }
+
+        public static void RedirectResultIsNotFound(this RedirectToRouteResult result)
+        {
+            RedirectResultControllerIs(result, "Error");
+            RedirectResultActionIs(result, "NotFound");
         }
     }
 }

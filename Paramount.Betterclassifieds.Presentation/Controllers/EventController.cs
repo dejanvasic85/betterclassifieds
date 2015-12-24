@@ -93,7 +93,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var ticketReservations = _eventManager.GetTicketReservations(_httpContext.With(s => s.Session).SessionID).ToList();
             var eventId = ticketReservations.FirstOrDefault().With(t => t.EventTicket.With(r => r.EventId));
-            if (!eventId.HasValue)
+            if (eventId == null)
             {
                 return RedirectToAction("NotFound", "Error");
             }
@@ -179,14 +179,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (eventBooking.Status == EventBookingStatus.Active)
             {
                 // No payment required so return a redirect to action json object
-                return Json(new { NextUrl = Url.Action("EventBooked") });
+                return Json(new { NextUrl = Url.Action("EventBooked", "Event") });
             }
-
-            // Check the payment type and process
-            var paymentType = bookTicketsViewModel.TotalCost == 0
-                ? PaymentType.None
-                : bookTicketsViewModel.PaymentMethod.CastToEnum<PaymentType>();
-
+            
             // Process paypal payment
             var payPalRequest = new EventBookingPayPalRequestFactory().CreatePaymentRequest(eventBooking,
                 eventBooking.EventBookingId.ToString(),
@@ -195,7 +190,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var response = _paymentService.SubmitPayment(payPalRequest);
 
-            _eventManager.SetPaymentReferenceForBooking(eventBooking.EventBookingId, response.PaymentId, paymentType);
+            _eventManager.SetPaymentReferenceForBooking(eventBooking.EventBookingId, response.PaymentId, PaymentType.PayPal); // paypal just for now
             _eventBookingContext.EventBookingPaymentReference = response.PaymentId;
 
             return Json(new { NextUrl = response.ApprovalUrl });

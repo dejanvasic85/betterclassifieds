@@ -13,175 +13,47 @@ namespace Paramount.Betterclassifieds.Tests
 	/// Auto-Generated code. See MockGenerator.tt. All classes should be partial, so you can extend the methods for each!
 	///
 
-	internal partial class AdSearchResultMockBuilder : MockBuilder<AdSearchResultMockBuilder, AdSearchResult>
+	internal partial class RegistrationModelMockBuilder : MockBuilder<RegistrationModelMockBuilder, RegistrationModel>
 	{	
-		public AdSearchResultMockBuilder WithAdId(Int32 val)
+		public RegistrationModelMockBuilder WithRegistrationId(Int32? val)
 		{ 
-			return WithBuildStep(p => p.AdId = val);
+			return WithBuildStep(p => p.RegistrationId = val);
 		}
-		public AdSearchResultMockBuilder WithOnlineAdId(Int32 val)
+		public RegistrationModelMockBuilder WithEmail(String val)
 		{ 
-			return WithBuildStep(p => p.OnlineAdId = val);
+			return WithBuildStep(p => p.Email = val);
 		}
-		public AdSearchResultMockBuilder WithHeading(String val)
+		public RegistrationModelMockBuilder WithFirstName(String val)
 		{ 
-			return WithBuildStep(p => p.Heading = val);
+			return WithBuildStep(p => p.FirstName = val);
 		}
-		public AdSearchResultMockBuilder WithDescription(String val)
+		public RegistrationModelMockBuilder WithLastName(String val)
 		{ 
-			return WithBuildStep(p => p.Description = val);
+			return WithBuildStep(p => p.LastName = val);
 		}
-		public AdSearchResultMockBuilder WithHtmlText(String val)
+		public RegistrationModelMockBuilder WithPostCode(String val)
 		{ 
-			return WithBuildStep(p => p.HtmlText = val);
+			return WithBuildStep(p => p.PostCode = val);
 		}
-		public AdSearchResultMockBuilder WithPrice(Decimal val)
+		public RegistrationModelMockBuilder WithConfirmationDate(DateTime? val)
 		{ 
-			return WithBuildStep(p => p.Price = val);
+			return WithBuildStep(p => p.ConfirmationDate = val);
 		}
-		public AdSearchResultMockBuilder WithBookingDate(DateTime? val)
+		public RegistrationModelMockBuilder WithConfirmationDateUtc(DateTime? val)
 		{ 
-			return WithBuildStep(p => p.BookingDate = val);
+			return WithBuildStep(p => p.ConfirmationDateUtc = val);
 		}
-		public AdSearchResultMockBuilder WithNumOfViews(Int32 val)
+		public RegistrationModelMockBuilder WithVersion(Byte[] val)
 		{ 
-			return WithBuildStep(p => p.NumOfViews = val);
+			return WithBuildStep(p => p.Version = val);
 		}
-		public AdSearchResultMockBuilder WithContactName(String val)
+		public RegistrationModelMockBuilder WithHowYouFoundUs(String val)
 		{ 
-			return WithBuildStep(p => p.ContactName = val);
+			return WithBuildStep(p => p.HowYouFoundUs = val);
 		}
-		public AdSearchResultMockBuilder WithContactPhone(String val)
+		public RegistrationModelMockBuilder WithPhone(String val)
 		{ 
-			return WithBuildStep(p => p.ContactPhone = val);
-		}
-		public AdSearchResultMockBuilder WithContactEmail(String val)
-		{ 
-			return WithBuildStep(p => p.ContactEmail = val);
-		}
-		public AdSearchResultMockBuilder WithUsername(String val)
-		{ 
-			return WithBuildStep(p => p.Username = val);
-		}
-		public AdSearchResultMockBuilder WithImageUrls(String[] val)
-		{ 
-			return WithBuildStep(p => p.ImageUrls = val);
-		}
-		public AdSearchResultMockBuilder WithPublications(String[] val)
-		{ 
-			return WithBuildStep(p => p.Publications = val);
-		}
-		public AdSearchResultMockBuilder WithCategoryId(Int32 val)
-		{ 
-			return WithBuildStep(p => p.CategoryId = val);
-		}
-		public AdSearchResultMockBuilder WithCategoryName(String val)
-		{ 
-			return WithBuildStep(p => p.CategoryName = val);
-		}
-		public AdSearchResultMockBuilder WithParentCategoryId(Int32? val)
-		{ 
-			return WithBuildStep(p => p.ParentCategoryId = val);
-		}
-		public AdSearchResultMockBuilder WithLocationId(Int32 val)
-		{ 
-			return WithBuildStep(p => p.LocationId = val);
-		}
-		public AdSearchResultMockBuilder WithLocationName(String val)
-		{ 
-			return WithBuildStep(p => p.LocationName = val);
-		}
-		public AdSearchResultMockBuilder WithLocationAreaName(String val)
-		{ 
-			return WithBuildStep(p => p.LocationAreaName = val);
-		}
-		public AdSearchResultMockBuilder WithLocationAreaId(Int32 val)
-		{ 
-			return WithBuildStep(p => p.LocationAreaId = val);
-		}
-		public AdSearchResultMockBuilder WithTotalCount(Int32 val)
-		{ 
-			return WithBuildStep(p => p.TotalCount = val);
-		}
-		public AdSearchResultMockBuilder WithParentCategoryName(String val)
-		{ 
-			return WithBuildStep(p => p.ParentCategoryName = val);
-		}
-		public AdSearchResultMockBuilder WithStartDate(DateTime val)
-		{ 
-			return WithBuildStep(p => p.StartDate = val);
-		}
-		public AdSearchResultMockBuilder WithEndDate(DateTime val)
-		{ 
-			return WithBuildStep(p => p.EndDate = val);
-		}
-		public AdSearchResultMockBuilder WithCategoryAdType(String val)
-		{ 
-			return WithBuildStep(p => p.CategoryAdType = val);
-		}
-	}
-
-	internal partial class AdBookingModelMockBuilder : MockBuilder<AdBookingModelMockBuilder, AdBookingModel>
-	{	
-		public AdBookingModelMockBuilder WithAdBookingId(Int32 val)
-		{ 
-			return WithBuildStep(p => p.AdBookingId = val);
-		}
-		public AdBookingModelMockBuilder WithStartDate(DateTime val)
-		{ 
-			return WithBuildStep(p => p.StartDate = val);
-		}
-		public AdBookingModelMockBuilder WithEndDate(DateTime val)
-		{ 
-			return WithBuildStep(p => p.EndDate = val);
-		}
-		public AdBookingModelMockBuilder WithSubCategoryId(Int32? val)
-		{ 
-			return WithBuildStep(p => p.SubCategoryId = val);
-		}
-		public AdBookingModelMockBuilder WithCategoryId(Int32? val)
-		{ 
-			return WithBuildStep(p => p.CategoryId = val);
-		}
-		public AdBookingModelMockBuilder WithInsertions(Int32 val)
-		{ 
-			return WithBuildStep(p => p.Insertions = val);
-		}
-		public AdBookingModelMockBuilder WithBookingType(BookingType val)
-		{ 
-			return WithBuildStep(p => p.BookingType = val);
-		}
-		public AdBookingModelMockBuilder WithTotalPrice(Decimal val)
-		{ 
-			return WithBuildStep(p => p.TotalPrice = val);
-		}
-		public AdBookingModelMockBuilder WithUserId(String val)
-		{ 
-			return WithBuildStep(p => p.UserId = val);
-		}
-		public AdBookingModelMockBuilder WithBookingStatus(BookingStatusType val)
-		{ 
-			return WithBuildStep(p => p.BookingStatus = val);
-		}
-		public AdBookingModelMockBuilder WithBookReference(String val)
-		{ 
-			return WithBuildStep(p => p.BookReference = val);
-		}
-		public AdBookingModelMockBuilder WithAds(List<IAd> val)
-		{ 
-			return WithBuildStep(p => p.Ads = val);
-		}
-		public AdBookingModelMockBuilder WithEnquiries(List<Enquiry> val)
-		{ 
-			return WithBuildStep(p => p.Enquiries = val);
-		}
-		public AdBookingModelMockBuilder WithPublications(Int32[] val)
-		{ 
-			return WithBuildStep(p => p.Publications = val);
-		}
-		public AdBookingModelMockBuilder WithCategoryAdType(String val)
-		{ 
-			return WithBuildStep(p => p.CategoryAdType = val);
+			return WithBuildStep(p => p.Phone = val);
 		}
 	}
 
@@ -362,6 +234,178 @@ namespace Paramount.Betterclassifieds.Tests
 		public ApplicationUserMockBuilder WithBankBsbNumber(String val)
 		{ 
 			return WithBuildStep(p => p.BankBsbNumber = val);
+		}
+	}
+
+	internal partial class AdSearchResultMockBuilder : MockBuilder<AdSearchResultMockBuilder, AdSearchResult>
+	{	
+		public AdSearchResultMockBuilder WithAdId(Int32 val)
+		{ 
+			return WithBuildStep(p => p.AdId = val);
+		}
+		public AdSearchResultMockBuilder WithOnlineAdId(Int32 val)
+		{ 
+			return WithBuildStep(p => p.OnlineAdId = val);
+		}
+		public AdSearchResultMockBuilder WithHeading(String val)
+		{ 
+			return WithBuildStep(p => p.Heading = val);
+		}
+		public AdSearchResultMockBuilder WithDescription(String val)
+		{ 
+			return WithBuildStep(p => p.Description = val);
+		}
+		public AdSearchResultMockBuilder WithHtmlText(String val)
+		{ 
+			return WithBuildStep(p => p.HtmlText = val);
+		}
+		public AdSearchResultMockBuilder WithPrice(Decimal val)
+		{ 
+			return WithBuildStep(p => p.Price = val);
+		}
+		public AdSearchResultMockBuilder WithBookingDate(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.BookingDate = val);
+		}
+		public AdSearchResultMockBuilder WithNumOfViews(Int32 val)
+		{ 
+			return WithBuildStep(p => p.NumOfViews = val);
+		}
+		public AdSearchResultMockBuilder WithContactName(String val)
+		{ 
+			return WithBuildStep(p => p.ContactName = val);
+		}
+		public AdSearchResultMockBuilder WithContactPhone(String val)
+		{ 
+			return WithBuildStep(p => p.ContactPhone = val);
+		}
+		public AdSearchResultMockBuilder WithContactEmail(String val)
+		{ 
+			return WithBuildStep(p => p.ContactEmail = val);
+		}
+		public AdSearchResultMockBuilder WithUsername(String val)
+		{ 
+			return WithBuildStep(p => p.Username = val);
+		}
+		public AdSearchResultMockBuilder WithImageUrls(String[] val)
+		{ 
+			return WithBuildStep(p => p.ImageUrls = val);
+		}
+		public AdSearchResultMockBuilder WithPublications(String[] val)
+		{ 
+			return WithBuildStep(p => p.Publications = val);
+		}
+		public AdSearchResultMockBuilder WithCategoryId(Int32 val)
+		{ 
+			return WithBuildStep(p => p.CategoryId = val);
+		}
+		public AdSearchResultMockBuilder WithCategoryName(String val)
+		{ 
+			return WithBuildStep(p => p.CategoryName = val);
+		}
+		public AdSearchResultMockBuilder WithParentCategoryId(Int32? val)
+		{ 
+			return WithBuildStep(p => p.ParentCategoryId = val);
+		}
+		public AdSearchResultMockBuilder WithLocationId(Int32 val)
+		{ 
+			return WithBuildStep(p => p.LocationId = val);
+		}
+		public AdSearchResultMockBuilder WithLocationName(String val)
+		{ 
+			return WithBuildStep(p => p.LocationName = val);
+		}
+		public AdSearchResultMockBuilder WithLocationAreaName(String val)
+		{ 
+			return WithBuildStep(p => p.LocationAreaName = val);
+		}
+		public AdSearchResultMockBuilder WithLocationAreaId(Int32 val)
+		{ 
+			return WithBuildStep(p => p.LocationAreaId = val);
+		}
+		public AdSearchResultMockBuilder WithTotalCount(Int32 val)
+		{ 
+			return WithBuildStep(p => p.TotalCount = val);
+		}
+		public AdSearchResultMockBuilder WithParentCategoryName(String val)
+		{ 
+			return WithBuildStep(p => p.ParentCategoryName = val);
+		}
+		public AdSearchResultMockBuilder WithStartDate(DateTime val)
+		{ 
+			return WithBuildStep(p => p.StartDate = val);
+		}
+		public AdSearchResultMockBuilder WithEndDate(DateTime val)
+		{ 
+			return WithBuildStep(p => p.EndDate = val);
+		}
+		public AdSearchResultMockBuilder WithCategoryAdType(String val)
+		{ 
+			return WithBuildStep(p => p.CategoryAdType = val);
+		}
+	}
+
+	internal partial class AdBookingModelMockBuilder : MockBuilder<AdBookingModelMockBuilder, AdBookingModel>
+	{	
+		public AdBookingModelMockBuilder WithAdBookingId(Int32 val)
+		{ 
+			return WithBuildStep(p => p.AdBookingId = val);
+		}
+		public AdBookingModelMockBuilder WithStartDate(DateTime val)
+		{ 
+			return WithBuildStep(p => p.StartDate = val);
+		}
+		public AdBookingModelMockBuilder WithEndDate(DateTime val)
+		{ 
+			return WithBuildStep(p => p.EndDate = val);
+		}
+		public AdBookingModelMockBuilder WithSubCategoryId(Int32? val)
+		{ 
+			return WithBuildStep(p => p.SubCategoryId = val);
+		}
+		public AdBookingModelMockBuilder WithCategoryId(Int32? val)
+		{ 
+			return WithBuildStep(p => p.CategoryId = val);
+		}
+		public AdBookingModelMockBuilder WithInsertions(Int32 val)
+		{ 
+			return WithBuildStep(p => p.Insertions = val);
+		}
+		public AdBookingModelMockBuilder WithBookingType(BookingType val)
+		{ 
+			return WithBuildStep(p => p.BookingType = val);
+		}
+		public AdBookingModelMockBuilder WithTotalPrice(Decimal val)
+		{ 
+			return WithBuildStep(p => p.TotalPrice = val);
+		}
+		public AdBookingModelMockBuilder WithUserId(String val)
+		{ 
+			return WithBuildStep(p => p.UserId = val);
+		}
+		public AdBookingModelMockBuilder WithBookingStatus(BookingStatusType val)
+		{ 
+			return WithBuildStep(p => p.BookingStatus = val);
+		}
+		public AdBookingModelMockBuilder WithBookReference(String val)
+		{ 
+			return WithBuildStep(p => p.BookReference = val);
+		}
+		public AdBookingModelMockBuilder WithAds(List<IAd> val)
+		{ 
+			return WithBuildStep(p => p.Ads = val);
+		}
+		public AdBookingModelMockBuilder WithEnquiries(List<Enquiry> val)
+		{ 
+			return WithBuildStep(p => p.Enquiries = val);
+		}
+		public AdBookingModelMockBuilder WithPublications(Int32[] val)
+		{ 
+			return WithBuildStep(p => p.Publications = val);
+		}
+		public AdBookingModelMockBuilder WithCategoryAdType(String val)
+		{ 
+			return WithBuildStep(p => p.CategoryAdType = val);
 		}
 	}
 

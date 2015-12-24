@@ -69,6 +69,32 @@ namespace Paramount.Betterclassifieds.Tests.Membership
             Assert.That(mockUserOriginal.BankBsbNumber, Is.EqualTo(mockUser.BankBsbNumber));
         }
 
+        [Test]
+        public void LoginOrRegisterUser_UserExists_ValidatesPassword_ReturnsSuccess()
+        {
+            // arrange data
+            var mockApplicationUser = new ApplicationUserMockBuilder().Default().Build();
+            var mockRegistrationModel = new RegistrationModelMockBuilder()
+                .WithEmail(mockApplicationUser.Email)
+                .Build();
+            var mockPassword = "password123";
+
+            // arrange service calls
+            _mockUserRepository.SetupWithVerification(call => call.GetUserByEmail(It.Is<string>(str => str == mockApplicationUser.Email)), mockApplicationUser);
+            _mockAuthManager.SetupWithVerification(call => call.ValidatePassword(It.Is<string>(str => str == mockApplicationUser.Username), It.Is<string>(str => str == mockPassword)), true);
+            _mockAuthManager.SetupWithVerification(call => call.Login(It.Is<string>(str => str == mockApplicationUser.Username), It.Is<bool>(p => p== false), It.IsAny<string>()));
+
+            // act
+            var userManager = BuildTargetObject();
+            var result = userManager.LoginOrRegisterUser(mockRegistrationModel, mockPassword);
+
+            // Assert
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.LoginResult, Is.EqualTo(LoginResult.Success));
+            Assert.That(result.ApplicationUser, Is.EqualTo(mockApplicationUser));
+        }
+
+
         private Mock<IUserRepository> _mockUserRepository;
         private Mock<IAuthManager> _mockAuthManager;
         private Mock<IBroadcastManager> _mockBroadcastManager;

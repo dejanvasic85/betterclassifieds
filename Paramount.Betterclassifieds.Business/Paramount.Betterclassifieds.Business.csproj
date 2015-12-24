@@ -153,7 +153,7 @@
     <Compile Include="Search\CategorySearchResult.cs" />
     <Compile Include="Search\ISearchService.cs" />
     <Compile Include="Membership\IAuthManager.cs" />
-    <Compile Include="Membership\IUserManager.cs" />
+    <Compile Include="Membership\UserManager.cs" />
     <Compile Include="Membership\RegistrationModel.cs" />
     <Compile Include="IAd.cs" />
     <Compile Include="AdImage.cs" />

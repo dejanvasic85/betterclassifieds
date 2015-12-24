@@ -13,12 +13,15 @@
 <#
 	var typesToGenerate = new Dictionary<string, string> 
 	{
-		{ "Paramount.Betterclassifieds.Business.Search.AdSearchResult",  "AdSearchResult" },
-		{ "Paramount.Betterclassifieds.Business.Booking.AdBookingModel",  "AdBookingModel" },
+		{ "Paramount.Betterclassifieds.Business.RegistrationModel",  "RegistrationModel" },
 		{ "Paramount.Betterclassifieds.Business.OnlineAdRate",  "OnlineAdRate" },
 		{ "Paramount.Betterclassifieds.Business.RateModel",  "RateModel" },
 		{ "Paramount.Betterclassifieds.Business.AdEnquiry",  "AdEnquiry" },
 		{ "Paramount.Betterclassifieds.Business.ApplicationUser",  "ApplicationUser" },
+
+		{ "Paramount.Betterclassifieds.Business.Search.AdSearchResult",  "AdSearchResult" },		
+		{ "Paramount.Betterclassifieds.Business.Booking.AdBookingModel",  "AdBookingModel" },
+		
 		{ "Paramount.Betterclassifieds.Business.Events.EventModel",  "EventModel" },
 		{ "Paramount.Betterclassifieds.Business.Events.EventTicket",  "EventTicket" },
 		{ "Paramount.Betterclassifieds.Business.Events.EventBookingTicket",  "EventBookingTicket" },

@@ -20,7 +20,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         [Test]
         public void ViewEventAd_Get_ReturnsViewResult()
         {
-            
+
             var mockAd = new AdSearchResultMockBuilder()
                 .Default()
                 .Build();
@@ -52,7 +52,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             eventViewModel.EventStartDate.IsEqualTo(mockEventAd.EventStartDate.GetValueOrDefault().ToLongDateString());
             eventViewModel.EventStartTime.IsEqualTo(mockEventAd.EventStartDate.GetValueOrDefault().ToString("hh:mm tt"));
             eventViewModel.EventEndDate.IsEqualTo(mockEventAd.EventEndDate.GetValueOrDefault().ToLongDateString());
-            
+
         }
 
         [Test]
@@ -69,6 +69,14 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var redirectResult = result.IsTypeOf<RedirectToRouteResult>();
             redirectResult.RedirectResultControllerIs("Error");
             redirectResult.RedirectResultActionIs("NotFound");
+        }
+
+        [Test]
+        public void ReserveTickets_NothingSelected_ReturnsModelError()
+        {
+            var controller = BuildController();
+            var result = controller.ReserveTickets(null);
+            result.IsTypeOf<JsonResult>().JsonResultPropertyExists("Errors");
         }
 
         private Mock<HttpContextBase> _httpContext;

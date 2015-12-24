@@ -14,19 +14,13 @@
         });
 
         me.startOrder = function (element, event) {
-            var $btn = $(event.target);
+            var $btn = $(event.target).button('loading');
             $btn.button('loading');
-
             _.remove(me.tickets(), function (t) {
                 return t.selectedQuantity() === undefined || t.selectedQuantity() === 0;
             });
-
-            var request = ko.toJSON(me);
-
-            eventService.startTicketOrder(request).success(function (response) {
-                if (response.redirect) {
-                    window.location = response.redirect;
-                }
+            eventService.startTicketOrder(ko.toJSON(me)).complete(function() {
+                $btn.button('reset');
             });
         }
 

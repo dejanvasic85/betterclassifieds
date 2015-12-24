@@ -71,15 +71,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (tickets == null || tickets.Count == 0)
             {
                 ModelState.AddModelError("Tickets", "No tickets have been selected");
-            }
-
-            if (!ModelState.IsValid)
-            {
                 return Json(new { Errors = ModelState.ToErrors() });
             }
 
             var sessionId = _httpContext.With(s => s.Session).SessionID;
-
             var reservations = new List<EventTicketReservation>();
             foreach (var t in tickets)
             {
@@ -90,8 +85,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             _eventManager.ReserveTickets(sessionId, reservations);
-
-            return Json(new { IsValid = true, Redirect = Url.Action("BookTickets") });
+            return Json(new { NextUrl = Url.Action("BookTickets", "Event") });
         }
 
         [HttpGet]

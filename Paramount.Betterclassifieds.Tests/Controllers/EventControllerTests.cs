@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using Moq;
@@ -77,6 +78,31 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var controller = BuildController();
             var result = controller.ReserveTickets(null);
             result.IsTypeOf<JsonResult>().JsonResultPropertyExists("Errors");
+        }
+
+        [Test]
+        public void ReserveTickets_EventManager_SavesTheReservations_ReturnsJsonResult()
+        {
+            // arrange
+            var eventTicketRequests = new List<EventTicketRequestViewModel>
+            {
+                new EventTicketRequestViewModel {TicketName = "Tick1", AvailableQuantity = 10, EventId = 999, Price = 10, SelectedQuantity = 1},
+                new EventTicketRequestViewModel {TicketName = "Tick2", AvailableQuantity = 11, EventId = 999, Price = 60, SelectedQuantity = 2},
+            };
+
+            var mockReservations = new[] { new EventTicketReservationMockBuilder().Build() };
+
+            // arrage services
+            _httpContext.SetupWithVerification(call => call.Session.SessionID, "123");
+            _eventManager.SetupWithVerification(call => call.ReserveTickets(It.IsAny<string>(), It.IsAny<IEnumerable<EventTicketReservation>>()));
+            _eventTicketReservationFactory.SetupWithVerification(call => call.CreateReservations(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()), mockReservations);
+
+            // act
+            var controller = BuildController();
+            var result = controller.ReserveTickets(eventTicketRequests);
+
+            // assert
+            result.IsTypeOf<JsonResult>().JsonResultPropertyEquals("NextUrl", "/Event/BookTickets");
         }
 
         private Mock<HttpContextBase> _httpContext;

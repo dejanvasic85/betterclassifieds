@@ -97,5 +97,22 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
             return webElementAttribute.Equals(value, StringComparison.OrdinalIgnoreCase);
         }
+
+        public static string GetValue(this IWebElement webElement)
+        {
+            var valattr = webElement.GetAttribute("value");
+            if (valattr == null)
+            {
+                return string.Empty;
+            }
+
+            return valattr;
+        }
+
+        public static bool HasClass(this IWebElement webElement, string className)
+        {
+            var classes = webElement.GetAttribute("class").Split(' ');
+            return classes.Any(c => c.Equals(className, StringComparison.OrdinalIgnoreCase));
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using Paramount.Betterclassifieds.Tests.Functional.Base;
 using Paramount.Betterclassifieds.Tests.Functional.Mocks;
 using Paramount.Betterclassifieds.Tests.Functional.Pages;
 using TechTalk.SpecFlow;
@@ -46,8 +47,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 .Proceed();
         }
 
-        [When(@"I book an event ad titled ""(.*)"" starting from today")]
-        public void WhenIBookAnEventAdTitledStartingFromToday(string title)
+        [When(@"I book an event ad titled ""(.*)"" starting from today and ticketing ""(.*)"" enabled")]
+        public void WhenIBookAnEventAdTitledStartingFromToday(string title, string enableTicketingYesNot)
         {
             _pageBrowser.Init<BookingStep1Page>()
                 .WithParentCategory(TestData.ParentEventCategory)
@@ -55,7 +56,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 .Proceed();
 
             _pageBrowser.Init<BookingStepEventDetails>()
-                .WithAdDetails(title, title);
+                .WithAdDetails(title, description: title)
+                .WithLocation("10 Melbourne Place, Melbourne, Victoria")
+                .WithOrganiser("Mister Tee", "0433555999")
+                .WithAdStartDateToday()
+                .WithTicketingEnabled(ArgumentParser.Is(enableTicketingYesNot))
+                .Proceed();
         }
         
         [When(@"I notify my friend ""(.*)"" ""(.*)"" about my add")]

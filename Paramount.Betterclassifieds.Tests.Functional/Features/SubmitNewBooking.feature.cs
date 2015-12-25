@@ -108,7 +108,8 @@ this.ScenarioSetup(scenarioInfo);
 #line 19
  testRunner.And("I start a new booking", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 20
- testRunner.When("I book an event ad titled \"Event with no tickets\" starting from today", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I book an event ad titled \"Event with no tickets\" starting from today and ticketi" +
+                    "ng \"is not\" enabled", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             this.ScenarioCleanup();
         }

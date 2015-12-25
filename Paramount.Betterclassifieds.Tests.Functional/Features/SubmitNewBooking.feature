@@ -17,7 +17,7 @@ Scenario: Submit online ad and notify friends
 Scenario: Simple Event with no ticketing
 	Given I am logged in as "bdduser" with password "password123"
 	And I start a new booking
-	When I book an event ad titled "Event with no tickets" starting from today
+	When I book an event ad titled "Event with no tickets" starting from today and ticketing "is not" enabled
 	#When I complete my event details starting today
 	#And Confirm my ad details
 	#Then the booking should be successful

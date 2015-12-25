@@ -41,7 +41,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
 
             var step3Page = _pageBrowser.Init<BookingStep3Page>();
             ScenarioContext.Current["BookingReference"] = step3Page.GetBookingReference();
-            
+
             step3Page
                 .AgreeToTermsAndConditions()
                 .Proceed();
@@ -63,11 +63,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 .WithTicketingEnabled(ArgumentParser.Is(enableTicketingYesNot))
                 .Proceed();
 
-            _pageBrowser.Init<BookingStep3Page>()
-                .AgreeToTermsAndConditions()
-                .Proceed();
+            var page3 = _pageBrowser.Init<BookingStep3Page>();
+            ScenarioContext.Current["BookingReference"] = page3.GetBookingReference();
+            page3.AgreeToTermsAndConditions().Proceed();
         }
-        
+
         [When(@"I notify my friend ""(.*)"" ""(.*)"" about my add")]
         public void WhenINotifyMyFriendAboutMyAdd(string fullName, string email)
         {

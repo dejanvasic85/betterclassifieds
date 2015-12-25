@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Threading;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
@@ -29,6 +31,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             if (!IsCurrentlyEnabled())
             {
                 ParentElement.ClickOnElement();
+                Thread.Sleep(800); // Wait for animation
             }
         }
 
@@ -37,6 +40,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             if (IsCurrentlyEnabled())
             {
                 ParentElement.ClickOnElement();
+                Thread.Sleep(800); // Wait for animation
             }
         }
 
@@ -45,23 +49,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             var childElement = ParentElement.FindElement(By.ClassName("toggle"));
 
             return !childElement.HasClass("off");
-
-            //if (childElement == null)
-            //{
-            //    throw new NoSuchElementException("Toggle does not have an active child element");
-            //}
-            //var currentText = childElement.Text;
-            //if (currentText.Equals(EnabledText, StringComparison.OrdinalIgnoreCase))
-            //{
-            //    return true;
-            //}
-
-            //if (currentText.Equals(DisabledText, StringComparison.OrdinalIgnoreCase))
-            //{
-            //    return false;
-            //}
-
-            //throw new Exception("Toggle button does not have configured Enabled and Disabled text");
         }
     }
 }

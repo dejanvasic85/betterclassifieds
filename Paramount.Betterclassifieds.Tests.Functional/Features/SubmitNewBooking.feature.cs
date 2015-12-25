@@ -108,6 +108,8 @@ this.ScenarioSetup(scenarioInfo);
 #line 19
  testRunner.When("I book an event ad titled \"Event with no tickets\" starting from today and ticketi" +
                     "ng \"is not\" enabled", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 20
+ testRunner.Then("the booking should be successful", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

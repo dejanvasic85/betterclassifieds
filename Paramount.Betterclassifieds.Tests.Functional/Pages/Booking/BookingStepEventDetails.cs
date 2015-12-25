@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
@@ -44,6 +45,15 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         public BookingStepEventDetails WithLocation(string location)
         {
             LocationInput.FillText(location);
+            var wait = new WebDriverWait(_webdriver, TimeSpan.FromSeconds(10));
+            wait.Until(ExpectedConditions.ElementIsVisible(By.ClassName("pac-container")));
+            
+            var googleAddressResults = _webdriver.FindElements(By.ClassName("pac-item"));
+            if (googleAddressResults.Count == 0)
+            {
+                throw new NoSuchElementException("Geolocation cannot find the address " + location);
+            }
+            googleAddressResults.First().ClickOnElement();
             return this;
         }
 

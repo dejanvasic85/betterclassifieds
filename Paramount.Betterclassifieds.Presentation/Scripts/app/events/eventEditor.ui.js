@@ -42,13 +42,8 @@
                     if ($(this).valid() === false) {
                         return;
                     }
-                    eventDetailsModel.submitChanges().done(function(result) {
-                        if (result.nextUrl) {
-                            window.location = result.nextUrl;
-                            return;
-                        }
-                        $eventEditor.find('#submitFailed').show();
-                        $eventEditor.find('button').loading('reset');
+                    eventDetailsModel.submitChanges().complete(function() {
+                        $eventEditor.find('button').button('reset');
                     });
                     e.preventDefault();
                 });

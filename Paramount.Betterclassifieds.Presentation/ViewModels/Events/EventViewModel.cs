@@ -20,7 +20,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         [Required]
         public string AdStartDate { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Location is required and must be displayed")]
         public string Location { get; set; }
 
         public decimal? LocationLatitude { get; set; }

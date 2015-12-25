@@ -400,8 +400,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             if (!ModelState.IsValid)
             {
-                // Todo - more details need to go here and displayed on the UI! Although the user shouldn't be getting here
-                return Json("Invalid model");
+                return Json(new { Errors = ModelState.ToErrors() });
             }
             this.Map(eventViewModel, bookingCart);
 

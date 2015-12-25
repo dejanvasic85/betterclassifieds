@@ -77,7 +77,6 @@
         me.organiserPhone = ko.observable(data.organiserPhone);
         me.ticketingEnabled = ko.observable(data.ticketingEnabled);
       
-
         me.submitChanges = function () {
             var json = ko.toJS(me);
             return adService.updateEventDetails(json);

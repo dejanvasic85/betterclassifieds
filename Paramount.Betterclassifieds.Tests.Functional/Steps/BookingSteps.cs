@@ -39,10 +39,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 .WithStartDate(DateTime.Today.Date)
                 .Proceed();
 
-            var bookingStep4Page = _pageBrowser.Init<BookingStep3Page>();
-            ScenarioContext.Current["BookingReference"] = bookingStep4Page.GetBookingReference();
+            var step3Page = _pageBrowser.Init<BookingStep3Page>();
+            ScenarioContext.Current["BookingReference"] = step3Page.GetBookingReference();
             
-            bookingStep4Page
+            step3Page
                 .AgreeToTermsAndConditions()
                 .Proceed();
         }
@@ -61,6 +61,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 .WithOrganiser("Mister Tee", "0433555999")
                 .WithAdStartDateToday()
                 .WithTicketingEnabled(ArgumentParser.Is(enableTicketingYesNot))
+                .Proceed();
+
+            _pageBrowser.Init<BookingStep3Page>()
+                .AgreeToTermsAndConditions()
                 .Proceed();
         }
         

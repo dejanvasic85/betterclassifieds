@@ -11,3 +11,14 @@ Scenario: Submit online ad and notify friends
 	And I notify my friend "Emmanual Adebayor" "ade@spurs.com" about my add
 	Then the booking should be successful
 	And my friends email "ade@spurs.com" should receive the notification
+
+@EventBooking
+@ignore
+Scenario: Simple Event with no ticketing
+	Given I am logged in as "bdduser" with password "password123"
+	And I start a new booking
+	When I book an event ad titled "Event with no tickets" starting from today
+	#When I complete my event details starting today
+	#And Confirm my ad details
+	#Then the booking should be successful
+	#And the ad should be displayed at the top of the list on the home page

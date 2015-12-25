@@ -11,14 +11,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional
     public interface ITestDataRepository : IDisposable
     {
         // Categories
-        int AddCategoryIfNotExists(string subCategory, string parentCategory);
+        int AddCategoryIfNotExists(string subCategory, string parentCategory, string categoryAdType = "");
         int? GetCategoryIdForTitle(string categoryName);
 
         // Publications
         int AddPublicationIfNotExists(string publicationName, string publicationType = Constants.PublicationType.Newspaper, string frequency = Constants.FrequencyType.Weekly, int? frequencyValue = 3);
         int AddPublicationAdTypeIfNotExists(string publicationName, string adTypeCode);
         void AddEditionsToPublication(string publicationName, int numberOfEditions);
-        
+
         // Ads
         int DropCreateOnlineAd(string adTitle, string categoryName, string subCategoryName, string username);
         void DropOnlineAdIfExists(string adTitle);
@@ -31,11 +31,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
         // Emails / Notifications
         List<Email> GetSentEmailsFor(string email);
-        
+
         // Location Area
         void AddLocationIfNotExists(string parentLocation, params string[] areas);
         bool IsAdBookingCreated(string bookingReference);
-        
+
         // Rates
         void AddOnlineRateForCategoryIfNotExists(decimal price, string categoryName);
         void AddPrintRateForCategoryIfNotExists(string categoryName);

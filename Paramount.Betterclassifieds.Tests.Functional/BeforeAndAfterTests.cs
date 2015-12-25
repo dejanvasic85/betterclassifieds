@@ -85,7 +85,9 @@
                     driver = new ChromeDriver();
                     break;
                 case "firefox":
-                    driver = new FirefoxDriver();
+                    var firefoxBinary = new FirefoxBinary(@"C:\Program Files (x86)\Mozilla Firefox\firefox.exe");
+                    var firefoxProfile = new FirefoxProfile();
+                    driver = new FirefoxDriver(firefoxBinary, firefoxProfile);
                     break;
                 case "ie":
                     driver = new InternetExplorerDriver();
@@ -120,6 +122,7 @@
 
             // Categories ( assign to each publication automatically )
             dataRepository.AddCategoryIfNotExists(TestData.SubCategory, TestData.ParentCategory);
+            dataRepository.AddCategoryIfNotExists(TestData.SubEventCategory, TestData.ParentEventCategory, "Event");
             
             // Rates
             dataRepository.AddOnlineRateForCategoryIfNotExists(price : 0, categoryName: TestData.SubCategory);

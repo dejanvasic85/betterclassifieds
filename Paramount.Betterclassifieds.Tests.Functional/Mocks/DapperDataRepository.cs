@@ -344,12 +344,17 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             
         }
 
-        public int AddCategoryIfNotExists(string subCategory, string parentCategory)
+        public int AddCategoryIfNotExists(string subCategory, string parentCategory, string categoryAdType = "")
         {
             using (var scope = new TransactionScope())
             {
                 var parentCategoryId = classifiedDb.AddIfNotExists(Constants.Table.MainCategory, new { Title = parentCategory }, parentCategory);
-                var subCategoryId = classifiedDb.AddIfNotExists(Constants.Table.MainCategory, new { Title = subCategory, ParentId = parentCategoryId }, subCategory);
+                var subCategoryId = classifiedDb.AddIfNotExists(Constants.Table.MainCategory, new
+                {
+                    Title = subCategory,
+                    ParentId = parentCategoryId,
+                    CategoryAdType = categoryAdType.IsNullOrEmpty() ? null : categoryAdType
+                }, subCategory);
 
                 // Add for each publication in the system
                 var addToPublications = classifiedDb.Query<int>("SELECT PublicationId FROM Publication").ToList();
@@ -370,7 +375,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                             Title = subCategory + publicationId,
                             MainCategoryId = subCategoryId,
                             PublicationId = publicationId,
-                            ParentId = publicationParentCategoryId,
+                            ParentId = publicationParentCategoryId
                         }, subCategory + publicationId);
                 }
 

@@ -18,6 +18,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             _repository = repository;
         }
 
+        [Given(@"I start a new booking")]
+        public void GivenIStartANewBooking()
+        {
+            _pageBrowser.GoTo<ApplicationPage>().PlaceNewAd();
+        }
+
         [When(@"I submit a new Online Ad titled ""(.*)"" starting from today")]
         public void WhenISubmitANewOnlineAdTitledStartingFromToday(string adTitle)
         {
@@ -40,6 +46,18 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 .Proceed();
         }
 
+        [When(@"I book an event ad titled ""(.*)"" starting from today")]
+        public void WhenIBookAnEventAdTitledStartingFromToday(string title)
+        {
+            _pageBrowser.Init<BookingStep1Page>()
+                .WithParentCategory(TestData.ParentEventCategory)
+                .WithSubCategory(TestData.SubEventCategory)
+                .Proceed();
+
+            _pageBrowser.Init<BookingStepEventDetails>()
+                .WithAdDetails(title, title);
+        }
+        
         [When(@"I notify my friend ""(.*)"" ""(.*)"" about my add")]
         public void WhenINotifyMyFriendAboutMyAdd(string fullName, string email)
         {

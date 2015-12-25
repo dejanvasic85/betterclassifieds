@@ -7,6 +7,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
         public const string OnlinePublication = "iflog";
         public const string ParentCategory = "Selenium Parent";
         public const string SubCategory = "Selenium Child";
+        public const string ParentEventCategory = "Events";
+        public const string SubEventCategory = "Selenium Event";
         public const string DefaultUsername = "bdduser";
         public const string DefaultPassword = "password123";
         public const string UserEmail = "bdd@somefakeaddress.com";

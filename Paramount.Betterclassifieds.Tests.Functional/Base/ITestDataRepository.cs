@@ -20,6 +20,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         void AddEditionsToPublication(string publicationName, int numberOfEditions);
 
         // Ads
+        AdBookingContext GetAdBookingContextByReference(string bookReference);
         int DropCreateOnlineAd(string adTitle, string categoryName, string subCategoryName, string username);
         void DropOnlineAdIfExists(string adTitle);
 
@@ -34,7 +35,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
         // Location Area
         void AddLocationIfNotExists(string parentLocation, params string[] areas);
-        bool IsAdBookingCreated(string bookingReference);
 
         // Rates
         void AddOnlineRateForCategoryIfNotExists(decimal price, string categoryName);

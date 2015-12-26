@@ -8,9 +8,9 @@ using Paramount.Betterclassifieds.Tests.Functional.Annotations;
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
     [NavRoute(RelativeUrl = "Booking/Step/2/Event")]
-    public class BookingStepEventDetails : BookingTestPage
+    public class BookingEventStep : BookingTestPage
     {
-        public BookingStepEventDetails(IWebDriver webdriver) : base(webdriver)
+        public BookingEventStep(IWebDriver webdriver) : base(webdriver)
         {
         }
 
@@ -35,14 +35,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         [FindsBy(How = How.Id, Using = "TicketingToggle"), UsedImplicitly]
         private IWebElement TicketingToggleBtn;
 
-        public BookingStepEventDetails WithAdDetails(string title, string description)
+        public BookingEventStep WithAdDetails(string title, string description)
         {
             Title.FillText(title);
             Description.FillText(description);
             return this;
         }
 
-        public BookingStepEventDetails WithLocation(string location)
+        public BookingEventStep WithLocation(string location)
         {
             // We need to scroll the location input to the middle of the screen
             // So that google map options will be visible and selectable on the screen
@@ -61,14 +61,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             return this;
         }
 
-        public BookingStepEventDetails WithOrganiser(string name, string contactNumber)
+        public BookingEventStep WithOrganiser(string name, string contactNumber)
         {
             OrganiserNameInput.FillText(name);
             OrganiserPhoneInput.FillText(contactNumber);
             return this;
         }
 
-        public BookingStepEventDetails WithAdStartDateToday()
+        public BookingEventStep WithAdStartDateToday()
         {
             AdStartDateInput.ClickOnElement();
             var waitForDay = new WebDriverWait(_webdriver, TimeSpan.FromSeconds(5));
@@ -89,7 +89,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             return this;
         }
 
-        public BookingStepEventDetails WithTicketingEnabled(bool enabled)
+        public BookingEventStep WithTicketingEnabled(bool enabled)
         {
             var toggleButton = new ToggleButton(this.TicketingToggleBtn);
             if (enabled)

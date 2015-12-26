@@ -27,7 +27,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             _container = container;
             _container.RegisterInstanceAs(new PageBrowser(_webDriver, _configuration), typeof(PageBrowser));
             _container.RegisterInstanceAs(DataRepositoryFactory.Create(_configuration), typeof(ITestDataRepository));
-            _container.RegisterInstanceAs(new ContextData<AdContext>(), typeof(ContextData<AdContext>));
+            _container.RegisterInstanceAs(new ContextData<AdBookingContext>(), typeof(ContextData<AdBookingContext>));
         }
 
         [BeforeTestRun]

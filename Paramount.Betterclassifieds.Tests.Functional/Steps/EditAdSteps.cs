@@ -8,20 +8,20 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
     public class EditAdSteps
     {
         private readonly UserContext _userContext;
-        private readonly AdContext _adContext;
+        private readonly AdBookingContext _adBookingContext;
         private readonly PageBrowser _pageBrowser;
         
-        public EditAdSteps(UserContext userContext, AdContext adContext, PageBrowser pageBrowser)
+        public EditAdSteps(UserContext userContext, AdBookingContext adBookingContext, PageBrowser pageBrowser)
         {
             _userContext = userContext;
-            _adContext = adContext;
+            _adBookingContext = adBookingContext;
             _pageBrowser = pageBrowser;
         }
 
         [When(@"I select to edit the newly placed ad")]
         public void WhenISelectToEditTheNewlyPlacedAd()
         {
-            _pageBrowser.Init<UserAdsPage>().EditAd(_adContext.AdId);
+            _pageBrowser.Init<UserAdsPage>().EditAd(_adBookingContext.AdBookingId);
         }
 
         [When(@"I update the title to ""(.*)""")]

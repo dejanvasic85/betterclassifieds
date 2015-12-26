@@ -48,7 +48,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
         public static IWebElement ScrollElementToMiddle(this IWebDriver driver, IWebElement element)
         {
-            driver.ExecuteJavaScript("window.scrollTo(0, (arguments[0].offsetTop + ( arguments[0].offsetParent ? arguments[0].offsetParent.documentOffsetTop() : 0 )) - (window.innerHeight / 2))", element);
+            //   driver.ExecuteJavaScript("window.scrollTo(0, (arguments[0].offsetTop + ( arguments[0].offsetParent ? arguments[0].offsetParent.documentOffsetTop() : 0 )) - (window.innerHeight / 2))", element);
+            driver.ExecuteJavaScript(@"
+var el = arguments[0];
+var top = el.offsetTop + ( el.offsetParent ? el.offsetParent.offsetTop : 0 );
+var scrollPosition = top - (window.innerHeight / 2);
+window.scrollTo(0, scrollPosition);", element);
             Thread.Sleep(500);
             return element;
         }

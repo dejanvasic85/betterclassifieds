@@ -44,6 +44,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         public BookingStepEventDetails WithLocation(string location)
         {
+            // We need to scroll the location input to the middle of the screen
+            // So that google map options will be visible and selectable on the screen
             _webdriver.ScrollElementToMiddle(LocationInput);
             LocationInput.FillText(location);
 

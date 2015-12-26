@@ -6,7 +6,7 @@ using Dapper;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 {
-    public static class DapperExtensions
+    internal static class DapperExtensions
     {
         public static int Add(this IDbConnection connection, string table, object param)
         {

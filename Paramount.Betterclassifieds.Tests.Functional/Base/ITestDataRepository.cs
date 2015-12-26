@@ -8,7 +8,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
     /// <summary>
     /// Used directly by the tests to setup and assert scenarios
     /// </summary>
-    public interface ITestDataRepository : IDisposable
+    internal interface ITestDataRepository : IDisposable
     {
         // Categories
         int AddCategoryIfNotExists(string subCategory, string parentCategory, string categoryAdType = "");

@@ -8,7 +8,7 @@ using TechTalk.SpecFlow;
 namespace Paramount.Betterclassifieds.Tests.Functional.Steps
 {
     [Binding]
-    public class BookingSteps
+    internal class BookingSteps
     {
         private readonly PageBrowser _pageBrowser;
         private readonly ITestDataRepository _repository;

@@ -1,6 +1,6 @@
 ﻿namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 {
-    public enum RoleType
+    internal enum RoleType
     {
         Advertiser,
         Administrator

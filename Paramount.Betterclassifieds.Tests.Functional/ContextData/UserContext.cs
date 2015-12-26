@@ -2,7 +2,7 @@ using System;
 
 namespace Paramount.Betterclassifieds.Tests.Functional
 {
-    public class UserContext
+    internal class UserContext
     {
         public DateTime StartRegistrationTime { get; set; }
         public string Username { get; set; }

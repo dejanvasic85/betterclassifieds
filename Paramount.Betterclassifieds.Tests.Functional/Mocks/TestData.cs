@@ -1,7 +1,7 @@
 ﻿
 namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 {
-    public static class TestData
+    internal static class TestData
     {
         public const string SeleniumPublication = "Selenium Magazine Weekly";
         public const string OnlinePublication = "iflog";

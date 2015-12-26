@@ -10,7 +10,7 @@ using Dapper;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 {
-    public class DapperDataRepository : ITestDataRepository
+    internal class DapperDataRepository : ITestDataRepository
     {
         // Create IDbConnections
         private readonly IDbConnection _classifiedDb;

@@ -5,7 +5,7 @@ using TechTalk.SpecFlow;
 namespace Paramount.Betterclassifieds.Tests.Functional.Steps
 {
     [Binding]
-    public class LoginSteps
+    internal class LoginSteps
     {
         private readonly PageBrowser _pageBrowser;
         private readonly UserContext _userContext;

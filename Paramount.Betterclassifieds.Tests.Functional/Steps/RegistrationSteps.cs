@@ -8,7 +8,7 @@
     using TechTalk.SpecFlow;
 
     [Binding]
-    public class RegistrationSteps
+    internal class RegistrationSteps
     {
         private readonly PageBrowser _pageBrowser;
         private readonly ITestDataRepository _dataRepository;

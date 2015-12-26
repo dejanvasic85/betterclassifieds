@@ -5,7 +5,7 @@ using TechTalk.SpecFlow;
 namespace Paramount.Betterclassifieds.Tests.Functional.Steps
 {
     [Binding]
-    public class EditAdSteps
+    internal class EditAdSteps
     {
         private readonly UserContext _userContext;
         private readonly AdBookingContext _adBookingContext;

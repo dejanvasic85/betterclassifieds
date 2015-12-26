@@ -67,7 +67,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
 
             var page3 = _pageBrowser.Init<BookingStep3Page>();
             _adContext.Get().BookReference = page3.GetBookingReference();
-            page3.AgreeToTermsAndConditions().Proceed();
+
+            page3.AgreeToTermsAndConditions()
+                .Proceed();
         }
 
         [When(@"I notify my friend ""(.*)"" ""(.*)"" about my add")]
@@ -81,6 +83,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Then(@"the booking should be successful")]
         public void ThenTheBookingShouldBeSuccessful()
         {
+            _pageBrowser.Init<BookingCompletePage>();
+
             // Go to the database and check whether the booking has been inserted
             var adContext = _adContext.Get();
             var adBookingContext = _repository.GetAdBookingContextByReference(adContext.BookReference);

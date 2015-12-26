@@ -7,13 +7,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
     [Binding]
     internal class EditAdSteps
     {
-        private readonly UserContext _userContext;
-        private readonly AdBookingContext _adBookingContext;
+        private readonly ContextData<AdBookingContext> _adBookingContext;
         private readonly PageBrowser _pageBrowser;
         
-        public EditAdSteps(UserContext userContext, AdBookingContext adBookingContext, PageBrowser pageBrowser)
+        public EditAdSteps(ContextData<AdBookingContext> adBookingContext, PageBrowser pageBrowser)
         {
-            _userContext = userContext;
             _adBookingContext = adBookingContext;
             _pageBrowser = pageBrowser;
         }
@@ -21,7 +19,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [When(@"I select to edit the newly placed ad")]
         public void WhenISelectToEditTheNewlyPlacedAd()
         {
-            _pageBrowser.Init<UserAdsPage>().EditAd(_adBookingContext.AdBookingId);
+            _pageBrowser.Init<UserAdsPage>().EditAd(_adBookingContext.Get().AdBookingId);
         }
 
         [When(@"I update the title to ""(.*)""")]

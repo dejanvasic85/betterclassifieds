@@ -44,10 +44,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         public BookingStepEventDetails WithLocation(string location)
         {
+            _webdriver.ScrollElementToMiddle(LocationInput);
             LocationInput.FillText(location);
+
             var wait = new WebDriverWait(_webdriver, TimeSpan.FromSeconds(10));
             wait.Until(ExpectedConditions.ElementIsVisible(By.ClassName("pac-container")));
-            
+
             var googleAddressResults = _webdriver.FindElements(By.ClassName("pac-item"));
             if (googleAddressResults.Count == 0)
             {

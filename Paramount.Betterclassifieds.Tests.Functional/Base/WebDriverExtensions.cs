@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
@@ -28,16 +30,27 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
         public static bool IsJqueryAjaxComplete(this IJavaScriptExecutor executor)
         {
-            return (bool) executor.ExecuteScript("return jQuery.active === 0");
+            return (bool)executor.ExecuteScript("return jQuery.active === 0");
         }
 
         public static void ExecuteJavaScript(this IWebDriver driver, string script, params object[] args)
         {
+            driver.ToJavaScriptExecutor().ExecuteScript(script, args);
+        }
+
+        public static IJavaScriptExecutor ToJavaScriptExecutor(this IWebDriver driver)
+        {
             var javaScriptExecutor = driver as IJavaScriptExecutor;
             if (javaScriptExecutor == null)
                 throw new WebDriverException("Driver does not implement IJavaScriptExecutor");
+            return javaScriptExecutor;
+        }
 
-            javaScriptExecutor.ExecuteScript(script);
+        public static IWebElement ScrollElementToMiddle(this IWebDriver driver, IWebElement element)
+        {
+            driver.ExecuteJavaScript("window.scrollTo(0, (arguments[0].offsetTop + ( arguments[0].offsetParent ? arguments[0].offsetParent.documentOffsetTop() : 0 )) - (window.innerHeight / 2))", element);
+            Thread.Sleep(500);
+            return element;
         }
     }
 }

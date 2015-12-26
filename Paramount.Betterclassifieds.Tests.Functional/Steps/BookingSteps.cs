@@ -12,11 +12,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
     {
         private readonly PageBrowser _pageBrowser;
         private readonly ITestDataRepository _repository;
+        private readonly ContextData<AdContext> _adContext;
 
-        public BookingSteps(PageBrowser pageBrowser, ITestDataRepository repository)
+        public BookingSteps(PageBrowser pageBrowser, ITestDataRepository repository, ContextData<AdContext> adContext)
         {
             _pageBrowser = pageBrowser;
             _repository = repository;
+            _adContext = adContext;
         }
 
         [Given(@"I start a new booking")]
@@ -40,8 +42,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 .Proceed();
 
             var step3Page = _pageBrowser.Init<BookingStep3Page>();
-            ScenarioContext.Current["BookingReference"] = step3Page.GetBookingReference();
-
+            _adContext.Get().AdBookingReference = step3Page.GetBookingReference();
+            
             step3Page
                 .AgreeToTermsAndConditions()
                 .Proceed();
@@ -64,7 +66,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 .Proceed();
 
             var page3 = _pageBrowser.Init<BookingStep3Page>();
-            ScenarioContext.Current["BookingReference"] = page3.GetBookingReference();
+            _adContext.Get().AdBookingReference = page3.GetBookingReference();
             page3.AgreeToTermsAndConditions().Proceed();
         }
 
@@ -80,8 +82,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         public void ThenTheBookingShouldBeSuccessful()
         {
             // Go to the database and check whether the booking has been inserted
-            var bookingReference = ScenarioContext.Current["BookingReference"].ToString();
+            var bookingReference = _adContext.Get().AdBookingReference;
             var result = _repository.IsAdBookingCreated(bookingReference);
+            
             Assert.That(result, Is.True);
         }
 

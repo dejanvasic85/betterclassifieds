@@ -114,5 +114,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             var classes = webElement.GetAttribute("class").Split(' ');
             return classes.Any(c => c.Equals(className, StringComparison.OrdinalIgnoreCase));
         }
+        
     }
 }

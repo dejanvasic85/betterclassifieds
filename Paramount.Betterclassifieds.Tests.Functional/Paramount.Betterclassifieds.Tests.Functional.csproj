@@ -82,6 +82,7 @@
     <Compile Include="Base\AdminPageBrowser.cs" />
     <Compile Include="Base\Constants.cs" />
     <Compile Include="Base\ArgumentParser.cs" />
+    <Compile Include="Base\ContextData.cs" />
     <Compile Include="Base\ITestPage.cs" />
     <Compile Include="Base\NavRouteAttribute.cs" />
     <Compile Include="Base\PageBrowser.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Base\WebDriverExtensions.cs" />
     <Compile Include="Base\WebElementExtensions.cs" />
     <Compile Include="Base\DataRepositoryFactory.cs" />
+    <Compile Include="ContextData\AdContext.cs" />
     <Compile Include="Features\AccountDetails.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -151,7 +153,7 @@
     <Compile Include="Pages\UserAdsPage.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="LoginContext.cs" />
-    <Compile Include="BeforeAndAfterTests.cs" />
+    <Compile Include="StartUp.cs" />
     <Compile Include="Mocks\DapperExtensions.cs" />
     <Compile Include="Base\ITestDataRepository.cs" />
     <Compile Include="Mocks\Models\Email.cs" />

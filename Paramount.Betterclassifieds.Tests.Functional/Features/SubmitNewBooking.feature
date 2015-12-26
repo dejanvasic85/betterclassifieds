@@ -13,6 +13,7 @@ Scenario: Submit online ad and notify friends
 	And my friends email "ade@spurs.com" should receive the notification
 
 @EventBooking
+@ignore
 Scenario: Simple Event with no ticketing
 	Given I am logged in as "bdduser" with password "password123"
 	And I start a new booking

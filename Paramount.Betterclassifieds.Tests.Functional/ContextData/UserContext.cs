@@ -9,9 +9,4 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         public string Password { get; set; }
         public string Email { get; set; }
     }
-
-    public class AdContext
-    {
-        public int AdId { get; set; }
-    }
 }

@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Tests.Functional.Steps
+﻿using Paramount.Betterclassifieds.Tests.Functional.Base;
+
+namespace Paramount.Betterclassifieds.Tests.Functional.Steps
 {
     using NUnit.Framework;
     using Pages;
@@ -26,9 +28,46 @@
         {
             _pageBrowser.Init<AccountDetailsTestPage>()
                 .WithAddressLine1(addressLine1)
-                .WithPhone(phone)
-                .Submit();
+                .WithPhone(phone);
         }
+
+        [When(@"Update my paypal email ""(.*)""")]
+        public void WhenUpdateMyPaypalEmail(string paypalEmail)
+        {
+            _pageBrowser.Init<AccountDetailsTestPage>(ensureUrl: false)
+                .WithPayPalEmail(paypalEmail);
+        }
+
+        [When(@"Update my direct debit details ""(.*)"" ""(.*)"" ""(.*)"" ""(.*)""")]
+        public void WhenUpdateMyDirectDebitDetails(string bankName, 
+            string accountName, string bsb, string accountNumber)
+        {
+            _pageBrowser.Init<AccountDetailsTestPage>(ensureUrl: false)
+                .WithBankDetails(bankName, bsb, accountNumber, accountName);
+        }
+
+        [When(@"Update preferred payment method to be ""(.*)""")]
+        public void WhenUpdatePreferredPaymentMethodToBe(string paymentMethod)
+        {
+            var page = _pageBrowser.Init<AccountDetailsTestPage>(ensureUrl: false);
+
+            if (paymentMethod.Equals("Direct Debit"))
+            {
+                page.WithDirectDebitPaymentMethod();
+            }
+
+            if (paymentMethod.Equals("PayPal"))
+            {
+                page.WithPayPalPaymentMethod();
+            }
+        }
+
+        [When(@"Submit my account changes")]
+        public void WhenSubmitMyAccountChanges()
+        {
+            _pageBrowser.Init<AccountDetailsTestPage>().Submit();
+        }
+
 
         [Then(@"I should see details updated message")]
         public void ThenIShouldSeeDetailsUpdatedMessage()

@@ -25,8 +25,30 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         [FindsBy(How = How.Id, Using = "btnRegister"), UsedImplicitly]
         private IWebElement SubmitButton;
 
-        [FindsBy(How = How.ClassName, Using="alert-success"), UsedImplicitly]
+        [FindsBy(How = How.ClassName, Using = "alert-success"), UsedImplicitly]
         private IWebElement SuccessMessage;
+
+        [FindsBy(How = How.Id, Using = "PayPalEmail"), UsedImplicitly]
+        private IWebElement PayPalEmailInput;
+
+        [FindsBy(How = How.Id, Using = "BankName"), UsedImplicitly]
+        private IWebElement BankNameInput;
+
+        [FindsBy(How = How.Id, Using = "BankAccountName"), UsedImplicitly]
+        private IWebElement BankAccountNameInput;
+
+        [FindsBy(How = How.Id, Using = "BankBsbNumber"), UsedImplicitly]
+        private IWebElement BankBsbNumberInput;
+
+        [FindsBy(How = How.Id, Using = "BankAccountNumber"), UsedImplicitly]
+        private IWebElement BankAccountNumberInput;
+
+        [FindsBy(How = How.CssSelector, Using = "[data-payment=PayPal]"), UsedImplicitly]
+        private IWebElement PayPalPreferredButton;
+
+        [FindsBy(How = How.CssSelector, Using = "[data-payment=DirectDebit]"), UsedImplicitly]
+        private IWebElement DirectDebitPreferredButton;
+
 
         #endregion
 
@@ -51,6 +73,34 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         public bool IsSuccessMessageDisplayed()
         {
             return SuccessMessage.Text.HasValue();
+        }
+
+        public AccountDetailsTestPage WithPayPalEmail(string email)
+        {
+            PayPalEmailInput.FillText(email);
+            return this;
+        }
+
+        public AccountDetailsTestPage WithBankDetails(string bankName,
+            string bsb, string accountNumber, string accountName)
+        {
+            BankNameInput.FillText(bankName);
+            BankBsbNumberInput.FillText(bsb);
+            BankAccountNumberInput.FillText(accountNumber);
+            BankAccountNameInput.FillText(accountName);
+            return this;
+        }
+        
+        public AccountDetailsTestPage WithDirectDebitPaymentMethod()
+        {
+            DirectDebitPreferredButton.ClickOnElement();
+            return this;
+        }
+
+        public AccountDetailsTestPage WithPayPalPaymentMethod()
+        {
+            PayPalPreferredButton.ClickOnElement();
+            return this;
         }
     }
 }

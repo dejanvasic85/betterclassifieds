@@ -84,6 +84,14 @@ this.ScenarioSetup(scenarioInfo);
 #line 11
  testRunner.And("Update my address \"1 AutomatedTesting Street\", PhoneNumber \"0399991111\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 12
+ testRunner.And("Update my paypal email \"fake@paypal.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 13
+ testRunner.And("Update my direct debit details \"fake bank\" \"fake account\" \"003444\" \"894728371\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 14
+ testRunner.And("Update preferred payment method to be \"Direct Debit\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 15
+ testRunner.And("Submit my account changes", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 16
  testRunner.Then("I should see details updated message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

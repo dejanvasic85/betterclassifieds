@@ -78,5 +78,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             Assert.That(result, Is.True);
         }
 
+        [Then(@"I should see an alert that something was missed")]
+        public void ThenIShouldSeeAnAlert()
+        {
+            var result = _pageBrowser.Init<AccountDetailsTestPage>()
+                .IsValidationDisplayed();
+
+            Assert.That(result, Is.True);
+        }
     }
 }

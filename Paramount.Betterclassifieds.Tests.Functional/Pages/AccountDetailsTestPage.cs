@@ -102,5 +102,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             PayPalPreferredButton.ClickOnElement();
             return this;
         }
+
+        public bool IsValidationDisplayed()
+        {
+            return _webdriver.FindElement(By.ClassName("alert-danger")).Displayed;
+        }
     }
 }

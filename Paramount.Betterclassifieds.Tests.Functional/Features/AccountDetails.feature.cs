@@ -20,6 +20,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("AccountDetails")]
+    [NUnit.Framework.CategoryAttribute("accountDetails")]
     public partial class AccountDetailsFeature
     {
         
@@ -33,7 +34,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "AccountDetails", "In order to keep my details up to date\r\nAs an advertiser\r\nI want to be able to lo" +
-                    "gin and update my personal details", ProgrammingLanguage.CSharp, ((string[])(null)));
+                    "gin and update my personal details", ProgrammingLanguage.CSharp, new string[] {
+                        "accountDetails"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -67,11 +69,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Update details successfully")]
-        [NUnit.Framework.CategoryAttribute("accountDetails")]
         public virtual void UpdateDetailsSuccessfully()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update details successfully", new string[] {
-                        "accountDetails"});
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update details successfully", ((string[])(null)));
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
@@ -93,6 +93,38 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.And("Submit my account changes", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 16
  testRunner.Then("I should see details updated message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Validates the preferred payment is selected")]
+        [NUnit.Framework.CategoryAttribute("paymentValidation")]
+        public virtual void ValidatesThePreferredPaymentIsSelected()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Validates the preferred payment is selected", new string[] {
+                        "paymentValidation"});
+#line 19
+this.ScenarioSetup(scenarioInfo);
+#line 20
+ testRunner.Given("I am a registered user with username \"paymentTesting\" and password \"accountTestin" +
+                    "g123\" and email \"payment@testing.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 21
+ testRunner.And("I am logged in as \"paymentTesting\" with password \"accountTesting123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 22
+ testRunner.When("I go to MyAccountDetails page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 23
+ testRunner.And("Update preferred payment method to be \"Direct Debit\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 24
+ testRunner.And("Submit my account changes", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 25
+ testRunner.Then("I should see an alert that something was missed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 26
+ testRunner.When("Update preferred payment method to be \"PayPal\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 27
+ testRunner.And("Submit my account changes", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 28
+ testRunner.Then("I should see an alert that something was missed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

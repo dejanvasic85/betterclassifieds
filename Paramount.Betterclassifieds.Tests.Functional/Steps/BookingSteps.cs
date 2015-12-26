@@ -89,6 +89,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             _adContext.Set(adBookingContext);
         }
 
+        [When("checking out the ad on success page")]
+        public void WhenCheckingOutTheAdOnSuccessPage()
+        {
+            _pageBrowser.Init<BookingCompletePage>().CheckoutAd();
+        }
+
         [Then(@"my friends email ""(.*)"" should receive the notification")]
         public void ThenMyFriendsEmailShouldReceiveTheNotification(string email)
         {

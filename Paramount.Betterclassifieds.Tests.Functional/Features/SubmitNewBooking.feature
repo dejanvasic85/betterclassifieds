@@ -18,3 +18,5 @@ Scenario: Simple Event with no ticketing
 	And I start a new booking
 	When I book an event ad titled "Event with no tickets" starting from today and ticketing "is not" enabled
 	Then the booking should be successful
+	When checking out the ad on success page
+	Then the url should be "/Event/event-with-no-tickets/adId" with adId in scenario

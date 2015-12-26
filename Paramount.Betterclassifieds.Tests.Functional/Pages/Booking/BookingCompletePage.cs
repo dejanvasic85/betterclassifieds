@@ -26,6 +26,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         [FindsBy(How = How.Id, Using = "btnNotifyContacts"), UsedImplicitly]
         private IWebElement NotifyContactsButton;
 
+        [FindsBy(How = How.PartialLinkText, Using = "Check out my ad"), UsedImplicitly]
+        private IWebElement CheckoutAdLink;
+
         public BookingCompletePage AddFriend(string fullName, string email)
         {
             ContactNameField.FillText(fullName);
@@ -42,5 +45,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             return this;
         }
 
+        public BookingCompletePage CheckoutAd()
+        {
+            CheckoutAdLink.Click();
+            return this;
+        }
     }
 }

@@ -12,9 +12,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         private readonly PageBrowser _pageBrowser;
         private readonly ITestDataRepository _dataRepository;
         private readonly UserContext _userContext;
-        private readonly AdBookingContext _adBookingContext;
+        private readonly ContextData<AdBookingContext> _adBookingContext;
 
-        public OnlineAdSteps(PageBrowser pageBrowser, ITestDataRepository dataRepository, UserContext userContext, AdBookingContext adBookingContext)
+        public OnlineAdSteps(PageBrowser pageBrowser, ITestDataRepository dataRepository, UserContext userContext, ContextData<AdBookingContext> adBookingContext)
         {
             _pageBrowser = pageBrowser;
             _dataRepository = dataRepository;
@@ -31,8 +31,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
 
             int? adId = _dataRepository.DropCreateOnlineAd(adTitle, parentCategory, childCategory, _userContext.Username);
 
-            ScenarioContext.Current.Add("AdId", adId);
-            _adBookingContext.AdBookingId = adId.GetValueOrDefault();
+            _adBookingContext.Get().AdBookingId = adId.GetValueOrDefault();
         }
         
         [Given(@"The parent category ""(.*)"" and sub category ""(.*)""")]
@@ -50,7 +49,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [When(@"I navigate to online ad ""(.*)""")]
         public void WhenINavigate(string url)
         {
-            string urlWithId = string.Format(url, _adBookingContext.AdBookingId);
+            string urlWithId = string.Format(url, _adBookingContext.Get().AdBookingId);
 
             // Route to an exact URL becuase this is what we're testing!
             _pageBrowser.NavigateTo(urlWithId);
@@ -84,5 +83,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             Assert.That(onlineAdTestPage.GetContactPhone(), Is.EqualTo(expected));
         }
 
+        [Then(@"the url should be ""(.*)"" with adId in scenario")]
+        public void ThenTheUrlShouldBe(string expectedUrl)
+        {
+            var adId = _adBookingContext.Get().AdBookingId;
+            var expectedUrlWithRightAdId = expectedUrl.Replace("adId", adId.ToString());
+
+            var applicationPage = _pageBrowser.Init<ApplicationPage>();
+            Assert.That(applicationPage.GetUrl(), Is.StringContaining(expectedUrlWithRightAdId));
+        }
     }
 }

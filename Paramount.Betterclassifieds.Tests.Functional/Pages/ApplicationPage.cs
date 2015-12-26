@@ -28,5 +28,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             this.PlaceNewAdButton.ClickOnElement();
             return this;
         }
+
+        public string GetUrl()
+        {
+            return _webDriver.Url;
+        }
     }
 }

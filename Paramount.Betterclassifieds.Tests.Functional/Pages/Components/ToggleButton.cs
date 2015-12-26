@@ -1,14 +1,12 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
     /// <summary>
     /// Turns the bootstrap toggle/checkbox button on and off and hides all the complexity
     /// </summary>
-    public class ToggleButton
+    internal class ToggleButton
     {
         public string EnabledText { get; private set; }
         public string DisabledText { get; private set; }
@@ -49,6 +47,18 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             var childElement = ParentElement.FindElement(By.ClassName("toggle"));
 
             return !childElement.HasClass("off");
+        }
+
+        public void Toggle(bool required)
+        {
+            if (required)
+            {
+                TurnOn();
+            }
+            else
+            {
+                TurnOff();
+            }
         }
     }
 }

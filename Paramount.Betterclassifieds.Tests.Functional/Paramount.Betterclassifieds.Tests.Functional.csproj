@@ -139,8 +139,11 @@
     <Compile Include="Pages\ApplicationPage.cs" />
     <Compile Include="Pages\Booking\BookingCompletePage.cs" />
     <Compile Include="Pages\Booking\BookingBasePage.cs" />
+    <Compile Include="Pages\Booking\BookingEventTicketingStep.cs" />
     <Compile Include="Pages\Booking\BookingStep1Page.cs" />
     <Compile Include="Pages\Booking\BookingEventStep.cs" />
+    <Compile Include="Pages\Components\FieldDefinition.cs" />
+    <Compile Include="Pages\Components\TicketDefinition.cs" />
     <Compile Include="Pages\Components\ToggleButton.cs" />
     <Compile Include="Pages\ChangePasswordTestPage.cs" />
     <Compile Include="Pages\ContactUsPage.cs" />

@@ -43,7 +43,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
 
             var step3Page = _pageBrowser.Init<BookingStep3Page>();
             _adContext.Get().BookReference = step3Page.GetBookingReference();
-            
+
             step3Page
                 .AgreeToTermsAndConditions()
                 .Proceed();
@@ -57,19 +57,29 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 .WithSubCategory(TestData.SubEventCategory)
                 .Proceed();
 
+            var ticketingEnabled = ArgumentParser.Is(enableTicketingYesNot);
             _pageBrowser.Init<BookingEventStep>()
                 .WithAdDetails(title, description: title)
                 .WithLocation("10 Melbourne Place, Melbourne, Victoria")
                 .WithOrganiser("Mister Tee", "0433555999")
                 .WithAdStartDateToday()
-                .WithTicketingEnabled(ArgumentParser.Is(enableTicketingYesNot))
+                .WithTicketingEnabled(ticketingEnabled)
                 .Proceed();
 
-            var page3 = _pageBrowser.Init<BookingStep3Page>();
-            _adContext.Get().BookReference = page3.GetBookingReference();
+            if (ticketingEnabled)
+            {
+                _pageBrowser.Init<BookingEventTicketingStep>()
+                    .AddTicketType("Child", 0, 50)
+                    .AddTicketType("Adult", 0, 50)
+                    .AddDynamicField("Gender", isRequired:false)
+                    .AddDynamicField("Age", isRequired: false);
+            }
 
-            page3.AgreeToTermsAndConditions()
-                .Proceed();
+            //var page3 = _pageBrowser.Init<BookingStep3Page>();
+            //_adContext.Get().BookReference = page3.GetBookingReference();
+
+            //page3.AgreeToTermsAndConditions()
+            //    .Proceed();
         }
 
         [When(@"I notify my friend ""(.*)"" ""(.*)"" about my add")]

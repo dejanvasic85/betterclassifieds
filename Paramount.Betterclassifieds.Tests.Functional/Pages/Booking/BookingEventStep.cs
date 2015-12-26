@@ -8,7 +8,7 @@ using Paramount.Betterclassifieds.Tests.Functional.Annotations;
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
     [NavRoute(RelativeUrl = "Booking/Step/2/Event")]
-    public class BookingEventStep : BookingTestPage
+    internal class BookingEventStep : BookingTestPage
     {
         public BookingEventStep(IWebDriver webdriver) : base(webdriver)
         {

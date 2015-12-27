@@ -144,6 +144,10 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.And("the booking details are confirmed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 33
  testRunner.Then("the booking should be successful", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 34
+ testRunner.When("checking out the ad on success page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 35
+ testRunner.Then("the url should be \"/Event/ticketing-event/adId\" with adId in scenario", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

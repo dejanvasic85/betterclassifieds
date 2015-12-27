@@ -31,3 +31,5 @@ Scenario: Event with ticketing
 	And event is setup with 2 tickets and 2 fields
 	And the booking details are confirmed
 	Then the booking should be successful
+	When checking out the ad on success page
+	Then the url should be "/Event/ticketing-event/adId" with adId in scenario

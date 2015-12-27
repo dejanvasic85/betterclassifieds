@@ -40,7 +40,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 .WithOnlineDescription(adTitle)
                 .WithStartDate(DateTime.Today.Date)
                 .Proceed();
+        }
 
+        [When(@"the booking details are confirmed")]
+        public void WhenTheBookingDetailsAreConfirmed()
+        {
             var step3Page = _pageBrowser.Init<BookingStep3Page>();
             _adContext.Get().BookReference = step3Page.GetBookingReference();
 
@@ -48,7 +52,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 .AgreeToTermsAndConditions()
                 .Proceed();
         }
-
+        
         [When(@"I book an event ad titled ""(.*)"" starting from today and ticketing ""(.*)"" enabled")]
         public void WhenIBookAnEventAdTitledStartingFromToday(string title, string enableTicketingYesNot)
         {
@@ -65,23 +69,19 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 .WithAdStartDateToday()
                 .WithTicketingEnabled(ticketingEnabled)
                 .Proceed();
-
-            if (ticketingEnabled)
-            {
-                _pageBrowser.Init<BookingEventTicketingStep>()
-                    .AddTicketType("Child", 0, 50)
-                    .AddTicketType("Adult", 0, 50)
-                    .AddDynamicField("Gender", isRequired:false)
-                    .AddDynamicField("Age", isRequired: false);
-            }
-
-            //var page3 = _pageBrowser.Init<BookingStep3Page>();
-            //_adContext.Get().BookReference = page3.GetBookingReference();
-
-            //page3.AgreeToTermsAndConditions()
-            //    .Proceed();
         }
 
+        [When(@"event is setup with 2 tickets and 2 fields")]
+        public void WhenTicketingWithFieldsAreSetup()
+        {
+            _pageBrowser.Init<BookingEventTicketingStep>()
+                   .AddTicketType("Child", 0, 50)
+                   .AddTicketType("Adult", 0, 50)
+                   .AddDynamicField("Gender", isRequired: false)
+                   .AddDynamicField("Age", isRequired: false)
+                   .Proceed();
+        }
+        
         [When(@"I notify my friend ""(.*)"" ""(.*)"" about my add")]
         public void WhenINotifyMyFriendAboutMyAdd(string fullName, string email)
         {

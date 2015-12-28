@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Practices.Unity;
 using NUnit.Framework;
 using Moq;
+using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Tests.Mocks;
 
@@ -40,6 +41,7 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
 
             List<Notification> incompleteNotifications = new List<Notification> { new Notification(broadcast1), new Notification(broadcast2) };
 
+            var applicationConfig = _mockRepository.CreateMockOf<IApplicationConfig>();
             var broadcastMockRepository = _mockRepository.CreateMockOf<IBroadcastRepository>(_container, _verifications)
                 .SetupWithVerification(call => call.GetIncompleteNotifications(100), incompleteNotifications)
                 .SetupWithVerification(call => call.CreateOrUpdateNotification(It.IsAny<Notification>()));
@@ -47,9 +49,12 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
             var notificationMockProcessor = _mockRepository.CreateMockOf<INotificationProcessor>(_container, _verifications)
                 .SetupWithVerification(call => call.Retry(It.IsAny<Guid>()), true);
 
+
             // Act
             BroadcastManager broadcastManager = new BroadcastManager(broadcastMockRepository.Object,
-                new[] { notificationMockProcessor.Object });
+                new[] { notificationMockProcessor.Object },
+                applicationConfig.Object);
+
             broadcastManager.ProcessUnsent(100);
 
             // Assert ( happens on clean up)
@@ -73,10 +78,12 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
 
             var badMockProcessor = _mockRepository.CreateMockOf<INotificationProcessor>(_container, _verifications)
                 .SetupWithVerification(call => call.Retry(It.IsAny<Guid>()), false);
+            var applicationConfig = _mockRepository.CreateMockOf<IApplicationConfig>();
 
             // Act
             BroadcastManager broadcastManager = new BroadcastManager(broadcastMockRepository.Object,
-                new[] { notificationMockProcessor.Object, badMockProcessor.Object });
+                new[] { notificationMockProcessor.Object, badMockProcessor.Object },
+                applicationConfig.Object);
 
             broadcastManager.ProcessUnsent(100);
 
@@ -88,10 +95,10 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
         {
             var mockRepository = _mockRepository.CreateMockOf<IBroadcastRepository>()
                 .SetupWithVerification(call => call.CreateOrUpdateNotification(It.IsAny<Notification>()));
-
+            var applicationConfig = _mockRepository.CreateMockOf<IApplicationConfig>();
             var mockProcessor = _mockRepository.CreateMockOf<INotificationProcessor>();
 
-            var broadcastManager = new BroadcastManager(mockRepository.Object, new[] { mockProcessor.Object });
+            var broadcastManager = new BroadcastManager(mockRepository.Object, new[] { mockProcessor.Object }, applicationConfig.Object);
             var notification = broadcastManager.Queue(new NewBooking(), "foo@bar.com");
 
             notification.IsNotNull();
@@ -106,8 +113,9 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
                 .SetupWithVerification(call => call.CreateOrUpdateNotification(It.IsAny<Notification>()));
 
             var mockProcessor = _mockRepository.CreateMockOf<INotificationProcessor>();
+            var applicationConfig = _mockRepository.CreateMockOf<IApplicationConfig>();
 
-            var broadcastManager = new BroadcastManager(mockRepository.Object, new[] { mockProcessor.Object });
+            var broadcastManager = new BroadcastManager(mockRepository.Object, new[] { mockProcessor.Object }, applicationConfig.Object);
             Assert.Throws<ArgumentException>(() => broadcastManager.Queue(new NewBooking()));
         }
     }

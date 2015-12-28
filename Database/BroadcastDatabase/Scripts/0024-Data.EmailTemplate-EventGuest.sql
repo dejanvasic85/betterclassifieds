@@ -91,7 +91,6 @@ SET	[SubjectTemplate]  = 'Event Payment Request',
 
                     <h3>Finishes : [/EventEndDate/]</h3>
 
-                    <h3>Ticket Type : [/Ticket/]</h3>
                 </p>
             </div>
             <p>We have included a calendar invite for your convenience.</p>
@@ -140,7 +139,6 @@ SET	[SubjectTemplate]  = 'Event Payment Request',
 
                     <h3>Finishes : [/EventEndDate/]</h3>
 
-                    <h3>Ticket Type : [/Ticket/]</h3>
                 </p>
             </div>
             <p>We have included a calendar invite for your convenience.</p>

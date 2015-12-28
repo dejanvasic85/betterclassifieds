@@ -21,7 +21,7 @@ namespace Paramount.Betterclassifieds.Console
 #if DEBUG
                 program.Start(new[]
                 {
-                    TaskArguments.TaskFullArgName, typeof(Tasks.HealthCheck).Name, "-to", "dejanvasic@outlook.com"
+                    TaskArguments.TaskFullArgName, typeof(Tasks.EmailProcessor).Name, "-take", "20"
                 });
 
 #else

@@ -2,7 +2,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
 {
     public class EventGuestNotification : IDocType
     {
-        public string DocumentType { get { return GetType().Name; } }
+        public string DocumentType { get { return "EventGuest"; } }
         public EmailAttachment[] Attachments { get; private set; }
 
         [Placeholder("EventName")]
@@ -25,6 +25,9 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
 
         [Placeholder("EventEndDate")]
         public string EventEndDate { get; set; }
+
+        [Placeholder("TicketType")]
+        public string TicketType { get; set; }
 
         public EventGuestNotification WithCalendarInvite(byte[] invite)
         {

@@ -20,11 +20,13 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
     {
         private readonly IBroadcastRepository _broadcastRepository;
         private readonly INotificationProcessor[] _processors;
+        private readonly IApplicationConfig _applicationConfig;
 
-        public BroadcastManager(IBroadcastRepository broadcastRepository, INotificationProcessor[] notificationProcessors)
+        public BroadcastManager(IBroadcastRepository broadcastRepository, INotificationProcessor[] notificationProcessors, IApplicationConfig applicationConfig)
         {
             _broadcastRepository = broadcastRepository;
             _processors = notificationProcessors;
+            _applicationConfig = applicationConfig;
 
             if (notificationProcessors == null || notificationProcessors.Length == 0)
             {
@@ -35,7 +37,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         public Guid SendEmail<T>(T docType, params string[] to) where T : IDocType
         {
             var notification = Queue(docType, to);
-            
+
             // Currently we only have an email processor - so just use that 
             // In the future, we'd like to have a bunch of processors 
             // that have a subscription system tied inside it ( per document type )
@@ -55,6 +57,11 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             var notification = new Notification(Guid.NewGuid(), docType.DocumentType);
 
             _broadcastRepository.CreateOrUpdateNotification(notification);
+
+            // Template is required for emails, so fetch it
+            var emailTemplate = _broadcastRepository.GetTemplateByName(docType.DocumentType, _applicationConfig.Brand);
+            var delivery = Email.BuildWithTemplate(docType, emailTemplate, notification.BroadcastId, to);
+            _broadcastRepository.CreateOrUpdateEmail(delivery);
 
             return notification;
         }
@@ -76,9 +83,9 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
                         results.Add(task.Result);
                         return task;
                     }).ToArray();
-               
+
                 // Wait until all of processors have completed
-                Task.WaitAll(tasks.ToArray());
+                Task.WaitAll(tasks);
 
                 if (results.All(r => r))
                 {

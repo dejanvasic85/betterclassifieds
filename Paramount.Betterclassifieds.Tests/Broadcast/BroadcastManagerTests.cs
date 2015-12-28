@@ -82,5 +82,33 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
 
             // Assert ( happens on clean up)
         }
+
+        [Test]
+        public void Queue_CreatesNotification_SavesToRepository()
+        {
+            var mockRepository = _mockRepository.CreateMockOf<IBroadcastRepository>()
+                .SetupWithVerification(call => call.CreateOrUpdateNotification(It.IsAny<Notification>()));
+
+            var mockProcessor = _mockRepository.CreateMockOf<INotificationProcessor>();
+
+            var broadcastManager = new BroadcastManager(mockRepository.Object, new[] { mockProcessor.Object });
+            var notification = broadcastManager.Queue(new NewBooking(), "foo@bar.com");
+
+            notification.IsNotNull();
+            notification.BroadcastId.IsNotNull();
+
+        }
+
+        [Test]
+        public void Queue_WithNo_ToList()
+        {
+            var mockRepository = _mockRepository.CreateMockOf<IBroadcastRepository>()
+                .SetupWithVerification(call => call.CreateOrUpdateNotification(It.IsAny<Notification>()));
+
+            var mockProcessor = _mockRepository.CreateMockOf<INotificationProcessor>();
+
+            var broadcastManager = new BroadcastManager(mockRepository.Object, new[] { mockProcessor.Object });
+            Assert.Throws<ArgumentException>(() => broadcastManager.Queue(new NewBooking()));
+        }
     }
 }

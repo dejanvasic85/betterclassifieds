@@ -224,6 +224,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var mockBookTicketsRequestViewModel = new BookTicketsRequestViewModel
             {
                 EventId = mockEvent.EventId,
+                SendEmailToGuests = true,
                 Reservations = new List<EventTicketReservedViewModel>
                 {
                     new EventTicketReservedViewModel
@@ -233,7 +234,9 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                         GuestFullName = "guest name",
                         TicketFields = new List<EventTicketFieldViewModel>{new EventTicketFieldViewModel { FieldName = "Age", FieldValue = "30", IsRequired = false}}
                     }
-                }
+                },
+                FirstName = "John",
+                LastName = "Smith"
             };
 
             var mockTicketReservations = new[] {
@@ -244,7 +247,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             var mockApplicationUser = new ApplicationUserMockBuilder().Default().Build();
             var mockPaymentResponse = new PaymentResponse { ApprovalUrl = "paypal.com/approveMe", PaymentId = "123", Status = PaymentStatus.ApprovalRequired };
-
 
             // arrange service calls
             _mockUser.SetupIdentityCall();
@@ -262,6 +264,12 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             // assert
             var jsonResult = result.IsTypeOf<JsonResult>();
             jsonResult.JsonResultNextUrlIs(mockPaymentResponse.ApprovalUrl);
+            _eventBookingContext.Object.EmailGuestList.IsNotNull();
+            _eventBookingContext.Object.EmailGuestList.Length.IsEqualTo(1);
+            _eventBookingContext.Object.EventBookingPaymentReference.IsEqualTo(mockPaymentResponse.PaymentId);
+            _eventBookingContext.Object.EventId.IsEqualTo(mockEvent.EventId);
+            _eventBookingContext.Object.EventBookingId.IsEqualTo(mockEventBookingId);
+            _eventBookingContext.Object.Purchaser.IsEqualTo("John Smith");
         }
 
         private Mock<HttpContextBase> _httpContext;

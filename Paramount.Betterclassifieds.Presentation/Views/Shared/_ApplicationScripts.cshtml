@@ -42,10 +42,10 @@
         $('#serverValidation').hide();
         me.httpPost = function (url, data) {
             var promise = call('POST', url, data);
-            promise.success(function (resp) {
+            promise.then(function (resp) {
                 if (resp.nextUrl) {
                     window.location = resp.nextUrl;
-                    return;
+                        return;
                 }
                 if (resp.errors) {
                     var $errorContainer = $('#serverValidation > .alert-danger');

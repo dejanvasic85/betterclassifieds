@@ -44,7 +44,7 @@ namespace Paramount
 
             var contextUri = urlHelper.RequestContext.HttpContext.Request.Url;
             var baseUri = string.Format("{0}://{1}{2}", contextUri.Scheme,
-              contextUri.Host, contextUri.Port == 80 ? string.Empty : ":" + contextUri.Port);
+              contextUri.Host, contextUri.Port == 80 || contextUri.Port == 443 ? string.Empty : ":" + contextUri.Port);
 
             return string.Format("{0}{1}", baseUri, path);
         }

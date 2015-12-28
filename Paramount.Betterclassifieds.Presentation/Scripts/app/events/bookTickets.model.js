@@ -7,6 +7,7 @@
         $.extend(data, {});
 
         me.eventId = ko.observable(data.eventId);
+        me.sendEmailToGuests = ko.observable(data.sendEmailToGuests);
         me.minsRemaining = ko.observable(data.reservationExpiryMinutes);
         me.secondsRemaining = ko.observable(data.reservationExpirySeconds);
         me.secondsRemainingDisplay = ko.computed(function () {
@@ -98,7 +99,6 @@
             var $form = $('#bookTicketsForm');
             var $btn = $('#bookTicketsView button');
 
-
             if ($form.valid() === true) {
                 $btn.button('loading');
 
@@ -107,13 +107,16 @@
 
                 var request = ko.toJSON(me);
                 eventService.bookTickets(request)
-                    .success(function (response) {
+                    .then(function (response) {
                         if (response.loginFailed === true) {
                             me.invalidCredentials(true);
                             return;
                         }
                     })
-                    .complete(function() {
+                    .then(function (resp) {
+                        if (resp.nextUrl) {
+                            return;
+                        }
                         $btn.button('reset');
                     });
             }

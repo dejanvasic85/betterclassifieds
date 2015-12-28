@@ -28,6 +28,15 @@ namespace Paramount
             }   
         }
 
+        public static void NotNullOrEmptyIn(params string[] values)
+        {
+            NotNullOrEmpty(values);
+            foreach (var str in values)
+            {
+                NotNullOrEmpty(str);
+            }
+        }
+
         /// <summary>
         /// Ensures the given string <paramref name="value"/> is not null or empty.
         ///             Throws <see cref="T:System.ArgumentNullException"/> in the first case, or
@@ -47,7 +56,7 @@ namespace Paramount
             if (values.Length == 0)
                 throw new ArgumentException("Argument cannot be empty", "values");
         }
-
+        
         public static void NotDefaultValue<T>(T value)
         {
             if (EqualityComparer<T>.Default.Equals(value, default(T)))

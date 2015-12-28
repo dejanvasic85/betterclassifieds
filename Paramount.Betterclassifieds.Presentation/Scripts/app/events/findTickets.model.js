@@ -6,9 +6,9 @@
         var me = this;
 
         $.extend(data, {});
-        
+
         me.tickets = ko.observableArray();
-        
+
         $.each(data.ticketData, function (index, item) {
             me.tickets.push(new $paramount.models.EventTicket(item, data.maxTicketsPerBooking));
         });
@@ -19,7 +19,10 @@
             _.remove(me.tickets(), function (t) {
                 return t.selectedQuantity() === undefined || t.selectedQuantity() === 0;
             });
-            eventService.startTicketOrder(ko.toJSON(me)).complete(function() {
+            eventService.startTicketOrder(ko.toJSON(me)).then(function (resp) {
+                if (resp.nextUrl) {
+                    return;
+                }
                 $btn.button('reset');
             });
         }

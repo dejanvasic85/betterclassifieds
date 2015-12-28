@@ -27,7 +27,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             TicketFields = eventDetails.TicketFields.Select(f => new EventTicketFieldViewModel { FieldName = f.FieldName, IsRequired = f.IsRequired }).ToList();
             SuccessfulReservationCount = ticketReservations.Count(r => r.Status == EventTicketReservationStatus.Reserved);
             LargeRequestCount = ticketReservations.Count(r => r.Status == EventTicketReservationStatus.RequestTooLarge);
-
+            SendEmailToGuests = true;
 
             if (applicationUser != null)
             {
@@ -63,5 +63,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public int? EventId { get; set; }
         public string EventPhoto { get; set; }
         public string Location { get; set; }
+        public bool SendEmailToGuests { get; set; }
     }
 }

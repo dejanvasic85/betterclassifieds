@@ -7,14 +7,6 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
     public class AppConfig : IApplicationConfig
     {
-        public string BaseUrl
-        {
-            get
-            {
-                return ConfigManager.ReadAppSetting<string>("BaseUrl");
-            }
-        }
-
         public string Brand
         {
             get

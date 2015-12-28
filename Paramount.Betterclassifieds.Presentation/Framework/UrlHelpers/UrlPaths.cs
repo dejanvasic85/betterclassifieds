@@ -80,6 +80,7 @@ namespace Paramount
         {
             return new UrlBuilder(urlHelper, "EventPaymentRequest", "EditAd", new { id = adId, eventId });
         }
+
         public static UrlBuilder EventDashboard(this UrlHelper urlHelper, int adId)
         {
             return new UrlBuilder(urlHelper, "EventDashboard", "EditAd", new { id = adId });

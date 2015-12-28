@@ -33,6 +33,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             get { return this.TotalCost > 0; }
         }
 
+        public bool SendEmailToGuests { get; set; }
+
         public List<EventTicketReservedViewModel> Reservations { get; set; }
+        public string FullName { get { return FirstName + " " + LastName; } }
     }
 }

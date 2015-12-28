@@ -19,33 +19,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     public class EventController : Controller, IMappingBehaviour
     {
-        private readonly HttpContextBase _httpContext;
-        private readonly EventBookingContext _eventBookingContext;
-        private readonly ISearchService _searchService;
-        private readonly IEventManager _eventManager;
-        private readonly IClientConfig _clientConfig;
-        private readonly IUserManager _userManager;
-        private readonly IAuthManager _authManager;
-        private readonly IPaymentService _paymentService;
-        private readonly IBroadcastManager _broadcastManager;
-        private readonly IBookingManager _bookingManager;
-        private readonly IEventTicketReservationFactory _eventTicketReservationFactory;
-
-        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IAuthManager authManager, EventBookingContext eventBookingContext, IPaymentService paymentService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory)
-        {
-            _searchService = searchService;
-            _eventManager = eventManager;
-            _httpContext = httpContext;
-            _clientConfig = clientConfig;
-            _userManager = userManager;
-            _authManager = authManager;
-            _eventBookingContext = eventBookingContext;
-            _paymentService = paymentService;
-            _broadcastManager = broadcastManager;
-            _bookingManager = bookingManager;
-            _eventTicketReservationFactory = eventTicketReservationFactory;
-        }
-
         public ActionResult ViewEventAd(int id, string titleSlug = "")
         {
             var onlineAdModel = _searchService.GetByAdId(id);
@@ -175,13 +148,19 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             // Set the event id and booking id in the session for the consecutive calls
             _eventBookingContext.EventId = bookTicketsViewModel.EventId.GetValueOrDefault();
             _eventBookingContext.EventBookingId = eventBooking.EventBookingId;
+            _eventBookingContext.Purchaser = bookTicketsViewModel.FullName;
+            _eventBookingContext.EmailGuestList = bookTicketsViewModel.SendEmailToGuests
+                ? bookTicketsViewModel.Reservations
+                    .Where(guest => guest.GuestFullName != bookTicketsViewModel.FullName)
+                    .Select(e => e.GuestEmail)
+                    .ToArray() : null;
 
             if (eventBooking.Status == EventBookingStatus.Active)
             {
                 // No payment required so return a redirect to action json object
                 return Json(new { NextUrl = Url.Action("EventBooked", "Event") });
             }
-            
+
             // Process paypal payment
             var payPalRequest = new EventBookingPayPalRequestFactory().CreatePaymentRequest(eventBooking,
                 eventBooking.EventBookingId.ToString(),
@@ -235,16 +214,32 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var adDetails = _searchService.GetByAdOnlineId(eventDetails.OnlineAdId);
 
             var sessionId = _httpContext.With(h => h.Session).SessionID;
-            _eventManager.AdjustRemainingQuantityAndCancelReservations(sessionId, eventBooking.EventBookingTickets);
-            _eventBookingContext.Clear(); // Kill the session at this point so this endpoint will return a 404 next time the user tries
+            try
+            {
+                _eventManager.AdjustRemainingQuantityAndCancelReservations(sessionId, eventBooking.EventBookingTickets);
 
-            var ticketPdfData = GenerateTickets(EventTicketPrintViewModel.Create(adDetails, eventDetails, eventBooking));
-            var viewModel = new EventBookedViewModel(adDetails, eventDetails, eventBooking, this.Url);
-            var eventTicketsBookedNotification = this.Map<EventBookedViewModel, EventTicketsBookedNotification>(viewModel).WithTickets(ticketPdfData);
-            _broadcastManager.SendEmail(eventTicketsBookedNotification, eventBooking.Email);
-            _eventManager.CreateEventTicketsDocument(eventBooking.EventBookingId, ticketPdfData, ticketsSentDate: DateTime.Now);
+                var ticketPdfData = GenerateTickets(EventTicketPrintViewModel.Create(adDetails, eventDetails, eventBooking));
+                var viewModel = new EventBookedViewModel(adDetails, eventDetails, eventBooking, this.Url);
+                var eventTicketsBookedNotification = this.Map<EventBookedViewModel, EventTicketsBookedNotification>(viewModel).WithTickets(ticketPdfData);
+                _broadcastManager.Queue(eventTicketsBookedNotification, eventBooking.Email);
+                _eventManager.CreateEventTicketsDocument(eventBooking.EventBookingId, ticketPdfData, ticketsSentDate: DateTime.Now);
 
-            return View(viewModel);
+                if (_eventBookingContext.EmailGuestList != null && _eventBookingContext.EmailGuestList.Length > 0)
+                {
+                    var guestEmail = new EventGuestNotificationFactory().Create(_httpContext,
+                        _clientConfig, eventDetails, adDetails, 
+                        Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, includeSchemeAndProtocol: true), 
+                        _eventBookingContext.Purchaser);
+
+                    _eventBookingContext.EmailGuestList.Do(g => _broadcastManager.Queue(guestEmail, g));
+                }
+
+                return View(viewModel);
+            }
+            finally
+            {
+                _eventBookingContext.Clear();
+            }
         }
 
         [HttpPost]
@@ -291,8 +286,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<Business.Events.EventModel, EventViewDetailsModel>()
                 .ForMember(member => member.EventStartDate, options => options.ResolveUsing(src => src.EventStartDate.GetValueOrDefault().ToLongDateString()))
                 .ForMember(member => member.EventStartTime, options => options.ResolveUsing(src => src.EventStartDate.GetValueOrDefault().ToString("hh:mm tt")))
-                .ForMember(member => member.EventEndDate, options => options.ResolveUsing(src => src.EventEndDate.GetValueOrDefault().ToLongDateString()))
-                ;
+                .ForMember(member => member.EventEndDate, options => options.ResolveUsing(src => src.EventEndDate.GetValueOrDefault().ToLongDateString()));
 
             configuration.CreateMap<Business.Search.AdSearchResult, EventViewDetailsModel>()
                 .ForMember(m => m.Posted, options => options.PreCondition(src => src.BookingDate.HasValue))
@@ -301,9 +295,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 .ForMember(m => m.OrganiserName, options => options.MapFrom(src => src.ContactName))
                 .ForMember(m => m.OrganiserPhone, options => options.MapFrom(src => src.ContactPhone))
                 .ForMember(m => m.Views, options => options.MapFrom(src => src.NumOfViews))
-                .ForMember(m => m.EventPhoto, options => options.MapFrom(src => src.PrimaryImage))
-
-                ;
+                .ForMember(m => m.EventPhoto, options => options.MapFrom(src => src.PrimaryImage));
 
             configuration.CreateMap<Business.Events.EventTicket, EventTicketViewModel>().ReverseMap();
             configuration.CreateMap<Business.IClientConfig, EventViewDetailsModel>().ForMember(m => m.MaxTicketsPerBooking, options => options.MapFrom(src => src.EventMaxTicketsPerBooking));
@@ -311,8 +303,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<Business.Events.EventTicketReservation, EventTicketReservedViewModel>()
                 .ForMember(m => m.Status, options => options.MapFrom(s => s.StatusAsString.Humanize()))
                 .ForMember(m => m.Price, options => options.MapFrom(s => s.EventTicket.Price))
-                .ForMember(m => m.TicketName, options => options.MapFrom(s => s.EventTicket.TicketName))
-                ;
+                .ForMember(m => m.TicketName, options => options.MapFrom(s => s.EventTicket.TicketName));
+
             #endregion
 
             #region From View model
@@ -326,5 +318,33 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             #endregion
         }
+
+        private readonly HttpContextBase _httpContext;
+        private readonly EventBookingContext _eventBookingContext;
+        private readonly ISearchService _searchService;
+        private readonly IEventManager _eventManager;
+        private readonly IClientConfig _clientConfig;
+        private readonly IUserManager _userManager;
+        private readonly IAuthManager _authManager;
+        private readonly IPaymentService _paymentService;
+        private readonly IBroadcastManager _broadcastManager;
+        private readonly IBookingManager _bookingManager;
+        private readonly IEventTicketReservationFactory _eventTicketReservationFactory;
+
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IAuthManager authManager, EventBookingContext eventBookingContext, IPaymentService paymentService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory)
+        {
+            _searchService = searchService;
+            _eventManager = eventManager;
+            _httpContext = httpContext;
+            _clientConfig = clientConfig;
+            _userManager = userManager;
+            _authManager = authManager;
+            _eventBookingContext = eventBookingContext;
+            _paymentService = paymentService;
+            _broadcastManager = broadcastManager;
+            _bookingManager = bookingManager;
+            _eventTicketReservationFactory = eventTicketReservationFactory;
+        }
+
     }
 }

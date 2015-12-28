@@ -93,17 +93,26 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
         [Test]
         public void Queue_CreatesNotification_SavesToRepository()
         {
+            // arrange
+            var mockNotificationDocType = new NewBooking();
+            var mockEmailTemplate = new EmailTemplate();
+
             var mockRepository = _mockRepository.CreateMockOf<IBroadcastRepository>()
-                .SetupWithVerification(call => call.CreateOrUpdateNotification(It.IsAny<Notification>()));
-            var applicationConfig = _mockRepository.CreateMockOf<IApplicationConfig>();
+                .SetupWithVerification(call => call.CreateOrUpdateNotification(It.IsAny<Notification>()))
+                .SetupWithVerification(call => call.GetTemplateByName(It.Is<string>(p => p == "NewBooking"), It.IsAny<string>()), mockEmailTemplate)
+                .SetupWithVerification(call => call.CreateOrUpdateEmail(It.IsAny<Email>()), 1);
+
+            var applicationConfig = _mockRepository.CreateMockOf<IApplicationConfig>()
+                .SetupWithVerification(call => call.Brand, "TheMusic");
             var mockProcessor = _mockRepository.CreateMockOf<INotificationProcessor>();
 
+            // act
             var broadcastManager = new BroadcastManager(mockRepository.Object, new[] { mockProcessor.Object }, applicationConfig.Object);
-            var notification = broadcastManager.Queue(new NewBooking(), "foo@bar.com");
+            var notification = broadcastManager.Queue(mockNotificationDocType, "foo@bar.com");
 
+            // assert
             notification.IsNotNull();
             notification.BroadcastId.IsNotNull();
-
         }
 
         [Test]

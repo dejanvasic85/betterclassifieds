@@ -46,6 +46,11 @@
 
         }
 
+        public string BrandName
+        {
+            get { return ConfigurationManager.AppSettings["Brand"]; }
+        }
+
         public int RestrictedEditionCount
         {
             // Print setting
@@ -136,7 +141,7 @@
         {
             get { return GetValueFromDatabase<string>("ClientName"); }
         }
-
+       
         public int EventTicketReservationExpiryMinutes
         {
             get { return GetValueFromDatabase<int>("EventTicketReservationExpiryMinutes"); }

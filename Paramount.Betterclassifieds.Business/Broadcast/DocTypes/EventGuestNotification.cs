@@ -29,11 +29,16 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         [Placeholder("TicketType")]
         public string TicketType { get; set; }
 
-        public EventGuestNotification WithCalendarInvite(byte[] invite)
+        public EventGuestNotification WithCalendarInvite(byte[] calendarContent)
         {
-            Attachments = new EmailAttachment[]
+            Attachments = new []
             {
-                
+                 new EmailAttachment
+                 {
+                     ContentType = ContentType.Calendar,
+                     FileName = "event.ics",
+                     Content = calendarContent
+                 }
             };
             return this;
         }

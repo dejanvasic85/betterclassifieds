@@ -126,7 +126,7 @@ namespace Paramount
 
         public static TEnum CastToEnum<TEnum>(this string value)
         {
-            return (TEnum) Enum.Parse(typeof (TEnum), value);
+            return (TEnum)Enum.Parse(typeof(TEnum), value);
         }
 
         /// <summary>
@@ -182,6 +182,13 @@ namespace Paramount
                 return 0;
 
             return value.Split(' ').Length;
+        }
+
+        public static byte[] ToByteArray(this string str)
+        {
+            byte[] bytes = new byte[str.Length * sizeof(char)];
+            System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
+            return bytes;
         }
     }
 }

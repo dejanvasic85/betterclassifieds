@@ -14,6 +14,7 @@ using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
+using WebGrease.Css.Extensions;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
@@ -149,11 +150,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventBookingContext.EventId = bookTicketsViewModel.EventId.GetValueOrDefault();
             _eventBookingContext.EventBookingId = eventBooking.EventBookingId;
             _eventBookingContext.Purchaser = bookTicketsViewModel.FullName;
-            _eventBookingContext.EmailGuestList = bookTicketsViewModel.SendEmailToGuests
-                ? bookTicketsViewModel.Reservations
-                    .Where(guest => guest.GuestFullName != bookTicketsViewModel.FullName)
-                    .Select(e => e.GuestEmail)
-                    .ToArray() : null;
+            _eventBookingContext.EmailGuestList = bookTicketsViewModel.SendEmailToGuests ? bookTicketsViewModel.Reservations.Select(e => e.GuestEmail).ToArray() : null;
 
             if (eventBooking.Status == EventBookingStatus.Active)
             {
@@ -226,12 +223,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
                 if (_eventBookingContext.EmailGuestList != null && _eventBookingContext.EmailGuestList.Length > 0)
                 {
-                    var guestEmail = new EventGuestNotificationFactory().Create(_httpContext,
-                        _clientConfig, eventDetails, adDetails, 
-                        Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, includeSchemeAndProtocol: true), 
-                        _eventBookingContext.Purchaser);
-
-                    _eventBookingContext.EmailGuestList.Do(g => _broadcastManager.Queue(guestEmail, g));
+                    var guestEmail = new EventGuestNotificationFactory().Create(_httpContext, _clientConfig, eventDetails, adDetails, Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, includeSchemeAndProtocol: true), _eventBookingContext.Purchaser);
+                    _eventBookingContext.EmailGuestList.Do(guests => guests.ForEach(g => _broadcastManager.Queue(guestEmail, g)));
                 }
 
                 return View(viewModel);

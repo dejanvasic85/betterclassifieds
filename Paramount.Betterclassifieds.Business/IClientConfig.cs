@@ -5,6 +5,7 @@
     // Todo - these should actually all have a get and set, and have an associated audiatable object
     public interface IClientConfig
     {
+        string BrandName { get; }
         int RestrictedEditionCount { get; }
         int RestrictedOnlineDaysCount { get; }
         int NumberOfDaysAfterLastEdition { get; }

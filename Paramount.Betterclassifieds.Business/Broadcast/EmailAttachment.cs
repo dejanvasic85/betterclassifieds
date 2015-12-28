@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mime;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Paramount.Betterclassifieds.Business.Broadcast
+﻿namespace Paramount.Betterclassifieds.Business.Broadcast
 {
     public class EmailAttachment
     {

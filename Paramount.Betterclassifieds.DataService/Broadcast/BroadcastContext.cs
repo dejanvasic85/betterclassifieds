@@ -23,12 +23,13 @@ namespace Paramount.Betterclassifieds.DataService.Broadcast
         public IDbSet<Notification> Notifications { get; set; } 
         public IDbSet<Email> Emails { get; set; }
         public IDbSet<EmailTemplate> EmailTemplates { get; set; }
-        
+        public IDbSet<EmailAttachment> EmailAttachments { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new NotificationConfiguration());
             modelBuilder.Configurations.Add(new EmailDeliveryConfiguration());
             modelBuilder.Configurations.Add(new EmailTemplateConfiguration());
+            modelBuilder.Configurations.Add(new EmailAttachmentConfiguration());
         }
     }
 }

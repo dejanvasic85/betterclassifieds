@@ -52,7 +52,7 @@
                     .Where(n => !n.IsComplete)
                     .Take(takeAmount)
                     .OrderBy(n => n.CreatedDate);
-                    
+
                 return notifications.ToList();
             }
         }
@@ -92,7 +92,12 @@
         {
             using (var context = _dbContextFactory.CreateBroadcastContext())
             {
-                return context.Emails.Where(email => email.BroadcastId == broadcastId && email.SentDate == null).ToArray();
+                return context
+                    .Emails
+                    .Where(email => email.BroadcastId == broadcastId)
+                    .Where(email => email.SentDate == null)
+                    .Include(email => email.EmailAttachments)
+                    .ToArray();
             }
         }
     }

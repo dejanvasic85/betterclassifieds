@@ -39,7 +39,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             // Construct the body and subject by performing the parsing on each
             var subject = parser.ParseToString(emailTemplate.SubjectTemplate, docType.ToPlaceholderDictionary());
             var body = parser.ParseToString(emailTemplate.BodyTemplate, docType.ToPlaceholderDictionary());
-            
+
             var email = new Email(broadcastId, subject, body, emailTemplate.IsBodyHtml, emailTemplate.DocType, emailTemplate.From, to);
 
             if (docType.Attachments != null)
@@ -68,8 +68,8 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         public DateTime? ModifiedDateUtc { get; private set; }
         public string LastErrorMessage { get; private set; }
         public string LastErrorStackTrace { get; private set; }
-        
-        public EmailAttachment[] EmailAttachments { get; private set; }
+
+        public IList<EmailAttachment> EmailAttachments { get; private set; }
 
         private void IncrementAttempts()
         {
@@ -101,8 +101,8 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
 
             try
             {
-                smtp.SendEmail(Subject, Body, From, EmailAttachments, To);
-                
+                smtp.SendEmail(Subject, Body, From, EmailAttachments.ToArray(), To);
+
                 MarkAsSent();
             }
             catch (Exception ex)
@@ -113,7 +113,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
 
         public bool ReachedMaxAttempts
         {
-            get { return  Attempts >= 3; }
+            get { return Attempts >= 3; }
         }
 
         public bool IsComplete

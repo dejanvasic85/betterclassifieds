@@ -22,6 +22,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             ModifiedDate = DateTime.Now;
             ModifiedDateUtc = DateTime.UtcNow;
             DocType = docType;
+            EmailAttachments = new EmailAttachment[0];
         }
 
         public static Email BuildWithTemplate<T>(T docType, EmailTemplate emailTemplate, Guid broadcastId, params string[] to) where T : IDocType

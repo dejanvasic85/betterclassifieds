@@ -47,7 +47,7 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
                 .SetupWithVerification(call => call.CreateOrUpdateNotification(It.IsAny<Notification>()));
 
             var notificationMockProcessor = _mockRepository.CreateMockOf<INotificationProcessor>(_container, _verifications)
-                .SetupWithVerification(call => call.Retry(It.IsAny<Guid>()), true);
+                .SetupWithVerification(call => call.Send(It.IsAny<Guid>()), true);
 
 
             // Act
@@ -74,10 +74,10 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
                 .SetupWithVerification(call => call.CreateOrUpdateNotification(It.IsAny<Notification>()));
 
             var notificationMockProcessor = _mockRepository.CreateMockOf<INotificationProcessor>(_container, _verifications)
-                .SetupWithVerification(call => call.Retry(It.IsAny<Guid>()), true);
+                .SetupWithVerification(call => call.Send(It.IsAny<Guid>()), true);
 
             var badMockProcessor = _mockRepository.CreateMockOf<INotificationProcessor>(_container, _verifications)
-                .SetupWithVerification(call => call.Retry(It.IsAny<Guid>()), false);
+                .SetupWithVerification(call => call.Send(It.IsAny<Guid>()), false);
             var applicationConfig = _mockRepository.CreateMockOf<IApplicationConfig>();
 
             // Act

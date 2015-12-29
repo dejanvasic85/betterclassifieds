@@ -94,7 +94,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 .SetupWithVerification(call => call.SendEmail(
                     It.IsAny<SupportRequest>(),
                     It.Is<string[]>(s => s == supportEmails)),
-                    result: It.IsAny<Guid>());
+                    result: It.IsAny<Notification>());
 
             CreateMockOf<IEnquiryManager>()
                 .SetupWithVerification(call => call.CreateSupportEnquiry(

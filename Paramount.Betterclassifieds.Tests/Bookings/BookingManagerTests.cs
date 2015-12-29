@@ -11,46 +11,10 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
     using System;
     using System.Collections.Generic;
     using Business.Payment;
-
-
+    
     [TestFixture]
     public class BookingManagerTests
     {
-        private MockRepository _mockRepository;
-        private List<Action> _verifyList;
-        private IUnityContainer _container;
-
-        private Mock<IBookingRepository> _bookingRepositoryMock;
-        private Mock<IAdRepository> _adRepository;
-        private Mock<IPublicationRepository> _publicationRepositoryMock;
-        private Mock<IClientConfig> _clientConfigMock;
-        private Mock<IPaymentsRepository> _paymentRepositoryMock;
-        private Mock<IUserManager> _userManagerMock;
-        private Mock<IBroadcastManager> _broadcastManagerMock;
-        private Mock<IBookingContext> _bookingContext;
-        private Mock<IBookCartRepository> _cartRepositoryMock;
-        private Mock<ICategoryAdRepositoryFactory> _categoryAdRepositoryMock;
-
-        [SetUp]
-        public void Setup()
-        {
-            _mockRepository = new MockRepository(MockBehavior.Strict);
-            _verifyList = new List<Action>();
-            _container = new UnityContainer().RegisterType<IBookingManager, BookingManager>();
-
-            // Register all the mocks with the container
-            _bookingRepositoryMock = _mockRepository.CreateMockOf<IBookingRepository>(_container);
-            _adRepository = _mockRepository.CreateMockOf<IAdRepository>(_container, _verifyList);
-            _publicationRepositoryMock = _mockRepository.CreateMockOf<IPublicationRepository>(_container);
-            _clientConfigMock = _mockRepository.CreateMockOf<IClientConfig>(_container);
-            _paymentRepositoryMock = _mockRepository.CreateMockOf<IPaymentsRepository>(_container);
-            _userManagerMock = _mockRepository.CreateMockOf<IUserManager>(_container);
-            _broadcastManagerMock = _mockRepository.CreateMockOf<IBroadcastManager>(_container);
-            _bookingContext = _mockRepository.CreateMockOf<IBookingContext>(_container);
-            _cartRepositoryMock = _mockRepository.CreateMockOf<IBookCartRepository>(_container);
-            _categoryAdRepositoryMock = _mockRepository.CreateMockOf<ICategoryAdRepositoryFactory>(_container);
-        }
-
         [TearDown]
         public void CleanTest()
         {
@@ -128,11 +92,47 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
             _adRepository.Setup(call => call.CreateAdEnquiry(It.IsAny<AdEnquiry>())).Callback<AdEnquiry>(a => a.EnquiryId = 100);
             _bookingRepositoryMock.Setup(call => call.GetBooking(It.Is<int>(i => i == mockAdEnquiry.AdId), false, false, false, false)).Returns(mockBooking);
             _userManagerMock.Setup(call => call.GetUserByEmailOrUsername(It.Is<string>(s => s == mockBooking.UserId))).Returns(mockApplicationUser);
-            _broadcastManagerMock.Setup(call => call.SendEmail(It.IsAny<AdEnquiryTemplate>(), It.IsAny<string[]>())).Returns(Guid.NewGuid());
+            _broadcastManagerMock.Setup(call => call.SendEmail(It.IsAny<AdEnquiryTemplate>(), It.IsAny<string[]>()))
+                .Returns(It.IsAny<Notification>());
 
             var bookingManager = _container.Resolve<BookingManager>();
 
             bookingManager.SubmitAdEnquiry(mockAdEnquiry);
+        }
+
+        private MockRepository _mockRepository;
+        private List<Action> _verifyList;
+        private IUnityContainer _container;
+
+        private Mock<IBookingRepository> _bookingRepositoryMock;
+        private Mock<IAdRepository> _adRepository;
+        private Mock<IPublicationRepository> _publicationRepositoryMock;
+        private Mock<IClientConfig> _clientConfigMock;
+        private Mock<IPaymentsRepository> _paymentRepositoryMock;
+        private Mock<IUserManager> _userManagerMock;
+        private Mock<IBroadcastManager> _broadcastManagerMock;
+        private Mock<IBookingContext> _bookingContext;
+        private Mock<IBookCartRepository> _cartRepositoryMock;
+        private Mock<ICategoryAdRepositoryFactory> _categoryAdRepositoryMock;
+
+        [SetUp]
+        public void Setup()
+        {
+            _mockRepository = new MockRepository(MockBehavior.Strict);
+            _verifyList = new List<Action>();
+            _container = new UnityContainer().RegisterType<IBookingManager, BookingManager>();
+
+            // Register all the mocks with the container
+            _bookingRepositoryMock = _mockRepository.CreateMockOf<IBookingRepository>(_container);
+            _adRepository = _mockRepository.CreateMockOf<IAdRepository>(_container, _verifyList);
+            _publicationRepositoryMock = _mockRepository.CreateMockOf<IPublicationRepository>(_container);
+            _clientConfigMock = _mockRepository.CreateMockOf<IClientConfig>(_container);
+            _paymentRepositoryMock = _mockRepository.CreateMockOf<IPaymentsRepository>(_container);
+            _userManagerMock = _mockRepository.CreateMockOf<IUserManager>(_container);
+            _broadcastManagerMock = _mockRepository.CreateMockOf<IBroadcastManager>(_container);
+            _bookingContext = _mockRepository.CreateMockOf<IBookingContext>(_container);
+            _cartRepositoryMock = _mockRepository.CreateMockOf<IBookCartRepository>(_container);
+            _categoryAdRepositoryMock = _mockRepository.CreateMockOf<ICategoryAdRepositoryFactory>(_container);
         }
     }
 }

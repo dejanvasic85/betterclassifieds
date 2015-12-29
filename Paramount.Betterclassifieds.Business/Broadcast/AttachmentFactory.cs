@@ -23,8 +23,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             return calendarData.ToByteArray();
         }
 
-        private const string CalendarTemplate = @"
-            BEGIN:VCALENDAR
+        private const string CalendarTemplate = @"BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//{{Brand}}//{{Brand}} Events v1.0//EN
 CALSCALE:GREGORIAN
@@ -56,7 +55,7 @@ DTEND;TZID=Australia/Melbourne:{{EventEndDate}}
 STATUS:CONFIRMED
 SUMMARY:{{EventName}}
 DESCRIPTION:{{EventDescription}}
-ORGANIZER;CN=Meetup Reminder:MAILTO:{{SupportEmail}}
+ORGANIZER;CN={{Brand}} Reminder:MAILTO:{{SupportEmail}}
 CLASS:PUBLIC
 CREATED:{{CreatedDateTime}}
 GEO:{{Latitude}};{{Logitude}}
@@ -66,7 +65,6 @@ SEQUENCE:2
 LAST-MODIFIED:{{CreatedDateTime}}
 UID:{{EventId}}
 END:VEVENT
-END:VCALENDAR
-";
+END:VCALENDAR";
     }
 }

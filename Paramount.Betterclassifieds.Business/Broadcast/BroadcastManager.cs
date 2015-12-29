@@ -8,8 +8,19 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
 {
     public interface IBroadcastManager
     {
-        Guid SendEmail<T>(T docType, params string[] to) where T : IDocType;
+        /// <summary>
+        /// Sends an email immediately
+        /// </summary>
+        Notification SendEmail<T>(T docType, params string[] to) where T : IDocType;
+
+        /// <summary>
+        /// Saves the notification to the database queue so that it's picked up by offline processor 
+        /// </summary>
         Notification Queue<T>(T docType, params string[] to) where T : IDocType;
+
+        /// <summary>
+        /// Does the processing of all unsent emails in the queue
+        /// </summary>
         void ProcessUnsent(int takeAmount = 10);
     }
 
@@ -34,7 +45,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             }
         }
 
-        public Guid SendEmail<T>(T docType, params string[] to) where T : IDocType
+        public Notification SendEmail<T>(T docType, params string[] to) where T : IDocType
         {
             var notification = Queue(docType, to);
 
@@ -43,12 +54,12 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             // that have a subscription system tied inside it ( per document type )
 
             var emailProcessor = _processors.OfType<EmailProcessor>().First();
-            notification.IsComplete = emailProcessor.Send(docType, notification.BroadcastId, docType.ToPlaceholderDictionary(), to);
+            notification.IsComplete = emailProcessor.Send(notification.BroadcastId);
 
             // Persist back to repository
             _broadcastRepository.CreateOrUpdateNotification(notification);
 
-            return notification.BroadcastId;
+            return notification;
         }
 
         public Notification Queue<T>(T docType, params string[] to) where T : IDocType
@@ -79,7 +90,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
                 var tasks = _processors
                     .Select(processor =>
                     {
-                        var task = Task<bool>.Factory.StartNew(() => processor.Retry(notification.BroadcastId));
+                        var task = Task<bool>.Factory.StartNew(() => processor.Send(notification.BroadcastId));
                         results.Add(task.Result);
                         return task;
                     }).ToArray();

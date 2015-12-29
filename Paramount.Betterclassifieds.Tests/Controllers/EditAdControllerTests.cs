@@ -182,7 +182,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             _broadcastManagerMock.SetupWithVerification(call => call.SendEmail(
                 It.IsAny<Business.Broadcast.EventPaymentRequest>(),
-                It.Is<string[]>(p => p == supportEmails)), Guid.NewGuid());
+                It.Is<string[]>(p => p == supportEmails)), new Notification(Guid.NewGuid()));
 
             // act
             var controller = BuildController(mockUser: mockUser);

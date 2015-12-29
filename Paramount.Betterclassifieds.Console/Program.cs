@@ -21,7 +21,7 @@ namespace Paramount.Betterclassifieds.Console
 #if DEBUG
                 program.Start(new[]
                 {
-                    TaskArguments.TaskFullArgName, typeof(Tasks.EmailProcessor).Name, "-take", "20"
+                    TaskArguments.TaskFullArgName, typeof(Tasks.CalendarEmailSender).Name
                 });
 
 #else

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Paramount.Betterclassifieds.Business.Broadcast
 {
@@ -49,9 +50,9 @@ RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=1SU
 END:DAYLIGHT 
 END:VTIMEZONE
 BEGIN:VEVENT
-DTSTAMP:20151030T035620Z
-DTSTART;TZID=Australia/Melbourne:{{EventStartDate}}
-DTEND;TZID=Australia/Melbourne:{{EventEndDate}}
+DTSTAMP:20160130T035620Z
+DTSTART;TZID=Australia/Melbourne:20160112T183000
+DTEND;TZID=Australia/Melbourne:20160112T213000
 STATUS:CONFIRMED
 SUMMARY:{{EventName}}
 DESCRIPTION:{{EventDescription}}

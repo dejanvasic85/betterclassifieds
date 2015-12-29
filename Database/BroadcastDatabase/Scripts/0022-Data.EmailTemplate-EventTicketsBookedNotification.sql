@@ -67,14 +67,14 @@ begin
 end
 
 UPDATE	EmailTemplate
-SET	[SubjectTemplate]  = 'See you at [/EventName/]',
+SET	[SubjectTemplate]  = 'Tickets for [/EventName/]',
 	[From] = 'kandobay-support@kandobay.com.au',
 	[BodyTemplate] = 'Thank you for purchasing tickets with KandoBay. Your tickets should be attached to this email ready to be printed.'
 WHERE	DocType	= @docTypeName
 	and Brand = @kandoBayBrand
 
 	UPDATE	EmailTemplate
-SET	[SubjectTemplate]  = 'See you at [/EventName/]',
+SET	[SubjectTemplate]  = 'Tickets for [/EventName/]',
 	[From] = 'classies@themusic.com.au',
 	[BodyTemplate] = 'Thank you for purchasing tickets at TheMusic. Your tickets should be attached to this email ready to be printed.'
 WHERE	DocType	= @docTypeName

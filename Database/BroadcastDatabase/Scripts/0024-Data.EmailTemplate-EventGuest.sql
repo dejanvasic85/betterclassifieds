@@ -67,7 +67,7 @@ begin
 end
 
 UPDATE	EmailTemplate
-SET	[SubjectTemplate]  = 'Event Payment Request',
+SET	[SubjectTemplate]  = 'See you at [/EventName/]',
 	[From] = 'kandobay-support@kandobay.com.au',
 	[BodyTemplate] = '<!DOCTYPE html>
 <html lang="en">
@@ -115,7 +115,7 @@ WHERE	DocType	= @docTypeName
 	and Brand = @kandoBayBrand
 
 UPDATE	EmailTemplate
-SET	[SubjectTemplate]  = 'Event Payment Request',
+SET	[SubjectTemplate]  = 'See you at [/EventName/]',
 	[From] = 'classies@themusic.com.au',
 	[BodyTemplate] = '<!DOCTYPE html>
 <html lang="en">

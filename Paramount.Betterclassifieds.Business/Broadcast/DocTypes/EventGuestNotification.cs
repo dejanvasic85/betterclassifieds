@@ -36,7 +36,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
                  new EmailAttachment
                  {
                      ContentType = ContentType.Calendar,
-                     FileName = "event.ics",
+                     FileName = "Event_Invite.ics",
                      Content = calendarContent
                  }
             };

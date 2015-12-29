@@ -32,12 +32,15 @@
             if ($paramount.checkValidity(me, me.tickets(), me.ticketFields()) === false) {
                 return;
             }
-
+            
             var $button = $(jQueryEl.toElement);
             $button.button('loading');
             var eventTicketingSetup = ko.toJS(me);
             adDesignService.updateEventTicketDetails(eventTicketingSetup)
-                .complete(function () {
+                .then(function (resp) {
+                    if (resp.nextUrl) {
+                        return;
+                    }
                     $button.button('reset');
                 });
         }

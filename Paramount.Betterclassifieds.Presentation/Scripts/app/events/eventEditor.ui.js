@@ -15,9 +15,9 @@
 
                 $.extend(options, {
                     adDesignService: adDesignService,
-                    imageService : imageService
+                    imageService: imageService
                 });
-                
+
                 // Initally load the data
                 adDesignService.getCurrentEventDetails().done(function (response) {
                     eventDetailsModel = new $paramount.models.EventAd(response, options);
@@ -33,7 +33,7 @@
                         eventDetailsModel.eventPhoto(documentId);
                         eventDetailsModel.eventPhotoUploadError(null);
                     },
-                    error: function(errorMsg) {
+                    error: function (errorMsg) {
                         eventDetailsModel.eventPhotoUploadError(errorMsg);
                     }
                 });
@@ -42,7 +42,10 @@
                     if ($(this).valid() === false) {
                         return;
                     }
-                    eventDetailsModel.submitChanges().complete(function() {
+                    eventDetailsModel.submitChanges().then(function (resp) {
+                        if (resp.nextUrl) {
+                            return;
+                        }
                         $eventEditor.find('button').button('reset');
                     });
                     e.preventDefault();

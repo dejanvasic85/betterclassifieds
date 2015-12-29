@@ -14,6 +14,7 @@ Here's a list of the latest changes for the current release:
 - [Events - Organiser can request payment with direct debit or paypal](https://trello.com/c/1Y6sOeyG/345-events-organiser-needs-to-specify-bank-details-when-requesting-payment-or-paypal-email)
 - [Events - Closing date can be used to automatically disable the purchasing of tickets](https://trello.com/c/eSGhQT1Q/363-allow-the-event-organiser-to-setup-a-closing-date-for-tickets)
 - [Events - Each guest should get an email about the event unless purchaser opts out](https://trello.com/c/rWz5XKOv/365-each-guest-should-receive-an-email-for-the-event)
+- [Events - Calendar invite is now included in the email for each guest](https://trello.com/c/OFOT0BBd/324-add-calendar-invite-for-each-guest)
 - [Members can update their profile with payment details](https://trello.com/c/5jfeFNQ7/362-user-ability-to-update-their-profile-with-payment-details)
 - [Contact advertiser form now requires a login rather than a CAPTCHA](https://trello.com/c/5bxvSRBU/329-contact-advertiser-with-a-login-only-little-counter-intuitive-but-beats-the-captcha-usage-and-more-secure)
 - [No more captcha for contacting support team](https://trello.com/c/BBLPYpTa/331-remove-the-captcha-from-the-contact-us-page-no-need)

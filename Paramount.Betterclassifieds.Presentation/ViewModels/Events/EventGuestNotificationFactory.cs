@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Web;
+﻿using System.Web;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Events;
@@ -10,17 +9,17 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
     public class EventGuestNotificationFactory
     {
         public EventGuestNotification Create(HttpContextBase httpContext, IClientConfig config, 
-            EventModel eventModel, AdSearchResult ad, string eventUrl, string purchaser)
+            EventModel eventModel, AdSearchResult ad, string eventUrl, string purchaserName, string guestEmail)
         {
             var notification = new EventGuestNotification
              {
                 EventName = ad.Heading,
                 EventUrl = eventUrl,
-                PurchaserName = purchaser,
+                PurchaserName = purchaserName,
                 ClientName = config.ClientName,
                 Location = eventModel.Location,
-                EventStartDate = eventModel.EventStartDate.GetValueOrDefault().ToString("dd-MMM-yyyy hh:mm tt"),
-                EventEndDate = eventModel.EventStartDate.GetValueOrDefault().ToString("dd-MMM-yyyy hh:mm tt")
+                EventStartDate = eventModel.EventStartDate.GetValueOrDefault().ToString("dd-MMM-yyyy h:mm tt"),
+                EventEndDate = eventModel.EventEndDate.GetValueOrDefault().ToString("dd-MMM-yyyy h:mm tt")
             };
 
             var calendarAttachmentContent = new AttachmentFactory().CreateCalendarInvite(config.BrandName,
@@ -29,10 +28,11 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 ad.Description,
                 eventModel.EventStartDate.GetValueOrDefault(),
                 eventModel.EventEndDate.GetValueOrDefault(),
-                config.SupportEmailList.First(),
+                guestEmail,
                 eventModel.Location,
                 eventModel.LocationLatitude.GetValueOrDefault(),
-                eventModel.LocationLongitude.GetValueOrDefault());
+                eventModel.LocationLongitude.GetValueOrDefault(),
+                eventUrl);
 
             notification.WithCalendarInvite(calendarAttachmentContent);
 

@@ -223,8 +223,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
                 if (_eventBookingContext.EmailGuestList != null && _eventBookingContext.EmailGuestList.Length > 0)
                 {
-                    var guestEmail = new EventGuestNotificationFactory().Create(_httpContext, _clientConfig, eventDetails, adDetails, Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, includeSchemeAndProtocol: true), _eventBookingContext.Purchaser);
-                    _eventBookingContext.EmailGuestList.Do(guests => guests.ForEach(g => _broadcastManager.Queue(guestEmail, g)));
+                    foreach (var guest in _eventBookingContext.EmailGuestList)
+                    {
+                        var eventUrl = Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, includeSchemeAndProtocol: true, routeName: "Event");
+                        var notification = new EventGuestNotificationFactory().Create(_httpContext, _clientConfig, eventDetails, adDetails, eventUrl, _eventBookingContext.Purchaser, guest);
+                        _broadcastManager.Queue(notification, guest);
+                    }
                 }
 
                 return View(viewModel);
@@ -313,7 +317,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         private readonly HttpContextBase _httpContext;
-        private readonly EventBookingContext _eventBookingContext;
+        private readonly IEventBookingContext _eventBookingContext;
         private readonly ISearchService _searchService;
         private readonly IEventManager _eventManager;
         private readonly IClientConfig _clientConfig;
@@ -324,7 +328,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IBookingManager _bookingManager;
         private readonly IEventTicketReservationFactory _eventTicketReservationFactory;
 
-        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IAuthManager authManager, EventBookingContext eventBookingContext, IPaymentService paymentService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory)
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IAuthManager authManager, IEventBookingContext eventBookingContext, IPaymentService paymentService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory)
         {
             _searchService = searchService;
             _eventManager = eventManager;

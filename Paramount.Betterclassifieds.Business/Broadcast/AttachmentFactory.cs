@@ -5,67 +5,49 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
 {
     public class AttachmentFactory
     {
-        public byte[] CreateCalendarInvite(string brand, int eventId, string eventName, string eventDescription, 
-            DateTime eventStartDate, DateTime eventEndDate, string supportEmail, string location, decimal latitude, decimal longitude)
+        public byte[] CreateCalendarInvite(string brand, int eventId, string eventName, string eventDescription,
+            DateTime eventStartDate, DateTime eventEndDate, string reminderEmail, string location, decimal latitude,
+            decimal longitude, string eventUrl)
         {
-            var calendarData = CalendarTemplate
-                .Replace("{{Brand}}", brand)
-                .Replace("{{EventName}}", eventName)
-                .Replace("{{EventDescription}}", eventDescription)
-                .Replace("{{EventStartDate}}", eventStartDate.ToString())
-                .Replace("{{EventEndDate}}", eventEndDate.ToString())
-                .Replace("{{SupportEmail}}", supportEmail)
-                .Replace("{{Location}}", location)
-                .Replace("{{Latitude}}", latitude.ToString())
-                .Replace("{{Longitude}}", longitude.ToString())
-                .Replace("{{CreatedDateTime}}", DateTime.Now.ToString())
-                .Replace("{{EventId}}", eventId.ToString())
-                ;
-            return calendarData.ToByteArray();
+            var sb = new StringBuilder();
+
+            sb.AppendLine("BEGIN:VCALENDAR");
+            sb.AppendLine("VERSION:2.0");
+            sb.AppendFormat("PRODID:-//{0}/{0}//NONSGML v1.0//EN{1}", brand, Environment.NewLine);
+            sb.AppendLine("BEGIN:VEVENT");
+
+            string startDay = string.Format("{0}{1}",
+                GetFormatedDate(eventStartDate), GetFormattedTime(eventStartDate));
+
+            string endDay = string.Format("{0}{1}",
+                GetFormatedDate(eventEndDate), GetFormattedTime(eventEndDate));
+
+            sb.AppendLine("DTSTART;TZID=Australia/Melbourne:" + startDay);
+            sb.AppendLine("DTEND;TZID=Australia/Melbourne:" + endDay);
+            //sb.AppendLine("DTSTART;" + startDay);
+            //sb.AppendLine("DTEND;" + endDay);
+            sb.AppendLine("STATUS:CONFIRMED");
+            sb.AppendLine("SUMMARY:" + eventName);
+            sb.AppendLine("DESCRIPTION:" + eventDescription);
+            sb.AppendFormat("ORGANIZER;CN={0} Reminder:MAILTO:{1}{2}", brand, reminderEmail, Environment.NewLine);
+            sb.AppendFormat("GEO:{0};{1}{2}", latitude, longitude, Environment.NewLine);
+            sb.AppendLine("LOCATION:" + location);
+            sb.AppendFormat("URL:{0}{1}", eventUrl, Environment.NewLine);
+            sb.AppendFormat("UID:{0}{1}", eventId, Environment.NewLine);
+            sb.AppendLine("END:VEVENT");
+            sb.AppendLine("END:VCALENDAR");
+
+            return sb.ToString().ToByteArray();
         }
 
-        private const string CalendarTemplate = @"BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//{{Brand}}//{{Brand}} Events v1.0//EN
-CALSCALE:GREGORIAN
-METHOD:PUBLISH
-X-WR-CALNAME:Events - {{EventName}}
-X-MS-OLK-FORCEINSPECTOROPEN:TRUE
-BEGIN:VTIMEZONE
-TZID:Australia/Melbourne
-X-LIC-LOCATION:Australia/Melbourne
-BEGIN:STANDARD
-TZOFFSETFROM:+1100
-TZOFFSETTO:+1000
-TZNAME:AEST
-DTSTART:19700405T030000
-RRULE:FREQ=YEARLY;BYMONTH=4;BYDAY=1SU
-END:STANDARD
-BEGIN:DAYLIGHT
-TZOFFSETFROM:+1000
-TZOFFSETTO:+1100
-TZNAME:AEDT
-DTSTART:19701004T020000
-RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=1SU
-END:DAYLIGHT 
-END:VTIMEZONE
-BEGIN:VEVENT
-DTSTAMP:20160130T035620Z
-DTSTART;TZID=Australia/Melbourne:20160112T183000
-DTEND;TZID=Australia/Melbourne:20160112T213000
-STATUS:CONFIRMED
-SUMMARY:{{EventName}}
-DESCRIPTION:{{EventDescription}}
-ORGANIZER;CN={{Brand}} Reminder:MAILTO:{{SupportEmail}}
-CLASS:PUBLIC
-CREATED:{{CreatedDateTime}}
-GEO:{{Latitude}};{{Logitude}}
-LOCATION:{{Location}}
-URL:{{EventUrl}}
-SEQUENCE:2
-LAST-MODIFIED:{{CreatedDateTime}}
-UID:{{EventId}}
-END:VEVENT
-END:VCALENDAR";
+        private string GetFormatedDate(DateTime date)
+        {
+            return string.Format("{0:00}{1:00}{2:00}", date.Year, date.Month, date.Day);
+        }
+
+        private string GetFormattedTime(DateTime dateTime)
+        {
+            return string.Format("T{0:00}{1:00}{2:00}", dateTime.Hour, dateTime.Minute, dateTime.Second);
+        }
     }
 }

@@ -272,8 +272,19 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventBookingContext.Object.Purchaser.IsEqualTo("John Smith");
         }
 
+        [Test]
+        public void EventBooked_Get_NotActiveEventContext_ReturnsNotFound()
+        { 
+            _eventBookingContext.SetupWithVerification(call => call.EventId, null);
+
+            var result = BuildController().EventBooked();
+
+            var redirectResult = result.IsTypeOf<RedirectToRouteResult>();
+            redirectResult.RedirectResultIsNotFound();
+        }
+
         private Mock<HttpContextBase> _httpContext;
-        private Mock<EventBookingContext> _eventBookingContext;
+        private Mock<IEventBookingContext> _eventBookingContext;
         private Mock<ISearchService> _searchService;
         private Mock<IEventManager> _eventManager;
         private Mock<IClientConfig> _clientConfig;
@@ -290,7 +301,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         {
             _mockUser = CreateMockOf<IPrincipal>();
             _httpContext = CreateMockOf<HttpContextBase>();
-            _eventBookingContext = CreateMockOf<EventBookingContext>();
+            _eventBookingContext = CreateMockOf<IEventBookingContext>();
             _searchService = CreateMockOf<ISearchService>();
             _eventManager = CreateMockOf<IEventManager>();
             _clientConfig = CreateMockOf<IClientConfig>();

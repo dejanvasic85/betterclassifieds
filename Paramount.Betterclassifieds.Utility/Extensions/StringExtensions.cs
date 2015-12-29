@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.IO;
 using System.Net.Mime;
 using System.Text;
 
@@ -186,9 +187,14 @@ namespace Paramount
 
         public static byte[] ToByteArray(this string str)
         {
-            byte[] bytes = new byte[str.Length * sizeof(char)];
-            System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
-            return bytes;
+            using (var ms = new MemoryStream())
+            {
+                var enc = new UTF8Encoding();
+                byte[] arrBytData = enc.GetBytes(str);
+                ms.Write(arrBytData, 0, arrBytData.Length);
+                ms.Position = 0;
+                return arrBytData;
+            }
         }
     }
 }

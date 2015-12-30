@@ -772,6 +772,7 @@
     <Content Include="Views\Booking\Step2_EventTickets.cshtml" />
     <Content Include="Views\EditAd\EventGuestList.cshtml" />
     <Content Include="Views\EditAd\EventPaymentRequest.cshtml" />
+    <Content Include="Views\Shared\_LayoutInvoice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Framework\Validators\" />

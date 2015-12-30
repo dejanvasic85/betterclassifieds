@@ -1,151 +1,139 @@
 ﻿@model InvoiceView
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_LayoutInvoice.cshtml";
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <title>Invoice Details</title>
-    @Styles.Render("~/Content/css-base")
-</head>
-<body>
-    <div class="container-fluid">
+<div class="container-fluid">
 
-        @if (Model == null)
-        {
-            <div class="alert alert-danger">
-                <p>Good news: We have new and great looking invoices</p>
-                <p>
-                    Bad News : You have selected an older booking and we are unable to
-                    generate this new invoice for you.
-                </p>
-                <p>
-                    Please <a href="@Url.Action("ContactUs", "Home")">contact our friendly staff</a>
-                    if you need to organise a new copy. Thank you.
-                </p>
+    @if (Model == null)
+    {
+        <div class="alert alert-danger">
+            <p>Good news: We have new and great looking invoices</p>
+            <p>
+                Bad News : You have selected an older booking and we are unable to
+                generate this new invoice for you.
+            </p>
+            <p>
+                Please <a href="@Url.Action("ContactUs", "Home")">contact our friendly staff</a>
+                if you need to organise a new copy. Thank you.
+            </p>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-xs-6">
+                <h2>@Model.BusinessName</h2>
             </div>
-        }
-        else
-        {
-            <div class="row">
-                <div class="col-xs-6">
-                    <h2>@Model.BusinessName</h2>
-                </div>
-                <div class="col-xs-6">
-                    <h4 class="pull-right">Invoice Date : @Model.CreatedDate.ToString("dd-MMM-yyyy")</h4>
-                </div>
+            <div class="col-xs-6">
+                <h4 class="pull-right">Invoice Date : @Model.CreatedDate.ToString("dd-MMM-yyyy")</h4>
             </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4>From : @Model.BusinessName</h4>
-                        </div>
-                        <div class="panel-body">
-                            <p>
-                                A: @Model.BusinessAddress <br>
-                                P: @Model.BusinessPhone <br>
-                            </p>
-                        </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>From : @Model.BusinessName</h4>
                     </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4>To : @Model.RecipientName</h4>
-                        </div>
-                        <div class="panel-body">
-                            A: @Model.RecipientAddress <br />
-                            P: @Model.RecipientPhoneNumber <br />
-                        </div>
+                    <div class="panel-body">
+                        <p>
+                            A: @Model.BusinessAddress <br>
+                            P: @Model.BusinessPhone <br>
+                        </p>
                     </div>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Summary
-                        </div>
-                        <ul class="list-group">
-                            <li class="list-group-item">Booking Number : @Model.BookingReference</li>
-                            <li class="list-group-item">Booking Start Date : @Model.BookingStartDate.ToString("dd-MMM-yyyy")</li>
-                            <li class="list-group-item">Total : @Model.Total.ToString("C")</li>
-                        </ul>
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>To : @Model.RecipientName</h4>
+                    </div>
+                    <div class="panel-body">
+                        A: @Model.RecipientAddress <br />
+                        P: @Model.RecipientPhoneNumber <br />
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="row">
-                <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Summary
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item">Booking Number : @Model.BookingReference</li>
+                        <li class="list-group-item">Booking Start Date : @Model.BookingStartDate.ToString("dd-MMM-yyyy")</li>
+                        <li class="list-group-item">Total : @Model.Total.ToString("C")</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Item Details
-                        </div>
+        <div class="row">
+            <div class="col-xs-12">
 
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Item Name</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    @if (Model.IsLineAd)
-                                    {
-                                        <th>
-                                            Editions
-                                        </th>
-                                    }
-                                    <th>Total</th>
-                                </tr>
-                            </thead>
-                            @foreach (var group in @Model.InvoiceGroups)
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Item Details
+                    </div>
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                @if (Model.IsLineAd)
+                                {
+                                    <th>
+                                        Editions
+                                    </th>
+                                }
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        @foreach (var group in @Model.InvoiceGroups)
+                        {
+                            <tr>
+                                <td colspan="5">
+                                    <strong>@group.Name</strong>
+                                </td>
+                            </tr>
+                            foreach (var item in group.InvoiceLineItems)
                             {
                                 <tr>
-                                    <td colspan="5">
-                                        <strong>@group.Name</strong>
-                                    </td>
+                                    <td>@item.Name</td>
+                                    <td>@item.Price.ToString("C")</td>
+                                    <td>@item.Quantity</td>
+
+                                    @if (Model.IsLineAd)
+                                    {
+                                        <td>@item.Editions</td>
+                                    }
+                                    <td>@item.ItemTotal.ToString("C")</td>
                                 </tr>
-                                foreach (var item in group.InvoiceLineItems)
-                                {
-                                    <tr>
-                                        <td>@item.Name</td>
-                                        <td>@item.Price.ToString("C")</td>
-                                        <td>@item.Quantity</td>
-
-                                        @if (Model.IsLineAd)
-                                        {
-                                            <td>@item.Editions</td>
-                                        }
-                                        <td>@item.ItemTotal.ToString("C")</td>
-                                    </tr>
-                                }
                             }
-                        </table>
+                        }
+                    </table>
 
-                    </div>
+                </div>
 
 
-                    <div class="pull-right">
-                        <h2>Total (paid): @Model.Total.ToString("C")</h2>
-                    </div><div class="clearfix"></div>
-                    <div class="clearfix"></div>
-                    <div class="alert alert-info">
-                        Note: All prices are tax inclusive.
-                    </div>
-                    <div class="alert alert-success">
-                        PayPal transaction number : <strong>@Model.PaymentReference</strong>
-                    </div>
+                <div class="pull-right">
+                    <h2>Total (paid): @Model.Total.ToString("C")</h2>
+                </div><div class="clearfix"></div>
+                <div class="clearfix"></div>
+                <div class="alert alert-info">
+                    Note: All prices are tax inclusive.
+                </div>
+                <div class="alert alert-success">
+                    PayPal transaction number : <strong>@Model.PaymentReference</strong>
                 </div>
             </div>
-        }
-
-
-    </div>
-</body>
-
-</html>
+        </div>
+    }
+</div>

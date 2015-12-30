@@ -45,12 +45,7 @@
             return (T)converted;
 
         }
-
-        public string BrandName
-        {
-            get { return ConfigurationManager.AppSettings["Brand"]; }
-        }
-
+        
         public int RestrictedEditionCount
         {
             // Print setting

@@ -12,6 +12,7 @@ using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Controllers;
+using Paramount.Betterclassifieds.Presentation.Services;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 using Paramount.Betterclassifieds.Tests.Mocks;
 
@@ -201,6 +202,11 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventManager.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(), It.IsAny<ApplicationUser>(), It.IsAny<IEnumerable<EventTicketReservation>>()), mockEventBooking);
             _userManager.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.IsAny<string>()), mockApplicationUser);
 
+            _eventBookingContext.SetupSet(p => p.EventId = It.IsAny<int?>());
+            _eventBookingContext.SetupSet(p => p.EventBookingId = It.IsAny<int?>());
+            _eventBookingContext.SetupSet(p => p.Purchaser = It.IsAny<string>());
+            _eventBookingContext.SetupSet(p => p.EmailGuestList = It.IsAny<string[]>());
+            
 
             // act
             var controller = BuildController(mockUser: _mockUser);
@@ -257,6 +263,12 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _userManager.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.IsAny<string>()), mockApplicationUser);
             _paymentService.SetupWithVerification(call => call.SubmitPayment(It.IsAny<PayPalPaymentRequest>()), mockPaymentResponse);
 
+            _eventBookingContext.SetupSet(p => p.EventId = It.IsAny<int?>());
+            _eventBookingContext.SetupSet(p => p.EventBookingId = It.IsAny<int?>());
+            _eventBookingContext.SetupSet(p => p.Purchaser = It.IsAny<string>());
+            _eventBookingContext.SetupSet(p => p.EmailGuestList = It.IsAny<string[]>());
+            _eventBookingContext.SetupSet(p => p.EventBookingPaymentReference = It.IsAny<string>());
+
             // act
             var controller = BuildController(mockUser: _mockUser);
             var result = controller.BookTickets(mockBookTicketsRequestViewModel);
@@ -264,23 +276,64 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             // assert
             var jsonResult = result.IsTypeOf<JsonResult>();
             jsonResult.JsonResultNextUrlIs(mockPaymentResponse.ApprovalUrl);
-            _eventBookingContext.Object.EmailGuestList.IsNotNull();
-            _eventBookingContext.Object.EmailGuestList.Length.IsEqualTo(1);
-            _eventBookingContext.Object.EventBookingPaymentReference.IsEqualTo(mockPaymentResponse.PaymentId);
-            _eventBookingContext.Object.EventId.IsEqualTo(mockEvent.EventId);
-            _eventBookingContext.Object.EventBookingId.IsEqualTo(mockEventBookingId);
-            _eventBookingContext.Object.Purchaser.IsEqualTo("John Smith");
         }
 
         [Test]
         public void EventBooked_Get_NotActiveEventContext_ReturnsNotFound()
-        { 
+        {
             _eventBookingContext.SetupWithVerification(call => call.EventId, null);
 
             var result = BuildController().EventBooked();
 
             var redirectResult = result.IsTypeOf<RedirectToRouteResult>();
             redirectResult.RedirectResultIsNotFound();
+        }
+
+        [Test]
+        public void EventBooked_Get_CreatesInvoices_SendsNotifications()
+        {
+            // arrange
+            var sessionMock = "session123";
+            var adMock = new AdSearchResultMockBuilder()
+                .Default()
+                .Build();
+
+            var eventMock = new EventModelMockBuilder()
+                .Default()
+                .WithOnlineAdId(adMock.OnlineAdId)
+                .Build();
+
+            var eventBookingMock = new EventBookingMockBuilder()
+                .WithEventBookingId(987)
+                .WithEvent(eventMock)
+                .WithEmail("foo@bar.com")
+                .WithEventBookingTickets(new List<EventBookingTicket> { new EventBookingTicketMockBuilder().Build() })
+                .WithEventId(eventMock.EventId.GetValueOrDefault())
+                .Build();
+
+
+            // arrange service calls ( obviously theres a lot going on here )
+            _eventBookingContext.SetupWithVerification(call => call.EventId, eventMock.EventId);
+            _eventBookingContext.SetupWithVerification(call => call.EventBookingId, eventBookingMock.EventBookingId);
+            _eventBookingContext.SetupWithVerification(call => call.EmailGuestList, new[] { "foo@bar.com", "code@me.com" });
+            _eventBookingContext.SetupWithVerification(call => call.Purchaser, "George Clooney");
+            _eventBookingContext.SetupWithVerification(call => call.Clear());
+            _httpContext.SetupWithVerification(call => call.Session.SessionID, sessionMock);
+            _eventManager.SetupWithVerification(call => call.GetEventBooking(eventBookingMock.EventBookingId), eventBookingMock);
+            _eventManager.SetupWithVerification(call => call.AdjustRemainingQuantityAndCancelReservations(sessionMock, eventBookingMock.EventBookingTickets));
+            _eventManager.SetupWithVerification(call => call.CreateEventTicketsDocument(eventBookingMock.EventBookingId, It.IsAny<byte[]>(), It.IsAny<DateTime?>()), "Document123");
+            _searchService.SetupWithVerification(call => call.GetByAdOnlineId(eventMock.OnlineAdId), adMock);
+            _templatingService.SetupWithVerification(call => call.Generate(It.IsAny<object>(), "Tickets"), "<html><body>Output for PDF</body></html>");
+            _broadcastManager.Setup(call => call.Queue(It.IsAny<IDocType>(), It.IsAny<string[]>())).Returns(new Notification(Guid.NewGuid(), "BoomDoc"));
+            _clientConfig.SetupWithVerification(call => call.ClientName, "A-Brand");
+
+            // act
+            var result = BuildController().EventBooked();
+
+            // assert
+            result.IsTypeOf<ViewResult>();
+            result.ViewResultModelIsTypeOf<EventBookedViewModel>();
+            _broadcastManager.Verify(call => call.Queue(It.IsAny<IDocType>(), It.IsAny<string[]>()), Times.Exactly(3)); // Sends the tickets and each guest a calendar invite!
         }
 
         private Mock<HttpContextBase> _httpContext;
@@ -295,6 +348,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IBookingManager> _bookingManager;
         private Mock<IEventTicketReservationFactory> _eventTicketReservationFactory;
         private Mock<IPrincipal> _mockUser;
+        private Mock<ITemplatingService> _templatingService;
 
         [SetUp]
         public void SetupController()
@@ -311,6 +365,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _broadcastManager = CreateMockOf<IBroadcastManager>();
             _bookingManager = CreateMockOf<IBookingManager>();
             _eventTicketReservationFactory = CreateMockOf<IEventTicketReservationFactory>();
+            _templatingService = CreateMockOf<ITemplatingService>();
+            _templatingService.Setup(call => call.Init(It.IsAny<Controller>())).Returns(_templatingService.Object);
         }
     }
 }

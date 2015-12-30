@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Policy;
 using System.Web.Mvc;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;

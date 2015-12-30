@@ -13,6 +13,7 @@ using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Search;
+using Paramount.Betterclassifieds.Presentation.Services;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 using WebGrease.Css.Extensions;
 
@@ -150,7 +151,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventBookingContext.EventId = bookTicketsViewModel.EventId.GetValueOrDefault();
             _eventBookingContext.EventBookingId = eventBooking.EventBookingId;
             _eventBookingContext.Purchaser = bookTicketsViewModel.FullName;
-            _eventBookingContext.EmailGuestList = bookTicketsViewModel.SendEmailToGuests ? bookTicketsViewModel.Reservations.Select(e => e.GuestEmail).ToArray() : null;
+            if (bookTicketsViewModel.SendEmailToGuests)
+            {
+                _eventBookingContext.EmailGuestList = bookTicketsViewModel.Reservations.Select(e => e.GuestEmail).ToArray();
+            }
 
             if (eventBooking.Status == EventBookingStatus.Active)
             {
@@ -215,7 +219,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 _eventManager.AdjustRemainingQuantityAndCancelReservations(sessionId, eventBooking.EventBookingTickets);
 
-                var ticketPdfData = GenerateTickets(EventTicketPrintViewModel.Create(adDetails, eventDetails, eventBooking));
+                var ticketHtml = _templatingService.Generate(EventTicketPrintViewModel.Create(adDetails, eventDetails, eventBooking), "Tickets");
+                var ticketPdfData = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(ticketHtml);
+
                 var viewModel = new EventBookedViewModel(adDetails, eventDetails, eventBooking, this.Url);
                 var eventTicketsBookedNotification = this.Map<EventBookedViewModel, EventTicketsBookedNotification>(viewModel).WithTickets(ticketPdfData);
                 _broadcastManager.Queue(eventTicketsBookedNotification, eventBooking.Email);
@@ -226,7 +232,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                     foreach (var guest in _eventBookingContext.EmailGuestList)
                     {
                         var eventUrl = Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, includeSchemeAndProtocol: true, routeName: "Event");
-                        var notification = new EventGuestNotificationFactory().Create(_httpContext, _clientConfig, eventDetails, adDetails, eventUrl, _eventBookingContext.Purchaser, guest);
+                        var notification = new EventGuestNotificationFactory().Create(_clientConfig, eventDetails, adDetails, eventUrl, _eventBookingContext.Purchaser, guest);
                         _broadcastManager.Queue(notification, guest);
                     }
                 }
@@ -239,19 +245,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult GenerateTickets(int id)
-        {
-            var eventBooking = _eventManager.GetEventBooking(id);
-            var eventDetails = eventBooking.Event;
-            var onlineAd = _searchService.GetByAdOnlineId(eventDetails.OnlineAdId);
-
-            var ticketPdfData = GenerateTickets(EventTicketPrintViewModel.Create(onlineAd, eventDetails, eventBooking));
-            var documentId = _eventManager.CreateEventTicketsDocument(id, ticketPdfData);
-
-            return Json(new { documentId });
-        }
-
         public ActionResult Tickets(int id)
         {
             var eventBooking = _eventManager.GetEventBooking(id);
@@ -260,19 +253,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var data = EventTicketPrintViewModel.Create(onlineAd, eventDetails, eventBooking);
             return View(data.ToList());
-        }
-
-        private byte[] GenerateTickets(IEnumerable<EventTicketPrintViewModel> data)
-        {
-            using (var writer = new StringWriter())
-            {
-                this.ViewData.Model = data;
-                var result = ViewEngines.Engines.FindPartialView(this.ControllerContext, "Tickets");
-                var viewContext = new ViewContext(this.ControllerContext, result.View, this.ViewData, this.TempData, writer);
-                result.View.Render(viewContext, writer);
-                result.ViewEngine.ReleaseView(this.ControllerContext, result.View);
-                return new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(writer.GetStringBuilder().ToString());
-            }
         }
 
         public void OnRegisterMaps(IConfiguration configuration)
@@ -327,8 +307,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IBroadcastManager _broadcastManager;
         private readonly IBookingManager _bookingManager;
         private readonly IEventTicketReservationFactory _eventTicketReservationFactory;
+        private readonly ITemplatingService _templatingService;
 
-        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IAuthManager authManager, IEventBookingContext eventBookingContext, IPaymentService paymentService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory)
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IAuthManager authManager, IEventBookingContext eventBookingContext, IPaymentService paymentService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService)
         {
             _searchService = searchService;
             _eventManager = eventManager;
@@ -341,6 +322,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _broadcastManager = broadcastManager;
             _bookingManager = bookingManager;
             _eventTicketReservationFactory = eventTicketReservationFactory;
+            _templatingService = templatingService;
+            _templatingService = templatingService.Init(this); // This service is tightly coupled to an mvc controller
         }
 
     }

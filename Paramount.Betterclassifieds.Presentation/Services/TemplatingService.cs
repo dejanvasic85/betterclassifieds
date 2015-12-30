@@ -4,10 +4,13 @@ using System.Web.Mvc;
 
 namespace Paramount.Betterclassifieds.Presentation.Services
 {
+    /// <summary>
+    /// Allows MVC views to be used as html templating for other purposes like producing PDF files and emails
+    /// </summary>
     public interface ITemplatingService
     {
-        ITemplatingService Init(Controller controller); // Must be called
-        string Generate<TViewModel>(TViewModel model, string viewTarget) where TViewModel : new();
+        ITemplatingService Init(Controller controller); // Must be called in the controllers constructor
+        string Generate<TViewModel>(TViewModel model, string viewTarget) where TViewModel : class;
     }
 
     public class TemplatingService : ITemplatingService
@@ -20,7 +23,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             return this;
         }
 
-        public string Generate<TViewModel>(TViewModel model, string viewTarget) where TViewModel : new()
+        public string Generate<TViewModel>(TViewModel model, string viewTarget) where TViewModel : class
         {
             if (_controller == null)
             {

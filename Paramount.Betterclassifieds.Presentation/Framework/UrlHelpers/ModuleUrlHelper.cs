@@ -36,6 +36,12 @@ namespace Paramount
                 {"id", id}
             };
 
+            var routes = RouteTable.Routes;
+            if (routes == null || routes.Count == 0)
+            {
+                return string.Empty;
+            }
+
             VirtualPathData data = RouteTable.Routes.GetVirtualPath(null, routeName, dictionary);
             var path = data.VirtualPath;
 

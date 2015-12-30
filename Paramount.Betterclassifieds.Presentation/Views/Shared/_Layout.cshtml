@@ -8,8 +8,10 @@
 
     <title>@ViewBag.Title</title>
 
-    @Html.Partial("_ApplicationStyles")
-    
+    @*Base styles - see bundling configuration*@
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-3.3.0.min.css")" />
+    @Styles.Render("~/Content/css-base")
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -17,19 +19,19 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
+
 </head>
-    <body>
-        
-        @*JQuery should go before anything*@
-        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.11.0.js")"></script>
+<body>
 
-        <div class="container">
-            @*Render the application layout*@
-            @RenderBody()
-        </div>
+    @*JQuery should go before anything*@
+    @Scripts.Render("~/bundle/jquery")
 
-        @Html.Partial("_ApplicationScripts")
-        @RenderSection("Scripts", false)
-    </body>
+    <div class="container">
+        @*Render the application layout*@
+        @RenderBody()
+    </div>
+
+    @Html.Partial("_ApplicationScripts")
+    @RenderSection("Scripts", false)
+</body>
 </html>

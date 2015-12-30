@@ -49,6 +49,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var mockBookingCart = CreateMockOf<IBookingCart>();
             mockBookingCart.SetupWithVerification(call => call.Event, mockEvent);
             mockBookingCart.SetupWithVerification(call => call.StartDate, mockStartDate);
+            _clientConfigMock.SetupWithVerification(call => call.EventTicketFee, 5);
 
             var controller = BuildController();
             var result = controller.EventTickets(mockBookingCart.Object);
@@ -60,6 +61,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             model.ClosingDate.IsNotNull();
             model.Tickets.Count.IsEqualTo(1);
             model.TicketFields.Count.IsEqualTo(1);
+            model.EventTicketFee.IsEqualTo(5);
         }
 
         [Test]

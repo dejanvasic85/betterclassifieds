@@ -427,7 +427,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 ClosingDate = bookingCart.With(b => b.Event).ClosingDate,
                 AdStartDate = bookingCart.StartDate,
                 Tickets = this.MapList<EventTicket, BookingEventTicketViewModel>(bookingCart.Event.Tickets.ToList()),
-                TicketFields = this.MapList<EventTicketField, EventTicketFieldViewModel>(bookingCart.Event.TicketFields.ToList())
+                TicketFields = this.MapList<EventTicketField, EventTicketFieldViewModel>(bookingCart.Event.TicketFields.ToList()),
+                EventTicketFee = _clientConfig.EventTicketFee
             };
             return View("Step2_EventTickets", viewModel);
         }

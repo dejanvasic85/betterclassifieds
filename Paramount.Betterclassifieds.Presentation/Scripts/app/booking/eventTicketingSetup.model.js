@@ -27,13 +27,12 @@
             me.ticketFields.remove(f);
         }
 
-        me.submitTickets = function (e, jQueryEl) {
+        me.submitTickets = function (e) {
 
             if ($paramount.checkValidity(me, me.tickets(), me.ticketFields()) === false) {
                 return;
             }
-            
-            var $button = $(jQueryEl.toElement);
+            var $button = $('#btnSubmit');
             $button.button('loading');
             var eventTicketingSetup = ko.toJS(me);
             adDesignService.updateEventTicketDetails(eventTicketingSetup)

@@ -2,7 +2,6 @@ Here's a list of the latest changes for the current release:
 
 **Enhancements**
 
-- [Events - The beginning of something new. Beta only and half way through features](https://trello.com/c/Mmtk9Lek/292-events-epic)
 - [Events - Dashboard for editing event details for organisers/advertisers](https://trello.com/c/OdYvdLcx/340-events-event-dashboard-page-ability-to-change-and-add-tickets)
 - [Events - Displaying bunch of nice stats for the dashboard.](https://trello.com/c/IvOYgBxu/343-events-event-dashboard-page-should-contain-information-on-all-sold-tickets-and-pricing-summary)
 - [Events - Generate printable tickets for event](https://trello.com/c/O3n6hIJt/336-events-generate-tickets-for-event-booking)
@@ -15,6 +14,7 @@ Here's a list of the latest changes for the current release:
 - [Events - Closing date can be used to automatically disable the purchasing of tickets](https://trello.com/c/eSGhQT1Q/363-allow-the-event-organiser-to-setup-a-closing-date-for-tickets)
 - [Events - Each guest should get an email about the event unless purchaser opts out](https://trello.com/c/rWz5XKOv/365-each-guest-should-receive-an-email-for-the-event)
 - [Events - Calendar invite is now included in the email for each guest](https://trello.com/c/OFOT0BBd/324-add-calendar-invite-for-each-guest)
+- [Events - Organisers will see the percentage of ticket fees when booking an event](https://trello.com/c/4v8Ty9q0/364-events-specify-the-charging-fee-on-the-event-ticketing-setup-booking-page)
 - [Members can update their profile with payment details](https://trello.com/c/5jfeFNQ7/362-user-ability-to-update-their-profile-with-payment-details)
 - [Contact advertiser form now requires a login rather than a CAPTCHA](https://trello.com/c/5bxvSRBU/329-contact-advertiser-with-a-login-only-little-counter-intuitive-but-beats-the-captcha-usage-and-more-secure)
 - [No more captcha for contacting support team](https://trello.com/c/BBLPYpTa/331-remove-the-captcha-from-the-contact-us-page-no-need)

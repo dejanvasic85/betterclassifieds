@@ -1,4 +1,4 @@
-﻿USE [Broadcast]
+﻿
 GO
 
 /****** Object:  Table [dbo].[EmailAttachment]    Script Date: 29/12/2015 12:22:28 AM ******/

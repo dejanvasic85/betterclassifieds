@@ -307,10 +307,13 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 .WithEventBookingId(987)
                 .WithEvent(eventMock)
                 .WithEmail("foo@bar.com")
-                .WithEventBookingTickets(new List<EventBookingTicket> { new EventBookingTicketMockBuilder().Build() })
+                .WithTotalCost(10)
+                .WithPaymentReference("pay123")
+                .WithEventBookingTickets(new List<EventBookingTicket> { new EventBookingTicketMockBuilder().WithPrice(10).WithTicketName("Boom").Build() })
                 .WithEventId(eventMock.EventId.GetValueOrDefault())
                 .Build();
 
+            var applicationUserMock = new ApplicationUserMockBuilder().Default().Build();
 
             // arrange service calls ( obviously theres a lot going on here )
             _eventBookingContext.SetupWithVerification(call => call.EventId, eventMock.EventId);
@@ -324,8 +327,12 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventManager.SetupWithVerification(call => call.CreateEventTicketsDocument(eventBookingMock.EventBookingId, It.IsAny<byte[]>(), It.IsAny<DateTime?>()), "Document123");
             _searchService.SetupWithVerification(call => call.GetByAdOnlineId(eventMock.OnlineAdId), adMock);
             _templatingService.SetupWithVerification(call => call.Generate(It.IsAny<object>(), "Tickets"), "<html><body>Output for PDF</body></html>");
+            _templatingService.SetupWithVerification(call => call.Generate(It.IsAny<object>(), "Invoice"), "<html><body>Output for PDF Invoice</body></html>");
             _broadcastManager.Setup(call => call.Queue(It.IsAny<IDocType>(), It.IsAny<string[]>())).Returns(new Notification(Guid.NewGuid(), "BoomDoc"));
             _clientConfig.SetupWithVerification(call => call.ClientName, "A-Brand");
+            _clientConfig.SetupWithVerification(call => call.ClientAddress, new Address() {AddressLine1 = "1", AddressLine2 = "Smith Street", State = "VIC"});
+            _clientConfig.SetupWithVerification(call => call.ClientPhoneNumber, "9999 0000");
+            _userManager.SetupWithVerification(call => call.GetUserByEmailOrUsername("foo@bar.com"), applicationUserMock);
 
             // act
             var result = BuildController().EventBooked();

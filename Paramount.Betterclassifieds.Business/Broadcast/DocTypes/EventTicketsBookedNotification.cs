@@ -13,7 +13,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         }
 
         public string DocumentType { get { return "EventTicketsBooked"; } }
-        public IList<EmailAttachment> Attachments { get; private set; }
+        public IList<EmailAttachment> Attachments { get; set; }
 
         [Placeholder("EventName")]
         public string EventName { get; set; }

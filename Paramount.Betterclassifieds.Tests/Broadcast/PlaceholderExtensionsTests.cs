@@ -76,7 +76,7 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
             public string Cost { get; set; }
 
             public string DocumentType { get { return "Fake"; } }
-            public IList<EmailAttachment> Attachments { get; private set; }
+            public IList<EmailAttachment> Attachments { get; set; }
         }
     }
 }

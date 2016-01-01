@@ -5,7 +5,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
     public class ExpirationReminder : IDocType
     {
         public string DocumentType { get { return GetType().Name; } }
-        public IList<EmailAttachment> Attachments { get; }
+        public IList<EmailAttachment> Attachments { get; set; }
 
 
         [Placeholder("AdReference")]

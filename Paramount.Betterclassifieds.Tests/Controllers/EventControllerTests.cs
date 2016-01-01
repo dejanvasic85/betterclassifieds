@@ -315,12 +315,13 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             var applicationUserMock = new ApplicationUserMockBuilder().Default().Build();
 
-            // arrange service calls ( obviously theres a lot going on here )
+            // arrange service calls ( obviously theres a lot going on here and we should refactor this to use event sourcing)
             _eventBookingContext.SetupWithVerification(call => call.EventId, eventMock.EventId);
             _eventBookingContext.SetupWithVerification(call => call.EventBookingId, eventBookingMock.EventBookingId);
             _eventBookingContext.SetupWithVerification(call => call.EmailGuestList, new[] { "foo@bar.com", "code@me.com" });
             _eventBookingContext.SetupWithVerification(call => call.Purchaser, "George Clooney");
             _eventBookingContext.SetupWithVerification(call => call.Clear());
+
             _httpContext.SetupWithVerification(call => call.Session.SessionID, sessionMock);
             _eventManager.SetupWithVerification(call => call.GetEventBooking(eventBookingMock.EventBookingId), eventBookingMock);
             _eventManager.SetupWithVerification(call => call.AdjustRemainingQuantityAndCancelReservations(sessionMock, eventBookingMock.EventBookingTickets));
@@ -349,7 +350,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IEventManager> _eventManager;
         private Mock<IClientConfig> _clientConfig;
         private Mock<IUserManager> _userManager;
-        private Mock<IAuthManager> _authManager;
         private Mock<IPaymentService> _paymentService;
         private Mock<IBroadcastManager> _broadcastManager;
         private Mock<IBookingManager> _bookingManager;
@@ -367,7 +367,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventManager = CreateMockOf<IEventManager>();
             _clientConfig = CreateMockOf<IClientConfig>();
             _userManager = CreateMockOf<IUserManager>();
-            _authManager = CreateMockOf<IAuthManager>();
             _paymentService = CreateMockOf<IPaymentService>();
             _broadcastManager = CreateMockOf<IBroadcastManager>();
             _bookingManager = CreateMockOf<IBookingManager>();

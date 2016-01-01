@@ -1,25 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mime;
 
 namespace Paramount.Betterclassifieds.Business.Broadcast
 {
     public class EventTicketsBookedNotification : IDocType
     {
-        public string DocumentType { get { return "EventTicketsBooked"; } }
-        public EmailAttachment[] Attachments { get; private set; }
-
-        public EventTicketsBookedNotification WithTickets(byte[] ticketsPdfFileContent)
+        public EventTicketsBookedNotification()
         {
-            Attachments = new[]
-            {
-                new EmailAttachment{
-                    Content =  ticketsPdfFileContent, 
-                    ContentType = MediaTypeNames.Application.Pdf, 
-                    FileName = "Tickets.pdf"}, 
-            };
-            return this;
+            this.Attachments = new List<EmailAttachment>();
         }
+
+        public string DocumentType { get { return "EventTicketsBooked"; } }
+        public IList<EmailAttachment> Attachments { get; private set; }
 
         [Placeholder("EventName")]
         public string EventName { get; set; }
@@ -45,6 +39,29 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         public string CustomerEmailAddress { get; set; }
         [Placeholder("EventUrl")]
         public string EventUrl { get; set; }
+        
+        public EventTicketsBookedNotification WithTickets(byte[] ticketsPdfFileContent)
+        {
+            Attachments.Add(
+                new EmailAttachment
+                {
+                    Content = ticketsPdfFileContent,
+                    ContentType = MediaTypeNames.Application.Pdf,
+                    FileName = "Tickets.pdf"
+                });
+            return this;
+        }
 
+        public EventTicketsBookedNotification WithInvoice(byte[] invoicePdf)
+        {
+            Attachments.Add(
+                new EmailAttachment
+                {
+                    Content = invoicePdf,
+                    ContentType = MediaTypeNames.Application.Pdf,
+                    FileName = "Invoice.pdf"
+                });
+            return this;
+        }
     }
 }

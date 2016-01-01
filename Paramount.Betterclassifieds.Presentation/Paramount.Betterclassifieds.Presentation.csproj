@@ -285,7 +285,11 @@
     <Compile Include="ViewModels\AdSummaryViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Account\LoginViewModel.cs" />
-    <Compile Include="ViewModels\Invoicing\InvoiceView.cs" />
+    <Compile Include="ViewModels\Invoicing\AdBookingInvoiceGroupViewModel.cs" />
+    <Compile Include="ViewModels\Invoicing\AdBookingLineItemViewModel.cs" />
+    <Compile Include="ViewModels\Invoicing\AdBookingInvoiceViewModel.cs" />
+    <Compile Include="ViewModels\Events\EventBookingInvoiceViewModel.cs" />
+    <Compile Include="ViewModels\Invoicing\InvoiceItemViewModel.cs" />
     <Compile Include="ViewModels\PageRequest.cs" />
     <Compile Include="ViewModels\SearchFilters.cs" />
     <Compile Include="ViewModels\FindModel.cs" />
@@ -773,6 +777,7 @@
     <Content Include="Views\EditAd\EventGuestList.cshtml" />
     <Content Include="Views\EditAd\EventPaymentRequest.cshtml" />
     <Content Include="Views\Shared\_LayoutInvoice.cshtml" />
+    <Content Include="Views\Event\Invoice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Framework\Validators\" />

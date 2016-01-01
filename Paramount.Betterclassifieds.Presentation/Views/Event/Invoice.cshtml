@@ -1,0 +1,91 @@
+﻿@model EventBookingInvoiceViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutInvoice.cshtml";
+}
+
+
+<div class="container-fluid">
+    
+    <div class="row">
+        <div class="col-xs-6">
+            <h2>@Model.BusinessName</h2>
+        </div>
+        <div class="col-xs-6">
+            <h4 class="pull-right">Invoice Date : @Model.CreatedDate.ToString("dd-MMM-yyyy")</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>From : @Model.BusinessName</h4>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        A: @Model.BusinessAddress <br>
+                        P: @Model.BusinessPhone <br>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>To : @Model.RecipientName</h4>
+                </div>
+                <div class="panel-body">
+                    A: @Model.RecipientAddress <br />
+                    P: @Model.RecipientPhoneNumber <br />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Item Details
+                </div>
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Item Name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+
+                    @foreach (var item in Model.LineItems)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.Price.ToString("C")</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.ItemTotal.ToString("C")</td>
+                        </tr>
+                    }
+
+                </table>
+
+            </div>
+
+
+            <div class="pull-right">
+                <h2>Total (paid): @Model.Total.ToString("C")</h2>
+            </div><div class="clearfix"></div>
+            <div class="clearfix"></div>
+            <div class="alert alert-info">
+                Note: All prices are tax inclusive.
+            </div>
+            <div class="alert alert-success">
+                Payment Reference Number : <strong>@Model.PaymentReference</strong>
+            </div>
+        </div>
+    </div>
+
+</div>

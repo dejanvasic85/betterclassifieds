@@ -1,9 +1,12 @@
+using System.Collections.Generic;
+
 namespace Paramount.Betterclassifieds.Business.Broadcast
 {
     public class NewBooking : IDocType
     {
         public string DocumentType { get { return GetType().Name; } }
-        public EmailAttachment[] Attachments { get; private set; }
+        public IList<EmailAttachment> Attachments { get; }
+
 
         [Placeholder("username")]
         public string UserId { get; set; }

@@ -25,7 +25,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var invoice = _invoiceService.GenerateBookingInvoice(bookingId);
 
-            var invoiceViewModel = this.Map<Invoice, InvoiceView>(invoice);
+            var invoiceViewModel = this.Map<Invoice, AdBookingInvoiceViewModel>(invoice);
 
             return View(invoiceViewModel);
         }
@@ -33,9 +33,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateProfile("invoieControllerMappings");
-            configuration.CreateMap<Invoice, InvoiceView>();
-            configuration.CreateMap<InvoiceGroup, InvoiceGroupView>();
-            configuration.CreateMap<InvoiceLineItem, InvoiceLineItemView>();
+            configuration.CreateMap<Invoice, AdBookingInvoiceViewModel>();
+            configuration.CreateMap<InvoiceGroup, AdBookingInvoiceGroupViewModel>();
+            configuration.CreateMap<InvoiceLineItem, AdBookingLineItemViewModel>();
         }
     }
 }

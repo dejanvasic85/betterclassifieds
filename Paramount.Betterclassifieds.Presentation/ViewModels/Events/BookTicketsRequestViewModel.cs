@@ -23,8 +23,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string Email { get; set; }
         [RequiredIfNotLoggedIn]
         public string Password { get; set; }
-        [RequiredIf("PaymentRequired", true)]
-        public string PaymentMethod { get; set; }
+        
         [Required]
         public decimal TotalCost { get; set; }
 

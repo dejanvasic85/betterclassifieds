@@ -223,7 +223,18 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 var ticketPdfData = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(ticketHtml);
 
                 var viewModel = new EventBookedViewModel(adDetails, eventDetails, eventBooking, this.Url);
-                var eventTicketsBookedNotification = this.Map<EventBookedViewModel, EventTicketsBookedNotification>(viewModel).WithTickets(ticketPdfData);
+                var eventTicketsBookedNotification = this.Map<EventBookedViewModel, EventTicketsBookedNotification>(viewModel)
+                    .WithTickets(ticketPdfData);
+
+                if (eventBooking.TotalCost > 0)
+                {
+                    var applicationUser = _userManager.GetUserByEmailOrUsername(eventBooking.Email);
+                    var invoiceViewModel = new EventBookingInvoiceViewModel(_clientConfig, eventBooking, applicationUser, adDetails.Heading);
+                    var invoiceHtml = _templatingService.Generate(invoiceViewModel, "Invoice");
+                    var invoicePdf = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(invoiceHtml);
+                    eventTicketsBookedNotification.WithInvoice(invoicePdf);
+                }
+
                 _broadcastManager.Queue(eventTicketsBookedNotification, eventBooking.Email);
                 _eventManager.CreateEventTicketsDocument(eventBooking.EventBookingId, ticketPdfData, ticketsSentDate: DateTime.Now);
 
@@ -249,10 +260,19 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var eventBooking = _eventManager.GetEventBooking(id);
             var eventDetails = eventBooking.Event;
-            var onlineAd = _searchService.GetByAdOnlineId(eventDetails.OnlineAdId);
+            var ad = _searchService.GetByAdOnlineId(eventDetails.OnlineAdId);
 
-            var data = EventTicketPrintViewModel.Create(onlineAd, eventDetails, eventBooking);
+            var data = EventTicketPrintViewModel.Create(ad, eventDetails, eventBooking);
             return View(data.ToList());
+        }
+
+        public ActionResult Invoice(int id)
+        {
+            var eventBooking = _eventManager.GetEventBooking(id);
+            var applicationUser = _userManager.GetUserByEmailOrUsername(eventBooking.Email);
+            var ad = _searchService.GetByAdOnlineId(eventBooking.Event.OnlineAdId);
+            var viewModel = new EventBookingInvoiceViewModel(_clientConfig, eventBooking, applicationUser, ad.Heading);
+            return View(viewModel);
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

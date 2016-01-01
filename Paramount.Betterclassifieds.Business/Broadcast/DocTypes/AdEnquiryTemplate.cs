@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Paramount.Betterclassifieds.Business.Broadcast
 {
     public class AdEnquiryTemplate : IDocType
@@ -7,7 +9,8 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             get { return "AdEnquiry"; }
         }
 
-        public EmailAttachment[] Attachments { get; private set; }
+        public IList<EmailAttachment> Attachments { get; }
+
 
         [Placeholder("adnumber")]
         public string AdNumber { get; set; }

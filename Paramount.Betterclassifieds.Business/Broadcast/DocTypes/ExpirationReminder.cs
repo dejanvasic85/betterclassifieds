@@ -1,9 +1,12 @@
-﻿namespace Paramount.Betterclassifieds.Business.Broadcast
+﻿using System.Collections.Generic;
+
+namespace Paramount.Betterclassifieds.Business.Broadcast
 {
     public class ExpirationReminder : IDocType
     {
         public string DocumentType { get { return GetType().Name; } }
-        public EmailAttachment[] Attachments { get; private set; }
+        public IList<EmailAttachment> Attachments { get; }
+
 
         [Placeholder("AdReference")]
         public string AdReference { get; set; }

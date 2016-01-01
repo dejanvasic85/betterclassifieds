@@ -1,9 +1,17 @@
+using System.Collections.Generic;
+using System.Linq;
+
 namespace Paramount.Betterclassifieds.Business.Broadcast
 {
     public class EventGuestNotification : IDocType
     {
+        public EventGuestNotification()
+        {
+            Attachments = new List<EmailAttachment>();
+        }
         public string DocumentType { get { return "EventGuest"; } }
-        public EmailAttachment[] Attachments { get; private set; }
+        public IList<EmailAttachment> Attachments { get; }
+
 
         [Placeholder("EventName")]
         public string EventName { get; set; }
@@ -31,15 +39,13 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
 
         public EventGuestNotification WithCalendarInvite(byte[] calendarContent)
         {
-            Attachments = new []
-            {
-                 new EmailAttachment
-                 {
-                     ContentType = ContentType.Calendar,
-                     FileName = "Event_Invite.ics",
-                     Content = calendarContent
-                 }
-            };
+            Attachments.Add(
+                new EmailAttachment
+                {
+                    ContentType = ContentType.Calendar,
+                    FileName = "Event_Invite.ics",
+                    Content = calendarContent
+                });
             return this;
         }
     }

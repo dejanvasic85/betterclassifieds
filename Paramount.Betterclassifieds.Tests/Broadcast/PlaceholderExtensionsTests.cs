@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business.Broadcast;
 
@@ -74,8 +75,8 @@ namespace Paramount.Betterclassifieds.Tests.Broadcast
             [Placeholder("Amount")]
             public string Cost { get; set; }
 
-            public string DocumentType { get { return "Fake"; }}
-            public EmailAttachment[] Attachments { get; private set; }
+            public string DocumentType { get { return "Fake"; } }
+            public IList<EmailAttachment> Attachments { get; private set; }
         }
     }
 }

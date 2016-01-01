@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Business.Broadcast
+﻿using System.Collections.Generic;
+
+namespace Paramount.Betterclassifieds.Business.Broadcast
 {
     public class NewRegistration : IDocType
     {
@@ -7,7 +9,8 @@
             get { return GetType().Name; }
         }
 
-        public EmailAttachment[] Attachments { get; private set; }
+        public IList<EmailAttachment> Attachments { get; }
+
 
         [Placeholder("FirstName")]
         public string FirstName { get; set; }

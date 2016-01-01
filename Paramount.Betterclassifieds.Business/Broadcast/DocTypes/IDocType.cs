@@ -1,8 +1,10 @@
-﻿namespace Paramount.Betterclassifieds.Business.Broadcast
+﻿using System.Collections.Generic;
+
+namespace Paramount.Betterclassifieds.Business.Broadcast
 {
     public interface IDocType
     {
         string DocumentType { get; } // e.g. NewRegistration, AccountConfirmation
-        EmailAttachment[] Attachments { get; }
+        IList<EmailAttachment> Attachments { get; }
     }
 }

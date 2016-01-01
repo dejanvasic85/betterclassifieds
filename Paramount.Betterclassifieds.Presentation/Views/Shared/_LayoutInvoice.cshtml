@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Paramount
+@{
     Layout = null;
 }
 
@@ -8,7 +9,10 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Invoice</title>
-    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-3.3.0.min.css")" />
+
+    <link rel="stylesheet" href="@Url.ContentAbsolute("~/Content/bootstrap-3.3.0.min.css")" media="all" />
+    <link rel="stylesheet" href="@Url.ContentAbsolute("~/Content/font-awesome-4.4.0.css")" media="all" />
+
 </head>
 <body>
     @RenderBody()

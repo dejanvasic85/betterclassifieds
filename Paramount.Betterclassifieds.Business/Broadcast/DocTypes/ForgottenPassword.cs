@@ -1,9 +1,12 @@
-﻿namespace Paramount.Betterclassifieds.Business.Broadcast
+﻿using System.Collections.Generic;
+
+namespace Paramount.Betterclassifieds.Business.Broadcast
 {
     public class ForgottenPassword : IDocType
     {
         public string DocumentType { get { return GetType().Name; } }
-        public EmailAttachment[] Attachments { get; private set; }
+        public IList<EmailAttachment> Attachments { get; }
+
 
         [Placeholder("Username")]
         public string Username { get; set; }

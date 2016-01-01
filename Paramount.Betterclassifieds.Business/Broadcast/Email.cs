@@ -45,7 +45,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
 
             if (docType.Attachments != null)
             {
-                email.EmailAttachments = docType.Attachments;
+                email.EmailAttachments = docType.Attachments.ToArray();
             }
             return email;
         }

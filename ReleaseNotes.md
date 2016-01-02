@@ -29,10 +29,11 @@ Here's a list of the latest changes for the current release:
 - [Removed exposed urls on every page for slightly better security and weight](https://trello.com/c/5zcQ1HrS/335-remove-exposed-urls-on-every-page)
 
 
-**3.0.1 Fixes**
+**3.0.1 Changes**
 
-- [Enter button on the design event page is now defaulting to submit the form](https://trello.com/c/G6L2cmHl/368-enter-button-on-design-event-page-is-screwed-up-when-submitting-form)
-- [Creating an account instantly when booking tickets was broken](https://trello.com/c/2mxsZ7Na/383-creating-an-account-on-book-tickets-page-throws-an-error-existing-logged-in-users-are-fine)
+- [fix - Date validation was not working when submitting the event details](https://trello.com/c/8F3uKga4/373-date-validation-doesn-t-seem-to-be-working-when-designing-an-event)
+- [fix - Enter button on the design event page is now defaulting to submit the form](https://trello.com/c/G6L2cmHl/368-enter-button-on-design-event-page-is-screwed-up-when-submitting-form)
+- [fix - Creating an account instantly when booking tickets was broken](https://trello.com/c/2mxsZ7Na/383-creating-an-account-on-book-tickets-page-throws-an-error-existing-logged-in-users-are-fine)
 
 
 **Other useful resources:**

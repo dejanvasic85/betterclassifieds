@@ -19,6 +19,12 @@
 
     /*
      * Min date validation
+     * example : 
+     * me.validator = ko.validatedObservable({
+            closingDate: me.closingDate.extend({
+                pmtMinDate: new Date(data.adStartDate)
+            })
+        });
      */
 
     ko.validation.rules['pmtMinDate'] = {
@@ -34,7 +40,7 @@
         },
         message: 'Must be a later date'
     }
-
+    
     ko.validation.registerExtenders();
 
 })(ko, moment);

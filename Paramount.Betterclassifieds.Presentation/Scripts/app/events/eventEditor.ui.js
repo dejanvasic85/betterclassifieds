@@ -39,9 +39,13 @@
                 });
 
                 $eventEditor.find('#eventForm').on('submit', function (e) {
-                    if ($(this).valid() === false) {
+                    if ($(this).valid() === false
+                        || eventDetailsModel.eventEndDateValidation() !== ''
+                        || eventDetailsModel.eventEndTimeValidation() !== '') {
+                        e.preventDefault();
                         return;
                     }
+                    
                     eventDetailsModel.submitChanges().then(function (resp) {
                         if (resp.nextUrl) {
                             return;

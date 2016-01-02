@@ -4,7 +4,7 @@ using Paramount.Betterclassifieds.Mvc.Validators;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 {
-    public class EventViewModel
+    public class EventViewModel : IValidatableObject
     {
         public EventViewModel()
         {
@@ -49,5 +49,20 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string OrganiserPhone { get; set; }
 
         public bool TicketingEnabled { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            var validationResults = new List<ValidationResult>();
+
+            var startDateTime = new ServerDateService().ConvertFromString(EventStartDate, EventStartTime);
+            var endDateTime = new ServerDateService().ConvertFromString(EventEndDate, EventEndTime);
+
+            if (endDateTime <= startDateTime)
+            {
+                validationResults.Add(new ValidationResult("End date must be after the start date", new[] { "EventStartDate"}));
+            }
+
+            return validationResults;
+        }
     }
 }

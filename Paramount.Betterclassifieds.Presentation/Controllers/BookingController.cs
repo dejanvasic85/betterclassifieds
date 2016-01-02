@@ -20,8 +20,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     public class BookingController : Controller, IMappingBehaviour
     {
-        private const string DATE_FORMAT = "dd/MM/yyyy";
-
         [HttpPost, AuthorizeBookingIdentity]
         public ActionResult StartFromTemplate(int id)
         {
@@ -113,7 +111,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 // Fetch the editions for the selected publications
                 stepTwoModel.UpcomingEditions = _editionManager
                     .GetUpcomingEditions(bookingCart.Publications)
-                    .Select(m => new SelectListItem { Text = m.ToString(DATE_FORMAT), Value = m.ToString(DATE_FORMAT) });
+                    .Select(m => new SelectListItem { Text = m.ToString(Constants.DATE_FORMAT), Value = m.ToString(Constants.DATE_FORMAT) });
 
                 stepTwoModel.AvailableInsertions = _editionManager
                     .GetAvailableInsertions()
@@ -333,7 +331,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 string publicationName;
                 var dates = _editionManager
                     .GetUpcomingEditionsForPublication(publicationId, firstEdition, out publicationName)
-                    .Select(e => e.Date.ToString(DATE_FORMAT))
+                    .Select(e => e.Date.ToString(Constants.DATE_FORMAT))
                     .Take(printInsertions)
                     .ToArray();
 

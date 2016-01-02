@@ -80,12 +80,9 @@
 
             registrationModel
                 .GenerateUniqueUsername(_authManager.CheckUsernameExists)
-                .SetPasswordFromPlaintext(plaintextPassword);
-
-            if (isConfirmationRequired)
-            {
-                registrationModel.SetConfirmationCode(_confirmationCodeGenerator.GenerateCode());
-            }    
+                .SetPasswordFromPlaintext(plaintextPassword)
+                .SetConfirmationCode(_confirmationCodeGenerator.GenerateCode())
+                ;
 
             // Create in the database
             _userRepository.CreateRegistration(registrationModel);
@@ -123,7 +120,8 @@
 
             // Register the new user
             var result = RegisterUser(registrationModel, password, disableTwoFactorAuth: true);
-            
+            ConfirmRegistration(result.Registration.RegistrationId.GetValueOrDefault(), result.Registration.Token);
+
             _authManager.Login(result.Registration.Username);
             applicationUser = GetUserByEmail(registrationModel.Email);
 

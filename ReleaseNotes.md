@@ -28,6 +28,13 @@ Here's a list of the latest changes for the current release:
 - [Replaced the old task scheduler console application with better console and argument handling](https://trello.com/c/GgVokvAZ/326-replace-task-scheduler-with-bc-exe)
 - [Removed exposed urls on every page for slightly better security and weight](https://trello.com/c/5zcQ1HrS/335-remove-exposed-urls-on-every-page)
 
+
+**3.0.1 Fixes**
+
+- [Enter button on the design event page is now defaulting to submit the form](https://trello.com/c/G6L2cmHl/368-enter-button-on-design-event-page-is-screwed-up-when-submitting-form)
+- [Creating an account instantly when booking tickets was broken](https://trello.com/c/2mxsZ7Na/383-creating-an-account-on-book-tickets-page-throws-an-error-existing-logged-in-users-are-fine)
+
+
 **Other useful resources:**
 
 - [Up-Coming features](https://trello.com/b/Ht5NWhN2/betterclassifieds)

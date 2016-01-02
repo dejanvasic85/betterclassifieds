@@ -43,6 +43,7 @@
                         || eventDetailsModel.eventEndDateValidation() !== ''
                         || eventDetailsModel.eventEndTimeValidation() !== '') {
                         e.preventDefault();
+                        $eventEditor.find('button').button('reset');
                         return;
                     }
                     

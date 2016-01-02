@@ -7,22 +7,22 @@ namespace Paramount.Betterclassifieds.Business
     {
         public int? RegistrationId { get; set; }
         public string Email { get; set; }
-        public string EncryptedPassword { get; private set; }
+        public string EncryptedPassword { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PostCode { get; set; }
-        public string Username { get; private set; }
-        public string Token { get; private set; }
-        public DateTime? ExpirationDate { get; private set; }
-        public DateTime? ExpirationDateUtc { get; private set; }
-        public DateTime? LastModifiedDate { get; private set; }
-        public DateTime? LastModifiedDateUtc { get; private set; }
+        public string Username { get; set; }
+        public string Token { get; set; }
+        public DateTime? ExpirationDate { get; set; }
+        public DateTime? ExpirationDateUtc { get; set; }
+        public DateTime? LastModifiedDate { get; set; }
+        public DateTime? LastModifiedDateUtc { get; set; }
         public DateTime? ConfirmationDate { get; set; }
         public DateTime? ConfirmationDateUtc { get; set; }
         public byte[] Version { get; set; }
         public string HowYouFoundUs { get; set; }
         public string Phone { get; set; }
-        public int? ConfirmationAttempts { get; private set; }
+        public int? ConfirmationAttempts { get; set; }
 
         public RegistrationModel GenerateToken()
         {

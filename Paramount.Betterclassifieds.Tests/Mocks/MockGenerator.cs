@@ -23,6 +23,10 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.Email = val);
 		}
+		public RegistrationModelMockBuilder WithEncryptedPassword(String val)
+		{ 
+			return WithBuildStep(p => p.EncryptedPassword = val);
+		}
 		public RegistrationModelMockBuilder WithFirstName(String val)
 		{ 
 			return WithBuildStep(p => p.FirstName = val);
@@ -34,6 +38,30 @@ namespace Paramount.Betterclassifieds.Tests
 		public RegistrationModelMockBuilder WithPostCode(String val)
 		{ 
 			return WithBuildStep(p => p.PostCode = val);
+		}
+		public RegistrationModelMockBuilder WithUsername(String val)
+		{ 
+			return WithBuildStep(p => p.Username = val);
+		}
+		public RegistrationModelMockBuilder WithToken(String val)
+		{ 
+			return WithBuildStep(p => p.Token = val);
+		}
+		public RegistrationModelMockBuilder WithExpirationDate(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.ExpirationDate = val);
+		}
+		public RegistrationModelMockBuilder WithExpirationDateUtc(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.ExpirationDateUtc = val);
+		}
+		public RegistrationModelMockBuilder WithLastModifiedDate(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.LastModifiedDate = val);
+		}
+		public RegistrationModelMockBuilder WithLastModifiedDateUtc(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.LastModifiedDateUtc = val);
 		}
 		public RegistrationModelMockBuilder WithConfirmationDate(DateTime? val)
 		{ 
@@ -54,6 +82,10 @@ namespace Paramount.Betterclassifieds.Tests
 		public RegistrationModelMockBuilder WithPhone(String val)
 		{ 
 			return WithBuildStep(p => p.Phone = val);
+		}
+		public RegistrationModelMockBuilder WithConfirmationAttempts(Int32? val)
+		{ 
+			return WithBuildStep(p => p.ConfirmationAttempts = val);
 		}
 	}
 

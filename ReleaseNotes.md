@@ -31,13 +31,7 @@ Here's a list of the latest changes for the current release:
 
 **3.0.1 Changes**
 
-- [fix - Date validation was not working when submitting the event details](https://trello.com/c/8F3uKga4/373-date-validation-doesn-t-seem-to-be-working-when-designing-an-event)
-- [fix - Enter button on the design event page is now defaulting to submit the form](https://trello.com/c/G6L2cmHl/368-enter-button-on-design-event-page-is-screwed-up-when-submitting-form)
-- [fix - Creating an account instantly when booking tickets was broken](https://trello.com/c/2mxsZ7Na/383-creating-an-account-on-book-tickets-page-throws-an-error-existing-logged-in-users-are-fine)
-
-
-**Other useful resources:**
-
-- [Up-Coming features](https://trello.com/b/Ht5NWhN2/betterclassifieds)
-
-- [Previous releases](https://trello.com/b/0Vb4VWMF/betterclassifieds-2-0)
+- [Fix - Event dates are now being stored and converted properly](https://trello.com/c/2WBf3PCu/389-event-dates-are-being-converted-to-utc-in-mongo-database-we-should-be-storing-both-utc-and-server-date)
+- [Fix - Date validation was not working when submitting the event details](https://trello.com/c/8F3uKga4/373-date-validation-doesn-t-seem-to-be-working-when-designing-an-event)
+- [Fix - Enter button on the design event page is now defaulting to submit the form](https://trello.com/c/G6L2cmHl/368-enter-button-on-design-event-page-is-screwed-up-when-submitting-form)
+- [Fix - Creating an account instantly when booking tickets was broken](https://trello.com/c/2mxsZ7Na/383-creating-an-account-on-book-tickets-page-throws-an-error-existing-logged-in-users-are-fine)

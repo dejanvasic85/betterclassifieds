@@ -1,6 +1,14 @@
-Here's a list of the latest changes for the current release:
+Here's a list of the latest changes:
 
-**Enhancements**
+**3.0.1 Bug Bash**
+
+- [Fix - Coming back to the event ticketing setup screen should be fine now](https://trello.com/c/EIH2XS43/388-error-eventticketfield-is-not-defined-when-coming-back-to-the-ticketing-setup-screen)
+- [Fix - Event dates are now being stored and converted properly](https://trello.com/c/2WBf3PCu/389-event-dates-are-being-converted-to-utc-in-mongo-database-we-should-be-storing-both-utc-and-server-date)
+- [Fix - Date validation was not working when submitting the event details](https://trello.com/c/8F3uKga4/373-date-validation-doesn-t-seem-to-be-working-when-designing-an-event)
+- [Fix - Enter button on the design event page is now defaulting to submit the form](https://trello.com/c/G6L2cmHl/368-enter-button-on-design-event-page-is-screwed-up-when-submitting-form)
+- [Fix - Creating an account instantly when booking tickets page was broken](https://trello.com/c/2mxsZ7Na/383-creating-an-account-on-book-tickets-page-throws-an-error-existing-logged-in-users-are-fine)
+
+**3.0.0 Events Alive!**
 
 - [Events - Dashboard for editing event details for organisers/advertisers](https://trello.com/c/OdYvdLcx/340-events-event-dashboard-page-ability-to-change-and-add-tickets)
 - [Events - Displaying bunch of nice stats for the dashboard.](https://trello.com/c/IvOYgBxu/343-events-event-dashboard-page-should-contain-information-on-all-sold-tickets-and-pricing-summary)
@@ -16,22 +24,10 @@ Here's a list of the latest changes for the current release:
 - [Events - Calendar invite is now included in the email for each guest](https://trello.com/c/OFOT0BBd/324-add-calendar-invite-for-each-guest)
 - [Events - Organisers will see the percentage of ticket fees when booking an event](https://trello.com/c/4v8Ty9q0/364-events-specify-the-charging-fee-on-the-event-ticketing-setup-booking-page)
 - [Events - PDF invoices for the purchaser](https://trello.com/c/N5YQvAjm/348-events-pdf-invoice-for-the-purchaser)
-- [Members can update their profile with payment details](https://trello.com/c/5jfeFNQ7/362-user-ability-to-update-their-profile-with-payment-details)
-- [Contact advertiser form now requires a login rather than a CAPTCHA](https://trello.com/c/5bxvSRBU/329-contact-advertiser-with-a-login-only-little-counter-intuitive-but-beats-the-captcha-usage-and-more-secure)
-- [No more captcha for contacting support team](https://trello.com/c/BBLPYpTa/331-remove-the-captcha-from-the-contact-us-page-no-need)
-
-
-**Technical Changes**
-
-- [Integrated security so we are no longer using super sql admin account](https://trello.com/c/pJOw5IIl/325-all-the-connection-strings-to-be-integrated-security)
-- [Removed the dependency on the old task scheduler Powershell library](https://trello.com/c/FnvaUjRX/327-setup-the-deployment-to-use-the-new-create-scheduled-task-step-to-remove-dependency-on-the-powershell-modules)
-- [Replaced the old task scheduler console application with better console and argument handling](https://trello.com/c/GgVokvAZ/326-replace-task-scheduler-with-bc-exe)
-- [Removed exposed urls on every page for slightly better security and weight](https://trello.com/c/5zcQ1HrS/335-remove-exposed-urls-on-every-page)
-
-
-**3.0.1 Changes**
-
-- [Fix - Event dates are now being stored and converted properly](https://trello.com/c/2WBf3PCu/389-event-dates-are-being-converted-to-utc-in-mongo-database-we-should-be-storing-both-utc-and-server-date)
-- [Fix - Date validation was not working when submitting the event details](https://trello.com/c/8F3uKga4/373-date-validation-doesn-t-seem-to-be-working-when-designing-an-event)
-- [Fix - Enter button on the design event page is now defaulting to submit the form](https://trello.com/c/G6L2cmHl/368-enter-button-on-design-event-page-is-screwed-up-when-submitting-form)
-- [Fix - Creating an account instantly when booking tickets was broken](https://trello.com/c/2mxsZ7Na/383-creating-an-account-on-book-tickets-page-throws-an-error-existing-logged-in-users-are-fine)
+- [Events - Members can update their profile with payment details](https://trello.com/c/5jfeFNQ7/362-user-ability-to-update-their-profile-with-payment-details)
+- [Change - Contact advertiser form now requires a login rather than a CAPTCHA](https://trello.com/c/5bxvSRBU/329-contact-advertiser-with-a-login-only-little-counter-intuitive-but-beats-the-captcha-usage-and-more-secure)
+- [Tech - No more captcha for contacting support team](https://trello.com/c/BBLPYpTa/331-remove-the-captcha-from-the-contact-us-page-no-need)
+- [Tech - Integrated security so we are no longer using super sql admin account](https://trello.com/c/pJOw5IIl/325-all-the-connection-strings-to-be-integrated-security)
+- [Tech - Removed the dependency on the old task scheduler Powershell library](https://trello.com/c/FnvaUjRX/327-setup-the-deployment-to-use-the-new-create-scheduled-task-step-to-remove-dependency-on-the-powershell-modules)
+- [Tech - Replaced the old task scheduler console application with better console and argument handling](https://trello.com/c/GgVokvAZ/326-replace-task-scheduler-with-bc-exe)
+- [Tech - Removed exposed urls on every page for slightly better security and weight](https://trello.com/c/5zcQ1HrS/335-remove-exposed-urls-on-every-page)

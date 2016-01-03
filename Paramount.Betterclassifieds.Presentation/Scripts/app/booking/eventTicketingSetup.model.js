@@ -80,7 +80,7 @@
         });
         if (data.ticketFields) {
             $.each(data.ticketFields, function (idx, f) {
-                me.ticketFields.push(new $paramount.models.EventTicketField(f));
+                me.ticketFields.push(new $paramount.models.DynamicFieldDefinition(f));
             });
         }
         me.closingDate(data.closingDate);

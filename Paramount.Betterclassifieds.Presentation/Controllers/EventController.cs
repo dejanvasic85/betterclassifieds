@@ -256,6 +256,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
         }
 
+#if DEBUG
+
+        /*
+        *   The following endpoints are great for debugging purposes only. 
+        *   The cshtml files are used for templates only for producing PDFs
+        */
+
         public ActionResult Tickets(int id)
         {
             var eventBooking = _eventManager.GetEventBooking(id);
@@ -274,6 +281,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var viewModel = new EventBookingInvoiceViewModel(_clientConfig, eventBooking, applicationUser, ad.Heading);
             return View(viewModel);
         }
+#endif
 
         public void OnRegisterMaps(IConfiguration configuration)
         {
@@ -321,7 +329,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly ISearchService _searchService;
         private readonly IEventManager _eventManager;
         private readonly IClientConfig _clientConfig;
-        private readonly IUserManager _userManager;      
+        private readonly IUserManager _userManager;
         private readonly IPaymentService _paymentService;
         private readonly IBroadcastManager _broadcastManager;
         private readonly IBookingManager _bookingManager;

@@ -2,6 +2,7 @@ Here's a list of the latest changes:
 
 **3.0.1 Bug Bash**
 
+- [Fix - Preventing a page break in the middle of a table row](https://trello.com/c/tfbX3lRZ/380-large-guest-list-pdf-does-not-render-well-for-printing-when-the-data-overflows-to-next-page)
 - [Fix - Limited the barcode size to 200px now so it fix nicely for printing](https://trello.com/c/tt3RnjWa/385-ticket-barcode-is-too-big-in-the-ticket-printing)
 - [Fix - Coming back to the event ticketing setup screen should be fine now](https://trello.com/c/EIH2XS43/388-error-eventticketfield-is-not-defined-when-coming-back-to-the-ticketing-setup-screen)
 - [Fix - Event dates are now being stored and converted properly](https://trello.com/c/2WBf3PCu/389-event-dates-are-being-converted-to-utc-in-mongo-database-we-should-be-storing-both-utc-and-server-date)

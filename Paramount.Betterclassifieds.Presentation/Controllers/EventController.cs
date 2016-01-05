@@ -281,6 +281,15 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var viewModel = new EventBookingInvoiceViewModel(_clientConfig, eventBooking, applicationUser, ad.Heading);
             return View(viewModel);
         }
+
+        public ActionResult GuestList(int id)
+        {
+            var eventGuestDetails = _eventManager.BuildGuestList(id).ToList();
+            var guests = this.MapList<EventGuestDetails, EventGuestListViewModel>(eventGuestDetails);
+            var viewModel = new EventGuestListDownloadViewModel { EventName = "Event Guest List", Guests = guests };
+
+            return View("~/Views/EditAd/EventGuestList.cshtml", viewModel);
+        }
 #endif
 
         public void OnRegisterMaps(IConfiguration configuration)
@@ -309,6 +318,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 .ForMember(m => m.Status, options => options.MapFrom(s => s.StatusAsString.Humanize()))
                 .ForMember(m => m.Price, options => options.MapFrom(s => s.EventTicket.Price))
                 .ForMember(m => m.TicketName, options => options.MapFrom(s => s.EventTicket.TicketName));
+
+            configuration.CreateMap<EventGuestDetails, EventGuestListViewModel>();
 
             #endregion
 

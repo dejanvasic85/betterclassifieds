@@ -8,8 +8,19 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>TicketPrint</title>
+    
     <link rel="stylesheet" href="@Url.ContentAbsolute("~/Content/bootstrap-3.3.0.min.css")" media="all" />
     <link rel="stylesheet" href="@Url.ContentAbsolute("~/Content/font-awesome-4.4.0.css")" media="all" />
+    <style type="text/css">
+        table {
+            page-break-inside: auto;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            page-break-after: auto;
+        }
+    </style>
 </head>
 <body>
 

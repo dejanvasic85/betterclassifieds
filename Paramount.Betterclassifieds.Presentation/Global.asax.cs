@@ -31,11 +31,13 @@ namespace Paramount.Betterclassifieds.Presentation
             // View engine ( for branding )
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new ClientViewEngine());
+
+            MvcHandler.DisableMvcResponseHeader = true;
         }
 
-        protected void Session_Start(Object sender, EventArgs e)
+        protected void Session_Start(object sender, EventArgs e)
         {
-            Session["init"] = 0;
+            Session["init"] = 0; // This line is here so that a new session object is created on the server!
         }
     }
 }

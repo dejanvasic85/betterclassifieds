@@ -4,7 +4,7 @@ using Paramount.Betterclassifieds.Business.Search;
 
 namespace Paramount.Betterclassifieds.Presentation
 {
-    public class PlainTextToHtml : ValueResolver<AdSearchResult, string>
+    public class AdToHtmlResolver : ValueResolver<AdSearchResult, string>
     {
         protected override string ResolveCore(AdSearchResult source)
         {
@@ -13,7 +13,7 @@ namespace Paramount.Betterclassifieds.Presentation
 
             if (source.HtmlText.HasValue())
             {
-                return source.HtmlText.Replace("\n", "<br />");
+                return source.HtmlText.Replace("\r\n", "<br />").Replace("\n", "<br />");
             }
 
             if (source.Description.HasValue())

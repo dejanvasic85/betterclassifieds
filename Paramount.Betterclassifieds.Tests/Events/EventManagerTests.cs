@@ -15,6 +15,20 @@ namespace Paramount.Betterclassifieds.Tests.Events
     internal class EventManagerTests : TestContext<EventManager>
     {
         [Test]
+        public void GetEventDetailsForOnlineAdId_CallsRepository()
+        {
+            // arrange
+            var mockEvent= new EventModelMockBuilder().Default().Build();
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetailsForOnlineAdId(10, true), mockEvent);
+
+            // act
+            var result = BuildTargetObject().GetEventDetailsForOnlineAdId(10, true);
+
+            // assert
+            result.IsEqualTo(mockEvent);
+        }
+
+        [Test]
         public void CreateEventBooking_CallsRepository_AfterFactory()
         {
             // arrange

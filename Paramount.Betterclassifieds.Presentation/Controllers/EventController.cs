@@ -300,7 +300,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<Business.Events.EventModel, EventViewDetailsModel>()
                 .ForMember(member => member.EventStartDate, options => options.ResolveUsing(src => src.EventStartDate.GetValueOrDefault().ToLongDateString()))
                 .ForMember(member => member.EventStartTime, options => options.ResolveUsing(src => src.EventStartDate.GetValueOrDefault().ToString("hh:mm tt")))
-                .ForMember(member => member.EventEndDate, options => options.ResolveUsing(src => src.EventEndDate.GetValueOrDefault().ToLongDateString()));
+                .ForMember(member => member.EventEndDate, options => options.ResolveUsing(src => src.EventEndDate.GetValueOrDefault().ToLongDateString()))
+                ;
 
             configuration.CreateMap<Business.Search.AdSearchResult, EventViewDetailsModel>()
                 .ForMember(m => m.Posted, options => options.PreCondition(src => src.BookingDate.HasValue))
@@ -309,7 +310,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 .ForMember(m => m.OrganiserName, options => options.MapFrom(src => src.ContactName))
                 .ForMember(m => m.OrganiserPhone, options => options.MapFrom(src => src.ContactPhone))
                 .ForMember(m => m.Views, options => options.MapFrom(src => src.NumOfViews))
-                .ForMember(m => m.EventPhoto, options => options.MapFrom(src => src.PrimaryImage));
+                .ForMember(m => m.EventPhoto, options => options.MapFrom(src => src.PrimaryImage))
+                .ForMember(m => m.Description, options => options.ResolveUsing<PlainTextToHtml>())
+                ;
 
             configuration.CreateMap<Business.Events.EventTicket, EventTicketViewModel>().ReverseMap();
             configuration.CreateMap<Business.IClientConfig, EventViewDetailsModel>().ForMember(m => m.MaxTicketsPerBooking, options => options.MapFrom(src => src.EventMaxTicketsPerBooking));

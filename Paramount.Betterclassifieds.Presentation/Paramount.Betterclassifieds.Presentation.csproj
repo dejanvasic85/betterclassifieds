@@ -212,6 +212,7 @@
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\ListingsController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
+    <Compile Include="ViewModels\Converter\PlainTextToHtml.cs" />
     <Compile Include="Controllers\UserAdsController.cs" />
     <Compile Include="Framework\Extensions\ModelStateExtensions.cs" />
     <Compile Include="Framework\Factories\CategoryRepositoryFactory.cs" />

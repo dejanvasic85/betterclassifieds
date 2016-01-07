@@ -212,6 +212,7 @@
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\ListingsController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
+    <Compile Include="Services\AdText.cs" />
     <Compile Include="ViewModels\Converter\AdToHtmlResolver.cs" />
     <Compile Include="Controllers\UserAdsController.cs" />
     <Compile Include="Framework\Extensions\ModelStateExtensions.cs" />

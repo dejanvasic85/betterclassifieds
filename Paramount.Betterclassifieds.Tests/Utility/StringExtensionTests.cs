@@ -1,4 +1,5 @@
-﻿using System.Web.UI;
+﻿using System;
+using System.Web.UI;
 using NUnit.Framework;
 
 namespace Paramount.Betterclassifieds.Tests.Utility
@@ -156,5 +157,30 @@ namespace Paramount.Betterclassifieds.Tests.Utility
 
             Assert.That(result, Is.EqualTo("something"));
         }
+
+        [Test]
+        public void ReplaceLineBreaks_EnvironmentNewLine_DefaultParameter_ReplacesNewLineWithSpace()
+        {
+            var sample = string.Format("hello" + Environment.NewLine + "there").ReplaceLineBreaks();
+            sample.IsEqualTo("hello there");
+
+            var sampleWithReturn = string.Format("hello" + Environment.NewLine + " there\r\n").ReplaceLineBreaks("<br />");
+            sampleWithReturn.IsEqualTo("hello<br /> there<br />");
+        }
+
+        [Test]
+        public void ReplaceLineBreaks_TwoNewLines_ReplacesBothWithSpace()
+        {
+            var sampleWithTwoNewLines = string.Format("hello\n\nthere").ReplaceLineBreaks();
+            sampleWithTwoNewLines.IsEqualTo("hello  there");
+        }
+
+        [Test]
+        public void ReplaceLineBreaks_EnvironmentNewLine_AndCarriageReturn_WithCustomParameter_ReplacesNewLineWithParameter()
+        {
+            var sampleWithReturn = string.Format("hello" + Environment.NewLine + " there\r\n").ReplaceLineBreaks("<br />");
+            sampleWithReturn.IsEqualTo("hello<br /> there<br />");
+        }
+
     }
 }

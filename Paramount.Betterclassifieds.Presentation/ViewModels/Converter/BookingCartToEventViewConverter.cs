@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
+using System.Web;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
-using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels
@@ -32,14 +32,14 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             if (bookingCart.OnlineAdModel != null)
             {
                 eventViewModel.Title = bookingCart.OnlineAdModel.Heading;
-                if (bookingCart.OnlineAdModel.Description.HasValue())
-                {
-                    eventViewModel.Description = bookingCart.OnlineAdModel.HtmlText.Replace("<br>", Environment.NewLine);
-                }
+
+                var adText = AdText.FromHtmlEncoded(bookingCart.OnlineAdModel.HtmlText);
+                eventViewModel.Description = adText.HtmlText;
+                
                 eventViewModel.OrganiserName = bookingCart.OnlineAdModel.ContactName;
                 eventViewModel.OrganiserPhone = bookingCart.OnlineAdModel.ContactPhone;
                 var photo = bookingCart.OnlineAdModel.Images.FirstOrDefault();
-                if (photo != null)
+                if (photo != null) 
                 {
                     eventViewModel.EventPhoto = photo.DocumentId;
                 }
@@ -59,17 +59,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             eventViewModel.LocationLongitude = bookingCart.Event.LocationLongitude;
 
             return eventViewModel;
-        }
-
-        private EventTicketViewModel ToViewModel(EventTicket eventTicket)
-        {
-            return new EventTicketViewModel
-            {
-                EventTicketId = eventTicket.EventTicketId,
-                TicketName = eventTicket.TicketName,
-                Price = eventTicket.Price,
-                AvailableQuantity = eventTicket.AvailableQuantity
-            };
         }
     }
 }

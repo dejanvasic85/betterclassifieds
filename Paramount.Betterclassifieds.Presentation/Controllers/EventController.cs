@@ -15,7 +15,6 @@ using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Services;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
-using WebGrease.Css.Extensions;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {

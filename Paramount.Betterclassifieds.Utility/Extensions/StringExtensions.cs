@@ -196,5 +196,10 @@ namespace Paramount
                 return arrBytData;
             }
         }
+
+        public static string ReplaceLineBreaks(this string str, string replacementValue = " ")
+        {
+            return str.Replace("\r\n", replacementValue).Replace("\n", replacementValue);
+        }
     }
 }

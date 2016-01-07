@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Web;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
@@ -48,7 +49,12 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
             // Generic online details
             bookingCart.OnlineAdModel.Heading = eventViewModel.Title;
-            bookingCart.OnlineAdModel.SetDescription(eventViewModel.Description.Replace(Environment.NewLine, "<br>"));
+            
+            // Treat the incoming text from user as html
+            var adText = AdText.FromHtml(eventViewModel.Description);
+            bookingCart.OnlineAdModel.HtmlText = adText.HtmlTextEncoded;
+            bookingCart.OnlineAdModel.Description = adText.Plaintext;
+
             bookingCart.OnlineAdModel.ContactName = eventViewModel.OrganiserName;
             bookingCart.OnlineAdModel.ContactPhone = eventViewModel.OrganiserPhone;
             if (eventViewModel.EventPhoto.HasValue())

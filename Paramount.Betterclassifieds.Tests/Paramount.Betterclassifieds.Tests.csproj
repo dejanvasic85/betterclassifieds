@@ -151,6 +151,7 @@
     <Compile Include="Pricing\PrintHeadingChargeTests.cs" />
     <Compile Include="Pricing\PrintWordChargeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\AdTextTests.cs" />
     <Compile Include="Utility\ExceptionExtenionTests.cs" />
     <Compile Include="Utility\GuardTests.cs" />
     <Compile Include="Utility\HtmlExtensionsTests.cs" />

@@ -1,6 +1,11 @@
 Here's a list of the latest changes:
 
-**3.0.1 Bug Bash**
+**3.0.2 Events Improvements and Feedback implementation**
+
+- [Change - Better handling of html descriptions and security hardening](https://trello.com/c/TcP5tbER/366-description-vs-html-description)
+
+
+**3.0.1 Events Bug Bash**
 
 - [Fix - Preventing a page break in the middle of a table row](https://trello.com/c/tfbX3lRZ/380-large-guest-list-pdf-does-not-render-well-for-printing-when-the-data-overflows-to-next-page)
 - [Fix - Limited the barcode size to 200px now so it fix nicely for printing](https://trello.com/c/tt3RnjWa/385-ticket-barcode-is-too-big-in-the-ticket-printing)

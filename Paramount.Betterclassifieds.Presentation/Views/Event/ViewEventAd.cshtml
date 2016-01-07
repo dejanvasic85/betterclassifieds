@@ -27,7 +27,7 @@
                 <div class='event-title @(Model.EventPhoto.IsNullOrEmpty() ? "full-width" : "")'>
                     <h1>@Model.Title</h1>
                     <p class="details">@Model.EventStartDate at @Model.EventStartTime.</p>
-                    <p>@Html.Raw(Model.Description)</p>
+                    <p>@Html.Raw(Model.HtmlText)</p>
                     @if (Model.TicketingEnabled)
                     {
                         <p>

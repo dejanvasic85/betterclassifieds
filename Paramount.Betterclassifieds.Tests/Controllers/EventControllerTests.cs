@@ -51,7 +51,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             eventViewModel.AdId.IsEqualTo(mockAd.AdId);
             eventViewModel.EventId.IsEqualTo(mockEventAd.EventId.GetValueOrDefault());
             eventViewModel.Title.IsEqualTo(mockAd.Heading);
-            eventViewModel.Description.IsEqualTo("FirstLine<br />SecondLine");
+            eventViewModel.HtmlText.IsEqualTo("FirstLine<br />SecondLine");
             eventViewModel.EventPhoto.IsEqualTo(mockAd.PrimaryImage);
             eventViewModel.IsClosed.IsEqualTo(true);
             eventViewModel.EventStartDate.IsEqualTo(mockEventAd.EventStartDate.GetValueOrDefault().ToLongDateString());

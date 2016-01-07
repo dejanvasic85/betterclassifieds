@@ -310,7 +310,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 .ForMember(m => m.OrganiserPhone, options => options.MapFrom(src => src.ContactPhone))
                 .ForMember(m => m.Views, options => options.MapFrom(src => src.NumOfViews))
                 .ForMember(m => m.EventPhoto, options => options.MapFrom(src => src.PrimaryImage))
-                .ForMember(m => m.Description, options => options.ResolveUsing<AdToHtmlResolver>())
                 ;
 
             configuration.CreateMap<Business.Events.EventTicket, EventTicketViewModel>().ReverseMap();

@@ -3,9 +3,9 @@
     /// <summary>
     /// Copy of the paypal Item object properties
     /// </summary>
-    public class PayPalChargeableItem
+    public class ChargeableItem
     {
-        public PayPalChargeableItem(string name, decimal price, string currency, int quantity, string sku)
+        public ChargeableItem(string name, decimal price, string currency, int quantity, string sku)
         {
             Name = name;
             Price = price.ToString("N");

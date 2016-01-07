@@ -27,7 +27,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             var mockAd = new AdSearchResultMockBuilder()
                 .Default()
-                .WithHtmlText("FirstLine\nSecondLine")
+                .WithHtmlText("FirstLine<br />SecondLine")
                 .Build();
 
             var mockEventAd = new EventModelMockBuilder()
@@ -207,7 +207,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventBookingContext.SetupSet(p => p.EventBookingId = It.IsAny<int?>());
             _eventBookingContext.SetupSet(p => p.Purchaser = It.IsAny<string>());
             _eventBookingContext.SetupSet(p => p.EmailGuestList = It.IsAny<string[]>());
-            
+
 
             // act
             var controller = BuildController(mockUser: _mockUser);
@@ -262,7 +262,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventManager.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(), It.IsAny<ApplicationUser>(), It.IsAny<IEnumerable<EventTicketReservation>>()), mockEventBooking);
             _eventManager.SetupWithVerification(call => call.SetPaymentReferenceForBooking(It.Is<int>(p => p == mockEventBookingId), It.Is<string>(p => p == mockPaymentResponse.PaymentId), It.Is<PaymentType>(p => p == PaymentType.PayPal)));
             _userManager.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.IsAny<string>()), mockApplicationUser);
-            _paymentService.SetupWithVerification(call => call.SubmitPayment(It.IsAny<PayPalPaymentRequest>()), mockPaymentResponse);
+            _paymentService.SetupWithVerification(call => call.SubmitPayment(It.IsAny<PaymentRequest>()), mockPaymentResponse);
 
             _eventBookingContext.SetupSet(p => p.EventId = It.IsAny<int?>());
             _eventBookingContext.SetupSet(p => p.EventBookingId = It.IsAny<int?>());
@@ -332,7 +332,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _templatingService.SetupWithVerification(call => call.Generate(It.IsAny<object>(), "Invoice"), "<html><body>Output for PDF Invoice</body></html>");
             _broadcastManager.Setup(call => call.Queue(It.IsAny<IDocType>(), It.IsAny<string[]>())).Returns(new Notification(Guid.NewGuid(), "BoomDoc"));
             _clientConfig.SetupWithVerification(call => call.ClientName, "A-Brand");
-            _clientConfig.SetupWithVerification(call => call.ClientAddress, new Address() {AddressLine1 = "1", AddressLine2 = "Smith Street", State = "VIC"});
+            _clientConfig.SetupWithVerification(call => call.ClientAddress, new Address() { AddressLine1 = "1", AddressLine2 = "Smith Street", State = "VIC" });
             _clientConfig.SetupWithVerification(call => call.ClientPhoneNumber, "9999 0000");
             _userManager.SetupWithVerification(call => call.GetUserByEmailOrUsername("foo@bar.com"), applicationUserMock);
 
@@ -343,6 +343,39 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             result.IsTypeOf<ViewResult>();
             result.ViewResultModelIsTypeOf<EventBookedViewModel>();
             _broadcastManager.Verify(call => call.Queue(It.IsAny<IDocType>(), It.IsAny<string[]>()), Times.Exactly(3)); // Sends the tickets and each guest a calendar invite!
+        }
+
+        [Test]
+        public void AuthorisePayPal_CallsPaymentServiceAndEventManager()
+        {
+            // arrange 
+            var mockEventBooking = new EventBookingMockBuilder()
+                .WithUserId("user123")
+                .WithTotalCost(100)
+                .WithEventBookingId(1000)
+                .Build();
+
+            _eventBookingContext.SetupWithVerification(call => call.EventBookingId, 1000);
+            _eventBookingContext.SetupWithVerification(call => call.EventId, 2000);
+            _eventBookingContext.SetupWithVerification(call => call.EventBookingPaymentReference, "ref123");
+            _eventManager.SetupWithVerification(call => call.GetEventBooking(It.IsAny<int>()), mockEventBooking);
+            _eventManager.SetupWithVerification(call => call.EventBookingPaymentCompleted(It.IsAny<int>(), PaymentType.PayPal));
+            _paymentService.SetupWithVerification(call => call.CompletePayment(
+                "ref123", 
+                "payer123",
+                "user123",
+                100,
+                "1000",
+                TransactionTypeName.EventBookingTickets
+                ));
+
+            // act
+            var controller = BuildController();
+            var result = controller.AuthorisePayPal("payer123");
+
+            // assert
+            var redirectResult = result.IsTypeOf<RedirectToRouteResult>();
+            redirectResult.RedirectResultActionIs("EventBooked");
         }
 
         private Mock<HttpContextBase> _httpContext;

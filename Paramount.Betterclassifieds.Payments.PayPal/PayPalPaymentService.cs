@@ -3,18 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business.Payment;
+using Paramount.Betterclassifieds.DataService;
 using PayPal.Api;
 
 namespace Paramount.Betterclassifieds.Payments.pp
 {
     public class PayPalPaymentService : IPaymentService, IMappingBehaviour
     {
-        public PaymentResponse SubmitPayment(PayPalPaymentRequest request)
+        private readonly IDbContextFactory _contextFactory;
+        private readonly IDateService _dateService;
+
+        public PayPalPaymentService(IDbContextFactory contextFactory, IDateService dateService)
+        {
+            _contextFactory = contextFactory;
+            _dateService = dateService;
+        }
+
+        public PaymentResponse SubmitPayment(PaymentRequest request)
         {
             var apiContext = ApiContextFactory.CreateApiContext();
             // var converter = new ChargeableItemsToPaypalConverter();
             var paypalItems = new ItemList() { items = new List<Item>()}; 
-            paypalItems.items.AddRange(this.MapList<PayPalChargeableItem, Item>(request.ChargeableItems.ToList()));
+            paypalItems.items.AddRange(this.MapList<ChargeableItem, Item>(request.ChargeableItems.ToList()));
 
             // ###Payer
             // A resource representing a Payer that funds a payment
@@ -105,10 +115,28 @@ namespace Paramount.Betterclassifieds.Payments.pp
             payment.Execute(apiContext, paymentExecution);
         }
 
+        public void CompletePayment(string payReference, string payerId, string userId, decimal amount, string title, string description)
+        {
+            CompletePayment(payReference, payerId);
+            using (var context = _contextFactory.CreateClassifiedContext())
+            {
+                context.Transactions.InsertOnSubmit(new Paramount.Betterclassifieds.DataService.Classifieds.Transaction()
+                {
+                    Amount = amount,
+                    Description = description,
+                    Title = title,
+                    TransactionDate = _dateService.Now,
+                    PaymentMethod = PaymentType.PayPal.ToString(),
+                    UserId = userId
+                });
+                context.SubmitChanges();
+            }
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateProfile("paypal converter");
-            configuration.CreateMap<PayPalChargeableItem, Item>();
+            configuration.CreateMap<ChargeableItem, Item>();
         }
     }
 }

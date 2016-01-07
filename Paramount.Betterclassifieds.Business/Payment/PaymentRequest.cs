@@ -3,11 +3,11 @@ using System.Linq;
 
 namespace Paramount.Betterclassifieds.Business.Payment
 {
-    public class PayPalPaymentRequest
+    public class PaymentRequest
     {
-        public PayPalPaymentRequest()
+        public PaymentRequest()
         {
-            this.ChargeableItems = new List<PayPalChargeableItem>();
+            this.ChargeableItems = new List<ChargeableItem>();
         }
         public string PayReference { get; set; }
         
@@ -15,7 +15,7 @@ namespace Paramount.Betterclassifieds.Business.Payment
 
         public string CancelUrl { get; set; }
 
-        public IList<PayPalChargeableItem> ChargeableItems { get; set; }
+        public IList<ChargeableItem> ChargeableItems { get; set; }
         public decimal Total { get; set; }
     }
 }

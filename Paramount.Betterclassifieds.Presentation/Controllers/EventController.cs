@@ -182,11 +182,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return RedirectToAction("NotFound", "Error");
             }
 
+            var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.Value);
+
             // Mark booking as paid in our database
             _eventManager.EventBookingPaymentCompleted(_eventBookingContext.EventBookingId, PaymentType.PayPal);
-
+            
             // Call paypal to let them know we completed our end
-            _paymentService.CompletePayment(_eventBookingContext.EventBookingPaymentReference, payerId);
+            _paymentService.CompletePayment(_eventBookingContext.EventBookingPaymentReference, payerId,
+                eventBooking.UserId, eventBooking.TotalCost, eventBooking.EventBookingId.ToString(), TransactionTypeName.EventBookingTickets);
 
             return RedirectToAction("EventBooked");
         }

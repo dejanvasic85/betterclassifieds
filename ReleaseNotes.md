@@ -3,7 +3,7 @@ Here's a list of the latest changes:
 **3.0.2 Events Improvements and Feedback implementation**
 
 - [Change - Better handling of html descriptions and security hardening](https://trello.com/c/TcP5tbER/366-description-vs-html-description)
-
+- [Enhancement - Transaction database table is now capturing all the event booking ticket purchases](https://trello.com/c/KjmmimJD/367-events-capture-transaction-for-ticket-purchases)
 
 **3.0.1 Events Bug Bash**
 

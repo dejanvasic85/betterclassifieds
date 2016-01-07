@@ -5,13 +5,13 @@ namespace Paramount.Betterclassifieds.Business.Payment
 {
     public class AdBookingPayPalRequestFactory : IPayPalRequestFactory<BookingOrderResult>
     {
-        public PayPalPaymentRequest CreatePaymentRequest(BookingOrderResult model, string payReference, string returnUrl, string cancelUrl)
+        public PaymentRequest CreatePaymentRequest(BookingOrderResult model, string payReference, string returnUrl, string cancelUrl)
         {
             var reference = model.BookingReference;
             var items = AddOnlineRates(model, reference);
             items.AddRange(AddPrintRates(model, reference));
 
-            return new PayPalPaymentRequest
+            return new PaymentRequest
             {
                 PayReference = payReference,
                 ReturnUrl = returnUrl,
@@ -21,23 +21,23 @@ namespace Paramount.Betterclassifieds.Business.Payment
             };
         }
 
-        private List<PayPalChargeableItem> AddOnlineRates(BookingOrderResult bookingOrder, string sku)
+        private List<ChargeableItem> AddOnlineRates(BookingOrderResult bookingOrder, string sku)
         {
-            var list = new List<PayPalChargeableItem>();
+            var list = new List<ChargeableItem>();
             
-            list.AddRange(bookingOrder.OnlineBookingAdRate.GetItems().Select(li => new PayPalChargeableItem(li.Name, li.Price, li.Currency, li.Quantity, sku)));
+            list.AddRange(bookingOrder.OnlineBookingAdRate.GetItems().Select(li => new ChargeableItem(li.Name, li.Price, li.Currency, li.Quantity, sku)));
 
             return list;
         }
 
-        private List<PayPalChargeableItem> AddPrintRates(BookingOrderResult bookingOrder, string sku)
+        private List<ChargeableItem> AddPrintRates(BookingOrderResult bookingOrder, string sku)
         {
-            var list = new List<PayPalChargeableItem>();
+            var list = new List<ChargeableItem>();
             if (!bookingOrder.IsPrintIncluded)
                 return list;
 
             // Publications will be line items
-            list.AddRange(bookingOrder.PrintRates.Select(p => new PayPalChargeableItem(p.Name, p.OrderTotal, "AUD", quantity:1 , sku: sku)));
+            list.AddRange(bookingOrder.PrintRates.Select(p => new ChargeableItem(p.Name, p.OrderTotal, "AUD", quantity:1 , sku: sku)));
 
             return list;
         }

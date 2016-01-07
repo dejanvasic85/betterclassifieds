@@ -208,7 +208,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult AuthorisePayment(string payerId)
         {
             var bookingCart = _bookingContext.Current();
-            _paymentService.CompletePayment(bookingCart.PaymentReference, payerId);
+            _paymentService.CompletePayment(bookingCart.PaymentReference, payerId, bookingCart.UserId, bookingCart.TotalPrice, bookingCart.BookingReference, "Classified Booking");
             return RedirectToAction("Success");
         }
 

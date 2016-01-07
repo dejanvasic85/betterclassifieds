@@ -5,13 +5,13 @@ namespace Paramount.Betterclassifieds.Business.Payment
 {
     public class EventBookingPayPalRequestFactory : IPayPalRequestFactory<EventBooking>
     {
-        public PayPalPaymentRequest CreatePaymentRequest(EventBooking model, string payReference, string returnUrl, string cancelUrl)
+        public PaymentRequest CreatePaymentRequest(EventBooking model, string payReference, string returnUrl, string cancelUrl)
         {
             var lineItems = model.EventBookingTickets
-                .Select(t => new PayPalChargeableItem(t.TicketName, t.Price.GetValueOrDefault(), "AUD", 1, t.EventTicketId.ToString()))
+                .Select(t => new ChargeableItem(t.TicketName, t.Price.GetValueOrDefault(), "AUD", 1, t.EventTicketId.ToString()))
                 .ToList();
 
-            return new PayPalPaymentRequest
+            return new PaymentRequest
             {
                 PayReference = payReference,
                 ReturnUrl = returnUrl,

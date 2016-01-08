@@ -26,6 +26,14 @@
     @*JQuery should go before anything*@
     @Scripts.Render("~/bundle/jquery")
 
+    <header>
+        <div class="navbar navbar-default" role="navigation" id="navbar">
+            @Html.Partial("_Navbar")
+        </div>
+    </header>
+
+    @RenderSection("Main", false)
+
     <div class="container">
         @*Render the application layout*@
         @RenderBody()

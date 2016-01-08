@@ -1,30 +1,45 @@
 ﻿@*Navbar*@
-<div class="navbar navbar-default" role="navigation" id="navbar">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="@Url.Action("Index", "Home")">Explore Classifieds</a>
-        </div>
 
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="@Url.Action("ContactUs", "Home")">Contact</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
+<div class="container-fluid">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+            <i class="fa fa-home"></i> KandoBay
+        </a>
+    </div>
+
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="@Url.Action("Step1", "Booking")">
+                    <span class="fa fa-pencil"></span>&nbsp;
+                    PLACE NEW LISTING
+                </a>
+            </li>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li><a href="@Url.Action("Index", "UserAds")"> <i class="fa fa-th-list"></i> My Ads</a> </li>
+                <li><a href="@Url.Action("Details", "Account")"> <i class="fa fa-user"></i> Account Details</a> </li>
+                <li><a href="@Url.Action("ChangePassword", "Account")"> <i class="fa fa-edit"></i> Change Password</a> </li>
+                <li><a href="@Url.Action("Logout", "Account")"><i class="fa fa-sign-out"></i> Logout</a></li>
+            }
+            else
+            {
                 <li>
                     <a href="@Url.Action("Details", "Account")">
                         <span class="glyphicon glyphicon-user"></span>&nbsp;
                         My Account
                     </a>
                 </li>
-            </ul>
-        </div>
-        <!--/.nav-collapse -->
+            }
+        </ul>
     </div>
-    <!--/.container-fluid -->
+    <!--/.nav-collapse -->
 </div>
+<!--/.container-fluid -->

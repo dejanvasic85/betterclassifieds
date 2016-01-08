@@ -1,4 +1,10 @@
-﻿.userads-cmd-panel a,
+﻿html {
+  font-size: 12px;
+}
+body {
+  font-size: 17px;
+}
+.userads-cmd-panel a,
 .userads-cmd-panel a:hover {
   color: #fff;
 }
@@ -9,4 +15,4 @@
   color: #fff;
   background-color: #008cba;
 }
-/*# sourceMappingURL=kando.css.map */
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImthbmRvLmxlc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBRUE7RUFDSSxlQUFBOztBQUdKO0VBQ0ksZUFBQTs7QUFHSixrQkFDSTtBQURKLGtCQUNPLEVBQUM7RUFDQSxXQUFBOztBQUlSO0VBQ0kseUJBQUE7O0FBS0ksZ0JBREosS0FDSztFQUNHLFdBQUE7RUFDQSx5QkFBQSIsImZpbGUiOiJ1bmRlZmluZWQifQ== */

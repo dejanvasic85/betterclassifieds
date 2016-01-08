@@ -16,14 +16,14 @@
     <link rel="icon" href="@Url.Content("~/Content/TheMusic/img/themusic_favicon.ico")" type="image/ico" />
 
     @*TheMusic styles*@
-    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-3.3.0.min.css")"/>
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-3.3.0.min.css")" />
 
     @*Base styles - see bundling configuration*@
     @Styles.Render("~/Content/css-base")
 
     <link rel="stylesheet" href="@Url.Content("~/Content/TheMusic/themusic.min.css")" />
 
-   
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -60,6 +60,13 @@
 
     @*JQuery should go before anything so let's place it at the top of body - a little better than head*@
     @Scripts.Render("~/bundle/jquery")
+
+    <header>
+        <div class="navbar navbar-default" role="navigation" id="navbar">
+            @Html.Partial("_Navbar")
+        </div>
+    </header>
+    @RenderSection("Main", false)
 
     <div class="container">
 

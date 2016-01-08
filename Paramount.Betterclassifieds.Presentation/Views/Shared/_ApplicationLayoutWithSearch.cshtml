@@ -4,6 +4,10 @@
     Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
 }
 
+@section Main{
+    @RenderSection("Main", false)    
+}
+
 @section QuickSearch{
     @*Quick Search Bar*@
     <div class="row">

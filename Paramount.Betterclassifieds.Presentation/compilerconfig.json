@@ -14,5 +14,9 @@
   {
     "outputFile": "Content/TheMusic/themusic.css",
     "inputFile": "Content/TheMusic/themusic.less"
+  },
+  {
+    "outputFile": "Content/KandoBay/kando.css",
+    "inputFile": "Content/KandoBay/kando.less"
   }
 ]

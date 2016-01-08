@@ -18,7 +18,7 @@
     @Styles.Render("~/Content/css-base")
 
     <link rel="stylesheet" href="@Url.Content("~/Content/KandoBay/kando.min.css")" />
-    
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -32,23 +32,17 @@
     @*JQuery should go before anything*@
     @Scripts.Render("~/bundle/jquery")
 
-    <div class="container">
-        <div class="row top-buffer-40">
-            <div class="col-md-4 left-buffer-20">
-                <a href="@Url.Action("Index", "Home")">
-                    <img class="themusic-logo"
-                         src="@Url.Content("~/Content/KandoBay/img/Kandobay_Logo.png")"
-                         width="300"
-                         alt="Kandobay Classifieds" />
-                </a>
-            </div>
-            <div class="col-md-8">
-                <div class="well well-lg" id="leadtext">
-                    Free classifieds for the African Community|Buy, Sell, Trade|Teach and Learn|Advertise your business for free
-                </div>
-            </div>
+    <header>
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation" id="navbar">
+            @Html.Partial("_Navbar")
         </div>
+    </header>
 
+    @RenderSection("Main", false)
+    
+
+    <div class="container">
+       
         @*Render the application layout*@
         @RenderBody()
     </div>

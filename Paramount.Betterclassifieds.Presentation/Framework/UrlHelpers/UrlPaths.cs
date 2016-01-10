@@ -43,9 +43,13 @@ namespace Paramount
 
         public static UrlBuilder Image(this UrlHelper urlHelper, string documentId, int height = 100, int width = 100)
         {
+            if (documentId.IsNullOrEmpty() || documentId.Equals("placeholder"))
+            {
+                return new UrlBuilder(urlHelper).WithContent("~/Content/images/placeholder.png");
+            }
             return new UrlBuilder(urlHelper, "Render", "Image", new { documentId, height, width });
         }
-
+        
         public static UrlBuilder Booking(this UrlHelper urlHelper, int bookingStep, string adType = "")
         {
             return new UrlBuilder(urlHelper, "Step" + bookingStep, "Booking", new { adType });

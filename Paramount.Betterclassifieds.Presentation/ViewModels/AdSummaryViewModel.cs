@@ -37,5 +37,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         }
 
         public string CategoryAdType { get; set; }
+        public string PrimaryImage { get; set; }
     }
 }

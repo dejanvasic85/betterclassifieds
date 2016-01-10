@@ -42,7 +42,7 @@ namespace Paramount.Betterclassifieds.Business.Search
             get
             {
                 if (this.ImageUrls == null)
-                    return string.Empty;
+                    return "placeholder";
 
                 // For the moment we'll just return the first image
                 return ImageUrls.FirstOrDefault();

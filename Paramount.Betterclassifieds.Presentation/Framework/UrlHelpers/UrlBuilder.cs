@@ -61,5 +61,11 @@ namespace Paramount
         {
             return urlBuilder.ToString();
         }
+
+        public UrlBuilder WithContent(string relativeContentPath)
+        {
+            this.Path = UrlHelper.Content(relativeContentPath);
+            return this;
+        }
     }
 }

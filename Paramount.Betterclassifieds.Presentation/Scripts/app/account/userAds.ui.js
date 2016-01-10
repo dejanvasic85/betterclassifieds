@@ -10,8 +10,9 @@
             userAdService.getAdsForUser().done(function (data) {
                 $rootElement.find('.progress').hide(500, function () {
                     var bookingsView = new $p.models.UserAdsView(data);
-                    ko.applyBindings(bookingsView, $rootElement.get(0));
                     $rootElement.find('#adList').show();
+                    $rootElement.find('#noAdsMsg').show();
+                    ko.applyBindings(bookingsView, $rootElement.get(0));
                 });
             });
 

@@ -32,11 +32,19 @@
             else
             {
                 <li>
+                    <a href="@Url.Action("Login", "Account")">
+                        <span class="fa fa-user"></span>&nbsp;
+                        Register
+                    </a>
+                </li>
+
+                <li>
                     <a href="@Url.Action("Details", "Account")">
-                        <span class="glyphicon glyphicon-user"></span>&nbsp;
+                        <span class="fa fa-sign-in"></span>&nbsp;
                         My Account
                     </a>
                 </li>
+
             }
         </ul>
     </div>

@@ -26,8 +26,11 @@
                 return item.adId() == self.selectedAd();
             });
             itemToRemove.status('Expired');
-            //self.ads.remove(itemToRemove);
         };
+
+        self.noAdsAvaialble = ko.computed(function() {
+            return self.ads().length === 0;
+        });
     };
 
     function UserAd(item) {

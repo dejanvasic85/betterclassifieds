@@ -31,13 +31,9 @@
             @Html.Partial("_Navbar")
         </div>
     </header>
+    
+    @RenderBody()
 
-    @RenderSection("Main", false)
-
-    <div class="container">
-        @*Render the application layout*@
-        @RenderBody()
-    </div>
 
     @Html.Partial("_ApplicationScripts")
     @RenderSection("Scripts", false)

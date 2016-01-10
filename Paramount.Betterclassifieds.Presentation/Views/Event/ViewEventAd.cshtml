@@ -3,7 +3,7 @@
 @model EventViewDetailsModel
 @{
     ViewBag.Title = Model.Title;
-    Layout = "~/Views/Shared/_ApplicationLayoutWithSearch.cshtml";
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
 }
 @section scripts
 {
@@ -18,7 +18,7 @@
             });
     </script>
 }
-<div class="event-details" id="eventView">
+<div class="container event-details top-buffer-60" id="eventView">
 
     @*Jumbotron*@
     <div class="row">

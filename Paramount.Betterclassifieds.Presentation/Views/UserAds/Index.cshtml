@@ -1,8 +1,7 @@
-﻿@using Paramount
-@model dynamic
+﻿@model dynamic
 
 @{
-    Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayoutWithSearch.cshtml");
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
     ViewBag.Title = "Manage my Ads";
 }
 
@@ -14,12 +13,7 @@
 }
 
 
-<div class="user-ads">
-    <div class="row">
-        <div class="col-xs-12">
-            @Html.Partial("_UserMenu")
-        </div>
-    </div>
+<div class="container top-buffer-60 user-ads">
 
     <div class="row">
         <div class="col-sm-6">
@@ -51,6 +45,11 @@
                     <span class="sr-only"></span>
                     Loading... Please Wait
                 </div>
+            </div>
+
+            <div class="alert alert-info-alt" data-bind="visible: noAdsAvaialble" style="display: none;" id="noAdsMsg">
+                There doesn't seem to be anything here at the moment :( <br />
+                <a href="@Url.Action("Step1", "Booking")">Go ahead and book an ad!</a>
             </div>
 
             <div id="adList" style="display: none" data-bind="foreach: ads">

@@ -38,14 +38,8 @@
         </div>
     </header>
 
-    @RenderSection("Main", false)
-    
-
-    <div class="container">
-       
-        @*Render the application layout*@
-        @RenderBody()
-    </div>
+    @*Render the application layout*@
+    @RenderBody()
 
     @Html.Partial("_ApplicationScripts")
 

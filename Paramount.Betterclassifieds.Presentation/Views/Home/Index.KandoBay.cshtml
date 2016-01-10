@@ -2,26 +2,41 @@
 @model HomeModel
 
 @{
-    Layout = "~/Views/Shared/_ApplicationLayoutWithSearch.cshtml";
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
     ViewBag.Title = "Classifieds Home - Find everything you're looking for right here";
 }
 
 @section Main{
     <main class="mast-head" id="content" role="main">
         <div class="container">
-            <div class="text-center">
-                <h1>
-                    <a href="@Url.Action("Index", "Home")">
-                        @*<img class="themusic-logo"
-                             src="@Url.Content("~/Content/KandoBay/img/Kandobay_Logo.png")"
-                             width="300"
-                             alt="Kandobay Classifieds" />*@
-                        KandoBay
-                    </a>
-                </h1>
-                <p>
-                    <em>Bringing the african community together...</em> 
-                </p>
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <h1>
+                        <a href="@Url.Action("Index", "Home")">
+                            @*<img class="themusic-logo"
+                                src="@Url.Content("~/Content/KandoBay/img/Kandobay_Logo.png")"
+                                width="300"
+                                alt="Kandobay Classifieds" />*@
+                            KandoBay
+                        </a>
+                    </h1>
+                    <p>
+                        <em>Bringing the african community together...</em>
+                    </p>
+                </div>
+                <div class="col-md-8 col-md-offset-2">
+                    <form action="@Url.Action("Find", "Listings")">
+                        <div class="input-group input-group-lg">
+                            <input type="text" name="keyword" id="keyword" class="form-control input-lg" placeholder="I am after...">
+                            <div class="input-group-btn input-group-lg">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+
+                        </div><!-- /input-group -->
+                    </form>
+                </div>
             </div>
         </div>
     </main>

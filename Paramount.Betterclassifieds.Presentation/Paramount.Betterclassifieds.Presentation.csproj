@@ -730,7 +730,6 @@
     <Content Include="Views\Shared\_ApplicationLayout.cshtml" />
     <Content Include="Views\Shared\_Navbar.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Shared\_ApplicationLayoutWithSearch.cshtml" />
     <Content Include="Views\Account\_LoginPartial.cshtml" />
     <Content Include="Views\Account\_RegisterPartial.cshtml" />
     <Content Include="Views\Account\ThankYou.cshtml" />
@@ -758,7 +757,6 @@
     <Content Include="Views\Account\HowYouFoundUs\_HowYouFoundUs.cshtml" />
     <Content Include="Views\Account\HowYouFoundUs\_HowYouFoundUs.KandoBay.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
-    <Content Include="Views\Shared\_UserMenu.cshtml" />
     <Content Include="Views\Booking\_BookingInformationPanel.cshtml" />
     <Content Include="Views\Shared\_ApplicationScripts.cshtml" />
     <Content Include="Views\Shared\_CropImage.cshtml" />

@@ -1,9 +1,8 @@
-﻿@using Paramount
-@model UserDetailsEditView
+﻿@model UserDetailsEditView
 
 @{
     ViewBag.Title = "My Details";
-    Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayoutWithSearch.cshtml");
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
 }
 
 @section scripts{
@@ -26,151 +25,147 @@
     </script>
 }
 
-<div class="row">
-    <div class="col-xs-12">
-        @Html.Partial("_UserMenu")
-    </div>
+<div class="container top-buffer-60">
+    <h2 class="page-header">My Details</h2>
+
+    @if (ViewBag.Updated)
+    {
+        <div class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+            </button>
+            Your details have been updated successfully.
+        </div>
+    }
+
+    @if (ViewBag.ModelStateNotValid)
+    {
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+            </button>
+            Seems that you missed something. Please see the validation messages below.
+        </div>
+    }
+
+    <form role="form" method="POST" action="@Url.Action("Details", "Account")">
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="col-md-6">
+
+                <div class="bs-callout bs-callout-info">
+                    <h4><i class="fa fa-ticket"></i>&nbsp; Personal Details</h4>
+                    <p>
+                        Why do we need these details? To produce valid invoices, and personalise your experience.
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.FirstName)
+                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", required = "" })
+                    @Html.ValidationMessageFor(m => m.FirstName)
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.LastName)
+                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", required = "" })
+                    @Html.ValidationMessageFor(m => m.LastName)
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.AddressLine1)
+                    @Html.TextBoxFor(m => m.AddressLine1, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.AddressLine1)
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.AddressLine2)
+                    @Html.TextBoxFor(m => m.AddressLine2, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.AddressLine2)
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.State)
+                    @Html.DropDownListFor(m => m.State, Model.StateList, "Please Select", new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.PostCode)
+                    @Html.TextBoxFor(m => m.PostCode, new { @class = "form-control", required = "", data_numbers_only = "true", @maxlength = 4 })
+                    @Html.ValidationMessageFor(m => m.PostCode)
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Phone)
+                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", data_numbers_only = "true", @maxlength = 12 })
+                    @Html.ValidationMessageFor(m => m.Phone)
+                </div>
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="bs-callout bs-callout-info">
+                    <h4><i class="fa fa-ticket"></i>&nbsp; Receiving Payments</h4>
+                    <p>
+                        Sometimes, we may need to send you money. Please provide your PayPal email and/or Bank details. Including
+                        your preferred method.
+                    </p>
+                </div>
+
+                <div class="row">
+                    @Html.HiddenFor(m => m.PreferredPaymentMethod)
+                    <div class="col-xs-12">
+                        <label>Preferred Payment Method</label>
+                    </div>
+                    <div class="col-xs-6">
+                        <button type="button" class="btn btn-default btn-block" data-payment="PayPal">
+                            <i class="fa fa-paypal"></i>&nbsp;Pay Pal
+                        </button>
+                    </div>
+                    <div class="col-xs-6">
+                        <button type="button" class="btn btn-default btn-block" data-payment="DirectDebit">
+                            <i class="fa fa-bank"></i>&nbsp;Direct Debit
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group top-buffer-10">
+                    @Html.LabelFor(m => m.PayPalEmail)
+                    @Html.BootstrapEmailFor(m => m.PayPalEmail)
+                    @Html.ValidationMessageFor(m => m.PayPalEmail)
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.BankName)
+                    @Html.BootstrapTextBoxFor(m => m.BankName)
+                    @Html.ValidationMessageFor(m => m.BankName)
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.BankAccountName)
+                    @Html.BootstrapTextBoxFor(m => m.BankAccountName)
+                    @Html.ValidationMessageFor(m => m.BankAccountName)
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.BankBsbNumber)
+                    @Html.BootstrapTextBoxFor(m => m.BankBsbNumber, attributes: new Dictionary<string, object> { { "data-numbers-only", "" } })
+                    @Html.ValidationMessageFor(m => m.BankBsbNumber)
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.BankAccountNumber)
+                    @Html.BootstrapTextBoxFor(m => m.BankAccountNumber, attributes: new Dictionary<string, object> { { "data-numbers-only", "" } })
+                    @Html.ValidationMessageFor(m => m.BankAccountNumber)
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 text-right">
+                <button type="submit" id="btnRegister" class="btn btn-default">Update Details</button>
+            </div>
+        </div>
+    </form>
 </div>
-
-<h2 class="page-header">My Details</h2>
-
-@if (ViewBag.Updated)
-{
-    <div class="alert alert-success alert-dismissable">
-        <button type="button" class="close" data-dismiss="alert">
-            <span aria-hidden="true">×</span><span class="sr-only">Close</span>
-        </button>
-        Your details have been updated successfully.
-    </div>
-}
-
-@if (ViewBag.ModelStateNotValid)
-{
-    <div class="alert alert-danger alert-dismissable">
-        <button type="button" class="close" data-dismiss="alert">
-            <span aria-hidden="true">×</span><span class="sr-only">Close</span>
-        </button>
-        Seems that you missed something. Please see the validation messages below.
-    </div>
-}
-
-<form role="form" method="POST" action="@Url.Action("Details", "Account")">
-    @Html.AntiForgeryToken()
-
-    <div class="row">
-        <div class="col-md-6">
-
-            <div class="bs-callout bs-callout-info">
-                <h4><i class="fa fa-ticket"></i>&nbsp; Personal Details</h4>
-                <p>
-                    Why do we need these details? To produce valid invoices, and personalise your experience.
-                </p>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.FirstName)
-                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", required = "" })
-                @Html.ValidationMessageFor(m => m.FirstName)
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.LastName)
-                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", required = "" })
-                @Html.ValidationMessageFor(m => m.LastName)
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.AddressLine1)
-                @Html.TextBoxFor(m => m.AddressLine1, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.AddressLine1)
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.AddressLine2)
-                @Html.TextBoxFor(m => m.AddressLine2, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.AddressLine2)
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.State)
-                @Html.DropDownListFor(m => m.State, Model.StateList, "Please Select", new { @class = "form-control" })
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.PostCode)
-                @Html.TextBoxFor(m => m.PostCode, new { @class = "form-control", required = "", data_numbers_only = "true", @maxlength = 4 })
-                @Html.ValidationMessageFor(m => m.PostCode)
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.Phone)
-                @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", data_numbers_only = "true", @maxlength = 12 })
-                @Html.ValidationMessageFor(m => m.Phone)
-            </div>
-        </div>
-
-        <div class="col-md-6">
-
-            <div class="bs-callout bs-callout-info">
-                <h4><i class="fa fa-ticket"></i>&nbsp; Receiving Payments</h4>
-                <p>
-                    Sometimes, we may need to send you money. Please provide your PayPal email and/or Bank details. Including
-                    your preferred method.
-                </p>
-            </div>
-
-            <div class="row">
-                @Html.HiddenFor(m => m.PreferredPaymentMethod)
-                <div class="col-xs-12">
-                    <label>Preferred Payment Method</label>
-                </div>
-                <div class="col-xs-6">
-                    <button type="button" class="btn btn-default btn-block" data-payment="PayPal">
-                        <i class="fa fa-paypal"></i>&nbsp;Pay Pal
-                    </button>
-                </div>
-                <div class="col-xs-6">
-                    <button type="button" class="btn btn-default btn-block" data-payment="DirectDebit">
-                        <i class="fa fa-bank"></i>&nbsp;Direct Debit
-                    </button>
-                </div>
-            </div>
-
-            <div class="form-group top-buffer-10">
-                @Html.LabelFor(m => m.PayPalEmail)
-                @Html.BootstrapEmailFor(m => m.PayPalEmail)
-                @Html.ValidationMessageFor(m => m.PayPalEmail)
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.BankName)
-                @Html.BootstrapTextBoxFor(m => m.BankName)
-                @Html.ValidationMessageFor(m => m.BankName)
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.BankAccountName)
-                @Html.BootstrapTextBoxFor(m => m.BankAccountName)
-                @Html.ValidationMessageFor(m => m.BankAccountName)
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.BankBsbNumber)
-                @Html.BootstrapTextBoxFor(m => m.BankBsbNumber, attributes: new Dictionary<string, object> { {"data-numbers-only", ""} })
-                @Html.ValidationMessageFor(m => m.BankBsbNumber)
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.BankAccountNumber)
-                @Html.BootstrapTextBoxFor(m => m.BankAccountNumber, attributes: new Dictionary<string, object> { { "data-numbers-only", "" } })
-                @Html.ValidationMessageFor(m => m.BankAccountNumber)
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-xs-12 text-right">
-            <button type="submit" id="btnRegister" class="btn btn-default">Update Details</button>
-        </div>
-    </div>
-</form>

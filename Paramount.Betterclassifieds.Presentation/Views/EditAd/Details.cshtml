@@ -5,7 +5,7 @@
 
 @{
     ViewBag.Title = "Update Ad Details";
-    Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayoutWithSearch.cshtml");
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
 
     var onlineImgSizeWarning = "Max image size " + Model.MaxImageUploadInMegabytes.ToString("F1") + " Megabytes.";
     if (Model.MaxOnlineImages.HasValue)

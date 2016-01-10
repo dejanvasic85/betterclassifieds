@@ -4,7 +4,7 @@
 @model AdViewModel
 
 @{
-    Layout = Url.ClientUrl("~/Views/Shared/_ApplicationLayout.cshtml");
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
     var urlWithProtocol = Url.AdUrl(Model.HeadingSlug, Model.AdId, true);
     var encodedUrl = HttpUtility.UrlEncode(urlWithProtocol);
 }

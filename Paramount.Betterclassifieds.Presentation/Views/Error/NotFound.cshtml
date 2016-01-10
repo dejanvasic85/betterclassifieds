@@ -1,28 +1,29 @@
-﻿@using Paramount
-
+﻿
 @{
     ViewBag.Title = "Page Not Found - Classifieds";
     Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
 }
 
-<!-- Jumbotron -->
-<div class="jumbotron">
-    <h1 id="notFoundHeading"><span class="glyphicon glyphicon-bell"></span> 404 Not Found  </h1>
-    <p class="lead">Ooops. We cannot find what you are looking for...</p>
-</div>
-
-<!-- Example row of columns -->
-<div class="row">
-    <div class="col-sm-6">
-        <h2>What happened?</h2>
-        <p class="lead" id="notFoundDescription">A 404 error status implies that the file or page that you're looking for could not be found.</p>
+<div class="container top-buffer-60">
+    <!-- Jumbotron -->
+    <div class="jumbotron">
+        <h1 id="notFoundHeading"><span class="glyphicon glyphicon-bell"></span> 404 Not Found  </h1>
+        <p class="lead">Ooops. We cannot find what you are looking for...</p>
     </div>
-    <div class="col-sm-6">
-        <h2>What can I do?</h2>
-        <p class="lead">If you're a site vistor</p>
-        <p>Please use your browser's back button and check you are in the right pace.</p>
-        <p class="lead">If you're an ad owner</p>
-        <p>And you believe that this happened in error @Html.ActionLink("contact our friendly team to help you out.", "ContactUs", "Home")</p>
-    </div>
-</div>
 
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-sm-6">
+            <h2>What happened?</h2>
+            <p class="lead" id="notFoundDescription">A 404 error status implies that the file or page that you're looking for could not be found.</p>
+        </div>
+        <div class="col-sm-6">
+            <h2>What can I do?</h2>
+            <p class="lead">If you're a site vistor</p>
+            <p>Please use your browser's back button and check you are in the right pace.</p>
+            <p class="lead">If you're an ad owner</p>
+            <p>And you believe that this happened in error @Html.ActionLink("contact our friendly team to help you out.", "ContactUs", "Home")</p>
+        </div>
+    </div>
+
+</div>

@@ -22,126 +22,128 @@
     }
 }
 
-<ol class="breadcrumb">
-    @if ((bool)ViewBag.IsComingFromSearch)
-    {
-        <li> <a href="@ViewBag.BackToSearchUrl.ToString()">Back to Search results</a> </li>
-    }
-    <li>@Model.ParentCategoryName</li>
-    <li>@Model.CategoryName</li>
-    <li><strong>@Model.AdId</strong></li>
-</ol>
+<div class="container top-buffer-60">
 
-<div class="container-fluid container-body left-buffer-20">
-    <h2 class="ad-title-h2">@Model.Heading</h2>
-    <div class="row visible-xs">
-        <div class="col-xs-12">
-            <a class="btn btn-block btn-default" href="#contactAdvertiserPanel">Contact Advertiser</a>
+    <ol class="breadcrumb">
+        @if ((bool) ViewBag.IsComingFromSearch)
+        {
+            <li> <a href="@ViewBag.BackToSearchUrl.ToString()">Back to Search results</a> </li>
+        }
+        <li>@Model.ParentCategoryName</li>
+        <li>@Model.CategoryName</li>
+        <li><strong>@Model.AdId</strong></li>
+    </ol>
+
+    <div class="container-fluid container-body left-buffer-20">
+        <h2 class="ad-title-h2">@Model.Heading</h2>
+        <div class="row visible-xs">
+            <div class="col-xs-12">
+                <a class="btn btn-block btn-default" href="#contactAdvertiserPanel">Contact Advertiser</a>
+            </div>
         </div>
-    </div>
-    <div class="row top-buffer-10">
-        @*Ad Details*@
-        <div class="col-md-8">
-            @if (Model.HasImages)
-            {
-                @*Image Gallery*@
-                <div id="imageGallery" class="carousel slide" data-ride="carousel">
+        <div class="row top-buffer-10">
+            @*Ad Details*@
+            <div class="col-md-8">
+                @if (Model.HasImages)
+                {
+                    @*Image Gallery*@
+                    <div id="imageGallery" class="carousel slide" data-ride="carousel">
 
-                    <!-- Indicators -->
-                    @if (Model.ShowImageSlideshow)
-                    {
-                        <ol class="carousel-indicators">
-                            <li data-target="#imageGallery" data-slide-to="0" class="active"></li>
-                            @for (var i = 1; i <= Model.ImageUrls.Length - 1; i++)
-                            {
-                                <li data-target="#imageGallery" data-slide-to="@i"></li>
-                            }
-                        </ol>
-                    }
-
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <img src="@Url.Action("Render", "Image", new{ documentId = @Model.ImageUrls.First(), height = 500, width = 900} )" alt="900x500">
-                        </div>
-                        @foreach (var img in Model.ImageUrls.Skip(1))
+                        <!-- Indicators -->
+                        @if (Model.ShowImageSlideshow)
                         {
-                            <div class="item">
-                                <img src="@Url.Action("Render", "Image", new { documentId = img, height = 500, width = 900})" />
+                            <ol class="carousel-indicators">
+                                <li data-target="#imageGallery" data-slide-to="0" class="active"></li>
+                                @for (var i = 1; i <= Model.ImageUrls.Length - 1; i++)
+                                {
+                                    <li data-target="#imageGallery" data-slide-to="@i"></li>
+                                }
+                            </ol>
+                        }
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <img src="@Url.Action("Render", "Image", new {documentId = @Model.ImageUrls.First(), height = 500, width = 900})" alt="900x500">
                             </div>
+                            @foreach (var img in Model.ImageUrls.Skip(1))
+                            {
+                                <div class="item">
+                                    <img src="@Url.Action("Render", "Image", new {documentId = img, height = 500, width = 900})"/>
+                                </div>
+                            }
+                        </div>
+
+                        <!-- Controls for more than one image -->
+                        @if (Model.ShowImageSlideshow)
+                        {
+                            <a class="left carousel-control" href="#imageGallery" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                            <a class="right carousel-control" href="#imageGallery" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
                         }
                     </div>
+                }
 
-                    <!-- Controls for more than one image -->
-                    @if (Model.ShowImageSlideshow)
+                <div class="top-buffer-40">
+
+                    @*Description*@
+                    @Html.Raw(Model.HtmlText)
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+                @if (Model.VisitorIsTheOwner)
+                {
+                    <a class="btn btn-block btn-warning bottom-buffer-10" href="@Url.Action("Details", "EditAd", new {id = Model.AdId})">Edit Ad <i class="glyphicon glyphicon-pencil"></i></a>
+                }
+
+                @*Sharing buttons*@<div class="btn-group bottom-buffer-10">
+                    <button class="btn btn-default disabled">Share:</button>
+                    @if (ViewBag.FacebookAppId != null)
                     {
-                        <a class="left carousel-control" href="#imageGallery" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
-                        </a>
-                        <a class="right carousel-control" href="#imageGallery" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        <a class="btn btn-default" id="shareOnFacebook" title="On Facebook">
+                            <i class="fa fa-facebook fa-lg fb"></i>
                         </a>
                     }
+                    <a class="btn btn-default" id="shareOnTwitter" title="On Twitter" href="http://twitter.com/share?@encodedUrl&text=@Model.Heading" target="_blank">
+                        <i class="fa fa-twitter fa-lg tw"></i>
+                    </a>
                 </div>
-            }
 
-            <div class="top-buffer-40">
+                @*Ad Details*@
+                <div class="panel panel-primary" id="adDetailsPanel">
+                    <div class="panel-heading">
+                        <h4>Details (Ad ID: @Model.AdId)</h4>
+                    </div>
+                    <table class="table table-striped">
+                        @Html.AdContactDetail(m => m.ContactName, "user")
+                        @Html.AdContactDetailEmail(m => m.ContactEmail, Model.Heading, "envelope")
+                        @Html.AdContactDetailPhone(m => m.ContactPhone, "phone")
+                        @Html.AdContactDetail(m => m.PriceFriendlyDisplay, "usd")
+                        @Html.AdContactDetail(m => m.LocationAreaBreadcrumb, "globe")
+                        @Html.AdContactDetail(m => m.PostedDate, "calendar")
+                        @Html.AdContactDetail(m => m.NumOfViews, "eye-open")
+                    </table>
+                </div>
 
-                @*Description*@
-                @Html.Raw(Model.HtmlText)
             </div>
-
         </div>
 
-        <div class="col-md-4">
-            @if (Model.VisitorIsTheOwner)
-            {
-                <a class="btn btn-block btn-warning bottom-buffer-10" href="@Url.Action("Details", "EditAd", new{id = Model.AdId})">Edit Ad <i class="glyphicon glyphicon-pencil"></i></a>
-            }
-
-            @*Sharing buttons*@
-            <div class="btn-group bottom-buffer-10">
-                <button class="btn btn-default disabled">Share:</button>
-                @if (ViewBag.FacebookAppId != null)
-                {
-                    <a class="btn btn-default" id="shareOnFacebook" title="On Facebook">
-                        <i class="fa fa-facebook fa-lg fb"></i>
-                    </a>
-                }
-                <a class="btn btn-default" id="shareOnTwitter" title="On Twitter" href="http://twitter.com/share?@encodedUrl&text=@Model.Heading" target="_blank">
-                    <i class="fa fa-twitter fa-lg tw"></i>
+        <div class="row top-buffer-20">
+            <div class="col-xs-12" id="contactAdvertiserPanel">
+                @Html.Partial("_ContactAdvertiser.cshtml")
+            </div>
+        </div>
+        <div class="row visible-xs">
+            <div class="col-xs-12">
+                <a class="btn btn-default btn-block" href="#navbar" title="Back To Top">
+                    <i class="glyphicon glyphicon-arrow-up"></i>
                 </a>
             </div>
-
-            @*Ad Details*@
-            <div class="panel panel-primary" id="adDetailsPanel">
-                <div class="panel-heading">
-                    <h4>Details (Ad ID: @Model.AdId)</h4>
-                </div>
-                <table class="table table-striped">
-                    @Html.AdContactDetail(m => m.ContactName, "user")
-                    @Html.AdContactDetailEmail(m => m.ContactEmail, Model.Heading, "envelope")
-                    @Html.AdContactDetailPhone(m => m.ContactPhone, "phone")
-                    @Html.AdContactDetail(m => m.PriceFriendlyDisplay, "usd")
-                    @Html.AdContactDetail(m => m.LocationAreaBreadcrumb, "globe")
-                    @Html.AdContactDetail(m => m.PostedDate, "calendar")
-                    @Html.AdContactDetail(m => m.NumOfViews, "eye-open")
-                </table>
-            </div>
-
-        </div>
-    </div>
-
-    <div class="row top-buffer-20">
-        <div class="col-xs-12" id="contactAdvertiserPanel">
-            @Html.Partial("_ContactAdvertiser.cshtml")
-        </div>
-    </div>
-    <div class="row visible-xs">
-        <div class="col-xs-12">
-            <a class="btn btn-default btn-block" href="#navbar" title="Back To Top">
-                <i class="glyphicon glyphicon-arrow-up"></i>
-            </a>
         </div>
     </div>
 </div>

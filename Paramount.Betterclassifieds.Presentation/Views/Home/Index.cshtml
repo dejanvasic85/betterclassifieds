@@ -6,32 +6,38 @@
     ViewBag.Title = "Classifieds Home - Find everything you're looking for right here";
 }
 
-<div class="row">
-    <div class="col-md-8">
-        <div class="well well-sm">Latest Ads</div>
-        @Html.Partial("_ListingResults", Model.AdSummaryList)
-    </div>
-    <div class="col-md-4">
-        <div class="jumbotron">
-            <p>Design your <strong>free online ad</strong> now. Use your mobile, tablet or PC.</p>
-            <img src="@Url.Content("~/Content/images/BookUsingThePhone.PNG")" class="img-stretch" alt="Book using your phone" />
-            <p><a class="btn btn-lg btn-primary btn-block" href="@Url.Action("Step1", "Booking")" role="button">Place New Ad &raquo;</a></p>
+<div class="container top-buffer-60">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="well well-sm">Latest Ads</div>
+            @Html.Partial("_ListingResults", Model.AdSummaryList)
         </div>
-        <div class="jumbotron">
-            <p>
-                Looking for a tutor? Find one near you.
-            </p>
-            <p>
-                <a class="btn btn-lg btn-primary" href="@Url.SeoUrl("Tutors")" role="button">View Tutors Ads &raquo;</a>
-            </p>
-        </div>
-        <div class="jumbotron">
-            <p>
-                Need help or suggestion to improve this website?
-            </p>
-            <p>
-                <a class="btn btn-lg btn-primary" href="@Url.Action("ContactUs", "Home")" role="button">Contact Us &raquo;</a>
-            </p>
+        <div class="col-md-4">
+            <div class="jumbotron">
+                <p>
+                    Design your <strong>free online ad</strong> now. Use your mobile, tablet or PC.
+                </p>
+                <img src="@Url.Content("~/Content/images/BookUsingThePhone.PNG")" class="img-stretch" alt="Book using your phone" />
+                <p>
+                    <a class="btn btn-lg btn-primary btn-block" href="@Url.Action("Step1", "Booking")" role="button">Place New Ad &raquo;</a>
+                </p>
+            </div>
+            <div class="jumbotron">
+                <p>
+                    Looking for a tutor? Find one near you.
+                </p>
+                <p>
+                    <a class="btn btn-lg btn-primary" href="@Url.SeoUrl("Tutors")" role="button">View Tutors Ads &raquo;</a>
+                </p>
+            </div>
+            <div class="jumbotron">
+                <p>
+                    Need help or suggestion to improve this website?
+                </p>
+                <p>
+                    <a class="btn btn-lg btn-primary" href="@Url.Action("ContactUs", "Home")" role="button">Contact Us &raquo;</a>
+                </p>
+            </div>
         </div>
     </div>
 </div>

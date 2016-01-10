@@ -5,21 +5,23 @@
     Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
 }
 
-<div class="row">
-    <div class="col-xs-12">
-        <div class="jumbotron">
-            <h1>Done</h1>
+<div class="container top-buffer-60">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="jumbotron">
+                <h1>Done</h1>
+                <p>
+                    You have tickets to <strong>@Model.EventName</strong>
+                </p>
+            </div>
             <p>
-                You have tickets to <strong>@Model.EventName</strong>
+                Go ahead and check your email <strong>@Model.CustomerEmailAddress</strong>. You should get your tickets and print them any time.
+                Should you have any issues, don't hesitate to contact the organiser @Model.OrganiserName @Model.OrganiserEmail or our
+                @Html.ActionLink("friendly team", "ContactUs", "Home").
             </p>
-        </div>
-        <p>
-            Go ahead and check your email <strong>@Model.CustomerEmailAddress</strong>. You should get your tickets and print them any time.
-            Should you have any issues, don't hesitate to contact the organiser @Model.OrganiserName @Model.OrganiserEmail or our
-            @Html.ActionLink("friendly team", "ContactUs", "Home").
-        </p>
-        <div class="alert alert-info">
-            Share with friends: Email, Facebook, Twitter, Google Plus etc etc
+            <div class="alert alert-info">
+                Share with friends: Email, Facebook, Twitter, Google Plus etc etc
+            </div>
         </div>
     </div>
 </div>

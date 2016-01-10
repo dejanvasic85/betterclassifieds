@@ -1,28 +1,51 @@
-﻿@color_primary : #008cba;
+﻿@color_primary: #008cba;
 
-html{
+html {
     font-size: 12px;
 }
 
-body{
+body {
     font-size: 17px;
 }
 
 .userads-cmd-panel {
     a, a:hover {
         color: #fff;
-    }    
+    }
 }
 
-.alert-warning{
+.alert-warning {
     background-color: #c27802;
 }
 
 .event-dashboard {
     span {
         &.badge {
-            color : #fff;
+            color: #fff;
             background-color: @color_primary;
         }
+    }
+}
+
+/*
+    Masthead
+*/
+
+.mast-head {
+    color: #fff;
+    background-image: linear-gradient(to bottom,#0079a1 0,#008cba 100%);
+    padding: 80px 0;
+
+    a {
+        color: #fff;
+        text-decoration: none;
+
+        :hover {
+            text-decoration: none;
+        }
+    }
+
+    h1 {
+        font-size: 70px;
     }
 }

@@ -5,130 +5,131 @@
     Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
 }
 
-<ul class="nav nav-tabs" role="tablist">
-    <li>@Html.ActionLink("1", "Step1")</li>
-    <li><a href="@Model.PreviousStepUrl">2</a></li>
-    <li class="active"><a href="#">Step 3</a></li>
-</ul>
+<div class="container top-buffer-60">
+    <ul class="nav nav-tabs" role="tablist">
+        <li>@Html.ActionLink("1", "Step1")</li>
+        <li><a href="@Model.PreviousStepUrl">2</a></li>
+        <li class="active"><a href="#">Step 3</a></li>
+    </ul>
 
-<form id="confirmationForm" action="@Url.Action("Step3", "Booking")" method="POST" role="form">
+    <form id="confirmationForm" action="@Url.Action("Step3", "Booking")" method="POST" role="form">
 
-    <div class="row top-buffer-20">
-        <div class="col-xs-12">
+        <div class="row top-buffer-20">
+            <div class="col-xs-12">
 
-            @if (Model.IsPaymentCancelled)
+                @if (Model.IsPaymentCancelled)
             {
-                <div class="alert alert-warning alert-dismissable">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    Your payment has been cancelled successfully. We have retained your booking details if you prefer to try again.
+                    <div class="alert alert-warning alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        Your payment has been cancelled successfully. We have retained your booking details if you prefer to try again.
+                    </div>
+                }
+
+                <div class="bs-callout bs-callout-info">
+                    <h4>Confirmation</h4>
+                    <p>Please verify your details below before submitting your booking.</p>
                 </div>
-            }
 
-            <div class="bs-callout bs-callout-info">
-                <h4>Confirmation</h4>
-                <p>Please verify your details below before submitting your booking.</p>
-            </div>
+                @Html.ValidationSummary()
 
-            @Html.ValidationSummary()
-
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h4 class="panel-title">Booking Summary</h4>
-                </div>
-                <table class="table table-striped">
-                    <tbody>
-                        <tr>
-                            <td><span class="glyphicon glyphicon-list"></span></td>
-                            <td>Reference Number</td>
-                            <td><span id="BookingReference">@Model.BookingReference</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="glyphicon glyphicon-usd"></span></td>
-                            <td>Booking Total</td>
-                            <td><span id="BookingTotal">$ @Model.TotalPrice.ToString("N")</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="glyphicon glyphicon-calendar"></span></td>
-                            <td>Online Schedule</td>
-                            <td>
-                                <span id="BookingStartDate">
-                                    from <strong>@Model.StartDate.ToString("dd-MMM-yyyy")</strong>
-                                    until <strong>@Model.EndDate.ToString("dd-MMM-yyyy")</strong>
-                                </span>
-                            </td>
-                        </tr>
-                        @if (Model.IsLineAdIncluded)
-                        {
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Booking Summary</h4>
+                    </div>
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <td><span class="glyphicon glyphicon-list"></span></td>
+                                <td>Reference Number</td>
+                                <td><span id="BookingReference">@Model.BookingReference</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="glyphicon glyphicon-usd"></span></td>
+                                <td>Booking Total</td>
+                                <td><span id="BookingTotal">$ @Model.TotalPrice.ToString("N")</span></td>
+                            </tr>
                             <tr>
                                 <td><span class="glyphicon glyphicon-calendar"></span></td>
-                                <td>Print Start</td>
-                                <td><span>@Model.PrintFirstEditionDate.GetValueOrDefault().ToString("dd-MMM-yyyy")</span></td>
+                                <td>Online Schedule</td>
+                                <td>
+                                    <span id="BookingStartDate">
+                                        from <strong>@Model.StartDate.ToString("dd-MMM-yyyy")</strong>
+                                        until <strong>@Model.EndDate.ToString("dd-MMM-yyyy")</strong>
+                                    </span>
+                                </td>
                             </tr>
-                            <tr>
-                                <td><span class="fa fa-newspaper-o"></span></td>
-                                <td>Publications</td>
-                                <td>@Model.PublicationCount</td>
-                            </tr>
-                            <tr>
-                                <td><span class="fa fa-list-ol"></span></td>
-                                <td>Editions</td>
-                                <td>@Model.PrintInsertions</td>
-                            </tr>
-                        }
-                    </tbody>
+                            @if (Model.IsLineAdIncluded)
+                            {
+                                <tr>
+                                    <td><span class="glyphicon glyphicon-calendar"></span></td>
+                                    <td>Print Start</td>
+                                    <td><span>@Model.PrintFirstEditionDate.GetValueOrDefault().ToString("dd-MMM-yyyy")</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fa fa-newspaper-o"></span></td>
+                                    <td>Publications</td>
+                                    <td>@Model.PublicationCount</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="fa fa-list-ol"></span></td>
+                                    <td>Editions</td>
+                                    <td>@Model.PrintInsertions</td>
+                                </tr>
+                            }
+                        </tbody>
 
-                </table>
-            </div>
-
-            <div class="form-group">
-                <div class="form-control-checkbox">
-                    <div class="checkbox">
-                        <label>
-                            @Html.CheckBoxFor(m => m.DetailsAreCorrect)
-                            @Html.LabelFor(m => m.DetailsAreCorrect)
-                        </label>
-                    </div>
+                    </table>
                 </div>
 
-                <div class="form-control-checkbox">
-                    <div class="checkbox">
-                        <label>
-                            @Html.CheckBoxFor(m => m.AgreeToTerms)
-                            <label id="chkConfirmTerms">
-                                I have read and agree to the <a data-toggle="modal" data-target="#termsModal">terms and conditions</a>
+                <div class="form-group">
+                    <div class="form-control-checkbox">
+                        <div class="checkbox">
+                            <label>
+                                @Html.CheckBoxFor(m => m.DetailsAreCorrect)
+                                @Html.LabelFor(m => m.DetailsAreCorrect)
                             </label>
-                        </label>
+                        </div>
                     </div>
-                </div>
 
+                    <div class="form-control-checkbox">
+                        <div class="checkbox">
+                            <label>
+                                @Html.CheckBoxFor(m => m.AgreeToTerms)
+                                <label id="chkConfirmTerms">
+                                    I have read and agree to the <a data-toggle="modal" data-target="#termsModal">terms and conditions</a>
+                                </label>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
-    </div>
 
 
-    @*Pager*@
-    <ul class="pager">
-        <li class="previous">
-            <button id="btnPrev" class="btn btn-large btn-default js-load" data-nav='@Model.PreviousStepUrl'>
-                <i class="glyphicon glyphicon-arrow-left"></i>
-                Previous
-            </button>
-        </li>
-        <li class="next">
-            @if (Model.IsPaymentRequired)
-            {
-                <button id="btnSubmit" type="submit" class="btn btn-large btn-default">
-                    Proceed to Payment
+        @*Pager*@
+        <ul class="pager">
+            <li class="previous">
+                <button id="btnPrev" class="btn btn-large btn-default js-load" data-nav='@Model.PreviousStepUrl'>
+                    <i class="glyphicon glyphicon-arrow-left"></i>
+                    Previous
                 </button>
-            }
-            else
+            </li>
+            <li class="next">
+                @if (Model.IsPaymentRequired)
             {
-                <button id="btnSubmit" type="submit" class="btn btn-large btn-default">Submit <i class="glyphicon glyphicon-arrow-right"></i></button>
-            }
-        </li>
-    </ul>
-</form>
-
+                    <button id="btnSubmit" type="submit" class="btn btn-large btn-default">
+                        Proceed to Payment
+                    </button>
+                }
+                else
+                {
+                    <button id="btnSubmit" type="submit" class="btn btn-large btn-default">Submit <i class="glyphicon glyphicon-arrow-right"></i></button>
+                }
+            </li>
+        </ul>
+    </form>
+</div>
 <div id="termsModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

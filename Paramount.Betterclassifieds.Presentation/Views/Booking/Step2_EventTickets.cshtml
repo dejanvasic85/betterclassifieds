@@ -18,190 +18,195 @@
         });
     </script>
 }
-<ul class="nav nav-tabs" role="tablist" id="bookingNavSteps">
-    <li>@Html.ActionLink("1", "Step1")</li>
-    <li class="active"><a href="#">Step 2 - Ticketing</a></li>
-    <li class="disabled"><a href="#">3</a></li>
-</ul>
 
-<div id="eventBookingTicketEditor" class="event-editor">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="bs-callout bs-callout-info">
-                <h4><i class="fa fa-ticket"></i> &nbsp; Ticketing Setup</h4>
-                <p>
-                    Define your tickets here. You can always add more after your ad is booked.
-                </p>
-                <p><i class="fa fa-info-circle"></i> Note: Our fee is <strong>@Model.EventTicketFee%</strong> for every ticket purchased online.</p>
-            </div>
-        </div>
-    </div>
+<div class="container top-buffer-60">
 
-    @*Ticktets*@
-    <ul class="list-group" data-bind="foreach: tickets">
-        <li class="list-group-item">
-            <div class="row ticket-form">
-                <div class="col-sm-6 col-xs-12 form-group" data-bind="validationElement: ticketName">
-                    <label>Ticket Name</label>
-                    <input type="text" class="form-control js-ticket-name" data-bind="value: ticketName" placeholder="e.g. VIP / Platinum / Free" />
-                </div>
-                <div class="col-sm-2 col-xs-5 form-group" data-bind="validationElement: price">
-                    <label class="control-label">Price</label>
-                    <input type="number" class="form-control js-ticket-price" data-bind="value: price">
-                </div>
-                <div class="col-sm-2 col-xs-5 form-group" data-bind="validationElement: availableQuantity">
-                    <label class="control-label">Available Qty</label>
-                    <input type="number" class="form-control amount js-ticket-quantity" data-bind="value: availableQuantity" />
-                </div>
-                <div class="col-sm-2 col-xs-2 form-group">
-                    <label>&nbsp;</label>
-                    <button class="btn btn-block btn-default js-ticket-remove" data-bind="click: $parent.removeTicketType">
-                        <i class="fa fa-trash"></i><span class="hidden-xs"> Remove</span>
-                    </button>
-                </div>
-            </div>
-        </li>
+    <ul class="nav nav-tabs" role="tablist" id="bookingNavSteps">
+        <li>@Html.ActionLink("1", "Step1")</li>
+        <li class="active"><a href="#">Step 2 - Ticketing</a></li>
+        <li class="disabled"><a href="#">3</a></li>
     </ul>
 
-    <div class="row">
-        <div class="col-xs-12 text-right">
-            <button class="btn btn-success" id="addTicketType" data-bind="click: addTicketType">
-                <i class="fa fa-plus-circle"></i> Add Ticket Option
-            </button>
-        </div>
-    </div>
-
-    @*Tickets Information*@
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="bs-callout bs-callout-info">
-                <h4><i class="fa fa-users"></i> &nbsp; Guest Information</h4>
-                <p>
-                    What information do you need for your guests (per ticket). Name and Email are already included!
-                </p>
+    <div id="eventBookingTicketEditor" class="event-editor">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="bs-callout bs-callout-info">
+                    <h4><i class="fa fa-ticket"></i> &nbsp; Ticketing Setup</h4>
+                    <p>
+                        Define your tickets here. You can always add more after your ad is booked.
+                    </p>
+                    <p><i class="fa fa-info-circle"></i> Note: Our fee is <strong>@Model.EventTicketFee%</strong> for every ticket purchased online.</p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <ul class="list-group">
-        <li class="list-group-item">
-            <div class="row ticket-field-edit">
-                <div class="col-xs-8 col-sm-6 form-group">
-                    <label>Field Name</label>
-                    <input type="text" class="form-control" value="Name" readonly />
-                </div>
-                <div class="col-xs-4 col-sm-6 form-group">
-                    <label>Required</label>
-                    <div class="display-block">
-                        <h4>Yes</h4>
+        @*Ticktets*@
+        <ul class="list-group" data-bind="foreach: tickets">
+            <li class="list-group-item">
+                <div class="row ticket-form">
+                    <div class="col-sm-6 col-xs-12 form-group" data-bind="validationElement: ticketName">
+                        <label>Ticket Name</label>
+                        <input type="text" class="form-control js-ticket-name" data-bind="value: ticketName" placeholder="e.g. VIP / Platinum / Free" />
+                    </div>
+                    <div class="col-sm-2 col-xs-5 form-group" data-bind="validationElement: price">
+                        <label class="control-label">Price</label>
+                        <input type="number" class="form-control js-ticket-price" data-bind="value: price">
+                    </div>
+                    <div class="col-sm-2 col-xs-5 form-group" data-bind="validationElement: availableQuantity">
+                        <label class="control-label">Available Qty</label>
+                        <input type="number" class="form-control amount js-ticket-quantity" data-bind="value: availableQuantity" />
+                    </div>
+                    <div class="col-sm-2 col-xs-2 form-group">
+                        <label>&nbsp;</label>
+                        <button class="btn btn-block btn-default js-ticket-remove" data-bind="click: $parent.removeTicketType">
+                            <i class="fa fa-trash"></i><span class="hidden-xs"> Remove</span>
+                        </button>
                     </div>
                 </div>
+            </li>
+        </ul>
+
+        <div class="row">
+            <div class="col-xs-12 text-right">
+                <button class="btn btn-success" id="addTicketType" data-bind="click: addTicketType">
+                    <i class="fa fa-plus-circle"></i> Add Ticket Option
+                </button>
             </div>
-        </li>
-        <li class="list-group-item">
-            <div class="row ticket-field-edit">
-                <div class="col-xs-8 col-sm-6 form-group">
-                    <label>Field Name</label>
-                    <input type="text" class="form-control" value="Email" readonly />
+        </div>
+
+        @*Tickets Information*@
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="bs-callout bs-callout-info">
+                    <h4><i class="fa fa-users"></i> &nbsp; Guest Information</h4>
+                    <p>
+                        What information do you need for your guests (per ticket). Name and Email are already included!
+                    </p>
                 </div>
-                <div class="col-xs-4 col-sm-6 form-group">
-                    <label>Required</label>
-                    <div class="display-block">
-                        <h4>Yes</h4>
+            </div>
+        </div>
+
+        <ul class="list-group">
+            <li class="list-group-item">
+                <div class="row ticket-field-edit">
+                    <div class="col-xs-8 col-sm-6 form-group">
+                        <label>Field Name</label>
+                        <input type="text" class="form-control" value="Name" readonly />
+                    </div>
+                    <div class="col-xs-4 col-sm-6 form-group">
+                        <label>Required</label>
+                        <div class="display-block">
+                            <h4>Yes</h4>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </li>
-    </ul>
-
-    <ul class="list-group" data-bind="foreach: ticketFields">
-        <li class="list-group-item">
-            <div class="row ticket-field-edit">
-                <div class="col-xs-8 col-sm-6 form-group" data-bind="validationElement: fieldName">
-                    <label>Field Name</label>
-                    <input type="text" class="form-control js-field-name" data-bind="value: fieldName" placeholder="e.g. Age" />
-                </div>
-                <div class="col-xs-4 col-sm-6 form-group" data-bind="validationElement: fieldName">
-                    <label>Required</label>
-                    <div class="display-block toggle-required">
-                        <input type="checkbox" data-bind="toggle: isRequired" data-on="Yes" data-off="No" />
-                        <button class="btn btn-default remove-field" data-bind="click: $parent.removeTicketField"><i class="fa fa-trash"></i> <span class="hidden-xs">Remove</span></button>
+            </li>
+            <li class="list-group-item">
+                <div class="row ticket-field-edit">
+                    <div class="col-xs-8 col-sm-6 form-group">
+                        <label>Field Name</label>
+                        <input type="text" class="form-control" value="Email" readonly />
+                    </div>
+                    <div class="col-xs-4 col-sm-6 form-group">
+                        <label>Required</label>
+                        <div class="display-block">
+                            <h4>Yes</h4>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </li>
-    </ul>
+            </li>
+        </ul>
 
-    <div class="row" data-bind="visible: showFieldOptionWarning">
-        <div class="col-xs-12">
-            <div class="alert alert-warning">Careful. It might get a little cumbersome for your users to provide a lot of information for every guest.</div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-xs-12 text-right">
-            <button class="btn btn-success" id="addDynamicField" data-bind="click: addField">
-                <i class="fa fa-plus-circle"></i> Add Field
-            </button>
-        </div>
-    </div>
-
-
-    @*Closing Date*@
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="bs-callout bs-callout-info">
-                <h4><i class="fa fa-calendar-check-o"></i> &nbsp; Ticketing Close Date</h4>
-                <p>
-                    Users will no longer be able to purchase tickets after the event has been closed.
-
-                </p>
-                <p>
-                    <i class="fa fa-info-circle"></i> Note: Closing of an event can occur at any time after the ad is booked.
-                </p>
-            </div>
-        </div>
-
-        <div class="col-xs-12" data-bind="validationElement: closingDate">
-            <div class="input-group input-group-lg">
-                <input type="text" class="form-control input-lg" data-bind="date: closingDate">
-                <div class="input-group-btn input-group-lg">
-                    <button class="btn btn-default" type="button" data-bind="click: clearClosingDate">
-                        Clear
-                    </button>
+        <ul class="list-group" data-bind="foreach: ticketFields">
+            <li class="list-group-item">
+                <div class="row ticket-field-edit">
+                    <div class="col-xs-8 col-sm-6 form-group" data-bind="validationElement: fieldName">
+                        <label>Field Name</label>
+                        <input type="text" class="form-control js-field-name" data-bind="value: fieldName" placeholder="e.g. Age" />
+                    </div>
+                    <div class="col-xs-4 col-sm-6 form-group" data-bind="validationElement: fieldName">
+                        <label>Required</label>
+                        <div class="display-block toggle-required">
+                            <input type="checkbox" data-bind="toggle: isRequired" data-on="Yes" data-off="No" />
+                            <button class="btn btn-default remove-field" data-bind="click: $parent.removeTicketField"><i class="fa fa-trash"></i> <span class="hidden-xs">Remove</span></button>
+                        </div>
+                    </div>
                 </div>
+            </li>
+        </ul>
 
-            </div><!-- /input-group -->
-            <div class="help-block">
-                Please ensure that the Closing date is after the ad start date of @Model.AdStartDate.GetValueOrDefault().ToString("dd/MM/yyyy")
+        <div class="row" data-bind="visible: showFieldOptionWarning">
+            <div class="col-xs-12">
+                <div class="alert alert-warning">Careful. It might get a little cumbersome for your users to provide a lot of information for every guest.</div>
             </div>
         </div>
 
-        <div class="col-xs-12">
-            <div class="alert alert-info-alt top-buffer-20" data-bind="visible: showClosingDateInfo">
-                <i class="fa fa-warning"></i> Your ad will now expire <span data-bind="text: closingDate"></span>
+        <div class="row">
+            <div class="col-xs-12 text-right">
+                <button class="btn btn-success" id="addDynamicField" data-bind="click: addField">
+                    <i class="fa fa-plus-circle"></i> Add Field
+                </button>
             </div>
         </div>
 
-    </div>
+
+        @*Closing Date*@
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="bs-callout bs-callout-info">
+                    <h4><i class="fa fa-calendar-check-o"></i> &nbsp; Ticketing Close Date</h4>
+                    <p>
+                        Users will no longer be able to purchase tickets after the event has been closed.
+
+                    </p>
+                    <p>
+                        <i class="fa fa-info-circle"></i> Note: Closing of an event can occur at any time after the ad is booked.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-xs-12" data-bind="validationElement: closingDate">
+                <div class="input-group input-group-lg">
+                    <input type="text" class="form-control input-lg" data-bind="date: closingDate">
+                    <div class="input-group-btn input-group-lg">
+                        <button class="btn btn-default" type="button" data-bind="click: clearClosingDate">
+                            Clear
+                        </button>
+                    </div>
+
+                </div><!-- /input-group -->
+                <div class="help-block">
+                    Please ensure that the Closing date is after the ad start date of @Model.AdStartDate.GetValueOrDefault().ToString("dd/MM/yyyy")
+                </div>
+            </div>
+
+            <div class="col-xs-12">
+                <div class="alert alert-info-alt top-buffer-20" data-bind="visible: showClosingDateInfo">
+                    <i class="fa fa-warning"></i> Your ad will now expire <span data-bind="text: closingDate"></span>
+                </div>
+            </div>
+
+        </div>
 
 
 
-    @*Pager*@
-    <div class="row">
-        <div class="col-xs-12">
-            <ul class="pager">
-                <li class="previous">
-                    <button id="btnPrev" class="btn btn-large btn-default js-load" data-nav='@Url.Booking(2, "Event")'>
-                        <i class="glyphicon glyphicon-arrow-left"></i> Previous
-                    </button>
-                </li>
-                <li class="next">
-                    <button id="btnSubmit" data-bind="click:submitTickets" class="btn btn-large btn-default" data-loading-text="Please Wait...">
-                        Next <i class="glyphicon glyphicon-arrow-right"></i>
-                    </button>
-                </li>
-            </ul>
+        @*Pager*@
+        <div class="row">
+            <div class="col-xs-12">
+                <ul class="pager">
+                    <li class="previous">
+                        <button id="btnPrev" class="btn btn-large btn-default js-load" data-nav='@Url.Booking(2, "Event")'>
+                            <i class="glyphicon glyphicon-arrow-left"></i> Previous
+                        </button>
+                    </li>
+                    <li class="next">
+                        <button id="btnSubmit" data-bind="click:submitTickets" class="btn btn-large btn-default" data-loading-text="Please Wait...">
+                            Next <i class="glyphicon glyphicon-arrow-right"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
+
 </div>

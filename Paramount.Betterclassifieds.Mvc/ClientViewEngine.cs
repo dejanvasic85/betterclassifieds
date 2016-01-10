@@ -27,6 +27,8 @@ namespace Paramount.Betterclassifieds.Mvc
                 GetViewPath(baseUrl, "Views/Shared{0}"),
                 GetViewPath(baseUrl, "Views/{0}")
             };
+
+            AddViewPath(baseUrl);
         }
 
         public void AddViewPath(string baseUrl)

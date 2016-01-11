@@ -15,14 +15,14 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
     public class HomeControllerTests : ControllerTest<HomeController>
     {
         [Test]
-        public void Index_CallsSearchServiceForLatestTen_ReturnsSummary()
+        public void Index_CallsSearchServiceForLatestSix_ReturnsSummary()
         {
             // Arrange
             CreateMockOf<IBroadcastManager>();
             CreateMockOf<IEnquiryManager>();
             CreateMockOf<IClientConfig>();
             CreateMockOf<ISearchService>()
-                .SetupWithVerification(call => call.GetLatestAds(It.Is<int>(a => a == 10)),
+                .SetupWithVerification(call => call.GetLatestAds(It.Is<int>(a => a == 6)),
                 new List<AdSearchResult>
                 {
                     new AdSearchResult{AdId = 1, CategoryId = 1, CategoryName = "MockCategory", Heading = "Ad 1", Description = "Description 1"},

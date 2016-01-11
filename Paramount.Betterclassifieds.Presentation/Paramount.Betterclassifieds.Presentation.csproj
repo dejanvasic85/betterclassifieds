@@ -338,7 +338,10 @@
     <Content Include="Content\font-awesome-4.4.0.css" />
     <Content Include="Content\images\BookUsingThePhone.PNG" />
     <Content Include="Content\images\buttons.gif" />
+    <Content Include="Content\images\placeholder.png" />
+    <Content Include="Content\images\support.jpg" />
     <Content Include="Content\images\toolbar.gif" />
+    <Content Include="Content\images\tutoring.jpg" />
     <Content Include="Content\jquery.fileupload-1.3.0.css" />
     <Content Include="Content\bootstrap-theme-yeti.min.css">
       <DependentUpon>bootstrap-theme-yeti.css</DependentUpon>

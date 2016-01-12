@@ -81,38 +81,15 @@
                                     <div class="row">
                                         @foreach (var ad in adsToDisplay)
                                         {
-                                            <div class="col-sm-4">
-                                                <div class="col-item">
-                                                    <div class="photo">
-                                                        <img src="@Url.Image(ad.PrimaryImage, 260, 350)" class="img-responsive" alt="a" />
-                                                    </div>
-                                                    <div class="info">
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <h5>
-                                                                    @ad.Heading
-                                                                </h5>
-                                                            </div>
+                                            if (ad.CategoryAdType.HasValue())
+                                            {
+                                                @Html.Partial("_AdTile_" + ad.CategoryAdType, ad)
+                                            }
+                                            else
+                                            {
+                                                @Html.Partial("_AdTile", ad)
+                                            }
 
-                                                            <div class="col-md-12">
-                                                                <p>
-                                                                    <span class="label label-category">@ad.ParentCategoryName</span>
-                                                                    <span class="label label-category">@ad.CategoryName</span>
-                                                                </p>
-                                                            </div>
-
-                                                        </div>
-                                                        <div class="separator clear-left text-right">
-                                                            <a href="@Url.AdUrl(ad.HeadingSlug, ad.AdId, routeName: ad.CategoryAdType)"
-                                                               class="btn btn-primary js-load" role="button">
-                                                                <i class="fa fa-list"></i> More Details
-                                                            </a>
-                                                        </div>
-                                                        <div class="clearfix">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         }
                                     </div>
                                 </div>
@@ -140,12 +117,12 @@
                     <a class="btn btn-lg btn-primary btn-block" href="@Url.Action("Step1", "Booking")" role="button">Place New Ad &raquo;</a>
                 </p>
             </div>
-           
+
         </div>
         <div class="col-md-4">
             <div class="jumbotron">
                 <p>
-                    Looking for a tutor? We can help you find one. 
+                    Looking for a tutor? We can help you find one.
                 </p>
                 <img src="@Url.Content("~/Content/images/tutoring.jpg")" class="img-stretch" alt="Tutors" />
                 <p>

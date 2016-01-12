@@ -782,6 +782,8 @@
     <Content Include="Views\Shared\_LayoutInvoice.cshtml" />
     <Content Include="Views\Event\Invoice.cshtml" />
     <Content Include="Views\Home\Index.KandoBay.cshtml" />
+    <Content Include="Views\Home\_AdTile.cshtml" />
+    <Content Include="Views\Home\_AdTile_Event.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Framework\Validators\" />

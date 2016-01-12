@@ -1,0 +1,35 @@
+﻿@model AdSummaryViewModel
+
+@using Paramount
+<div class="col-sm-4">
+    <div class="col-item">
+        <div class="photo">
+            <img src="@Url.Image(Model.PrimaryImage, 260, 350)" class="img-responsive" alt="a" />
+        </div>
+        <div class="info">
+            <div class="row">
+                <div class="col-md-12">
+                    <h5>
+                        @Model.Heading
+                    </h5>
+                </div>
+
+                <div class="col-md-12">
+                    <p>
+                        <span class="label label-category">@Model.ParentCategoryName</span>
+                        <span class="label label-category">@Model.CategoryName</span>
+                    </p>
+                </div>
+
+            </div>
+            <div class="separator clear-left text-right">
+                <a href="@Url.AdUrl(Model.HeadingSlug, Model.AdId, routeName: Model.CategoryAdType)"
+                   class="btn btn-primary js-load" role="button">
+                    <i class="fa fa-list"></i> More Details
+                </a>
+            </div>
+            <div class="clearfix">
+            </div>
+        </div>
+    </div>
+</div>

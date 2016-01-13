@@ -27,6 +27,7 @@
         {
             var results = _searchService.GetLatestAds(pageSize: 6);
             var adSummaryViewModels = this.MapList<AdSearchResult, AdSummaryViewModel>(results.ToList());
+            
             return View(new HomeModel
             {
                 AdSummaryList = adSummaryViewModels

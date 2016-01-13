@@ -23,6 +23,7 @@ namespace Paramount.Betterclassifieds.Presentation
                 .Include("~/Scripts/app-global/paramount-ui.js")
                 .IncludeDirectory("~/Scripts/app-global", "*.js", true) // Infrastructure and utiltiy functions (e.g. UI button loaders)
                 .IncludeDirectory("~/Scripts/app/common", "*.js", true) // All the global objects go here
+                .IncludeDirectory("~/Scripts/app/ui", "*.js", true)     // All ui (jQuery specific) stuff goes here that may reference view models (app)
                 .IncludeDirectory("~/Scripts/app", "*.js", true)        // All the knockout objects
                 );
             

@@ -10,6 +10,15 @@
 
 }
 
+@section Scripts
+{
+    <script>
+        $(function() {
+            $paramount.ui.home.init();
+        });
+    </script>
+}
+
 @section Main{
     <main class="mast-head" id="content" role="main">
         <div class="container">
@@ -66,15 +75,15 @@
             </div>
 
 
-            <div class="row">
+            <div class="row hidden-xs">
                 <div class="col-xs-12">
-                    <div id="carousel-example-generic" class="carousel slide hidden-xs" data-ride="carousel">
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner">
 
                             @for (var r = 0; r < latestAdsRowCount; r++)
                             {
-                                var adsToDisplay = Model.AdSummaryList.Skip(r * 3).Take(3);
+                                var adsToDisplay = Model.AdSummaryList.Skip(r*3).Take(3);
                                 var itemClass = string.Format("item {0}", r == 0 ? "active" : "");
 
                                 <div class="@itemClass">
@@ -99,13 +108,42 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row visible-xs">
+                @foreach (var ad in @Model.AdSummaryList.Take(3))
+                {
+                    if (ad.CategoryAdType.HasValue())
+                    {
+                        @Html.Partial("_AdTile_" + ad.CategoryAdType, ad)
+                    }
+                    else
+                    {
+                        @Html.Partial("_AdTile", ad)
+                    }
+                }
+            </div>
         </div>
     </div>
 
 }
 
-<div class="container top-buffer-20">
-    <div class="row">
+
+<div class="container top-buffer-40">
+
+    <div class="row categories-links">
+        <div class="col-xs-12">
+            <h2>Categories</h2>
+        </div>
+        <div data-bind="foreach: parentCategories">
+            <div class="col-xs-12 col-sm-6 category">
+                <a data-bind="attr : {href : $parent.searchLink($data)}">
+                    <span data-bind="text: title"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row top-buffer-40">
 
         <div class="col-md-4">
             <div class="jumbotron">

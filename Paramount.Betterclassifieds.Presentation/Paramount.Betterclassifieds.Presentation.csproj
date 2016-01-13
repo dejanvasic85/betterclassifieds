@@ -438,6 +438,8 @@
     <Content Include="Scripts\app\booking\bookingCategorySelection.js" />
     <Content Include="Scripts\app\booking\designAd.js" />
     <Content Include="Scripts\app\events\eventView.ui.js" />
+    <Content Include="Scripts\app\categories\categoryLinks.model.js" />
+    <Content Include="Scripts\app\ui\home.ui.js" />
     <Content Include="Scripts\app\locations\location.service.js" />
     <Content Include="Scripts\knockout\knockout.validation-2.0.3.js" />
     <Content Include="Scripts\vendor\bootstrap-3.3.0.js" />
@@ -787,6 +789,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Framework\Validators\" />
+    <Folder Include="Scripts\app\home\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

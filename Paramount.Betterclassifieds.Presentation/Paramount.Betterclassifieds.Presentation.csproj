@@ -786,6 +786,7 @@
     <Content Include="Views\Home\Index.KandoBay.cshtml" />
     <Content Include="Views\Home\_AdTile.cshtml" />
     <Content Include="Views\Home\_AdTile_Event.cshtml" />
+    <Content Include="Views\Home\Index.TheMusic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Framework\Validators\" />

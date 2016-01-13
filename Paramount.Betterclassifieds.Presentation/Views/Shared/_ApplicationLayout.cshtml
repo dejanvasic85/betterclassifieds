@@ -25,8 +25,13 @@
 @*Footer*@
 <div class="clearfix"></div>
 <footer class="footer">
-    <div class="top-buffer-20"></div>
-    <p>
-        &copy; @DateTime.Now.Year - <a target="_blank" href="http://www.paramountit.com.au">Powered By Paramount IT Solutions</a>
-    </p>
+    <div class="container">
+        <p class="pull-left">
+            &copy; @DateTime.Now.Year - <a target="_blank" href="http://www.paramountit.com.au">Powered and Built By Paramount IT Solutions</a>
+        </p>
+
+        <p class="pull-right">
+            <a href="@Url.Action("ContactUs", "Home")">Contact Us</a>
+        </p>
+    </div>
 </footer>

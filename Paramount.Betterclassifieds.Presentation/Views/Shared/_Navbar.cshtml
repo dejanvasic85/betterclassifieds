@@ -1,4 +1,9 @@
-﻿@*Navbar*@
+﻿@using Paramount.Betterclassifieds.Configuration
+@*Navbar*@
+
+@{
+    var brand = ConfigManager.ReadAppSetting("Brand");
+}
 
 <div class="container-fluid">
     <div class="navbar-header">
@@ -9,7 +14,7 @@
             <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="@Url.Action("Index", "Home")">
-            <i class="fa fa-home"></i> KandoBay
+            <i class="fa fa-home"></i> @brand
         </a>
     </div>
 

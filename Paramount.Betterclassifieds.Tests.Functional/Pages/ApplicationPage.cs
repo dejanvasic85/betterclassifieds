@@ -17,10 +17,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             _webDriver = webDriver;
         }
 
-        [FindsBy(How = How.LinkText, Using = "Place new Ad"), UsedImplicitly]
+        [FindsBy(How = How.Id, Using = "lnkPlaceNewAd"), UsedImplicitly]
         private IWebElement PlaceNewAdButton;
 
-        [FindsBy(How = How.LinkText, Using = "Login / Register"), UsedImplicitly]
+        [FindsBy(How = How.Id, Using = "lnkRegisterOrLogin"), UsedImplicitly]
         private IWebElement LoginOrRegisterButton;
 
         public ApplicationPage PlaceNewAd()

@@ -19,6 +19,10 @@
         NOT_AVAILABLE: 'Not Available'
     }
 
+    $paramount.CATEGORY_AD_TYPE = {
+        EVENT : 'Event'
+    }
+
     // Lazy loading for mobile checking
     me.evaluateMobile = function () {
         if (isMobileDevice !== null) {

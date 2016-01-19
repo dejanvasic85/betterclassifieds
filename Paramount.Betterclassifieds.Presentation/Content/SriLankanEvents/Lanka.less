@@ -1,0 +1,125 @@
+﻿@color_primary: #228b22;
+@color_secondary: #fafafa;
+
+
+html {
+    font-size: 12px;
+}
+
+body {
+    font-size: 17px;
+}
+
+.userads-cmd-panel {
+    a, a:hover {
+        color: #fff;
+    }
+}
+
+.alert-warning {
+    background-color: #c27802;
+}
+
+.event-dashboard {
+    span {
+        &.badge {
+            color: #fff;
+            background-color: @color_primary;
+        }
+    }
+}
+
+/*
+    Masthead
+*/
+
+.mast-head {
+    color: #fff;
+    background-image: linear-gradient(to bottom,@color_primary 0,@color_primary 100%);
+    padding: 80px 0;
+
+    a {
+        color: #fff;
+        text-decoration: none;
+
+        :hover {
+            text-decoration: none;
+        }
+    }
+
+    h1 {
+        font-size: 70px;
+    }
+}
+
+/*
+    home featured
+*/
+
+.home-featured {
+    background-color: @color_secondary;
+    padding-bottom: 20px;
+
+    .thumbnail {
+        padding-top: 20px;
+    }
+
+    .col-item {
+        border: 1px solid #E1E1E1;
+        border-radius: 5px;
+        background: #FFF;
+
+        .photo img {
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .info {
+            padding: 10px;
+            border-radius: 0 0 5px 5px;
+            margin-top: 1px;
+        }
+
+        .price h5 {
+            line-height: 20px;
+            margin: 0;
+        }
+
+        .separator {
+            border-top: 1px solid #E1E1E1;
+            padding-top: 5px;
+
+            p {
+                line-height: 20px;
+                margin-bottom: 0;
+                margin-top: 10px;
+                text-align: center;
+            }
+        }
+
+        p i {
+            margin-right: 5px;
+        }
+    }
+
+    .controls {
+        margin-top: 20px;
+    }
+
+    [data-slide="prev"] {
+        margin-right: 10px;
+    }
+}
+
+/*
+    Footer
+*/
+.footer{
+    margin-top: 20px;
+    background-color: #333;
+    color: #fff;
+    a{
+        color: #fff;
+        text-decoration: underline;
+    }
+}

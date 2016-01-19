@@ -346,6 +346,7 @@
     <Content Include="Content\bootstrap-theme-yeti.min.css">
       <DependentUpon>bootstrap-theme-yeti.css</DependentUpon>
     </Content>
+    <Content Include="Content\SriLankanEvents\img\BookUsingThePhone.PNG" />
     <Content Include="Content\KandoBay\img\BookUsingThePhone.PNG" />
     <Content Include="Content\KandoBay\img\FederationSquare.png" />
     <Content Include="Content\KandoBay\img\WinTablet.png" />
@@ -373,6 +374,12 @@
       <DependentUpon>site.css</DependentUpon>
     </Content>
     <Content Include="Content\KandoBay\img\Kandobay_Logo.png" />
+    <Content Include="Content\SriLankanEvents\Lanka.css">
+      <DependentUpon>Lanka.less</DependentUpon>
+    </Content>
+    <Content Include="Content\SriLankanEvents\Lanka.min.css">
+      <DependentUpon>Lanka.css</DependentUpon>
+    </Content>
     <Content Include="Content\TheMusic\img\themusic_favicon.ico" />
     <Content Include="Content\TheMusic\img\tmlogo.png" />
     <Content Include="Content\TheMusic\themusic.css">
@@ -412,6 +419,7 @@
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
     <Content Include="Content\site-bs-override.less" />
+    <Content Include="Content\SriLankanEvents\Lanka.less" />
     <None Include="Content\TheMusic\themusic.less" />
     <Content Include="Scripts\app\account\userAds.ui.js" />
     <Content Include="Scripts\app\account\userEnquiry.model.js" />
@@ -787,6 +795,8 @@
     <Content Include="Views\Home\_AdTile.cshtml" />
     <Content Include="Views\Home\_AdTile_Event.cshtml" />
     <Content Include="Views\Home\Index.TheMusic.cshtml" />
+    <Content Include="Views\Shared\_Layout.SriLankanEvents.cshtml" />
+    <Content Include="Views\Home\Index.SriLankanEvents.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Framework\Validators\" />

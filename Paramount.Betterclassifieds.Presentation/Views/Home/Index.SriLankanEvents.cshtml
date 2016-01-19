@@ -1,0 +1,183 @@
+﻿@using Paramount
+@model HomeModel
+
+@{
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
+    ViewBag.Title = "Sri Lankan Events";
+
+    // Setup latest ads carousel
+    var latestAdsRowCount = Model.AdSummaryList.Count == 0 ? 0 : Model.AdSummaryList.Count / 3;
+
+}
+
+@section Scripts
+{
+    <script>
+        $(function() {
+            $paramount.ui.home.init();
+        });
+    </script>
+}
+
+@section Main{
+    <main class="mast-head" id="content" role="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <h1>
+                        <a href="@Url.Action("Index", "Home")">
+                            @*<img class="themusic-logo"
+                                src="@Url.Content("~/Content/KandoBay/img/Kandobay_Logo.png")"
+                                width="300"
+                                alt="Kandobay Classifieds" />*@
+                            Sri Lankan Events
+                        </a>
+                    </h1>
+                    <p>
+                        <em>Bringing the Sri Lankan community together...</em>
+                    </p>
+                </div>
+                <div class="col-md-8 col-md-offset-2">
+                    <form action="@Url.Action("Find", "Listings")">
+                        <div class="input-group input-group-lg">
+                            <input type="text" name="keyword" id="keyword" class="form-control input-lg" placeholder="I am after...">
+                            <div class="input-group-btn input-group-lg">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+
+                        </div><!-- /input-group -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+}
+
+@if (Model.AdSummaryList.Count > 0)
+{
+    <div class="home-featured">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-xs-6">
+                    <h2>What's new?</h2>
+                </div>
+                <div class="col-xs-6">
+                    <div class="controls pull-right hidden-xs">
+                        <a class="left fa fa-chevron-left btn btn-primary" href="#carousel-example-generic"
+                           data-slide="prev"></a><a class="right fa fa-chevron-right btn btn-primary" href="#carousel-example-generic"
+                                                    data-slide="next"></a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row hidden-xs">
+                <div class="col-xs-12">
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+
+                            @for (var r = 0; r < latestAdsRowCount; r++)
+                            {
+                                var adsToDisplay = Model.AdSummaryList.Skip(r*3).Take(3);
+                                var itemClass = string.Format("item {0}", r == 0 ? "active" : "");
+
+                                <div class="@itemClass">
+                                    <div class="row">
+                                        @foreach (var ad in adsToDisplay)
+                                        {
+                                            if (ad.CategoryAdType.HasValue())
+                                            {
+                                                @Html.Partial("_AdTile_" + ad.CategoryAdType, ad)
+                                            }
+                                            else
+                                            {
+                                                @Html.Partial("_AdTile", ad)
+                                            }
+
+                                        }
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row visible-xs">
+                @foreach (var ad in @Model.AdSummaryList.Take(3))
+                {
+                    if (ad.CategoryAdType.HasValue())
+                    {
+                        @Html.Partial("_AdTile_" + ad.CategoryAdType, ad)
+                    }
+                    else
+                    {
+                        @Html.Partial("_AdTile", ad)
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+}
+
+
+<div class="container top-buffer-40">
+
+    <div class="row categories-links">
+        <div class="col-xs-12">
+            <h2>Categories</h2>
+        </div>
+        <div data-bind="foreach: parentCategories">
+            <div class="col-xs-12 col-sm-6 category">
+                <a data-bind="attr : {href : $parent.searchLink($data)}">
+                    <span data-bind="text: title"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row top-buffer-40">
+
+        <div class="col-md-4">
+            <div class="jumbotron">
+                <p>
+                    Design your <strong>free online ad</strong> now. Use your mobile, tablet or PC.
+                </p>
+                <img src="@Url.Content("~/Content/images/BookUsingThePhone.PNG")" class="img-stretch" alt="Book using your phone" />
+                <p>
+                    <a class="btn btn-lg btn-primary btn-block" href="@Url.Action("Step1", "Booking")" role="button">Place New Ad &raquo;</a>
+                </p>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="jumbotron">
+                <p>
+                    Looking for a tutor? We can help you find one.
+                </p>
+                <img src="@Url.Content("~/Content/images/tutoring.jpg")" class="img-stretch" alt="Tutors" />
+                <p>
+                    <a class="btn btn-lg btn-primary btn-block" href="@Url.SeoUrl("Tutors")" role="button">View Tutors Ads &raquo;</a>
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="jumbotron">
+                <p>
+                    Need help or suggestion to improve this website?
+                </p>
+                <img src="@Url.Content("~/Content/images/support.jpg")" class="img-stretch" alt="support" />
+                <p>
+                    <a class="btn btn-lg btn-primary btn-block" href="@Url.Action("ContactUs", "Home")" role="button">Contact Us &raquo;</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

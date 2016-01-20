@@ -9,7 +9,12 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public EventViewModel()
         {
             TicketingEnabled = true;
+            CanEdit = true;
         }
+
+        public int AdId { get; set; }
+        
+        public bool CanEdit { get; set; }
 
         [Required, MaxLength(100)]
         public string Title { get; set; }
@@ -49,6 +54,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string OrganiserPhone { get; set; }
 
         public bool TicketingEnabled { get; set; }
+        
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

@@ -241,10 +241,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult EventDetails(int id, int eventId)
         {
             var canEdit = _eventManager.IsEventEditable(eventId);
-
+            var viewModel = new EventViewModel();
             if (!canEdit)
             {
-                return View();
+                viewModel.CanEdit = false;
+                return View(viewModel);
             }
 
             var adDetails = _searchService.GetByAdId(id);

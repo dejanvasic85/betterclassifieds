@@ -237,6 +237,22 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(new { Closed = true });
         }
 
+        [HttpGet]
+        public ActionResult EventDetails(int id, int eventId)
+        {
+            var canEdit = _eventManager.IsEventEditable(eventId);
+
+            if (!canEdit)
+            {
+                return View();
+            }
+
+            var adDetails = _searchService.GetByAdId(id);
+            var eventDetails = _eventManager.GetEventDetails(eventId);
+            
+            return View();
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.RecognizeDestinationPrefixes("OnlineAd", "Line");

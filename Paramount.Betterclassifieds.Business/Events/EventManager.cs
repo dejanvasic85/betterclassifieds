@@ -229,6 +229,15 @@ namespace Paramount.Betterclassifieds.Business.Events
             };
         }
 
+        /// <summary>
+        /// Returns true if no tickets have been booked
+        /// </summary>
+        public bool IsEventEditable(int? eventId)
+        {
+            Guard.NotNull(eventId);
+            return !_eventRepository.GetEventBookingsForEvent(eventId.GetValueOrDefault()).Any();
+        }
+
         public void CreateEventPaymentRequest(int eventId, PaymentType paymentType, decimal requestedAmount, string requestedByUser)
         {
             Guard.NotDefaultValue(eventId);

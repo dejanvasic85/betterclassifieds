@@ -18,7 +18,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
         public void GetEventDetailsForOnlineAdId_CallsRepository()
         {
             // arrange
-            var mockEvent= new EventModelMockBuilder().Default().Build();
+            var mockEvent = new EventModelMockBuilder().Default().Build();
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetailsForOnlineAdId(10, true), mockEvent);
 
             // act
@@ -300,7 +300,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 .WithEventId(eventId)
                 .WithIsPaymentProcessed(true)
                 .Build();
-            
+
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventPaymentRequestForEvent(It.Is<int>(p => p == eventId)), mockEventPaymentRequest);
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.Is<int>(p => p == eventId)), mockEvent);
 
@@ -416,7 +416,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventPaymentRequestForEvent(It.Is<int>(p => p == eventId)), null);
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.Is<int>(p => p == eventId)), mockEvent);
-            
+
             // act
             var result = BuildTargetObject().GetEventPaymentRequestStatus(eventId);
 
@@ -462,6 +462,29 @@ namespace Paramount.Betterclassifieds.Tests.Events
             Assert.That(mockEvent.ClosingDate, Is.Not.Null);
             Assert.That(mockEvent.ClosingDateUtc, Is.Not.Null);
         }
+
+        [Test]
+        public void IsEventEditable_NoBookings_CanEdit()
+        {
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingsForEvent(It.IsAny<int>(),
+                false), new List<EventBooking>());
+
+            var manager = BuildTargetObject();
+            Assert.That(manager.IsEventEditable(10), Is.True);
+        }
+
+        [Test]
+        public void IsEventEditable_HasOneBooking_CannotEdit()
+        {
+            var booking = new EventBookingMockBuilder().Build();
+
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingsForEvent(It.IsAny<int>(),
+                false), new List<EventBooking> {booking});
+
+            var manager = BuildTargetObject();
+            Assert.That(manager.IsEventEditable(10), Is.False);
+        }
+
 
         private Mock<IEventRepository> _eventRepositoryMock;
         private Mock<IDateService> _dateServiceMock;

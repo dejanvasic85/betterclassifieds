@@ -60,15 +60,32 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
             var adId = 1;
             var onlineDayDuration = 7;
             var expectedEndDate = startDate.AddDays(onlineDayDuration);
+            var mockBooking = new AdBookingModelMockBuilder().WithStartDate(DateTime.Today).Build();
 
+            _dateServiceMock.SetupWithVerification(call => call.Today, DateTime.Today);
+            _bookingRepositoryMock.SetupWithVerification(call => call.GetBooking(It.IsAny<int>(), false, false, false, false), mockBooking);
             _bookingRepositoryMock.Setup(call => call.UpdateBooking(
                 It.Is<int>(v => v == adId),
                 It.Is<DateTime>(v => v == startDate),
                 It.Is<DateTime>(v => v == expectedEndDate),
                 null));
+            _clientConfigMock.Setup(call => call.RestrictedOnlineDaysCount).Returns(onlineDayDuration);
 
-            _clientConfigMock.Setup(call => call.RestrictedOnlineDaysCount)
-                .Returns(onlineDayDuration);
+            // act
+            _container.Resolve<BookingManager>().UpdateSchedule(adId, startDate);
+        }
+
+        [Test]
+        public void UpdateSchedule_WithBookingStarted_ScheduleNotUpdated()
+        {
+            // arrange
+            var startDate = DateTime.Today;
+            var adId = 1;
+            var onlineDayDuration = 7;
+            var mockBooking = new AdBookingModelMockBuilder().WithStartDate(DateTime.Today.AddDays(-1)).Build();
+
+            _dateServiceMock.SetupWithVerification(call => call.Today, DateTime.Today);
+            _bookingRepositoryMock.SetupWithVerification(call => call.GetBooking(It.IsAny<int>(), false, false, false, false), mockBooking);
 
             // act
             _container.Resolve<BookingManager>().UpdateSchedule(adId, startDate);
@@ -114,6 +131,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
         private Mock<IBookingContext> _bookingContext;
         private Mock<IBookCartRepository> _cartRepositoryMock;
         private Mock<ICategoryAdRepositoryFactory> _categoryAdRepositoryMock;
+        private Mock<IDateService> _dateServiceMock;
 
         [SetUp]
         public void Setup()
@@ -133,6 +151,7 @@ namespace Paramount.Betterclassifieds.Tests.BusinessModel
             _bookingContext = _mockRepository.CreateMockOf<IBookingContext>(_container);
             _cartRepositoryMock = _mockRepository.CreateMockOf<IBookCartRepository>(_container);
             _categoryAdRepositoryMock = _mockRepository.CreateMockOf<ICategoryAdRepositoryFactory>(_container);
+            _dateServiceMock = _mockRepository.CreateMockOf<IDateService>(_container);
         }
     }
 }

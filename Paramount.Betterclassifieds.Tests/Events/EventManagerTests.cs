@@ -4,6 +4,7 @@ using System.Linq;
 using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.DocumentStorage;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Payment;
@@ -490,6 +491,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
         private Mock<IDateService> _dateServiceMock;
         private Mock<IDocumentRepository> _documentRepository;
         private Mock<IClientConfig> _clientConfig;
+        private Mock<IBookingManager> _bookingManager;
 
         [SetUp]
         public void SetupDependencies()
@@ -498,6 +500,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _dateServiceMock = CreateMockOf<IDateService>();
             _clientConfig = CreateMockOf<IClientConfig>();
             _documentRepository = CreateMockOf<IDocumentRepository>();
+            _bookingManager = CreateMockOf<IBookingManager>();
         }
     }
 }

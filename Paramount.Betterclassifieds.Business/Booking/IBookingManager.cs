@@ -27,7 +27,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         void RemoveLineAdImage(int id, Guid documentId);
 
         void CancelAd(int adId);
-        void UpdateSchedule(int id, DateTime startDate);
+        void UpdateSchedule(int id, DateTime newStartDate);
         OnlineAdModel GetOnlineAd(int adId);
     }
 }

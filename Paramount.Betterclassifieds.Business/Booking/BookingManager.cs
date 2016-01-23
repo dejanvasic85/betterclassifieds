@@ -9,33 +9,7 @@
 
     public class BookingManager : IBookingManager
     {
-        private readonly IBookingRepository _bookingRepository;
-        private readonly IAdRepository _adRepository;
-        private readonly IPublicationRepository _publicationRepository;
-        private readonly IClientConfig _clientConfigSettings;
-        private readonly IPaymentsRepository _payments;
-        private readonly IUserManager _userManager;
-        private readonly IBroadcastManager _broadcastManager;
-        private readonly ICategoryAdRepositoryFactory _categoryAdRepositoryFactory;
-
-        public BookingManager(IBookingRepository bookingRepository,
-            IPublicationRepository publicationRepository,
-            IClientConfig clientConfigSettings,
-            IPaymentsRepository payments,
-            IAdRepository adRepository,
-            IUserManager userManager,
-            IBroadcastManager broadcastManager, ICategoryAdRepositoryFactory categoryAdRepositoryFactory)
-        {
-            _bookingRepository = bookingRepository;
-            _publicationRepository = publicationRepository;
-            _clientConfigSettings = clientConfigSettings;
-            _payments = payments;
-            _adRepository = adRepository;
-            _userManager = userManager;
-            _broadcastManager = broadcastManager;
-            _categoryAdRepositoryFactory = categoryAdRepositoryFactory;
-        }
-
+        
         public AdBookingExtensionModel CreateExtension(int adBookingId, int numberOfInsertions, string username, decimal price, ExtensionStatus status, bool isOnlineOnly)
         {
             // Create a new extension model
@@ -250,12 +224,19 @@
             _bookingRepository.CancelAndExpireBooking(adId);
         }
 
-        public void UpdateSchedule(int id, DateTime startDate)
+        public void UpdateSchedule(int id, DateTime newStartDate)
         {
-            // Generate the end date
-            var endDate = startDate.AddDays(_clientConfigSettings.RestrictedOnlineDaysCount);
+            var originalBooking = _bookingRepository.GetBooking(id);
 
-            _bookingRepository.UpdateBooking(id, newStartDate: startDate, newEndDate: endDate);
+            if (originalBooking.StartDate < _dateService.Today)
+            {
+                // Booking schedule cannot be updated if ad has already started
+                return;
+            }
+
+            // Generate the end date
+            var endDate = newStartDate.AddDays(_clientConfigSettings.RestrictedOnlineDaysCount);
+            _bookingRepository.UpdateBooking(id, newStartDate: newStartDate, newEndDate: endDate);
         }
 
         public OnlineAdModel GetOnlineAd(int adId)
@@ -301,5 +282,35 @@
                 };
             }
         }
+
+        private readonly IBookingRepository _bookingRepository;
+        private readonly IAdRepository _adRepository;
+        private readonly IPublicationRepository _publicationRepository;
+        private readonly IClientConfig _clientConfigSettings;
+        private readonly IPaymentsRepository _payments;
+        private readonly IUserManager _userManager;
+        private readonly IBroadcastManager _broadcastManager;
+        private readonly ICategoryAdRepositoryFactory _categoryAdRepositoryFactory;
+        private readonly IDateService _dateService;
+
+        public BookingManager(IBookingRepository bookingRepository,
+            IPublicationRepository publicationRepository,
+            IClientConfig clientConfigSettings,
+            IPaymentsRepository payments,
+            IAdRepository adRepository,
+            IUserManager userManager,
+            IBroadcastManager broadcastManager, ICategoryAdRepositoryFactory categoryAdRepositoryFactory, IDateService dateService)
+        {
+            _bookingRepository = bookingRepository;
+            _publicationRepository = publicationRepository;
+            _clientConfigSettings = clientConfigSettings;
+            _payments = payments;
+            _adRepository = adRepository;
+            _userManager = userManager;
+            _broadcastManager = broadcastManager;
+            _categoryAdRepositoryFactory = categoryAdRepositoryFactory;
+            _dateService = dateService;
+        }
+
     }
 }

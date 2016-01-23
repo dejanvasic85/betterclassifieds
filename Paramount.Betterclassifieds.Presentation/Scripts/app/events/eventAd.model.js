@@ -1,4 +1,4 @@
-﻿(function ($, $paramount, ko, moment) {
+﻿(function ($, $paramount, ko, moment, notifier) {
     'use strict';
 
     $paramount.models = $paramount.models || {};
@@ -23,7 +23,7 @@
         me.eventPhoto = ko.observable(data.eventPhoto);
         me.eventPhotoUploadError = ko.observable(null);
         me.eventPhotoUrl = ko.computed(function () {
-            return imageService.getImageUrl(me.eventPhoto(), {w:1000, h: 600});
+            return imageService.getImageUrl(me.eventPhoto(), { w: 1000, h: 600 });
         });
         me.removeEventPhoto = function () {
             if (me.eventPhoto() !== null) {
@@ -76,10 +76,19 @@
         me.organiserName = ko.observable(data.organiserName);
         me.organiserPhone = ko.observable(data.organiserPhone);
         me.ticketingEnabled = ko.observable(data.ticketingEnabled);
-        me.submitChanges = function () {
+        me.submitChanges = function (element, event) {
             var json = ko.toJS(me);
-            return adService.updateEventDetails(json);
+            return adService.updateEventDetails(json)
+            .then(function (resp) {
+                    if (options.notifyUpdate === true && resp === true) {
+                        notifier.success('Details updated successfully');
+                    }
+                })
+            .always(function () {
+                var $btn = $(event.target); // Grab the jQuery element from knockout
+                    $btn.button('reset');
+                });
         }
     };
 
-})(jQuery, $paramount, ko, moment);
+})(jQuery, $paramount, ko, moment, toastr);

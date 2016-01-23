@@ -8,7 +8,8 @@
         $paramount.ui.eventEditor.init({
             maxFreeImages: 5,
             configDurationDays: 60,
-            adDesignService: new $paramount.AdDesignService('@ViewBag.Id')
+            adDesignService: new $paramount.AdDesignService('@ViewBag.Id'),
+            notifyUpdate : true
         });
     </script>
 }
@@ -228,7 +229,7 @@
 
     <div class="row">
         <div class="col-xs-12 text-right">
-            <button class="btn btn-primary" data-bind="click: submitChanges">
+            <button class="btn btn-primary js-load" data-bind="click: submitChanges">
                 Update
             </button>
         </div>

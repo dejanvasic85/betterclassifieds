@@ -101,24 +101,27 @@
                     <div class="panel-footer">
                         Visits : <span data-bind="text: visits"></span>
                         <div class="pull-right">
-
+                            
                             <button data-bind="visible: messageCount() > 0" class="btn btn-primary view-messages">
                                 <span class="hidden-xs">Enquiries</span> <i class="fa fa-envelope"></i> ( <span data-bind="text: messageCount"></span> )
                             </button>
-                            <a class="btn btn-default" data-bind="visible: isEventAd ,attr : {href: editEventUrl }">
-                                <span class="hidden-xs">Event Dashboard </span> <i class="fa fa-dashboard"></i>
-                            </a>
+                            
                             <button class="btn btn-default book-again" data-bind="click: bookAgain()">
                                 <span class="hidden-xs">Use as Template</span> <i class="fa fa-recycle"></i>
                             </button>
                             <a class="btn btn-default" data-bind="visible : $data.totalPrice() > 0 ,  attr : {href : bookingInvoiceHref}" target="_blank">
                                 <span class="hidden-xs">Invoice</span> <i class="fa fa-file"></i>
                             </a>
+                            
+                            <a class="btn btn-success js-load" data-bind="visible: categoryAdType() === $paramount.CATEGORY_AD_TYPE.EVENT , attr : {href: eventDashboardUrl }">
+                                <span class="hidden-xs">Event Dashboard </span> <i class="fa fa-dashboard"></i>
+                            </a>
+
                             <div style="display:inline-block" data-bind="visible : $data.status() !== 'Expired'">
-                                <a class="btn btn-default" data-bind="attr : { 'data-adid' : $data.adId(), href : editHref} ">
+                                <a class="btn btn-primary" data-bind="attr : { 'data-adid' : $data.adId(), href : editHref} ">
                                     <span class="hidden-xs">Edit</span> <i class="fa fa-pencil"></i>
                                 </a>
-                                <button class="btn btn-default cancel-ad" data-bind="click: cancelAd">
+                                <button class="btn btn-danger cancel-ad" data-bind="click: cancelAd">
                                     <span class="hidden-xs">Cancel</span> <i class="fa fa-trash"></i>
                                 </button>
                             </div>

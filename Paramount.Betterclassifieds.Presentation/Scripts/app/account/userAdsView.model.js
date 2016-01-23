@@ -28,7 +28,7 @@
             itemToRemove.status('Expired');
         };
 
-        self.noAdsAvaialble = ko.computed(function() {
+        self.noAdsAvaialble = ko.computed(function () {
             return self.ads().length === 0;
         });
     };
@@ -62,14 +62,27 @@
             // See the jQuery handler in the page instead. This is a placeholder to allow the click to wire up
         }
 
-        this.editHref = userAdService.getEditUrl(item.adId);
+        this.editHref = ko.observable( userAdService.getEditUrl(item.adId) );
         this.bookingInvoiceHref = userAdService.getInvoiceUrl(item.adId);
         this.viewHref = item.adViewUrl;
         this.imageUrl = imageService.getImageUrl(item.adImageId);
         this.imageUrlSmaller = imageService.getImageUrl(item.adImageId, { h: 50, w: 50 });
+        this.categoryAdType = ko.observable(item.categoryAdType);
 
-        this.isEventAd = item.categoryAdType === $paramount.CATEGORY_AD_TYPE.EVENT;
-        this.editEventUrl = this.isEventAd === true ? userAdService.getEditEventUrl(item.adId) : '';
+        this.eventDashboardUrl = ko.observable();
+
+        switch (item.categoryAdType) {
+            case $paramount.CATEGORY_AD_TYPE.EVENT:
+                {
+                    this.eventDashboardUrl(userAdService.getEventDashboardUrl(item.adId));
+                    this.editHref(userAdService.getEventEditUrl(item.adId));
+                    break;
+                }
+            default:
+                break;
+        }
+
+
     };
 
     $p.models = $p.models || {};

@@ -254,18 +254,20 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var viewModel = new EventViewModel
             {
                 CanEdit = _eventManager.IsEventEditable(eventDetails.EventId),
-                Title = adDetails.Heading,  
-                Description = adDetails.Description,
+                EventId = eventDetails.EventId.GetValueOrDefault(),
+                Title = adDetails.Heading,
+                Description = AdText.FromHtmlEncoded(adDetails.Description).HtmlText, // Serve back html for editing
                 EventStartDate = _dateService.ConvertToString(eventDetails.EventStartDate),
                 EventStartTime = _dateService.ConvertToStringTime(eventDetails.EventStartDate),
                 EventEndDate = _dateService.ConvertToString(eventDetails.EventEndDate),
                 EventEndTime = _dateService.ConvertToStringTime(eventDetails.EventEndDate),
                 Location = eventDetails.Location,
-                LocationLatitude =  eventDetails.LocationLatitude,
+                LocationLatitude = eventDetails.LocationLatitude,
                 LocationLongitude = eventDetails.LocationLongitude,
                 OrganiserName = adDetails.ContactName,
                 OrganiserPhone = adDetails.ContactPhone,
-                AdStartDate = _dateService.ConvertToString(adDetails.StartDate)
+                AdStartDate = _dateService.ConvertToString(adDetails.StartDate),
+                EventPhoto = adDetails.PrimaryImage,
             };
 
             return Json(viewModel, JsonRequestBehavior.AllowGet);
@@ -274,6 +276,23 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost]
         public ActionResult UpdateEventDetails(int id, EventViewModel viewModel)
         {
+            var adText = AdText.FromHtml(viewModel.Description);
+
+            _eventManager.UpdateEventDetails(id,
+                viewModel.EventId,
+                viewModel.Title,
+                adText.HtmlTextEncoded,
+                adText.HtmlText,
+                _dateService.ConvertFromString(viewModel.EventStartDate, viewModel.EventStartTime),
+                _dateService.ConvertFromString(viewModel.EventEndDate, viewModel.EventEndTime),
+                viewModel.Location,
+                viewModel.LocationLatitude,
+                viewModel.LocationLongitude,
+                viewModel.OrganiserName,
+                viewModel.OrganiserPhone,
+                _dateService.ConvertFromString(viewModel.AdStartDate),
+                viewModel.EventPhoto);
+
             return Json(true);
         }
 

@@ -13,6 +13,7 @@
             DATE_FORMAT = 'DD/MM/yyyy';
 
         // Properties
+        me.eventId = ko.observable(data.eventId);
         me.canEdit = ko.observable(data.canEdit);
         me.title = ko.observable(data.title);
         me.titleRemaining = ko.computed(function () {
@@ -36,6 +37,7 @@
         }
         me.configDurationDays = ko.observable(options.configDurationDays);
         me.adStartDate = ko.observable(data.adStartDate);
+        me.isEventNotStarted = ko.observable(moment().diff(moment(data.adStartDate, DATE_FORMAT), 'days') <= 0);
         me.adEndDate = ko.computed(function () {
             if (me.adStartDate() === '') {
                 return '';
@@ -81,14 +83,14 @@
             var json = ko.toJS(me);
             return adService.updateEventDetails(json)
             .then(function (resp) {
-                    if (options.notifyUpdate === true && resp === true) {
-                        notifier.success('Details updated successfully');
-                    }
-                })
+                if (options.notifyUpdate === true && resp === true) {
+                    notifier.success('Details updated successfully');
+                }
+            })
             .always(function () {
                 var $btn = $(event.target); // Grab the jQuery element from knockout
-                    $btn.button('reset');
-                });
+                $btn.button('reset');
+            });
         }
     };
 

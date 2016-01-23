@@ -18,6 +18,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         List<UserBookingModel> GetBookingsForUser(string username);
         List<AdBookingModel> GetBookingsForEdition(DateTime editionDate);
         AdBookingExtensionModel GetBookingExtension(int extensionId);
+        OnlineAdModel GetOnlineAd(int adId);
 
         // Add
         int AddBookingExtension(AdBookingExtensionModel extension);
@@ -45,6 +46,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         // Images
         void CreateImage(int adId, string documentId, int adTypeId = AdTypeCode.OnlineCodeId);
         void DeleteImage(int adId, string documentId, int adTypeId = AdTypeCode.OnlineCodeId);
+
         
     }
 }

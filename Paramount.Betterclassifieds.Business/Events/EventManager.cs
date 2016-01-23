@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.DocumentStorage;
 using Paramount.Betterclassifieds.Business.Payment;
+using Paramount.Betterclassifieds.Business.Search;
 
 namespace Paramount.Betterclassifieds.Business.Events
 {
@@ -12,13 +14,15 @@ namespace Paramount.Betterclassifieds.Business.Events
         private readonly IDateService _dateService;
         private readonly IClientConfig _clientConfig;
         private readonly IDocumentRepository _documentRepository;
+        private readonly IBookingManager _bookingManager;
 
-        public EventManager(IEventRepository eventRepository, IDateService dateService, IClientConfig clientConfig, IDocumentRepository documentRepository)
+        public EventManager(IEventRepository eventRepository, IDateService dateService, IClientConfig clientConfig, IDocumentRepository documentRepository, IBookingManager bookingManager)
         {
             _eventRepository = eventRepository;
             _dateService = dateService;
             _clientConfig = clientConfig;
             _documentRepository = documentRepository;
+            _bookingManager = bookingManager;
         }
 
         public EventModel GetEventDetailsForOnlineAdId(int onlineAdId, bool includeBookings = false)
@@ -289,6 +293,36 @@ namespace Paramount.Betterclassifieds.Business.Events
             eventModel.ClosingDate = DateTime.Now;
             eventModel.ClosingDateUtc = DateTime.UtcNow;
             _eventRepository.UpdateEvent(eventModel);
+        }
+
+        public void UpdateEventDetails(int adId, int eventId, string title, string description, string htmlText, DateTime eventStartDate, DateTime eventEndDateTime, string location, decimal? locationLatitude, decimal? locationLongitude, string organiserName, string organiserPhone, DateTime adStartDate, string eventPhoto)
+        {
+            var eventDetails = _eventRepository.GetEventDetails(eventId);
+            var onlineAd = _bookingManager.GetOnlineAd(adId);
+
+            if (eventDetails == null || onlineAd == null)
+                throw new ArgumentException("Cannot find required event to update", "eventId");
+
+            if (IsEventEditable(eventId))
+            {
+                eventDetails.EventStartDate = eventStartDate;
+                eventDetails.EventEndDate = eventEndDateTime;
+                eventDetails.Location = location;
+                eventDetails.LocationLatitude = locationLatitude;
+                eventDetails.LocationLongitude = locationLongitude;
+                onlineAd.Heading = title;
+            }
+
+            onlineAd.Description = description;
+            onlineAd.HtmlText = htmlText;
+            onlineAd.ContactName = organiserName;
+            onlineAd.ContactPhone = organiserPhone;
+            onlineAd.Images = new List<AdImage> { new AdImage(eventPhoto) };
+
+
+            _bookingManager.UpdateOnlineAd(adId, onlineAd);
+            _eventRepository.UpdateEvent(eventDetails);
+            _bookingManager.UpdateSchedule(adId, adStartDate);
         }
     }
 }

@@ -189,11 +189,26 @@
             }
         }
 
+        public OnlineAdModel GetOnlineAd(int adId)
+        {
+            using (var context = _dbContextFactory.CreateClassifiedContext())
+            {
+                // Fetch the original online ad
+                var ad = context
+                    .AdBookings.Single(bk => bk.AdBookingId == adId)
+                    .Ad
+                    .AdDesigns.SingleOrDefault(ds => ds.AdTypeId == AdTypeCode.OnlineCodeId)
+                    .OnlineAds.SingleOrDefault();
+
+                return this.Map<OnlineAd, OnlineAdModel>(ad);
+            }
+        }
+
         public int AddBookingExtension(AdBookingExtensionModel extension)
         {
             using (var context = _dbContextFactory.CreateClassifiedContext())
             {
-                AdBookingExtension adBookingExtension = this.Map<AdBookingExtensionModel, AdBookingExtension>(extension);
+                var adBookingExtension = this.Map<AdBookingExtensionModel, AdBookingExtension>(extension);
                 context.AdBookingExtensions.InsertOnSubmit(adBookingExtension);
                 context.SubmitChanges();
                 extension.AdBookingExtensionId = adBookingExtension.AdBookingExtensionId;

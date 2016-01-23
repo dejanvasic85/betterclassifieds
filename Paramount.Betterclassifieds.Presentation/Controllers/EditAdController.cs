@@ -6,12 +6,13 @@ using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
-using System;
-using System.Linq;
-using System.Web.Mvc;
 using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Presentation.Services;
+using System;
+using System.Linq;
+using System.Web.Mvc;
+
 
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
@@ -252,15 +253,26 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var viewModel = new EventViewModel
             {
+                CanEdit = _eventManager.IsEventEditable(eventDetails.EventId),
                 Title = adDetails.Heading,  
-                CanEdit = _eventManager.IsEventEditable(eventDetails.EventId)
+                Description = adDetails.Description,
+                EventStartDate = _dateService.ConvertToString(eventDetails.EventStartDate),
+                EventStartTime = _dateService.ConvertToStringTime(eventDetails.EventStartDate),
+                EventEndDate = _dateService.ConvertToString(eventDetails.EventEndDate),
+                EventEndTime = _dateService.ConvertToStringTime(eventDetails.EventEndDate),
+                Location = eventDetails.Location,
+                LocationLatitude =  eventDetails.LocationLatitude,
+                LocationLongitude = eventDetails.LocationLongitude,
+                OrganiserName = adDetails.ContactName,
+                OrganiserPhone = adDetails.ContactPhone,
+                AdStartDate = _dateService.ConvertToString(adDetails.StartDate)
             };
 
             return Json(viewModel, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public ActionResult UpdateEventDetails(EventViewModel viewModel)
+        public ActionResult UpdateEventDetails(int id, EventViewModel viewModel)
         {
             return Json(true);
         }
@@ -301,8 +313,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly ITemplatingService _templatingService;
         private readonly IUserManager _userManager;
         private readonly IBroadcastManager _broadcastManager;
+        private readonly IDateService _dateService;
 
-        public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager, IEventManager eventManager, ITemplatingService templatingService, IUserManager userManager, IBroadcastManager broadcastManager)
+        public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager, IEventManager eventManager, ITemplatingService templatingService, IUserManager userManager, IBroadcastManager broadcastManager, IDateService dateService)
         {
             _searchService = searchService;
             _applicationConfig = applicationConfig;
@@ -311,6 +324,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventManager = eventManager;
             _userManager = userManager;
             _broadcastManager = broadcastManager;
+            _dateService = dateService;
             _templatingService = templatingService.Init(this); // This service is tightly coupled to an mvc controller
         }
     }

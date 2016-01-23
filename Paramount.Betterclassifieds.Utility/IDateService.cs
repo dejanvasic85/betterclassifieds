@@ -13,8 +13,9 @@ namespace Paramount.Betterclassifieds
         DateTime UtcNow { get; }
         DateTime ConvertFromString(string dateString);
         DateTime ConvertFromString(string dateString, string hourMinuteString);
-        string ConvertToString(DateTime? startDate);
-        string ConvertToString(DateTime? startDate, string format);
+        string ConvertToString(DateTime? date);
+        string ConvertToString(DateTime? date, string format);
+        string ConvertToStringTime(DateTime? date, string format = "HH:mm");
     }
 
     /// <summary>
@@ -65,19 +66,24 @@ namespace Paramount.Betterclassifieds
             return new DateTime(date.Year, date.Month, date.Day, hours, minutes, seconds);
         }
 
-        public string ConvertToString(DateTime? startDate)
+        public string ConvertToString(DateTime? date)
         {
-            return ConvertToString(startDate, DATE_FORMAT);
+            return ConvertToString(date, DATE_FORMAT);
         }
 
-        public string ConvertToString(DateTime? startDate, string format)
+        public string ConvertToString(DateTime? date, string format)
         {
-            if (!startDate.HasValue)
+            if (!date.HasValue)
             {
                 return string.Empty;
             }
 
-            return startDate.Value.ToString(format);
+            return date.Value.ToString(format);
+        }
+
+        public string ConvertToStringTime(DateTime? date, string format = "HH:mm")
+        {
+            return ConvertToString(date, format);
         }
     }
 }

@@ -51,9 +51,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             }
 
             eventViewModel.EventStartDate = _dateService.ConvertToString(bookingCart.Event.EventStartDate);
-            eventViewModel.EventStartTime = _dateService.ConvertToString(bookingCart.Event.EventStartDate, "HH:mm");
+            eventViewModel.EventStartTime = _dateService.ConvertToStringTime(bookingCart.Event.EventStartDate);
             eventViewModel.EventEndDate = _dateService.ConvertToString(bookingCart.Event.EventEndDate);
-            eventViewModel.EventEndTime = _dateService.ConvertToString(bookingCart.Event.EventEndDate, "HH:mm");
+            eventViewModel.EventEndTime = _dateService.ConvertToStringTime(bookingCart.Event.EventEndDate);
             eventViewModel.Location = bookingCart.Event.Location;
             eventViewModel.LocationLatitude = bookingCart.Event.LocationLatitude;
             eventViewModel.LocationLongitude = bookingCart.Event.LocationLongitude;

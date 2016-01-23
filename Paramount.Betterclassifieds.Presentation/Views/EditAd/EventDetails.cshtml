@@ -8,7 +8,7 @@
         $paramount.ui.eventEditor.init({
             maxFreeImages: 5,
             configDurationDays: 60,
-            adDesignService : new $paramount.AdDesignService('@ViewBag.Id')
+            adDesignService: new $paramount.AdDesignService('@ViewBag.Id')
         });
     </script>
 }
@@ -21,7 +21,7 @@
 
     <div class="row">
         <div class="col-xs-12">
-           
+
             <div class="bs-callout bs-callout-info">
                 <h4><i class="fa fa-list"></i> &nbsp; Event Details</h4>
             </div>
@@ -37,9 +37,200 @@
                     * Remaining characters : <span data-bind="text: titleRemaining"></span>
                 </span>
             </div>
-            
-            
 
+            <div class="form-group">
+                <label>Details *</label>
+                <textarea class="form-control input-lg" id="Description" name="Description" rows="5" placeholder="What's the event about? Who will be there?"
+                          data-bind="value: description"
+                          data-val="true"
+                          data-val-required="Event details are required"></textarea>
+
+                <span class="field-validation-valid help-block" data-valmsg-for="Description" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+
+        @*Photo*@
+        <div class="col-xs-12">
+
+            <div class="bs-callout bs-callout-info">
+                <h4><i class="fa fa-photo"></i>&nbsp; Event Artwork</h4>
+                <input id="eventPhoto" type="hidden" name="eventPhoto" data-bind="value: eventPhoto" />
+                <span class="btn btn-success fileinput-button pull-right">
+                    <i class="fa fa-upload"></i>
+                    <span>Upload Photo</span>
+                    <input id="eventPhotoUpload" type="file" name="files[]" multiple>
+                </span>
+            </div>
+
+            <div class="well photo-upload">
+                <p>
+                    Note: This will be used as a background image and should be a high quality photo
+                </p>
+                <div class="photo text-center">
+                    <i class="fa fa-picture-o fa-5x" data-bind="visible: eventPhoto() === null"></i>
+                    <div class="thumbnail" data-bind="visible: eventPhoto() !== null">
+                        <img data-bind="visible: eventPhoto() !== null, attr: {src: eventPhotoUrl }" />
+                        <div class="caption">
+                            <a class="btn btn-warning btn-remove" title="Remove" data-bind="click: removeEventPhoto">
+                                <span class="glyphicon glyphicon-trash"></span> Remove
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="eventPhotoUploadProgress" class="progress progress-striped active">
+                <div class="progress-bar active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                    <span>Uploading...</span>
+                </div>
+            </div>
+            <div class="alert alert-danger" data-bind="visible: eventPhotoUploadError() !== null, text: eventPhotoUploadError"></div>
+        </div>
+    </div>
+
+    @*Location*@
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="bs-callout bs-callout-info">
+                <h4><i class="fa fa-map-marker"></i> &nbsp;Location</h4>
+                @*<p>Tell your visitors the location and what's the event about.</p>*@
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+            <div class="form-group-lg">
+                <label class="control-label">Address *</label>
+                <input type="text" class="form-control" id="Location" name="Location" placeholder="Type address, and google should find it!" maxlength="200"
+                       data-bind="googleMap: location, mapElement : '#LocationMap'"
+                       data-val="true"
+                       data-val-required="Event location is required" />
+                <span class="help-block">
+                    Please ensure that your address is displayed on the map before submitting.
+                </span>
+                <span class="field-validation-valid help-block" data-valmsg-for="Location" data-valmsg-replace="true"></span>
+                <input type="hidden" name="LocationLatitude" data-bind="value: locationLatitude" />
+                <input type="hidden" name="LocationLongitude" data-bind="value: locationLongitude" />
+            </div>
+        </div>
+
+        @*Div to display the map using google maps*@
+        <div class="col-xs-12">
+            <div class="well" style="min-height: 200px" id="LocationMap"></div>
+        </div>
+    </div>
+
+    @*Schedule Start*@
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="bs-callout bs-callout-info">
+                <h4><i class="fa fa-clock-o"></i> &nbsp; Event Schedule</h4>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-xs-12">
+            <div class="form-group-lg has-feedback">
+                <label class="control-label" for="EventStartDate">Start Date *</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    <input name="EventStartDate" id="EventStartDate" data-bind="date: eventStartDate" class="form-control" type="text"
+                           data-val="true"
+                           data-val-required="Start Date is required">
+                </div>
+                <span class="field-validation-valid help-block" data-valmsg-for="EventStartDate" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-xs-12">
+            <div class="form-group-lg">
+                <label class="control-label">Start Time *</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                    <input type="text" class="form-control" id="EventStartTime" name="EventStartTime"
+                           data-bind="time: eventStartTime"
+                           data-val="true"
+                           data-val-required="Start Time is required" />
+                </div>
+                <span class="field-validation-valid help-block" data-valmsg-for="EventStartTime" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-xs-12">
+            <div class="form-group-lg">
+                <label>End Date *</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    <input name="EventEndDate" id="EventEndDate" class="form-control datepicker" type="text"
+                           data-bind="date: eventEndDate"
+                           data-val="true"
+                           data-val-required="End Date is required">
+                </div>
+                <span class="field-validation-valid help-block" data-valmsg-for="EventEndDate" data-valmsg-replace="true"></span>
+                <div class="alert alert-danger" data-bind="text: eventEndDateValidation, visible: eventEndDateValidation().length>0"></div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-xs-12">
+            <div class="form-group-lg">
+                <label class="control-label">End Time</label>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                    <input type="text" id="EventEndTime" name="EventEndTime" data-bind="time: eventEndTime" class="form-control" data-val="true" />
+                </div>
+                <span class="field-validation-valid help-block" data-valmsg-for="EventEndTime" data-valmsg-replace="true"></span>
+                <div class="alert alert-danger" data-bind="text: eventEndTimeValidation, visible: eventEndTimeValidation().length > 0"></div>
+            </div>
+        </div>
+
+    </div>
+
+
+    @*Additional Details*@
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="bs-callout bs-callout-info">
+                <h4><i class="fa fa-anchor"></i>&nbsp; Additional Details</h4>
+                @*<p>Tell your visitors the location and what's the event about.</p>*@
+            </div>
+
+        </div>
+
+        <div class="col-xs-6">
+            <div class="form-group-lg">
+                <label for="OrganiserName">Organiser Name *</label>
+                <input type="text" class="form-control" id="OrganiserName" name="OrganiserName" data-bind="value: organiserName"
+                       placeholder="Who is responsible for the event?"
+                       data-val="true"
+                       data-val-required="Organiser name is required" />
+                <span class="field-validation-valid help-block" data-valmsg-for="OrganiserName" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+
+        <div class="col-xs-6">
+            <div class="form-group-lg">
+                <label for="OrganiserPhone">Organiser Phone</label>
+                <input type="text" class="form-control" id="OrganiserPhone" maxlength="10" name="OrganiserPhone" data-bind="value: organiserPhone" placeholder="Direct contact number (optional)" />
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+            <div class="form-group-lg">
+                <label>Ad Start Date *</label>
+                <input type="text" class="form-control" id="AdStartDate" name="AdStartDate"
+                       data-bind="date: adStartDate"
+                       data-val="true"
+                       data-val-required="Start date for your ad is required"/>
+                <span class="field-validation-valid help-block" data-valmsg-for="AdStartDate" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 text-right">
+            <button class="btn btn-primary" data-bind="click: submitChanges">
+                Update
+            </button>
         </div>
     </div>
 

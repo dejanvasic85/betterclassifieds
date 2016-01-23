@@ -12,8 +12,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             CanEdit = true;
         }
 
-        public int AdId { get; set; }
-        
         public bool CanEdit { get; set; }
 
         [Required, MaxLength(100)]

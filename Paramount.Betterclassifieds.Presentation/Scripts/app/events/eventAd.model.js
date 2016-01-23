@@ -13,6 +13,7 @@
             DATE_FORMAT = 'DD/MM/yyyy';
 
         // Properties
+        me.canEdit = ko.observable(data.canEdit);
         me.title = ko.observable(data.title);
         me.titleRemaining = ko.computed(function () {
             if (me.title() === null)

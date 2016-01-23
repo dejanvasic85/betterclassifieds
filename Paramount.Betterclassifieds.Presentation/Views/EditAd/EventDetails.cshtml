@@ -9,7 +9,7 @@
             maxFreeImages: 5,
             configDurationDays: 60,
             adDesignService: new $paramount.AdDesignService('@ViewBag.Id'),
-            notifyUpdate : true
+            notifyUpdate: true
         });
     </script>
 }
@@ -19,6 +19,14 @@
     <h2 class="page-header">
         Update event details
     </h2>
+
+    <div class="row" data-bind="visible: canEdit() === false">
+        <div class="col-xs-12">
+            <div class="alert alert-info">
+                Some details cannot be updated due to bookings being made for this event.
+            </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-xs-12">
@@ -30,7 +38,7 @@
             <div class="form-group-lg">
                 <label for="Title">Event Name *</label>
                 <input type="text" class="form-control" id="Title" name="Title" placeholder="Provide a short impact title"
-                       data-bind="value: title, valueUpdate: 'keyup'"
+                       data-bind="value: title, valueUpdate: 'keyup', enable: canEdit"
                        data-val="true" data-val-required="Event name is required"
                        maxlength="100" />
                 <span class="field-validation-valid help-block" data-valmsg-for="Title" data-valmsg-replace="true"></span>
@@ -102,7 +110,7 @@
             <div class="form-group-lg">
                 <label class="control-label">Address *</label>
                 <input type="text" class="form-control" id="Location" name="Location" placeholder="Type address, and google should find it!" maxlength="200"
-                       data-bind="googleMap: location, mapElement : '#LocationMap'"
+                       data-bind="googleMap: location, mapElement : '#LocationMap', enable: canEdit"
                        data-val="true"
                        data-val-required="Event location is required" />
                 <span class="help-block">
@@ -134,7 +142,7 @@
                 <label class="control-label" for="EventStartDate">Start Date *</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                    <input name="EventStartDate" id="EventStartDate" data-bind="date: eventStartDate" class="form-control" type="text"
+                    <input name="EventStartDate" id="EventStartDate" data-bind="date: eventStartDate, enable: canEdit" class="form-control" type="text"
                            data-val="true"
                            data-val-required="Start Date is required">
                 </div>
@@ -148,7 +156,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
                     <input type="text" class="form-control" id="EventStartTime" name="EventStartTime"
-                           data-bind="time: eventStartTime"
+                           data-bind="time: eventStartTime, enable: canEdit"
                            data-val="true"
                            data-val-required="Start Time is required" />
                 </div>
@@ -162,7 +170,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                     <input name="EventEndDate" id="EventEndDate" class="form-control datepicker" type="text"
-                           data-bind="date: eventEndDate"
+                           data-bind="date: eventEndDate, enable: canEdit"
                            data-val="true"
                            data-val-required="End Date is required">
                 </div>
@@ -176,7 +184,7 @@
                 <label class="control-label">End Time</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-                    <input type="text" id="EventEndTime" name="EventEndTime" data-bind="time: eventEndTime" class="form-control" data-val="true" />
+                    <input type="text" id="EventEndTime" name="EventEndTime" data-bind="time: eventEndTime, enable: canEdit" class="form-control" data-val="true" />
                 </div>
                 <span class="field-validation-valid help-block" data-valmsg-for="EventEndTime" data-valmsg-replace="true"></span>
                 <div class="alert alert-danger" data-bind="text: eventEndTimeValidation, visible: eventEndTimeValidation().length > 0"></div>
@@ -220,7 +228,7 @@
                 <input type="text" class="form-control" id="AdStartDate" name="AdStartDate"
                        data-bind="date: adStartDate"
                        data-val="true"
-                       data-val-required="Start date for your ad is required"/>
+                       data-val-required="Start date for your ad is required" />
                 <span class="field-validation-valid help-block" data-valmsg-for="AdStartDate" data-valmsg-replace="true"></span>
             </div>
         </div>

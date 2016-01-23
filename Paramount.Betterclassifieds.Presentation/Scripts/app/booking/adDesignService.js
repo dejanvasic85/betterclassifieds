@@ -57,12 +57,7 @@
         });
         return $paramount.httpPost(me.baseUrl + 'AssignOnlineImage', me.model);
     }
-
-    AdDesignService.prototype.updateEventDetails = function (event) {
-        $.extend(me.model, event);
-        return $paramount.httpPost(me.baseUrl + 'UpdateEventDetails', me.model);
-    }
-
+    
     AdDesignService.prototype.updateEventTicketDetails = function(eventBookingTicketSetup) {
         $.extend(me.model, eventBookingTicketSetup);
         return $paramount.httpPost(me.baseUrl + 'EventTickets', me.model);
@@ -82,8 +77,19 @@
         return $paramount.httpPost(me.baseUrl + 'Step1', categoryPublicationModel);
     }
 
-    AdDesignService.prototype.getCurrentEventDetails = function() {
-        return $.getJSON(me.baseUrl + 'GetEventDetails');
+    AdDesignService.prototype.updateEventDetails = function (event) {
+        $.extend(me.model, event);
+        return $paramount.httpPost(me.baseUrl + 'UpdateEventDetails', me.model);
+    }
+
+    AdDesignService.prototype.getCurrentEventDetails = function () {
+        var url = me.baseUrl + 'GetEventDetails';
+
+        if ($paramount.notNullOrUndefined(me.model.id)) {
+            url += '?id=' + me.model.id;
+        }
+
+        return $.getJSON(url);
     }
 
     $paramount.AdDesignService = AdDesignService;

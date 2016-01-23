@@ -238,20 +238,31 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpGet]
-        public ActionResult EventDetails(int id, int eventId)
+        public ActionResult EventDetails(int id)
         {
-            var canEdit = _eventManager.IsEventEditable(eventId);
-            var viewModel = new EventViewModel();
-            if (!canEdit)
-            {
-                viewModel.CanEdit = false;
-                return View(viewModel);
-            }
-
-            var adDetails = _searchService.GetByAdId(id);
-            var eventDetails = _eventManager.GetEventDetails(eventId);
-            
+            ViewBag.Id = id; // Will simply initialise the ad design service in Javascript with an AdId
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult GetEventDetails(int id)
+        {
+            var adDetails = _searchService.GetByAdId(id);
+            var eventDetails = _eventManager.GetEventDetailsForOnlineAdId(adDetails.OnlineAdId);
+
+            var viewModel = new EventViewModel
+            {
+                Title = adDetails.Heading,  
+                CanEdit = _eventManager.IsEventEditable(eventDetails.EventId)
+            };
+
+            return Json(viewModel, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateEventDetails(EventViewModel viewModel)
+        {
+            return Json(true);
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

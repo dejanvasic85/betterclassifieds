@@ -10,8 +10,8 @@
             // onReady function
             $(function () {
                 var eventDetailsModel,
-                    adDesignService = new $paramount.AdDesignService(),
-                    imageService = new $paramount.ImageService();
+                    adDesignService = options.adDesignService || new $paramount.AdDesignService(),
+                    imageService = options.imageService || new $paramount.ImageService();
 
                 $.extend(options, {
                     adDesignService: adDesignService,

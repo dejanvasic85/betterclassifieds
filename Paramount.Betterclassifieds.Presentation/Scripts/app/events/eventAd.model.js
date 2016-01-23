@@ -23,7 +23,7 @@
         me.eventPhoto = ko.observable(data.eventPhoto);
         me.eventPhotoUploadError = ko.observable(null);
         me.eventPhotoUrl = ko.computed(function () {
-            return imageService.getImageUrl(me.eventPhoto());
+            return imageService.getImageUrl(me.eventPhoto(), {w:1000, h: 600});
         });
         me.removeEventPhoto = function () {
             if (me.eventPhoto() !== null) {

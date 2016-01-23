@@ -12,7 +12,7 @@ var $paramount = (function (me, $) {
         }
         dimensions = dimensions || {};
         _.defaults(dimensions, { h: 100, w: 100 });
-        return me.baseUrl + 'img/' + id + '/' + dimensions.h + '/' + dimensions.w;
+        return me.baseUrl + 'img/' + id + '/' + dimensions.w + '/' + dimensions.h;
     }
 
     ImageService.prototype.cancelCropImage = function (filename) {

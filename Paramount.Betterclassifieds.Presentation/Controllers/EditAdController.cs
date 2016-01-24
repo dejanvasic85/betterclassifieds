@@ -32,6 +32,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var adBooking = _bookingManager.GetBooking(id);
             var onlineAd = adBooking.OnlineAd;
 
+            if (adBooking.CategoryAdType.HasValue())
+            {
+                // Cannot use this view for editing specific ad types
+                return RedirectToAction("NotFound", "Error");
+            }
+
             var viewModel = new EditAdDetailsViewModel(id, _clientConfig, onlineAd, adBooking, _applicationConfig);
 
             // Online ad mapping
@@ -55,6 +61,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult Details(EditAdDetailsViewModel viewModel)
         {
             var adBooking = _searchService.GetByAdId(viewModel.Id);
+            if (adBooking.CategoryAdType.HasValue())
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
+
             viewModel.MaxOnlineImages = _clientConfig.MaxOnlineImages > adBooking.ImageUrls.Length ? _clientConfig.MaxOnlineImages : adBooking.ImageUrls.Length;
             viewModel.MaxImageUploadBytes = _applicationConfig.MaxImageUploadBytes;
             viewModel.ConfigDurationDays = _clientConfig.RestrictedOnlineDaysCount;

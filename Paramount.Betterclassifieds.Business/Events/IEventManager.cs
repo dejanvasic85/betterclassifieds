@@ -28,6 +28,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         void CreateEventPaymentRequest(int eventId, PaymentType paymentType, decimal requestedAmount, string requestedByUser);
         EventPaymentRequestStatus GetEventPaymentRequestStatus(int? eventId);
         void CloseEvent(int eventId);
-        void UpdateEventDetails(int adId, int eventId, string title, string description, string htmlText, DateTime eventStartDate, DateTime eventEndDateTime, string location, decimal? locationLatitude, decimal? locationLongitude, string organiserName, string organiserPhone, DateTime adStartDate, string eventPhoto);
+        void UpdateEventDetails(int adId, int eventId, string title, string description, string htmlText, DateTime eventStartDate, DateTime eventEndDateTime, string location, decimal? locationLatitude, decimal? locationLongitude, string organiserName, string organiserPhone, DateTime adStartDate);
     }
 }

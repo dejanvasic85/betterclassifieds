@@ -261,7 +261,7 @@
             }
         }
 
-        public void UpdateOnlineAd(int adBookingId, OnlineAdModel onlineAd)
+        public void UpdateOnlineAd(int adBookingId, OnlineAdModel onlineAd, bool updateImages = false)
         {
             using (var context = _dbContextFactory.CreateClassifiedContext())
             {
@@ -274,9 +274,18 @@
 
                 // Map the changes
                 this.Map(onlineAd, originalOnlineAd);
-
-                // And submit
                 context.SubmitChanges();
+
+                if (updateImages && onlineAd.Images.Any())
+                {
+                    var existingImages = context.AdGraphics.Where(g => g.AdDesignId == originalOnlineAd.AdDesignId);
+                    context.AdGraphics.DeleteAllOnSubmit(existingImages);
+                    context.SubmitChanges();
+
+                    var newImages = onlineAd.Images.Select(i => new AdGraphic { AdDesignId = originalOnlineAd.AdDesignId, DocumentID = i.DocumentId });
+                    context.AdGraphics.InsertAllOnSubmit(newImages);
+                    context.SubmitChanges();
+                }
             }
         }
 
@@ -555,7 +564,6 @@
         {
             // From data
             configuration.CreateProfile("BookingMapProfile");
-
             configuration.CreateMap<AdBooking, AdBookingModel>()
                 .ForMember(member => member.BookingType, options => options.ResolveUsing<BookingTypeResolver>())
                 .ForMember(m => m.SubCategoryId, options => options.MapFrom(src => src.MainCategoryId))

@@ -290,8 +290,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 viewModel.LocationLongitude,
                 viewModel.OrganiserName,
                 viewModel.OrganiserPhone,
-                _dateService.ConvertFromString(viewModel.AdStartDate),
-                viewModel.EventPhoto);
+                _dateService.ConvertFromString(viewModel.AdStartDate));
 
             return Json(true);
         }

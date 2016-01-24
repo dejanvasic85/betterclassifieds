@@ -199,9 +199,9 @@
             _bookingRepository.DeleteImage(adId, documentId.ToString());
         }
 
-        public void UpdateOnlineAd(int adId, OnlineAdModel onlineAd)
+        public void UpdateOnlineAd(int adId, OnlineAdModel onlineAd, bool updateImages = false)
         {
-            _bookingRepository.UpdateOnlineAd(adId, onlineAd);
+            _bookingRepository.UpdateOnlineAd(adId, onlineAd, updateImages);
         }
 
         public void UpdateLineAd(int id, LineAdModel lineAd)

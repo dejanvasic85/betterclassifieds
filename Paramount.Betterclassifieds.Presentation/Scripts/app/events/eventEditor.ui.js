@@ -30,8 +30,10 @@
                     element: $eventEditor.find('#eventPhotoUpload'),
                     progressBar: $eventEditor.find('#eventPhotoUploadProgress'),
                     complete: function (documentId) {
-                        eventDetailsModel.eventPhoto(documentId);
-                        eventDetailsModel.eventPhotoUploadError(null);
+                        adDesignService.assignOnlineImage(documentId).done(function () {
+                            eventDetailsModel.eventPhoto(documentId);
+                            eventDetailsModel.eventPhotoUploadError(null);
+                        });
                     },
                     error: function (errorMsg) {
                         eventDetailsModel.eventPhotoUploadError(errorMsg);
@@ -46,7 +48,7 @@
                         $eventEditor.find('button').button('reset');
                         return;
                     }
-                    
+
                     eventDetailsModel.submitChanges().then(function (resp) {
                         if (resp.nextUrl) {
                             return;

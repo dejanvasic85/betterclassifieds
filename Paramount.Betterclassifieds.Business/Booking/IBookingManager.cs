@@ -21,7 +21,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         bool AdBelongsToUser(int adId, string username);
         void AddOnlineImage(int adId, Guid documentId);
         void RemoveOnlineImage(int adId, Guid documentId);
-        void UpdateOnlineAd(int adId, OnlineAdModel onlineAd);
+        void UpdateOnlineAd(int adId, OnlineAdModel onlineAd, bool updateImages = false);
         void UpdateLineAd(int id, LineAdModel lineAd);
         void AssignLineAdImage(int id, Guid documentId);
         void RemoveLineAdImage(int id, Guid documentId);

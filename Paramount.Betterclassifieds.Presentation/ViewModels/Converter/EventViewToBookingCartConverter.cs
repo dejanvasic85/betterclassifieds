@@ -57,10 +57,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
             bookingCart.OnlineAdModel.ContactName = eventViewModel.OrganiserName;
             bookingCart.OnlineAdModel.ContactPhone = eventViewModel.OrganiserPhone;
-            if (eventViewModel.EventPhoto.HasValue())
-            {
-                bookingCart.OnlineAdModel.AddImage(eventViewModel.EventPhoto);
-            }
+            //if (eventViewModel.EventPhoto.HasValue())
+            //{
+            //    bookingCart.OnlineAdModel.AddImage(eventViewModel.EventPhoto);
+            //}
 
             // Event details
             bookingCart.Event.EventStartDate = _dateService.ConvertFromString(eventViewModel.EventStartDate, eventViewModel.EventStartTime);

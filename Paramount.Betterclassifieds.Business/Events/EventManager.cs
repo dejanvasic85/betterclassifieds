@@ -295,7 +295,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             _eventRepository.UpdateEvent(eventModel);
         }
 
-        public void UpdateEventDetails(int adId, int eventId, string title, string description, string htmlText, DateTime eventStartDate, DateTime eventEndDateTime, string location, decimal? locationLatitude, decimal? locationLongitude, string organiserName, string organiserPhone, DateTime adStartDate, string eventPhoto)
+        public void UpdateEventDetails(int adId, int eventId, string title, string description, string htmlText, DateTime eventStartDate, DateTime eventEndDateTime, string location, decimal? locationLatitude, decimal? locationLongitude, string organiserName, string organiserPhone, DateTime adStartDate)
         {
             var eventDetails = _eventRepository.GetEventDetails(eventId);
             var onlineAd = _bookingManager.GetOnlineAd(adId);
@@ -317,8 +317,6 @@ namespace Paramount.Betterclassifieds.Business.Events
             onlineAd.HtmlText = htmlText;
             onlineAd.ContactName = organiserName;
             onlineAd.ContactPhone = organiserPhone;
-            onlineAd.Images = new List<AdImage> { new AdImage(eventPhoto) };
-
 
             _bookingManager.UpdateOnlineAd(adId, onlineAd);
             _eventRepository.UpdateEvent(eventDetails);

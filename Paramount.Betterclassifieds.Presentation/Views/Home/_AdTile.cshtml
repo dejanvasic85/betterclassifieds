@@ -4,7 +4,17 @@
 <div class="col-sm-4 col-xs-12">
     <div class="col-item">
         <div class="photo">
-            <img src="@Url.Image(Model.PrimaryImage, 260, 350)" class="img-responsive" alt="a" />
+            @if (string.IsNullOrEmpty(Model.PrimaryImage))
+            {
+                <div class="text-center" style="background-color: #eee; width: 100%; padding: 40px 0">   
+                    <i class="fa fa-ticket fa-5x"></i>
+                </div>
+            }
+            else
+            {
+                <img src="@Url.Image(Model.PrimaryImage, 200, 624)" class="img-responsive" alt="a" />
+            }
+            
         </div>
         <div class="info">
             <div class="row">

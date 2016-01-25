@@ -19,8 +19,8 @@ var $paramount = (function (me, $) {
         return me.httpPost(this.baseUrl + 'Image/CancelCrop', { filename: filename });
     }
 
-    ImageService.prototype.cropImage = function (fileName, x, y, width, height) {
-        return me.httpPost(this.baseUrl + 'Image/CropImage', { fileName: fileName, x: x, y: y, width: width, height: height });
+    ImageService.prototype.cropImage = function (fileName, x, y, width, height, resizeForPrint) {
+        return me.httpPost(this.baseUrl + 'Image/CropImage', { fileName: fileName, x: x, y: y, width: width, height: height, resizeForPrint: resizeForPrint });
     }
 
     ImageService.prototype.uploadCropImageUrl = function () {
@@ -31,7 +31,7 @@ var $paramount = (function (me, $) {
         return this.baseUrl + 'Image/RenderCropImage?fileName=' + filename;
     }
 
-    ImageService.prototype.getUploadOnlineImageUrl = function() {
+    ImageService.prototype.getUploadOnlineImageUrl = function () {
         return this.baseUrl + 'Image/UploadOnlineImage';
     }
 

@@ -19,28 +19,72 @@
                 });
 
                 // Initally load the data
-                adDesignService.getCurrentEventDetails().done(function (response) {
+                adDesignService.getCurrentEventDetails().then(function (response) {
                     eventDetailsModel = new $paramount.models.EventAd(response, options);
                     ko.applyBindings(eventDetailsModel);
                 });
 
+                var $printImg = $('#imgCropContainer > img');
+                var eventPhotoFileName;
+
                 // Image upload handler
                 $paramount.upload({
-                    url: imageService.getUploadOnlineImageUrl(),
+                    url: imageService.uploadCropImageUrl(),
                     element: $eventEditor.find('#eventPhotoUpload'),
                     progressBar: $eventEditor.find('#eventPhotoUploadProgress'),
                     complete: function (documentId) {
-                        adDesignService.assignOnlineImage(documentId).done(function () {
-                            eventDetailsModel.eventPhoto(documentId);
-                            eventDetailsModel.eventPhotoUploadError(null);
-                        });
+                        eventPhotoFileName = documentId;
+                        $('#printCropImg').attr('src', imageService.renderCropImageUrl(documentId));
+                        $('#printImageCropDialog').modal('show');
+
+                        //adDesignService.assignOnlineImage(documentId).done(function () {
+                        //    eventDetailsModel.eventPhoto(documentId);
+                        //    eventDetailsModel.eventPhotoUploadError(null);
+                        //});
                     },
                     error: function (errorMsg) {
                         eventDetailsModel.eventPhotoUploadError(errorMsg);
                     }
                 });
 
+                $('#printImageCropDialog').on('shown.bs.modal', function () {
+                    $printImg.cropper({
+                        aspectRatio: 639 / 251,
+                        modal: true,
+                        dashed: false
+                    });
+                });
+
+                $('#printImageCropDialog').on('hide.bs.modal', function (e) {
+                    $printImg.cropper('destroy');
+                });
+
+                $('#btnCancelCropping').on('click', function () {
+                    if (eventPhotoFileName) {
+                        imageService.cancelCropImage(eventPhotoFileName);
+                    }
+                });
+
+                $('#btnDoneCropping').on('click', function () {
+                    var $btn = $(this);
+                    $btn.button('loading');
+                    var data = $printImg.cropper("getData");
+                    data.documentId = eventPhotoFileName;
+                    imageService
+                        .cropImage(eventPhotoFileName, data.x, data.y, data.width, data.height, false)
+                        .then(function (documentId) {
+                            $btn.button('reset');
+                            $('#printImageCropDialog').modal('hide');
+                            adDesignService.assignOnlineImage(documentId).then(function () {
+                                debugger;
+                                eventDetailsModel.eventPhoto(documentId);
+                                eventDetailsModel.eventPhotoUploadError(null);
+                            });
+                        });
+                });
+
                 $eventEditor.find('#eventForm').on('submit', function (e) {
+                    // Todo - refactor this crap and use knockout validation instead
                     if ($(this).valid() === false
                         || eventDetailsModel.eventEndDateValidation() !== ''
                         || eventDetailsModel.eventEndTimeValidation() !== '') {

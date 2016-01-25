@@ -430,7 +430,7 @@
                     var data = $printImg.cropper("getData");
                     data.documentId = printImgFileName;
                     imageService
-                        .cropImage(printImgFileName, data.x, data.y, data.width, data.height)
+                        .cropImage(printImgFileName, data.x, data.y, data.width, data.height, true)
                         .done(function(documentId) {
                             $btn.button('reset');
                             $('#printImageCropDialog').modal('hide');

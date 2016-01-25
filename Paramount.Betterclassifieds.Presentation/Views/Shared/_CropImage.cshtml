@@ -4,20 +4,25 @@
 
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Prepare Image</h4>
+                <h4 class="modal-title" id="myModalLabel">Edit Image</h4>
             </div>
+
             <div class="modal-body">
+
+                <div class="text-right">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCancelCropping">Cancel</button>
+                    <button type="button" class="btn btn-success" id="btnDoneCropping" data-loading-text="Preparing...">
+                        <i class="fa fa-check"></i> Done
+                    </button>
+                </div>
+
+
                 <div class="alert alert-info">
-                    The box indicates the part of image that will be cropped. Drag, resize and zoom are all available.
+                    Please edit the image acccomodate the online specification for best viewing
                 </div>
-                <div id="imgCropContainer" style="max-height: 400px; max-width: 400px;">
-                    <img id="printCropImg" style="width: 100%" />
+                <div id="imgCropContainer" style="max-height: 450px; max-width: 500px;">
+                    <img id="printCropImg" style="width: 100%"/>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" id="btnCancelCropping">Cancel</button>
-                <button type="button" class="btn btn-primary" id="btnDoneCropping" data-loading-text="Preparing...">Done</button>
             </div>
         </div>
 

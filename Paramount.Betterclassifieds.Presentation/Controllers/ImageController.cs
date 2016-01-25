@@ -76,7 +76,7 @@
 
             // Store on the disk for now to see if this will work
             var fileName = string.Format("{0}.jpg", Guid.NewGuid());
-            
+
             uploadedFile.SaveAs(string.Format("{0}{1}", _applicationConfig.ImageCropDirectory.FullName, fileName));
 
             return Json(new { documentId = fileName }, JsonRequestBehavior.AllowGet);
@@ -88,7 +88,7 @@
         }
 
         [HttpPost]
-        public ActionResult CropImage(string fileName, int x, int y, int width, int height)
+        public ActionResult CropImage(string fileName, int x, int y, int width, int height, bool resizeForPrint)
         {
             // Crop the image
             var file = new FileInfo(Path.Combine(_applicationConfig.ImageCropDirectory.FullName, fileName));
@@ -97,19 +97,19 @@
                 return Json(false);
             }
 
-            var documentId = new Guid( fileName.WithoutFileExtension() );
+            var documentId = new Guid(fileName.WithoutFileExtension());
 
             // Store the cropped img to the document database 
             using (var img = Image.FromFile(file.FullName))
             using (var stream = new MemoryStream())
             {
-                img
-                    .Crop(x, y, width, height)
-                    .Resize(_clientConfig.PrintImagePixelsWidth, _clientConfig.PrintImagePixelsHeight, _clientConfig.PrintImageResolution)
-                    .Save(stream, ImageFormat.Jpeg);
-
+                var cropped = img.Crop(x, y, width, height);
+                if (resizeForPrint)
+                {
+                    cropped = cropped.Resize(_clientConfig.PrintImagePixelsWidth, _clientConfig.PrintImagePixelsHeight, _clientConfig.PrintImageResolution);
+                }
+                cropped.Save(stream, ImageFormat.Jpeg);
                 var document = new Document(documentId, stream.ToArray(), "image/jpeg", fileName, (int)stream.Length);
-
                 _documentRepository.Save(document);
             }
 
@@ -125,7 +125,7 @@
 
             return Json(documentId);
         }
-        
+
         [HttpPost]
         public ActionResult CancelCrop(string fileName)
         {
@@ -161,7 +161,7 @@
                 BorderWidth = 20,
                 ImageWidth = 30
             });
-            
+
             var img = generator.GenerateImage();
             var stream = new MemoryStream();
             img.Save(stream, ImageFormat.Png);

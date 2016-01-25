@@ -547,9 +547,12 @@
                 var adDesign = context
                     .AdBookings.First(bk => bk.AdBookingId == adBookingId)
                     .Ad
-                    .AdDesigns.Single(d => d.AdTypeId == adTypeId);
+                    .AdDesigns.SingleOrDefault(d => d.AdTypeId == adTypeId);
 
-                context.AdGraphics.DeleteOnSubmit(adDesign.AdGraphics.Single(g => g.DocumentID == documentId));
+                if (adDesign == null)
+                    return;
+
+                context.AdGraphics.DeleteAllOnSubmit(adDesign.AdGraphics.Where(g => g.DocumentID == documentId));
 
                 if (adTypeId == AdTypeCode.LineCodeId)
                 {

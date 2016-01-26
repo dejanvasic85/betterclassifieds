@@ -136,7 +136,7 @@
             </div>
 
             <div class="row">
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-xs-6">
                     <div class="form-group-lg has-feedback">
                         <label class="control-label" for="EventStartDate">Start Date *</label>
                         <div class="input-group">
@@ -149,21 +149,18 @@
                     </div>
                 </div>
 
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-xs-6">
                     <div class="form-group-lg">
                         <label class="control-label">Start Time *</label>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-                            <input type="text" class="form-control" id="EventStartTime" name="EventStartTime"
-                                   data-bind="time: eventStartTime"
-                                   data-val="true"
-                                   data-val-required="Start Time is required" />
+                            <select class="form-control" data-bind="value: eventStartTime , options : timeOptions"></select>
                         </div>
                         <span class="field-validation-valid help-block" data-valmsg-for="EventStartTime" data-valmsg-replace="true"></span>
                     </div>
                 </div>
 
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-xs-6">
                     <div class="form-group-lg">
                         <label>End Date *</label>
                         <div class="input-group">
@@ -178,12 +175,12 @@
                     </div>
                 </div>
 
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-xs-6">
                     <div class="form-group-lg">
                         <label class="control-label">End Time</label>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-                            <input type="text" id="EventEndTime" name="EventEndTime" data-bind="time: eventEndTime" class="form-control" data-val="true" />
+                            <select id="EventEndTime" name="EventEndTime" data-bind="value: eventEndTime, options : timeOptions" class="form-control"></select>
                         </div>
                         <span class="field-validation-valid help-block" data-valmsg-for="EventEndTime" data-valmsg-replace="true"></span>
                         <div class="alert alert-danger" data-bind="text: eventEndTimeValidation, visible: eventEndTimeValidation().length > 0"></div>

@@ -18,11 +18,14 @@
 
         public EventModel CreateEvent()
         {
+            var startDate = _dateService.NowToNextHour;
+            var endDate = startDate.AddHours(4);
+
             // Initialise with start date and hours to be close to the current time
             return new EventModel
             {
-                EventStartDate = _dateService.Now,
-                EventEndDate = _dateService.Now.AddHours(2)
+                EventStartDate = startDate,
+                EventEndDate = endDate
             };
         }
     }

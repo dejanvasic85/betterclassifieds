@@ -11,6 +11,7 @@ namespace Paramount.Betterclassifieds
         DateTime Today { get; }
         DateTime Now { get; }
         DateTime UtcNow { get; }
+        DateTime NowToNextHour { get; }
         DateTime ConvertFromString(string dateString);
         DateTime ConvertFromString(string dateString, string hourMinuteString);
         string ConvertToString(DateTime? date);
@@ -38,6 +39,16 @@ namespace Paramount.Betterclassifieds
         public DateTime UtcNow
         {
             get { return DateTime.UtcNow; }
+        }
+
+        public DateTime NowToNextHour
+        {
+            get
+            {
+                var currentServerTime = DateTime.Now.AddHours(1);
+                return new DateTime(currentServerTime.Year, currentServerTime.Month, currentServerTime.Day,
+                    currentServerTime.Hour, minute: 0, second: 0);
+            }
         }
 
         public DateTime ConvertFromString(string dateString)

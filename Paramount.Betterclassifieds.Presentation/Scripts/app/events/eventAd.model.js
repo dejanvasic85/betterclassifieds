@@ -13,6 +13,17 @@
             DATE_FORMAT = 'DD/MM/yyyy';
 
         // Properties
+
+        me.timeOptions = ko.observableArray();
+        for (var i = 0; i < 24; i++) {
+            var label = i.toString();
+            if (label.length === 1) {
+                label = "0" + label;
+            }
+            me.timeOptions.push(label + ":00");
+            me.timeOptions.push(label + ":30");
+        }
+        
         me.eventId = ko.observable(data.eventId);
         me.canEdit = ko.observable(data.canEdit);
         me.title = ko.observable(data.title);
@@ -92,6 +103,7 @@
                 $btn.button('reset');
             });
         }
+
     };
 
 })(jQuery, $paramount, ko, moment, toastr);

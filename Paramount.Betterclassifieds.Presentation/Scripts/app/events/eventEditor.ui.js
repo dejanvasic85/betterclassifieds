@@ -36,11 +36,6 @@
                         eventPhotoFileName = documentId;
                         $('#printCropImg').attr('src', imageService.renderCropImageUrl(documentId));
                         $('#printImageCropDialog').modal('show');
-
-                        //adDesignService.assignOnlineImage(documentId).done(function () {
-                        //    eventDetailsModel.eventPhoto(documentId);
-                        //    eventDetailsModel.eventPhotoUploadError(null);
-                        //});
                     },
                     error: function (errorMsg) {
                         eventDetailsModel.eventPhotoUploadError(errorMsg);
@@ -76,7 +71,6 @@
                             $btn.button('reset');
                             $('#printImageCropDialog').modal('hide');
                             adDesignService.assignOnlineImage(documentId).then(function () {
-                                debugger;
                                 eventDetailsModel.eventPhoto(documentId);
                                 eventDetailsModel.eventPhotoUploadError(null);
                             });

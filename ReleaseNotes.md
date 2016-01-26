@@ -2,6 +2,7 @@ Here's a list of the latest changes:
 
 **3.0.2 Events Improvements and Feedback implementation**
 
+- [Event image can be cropped now to our specifications to make attractive ads](https://trello.com/c/14nMRlUv/404-event-event-ad-needs-specific-sizing-to-suit-the-event-page-redesign)
 - [Updating event details is now available](https://trello.com/c/WTutmyLD/371-editing-event-details-needs-to-be-separate-from-regular-ads)
 - [Home page redesign including layout and footer](https://trello.com/c/6D8gYRo1/379-home-page-redesign)
 - [Change - Better handling of html descriptions and security hardening](https://trello.com/c/TcP5tbER/366-description-vs-html-description)

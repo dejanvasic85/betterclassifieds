@@ -261,13 +261,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var adDetails = _searchService.GetByAdId(id);
             var eventDetails = _eventManager.GetEventDetailsForOnlineAdId(adDetails.OnlineAdId);
+            var adText = AdText.FromHtmlEncoded(adDetails.HtmlText);
 
             var viewModel = new EventViewModel
             {
                 CanEdit = _eventManager.IsEventEditable(eventDetails.EventId),
                 EventId = eventDetails.EventId.GetValueOrDefault(),
                 Title = adDetails.Heading,
-                Description = AdText.FromHtmlEncoded(adDetails.Description).HtmlText, // Serve back html for editing
+                Description = adText.HtmlText, // Serve back html for editing
                 EventStartDate = _dateService.ConvertToString(eventDetails.EventStartDate),
                 EventStartTime = _dateService.ConvertToStringTime(eventDetails.EventStartDate),
                 EventEndDate = _dateService.ConvertToString(eventDetails.EventEndDate),

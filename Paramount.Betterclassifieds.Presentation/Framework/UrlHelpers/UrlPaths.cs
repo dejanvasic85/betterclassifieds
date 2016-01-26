@@ -90,5 +90,10 @@ namespace Paramount
             return new UrlBuilder(urlHelper, "EventDashboard", "EditAd", new { id = adId });
         }
 
+        public static UrlBuilder UpdateEventDetails(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper, "EditAd", "UpdateEventDetails");
+        }
+
     }
 }

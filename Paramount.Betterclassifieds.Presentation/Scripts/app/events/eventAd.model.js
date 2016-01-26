@@ -23,7 +23,7 @@
             me.timeOptions.push(label + ":00");
             me.timeOptions.push(label + ":30");
         }
-        
+
         me.eventId = ko.observable(data.eventId);
         me.canEdit = ko.observable(data.canEdit);
         me.title = ko.observable(data.title);
@@ -92,16 +92,14 @@
         me.ticketingEnabled = ko.observable(data.ticketingEnabled);
         me.submitChanges = function (element, event) {
             var json = ko.toJS(me);
-            return adService.updateEventDetails(json)
-            .then(function (resp) {
+            var promise = adService.updateEventDetails(json);
+
+            promise.then(function(resp) {
                 if (options.notifyUpdate === true && resp === true) {
                     notifier.success('Details updated successfully');
                 }
-            })
-            .always(function () {
-                var $btn = $(event.target); // Grab the jQuery element from knockout
-                $btn.button('reset');
             });
+            return promise;
         }
 
     };

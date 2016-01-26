@@ -189,9 +189,9 @@
             return booking.UserId.Equals(username, StringComparison.OrdinalIgnoreCase);
         }
 
-        public void AddOnlineImage(int adId, Guid documentId)
+        public void AddOnlineImage(int adId, Guid documentId, bool removeExisting)
         {
-            _bookingRepository.CreateImage(adId, documentId.ToString());
+            _bookingRepository.CreateImage(adId, documentId.ToString(), AdTypeCode.OnlineCodeId, removeExisting);
         }
 
         public void RemoveOnlineImage(int adId, Guid documentId)

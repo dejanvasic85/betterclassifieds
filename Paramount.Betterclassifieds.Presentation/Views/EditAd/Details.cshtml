@@ -15,19 +15,20 @@
 
 }
 
-@if (ViewBag.Updated)
-{
-    @Alert("Details have been updated successfully", "success")
-}
-
-@if (ViewBag.Invalid)
-{
-    @Alert("Ooops. Some details seem to be incorrect. Please check below", "danger")
-}
-
 @Html.Partial("_CropImage")
 
 <div class="container top-buffer-40">
+
+    @if (ViewBag.Updated)
+    {
+        @Alert("Details have been updated successfully", "success")
+    }
+
+    @if (ViewBag.Invalid)
+    {
+        @Alert("Ooops. Some details seem to be incorrect. Please check below", "danger")
+    }
+
     <form role="form" id="editAdForm" action="@Url.Action("Details", "EditAd")" method="POST">
         @Html.AntiForgeryToken()
         @Html.HiddenFor(m => m.Id)
@@ -278,9 +279,8 @@
                             </div>
                         </div>
                     }
-                }
-
-                @*Submit Buttons*@<div class="form-group">
+                }@*Submit Buttons*@
+                <div class="form-group">
                     <button type="submit" id="btnUpdateAd" class="btn btn-default pull-right">Update Ad Details</button>
                 </div>
 
@@ -290,6 +290,10 @@
     </form>
 
 </div>
+
+
+
+
 
 @section Scripts{
 

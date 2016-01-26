@@ -104,9 +104,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpPost]
-        public ActionResult AssignOnlineImage(int id, Guid documentId)
+        public ActionResult AssignOnlineImage(int id, Guid documentId, bool removeExisting)
         {
-            _bookingManager.AddOnlineImage(id, documentId);
+            _bookingManager.AddOnlineImage(id, documentId, removeExisting);
             return Json(true);
         }
 

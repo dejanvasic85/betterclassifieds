@@ -51,9 +51,10 @@
         return $paramount.httpPost(me.baseUrl + 'SetLineAdImage', me.model);
     }
 
-    AdDesignService.prototype.assignOnlineImage = function (documentId) {
+    AdDesignService.prototype.assignOnlineImage = function (documentId, removeExisting) {
         $.extend(me.model, {
-            documentId: documentId
+            documentId: documentId,
+            removeExisting : removeExisting || false
         });
         return $paramount.httpPost(me.baseUrl + 'AssignOnlineImage', me.model);
     }

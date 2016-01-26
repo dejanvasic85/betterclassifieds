@@ -19,7 +19,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         void SubmitAdEnquiry(AdEnquiry enquiry);
         int? CreateBooking(BookingCart bookingCart, BookingOrderResult bookingOrder);
         bool AdBelongsToUser(int adId, string username);
-        void AddOnlineImage(int adId, Guid documentId);
+        void AddOnlineImage(int adId, Guid documentId, bool removeExisting);
         void RemoveOnlineImage(int adId, Guid documentId);
         void UpdateOnlineAd(int adId, OnlineAdModel onlineAd, bool updateImages = false);
         void UpdateLineAd(int id, LineAdModel lineAd);

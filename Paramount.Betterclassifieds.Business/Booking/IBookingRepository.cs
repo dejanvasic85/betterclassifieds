@@ -44,7 +44,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         void CreateBookingOrder(BookingOrderResult bookingOrder, int adBookingId);
 
         // Images
-        void CreateImage(int adId, string documentId, int adTypeId = AdTypeCode.OnlineCodeId);
+        void CreateImage(int adId, string documentId, int adTypeId = AdTypeCode.OnlineCodeId, bool removeExisting = false);
         void DeleteImage(int adId, string documentId, int adTypeId = AdTypeCode.OnlineCodeId);
 
         

@@ -291,9 +291,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpPost]
-        public ActionResult AssignOnlineImage(string documentId)
+        public ActionResult AssignOnlineImage(string documentId, bool removeExisting = false)
         {
             var bookingCart = _bookingContext.Current();
+
+            if (removeExisting)
+            {
+                bookingCart.OnlineAdModel.Images.Clear();
+            }
 
             // Persist to the booking cart also
             bookingCart.OnlineAdModel.AddImage(documentId);

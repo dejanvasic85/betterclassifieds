@@ -514,7 +514,7 @@
             }
         }
 
-        public void CreateImage(int adBookingId, string documentId, int adTypeId = AdTypeCode.OnlineCodeId)
+        public void CreateImage(int adBookingId, string documentId, int adTypeId = AdTypeCode.OnlineCodeId, bool removeExisting = false)
         {
             using (var context = _dbContextFactory.CreateClassifiedContext())
             {
@@ -523,6 +523,12 @@
                     .Ad
                     .AdDesigns
                     .Single(d => d.AdTypeId == adTypeId);
+
+                if (removeExisting)
+                {
+                    context.AdGraphics.DeleteAllOnSubmit(adDesign.AdGraphics);
+                    context.SubmitChanges();
+                }
 
                 adDesign.AdGraphics.Add(new AdGraphic
                 {

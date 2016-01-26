@@ -70,7 +70,7 @@
                         .then(function (documentId) {
                             $btn.button('reset');
                             $('#printImageCropDialog').modal('hide');
-                            adDesignService.assignOnlineImage(documentId).then(function () {
+                            adDesignService.assignOnlineImage(documentId, true).then(function () {
                                 eventDetailsModel.eventPhoto(documentId);
                                 eventDetailsModel.eventPhotoUploadError(null);
                             });

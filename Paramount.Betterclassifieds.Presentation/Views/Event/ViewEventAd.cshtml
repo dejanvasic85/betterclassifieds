@@ -96,9 +96,9 @@
             }
             <div class="@(Model.TicketingEnabled ? "col-md-6" : "col-md-12")">
                 <h3>
-                    <i class="fa fa-automobile"></i> Details
+                    <i class="fa fa-paperclip"></i> Details
                 </h3>
-                <div class="well well-lg">
+                <div class="well well-lg @(Model.HtmlText.Length > 600 ? "small" : "")">
                     @Html.Raw(Model.HtmlText)
                 </div>
             </div>

@@ -48,6 +48,7 @@ create procedure temp_createCategory
 	@ParentCategory varchar(50) = null,
 	@CategoryAdType varchar(50) = null,
 	@IsOnlineOnly	bit	= null,
+	@FontIcon varchar(30) = null,
 	@MainCategoryId	int = null output
 as
 begin
@@ -86,6 +87,7 @@ exec temp_createCategory @Title = 'Real Estate', @FontIcon = 'home';
 exec temp_createCategory @Title = 'Personals', @FontIcon = 'coffee';
 exec temp_createCategory @Title = 'Automotive/Cycling', @FontIcon = 'automobile';
 
+-- Setup events categories
 exec temp_createCategory @Title = 'Events', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
 exec temp_createCategory @Title = 'Concerts', @ParentCategory = 'Events', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
 exec temp_createCategory @Title = 'Event Services', @ParentCategory = 'Events', @CategoryAdType = 'Event', @IsOnlineOnly = 1;

@@ -18,9 +18,12 @@
                 {
                     <img class="media-object pull-right thumbnail"
                          alt="100x100"
-                         src="@Url.Action("Render", "Image", new { documentId = ad.ImageUrls.First(), height = 100, width = 100 })" />
+                         src="@Url.Action("Render", "Image", new {documentId = ad.ImageUrls.First(), height = 100, width = 100})"/>
                 }
-
+                else
+                {
+                    <i class="media-object pull-right thumbnail fa fa-5x fa-@ad.CategoryFontIcon"></i>
+                }
                 <div class="media-body">
                     <h4 class="media-heading">@ad.Heading <small><strong>(@ad.AdId)</strong></small></h4>
                     <p>@ad.Description.TruncateOnWordBoundary(150)</p>

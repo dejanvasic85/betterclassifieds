@@ -48,6 +48,7 @@
         this.ends = ko.observable(item.ends);
         this.visits = ko.observable(item.visits);
         this.messageCount = ko.observable(item.messageCount);
+        this.fontIcon = ko.observable('fa fa-5x fa-' + item.categoryFontIcon + ' thumbnail');
 
         self.messages = ko.observableArray([]);
         $.each(item.messages, function (idx, value) {

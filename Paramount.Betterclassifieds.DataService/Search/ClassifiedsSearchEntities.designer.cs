@@ -145,6 +145,8 @@ namespace Paramount.Betterclassifieds.DataService.Search
 		
 		private string _CategoryAdType;
 		
+		private string _CategoryFontIcon;
+		
 		public BookedAd()
 		{
 		}
@@ -593,6 +595,22 @@ namespace Paramount.Betterclassifieds.DataService.Search
 				if ((this._CategoryAdType != value))
 				{
 					this._CategoryAdType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CategoryFontIcon", CanBeNull=false)]
+		public string CategoryFontIcon
+		{
+			get
+			{
+				return this._CategoryFontIcon;
+			}
+			set
+			{
+				if ((this._CategoryFontIcon != value))
+				{
+					this._CategoryFontIcon = value;
 				}
 			}
 		}

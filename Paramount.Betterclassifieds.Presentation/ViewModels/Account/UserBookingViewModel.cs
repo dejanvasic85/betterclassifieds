@@ -23,6 +23,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             Status = GetViewStatusFrom(ad);
             Visits = ad.OnlineAd.NumOfViews;
             AdViewUrl = urlHelper.AdUrl(Slug.Create(true, ad.OnlineAd.Heading), ad.AdBookingId, routeName: ad.CategoryAdType);
+            CategoryFontIcon = ad.CategoryFontIcon;
 
             Messages = ad.Enquiries.Select(enq => new AdEnquiryViewModel
             {
@@ -35,6 +36,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
                 .OrderByDescending(enq => enq.CreatedDate)
                 .ToArray();
         }
+
+        public string CategoryFontIcon { get; set; }
 
         public string AdViewUrl { get; set; }
 

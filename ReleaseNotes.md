@@ -2,6 +2,7 @@ Here's a list of the latest changes:
 
 **3.0.2 Events Improvements and Feedback implementation**
 
+- [Enhancement - Now we have icons for each parent category](https://trello.com/c/Og378p0U/405-category-icons-so-they-can-be-used-on-the-home-page-and-no-image-ads)
 - [Enhancement - Event details page redesign](https://trello.com/c/h7Kedb0G/378-event-details-page-redesign)
 - [Enhancement - Event image can be cropped now to our specifications to make attractive ads](https://trello.com/c/14nMRlUv/404-event-event-ad-needs-specific-sizing-to-suit-the-event-page-redesign)
 - [Enhancement - Updating event details is now available](https://trello.com/c/WTutmyLD/371-editing-event-details-needs-to-be-separate-from-regular-ads)

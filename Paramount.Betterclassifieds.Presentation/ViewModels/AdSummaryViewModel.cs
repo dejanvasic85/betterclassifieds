@@ -15,6 +15,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public string Description { get; set; }
         public string[] ImageUrls { get; set; }
         public string CategoryName { get; set; }
+        public string CategoryAdType { get; set; }
+        public string CategoryFontIcon { get; set; }
         public string ParentCategoryName { get; set; }
         public string[] Publications { get; set; }
         public string HeadingSlug { get; set; }
@@ -35,8 +37,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
                 return StartDate.Humanize(utcDate: false);
             }
         }
-
-        public string CategoryAdType { get; set; }
         public string PrimaryImage { get; set; }
     }
 }

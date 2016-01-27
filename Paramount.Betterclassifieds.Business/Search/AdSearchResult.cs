@@ -36,6 +36,7 @@ namespace Paramount.Betterclassifieds.Business.Search
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string CategoryAdType { get; set; }
+        public string CategoryFontIcon { get; set; }
 
         public string PrimaryImage
         {

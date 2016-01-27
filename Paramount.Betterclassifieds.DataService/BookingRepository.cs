@@ -83,6 +83,7 @@
                     var booking = this.Map<AdBooking, AdBookingModel>(adBookingData);
 
                     booking.CategoryAdType = adBookingData.MainCategory.CategoryAdType;
+                    booking.CategoryFontIcon = context.MainCategories.Single(m => m.MainCategoryId == adBookingData.MainCategory.ParentId).FontIcon;
 
                     // Line ad
                     if (withLineAd)
@@ -107,8 +108,7 @@
                         var onlineAd = this.Map<OnlineAd, OnlineAdModel>(onlineAdDataModel);
                         if (onlineAdDataModel.AdDesign.AdGraphics.Any())
                         {
-                            onlineAd.Images.AddRange(
-                                onlineAdDataModel.AdDesign.AdGraphics.Select(gr => new AdImage(gr.DocumentID)));
+                            onlineAd.Images.AddRange(onlineAdDataModel.AdDesign.AdGraphics.Select(gr => new AdImage(gr.DocumentID)));
                         }
                         booking.Ads.Add(onlineAd);
 

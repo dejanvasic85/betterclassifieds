@@ -150,12 +150,12 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
     partial void InsertAdBookingOrderItem(AdBookingOrderItem instance);
     partial void UpdateAdBookingOrderItem(AdBookingOrderItem instance);
     partial void DeleteAdBookingOrderItem(AdBookingOrderItem instance);
-    partial void InsertMainCategory(MainCategory instance);
-    partial void UpdateMainCategory(MainCategory instance);
-    partial void DeleteMainCategory(MainCategory instance);
     partial void InsertTransaction(Transaction instance);
     partial void UpdateTransaction(Transaction instance);
     partial void DeleteTransaction(Transaction instance);
+    partial void InsertMainCategory(MainCategory instance);
+    partial void UpdateMainCategory(MainCategory instance);
+    partial void DeleteMainCategory(MainCategory instance);
     #endregion
 		
 		public ClassifiedsDataContext() : 
@@ -516,19 +516,19 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			}
 		}
 		
-		public System.Data.Linq.Table<MainCategory> MainCategories
-		{
-			get
-			{
-				return this.GetTable<MainCategory>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Transaction> Transactions
 		{
 			get
 			{
 				return this.GetTable<Transaction>();
+			}
+		}
+		
+		public System.Data.Linq.Table<MainCategory> MainCategories
+		{
+			get
+			{
+				return this.GetTable<MainCategory>();
 			}
 		}
 		
@@ -12512,316 +12512,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MainCategory")]
-	public partial class MainCategory : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _MainCategoryId;
-		
-		private string _Title;
-		
-		private string _Description;
-		
-		private string _ImageUrl;
-		
-		private System.Nullable<int> _ParentId;
-		
-		private string _OnlineAdTag;
-		
-		private string _SeoName;
-		
-		private System.Nullable<bool> _IsOnlineOnly;
-		
-		private string _CategoryAdType;
-		
-		private EntitySet<AdBooking> _AdBookings;
-		
-		private EntitySet<PublicationCategory> _PublicationCategories;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnMainCategoryIdChanging(int value);
-    partial void OnMainCategoryIdChanged();
-    partial void OnTitleChanging(string value);
-    partial void OnTitleChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
-    partial void OnImageUrlChanging(string value);
-    partial void OnImageUrlChanged();
-    partial void OnParentIdChanging(System.Nullable<int> value);
-    partial void OnParentIdChanged();
-    partial void OnOnlineAdTagChanging(string value);
-    partial void OnOnlineAdTagChanged();
-    partial void OnSeoNameChanging(string value);
-    partial void OnSeoNameChanged();
-    partial void OnIsOnlineOnlyChanging(System.Nullable<bool> value);
-    partial void OnIsOnlineOnlyChanged();
-    partial void OnCategoryAdTypeChanging(string value);
-    partial void OnCategoryAdTypeChanged();
-    #endregion
-		
-		public MainCategory()
-		{
-			this._AdBookings = new EntitySet<AdBooking>(new Action<AdBooking>(this.attach_AdBookings), new Action<AdBooking>(this.detach_AdBookings));
-			this._PublicationCategories = new EntitySet<PublicationCategory>(new Action<PublicationCategory>(this.attach_PublicationCategories), new Action<PublicationCategory>(this.detach_PublicationCategories));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MainCategoryId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int MainCategoryId
-		{
-			get
-			{
-				return this._MainCategoryId;
-			}
-			set
-			{
-				if ((this._MainCategoryId != value))
-				{
-					this.OnMainCategoryIdChanging(value);
-					this.SendPropertyChanging();
-					this._MainCategoryId = value;
-					this.SendPropertyChanged("MainCategoryId");
-					this.OnMainCategoryIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(50)")]
-		public string Title
-		{
-			get
-			{
-				return this._Title;
-			}
-			set
-			{
-				if ((this._Title != value))
-				{
-					this.OnTitleChanging(value);
-					this.SendPropertyChanging();
-					this._Title = value;
-					this.SendPropertyChanged("Title");
-					this.OnTitleChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(MAX)")]
-		public string Description
-		{
-			get
-			{
-				return this._Description;
-			}
-			set
-			{
-				if ((this._Description != value))
-				{
-					this.OnDescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._Description = value;
-					this.SendPropertyChanged("Description");
-					this.OnDescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageUrl", DbType="NVarChar(255)")]
-		public string ImageUrl
-		{
-			get
-			{
-				return this._ImageUrl;
-			}
-			set
-			{
-				if ((this._ImageUrl != value))
-				{
-					this.OnImageUrlChanging(value);
-					this.SendPropertyChanging();
-					this._ImageUrl = value;
-					this.SendPropertyChanged("ImageUrl");
-					this.OnImageUrlChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParentId", DbType="Int")]
-		public System.Nullable<int> ParentId
-		{
-			get
-			{
-				return this._ParentId;
-			}
-			set
-			{
-				if ((this._ParentId != value))
-				{
-					this.OnParentIdChanging(value);
-					this.SendPropertyChanging();
-					this._ParentId = value;
-					this.SendPropertyChanged("ParentId");
-					this.OnParentIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OnlineAdTag", DbType="VarChar(50)")]
-		public string OnlineAdTag
-		{
-			get
-			{
-				return this._OnlineAdTag;
-			}
-			set
-			{
-				if ((this._OnlineAdTag != value))
-				{
-					this.OnOnlineAdTagChanging(value);
-					this.SendPropertyChanging();
-					this._OnlineAdTag = value;
-					this.SendPropertyChanged("OnlineAdTag");
-					this.OnOnlineAdTagChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SeoName", DbType="NVarChar(20)")]
-		public string SeoName
-		{
-			get
-			{
-				return this._SeoName;
-			}
-			set
-			{
-				if ((this._SeoName != value))
-				{
-					this.OnSeoNameChanging(value);
-					this.SendPropertyChanging();
-					this._SeoName = value;
-					this.SendPropertyChanged("SeoName");
-					this.OnSeoNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsOnlineOnly", DbType="Bit")]
-		public System.Nullable<bool> IsOnlineOnly
-		{
-			get
-			{
-				return this._IsOnlineOnly;
-			}
-			set
-			{
-				if ((this._IsOnlineOnly != value))
-				{
-					this.OnIsOnlineOnlyChanging(value);
-					this.SendPropertyChanging();
-					this._IsOnlineOnly = value;
-					this.SendPropertyChanged("IsOnlineOnly");
-					this.OnIsOnlineOnlyChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CategoryAdType", DbType="NVarChar(50)")]
-		public string CategoryAdType
-		{
-			get
-			{
-				return this._CategoryAdType;
-			}
-			set
-			{
-				if ((this._CategoryAdType != value))
-				{
-					this.OnCategoryAdTypeChanging(value);
-					this.SendPropertyChanging();
-					this._CategoryAdType = value;
-					this.SendPropertyChanged("CategoryAdType");
-					this.OnCategoryAdTypeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="MainCategory_AdBooking", Storage="_AdBookings", ThisKey="MainCategoryId", OtherKey="MainCategoryId")]
-		public EntitySet<AdBooking> AdBookings
-		{
-			get
-			{
-				return this._AdBookings;
-			}
-			set
-			{
-				this._AdBookings.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="MainCategory_PublicationCategory", Storage="_PublicationCategories", ThisKey="MainCategoryId", OtherKey="MainCategoryId")]
-		public EntitySet<PublicationCategory> PublicationCategories
-		{
-			get
-			{
-				return this._PublicationCategories;
-			}
-			set
-			{
-				this._PublicationCategories.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_AdBookings(AdBooking entity)
-		{
-			this.SendPropertyChanging();
-			entity.MainCategory = this;
-		}
-		
-		private void detach_AdBookings(AdBooking entity)
-		{
-			this.SendPropertyChanging();
-			entity.MainCategory = null;
-		}
-		
-		private void attach_PublicationCategories(PublicationCategory entity)
-		{
-			this.SendPropertyChanging();
-			entity.MainCategory = this;
-		}
-		
-		private void detach_PublicationCategories(PublicationCategory entity)
-		{
-			this.SendPropertyChanging();
-			entity.MainCategory = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[Transaction]")]
 	public partial class Transaction : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -13073,6 +12763,340 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MainCategory")]
+	public partial class MainCategory : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _MainCategoryId;
+		
+		private string _Title;
+		
+		private string _Description;
+		
+		private string _ImageUrl;
+		
+		private System.Nullable<int> _ParentId;
+		
+		private string _OnlineAdTag;
+		
+		private string _SeoName;
+		
+		private System.Nullable<bool> _IsOnlineOnly;
+		
+		private string _CategoryAdType;
+		
+		private string _FontIcon;
+		
+		private EntitySet<AdBooking> _AdBookings;
+		
+		private EntitySet<PublicationCategory> _PublicationCategories;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMainCategoryIdChanging(int value);
+    partial void OnMainCategoryIdChanged();
+    partial void OnTitleChanging(string value);
+    partial void OnTitleChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnImageUrlChanging(string value);
+    partial void OnImageUrlChanged();
+    partial void OnParentIdChanging(System.Nullable<int> value);
+    partial void OnParentIdChanged();
+    partial void OnOnlineAdTagChanging(string value);
+    partial void OnOnlineAdTagChanged();
+    partial void OnSeoNameChanging(string value);
+    partial void OnSeoNameChanged();
+    partial void OnIsOnlineOnlyChanging(System.Nullable<bool> value);
+    partial void OnIsOnlineOnlyChanged();
+    partial void OnCategoryAdTypeChanging(string value);
+    partial void OnCategoryAdTypeChanged();
+    partial void OnFontIconChanging(string value);
+    partial void OnFontIconChanged();
+    #endregion
+		
+		public MainCategory()
+		{
+			this._AdBookings = new EntitySet<AdBooking>(new Action<AdBooking>(this.attach_AdBookings), new Action<AdBooking>(this.detach_AdBookings));
+			this._PublicationCategories = new EntitySet<PublicationCategory>(new Action<PublicationCategory>(this.attach_PublicationCategories), new Action<PublicationCategory>(this.detach_PublicationCategories));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MainCategoryId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int MainCategoryId
+		{
+			get
+			{
+				return this._MainCategoryId;
+			}
+			set
+			{
+				if ((this._MainCategoryId != value))
+				{
+					this.OnMainCategoryIdChanging(value);
+					this.SendPropertyChanging();
+					this._MainCategoryId = value;
+					this.SendPropertyChanged("MainCategoryId");
+					this.OnMainCategoryIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(50)")]
+		public string Title
+		{
+			get
+			{
+				return this._Title;
+			}
+			set
+			{
+				if ((this._Title != value))
+				{
+					this.OnTitleChanging(value);
+					this.SendPropertyChanging();
+					this._Title = value;
+					this.SendPropertyChanged("Title");
+					this.OnTitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(MAX)")]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageUrl", DbType="NVarChar(255)")]
+		public string ImageUrl
+		{
+			get
+			{
+				return this._ImageUrl;
+			}
+			set
+			{
+				if ((this._ImageUrl != value))
+				{
+					this.OnImageUrlChanging(value);
+					this.SendPropertyChanging();
+					this._ImageUrl = value;
+					this.SendPropertyChanged("ImageUrl");
+					this.OnImageUrlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParentId", DbType="Int")]
+		public System.Nullable<int> ParentId
+		{
+			get
+			{
+				return this._ParentId;
+			}
+			set
+			{
+				if ((this._ParentId != value))
+				{
+					this.OnParentIdChanging(value);
+					this.SendPropertyChanging();
+					this._ParentId = value;
+					this.SendPropertyChanged("ParentId");
+					this.OnParentIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OnlineAdTag", DbType="VarChar(50)")]
+		public string OnlineAdTag
+		{
+			get
+			{
+				return this._OnlineAdTag;
+			}
+			set
+			{
+				if ((this._OnlineAdTag != value))
+				{
+					this.OnOnlineAdTagChanging(value);
+					this.SendPropertyChanging();
+					this._OnlineAdTag = value;
+					this.SendPropertyChanged("OnlineAdTag");
+					this.OnOnlineAdTagChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SeoName", DbType="NVarChar(20)")]
+		public string SeoName
+		{
+			get
+			{
+				return this._SeoName;
+			}
+			set
+			{
+				if ((this._SeoName != value))
+				{
+					this.OnSeoNameChanging(value);
+					this.SendPropertyChanging();
+					this._SeoName = value;
+					this.SendPropertyChanged("SeoName");
+					this.OnSeoNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsOnlineOnly", DbType="Bit")]
+		public System.Nullable<bool> IsOnlineOnly
+		{
+			get
+			{
+				return this._IsOnlineOnly;
+			}
+			set
+			{
+				if ((this._IsOnlineOnly != value))
+				{
+					this.OnIsOnlineOnlyChanging(value);
+					this.SendPropertyChanging();
+					this._IsOnlineOnly = value;
+					this.SendPropertyChanged("IsOnlineOnly");
+					this.OnIsOnlineOnlyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CategoryAdType", DbType="NVarChar(50)")]
+		public string CategoryAdType
+		{
+			get
+			{
+				return this._CategoryAdType;
+			}
+			set
+			{
+				if ((this._CategoryAdType != value))
+				{
+					this.OnCategoryAdTypeChanging(value);
+					this.SendPropertyChanging();
+					this._CategoryAdType = value;
+					this.SendPropertyChanged("CategoryAdType");
+					this.OnCategoryAdTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FontIcon", DbType="VarChar(30)")]
+		public string FontIcon
+		{
+			get
+			{
+				return this._FontIcon;
+			}
+			set
+			{
+				if ((this._FontIcon != value))
+				{
+					this.OnFontIconChanging(value);
+					this.SendPropertyChanging();
+					this._FontIcon = value;
+					this.SendPropertyChanged("FontIcon");
+					this.OnFontIconChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="MainCategory_AdBooking", Storage="_AdBookings", ThisKey="MainCategoryId", OtherKey="MainCategoryId")]
+		public EntitySet<AdBooking> AdBookings
+		{
+			get
+			{
+				return this._AdBookings;
+			}
+			set
+			{
+				this._AdBookings.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="MainCategory_PublicationCategory", Storage="_PublicationCategories", ThisKey="MainCategoryId", OtherKey="MainCategoryId")]
+		public EntitySet<PublicationCategory> PublicationCategories
+		{
+			get
+			{
+				return this._PublicationCategories;
+			}
+			set
+			{
+				this._PublicationCategories.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_AdBookings(AdBooking entity)
+		{
+			this.SendPropertyChanging();
+			entity.MainCategory = this;
+		}
+		
+		private void detach_AdBookings(AdBooking entity)
+		{
+			this.SendPropertyChanging();
+			entity.MainCategory = null;
+		}
+		
+		private void attach_PublicationCategories(PublicationCategory entity)
+		{
+			this.SendPropertyChanging();
+			entity.MainCategory = this;
+		}
+		
+		private void detach_PublicationCategories(PublicationCategory entity)
+		{
+			this.SendPropertyChanging();
+			entity.MainCategory = null;
 		}
 	}
 	

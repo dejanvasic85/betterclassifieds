@@ -42,3 +42,58 @@ execute temp_createAppSetting @Key = 'EventTicketFee', @Setting = '4.9', @Force 
 
 
 drop procedure temp_createAppSetting
+
+
+GO
+
+/*
+ *	Categories
+ */
+create procedure temp_createCategory
+	@Title varchar(50),
+	@ParentCategory varchar(50) = null,
+	@CategoryAdType varchar(50) = null,
+	@IsOnlineOnly	bit	= null,
+	@FontIcon varchar(30) = null,
+	@MainCategoryId	int = null output
+as
+begin
+	declare @ParentCategoryId int = null
+	if @ParentCategory IS NOT NULL
+	begin
+		select @ParentCategoryId = MainCategoryId
+		from MainCategory
+		where Title = @ParentCategory
+	end
+
+	if not exists (select top 1 * from MainCategory where Title = @Title)
+	begin
+		insert into MainCategory (Title, ParentId, CategoryAdType, IsOnlineOnly)
+		values	(@Title, @ParentCategoryId, @CategoryAdType, @IsOnlineOnly)
+
+		set @MainCategoryId = @@IDENTITY
+	end
+	else
+	begin
+		update MainCategory
+		set CategoryAdType = @CategoryAdType,
+			IsOnlineOnly = @IsOnlineOnly,
+			FontIcon = @FontIcon
+		where Title = @Title
+	end
+
+end
+go
+
+exec temp_createCategory @Title = 'Employment', @FontIcon = 'cubes';
+exec temp_createCategory @Title = 'Music Services', @FontIcon = 'music';
+exec temp_createCategory @Title = 'Musicians Wanted', @FontIcon = 'microphone';
+exec temp_createCategory @Title = 'Musicians Available', @FontIcon = 'users';
+exec temp_createCategory @Title = 'For Sale', @FontIcon = 'shopping-cart';
+exec temp_createCategory @Title = 'Wanted', @FontIcon = 'search';
+exec temp_createCategory @Title = 'Services', @FontIcon = 'support';
+exec temp_createCategory @Title = 'Share Accommodation', @FontIcon = 'home';
+exec temp_createCategory @Title = 'Film & Stage', @FontIcon = 'film';
+exec temp_createCategory @Title = 'Tuition', @FontIcon = 'mortar-board';
+
+drop procedure temp_createCategory

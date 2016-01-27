@@ -66,7 +66,7 @@ begin
 
 		set @MainCategoryId = @@IDENTITY
 	end
-	else if @CategoryAdType IS NOT NULL
+	else
 	begin
 		update MainCategory
 		set CategoryAdType = @CategoryAdType,
@@ -76,6 +76,16 @@ begin
 
 end
 go
+
+-- Setup the new icons for the categories
+exec temp_createCategory @Title = 'For Sale', @FontIcon = 'shopping-cart';
+exec temp_createCategory @Title = 'Employment', @FontIcon = 'cubes';
+exec temp_createCategory @Title = 'Community', @FontIcon = 'users';
+exec temp_createCategory @Title = 'Events', @FontIcon = 'ticket';
+exec temp_createCategory @Title = 'Real Estate', @FontIcon = 'home';
+exec temp_createCategory @Title = 'Personals', @FontIcon = 'coffee';
+exec temp_createCategory @Title = 'Automotive/Cycling', @FontIcon = 'automobile';
+
 exec temp_createCategory @Title = 'Events', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
 exec temp_createCategory @Title = 'Concerts', @ParentCategory = 'Events', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
 exec temp_createCategory @Title = 'Event Services', @ParentCategory = 'Events', @CategoryAdType = 'Event', @IsOnlineOnly = 1;

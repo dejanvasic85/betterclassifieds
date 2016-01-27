@@ -136,7 +136,7 @@
         <div data-bind="foreach: parentCategories">
             <div class="col-xs-12 col-sm-6 category">
                 <a data-bind="attr : {href : $parent.searchLink($data)}">
-                    <span data-bind="text: title"></span>
+                    <i data-bind="attr : {class : fontIcon}"></i> <span data-bind="text: title"></span>
                 </a>
             </div>
         </div>

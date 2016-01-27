@@ -35,7 +35,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 {
                     CategoryId = c.MainCategoryId,
                     Title = c.Title,
-                    IsOnlineOnly = c.IsOnlineOnly
+                    IsOnlineOnly = c.IsOnlineOnly,
+                    FontIcon = c.FontIcon
                 })
                 .ToList();
 

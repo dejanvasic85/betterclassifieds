@@ -10,5 +10,6 @@
 
         public bool IsOnlineOnly { get; set; }
         public string CategoryAdType { get; set; }
+        public string FontIcon { get; set; }
     }
 }

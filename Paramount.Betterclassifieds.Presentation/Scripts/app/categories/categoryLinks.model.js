@@ -7,6 +7,7 @@
         var me = this;
         me.parentCategories = ko.observableArray();
         _.each(parentCategories, function (c) {
+            c.fontIcon = 'fa fa-' + c.fontIcon;
             me.parentCategories.push(c);
         });
 

@@ -25,7 +25,7 @@
 
         public ActionResult Index()
         {
-            var results = _searchService.GetLatestAds(pageSize: 9);
+            var results = _searchService.GetLatestAds(pageSize: 6);
             var adSummaryViewModels = this.MapList<AdSearchResult, AdSummaryViewModel>(results.ToList());
 
             return View(new HomeModel

@@ -7,7 +7,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
     {
         public byte[] CreateCalendarInvite(string brand, int eventId, string eventName, string eventDescription,
             DateTime eventStartDate, DateTime eventEndDate, string reminderEmail, string location, decimal latitude,
-            decimal longitude, string eventUrl)
+            decimal longitude, string eventUrl, string timezoneId)
         {
             var sb = new StringBuilder();
 
@@ -22,8 +22,8 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             string endDay = string.Format("{0}{1}",
                 GetFormatedDate(eventEndDate), GetFormattedTime(eventEndDate));
 
-            sb.AppendLine("DTSTART;TZID=Australia/Melbourne:" + startDay);
-            sb.AppendLine("DTEND;TZID=Australia/Melbourne:" + endDay);
+            sb.AppendFormat("DTSTART;TZID={0}:{1}\n", timezoneId, startDay);
+            sb.AppendFormat("DTEND;TZID={0}:{1}\n", timezoneId, endDay);
             //sb.AppendLine("DTSTART;" + startDay);
             //sb.AppendLine("DTEND;" + endDay);
             sb.AppendLine("STATUS:CONFIRMED");

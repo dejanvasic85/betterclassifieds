@@ -7,6 +7,7 @@ using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.DocumentStorage;
 using Paramount.Betterclassifieds.Business.Events;
+using Paramount.Betterclassifieds.Business.Location;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Tests.Mocks;
 
@@ -492,6 +493,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
         private Mock<IDocumentRepository> _documentRepository;
         private Mock<IClientConfig> _clientConfig;
         private Mock<IBookingManager> _bookingManager;
+        private Mock<ILocationService> _locationService;
 
         [SetUp]
         public void SetupDependencies()
@@ -501,6 +503,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _clientConfig = CreateMockOf<IClientConfig>();
             _documentRepository = CreateMockOf<IDocumentRepository>();
             _bookingManager = CreateMockOf<IBookingManager>();
+            _locationService = CreateMockOf<ILocationService>();
         }
     }
 }

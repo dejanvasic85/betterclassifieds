@@ -33,8 +33,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public decimal? LocationLongitude { get; set; }
         public string TimeZoneId { get; set; }
         public string TimeZoneName { get; set; }
-        public decimal TimeZoneDaylightSavingsOffsetSeconds { get; set; }
-        public decimal TimeZoneUtcOffsetSeconds { get; set; }
+        public long TimeZoneDaylightSavingsOffsetSeconds { get; set; }
+        public long TimeZoneUtcOffsetSeconds { get; set; }
 
         public string EventPhoto { get; set; }
 

@@ -19,8 +19,8 @@ namespace Paramount.Betterclassifieds.Business.Events
         public decimal? LocationLongitude { get; set; }
         public string TimeZoneId { get; set; }
         public string TimeZoneName { get; set; }
-        public decimal TimeZoneDaylightSavingsOffsetSeconds { get; set; }
-        public decimal TimeZoneUtcOffsetSeconds { get; set; }
+        public long? TimeZoneDaylightSavingsOffsetSeconds { get; set; }
+        public long? TimeZoneUtcOffsetSeconds { get; set; }
         public DateTime? EventStartDate { get; set; }
         public DateTime? EventEndDate { get; set; }
         public IList<EventTicket> Tickets { get; set; }

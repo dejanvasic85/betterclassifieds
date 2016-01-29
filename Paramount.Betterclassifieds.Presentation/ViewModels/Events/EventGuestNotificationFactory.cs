@@ -31,7 +31,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 eventModel.Location,
                 eventModel.LocationLatitude.GetValueOrDefault(),
                 eventModel.LocationLongitude.GetValueOrDefault(),
-                eventUrl);
+                eventUrl,
+                eventModel.TimeZoneId);
 
             notification.WithCalendarInvite(calendarAttachmentContent);
 

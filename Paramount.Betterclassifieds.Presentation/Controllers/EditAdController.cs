@@ -34,8 +34,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             if (adBooking.CategoryAdType.HasValue())
             {
-                // Cannot use this view for editing specific ad types
-                return RedirectToAction("NotFound", "Error");
+                // Use convention E.g. EventDetails
+                return RedirectToAction(adBooking.CategoryAdType + "Details", "EditAd", new { id });
             }
 
             var viewModel = new EditAdDetailsViewModel(id, _clientConfig, onlineAd, adBooking, _applicationConfig);

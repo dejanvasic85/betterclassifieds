@@ -8,6 +8,7 @@ using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.DocumentStorage;
 using Paramount.Betterclassifieds.Business.Events;
+using Paramount.Betterclassifieds.Business.Location;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Print;
 using Paramount.Betterclassifieds.Business.Search;
@@ -148,6 +149,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IPaymentService> _paymentServiceMock;
         private Mock<IEditionManager> _editionManagerMock;
         private Mock<IDateService> _dateServiceMock;
+        private Mock<ILocationService> _locationServiceMock;
 
         [SetUp]
         public void SetupController()
@@ -165,6 +167,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _paymentServiceMock = CreateMockOf<IPaymentService>();
             _editionManagerMock = CreateMockOf<IEditionManager>();
             _dateServiceMock = CreateMockOf<IDateService>();
+            _locationServiceMock = CreateMockOf<ILocationService>();
         }
     }
 }

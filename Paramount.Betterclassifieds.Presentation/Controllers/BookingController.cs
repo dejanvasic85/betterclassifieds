@@ -9,6 +9,7 @@ using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.DocumentStorage;
 using Paramount.Betterclassifieds.Business.Events;
+using Paramount.Betterclassifieds.Business.Location;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Print;
 using Paramount.Betterclassifieds.Business.Search;
@@ -404,10 +405,24 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 return Json(new { Errors = ModelState.ToErrors() });
             }
-            this.Map(eventViewModel, bookingCart);
 
+            // Fetches the Timezone information selected for the map / address from google map
+            if (eventViewModel.LocationLatitude.HasValue && eventViewModel.LocationLongitude.HasValue)
+            {
+                var result = _locationService.GetTimezone(eventViewModel.LocationLatitude.Value, eventViewModel.LocationLongitude.Value);
+                if (result.IsOk())
+                {
+                    eventViewModel.TimeZoneId = result.TimeZoneId;
+                    eventViewModel.TimeZoneName = result.TimeZoneName;
+                    eventViewModel.TimeZoneDaylightSavingsOffsetSeconds = result.DstOffset;
+                    eventViewModel.TimeZoneUtcOffsetSeconds = result.RawOffset;
+                }
+            }
+
+            this.Map(eventViewModel, bookingCart);
             bookingCart.CompleteStep(2);
             _cartRepository.Save(bookingCart);
+
 
             if (eventViewModel.TicketingEnabled)
             {
@@ -516,6 +531,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IPaymentService _paymentService;
         private readonly IEditionManager _editionManager;
         private readonly IDateService _dateService;
+        private readonly ILocationService _locationService;
 
         public BookingController(
             ISearchService searchService,
@@ -530,7 +546,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             IBookingManager bookingManager,
             IPaymentService paymentService,
             IEditionManager editionManager,
-            IDateService dateService)
+            IDateService dateService,
+            ILocationService locationService)
         {
             _searchService = searchService;
             _clientConfig = clientConfig;
@@ -545,6 +562,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _paymentService = paymentService;
             _editionManager = editionManager;
             _dateService = dateService;
+            _locationService = locationService;
         }
 
     }

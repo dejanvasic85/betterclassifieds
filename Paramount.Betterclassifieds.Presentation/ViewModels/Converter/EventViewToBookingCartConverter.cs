@@ -64,6 +64,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             bookingCart.Event.Location = eventViewModel.Location;
             bookingCart.Event.LocationLatitude = eventViewModel.LocationLatitude;
             bookingCart.Event.LocationLongitude = eventViewModel.LocationLongitude;
+            bookingCart.Event.TimeZoneId = eventViewModel.TimeZoneId;
+            bookingCart.Event.TimeZoneName = eventViewModel.TimeZoneName;
+            bookingCart.Event.TimeZoneDaylightSavingsOffsetSeconds = eventViewModel.TimeZoneDaylightSavingsOffsetSeconds;
+            bookingCart.Event.TimeZoneUtcOffsetSeconds = eventViewModel.TimeZoneUtcOffsetSeconds;
 
             // Schedule
             bookingCart.SetSchedule(_clientConfig, _dateService.ConvertFromString(eventViewModel.AdStartDate));

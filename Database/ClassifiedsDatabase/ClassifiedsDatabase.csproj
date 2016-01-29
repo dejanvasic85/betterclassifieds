@@ -66,6 +66,7 @@
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Scripts\0074-Event.Column.TimeZone.sql" />
     <EmbeddedResource Include="Scripts\0073-BookedAd_StoredProcs.Alter.sql" />
     <EmbeddedResource Include="Scripts\0072-FontIcon.Column.MainCategory.sql" />
     <EmbeddedResource Include="Scripts\0071-Transaction.Column.PaymentMethod.sql" />

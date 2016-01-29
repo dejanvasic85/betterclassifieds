@@ -31,6 +31,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public decimal? LocationLatitude { get; set; }
 
         public decimal? LocationLongitude { get; set; }
+        public string TimeZoneId { get; set; }
+        public string TimeZoneName { get; set; }
+        public decimal TimeZoneDaylightSavingsOffsetSeconds { get; set; }
+        public decimal TimeZoneUtcOffsetSeconds { get; set; }
 
         public string EventPhoto { get; set; }
 
@@ -54,7 +58,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string OrganiserPhone { get; set; }
 
         public bool TicketingEnabled { get; set; }
-        
+
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
@@ -65,7 +69,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
             if (endDateTime <= startDateTime)
             {
-                validationResults.Add(new ValidationResult("End date must be after the start date", new[] { "EventStartDate"}));
+                validationResults.Add(new ValidationResult("End date must be after the start date", new[] { "EventStartDate" }));
             }
 
             return validationResults;

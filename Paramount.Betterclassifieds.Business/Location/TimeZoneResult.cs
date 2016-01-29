@@ -7,5 +7,13 @@
         public string Status { get; set; }
         public string TimeZoneId { get; set; }
         public string TimeZoneName { get; set; }
+
+        public bool IsOk()
+        {
+            if (Status.IsNullOrEmpty())
+                return false;
+
+            return Status.ToLower().Equals("ok");
+        }
     }
 }

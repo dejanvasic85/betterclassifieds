@@ -292,6 +292,7 @@
     <Compile Include="ViewModels\Invoicing\AdBookingInvoiceViewModel.cs" />
     <Compile Include="ViewModels\Events\EventBookingInvoiceViewModel.cs" />
     <Compile Include="ViewModels\Invoicing\InvoiceItemViewModel.cs" />
+    <Compile Include="ViewModels\Location\GoogleTimezone.cs" />
     <Compile Include="ViewModels\PageRequest.cs" />
     <Compile Include="ViewModels\SearchFilters.cs" />
     <Compile Include="ViewModels\FindModel.cs" />

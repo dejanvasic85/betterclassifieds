@@ -233,8 +233,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             // Send email to the user and support staff
             var newBookingEmail = this.Map<BookingCart, NewBooking>(bookingCart);
             newBookingEmail.AdId = id.ToString(); // We can only get the Id 
-            _broadcastManager.SendEmail(newBookingEmail, _clientConfig.SupportEmailList);
-            _broadcastManager.SendEmail(newBookingEmail, currentUser.Email);
+            _broadcastManager.Queue(newBookingEmail, _clientConfig.SupportEmailList);
+            _broadcastManager.Queue(newBookingEmail, currentUser.Email);
 
             // Build the view model
             var successView = new SuccessView
@@ -364,7 +364,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             foreach (var friendEmail in users.Where(u => u.Selected).Select(u => u.Email))
             {
-                _broadcastManager.SendEmail(new AdShare
+                _broadcastManager.Queue(new AdShare
                 {
                     AdvertiserName = adSearchResult.ContactName,
                     AdDescription = adSearchResult.HtmlText.TruncateOnWordBoundary(100),

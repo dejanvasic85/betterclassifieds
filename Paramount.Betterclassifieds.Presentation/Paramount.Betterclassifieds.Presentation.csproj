@@ -237,6 +237,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Services\Constants.cs" />
+    <Compile Include="Services\LocationService.cs" />
     <Compile Include="Services\TemplatingService.cs" />
     <Compile Include="ViewModels\Account\AccountConfirmationViewModel.cs" />
     <Compile Include="ViewModels\Account\EditAdDetailsViewModel.cs" />

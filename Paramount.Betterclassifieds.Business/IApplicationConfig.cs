@@ -13,5 +13,7 @@ namespace Paramount.Betterclassifieds.Business
         bool IsPaymentEnabled { get; }
         string Brand { get; }
         string Environment { get; }
+        string GoogleTimezoneApiUrl { get; }
+        string GoogleTimezoneApiKey { get; }
     }
 }

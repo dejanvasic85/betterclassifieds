@@ -20,12 +20,19 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             get { return ConfigManager.ReadAppSetting<string>("Environment"); }
         }
 
+        public string GoogleTimezoneApiUrl
+        {
+            get { return ConfigManager.ReadAppSetting<string>("GoogleTimezoneApiUrl"); }
+        }
+
+        public string GoogleTimezoneApiKey
+        {
+            get { return ConfigManager.ReadAppSetting<string>("GoogleTimezoneApiKey"); }
+        }
+
         public string DslImageUrlHandler
         {
-            get
-            {
-                return ConfigManager.ReadAppSetting<string>("DslImageUrlHandler");
-            }
+            get { return ConfigManager.ReadAppSetting<string>("DslImageUrlHandler"); }
         }
 
         public bool UseHttps

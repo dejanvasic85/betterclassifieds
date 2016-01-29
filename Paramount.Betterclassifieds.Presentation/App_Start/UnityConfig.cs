@@ -1,4 +1,5 @@
 ﻿using System;
+using Paramount.Betterclassifieds.Business.Location;
 using Paramount.Betterclassifieds.Mvc.Unity;
 using Paramount.Betterclassifieds.Presentation.Services;
 
@@ -88,7 +89,9 @@ namespace Paramount.Betterclassifieds.Presentation
                 .RegisterType<IConfirmationCodeGenerator, ConfirmationCodeGenerator>()
                 .RegisterType<HttpContextBase>(new InjectionFactory(c => new HttpContextWrapper(HttpContext.Current)))
 
+                // UI Services
                 .RegisterType<ITemplatingService, TemplatingService>()
+                .RegisterType<ILocationService, LocationService>()
                 ;
 
             return container;

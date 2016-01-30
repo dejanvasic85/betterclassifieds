@@ -42,12 +42,12 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
 
         private string GetFormatedDate(DateTime date)
         {
-            return string.Format("{0:00}{1:00}{2:00}", date.Year, date.Month, date.Day);
+            return $"{date.Year:00}{date.Month:00}{date.Day:00}";
         }
 
         private string GetFormattedTime(DateTime dateTime)
         {
-            return string.Format("T{0:00}{1:00}{2:00}", dateTime.Hour, dateTime.Minute, dateTime.Second);
+            return $"T{dateTime.Hour:00}{dateTime.Minute:00}{dateTime.Second:00}";
         }
     }
 }

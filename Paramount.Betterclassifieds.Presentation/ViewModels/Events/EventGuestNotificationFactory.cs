@@ -17,8 +17,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 PurchaserName = purchaserName,
                 ClientName = config.ClientName,
                 Location = eventModel.Location,
-                EventStartDate = eventModel.EventStartDate.GetValueOrDefault().ToString("dd-MMM-yyyy h:mm tt"),
-                EventEndDate = eventModel.EventEndDate.GetValueOrDefault().ToString("dd-MMM-yyyy h:mm tt")
+                EventStartDate = $"{eventModel.EventStartDate:dd-MMM-yyyy h:mm tt} {eventModel.TimeZoneName}",
+                EventEndDate = $"{eventModel.EventEndDate:dd-MMM-yyyy h:mm tt} {eventModel.TimeZoneName}"
             };
 
             var calendarAttachmentContent = new AttachmentFactory().CreateCalendarInvite(config.ClientName,

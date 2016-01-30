@@ -16,16 +16,12 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             sb.AppendFormat("PRODID:-//{0}/{0}//NONSGML v1.0//EN{1}", brand, Environment.NewLine);
             sb.AppendLine("BEGIN:VEVENT");
 
-            string startDay = string.Format("{0}{1}",
-                GetFormatedDate(eventStartDate), GetFormattedTime(eventStartDate));
+            string startDay = $"{GetFormatedDate(eventStartDate)}{GetFormattedTime(eventStartDate)}";
 
-            string endDay = string.Format("{0}{1}",
-                GetFormatedDate(eventEndDate), GetFormattedTime(eventEndDate));
+            string endDay = $"{GetFormatedDate(eventEndDate)}{GetFormattedTime(eventEndDate)}";
 
             sb.AppendFormat("DTSTART;TZID={0}:{1}\n", timezoneId, startDay);
             sb.AppendFormat("DTEND;TZID={0}:{1}\n", timezoneId, endDay);
-            //sb.AppendLine("DTSTART;" + startDay);
-            //sb.AppendLine("DTEND;" + endDay);
             sb.AppendLine("STATUS:CONFIRMED");
             sb.AppendLine("SUMMARY:" + eventName);
             sb.AppendLine("DESCRIPTION:" + eventDescription);

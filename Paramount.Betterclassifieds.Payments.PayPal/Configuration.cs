@@ -1,4 +1,5 @@
-﻿using PayPal.Api;
+﻿using System.Net;
+using PayPal.Api;
 
 namespace Paramount.Betterclassifieds.Payments.pp
 {
@@ -13,6 +14,10 @@ namespace Paramount.Betterclassifieds.Payments.pp
                 config[BaseConstants.ClientId], 
                 config[BaseConstants.ClientSecret], 
                 config);
+
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            ServicePointManager.DefaultConnectionLimit = 9999;
 
             // ### Api Context
             // Pass in a `APIContext` object to authenticate 

@@ -118,6 +118,9 @@
                             return;
                         }
                         $btn.button('reset');
+                    })
+                    .always(function () {
+                        $btn.button('reset');
                     });
             }
         }

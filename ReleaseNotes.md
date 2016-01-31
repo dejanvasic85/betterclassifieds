@@ -9,6 +9,7 @@ Here's a list of the latest changes:
 - [Enhancement - Updating event details is now available](https://trello.com/c/WTutmyLD/371-editing-event-details-needs-to-be-separate-from-regular-ads)
 - [Enhancement - Home page redesign including layout and footer](https://trello.com/c/6D8gYRo1/379-home-page-redesign)
 - [Enhancement - Transaction database table is now capturing all the event booking ticket purchases](https://trello.com/c/KjmmimJD/367-events-capture-transaction-for-ticket-purchases)
+- [Enhancement - Cancelling a payment with paypal comes back to the booking page again](https://trello.com/c/gRqIbgFW/397-events-display-ticket-purchase-cancellation-screen-for-user-when-cancelling-payment-with-paypal)
 - [Change - Changing from kandobay-support to events@kandobay.com.au](https://trello.com/c/ffaXj1Hf/384-email-sender-kandobay-support-is-not-a-nice-name)
 - [Change - Better handling of html descriptions and security hardening](https://trello.com/c/TcP5tbER/366-description-vs-html-description)
 - [Change - Replace time selection with dropdowns instead of clock picker](https://trello.com/c/5zFnJ7zj/400-replace-time-selection-with-dropdowns-instead-of-clock-picker)

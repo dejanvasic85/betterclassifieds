@@ -63,7 +63,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpGet]
-        public ActionResult BookTickets()
+        public ActionResult BookTickets(bool? paymentCancelled = null)
         {
             var ticketReservations = _eventManager.GetTicketReservations(_httpContext.With(s => s.Session).SessionID).ToList();
             var eventId = ticketReservations.FirstOrDefault().With(t => t.EventTicket.With(r => r.EventId));
@@ -95,7 +95,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 viewModel.ReservationExpiryMinutes = remainingTimeToCompleteBooking.Minutes;
                 viewModel.ReservationExpirySeconds = remainingTimeToCompleteBooking.Seconds;
             }
-
+            viewModel.PaymentCancelled = paymentCancelled;
 
             return View(viewModel);
         }
@@ -165,7 +165,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var payPalRequest = new EventBookingPayPalRequestFactory().CreatePaymentRequest(eventBooking,
                 eventBooking.EventBookingId.ToString(),
                 Url.ActionAbsolute("AuthorisePayPal", "Event").Build(),
-                Url.ActionAbsolute("CancelEventBooking", "Event").Build());
+                Url.ActionAbsolute("BookTickets", "Event", new { paymentCancelled = true }).Build());
 
             var response = _paymentService.SubmitPayment(payPalRequest);
 
@@ -186,7 +186,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             // Mark booking as paid in our database
             _eventManager.EventBookingPaymentCompleted(_eventBookingContext.EventBookingId, PaymentType.PayPal);
-            
+
             // Call paypal to let them know we completed our end
             _paymentService.CompletePayment(_eventBookingContext.EventBookingPaymentReference, payerId,
                 eventBooking.UserId, eventBooking.TotalCost, eventBooking.EventBookingId.ToString(), TransactionTypeName.EventBookingTickets);

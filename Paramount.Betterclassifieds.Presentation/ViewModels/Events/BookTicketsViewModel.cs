@@ -64,5 +64,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string EventPhoto { get; set; }
         public string Location { get; set; }
         public bool SendEmailToGuests { get; set; }
+        public bool? PaymentCancelled { get; set; }
     }
 }

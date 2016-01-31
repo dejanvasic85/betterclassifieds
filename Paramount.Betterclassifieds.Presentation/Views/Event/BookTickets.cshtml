@@ -17,13 +17,20 @@
 <div id="bookTicketsView" class="event-book-tickets container top-buffer-60">
     <h2>Ticket Checkout</h2>
 
+    @if (Model.PaymentCancelled.HasValue && Model.PaymentCancelled.Value)
+    {
+        <div class="alert alert-info">
+            <i class="fa fa-check-circle"></i> Your payment has been cancelled successfully. 
+        </div>
+    }
+
     <form data-bind="submit: submitTicketBooking" id="bookTicketsForm">
 
         @*Count down timer*@
         <div class="row reservation-countdown" data-bind="visible: canContinue">
             <div class="col-xs-12">
                 <div class="alert alert-warning">
-                    Your tickets have been reserved for @Model.TotelReservationExpiryMinutes minutes.
+                    <i class="fa fa-warning"></i> Your tickets have been reserved for @Model.TotelReservationExpiryMinutes minutes.
                     Please confirm your ticket selection, details and payment.
                 </div>
 

@@ -160,7 +160,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var controller = BuildController();
             controller.ModelState.AddModelError("EventId", "EventId must be specified");
 
-            var result = controller.BookTickets(null);
+            var result = controller.BookTickets();
 
             var jsonResult = result.IsTypeOf<JsonResult>();
             jsonResult.JsonResultContainsErrors();

@@ -36,6 +36,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public long TimeZoneDaylightSavingsOffsetSeconds { get; set; }
         public long TimeZoneUtcOffsetSeconds { get; set; }
 
+        public string LocationFloorPlanDocumentId { get; set; }
+
         public string EventPhoto { get; set; }
 
         [Required]

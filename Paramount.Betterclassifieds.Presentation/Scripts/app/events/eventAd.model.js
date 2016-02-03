@@ -58,6 +58,7 @@
         me.location = ko.observable(data.location);
         me.locationLatitude = ko.observable(data.locationLatitude);
         me.locationLongitude = ko.observable(data.locationLongitude);
+        me.locationFloorPlanDocumentId = ko.observable(data.locationFloorPlanDocumentId);
         me.eventStartDate = ko.observable(data.eventStartDate);
         me.eventStartTime = ko.observable(data.eventStartTime);
         me.eventEndDate = ko.observable(data.eventEndDate);

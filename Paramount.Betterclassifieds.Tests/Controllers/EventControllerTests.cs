@@ -153,19 +153,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             result.IsTypeOf<ViewResult>();
             result.ViewResultModelIsTypeOf<BookTicketsViewModel>();
         }
-
-        [Test]
-        public void BookTickets_Post_WithModelStateErrors_ReturnsJsonErrors()
-        {
-            var controller = BuildController();
-            controller.ModelState.AddModelError("EventId", "EventId must be specified");
-
-            var result = controller.BookTickets();
-
-            var jsonResult = result.IsTypeOf<JsonResult>();
-            jsonResult.JsonResultContainsErrors();
-        }
-
+        
         [Test]
         public void BookTickets_Post_UserIsAuthenticated_BookingIsActive_ReturnsJsonResult()
         {

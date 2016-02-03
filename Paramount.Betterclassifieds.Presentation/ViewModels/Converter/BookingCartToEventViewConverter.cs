@@ -57,6 +57,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             eventViewModel.Location = bookingCart.Event.Location;
             eventViewModel.LocationLatitude = bookingCart.Event.LocationLatitude;
             eventViewModel.LocationLongitude = bookingCart.Event.LocationLongitude;
+            eventViewModel.LocationFloorPlanDocumentId = bookingCart.Event.LocationFloorPlanDocumentId;
+            eventViewModel.LocationFloorPlanFilename = bookingCart.Event.LocationFloorPlanFilename;
 
             return eventViewModel;
         }

@@ -75,11 +75,32 @@
                 .First(postedFile => postedFile != null && postedFile.ContentLength != 0);
 
             // Store on the disk for now to see if this will work
-            var fileName = string.Format("{0}.jpg", Guid.NewGuid());
+            var fileName = $"{Guid.NewGuid()}.jpg";
 
-            uploadedFile.SaveAs(string.Format("{0}{1}", _applicationConfig.ImageCropDirectory.FullName, fileName));
+            uploadedFile.SaveAs($"{_applicationConfig.ImageCropDirectory.FullName}{fileName}");
 
             return Json(new { documentId = fileName }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult UploadEventFloorplanUrl()
+        {
+            var uploadedFile = Request.Files.Cast<string>()
+                .Select(file => Request.Files[file].As<HttpPostedFileBase>())
+                .FirstOrDefault(postedFile => postedFile != null && postedFile.ContentLength != 0);
+            
+            if (uploadedFile == null)
+                throw new ArgumentNullException("There seems to be no uploaded file");
+
+            if (uploadedFile.ContentLength > _applicationConfig.MaxImageUploadBytes)
+            {
+                return Json(new { errorMsg = "The file exceeds the maximum file size." });
+            }
+            
+            var floorplanDocument = new Document(Guid.NewGuid(), uploadedFile.InputStream.FromStream(), uploadedFile.ContentType,
+                uploadedFile.FileName, uploadedFile.ContentLength, this.User.Identity.Name);
+
+            return Json(new { floorplanDocument.DocumentId, floorplanDocument.FileName });
         }
 
         public ActionResult RenderCropImage(string fileName)

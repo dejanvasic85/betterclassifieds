@@ -13,8 +13,6 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 
-
-
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     [Authorize]
@@ -276,6 +274,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 Location = eventDetails.Location,
                 LocationLatitude = eventDetails.LocationLatitude,
                 LocationLongitude = eventDetails.LocationLongitude,
+                LocationFloorPlanDocumentId = eventDetails.LocationFloorPlanDocumentId,
+                LocationFloorPlanFilename = eventDetails.LocationFloorPlanFilename,
                 OrganiserName = adDetails.ContactName,
                 OrganiserPhone = adDetails.ContactPhone,
                 AdStartDate = _dateService.ConvertToString(adDetails.StartDate),
@@ -302,7 +302,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 viewModel.LocationLongitude,
                 viewModel.OrganiserName,
                 viewModel.OrganiserPhone,
-                _dateService.ConvertFromString(viewModel.AdStartDate));
+                _dateService.ConvertFromString(viewModel.AdStartDate),
+                viewModel.LocationFloorPlanDocumentId,
+                viewModel.LocationFloorPlanFilename);
 
             return Json(true);
         }

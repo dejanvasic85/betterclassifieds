@@ -125,10 +125,32 @@
                     <div class="well" style="min-height: 200px" id="LocationMap"></div>
                 </div>
 
+                @*Location (venue) floor map*@
                 <div class="col-xs-12">
                     <div class="form-group-lg">
-                        <label class="control-label">&nbsp; Floor Map</label>
-                        <input type="hidden" data-bind="value: locationFloorDocumentId" />
+                        <label class="control-label">&nbsp; Floor Plan</label>
+                        <input type="hidden" data-bind="value: locationFloorPlanDocumentId" />
+
+                        <div class="well text-center">
+                            <i class="fa fa-map-o"></i>&nbsp; Upload a floor plan of your venue
+                            to provide more information to users while they book your tickets.
+
+                            <div class="top-buffer-20">
+                                <h3>
+                                    <span class="label label-info" data-bind="text: locationFloorPlanFilename()"></span>
+                                </h3>
+                                <span class="btn btn-success fileinput-button">
+                                    <i class="fa fa-upload"></i>&nbsp; Upload floor plan
+                                    <input id="locationFloorUpload" type="file" name="files[]" multiple>
+                                </span>
+                                <div id="locationFloorUploadProgress" class="progress progress-striped active">
+                                    <div class="progress-bar active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                                        <span>Uploading...</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

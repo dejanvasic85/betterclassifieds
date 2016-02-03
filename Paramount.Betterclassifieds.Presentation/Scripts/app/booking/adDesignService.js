@@ -92,6 +92,10 @@
 
         return $.getJSON(url);
     }
+    
+    AdDesignService.prototype.eventUploadFloorplanUrl = function() {
+        return me.baseUrl + '';
+    }
 
     $paramount.AdDesignService = AdDesignService;
     

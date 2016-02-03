@@ -35,6 +35,10 @@ var $paramount = (function (me, $) {
         return this.baseUrl + 'Image/UploadOnlineImage';
     }
 
+    ImageService.prototype.getUploadEventFloorplanUrl = function () {
+        return this.baseUrl + 'Image/UploadEventFloorplanUrl';
+    }
+
     me.ImageService = ImageService;
 
     // Return the module/namespace

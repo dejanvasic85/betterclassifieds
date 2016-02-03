@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Web;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
@@ -68,6 +66,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             bookingCart.Event.TimeZoneName = eventViewModel.TimeZoneName;
             bookingCart.Event.TimeZoneDaylightSavingsOffsetSeconds = eventViewModel.TimeZoneDaylightSavingsOffsetSeconds;
             bookingCart.Event.TimeZoneUtcOffsetSeconds = eventViewModel.TimeZoneUtcOffsetSeconds;
+            bookingCart.Event.LocationFloorPlanDocumentId = eventViewModel.LocationFloorPlanDocumentId;
+            bookingCart.Event.LocationFloorPlanFilename = eventViewModel.LocationFloorPlanFilename;
 
             // Schedule
             bookingCart.SetSchedule(_clientConfig, _dateService.ConvertFromString(eventViewModel.AdStartDate));

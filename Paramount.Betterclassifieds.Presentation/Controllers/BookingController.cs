@@ -409,6 +409,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             // Fetches the Timezone information selected for the map / address from google map
             if (eventViewModel.LocationLatitude.HasValue && eventViewModel.LocationLongitude.HasValue)
             {
+#if !DEBUG
                 var result = _locationService.GetTimezone(eventViewModel.LocationLatitude.Value, eventViewModel.LocationLongitude.Value);
                 if (result.IsOk())
                 {
@@ -417,6 +418,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                     eventViewModel.TimeZoneDaylightSavingsOffsetSeconds = result.DstOffset;
                     eventViewModel.TimeZoneUtcOffsetSeconds = result.RawOffset;
                 }
+#endif
             }
 
             this.Map(eventViewModel, bookingCart);

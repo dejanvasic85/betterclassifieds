@@ -35,9 +35,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string TimeZoneName { get; set; }
         public long TimeZoneDaylightSavingsOffsetSeconds { get; set; }
         public long TimeZoneUtcOffsetSeconds { get; set; }
-
-        public string LocationFloorPlanDocumentId { get; set; }
-
+        
         public string EventPhoto { get; set; }
 
         [Required]
@@ -60,7 +58,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string OrganiserPhone { get; set; }
 
         public bool TicketingEnabled { get; set; }
-
+        public string LocationFloorPlanDocumentId { get; set; }
+        public string LocationFloorPlanFilename { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

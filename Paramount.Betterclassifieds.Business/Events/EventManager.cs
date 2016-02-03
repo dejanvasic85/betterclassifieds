@@ -297,7 +297,10 @@ namespace Paramount.Betterclassifieds.Business.Events
             _eventRepository.UpdateEvent(eventModel);
         }
 
-        public void UpdateEventDetails(int adId, int eventId, string title, string description, string htmlText, DateTime eventStartDate, DateTime eventEndDateTime, string location, decimal? locationLatitude, decimal? locationLongitude, string organiserName, string organiserPhone, DateTime adStartDate)
+        public void UpdateEventDetails(int adId, int eventId, string title, string description, string htmlText,
+            DateTime eventStartDate, DateTime eventEndDateTime, string location, decimal? locationLatitude,
+            decimal? locationLongitude, string organiserName, string organiserPhone, DateTime adStartDate,
+            string floorPlanDocumentId, string locationFloorPlanFilename)
         {
             var originalEventDetails = _eventRepository.GetEventDetails(eventId);
             var onlineAd = _bookingManager.GetOnlineAd(adId);
@@ -310,16 +313,22 @@ namespace Paramount.Betterclassifieds.Business.Events
                 originalEventDetails.EventStartDate = eventStartDate;
                 originalEventDetails.EventEndDate = eventEndDateTime;
                 originalEventDetails.Location = location;
+                originalEventDetails.LocationFloorPlanDocumentId = floorPlanDocumentId;
+                originalEventDetails.LocationFloorPlanFilename = locationFloorPlanFilename;
+
 
                 if (locationLatitude.HasValue && originalEventDetails.LocationLatitude != locationLatitude &&
                     locationLongitude.HasValue && originalEventDetails.LocationLongitude != locationLongitude)
                 {
+                    // Only perform this in non-debug scenario so that we don't have to waste the timezone look ups for development environments
+#if !DEBUG
                     // Update the timezone info using the location service
                     var timezoneResult = _locationService.GetTimezone(locationLatitude.Value, locationLongitude.Value);
                     originalEventDetails.TimeZoneId = timezoneResult.TimeZoneId;
                     originalEventDetails.TimeZoneName = timezoneResult.TimeZoneName;
                     originalEventDetails.TimeZoneDaylightSavingsOffsetSeconds = timezoneResult.DstOffset;
                     originalEventDetails.TimeZoneUtcOffsetSeconds = timezoneResult.RawOffset;
+#endif
                 }
 
                 originalEventDetails.LocationLatitude = locationLatitude;
@@ -332,12 +341,9 @@ namespace Paramount.Betterclassifieds.Business.Events
             onlineAd.ContactName = organiserName;
             onlineAd.ContactPhone = organiserPhone;
 
-
             _bookingManager.UpdateOnlineAd(adId, onlineAd);
             _eventRepository.UpdateEvent(originalEventDetails);
             _bookingManager.UpdateSchedule(adId, adStartDate);
         }
     }
-
-
 }

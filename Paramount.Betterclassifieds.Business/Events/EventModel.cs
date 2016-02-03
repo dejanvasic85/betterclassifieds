@@ -29,6 +29,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         public DateTime? ClosingDate { get; set; }
         public DateTime? ClosingDateUtc { get; set; }
         public string LocationFloorPlanDocumentId { get; set; }
+        public string LocationFloorPlanFilename { get; set; }
 
         public bool IsClosed
         {

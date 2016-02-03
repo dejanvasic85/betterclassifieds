@@ -20,7 +20,7 @@
     }
 
     $paramount.CATEGORY_AD_TYPE = {
-        EVENT : 'Event'
+        EVENT: 'Event'
     }
 
     // Lazy loading for mobile checking
@@ -87,6 +87,7 @@
         options.progressBar = options.progressBar || $('<div><span class=".progress-bar"></span></div>'); // Todo - popup a real progress bar somewhere
         options.progressBar.hide();
         options.complete = options.complete || function () { };
+        options.completeWithDetails = options.completeWithDetails || function () { };
         options.start = options.start || function () { };
         options.error = options.error || function () { };
 
@@ -100,6 +101,7 @@
         upload.on('fileuploaddone', function (e, data) {
             if (data.result.documentId) {
                 options.complete(data.result.documentId);
+                options.completeWithDetails(data.result);
             } else {
                 options.error(data.result.errorMsg);
             }

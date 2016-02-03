@@ -1,7 +1,7 @@
 ﻿/*
  * jQuery UI hooks to elements for editing details for an Event Ad
  */
-(function ($, ko, $paramount) {
+(function ($, ko, $paramount, notifier) {
 
     var $eventEditor = $('#eventEditor');
     $paramount.ui = $paramount.ui || {};
@@ -77,6 +77,20 @@
                         });
                 });
 
+                $paramount.upload({
+                    url: imageService.getUploadEventFloorplanUrl(),
+                    element: $eventEditor.find('#locationFloorUpload'),
+                    progressBar: $eventEditor.find('#locationFloorUploadProgress'),
+                    completeWithDetails : function(doc) {
+                        eventDetailsModel.locationFloorPlanDocumentId(doc.documentId);
+                        eventDetailsModel.locationFloorPlanFilename(doc.fileName);
+                    },
+                    error : function(errorMsg) {
+                        eventDetailsModel.locationFloorPlanDocumentId(null);
+                        notifier.error(errorMsg);
+                    }
+                });
+
                 $eventEditor.find('#eventForm').on('submit', function (e) {
                     // Todo - refactor this crap and use knockout validation instead
                     if ($(this).valid() === false
@@ -101,4 +115,4 @@
         }
     }
 
-})(jQuery, ko, $paramount);
+})(jQuery, ko, $paramount, toastr);

@@ -9,15 +9,18 @@
 {
     <script>
         var ticketData = @Html.Raw( Model.Tickets.ToJsonString() );
-
         $paramount.ui.eventView.init({
             ticketData : ticketData,
             maxTicketsPerBooking : @Model.MaxTicketsPerBooking,
             baseUrl : '@Url.Action("Index", "Home")',
-            eventId : @Model.EventId
-            });
+            eventId : @Model.EventId,
+            floorPlanDocumentId : '@Model.LocationFloorPlanDocumentId',
+            floorPlanFileName : '@Model.LocationFloorPlanFilename'
+        });
     </script>
 }
+
+@Html.Partial("_FloorPlanDialogDialog")
 
 <div class="event-details">
     <div class="event-title">
@@ -45,9 +48,8 @@
             @if (Model.TicketingEnabled)
             {
                 <div class="col-md-6 ticketing" id="ticketing">
-
                     @if (Model.TicketingEnabled && !Model.IsClosed)
-                {
+                    {
                         <h3>
                             <i class="fa fa-ticket"></i> Tickets
                         </h3>
@@ -74,16 +76,22 @@
                             </li>
                         </ul>
 
-                        <div class="panel-footer clearfix" data-bind="visible: totalSelectedTickets() > 0">
+                        <div class="well" data-bind="visible: totalSelectedTickets() > 0">
                             <button class="btn btn-primary pull-right" data-loading-text="Please Wait..." data-bind="click: startOrder">
                                 Get Tickets <i class="fa fa-arrow-right"></i>
                             </button>
+                        </div>
+                        
+                        <div class="text-center">
+                            <a class="btn btn-block btn-default" data-toggle="modal" id="btnViewFloorplan" data-target="#floorplanDialog">
+                                <i class="fa fa-map"></i> View Floor Plan / Seating
+                            </a>
                         </div>
                     }
 
 
                     @if (Model.IsClosed)
-                {
+                    {
                         <div class="panel panel-body">
                             <div class="well">
                                 The ticketing has been closed for this event. Please

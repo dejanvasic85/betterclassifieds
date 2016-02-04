@@ -310,12 +310,12 @@ namespace Paramount.Betterclassifieds.Business.Events
 
             if (IsEventEditable(eventId))
             {
+                // Only the following details will allowed to be changed if the event has started
                 originalEventDetails.EventStartDate = eventStartDate;
                 originalEventDetails.EventEndDate = eventEndDateTime;
                 originalEventDetails.Location = location;
-                originalEventDetails.LocationFloorPlanDocumentId = floorPlanDocumentId;
-                originalEventDetails.LocationFloorPlanFilename = locationFloorPlanFilename;
-
+                originalEventDetails.LocationLatitude = locationLatitude;
+                originalEventDetails.LocationLongitude = locationLongitude;
 
                 if (locationLatitude.HasValue && originalEventDetails.LocationLatitude != locationLatitude &&
                     locationLongitude.HasValue && originalEventDetails.LocationLongitude != locationLongitude)
@@ -330,16 +330,16 @@ namespace Paramount.Betterclassifieds.Business.Events
                     originalEventDetails.TimeZoneUtcOffsetSeconds = timezoneResult.RawOffset;
 #endif
                 }
-
-                originalEventDetails.LocationLatitude = locationLatitude;
-                originalEventDetails.LocationLongitude = locationLongitude;
-                onlineAd.Heading = title;
+                 
+                onlineAd.Heading = title; // This is used for ticketing so cannot change!
             }
 
-            onlineAd.Description = description;
+            onlineAd.Description = description; 
             onlineAd.HtmlText = htmlText;
             onlineAd.ContactName = organiserName;
             onlineAd.ContactPhone = organiserPhone;
+            originalEventDetails.LocationFloorPlanDocumentId = floorPlanDocumentId;
+            originalEventDetails.LocationFloorPlanFilename = locationFloorPlanFilename;
 
             _bookingManager.UpdateOnlineAd(adId, onlineAd);
             _eventRepository.UpdateEvent(originalEventDetails);

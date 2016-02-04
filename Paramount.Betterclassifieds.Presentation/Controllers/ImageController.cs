@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Presentation.Controllers
+﻿using System.Collections.Generic;
+
+namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     using Business;
     using Business.DocumentStorage;
@@ -88,17 +90,27 @@
             var uploadedFile = Request.Files.Cast<string>()
                 .Select(file => Request.Files[file].As<HttpPostedFileBase>())
                 .FirstOrDefault(postedFile => postedFile != null && postedFile.ContentLength != 0);
-            
+
             if (uploadedFile == null)
                 throw new ArgumentNullException("There seems to be no uploaded file");
+
+            // We accept pdf and images for floor plans
+            // and then handle it in javascript (see eventView.ui)
+            var acceptedImages = new List<string> { ContentType.Pdf }.Union(_applicationConfig.AcceptedImageFileTypes);
+            if (!acceptedImages.Any(accepted => accepted.Equals(uploadedFile.ContentType, StringComparison.OrdinalIgnoreCase)))
+            {
+                return Json(new { errorMsg = "Not an accepted file type." });
+            }
 
             if (uploadedFile.ContentLength > _applicationConfig.MaxImageUploadBytes)
             {
                 return Json(new { errorMsg = "The file exceeds the maximum file size." });
             }
-            
+
             var floorplanDocument = new Document(Guid.NewGuid(), uploadedFile.InputStream.FromStream(), uploadedFile.ContentType,
                 uploadedFile.FileName, uploadedFile.ContentLength, this.User.Identity.Name);
+
+            _documentRepository.Save(floorplanDocument);
 
             return Json(new { floorplanDocument.DocumentId, floorplanDocument.FileName });
         }
@@ -188,5 +200,6 @@
             img.Save(stream, ImageFormat.Png);
             return File(stream.ToArray(), ContentType.Png);
         }
+        
     }
 }

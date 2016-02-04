@@ -23,6 +23,8 @@
         public string Posted { get; set; }
         public EventTicketViewModel[] Tickets { get; set; }
         public bool IsClosed { get; set; }
+        public string LocationFloorPlanDocumentId { get; set; }
+        public string LocationFloorPlanFilename { get; set; }
 
         public bool TicketingEnabled
         {

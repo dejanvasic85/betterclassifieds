@@ -125,17 +125,6 @@
         });
 
         upload.on('fileuploadadd', function (e, data) {
-            var acceptFileTypes = /^image\/(gif|jpe?g|png)$/i;
-            if (data.originalFiles[0]['type'].length && !acceptFileTypes.test(data.originalFiles[0]['type'])) {
-                options.error('Not an accepted file type.');
-                return false;
-            }
-
-            if (data.originalFiles[0].size > '@Model.MaxImageUploadBytes') {
-                options.error("The file exceeds the maximum file size.");
-                return false;
-            }
-
             if (data.files.length > 1) {
                 options.error("Please select one image at a time.");
                 return false;

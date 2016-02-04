@@ -204,6 +204,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\EditAdController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EventController.cs" />
@@ -800,6 +801,7 @@
     <Content Include="Views\Shared\_Layout.SriLankanEvents.cshtml" />
     <Content Include="Views\Home\Index.SriLankanEvents.cshtml" />
     <Content Include="Views\EditAd\EventDetails.cshtml" />
+    <Content Include="Views\Event\_FloorPlanDialogDialog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Framework\Validators\" />

@@ -1,0 +1,23 @@
+﻿@using Paramount
+@model EventViewDetailsModel
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="floorplanDialog" aria-hidden="true" id="floorplanDialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Venue Floor Plan</h4>
+            </div>
+
+            <div class="modal-body">
+                <img class="hidden-xs img-responsive" src="@Url.Image(Model.LocationFloorPlanDocumentId, height: 500, width: 500)"/>
+                <img class="visible-xs img-responsive" src="@Url.Image(Model.LocationFloorPlanDocumentId, height: 300, width: 300)" />
+            </div>
+
+            <div class="modal-footer text-right">
+                <button class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

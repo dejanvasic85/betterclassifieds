@@ -7,9 +7,7 @@
     $paramount.ui = $paramount.ui || {};
     $paramount.ui.eventView = {
         init: function (options) {
-            // On Ready
             $(function () {
-                // Fetch the ticketing details
                 if (options.ticketData) {
                     var ticketingInterface = document.getElementById('ticketing');
                     var eventService = new $paramount.EventService(options.baseUrl);
@@ -20,6 +18,17 @@
                     });
 
                     ko.applyBindings(ticketBookingModel, ticketingInterface);
+                }
+
+                if (options.floorPlanDocumentId === '') {
+                    $('#btnViewFloorplan').hide();
+                } else if(options.floorPlanFileName.endsWith('.pdf')) {
+                    var url = $paramount.baseUrl + 'Document/File/' + options.floorPlanDocumentId;
+                    $('#btnViewFloorplan')
+                        .removeAttr('data-target')
+                        .removeAttr('data-toggle')
+                        .attr('target', '_blank')
+                        .attr('href', url);
                 }
             });
         }

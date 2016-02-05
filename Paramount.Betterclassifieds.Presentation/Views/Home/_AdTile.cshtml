@@ -5,17 +5,18 @@
 <div class="col-sm-4 col-xs-12">
     <div class="col-item">
         <div class="photo">
-            @if (string.IsNullOrEmpty(Model.PrimaryImage))
+            <a href="@Url.AdUrl(Model.HeadingSlug, Model.AdId, routeName: Model.CategoryAdType)">
+                @if (string.IsNullOrEmpty(Model.PrimaryImage))
             {
-                <div class="ico-img">   
-                    <i class="fa fa-@Model.CategoryFontIcon fa-5x"></i>
-                </div>
-            }
-            else
-            {
-                <img src="@Url.Image(Model.PrimaryImage, 200, 624)" class="img-responsive" alt="a" />
-            }
-            
+                    <div class="ico-img">
+                        <i class="fa fa-@Model.CategoryFontIcon fa-5x"></i>
+                    </div>
+                }
+                else
+                {
+                    <img src="@Url.Image(Model.PrimaryImage, 200, 624)" class="img-responsive" alt="a" />
+                }
+            </a>
         </div>
         <div class="info">
             <div class="row">

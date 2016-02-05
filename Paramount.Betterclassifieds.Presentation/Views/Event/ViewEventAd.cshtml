@@ -20,6 +20,7 @@
     </script>
 }
 
+
 @Html.Partial("_FloorPlanDialogDialog")
 
 <div class="event-details">
@@ -32,8 +33,16 @@
                 <i class="fa fa-calendar-check-o"></i> @Model.EventStartDate at @Model.EventStartTime.
             </p>
             <p>
-                <i class="fa fa-map-marker"></i>  @Model.Location
+                <i class="fa fa-map-marker"></i> @Model.Location
             </p>
+
+            <div class="pull-right social-share">
+                <a class="btn btn-default btn-lg"><i class="fa fa-twitter"></i></a>
+                <a class="btn btn-default btn-lg"><i class="fa fa-facebook"></i></a>
+                <a class="btn btn-default btn-lg"><i class="fa fa-linkedin"></i></a>
+                <a class="btn btn-default btn-lg"><i class="fa fa-google-plus"></i></a>
+                <a class="btn btn-default btn-lg"><i class="fa fa-envelope"></i></a>
+            </div>
         </div>
     </div>
 
@@ -148,3 +157,18 @@
     </div>
 
 </div>
+
+
+@section HeadSection
+{
+    <link rel="canonical" href="@Url.AdUrl(Model.TitleSlug, Model.AdId, true, routeName: Model.CategoryEventType)" />
+    <meta name="description" content="@Model.Description" />
+    <meta http-equiv="Content-Language" content="en" />
+    <meta name="robots" content="index, follow" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="@Model.Title" />
+    <meta name="twitter:description" content="@Model.Description" />
+    <meta name="twitter:image" content="@Url.ImageOriginal(Model.EventPhoto)" />
+
+}

@@ -32,5 +32,8 @@
         }
 
         public int MaxTicketsPerBooking { get; set; }
+        public string Description { get; set; }
+        public string TitleSlug { get; set; }
+        public string CategoryEventType { get; set; }
     }
 }

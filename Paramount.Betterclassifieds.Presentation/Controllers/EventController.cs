@@ -309,6 +309,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 .ForMember(m => m.Posted, options => options.PreCondition(src => src.BookingDate.HasValue))
                 .ForMember(m => m.Posted, options => options.MapFrom(src => src.BookingDate.Value.Humanize(false, null)))
                 .ForMember(m => m.Title, options => options.MapFrom(src => src.Heading))
+                .ForMember(m => m.TitleSlug, options => options.MapFrom(src => src.HeadingSlug))
                 .ForMember(m => m.OrganiserName, options => options.MapFrom(src => src.ContactName))
                 .ForMember(m => m.OrganiserPhone, options => options.MapFrom(src => src.ContactPhone))
                 .ForMember(m => m.Views, options => options.MapFrom(src => src.NumOfViews))

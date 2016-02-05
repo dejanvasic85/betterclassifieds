@@ -4,6 +4,8 @@
 @{
     ViewBag.Title = Model.Title;
     Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
+    var adUrl = Url.AdUrl(Model.TitleSlug, Model.AdId, true, routeName: Model.CategoryEventType);
+    var adUrlEncoded = Server.HtmlEncode(adUrl);
 }
 @section scripts
 {
@@ -37,7 +39,7 @@
             </p>
 
             <div class="pull-right social-share">
-                <a class="btn btn-default btn-lg"><i class="fa fa-twitter"></i></a>
+                <a class="btn btn-default btn-lg" href="http://twitter.com/share?url=@adUrlEncoded" target="_blank"><i class="fa fa-twitter"></i></a>
                 <a class="btn btn-default btn-lg"><i class="fa fa-facebook"></i></a>
                 <a class="btn btn-default btn-lg"><i class="fa fa-linkedin"></i></a>
                 <a class="btn btn-default btn-lg"><i class="fa fa-google-plus"></i></a>
@@ -161,7 +163,7 @@
 
 @section HeadSection
 {
-    <link rel="canonical" href="@Url.AdUrl(Model.TitleSlug, Model.AdId, true, routeName: Model.CategoryEventType)" />
+    <link rel="canonical" href="@adUrl" />
     <meta name="description" content="@Model.Description" />
     <meta http-equiv="Content-Language" content="en" />
     <meta name="robots" content="index, follow" />

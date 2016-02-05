@@ -520,6 +520,75 @@ input[readonly] {
     }
 }
 
+
+/*
+    home featured
+*/
+
+.home-featured {
+    background-color: @color_primary;
+    padding-bottom: 20px;
+
+    .thumbnail {
+        padding-top: 20px;
+    }
+
+    .col-item {
+        border: 1px solid @color_primary;
+        border-radius: 5px;
+        background: #FFF;
+
+        .photo {
+            img {
+                margin: 0 auto;
+                width: 100%;
+            }
+
+            .ico-img {
+                background-color: #eee;
+                width: 100%;
+                padding: 40px 0;
+                text-align: center;
+            }
+        }
+
+        .info {
+            padding: 10px;
+            border-radius: 0 0 5px 5px;
+            margin-top: 1px;
+        }
+
+        .price h5 {
+            line-height: 20px;
+            margin: 0;
+        }
+
+        .separator {
+            border-top: 1px solid @color_primary;
+            padding-top: 5px;
+
+            p {
+                line-height: 20px;
+                margin-bottom: 0;
+                margin-top: 10px;
+                text-align: center;
+            }
+        }
+
+        p i {
+            margin-right: 5px;
+        }
+    }
+
+    .controls {
+        margin-top: 20px;
+    }
+
+    [data-slide="prev"] {
+        margin-right: 10px;
+    }
+}
+
 /*
     Small Devices
 */

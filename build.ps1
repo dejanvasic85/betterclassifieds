@@ -1,5 +1,4 @@
-$dotNetVersion = "4.0"
-$regKey = "HKLM:\software\Microsoft\MSBuild\ToolsVersions\$dotNetVersion"
+$regKey = "HKLM:\software\Microsoft\MSBuild\ToolsVersions\14.0"
 $regProperty = "MSBuildToolsPath"
 $msbuild = Join-Path -Path (Get-ItemProperty $regKey).$regProperty -ChildPath "msbuild.exe"
 $scriptPath = ( Split-Path $MyInvocation.MyCommand.Path ) 

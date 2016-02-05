@@ -55,6 +55,16 @@ namespace Paramount
             return new UrlBuilder(urlHelper, "Step" + bookingStep, "Booking", new { adType });
         }
 
+        public static UrlBuilder Booking(this UrlHelper urlHelper, string seoName)
+        {
+            return new UrlBuilder(urlHelper, "SeoAds", "Listings", new { seoName });
+        }
+
+        public static UrlBuilder Search(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper, "Find", "Listings");
+        }
+
         public static UrlBuilder ImageUpload(this UrlHelper urlHelper)
         {
             return new UrlBuilder(urlHelper, "UploadCropImage", "Image");

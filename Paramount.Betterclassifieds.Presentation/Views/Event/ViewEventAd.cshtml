@@ -6,6 +6,8 @@
     Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
     var adUrl = Url.AdUrl(Model.TitleSlug, Model.AdId, true, routeName: Model.CategoryEventType);
     var adUrlEncoded = Server.HtmlEncode(adUrl);
+    var socialShareText = "This looks good '" + Server.HtmlEncode(Model.Title) + "' at " + adUrl;
+    var socialShareTextEncoded = Server.HtmlEncode(socialShareText);
 }
 @section scripts
 {
@@ -39,11 +41,16 @@
             </p>
 
             <div class="pull-right social-share">
-                <a class="btn btn-default btn-lg" href="http://twitter.com/share?url=@adUrlEncoded" target="_blank"><i class="fa fa-twitter"></i></a>
-                <a class="btn btn-default btn-lg"><i class="fa fa-facebook"></i></a>
+                @*Facebook*@
+                <a class="btn btn-default btn-lg" href="https://www.facebook.com/sharer/sharer.php?u=hello" target="_blank"><i class="fa fa-facebook"></i></a>
+                @*Twitter*@
+                <a class="btn btn-default btn-lg" href="http://twitter.com/share?text=@socialShareText" target="_blank"><i class="fa fa-twitter"></i></a>
+                @*Google Plus*@
+                <a class="btn btn-default btn-lg" href="https://plus.google.com/share?url=@adUrl"><i class="fa fa-google-plus"></i></a>
+                @*Linked in*@
                 <a class="btn btn-default btn-lg"><i class="fa fa-linkedin"></i></a>
-                <a class="btn btn-default btn-lg"><i class="fa fa-google-plus"></i></a>
-                <a class="btn btn-default btn-lg"><i class="fa fa-envelope"></i></a>
+                @*Email*@
+                <a class="btn btn-default btn-lg" href="mailto:someone@example.com?Subject=@socialShareTextEncoded" target="_blank"><i class="fa fa-envelope"></i></a>
             </div>
         </div>
     </div>
@@ -163,11 +170,11 @@
 
 @section HeadSection
 {
-    <link rel="canonical" href="@adUrl" />
+    <link rel="canonical" href="@adUrl"/>
+
     <meta name="description" content="@Model.Description" />
     <meta http-equiv="Content-Language" content="en" />
     <meta name="robots" content="index, follow" />
-
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="@Model.Title" />
     <meta name="twitter:description" content="@Model.Description" />

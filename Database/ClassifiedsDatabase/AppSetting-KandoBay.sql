@@ -34,6 +34,8 @@ execute temp_createAppSetting @Key = 'ClientName', @Setting = 'KandoBay', @Force
 execute temp_createAppSetting @Key = 'EventTicketReservationExpiryMinutes', @Setting = '5'
 execute temp_createAppSetting @Key = 'EventMaxTicketsPerBooking', @Setting = '5'
 execute temp_createAppSetting @Key = 'EventTicketFee', @Setting = '4.9', @Force = 1
+execute temp_createAppSetting @Key = 'FacebookAppId', @Setting = '1277927518889183', @Force = 1
+
 
 drop procedure temp_createAppSetting
 

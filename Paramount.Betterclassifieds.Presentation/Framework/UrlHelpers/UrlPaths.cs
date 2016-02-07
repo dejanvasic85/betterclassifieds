@@ -52,7 +52,7 @@ namespace Paramount
 
         public static UrlBuilder ImageOriginal(this UrlHelper urlhelper, string documentId)
         {
-            return new UrlBuilder(urlhelper, "Render", "Image");
+            return new UrlBuilder(urlhelper, "Render", "Image", new { documentId });
         }
 
         public static UrlBuilder Booking(this UrlHelper urlHelper, int bookingStep, string adType = "")
@@ -110,6 +110,6 @@ namespace Paramount
             return new UrlBuilder(urlHelper, "UpdateEventDetails", "EditAd");
         }
 
-        
+
     }
 }

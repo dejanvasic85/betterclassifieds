@@ -317,7 +317,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 ;
 
             configuration.CreateMap<Business.Events.EventTicket, EventTicketViewModel>().ReverseMap();
-            configuration.CreateMap<Business.IClientConfig, EventViewDetailsModel>().ForMember(m => m.MaxTicketsPerBooking, options => options.MapFrom(src => src.EventMaxTicketsPerBooking));
+            configuration.CreateMap<Business.IClientConfig, EventViewDetailsModel>()
+                .ForMember(m => m.MaxTicketsPerBooking, options => options.MapFrom(src => src.EventMaxTicketsPerBooking))
+                .ForMember(m => m.FacebookAppId, options => options.MapFrom(src => src.FacebookAppId))
+                ;
             configuration.CreateMap<Business.Events.EventTicketReservation, EventTicketRequestViewModel>();
             configuration.CreateMap<Business.Events.EventTicketReservation, EventTicketReservedViewModel>()
                 .ForMember(m => m.Status, options => options.MapFrom(s => s.StatusAsString.Humanize()))

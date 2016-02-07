@@ -14,7 +14,7 @@
                     var ticketBookingModel = new $paramount.models.FindTickets(eventService, {
                         ticketData: options.ticketData,
                         maxTicketsPerBooking: options.maxTicketsPerBooking,
-                        eventId : options.eventId
+                        eventId: options.eventId
                     });
 
                     ko.applyBindings(ticketBookingModel, ticketingInterface);
@@ -22,7 +22,7 @@
 
                 if (options.floorPlanDocumentId === '') {
                     $('#btnViewFloorplan').hide();
-                } else if(options.floorPlanFileName.endsWith('.pdf')) {
+                } else if (options.floorPlanFileName.endsWith('.pdf')) {
                     var url = $paramount.baseUrl + 'Document/File/' + options.floorPlanDocumentId;
                     $('#btnViewFloorplan')
                         .removeAttr('data-target')
@@ -30,6 +30,17 @@
                         .attr('target', '_blank')
                         .attr('href', url);
                 }
+
+                var facebookShareData = _.extend({
+                    method: 'share'
+                }, options.social);
+                console.log(facebookShareData);
+
+                $('#shareOnFacebook').on('click', function () {
+                    FB.ui(facebookShareData, function (response) {
+                        console.log(response);
+                    });
+                });
             });
         }
     }

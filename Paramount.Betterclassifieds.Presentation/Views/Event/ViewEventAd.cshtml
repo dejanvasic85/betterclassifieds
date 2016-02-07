@@ -9,21 +9,6 @@
     var socialShareText = "This looks good '" + Server.HtmlEncode(Model.Title) + "' at " + adUrl;
     var socialShareTextEncoded = Server.HtmlEncode(socialShareText);
 }
-@section scripts
-{
-    <script>
-        var ticketData = @Html.Raw( Model.Tickets.ToJsonString() );
-        $paramount.ui.eventView.init({
-            ticketData : ticketData,
-            maxTicketsPerBooking : @Model.MaxTicketsPerBooking,
-            baseUrl : '@Url.Action("Index", "Home")',
-            eventId : @Model.EventId,
-            floorPlanDocumentId : '@Model.LocationFloorPlanDocumentId',
-            floorPlanFileName : '@Model.LocationFloorPlanFilename'
-        });
-    </script>
-}
-
 
 @Html.Partial("_FloorPlanDialogDialog")
 
@@ -41,14 +26,20 @@
             </p>
 
             <div class="pull-right social-share">
+                <div id="fb-root"></div>
+
                 @*Facebook*@
-                <a class="btn btn-default btn-lg" href="https://www.facebook.com/sharer/sharer.php?u=hello" target="_blank"><i class="fa fa-facebook"></i></a>
+                <a id="shareOnFacebook" class="btn btn-default btn-lg"><i class="fa fa-facebook"></i></a>
+
                 @*Twitter*@
                 <a class="btn btn-default btn-lg" href="http://twitter.com/share?text=@socialShareText" target="_blank"><i class="fa fa-twitter"></i></a>
+
                 @*Google Plus*@
                 <a class="btn btn-default btn-lg" href="https://plus.google.com/share?url=@adUrl"><i class="fa fa-google-plus"></i></a>
+
                 @*Linked in*@
                 <a class="btn btn-default btn-lg"><i class="fa fa-linkedin"></i></a>
+
                 @*Email*@
                 <a class="btn btn-default btn-lg" href="mailto:someone@example.com?Subject=@socialShareTextEncoded" target="_blank"><i class="fa fa-envelope"></i></a>
             </div>
@@ -170,7 +161,7 @@
 
 @section HeadSection
 {
-    <link rel="canonical" href="@adUrl"/>
+    <link rel="canonical" href="@adUrl" />
 
     <meta name="description" content="@Model.Description" />
     <meta http-equiv="Content-Language" content="en" />
@@ -180,4 +171,33 @@
     <meta name="twitter:description" content="@Model.Description" />
     <meta name="twitter:image" content="@Url.ImageOriginal(Model.EventPhoto)" />
 
+    <meta property="fb:app_id" content="@Model.FacebookAppId" />
+    <meta property="og:url" content="@adUrl" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="@Model.Title" />
+    <meta property="og:description" content="@Model.Description" />
+    <meta property="og:image" content="@Url.ImageOriginal(Model.EventPhoto)" />
+}
+
+
+@section scripts
+{
+    <script>
+        var ticketData = @Html.Raw(Model.Tickets.ToJsonString());
+        $paramount.ui.eventView.init({
+            ticketData: ticketData,
+            maxTicketsPerBooking: @Model.MaxTicketsPerBooking,
+            baseUrl: '@Url.Action("Index", "Home")',
+            eventId: @Model.EventId,
+            floorPlanDocumentId: '@Model.LocationFloorPlanDocumentId',
+            floorPlanFileName: '@Model.LocationFloorPlanFilename',
+            social : {
+                href: "@adUrl", 
+                picture: '@Url.ImageOriginal(Model.EventPhoto)',
+                name: '@Model.Title',
+                description: '@Model.Description'
+            }
+        });
+
+    </script>
 }

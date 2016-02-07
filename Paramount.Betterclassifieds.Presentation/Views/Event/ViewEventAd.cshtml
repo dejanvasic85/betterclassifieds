@@ -85,8 +85,8 @@
                             </li>
                         </ul>
 
-                        <div class="well" data-bind="visible: totalSelectedTickets() > 0">
-                            <button class="btn btn-primary pull-right" data-loading-text="Please Wait..." data-bind="click: startOrder">
+                        <div class="well  text-right" data-bind="visible: totalSelectedTickets() > 0">
+                            <button class="btn btn-primary" data-loading-text="Please Wait..." data-bind="click: startOrder">
                                 Get Tickets <i class="fa fa-arrow-right"></i>
                             </button>
                         </div>
@@ -169,14 +169,14 @@
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="@Model.Title" />
     <meta name="twitter:description" content="@Model.Description" />
-    <meta name="twitter:image" content="@Url.ImageOriginal(Model.EventPhoto)" />
+    <meta name="twitter:image" content="@Url.ImageOriginal(Model.EventPhoto).WithFullUrl()" />
 
     <meta property="fb:app_id" content="@Model.FacebookAppId" />
     <meta property="og:url" content="@adUrl" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="@Model.Title" />
     <meta property="og:description" content="@Model.Description" />
-    <meta property="og:image" content="@Url.ImageOriginal(Model.EventPhoto)" />
+    <meta property="og:image" content="@Url.ImageOriginal(Model.EventPhoto).WithFullUrl()" />
 }
 
 
@@ -193,7 +193,7 @@
             floorPlanFileName: '@Model.LocationFloorPlanFilename',
             social : {
                 href: "@adUrl", 
-                picture: '@Url.ImageOriginal(Model.EventPhoto)',
+                picture: '@Url.ImageOriginal(Model.EventPhoto).WithFullUrl()',
                 name: '@Model.Title',
                 description: '@Model.Description'
             }

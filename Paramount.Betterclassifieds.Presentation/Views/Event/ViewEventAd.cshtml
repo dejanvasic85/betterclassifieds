@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
     var adUrl = Url.AdUrl(Model.TitleSlug, Model.AdId, true, routeName: Model.CategoryEventType);
     var adUrlEncoded = Server.HtmlEncode(adUrl);
-    var socialShareText = "This looks good '" + Server.HtmlEncode(Model.Title) + "' at " + adUrl;
+    var socialShareText = "This looks good '" + Server.HtmlEncode(Model.Title) + "'";
     var socialShareTextEncoded = Server.HtmlEncode(socialShareText);
 }
 
@@ -32,7 +32,7 @@
                 <a id="shareOnFacebook" class="btn btn-default btn-lg"><i class="fa fa-facebook"></i></a>
 
                 @*Twitter*@
-                <a class="btn btn-default btn-lg" href="http://twitter.com/share?text=@socialShareText" target="_blank"><i class="fa fa-twitter"></i></a>
+                <a class="btn btn-default btn-lg" href="http://twitter.com/intent/tweet?text=@socialShareText&url=@adUrl" target="_blank"><i class="fa fa-twitter"></i></a>
 
                 @*Google Plus*@
                 <a class="btn btn-default btn-lg" href="https://plus.google.com/share?url=@adUrl"><i class="fa fa-google-plus"></i></a>

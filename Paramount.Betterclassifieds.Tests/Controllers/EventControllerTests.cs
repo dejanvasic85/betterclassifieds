@@ -41,6 +41,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _bookingManager.SetupWithVerification(call => call.IncrementHits(It.Is<int>(p => p == mockAd.AdId)));
             _eventManager.SetupWithVerification(call => call.GetEventDetailsForOnlineAdId(It.Is<int>(p => p == mockEventAd.OnlineAdId), It.Is<bool>(p => p == false)), mockEventAd);
             _clientConfig.SetupWithVerification(call => call.EventMaxTicketsPerBooking, 10);
+            _clientConfig.SetupWithVerification(call => call.FacebookAppId, "123");
 
             // act
             var result = BuildController().ViewEventAd(mockAd.AdId);

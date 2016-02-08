@@ -2,6 +2,7 @@ Here's a list of the latest changes:
 
 **3.0.2 Events Improvements and Feedback implementation**
 
+- [Enhancement - Sosial buttons are now available on the event details page](https://trello.com/c/JpIUpRf3/387-events-social-network-integration-to-share-the-even-with-friends)
 - [Enhancement - Floorplans can be uploaded and viewed by ticket buyers](https://trello.com/c/Vu8C25zU/399-upload-floor-plan-for-ticketing-management-booking-page-and-event-dashboard)
 - [Enhancement - Timezones are now being recorded as part of the event using the google timezone api](https://trello.com/c/t36EeUrZ/374-event-dates-should-be-considering-timezones)
 - [Enhancement - Now we have icons for each parent category](https://trello.com/c/Og378p0U/405-category-icons-so-they-can-be-used-on-the-home-page-and-no-image-ads)

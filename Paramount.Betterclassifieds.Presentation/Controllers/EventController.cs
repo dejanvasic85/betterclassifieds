@@ -224,7 +224,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 var ticketHtml = _templatingService.Generate(EventTicketPrintViewModel.Create(adDetails, eventDetails, eventBooking), "Tickets");
                 var ticketPdfData = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(ticketHtml);
 
-                var viewModel = new EventBookedViewModel(adDetails, eventDetails, eventBooking, this.Url);
+                var viewModel = new EventBookedViewModel(adDetails, eventDetails, eventBooking, this.Url, _clientConfig);
                 var eventTicketsBookedNotification = this.Map<EventBookedViewModel, EventTicketsBookedNotification>(viewModel)
                     .WithTickets(ticketPdfData);
 
@@ -304,18 +304,19 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 .ForMember(member => member.EventStartTime, options => options.ResolveUsing(src => src.EventStartDate.GetValueOrDefault().ToString("hh:mm tt")))
                 .ForMember(member => member.EventEndDate, options => options.ResolveUsing(src => src.EventEndDate.GetValueOrDefault().ToLongDateString()))
                 ;
-
             configuration.CreateMap<Business.Search.AdSearchResult, EventViewDetailsModel>()
                 .ForMember(m => m.Posted, options => options.PreCondition(src => src.BookingDate.HasValue))
                 .ForMember(m => m.Posted, options => options.MapFrom(src => src.BookingDate.Value.Humanize(false, null)))
+                .ForMember(m => m.EventUrl, options => options.MapFrom(src => Url.AdUrl(src.HeadingSlug, src.AdId, true, src.CategoryAdType)))
                 .ForMember(m => m.Title, options => options.MapFrom(src => src.Heading))
                 .ForMember(m => m.TitleSlug, options => options.MapFrom(src => src.HeadingSlug))
                 .ForMember(m => m.OrganiserName, options => options.MapFrom(src => src.ContactName))
                 .ForMember(m => m.OrganiserPhone, options => options.MapFrom(src => src.ContactPhone))
                 .ForMember(m => m.Views, options => options.MapFrom(src => src.NumOfViews))
                 .ForMember(m => m.EventPhoto, options => options.MapFrom(src => src.PrimaryImage))
+                .ForMember(m => m.EventPhotoUrl, options => options.MapFrom(src => Url.ImageOriginal(src.PrimaryImage).WithFullUrl()))
+                .ForMember(m => m.SocialShareText, options => options.MapFrom(src => "This looks good '" + Server.HtmlEncode(src.Heading) + "'"))
                 ;
-
             configuration.CreateMap<Business.Events.EventTicket, EventTicketViewModel>().ReverseMap();
             configuration.CreateMap<Business.IClientConfig, EventViewDetailsModel>()
                 .ForMember(m => m.MaxTicketsPerBooking, options => options.MapFrom(src => src.EventMaxTicketsPerBooking))

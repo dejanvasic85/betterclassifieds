@@ -402,6 +402,7 @@
     <Content Include="Scripts\app-global\google-map.js" />
     <Content Include="Scripts\app-global\ko-customBindings.js" />
     <Content Include="Scripts\app-global\ko-customValidation.js" />
+    <Content Include="Scripts\app-global\social.js" />
     <Content Include="Scripts\app\account\editAd.js" />
     <Content Include="Scripts\app\account\login.js" />
     <Content Include="Content\site.css.map">

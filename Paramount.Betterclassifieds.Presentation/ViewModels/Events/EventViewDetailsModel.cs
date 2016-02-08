@@ -25,16 +25,19 @@
         public bool IsClosed { get; set; }
         public string LocationFloorPlanDocumentId { get; set; }
         public string LocationFloorPlanFilename { get; set; }
-
-        public bool TicketingEnabled
-        {
-            get { return Tickets != null && Tickets.Length > 0; }
-        }
-
         public int MaxTicketsPerBooking { get; set; }
         public string Description { get; set; }
         public string TitleSlug { get; set; }
         public string CategoryEventType { get; set; }
         public string FacebookAppId { get; set; }
+        public string EventPhotoUrl { get; set; }
+        public string EventUrl { get; set; }
+        public string SocialShareText { get; set; }
+
+        public bool TicketingEnabled
+        {
+            get { return Tickets != null && Tickets.Length > 0; }
+        }
+       
     }
 }

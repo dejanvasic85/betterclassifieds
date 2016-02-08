@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Web;
 using System.Web.Mvc;
+using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
 
@@ -10,22 +12,35 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public EventBookedViewModel()
         { }
 
-        public EventBookedViewModel(AdSearchResult adDetails, EventModel eventDetails, EventBooking eventBooking, UrlHelper urlHelper)
+        public EventBookedViewModel(AdSearchResult adDetails, EventModel eventDetails, EventBooking eventBooking, UrlHelper urlHelper, IClientConfig clientConfig)
         {
-            EventName = adDetails.Heading;
             CustomerEmailAddress = eventBooking.Email;
             CustomerFirstName = eventBooking.FirstName;
             CustomerLastName = eventBooking.LastName;
             OrganiserName = adDetails.ContactName;
             OrganiserEmail = adDetails.ContactPhone;
-            EventUrl = urlHelper.AdUrl(adDetails.HeadingSlug, adDetails.AdId, includeSchemeAndProtocol: true, routeName: "Event");
             Address = eventDetails.Location;
             LocationLatitude = eventDetails.LocationLatitude;
             LocationLongitude = eventDetails.LocationLongitude;
             StartDateTime = eventDetails.EventStartDate.GetValueOrDefault();
             EndDateTime = eventDetails.EventEndDate.GetValueOrDefault();
+            EventPhoto = adDetails.PrimaryImage;
+
+            EventUrl = urlHelper.AdUrl(adDetails.HeadingSlug, adDetails.AdId, includeSchemeAndProtocol: true, routeName: "Event");
+            EventPhotoUrl = urlHelper.ImageOriginal(adDetails.PrimaryImage).WithFullUrl();
+            Title =  adDetails.Heading;
+            Description = adDetails.Description;
+            SocialShareText = "This looks good '" + HttpContext.Current.Server.HtmlEncode(adDetails.Heading) + "'";
+
+            FacebookAppId = clientConfig.FacebookAppId;
         }
 
+        public string FacebookAppId { get; set; }
+        public string Description { get; set; }
+        public string Title { get; set; }
+        public string SocialShareText { get; set; }
+        public string EventPhotoUrl { get; set; }
+        public string EventPhoto { get; set; }
         public string EventName { get; set; }
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }

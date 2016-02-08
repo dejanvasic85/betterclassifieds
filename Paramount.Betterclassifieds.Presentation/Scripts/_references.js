@@ -38,6 +38,7 @@
 /// <reference path="app-global/ko-customsubscribe.js" />
 /// <reference path="app-global/ko-customvalidation.js" />
 /// <reference path="app-global/site.js" />
+/// <reference path="app-global/social.js" />
 /// <reference path="app-global/ui.js" />
 /// <reference path="app-global/validation.js" />
 /// <reference path="ckeditor/adapters/jquery.js" />

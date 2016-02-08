@@ -30,17 +30,6 @@
                         .attr('target', '_blank')
                         .attr('href', url);
                 }
-
-                var facebookShareData = _.extend({
-                    method: 'share'
-                }, options.social);
-                console.log(facebookShareData);
-
-                $('#shareOnFacebook').on('click', function () {
-                    FB.ui(facebookShareData, function (response) {
-                        console.log(response);
-                    });
-                });
             });
         }
     }

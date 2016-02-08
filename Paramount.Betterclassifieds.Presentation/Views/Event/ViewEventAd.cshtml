@@ -4,10 +4,6 @@
 @{
     ViewBag.Title = Model.Title;
     Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
-    var adUrl = Url.AdUrl(Model.TitleSlug, Model.AdId, true, routeName: Model.CategoryEventType);
-    var adUrlEncoded = Server.HtmlEncode(adUrl);
-    var socialShareText = "This looks good '" + Server.HtmlEncode(Model.Title) + "'";
-    var socialShareTextEncoded = Server.HtmlEncode(socialShareText);
 }
 
 @Html.Partial("_FloorPlanDialogDialog")
@@ -32,16 +28,16 @@
                 <a id="shareOnFacebook" class="btn btn-default btn-lg"><i class="fa fa-facebook"></i></a>
 
                 @*Twitter*@
-                <a class="btn btn-default btn-lg" href="http://twitter.com/intent/tweet?text=@socialShareText&url=@adUrl" onclick="window.open(this.href,'sharetwitter','toolbar=0,status=0,width=480,height=360');return false;" target="_blank"><i class="fa fa-twitter"></i></a>
+                <a class="btn btn-default btn-lg" href="http://twitter.com/intent/tweet?text=@Model.SocialShareText&url=@Model.EventUrl" onclick="window.open(this.href,'sharetwitter','toolbar=0,status=0,width=480,height=360');return false;" target="_blank"><i class="fa fa-twitter"></i></a>
 
                 @*Google Plus*@
-                <a class="btn btn-default btn-lg" href="https://plus.google.com/share?url=@adUrl" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-google-plus"></i></a>
+                <a class="btn btn-default btn-lg" href="https://plus.google.com/share?url=@Model.EventUrl" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-google-plus"></i></a>
 
                 @*Linked in*@
-                <a class="btn btn-default btn-lg" href="https://www.linkedin.com/cws/share?url=@adUrl" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-linkedin"></i></a>
+                <a class="btn btn-default btn-lg" href="https://www.linkedin.com/cws/share?url=@Model.EventUrl" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-linkedin"></i></a>
 
                 @*Email*@
-                <a class="btn btn-default btn-lg" href="mailto:someone@example.com?Subject=@socialShareTextEncoded" target="_blank"><i class="fa fa-envelope"></i></a>
+                <a class="btn btn-default btn-lg" href="mailto:someone@example.com?Body=@Model.SocialShareText" target="_blank"><i class="fa fa-envelope"></i></a>
             </div>
         </div>
     </div>
@@ -161,7 +157,7 @@
 
 @section HeadSection
 {
-    <link rel="canonical" href="@adUrl" />
+    <link rel="canonical" href="@Model.EventUrl" />
 
     <meta name="description" content="@Model.Description" />
     <meta http-equiv="Content-Language" content="en" />
@@ -169,10 +165,10 @@
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="@Model.Title" />
     <meta name="twitter:description" content="@Model.Description" />
-    <meta name="twitter:image" content="@Url.ImageOriginal(Model.EventPhoto).WithFullUrl()" />
+    <meta name="twitter:image" content="@Model.EventUrl" />
 
     <meta property="fb:app_id" content="@Model.FacebookAppId" />
-    <meta property="og:url" content="@adUrl" />
+    <meta property="og:url" content="@Model.EventUrl" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="@Model.Title" />
     <meta property="og:description" content="@Model.Description" />
@@ -190,13 +186,14 @@
             baseUrl: '@Url.Action("Index", "Home")',
             eventId: @Model.EventId,
             floorPlanDocumentId: '@Model.LocationFloorPlanDocumentId',
-            floorPlanFileName: '@Model.LocationFloorPlanFilename',
-            social : {
-                href: "@adUrl", 
-                picture: '@Url.ImageOriginal(Model.EventPhoto).WithFullUrl()',
-                name: '@Model.Title',
-                description: '@Model.Description'
-            }
+            floorPlanFileName: '@Model.LocationFloorPlanFilename'
+        });
+
+        $paramount.social.setupFacebook($('#shareOnFacebook'), {
+            href: "@Model.EventUrl", 
+            picture: '@Url.ImageOriginal(Model.EventPhoto).WithFullUrl()',
+            name: '@Model.Title',
+            description: '@Model.Description'
         });
 
     </script>

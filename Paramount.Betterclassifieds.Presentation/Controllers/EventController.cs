@@ -224,7 +224,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 var ticketHtml = _templatingService.Generate(EventTicketPrintViewModel.Create(adDetails, eventDetails, eventBooking), "Tickets");
                 var ticketPdfData = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(ticketHtml);
 
-                var viewModel = new EventBookedViewModel(adDetails, eventDetails, eventBooking, this.Url, _clientConfig);
+                var viewModel = new EventBookedViewModel(adDetails, eventDetails, eventBooking, this.Url, _clientConfig, _httpContext);
                 var eventTicketsBookedNotification = this.Map<EventBookedViewModel, EventTicketsBookedNotification>(viewModel)
                     .WithTickets(ticketPdfData);
 
@@ -315,7 +315,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 .ForMember(m => m.Views, options => options.MapFrom(src => src.NumOfViews))
                 .ForMember(m => m.EventPhoto, options => options.MapFrom(src => src.PrimaryImage))
                 .ForMember(m => m.EventPhotoUrl, options => options.MapFrom(src => Url.ImageOriginal(src.PrimaryImage).WithFullUrl()))
-                .ForMember(m => m.SocialShareText, options => options.MapFrom(src => "This looks good '" + Server.HtmlEncode(src.Heading) + "'"))
+                .ForMember(m => m.SocialShareText, options => options.MapFrom(src => "This looks good '" + _httpContext.Server.HtmlEncode(src.Heading) + "'"))
                 ;
             configuration.CreateMap<Business.Events.EventTicket, EventTicketViewModel>().ReverseMap();
             configuration.CreateMap<Business.IClientConfig, EventViewDetailsModel>()

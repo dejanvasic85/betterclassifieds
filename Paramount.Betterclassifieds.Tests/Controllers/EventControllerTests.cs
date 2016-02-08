@@ -42,6 +42,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventManager.SetupWithVerification(call => call.GetEventDetailsForOnlineAdId(It.Is<int>(p => p == mockEventAd.OnlineAdId), It.Is<bool>(p => p == false)), mockEventAd);
             _clientConfig.SetupWithVerification(call => call.EventMaxTicketsPerBooking, 10);
             _clientConfig.SetupWithVerification(call => call.FacebookAppId, "123");
+            _httpContext.SetupWithVerification(call => call.Server.HtmlEncode(It.IsAny<string>()), "This looks good " + mockAd.Heading);
 
             // act
             var result = BuildController().ViewEventAd(mockAd.AdId);
@@ -313,6 +314,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventBookingContext.SetupWithVerification(call => call.Clear());
 
             _httpContext.SetupWithVerification(call => call.Session.SessionID, sessionMock);
+            _httpContext.SetupWithVerification(call => call.Server.HtmlEncode(It.IsAny<string>()), "");
             _eventManager.SetupWithVerification(call => call.GetEventBooking(eventBookingMock.EventBookingId), eventBookingMock);
             _eventManager.SetupWithVerification(call => call.AdjustRemainingQuantityAndCancelReservations(sessionMock, eventBookingMock.EventBookingTickets));
             _eventManager.SetupWithVerification(call => call.CreateEventTicketsDocument(eventBookingMock.EventBookingId, It.IsAny<byte[]>(), It.IsAny<DateTime?>()), "Document123");
@@ -323,6 +325,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _clientConfig.SetupWithVerification(call => call.ClientName, "A-Brand");
             _clientConfig.SetupWithVerification(call => call.ClientAddress, new Address() { AddressLine1 = "1", AddressLine2 = "Smith Street", State = "VIC" });
             _clientConfig.SetupWithVerification(call => call.ClientPhoneNumber, "9999 0000");
+            _clientConfig.SetupWithVerification(call => call.FacebookAppId, "123");
             _userManager.SetupWithVerification(call => call.GetUserByEmailOrUsername("foo@bar.com"), applicationUserMock);
 
             // act

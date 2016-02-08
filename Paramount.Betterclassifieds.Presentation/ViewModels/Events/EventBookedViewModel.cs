@@ -12,7 +12,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public EventBookedViewModel()
         { }
 
-        public EventBookedViewModel(AdSearchResult adDetails, EventModel eventDetails, EventBooking eventBooking, UrlHelper urlHelper, IClientConfig clientConfig)
+        public EventBookedViewModel(AdSearchResult adDetails, EventModel eventDetails, EventBooking eventBooking, UrlHelper urlHelper, IClientConfig clientConfig, HttpContextBase httpContext)
         {
             CustomerEmailAddress = eventBooking.Email;
             CustomerFirstName = eventBooking.FirstName;
@@ -30,7 +30,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             EventPhotoUrl = urlHelper.ImageOriginal(adDetails.PrimaryImage).WithFullUrl();
             Title =  adDetails.Heading;
             Description = adDetails.Description;
-            SocialShareText = "This looks good '" + HttpContext.Current.Server.HtmlEncode(adDetails.Heading) + "'";
+            SocialShareText = "This looks good '" + httpContext.Server.HtmlEncode(adDetails.Heading) + "'";
 
             FacebookAppId = clientConfig.FacebookAppId;
         }

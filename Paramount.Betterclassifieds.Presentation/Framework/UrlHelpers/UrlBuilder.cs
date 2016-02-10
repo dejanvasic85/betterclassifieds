@@ -1,3 +1,4 @@
+using System.Monads;
 using System.Web.Mvc;
 
 namespace Paramount
@@ -38,11 +39,17 @@ namespace Paramount
             this.IsFullUrl = true;
             return this;
         }
-        
+
         public string Build()
         {
+            var protocol = UrlHelper.With(u => u.RequestContext)
+                .With(r => r.HttpContext)
+                .With(h => h.Request)
+                .With(r => r.Url)
+                .Return(u => u.Scheme, "http");
+
             this.Path = IsFullUrl
-                ? UrlHelper.Action(this.Action, this.Controller, this.RouteValues, UrlHelper.RequestContext.HttpContext.Request.Url.Scheme)
+                ? UrlHelper.Action(this.Action, this.Controller, this.RouteValues, protocol)
                 : UrlHelper.Action(this.Action, this.Controller, this.RouteValues);
 
             return this.Path;

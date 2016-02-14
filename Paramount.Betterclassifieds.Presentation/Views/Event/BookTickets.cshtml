@@ -20,7 +20,7 @@
     @if (Model.PaymentCancelled.HasValue && Model.PaymentCancelled.Value)
     {
         <div class="alert alert-info">
-            <i class="fa fa-check-circle"></i> Your payment has been cancelled successfully. 
+            <i class="fa fa-check-circle"></i> Your payment has been cancelled successfully.
         </div>
     }
 
@@ -52,7 +52,6 @@
         <div class="row">
             <div class="col-sm-8 book-tickets-form">
 
-
                 <div class="bs-callout bs-callout-info">
                     <h4><i class="fa fa-ticket"></i>&nbsp; Tickets</h4>
                     <p data-bind="visible: canContinue">We'll need some details for each guest. If you logged in we prefilled some details for you.</p>
@@ -68,10 +67,16 @@
 
                     <div class="event-ticket">
                         <div class="row">
-                            <div class="col-xs-2">
-                                <img class="thumbnail img-responsive" src="@Url.Image(Model.EventPhoto)" />
-                            </div>
-                            <div class="col-xs-10">
+                            @{
+                                var detailClass = Model.EventPhoto.HasValue() ? "col-xs-10" : "col-xs-12";
+                            }
+                            @if (Model.EventPhoto.HasValue())
+                            {
+                                <div class="col-xs-2">
+                                    <img class="thumbnail img-responsive" src="@Url.Image(Model.EventPhoto)" />
+                                </div>
+                            }
+                            <div class="@detailClass">
                                 <div class="row">
                                     <div class="col-xs-12">
                                         <h3>@Model.Title</h3>
@@ -129,7 +134,7 @@
                     </div>
                 </div>
 
-                <div class="well">
+                <div class="well top-buffer-60">
                     <div class="row">
                         <div class="col-xs-6">
                             <input type="checkbox" data-bind="toggle: sendEmailToGuests"

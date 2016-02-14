@@ -15,7 +15,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         {
             this.TicketName = ticket.TicketName;
             this.TicketNumber = ticket.EventTicketId.ToString();
-            this.ImageId = adDetails.PrimaryImage;
+            this.EventPhoto = adDetails.PrimaryImage;
             this.EventName = adDetails.Heading;
             this.Location = eventDetails.Location;
             this.StartDateTime = eventDetails.EventStartDate.GetValueOrDefault().ToString("dd-MMM-yyyy");
@@ -33,7 +33,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
         public string TicketNumber { get; set; }
         public string EventName { get; set; }
-        public string ImageId { get; set; }
+        public string EventPhoto { get; set; }
         public string Location { get; set; }
         public string StartDateTime { get; set; }
         public string TicketName { get; set; }

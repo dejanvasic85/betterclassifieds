@@ -43,11 +43,13 @@
     </div>
 
     <div class="container" id="eventView">
-        <div class="row">
-            <div class="col-md-12 event-photo">
-                <img class="img-responsive" src="@Url.Image(Model.EventPhoto, 400, 1020)" />
+        @if (Model.EventPhoto.HasValue()) {
+            <div class="row">
+                <div class="col-md-12 event-photo">
+                    <img class="img-responsive" src="@Url.Image(Model.EventPhoto, 400, 1020)"/>
+                </div>
             </div>
-        </div>
+        }
 
         <div class="row">
             @if (Model.TicketingEnabled)

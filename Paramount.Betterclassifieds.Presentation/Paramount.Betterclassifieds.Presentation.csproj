@@ -752,7 +752,7 @@
     <Content Include="Views\Account\_RegisterPartial.cshtml" />
     <Content Include="Views\Account\ThankYou.cshtml" />
     <Content Include="Views\Account\Confirmation.cshtml" />
-    <Content Include="Views\Shared\_ListingResults.cshtml" />
+    <Content Include="Views\Listings\_ListingResults.cshtml" />
     <Content Include="Scripts\app\listings\Find.min.js.map">
       <DependentUpon>Find.min.js</DependentUpon>
     </Content>

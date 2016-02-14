@@ -1,10 +1,60 @@
-﻿namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
+﻿using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Events;
+using Paramount.Betterclassifieds.Business.Search;
+
+namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 {
     /// <summary>
     /// Used for viewing the event ad
     /// </summary>
     public class EventViewDetailsModel
     {
+        public EventViewDetailsModel()
+        {
+            
+        }
+
+        public EventViewDetailsModel(HttpContextBase httpContext, UrlHelper urlHelper, AdSearchResult searchResult, EventModel eventModel, IClientConfig clientConfig)
+        {
+            this.AdId = searchResult.AdId;
+            this.Title = searchResult.Heading;
+            this.TitleSlug = searchResult.HeadingSlug;
+            this.EventUrl = urlHelper.AdUrl(searchResult.HeadingSlug, searchResult.AdId, true, searchResult.CategoryAdType);
+            this.HtmlText = searchResult.HtmlText;
+            this.EventPhoto = searchResult.PrimaryImage;
+            this.EventPhotoUrl = urlHelper.ImageOriginal(searchResult.PrimaryImage).WithFullUrl();
+            this.OrganiserName = searchResult.ContactName;
+            this.OrganiserPhone = searchResult.ContactPhone;
+            this.Views = searchResult.NumOfViews;
+            this.SocialShareText = "This looks good '" + httpContext.Server.HtmlEncode(searchResult.Heading) + "'";
+
+
+            this.EventId = eventModel.EventId.GetValueOrDefault();
+            this.Location = eventModel.Location;
+            this.LocationLatitude = eventModel.LocationLatitude;
+            this.LocationLongitude = eventModel.LocationLongitude;
+            this.EventStartDate = eventModel.EventStartDate.GetValueOrDefault().ToLongDateString();
+            this.EventStartTime = eventModel.EventStartDate.GetValueOrDefault().ToString("hh:mm tt");
+            this.EventEndDate = eventModel.EventStartDate.GetValueOrDefault().ToLongDateString();
+            this.EventEndTime = eventModel.EventEndDate.GetValueOrDefault().ToString("hh:mm tt");
+
+            this.FacebookAppId = clientConfig.FacebookAppId;
+            this.MaxTicketsPerBooking = clientConfig.MaxOnlineImages.GetValueOrDefault();
+
+            this.Tickets = eventModel.Tickets.Select(t => new EventTicketViewModel
+            {
+                EventId = t.EventId,
+                AvailableQuantity = t.AvailableQuantity,
+                EventTicketId = t.EventTicketId,
+                Price = t.Price,
+                RemainingQuantity = t.RemainingQuantity,
+                TicketName = t.TicketName
+            }).ToArray();
+        }
+
         public int AdId { get; set; }
         public int EventId { get; set; }
         public string Title { get; set; }

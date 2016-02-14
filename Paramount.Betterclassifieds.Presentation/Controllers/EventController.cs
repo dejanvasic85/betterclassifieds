@@ -32,9 +32,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _bookingManager.IncrementHits(id);
 
             var eventModel = _eventManager.GetEventDetailsForOnlineAdId(onlineAdModel.OnlineAdId);
-            var eventViewModel = this.Map<Business.Events.EventModel, EventViewDetailsModel>(eventModel);
-            this.Map(onlineAdModel, eventViewModel);
-            this.Map(_clientConfig, eventViewModel);
+            var eventViewModel = new EventViewDetailsModel(_httpContext,
+                this.Url, onlineAdModel, eventModel, _clientConfig);
 
             return View(eventViewModel);
         }
@@ -296,32 +295,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public void OnRegisterMaps(IConfiguration configuration)
         {
-            #region To View Model
-
-            // To View Model
-            configuration.CreateMap<Business.Events.EventModel, EventViewDetailsModel>()
-                .ForMember(member => member.EventStartDate, options => options.ResolveUsing(src => src.EventStartDate.GetValueOrDefault().ToLongDateString()))
-                .ForMember(member => member.EventStartTime, options => options.ResolveUsing(src => src.EventStartDate.GetValueOrDefault().ToString("hh:mm tt")))
-                .ForMember(member => member.EventEndDate, options => options.ResolveUsing(src => src.EventEndDate.GetValueOrDefault().ToLongDateString()))
-                ;
-            configuration.CreateMap<Business.Search.AdSearchResult, EventViewDetailsModel>()
-                .ForMember(m => m.Posted, options => options.PreCondition(src => src.BookingDate.HasValue))
-                .ForMember(m => m.Posted, options => options.MapFrom(src => src.BookingDate.Value.Humanize(false, null)))
-                .ForMember(m => m.EventUrl, options => options.MapFrom(src => Url.AdUrl(src.HeadingSlug, src.AdId, true, src.CategoryAdType)))
-                .ForMember(m => m.Title, options => options.MapFrom(src => src.Heading))
-                .ForMember(m => m.TitleSlug, options => options.MapFrom(src => src.HeadingSlug))
-                .ForMember(m => m.OrganiserName, options => options.MapFrom(src => src.ContactName))
-                .ForMember(m => m.OrganiserPhone, options => options.MapFrom(src => src.ContactPhone))
-                .ForMember(m => m.Views, options => options.MapFrom(src => src.NumOfViews))
-                .ForMember(m => m.EventPhoto, options => options.MapFrom(src => src.PrimaryImage))
-                .ForMember(m => m.EventPhotoUrl, options => options.MapFrom(src => Url.ImageOriginal(src.PrimaryImage).WithFullUrl()))
-                .ForMember(m => m.SocialShareText, options => options.MapFrom(src => "This looks good '" + _httpContext.Server.HtmlEncode(src.Heading) + "'"))
-                ;
             configuration.CreateMap<Business.Events.EventTicket, EventTicketViewModel>().ReverseMap();
-            configuration.CreateMap<Business.IClientConfig, EventViewDetailsModel>()
-                .ForMember(m => m.MaxTicketsPerBooking, options => options.MapFrom(src => src.EventMaxTicketsPerBooking))
-                .ForMember(m => m.FacebookAppId, options => options.MapFrom(src => src.FacebookAppId))
-                ;
             configuration.CreateMap<Business.Events.EventTicketReservation, EventTicketRequestViewModel>();
             configuration.CreateMap<Business.Events.EventTicketReservation, EventTicketReservedViewModel>()
                 .ForMember(m => m.Status, options => options.MapFrom(s => s.StatusAsString.Humanize()))
@@ -330,10 +304,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             configuration.CreateMap<EventGuestDetails, EventGuestListViewModel>();
 
-            #endregion
-
-            #region From View model
-
             // From View Model
             configuration.CreateMap<EventTicketRequestViewModel, EventTicket>();
             configuration.CreateMap<BookTicketsRequestViewModel, RegistrationModel>();
@@ -341,7 +311,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<EventBookedViewModel, EventTicketsBookedNotification>()
                 .ForMember(m => m.DocumentType, options => options.Ignore());
 
-            #endregion
         }
 
         private readonly HttpContextBase _httpContext;

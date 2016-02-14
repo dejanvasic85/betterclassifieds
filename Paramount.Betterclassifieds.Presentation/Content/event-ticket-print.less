@@ -27,6 +27,11 @@
             font-size: 0.9em;
             margin-left: 200px;
             width: 480px;
+            /* In case there is no image */
+            &.full {
+                width: 700px;
+                margin-left: 0;
+            }
 
             .event-title {
                 border-top: 1px solid #eee;
@@ -38,6 +43,11 @@
                 h2 {
                     margin: 0;
                     line-height: none;
+                    font-size: 21px;
+
+                    &.smaller{
+                        font-size: 16px;
+                    }
                 }
             }
 

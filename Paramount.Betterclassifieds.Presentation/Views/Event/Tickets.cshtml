@@ -21,12 +21,25 @@
     {
         <div class="ticket-container">
             <div class="ticket">
-                <div class="event-picture">
-                    <img src="@Url.Image(@tick.ImageId, height: 200, width: 200).WithFullUrl()" />
-                </div>
-                <div class="event-info">
+                @if (tick.EventPhoto.HasValue())
+                {
+                    <div class="event-picture">
+                        <img class="thumbnail" src="@Url.Image(@tick.EventPhoto, height: 200, width: 200).WithFullUrl()" />
+                    </div>
+                }
+                @{
+                    var eventInfoClass = tick.EventPhoto.HasValue() ? string.Empty : "full";
+                    var ticketNameClass = string.Empty;
+                    var eventNameLength = tick.EventName.Length;
+                    if (eventNameLength > 55)
+                    {
+                        ticketNameClass = "smaller";
+                    }
+                }
+
+                <div class="event-info @eventInfoClass">
                     <div class="event-title">
-                        <h2>
+                        <h2 class="@ticketNameClass">
                             @tick.EventName
                         </h2>
                     </div>
@@ -75,11 +88,11 @@
                 </div>
 
                 <div class="event-barcode">
-                    <img src="@Url.ActionAbsolute("Barcode", "Image", new { data = tick.BarcodeData })" />
+                    <img src="@Url.ActionAbsolute("Barcode", "Image", new {data = tick.BarcodeData})" />
                 </div>
             </div>
         </div>
-    }
+                    }
 
 
 

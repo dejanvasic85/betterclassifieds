@@ -17,6 +17,7 @@ Here's a list of the latest changes:
 - [Change - Replace time selection with dropdowns instead of clock picker](https://trello.com/c/5zFnJ7zj/400-replace-time-selection-with-dropdowns-instead-of-clock-picker)
 - [Fix - When uploading images for an event one after another its adding instead of replacing](https://trello.com/c/TzKE2WCd/406-when-uploading-multiple-event-images-they-keep-adding-instead-of-replacing)
 - [Fix - Search results were not aligning properly](https://trello.com/c/MbGVb0Y9/393-images-not-aligned-for-search-results)
+- [Fix - We are now no-image friendly](https://trello.com/c/43WZLOTD/370-handle-no-images)
 
 **3.0.1 Events Bug Bash**
 

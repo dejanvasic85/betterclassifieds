@@ -77,6 +77,16 @@
                 throw "googleMap binding requires a map binding";
             }
 
+            function assignMapValueToObservable(componentType, observable, propertyName, value) {
+                if (_.isUndefined(observable)) {
+                    return false;
+                }
+                if (componentType === propertyName) {
+                    observable(value);
+                }
+                return true;
+            }
+
             var googleMap = $(element).val(address)
                 .geocomplete({
                     map: $map,
@@ -88,6 +98,18 @@
                     viewModel.location(geoData["formatted_address"]);
                     viewModel.locationLatitude(geoData.geometry.location.lat());
                     viewModel.locationLongitude(geoData.geometry.location.lng());
+
+                    // Capture every map component
+                    _.each(geoData.address_components, function (comp) {
+                        _.each(comp.types, function (t) {
+                            assignMapValueToObservable(t, viewModel.streetNumber, 'street_number', comp.long_name);
+                            assignMapValueToObservable(t, viewModel.streetName, 'route', comp.long_name);
+                            assignMapValueToObservable(t, viewModel.suburb, 'administrative_area_level_1', comp.long_name);
+                            assignMapValueToObservable(t, viewModel.postCode, 'postal_code', comp.long_name);
+                            assignMapValueToObservable(t, viewModel.country, 'country', comp.long_name);
+                        });
+                    });
+
                 });
 
             // Bind the current address if any

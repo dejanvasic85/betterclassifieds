@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Text;
 
 namespace Paramount.Betterclassifieds.Business
@@ -8,31 +9,34 @@ namespace Paramount.Betterclassifieds.Business
         public static Address FromCsvString(string addressInString, char delimiter)
         {
             string[] address = addressInString.Split(delimiter);
+            if(address.Length != 6)
+                throw new ArgumentException("The specific text address does not have 6 parts", nameof(addressInString));
+
             return new Address
             {
-                AddressLine1 = address[0],
-                AddressLine2 = address[1],
+                StreetNumber = address[0],
+                StreetName = address[1],
                 Suburb = address[2],
                 State = address[3],
                 Postcode = address[4],
                 Country = address[5]
             };
         }
-
-        public string AddressLine1 { get; set; }
-        public string AddressLine2 { get; set; }
+        public long? AddressId { get; set; }
+        public string StreetNumber { get; set; }
+        public string StreetName { get; set; }
         public string Suburb { get; set; }
         public string State { get; set; }
         public string Postcode { get; set; }
         public string Country { get; set; }
-        public string PhoneNumber { get; set; }
+        
 
         public override string ToString()
         {
-            var sb = new StringBuilder(AddressLine1);
-            if (AddressLine2.HasValue())
+            var sb = new StringBuilder(StreetNumber);
+            if (StreetName.HasValue())
             {
-                sb.AppendFormat(", {0}", AddressLine2);
+                sb.AppendFormat(", {0}", StreetName);
             }
 
             if (Suburb.HasValue())

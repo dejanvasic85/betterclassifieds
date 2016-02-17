@@ -26,7 +26,7 @@ execute temp_createAppSetting @Key = 'SearchMaxPagedRequests', @Setting = '100'
 execute temp_createAppSetting @Key = 'MaxOnlineImages', @Setting = '2'
 execute temp_createAppSetting @Key = 'SupportNotificationAccounts', @Setting = 'leanne@timeoff.com.au;incoming@iflog.com.au'
 execute temp_createAppSetting @Key = 'AdDurationDays', @Setting = '30'
-execute temp_createAppSetting @Key = 'ClientAddress', @Setting = 'Street Press Australia Pty Ltd,Level 1, 221 Kerr Street,Fitzroy,VIC,3068,Australia', @Force = 1
+execute temp_createAppSetting @Key = 'ClientAddress', @Setting = 'Level 1 221,Kerr Street,Fitzroy,VIC,3068,Australia', @Force = 1
 execute temp_createAppSetting @Key = 'ClientAddressLatLong', @Setting = '-37.796973, 144.984072', @Force = 1
 execute temp_createAppSetting @Key = 'ClientPhoneNumber', @Setting = '61 3 9421 4499', @Force = 1
 execute temp_createAppSetting @Key = 'PublisherHomeUrl', @Setting = 'http://themusic.com.au'

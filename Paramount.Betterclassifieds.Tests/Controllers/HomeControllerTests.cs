@@ -51,8 +51,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             clientConfigMock.SetupGet(prop => prop.ClientAddress)
             .Returns(new Address
             {
-                AddressLine1 = "Company co...",
-                AddressLine2 = "123 Smith Street",
+                StreetNumber = "Company co...",
+                StreetName = "123 Smith Street",
                 Country = "Australia",
                 Postcode = "1111",
                 State = "VIC",

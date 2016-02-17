@@ -92,11 +92,25 @@
         me.organiserName = ko.observable(data.organiserName);
         me.organiserPhone = ko.observable(data.organiserPhone);
         me.ticketingEnabled = ko.observable(data.ticketingEnabled);
+        
+
+        /*
+         * Address properties
+         */
+        me.streetNumber = ko.observable();
+        me.streetName = ko.observable();
+        me.suburb = ko.observable();
+        me.postCode = ko.observable();
+        me.country = ko.observable();
+
+        /*
+         * Submit changes
+         */
         me.submitChanges = function (element, event) {
             var json = ko.toJS(me);
             var promise = adService.updateEventDetails(json);
 
-            promise.then(function(resp) {
+            promise.then(function (resp) {
                 if (options.notifyUpdate === true && resp === true) {
                     notifier.success('Details updated successfully');
                 }

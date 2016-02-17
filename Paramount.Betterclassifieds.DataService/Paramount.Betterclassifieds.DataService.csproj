@@ -100,6 +100,7 @@
     <Compile Include="DataServiceInitialiser.cs" />
     <Compile Include="DocumentDataConfig.cs" />
     <Compile Include="DocumentStorage\DocumentContext.cs" />
+    <Compile Include="Events\EntityConfigurations\AddressConfiguration.cs" />
     <Compile Include="Events\EntityConfigurations\EventBookingConfiguration.cs" />
     <Compile Include="Events\EntityConfigurations\EventBookingTicketConfiguration.cs" />
     <Compile Include="Events\EntityConfigurations\EventPaymentRequestConfiguration.cs" />

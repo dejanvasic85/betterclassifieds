@@ -1,5 +1,6 @@
 using System.Configuration;
 using System.Data.Entity;
+using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 
 namespace Paramount.Betterclassifieds.DataService.Events
@@ -33,10 +34,12 @@ namespace Paramount.Betterclassifieds.DataService.Events
         public IDbSet<EventBookingTicket> EventBookingTickets { get; set; }
         public IDbSet<EventBookingTicketField> EventBookingTicketFields { get; set; }
         public IDbSet<EventPaymentRequest> EventPaymentRequests { get; set; }
+        public IDbSet<Address> Addresses { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new EventModelConfiguration());
+            modelBuilder.Configurations.Add(new AddressConfiguration());
             modelBuilder.Configurations.Add(new EventTicketConfiguration());
             modelBuilder.Configurations.Add(new EventTicketFieldConfiguration());
             modelBuilder.Configurations.Add(new EventTicketReservationConfiguration());
@@ -44,6 +47,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
             modelBuilder.Configurations.Add(new EventBookingTicketConfiguration());
             modelBuilder.Configurations.Add(new EventBookingTicketFieldConfiguration());
             modelBuilder.Configurations.Add(new EventPaymentRequestConfiguration());
+            
         }
     }
 }

@@ -10,6 +10,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             Tickets = new List<EventTicket>();
             TicketFields = new List<EventTicketField>();
             EventBookings = new List<EventBooking>();
+            Address = new Address();
         }
 
         public int? EventId { get; set; }
@@ -35,5 +36,8 @@ namespace Paramount.Betterclassifieds.Business.Events
         {
             get { return this.ClosingDateUtc.HasValue && this.ClosingDateUtc <= DateTime.UtcNow; }
         }
+
+        public Address Address { get; set; }
+        public long? AddressId { get; set; }
     }
 }

@@ -323,7 +323,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _templatingService.SetupWithVerification(call => call.Generate(It.IsAny<object>(), "Invoice"), "<html><body>Output for PDF Invoice</body></html>");
             _broadcastManager.Setup(call => call.Queue(It.IsAny<IDocType>(), It.IsAny<string[]>())).Returns(new Notification(Guid.NewGuid(), "BoomDoc"));
             _clientConfig.SetupWithVerification(call => call.ClientName, "A-Brand");
-            _clientConfig.SetupWithVerification(call => call.ClientAddress, new Address() { AddressLine1 = "1", AddressLine2 = "Smith Street", State = "VIC" });
+            _clientConfig.SetupWithVerification(call => call.ClientAddress, new Address() { StreetNumber = "1", StreetName = "Smith Street", State = "VIC" });
             _clientConfig.SetupWithVerification(call => call.ClientPhoneNumber, "9999 0000");
             _clientConfig.SetupWithVerification(call => call.FacebookAppId, "123");
             _userManager.SetupWithVerification(call => call.GetUserByEmailOrUsername("foo@bar.com"), applicationUserMock);

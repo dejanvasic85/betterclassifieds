@@ -2,7 +2,7 @@ Here's a list of the latest changes:
 
 **3.0.2 Events Improvements and Feedback implementation**
 
-- [Enhancement - Sosial buttons are now available on the event details page](https://trello.com/c/JpIUpRf3/387-events-social-network-integration-to-share-the-even-with-friends)
+- [Enhancement - Social buttons are now available on the event details page](https://trello.com/c/JpIUpRf3/387-events-social-network-integration-to-share-the-even-with-friends)
 - [Enhancement - Floorplans can be uploaded and viewed by ticket buyers](https://trello.com/c/Vu8C25zU/399-upload-floor-plan-for-ticketing-management-booking-page-and-event-dashboard)
 - [Enhancement - Timezones are now being recorded as part of the event using the google timezone api](https://trello.com/c/t36EeUrZ/374-event-dates-should-be-considering-timezones)
 - [Enhancement - Now we have icons for each parent category](https://trello.com/c/Og378p0U/405-category-icons-so-they-can-be-used-on-the-home-page-and-no-image-ads)
@@ -12,6 +12,7 @@ Here's a list of the latest changes:
 - [Enhancement - Home page redesign including layout and footer](https://trello.com/c/6D8gYRo1/379-home-page-redesign)
 - [Enhancement - Transaction database table is now capturing all the event booking ticket purchases](https://trello.com/c/KjmmimJD/367-events-capture-transaction-for-ticket-purchases)
 - [Enhancement - Cancelling a payment with paypal comes back to the booking page again](https://trello.com/c/gRqIbgFW/397-events-display-ticket-purchase-cancellation-screen-for-user-when-cancelling-payment-with-paypal)
+- [Enhancement - Full address details are now being captured](https://trello.com/c/JCBXK4ox/410-capture-full-address-all-lines-from-google-maps-instead-of-just-one-line)
 - [Change - Changing from kandobay-support to events@kandobay.com.au](https://trello.com/c/ffaXj1Hf/384-email-sender-kandobay-support-is-not-a-nice-name)
 - [Change - Better handling of html descriptions and security hardening](https://trello.com/c/TcP5tbER/366-description-vs-html-description)
 - [Change - Replace time selection with dropdowns instead of clock picker](https://trello.com/c/5zFnJ7zj/400-replace-time-selection-with-dropdowns-instead-of-clock-picker)

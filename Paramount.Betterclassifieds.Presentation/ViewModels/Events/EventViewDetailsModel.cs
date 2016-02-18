@@ -34,6 +34,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
             this.EventId = eventModel.EventId.GetValueOrDefault();
             this.Location = eventModel.Location;
+            this.LocationFriendlyName = eventModel.Address.ToString();
             this.LocationLatitude = eventModel.LocationLatitude;
             this.LocationLongitude = eventModel.LocationLongitude;
             this.EventStartDate = eventModel.EventStartDate.GetValueOrDefault().ToLongDateString();
@@ -83,6 +84,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string EventPhotoUrl { get; set; }
         public string EventUrl { get; set; }
         public string SocialShareText { get; set; }
+        public string LocationFriendlyName { get; set; }
 
         public bool TicketingEnabled
         {

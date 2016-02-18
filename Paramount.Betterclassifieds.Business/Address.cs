@@ -33,18 +33,15 @@ namespace Paramount.Betterclassifieds.Business
 
         public override string ToString()
         {
-            var sb = new StringBuilder(StreetNumber);
-            if (StreetName.HasValue())
-            {
-                sb.AppendFormat(", {0}", StreetName);
-            }
-
+            var sb = new StringBuilder();
+            sb.AppendFormat("{0} {1}", StreetNumber, StreetName);
+            
             if (Suburb.HasValue())
             {
                 sb.AppendFormat(", {0}", Suburb);
             }
 
-            sb.AppendFormat(", {0}, {1}", State, Postcode);
+            sb.AppendFormat(" {0} {1}", State, Postcode);
 
             return sb.ToString();
         }

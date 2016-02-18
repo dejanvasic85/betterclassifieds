@@ -24,7 +24,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
                     .Include(e => e.TicketFields)
                     .Include(e => e.Address)
                     .SingleOrDefault(e => e.EventId == eventId);
-                
+
                 return eventModel;
             }
         }
@@ -43,6 +43,11 @@ namespace Paramount.Betterclassifieds.DataService.Events
                     eventModel.EventBookings = context.EventBookings.Where(b => b.EventId == eventModel.EventId)
                         .Include(b => b.EventBookingTickets)
                         .ToList();
+                }
+
+                if (eventModel != null && eventModel.AddressId.HasValue && !eventModel.Address.AddressId.HasValue)
+                {
+                    eventModel.Address = context.Addresses.Single(a => a.AddressId == eventModel.AddressId);
                 }
 
                 return eventModel;

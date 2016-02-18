@@ -22,8 +22,9 @@ namespace Paramount.Betterclassifieds.DataService.Events
                 var eventModel = context.Events
                     .Include(e => e.Tickets)
                     .Include(e => e.TicketFields)
+                    .Include(e => e.Address)
                     .SingleOrDefault(e => e.EventId == eventId);
-
+                
                 return eventModel;
             }
         }
@@ -34,6 +35,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
             {
                 var eventModel = context.Events
                     .Include(e => e.Tickets)
+                    .Include(e => e.Address)
                     .SingleOrDefault(e => e.OnlineAdId == onlineAdId);
 
                 if (eventModel != null && includeBookings)
@@ -176,6 +178,16 @@ namespace Paramount.Betterclassifieds.DataService.Events
             {
                 context.EventTickets.Attach(eventTicket);
                 context.Entry(eventTicket).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        public void UpdateEventAddress(Address address)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                context.Addresses.Attach(address);
+                context.Entry(address).State = EntityState.Modified;
                 context.SaveChanges();
             }
         }

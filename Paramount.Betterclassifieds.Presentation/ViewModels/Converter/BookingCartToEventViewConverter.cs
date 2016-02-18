@@ -35,11 +35,11 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
                 var adText = AdText.FromHtmlEncoded(bookingCart.OnlineAdModel.HtmlText);
                 eventViewModel.Description = adText.HtmlText;
-                
+
                 eventViewModel.OrganiserName = bookingCart.OnlineAdModel.ContactName;
                 eventViewModel.OrganiserPhone = bookingCart.OnlineAdModel.ContactPhone;
                 var photo = bookingCart.OnlineAdModel.Images.FirstOrDefault();
-                if (photo != null) 
+                if (photo != null)
                 {
                     eventViewModel.EventPhoto = photo.DocumentId;
                 }
@@ -59,6 +59,14 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             eventViewModel.LocationLongitude = bookingCart.Event.LocationLongitude;
             eventViewModel.LocationFloorPlanDocumentId = bookingCart.Event.LocationFloorPlanDocumentId;
             eventViewModel.LocationFloorPlanFilename = bookingCart.Event.LocationFloorPlanFilename;
+
+            // Address
+            eventViewModel.StreetNumber = bookingCart.Event.Address.StreetNumber;
+            eventViewModel.StreetName = bookingCart.Event.Address.StreetName;
+            eventViewModel.Country = bookingCart.Event.Address.Country;
+            eventViewModel.Postcode = bookingCart.Event.Address.Postcode;
+            eventViewModel.State = bookingCart.Event.Address.State;
+            eventViewModel.Suburb = bookingCart.Event.Address.Suburb;
 
             return eventViewModel;
         }

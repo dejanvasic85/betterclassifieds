@@ -60,6 +60,12 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public bool TicketingEnabled { get; set; }
         public string LocationFloorPlanDocumentId { get; set; }
         public string LocationFloorPlanFilename { get; set; }
+        public string StreetNumber { get; set; }
+        public string StreetName { get; set; }
+        public string Suburb { get; set; }
+        public string State { get; set; }
+        public string Postcode { get; set; }
+        public string Country { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

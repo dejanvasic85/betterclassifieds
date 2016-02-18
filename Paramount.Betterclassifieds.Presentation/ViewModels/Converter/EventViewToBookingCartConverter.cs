@@ -69,23 +69,19 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             bookingCart.Event.LocationFloorPlanDocumentId = eventViewModel.LocationFloorPlanDocumentId;
             bookingCart.Event.LocationFloorPlanFilename = eventViewModel.LocationFloorPlanFilename;
 
+            // Address
+            bookingCart.Event.Address.StreetNumber = eventViewModel.StreetNumber;
+            bookingCart.Event.Address.StreetName = eventViewModel.StreetName;
+            bookingCart.Event.Address.Country = eventViewModel.Country;
+            bookingCart.Event.Address.Postcode = eventViewModel.Postcode;
+            bookingCart.Event.Address.State = eventViewModel.State;
+            bookingCart.Event.Address.Suburb = eventViewModel.Suburb;
+
             // Schedule
             bookingCart.SetSchedule(_clientConfig, _dateService.ConvertFromString(eventViewModel.AdStartDate));
 
 
             return bookingCart;
-        }
-
-        private EventTicket ToModel(EventTicketViewModel eventTicket)
-        {
-            return new EventTicket
-            {
-                EventTicketId = eventTicket.EventTicketId,
-                TicketName = eventTicket.TicketName,
-                Price = eventTicket.Price,
-                AvailableQuantity = eventTicket.AvailableQuantity,
-                RemainingQuantity = eventTicket.AvailableQuantity
-            };
         }
     }
 }

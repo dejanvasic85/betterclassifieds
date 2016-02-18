@@ -97,11 +97,12 @@
         /*
          * Address properties
          */
-        me.streetNumber = ko.observable();
-        me.streetName = ko.observable();
-        me.suburb = ko.observable();
-        me.postCode = ko.observable();
-        me.country = ko.observable();
+        me.streetNumber = ko.observable(data.streetNumber);
+        me.streetName = ko.observable(data.streetName);
+        me.suburb = ko.observable(data.suburb);
+        me.state = ko.observable(data.state);
+        me.postCode = ko.observable(data.postCode);
+        me.country = ko.observable(data.country);
 
         /*
          * Submit changes

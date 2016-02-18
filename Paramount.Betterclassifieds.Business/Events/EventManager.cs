@@ -300,7 +300,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         public void UpdateEventDetails(int adId, int eventId, string title, string description, string htmlText,
             DateTime eventStartDate, DateTime eventEndDateTime, string location, decimal? locationLatitude,
             decimal? locationLongitude, string organiserName, string organiserPhone, DateTime adStartDate,
-            string floorPlanDocumentId, string locationFloorPlanFilename)
+            string floorPlanDocumentId, string locationFloorPlanFilename, Address address)
         {
             var originalEventDetails = _eventRepository.GetEventDetails(eventId);
             var onlineAd = _bookingManager.GetOnlineAd(adId);
@@ -314,12 +314,14 @@ namespace Paramount.Betterclassifieds.Business.Events
                 originalEventDetails.EventStartDate = eventStartDate;
                 originalEventDetails.EventEndDate = eventEndDateTime;
                 originalEventDetails.Location = location;
-                originalEventDetails.LocationLatitude = locationLatitude;
-                originalEventDetails.LocationLongitude = locationLongitude;
+                
 
                 if (locationLatitude.HasValue && originalEventDetails.LocationLatitude != locationLatitude &&
                     locationLongitude.HasValue && originalEventDetails.LocationLongitude != locationLongitude)
                 {
+                    originalEventDetails.LocationLatitude = locationLatitude;
+                    originalEventDetails.LocationLongitude = locationLongitude;
+
                     // Only perform this in non-debug scenario so that we don't have to waste the timezone look ups for development environments
 #if !DEBUG
                     // Update the timezone info using the location service
@@ -329,12 +331,15 @@ namespace Paramount.Betterclassifieds.Business.Events
                     originalEventDetails.TimeZoneDaylightSavingsOffsetSeconds = timezoneResult.DstOffset;
                     originalEventDetails.TimeZoneUtcOffsetSeconds = timezoneResult.RawOffset;
 #endif
+                    address.AddressId = originalEventDetails.AddressId;
+                    originalEventDetails.Address = address;
+                    _eventRepository.UpdateEventAddress(address);
                 }
-                 
+
                 onlineAd.Heading = title; // This is used for ticketing so cannot change!
             }
 
-            onlineAd.Description = description; 
+            onlineAd.Description = description;
             onlineAd.HtmlText = htmlText;
             onlineAd.ContactName = organiserName;
             onlineAd.ContactPhone = organiserPhone;

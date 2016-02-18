@@ -104,7 +104,8 @@
                         _.each(comp.types, function (t) {
                             assignMapValueToObservable(t, viewModel.streetNumber, 'street_number', comp.long_name);
                             assignMapValueToObservable(t, viewModel.streetName, 'route', comp.long_name);
-                            assignMapValueToObservable(t, viewModel.suburb, 'administrative_area_level_1', comp.long_name);
+                            assignMapValueToObservable(t, viewModel.suburb, 'locality', comp.long_name);
+                            assignMapValueToObservable(t, viewModel.state, 'administrative_area_level_1', comp.long_name);
                             assignMapValueToObservable(t, viewModel.postCode, 'postal_code', comp.long_name);
                             assignMapValueToObservable(t, viewModel.country, 'country', comp.long_name);
                         });

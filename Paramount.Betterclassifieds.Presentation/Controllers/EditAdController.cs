@@ -304,7 +304,16 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 viewModel.OrganiserPhone,
                 _dateService.ConvertFromString(viewModel.AdStartDate),
                 viewModel.LocationFloorPlanDocumentId,
-                viewModel.LocationFloorPlanFilename);
+                viewModel.LocationFloorPlanFilename,
+                new Address
+                {
+                    Country = viewModel.Country,
+                    Postcode = viewModel.Postcode,
+                    State = viewModel.State,
+                    StreetName = viewModel.StreetName,
+                    StreetNumber = viewModel.StreetNumber,
+                    Suburb = viewModel.Suburb
+                });
 
             return Json(true);
         }

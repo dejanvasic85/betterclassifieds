@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization;
+﻿using System.Configuration;
+using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Options;
 using MongoDB.Driver;
 using Paramount.Betterclassifieds.Business;
@@ -15,6 +16,7 @@ namespace Paramount.Betterclassifieds.DataService
         {
             _collectionName = collectionName;
             var client = new MongoClient("mongodb://localhost:27017");
+            var databaseName = ConfigurationManager.AppSettings["MongoClassifiedsDbName"];
             _database = client.GetServer().GetDatabase("classifieds");
         }
 

@@ -57,6 +57,9 @@
     <Content Include="App.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="AppSetting-SriLankanEvents.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="AppSetting-KandoBay.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

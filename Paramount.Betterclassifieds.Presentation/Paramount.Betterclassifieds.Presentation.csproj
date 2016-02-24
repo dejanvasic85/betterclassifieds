@@ -350,6 +350,8 @@
     <Content Include="Content\bootstrap-theme-yeti.min.css">
       <DependentUpon>bootstrap-theme-yeti.css</DependentUpon>
     </Content>
+    <Content Include="Content\KandoBay\img\Capture.PNG" />
+    <Content Include="Content\KandoBay\img\safari.jpg" />
     <Content Include="Content\SriLankanEvents\img\BookUsingThePhone.PNG" />
     <Content Include="Content\KandoBay\img\BookUsingThePhone.PNG" />
     <Content Include="Content\KandoBay\img\FederationSquare.png" />
@@ -378,12 +380,14 @@
       <DependentUpon>site.css</DependentUpon>
     </Content>
     <Content Include="Content\KandoBay\img\Kandobay_Logo.png" />
+    <Content Include="Content\images\hero-bg.JPG" />
     <Content Include="Content\SriLankanEvents\Lanka.css">
       <DependentUpon>Lanka.less</DependentUpon>
     </Content>
     <Content Include="Content\SriLankanEvents\Lanka.min.css">
       <DependentUpon>Lanka.css</DependentUpon>
     </Content>
+    <Content Include="Content\TheMusic\img\hero-bg.jpg" />
     <Content Include="Content\TheMusic\img\themusic_favicon.ico" />
     <Content Include="Content\TheMusic\img\tmlogo.png" />
     <Content Include="Content\TheMusic\themusic.css">

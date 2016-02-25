@@ -70,6 +70,12 @@
             return Json(new { IsValid = true });
         }
 
+        // Terms and conditions
+        public ActionResult Terms()
+        {
+            return View();
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateProfile("HomeControllerProfile");

@@ -39,13 +39,13 @@
 
             if (appSetting == null)
                 return default(T);
-            
+
             var converted = Convert.ChangeType(appSetting, typeof(T));
 
             return (T)converted;
 
         }
-        
+
         public int RestrictedEditionCount
         {
             // Print setting
@@ -65,7 +65,15 @@
 
         public string FacebookAppId
         {
-            get { return GetValueFromDatabase("FacebookAppId", required: false); }
+            get
+            {
+#if DEBUG
+                return "1277927518889183"; // Hard coded kandobay development value, otherwise we read the db!
+#else
+
+                return GetValueFromDatabase("FacebookAppId", required: false);
+#endif
+            }
         }
 
         public int SearchResultsPerPage
@@ -136,7 +144,7 @@
         {
             get { return GetValueFromDatabase<string>("ClientName"); }
         }
-       
+
         public int EventTicketReservationExpiryMinutes
         {
             get { return GetValueFromDatabase<int>("EventTicketReservationExpiryMinutes"); }

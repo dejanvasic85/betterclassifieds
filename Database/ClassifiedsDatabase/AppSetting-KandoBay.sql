@@ -73,7 +73,8 @@ begin
 	begin
 		update MainCategory
 		set CategoryAdType = @CategoryAdType,
-			IsOnlineOnly = @IsOnlineOnly
+			IsOnlineOnly = @IsOnlineOnly,
+			FontIcon = @FontIcon
 		where Title = @Title
 	end
 

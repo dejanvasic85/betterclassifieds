@@ -97,26 +97,28 @@ this.ScenarioSetup(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Simple Event with no ticketing")]
         [NUnit.Framework.CategoryAttribute("EventBooking")]
+        [NUnit.Framework.CategoryAttribute("EventAd")]
         public virtual void SimpleEventWithNoTicketing()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Simple Event with no ticketing", new string[] {
-                        "EventBooking"});
-#line 17
-this.ScenarioSetup(scenarioInfo);
+                        "EventBooking",
+                        "EventAd"});
 #line 18
- testRunner.Given("I am logged in as \"bdduser\" with password \"password123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+this.ScenarioSetup(scenarioInfo);
 #line 19
- testRunner.And("I start a new booking", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("I am logged in as \"bdduser\" with password \"password123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 20
+ testRunner.And("I start a new booking", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 21
  testRunner.When("I book an event ad titled \"Event with no tickets\" starting from today and ticketi" +
                     "ng \"is not\" enabled", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 21
- testRunner.And("the booking details are confirmed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 22
- testRunner.Then("the booking should be successful", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("the booking details are confirmed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 23
- testRunner.When("checking out the ad on success page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Then("the booking should be successful", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 24
+ testRunner.When("checking out the ad on success page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 25
  testRunner.Then("the url should be \"/Event/event-with-no-tickets/adId\" with adId in scenario", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -125,28 +127,30 @@ this.ScenarioSetup(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Event with ticketing")]
         [NUnit.Framework.CategoryAttribute("EventBooking")]
+        [NUnit.Framework.CategoryAttribute("EventAd")]
         public virtual void EventWithTicketing()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Event with ticketing", new string[] {
-                        "EventBooking"});
-#line 27
-this.ScenarioSetup(scenarioInfo);
-#line 28
- testRunner.Given("I am logged in as \"bdduser\" with password \"password123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+                        "EventBooking",
+                        "EventAd"});
 #line 29
- testRunner.And("I start a new booking", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+this.ScenarioSetup(scenarioInfo);
 #line 30
+ testRunner.Given("I am logged in as \"bdduser\" with password \"password123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 31
+ testRunner.And("I start a new booking", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 32
  testRunner.When("I book an event ad titled \"Ticketing event\" starting from today and ticketing \"is" +
                     "\" enabled", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 31
- testRunner.And("event is setup with 2 tickets and 2 fields", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 32
- testRunner.And("the booking details are confirmed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 33
- testRunner.Then("the booking should be successful", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("event is setup with 2 tickets and 2 fields", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 34
- testRunner.When("checking out the ad on success page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("the booking details are confirmed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 35
+ testRunner.Then("the booking should be successful", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 36
+ testRunner.When("checking out the ad on success page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 37
  testRunner.Then("the url should be \"/Event/ticketing-event/adId\" with adId in scenario", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

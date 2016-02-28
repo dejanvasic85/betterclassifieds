@@ -111,6 +111,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EditAd.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\EventAd.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EventAd.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\NotFound.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -156,7 +161,7 @@
     <Compile Include="Pages\UserAdsPage.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="LoginContext.cs" />
-    <Compile Include="StartUp.cs" />
+    <Compile Include="StartUpHooks.cs" />
     <Compile Include="Mocks\DapperExtensions.cs" />
     <Compile Include="Base\ITestDataRepository.cs" />
     <Compile Include="Mocks\Models\Email.cs" />
@@ -198,6 +203,10 @@
     <None Include="Features\EditAd.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>EditAd.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\EventAd.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>EventAd.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\NotFound.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

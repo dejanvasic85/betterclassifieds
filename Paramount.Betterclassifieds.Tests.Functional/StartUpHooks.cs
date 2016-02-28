@@ -14,7 +14,7 @@ using TechTalk.SpecFlow;
 namespace Paramount.Betterclassifieds.Tests.Functional
 {
     [Binding]
-    public class StartUp
+    public class StartUpHooks
     {
         private readonly IObjectContainer _container;
 
@@ -22,7 +22,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         private static IWebDriver _webDriver;
         private static IConfig _configuration;
 
-        public StartUp(IObjectContainer container)
+        public StartUpHooks(IObjectContainer container)
         {
             _container = container;
             _container.RegisterInstanceAs(new PageBrowser(_webDriver, _configuration), typeof(PageBrowser));
@@ -86,9 +86,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional
                     driver = new ChromeDriver();
                     break;
                 case "firefox":
-                    var firefoxBinary = new FirefoxBinary(@"C:\Program Files (x86)\Mozilla Firefox\firefox.exe");
-                    var firefoxProfile = new FirefoxProfile();
-                    driver = new FirefoxDriver(firefoxBinary, firefoxProfile);
+                    //var firefoxBinary = new FirefoxBinary(@"C:\Program Files (x86)\Mozilla Firefox\firefox.exe");
+                    //var firefoxProfile = new FirefoxProfile();
+                    //driver = new FirefoxDriver(firefoxBinary, firefoxProfile);
+                    driver = new FirefoxDriver();
                     break;
                 case "ie":
                     driver = new InternetExplorerDriver();

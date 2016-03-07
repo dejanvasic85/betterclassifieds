@@ -1,4 +1,4 @@
-﻿(function ($, $paramount, ko, notifier) {
+﻿    (function ($, $paramount, ko, notifier) {
     'use strict';
 
     function EventTicket(data, maxTicketsPerBooking) {

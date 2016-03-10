@@ -375,6 +375,10 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.CategoryAdType = val);
 		}
+		public AdSearchResultMockBuilder WithCategoryFontIcon(String val)
+		{ 
+			return WithBuildStep(p => p.CategoryFontIcon = val);
+		}
 	}
 
 	internal partial class AdBookingModelMockBuilder : MockBuilder<AdBookingModelMockBuilder, AdBookingModel>
@@ -439,6 +443,10 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.CategoryAdType = val);
 		}
+		public AdBookingModelMockBuilder WithCategoryFontIcon(String val)
+		{ 
+			return WithBuildStep(p => p.CategoryFontIcon = val);
+		}
 	}
 
 	internal partial class EventModelMockBuilder : MockBuilder<EventModelMockBuilder, EventModel>
@@ -462,6 +470,22 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventModelMockBuilder WithLocationLongitude(Decimal? val)
 		{ 
 			return WithBuildStep(p => p.LocationLongitude = val);
+		}
+		public EventModelMockBuilder WithTimeZoneId(String val)
+		{ 
+			return WithBuildStep(p => p.TimeZoneId = val);
+		}
+		public EventModelMockBuilder WithTimeZoneName(String val)
+		{ 
+			return WithBuildStep(p => p.TimeZoneName = val);
+		}
+		public EventModelMockBuilder WithTimeZoneDaylightSavingsOffsetSeconds(Int64? val)
+		{ 
+			return WithBuildStep(p => p.TimeZoneDaylightSavingsOffsetSeconds = val);
+		}
+		public EventModelMockBuilder WithTimeZoneUtcOffsetSeconds(Int64? val)
+		{ 
+			return WithBuildStep(p => p.TimeZoneUtcOffsetSeconds = val);
 		}
 		public EventModelMockBuilder WithEventStartDate(DateTime? val)
 		{ 
@@ -490,6 +514,22 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventModelMockBuilder WithClosingDateUtc(DateTime? val)
 		{ 
 			return WithBuildStep(p => p.ClosingDateUtc = val);
+		}
+		public EventModelMockBuilder WithLocationFloorPlanDocumentId(String val)
+		{ 
+			return WithBuildStep(p => p.LocationFloorPlanDocumentId = val);
+		}
+		public EventModelMockBuilder WithLocationFloorPlanFilename(String val)
+		{ 
+			return WithBuildStep(p => p.LocationFloorPlanFilename = val);
+		}
+		public EventModelMockBuilder WithAddress(Address val)
+		{ 
+			return WithBuildStep(p => p.Address = val);
+		}
+		public EventModelMockBuilder WithAddressId(Int64? val)
+		{ 
+			return WithBuildStep(p => p.AddressId = val);
 		}
 	}
 

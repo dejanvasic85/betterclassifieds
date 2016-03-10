@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Web.Mvc;
 
-namespace Paramount.Betterclassifieds.Mvc.HtmlHelpers
+namespace Paramount
 {
     public static class AdHtmlHelpers
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Paramount.Betterclassifieds.Mvc.Validators
+namespace Paramount.Betterclassifieds
 {
     /// <summary>
     /// Used mostly for agreeing to terms and conditions and verification checkboxes

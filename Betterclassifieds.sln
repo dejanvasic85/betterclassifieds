@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 Tests", "02 Tests", "{1EAE4385-197F-413F-8AFB-C80EBBD5ED64}"
 EndProject
@@ -57,8 +57,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 Database Scripts", "03 Database Scripts", "{07952A32-5A2A-47E5-89BB-5F0F2985D653}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Betterclassifieds.Configuration", "Paramount.Betterclassifieds.Configuration\Paramount.Betterclassifieds.Configuration.csproj", "{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Betterclassifieds.Mvc", "Paramount.Betterclassifieds.Mvc\Paramount.Betterclassifieds.Mvc.csproj", "{0C2B4EBB-3D4D-45EF-9622-214F9EF80B1A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Betterclassifieds.Utility", "Paramount.Betterclassifieds.Utility\Paramount.Betterclassifieds.Utility.csproj", "{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}"
 EndProject
@@ -182,14 +180,6 @@ Global
 		{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}.Test|Any CPU.Build.0 = Testing|Any CPU
 		{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}.Testing|Any CPU.ActiveCfg = Testing|Any CPU
 		{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}.Testing|Any CPU.Build.0 = Testing|Any CPU
-		{0C2B4EBB-3D4D-45EF-9622-214F9EF80B1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0C2B4EBB-3D4D-45EF-9622-214F9EF80B1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0C2B4EBB-3D4D-45EF-9622-214F9EF80B1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0C2B4EBB-3D4D-45EF-9622-214F9EF80B1A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0C2B4EBB-3D4D-45EF-9622-214F9EF80B1A}.Test|Any CPU.ActiveCfg = Release|Any CPU
-		{0C2B4EBB-3D4D-45EF-9622-214F9EF80B1A}.Test|Any CPU.Build.0 = Release|Any CPU
-		{0C2B4EBB-3D4D-45EF-9622-214F9EF80B1A}.Testing|Any CPU.ActiveCfg = Release|Any CPU
-		{0C2B4EBB-3D4D-45EF-9622-214F9EF80B1A}.Testing|Any CPU.Build.0 = Release|Any CPU
 		{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -217,7 +207,6 @@ Global
 		{E21BC044-AAAF-4D53-9A52-55820A22A7C2} = {07952A32-5A2A-47E5-89BB-5F0F2985D653}
 		{27640C6A-7C6F-446D-93DD-3E938DA05F24} = {C030D05C-AA23-4C91-A40A-047C4C8989DF}
 		{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7} = {C030D05C-AA23-4C91-A40A-047C4C8989DF}
-		{0C2B4EBB-3D4D-45EF-9622-214F9EF80B1A} = {C030D05C-AA23-4C91-A40A-047C4C8989DF}
 		{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5} = {C030D05C-AA23-4C91-A40A-047C4C8989DF}
 	EndGlobalSection
 EndGlobal

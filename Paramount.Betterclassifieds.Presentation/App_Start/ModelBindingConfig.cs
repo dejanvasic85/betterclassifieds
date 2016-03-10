@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
 using Paramount.Betterclassifieds.Business.Booking;
-using Paramount.Betterclassifieds.Mvc.Validators;
 using Paramount.Betterclassifieds.Presentation.Framework.ModelBinders;
 
 namespace Paramount.Betterclassifieds.Presentation

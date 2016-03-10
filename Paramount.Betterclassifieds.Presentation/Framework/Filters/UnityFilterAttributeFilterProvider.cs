@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 
-namespace Paramount.Betterclassifieds.Mvc.Unity
+namespace Paramount.Betterclassifieds
 {
     public class UnityFilterAttributeFilterProvider : FilterAttributeFilterProvider
     {

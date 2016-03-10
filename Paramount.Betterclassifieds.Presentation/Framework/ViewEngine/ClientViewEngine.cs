@@ -1,8 +1,8 @@
-﻿using System.Linq;
+﻿using System.Configuration;
+using System.Linq;
 using System.Web.Mvc;
-using Paramount.Betterclassifieds.Configuration;
 
-namespace Paramount.Betterclassifieds.Mvc
+namespace Paramount.Betterclassifieds
 {
     public class ClientViewEngine : RazorViewEngine
     {
@@ -40,7 +40,10 @@ namespace Paramount.Betterclassifieds.Mvc
             }
 
             // Setup client specific view conventions
-            var brand = ConfigManager.ReadAppSetting<string>("Brand");
+            var brand = ConfigurationManager.AppSettings["Brand"];
+            if (brand.IsNullOrEmpty())
+                throw new ConfigurationErrorsException("brand must be set as an Application Setting");
+
             if (!string.IsNullOrEmpty(brand))
             {
                 this.ViewLocationFormats = new[]

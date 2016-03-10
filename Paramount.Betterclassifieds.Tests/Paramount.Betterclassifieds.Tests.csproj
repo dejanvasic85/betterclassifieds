@@ -174,10 +174,6 @@
       <Project>{e51b8388-9a02-40ad-97b4-2802ae77fb69}</Project>
       <Name>Paramount.Betterclassifieds.DataService</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Paramount.Betterclassifieds.Mvc\Paramount.Betterclassifieds.Mvc.csproj">
-      <Project>{0c2b4ebb-3d4d-45ef-9622-214f9ef80b1a}</Project>
-      <Name>Paramount.Betterclassifieds.Mvc</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Paramount.Betterclassifieds.Presentation\Paramount.Betterclassifieds.Presentation.csproj">
       <Project>{16A1594A-F9A2-468B-BF45-2D716A72469E}</Project>
       <Name>Paramount.Betterclassifieds.Presentation</Name>

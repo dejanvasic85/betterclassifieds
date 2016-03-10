@@ -1,6 +1,4 @@
-﻿using System;
-using Paramount.Betterclassifieds.Business.Location;
-using Paramount.Betterclassifieds.Mvc.Unity;
+﻿using Paramount.Betterclassifieds.Business.Location;
 using Paramount.Betterclassifieds.Presentation.Services;
 
 namespace Paramount.Betterclassifieds.Presentation

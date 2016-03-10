@@ -213,6 +213,20 @@
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\ListingsController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
+    <Compile Include="Framework\Filters\UnityFilterAttributeFilterProvider.cs" />
+    <Compile Include="Framework\HtmlHelpers\AdHtmlHelpers.cs" />
+    <Compile Include="Framework\HtmlHelpers\BootstrapInputExtensions.cs" />
+    <Compile Include="Framework\HtmlHelpers\DropDownHtmlExtensions.cs" />
+    <Compile Include="Framework\HtmlHelpers\HtmlAttributeExtensions.cs" />
+    <Compile Include="Framework\SessionLifetimeManager.cs" />
+    <Compile Include="Framework\Validators\MaxWordsAttribute.cs" />
+    <Compile Include="Framework\Validators\MustBeOneOf.cs" />
+    <Compile Include="Framework\Validators\MustBeTrue.cs" />
+    <Compile Include="Framework\Validators\MustNotBePastDate.cs" />
+    <Compile Include="Framework\Validators\RequiredIfAttribute.cs" />
+    <Compile Include="Framework\Validators\RequiredIfNotLoggedIn.cs" />
+    <Compile Include="Framework\Validators\TimeAsStringAttribute.cs" />
+    <Compile Include="Framework\ViewEngine\ClientViewEngine.cs" />
     <Compile Include="Services\AdText.cs" />
     <Compile Include="Controllers\UserAdsController.cs" />
     <Compile Include="Framework\Extensions\ModelStateExtensions.cs" />
@@ -812,7 +826,6 @@
     <Content Include="Views\Shared\_Terms.SriLankanEvents.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Framework\Validators\" />
     <Folder Include="Scripts\app\home\" />
   </ItemGroup>
   <ItemGroup>
@@ -828,10 +841,6 @@
     <ProjectReference Include="..\Paramount.Betterclassifieds.DataService\Paramount.Betterclassifieds.DataService.csproj">
       <Project>{e51b8388-9a02-40ad-97b4-2802ae77fb69}</Project>
       <Name>Paramount.Betterclassifieds.DataService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Paramount.Betterclassifieds.Mvc\Paramount.Betterclassifieds.Mvc.csproj">
-      <Project>{0c2b4ebb-3d4d-45ef-9622-214f9ef80b1a}</Project>
-      <Name>Paramount.Betterclassifieds.Mvc</Name>
     </ProjectReference>
     <ProjectReference Include="..\Paramount.Betterclassifieds.Payments.PayPal\Paramount.Betterclassifieds.Payments.PayPal.csproj">
       <Project>{27640C6A-7C6F-446D-93DD-3E938DA05F24}</Project>

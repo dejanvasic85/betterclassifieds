@@ -1,6 +1,6 @@
 ﻿using System.Web;
 
-namespace Paramount.Betterclassifieds.Mvc.Unity
+namespace Paramount.Betterclassifieds
 {
     public class SessionLifetimeManager<T> : Microsoft.Practices.Unity.LifetimeManager
     {

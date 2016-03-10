@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Paramount.Betterclassifieds.Mvc.HtmlHelpers
+namespace Paramount
 {
     internal static class HtmlAttributeExtensions
     {

@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Paramount.Betterclassifieds.DataService;
-using Paramount.Betterclassifieds.Mvc;
 
 namespace Paramount.Betterclassifieds.Presentation
 {

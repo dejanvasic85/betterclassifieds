@@ -1,7 +1,6 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Paramount.Betterclassifieds.Mvc.Validators
+namespace Paramount.Betterclassifieds
 {
     public class RequiredIfAttribute : ValidationAttribute
     {

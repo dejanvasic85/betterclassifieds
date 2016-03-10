@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace Paramount.Betterclassifieds.Mvc.Validators
+namespace Paramount.Betterclassifieds
 {
     /// <summary>
     /// Validates that at least one of strings matches exactly. Useful for string and enumeration matching

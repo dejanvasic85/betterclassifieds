@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Web;
 
-namespace Paramount.Betterclassifieds.Mvc.Validators
+namespace Paramount.Betterclassifieds
 {
     public class RequiredIfNotLoggedIn : ValidationAttribute
     {

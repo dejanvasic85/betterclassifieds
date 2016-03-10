@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace Paramount.Betterclassifieds.Mvc.Validators
+namespace Paramount.Betterclassifieds
 {
     public class MustNotBePastDate : ValidationAttribute
     {

@@ -25,16 +25,16 @@ GO
 execute temp_createAppSetting @Key = 'SearchResultsPerPage', @Setting = '10'
 execute temp_createAppSetting @Key = 'SearchMaxPagedRequests', @Setting = '100'
 execute temp_createAppSetting @Key = 'MaxOnlineImages', @Setting = '10'
-execute temp_createAppSetting @Key = 'SupportNotificationAccounts', @Setting = 'support@paramountit.com.au'
+execute temp_createAppSetting @Key = 'SupportNotificationAccounts', @Setting = 'support@srilankanevents.com.au'
 execute temp_createAppSetting @Key = 'AdDurationDays', @Setting = '60'
-execute temp_createAppSetting @Key = 'ClientAddress', @Setting = 'PO Box 333, Lennox St,Richmond,VIC,3121,Australia', @Force = 1
-execute temp_createAppSetting @Key = 'ClientAddressLatLong', @Setting = '-37.818635,145.001470', @Force = 1
+execute temp_createAppSetting @Key = 'ClientAddress', @Setting = 'Melbourne,VIC,3000,Australia', @Force = 1
+execute temp_createAppSetting @Key = 'ClientAddressLatLong', @Setting = '37.8136,144.9631', @Force = 1
 execute temp_createAppSetting @Key = 'EnableTwoFactorAuth', @Setting = 'true', @Force = 1
 execute temp_createAppSetting @Key = 'ClientName', @Setting = 'Sri Lankan Events', @Force = 1
 execute temp_createAppSetting @Key = 'EventTicketReservationExpiryMinutes', @Setting = '5'
 execute temp_createAppSetting @Key = 'EventMaxTicketsPerBooking', @Setting = '5'
-execute temp_createAppSetting @Key = 'EventTicketFee', @Setting = '2.9', @Force = 1
-execute temp_createAppSetting @Key = 'FacebookAppId', @Setting = '1277927518889183', @Force = 1
+execute temp_createAppSetting @Key = 'EventTicketFee', @Setting = '3.6', @Force = 1
+execute temp_createAppSetting @Key = 'FacebookAppId', @Setting = '950300948385613', @Force = 1
 
 
 drop procedure temp_createAppSetting
@@ -82,6 +82,31 @@ end
 go
 
 -- Setup the new icons for the categories
--- exec temp_createCategory @Title = 'For Sale', @FontIcon = 'shopping-cart';
+exec temp_createCategory @Title = 'Concerts', @FontIcon = 'music', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+exec temp_createCategory @ParentCategory = 'Concerts', @Title = 'DJ', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+exec temp_createCategory @ParentCategory = 'Concerts', @Title = 'Traditional', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+exec temp_createCategory @ParentCategory = 'Concerts', @Title = 'Contemporary', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+exec temp_createCategory @ParentCategory = 'Concerts', @Title = 'Modern', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+exec temp_createCategory @ParentCategory = 'Concerts', @Title = 'Baila', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+
+exec temp_createCategory @Title = 'Dinner Dance', @FontIcon = 'cutlery', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+exec temp_createCategory @ParentCategory = 'Dinner Dance', @Title = 'Hoppers Night', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+exec temp_createCategory @ParentCategory = 'Dinner Dance', @Title = 'Kotthu Night', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+
+exec temp_createCategory @Title = 'Expo', @FontIcon = 'suitcase', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+exec temp_createCategory @ParentCategory = 'Expo', @Title = 'Business', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+exec temp_createCategory @ParentCategory = 'Expo', @Title = 'Fashion', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+exec temp_createCategory @ParentCategory = 'Expo', @Title = 'Education', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+exec temp_createCategory @ParentCategory = 'Expo', @Title = 'Music', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+exec temp_createCategory @ParentCategory = 'Expo', @Title = 'Food', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+exec temp_createCategory @ParentCategory = 'Expo', @Title = 'Wedding', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+
+exec temp_createCategory @Title = 'Shows', @FontIcon = 'video-camera', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+exec temp_createCategory @ParentCategory = 'Shows', @Title = 'Drama', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+exec temp_createCategory @ParentCategory = 'Shows', @Title = 'Movie', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+exec temp_createCategory @ParentCategory = 'Shows', @Title = 'Talk Show', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+exec temp_createCategory @ParentCategory = 'Shows', @Title = 'Dance', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+
+
 go
 drop procedure temp_createCategory

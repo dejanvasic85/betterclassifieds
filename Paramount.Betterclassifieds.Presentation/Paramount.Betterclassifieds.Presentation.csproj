@@ -809,6 +809,7 @@
     <Content Include="Views\EditAd\EventDetails.cshtml" />
     <Content Include="Views\Event\_FloorPlanDialogDialog.cshtml" />
     <Content Include="Views\Home\Terms.cshtml" />
+    <Content Include="Views\Shared\_Terms.SriLankanEvents.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Framework\Validators\" />

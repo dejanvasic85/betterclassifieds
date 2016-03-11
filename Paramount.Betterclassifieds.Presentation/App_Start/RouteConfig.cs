@@ -12,10 +12,7 @@ namespace Paramount.Betterclassifieds.Presentation
             routes.Ignore("{resource}.axd/{*pathInfo}");
             routes.Ignore("{resource}.aspx/{*pathInfo}");
             routes.Ignore("{resources}.ashx/{*pathInfo}");
-
-            // Api
-            routes.MapHttpRoute(name: "API Default", routeTemplate: "api/{controller}/{id}", defaults: new { id = RouteParameter.Optional });
-
+            
             // Images
             routes.MapRoute("imageRoute", "img/{documentId}/{width}/{height}", new { controller = "Image", action = "Render", width = UrlParameter.Optional, height = UrlParameter.Optional });
 

@@ -136,6 +136,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             context.Setup(h => h.Request).Returns(request.Object);
             context.Setup(h => h.Response).Returns(response.Object);
+            context.Setup(call => call.GetService(typeof(HttpWorkerRequest)))
+                .Returns(null);
 
             context.Setup(ctx => ctx.Request).Returns(request.Object);
             context.Setup(ctx => ctx.Response).Returns(response.Object);

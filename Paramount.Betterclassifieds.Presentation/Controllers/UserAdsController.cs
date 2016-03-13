@@ -21,7 +21,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var userAds = _bookingManager.GetBookingsForUser(User.Identity.Name, takeMax: 20);
+            var viewModels = userAds.Select(ad => new UserBookingViewModel(ad, Url)).ToList();
+            return View(viewModels);
         }
 
         public ActionResult GetAdsForUser()

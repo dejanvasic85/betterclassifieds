@@ -1,4 +1,4 @@
-﻿@model dynamic
+﻿@model List<UserBookingViewModel>
 
 @{
     Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
@@ -8,10 +8,10 @@
 @section Scripts{
 
     <script>
-        $paramount.ui.userAdsUI.init();
+        var data = @Html.Raw(Model.ToJsonString());
+        $paramount.ui.userAdsUI.init(data);
     </script>
 }
-
 
 <div class="container top-buffer-60 user-ads">
 
@@ -40,19 +40,12 @@
     <div class="row">
         <div class="col-xs-12">
 
-            <div class="progress">
-                <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                    <span class="sr-only"></span>
-                    Loading... Please Wait
-                </div>
-            </div>
-
             <div class="alert alert-info-alt" data-bind="visible: noAdsAvaialble" style="display: none;" id="noAdsMsg">
                 There doesn't seem to be anything here at the moment :( <br />
                 <a href="@Url.Action("Step1", "Booking")">Go ahead and book an ad!</a>
             </div>
 
-            <div id="adList" style="display: none" data-bind="foreach: ads">
+            <div id="adList" data-bind="foreach: ads">
                 <div class="panel" data-bind="css : {'panel-danger' : $data.status() === 'Expired', 'panel-success' :  $data.status() === 'Current', 'panel-warning' : $data.status() === 'Scheduled'} ,visible: $data.status() === $parent.selectedStatus() || $parent.selectedStatus() === 'All'">
                     <div class="panel-heading">
                         <strong>

@@ -1,6 +1,10 @@
 Here's a list of the latest changes:
 
-**3.1.0 Framework upgrades and Bug Fixes**
+**3.2.0 Bug fixes**
+
+- [User bookings screen not loading with ad blocker](https://trello.com/c/jpebouSD/417-cannot-load-user-bookings-screen-using-chrome)
+
+**3.1.0 Framework upgrades**
 
 - [Upgrade to .Net framework 4.6.1](https://trello.com/c/HIvGM3im/414-upgrade-to-net-framework-4-6)
 - [Upgrade to Asp.Net MVC 5.2.3](https://trello.com/c/En4Z23rh/413-upgrade-to-mvc-5)

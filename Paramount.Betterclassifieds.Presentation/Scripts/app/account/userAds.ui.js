@@ -7,14 +7,17 @@
             var userAdService = new $p.UserAdService();
             var $rootElement = $('.user-ads');
 
-            userAdService.getAdsForUser().done(function (data) {
-                $rootElement.find('.progress').hide(500, function () {
-                    var bookingsView = new $p.models.UserAdsView(data);
-                    $rootElement.find('#adList').show();
-                    $rootElement.find('#noAdsMsg').show();
-                    ko.applyBindings(bookingsView, $rootElement.get(0));
-                });
-            });
+            var bookingsView = new $p.models.UserAdsView(data);
+            ko.applyBindings(bookingsView, $rootElement.get(0));
+
+            //userAdService.getAdsForUser().done(function (data) {
+            //    $rootElement.find('.progress').hide(500, function () {
+                    
+            //        $rootElement.find('#adList').show();
+            //        $rootElement.find('#noAdsMsg').show();
+                    
+            //    });
+            //});
 
             $rootElement.find('#adList').on('click', '.view-messages', function () {
                 var context = ko.contextFor(this);

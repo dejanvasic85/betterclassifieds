@@ -214,6 +214,7 @@
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\ListingsController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
+    <Compile Include="Controllers\UserNetworkController.cs" />
     <Compile Include="Framework\Filters\UnityFilterAttributeFilterProvider.cs" />
     <Compile Include="Framework\HtmlHelpers\AdHtmlHelpers.cs" />
     <Compile Include="Framework\HtmlHelpers\BootstrapInputExtensions.cs" />
@@ -285,7 +286,7 @@
     <Compile Include="ViewModels\Booking\Step2View.cs" />
     <Compile Include="ViewModels\Booking\Step3View.cs" />
     <Compile Include="ViewModels\Booking\SuccessView.cs" />
-    <Compile Include="ViewModels\Booking\UserNetworkEmailView.cs" />
+    <Compile Include="ViewModels\UserNetwork\UserNetworkEmailView.cs" />
     <Compile Include="ViewModels\CategoryView.cs" />
     <Compile Include="ViewModels\Booking\PublicationView.cs" />
     <Compile Include="ViewModels\ContactUsView.cs" />
@@ -317,6 +318,7 @@
     <Compile Include="ViewModels\SortType.cs" />
     <Compile Include="ViewModels\Booking\Step1View.cs" />
     <Compile Include="ViewModels\Account\UserDetailsEditView.cs" />
+    <Compile Include="ViewModels\UserNetwork\UserNetworkNotifierView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -473,6 +475,9 @@
     <Content Include="Scripts\app\categories\categoryLinks.model.js" />
     <Content Include="Scripts\app\ui\home.ui.js" />
     <Content Include="Scripts\app\locations\location.service.js" />
+    <Content Include="Scripts\app\userNetwork\userNetwork.service.js" />
+    <Content Include="Scripts\app\userNetwork\userNetworkAdNotifier.model.js" />
+    <Content Include="Scripts\app\userNetwork\userNetworkNotifyAd.ui.js" />
     <Content Include="Scripts\knockout\knockout.validation-2.0.3.js" />
     <Content Include="Scripts\vendor\bootstrap-3.3.0.js" />
     <Content Include="Scripts\vendor\bootstrap-clockpicker.js" />
@@ -719,6 +724,7 @@
     <Content Include="Scripts\ckeditor\plugins\scayt\README.md" />
     <Content Include="Scripts\ckeditor\plugins\wsc\LICENSE.md" />
     <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
+    <Content Include="Scripts\app\userNetwork\userNetwork.model.js" />
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\ckeditor\skins\moono\dialog.css" />
     <Content Include="Scripts\ckeditor\skins\moono\dialog_ie.css" />
@@ -824,7 +830,6 @@
     <Content Include="Views\EditAd\EventDetails.cshtml" />
     <Content Include="Views\Event\_FloorPlanDialogDialog.cshtml" />
     <Content Include="Views\Home\Terms.cshtml" />
-    <Content Include="Views\Shared\_Terms.SriLankanEvents.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

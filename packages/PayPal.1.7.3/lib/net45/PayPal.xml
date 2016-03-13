@@ -563,11 +563,6 @@
             SDKVersion instance
             </summary>
         </member>
-        <member name="F:PayPal.Api.OAuthTokenCredential.logger">
-            <summary>
-            Logs output statements, errors, debug info to a text file    
-            </summary>
-        </member>
         <member name="P:PayPal.Api.OAuthTokenCredential.ClientId">
             <summary>
             Gets the client ID to be used when creating an OAuth token.
@@ -604,10 +599,10 @@
             </summary>
         </member>
         <member name="M:PayPal.Api.OAuthTokenCredential.#ctor(System.Collections.Generic.Dictionary{System.String,System.String})">
-            <summary>
+             <summary>
             
-            </summary>
-            <param name="config"></param>
+             </summary>
+             <param name="config"></param>
         </member>
         <member name="M:PayPal.Api.OAuthTokenCredential.#ctor(System.String,System.String)">
             <summary>
@@ -3215,7 +3210,7 @@
         </member>
         <member name="P:PayPal.Api.PayerInfo.shipping_address">
             <summary>
-            Obsolete. Use shipping address present in purchase unit.
+            Shipping address of payer PayPal account.
             </summary>
         </member>
         <member name="T:PayPal.Api.Payment">
@@ -3289,6 +3284,16 @@
         <member name="P:PayPal.Api.Payment.update_time">
             <summary>
             Time the resource was last updated in UTC ISO8601 format.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Payment.note_to_payer">
+            <summary>
+            Free-form field that allows clients to pass in a message to the payer.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Payment.billing_agreement_tokens">
+            <summary>
+            Collection of PayPal generated billing agreement tokens.
             </summary>
         </member>
         <member name="P:PayPal.Api.Payment.token">
@@ -3988,7 +3993,7 @@
         </member>
         <member name="F:PayPal.Api.PayPalResource.logger">
             <summary>
-            Logs output statements, errors, debug info to a text file    
+            Logs output statements, errors, debug info to a text file
             </summary>
         </member>
         <member name="T:PayPal.Api.PayPalResource.HttpMethod">
@@ -4316,6 +4321,26 @@
             Total number of pages.
             </summary>
         </member>
+        <member name="T:PayPal.Api.PotentialPayerInfo">
+            <summary>
+            A resource representing a information about a potential payer.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.PotentialPayerInfo.email">
+            <summary>
+            Email address representing the potential payer.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.PotentialPayerInfo.external_remember_me_id">
+            <summary>
+            xternalRememberMe id representing the potential payer.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.PotentialPayerInfo.billing_address">
+            <summary>
+            Billing address of the potential payer.
+            </summary>
+        </member>
         <member name="T:PayPal.Api.Presentation">
             <summary>
             Presentation details for a web experience profile.
@@ -4337,6 +4362,41 @@
         <member name="P:PayPal.Api.Presentation.locale_code">
             <summary>
             Locale of pages displayed by PayPal payment experience. Allowed values: `AU`, `AT`, `BE`, `BR`, `CA`, `CH`, `CN`, `DE`, `ES`, `GB`, `FR`, `IT`, `NL`, `PL`, `PT`, `RU`, `US`. The following 5-character codes are also allowed for languages in specific countries: `da_DK`, `he_IL`, `id_ID`, `ja_JP`, `no_NO`, `pt_BR`, `ru_RU`, `sv_SE`, `th_TH`, `tr_TR`, `zh_CN`, `zh_HK`, `zh_TW`.
+            </summary>
+        </member>
+        <member name="T:PayPal.Api.ProcessorResponse">
+            <summary>
+            Collection of payment response related fields returned from a payment request.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.ProcessorResponse.response_code">
+            <summary>
+            Paypal normalized response code, generated from the processor's specific response code
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.ProcessorResponse.avs_code">
+            <summary>
+            Address Verification System response code. https://developer.paypal.com/webapps/developer/docs/classic/api/AVSResponseCodes/
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.ProcessorResponse.cvv_code">
+            <summary>
+            CVV System response code. https://developer.paypal.com/webapps/developer/docs/classic/api/AVSResponseCodes/
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.ProcessorResponse.advice_code">
+            <summary>
+            Provides merchant advice on how to handle declines related to recurring payments
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.ProcessorResponse.eci_submitted">
+            <summary>
+            Response back from the authorization. Provided by the processor
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.ProcessorResponse.vpas">
+            <summary>
+            PVisa Payer Authentication Service status. Will be return from processor
             </summary>
         </member>
         <member name="T:PayPal.Api.RecipientBankingInstruction">
@@ -4618,6 +4678,16 @@
         <member name="P:PayPal.Api.Sale.update_time">
             <summary>
             Time the resource was last updated in UTC ISO8601 format.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Sale.processor_response">
+            <summary>
+            Collection of payment response related fields returned from a payment request.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Sale.billing_agreement_id">
+            <summary>
+            ID of the billing agreement used as reference to execute this transaction.
             </summary>
         </member>
         <member name="M:PayPal.Api.Sale.Get(PayPal.Api.APIContext,System.String)">
@@ -5406,6 +5476,11 @@
             Allowed application mode - sandbox
             </summary>
         </member>
+        <member name="F:PayPal.Api.BaseConstants.SecurityTestSandboxMode">
+            <summary>
+            Allowed application mode - security-test-sandbox
+            </summary>
+        </member>
         <member name="F:PayPal.Api.BaseConstants.RESTSandboxEndpoint">
             <summary>
             Sandbox REST API endpoint
@@ -5414,6 +5489,11 @@
         <member name="F:PayPal.Api.BaseConstants.RESTLiveEndpoint">
             <summary>
             Live REST API endpoint
+            </summary>
+        </member>
+        <member name="F:PayPal.Api.BaseConstants.RESTSecurityTestSandoxEndpoint">
+            <summary>
+            Security Test Sandbox REST API endpoint
             </summary>
         </member>
         <member name="F:PayPal.Api.BaseConstants.ApplicationModeConfig">
@@ -5899,7 +5979,7 @@
         </member>
         <member name="F:PayPal.Api.ClientCredentials.clientId">
             <summary>
-            Client ID 
+            Client ID
             </summary>
         </member>
         <member name="F:PayPal.Api.ClientCredentials.clientSecret">
@@ -6391,6 +6471,18 @@
             <param name="type">The object type to use in determining which assembly version should be returned.</param>
             <returns>A 3-digit version of the parent assembly.</returns>
         </member>
+        <member name="M:PayPal.Util.SDKUtil.IsNet45OrLaterDetected">
+            <summary>
+            Checks if .NET 4.5 or later is detected on the system.
+            </summary>
+            <returns>True if .NET 4.5 or later is detected; false otherwise.</returns>
+        </member>
+        <member name="M:PayPal.Util.SDKUtil.GetHighestInstalledNetVersion">
+            <summary>
+            Gets the highest installed version of the .NET framework found on the system.
+            </summary>
+            <returns>A string containing the highest installed version of the .NET framework found on the system.</returns>
+        </member>
         <member name="M:PayPal.Util.SDKUtil.GetTokenFromApprovalUrl(System.Collections.Generic.List{PayPal.Api.Links})">
             <summary>
             Gets the resource token from an approval URL HATEOAS link, if found.
@@ -6677,7 +6769,7 @@
         </member>
         <member name="F:PayPal.PayPalException.logger">
             <summary>
-            Logs output statements, errors, debug info to a text file    
+            Logs output statements, errors, debug info to a text file
             </summary>
         </member>
         <member name="M:PayPal.PayPalException.#ctor">
@@ -7282,7 +7374,7 @@
         <member name="T:PayPal.SDKConfigHandler">
             <summary>
             Custom handler for SDK configuration section as defined in App.Config or Web.Config files
-            </summary>    
+            </summary>
         </member>
         <member name="M:PayPal.SDKConfigHandler.#ctor">
             <summary>
@@ -7459,6 +7551,13 @@
             <param name="trustedCert">Trusted certificate to use in validating the chain.</param>
             <param name="clientCerts">Client certificates to use in validating the chain.</param>
             <returns>True if the certificate chain is valid; false otherwise.</returns>
+        </member>
+        <member name="M:PayPal.CertificateManager.ValidatePayPalClientCertificate(System.Security.Cryptography.X509Certificates.X509Certificate2Collection)">
+            <summary>
+            Validates the leaf client cert for the owner to be PayPal
+            </summary>
+            <param name="clientCerts"></param>
+            <returns>True if leaf client certificate belongs to .paypal.com, false otherwise</returns>
         </member>
     </members>
 </doc>

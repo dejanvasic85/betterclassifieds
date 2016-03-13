@@ -25,7 +25,7 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         public IEnumerable<EventTicketReservation> CreateReservations(int eventTicketId, int quantity, string sessionId)
         {
-            var eventTicket = _eventRepository.GetEventTicketDetails(eventTicketId, true);
+            var eventTicket = _eventRepository.GetEventTicketDetails(eventTicketId, includeReservations: true);
 
             for (int i = 0; i < quantity; i++)
             {

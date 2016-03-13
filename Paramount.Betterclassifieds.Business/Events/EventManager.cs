@@ -99,7 +99,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         public void CancelEventBooking(int? eventBookingId)
         {
             Guard.NotNull(eventBookingId);
-            var eventBooking = _eventRepository.GetEventBooking(eventBookingId.GetValueOrDefault());
+            var eventBooking = _eventRepository.GetEventBooking(eventBookingId.GetValueOrDefault(), includeEvent: false);
             eventBooking.Status = EventBookingStatus.Cancelled;
             _eventRepository.UpdateEventBooking(eventBooking);
         }
@@ -107,14 +107,14 @@ namespace Paramount.Betterclassifieds.Business.Events
         public void EventBookingPaymentCompleted(int? eventBookingId, PaymentType paymentType)
         {
             Guard.NotNull(eventBookingId);
-            var eventBooking = _eventRepository.GetEventBooking(eventBookingId.GetValueOrDefault());
+            var eventBooking = _eventRepository.GetEventBooking(eventBookingId.GetValueOrDefault(), includeEvent: false);
             eventBooking.Status = EventBookingStatus.Active;
             _eventRepository.UpdateEventBooking(eventBooking);
         }
 
         public void SetPaymentReferenceForBooking(int eventBookingId, string paymentReference, PaymentType paymentType)
         {
-            var eventBooking = _eventRepository.GetEventBooking(eventBookingId);
+            var eventBooking = _eventRepository.GetEventBooking(eventBookingId, includeEvent: false);
             eventBooking.PaymentReference = paymentReference;
             eventBooking.PaymentMethod = paymentType;
             _eventRepository.UpdateEventBooking(eventBooking);
@@ -140,7 +140,7 @@ namespace Paramount.Betterclassifieds.Business.Events
 
             _documentRepository.Save(pdfDocument);
 
-            var eventBooking = _eventRepository.GetEventBooking(eventBookingId);
+            var eventBooking = _eventRepository.GetEventBooking(eventBookingId, includeEvent: false);
             eventBooking.TicketsDocumentId = pdfDocument.DocumentId;
             if (ticketsSentDate.HasValue)
             {
@@ -314,7 +314,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                 originalEventDetails.EventStartDate = eventStartDate;
                 originalEventDetails.EventEndDate = eventEndDateTime;
                 originalEventDetails.Location = location;
-                
+
 
                 if (locationLatitude.HasValue && originalEventDetails.LocationLatitude != locationLatitude &&
                     locationLongitude.HasValue && originalEventDetails.LocationLongitude != locationLongitude)

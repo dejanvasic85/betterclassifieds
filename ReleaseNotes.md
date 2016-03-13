@@ -1,5 +1,13 @@
 Here's a list of the latest changes:
 
+**3.1.0 Framework upgrades and Bug Fixes**
+
+- [Upgrade to .Net framework 4.6.1](https://trello.com/c/HIvGM3im/414-upgrade-to-net-framework-4-6)
+- [Upgrade to Asp.Net MVC 5.2.3](https://trello.com/c/En4Z23rh/413-upgrade-to-mvc-5)
+- [Upgrade to Entity Framework 6.1.3](https://trello.com/c/Z8k2HMfS/416-upgrade-entity-framework-to-version-6-1-3)
+- [Upgrade Selenium Web Driver](https://trello.com/c/H3Nzs6t4/412-update-selenium-web-driver)
+- [Upgrade the PayPal library](https://trello.com/c/Sdc9OpZe/415-upgrade-paypal-sdk)
+
 **3.0.2 Events Improvements and Feedback implementation**
 
 - [Enhancement - Social buttons are now available on the event details page](https://trello.com/c/JpIUpRf3/387-events-social-network-integration-to-share-the-even-with-friends)

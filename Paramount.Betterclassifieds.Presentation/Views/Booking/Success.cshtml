@@ -7,72 +7,80 @@
     Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
 }
 
+@section Scripts
+{
+    <script>
+        var data = @Html.Raw(Model.UserNetworkNotifierView.ToJsonString());
+        $paramount.ui.notifyNetworkAdUi.init(data);
+    </script>
+}
+
 <div class="container top-buffer-60">
 
     <div class="jumbotron">
         <h1>
             <span class="glyphicon glyphicon-thumbs-up"></span> Booking Complete
         </h1>
-        <p class="lead">Your booking has been placed successfully! Don't forget to let your friends know.</p>
+        <p class="lead">Your booking has been placed successfully. Don't forget to let your friends know!</p>
     </div>
     <div class="row">
         <div class="col-sm-6">
             <div class="well" id="tellYourFriendsForm">
                 <h2>Tell your friends</h2>
-                <div class="row top-buffer-20">
-                    <div class="col-md-12">
-                        <span data-bind="visible: hasNoContacts()">There are no friends at the moment ...</span>
-                        <table class="table" data-bind="visible: hasContacts()">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Notify</th>
-                                </tr>
-                            </thead>
-                            <tbody data-bind="foreach: contacts">
-                                <tr data-bind="css: {success : selected } ">
-                                    <td data-bind="text: fullName"></td>
-                                    <td data-bind="text: email"></td>
-                                    <td>
-                                        <input type="checkbox" class="checkbox" data-bind="checked: selected" />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+
+                <div id="userNetwork">
+
+                    <div class="row top-buffer-20">
+                        <div class="col-xs-12">
+                            <div class="alert alert-info" data-bind="visible: users().length === 0">
+                                It seems very empty at the moment :(
+                            </div>
+
+                            <div class="list-group" data-bind="foreach: users">
+                                <div class="list-group-item">
+                                    <span data-bind="text: fullName" class="is-fullName"></span>
+                                    &nbsp;
+                                    <span data-bind="text: email" class="is-email"></span>
+
+                                    <div class="pull-right">
+                                        <input type="checkbox" data-bind="toggle: selected"
+                                               data-onstyle="success"
+                                               data-on="Email"
+                                               data-off="No Email" />
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 text-right">
+                            <button class="btn btn-primary" data-bind="click: notifyFriends, visible: anyUserSelected">
+                                <i class="fa fa-mail-forward"></i> Notify Friends
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="row top-buffer-20">
-                    <div class="col-xs-12">
-                        <form data-bind="submit: addContact" novalidate class="form-inline">
-                            <div class="form-group">
-                                <label class="sr-only" for="contactName">Full Name</label>
-                                <input type="text" id="contactName" class="form-control" data-bind="value: contactName" placeholder="Full Name" />
-                            </div>
-                            <div class="form-group">
-                                <label class="sr-only" for="contactEmail">Email</label>
-                                <input type="email" id="contactEmail" class="form-control" data-bind="value: contactEmail" placeholder="Friends Email" />
-                            </div>
 
-                            <button type="submit" class="btn btn-default" id="addFriend">Add</button>
 
-                        </form>
-                        <div class="alert alert-danger top-buffer-10" data-bind="visible: errors().length > 0">
-                            <ul data-bind="foreach: errors">
-                                <li data-bind="text: $data"></li>
-                            </ul>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h3>Quick Add</h3>
+                        </div>
+                        <div class="col-sm-6 form-group" data-bind="validationElement: newFriendName">
+                            <label>Friend's Name</label>
+                            <input type="text" class="form-control" data-bind="value: newFriendName" />
+                        </div>
+                        <div class="col-sm-6 form-group" data-bind="validationElement: newFriendEmail">
+                            <label>Friend's Email</label>
+                            <input type="email" class="form-control" data-bind="value: newFriendEmail" />
+                        </div>
+
+                        <div class="col-sm-12 text-right">
+                            <button class="btn btn-success" data-bind="click: addFriend">
+                                <i class="fa fa-plus-circle"></i> Add Friend
+                            </button>
                         </div>
                     </div>
                 </div>
-                <div class="row top-buffer-20">
-                    <div class="col-xs-12">
-                        <button id="btnNotifyContacts" class="btn btn-block btn-default"
-                                data-bind="enable: selectedContactCount() > 0, click : notifyContacts"
-                                data-loading-text="Please Wait...">
-                            Notify My Friends
-                        </button>
-                    </div>
-                </div>
+
             </div>
             <div id="tellYourFriendsDone" class="alert alert-success no-display">
                 Done. Your friends will receive an email with your ad very shortly!
@@ -104,79 +112,3 @@
     </div>
 
 </div>
-
-@section Scripts{
-    <script>
-        (function($) {
-            $(function() {
-                var ContactPerson = function(fullName, email, selected) {
-                    var me = this;
-                    me.fullName = ko.observable(fullName);
-                    me.email = ko.observable(email);
-                    me.selected = ko.observable(selected);
-                };
-                var ContactNetwork = function(existingUsers) {
-                    var me = this;
-                    me.contactName = ko.observable("");
-                    me.contactEmail = ko.observable("");
-                    me.contacts = ko.observableArray();
-                    me.errors = ko.observableArray();
-                    existingUsers.forEach(function(item) {
-                        var cp = new ContactPerson(item.fullName, item.email, item.selected);
-                        me.contacts.push(cp);
-                    });
-                    me.selectedContactCount = ko.computed(function() {
-                        var selected = me.contacts().filter(function(item) {
-                            return item.selected() === true;
-                        });
-                        return selected.length;
-                    });
-                    me.addContact = function() {
-                        $('#addFriend').button('loading');
-                        $.post('@Url.Action("AddUserNetwork", "Booking")', { fullName: me.contactName(), email: me.contactEmail() }, function(response) {
-                            if (response.valid) {
-                                var person = new ContactPerson(me.contactName(), me.contactEmail(), true);
-                                me.contacts.push(person);
-                                me.contactName("");
-                                me.contactEmail("");
-                                $('#contactName').focus();
-                                me.errors.removeAll();
-                            } else {
-                                response.errors.forEach(function(err) {
-                                    me.errors.push(err);
-                                });
-                            }
-                        }).complete(function() {
-                            $('#addFriend').button('reset');
-                        });
-                    };
-                    me.hasContacts = function() { return me.contacts().length > 0; }
-                    me.hasNoContacts = function() { return !me.hasContacts(); }
-                    me.notifyContacts = function() {
-                        var contacts = ko.toJS(me.contacts());
-                        var adId = '@Model.AdId';
-                        $('#btnNotifyContacts').button('loading');
-                        $.ajax({
-                            url: '@Url.Action("NotifyContactsAboutMyAd", "Booking")',
-                            data: JSON.stringify({id : adId, users: contacts}),
-                            contentType: 'application/json',
-                            type: 'POST',
-                            dataType: 'json',
-                            success: function() {
-                                $('#tellYourFriendsForm').slideUp(200, function() {
-                                    $('#tellYourFriendsDone').show();
-                                });
-                            },
-                            complete: function() {
-                                $('#btnNotifyContacts').button('reset');
-                            }
-                        });
-                    };
-                };
-                var existingContacts = @Html.Raw(Model.ExistingUsers.ToJsonString());
-                var contactNetworkModel = new ContactNetwork(existingContacts);
-                ko.applyBindings(contactNetworkModel);
-            });
-        })(jQuery);
-    </script>
-}

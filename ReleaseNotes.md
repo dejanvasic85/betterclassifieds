@@ -2,7 +2,8 @@ Here's a list of the latest changes:
 
 **3.2.0 Bug fixes**
 
-- [User bookings screen not loading with ad blocker](https://trello.com/c/jpebouSD/417-cannot-load-user-bookings-screen-using-chrome)
+- [Fix - User bookings screen not loading with ad blocker](https://trello.com/c/jpebouSD/417-cannot-load-user-bookings-screen-using-chrome)
+- [Fix - Success page with user networking validation and notification is fixed](https://trello.com/c/39onStno/390-booking-success-screen-validation-for-user-network)
 
 **3.1.0 Framework upgrades**
 

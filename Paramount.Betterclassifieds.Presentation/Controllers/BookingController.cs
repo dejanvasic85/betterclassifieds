@@ -215,7 +215,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         // 
         // GET /Booking/Success
-        [HttpGet, Authorize, AuthorizeCartIdentity]
+        [HttpGet, BookingRequired, Authorize, AuthorizeCartIdentity]
         public ActionResult Success()
         {
             var bookingCart = _bookingContext.Current();
@@ -244,12 +244,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 TitleSlug = Slug.Create(true, bookingCart.OnlineAdModel.Heading),
                 IsBookingActive = bookingCart.StartDate <= DateTime.Today,
                 CategoryAdType = bookingCart.CategoryAdType,
-                ExistingUsers = _userManager.GetUserNetworksForUserId(currentUser.Username).Select(usr => new UserNetworkEmailView
-                {
-                    Email = usr.UserNetworkEmail,
-                    FullName = usr.FullName,
-                    Selected = true,
-                }).ToArray()
+                UserNetworkNotifierView = new UserNetworkNotifierView(id.GetValueOrDefault(), _userManager.GetUserNetworksForUserId(currentUser.Username))
             };
 
             _bookingContext.Clear();

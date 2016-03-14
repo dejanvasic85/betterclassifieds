@@ -1,5 +1,7 @@
 ﻿(function (jQuery, ko, $paramount) {
 
+    'use strict';
+
     function UserNetworkAdNotifier(data) {
         var userNetworkService = new $paramount.UserNetworkService();
 
@@ -25,13 +27,18 @@
         /*
          * Submit  
          */
-        me.notifyFriends = function () {
+        me.notifyFriends = function (ev, element) {
+            var $btn = $(element.toElement);
             var usersJs = ko.toJS(me.users());
             var selectedUsers = _.filter(usersJs, 'selected', true);
 
             userNetworkService.notifyFriends({
                 adId: me.adId(),
                 userNetworkUsers: selectedUsers
+            }).always(function() {
+                $btn.button('reset');
+            }).done(function() {
+                me.notified(true);
             });
         }
 

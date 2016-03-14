@@ -23,7 +23,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         [FindsBy(How = How.Id, Using = "addFriend"), UsedImplicitly]
         private IWebElement AddFriendButton;
 
-        [FindsBy(How = How.Id, Using = "btnNotifyContacts"), UsedImplicitly]
+        [FindsBy(How = How.Id, Using = "notifyFriends"), UsedImplicitly]
         private IWebElement NotifyContactsButton;
 
         [FindsBy(How = How.PartialLinkText, Using = "Check out my ad"), UsedImplicitly]

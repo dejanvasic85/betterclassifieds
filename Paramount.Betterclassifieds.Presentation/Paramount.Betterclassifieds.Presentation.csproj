@@ -830,7 +830,6 @@
     <Content Include="Views\EditAd\EventDetails.cshtml" />
     <Content Include="Views\Event\_FloorPlanDialogDialog.cshtml" />
     <Content Include="Views\Home\Terms.cshtml" />
-    <Content Include="Views\UserNetwork\NotifyAd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

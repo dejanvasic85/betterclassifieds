@@ -345,47 +345,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             return Json(list.ToArray());
         }
-
-        [HttpPost, Authorize]
-        public ActionResult NotifyContactsAboutMyAd(string id, List<UserNetworkEmailView> users)
-        {
-            int adId;
-            // This should be a valid ad because AuthorizeBookingIdentity would have filtered it out
-            if (!int.TryParse(id, out adId))
-            {
-                throw new ArgumentException("Invalid ad ID.");
-            }
-
-            var adSearchResult = _searchService.GetByAdId(adId);
-
-            foreach (var friendEmail in users.Where(u => u.Selected).Select(u => u.Email))
-            {
-                _broadcastManager.Queue(new AdShare
-                {
-                    AdvertiserName = adSearchResult.ContactName,
-                    AdDescription = adSearchResult.HtmlText.TruncateOnWordBoundary(100),
-                    AdTitle = adSearchResult.Heading,
-                    ClientName = friendEmail
-                }, friendEmail);
-            }
-            return Json("completed");
-        }
-
-        [HttpPost, Authorize]
-        public ActionResult AddUserNetwork(UserNetworkEmailView userNetwork)
-        {
-            if (!ModelState.IsValid)
-            {
-                string[] errorList = ModelState.Values.SelectMany(m => m.Errors).Select(m => m.ErrorMessage).ToArray();
-                return Json(new { valid = false, errors = errorList });
-            }
-
-            // Adds a contact for the existing (logged in user)
-            _userManager.CreateUserNetwork(this.User, userNetwork.Email, userNetwork.FullName);
-
-            return Json(new { valid = true });
-        }
-
+        
         [HttpGet, BookingRequired]
         public ActionResult GetEventDetails(IBookingCart bookingCart)
         {
@@ -512,7 +472,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         #endregion
-
 
 
         private readonly ISearchService _searchService;

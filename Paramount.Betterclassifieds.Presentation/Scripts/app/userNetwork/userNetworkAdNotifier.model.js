@@ -1,7 +1,7 @@
 ﻿(function (jQuery, ko, $paramount) {
 
     function UserNetworkAdNotifier(data) {
-        var userNetworkService = new $paramount.UsernetworkService();
+        var userNetworkService = new $paramount.UserNetworkService();
 
         var me = this;
         me.adId = ko.observable(data.adId);
@@ -65,12 +65,10 @@
             me.newFriendEmail.clearError();
         }
 
-        me.no = ko.observable(false);
         me.anyUserSelected = ko.computed(function () {
             var anySelected = _.some(me.users(), function (u) {
                 return u.selected() === true;
             });
-            console.log(anySelected);
             return anySelected;
         });
     }

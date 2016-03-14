@@ -12,5 +12,5 @@
         return $paramount.httpPost(baseUrl + '/NotifyAd', notification);
     };
 
-    $paramount.UsernetworkService = UserNetworkService;
+    $paramount.UserNetworkService = UserNetworkService;
 })();

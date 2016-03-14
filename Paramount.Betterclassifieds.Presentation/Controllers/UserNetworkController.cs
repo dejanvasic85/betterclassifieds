@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Threading;
 using System.Web.Mvc;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
@@ -34,6 +31,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost]
         public ActionResult NotifyAd(int adId, UserNetworkEmailView[] userNetworkUsers)
         {
+            Thread.Sleep(2000);
             return Json(true);
         }
 

@@ -1,5 +1,9 @@
 Here's a list of the latest changes:
 
+**3.3.0**
+
+- [New Brand, Welcome to Sri Lankan Events](https://trello.com/c/BZhUGkZR/407-on-boarding-the-sri-lanka-events-branding)
+
 **3.2.0 Bug fixes**
 
 - [Fix - User bookings screen not loading with ad blocker](https://trello.com/c/jpebouSD/417-cannot-load-user-bookings-screen-using-chrome)

@@ -11,6 +11,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             TicketFields = new List<EventTicketField>();
             EventBookings = new List<EventBooking>();
             Address = new Address();
+            IncludeTransactionFee = true;
         }
 
         public int? EventId { get; set; }
@@ -31,6 +32,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         public DateTime? ClosingDateUtc { get; set; }
         public string LocationFloorPlanDocumentId { get; set; }
         public string LocationFloorPlanFilename { get; set; }
+        public bool? IncludeTransactionFee { get; set; }
 
         public bool IsClosed
         {

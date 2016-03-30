@@ -7,12 +7,13 @@
         me.tickets = ko.observableArray();
         me.ticketFields = ko.observableArray();
         me.closingDate = ko.observable();
+        me.includeTransactionFee = ko.observable();
 
         /*
          * Functions
          */
         me.addTicketType = function () {
-            me.tickets.push(new $paramount.models.EventTicketDefinition());
+            me.tickets.push(new $paramount.models.EventTicketDefinition(me));
         }
 
         me.removeTicketType = function (t) {
@@ -76,7 +77,7 @@
 
         var me = this;
         $.each(data.tickets, function (idx, t) {
-            me.tickets.push(new $paramount.models.EventTicketDefinition(t));
+            me.tickets.push(new $paramount.models.EventTicketDefinition(me, data));
         });
         if (data.ticketFields) {
             $.each(data.ticketFields, function (idx, f) {
@@ -84,7 +85,7 @@
             });
         }
         me.closingDate(data.closingDate);
-
+        
     }
 
     $paramount.models = $paramount.models || {};

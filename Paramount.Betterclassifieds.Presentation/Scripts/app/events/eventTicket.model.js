@@ -27,8 +27,7 @@
         me.soldOut = ko.computed(function () {
             return me.remainingQuantity() <= 0;
         });
-        
-        
+       
         /*
          * Editing mode
          */

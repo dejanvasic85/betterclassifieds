@@ -26,7 +26,7 @@ execute temp_createAppSetting @Key = 'SearchResultsPerPage', @Setting = '10'
 execute temp_createAppSetting @Key = 'SearchMaxPagedRequests', @Setting = '100'
 execute temp_createAppSetting @Key = 'MaxOnlineImages', @Setting = '10'
 execute temp_createAppSetting @Key = 'SupportNotificationAccounts', @Setting = 'support@srilankanevents.com.au'
-execute temp_createAppSetting @Key = 'AdDurationDays', @Setting = '60'
+execute temp_createAppSetting @Key = 'AdDurationDays', @Setting = '730'
 execute temp_createAppSetting @Key = 'ClientAddress', @Setting = 'Melbourne,VIC,3000,Australia', @Force = 1
 execute temp_createAppSetting @Key = 'ClientAddressLatLong', @Setting = '37.8136,144.9631', @Force = 1
 execute temp_createAppSetting @Key = 'EnableTwoFactorAuth', @Setting = 'true', @Force = 1

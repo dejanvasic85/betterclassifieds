@@ -1,7 +1,10 @@
 Here's a list of the latest changes:
 
-**3.3.0**
+**3.3.0 Events Improvements**
 
+- [Transaction fee can now be absorbed by the consumer](https://trello.com/c/wVlRodlK/419-transaction-fee-to-be-absorbing-by-ticket-purchasers-and-automatically-set)
+- [Replacing barcodes with QR Codes](https://trello.com/c/NmZv041t/424-qr-code-and-change-the-ticket-display)
+- [Ticket validation for QR codes for event entry](https://trello.com/c/SxWNpvKQ/421-ticket-validator-at-the-entry)
 - [New Brand, Welcome to Sri Lankan Events](https://trello.com/c/BZhUGkZR/407-on-boarding-the-sri-lanka-events-branding)
 
 **3.2.0 Bug fixes**

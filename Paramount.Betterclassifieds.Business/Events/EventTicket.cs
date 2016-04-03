@@ -14,6 +14,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         }
         public int? EventTicketId { get; set; }
         public int? EventId { get; set; }
+        public EventModel Event { get; set; }
         public string TicketName { get; set; }
         public int AvailableQuantity { get; set; }
         public int RemainingQuantity { get; set; }

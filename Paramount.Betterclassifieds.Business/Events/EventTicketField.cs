@@ -7,6 +7,7 @@
     {
         public int EventTicketFieldId { get; set; }
         public int? EventId { get; set; }
+        public EventModel Event { get; set; }
         public string FieldName { get; set; }
         public bool IsRequired { get; set; }
     }

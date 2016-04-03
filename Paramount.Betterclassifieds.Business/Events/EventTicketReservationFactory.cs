@@ -37,6 +37,9 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         public EventTicketReservation CreateReservation(int eventTicketId, string sessionId, EventTicket eventTicket)
         {
+            var eventDetails = eventTicket.Event;
+            var transactionFee = (_clientConfig.EventTicketFee / 100 ) * eventTicket.Price;
+            
             var reservation = new EventTicketReservation
             {
                 CreatedDate = _dateService.Now,
@@ -47,6 +50,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                 Quantity = 1,
                 EventTicketId = eventTicketId,
                 Price = eventTicket.Price,
+                TransactionFee  = eventDetails.IncludeTransactionFee.GetValueOrDefault() ? transactionFee : 0,
                 Status = new SufficientTicketsRule()
                     .IsSatisfiedBy(new RemainingTicketsWithRequestInfo(1, _eventManager.GetRemainingTicketCount(eventTicket)))
                     .Result

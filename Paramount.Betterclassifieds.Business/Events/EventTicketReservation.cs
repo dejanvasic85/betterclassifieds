@@ -38,5 +38,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         public string GuestFullName { get; set; }
         public string GuestEmail { get; set; }
         public List<EventBookingTicketField> TicketFields { get; set; }
+        public decimal? TransactionFee { get; set; }
     }
 }

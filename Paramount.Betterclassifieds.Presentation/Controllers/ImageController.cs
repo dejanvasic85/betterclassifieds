@@ -181,25 +181,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
         }
 
-        [HttpGet]
-        public ActionResult Barcode(string data)
-        {
-            var generator = new Spire.Barcode.BarCodeGenerator(new Spire.Barcode.BarcodeSettings
-            {
-                Data = data,
-                BarHeight = 10,
-                ImageHeight = 12,
-                Type = Spire.Barcode.BarCodeType.Codabar,
-                ShowText = false,
-                BorderWidth = 20,
-                ImageWidth = 30
-            });
-
-            var img = generator.GenerateImage();
-            var stream = new MemoryStream();
-            img.Save(stream, ImageFormat.Png);
-            return File(stream.ToArray(), ContentType.Png);
-        }
-        
+       
     }
 }

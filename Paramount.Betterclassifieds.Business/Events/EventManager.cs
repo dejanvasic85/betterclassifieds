@@ -39,7 +39,7 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         public EventBooking GetEventBooking(int eventBookingId)
         {
-            return _eventRepository.GetEventBooking(eventBookingId, includeTickets: true);
+            return _eventRepository.GetEventBooking(eventBookingId, includeTickets: true, includeEvent: true);
         }
 
         public int GetRemainingTicketCount(int? ticketId)

@@ -93,7 +93,11 @@
                 <h3>
                     Withdraw @Model.EventOrganiserOwedAmount.GetValueOrDefault().ToString("C")
                 </h3>
-                <p class="action-info"> = Total ticket sales of @Model.TotalSoldAmount.GetValueOrDefault().ToString("C") with our fee of @Model.SystemTicketFeeLabel.</p>
+                <p class="action-info">
+                    = Total ticket sales of @Model.TotalSoldAmount.GetValueOrDefault().ToString("C")
+                    <span data-bind="if: organiserAbsorbsTransactionFee">with our fee of @Model.SystemTicketFeeLabel.</span>
+                    
+                </p>
                 <div class="action-btn">
                     <a class="btn btn-primary" href="@Url.EventPaymentRequest(Model.AdId, Model.EventId)"
                        data-bind="visible: showPayMeButton">

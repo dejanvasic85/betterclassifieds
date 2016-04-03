@@ -37,7 +37,7 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         public EventTicketReservation CreateReservation(int eventTicketId, string sessionId, EventTicket eventTicket)
         {
-            var eventDetails = eventTicket.Event;
+            var eventDetails = _eventRepository.GetEventDetails(eventTicket.EventId.GetValueOrDefault());
             var transactionFee = (_clientConfig.EventTicketFee / 100 ) * eventTicket.Price;
             
             var reservation = new EventTicketReservation

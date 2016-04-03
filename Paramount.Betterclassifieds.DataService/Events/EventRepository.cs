@@ -59,7 +59,6 @@ namespace Paramount.Betterclassifieds.DataService.Events
             using (var context = _dbContextFactory.CreateEventContext())
             {
                 var eventTicket = context.EventTickets
-                    .Include(t => t.Event)
                     .SingleOrDefault(e => e.EventTicketId == ticketId);
 
                 if (includeReservations && eventTicket != null)

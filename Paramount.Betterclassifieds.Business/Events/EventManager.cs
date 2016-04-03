@@ -39,7 +39,7 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         public EventBooking GetEventBooking(int eventBookingId)
         {
-            return _eventRepository.GetEventBooking(eventBookingId, includeTickets: true);
+            return _eventRepository.GetEventBooking(eventBookingId, includeTickets: true, includeEvent: true);
         }
 
         public int GetRemainingTicketCount(int? ticketId)
@@ -214,15 +214,19 @@ namespace Paramount.Betterclassifieds.Business.Events
         {
             Guard.NotNull(eventId);
             var eventBookings = _eventRepository.GetEventBookingsForEvent(eventId.GetValueOrDefault());
+            var eventModel = _eventRepository.GetEventDetails(eventId.GetValueOrDefault());
 
             var totalSales = eventBookings.Sum(e => e.TotalCost);
-            var ticketFee = _clientConfig.EventTicketFee; // Stored as a whole number
+            var ticketTransactionFee = !eventModel.IncludeTransactionFee.GetValueOrDefault() 
+                ? _clientConfig.EventTicketFee 
+                : 0;
+
             decimal totalTicketFee = 0;
 
             // Make sure that the configured ticket fee is within 0.1 and 100 so that we can divide it
-            if (ticketFee != 0 && ticketFee > 0 && ticketFee <= 100)
+            if (ticketTransactionFee != 0 && ticketTransactionFee > 0 && ticketTransactionFee <= 100)
             {
-                totalTicketFee = totalSales * (ticketFee / 100);
+                totalTicketFee = totalSales * (ticketTransactionFee / 100);
             }
 
             var organiserPaymentAmount = totalSales - totalTicketFee;
@@ -230,7 +234,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             return new EventPaymentSummary
             {
                 TotalTicketSalesAmount = totalSales,
-                SystemTicketFee = ticketFee,
+                SystemTicketFee = ticketTransactionFee,
                 EventOrganiserOwedAmount = organiserPaymentAmount
             };
         }

@@ -92,6 +92,7 @@
     <Compile Include="Base\WebElementExtensions.cs" />
     <Compile Include="Base\DataRepositoryFactory.cs" />
     <Compile Include="ContextData\AdBookingContext.cs" />
+    <Compile Include="ContextData\EventAdContext.cs" />
     <Compile Include="Features\AccountDetails.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -175,6 +176,7 @@
     <Compile Include="Steps\ChangePasswordSteps.cs" />
     <Compile Include="Steps\ContactUsSteps.cs" />
     <Compile Include="Steps\EditAdSteps.cs" />
+    <Compile Include="Steps\EventAdSteps.cs" />
     <Compile Include="Steps\LoginSteps.cs" />
     <Compile Include="Steps\NotFoundSteps.cs" />
     <Compile Include="Steps\RegistrationSteps.cs" />

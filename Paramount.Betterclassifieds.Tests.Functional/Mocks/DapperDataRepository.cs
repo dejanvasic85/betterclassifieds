@@ -112,6 +112,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             return _classifiedDb.Query<AdBookingContext>("select * from AdBooking where BookReference = @bookReference", new { bookReference }).SingleOrDefault();
         }
 
+        public int GetOnlineAdForBookingId(int adId)
+        {
+            return
+                _classifiedDb.Query<int>(
+                    "select o.OnlineAdId from OnlineAd o join AdDesign ds on ds.AdDesignId = o.AdDesignId join AdBooking bk on bk.AdId = ds.AdDesignId where bk.AdBookingId= @adId",
+                    new { adId }).Single();
+        }
+
         public int DropCreateOnlineAd(string adTitle, string categoryName, string subCategoryName, string username)
         {
             DropOnlineAdIfExists(adTitle);
@@ -327,7 +335,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                 scope.Complete();
             }
         }
-        
+
         public void AddOnlineRateForCategoryIfNotExists(decimal price, string categoryName)
         {
             var categoryId = GetCategoryIdForTitle(categoryName);
@@ -342,6 +350,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 
 
         }
+
+        public int DropCreateEventAd(int adBookingId)
+        {
+            throw new NotImplementedException();
+        }
+
 
         public int AddCategoryIfNotExists(string subCategory, string parentCategory, string categoryAdType = "")
         {

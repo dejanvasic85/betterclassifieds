@@ -21,6 +21,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
         // Ads
         AdBookingContext GetAdBookingContextByReference(string bookReference);
+        int GetOnlineAdForBookingId(int adId);
         int DropCreateOnlineAd(string adTitle, string categoryName, string subCategoryName, string username);
         void DropOnlineAdIfExists(string adTitle);
 
@@ -39,5 +40,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         // Rates
         void AddOnlineRateForCategoryIfNotExists(decimal price, string categoryName);
         void AddPrintRateForCategoryIfNotExists(string categoryName);
+
+        // Events
+        int DropCreateEventAd(int adBookingId);
+        
     }
 }

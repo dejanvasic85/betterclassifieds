@@ -42,9 +42,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             var queryBuilder = new StringBuilder(string.Format("INSERT INTO {0} ", table));
             var properties = param.GetType().GetProperties();
             queryBuilder.Append(" (");
-            queryBuilder.Append(String.Join(",", properties.Select(p => p.Name)));
+            queryBuilder.Append(string.Join(",", properties.Select(p => p.Name)));
             queryBuilder.Append(" ) VALUES ( ");
-            queryBuilder.Append(String.Join(",", properties.Select(p => "@" + p.Name)));
+            queryBuilder.Append(string.Join(",", properties.Select(p => "@" + p.Name)));
             queryBuilder.Append(" ) ");
             return queryBuilder;
         }

@@ -13,6 +13,7 @@
                 return t.remainingQuantity();
             });
         });
+        me.organiserAbsorbsTransactionFee = ko.observable();
         me.eventOrganiserOwedAmount = ko.observable();
         me.totalSoldAmount = ko.observable();
         me.requestPaymentStatus = ko.observable();
@@ -77,7 +78,9 @@
         $.each(editEventViewModel.guests, function (idx, g) {
             me.guests.push(new $paramount.models.EventGuest(g));
         });
+
         me.eventId(editEventViewModel.eventId);
+        me.organiserAbsorbsTransactionFee(editEventViewModel.organiserAbsorbsTransactionFee);
         me.isClosed(editEventViewModel.isClosed);
         me.totalSoldAmount(editEventViewModel.totalSoldAmount);
         me.eventOrganiserOwedAmount(editEventViewModel.eventOrganiserOwedAmount);

@@ -31,7 +31,7 @@ execute temp_createAppSetting @Key = 'ClientAddress', @Setting = 'Melbourne,VIC,
 execute temp_createAppSetting @Key = 'ClientAddressLatLong', @Setting = '37.8136,144.9631', @Force = 1
 execute temp_createAppSetting @Key = 'EnableTwoFactorAuth', @Setting = 'true', @Force = 1
 execute temp_createAppSetting @Key = 'ClientName', @Setting = 'Sri Lankan Events', @Force = 1
-execute temp_createAppSetting @Key = 'EventTicketReservationExpiryMinutes', @Setting = '5'
+execute temp_createAppSetting @Key = 'EventTicketReservationExpiryMinutes', @Setting = '10'
 execute temp_createAppSetting @Key = 'EventMaxTicketsPerBooking', @Setting = '5'
 execute temp_createAppSetting @Key = 'EventTicketFee', @Setting = '3.6', @Force = 1
 execute temp_createAppSetting @Key = 'FacebookAppId', @Setting = '950300948385613', @Force = 1

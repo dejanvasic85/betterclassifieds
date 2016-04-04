@@ -1,10 +1,22 @@
 ﻿(function ($, ko, $paramount) {
 
-    function EventTicketDefinition(data) {
+    function EventTicketDefinition(parent, data) {
         var me = this;
         me.ticketName = ko.observable();
         me.availableQuantity = ko.observable();
         me.price = ko.observable();
+        
+
+        me.totalTicketCost = ko.computed(function () {
+            if (!me.price()) {
+                return "";
+            }
+
+            if (parent.includeTransactionFee() === true) {
+                return $paramount.formatCurrency((me.price() * 1.04));
+            }
+            return $paramount.formatCurrency(me.price());
+        });
 
         /*
          * Validation

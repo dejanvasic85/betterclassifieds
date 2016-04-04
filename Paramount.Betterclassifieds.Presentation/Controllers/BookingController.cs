@@ -401,6 +401,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 ClosingDate = bookingCart.With(b => b.Event).ClosingDate,
                 AdStartDate = bookingCart.StartDate,
+                IncludeTransactionFee = bookingCart.With(b => b.Event).IncludeTransactionFee,
                 Tickets = this.MapList<EventTicket, BookingEventTicketViewModel>(bookingCart.Event.Tickets.ToList()),
                 TicketFields = this.MapList<EventTicketField, EventTicketFieldViewModel>(bookingCart.Event.TicketFields.ToList()),
                 EventTicketFee = _clientConfig.EventTicketFee
@@ -419,6 +420,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             bookingCart.Event.Tickets = this.MapList<BookingEventTicketViewModel, EventTicket>(viewModel.Tickets);
             bookingCart.Event.TicketFields = this.MapList<EventTicketFieldViewModel, EventTicketField>(viewModel.TicketFields);
+            bookingCart.Event.IncludeTransactionFee = viewModel.IncludeTransactionFee;
 
             if (viewModel.ClosingDate.HasValue)
             {

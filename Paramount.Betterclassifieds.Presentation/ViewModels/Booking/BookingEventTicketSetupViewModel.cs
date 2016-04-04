@@ -15,5 +15,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
         public DateTime? AdStartDate { get; set; }
 
         public decimal EventTicketFee { get; set; }
+        public bool? IncludeTransactionFee { get; set; }
     }
 }

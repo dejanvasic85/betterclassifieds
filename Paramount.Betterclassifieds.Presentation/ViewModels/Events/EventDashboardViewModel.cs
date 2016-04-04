@@ -20,6 +20,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             this.Guests = guests;
             this.EventPaymentRequestStatus = status.Humanize(LetterCasing.Title);
             this.IsClosed = eventModel.IsClosed;
+            this.OrganiserAbsorbsTransactionFee = !eventModel.IncludeTransactionFee;
 
             if (eventModel.EventBookings != null)
             {
@@ -39,6 +40,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 }
             }
         }
+
+        public bool? OrganiserAbsorbsTransactionFee { get; set; }
 
         public string EventPaymentRequestStatus { get; set; }
 

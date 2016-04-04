@@ -523,6 +523,10 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.LocationFloorPlanFilename = val);
 		}
+		public EventModelMockBuilder WithIncludeTransactionFee(Boolean? val)
+		{ 
+			return WithBuildStep(p => p.IncludeTransactionFee = val);
+		}
 		public EventModelMockBuilder WithAddress(Address val)
 		{ 
 			return WithBuildStep(p => p.Address = val);
@@ -770,6 +774,10 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventTicketReservationMockBuilder WithTicketFields(List<EventBookingTicketField> val)
 		{ 
 			return WithBuildStep(p => p.TicketFields = val);
+		}
+		public EventTicketReservationMockBuilder WithTransactionFee(Decimal? val)
+		{ 
+			return WithBuildStep(p => p.TransactionFee = val);
 		}
 	}
 

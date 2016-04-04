@@ -66,6 +66,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string Postcode { get; set; }
         public string Country { get; set; }
 
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var validationResults = new List<ValidationResult>();

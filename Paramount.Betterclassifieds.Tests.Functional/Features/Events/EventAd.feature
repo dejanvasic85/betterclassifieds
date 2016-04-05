@@ -7,7 +7,7 @@
 @ignore
 Scenario: View event and book free tickets successfully
 	Given an event ad titled "The Opera" exists
-	And I navigate to "/Events/the-opera/adId"
+	And I navigate to "/Event/the-opera/adId"
 	When I select "2" "General Admission" tickets 
 	And confirm tickets and provide personal details
 	And choose to email all guests

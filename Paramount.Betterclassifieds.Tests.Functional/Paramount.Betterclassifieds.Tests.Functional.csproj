@@ -92,7 +92,7 @@
     <Compile Include="Base\WebElementExtensions.cs" />
     <Compile Include="Base\DataRepositoryFactory.cs" />
     <Compile Include="ContextData\AdBookingContext.cs" />
-    <Compile Include="ContextData\EventAdContext.cs" />
+    <Compile Include="Features\Events\EventAdContext.cs" />
     <Compile Include="Features\AccountDetails.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -113,7 +113,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EditAd.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\EventAd.feature.cs">
+    <Compile Include="Features\Events\EventAd.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EventAd.feature</DependentUpon>
@@ -139,6 +139,12 @@
       <DependentUpon>OnlineAdView.feature</DependentUpon>
     </Compile>
     <Compile Include="Base\IConfig.cs" />
+    <Compile Include="Mocks\AddressRepository.cs">
+      <DependentUpon>DapperDataRepository.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mocks\EventRepository.cs">
+      <DependentUpon>DapperDataRepository.cs</DependentUpon>
+    </Compile>
     <Compile Include="Mocks\Models\RoleType.cs" />
     <Compile Include="Mocks\TestData.cs" />
     <Compile Include="NavigationSteps.cs" />
@@ -155,6 +161,7 @@
     <Compile Include="Pages\ChangePasswordTestPage.cs" />
     <Compile Include="Pages\ContactUsPage.cs" />
     <Compile Include="Pages\EditAdPage.cs" />
+    <Compile Include="Features\Events\EventDetailsPage.cs" />
     <Compile Include="Pages\LoginPage.cs" />
     <Compile Include="Pages\Booking\BookingStep2Page.cs" />
     <Compile Include="Pages\Booking\BookingStep3Page.cs" />
@@ -176,7 +183,7 @@
     <Compile Include="Steps\ChangePasswordSteps.cs" />
     <Compile Include="Steps\ContactUsSteps.cs" />
     <Compile Include="Steps\EditAdSteps.cs" />
-    <Compile Include="Steps\EventAdSteps.cs" />
+    <Compile Include="Features\Events\EventAdSteps.cs" />
     <Compile Include="Steps\LoginSteps.cs" />
     <Compile Include="Steps\NotFoundSteps.cs" />
     <Compile Include="Steps\RegistrationSteps.cs" />
@@ -207,7 +214,7 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>EditAd.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\EventAd.feature">
+    <None Include="Features\Events\EventAd.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>EventAd.feature.cs</LastGenOutput>
     </None>
@@ -241,7 +248,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Pages\Events\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Paramount.Betterclassifieds.Security\Paramount.Betterclassifieds.Security.csproj">
       <Project>{9ce120ea-cb54-4f24-a68c-a80eb331dbde}</Project>

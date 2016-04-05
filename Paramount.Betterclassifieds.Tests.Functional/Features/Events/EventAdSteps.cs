@@ -1,7 +1,7 @@
 ﻿using Paramount.Betterclassifieds.Tests.Functional.Mocks;
 using TechTalk.SpecFlow;
 
-namespace Paramount.Betterclassifieds.Tests.Functional.Steps
+namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
 {
     [Binding]
     internal class EventAdSteps
@@ -22,16 +22,24 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         {
             var eventAdContext = _contextData.Get();
 
-            var adId = _repository.DropCreateOnlineAd(adTitle, TestData.ParentEventCategory,
+            eventAdContext.AdId = _repository.DropCreateOnlineAd(adTitle, TestData.ParentEventCategory,
                 TestData.SubEventCategory, TestData.DefaultUsername);
 
             // Get the online ad Id
-            eventAdContext.OnlineAdId = _repository.GetOnlineAdForBookingId(adId);
+            eventAdContext.OnlineAdId = _repository.GetOnlineAdForBookingId(eventAdContext.AdId);
 
             // Create the event 
-            //eventAdContext.EventId = _repository.DropCreateEventAd(
-            //    eventAdContext.OnlineAdId);
+            eventAdContext.EventId = _repository.AddEventIfNotExists(eventAdContext.OnlineAdId);
+        }
 
+        [Given(@"I navigate to ""(.*)""")]
+        public void GivenINavigateTo(string url)
+        {
+            var relativePath = url.Replace("adId", _contextData.Get().AdId.ToString());
+            _pageBrowser.NavigateTo(relativePath);
+
+            var eventPage = _pageBrowser.Init<EventDetailsPage>(ensureUrl: false);
+            
         }
     }
 }

@@ -10,7 +10,7 @@ using Dapper;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 {
-    internal class DapperDataRepository : ITestDataRepository
+    internal partial class DapperDataRepository : ITestDataRepository
     {
         // Create IDbConnections
         private readonly IDbConnection _classifiedDb;
@@ -116,7 +116,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
         {
             return
                 _classifiedDb.Query<int>(
-                    "select o.OnlineAdId from OnlineAd o join AdDesign ds on ds.AdDesignId = o.AdDesignId join AdBooking bk on bk.AdId = ds.AdDesignId where bk.AdBookingId= @adId",
+                    "SELECT o.OnlineAdId FROM AdBooking bk JOIN AdDesign ds on ds.AdId = bk.AdId JOIN OnlineAd o ON o.AdDesignId = ds.AdDesignId WHERE bk.AdBookingId = @adId",
                     new { adId }).Single();
         }
 
@@ -351,12 +351,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 
         }
 
-        public int DropCreateEventAd(int adBookingId)
-        {
-            throw new NotImplementedException();
-        }
-
-
         public int AddCategoryIfNotExists(string subCategory, string parentCategory, string categoryAdType = "")
         {
             using (var scope = new TransactionScope())
@@ -404,6 +398,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                 .FirstOrDefault();
         }
 
+        
+
         public void Dispose()
         {
             _classifiedDb.Close();
@@ -413,4 +409,5 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 
 
     }
+
 }

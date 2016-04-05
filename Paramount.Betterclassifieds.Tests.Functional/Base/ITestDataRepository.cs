@@ -42,7 +42,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         void AddPrintRateForCategoryIfNotExists(string categoryName);
 
         // Events
-        int DropCreateEventAd(int adBookingId);
-        
+        int AddEventIfNotExists(int adBookingId);
+
+        // Address
+        int AddAddress(object address);
     }
 }

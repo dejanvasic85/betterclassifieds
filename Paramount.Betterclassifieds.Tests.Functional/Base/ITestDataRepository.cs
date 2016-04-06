@@ -43,8 +43,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
         // Events
         int AddEventIfNotExists(int adBookingId);
+        void AddEventTicketType(int eventId, string ticketName, decimal price, int availableQuantity);
 
         // Address
         int AddAddress(object address);
+        
     }
 }

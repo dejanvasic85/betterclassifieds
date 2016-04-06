@@ -40,9 +40,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         [BeforeScenario]
         public void RegisterConfigAndRepository()
         {
-            _container.RegisterInstanceAs(ConfigFactory.CreateConfig(), typeof(IConfig));
-            _container.RegisterInstanceAs(new DapperDataRepository(ConfigFactory.CreateConfig()), typeof(ITestDataRepository));
-             _webDriver.Manage().Cookies.DeleteAllCookies();
+            var config = ConfigFactory.CreateConfig();
+            var connectionFactory = new ConnectionFactory(config);
+
+            _container.RegisterInstanceAs(config, typeof(IConfig));
+            _container.RegisterInstanceAs(connectionFactory, typeof(ConnectionFactory));
+            _container.RegisterInstanceAs(new DapperDataRepository(config, connectionFactory), typeof(ITestDataRepository));
+
+            _webDriver.Manage().Cookies.DeleteAllCookies();
         }
 
         [AfterTestRun]
@@ -103,7 +108,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         }
 
         #region Data Setup
-        
+
         [BeforeFeature("booking")]
         public static void SetupBookingFeature()
         {
@@ -125,14 +130,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             // Categories ( assign to each publication automatically )
             dataRepository.AddCategoryIfNotExists(TestData.SubCategory, TestData.ParentCategory);
             dataRepository.AddCategoryIfNotExists(TestData.SubEventCategory, TestData.ParentEventCategory, "Event");
-            
+
             // Rates
-            dataRepository.AddOnlineRateForCategoryIfNotExists(price : 0, categoryName: TestData.SubCategory);
+            dataRepository.AddOnlineRateForCategoryIfNotExists(price: 0, categoryName: TestData.SubCategory);
             dataRepository.AddPrintRateForCategoryIfNotExists(TestData.SubCategory);
 
             // Location and Area
             dataRepository.AddLocationIfNotExists(parentLocation: TestData.Location_Any, areas: TestData.LocationArea_Any);
-            dataRepository.AddLocationIfNotExists(TestData.Location_Australia, TestData.Location_Victoria, "Melbourne"); 
+            dataRepository.AddLocationIfNotExists(TestData.Location_Australia, TestData.Location_Victoria, "Melbourne");
 
             // Drop any existing user network
             dataRepository.DropUserNetwork(TestData.DefaultUsername);
@@ -146,7 +151,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             // Setup a demo user
             dataRepository.AddUserIfNotExists(TestData.DefaultUsername, TestData.DefaultPassword, TestData.UserEmail, RoleType.Advertiser);
         }
-        
+
         [BeforeFeature("usernetwork")]
         public static void SetupUserNetworkFeature()
         {

@@ -142,6 +142,7 @@
     <Compile Include="Mocks\AddressRepository.cs">
       <DependentUpon>DapperDataRepository.cs</DependentUpon>
     </Compile>
+    <Compile Include="Mocks\ConnectionFactory.cs" />
     <Compile Include="Mocks\EventRepository.cs">
       <DependentUpon>DapperDataRepository.cs</DependentUpon>
     </Compile>

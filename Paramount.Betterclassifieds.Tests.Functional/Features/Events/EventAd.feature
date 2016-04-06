@@ -7,6 +7,7 @@
 @ignore
 Scenario: View event and book free tickets successfully
 	Given an event ad titled "The Opera" exists
+	And with a ticket option "General Admission" for "5" dollars each and "100" available
 	And I navigate to "/Event/the-opera/adId"
 	When I select "2" "General Admission" tickets 
 	And confirm tickets and provide personal details

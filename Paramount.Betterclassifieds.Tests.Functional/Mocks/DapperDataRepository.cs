@@ -12,6 +12,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 {
     internal partial class DapperDataRepository : ITestDataRepository
     {
+        private readonly ConnectionFactory _connectionFactory;
         // Create IDbConnections
         private readonly IDbConnection _classifiedDb;
         private readonly IDbConnection _broadcastDb;
@@ -23,8 +24,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             { RoleType.Advertiser, "AppUserProvider"}
         };
 
-        public DapperDataRepository(IConfig config)
+        public DapperDataRepository(IConfig config, ConnectionFactory connectionFactory)
         {
+            _connectionFactory = connectionFactory;
+
             // Connections
             _classifiedDb = new SqlConnection(config.ClassifiedsDbConnection);
             _broadcastDb = new SqlConnection(config.BroadcastDbConnection);

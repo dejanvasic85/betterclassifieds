@@ -32,6 +32,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
             eventAdContext.EventId = _repository.AddEventIfNotExists(eventAdContext.OnlineAdId);
         }
 
+        [Given(@"with a ticket option ""(.*)"" for ""(.*)"" dollars each and ""(.*)"" available")]
+        public void GivenWithATicketOptionForDollars(string ticketName, decimal amount, int availableQty)
+        {
+            // Create the event tickets
+            _repository.AddEventTicketType(_contextData.Get().EventId, ticketName, amount, availableQty);
+        }
+
+
         [Given(@"I navigate to ""(.*)""")]
         public void GivenINavigateTo(string url)
         {
@@ -39,7 +47,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
             _pageBrowser.NavigateTo(relativePath);
 
             var eventPage = _pageBrowser.Init<EventDetailsPage>(ensureUrl: false);
-            
         }
     }
 }

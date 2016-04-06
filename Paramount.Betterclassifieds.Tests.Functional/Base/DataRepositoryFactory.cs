@@ -7,7 +7,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         public static ITestDataRepository Create(IConfig config)
         {
             var connectionFactory= new ConnectionFactory(config);
-            return new DapperDataRepository(config, connectionFactory);
+            return new DapperDataRepository(connectionFactory);
         }
     }
 }

@@ -4,7 +4,10 @@
     {
         public int AddAddress(object address)
         {
-            return _classifiedDb.Add(Constants.Table.Address, address);
+            using (var db = _connectionFactory.CreateClassifieds())
+            {
+                return db.Add(Constants.Table.Address, address);
+            }
         }
     }
 }

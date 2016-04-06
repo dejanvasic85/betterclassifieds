@@ -45,7 +45,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
             _container.RegisterInstanceAs(config, typeof(IConfig));
             _container.RegisterInstanceAs(connectionFactory, typeof(ConnectionFactory));
-            _container.RegisterInstanceAs(new DapperDataRepository(config, connectionFactory), typeof(ITestDataRepository));
+            _container.RegisterInstanceAs(new DapperDataRepository(connectionFactory), typeof(ITestDataRepository));
 
             _webDriver.Manage().Cookies.DeleteAllCookies();
         }

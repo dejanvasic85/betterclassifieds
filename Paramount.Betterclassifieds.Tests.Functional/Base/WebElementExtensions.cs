@@ -114,6 +114,16 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             var classes = webElement.GetAttribute("class").Split(' ');
             return classes.Any(c => c.Equals(className, StringComparison.OrdinalIgnoreCase));
         }
-        
+
+        public static SelectElement ToSelectElement(this IWebElement webElement)
+        {
+            return new SelectElement(webElement);
+        }
+
+        public static SelectElement WithSelectedOptionValue(this SelectElement element, string optionValue)
+        {
+            element.SelectByValue(optionValue);
+            return element;
+        }
     }
 }

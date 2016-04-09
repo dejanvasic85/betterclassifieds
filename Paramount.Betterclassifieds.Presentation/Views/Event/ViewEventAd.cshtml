@@ -42,10 +42,11 @@
     </div>
 
     <div class="container" id="eventView">
-        @if (Model.EventPhoto.HasValue()) {
+        @if (Model.EventPhoto.HasValue())
+        {
             <div class="row">
                 <div class="col-md-12 event-photo">
-                    <img class="img-responsive" src="@Url.Image(Model.EventPhoto, 400, 1020)"/>
+                    <img class="img-responsive" src="@Url.Image(Model.EventPhoto, 400, 1020)" />
                 </div>
             </div>
         }
@@ -74,7 +75,7 @@
                                             <span data-bind="visible: soldOut, text: 'SOLD OUT'" class="label label-danger"></span>
                                             <div class="form-group" data-bind="visible: isAvailable">
                                                 <span class="ticket-info">Quantity</span>
-                                                <select class="form-control" data-bind="value: selectedQuantity, options: maxTicketsPerBooking, optionsText : 'label', optionsValue : 'value'"></select>
+                                                <select class="form-control" data-bind="value: selectedQuantity, attr : {'data-ticket-name' : ticketName}, options: maxTicketsPerBooking, optionsText : 'label', optionsValue : 'value'"></select>
                                             </div>
                                         </div>
                                     </div>
@@ -83,7 +84,8 @@
                         </ul>
 
                         <div class="well  text-right" data-bind="visible: totalSelectedTickets() > 0">
-                            <button class="btn btn-primary" data-loading-text="Please Wait..." data-bind="click: startOrder">
+                            <button class="btn btn-primary" data-loading-text="Please Wait..." 
+                                    data-bind="click: startOrder" id="btnGetTickets">
                                 Get Tickets <i class="fa fa-arrow-right"></i>
                             </button>
                         </div>
@@ -191,7 +193,7 @@
         });
 
         $paramount.social.setupFacebook($('#shareOnFacebook'), {
-            href: "@Model.EventUrl", 
+            href: "@Model.EventUrl",
             picture: '@Url.ImageOriginal(Model.EventPhoto).WithFullUrl()',
             name: '@Model.Title',
             description: '@Model.Description'

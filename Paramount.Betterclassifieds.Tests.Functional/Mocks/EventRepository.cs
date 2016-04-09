@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Transactions;
 using Dapper;
+using Paramount.Betterclassifieds.Tests.Functional.Features.Events;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 {
@@ -61,11 +62,29 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                     new
                     {
                         eventId,
-                        ticketName, 
-                        price, 
+                        ticketName,
+                        price,
                         availableQuantity,
                         RemainingQuantity = availableQuantity
                     }, eventId, "EventId");
+            }
+        }
+
+        public void SetEventIncludeTransactionFee(int eventId, bool include)
+        {
+            using (var connection = _connectionFactory.CreateClassifieds())
+            {
+                connection.ExecuteSql("UPDATE [Event] SET [IncludeTransactionFee] = @include WHERE EventId = @eventId", new { eventId, include });
+            }
+        }
+
+        public EventBookingData GetEventBooking(int eventId)
+        {
+            using (var connection = _connectionFactory.CreateClassifieds())
+            {
+                return connection.Query<EventBookingData>(
+                    "SELECT * FROM EventBooking WHERE EventId = @eventId", new { eventId })
+                    .SingleOrDefault();
             }
         }
     }

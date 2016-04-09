@@ -92,12 +92,15 @@
     <Compile Include="Base\WebElementExtensions.cs" />
     <Compile Include="Base\DataRepositoryFactory.cs" />
     <Compile Include="ContextData\AdBookingContext.cs" />
-    <Compile Include="Features\Events\EventAdContext.cs" />
+    <Compile Include="Features\BookEventTickets\BookingTicketPage.cs" />
+    <Compile Include="Features\BookEventTickets\EventAdContext.cs" />
     <Compile Include="Features\AccountDetails.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AccountDetails.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\BookEventTickets\EventBookedPage.cs" />
+    <Compile Include="Features\BookEventTickets\EventBookingData.cs" />
     <Compile Include="Features\ChangePassword.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -113,16 +116,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EditAd.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\Events\EventAd.feature.cs">
+    <Compile Include="Features\BookEventTickets\BookEventTickets.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EventAd.feature</DependentUpon>
+      <DependentUpon>BookEventTickets.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\NotFound.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>NotFound.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\Payment\PayPalSteps.cs" />
+    <Compile Include="Features\Payment\PayPalTestPage.cs" />
     <Compile Include="Features\SubmitNewBooking.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -162,7 +167,7 @@
     <Compile Include="Pages\ChangePasswordTestPage.cs" />
     <Compile Include="Pages\ContactUsPage.cs" />
     <Compile Include="Pages\EditAdPage.cs" />
-    <Compile Include="Features\Events\EventDetailsPage.cs" />
+    <Compile Include="Features\BookEventTickets\EventDetailsPage.cs" />
     <Compile Include="Pages\LoginPage.cs" />
     <Compile Include="Pages\Booking\BookingStep2Page.cs" />
     <Compile Include="Pages\Booking\BookingStep3Page.cs" />
@@ -184,7 +189,7 @@
     <Compile Include="Steps\ChangePasswordSteps.cs" />
     <Compile Include="Steps\ContactUsSteps.cs" />
     <Compile Include="Steps\EditAdSteps.cs" />
-    <Compile Include="Features\Events\EventAdSteps.cs" />
+    <Compile Include="Features\BookEventTickets\BookEventTicketSteps.cs" />
     <Compile Include="Steps\LoginSteps.cs" />
     <Compile Include="Steps\NotFoundSteps.cs" />
     <Compile Include="Steps\RegistrationSteps.cs" />
@@ -215,9 +220,9 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>EditAd.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\Events\EventAd.feature">
+    <None Include="Features\BookEventTickets\BookEventTickets.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>EventAd.feature.cs</LastGenOutput>
+      <LastGenOutput>BookEventTickets.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\NotFound.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

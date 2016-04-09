@@ -143,7 +143,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             dataRepository.DropUserNetwork(TestData.DefaultUsername);
         }
 
-        [BeforeFeature("booking", "extendbooking")]
+        [BeforeFeature("booking", "extendbooking", "bookEventTickets")]
         public static void AddMembershipUser()
         {
             var dataRepository = DataRepositoryFactory.Create(_configuration);

@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
+namespace Paramount.Betterclassifieds.Tests.Functional.Features.BookEventTickets
 {
     using TechTalk.SpecFlow;
     
@@ -19,21 +19,23 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("EventAd")]
-    public partial class EventAdFeature
+    [NUnit.Framework.DescriptionAttribute("BookEventTickets")]
+    [NUnit.Framework.CategoryAttribute("bookEventTickets")]
+    public partial class BookEventTicketsFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "EventAd.feature"
+#line 1 "BookEventTickets.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "EventAd", "In order to find book tickets for an event\nAs an anonymous user\nI want to be find" +
-                    " the event online and purchase the ticket", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "BookEventTickets", "In order to book tickets for an event\nAs a logged in user\nI want to be find the e" +
+                    "vent online and purchase the ticket\nSo that I can go to the event", ProgrammingLanguage.CSharp, new string[] {
+                        "bookEventTickets"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -67,38 +69,38 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("View event and book free tickets successfully")]
-        [NUnit.Framework.IgnoreAttribute()]
         [NUnit.Framework.CategoryAttribute("EventAd")]
+        [NUnit.Framework.CategoryAttribute("BookTickets")]
         public virtual void ViewEventAndBookFreeTicketsSuccessfully()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View event and book free tickets successfully", new string[] {
                         "EventAd",
-                        "ignore"});
-#line 8
-this.ScenarioSetup(scenarioInfo);
-#line 9
- testRunner.Given("an event ad titled \"The Opera\" exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+                        "BookTickets"});
 #line 10
+this.ScenarioSetup(scenarioInfo);
+#line 11
+ testRunner.Given("I am logged in as \"bdduser\" with password \"password123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 12
+ testRunner.And("an event ad titled \"The Opera\" exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 13
  testRunner.And("with a ticket option \"General Admission\" for \"5\" dollars each and \"100\" available" +
                     "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 11
- testRunner.And("I navigate to \"/Event/the-opera/adId\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 12
- testRunner.When("I select \"2\" \"General Admission\" tickets", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 13
- testRunner.And("confirm tickets and provide personal details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 14
- testRunner.And("choose to email all guests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I navigate to \"/Event/the-opera/adId\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 15
- testRunner.Then("i should see a ticket purchased success page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("I select \"2\" \"General Admission\" tickets", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 16
- testRunner.And("the tickets should be booked", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("enter the email \"guest@event.com\" and name \"Guest FoEvent\" for the second guest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 17
- testRunner.And("the ticket could for the event should be deducted", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("choose to email all guests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 18
- testRunner.And("email is sent to all guests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("my details are prefilled so I proceed to payment", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 19
- testRunner.And("email is sent to ticket purchaser", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("paypal payment is completed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 20
+ testRunner.Then("i should see a ticket purchased success page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 21
+ testRunner.And("the tickets should be booked", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

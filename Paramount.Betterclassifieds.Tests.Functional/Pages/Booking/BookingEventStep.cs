@@ -92,14 +92,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         public BookingEventStep WithTicketingEnabled(bool enabled)
         {
             var toggleButton = new ToggleButton(this.TicketingToggleBtn);
-            if (enabled)
-            {
-                toggleButton.TurnOn();
-            }
-            else
-            {
-                toggleButton.TurnOff();
-            }
+            toggleButton.Toggle(enabled);
             return this;
         }
     }

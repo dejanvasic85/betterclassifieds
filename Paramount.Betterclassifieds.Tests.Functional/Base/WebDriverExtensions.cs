@@ -57,5 +57,6 @@ window.scrollTo(0, scrollPosition);", element);
             Thread.Sleep(500);
             return element;
         }
+
     }
 }

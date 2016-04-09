@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Paramount.Betterclassifieds.Tests.Functional.Features.Events;
 
 namespace Paramount.Betterclassifieds.Tests.Functional
 {
@@ -44,9 +45,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         // Events
         int AddEventIfNotExists(int adBookingId);
         void AddEventTicketType(int eventId, string ticketName, decimal price, int availableQuantity);
+        void SetEventIncludeTransactionFee(int eventId, bool include);
+        EventBookingData GetEventBooking(int eventId);
 
         // Address
         int AddAddress(object address);
+
+
         
     }
 }

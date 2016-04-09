@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using Paramount.Betterclassifieds.Tests.Functional.Annotations;
 using Paramount.Betterclassifieds.Tests.Functional.Mocks;
 using TechTalk.SpecFlow;
@@ -34,11 +35,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
             eventAdContext.EventId = _repository.AddEventIfNotExists(eventAdContext.OnlineAdId);
         }
 
-        [Given(@"the event ""(.*)"" the transaction fee")]
-        public void GivenTheEventTheTransactionFee(string doesOrNot)
+        [Given(@"the event does not include a transaction fee")]
+        public void GivenTheEventDoesNotIncludeATransactionFee()
         {
-            var include = doesOrNot.ToLower().Equals("done");
-            _repository.SetEventIncludeTransactionFee(_contextData.Get().EventId, include);
+            _repository.SetEventIncludeTransactionFee(_contextData.Get().EventId, false);
         }
 
         [Given(@"with a ticket option ""(.*)"" for ""(.*)"" dollars each and ""(.*)"" available")]
@@ -49,6 +49,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
         }
 
         [Given(@"I navigate to ""(.*)""")]
+        [When(@"I navigate to ""(.*)""")]
         public void GivenINavigateTo(string url)
         {
             var relativePath = url.Replace("adId", _contextData.Get().AdId.ToString());
@@ -103,5 +104,15 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
             Assert.That(eventBooking.TotalCost, Is.EqualTo(10)); // 10 dollars - 5 bucks x 2 tickets
             Assert.That(eventBookingTickets.Count, Is.EqualTo(2));
         }
+
+        [Then(@"the ticket ""(.*)"" price should be ""(.*)""")]
+        public void ThenTheTicketPriceShouldBe(string ticketName, string expectedPrice)
+        {
+            var currentPrice = _pageBrowser.Init<EventDetailsPage>(ensureUrl: false)
+                .GetPriceForTicket(ticketName);
+
+            Assert.That(currentPrice, Is.EqualTo(expectedPrice));
+        }
+
     }
 }

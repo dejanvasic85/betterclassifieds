@@ -19,9 +19,18 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
         public EventDetailsPage SelectTickets(int numberOfTickets, string ticketType)
         {
             _webDriver.FindElement(By.CssSelector("[data-ticket-name='" + ticketType + "']"))
+                .FindElement(By.TagName("select"))
                 .ToSelectElement()
                 .WithSelectedOptionValue(numberOfTickets.ToString());
             return this;
+        }
+
+        public string GetPriceForTicket(string ticketType)
+        {
+            return _webDriver.FindElement(By.CssSelector("[data-ticket-name='" + ticketType + "']"))
+                .FindElement(By.ClassName("tst-ticket-price"))
+                .Text
+                ;
         }
 
         public EventDetailsPage ConfirmTicketSelection()

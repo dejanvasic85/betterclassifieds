@@ -14,7 +14,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
     {
         public EventViewDetailsModel()
         {
-            
+
         }
 
         public EventViewDetailsModel(HttpContextBase httpContext, UrlHelper urlHelper, AdSearchResult searchResult, EventModel eventModel, IClientConfig clientConfig)
@@ -50,7 +50,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 EventId = t.EventId,
                 AvailableQuantity = t.AvailableQuantity,
                 EventTicketId = t.EventTicketId,
-                Price = t.Price,
+                Price = eventModel.IncludeTransactionFee.GetValueOrDefault()
+                    ? t.Price + (t.Price * clientConfig.EventTicketFeeDecimal)
+                    : t.Price,
+
                 RemainingQuantity = t.RemainingQuantity,
                 TicketName = t.TicketName
             }).ToArray();
@@ -90,6 +93,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         {
             get { return Tickets != null && Tickets.Length > 0; }
         }
-       
+
     }
 }

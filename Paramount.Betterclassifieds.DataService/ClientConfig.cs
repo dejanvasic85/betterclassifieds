@@ -159,5 +159,10 @@
         {
             get { return GetValueFromDatabase<decimal>("EventTicketFee"); }
         }
+
+        public decimal EventTicketFeeDecimal
+        {
+            get { return EventTicketFee/100; }
+        }
     }
 }

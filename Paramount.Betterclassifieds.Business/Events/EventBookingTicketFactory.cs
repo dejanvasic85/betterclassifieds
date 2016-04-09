@@ -24,7 +24,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                     TicketName = reservation.EventTicket.TicketName,
                     CreatedDateTime = createdDate,
                     CreatedDateTimeUtc = createdDateUtc,
-                    Price = reservation.Price,
+                    Price = reservation.Price + reservation.TransactionFee,
                     GuestEmail = reservation.GuestEmail,
                     GuestFullName = reservation.GuestFullName,
                     TicketFieldValues = reservation.TicketFields.Select(r => new EventBookingTicketField { FieldName = r.FieldName, FieldValue = r.FieldValue }).ToList()

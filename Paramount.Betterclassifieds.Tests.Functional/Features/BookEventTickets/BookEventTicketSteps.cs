@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using Paramount.Betterclassifieds.Tests.Functional.Annotations;
 using Paramount.Betterclassifieds.Tests.Functional.Mocks;
 using TechTalk.SpecFlow;
 
@@ -96,9 +97,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
         {
             var testContext = _contextData.Get();
             var eventBooking = _repository.GetEventBooking(testContext.EventId);
+            var eventBookingTickets = _repository.GetEventBookingTickets(eventBooking.EventBookingId);
 
             Assert.That(eventBooking, Is.Not.Null);
+            Assert.That(eventBooking.TotalCost, Is.EqualTo(10)); // 10 dollars - 5 bucks x 2 tickets
+            Assert.That(eventBookingTickets.Count, Is.EqualTo(2));
         }
-
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 using Dapper;
@@ -85,6 +86,16 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                 return connection.Query<EventBookingData>(
                     "SELECT * FROM EventBooking WHERE EventId = @eventId", new { eventId })
                     .SingleOrDefault();
+            }
+        }
+
+        public List<EventBookingTicketData> GetEventBookingTickets(int eventBookingId)
+        {
+            using (var connection = _connectionFactory.CreateClassifieds())
+            {
+                return connection.Query<EventBookingTicketData>(
+                    "SELECT * FROM EventBookingTicket WHERE EventBookingId = @eventBookingId", new { eventBookingId })
+                    .ToList();
             }
         }
     }

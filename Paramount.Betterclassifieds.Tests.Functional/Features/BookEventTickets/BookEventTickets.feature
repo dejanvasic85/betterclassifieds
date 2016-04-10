@@ -8,7 +8,8 @@ Feature: BookEventTickets
 @EventAd
 @BookTickets
 Scenario: View event and book two tickets with successful payment
-	Given I am logged in as "bdduser" with password "password123"
+	Given I am a registered user with username "bddTicketBuyer" and password "bddTicketBuyer" and email "bdd@TicketBuyer.com"
+	And I am logged in as "bddTicketBuyer" with password "bddTicketBuyer"
 	And an event ad titled "The Opera" exists 
 	And the event does not include a transaction fee
 	And with a ticket option "General Admission" for "5" dollars each and "100" available

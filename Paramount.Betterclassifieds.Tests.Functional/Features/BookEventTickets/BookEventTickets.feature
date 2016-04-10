@@ -22,9 +22,22 @@ Scenario: View event and book two tickets with successful payment
 	Then i should see a ticket purchased success page
 	And the tickets should be booked
 
-@IncludeTransactionFeeForConsumer
+@IncludeTransaction
 Scenario: View event ad with transaction fee should increase the price of tickets
-	Given an event ad titled "The Opera" exists
+	Given an event ad titled "The Opera 2" exists
 	And with a ticket option "General Admission" for "5" dollars each and "100" available
+	And with a ticket option "VIP" for "10" dollars each and "100" available
 	When I navigate to "/Event/the-opera/adId"
 	Then the ticket "General Admission" price should be "$5.25"
+	Then the ticket "VIP" price should be "$10.49"
+
+
+@DoesNotIncludeTransactionFee
+Scenario: View event ad with no transaction fee 
+	Given an event ad titled "The Opera 3" exists
+	And the event does not include a transaction fee
+	And with a ticket option "General Admission" for "5" dollars each and "100" available
+	And with a ticket option "VIP" for "10" dollars each and "100" available
+	When I navigate to "/Event/the-opera/adId"
+	Then the ticket "General Admission" price should be "$5.00"
+	Then the ticket "VIP" price should be "$10.00"

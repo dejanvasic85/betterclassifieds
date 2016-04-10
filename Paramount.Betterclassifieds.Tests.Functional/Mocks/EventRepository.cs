@@ -59,15 +59,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
         {
             using (var db = _connectionFactory.CreateClassifieds())
             {
-                db.AddIfNotExists(Constants.Table.EventTicket,
-                    new
-                    {
-                        eventId,
-                        ticketName,
-                        price,
-                        availableQuantity,
-                        RemainingQuantity = availableQuantity
-                    }, eventId, "EventId");
+                db.Add(Constants.Table.EventTicket, new
+                {
+                    eventId,
+                    ticketName,
+                    price,
+                    availableQuantity,
+                    RemainingQuantity = availableQuantity
+                });
             }
         }
 

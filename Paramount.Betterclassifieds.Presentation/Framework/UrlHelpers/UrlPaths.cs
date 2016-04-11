@@ -110,6 +110,11 @@ namespace Paramount
             return new UrlBuilder(urlHelper, "UpdateEventDetails", "EditAd");
         }
 
-
+        public static UrlBuilder ValidateBarcode(this UrlHelper urlHelper, string barcode)
+        {
+            return new UrlBuilder(urlHelper)
+                .WithRouteName("EventBarcode")
+                .WithRouteValues(new { barcode });
+        }
     }
 }

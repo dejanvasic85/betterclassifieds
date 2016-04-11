@@ -14,6 +14,7 @@ namespace Paramount
         public object RouteValues { get; private set; }
         public string Path { get; private set; }
         public bool IsFullUrl { get; private set; }
+        public string RouteName { get; private set; }
 
         public UrlBuilder(UrlHelper urlHelper)
         {
@@ -40,6 +41,18 @@ namespace Paramount
             return this;
         }
 
+        public UrlBuilder WithRouteName(string routeName)
+        {
+            RouteName = routeName;
+            return this;
+        }
+
+        public UrlBuilder WithRouteValues(object routeValues)
+        {
+            RouteValues = routeValues;
+            return this;
+        }
+
         public string Build()
         {
             var protocol = UrlHelper.With(u => u.RequestContext)
@@ -48,9 +61,18 @@ namespace Paramount
                 .With(r => r.Url)
                 .Return(u => u.Scheme, "http");
 
-            this.Path = IsFullUrl
-                ? UrlHelper.Action(this.Action, this.Controller, this.RouteValues, protocol)
-                : UrlHelper.Action(this.Action, this.Controller, this.RouteValues);
+            if (RouteName.HasValue())
+            {
+                Path = IsFullUrl
+                    ? UrlHelper.RouteUrl(this.RouteName, this.RouteValues, protocol)
+                    : UrlHelper.Action(this.RouteName, this.RouteValues);
+            }
+            else
+            {
+                Path = IsFullUrl
+                    ? UrlHelper.Action(this.Action, this.Controller, this.RouteValues, protocol)
+                    : UrlHelper.Action(this.Action, this.Controller, this.RouteValues);
+            }
 
             return this.Path;
         }

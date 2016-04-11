@@ -221,7 +221,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 _eventManager.AdjustRemainingQuantityAndCancelReservations(sessionId, eventBooking.EventBookingTickets);
 
-                var ticketHtml = _templatingService.Generate(EventTicketPrintViewModel.Create(_barcodeManager, adDetails, eventDetails, eventBooking), "Tickets");
+                var ticketHtml = _templatingService.Generate(EventTicketPrintViewModel.Create(Url, _barcodeManager, adDetails, eventDetails, eventBooking), "Tickets");
                 var ticketPdfData = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(ticketHtml);
 
                 var viewModel = new EventBookedViewModel(adDetails, eventDetails, eventBooking, this.Url, _clientConfig, _httpContext);
@@ -271,7 +271,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var eventDetails = eventBooking.Event;
             var ad = _searchService.GetByAdOnlineId(eventDetails.OnlineAdId);
 
-            var data = EventTicketPrintViewModel.Create(_barcodeManager, ad, eventDetails, eventBooking);
+            var data = EventTicketPrintViewModel.Create(Url, _barcodeManager, ad, eventDetails, eventBooking);
             return View(data.ToList());
         }
 
@@ -292,6 +292,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             return View("~/Views/EditAd/EventGuestList.cshtml", viewModel);
         }
+
 #endif
 
         public ActionResult ValidateBarcode(string barcode)

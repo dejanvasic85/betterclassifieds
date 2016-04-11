@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using ZXing;
@@ -12,7 +8,8 @@ using ZXing.Common;
 
 namespace Paramount.Betterclassifieds.Presentation.Framework.HtmlHelpers
 {
-    public static class HtmlHelperExtensions {
+    public static class HtmlHelperExtensions
+    {
         public static IHtmlString GenerateRelayQrCode(this HtmlHelper html, string qrValue, int height = 250, int width = 250, int margin = 0)
         {
             var barcodeWriter = new BarcodeWriter

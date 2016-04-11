@@ -35,7 +35,7 @@ namespace Paramount.Betterclassifieds.Tests
             return this;
         }
 
-        public EventModelMockBuilder WithTickets(params EventTicket[] eventTickets)
+        public EventModelMockBuilder WithCustomTicket(params EventTicket[] eventTickets)
         {
             return WithTickets(eventTickets.ToList());
         }

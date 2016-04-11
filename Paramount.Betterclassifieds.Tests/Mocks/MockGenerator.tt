@@ -25,12 +25,14 @@
 		{ "Paramount.Betterclassifieds.Business.Events.EventModel",  "EventModel" },
 		{ "Paramount.Betterclassifieds.Business.Events.EventTicket",  "EventTicket" },
 		{ "Paramount.Betterclassifieds.Business.Events.EventBookingTicket",  "EventBookingTicket" },
+		{ "Paramount.Betterclassifieds.Business.Events.EventBookingTicketValidation",  "EventBookingTicketValidation" },
 		{ "Paramount.Betterclassifieds.Business.Events.EventBooking",  "EventBooking" },
 		{ "Paramount.Betterclassifieds.Business.Events.EventTicketReservation",  "EventTicketReservation" }	,	
 		{ "Paramount.Betterclassifieds.Business.Events.EventGuestDetails",  "EventGuestDetails" },	
 		{ "Paramount.Betterclassifieds.Business.Events.EventPaymentSummary",  "EventPaymentSummary" },	
 		{ "Paramount.Betterclassifieds.Business.Events.EventPaymentRequest",  "EventPaymentRequest" },	
 		{ "Paramount.Betterclassifieds.Business.Events.EventTicketField",  "EventTicketField" },	
+		
 	};
 #>
 using Paramount.Betterclassifieds.Business;

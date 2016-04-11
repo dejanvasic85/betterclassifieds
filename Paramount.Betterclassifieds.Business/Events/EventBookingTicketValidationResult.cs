@@ -11,38 +11,38 @@ namespace Paramount.Betterclassifieds.Business.Events
             ValidationMessage = validationMessage;
         }
 
-        public static EventBookingTicketValidationResult Valid()
+        public static EventBookingTicketValidationResult Success()
         {
-            return new EventBookingTicketValidationResult(EventBookingTicketValidationType.Valid, "VALID");
+            return new EventBookingTicketValidationResult(EventBookingTicketValidationType.Success, "VALID");
         }
 
-        public static EventBookingTicketValidationResult ValidDuplicate()
+        public static EventBookingTicketValidationResult PartialSuccess()
         {
-            return new EventBookingTicketValidationResult(EventBookingTicketValidationType.ValidDuplicate, 
+            return new EventBookingTicketValidationResult(EventBookingTicketValidationType.PartialSuccess, 
                 "VALID: This ticket has already been validated!");
         }
 
         public static EventBookingTicketValidationResult BadData()
         {
-            return new EventBookingTicketValidationResult(EventBookingTicketValidationType.NotValid,
+            return new EventBookingTicketValidationResult(EventBookingTicketValidationType.Failed,
                     "NOT VALID: Unknown barcode information.");
         }
 
         public static EventBookingTicketValidationResult NoSuchEvent(int eventId)
         {
-            return new EventBookingTicketValidationResult(EventBookingTicketValidationType.NotValid,
+            return new EventBookingTicketValidationResult(EventBookingTicketValidationType.Failed,
                 $"NO SUCH EVENT: {eventId}");
         }
 
         public static EventBookingTicketValidationResult NoSuchTicket(int eventId, int ticketId)
         {
-            return new EventBookingTicketValidationResult(EventBookingTicketValidationType.NotValid,
+            return new EventBookingTicketValidationResult(EventBookingTicketValidationType.Failed,
                 $"NO SUCH TICKET: Event [{eventId}] Ticket [{ticketId}]");
         }
 
         public static EventBookingTicketValidationResult NoSuchTicket(int eventId, int ticketId, int ticketBookingId)
         {
-            return new EventBookingTicketValidationResult(EventBookingTicketValidationType.NotValid,
+            return new EventBookingTicketValidationResult(EventBookingTicketValidationType.Failed,
                 $"NO SUCH TICKET BOOKING: Event [{eventId}] Ticket [{ticketId}] Ticket Booking [{ticketBookingId}]");
         }
     }

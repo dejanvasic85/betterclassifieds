@@ -2,6 +2,10 @@ namespace Paramount.Betterclassifieds.Business.Events
 {
     public class EventBookingTicketValidation
     {
+        public EventBookingTicketValidation()
+        {
+
+        }
         public EventBookingTicketValidation(int eventBookingTicketId)
         {
             EventBookingTicketId = eventBookingTicketId;
@@ -14,7 +18,7 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         public void IncrementCount()
         {
-            ValidationCount = +1;
+            ValidationCount += 1;
         }
     }
 }

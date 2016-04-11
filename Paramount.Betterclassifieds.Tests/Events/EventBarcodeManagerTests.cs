@@ -35,17 +35,17 @@ namespace Paramount.Betterclassifieds.Tests.Events
         [Test]
         [TestCase("BadLength")]
         [TestCase("NotAll AreNumbers 1111")]
-        public void ValidateTicket_WithBadBarcodeData_ReturnsNotValid(string badData)
+        public void ValidateTicket_WithBadBarcodeData_ReturnsFailed(string badData)
         {
             var eventBarcodeManager = BuildTargetObject();
             var result = eventBarcodeManager.ValidateTicket(badData);
             Assert.That(result, Is.Not.Null);
             Assert.That(result.ValidationMessage, Is.EqualTo("NOT VALID: Unknown barcode information."));
-            Assert.That(result.ValidationType, Is.EqualTo(EventBookingTicketValidationType.NotValid));
+            Assert.That(result.ValidationType, Is.EqualTo(EventBookingTicketValidationType.Failed));
         }
 
         [Test]
-        public void ValidateTicket_Event_IsNull_ReturnsNotValid()
+        public void ValidateTicket_Event_IsNull_ReturnsFailed()
         {
             // arrange
             _eventRepository.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), null);
@@ -56,11 +56,11 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.ValidationMessage, Is.EqualTo("NO SUCH EVENT: 1111"));
-            Assert.That(result.ValidationType, Is.EqualTo(EventBookingTicketValidationType.NotValid));
+            Assert.That(result.ValidationType, Is.EqualTo(EventBookingTicketValidationType.Failed));
         }
 
         [Test]
-        public void ValidateTicket_EventTicket_IsNull_ReturnsNotValid()
+        public void ValidateTicket_EventTicket_IsNull_ReturnsFailed()
         {
             // arrange
             var eventModel = new EventModelMockBuilder()
@@ -75,16 +75,16 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.ValidationMessage, Is.EqualTo("NO SUCH TICKET: Event [1111] Ticket [2222]"));
-            Assert.That(result.ValidationType, Is.EqualTo(EventBookingTicketValidationType.NotValid));
+            Assert.That(result.ValidationType, Is.EqualTo(EventBookingTicketValidationType.Failed));
         }
 
         [Test]
-        public void ValidateTicket_EventBookingTicket_IsNull_ReturnsNotValid()
+        public void ValidateTicket_EventBookingTicket_IsNull_ReturnsFailed()
         {
             // arrange
             var eventModel = new EventModelMockBuilder()
                 .WithEventId(3333)
-                .WithTickets(new EventTicketMockBuilder().WithEventTicketId(2222).Build())
+                .WithCustomTicket(new EventTicketMockBuilder().WithEventTicketId(2222).Build())
                 .Build();
             
 
@@ -97,7 +97,56 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.ValidationMessage, Is.EqualTo("NO SUCH TICKET BOOKING: Event [1111] Ticket [2222] Ticket Booking [3333]"));
-            Assert.That(result.ValidationType, Is.EqualTo(EventBookingTicketValidationType.NotValid));
+            Assert.That(result.ValidationType, Is.EqualTo(EventBookingTicketValidationType.Failed));
+        }
+
+        [Test]
+        public void ValidateTicket_WithExistingValidation_ReturnsPartialSuccess()
+        {
+            // arrange
+            var eventModel = new EventModelMockBuilder()
+                .WithEventId(1111)
+                .WithCustomTicket(new EventTicketMockBuilder().WithEventTicketId(2222).Build())
+                .Build();
+            var eventTicketBooking = new EventBookingTicketMockBuilder().WithEventBookingTicketId(3333).Build();
+            var eventTicketBookingValidation = new EventBookingTicketValidationMockBuilder().WithValidationCount(1).WithEventBookingTicketId(3333).Build();
+
+
+            _eventRepository.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), eventModel);
+            _eventRepository.SetupWithVerification(call => call.GetEventBookingTicket(It.IsAny<int>()), eventTicketBooking);
+            _eventRepository.SetupWithVerification(call => call.GetEventBookingTicketValidation(It.IsAny<int>()), eventTicketBookingValidation);
+            _eventRepository.SetupWithVerification(call => call.UpdateEventBookingTicketValidation(It.IsAny<EventBookingTicketValidation>()));
+
+            // act
+            var eventBarcodeManager = BuildTargetObject();
+            var result = eventBarcodeManager.ValidateTicket("1111 2222 3333");
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.ValidationType, Is.EqualTo(EventBookingTicketValidationType.PartialSuccess));
+            Assert.That(eventTicketBookingValidation.ValidationCount, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void ValidateTicket_CreatesNewValidationRecord_ReturnsSuccess()
+        {
+            // arrange
+            var eventModel = new EventModelMockBuilder()
+                .WithEventId(1111)
+                .WithCustomTicket(new EventTicketMockBuilder().WithEventTicketId(2222).Build())
+                .Build();
+            var eventTicketBooking = new EventBookingTicketMockBuilder().WithEventBookingTicketId(3333).Build();
+            
+            _eventRepository.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), eventModel);
+            _eventRepository.SetupWithVerification(call => call.GetEventBookingTicket(It.IsAny<int>()), eventTicketBooking);
+            _eventRepository.SetupWithVerification(call => call.GetEventBookingTicketValidation(It.IsAny<int>()), null);
+            _eventRepository.SetupWithVerification(call => call.CreateEventBookingTicketValidation(It.IsAny<EventBookingTicketValidation>()));
+
+            // act
+            var eventBarcodeManager = BuildTargetObject();
+            var result = eventBarcodeManager.ValidateTicket("1111 2222 3333");
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.ValidationType, Is.EqualTo(EventBookingTicketValidationType.Success));
         }
 
         private Mock<IEventRepository> _eventRepository;

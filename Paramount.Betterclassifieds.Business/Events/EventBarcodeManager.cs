@@ -54,12 +54,12 @@ namespace Paramount.Betterclassifieds.Business.Events
             {
                 eventBookingTicketValidation.IncrementCount();
                 _eventRepository.UpdateEventBookingTicketValidation(eventBookingTicketValidation);
-                return EventBookingTicketValidationResult.ValidDuplicate();
+                return EventBookingTicketValidationResult.PartialSuccess();
             }
 
             // Create the validation for the first time
             _eventRepository.CreateEventBookingTicketValidation(new EventBookingTicketValidation(eventBookingTicketId));
-            return EventBookingTicketValidationResult.Valid();
+            return EventBookingTicketValidationResult.Success();
         }
     }
 }

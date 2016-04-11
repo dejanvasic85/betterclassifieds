@@ -5,7 +5,7 @@ namespace Paramount.Betterclassifieds.Business.Events
     public class EventBarcodeManager : IEventBarcodeManager
     {
         private readonly IEventRepository _eventRepository;
-        private const char CharSplitter = ' ';
+        private const char CharSplitter = '-';
 
         public EventBarcodeManager(IEventRepository eventRepository)
         {
@@ -59,7 +59,7 @@ namespace Paramount.Betterclassifieds.Business.Events
 
             // Create the validation for the first time
             _eventRepository.CreateEventBookingTicketValidation(new EventBookingTicketValidation(eventBookingTicketId));
-            return EventBookingTicketValidationResult.Success();
+            return EventBookingTicketValidationResult.Success(eventModel, eventBookingTicket);
         }
     }
 }

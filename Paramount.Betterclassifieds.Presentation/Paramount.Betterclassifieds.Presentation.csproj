@@ -273,6 +273,7 @@
     <Compile Include="ViewModels\AdViewModel.cs" />
     <Compile Include="ViewModels\Booking\BookingContextInCookie.cs" />
     <Compile Include="ViewModels\DirectDebitViewModel.cs" />
+    <Compile Include="ViewModels\Events\BarcodeValidationViewModel.cs" />
     <Compile Include="ViewModels\Events\EventGuestListDownloadViewModel.cs" />
     <Compile Include="ViewModels\Events\EventGuestListViewModel.cs" />
     <Compile Include="ViewModels\Events\EventGuestNotificationFactory.cs" />
@@ -835,6 +836,7 @@
     <Content Include="Views\EditAd\EventDetails.cshtml" />
     <Content Include="Views\Event\_FloorPlanDialogDialog.cshtml" />
     <Content Include="Views\Home\Terms.cshtml" />
+    <Content Include="Views\Event\ValidateBarcode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

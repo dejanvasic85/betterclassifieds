@@ -22,7 +22,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var eventBarcodeManager = BuildTargetObject();
             var result = eventBarcodeManager.GenerateBarcodeData(eventModel, eventBookingTicket);
 
-            Assert.That(result, Is.EqualTo("3333 1111 2222"));
+            Assert.That(result, Is.EqualTo("3333-1111-2222"));
         }
 
         [Test]
@@ -52,7 +52,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             // act
             var eventBarcodeManager = BuildTargetObject();
-            var result = eventBarcodeManager.ValidateTicket("1111 2222 3333");
+            var result = eventBarcodeManager.ValidateTicket("1111-2222-3333");
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.ValidationMessage, Is.EqualTo("NO SUCH EVENT: 1111"));
@@ -71,7 +71,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             // act
             var eventBarcodeManager = BuildTargetObject();
-            var result = eventBarcodeManager.ValidateTicket("1111 2222 3333");
+            var result = eventBarcodeManager.ValidateTicket("1111-2222-3333");
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.ValidationMessage, Is.EqualTo("NO SUCH TICKET: Event [1111] Ticket [2222]"));
@@ -93,7 +93,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             // act
             var eventBarcodeManager = BuildTargetObject();
-            var result = eventBarcodeManager.ValidateTicket("1111 2222 3333");
+            var result = eventBarcodeManager.ValidateTicket("1111-2222-3333");
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.ValidationMessage, Is.EqualTo("NO SUCH TICKET BOOKING: Event [1111] Ticket [2222] Ticket Booking [3333]"));
@@ -119,7 +119,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             // act
             var eventBarcodeManager = BuildTargetObject();
-            var result = eventBarcodeManager.ValidateTicket("1111 2222 3333");
+            var result = eventBarcodeManager.ValidateTicket("1111-2222-3333");
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.ValidationType, Is.EqualTo(EventBookingTicketValidationType.PartialSuccess));
@@ -143,7 +143,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             // act
             var eventBarcodeManager = BuildTargetObject();
-            var result = eventBarcodeManager.ValidateTicket("1111 2222 3333");
+            var result = eventBarcodeManager.ValidateTicket("1111-2222-3333");
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.ValidationType, Is.EqualTo(EventBookingTicketValidationType.Success));

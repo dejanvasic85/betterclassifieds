@@ -1,3 +1,5 @@
+using System;
+
 namespace Paramount.Betterclassifieds.Business.Events
 {
     public class EventBookingTicketValidationResult
@@ -11,14 +13,9 @@ namespace Paramount.Betterclassifieds.Business.Events
             ValidationMessage = validationMessage;
         }
 
-        public static EventBookingTicketValidationResult Success()
-        {
-            return new EventBookingTicketValidationResult(EventBookingTicketValidationType.Success, "VALID");
-        }
-
         public static EventBookingTicketValidationResult PartialSuccess()
         {
-            return new EventBookingTicketValidationResult(EventBookingTicketValidationType.PartialSuccess, 
+            return new EventBookingTicketValidationResult(EventBookingTicketValidationType.PartialSuccess,
                 "VALID: This ticket has already been validated!");
         }
 
@@ -44,6 +41,12 @@ namespace Paramount.Betterclassifieds.Business.Events
         {
             return new EventBookingTicketValidationResult(EventBookingTicketValidationType.Failed,
                 $"NO SUCH TICKET BOOKING: Event [{eventId}] Ticket [{ticketId}] Ticket Booking [{ticketBookingId}]");
+        }
+
+        public static EventBookingTicketValidationResult Success(EventModel eventModel, EventBookingTicket eventBookingTicket)
+        {
+            return new EventBookingTicketValidationResult(EventBookingTicketValidationType.Success, 
+                $"SUCCESS: Customer name [{eventBookingTicket.GuestFullName}] - Ticket [{eventBookingTicket.TicketName}]");
         }
     }
 }

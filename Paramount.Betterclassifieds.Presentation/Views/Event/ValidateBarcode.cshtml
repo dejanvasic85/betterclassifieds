@@ -1,0 +1,26 @@
+﻿@model BarcodeValidationViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="@Url.ContentAbsolute("~/Content/bootstrap-3.3.0.min.css")" media="all" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Ticket</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="alert alert-@Model.AlertType">
+                    @Model.StatusMessage
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

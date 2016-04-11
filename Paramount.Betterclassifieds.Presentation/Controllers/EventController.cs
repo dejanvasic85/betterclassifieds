@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Monads;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
@@ -292,6 +293,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View("~/Views/EditAd/EventGuestList.cshtml", viewModel);
         }
 #endif
+
+        public ActionResult ValidateBarcode(string barcode)
+        {
+            var result = _barcodeManager.ValidateTicket(barcode);
+            var viewModel = BarcodeValidationViewModel.FromResult(result);
+            return View(viewModel);
+        }
 
         public void OnRegisterMaps(IConfiguration configuration)
         {

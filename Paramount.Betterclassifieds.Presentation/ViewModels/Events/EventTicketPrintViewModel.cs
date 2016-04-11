@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Paramount.Betterclassifieds.Business.Events;
@@ -11,7 +12,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public EventTicketPrintViewModel()
         { }
 
-        public EventTicketPrintViewModel(AdSearchResult adDetails, EventModel eventDetails, EventBookingTicket ticket)
+        public EventTicketPrintViewModel(IEventBarcodeManager barcodeManager, AdSearchResult adDetails, EventModel eventDetails, EventBookingTicket ticket)
         {
             this.TicketName = ticket.TicketName;
             this.TicketNumber = ticket.EventTicketId.ToString();
@@ -21,13 +22,13 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             this.StartDateTime = eventDetails.EventStartDate.GetValueOrDefault().ToString("dd-MMM-yyyy");
             this.Price = ticket.Price.GetValueOrDefault();
             this.ContactNumber = adDetails.ContactPhone;
-            this.BarcodeData = string.Format("{0} {1} {2}", eventDetails.EventId, ticket.EventTicketId, ticket.EventBookingTicketId);
+            this.BarcodeData = barcodeManager.GenerateBarcodeData(eventDetails, ticket);
         }
 
-        public static IEnumerable<EventTicketPrintViewModel> Create(AdSearchResult adDetails, EventModel eventDetails, EventBooking eventBooking)
+        public static IEnumerable<EventTicketPrintViewModel> Create(IEventBarcodeManager barcodeManager, AdSearchResult adDetails, EventModel eventDetails, EventBooking eventBooking)
         {
             return eventBooking.EventBookingTickets
-                .Select(eventBookingTicket => new EventTicketPrintViewModel(adDetails, eventDetails, eventBookingTicket))
+                .Select(eventBookingTicket => new EventTicketPrintViewModel(barcodeManager, adDetails, eventDetails, eventBookingTicket))
                 .ToList();
         }
 

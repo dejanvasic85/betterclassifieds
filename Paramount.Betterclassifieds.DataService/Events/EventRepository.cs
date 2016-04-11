@@ -87,6 +87,14 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
+        public EventBookingTicket GetEventBookingTicket(int eventBookingTicketId)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                return context.EventBookingTickets.SingleOrDefault(t => t.EventBookingTicketId == eventBookingTicketId);
+            }
+        }
+
         public EventPaymentRequest GetEventPaymentRequestForEvent(int eventId)
         {
             using (var context = _dbContextFactory.CreateEventContext())
@@ -144,11 +152,28 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
+        public EventBookingTicketValidation GetEventBookingTicketValidation(int eventBookingTicketId)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                return context.EventBookingTicketValidations.SingleOrDefault(v=> v.EventBookingTicketId == eventBookingTicketId);
+            }
+        }
+
         public void CreateEventTicketReservation(EventTicketReservation eventTicketReservation)
         {
             using (var context = _dbContextFactory.CreateEventContext())
             {
                 context.EventTicketReservations.Add(eventTicketReservation);
+                context.SaveChanges();
+            }
+        }
+
+        public void CreateEventBookingTicketValidation(EventBookingTicketValidation eventBookingTicketValidation)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                context.EventBookingTicketValidations.Add(eventBookingTicketValidation);
                 context.SaveChanges();
             }
         }
@@ -199,6 +224,16 @@ namespace Paramount.Betterclassifieds.DataService.Events
             {
                 context.Addresses.Attach(address);
                 context.Entry(address).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        public void UpdateEventBookingTicketValidation(EventBookingTicketValidation eventBookingTicketValidation)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                context.EventBookingTicketValidations.Attach(eventBookingTicketValidation);
+                context.Entry(eventBookingTicketValidation).State = EntityState.Modified;
                 context.SaveChanges();
             }
         }

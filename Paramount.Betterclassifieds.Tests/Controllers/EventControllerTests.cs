@@ -25,7 +25,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         [Ignore("The session mock object needs to be mocked properly")]
         public void ViewEventAd_Get_ReturnsViewResult()
         {
-            
+
             var mockAd = new AdSearchResultMockBuilder()
                 .Default()
                 .WithHtmlText("FirstLine<br />SecondLine")
@@ -155,7 +155,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             result.IsTypeOf<ViewResult>();
             result.ViewResultModelIsTypeOf<BookTicketsViewModel>();
         }
-        
+
         [Test]
         public void BookTickets_Post_UserIsAuthenticated_BookingIsActive_ReturnsJsonResult()
         {
@@ -327,6 +327,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _clientConfig.SetupWithVerification(call => call.ClientPhoneNumber, "9999 0000");
             _clientConfig.SetupWithVerification(call => call.FacebookAppId, "123");
             _userManager.SetupWithVerification(call => call.GetUserByEmailOrUsername("foo@bar.com"), applicationUserMock);
+            _barcodeManager.SetupWithVerification(call => call.GenerateBarcodeData(It.IsAny<EventModel>(), It.IsAny<EventBookingTicket>()), "123 321 456");
 
             // act
             var result = BuildController().EventBooked();
@@ -353,7 +354,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventManager.SetupWithVerification(call => call.GetEventBooking(It.IsAny<int>()), mockEventBooking);
             _eventManager.SetupWithVerification(call => call.EventBookingPaymentCompleted(It.IsAny<int>(), PaymentType.PayPal));
             _paymentService.SetupWithVerification(call => call.CompletePayment(
-                "ref123", 
+                "ref123",
                 "payer123",
                 "user123",
                 100,
@@ -382,6 +383,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IEventTicketReservationFactory> _eventTicketReservationFactory;
         private Mock<IPrincipal> _mockUser;
         private Mock<ITemplatingService> _templatingService;
+        private Mock<IEventBarcodeManager> _barcodeManager;
 
         [SetUp]
         public void SetupController()
@@ -399,6 +401,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventTicketReservationFactory = CreateMockOf<IEventTicketReservationFactory>();
             _templatingService = CreateMockOf<ITemplatingService>();
             _templatingService.Setup(call => call.Init(It.IsAny<Controller>())).Returns(_templatingService.Object);
+            _barcodeManager = CreateMockOf<IEventBarcodeManager>();
         }
     }
 }

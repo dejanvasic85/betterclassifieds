@@ -9,21 +9,25 @@ namespace Paramount.Betterclassifieds.Business.Events
         EventModel GetEventDetailsForOnlineAdId(int onlineAdId, bool includeBookings = false);
         EventTicket GetEventTicketDetails(int ticketId, bool includeReservations = false);
         EventBooking GetEventBooking(int eventBookingId, bool includeTickets = false, bool includeEvent = false);
+        EventBookingTicket GetEventBookingTicket(int eventBookingTicketId);
         EventPaymentRequest GetEventPaymentRequestForEvent(int eventId);
         IEnumerable<EventBooking> GetEventBookingsForEvent(int eventId, bool includeTickets = false);
         IEnumerable<EventTicketReservation> GetEventTicketReservationsForSession(string sessionId);
         IEnumerable<EventTicketReservation> GetEventTicketReservations(int ticketId, bool activeOnly);
         IEnumerable<EventBookingTicket> GetEventBookingTicketsForEvent(int? eventId);
+        EventBookingTicketValidation GetEventBookingTicketValidation(int eventBookingTicketId);
 
         void CreateEventTicketReservation(EventTicketReservation eventTicketReservation);
         void CreateBooking(EventBooking eventBooking);
         void CreateEventPaymentRequest(EventPaymentRequest request);
         void CreateEventTicket(EventTicket ticket);
+        void CreateEventBookingTicketValidation(EventBookingTicketValidation eventBookingTicketValidation);
 
         void UpdateEvent(EventModel eventModel);
         void UpdateEventTicketReservation(EventTicketReservation eventTicketReservation);
         void UpdateEventBooking(EventBooking eventBooking);
         void UpdateEventTicket(EventTicket eventTicket);
         void UpdateEventAddress(Address address);
+        void UpdateEventBookingTicketValidation(EventBookingTicketValidation eventBookingTicketValidation);
     }
 }

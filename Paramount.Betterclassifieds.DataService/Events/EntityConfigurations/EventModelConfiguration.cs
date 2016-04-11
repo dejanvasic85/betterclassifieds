@@ -7,7 +7,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
     {
         public EventModelConfiguration()
         {
-            ToTable("Event");   
+            ToTable("Event");
             HasKey(p => p.EventId);
             HasOptional(p => p.Address);
         }

@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net.Mime;
 using System.Text;
 
@@ -120,6 +121,11 @@ namespace Paramount
             return null;
         }
 
+        public static int?[] ToInt(this string[] values)
+        {
+            return values?.Select(v => v.ToInt()).ToArray();
+        }
+
         public static int ToEnumValue<T>(this string value)
         {
             return (int)Enum.Parse(typeof(T), value);
@@ -201,5 +207,7 @@ namespace Paramount
         {
             return str.Replace("\r\n", replacementValue).Replace("\n", replacementValue);
         }
+
+
     }
 }

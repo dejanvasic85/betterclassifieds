@@ -104,6 +104,7 @@
     <Compile Include="Events\EntityConfigurations\AddressConfiguration.cs" />
     <Compile Include="Events\EntityConfigurations\EventBookingConfiguration.cs" />
     <Compile Include="Events\EntityConfigurations\EventBookingTicketConfiguration.cs" />
+    <Compile Include="Events\EntityConfigurations\EventBookingTicketValidationConfiguration.cs" />
     <Compile Include="Events\EntityConfigurations\EventPaymentRequestConfiguration.cs" />
     <Compile Include="Events\EntityConfigurations\EventTicketFieldConfiguration.cs" />
     <Compile Include="Events\EntityConfigurations\EventTicketReservationConfiguration.cs" />

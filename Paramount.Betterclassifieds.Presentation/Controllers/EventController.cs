@@ -220,7 +220,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 _eventManager.AdjustRemainingQuantityAndCancelReservations(sessionId, eventBooking.EventBookingTickets);
 
-                var ticketHtml = _templatingService.Generate(EventTicketPrintViewModel.Create(adDetails, eventDetails, eventBooking), "Tickets");
+                var ticketHtml = _templatingService.Generate(EventTicketPrintViewModel.Create(_barcodeManager, adDetails, eventDetails, eventBooking), "Tickets");
                 var ticketPdfData = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(ticketHtml);
 
                 var viewModel = new EventBookedViewModel(adDetails, eventDetails, eventBooking, this.Url, _clientConfig, _httpContext);
@@ -270,7 +270,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var eventDetails = eventBooking.Event;
             var ad = _searchService.GetByAdOnlineId(eventDetails.OnlineAdId);
 
-            var data = EventTicketPrintViewModel.Create(ad, eventDetails, eventBooking);
+            var data = EventTicketPrintViewModel.Create(_barcodeManager, ad, eventDetails, eventBooking);
             return View(data.ToList());
         }
 
@@ -299,7 +299,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<Business.Events.EventTicketReservation, EventTicketRequestViewModel>();
             configuration.CreateMap<Business.Events.EventTicketReservation, EventTicketReservedViewModel>()
                 .ForMember(m => m.Status, options => options.MapFrom(s => s.StatusAsString.Humanize()))
-                .ForMember(m => m.Price, options => options.MapFrom(s => s.Price.GetValueOrDefault() + s.TransactionFee.GetValueOrDefault() ))
+                .ForMember(m => m.Price, options => options.MapFrom(s => s.Price.GetValueOrDefault() + s.TransactionFee.GetValueOrDefault()))
                 .ForMember(m => m.TicketName, options => options.MapFrom(s => s.EventTicket.TicketName))
                 ;
 
@@ -325,8 +325,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IBookingManager _bookingManager;
         private readonly IEventTicketReservationFactory _eventTicketReservationFactory;
         private readonly ITemplatingService _templatingService;
+        private readonly IEventBarcodeManager _barcodeManager;
 
-        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPaymentService paymentService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService)
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPaymentService paymentService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeManager barcodeManager)
         {
             _searchService = searchService;
             _eventManager = eventManager;
@@ -339,6 +340,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _bookingManager = bookingManager;
             _eventTicketReservationFactory = eventTicketReservationFactory;
             _templatingService = templatingService;
+            _barcodeManager = barcodeManager;
             _templatingService = templatingService.Init(this); // This service is tightly coupled to an mvc controller
         }
 

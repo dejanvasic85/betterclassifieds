@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Paramount.Betterclassifieds.Business.Events;
 
 namespace Paramount.Betterclassifieds.Tests
@@ -32,6 +33,11 @@ namespace Paramount.Betterclassifieds.Tests
             WithOnlineAdId(321);
 
             return this;
+        }
+
+        public EventModelMockBuilder WithTickets(params EventTicket[] eventTickets)
+        {
+            return WithTickets(eventTickets.ToList());
         }
     }
 }

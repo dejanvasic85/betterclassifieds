@@ -498,7 +498,7 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventModelMockBuilder WithTickets(IList<EventTicket> val)
 		{ 
 			return WithBuildStep(p => p.Tickets = val);
-		}
+		}   
 		public EventModelMockBuilder WithTicketFields(IList<EventTicketField> val)
 		{ 
 			return WithBuildStep(p => p.TicketFields = val);

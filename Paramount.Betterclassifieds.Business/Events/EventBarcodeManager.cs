@@ -14,11 +14,16 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         public string GenerateBarcodeData(EventModel eventDetails, EventBookingTicket eventBookingTicket)
         {
+            Guard.NotNull(eventDetails);
+            Guard.NotNull(eventBookingTicket);
+
             return $"{eventDetails.EventId}{CharSplitter}{eventBookingTicket.EventTicketId}{CharSplitter}{eventBookingTicket.EventBookingTicketId}";
         }
 
         public EventBookingTicketValidationResult ValidateTicket(string barcodeData)
         {
+            Guard.NotNull(barcodeData);
+
             var dataFields = barcodeData.Split(CharSplitter);
             if (dataFields.Length != 3)
                 return EventBookingTicketValidationResult.BadData();
@@ -36,7 +41,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             if (eventModel == null)
                 return EventBookingTicketValidationResult.NoSuchEvent(eventId);
 
-            var eventTicket = eventModel.Tickets.SingleOrDefault(t => t.EventId == eventTicketId);
+            var eventTicket = eventModel.Tickets.SingleOrDefault(t => t.EventTicketId == eventTicketId);
             if (eventTicket == null)
                 return EventBookingTicketValidationResult.NoSuchTicket(eventId, eventTicketId);
 

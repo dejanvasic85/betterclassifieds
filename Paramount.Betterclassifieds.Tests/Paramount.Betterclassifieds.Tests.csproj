@@ -123,6 +123,7 @@
     <Compile Include="Controllers\EditAdControllerTests.cs" />
     <Compile Include="Controllers\EventControllerTests.cs" />
     <Compile Include="Controllers\HomeControllerTests.cs" />
+    <Compile Include="Events\EventBarcodeManagerTests.cs" />
     <Compile Include="Events\EventBookingFactoryTests.cs" />
     <Compile Include="Events\EventManagerTests.cs" />
     <Compile Include="Events\EventPaymentRequestFactoryTests.cs" />

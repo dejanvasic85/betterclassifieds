@@ -43,7 +43,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         public static EventBookingTicketValidationResult NoSuchTicket(int eventId, int ticketId, int ticketBookingId)
         {
             return new EventBookingTicketValidationResult(EventBookingTicketValidationType.NotValid,
-                $"NO SUCH TICKET: Event [{eventId}] Ticket [{ticketId}] Ticket Booking [{ticketBookingId}]");
+                $"NO SUCH TICKET BOOKING: Event [{eventId}] Ticket [{ticketId}] Ticket Booking [{ticketBookingId}]");
         }
     }
 }

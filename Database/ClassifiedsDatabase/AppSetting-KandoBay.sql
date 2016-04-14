@@ -81,19 +81,78 @@ begin
 end
 go
 
--- Setup the new icons for the categories
-exec temp_createCategory @Title = 'For Sale', @FontIcon = 'shopping-cart';
-exec temp_createCategory @Title = 'Employment', @FontIcon = 'cubes';
-exec temp_createCategory @Title = 'Community', @FontIcon = 'users';
-exec temp_createCategory @Title = 'Events', @FontIcon = 'ticket';
-exec temp_createCategory @Title = 'Real Estate', @FontIcon = 'home';
-exec temp_createCategory @Title = 'Personals', @FontIcon = 'coffee';
-exec temp_createCategory @Title = 'Automotive/Cycling', @FontIcon = 'automobile';
+-- Category : Music
+exec temp_createCategory @Title = 'Music', @FontIcon = 'music', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Concert', @ParentCategory = 'Music', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Opera', @ParentCategory = 'Music', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Tour', @ParentCategory = 'Music', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Party', @ParentCategory = 'Music', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Festival', @ParentCategory = 'Music', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Class', @ParentCategory = 'Music', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Convention', @ParentCategory = 'Music', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Expo', @ParentCategory = 'Music', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+
+-- Category : Film & Media
+exec temp_createCategory @Title = 'Film & Media', @FontIcon = 'film', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Convention', @ParentCategory = 'Film & Media', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Seminar', @ParentCategory = 'Film & Media', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Screening', @ParentCategory = 'Film & Media', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Appearance', @ParentCategory = 'Film & Media', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Networking', @ParentCategory = 'Film & Media', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Party', @ParentCategory = 'Film & Media', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+
+-- Category : Business
+exec temp_createCategory @Title = 'Business', @FontIcon = 'suitcase', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Conference', @ParentCategory = 'Business', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Convention', @ParentCategory = 'Business', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Seminar', @ParentCategory = 'Business', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Training', @ParentCategory = 'Business', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Party', @ParentCategory = 'Business', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Meetup', @ParentCategory = 'Business', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Expo', @ParentCategory = 'Business', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Networking', @ParentCategory = 'Business', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+
+
+-- Category : Food & Drink
+exec temp_createCategory @Title = 'Food & Drink', @FontIcon = 'cutlery', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Festival', @ParentCategory = 'Food & Drink', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Networking', @ParentCategory = 'Food & Drink', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Gala', @ParentCategory = 'Food & Drink', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Seminar', @ParentCategory = 'Food & Drink', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Class', @ParentCategory = 'Food & Drink', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Party', @ParentCategory = 'Food & Drink', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+
+-- Category : Community & Culture
+exec temp_createCategory @Title = 'Community & Culture', @FontIcon = 'users', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Festival', @ParentCategory = 'Community & Culture', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Party', @ParentCategory = 'Community & Culture', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'National Day', @ParentCategory = 'Community & Culture', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Fund Raiser', @ParentCategory = 'Community & Culture', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Class', @ParentCategory = 'Community & Culture', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+
+-- Category: Sports & Fitness
+exec temp_createCategory @Title = 'Sports & Fitness', @FontIcon = 'futbol-o', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Class', @ParentCategory = 'Sports & Fitness', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Race', @ParentCategory = 'Sports & Fitness', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Game', @ParentCategory = 'Sports & Fitness', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Match', @ParentCategory = 'Sports & Fitness', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Tournament', @ParentCategory = 'Sports & Fitness', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Training', @ParentCategory = 'Sports & Fitness', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Networking', @ParentCategory = 'Sports & Fitness', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+
+-- Category: Education
+exec temp_createCategory @Title = 'Education', @FontIcon = 'book', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Party', @ParentCategory = 'Education', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Ball', @ParentCategory = 'Education', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Orientation Week', @ParentCategory = 'Education', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Expo', @ParentCategory = 'Education', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Conference', @ParentCategory = 'Education', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Seminar', @ParentCategory = 'Education', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Tutoring', @ParentCategory = 'Education', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Tour', @ParentCategory = 'Education', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
 
 -- Setup events categories
-exec temp_createCategory @Title = 'Events', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
-exec temp_createCategory @Title = 'Concerts', @ParentCategory = 'Events', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
-exec temp_createCategory @Title = 'Event Services', @ParentCategory = 'Events', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
-exec temp_createCategory @Title = 'Sports', @ParentCategory = 'Events', @CategoryAdType = 'Event', @IsOnlineOnly = 1;
+
+
 go
 drop procedure temp_createCategory

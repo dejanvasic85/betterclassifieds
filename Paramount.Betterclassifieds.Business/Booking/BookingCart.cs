@@ -32,10 +32,8 @@ namespace Paramount.Betterclassifieds.Business.Booking
             var cart = new BookingCart(sessionId, userId)
             {
                 OnlineAdModel = bookingModel.OnlineAd,
-                LineAdModel = bookingModel.LineAd,
                 CategoryId = bookingModel.CategoryId,
-                SubCategoryId = bookingModel.SubCategoryId,
-                Publications = bookingModel.Publications
+                SubCategoryId = bookingModel.SubCategoryId
             };
 
             // Set the schedule

@@ -223,7 +223,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="bs-callout bs-callout-info">
-                        <h4><i class="fa fa-anchor"></i>&nbsp; Additional Details</h4>
+                        <h4><i class="fa fa-anchor"></i>&nbsp; Contact</h4>
                         @*<p>Tell your visitors the location and what's the event about.</p>*@
                     </div>
 
@@ -247,6 +247,17 @@
                     </div>
                 </div>
 
+
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="bs-callout bs-callout-info">
+                        <h4><i class="fa fa-calendar"></i>&nbsp; Publishing Date</h4>
+                        <p>When should the customers see your event online?</p>
+                    </div>
+                </div>
+
                 <div class="col-xs-12">
                     <div class="form-group-lg">
                         <label>Ad Start Date *</label>
@@ -255,11 +266,13 @@
                                data-val="true"
                                data-val-required="Start date for your ad is required" />
                         <span class="field-validation-valid help-block" data-valmsg-for="AdStartDate" data-valmsg-replace="true"></span>
-                        <div class="alert alert-info-alt" data-bind="visible: adEndDate().length > 0">
+
+                        <div class="alert alert-info-alt" data-bind="visible: adEndDate().length > 0 && configDurationDays <= 90">
                             Your ad will run for <span data-bind="text: configDurationDays"></span> days and expires <strong><span data-bind="text: adEndDate"></span></strong>
                         </div>
                     </div>
                 </div>
+
             </div>
 
             @*Ticketing*@

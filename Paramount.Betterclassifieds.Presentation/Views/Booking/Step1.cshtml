@@ -14,9 +14,12 @@
     </ul>
 
     @Html.Partial("_BookingInformationPanel")
-
+    
     @*Category selection*@
     <div class="row">
+        <div class="col-xs-12">
+            @Html.Partial("_PrintAvailability")
+        </div>
         <div class="col-xs-12">
             <div class="bs-callout bs-callout-info">
                 <h4>Category</h4>
@@ -30,23 +33,23 @@
                 <select id="parentCategoryId" data-bind="value: categoryId" class="form-control input-lg">
                     <option value="">-- Category --</option>
                     @foreach (var category in Model.ParentCategoryOptions)
-                        {
+                    {
                         <option value="@category.Value">@category.Text</option>
-                        }
+                    }
                 </select>
 
-                <br />
+                <br/>
 
                 <select id="subCategoryId" name="subCategoryId" class="form-control input-lg"
                         data-bind="value: subCategoryId, visible: shouldShowSubCategory">
                     <option>-- Sub Category --</option>
                     @if (Model.SubCategoryOptions != null)
+                    {
+                        foreach (var category in Model.SubCategoryOptions)
                         {
-                            foreach (var category in Model.SubCategoryOptions)
-                            {
-                        <option value="@category.Value">@category.Text</option>
-                            }
+                            <option value="@category.Value">@category.Text</option>
                         }
+                    }
                 </select>
             </div>
         </div>

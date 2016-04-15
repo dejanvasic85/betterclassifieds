@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.DataService.Repository
+﻿using System.Monads;
+
+namespace Paramount.Betterclassifieds.DataService.Repository
 {
     using AutoMapper;
     using Business;
@@ -92,11 +94,7 @@
                         if (lineAdDesign != null)
                         {
                             var lineAd = this.Map<LineAd, LineAdModel>(lineAdDesign.LineAds.Single());
-                            if (lineAdDesign.AdGraphics.Count > 0)
-                            {
-                                // Line ads can only have 1 graphic
-                                lineAd.AdImageId = lineAdDesign.AdGraphics.Single().DocumentID;
-                            }
+                            lineAd.AdImageId = lineAdDesign.AdGraphics.FirstOrDefault().With(g => g.DocumentID);
                             booking.Ads.Add(lineAd);
                         }
                     }
@@ -106,10 +104,12 @@
                     {
                         var onlineAdDataModel = adBookingData.Ad.AdDesigns.First(ds => ds.AdTypeId == AdTypeCode.OnlineCodeId).OnlineAds.Single();
                         var onlineAd = this.Map<OnlineAd, OnlineAdModel>(onlineAdDataModel);
-                        if (onlineAdDataModel.AdDesign.AdGraphics.Any())
-                        {
-                            onlineAd.Images.AddRange(onlineAdDataModel.AdDesign.AdGraphics.Select(gr => new AdImage(gr.DocumentID)));
-                        }
+                    
+                        onlineAd.Images.AddRange(onlineAdDataModel
+                            .With(o => o.AdDesign)
+                            .With(d => d.AdGraphics)
+                            .With(gr => new AdImage(gr.DocumentID)));
+
                         booking.Ads.Add(onlineAd);
 
                         // Ad Enquiry

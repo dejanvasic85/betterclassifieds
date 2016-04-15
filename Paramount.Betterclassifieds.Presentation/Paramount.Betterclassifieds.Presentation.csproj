@@ -837,6 +837,9 @@
     <Content Include="Views\Event\_FloorPlanDialogDialog.cshtml" />
     <Content Include="Views\Home\Terms.cshtml" />
     <Content Include="Views\Event\ValidateBarcode.cshtml" />
+    <Content Include="Views\Shared\_Terms.SriLankanEvents.cshtml" />
+    <Content Include="Views\Shared\_PrintAvailability.cshtml" />
+    <Content Include="Views\Shared\_PrintAvailability.TheMusic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

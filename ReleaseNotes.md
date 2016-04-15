@@ -6,6 +6,7 @@ Here's a list of the latest changes:
 - [Replacing barcodes with QR Codes](https://trello.com/c/NmZv041t/424-qr-code-and-change-the-ticket-display)
 - [Ticket validation for QR codes for event entry](https://trello.com/c/SxWNpvKQ/421-ticket-validator-at-the-entry)
 - [New Brand, Welcome to Sri Lankan Events](https://trello.com/c/BZhUGkZR/407-on-boarding-the-sri-lanka-events-branding)
+- [Customers should no longer be able to book ads for print if new configuration for Print is False](https://trello.com/c/jse03IDF/428-customer-should-no-longer-be-able-to-recycle-ads-to-go-print-again)
 
 **3.2.0 Bug fixes**
 

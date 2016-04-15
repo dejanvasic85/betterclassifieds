@@ -36,6 +36,14 @@ namespace Paramount.Betterclassifieds.Business.Booking
                 SubCategoryId = bookingModel.SubCategoryId
             };
 
+            // The brands are no longer supporting print.
+            // But JUST IN Case we land a new client that wants print then we are doing this!
+            if (clientConfig.IsPrintEnabled)
+            {
+                cart.LineAdModel = bookingModel.LineAd;
+                cart.Publications = bookingModel.Publications;
+            }
+
             // Set the schedule
             cart.SetSchedule(clientConfig, DateTime.Today, firstEditionDate: DateTime.Today, numberOfInsertions: bookingModel.Insertions);
             return cart;
@@ -138,7 +146,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
 
         public void UpdateByPricingFactors(PricingFactors pricingFactors)
         {
-            if (!IsLineAdIncluded) 
+            if (!IsLineAdIncluded)
                 return;
 
             if (LineAdModel == null)

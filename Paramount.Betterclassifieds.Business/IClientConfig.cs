@@ -26,5 +26,6 @@
         int EventMaxTicketsPerBooking { get; }
         decimal EventTicketFee { get; }
         decimal EventTicketFeeDecimal { get; }
+        bool IsPrintEnabled { get; }
     }
 }

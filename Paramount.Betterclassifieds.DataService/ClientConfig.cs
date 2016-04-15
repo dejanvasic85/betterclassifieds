@@ -164,5 +164,10 @@
         {
             get { return EventTicketFee/100; }
         }
+
+        public bool IsPrintEnabled
+        {
+            get { return GetValueFromDatabase<bool>("IsPrintEnabled", false); }
+        }
     }
 }

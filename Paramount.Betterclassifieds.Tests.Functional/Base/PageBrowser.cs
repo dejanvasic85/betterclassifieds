@@ -32,7 +32,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
                     .Concat(attr.Select(b => string.Format("{0}{1}", GetBaseUrl(secure: true), b.RelativeUrl).ToLower()));
 
                 // Let's wait until the page is loaded before we initialise the elements
-                var wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(30));
+                var wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(60));
                 wait.Until(drv => acceptedUrls.Any(drv.Url.ToLower().Contains));
             }
 

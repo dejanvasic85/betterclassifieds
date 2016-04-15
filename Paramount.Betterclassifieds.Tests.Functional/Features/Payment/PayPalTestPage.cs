@@ -14,9 +14,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Payment
         {
             _webDriver = webDriver;
         }
-
-        [FindsBy(How = How.Id, Using = "email")]
-        public IWebElement EmailElement { get; set; }
+        
 
         [FindsBy(How = How.Id, Using = "password")]
         public IWebElement PasswordElement { get; set; }
@@ -26,7 +24,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Payment
 
         public PayPalTestPage WithEmailAddress(string email)
         {
-            EmailElement.SendKeys(email);
+            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(10));
+            var element = wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("email")));
+            element.SendKeys(email);
             return this;
         }
 
@@ -49,7 +49,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Payment
             wait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.ClassName("loader")));
             return this;
         }
-        
+
         public PayPalTestPage Continue()
         {
             _webDriver.SwitchTo().ParentFrame();

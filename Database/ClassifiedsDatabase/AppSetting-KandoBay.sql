@@ -57,26 +57,50 @@ begin
 	declare @ParentCategoryId int = null
 	if @ParentCategory IS NOT NULL
 	begin
+		-- Insert / Update Child category
 		select @ParentCategoryId = MainCategoryId
 		from MainCategory
 		where Title = @ParentCategory
-	end
 
-	if not exists (select top 1 * from MainCategory where Title = @Title)
-	begin
-		insert into MainCategory (Title, ParentId, CategoryAdType, IsOnlineOnly)
-		values	(@Title, @ParentCategoryId, @CategoryAdType, @IsOnlineOnly)
+		if not exists ( select top 1 * from MainCategory where Title = @Title and ParentId = @ParentCategoryId)
+		begin
+			insert into MainCategory (Title, ParentId, CategoryAdType, IsOnlineOnly)
+			values	(@Title, @ParentCategoryId, @CategoryAdType, @IsOnlineOnly)
 
-		set @MainCategoryId = @@IDENTITY
+			set @MainCategoryId = @@IDENTITY
+		end
+		else
+		begin
+			update MainCategory
+			set CategoryAdType = @CategoryAdType,
+				IsOnlineOnly = @IsOnlineOnly,
+				FontIcon = @FontIcon
+			where Title = @Title
+		end
+
 	end
 	else
 	begin
-		update MainCategory
-		set CategoryAdType = @CategoryAdType,
-			IsOnlineOnly = @IsOnlineOnly,
-			FontIcon = @FontIcon
-		where Title = @Title
+		
+		-- Insert / Update Parent
+		if not exists ( select top 1 * from MainCategory where Title = @Title)
+		begin
+			insert into MainCategory (Title, ParentId, CategoryAdType, IsOnlineOnly)
+			values	(@Title, @ParentCategoryId, @CategoryAdType, @IsOnlineOnly)
+
+			set @MainCategoryId = @@IDENTITY
+		end
+		else
+		begin
+			update MainCategory
+			set CategoryAdType = @CategoryAdType,
+				IsOnlineOnly = @IsOnlineOnly,
+				FontIcon = @FontIcon
+			where Title = @Title
+		end
+
 	end
+	
 
 end
 go

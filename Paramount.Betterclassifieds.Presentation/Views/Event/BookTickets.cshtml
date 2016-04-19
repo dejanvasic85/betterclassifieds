@@ -198,6 +198,18 @@
                         <span data-bind="visible: requiresPayment() === false">Get My Tickets!</span>
                     </button>
 
+                    <form action="" method="POST">
+                        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                data-key="pk_test_9lOtEgQezaX12MQN3EnHggB7"
+                                data-amount="999"
+                                data-name="Demo Site"
+                                data-description="Widget"
+                                data-image="/img/documentation/checkout/marketplace.png"
+                                data-locale="auto"
+                                data-zip-code="true"
+                                data-currency="aud">
+                        </script>
+                    </form>
                 </div>
             </div>
         </div>

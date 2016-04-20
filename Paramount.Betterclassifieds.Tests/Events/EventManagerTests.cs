@@ -526,12 +526,33 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var booking = new EventBookingMockBuilder().Build();
 
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingsForEvent(It.IsAny<int>(),
-                false), new List<EventBooking> {booking});
+                false), new List<EventBooking> { booking });
 
             var manager = BuildTargetObject();
             Assert.That(manager.IsEventEditable(10), Is.False);
         }
 
+        [Test]
+        public void EventBookingPaymentCompleted_NullEventBookingId_ThrowsArgException()
+        {
+            Assert.Throws<ArgumentNullException>(() => BuildTargetObject().EventBookingPaymentCompleted(null, PaymentType.PayPal));
+        }
+
+        [Test]
+        public void EventBookingPaymentCompleted_StatusBecomesActive()
+        {
+            var eventBooking = new EventBookingMockBuilder().Default()
+                .WithStatus(EventBookingStatus.PaymentPending)
+                .Build();
+            
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBooking(It.IsAny<int>(),
+                It.IsAny<bool>(), It.IsAny<bool>()), eventBooking);
+            _eventRepositoryMock.SetupWithVerification(call => call.UpdateEventBooking(It.Is<EventBooking>(b => b == eventBooking)));
+
+            BuildTargetObject().EventBookingPaymentCompleted(100, PaymentType.CreditCard);
+
+            eventBooking.Status.IsEqualTo(EventBookingStatus.Active);
+        }
 
         private Mock<IEventRepository> _eventRepositoryMock;
         private Mock<IDateService> _dateServiceMock;

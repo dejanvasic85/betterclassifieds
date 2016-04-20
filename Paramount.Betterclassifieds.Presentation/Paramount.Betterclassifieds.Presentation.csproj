@@ -374,6 +374,7 @@
       <DependentUpon>bootstrap-theme-yeti.css</DependentUpon>
     </Content>
     <Content Include="Content\KandoBay\img\Capture.PNG" />
+    <Content Include="Content\KandoBay\img\logo.png" />
     <Content Include="Content\KandoBay\img\safari.jpg" />
     <Content Include="Content\SriLankanEvents\img\BookUsingThePhone.PNG" />
     <Content Include="Content\KandoBay\img\BookUsingThePhone.PNG" />
@@ -402,8 +403,8 @@
     <Content Include="Content\site.min.css">
       <DependentUpon>site.css</DependentUpon>
     </Content>
-    <Content Include="Content\KandoBay\img\Kandobay_Logo.png" />
     <Content Include="Content\images\hero-bg.JPG" />
+    <Content Include="Content\SriLankanEvents\img\logo.png" />
     <Content Include="Content\SriLankanEvents\Lanka.css">
       <DependentUpon>Lanka.less</DependentUpon>
     </Content>
@@ -411,6 +412,7 @@
       <DependentUpon>Lanka.css</DependentUpon>
     </Content>
     <Content Include="Content\TheMusic\img\hero-bg.jpg" />
+    <Content Include="Content\TheMusic\img\logo.png" />
     <Content Include="Content\TheMusic\img\themusic_favicon.ico" />
     <Content Include="Content\TheMusic\img\tmlogo.png" />
     <Content Include="Content\TheMusic\themusic.css">
@@ -840,6 +842,7 @@
     <Content Include="Views\Shared\_Terms.SriLankanEvents.cshtml" />
     <Content Include="Views\Shared\_PrintAvailability.cshtml" />
     <Content Include="Views\Shared\_PrintAvailability.TheMusic.cshtml" />
+    <Content Include="Views\Shared\_Navbar.TheMusic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

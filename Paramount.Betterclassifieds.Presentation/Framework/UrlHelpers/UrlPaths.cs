@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Configuration;
 using System.Web;
 using System.Web.Mvc;
+using Paramount.Betterclassifieds.Business;
 
 namespace Paramount
 {
@@ -14,6 +16,12 @@ namespace Paramount
                contextUri.Host, contextUri.Port == 80 ? string.Empty : ":" + contextUri.Port);
 
             return string.Format("{0}{1}", baseUri, VirtualPathUtility.ToAbsolute(relativeContentPath));
+        }
+
+        public static string ContentLogo(this UrlHelper urlHelper)
+        {
+            var brand = DependencyResolver.Current.GetService<IApplicationConfig>().Brand;
+            return urlHelper.Content($"~/Content/{brand}/img/logo.png");
         }
 
         public static UrlBuilder ActionAbsolute(this UrlHelper urlHelper, string actionName, string controllerName, object routeValues = null)
@@ -55,7 +63,7 @@ namespace Paramount
             return new UrlBuilder(urlhelper, "Render", "Image", new { documentId });
         }
 
-        public static UrlBuilder Booking(this UrlHelper urlHelper, int bookingStep, string adType = "")
+        public static UrlBuilder Booking(this UrlHelper urlHelper, int bookingStep = 1, string adType = "")
         {
             return new UrlBuilder(urlHelper, "Step" + bookingStep, "Booking", new { adType });
         }

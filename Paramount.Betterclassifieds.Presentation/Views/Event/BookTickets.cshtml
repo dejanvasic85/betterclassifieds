@@ -201,12 +201,11 @@
                     <form action="" method="POST">
                         <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                                 data-key="pk_test_9lOtEgQezaX12MQN3EnHggB7"
-                                data-amount="999"
-                                data-name="Demo Site"
-                                data-description="Widget"
-                                data-image="/img/documentation/checkout/marketplace.png"
+                                data-amount="@Model.TotalCostCents"
+                                data-name=""
+                                data-description="Sri Lankan Events"
                                 data-locale="auto"
-                                data-zip-code="true"
+                                data-zip-code="false"
                                 data-currency="aud">
                         </script>
                     </form>

@@ -130,7 +130,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             // Arrange
             var mockReservations = new List<EventTicketReservation>
             {
-                new EventTicketReservation {EventTicket = new EventTicket {EventId = 10} }
+                new EventTicketReservation {EventTicket = new EventTicket {EventId = 10}, Price = 10, TransactionFee = (decimal)0.5}
             };
             var mockEvent = new EventModelMockBuilder().Default().Build();
             var mockAd = new AdSearchResultMockBuilder().Default().Build();
@@ -146,6 +146,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _searchService.SetupWithVerification(call => call.GetByAdOnlineId(It.Is<int>(p => p == mockEvent.OnlineAdId)), mockAd);
             _userManager.SetupWithVerification(call => call.GetCurrentUser(It.IsAny<IPrincipal>()), mockApplicationUser);
             _clientConfig.SetupWithVerification(call => call.EventTicketReservationExpiryMinutes, 10);
+            _appConfig.SetupWithVerification(call => call.Brand, "HelloBrand");
             _mockUser.SetupIdentityCall();
 
             // act
@@ -153,7 +154,9 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // assert
             result.IsTypeOf<ViewResult>();
-            result.ViewResultModelIsTypeOf<BookTicketsViewModel>();
+            var model = result.ViewResultModelIsTypeOf<BookTicketsViewModel>();
+            model.BrandName.IsEqualTo("HelloBrand");
+            model.TotalCostCents.IsEqualTo(1050);
         }
 
         [Test]
@@ -384,6 +387,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IPrincipal> _mockUser;
         private Mock<ITemplatingService> _templatingService;
         private Mock<IEventBarcodeManager> _barcodeManager;
+        private Mock<IApplicationConfig> _appConfig;
 
         [SetUp]
         public void SetupController()
@@ -402,6 +406,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _templatingService = CreateMockOf<ITemplatingService>();
             _templatingService.Setup(call => call.Init(It.IsAny<Controller>())).Returns(_templatingService.Object);
             _barcodeManager = CreateMockOf<IEventBarcodeManager>();
+            _appConfig = CreateMockOf<IApplicationConfig>();
         }
     }
 }

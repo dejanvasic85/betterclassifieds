@@ -33,7 +33,5 @@ namespace Paramount.Betterclassifieds.Presentation.Framework.HtmlHelpers
                 }
             }
         }
-
-
     }
 }

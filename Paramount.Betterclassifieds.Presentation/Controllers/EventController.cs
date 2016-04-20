@@ -61,7 +61,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventManager.ReserveTickets(sessionId, reservations);
             return Json(new { NextUrl = Url.Action("BookTickets", "Event") });
         }
-
+        
         [HttpGet]
         public ActionResult BookTickets(bool? paymentCancelled = null)
         {
@@ -81,7 +81,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 applicationUser = _userManager.GetCurrentUser(this.User);
             }
-            var viewModel = new BookTicketsViewModel(onlineAdModel, eventDetails, _clientConfig, applicationUser, ticketReservations)
+            var viewModel = new BookTicketsViewModel(onlineAdModel, eventDetails, _clientConfig, _appConfig, applicationUser, ticketReservations)
             {
                 Reservations = this.MapList<EventTicketReservation, EventTicketReservedViewModel>(ticketReservations),
             };
@@ -335,8 +335,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IEventTicketReservationFactory _eventTicketReservationFactory;
         private readonly ITemplatingService _templatingService;
         private readonly IEventBarcodeManager _barcodeManager;
+        private readonly IApplicationConfig _appConfig;
 
-        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPaymentService paymentService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeManager barcodeManager)
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPaymentService paymentService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeManager barcodeManager, IApplicationConfig appConfig)
         {
             _searchService = searchService;
             _eventManager = eventManager;
@@ -350,6 +351,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventTicketReservationFactory = eventTicketReservationFactory;
             _templatingService = templatingService;
             _barcodeManager = barcodeManager;
+            _appConfig = appConfig;
             _templatingService = templatingService.Init(this); // This service is tightly coupled to an mvc controller
         }
 

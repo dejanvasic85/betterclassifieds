@@ -133,6 +133,7 @@
     <Compile Include="Mocks\AdSearchResultMockBuilder.cs" />
     <Compile Include="Mocks\ApplicationUserMockBuilder.cs" />
     <Compile Include="Mocks\DateServiceMockExtensions.cs" />
+    <Compile Include="Mocks\EventBookingMockBuilder.cs" />
     <Compile Include="Mocks\EventModelMockBuilder.cs" />
     <Compile Include="Mocks\EventTicketFieldMockBuilder.cs" />
     <Compile Include="Mocks\EventTicketMockBuilder.cs" />

@@ -14,7 +14,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public BookTicketsViewModel()
         { }
 
-        public BookTicketsViewModel(AdSearchResult onlineAdModel, EventModel eventDetails, IClientConfig clientConfig, ApplicationUser applicationUser, List<EventTicketReservation> ticketReservations)
+        public BookTicketsViewModel(AdSearchResult onlineAdModel, EventModel eventDetails, IClientConfig clientConfig, 
+            IApplicationConfig appConfig, ApplicationUser applicationUser, List<EventTicketReservation> ticketReservations)
         {
             EventId = eventDetails.EventId;
             TotelReservationExpiryMinutes = clientConfig.EventTicketReservationExpiryMinutes;
@@ -28,6 +29,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             SuccessfulReservationCount = ticketReservations.Count(r => r.Status == EventTicketReservationStatus.Reserved);
             LargeRequestCount = ticketReservations.Count(r => r.Status == EventTicketReservationStatus.RequestTooLarge);
             SendEmailToGuests = true;
+            TotalCost = ticketReservations.Sum(r => r.TotalPriceWithTxnFee);
 
             if (applicationUser != null)
             {
@@ -38,6 +40,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 PostCode = applicationUser.Postcode;
                 Email = applicationUser.Email;
             }
+            BrandName = appConfig.Brand;
         }
 
         public List<EventTicketFieldViewModel> TicketFields { get; set; }
@@ -65,5 +68,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string Location { get; set; }
         public bool SendEmailToGuests { get; set; }
         public bool? PaymentCancelled { get; set; }
+        public decimal TotalCost { get; set; }
+
+        public int TotalCostCents => (int)(TotalCost * 100);
+        public string BrandName { get; set; }
     }
 }

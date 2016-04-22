@@ -145,7 +145,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
             {
                 var id = eventId.GetValueOrDefault();
                 var result = context.EventBookingTickets
-                    .Where(t => t.EventBooking.EventId == id && t.EventBooking.Status == EventBookingStatus.Active)
+                    .Where(t => t.EventBooking.EventId == id)
                     .Include(t => t.TicketFieldValues)
                     .ToList();
 

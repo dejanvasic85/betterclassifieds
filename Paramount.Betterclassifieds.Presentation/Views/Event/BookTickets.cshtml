@@ -197,18 +197,6 @@
                         <span data-bind="visible: requiresPayment">Proceed to Payment</span>
                         <span data-bind="visible: requiresPayment() === false">Get My Tickets!</span>
                     </button>
-
-                    <form action="" method="POST">
-                        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                data-key="pk_test_9lOtEgQezaX12MQN3EnHggB7"
-                                data-amount="@Model.TotalCostCents"
-                                data-name=""
-                                data-description="Ticket Purchase"
-                                data-locale="auto"
-                                data-zip-code="false"
-                                data-currency="aud">
-                        </script>
-                    </form>
                 </div>
             </div>
         </div>

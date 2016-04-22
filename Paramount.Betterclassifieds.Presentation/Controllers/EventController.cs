@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Monads;
 using System.Threading.Tasks;
@@ -61,7 +60,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventManager.ReserveTickets(sessionId, reservations);
             return Json(new { NextUrl = Url.Action("BookTickets", "Event") });
         }
-        
+
         [HttpGet]
         public ActionResult BookTickets(bool? paymentCancelled = null)
         {
@@ -257,6 +256,33 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 _eventBookingContext.Clear();
             }
         }
+
+        [HttpGet]
+        public ViewResult MakePayment()
+        {
+            var viewModel = new MakePaymentViewModel
+            {
+                TotalCost = (decimal)98.88,
+                EventTicketReservations = new List<EventTicketReservedViewModel>
+                {
+                    new EventTicketReservedViewModel
+                    {
+                        TicketName = "VIP",
+                        Price = (decimal)49.44,
+                        GuestFullName = "Johnny Rockets"
+                    },
+                    new EventTicketReservedViewModel
+                    {
+                        TicketName = "General Admission",
+                        Price = (decimal)49.44,
+                        GuestFullName = "Don Draper"
+                    },
+                }
+            };
+            return View(viewModel);
+        }
+
+
 
 #if DEBUG
 

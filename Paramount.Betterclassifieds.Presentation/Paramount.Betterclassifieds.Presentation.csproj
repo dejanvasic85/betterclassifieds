@@ -292,6 +292,7 @@
     <Compile Include="ViewModels\Booking\Step2View.cs" />
     <Compile Include="ViewModels\Booking\Step3View.cs" />
     <Compile Include="ViewModels\Booking\SuccessView.cs" />
+    <Compile Include="ViewModels\Events\MakePaymentViewModel.cs" />
     <Compile Include="ViewModels\UserNetwork\UserNetworkEmailView.cs" />
     <Compile Include="ViewModels\CategoryView.cs" />
     <Compile Include="ViewModels\Booking\PublicationView.cs" />
@@ -843,6 +844,7 @@
     <Content Include="Views\Shared\_PrintAvailability.cshtml" />
     <Content Include="Views\Shared\_PrintAvailability.TheMusic.cshtml" />
     <Content Include="Views\Shared\_Navbar.TheMusic.cshtml" />
+    <Content Include="Views\Event\MakePayment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

@@ -124,5 +124,25 @@ namespace Paramount
                 .WithRouteName("EventBarcode")
                 .WithRouteValues(new { barcode });
         }
+
+        public static UrlBuilder EventTicketingMakePayment(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper).WithAction("MakePayment", "Event");
+        }
+
+        public static UrlBuilder EventBooked(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper).WithAction("EventBooked", "Event");
+        }
+
+        public static UrlBuilder EventPaymentAuthorisePayPal(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper).WithAction("AuthorisePayPal", "Event");
+        }
+
+        public static UrlBuilder EventBookTickets(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper).WithAction("BookTickets", "Event");
+        }
     }
 }

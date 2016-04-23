@@ -6,6 +6,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
     {
         public decimal TotalCost { get; set; }
         public int TotalCostCents => (int)(TotalCost * 100);
-        public List<EventTicketReservedViewModel> EventTicketReservations { get; set; }
+        public List<EventBookingTicketViewModel> EventTickets { get; set; }
     }
 }

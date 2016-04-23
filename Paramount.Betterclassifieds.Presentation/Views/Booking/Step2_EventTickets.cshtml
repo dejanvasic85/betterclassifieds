@@ -11,10 +11,9 @@
 @section Scripts{
     <script>
         $(function () {
-            var rootEl = $('#eventBookingTicketEditor').get(0);
             var data = @Html.Raw(Model.ToJsonString());
             var viewModel = new $paramount.models.EventTicketingSetup(data);
-            ko.applyBindings(viewModel, rootEl);
+            ko.applyBindings(viewModel, $('#eventBookingTicketEditor')[0]);
         });
     </script>
 }
@@ -58,19 +57,19 @@
                 <div class="row ticket-form">
                     <div class="col-sm-6 col-xs-12 form-group" data-bind="validationElement: ticketName">
                         <label>Ticket Name</label>
-                        <input type="text" class="form-control js-ticket-name" data-bind="value: ticketName" placeholder="e.g. VIP / Platinum / Free"/>
+                        <input type="text" class="form-control js-ticket-name" data-bind="value: ticketName" placeholder="e.g. VIP / Platinum / Free" />
                     </div>
                     <div class="col-sm-2 col-xs-5 form-group" data-bind="validationElement: price">
                         <label class="control-label">Price</label>
                         <input type="number" class="form-control js-ticket-price" data-bind="value: price">
                         <p class="help-block">
+                            <i class="fa fa-info-circle" data-toggle="popover" title="Buyer total is what your visitors will pay per ticket."></i>
                             Buyer total <label data-bind="text: totalTicketCost"></label>
-                            <i class="fa fa-info-circle" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"></i>
                         </p>
                     </div>
                     <div class="col-sm-2 col-xs-5 form-group" data-bind="validationElement: availableQuantity">
                         <label class="control-label">Available Qty</label>
-                        <input type="number" class="form-control amount js-ticket-quantity" data-bind="value: availableQuantity"/>
+                        <input type="number" class="form-control amount js-ticket-quantity" data-bind="value: availableQuantity" />
                     </div>
                     <div class="col-sm-2 col-xs-2 form-group">
                         <label>&nbsp;</label>

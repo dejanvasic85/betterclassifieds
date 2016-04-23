@@ -77,7 +77,7 @@
 
         var me = this;
         $.each(data.tickets, function (idx, t) {
-            me.tickets.push(new $paramount.models.EventTicketDefinition(me, data));
+            me.tickets.push(new $paramount.models.EventTicketDefinition(me, t));
         });
         if (data.ticketFields) {
             $.each(data.ticketFields, function (idx, f) {

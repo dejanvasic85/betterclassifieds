@@ -139,17 +139,19 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
-        public IEnumerable<EventBookingTicket> GetEventBookingTicketsForEvent(int? eventId)
+        public IEnumerable<EventBookingTicket> GetEventBookingTicketsForEvent(int? eventId, bool activeOnly)
         {
             using (var context = _dbContextFactory.CreateEventContext())
             {
                 var id = eventId.GetValueOrDefault();
-                var result = context.EventBookingTickets
+                var query = context.EventBookingTickets
                     .Where(t => t.EventBooking.EventId == id)
-                    .Include(t => t.TicketFieldValues)
-                    .ToList();
+                    .Include(t => t.TicketFieldValues);
 
-                return result;
+                if (activeOnly) { query = query.Where(e => e.EventBooking.Status == EventBookingStatus.Active); }
+
+                return query.ToList();
+
             }
         }
 
@@ -157,7 +159,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
         {
             using (var context = _dbContextFactory.CreateEventContext())
             {
-                return context.EventBookingTicketValidations.SingleOrDefault(v=> v.EventBookingTicketId == eventBookingTicketId);
+                return context.EventBookingTicketValidations.SingleOrDefault(v => v.EventBookingTicketId == eventBookingTicketId);
             }
         }
 

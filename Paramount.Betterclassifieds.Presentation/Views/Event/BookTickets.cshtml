@@ -109,7 +109,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="control-group" data-bind="validationElement: guestFullName">
-                                    <label class="control-label">Guest Name</label> *
+                                    <label class="control-label">Guest Full Name</label> *
                                     <input type="text" data-bind="value: guestFullName" class="form-control" />
                                 </div>
                             </div>
@@ -194,7 +194,7 @@
             <div class="col-xs-12 col-sm-8 book-tickets-form">
                 <div class="pull-right" data-bind="visible: canContinue()">
                     <button class="btn btn-primary" data-loading-text="Please Wait..." id="proceedToPaymentBtn">
-                        <span data-bind="visible: requiresPayment">Proceed to Payment</span>
+                        <span data-bind="visible: requiresPayment">Checkout <i class="fa fa-arrow-right"></i></span>
                         <span data-bind="visible: requiresPayment() === false">Get My Tickets!</span>
                     </button>
                 </div>

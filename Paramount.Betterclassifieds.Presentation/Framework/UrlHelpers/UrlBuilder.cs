@@ -31,7 +31,8 @@ namespace Paramount
 
         public UrlBuilder WithAction(string action, string controller)
         {
-            this.Path = UrlHelper.Action(action, controller);
+            Action = action;
+            Controller = controller;
             return this;
         }
 

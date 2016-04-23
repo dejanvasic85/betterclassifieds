@@ -46,7 +46,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 ModelState.AddModelError("Tickets", "No tickets have been selected");
                 return Json(new { Errors = ModelState.ToErrors() });
             }
-
+            
+            _eventBookingContext.Clear();
             var sessionId = _httpContext.With(s => s.Session).SessionID;
             var reservations = new List<EventTicketReservation>();
             foreach (var t in tickets)
@@ -61,7 +62,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(new { NextUrl = Url.Action("BookTickets", "Event") });
         }
 
-        [HttpGet]
+        [HttpGet, EnsurePaymentNotInProgress]
         public ActionResult BookTickets(bool? paymentCancelled = null)
         {
             var ticketReservations = _eventManager.GetTicketReservations(_httpContext.With(s => s.Session).SessionID).ToList();
@@ -99,7 +100,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View(viewModel);
         }
 
-        [HttpPost]
+        [HttpPost, EnsurePaymentNotInProgress]
         public ActionResult BookTickets(BookTicketsRequestViewModel bookTicketsViewModel)
         {
             if (!ModelState.IsValid)
@@ -157,31 +158,16 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (eventBooking.Status == EventBookingStatus.Active)
             {
                 // No payment required so return a redirect to action json object
-                return Json(new { NextUrl = Url.Action("EventBooked", "Event") });
+                return Json(new { NextUrl = Url.EventBooked() });
             }
 
-            // Process paypal payment
-            var payPalRequest = new EventBookingPayPalRequestFactory().CreatePaymentRequest(eventBooking,
-                eventBooking.EventBookingId.ToString(),
-                Url.ActionAbsolute("AuthorisePayPal", "Event").Build(),
-                Url.ActionAbsolute("BookTickets", "Event", new { paymentCancelled = true }).Build());
-
-            var response = _paymentService.SubmitPayment(payPalRequest);
-
-            _eventManager.SetPaymentReferenceForBooking(eventBooking.EventBookingId, response.PaymentId, PaymentType.PayPal); // paypal just for now
-            _eventBookingContext.EventBookingPaymentReference = response.PaymentId;
-
-            return Json(new { NextUrl = response.ApprovalUrl });
+            return Json(new { NextUrl = Url.EventTicketingMakePayment().ToString() });
         }
 
+        [EventBookingContextRequired("EventBookingId")]
         public ActionResult AuthorisePayPal(string payerId)
         {
-            if (!_eventBookingContext.EventId.HasValue || !_eventBookingContext.EventBookingId.HasValue)
-            {
-                return RedirectToAction("NotFound", "Error");
-            }
-
-            var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.Value);
+            var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.GetValueOrDefault());
 
             // Mark booking as paid in our database
             _eventManager.EventBookingPaymentCompleted(_eventBookingContext.EventBookingId, PaymentType.PayPal);
@@ -193,25 +179,17 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return RedirectToAction("EventBooked");
         }
 
+        [EventBookingContextRequired("EventBookingId")]
         public ActionResult CancelEventBooking()
         {
-            if (!_eventBookingContext.EventId.HasValue || !_eventBookingContext.EventBookingId.HasValue)
-            {
-                return RedirectToAction("NotFound", "Error");
-            }
-
             _eventManager.CancelEventBooking(_eventBookingContext.EventBookingId);
             return View();
         }
 
+        [EventBookingContextRequired("EventBookingId")]
         public ActionResult EventBooked()
         {
-            if (!_eventBookingContext.EventId.HasValue || !_eventBookingContext.EventBookingId.HasValue)
-            {
-                return RedirectToAction("NotFound", "Error");
-            }
-
-            var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.Value);
+            var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.GetValueOrDefault());
             var eventDetails = eventBooking.Event;
             var adDetails = _searchService.GetByAdOnlineId(eventDetails.OnlineAdId);
 
@@ -257,31 +235,37 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet, EventBookingContextRequired("EventBookingId")]
         public ViewResult MakePayment()
         {
+            var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.GetValueOrDefault());
             var viewModel = new MakePaymentViewModel
             {
-                TotalCost = (decimal)98.88,
-                EventTicketReservations = new List<EventTicketReservedViewModel>
-                {
-                    new EventTicketReservedViewModel
-                    {
-                        TicketName = "VIP",
-                        Price = (decimal)49.44,
-                        GuestFullName = "Johnny Rockets"
-                    },
-                    new EventTicketReservedViewModel
-                    {
-                        TicketName = "General Admission",
-                        Price = (decimal)49.44,
-                        GuestFullName = "Don Draper"
-                    },
-                }
+                TotalCost = eventBooking.TotalCost,
+                EventTickets = this.MapList<EventBookingTicket, EventBookingTicketViewModel>(eventBooking.EventBookingTickets.ToList())
             };
+
             return View(viewModel);
         }
 
+        [HttpPost]
+        public ActionResult PayWithPayPal()
+        {
+            var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.GetValueOrDefault());
+
+            // Process paypal payment
+            var payPalRequest = new EventBookingPayPalRequestFactory().CreatePaymentRequest(eventBooking,
+                eventBooking.EventBookingId.ToString(),
+                Url.EventPaymentAuthorisePayPal().WithFullUrl().Build(),
+                Url.EventBookTickets().WithRouteValues(new { paymentCancelled = true }).WithFullUrl().Build());
+
+            var response = _paymentService.SubmitPayment(payPalRequest);
+
+            _eventManager.SetPaymentReferenceForBooking(eventBooking.EventBookingId, response.PaymentId, PaymentType.PayPal); // paypal just for now
+            _eventBookingContext.EventBookingPaymentReference = response.PaymentId;
+
+            return Json(new { NextUrl = response.ApprovalUrl });
+        }
 
 
 #if DEBUG
@@ -332,6 +316,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             configuration.CreateMap<Business.Events.EventTicket, EventTicketViewModel>().ReverseMap();
             configuration.CreateMap<Business.Events.EventTicketReservation, EventTicketRequestViewModel>();
+            configuration.CreateMap<Business.Events.EventBookingTicket, EventBookingTicketViewModel>();
             configuration.CreateMap<Business.Events.EventTicketReservation, EventTicketReservedViewModel>()
                 .ForMember(m => m.Status, options => options.MapFrom(s => s.StatusAsString.Humanize()))
                 .ForMember(m => m.Price, options => options.MapFrom(s => s.Price.GetValueOrDefault() + s.TransactionFee.GetValueOrDefault()))

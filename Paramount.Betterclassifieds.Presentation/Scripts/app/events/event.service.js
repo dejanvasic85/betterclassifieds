@@ -1,6 +1,6 @@
 ﻿
 (function ($, $paramount) {
-    
+
     function EventService(baseUrl) {
         this.baseUrl = baseUrl || $paramount.baseUrl;
     }
@@ -17,6 +17,10 @@
         return $paramount.httpPost(this.baseUrl + 'EditAd/EventTicketUpdate', {
             id: ticketDetails.adId, eventTicketViewModel: ticketDetails
         });
+    }
+
+    EventService.prototype.payWithPayPal = function () {
+        return $paramount.httpPost(this.baseUrl + 'Event/PayWithPayPal');
     }
 
     $paramount.EventService = EventService;

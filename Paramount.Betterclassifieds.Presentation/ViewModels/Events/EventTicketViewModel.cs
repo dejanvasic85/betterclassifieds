@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Paramount.Betterclassifieds.Business.Events;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 {

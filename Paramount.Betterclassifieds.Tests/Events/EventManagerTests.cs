@@ -127,7 +127,9 @@ namespace Paramount.Betterclassifieds.Tests.Events
             };
 
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.Is<int>(param => param == 10)), eventMock);
-            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingTicketsForEvent(It.Is<int>(param => param == 10)), mockTickets);
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingTicketsForEvent(
+                It.Is<int>(param => param == 10), It.IsAny<bool>()), 
+                mockTickets);
 
             var result = this.BuildTargetObject().BuildGuestList(10).ToList();
 

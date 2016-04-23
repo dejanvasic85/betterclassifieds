@@ -102,6 +102,7 @@
     <Compile Include="Features\BookEventTickets\EventBookedPage.cs" />
     <Compile Include="Features\BookEventTickets\EventBookingData.cs" />
     <Compile Include="Features\BookEventTickets\EventBookingTicketData.cs" />
+    <Compile Include="Features\BookEventTickets\MakeTicketPaymentPage.cs" />
     <Compile Include="Features\ChangePassword.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

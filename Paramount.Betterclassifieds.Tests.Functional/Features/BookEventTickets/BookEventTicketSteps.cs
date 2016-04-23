@@ -84,6 +84,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
             var bookingTicketPage = _pageBrowser.Init<BookingTicketPage>();
             bookingTicketPage.WithPhone("0433 095 822");
             bookingTicketPage.ProceedToPayment();
+
+            _pageBrowser.Init<MakeTicketPaymentPage>()
+                .PayWithPayPal()
+                .WaitForPayPal();
         }
 
         [Then(@"i should see a ticket purchased success page")]

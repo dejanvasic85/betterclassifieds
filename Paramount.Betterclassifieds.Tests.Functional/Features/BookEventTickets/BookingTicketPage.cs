@@ -23,7 +23,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
         public IWebElement EmailGuestsButton { get; set; }
 
         [FindsBy(How = How.Id, Using = "proceedToPaymentBtn")]
-        public IWebElement ProceedToPaymentButton { get; set; }
+        public IWebElement CheckoutButton { get; set; }
 
         [FindsBy(How = How.ClassName, Using = "event-ticket")]
         public IList<IWebElement> TicketInputs { get; set; }
@@ -41,10 +41,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
 
         public BookingTicketPage ProceedToPayment()
         {
-            ProceedToPaymentButton.ClickOnElement();
-            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(30));
-            wait.Until(ExpectedConditions.TitleContains("PayPal Checkout - Log in"));
-            _webDriver.SwitchTo().Frame("injectedUl");
+            CheckoutButton.ClickOnElement();
             return this;
         }
 

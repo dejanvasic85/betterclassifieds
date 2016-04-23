@@ -50,11 +50,11 @@
         <div class="col-xs-8"></div>
         <div class="col-xs-4">
 
-            <button type="submit" class="btn btn-info btn-lg js-load" id="payWithPayPal">
-                PayPal <i class="fa fa-paypal"></i>
+            <button type="submit" class="btn btn-info js-load" id="payWithPayPal">
+                Pay with PayPal <i class="fa fa-paypal"></i>
             </button>
 
-            <form action="" method="POST">
+            <form action="@Url.Action("PayWithStripe", "Event")" method="POST">
                 <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                         data-key="pk_test_9lOtEgQezaX12MQN3EnHggB7"
                         data-amount="@Model.TotalCostCents"
@@ -62,8 +62,9 @@
                         data-description="Ticket Purchase"
                         data-locale="auto"
                         data-zip-code="false"
-                        data-currency="aud">
-
+                        data-currency="aud"
+                        >
+                
                 </script>
             </form>
         </div>

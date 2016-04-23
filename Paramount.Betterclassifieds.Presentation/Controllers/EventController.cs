@@ -235,7 +235,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
         }
 
-        [HttpGet, EventBookingContextRequired("EventBookingId")]
+        [HttpGet, EventBookingContextRequired("EventBookingId"), RequireHttps]
         public ViewResult MakePayment()
         {
             var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.GetValueOrDefault());
@@ -248,7 +248,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View(viewModel);
         }
 
-        [HttpPost]
+        [HttpPost, RequireHttps]
         public ActionResult PayWithPayPal()
         {
             var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.GetValueOrDefault());
@@ -267,6 +267,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(new { NextUrl = response.ApprovalUrl });
         }
 
+        [HttpPost, RequireHttps]
+        public ActionResult PayWithStripe()
+        {
+            return Content(string.Empty);
+        }
 
 #if DEBUG
 

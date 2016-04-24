@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace Paramount.Betterclassifieds.Business.Payment
 {
-    public class PaymentRequest
+    public class PayPalRequest
     {
-        public PaymentRequest()
+        public PayPalRequest()
         {
             this.ChargeableItems = new List<ChargeableItem>();
         }

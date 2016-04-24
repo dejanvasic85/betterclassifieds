@@ -5,13 +5,13 @@ namespace Paramount.Betterclassifieds.Business.Payment
 {
     public class AdBookingPayPalRequestFactory : IPayPalRequestFactory<BookingOrderResult>
     {
-        public PaymentRequest CreatePaymentRequest(BookingOrderResult model, string payReference, string returnUrl, string cancelUrl)
+        public PayPalRequest CreatePaymentRequest(BookingOrderResult model, string payReference, string returnUrl, string cancelUrl)
         {
             var reference = model.BookingReference;
             var items = AddOnlineRates(model, reference);
             items.AddRange(AddPrintRates(model, reference));
 
-            return new PaymentRequest
+            return new PayPalRequest
             {
                 PayReference = payReference,
                 ReturnUrl = returnUrl,

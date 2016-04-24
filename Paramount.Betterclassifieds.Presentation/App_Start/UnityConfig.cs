@@ -70,7 +70,7 @@ namespace Paramount.Betterclassifieds.Presentation
                 .RegisterType<IEnquiryManager, EnquiryManager>()
                 .RegisterType<IRateCalculator, RateCalculator>()
                 .RegisterType<IBookingContext, BookingContextInCookie>()
-                .RegisterType<IPaymentService, PayPalPaymentService>()
+                .RegisterType<IPayPalService, PayPalPayPalService>()
                 .RegisterType<IInvoiceService, InvoiceService>()
                 .RegisterType<SearchFilters>(new SessionLifetimeManager<SearchFilters>())
                 .RegisterType<IAdFactory, AdFactory>()

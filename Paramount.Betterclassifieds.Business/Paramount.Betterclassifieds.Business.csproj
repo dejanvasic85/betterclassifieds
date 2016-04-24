@@ -128,7 +128,7 @@
     <Compile Include="Membership\RegistrationOrLoginResult.cs" />
     <Compile Include="Payment\IPayPalRequestFactory.cs" />
     <Compile Include="Payment\ChargeableItem.cs" />
-    <Compile Include="Payment\PaymentRequest.cs" />
+    <Compile Include="Payment\PayPalRequest.cs" />
     <Compile Include="Payment\TransactionTypeName.cs" />
     <Compile Include="Pricing\BookingOrderResult.cs" />
     <Compile Include="Pricing\IAdRateContext.cs" />
@@ -153,8 +153,8 @@
     <Compile Include="Address.cs" />
     <Compile Include="AdEnquiry.cs" />
     <Compile Include="Membership\UserNetworkModel.cs" />
-    <Compile Include="Payment\IPaymentService.cs" />
-    <Compile Include="Payment\PaymentResponse.cs" />
+    <Compile Include="Payment\IPayPalService.cs" />
+    <Compile Include="Payment\PayPalResponse.cs" />
     <Compile Include="Payment\PaymentStatus.cs" />
     <Compile Include="Pricing\OnlineAdRate.cs" />
     <Compile Include="Pricing\BookingAdRateResult.cs" />

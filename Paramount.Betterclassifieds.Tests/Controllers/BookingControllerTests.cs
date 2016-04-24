@@ -146,7 +146,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IBroadcastManager> _broadcastManagerMock;
         private Mock<IApplicationConfig> _applicationConfigMock;
         private Mock<IBookingManager> _bookingManagerMock;
-        private Mock<IPaymentService> _paymentServiceMock;
+        private Mock<IPayPalService> _paymentServiceMock;
         private Mock<IEditionManager> _editionManagerMock;
         private Mock<IDateService> _dateServiceMock;
         private Mock<ILocationService> _locationServiceMock;
@@ -164,7 +164,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _broadcastManagerMock = CreateMockOf<IBroadcastManager>();
             _applicationConfigMock = CreateMockOf<IApplicationConfig>();
             _bookingManagerMock = CreateMockOf<IBookingManager>();
-            _paymentServiceMock = CreateMockOf<IPaymentService>();
+            _paymentServiceMock = CreateMockOf<IPayPalService>();
             _editionManagerMock = CreateMockOf<IEditionManager>();
             _dateServiceMock = CreateMockOf<IDateService>();
             _locationServiceMock = CreateMockOf<ILocationService>();

@@ -9,11 +9,11 @@ namespace Paramount.Betterclassifieds.Payments.Stripe.Tests
         public void CardCharge_ShouldWork()
         {
             var api = new StripeApi();
-            api.SubmitPayment(new StripeChargeRequest
+            api.CompletePayment(new StripeChargeRequest
             {
-                StripeToken = "card_183dQkGpwUgT3gsDQ1HOggQH",
+                StripeToken = "tok_183dsEGpwUgT3gsDPJS04y6u",
                 StripeEmail = "dejanvasic24@gmail.com",
-                AmountInCents = 999,
+                AmountInCents = 1049,
                 Description = "whatevs",
                 Currency = "aud"
             });

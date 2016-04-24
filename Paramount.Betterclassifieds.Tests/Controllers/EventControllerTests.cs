@@ -369,7 +369,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IEventManager> _eventManager;
         private Mock<IClientConfig> _clientConfig;
         private Mock<IUserManager> _userManager;
-        private Mock<IPaymentService> _paymentService;
+        private Mock<IPayPalService> _paymentService;
         private Mock<IBroadcastManager> _broadcastManager;
         private Mock<IBookingManager> _bookingManager;
         private Mock<IEventTicketReservationFactory> _eventTicketReservationFactory;
@@ -388,7 +388,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventManager = CreateMockOf<IEventManager>();
             _clientConfig = CreateMockOf<IClientConfig>();
             _userManager = CreateMockOf<IUserManager>();
-            _paymentService = CreateMockOf<IPaymentService>();
+            _paymentService = CreateMockOf<IPayPalService>();
             _broadcastManager = CreateMockOf<IBroadcastManager>();
             _bookingManager = CreateMockOf<IBookingManager>();
             _eventTicketReservationFactory = CreateMockOf<IEventTicketReservationFactory>();

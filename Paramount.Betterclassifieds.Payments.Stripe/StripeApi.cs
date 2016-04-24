@@ -2,12 +2,11 @@
 
 namespace Paramount.Betterclassifieds.Payments.Stripe
 {
-    public class StripeApi
+    public class StripeApi 
     {
-        public void SubmitPayment(StripeChargeRequest request)
+        public StripeChargeResponse CompletePayment(StripeChargeRequest request)
         {
             var myCharge = new StripeChargeCreateOptions();
-
             // always set these properties
             myCharge.Amount = request.AmountInCents;
             myCharge.Currency = request.Currency;
@@ -29,17 +28,10 @@ namespace Paramount.Betterclassifieds.Payments.Stripe
             var chargeService = new StripeChargeService();
             StripeCharge stripeCharge = chargeService.Create(myCharge);
 
-            return stripeCharge;
+            return new StripeChargeResponse
+            {
+                TransactionId = stripeCharge.BalanceTransactionId
+            };
         }
-    }
-
-    public class StripeChargeRequest
-    {
-        public string StripeToken { get; set; }
-        public string StripeTokenType { get; set; }
-        public string StripeEmail { get; set; }
-        public int AmountInCents { get; set; }
-        public string Currency { get; set; }
-        public string Description { get; set; }
     }
 }

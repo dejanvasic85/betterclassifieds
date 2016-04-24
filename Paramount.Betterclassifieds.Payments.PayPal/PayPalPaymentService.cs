@@ -8,18 +8,18 @@ using PayPal.Api;
 
 namespace Paramount.Betterclassifieds.Payments.pp
 {
-    public class PayPalPaymentService : IPaymentService, IMappingBehaviour
+    public class PayPalPayPalService : IPayPalService, IMappingBehaviour
     {
         private readonly IDbContextFactory _contextFactory;
         private readonly IDateService _dateService;
 
-        public PayPalPaymentService(IDbContextFactory contextFactory, IDateService dateService)
+        public PayPalPayPalService(IDbContextFactory contextFactory, IDateService dateService)
         {
             _contextFactory = contextFactory;
             _dateService = dateService;
         }
 
-        public PaymentResponse SubmitPayment(PaymentRequest request)
+        public PayPalResponse SubmitPayment(PayPalRequest request)
         {
             var apiContext = ApiContextFactory.CreateApiContext();
             // var converter = new ChargeableItemsToPaypalConverter();
@@ -67,7 +67,7 @@ namespace Paramount.Betterclassifieds.Payments.pp
             {
                 new Transaction
                 {
-                    description = "Testing out the paypal API Integration.",
+                    description = "Paramount PayPal Transaction",
                     amount = amount,
                     item_list = paypalItems
                 }
@@ -91,14 +91,14 @@ namespace Paramount.Betterclassifieds.Payments.pp
             
             var myResponse = payment.Create(apiContext);
 
-            if (myResponse == null || myResponse.links == null)
-                return new PaymentResponse { Status = PaymentStatus.Failed };
+            if (myResponse?.links == null)
+                return new PayPalResponse { Status = PaymentStatus.Failed };
 
             var approvalUrl = myResponse.links.FirstOrDefault(lnk => lnk.rel.Equals("approval_url", StringComparison.OrdinalIgnoreCase));
             if (approvalUrl == null)
-                return new PaymentResponse { Status = PaymentStatus.Failed };
+                return new PayPalResponse { Status = PaymentStatus.Failed };
 
-            return new PaymentResponse
+            return new PayPalResponse
             {
                 Status = PaymentStatus.ApprovalRequired,
                 ApprovalUrl = approvalUrl.href,

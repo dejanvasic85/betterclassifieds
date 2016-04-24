@@ -198,7 +198,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 bookingCart.BookingReference,
                 returnUrl: Url.ActionAbsolute("AuthorisePayment", "Booking").Build(),
                 cancelUrl: Url.ActionAbsolute("Step3", "Booking").Build().Append("?cancel=true"));
-            var response = _paymentService.SubmitPayment(request);
+            var response = _payPalService.SubmitPayment(request);
 
             bookingCart.PaymentReference = response.PaymentId;
             _cartRepository.Save(bookingCart);
@@ -209,7 +209,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult AuthorisePayment(string payerId)
         {
             var bookingCart = _bookingContext.Current();
-            _paymentService.CompletePayment(bookingCart.PaymentReference, payerId, bookingCart.UserId, bookingCart.TotalPrice, bookingCart.BookingReference, "Classified Booking");
+            _payPalService.CompletePayment(bookingCart.PaymentReference, payerId, bookingCart.UserId, bookingCart.TotalPrice, bookingCart.BookingReference, "Classified Booking");
             return RedirectToAction("Success");
         }
 
@@ -486,7 +486,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IBroadcastManager _broadcastManager;
         private readonly IApplicationConfig _applicationConfig;
         private readonly IBookingManager _bookingManager;
-        private readonly IPaymentService _paymentService;
+        private readonly IPayPalService _payPalService;
         private readonly IEditionManager _editionManager;
         private readonly IDateService _dateService;
         private readonly ILocationService _locationService;
@@ -502,7 +502,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             IApplicationConfig applicationConfig,
             IBookingContext bookingContext,
             IBookingManager bookingManager,
-            IPaymentService paymentService,
+            IPayPalService payPalService,
             IEditionManager editionManager,
             IDateService dateService,
             ILocationService locationService)
@@ -517,7 +517,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _applicationConfig = applicationConfig;
             _bookingContext = bookingContext;
             _bookingManager = bookingManager;
-            _paymentService = paymentService;
+            _payPalService = payPalService;
             _editionManager = editionManager;
             _dateService = dateService;
             _locationService = locationService;

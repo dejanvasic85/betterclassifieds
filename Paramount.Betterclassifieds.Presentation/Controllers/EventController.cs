@@ -245,7 +245,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 Url.EventPaymentAuthorisePayPal().WithFullUrl().Build(),
                 Url.EventBookTickets().WithRouteValues(new { paymentCancelled = true }).WithFullUrl().Build());
 
-            var response = _paymentService.SubmitPayment(payPalRequest);
+            var response = _payPalService.SubmitPayment(payPalRequest);
 
             _eventManager.SetPaymentReferenceForBooking(eventBooking.EventBookingId, response.PaymentId, PaymentType.PayPal); // paypal just for now
             _eventBookingContext.EventBookingPaymentReference = response.PaymentId;
@@ -262,7 +262,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventManager.EventBookingPaymentCompleted(_eventBookingContext.EventBookingId, PaymentType.PayPal);
 
             // Call paypal to let them know we completed our end
-            _paymentService.CompletePayment(_eventBookingContext.EventBookingPaymentReference, payerId,
+            _payPalService.CompletePayment(_eventBookingContext.EventBookingPaymentReference, payerId,
                 eventBooking.UserId, eventBooking.TotalCost, eventBooking.EventBookingId.ToString(), TransactionTypeName.EventBookingTickets);
 
             return RedirectToAction("EventBooked");
@@ -351,7 +351,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IEventManager _eventManager;
         private readonly IClientConfig _clientConfig;
         private readonly IUserManager _userManager;
-        private readonly IPaymentService _paymentService;
+        private readonly IPayPalService _payPalService;
         private readonly IBroadcastManager _broadcastManager;
         private readonly IBookingManager _bookingManager;
         private readonly IEventTicketReservationFactory _eventTicketReservationFactory;
@@ -359,7 +359,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IEventBarcodeManager _barcodeManager;
         private readonly IApplicationConfig _appConfig;
 
-        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPaymentService paymentService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeManager barcodeManager, IApplicationConfig appConfig)
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPayPalService payPalService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeManager barcodeManager, IApplicationConfig appConfig)
         {
             _searchService = searchService;
             _eventManager = eventManager;
@@ -367,7 +367,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _clientConfig = clientConfig;
             _userManager = userManager;
             _eventBookingContext = eventBookingContext;
-            _paymentService = paymentService;
+            _payPalService = payPalService;
             _broadcastManager = broadcastManager;
             _bookingManager = bookingManager;
             _eventTicketReservationFactory = eventTicketReservationFactory;

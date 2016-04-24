@@ -126,9 +126,12 @@
     <Compile Include="Membership\LoginResult.cs" />
     <Compile Include="Membership\RegistrationConfirmationResult.cs" />
     <Compile Include="Membership\RegistrationOrLoginResult.cs" />
+    <Compile Include="Payment\ICreditCardService.cs" />
     <Compile Include="Payment\IPayPalRequestFactory.cs" />
     <Compile Include="Payment\ChargeableItem.cs" />
     <Compile Include="Payment\PayPalRequest.cs" />
+    <Compile Include="Payment\CreditCardPaymentRequest.cs" />
+    <Compile Include="Payment\CreditCardPaymentResponse.cs" />
     <Compile Include="Payment\TransactionTypeName.cs" />
     <Compile Include="Pricing\BookingOrderResult.cs" />
     <Compile Include="Pricing\IAdRateContext.cs" />

@@ -146,7 +146,7 @@ namespace Paramount
 
         public static UrlBuilder EventPayWithStripe(this UrlHelper urlHelper)
         {
-            return new UrlBuilder(urlHelper).WithAction("PayWithStripe", "Event");
+            return new UrlBuilder(urlHelper).WithAction("PayWithCreditCard", "Event");
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Paramount.Betterclassifieds.Payments.Stripe
+﻿namespace Paramount.Betterclassifieds.Business.Payment
 {
     public class StripeChargeResponse
     {

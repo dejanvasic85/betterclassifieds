@@ -197,7 +197,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         {
             Guard.NotNull(eventId);
             var eventModel = _eventRepository.GetEventDetails(eventId.GetValueOrDefault());
-            var tickets = _eventRepository.GetEventBookingTicketsForEvent(eventId, activeOnly: true);
+            var tickets = _eventRepository.GetEventBookingTicketsForEvent(eventId);
 
             return tickets.Select(t => new EventGuestDetails
             {

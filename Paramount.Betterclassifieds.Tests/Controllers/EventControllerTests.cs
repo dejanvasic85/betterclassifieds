@@ -273,7 +273,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             //jsonResult.JsonResultNextUrlIs(mockPaymentResponse.ApprovalUrl);
             jsonResult.JsonResultNextUrlIs("/Event/MakePayment");
         }
-        
+
         [Test]
         public void EventBooked_Get_CreatesInvoices_SendsNotifications()
         {
@@ -377,6 +377,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<ITemplatingService> _templatingService;
         private Mock<IEventBarcodeManager> _barcodeManager;
         private Mock<IApplicationConfig> _appConfig;
+        private Mock<ICreditCardService> _creditCardService;
 
         [SetUp]
         public void SetupController()
@@ -396,6 +397,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _templatingService.Setup(call => call.Init(It.IsAny<Controller>())).Returns(_templatingService.Object);
             _barcodeManager = CreateMockOf<IEventBarcodeManager>();
             _appConfig = CreateMockOf<IApplicationConfig>();
+            _creditCardService = CreateMockOf<ICreditCardService>();
         }
     }
 }

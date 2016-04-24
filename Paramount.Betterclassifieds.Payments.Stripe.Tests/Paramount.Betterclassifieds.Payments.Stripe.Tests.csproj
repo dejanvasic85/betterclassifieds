@@ -39,6 +39,10 @@
       <HintPath>..\packages\modernhttpclient.2.4.2\lib\Portable-Net45+WinRT45+WP8+WPA81\ModernHttpClient.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Moq, Version=4.1.1311.615, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.1.1311.0615\lib\net40\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -66,9 +70,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Paramount.Betterclassifieds.Business\Paramount.Betterclassifieds.Business.csproj">
+      <Project>{5C1BE481-DB9E-48CC-9048-5B10E6535D02}</Project>
+      <Name>Paramount.Betterclassifieds.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Paramount.Betterclassifieds.DataService\Paramount.Betterclassifieds.DataService.csproj">
+      <Project>{E51B8388-9A02-40AD-97B4-2802AE77FB69}</Project>
+      <Name>Paramount.Betterclassifieds.DataService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Paramount.Betterclassifieds.Payments.Stripe\Paramount.Betterclassifieds.Payments.Stripe.csproj">
       <Project>{D9A562F1-25B4-49DA-98F6-2578FCBC1C4F}</Project>
       <Name>Paramount.Betterclassifieds.Payments.Stripe</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Paramount.Betterclassifieds.Utility\Paramount.Betterclassifieds.Utility.csproj">
+      <Project>{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}</Project>
+      <Name>Paramount.Betterclassifieds.Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -139,7 +139,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
-        public IEnumerable<EventBookingTicket> GetEventBookingTicketsForEvent(int? eventId, bool activeOnly)
+        public IEnumerable<EventBookingTicket> GetEventBookingTicketsForEvent(int? eventId)
         {
             using (var context = _dbContextFactory.CreateEventContext())
             {
@@ -147,11 +147,8 @@ namespace Paramount.Betterclassifieds.DataService.Events
                 var query = context.EventBookingTickets
                     .Where(t => t.EventBooking.EventId == id)
                     .Include(t => t.TicketFieldValues);
-
-                if (activeOnly) { query = query.Where(e => e.EventBooking.Status == EventBookingStatus.Active); }
-
+                
                 return query.ToList();
-
             }
         }
 

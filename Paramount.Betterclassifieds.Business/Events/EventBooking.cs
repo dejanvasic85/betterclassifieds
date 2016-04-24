@@ -62,5 +62,11 @@ namespace Paramount.Betterclassifieds.Business.Events
         {
             return string.Format("{0} {1}", FirstName, LastName);
         }
+
+        public int TotalCostInCents()
+        {
+            // We are taking an assumption here that we only deal with currencies with 2 decimal places :(
+            return (int)(TotalCost*100);
+        }
     }
 }

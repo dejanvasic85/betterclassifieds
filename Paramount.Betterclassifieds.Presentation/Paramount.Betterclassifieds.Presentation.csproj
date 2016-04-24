@@ -111,8 +111,8 @@
     <Reference Include="MongoDB.Driver">
       <HintPath>..\packages\mongocsharpdriver.1.9.2\lib\net35\MongoDB.Driver.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NReco.PdfGenerator, Version=1.1.10.0, Culture=neutral, PublicKeyToken=231663d50a41b451, processorArchitecture=MSIL">
@@ -871,6 +871,10 @@
     <ProjectReference Include="..\Paramount.Betterclassifieds.Payments.PayPal\Paramount.Betterclassifieds.Payments.PayPal.csproj">
       <Project>{27640C6A-7C6F-446D-93DD-3E938DA05F24}</Project>
       <Name>Paramount.Betterclassifieds.Payments.PayPal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Paramount.Betterclassifieds.Payments.Stripe\Paramount.Betterclassifieds.Payments.Stripe.csproj">
+      <Project>{D9A562F1-25B4-49DA-98F6-2578FCBC1C4F}</Project>
+      <Name>Paramount.Betterclassifieds.Payments.Stripe</Name>
     </ProjectReference>
     <ProjectReference Include="..\Paramount.Betterclassifieds.Security\Paramount.Betterclassifieds.Security.csproj">
       <Project>{9CE120EA-CB54-4F24-A68C-A80EB331DBDE}</Project>

@@ -1,4 +1,5 @@
 ﻿using Paramount.Betterclassifieds.Business.Location;
+using Paramount.Betterclassifieds.Payments.Stripe;
 using Paramount.Betterclassifieds.Presentation.Services;
 
 namespace Paramount.Betterclassifieds.Presentation
@@ -71,6 +72,7 @@ namespace Paramount.Betterclassifieds.Presentation
                 .RegisterType<IRateCalculator, RateCalculator>()
                 .RegisterType<IBookingContext, BookingContextInCookie>()
                 .RegisterType<IPayPalService, PayPalPayPalService>()
+                .RegisterType<ICreditCardService, StripeApi>()
                 .RegisterType<IInvoiceService, InvoiceService>()
                 .RegisterType<SearchFilters>(new SessionLifetimeManager<SearchFilters>())
                 .RegisterType<IAdFactory, AdFactory>()

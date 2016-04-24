@@ -221,7 +221,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
         }
 
-        [HttpGet, EventBookingRequired, RequireHttps]
+        [HttpGet, EventBookingRequired, RequireHttps, Authorize]
         public ViewResult MakePayment()
         {
             var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.GetValueOrDefault());
@@ -268,10 +268,20 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return RedirectToAction("EventBooked");
         }
 
-        [HttpPost, EventBookingRequired, RequireHttps]
-        public ActionResult PayWithStripe(StripePaymentViewModel stripePayment)
+        [HttpPost, EventBookingRequired, RequireHttps, Authorize]
+        public ActionResult PayWithCreditCard(StripePaymentViewModel stripePayment)
         {
             var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.GetValueOrDefault());
+            var currentUser = _userManager.GetCurrentUser(this.User);
+
+            _creditCardService.CompletePayment(new StripeChargeRequest
+            {
+                AmountInCents = eventBooking.TotalCostInCents(),
+                Description = TransactionTypeName.EventBookingTickets,
+                StripeEmail = stripePayment.StripeEmail,
+                StripeToken = stripePayment.StripeToken,
+                UserId = currentUser.Username
+            });
 
             // Mark booking as paid in our database
             _eventManager.EventBookingPaymentCompleted(_eventBookingContext.EventBookingId, PaymentType.CreditCard);
@@ -358,8 +368,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly ITemplatingService _templatingService;
         private readonly IEventBarcodeManager _barcodeManager;
         private readonly IApplicationConfig _appConfig;
+        private readonly ICreditCardService _creditCardService;
 
-        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPayPalService payPalService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeManager barcodeManager, IApplicationConfig appConfig)
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPayPalService payPalService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeManager barcodeManager, IApplicationConfig appConfig, ICreditCardService creditCardService)
         {
             _searchService = searchService;
             _eventManager = eventManager;
@@ -374,6 +385,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _templatingService = templatingService;
             _barcodeManager = barcodeManager;
             _appConfig = appConfig;
+            _creditCardService = creditCardService;
             _templatingService = templatingService.Init(this); // This service is tightly coupled to an mvc controller
         }
 

@@ -8,6 +8,7 @@
         me.ticketFields = ko.observableArray();
         me.closingDate = ko.observable();
         me.includeTransactionFee = ko.observable();
+        me.eventTicketFee = ko.observable();
 
         /*
          * Functions
@@ -85,7 +86,7 @@
             });
         }
         me.closingDate(data.closingDate);
-        
+        me.eventTicketFee(data.eventTicketFee);
     }
 
     $paramount.models = $paramount.models || {};

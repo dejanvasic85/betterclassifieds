@@ -148,5 +148,10 @@ namespace Paramount
         {
             return new UrlBuilder(urlHelper).WithAction("PayWithCreditCard", "Event");
         }
+
+        public static UrlBuilder Terms(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper, "Terms", "Home");
+        }
     }
 }

@@ -244,7 +244,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 TitleSlug = Slug.Create(true, bookingCart.OnlineAdModel.Heading),
                 IsBookingActive = bookingCart.StartDate <= DateTime.Today,
                 CategoryAdType = bookingCart.CategoryAdType,
-                UserNetworkNotifierView = new UserNetworkNotifierView(id.GetValueOrDefault(), _userManager.GetUserNetworksForUserId(currentUser.Username))
+                UserNetworkNotifierView = new UserNetworkNotifierView(id.GetValueOrDefault(), _userManager.GetUserNetworksForUserId(currentUser.Username)),
+                AdUrl = Url.AdUrl(Slug.Create(true, bookingCart.OnlineAdModel.Heading), id.GetValueOrDefault(), routeName: bookingCart.CategoryAdType, includeSchemeAndProtocol: true)
             };
 
             _bookingContext.Clear();
@@ -345,7 +346,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             return Json(list.ToArray());
         }
-        
+
         [HttpGet, BookingRequired]
         public ActionResult GetEventDetails(IBookingCart bookingCart)
         {

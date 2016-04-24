@@ -11,7 +11,7 @@
         self.shouldShowSubCategory = ko.computed(function () {
             return self.categoryId() !== "";
         });
-        self.shouldShowPublications = ko.observable(!stepData.isOnlineOnly);
+        
         self.togglePublication = function (pub) {
             if (!pub) {
                 return;
@@ -39,11 +39,6 @@
                 return;
             }
             $('#subCategoryId').loadSubCategories(me.val(), false);
-
-            var categoryService = new $p.CategoryService();
-            categoryService.isOnlineOnly(me.val()).done(function (response) {
-                categorySelection.shouldShowPublications(!response.isOnlineOnly);
-            });
         });
 
 
@@ -51,12 +46,7 @@
             var $btn = $(this);
             $btn.button('loading');
             var modelToPost = ko.toJS(categorySelection);
-            if (categorySelection.shouldShowPublications() === false) {
-                $.each(modelToPost.publications, function (idx, p) {
-                    p.isSelected = false;
-                });
-            }
-
+            
             // Validate
             if (isNaN(categorySelection.subCategoryId()) || categorySelection.subCategoryId() === null) {
                 categorySelection.errorMsg('You must select a sub category for your ad');

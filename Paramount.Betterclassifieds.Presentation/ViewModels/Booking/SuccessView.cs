@@ -8,5 +8,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         public string TitleSlug { get; set; }
         public UserNetworkNotifierView UserNetworkNotifierView { get; set; }
         public string CategoryAdType { get; set; }
+        public string AdUrl { get; set; }
     }
 }

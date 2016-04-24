@@ -69,11 +69,7 @@
 
             <div class="col-xs-12 button-options">
 
-                <div class="alert alert-warning" data-bind="visible: shouldShowPublications() === false">
-                    The category selected does not support print ads.
-                </div>
-
-                <div class="center-block" data-bind="foreach: publications, visible: shouldShowPublications">
+                <div class="center-block" data-bind="foreach: publications">
                     <button class="btn btn-default btn-block btn-lg"
                             data-bind="id: publicationId, text: title, css: {active : isSelected}, click : $parent.togglePublication"
                             data-toggle="button"></button>

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.Web;
 using System.Web.Mvc;
 using Paramount.Betterclassifieds.Business;
@@ -143,6 +142,11 @@ namespace Paramount
         public static UrlBuilder EventBookTickets(this UrlHelper urlHelper)
         {
             return new UrlBuilder(urlHelper).WithAction("BookTickets", "Event");
+        }
+
+        public static UrlBuilder EventPayWithStripe(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper).WithAction("PayWithStripe", "Event");
         }
     }
 }

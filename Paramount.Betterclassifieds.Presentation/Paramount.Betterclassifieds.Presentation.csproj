@@ -221,7 +221,7 @@
     <Compile Include="Controllers\UserNetworkController.cs" />
     <Compile Include="Framework\CustomRedirects\Redirector.cs" />
     <Compile Include="Framework\Filters\EnsurePaymentNotInProgressAttribute.cs" />
-    <Compile Include="Framework\Filters\EventBookingContextRequiredAttribute.cs" />
+    <Compile Include="Framework\Filters\EventBookingRequiredAttribute.cs" />
     <Compile Include="Framework\Filters\UnityFilterAttributeFilterProvider.cs" />
     <Compile Include="Framework\HtmlHelpers\AdHtmlHelpers.cs" />
     <Compile Include="Framework\HtmlHelpers\BootstrapInputExtensions.cs" />
@@ -297,6 +297,7 @@
     <Compile Include="ViewModels\Booking\Step3View.cs" />
     <Compile Include="ViewModels\Booking\SuccessView.cs" />
     <Compile Include="ViewModels\Events\MakePaymentViewModel.cs" />
+    <Compile Include="ViewModels\StripePaymentViewModel.cs" />
     <Compile Include="ViewModels\UserNetwork\UserNetworkEmailView.cs" />
     <Compile Include="ViewModels\CategoryView.cs" />
     <Compile Include="ViewModels\Booking\PublicationView.cs" />

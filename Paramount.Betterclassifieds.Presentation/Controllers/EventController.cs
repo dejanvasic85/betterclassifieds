@@ -14,6 +14,7 @@ using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Services;
+using Paramount.Betterclassifieds.Presentation.ViewModels;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
@@ -46,7 +47,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 ModelState.AddModelError("Tickets", "No tickets have been selected");
                 return Json(new { Errors = ModelState.ToErrors() });
             }
-            
+
             _eventBookingContext.Clear();
             var sessionId = _httpContext.With(s => s.Session).SessionID;
             var reservations = new List<EventTicketReservation>();
@@ -164,29 +165,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(new { NextUrl = Url.EventTicketingMakePayment().Build() });
         }
 
-        [EventBookingContextRequired("EventBookingId")]
-        public ActionResult AuthorisePayPal(string payerId)
-        {
-            var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.GetValueOrDefault());
-
-            // Mark booking as paid in our database
-            _eventManager.EventBookingPaymentCompleted(_eventBookingContext.EventBookingId, PaymentType.PayPal);
-
-            // Call paypal to let them know we completed our end
-            _paymentService.CompletePayment(_eventBookingContext.EventBookingPaymentReference, payerId,
-                eventBooking.UserId, eventBooking.TotalCost, eventBooking.EventBookingId.ToString(), TransactionTypeName.EventBookingTickets);
-
-            return RedirectToAction("EventBooked");
-        }
-
-        [EventBookingContextRequired("EventBookingId")]
+        [HttpGet, EventBookingRequired]
         public ActionResult CancelEventBooking()
         {
             _eventManager.CancelEventBooking(_eventBookingContext.EventBookingId);
             return View();
         }
 
-        [EventBookingContextRequired("EventBookingId")]
+        [HttpGet, EventBookingRequired]
         public ActionResult EventBooked()
         {
             var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.GetValueOrDefault());
@@ -235,7 +221,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
         }
 
-        [HttpGet, EventBookingContextRequired("EventBookingId"), RequireHttps]
+        [HttpGet, EventBookingRequired, RequireHttps]
         public ViewResult MakePayment()
         {
             var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.GetValueOrDefault());
@@ -248,7 +234,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View(viewModel);
         }
 
-        [HttpPost, RequireHttps]
+        [HttpPost, EventBookingRequired, RequireHttps]
         public ActionResult PayWithPayPal()
         {
             var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.GetValueOrDefault());
@@ -267,10 +253,30 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(new { NextUrl = response.ApprovalUrl });
         }
 
-        [HttpPost, RequireHttps]
-        public ActionResult PayWithStripe()
+        [HttpGet, EventBookingRequired, RequireHttps]
+        public ActionResult AuthorisePayPal(string payerId)
         {
-            return Content(string.Empty);
+            var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.GetValueOrDefault());
+
+            // Mark booking as paid in our database
+            _eventManager.EventBookingPaymentCompleted(_eventBookingContext.EventBookingId, PaymentType.PayPal);
+
+            // Call paypal to let them know we completed our end
+            _paymentService.CompletePayment(_eventBookingContext.EventBookingPaymentReference, payerId,
+                eventBooking.UserId, eventBooking.TotalCost, eventBooking.EventBookingId.ToString(), TransactionTypeName.EventBookingTickets);
+
+            return RedirectToAction("EventBooked");
+        }
+
+        [HttpPost, EventBookingRequired, RequireHttps]
+        public ActionResult PayWithStripe(StripePaymentViewModel stripePayment)
+        {
+            var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.GetValueOrDefault());
+
+            // Mark booking as paid in our database
+            _eventManager.EventBookingPaymentCompleted(_eventBookingContext.EventBookingId, PaymentType.CreditCard);
+
+            return RedirectToAction("EventBooked");
         }
 
 #if DEBUG

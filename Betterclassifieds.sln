@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 Tests", "02 Tests", "{1EAE4385-197F-413F-8AFB-C80EBBD5ED64}"
 EndProject
@@ -59,6 +59,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Betterclassifieds.Configuration", "Paramount.Betterclassifieds.Configuration\Paramount.Betterclassifieds.Configuration.csproj", "{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Betterclassifieds.Utility", "Paramount.Betterclassifieds.Utility\Paramount.Betterclassifieds.Utility.csproj", "{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Betterclassifieds.Payments.Stripe", "Paramount.Betterclassifieds.Payments.Stripe\Paramount.Betterclassifieds.Payments.Stripe.csproj", "{D9A562F1-25B4-49DA-98F6-2578FCBC1C4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paramount.Betterclassifieds.Payments.Stripe.Tests", "Paramount.Betterclassifieds.Payments.Stripe.Tests\Paramount.Betterclassifieds.Payments.Stripe.Tests.csproj", "{D9E993E4-B7B2-43E2-A1B2-8C46BA316536}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -188,6 +192,22 @@ Global
 		{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}.Test|Any CPU.Build.0 = Testing|Any CPU
 		{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}.Testing|Any CPU.ActiveCfg = Testing|Any CPU
 		{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5}.Testing|Any CPU.Build.0 = Testing|Any CPU
+		{D9A562F1-25B4-49DA-98F6-2578FCBC1C4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9A562F1-25B4-49DA-98F6-2578FCBC1C4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9A562F1-25B4-49DA-98F6-2578FCBC1C4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9A562F1-25B4-49DA-98F6-2578FCBC1C4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9A562F1-25B4-49DA-98F6-2578FCBC1C4F}.Test|Any CPU.ActiveCfg = Release|Any CPU
+		{D9A562F1-25B4-49DA-98F6-2578FCBC1C4F}.Test|Any CPU.Build.0 = Release|Any CPU
+		{D9A562F1-25B4-49DA-98F6-2578FCBC1C4F}.Testing|Any CPU.ActiveCfg = Release|Any CPU
+		{D9A562F1-25B4-49DA-98F6-2578FCBC1C4F}.Testing|Any CPU.Build.0 = Release|Any CPU
+		{D9E993E4-B7B2-43E2-A1B2-8C46BA316536}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9E993E4-B7B2-43E2-A1B2-8C46BA316536}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9E993E4-B7B2-43E2-A1B2-8C46BA316536}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9E993E4-B7B2-43E2-A1B2-8C46BA316536}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9E993E4-B7B2-43E2-A1B2-8C46BA316536}.Test|Any CPU.ActiveCfg = Release|Any CPU
+		{D9E993E4-B7B2-43E2-A1B2-8C46BA316536}.Test|Any CPU.Build.0 = Release|Any CPU
+		{D9E993E4-B7B2-43E2-A1B2-8C46BA316536}.Testing|Any CPU.ActiveCfg = Release|Any CPU
+		{D9E993E4-B7B2-43E2-A1B2-8C46BA316536}.Testing|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -208,5 +228,7 @@ Global
 		{27640C6A-7C6F-446D-93DD-3E938DA05F24} = {C030D05C-AA23-4C91-A40A-047C4C8989DF}
 		{CA9B2482-2A5B-4666-B6EE-0BE6034FD9C7} = {C030D05C-AA23-4C91-A40A-047C4C8989DF}
 		{7F2CF5FE-6AD1-4DDE-9F7D-A6FB3A1124E5} = {C030D05C-AA23-4C91-A40A-047C4C8989DF}
+		{D9A562F1-25B4-49DA-98F6-2578FCBC1C4F} = {C030D05C-AA23-4C91-A40A-047C4C8989DF}
+		{D9E993E4-B7B2-43E2-A1B2-8C46BA316536} = {1EAE4385-197F-413F-8AFB-C80EBBD5ED64}
 	EndGlobalSection
 EndGlobal

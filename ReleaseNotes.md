@@ -1,12 +1,17 @@
 Here's a list of the latest changes:
 
+**3.4.0 Credit card payments and Fixes**
+
+- [Enhancement - Integrate Stripe credit card payments for tickets](https://trello.com/c/COALP2bw/334-events-credit-card-payment-integration-stripe)
+- [Fix - Ticket names were not being loaded during the ad booking](https://trello.com/c/kIjY6teN/429-ticket-information-is-not-being-saved-in-the-session)
+
 **3.3.0 Events Improvements**
 
-- [Transaction fee can now be absorbed by the consumer](https://trello.com/c/wVlRodlK/419-transaction-fee-to-be-absorbing-by-ticket-purchasers-and-automatically-set)
-- [Replacing barcodes with QR Codes](https://trello.com/c/NmZv041t/424-qr-code-and-change-the-ticket-display)
-- [Ticket validation for QR codes for event entry](https://trello.com/c/SxWNpvKQ/421-ticket-validator-at-the-entry)
-- [New Brand, Welcome to Sri Lankan Events](https://trello.com/c/BZhUGkZR/407-on-boarding-the-sri-lanka-events-branding)
-- [Customers should no longer be able to book ads for print if new configuration for Print is False](https://trello.com/c/jse03IDF/428-customer-should-no-longer-be-able-to-recycle-ads-to-go-print-again)
+- [Enhancement - Transaction fee can now be absorbed by the consumer](https://trello.com/c/wVlRodlK/419-transaction-fee-to-be-absorbing-by-ticket-purchasers-and-automatically-set)
+- [Enhancement - Replacing barcodes with QR Codes](https://trello.com/c/NmZv041t/424-qr-code-and-change-the-ticket-display)
+- [Enhancement - Ticket validation for QR codes for event entry](https://trello.com/c/SxWNpvKQ/421-ticket-validator-at-the-entry)
+- [Enhancement - New Brand, Welcome to Sri Lankan Events](https://trello.com/c/BZhUGkZR/407-on-boarding-the-sri-lanka-events-branding)
+- [Change Request - Customers should no longer be able to book ads for print if new configuration for Print is False](https://trello.com/c/jse03IDF/428-customer-should-no-longer-be-able-to-recycle-ads-to-go-print-again)
 
 **3.2.0 Bug fixes**
 

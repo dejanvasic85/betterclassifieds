@@ -44,3 +44,18 @@ Running the powershell build should setup the databases automatically under loca
 
 The Linq-2-Sql tables that have a "Timestamp" column property, have to have that
 property mapped to a byte[] so that the automapper will work.
+
+
+# Post Release Activities #
+
+
+Whenever we do a release to production, we need to ensure the following is done
+
+
+1. Pin the build in Team City so that the artefacts are not lost. This will be important just in case next time we need to do a roll-back through Octopus Deploy.
+
+- Increment the major.minor version number in team city found [here](http://build.paramountit.com.au/admin/editBuildParams.html?id=buildType:bt2).
+
+- Run the SQL Agent db backup jobs for all the brands that were deployed to and copy them to the development server. This allows consistent upgrades check for new featuers. 
+> The backup location on the dev server is: S:\SQL\Backup
+

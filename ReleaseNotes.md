@@ -3,6 +3,7 @@ Here's a list of the latest changes:
 **3.4.0 Credit card payments and Fixes**
 
 - [Enhancement - Integrate Stripe credit card payments for tickets](https://trello.com/c/COALP2bw/334-events-credit-card-payment-integration-stripe)
+- [Enhancement - Success page displays the URL to the advertiser for easier sharing](https://trello.com/c/3A9qryVw/439-on-booking-success-page-we-should-display-the-url-so-it-can-be-shared-easier)
 - [Fix - Ticket names were not being loaded during the ad booking](https://trello.com/c/kIjY6teN/429-ticket-information-is-not-being-saved-in-the-session)
 
 **3.3.0 Events Improvements**

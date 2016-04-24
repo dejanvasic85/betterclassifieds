@@ -99,10 +99,11 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             var mockReservations = new[] { new EventTicketReservationMockBuilder().Build() };
 
-            // arrage services
+            // arrange service calls
             _httpContext.SetupWithVerification(call => call.Session.SessionID, "123");
             _eventManager.SetupWithVerification(call => call.ReserveTickets(It.IsAny<string>(), It.IsAny<IEnumerable<EventTicketReservation>>()));
             _eventTicketReservationFactory.SetupWithVerification(call => call.CreateReservations(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()), mockReservations);
+            _eventBookingContext.SetupWithVerification(call => call.Clear());
 
             // act
             var controller = BuildController();
@@ -246,16 +247,16 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             };
 
             var mockApplicationUser = new ApplicationUserMockBuilder().Default().Build();
-            var mockPaymentResponse = new PaymentResponse { ApprovalUrl = "paypal.com/approveMe", PaymentId = "123", Status = PaymentStatus.ApprovalRequired };
+            //var mockPaymentResponse = new PaymentResponse { ApprovalUrl = "paypal.com/approveMe", PaymentId = "123", Status = PaymentStatus.ApprovalRequired };
 
             // arrange service calls
             _mockUser.SetupIdentityCall();
             _httpContext.SetupWithVerification(call => call.Session.SessionID, "session123");
             _eventManager.SetupWithVerification(call => call.GetTicketReservations(It.Is<string>(p => p == "session123")), mockTicketReservations);
             _eventManager.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(), It.IsAny<ApplicationUser>(), It.IsAny<IEnumerable<EventTicketReservation>>()), mockEventBooking);
-            _eventManager.SetupWithVerification(call => call.SetPaymentReferenceForBooking(It.Is<int>(p => p == mockEventBookingId), It.Is<string>(p => p == mockPaymentResponse.PaymentId), It.Is<PaymentType>(p => p == PaymentType.PayPal)));
+            //_eventManager.SetupWithVerification(call => call.SetPaymentReferenceForBooking(It.Is<int>(p => p == mockEventBookingId), It.Is<string>(p => p == mockPaymentResponse.PaymentId), It.Is<PaymentType>(p => p == PaymentType.PayPal)));
             _userManager.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.IsAny<string>()), mockApplicationUser);
-            _paymentService.SetupWithVerification(call => call.SubmitPayment(It.IsAny<PaymentRequest>()), mockPaymentResponse);
+            //_paymentService.SetupWithVerification(call => call.SubmitPayment(It.IsAny<PaymentRequest>()), mockPaymentResponse);
 
             _eventBookingContext.SetupSet(p => p.EventId = It.IsAny<int?>());
             _eventBookingContext.SetupSet(p => p.EventBookingId = It.IsAny<int?>());
@@ -269,20 +270,10 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // assert
             var jsonResult = result.IsTypeOf<JsonResult>();
-            jsonResult.JsonResultNextUrlIs(mockPaymentResponse.ApprovalUrl);
+            //jsonResult.JsonResultNextUrlIs(mockPaymentResponse.ApprovalUrl);
+            jsonResult.JsonResultNextUrlIs("/Event/MakePayment");
         }
-
-        [Test]
-        public void EventBooked_Get_NotActiveEventContext_ReturnsNotFound()
-        {
-            _eventBookingContext.SetupWithVerification(call => call.EventId, null);
-
-            var result = BuildController().EventBooked();
-
-            var redirectResult = result.IsTypeOf<RedirectToRouteResult>();
-            redirectResult.RedirectResultIsNotFound();
-        }
-
+        
         [Test]
         public void EventBooked_Get_CreatesInvoices_SendsNotifications()
         {
@@ -310,7 +301,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var applicationUserMock = new ApplicationUserMockBuilder().Default().Build();
 
             // arrange service calls ( obviously theres a lot going on here and we should refactor this to use event sourcing)
-            _eventBookingContext.SetupWithVerification(call => call.EventId, eventMock.EventId);
             _eventBookingContext.SetupWithVerification(call => call.EventBookingId, eventBookingMock.EventBookingId);
             _eventBookingContext.SetupWithVerification(call => call.EmailGuestList, new[] { "foo@bar.com", "code@me.com" });
             _eventBookingContext.SetupWithVerification(call => call.Purchaser, "George Clooney");
@@ -352,7 +342,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 .Build();
 
             _eventBookingContext.SetupWithVerification(call => call.EventBookingId, 1000);
-            _eventBookingContext.SetupWithVerification(call => call.EventId, 2000);
             _eventBookingContext.SetupWithVerification(call => call.EventBookingPaymentReference, "ref123");
             _eventManager.SetupWithVerification(call => call.GetEventBooking(It.IsAny<int>()), mockEventBooking);
             _eventManager.SetupWithVerification(call => call.EventBookingPaymentCompleted(It.IsAny<int>(), PaymentType.PayPal));

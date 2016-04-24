@@ -158,10 +158,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (eventBooking.Status == EventBookingStatus.Active)
             {
                 // No payment required so return a redirect to action json object
-                return Json(new { NextUrl = Url.EventBooked() });
+                return Json(new { NextUrl = Url.EventBooked().Build() });
             }
 
-            return Json(new { NextUrl = Url.EventTicketingMakePayment().ToString() });
+            return Json(new { NextUrl = Url.EventTicketingMakePayment().Build() });
         }
 
         [EventBookingContextRequired("EventBookingId")]

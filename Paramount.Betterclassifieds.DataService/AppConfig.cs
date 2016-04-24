@@ -30,6 +30,16 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             get { return ConfigManager.ReadAppSetting<string>("GoogleTimezoneApiKey"); }
         }
 
+        public string StripeApiKey
+        {
+            get { return ConfigManager.ReadAppSetting<string>("StripeApiKey"); }
+        }
+
+        public string StripePublishableKey
+        {
+            get { return ConfigManager.ReadAppSetting<string>("StripePublishableKey"); }
+        }
+
         public string DslImageUrlHandler
         {
             get { return ConfigManager.ReadAppSetting<string>("DslImageUrlHandler"); }

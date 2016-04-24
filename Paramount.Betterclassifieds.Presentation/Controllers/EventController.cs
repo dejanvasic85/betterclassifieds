@@ -228,7 +228,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var viewModel = new MakePaymentViewModel
             {
                 TotalCost = eventBooking.TotalCost,
-                EventTickets = this.MapList<EventBookingTicket, EventBookingTicketViewModel>(eventBooking.EventBookingTickets.ToList())
+                EventTickets = this.MapList<EventBookingTicket, EventBookingTicketViewModel>(eventBooking.EventBookingTickets.ToList()),
+                StripePublishableKey = _appConfig.StripePublishableKey
             };
 
             return View(viewModel);

@@ -56,7 +56,7 @@
 
             <form action="@Url.EventPayWithStripe()" method="POST">
                 <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                        data-key="pk_test_9lOtEgQezaX12MQN3EnHggB7"
+                        data-key="@Model.StripePublishableKey"
                         data-amount="@Model.TotalCostCents"
                         data-name=""
                         data-description="Ticket Purchase"

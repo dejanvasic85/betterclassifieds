@@ -1,5 +1,9 @@
 Here's a list of the latest changes:
 
+**3.5.0**
+
+- [Fix - Home page shows no items when there's less than 3](https://trello.com/c/UwAKylLR/446-kandobay-whats-new-items-is-empty)
+
 **3.4.0 Credit card payments and Fixes**
 
 - [Enhancement - Integrate Stripe credit card payments for tickets](https://trello.com/c/COALP2bw/334-events-credit-card-payment-integration-stripe)

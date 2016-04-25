@@ -1,4 +1,5 @@
-﻿@using Paramount
+﻿@using System.Monads
+@using Paramount
 @model HomeModel
 
 @{
@@ -6,7 +7,17 @@
     ViewBag.Title = "Classifieds Home - Find everything you're looking for right here";
 
     // Setup latest ads carousel
-    var latestAdsRowCount = Model.AdSummaryList.Count == 0 ? 0 : Model.AdSummaryList.Count / 3;
+    // Setup latest ads carousel
+    var latestAdsRowCount = 1;
+    var adCount = Model.With(m => m.AdSummaryList).Return(a => a.Count, 0);
+    if (adCount == 0)
+    {
+        latestAdsRowCount = 0;
+    }
+    if (adCount > 3)
+    {
+        latestAdsRowCount = adCount / 3;
+    }
 
 }
 
@@ -71,7 +82,7 @@
     </main>
 }
 
-@if (Model.AdSummaryList.Count > 0)
+@if (adCount > 0)
 {
     <div class="home-featured">
 

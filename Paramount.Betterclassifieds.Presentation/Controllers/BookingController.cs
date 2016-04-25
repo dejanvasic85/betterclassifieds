@@ -71,8 +71,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             bookingCart.CompleteStep(1);
             _cartRepository.Save(bookingCart);
-            
-            return Json(Url.Action("Step2", new { adType = category.CategoryAdType }));
+
+            var workflow = new BookingWorkflowController<CategorySelectionStep>(Url, bookingCart);
+            var nextUrl = workflow.GetNextStepUrl(new { adType = category.CategoryAdType });
+            return Json(nextUrl);
         }
 
         //
@@ -123,10 +125,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken, BookingStep(2)]
-        public ActionResult Step2(Step2View viewModel)
+        public ActionResult Step2(Step2View viewModel, IBookingCart bookingCart)
         {
-            var bookingCart = _bookingContext.Current();
-
             if (!ModelState.IsValid)
             {
                 viewModel.MaxOnlineImages = _clientConfig.MaxOnlineImages;
@@ -143,13 +143,15 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             this.Map(viewModel, bookingCart.LineAdModel);
 
             // Map Schedule
-            bookingCart.SetSchedule(_clientConfig, viewModel.StartDate.Value, viewModel.FirstPrintDateFormatted, viewModel.PrintInsertions);
+            bookingCart.SetSchedule(_clientConfig, viewModel.StartDate.GetValueOrDefault(), viewModel.FirstPrintDateFormatted, viewModel.PrintInsertions);
 
             // Save and continue
             bookingCart.CompleteStep(2);
             _cartRepository.Save(bookingCart);
 
-            return RedirectToAction("Step3");
+            var currentStep = new BookingWorkflowController<DesignOnlineAdStep>(Url, bookingCart);
+
+            return currentStep.RedirectToNextStep();
         }
 
         // 
@@ -160,13 +162,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var bookingCart = _bookingContext.Current();
             bool isPaymentCancelled;
             bool.TryParse(cancel, out isPaymentCancelled);
-            
+
             bookingCart.TotalPrice = _rateCalculator.Calculate(bookingCart).Total;
             _cartRepository.Save(bookingCart);
 
             var viewModel = this.Map<BookingCart, Step3View>(bookingCart);
             viewModel.IsPaymentCancelled = isPaymentCancelled;
-            viewModel.PreviousStepUrl = Url.Action("Step2", new { adtype = bookingCart.CategoryAdType });
+            var confirmationStep = new BookingWorkflowController<ConfirmationStep>(Url, bookingCart);
+            viewModel.PreviousStepUrl = confirmationStep.GetPreviousUrl();
 
             return View(viewModel);
         }
@@ -381,13 +384,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             bookingCart.CompleteStep(2);
             _cartRepository.Save(bookingCart);
 
+            var designTicketingStep = new BookingWorkflowController<DesignEventStep>(Url, bookingCart);
 
-            if (eventViewModel.TicketingEnabled)
-            {
-                return Json(new { NextUrl = Url.Action("EventTickets") });
-            }
+            if (!eventViewModel.TicketingEnabled)
+                designTicketingStep.SkipNextStep();
 
-            return Json(new { NextUrl = Url.Action("Step3") });
+            return Json(new { NextUrl = designTicketingStep.GetNextStepUrl() });
         }
 
         [HttpGet, BookingRequired, BookingCategoryTypeRequired("Event")]

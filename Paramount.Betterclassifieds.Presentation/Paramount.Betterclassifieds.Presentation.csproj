@@ -219,6 +219,8 @@
     <Compile Include="Controllers\ListingsController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\UserNetworkController.cs" />
+    <Compile Include="App_Start\BookingWorkflowConfig.cs" />
+    <Compile Include="Framework\BookingWorkflow\BookingWorkflowManager.cs" />
     <Compile Include="Framework\CustomRedirects\Redirector.cs" />
     <Compile Include="Framework\Filters\EnsurePaymentNotInProgressAttribute.cs" />
     <Compile Include="Framework\Filters\EventBookingRequiredAttribute.cs" />

@@ -71,7 +71,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             bookingCart.CompleteStep(1);
             _cartRepository.Save(bookingCart);
-
+            
             return Json(Url.Action("Step2", new { adType = category.CategoryAdType }));
         }
 
@@ -157,10 +157,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpGet, BookingStep(3), Authorize]
         public ActionResult Step3(string cancel)
         {
+            var bookingCart = _bookingContext.Current();
             bool isPaymentCancelled;
             bool.TryParse(cancel, out isPaymentCancelled);
-
-            var bookingCart = _bookingContext.Current();
+            
             bookingCart.TotalPrice = _rateCalculator.Calculate(bookingCart).Total;
             _cartRepository.Save(bookingCart);
 

@@ -33,7 +33,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
             {
                 OnlineAdModel = bookingModel.OnlineAd,
                 CategoryId = bookingModel.CategoryId,
-                SubCategoryId = bookingModel.SubCategoryId
+                SubCategoryId = bookingModel.SubCategoryId,
             };
 
             // The brands are no longer supporting print.

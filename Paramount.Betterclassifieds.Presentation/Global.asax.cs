@@ -23,6 +23,7 @@ namespace Paramount.Betterclassifieds.Presentation
             ModelBindingConfig.Register(ModelBinders.Binders);
             BundleConfig.Register(BundleTable.Bundles);
             BundleConfig.RegisterStyles(BundleTable.Bundles);
+            BookingWorkflowConfig.Register(BookingWorkflowTable.Workflows);
 
             // Do this on another thread
             Task.Factory.StartNew(DataServiceInitialiser.InitializeContexts);

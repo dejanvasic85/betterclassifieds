@@ -13,7 +13,7 @@ namespace Paramount.Betterclassifieds.Presentation
             routes.Ignore("{resource}.aspx/{*pathInfo}");
             routes.Ignore("{resources}.ashx/{*pathInfo}");
             
-            // Images
+            // Images   
             routes.MapRoute("imageRoute", "img/{documentId}/{width}/{height}", new { controller = "Image", action = "Render", width = UrlParameter.Optional, height = UrlParameter.Optional });
 
             // Ad route

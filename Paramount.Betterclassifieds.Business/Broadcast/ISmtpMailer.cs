@@ -32,7 +32,12 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
                     attachmentStreams.Add(stream);
                 }
             }
-            var client = new SmtpClient();
+
+            var client = new SmtpClient(); // Reads the configuration settings
+#if DEBUG
+            client.DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory;
+            client.PickupDirectoryLocation = @"c:\Paramount\MailDrop\";
+#endif
             client.Send(mailMessage);
             attachmentStreams.ForEach(s => s.Dispose());
         }

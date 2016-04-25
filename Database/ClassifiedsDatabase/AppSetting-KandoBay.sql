@@ -31,9 +31,9 @@ execute temp_createAppSetting @Key = 'ClientAddress', @Setting = 'PO Box 333, Le
 execute temp_createAppSetting @Key = 'ClientAddressLatLong', @Setting = '-37.818635,145.001470', @Force = 1
 execute temp_createAppSetting @Key = 'EnableTwoFactorAuth', @Setting = 'true', @Force = 1
 execute temp_createAppSetting @Key = 'ClientName', @Setting = 'KandoBay', @Force = 1
-execute temp_createAppSetting @Key = 'EventTicketReservationExpiryMinutes', @Setting = '10'
+execute temp_createAppSetting @Key = 'EventTicketReservationExpiryMinutes', @Setting = '20'
 execute temp_createAppSetting @Key = 'EventMaxTicketsPerBooking', @Setting = '5'
-execute temp_createAppSetting @Key = 'EventTicketFee', @Setting = '4.9', @Force = 1
+execute temp_createAppSetting @Key = 'EventTicketFee', @Setting = '2.9', @Force = 1
 execute temp_createAppSetting @Key = 'FacebookAppId', @Setting = '1277927115555890', @Force = 1
 
 
@@ -153,6 +153,7 @@ exec temp_createCategory @Title = 'Party', @ParentCategory = 'Community & Cultur
 exec temp_createCategory @Title = 'National Day', @ParentCategory = 'Community & Culture', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
 exec temp_createCategory @Title = 'Fund Raiser', @ParentCategory = 'Community & Culture', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
 exec temp_createCategory @Title = 'Class', @ParentCategory = 'Community & Culture', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
+exec temp_createCategory @Title = 'Performance', @ParentCategory = 'Community & Culture', @IsOnlineOnly = 1, @CategoryAdType = 'Event';
 
 -- Category: Sports & Fitness
 exec temp_createCategory @Title = 'Sports & Fitness', @FontIcon = 'futbol-o', @IsOnlineOnly = 1, @CategoryAdType = 'Event';

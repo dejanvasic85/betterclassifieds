@@ -32,7 +32,7 @@ execute temp_createAppSetting @Key = 'ClientAddressLatLong', @Setting = '-37.818
 execute temp_createAppSetting @Key = 'EnableTwoFactorAuth', @Setting = 'true', @Force = 1
 execute temp_createAppSetting @Key = 'ClientName', @Setting = 'KandoBay', @Force = 1
 execute temp_createAppSetting @Key = 'EventTicketReservationExpiryMinutes', @Setting = '20'
-execute temp_createAppSetting @Key = 'EventMaxTicketsPerBooking', @Setting = '5'
+execute temp_createAppSetting @Key = 'EventMaxTicketsPerBooking', @Setting = '20', @Force = 1
 execute temp_createAppSetting @Key = 'EventTicketFee', @Setting = '3.9', @Force = 1
 execute temp_createAppSetting @Key = 'FacebookAppId', @Setting = '1277927115555890', @Force = 1
 

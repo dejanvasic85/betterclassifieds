@@ -2,6 +2,7 @@ Here's a list of the latest changes:
 
 **3.5.0**
 
+- [Change Request - Remove the TBC text on the ticket preview](https://trello.com/c/ehyOjnf4/448-remove-ticket-id-tbc)
 - [Fix - Home page shows no items when there's less than 3](https://trello.com/c/UwAKylLR/446-kandobay-whats-new-items-is-empty)
 - [Fix - Clicking back on confirmation step was not going to ticketing setup](https://trello.com/c/8L1Jx5XW/444-clicking-back-on-final-step-goes-to-event-detail-instead-of-event-ticketing)
 - [Fix - The facebook share and twitter were not configured properly and no location](https://trello.com/c/kSPUvTnn/447-fix-the-twitter-sharing-and-facebook-sharing)

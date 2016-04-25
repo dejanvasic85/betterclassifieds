@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Paramount.Betterclassifieds.Business;
@@ -24,6 +25,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             this.TitleSlug = searchResult.HeadingSlug;
             this.EventUrl = urlHelper.AdUrl(searchResult.HeadingSlug, searchResult.AdId, true, searchResult.CategoryAdType);
             this.HtmlText = searchResult.HtmlText;
+            this.Description = searchResult.Description;
             this.EventPhoto = searchResult.PrimaryImage;
             this.EventPhotoUrl = urlHelper.ImageOriginal(searchResult.PrimaryImage).WithFullUrl();
             this.OrganiserName = searchResult.ContactName;
@@ -37,9 +39,11 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             this.LocationFriendlyName = eventModel.Address.ToString();
             this.LocationLatitude = eventModel.LocationLatitude;
             this.LocationLongitude = eventModel.LocationLongitude;
-            this.EventStartDate = eventModel.EventStartDate.GetValueOrDefault().ToLongDateString();
+            this.EventStartDate = eventModel.EventStartDate.GetValueOrDefault();
+            this.EventEndDate = eventModel.EventEndDate.GetValueOrDefault();
+            this.EventStartDateDisplay = eventModel.EventStartDate.GetValueOrDefault().ToLongDateString();
             this.EventStartTime = eventModel.EventStartDate.GetValueOrDefault().ToString("hh:mm tt");
-            this.EventEndDate = eventModel.EventStartDate.GetValueOrDefault().ToLongDateString();
+            this.EventEndDateDisplay = eventModel.EventStartDate.GetValueOrDefault().ToLongDateString();
             this.EventEndTime = eventModel.EventEndDate.GetValueOrDefault().ToString("hh:mm tt");
 
             this.FacebookAppId = clientConfig.FacebookAppId;
@@ -59,6 +63,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             }).ToArray();
         }
 
+        public DateTime EventEndDate { get; set; }
+
+        public DateTime EventStartDate { get; set; }
+
         public int AdId { get; set; }
         public int EventId { get; set; }
         public string Title { get; set; }
@@ -67,9 +75,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public decimal? LocationLatitude { get; set; }
         public decimal? LocationLongitude { get; set; }
         public string EventPhoto { get; set; }
-        public string EventStartDate { get; set; }
+        public string EventStartDateDisplay { get; set; }
         public string EventStartTime { get; set; }
-        public string EventEndDate { get; set; }
+        public string EventEndDateDisplay { get; set; }
         public string EventEndTime { get; set; }
         public string OrganiserName { get; set; }
         public string OrganiserPhone { get; set; }

@@ -14,7 +14,7 @@
                 @Model.Title
             </h1>
             <p class="details">
-                <i class="fa fa-calendar-check-o"></i> @Model.EventStartDate at @Model.EventStartTime.
+                <i class="fa fa-calendar-check-o"></i> @Model.EventStartDateDisplay at @Model.EventStartTime.
             </p>
             <p>
                 <i class="fa fa-map-marker"></i> @Model.LocationFriendlyName
@@ -84,7 +84,7 @@
                         </ul>
 
                         <div class="well  text-right" data-bind="visible: totalSelectedTickets() > 0">
-                            <button class="btn btn-primary" data-loading-text="Please Wait..." 
+                            <button class="btn btn-primary" data-loading-text="Please Wait..."
                                     data-bind="click: startOrder" id="btnGetTickets">
                                 Get Tickets <i class="fa fa-arrow-right"></i>
                             </button>
@@ -168,14 +168,19 @@
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="@Model.Title" />
     <meta name="twitter:description" content="@Model.Description" />
-    <meta name="twitter:image" content="@Model.EventUrl" />
+    <meta name="twitter:image" content="@Url.ImageOriginal(Model.EventPhoto).WithFullUrl()" />
 
     <meta property="fb:app_id" content="@Model.FacebookAppId" />
     <meta property="og:url" content="@Model.EventUrl" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content="events.event" />
     <meta property="og:title" content="@Model.Title" />
     <meta property="og:description" content="@Model.Description" />
     <meta property="og:image" content="@Url.ImageOriginal(Model.EventPhoto).WithFullUrl()" />
+
+    <meta property="event:location:latitude" content="@Model.LocationLatitude">
+    <meta property="event:location:longitude" content="@Model.LocationLongitude">
+    <meta property="event:start_time" content="@Model.EventStartDate.ToString("s")">
+    <meta property="event:end_time" content="@Model.EventEndDate.ToString("s")">
 }
 
 

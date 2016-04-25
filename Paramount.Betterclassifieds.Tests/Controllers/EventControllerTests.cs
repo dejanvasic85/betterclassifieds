@@ -57,9 +57,9 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             eventViewModel.HtmlText.IsEqualTo("FirstLine<br />SecondLine");
             eventViewModel.EventPhoto.IsEqualTo(mockAd.PrimaryImage);
             eventViewModel.IsClosed.IsEqualTo(true);
-            eventViewModel.EventStartDate.IsEqualTo(mockEventAd.EventStartDate.GetValueOrDefault().ToLongDateString());
+            eventViewModel.EventStartDateDisplay.IsEqualTo(mockEventAd.EventStartDate.GetValueOrDefault().ToLongDateString());
             eventViewModel.EventStartTime.IsEqualTo(mockEventAd.EventStartDate.GetValueOrDefault().ToString("hh:mm tt"));
-            eventViewModel.EventEndDate.IsEqualTo(mockEventAd.EventEndDate.GetValueOrDefault().ToLongDateString());
+            eventViewModel.EventEndDateDisplay.IsEqualTo(mockEventAd.EventEndDate.GetValueOrDefault().ToLongDateString());
         }
 
         [Test]

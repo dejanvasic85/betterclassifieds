@@ -11,7 +11,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         EventBooking GetEventBooking(int eventBookingId, bool includeTickets = false, bool includeEvent = false);
         EventBookingTicket GetEventBookingTicket(int eventBookingTicketId);
         EventPaymentRequest GetEventPaymentRequestForEvent(int eventId);
-        IEnumerable<EventBooking> GetEventBookingsForEvent(int eventId, bool includeTickets = false);
+        IEnumerable<EventBooking> GetEventBookingsForEvent(int eventId, bool activeOnly = true, bool includeTickets = false);
         IEnumerable<EventTicketReservation> GetEventTicketReservationsForSession(string sessionId);
         IEnumerable<EventTicketReservation> GetEventTicketReservations(int ticketId, bool activeOnly);
         IEnumerable<EventBookingTicket> GetEventBookingTicketsForEvent(int? eventId);

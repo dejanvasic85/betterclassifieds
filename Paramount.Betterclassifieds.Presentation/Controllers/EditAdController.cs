@@ -133,7 +133,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult EventDashboard(int id)
         {
             var adDetails = _searchService.GetByAdId(id);
-            var eventDetails = _eventManager.GetEventDetailsForOnlineAdId(adDetails.OnlineAdId, true);
+            var eventDetails = _eventManager.GetEventDetailsForOnlineAdId(adDetails.OnlineAdId, includeBookings: true);
             var guestList = _eventManager.BuildGuestList(eventDetails.EventId);
             var eventTicketTypes = eventDetails.Tickets;
             var paymentSummary = _eventManager.BuildPaymentSummary(eventDetails.EventId);

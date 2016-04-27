@@ -40,7 +40,9 @@ namespace Paramount.Betterclassifieds.DataService.Events
 
                 if (eventModel != null && includeBookings)
                 {
-                    eventModel.EventBookings = context.EventBookings.Where(b => b.EventId == eventModel.EventId)
+                    eventModel.EventBookings = context.EventBookings
+                        .Where(b => b.EventId == eventModel.EventId)
+                        .Where(b => b.StatusAsString == EventBookingStatus.Active.ToString())
                         .Include(b => b.EventBookingTickets)
                         .ToList();
                 }
@@ -105,15 +107,18 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
-        public IEnumerable<EventBooking> GetEventBookingsForEvent(int eventId, bool includeTickets = false)
+        public IEnumerable<EventBooking> GetEventBookingsForEvent(int eventId, bool activeOnly = true, bool includeTickets = false)
         {
             using (var context = _dbContextFactory.CreateEventContext())
             {
                 var eventBookings = context.EventBookings.Where(e => e.EventId == eventId);
+
+                if (activeOnly)
+                    eventBookings = eventBookings.Where(b => b.StatusAsString == EventBookingStatus.Active.ToString());
+
                 if (includeTickets)
-                {
                     eventBookings.Include(e => e.EventBookingTickets);
-                }
+
                 return eventBookings.ToList();
             }
         }
@@ -145,9 +150,9 @@ namespace Paramount.Betterclassifieds.DataService.Events
             {
                 var id = eventId.GetValueOrDefault();
                 var query = context.EventBookingTickets
-                    .Where(t => t.EventBooking.EventId == id)
+                    .Where(t => t.EventBooking.EventId == id && t.EventBooking.StatusAsString == EventBookingStatus.Active.ToString())
                     .Include(t => t.TicketFieldValues);
-                
+
                 return query.ToList();
             }
         }

@@ -128,7 +128,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.Is<int>(param => param == 10)), eventMock);
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingTicketsForEvent(
-                It.Is<int>(param => param == 10)), 
+                It.Is<int>(param => param == 10)),
                 mockTickets);
 
             var result = this.BuildTargetObject().BuildGuestList(10).ToList();
@@ -167,7 +167,9 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 .Build();
 
             _clientConfig.SetupWithVerification(call => call.EventTicketFee, 0);
-            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingsForEvent(It.Is<int>(i => i == eventId), false), mockEventBookings);
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingsForEvent(
+                It.Is<int>(i => i == eventId),
+                It.IsAny<bool>(), false), mockEventBookings);
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
 
             // act
@@ -198,7 +200,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
             _clientConfig.SetupWithVerification(call => call.EventTicketFee, (decimal)1.5);
-            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingsForEvent(It.Is<int>(i => i == eventId), false), mockEventBookings);
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingsForEvent(It.Is<int>(i => i == eventId),
+                It.IsAny<bool>(), false), mockEventBookings);
 
             // act
             var result = BuildTargetObject().BuildPaymentSummary(eventId);
@@ -228,7 +231,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
             _clientConfig.SetupWithVerification(call => call.EventTicketFee, 100);
-            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingsForEvent(It.Is<int>(i => i == eventId), false), mockEventBookings);
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingsForEvent(It.Is<int>(i => i == eventId),
+                It.IsAny<bool>(), false), mockEventBookings);
 
             // act
             var result = BuildTargetObject().BuildPaymentSummary(eventId);
@@ -257,7 +261,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
                .Build();
 
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
-            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingsForEvent(It.Is<int>(i => i == eventId), false), mockEventBookings);
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingsForEvent(It.Is<int>(i => i == eventId),
+                It.IsAny<bool>(), false), mockEventBookings);
 
             // act
             var result = BuildTargetObject().BuildPaymentSummary(eventId);
@@ -516,7 +521,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
         public void IsEventEditable_NoBookings_CanEdit()
         {
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingsForEvent(It.IsAny<int>(),
-                false), new List<EventBooking>());
+                It.IsAny<bool>(), false), new List<EventBooking>());
 
             var manager = BuildTargetObject();
             Assert.That(manager.IsEventEditable(10), Is.True);
@@ -528,7 +533,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var booking = new EventBookingMockBuilder().Build();
 
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingsForEvent(It.IsAny<int>(),
-                false), new List<EventBooking> { booking });
+                It.IsAny<bool>(), false), new List<EventBooking> { booking });
 
             var manager = BuildTargetObject();
             Assert.That(manager.IsEventEditable(10), Is.False);
@@ -546,7 +551,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var eventBooking = new EventBookingMockBuilder().Default()
                 .WithStatus(EventBookingStatus.PaymentPending)
                 .Build();
-            
+
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventBooking(It.IsAny<int>(),
                 It.IsAny<bool>(), It.IsAny<bool>()), eventBooking);
             _eventRepositoryMock.SetupWithVerification(call => call.UpdateEventBooking(It.Is<EventBooking>(b => b == eventBooking)));

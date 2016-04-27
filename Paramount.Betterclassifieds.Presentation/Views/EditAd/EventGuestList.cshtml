@@ -1,4 +1,5 @@
 ﻿@using Paramount
+@using Paramount.Betterclassifieds.Presentation.Framework.HtmlHelpers
 @model EventGuestListDownloadViewModel
 
 <!DOCTYPE html>
@@ -66,9 +67,9 @@
                                 </td>
                                 <td>@g.TicketName</td>
                                 <td>@g.TicketNumber</td>
-                                @*<td>
-                                    <img src="@Url.ActionAbsolute("Barcode", "Image", new {data = g.BarcodeData})"/>
-                                </td>*@
+                                <td>
+                                    @Html.GenerateRelayQrCode(g.BarcodeData, height: 162, width: 162)
+                                </td>
                             </tr>
 
                         }

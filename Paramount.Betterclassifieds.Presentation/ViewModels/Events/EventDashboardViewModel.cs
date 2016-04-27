@@ -26,7 +26,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             {
                 this.TotalRemainingQty = eventModel.Tickets.Sum(t => t.RemainingQuantity);
 
-                var bookedTickets = eventModel.EventBookings.SelectMany(m => m.EventBookingTickets).ToList();
+                var bookedTickets = eventModel.EventBookings
+                    .SelectMany(m => m.EventBookingTickets)
+                    .ToList();
+
                 this.TotalSoldQty = bookedTickets.Count;
                 this.TotalSoldAmount = paymentSummary.TotalTicketSalesAmount;
                 this.EventOrganiserOwedAmount = paymentSummary.EventOrganiserOwedAmount;

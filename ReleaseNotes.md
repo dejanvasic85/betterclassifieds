@@ -1,6 +1,10 @@
 Here's a list of the latest changes:
 
-**3.5.0**
+**3.6.0 Fixes**
+
+- [Fix - Calculating the tickets remaining is not considering unpaid or cancelled tickets.](https://trello.com/c/UllWDORn/441-calculating-the-tickets-remaining-is-not-considering-unpaid-or-cancelled-tickets)
+
+**3.5.0 Fixes**
 
 - [Change Request - Remove the TBC text on the ticket preview](https://trello.com/c/ehyOjnf4/448-remove-ticket-id-tbc)
 - [Fix - Home page shows no items when there's less than 3](https://trello.com/c/UwAKylLR/446-kandobay-whats-new-items-is-empty)

@@ -39,6 +39,7 @@ execute temp_createAppSetting @Key = 'ClientName', @Setting = 'TheMusic', @Force
 execute temp_createAppSetting @Key = 'EventTicketReservationExpiryMinutes', @Setting = '10'
 execute temp_createAppSetting @Key = 'EventMaxTicketsPerBooking', @Setting = '5'
 execute temp_createAppSetting @Key = 'EventTicketFee', @Setting = '4.9', @Force = 1
+execute temp_createAppSetting @Key = 'EventTicketFeeCents', @Setting = '30', @Force = 1
 execute temp_createAppSetting @Key = 'IsPrintEnabled', @Setting = 'False', @Force = 1
 
 

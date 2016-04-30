@@ -5,10 +5,10 @@
         me.ticketName = ko.observable();
         me.availableQuantity = ko.observable();
         me.price = ko.observable();
-        
+
         function calculateBuyerPriceWithTxnFee(price) {
             var percentage = ((parent.eventTicketFee() / 100) + 1);
-            return $paramount.formatCurrency( percentage * price );
+            return $paramount.formatCurrency((percentage * price) + (parent.eventTicketFeeCents() / 100));
         }
 
         me.totalTicketCost = ko.computed(function () {
@@ -21,7 +21,7 @@
             }
             return $paramount.formatCurrency(me.price());
         });
-        
+
         /*
          * Validation
          */

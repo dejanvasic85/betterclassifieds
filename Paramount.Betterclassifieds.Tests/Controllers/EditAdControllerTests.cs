@@ -36,8 +36,10 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 .WithTickets(new[] { mockTicketBuilder.Build() })
                 .WithClosingDateUtc(DateTime.Now.AddDays(-1))
                 .Build();
-            var mockPaymentSummary = new EventPaymentSummaryMockBuilder().WithEventOrganiserOwedAmount(90).WithSystemTicketFee(10).WithTotalTicketSalesAmount(100).Build();
-
+            var mockPaymentSummary = new EventPaymentSummaryMockBuilder()
+                .WithEventOrganiserOwedAmount(90)
+                .WithEventOrganiserFeesTotalFeesAmount(10)
+                .WithTotalTicketSalesAmount(100).Build();
 
             _searchServiceMock.SetupWithVerification(call => call.GetByAdId(It.Is<int>(p => p == adId)), mockSearchResult);
             _eventManagerMock.SetupWithVerification(call => call.GetEventDetailsForOnlineAdId(It.Is<int>(p => p == onlineAdId), It.Is<bool>(p => true)), mockEvent);
@@ -59,7 +61,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             Assert.That(viewModel.EventId, Is.EqualTo(eventId));
             Assert.That(viewModel.Guests.Count, Is.EqualTo(2));
             Assert.That(viewModel.TotalRemainingQty, Is.EqualTo(5));
-            Assert.That(viewModel.SystemTicketFeeLabel, Is.EqualTo("10%"));
+            Assert.That(viewModel.TotalTicketFees, Is.EqualTo("10%"));
             Assert.That(viewModel.EventOrganiserOwedAmount, Is.EqualTo(90));
             Assert.That(viewModel.TotalSoldAmount, Is.EqualTo(100));
             Assert.That(viewModel.IsClosed, Is.True);
@@ -114,7 +116,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var mockPrincipal = CreateMockOf<IPrincipal>();
             var mockPaymentSummary = new EventPaymentSummaryMockBuilder()
                 .WithEventOrganiserOwedAmount(90)
-                .WithSystemTicketFee(10)
+                .WithEventOrganiserFeesTotalFeesAmount(10)
                 .WithTotalTicketSalesAmount(100)
                 .Build();
 
@@ -130,7 +132,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var viewModel = ((ViewResult)result).Model as EventPaymentSummaryViewModel;
             Assert.That(viewModel, Is.Not.Null);
             Assert.That(viewModel.AmountOwed, Is.EqualTo(90));
-            Assert.That(viewModel.OurFeesPercentage, Is.EqualTo(10));
+            Assert.That(viewModel.OurFees, Is.EqualTo(10));
             Assert.That(viewModel.TotalTicketSalesAmount, Is.EqualTo(100));
             Assert.That(viewModel.PreferredPaymentType, Is.EqualTo(mockApplicationUser.PreferredPaymentMethod.ToString()));
             Assert.That(viewModel.PayPalEmail, Is.EqualTo(mockApplicationUser.PayPalEmail));

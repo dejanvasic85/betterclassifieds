@@ -407,7 +407,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 IncludeTransactionFee = bookingCart.With(b => b.Event).IncludeTransactionFee,
                 Tickets = this.MapList<EventTicket, BookingEventTicketViewModel>(bookingCart.Event.Tickets.ToList()),
                 TicketFields = this.MapList<EventTicketField, EventTicketFieldViewModel>(bookingCart.Event.TicketFields.ToList()),
-                EventTicketFee = _clientConfig.EventTicketFee
+                EventTicketFee = _clientConfig.EventTicketFeePercentage,
+                EventTicketFeeCents = _clientConfig.EventTicketFeeCents
             };
             return View("Step2_EventTickets", viewModel);
         }

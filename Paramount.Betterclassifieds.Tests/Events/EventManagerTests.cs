@@ -166,7 +166,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 .WithIncludeTransactionFee(false)
                 .Build();
 
-            _clientConfig.SetupWithVerification(call => call.EventTicketFee, 0);
+            _clientConfig.SetupWithVerification(call => call.EventTicketFeePercentage, 0);
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingsForEvent(
                 It.Is<int>(i => i == eventId),
                 It.IsAny<bool>(), false), mockEventBookings);
@@ -199,7 +199,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
                .Build();
 
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
-            _clientConfig.SetupWithVerification(call => call.EventTicketFee, (decimal)1.5);
+            _clientConfig.SetupWithVerification(call => call.EventTicketFeePercentage, (decimal)1.5);
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingsForEvent(It.Is<int>(i => i == eventId),
                 It.IsAny<bool>(), false), mockEventBookings);
 
@@ -230,7 +230,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
                .Build();
 
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
-            _clientConfig.SetupWithVerification(call => call.EventTicketFee, 100);
+            _clientConfig.SetupWithVerification(call => call.EventTicketFeePercentage, 100);
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingsForEvent(It.Is<int>(i => i == eventId),
                 It.IsAny<bool>(), false), mockEventBookings);
 

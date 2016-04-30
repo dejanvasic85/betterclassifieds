@@ -196,7 +196,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 AdId = id,
                 EventId = eventId,
                 TotalTicketSalesAmount = paymentSummary.TotalTicketSalesAmount,
-                OurFeesPercentage = paymentSummary.SystemTicketFee,
+                OurFees = paymentSummary.EventOrganiserFeesTotalFeesAmount,
                 AmountOwed = paymentSummary.EventOrganiserOwedAmount,
                 PreferredPaymentType = userProfile.PreferredPaymentMethod.ToString(),
                 PayPalEmail = userProfile.PayPalEmail,

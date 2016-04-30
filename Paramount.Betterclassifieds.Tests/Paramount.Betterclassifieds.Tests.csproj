@@ -131,6 +131,7 @@
     <Compile Include="Events\EventTicketFactoryTest.cs" />
     <Compile Include="Events\SufficientTicketsRuleTests.cs" />
     <Compile Include="Events\TicketBarcodeServiceTests.cs" />
+    <Compile Include="Events\TicketFeeCalculatorTests.cs" />
     <Compile Include="Mocks\AdSearchResultMockBuilder.cs" />
     <Compile Include="Mocks\ApplicationUserMockBuilder.cs" />
     <Compile Include="Mocks\DateServiceMockExtensions.cs" />

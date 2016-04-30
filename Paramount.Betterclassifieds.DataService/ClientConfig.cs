@@ -155,15 +155,12 @@
         /// <summary>
         /// Stored as a whole number e.g. 4% and needs to be converted to an actual decimal by dividing by 100
         /// </summary>
-        public decimal EventTicketFee
+        public decimal EventTicketFeePercentage
         {
             get { return GetValueFromDatabase<decimal>("EventTicketFee"); }
         }
-
-        public decimal EventTicketFeeDecimal
-        {
-            get { return EventTicketFee/100; }
-        }
+        
+        public decimal EventTicketFeeCents { get { return GetValueFromDatabase<decimal>("EventTicketFeeCents"); } }
 
         public bool IsPrintEnabled
         {

@@ -95,7 +95,7 @@
                 </h3>
                 <p class="action-info">
                     = Total ticket sales of @Model.TotalSoldAmount.GetValueOrDefault().ToString("C")
-                    <span data-bind="if: organiserAbsorbsTransactionFee">with our fee of @Model.SystemTicketFeeLabel.</span>
+                    <span data-bind="if: organiserAbsorbsTransactionFee">with our fee of @Model.TotalTicketFees.</span>
                     
                 </p>
                 <div class="action-btn">

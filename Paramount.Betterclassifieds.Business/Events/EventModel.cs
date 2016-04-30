@@ -32,6 +32,9 @@ namespace Paramount.Betterclassifieds.Business.Events
         public DateTime? ClosingDateUtc { get; set; }
         public string LocationFloorPlanDocumentId { get; set; }
         public string LocationFloorPlanFilename { get; set; }
+        /// <summary>
+        /// If true then the customer will absorb the fee payment
+        /// </summary>
         public bool? IncludeTransactionFee { get; set; }
 
         public bool IsClosed

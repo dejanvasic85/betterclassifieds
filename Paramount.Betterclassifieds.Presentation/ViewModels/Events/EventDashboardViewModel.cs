@@ -33,7 +33,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 this.TotalSoldQty = bookedTickets.Count;
                 this.TotalSoldAmount = paymentSummary.TotalTicketSalesAmount;
                 this.EventOrganiserOwedAmount = paymentSummary.EventOrganiserOwedAmount;
-                this.SystemTicketFeeLabel = string.Format("{0}%", paymentSummary.SystemTicketFee);
+                this.TotalTicketFees = paymentSummary.EventOrganiserFeesTotalFeesAmount.ToString("C");
 
 
                 // Get the sold quantity for each ticket type
@@ -58,7 +58,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public int TotalRemainingQty { get; set; }
         public decimal? TotalSoldAmount { get; set; }
         public decimal? EventOrganiserOwedAmount { get; set; }
-        public string SystemTicketFeeLabel { get; set; }
+        public string TotalTicketFees { get; set; }
         public bool IsClosed { get; set; }
     }
 }

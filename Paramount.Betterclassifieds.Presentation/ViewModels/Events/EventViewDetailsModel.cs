@@ -20,42 +20,42 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
         public EventViewDetailsModel(HttpContextBase httpContext, UrlHelper urlHelper, AdSearchResult searchResult, EventModel eventModel, IClientConfig clientConfig)
         {
-            this.AdId = searchResult.AdId;
-            this.Title = searchResult.Heading;
-            this.TitleSlug = searchResult.HeadingSlug;
-            this.EventUrl = urlHelper.AdUrl(searchResult.HeadingSlug, searchResult.AdId, true, searchResult.CategoryAdType);
-            this.HtmlText = searchResult.HtmlText;
-            this.Description = searchResult.Description;
-            this.EventPhoto = searchResult.PrimaryImage;
-            this.EventPhotoUrl = urlHelper.ImageOriginal(searchResult.PrimaryImage).WithFullUrl();
-            this.OrganiserName = searchResult.ContactName;
-            this.OrganiserPhone = searchResult.ContactPhone;
-            this.Views = searchResult.NumOfViews;
-            this.SocialShareText = "This looks good '" + httpContext.Server.HtmlEncode(searchResult.Heading) + "'";
+            AdId = searchResult.AdId;
+            Title = searchResult.Heading;
+            TitleSlug = searchResult.HeadingSlug;
+            EventUrl = urlHelper.AdUrl(searchResult.HeadingSlug, searchResult.AdId, true, searchResult.CategoryAdType);
+            HtmlText = searchResult.HtmlText;
+            Description = searchResult.Description;
+            EventPhoto = searchResult.PrimaryImage;
+            EventPhotoUrl = urlHelper.ImageOriginal(searchResult.PrimaryImage).WithFullUrl();
+            OrganiserName = searchResult.ContactName;
+            OrganiserPhone = searchResult.ContactPhone;
+            Views = searchResult.NumOfViews;
+            SocialShareText = "This looks good '" + httpContext.Server.HtmlEncode(searchResult.Heading) + "'";
 
 
-            this.EventId = eventModel.EventId.GetValueOrDefault();
-            this.Location = eventModel.Location;
-            this.LocationFriendlyName = eventModel.Address.ToString();
-            this.LocationLatitude = eventModel.LocationLatitude;
-            this.LocationLongitude = eventModel.LocationLongitude;
-            this.EventStartDate = eventModel.EventStartDate.GetValueOrDefault();
-            this.EventEndDate = eventModel.EventEndDate.GetValueOrDefault();
-            this.EventStartDateDisplay = eventModel.EventStartDate.GetValueOrDefault().ToLongDateString();
-            this.EventStartTime = eventModel.EventStartDate.GetValueOrDefault().ToString("hh:mm tt");
-            this.EventEndDateDisplay = eventModel.EventStartDate.GetValueOrDefault().ToLongDateString();
-            this.EventEndTime = eventModel.EventEndDate.GetValueOrDefault().ToString("hh:mm tt");
+            EventId = eventModel.EventId.GetValueOrDefault();
+            Location = eventModel.Location;
+            LocationFriendlyName = eventModel.Address.ToString();
+            LocationLatitude = eventModel.LocationLatitude;
+            LocationLongitude = eventModel.LocationLongitude;
+            EventStartDate = eventModel.EventStartDate.GetValueOrDefault();
+            EventEndDate = eventModel.EventEndDate.GetValueOrDefault();
+            EventStartDateDisplay = eventModel.EventStartDate.GetValueOrDefault().ToLongDateString();
+            EventStartTime = eventModel.EventStartDate.GetValueOrDefault().ToString("hh:mm tt");
+            EventEndDateDisplay = eventModel.EventStartDate.GetValueOrDefault().ToLongDateString();
+            EventEndTime = eventModel.EventEndDate.GetValueOrDefault().ToString("hh:mm tt");
 
-            this.FacebookAppId = clientConfig.FacebookAppId;
-            this.MaxTicketsPerBooking = clientConfig.MaxOnlineImages.GetValueOrDefault();
+            FacebookAppId = clientConfig.FacebookAppId;
+            MaxTicketsPerBooking = clientConfig.MaxOnlineImages.GetValueOrDefault();
 
-            this.Tickets = eventModel.Tickets.Select(t => new EventTicketViewModel
+            Tickets = eventModel.Tickets.Select(t => new EventTicketViewModel
             {
                 EventId = t.EventId,
                 AvailableQuantity = t.AvailableQuantity,
                 EventTicketId = t.EventTicketId,
                 Price = eventModel.IncludeTransactionFee.GetValueOrDefault()
-                    ? t.Price + (t.Price * clientConfig.EventTicketFeeDecimal)
+                    ? new TicketFeeCalculator(clientConfig).GetTotalTicketPrice(t).PriceIncludingFee
                     : t.Price,
 
                 RemainingQuantity = t.RemainingQuantity,

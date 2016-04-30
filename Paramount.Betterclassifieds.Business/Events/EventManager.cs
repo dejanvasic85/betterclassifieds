@@ -213,30 +213,26 @@ namespace Paramount.Betterclassifieds.Business.Events
         public EventPaymentSummary BuildPaymentSummary(int? eventId)
         {
             Guard.NotNull(eventId);
-            var eventBookings = _eventRepository.GetEventBookingsForEvent(eventId.GetValueOrDefault());
+            var eventBookings = _eventRepository.GetEventBookingsForEvent(eventId.GetValueOrDefault()).ToList();
             var eventModel = _eventRepository.GetEventDetails(eventId.GetValueOrDefault());
 
+            
+
             var totalSales = eventBookings.Sum(e => e.TotalCost);
-            var ticketTransactionFee = !eventModel.IncludeTransactionFee.GetValueOrDefault() 
-                ? _clientConfig.EventTicketFee 
-                : 0;
-
-            decimal totalTicketFee = 0;
-
-            // Make sure that the configured ticket fee is within 0.1 and 100 so that we can divide it
-            if (ticketTransactionFee != 0 && ticketTransactionFee > 0 && ticketTransactionFee <= 100)
+            var totalTicketQty = eventBookings.SelectMany(b => b.EventBookingTickets).Count();
+            var paymentSummary = new EventPaymentSummary
             {
-                totalTicketFee = totalSales * (ticketTransactionFee / 100);
+                TotalTicketSalesAmount = totalSales
+            };
+
+            if (!eventModel.IncludeTransactionFee.GetValueOrDefault())
+            {
+                var paymentWithFees = new TicketFeeCalculator(_clientConfig).GetOrganiserOwedAmount(totalSales, totalTicketQty);
+                paymentSummary.EventOrganiserFeesTotalFeesAmount = paymentWithFees.EventOrganiserFeesTotalFeesAmount;
+                paymentSummary.EventOrganiserOwedAmount = paymentWithFees.EventOrganiserOwedAmount;
             }
 
-            var organiserPaymentAmount = totalSales - totalTicketFee;
-
-            return new EventPaymentSummary
-            {
-                TotalTicketSalesAmount = totalSales,
-                SystemTicketFee = ticketTransactionFee,
-                EventOrganiserOwedAmount = organiserPaymentAmount
-            };
+            return paymentSummary;
         }
 
         /// <summary>

@@ -45,15 +45,8 @@
                         Do you want the customer to pay the transaction fee? 
                     </p>
                     <input type="checkbox" data-bind="toggle: includeTransactionFee"
-                           data-on="Yes, pass on"
-                           data-off="Absorb fee"/>
-
-                    <p data-bind="visible: includeTransactionFee">
-                        Your customer will pay the additional @Model.EventTicketFee%
-                    </p>
-                    <p data-bind="visible: !includeTransactionFee()">
-                        The organiser will pay the fee @Model.EventTicketFee% per ticket
-                    </p>
+                           data-on="Yes"
+                           data-off="No, I will"/>
                 </div>
             </div>
         </div>

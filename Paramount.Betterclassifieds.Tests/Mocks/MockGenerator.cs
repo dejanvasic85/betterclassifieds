@@ -831,13 +831,13 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.TotalTicketSalesAmount = val);
 		}
-		public EventPaymentSummaryMockBuilder WithSystemTicketFee(Decimal val)
-		{ 
-			return WithBuildStep(p => p.SystemTicketFee = val);
-		}
 		public EventPaymentSummaryMockBuilder WithEventOrganiserOwedAmount(Decimal val)
 		{ 
 			return WithBuildStep(p => p.EventOrganiserOwedAmount = val);
+		}
+		public EventPaymentSummaryMockBuilder WithEventOrganiserFeesTotalFeesAmount(Decimal val)
+		{ 
+			return WithBuildStep(p => p.EventOrganiserFeesTotalFeesAmount = val);
 		}
 	}
 

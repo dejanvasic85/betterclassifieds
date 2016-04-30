@@ -24,8 +24,8 @@
         string ClientName { get; }
         int EventTicketReservationExpiryMinutes { get; }
         int EventMaxTicketsPerBooking { get; }
-        decimal EventTicketFee { get; }
-        decimal EventTicketFeeDecimal { get; }
+        decimal EventTicketFeePercentage { get; }        
+        decimal EventTicketFeeCents { get; }
         bool IsPrintEnabled { get; }
     }
 }

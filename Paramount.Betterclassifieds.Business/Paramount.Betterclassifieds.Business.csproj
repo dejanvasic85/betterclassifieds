@@ -73,6 +73,7 @@
     <Compile Include="Events\EventPaymentRequestStatus.cs" />
     <Compile Include="Events\EventPaymentSummary.cs" />
     <Compile Include="Events\EventTicketFactory.cs" />
+    <Compile Include="Events\TicketFeeCalculator.cs" />
     <Compile Include="Events\IEventBarcodeManager.cs" />
     <Compile Include="Events\IEventManager.cs" />
     <Compile Include="Events\TicketBarcodeService.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Events\EventTicketReservationFactory.cs" />
     <Compile Include="Events\RemainingTicketsWithRequestInfo.cs" />
     <Compile Include="Events\SufficientTicketsRule.cs" />
+    <Compile Include="Events\TicketPrice.cs" />
     <Compile Include="IBusinessRule.cs" />
     <Compile Include="ICategoryAdRepository.cs" />
     <Compile Include="ICategoryAdRepositoryFactory.cs" />

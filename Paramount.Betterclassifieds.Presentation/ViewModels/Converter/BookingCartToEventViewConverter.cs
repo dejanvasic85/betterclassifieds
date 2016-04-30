@@ -59,7 +59,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             eventViewModel.LocationLongitude = bookingCart.Event.LocationLongitude;
             eventViewModel.LocationFloorPlanDocumentId = bookingCart.Event.LocationFloorPlanDocumentId;
             eventViewModel.LocationFloorPlanFilename = bookingCart.Event.LocationFloorPlanFilename;
-
+            
             // Address
             eventViewModel.StreetNumber = bookingCart.Event.Address.StreetNumber;
             eventViewModel.StreetName = bookingCart.Event.Address.StreetName;

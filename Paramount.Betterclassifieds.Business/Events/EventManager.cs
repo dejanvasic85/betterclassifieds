@@ -213,13 +213,11 @@ namespace Paramount.Betterclassifieds.Business.Events
         public EventPaymentSummary BuildPaymentSummary(int? eventId)
         {
             Guard.NotNull(eventId);
-            var eventBookings = _eventRepository.GetEventBookingsForEvent(eventId.GetValueOrDefault()).ToList();
+            var eventBookingTickets = _eventRepository.GetEventBookingTicketsForEvent(eventId.GetValueOrDefault()).ToList();
             var eventModel = _eventRepository.GetEventDetails(eventId.GetValueOrDefault());
-
             
-
-            var totalSales = eventBookings.Sum(e => e.TotalCost);
-            var totalTicketQty = eventBookings.SelectMany(b => b.EventBookingTickets).Count();
+            var totalSales = eventBookingTickets.Sum(t => t.Price.GetValueOrDefault());
+            var totalTicketQty = eventBookingTickets.Count;
             var paymentSummary = new EventPaymentSummary
             {
                 TotalTicketSalesAmount = totalSales

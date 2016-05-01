@@ -61,7 +61,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             Assert.That(viewModel.EventId, Is.EqualTo(eventId));
             Assert.That(viewModel.Guests.Count, Is.EqualTo(2));
             Assert.That(viewModel.TotalRemainingQty, Is.EqualTo(5));
-            Assert.That(viewModel.TotalTicketFees, Is.EqualTo("10%"));
+            Assert.That(viewModel.TotalTicketFees, Is.EqualTo("$10.00"));
             Assert.That(viewModel.EventOrganiserOwedAmount, Is.EqualTo(90));
             Assert.That(viewModel.TotalSoldAmount, Is.EqualTo(100));
             Assert.That(viewModel.IsClosed, Is.True);

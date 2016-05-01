@@ -6,7 +6,6 @@ namespace Paramount.Betterclassifieds.Business.Events
 {
     public class EventBookingFactory
     {
-
         public EventBooking Create(int eventId,
             ApplicationUser applicationUser,
             IEnumerable<EventTicketReservation> currentReservations,
@@ -32,7 +31,8 @@ namespace Paramount.Betterclassifieds.Business.Events
             eventBooking.EventBookingTickets.AddRange(reservations.SelectMany(r => eventBookingTicketFactory.CreateFromReservation(r, createdDate, createdDateUtc)));
 
             // Calculate the total
-            eventBooking.TotalCost = reservations.Sum(r => (r.Price.GetValueOrDefault() + r.TransactionFee.GetValueOrDefault()) * r.Quantity);
+            eventBooking.TotalCost = reservations.Sum(
+                r => (r.Price.GetValueOrDefault() + r.TransactionFee.GetValueOrDefault()) * r.Quantity);
 
             // Ensure the status is payment pending if there's a total cost larger than zero
             eventBooking.Status = eventBooking.TotalCost > 0

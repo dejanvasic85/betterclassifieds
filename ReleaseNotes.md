@@ -1,8 +1,9 @@
 Here's a list of the latest changes:
 
-**3.6.0 Fixes**
+**3.6.0 Adding 30 cents to fees**
 
 - [Fix - Calculating the tickets remaining is not considering unpaid or cancelled tickets.](https://trello.com/c/UllWDORn/441-calculating-the-tickets-remaining-is-not-considering-unpaid-or-cancelled-tickets)
+- [Fix - Credit card payment type was set to None for event booking](https://trello.com/c/T5ROAAoX/454-event-booking-was-not-storing-credit-card-as-the-payment-type)
 
 **3.5.0 Fixes**
 

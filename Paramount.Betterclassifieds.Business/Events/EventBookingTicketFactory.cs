@@ -6,7 +6,6 @@ namespace Paramount.Betterclassifieds.Business.Events
 {
     public class EventBookingTicketFactory
     {
-
         public IEnumerable<EventBookingTicket> CreateFromReservation(EventTicketReservation reservation,
             DateTime createdDate, DateTime createdDateUtc)
         {

@@ -285,6 +285,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             });
 
             // Mark booking as paid in our database
+            _eventManager.SetPaymentReferenceForBooking(eventBooking.EventBookingId, stripePayment.StripeToken, PaymentType.CreditCard);
             _eventManager.EventBookingPaymentCompleted(_eventBookingContext.EventBookingId, PaymentType.CreditCard);
 
             return RedirectToAction("EventBooked");

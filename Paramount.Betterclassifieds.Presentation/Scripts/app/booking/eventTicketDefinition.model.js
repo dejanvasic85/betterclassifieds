@@ -8,7 +8,8 @@
 
         function calculateBuyerPriceWithTxnFee(price) {
             var percentage = ((parent.eventTicketFee() / 100) + 1);
-            return $paramount.formatCurrency((percentage * price) + (parent.eventTicketFeeCents() / 100));
+            var amount = (percentage * price) + (parent.eventTicketFeeCents() / 100);
+            return $paramount.formatCurrency(amount);
         }
 
         me.totalTicketCost = ko.computed(function () {

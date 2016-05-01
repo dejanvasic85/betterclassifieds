@@ -51,6 +51,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             mockBookingCart.SetupWithVerification(call => call.Event, mockEvent);
             mockBookingCart.SetupWithVerification(call => call.StartDate, mockStartDate);
             _clientConfigMock.SetupWithVerification(call => call.EventTicketFeePercentage, 5);
+            _clientConfigMock.SetupWithVerification(call => call.EventTicketFeeCents, 30);
 
             var controller = BuildController();
             var result = controller.EventTickets(mockBookingCart.Object);

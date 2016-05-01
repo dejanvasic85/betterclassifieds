@@ -13,6 +13,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
             HasRequired(prop => prop.Event).WithMany(prop => prop.EventBookings).HasForeignKey(prop => prop.EventId);
             Property(prop => prop.StatusAsString).HasColumnName("Status");
             Property(prop => prop.PaymentMethodAsString).HasColumnName("PaymentMethod");
+            Property(prop => prop.TotalCost).HasPrecision(19, 4);
             Ignore(prop => prop.Status);
             Ignore(prop => prop.PaymentMethod);
         }

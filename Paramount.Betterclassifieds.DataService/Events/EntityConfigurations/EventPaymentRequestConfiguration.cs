@@ -10,6 +10,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
             ToTable("EventPaymentRequest");
             HasKey(prop => prop.EventPaymentRequestId);
             Property(prop => prop.PaymentMethodAsString).HasColumnName("PaymentMethod");
+            Property(prop => prop.RequestedAmount).HasPrecision(19, 4);
             Ignore(prop => prop.PaymentMethod);
         }
     }

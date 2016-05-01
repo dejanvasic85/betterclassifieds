@@ -35,11 +35,10 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
 
             var calculator = new TicketFeeCalculator(clientConfig.Object);
-            var result = calculator.GetOrganiserOwedAmount(11000, 200); // 55 per ticket
+            var result = calculator.GetFeeTotalForOrganiserForAllTicketSales(11000, 200); // 55 per ticket
 
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.EventOrganiserFeesTotalFeesAmount, Is.EqualTo((decimal)489));
-            Assert.That(result.EventOrganiserOwedAmount, Is.EqualTo((decimal)10511.00));
+            Assert.That(result, Is.EqualTo((decimal)489));
         }
     }
 }

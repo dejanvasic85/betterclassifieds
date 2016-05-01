@@ -220,14 +220,15 @@ namespace Paramount.Betterclassifieds.Business.Events
             var totalTicketQty = eventBookingTickets.Count;
             var paymentSummary = new EventPaymentSummary
             {
-                TotalTicketSalesAmount = totalSales
+                TotalTicketSalesAmount = totalSales,
+                EventOrganiserOwedAmount = totalSales
             };
 
             if (!eventModel.IncludeTransactionFee.GetValueOrDefault())
             {
-                var paymentWithFees = new TicketFeeCalculator(_clientConfig).GetOrganiserOwedAmount(totalSales, totalTicketQty);
-                paymentSummary.EventOrganiserFeesTotalFeesAmount = paymentWithFees.EventOrganiserFeesTotalFeesAmount;
-                paymentSummary.EventOrganiserOwedAmount = paymentWithFees.EventOrganiserOwedAmount;
+                var totalFees = new TicketFeeCalculator(_clientConfig).GetFeeTotalForOrganiserForAllTicketSales(totalSales, totalTicketQty);
+                paymentSummary.EventOrganiserOwedAmount -= totalFees;
+                paymentSummary.EventOrganiserFeesTotalFeesAmount = totalFees;
             }
 
             return paymentSummary;

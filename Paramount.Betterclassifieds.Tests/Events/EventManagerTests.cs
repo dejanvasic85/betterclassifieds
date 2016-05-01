@@ -153,13 +153,12 @@ namespace Paramount.Betterclassifieds.Tests.Events
         {
             // arrange
             var eventId = 100;
-            var mockBuilder = new EventBookingMockBuilder().WithEventId(eventId);
-            var mockEventBookings = new[]
-            {
-                mockBuilder.WithEventBookingId(1).WithTotalCost(10).Build(),
-                mockBuilder.WithEventBookingId(2).WithTotalCost(20).Build(),
-                mockBuilder.WithEventBookingId(3).WithTotalCost(30).Build(),
-                mockBuilder.WithEventBookingId(4).WithTotalCost(40).Build()
+            var mockBookingTickets = new[]
+             {
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(10).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(20).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(30).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(40).Build(),
             };
             var mockEvent = new EventModelMockBuilder()
                 .Default()
@@ -167,9 +166,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 .Build();
 
             _clientConfig.SetupWithVerification(call => call.EventTicketFeePercentage, 0);
-            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingsForEvent(
-                It.Is<int>(i => i == eventId),
-                It.IsAny<bool>(), false), mockEventBookings);
+            _clientConfig.SetupWithVerification(call => call.EventTicketFeeCents, 0);
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingTicketsForEvent(It.IsAny<int>()), mockBookingTickets);
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
 
             // act
@@ -181,17 +179,46 @@ namespace Paramount.Betterclassifieds.Tests.Events
         }
 
         [Test]
-        public void BuildPaymentSummary_WithOneAndHalfPercentFee()
+        public void BuildPaymentSummary_WithZeroFee_AndThirtyCents_OrganiserPays()
         {
             // arrange
             var eventId = 100;
-            var mockBuilder = new EventBookingMockBuilder().WithEventId(eventId);
-            var mockEventBookings = new[]
-            {
-                mockBuilder.WithEventBookingId(1).WithTotalCost(10).Build(),
-                mockBuilder.WithEventBookingId(2).WithTotalCost(20).Build(),
-                mockBuilder.WithEventBookingId(3).WithTotalCost(30).Build(),
-                mockBuilder.WithEventBookingId(4).WithTotalCost(40).Build()
+            var mockBookingTickets = new[]
+             {
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(10).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(20).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(30).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(40).Build(),
+            };
+            var mockEvent = new EventModelMockBuilder()
+                .Default()
+                .WithIncludeTransactionFee(false)
+                .Build();
+
+            _clientConfig.SetupWithVerification(call => call.EventTicketFeePercentage, 0);
+            _clientConfig.SetupWithVerification(call => call.EventTicketFeeCents, 50);
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingTicketsForEvent(It.IsAny<int>()), mockBookingTickets);
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
+
+            // act
+            var result = BuildTargetObject().BuildPaymentSummary(eventId);
+
+            // assert
+            Assert.That(result.TotalTicketSalesAmount, Is.EqualTo(100));
+            Assert.That(result.EventOrganiserOwedAmount, Is.EqualTo(98));
+        }
+
+        [Test]
+        public void BuildPaymentSummary_WithOneAndHalfPercentFee()
+        {
+            // arrange
+            var eventId = 100;            
+            var mockBookingTickets = new[]
+             {
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(10).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(20).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(30).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(40).Build(),
             };
             var mockEvent = new EventModelMockBuilder()
                .Default()
@@ -200,8 +227,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
             _clientConfig.SetupWithVerification(call => call.EventTicketFeePercentage, (decimal)1.5);
-            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingsForEvent(It.Is<int>(i => i == eventId),
-                It.IsAny<bool>(), false), mockEventBookings);
+            _clientConfig.SetupWithVerification(call => call.EventTicketFeeCents, 0);
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingTicketsForEvent(It.IsAny<int>()), mockBookingTickets);
 
             // act
             var result = BuildTargetObject().BuildPaymentSummary(eventId);
@@ -216,13 +243,12 @@ namespace Paramount.Betterclassifieds.Tests.Events
         {
             // arrange
             var eventId = 100;
-            var mockBuilder = new EventBookingMockBuilder().WithEventId(eventId);
-            var mockEventBookings = new[]
-            {
-                mockBuilder.WithEventBookingId(1).WithTotalCost(10).Build(),
-                mockBuilder.WithEventBookingId(2).WithTotalCost(20).Build(),
-                mockBuilder.WithEventBookingId(3).WithTotalCost(30).Build(),
-                mockBuilder.WithEventBookingId(4).WithTotalCost(40).Build()
+            var mockBookingTickets = new[]
+             {
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(10).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(20).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(30).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(40).Build(),
             };
             var mockEvent = new EventModelMockBuilder()
                .Default()
@@ -231,8 +257,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
             _clientConfig.SetupWithVerification(call => call.EventTicketFeePercentage, 100);
-            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingsForEvent(It.Is<int>(i => i == eventId),
-                It.IsAny<bool>(), false), mockEventBookings);
+            _clientConfig.SetupWithVerification(call => call.EventTicketFeeCents, 0);
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingTicketsForEvent(It.IsAny<int>()), mockBookingTickets);
 
             // act
             var result = BuildTargetObject().BuildPaymentSummary(eventId);
@@ -247,22 +273,22 @@ namespace Paramount.Betterclassifieds.Tests.Events
         {
             // arrange
             var eventId = 100;
-            var mockBuilder = new EventBookingMockBuilder().WithEventId(eventId);
-            var mockEventBookings = new[]
+
+            var mockBookingTickets = new[]
             {
-                mockBuilder.WithEventBookingId(1).WithTotalCost(10).Build(),
-                mockBuilder.WithEventBookingId(2).WithTotalCost(20).Build(),
-                mockBuilder.WithEventBookingId(3).WithTotalCost(30).Build(),
-                mockBuilder.WithEventBookingId(4).WithTotalCost(40).Build()
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(10).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(20).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(30).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(40).Build(),
             };
+         
             var mockEvent = new EventModelMockBuilder()
                .Default()
                .WithIncludeTransactionFee(true)
                .Build();
 
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
-            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingsForEvent(It.Is<int>(i => i == eventId),
-                It.IsAny<bool>(), false), mockEventBookings);
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingTicketsForEvent(It.IsAny<int>()), mockBookingTickets);
 
             // act
             var result = BuildTargetObject().BuildPaymentSummary(eventId);

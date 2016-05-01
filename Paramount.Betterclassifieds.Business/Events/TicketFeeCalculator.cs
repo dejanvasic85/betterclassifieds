@@ -29,17 +29,11 @@
             return GetTotalTicketPrice(ticket.Price);
         }
 
-        public EventPaymentSummary GetOrganiserOwedAmount(decimal totalTicketSaleAmount, int totalTicketSales)
+        public decimal GetFeeTotalForOrganiserForAllTicketSales(decimal totalTicketSaleAmount, int totalTicketSales)
         {
             var totalFees = totalTicketSaleAmount * GetEventTicketFeePercentage();
             totalFees += totalTicketSales * GetEventTicketFeeCents();
-            var owedAmount = totalTicketSaleAmount - totalFees;
-
-            return new EventPaymentSummary
-            {
-                EventOrganiserOwedAmount = owedAmount,
-                EventOrganiserFeesTotalFeesAmount = totalFees
-            };
+            return totalFees;
         }
 
         private decimal GetEventTicketFeePercentage()

@@ -1,0 +1,68 @@
+﻿@model TicketingPricesExplainedViewModel
+
+@{
+    ViewBag.Title = "Help - Ticketing Price";
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
+}
+
+<div class="container">
+    <div class="row top-buffer-60">
+        <div class="col-xs-12">
+            <h2>Ticketing Fees Explained</h2>
+
+            <p class="lead">
+                Our ticketing fees are simple. For every ticket purchased online, we charge a transaction fee.
+            </p>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Transaction Fee</strong> = (Ticket Price x @Model.EventTicketFeePercentage%) + @Model.EventTicketFeeCents cents</li>
+                <li class="list-group-item"><strong>@Model.Example1Fee.ToString("C")</strong> = (@Model.Example1TicketPrice.ToString("C") x @Model.EventTicketFeePercentage%) + @Model.EventTicketFeeCents cents</li>
+                <li class="list-group-item"><strong>@Model.Example2Fee.ToString("C")</strong> = (@Model.Example2TicketPrice.ToString("C") x @Model.EventTicketFeePercentage%) + @Model.EventTicketFeeCents cents</li>
+                <li class="list-group-item"><strong>@Model.Example3Fee.ToString("C")</strong> = (@Model.Example3TicketPrice.ToString("C") x @Model.EventTicketFeePercentage%) + @Model.EventTicketFeeCents cents</li>
+            </ul>
+
+            <h3>
+                Who pays the fee?
+            </h3>
+            <p class="lead">
+                Option 1: The Customer
+            </p>
+            <p>
+                The default option is that the customer will pay the fee when they are checking out. The fee (see
+                examples above) is simply added to the ticket price. Example:
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        Ticket Price = @Model.Example1TicketPrice.ToString("C") <br/>
+                        Fee = @Model.Example1Fee.ToString("C")<br/>
+                        <strong>Customer pays total of @Model.Example1TotalTicketPrice.ToString("C")</strong>
+                    </div>
+                </div>
+            </p>
+
+            <p class="lead">
+                Option 2: Event Organiser
+            </p>
+            <p>
+                To make it more worthwhile and attractive for the customers, the event organiser can opt to pay the
+                fees themselves. E.g. If the ticket cost is $10, then the customer will pay $10 and no more when they
+                check out.
+            </p>
+            <p>
+                So how does the event organiser foot the bill? Once the ticketing is closed for the event, this means that the
+                tickets can no longer be purchased and the event organiser can request payment.
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        Total Ticket Sales = @Model.ExampleTotalTicketSales.ToString("C") <br/>
+                        Total Tickets Sold = @Model.ExampleTotalTicketQuantitySold<br/>
+                        Total Fees = @Model.ExampleTotalFeeForOrganiser.ToString("C") = (10 x @Model.EventTicketFeeCents cents) + (@Model.ExampleTotalTicketSales x @Model.EventTicketFeePercentage%)<br/>
+                        <strong>Organiser Receives = @Model.ExampleTotalAmountForOrganiser.ToString("C") </strong>
+                    </div>
+                </div>
+            </p>
+
+            <h2>Need more help?</h2>
+            <p class="lead"><a href="@Url.Action("ContactUs", "Home")">Contact Us</a></p>
+        </div>
+    </div>
+</div>

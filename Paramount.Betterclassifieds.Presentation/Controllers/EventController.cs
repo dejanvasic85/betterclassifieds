@@ -291,6 +291,28 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return RedirectToAction("EventBooked");
         }
 
+        [HttpGet]
+        public ActionResult TicketingPrices()
+        {
+            var ticketCalculator = new TicketFeeCalculator(_clientConfig);
+            var vm = new TicketingPricesExplainedViewModel
+            {
+                EventTicketFeePercentage = _clientConfig.EventTicketFeePercentage,
+                EventTicketFeeCents = _clientConfig.EventTicketFeeCents,
+            };
+
+            vm.Example1Fee = ticketCalculator.GetTotalTicketPrice(vm.Example1TicketPrice).Fee;
+            vm.Example2Fee = ticketCalculator.GetTotalTicketPrice(vm.Example2TicketPrice).Fee;
+            vm.Example3Fee = ticketCalculator.GetTotalTicketPrice(vm.Example3TicketPrice).Fee;
+
+            vm.ExampleTotalTicketSales = 100;
+            vm.ExampleTotalTicketQuantitySold = 10;
+            vm.ExampleTotalFeeForOrganiser = ticketCalculator.GetFeeTotalForOrganiserForAllTicketSales(100, 10);
+            vm.ExampleTotalAmountForOrganiser = vm.ExampleTotalTicketSales - vm.ExampleTotalFeeForOrganiser;
+            
+            return View(vm);
+        }
+
 #if DEBUG
 
         /*

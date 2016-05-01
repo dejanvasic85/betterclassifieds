@@ -96,7 +96,10 @@
                 <p class="action-info">
                     = Total ticket sales of @Model.TotalSoldAmount.GetValueOrDefault().ToString("C")
                     <span data-bind="if: organiserAbsorbsTransactionFee">with our fee of @Model.TotalTicketFees.</span>
-                    
+
+                    <a href="@Url.Action("TicketingPrices", "Event")" target="_blank">
+                        <i class="fa fa-info-circle"></i> Click here for more info.
+                    </a>
                 </p>
                 <div class="action-btn">
                     <a class="btn btn-primary" href="@Url.EventPaymentRequest(Model.AdId, Model.EventId)"

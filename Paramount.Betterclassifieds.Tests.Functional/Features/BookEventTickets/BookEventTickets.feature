@@ -28,8 +28,8 @@ Scenario: View event ad with transaction fee should increase the price of ticket
 	And with a ticket option "General Admission" for "5" dollars each and "100" available
 	And with a ticket option "VIP" for "10" dollars each and "100" available
 	When I navigate to "/Event/the-opera/adId"
-	Then the ticket "General Admission" price should be "$5.25"
-	Then the ticket "VIP" price should be "$10.49"
+	Then the ticket "General Admission" price should be "$5.50"
+	Then the ticket "VIP" price should be "$10.69"
 
 
 @DoesNotIncludeTransactionFee

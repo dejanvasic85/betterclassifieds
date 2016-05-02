@@ -6,6 +6,7 @@ Here's a list of the latest changes:
 - [Change Request - Removing the disabled inputs during booking](https://trello.com/c/RaS0abV1/443-the-default-guest-full-name-and-email-extra-fields-shouldn-t-be-displayed-as-disabled-input-tags)
 - [Change Request - Update the home page title](https://trello.com/c/uQeTid2d/451-change-the-title-for-kandobay)
 - [Change Request - The book tickets page is now displaying text with new lines - proper html](https://trello.com/c/qLAT3poS/450-the-book-tickets-page-could-display-html)
+- [Change Request - Warning alert is much better looking with orange text and white background](https://trello.com/c/QlQO9RGy/452-the-warning-colour-in-kandobay-needs-to-be-a-little-lighter-and-friendlier-with-blue-links)
 - [Fix - Calculating the tickets remaining is not considering unpaid or cancelled tickets.](https://trello.com/c/UllWDORn/441-calculating-the-tickets-remaining-is-not-considering-unpaid-or-cancelled-tickets)
 - [Fix - Credit card payment type was set to None for event booking](https://trello.com/c/T5ROAAoX/454-event-booking-was-not-storing-credit-card-as-the-payment-type)
 - [Enhancement - New page explaining the ticketing fees](https://trello.com/c/gEnSOpl6/455-add-a-help-screen-explaining-the-ticketing-fees)

@@ -34,7 +34,7 @@ namespace Paramount.Betterclassifieds.Presentation
         public static void RegisterStyles(BundleCollection bundles)
         {
             bundles.Add(new Bundle("~/Content/css-base")
-                .Include("~/Content/font-awesome-4.4.0.css")
+                .Include("~/Content/font-awesome-4.6.1.css")
                 .Include("~/Content/bootstrap-select.css")
                 .Include("~/Content/datepicker.css")
                 .Include("~/Content/datepicker3.css")

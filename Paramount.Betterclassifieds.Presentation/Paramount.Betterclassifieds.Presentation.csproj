@@ -374,7 +374,7 @@
     <Content Include="Content\event-ticket-print.min.css">
       <DependentUpon>event-ticket-print.css</DependentUpon>
     </Content>
-    <Content Include="Content\font-awesome-4.4.0.css" />
+    <Content Include="Content\font-awesome-4.6.1.css" />
     <Content Include="Content\images\BookUsingThePhone.PNG" />
     <Content Include="Content\images\buttons.gif" />
     <Content Include="Content\images\placeholder.png" />

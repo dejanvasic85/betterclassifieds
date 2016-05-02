@@ -21,7 +21,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             TotelReservationExpiryMinutes = clientConfig.EventTicketReservationExpiryMinutes;
             Title = onlineAdModel.Heading;
             AdId = onlineAdModel.AdId;
-            Description = onlineAdModel.Description;
+            Description = AdText.FromHtmlEncoded(onlineAdModel.HtmlText).HtmlTextEncoded;
             CategoryAdType = onlineAdModel.CategoryAdType;
             EventPhoto = onlineAdModel.PrimaryImage;
             Location = eventDetails.Location;

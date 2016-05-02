@@ -32,7 +32,7 @@
                 <div class="bs-callout bs-callout-info">
                     <h4><i class="fa fa-ticket"></i> &nbsp; Ticketing Setup</h4>
                     <p>
-                        Define your tickets here. You can always add more after your ad is booked.
+                        Define your tickets here. Remember, you can always add more after your ad is booked.
                     </p>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                     </p>
                     <input type="checkbox" data-bind="toggle: includeTransactionFee"
                            data-on="Yes"
-                           data-off="No, I will"/>
+                           data-off="No, I will" />
                 </div>
             </div>
         </div>
@@ -77,13 +77,6 @@
                             <i class="fa fa-trash"></i><span class="hidden-xs"> Remove</span>
                         </button>
                     </div>
-
-                    @*<div class="col-xs-12">
-                        <p data-bind="visible: isPriceAvailable">
-                            <i class="fa fa-2x fa-info-circle"></i>
-
-                        </p>
-                    </div>*@
                 </div>
             </li>
         </ul>
@@ -102,42 +95,11 @@
                 <div class="bs-callout bs-callout-info">
                     <h4><i class="fa fa-users"></i> &nbsp; Guest Information</h4>
                     <p>
-                        What information do you need for your guests (per ticket). Name and Email are already included!
+                        <i class="fa fa-info-circle"></i> Note:  Full name and Email are collected by default.
                     </p>
                 </div>
             </div>
         </div>
-
-        <ul class="list-group">
-            <li class="list-group-item">
-                <div class="row ticket-field-edit">
-                    <div class="col-xs-8 col-sm-6 form-group">
-                        <label>Field Name</label>
-                        <input type="text" class="form-control" value="Name" readonly />
-                    </div>
-                    <div class="col-xs-4 col-sm-6 form-group">
-                        <label>Required</label>
-                        <div class="display-block">
-                            <h4>Yes</h4>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li class="list-group-item">
-                <div class="row ticket-field-edit">
-                    <div class="col-xs-8 col-sm-6 form-group">
-                        <label>Field Name</label>
-                        <input type="text" class="form-control" value="Email" readonly />
-                    </div>
-                    <div class="col-xs-4 col-sm-6 form-group">
-                        <label>Required</label>
-                        <div class="display-block">
-                            <h4>Yes</h4>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
 
         <ul class="list-group" data-bind="foreach: ticketFields">
             <li class="list-group-item">

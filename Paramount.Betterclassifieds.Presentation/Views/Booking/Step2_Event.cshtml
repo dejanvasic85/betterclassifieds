@@ -260,15 +260,15 @@
 
                 <div class="col-xs-12">
                     <div class="form-group-lg">
-                        <label>Ad Start Date *</label>
+                        <label>Event Publish Date *</label>
                         <input type="text" class="form-control" id="AdStartDate" name="AdStartDate"
                                data-bind="date: adStartDate"
                                data-val="true"
-                               data-val-required="Start date for your ad is required" />
+                               data-val-required="Start date for your event ad is required" />
                         <span class="field-validation-valid help-block" data-valmsg-for="AdStartDate" data-valmsg-replace="true"></span>
 
                         <div class="alert alert-info-alt" data-bind="visible: adEndDate().length > 0 && configDurationDays <= 90">
-                            Your ad will run for <span data-bind="text: configDurationDays"></span> days and expires <strong><span data-bind="text: adEndDate"></span></strong>
+                            Your event ad will run for <span data-bind="text: configDurationDays"></span> days and expires <strong><span data-bind="text: adEndDate"></span></strong>
                         </div>
                     </div>
                 </div>
@@ -289,7 +289,7 @@
                     Click Next to configure your tickets.
                 </div>
                 <div class="col-xs-12 text-center" data-bind="visible: ticketingEnabled() === false">
-                    Good news. You can always come back and turn on the ticketing feature after your ad is booked.
+                    Good news. You can always come back and turn on the ticketing feature after your event is booked or even published.
                 </div>
             </div>
 

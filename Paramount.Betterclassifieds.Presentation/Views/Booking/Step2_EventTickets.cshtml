@@ -32,7 +32,7 @@
                 <div class="bs-callout bs-callout-info">
                     <h4><i class="fa fa-ticket"></i> &nbsp; Ticketing Setup</h4>
                     <p>
-                        Define your tickets here. Remember, you can always add more after your ad is booked.
+                        Define your tickets here. Remember, you can always add more after your event is published.
                     </p>
                 </div>
             </div>
@@ -42,7 +42,7 @@
             <div class="col-xs-12">
                 <div class="alert alert-info-alt">
                     <p>
-                        Do you want the customer to pay the transaction fee? <a class="btn btn-info" href="@Url.Action("TicketingPrices", "Event")" target="_blank">Click here for more info</a>
+                        Do you want the customer to pay the transaction fee? <a class="btn btn-sm btn-warning" href="@Url.Action("TicketingPrices", "Event")" target="_blank">Click here for more info</a>
                     </p>
                     <input type="checkbox" data-bind="toggle: includeTransactionFee"
                            data-on="Yes"
@@ -95,7 +95,7 @@
                 <div class="bs-callout bs-callout-info">
                     <h4><i class="fa fa-users"></i> &nbsp; Guest Information</h4>
                     <p>
-                        What details do you want to collect for each guest? 
+                        What details do you want to collect for each guest?
                     </p>
                     <p>
                         <i class="fa fa-info-circle"></i> Note:  Full name and Email are collected by default.
@@ -147,7 +147,8 @@
 
                     </p>
                     <p>
-                        <i class="fa fa-info-circle"></i> Note: Closing of an event can occur at any time after the ad is booked.
+                        <i class="fa fa-info-circle"></i> Note: Closing of an event can occur at any time after the event
+                        is published to the public using your event management dashboard.
                     </p>
                 </div>
             </div>
@@ -157,13 +158,14 @@
                     <input type="text" class="form-control input-lg" data-bind="date: closingDate">
                     <div class="input-group-btn input-group-lg">
                         <button class="btn btn-default" type="button" data-bind="click: clearClosingDate">
-                            Clear
+                            <i class="fa fa-times"></i> Clear
                         </button>
                     </div>
 
                 </div><!-- /input-group -->
                 <div class="help-block">
-                    Please ensure that the Closing date is after the ad start date of @Model.AdStartDate.GetValueOrDefault().ToString("dd/MM/yyyy")
+                    The event is set to be published on @Model.AdStartDate.GetValueOrDefault().ToString("dd/MM/yyyy").
+                    Ticketing cannot be closed before this day.
                 </div>
             </div>
 

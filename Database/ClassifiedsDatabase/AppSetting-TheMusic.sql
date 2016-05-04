@@ -41,6 +41,8 @@ execute temp_createAppSetting @Key = 'EventMaxTicketsPerBooking', @Setting = '5'
 execute temp_createAppSetting @Key = 'EventTicketFee', @Setting = '4.9', @Force = 1
 execute temp_createAppSetting @Key = 'EventTicketFeeCents', @Setting = '30', @Force = 1
 execute temp_createAppSetting @Key = 'IsPrintEnabled', @Setting = 'False', @Force = 1
+execute temp_createAppSetting @Key = 'Events.EnablePayPalPayments', @Setting = 'True', @Force = 1
+execute temp_createAppSetting @Key = 'Events.EnableCreditCardPayments', @Setting = 'True', @Force = 1
 
 
 drop procedure temp_createAppSetting

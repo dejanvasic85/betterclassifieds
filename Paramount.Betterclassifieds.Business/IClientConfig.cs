@@ -27,5 +27,7 @@
         decimal EventTicketFeePercentage { get; }        
         decimal EventTicketFeeCents { get; }
         bool IsPrintEnabled { get; }
+        bool EnablePayPalPayments { get; }
+        bool EnableCreditCardPayments { get; }
     }
 }

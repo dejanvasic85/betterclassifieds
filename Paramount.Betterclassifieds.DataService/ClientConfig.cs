@@ -21,15 +21,10 @@
                 var appSetting = context.AppSettings.FirstOrDefault(setting => setting.AppKey == settingName);
                 if (appSetting == null && required)
                 {
-                    throw new ConfigurationErrorsException(string.Format("Setting [{0}] does not exist for Client", settingName));
+                    throw new ConfigurationErrorsException($"Required setting [{settingName}] does not exist for Client");
                 }
 
-                if (appSetting == null)
-                {
-                    // Setting is not required - so just return the default value
-                    return null;
-                }
-                return appSetting.SettingValue;
+                return appSetting?.SettingValue;
             }
         }
 
@@ -46,22 +41,11 @@
 
         }
 
-        public int RestrictedEditionCount
-        {
-            // Print setting
-            get { return GetValueFromDatabase<int>("MaximumInsertions", false); }
-        }
+        public int RestrictedEditionCount => GetValueFromDatabase<int>("MaximumInsertions", false);
 
-        public int RestrictedOnlineDaysCount
-        {
-            get { return GetValueFromDatabase<int>("AdDurationDays"); }
-        }
+        public int RestrictedOnlineDaysCount => GetValueFromDatabase<int>("AdDurationDays");
 
-        public int NumberOfDaysAfterLastEdition
-        {
-            // Print setting
-            get { return GetValueFromDatabase<int>("NumberOfDaysAfterLastEdition", false); }
-        }
+        public int NumberOfDaysAfterLastEdition => GetValueFromDatabase<int>("NumberOfDaysAfterLastEdition", false);
 
         public string FacebookAppId
         {
@@ -76,20 +60,11 @@
             }
         }
 
-        public int SearchResultsPerPage
-        {
-            get { return GetValueFromDatabase<int>("SearchResultsPerPage"); }
-        }
+        public int SearchResultsPerPage => GetValueFromDatabase<int>("SearchResultsPerPage");
 
-        public int SearchMaxPagedRequests
-        {
-            get { return GetValueFromDatabase<int>("SearchMaxPagedRequests"); }
-        }
+        public int SearchMaxPagedRequests => GetValueFromDatabase<int>("SearchMaxPagedRequests");
 
-        public Address ClientAddress
-        {
-            get { return Address.FromCsvString(GetValueFromDatabase("ClientAddress"), ','); }
-        }
+        public Address ClientAddress => Address.FromCsvString(GetValueFromDatabase("ClientAddress"), ',');
 
         public Tuple<string, string> ClientAddressLatLong
         {
@@ -100,71 +75,39 @@
             }
         }
 
-        public string ClientPhoneNumber
-        {
-            get { return GetValueFromDatabase("ClientPhoneNumber", false); }
-        }
+        public string ClientPhoneNumber => GetValueFromDatabase("ClientPhoneNumber", false);
 
-        public string[] SupportEmailList
-        {
-            get { return GetValueFromDatabase("SupportNotificationAccounts").Split(';'); }
-        }
+        public string[] SupportEmailList => GetValueFromDatabase("SupportNotificationAccounts").Split(';');
 
-        public int? MaxOnlineImages
-        {
-            get { return GetValueFromDatabase<int>("MaxOnlineImages"); }
-        }
+        public int? MaxOnlineImages => GetValueFromDatabase<int>("MaxOnlineImages");
 
-        public string PublisherHomeUrl
-        {
-            get { return GetValueFromDatabase("PublisherHomeUrl", false); }
-        }
+        public string PublisherHomeUrl => GetValueFromDatabase("PublisherHomeUrl", false);
 
-        public bool IsTwoFactorAuthEnabled
-        {
-            get { return GetValueFromDatabase<bool>("EnableTwoFactorAuth"); }
-        }
+        public bool IsTwoFactorAuthEnabled => GetValueFromDatabase<bool>("EnableTwoFactorAuth");
 
-        public int PrintImagePixelsWidth
-        {
-            get { return GetValueFromDatabase<int>("PrintImagePixelsWidth"); }
-        }
+        public int PrintImagePixelsWidth => GetValueFromDatabase<int>("PrintImagePixelsWidth");
 
-        public int PrintImagePixelsHeight
-        {
-            get { return GetValueFromDatabase<int>("PrintImagePixelsHeight"); }
-        }
+        public int PrintImagePixelsHeight => GetValueFromDatabase<int>("PrintImagePixelsHeight");
 
-        public int PrintImageResolution
-        {
-            get { return GetValueFromDatabase<int>("PrintImageResolution"); }
-        }
+        public int PrintImageResolution => GetValueFromDatabase<int>("PrintImageResolution");
 
-        public string ClientName
-        {
-            get { return GetValueFromDatabase<string>("ClientName"); }
-        }
+        public string ClientName => GetValueFromDatabase<string>("ClientName");
 
-        public int EventTicketReservationExpiryMinutes
-        {
-            get { return GetValueFromDatabase<int>("EventTicketReservationExpiryMinutes"); }
-        }
+        public int EventTicketReservationExpiryMinutes => GetValueFromDatabase<int>("EventTicketReservationExpiryMinutes");
 
         public int EventMaxTicketsPerBooking { get { return GetValueFromDatabase<int>("EventMaxTicketsPerBooking"); } }
 
         /// <summary>
         /// Stored as a whole number e.g. 4% and needs to be converted to an actual decimal by dividing by 100
         /// </summary>
-        public decimal EventTicketFeePercentage
-        {
-            get { return GetValueFromDatabase<decimal>("EventTicketFee"); }
-        }
-        
-        public decimal EventTicketFeeCents { get { return GetValueFromDatabase<decimal>("EventTicketFeeCents"); } }
+        public decimal EventTicketFeePercentage => GetValueFromDatabase<decimal>("EventTicketFee");
 
-        public bool IsPrintEnabled
-        {
-            get { return GetValueFromDatabase<bool>("IsPrintEnabled", false); }
-        }
+        public decimal EventTicketFeeCents => GetValueFromDatabase<decimal>("EventTicketFeeCents");
+
+        public bool IsPrintEnabled => GetValueFromDatabase<bool>("IsPrintEnabled", false);
+
+        public bool EnablePayPalPayments => GetValueFromDatabase<bool>("Events.EnablePayPalPayments", false);
+
+        public bool EnableCreditCardPayments => GetValueFromDatabase<bool>("Events.EnableCreditCardPayments", false);
     }
 }

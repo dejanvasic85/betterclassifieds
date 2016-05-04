@@ -8,5 +8,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public int TotalCostCents => (int)(TotalCost * 100);
         public List<EventBookingTicketViewModel> EventTickets { get; set; }
         public string StripePublishableKey { get; set; }
+        public bool EnablePayPalPayments { get; set; }
+        public bool EnableCreditCardPayments { get; set; }
     }
 }

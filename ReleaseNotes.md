@@ -1,5 +1,9 @@
 Here's a list of the latest changes:
 
+**3.7.0**
+
+- [Payment methods can now be configured](https://trello.com/c/dV698u68/461-events-make-payment-methods-optional)
+
 **3.6.0 30 cents added to ticket fees**
 
 - [Change Request - Add an additional transaction fee](https://trello.com/c/yG9gsR9U/453-add-30-cents-to-the-transaction-fee)

@@ -229,7 +229,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 TotalCost = eventBooking.TotalCost,
                 EventTickets = this.MapList<EventBookingTicket, EventBookingTicketViewModel>(eventBooking.EventBookingTickets.ToList()),
-                StripePublishableKey = _appConfig.StripePublishableKey
+                StripePublishableKey = _appConfig.StripePublishableKey,
+                EnablePayPalPayments = _clientConfig.EnablePayPalPayments,
+                EnableCreditCardPayments = _clientConfig.EnableCreditCardPayments,
             };
 
             return View(viewModel);

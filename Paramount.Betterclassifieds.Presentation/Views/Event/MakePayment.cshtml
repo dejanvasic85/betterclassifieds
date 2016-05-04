@@ -58,35 +58,43 @@
 
             <table class="table">
                 <tr>
-                    <td>
-                        <h4>Credit Card <i class="fa fa-credit-card"></i></h4>
-                        <p>
-                            Safely use our quick checkout, you can be sure we
-                            do not store your card details.
-                        </p>
-                        <form action="@Url.EventPayWithStripe()" method="POST">
-                            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                    data-key="@Model.StripePublishableKey"
-                                    data-amount="@Model.TotalCostCents"
-                                    data-name=""
-                                    data-description="Ticket Purchase"
-                                    data-locale="auto"
-                                    data-zip-code="false"
-                                    data-currency="aud">
+                    @if (Model.EnableCreditCardPayments)
+                    {
+                        <td>
+                            <h4>Credit Card <i class="fa fa-credit-card"></i></h4>
+                            <p>
+                                Safely use our quick checkout, you can be sure we
+                                do not store your card details.
+                            </p>
+                            <form action="@Url.EventPayWithStripe()" method="POST">
+                                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                        data-key="@Model.StripePublishableKey"
+                                        data-amount="@Model.TotalCostCents"
+                                        data-name=""
+                                        data-description="Ticket Purchase"
+                                        data-locale="auto"
+                                        data-zip-code="false"
+                                        data-currency="aud">
 
 
-                            </script>
-                        </form>
-                    </td>
-                    <td>
-                        <h4>PayPal <i class="fa fa-paypal"></i></h4>
-                        <p>The security you rely on – now even faster. It’s everything checkout should be. </p>
-                        <p>
-                            <button type="submit" class="btn btn-info js-load" id="payWithPayPal">
-                                Pay with PayPal <i class="fa fa-paypal"></i>
-                            </button>
-                        </p>
-                    </td>
+
+                                </script>
+                            </form>
+                        </td>
+                    }
+
+                    @if (Model.EnablePayPalPayments)
+                    {
+                        <td>
+                            <h4>PayPal <i class="fa fa-paypal"></i></h4>
+                            <p>The security you rely on – now even faster. It’s everything checkout should be. </p>
+                            <p>
+                                <button type="submit" class="btn btn-info js-load" id="payWithPayPal">
+                                    Pay with PayPal <i class="fa fa-paypal"></i>
+                                </button>
+                            </p>
+                        </td>
+                    }
                 </tr>
             </table>
 

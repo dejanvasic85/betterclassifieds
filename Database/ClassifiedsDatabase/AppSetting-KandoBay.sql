@@ -26,16 +26,19 @@ execute temp_createAppSetting @Key = 'SearchResultsPerPage', @Setting = '10'
 execute temp_createAppSetting @Key = 'SearchMaxPagedRequests', @Setting = '100'
 execute temp_createAppSetting @Key = 'MaxOnlineImages', @Setting = '5'
 execute temp_createAppSetting @Key = 'SupportNotificationAccounts', @Setting = 'support@paramountit.com.au'
-execute temp_createAppSetting @Key = 'AdDurationDays', @Setting = '730'
+execute temp_createAppSetting @Key = 'AdDurationDays', @Setting = '730', @Force = 1
 execute temp_createAppSetting @Key = 'ClientAddress', @Setting = 'PO Box 333, Lennox St,Richmond,VIC,3121,Australia', @Force = 1
 execute temp_createAppSetting @Key = 'ClientAddressLatLong', @Setting = '-37.818635,145.001470', @Force = 1
 execute temp_createAppSetting @Key = 'EnableTwoFactorAuth', @Setting = 'true', @Force = 1
 execute temp_createAppSetting @Key = 'ClientName', @Setting = 'KandoBay', @Force = 1
 execute temp_createAppSetting @Key = 'EventTicketReservationExpiryMinutes', @Setting = '20'
 execute temp_createAppSetting @Key = 'EventMaxTicketsPerBooking', @Setting = '20', @Force = 1
-execute temp_createAppSetting @Key = 'EventTicketFee', @Setting = '3.9', @Force = 1
+execute temp_createAppSetting @Key = 'EventTicketFee', @Setting = '2.9', @Force = 1
 execute temp_createAppSetting @Key = 'EventTicketFeeCents', @Setting = '30', @Force = 1
 execute temp_createAppSetting @Key = 'FacebookAppId', @Setting = '1277927115555890', @Force = 1
+execute temp_createAppSetting @Key = 'Events.EnablePayPalPayments', @Setting = 'true', @Force = 1
+execute temp_createAppSetting @Key = 'Events.EnableCreditCardPayments', @Setting = 'true', @Force = 1
+
 
 
 drop procedure temp_createAppSetting

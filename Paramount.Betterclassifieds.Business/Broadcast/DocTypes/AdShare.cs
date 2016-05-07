@@ -5,9 +5,8 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
 {
     public class AdShare : IDocType
     {
-        public string DocumentType { get { return GetType().Name; } }
+        public string DocumentType => GetType().Name;
         public IList<EmailAttachment> Attachments { get; set; }
-
 
         [Placeholder("AdvertiserName")]
         public string AdvertiserName { get; set; }
@@ -20,7 +19,5 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
 
         [Placeholder("AdTitle")]
         public string AdTitle { get; set; }
-
-
     }
 }

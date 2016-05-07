@@ -32,7 +32,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 _broadcastManager.Queue(new AdShare
                 {
                     AdvertiserName = adSearchResult.ContactName,
-                    AdDescription = adSearchResult.HtmlText.TruncateOnWordBoundary(100),
+                    AdDescription = adSearchResult.HtmlText,
                     AdTitle = adSearchResult.Heading,
                     ClientName = friendEmail
                 }, friendEmail);

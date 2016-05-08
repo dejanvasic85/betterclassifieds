@@ -8,6 +8,7 @@
         $.extend(data, {});
 
         me.tickets = ko.observableArray();
+        me.eventId = ko.observable(data.eventId);
 
         $.each(data.ticketData, function (index, item) {
             me.tickets.push(new $paramount.models.EventTicket(item, data.maxTicketsPerBooking));

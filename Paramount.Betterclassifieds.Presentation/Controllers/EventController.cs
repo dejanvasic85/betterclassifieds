@@ -40,11 +40,18 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpPost]
-        public ActionResult ReserveTickets(List<EventTicketRequestViewModel> tickets)
+        public ActionResult ReserveTickets(int eventId, List<EventTicketRequestViewModel> tickets)
         {
             if (tickets == null || tickets.Count == 0)
             {
                 ModelState.AddModelError("Tickets", "No tickets have been selected");
+                return Json(new { Errors = ModelState.ToErrors() });
+            }
+
+            var eventModel = _eventManager.GetEventDetails(eventId);
+            if (eventModel.IsClosed)
+            {
+                ModelState.AddModelError("Tickets", "The event is closed and is not accepting any more ticket purchases.");
                 return Json(new { Errors = ModelState.ToErrors() });
             }
 

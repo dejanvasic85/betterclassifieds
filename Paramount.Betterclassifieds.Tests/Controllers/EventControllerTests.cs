@@ -82,7 +82,29 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         public void ReserveTickets_Post_NothingSelected_ReturnsModelError()
         {
             var controller = BuildController();
-            var result = controller.ReserveTickets(null);
+            var result = controller.ReserveTickets(1, null);
+            var jsonResult = result.IsTypeOf<JsonResult>();
+            jsonResult.JsonResultContainsErrors();
+        }
+
+        [Test]
+        public void ReserveTickets_Post_EventIsClosed_ReturnsModelError()
+        {
+            // arrange
+            var eventTicketRequests = new List<EventTicketRequestViewModel>
+            {
+                new EventTicketRequestViewModel {TicketName = "Tick1", AvailableQuantity = 10, EventId = 999, Price = 10, SelectedQuantity = 1},
+                new EventTicketRequestViewModel {TicketName = "Tick2", AvailableQuantity = 11, EventId = 999, Price = 60, SelectedQuantity = 2},
+            };
+
+            var mockEventModel = new EventModelMockBuilder()
+                .WithPastClosedDate()
+                .Build();
+            
+            _eventManager.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEventModel);
+
+            var controller = BuildController();
+            var result = controller.ReserveTickets(1, eventTicketRequests);
             var jsonResult = result.IsTypeOf<JsonResult>();
             jsonResult.JsonResultContainsErrors();
         }
@@ -98,16 +120,22 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             };
 
             var mockReservations = new[] { new EventTicketReservationMockBuilder().Build() };
+            var mockEventModel = new EventModelMockBuilder()
+                .WithClosingDate(DateTime.Now.AddMonths(1))
+                .WithClosingDateUtc(DateTime.UtcNow.AddMonths(1))
+                .Default()
+                .Build();
 
             // arrange service calls
             _httpContext.SetupWithVerification(call => call.Session.SessionID, "123");
+            _eventManager.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEventModel);
             _eventManager.SetupWithVerification(call => call.ReserveTickets(It.IsAny<string>(), It.IsAny<IEnumerable<EventTicketReservation>>()));
             _eventTicketReservationFactory.SetupWithVerification(call => call.CreateReservations(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()), mockReservations);
             _eventBookingContext.SetupWithVerification(call => call.Clear());
 
             // act
             var controller = BuildController();
-            var result = controller.ReserveTickets(eventTicketRequests);
+            var result = controller.ReserveTickets(1, eventTicketRequests);
 
             // assert
             result.IsTypeOf<JsonResult>().JsonResultPropertyEquals("NextUrl", "/Event/BookTickets");

@@ -51,9 +51,6 @@
             return me.ticketFields().length > 3;
         });
 
-        me.showClosingDateInfo = ko.computed(function () {
-            return me.closingDate() !== null;
-        });
 
         me.clearClosingDate = function () {
             me.closingDate(null);

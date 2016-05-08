@@ -6,6 +6,7 @@ Here's a list of the latest changes:
 - [Enhancement - The transaction fee needs to be captured for tickets booked and the parent event booking.](https://trello.com/c/QcFBGDZO/462-the-transaction-fee-needs-to-be-captured-for-tickets-booked-and-the-parent-event-booking)
 - [Fix - Event was closed but tickets could still be booked](https://trello.com/c/2UyfhWrn/463-the-event-was-closed-but-tickets-could-still-be-booked)
 - [Fix - Events can be closed from the dashboard again](https://trello.com/c/PohF9zHJ/464-closing-an-event-was-throwing-an-error-when-attaching-to-the-db-model)
+- [Change Request - No longer expiring the ad when event is closed](https://trello.com/c/LC27lgu4/465-do-not-expire-the-ad-when-closing-event-ticket-purchases)
 
 **3.6.0 Extra 30 cents added to ticket fees**
 

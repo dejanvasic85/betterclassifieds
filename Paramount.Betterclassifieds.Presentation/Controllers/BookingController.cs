@@ -425,11 +425,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             bookingCart.Event.Tickets = this.MapList<BookingEventTicketViewModel, EventTicket>(viewModel.Tickets);
             bookingCart.Event.TicketFields = this.MapList<EventTicketFieldViewModel, EventTicketField>(viewModel.TicketFields);
             bookingCart.Event.IncludeTransactionFee = viewModel.IncludeTransactionFee;
-
-            if (viewModel.ClosingDate.HasValue)
-            {
-                bookingCart.EndDate = viewModel.ClosingDate;
-            }
+            bookingCart.Event.ClosingDate = viewModel.ClosingDate;
+            bookingCart.Event.ClosingDateUtc = viewModel.ClosingDate?.ToUniversalTime();
 
             _cartRepository.Save(bookingCart);
             var nextUrl = Url.Action("Step3");

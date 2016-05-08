@@ -1,9 +1,11 @@
 Here's a list of the latest changes:
 
-**3.7.0**
+**3.7.0 Payment config and Fee Capture**
 
-- [Payment methods can now be configured](https://trello.com/c/dV698u68/461-events-make-payment-methods-optional)
-- [The transaction fee needs to be captured for tickets booked and the parent event booking.](https://trello.com/c/QcFBGDZO/462-the-transaction-fee-needs-to-be-captured-for-tickets-booked-and-the-parent-event-booking)
+- [Enhancement - Payment methods can now be configured](https://trello.com/c/dV698u68/461-events-make-payment-methods-optional)
+- [Enhancement - The transaction fee needs to be captured for tickets booked and the parent event booking.](https://trello.com/c/QcFBGDZO/462-the-transaction-fee-needs-to-be-captured-for-tickets-booked-and-the-parent-event-booking)
+- [Fix - Event was closed but tickets could still be booked](https://trello.com/c/2UyfhWrn/463-the-event-was-closed-but-tickets-could-still-be-booked)
+- [Fix - Events can be closed from the dashboard again](https://trello.com/c/PohF9zHJ/464-closing-an-event-was-throwing-an-error-when-attaching-to-the-db-model)
 
 **3.6.0 Extra 30 cents added to ticket fees**
 

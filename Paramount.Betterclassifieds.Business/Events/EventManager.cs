@@ -135,7 +135,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         public string CreateEventTicketsDocument(int eventBookingId, byte[] ticketPdfData, DateTime? ticketsSentDate = null)
         {
             var pdfDocument = new Document(Guid.NewGuid(), ticketPdfData, ContentType.Pdf,
-                fileName: string.Format("{0}_.pdf", eventBookingId),
+                fileName: $"{eventBookingId}_.pdf",
                 fileLength: ticketPdfData.Length);
 
             _documentRepository.Save(pdfDocument);

@@ -402,7 +402,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var viewModel = new BookingEventTicketSetupViewModel
             {
-                ClosingDate = bookingCart.With(b => b.Event).ClosingDate,
+                ClosingDate = bookingCart.With(b => b.Event).With(e => e.ClosingDate),
                 AdStartDate = bookingCart.StartDate,
                 IncludeTransactionFee = bookingCart.With(b => b.Event).IncludeTransactionFee,
                 Tickets = this.MapList<EventTicket, BookingEventTicketViewModel>(bookingCart.Event.Tickets.ToList()),

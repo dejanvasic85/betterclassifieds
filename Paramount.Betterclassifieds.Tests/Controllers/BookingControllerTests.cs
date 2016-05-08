@@ -92,7 +92,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         }
 
         [Test]
-        public void EventTickets_Post_SetsTheEndDate_ReturnsJsonResult()
+        public void EventTickets_Post_SetsTheClosingDate_ReturnsJsonResult()
         {
             var mockEvent = new EventModelMockBuilder().Build();
 
@@ -115,7 +115,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             // assert
             result.IsTypeOf<JsonResult>();
             result.JsonResultContains("/Booking/Step/3");
-            mockBookingCart.Object.EndDate.IsEqualTo(mockClosingDate);
+            mockBookingCart.Object.Event.ClosingDate.IsEqualTo(mockClosingDate);
         }
 
         [Test]

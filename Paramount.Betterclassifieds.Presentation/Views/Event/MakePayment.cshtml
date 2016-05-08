@@ -23,6 +23,9 @@
             <h1>
                 Checkout <i class="fa fa-shopping-cart"></i>
             </h1>
+            <p class="lead">
+                You have committed to purchase tickets. Please DO NOT refresh or navigate away from this page.
+            </p>
 
             <table class="table table-responsive">
                 <thead>
@@ -41,7 +44,7 @@
                             <td><i class="fa fa-ticket"></i></td>
                             <td>@t.GuestFullName</td>
                             <td>@t.TicketName</td>
-                            <td>@t.Price.GetValueOrDefault().ToString("C")</td>
+                            <td>@t.TotalPrice.GetValueOrDefault().ToString("C")</td>
                         </tr>
                     }
                 </tbody>

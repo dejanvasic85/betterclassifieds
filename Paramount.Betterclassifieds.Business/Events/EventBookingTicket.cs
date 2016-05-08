@@ -21,5 +21,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         public DateTime? CreatedDateTime { get; set; }
         public DateTime? CreatedDateTimeUtc { get; set; }
         public List<EventBookingTicketField> TicketFieldValues { get; set; }
+        public decimal? TransactionFee { get; set; }
+        public decimal TotalPrice { get; set; }
     }
 }

@@ -12,6 +12,8 @@ namespace Paramount.Betterclassifieds.DataService.Events
             HasRequired(prop => prop.EventTicket).WithMany(prop => prop.EventBookingTickets).HasForeignKey(prop => prop.EventTicketId);
             HasRequired(prop => prop.EventBooking).WithMany(prop => prop.EventBookingTickets).HasForeignKey(prop => prop.EventBookingId);
             Property(prop => prop.Price).HasPrecision(19, 4);
+            Property(prop => prop.TransactionFee).HasPrecision(19, 4);
+            Property(prop => prop.TotalPrice).HasPrecision(19, 4);
         }
     }
 }

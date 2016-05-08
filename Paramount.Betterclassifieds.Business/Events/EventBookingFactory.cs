@@ -23,7 +23,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                 Email = applicationUser.Email,
                 Phone = applicationUser.Phone,
                 PostCode = applicationUser.Postcode,
-                UserId = applicationUser.Username
+                UserId = applicationUser.Username,               
             };
 
             // Add the ticket bookings
@@ -31,8 +31,9 @@ namespace Paramount.Betterclassifieds.Business.Events
             eventBooking.EventBookingTickets.AddRange(reservations.SelectMany(r => eventBookingTicketFactory.CreateFromReservation(r, createdDate, createdDateUtc)));
 
             // Calculate the total
-            eventBooking.TotalCost = reservations.Sum(
-                r => (r.Price.GetValueOrDefault() + r.TransactionFee.GetValueOrDefault()) * r.Quantity);
+            eventBooking.Cost = reservations.Sum(r => r.Price.GetValueOrDefault());
+            eventBooking.TransactionFee = reservations.Sum(r => r.TransactionFee.GetValueOrDefault());
+            eventBooking.TotalCost = eventBooking.Cost + eventBooking.TransactionFee;
 
             // Ensure the status is payment pending if there's a total cost larger than zero
             eventBooking.Status = eventBooking.TotalCost > 0

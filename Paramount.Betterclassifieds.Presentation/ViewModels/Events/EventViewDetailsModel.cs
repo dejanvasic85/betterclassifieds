@@ -32,7 +32,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             OrganiserPhone = searchResult.ContactPhone;
             Views = searchResult.NumOfViews;
             SocialShareText = "This looks good '" + httpContext.Server.HtmlEncode(searchResult.Heading) + "'";
-
+            IsClosed = eventModel.IsClosed;
 
             EventId = eventModel.EventId.GetValueOrDefault();
             Location = eventModel.Location;

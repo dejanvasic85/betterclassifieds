@@ -623,6 +623,14 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.TicketFieldValues = val);
 		}
+		public EventBookingTicketMockBuilder WithTransactionFee(Decimal? val)
+		{ 
+			return WithBuildStep(p => p.TransactionFee = val);
+		}
+		public EventBookingTicketMockBuilder WithTotalPrice(Decimal val)
+		{ 
+			return WithBuildStep(p => p.TotalPrice = val);
+		}
 	}
 
 	internal partial class EventBookingTicketValidationMockBuilder : MockBuilder<EventBookingTicketValidationMockBuilder, EventBookingTicketValidation>
@@ -726,6 +734,14 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventBookingMockBuilder WithTicketsSentDateUtc(DateTime? val)
 		{ 
 			return WithBuildStep(p => p.TicketsSentDateUtc = val);
+		}
+		public EventBookingMockBuilder WithCost(Decimal val)
+		{ 
+			return WithBuildStep(p => p.Cost = val);
+		}
+		public EventBookingMockBuilder WithTransactionFee(Decimal val)
+		{ 
+			return WithBuildStep(p => p.TransactionFee = val);
 		}
 	}
 

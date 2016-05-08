@@ -58,6 +58,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 .WithEventTicket(new EventTicketMockBuilder().Build())
                 .WithGuestFullName("guest name")
                 .WithQuantity(2)
+                .WithTransactionFee(2)
                 .WithPrice(10);
 
             var eventTicketReservations = new List<EventTicketReservation>
@@ -82,7 +83,9 @@ namespace Paramount.Betterclassifieds.Tests.Events
             Assert.That(result, Is.TypeOf<EventBooking>());
             Assert.That(result.EventBookingTickets, Is.Not.Null);
             Assert.That(result.EventBookingTickets.Count, Is.EqualTo(4));   // Two reservations * Two Qty
-            Assert.That(result.TotalCost, Is.EqualTo(40));                  // Two reservations * Price of 10
+            Assert.That(result.TotalCost, Is.EqualTo(24));                  // Two reservations * Price of 10 + $2 txnfee
+            Assert.That(result.TransactionFee, Is.EqualTo(4));
+            Assert.That(result.Cost, Is.EqualTo(20));
             Assert.That(result.Status, Is.EqualTo(EventBookingStatus.PaymentPending));
             
         }

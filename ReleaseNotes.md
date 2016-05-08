@@ -3,8 +3,9 @@ Here's a list of the latest changes:
 **3.7.0**
 
 - [Payment methods can now be configured](https://trello.com/c/dV698u68/461-events-make-payment-methods-optional)
+- [The transaction fee needs to be captured for tickets booked and the parent event booking.](https://trello.com/c/QcFBGDZO/462-the-transaction-fee-needs-to-be-captured-for-tickets-booked-and-the-parent-event-booking)
 
-**3.6.0 30 cents added to ticket fees**
+**3.6.0 Extra 30 cents added to ticket fees**
 
 - [Change Request - Add an additional transaction fee](https://trello.com/c/yG9gsR9U/453-add-30-cents-to-the-transaction-fee)
 - [Change Request - Removing the disabled inputs during booking](https://trello.com/c/RaS0abV1/443-the-default-guest-full-name-and-email-extra-fields-shouldn-t-be-displayed-as-disabled-input-tags)

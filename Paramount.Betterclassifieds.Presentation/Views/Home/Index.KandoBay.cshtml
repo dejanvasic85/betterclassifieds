@@ -5,7 +5,7 @@
 
 @{
     Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
-    ViewBag.Title = "KandoBay - Creating happy memories ...";
+    ViewBag.Title = "KandoBay - Buy, Sell Event Tickets. Free tickets means free service";
 
     // Setup latest ads carousel
     var latestAdsRowCount = 1;
@@ -35,20 +35,16 @@
             <div class="row">
                 <div class="col-xs-12 text-center">
                     <h1>
-                        <a href="@Url.Action("Index", "Home")">
-                            @*<img class="themusic-logo"
-                                src="@Url.Content("~/Content/KandoBay/img/Kandobay_Logo.png")"
-                                width="300"
-                                alt="Kandobay Classifieds" />*@
+                        <a href="@Url.Home()">
                             KandoBay
                         </a>
                     </h1>
                     <p>
-                        <em>Creating happy memories...</em>
+                        <em>Buy, Sell Event Tickets. Free tickets means free service. </em>
                     </p>
                 </div>
                 <div class="col-md-8 col-md-offset-2">
-                    <form action="@Url.Action("Find", "Listings")">
+                    <form action="@Url.Search()">
                         <div class="input-group input-group-lg">
                             <input type="text" name="keyword" id="keyword" class="form-control input-lg" placeholder="I am after...">
                             <div class="input-group-btn input-group-lg">
@@ -70,90 +66,35 @@
                 </div>
                 <div class="col-sm-3 text-right">
                     <a class="btn btn-default btn-block btn-hero-cta" href="@Url.Search()">
-                        <i class="fa fa-binoculars"></i>&nbsp; Find an Event
+                        <i class="fa fa-search"></i>&nbsp; Find an Event
                     </a>
                 </div>
-
             </div>
 
         </div>
     </main>
 }
 
-@if (Model.AdSummaryList.Count > 0)
-{
-    <div class="home-featured">
-
-        <div class="container">
-
-            <div class="row">
-                <div class="col-xs-6">
-                    <h2>What's new?</h2>
-                </div>
-                <div class="col-xs-6">
-                    <div class="controls pull-right hidden-xs">
-                        <a class="left fa fa-chevron-left btn btn-primary" href="#carousel-example-generic"
-                           data-slide="prev"></a><a class="right fa fa-chevron-right btn btn-primary" href="#carousel-example-generic"
-                                                    data-slide="next"></a>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="row hidden-xs">
-                <div class="col-xs-12">
-                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner">
-
-                            @for (var r = 0; r < latestAdsRowCount; r++)
-                            {
-                                var adsToDisplay = Model.AdSummaryList.Skip(r * 3).Take(3);
-                                var itemClass = string.Format("item {0}", r == 0 ? "active" : "");
-
-                                <div class="@itemClass">
-                                    <div class="row">
-                                        @foreach (var ad in adsToDisplay)
-                                        {
-                                            if (ad.CategoryAdType.HasValue())
-                                            {
-                                                @Html.Partial("_AdTile_" + ad.CategoryAdType, ad)
-                                            }
-                                            else
-                                            {
-                                                @Html.Partial("_AdTile", ad)
-                                            }
-
-                                        }
-                                    </div>
-                                </div>
-                            }
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row visible-xs">
-                @foreach (var ad in @Model.AdSummaryList.Take(3))
-                {
-                    if (ad.CategoryAdType.HasValue())
-                    {
-                        @Html.Partial("_AdTile_" + ad.CategoryAdType, ad)
-                    }
-                    else
-                    {
-                        @Html.Partial("_AdTile", ad)
-                    }
-                }
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="text-center">
+                <h1>
+                    <i class="fa fa-ticket fa-2x"></i>
+                </h1>
+                <h3>Event Ticketing - Made Easy
+                </h3>
+                <p class="lead">
+                    Our easy-to-use 3 steps will get you started in no time.
+                    <br/>Learn More...
+                </p>
             </div>
         </div>
     </div>
+</div>
 
-}
 
-
-<div class="container top-buffer-40">
+<div class="container top-buffer-20">
 
     <div class="row categories-links">
         <div class="col-xs-12">
@@ -177,7 +118,7 @@
                 </p>
                 <img src="@Url.Content("~/Content/images/BookUsingThePhone.PNG")" class="img-stretch" alt="Book using your phone" />
                 <p>
-                    <a class="btn btn-lg btn-primary btn-block" href="@Url.Action("Step1", "Booking")" role="button">Place New Ad &raquo;</a>
+                    <a class="btn btn-lg btn-primary btn-block" href="@Url.Booking()" role="button">Place New Ad &raquo;</a>
                 </p>
             </div>
         </div>
@@ -188,7 +129,7 @@
                 </p>
                 <img src="@Url.Content("~/Content/images/support.jpg")" class="img-stretch" alt="support" />
                 <p>
-                    <a class="btn btn-lg btn-primary btn-block" href="@Url.Action("ContactUs", "Home")" role="button">Contact Us &raquo;</a>
+                    <a class="btn btn-lg btn-primary btn-block" href="@Url.ContactUs()" role="button">Contact Us &raquo;</a>
                 </p>
             </div>
         </div>

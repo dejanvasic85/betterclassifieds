@@ -213,6 +213,7 @@
     <Compile Include="Controllers\EditAdController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EventController.cs" />
+    <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\InvoiceController.cs" />
@@ -857,6 +858,7 @@
     <Content Include="Views\Shared\_Navbar.TheMusic.cshtml" />
     <Content Include="Views\Event\MakePayment.cshtml" />
     <Content Include="Views\Event\TicketingPrices.cshtml" />
+    <Content Include="Views\Help\how-it-works.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

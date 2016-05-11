@@ -33,6 +33,16 @@ namespace Paramount
             return new UrlBuilder(urlHelper, "Index", "Home");
         }
 
+        public static UrlBuilder ContactUs(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper, "ContactUs", "Home");
+        }
+
+        public static UrlBuilder HowItWorks(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper, "how-it-works", "Help");
+        }
+
         public static UrlBuilder LocationOptions(this UrlHelper urlHelper)
         {
             return new UrlBuilder(urlHelper, "GetLocationOptions", "Location");

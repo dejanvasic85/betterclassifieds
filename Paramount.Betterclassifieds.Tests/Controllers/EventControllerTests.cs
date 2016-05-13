@@ -381,6 +381,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             _eventBookingContext.SetupWithVerification(call => call.EventBookingId, 1000);
             _eventBookingContext.SetupWithVerification(call => call.EventBookingPaymentReference, "ref123");
+            _eventBookingContext.SetupWithVerification(call => call.EventInvitationToken, "token123");
+
             _eventManager.SetupWithVerification(call => call.GetEventBooking(It.IsAny<int>()), mockEventBooking);
             _eventManager.SetupWithVerification(call => call.EventBookingPaymentCompleted(It.IsAny<int>(), PaymentType.PayPal, It.IsAny<string>()));
             _paymentService.SetupWithVerification(call => call.CompletePayment(

@@ -932,6 +932,46 @@ namespace Paramount.Betterclassifieds.Tests
 			return WithBuildStep(p => p.IsRequired = val);
 		}
 	}
+
+	internal partial class EventInvitationMockBuilder : MockBuilder<EventInvitationMockBuilder, EventInvitation>
+	{	
+		public EventInvitationMockBuilder WithEventInvitationId(Int64? val)
+		{ 
+			return WithBuildStep(p => p.EventInvitationId = val);
+		}
+		public EventInvitationMockBuilder WithUserNetworkId(Int32 val)
+		{ 
+			return WithBuildStep(p => p.UserNetworkId = val);
+		}
+		public EventInvitationMockBuilder WithEventId(Int32 val)
+		{ 
+			return WithBuildStep(p => p.EventId = val);
+		}
+		public EventInvitationMockBuilder WithEventModel(EventModel val)
+		{ 
+			return WithBuildStep(p => p.EventModel = val);
+		}
+		public EventInvitationMockBuilder WithToken(String val)
+		{ 
+			return WithBuildStep(p => p.Token = val);
+		}
+		public EventInvitationMockBuilder WithConfirmedDate(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.ConfirmedDate = val);
+		}
+		public EventInvitationMockBuilder WithConfirmedDateUtc(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.ConfirmedDateUtc = val);
+		}
+		public EventInvitationMockBuilder WithCreatedDate(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.CreatedDate = val);
+		}
+		public EventInvitationMockBuilder WithCreatedDateUtc(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.CreatedDateUtc = val);
+		}
+	}
 }
 
 

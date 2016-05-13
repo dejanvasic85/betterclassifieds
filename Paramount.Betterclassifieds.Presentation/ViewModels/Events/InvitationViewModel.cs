@@ -30,6 +30,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string Location => _eventModel.Location;
         public string GuestFullName => _userNetwork.FullName;
         public string GuestEmail => _userNetwork.UserNetworkEmail;
+        public string EventInvitationToken => _invitation.Token;
         public bool IsEventClosed => _eventModel.IsClosed;
         public bool IsAlreadyConfirmed => _invitation.ConfirmedDate.HasValue;
 

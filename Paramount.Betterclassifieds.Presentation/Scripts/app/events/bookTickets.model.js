@@ -35,9 +35,21 @@
         // Tickets
         me.reservations = ko.observableArray();
         $.each(data.reservations, function (idx, reservationData) {
-            if (data.isUserLoggedIn === true && idx === 0) {
-                reservationData.guestFullName = data.firstName + ' ' + data.lastName;
-                reservationData.guestEmail = data.email;
+            if (idx === 0) {
+                if (data.email) {
+                    reservationData.guestEmail = data.email;
+                }
+
+                var name = '';
+                if (data.firstName) {
+                    name = data.firstName;
+                }
+
+                if (data.lastName) {
+                    name = name + ' ' + data.lastName;
+                }
+
+                reservationData.guestFullName = name;
             }
 
             me.reservations.push(new $paramount.models.EventTicketReserved(reservationData, data.ticketFields));

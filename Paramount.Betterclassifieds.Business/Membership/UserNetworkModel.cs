@@ -9,12 +9,12 @@ namespace Paramount.Betterclassifieds.Business
 
         public UserNetworkModel(string userId, string userNetworkEmail, string fullName, bool active = true)
         {
-            this.UserId = userId;
-            this.UserNetworkEmail = userNetworkEmail;
-            this.FullName = fullName;
-            this.LastModifiedDate = DateTime.Now;
-            this.LastModifiedDateUtc = DateTime.UtcNow;
-            this.IsUserNetworkActive = active;
+            UserId = userId;
+            UserNetworkEmail = userNetworkEmail;
+            FullName = fullName;
+            LastModifiedDate = DateTime.Now;
+            LastModifiedDateUtc = DateTime.UtcNow;
+            IsUserNetworkActive = active;
         }
         
         public int? UserNetworkId { get; private set; }
@@ -25,5 +25,30 @@ namespace Paramount.Betterclassifieds.Business
         public DateTime? LastModifiedDate { get; private set; }
         public DateTime? LastModifiedDateUtc { get; set; }
 
+        public string FirstName
+        {
+            get
+            {
+                if (FullName.IsNullOrEmpty())
+                    return string.Empty;
+
+                return FullName.Split(' ')[0];
+            }
+        }
+
+        public string Surname
+        {
+            get
+            {
+                if (FullName.IsNullOrEmpty())
+                    return string.Empty;
+
+                var sections =  FullName.Split(' ');
+                if (sections.Length < 2)
+                    return string.Empty;
+
+                return sections[1];
+            }
+        }
     }
 }

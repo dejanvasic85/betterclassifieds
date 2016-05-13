@@ -10,7 +10,8 @@
     <script>
         var availableTickets = @Html.Raw(Model.Tickets.ToJsonString());
         var eventId = @Model.EventId;
-        $paramount.ui.invitation.init(eventId, availableTickets);
+        var token = '@Model.EventInvitationToken';
+        $paramount.ui.invitation.init(eventId, token, availableTickets);
     </script>
 }
 

@@ -7,6 +7,7 @@
         string EventBookingPaymentReference { get; set; }
         string[] EmailGuestList { get; set; }
         string Purchaser { get; set; }
+        string EventInvitationToken { get; set; }
         void Clear();
     }
 
@@ -25,6 +26,7 @@
         public string EventBookingPaymentReference { get; set; }
         public string[] EmailGuestList { get; set; }
         public string Purchaser { get; set; }
+        public string EventInvitationToken { get; set; }
 
         public void Clear()
         {

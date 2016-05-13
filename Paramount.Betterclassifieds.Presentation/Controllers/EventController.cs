@@ -40,8 +40,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpPost]
-        public ActionResult ReserveTickets(int eventId, List<EventTicketRequestViewModel> tickets)
+        public ActionResult ReserveTickets(ReserveTicketsViewModel reserveTicketsViewModel)
         {
+            var tickets = reserveTicketsViewModel.Tickets;
+            var eventId = reserveTicketsViewModel.EventId;
+
             if (tickets == null || tickets.Count == 0)
             {
                 ModelState.AddModelError("Tickets", "No tickets have been selected");
@@ -56,6 +59,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             _eventBookingContext.Clear();
+            _eventBookingContext.EventInvitationToken = reserveTicketsViewModel.EventInvitationToken;
+
             var sessionId = _httpContext.With(s => s.Session).SessionID;
             var reservations = new List<EventTicketReservation>();
             foreach (var t in tickets)
@@ -85,13 +90,21 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             // Construct the view model
             ApplicationUser applicationUser = null;
+            UserNetworkModel userNetwork = null;
             if (this.User.Identity.IsAuthenticated)
             {
                 applicationUser = _userManager.GetCurrentUser(this.User);
             }
-            var viewModel = new BookTicketsViewModel(onlineAdModel, eventDetails, _clientConfig, _appConfig, applicationUser, ticketReservations)
+            else if (_eventBookingContext.EventInvitationToken.HasValue())
             {
-                Reservations = this.MapList<EventTicketReservation, EventTicketReservedViewModel>(ticketReservations),
+                var invitation = _eventManager.GetEventInvitation(_eventBookingContext.EventInvitationToken);
+                userNetwork = _userManager.GetUserNetwork(invitation.UserNetworkId);
+            }
+
+            // Construct the view model
+            var viewModel = new BookTicketsViewModel(onlineAdModel, eventDetails, _clientConfig, _appConfig, applicationUser, ticketReservations, userNetwork)
+            {
+                Reservations = this.MapList<EventTicketReservation, EventTicketReservedViewModel>(ticketReservations)
             };
 
             if (remainingTimeToCompleteBooking <= TimeSpan.Zero)

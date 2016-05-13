@@ -43,3 +43,4 @@ GO
 ALTER TABLE [dbo].[EventInvitation] CHECK CONSTRAINT [FK_EventInvitation_UserNetwork]
 GO
 
+CREATE INDEX index_Token ON EventInvitation (Token)

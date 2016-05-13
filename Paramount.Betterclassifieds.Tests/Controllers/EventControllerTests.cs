@@ -82,7 +82,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         public void ReserveTickets_Post_NothingSelected_ReturnsModelError()
         {
             var controller = BuildController();
-            var result = controller.ReserveTickets(1, null);
+            var vm = new ReserveTicketsViewModel {EventId = 1, Tickets = null};
+            var result = controller.ReserveTickets(vm);
             var jsonResult = result.IsTypeOf<JsonResult>();
             jsonResult.JsonResultContainsErrors();
         }
@@ -104,7 +105,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventManager.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEventModel);
 
             var controller = BuildController();
-            var result = controller.ReserveTickets(1, eventTicketRequests);
+            var vm = new ReserveTicketsViewModel { EventId = 1, Tickets = eventTicketRequests };
+            var result = controller.ReserveTickets(vm);
             var jsonResult = result.IsTypeOf<JsonResult>();
             jsonResult.JsonResultContainsErrors();
         }
@@ -132,10 +134,12 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventManager.SetupWithVerification(call => call.ReserveTickets(It.IsAny<string>(), It.IsAny<IEnumerable<EventTicketReservation>>()));
             _eventTicketReservationFactory.SetupWithVerification(call => call.CreateReservations(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()), mockReservations);
             _eventBookingContext.SetupWithVerification(call => call.Clear());
+            _eventBookingContext.SetupSet(p => p.EventInvitationToken = It.IsAny<string>());
 
             // act
             var controller = BuildController();
-            var result = controller.ReserveTickets(1, eventTicketRequests);
+            var vm = new ReserveTicketsViewModel { EventId = 1, Tickets = eventTicketRequests };
+            var result = controller.ReserveTickets(vm);
 
             // assert
             result.IsTypeOf<JsonResult>().JsonResultPropertyEquals("NextUrl", "/Event/BookTickets");

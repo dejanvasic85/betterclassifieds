@@ -303,6 +303,7 @@
     <Compile Include="ViewModels\Booking\SuccessView.cs" />
     <Compile Include="ViewModels\Events\MakePaymentViewModel.cs" />
     <Compile Include="ViewModels\Events\InvitationViewModel.cs" />
+    <Compile Include="ViewModels\Events\ReserveTicketsViewModel.cs" />
     <Compile Include="ViewModels\Events\TicketingPricesExplainedViewModel.cs" />
     <Compile Include="ViewModels\StripePaymentViewModel.cs" />
     <Compile Include="ViewModels\UserNetwork\UserNetworkEmailView.cs" />

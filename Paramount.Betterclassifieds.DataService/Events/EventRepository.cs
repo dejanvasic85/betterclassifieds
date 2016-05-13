@@ -259,6 +259,16 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
+        public void UpdateEventInvitation(EventInvitation invitation)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                context.EventInvitations.Attach(invitation);
+                context.Entry(invitation).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
         public void CreateEventTicket(EventTicket ticket)
         {
             using (var context = _dbContextFactory.CreateEventContext())

@@ -104,12 +104,20 @@ namespace Paramount.Betterclassifieds.Business.Events
             _eventRepository.UpdateEventBooking(eventBooking);
         }
 
-        public void EventBookingPaymentCompleted(int? eventBookingId, PaymentType paymentType)
+        public void EventBookingPaymentCompleted(int? eventBookingId, PaymentType paymentType, string eventInvitationToken)
         {
             Guard.NotNull(eventBookingId);
             var eventBooking = _eventRepository.GetEventBooking(eventBookingId.GetValueOrDefault(), includeEvent: false);
             eventBooking.Status = EventBookingStatus.Active;
             _eventRepository.UpdateEventBooking(eventBooking);
+
+            if (eventInvitationToken.HasValue())
+            {
+                var invitation = _eventRepository.GetEventInvitation(eventInvitationToken);
+                invitation.ConfirmedDate = _dateService.Now;
+                invitation.ConfirmedDateUtc = _dateService.UtcNow;
+                _eventRepository.UpdateEventInvitation(invitation);
+            }
         }
 
         public void SetPaymentReferenceForBooking(int eventBookingId, string paymentReference, PaymentType paymentType)

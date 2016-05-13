@@ -282,7 +282,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.GetValueOrDefault());
 
             // Mark booking as paid in our database
-            _eventManager.EventBookingPaymentCompleted(_eventBookingContext.EventBookingId, PaymentType.PayPal);
+            _eventManager.EventBookingPaymentCompleted(_eventBookingContext.EventBookingId, PaymentType.PayPal, _eventBookingContext.EventInvitationToken);
 
             // Call paypal to let them know we completed our end
             _payPalService.CompletePayment(_eventBookingContext.EventBookingPaymentReference, payerId,
@@ -308,7 +308,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             // Mark booking as paid in our database
             _eventManager.SetPaymentReferenceForBooking(eventBooking.EventBookingId, stripePayment.StripeToken, PaymentType.CreditCard);
-            _eventManager.EventBookingPaymentCompleted(_eventBookingContext.EventBookingId, PaymentType.CreditCard);
+            _eventManager.EventBookingPaymentCompleted(_eventBookingContext.EventBookingId, PaymentType.CreditCard, _eventBookingContext.EventInvitationToken);
 
             return RedirectToAction("EventBooked");
         }

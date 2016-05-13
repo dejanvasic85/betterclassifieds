@@ -16,7 +16,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         IEnumerable<EventTicketReservation> GetEventTicketReservations(int ticketId, bool activeOnly);
         IEnumerable<EventBookingTicket> GetEventBookingTicketsForEvent(int? eventId);
         EventBookingTicketValidation GetEventBookingTicketValidation(int eventBookingTicketId);
-        EventPromotionGuest GetEventPromotionGuest(string token);
+        EventInvitation GetEventInvitation(string token);
 
         void CreateEventTicketReservation(EventTicketReservation eventTicketReservation);
         void CreateBooking(EventBooking eventBooking);

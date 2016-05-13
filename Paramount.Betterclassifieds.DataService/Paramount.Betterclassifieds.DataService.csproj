@@ -110,7 +110,7 @@
     <Compile Include="Events\EntityConfigurations\EventBookingTicketConfiguration.cs" />
     <Compile Include="Events\EntityConfigurations\EventBookingTicketValidationConfiguration.cs" />
     <Compile Include="Events\EntityConfigurations\EventPaymentRequestConfiguration.cs" />
-    <Compile Include="Events\EntityConfigurations\EventPromotionGuestConfiguration.cs" />
+    <Compile Include="Events\EntityConfigurations\EventInvitationConfiguration.cs" />
     <Compile Include="Events\EntityConfigurations\EventTicketFieldConfiguration.cs" />
     <Compile Include="Events\EntityConfigurations\EventTicketReservationConfiguration.cs" />
     <Compile Include="Events\EntityConfigurations\EventBookingTicketFieldConfiguration.cs" />

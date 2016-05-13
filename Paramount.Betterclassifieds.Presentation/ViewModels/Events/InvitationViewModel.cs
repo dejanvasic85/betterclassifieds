@@ -12,13 +12,16 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         private readonly EventModel _eventModel;
         private readonly UserNetworkModel _userNetwork;
         private readonly IClientConfig _clientConfig;
+        private readonly EventInvitation _invitation;
 
-        public InvitationViewModel(AdSearchResult adSearchResult, EventModel eventModel, UserNetworkModel userNetwork, IClientConfig clientConfig)
+        public InvitationViewModel(AdSearchResult adSearchResult, EventModel eventModel, UserNetworkModel userNetwork, 
+            IClientConfig clientConfig, EventInvitation invitation)
         {
             _adSearchResult = adSearchResult;
             _eventModel = eventModel;
             _userNetwork = userNetwork;
             _clientConfig = clientConfig;
+            _invitation = invitation;
         }
 
         public string EventName => _adSearchResult.Heading;
@@ -28,6 +31,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string GuestFullName => _userNetwork.FullName;
         public string GuestEmail => _userNetwork.UserNetworkEmail;
         public bool IsEventClosed => _eventModel.IsClosed;
+        public bool IsAlreadyConfirmed => _invitation.ConfirmedDate.HasValue;
 
         public EventTicketViewModel[] Tickets
         {

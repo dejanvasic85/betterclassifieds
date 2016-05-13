@@ -368,17 +368,17 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         [HttpGet]
         [ActionName("invitation")]
-        public ActionResult EventPromotion(string token)
+        public ActionResult Invitation(string token)
         {
-            var promotion = _eventManager.GetEventPromotionGuest(token);
-            if (promotion == null)
+            var invitation = _eventManager.GetEventInvitation(token);
+            if (invitation == null)
                 return new Redirector().NotFound();
 
-            var eventDetails = _eventManager.GetEventDetails(promotion.EventId);
+            var eventDetails = _eventManager.GetEventDetails(invitation.EventId);
             var adSearchResult = _searchService.GetByAdOnlineId(eventDetails.OnlineAdId);
-            var userNetwork = _userManager.GetUserNetwork(promotion.UserNetworkId);
+            var userNetwork = _userManager.GetUserNetwork(invitation.UserNetworkId);
 
-            var viewModel = new InvitationViewModel(adSearchResult, eventDetails, userNetwork, _clientConfig);
+            var viewModel = new InvitationViewModel(adSearchResult, eventDetails, userNetwork, _clientConfig, invitation);
             return View(viewModel);
         }
 

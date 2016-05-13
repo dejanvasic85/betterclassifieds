@@ -27,7 +27,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         bool IsEventEditable(int? eventId);
         void CreateEventPaymentRequest(int eventId, PaymentType paymentType, decimal requestedAmount, string requestedByUser);
         EventPaymentRequestStatus GetEventPaymentRequestStatus(int? eventId);
-        EventPromotionGuest GetEventPromotionGuest(string token);
+        EventInvitation GetEventInvitation(string token);
 
         void CloseEvent(int eventId);
         void UpdateEventDetails(int adId, int eventId, string title, string description, string htmlText, 

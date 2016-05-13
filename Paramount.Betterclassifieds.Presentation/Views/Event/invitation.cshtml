@@ -24,6 +24,15 @@
             </h3>
         </div>
     }
+    else if (Model.IsAlreadyConfirmed)
+    {
+        <div class="alert alert-warning">
+
+            <h3>
+                <i class="fa fa-times-circle-o"></i> Sorry. This invitation has already been used or expired.
+            </h3>
+        </div>
+    }
     else
     {
         <div class="well well-lg">

@@ -3,12 +3,12 @@ using Paramount.Betterclassifieds.Business.Events;
 
 namespace Paramount.Betterclassifieds.DataService.Events
 {
-    public class EventPromotionGuestConfiguration : EntityTypeConfiguration<EventPromotionGuest>
+    public class EventInvitationConfiguration : EntityTypeConfiguration<EventInvitation>
     {
-        public EventPromotionGuestConfiguration()
+        public EventInvitationConfiguration()
         {
-            ToTable("EventPromotionGuest");
-            HasKey(p => p.EventPromotionGuestId);
+            ToTable("EventInvitation");
+            HasKey(p => p.EventInvitationId);
 
             HasRequired(prop => prop.EventModel);
         }

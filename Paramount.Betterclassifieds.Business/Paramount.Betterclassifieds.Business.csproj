@@ -72,7 +72,7 @@
     <Compile Include="Events\EventPaymentRequestFactory.cs" />
     <Compile Include="Events\EventPaymentRequestStatus.cs" />
     <Compile Include="Events\EventPaymentSummary.cs" />
-    <Compile Include="Events\EventPromotionGuest.cs" />
+    <Compile Include="Events\EventInvitation.cs" />
     <Compile Include="Events\EventTicketFactory.cs" />
     <Compile Include="Events\TicketFeeCalculator.cs" />
     <Compile Include="Events\IEventBarcodeManager.cs" />

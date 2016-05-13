@@ -172,11 +172,11 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
-        public EventPromotionGuest GetEventPromotionGuest(string token)
+        public EventInvitation GetEventInvitation(string token)
         {
             using (var context = _dbContextFactory.CreateEventContext())
             {
-                return context.EventPromotionGuest
+                return context.EventInvitations
                     .SingleOrDefault(e => e.Token.Equals(token, StringComparison.OrdinalIgnoreCase));
             }
         }

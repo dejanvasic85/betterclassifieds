@@ -288,9 +288,9 @@ namespace Paramount.Betterclassifieds.Business.Events
             return EventPaymentRequestStatus.RequestPending;
         }
 
-        public EventPromotionGuest GetEventPromotionGuest(string token)
+        public EventInvitation GetEventInvitation(string token)
         {
-            return _eventRepository.GetEventPromotionGuest(token);
+            return _eventRepository.GetEventInvitation(token);
         }
 
         public void CloseEvent(int eventId)

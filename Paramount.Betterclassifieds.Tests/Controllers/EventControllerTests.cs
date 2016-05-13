@@ -82,7 +82,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         public void ReserveTickets_Post_NothingSelected_ReturnsModelError()
         {
             var controller = BuildController();
-            var vm = new ReserveTicketsViewModel {EventId = 1, Tickets = null};
+            var vm = new ReserveTicketsViewModel { EventId = 1, Tickets = null };
             var result = controller.ReserveTickets(vm);
             var jsonResult = result.IsTypeOf<JsonResult>();
             jsonResult.JsonResultContainsErrors();
@@ -101,7 +101,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var mockEventModel = new EventModelMockBuilder()
                 .WithPastClosedDate()
                 .Build();
-            
+
             _eventManager.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEventModel);
 
             var controller = BuildController();
@@ -128,17 +128,23 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 .Default()
                 .Build();
 
+            var vm = new ReserveTicketsViewModel
+            {
+                EventId = 1,
+                Tickets = eventTicketRequests,
+                EventInvitationToken = "1234"
+            };
+
             // arrange service calls
             _httpContext.SetupWithVerification(call => call.Session.SessionID, "123");
             _eventManager.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEventModel);
             _eventManager.SetupWithVerification(call => call.ReserveTickets(It.IsAny<string>(), It.IsAny<IEnumerable<EventTicketReservation>>()));
             _eventTicketReservationFactory.SetupWithVerification(call => call.CreateReservations(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()), mockReservations);
             _eventBookingContext.SetupWithVerification(call => call.Clear());
-            _eventBookingContext.SetupSet(p => p.EventInvitationToken = It.IsAny<string>());
+            _eventBookingContext.SetupSet(p => p.EventInvitationToken = It.Is<string>(s => s == vm.EventInvitationToken));
 
             // act
             var controller = BuildController();
-            var vm = new ReserveTicketsViewModel { EventId = 1, Tickets = eventTicketRequests };
             var result = controller.ReserveTickets(vm);
 
             // assert

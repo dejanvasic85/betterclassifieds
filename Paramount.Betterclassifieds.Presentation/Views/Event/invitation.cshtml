@@ -1,0 +1,47 @@
+﻿@model InvitationViewModel
+
+@{
+    ViewBag.Title = "Event";
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
+}
+
+<div class="container top-buffer-60">
+    @if (Model.IsEventClosed)
+    {
+        <div class="alert alert-warning">
+
+            <h3>
+                <i class="fa fa-times-circle-o"></i> Sorry. The event you are looking for has been closed. Tickets are no longer available.
+            </h3>
+        </div>
+    }
+    else
+    {
+        <div class="well well-lg">
+            Hello @Model.GuestFullName, you have been invited to the following event:
+        </div>
+        <h1>
+            @Model.EventName
+        </h1>
+        <p class="lead">
+            @Model.EventStartDate @@@Model.Location
+        </p>
+
+        <ul class="list-group">
+            @foreach (var ticket in Model.Tickets)
+            {
+                <li class="list-group-item">
+                    <h4>
+                        <i class="fa fa-ticket"></i>
+                        @ticket.TicketName - @ticket.Price.ToString("C")
+                    </h4>
+                    <div class="text-right">
+                        <button class="btn btn-primary">
+                            Select Ticket
+                        </button>
+                    </div>
+                </li>
+            }
+        </ul>
+    }
+</div>

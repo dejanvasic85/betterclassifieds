@@ -288,6 +288,11 @@ namespace Paramount.Betterclassifieds.Business.Events
             return EventPaymentRequestStatus.RequestPending;
         }
 
+        public EventPromotionGuest GetEventPromotionGuest(string token)
+        {
+            return _eventRepository.GetEventPromotionGuest(token);
+        }
+
         public void CloseEvent(int eventId)
         {
             var eventModel = _eventRepository.GetEventDetails(eventId);

@@ -120,6 +120,14 @@
             }
         }
 
+        public UserNetworkModel GetUserNetwork(int userNetworkId)
+        {
+            using (var context = _dbContextFactory.CreateClassifiedEntitiesContext())
+            {
+                return context.UserNetworks.SingleOrDefault(u => u.UserNetworkId == userNetworkId);
+            }
+        }
+
         public void UpdateUserProfile(ApplicationUser applicationUser)
         {
             using (var context = _dbContextFactory.CreateMembershipContext())

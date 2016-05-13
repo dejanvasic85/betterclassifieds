@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using Paramount.Betterclassifieds.Business;
@@ -168,6 +169,15 @@ namespace Paramount.Betterclassifieds.DataService.Events
             using (var context = _dbContextFactory.CreateEventContext())
             {
                 return context.EventBookingTicketValidations.SingleOrDefault(v => v.EventBookingTicketId == eventBookingTicketId);
+            }
+        }
+
+        public EventPromotionGuest GetEventPromotionGuest(string token)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                return context.EventPromotionGuest
+                    .SingleOrDefault(e => e.Token.Equals(token, StringComparison.OrdinalIgnoreCase));
             }
         }
 

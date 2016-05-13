@@ -10,12 +10,12 @@
         ApplicationUser GetUserByEmailOrUsername(string emailOrUsername);
         ApplicationUser GetCurrentUser(IPrincipal principal);
         IEnumerable<UserNetworkModel> GetUserNetworksForUserId(string userId);
+        UserNetworkModel GetUserNetwork(int userNetworkId);
         void CreateUserNetwork(IPrincipal user, string email, string fullName);
         RegistrationResult RegisterUser(RegistrationModel registrationModel, string plaintextPassword, bool disableTwoFactorAuth = false);
         RegistrationOrLoginResult LoginOrRegister(RegistrationModel registrationModel, string password);
         RegistrationConfirmationResult ConfirmRegistration(int registrationId, string token);
         void UpdateUserProfile(ApplicationUser applicationUser);
-
     }
 
     public class UserManager : IUserManager
@@ -65,6 +65,11 @@
         public IEnumerable<UserNetworkModel> GetUserNetworksForUserId(string userId)
         {
             return _userRepository.GetUserNetworksForUserId(userId);
+        }
+
+        public UserNetworkModel GetUserNetwork(int userNetworkId)
+        {
+            return _userRepository.GetUserNetwork(userNetworkId);
         }
 
         public void CreateUserNetwork(IPrincipal user, string email, string fullName)

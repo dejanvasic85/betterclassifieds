@@ -318,7 +318,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             vm.ExampleTotalTicketQuantitySold = 10;
             vm.ExampleTotalFeeForOrganiser = ticketCalculator.GetFeeTotalForOrganiserForAllTicketSales(100, 10);
             vm.ExampleTotalAmountForOrganiser = vm.ExampleTotalTicketSales - vm.ExampleTotalFeeForOrganiser;
-            
+
             return View(vm);
         }
 
@@ -363,6 +363,22 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var result = _barcodeManager.ValidateTicket(barcode);
             var viewModel = BarcodeValidationViewModel.FromResult(result);
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        [ActionName("invitation")]
+        public ActionResult EventPromotion(string token)
+        {
+            var promotion = _eventManager.GetEventPromotionGuest(token);
+            if (promotion == null)
+                return new Redirector().NotFound();
+
+            var eventDetails = _eventManager.GetEventDetails(promotion.EventId);
+            var adSearchResult = _searchService.GetByAdOnlineId(eventDetails.OnlineAdId);
+            var userNetwork = _userManager.GetUserNetwork(promotion.UserNetworkId);
+
+            var viewModel = new InvitationViewModel(adSearchResult, eventDetails, userNetwork, _clientConfig);
             return View(viewModel);
         }
 

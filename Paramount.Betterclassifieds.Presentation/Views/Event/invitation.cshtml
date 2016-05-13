@@ -5,6 +5,15 @@
     Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
 }
 
+@section Scripts
+{
+    <script>
+        var availableTickets = @Html.Raw(Model.Tickets.ToJsonString());
+        var eventId = @Model.EventId;
+        $paramount.ui.invitation.init(eventId, availableTickets);
+    </script>
+}
+
 <div class="container top-buffer-60">
     @if (Model.IsEventClosed)
     {
@@ -36,9 +45,16 @@
                         @ticket.TicketName - @ticket.Price.ToString("C")
                     </h4>
                     <div class="text-right">
-                        <button class="btn btn-primary">
-                            Select Ticket
-                        </button>
+                        @if (ticket.AvailableQuantity > 0)
+                        {
+                            <button class="btn btn-primary js-load" data-ticket="@ticket.EventTicketId">
+                                Select Ticket
+                            </button>
+                        }
+                        else
+                        {
+                            <text><strong>SOLD OUT</strong></text>
+                        }
                     </div>
                 </li>
             }

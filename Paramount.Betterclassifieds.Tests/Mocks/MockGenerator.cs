@@ -951,10 +951,6 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.EventModel = val);
 		}
-		public EventInvitationMockBuilder WithToken(String val)
-		{ 
-			return WithBuildStep(p => p.Token = val);
-		}
 		public EventInvitationMockBuilder WithConfirmedDate(DateTime? val)
 		{ 
 			return WithBuildStep(p => p.ConfirmedDate = val);

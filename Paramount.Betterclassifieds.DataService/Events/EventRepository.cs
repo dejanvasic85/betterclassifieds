@@ -172,12 +172,11 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
-        public EventInvitation GetEventInvitation(string token)
+        public EventInvitation GetEventInvitation(long invitationId)
         {
             using (var context = _dbContextFactory.CreateEventContext())
             {
-                return context.EventInvitations
-                    .SingleOrDefault(e => e.Token.Equals(token, StringComparison.OrdinalIgnoreCase));
+                return context.EventInvitations.SingleOrDefault(e => e.EventInvitationId == invitationId);
             }
         }
 
@@ -195,6 +194,15 @@ namespace Paramount.Betterclassifieds.DataService.Events
             using (var context = _dbContextFactory.CreateEventContext())
             {
                 context.EventBookingTicketValidations.Add(eventBookingTicketValidation);
+                context.SaveChanges();
+            }
+        }
+
+        public void CreateEventInvitation(EventInvitation eventInvitation)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                context.EventInvitations.Add(eventInvitation);
                 context.SaveChanges();
             }
         }

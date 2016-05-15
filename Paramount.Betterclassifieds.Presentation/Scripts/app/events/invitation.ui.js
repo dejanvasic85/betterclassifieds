@@ -3,7 +3,7 @@
     'use strict';
     $paramount.ui = $paramount.ui || {};
     $paramount.ui.invitation = {
-        init : function(eventId, eventInvitationToken, availableTickets) {
+        init: function (eventId, eventInvitationId, availableTickets) {
             
             var service = new $paramount.EventService();
 
@@ -17,7 +17,7 @@
 
                     var order = {
                         eventId : eventId,
-                        eventInvitationToken: eventInvitationToken,
+                        eventInvitationId: eventInvitationId,
                         tickets: [ticket]
                     }
 

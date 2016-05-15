@@ -23,7 +23,9 @@ namespace Paramount.Betterclassifieds.Console
                 {
                     TaskArguments.TaskFullArgName, nameof(Tasks.ImportUserNetworks),
                         "-fileName", @"C:\Users\Dejan\OneDrive\paramount\KandoBay\nsv.csv",
-                        "-userId", "email2"
+                        "-userId", "email2",
+                        "-eventId", "18"
+
                 });
 
 #else

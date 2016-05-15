@@ -8,7 +8,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         public int UserNetworkId { get; set; }
         public int EventId { get; set; }
         public EventModel EventModel { get; set; }
-        public string Token { get; set; }
         public DateTime? ConfirmedDate { get; set; }
         public DateTime? ConfirmedDateUtc { get; set; }
         public DateTime? CreatedDate { get; set; }

@@ -59,7 +59,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             _eventBookingContext.Clear();
-            _eventBookingContext.EventInvitationToken = reserveTicketsViewModel.EventInvitationToken;
+            _eventBookingContext.EventInvitationId = reserveTicketsViewModel.EventInvitationId;
 
             var sessionId = _httpContext.With(s => s.Session).SessionID;
             var reservations = new List<EventTicketReservation>();
@@ -93,11 +93,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             UserNetworkModel userNetwork = null;
             if (this.User.Identity.IsAuthenticated)
             {
-                applicationUser = _userManager.GetCurrentUser(this.User);
+                applicationUser = _userManager.GetCurrentUser(User);
             }
-            else if (_eventBookingContext.EventInvitationToken.HasValue())
+            else if (_eventBookingContext.EventInvitationId.HasValue)
             {
-                var invitation = _eventManager.GetEventInvitation(_eventBookingContext.EventInvitationToken);
+                var invitation = _eventManager.GetEventInvitation(_eventBookingContext.EventInvitationId.Value);
                 userNetwork = _userManager.GetUserNetwork(invitation.UserNetworkId);
             }
 
@@ -282,7 +282,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.GetValueOrDefault());
 
             // Mark booking as paid in our database
-            _eventManager.EventBookingPaymentCompleted(_eventBookingContext.EventBookingId, PaymentType.PayPal, _eventBookingContext.EventInvitationToken);
+            _eventManager.EventBookingPaymentCompleted(_eventBookingContext.EventBookingId, PaymentType.PayPal, _eventBookingContext.EventInvitationId);
 
             // Call paypal to let them know we completed our end
             _payPalService.CompletePayment(_eventBookingContext.EventBookingPaymentReference, payerId,
@@ -308,7 +308,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             // Mark booking as paid in our database
             _eventManager.SetPaymentReferenceForBooking(eventBooking.EventBookingId, stripePayment.StripeToken, PaymentType.CreditCard);
-            _eventManager.EventBookingPaymentCompleted(_eventBookingContext.EventBookingId, PaymentType.CreditCard, _eventBookingContext.EventInvitationToken);
+            _eventManager.EventBookingPaymentCompleted(_eventBookingContext.EventBookingId, PaymentType.CreditCard, _eventBookingContext.EventInvitationId);
 
             return RedirectToAction("EventBooked");
         }
@@ -381,7 +381,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         [HttpGet]
         [ActionName("invitation")]
-        public ActionResult Invitation(string token)
+        public ActionResult Invitation(long token)
         {
             var invitation = _eventManager.GetEventInvitation(token);
             if (invitation == null)

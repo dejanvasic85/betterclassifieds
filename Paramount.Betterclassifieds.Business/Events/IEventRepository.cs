@@ -16,13 +16,14 @@ namespace Paramount.Betterclassifieds.Business.Events
         IEnumerable<EventTicketReservation> GetEventTicketReservations(int ticketId, bool activeOnly);
         IEnumerable<EventBookingTicket> GetEventBookingTicketsForEvent(int? eventId);
         EventBookingTicketValidation GetEventBookingTicketValidation(int eventBookingTicketId);
-        EventInvitation GetEventInvitation(string token);
+        EventInvitation GetEventInvitation(long eventInvitationId);
 
         void CreateEventTicketReservation(EventTicketReservation eventTicketReservation);
         void CreateBooking(EventBooking eventBooking);
         void CreateEventPaymentRequest(EventPaymentRequest request);
         void CreateEventTicket(EventTicket ticket);
         void CreateEventBookingTicketValidation(EventBookingTicketValidation eventBookingTicketValidation);
+        void CreateEventInvitation(EventInvitation eventInvitation);
 
         void UpdateEvent(EventModel eventModel);
         void UpdateEventTicketReservation(EventTicketReservation eventTicketReservation);
@@ -31,5 +32,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         void UpdateEventAddress(Address address);
         void UpdateEventBookingTicketValidation(EventBookingTicketValidation eventBookingTicketValidation);
         void UpdateEventInvitation(EventInvitation invitation);
+        
     }
 }

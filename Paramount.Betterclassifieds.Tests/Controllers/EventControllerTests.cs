@@ -132,7 +132,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             {
                 EventId = 1,
                 Tickets = eventTicketRequests,
-                EventInvitationToken = "1234"
+                EventInvitationId = 1234
             };
 
             // arrange service calls
@@ -141,7 +141,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventManager.SetupWithVerification(call => call.ReserveTickets(It.IsAny<string>(), It.IsAny<IEnumerable<EventTicketReservation>>()));
             _eventTicketReservationFactory.SetupWithVerification(call => call.CreateReservations(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()), mockReservations);
             _eventBookingContext.SetupWithVerification(call => call.Clear());
-            _eventBookingContext.SetupSet(p => p.EventInvitationToken = It.Is<string>(s => s == vm.EventInvitationToken));
+            _eventBookingContext.SetupSet(p => p.EventInvitationId = It.Is<long>(s => s == vm.EventInvitationId));
 
             // act
             var controller = BuildController();
@@ -381,10 +381,10 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             _eventBookingContext.SetupWithVerification(call => call.EventBookingId, 1000);
             _eventBookingContext.SetupWithVerification(call => call.EventBookingPaymentReference, "ref123");
-            _eventBookingContext.SetupWithVerification(call => call.EventInvitationToken, "token123");
+            _eventBookingContext.SetupWithVerification(call => call.EventInvitationId, 123);
 
             _eventManager.SetupWithVerification(call => call.GetEventBooking(It.IsAny<int>()), mockEventBooking);
-            _eventManager.SetupWithVerification(call => call.EventBookingPaymentCompleted(It.IsAny<int>(), PaymentType.PayPal, It.IsAny<string>()));
+            _eventManager.SetupWithVerification(call => call.EventBookingPaymentCompleted(It.IsAny<int>(), PaymentType.PayPal, It.IsAny<long>()));
             _paymentService.SetupWithVerification(call => call.CompletePayment(
                 "ref123",
                 "payer123",

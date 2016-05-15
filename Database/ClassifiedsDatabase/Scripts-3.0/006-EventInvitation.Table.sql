@@ -13,7 +13,6 @@ CREATE TABLE [dbo].[EventInvitation](
 	[EventInvitationId] [bigint] IDENTITY(1,1) NOT NULL,
 	[UserNetworkId] [int] NOT NULL,
 	[EventId] [int] NOT NULL,
-	[Token] [varchar](10) NULL,
 	[ConfirmedDate] [datetime] NULL,
 	[ConfirmedDateUtc] [datetime] NULL,
 	[CreatedDate] [datetime] NULL,
@@ -42,5 +41,3 @@ GO
 
 ALTER TABLE [dbo].[EventInvitation] CHECK CONSTRAINT [FK_EventInvitation_UserNetwork]
 GO
-
-CREATE INDEX index_Token ON EventInvitation (Token)

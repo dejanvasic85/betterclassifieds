@@ -568,7 +568,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
         [Test]
         public void EventBookingPaymentCompleted_NullEventBookingId_ThrowsArgException()
         {
-            Assert.Throws<ArgumentNullException>(() => BuildTargetObject().EventBookingPaymentCompleted(null, PaymentType.PayPal, It.IsAny<string>()));
+            Assert.Throws<ArgumentNullException>(() => BuildTargetObject().EventBookingPaymentCompleted(null, PaymentType.PayPal, It.IsAny<long>()));
         }
 
         [Test]
@@ -578,18 +578,18 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 .WithStatus(EventBookingStatus.PaymentPending)
                 .Build();
 
-            var eventInvitation = new EventInvitationMockBuilder().WithToken("1234").Build();
+            var eventInvitation = new EventInvitationMockBuilder().WithEventInvitationId(1234).Build();
 
             // Calls
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventBooking(It.IsAny<int>(),
                 It.IsAny<bool>(), It.IsAny<bool>()), eventBooking);
             _dateServiceMock.SetupWithVerification(call => call.Now, DateTime.Now);
             _dateServiceMock.SetupWithVerification(call => call.UtcNow, DateTime.UtcNow);
-            _eventRepositoryMock.SetupWithVerification(call => call.GetEventInvitation(It.IsAny<string>()), eventInvitation);
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventInvitation(It.IsAny<long>()), eventInvitation);
             _eventRepositoryMock.SetupWithVerification(call => call.UpdateEventBooking(It.Is<EventBooking>(b => b == eventBooking)));
             _eventRepositoryMock.SetupWithVerification(call => call.UpdateEventInvitation(It.Is<EventInvitation>(e => e == eventInvitation)));
 
-            BuildTargetObject().EventBookingPaymentCompleted(100, PaymentType.CreditCard, eventInvitation.Token);
+            BuildTargetObject().EventBookingPaymentCompleted(100, PaymentType.CreditCard, eventInvitation.EventInvitationId);
             eventBooking.Status.IsEqualTo(EventBookingStatus.Active);
             eventInvitation.ConfirmedDate.IsNotNull();
             eventInvitation.ConfirmedDateUtc.IsNotNull();

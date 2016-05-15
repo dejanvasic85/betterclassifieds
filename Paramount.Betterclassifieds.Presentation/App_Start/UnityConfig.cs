@@ -76,6 +76,7 @@
                 .RegisterType<SearchFilters>(new SessionLifetimeManager<SearchFilters>())
                 .RegisterType<IAdFactory, AdFactory>()
                 .RegisterType<IEventTicketReservationFactory, EventTicketReservationFactory>()
+                .RegisterType<ILogService, LogService>()
 
                 // Rates/ prices (chargeable items)
                 .RegisterType<IPrintChargeableItem, PrintHeadingCharge>("PrintHeadingCharge")

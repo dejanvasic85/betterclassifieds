@@ -123,6 +123,7 @@
     <Compile Include="ICategoryAd.cs" />
     <Compile Include="Events\IEventRepository.cs" />
     <Compile Include="IAdFactory.cs" />
+    <Compile Include="ILogService.cs" />
     <Compile Include="Location\ILocationService.cs" />
     <Compile Include="Location\TimeZoneResult.cs" />
     <Compile Include="Membership\IConfirmationCodeGenerator.cs" />

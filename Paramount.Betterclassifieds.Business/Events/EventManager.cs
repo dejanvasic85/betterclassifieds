@@ -376,7 +376,9 @@ namespace Paramount.Betterclassifieds.Business.Events
             var eventInvitation = new EventInvitation
             {
                 EventId = eventId,
-                UserNetworkId = userNetworkId
+                UserNetworkId = userNetworkId,
+                CreatedDate = _dateService.Now,
+                CreatedDateUtc = _dateService.UtcNow
             };
 
             _eventRepository.CreateEventInvitation(eventInvitation);

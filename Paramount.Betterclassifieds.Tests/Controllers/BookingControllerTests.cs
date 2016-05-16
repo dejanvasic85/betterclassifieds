@@ -151,6 +151,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IEditionManager> _editionManagerMock;
         private Mock<IDateService> _dateServiceMock;
         private Mock<ILocationService> _locationServiceMock;
+        private Mock<ILogService> _logServiceMock;
 
         [SetUp]
         public void SetupController()
@@ -169,6 +170,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _editionManagerMock = CreateMockOf<IEditionManager>();
             _dateServiceMock = CreateMockOf<IDateService>();
             _locationServiceMock = CreateMockOf<ILocationService>();
+            _logServiceMock = CreateMockOf<ILogService>();
         }
     }
 }

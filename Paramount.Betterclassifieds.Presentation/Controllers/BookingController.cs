@@ -39,7 +39,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         // GET: /Booking/Step/1 - Category and publications
         [HttpGet, BookingStep(1)]
         public ActionResult Step1()
-        {
+        { 
             var bookingCart = _bookingContext.Current();
 
             var viewModel = new Step1View(
@@ -491,6 +491,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IEditionManager _editionManager;
         private readonly IDateService _dateService;
         private readonly ILocationService _locationService;
+        private readonly ILogService _logService;
 
         public BookingController(
             ISearchService searchService,
@@ -506,7 +507,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             IPayPalService payPalService,
             IEditionManager editionManager,
             IDateService dateService,
-            ILocationService locationService)
+            ILocationService locationService,
+            ILogService logService)
         {
             _searchService = searchService;
             _clientConfig = clientConfig;
@@ -522,7 +524,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _editionManager = editionManager;
             _dateService = dateService;
             _locationService = locationService;
+            _logService = logService;
         }
-
     }
 }

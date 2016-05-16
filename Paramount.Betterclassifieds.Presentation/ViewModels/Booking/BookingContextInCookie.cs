@@ -15,12 +15,15 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         private readonly IBookCartRepository _repository;
         private readonly IClientConfig _clientConfig;
         private readonly HttpContextBase _httpContext;
+        private readonly ILogService _logService;
 
-        public BookingContextInCookie(IBookCartRepository repository, IClientConfig clientConfig, HttpContextBase httpContext)
+        public BookingContextInCookie(IBookCartRepository repository, IClientConfig clientConfig, 
+            HttpContextBase httpContext, ILogService logService)
         {
             _repository = repository;
             _clientConfig = clientConfig;
             _httpContext = httpContext;
+            _logService = logService;
         }
 
         public BookingCart Current()
@@ -29,6 +32,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
             if (booking == null)
             {
+                _logService.Info("Booking created");
                 booking = new BookingCart(_httpContext.With(c => c.Session).SessionID, _httpContext.User.Identity.Name);
                 _repository.Save(booking);
                 Id = booking.Id;

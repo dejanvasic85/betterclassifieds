@@ -77,12 +77,8 @@
             public const string AdBookingExtension = "AdBookingExtension";
             public const string AdBookingOrderSummary = "AdBookingOrderSummary";
             public const string SchemaVersions = "SchemaVersions";
-            public const string TutorAd = "TutorAd";
             public const string OnlineAdRate = "OnlineAdRate";
-            public const string Lookup = "Lookup";
             public const string UserNetwork = "UserNetwork";
-            public const string WebAdSpaceSetting = "WebAdSpaceSetting";
-            public const string WebAdSpace = "WebAdSpace";
             public const string SeoMapping = "SeoMapping";
             public const string Event = "Event";
             public const string EventTicket = "EventTicket";

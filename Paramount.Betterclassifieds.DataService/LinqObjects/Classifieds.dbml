@@ -10,16 +10,6 @@
       <Association Name="Ad_AdDesign" Member="AdDesigns" ThisKey="AdId" OtherKey="AdId" Type="AdDesign" />
     </Type>
   </Table>
-  <Table Name="dbo.WebContent" Member="WebContents">
-    <Type Name="WebContent">
-      <Column Name="WebContentId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="PageId" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="WebContent" Member="WebContent1" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="LastModifiedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="LastModifiedUser" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.AdBooking" Member="AdBookings">
     <Type Name="AdBooking">
       <Column Name="AdBookingId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -199,13 +189,6 @@
       <Association Name="Location_LocationArea" Member="Location" ThisKey="LocationId" OtherKey="LocationId" Type="Location" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Lookup" Member="Lookups">
-    <Type Name="Lookup">
-      <Column Name="LookupId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="GroupName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="LookupValue" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
   <Table Name="dbo.NonPublicationDate" Member="NonPublicationDates">
     <Type Name="NonPublicationDate">
       <Column Name="NonPublicationDateId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -315,62 +298,6 @@
       <Association Name="BaseRate_Ratecard" Member="BaseRate" ThisKey="BaseRateId" OtherKey="BaseRateId" Type="BaseRate" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.SchemaVersions" Member="SchemaVersions">
-    <Type Name="SchemaVersion">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="ScriptName" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
-      <Column Name="Applied" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
-  <Table Name="dbo.TempBookingRecord" Member="TempBookingRecords">
-    <Type Name="TempBookingRecord">
-      <Column Name="BookingRecordId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="TotalCost" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
-      <Column Name="SessionID" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
-      <Column Name="UserId" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="DateTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="AdReferenceId" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
-  <Table Name="dbo.TutorAd" Member="TutorAds">
-    <Type Name="TutorAd">
-      <Column Name="TutorAdId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="OnlineAdId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Subjects" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
-      <Column Name="AgeGroupMin" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="AgeGroupMax" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ExpertiseLevel" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="TravelOption" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="PricingOption" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="WhatToBring" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="Objective" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Association Name="OnlineAd_TutorAd" Member="OnlineAd" ThisKey="OnlineAdId" OtherKey="OnlineAdId" Type="OnlineAd" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.WebAdSpace" Member="WebAdSpaces">
-    <Type Name="WebAdSpace">
-      <Column Name="WebAdSpaceId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Title" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="SettingID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="SortOrder" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="AdLinkUrl" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="AdTarget" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="SpaceType" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="DisplayText" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="ToolTipText" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Column Name="Active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="WebAdSpaceSetting_WebAdSpace" Member="WebAdSpaceSetting" ThisKey="SettingID" OtherKey="SettingId" Type="WebAdSpaceSetting" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.WebAdSpaceSetting" Member="WebAdSpaceSettings">
-    <Type Name="WebAdSpaceSetting">
-      <Column Name="SettingId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Title" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="LocationCode" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="WebAdSpaceSetting_WebAdSpace" Member="WebAdSpaces" ThisKey="SettingId" OtherKey="SettingID" Type="WebAdSpace" />
-    </Type>
-  </Table>
   <Table Name="dbo.SeoMapping" Member="SeoMappings">
     <Type Name="SeoMapping">
       <Column Name="SeoNameId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -399,7 +326,6 @@
       <Column Name="ContactEmail" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="ContactPhone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Association Name="OnlineAd_OnlineAdEnquiry" Member="OnlineAdEnquiries" ThisKey="OnlineAdId" OtherKey="OnlineAdId" Type="OnlineAdEnquiry" />
-      <Association Name="OnlineAd_TutorAd" Member="TutorAds" ThisKey="OnlineAdId" OtherKey="OnlineAdId" Type="TutorAd" />
       <Association Name="AdDesign_OnlineAd" Member="AdDesign" ThisKey="AdDesignId" OtherKey="AdDesignId" Type="AdDesign" IsForeignKey="true" />
       <Association Name="Location_OnlineAd" Member="Location" ThisKey="LocationId" OtherKey="LocationId" Type="Location" IsForeignKey="true" />
       <Association Name="LocationArea_OnlineAd" Member="LocationArea" ThisKey="LocationAreaId" OtherKey="LocationAreaId" Type="LocationArea" IsForeignKey="true" />

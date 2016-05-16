@@ -75,7 +75,6 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             // To Db
             configuration.CreateMap<OnlineAdModel, OnlineAd>()
                 .ForMember(member => member.Location, options => options.Ignore())
-                .ForMember(member => member.TutorAds, options => options.Ignore())
                 .ForMember(member => member.LocationArea, options => options.Ignore())
                 .ForMember(member => member.AdDesign, options => options.Ignore())
                 ;

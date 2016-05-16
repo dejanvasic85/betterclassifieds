@@ -49,7 +49,6 @@
             public const string MainCategory = "MainCategory";
             public const string Address = "Address";
             public const string BookEntry = "BookEntry";
-            public const string PublicationSpecialRate = "PublicationSpecialRate";
             public const string PublicationRate = "PublicationRate";
             public const string Publication = "Publication";
             public const string EnquiryType = "EnquiryType";
@@ -57,10 +56,8 @@
             public const string NonPublicationDate = "NonPublicationDate";
             public const string OnlineAdEnquiry = "OnlineAdEnquiry";
             public const string Edition = "Edition";
-            public const string EnquiryDocument = "EnquiryDocument";
             public const string PublicationAdType = "PublicationAdType";
             public const string PublicationCategory = "PublicationCategory";
-            public const string SpecialRate = "SpecialRate";
             public const string SupportEnquiry = "SupportEnquiry";
             public const string Ratecard = "Ratecard";
             public const string WebContent = "WebContent";

@@ -41,6 +41,12 @@ namespace Paramount.Betterclassifieds.Presentation
             MvcHandler.DisableMvcResponseHeader = true;
         }
 
+        protected void Application_End()
+        {
+            var logService = DependencyResolver.Current.GetService<ILogService>();
+            logService.Info("Application shutting down");
+        }
+
         protected void Session_Start(object sender, EventArgs e)
         {
             Session["init"] = 0; // This line is here so that a new session object is created on the server!

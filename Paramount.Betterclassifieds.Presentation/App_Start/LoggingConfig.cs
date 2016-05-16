@@ -11,7 +11,7 @@ namespace Paramount.Betterclassifieds.Presentation
             log4net.Config.XmlConfigurator.Configure(new FileInfo(
                 HttpContext.Current.Server.MapPath("~/Web.config")));
 
-            logService.Info("Application Started. Logging Configured");
+            logService.Info("Application Started. Logging configured successfully.");
         }
     }
 }

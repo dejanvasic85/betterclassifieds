@@ -1,4 +1,8 @@
+using System.IO;
+using System.Text;
 using System.Web.Mvc;
+using System.Xml.Serialization;
+using Newtonsoft.Json;
 using Paramount.Betterclassifieds.Business;
 
 namespace Paramount.Betterclassifieds.Presentation
@@ -10,7 +14,7 @@ namespace Paramount.Betterclassifieds.Presentation
         {
             _logService = DependencyResolver.Current.GetService<ILogService>();
         }
-        
+
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var httpRequestBase = filterContext.RequestContext.HttpContext.Request;
@@ -18,12 +22,26 @@ namespace Paramount.Betterclassifieds.Presentation
             if (method != "POST")
                 return;
 
-            _logService.Info($"POST {filterContext.ActionDescriptor.ControllerDescriptor.ControllerName}/{filterContext.ActionDescriptor.ActionName}");
+            var data = new StringBuilder($"POST {filterContext.ActionDescriptor.ControllerDescriptor.ControllerName}/{filterContext.ActionDescriptor.ActionName}\n");
+
+            // Print the request data
+            foreach (var actionParameter in filterContext.ActionParameters)
+            {
+                using (var str = new StringWriter())
+                {
+                    var s = new JsonSerializer();
+                    s.Serialize(str, actionParameter.Value);
+                    data.AppendLine($"\n\tParam: {actionParameter.Key}");
+                    data.AppendLine($"\tValue: {str}");
+                }
+            }
+
+            _logService.Info(data.ToString());
         }
 
         public void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            
+
         }
     }
 }

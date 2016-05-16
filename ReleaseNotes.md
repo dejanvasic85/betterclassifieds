@@ -1,6 +1,7 @@
 Here's a list of the latest changes:
 
 **3.8.0 Event invitations**
+
 - [Enhancement - Event invitations are now available.](https://trello.com/c/rZ4Qfe4B/474-event-invitations-invitations-using-the-user-networking)
 - [Tech - Added log4Net logging and logentries.com](https://trello.com/c/7RTbKAIz/333-review-logging-infrastructure-and-logentries-com)
 

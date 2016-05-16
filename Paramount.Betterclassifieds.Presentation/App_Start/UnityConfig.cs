@@ -1,8 +1,4 @@
-﻿using Paramount.Betterclassifieds.Business.Location;
-using Paramount.Betterclassifieds.Payments.Stripe;
-using Paramount.Betterclassifieds.Presentation.Services;
-
-namespace Paramount.Betterclassifieds.Presentation
+﻿namespace Paramount.Betterclassifieds.Presentation
 {
     using Business;
     using Business.Booking;
@@ -13,6 +9,7 @@ namespace Paramount.Betterclassifieds.Presentation
     using Business.Repository;
     using Business.Search;
     using Business.Events;
+    using Business.Location;
     using DataService;
     using DataService.Broadcast;
     using DataService.Repository;
@@ -22,6 +19,8 @@ namespace Paramount.Betterclassifieds.Presentation
     using System.Web.Mvc;
     using Unity.Mvc4;
     using Payments.pp;
+    using Payments.Stripe;
+    using Services;
     using ViewModels;
 
 
@@ -77,6 +76,7 @@ namespace Paramount.Betterclassifieds.Presentation
                 .RegisterType<SearchFilters>(new SessionLifetimeManager<SearchFilters>())
                 .RegisterType<IAdFactory, AdFactory>()
                 .RegisterType<IEventTicketReservationFactory, EventTicketReservationFactory>()
+                .RegisterType<ILogService, LogService>()
 
                 // Rates/ prices (chargeable items)
                 .RegisterType<IPrintChargeableItem, PrintHeadingCharge>("PrintHeadingCharge")

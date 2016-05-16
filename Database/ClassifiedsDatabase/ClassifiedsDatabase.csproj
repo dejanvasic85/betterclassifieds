@@ -72,6 +72,7 @@
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Scripts-3.0\006-EventInvitation.Table.sql" />
     <EmbeddedResource Include="Scripts-3.0\005-EventBooking.PriceAndFee.sql" />
     <EmbeddedResource Include="Scripts-3.0\004-EventBookingTicket.PriceAndFee.sql" />
     <EmbeddedResource Include="Scripts-3.0\003-EventBookingTicketValidation.Table.sql" />

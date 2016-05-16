@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using Paramount.Betterclassifieds.Business;
@@ -171,6 +172,14 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
+        public EventInvitation GetEventInvitation(long invitationId)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                return context.EventInvitations.SingleOrDefault(e => e.EventInvitationId == invitationId);
+            }
+        }
+
         public void CreateEventTicketReservation(EventTicketReservation eventTicketReservation)
         {
             using (var context = _dbContextFactory.CreateEventContext())
@@ -185,6 +194,15 @@ namespace Paramount.Betterclassifieds.DataService.Events
             using (var context = _dbContextFactory.CreateEventContext())
             {
                 context.EventBookingTicketValidations.Add(eventBookingTicketValidation);
+                context.SaveChanges();
+            }
+        }
+
+        public void CreateEventInvitation(EventInvitation eventInvitation)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                context.EventInvitations.Add(eventInvitation);
                 context.SaveChanges();
             }
         }
@@ -245,6 +263,16 @@ namespace Paramount.Betterclassifieds.DataService.Events
             {
                 context.EventBookingTicketValidations.Attach(eventBookingTicketValidation);
                 context.Entry(eventBookingTicketValidation).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        public void UpdateEventInvitation(EventInvitation invitation)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                context.EventInvitations.Attach(invitation);
+                context.Entry(invitation).State = EntityState.Modified;
                 context.SaveChanges();
             }
         }

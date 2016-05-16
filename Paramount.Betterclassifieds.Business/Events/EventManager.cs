@@ -104,12 +104,23 @@ namespace Paramount.Betterclassifieds.Business.Events
             _eventRepository.UpdateEventBooking(eventBooking);
         }
 
-        public void EventBookingPaymentCompleted(int? eventBookingId, PaymentType paymentType)
+        public void EventBookingPaymentCompleted(int? eventBookingId, PaymentType paymentType, long? eventInvitationId)
         {
             Guard.NotNull(eventBookingId);
             var eventBooking = _eventRepository.GetEventBooking(eventBookingId.GetValueOrDefault(), includeEvent: false);
             eventBooking.Status = EventBookingStatus.Active;
             _eventRepository.UpdateEventBooking(eventBooking);
+
+            if (eventInvitationId.HasValue)
+            {
+                var invitation = _eventRepository.GetEventInvitation(eventInvitationId.Value);
+                if (invitation == null)
+                    return;
+
+                invitation.ConfirmedDate = _dateService.Now;
+                invitation.ConfirmedDateUtc = _dateService.UtcNow;
+                _eventRepository.UpdateEventInvitation(invitation);
+            }
         }
 
         public void SetPaymentReferenceForBooking(int eventBookingId, string paymentReference, PaymentType paymentType)
@@ -215,7 +226,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             Guard.NotNull(eventId);
             var eventBookingTickets = _eventRepository.GetEventBookingTicketsForEvent(eventId.GetValueOrDefault()).ToList();
             var eventModel = _eventRepository.GetEventDetails(eventId.GetValueOrDefault());
-            
+
             var totalSales = eventBookingTickets.Sum(t => t.Price.GetValueOrDefault());
             var totalTicketQty = eventBookingTickets.Count;
             var paymentSummary = new EventPaymentSummary
@@ -288,6 +299,11 @@ namespace Paramount.Betterclassifieds.Business.Events
             return EventPaymentRequestStatus.RequestPending;
         }
 
+        public EventInvitation GetEventInvitation(long eventInvitationId)
+        {
+            return _eventRepository.GetEventInvitation(eventInvitationId);
+        }
+
         public void CloseEvent(int eventId)
         {
             var eventModel = _eventRepository.GetEventDetails(eventId);
@@ -353,6 +369,21 @@ namespace Paramount.Betterclassifieds.Business.Events
         public EventBookingTicketValidation GetTicketValidation(int eventTicketId)
         {
             return _eventRepository.GetEventBookingTicketValidation(eventTicketId);
+        }
+
+        public EventInvitation CreateInvitationForUserNetwork(int eventId, int userNetworkId)
+        {
+            var eventInvitation = new EventInvitation
+            {
+                EventId = eventId,
+                UserNetworkId = userNetworkId,
+                CreatedDate = _dateService.Now,
+                CreatedDateUtc = _dateService.UtcNow
+            };
+
+            _eventRepository.CreateEventInvitation(eventInvitation);
+
+            return eventInvitation;
         }
     }
 }

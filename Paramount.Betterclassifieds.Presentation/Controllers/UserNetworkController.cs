@@ -49,7 +49,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             // Adds a contact for the existing (logged in user)
-            _userManager.CreateUserNetwork(this.User, viewModel.Email, viewModel.FullName);
+            _userManager.CreateUserNetwork(User.Identity.Name, viewModel.Email, viewModel.FullName);
             return Json(true);
         }
     }

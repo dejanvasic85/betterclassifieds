@@ -10,18 +10,20 @@ namespace Paramount.Betterclassifieds.Presentation.Services
     {
         private readonly IApplicationConfig _config;
         private readonly IDateService _dateService;
+        private readonly ILogService _logService;
 
-        public LocationService(IApplicationConfig config, IDateService dateService)
+        public LocationService(IApplicationConfig config, IDateService dateService,
+            ILogService logService)
         {
             _config = config;
             _dateService = dateService;
+            _logService = logService;
         }
 
         public TimeZoneResult GetTimezone(decimal latitude, decimal longitude)
         {
-            var url = string.Format("{0}/timezone/json?location={1},{2}&timestamp={3}&key={4}", 
-                _config.GoogleTimezoneApiUrl.TrimEnd('/'), latitude, longitude, _dateService.Timestamp, _config.GoogleTimezoneApiKey);
-
+            var url = $"{_config.GoogleTimezoneApiUrl.TrimEnd('/')}/timezone/json?location={latitude},{longitude}&timestamp={_dateService.Timestamp}&key={_config.GoogleTimezoneApiKey}";
+            _logService.Info("Fetching timezone from " + url);
             var request = WebRequest.Create(url);
             var responseStream = request.GetResponse().GetResponseStream();
             if (responseStream == null)
@@ -31,6 +33,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             var str = reader.ReadToEnd();
             responseStream.Close();
             reader.Close();
+            _logService.Info("Timezone Response: " + str);
             var googleResponseObj = JsonConvert.DeserializeObject<TimeZoneResult>(str);
             return googleResponseObj;
         }

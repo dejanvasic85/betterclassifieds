@@ -28,6 +28,7 @@
 /// <reference path="app/events/eventticketreserved.model.js" />
 /// <reference path="app/events/eventview.ui.js" />
 /// <reference path="app/events/findtickets.model.js" />
+/// <reference path="app/events/invitation.ui.js" />
 /// <reference path="app/listings/Find.min.js" />
 /// <reference path="app/locations/location.service.js" />
 /// <reference path="app/ui/home.ui.js" />

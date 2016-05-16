@@ -6,7 +6,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
     /// Used for posting ticket requests  to the event controller
     /// </summary>
     public class EventTicketRequestViewModel
-    {
+    {   
         [Required] 
         public int? EventTicketId { get; set; }
         [Required]

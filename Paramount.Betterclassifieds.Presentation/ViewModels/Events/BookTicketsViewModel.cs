@@ -15,7 +15,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         { }
 
         public BookTicketsViewModel(AdSearchResult onlineAdModel, EventModel eventDetails, IClientConfig clientConfig, 
-            IApplicationConfig appConfig, ApplicationUser applicationUser, List<EventTicketReservation> ticketReservations)
+            IApplicationConfig appConfig, ApplicationUser applicationUser, List<EventTicketReservation> ticketReservations,
+            UserNetworkModel userNetwork)
         {
             EventId = eventDetails.EventId;
             TotelReservationExpiryMinutes = clientConfig.EventTicketReservationExpiryMinutes;
@@ -39,6 +40,12 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 Phone = applicationUser.Phone;
                 PostCode = applicationUser.Postcode;
                 Email = applicationUser.Email;
+            }
+            else if (userNetwork != null)
+            {
+                FirstName = userNetwork.FirstName;
+                LastName = userNetwork.Surname;
+                Email = userNetwork.UserNetworkEmail;
             }
             BrandName = appConfig.Brand;
         }

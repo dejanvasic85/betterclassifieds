@@ -72,6 +72,7 @@
     <Compile Include="Events\EventPaymentRequestFactory.cs" />
     <Compile Include="Events\EventPaymentRequestStatus.cs" />
     <Compile Include="Events\EventPaymentSummary.cs" />
+    <Compile Include="Events\EventInvitation.cs" />
     <Compile Include="Events\EventTicketFactory.cs" />
     <Compile Include="Events\TicketFeeCalculator.cs" />
     <Compile Include="Events\IEventBarcodeManager.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="ICategoryAd.cs" />
     <Compile Include="Events\IEventRepository.cs" />
     <Compile Include="IAdFactory.cs" />
+    <Compile Include="ILogService.cs" />
     <Compile Include="Location\ILocationService.cs" />
     <Compile Include="Location\TimeZoneResult.cs" />
     <Compile Include="Membership\IConfirmationCodeGenerator.cs" />

@@ -40,8 +40,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpPost]
-        public ActionResult ReserveTickets(int eventId, List<EventTicketRequestViewModel> tickets)
+        public ActionResult ReserveTickets(ReserveTicketsViewModel reserveTicketsViewModel)
         {
+            var tickets = reserveTicketsViewModel.Tickets;
+            var eventId = reserveTicketsViewModel.EventId;
+
             if (tickets == null || tickets.Count == 0)
             {
                 ModelState.AddModelError("Tickets", "No tickets have been selected");
@@ -56,6 +59,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             _eventBookingContext.Clear();
+            _eventBookingContext.EventInvitationId = reserveTicketsViewModel.EventInvitationId;
+
             var sessionId = _httpContext.With(s => s.Session).SessionID;
             var reservations = new List<EventTicketReservation>();
             foreach (var t in tickets)
@@ -85,13 +90,21 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             // Construct the view model
             ApplicationUser applicationUser = null;
+            UserNetworkModel userNetwork = null;
             if (this.User.Identity.IsAuthenticated)
             {
-                applicationUser = _userManager.GetCurrentUser(this.User);
+                applicationUser = _userManager.GetCurrentUser(User);
             }
-            var viewModel = new BookTicketsViewModel(onlineAdModel, eventDetails, _clientConfig, _appConfig, applicationUser, ticketReservations)
+            else if (_eventBookingContext.EventInvitationId.HasValue)
             {
-                Reservations = this.MapList<EventTicketReservation, EventTicketReservedViewModel>(ticketReservations),
+                var invitation = _eventManager.GetEventInvitation(_eventBookingContext.EventInvitationId.Value);
+                userNetwork = _userManager.GetUserNetwork(invitation.UserNetworkId);
+            }
+
+            // Construct the view model
+            var viewModel = new BookTicketsViewModel(onlineAdModel, eventDetails, _clientConfig, _appConfig, applicationUser, ticketReservations, userNetwork)
+            {
+                Reservations = this.MapList<EventTicketReservation, EventTicketReservedViewModel>(ticketReservations)
             };
 
             if (remainingTimeToCompleteBooking <= TimeSpan.Zero)
@@ -269,7 +282,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.GetValueOrDefault());
 
             // Mark booking as paid in our database
-            _eventManager.EventBookingPaymentCompleted(_eventBookingContext.EventBookingId, PaymentType.PayPal);
+            _eventManager.EventBookingPaymentCompleted(_eventBookingContext.EventBookingId, PaymentType.PayPal, _eventBookingContext.EventInvitationId);
 
             // Call paypal to let them know we completed our end
             _payPalService.CompletePayment(_eventBookingContext.EventBookingPaymentReference, payerId,
@@ -295,7 +308,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             // Mark booking as paid in our database
             _eventManager.SetPaymentReferenceForBooking(eventBooking.EventBookingId, stripePayment.StripeToken, PaymentType.CreditCard);
-            _eventManager.EventBookingPaymentCompleted(_eventBookingContext.EventBookingId, PaymentType.CreditCard);
+            _eventManager.EventBookingPaymentCompleted(_eventBookingContext.EventBookingId, PaymentType.CreditCard, _eventBookingContext.EventInvitationId);
 
             return RedirectToAction("EventBooked");
         }
@@ -318,7 +331,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             vm.ExampleTotalTicketQuantitySold = 10;
             vm.ExampleTotalFeeForOrganiser = ticketCalculator.GetFeeTotalForOrganiserForAllTicketSales(100, 10);
             vm.ExampleTotalAmountForOrganiser = vm.ExampleTotalTicketSales - vm.ExampleTotalFeeForOrganiser;
-            
+
             return View(vm);
         }
 
@@ -363,6 +376,22 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var result = _barcodeManager.ValidateTicket(barcode);
             var viewModel = BarcodeValidationViewModel.FromResult(result);
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        [ActionName("invitation")]
+        public ActionResult Invitation(long token)
+        {
+            var invitation = _eventManager.GetEventInvitation(token);
+            if (invitation == null)
+                return new Redirector().NotFound();
+
+            var eventDetails = _eventManager.GetEventDetails(invitation.EventId);
+            var adSearchResult = _searchService.GetByAdOnlineId(eventDetails.OnlineAdId);
+            var userNetwork = _userManager.GetUserNetwork(invitation.UserNetworkId);
+
+            var viewModel = new InvitationViewModel(adSearchResult, eventDetails, userNetwork, _clientConfig, invitation);
             return View(viewModel);
         }
 

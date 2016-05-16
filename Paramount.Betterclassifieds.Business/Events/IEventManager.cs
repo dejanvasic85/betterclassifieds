@@ -16,7 +16,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         TimeSpan GetRemainingTimeForReservationCollection(IEnumerable<EventTicketReservation> reservations);
         EventBooking CreateEventBooking(int eventId, ApplicationUser applicationUser, IEnumerable<EventTicketReservation> currentReservations);
         void CancelEventBooking(int? eventBookingId);
-        void EventBookingPaymentCompleted(int? eventBookingId, PaymentType paymentType);
+        void EventBookingPaymentCompleted(int? eventBookingId, PaymentType paymentType, long? eventInvitationId);
         void SetPaymentReferenceForBooking(int eventBookingId, string paymentReference, PaymentType paymentType);
         void AdjustRemainingQuantityAndCancelReservations(string sessionId, IList<EventBookingTicket> eventBookingTickets);
         string CreateEventTicketsDocument(int eventBookingId, byte[] ticketPdfData, DateTime? ticketsSentDate = null);
@@ -27,11 +27,14 @@ namespace Paramount.Betterclassifieds.Business.Events
         bool IsEventEditable(int? eventId);
         void CreateEventPaymentRequest(int eventId, PaymentType paymentType, decimal requestedAmount, string requestedByUser);
         EventPaymentRequestStatus GetEventPaymentRequestStatus(int? eventId);
+        EventInvitation GetEventInvitation(long eventInvitationId);
+
         void CloseEvent(int eventId);
-        void UpdateEventDetails(int adId, int eventId, string title, string description, string htmlText, 
-            DateTime eventStartDate, DateTime eventEndDateTime, string location, 
-            decimal? locationLatitude, decimal? locationLongitude, string organiserName, 
+        void UpdateEventDetails(int adId, int eventId, string title, string description, string htmlText,
+            DateTime eventStartDate, DateTime eventEndDateTime, string location,
+            decimal? locationLatitude, decimal? locationLongitude, string organiserName,
             string organiserPhone, DateTime adStartDate, string floorPlanDocumentId, string locationFloorPlanFilename,
-            Address address );
+            Address address);
+
     }
 }

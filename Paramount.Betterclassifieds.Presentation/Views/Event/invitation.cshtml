@@ -1,0 +1,73 @@
+﻿@model InvitationViewModel
+
+@{
+    ViewBag.Title = "Event";
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
+}
+
+@section Scripts
+{
+    <script>
+        var availableTickets = @Html.Raw(Model.Tickets.ToJsonString());
+        var eventId = @Model.EventId;
+        var token = '@Model.EventInvitationId';
+        $paramount.ui.invitation.init(eventId, token, availableTickets);
+    </script>
+}
+
+<div class="container top-buffer-60">
+    @if (Model.IsEventClosed)
+    {
+        <div class="alert alert-warning">
+
+            <h3>
+                <i class="fa fa-times-circle-o"></i> Sorry. The event you are looking for has been closed. Tickets are no longer available.
+            </h3>
+        </div>
+    }
+    else if (Model.IsAlreadyConfirmed)
+    {
+        <div class="alert alert-warning">
+
+            <h3>
+                <i class="fa fa-times-circle-o"></i> Sorry. This invitation has already been used or expired.
+            </h3>
+        </div>
+    }
+    else
+    {
+        <div class="well well-lg">
+            Hello @Model.GuestFullName, you have been invited to the following event:
+        </div>
+        <h1>
+            @Model.EventName
+        </h1>
+        <p class="lead">
+            @Model.EventStartDate @@@Model.Location
+        </p>
+
+        <ul class="list-group">
+            @foreach (var ticket in Model.Tickets)
+            {
+                <li class="list-group-item">
+                    <h4>
+                        <i class="fa fa-ticket"></i>
+                        @ticket.TicketName - @ticket.Price.ToString("C")
+                    </h4>
+                    <div class="text-right">
+                        @if (ticket.AvailableQuantity > 0)
+                        {
+                            <button class="btn btn-primary js-load" data-ticket="@ticket.EventTicketId">
+                                Select Ticket
+                            </button>
+                        }
+                        else
+                        {
+                            <text><strong>SOLD OUT</strong></text>
+                        }
+                    </div>
+                </li>
+            }
+        </ul>
+    }
+</div>

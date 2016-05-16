@@ -102,9 +102,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
     partial void InsertPublicationRate(PublicationRate instance);
     partial void UpdatePublicationRate(PublicationRate instance);
     partial void DeletePublicationRate(PublicationRate instance);
-    partial void InsertPublicationSpecialRate(PublicationSpecialRate instance);
-    partial void UpdatePublicationSpecialRate(PublicationSpecialRate instance);
-    partial void DeletePublicationSpecialRate(PublicationSpecialRate instance);
     partial void InsertPublicationType(PublicationType instance);
     partial void UpdatePublicationType(PublicationType instance);
     partial void DeletePublicationType(PublicationType instance);
@@ -114,9 +111,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
     partial void InsertSchemaVersion(SchemaVersion instance);
     partial void UpdateSchemaVersion(SchemaVersion instance);
     partial void DeleteSchemaVersion(SchemaVersion instance);
-    partial void InsertSpecialRate(SpecialRate instance);
-    partial void UpdateSpecialRate(SpecialRate instance);
-    partial void DeleteSpecialRate(SpecialRate instance);
     partial void InsertTempBookingRecord(TempBookingRecord instance);
     partial void UpdateTempBookingRecord(TempBookingRecord instance);
     partial void DeleteTempBookingRecord(TempBookingRecord instance);
@@ -380,14 +374,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			}
 		}
 		
-		public System.Data.Linq.Table<PublicationSpecialRate> PublicationSpecialRates
-		{
-			get
-			{
-				return this.GetTable<PublicationSpecialRate>();
-			}
-		}
-		
 		public System.Data.Linq.Table<PublicationType> PublicationTypes
 		{
 			get
@@ -409,14 +395,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			get
 			{
 				return this.GetTable<SchemaVersion>();
-			}
-		}
-		
-		public System.Data.Linq.Table<SpecialRate> SpecialRates
-		{
-			get
-			{
-				return this.GetTable<SpecialRate>();
 			}
 		}
 		
@@ -686,13 +664,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			return ((ISingleResult<spPublicationEditionsResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.spPublicationSpecialRateAdd")]
-		public int spPublicationSpecialRateAdd([global::System.Data.Linq.Mapping.ParameterAttribute(Name="PublicationId", DbType="Int")] System.Nullable<int> publicationId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="MainCategoryId", DbType="Int")] System.Nullable<int> mainCategoryId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SpecialRateId", DbType="Int")] System.Nullable<int> specialRateId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ClearCurrentRates", DbType="Bit")] System.Nullable<bool> clearCurrentRates)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), publicationId, mainCategoryId, specialRateId, clearCurrentRates);
-			return ((int)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.spRatecardsByCategory")]
 		public ISingleResult<spRatecardsByCategoryResult> spRatecardsByCategory([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> categoryId)
 		{
@@ -712,27 +683,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), pubid, ed, status, subCategoryId);
 			return ((ISingleResult<spReportWeeklySalesResult>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.spSpecialRateDelete")]
-		public int spSpecialRateDelete([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> specialRateId, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Bit")] System.Nullable<bool> isCascade)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), specialRateId, isCascade);
-			return ((int)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.spSpecialRatePublications")]
-		public ISingleResult<spSpecialRatePublicationsResult> spSpecialRatePublications([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> specialRateId)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), specialRateId);
-			return ((ISingleResult<spSpecialRatePublicationsResult>)(result.ReturnValue));
-		}
-		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.spSpecialRatesByCategory")]
-		public ISingleResult<spSpecialRatesByCategoryResult> spSpecialRatesByCategory([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> mainCategoryId)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), mainCategoryId);
-			return ((ISingleResult<spSpecialRatesByCategoryResult>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.spTransactionsByUser")]
@@ -3003,8 +2953,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 		
 		private EntitySet<Ratecard> _Ratecards;
 		
-		private EntitySet<SpecialRate> _SpecialRates;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -3028,7 +2976,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 		public BaseRate()
 		{
 			this._Ratecards = new EntitySet<Ratecard>(new Action<Ratecard>(this.attach_Ratecards), new Action<Ratecard>(this.detach_Ratecards));
-			this._SpecialRates = new EntitySet<SpecialRate>(new Action<SpecialRate>(this.attach_SpecialRates), new Action<SpecialRate>(this.detach_SpecialRates));
 			OnCreated();
 		}
 		
@@ -3185,19 +3132,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BaseRate_SpecialRate", Storage="_SpecialRates", ThisKey="BaseRateId", OtherKey="BaseRateId")]
-		public EntitySet<SpecialRate> SpecialRates
-		{
-			get
-			{
-				return this._SpecialRates;
-			}
-			set
-			{
-				this._SpecialRates.Assign(value);
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -3225,18 +3159,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 		}
 		
 		private void detach_Ratecards(Ratecard entity)
-		{
-			this.SendPropertyChanging();
-			entity.BaseRate = null;
-		}
-		
-		private void attach_SpecialRates(SpecialRate entity)
-		{
-			this.SendPropertyChanging();
-			entity.BaseRate = this;
-		}
-		
-		private void detach_SpecialRates(SpecialRate entity)
 		{
 			this.SendPropertyChanging();
 			entity.BaseRate = null;
@@ -6258,8 +6180,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 		
 		private EntitySet<PublicationRate> _PublicationRates;
 		
-		private EntitySet<PublicationSpecialRate> _PublicationSpecialRates;
-		
 		private EntityRef<AdType> _AdType;
 		
 		private EntityRef<Publication> _Publication;
@@ -6279,7 +6199,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 		public PublicationAdType()
 		{
 			this._PublicationRates = new EntitySet<PublicationRate>(new Action<PublicationRate>(this.attach_PublicationRates), new Action<PublicationRate>(this.detach_PublicationRates));
-			this._PublicationSpecialRates = new EntitySet<PublicationSpecialRate>(new Action<PublicationSpecialRate>(this.attach_PublicationSpecialRates), new Action<PublicationSpecialRate>(this.detach_PublicationSpecialRates));
 			this._AdType = default(EntityRef<AdType>);
 			this._Publication = default(EntityRef<Publication>);
 			OnCreated();
@@ -6363,19 +6282,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			set
 			{
 				this._PublicationRates.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PublicationAdType_PublicationSpecialRate", Storage="_PublicationSpecialRates", ThisKey="PublicationAdTypeId", OtherKey="PublicationAdTypeId")]
-		public EntitySet<PublicationSpecialRate> PublicationSpecialRates
-		{
-			get
-			{
-				return this._PublicationSpecialRates;
-			}
-			set
-			{
-				this._PublicationSpecialRates.Assign(value);
 			}
 		}
 		
@@ -6478,18 +6384,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			this.SendPropertyChanging();
 			entity.PublicationAdType = null;
 		}
-		
-		private void attach_PublicationSpecialRates(PublicationSpecialRate entity)
-		{
-			this.SendPropertyChanging();
-			entity.PublicationAdType = this;
-		}
-		
-		private void detach_PublicationSpecialRates(PublicationSpecialRate entity)
-		{
-			this.SendPropertyChanging();
-			entity.PublicationAdType = null;
-		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PublicationCategory")]
@@ -6513,8 +6407,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 		private System.Nullable<int> _PublicationId;
 		
 		private EntitySet<PublicationRate> _PublicationRates;
-		
-		private EntitySet<PublicationSpecialRate> _PublicationSpecialRates;
 		
 		private EntityRef<Publication> _Publication;
 		
@@ -6543,7 +6435,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 		public PublicationCategory()
 		{
 			this._PublicationRates = new EntitySet<PublicationRate>(new Action<PublicationRate>(this.attach_PublicationRates), new Action<PublicationRate>(this.detach_PublicationRates));
-			this._PublicationSpecialRates = new EntitySet<PublicationSpecialRate>(new Action<PublicationSpecialRate>(this.attach_PublicationSpecialRates), new Action<PublicationSpecialRate>(this.detach_PublicationSpecialRates));
 			this._Publication = default(EntityRef<Publication>);
 			this._MainCategory = default(EntityRef<MainCategory>);
 			OnCreated();
@@ -6710,19 +6601,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PublicationCategory_PublicationSpecialRate", Storage="_PublicationSpecialRates", ThisKey="PublicationCategoryId", OtherKey="PublicationCategoryId")]
-		public EntitySet<PublicationSpecialRate> PublicationSpecialRates
-		{
-			get
-			{
-				return this._PublicationSpecialRates;
-			}
-			set
-			{
-				this._PublicationSpecialRates.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Publication_PublicationCategory", Storage="_Publication", ThisKey="PublicationId", OtherKey="PublicationId", IsForeignKey=true)]
 		public Publication Publication
 		{
@@ -6818,18 +6696,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 		}
 		
 		private void detach_PublicationRates(PublicationRate entity)
-		{
-			this.SendPropertyChanging();
-			entity.PublicationCategory = null;
-		}
-		
-		private void attach_PublicationSpecialRates(PublicationSpecialRate entity)
-		{
-			this.SendPropertyChanging();
-			entity.PublicationCategory = this;
-		}
-		
-		private void detach_PublicationSpecialRates(PublicationSpecialRate entity)
 		{
 			this.SendPropertyChanging();
 			entity.PublicationCategory = null;
@@ -7068,263 +6934,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 						this._RatecardId = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("Ratecard");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PublicationSpecialRate")]
-	public partial class PublicationSpecialRate : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _PublicationSpecialRateId;
-		
-		private System.Nullable<int> _SpecialRateId;
-		
-		private System.Nullable<int> _PublicationAdTypeId;
-		
-		private System.Nullable<int> _PublicationCategoryId;
-		
-		private EntityRef<PublicationAdType> _PublicationAdType;
-		
-		private EntityRef<PublicationCategory> _PublicationCategory;
-		
-		private EntityRef<SpecialRate> _SpecialRate;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnPublicationSpecialRateIdChanging(int value);
-    partial void OnPublicationSpecialRateIdChanged();
-    partial void OnSpecialRateIdChanging(System.Nullable<int> value);
-    partial void OnSpecialRateIdChanged();
-    partial void OnPublicationAdTypeIdChanging(System.Nullable<int> value);
-    partial void OnPublicationAdTypeIdChanged();
-    partial void OnPublicationCategoryIdChanging(System.Nullable<int> value);
-    partial void OnPublicationCategoryIdChanged();
-    #endregion
-		
-		public PublicationSpecialRate()
-		{
-			this._PublicationAdType = default(EntityRef<PublicationAdType>);
-			this._PublicationCategory = default(EntityRef<PublicationCategory>);
-			this._SpecialRate = default(EntityRef<SpecialRate>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PublicationSpecialRateId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int PublicationSpecialRateId
-		{
-			get
-			{
-				return this._PublicationSpecialRateId;
-			}
-			set
-			{
-				if ((this._PublicationSpecialRateId != value))
-				{
-					this.OnPublicationSpecialRateIdChanging(value);
-					this.SendPropertyChanging();
-					this._PublicationSpecialRateId = value;
-					this.SendPropertyChanged("PublicationSpecialRateId");
-					this.OnPublicationSpecialRateIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SpecialRateId", DbType="Int")]
-		public System.Nullable<int> SpecialRateId
-		{
-			get
-			{
-				return this._SpecialRateId;
-			}
-			set
-			{
-				if ((this._SpecialRateId != value))
-				{
-					if (this._SpecialRate.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnSpecialRateIdChanging(value);
-					this.SendPropertyChanging();
-					this._SpecialRateId = value;
-					this.SendPropertyChanged("SpecialRateId");
-					this.OnSpecialRateIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PublicationAdTypeId", DbType="Int")]
-		public System.Nullable<int> PublicationAdTypeId
-		{
-			get
-			{
-				return this._PublicationAdTypeId;
-			}
-			set
-			{
-				if ((this._PublicationAdTypeId != value))
-				{
-					if (this._PublicationAdType.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnPublicationAdTypeIdChanging(value);
-					this.SendPropertyChanging();
-					this._PublicationAdTypeId = value;
-					this.SendPropertyChanged("PublicationAdTypeId");
-					this.OnPublicationAdTypeIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PublicationCategoryId", DbType="Int")]
-		public System.Nullable<int> PublicationCategoryId
-		{
-			get
-			{
-				return this._PublicationCategoryId;
-			}
-			set
-			{
-				if ((this._PublicationCategoryId != value))
-				{
-					if (this._PublicationCategory.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnPublicationCategoryIdChanging(value);
-					this.SendPropertyChanging();
-					this._PublicationCategoryId = value;
-					this.SendPropertyChanged("PublicationCategoryId");
-					this.OnPublicationCategoryIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PublicationAdType_PublicationSpecialRate", Storage="_PublicationAdType", ThisKey="PublicationAdTypeId", OtherKey="PublicationAdTypeId", IsForeignKey=true)]
-		public PublicationAdType PublicationAdType
-		{
-			get
-			{
-				return this._PublicationAdType.Entity;
-			}
-			set
-			{
-				PublicationAdType previousValue = this._PublicationAdType.Entity;
-				if (((previousValue != value) 
-							|| (this._PublicationAdType.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._PublicationAdType.Entity = null;
-						previousValue.PublicationSpecialRates.Remove(this);
-					}
-					this._PublicationAdType.Entity = value;
-					if ((value != null))
-					{
-						value.PublicationSpecialRates.Add(this);
-						this._PublicationAdTypeId = value.PublicationAdTypeId;
-					}
-					else
-					{
-						this._PublicationAdTypeId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("PublicationAdType");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PublicationCategory_PublicationSpecialRate", Storage="_PublicationCategory", ThisKey="PublicationCategoryId", OtherKey="PublicationCategoryId", IsForeignKey=true)]
-		public PublicationCategory PublicationCategory
-		{
-			get
-			{
-				return this._PublicationCategory.Entity;
-			}
-			set
-			{
-				PublicationCategory previousValue = this._PublicationCategory.Entity;
-				if (((previousValue != value) 
-							|| (this._PublicationCategory.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._PublicationCategory.Entity = null;
-						previousValue.PublicationSpecialRates.Remove(this);
-					}
-					this._PublicationCategory.Entity = value;
-					if ((value != null))
-					{
-						value.PublicationSpecialRates.Add(this);
-						this._PublicationCategoryId = value.PublicationCategoryId;
-					}
-					else
-					{
-						this._PublicationCategoryId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("PublicationCategory");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SpecialRate_PublicationSpecialRate", Storage="_SpecialRate", ThisKey="SpecialRateId", OtherKey="SpecialRateId", IsForeignKey=true)]
-		public SpecialRate SpecialRate
-		{
-			get
-			{
-				return this._SpecialRate.Entity;
-			}
-			set
-			{
-				SpecialRate previousValue = this._SpecialRate.Entity;
-				if (((previousValue != value) 
-							|| (this._SpecialRate.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._SpecialRate.Entity = null;
-						previousValue.PublicationSpecialRates.Remove(this);
-					}
-					this._SpecialRate.Entity = value;
-					if ((value != null))
-					{
-						value.PublicationSpecialRates.Add(this);
-						this._SpecialRateId = value.SpecialRateId;
-					}
-					else
-					{
-						this._SpecialRateId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("SpecialRate");
 				}
 			}
 		}
@@ -8110,353 +7719,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SpecialRate")]
-	public partial class SpecialRate : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _SpecialRateId;
-		
-		private System.Nullable<int> _BaseRateId;
-		
-		private System.Nullable<int> _NumOfInsertions;
-		
-		private System.Nullable<int> _MaximumWords;
-		
-		private System.Nullable<decimal> _SetPrice;
-		
-		private System.Nullable<decimal> _Discount;
-		
-		private System.Nullable<int> _NumOfAds;
-		
-		private System.Nullable<bool> _LineAdBoldHeader;
-		
-		private System.Nullable<bool> _LineAdImage;
-		
-		private System.Nullable<int> _NumberOfImages;
-		
-		private EntitySet<PublicationSpecialRate> _PublicationSpecialRates;
-		
-		private EntityRef<BaseRate> _BaseRate;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnSpecialRateIdChanging(int value);
-    partial void OnSpecialRateIdChanged();
-    partial void OnBaseRateIdChanging(System.Nullable<int> value);
-    partial void OnBaseRateIdChanged();
-    partial void OnNumOfInsertionsChanging(System.Nullable<int> value);
-    partial void OnNumOfInsertionsChanged();
-    partial void OnMaximumWordsChanging(System.Nullable<int> value);
-    partial void OnMaximumWordsChanged();
-    partial void OnSetPriceChanging(System.Nullable<decimal> value);
-    partial void OnSetPriceChanged();
-    partial void OnDiscountChanging(System.Nullable<decimal> value);
-    partial void OnDiscountChanged();
-    partial void OnNumOfAdsChanging(System.Nullable<int> value);
-    partial void OnNumOfAdsChanged();
-    partial void OnLineAdBoldHeaderChanging(System.Nullable<bool> value);
-    partial void OnLineAdBoldHeaderChanged();
-    partial void OnLineAdImageChanging(System.Nullable<bool> value);
-    partial void OnLineAdImageChanged();
-    partial void OnNumberOfImagesChanging(System.Nullable<int> value);
-    partial void OnNumberOfImagesChanged();
-    #endregion
-		
-		public SpecialRate()
-		{
-			this._PublicationSpecialRates = new EntitySet<PublicationSpecialRate>(new Action<PublicationSpecialRate>(this.attach_PublicationSpecialRates), new Action<PublicationSpecialRate>(this.detach_PublicationSpecialRates));
-			this._BaseRate = default(EntityRef<BaseRate>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SpecialRateId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int SpecialRateId
-		{
-			get
-			{
-				return this._SpecialRateId;
-			}
-			set
-			{
-				if ((this._SpecialRateId != value))
-				{
-					this.OnSpecialRateIdChanging(value);
-					this.SendPropertyChanging();
-					this._SpecialRateId = value;
-					this.SendPropertyChanged("SpecialRateId");
-					this.OnSpecialRateIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BaseRateId", DbType="Int")]
-		public System.Nullable<int> BaseRateId
-		{
-			get
-			{
-				return this._BaseRateId;
-			}
-			set
-			{
-				if ((this._BaseRateId != value))
-				{
-					if (this._BaseRate.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnBaseRateIdChanging(value);
-					this.SendPropertyChanging();
-					this._BaseRateId = value;
-					this.SendPropertyChanged("BaseRateId");
-					this.OnBaseRateIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NumOfInsertions", DbType="Int")]
-		public System.Nullable<int> NumOfInsertions
-		{
-			get
-			{
-				return this._NumOfInsertions;
-			}
-			set
-			{
-				if ((this._NumOfInsertions != value))
-				{
-					this.OnNumOfInsertionsChanging(value);
-					this.SendPropertyChanging();
-					this._NumOfInsertions = value;
-					this.SendPropertyChanged("NumOfInsertions");
-					this.OnNumOfInsertionsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaximumWords", DbType="Int")]
-		public System.Nullable<int> MaximumWords
-		{
-			get
-			{
-				return this._MaximumWords;
-			}
-			set
-			{
-				if ((this._MaximumWords != value))
-				{
-					this.OnMaximumWordsChanging(value);
-					this.SendPropertyChanging();
-					this._MaximumWords = value;
-					this.SendPropertyChanged("MaximumWords");
-					this.OnMaximumWordsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SetPrice", DbType="Money")]
-		public System.Nullable<decimal> SetPrice
-		{
-			get
-			{
-				return this._SetPrice;
-			}
-			set
-			{
-				if ((this._SetPrice != value))
-				{
-					this.OnSetPriceChanging(value);
-					this.SendPropertyChanging();
-					this._SetPrice = value;
-					this.SendPropertyChanged("SetPrice");
-					this.OnSetPriceChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Discount", DbType="Decimal(18,2)")]
-		public System.Nullable<decimal> Discount
-		{
-			get
-			{
-				return this._Discount;
-			}
-			set
-			{
-				if ((this._Discount != value))
-				{
-					this.OnDiscountChanging(value);
-					this.SendPropertyChanging();
-					this._Discount = value;
-					this.SendPropertyChanged("Discount");
-					this.OnDiscountChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NumOfAds", DbType="Int")]
-		public System.Nullable<int> NumOfAds
-		{
-			get
-			{
-				return this._NumOfAds;
-			}
-			set
-			{
-				if ((this._NumOfAds != value))
-				{
-					this.OnNumOfAdsChanging(value);
-					this.SendPropertyChanging();
-					this._NumOfAds = value;
-					this.SendPropertyChanged("NumOfAds");
-					this.OnNumOfAdsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LineAdBoldHeader", DbType="Bit")]
-		public System.Nullable<bool> LineAdBoldHeader
-		{
-			get
-			{
-				return this._LineAdBoldHeader;
-			}
-			set
-			{
-				if ((this._LineAdBoldHeader != value))
-				{
-					this.OnLineAdBoldHeaderChanging(value);
-					this.SendPropertyChanging();
-					this._LineAdBoldHeader = value;
-					this.SendPropertyChanged("LineAdBoldHeader");
-					this.OnLineAdBoldHeaderChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LineAdImage", DbType="Bit")]
-		public System.Nullable<bool> LineAdImage
-		{
-			get
-			{
-				return this._LineAdImage;
-			}
-			set
-			{
-				if ((this._LineAdImage != value))
-				{
-					this.OnLineAdImageChanging(value);
-					this.SendPropertyChanging();
-					this._LineAdImage = value;
-					this.SendPropertyChanged("LineAdImage");
-					this.OnLineAdImageChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NumberOfImages", DbType="Int")]
-		public System.Nullable<int> NumberOfImages
-		{
-			get
-			{
-				return this._NumberOfImages;
-			}
-			set
-			{
-				if ((this._NumberOfImages != value))
-				{
-					this.OnNumberOfImagesChanging(value);
-					this.SendPropertyChanging();
-					this._NumberOfImages = value;
-					this.SendPropertyChanged("NumberOfImages");
-					this.OnNumberOfImagesChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SpecialRate_PublicationSpecialRate", Storage="_PublicationSpecialRates", ThisKey="SpecialRateId", OtherKey="SpecialRateId")]
-		public EntitySet<PublicationSpecialRate> PublicationSpecialRates
-		{
-			get
-			{
-				return this._PublicationSpecialRates;
-			}
-			set
-			{
-				this._PublicationSpecialRates.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BaseRate_SpecialRate", Storage="_BaseRate", ThisKey="BaseRateId", OtherKey="BaseRateId", IsForeignKey=true)]
-		public BaseRate BaseRate
-		{
-			get
-			{
-				return this._BaseRate.Entity;
-			}
-			set
-			{
-				BaseRate previousValue = this._BaseRate.Entity;
-				if (((previousValue != value) 
-							|| (this._BaseRate.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._BaseRate.Entity = null;
-						previousValue.SpecialRates.Remove(this);
-					}
-					this._BaseRate.Entity = value;
-					if ((value != null))
-					{
-						value.SpecialRates.Add(this);
-						this._BaseRateId = value.BaseRateId;
-					}
-					else
-					{
-						this._BaseRateId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("BaseRate");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_PublicationSpecialRates(PublicationSpecialRate entity)
-		{
-			this.SendPropertyChanging();
-			entity.SpecialRate = this;
-		}
-		
-		private void detach_PublicationSpecialRates(PublicationSpecialRate entity)
-		{
-			this.SendPropertyChanging();
-			entity.SpecialRate = null;
 		}
 	}
 	
@@ -16743,274 +16005,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 				if ((this._TotalPrice != value))
 				{
 					this._TotalPrice = value;
-				}
-			}
-		}
-	}
-	
-	public partial class spSpecialRatePublicationsResult
-	{
-		
-		private string _Publication;
-		
-		private string _AdType;
-		
-		private int _PublicationId;
-		
-		private string _ImageUrl;
-		
-		private System.Nullable<int> _SortOrder;
-		
-		public spSpecialRatePublicationsResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Publication", DbType="NVarChar(50)")]
-		public string Publication
-		{
-			get
-			{
-				return this._Publication;
-			}
-			set
-			{
-				if ((this._Publication != value))
-				{
-					this._Publication = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdType", DbType="NVarChar(50)")]
-		public string AdType
-		{
-			get
-			{
-				return this._AdType;
-			}
-			set
-			{
-				if ((this._AdType != value))
-				{
-					this._AdType = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PublicationId", DbType="Int NOT NULL")]
-		public int PublicationId
-		{
-			get
-			{
-				return this._PublicationId;
-			}
-			set
-			{
-				if ((this._PublicationId != value))
-				{
-					this._PublicationId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageUrl", DbType="NVarChar(255)")]
-		public string ImageUrl
-		{
-			get
-			{
-				return this._ImageUrl;
-			}
-			set
-			{
-				if ((this._ImageUrl != value))
-				{
-					this._ImageUrl = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SortOrder", DbType="Int")]
-		public System.Nullable<int> SortOrder
-		{
-			get
-			{
-				return this._SortOrder;
-			}
-			set
-			{
-				if ((this._SortOrder != value))
-				{
-					this._SortOrder = value;
-				}
-			}
-		}
-	}
-	
-	public partial class spSpecialRatesByCategoryResult
-	{
-		
-		private string _Title;
-		
-		private string _Description;
-		
-		private int _SpecialRateId;
-		
-		private System.Nullable<int> _NumOfInsertions;
-		
-		private System.Nullable<int> _MaximumWords;
-		
-		private System.Nullable<decimal> _SetPrice;
-		
-		private System.Nullable<decimal> _Discount;
-		
-		private System.Nullable<int> _NumOfAds;
-		
-		private int _MainCategoryId;
-		
-		public spSpecialRatesByCategoryResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(50)")]
-		public string Title
-		{
-			get
-			{
-				return this._Title;
-			}
-			set
-			{
-				if ((this._Title != value))
-				{
-					this._Title = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(MAX)")]
-		public string Description
-		{
-			get
-			{
-				return this._Description;
-			}
-			set
-			{
-				if ((this._Description != value))
-				{
-					this._Description = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SpecialRateId", DbType="Int NOT NULL")]
-		public int SpecialRateId
-		{
-			get
-			{
-				return this._SpecialRateId;
-			}
-			set
-			{
-				if ((this._SpecialRateId != value))
-				{
-					this._SpecialRateId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NumOfInsertions", DbType="Int")]
-		public System.Nullable<int> NumOfInsertions
-		{
-			get
-			{
-				return this._NumOfInsertions;
-			}
-			set
-			{
-				if ((this._NumOfInsertions != value))
-				{
-					this._NumOfInsertions = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaximumWords", DbType="Int")]
-		public System.Nullable<int> MaximumWords
-		{
-			get
-			{
-				return this._MaximumWords;
-			}
-			set
-			{
-				if ((this._MaximumWords != value))
-				{
-					this._MaximumWords = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SetPrice", DbType="Money")]
-		public System.Nullable<decimal> SetPrice
-		{
-			get
-			{
-				return this._SetPrice;
-			}
-			set
-			{
-				if ((this._SetPrice != value))
-				{
-					this._SetPrice = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Discount", DbType="Decimal(18,2)")]
-		public System.Nullable<decimal> Discount
-		{
-			get
-			{
-				return this._Discount;
-			}
-			set
-			{
-				if ((this._Discount != value))
-				{
-					this._Discount = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NumOfAds", DbType="Int")]
-		public System.Nullable<int> NumOfAds
-		{
-			get
-			{
-				return this._NumOfAds;
-			}
-			set
-			{
-				if ((this._NumOfAds != value))
-				{
-					this._NumOfAds = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MainCategoryId", DbType="Int NOT NULL")]
-		public int MainCategoryId
-		{
-			get
-			{
-				return this._MainCategoryId;
-			}
-			set
-			{
-				if ((this._MainCategoryId != value))
-				{
-					this._MainCategoryId = value;
 				}
 			}
 		}

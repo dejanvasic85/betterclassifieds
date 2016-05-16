@@ -111,7 +111,6 @@
       <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="UpgradeBaseRateId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="BaseRate_Ratecard" Member="Ratecards" ThisKey="BaseRateId" OtherKey="BaseRateId" Type="Ratecard" />
-      <Association Name="BaseRate_SpecialRate" Member="SpecialRates" ThisKey="BaseRateId" OtherKey="BaseRateId" Type="SpecialRate" />
     </Type>
   </Table>
   <Table Name="dbo.BookEntry" Member="BookEntries">
@@ -266,7 +265,6 @@
       <Column Name="PublicationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="AdTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="PublicationAdType_PublicationRate" Member="PublicationRates" ThisKey="PublicationAdTypeId" OtherKey="PublicationAdTypeId" Type="PublicationRate" />
-      <Association Name="PublicationAdType_PublicationSpecialRate" Member="PublicationSpecialRates" ThisKey="PublicationAdTypeId" OtherKey="PublicationAdTypeId" Type="PublicationSpecialRate" />
       <Association Name="AdType_PublicationAdType" Member="AdType" ThisKey="AdTypeId" OtherKey="AdTypeId" Type="AdType" IsForeignKey="true" />
       <Association Name="Publication_PublicationAdType" Member="Publication" ThisKey="PublicationId" OtherKey="PublicationId" Type="Publication" IsForeignKey="true" />
     </Type>
@@ -281,7 +279,6 @@
       <Column Name="MainCategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="PublicationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="PublicationCategory_PublicationRate" Member="PublicationRates" ThisKey="PublicationCategoryId" OtherKey="PublicationCategoryId" Type="PublicationRate" />
-      <Association Name="PublicationCategory_PublicationSpecialRate" Member="PublicationSpecialRates" ThisKey="PublicationCategoryId" OtherKey="PublicationCategoryId" Type="PublicationSpecialRate" />
       <Association Name="Publication_PublicationCategory" Member="Publication" ThisKey="PublicationId" OtherKey="PublicationId" Type="Publication" IsForeignKey="true" />
       <Association Name="MainCategory_PublicationCategory" Member="MainCategory" ThisKey="MainCategoryId" OtherKey="MainCategoryId" Type="MainCategory" IsForeignKey="true" />
     </Type>
@@ -295,17 +292,6 @@
       <Association Name="PublicationAdType_PublicationRate" Member="PublicationAdType" ThisKey="PublicationAdTypeId" OtherKey="PublicationAdTypeId" Type="PublicationAdType" IsForeignKey="true" />
       <Association Name="PublicationCategory_PublicationRate" Member="PublicationCategory" ThisKey="PublicationCategoryId" OtherKey="PublicationCategoryId" Type="PublicationCategory" IsForeignKey="true" />
       <Association Name="Ratecard_PublicationRate" Member="Ratecard" ThisKey="RatecardId" OtherKey="RatecardId" Type="Ratecard" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.PublicationSpecialRate" Member="PublicationSpecialRates">
-    <Type Name="PublicationSpecialRate">
-      <Column Name="PublicationSpecialRateId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="SpecialRateId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PublicationAdTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PublicationCategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="PublicationAdType_PublicationSpecialRate" Member="PublicationAdType" ThisKey="PublicationAdTypeId" OtherKey="PublicationAdTypeId" Type="PublicationAdType" IsForeignKey="true" />
-      <Association Name="PublicationCategory_PublicationSpecialRate" Member="PublicationCategory" ThisKey="PublicationCategoryId" OtherKey="PublicationCategoryId" Type="PublicationCategory" IsForeignKey="true" />
-      <Association Name="SpecialRate_PublicationSpecialRate" Member="SpecialRate" ThisKey="SpecialRateId" OtherKey="SpecialRateId" Type="SpecialRate" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.PublicationType" Member="PublicationTypes">
@@ -344,22 +330,6 @@
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="ScriptName" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
       <Column Name="Applied" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SpecialRate" Member="SpecialRates">
-    <Type Name="SpecialRate">
-      <Column Name="SpecialRateId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="BaseRateId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="NumOfInsertions" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="MaximumWords" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="SetPrice" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="Discount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
-      <Column Name="NumOfAds" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="LineAdBoldHeader" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="LineAdImage" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="NumberOfImages" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="SpecialRate_PublicationSpecialRate" Member="PublicationSpecialRates" ThisKey="SpecialRateId" OtherKey="SpecialRateId" Type="PublicationSpecialRate" />
-      <Association Name="BaseRate_SpecialRate" Member="BaseRate" ThisKey="BaseRateId" OtherKey="BaseRateId" Type="BaseRate" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.TempBookingRecord" Member="TempBookingRecords">
@@ -888,13 +858,6 @@
       <Column Name="EditionDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.spPublicationSpecialRateAdd" Method="spPublicationSpecialRateAdd">
-    <Parameter Name="PublicationId" Parameter="publicationId" Type="System.Int32" DbType="Int" />
-    <Parameter Name="MainCategoryId" Parameter="mainCategoryId" Type="System.Int32" DbType="Int" />
-    <Parameter Name="SpecialRateId" Parameter="specialRateId" Type="System.Int32" DbType="Int" />
-    <Parameter Name="ClearCurrentRates" Parameter="clearCurrentRates" Type="System.Boolean" DbType="Bit" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.spRatecardsByCategory" Method="spRatecardsByCategory">
     <Parameter Name="categoryId" Type="System.Int32" DbType="Int" />
     <ElementType Name="spRatecardsByCategoryResult">
@@ -945,35 +908,6 @@
       <Column Name="PriceExGST" Type="System.Decimal" DbType="Decimal(21,5)" CanBeNull="true" />
       <Column Name="GST" Type="System.Decimal" DbType="Decimal(21,5)" CanBeNull="true" />
       <Column Name="TotalPrice" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.spSpecialRateDelete" Method="spSpecialRateDelete">
-    <Parameter Name="specialRateId" Type="System.Int32" DbType="Int" />
-    <Parameter Name="isCascade" Type="System.Boolean" DbType="Bit" />
-    <Return Type="System.Int32" />
-  </Function>
-  <Function Name="dbo.spSpecialRatePublications" Method="spSpecialRatePublications">
-    <Parameter Name="specialRateId" Type="System.Int32" DbType="Int" />
-    <ElementType Name="spSpecialRatePublicationsResult">
-      <Column Name="Publication" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="AdType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="PublicationId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="SortOrder" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.spSpecialRatesByCategory" Method="spSpecialRatesByCategory">
-    <Parameter Name="mainCategoryId" Type="System.Int32" DbType="Int" />
-    <ElementType Name="spSpecialRatesByCategoryResult">
-      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="SpecialRateId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="NumOfInsertions" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="MaximumWords" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="SetPrice" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="Discount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
-      <Column Name="NumOfAds" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="MainCategoryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
   <Function Name="dbo.spTransactionsByUser" Method="spTransactionsByUser">

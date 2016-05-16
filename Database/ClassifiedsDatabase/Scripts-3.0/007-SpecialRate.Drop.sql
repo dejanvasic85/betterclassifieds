@@ -1,0 +1,7 @@
+﻿drop proc spSpecialRateDelete
+drop proc spSpecialRatesByCategory
+drop proc spPublicationSpecialRateAdd
+drop proc spSpecialRatePublications
+
+drop table PublicationSpecialRate
+drop table SpecialRate

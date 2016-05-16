@@ -245,6 +245,7 @@
     <Compile Include="Framework\CustomRedirects\Redirector.cs" />
     <Compile Include="Framework\Filters\EnsurePaymentNotInProgressAttribute.cs" />
     <Compile Include="Framework\Filters\EventBookingRequiredAttribute.cs" />
+    <Compile Include="Framework\Filters\LoggingFilter.cs" />
     <Compile Include="Framework\Filters\UnityFilterAttributeFilterProvider.cs" />
     <Compile Include="Framework\HtmlHelpers\AdHtmlHelpers.cs" />
     <Compile Include="Framework\HtmlHelpers\BootstrapInputExtensions.cs" />

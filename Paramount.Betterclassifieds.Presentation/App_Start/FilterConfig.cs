@@ -19,6 +19,7 @@ namespace Paramount.Betterclassifieds.Presentation
             FilterProviders.Providers.Add(provider);
 
             filters.Add(new JsonHandlerAttribute());
+            filters.Add(new LoggingFilter());
         }
     }
 }

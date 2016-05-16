@@ -4,6 +4,7 @@ Here's a list of the latest changes:
 
 - [Enhancement - Event invitations are now available.](https://trello.com/c/rZ4Qfe4B/474-event-invitations-invitations-using-the-user-networking)
 - [Tech - Added log4Net logging and logentries.com](https://trello.com/c/7RTbKAIz/333-review-logging-infrastructure-and-logentries-com)
+- [Tech - Clean lots of tables and objects that were redundant](https://trello.com/c/GQVcsLon/128-clean-databases-and-remove-unused-objects)
 
 **3.7.0 Payment config and Fee Capture**
 

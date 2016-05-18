@@ -75,23 +75,63 @@
     </main>
 }
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="text-center">
-                <h1>
-                    <i class="fa fa-ticket fa-2x"></i>
-                </h1>
-                <h3>Event Ticketing - Made Easy
-                </h3>
+<section class="home-impact">
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-md-6 text-center item">
+                <h1><i class="fa fa-ticket fa-2x"></i></h1>
+                <h3>Quick & Simple Ticketing</h3>
                 <p class="lead">
-                    Our easy-to-use 3 steps will get you started in no time.
+                    In just a few steps, you can have your event online
+                    with flexible ticketing options.
                 </p>
+                <div><button class="btn btn-primary">Get Started <i class="fa fa-arrow-right"></i></button></div>
             </div>
+
+            <div class="col-md-6 text-center item">
+                <h1><i class="fa fa-credit-card fa-2x"></i>
+                </h1>
+                <h3>Pricing</h3>
+                <p class="lead">
+                    Our fees are very competitive @@ 2.1% + 30 cents
+                    per ticket. Free tickets? Then, no charge!
+                </p>
+                <div><button class="btn btn-primary">Use Calculator <i class="fa fa-arrow-right"></i></button>
+                </div>
+            </div>
+
         </div>
     </div>
-</div>
+</section>
 
+<section class="home-impact alt">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-6 text-center item">
+                <h1><i class="fa fa-barcode fa-2x"></i></h1>
+                <h3>Barcode Validation Ready</h3>
+                <p class="lead">
+                    Do you need to validate tickets at the door? Download
+                    any QR Code reader and you are ready.
+                </p>
+                <div><button class="btn btn-primary">Learn More <i class="fa fa-arrow-right"></i></button></div>
+            </div>
+
+            <div class="col-md-6 text-center item">
+                <h1><i class="fa fa-dashboard fa-2x"></i></h1>
+                <h3>Real-time Dashboard</h3>
+                <p class="lead">
+                    Organisers have access to real time data and ability to
+                    adjust their ticketing options.
+                </p>
+                <div><button class="btn btn-primary">See how it works <i class="fa fa-arrow-right"></i></button></div>
+            </div>
+
+        </div>
+    </div>
+</section>
 
 <div class="container top-buffer-20">
 
@@ -108,29 +148,5 @@
         </div>
     </div>
 
-    <div class="row top-buffer-40">
-
-        <div class="col-md-6">
-            <div class="jumbotron">
-                <p>
-                    Design your <strong>free online ad</strong> now. Use your mobile, tablet or PC.
-                </p>
-                <img src="@Url.Content("~/Content/images/BookUsingThePhone.PNG")" class="img-stretch" alt="Book using your phone" />
-                <p>
-                    <a class="btn btn-lg btn-primary btn-block" href="@Url.Booking()" role="button">Place New Ad &raquo;</a>
-                </p>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="jumbotron">
-                <p>
-                    Need help or suggestion to improve this website?
-                </p>
-                <img src="@Url.Content("~/Content/images/support.jpg")" class="img-stretch" alt="support" />
-                <p>
-                    <a class="btn btn-lg btn-primary btn-block" href="@Url.ContactUs()" role="button">Contact Us &raquo;</a>
-                </p>
-            </div>
-        </div>
-    </div>
+    
 </div>

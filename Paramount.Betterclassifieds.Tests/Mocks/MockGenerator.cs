@@ -269,6 +269,14 @@ namespace Paramount.Betterclassifieds.Tests
 		}
 	}
 
+	internal partial class UserNetworkModelMockBuilder : MockBuilder<UserNetworkModelMockBuilder, UserNetworkModel>
+	{	
+		public UserNetworkModelMockBuilder WithLastModifiedDateUtc(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.LastModifiedDateUtc = val);
+		}
+	}
+
 	internal partial class AdSearchResultMockBuilder : MockBuilder<AdSearchResultMockBuilder, AdSearchResult>
 	{	
 		public AdSearchResultMockBuilder WithAdId(Int32 val)

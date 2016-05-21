@@ -136,6 +136,7 @@
     <Compile Include="Mocks\ApplicationUserMockBuilder.cs" />
     <Compile Include="Mocks\DateServiceMockExtensions.cs" />
     <Compile Include="Mocks\EventBookingMockBuilder.cs" />
+    <Compile Include="Mocks\EventInvitationMockBuilder.cs" />
     <Compile Include="Mocks\EventModelMockBuilder.cs" />
     <Compile Include="Mocks\EventTicketFieldMockBuilder.cs" />
     <Compile Include="Mocks\EventTicketMockBuilder.cs" />
@@ -146,6 +147,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MockGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="Mocks\UserNetworkModelMockBuilder.cs" />
     <Compile Include="TestContext.cs" />
     <Compile Include="Database\ClassifiedsDataContextTests.cs" />
     <Compile Include="Membership\ConfirmationCodeGeneratorTests.cs" />

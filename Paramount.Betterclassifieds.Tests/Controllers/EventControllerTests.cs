@@ -403,6 +403,41 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             redirectResult.RedirectResultActionIs("EventBooked");
         }
 
+        [Test]
+        public void Invitation_CannotBeFound_Returns404()
+        {
+            // arrange
+            _eventManager.SetupWithVerification(call => call.GetEventInvitation(It.IsAny<long>()), null);
+
+            // act
+            var controller = BuildController();
+            var result = controller.Invitation(123);
+
+            var redirectResult = result.IsTypeOf<RedirectToRouteResult>();
+            redirectResult.RedirectResultIsNotFound();
+        }
+
+        [Test]
+        public void Invitation_Returns_View()
+        {
+            // arrange
+            var eventInvitation = new EventInvitationMockBuilder().Default().Build();
+            var eventModel = new EventModelMockBuilder().Default().Build();
+            var adSearchResult = new AdSearchResultMockBuilder().Default().Build();
+            var userNetwork = new UserNetworkModelMockBuilder().Default();
+
+            _eventManager.SetupWithVerification(call => call.GetEventInvitation(It.IsAny<long>()), eventInvitation);
+            _eventManager.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), eventModel);
+            _searchService.SetupWithVerification(call => call.GetByAdOnlineId(It.IsAny<int>()), adSearchResult);
+            _userManager.SetupWithVerification(call => call.GetUserNetwork(It.IsAny<int>()), userNetwork);
+
+            // act
+            var controller = BuildController();
+            var result = controller.Invitation(123);
+
+            result.IsTypeOf<ViewResult>();
+        }
+
         private Mock<HttpContextBase> _httpContext;
         private Mock<IEventBookingContext> _eventBookingContext;
         private Mock<ISearchService> _searchService;

@@ -18,6 +18,7 @@
 		{ "Paramount.Betterclassifieds.Business.RateModel",  "RateModel" },
 		{ "Paramount.Betterclassifieds.Business.AdEnquiry",  "AdEnquiry" },
 		{ "Paramount.Betterclassifieds.Business.ApplicationUser",  "ApplicationUser" },
+		{ "Paramount.Betterclassifieds.Business.UserNetworkModel",  "UserNetworkModel" },
 
 		{ "Paramount.Betterclassifieds.Business.Search.AdSearchResult",  "AdSearchResult" },		
 		{ "Paramount.Betterclassifieds.Business.Booking.AdBookingModel",  "AdBookingModel" },

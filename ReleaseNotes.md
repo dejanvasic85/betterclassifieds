@@ -1,5 +1,9 @@
 Here's a list of the latest changes:
 
+**3.8.1**
+
+- Fix - The console runner unity container was not configured with the ILogService
+
 **3.8.0 Event invitations**
 
 - [Enhancement - Event invitations are now available.](https://trello.com/c/rZ4Qfe4B/474-event-invitations-invitations-using-the-user-networking)

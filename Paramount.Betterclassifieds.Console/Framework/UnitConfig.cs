@@ -78,6 +78,7 @@ namespace Paramount.Betterclassifieds.Console
                 // UI Services
                 .RegisterType<ITemplatingService, TemplatingService>()
                 .RegisterType<ILocationService, LocationService>()
+                .RegisterType<ILogService, LogService>()
 
             // Console framework
                 .RegisterType<ILogger, ConsoleLogger>()

@@ -36,5 +36,6 @@ namespace Paramount.Betterclassifieds.Business.Events
             string organiserPhone, DateTime adStartDate, string floorPlanDocumentId, string locationFloorPlanFilename,
             Address address);
 
+        EventInvitation CreateInvitationForUserNetwork(int eventId, int userNetworkId);
     }
 }

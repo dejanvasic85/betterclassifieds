@@ -21,11 +21,8 @@ namespace Paramount.Betterclassifieds.Console
 #if DEBUG
                 program.Start(new[]
                 {
-                    TaskArguments.TaskFullArgName, nameof(Tasks.ImportUserNetworks),
-                        "-fileName", @"C:\Users\Dejan\OneDrive\paramount\KandoBay\nsv.csv",
-                        "-userId", "email2",
-                        "-eventId", "18"
-
+                    TaskArguments.TaskFullArgName, nameof(Tasks.HealthCheck),
+                        "-To", "dejan.vasic@paramountit.com.au"
                 });
 
 #else

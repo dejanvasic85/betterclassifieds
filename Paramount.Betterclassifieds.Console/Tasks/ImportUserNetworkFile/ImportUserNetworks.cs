@@ -12,12 +12,12 @@ namespace Paramount.Betterclassifieds.Console.Tasks
     {
         private readonly IUserManager _userManager;
         private readonly ILogger _logger;
-        private readonly EventManager _eventManager;
+        private readonly IEventManager _eventManager;
         private string _fullPath;
         private string _userId;
         private int _eventId;
 
-        public ImportUserNetworks(IUserManager userManager, ILogger logger, EventManager eventManager)
+        public ImportUserNetworks(IUserManager userManager, ILogger logger, IEventManager eventManager)
         {
             _userManager = userManager;
             _logger = logger;

@@ -41,7 +41,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             return this;
         }
 
-        public void ClickLogin()
+        public void Login()
         {
             LoginButtonElement.ClickOnElement();
             System.Threading.Thread.Sleep(1000); // Sleep for 1 second to ensure cookie in firefox is stored.

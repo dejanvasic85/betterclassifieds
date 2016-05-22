@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using BoDi;
@@ -71,13 +70,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             if (!Directory.Exists(screenShotDir))
                 Directory.CreateDirectory(screenShotDir);
 
-            screenshot.SaveAsFile(String.Format("{0}\\{1}.jpg",
-                screenShotDir,
-                TestContext.CurrentContext.Test.Name), ImageFormat.Jpeg);
-
-            File.WriteAllText(string.Format("{0}\\{1}.html",
-                screenShotDir,
-                TestContext.CurrentContext.Test.Name), _webDriver.PageSource);
+            screenshot.SaveAsFile($"{screenShotDir}\\{TestContext.CurrentContext.Test.Name}.jpg", ImageFormat.Jpeg);
+            File.WriteAllText($"{screenShotDir}\\{TestContext.CurrentContext.Test.Name}.html", _webDriver.PageSource);
         }
 
         private static IWebDriver GetDriverForBrowser(string browserName)

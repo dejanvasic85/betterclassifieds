@@ -30,7 +30,16 @@ namespace Paramount.Betterclassifieds.Tests.Functional
                 var acceptedUrls = attr
                     .Select(a => GetBaseUrl().ToLower() + string.Format(a.RelativeUrl.ToLower(), query))
                     .Concat(attr.Select(b => GetBaseUrl(true) + string.Format(b.RelativeUrl.ToLower(), query)))
+                    .ToList()
                     ;
+
+                Console.WriteLine("Init: Current URL " + WebDriver.Url);
+                foreach (var acceptedUrl in acceptedUrls)
+                {
+                    Console.WriteLine("Accepted: " + acceptedUrl);
+                }
+
+
 
                 // Let's wait until the page is loaded before we initialise the elements
                 var wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(60));

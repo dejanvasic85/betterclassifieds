@@ -23,7 +23,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             _pageBrowser.GoTo<LoginTestPage>()
                 .WithUsername(username)
                 .WithPassword(password)
-                .ClickLogin();
+                .Login();
 
             _userContext.Username = username;
         }

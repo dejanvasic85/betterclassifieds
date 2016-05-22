@@ -501,17 +501,23 @@
     }
 }
 
-.home-impact{
-    h1{
+.home-impact {
+    h1 {
         color: #0079a1;
     }
 
-    &.alt{
-        background-color:#eee;
+    .item {
+        border: 1px solid #e1e8ed;
+        background-color: #fafafa;
+        padding: 30px;
+        margin-top: 20px;
+        border-radius: 5px;
     }
 
-    .item{
-        padding: 30px;
+    @media (max-width: 766px) {
+        [class*='col-'] {
+            margin: 0;
+        }
     }
 }
 /*
@@ -548,7 +554,7 @@ input[readonly] {
 */
 #userNetwork {
     .list-group-item {
-        .is-fullName{
+        .is-fullName {
             font-weight: bold;
         }
     }

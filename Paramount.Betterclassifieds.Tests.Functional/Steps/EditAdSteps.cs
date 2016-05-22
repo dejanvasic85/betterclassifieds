@@ -25,7 +25,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [When(@"I update the title to ""(.*)""")]
         public void WhenIUpdateTheTitleTo(string newAdTitle)
         {
-            _pageBrowser.Init<EditAdPage>()
+            _pageBrowser.Init<EditAdPage>(query: _adBookingContext.Get().AdBookingId)
                 .WithTitle(newAdTitle)
                 .SubmitChanges();
         }
@@ -33,7 +33,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Then(@"I should see a success message")]
         public void ThenIShouldSeeASuccessMessage()
         {
-            Assert.That(_pageBrowser.Init<EditAdPage>().DisplaysSuccessMessage(), Is.True);
+            Assert.That(_pageBrowser.Init<EditAdPage>(query: _adBookingContext.Get().AdBookingId).DisplaysSuccessMessage(), Is.True);
         }
     }
 }

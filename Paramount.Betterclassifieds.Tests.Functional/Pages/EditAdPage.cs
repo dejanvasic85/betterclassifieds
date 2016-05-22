@@ -1,13 +1,10 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
-using OpenQA.Selenium.Support.UI;
 using Paramount.Betterclassifieds.Tests.Functional.Annotations;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
-    [NavRoute("EditAd/Details")]
     [NavRoute("EditAd/Details/{0}")]
     public class EditAdPage : ITestPage
     {

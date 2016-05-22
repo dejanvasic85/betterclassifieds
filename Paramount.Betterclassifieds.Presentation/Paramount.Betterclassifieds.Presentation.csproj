@@ -793,6 +793,7 @@
     <Content Include="Scripts\ckeditor\skins\moono\images\refresh.png" />
     <Content Include="Scripts\vendor\toastr-2.0.1.js" />
     <Content Include="Scripts\vendor\jquery.geocomplete.js" />
+    <Content Include="Scripts\vendor\wow.js" />
     <Content Include="Views\Listings\Find.cshtml" />
     <Content Include="Scripts\jquery\jquery-1.11.0.js" />
     <Content Include="Web.config">

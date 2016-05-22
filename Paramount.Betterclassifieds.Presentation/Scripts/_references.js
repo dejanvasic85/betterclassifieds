@@ -256,3 +256,4 @@
 /// <reference path="vendor/mobile-detect.js" />
 /// <reference path="vendor/moment-2.8.2.js" />
 /// <reference path="vendor/toastr-2.0.1.js" />
+/// <reference path="vendor/wow.js" />

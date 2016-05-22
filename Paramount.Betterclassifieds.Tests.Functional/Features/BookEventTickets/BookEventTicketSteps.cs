@@ -65,21 +65,21 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
         [When(@"enter the email ""(.*)"" and name ""(.*)"" for the second guest")]
         public void WhenEnterTheEmailAndNameForTheSecondGuest(string email, string fullName)
         {
-            _pageBrowser.Init<BookingTicketPage>()
+            _pageBrowser.Init<BookTicketsPage>()
                 .WithSecondGuest(email, fullName);
         }
 
         [When(@"choose to email all guests")]
         public void WhenChooseToEmailAllGuests()
         {
-            _pageBrowser.Init<BookingTicketPage>()
+            _pageBrowser.Init<BookTicketsPage>()
                 .WithEmailGuests();
         }
 
         [When(@"my details are prefilled so I proceed to payment")]
         public void WhenMyDetailsArePrefilledSoIProceedToPayment()
         {
-            var bookingTicketPage = _pageBrowser.Init<BookingTicketPage>();
+            var bookingTicketPage = _pageBrowser.Init<BookTicketsPage>();
             bookingTicketPage.WithPhone("0433 095 822");
             bookingTicketPage.ProceedToPayment();
 

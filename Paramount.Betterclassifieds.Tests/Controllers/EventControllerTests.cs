@@ -404,21 +404,21 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         }
 
         [Test]
-        public void Invitation_CannotBeFound_Returns404()
+        public void Invite_CannotBeFound_Returns404()
         {
             // arrange
             _eventManager.SetupWithVerification(call => call.GetEventInvitation(It.IsAny<long>()), null);
 
             // act
             var controller = BuildController();
-            var result = controller.Invitation(123);
+            var result = controller.Invite(123);
 
             var redirectResult = result.IsTypeOf<RedirectToRouteResult>();
             redirectResult.RedirectResultIsNotFound();
         }
 
         [Test]
-        public void Invitation_Returns_View()
+        public void Invite_Returns_View()
         {
             // arrange
             var eventInvitation = new EventInvitationMockBuilder().Default().Build();
@@ -433,7 +433,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // act
             var controller = BuildController();
-            var result = controller.Invitation(123);
+            var result = controller.Invite(123);
 
             result.IsTypeOf<ViewResult>();
         }

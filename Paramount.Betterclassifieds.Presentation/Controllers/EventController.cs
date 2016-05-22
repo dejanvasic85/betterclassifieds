@@ -380,8 +380,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpGet]
-        [ActionName("invitation")]
-        public ActionResult Invitation(long token)
+        public ActionResult Invite(long token)
         {
             var invitation = _eventManager.GetEventInvitation(token);
             if (invitation == null)

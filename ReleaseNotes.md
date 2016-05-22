@@ -3,6 +3,7 @@ Here's a list of the latest changes:
 **3.9.0**
 
 - Change Request - Minimum password length is now only set to 1 character! Until better messaging / comms is in place for users.
+- Fix - Re-Enabling the JS minification again!
 
 **3.8.1**
 

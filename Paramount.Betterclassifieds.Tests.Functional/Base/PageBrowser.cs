@@ -19,7 +19,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             Config = config;
         }
 
-        public T Init<T>(bool ensureUrl = true) where T : ITestPage
+        public T Init<T>(bool ensureUrl = true, params object[] query) where T : ITestPage
         {
             var page = Create<T>();
             if (ensureUrl)
@@ -28,8 +28,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional
                 var attr = typeof(T).GetCustomAttributes<NavRouteAttribute>();
 
                 var acceptedUrls = attr
-                    .Select(a => GetBaseUrl().ToLower() + a.RelativeUrl.ToLower())
-                    .Concat(attr.Select(b => string.Format("{0}{1}", GetBaseUrl(secure: true), b.RelativeUrl).ToLower()));
+                    .Select(a => GetBaseUrl().ToLower() + string.Format(a.RelativeUrl.ToLower(), query))
+                    .Concat(attr.Select(b => GetBaseUrl(true) + string.Format(b.RelativeUrl.ToLower(), query)))
+                    ;
 
                 // Let's wait until the page is loaded before we initialise the elements
                 var wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(60));
@@ -57,7 +58,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             var relativeUrl = typeof(TPage).GetCustomAttribute<NavRouteAttribute>().RelativeUrl;
             var fullPageUrl = GetBaseUrl() + string.Format(relativeUrl, query);
             WebDriver.Navigate().GoToUrl(fullPageUrl);
-            return Init<TPage>();
+            return Init<TPage>(query: query);
         }
 
         public void NavigateTo<TPage>(params object[] query) where TPage : ITestPage

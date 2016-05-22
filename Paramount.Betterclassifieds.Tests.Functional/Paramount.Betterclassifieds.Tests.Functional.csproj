@@ -92,7 +92,7 @@
     <Compile Include="Base\WebElementExtensions.cs" />
     <Compile Include="Base\DataRepositoryFactory.cs" />
     <Compile Include="ContextData\AdBookingContext.cs" />
-    <Compile Include="Features\BookEventTickets\BookingTicketPage.cs" />
+    <Compile Include="Features\BookEventTickets\BookTicketsPage.cs" />
     <Compile Include="Features\BookEventTickets\EventAdContext.cs" />
     <Compile Include="Features\AccountDetails.feature.cs">
       <AutoGen>True</AutoGen>
@@ -129,6 +129,7 @@
       <DependentUpon>BookTicketsFromInvite.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\EventInvitation\BookTicketsFromInviteSteps.cs" />
+    <Compile Include="Features\EventInvitation\EventInvitePage.cs" />
     <Compile Include="Features\NotFound.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

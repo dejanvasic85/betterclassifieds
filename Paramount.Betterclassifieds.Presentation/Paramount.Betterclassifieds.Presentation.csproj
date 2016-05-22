@@ -881,7 +881,7 @@
     <Content Include="Views\Event\MakePayment.cshtml" />
     <Content Include="Views\Event\TicketingPrices.cshtml" />
     <Content Include="Views\Help\how-it-works.cshtml" />
-    <Content Include="Views\Event\invitation.cshtml" />
+    <Content Include="Views\Event\Invite.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

@@ -19,7 +19,7 @@ namespace Paramount.Betterclassifieds.Presentation
             // Ad route
             routes.MapRoute("adRoute", "Ad/{title}/{id}", new { controller = "Listings", action = "ViewAd" });
             routes.MapRoute("EventBarcode", "Event/Barcode/{barcode}", new { controller = "Event", action = "ValidateBarcode" }); // Need to be Pascal to suit the database record!
-            routes.MapRoute("EventInviate", "invite/{*token}", new { controller = "Event", action = "Invitation" });
+            routes.MapRoute("EventInvite", "invite/{*token}", new { controller = "Event", action = "Invite" });
             routes.MapRoute("Event", "Event/{title}/{id}", new { controller = "Event", action = "ViewEventAd" }); // Need to be Pascal to suit the database record!
             
             // Seo route

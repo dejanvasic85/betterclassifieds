@@ -29,9 +29,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
                 var acceptedUrls = attr
                     .Select(a => GetBaseUrl().ToLower() + string.Format(a.RelativeUrl.ToLower(), query))
-                    .Concat(attr.Select(b => GetBaseUrl(true) + string.Format(b.RelativeUrl.ToLower(), query)))
-                    .ToList()
-                    ;
+                    .Concat(attr.Select(b => GetBaseUrl(true).ToLower() + string.Format(b.RelativeUrl.ToLower(), query)))
+                    .ToList();
 
                 Console.WriteLine("Init: Current URL " + WebDriver.Url);
                 foreach (var acceptedUrl in acceptedUrls)

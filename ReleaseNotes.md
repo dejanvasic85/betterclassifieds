@@ -1,5 +1,9 @@
 Here's a list of the latest changes:
 
+**3.9.0**
+
+- Change Request - Minimum password length is now only set to 1 character! Until better messaging / comms is in place for users.
+
 **3.8.1**
 
 - Fix - The console runner unity container was not configured with the ILogService

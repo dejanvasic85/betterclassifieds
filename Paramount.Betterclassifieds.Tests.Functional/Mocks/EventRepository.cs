@@ -27,6 +27,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                     var addressId = AddAddress(new
                     {
                         StreetNumber = 10,
+                        StreetName = "Smith Street",
                         Suburb = "Collingwood",
                         State = "Victoria",
                         Postcode = "3000",
@@ -95,6 +96,21 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                 return connection.Query<EventBookingTicketData>(
                     "SELECT * FROM EventBookingTicket WHERE EventBookingId = @eventBookingId", new { eventBookingId })
                     .ToList();
+            }
+        }
+
+        public int AddEventInvitationIfNotExists(int eventId, int userNetworkId)
+        {
+            using (var db = _connectionFactory.CreateClassifieds())
+            {
+                var invitation = db.Query<int?>("SELECT EventInvitationId FROM EventInvitation WHERE EventId = @eventId AND UserNetworkId = @userNetworkId",
+                    new { eventId, userNetworkId }).SingleOrDefault();
+
+                if (invitation != null)
+                    return invitation.Value;
+
+                return db.Add(Constants.Table.EventInvitation,
+                    new { eventId, userNetworkId });
             }
         }
     }

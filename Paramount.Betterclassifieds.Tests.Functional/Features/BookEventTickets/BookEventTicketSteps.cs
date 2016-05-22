@@ -1,6 +1,4 @@
-﻿using System;
-using NUnit.Framework;
-using Paramount.Betterclassifieds.Tests.Functional.Annotations;
+﻿using NUnit.Framework;
 using Paramount.Betterclassifieds.Tests.Functional.Mocks;
 using TechTalk.SpecFlow;
 
@@ -28,7 +26,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
             eventAdContext.AdId = _repository.DropCreateOnlineAd(adTitle, TestData.ParentEventCategory,
                 TestData.SubEventCategory, TestData.DefaultUsername);
 
-            // Get the online ad Ide
+            // Get the online ad Id
             eventAdContext.OnlineAdId = _repository.GetOnlineAdForBookingId(eventAdContext.AdId);
 
             // Create the event 

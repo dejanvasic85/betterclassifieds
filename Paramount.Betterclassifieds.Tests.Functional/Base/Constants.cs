@@ -81,6 +81,7 @@
             public const string UserNetwork = "UserNetwork";
             public const string SeoMapping = "SeoMapping";
             public const string Event = "Event";
+            public const string EventInvitation = "EventInvitation";
             public const string EventTicket = "EventTicket";
             public const string Transaction = "Transaction";
             public const string EventTicketReservation = "EventTicketReservation";

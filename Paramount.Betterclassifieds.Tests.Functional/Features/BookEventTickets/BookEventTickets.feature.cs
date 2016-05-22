@@ -19,7 +19,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.BookEventTickets
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("BookEventTickets")]
+    [NUnit.Framework.DescriptionAttribute("bookEventTickets")]
     [NUnit.Framework.CategoryAttribute("bookEventTickets")]
     public partial class BookEventTicketsFeature
     {
@@ -33,7 +33,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.BookEventTickets
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "BookEventTickets", "In order to book tickets for an event\r\nAs a logged in user\r\nI want to be find the" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "bookEventTickets", "In order to book tickets for an event\r\nAs a logged in user\r\nI want to be find the" +
                     " event online and purchase the ticket\r\nSo that I can go to the event", ProgrammingLanguage.CSharp, new string[] {
                         "bookEventTickets"});
             testRunner.OnFeatureStart(featureInfo);

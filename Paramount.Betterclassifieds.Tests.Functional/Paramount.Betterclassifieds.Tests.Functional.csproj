@@ -123,6 +123,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BookEventTickets.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\EventInvitation\BookTicketsFromInvite.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BookTicketsFromInvite.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\EventInvitation\BookTicketsFromInviteSteps.cs" />
     <Compile Include="Features\NotFound.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -155,6 +161,9 @@
     </Compile>
     <Compile Include="Mocks\Models\RoleType.cs" />
     <Compile Include="Mocks\TestData.cs" />
+    <Compile Include="Mocks\UserRepository.cs">
+      <DependentUpon>DapperDataRepository.cs</DependentUpon>
+    </Compile>
     <Compile Include="NavigationSteps.cs" />
     <Compile Include="Pages\AccountDetailsTestPage.cs" />
     <Compile Include="Pages\ApplicationPage.cs" />
@@ -225,6 +234,10 @@
     <None Include="Features\BookEventTickets\BookEventTickets.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>BookEventTickets.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\EventInvitation\BookTicketsFromInvite.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>BookTicketsFromInvite.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\NotFound.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

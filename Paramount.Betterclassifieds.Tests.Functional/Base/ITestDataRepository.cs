@@ -30,7 +30,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         void DropUserIfExists(string username);
         bool RegistrationExistsForEmail(string email);
         Guid? AddUserIfNotExists(string username, string password, string email, RoleType roleType);
-        void DropUserNetwork(string username);
+        void DropUserNetwork(string userId, string userNetworkEmail);
+        int AddUserNetworkIfNotExists(string username, string email, string fullName);
 
         // Emails / Notifications
         List<Email> GetSentEmailsFor(string email);
@@ -48,9 +49,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         void SetEventIncludeTransactionFee(int eventId, bool include);
         EventBookingData GetEventBooking(int eventId);
         List<EventBookingTicketData> GetEventBookingTickets(int eventBookingId);
+        int AddEventInvitationIfNotExists(int eventId, int userNetworkId);
 
         // Address
         int AddAddress(object address);
+        
         
     }
 }

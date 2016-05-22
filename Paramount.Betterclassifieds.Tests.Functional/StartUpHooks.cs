@@ -109,7 +109,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
         #region Data Setup
 
-        [BeforeFeature("booking", "bookEventTickets")]
+        [BeforeFeature("booking", "bookEventTickets", "bookTicketsFromInvite")]
         public static void SetupBookingFeature()
         {
             // Use the dapper manager to initialise some baseline test data for our booking scenarios
@@ -139,24 +139,16 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             dataRepository.AddLocationIfNotExists(parentLocation: TestData.Location_Any, areas: TestData.LocationArea_Any);
             dataRepository.AddLocationIfNotExists(TestData.Location_Australia, TestData.Location_Victoria, "Melbourne");
 
-            // Drop any existing user network
-            dataRepository.DropUserNetwork(TestData.DefaultUsername);
+            dataRepository.DropUserNetwork(TestData.DefaultUsername, "ade@spurs.com");
         }
 
-        [BeforeFeature("booking", "extendbooking", "bookEventTickets")]
+        [BeforeFeature("booking", "extendbooking", "bookEventTickets", "bookTicketsFromInvite")]
         public static void AddMembershipUser()
         {
             var dataRepository = DataRepositoryFactory.Create(_configuration);
 
             // Setup a demo user
             dataRepository.AddUserIfNotExists(TestData.DefaultUsername, TestData.DefaultPassword, TestData.UserEmail, RoleType.Advertiser);
-        }
-
-        [BeforeFeature("usernetwork")]
-        public static void SetupUserNetworkFeature()
-        {
-            var dataRepository = DataRepositoryFactory.Create(_configuration);
-            dataRepository.DropUserNetwork(TestData.DefaultUsername);
         }
 
         #endregion

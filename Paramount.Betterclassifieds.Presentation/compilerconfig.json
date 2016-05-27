@@ -22,5 +22,9 @@
   {
     "outputFile": "Content/SriLankanEvents/Lanka.css",
     "inputFile": "Content/SriLankanEvents/Lanka.less"
+  },
+  {
+    "outputFile": "Content/KandoBay/kando.nav.css",
+    "inputFile": "Content/KandoBay/kando.nav.less"
   }
 ]

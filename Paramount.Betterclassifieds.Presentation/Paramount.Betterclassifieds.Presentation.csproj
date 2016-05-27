@@ -410,6 +410,12 @@
     <Content Include="Content\KandoBay\img\Capture.PNG" />
     <Content Include="Content\KandoBay\img\logo.png" />
     <Content Include="Content\KandoBay\img\safari.jpg" />
+    <Content Include="Content\KandoBay\kando.nav.css">
+      <DependentUpon>kando.nav.less</DependentUpon>
+    </Content>
+    <Content Include="Content\KandoBay\kando.nav.min.css">
+      <DependentUpon>kando.nav.css</DependentUpon>
+    </Content>
     <Content Include="Content\SriLankanEvents\img\BookUsingThePhone.PNG" />
     <Content Include="Content\KandoBay\img\BookUsingThePhone.PNG" />
     <Content Include="Content\KandoBay\img\FederationSquare.png" />
@@ -488,6 +494,7 @@
     </None>
     <Content Include="Content\site-bs-override.less" />
     <Content Include="Content\SriLankanEvents\Lanka.less" />
+    <Content Include="Content\KandoBay\kando.nav.less" />
     <None Include="Content\TheMusic\themusic.less" />
     <Content Include="Scripts\app\account\userAds.ui.js" />
     <Content Include="Scripts\app\account\userEnquiry.model.js" />

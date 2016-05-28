@@ -5,7 +5,7 @@
     var brand = ConfigManager.ReadAppSetting("Brand");
 }
 
-<div class="container-fluid">
+<div class="container">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
@@ -29,7 +29,7 @@
 
             @if (User.Identity.IsAuthenticated)
             {
-                <li><a href="@Url.Action("Index", "UserAds")"> <i class="fa fa-th-list"></i> My Ads</a> </li>
+                <li><a href="@Url.Action("Index", "UserAds")"> <i class="fa fa-th-list"></i> My Events</a> </li>
                 <li><a href="@Url.Action("Details", "Account")"> <i class="fa fa-user"></i> Account Details</a> </li>
                 <li><a href="@Url.Action("ChangePassword", "Account")"> <i class="fa fa-edit"></i> Change Password</a> </li>
                 <li><a href="@Url.Action("Logout", "Account")"><i class="fa fa-sign-out"></i> Logout</a></li>

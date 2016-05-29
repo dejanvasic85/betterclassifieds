@@ -436,6 +436,7 @@
     <Content Include="Content\KandoBay\img\Capture.PNG" />
     <Content Include="Content\KandoBay\img\logo-nav.png" />
     <Content Include="Content\KandoBay\img\logo.png" />
+    <Content Include="Content\KandoBay\img\Pricing.jpg" />
     <Content Include="Content\KandoBay\img\safari.jpg" />
     <Content Include="Content\KandoBay\kando.nav.css">
       <DependentUpon>kando.nav.less</DependentUpon>

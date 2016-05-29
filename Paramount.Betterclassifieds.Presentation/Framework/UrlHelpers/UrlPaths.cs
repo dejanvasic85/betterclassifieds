@@ -172,7 +172,7 @@ namespace Paramount
 
         public static UrlBuilder EventPricing(this UrlHelper urlHelper)
         {
-            return new UrlBuilder(urlHelper).WithAction("EventPricing", "Help");
+            return new UrlBuilder(urlHelper).WithAction("event-pricing", "Help");
         }
     }
 }

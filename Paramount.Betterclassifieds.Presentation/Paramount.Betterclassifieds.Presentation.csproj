@@ -407,7 +407,34 @@
     <Content Include="Content\bootstrap-theme-yeti.min.css">
       <DependentUpon>bootstrap-theme-yeti.css</DependentUpon>
     </Content>
+    <Content Include="Content\KandoBay\ico\android-icon-144x144.png" />
+    <Content Include="Content\KandoBay\ico\android-icon-192x192.png" />
+    <Content Include="Content\KandoBay\ico\android-icon-36x36.png" />
+    <Content Include="Content\KandoBay\ico\android-icon-48x48.png" />
+    <Content Include="Content\KandoBay\ico\android-icon-72x72.png" />
+    <Content Include="Content\KandoBay\ico\android-icon-96x96.png" />
+    <Content Include="Content\KandoBay\ico\apple-icon-114x114.png" />
+    <Content Include="Content\KandoBay\ico\apple-icon-120x120.png" />
+    <Content Include="Content\KandoBay\ico\apple-icon-144x144.png" />
+    <Content Include="Content\KandoBay\ico\apple-icon-152x152.png" />
+    <Content Include="Content\KandoBay\ico\apple-icon-180x180.png" />
+    <Content Include="Content\KandoBay\ico\apple-icon-57x57.png" />
+    <Content Include="Content\KandoBay\ico\apple-icon-60x60.png" />
+    <Content Include="Content\KandoBay\ico\apple-icon-72x72.png" />
+    <Content Include="Content\KandoBay\ico\apple-icon-76x76.png" />
+    <Content Include="Content\KandoBay\ico\apple-icon-precomposed.png" />
+    <Content Include="Content\KandoBay\ico\apple-icon.png" />
+    <Content Include="Content\KandoBay\ico\browserconfig.xml" />
+    <Content Include="Content\KandoBay\ico\favicon-16x16.png" />
+    <Content Include="Content\KandoBay\ico\favicon-32x32.png" />
+    <Content Include="Content\KandoBay\ico\favicon-96x96.png" />
+    <Content Include="Content\KandoBay\ico\favicon.ico" />
+    <Content Include="Content\KandoBay\ico\ms-icon-144x144.png" />
+    <Content Include="Content\KandoBay\ico\ms-icon-150x150.png" />
+    <Content Include="Content\KandoBay\ico\ms-icon-310x310.png" />
+    <Content Include="Content\KandoBay\ico\ms-icon-70x70.png" />
     <Content Include="Content\KandoBay\img\Capture.PNG" />
+    <Content Include="Content\KandoBay\img\logo-nav.png" />
     <Content Include="Content\KandoBay\img\logo.png" />
     <Content Include="Content\KandoBay\img\safari.jpg" />
     <Content Include="Content\KandoBay\kando.nav.css">
@@ -495,6 +522,7 @@
     <Content Include="Content\site-bs-override.less" />
     <Content Include="Content\SriLankanEvents\Lanka.less" />
     <Content Include="Content\KandoBay\kando.nav.less" />
+    <Content Include="Content\KandoBay\ico\manifest.json" />
     <None Include="Content\TheMusic\themusic.less" />
     <Content Include="Scripts\app\account\userAds.ui.js" />
     <Content Include="Scripts\app\account\userEnquiry.model.js" />
@@ -890,6 +918,7 @@
     <Content Include="Views\Event\TicketingPrices.cshtml" />
     <Content Include="Views\Help\how-it-works.cshtml" />
     <Content Include="Views\Event\Invite.cshtml" />
+    <Content Include="Views\Help\event-pricing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

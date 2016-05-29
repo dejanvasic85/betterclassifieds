@@ -23,6 +23,12 @@ namespace Paramount
             return urlHelper.Content($"~/Content/{brand}/img/logo.png");
         }
 
+        public static string ContentForBrand(this UrlHelper urlHelper, string contentUrl)
+        {
+            var brand = DependencyResolver.Current.GetService<IApplicationConfig>().Brand;
+            return urlHelper.Content($"~/Content/{brand}{contentUrl}");
+        }
+
         public static UrlBuilder ActionAbsolute(this UrlHelper urlHelper, string actionName, string controllerName, object routeValues = null)
         {
             return new UrlBuilder(urlHelper, actionName, controllerName, routeValues).WithFullUrl();
@@ -162,6 +168,11 @@ namespace Paramount
         public static UrlBuilder Terms(this UrlHelper urlHelper)
         {
             return new UrlBuilder(urlHelper, "Terms", "Home");
+        }
+
+        public static UrlBuilder EventPricing(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper).WithAction("EventPricing", "Help");
         }
     }
 }

@@ -4,10 +4,14 @@ Here's a list of the latest changes:
 
 - Change Request - Minimum password length is now only set to 1 character! Until better messaging / comms is in place for users.
 - Fix - Re-Enabling the JS minification again!
+- New favicon
+- New logo-nav (optimised for navbar)
+- Moved TicketingPrices to event-pricing under help
+
 
 **3.8.1**
 
-- Fix - The console runner unity container was not configured with the ILogService
+- Fix - The console runner unity container was not configured with the ILogService causing emails not to be sent out!
 
 **3.8.0 Event invitations**
 

@@ -6,7 +6,7 @@
         public decimal EventTicketFeeCents { get; set; }
 
         public decimal Example1Fee { get; set; }
-        public decimal Example1TicketPrice => 2;
+        public decimal Example1TicketPrice => 100;
         public decimal Example1TotalTicketPrice => Example1Fee + Example1TicketPrice;
 
         public decimal Example2Fee { get; set; }
@@ -18,5 +18,6 @@
         public decimal ExampleTotalTicketQuantitySold { get; set; }
         public decimal ExampleTotalFeeForOrganiser { get; set; }
         public decimal ExampleTotalAmountForOrganiser { get; set; }
+        
     }
 }

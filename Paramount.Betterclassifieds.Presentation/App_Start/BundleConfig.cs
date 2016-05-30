@@ -48,7 +48,7 @@ namespace Paramount.Betterclassifieds.Presentation
                 .IncludeDirectory("~/Content/components", "*.css")
                 );
 
-            bundles.Add(new Bundle("~/Content/css-kando")
+            bundles.Add(new Bundle("~/Content/Kandobay/styles")
                 .IncludeDirectory("~/Content/KandoBay/", "*.css"));
         }
     }

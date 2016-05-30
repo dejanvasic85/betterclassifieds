@@ -400,6 +400,7 @@
     <Content Include="Content\images\BookUsingThePhone.PNG" />
     <Content Include="Content\images\buttons.gif" />
     <Content Include="Content\images\placeholder.png" />
+    <Content Include="Content\images\Pricing.jpg" />
     <Content Include="Content\images\support.jpg" />
     <Content Include="Content\images\toolbar.gif" />
     <Content Include="Content\images\tutoring.jpg" />
@@ -454,7 +455,6 @@
     <Content Include="Content\KandoBay\kando.min.css">
       <DependentUpon>kando.css</DependentUpon>
     </Content>
-    <Content Include="Content\KandoBay\kandobay_favicon.ico" />
     <Content Include="Content\morphext.css" />
     <Content Include="Content\morphext.min.css">
       <DependentUpon>morphext.css</DependentUpon>

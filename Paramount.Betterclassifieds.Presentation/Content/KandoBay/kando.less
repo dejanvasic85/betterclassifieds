@@ -1,6 +1,8 @@
 ﻿@color_primary: #008cba;
-@color_primary: #008cba;
+@color_primary_darker: #0079a1;
 @color_secondary: #fafafa;
+@color_border: #E1E1E1;
+@color_warning: #c27802;
 
 html {
     font-size: 12px;
@@ -17,8 +19,8 @@ body {
 }
 
 .alert-warning {
-    background-color: #fafafa;
-    color: #c27802;
+    background-color: @color_secondary;
+    color: @color_warning;
     font-weight: bold;
 }
 
@@ -36,7 +38,7 @@ body {
 */
 .event-details {
     .event-title {
-        background-image: linear-gradient(to bottom,#0079a1 0,#008cba 100%);
+        background-image: linear-gradient(to bottom,@color_primary_darker 0,@color_primary 100%);
     }
 }
 
@@ -49,10 +51,10 @@ body {
     background-color: @color_secondary;
 
     .col-item {
-        border: 1px solid #E1E1E1;
+        border: 1px solid @color_border;
 
         .separator {
-            border-top: 1px solid #E1E1E1;
+            border-top: 1px solid @color_border;
         }
     }
 }

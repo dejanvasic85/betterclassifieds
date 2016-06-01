@@ -1,0 +1,21 @@
+﻿@*Footer*@
+<div class="clearfix"></div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <a href="@Url.Home()">Home</a> |
+                <a href="@Url.ContactUs()">Contact Us</a> |
+                <a href="@Url.ContactUs()">Pricing</a> |
+                <a href="@Url.ContactUs()">Sitemap</a> |
+                <a href="@Url.Action("Terms", "Home")">Terms</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                &copy; @DateTime.Now.Year - <a target="_blank" href="http://www.paramountit.com.au">Powered by Paramount IT Solutions</a>
+            </div>
+        </div>
+    </div>
+</footer>

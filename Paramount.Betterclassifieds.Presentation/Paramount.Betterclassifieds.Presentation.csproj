@@ -920,6 +920,8 @@
     <Content Include="Views\Help\how-it-works.cshtml" />
     <Content Include="Views\Event\Invite.cshtml" />
     <Content Include="Views\Help\event-pricing.cshtml" />
+    <Content Include="Views\Shared\_Footer.KandoBay.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

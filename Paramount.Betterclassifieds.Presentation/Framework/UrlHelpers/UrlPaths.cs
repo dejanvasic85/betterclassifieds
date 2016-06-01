@@ -174,5 +174,10 @@ namespace Paramount
         {
             return new UrlBuilder(urlHelper).WithAction("event-pricing", "Help");
         }
+
+        public static UrlBuilder BarcodeValidationHelp(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper).WithAction("barcode-validation", "Help");
+        }
     }
 }

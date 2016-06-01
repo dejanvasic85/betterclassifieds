@@ -43,5 +43,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             return View(vm);
         }
+
+        [ActionName("barcode-validation")]
+        public ActionResult BarcodeValidation()
+        {
+            return View();
+        }
     }
 }

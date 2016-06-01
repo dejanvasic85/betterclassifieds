@@ -40,6 +40,8 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             get { return ConfigManager.ReadAppSetting<string>("StripePublishableKey"); }
         }
 
+        public string Version => ConfigManager.ReadAppSetting<string>("Version");
+
         public string DslImageUrlHandler
         {
             get { return ConfigManager.ReadAppSetting<string>("DslImageUrlHandler"); }

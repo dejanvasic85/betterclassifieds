@@ -17,5 +17,6 @@ namespace Paramount.Betterclassifieds.Business
         string GoogleTimezoneApiKey { get; }
         string StripeApiKey { get; }
         string StripePublishableKey { get; }
+        string Version { get; }
     }
 }

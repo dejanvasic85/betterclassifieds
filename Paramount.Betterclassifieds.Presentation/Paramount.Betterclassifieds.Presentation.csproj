@@ -922,6 +922,7 @@
     <Content Include="Views\Help\event-pricing.cshtml" />
     <Content Include="Views\Shared\_Footer.KandoBay.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Help\barcode-validation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

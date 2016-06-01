@@ -86,6 +86,11 @@ namespace Paramount
             return source.Equals(value, comparison);
         }
 
+        public static bool EquivalentToAny(this string source, params string[] compareToValues)
+        {
+            return compareToValues.Any(compareToValue => source.EqualTo(compareToValue));
+        }
+
         public static string Default(this string source, string value)
         {
             if (source.IsNullOrEmpty())

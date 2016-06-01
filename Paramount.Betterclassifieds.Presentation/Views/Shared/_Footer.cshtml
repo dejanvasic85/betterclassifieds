@@ -21,10 +21,10 @@
         @{
             var config = DependencyResolver.Current.GetService<IApplicationConfig>();
             var releaseNumber = config.Version;
-            var isInTest = config.Environment.EqualTo("CI") || config.Environment.Equals("Test");
+            var displayVersionNumber = config.Environment.EquivalentToAny("dev", "ci", "test");
         }
 
-        @if (isInTest)
+        @if (displayVersionNumber)
         {
             <div class="row">
                 <div class="col-xs-12 text-center">

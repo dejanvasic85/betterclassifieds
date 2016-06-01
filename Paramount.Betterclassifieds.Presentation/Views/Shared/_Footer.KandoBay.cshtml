@@ -1,4 +1,5 @@
-﻿@*Footer*@
+﻿@using Paramount.Betterclassifieds.Business
+@*Footer*@
 <div class="clearfix"></div>
 <footer class="footer">
     <div class="container">
@@ -17,5 +18,22 @@
                 &copy; @DateTime.Now.Year - <a target="_blank" href="http://www.paramountit.com.au">Powered by Paramount IT Solutions</a>
             </div>
         </div>
+
+
+        @{
+            var config = DependencyResolver.Current.GetService<IApplicationConfig>();
+            var releaseNumber = config.Version;
+            var displayVersionNumber = config.Environment.EquivalentToAny("dev", "ci", "test");
+        }
+
+        @if (displayVersionNumber)
+        {
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    Release : @releaseNumber
+                </div>
+            </div>
+        }
+
     </div>
 </footer>

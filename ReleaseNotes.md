@@ -2,6 +2,7 @@ Here's a list of the latest changes:
 
 **3.9.0**
 
+- [Enhancement - the features are explained now on the home page.](https://trello.com/c/k2Z0o7v2/470-create-product-offering-content-for-home)
 - Change Request - Minimum password length is now only set to 1 character! Until better messaging / comms is in place for users.
 - Fix - Re-Enabling the JS minification again!
 - New favicon

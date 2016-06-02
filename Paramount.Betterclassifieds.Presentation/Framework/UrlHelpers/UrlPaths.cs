@@ -172,12 +172,16 @@ namespace Paramount
 
         public static UrlBuilder EventPricing(this UrlHelper urlHelper)
         {
-            return new UrlBuilder(urlHelper).WithAction("event-pricing", "Help");
+            return new UrlBuilder(urlHelper).WithAction("event-pricing", "help");
         }
 
         public static UrlBuilder BarcodeValidationHelp(this UrlHelper urlHelper)
         {
-            return new UrlBuilder(urlHelper).WithAction("barcode-validation", "Help");
+            return new UrlBuilder(urlHelper).WithAction("barcode-validation", "help");
+        }
+        public static UrlBuilder DashboardHelp(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper).WithAction("realtime-data", "help");
         }
     }
 }

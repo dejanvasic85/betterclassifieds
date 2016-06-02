@@ -4,23 +4,69 @@
     ViewBag.Title = "Barcode Validation Explained";
     Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
 }
-@section Main{
-    <main class="mast-head help-pricing" id="content" role="main">
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            new WOW().init();
+        });
+    </script>
+}
+
+@section Main
+{
+    <main class="mast-head help-barcode" id="content" role="main">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 text-center">
-                    <h1>
-                        Barcode 
-                    </h1>
-                    <p>
-                        <em> Free tickets? Free for everyone!</em>
-                    </p>
+                    <div class="wow fadeInLeft">
+                        <h1>
+                            Ticket Validation Ready
+                        </h1>
+                        <p>
+                            <em>
+                                And all you need is a mobile phone...
+                            </em>
+                        </p>
+                    </div>
+                    <img class="img-responsive img-circle wow fadeInRight" src="@Url.Content("~/Content/images/Scan-qr-with-smartphone.jpg")" />
                 </div>
             </div>
         </div>
+
     </main>
 }
 
-<div class="container">
-    
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="well text-center">
+                <h3>Download a QR reader and scan our tickets. See our recommended apps below:</h3>
+            </div>
+        </div>
+
+        <div class="col-xs-6">
+            <div class="panel panel-default">
+                <div class="panel-body text-center">
+                    <a href="https://play.google.com/store/apps/details?id=tw.mobileapp.qrcode.banner">
+                        <h3>
+                            <i class="fa fa-android"></i> Android Download
+                        </h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="panel panel-default">
+                <div class="panel-body text-center">
+                    <a href="https://itunes.apple.com/au/app/qr-reader-for-iphone/id368494609?mt=8">
+                        <h3>
+                            <i class="fa fa-apple"></i> Apple Download
+                        </h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

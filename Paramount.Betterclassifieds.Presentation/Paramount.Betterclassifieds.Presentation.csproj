@@ -399,8 +399,11 @@
     <Content Include="Content\font-awesome-4.6.1.css" />
     <Content Include="Content\images\BookUsingThePhone.PNG" />
     <Content Include="Content\images\buttons.gif" />
+    <Content Include="Content\images\dash-1.PNG" />
     <Content Include="Content\images\placeholder.png" />
     <Content Include="Content\images\Pricing.jpg" />
+    <Content Include="Content\images\Scan-qr-with-smartphone.jpg" />
+    <Content Include="Content\KandoBay\img\QR-mobile-reader.jpg" />
     <Content Include="Content\images\support.jpg" />
     <Content Include="Content\images\toolbar.gif" />
     <Content Include="Content\images\tutoring.jpg" />
@@ -923,6 +926,7 @@
     <Content Include="Views\Shared\_Footer.KandoBay.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Help\barcode-validation.cshtml" />
+    <Content Include="Views\Help\realtime-data.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

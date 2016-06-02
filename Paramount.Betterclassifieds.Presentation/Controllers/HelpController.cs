@@ -49,5 +49,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             return View();
         }
+
+        [ActionName("realtime-data")]
+        public ActionResult RealtimeDashboard()
+        {
+            return View();
+        }
     }
 }

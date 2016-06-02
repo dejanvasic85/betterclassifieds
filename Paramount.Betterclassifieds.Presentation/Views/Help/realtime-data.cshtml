@@ -1,0 +1,56 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Manage your event with real-time data";
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
+}
+
+
+@section Main{
+    <main class="mast-head help-barcode" id="content" role="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <div class="wow fadeInLeft">
+                        <h1>
+                            Real data at your fingertips.
+                        </h1>
+                        <p>
+                            <em>
+                                What better than a nice dashboard to make your day?
+                            </em>
+                        </p>
+                    </div>
+                    <img class="img-responsive img-circle wow fadeInRight" src="@Url.Content("~/Content/images/dash-1.PNG")" />
+                </div>
+            </div>
+        </div>
+    </main>
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Ticket management</h2>
+            <p>
+                Check out the quantity and value sold at any time.
+                In case your are able to release more tickets, then simply
+                increasing the number in the dashboard will do the trick.
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2>Guest list</h2>
+            <p>
+                Download a printable PDF document with all your guests along with their
+                data that you have asked for. Name and email will be there by default.
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2>Closing event</h2>
+            <p>
+                To prevent any more ticket purchases, an event may be closed automatically
+                by date, or manually in the dashboard. Don't worry users can still find you online!
+            </p>
+        </div>
+    </div>
+</div>

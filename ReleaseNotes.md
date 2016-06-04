@@ -3,6 +3,7 @@ Here's a list of the latest changes:
 **3.9.0**
 
 - [Enhancement - the features are explained now on the home page.](https://trello.com/c/k2Z0o7v2/470-create-product-offering-content-for-home)
+- [Enhancement - guest list can be filtered and it's boxed so it doesn't overlow](https://trello.com/c/WL5Dy3Zf/395-events-paging-the-guest-list-on-the-event-dashboard)
 - Change Request - Minimum password length is now only set to 1 character! Until better messaging / comms is in place for users.
 - Fix - Re-Enabling the JS minification again!
 - New favicon

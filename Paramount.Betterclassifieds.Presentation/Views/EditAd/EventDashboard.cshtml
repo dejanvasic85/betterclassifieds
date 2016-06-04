@@ -116,7 +116,7 @@
     <div class="row">
 
         @*Ticketing*@
-        <div class="col-md-6">
+        <div class="col-md-6" id="ticketManagementBlock">
             <div class="bs-callout bs-callout-info">
                 <h4><i class="fa fa-ticket"></i>&nbsp; Ticketing</h4>
                 <p>Manage your ticket types here...</p>
@@ -187,8 +187,12 @@
                 <p>Check out who is coming to the event...</p>
             </div>
 
+            <div class="form-group">
+                <label>Search:</label>
+                <input type="text" data-bind="value: guestListFilter, valueUpdate: 'keyup'" class="form-control" placeholder="e.g. Lisa "/>
+            </div>
 
-            <ul class="list-group guest-list" data-bind="foreach: guests">
+            <ul class="list-group guest-list" data-bind="foreach: guestsFilterd">
                 <li class="list-group-item">
                     <ul class="list-unstyled">
                         <li>

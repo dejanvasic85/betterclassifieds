@@ -67,6 +67,19 @@
         me.showWithdrawPayment = ko.computed(function () {
             return me.requestPaymentStatus() !== $paramount.EVENT_PAYMENT_STATUS.NOT_AVAILABLE;
         });
+
+
+        me.guestListFilter = ko.observable();
+        me.guestsFilterd = ko.computed(function () {
+            var filter = me.guestListFilter();
+            if (!filter) {
+                return me.guests();
+            } else {
+                return ko.utils.arrayFilter(me.guests(), function (g) {
+                    return ko.utils.stringStartsWith(g.guestFullName().toLowerCase(), filter.toLowerCase());
+                });
+            }
+        });
     }
 
     EventDashboardModel.prototype.bindEditEvent = function (editEventViewModel) {
@@ -90,9 +103,6 @@
         me.totalSoldQty(editEventViewModel.totalSoldQty);
         me.pageViews(editEventViewModel.pageViews);
         me.requestPaymentStatus(editEventViewModel.eventPaymentRequestStatus);
-        // me.showPaymentStatusLabel(editEventViewModel.eventPaymentRequestStatus !== $paramount.EVENT_PAYMENT_STATUS.REQUEST_PENDING);
-        // me.showPayMeButton(editEventViewModel.eventPaymentRequestStatus === $paramount.EVENT_PAYMENT_STATUS.REQUEST_PENDING);
-        // me.showWithdrawPayment(editEventViewModel.eventPaymentRequestStatus !== $paramount.EVENT_PAYMENT_STATUS.NOT_AVAILABLE);
     }
 
     $paramount.models = $paramount.models || {};

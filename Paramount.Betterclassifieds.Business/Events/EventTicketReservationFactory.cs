@@ -40,10 +40,11 @@ namespace Paramount.Betterclassifieds.Business.Events
         {
             var calculator = new TicketFeeCalculator(_clientConfig);
             var ticketPrice = calculator.GetTotalTicketPrice(eventTicket);
+            var eventDetails = _eventRepository.GetEventDetails(eventTicket.EventId.GetValueOrDefault());
 
             var reservation = Create(sessionId, eventTicket);
             reservation.Price = ticketPrice.OriginalPrice;
-            reservation.TransactionFee = ticketPrice.Fee;
+            reservation.TransactionFee = eventDetails.IncludeTransactionFee.GetValueOrDefault() ? ticketPrice.Fee : 0;
 
             return reservation;
         }
@@ -64,7 +65,6 @@ namespace Paramount.Betterclassifieds.Business.Events
                 SessionId = sessionId,
                 Quantity = 1,
                 EventTicketId = eventTicket.EventTicketId,
-                EventTicket = eventTicket,
                 Status = new SufficientTicketsRule()
                     .IsSatisfiedBy(new RemainingTicketsWithRequestInfo(1, _eventManager.GetRemainingTicketCount(eventTicket)))
                     .Result

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business.Events;
 
@@ -17,9 +18,10 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var createdDate = DateTime.Now;
             var createdDateUtc = DateTime.UtcNow;
             var applicationUser = new ApplicationUserMockBuilder().Default().Build();
+            var mockRepository = new Mock<IEventRepository>();
 
             // act
-            var factory = new EventBookingFactory();
+            var factory = new EventBookingFactory(mockRepository.Object);
 
             var result = factory.Create(
                 eventId,
@@ -60,6 +62,9 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 .WithQuantity(2)
                 .WithTransactionFee(2)
                 .WithPrice(10);
+            var mockRepository = new Mock<IEventRepository>();
+            var mockEventTicket = new EventTicketMockBuilder().WithEventTicketId(1).WithTicketName("ticket-123").Build();
+            mockRepository.Setup(call => call.GetEventTicketDetails(It.IsAny<int>(), It.IsAny<bool>())).Returns(mockEventTicket);
 
             var eventTicketReservations = new List<EventTicketReservation>
             {
@@ -71,7 +76,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var applicationUser = new ApplicationUserMockBuilder().Default().Build();
 
             // act
-            var factory = new EventBookingFactory();
+            var factory = new EventBookingFactory(mockRepository.Object);
 
             var result = factory.Create(
                 eventId,

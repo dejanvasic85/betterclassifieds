@@ -93,7 +93,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             Guard.NotDefaultValue(eventId);
             Guard.NotNull(applicationUser);
 
-            var eventBooking = new EventBookingFactory().Create(eventId, applicationUser, currentReservations, _dateService.Now, _dateService.UtcNow);
+            var eventBooking = new EventBookingFactory(_eventRepository).Create(eventId, applicationUser, currentReservations, _dateService.Now, _dateService.UtcNow);
 
             // Call the repository
             _eventRepository.CreateBooking(eventBooking);

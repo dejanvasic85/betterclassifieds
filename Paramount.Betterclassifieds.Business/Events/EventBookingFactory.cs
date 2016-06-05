@@ -6,6 +6,13 @@ namespace Paramount.Betterclassifieds.Business.Events
 {
     public class EventBookingFactory
     {
+        private readonly IEventRepository _eventRepository;
+
+        public EventBookingFactory(IEventRepository eventRepository)
+        {
+            _eventRepository = eventRepository;
+        }
+
         public EventBooking Create(int eventId,
             ApplicationUser applicationUser,
             IEnumerable<EventTicketReservation> currentReservations,
@@ -27,8 +34,9 @@ namespace Paramount.Betterclassifieds.Business.Events
             };
 
             // Add the ticket bookings
-            var eventBookingTicketFactory = new EventBookingTicketFactory();
-            eventBooking.EventBookingTickets.AddRange(reservations.SelectMany(r => eventBookingTicketFactory.CreateFromReservation(r, createdDate, createdDateUtc)));
+            var eventBookingTicketFactory = new EventBookingTicketFactory(_eventRepository);
+            eventBooking.EventBookingTickets.AddRange(
+                reservations.SelectMany(r => eventBookingTicketFactory.CreateFromReservation(r, createdDate, createdDateUtc)));
 
             // Calculate the total
             eventBooking.Cost = reservations.Sum(r => r.Price.GetValueOrDefault());

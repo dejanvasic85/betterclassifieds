@@ -155,10 +155,10 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var eventId = 100;
             var mockBookingTickets = new[]
              {
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(10).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(20).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(30).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(40).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(10).WithTotalPrice(10).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(20).WithTotalPrice(20).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(30).WithTotalPrice(30).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(40).WithTotalPrice(40).Build(),
             };
             var mockEvent = new EventModelMockBuilder()
                 .Default()
@@ -185,10 +185,10 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var eventId = 100;
             var mockBookingTickets = new[]
              {
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(10).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(20).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(30).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(40).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(10).WithTotalPrice(10).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(20).WithTotalPrice(20).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(30).WithTotalPrice(30).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(40).WithTotalPrice(40).Build(),
             };
             var mockEvent = new EventModelMockBuilder()
                 .Default()
@@ -215,10 +215,10 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var eventId = 100;
             var mockBookingTickets = new[]
              {
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(10).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(20).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(30).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(40).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(10).WithTotalPrice(10).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(20).WithTotalPrice(20).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(30).WithTotalPrice(30).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(40).WithTotalPrice(40).Build(),
             };
             var mockEvent = new EventModelMockBuilder()
                .Default()
@@ -245,10 +245,10 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var eventId = 100;
             var mockBookingTickets = new[]
              {
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(10).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(20).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(30).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(40).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(10).WithTotalPrice(10).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(20).WithTotalPrice(20).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(30).WithTotalPrice(30).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(40).WithTotalPrice(40).Build(),
             };
             var mockEvent = new EventModelMockBuilder()
                .Default()
@@ -276,10 +276,10 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             var mockBookingTickets = new[]
             {
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(10).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(20).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(30).Build(),
-                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(40).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(10).WithTotalPrice(10).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(20).WithTotalPrice(20).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(30).WithTotalPrice(30).Build(),
+                new EventBookingTicketMockBuilder().WithEventBookingTicketId(1).WithPrice(40).WithTotalPrice(40).Build(),
             };
 
             var mockEvent = new EventModelMockBuilder()

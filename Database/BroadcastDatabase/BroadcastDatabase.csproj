@@ -54,6 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Scripts-3.0\03-Update.EmailTemplate-EventTicketsBooked.sql" />
     <EmbeddedResource Include="Scripts-3.0\01-EmailTemplate_Upsert.Proc.sql" />
     <EmbeddedResource Include="Scripts-3.0\02-EmailTemplates-BaseData.sql" />
     <EmbeddedResource Include="Scripts\0026-Data.UpdateEventsFrom.sql" />

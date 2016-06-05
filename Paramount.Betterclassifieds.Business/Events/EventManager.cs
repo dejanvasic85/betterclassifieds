@@ -37,6 +37,11 @@ namespace Paramount.Betterclassifieds.Business.Events
             return _eventRepository.GetEventDetails(eventId);
         }
 
+        public EventTicket GetEventTicket(int eventTicketId)
+        {
+            return _eventRepository.GetEventTicketDetails(eventTicketId);
+        }
+
         public EventBooking GetEventBooking(int eventBookingId)
         {
             return _eventRepository.GetEventBooking(eventBookingId, includeTickets: true, includeEvent: true);
@@ -104,7 +109,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             _eventRepository.UpdateEventBooking(eventBooking);
         }
 
-        public void EventBookingPaymentCompleted(int? eventBookingId, PaymentType paymentType, long? eventInvitationId)
+        public void ActivateBooking(int? eventBookingId, long? eventInvitationId)
         {
             Guard.NotNull(eventBookingId);
             var eventBooking = _eventRepository.GetEventBooking(eventBookingId.GetValueOrDefault(), includeEvent: false);

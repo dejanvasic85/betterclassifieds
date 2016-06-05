@@ -5,7 +5,8 @@ namespace Paramount.Betterclassifieds.Business.Events
     public interface IEventTicketReservationFactory
     {
         IEnumerable<EventTicketReservation> CreateReservations(int eventTicketId, int quantity, string sessionId);
-        EventTicketReservation CreateReservation(int eventTicketId, string sessionId, EventTicket eventTicket);
+        EventTicketReservation CreateReservation(string sessionId, EventTicket eventTicket);
+        EventTicketReservation CreateFreeReservation(string sessionId, EventTicket eventTicket);
     }
 
     public class EventTicketReservationFactory : IEventTicketReservationFactory
@@ -29,19 +30,31 @@ namespace Paramount.Betterclassifieds.Business.Events
 
             for (int i = 0; i < quantity; i++)
             {
-                var reservation = CreateReservation(eventTicketId, sessionId, eventTicket);
+                var reservation = CreateReservation(sessionId, eventTicket);
 
                 yield return reservation;
             }
         }
 
-        public EventTicketReservation CreateReservation(int eventTicketId, string sessionId, EventTicket eventTicket)
+        public EventTicketReservation CreateReservation(string sessionId, EventTicket eventTicket)
         {
-            var eventDetails = _eventRepository.GetEventDetails(eventTicket.EventId.GetValueOrDefault());
             var calculator = new TicketFeeCalculator(_clientConfig);
             var ticketPrice = calculator.GetTotalTicketPrice(eventTicket);
-            var transactionFee = ticketPrice.Fee;
 
+            var reservation = Create(sessionId, eventTicket);
+            reservation.Price = ticketPrice.OriginalPrice;
+            reservation.TransactionFee = ticketPrice.Fee;
+
+            return reservation;
+        }
+
+        public EventTicketReservation CreateFreeReservation(string sessionId, EventTicket eventTicket)
+        {
+            return Create(sessionId, eventTicket);
+        }
+
+        private EventTicketReservation Create(string sessionId, EventTicket eventTicket)
+        {
             var reservation = new EventTicketReservation
             {
                 CreatedDate = _dateService.Now,
@@ -50,9 +63,8 @@ namespace Paramount.Betterclassifieds.Business.Events
                 ExpiryDateUtc = _dateService.UtcNow.AddMinutes(_clientConfig.EventTicketReservationExpiryMinutes),
                 SessionId = sessionId,
                 Quantity = 1,
-                EventTicketId = eventTicketId,
-                Price = eventTicket.Price,
-                TransactionFee = eventDetails.IncludeTransactionFee.GetValueOrDefault() ? transactionFee : 0,
+                EventTicketId = eventTicket.EventTicketId,
+                EventTicket = eventTicket,
                 Status = new SufficientTicketsRule()
                     .IsSatisfiedBy(new RemainingTicketsWithRequestInfo(1, _eventManager.GetRemainingTicketCount(eventTicket)))
                     .Result

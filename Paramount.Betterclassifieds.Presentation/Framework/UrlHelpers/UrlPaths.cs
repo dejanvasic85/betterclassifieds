@@ -183,5 +183,12 @@ namespace Paramount
         {
             return new UrlBuilder(urlHelper).WithAction("realtime-data", "help");
         }
+
+        public static UrlBuilder AddEventGuest(this UrlHelper urlHelper, int id, int eventId)
+        {
+            return new UrlBuilder(urlHelper).WithAction("add-guest", "editad").WithRouteValues(new { id, eventId });
+        }
+
+
     }
 }

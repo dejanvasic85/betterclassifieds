@@ -189,7 +189,7 @@
 
             <div class="form-group">
                 <label>Search:</label>
-                <input type="text" data-bind="value: guestListFilter, valueUpdate: 'keyup'" class="form-control" placeholder="e.g. Lisa "/>
+                <input type="text" data-bind="value: guestListFilter, valueUpdate: 'keyup'" class="form-control" placeholder="e.g. Lisa " />
             </div>
 
             <ul class="list-group guest-list" data-bind="foreach: guestsFilterd">
@@ -209,6 +209,10 @@
                 </li>
             </ul>
             <div class="text-right">
+                <a class="btn btn-primary js-load" href="@Url.AddEventGuest(Model.AdId, Model.EventId)">
+                    <i class="fa fa-user-plus"></i> Add Guest
+                </a>
+
                 <a href="@Url.Action("EventGuestListDownloadPdf", "EditAd", new {id = Model.AdId, eventId = Model.EventId})" class="btn btn-default">
                     Download PDF <i class="fa fa-download"></i>
                 </a>

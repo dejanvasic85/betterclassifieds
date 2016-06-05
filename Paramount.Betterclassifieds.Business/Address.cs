@@ -40,7 +40,7 @@ namespace Paramount.Betterclassifieds.Business
             {
                 sb.AppendFormat(", {0}", Suburb);
             }
-
+                
             sb.AppendFormat(" {0} {1}", State, Postcode);
 
             return sb.ToString();

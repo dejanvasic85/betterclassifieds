@@ -11,7 +11,10 @@ using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Presentation.Services;
 using System;
 using System.Linq;
+using System.Monads;
+using System.Web;
 using System.Web.Mvc;
+using Paramount.Betterclassifieds.Presentation.Framework;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
@@ -318,6 +321,75 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(true);
         }
 
+        [HttpGet, ActionName("add-guest")]
+        public ActionResult AddGuest(int id, int eventId)
+        {
+            var eventModel = _eventManager.GetEventDetails(eventId);
+            var viewModel = new AddEventGuestViewModel
+            {
+                Id = id,
+                EventId = eventId,
+                EventTickets = this.MapList<EventTicket, EventTicketViewModel>(eventModel.Tickets.Where(t => t.RemainingQuantity > 0).ToList()),
+                TicketFields = eventModel.TicketFields.Select(tf => new EventTicketFieldViewModel { FieldName = tf.FieldName, IsRequired = tf.IsRequired }).ToList()
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost, ActionName("add-guest")]
+        public ActionResult AddGuest(int id, AddEventGuestViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+                return Json(ModelState.ToErrors());
+
+            var eventTicket = _eventManager.GetEventTicket(viewModel.With(vm => vm.SelectedTicket).With(t => t.EventTicketId.GetValueOrDefault()));
+            var reservation = _ticketReservationFactory.CreateFreeReservation(_httpContext.Session?.SessionID, eventTicket);
+
+            if (reservation.Status != EventTicketReservationStatus.Reserved)
+            {
+                ModelState.AddModelError("SelectedTicket", "The selected ticket could not be reserved");
+            }
+
+            var currentUser = _userManager.GetCurrentUser(this.User);
+            reservation.GuestFullName = viewModel.GuestFullName;
+            reservation.GuestEmail = viewModel.GuestEmail;
+            reservation.TicketFields = viewModel.TicketFields.Select(vm => new EventBookingTicketField { FieldName = vm.FieldName, FieldValue = vm.FieldValue }).ToList();
+
+            var eventBooking = _eventManager.CreateEventBooking(viewModel.EventId.GetValueOrDefault(), currentUser, new[] { reservation });
+            _eventManager.AdjustRemainingQuantityAndCancelReservations(_httpContext.Session?.SessionID, eventBooking.EventBookingTickets);
+
+            var eventModel = _eventManager.GetEventDetails(viewModel.EventId.GetValueOrDefault());
+            var adDetails = _searchService.GetByAdId(id);
+            var ticketHtml = _templatingService.Generate(EventTicketPrintViewModel.Create(Url, _barcodeManager, adDetails, eventModel, eventBooking), "~/Views/Event/Tickets.cshtml");
+            var ticketPdfData = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(ticketHtml);
+            var notification = CreateNotification(viewModel, eventModel, adDetails,
+                Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, includeSchemeAndProtocol: true, routeName: "Event"),
+                ticketPdfData);
+            _broadcastManager.SendEmail(notification, viewModel.GuestEmail);
+
+            return Json(true);
+        }
+
+        private EventTicketsBookedNotification CreateNotification(AddEventGuestViewModel viewModel, EventModel eventModel,
+            AdSearchResult ad, string eventUrl, byte[] ticketPdfData)
+        {
+            return new EventTicketsBookedNotification
+            {
+                CustomerEmailAddress = viewModel.GuestEmail,
+                CustomerFirstName = viewModel.FirstName,
+                CustomerLastName = viewModel.LastName,
+                StartDateTime = eventModel.EventStartDate.GetValueOrDefault(),
+                EndDateTime = eventModel.EventEndDate.GetValueOrDefault(),
+                EventName = ad.Heading,
+                EventUrl = eventUrl,
+                Address = eventModel.Location,
+                OrganiserName = ad.ContactName,
+                LocationLatitude = eventModel.LocationLatitude,
+                LocationLongitude = eventModel.LocationLongitude,
+                OrganiserEmail = ad.ContactEmail
+            }.WithTickets(ticketPdfData);
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.RecognizeDestinationPrefixes("OnlineAd", "Line");
@@ -355,8 +427,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IUserManager _userManager;
         private readonly IBroadcastManager _broadcastManager;
         private readonly IDateService _dateService;
+        private readonly IEventTicketReservationFactory _ticketReservationFactory;
+        private readonly HttpContextBase _httpContext;
+        private readonly IEventBarcodeManager _barcodeManager;
 
-        public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager, IEventManager eventManager, ITemplatingService templatingService, IUserManager userManager, IBroadcastManager broadcastManager, IDateService dateService)
+        public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager, IEventManager eventManager, ITemplatingService templatingService, IUserManager userManager, IBroadcastManager broadcastManager, IDateService dateService, IEventTicketReservationFactory ticketReservationFactory, HttpContextBase httpContext, IEventBarcodeManager barcodeManager)
         {
             _searchService = searchService;
             _applicationConfig = applicationConfig;
@@ -366,6 +441,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _userManager = userManager;
             _broadcastManager = broadcastManager;
             _dateService = dateService;
+            _ticketReservationFactory = ticketReservationFactory;
+            _httpContext = httpContext;
+            _barcodeManager = barcodeManager;
             _templatingService = templatingService.Init(this); // This service is tightly coupled to an mvc controller
         }
     }

@@ -301,6 +301,7 @@
     <Compile Include="ViewModels\AdViewModel.cs" />
     <Compile Include="ViewModels\Booking\BookingContextInCookie.cs" />
     <Compile Include="ViewModels\DirectDebitViewModel.cs" />
+    <Compile Include="ViewModels\Events\AddEventGuestViewModel.cs" />
     <Compile Include="ViewModels\Events\BarcodeValidationViewModel.cs" />
     <Compile Include="ViewModels\Events\EventBookingTicketViewModel.cs" />
     <Compile Include="ViewModels\Events\EventGuestListDownloadViewModel.cs" />
@@ -537,6 +538,8 @@
     <Content Include="Scripts\app\contactAdvertiser\contactAdvertiser.model.js" />
     <Content Include="Scripts\app\booking\eventTicketingSetup.model.js" />
     <Content Include="Scripts\app\booking\eventTicketDefinition.model.js" />
+    <Content Include="Scripts\app\events\addGuest.model.js" />
+    <Content Include="Scripts\app\events\addGuest.ui.js" />
     <Content Include="Scripts\app\events\bookTickets.model.js" />
     <Content Include="Scripts\app\events\eventDashboard.ui.js" />
     <Content Include="Scripts\app\events\eventDashboard.model.js" />
@@ -892,7 +895,7 @@
     <Content Include="Views\Invoice\Booking.cshtml" />
     <Content Include="Views\Booking\Step2_Event.cshtml" />
     <Content Include="Views\Event\ViewEventAd.cshtml" />
-    <Content Include="Views\Shared\_ContactAdvertiser.cshtml.cshtml" />
+    <Content Include="Views\Shared\_ContactAdvertiser.cshtml" />
     <Content Include="Views\Event\BookTickets.cshtml" />
     <Content Include="Views\Event\_UserEventBookingDetails.cshtml" />
     <Content Include="Views\Event\EventBooked.cshtml" />
@@ -927,6 +930,7 @@
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Help\barcode-validation.cshtml" />
     <Content Include="Views\Help\realtime-data.cshtml" />
+    <Content Include="Views\EditAd\add-guest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

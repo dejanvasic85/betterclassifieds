@@ -568,7 +568,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
         [Test]
         public void EventBookingPaymentCompleted_NullEventBookingId_ThrowsArgException()
         {
-            Assert.Throws<ArgumentNullException>(() => BuildTargetObject().EventBookingPaymentCompleted(null, PaymentType.PayPal, It.IsAny<long>()));
+            Assert.Throws<ArgumentNullException>(() => BuildTargetObject().ActivateBooking(null, It.IsAny<long>()));
         }
 
         [Test]
@@ -589,7 +589,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _eventRepositoryMock.SetupWithVerification(call => call.UpdateEventBooking(It.Is<EventBooking>(b => b == eventBooking)));
             _eventRepositoryMock.SetupWithVerification(call => call.UpdateEventInvitation(It.Is<EventInvitation>(e => e == eventInvitation)));
 
-            BuildTargetObject().EventBookingPaymentCompleted(100, PaymentType.CreditCard, eventInvitation.EventInvitationId);
+            BuildTargetObject().ActivateBooking(100, eventInvitation.EventInvitationId);
             eventBooking.Status.IsEqualTo(EventBookingStatus.Active);
             eventInvitation.ConfirmedDate.IsNotNull();
             eventInvitation.ConfirmedDateUtc.IsNotNull();

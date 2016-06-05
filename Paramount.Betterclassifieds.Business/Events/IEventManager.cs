@@ -8,6 +8,7 @@ namespace Paramount.Betterclassifieds.Business.Events
     {
         EventModel GetEventDetailsForOnlineAdId(int onlineAdId, bool includeBookings = false);
         EventModel GetEventDetails(int eventId);
+        EventTicket GetEventTicket(int eventTicketId);
         EventBooking GetEventBooking(int eventBookingId);
         int GetRemainingTicketCount(int? ticketId);
         int GetRemainingTicketCount(EventTicket eventTicket);
@@ -16,7 +17,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         TimeSpan GetRemainingTimeForReservationCollection(IEnumerable<EventTicketReservation> reservations);
         EventBooking CreateEventBooking(int eventId, ApplicationUser applicationUser, IEnumerable<EventTicketReservation> currentReservations);
         void CancelEventBooking(int? eventBookingId);
-        void EventBookingPaymentCompleted(int? eventBookingId, PaymentType paymentType, long? eventInvitationId);
+        void ActivateBooking(int? eventBookingId, long? eventInvitationId);
         void SetPaymentReferenceForBooking(int eventBookingId, string paymentReference, PaymentType paymentType);
         void AdjustRemainingQuantityAndCancelReservations(string sessionId, IList<EventBookingTicket> eventBookingTickets);
         string CreateEventTicketsDocument(int eventBookingId, byte[] ticketPdfData, DateTime? ticketsSentDate = null);

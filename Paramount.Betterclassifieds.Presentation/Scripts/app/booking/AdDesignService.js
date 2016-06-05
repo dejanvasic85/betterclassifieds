@@ -54,22 +54,22 @@
     AdDesignService.prototype.assignOnlineImage = function (documentId, removeExisting) {
         $.extend(me.model, {
             documentId: documentId,
-            removeExisting : removeExisting || false
+            removeExisting: removeExisting || false
         });
         return $paramount.httpPost(me.baseUrl + 'AssignOnlineImage', me.model);
     }
-    
-    AdDesignService.prototype.updateEventTicketDetails = function(eventBookingTicketSetup) {
+
+    AdDesignService.prototype.updateEventTicketDetails = function (eventBookingTicketSetup) {
         $.extend(me.model, eventBookingTicketSetup);
         return $paramount.httpPost(me.baseUrl + 'EventTickets', me.model);
     }
 
-    AdDesignService.prototype.requestEventPayment = function(paymentDetails) {
+    AdDesignService.prototype.requestEventPayment = function (paymentDetails) {
         $.extend(me.model, paymentDetails);
         return $paramount.httpPost(me.baseUrl + 'EventPaymentRequest', me.model);
     }
 
-    AdDesignService.prototype.closeEvent = function(eventId) {
+    AdDesignService.prototype.closeEvent = function (eventId) {
         $.extend(me.model, { eventId: eventId });
         return $paramount.httpPost(me.baseUrl + 'CloseEvent', me.model);
     }
@@ -83,6 +83,11 @@
         return $paramount.httpPost(me.baseUrl + 'UpdateEventDetails', me.model);
     }
 
+    AdDesignService.prototype.addGuest = function (guest) {
+        $.extend(me.model, guest);
+        return $paramount.httpPost(me.baseUrl + 'add-guest', me.model);
+    }
+
     AdDesignService.prototype.getCurrentEventDetails = function () {
         var url = me.baseUrl + 'GetEventDetails';
 
@@ -92,13 +97,13 @@
 
         return $.getJSON(url);
     }
-    
-    AdDesignService.prototype.eventUploadFloorplanUrl = function() {
+
+    AdDesignService.prototype.eventUploadFloorplanUrl = function () {
         return me.baseUrl + '';
     }
 
     $paramount.AdDesignService = AdDesignService;
-    
+
     return $paramount;
-    
+
 })(jQuery, $paramount);

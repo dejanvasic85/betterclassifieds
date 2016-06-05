@@ -1,5 +1,6 @@
 using System;
 using System.Security.Principal;
+using System.Web;
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
@@ -223,6 +224,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IUserManager> _userManagerMock;
         private Mock<IBroadcastManager> _broadcastManagerMock;
         private Mock<IDateService> _dateService;
+        private Mock<IEventTicketReservationFactory> _eventTicketReservationFactory;
+        private Mock<HttpContextBase> _httpContextBase;
 
         [SetUp]
         public void SetupDependencies()
@@ -237,6 +240,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _userManagerMock = CreateMockOf<IUserManager>();
             _broadcastManagerMock = CreateMockOf<IBroadcastManager>();
             _dateService = CreateMockOf<IDateService>();
+            _eventTicketReservationFactory = CreateMockOf<IEventTicketReservationFactory>();
+            _httpContextBase = CreateMockOf<HttpContextBase>();
         }
     }
 }

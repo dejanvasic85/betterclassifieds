@@ -226,6 +226,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IDateService> _dateService;
         private Mock<IEventTicketReservationFactory> _eventTicketReservationFactory;
         private Mock<HttpContextBase> _httpContextBase;
+        private Mock<IEventBarcodeManager> _eventBarcodeManager;
 
         [SetUp]
         public void SetupDependencies()
@@ -242,6 +243,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _dateService = CreateMockOf<IDateService>();
             _eventTicketReservationFactory = CreateMockOf<IEventTicketReservationFactory>();
             _httpContextBase = CreateMockOf<HttpContextBase>();
+            _eventBarcodeManager = CreateMockOf<IEventBarcodeManager>();
         }
     }
 }

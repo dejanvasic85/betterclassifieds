@@ -33,6 +33,9 @@
                 soldQty: 0
             }));
         }
+        me.hasGuests = ko.computed(function () {
+            return me.guests().length > 0;
+        });
         me.bindEditEvent(editEventViewModel);
 
         /*
@@ -65,7 +68,7 @@
         });
 
         me.showWithdrawPayment = ko.computed(function () {
-            return me.requestPaymentStatus() !== $paramount.EVENT_PAYMENT_STATUS.NOT_AVAILABLE;
+            return me.requestPaymentStatus() !== $paramount.EVENT_PAYMENT_STATUS.NOT_AVAILABLE && me.eventOrganiserOwedAmount() > 0;
         });
 
 

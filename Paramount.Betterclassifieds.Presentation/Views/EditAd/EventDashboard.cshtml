@@ -187,7 +187,7 @@
                 <p>Check out who is coming to the event...</p>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" data-bind="visible: hasGuests">
                 <label>Search:</label>
                 <input type="text" data-bind="value: guestListFilter, valueUpdate: 'keyup'" class="form-control" placeholder="e.g. Lisa " />
             </div>

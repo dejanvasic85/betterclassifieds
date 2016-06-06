@@ -35,7 +35,7 @@
     }
 
     AddGuest.prototype.submitGuest = function (element, event) {
-        if (!$paramount.checkValidity(this)) {
+        if (!$paramount.checkValidity(this), this.ticketFields()) {
             return;
         }
 
@@ -54,7 +54,6 @@
     }
 
     AddGuest.prototype.addAnother = function (element, event) {
-        // Clears the current
         this.guestFullName(null);
         this.guestEmail(null);
         _.each(this.ticketFields(), function (tf) {

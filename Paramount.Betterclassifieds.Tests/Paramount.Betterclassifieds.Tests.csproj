@@ -69,6 +69,7 @@
       <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
@@ -90,10 +91,6 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
       <Private>True</Private>
@@ -109,7 +106,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ApplicationBlock\HtmlHelperTests.cs" />
-    <Compile Include="AssertExtensions.cs" />
+    <Compile Include="AssertExtensions\ActionResultAssertExtensions.cs" />
+    <Compile Include="AssertExtensions\AssertExtensions.cs" />
+    <Compile Include="AssertExtensions\JsonResultAssertExtensions.cs" />
     <Compile Include="Bookings\BookingManagerTests.cs" />
     <Compile Include="Bookings\EditionManagerTests.cs" />
     <Compile Include="Broadcast\BroadcastManagerTests.cs" />
@@ -140,6 +139,7 @@
     <Compile Include="Mocks\EventModelMockBuilder.cs" />
     <Compile Include="Mocks\EventTicketFieldMockBuilder.cs" />
     <Compile Include="Mocks\EventTicketMockBuilder.cs" />
+    <Compile Include="Mocks\EventTicketReservationMockBuilder.cs" />
     <Compile Include="Mocks\IdentityMockExtensions.cs" />
     <Compile Include="Mocks\MockBuilder%27T.cs" />
     <Compile Include="Mocks\MockGenerator.cs">

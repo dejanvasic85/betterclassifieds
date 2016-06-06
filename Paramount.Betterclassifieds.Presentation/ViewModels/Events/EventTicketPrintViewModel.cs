@@ -30,7 +30,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             return eventBooking.EventBookingTickets
                 .Select(eventBookingTicket => new EventTicketPrintViewModel(urlHelper, barcodeManager, adDetails, eventDetails, eventBookingTicket))
                 .ToList();
-        }
+        }   
 
         public string TicketNumber { get; set; }
         public string EventName { get; set; }

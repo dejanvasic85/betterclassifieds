@@ -365,7 +365,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var notification = CreateNotification(viewModel, eventModel, adDetails,
                 Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, includeSchemeAndProtocol: true, routeName: "Event"),
                 ticketPdfData);
-            _broadcastManager.SendEmail(notification, viewModel.GuestEmail);
+            _broadcastManager.Queue(notification, viewModel.GuestEmail);
 
             return Json(true);
         }

@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
@@ -213,6 +215,79 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // assert
             result.IsTypeOf<JsonResult>();
+        }
+
+        [Test]
+        public void AddGuest_Get_MapsToViewModel_ReturnsActionResult()
+        {
+            var mockField = new EventTicketFieldMockBuilder().Default().Build();
+            var mockTicket = new EventTicketMockBuilder().Default().Build();
+            var mockEvent = new EventModelMockBuilder().Default()
+                .WithTicketFields(new[] { mockField })
+                .WithTickets(new[] { mockTicket })
+                .Build();
+
+
+            // Mock service calls
+            _eventManagerMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
+
+            // Act
+            var controller = BuildController();
+            var result = controller.AddGuest(123, mockEvent.EventId.GetValueOrDefault());
+
+            result.IsTypeOf<ActionResult>();
+            var vm = result.ViewResultModelIsTypeOf<AddEventGuestViewModel>();
+            vm.EventId.IsEqualTo(mockEvent.EventId);
+            vm.Id.IsEqualTo(123);
+            vm.EventTickets.Count.IsEqualTo(1);
+            vm.TicketFields.Count.IsEqualTo(1);
+        }
+
+        [Test]
+        public void AddGuest_Post_ReturnsJsonResult()
+        {
+            var mockEvent = new EventModelMockBuilder().Default().Build();
+            var mockEventTicket = new EventTicketMockBuilder().Default().Build();
+            var mockTicketField = new EventTicketFieldMockBuilder().Default().Build();
+            var mockEventTicketReservation = new EventTicketReservationMockBuilder().Build();
+            var mockEventBooking = new EventBookingMockBuilder().Default().Build();
+            var mockApplicationUser = new ApplicationUserMockBuilder().Default().Build();
+            var mockAdSearchResult = new AdSearchResultMockBuilder().Default().Build();
+
+            // arrange calls
+            _eventManagerMock.SetupWithVerification(call => call.GetEventTicket(It.IsAny<int>()), mockEventTicket);
+            _eventTicketReservationFactory.SetupWithVerification(
+                call => call.CreateFreeReservation(It.IsAny<string>(), It.IsAny<EventTicket>()),
+                mockEventTicketReservation);
+            _eventManagerMock.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(),
+                It.IsAny<ApplicationUser>(),
+                It.IsAny<IEnumerable<EventTicketReservation>>()), mockEventBooking);
+            _httpContextBase.SetupWithVerification(call => call.Session.SessionID, "1234");
+            _userManagerMock.SetupWithVerification(call => call.GetCurrentUser(It.IsAny<IPrincipal>()), mockApplicationUser);
+            _eventManagerMock.SetupWithVerification(call => call.AdjustRemainingQuantityAndCancelReservations(It.IsAny<string>(),
+                It.IsAny<IList<EventBookingTicket>>()));
+            _eventManagerMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
+            _searchServiceMock.SetupWithVerification(call => call.GetByAdId(It.IsAny<int>()), mockAdSearchResult);
+            _templatingServiceMock.SetupWithVerification(call => call.Generate(It.IsAny<object>(), It.Is<string>(str => str == "~/Views/Event/Tickets.cshtml")),
+                "<html>Test only</html>");
+            _broadcastManagerMock.SetupWithVerification(call => call.Queue(It.IsAny<IDocType>(), It.IsAny<string>()), new Notification(new Guid()));
+
+            var controller = BuildController(mockUser: new Mock<IPrincipal>());
+            var mockRequest = new AddEventGuestViewModel
+            {
+                EventId = mockEvent.EventId,
+                SelectedTicket = new EventTicketViewModel { EventTicketId = mockEventTicket.EventTicketId },
+                TicketFields = new List<EventTicketFieldViewModel>
+                {
+                    new EventTicketFieldViewModel {FieldName = mockTicketField.FieldName, FieldValue = "123"}
+                },
+                GuestFullName = "Foo Bar",
+                GuestEmail = "Foo@Bar.com",
+                SendEmailToGuest = true,
+                EventTickets = new List<EventTicketViewModel> { new EventTicketViewModel { TicketName = mockEventTicket.TicketName } }
+            };
+
+            var result = controller.AddGuest(123, mockRequest);
         }
 
         private Mock<ISearchService> _searchServiceMock;

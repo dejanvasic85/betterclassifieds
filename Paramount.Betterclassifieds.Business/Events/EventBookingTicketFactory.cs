@@ -34,7 +34,9 @@ namespace Paramount.Betterclassifieds.Business.Events
                     TotalPrice = reservation.TotalPriceWithTxnFee,
                     GuestEmail = reservation.GuestEmail,
                     GuestFullName = reservation.GuestFullName,
-                    TicketFieldValues = reservation.TicketFields.Select(r => new EventBookingTicketField { FieldName = r.FieldName, FieldValue = r.FieldValue }).ToList()
+                    TicketFieldValues = reservation?.TicketFields?
+                        .Select(r => new EventBookingTicketField { FieldName = r.FieldName, FieldValue = r.FieldValue })?
+                        .ToList()
                 };
             }
         }

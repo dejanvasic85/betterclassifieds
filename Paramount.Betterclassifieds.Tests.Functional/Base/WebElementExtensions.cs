@@ -26,7 +26,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             return element;
         }
 
-        public static void SelectOption(this IWebElement webElement, string optionValue)
+        public static void SelectOption(this IWebElement webElement, string optionText)
         {
             // Retry mechanism
             RetryElementAction(() =>
@@ -35,7 +35,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
                 {
                     var option = webElement
                         .FindElements(By.TagName("option"))
-                        .FirstOrDefault(o => o.Text.EqualTo(optionValue));
+                        .FirstOrDefault(o => o.Text.EqualTo(optionText));
 
                     if (option == null)
                         return false;

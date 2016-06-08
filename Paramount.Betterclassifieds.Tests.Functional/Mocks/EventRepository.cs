@@ -89,13 +89,24 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             }
         }
 
-        public List<EventBookingTicketData> GetEventBookingTickets(int eventBookingId)
+        public List<EventBookingTicketData> GetPurchasedTickets(int eventBookingId)
         {
             using (var connection = _connectionFactory.CreateClassifieds())
             {
                 return connection.Query<EventBookingTicketData>(
-                    "SELECT * FROM EventBookingTicket WHERE EventBookingId = @eventBookingId", new { eventBookingId })
-                    .ToList();
+                    "SELECT * FROM EventBookingTicket WHERE EventBookingId = @eventBookingId", new { eventBookingId }).ToList();
+            }
+        }
+
+        public List<EventBookingTicketData> GetPurchasedTicketsForEvent(int eventId)
+        {
+            using(var connection = _connectionFactory.CreateClassifieds())
+            {
+                return connection.Query<EventBookingTicketData>(
+                    "SELECT ebt.* " +
+                    "FROM EventBookingTicket ebt " +
+                    "JOIN EventBooking eb ON eb.EventBookingId = ebt.EventBookingId " +
+                    "JOIN [Event] e ON e.EventId = eb.EventId and e.EventId = @eventId ", new { eventId }).ToList();
             }
         }
 

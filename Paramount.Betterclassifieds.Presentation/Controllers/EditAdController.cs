@@ -353,7 +353,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var currentUser = _userManager.GetCurrentUser(this.User);
             reservation.GuestFullName = viewModel.GuestFullName;
             reservation.GuestEmail = viewModel.GuestEmail;
-            reservation.TicketFields = viewModel.TicketFields.Select(vm => new EventBookingTicketField { FieldName = vm.FieldName, FieldValue = vm.FieldValue }).ToList();
+            reservation.TicketFields = viewModel.With(vm => vm.TicketFields)
+                .With(tf => new EventBookingTicketField { FieldName = tf.FieldName, FieldValue = tf.FieldValue })
+                .With(l => l.ToList());
 
             var eventBooking = _eventManager.CreateEventBooking(viewModel.EventId.GetValueOrDefault(), currentUser, new[] { reservation });
             _eventManager.AdjustRemainingQuantityAndCancelReservations(_httpContext.Session?.SessionID, eventBooking.EventBookingTickets);

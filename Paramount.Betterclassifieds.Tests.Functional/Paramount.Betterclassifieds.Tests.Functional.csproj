@@ -92,6 +92,11 @@
     <Compile Include="Base\WebElementExtensions.cs" />
     <Compile Include="Base\DataRepositoryFactory.cs" />
     <Compile Include="ContextData\AdBookingContext.cs" />
+    <Compile Include="Features\AddGuestToEvent\AddGuest.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AddGuest.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\BookEventTickets\BookTicketsPage.cs" />
     <Compile Include="Features\BookEventTickets\EventAdContext.cs" />
     <Compile Include="Features\AccountDetails.feature.cs">
@@ -130,6 +135,9 @@
     </Compile>
     <Compile Include="Features\EventInvitation\BookTicketsFromInviteSteps.cs" />
     <Compile Include="Features\EventInvitation\EventInvitePage.cs" />
+    <Compile Include="Features\Events\AddGuestPage.cs" />
+    <Compile Include="Features\Events\EventDashboardPage.cs" />
+    <Compile Include="Features\Events\EventSteps.cs" />
     <Compile Include="Features\NotFound.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -201,7 +209,6 @@
     <Compile Include="Steps\ChangePasswordSteps.cs" />
     <Compile Include="Steps\ContactUsSteps.cs" />
     <Compile Include="Steps\EditAdSteps.cs" />
-    <Compile Include="Features\BookEventTickets\BookEventTicketSteps.cs" />
     <Compile Include="Steps\LoginSteps.cs" />
     <Compile Include="Steps\NotFoundSteps.cs" />
     <Compile Include="Steps\RegistrationSteps.cs" />
@@ -219,6 +226,10 @@
     <None Include="Features\AccountDetails.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AccountDetails.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\AddGuestToEvent\AddGuest.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AddGuest.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\ChangePassword.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

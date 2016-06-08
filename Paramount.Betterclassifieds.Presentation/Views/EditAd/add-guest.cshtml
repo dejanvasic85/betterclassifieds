@@ -44,7 +44,7 @@
 
             <div class="form-group-lg">
                 <label class="control-label">Ticket *:</label>
-                <select class="form-control"
+                <select class="form-control" id="tickets"
                         data-bind="options: tickets, optionsText: 'ticketName', value: selectedTicket"></select>
                 <p class="help-block">
                     <span data-bind="text: selectedTicket().ticketName"></span>
@@ -62,13 +62,13 @@
 
             <div class="text-right" data-bind="visible: !saved()">
                 <a href="@Url.EventDashboard(Model.Id.GetValueOrDefault())" class="btn btn-default js-load">Cancel</a> &nbsp;
-                <button class="btn btn-primary" data-bind="click: submitGuest">Submit</button>
+                <button id="btnAddGuest" class="btn btn-primary" data-bind="click: submitGuest">Submit</button>
             </div>
 
             <div class="row top-buffer-20" data-bind="visible:saved">
                 <div class="col-xs-12">
 
-                    <div class="alert alert-success">
+                    <div class="alert alert-success" id="guestAddedSuccessfully">
                         Guest has been added successfully.
                     </div>
                     <div class="text-right">

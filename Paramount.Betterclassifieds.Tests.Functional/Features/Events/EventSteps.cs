@@ -1,17 +1,19 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.Linq;
+using NUnit.Framework;
 using Paramount.Betterclassifieds.Tests.Functional.Mocks;
 using TechTalk.SpecFlow;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
 {
     [Binding]
-    internal class BookEventTicketSteps
+    internal class EventSteps
     {
         private readonly PageBrowser _pageBrowser;
         private readonly ITestDataRepository _repository;
         private readonly ContextData<EventAdContext> _contextData;
 
-        public BookEventTicketSteps(PageBrowser pageBrowser, ITestDataRepository repository, ContextData<EventAdContext> contextData)
+        public EventSteps(PageBrowser pageBrowser, ITestDataRepository repository, ContextData<EventAdContext> contextData)
         {
             _pageBrowser = pageBrowser;
             _repository = repository;
@@ -21,10 +23,16 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
         [Given(@"an event ad titled ""(.*)"" exists")]
         public void GivenAnEventAdTitledExists(string adTitle)
         {
+            GivenAnEventAdTitledExistsForUser(adTitle, TestData.DefaultUsername);
+        }
+
+        [Given(@"an event ad titled ""(.*)"" exists for user ""(.*)""")]
+        public void GivenAnEventAdTitledExistsForUser(string adTitle, string username)
+        {
             var eventAdContext = _contextData.Get();
 
             eventAdContext.AdId = _repository.DropCreateOnlineAd(adTitle, TestData.ParentEventCategory,
-                TestData.SubEventCategory, TestData.DefaultUsername);
+                TestData.SubEventCategory, username);
 
             // Get the online ad Id
             eventAdContext.OnlineAdId = _repository.GetOnlineAdForBookingId(eventAdContext.AdId);
@@ -100,7 +108,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
         {
             var testContext = _contextData.Get();
             var eventBooking = _repository.GetEventBooking(testContext.EventId);
-            var eventBookingTickets = _repository.GetEventBookingTickets(eventBooking.EventBookingId);
+            var eventBookingTickets = _repository.GetPurchasedTickets(eventBooking.EventBookingId);
 
             Assert.That(eventBooking, Is.Not.Null);
             Assert.That(eventBooking.TotalCost, Is.EqualTo(10)); // 10 dollars - 5 bucks x 2 tickets
@@ -116,5 +124,34 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
             Assert.That(currentPrice, Is.EqualTo(expectedPrice));
         }
 
+        [When(@"I navigate to event ""(.*)""")]
+        public void WhenINavigateToEvent(string url)
+        {
+            _pageBrowser.GoTo<EventDashboardPage>(_contextData.Get().AdId);
+        }
+
+
+        [When(@"I choose to add guest manually from the dashboard with details ""(.*)"" ""(.*)"" ""(.*)""")]
+        public void WhenIChooseToAddGuestManuallyFromTheDashboardWithDetails(string fullName, string email, string ticketType)
+        {
+            var contextData = _contextData.Get();
+            _pageBrowser.Init<EventDashboardPage>(query: contextData.AdId).AddGuest();
+            _pageBrowser.Init<AddGuestPage>(contextData.AdId, contextData.EventId)
+                .WithGuest(fullName, email, ticketType)
+                .Add()
+                ;
+        }
+
+        [Then(@"the new guest with email ""(.*)"" should have a ticket ""(.*)"" to the event")]
+        public void ThenTheNewGuestShouldHaveATicketToTheEvent(string guestEmail, string ticketName)
+        {
+            var guestTicket = _repository.GetPurchasedTicketsForEvent(_contextData.Get().EventId)
+                .FirstOrDefault(t => t.GuestEmail.Equals(guestEmail, StringComparison.OrdinalIgnoreCase));
+                
+
+            Assert.That(guestTicket, Is.Not.Null);
+            Assert.That(guestTicket.TicketName, Is.EqualTo(ticketName));
+            Assert.That(guestTicket.GuestEmail, Is.EqualTo(guestEmail));
+        }
     }
 }

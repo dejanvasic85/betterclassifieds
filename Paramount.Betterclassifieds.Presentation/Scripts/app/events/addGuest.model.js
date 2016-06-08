@@ -35,14 +35,14 @@
     }
 
     AddGuest.prototype.submitGuest = function (element, event) {
-        if (!$paramount.checkValidity(this), this.ticketFields()) {
+        var me = this;
+        if (!$paramount.checkValidity(me, me.ticketFields())) {
             return;
         }
 
         var $btn = $(event.target);
         $btn.button('loading');
 
-        var me = this;
         var objToSend = ko.toJS(me);
         delete objToSend["tickets"]; // Remove unecessary collection that is bound to a simple dropdown
 

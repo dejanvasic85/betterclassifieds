@@ -48,7 +48,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         void AddEventTicketType(int eventId, string ticketName, decimal price, int availableQuantity);
         void SetEventIncludeTransactionFee(int eventId, bool include);
         EventBookingData GetEventBooking(int eventId);
-        List<EventBookingTicketData> GetEventBookingTickets(int eventBookingId);
+        List<EventBookingTicketData> GetPurchasedTickets(int eventBookingId);
+        List<EventBookingTicketData> GetPurchasedTicketsForEvent(int eventId);
         int AddEventInvitationIfNotExists(int eventId, int userNetworkId);
 
         // Address

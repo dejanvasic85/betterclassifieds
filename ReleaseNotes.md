@@ -1,5 +1,9 @@
 Here's a list of the latest changes:
 
+**3.9.1**
+
+- [Fix - Unable to add guest when there's required additional fields](https://trello.com/c/IKAW99Ii/480-unable-to-add-guest-when-there-s-required-additional-fields)
+
 **3.9.0**
 
 - [Enhancement - Add guests and send them tickets with an offline payment](https://trello.com/c/ku6c8RHm/477-events-add-guests-with-offline-payments)

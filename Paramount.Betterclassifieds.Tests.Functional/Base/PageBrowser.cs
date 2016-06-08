@@ -19,6 +19,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             Config = config;
         }
 
+        public T Init<T>(params object[] query) where T : ITestPage
+        {
+            return Init<T>(true, query);
+        }
+
         public T Init<T>(bool ensureUrl = true, params object[] query) where T : ITestPage
         {
             var page = Create<T>();

@@ -58,6 +58,7 @@
     <Compile Include="Booking\IBookingContext.cs" />
     <Compile Include="Booking\IBookingManager.cs" />
     <Compile Include="Broadcast\AttachmentFactory.cs" />
+    <Compile Include="Broadcast\DocTypes\EventDailySummary.cs" />
     <Compile Include="Broadcast\DocTypes\EventGuestNotification.cs" />
     <Compile Include="Broadcast\DocTypes\EventPaymentRequest.cs" />
     <Compile Include="Broadcast\EmailAttachment.cs" />

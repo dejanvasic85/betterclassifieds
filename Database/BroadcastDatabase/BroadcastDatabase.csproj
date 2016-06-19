@@ -54,6 +54,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Scripts-3.0\05-EmailTemplate-EventDailySummary-SriLankanEvents.sql" />
+    <EmbeddedResource Include="Scripts-3.0\05-EmailTemplate-EventDailySummary-TheMusic.sql" />
+    <EmbeddedResource Include="Scripts-3.0\05-EmailTemplate-EventDailySummary-KandoBay.sql" />
     <EmbeddedResource Include="Scripts-3.0\03-Update.EmailTemplate-EventTicketsBooked.sql" />
     <EmbeddedResource Include="Scripts-3.0\01-EmailTemplate_Upsert.Proc.sql" />
     <EmbeddedResource Include="Scripts-3.0\02-EmailTemplates-BaseData.sql" />

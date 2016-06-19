@@ -2,7 +2,7 @@
 	@DocType = 'EventDailySummary',
 	@Brand = 'SriLankanEvents',
 	@SubjectTemplate = 'Your daily event summary for [/event-name/]',
-	@Description = 'A daily summary for the ',
+	@Description = 'Event daily summary',
 	@From = 'support@srilankanevents.com.au',
 	@BodyTemplate = '
 <!DOCTYPE html>
@@ -13,16 +13,12 @@
 <body style=''font-family: "Open Sans" ,"helvetica neue",helvetica,arial,sans-serif;font-weight:300;''>
     <div style="padding-right: 15px;padding-left: 15px;margin-right: auto;margin-left: auto;border:1px solid #eee">
        <div class="row">
-            <h3>Your event <strong>[/event-name/]</strong> daily activity summary</h3>
-            <p>
-                Number of guests registered today : [/daily-guest-count/]
-            </p>
-            <p>
-                Total tickets sold : [/daily-tickets-count/]
-            </p>
-            <p>
-                Total tickets value : [/daily-tickets-value/]
-            </p>
+            <h3>Your daily event summary for "[/event-name/]"</h3>
+            <p>[/todays-date/]</p>
+
+			<p>Sold Quantity: Today [/daily-ticket-count/] / Total [/total-ticket-count/]</p>
+            <p>Sold Amount: Today [/daily-ticket-value/] / Total [/total-ticket-value/]</p>
+
             <p>
                 If you find that this is spam or you are the wrong recipient to this information,
                 <a target="_blank" href="http://srilankanevents.com.au/Home/ContactUs" style="text-decoration:underline; color: #222;">

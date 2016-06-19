@@ -22,7 +22,7 @@ namespace Paramount.Betterclassifieds.DataService.Search
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="iFlog")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="Classifieds")]
 	public partial class ClassifiedsSearchEntitiesDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -33,7 +33,7 @@ namespace Paramount.Betterclassifieds.DataService.Search
     #endregion
 		
 		public ClassifiedsSearchEntitiesDataContext() : 
-				base(global::Paramount.Betterclassifieds.DataService.Properties.Settings.Default.iFlogConnectionString, mappingSource)
+				base(global::Paramount.Betterclassifieds.DataService.Properties.Settings.Default.ClassifiedsConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -70,6 +70,14 @@ namespace Paramount.Betterclassifieds.DataService.Search
 			}
 		}
 		
+		public System.Data.Linq.Table<BookedEvent> BookedEvents
+		{
+			get
+			{
+				return this.GetTable<BookedEvent>();
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.BookedAd_GetById")]
 		public ISingleResult<BookedAd> BookedAd_GetById([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> adId)
 		{
@@ -82,6 +90,13 @@ namespace Paramount.Betterclassifieds.DataService.Search
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), searchTerm, categoryIds, locationIds, areaIds, order, pageIndex, pageSize);
 			return ((ISingleResult<BookedAd>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.BookedEvent_GetCurrent")]
+		public ISingleResult<BookedEvent> BookedEvent_GetCurrent()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<BookedEvent>)(result.ReturnValue));
 		}
 	}
 	
@@ -595,6 +610,825 @@ namespace Paramount.Betterclassifieds.DataService.Search
 				if ((this._CategoryAdType != value))
 				{
 					this._CategoryAdType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CategoryFontIcon", CanBeNull=false)]
+		public string CategoryFontIcon
+		{
+			get
+			{
+				return this._CategoryFontIcon;
+			}
+			set
+			{
+				if ((this._CategoryFontIcon != value))
+				{
+					this._CategoryFontIcon = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BookedEvents")]
+	public partial class BookedEvent
+	{
+		
+		private int _EventId;
+		
+		private string _Location;
+		
+		private System.Nullable<decimal> _LocationLatitude;
+		
+		private System.Nullable<decimal> _LocationLongitude;
+		
+		private System.Nullable<System.DateTime> _EventStartDate;
+		
+		private System.Nullable<System.DateTime> _EventEndDate;
+		
+		private System.Nullable<System.DateTime> _ClosingDate;
+		
+		private System.Nullable<System.DateTime> _ClosingDateUtc;
+		
+		private string _TimeZoneId;
+		
+		private string _TimeZoneName;
+		
+		private System.Nullable<long> _TimeZoneDaylightSavingsOffsetSeconds;
+		
+		private System.Nullable<long> _TimeZoneUtcOffsetSeconds;
+		
+		private string _LocationFloorPlanDocumentId;
+		
+		private string _LocationFloorPlanFilename;
+		
+		private System.Nullable<bool> _IncludeTransactionFee;
+		
+		private long _AddressId;
+		
+		private string _StreetNumber;
+		
+		private string _StreetName;
+		
+		private string _Suburb;
+		
+		private string _State;
+		
+		private string _Postcode;
+		
+		private string _Country;
+		
+		private int _OnlineAdId;
+		
+		private System.Nullable<int> _AdDesignId;
+		
+		private string _Heading;
+		
+		private string _Description;
+		
+		private string _HtmlText;
+		
+		private System.Nullable<decimal> _Price;
+		
+		private string _ContactName;
+		
+		private string _ContactPhone;
+		
+		private string _ContactEmail;
+		
+		private System.Nullable<int> _NumOfViews;
+		
+		private string _OnlineAdTag;
+		
+		private int _AdId;
+		
+		private System.Nullable<System.DateTime> _BookingDate;
+		
+		private System.Nullable<System.DateTime> _EndDate;
+		
+		private string _UserId;
+		
+		private System.Nullable<System.DateTime> _StartDate;
+		
+		private string _CategoryName;
+		
+		private System.Nullable<int> _CategoryId;
+		
+		private System.Nullable<int> _ParentCategoryId;
+		
+		private string _CategoryAdType;
+		
+		private string _DocumentIds;
+		
+		private string _ParentCategoryName;
+		
+		private string _CategoryFontIcon;
+		
+		public BookedEvent()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventId", DbType="Int NOT NULL")]
+		public int EventId
+		{
+			get
+			{
+				return this._EventId;
+			}
+			set
+			{
+				if ((this._EventId != value))
+				{
+					this._EventId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Location", DbType="NVarChar(MAX)")]
+		public string Location
+		{
+			get
+			{
+				return this._Location;
+			}
+			set
+			{
+				if ((this._Location != value))
+				{
+					this._Location = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LocationLatitude", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> LocationLatitude
+		{
+			get
+			{
+				return this._LocationLatitude;
+			}
+			set
+			{
+				if ((this._LocationLatitude != value))
+				{
+					this._LocationLatitude = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LocationLongitude", DbType="Decimal(18,2)")]
+		public System.Nullable<decimal> LocationLongitude
+		{
+			get
+			{
+				return this._LocationLongitude;
+			}
+			set
+			{
+				if ((this._LocationLongitude != value))
+				{
+					this._LocationLongitude = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventStartDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> EventStartDate
+		{
+			get
+			{
+				return this._EventStartDate;
+			}
+			set
+			{
+				if ((this._EventStartDate != value))
+				{
+					this._EventStartDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventEndDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> EventEndDate
+		{
+			get
+			{
+				return this._EventEndDate;
+			}
+			set
+			{
+				if ((this._EventEndDate != value))
+				{
+					this._EventEndDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClosingDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ClosingDate
+		{
+			get
+			{
+				return this._ClosingDate;
+			}
+			set
+			{
+				if ((this._ClosingDate != value))
+				{
+					this._ClosingDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClosingDateUtc", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ClosingDateUtc
+		{
+			get
+			{
+				return this._ClosingDateUtc;
+			}
+			set
+			{
+				if ((this._ClosingDateUtc != value))
+				{
+					this._ClosingDateUtc = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TimeZoneId", DbType="VarChar(50)")]
+		public string TimeZoneId
+		{
+			get
+			{
+				return this._TimeZoneId;
+			}
+			set
+			{
+				if ((this._TimeZoneId != value))
+				{
+					this._TimeZoneId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TimeZoneName", DbType="VarChar(50)")]
+		public string TimeZoneName
+		{
+			get
+			{
+				return this._TimeZoneName;
+			}
+			set
+			{
+				if ((this._TimeZoneName != value))
+				{
+					this._TimeZoneName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TimeZoneDaylightSavingsOffsetSeconds", DbType="BigInt")]
+		public System.Nullable<long> TimeZoneDaylightSavingsOffsetSeconds
+		{
+			get
+			{
+				return this._TimeZoneDaylightSavingsOffsetSeconds;
+			}
+			set
+			{
+				if ((this._TimeZoneDaylightSavingsOffsetSeconds != value))
+				{
+					this._TimeZoneDaylightSavingsOffsetSeconds = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TimeZoneUtcOffsetSeconds", DbType="BigInt")]
+		public System.Nullable<long> TimeZoneUtcOffsetSeconds
+		{
+			get
+			{
+				return this._TimeZoneUtcOffsetSeconds;
+			}
+			set
+			{
+				if ((this._TimeZoneUtcOffsetSeconds != value))
+				{
+					this._TimeZoneUtcOffsetSeconds = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LocationFloorPlanDocumentId", DbType="VarChar(100)")]
+		public string LocationFloorPlanDocumentId
+		{
+			get
+			{
+				return this._LocationFloorPlanDocumentId;
+			}
+			set
+			{
+				if ((this._LocationFloorPlanDocumentId != value))
+				{
+					this._LocationFloorPlanDocumentId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LocationFloorPlanFilename", DbType="VarChar(100)")]
+		public string LocationFloorPlanFilename
+		{
+			get
+			{
+				return this._LocationFloorPlanFilename;
+			}
+			set
+			{
+				if ((this._LocationFloorPlanFilename != value))
+				{
+					this._LocationFloorPlanFilename = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IncludeTransactionFee", DbType="Bit")]
+		public System.Nullable<bool> IncludeTransactionFee
+		{
+			get
+			{
+				return this._IncludeTransactionFee;
+			}
+			set
+			{
+				if ((this._IncludeTransactionFee != value))
+				{
+					this._IncludeTransactionFee = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AddressId", DbType="BigInt NOT NULL")]
+		public long AddressId
+		{
+			get
+			{
+				return this._AddressId;
+			}
+			set
+			{
+				if ((this._AddressId != value))
+				{
+					this._AddressId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StreetNumber", DbType="VarChar(30)")]
+		public string StreetNumber
+		{
+			get
+			{
+				return this._StreetNumber;
+			}
+			set
+			{
+				if ((this._StreetNumber != value))
+				{
+					this._StreetNumber = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StreetName", DbType="VarChar(255)")]
+		public string StreetName
+		{
+			get
+			{
+				return this._StreetName;
+			}
+			set
+			{
+				if ((this._StreetName != value))
+				{
+					this._StreetName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Suburb", DbType="VarChar(100)")]
+		public string Suburb
+		{
+			get
+			{
+				return this._Suburb;
+			}
+			set
+			{
+				if ((this._Suburb != value))
+				{
+					this._Suburb = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_State", DbType="VarChar(50)")]
+		public string State
+		{
+			get
+			{
+				return this._State;
+			}
+			set
+			{
+				if ((this._State != value))
+				{
+					this._State = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Postcode", DbType="VarChar(5)")]
+		public string Postcode
+		{
+			get
+			{
+				return this._Postcode;
+			}
+			set
+			{
+				if ((this._Postcode != value))
+				{
+					this._Postcode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Country", DbType="VarChar(100)")]
+		public string Country
+		{
+			get
+			{
+				return this._Country;
+			}
+			set
+			{
+				if ((this._Country != value))
+				{
+					this._Country = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OnlineAdId", DbType="Int NOT NULL")]
+		public int OnlineAdId
+		{
+			get
+			{
+				return this._OnlineAdId;
+			}
+			set
+			{
+				if ((this._OnlineAdId != value))
+				{
+					this._OnlineAdId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdDesignId", DbType="Int")]
+		public System.Nullable<int> AdDesignId
+		{
+			get
+			{
+				return this._AdDesignId;
+			}
+			set
+			{
+				if ((this._AdDesignId != value))
+				{
+					this._AdDesignId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Heading", DbType="NVarChar(255)")]
+		public string Heading
+		{
+			get
+			{
+				return this._Heading;
+			}
+			set
+			{
+				if ((this._Heading != value))
+				{
+					this._Heading = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(MAX)")]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this._Description = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HtmlText", DbType="NVarChar(MAX)")]
+		public string HtmlText
+		{
+			get
+			{
+				return this._HtmlText;
+			}
+			set
+			{
+				if ((this._HtmlText != value))
+				{
+					this._HtmlText = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Money")]
+		public System.Nullable<decimal> Price
+		{
+			get
+			{
+				return this._Price;
+			}
+			set
+			{
+				if ((this._Price != value))
+				{
+					this._Price = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContactName", DbType="NVarChar(200)")]
+		public string ContactName
+		{
+			get
+			{
+				return this._ContactName;
+			}
+			set
+			{
+				if ((this._ContactName != value))
+				{
+					this._ContactName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContactPhone", DbType="NVarChar(50)")]
+		public string ContactPhone
+		{
+			get
+			{
+				return this._ContactPhone;
+			}
+			set
+			{
+				if ((this._ContactPhone != value))
+				{
+					this._ContactPhone = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContactEmail", DbType="NVarChar(100)")]
+		public string ContactEmail
+		{
+			get
+			{
+				return this._ContactEmail;
+			}
+			set
+			{
+				if ((this._ContactEmail != value))
+				{
+					this._ContactEmail = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NumOfViews", DbType="Int")]
+		public System.Nullable<int> NumOfViews
+		{
+			get
+			{
+				return this._NumOfViews;
+			}
+			set
+			{
+				if ((this._NumOfViews != value))
+				{
+					this._NumOfViews = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OnlineAdTag", DbType="VarChar(50)")]
+		public string OnlineAdTag
+		{
+			get
+			{
+				return this._OnlineAdTag;
+			}
+			set
+			{
+				if ((this._OnlineAdTag != value))
+				{
+					this._OnlineAdTag = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdId", DbType="Int NOT NULL")]
+		public int AdId
+		{
+			get
+			{
+				return this._AdId;
+			}
+			set
+			{
+				if ((this._AdId != value))
+				{
+					this._AdId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BookingDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> BookingDate
+		{
+			get
+			{
+				return this._BookingDate;
+			}
+			set
+			{
+				if ((this._BookingDate != value))
+				{
+					this._BookingDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> EndDate
+		{
+			get
+			{
+				return this._EndDate;
+			}
+			set
+			{
+				if ((this._EndDate != value))
+				{
+					this._EndDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="NVarChar(50)")]
+		public string UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					this._UserId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> StartDate
+		{
+			get
+			{
+				return this._StartDate;
+			}
+			set
+			{
+				if ((this._StartDate != value))
+				{
+					this._StartDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CategoryName", DbType="NVarChar(50)")]
+		public string CategoryName
+		{
+			get
+			{
+				return this._CategoryName;
+			}
+			set
+			{
+				if ((this._CategoryName != value))
+				{
+					this._CategoryName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CategoryId", DbType="Int")]
+		public System.Nullable<int> CategoryId
+		{
+			get
+			{
+				return this._CategoryId;
+			}
+			set
+			{
+				if ((this._CategoryId != value))
+				{
+					this._CategoryId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParentCategoryId", DbType="Int")]
+		public System.Nullable<int> ParentCategoryId
+		{
+			get
+			{
+				return this._ParentCategoryId;
+			}
+			set
+			{
+				if ((this._ParentCategoryId != value))
+				{
+					this._ParentCategoryId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CategoryAdType", DbType="NVarChar(50)")]
+		public string CategoryAdType
+		{
+			get
+			{
+				return this._CategoryAdType;
+			}
+			set
+			{
+				if ((this._CategoryAdType != value))
+				{
+					this._CategoryAdType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DocumentIds", CanBeNull=false)]
+		public string DocumentIds
+		{
+			get
+			{
+				return this._DocumentIds;
+			}
+			set
+			{
+				if ((this._DocumentIds != value))
+				{
+					this._DocumentIds = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ParentCategoryName", CanBeNull=false)]
+		public string ParentCategoryName
+		{
+			get
+			{
+				return this._ParentCategoryName;
+			}
+			set
+			{
+				if ((this._ParentCategoryName != value))
+				{
+					this._ParentCategoryName = value;
 				}
 			}
 		}

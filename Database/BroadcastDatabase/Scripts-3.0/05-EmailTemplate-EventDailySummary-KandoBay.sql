@@ -2,7 +2,7 @@
 	@DocType = 'EventDailySummary',
 	@Brand = 'KandoBay',
 	@SubjectTemplate = 'Your daily event summary for [/event-name/]',
-	@Description = 'A daily summary for the ',
+	@Description = 'Event daily summary',
 	@From = 'kandobay-support@kandobay.com.au',
 	@BodyTemplate = '
 <!DOCTYPE html>
@@ -16,16 +16,12 @@
             <img alt="Logo" src="http://img.kandobay.com.au/kandobay_logo.png" height="100" />
         </div>
         <div class="row">
-            <h3>Your event <strong>[/event-name/]</strong> daily activity summary</h3>
-            <p>
-                Number of guests registered today : [/daily-guest-count/]
-            </p>
-            <p>
-                Total tickets sold quantity: [/daily-tickets-count/]
-            </p>
-            <p>
-                Total tickets sold value : [/daily-tickets-value/]
-            </p>
+            <h3>Your daily event summary for "[/event-name/]"</h3>
+            <p>[/todays-date/]</p>
+
+			<p>Sold Quantity: Today [/daily-ticket-count/] / Total [/total-ticket-count/]</p>
+            <p>Sold Amount: Today [/daily-ticket-value/] / Total [/total-ticket-value/]</p>
+            
 			 <p>
                 If you find that this is spam or you are the wrong recipient to this information,
                 <a target="_blank" href="http://kandobay.com.au/Home/ContactUs" style="text-decoration:underline; color: #222;">

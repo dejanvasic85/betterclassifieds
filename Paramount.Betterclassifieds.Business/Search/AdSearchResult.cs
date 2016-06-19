@@ -8,10 +8,7 @@ namespace Paramount.Betterclassifieds.Business.Search
         public int AdId { get; set; }
         public int OnlineAdId { get; set; }
         public string Heading { get; set; }
-        public string HeadingSlug
-        {
-            get { return Slug.Create(true, Heading); }
-        }
+        public string HeadingSlug => Slug.Create(true, Heading);
 
         public string Description { get; set; }
         public string HtmlText { get; set; }

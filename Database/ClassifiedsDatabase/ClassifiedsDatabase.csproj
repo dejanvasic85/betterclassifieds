@@ -72,6 +72,8 @@
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Scripts-3.0\010-BookedEvents.Create.sql" />
+    <EmbeddedResource Include="Scripts-3.0\011-BookedEvents_GetCurrent.Create.sql" />
     <EmbeddedResource Include="Scripts-3.0\009-TutorData.Drop.sql" />
     <EmbeddedResource Include="Scripts-3.0\008-EnquiryDocument.Drop.sql" />
     <EmbeddedResource Include="Scripts-3.0\007-SpecialRate.Drop.sql" />

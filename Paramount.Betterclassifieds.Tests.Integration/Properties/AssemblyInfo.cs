@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Paramount.Betterclassifieds.Payments.Stripe.Tests")]
+[assembly: AssemblyTitle("Paramount.Betterclassifieds.Tests.Integration")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Paramount.Betterclassifieds.Payments.Stripe.Tests")]
+[assembly: AssemblyProduct("Paramount.Betterclassifieds.Tests.Integration")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("d9e993e4-b7b2-43e2-a1b2-8c46ba316536")]
+[assembly: Guid("0f393cb7-0a8d-4bba-a681-d4b78e22e89f")]
 
 // Version information for an assembly consists of the following four values:
 //

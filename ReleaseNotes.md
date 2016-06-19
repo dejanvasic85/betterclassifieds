@@ -1,7 +1,8 @@
 Here's a list of the latest changes:
 
-**3.9.1**
+**3.10.0**
 
+- [Enhancement - Adding new notification to provide a summary of the activity for an event](https://trello.com/c/XgGJhGxV/476-events-daily-notification-to-event-organisers-about-ticket-purchases-if-any)
 - [Fix - Unable to add guest when there's required additional fields](https://trello.com/c/IKAW99Ii/480-unable-to-add-guest-when-there-s-required-additional-fields)
 
 **3.9.0**

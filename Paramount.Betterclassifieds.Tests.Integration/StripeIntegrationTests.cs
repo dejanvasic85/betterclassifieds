@@ -1,14 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+﻿using Moq;
+using NUnit.Framework;
 using Paramount.Betterclassifieds.Business.Payment;
-using Paramount.Betterclassifieds.DataService;
 
 namespace Paramount.Betterclassifieds.Payments.Stripe.Tests
 {
-    [TestClass]
-    public class SimpleChargeTests
+    [TestFixture]
+    public class StripeIntegrationTests
     {
-        [TestMethod]
+        [Test]
         public void CardCharge_ShouldWork()
         {
             var mockPaymentRepository = new Mock<IPaymentsRepository>();
@@ -20,6 +19,7 @@ namespace Paramount.Betterclassifieds.Payments.Stripe.Tests
                 It.Is<PaymentType>(p => p == PaymentType.CreditCard)
                 ));
 
+            // Todo : Need to get the token first... This is done in the UI and then it can be processed here.
             var api = new StripeApi(mockPaymentRepository.Object);
             api.CompletePayment(new StripeChargeRequest
             {

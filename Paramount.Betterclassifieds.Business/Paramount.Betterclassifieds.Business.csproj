@@ -58,7 +58,7 @@
     <Compile Include="Booking\IBookingContext.cs" />
     <Compile Include="Booking\IBookingManager.cs" />
     <Compile Include="Broadcast\AttachmentFactory.cs" />
-    <Compile Include="Broadcast\DocTypes\EventDailySummary.cs" />
+    <Compile Include="Broadcast\DocTypes\EventDailySummaryNotification.cs" />
     <Compile Include="Broadcast\DocTypes\EventGuestNotification.cs" />
     <Compile Include="Broadcast\DocTypes\EventPaymentRequest.cs" />
     <Compile Include="Broadcast\EmailAttachment.cs" />
@@ -154,6 +154,7 @@
     <Compile Include="Print\EditionManager.cs" />
     <Compile Include="EnquiryManager.cs" />
     <Compile Include="Booking\BookingAuthorisationException.cs" />
+    <Compile Include="Search\EventSearchResult.cs" />
     <Compile Include="SetupException.cs" />
     <Compile Include="IApplicationConfig.cs" />
     <Compile Include="IEnquiryManager.cs" />

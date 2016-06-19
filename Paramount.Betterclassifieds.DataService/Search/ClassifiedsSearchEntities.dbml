@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="iFlog" Class="ClassifiedsSearchEntitiesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost;Initial Catalog=iFlog;Integrated Security=True" SettingsObjectName="Paramount.Betterclassifieds.DataService.Properties.Settings" SettingsPropertyName="iFlogConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Classifieds" Class="ClassifiedsSearchEntitiesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost;Initial Catalog=Classifieds;Integrated Security=True" SettingsObjectName="Paramount.Betterclassifieds.DataService.Properties.Settings" SettingsPropertyName="ClassifiedsConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.BookedAds" Member="BookedAds">
     <Type Name="BookedAd" Id="ID1">
       <Column Name="OnlineAdId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
@@ -33,6 +33,55 @@
       <Column Name="CategoryFontIcon" Type="System.String" CanBeNull="false" />
     </Type>
   </Table>
+  <Table Name="dbo.BookedEvents" Member="BookedEvents">
+    <Type Name="BookedEvent" Id="ID2">
+      <Column Name="EventId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Location" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="LocationLatitude" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="LocationLongitude" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="EventStartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EventEndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ClosingDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ClosingDateUtc" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TimeZoneId" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TimeZoneName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TimeZoneDaylightSavingsOffsetSeconds" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="TimeZoneUtcOffsetSeconds" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="LocationFloorPlanDocumentId" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="LocationFloorPlanFilename" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="IncludeTransactionFee" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="AddressId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="StreetNumber" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="StreetName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Suburb" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Postcode" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="OnlineAdId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AdDesignId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Heading" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="HtmlText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="ContactName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="ContactPhone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ContactEmail" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="NumOfViews" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OnlineAdTag" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="AdId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BookingDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CategoryName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ParentCategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CategoryAdType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DocumentIds" Type="System.String" CanBeNull="false" />
+      <Column Name="ParentCategoryName" Type="System.String" CanBeNull="false" />
+      <Column Name="CategoryFontIcon" Type="System.String" CanBeNull="false" />
+    </Type>
+  </Table>
   <Function Name="dbo.BookedAd_GetById" Method="BookedAd_GetById">
     <Parameter Name="adId" Type="System.Int32" DbType="Int" />
     <ElementType IdRef="ID1" />
@@ -46,5 +95,8 @@
     <Parameter Name="pageIndex" Type="System.Int32" DbType="Int" />
     <Parameter Name="pageSize" Type="System.Int32" DbType="Int" />
     <ElementType IdRef="ID1" />
+  </Function>
+  <Function Name="dbo.BookedEvent_GetCurrent" Method="BookedEvent_GetCurrent">
+    <ElementType IdRef="ID2" />
   </Function>
 </Database>

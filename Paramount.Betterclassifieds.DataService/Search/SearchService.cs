@@ -5,6 +5,8 @@ using Paramount.Betterclassifieds.DataService.Classifieds;
 using Paramount.Betterclassifieds.DataService.Search;
 using System.Collections.Generic;
 using System.Linq;
+using Paramount.Betterclassifieds.Business;
+using Paramount.Betterclassifieds.Business.Events;
 
 namespace Paramount.Betterclassifieds.DataService
 {
@@ -139,6 +141,20 @@ namespace Paramount.Betterclassifieds.DataService
             }
         }
 
+        public IEnumerable<EventSearchResult> GetCurrentEvents()
+        {
+            using (var context = _dbContextFactory.CreateClassifiedSearchContext())
+            {
+                return context.BookedEvent_GetCurrent().Select(be => new EventSearchResult
+                {
+                    AdSearchResult = this.Map<BookedEvent, AdSearchResult>(be),
+                    EventDetails = this.Map<BookedEvent, EventModel>(be),
+                    Address = this.Map<BookedEvent, Address>(be),
+                    
+                }).ToList();
+            }
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateProfile("SearchingProfile");
@@ -153,6 +169,13 @@ namespace Paramount.Betterclassifieds.DataService
                 .ForMember(member => member.ImageUrls, options => options.MapFrom(source => source.DocumentIds.HasValue() ? source.DocumentIds.Split(',') : new string[0]))
                 .ForMember(member => member.Publications, options => options.MapFrom(source => source.Publications.HasValue() ? source.Publications.Split(',') : new string[0]))
                 ;
+
+            configuration.CreateMap<BookedEvent, AdSearchResult>()
+                .ForMember(member => member.Username, options => options.MapFrom(source => source.UserId))
+                .ForMember(member => member.ImageUrls, options => options.MapFrom(source => source.DocumentIds.HasValue() ? source.DocumentIds.Split(',') : new string[0]))
+                ;
+            configuration.CreateMap<BookedEvent, EventModel>();
+            configuration.CreateMap<BookedEvent, Address>();
 
             configuration.CreateMap<SeoMapping, SeoNameMappingModel>()
                 .ForMember(dest => dest.CategoryIds, opt => opt.MapFrom(src => src.CategoryIds.IsNullOrEmpty() ? new List<int>() : src.CategoryIds.Split(',').Select(int.Parse).ToList()))

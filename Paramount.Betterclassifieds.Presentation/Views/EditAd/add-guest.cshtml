@@ -34,6 +34,16 @@
                 <input id="guestEmail" data-bind="value: guestEmail" type="text" class="form-control" />
             </div>
 
+            <div class="form-group-lg">
+                <label class="control-label">Ticket *:</label>
+                <select class="form-control" id="tickets"
+                        data-bind="options: tickets, optionsText: 'ticketName', value: selectedTicket,  event:{ change: ticketChanged}"></select>
+                <p class="help-block">
+                    <span data-bind="text: selectedTicket().ticketName"></span>
+                    has <span data-bind="text: selectedTicket().remainingQuantity"></span> remaining tickets.
+                </p>
+            </div>
+
             <div data-bind="foreach: ticketFields">
                 <div class="control-group  input-group-lg" data-bind="validationElement: fieldValue">
                     <label class="control-label" data-bind="text: fieldName"></label>
@@ -41,17 +51,6 @@
                     <input type="text" data-bind="value: fieldValue" class="form-control" />
                 </div>
             </div>
-
-            <div class="form-group-lg">
-                <label class="control-label">Ticket *:</label>
-                <select class="form-control" id="tickets"
-                        data-bind="options: tickets, optionsText: 'ticketName', value: selectedTicket"></select>
-                <p class="help-block">
-                    <span data-bind="text: selectedTicket().ticketName"></span>
-                    has <span data-bind="text: selectedTicket().remainingQuantity"></span> remaining tickets.
-                </p>
-            </div>
-
 
             <div class="control-group">
                 <label class="control-label">Send Email with Tickets</label>

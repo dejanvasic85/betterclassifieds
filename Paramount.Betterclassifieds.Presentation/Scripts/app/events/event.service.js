@@ -23,6 +23,10 @@
         return $paramount.httpPost(this.baseUrl + 'Event/PayWithPayPal');
     }
 
+    EventService.prototype.getFieldsForTicket = function (eventTicketId) {
+        return $paramount.httpGet(this.baseUrl + 'event/ticket-fields?id=' + eventTicketId);
+    }
+
     $paramount.EventService = EventService;
     return $paramount;
 

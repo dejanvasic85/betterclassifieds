@@ -507,10 +507,6 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.Tickets = val);
 		}
-		public EventModelMockBuilder WithTicketFields(IList<EventTicketField> val)
-		{ 
-			return WithBuildStep(p => p.TicketFields = val);
-		}
 		public EventModelMockBuilder WithEventBookings(IList<EventBooking> val)
 		{ 
 			return WithBuildStep(p => p.EventBookings = val);
@@ -531,10 +527,6 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.LocationFloorPlanFilename = val);
 		}
-		public EventModelMockBuilder WithIncludeTransactionFee(Boolean? val)
-		{ 
-			return WithBuildStep(p => p.IncludeTransactionFee = val);
-		}
 		public EventModelMockBuilder WithAddress(Address val)
 		{ 
 			return WithBuildStep(p => p.Address = val);
@@ -542,6 +534,10 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventModelMockBuilder WithAddressId(Int64? val)
 		{ 
 			return WithBuildStep(p => p.AddressId = val);
+		}
+		public EventModelMockBuilder WithIncludeTransactionFee(Boolean? val)
+		{ 
+			return WithBuildStep(p => p.IncludeTransactionFee = val);
 		}
 	}
 
@@ -578,6 +574,10 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventTicketMockBuilder WithEventBookingTickets(IList<EventBookingTicket> val)
 		{ 
 			return WithBuildStep(p => p.EventBookingTickets = val);
+		}
+		public EventTicketMockBuilder WithEventTicketFields(IList<EventTicketField> val)
+		{ 
+			return WithBuildStep(p => p.EventTicketFields = val);
 		}
 	}
 
@@ -927,9 +927,9 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.EventTicketFieldId = val);
 		}
-		public EventTicketFieldMockBuilder WithEventId(Int32? val)
+		public EventTicketFieldMockBuilder WithEventTicketId(Int32? val)
 		{ 
-			return WithBuildStep(p => p.EventId = val);
+			return WithBuildStep(p => p.EventTicketId = val);
 		}
 		public EventTicketFieldMockBuilder WithFieldName(String val)
 		{ 

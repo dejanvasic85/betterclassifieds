@@ -151,18 +151,23 @@
             if (obj.constructor === Array) {
                 for (var j = 0; j < obj.length; j++) {
                     // Recursive call
-                    var objResult = $paramount.checkValidity(obj[j]);
-                    if (objResult === false) {
-                        result = false;
-                    }
+                    result = $paramount.checkValidity(obj[j]);
                 }
 
             } else {
-                if (obj['validator']) {
-                    var validator = obj['validator'];
-                    result = validator.isValid();
-                    if (result === false) {
-                        validator.errors.showAllMessages();
+
+                // Loop through each property of the object
+                for (var p in obj) {
+                    if (p === 'validator') {
+                        // Execute it
+                        if (obj[p].isValid() === false) {
+                            result = false;
+                            obj[p].errors.showAllMessages();
+                        }
+                    } else if (isObservableArray(obj[p])) {
+                        ko.utils.arrayForEach(obj[p](), function (i) {
+                            result = $paramount.checkValidity(i);
+                        });
                     }
                 }
             }
@@ -175,6 +180,10 @@
         }
 
         return result;
+    }
+
+    function isObservableArray(obj) {
+        return ko.isObservable(obj) && !(obj.destroyAll === undefined);
     }
 
     $paramount.notNullOrUndefined = function (arg) {

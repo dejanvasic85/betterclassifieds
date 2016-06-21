@@ -53,6 +53,17 @@
         });
     }
 
+    AddGuest.prototype.ticketChanged = function () {
+        var me = this;
+        var service = new $p.EventService();
+        me.ticketFields.removeAll();
+        service.getFieldsForTicket(me.selectedTicket().eventTicketId()).then(function (resp) {
+            _.each(resp, function (tf) {
+                me.ticketFields.push(new $p.models.DynamicFieldValue(tf));
+            });
+        });
+    }
+
     AddGuest.prototype.addAnother = function (element, event) {
         this.guestFullName(null);
         this.guestEmail(null);

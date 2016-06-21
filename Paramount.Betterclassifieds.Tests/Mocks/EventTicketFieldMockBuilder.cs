@@ -4,7 +4,7 @@ namespace Paramount.Betterclassifieds.Tests
     {
         public EventTicketFieldMockBuilder Default()
         {
-            WithEventId(123);
+            WithEventTicketId(123);
             WithEventTicketFieldId(900);
             WithFieldName("Field 1");
             WithIsRequired(false);

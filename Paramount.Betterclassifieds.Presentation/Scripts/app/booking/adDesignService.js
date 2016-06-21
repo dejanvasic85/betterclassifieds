@@ -101,7 +101,7 @@
     AdDesignService.prototype.eventUploadFloorplanUrl = function () {
         return me.baseUrl + '';
     }
-
+    
     $paramount.AdDesignService = AdDesignService;
 
     return $paramount;

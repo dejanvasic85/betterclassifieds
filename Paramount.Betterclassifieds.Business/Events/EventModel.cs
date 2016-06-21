@@ -8,7 +8,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         public EventModel()
         {
             Tickets = new List<EventTicket>();
-            TicketFields = new List<EventTicketField>();
             EventBookings = new List<EventBooking>();
             Address = new Address();
             IncludeTransactionFee = true;
@@ -26,23 +25,18 @@ namespace Paramount.Betterclassifieds.Business.Events
         public DateTime? EventStartDate { get; set; }
         public DateTime? EventEndDate { get; set; }
         public IList<EventTicket> Tickets { get; set; }
-        public IList<EventTicketField> TicketFields { get; set; }
         public IList<EventBooking> EventBookings { get; set; }
         public DateTime? ClosingDate { get; set; }
         public DateTime? ClosingDateUtc { get; set; }
         public string LocationFloorPlanDocumentId { get; set; }
         public string LocationFloorPlanFilename { get; set; }
+        public bool IsClosed => this.ClosingDateUtc.HasValue && this.ClosingDateUtc <= DateTime.UtcNow;
+        public Address Address { get; set; }
+        public long? AddressId { get; set; }
+        
         /// <summary>
         /// If true then the customer will absorb the fee payment
         /// </summary>
         public bool? IncludeTransactionFee { get; set; }
-
-        public bool IsClosed
-        {
-            get { return this.ClosingDateUtc.HasValue && this.ClosingDateUtc <= DateTime.UtcNow; }
-        }
-
-        public Address Address { get; set; }
-        public long? AddressId { get; set; }
     }
 }

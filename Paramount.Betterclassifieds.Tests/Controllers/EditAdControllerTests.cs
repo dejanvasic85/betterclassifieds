@@ -220,14 +220,11 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         [Test]
         public void AddGuest_Get_MapsToViewModel_ReturnsActionResult()
         {
-            var mockField = new EventTicketFieldMockBuilder().Default().Build();
             var mockTicket = new EventTicketMockBuilder().Default().Build();
             var mockEvent = new EventModelMockBuilder().Default()
-                .WithTicketFields(new[] { mockField })
                 .WithTickets(new[] { mockTicket })
                 .Build();
-
-
+            
             // Mock service calls
             _eventManagerMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
 
@@ -240,7 +237,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             vm.EventId.IsEqualTo(mockEvent.EventId);
             vm.Id.IsEqualTo(123);
             vm.EventTickets.Count.IsEqualTo(1);
-            vm.TicketFields.Count.IsEqualTo(1);
         }
 
         [Test]

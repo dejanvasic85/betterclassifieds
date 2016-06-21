@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Paramount.Betterclassifieds.Business.Events
 {
@@ -64,7 +65,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                 ExpiryDateUtc = _dateService.UtcNow.AddMinutes(_clientConfig.EventTicketReservationExpiryMinutes),
                 SessionId = sessionId,
                 Quantity = 1,
-                EventTicketId = eventTicket.EventTicketId,
+                EventTicketId = eventTicket?.EventTicketId,
                 Status = new SufficientTicketsRule()
                     .IsSatisfiedBy(new RemainingTicketsWithRequestInfo(1, _eventManager.GetRemainingTicketCount(eventTicket)))
                     .Result

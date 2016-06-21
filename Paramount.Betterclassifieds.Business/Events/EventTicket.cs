@@ -11,6 +11,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         {
             EventTicketReservations = new List<EventTicketReservation>();
             EventBookingTickets = new List<EventBookingTicket>();
+            EventTicketFields = new List<EventTicketField>();
         }
         public int? EventTicketId { get; set; }
         public int? EventId { get; set; }
@@ -20,5 +21,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         public decimal Price { get; set; }
         public IList<EventTicketReservation> EventTicketReservations { get; set; }
         public IList<EventBookingTicket> EventBookingTickets { get; set; }
+        public IList<EventTicketField> EventTicketFields { get; set; }
     }
 }

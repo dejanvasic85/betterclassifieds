@@ -102,7 +102,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             // Construct the view model
-            var viewModel = new BookTicketsViewModel(onlineAdModel, eventDetails, _clientConfig, _appConfig, applicationUser, ticketReservations, userNetwork)
+            var viewModel = new BookTicketsViewModel(onlineAdModel, eventDetails, _clientConfig, _appConfig, 
+                applicationUser, ticketReservations, userNetwork)
             {
                 Reservations = this.MapList<EventTicketReservation, EventTicketReservedViewModel>(ticketReservations)
             };
@@ -376,6 +377,16 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View(viewModel);
         }
 
+        [HttpGet]
+        [ActionName("ticket-fields")]
+        public ActionResult GetEventTicketFields(int id)
+        {
+            var fields = this.MapList<EventTicketField, EventTicketFieldViewModel>(
+                _eventManager.GetEventTicket(id).With(et => et.EventTicketFields.ToList()));
+
+            return Json(fields);
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateMap<Business.Events.EventTicket, EventTicketViewModel>().ReverseMap();
@@ -388,6 +399,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 ;
 
             configuration.CreateMap<EventGuestDetails, EventGuestListViewModel>();
+            configuration.CreateMap<EventTicketField, EventTicketFieldViewModel>();
 
             // From View Model
             configuration.CreateMap<EventTicketRequestViewModel, EventTicket>();

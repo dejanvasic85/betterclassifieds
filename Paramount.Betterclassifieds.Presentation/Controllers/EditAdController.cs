@@ -330,9 +330,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 Id = id,
                 EventId = eventId,
                 EventTickets = this.MapList<EventTicket, EventTicketViewModel>(eventModel.Tickets.Where(t => t.RemainingQuantity > 0).ToList()),
-                TicketFields = eventModel.TicketFields.Select(tf => new EventTicketFieldViewModel { FieldName = tf.FieldName, IsRequired = tf.IsRequired }).ToList()
+                TicketFields = eventModel
+                    .With(e => e.Tickets.FirstOrDefault()) // the first one will be selected in the UI by default
+                    .With(t => t.EventTicketFields.Select(tf => new EventTicketFieldViewModel { FieldName = tf.FieldName, IsRequired = tf.IsRequired }))
+                    .With(etf => etf.ToList())
             };
-
             return View(viewModel);
         }
 
@@ -346,9 +348,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var reservation = _ticketReservationFactory.CreateFreeReservation(_httpContext.Session?.SessionID, eventTicket);
 
             if (reservation.Status != EventTicketReservationStatus.Reserved)
-            {
                 ModelState.AddModelError("SelectedTicket", "The selected ticket could not be reserved");
-            }
 
             var currentUser = _userManager.GetCurrentUser(this.User);
             reservation.GuestFullName = viewModel.GuestFullName;
@@ -371,7 +371,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             return Json(true);
         }
-
+        
         private EventTicketsBookedNotification CreateNotification(AddEventGuestViewModel viewModel, EventModel eventModel,
             AdSearchResult ad, string eventUrl, byte[] ticketPdfData)
         {
@@ -418,6 +418,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 .ForMember(member => member.UsePhoto, options => options.MapFrom(src => src.LineAdImageId.HasValue()));
 
             configuration.CreateMap<EventTicket, EventTicketViewModel>();
+            configuration.CreateMap<EventTicketField, EventTicketFieldViewModel>();
         }
 
         private readonly ISearchService _searchService;

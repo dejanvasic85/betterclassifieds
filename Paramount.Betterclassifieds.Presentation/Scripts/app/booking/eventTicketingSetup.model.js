@@ -5,7 +5,6 @@
             adDesignService = new $paramount.AdDesignService();
 
         me.tickets = ko.observableArray();
-        me.ticketFields = ko.observableArray();
         me.closingDate = ko.observable();
         me.includeTransactionFee = ko.observable();
         me.eventTicketFee = ko.observable();
@@ -22,19 +21,11 @@
             me.tickets.remove(t);
         }
 
-        me.addField = function () {
-            me.ticketFields.push(new $paramount.models.DynamicFieldDefinition());
-        }
-
-        me.removeTicketField = function (f) {
-            me.ticketFields.remove(f);
-        }
-
         me.submitTickets = function (e) {
-
-            if ($paramount.checkValidity(me, me.tickets(), me.ticketFields()) === false) {
+            if ($paramount.checkValidity(me) === false) {
                 return;
             }
+
             var $button = $('#btnSubmit');
             $button.button('loading');
             var eventTicketingSetup = ko.toJS(me);
@@ -46,11 +37,6 @@
                     $button.button('reset');
                 });
         }
-
-        me.showFieldOptionWarning = ko.computed(function () {
-            return me.ticketFields().length > 3;
-        });
-
 
         me.clearClosingDate = function () {
             me.closingDate(null);
@@ -78,11 +64,6 @@
         $.each(data.tickets, function (idx, t) {
             me.tickets.push(new $paramount.models.EventTicketDefinition(me, t));
         });
-        if (data.ticketFields) {
-            $.each(data.ticketFields, function (idx, f) {
-                me.ticketFields.push(new $paramount.models.DynamicFieldDefinition(f));
-            });
-        }
         me.closingDate(data.closingDate);
         me.eventTicketFee(data.eventTicketFee);
         me.eventTicketFeeCents(data.eventTicketFeeCents);

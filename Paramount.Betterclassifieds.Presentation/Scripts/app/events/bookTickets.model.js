@@ -52,7 +52,7 @@
                 reservationData.guestFullName = name;
             }
 
-            me.reservations.push(new $paramount.models.EventTicketReserved(reservationData, data.ticketFields));
+            me.reservations.push(new $paramount.models.EventTicketReserved(reservationData));
         });
 
         me.totalCost = ko.computed(function () {

@@ -145,50 +145,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                 return this.MapList<Classifieds.BookEntry, BookEntryModel>(bookEntryList);
             }
         }
-
-        [Obsolete]
-        public List<UserBookingModel> GetBookingsForUser(string username)
-        {
-            using (var context = _dbContextFactory.CreateClassifiedContext())
-            {
-                IQueryable<AdBooking> bookings = context.AdBookings.Where(bk =>
-                    bk.UserId == username &&
-                    (BookingStatusType)bk.BookingStatus == BookingStatusType.Booked);
-
-                return bookings.Select(bk =>
-                    new UserBookingModel
-                    {
-                        AdBookingId = bk.AdBookingId,
-                        CategoryName = bk.MainCategory.Title,
-                        TotalPrice = bk.TotalPrice,
-                        BookingReference = bk.BookReference,
-                        StartDate = bk.StartDate.Value,
-                        EndDate = bk.EndDate.Value,
-
-                        AdTitle = bk.Ad.AdDesigns.Any(d => d.AdType.Code == AdTypeCode.ONLINE)
-                            ? bk.Ad.AdDesigns.First(d => d.AdType.Code == AdTypeCode.ONLINE).OnlineAds.First().Heading
-                            : bk.Ad.AdDesigns.First(d => d.AdType.Code == AdTypeCode.LINE).LineAds.First().AdHeader,
-
-                        OnlineImageId = bk.Ad.AdDesigns.Any(d => d.AdType.Code == AdTypeCode.ONLINE && d.AdGraphics.Any())
-                            ? bk.Ad.AdDesigns.First(d => d.AdType.Code == AdTypeCode.ONLINE).AdGraphics.First().DocumentID
-                            : string.Empty,
-
-                        LineAdImageId = bk.Ad.AdDesigns.Any(d => d.AdType.Code == AdTypeCode.LINE && d.AdGraphics.Any())
-                            ? bk.Ad.AdDesigns.First(d => d.AdType.Code == AdTypeCode.LINE).AdGraphics.First().DocumentID
-                            : string.Empty,
-
-                        OnlineAdId = bk.Ad.AdDesigns.Any(d => d.AdType.Code == AdTypeCode.ONLINE)
-                            ? bk.Ad.AdDesigns.First(d => d.AdType.Code == AdTypeCode.ONLINE).OnlineAds.First().OnlineAdId
-                            : (int?)null,
-
-                        LineAdId = bk.Ad.AdDesigns.Any(d => d.AdType.Code == AdTypeCode.LINE)
-                            ? bk.Ad.AdDesigns.First(d => d.AdType.Code == AdTypeCode.LINE).LineAds.First().LineAdId
-                            : (int?)null,
-                    }
-                ).ToList();
-            }
-        }
-
+        
         public OnlineAdModel GetOnlineAd(int adId)
         {
             using (var context = _dbContextFactory.CreateClassifiedContext())

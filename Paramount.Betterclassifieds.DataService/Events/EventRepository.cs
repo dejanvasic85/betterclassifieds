@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Monads;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 
@@ -22,7 +23,6 @@ namespace Paramount.Betterclassifieds.DataService.Events
             {
                 var eventModel = context.Events
                     .Include(e => e.Tickets)
-                    .Include(e => e.TicketFields)
                     .Include(e => e.Address)
                     .SingleOrDefault(e => e.EventId == eventId);
 
@@ -30,6 +30,13 @@ namespace Paramount.Betterclassifieds.DataService.Events
                 {
                     // For some reason entity framework is not loading the address object here!
                     eventModel.Address = context.Addresses.SingleOrDefault(a => a.AddressId == eventModel.AddressId);
+                }
+
+                foreach (var eventTicket in eventModel.With(e => e.Tickets))
+                {
+                    eventTicket.EventTicketFields = context.EventTicketFields
+                        .Where(f => f.EventTicketId == eventTicket.EventTicketId)
+                        .ToList();
                 }
 
                 return eventModel;
@@ -68,6 +75,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
             using (var context = _dbContextFactory.CreateEventContext())
             {
                 var eventTicket = context.EventTickets
+                    .Include(e => e.EventTicketFields)
                     .SingleOrDefault(e => e.EventTicketId == ticketId);
 
                 if (includeReservations && eventTicket != null)

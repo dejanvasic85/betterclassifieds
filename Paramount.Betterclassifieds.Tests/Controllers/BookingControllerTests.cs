@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
@@ -41,10 +42,12 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         {
             var mockStartDate = DateTime.Now;
 
+            var mockField = new EventTicketFieldMockBuilder().Default().Build();
+            var mockEventTicket = new EventTicketMockBuilder()
+                .Default().WithEventTicketFields(new [] {mockField}).Build();
             var mockEvent = new EventModelMockBuilder()
                 .WithFutureClosedDate()
-                .WithTickets(new[] { new EventTicket() })
-                .WithTicketFields(new[] { new EventTicketField() })
+                .WithTickets(new[] { mockEventTicket })
                 .Build();
 
             var mockBookingCart = CreateMockOf<IBookingCart>();
@@ -62,7 +65,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             model.AdStartDate.IsEqualTo(mockStartDate);
             model.ClosingDate.IsNotNull();
             model.Tickets.Count.IsEqualTo(1);
-            model.TicketFields.Count.IsEqualTo(1);
+            model.Tickets.First().EventTicketFields.Count.IsEqualTo(1);
             model.EventTicketFee.IsEqualTo(5);
         }
 

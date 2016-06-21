@@ -202,14 +202,11 @@
     <Compile Include="Print\PublicationModel.cs" />
     <Compile Include="Pricing\RateCalculator.cs" />
     <Compile Include="Pricing\RateModel.cs" />
-    <Compile Include="UserBookingModel.cs" />
-    <Compile Include="UserBookingViewType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IAdRepository.cs" />
     <Compile Include="Booking\IBookingRepository.cs" />
     <Compile Include="IClientConfig.cs" />
     <Compile Include="Print\IEditionRepository.cs" />
-    <Compile Include="IMenuRepository.cs" />
     <Compile Include="Payment\IPaymentsRepository.cs" />
     <Compile Include="Print\IPublicationRepository.cs" />
     <Compile Include="Pricing\IRateRepository.cs" />

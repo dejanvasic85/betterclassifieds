@@ -2,8 +2,11 @@ Here's a list of the latest changes:
 
 **3.10.0**
 
+- [Enhancement - The fields are now at ticket level](https://trello.com/c/lsSFw1zc/484-events-fields-should-be-moved-to-ticket-level)
 - [Enhancement - Adding new notification to provide a summary of the activity for an event](https://trello.com/c/XgGJhGxV/476-events-daily-notification-to-event-organisers-about-ticket-purchases-if-any)
+- [Change Request - Updating the kandobay business address](https://trello.com/c/2S7JF8Sq/485-update-business-address)
 - [Fix - Unable to add guest when there's required additional fields](https://trello.com/c/IKAW99Ii/480-unable-to-add-guest-when-there-s-required-additional-fields)
+
 
 **3.9.0**
 

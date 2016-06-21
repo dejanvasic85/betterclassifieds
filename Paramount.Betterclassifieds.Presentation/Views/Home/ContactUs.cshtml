@@ -53,8 +53,7 @@
                     <div class="well">
                         <h2>Address</h2>
                         <address>
-                            <strong>@address.AddressLine1</strong><br />
-                            @address.AddressLine2<br />
+                            <strong>@address.StreetNumber @address.StreetName</strong><br />
                             @address.Suburb, @address.State @address.Postcode<br />
                             @if (ViewBag.PhoneNumber != null)
                         {

@@ -58,8 +58,12 @@ namespace Paramount.Betterclassifieds.Presentation
             if (exception == null)
                 return;
 
-            var logService = DependencyResolver.Current.GetService<ILogService>();
-            logService.Error(exception);
+            try
+            {
+                var logService = DependencyResolver.Current.GetService<ILogService>();
+                logService.Error(exception);
+            }
+            catch { }
         }
     }
 }

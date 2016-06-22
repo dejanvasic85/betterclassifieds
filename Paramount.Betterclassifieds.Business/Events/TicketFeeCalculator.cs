@@ -11,16 +11,12 @@
 
         public TicketPrice GetTotalTicketPrice(decimal originalTicketPrice)
         {
+            if (originalTicketPrice <= 0)
+                return new TicketPrice();
+
             var fee = (originalTicketPrice * GetEventTicketFeePercentage()) + GetEventTicketFeeCents();
-
             var priceIncludingFee = originalTicketPrice + fee;
-
-            return new TicketPrice
-            {
-                Fee = fee,
-                OriginalPrice = originalTicketPrice,
-                PriceIncludingFee = priceIncludingFee
-            };
+            return new TicketPrice(originalTicketPrice, priceIncludingFee, fee);
         }
 
         public TicketPrice GetTotalTicketPrice(EventTicket ticket)
@@ -31,6 +27,9 @@
 
         public decimal GetFeeTotalForOrganiserForAllTicketSales(decimal totalTicketSaleAmount, int totalTicketSales)
         {
+            if (totalTicketSaleAmount == 0)
+                return 0;
+
             var totalFees = totalTicketSaleAmount * GetEventTicketFeePercentage();
             totalFees += totalTicketSales * GetEventTicketFeeCents();
             return totalFees;

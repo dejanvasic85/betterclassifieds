@@ -118,10 +118,16 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
         [Then(@"the ticket ""(.*)"" price should be ""(.*)""")]
         public void ThenTheTicketPriceShouldBe(string ticketName, string expectedPrice)
         {
-            var currentPrice = _pageBrowser.Init<EventDetailsPage>(ensureUrl: false)
-                .GetPriceForTicket(ticketName);
-
-            Assert.That(currentPrice, Is.EqualTo(expectedPrice));
+            var eventDetailsPage = _pageBrowser.Init<EventDetailsPage>(ensureUrl: false);
+            if (expectedPrice.EqualTo("free"))
+            {
+                Assert.That(eventDetailsPage.IsPriceFreeForTicket(ticketName));
+            }
+            else
+            {
+                var currentPrice = eventDetailsPage.GetPriceForTicket(ticketName);
+                Assert.That(currentPrice, Is.EqualTo(expectedPrice));
+            }
         }
 
         [When(@"I navigate to event ""(.*)""")]

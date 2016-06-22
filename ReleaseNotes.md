@@ -6,7 +6,7 @@ Here's a list of the latest changes:
 - [Enhancement - Adding new notification to provide a summary of the activity for an event](https://trello.com/c/XgGJhGxV/476-events-daily-notification-to-event-organisers-about-ticket-purchases-if-any)
 - [Change Request - Updating the kandobay business address](https://trello.com/c/2S7JF8Sq/485-update-business-address)
 - [Fix - Unable to add guest when there's required additional fields](https://trello.com/c/IKAW99Ii/480-unable-to-add-guest-when-there-s-required-additional-fields)
-
+- [Fix - Free tickets were still adding the cents fee and not ended up being free](https://trello.com/c/wppLQUMe/492-free-tickets-are-not-free-when-we-are-adding-30-cents)
 
 **3.9.0**
 

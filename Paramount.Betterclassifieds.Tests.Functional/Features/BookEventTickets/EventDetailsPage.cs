@@ -29,14 +29,21 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
         {
             return _webDriver.FindElement(By.CssSelector("[data-ticket-name='" + ticketType + "']"))
                 .FindElement(By.ClassName("tst-ticket-price"))
-                .Text
-                ;
+                .Text;
         }
 
         public EventDetailsPage ConfirmTicketSelection()
         {
             GetTicketsButton.ClickOnElement();
             return this;
+        }
+
+        public bool IsPriceFreeForTicket(string ticketName)
+        {
+            return _webDriver.FindElement(By.CssSelector("[data-ticket-name='" + ticketName + "']"))
+                .FindElement(By.ClassName("tst-ticket-free"))
+                .Text
+                .EqualTo("free");
         }
     }
 }

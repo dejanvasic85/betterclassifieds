@@ -1,11 +1,11 @@
-﻿@bookEventTickets
+﻿@eventAd
+@bookEventTickets
 Feature: bookEventTickets
 	In order to book tickets for an event
 	As a logged in user
 	I want to be find the event online and purchase the ticket
 	So that I can go to the event
 
-@EventAd	
 @BookTickets
 Scenario: View event and book two tickets with successful payment
 	Given I am a registered user with username "bddTicketBuyer" and password "bddTicketBuyer" and email "bdd@TicketBuyer.com"

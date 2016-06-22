@@ -103,7 +103,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
         #region Data Setup
 
-        [BeforeFeature("booking", "bookEventTickets", "bookTicketsFromInvite")]
+        [BeforeFeature("booking", "eventAd", "bookTicketsFromInvite")]
         public static void SetupBookingFeature()
         {
             // Use the dapper manager to initialise some baseline test data for our booking scenarios

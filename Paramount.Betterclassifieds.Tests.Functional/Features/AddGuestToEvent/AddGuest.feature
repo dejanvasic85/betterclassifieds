@@ -1,9 +1,9 @@
-﻿Feature: AddGuest
+﻿@eventAd
+Feature: AddGuest
 	In order to maintain a reconciliated guest list
 	As an event organiser	
 	I want to add a guest from the dashboard without any payment
 
-@EventAd
 @EventGuest
 Scenario: Guest is added
 	Given I am a registered user with username "bddEventOrganiser" and password "password123" and email "fakeorganiser@yahoo.com"

@@ -20,6 +20,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.AddGuestToEvent
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("AddGuest")]
+    [NUnit.Framework.CategoryAttribute("eventAd")]
     public partial class AddGuestFeature
     {
         
@@ -33,7 +34,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.AddGuestToEvent
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "AddGuest", "In order to maintain a reconciliated guest list\nAs an event organiser\t\nI want to " +
-                    "add a guest from the dashboard without any payment", ProgrammingLanguage.CSharp, ((string[])(null)));
+                    "add a guest from the dashboard without any payment", ProgrammingLanguage.CSharp, new string[] {
+                        "eventAd"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -67,12 +69,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.AddGuestToEvent
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Guest is added")]
-        [NUnit.Framework.CategoryAttribute("EventAd")]
         [NUnit.Framework.CategoryAttribute("EventGuest")]
         public virtual void GuestIsAdded()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Guest is added", new string[] {
-                        "EventAd",
                         "EventGuest"});
 #line 8
 this.ScenarioSetup(scenarioInfo);

@@ -20,6 +20,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.BookEventTickets
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("bookEventTickets")]
+    [NUnit.Framework.CategoryAttribute("eventAd")]
     [NUnit.Framework.CategoryAttribute("bookEventTickets")]
     public partial class BookEventTicketsFeature
     {
@@ -35,6 +36,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.BookEventTickets
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "bookEventTickets", "In order to book tickets for an event\r\nAs a logged in user\r\nI want to be find the" +
                     " event online and purchase the ticket\r\nSo that I can go to the event", ProgrammingLanguage.CSharp, new string[] {
+                        "eventAd",
                         "bookEventTickets"});
             testRunner.OnFeatureStart(featureInfo);
         }
@@ -69,12 +71,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.BookEventTickets
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("View event and book two tickets with successful payment")]
-        [NUnit.Framework.CategoryAttribute("EventAd")]
         [NUnit.Framework.CategoryAttribute("BookTickets")]
         public virtual void ViewEventAndBookTwoTicketsWithSuccessfulPayment()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View event and book two tickets with successful payment", new string[] {
-                        "EventAd",
                         "BookTickets"});
 #line 10
 this.ScenarioSetup(scenarioInfo);

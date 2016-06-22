@@ -20,6 +20,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.EventInvitation
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("bookTicketsFromInvite")]
+    [NUnit.Framework.CategoryAttribute("eventAd")]
     [NUnit.Framework.CategoryAttribute("bookTicketsFromInvite")]
     public partial class BookTicketsFromInviteFeature
     {
@@ -35,6 +36,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.EventInvitation
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "bookTicketsFromInvite", "In order to book tickets to an event\r\nAs a consumer\r\nI want to navitate to a page" +
                     " with all ticket options and proceed to checkout", ProgrammingLanguage.CSharp, new string[] {
+                        "eventAd",
                         "bookTicketsFromInvite"});
             testRunner.OnFeatureStart(featureInfo);
         }
@@ -69,12 +71,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.EventInvitation
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Invitation exists and is used to book tickets")]
-        [NUnit.Framework.CategoryAttribute("EventAd")]
         [NUnit.Framework.CategoryAttribute("EventInvite")]
         public virtual void InvitationExistsAndIsUsedToBookTickets()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Invitation exists and is used to book tickets", new string[] {
-                        "EventAd",
                         "EventInvite"});
 #line 9
 this.ScenarioSetup(scenarioInfo);

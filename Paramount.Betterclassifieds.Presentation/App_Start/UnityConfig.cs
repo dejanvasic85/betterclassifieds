@@ -30,7 +30,11 @@
         {
             var container = new UnityContainer();
 
+            // Web MVC Dependency resolver
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+            // Web API Dependency resolver
+            System.Web.Http.GlobalConfiguration.Configuration.DependencyResolver = new Unity.WebApi.UnityDependencyResolver(container);
+
 
             // Repositories
             container

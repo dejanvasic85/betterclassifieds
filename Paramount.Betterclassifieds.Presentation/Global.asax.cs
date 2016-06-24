@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Microsoft.Practices.Unity;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.DataService;
+using WebGrease.Configuration;
 
 namespace Paramount.Betterclassifieds.Presentation
 {
@@ -18,6 +20,7 @@ namespace Paramount.Betterclassifieds.Presentation
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+            GlobalConfiguration.Configure(WebApiConfig.Register);
             DocumentDataConfig.RegisterMappings();
             var container = UnityConfig.Initialise();
             var logService = container.Resolve<ILogService>();

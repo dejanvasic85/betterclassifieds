@@ -1,6 +1,10 @@
 Here's a list of the latest changes:
 
-**3.10.0**
+**3.11.0 - Event Groups and Web API**
+
+- [Tech - Update the Unity libraries to use the latest Web Api Unity setup]()
+
+**3.10.0 - Custom fields movement**
 
 - [Enhancement - The fields are now at ticket level](https://trello.com/c/lsSFw1zc/484-events-fields-should-be-moved-to-ticket-level)
 - [Enhancement - Adding new notification to provide a summary of the activity for an event](https://trello.com/c/XgGJhGxV/476-events-daily-notification-to-event-organisers-about-ticket-purchases-if-any)

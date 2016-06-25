@@ -9,7 +9,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         EventModel GetEventDetailsForOnlineAdId(int onlineAdId, bool includeBookings = false);
         EventModel GetEventDetails(int eventId);
         EventTicket GetEventTicket(int eventTicketId);
-        EventBooking GetEventBooking(int eventBookingId);
+        EventBooking GetEventBooking(int eventBookingId);        
         int GetRemainingTicketCount(int? ticketId);
         int GetRemainingTicketCount(EventTicket eventTicket);
         IEnumerable<EventTicketReservation> GetTicketReservations(string sessionId);

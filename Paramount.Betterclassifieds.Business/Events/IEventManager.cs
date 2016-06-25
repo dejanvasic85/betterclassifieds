@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Paramount.Betterclassifieds.Business.Payment;
 
 namespace Paramount.Betterclassifieds.Business.Events
@@ -38,5 +39,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             Address address);
 
         EventInvitation CreateInvitationForUserNetwork(int eventId, int userNetworkId);
+
+        Task<IEnumerable<EventGroup>> GetEventGroups(int eventId);
     }
 }

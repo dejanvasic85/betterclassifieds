@@ -72,11 +72,14 @@
 @section scripts
 {
     <script>
-        $paramount.social.setupFacebook( $('#shareOnFacebook') , {
-            href: "@Model.EventUrl",
-            picture: '@Model.EventPhotoUrl',
-            name: '@Model.Title',
-            description: '@Model.Description'
+
+        $(function() {
+            $paramount.social.setupFacebook($('#shareOnFacebook'), {
+                href: "@Model.EventUrl",
+                picture: '@Model.EventPhotoUrl',
+                name: '@Model.Title',
+                description: '@Model.Description'
+            });
         });
 
     </script>

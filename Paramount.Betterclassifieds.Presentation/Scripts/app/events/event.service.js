@@ -27,6 +27,10 @@
         return $paramount.httpGet(this.baseUrl + 'event/ticket-fields?id=' + eventTicketId);
     }
 
+    EventService.prototype.getGroups = function(eventId) {
+        return $paramount.httpGet(this.baseUrl, '/api/events/' + eventId + '/groups');
+    }
+
     $paramount.EventService = EventService;
     return $paramount;
 

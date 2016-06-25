@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Paramount.Betterclassifieds.Business.Events
 {
@@ -32,6 +33,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         void UpdateEventAddress(Address address);
         void UpdateEventBookingTicketValidation(EventBookingTicketValidation eventBookingTicketValidation);
         void UpdateEventInvitation(EventInvitation invitation);
-        
+
+        Task<IEnumerable<EventGroup>> GetEventGroups(int eventId);
     }
 }

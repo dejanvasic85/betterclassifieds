@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.DocumentStorage;
 using Paramount.Betterclassifieds.Business.Location;
@@ -391,6 +392,11 @@ namespace Paramount.Betterclassifieds.Business.Events
             _eventRepository.CreateEventInvitation(eventInvitation);
 
             return eventInvitation;
+        }
+
+        public async Task<IEnumerable<EventGroup>> GetEventGroups(int eventId)
+        {
+            return await _eventRepository.GetEventGroups(eventId);
         }
     }
 }

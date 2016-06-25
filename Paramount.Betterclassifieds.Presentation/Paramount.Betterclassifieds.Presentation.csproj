@@ -222,7 +222,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\EventController.cs" />
+    <Compile Include="Api\EventApiController.cs" />
     <Compile Include="Api\HealthController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\LoggingConfig.cs" />

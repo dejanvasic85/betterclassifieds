@@ -1,20 +1,17 @@
-﻿using System.Linq;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
 using Paramount.Betterclassifieds.Business.Events;
-using Paramount.Betterclassifieds.Business.Search;
 
 namespace Paramount.Betterclassifieds.Presentation.Api
 {
     [RoutePrefix("api/events")]
-    public class EventController : ApiController
+    public class EventApiController : ApiController
     {
         private readonly IEventManager _eventManager;
-        private readonly ISearchService _searchService;
 
-        public EventController(IEventManager eventManager, ISearchService searchService)
+        public EventApiController(IEventManager eventManager)
         {
             _eventManager = eventManager;
-            _searchService = searchService;
         }
 
         [Route("")]
@@ -25,11 +22,18 @@ namespace Paramount.Betterclassifieds.Presentation.Api
             return Ok("coming soon");
         }
 
-        [Route("{id}")]
+        [Route("{id:int}")]
         public IHttpActionResult GetEvent(int id)
         {
             // var eventModel = _eventManager.GetEventDetails(id);
             return Ok("coming soon");
+        }
+
+        [Route("{id:int}/groups")]
+        public async Task<IHttpActionResult> GetEventGroups(int id)
+        {
+            var groups = await _eventManager.GetEventGroups(id);
+            return Ok(groups);
         }
     }
 }

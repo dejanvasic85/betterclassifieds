@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
@@ -192,6 +191,18 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
+        public async Task<IEnumerable<EventGroup>> GetEventGroups(int eventId, int? eventTicketId)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                return await context.Database
+                    .SqlQuery<EventGroup>("EventGroups_GetByEventId @eventId, @eventTicketId",
+                        new SqlParameter("eventId", eventId),
+                        new SqlParameter("eventTicketId", SqlDbType.Int) { SqlValue = eventTicketId.SqlNullIfEmpty() })
+                    .ToListAsync();
+            }
+        }
+
         public void CreateEventTicketReservation(EventTicketReservation eventTicketReservation)
         {
             using (var context = _dbContextFactory.CreateEventContext())
@@ -286,21 +297,6 @@ namespace Paramount.Betterclassifieds.DataService.Events
                 context.EventInvitations.Attach(invitation);
                 context.Entry(invitation).State = EntityState.Modified;
                 context.SaveChanges();
-            }
-        }
-
-        public async Task<IEnumerable<EventGroup>> GetEventGroups(int eventId)
-        {
-            using (var context = _dbContextFactory.CreateEventContext())
-            {
-                return await context.Database
-                    .SqlQuery<EventGroup>("EventGroups_GetByEventId @eventId", 
-                        new SqlParameter("eventId", eventId))
-                    .ToListAsync();
-
-                //return await context.EventGroups
-                //    .Where(eg => eg.EventId == eventId)
-                //    .ToListAsync();
             }
         }
 

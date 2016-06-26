@@ -18,6 +18,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         IEnumerable<EventBookingTicket> GetEventBookingTicketsForEvent(int? eventId);
         EventBookingTicketValidation GetEventBookingTicketValidation(int eventBookingTicketId);
         EventInvitation GetEventInvitation(long eventInvitationId);
+        Task<IEnumerable<EventGroup>> GetEventGroups(int eventId, int? eventTicketId);
 
         void CreateEventTicketReservation(EventTicketReservation eventTicketReservation);
         void CreateBooking(EventBooking eventBooking);
@@ -34,6 +35,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         void UpdateEventBookingTicketValidation(EventBookingTicketValidation eventBookingTicketValidation);
         void UpdateEventInvitation(EventInvitation invitation);
 
-        Task<IEnumerable<EventGroup>> GetEventGroups(int eventId);
+
     }
 }

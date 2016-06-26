@@ -40,6 +40,6 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         EventInvitation CreateInvitationForUserNetwork(int eventId, int userNetworkId);
 
-        Task<IEnumerable<EventGroup>> GetEventGroups(int eventId);
+        Task<IEnumerable<EventGroup>> GetEventGroups(int eventId, int? eventTicketId);
     }
 }

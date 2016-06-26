@@ -12,5 +12,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         public DateTime? CreatedDateTimeUtc { get; set; }
         public string CreatedBy { get; set; }
         public int GuestCount { get; set; }
+        public bool? AvailableToAllTickets { get; set; }
+        public string Description { get; set; }
     }
 }

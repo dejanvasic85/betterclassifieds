@@ -1,0 +1,2 @@
+﻿ALTER TABLE EventGroup
+ADD Description VARCHAR(100) NULL

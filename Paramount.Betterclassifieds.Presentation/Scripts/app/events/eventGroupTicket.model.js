@@ -8,6 +8,8 @@
         me.guestFullName = ko.observable();
         me.selectedGroup = ko.observable();
         me.groups = ko.observableArray();
+        me.isUpdating = ko.observable(false);
+        me.errorMsg = ko.observable('');
 
         if (data) {
             me.bind(data);
@@ -21,20 +23,45 @@
             return _.isUndefined(me.selectedGroup()) === false;
         });
 
+
+        function SelectControl(element) {
+            var $el = $(element.currentTarget);
+            var $formGroup = $el.closest('.form-group-lg');
+
+            return {
+                reset: function () {
+                    return $formGroup.removeClass('has-error').removeClass('has-success');
+                },
+                error: function () {
+                    return this.reset().addClass('has-error');
+                },
+                success: function () {
+                    return this.reset().addClass('has-success');
+                }
+            }
+        }
+
         me.groupChanged = function (item, el) {
-            var $selectElement = $(el.currentTarget);
-            if (me.isGroupSelected()) {                
+            var control = new SelectControl(el);
+            me.errorMsg('');
+
+            if (me.isGroupSelected()) {
                 var service = new $p.EventService();
+                me.isUpdating(true);
                 service.assignGroup(me.eventBookingTicketId(), me.selectedGroup().eventGroupId())
-                    .then(function(resp) {
+                    .then(function (resp) {
                         if (resp === true) {
-                            $selectElement.closest('.form-group-lg').addClass('has-success');
+                            control.success();
+                        } else if (_.isArray(resp) && resp.length > 0) {
+                            me.errorMsg(resp[0].value[0]);
+                            control.error();
                         }
+                        me.isUpdating(false);
                     });
 
             } else {
                 // Remove group from the ticket
-                $selectElement.closest('.form-group-lg').removeClass('has-success');
+                control.reset();
             }
         }
     }
@@ -55,5 +82,6 @@
                 });
             });
     }
+
     $p.models.EventGroupTicket = EventGroupTicket;
 })(jQuery, ko, $paramount)

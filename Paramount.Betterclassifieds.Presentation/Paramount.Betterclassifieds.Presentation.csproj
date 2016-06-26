@@ -407,6 +407,7 @@
     <Content Include="Content\images\BookUsingThePhone.PNG" />
     <Content Include="Content\images\buttons.gif" />
     <Content Include="Content\images\dash-1.PNG" />
+    <Content Include="Content\images\loader.gif" />
     <Content Include="Content\images\placeholder.png" />
     <Content Include="Content\images\Pricing.jpg" />
     <Content Include="Content\images\scan-qr-2.jpg" />

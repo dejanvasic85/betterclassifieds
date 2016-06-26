@@ -41,11 +41,18 @@
                                             data-bind="options: groups, optionsText: 'groupName', value: selectedGroup, optionsCaption: 'Un-Assigned...', event:{ change: groupChanged}"></select>
                                     <div class="input-group-addon">
                                         <h4>
-                                            <i data-bind="visible: isGroupSelected() === false" class="fa fa-times-circle-o"></i>
-                                            <i data-bind="visible: isGroupSelected" class="fa fa-check-circle-o"></i>
+                                            <i data-bind="visible: isGroupSelected() === false && !isUpdating()" class="fa fa-times-circle-o"></i>
+                                            <i data-bind="visible: isGroupSelected() && !isUpdating()" class="fa fa-check-circle-o"></i>
+                                            <img src="@Url.Content("~/Content/images/loader.gif")" style="max-width: 25px;"
+                                                 data-bind="visible: isUpdating"/>
                                         </h4>
                                     </div>
+
+
                                 </div>
+                            </div>
+                            <div class="alert alert-danger" data-bind="visible: errorMsg().length > 0">
+                                <span data-bind="text: errorMsg"></span>
                             </div>
                         </div>
                     </div>

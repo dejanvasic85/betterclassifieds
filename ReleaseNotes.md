@@ -2,7 +2,7 @@ Here's a list of the latest changes:
 
 **3.11.0 - Event Groups and Web API**
 
-- [Tech - Update the Unity libraries to use the latest Web Api Unity setup]()
+- Tech - Update the Unity libraries to use the latest Web Api Unity setup
 
 **3.10.0 - Custom fields movement**
 

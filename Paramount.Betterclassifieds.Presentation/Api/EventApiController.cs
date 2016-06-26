@@ -28,9 +28,16 @@ namespace Paramount.Betterclassifieds.Presentation.Api
             // var eventModel = _eventManager.GetEventDetails(id);
             return Ok("coming soon");
         }
-
+        
         [Route("{id:int}/groups")]
         public async Task<IHttpActionResult> GetEventGroups(int id)
+        {
+            var groups = await _eventManager.GetEventGroups(id);
+            return Ok(groups);
+        }
+
+        [Route("{id:int}/tickets/{ticketId:int}/groups")]
+        public async Task<IHttpActionResult> GetEventGroupsForTicket(int id, int ticketId)
         {
             var groups = await _eventManager.GetEventGroups(id);
             return Ok(groups);

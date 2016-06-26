@@ -1,0 +1,53 @@
+﻿@model GroupSelectionViewModel
+
+@{
+    ViewBag.Title = "Select a Group";
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
+}
+
+@section Scripts
+{
+    <script>    
+        $(function() {
+            var data = @Html.Raw(Model.ToJsonString());
+            var rootNode = $('#eventGroupSeletion')[0];
+            var model = new $paramount.models.EventGroupSelector(data);
+            ko.applyBindings(model, rootNode);
+        })
+    </script>
+}
+
+<div class="container top-buffer-60">
+    <div class="row" id="eventGroupSelection">
+        <div class="col-xs-12">
+            <h2>Group Selection</h2>
+        </div>
+
+        <div class="col-xs-12">
+            <div class="row" data-bind="foreach: eventBookingTickets">
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-ticket"></i> <span data-bind="text: friendlyTicketName"></span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group-lg">
+                                <label class="control-label">
+                                    Available Groups:
+                                </label>
+                                <select class="form-control"
+                                        data-bind="options: groups, optionsText: 'groupName', value: selectedGroup, optionsCaption: 'Un-Assigned...'"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 text-right">
+            <button class="btn btn-primary" data-bind="click: submit">
+                Submit <i class="fa fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+</div>

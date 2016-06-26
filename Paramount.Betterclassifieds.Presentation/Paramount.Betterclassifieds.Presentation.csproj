@@ -327,6 +327,7 @@
     <Compile Include="ViewModels\Booking\Step2View.cs" />
     <Compile Include="ViewModels\Booking\Step3View.cs" />
     <Compile Include="ViewModels\Booking\SuccessView.cs" />
+    <Compile Include="ViewModels\Events\GroupSelectionViewModel.cs" />
     <Compile Include="ViewModels\Events\MakePaymentViewModel.cs" />
     <Compile Include="ViewModels\Events\InvitationViewModel.cs" />
     <Compile Include="ViewModels\Events\ReserveTicketsViewModel.cs" />
@@ -547,8 +548,12 @@
     <Content Include="Scripts\app\events\addGuest.model.js" />
     <Content Include="Scripts\app\events\addGuest.ui.js" />
     <Content Include="Scripts\app\events\bookTickets.model.js" />
+    <Content Include="Scripts\app\events\eventBookingTicket.model.js" />
     <Content Include="Scripts\app\events\eventDashboard.ui.js" />
     <Content Include="Scripts\app\events\eventDashboard.model.js" />
+    <Content Include="Scripts\app\events\eventGroup.model.js" />
+    <Content Include="Scripts\app\events\eventGroupSelector.model.js" />
+    <Content Include="Scripts\app\events\eventGroupTicket.model.js" />
     <Content Include="Scripts\app\events\eventPaymentRequest.model.js" />
     <Content Include="Scripts\app\events\eventGuest.model.js" />
     <Content Include="Scripts\app\events\eventPaymentRequest.ui.js" />
@@ -937,6 +942,7 @@
     <Content Include="Views\Help\barcode-validation.cshtml" />
     <Content Include="Views\Help\realtime-data.cshtml" />
     <Content Include="Views\EditAd\add-guest.cshtml" />
+    <Content Include="Views\Event\group-selection.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

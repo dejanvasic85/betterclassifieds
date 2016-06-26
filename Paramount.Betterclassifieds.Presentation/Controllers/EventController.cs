@@ -240,6 +240,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
         }
 
+        [HttpGet, ActionName("group-selection")]
+        public ActionResult GroupSelection(int id)
+        {
+            var eventBooking = _eventManager.GetEventBooking(id);
+            var vm = new GroupSelectionViewModel(eventBooking);
+            return View(vm);
+        }
+
         [HttpGet, EventBookingRequired, RequireHttps, Authorize]
         public ViewResult MakePayment()
         {

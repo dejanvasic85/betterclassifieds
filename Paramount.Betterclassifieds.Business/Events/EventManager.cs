@@ -404,7 +404,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             return await _eventRepository.GetEventGroup(eventGroupId);
         }
 
-        public void AssignGroupToTicket(int eventBookingTicketId, int eventGroupId)
+        public void AssignGroupToTicket(int eventBookingTicketId, int? eventGroupId)
         {
             // Update the event booking ticket
             var eventBookingTicket = _eventRepository.GetEventBookingTicket(eventBookingTicketId);

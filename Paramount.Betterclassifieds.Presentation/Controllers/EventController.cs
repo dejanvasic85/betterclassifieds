@@ -250,14 +250,17 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpPost, ActionName("assign-group")]
-        public async Task<ActionResult> AssignGroupToTicket(int eventBookingTicketId, int eventGroupId)
+        public async Task<ActionResult> AssignGroupToTicket(int eventBookingTicketId, int? eventGroupId)
         {
-            var eventGroup = await _eventManager.GetEventGroup(eventGroupId);
-            if (eventGroup.MaxGuests == eventGroup.GuestCount)
+            if (eventGroupId.HasValue)
             {
-                // Capacity reached
-                ModelState.AddModelError("eventGroupId", "Max capacity reached for selected group");
-                return Json(ModelState.ToErrors());
+                var eventGroup = await _eventManager.GetEventGroup(eventGroupId.Value);
+                if (eventGroup.MaxGuests == eventGroup.GuestCount)
+                {
+                    // Capacity reached
+                    ModelState.AddModelError("eventGroupId", "Max capacity reached for selected group");
+                    return Json(ModelState.ToErrors());
+                }
             }
 
             _eventManager.AssignGroupToTicket(eventBookingTicketId, eventGroupId);

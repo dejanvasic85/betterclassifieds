@@ -41,14 +41,14 @@
             }
         }
 
+        var eventService = new $p.EventService();
         me.groupChanged = function (item, el) {
             var control = new SelectControl(el);
             me.errorMsg('');
 
             if (me.isGroupSelected()) {
-                var service = new $p.EventService();
                 me.isUpdating(true);
-                service.assignGroup(me.eventBookingTicketId(), me.selectedGroup().eventGroupId())
+                eventService.assignGroup(me.eventBookingTicketId(), me.selectedGroup().eventGroupId())
                     .then(function (resp) {
                         if (resp === true) {
                             control.success();
@@ -62,6 +62,15 @@
             } else {
                 // Remove group from the ticket
                 control.reset();
+
+                me.isUpdating(true);
+                eventService.assignGroup(me.eventBookingTicketId(), null).then(function (resp) {
+                    me.isUpdating(false);
+                    if (_.isArray(resp) && resp.length > 0) {
+                        me.errorMsg(resp[0].value[0]);
+                        control.error();
+                    }
+                });
             }
         }
     }

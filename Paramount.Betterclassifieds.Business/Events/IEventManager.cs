@@ -43,6 +43,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         Task<IEnumerable<EventGroup>> GetEventGroups(int eventId, int? eventTicketId);
 
         Task<EventGroup> GetEventGroup(int eventGroupId);
-        void AssignGroupToTicket(int eventBookingTicketId, int eventGroupId);
+        void AssignGroupToTicket(int eventBookingTicketId, int? eventGroupId);
     }
 }

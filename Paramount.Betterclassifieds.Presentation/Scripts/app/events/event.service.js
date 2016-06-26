@@ -31,7 +31,7 @@
         var url = this.baseUrl + 'api/events/' + eventId + '/groups';
         return $paramount.httpGet(url);
     }
-
+    
     EventService.prototype.getGroupsForTicket = function (eventId, eventTicketId) {
         var url = this.baseUrl + 'api/events/' + eventId + '/tickets/' + eventTicketId + '/groups';
         return $paramount.httpGet(url);

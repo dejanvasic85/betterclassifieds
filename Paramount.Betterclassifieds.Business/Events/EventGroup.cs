@@ -13,6 +13,5 @@ namespace Paramount.Betterclassifieds.Business.Events
         public string CreatedBy { get; set; }
         public int GuestCount { get; set; }
         public bool? AvailableToAllTickets { get; set; }
-        public string Description { get; set; }
     }
 }

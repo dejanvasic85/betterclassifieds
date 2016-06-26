@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Paramount.Betterclassifieds.Business.Events;
 
@@ -47,8 +48,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         public async Task<IHttpActionResult> GetEventGroupsForTicket(int id, int ticketId)
         {
             var groups = await _eventManager.GetEventGroups(id, ticketId);
-            return Ok(groups);
+            return Ok(groups.Where(g => !g.IsFull()));
         }
-
     }
 }

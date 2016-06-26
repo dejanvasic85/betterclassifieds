@@ -255,14 +255,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (eventGroupId.HasValue)
             {
                 var eventGroup = await _eventManager.GetEventGroup(eventGroupId.Value);
-                if (eventGroup.MaxGuests == eventGroup.GuestCount)
+                if (eventGroup.IsFull())
                 {
                     // Capacity reached
                     ModelState.AddModelError("eventGroupId", "Max capacity reached for selected group");
                     return Json(ModelState.ToErrors());
                 }
             }
-
             _eventManager.AssignGroupToTicket(eventBookingTicketId, eventGroupId);
             return Json(true);
         }

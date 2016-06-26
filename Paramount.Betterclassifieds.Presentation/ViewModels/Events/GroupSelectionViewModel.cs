@@ -19,6 +19,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 .Select(ebt => new EventBookingTicketViewModel
                 {
                     EventBookingId = ebt.EventBookingId,
+                    EventBookingTicketId = ebt.EventBookingTicketId,
                     EventTicketId = ebt.EventTicketId,
                     TicketName = ebt.TicketName,
                     GuestFullName = ebt.GuestFullName,

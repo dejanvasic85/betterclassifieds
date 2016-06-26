@@ -31,10 +31,18 @@
         var url = this.baseUrl + 'api/events/' + eventId + '/groups';
         return $paramount.httpGet(url);
     }
-    
+
     EventService.prototype.getGroupsForTicket = function (eventId, eventTicketId) {
         var url = this.baseUrl + 'api/events/' + eventId + '/tickets/' + eventTicketId + '/groups';
         return $paramount.httpGet(url);
+    }
+
+    EventService.prototype.assignGroup = function (eventBookingTicketId, eventGroupId) {
+        var data = {
+            eventBookingTicketId: eventBookingTicketId,
+            eventGroupId: eventGroupId
+        }
+        return $paramount.httpPost(this.baseUrl + 'event/assign-group', data);
     }
 
     $paramount.EventService = EventService;

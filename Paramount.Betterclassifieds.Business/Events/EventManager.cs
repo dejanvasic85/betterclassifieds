@@ -398,5 +398,20 @@ namespace Paramount.Betterclassifieds.Business.Events
         {
             return await _eventRepository.GetEventGroups(eventId, eventTicketId);
         }
+
+        public async Task<EventGroup> GetEventGroup(int eventGroupId)
+        {
+            return await _eventRepository.GetEventGroup(eventGroupId);
+        }
+
+        public void AssignGroupToTicket(int eventBookingTicketId, int eventGroupId)
+        {
+            // Update the event booking ticket
+            var eventBookingTicket = _eventRepository.GetEventBookingTicket(eventBookingTicketId);
+            Guard.NotNull(eventBookingTicket);
+
+            eventBookingTicket.EventGroupId = eventGroupId;
+            _eventRepository.UpdateEventBookingTicket(eventBookingTicket);
+        }
     }
 }

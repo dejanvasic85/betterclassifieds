@@ -2,6 +2,7 @@
 {
     public class EventBookingTicketViewModel
     {
+        public int EventBookingTicketId { get; set; }
         public int EventBookingId { get; set; }
         public int EventTicketId { get; set; }
         public string TicketName { get; set; }

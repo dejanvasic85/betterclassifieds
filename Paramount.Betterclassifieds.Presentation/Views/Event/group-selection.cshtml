@@ -7,7 +7,8 @@
 
 @section Scripts
 {
-    <script>    
+    <script>
+
         $(function() {
             var data = @Html.Raw(Model.ToJsonString());
             var rootNode = $('#eventGroupSeletion')[0];
@@ -35,8 +36,16 @@
                                 <label class="control-label">
                                     Available Groups:
                                 </label>
-                                <select class="form-control"
-                                        data-bind="options: groups, optionsText: 'groupName', value: selectedGroup, optionsCaption: 'Un-Assigned...'"></select>
+                                <div class="input-group">
+                                    <select class="form-control input-lg"
+                                            data-bind="options: groups, optionsText: 'groupName', value: selectedGroup, optionsCaption: 'Un-Assigned...', event:{ change: groupChanged}"></select>
+                                    <div class="input-group-addon">
+                                        <h4>
+                                            <i data-bind="visible: isGroupSelected() === false" class="fa fa-times-circle-o"></i>
+                                            <i data-bind="visible: isGroupSelected" class="fa fa-check-circle-o"></i>
+                                        </h4>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

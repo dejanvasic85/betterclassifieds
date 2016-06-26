@@ -203,6 +203,17 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
+        public async Task<EventGroup> GetEventGroup(int eventGroupId)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                return await context.Database
+                    .SqlQuery<EventGroup>("EventGroups_GetById @eventGroupId",
+                        new SqlParameter("eventGroupId", eventGroupId))
+                    .SingleOrDefaultAsync();
+            }
+        }
+
         public void CreateEventTicketReservation(EventTicketReservation eventTicketReservation)
         {
             using (var context = _dbContextFactory.CreateEventContext())
@@ -296,6 +307,16 @@ namespace Paramount.Betterclassifieds.DataService.Events
             {
                 context.EventInvitations.Attach(invitation);
                 context.Entry(invitation).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        public void UpdateEventBookingTicket(EventBookingTicket eventBookingTicket)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                context.EventBookingTickets.Attach(eventBookingTicket);
+                context.Entry(eventBookingTicket).State = EntityState.Modified;
                 context.SaveChanges();
             }
         }

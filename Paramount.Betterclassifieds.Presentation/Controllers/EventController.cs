@@ -13,6 +13,7 @@ using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Search;
+using Paramount.Betterclassifieds.Presentation.Framework;
 using Paramount.Betterclassifieds.Presentation.Services;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
@@ -102,7 +103,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             // Construct the view model
-            var viewModel = new BookTicketsViewModel(onlineAdModel, eventDetails, _clientConfig, _appConfig, 
+            var viewModel = new BookTicketsViewModel(onlineAdModel, eventDetails, _clientConfig, _appConfig,
                 applicationUser, ticketReservations, userNetwork)
             {
                 Reservations = this.MapList<EventTicketReservation, EventTicketReservedViewModel>(ticketReservations)
@@ -246,6 +247,21 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var eventBooking = _eventManager.GetEventBooking(id);
             var vm = new GroupSelectionViewModel(eventBooking);
             return View(vm);
+        }
+
+        [HttpPost, ActionName("assign-group")]
+        public async Task<ActionResult> AssignGroupToTicket(int eventBookingTicketId, int eventGroupId)
+        {
+            var eventGroup = await _eventManager.GetEventGroup(eventGroupId);
+            if (eventGroup.MaxGuests == eventGroup.GuestCount)
+            {
+                // Capacity reached
+                ModelState.AddModelError("eventGroupId", "Max capacity reached for selected group");
+                return Json(ModelState.ToErrors());
+            }
+
+            _eventManager.AssignGroupToTicket(eventBookingTicketId, eventGroupId);
+            return Json(true);
         }
 
         [HttpGet, EventBookingRequired, RequireHttps, Authorize]

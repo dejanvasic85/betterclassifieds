@@ -26,7 +26,7 @@
                 return "";
             }
 
-            if (parent.includeTransactionFee() === true) {
+            if (parent.includeTransactionFee() === true && me.price() > 0) {
                 return calculateBuyerPriceWithTxnFee(me.price());
             }
             return $paramount.formatCurrency(me.price());

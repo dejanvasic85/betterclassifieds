@@ -43,14 +43,50 @@
             </p>
         </div>
     </div>
+
+    <div class="row" id="eventGroupSelection">
+        <div class="col-xs-12">
+            <h2>Group Selection</h2>
+        </div>
+
+        <div class="col-xs-12">
+            <div class="row" data-bind="foreach: eventBookingTickets">
+                <div class="col-sm-6">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <i class="fa fa-ticket"></i> <span data-bind="text: friendlyTicketName"></span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group-lg">
+                                <label class="control-label">
+                                    Available Groups:
+                                </label>
+                                <div class="input-group">
+                                    <select class="form-control input-lg"
+                                            data-bind="options: groups, optionsText: 'groupName', value: selectedGroup, optionsCaption: 'Un-Assigned...', event:{ change: groupChanged}"></select>
+                                    <div class="input-group-addon">
+                                        <h4>
+                                            <i data-bind="visible: isGroupSelected() === false && !isUpdating()" class="fa fa-times-circle-o"></i>
+                                            <i data-bind="visible: isGroupSelected() && !isUpdating()" class="fa fa-check-circle-o"></i>
+                                            <img src="@Url.Content("~/Content/images/loader.gif")" style="max-width: 25px;"
+                                                 data-bind="visible: isUpdating" />
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="alert alert-danger" data-bind="visible: errorMsg().length > 0">
+                                <span data-bind="text: errorMsg"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-
-
 @section scripts
 {
     <script>
-
         $(function () {
             $paramount.social.setupFacebook($('#shareOnFacebook'), {
                 href: "@Model.EventUrl",
@@ -59,30 +95,17 @@
                 description: '@Model.Description'
             });
 
-            @*var service = new $paramount.EventService();
-
-            var vm = {
-                eventId: @Model.EventId,
-                eventBookingId: @Model.EventBookingId,
-                eventBookingTickets: @Html.Raw(Model.EventBookingTickets.ToJsonString())
-                };
-
-            service.getGroups(@Model.EventId).then(function (resp) {
-                vm.eventGroups = resp;
-                var model = new $paramount.models.EventGroupSelector(vm);
-                var ui = $('#eventGroupSelection')[0];
-                ko.applyBindings(model, ui);
-            });*@
+            var data = @Html.Raw(Model.GroupSelectionViewModel.ToJsonString());
+            var rootNode = $('#eventGroupSeletion')[0];
+            var model = new $paramount.models.EventGroupSelector(data);
+            ko.applyBindings(model, rootNode);
         });
-
     </script>
 }
-
 
 @section HeadSection
 {
     <link rel="canonical" href="@Model.EventUrl" />
-
     <meta name="description" content="@Model.Description" />
     <meta http-equiv="Content-Language" content="en" />
     <meta name="robots" content="index, follow" />

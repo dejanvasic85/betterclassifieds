@@ -33,6 +33,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             SocialShareText = "This looks good '" + httpContext.Server.HtmlEncode(adDetails.Heading) + "'";
 
             FacebookAppId = clientConfig.FacebookAppId;
+
+            // Seating/Group management
+            GroupSelectionViewModel = new GroupSelectionViewModel(eventBooking);
         }
 
         public string FacebookAppId { get; set; }
@@ -53,5 +56,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string CustomerLastName { get; set; }
         public string CustomerEmailAddress { get; set; }
         public string EventUrl { get; set; }
+        public GroupSelectionViewModel GroupSelectionViewModel { get; set; }
     }
 }

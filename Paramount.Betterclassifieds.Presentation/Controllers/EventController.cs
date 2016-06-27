@@ -240,16 +240,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 _eventBookingContext.Clear();
             }
         }
-
-        [HttpGet, ActionName("group-selection")]
-        public ActionResult GroupSelection(int id)
-        {
-            var eventBooking = _eventManager.GetEventBooking(id);
-            var vm = new GroupSelectionViewModel(eventBooking);
-            return View(vm);
-        }
-
-        [HttpPost, ActionName("assign-group")]
+        
+        [HttpPost, ActionName("assign-group"), EventBookingRequired]
         public async Task<ActionResult> AssignGroupToTicket(int eventBookingTicketId, int? eventGroupId)
         {
             if (eventGroupId.HasValue)

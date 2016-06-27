@@ -943,7 +943,6 @@
     <Content Include="Views\Help\barcode-validation.cshtml" />
     <Content Include="Views\Help\realtime-data.cshtml" />
     <Content Include="Views\EditAd\add-guest.cshtml" />
-    <Content Include="Views\Event\group-selection.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

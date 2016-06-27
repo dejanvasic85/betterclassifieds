@@ -22,7 +22,7 @@
         me.showWithdrawPayment = ko.observable();
         me.pageViews = ko.observable();
         me.addTicketType = function () {
-            me.tickets.push(new $paramount.models.EventTicket({
+            me.tickets.splice(0, 0, new $paramount.models.EventTicket({
                 editMode: true,
                 adId: editEventViewModel.adId,
                 eventId: editEventViewModel.eventId,

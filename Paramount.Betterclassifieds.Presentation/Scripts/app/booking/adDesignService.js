@@ -98,10 +98,13 @@
         return $.getJSON(url);
     }
 
-    AdDesignService.prototype.eventUploadFloorplanUrl = function () {
-        return me.baseUrl + '';
+    AdDesignService.prototype.addEventGroup = function(eventGroup) {
+        var url = me.baseUrl + 'AddEventGroup';
+        $.extend(me.model, eventGroup);
+
+        console.log(me.model);
     }
-    
+
     $paramount.AdDesignService = AdDesignService;
 
     return $paramount;

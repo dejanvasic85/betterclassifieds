@@ -394,7 +394,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             return eventInvitation;
         }
 
-        public async Task<IEnumerable<EventGroup>> GetEventGroups(int eventId, int? eventTicketId)
+        public async Task<IEnumerable<EventGroup>> GetEventGroups(int eventId, int? eventTicketId = null)
         {
             return await _eventRepository.GetEventGroups(eventId, eventTicketId);
         }

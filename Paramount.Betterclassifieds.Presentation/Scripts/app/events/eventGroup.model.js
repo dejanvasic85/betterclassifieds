@@ -9,6 +9,11 @@
         if (data) {
             me.bind(data);
         }
+
+        me.maxGuestsText = ko.computed(function() {
+            return me.maxGuests() === null ? "Unlimited" : me.maxGuests();
+        });
+
     }
     EventGroup.prototype.bind = function(data) {
         this.eventGroupId(data.eventGroupId);

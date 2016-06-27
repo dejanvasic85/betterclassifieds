@@ -179,6 +179,7 @@ namespace Paramount
         {
             return new UrlBuilder(urlHelper).WithAction("barcode-validation", "help");
         }
+
         public static UrlBuilder DashboardHelp(this UrlHelper urlHelper)
         {
             return new UrlBuilder(urlHelper).WithAction("realtime-data", "help");
@@ -189,6 +190,9 @@ namespace Paramount
             return new UrlBuilder(urlHelper).WithAction("add-guest", "editad").WithRouteValues(new { id, eventId });
         }
 
-
+        public static UrlBuilder ManageGroups(this UrlHelper urlHelper, int id, int eventId)
+        {
+            return new UrlBuilder(urlHelper).WithAction("manage-groups", "editad").WithRouteValues(new {id, eventId});
+        }
     }
 }

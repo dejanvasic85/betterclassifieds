@@ -12,6 +12,7 @@ using Paramount.Betterclassifieds.Presentation.Services;
 using System;
 using System.Linq;
 using System.Monads;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Paramount.Betterclassifieds.Presentation.Framework;
@@ -215,7 +216,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View(viewModel);
         }
 
-        [HttpPost]
+        [HttpPost] // Json
         public ActionResult EventPaymentRequest(int id, EventPaymentRequestViewModel eventPaymentRequestViewModel)
         {
             if (!ModelState.IsValid)
@@ -243,7 +244,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(new { NextUrl = Url.EventDashboard(id).ToString() });
         }
 
-        [HttpPost]
+        [HttpPost] // Json
         public ActionResult CloseEvent(int id, int eventId)
         {
             _eventManager.CloseEvent(eventId);
@@ -371,7 +372,25 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             return Json(true);
         }
-        
+
+        [HttpGet, ActionName("manage-groups")]
+        public async Task<ActionResult> ManageGroups(int id, int eventId)
+        {
+            var currentGroups = await _eventManager.GetEventGroups(eventId);
+            var manageGroupsViewModel = new ManageGroupsViewModel
+            {
+                EventGroups = this.MapList<EventGroup, EventGroupViewModel>(currentGroups.ToList())
+            };
+            return View(manageGroupsViewModel);
+        }
+
+        [HttpPost] // Json
+        public ActionResult AddEventGroup(int id, int eventId)
+        {
+
+            return Json(true);
+        }
+
         private EventTicketsBookedNotification CreateNotification(AddEventGuestViewModel viewModel, EventModel eventModel,
             AdSearchResult ad, string eventUrl, byte[] ticketPdfData)
         {
@@ -408,6 +427,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             configuration.CreateMap<EventGuestDetails, EventGuestListViewModel>();
             configuration.CreateMap<EventBookingTicketField, EventTicketFieldViewModel>();
+            configuration.CreateMap<EventGroup, EventGroupViewModel>();
 
             // From view model
             configuration.CreateMap<EditAdDetailsViewModel, OnlineAdModel>()

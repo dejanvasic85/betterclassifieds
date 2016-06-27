@@ -1,4 +1,4 @@
-﻿    (function ($, $paramount, ko, notifier) {
+﻿(function ($, $paramount, ko, notifier) {
     'use strict';
 
     function EventTicket(data, maxTicketsPerBooking) {
@@ -27,7 +27,7 @@
         me.soldOut = ko.computed(function () {
             return me.remainingQuantity() <= 0;
         });
-       
+
         /*
          * Editing mode
          */

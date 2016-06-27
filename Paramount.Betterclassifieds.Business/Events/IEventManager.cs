@@ -10,7 +10,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         EventModel GetEventDetailsForOnlineAdId(int onlineAdId, bool includeBookings = false);
         EventModel GetEventDetails(int eventId);
         EventTicket GetEventTicket(int eventTicketId);
-        EventBooking GetEventBooking(int eventBookingId);        
+        EventBooking GetEventBooking(int eventBookingId);
         int GetRemainingTicketCount(int? ticketId);
         int GetRemainingTicketCount(EventTicket eventTicket);
         IEnumerable<EventTicketReservation> GetTicketReservations(string sessionId);
@@ -40,7 +40,7 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         EventInvitation CreateInvitationForUserNetwork(int eventId, int userNetworkId);
 
-        Task<IEnumerable<EventGroup>> GetEventGroups(int eventId, int? eventTicketId);
+        Task<IEnumerable<EventGroup>> GetEventGroups(int eventId, int? eventTicketId = null);
 
         Task<EventGroup> GetEventGroup(int eventGroupId);
         void AssignGroupToTicket(int eventBookingTicketId, int? eventGroupId);

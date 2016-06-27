@@ -309,6 +309,7 @@
     <Compile Include="ViewModels\Events\AddEventGuestViewModel.cs" />
     <Compile Include="ViewModels\Events\BarcodeValidationViewModel.cs" />
     <Compile Include="ViewModels\Events\EventBookingTicketViewModel.cs" />
+    <Compile Include="ViewModels\Events\EventGroupViewModel.cs" />
     <Compile Include="ViewModels\Events\EventGuestListDownloadViewModel.cs" />
     <Compile Include="ViewModels\Events\EventGuestListViewModel.cs" />
     <Compile Include="ViewModels\Events\EventGuestNotificationFactory.cs" />
@@ -330,6 +331,7 @@
     <Compile Include="ViewModels\Events\GroupSelectionViewModel.cs" />
     <Compile Include="ViewModels\Events\MakePaymentViewModel.cs" />
     <Compile Include="ViewModels\Events\InvitationViewModel.cs" />
+    <Compile Include="ViewModels\Events\ManageGroupsViewModel.cs" />
     <Compile Include="ViewModels\Events\ReserveTicketsViewModel.cs" />
     <Compile Include="ViewModels\Events\TicketingPricesExplainedViewModel.cs" />
     <Compile Include="ViewModels\StripePaymentViewModel.cs" />
@@ -570,6 +572,7 @@
     <Content Include="Scripts\app\events\eventView.ui.js" />
     <Content Include="Scripts\app\categories\categoryLinks.model.js" />
     <Content Include="Scripts\app\events\invitation.ui.js" />
+    <Content Include="Scripts\app\manage-groups\manage-groups.model.js" />
     <Content Include="Scripts\app\ui\home.ui.js" />
     <Content Include="Scripts\app\locations\location.service.js" />
     <Content Include="Scripts\app\userNetwork\userNetwork.service.js" />
@@ -943,6 +946,7 @@
     <Content Include="Views\Help\barcode-validation.cshtml" />
     <Content Include="Views\Help\realtime-data.cshtml" />
     <Content Include="Views\EditAd\add-guest.cshtml" />
+    <Content Include="Views\EditAd\manage-groups.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

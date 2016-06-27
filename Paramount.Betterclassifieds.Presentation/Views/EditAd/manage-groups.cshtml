@@ -1,0 +1,59 @@
+﻿@model ManageGroupsViewModel
+
+@{
+    ViewBag.Title = "Manage Event Groups";
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
+}
+
+@section Scripts
+{
+    <script>
+        $(function() {
+            var data = @Html.Raw(Model.ToJsonString());
+            var vm = new $paramount.models.ManageGroups(data);
+            var rootNode = $('#manageGroups')[0];
+            ko.applyBindings(vm, rootNode);
+        });
+    </script>
+}
+
+<div class="container top-buffer-60">
+
+    <h2 class="page-header">
+        Manage Event Groups
+    </h2>
+
+    <div class="row" id="manageGroups">
+
+        <div class="col-xs-12 text-right">
+            <button class="btn btn-primary">Create Group <i class="fa fa-plus-circle"></i></button>
+        </div>
+
+        <div class="col-xs-12" data-bind="foreach: eventGroups">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span data-bind="text: groupName"></span>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div>Available Tickets</div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div>Max Guests</div>
+                            <div>
+                                <strong data-bind="text: maxGuestsText"></strong>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div>Current Guests</div>
+                            <div>
+                                <strong data-bind="text: guestCount"></strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

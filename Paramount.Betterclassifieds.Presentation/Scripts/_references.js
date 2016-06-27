@@ -37,6 +37,7 @@
 /// <reference path="app/events/invitation.ui.js" />
 /// <reference path="app/listings/Find.min.js" />
 /// <reference path="app/locations/location.service.js" />
+/// <reference path="app/manage-groups/manage-groups.model.js" />
 /// <reference path="app/ui/home.ui.js" />
 /// <reference path="app/usernetwork/usernetwork.model.js" />
 /// <reference path="app/usernetwork/usernetwork.service.js" />
@@ -263,3 +264,4 @@
 /// <reference path="vendor/moment-2.8.2.js" />
 /// <reference path="vendor/toastr-2.0.1.js" />
 /// <reference path="vendor/wow.js" />
+

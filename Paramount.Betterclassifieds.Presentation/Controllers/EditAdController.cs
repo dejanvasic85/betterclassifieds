@@ -326,7 +326,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public async Task<ActionResult> AddGuest(int id, int eventId)
         {
             var eventModel = _eventManager.GetEventDetails(eventId);
-            var groups = await _eventManager.GetEventGroups(eventId, eventModel.With(e => e.Tickets.FirstOrDefault()).With(e => e.EventTicketId.GetValueOrDefault()));
+            var groups = await _eventManager
+                .GetEventGroups(eventId, eventModel.With(e => e.Tickets.FirstOrDefault()).With(e => e.EventTicketId.GetValueOrDefault()));
 
             var viewModel = new AddEventGuestViewModel
             {
@@ -337,7 +338,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                     .With(e => e.Tickets.FirstOrDefault()) // the first one will be selected in the UI by default
                     .With(t => t.EventTicketFields.Select(tf => new EventTicketFieldViewModel { FieldName = tf.FieldName, IsRequired = tf.IsRequired }))
                     .With(etf => etf.ToList()),
-                EventGroups = this.MapList<EventGroup, EventGroupViewModel>(groups.ToList())
+                EventGroups = this.MapList<EventGroup, EventGroupViewModel>(groups.Where(gr=> !gr.IsFull()).ToList())
             };
             return View(viewModel);
         }

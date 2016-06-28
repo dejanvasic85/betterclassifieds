@@ -419,7 +419,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             _eventRepository.UpdateEventBookingTicket(eventBookingTicket);
         }
 
-        public void AddEventGroup(int eventId, string groupName, int? maxGuests, IEnumerable<int> tickets, string createdByUser)
+        public void AddEventGroup(int eventId, string groupName, int? maxGuests, IEnumerable<int> tickets, string createdByUser, bool isDisabled)
         {
             var t = tickets?.ToList() ?? new List<int>();
 
@@ -432,7 +432,8 @@ namespace Paramount.Betterclassifieds.Business.Events
                 CreatedBy = createdByUser,
                 GroupName = groupName,
                 MaxGuests = maxGuests,
-                AvailableToAllTickets = t.Count == 0
+                AvailableToAllTickets = t.Count == 0,
+                IsDisabled = isDisabled
             };
 
             _eventRepository.CreateEventGroup(eventGroup, t);

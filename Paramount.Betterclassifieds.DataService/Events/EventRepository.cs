@@ -245,7 +245,9 @@ namespace Paramount.Betterclassifieds.DataService.Events
         {
             using (var context = _dbContextFactory.CreateEventContext())
             {
-                context.Database.ExecuteSqlCommand("EventGroup_Create @eventId, @groupName, @maxGuests, @createdDate, @createdDateUtc, @createdBy, @availableToAllTickets, @tickets",
+                Guard.NotNull(eventGroup);
+
+                context.Database.ExecuteSqlCommand("EventGroup_Create @eventId, @groupName, @maxGuests, @createdDate, @createdDateUtc, @createdBy, @availableToAllTickets, @isDisabled, @tickets",
                     new SqlParameter("eventId", eventGroup.EventId),
                     new SqlParameter("groupName", eventGroup.GroupName),
                     new SqlParameter("maxGuests", SqlDbType.Int) { SqlValue = eventGroup.MaxGuests.SqlNullIfEmpty() },
@@ -253,6 +255,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
                     new SqlParameter("createdDateUtc", SqlDbType.DateTime) { SqlValue = eventGroup.CreatedDateTimeUtc.SqlNullIfEmpty() },
                     new SqlParameter("createdBy", SqlDbType.VarChar) { SqlValue = eventGroup.CreatedBy.SqlNullIfEmpty() },
                     new SqlParameter("availableToAllTickets", SqlDbType.Bit) { SqlValue = eventGroup.AvailableToAllTickets.SqlNullIfEmpty() },
+                    new SqlParameter("isDisabled", eventGroup.IsDisabled),
                     new SqlParameter("tickets", SqlDbType.VarChar) { SqlValue = (tickets == null ? "" : string.Join(",", tickets)).SqlNullIfEmpty() });
             }
         }

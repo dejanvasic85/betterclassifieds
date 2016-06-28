@@ -11,6 +11,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public int EventId { get; set; }
         public string GroupName { get; set; }
         public int? MaxGuests { get; set; }
+        public bool IsDisabled { get; set; }
         public List<CreateEventGroupSelectedTicket> AvailableTickets { get; set; }
     }
 

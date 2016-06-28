@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Paramount.Betterclassifieds.Business.Events;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 {

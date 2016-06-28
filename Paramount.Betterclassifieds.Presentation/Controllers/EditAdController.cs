@@ -384,7 +384,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 Id = id,
                 EventId = eventId,
                 EventGroups = this.MapList<EventGroup, EventGroupViewModel>(currentGroups.ToList()),
-                Tickets = this.MapList<EventTicket, EventGroupTicketSelection>(tickets.ToList())
+                Tickets = this.MapList<EventTicket, EventTicketViewModel>(tickets.ToList())
             };
 
             foreach (var gr in manageGroupsViewModel.EventGroups)
@@ -399,7 +399,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpPost] // Json
-        public ActionResult AddEventGroup(int id, int eventId)
+        public ActionResult AddEventGroup(int id, CreateEventGroupViewModel viewModel)
         {
 
             return Json(true);
@@ -442,7 +442,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<EventGuestDetails, EventGuestListViewModel>();
             configuration.CreateMap<EventBookingTicketField, EventTicketFieldViewModel>();
             configuration.CreateMap<EventGroup, EventGroupViewModel>();
-            configuration.CreateMap<EventTicket, EventGroupTicketSelection>();
+            configuration.CreateMap<EventTicket, EventTicketViewModel>();
 
             // From view model
             configuration.CreateMap<EditAdDetailsViewModel, OnlineAdModel>()

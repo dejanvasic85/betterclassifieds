@@ -98,11 +98,10 @@
         return $.getJSON(url);
     }
 
-    AdDesignService.prototype.addEventGroup = function(eventGroup) {
+    AdDesignService.prototype.addEventGroup = function (eventGroup) {
         var url = me.baseUrl + 'AddEventGroup';
         $.extend(me.model, eventGroup);
-
-        console.log(me.model);
+        return $paramount.httpPost(url, me.model);
     }
 
     $paramount.AdDesignService = AdDesignService;

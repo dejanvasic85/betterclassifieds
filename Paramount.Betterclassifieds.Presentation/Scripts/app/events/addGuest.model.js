@@ -12,6 +12,8 @@
         this.tickets = ko.observableArray();
         this.ticketFields = ko.observableArray();
         this.saved = ko.observable();
+        this.selectedGroup = ko.observable();
+        this.groups = ko.observableArray();
         this.validator = ko.validatedObservable({
             guestFullName: this.guestFullName.extend({ required: true }),
             guestEmail: this.guestEmail.extend({ required: true, email: true })

@@ -11,7 +11,7 @@
         $(function() {
             var data = @Html.Raw(Model.ToJsonString());
             var vm = new $paramount.models.ManageGroups(data);
-            var rootNode = $('#manageGroups')[0];
+            var rootNode = document.getElementById('manageGroups');
             ko.applyBindings(vm, rootNode);
         });
     </script>

@@ -24,17 +24,19 @@
     </h2>
 
     <div class="row" id="manageGroups">
+        @*Commands*@
         <div class="col-xs-12 text-right">
+            <a href="@Url.EventDashboard(Model.Id)" class="btn btn-default js-load">Back to dashboard</a> &nbsp;
             <button class="btn btn-primary" data-bind="click: createStart">Create Group <i class="fa fa-plus-circle"></i></button>
-            
         </div>
 
+        @*Group Creation*@
         <div class="col-xs-12 top-buffer-20" data-bind="visible: isCreateEnabled">
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group-lg">
                         <label class="control-label">Group Name</label>
-                        <input class="form-control" type="text" data-bind="value: newGroup().groupName" />
+                        <input class="form-control" type="text" data-bind="value: newGroup().groupName"/>
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -73,6 +75,7 @@
             </div>
         </div>
 
+        @*List of current Groups*@
         <div class="col-xs-12 top-buffer-20" data-bind="foreach: groups">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -80,9 +83,6 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-sm-4">
-                            <div>Available Tickets</div>
-                        </div>
                         <div class="col-sm-4">
                             <div>Max Guests</div>
                             <div>
@@ -94,6 +94,12 @@
                             <div>
                                 <strong data-bind="text: guestCount"></strong>
                             </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div>Available Tickets</div>
+                            <ul class="list-group" data-bind="foreach: availableTickets">
+                                <li class="list-group-item" data-bind="text: ticketName"></li>
+                            </ul>
                         </div>
                     </div>
                 </div>

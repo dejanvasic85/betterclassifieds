@@ -321,6 +321,17 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
+        public async Task<IEnumerable<int>> GetEventTicketsForGroup(int eventGroupId)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                return await context.Database.SqlQuery<int>(
+                    "SELECT EventTicketId FROM EventGroupTicket WHERE EventGroupId = @eventGroupId",
+                    new SqlParameter("eventGroupId", eventGroupId))
+                    .ToListAsync();
+            }
+        }
+
         public void CreateEventTicket(EventTicket ticket)
         {
             using (var context = _dbContextFactory.CreateEventContext())

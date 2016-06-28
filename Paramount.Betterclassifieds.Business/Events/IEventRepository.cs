@@ -28,6 +28,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         void CreateEventTicket(EventTicket ticket);
         void CreateEventBookingTicketValidation(EventBookingTicketValidation eventBookingTicketValidation);
         void CreateEventInvitation(EventInvitation eventInvitation);
+        void CreateEventGroup(EventGroup eventGroup, IEnumerable<int> tickets);
 
         void UpdateEvent(EventModel eventModel);
         void UpdateEventTicketReservation(EventTicketReservation eventTicketReservation);

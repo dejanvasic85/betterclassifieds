@@ -418,5 +418,22 @@ namespace Paramount.Betterclassifieds.Business.Events
             eventBookingTicket.EventGroupId = eventGroupId;
             _eventRepository.UpdateEventBookingTicket(eventBookingTicket);
         }
+
+        public void AddEventGroup(int eventId, string groupName, int? maxGuests, IEnumerable<int> tickets, string createdByUser)
+        {
+            // Create the new event group
+            var eventGroup = new EventGroup
+            {
+                EventId = eventId,
+                CreatedDateTime = _dateService.Now,
+                CreatedDateTimeUtc = _dateService.UtcNow,
+                CreatedBy = createdByUser,
+                GroupName = groupName,
+                MaxGuests = maxGuests,
+                AvailableToAllTickets = tickets == null                
+            };
+
+            _eventRepository.CreateEventGroup(eventGroup, tickets);
+        }
     }
 }

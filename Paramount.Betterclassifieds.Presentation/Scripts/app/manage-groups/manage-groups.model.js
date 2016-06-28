@@ -25,7 +25,6 @@
             if ($paramount.checkValidity(me.newGroup()) === false) {
                 return;
             }
-
             // Set the available tickets
             var groupData = ko.toJS(me.newGroup());
             groupData.availableTickets = _.filter(groupData.ticketSelection, function (i) { return i.isSelected === true });

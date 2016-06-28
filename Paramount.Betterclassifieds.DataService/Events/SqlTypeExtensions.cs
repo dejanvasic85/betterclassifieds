@@ -10,5 +10,25 @@ namespace Paramount.Betterclassifieds.DataService.Events
                 return DBNull.Value;
             return target;
         }
+
+        public static object SqlNullIfEmpty(this DateTime? target)
+        {
+            if (target == null)
+                return DBNull.Value;
+            return target;
+        }
+
+        public static object SqlNullIfEmpty(this string target)
+        {
+            if (target == null)
+                return DBNull.Value;
+            return target;
+        }
+        public static object SqlNullIfEmpty(this bool? target)
+        {
+            if (target == null)
+                return DBNull.Value;
+            return target;
+        }
     }
 }

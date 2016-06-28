@@ -10,6 +10,8 @@ namespace Paramount.Betterclassifieds.DataService.Events
             ToTable("EventGroup");
 
             HasKey(prop => prop.EventGroupId);
+
+            Property(prop => prop.GuestCount).IsOptional();
         }
     }
 }

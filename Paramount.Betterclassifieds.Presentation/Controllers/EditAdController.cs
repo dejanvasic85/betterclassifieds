@@ -401,6 +401,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost] // Json
         public ActionResult AddEventGroup(int id, CreateEventGroupViewModel viewModel)
         {
+            _eventManager.AddEventGroup(viewModel.EventId, 
+                viewModel.GroupName, 
+                viewModel.MaxGuests, 
+                viewModel.AvailableTickets.Select(a => a.EventTicketId),
+                _userManager.GetCurrentUser(this.User).Username);
 
             return Json(true);
         }

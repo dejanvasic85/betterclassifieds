@@ -241,6 +241,22 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
+        public void CreateEventGroup(EventGroup eventGroup, IEnumerable<int> tickets)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                context.Database.ExecuteSqlCommand("EventGroup_Create @eventId, @groupName, @maxGuests, @createdDate, @createdDateUtc, @createdBy, @availableToAllTickets, @tickets",
+                    new SqlParameter("eventId", eventGroup.EventId),
+                    new SqlParameter("groupName", eventGroup.GroupName),
+                    new SqlParameter("maxGuests", SqlDbType.Int) { SqlValue = eventGroup.MaxGuests.SqlNullIfEmpty() },
+                    new SqlParameter("createdDate", SqlDbType.DateTime) { SqlValue = eventGroup.CreatedDateTime.SqlNullIfEmpty() },
+                    new SqlParameter("createdDateUtc", SqlDbType.DateTime) { SqlValue = eventGroup.CreatedDateTimeUtc.SqlNullIfEmpty() },
+                    new SqlParameter("createdBy", SqlDbType.VarChar) { SqlValue = eventGroup.CreatedBy.SqlNullIfEmpty() },
+                    new SqlParameter("availableToAllTickets", SqlDbType.Bit) { SqlValue = eventGroup.AvailableToAllTickets.SqlNullIfEmpty() },
+                    new SqlParameter("tickets", SqlDbType.VarChar) { SqlValue = (tickets == null ? "" : string.Join(",", tickets)).SqlNullIfEmpty() });
+            }
+        }
+
         public void UpdateEvent(EventModel eventModel)
         {
             using (var context = _dbContextFactory.CreateEventContext())

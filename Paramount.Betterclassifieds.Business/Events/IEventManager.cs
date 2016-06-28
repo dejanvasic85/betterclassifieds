@@ -45,6 +45,7 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         Task<EventGroup> GetEventGroup(int eventGroupId);
         void AssignGroupToTicket(int eventBookingTicketId, int? eventGroupId);
-        
+
+        void AddEventGroup(int eventId, string groupName, int? maxGuests, IEnumerable<int> tickets, string createdByUser);
     }
 }

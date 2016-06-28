@@ -421,6 +421,8 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         public void AddEventGroup(int eventId, string groupName, int? maxGuests, IEnumerable<int> tickets, string createdByUser)
         {
+            var t = tickets?.ToList() ?? new List<int>();
+
             // Create the new event group
             var eventGroup = new EventGroup
             {
@@ -430,10 +432,10 @@ namespace Paramount.Betterclassifieds.Business.Events
                 CreatedBy = createdByUser,
                 GroupName = groupName,
                 MaxGuests = maxGuests,
-                AvailableToAllTickets = tickets == null                
+                AvailableToAllTickets = t.Count == 0
             };
 
-            _eventRepository.CreateEventGroup(eventGroup, tickets);
+            _eventRepository.CreateEventGroup(eventGroup, t);
         }
     }
 }

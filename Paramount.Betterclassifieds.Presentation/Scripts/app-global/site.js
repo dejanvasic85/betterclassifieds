@@ -195,7 +195,7 @@
         }
         return true;
     }
-
+    
     return me;
 
 })($paramount, window, jQuery, MobileDetect, CKEDITOR);

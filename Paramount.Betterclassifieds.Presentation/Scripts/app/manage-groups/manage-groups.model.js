@@ -25,10 +25,15 @@
             if ($paramount.checkValidity(me.newGroup()) === false) {
                 return;
             }
+
             // Set the available tickets
             var groupData = ko.toJS(me.newGroup());
             groupData.availableTickets = _.filter(groupData.ticketSelection, function (i) { return i.isSelected === true });
             groupData.eventId = me.eventId();
+            if (!groupData.maxGuests || groupData.maxGuests === '' || groupData.maxGuests === '0' || groupData.maxGuests === 0) {
+                groupData.maxGuests = null;
+            }
+
             var service = new $paramount.AdDesignService(me.id());
             var $btn = $(event.target);
             $btn.button('loading');
@@ -55,7 +60,7 @@
             me.groups.push(new Group(data.tickets, gr));
         });
     }
-    
+
     function GroupTicketSelection(data) {
         var me = this;
         me.eventTicketId = ko.observable(data.eventTicketId);
@@ -71,7 +76,8 @@
         me.availableTickets = ko.observableArray();
         me.guestCount = ko.observable(0);
         me.validator = ko.validatedObservable({
-            groupName: me.groupName.extend({ required: true })
+            groupName: me.groupName.extend({ required: true }),
+            maxGuests: me.maxGuests.extend({ min: 0 })
         });
         me.isValid = $paramount.checkValidity(me);
 

@@ -55,7 +55,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-12 top-buffer-20" data-bind="visible: tickets().length > 0">
+                <div class="col-sm-12 top-buffer-20" data-bind="visible: hasTickets">
                     <div class="form-group-lg">
                         <label class="control-label">Available Tickets</label>
                         <p class="help-block">Check the ticket types that this group will be available for customers when they are booking their tickets.</p>
@@ -71,7 +71,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-12 top-buffer-20" data-bind="visible: tickets().length === 0">
+                <div class="col-sm-12 top-buffer-20" data-bind="visible: !hasTickets">
                     <div class="alert alert-warning">
                         You don't have any tickets set up at the moment. Any group created now will be available for all tickets.
                     </div>

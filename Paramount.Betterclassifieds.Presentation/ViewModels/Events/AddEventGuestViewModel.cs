@@ -14,8 +14,11 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string GuestEmail { get; set; }
         public bool SendEmailToGuest { get; set; }
         public EventTicketViewModel SelectedTicket { get; set; }
+        public EventGroupViewModel SelectedGroup { get; set; }
         public List<EventTicketFieldViewModel> TicketFields { get; set; }
         public List<EventTicketViewModel> EventTickets { get; set; }
+        public List<EventGroupViewModel> EventGroups { get; set; }
+
         public string FirstName => GuestFullName?.Split(' ').First();
 
         public string LastName

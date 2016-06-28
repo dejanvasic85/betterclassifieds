@@ -69,11 +69,11 @@
             </div>
 
             @*Groups (if any)*@
-            <div data-bind="visible: groups().length > 0">
+            <div data-bind="visible: hasGroups">
                 <div class="form-group-lg">
                     <label class="control-label">Group</label>
                     <select class="form-control" id="groups"
-                            data-bind="options: groups, optionsText: 'groupName', value: selectedGroup, optionsCaption: 'Un-Assigned'"></select>
+                            data-bind="options: eventGroups, optionsText: 'groupName', value: selectedGroup, optionsCaption: 'Un-Assigned'"></select>
                 </div>
             </div>
 
@@ -85,7 +85,6 @@
             </div>
 
             <div class="text-right" data-bind="visible: !saved()">
-                <a href="@Url.EventDashboard(Model.Id.GetValueOrDefault())" class="btn btn-default js-load">Back to dashboard</a> &nbsp;
                 <button id="btnAddGuest" class="btn btn-primary" data-bind="click: submitGuest">Submit</button>
             </div>
 

@@ -13,7 +13,8 @@
         this.ticketFields = ko.observableArray();
         this.saved = ko.observable();
         this.selectedGroup = ko.observable();
-        this.groups = ko.observableArray();
+        this.hasGroups = ko.observable(false);
+        this.eventGroups = ko.observableArray();
         this.validator = ko.validatedObservable({
             guestFullName: this.guestFullName.extend({ required: true }),
             guestEmail: this.guestEmail.extend({ required: true, email: true })
@@ -26,6 +27,7 @@
         me.eventId(data.eventId);
         me.guestFullName(data.guestFullName);
         me.guestEmail(data.guestEmail);
+        me.hasGroups(data.eventGroups && data.eventGroups.length > 0);
 
         _.each(data.ticketFields, function (tf) {
             me.ticketFields.push(new $p.models.DynamicFieldValue(tf));
@@ -33,6 +35,10 @@
 
         _.each(data.eventTickets, function (et) {
             me.tickets.push(new $p.models.EventTicket(et, 5));
+        });
+
+        _.each(data.eventGroups, function (gr) {
+            me.eventGroups.push(new $p.models.EventGroup(gr));
         });
     }
 

@@ -7,7 +7,7 @@
         me.id = ko.observable();
         me.eventId = ko.observable();
         me.groups = ko.observableArray();
-        me.tickets = ko.observableArray();
+        me.hasTickets = ko.observable();
         me.isCreateEnabled = ko.observable(false);
 
         // New Group 
@@ -55,6 +55,7 @@
         var me = this;
         me.id(data.id);
         me.eventId(data.eventId);
+        me.hasTickets(data.tickets && data.tickets.length > 0);
 
         _.each(data.eventGroups, function (gr) {
             me.groups.push(new Group(data.tickets, gr));

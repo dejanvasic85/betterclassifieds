@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Moq;
@@ -224,13 +225,16 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var mockEvent = new EventModelMockBuilder().Default()
                 .WithTickets(new[] { mockTicket })
                 .Build();
-            
+
             // Mock service calls
+
             _eventManagerMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
+            var eventGroups = new List<EventGroup>();
+            _eventManagerMock.Setup(call => call.GetEventGroups(It.IsAny<int>(), It.IsAny<int?>())).Returns(Task.FromResult(eventGroups.AsEnumerable()));
 
             // Act
             var controller = BuildController();
-            var result = controller.AddGuest(123, mockEvent.EventId.GetValueOrDefault());
+            var result = controller.AddGuest(123, mockEvent.EventId.GetValueOrDefault()).Result;
 
             result.IsTypeOf<ActionResult>();
             var vm = result.ViewResultModelIsTypeOf<AddEventGuestViewModel>();

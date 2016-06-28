@@ -21,5 +21,10 @@ namespace Paramount.Betterclassifieds.Business.Events
                 return false;
             return GuestCount >= MaxGuests.Value;
         }
+
+        public bool IsAvailable()
+        {
+            return !IsFull() && !IsDisabled;
+        }
     }
 }

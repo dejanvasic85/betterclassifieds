@@ -338,7 +338,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                     .With(e => e.Tickets.FirstOrDefault()) // the first one will be selected in the UI by default
                     .With(t => t.EventTicketFields.Select(tf => new EventTicketFieldViewModel { FieldName = tf.FieldName, IsRequired = tf.IsRequired }))
                     .With(etf => etf.ToList()),
-                EventGroups = this.MapList<EventGroup, EventGroupViewModel>(groups.Where(gr=> !gr.IsFull()).ToList())
+                EventGroups = this.MapList<EventGroup, EventGroupViewModel>(groups.Where(gr => gr.IsAvailable()).ToList())
             };
             return View(viewModel);
         }

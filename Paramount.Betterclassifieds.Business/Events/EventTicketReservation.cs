@@ -40,5 +40,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         public List<EventBookingTicketField> TicketFields { get; set; }
         public decimal? TransactionFee { get; set; }
         public decimal TotalPriceWithTxnFee => Price.GetValueOrDefault() + TransactionFee.GetValueOrDefault();
+        public int? EventGroupId { get; set; }
     }
 }

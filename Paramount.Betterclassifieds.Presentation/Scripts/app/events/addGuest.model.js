@@ -70,6 +70,13 @@
                 me.ticketFields.push(new $p.models.DynamicFieldValue(tf));
             });
         });
+
+        me.eventGroups.removeAll();
+        service.getGroupsForTicket(me.eventId(), me.selectedTicket().eventTicketId()).then(function(resp) {
+            _.each(resp, function (gr) {
+                me.eventGroups.push(new $p.models.EventGroup(gr));
+            });
+        });
     }
 
     AddGuest.prototype.addAnother = function (element, event) {

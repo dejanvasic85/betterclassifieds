@@ -74,18 +74,6 @@
 
     @*Action Items*@
     <div class="row">
-        <div class="col-xs-12">
-            <div class="action-item clearfix">
-                <h3>
-                    Close Event
-                </h3>
-                <p class="action-info">Prevents people booking more tickets and payment can be requested.</p>
-                <div class="action-btn">
-                    <button class="btn btn-primary" data-bind="visible: !isClosed()" data-toggle="modal" data-target="#closeEventDialog">Close <i class="fa fa-ban"></i></button>
-                    <span class="label label-warning" data-bind="visible: isClosed">Closed</span>
-                </div>
-            </div>
-        </div>
 
         <div class="col-xs-12" data-bind="visible: showWithdrawPayment">
             <div class="action-item clearfix">
@@ -110,20 +98,7 @@
             </div>
         </div>
 
-        <div class="col-xs-12">
-            <div class="action-item clearfix">
-                <h3>
-                    Manage Groups
-                </h3>
-                <p class="action-info">Do you have tables at your event or any other way of grouping guests? Then grouping feature is your answer.</p>
-                <div class="action-btn">
-                    <a class="btn btn-primary js-load" href="@Url.ManageGroups(Model.AdId, Model.EventId)">
-                        Groups <i class="fa fa-group"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-
+        @*Ticketing*@
         <div class="col-xs-12">
             <div class="action-item clearfix">
                 <h3>
@@ -136,7 +111,7 @@
             </div>
 
             <div class="row">
-                @*Ticketing*@
+
                 <div class="col-xs-12" id="ticketManagementBlock">
                     <div class="row" data-bind="foreach: tickets">
                         <div class="col-sm-12 col-md-6">
@@ -194,6 +169,7 @@
             </div>
         </div>
 
+        @*Guest List*@
         <div class="col-xs-12">
             <div class="action-item clearfix">
                 <h3>
@@ -201,11 +177,11 @@
                 </h3>
                 <p class="action-info">Check out who is coming to the event...</p>
                 <div class="action-btn">
+                    <a href="@Url.DownloadGuestListPdf(Model.AdId, Model.EventId)" class="btn btn-default">
+                        Download PDF <i class="fa fa-download"></i>
+                    </a>
                     <a id="lnkAddGuest" class="btn btn-primary js-load" href="@Url.AddEventGuest(Model.AdId, Model.EventId)">
                         Add Guest <i class="fa fa-user-plus"></i>
-                    </a>
-                    <a href="@Url.Action("EventGuestListDownloadPdf", "EditAd", new {id = Model.AdId, eventId = Model.EventId})" class="btn btn-default">
-                        Download PDF <i class="fa fa-download"></i>
                     </a>
                 </div>
 
@@ -236,6 +212,35 @@
 
                 </div>
 
+            </div>
+        </div>
+
+        @*Groups*@
+        <div class="col-xs-12">
+            <div class="action-item clearfix">
+                <h3>
+                    Manage Groups
+                </h3>
+                <p class="action-info">Do you have tables at your event or any other way of grouping guests? Then grouping feature is your answer.</p>
+                <div class="action-btn">
+                    <a class="btn btn-primary js-load" href="@Url.ManageGroups(Model.AdId, Model.EventId)">
+                        Groups <i class="fa fa-group"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        @*Close Event*@
+        <div class="col-xs-12">
+            <div class="action-item clearfix">
+                <h3>
+                    Close Event
+                </h3>
+                <p class="action-info">Prevents people booking more tickets and payment can be requested.</p>
+                <div class="action-btn">
+                    <button class="btn btn-primary" data-bind="visible: !isClosed()" data-toggle="modal" data-target="#closeEventDialog">Close <i class="fa fa-ban"></i></button>
+                    <span class="label label-warning" data-bind="visible: isClosed">Closed</span>
+                </div>
             </div>
         </div>
     </div>

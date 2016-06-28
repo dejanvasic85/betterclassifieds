@@ -357,6 +357,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var currentUser = _userManager.GetCurrentUser(this.User);
             reservation.GuestFullName = viewModel.GuestFullName;
             reservation.GuestEmail = viewModel.GuestEmail;
+            reservation.EventGroupId = viewModel.SelectedGroup.With(g => g.EventGroupId);
             reservation.TicketFields = viewModel.With(vm => vm.TicketFields)
                 .With(tf => new EventBookingTicketField { FieldName = tf.FieldName, FieldValue = tf.FieldValue })
                 .With(l => l.ToList());

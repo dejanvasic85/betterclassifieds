@@ -5,6 +5,44 @@
     Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
 }
 
+@section HeadSection
+{
+    <link rel="canonical" href="@Model.EventUrl" />
+    <meta name="description" content="@Model.Description" />
+    <meta http-equiv="Content-Language" content="en" />
+    <meta name="robots" content="index, follow" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="@Model.Title" />
+    <meta name="twitter:description" content="@Model.Description" />
+    <meta name="twitter:image" content="@Model.EventPhotoUrl" />
+
+    <meta property="fb:app_id" content="@Model.FacebookAppId" />
+    <meta property="og:url" content="@Model.EventUrl" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="@Model.Title" />
+    <meta property="og:description" content="@Model.Description" />
+    <meta property="og:image" content="@Model.EventPhotoUrl" />
+}
+
+@section scripts
+{
+    <script>
+        $(function () {
+            $paramount.social.setupFacebook($('#shareOnFacebook'), {
+                href: "@Model.EventUrl",
+                picture: '@Model.EventPhotoUrl',
+                name: '@Model.Title',
+                description: '@Model.Description'
+            });
+
+            var data = @Html.Raw(Model.GroupSelectionViewModel.ToJsonString());
+            var rootNode = $('#eventGroupSeletion')[0];
+            var model = new $paramount.models.EventGroupSelector(data);
+            ko.applyBindings(model, rootNode);
+        });
+    </script>
+}
+
 <div class="container top-buffer-60">
     <div class="row">
         <div class="col-xs-12">
@@ -84,40 +122,3 @@
         </div>
     </div>
 </div>
-@section scripts
-{
-    <script>
-        $(function () {
-            $paramount.social.setupFacebook($('#shareOnFacebook'), {
-                href: "@Model.EventUrl",
-                picture: '@Model.EventPhotoUrl',
-                name: '@Model.Title',
-                description: '@Model.Description'
-            });
-
-            var data = @Html.Raw(Model.GroupSelectionViewModel.ToJsonString());
-            var rootNode = $('#eventGroupSeletion')[0];
-            var model = new $paramount.models.EventGroupSelector(data);
-            ko.applyBindings(model, rootNode);
-        });
-    </script>
-}
-
-@section HeadSection
-{
-    <link rel="canonical" href="@Model.EventUrl" />
-    <meta name="description" content="@Model.Description" />
-    <meta http-equiv="Content-Language" content="en" />
-    <meta name="robots" content="index, follow" />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="@Model.Title" />
-    <meta name="twitter:description" content="@Model.Description" />
-    <meta name="twitter:image" content="@Model.EventPhotoUrl" />
-
-    <meta property="fb:app_id" content="@Model.FacebookAppId" />
-    <meta property="og:url" content="@Model.EventUrl" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="@Model.Title" />
-    <meta property="og:description" content="@Model.Description" />
-    <meta property="og:image" content="@Model.EventPhotoUrl" />
-}

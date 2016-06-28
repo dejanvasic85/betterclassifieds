@@ -8,17 +8,9 @@
             me.bind(data);
         }
     }
-
-    EventGroupSelector.prototype.submit = function () {
-        _.each(this.eventBookingTickets(), function (t) {
-            console.log(ko.toJSON(t.selectedGroup()));
-        });
-    }
-
+    
     EventGroupSelector.prototype.bind = function (data) {
         var me = this;
-
-
         me.eventBookingId(data.eventBookingId);
         _.each(data.eventBookingTickets, function (t) {
             t.eventId = data.eventId;

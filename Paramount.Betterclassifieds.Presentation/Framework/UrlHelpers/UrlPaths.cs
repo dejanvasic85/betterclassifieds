@@ -190,6 +190,11 @@ namespace Paramount
             return new UrlBuilder(urlHelper).WithAction("add-guest", "editad").WithRouteValues(new { id, eventId });
         }
 
+        public static UrlBuilder DownloadGuestListPdf(this UrlHelper urlHelper, int id, int eventId)
+        {
+            return new UrlBuilder(urlHelper).WithAction("EventGuestListDownloadPdf", "EditAd").WithRouteValues(new {id, eventId});
+        }
+
         public static UrlBuilder ManageGroups(this UrlHelper urlHelper, int id, int eventId)
         {
             return new UrlBuilder(urlHelper).WithAction("manage-groups", "editad").WithRouteValues(new {id, eventId});

@@ -30,7 +30,7 @@
             var groupData = ko.toJS(me.newGroup());
             groupData.availableTickets = _.filter(groupData.ticketSelection, function (i) { return i.isSelected === true });
             groupData.eventId = me.eventId();
-            if (!groupData.maxGuests || groupData.maxGuests === '' || groupData.maxGuests === '0' || groupData.maxGuests === 0) {
+            if (!groupData.maxGuests || groupData.maxGuests === '') {
                 groupData.maxGuests = null;
             }
 

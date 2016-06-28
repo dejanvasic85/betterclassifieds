@@ -74,7 +74,8 @@
         </div>
 
         @*List of current Groups*@
-        <div class="col-xs-12 top-buffer-20" data-bind="foreach: groups">
+        <!-- ko foreach: groups -->
+        <div class="col-xs-12 col-lg-6 top-buffer-20">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <span data-bind="text: groupName"></span>
@@ -96,12 +97,16 @@
                         <div class="col-sm-4">
                             <div>Available Tickets</div>
                             <ul class="list-group" data-bind="foreach: availableTickets">
-                                <li class="list-group-item" data-bind="text: ticketName"></li>
+                                <li class="list-group-item">
+                                    <i class="fa fa-ticket"></i>
+                                    <span data-bind="text: ticketName"></span>
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- /ko -->
     </div>
 </div>

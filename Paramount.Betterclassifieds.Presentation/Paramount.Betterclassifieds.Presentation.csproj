@@ -309,6 +309,7 @@
     <Compile Include="ViewModels\Events\AddEventGuestViewModel.cs" />
     <Compile Include="ViewModels\Events\BarcodeValidationViewModel.cs" />
     <Compile Include="ViewModels\Events\EventBookingTicketViewModel.cs" />
+    <Compile Include="ViewModels\Events\EventGroupTicketSelection.cs" />
     <Compile Include="ViewModels\Events\EventGroupViewModel.cs" />
     <Compile Include="ViewModels\Events\EventGuestListDownloadViewModel.cs" />
     <Compile Include="ViewModels\Events\EventGuestListViewModel.cs" />

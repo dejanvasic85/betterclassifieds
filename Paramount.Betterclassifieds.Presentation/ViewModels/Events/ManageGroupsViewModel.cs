@@ -5,5 +5,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
     public class ManageGroupsViewModel
     {
         public List<EventGroupViewModel> EventGroups { get; set; }
+        public List<EventGroupTicketSelection> Tickets { get; set; }
     }
 }

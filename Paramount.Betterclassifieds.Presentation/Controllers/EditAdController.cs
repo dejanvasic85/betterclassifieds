@@ -376,10 +376,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpGet, ActionName("manage-groups")]
         public async Task<ActionResult> ManageGroups(int id, int eventId)
         {
+            var tickets = _eventManager.GetEventDetails(eventId).With(e => e.Tickets);
             var currentGroups = await _eventManager.GetEventGroups(eventId);
+            
             var manageGroupsViewModel = new ManageGroupsViewModel
             {
-                EventGroups = this.MapList<EventGroup, EventGroupViewModel>(currentGroups.ToList())
+                EventGroups = this.MapList<EventGroup, EventGroupViewModel>(currentGroups.ToList()),
+                Tickets = this.MapList<EventTicket, EventGroupTicketSelection>(tickets.ToList())
             };
             return View(manageGroupsViewModel);
         }
@@ -428,6 +431,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<EventGuestDetails, EventGuestListViewModel>();
             configuration.CreateMap<EventBookingTicketField, EventTicketFieldViewModel>();
             configuration.CreateMap<EventGroup, EventGroupViewModel>();
+            configuration.CreateMap<EventTicket, EventGroupTicketSelection>();
 
             // From view model
             configuration.CreateMap<EditAdDetailsViewModel, OnlineAdModel>()

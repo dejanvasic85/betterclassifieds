@@ -391,6 +391,12 @@
     <Content Include="Content\bootstrap-theme-yeti.css" />
     <Content Include="Content\components\bootstrap-clockpicker.css" />
     <Content Include="Content\components\bootstrap-toggle.css" />
+    <Content Include="Content\components\bootstrap-toggleoverride.css">
+      <DependentUpon>bootstrap-toggleoverride.less</DependentUpon>
+    </Content>
+    <Content Include="Content\components\bootstrap-toggleoverride.min.css">
+      <DependentUpon>bootstrap-toggleoverride.css</DependentUpon>
+    </Content>
     <Content Include="Content\cropper.css" />
     <Content Include="Content\datepicker.css" />
     <Content Include="Content\datepicker.min.css">
@@ -539,6 +545,7 @@
     <Content Include="Content\SriLankanEvents\Lanka.less" />
     <Content Include="Content\KandoBay\kando.nav.less" />
     <Content Include="Content\KandoBay\ico\manifest.json" />
+    <Content Include="Content\components\bootstrap-toggleoverride.less" />
     <None Include="Content\TheMusic\themusic.less" />
     <Content Include="Scripts\app\account\userAds.ui.js" />
     <Content Include="Scripts\app\account\userEnquiry.model.js" />

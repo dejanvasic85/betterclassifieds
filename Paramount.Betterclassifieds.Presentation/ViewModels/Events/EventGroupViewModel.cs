@@ -15,5 +15,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public int GuestCount { get; set; }
         public bool? AvailableToAllTickets { get; set; }
         public List<EventTicketViewModel> AvailableTickets { get; set; }
+        public bool IsDisabled { get; set; }
     }
 }

@@ -76,6 +76,15 @@
                         You don't have any tickets set up at the moment. Any group created now will be available for all tickets.
                     </div>
                 </div>
+
+                <div class="col-sm-6">
+                    <div class="control-group">
+                        <label class="control-label">Status</label>
+                        <div class="toggle-enabled-disabled">
+                            <input type="checkbox" data-bind="checked: newGroup().isEnabled"/>
+                        </div>
+                    </div>
+                </div>  
             </div>
 
             <div class="row top-buffer-40">
@@ -96,6 +105,10 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <span data-bind="text: groupName"></span>
+                    <div class="toggle-enabled-disable pull-right">
+                        <input type="checkbox" data-bind="toggle: isEnabled" data-on="Enabled" data-off="Disabled" data-onstyle="success"/>
+                    </div>
+                    <div class="clearfix"></div>
                 </div>
                 <div class="panel-body">
                     <div class="row">

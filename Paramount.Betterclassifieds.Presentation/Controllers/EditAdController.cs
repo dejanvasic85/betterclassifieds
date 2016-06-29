@@ -416,6 +416,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(true);
         }
 
+        [HttpPost]
+        public ActionResult ToggleEventGroupStatus(int id, int eventGroupId, bool isDisabled)
+        {
+            _eventManager.SetEventGroupStatus(eventGroupId, isDisabled);
+            return Json(true);
+        }
+
         private EventTicketsBookedNotification CreateNotification(AddEventGuestViewModel viewModel, EventModel eventModel,
             AdSearchResult ad, string eventUrl, byte[] ticketPdfData)
         {

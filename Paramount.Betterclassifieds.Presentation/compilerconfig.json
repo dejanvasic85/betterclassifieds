@@ -26,5 +26,9 @@
   {
     "outputFile": "Content/KandoBay/kando.nav.css",
     "inputFile": "Content/KandoBay/kando.nav.less"
+  },
+  {
+    "outputFile": "Content/components/bootstrap-toggleoverride.css",
+    "inputFile": "Content/components/bootstrap-toggleoverride.less"
   }
 ]

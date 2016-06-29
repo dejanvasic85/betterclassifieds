@@ -26,7 +26,7 @@ namespace Paramount.Betterclassifieds.Presentation
                 .IncludeDirectory("~/Scripts/app/ui", "*.js", true)     // All ui (jQuery specific) stuff goes here that may reference view models (app)
                 .IncludeDirectory("~/Scripts/app", "*.js", true)        // All the knockout objects
                 );
-            
+
             // Enable this flag for development only when trying to force bundling and minification
             //BundleTable.EnableOptimizations = false;
         }
@@ -46,7 +46,7 @@ namespace Paramount.Betterclassifieds.Presentation
                 .Include("~/Content/site.css")
                 .Include("~/Content/site-bs-override.css")
                 .IncludeDirectory("~/Content/components", "*.css")
-                );
+            );
 
             bundles.Add(new Bundle("~/Content/Kandobay/styles")
                 .IncludeDirectory("~/Content/KandoBay/", "*.css"));

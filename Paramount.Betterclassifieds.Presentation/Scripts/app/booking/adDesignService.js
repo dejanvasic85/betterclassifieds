@@ -104,6 +104,12 @@
         return $paramount.httpPost(url, me.model);
     }
 
+    AdDesignService.prototype.toggleEventGroup = function (val) {
+        var url = me.baseUrl + 'ToggleEventGroupStatus';
+        $.extend(me.model, val);
+        return $paramount.httpPost(url, me.model);
+    }
+
     $paramount.AdDesignService = AdDesignService;
 
     return $paramount;

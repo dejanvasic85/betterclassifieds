@@ -340,6 +340,19 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
+        public void UpdateEventGroupStatus(int eventGroupId, bool isDisabled)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                context.Database.ExecuteSqlCommand(
+                    "UPDATE EventGroup " +
+                    "SET IsDisabled = @isDisabled " +
+                    "WHERE EventGroupId = @eventGroupId",
+                    new SqlParameter("isDisabled", isDisabled),
+                    new SqlParameter("eventGroupId", eventGroupId));
+            }
+        }
+
         public async Task<IEnumerable<int>> GetEventTicketsForGroup(int eventGroupId)
         {
             using (var context = _dbContextFactory.CreateEventContext())

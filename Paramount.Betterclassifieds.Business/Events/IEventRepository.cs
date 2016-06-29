@@ -38,6 +38,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         void UpdateEventBookingTicketValidation(EventBookingTicketValidation eventBookingTicketValidation);
         void UpdateEventInvitation(EventInvitation invitation);
         void UpdateEventBookingTicket(EventBookingTicket eventBookingTicket);
-        
+        void UpdateEventGroupStatus(int eventGroupId, bool isDisabled);
     }
 }

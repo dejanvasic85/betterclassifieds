@@ -438,5 +438,10 @@ namespace Paramount.Betterclassifieds.Business.Events
 
             _eventRepository.CreateEventGroup(eventGroup, t);
         }
+
+        public void SetEventGroupStatus(int eventGroupId, bool isDisabled)
+        {
+            _eventRepository.UpdateEventGroupStatus(eventGroupId, isDisabled);
+        }
     }
 }

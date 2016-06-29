@@ -1,6 +1,8 @@
 ﻿(function ($, ko, $p, $n) {
     'use strict';
 
+    var adDesignService;
+
     function ManageGroups(data) {
         var me = this;
 
@@ -30,14 +32,14 @@
             var groupData = ko.toJS(me.newGroup());
             groupData.availableTickets = _.filter(groupData.ticketSelection, function (i) { return i.isSelected === true });
             groupData.eventId = me.eventId();
+            groupData.isDisabled = !me.newGroup().isEnabled();
             if (!groupData.maxGuests || groupData.maxGuests === '') {
                 groupData.maxGuests = null;
             }
 
-            var service = new $paramount.AdDesignService(me.id());
             var $btn = $(event.target);
             $btn.button('loading');
-            service.addEventGroup(groupData).then(function (resp) {
+            adDesignService.addEventGroup(groupData).then(function (resp) {
                 me.groups.push(new Group(data.tickets, groupData));
                 me.isCreateEnabled(false);
                 $n.success('Group has been created successfully');
@@ -56,6 +58,7 @@
         me.id(data.id);
         me.eventId(data.eventId);
         me.hasTickets(data.tickets && data.tickets.length > 0);
+        adDesignService = new $paramount.AdDesignService(data.id);
 
         _.each(data.eventGroups, function (gr) {
             me.groups.push(new Group(data.tickets, gr));
@@ -71,11 +74,13 @@
 
     function Group(availableTickets, groupData) {
         var me = this;
+        me.eventGroupId = ko.observable();
         me.groupName = ko.observable();
         me.maxGuests = ko.observable();
         me.ticketSelection = ko.observableArray();
         me.availableTickets = ko.observableArray();
         me.guestCount = ko.observable(0);
+        me.isEnabled = ko.observable(true);
         me.validator = ko.validatedObservable({
             groupName: me.groupName.extend({ required: true }),
             maxGuests: me.maxGuests.extend({ min: 0 })
@@ -88,9 +93,20 @@
         });
 
         if (groupData) {
+            me.eventGroupId(groupData.eventGroupId);
             me.groupName(groupData.groupName);
             me.maxGuests(groupData.maxGuests);
             me.guestCount(groupData.guestCount);
+            me.isEnabled(groupData.isDisabled === false);
+            me.isEnabled.subscribe(function (isEnabled) {
+                adDesignService.toggleEventGroup({
+                    eventGroupId: me.eventGroupId(),
+                    isDisabled: !isEnabled
+                }).then(function () {
+                    var statusName = isEnabled ? "enabled" : "disabled";
+                    $n.success('Status is now ' + statusName);
+                });
+            });
 
             _.each(groupData.availableTickets, function (t) {
                 me.availableTickets.push(new GroupTicketSelection(t));

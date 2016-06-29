@@ -14,6 +14,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
         public EventBookedViewModel(AdSearchResult adDetails, EventModel eventDetails, EventBooking eventBooking, UrlHelper urlHelper, IClientConfig clientConfig, HttpContextBase httpContext)
         {
+            EventName = adDetails.Heading;
             CustomerEmailAddress = eventBooking.Email;
             CustomerFirstName = eventBooking.FirstName;
             CustomerLastName = eventBooking.LastName;

@@ -3,6 +3,7 @@ Here's a list of the latest changes:
 **3.11.0 - Event Groups and Web API**
 
 - [Enhancement - Group Management that will allow organisers to setup stuff like tables!](https://trello.com/c/LfwtXs52/491-events-group-management)
+- [Fix - Email Subject does not have event name](https://trello.com/c/zEkpq3xu/482-events-the-event-tickets-notification-does-not-contain-the-event-name)
 - Tech - Update the Unity libraries to use the latest Web Api Unity setup
 
 **3.10.0 - Custom fields movement**

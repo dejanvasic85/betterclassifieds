@@ -241,7 +241,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
         }
         
-        [HttpPost, ActionName("assign-group"), EventBookingRequired]
+        [HttpPost, ActionName("assign-group")]
         public async Task<ActionResult> AssignGroupToTicket(int eventBookingTicketId, int? eventGroupId)
         {
             if (eventGroupId.HasValue)

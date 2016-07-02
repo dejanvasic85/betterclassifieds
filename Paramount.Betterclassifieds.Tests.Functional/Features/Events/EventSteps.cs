@@ -135,8 +135,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
         {
             _pageBrowser.GoTo<EventDashboardPage>(_contextData.Get().AdId);
         }
-
-
+        
         [When(@"I choose to add guest manually from the dashboard with details ""(.*)"" ""(.*)"" ""(.*)""")]
         public void WhenIChooseToAddGuestManuallyFromTheDashboardWithDetails(string fullName, string email, string ticketType)
         {
@@ -159,5 +158,19 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
             Assert.That(guestTicket.TicketName, Is.EqualTo(ticketName));
             Assert.That(guestTicket.GuestEmail, Is.EqualTo(guestEmail));
         }
+
+        [When(@"I go the event dashboard for the current ad")]
+        public void WhenIGoTheEventDashboardForTheCurrentAd()
+        {
+            _pageBrowser.NavigateTo<EventDashboardPage>(_contextData.Get().AdId);
+        }
+
+        [When(@"I select to manage groups")]
+        public void WhenISelectToManageGroups()
+        {
+            _pageBrowser.Init<EventDashboardPage>(_contextData.Get().AdId)
+                .ManageGroups();
+        }
+
     }
 }

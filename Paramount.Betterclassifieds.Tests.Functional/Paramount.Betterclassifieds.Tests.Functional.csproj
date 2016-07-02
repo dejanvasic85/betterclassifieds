@@ -128,6 +128,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BookEventTickets.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\EventGroups\GroupViewInfo.cs" />
+    <Compile Include="Features\EventGroups\ManageEventGroups.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ManageEventGroups.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\EventGroups\ManageGroupsPage.cs" />
+    <Compile Include="Features\EventGroups\ManageGroupsSteps.cs" />
     <Compile Include="Features\EventInvitation\BookTicketsFromInvite.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -246,6 +254,10 @@
     <None Include="Features\BookEventTickets\BookEventTickets.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>BookEventTickets.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\EventGroups\ManageEventGroups.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ManageEventGroups.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\EventInvitation\BookTicketsFromInvite.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

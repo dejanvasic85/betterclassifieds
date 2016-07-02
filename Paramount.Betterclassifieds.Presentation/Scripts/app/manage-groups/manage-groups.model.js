@@ -22,7 +22,7 @@
         me.createCancel = function () {
             me.isCreateEnabled(false);
         }
-        me.create = function () {
+        me.create = function (model, event) {
             // Check validity
             if ($paramount.checkValidity(me.newGroup()) === false) {
                 return;

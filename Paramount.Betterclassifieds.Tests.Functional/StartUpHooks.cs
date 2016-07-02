@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using BoDi;
@@ -136,7 +137,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             dataRepository.DropUserNetwork(TestData.DefaultUsername, "ade@spurs.com");
         }
 
-        [BeforeFeature("booking", "extendbooking", "bookEventTickets", "bookTicketsFromInvite")]
+        [BeforeFeature("booking", "eventAd", "extendbooking", "bookEventTickets", "bookTicketsFromInvite")]
         public static void AddMembershipUser()
         {
             var dataRepository = DataRepositoryFactory.Create(_configuration);

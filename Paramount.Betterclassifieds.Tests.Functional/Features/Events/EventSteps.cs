@@ -54,6 +54,15 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
             _repository.AddEventTicketType(_contextData.Get().EventId, ticketName, amount, availableQty);
         }
 
+        [Given(@"the event has a group ""(.*)"" for ticket ""(.*)"" and allows up to ""(.*)"" guests")]
+        public void GivenTheEventHasAGroupForTicketAndAllowsUpToGuests(string groupName, string ticketName, int maxGuests)
+        {
+            _repository.AddEventGroup(_contextData.Get().EventId,
+                groupName,
+                ticketName, 
+                maxGuests);
+        }
+
         [Given(@"I navigate to ""(.*)""")]
         [When(@"I navigate to ""(.*)""")]
         public void GivenINavigateTo(string url)
@@ -96,12 +105,20 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
                 .WaitForPayPal();
         }
 
-        [Then(@"i should see a ticket purchased success page")]
+        [Then(@"I should see a ticket purchased success page")]
         public void ThenIShouldSeeATicketPurchasedSuccessPage()
         {
             var eventBookedPage = _pageBrowser.Init<EventBookedPage>();
             Assert.That(eventBookedPage.GetSuccessText(), Is.EquivalentTo("You have tickets to The Opera"));
         }
+
+        [Then(@"When selecting ""(.*)"" for guest ""(.*)""")]
+        public void ThenWhenSelectingForGuest(string groupName, string guestFullName)
+        {
+            var eventBookedPage = _pageBrowser.Init<EventBookedPage>();
+            eventBookedPage.AssignGroup(groupName, guestFullName);
+        }
+
 
         [Then(@"the tickets should be booked")]
         public void ThenTheTicketsShouldBeBooked()
@@ -114,6 +131,18 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
             Assert.That(eventBooking.TotalCost, Is.EqualTo(10)); // 10 dollars - 5 bucks x 2 tickets
             Assert.That(eventBookingTickets.Count, Is.EqualTo(2));
         }
+
+        [Then(@"ticket with full name ""(.*)"" should be assigned to a group")]
+        public void ThenTicketWithFullNameShouldBeAssignedToAGroup(string guestFullName)
+        {
+            var testContext = _contextData.Get();
+            var eventBooking = _repository.GetEventBooking(testContext.EventId);
+            var eventBookingTickets = _repository.GetPurchasedTickets(eventBooking.EventBookingId);
+
+            var ticket = eventBookingTickets.Single(t => t.GuestFullName.Equals(guestFullName));
+            Assert.That(ticket.EventGroupId, Is.Not.Null);
+        }
+
 
         [Then(@"the ticket ""(.*)"" price should be ""(.*)""")]
         public void ThenTheTicketPriceShouldBe(string ticketName, string expectedPrice)

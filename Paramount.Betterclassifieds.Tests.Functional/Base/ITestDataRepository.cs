@@ -51,10 +51,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         List<EventBookingTicketData> GetPurchasedTickets(int eventBookingId);
         List<EventBookingTicketData> GetPurchasedTicketsForEvent(int eventId);
         int AddEventInvitationIfNotExists(int eventId, int userNetworkId);
+        void AddEventGroup(int eventId, string groupName, string ticketName, int maxGuests);
 
         // Address
         int AddAddress(object address);
-        
         
     }
 }

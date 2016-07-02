@@ -13,14 +13,19 @@ Scenario: View event and book two tickets with successful payment
 	And an event ad titled "The Opera" exists 
 	And the event does not include a transaction fee
 	And with a ticket option "General Admission" for "5" dollars each and "100" available
+	And the event has a group "Table 1" for ticket "General Admission" and allows up to "10" guests
+	And the event has a group "Table 2" for ticket "General Admission" and allows up to "10" guests
 	And I navigate to "/Event/the-opera/adId"
 	When I select "2" "General Admission" tickets
 	And enter the email "guest@event.com" and name "Guest FoEvent" for the second guest
 	And choose to email all guests
 	And my details are prefilled so I proceed to payment
 	And paypal payment is completed
-	Then i should see a ticket purchased success page
+	Then I should see a ticket purchased success page
 	And the tickets should be booked
+	And When selecting "Table 1" for guest "bddTicketBuyer bddTicketBuyer"
+	Then ticket with full name "bddTicketBuyer bddTicketBuyer" should be assigned to a group
+	
 
 @IncludeTransaction
 Scenario: View event ad with transaction fee should increase the price of tickets

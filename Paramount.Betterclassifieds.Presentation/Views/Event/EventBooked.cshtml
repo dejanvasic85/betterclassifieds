@@ -101,7 +101,7 @@
                                 </label>
                                 <div class="input-group">
                                     <select class="form-control input-lg"
-                                            data-bind="options: groups, optionsText: 'groupName', value: selectedGroup, optionsCaption: 'Un-Assigned...', event:{ change: groupChanged}"></select>
+                                            data-bind="options: groups, optionsText: 'groupName', value: selectedGroup, optionsCaption: 'Un-Assigned...', event:{ change: groupChanged}, attr : {'data-guestName' : guestFullName}"></select>
                                     <div class="input-group-addon">
                                         <h4>
                                             <i data-bind="visible: isGroupSelected() === false && !isUpdating()" class="fa fa-times-circle-o"></i>

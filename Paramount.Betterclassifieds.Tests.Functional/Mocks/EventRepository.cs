@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Transactions;
 using Dapper;
@@ -122,6 +123,29 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 
                 return db.Add(Constants.Table.EventInvitation,
                     new { eventId, userNetworkId });
+            }
+        }
+
+        public void AddEventGroup(int eventId, string groupName, string ticketName, int maxGuests)
+        {
+            using (var db = _connectionFactory.CreateClassifieds())
+            {
+                // Fetch the ticket id first
+                var ticketId = db.Query<int>("SELECT EventTicketId FROM EventTicket WHERE TicketName = @ticketName And EventId = @eventId", new { ticketName, eventId})
+                    .Single();
+
+                // Call proc directly to create the event group
+                db.Execute("EventGroup_Create", new
+                {
+                    eventId,
+                    groupName,
+                    maxGuests,
+                    createdDate = DateTime.Now,
+                    createdDateUtc = DateTime.UtcNow,
+                    createdBy = "bdduser",
+                    availableToAllTickets = false,
+                    tickets = ticketId.ToString()
+                }, commandType: CommandType.StoredProcedure);
             }
         }
     }

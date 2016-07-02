@@ -20,5 +20,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
         {
             return SuccessTextElement.Text;
         }
+
+        public EventBookedPage AssignGroup(string groupName, string guestFullName)
+        {
+            var groupDropDown = _webDriver.FindElement(By.CssSelector("[data-guestName='" + guestFullName + "']"));
+            groupDropDown.SelectOption(groupName);
+            _webDriver.WaitForJqueryAjax();
+            return this;
+        }
     }
 }

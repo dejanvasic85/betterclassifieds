@@ -98,7 +98,7 @@
       <DependentUpon>AddGuest.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\BookEventTickets\BookTicketsPage.cs" />
-    <Compile Include="Features\BookEventTickets\EventAdContext.cs" />
+    <Compile Include="Features\Events\EventAdContext.cs" />
     <Compile Include="Features\AccountDetails.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -195,7 +195,7 @@
     <Compile Include="Pages\ChangePasswordTestPage.cs" />
     <Compile Include="Pages\ContactUsPage.cs" />
     <Compile Include="Pages\EditAdPage.cs" />
-    <Compile Include="Features\BookEventTickets\EventDetailsPage.cs" />
+    <Compile Include="Features\Events\EventDetailsPage.cs" />
     <Compile Include="Pages\LoginPage.cs" />
     <Compile Include="Pages\Booking\BookingStep2Page.cs" />
     <Compile Include="Pages\Booking\BookingStep3Page.cs" />

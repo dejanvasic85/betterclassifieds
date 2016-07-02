@@ -18,6 +18,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             waitForJqueryAjaxToFinish.Until(drv => IsJqueryAjaxComplete((IJavaScriptExecutor)drv));
         }
 
+        public static void WaitFor(this IWebDriver webDriver, Func<IWebDriver, bool> condition, int secondsToWait = 30)
+        {
+            var wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(secondsToWait));
+            wait.Until(condition);
+        }
+
         public static bool IsElementPresentBy(this IWebDriver webDriver, By by)
         {
             return webDriver.FindElements(by).Any();

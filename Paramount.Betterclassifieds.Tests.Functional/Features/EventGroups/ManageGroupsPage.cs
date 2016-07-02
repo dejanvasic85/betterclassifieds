@@ -68,6 +68,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.EventGroups
         public ManageGroupsPage SaveGroup()
         {
             SaveGroupButton.Click();
+            _webDriver.WaitForJqueryAjax();
+            _webDriver.WaitFor(ExpectedConditions.InvisibilityOfElementLocated(By.Id("createGroupForm")));            
             return this;
         }
 

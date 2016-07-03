@@ -639,6 +639,14 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.TotalPrice = val);
 		}
+		public EventBookingTicketMockBuilder WithEventGroupId(Int32? val)
+		{ 
+			return WithBuildStep(p => p.EventGroupId = val);
+		}
+		public EventBookingTicketMockBuilder WithEventGroup(EventGroup val)
+		{ 
+			return WithBuildStep(p => p.EventGroup = val);
+		}
 	}
 
 	internal partial class EventBookingTicketValidationMockBuilder : MockBuilder<EventBookingTicketValidationMockBuilder, EventBookingTicketValidation>
@@ -819,6 +827,10 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.TransactionFee = val);
 		}
+		public EventTicketReservationMockBuilder WithEventGroupId(Int32? val)
+		{ 
+			return WithBuildStep(p => p.EventGroupId = val);
+		}
 	}
 
 	internal partial class EventGuestDetailsMockBuilder : MockBuilder<EventGuestDetailsMockBuilder, EventGuestDetails>
@@ -974,6 +986,50 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventInvitationMockBuilder WithCreatedDateUtc(DateTime? val)
 		{ 
 			return WithBuildStep(p => p.CreatedDateUtc = val);
+		}
+	}
+
+	internal partial class EventGroupMockBuilder : MockBuilder<EventGroupMockBuilder, EventGroup>
+	{	
+		public EventGroupMockBuilder WithEventGroupId(Int32? val)
+		{ 
+			return WithBuildStep(p => p.EventGroupId = val);
+		}
+		public EventGroupMockBuilder WithEventId(Int32? val)
+		{ 
+			return WithBuildStep(p => p.EventId = val);
+		}
+		public EventGroupMockBuilder WithGroupName(String val)
+		{ 
+			return WithBuildStep(p => p.GroupName = val);
+		}
+		public EventGroupMockBuilder WithMaxGuests(Int32? val)
+		{ 
+			return WithBuildStep(p => p.MaxGuests = val);
+		}
+		public EventGroupMockBuilder WithCreatedDateTime(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.CreatedDateTime = val);
+		}
+		public EventGroupMockBuilder WithCreatedDateTimeUtc(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.CreatedDateTimeUtc = val);
+		}
+		public EventGroupMockBuilder WithCreatedBy(String val)
+		{ 
+			return WithBuildStep(p => p.CreatedBy = val);
+		}
+		public EventGroupMockBuilder WithGuestCount(Int32 val)
+		{ 
+			return WithBuildStep(p => p.GuestCount = val);
+		}
+		public EventGroupMockBuilder WithAvailableToAllTickets(Boolean? val)
+		{ 
+			return WithBuildStep(p => p.AvailableToAllTickets = val);
+		}
+		public EventGroupMockBuilder WithIsDisabled(Boolean val)
+		{ 
+			return WithBuildStep(p => p.IsDisabled = val);
 		}
 	}
 }

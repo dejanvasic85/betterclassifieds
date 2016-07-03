@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business;
@@ -593,6 +594,39 @@ namespace Paramount.Betterclassifieds.Tests.Events
             eventBooking.Status.IsEqualTo(EventBookingStatus.Active);
             eventInvitation.ConfirmedDate.IsNotNull();
             eventInvitation.ConfirmedDateUtc.IsNotNull();
+        }
+
+        [Test]
+        public void CreateInvitationForUserNetwork_CallRepository()
+        {
+            _eventRepositoryMock.SetupWithVerification(call => call.CreateEventInvitation(It.IsAny<EventInvitation>()));
+            _dateServiceMock.SetupNow().SetupNowUtc();
+
+            var manager = BuildTargetObject();
+            var invitation = manager.CreateInvitationForUserNetwork(1, 100);
+            Assert.That(invitation.EventId, Is.EqualTo(1));
+            Assert.That(invitation.UserNetworkId, Is.EqualTo(100));
+            Assert.That(invitation.CreatedDate, Is.Not.Null);
+            Assert.That(invitation.CreatedDateUtc, Is.Not.Null);
+        }
+
+        [Test]
+        public async void GetEventGroups_ReturnsTask_WithEnumerableGroups()
+        {
+            var mockBuilder = new EventGroupMockBuilder().WithEventId(1);
+            var objectsToReturn = (new[]
+            {
+                mockBuilder.WithEventGroupId(100).Build(),
+                mockBuilder.WithEventGroupId(101).Build()
+            }).AsEnumerable();
+
+            _eventRepositoryMock.Setup(call => call.GetEventGroups(It.IsAny<int>(), It.IsAny<int?>()))
+                .Returns(Task.FromResult(objectsToReturn));
+
+            var manager = BuildTargetObject();
+            var resuls = await manager.GetEventGroups(1, 2);
+
+            Assert.That(resuls, Is.EqualTo(objectsToReturn));
         }
 
         private Mock<IEventRepository> _eventRepositoryMock;

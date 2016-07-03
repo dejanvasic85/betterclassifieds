@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-using System.Web.Http;
-using System.Web.Http.Results;
+﻿using System.Web.Http.Results;
 using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business.Events;

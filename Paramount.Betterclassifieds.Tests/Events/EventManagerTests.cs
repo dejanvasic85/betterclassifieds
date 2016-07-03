@@ -662,10 +662,10 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             _eventRepositoryMock.SetupWithVerification(
                 call => call.UpdateEventBookingTicket(It.IsAny<EventBookingTicket>()));
-            
+
             var manager = BuildTargetObject();
             manager.AssignGroupToTicket(100, null);
-       
+
             Assert.That(eventBookingTicket.EventGroupId, Is.Null);
         }
 
@@ -680,11 +680,38 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             _eventRepositoryMock.SetupWithVerification(
                 call => call.UpdateEventBookingTicket(It.IsAny<EventBookingTicket>()));
-            
+
             var manager = BuildTargetObject();
             manager.AssignGroupToTicket(100, 9);
-       
+
             Assert.That(eventBookingTicket.EventGroupId, Is.EqualTo(9));
+        }
+
+        [Test]
+        public void AddEventGroup_CreatesObject_CallsRepository()
+        {
+            // arrange
+            _eventRepositoryMock.Setup(call =>
+                call.CreateEventGroup(It.IsAny<EventGroup>(), It.IsAny<IEnumerable<int>>()));
+            _dateServiceMock.SetupNow().SetupNowUtc();
+
+            var manager = BuildTargetObject();
+            manager.AddEventGroup(1, "Table 1", maxGuests: 10,
+                tickets: null,
+                createdByUser: "foo bar",
+                isDisabled: false);
+        }
+
+        [Test]
+        public void SetEventGroupStatus_CallsRepository()
+        {
+            _eventRepositoryMock.SetupWithVerification(call =>
+                call.UpdateEventGroupStatus(
+                    It.Is<int>(eventGroupId => eventGroupId == 1),
+                    It.Is<bool>(isDisabled => isDisabled == true)));
+
+            var manager = BuildTargetObject();
+            manager.SetEventGroupStatus(1, true);
         }
 
         private Mock<IEventRepository> _eventRepositoryMock;

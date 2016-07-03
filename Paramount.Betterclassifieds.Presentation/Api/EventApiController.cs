@@ -60,14 +60,18 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         public async Task<IHttpActionResult> GetEventGroup(int id, int eventGroupId)
         {
             var group = await _eventManager.GetEventGroup(eventGroupId);
-            return Ok(group);
+            if (group == null)
+                return NotFound();
+            var contract = new EventGroupContractFactory().FromModel(group);
+            return Ok(contract);
         }
 
         [Route("{id:int}/tickets/{ticketId:int}/groups")]
         public async Task<IHttpActionResult> GetEventGroupsForTicket(int id, int ticketId)
         {
-            var groups = await _eventManager.GetEventGroups(id, ticketId);
-            return Ok(groups.Where(g => g.IsAvailable()));
+            var result = await _eventManager.GetEventGroups(id, ticketId);
+            var groups = result.Where(r => r.IsAvailable()).Select(g => new EventGroupContractFactory().FromModel(g));
+            return Ok(groups);
         }
 
         [Route("{id:int}/groups/{eventGroupId:int}/tickets")]

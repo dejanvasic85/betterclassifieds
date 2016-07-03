@@ -16,7 +16,7 @@ namespace Paramount.Betterclassifieds.Tests.Api
     public class EventApiControllerTests : TestContext<EventApiController>
     {
         [Test]
-        public async void GetAllEvents_ReturnsData()
+        public async void GetAllEvents_ReturnsOk()
         {
             // Arrange
             IEnumerable<EventSearchResult> mockSearchResults = new[]
@@ -41,7 +41,7 @@ namespace Paramount.Betterclassifieds.Tests.Api
         }
 
         [Test]
-        public async void GetEvent_HasEvent_ReturnsData()
+        public async void GetEvent_HasEvent_ReturnsOk()
         {
             IEnumerable<EventSearchResult> mockSearchResults = new[]
             {
@@ -66,11 +66,9 @@ namespace Paramount.Betterclassifieds.Tests.Api
             result.Content.Heading.IsEqualTo("heading of mock ad");
 
         }
-
-
-
+        
         [Test]
-        public async void GetEventGroups_HasResults_ReturnsContracts()
+        public async void GetEventGroups_HasResults_ReturnsOk()
         {
             var eventGroupMockBuilder = new EventGroupMockBuilder();
             IEnumerable<EventGroup> mockEventGroups = new[]
@@ -98,6 +96,35 @@ namespace Paramount.Betterclassifieds.Tests.Api
             result.Content.Count().IsEqualTo(2);
         }
 
+        [Test]
+        public async void GetEventGroup_HasResult_ReturnsOk()
+        {
+            var mockGroup = new EventGroupMockBuilder().Default().Build();
+
+            _mockEventManager.SetupWithVerification(
+                call => call.GetEventGroup(It.IsAny<int>()), Task.FromResult(mockGroup));
+
+            var controller = BuildTargetObject();
+            var eventGroups = await controller.GetEventGroup(123, 543);
+
+            eventGroups.IsNotNull();
+            var result = eventGroups
+                .IsTypeOf<OkNegotiatedContentResult<EventGroupContract>>();
+
+            result.Content.IsNotNull();
+        }
+        
+        [Test]
+        public async void GetEventGroup_NoResults_ReturnsNotFound()
+        {
+            _mockEventManager.SetupWithVerification(
+                call => call.GetEventGroup(It.IsAny<int>()), 
+                Task.FromResult<EventGroup>(null));
+        
+            var controller = BuildTargetObject();
+            var results = await controller.GetEventGroup(123, 543);
+            results.IsTypeOf<NotFoundResult>();
+        }
         private Mock<IEventManager> _mockEventManager;
         private Mock<ISearchService> _mockSearchService;
 

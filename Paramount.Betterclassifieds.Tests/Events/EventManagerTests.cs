@@ -611,7 +611,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
         }
 
         [Test]
-        public async void GetEventGroups_ReturnsTask_WithEnumerableGroups()
+        public async void GetEventGroups_CallsRepository_ReturnsTask_WithEnumerableGroups()
         {
             var mockBuilder = new EventGroupMockBuilder().WithEventId(1);
             var objectsToReturn = (new[]
@@ -627,6 +627,64 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var resuls = await manager.GetEventGroups(1, 2);
 
             Assert.That(resuls, Is.EqualTo(objectsToReturn));
+        }
+
+        [Test]
+        public async void GetEventGroup_CallsRepository_ReturnsTask_WithGroup()
+        {
+            var mockEventGroup = new EventGroupMockBuilder().WithEventId(1).WithEventGroupId(100).Build();
+
+            _eventRepositoryMock.Setup(call => call.GetEventGroup(It.IsAny<int>()))
+                .Returns(Task.FromResult(mockEventGroup));
+
+            var manager = BuildTargetObject();
+            var resuls = await manager.GetEventGroup(100);
+
+            Assert.That(resuls, Is.EqualTo(mockEventGroup));
+        }
+
+        [Test]
+        public void AssignGroupToTicket_ThrowsArgumentNullException()
+        {
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingTicket(It.IsAny<int>()), null);
+            var manager = BuildTargetObject();
+            Assert.Throws<ArgumentNullException>(() => manager.AssignGroupToTicket(100, null));
+        }
+
+        [Test]
+        public void AssignGroupToTicket_GetEventBooking_SetsThePropertyToNull()
+        {
+            var eventBookingTicket = new EventBookingTicketMockBuilder().Build();
+
+            _eventRepositoryMock.SetupWithVerification(
+                call => call.GetEventBookingTicket(It.IsAny<int>()),
+                eventBookingTicket);
+
+            _eventRepositoryMock.SetupWithVerification(
+                call => call.UpdateEventBookingTicket(It.IsAny<EventBookingTicket>()));
+            
+            var manager = BuildTargetObject();
+            manager.AssignGroupToTicket(100, null);
+       
+            Assert.That(eventBookingTicket.EventGroupId, Is.Null);
+        }
+
+        [Test]
+        public void AssignGroupToTicket_GetEventBooking_SetsTheProperty()
+        {
+            var eventBookingTicket = new EventBookingTicketMockBuilder().Build();
+
+            _eventRepositoryMock.SetupWithVerification(
+                call => call.GetEventBookingTicket(It.IsAny<int>()),
+                eventBookingTicket);
+
+            _eventRepositoryMock.SetupWithVerification(
+                call => call.UpdateEventBookingTicket(It.IsAny<EventBookingTicket>()));
+            
+            var manager = BuildTargetObject();
+            manager.AssignGroupToTicket(100, 9);
+       
+            Assert.That(eventBookingTicket.EventGroupId, Is.EqualTo(9));
         }
 
         private Mock<IEventRepository> _eventRepositoryMock;

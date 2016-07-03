@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http.Results;
 using Moq;
 using NUnit.Framework;
@@ -34,6 +35,8 @@ namespace Paramount.Betterclassifieds.Tests.Api
             events.IsNotNull();
             var result = events
                 .IsTypeOf<OkNegotiatedContentResult<IEnumerable<EventContract>>>();
+
+            result.Content.Count().IsEqualTo(1);
         }
 
         private Mock<IEventManager> _mockEventManager;

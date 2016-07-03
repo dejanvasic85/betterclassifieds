@@ -16,11 +16,11 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         }
 
         [Route("")]
-        public IHttpActionResult GetAllEvents()
+        public async Task<IHttpActionResult> GetAllEvents()
         {
             // Get all current 
             // var events = _searchService.GetCurrentEvents();
-            return Ok("coming soon");
+            return Ok(await Task.FromResult("Coming soon"));
         }
 
         [Route("{id:int}")]

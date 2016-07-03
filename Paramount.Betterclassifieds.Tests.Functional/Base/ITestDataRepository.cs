@@ -42,7 +42,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
         // Rates
         void AddOnlineRateForCategoryIfNotExists(decimal price, string categoryName);
         void AddPrintRateForCategoryIfNotExists(string categoryName);
-
+        
         // Events
         int AddEventIfNotExists(int adBookingId);
         void AddEventTicketType(int eventId, string ticketName, decimal price, int availableQuantity);

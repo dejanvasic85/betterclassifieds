@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Transactions;
-using System.Web.Security;
 using Dapper;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
@@ -189,33 +185,96 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 
         public void DropOnlineAdIfExists(string adTitle)
         {
-            // Fetch the AdDesign
 
             using (var db = _connectionFactory.CreateClassifieds())
-            using (var scope = new TransactionScope())
             {
-                var adDesignId = db.Query<int?>(
-                        "SELECT ds.AdDesignId FROM AdDesign ds JOIN OnlineAd o ON o.AdDesignId = ds.AdDesignId AND o.Heading = @title", new { @title = adTitle }).FirstOrDefault();
+                var adsToDelete = db.Query<int?>("SELECT ds.AdDesignId FROM AdDesign ds JOIN OnlineAd o ON o.AdDesignId = ds.AdDesignId AND o.Heading = @title", new { @title = adTitle }).ToList();
 
-                if (!adDesignId.HasValue)
-                    return;
-
-                var adId =
-                    db.Query<int?>(
-                        "SELECT a.AdId FROM Ad a JOIN AdDesign ds ON ds.AdId = a.AdId WHERE ds.AdDesignId = @adDesignId", new { adDesignId }).FirstOrDefault();
-
-                // Let's drop everything ! Starting from the online ad
-                db.ExecuteSql("DELETE from OnlineAd WHERE AdDesignId = @adDesignId", new { adDesignId });
-                db.ExecuteSql("DELETE from AdDesign WHERE AdDesignId = @adDesignId", new { adDesignId });
-
-                if (adId.HasValue)
+                foreach (var adDesignId in adsToDelete)
                 {
-                    db.ExecuteSql("DELETE FROM AdBooking WHERE AdId = @adId", new { adId });
-                    db.ExecuteSql("DELETE FROM Ad WHERE AdId = @adId", new { adId });
-                }
+                    using (var scope = new TransactionScope())
+                    {
+                        if (!adDesignId.HasValue)
+                            return;
 
-                scope.Complete();
+                        var adId = db.Query<int?>("SELECT a.AdId FROM Ad a JOIN AdDesign ds ON ds.AdId = a.AdId WHERE ds.AdDesignId = @adDesignId", new { adDesignId }).FirstOrDefault();
+                        var onlineAdId = db.Query<int?>("SELECT o.OnlineAdId FROM OnlineAd o WHERE o.AdDesignId = @adDesignId", new { adDesignId }).FirstOrDefault();
+
+                        // Let's drop everything ! Starting from the online ad
+                        db.ExecuteSql("DELETE from OnlineAd WHERE AdDesignId = @adDesignId", new { adDesignId });
+                        db.ExecuteSql("DELETE from AdDesign WHERE AdDesignId = @adDesignId", new { adDesignId });
+
+                        if (adId.HasValue)
+                        {
+                            db.ExecuteSql("DELETE FROM AdBooking WHERE AdId = @adId", new { adId });
+                            db.ExecuteSql("DELETE FROM Ad WHERE AdId = @adId", new { adId });
+                        }
+
+                        if (onlineAdId.HasValue)
+                        {
+                            var eventId = db.Query<int?>("SELECT EventId from [Event] where OnlineAdId = @onlineAdId", new { onlineAdId }).FirstOrDefault();
+                            if (eventId.HasValue)
+                                db.ExecuteSql(GetSqlToDropEvent(), new { eventId });
+                        }
+
+                        scope.Complete();
+                    }
+                }
             }
+        }
+
+        public string GetSqlToDropEvent()
+        {
+            return @"
+DELETE FROM EventBookingTicketValidation
+WHERE EventBookingTicketId IN 
+(
+	SELECT EventBookingTicketId	FROM EventBookingTicket ebt
+	JOIN EventBooking t on t.EventBookingId = ebt.EventBookingId
+	WHERE t.EventId = @eventId
+);
+
+DELETE FROM EventBookingTicketField
+WHERE EventBookingTicketId IN 
+(
+	SELECT EventBookingTicketId FROM EventBookingTicket ebt	
+    JOIN EventBooking t on t.EventBookingId = ebt.EventBookingId WHERE t.EventId = @eventId
+);
+
+DELETE FROM EventBookingTicket
+WHERE EventBookingTicketId IN
+(
+	SELECT EventBookingTicketId FROM EventBookingTicket ebt	
+    JOIN EventBooking t on t.EventBookingId = ebt.EventBookingId WHERE t.EventId = @eventId
+);
+
+DELETE FROM EventTicketReservation WHERE EventTicketId IN
+(
+	SELECT t.EventTicketId FROM EventTicket t WHERE t.EventId = @eventId
+);
+
+DELETE FROM EventTicketField
+WHERE EventTicketId IN
+(
+	SELECT EventTicketId FROM EventTicket t WHERE t.EventId = @eventId
+)
+
+DELETE FROM EventGroupTicket
+WHERE EventGroupId IN
+(
+	SELECT EventGroupId FROM EventGroup gr WHERE gr.EventId = @eventId
+);
+
+
+DELETE FROM EventGroup WHERE EventId = @eventId;
+DELETE FROM EventBooking WHERE EventId = @eventId;
+DELETE FROM EventPaymentRequest WHERE EventId = @eventId;
+DELETE FROM EventInvitation WHERE EventId = @eventId;
+DELETE FROM EventTicket WHERE EventId = @eventId;
+DELETE FROM [Event] WHERE EventId = @eventId;
+";
+
+
         }
 
         public List<Email> GetSentEmailsFor(string email)

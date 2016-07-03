@@ -2,6 +2,9 @@
 using System.Threading.Tasks;
 using System.Web.Http;
 using Paramount.Betterclassifieds.Business.Events;
+using Paramount.Betterclassifieds.Business.Search;
+using Paramount.Betterclassifieds.Presentation.Api.Factories;
+using Paramount.Betterclassifieds.Presentation.Api.Models.Events;
 
 namespace Paramount.Betterclassifieds.Presentation.Api
 {
@@ -9,18 +12,23 @@ namespace Paramount.Betterclassifieds.Presentation.Api
     public class EventApiController : ApiController
     {
         private readonly IEventManager _eventManager;
+        private readonly ISearchService _searchService;
 
-        public EventApiController(IEventManager eventManager)
+        public EventApiController(IEventManager eventManager, ISearchService searchService)
         {
             _eventManager = eventManager;
+            _searchService = searchService;
         }
 
         [Route("")]
         public async Task<IHttpActionResult> GetAllEvents()
         {
             // Get all current 
-            // var events = _searchService.GetCurrentEvents();
-            return Ok(await Task.FromResult("Coming soon"));
+            var eventContractFactory = new EventContractFactory();
+            var contracts = _searchService.GetCurrentEvents()
+                .Select(eventContractFactory.FromResult);
+            
+            return Ok(await Task.FromResult(contracts));
         }
 
         [Route("{id:int}")]
@@ -57,5 +65,6 @@ namespace Paramount.Betterclassifieds.Presentation.Api
             var eventTickets = await _eventManager.GetEventTicketsForGroup(eventGroupId);
             return Ok(eventTickets);
         }
+        
     }
 }

@@ -13,6 +13,38 @@ namespace Paramount.Betterclassifieds.Tests
 	/// Auto-Generated code. See MockGenerator.tt. All classes should be partial, so you can extend the methods for each!
 	///
 
+	internal partial class AddressMockBuilder : MockBuilder<AddressMockBuilder, Address>
+	{	
+		public AddressMockBuilder WithAddressId(Int64? val)
+		{ 
+			return WithBuildStep(p => p.AddressId = val);
+		}
+		public AddressMockBuilder WithStreetNumber(String val)
+		{ 
+			return WithBuildStep(p => p.StreetNumber = val);
+		}
+		public AddressMockBuilder WithStreetName(String val)
+		{ 
+			return WithBuildStep(p => p.StreetName = val);
+		}
+		public AddressMockBuilder WithSuburb(String val)
+		{ 
+			return WithBuildStep(p => p.Suburb = val);
+		}
+		public AddressMockBuilder WithState(String val)
+		{ 
+			return WithBuildStep(p => p.State = val);
+		}
+		public AddressMockBuilder WithPostcode(String val)
+		{ 
+			return WithBuildStep(p => p.Postcode = val);
+		}
+		public AddressMockBuilder WithCountry(String val)
+		{ 
+			return WithBuildStep(p => p.Country = val);
+		}
+	}
+
 	internal partial class RegistrationModelMockBuilder : MockBuilder<RegistrationModelMockBuilder, RegistrationModel>
 	{	
 		public RegistrationModelMockBuilder WithRegistrationId(Int32? val)

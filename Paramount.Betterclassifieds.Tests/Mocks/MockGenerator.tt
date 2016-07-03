@@ -13,6 +13,7 @@
 <#
 	var typesToGenerate = new Dictionary<string, string> 
 	{
+		{ "Paramount.Betterclassifieds.Business.Address",  "Address" },
 		{ "Paramount.Betterclassifieds.Business.RegistrationModel",  "RegistrationModel" },
 		{ "Paramount.Betterclassifieds.Business.OnlineAdRate",  "OnlineAdRate" },
 		{ "Paramount.Betterclassifieds.Business.RateModel",  "RateModel" },

@@ -223,7 +223,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\EventApiController.cs" />
+    <Compile Include="Api\Factories\EventContractFactory.cs" />
     <Compile Include="Api\HealthController.cs" />
+    <Compile Include="Api\Models\AddressContract.cs" />
+    <Compile Include="Api\Models\Events\EventContract.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\LoggingConfig.cs" />
     <Compile Include="App_Start\ModelBindingConfig.cs" />
@@ -957,7 +960,6 @@
     <Content Include="Views\EditAd\manage-groups.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Api\Models\Events\" />
     <Folder Include="Scripts\app\home\" />
   </ItemGroup>
   <ItemGroup>

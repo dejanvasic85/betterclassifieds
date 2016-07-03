@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Monads;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Paramount.Betterclassifieds.Business.Events;
@@ -27,15 +28,22 @@ namespace Paramount.Betterclassifieds.Presentation.Api
             var eventContractFactory = new EventContractFactory();
             var contracts = _searchService.GetCurrentEvents()
                 .Select(eventContractFactory.FromResult);
-            
+
             return Ok(await Task.FromResult(contracts));
         }
 
         [Route("{id:int}")]
-        public IHttpActionResult GetEvent(int id)
+        public async Task<IHttpActionResult> GetEvent(int id)
         {
-            // var eventModel = _eventManager.GetEventDetails(id);
-            return Ok("coming soon");
+            var searchResult = _searchService
+                .GetCurrentEvents()
+                .FirstOrDefault(currentEvent => currentEvent.With(c => c.EventDetails).With(d => d.EventId) == id);
+
+            if (searchResult == null)
+                return NotFound();
+
+            var contract = new EventContractFactory().FromResult(searchResult);
+            return Ok(await Task.FromResult(contract));
         }
 
         [Route("{id:int}/groups")]
@@ -65,6 +73,6 @@ namespace Paramount.Betterclassifieds.Presentation.Api
             var eventTickets = await _eventManager.GetEventTicketsForGroup(eventGroupId);
             return Ok(eventTickets);
         }
-        
+
     }
 }

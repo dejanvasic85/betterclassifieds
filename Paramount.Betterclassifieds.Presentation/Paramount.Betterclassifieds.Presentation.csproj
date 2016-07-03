@@ -220,10 +220,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\EventApiController.cs" />
-    <Compile Include="Api\Factories\EventContractFactory.cs" />
     <Compile Include="Api\HealthController.cs" />
     <Compile Include="Api\Models\AddressContract.cs" />
     <Compile Include="Api\Models\Events\EventContract.cs" />
+    <Compile Include="Api\Models\Events\EventGroupContract.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\LoggingConfig.cs" />
     <Compile Include="App_Start\ModelBindingConfig.cs" />

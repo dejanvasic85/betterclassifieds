@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
-using Paramount.Betterclassifieds.Presentation.Api.Factories;
 using Paramount.Betterclassifieds.Presentation.Api.Models.Events;
 
 namespace Paramount.Betterclassifieds.Presentation.Api
@@ -49,8 +48,12 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         [Route("{id:int}/groups")]
         public async Task<IHttpActionResult> GetEventGroups(int id)
         {
-            var groups = await _eventManager.GetEventGroups(id);
-            return Ok(groups.Where(g => g.IsAvailable()));
+            var result = await _eventManager.GetEventGroups(id);
+            var groups = result
+                .Where(r => r.IsAvailable())
+                .Select(new EventGroupContractFactory().FromModel);
+
+            return Ok(groups);
         }
 
         [Route("{id:int}/groups/{eventGroupId:int}")]

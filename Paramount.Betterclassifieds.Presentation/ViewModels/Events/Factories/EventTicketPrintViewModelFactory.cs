@@ -40,7 +40,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events.Factories
                 EventPhoto = adDetails.PrimaryImage,
                 EventName = adDetails.Heading,
                 Location = eventDetails.Location,
-                StartDateTime = eventDetails.EventStartDate.GetValueOrDefault().ToString("dd-MMM-yyyy"),
+                StartDateTime = eventDetails.EventStartDate.GetValueOrDefault().ToString("dd-MMM-yyyy HH:mm"),
                 Price = ticket.Price.GetValueOrDefault(),
                 ContactNumber = adDetails.ContactPhone,
                 BarcodeData = urlHelper.ValidateBarcode(barcodeManager.GenerateBarcodeData(eventDetails, ticket)).WithFullUrl(),

@@ -61,6 +61,16 @@
                                 <span class="detail">@tick.TicketNumber</span>
                             </div>
 
+                            @if (tick.GroupName.HasValue())
+                            {
+                                <div class="col-xs-12">
+                                    <label>
+                                        <i class="fa fa-list-ol"></i> Group
+                                    </label>
+                                    <span class="detail">@tick.GroupName</span>
+                                </div>
+                            }
+
                             <div class="col-xs-12">
                                 <label>
                                     <i class="fa fa-map-marker"></i> Address

@@ -368,7 +368,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var eventModel = _eventManager.GetEventDetails(viewModel.EventId.GetValueOrDefault());
             var adDetails = _searchService.GetByAdId(id);
-            var ticketHtml = _templatingService.Generate(EventTicketPrintViewModel.Create(Url, _barcodeManager, adDetails, eventModel, eventBooking), "~/Views/Event/Tickets.cshtml");
+            var eventTicketPrintViewModels = new ViewModels.Events.Factories.EventTicketPrintViewModelFactory().FromEventBooking(Url, _barcodeManager, adDetails, eventModel, eventBooking);
+            var ticketHtml = _templatingService.Generate(eventTicketPrintViewModels, "~/Views/Event/Tickets.cshtml");
             var ticketPdfData = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(ticketHtml);
             var notification = CreateNotification(viewModel, eventModel, adDetails,
                 Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, includeSchemeAndProtocol: true, routeName: "Event"),

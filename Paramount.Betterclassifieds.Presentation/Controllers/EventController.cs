@@ -205,7 +205,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 _eventManager.AdjustRemainingQuantityAndCancelReservations(sessionId, eventBooking.EventBookingTickets);
 
-                var ticketHtml = _templatingService.Generate(EventTicketPrintViewModel.Create(Url, _barcodeManager, adDetails, eventDetails, eventBooking), "Tickets");
+                var eventTicketViewModelFactory = new ViewModels.Events.Factories.EventTicketPrintViewModelFactory();
+                var eventTicketViewModel = eventTicketViewModelFactory.FromEventBooking(Url, _barcodeManager, adDetails, eventDetails, eventBooking);
+                var ticketHtml = _templatingService.Generate(eventTicketViewModel, "Tickets");
                 var ticketPdfData = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(ticketHtml);
                 var viewModel = new EventBookedViewModel(adDetails, eventDetails, eventBooking, this.Url, _clientConfig, _httpContext);
                 var eventTicketsBookedNotification = this.Map<EventBookedViewModel, EventTicketsBookedNotification>(viewModel).WithTickets(ticketPdfData);
@@ -347,9 +349,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var eventBooking = _eventManager.GetEventBooking(id);
             var eventDetails = eventBooking.Event;
             var ad = _searchService.GetByAdOnlineId(eventDetails.OnlineAdId);
-
-            var data = EventTicketPrintViewModel.Create(Url, _barcodeManager, ad, eventDetails, eventBooking);
-            return View(data.ToList());
+            var viewModels = new ViewModels.Events.Factories.EventTicketPrintViewModelFactory().FromEventBooking(Url, _barcodeManager, ad, eventDetails, eventBooking);
+            return View(viewModels.ToList());
         }
 
         public ActionResult Invoice(int id)

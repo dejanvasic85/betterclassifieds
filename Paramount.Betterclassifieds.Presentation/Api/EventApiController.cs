@@ -26,7 +26,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api
             // Get all current 
             var eventContractFactory = new EventContractFactory();
             var contracts = _searchService.GetCurrentEvents()
-                .Select(eventContractFactory.FromResult);
+                .Select(eventContractFactory.FromModel);
 
             return Ok(await Task.FromResult(contracts));
         }
@@ -41,7 +41,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api
             if (searchResult == null)
                 return NotFound();
 
-            var contract = new EventContractFactory().FromResult(searchResult);
+            var contract = new EventContractFactory().FromModel(searchResult);
             return Ok(await Task.FromResult(contract));
         }
 
@@ -62,6 +62,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api
             var group = await _eventManager.GetEventGroup(eventGroupId);
             if (group == null)
                 return NotFound();
+
             var contract = new EventGroupContractFactory().FromModel(group);
             return Ok(contract);
         }
@@ -70,10 +71,28 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         public async Task<IHttpActionResult> GetEventGroupsForTicket(int id, int ticketId)
         {
             var result = await _eventManager.GetEventGroups(id, ticketId);
-            var groups = result.Where(r => r.IsAvailable()).Select(g => new EventGroupContractFactory().FromModel(g));
+            var groups = result
+                .Where(r => r.IsAvailable())
+                .Select(g => new EventGroupContractFactory().FromModel(g));
+
             return Ok(groups);
         }
 
+        [Route("{id:int}/tickets")]
+        public async Task<IHttpActionResult> GetEventTicketTypes(int id)
+        {
+            var eventDetails = _eventManager.GetEventDetails(id);
+            if (eventDetails == null)
+                return NotFound();
+
+            var tickets = eventDetails.Tickets.Select(t => new EventTicketContractFactory().FromModel(t));
+
+            return Ok(await Task.FromResult(tickets));
+        }
+
+        /// <summary>
+        /// Returns ID's only for the tickets that are available for a group!
+        /// </summary>
         [Route("{id:int}/groups/{eventGroupId:int}/tickets")]
         public async Task<IHttpActionResult> GetAvailableTicketsForGroup(int id, int eventGroupId)
         {

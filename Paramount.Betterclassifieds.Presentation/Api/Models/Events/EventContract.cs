@@ -45,7 +45,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models.Events
 
     public class EventContractFactory : IMappingBehaviour
     {
-        public EventContract FromResult(EventSearchResult eventSearchResult)
+        public EventContract FromModel(EventSearchResult eventSearchResult)
         {
             Guard.NotNullIn(eventSearchResult, eventSearchResult.EventDetails,
                 eventSearchResult.Address,

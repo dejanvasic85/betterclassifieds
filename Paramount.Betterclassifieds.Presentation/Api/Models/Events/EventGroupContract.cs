@@ -6,8 +6,8 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models.Events
 {
     public class EventGroupContract
     {
-        public int EventGroupId { get; set; }
-        public int EventId { get; set; }
+        public int? EventGroupId { get; set; }
+        public int? EventId { get; set; }
         public string GroupName { get; set; }
         public int? MaxGuests { get; set; }
         public DateTime? CreatedDateTime { get; set; }

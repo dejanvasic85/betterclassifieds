@@ -224,16 +224,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 _broadcastManager.Queue(eventTicketsBookedNotification, eventBooking.Email);
                 _eventManager.CreateEventTicketsDocument(eventBooking.EventBookingId, ticketPdfData, ticketsSentDate: DateTime.Now);
 
-                if (_eventBookingContext.EmailGuestList != null && _eventBookingContext.EmailGuestList.Length > 0)
+                foreach (var guest in _eventBookingContext.With(ctx => ctx.EmailGuestList))
                 {
-                    foreach (var guest in _eventBookingContext.EmailGuestList)
-                    {
-                        var eventUrl = Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, includeSchemeAndProtocol: true, routeName: "Event");
-                        var notification = new EventGuestNotificationFactory().Create(_clientConfig, eventDetails, adDetails, eventUrl, _eventBookingContext.Purchaser, guest);
-                        _broadcastManager.Queue(notification, guest);
-                    }
+                    var eventUrl = Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, includeSchemeAndProtocol: true, routeName: "Event");
+                    var notification = new EventGuestNotificationFactory().Create(_clientConfig, eventDetails, adDetails, eventUrl, _eventBookingContext.Purchaser, guest);
+                    _broadcastManager.Queue(notification, guest);
                 }
-
+                
                 return View(viewModel);
             }
             finally
@@ -241,7 +238,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 _eventBookingContext.Clear();
             }
         }
-        
+
         [HttpPost, ActionName("assign-group")]
         public async Task<ActionResult> AssignGroupToTicket(int eventBookingTicketId, int? eventGroupId)
         {

@@ -21,18 +21,18 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         }
 
         [Route("")]
-        public async Task<IHttpActionResult> GetAllEvents()
+        public IHttpActionResult GetAllEvents()
         {
             // Get all current 
             var eventContractFactory = new EventContractFactory();
             var contracts = _searchService.GetCurrentEvents()
                 .Select(eventContractFactory.FromModel);
 
-            return Ok(await Task.FromResult(contracts));
+            return Ok(contracts);
         }
 
         [Route("{id:int}")]
-        public async Task<IHttpActionResult> GetEvent(int id)
+        public IHttpActionResult GetEvent(int id)
         {
             var searchResult = _searchService
                 .GetCurrentEvents()
@@ -42,7 +42,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api
                 return NotFound();
 
             var contract = new EventContractFactory().FromModel(searchResult);
-            return Ok(await Task.FromResult(contract));
+            return Ok(contract);
         }
 
         [Route("{id:int}/groups")]
@@ -79,7 +79,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         }
 
         [Route("{id:int}/tickets")]
-        public async Task<IHttpActionResult> GetEventTicketTypes(int id)
+        public IHttpActionResult GetEventTicketTypes(int id)
         {
             var eventDetails = _eventManager.GetEventDetails(id);
             if (eventDetails == null)
@@ -87,7 +87,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api
 
             var tickets = eventDetails.Tickets.Select(t => new EventTicketContractFactory().FromModel(t));
 
-            return Ok(await Task.FromResult(tickets));
+            return Ok(tickets);
         }
 
         /// <summary>

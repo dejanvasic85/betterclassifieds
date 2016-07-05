@@ -16,7 +16,7 @@ namespace Paramount.Betterclassifieds.Tests.Api
     public class EventApiControllerTests : TestContext<EventApiController>
     {
         [Test]
-        public async void GetAllEvents_ReturnsOk()
+        public void GetAllEvents_ReturnsOk()
         {
             // Arrange
             IEnumerable<EventSearchResult> mockSearchResults = new[]
@@ -31,7 +31,7 @@ namespace Paramount.Betterclassifieds.Tests.Api
                 mockSearchResults);
 
             var controller = BuildTargetObject();
-            var events = await controller.GetAllEvents();
+            var events = controller.GetAllEvents();
 
             events.IsNotNull();
             var result = events
@@ -41,7 +41,7 @@ namespace Paramount.Betterclassifieds.Tests.Api
         }
 
         [Test]
-        public async void GetEvent_HasEvent_ReturnsOk()
+        public void GetEvent_HasEvent_ReturnsOk()
         {
             IEnumerable<EventSearchResult> mockSearchResults = new[]
             {
@@ -55,7 +55,7 @@ namespace Paramount.Betterclassifieds.Tests.Api
                 mockSearchResults);
 
             var controller = BuildTargetObject();
-            var events = await controller.GetEvent(123);
+            var events = controller.GetEvent(123);
 
             events.IsNotNull();
             var result = events

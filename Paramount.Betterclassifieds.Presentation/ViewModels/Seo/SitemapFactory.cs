@@ -24,12 +24,12 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Seo
         public string Create()
         {
             XNamespace xmlns = "http://www.sitemaps.org/schemas/sitemap/0.9";
-            XElement root = new XElement(xmlns + "urlset");
+            XElement root = new XElement(xmlns + "sitemapindex");
 
             foreach (var sitemapNode in GetNodes())
             {
                 XElement urlElement = new XElement(
-            xmlns + "url",
+            xmlns + "sitemap",
             new XElement(xmlns + "loc", Uri.EscapeUriString(sitemapNode.Url.ToLower())),
             sitemapNode.LastModified == null ? null : new XElement(
                 xmlns + "lastmod",

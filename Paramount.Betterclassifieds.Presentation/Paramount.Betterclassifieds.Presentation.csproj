@@ -337,6 +337,9 @@
     <Compile Include="ViewModels\Events\ManageGroupsViewModel.cs" />
     <Compile Include="ViewModels\Events\ReserveTicketsViewModel.cs" />
     <Compile Include="ViewModels\Events\TicketingPricesExplainedViewModel.cs" />
+    <Compile Include="ViewModels\Seo\SitemapFactory.cs" />
+    <Compile Include="ViewModels\Seo\SitemapFrequency.cs" />
+    <Compile Include="ViewModels\Seo\SitemapNode.cs" />
     <Compile Include="ViewModels\StripePaymentViewModel.cs" />
     <Compile Include="ViewModels\UserNetwork\UserNetworkEmailView.cs" />
     <Compile Include="ViewModels\CategoryView.cs" />

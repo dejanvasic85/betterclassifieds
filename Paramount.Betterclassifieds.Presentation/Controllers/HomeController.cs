@@ -7,6 +7,9 @@
     using ViewModels;
     using System.Linq;
     using System.Web.Mvc;
+    using ViewModels.Seo;
+    using System.Text;
+    using System.Web;
 
     public class HomeController : Controller, IMappingBehaviour
     {
@@ -14,20 +17,22 @@
         private readonly IClientConfig _clientConfig;
         private readonly IBroadcastManager _broadcastManager;
         private readonly IEnquiryManager _enquiryManager;
+        private readonly SitemapFactory _sitemapProvider;
 
-        public HomeController(ISearchService searchService, IClientConfig clientConfig, IBroadcastManager broadcastManager, IEnquiryManager enquiryManager)
+        public HomeController(ISearchService searchService, IClientConfig clientConfig, IBroadcastManager broadcastManager, IEnquiryManager enquiryManager, SitemapFactory sitemapFactory)
         {
             _searchService = searchService;
             _clientConfig = clientConfig;
             _broadcastManager = broadcastManager;
             _enquiryManager = enquiryManager;
+            _sitemapProvider = sitemapFactory;
         }
 
         public ActionResult Index()
         {
             var results = _searchService.GetLatestAds(pageSize: 6);
             var adSummaryViewModels = this.MapList<AdSearchResult, AdSummaryViewModel>(results.ToList());
-            
+
             return View(new HomeModel
             {
                 AdSummaryList = adSummaryViewModels
@@ -51,7 +56,7 @@
         {
             if (!ModelState.IsValid)
             {
-                return Json(new {isValid = false});
+                return Json(new { isValid = false });
             }
 
             _broadcastManager.SendEmail(new SupportRequest
@@ -66,7 +71,7 @@
                 contactUsView.Email,
                 contactUsView.Phone,
                 contactUsView.Comment);
-            
+
             return Json(new { IsValid = true });
         }
 
@@ -74,6 +79,13 @@
         public ActionResult Terms()
         {
             return View();
+        }
+
+        [Route("sitemap.xml")]
+        public ActionResult Sitemap()
+        {
+            var xml = _sitemapProvider.Create();
+            return Content(xml, ContentType.Xml, Encoding.UTF8);
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

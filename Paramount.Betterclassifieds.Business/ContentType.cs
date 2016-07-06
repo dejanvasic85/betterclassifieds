@@ -6,5 +6,6 @@
         public const string Pdf = "application/pdf";
         public const string Jpeg = "image/jpeg";
         public const string Calendar = "text/calendar";
+        public const string Xml = "text/xml";
     }
 }

@@ -9,6 +9,7 @@ using Paramount.Betterclassifieds.Presentation.ViewModels;
 using Paramount.Betterclassifieds.Tests.Mocks;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using Paramount.Betterclassifieds.Presentation.ViewModels.Seo;
 
 namespace Paramount.Betterclassifieds.Tests.Controllers
 {
@@ -18,10 +19,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         public void Index_CallsSearchServiceForLatestSix_ReturnsSummary()
         {
             // Arrange
-            CreateMockOf<IBroadcastManager>();
-            CreateMockOf<IEnquiryManager>();
-            CreateMockOf<IClientConfig>();
-            CreateMockOf<ISearchService>()
+            _mockSearchService
                 .SetupWithVerification(call => call.GetLatestAds(It.Is<int>(a => a == 6)),
                 new List<AdSearchResult>
                 {
@@ -44,11 +42,9 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         public void ContactUs_Get_ReturnsContactModelAndAddress()
         {
             // Arrange
-            CreateMockOf<IBroadcastManager>();
-            CreateMockOf<IEnquiryManager>();
-            CreateMockOf<ISearchService>();
-            var clientConfigMock = CreateMockOf<IClientConfig>();
-            clientConfigMock.SetupGet(prop => prop.ClientAddress)
+           
+           
+            _mockClientConfig.SetupGet(prop => prop.ClientAddress)
             .Returns(new Address
             {
                 StreetNumber = "Company co...",
@@ -58,8 +54,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 State = "VIC",
                 Suburb = "Melbourne"
             });
-            clientConfigMock.SetupGet(prop => prop.ClientPhoneNumber).Returns("03999999");
-            clientConfigMock.SetupGet(prop => prop.ClientAddressLatLong).Returns(new Tuple<string, string>("1","2"));
+            _mockClientConfig.SetupGet(prop => prop.ClientPhoneNumber).Returns("03999999");
+            _mockClientConfig.SetupGet(prop => prop.ClientAddressLatLong).Returns(new Tuple<string, string>("1","2"));
 
 
             // Act
@@ -89,14 +85,13 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 Phone = "555 498"
             };
 
-            CreateMockOf<ISearchService>();
-            CreateMockOf<IBroadcastManager>()
+            _mockBroadcastManager
                 .SetupWithVerification(call => call.SendEmail(
                     It.IsAny<SupportRequest>(),
                     It.Is<string[]>(s => s == supportEmails)),
                     result: It.IsAny<Notification>());
 
-            CreateMockOf<IEnquiryManager>()
+            _mockEnquiryManager
                 .SetupWithVerification(call => call.CreateSupportEnquiry(
                     It.Is<string>(s => s == mockModel.FullName),
                     It.Is<string>(s => s == mockModel.Email),
@@ -104,7 +99,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                     It.Is<string>(s => s == mockModel.Comment),
                     It.IsAny<string>()));
 
-            CreateMockOf<IClientConfig>()
+            _mockClientConfig
                 .SetupGet(prop => prop.SupportEmailList).Returns(supportEmails).Verifiable();
 
             // Act
@@ -113,6 +108,23 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             // Assert
             var result = controller.ContactUs(mockModel);
             result.IsTypeOf<JsonResult>();
+        }
+
+
+        private Mock<IBroadcastManager> _mockBroadcastManager;
+        private Mock<IEnquiryManager> _mockEnquiryManager;
+        private Mock<IClientConfig> _mockClientConfig;
+        private Mock<ISearchService> _mockSearchService;
+        private Mock<ISitemapFactory> _mockSitemapFactory;
+
+        [SetUp]
+        public void SetupDependencies()
+        {
+            _mockBroadcastManager = CreateMockOf<IBroadcastManager>();
+            _mockEnquiryManager = CreateMockOf<IEnquiryManager>();
+            _mockClientConfig = CreateMockOf<IClientConfig>();
+            _mockSearchService = CreateMockOf<ISearchService>();
+            _mockSitemapFactory = CreateMockOf<ISitemapFactory>();
         }
     }
 }

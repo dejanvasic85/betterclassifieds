@@ -53,7 +53,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             if (routes == null)
             {
                 routes = new RouteCollection();
-                Paramount.Betterclassifieds.Presentation.RouteConfig.RegisterRoutes(routes);
+                Paramount.Betterclassifieds.Presentation.RouteConfig.RegisterRoutes(routes, false);
             }
             
             var mockRequestContext = new RequestContext(mockHttpContext.Object, routeData);

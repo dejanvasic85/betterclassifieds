@@ -9,7 +9,7 @@ using Paramount.Betterclassifieds.Business.Search;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Seo
 {
-    public class SitemapFactory
+    public class SitemapFactory : ISitemapFactory
     {
         private readonly HttpContextBase _httpContext;
         private readonly ISearchService _searchService;

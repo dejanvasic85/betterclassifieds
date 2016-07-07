@@ -27,7 +27,7 @@ namespace Paramount.Betterclassifieds.Presentation
 
             LoggingConfig.Register(logService);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters, container);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            RouteConfig.RegisterRoutes(RouteTable.Routes, includeAttributeRoutes: true);
             ModelBindingConfig.Register(ModelBinders.Binders);
             BundleConfig.Register(BundleTable.Bundles);
             BundleConfig.RegisterStyles(BundleTable.Bundles);

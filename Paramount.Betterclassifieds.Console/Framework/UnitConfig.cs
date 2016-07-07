@@ -14,6 +14,7 @@ using Paramount.Betterclassifieds.DataService.Broadcast;
 using Paramount.Betterclassifieds.DataService.Repository;
 using Paramount.Betterclassifieds.Presentation;
 using Paramount.Betterclassifieds.Presentation.Services;
+using Paramount.Betterclassifieds.Presentation.ViewModels.Seo;
 using Paramount.Betterclassifieds.Security;
 
 namespace Paramount.Betterclassifieds.Console
@@ -79,6 +80,7 @@ namespace Paramount.Betterclassifieds.Console
                 .RegisterType<ITemplatingService, TemplatingService>()
                 .RegisterType<ILocationService, LocationService>()
                 .RegisterType<ILogService, LogService>()
+                .RegisterType<ISitemapFactory, SitemapFactory>()
 
             // Console framework
                 .RegisterType<ILogger, ConsoleLogger>()

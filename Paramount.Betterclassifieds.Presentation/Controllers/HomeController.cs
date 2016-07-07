@@ -9,7 +9,6 @@
     using System.Web.Mvc;
     using ViewModels.Seo;
     using System.Text;
-    using System.Web;
 
     public class HomeController : Controller, IMappingBehaviour
     {
@@ -17,9 +16,9 @@
         private readonly IClientConfig _clientConfig;
         private readonly IBroadcastManager _broadcastManager;
         private readonly IEnquiryManager _enquiryManager;
-        private readonly SitemapFactory _sitemapProvider;
+        private readonly ISitemapFactory _sitemapProvider;
 
-        public HomeController(ISearchService searchService, IClientConfig clientConfig, IBroadcastManager broadcastManager, IEnquiryManager enquiryManager, SitemapFactory sitemapFactory)
+        public HomeController(ISearchService searchService, IClientConfig clientConfig, IBroadcastManager broadcastManager, IEnquiryManager enquiryManager, ISitemapFactory sitemapFactory)
         {
             _searchService = searchService;
             _clientConfig = clientConfig;

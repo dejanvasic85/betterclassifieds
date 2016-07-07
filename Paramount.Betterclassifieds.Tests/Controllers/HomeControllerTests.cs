@@ -9,7 +9,7 @@ using Paramount.Betterclassifieds.Presentation.ViewModels;
 using Paramount.Betterclassifieds.Tests.Mocks;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using Paramount.Betterclassifieds.Presentation.ViewModels.Seo;
+using Paramount.Betterclassifieds.Presentation.Services.Seo;
 
 namespace Paramount.Betterclassifieds.Tests.Controllers
 {

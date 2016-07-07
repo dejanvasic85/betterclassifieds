@@ -20,6 +20,7 @@
     using Payments.pp;
     using Payments.Stripe;
     using Services;
+    using Services.Seo;
     using ViewModels;
     using Unity.Mvc5;
 
@@ -97,6 +98,7 @@
                 // UI Services
                 .RegisterType<ITemplatingService, TemplatingService>()
                 .RegisterType<ILocationService, LocationService>()
+                .RegisterType<ISitemapFactory, SitemapFactory>()
                 ;
 
             return container;

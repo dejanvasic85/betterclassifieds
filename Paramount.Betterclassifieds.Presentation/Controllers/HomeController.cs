@@ -7,8 +7,8 @@
     using ViewModels;
     using System.Linq;
     using System.Web.Mvc;
-    using ViewModels.Seo;
     using System.Text;
+    using Services.Seo;
 
     public class HomeController : Controller, IMappingBehaviour
     {

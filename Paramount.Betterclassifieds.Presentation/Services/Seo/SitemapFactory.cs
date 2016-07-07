@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using System.Xml.Linq;
 using Paramount.Betterclassifieds.Business.Search;
 
-namespace Paramount.Betterclassifieds.Presentation.ViewModels.Seo
+namespace Paramount.Betterclassifieds.Presentation.Services.Seo
 {
     public class SitemapFactory : ISitemapFactory
     {

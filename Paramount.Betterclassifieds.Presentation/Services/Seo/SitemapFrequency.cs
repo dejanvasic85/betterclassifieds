@@ -1,4 +1,4 @@
-namespace Paramount.Betterclassifieds.Presentation.ViewModels.Seo
+namespace Paramount.Betterclassifieds.Presentation.Services.Seo
 {
     public enum SitemapFrequency
     {

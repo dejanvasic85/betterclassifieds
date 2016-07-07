@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Paramount.Betterclassifieds.Presentation.ViewModels.Seo
+namespace Paramount.Betterclassifieds.Presentation.Services.Seo
 {
     public class SitemapNode
     {

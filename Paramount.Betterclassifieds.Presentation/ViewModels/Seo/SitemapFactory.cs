@@ -61,6 +61,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Seo
                 new SitemapNode {Priority = 0.9, Url = urlHelper.ContactUs().WithFullUrl()},
                 new SitemapNode {Priority = 0.9, Url = urlHelper.DashboardHelp().WithFullUrl()},
                 new SitemapNode {Priority = 0.9, Url = urlHelper.BarcodeValidationHelp().WithFullUrl()},
+                new SitemapNode {Priority = 0.9, Url = urlHelper.EventPricing().WithFullUrl()},
             }
                 .Union(adSitemaps)
                 .ToList();

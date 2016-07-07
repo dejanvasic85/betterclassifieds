@@ -522,6 +522,7 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="google6d6dd560af3e4a91.html" />
     <Content Include="Scripts\app-global\google-map.js" />
     <Content Include="Scripts\app-global\ko-customBindings.js" />
     <Content Include="Scripts\app-global\ko-customValidation.js" />

@@ -544,6 +544,7 @@
     <Content Include="Content\event-ticket-print.css.map">
       <DependentUpon>event-ticket-print.css</DependentUpon>
     </Content>
+    <None Include="bundleconfig.json" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>

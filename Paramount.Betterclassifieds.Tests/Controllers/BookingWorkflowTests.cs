@@ -25,7 +25,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             BookingWorkflowConfig.Register(BookingWorkflowTable.Workflows);
             _urlHelper = new UrlHelper(mockRequestContext);
-            _bookingCart = new BookingCart("session_123", "foo_bar");
+            _bookingCart = BookingCart.Create("session_123", "foo_bar");
         }
 
         [Test]

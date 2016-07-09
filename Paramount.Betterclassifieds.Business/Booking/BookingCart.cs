@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Paramount.Betterclassifieds.Business.Events;
 
@@ -12,50 +11,46 @@ namespace Paramount.Betterclassifieds.Business.Booking
     /// </summary>
     public class BookingCart : IAdRateContext, IBookingCart
     {
-
-        public BookingCart(string sessionId, string userId)
+        public static BookingCart Create(string sessionId, string userId)
         {
-            Id = Guid.NewGuid().ToString();
-            SessionId = sessionId;
-            UserId = userId;
-            BookingReference = Id.Substring(0, 6).ToUpper();
-            Publications = new int[] { };
-            CompletedSteps = new List<int>();
-            OnlineAdModel = new OnlineAdModel();
-            LineAdModel = new LineAdModel();
+            return Create(sessionId, userId, null, null);
         }
 
         public static BookingCart Create(string sessionId, string userId, AdBookingModel bookingModel, IClientConfig clientConfig)
         {
-            // Create the new booking for user and session
-            // Map the online/linead and category details
-            var cart = new BookingCart(sessionId, userId)
+            var id = Guid.NewGuid().ToString();
+            var cart = new BookingCart
             {
-                OnlineAdModel = bookingModel.OnlineAd,
-                CategoryId = bookingModel.CategoryId,
-                SubCategoryId = bookingModel.SubCategoryId,
+                Id = id,
+                BookingReference = id.Substring(0,5).ToUpper(),
+                SessionId = sessionId,
+                UserId = userId,
             };
+
+
+            if (bookingModel != null)
+            {
+                cart.OnlineAdModel = bookingModel.OnlineAd;
+                cart.CategoryId = bookingModel.CategoryId;
+                cart.SubCategoryId = bookingModel.SubCategoryId;
+            }
+
 
             // The brands are no longer supporting print.
             // But JUST IN Case we land a new client that wants print then we are doing this!
-            if (clientConfig.IsPrintEnabled)
+            if (clientConfig != null && clientConfig.IsPrintEnabled && bookingModel != null)
             {
                 cart.LineAdModel = bookingModel.LineAd;
                 cart.Publications = bookingModel.Publications;
+                cart.SetSchedule(clientConfig, DateTime.Today, firstEditionDate: DateTime.Today, numberOfInsertions: bookingModel.Insertions);
             }
-
-            // Set the schedule
-            cart.SetSchedule(clientConfig, DateTime.Today, firstEditionDate: DateTime.Today, numberOfInsertions: bookingModel.Insertions);
+            
             return cart;
         }
 
-        public string SessionId { get; private set; }
+        public string SessionId { get; set; }
 
-        public string Id { get; private set; }
-
-        public bool Completed { get; private set; }
-
-        public List<int> CompletedSteps { get; private set; }
+        public string Id { get; set; }
 
         public string UserId { get; set; }
 
@@ -66,7 +61,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
 
         public int[] Publications { get; set; }
 
-        public DateTime? StartDate { get; private set; }
+        public DateTime? StartDate { get; set; }
 
         public DateTime? GetStartDateOrMinimum()
         {
@@ -120,29 +115,6 @@ namespace Paramount.Betterclassifieds.Business.Booking
         public DateTime? PrintFirstEditionDate { get; private set; }
 
         public EventModel Event { get; set; }
-
-        public void CompleteStep(int step)
-        {
-            if (CompletedSteps.Contains(step))
-            {
-                return;
-            }
-
-            CompletedSteps.Add(step);
-        }
-
-        public int GetLastCompletedStepNumber()
-        {
-            if (CompletedSteps.Count == 0)
-                return 0;
-
-            return CompletedSteps.Last();
-        }
-
-        public void Complete()
-        {
-            Completed = true;
-        }
 
         public void UpdateByPricingFactors(PricingFactors pricingFactors)
         {

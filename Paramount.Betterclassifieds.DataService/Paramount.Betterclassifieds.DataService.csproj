@@ -101,6 +101,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BookCart\BookCartDocumentRepository.cs" />
     <Compile Include="Broadcast\BroadcastContext.cs" />
     <Compile Include="Broadcast\BroadcastRepository.cs" />
     <Compile Include="Broadcast\MappingConfig\NotificationConfiguration.cs" />

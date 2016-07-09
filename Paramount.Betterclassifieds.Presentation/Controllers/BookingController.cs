@@ -69,7 +69,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var category = _searchService.GetCategories().Single(c => c.MainCategoryId == bookingCart.SubCategoryId);
             bookingCart.CategoryAdType = category.CategoryAdType;
 
-            bookingCart.CompleteStep(1);
             _cartRepository.Save(bookingCart);
 
             var workflow = new BookingWorkflowController<CategorySelectionStep>(Url, bookingCart);
@@ -146,7 +145,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             bookingCart.SetSchedule(_clientConfig, viewModel.StartDate.GetValueOrDefault(), viewModel.FirstPrintDateFormatted, viewModel.PrintInsertions);
 
             // Save and continue
-            bookingCart.CompleteStep(2);
             _cartRepository.Save(bookingCart);
 
             var currentStep = new BookingWorkflowController<DesignOnlineAdStep>(Url, bookingCart);
@@ -187,7 +185,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return View(viewModel);
             }
             // Complete the booking cart (needs to move on now)
-            bookingCart.CompleteStep(3);
             bookingCart.UserId = _userManager.GetCurrentUser(this.User).Username;
 
             if (bookingCart.NoPaymentRequired())
@@ -229,7 +226,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var id = _bookingManager.CreateBooking(bookingCart, bookingOrder);
 
             // Complete the booking
-            bookingCart.Complete();
             _cartRepository.Save(bookingCart);
 
             var currentUser = _userManager.GetCurrentUser(User);
@@ -381,7 +377,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             this.Map(eventViewModel, bookingCart);
-            bookingCart.CompleteStep(2);
             _cartRepository.Save(bookingCart);
 
             var designTicketingStep = new BookingWorkflowController<DesignEventStep>(Url, bookingCart);

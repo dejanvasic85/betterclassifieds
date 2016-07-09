@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Print;
 
@@ -9,8 +8,6 @@ namespace Paramount.Betterclassifieds.Business.Booking
     {
         string SessionId { get; }
         string Id { get; }
-        bool Completed { get; }
-        List<int> CompletedSteps { get; }
         string UserId { get; set; }
         int? CategoryId { get; set; }
         int? SubCategoryId { get; set; }
@@ -30,9 +27,6 @@ namespace Paramount.Betterclassifieds.Business.Booking
         DateTime? GetStartDateOrMinimum();
         bool NoPaymentRequired();
         void SetSchedule(IClientConfig clientConfig, DateTime startDate, DateTime? firstEditionDate = null, int? numberOfInsertions = null);
-        void CompleteStep(int step);
-        int GetLastCompletedStepNumber();
-        void Complete();
         void UpdateByPricingFactors(PricingFactors pricingFactors);
     }
 }

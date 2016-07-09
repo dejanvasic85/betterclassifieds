@@ -50,7 +50,7 @@
                 .RegisterType<IBroadcastRepository, BroadcastRepository>()
                 .RegisterType<IDocumentRepository, DocumentRepository>()
                 .RegisterType<IAdRepository, AdRepository>()
-                .RegisterType<IBookCartRepository, BookCartRepository>()
+                .RegisterType<IBookCartRepository, BookCartDocumentRepository>()
                 .RegisterType<IEditionRepository, EditionRepository>()
                 .RegisterType<IInvoiceRepository, InvoiceRepository>()
                 .RegisterType<ICategoryAdRepositoryFactory, CategoryRepositoryFactory>()

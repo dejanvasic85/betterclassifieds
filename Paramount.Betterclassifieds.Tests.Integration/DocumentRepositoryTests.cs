@@ -18,7 +18,7 @@ namespace Paramount.Betterclassifieds.Payments.Stripe.Tests
         {
             var repo = new DocumentRepository(new DbContextFactory());
 
-            var bookingCart = new BookingCart("session123", "tempuser");
+            var bookingCart = BookingCart.Create("session123", "tempuser");
             var documentId = new Guid(bookingCart.Id);
             var jsonData = JsonConvert.SerializeObject(bookingCart);
             var bytes = Encoding.ASCII.GetBytes(jsonData);            

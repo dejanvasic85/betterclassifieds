@@ -1,7 +1,7 @@
 ﻿using System.Monads;
+using System.Web;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
-using System.Web;
 using Paramount.Utility;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels
@@ -17,7 +17,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         private readonly HttpContextBase _httpContext;
         private readonly ILogService _logService;
 
-        public BookingContextInCookie(IBookCartRepository repository, IClientConfig clientConfig, 
+        public BookingContextInCookie(IBookCartRepository repository, IClientConfig clientConfig,
             HttpContextBase httpContext, ILogService logService)
         {
             _repository = repository;
@@ -28,16 +28,22 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
         public BookingCart Current()
         {
-            var booking = _repository.GetBookingCart(Id);
-
-            if (booking == null)
+            if (Id.HasValue())
             {
-                _logService.Info("Booking created");
-                booking = new BookingCart(_httpContext.With(c => c.Session).SessionID, _httpContext.User.Identity.Name);
-                _repository.Save(booking);
-                Id = booking.Id;
+                var booking = _repository.GetBookingCart(Id);
+                if (booking != null)
+                    return booking;
             }
 
+            return Create();
+        }
+
+        private BookingCart Create()
+        {
+            _logService.Info("Booking created");
+            var booking = BookingCart.Create(_httpContext.With(c => c.Session).SessionID, _httpContext.User.Identity.Name);
+            _repository.Save(booking);
+            Id = booking.Id;
             return booking;
         }
 
@@ -46,9 +52,12 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         /// </summary>
         public BookingCart NewFromTemplate(AdBookingModel adBookingTemplate)
         {
-            var booking = BookingCart.Create(_httpContext.With(c => c.Session).SessionID, _httpContext.User.Identity.Name, adBookingTemplate, _clientConfig);
+            var booking = BookingCart.Create(_httpContext.With(c => c.Session).SessionID,
+                _httpContext.With(h => h.User).With(u => u.Identity).With(i => i.Name),
+                adBookingTemplate,
+                _clientConfig);
 
-            this.Id = booking.Id;
+            Id = booking.Id;
             _repository.Save(booking);
 
             return booking;
@@ -61,7 +70,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
         public void Clear()
         {
-            this.Id = null;
+            Id = null;
         }
 
         private string Id
@@ -85,10 +94,12 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             }
             set
             {
-                var bookingCookie = new HttpCookie(BookingCookieName);
-                bookingCookie.Value = value.HasValue()
-                    ? CryptoHelper.Encrypt(value)
-                    : value;
+                var bookingCookie = new HttpCookie(BookingCookieName)
+                {
+                    Value = value.HasValue()
+                        ? CryptoHelper.Encrypt(value)
+                        : value
+                };
 
                 _httpContext.Response.Cookies.Add(bookingCookie);
             }

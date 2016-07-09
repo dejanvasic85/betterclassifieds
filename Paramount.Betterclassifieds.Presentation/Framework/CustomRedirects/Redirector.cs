@@ -15,6 +15,11 @@ namespace Paramount.Betterclassifieds.Presentation
             return new RedirectToRouteResult(Create("MakePayment", "Event"));
         }
 
+        public ActionResult BookingStepOne()
+        {
+            return new RedirectToRouteResult(Create("Step1", "Booking"));
+        }
+
         private RouteValueDictionary Create(string action, string controller)
         {
             return new RouteValueDictionary

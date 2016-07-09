@@ -15,11 +15,7 @@ namespace Paramount.Betterclassifieds.DataService
             if (id.IsNullOrEmpty())
                 return null;
 
-            var cart = Collection.FindOneByIdAs<BookingCart>(id);
-            if (cart == null || cart.Completed)
-                return null;
-
-            return cart;
+            return Collection.FindOneByIdAs<BookingCart>(id);
         }
 
         public IBookingCart Save(IBookingCart bookingCart)

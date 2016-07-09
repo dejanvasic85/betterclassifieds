@@ -160,7 +160,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                 fileName: $"{eventBookingId}_.pdf",
                 fileLength: ticketPdfData.Length);
 
-            _documentRepository.Save(pdfDocument);
+            _documentRepository.Create(pdfDocument);
 
             var eventBooking = _eventRepository.GetEventBooking(eventBookingId, includeEvent: false);
             eventBooking.TicketsDocumentId = pdfDocument.DocumentId;

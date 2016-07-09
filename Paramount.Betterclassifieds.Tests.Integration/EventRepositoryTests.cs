@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.DataService;
 using Paramount.Betterclassifieds.DataService.Events;

@@ -98,7 +98,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var mockSentDateTime = DateTime.Now;
             var mockEventBooking = new EventBookingMockBuilder().WithEventBookingId(mockEventBookingId).Build();
 
-            _documentRepository.SetupWithVerification(call => call.Save(It.IsAny<Document>()));
+            _documentRepository.SetupWithVerification(call => call.Create(It.IsAny<Document>()));
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventBooking(It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<bool>()), result: mockEventBooking);
             _eventRepositoryMock.SetupWithVerification(call => call.UpdateEventBooking(It.Is<EventBooking>(eb => eb == mockEventBooking)));
 

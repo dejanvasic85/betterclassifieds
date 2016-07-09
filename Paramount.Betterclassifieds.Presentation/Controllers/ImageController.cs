@@ -63,7 +63,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var imageDocument = new Document(documentId, uploadedFile.InputStream.FromStream(), uploadedFile.ContentType,
                 uploadedFile.FileName, uploadedFile.ContentLength, this.User.Identity.Name);
 
-            _documentRepository.Save(imageDocument);
+            _documentRepository.Create(imageDocument);
 
             return Json(new { documentId }, JsonRequestBehavior.AllowGet);
         }
@@ -110,7 +110,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var floorplanDocument = new Document(Guid.NewGuid(), uploadedFile.InputStream.FromStream(), uploadedFile.ContentType,
                 uploadedFile.FileName, uploadedFile.ContentLength, this.User.Identity.Name);
 
-            _documentRepository.Save(floorplanDocument);
+            _documentRepository.Create(floorplanDocument);
 
             return Json(new { floorplanDocument.DocumentId, floorplanDocument.FileName });
         }
@@ -143,7 +143,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 }
                 cropped.Save(stream, ImageFormat.Jpeg);
                 var document = new Document(documentId, stream.ToArray(), "image/jpeg", fileName, (int)stream.Length);
-                _documentRepository.Save(document);
+                _documentRepository.Create(document);
             }
 
             // Clean the existing document

@@ -6,8 +6,10 @@ namespace Paramount.Betterclassifieds.Business.DocumentStorage
     {
         Document GetDocument(Guid documentId);
 
-        void Save(Document document);
+        void Create(Document document);
         
         void DeleteDocument(Guid documentId);
+
+        void UpdateDocument(Document document);
     }
 }

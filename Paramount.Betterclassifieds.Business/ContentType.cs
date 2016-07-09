@@ -7,5 +7,6 @@
         public const string Jpeg = "image/jpeg";
         public const string Calendar = "text/calendar";
         public const string Xml = "text/xml";
+        public const string Json = "application/json";
     }
 }

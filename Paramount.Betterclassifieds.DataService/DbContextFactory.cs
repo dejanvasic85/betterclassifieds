@@ -15,6 +15,7 @@ namespace Paramount.Betterclassifieds.DataService
         UserMembershipDataContext CreateMembershipContext();
         BroadcastContext CreateBroadcastContext();
         EventDbContext CreateEventContext();
+        DocumentContext CreateDocumentContext();
     }
 
 
@@ -51,6 +52,11 @@ namespace Paramount.Betterclassifieds.DataService
         public EventDbContext CreateEventContext()
         {
             return new EventDbContext();
+        }
+
+        public DocumentContext CreateDocumentContext()
+        {
+            return new DocumentContext();
         }
     }
 }

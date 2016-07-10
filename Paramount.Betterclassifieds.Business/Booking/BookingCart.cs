@@ -25,6 +25,8 @@ namespace Paramount.Betterclassifieds.Business.Booking
                 BookingReference = id.Substring(0,5).ToUpper(),
                 SessionId = sessionId,
                 UserId = userId,
+                OnlineAdModel = new OnlineAdModel(),
+                LineAdModel = new LineAdModel()
             };
 
 

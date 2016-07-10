@@ -8,6 +8,7 @@
         string[] EmailGuestList { get; set; }
         string Purchaser { get; set; }
         long? EventInvitationId { get; set; }
+        bool EventBookingComplete { get; set; }
         void Clear();
     }
 
@@ -27,6 +28,7 @@
         public string[] EmailGuestList { get; set; }
         public string Purchaser { get; set; }
         public long? EventInvitationId { get; set; }
+        public bool EventBookingComplete { get; set; }
 
         public void Clear()
         {
@@ -34,6 +36,7 @@
             EventBookingId = null;
             EventBookingPaymentReference = null;
             EmailGuestList = new string[0];
+            EventBookingComplete = false;
             Purchaser = null;
         }
     }

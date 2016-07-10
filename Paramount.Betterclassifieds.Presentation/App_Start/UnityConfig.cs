@@ -16,7 +16,7 @@
     using Microsoft.Practices.Unity;
     using Security;
     using System.Web;
-    using System.Web.Mvc;    
+    using System.Web.Mvc;
     using Payments.pp;
     using Payments.Stripe;
     using Services;
@@ -60,7 +60,8 @@
                 .RegisterType<Business.Events.IEventRepository, DataService.Events.EventRepository>()
                 .RegisterType<IEventManager, EventManager>()
                 .RegisterType<IEventBarcodeManager, EventBarcodeManager>()
-                .RegisterType<Business.Events.IEventBookingContext, Business.Events.EventBookingContext>(new SessionLifetimeManager<Business.Events.EventBookingContext>())
+                .RegisterType<Business.Events.IEventBookingContext, Business.Events.EventBookingContext>(
+                    new SessionLifetimeManager<Business.Events.EventBookingContext>())
 
                 // Managers and Config
                 .RegisterType<IClientConfig, ClientConfig>()

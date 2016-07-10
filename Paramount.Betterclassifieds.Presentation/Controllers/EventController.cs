@@ -199,47 +199,41 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.GetValueOrDefault());
             var eventDetails = eventBooking.Event;
             var adDetails = _searchService.GetByAdOnlineId(eventDetails.OnlineAdId);
-
             var sessionId = _httpContext.With(h => h.Session).SessionID;
-            try
+
+            _eventManager.AdjustRemainingQuantityAndCancelReservations(sessionId, eventBooking.EventBookingTickets);
+
+            var eventTicketViewModelFactory = new ViewModels.Events.Factories.EventTicketPrintViewModelFactory();
+            var eventTicketViewModel = eventTicketViewModelFactory.FromEventBooking(Url, _barcodeManager, adDetails, eventDetails, eventBooking);
+            var ticketHtml = _templatingService.Generate(eventTicketViewModel, "Tickets");
+            var ticketPdfData = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(ticketHtml);
+            var viewModel = new EventBookedViewModel(adDetails, eventDetails, eventBooking, this.Url, _clientConfig, _httpContext);
+            var eventTicketsBookedNotification = this.Map<EventBookedViewModel, EventTicketsBookedNotification>(viewModel).WithTickets(ticketPdfData);
+
+            if (eventBooking.TotalCost > 0)
             {
-                _eventManager.AdjustRemainingQuantityAndCancelReservations(sessionId, eventBooking.EventBookingTickets);
-
-                var eventTicketViewModelFactory = new ViewModels.Events.Factories.EventTicketPrintViewModelFactory();
-                var eventTicketViewModel = eventTicketViewModelFactory.FromEventBooking(Url, _barcodeManager, adDetails, eventDetails, eventBooking);
-                var ticketHtml = _templatingService.Generate(eventTicketViewModel, "Tickets");
-                var ticketPdfData = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(ticketHtml);
-                var viewModel = new EventBookedViewModel(adDetails, eventDetails, eventBooking, this.Url, _clientConfig, _httpContext);
-                var eventTicketsBookedNotification = this.Map<EventBookedViewModel, EventTicketsBookedNotification>(viewModel).WithTickets(ticketPdfData);
-
-                if (eventBooking.TotalCost > 0)
-                {
-                    var applicationUser = _userManager.GetUserByEmailOrUsername(eventBooking.Email);
-                    var invoiceViewModel = new EventBookingInvoiceViewModel(_clientConfig, eventBooking, applicationUser, adDetails.Heading);
-                    var invoiceHtml = _templatingService.Generate(invoiceViewModel, "Invoice");
-                    var invoicePdf = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(invoiceHtml);
-                    eventTicketsBookedNotification.WithInvoice(invoicePdf);
-                }
-
-                _broadcastManager.Queue(eventTicketsBookedNotification, eventBooking.Email);
-                _eventManager.CreateEventTicketsDocument(eventBooking.EventBookingId, ticketPdfData, ticketsSentDate: DateTime.Now);
-
-                foreach (var guest in _eventBookingContext.With(ctx => ctx.EmailGuestList))
-                {
-                    var eventUrl = Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, adDetails.CategoryAdType).WithFullUrl();
-                    var notification = new EventGuestNotificationFactory().Create(_clientConfig, eventDetails, adDetails, eventUrl, _eventBookingContext.Purchaser, guest);
-                    _broadcastManager.Queue(notification, guest);
-                }
-                
-                return View(viewModel);
+                var applicationUser = _userManager.GetUserByEmailOrUsername(eventBooking.Email);
+                var invoiceViewModel = new EventBookingInvoiceViewModel(_clientConfig, eventBooking, applicationUser, adDetails.Heading);
+                var invoiceHtml = _templatingService.Generate(invoiceViewModel, "Invoice");
+                var invoicePdf = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(invoiceHtml);
+                eventTicketsBookedNotification.WithInvoice(invoicePdf);
             }
-            finally
+
+            _broadcastManager.Queue(eventTicketsBookedNotification, eventBooking.Email);
+            _eventManager.CreateEventTicketsDocument(eventBooking.EventBookingId, ticketPdfData, ticketsSentDate: DateTime.Now);
+
+            foreach (var guest in _eventBookingContext.With(ctx => ctx.EmailGuestList))
             {
-                _eventBookingContext.Clear();
+                var eventUrl = Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, adDetails.CategoryAdType).WithFullUrl();
+                var notification = new EventGuestNotificationFactory().Create(_clientConfig, eventDetails, adDetails, eventUrl, _eventBookingContext.Purchaser, guest);
+                _broadcastManager.Queue(notification, guest);
             }
+
+            _eventBookingContext.EventBookingComplete = true;
+            return View(viewModel);
         }
 
-        [HttpPost, ActionName("assign-group")]
+        [HttpPost, ActionName("assign-group"), EventBookingRequired(AllowCompleted = true)]
         public async Task<ActionResult> AssignGroupToTicket(int eventBookingTicketId, int? eventGroupId)
         {
             if (eventGroupId.HasValue)

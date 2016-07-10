@@ -342,7 +342,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventBookingContext.SetupWithVerification(call => call.EventBookingId, eventBookingMock.EventBookingId);
             _eventBookingContext.SetupWithVerification(call => call.EmailGuestList, new[] { "foo@bar.com", "code@me.com" });
             _eventBookingContext.SetupWithVerification(call => call.Purchaser, "George Clooney");
-            _eventBookingContext.SetupWithVerification(call => call.Clear());
+            _eventBookingContext.SetupSet<bool>(s => s.EventBookingComplete = true);
 
             _httpContext.SetupWithVerification(call => call.Session.SessionID, sessionMock);
             _httpContext.SetupWithVerification(call => call.Server.HtmlEncode(It.IsAny<string>()), "");

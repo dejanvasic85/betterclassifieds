@@ -384,9 +384,9 @@
     <Content Include="Content\animate.min.css">
       <DependentUpon>animate.css</DependentUpon>
     </Content>
-    <Content Include="Content\bootstrap-3.3.0.css" />
-    <Content Include="Content\bootstrap-3.3.0.min.css">
-      <DependentUpon>bootstrap-3.3.0.css</DependentUpon>
+    <Content Include="Content\bootstrap-3.3.6.css" />
+    <Content Include="Content\bootstrap-3.3.6.min.css">
+      <DependentUpon>bootstrap-3.3.6.css</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap-select.css" />
     <Content Include="Content\bootstrap-select.min.css">
@@ -543,6 +543,7 @@
     <Content Include="Content\event-ticket-print.css.map">
       <DependentUpon>event-ticket-print.css</DependentUpon>
     </Content>
+    <None Include="bundleconfig.json" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -593,7 +594,7 @@
     <Content Include="Scripts\app\userNetwork\userNetworkAdNotifier.model.js" />
     <Content Include="Scripts\app\userNetwork\userNetworkNotifyAd.ui.js" />
     <Content Include="Scripts\knockout\knockout.validation-2.0.3.js" />
-    <Content Include="Scripts\vendor\bootstrap-3.3.0.js" />
+    <Content Include="Scripts\vendor\bootstrap-3.3.6.js" />
     <Content Include="Scripts\vendor\bootstrap-clockpicker.js" />
     <Content Include="Scripts\vendor\bootstrap-datepicker.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />

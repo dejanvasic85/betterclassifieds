@@ -23,7 +23,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             AdId = searchResult.AdId;
             Title = searchResult.Heading;
             TitleSlug = searchResult.HeadingSlug;
-            EventUrl = urlHelper.AdUrl(searchResult.HeadingSlug, searchResult.AdId, true, searchResult.CategoryAdType);
+            EventUrl = urlHelper.AdUrl(searchResult.HeadingSlug, searchResult.AdId, searchResult.CategoryAdType).WithFullUrl();
             HtmlText = searchResult.HtmlText;
             Description = searchResult.Description;
             EventPhoto = searchResult.PrimaryImage;

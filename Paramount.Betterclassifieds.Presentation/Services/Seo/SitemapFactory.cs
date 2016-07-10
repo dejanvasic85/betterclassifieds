@@ -29,9 +29,9 @@ namespace Paramount.Betterclassifieds.Presentation.Services.Seo
             foreach (var sitemapNode in GetNodes())
             {
                 XElement urlElement = new XElement(xmlns + "sitemap",
-                    new XElement(xmlns + "loc", Uri.EscapeUriString(sitemapNode.Url.ToLower())), 
-                        sitemapNode.LastModified == null ? null : new XElement(xmlns + "lastmod", sitemapNode.LastModified.Value.ToLocalTime().ToString("yyyy-MM-ddTHH:mm:sszzz")), 
-                        sitemapNode.Frequency == null ? null : new XElement(xmlns + "changefreq", sitemapNode.Frequency.Value.ToString().ToLowerInvariant()), 
+                    new XElement(xmlns + "loc", Uri.EscapeUriString(sitemapNode.Url.ToLower())),
+                        sitemapNode.LastModified == null ? null : new XElement(xmlns + "lastmod", sitemapNode.LastModified.Value.ToLocalTime().ToString("yyyy-MM-ddTHH:mm:sszzz")),
+                        sitemapNode.Frequency == null ? null : new XElement(xmlns + "changefreq", sitemapNode.Frequency.Value.ToString().ToLowerInvariant()),
                         sitemapNode.Priority == null ? null : new XElement(xmlns + "priority", sitemapNode.Priority.Value.ToString("F1", CultureInfo.InvariantCulture)));
 
                 root.Add(urlElement);
@@ -49,9 +49,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services.Seo
             var adSitemaps = currentAds.Select(a => new SitemapNode
             {
                 Frequency = SitemapFrequency.Yearly,
-                Url = urlHelper.AdUrl(a.HeadingSlug, a.AdId,
-                    includeSchemeAndProtocol: true,
-                    routeName: a.CategoryAdType)
+                Url = urlHelper.AdUrl(a.HeadingSlug, a.AdId, a.CategoryAdType).WithFullUrl()
             });
 
             return new List<SitemapNode>
@@ -66,7 +64,5 @@ namespace Paramount.Betterclassifieds.Presentation.Services.Seo
                 .Union(adSitemaps)
                 .ToList();
         }
-
-
     }
 }

@@ -1,4 +1,5 @@
 using System.Monads;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Paramount
@@ -15,6 +16,7 @@ namespace Paramount
         public string Path { get; private set; }
         public bool IsFullUrl { get; private set; }
         public string RouteName { get; private set; }
+        public bool Encode { get; private set; }
 
         public UrlBuilder(UrlHelper urlHelper)
         {
@@ -54,6 +56,12 @@ namespace Paramount
             return this;
         }
 
+        public UrlBuilder WithEncoding()
+        {
+            Encode = true;
+            return this;
+        }
+        
         public string Build()
         {
             var protocol = UrlHelper.With(u => u.RequestContext)
@@ -66,7 +74,7 @@ namespace Paramount
             {
                 Path = IsFullUrl
                     ? UrlHelper.RouteUrl(this.RouteName, this.RouteValues, protocol)
-                    : UrlHelper.Action(this.RouteName, this.RouteValues);
+                    : UrlHelper.RouteUrl(this.RouteName, this.RouteValues);
             }
             else
             {
@@ -75,7 +83,10 @@ namespace Paramount
                     : UrlHelper.Action(this.Action, this.Controller, this.RouteValues);
             }
 
-            return this.Path;
+            if (!Encode)
+                return Path;
+
+            return HttpUtility.HtmlEncode(Path);
         }
 
         public override string ToString()

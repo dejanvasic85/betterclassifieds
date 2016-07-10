@@ -4,8 +4,9 @@
 
 @{
     Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
-    var urlWithProtocol = Url.AdUrl(Model.HeadingSlug, Model.AdId, true);
-    var encodedUrl = HttpUtility.UrlEncode(urlWithProtocol);
+    var adUrlBuilder = Url.AdUrl(Model.HeadingSlug, Model.AdId).WithFullUrl();
+    var urlWithProtocol = adUrlBuilder.Build();
+    var encodedUrl = adUrlBuilder.WithEncoding().Build();
 }
 
 @section HeadSection{

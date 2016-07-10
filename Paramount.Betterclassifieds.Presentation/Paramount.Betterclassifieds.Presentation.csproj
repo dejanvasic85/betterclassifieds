@@ -284,7 +284,6 @@
     <Compile Include="Framework\Filters\JsonHandlerAttribute.cs" />
     <Compile Include="Framework\ModelBinders\BookingCartBinder.cs" />
     <Compile Include="Framework\ModelBinders\ModelSpecificDateModelBinder.cs" />
-    <Compile Include="Framework\UrlHelpers\ModuleUrlHelper.cs" />
     <Compile Include="Framework\UrlHelpers\RedirectResultFactory.cs" />
     <Compile Include="Framework\UrlHelpers\UrlBuilder.cs" />
     <Compile Include="Framework\UrlHelpers\UrlPaths.cs" />

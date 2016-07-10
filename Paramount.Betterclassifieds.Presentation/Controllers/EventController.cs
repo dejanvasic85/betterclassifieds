@@ -226,7 +226,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
                 foreach (var guest in _eventBookingContext.With(ctx => ctx.EmailGuestList))
                 {
-                    var eventUrl = Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, includeSchemeAndProtocol: true, routeName: "Event");
+                    var eventUrl = Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, adDetails.CategoryAdType).WithFullUrl();
                     var notification = new EventGuestNotificationFactory().Create(_clientConfig, eventDetails, adDetails, eventUrl, _eventBookingContext.Purchaser, guest);
                     _broadcastManager.Queue(notification, guest);
                 }

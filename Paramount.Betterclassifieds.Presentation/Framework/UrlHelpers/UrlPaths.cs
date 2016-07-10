@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Paramount.Betterclassifieds.Business;
 
 namespace Paramount
@@ -9,12 +10,12 @@ namespace Paramount
     {
         public static string ContentAbsolute(this UrlHelper urlhelper, string relativeContentPath)
         {
-            Uri contextUri = urlhelper.RequestContext.HttpContext.Request.Url;
+            var contextUri = urlhelper.RequestContext.HttpContext.Request.Url;
 
-            var baseUri = string.Format("{0}://{1}{2}", contextUri.Scheme,
-               contextUri.Host, contextUri.Port == 80 ? string.Empty : ":" + contextUri.Port);
+            var baseUri =
+                $"{contextUri.Scheme}://{contextUri.Host}{(contextUri.Port == 80 ? string.Empty : ":" + contextUri.Port)}";
 
-            return string.Format("{0}{1}", baseUri, VirtualPathUtility.ToAbsolute(relativeContentPath));
+            return $"{baseUri}{VirtualPathUtility.ToAbsolute(relativeContentPath)}";
         }
 
         public static string ContentLogo(this UrlHelper urlHelper)
@@ -28,6 +29,25 @@ namespace Paramount
             var brand = DependencyResolver.Current.GetService<IApplicationConfig>().Brand;
             return urlHelper.Content($"~/Content/{brand}{contentUrl}");
         }
+
+        public static UrlBuilder AdUrl(this UrlHelper urlHelper, string titleSlug, int id, string categoryAdType = "")
+        {
+            var routeName = "adRoute";
+            if (categoryAdType.HasValue())
+                routeName = categoryAdType;
+
+            var builder = new UrlBuilder(urlHelper)
+                .WithRouteName(routeName)
+                .WithRouteValues(new
+                {
+                    title = titleSlug,
+                    id = id
+                })
+                ;
+
+            return builder;
+        }
+
 
         public static UrlBuilder ActionAbsolute(this UrlHelper urlHelper, string actionName, string controllerName, object routeValues = null)
         {
@@ -192,12 +212,17 @@ namespace Paramount
 
         public static UrlBuilder DownloadGuestListPdf(this UrlHelper urlHelper, int id, int eventId)
         {
-            return new UrlBuilder(urlHelper).WithAction("EventGuestListDownloadPdf", "EditAd").WithRouteValues(new {id, eventId});
+            return new UrlBuilder(urlHelper).WithAction("EventGuestListDownloadPdf", "EditAd").WithRouteValues(new { id, eventId });
         }
 
         public static UrlBuilder ManageGroups(this UrlHelper urlHelper, int id, int eventId)
         {
-            return new UrlBuilder(urlHelper).WithAction("manage-groups", "editad").WithRouteValues(new {id, eventId});
+            return new UrlBuilder(urlHelper).WithAction("manage-groups", "editad").WithRouteValues(new { id, eventId });
+        }
+
+        public static UrlBuilder CategorySeoView(this UrlHelper urlHelper, string seoName)
+        {
+            return new UrlBuilder(urlHelper).WithAction("SeoAds", "Listings").WithRouteValues(new { seoName });
         }
     }
 }

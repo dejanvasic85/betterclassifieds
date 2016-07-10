@@ -22,7 +22,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             TotalPrice = ad.TotalPrice;
             Status = GetViewStatusFrom(ad);
             Visits = ad.OnlineAd.NumOfViews;
-            AdViewUrl = urlHelper.AdUrl(Slug.Create(true, ad.OnlineAd.Heading), ad.AdBookingId, routeName: ad.CategoryAdType);
+            AdViewUrl = urlHelper.AdUrl(Slug.Create(true, ad.OnlineAd.Heading), ad.AdBookingId, ad.CategoryAdType);
             CategoryFontIcon = ad.CategoryFontIcon;
 
             Messages = ad.Enquiries.Select(enq => new AdEnquiryViewModel

@@ -40,7 +40,7 @@
                         <span data-bind="text: minsRemaining"></span>:<span data-bind="text: secondsRemainingDisplay"></span>
                     </div>
                     <div data-bind="visible: outOfTime()">
-                        Sorry, you have run out of time. <a class="btn btn-primary" href="@Url.AdUrl(Slug.Create(true, Model.Title), Model.AdId, routeName: Model.CategoryAdType)">
+                        Sorry, you have run out of time. <a class="btn btn-primary" href="@Url.AdUrl(Slug.Create(true, Model.Title), Model.AdId, Model.CategoryAdType)">
                             Try Again.
                         </a>
                     </div>
@@ -204,7 +204,7 @@
 
 @helper TryAgainButton()
 {
-    <a class="btn btn-default btn-sm js-load" href="@Url.AdUrl(Slug.Create(true, Model.Title), Model.AdId, routeName: Model.CategoryAdType)">
+    <a class="btn btn-default btn-sm js-load" href="@Url.AdUrl(Slug.Create(true, Model.Title), Model.AdId, Model.CategoryAdType)">
         <i class="fa fa-refresh"></i> Try Again.
     </a>
 }

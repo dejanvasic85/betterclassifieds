@@ -244,7 +244,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 IsBookingActive = bookingCart.StartDate <= DateTime.Today,
                 CategoryAdType = bookingCart.CategoryAdType,
                 UserNetworkNotifierView = new UserNetworkNotifierView(id.GetValueOrDefault(), _userManager.GetUserNetworksForUserId(currentUser.Username)),
-                AdUrl = Url.AdUrl(Slug.Create(true, bookingCart.OnlineAdModel.Heading), id.GetValueOrDefault(), routeName: bookingCart.CategoryAdType, includeSchemeAndProtocol: true)
+                AdUrl = Url.AdUrl(Slug.Create(true, bookingCart.OnlineAdModel.Heading), id.GetValueOrDefault(), bookingCart.CategoryAdType).WithFullUrl()
             };
 
             _bookingContext.Clear();

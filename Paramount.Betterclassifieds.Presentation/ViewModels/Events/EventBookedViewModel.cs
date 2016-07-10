@@ -27,9 +27,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             EndDateTime = eventDetails.EventEndDate.GetValueOrDefault();
             EventPhoto = adDetails.PrimaryImage;
 
-            EventUrl = urlHelper.AdUrl(adDetails.HeadingSlug, adDetails.AdId, includeSchemeAndProtocol: true, routeName: "Event");
+            EventUrl = urlHelper.AdUrl(adDetails.HeadingSlug, adDetails.AdId, adDetails.CategoryAdType).WithFullUrl();
             EventPhotoUrl = urlHelper.ImageOriginal(adDetails.PrimaryImage).WithFullUrl();
-            Title =  adDetails.Heading;
+            Title = adDetails.Heading;
             Description = adDetails.Description;
             SocialShareText = "This looks good '" + httpContext.Server.HtmlEncode(adDetails.Heading) + "'";
 

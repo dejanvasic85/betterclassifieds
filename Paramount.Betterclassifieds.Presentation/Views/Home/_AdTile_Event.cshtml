@@ -4,7 +4,7 @@
 <div class="col-sm-4 col-xs-12">
     <div class="col-item">
         <div class="photo">
-            <a href="@Url.AdUrl(Model.HeadingSlug, Model.AdId, routeName: Model.CategoryAdType)">
+            <a href="@Url.AdUrl(Model.HeadingSlug, Model.AdId, Model.CategoryAdType)">
                 @if (string.IsNullOrEmpty(Model.PrimaryImage))
             {
                     <div class="ico-img text-center" style="">
@@ -34,7 +34,7 @@
 
             </div>
             <div class="separator clear-left text-right">
-                <a href="@Url.AdUrl(Model.HeadingSlug, Model.AdId, routeName: Model.CategoryAdType)"
+                <a href="@Url.AdUrl(Model.HeadingSlug, Model.AdId, Model.CategoryAdType)"
                    class="btn btn-primary js-load" role="button">
                     <i class="fa fa-ticket"></i> More Details
                 </a>

@@ -4,5 +4,11 @@
     "inputFiles": [
       "Content/bootstrap-theme-yeti.css"
     ]
+  },
+  {
+    "outputFileName": "Content/bootstrap-3.3.6.min.css",
+    "inputFiles": [
+      "Content/bootstrap-3.3.6.css"
+    ]
   }
 ]

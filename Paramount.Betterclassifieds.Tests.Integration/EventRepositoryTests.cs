@@ -1,11 +1,10 @@
 ﻿using System;
 using NUnit.Framework;
-using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.DataService;
 using Paramount.Betterclassifieds.DataService.Events;
 
-namespace Paramount.Betterclassifieds.Payments.Stripe.Tests
+namespace Paramount.Betterclassifieds.Tests.Integration
 {
     [TestFixture]
     public class EventRepositoryTests

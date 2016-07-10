@@ -1,9 +1,11 @@
 ﻿using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business.Payment;
+using Paramount.Betterclassifieds.Payments.Stripe;
 
-namespace Paramount.Betterclassifieds.Payments.Stripe.Tests
+namespace Paramount.Betterclassifieds.Tests.Integration
 {
+    [Ignore]
     [TestFixture]
     public class StripeIntegrationTests
     {

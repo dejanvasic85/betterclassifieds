@@ -8,7 +8,7 @@ using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.DataService;
 using Paramount.Betterclassifieds.DataService.Repository;
 
-namespace Paramount.Betterclassifieds.Payments.Stripe.Tests
+namespace Paramount.Betterclassifieds.Tests.Integration
 {
     [TestFixture]
     public class DocumentRepositoryTests

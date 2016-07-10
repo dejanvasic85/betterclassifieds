@@ -21,7 +21,6 @@ namespace Paramount.Betterclassifieds.Presentation
         {
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            DocumentDataConfig.RegisterMappings();
             var container = UnityConfig.Initialise();
             var logService = container.Resolve<ILogService>();
 

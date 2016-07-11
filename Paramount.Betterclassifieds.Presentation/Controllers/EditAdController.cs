@@ -250,7 +250,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventManager.CloseEvent(eventId);
             return Json(new { Closed = true });
         }
-
+        
         [HttpGet]
         public ActionResult EventDetails(int id)
         {

@@ -2,8 +2,9 @@ namespace Paramount.Betterclassifieds.Business.Booking
 {
     public interface IBookingContext
     {
+        BookingCart FetchOrCreate();
         BookingCart Current();
-        BookingCart NewFromTemplate(AdBookingModel adBookingTemplate);
+        BookingCart Create(AdBookingModel adBookingTemplate);
         bool IsAvailable();
         void Clear();
     }

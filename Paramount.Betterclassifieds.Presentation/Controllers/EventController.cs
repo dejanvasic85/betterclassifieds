@@ -376,7 +376,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var invitation = _eventManager.GetEventInvitation(token);
             if (invitation == null)
-                return new Redirector().NotFound();
+                return Url.NotFound().ToRedirectResult();
 
             var eventDetails = _eventManager.GetEventDetails(invitation.EventId);
             var adSearchResult = _searchService.GetByAdOnlineId(eventDetails.OnlineAdId);

@@ -1,4 +1,5 @@
 ﻿using System.Monads;
+using System.Web;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using Paramount.Betterclassifieds.Business.Events;
@@ -14,7 +15,9 @@ namespace Paramount.Betterclassifieds.Presentation
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var notFoundResult = new Redirector().NotFound();
+            var notFoundResult = new UrlHelper(HttpContext.Current.Request.RequestContext)
+                .NotFound()
+                .ToRedirectResult();
 
             if (EventBookingContext?.EventBookingId == null)
             {

@@ -1,6 +1,7 @@
 using System.Monads;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace Paramount
 {
@@ -61,7 +62,7 @@ namespace Paramount
             Encode = true;
             return this;
         }
-        
+
         public string Build()
         {
             var protocol = UrlHelper.With(u => u.RequestContext)
@@ -107,6 +108,24 @@ namespace Paramount
         {
             this.Path = UrlHelper.Content(relativeContentPath);
             return this;
+        }
+
+        /// <summary>
+        /// Converts the required Url information to a redirect result
+        /// </summary>
+        /// <returns></returns>
+        public RedirectToRouteResult ToRedirectResult()
+        {
+            Guard.NotNull(Controller, "You must set the controller first");
+            Guard.NotNull(Action, "You must set the action fisrt");
+
+            var routeValueDictionary = new RouteValueDictionary
+            {
+                { "controller", Controller },
+                { "action", Action }
+            };
+
+            return new RedirectToRouteResult(routeValueDictionary);
         }
     }
 }

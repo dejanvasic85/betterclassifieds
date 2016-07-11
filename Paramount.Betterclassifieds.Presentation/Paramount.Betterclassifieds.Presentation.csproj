@@ -248,7 +248,6 @@
     <Compile Include="Framework\BookingWorkflow\BookingWorkflowController.cs" />
     <Compile Include="Framework\BookingWorkflow\BookingWorkflowManager.cs" />
     <Compile Include="Framework\BookingWorkflow\BookingWorkflowTable.cs" />
-    <Compile Include="Framework\CustomRedirects\Redirector.cs" />
     <Compile Include="Framework\Filters\EnsurePaymentNotInProgressAttribute.cs" />
     <Compile Include="Framework\Filters\EventBookingRequiredAttribute.cs" />
     <Compile Include="Framework\Filters\LoggingFilter.cs" />

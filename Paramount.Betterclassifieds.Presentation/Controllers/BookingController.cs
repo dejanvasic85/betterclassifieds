@@ -26,7 +26,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var existingBooking = _bookingManager.GetBooking(id);
 
-            var cart = _bookingContext.NewFromTemplate(existingBooking);
+            var cart = _bookingContext.Create(existingBooking);
 
             return Json(new
             {
@@ -39,8 +39,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         // GET: /Booking/Step/1 - Category and publications
         [HttpGet, BookingStep(1)]
         public ActionResult Step1()
-        { 
-            var bookingCart = _bookingContext.Current();
+        {
+            // First time we are creating a new booking cart OR an existing one is simply returned...
+            var bookingCart = _bookingContext.FetchOrCreate();
 
             var viewModel = new Step1View(
                 _searchService.GetCategories(),

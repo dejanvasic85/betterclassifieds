@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Web;
+using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using Paramount.Betterclassifieds.Business.Events;
 
@@ -12,7 +13,9 @@ namespace Paramount.Betterclassifieds.Presentation
         {
             if (EventBookingContext?.EventBookingId != null)
             {
-                filterContext.Result = new Redirector().MakeTicketPayment(); ;
+                filterContext.Result = new UrlHelper(HttpContext.Current.Request.RequestContext)
+                    .EventTicketingMakePayment()
+                    .ToRedirectResult();
             }
         }
     }

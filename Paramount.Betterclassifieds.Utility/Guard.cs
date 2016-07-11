@@ -14,10 +14,17 @@ namespace Paramount
         ///             Throws <see cref="T:System.ArgumentNullException"/> otherwise.
         /// 
         /// </summary>
-        public static void NotNull<T>(T value)
+        public static void NotNull<T>(T value, string message = "")
         {
             if (value == null)
+            {
+                if (message.HasValue())
+                {
+                    throw new ArgumentNullException(typeof(T).Name, message);
+                }
+
                 throw new ArgumentNullException(typeof(T).Name);
+            }
         }
 
         public static void NotNullIn(params object[] values)
@@ -25,7 +32,7 @@ namespace Paramount
             foreach (var value in values)
             {
                 NotNull(value);
-            }   
+            }
         }
 
         public static void NotNullOrEmptyIn(params string[] values)
@@ -56,13 +63,13 @@ namespace Paramount
             if (values.Length == 0)
                 throw new ArgumentException("Argument cannot be empty", "values");
         }
-        
+
         public static void NotDefaultValue<T>(T value)
         {
             if (EqualityComparer<T>.Default.Equals(value, default(T)))
                 throw new ArgumentException("Argument cannot be default value");
         }
-        
+
         /// <summary>
         /// Checks an argument to ensure it is in the specified range including the edges.
         /// 

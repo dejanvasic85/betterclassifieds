@@ -59,6 +59,11 @@ namespace Paramount
             return new UrlBuilder(urlHelper, "Index", "Home");
         }
 
+        public static UrlBuilder NotFound(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper).WithAction("NotFound", "Error");
+        }
+
         public static UrlBuilder ContactUs(this UrlHelper urlHelper)
         {
             return new UrlBuilder(urlHelper, "ContactUs", "Home");
@@ -146,6 +151,13 @@ namespace Paramount
         public static UrlBuilder EventDashboard(this UrlHelper urlHelper, int adId)
         {
             return new UrlBuilder(urlHelper, "EventDashboard", "EditAd", new { id = adId });
+        }
+
+        public static UrlBuilder EditEventDetails(this UrlHelper urlHelper, int adId)
+        {
+            return new UrlBuilder(urlHelper)
+                .WithAction("EventDetails", "EditAd")
+                .WithRouteValues(new { adId });
         }
 
         public static UrlBuilder UpdateEventDetails(this UrlHelper urlHelper)

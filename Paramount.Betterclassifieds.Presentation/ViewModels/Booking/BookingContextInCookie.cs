@@ -30,12 +30,14 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         {
             if (Id.HasValue())
             {
-                var booking = _repository.GetBookingCart(Id);
-                if (booking != null)
-                    return booking;
+                return _repository.GetBookingCart(Id);
             }
+            return null;
+        }
 
-            return Create();
+        public BookingCart FetchOrCreate()
+        {
+            return Current() ?? Create();
         }
 
         private BookingCart Create()
@@ -50,7 +52,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         /// <summary>
         /// Creates a new booking cart based on an existing ad
         /// </summary>
-        public BookingCart NewFromTemplate(AdBookingModel adBookingTemplate)
+        public BookingCart Create(AdBookingModel adBookingTemplate)
         {
             var booking = BookingCart.Create(_httpContext.With(c => c.Session).SessionID,
                 _httpContext.With(h => h.User).With(u => u.Identity).With(i => i.Name),

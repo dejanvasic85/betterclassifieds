@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Web;
+using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using Paramount.Betterclassifieds.Business.Booking;
 
@@ -28,7 +29,10 @@ namespace Paramount.Betterclassifieds.Presentation
                 return;
 
             if (!BookingContext.IsAvailable())
-                filterContext.Result = new Redirector().BookingStepOne();
+            {
+                var urlHelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
+                filterContext.Result = urlHelper.Booking().ToRedirectResult();
+            }
         }
     }
 }

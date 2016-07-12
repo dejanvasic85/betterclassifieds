@@ -21,20 +21,30 @@
     <h2 class="page-header">
         Manage Event Groups
     </h2>
-    <p>
-        Do you have tables at your event or any other way of grouping guests? Then grouping feature is your answer.
-        <!-- ko if: groups().length === 0 -->
-        Click "Create" to get started.
-        <!-- /ko -->
-    </p>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-info">
+                Do you have tables at your event or any other way of grouping guests? Then grouping feature is your answer.
+                <!-- ko if: groups().length === 0 -->
+                Click "Create" to get started.
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-6 col-sm-3 ">
+            <a href="@Url.EventDashboard(Model.Id)" class="btn btn-default btn-block js-load">
+                <i class="fa fa-arrow-circle-left"></i> Back to Dashboard
+            </a>
+        </div>
+        <div class="col-sm-3">
+            <button id="btnCreateGroup" class="btn btn-primary btn-block" data-bind="click: createStart">Create Group <i class="fa fa-plus-circle"></i></button>
+        </div>
+    </div>
 
     <div class="row">
 
-        @*Commands*@
-        <div class="col-xs-12 text-right">
-            <a href="@Url.EventDashboard(Model.Id)" class="btn btn-default js-load">Back to dashboard</a> &nbsp;
-            <button id="btnCreateGroup" class="btn btn-primary" data-bind="click: createStart">Create Group <i class="fa fa-plus-circle"></i></button>
-        </div>
 
         @*Group Creation*@
         <div id="createGroupForm" class="col-xs-12 top-buffer-20" data-bind="visible: isCreateEnabled">
@@ -48,7 +58,7 @@
                 <div class="col-sm-6">
                     <div class="form-group-lg" data-bind="validationElement: newGroup().maxGuests">
                         <label class="control-label">Max Guests</label>
-                        <input id="txtNewGroupMaxGuests" class="form-control" type="number" data-bind="value: newGroup().maxGuests" />
+                        <input id="txtNewGroupMaxGuests" class="form-control" type="number" data-bind="value: newGroup().maxGuests" placeholder="Unlimited" />
                         <p class="help-block">
                             Leaving this empty will allow set unlimited guests.
                         </p>
@@ -58,7 +68,10 @@
                 <div class="col-sm-12 top-buffer-20" data-bind="visible: hasTickets">
                     <div class="form-group-lg">
                         <label class="control-label">Available Tickets</label>
-                        <p class="help-block">All tickets will be available by default. Checking a ticket type will limit the group to only those tickets.</p>
+                        <p class="help-block">
+                            All tickets will be available by default.
+                            Selecting ticket types will be limited to those exclusively.
+                        </p>
                         <ul class="list-group" data-bind="foreach: newGroup().ticketSelection">
                             <li class="list-group-item">
                                 <div class="checkbox">
@@ -82,7 +95,7 @@
                         <label class="control-label">Status</label>
                         <div class="toggle-enabled-disabled">
                             <label>
-                                <input id="chkNewGroupStatus" type="checkbox" data-bind="checked: newGroup().isEnabled"/>
+                                <input id="chkNewGroupStatus" type="checkbox" data-bind="checked: newGroup().isEnabled" />
                                 Enabled
                             </label>
                         </div>

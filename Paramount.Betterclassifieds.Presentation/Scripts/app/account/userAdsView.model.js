@@ -2,43 +2,43 @@
 
     function UserAdsView(data) {
 
-        var self = this;
-        self.selectedStatus = ko.observable('All');
-        self.ads = ko.observableArray();
-        self.userEnquiries = ko.observableArray([]);
-        self.selectedAd = ko.observable();
+        var me = this;
+        me.selectedStatus = ko.observable('All');
+        me.ads = ko.observableArray();
+        me.userEnquiries = ko.observableArray([]);
+        me.selectedAd = ko.observable();
 
         $.each(data, function (idx, item) {
             var ad = new $p.models.UserAd(item);
-            self.ads.push(ad);
+            me.ads.push(ad);
         });
 
-        self.setStatus = function (item, val) {
-            self.selectedStatus(val.currentTarget.attributes["data-status"].value);
+        me.setStatus = function (item, val) {
+            me.selectedStatus(val.currentTarget.attributes["data-status"].value);
         };
 
-        self.setSelectedAd = function (id) {
-            self.selectedAd(id);
+        me.setSelectedAd = function (id) {
+            me.selectedAd(id);
         };
 
-        self.confirmCancel = function () {
-            var itemToRemove = ko.utils.arrayFirst(self.ads(), function (item) {
-                return item.adId() == self.selectedAd();
+        me.confirmCancel = function () {
+            var itemToRemove = ko.utils.arrayFirst(me.ads(), function (item) {
+                return item.adId() == me.selectedAd();
             });
             itemToRemove.status('Expired');
         };
 
-        self.noAdsAvaialble = ko.computed(function () {
-            return self.ads().length === 0;
+        me.noAdsAvaialble = ko.computed(function () {
+            return me.ads().length === 0;
         });
     };
 
     function UserAd(item) {
         var userAdService = new $p.UserAdService(),
             imageService = new $p.ImageService();
-        var self = this;
-        self.adId = ko.observable(item.adId);
-        self.status = ko.observable(item.status);
+        var me = this;
+        me.adId = ko.observable(item.adId);
+        me.status = ko.observable(item.status);
 
         this.totalPrice = ko.observable(item.totalPrice);
         this.heading = ko.observable(item.heading);
@@ -50,9 +50,9 @@
         this.messageCount = ko.observable(item.messageCount);
         this.fontIcon = ko.observable('fa fa-5x fa-' + item.categoryFontIcon + ' thumbnail');
 
-        self.messages = ko.observableArray([]);
+        me.messages = ko.observableArray([]);
         $.each(item.messages, function (idx, value) {
-            self.messages.push(new $p.models.UserEnquiry(value));
+            me.messages.push(new $p.models.UserEnquiry(value));
         });
 
         this.cancelAd = function () {
@@ -63,23 +63,21 @@
             // See the jQuery handler in the page instead. This is a placeholder to allow the click to wire up
         }
 
-        this.editHref = ko.observable( userAdService.getEditUrl(item.adId) );
+
         this.bookingInvoiceHref = userAdService.getInvoiceUrl(item.adId);
         this.viewHref = item.adViewUrl;
         this.imageUrl = imageService.getImageUrl(item.adImageId);
         this.imageUrlSmaller = imageService.getImageUrl(item.adImageId, { h: 50, w: 50 });
         this.categoryAdType = ko.observable(item.categoryAdType);
-
-        this.eventDashboardUrl = ko.observable();
-
+        this.editHref = ko.observable();
         switch (item.categoryAdType) {
             case $paramount.CATEGORY_AD_TYPE.EVENT:
-                {
-                    this.eventDashboardUrl(userAdService.getEventDashboardUrl(item.adId));
-                    this.editHref(userAdService.getEventEditUrl(item.adId));
-                    break;
-                }
+
+                this.editHref(userAdService.getEventDashboardUrl(item.adId));
+                break;
+
             default:
+                this.editHref = ko.observable(userAdService.getEditUrl(item.adId));
                 break;
         }
 

@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Edit event details";
     Layout = "~/Views/shared/_ApplicationLayout.cshtml";
-    var adId = (int) ViewBag.Id;
+    var adId = (int)ViewBag.Id;
 }
 
 @section Scripts{
@@ -24,16 +24,17 @@
         </h2>
 
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="alert alert-info" data-bind="visible: canEdit() === false">
                     Please Note : Some details cannot be updated due to bookings being made for this event.
                 </div>
             </div>
-
-            <div class="col-md-4">
-                <div class="pull-right">
-                    <a class="btn btn-default btn" href="@Url.EventDashboard(@adId)"><i class="fa fa-dashboard"></i> Event Dashboard &amp; Ticket Management</a>
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-9 col-sm-offset-8 col-sm-4 col-md-3">
+                <a class="btn btn-default btn-block js-load" href="@Url.EventDashboard(@adId)">
+                    <i class="fa fa-arrow-circle-left"></i> Back to Dashboard
+                </a>
             </div>
         </div>
 

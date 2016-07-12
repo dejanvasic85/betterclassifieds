@@ -19,25 +19,35 @@
 
     <h1 class="page-header">Add Guest</h1>
 
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-info">
+                Do you have a guest that wants to pay you directly? No problem!
+                <a href="@Url.EventPricing()">Transaction fees</a> are not applicable here.
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-9 col-sm-offset-8 col-sm-4 col-md-3">
+            <a class="btn btn-default btn-block js-load" href="@Url.EventDashboard(Model.Id.GetValueOrDefault())">
+                <i class="fa fa-arrow-circle-left"></i> Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+
     <!-- ko if: tickets().length <= 0 -->
     <div class="row">
         <div class="col-xs-12">
             <div class="alert alert-warning">You will need to create some tickets so you can assign them to your guests...</div>
         </div>
     </div>
-    
+
     <!-- /ko -->
-
-    <div class="row">
-        <div class="col-xs-12 text-right">
-            <a class="btn btn-default js-load" href="@Url.EventDashboard(Model.Id.GetValueOrDefault())">Back to Dashboard</a>
-        </div>
-    </div>
-
     <!-- ko if: tickets().length > 0 -->
     <div class="row">
 
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="form-group-lg" data-bind="validationElement: guestFullName">
                 <label for="guestFullName" class="control-label">Full Name:</label>
                 <input id="guestFullName" data-bind="value: guestFullName" type="text" class="form-control" />
@@ -102,15 +112,6 @@
             </div>
 
 
-        </div>
-
-        <div class="col-md-6">
-            <p>
-                <div class="alert alert-info-alt">
-                    Do you have a guest that wants to pay you directly? No problem!
-                    Manually adding a guest would indicate a zero transaction fee.
-                </div>
-            </p>
         </div>
 
     </div>

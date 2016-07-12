@@ -151,6 +151,23 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View(eventEditViewModel);
         }
 
+        [HttpGet, ActionName("event-ticketing")]
+        public ActionResult ManageEventTicketing(int id, int eventId)
+        {            
+            var eventDetails = _eventManager.GetEventDetails(eventId);
+            if (eventDetails == null)
+                return Url.NotFound().ToRedirectResult();
+
+            var vm = new ManageTicketsViewModel
+            {
+                Id = id, 
+                EventId =  eventId,
+                Tickets = this.MapList<EventTicket, EventTicketViewModel>(eventDetails.Tickets.ToList())
+            };
+            
+            return View(vm);
+        }
+
         [HttpPost]
         public ActionResult EventTicketUpdate(int id, EventTicketViewModel eventTicketViewModel)
         {
@@ -250,7 +267,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventManager.CloseEvent(eventId);
             return Json(new { Closed = true });
         }
-        
+
         [HttpGet]
         public ActionResult EventDetails(int id)
         {

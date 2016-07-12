@@ -196,6 +196,16 @@
         return true;
     }
     
+    $paramount.ko = {
+        bindArray: function (collection, creator) {
+            var observableArray = ko.observableArray();
+            _.each(collection, function(item) {
+                observableArray.push(creator(item));
+            });
+            return observableArray;
+        }
+    }
+
     return me;
 
 })($paramount, window, jQuery, MobileDetect, CKEDITOR);

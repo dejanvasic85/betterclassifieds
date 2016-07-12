@@ -1,0 +1,67 @@
+﻿@model ManageTicketsViewModel
+
+@{
+    ViewBag.Title = "Manage ticketing for Event";
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
+}
+
+
+@section Scripts
+{   
+    <script>
+        $(function() {
+            var data = @Html.Raw(Model.ToJsonString());
+            var vm = new $paramount.models.ManageTickets(data);
+            var rootNode = document.getElementById('manageTickets');
+            ko.applyBindings(vm, rootNode);
+        });
+    </script>
+}
+
+<div class="container event-ticketing" id="manageTickets">
+    <div class="row top-buffer-60">
+        <h2 class="page-header">Event Ticketing</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-offset-6 col-sm-3">
+            <a href="@Url.EventDashboard(Model.Id)" class="btn btn-default btn-block js-load">
+                <i class="fa fa-arrow-circle-left"></i> Event Dashboard
+            </a>
+        </div>
+        <div class="col-sm-3">
+            <button id="btnCreateTicket" class="btn btn-primary btn-block" data-bind="click: createStart">
+                Create Ticket <i class="fa fa-plus-circle"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+        @*List of current Tickets*@
+        <!-- ko foreach: tickets -->
+        <div class="col-xs-12 col-lg-6 top-buffer-20">
+            <div class="panel panel-default event-ticket-panel" data-bind="css : {'panel-danger' : soldOut }">
+                <div class="panel-heading">
+                    <div class="pull-left form-inline">
+                        <span data-bind="text: ticketName"></span>
+                        <span data-bind="text: priceFormatted"></span>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-6 text-center">
+                            <h4>Tickets Sold</h4>
+                            <span class="badge" data-bind="text: soldQuantity"></span>
+                        </div>
+                        <div class="col-xs-6 text-center">
+                            <h4>Remaining Qty</h4>
+                            <span class="badge" data-bind="text: remainingQuantity"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /ko -->
+    </div>
+
+</div>

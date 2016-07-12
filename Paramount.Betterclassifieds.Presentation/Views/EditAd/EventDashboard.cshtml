@@ -88,6 +88,7 @@
                         <i class="fa fa-info-circle"></i> Click here for more info.
                     </a>
                 </p>
+
                 <div class="action-btn">
                     <a class="btn btn-primary" href="@Url.EventPaymentRequest(Model.AdId, Model.EventId)"
                        data-bind="visible: showPayMeButton">
@@ -121,6 +122,9 @@
                 </h3>
                 <p class="action-info">Add or change your ticket structure here. See what people are buying and what is remaining.</p>
                 <div class="action-btn">
+                    <a href="@Url.EventTicketManagement(Model.AdId, Model.EventId)" class="btn btn-primary js-load">
+                        Manage Tickets <i class="fa fa-ticket"></i>
+                    </a>
                     <button class="btn btn-primary" data-bind="click: addTicketType">Add Ticket Type <i class="fa fa-ticket"></i></button>
                 </div>
             </div>
@@ -184,6 +188,22 @@
             </div>
         </div>
 
+        @*Groups*@
+        <div class="col-xs-12">
+            <div class="action-item clearfix">
+                <h3>
+                    Manage Groups
+                </h3>
+                <p class="action-info">Do you have tables at your event or any other way of grouping guests? Then grouping feature is your answer.</p>
+                <div class="action-btn">
+                    <a id="lnkManageGroups" class="btn btn-primary js-load" href="@Url.ManageGroups(Model.AdId, Model.EventId)">
+                        Groups <i class="fa fa-group"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
         @*Guest List*@
         <div class="col-xs-12">
             <div class="action-item clearfix">
@@ -230,20 +250,6 @@
             </div>
         </div>
 
-        @*Groups*@
-        <div class="col-xs-12">
-            <div class="action-item clearfix">
-                <h3>
-                    Manage Groups
-                </h3>
-                <p class="action-info">Do you have tables at your event or any other way of grouping guests? Then grouping feature is your answer.</p>
-                <div class="action-btn">
-                    <a id="lnkManageGroups" class="btn btn-primary js-load" href="@Url.ManageGroups(Model.AdId, Model.EventId)">
-                        Groups <i class="fa fa-group"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
 
         @*Close Event*@
         <div class="col-xs-12">

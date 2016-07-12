@@ -159,6 +159,13 @@ namespace Paramount
                 .WithRouteValues(new { id = adId });
         }
 
+        public static UrlBuilder EventTicketManagement(this UrlHelper urlHelper, int adId, int eventId)
+        {
+            return new UrlBuilder(urlHelper)
+                .WithAction("event-ticketing", "editad")
+                .WithRouteValues(new { id = adId, eventId });
+        }
+
         public static UrlBuilder UpdateEventDetails(this UrlHelper urlHelper)
         {
             return new UrlBuilder(urlHelper, "UpdateEventDetails", "EditAd");

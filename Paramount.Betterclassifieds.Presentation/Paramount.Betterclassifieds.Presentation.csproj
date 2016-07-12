@@ -333,6 +333,7 @@
     <Compile Include="ViewModels\Events\MakePaymentViewModel.cs" />
     <Compile Include="ViewModels\Events\InvitationViewModel.cs" />
     <Compile Include="ViewModels\Events\ManageGroupsViewModel.cs" />
+    <Compile Include="ViewModels\Events\ManageTicketsViewModel.cs" />
     <Compile Include="ViewModels\Events\ReserveTicketsViewModel.cs" />
     <Compile Include="ViewModels\Events\TicketingPricesExplainedViewModel.cs" />
     <Compile Include="Services\Seo\ISitemapFactory.cs" />
@@ -586,7 +587,8 @@
     <Content Include="Scripts\app\events\eventView.ui.js" />
     <Content Include="Scripts\app\categories\categoryLinks.model.js" />
     <Content Include="Scripts\app\events\invitation.ui.js" />
-    <Content Include="Scripts\app\manage-groups\manage-groups.model.js" />
+    <Content Include="Scripts\app\events\manage-groups.model.js" />
+    <Content Include="Scripts\app\events\manage-tickets.js" />
     <Content Include="Scripts\app\ui\home.ui.js" />
     <Content Include="Scripts\app\locations\location.service.js" />
     <Content Include="Scripts\app\userNetwork\userNetwork.service.js" />
@@ -961,6 +963,7 @@
     <Content Include="Views\Help\realtime-data.cshtml" />
     <Content Include="Views\EditAd\add-guest.cshtml" />
     <Content Include="Views\EditAd\manage-groups.cshtml" />
+    <Content Include="Views\EditAd\event-ticketing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

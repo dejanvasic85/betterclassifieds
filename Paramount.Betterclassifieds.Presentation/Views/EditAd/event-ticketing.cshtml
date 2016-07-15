@@ -20,19 +20,95 @@
 
 <div class="container event-ticketing" id="manageTickets">
     <div class="row top-buffer-60">
-        <h2 class="page-header">Event Ticketing</h2>
+        <div class="col-xs-12">
+            <h2 class="page-header">Event Ticketing</h2>
+        </div>
     </div>
 
     <div class="row">
-        <div class="col-sm-offset-6 col-sm-3">
+        <div class="col-xs-6 col-sm-offset-6 col-sm-3">
             <a href="@Url.EventDashboard(Model.Id)" class="btn btn-default btn-block js-load">
                 <i class="fa fa-arrow-circle-left"></i> Event Dashboard
             </a>
         </div>
-        <div class="col-sm-3">
-            <button id="btnCreateTicket" class="btn btn-primary btn-block" data-bind="click: createStart">
-                Create Ticket <i class="fa fa-plus-circle"></i>
+        <div class="col-xs-6 col-sm-3">
+            <button id="btnCreateTicket" class="btn btn-primary btn-block" data-bind="click: startNewTicket">
+                New Ticket <i class="fa fa-plus-circle"></i>
             </button>
+        </div>
+    </div>
+
+    <div class="row top-buffer-20" data-bind="bounceInDown: isCreateEnabled">
+        <div class="col-md-offset-2 col-md-8">
+            <div class="well">
+                <h3>Ticket Details</h3>
+
+                <div class="row">
+                    <div class="col-xs-12 form-group-lg" data-bind="validationElement: newTicket().ticketName">
+                        <label class="control-label">Ticket Name</label>
+                        <input type="text" class="form-control" data-bind="value: newTicket().ticketName" />
+                    </div>
+                    <div class="col-xs-12 form-group-lg" data-bind="validationElement: newTicket().price">
+                        <label class="control-label">Price</label>
+                        <input type="number" class="form-control" data-bind="value: newTicket().price" />
+                    </div>
+                    <div class="col-xs-12 form-group-lg" data-bind="validationElement: newTicket().availableQuantity">
+                        <label class="control-label">Quantity</label>
+                        <input type="number" class="form-control" data-bind="value: newTicket().availableQuantity" />
+                    </div>
+                </div>
+                <div class="row top-buffer-10">
+                    <div class="col-xs-12">
+                        <div class="alert alert-info-alt">
+                            Fields allow your to capture information about
+                            each guest.
+                        </div>
+                    </div>
+                </div>
+                <div class="row top-buffer-10">
+                    <div class="col-xs-12" data-bind="foreach: newTicket().fields">
+                        <div class="row ticket-field-edit">
+                            <div class="col-xs-6 form-group-lg" data-bind="validationElement: fieldName">
+                                <label class="control-label">
+                                    Field Name
+                                </label>
+                                <input type="text" data-bind="value: fieldName" class="form-control" placeholder="e.g. Age" />
+                            </div>
+                            <div class="col-xs-3 form-group-lg">
+                                <label class="control-label">Required</label>
+                                <div class="display-block toggle-required">
+                                    <input type="checkbox" data-bind="toggle: isRequired" data-on="Yes" data-off="No" class="btn-lg"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-3 form-group-lg">
+                                <label class="control-label">&nbsp;</label>
+                                <button class="btn btn-block btn-default" data-bind="click: $parent.removeField">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-offset-6 col-xs-6 col-sm-offset-9 col-sm-3">
+                        <button class="btn btn-default btn-block" data-bind="click: newTicket().addField">
+                            Add Field
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row top-buffer-20">
+                    <div class="col-xs-6 col-sm-3">
+                        <button class="btn btn-default btn-block" data-bind="click: cancelNewTicket">
+                            Cancel <i class="fa fa-times-circle"></i>
+                        </button>
+                    </div>
+                    <div class="col-xs-6 col-sm-offset-6 col-sm-3">
+                        <button class="btn btn-primary btn-block" data-bind="click: createNewTicket">
+                            <i class="fa fa-save"></i> Save
+                        </button>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 

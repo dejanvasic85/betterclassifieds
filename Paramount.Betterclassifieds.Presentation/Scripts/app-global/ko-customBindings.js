@@ -139,4 +139,18 @@
         }
     }
 
+    ko.bindingHandlers.bounceInDown = {
+        init: function (element, valueAccessor) {
+            var value = valueAccessor();
+            $(element).toggle(ko.unwrap(value));
+            $(element).addClass('animated');
+        },
+        update: function (element, valueAccessor) {
+            var value = valueAccessor();
+            var isVisible = ko.unwrap(value);
+            $(element).toggleClass('bounceInDown', isVisible);
+            $(element).toggle(isVisible);
+        }
+    }
+
 })(ko, jQuery);

@@ -62,7 +62,9 @@
             price: me.price.extend({ min: 0, required: true })
         });
 
-        me.bindEventTicket(data, maxTicketsPerBooking);
+        if (data) {
+            me.bindEventTicket(data, maxTicketsPerBooking);
+        }
     }
 
     EventTicket.prototype.bindEventTicket = function (data, maxTicketsPerBooking) {

@@ -24,7 +24,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         void AdjustRemainingQuantityAndCancelReservations(string sessionId, IList<EventBookingTicket> eventBookingTickets);
         string CreateEventTicketsDocument(int eventBookingId, byte[] ticketPdfData, DateTime? ticketsSentDate = null);
         void UpdateEventTicket(int eventTicketId, string ticketName, decimal price, int remainingQuantity);
-        void CreateEventTicket(int eventId, string ticketName, decimal price, int remainingQuantity);
+        void CreateEventTicket(int eventId, string ticketName, decimal price, int remainingQuantity, IEnumerable<EventTicketField> fields);
         IEnumerable<EventGuestDetails> BuildGuestList(int? eventId);
         EventPaymentSummary BuildPaymentSummary(int? eventId);
         bool IsEventEditable(int? eventId);

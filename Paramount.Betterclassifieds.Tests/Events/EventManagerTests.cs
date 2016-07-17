@@ -347,7 +347,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
             BuildTargetObject().CreateEventTicket(eventId: 10,
                 ticketName: "Adult",
                 price: 100,
-                remainingQuantity: 50);
+                remainingQuantity: 50,
+                fields: null);
         }
 
         [Test]
@@ -356,7 +357,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
             Assert.Throws<ArgumentException>(() => BuildTargetObject().CreateEventTicket(eventId: 0,
                 ticketName: "Adult",
                 price: 100,
-                remainingQuantity: 50));
+                remainingQuantity: 50,
+                fields: null));
         }
 
         [Test]

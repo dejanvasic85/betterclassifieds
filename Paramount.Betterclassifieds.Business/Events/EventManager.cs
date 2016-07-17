@@ -208,10 +208,13 @@ namespace Paramount.Betterclassifieds.Business.Events
             _eventRepository.UpdateEventTicket(eventTicket);
         }
 
-        public void CreateEventTicket(int eventId, string ticketName, decimal price, int remainingQuantity)
+        public void CreateEventTicket(int eventId, string ticketName, decimal price, int remainingQuantity, IEnumerable<EventTicketField> fields)
         {
             Guard.NotDefaultValue(eventId);
             var ticket = new EventTicketFactory().Create(remainingQuantity, eventId, ticketName, price);
+            if (fields != null)
+                ticket.EventTicketFields = fields.ToList();
+
             _eventRepository.CreateEventTicket(ticket);
         }
 

@@ -45,7 +45,7 @@
                 eventId: me.eventId()
             }
             adDesignService.requestEventPayment(paymentRequest)
-                .error(function () {
+                .then(function () {
                     $btn.button('reset');
                 });
         }

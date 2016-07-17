@@ -64,6 +64,11 @@
         return $paramount.httpPost(me.baseUrl + 'EventTickets', me.model);
     }
 
+    AdDesignService.prototype.addEventTicket = function(eventTicket) {
+        $.extend(me.model, eventTicket);
+        return $paramount.httpPost(me.baseUrl + 'AddTicket', me.model);
+    }
+
     AdDesignService.prototype.requestEventPayment = function (paymentDetails) {
         $.extend(me.model, paymentDetails);
         return $paramount.httpPost(me.baseUrl + 'EventPaymentRequest', me.model);

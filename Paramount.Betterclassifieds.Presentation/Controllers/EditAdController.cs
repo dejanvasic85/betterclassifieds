@@ -10,6 +10,7 @@ using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Presentation.Services;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Monads;
 using System.Threading.Tasks;
@@ -153,19 +154,38 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         [HttpGet, ActionName("event-ticketing")]
         public ActionResult ManageEventTicketing(int id, int eventId)
-        {            
+        {
             var eventDetails = _eventManager.GetEventDetails(eventId);
             if (eventDetails == null)
                 return Url.NotFound().ToRedirectResult();
 
             var vm = new ManageTicketsViewModel
             {
-                Id = id, 
-                EventId =  eventId,
+                Id = id,
+                EventId = eventId,
                 Tickets = this.MapList<EventTicket, EventTicketViewModel>(eventDetails.Tickets.ToList())
             };
-            
+
             return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult AddTicket(int id, NewEventTicketViewModel vm)
+        {
+            if (!ModelState.IsValid)
+                return Json(new { Errors = ModelState.ToErrors() });
+
+            _eventManager.CreateEventTicket(vm.EventId.GetValueOrDefault(),
+                vm.TicketName,
+                vm.Price.GetValueOrDefault(),
+                vm.AvailableQuantity,
+                vm.Fields?.Select(f => new EventTicketField
+                {
+                    FieldName = f.FieldName,
+                    IsRequired = f.IsRequired
+                }));
+
+            return Json(true);
         }
 
         [HttpPost]
@@ -183,7 +203,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 _eventManager.CreateEventTicket(eventTicketViewModel.EventId.GetValueOrDefault(),
                     eventTicketViewModel.TicketName,
                     eventTicketViewModel.Price,
-                    eventTicketViewModel.RemainingQuantity);
+                    eventTicketViewModel.RemainingQuantity,
+                    null);
             }
             return Json(new { Updated = true });
         }

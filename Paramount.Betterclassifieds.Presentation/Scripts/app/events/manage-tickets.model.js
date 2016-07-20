@@ -35,15 +35,19 @@
             $btn.button('loading');
             var eventTicketData = ko.toJS(newTicket);
             adDesignService.addEventTicket(eventTicketData)
-                .then(function(resp) {
+                .then(function (resp) {
                     if (resp === true) {
                         toastr.success('Ticket added successfully');
-                        me.newTicket = new NewEventTicket({ eventId: me.eventId() });
+                        me.newTicket(new NewEventTicket({ eventId: me.eventId() }));
+
                         eventTicketData.remainingQuantity = eventTicketData.availableQuantity;
+                        eventTicketData.soldQty = 0;
+
                         me.tickets.push(new $p.models.EventTicket(eventTicketData, 20));
+                        me.isCreateEnabled(false);
                     }
                 })
-                .always(function() {
+                .always(function () {
                     $btn.button('reset');
                 });
         }

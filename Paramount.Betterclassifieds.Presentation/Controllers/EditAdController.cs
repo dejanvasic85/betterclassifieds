@@ -188,27 +188,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(true);
         }
 
-        [HttpPost]
-        public ActionResult EventTicketUpdate(int id, EventTicketViewModel eventTicketViewModel)
-        {
-            if (eventTicketViewModel.EventTicketId.HasValue)
-            {
-                _eventManager.UpdateEventTicket(eventTicketViewModel.EventTicketId.GetValueOrDefault(),
-                    eventTicketViewModel.TicketName,
-                    eventTicketViewModel.Price,
-                    eventTicketViewModel.RemainingQuantity);
-            }
-            else
-            {
-                _eventManager.CreateEventTicket(eventTicketViewModel.EventId.GetValueOrDefault(),
-                    eventTicketViewModel.TicketName,
-                    eventTicketViewModel.Price,
-                    eventTicketViewModel.RemainingQuantity,
-                    null);
-            }
-            return Json(new { Updated = true });
-        }
-
         [HttpGet]
         public ActionResult EventGuestListDownloadPdf(int id, int eventId)
         {

@@ -89,6 +89,7 @@
     <Compile Include="Framework\HelpAttribute.cs" />
     <Compile Include="Framework\ILogger.cs" />
     <Compile Include="Framework\UnitConfig.cs" />
+    <Compile Include="Tasks\DownloadDocument\DownloadDocument.cs" />
     <Compile Include="Tasks\EmailProcessor\EmailProcessor.cs" />
     <Compile Include="Tasks\EventDailySummary\SendEventDailySummary.cs" />
     <Compile Include="Tasks\ImageCacheClean\ImageCacheClean.cs" />

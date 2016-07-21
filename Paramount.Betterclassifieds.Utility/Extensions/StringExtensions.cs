@@ -196,16 +196,31 @@ namespace Paramount
             return value.Split(' ').Length;
         }
 
-        public static byte[] ToByteArray(this string str)
+        public static byte[] ToByteArray(this string str, Encoding encoding = null)
         {
             using (var ms = new MemoryStream())
             {
-                var enc = new UTF8Encoding();
-                byte[] arrBytData = enc.GetBytes(str);
+                if (encoding == null)
+                    encoding = new UTF8Encoding();
+
+                byte[] arrBytData = encoding.GetBytes(str);
                 ms.Write(arrBytData, 0, arrBytData.Length);
                 ms.Position = 0;
                 return arrBytData;
             }
+        }
+
+        public static string FromByteArray(this byte[] bytes, Encoding encoding = null)
+        {
+            Guard.NotNull(bytes);
+
+            if (bytes.Length == 0)
+                return string.Empty;
+
+            if (encoding == null)
+                encoding = new UTF8Encoding();
+
+            return encoding.GetString(bytes);
         }
 
         public static string ReplaceLineBreaks(this string str, string replacementValue = " ")

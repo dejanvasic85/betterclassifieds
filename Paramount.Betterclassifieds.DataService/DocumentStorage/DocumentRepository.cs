@@ -33,7 +33,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
             if (doc == null)
                 return null;
 
-            var str = Encoding.ASCII.GetString(doc.Data);
+            var str = Encoding.UTF8.GetString(doc.Data);
             return JsonConvert.DeserializeObject<T>(str);
         }
 
@@ -53,8 +53,8 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
         public Document CreateJsonDocument<T>(Guid documentId, T obj) where T : class
         {
-            var json = JsonConvert.SerializeObject(obj);
-            var data = Encoding.ASCII.GetBytes(json);
+            var json = JsonConvert.SerializeObject(obj, Formatting.Indented);
+            var data = Encoding.UTF8.GetBytes(json);
 
             var doc = new Document(documentId,
                 data,
@@ -69,7 +69,7 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
         public void CreateOrUpdateJsonDocument<T>(Guid id, T obj) where T : class
         {
-            var newData = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(obj));
+            var newData = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(obj));
             var document = GetDocument(id);
 
             if (document == null)

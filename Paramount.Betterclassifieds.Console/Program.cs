@@ -21,8 +21,10 @@ namespace Paramount.Betterclassifieds.Console
 #if DEBUG
                 program.Start(new[]
                 {
-                    TaskArguments.TaskFullArgName, nameof(Tasks.EmailProcessor),
-                        "-To", "dejan.vasic@paramountit.com.au"
+                    //TaskArguments.TaskFullArgName, nameof(Tasks.EmailProcessor),
+                    //    "-To", "dejan.vasic@paramountit.com.au"
+
+                    TaskArguments.TaskFullArgName, nameof(Tasks.DownloadDocument), "-id", "3CABACF9-02E2-43F4-A98B-DE3F89F7E135", "-out", "c:\\temp\\out.json"
                 });
 
 #else

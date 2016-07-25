@@ -233,6 +233,11 @@ namespace Paramount
             return new UrlBuilder(urlHelper).WithAction("EventGuestListDownloadPdf", "EditAd").WithRouteValues(new { id, eventId });
         }
 
+        public static UrlBuilder DownloadGuestListCsv(this UrlHelper urlHelper, int id, int eventId)
+        {
+            return new UrlBuilder(urlHelper).WithAction("EventGuestListDownloadCsv", "EditAd").WithRouteValues(new { id, eventId });
+        }
+
         public static UrlBuilder ManageGroups(this UrlHelper urlHelper, int id, int eventId)
         {
             return new UrlBuilder(urlHelper).WithAction("manage-groups", "editad").WithRouteValues(new { id, eventId });

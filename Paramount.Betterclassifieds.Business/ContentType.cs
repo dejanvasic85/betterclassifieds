@@ -8,5 +8,6 @@
         public const string Calendar = "text/calendar";
         public const string Xml = "text/xml";
         public const string Json = "application/json";
+        public const string Csv = "text/csv";
     }
 }

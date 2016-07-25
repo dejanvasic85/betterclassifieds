@@ -10,13 +10,12 @@ using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Presentation.Services;
 using System;
-using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Monads;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Paramount.Betterclassifieds.Presentation.Framework;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
@@ -197,7 +196,18 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var viewModel = new EventGuestListDownloadViewModel { EventName = adDetails.Heading, Guests = guests };
             var html = _templatingService.Generate(viewModel, "EventGuestList");
             var pdf = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(html);
-            return File(pdf, ContentType.Pdf, "Guest List.pdf");
+            return File(pdf, ContentType.Pdf, $"{adDetails.HeadingSlug} - Guest List.pdf");
+        }
+
+        [HttpGet]
+        public ActionResult EventGuestListDownloadCsv(int id, int eventId)
+        {
+            var adDetails = _searchService.GetByAdId(id);
+            var eventGuestDetails = _eventManager.BuildGuestList(eventId).ToList();
+            var guests = this.MapList<EventGuestDetails, EventGuestListViewModel>(eventGuestDetails);
+            var viewModel = new EventGuestListDownloadViewModel { EventName = adDetails.Heading, Guests = guests };
+            var csvData = new CsvGenerator<EventGuestListViewModel>(viewModel.Guests, new EventGuestListCsvLineProvider()).GetData();
+            return File(csvData, ContentType.Csv, $"{adDetails.HeadingSlug} - Guest List.csv");
         }
 
         [HttpGet]

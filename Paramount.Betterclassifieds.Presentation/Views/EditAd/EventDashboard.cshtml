@@ -152,10 +152,25 @@
                     Guest List
                 </h3>
                 <p class="action-info">Check out who is coming to the event...</p>
+                
                 <div class="action-btn">
-                    <a href="@Url.DownloadGuestListPdf(Model.AdId, Model.EventId)" class="btn btn-default">
-                        Download PDF <i class="fa fa-download"></i>
-                    </a>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Download <i class="fa fa-download"></i> &nbsp; <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="@Url.DownloadGuestListPdf(Model.AdId, Model.EventId)" class="btn btn-default">
+                                    PDF <i class="fa fa-file-pdf-o"></i>
+                                </a>
+                                <a href="@Url.DownloadGuestListCsv(Model.AdId, Model.EventId)" class="btn btn-default">
+                                    CSV <i class="fa fa-file"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
                     <a id="lnkAddGuest" class="btn btn-primary js-load" href="@Url.AddEventGuest(Model.AdId, Model.EventId)">
                         Add Guest <i class="fa fa-user-plus"></i>
                     </a>

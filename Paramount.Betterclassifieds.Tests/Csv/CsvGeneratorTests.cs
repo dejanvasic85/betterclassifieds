@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business.Csv;
 
@@ -20,8 +21,8 @@ namespace Paramount.Betterclassifieds.Tests.Csv
         {
             var data = new[]
             {
-                new Person { Age = 10, Height = 10, Name = "Foo Bar", Attributes = new int[] {1,2,3}},
-                new Person { Age = 20, Height = 20, Name = "Foo Bar Two", Attributes = new int[] {1,2,3}},
+                new Person {Age = 10, Height = 10, Name = "Foo Bar", Attributes = new int[] {1, 2, 3}},
+                new Person {Age = 20, Height = 20, Name = "Foo Bar Two", Attributes = new int[] {1, 2, 3}},
             };
             var generator = new CsvGenerator<Person>(data);
             var lines = generator.GetCsvLines().ToList();
@@ -36,8 +37,8 @@ namespace Paramount.Betterclassifieds.Tests.Csv
         {
             var data = new[]
             {
-                new Person { Age = 10, Height = 10, Name = "Foo Bar", Attributes = new int[] {1,2,3}},
-                new Person { Age = 20, Height = 20, Name = "Foo Bar Two", Attributes = new int[] {1,2,3}},
+                new Person {Age = 10, Height = 10, Name = "Foo Bar", Attributes = new int[] {1, 2, 3}},
+                new Person {Age = 20, Height = 20, Name = "Foo Bar Two", Attributes = new int[] {1, 2, 3}},
             };
             var generator = new CsvGenerator<Person>(data, new PersonCsvLineProvider());
             var lines = generator.GetCsvLines().ToList();
@@ -52,8 +53,8 @@ namespace Paramount.Betterclassifieds.Tests.Csv
         {
             var data = new[]
             {
-                new Person { Age = 10, Height = 10, Name = "Foo Bar", Attributes = new int[] {1,2,3}},
-                new Person { Age = 20, Height = 20, Name = "Foo Bar Two", Attributes = new int[] {1,2,3}},
+                new Person {Age = 10, Height = 10, Name = "Foo Bar", Attributes = new int[] {1, 2, 3}},
+                new Person {Age = 20, Height = 20, Name = "Foo Bar Two", Attributes = new int[] {1, 2, 3}},
             };
             var generator = new CsvGenerator<Person>(data, new PersonCsvLineProvider());
             var generatedData = generator.GetData();
@@ -62,7 +63,7 @@ namespace Paramount.Betterclassifieds.Tests.Csv
             Assert.That(generatedData.Length, Is.GreaterThan(1));
         }
 
-        class Person
+        private class Person
         {
             public string Name { get; set; }
             public int Age { get; set; }
@@ -70,7 +71,7 @@ namespace Paramount.Betterclassifieds.Tests.Csv
             public int[] Attributes { get; set; }
         }
 
-        class PersonCsvLineProvider : ICsvLineProvider<Person>
+        private class PersonCsvLineProvider : ICsvLineProvider<Person>
         {
             public string GetHeader(Person target)
             {

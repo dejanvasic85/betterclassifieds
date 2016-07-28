@@ -49,7 +49,7 @@ namespace Paramount.Betterclassifieds.Tests.Csv
         }
 
         [Test]
-        public void GetData_ReturnsByteArray()
+        public void GetBytes_ReturnsByteArray()
         {
             var data = new[]
             {
@@ -57,7 +57,7 @@ namespace Paramount.Betterclassifieds.Tests.Csv
                 new Person {Age = 20, Height = 20, Name = "Foo Bar Two", Attributes = new int[] {1, 2, 3}},
             };
             var generator = new CsvGenerator<Person>(data, new PersonCsvLineProvider());
-            var generatedData = generator.GetData();
+            var generatedData = generator.GetBytes();
 
             Assert.That(generatedData, Is.Not.Null);
             Assert.That(generatedData.Length, Is.GreaterThan(1));

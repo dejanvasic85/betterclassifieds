@@ -95,14 +95,13 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
 
             // act
-            var result = BuildController().EventGuestListDownloadPdf(adId, eventId);
+            var result = BuildController().DownloadGuestListPdf(adId, eventId);
 
             // assert
             Assert.That(result, Is.TypeOf<FileContentResult>());
             var fileContentResult = (FileContentResult)result;
-            Assert.That(fileContentResult.FileDownloadName, Is.EqualTo("Guest List.pdf"));
+            Assert.That(fileContentResult.FileDownloadName, Is.EqualTo(mockSearchResult.Heading + " - Guest List.pdf"));
             Assert.That(fileContentResult.ContentType, Is.EqualTo("application/pdf"));
-
         }
 
         [Test]

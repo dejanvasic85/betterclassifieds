@@ -9,5 +9,6 @@
         public const string Xml = "text/xml";
         public const string Json = "application/json";
         public const string Csv = "text/csv";
+        public const string Excel = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
     }
 }

@@ -29,7 +29,7 @@ namespace Paramount.Betterclassifieds.Business.Csv
             return _data.Select(item => _csvLineProvider.GetCsvLine(item));
         }
 
-        public byte[] GetData()
+        public byte[] GetBytes()
         {
             if (_data == null || !_data.Any())
                 return null;

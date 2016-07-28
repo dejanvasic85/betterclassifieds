@@ -188,28 +188,41 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpGet]
-        public ActionResult EventGuestListDownloadPdf(int id, int eventId)
+        public ActionResult DownloadGuestListPdf(int id, int eventId)
         {
-            var adDetails = _searchService.GetByAdId(id);
-            var eventGuestDetails = _eventManager.BuildGuestList(eventId).ToList();
-            var guests = this.MapList<EventGuestDetails, EventGuestListViewModel>(eventGuestDetails);
-            var viewModel = new EventGuestListDownloadViewModel { EventName = adDetails.Heading, Guests = guests };
+            var viewModel = GetEventGuestList(id, eventId);
             var html = _templatingService.Generate(viewModel, "EventGuestList");
             var pdf = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(html);
-            return File(pdf, ContentType.Pdf, $"{adDetails.HeadingSlug} - Guest List.pdf");
+            return File(pdf, ContentType.Pdf, $"{viewModel.EventName} - Guest List.pdf");
         }
 
         [HttpGet]
-        public ActionResult EventGuestListDownloadCsv(int id, int eventId)
+        public ActionResult DownloadGuestListCsv(int id, int eventId)
+        {
+            var viewModel = GetEventGuestList(id, eventId);
+            var csvGenerator = new Business.Csv.CsvGenerator<EventGuestListViewModel>(viewModel.Guests, new EventGuestListCsvLineProvider());
+            var csvData = csvGenerator.GetBytes();
+            return File(csvData, ContentType.Csv, $"{viewModel.EventName} - Guest List.csv");
+        }
+
+        [HttpGet]
+        public ActionResult DownloadGuestListExcel(int id, int eventId)
+        {
+            var viewModel = GetEventGuestList(id, eventId);
+            var excelBytes = new Services.ExcelGuestGeneratorService(viewModel.Guests).GetBytes();
+            return File(excelBytes, ContentType.Excel, $"{viewModel.EventName} - Guest list.xlsx");
+        }
+
+
+        private EventGuestListDownloadViewModel GetEventGuestList(int id, int eventId)
         {
             var adDetails = _searchService.GetByAdId(id);
             var eventGuestDetails = _eventManager.BuildGuestList(eventId).ToList();
             var guests = this.MapList<EventGuestDetails, EventGuestListViewModel>(eventGuestDetails);
             var viewModel = new EventGuestListDownloadViewModel { EventName = adDetails.Heading, Guests = guests };
-            var csvGenerator = new Business.Csv.CsvGenerator<EventGuestListViewModel>(viewModel.Guests, new EventGuestListCsvLineProvider());
-            var csvData = csvGenerator.GetData();
-            return File(csvData, ContentType.Csv, $"{adDetails.HeadingSlug} - Guest List.csv");
+            return viewModel;
         }
+
 
         [HttpGet]
         public ActionResult EventPaymentRequest(int id, int eventId)

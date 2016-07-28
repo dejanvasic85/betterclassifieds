@@ -291,7 +291,7 @@
     </Compile>
     <Compile Include="Services\ClientConfigService.cs" />
     <Compile Include="Services\Constants.cs" />
-    <Compile Include="Services\CsvGuestListGenerator.cs" />
+    <Compile Include="Services\EventGuestListCsvLineProvider.cs" />
     <Compile Include="Services\LocationService.cs" />
     <Compile Include="Services\LogService.cs" />
     <Compile Include="Services\TemplatingService.cs" />

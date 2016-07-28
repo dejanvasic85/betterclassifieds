@@ -64,6 +64,9 @@
     <Compile Include="Broadcast\EmailAttachment.cs" />
     <Compile Include="Broadcast\DocTypes\EventTicketsBookedNotification.cs" />
     <Compile Include="ContentType.cs" />
+    <Compile Include="Csv\CsvGenerator.cs" />
+    <Compile Include="Csv\GenericCsvLineProvider.cs" />
+    <Compile Include="Csv\ICsvLineProvider.cs" />
     <Compile Include="Events\EventBarcodeManager.cs" />
     <Compile Include="Events\EventBookingFactory.cs" />
     <Compile Include="Events\EventBookingTicketValidation.cs" />

@@ -206,7 +206,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var eventGuestDetails = _eventManager.BuildGuestList(eventId).ToList();
             var guests = this.MapList<EventGuestDetails, EventGuestListViewModel>(eventGuestDetails);
             var viewModel = new EventGuestListDownloadViewModel { EventName = adDetails.Heading, Guests = guests };
-            var csvData = new CsvGenerator<EventGuestListViewModel>(viewModel.Guests, new EventGuestListCsvLineProvider()).GetData();
+            var csvGenerator = new Business.Csv.CsvGenerator<EventGuestListViewModel>(viewModel.Guests, new EventGuestListCsvLineProvider());
+            var csvData = csvGenerator.GetData();
             return File(csvData, ContentType.Csv, $"{adDetails.HeadingSlug} - Guest List.csv");
         }
 

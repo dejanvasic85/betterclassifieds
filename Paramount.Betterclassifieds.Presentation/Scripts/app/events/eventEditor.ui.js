@@ -44,7 +44,7 @@
 
                 $('#printImageCropDialog').on('shown.bs.modal', function () {
                     $printImg.cropper({
-                        aspectRatio: 639 / 251,
+//                        aspectRatio: 639 / 251,
                         modal: true,
                         dashed: false
                     });

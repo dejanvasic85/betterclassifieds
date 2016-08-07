@@ -22,20 +22,19 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.EventGroups
 
         [FindsBy(How = How.Id, Using = "txtNewGroupName")]
         private IWebElement NewGroupNameInput { get; set; }
-
+        
         [FindsBy(How = How.Id, Using = "txtNewGroupMaxGuests")]
         private IWebElement MaxGuestsInput { get; set; }
 
         [FindsBy(How = How.Id, Using = "btnSaveGroup")]
         private IWebElement SaveGroupButton { get; set; }
 
-
-
         public ManageGroupsPage CreateGroup()
         {
             CreateGroupButton.Click();
             var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(2));
             wait.Until(ExpectedConditions.ElementIsVisible(By.Id("createGroupForm")));
+            wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("btnSaveGroup")));
             return this;
         }
 

@@ -60,9 +60,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
     partial void InsertEdition(Edition instance);
     partial void UpdateEdition(Edition instance);
     partial void DeleteEdition(Edition instance);
-    partial void InsertEnquiryType(EnquiryType instance);
-    partial void UpdateEnquiryType(EnquiryType instance);
-    partial void DeleteEnquiryType(EnquiryType instance);
     partial void InsertLineAdColourCode(LineAdColourCode instance);
     partial void UpdateLineAdColourCode(LineAdColourCode instance);
     partial void DeleteLineAdColourCode(LineAdColourCode instance);
@@ -235,14 +232,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 			get
 			{
 				return this.GetTable<Edition>();
-			}
-		}
-		
-		public System.Data.Linq.Table<EnquiryType> EnquiryTypes
-		{
-			get
-			{
-				return this.GetTable<EnquiryType>();
 			}
 		}
 		
@@ -3406,168 +3395,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.EnquiryType")]
-	public partial class EnquiryType : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _EnquiryTypeId;
-		
-		private string _Title;
-		
-		private System.Nullable<bool> _Active;
-		
-		private System.Nullable<System.DateTime> _CreatedDate;
-		
-		private EntitySet<OnlineAdEnquiry> _OnlineAdEnquiries;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnEnquiryTypeIdChanging(int value);
-    partial void OnEnquiryTypeIdChanged();
-    partial void OnTitleChanging(string value);
-    partial void OnTitleChanged();
-    partial void OnActiveChanging(System.Nullable<bool> value);
-    partial void OnActiveChanged();
-    partial void OnCreatedDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnCreatedDateChanged();
-    #endregion
-		
-		public EnquiryType()
-		{
-			this._OnlineAdEnquiries = new EntitySet<OnlineAdEnquiry>(new Action<OnlineAdEnquiry>(this.attach_OnlineAdEnquiries), new Action<OnlineAdEnquiry>(this.detach_OnlineAdEnquiries));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EnquiryTypeId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int EnquiryTypeId
-		{
-			get
-			{
-				return this._EnquiryTypeId;
-			}
-			set
-			{
-				if ((this._EnquiryTypeId != value))
-				{
-					this.OnEnquiryTypeIdChanging(value);
-					this.SendPropertyChanging();
-					this._EnquiryTypeId = value;
-					this.SendPropertyChanged("EnquiryTypeId");
-					this.OnEnquiryTypeIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(100)")]
-		public string Title
-		{
-			get
-			{
-				return this._Title;
-			}
-			set
-			{
-				if ((this._Title != value))
-				{
-					this.OnTitleChanging(value);
-					this.SendPropertyChanging();
-					this._Title = value;
-					this.SendPropertyChanged("Title");
-					this.OnTitleChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Active", DbType="Bit")]
-		public System.Nullable<bool> Active
-		{
-			get
-			{
-				return this._Active;
-			}
-			set
-			{
-				if ((this._Active != value))
-				{
-					this.OnActiveChanging(value);
-					this.SendPropertyChanging();
-					this._Active = value;
-					this.SendPropertyChanged("Active");
-					this.OnActiveChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CreatedDate
-		{
-			get
-			{
-				return this._CreatedDate;
-			}
-			set
-			{
-				if ((this._CreatedDate != value))
-				{
-					this.OnCreatedDateChanging(value);
-					this.SendPropertyChanging();
-					this._CreatedDate = value;
-					this.SendPropertyChanged("CreatedDate");
-					this.OnCreatedDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="EnquiryType_OnlineAdEnquiry", Storage="_OnlineAdEnquiries", ThisKey="EnquiryTypeId", OtherKey="EnquiryTypeId")]
-		public EntitySet<OnlineAdEnquiry> OnlineAdEnquiries
-		{
-			get
-			{
-				return this._OnlineAdEnquiries;
-			}
-			set
-			{
-				this._OnlineAdEnquiries.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_OnlineAdEnquiries(OnlineAdEnquiry entity)
-		{
-			this.SendPropertyChanging();
-			entity.EnquiryType = this;
-		}
-		
-		private void detach_OnlineAdEnquiries(OnlineAdEnquiry entity)
-		{
-			this.SendPropertyChanging();
-			entity.EnquiryType = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LineAdColourCode")]
 	public partial class LineAdColourCode : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -4800,8 +4627,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 		
 		private int _OnlineAdId;
 		
-		private int _EnquiryTypeId;
-		
 		private string _Email;
 		
 		private string _Phone;
@@ -4813,8 +4638,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 		private System.Nullable<System.DateTime> _CreatedDate;
 		
 		private System.Nullable<bool> _Active;
-		
-		private EntityRef<EnquiryType> _EnquiryType;
 		
 		private EntityRef<OnlineAd> _OnlineAd;
 		
@@ -4828,8 +4651,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
     partial void OnFullNameChanged();
     partial void OnOnlineAdIdChanging(int value);
     partial void OnOnlineAdIdChanged();
-    partial void OnEnquiryTypeIdChanging(int value);
-    partial void OnEnquiryTypeIdChanged();
     partial void OnEmailChanging(string value);
     partial void OnEmailChanged();
     partial void OnPhoneChanging(string value);
@@ -4846,7 +4667,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 		
 		public OnlineAdEnquiry()
 		{
-			this._EnquiryType = default(EntityRef<EnquiryType>);
 			this._OnlineAd = default(EntityRef<OnlineAd>);
 			OnCreated();
 		}
@@ -4911,30 +4731,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 					this._OnlineAdId = value;
 					this.SendPropertyChanged("OnlineAdId");
 					this.OnOnlineAdIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EnquiryTypeId", DbType="Int NOT NULL")]
-		public int EnquiryTypeId
-		{
-			get
-			{
-				return this._EnquiryTypeId;
-			}
-			set
-			{
-				if ((this._EnquiryTypeId != value))
-				{
-					if (this._EnquiryType.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnEnquiryTypeIdChanging(value);
-					this.SendPropertyChanging();
-					this._EnquiryTypeId = value;
-					this.SendPropertyChanged("EnquiryTypeId");
-					this.OnEnquiryTypeIdChanged();
 				}
 			}
 		}
@@ -5055,40 +4851,6 @@ namespace Paramount.Betterclassifieds.DataService.Classifieds
 					this._Active = value;
 					this.SendPropertyChanged("Active");
 					this.OnActiveChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="EnquiryType_OnlineAdEnquiry", Storage="_EnquiryType", ThisKey="EnquiryTypeId", OtherKey="EnquiryTypeId", IsForeignKey=true)]
-		public EnquiryType EnquiryType
-		{
-			get
-			{
-				return this._EnquiryType.Entity;
-			}
-			set
-			{
-				EnquiryType previousValue = this._EnquiryType.Entity;
-				if (((previousValue != value) 
-							|| (this._EnquiryType.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._EnquiryType.Entity = null;
-						previousValue.OnlineAdEnquiries.Remove(this);
-					}
-					this._EnquiryType.Entity = value;
-					if ((value != null))
-					{
-						value.OnlineAdEnquiries.Add(this);
-						this._EnquiryTypeId = value.EnquiryTypeId;
-					}
-					else
-					{
-						this._EnquiryTypeId = default(int);
-					}
-					this.SendPropertyChanged("EnquiryType");
 				}
 			}
 		}

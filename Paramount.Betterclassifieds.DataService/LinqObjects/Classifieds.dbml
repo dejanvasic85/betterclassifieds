@@ -127,15 +127,6 @@
       <Association Name="Publication_Edition" Member="Publication" ThisKey="PublicationId" OtherKey="PublicationId" Type="Publication" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.EnquiryType" Member="EnquiryTypes">
-    <Type Name="EnquiryType">
-      <Column Name="EnquiryTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Title" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="Active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="EnquiryType_OnlineAdEnquiry" Member="OnlineAdEnquiries" ThisKey="EnquiryTypeId" OtherKey="EnquiryTypeId" Type="OnlineAdEnquiry" />
-    </Type>
-  </Table>
   <Table Name="dbo.LineAdColourCode" Member="LineAdColourCodes">
     <Type Name="LineAdColourCode">
       <Column Name="LineAdColourId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -202,14 +193,12 @@
       <Column Name="OnlineAdEnquiryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="FullName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="OnlineAdId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="EnquiryTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Email" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="Phone" Type="System.String" DbType="NVarChar(12)" CanBeNull="true" />
       <Column Name="EnquiryText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="OpenDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="EnquiryType_OnlineAdEnquiry" Member="EnquiryType" ThisKey="EnquiryTypeId" OtherKey="EnquiryTypeId" Type="EnquiryType" IsForeignKey="true" />
       <Association Name="OnlineAd_OnlineAdEnquiry" Member="OnlineAd" ThisKey="OnlineAdId" OtherKey="OnlineAdId" Type="OnlineAd" IsForeignKey="true" />
     </Type>
   </Table>

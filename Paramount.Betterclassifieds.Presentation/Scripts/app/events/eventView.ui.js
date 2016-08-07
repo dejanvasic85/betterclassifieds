@@ -8,8 +8,11 @@
     $paramount.ui.eventView = {
         init: function (options) {
             $(function () {
-                if (options.ticketData) {
-                    var ticketingInterface = document.getElementById('ticketing');
+                var ticketingInterface = document.getElementById('ticketing');
+
+                if ($paramount.notNullOrUndefined(options.ticketData) &&
+                    $paramount.notNullOrUndefined(ticketingInterface)) {
+                    
                     var eventService = new $paramount.EventService(options.baseUrl);
                     var ticketBookingModel = new $paramount.models.FindTickets(eventService, {
                         ticketData: options.ticketData,

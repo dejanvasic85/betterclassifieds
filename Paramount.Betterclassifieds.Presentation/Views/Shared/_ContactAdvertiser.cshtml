@@ -1,9 +1,27 @@
-﻿<div class="panel panel-primary" id="contactAdvertiserComponent">
+﻿@using Paramount.Betterclassifieds.Business
+
+@{
+    var isAuthenticated = User.Identity.IsAuthenticated;
+    var viewModel = new Dictionary<string, string>
+    {
+        { "adId", Model.AdId.ToString() },
+        { "adEnquiryUrl", Url.AdEnquiry() },
+    };
+
+    if (isAuthenticated)
+    {
+        var user = DependencyResolver.Current.GetService<IUserManager>().GetCurrentUser(this.User);
+        viewModel.Add("email", user.Email);
+        viewModel.Add("fullName", user.FullName);
+    }
+}
+
+<div class="panel panel-primary" id="contactAdvertiserComponent">
     <div class="panel-heading">
         <h4><i class="fa fa-user"></i> Contact the advertiser</h4>
     </div>
 
-    @if (User.Identity.IsAuthenticated)
+    @if (isAuthenticated)
     {
         <form id="contactAdvertiserForm" data-bind="submit: sendMsg, visible: submitted() === false">
             <div class="panel-body">
@@ -60,9 +78,8 @@
 
 <script>
     $(function () {
-        var contactForm = new $paramount.models.ContactAdvertiser(
-            @Model.AdId,
-            '@Url.Action("AdEnquiry", "Listings")');
+        var vm = @Html.Raw( viewModel.ToJsonString());
+        var contactForm = new $paramount.models.ContactAdvertiser(vm);
         ko.applyBindings(contactForm, document.getElementById('contactAdvertiserComponent'));
     });
 </script>

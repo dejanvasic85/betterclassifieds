@@ -252,5 +252,10 @@ namespace Paramount
         {
             return new UrlBuilder(urlHelper).WithAction("SeoAds", "Listings").WithRouteValues(new { seoName });
         }
+
+        public static UrlBuilder AdEnquiry(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper, "adEnquiry", "listings");
+        }
     }
 }

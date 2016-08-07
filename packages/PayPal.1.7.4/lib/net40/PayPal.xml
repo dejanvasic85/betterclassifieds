@@ -1060,6 +1060,11 @@
             Time the resource was last updated in UTC ISO8601 format.
             </summary>
         </member>
+        <member name="P:PayPal.Api.Authorization.processor_response">
+            <summary>
+            Collection of payment response related fields returned from a payment request.
+            </summary>
+        </member>
         <member name="P:PayPal.Api.Authorization.pending_reason">
             <summary>
             Reason code for the transaction state being Pending.
@@ -1775,7 +1780,7 @@
             <param name="patchRequest">PatchRequest</param>
             <returns>CreditCard</returns>
         </member>
-        <member name="M:PayPal.Api.CreditCard.List(PayPal.Api.APIContext,System.Int32,System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:PayPal.Api.CreditCard.List(PayPal.Api.APIContext,System.Int32,System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean)">
             <summary>
             Retrieves a list of Credit Card resources.
             </summary>
@@ -1789,6 +1794,7 @@
             <param name="merchantId">Merchant identifier to filter the search results in list operations.</param>
             <param name="externalCardId">Externally provided card identifier to filter the search results in list operations.</param>
             <param name="externalCustomerId">Externally provided customer identifier to filter the search results in list operations.</param>
+            <param name="totalRequired">Identifies if total count is required or not. Defaults to true.</param>
             <returns>CreditCardList</returns>
         </member>
         <member name="T:PayPal.Api.CreditCardToken">
@@ -2208,6 +2214,11 @@
             Optional field to pass payment deadline for the invoice. Either term_type or due_date can be passed, but not both.
             </summary>
         </member>
+        <member name="P:PayPal.Api.Invoice.reference">
+            <summary>
+            Reference data, such as PO number, to add to the invoice. Maximum length is 60 characters.
+            </summary>
+        </member>
         <member name="P:PayPal.Api.Invoice.discount">
             <summary>
             Invoice level discount in percent or amount.
@@ -2276,6 +2287,11 @@
         <member name="P:PayPal.Api.Invoice.additional_data">
             <summary>
             Any miscellaneous invoice data. 4000 characters max.
+            </summary>
+        </member>
+        <member name="P:PayPal.Api.Invoice.template_id">
+            <summary>
+            The template ID used for the invoice. Useful for copy functionality.
             </summary>
         </member>
         <member name="P:PayPal.Api.Invoice.payment_details">

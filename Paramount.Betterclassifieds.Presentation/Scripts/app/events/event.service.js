@@ -45,6 +45,12 @@
         return $paramount.httpPost(this.baseUrl + 'event/assign-group', data);
     }
 
+    EventService.prototype.calculateBuyerPriceWithTxnFee = function(price, eventTicketFee, eventTicketFeeCents) {
+        var percentage = ((eventTicketFee / 100) + 1);
+        var amount = (percentage * price) + (eventTicketFeeCents / 100);
+        return $paramount.formatCurrency(amount);
+    }
+
     $paramount.EventService = EventService;
     return $paramount;
 

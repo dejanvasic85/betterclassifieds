@@ -1,17 +1,13 @@
 ﻿(function ($, ko, $paramount) {
 
     function EventTicketDefinition(parent, data) {
+        var eventService = new $paramount.EventService();
+
         var me = this;
         me.ticketName = ko.observable();
         me.availableQuantity = ko.observable();
         me.eventTicketFields = ko.observableArray();
         me.price = ko.observable();
-
-        function calculateBuyerPriceWithTxnFee(price) {
-            var percentage = ((parent.eventTicketFee() / 100) + 1);
-            var amount = (percentage * price) + (parent.eventTicketFeeCents() / 100);
-            return $paramount.formatCurrency(amount);
-        }
 
         me.addField = function () {
             me.eventTicketFields.push(new $paramount.models.DynamicFieldDefinition());
@@ -27,7 +23,7 @@
             }
 
             if (parent.includeTransactionFee() === true && me.price() > 0) {
-                return calculateBuyerPriceWithTxnFee(me.price());
+                return eventService.calculateBuyerPriceWithTxnFee(me.price(), parent.eventTicketFee(), parent.eventTicketFeeCents());
             }
             return $paramount.formatCurrency(me.price());
         });

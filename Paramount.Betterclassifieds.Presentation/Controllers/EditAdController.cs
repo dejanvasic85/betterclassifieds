@@ -162,7 +162,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 Id = id,
                 EventId = eventId,
-                Tickets = this.MapList<EventTicket, EventTicketViewModel>(eventDetails.Tickets.ToList())
+                Tickets = this.MapList<EventTicket, EventTicketViewModel>(eventDetails.Tickets.ToList()),
+                IncludeTransactionFee = eventDetails.With(e => e.IncludeTransactionFee)
             };
 
             return View(vm);
@@ -462,6 +463,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult ToggleEventGroupStatus(int id, int eventGroupId, bool isDisabled)
         {
             _eventManager.SetEventGroupStatus(eventGroupId, isDisabled);
+            return Json(true);
+        }
+
+        [HttpPost]
+        public ActionResult ToggleTransactionFee(int id, int eventId, bool includeTransactionFee)
+        {
+            _eventManager.SetTransactionFee(eventId, includeTransactionFee);
             return Json(true);
         }
 

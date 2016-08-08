@@ -122,6 +122,26 @@
     </div>
 
     <div class="row">
+        <div class="col-xs-12">
+            <h3>Transaction Fee</h3>
+        </div>
+        <div class="col-xs-12">
+            <div class="alert alert-info-alt">
+                <p>
+                    Do you want the customer to pay the transaction fee?
+                    <a class="btn btn-link" href="@Url.EventPricing()" target="_blank">Click here for more info</a>
+                </p>
+                <input type="checkbox" data-bind="toggle: includeTransactionFee"
+                       data-on="Yes"
+                       data-off="No, I will"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <h3>Tickets</h3>
+        </div>
         @*List of current Tickets*@
         <!-- ko foreach: tickets -->
         <div class="col-xs-12 col-lg-6 top-buffer-20">

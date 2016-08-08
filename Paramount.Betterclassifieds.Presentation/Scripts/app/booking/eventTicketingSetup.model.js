@@ -30,10 +30,7 @@
             $button.button('loading');
             var eventTicketingSetup = ko.toJS(me);
             adDesignService.updateEventTicketDetails(eventTicketingSetup)
-                .then(function (resp) {
-                    if (resp.nextUrl) {
-                        return;
-                    }
+                .always(function () {
                     $button.button('reset');
                 });
         }

@@ -446,5 +446,12 @@ namespace Paramount.Betterclassifieds.Business.Events
         {
             _eventRepository.UpdateEventGroupStatus(eventGroupId, isDisabled);
         }
+
+        public void SetTransactionFee(int eventId, bool includeTransactionFee)
+        {
+            var eventModel = _eventRepository.GetEventDetails(eventId);
+            eventModel.IncludeTransactionFee = includeTransactionFee;
+            _eventRepository.UpdateEvent(eventModel);
+        }
     }
 }

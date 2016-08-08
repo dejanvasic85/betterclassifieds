@@ -115,6 +115,12 @@
         return $paramount.httpPost(url, me.model);
     }
 
+    AdDesignService.prototype.toggleTransactionFee = function(val) {
+        var url = me.baseUrl + 'toggleTransactionFee';
+        $.extend(me.model, val);
+        return $paramount.httpPost(url, me.model);
+    }
+
     $paramount.AdDesignService = AdDesignService;
 
     return $paramount;

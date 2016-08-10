@@ -49,6 +49,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             FacebookAppId = clientConfig.FacebookAppId;
             MaxTicketsPerBooking = clientConfig.MaxOnlineImages.GetValueOrDefault();
 
+            LocationFloorPlanFilename = eventModel.LocationFloorPlanFilename;
+            LocationFloorPlanDocumentId = eventModel.LocationFloorPlanDocumentId;
+
             Tickets = eventModel.Tickets.Select(t => new EventTicketViewModel
             {
                 EventId = t.EventId,

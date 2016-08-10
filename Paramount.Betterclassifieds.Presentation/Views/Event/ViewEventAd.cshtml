@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
 }
 
-@Html.Partial("_FloorPlanDialogDialog")
+@Html.Partial("_FloorPlanDialog")
 
 <div class="event-details">
     <div class="event-title">
@@ -13,11 +13,13 @@
             <h1>
                 @Model.Title
             </h1>
+            <p class="details"><i class="fa fa-calendar-check-o"></i> @Model.EventStartDateDisplay at @Model.EventStartTime.</p>
+            <p><i class="fa fa-map-marker"></i> @Model.LocationFriendlyName</p>
             <p class="details">
-                <i class="fa fa-calendar-check-o"></i> @Model.EventStartDateDisplay at @Model.EventStartTime.
-            </p>
-            <p>
-                <i class="fa fa-map-marker"></i> @Model.LocationFriendlyName
+                <i class="fa fa-map"></i>
+                <a data-toggle="modal" id="btnViewFloorplan" data-target="#floorplanDialog">
+                    View Floor Plan / Seating
+                </a>
             </p>
 
             <div class="pull-right social-share">
@@ -44,71 +46,71 @@
     <div class="container" id="eventView">
         @if (Model.EventPhoto.HasValue())
         {
-        <div class="row">
-            <div class="col-md-12 event-photo">
-                <img class="img-responsive" src="@Url.Image(Model.EventPhoto, 400, 1020)" />
+            <div class="row">
+                <div class="col-md-12 event-photo">
+                    <img class="img-responsive" src="@Url.Image(Model.EventPhoto, 400, 1020)" />
+                </div>
             </div>
-        </div>
         }
 
         <div class="row">
             @if (Model.TicketingEnabled)
             {
-            <div class="col-md-6 ticketing" id="ticketing">
-                @if (Model.TicketingEnabled && !Model.IsClosed)
+                <div class="col-md-6 ticketing" id="ticketing">
+                    @if (Model.TicketingEnabled && !Model.IsClosed)
                     {
-                    <h3>
-                        <i class="fa fa-ticket"></i> Tickets
-                    </h3>
-                    <ul class="list-group" data-bind="foreach: tickets">
-                        <li class="list-group-item" data-bind="attr : {'data-ticket-name' : ticketName}">
-                            <div class="row">
-                                <div class="col-xs-4">
-                                    <span class="ticket-info" data-bind="text: ticketName"></span>
-                                </div>
-                                <div class="col-xs-2">
-                                    <span class="ticket-info tst-ticket-free" data-bind="visible: price() === 0, text : 'Free'"></span>
-                                    <span class="ticket-info tst-ticket-price" data-bind="visible: price() > 0, text : priceFormatted"></span>
-                                </div>
-                                <div class="col-xs-6">
-                                    <div class="form-inline pull-right">
-                                        <span data-bind="visible: soldOut, text: 'SOLD OUT'" class="label label-danger"></span>
-                                        <div class="form-group" data-bind="visible: isAvailable">
-                                            <span class="ticket-info">Quantity</span>
-                                            <select class="form-control" data-bind="value: selectedQuantity, options: maxTicketsPerBooking, optionsText : 'label', optionsValue : 'value'"></select>
+                        <h3>
+                            <i class="fa fa-ticket"></i> Tickets
+                        </h3>
+                        <ul class="list-group" data-bind="foreach: tickets">
+                            <li class="list-group-item" data-bind="attr : {'data-ticket-name' : ticketName}">
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <span class="ticket-info" data-bind="text: ticketName"></span>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <span class="ticket-info tst-ticket-free" data-bind="visible: price() === 0, text : 'Free'"></span>
+                                        <span class="ticket-info tst-ticket-price" data-bind="visible: price() > 0, text : priceFormatted"></span>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="form-inline pull-right">
+                                            <span data-bind="visible: soldOut, text: 'SOLD OUT'" class="label label-danger"></span>
+                                            <div class="form-group" data-bind="visible: isAvailable">
+                                                <span class="ticket-info">Quantity</span>
+                                                <select class="form-control" data-bind="value: selectedQuantity, options: maxTicketsPerBooking, optionsText : 'label', optionsValue : 'value'"></select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
-                    </ul>
+                            </li>
+                        </ul>
 
-                    <div class="well  text-right" data-bind="visible: totalSelectedTickets() > 0">
-                        <button class="btn btn-primary" data-loading-text="Please Wait..."
-                                data-bind="click: startOrder" id="btnGetTickets">
-                            Get Tickets <i class="fa fa-arrow-right"></i>
-                        </button>
-                    </div>
-
-                    <div class="text-center">
-                        <a class="btn btn-block btn-default" data-toggle="modal" id="btnViewFloorplan" data-target="#floorplanDialog">
-                            <i class="fa fa-map"></i> View Floor Plan / Seating
-                        </a>
-                    </div>
-                    }
-
-
-                @if (Model.IsClosed)
-                    {
-                    <div class="panel panel-body">
-                        <div class="well">
-                            The ticketing has been closed for this event. Please
-                            contact the organiser for any further queries.
+                        <div class="well  text-right" data-bind="visible: totalSelectedTickets() > 0">
+                            <button class="btn btn-primary" data-loading-text="Please Wait..."
+                                    data-bind="click: startOrder" id="btnGetTickets">
+                                Get Tickets <i class="fa fa-arrow-right"></i>
+                            </button>
                         </div>
-                    </div>
+
+                        @*<div class="text-center">
+                            <a class="btn btn-block btn-default" data-toggle="modal" id="btnViewFloorplan" data-target="#floorplanDialog">
+                                <i class="fa fa-map"></i> View Floor Plan / Seating
+                            </a>
+                        </div>*@
                     }
 
-            </div>
+
+                    @if (Model.IsClosed)
+                    {
+                        <div class="panel panel-body">
+                            <div class="well">
+                                The ticketing has been closed for this event. Please
+                                contact the organiser for any further queries.
+                            </div>
+                        </div>
+                    }
+
+                </div>
             }
             <div class="@(Model.TicketingEnabled ? "col-md-6" : "col-md-12")">
                 <h3>
@@ -188,17 +190,17 @@
 {
     <script type="application/ld+json">
         {
-            "@@context": "http://schema.org",
-            "@@type": "Event",
-            "name": "@Model.Title",
-            "description" : "@Model.Description"
-            "startDate": "@Model.EventStartDate.ToString("yyyy-MM-ddTHH:mm")",
-            "endDate": "@Model.EventEndDate.ToString("yyyy-MM-ddTHH:mm")",
-            "url": "@Model.EventUrl",
-            "location": {
-                "@@type": "Place",
-                "address": "@Model.Location"
-            }
+        "@@context": "http://schema.org",
+        "@@type": "Event",
+        "name": "@Model.Title",
+        "description" : "@Model.Description"
+        "startDate": "@Model.EventStartDate.ToString("yyyy-MM-ddTHH:mm")",
+        "endDate": "@Model.EventEndDate.ToString("yyyy-MM-ddTHH:mm")",
+        "url": "@Model.EventUrl",
+        "location": {
+        "@@type": "Place",
+        "address": "@Model.Location"
+        }
         }
     </script>
 

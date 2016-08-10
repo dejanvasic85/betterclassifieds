@@ -952,7 +952,7 @@
     <Content Include="Views\Shared\_Layout.SriLankanEvents.cshtml" />
     <Content Include="Views\Home\Index.SriLankanEvents.cshtml" />
     <Content Include="Views\EditAd\EventDetails.cshtml" />
-    <Content Include="Views\Event\_FloorPlanDialogDialog.cshtml" />
+    <Content Include="Views\Event\_FloorPlanDialog.cshtml" />
     <Content Include="Views\Home\Terms.cshtml" />
     <Content Include="Views\Event\ValidateBarcode.cshtml" />
     <Content Include="Views\Shared\_Terms.SriLankanEvents.cshtml" />

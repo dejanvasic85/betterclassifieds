@@ -24,7 +24,7 @@
                 }
 
                 if (options.floorPlanDocumentId === '') {
-                    $('#btnViewFloorplan').hide();
+                    $('.floor-plan').hide();
                 } else if (options.floorPlanFileName.endsWith('.pdf')) {
                     var url = $paramount.baseUrl + 'Document/File/' + options.floorPlanDocumentId;
                     $('#btnViewFloorplan')

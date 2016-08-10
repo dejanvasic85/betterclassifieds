@@ -33,10 +33,15 @@ namespace Paramount.Betterclassifieds.Business.Events
         public bool IsClosed => this.ClosingDateUtc.HasValue && this.ClosingDateUtc <= DateTime.UtcNow;
         public Address Address { get; set; }
         public long? AddressId { get; set; }
-        
+
         /// <summary>
         /// If true then the customer will absorb the fee payment
         /// </summary>
         public bool? IncludeTransactionFee { get; set; }
+        public string VenueName { get; set; }
+
+        public string VenueNameAndLocation => VenueName.HasValue()
+            ? $"{VenueName} - {Location}"
+            : Location;
     }
 }

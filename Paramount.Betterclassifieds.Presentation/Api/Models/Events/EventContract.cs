@@ -41,6 +41,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models.Events
 
         // Address object
         public AddressContract Address { get; set; }
+        public string VenueName { get; set; }
     }
 
     public class EventContractFactory : IMappingBehaviour

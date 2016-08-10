@@ -22,5 +22,7 @@
                 return $"{TicketName} {Price:C}";
             }
         }
+
+        public string GuestFullName { get; set; }
     }
 }

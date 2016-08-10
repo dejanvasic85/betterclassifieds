@@ -32,19 +32,20 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events.Factories
             {
                 group = Task.Run(() => _eventManager.GetEventGroup(ticket.EventGroupId.Value)).Result;
             }
-
+            
             return new EventTicketPrintViewModel
             {
                 TicketName = ticket.TicketName,
                 TicketNumber = ticket.EventTicketId.ToString(),
                 EventPhoto = adDetails.PrimaryImage,
                 EventName = adDetails.Heading,
-                Location = eventDetails.Location,
+                Location = eventDetails.VenueNameAndLocation,
                 StartDateTime = eventDetails.EventStartDate.GetValueOrDefault().ToString("dd-MMM-yyyy HH:mm"),
-                Price = ticket.Price.GetValueOrDefault(),
+                Price = ticket.TotalPrice,
                 ContactNumber = adDetails.ContactPhone,
                 BarcodeData = urlHelper.ValidateBarcode(barcodeManager.GenerateBarcodeData(eventDetails, ticket)).WithFullUrl(),
-                GroupName = group.With(g => g.GroupName)
+                GroupName = group.With(g => g.GroupName),
+                GuestFullName = ticket.GuestFullName,
             };
         }
     }

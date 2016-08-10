@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Paramount.Betterclassifieds.Business;
@@ -12,7 +14,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public EventBookedViewModel()
         { }
 
-        public EventBookedViewModel(AdSearchResult adDetails, EventModel eventDetails, EventBooking eventBooking, UrlHelper urlHelper, IClientConfig clientConfig, HttpContextBase httpContext)
+        public EventBookedViewModel(AdSearchResult adDetails, EventModel eventDetails, EventBooking eventBooking, UrlHelper urlHelper, IClientConfig clientConfig, HttpContextBase httpContext, IEnumerable<EventGroup> groups)
         {
             EventName = adDetails.Heading;
             CustomerEmailAddress = eventBooking.Email;
@@ -26,7 +28,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             StartDateTime = eventDetails.EventStartDate.GetValueOrDefault();
             EndDateTime = eventDetails.EventEndDate.GetValueOrDefault();
             EventPhoto = adDetails.PrimaryImage;
-
+            EventHasGroups = groups != null && groups.Any();
+            
             EventUrl = urlHelper.AdUrl(adDetails.HeadingSlug, adDetails.AdId, adDetails.CategoryAdType).WithFullUrl();
             EventPhotoUrl = urlHelper.ImageOriginal(adDetails.PrimaryImage).WithFullUrl();
             Title = adDetails.Heading;
@@ -38,6 +41,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             // Seating/Group management
             GroupSelectionViewModel = new GroupSelectionViewModel(eventBooking);
         }
+
+        public bool EventHasGroups { get; set; }
 
         public string FacebookAppId { get; set; }
         public string Description { get; set; }

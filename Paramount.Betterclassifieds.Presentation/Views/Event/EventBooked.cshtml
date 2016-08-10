@@ -82,43 +82,47 @@
         </div>
     </div>
 
-    <div class="row" id="eventGroupSelection">
-        <div class="col-xs-12">
-            <h2>Group Selection</h2>
-        </div>
+    @if (Model.EventHasGroups)
+    {
+        <div class="row" id="eventGroupSelection">
+            <div class="col-xs-12">
+                <h2>Group Selection</h2>
+            </div>
 
-        <div class="col-xs-12">
-            <div class="row" data-bind="foreach: eventBookingTickets">
-                <div class="col-sm-6">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <i class="fa fa-ticket"></i> <span data-bind="text: friendlyTicketName"></span>
-                        </div>
-                        <div class="panel-body">
-                            <div class="form-group-lg">
-                                <label class="control-label">
-                                    Available Groups:
-                                </label>
-                                <div class="input-group">
-                                    <select class="form-control input-lg"
-                                            data-bind="options: groups, optionsText: 'groupName', value: selectedGroup, optionsCaption: 'Un-Assigned...', event:{ change: groupChanged}, attr : {'data-guestName' : guestFullName}"></select>
-                                    <div class="input-group-addon">
-                                        <h4>
-                                            <i data-bind="visible: isGroupSelected() === false && !isUpdating()" class="fa fa-times-circle-o"></i>
-                                            <i data-bind="visible: isGroupSelected() && !isUpdating()" class="fa fa-check-circle-o"></i>
-                                            <img src="@Url.Content("~/Content/images/loader.gif")" style="max-width: 25px;"
-                                                 data-bind="visible: isUpdating" />
-                                        </h4>
+            <div class="col-xs-12">
+                <div class="row" data-bind="foreach: eventBookingTickets">
+                    <div class="col-sm-6">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <i class="fa fa-ticket"></i> <span data-bind="text: friendlyTicketName"></span>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group-lg">
+                                    <label class="control-label">
+                                        Available Groups:
+                                    </label>
+                                    <div class="input-group">
+                                        <select class="form-control input-lg"
+                                                data-bind="options: groups, optionsText: 'groupName', value: selectedGroup, optionsCaption: 'Un-Assigned...', event:{ change: groupChanged}, attr : {'data-guestName' : guestFullName}"></select>
+                                        <div class="input-group-addon">
+                                            <h4>
+                                                <i data-bind="visible: isGroupSelected() === false && !isUpdating()" class="fa fa-times-circle-o"></i>
+                                                <i data-bind="visible: isGroupSelected() && !isUpdating()" class="fa fa-check-circle-o"></i>
+                                                <img src="@Url.Content("~/Content/images/loader.gif")" style="max-width: 25px;"
+                                                     data-bind="visible: isUpdating" />
+                                            </h4>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="alert alert-danger" data-bind="visible: errorMsg().length > 0">
-                                <span data-bind="text: errorMsg"></span>
+                                <div class="alert alert-danger" data-bind="visible: errorMsg().length > 0">
+                                    <span data-bind="text: errorMsg"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+
+    }
 </div>

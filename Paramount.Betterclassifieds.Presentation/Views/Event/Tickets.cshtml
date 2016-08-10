@@ -66,7 +66,7 @@
 
                             <div class="col-xs-12">
                                 <label>
-                                    <i class="fa fa-map-marker"></i> Address
+                                    <i class="fa fa-map-marker"></i> Location
                                 </label>
                                 <span class="detail">@tick.Location</span>
                             </div>
@@ -78,11 +78,18 @@
                                 <span class="detail">@tick.StartDateTime</span>
                             </div>
 
+                            <div class="col-xs-12">
+                                <label>
+                                    <i class="fa fa-clock-o"></i> Guest Name
+                                </label>
+                                <span class="detail">@tick.GuestFullName</span>
+                            </div>
+
                             @if (tick.ContactNumber.HasValue())
                             {
                                 <div class="col-xs-12">
                                     <label>
-                                        <i class="fa fa-phone"></i> Help
+                                        <i class="fa fa-phone"></i> Contact
                                     </label>
                                     <span class="detail">@tick.ContactNumber</span>
                                 </div>

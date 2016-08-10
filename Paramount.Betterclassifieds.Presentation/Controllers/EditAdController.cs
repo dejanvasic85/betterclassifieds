@@ -317,6 +317,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 EventStartTime = _dateService.ConvertToStringTime(eventDetails.EventStartDate),
                 EventEndDate = _dateService.ConvertToString(eventDetails.EventEndDate),
                 EventEndTime = _dateService.ConvertToStringTime(eventDetails.EventEndDate),
+                VenueName = eventDetails.VenueName,
                 Location = eventDetails.Location,
                 LocationLatitude = eventDetails.LocationLatitude,
                 LocationLongitude = eventDetails.LocationLongitude,

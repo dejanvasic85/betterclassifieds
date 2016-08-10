@@ -155,7 +155,7 @@ namespace Paramount
 
         public static UrlBuilder EditEventDetails(this UrlHelper urlHelper, int adId)
         {
-            return new UrlBuilder(urlHelper, "EventDetails", "EditAd")
+            return new UrlBuilder(urlHelper, "eventdetails", "editad")
                 .WithRouteValues(new { id = adId });
         }
 

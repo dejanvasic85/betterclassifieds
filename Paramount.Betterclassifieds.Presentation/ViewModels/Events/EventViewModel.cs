@@ -23,6 +23,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
         [Required]
         public string AdStartDate { get; set; }
+        [MaxLength(100)]
+        public string VenueName { get; set; }
 
         [Required(ErrorMessage = "Location is required and must be displayed")]
         public string Location { get; set; }
@@ -34,7 +36,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string TimeZoneName { get; set; }
         public long TimeZoneDaylightSavingsOffsetSeconds { get; set; }
         public long TimeZoneUtcOffsetSeconds { get; set; }
-        
+
         public string EventPhoto { get; set; }
 
         [Required]

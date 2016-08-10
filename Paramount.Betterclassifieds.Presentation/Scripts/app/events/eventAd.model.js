@@ -55,6 +55,7 @@
             }
             return moment(me.adStartDate(), DATE_FORMAT).add(options.configDurationDays, 'days').format(DATE_FORMAT.toUpperCase());
         });
+        me.venueName = ko.observable(data.venueName);
         me.location = ko.observable(data.location);
         me.locationLatitude = ko.observable(data.locationLatitude);
         me.locationLongitude = ko.observable(data.locationLongitude);
@@ -92,7 +93,7 @@
         me.organiserName = ko.observable(data.organiserName);
         me.organiserPhone = ko.observable(data.organiserPhone);
         me.ticketingEnabled = ko.observable(data.ticketingEnabled);
-        
+
 
         /*
          * Address properties

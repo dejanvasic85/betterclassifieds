@@ -36,7 +36,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
             EventId = eventModel.EventId.GetValueOrDefault();
             Location = eventModel.Location;
-            LocationFriendlyName = eventModel.Address.ToString();
+            LocationFriendlyName = eventModel.VenueNameAndLocation;
             LocationLatitude = eventModel.LocationLatitude;
             LocationLongitude = eventModel.LocationLongitude;
             EventStartDate = eventModel.EventStartDate.GetValueOrDefault();

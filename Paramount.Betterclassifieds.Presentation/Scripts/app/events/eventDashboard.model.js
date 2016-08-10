@@ -79,7 +79,7 @@
                 return me.guests();
             } else {
                 return ko.utils.arrayFilter(me.guests(), function (g) {
-                    return ko.utils.stringStartsWith(g.guestFullName().toLowerCase(), filter.toLowerCase());
+                    return g.guestFullName().toLowerCase().indexOf(filter.toLowerCase()) > -1;
                 });
             }
         });

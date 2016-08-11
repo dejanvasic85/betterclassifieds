@@ -32,6 +32,10 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             sheet.Cells[1, 2].Value = "Ticket Name";
             sheet.Cells[1, 3].Value = "Guest Email";
             sheet.Cells[1, 4].Value = "Guest Full Name";
+            sheet.Cells[1, 5].Value = "Ticket Price";
+            sheet.Cells[1, 6].Value = "Booking Date";
+            sheet.Cells[1, 7].Value = "Booking Time";
+
 
             // Fetch the dynamic fields (headers)
             var firstEntry = _data.First();
@@ -39,7 +43,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
             for (int i = 0; i < numberOfDynamicFields; i++)
             {
-                sheet.Cells[1, i + 5].Value = firstEntry.DynamicFields[i].FieldName;
+                sheet.Cells[1, i + 8].Value = firstEntry.DynamicFields[i].FieldName;
             }
 
             // Data rows
@@ -50,13 +54,19 @@ namespace Paramount.Betterclassifieds.Presentation.Services
                 sheet.Cells[dataRowIndex, 2].Value = guest.TicketName;
                 sheet.Cells[dataRowIndex, 3].Value = guest.GuestEmail;
                 sheet.Cells[dataRowIndex, 4].Value = guest.GuestFullName;
+                sheet.Cells[dataRowIndex, 5].Value = guest.TicketTotalPrice;
+                sheet.Cells[dataRowIndex, 6].Value = guest.DateOfBooking.ToString("dd/MM/yyyy");
+                sheet.Cells[dataRowIndex, 7].Value = guest.DateOfBooking.ToString("HH:mm");
+                
 
                 // Print out the dynamic field (values)
                 for (int i = 0; i < guest.With(g => g.DynamicFields).With(d => d.Length); i++)
                 {
-                    var cell = sheet.Cells[dataRowIndex, i + 5];
+                    var cell = sheet.Cells[dataRowIndex, i + 9];
                     cell.Value = guest.DynamicFields[i].FieldValue;
                 }
+
+
 
                 dataRowIndex++;
             }

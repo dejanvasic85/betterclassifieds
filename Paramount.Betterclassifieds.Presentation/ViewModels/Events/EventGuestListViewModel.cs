@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
@@ -10,5 +11,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string GuestFullName { get; set; }
         public string GuestEmail { get; set; }
         public EventTicketFieldViewModel[] DynamicFields { get; set; }
+        public decimal TicketTotalPrice { get; set; }
+        public DateTime DateOfBooking { get; set; }
     }
 }

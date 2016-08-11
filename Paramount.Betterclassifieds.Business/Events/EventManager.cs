@@ -231,7 +231,10 @@ namespace Paramount.Betterclassifieds.Business.Events
                 DynamicFields = t.TicketFieldValues,
                 BarcodeData = new TicketBarcodeService().Generate(eventModel, t),
                 TicketNumber = t.EventBookingTicketId,
-                TicketName = t.TicketName
+                TicketName = t.TicketName,
+                TotalTicketPrice = t.TotalPrice,
+                DateOfBooking = t.CreatedDateTime.GetValueOrDefault(),
+                DateOfBookingUtc = t.CreatedDateTimeUtc.GetValueOrDefault()
             });
         }
 

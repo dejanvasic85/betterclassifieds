@@ -152,7 +152,7 @@
                     Guest List
                 </h3>
                 <p class="action-info">Check out who is coming to the event...</p>
-                
+
                 <div class="action-btn">
 
                     <div class="btn-group">
@@ -186,20 +186,31 @@
                             <input type="text" data-bind="value: guestListFilter, valueUpdate: 'keyup'" class="form-control" placeholder="e.g. Lisa " />
                         </div>
 
-                        <ul class="list-group guest-list" data-bind="foreach: guestsFilterd">
+                        <ul class="list-group guest-list" data-bind="foreach: guestsFiltered">
                             <li class="list-group-item">
-                                <ul class="list-unstyled">
-                                    <li>
-                                        <i class="fa fa-user"></i>&nbsp;
-                                        <span data-bind="text: guestFullName"></span>
-                                        &lt;<span data-bind="text: guestEmail"></span>&gt;
-                                    </li>
-                                </ul>
-                                <ul class="list-unstyled guest-fields" data-bind="foreach: dynamicFields">
-                                    <li>
-                                        <span data-bind="text: fieldName"></span> : <span data-bind="text: fieldValue"></span>
-                                    </li>
-                                </ul>
+                                <div class="row">
+                                    <div class="col-xs-8">
+
+                                        <ul class="list-unstyled">
+                                            <li>
+                                                <i class="fa fa-user"></i>&nbsp;
+                                                <span data-bind="text: guestFullName"></span>
+                                                &lt;<span data-bind="text: guestEmail"></span>&gt;
+                                            </li>
+                                        </ul>
+                                        <ul class="list-unstyled guest-fields" data-bind="foreach: dynamicFields">
+                                            <li>
+                                                <span data-bind="text: fieldName"></span> : <span data-bind="text: fieldValue"></span>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <a class="btn btn-default btn-block js-load" data-bind="attr : { 'href' : editGuestUrl }">
+                                            Edit <i class="fa fa-pencil"></i>
+                                        </a>
+                                    </div>
+                                </div>
                             </li>
                         </ul>
                     </div>

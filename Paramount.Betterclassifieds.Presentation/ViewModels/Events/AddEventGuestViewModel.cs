@@ -10,7 +10,12 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public int? EventId { get; set; }
         [Required]
         public int? Id { get; set; }
+
+        [MaxLength(100)]
         public string GuestFullName { get; set; }
+
+        [EmailAddress]
+        [MaxLength(100)]
         public string GuestEmail { get; set; }
         public bool SendEmailToGuest { get; set; }
         public EventTicketViewModel SelectedTicket { get; set; }

@@ -12,6 +12,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         EventTicket GetEventTicket(int eventTicketId);
         Task<IEnumerable<int>> GetEventTicketsForGroup(int eventGroupId);
         EventBooking GetEventBooking(int eventBookingId);
+        EventBookingTicket GetEventBookingTicket(int eventBookingTicketId);
         int GetRemainingTicketCount(int? ticketId);
         int GetRemainingTicketCount(EventTicket eventTicket);
         IEnumerable<EventTicketReservation> GetTicketReservations(string sessionId);

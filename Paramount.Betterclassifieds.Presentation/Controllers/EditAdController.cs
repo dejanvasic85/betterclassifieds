@@ -422,6 +422,26 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(true);
         }
 
+        [HttpGet, ActionName("edit-guest")]
+        public ActionResult EditGuest(int id, int ticketNumber)
+        {
+            var eventBookingTicket = _eventManager.GetEventBookingTicket(ticketNumber);
+            if (eventBookingTicket == null)
+                return Url.NotFound().ToRedirectResult();
+
+            var vm = new EditGuestViewModel
+            {
+                AdId = id,
+                EventBookingTicketId = eventBookingTicket.EventBookingTicketId,
+                GuestFullName = eventBookingTicket.GuestFullName,
+                GuestEmail = eventBookingTicket.GuestEmail,
+                EventBookingId = eventBookingTicket.EventBookingId,
+                EventTicketId = eventBookingTicket.EventTicketId
+            };
+
+            return View(vm);
+        }
+
         [HttpGet, ActionName("manage-groups")]
         public async Task<ActionResult> ManageGroups(int id, int eventId)
         {

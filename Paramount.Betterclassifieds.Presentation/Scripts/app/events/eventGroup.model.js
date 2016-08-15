@@ -1,4 +1,6 @@
 ﻿(function ($, ko, $p) {
+    'use strict';
+
     function EventGroup(data) {
         var me = this;
         me.eventGroupId = ko.observable();

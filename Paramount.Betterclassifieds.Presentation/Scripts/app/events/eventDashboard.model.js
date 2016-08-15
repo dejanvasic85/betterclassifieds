@@ -73,7 +73,7 @@
 
 
         me.guestListFilter = ko.observable();
-        me.guestsFilterd = ko.computed(function () {
+        me.guestsFiltered = ko.computed(function () {
             var filter = me.guestListFilter();
             if (!filter) {
                 return me.guests();
@@ -92,7 +92,8 @@
             me.tickets.push(new $paramount.models.EventTicket(t));
         });
         $.each(editEventViewModel.guests, function (idx, g) {
-            me.guests.push(new $paramount.models.EventGuest(g));
+            g.adId = editEventViewModel.adId; // Attach the ad id property for each guest/eventBooking
+            me.guests.push(new $paramount.models.CurrentGuest(g));
         });
 
         me.eventId(editEventViewModel.eventId);

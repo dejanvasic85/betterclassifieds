@@ -314,6 +314,7 @@
     <Compile Include="ViewModels\Events\AddEventGuestViewModel.cs" />
     <Compile Include="ViewModels\Events\BarcodeValidationViewModel.cs" />
     <Compile Include="ViewModels\Events\CreateEventGroupViewModel.cs" />
+    <Compile Include="ViewModels\Events\EditGuestViewModel.cs" />
     <Compile Include="ViewModels\Events\EventBookingTicketViewModel.cs" />
     <Compile Include="ViewModels\Events\EventGroupViewModel.cs" />
     <Compile Include="ViewModels\Events\EventGuestListDownloadViewModel.cs" />
@@ -971,6 +972,7 @@
     <Content Include="Views\EditAd\add-guest.cshtml" />
     <Content Include="Views\EditAd\manage-groups.cshtml" />
     <Content Include="Views\EditAd\event-ticketing.cshtml" />
+    <Content Include="Views\EditAd\edit-guest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

@@ -442,6 +442,18 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View(vm);
         }
 
+        // Json
+        [HttpPost, ActionName("edit-guest")]
+        public ActionResult EditGuest(int id, EditGuestViewModel editGuestViewModel)
+        {
+            if (!ModelState.IsValid)
+                return Json(ModelState.ToErrors());
+
+            
+
+            return Json(true);
+        }
+
         [HttpGet, ActionName("manage-groups")]
         public async Task<ActionResult> ManageGroups(int id, int eventId)
         {

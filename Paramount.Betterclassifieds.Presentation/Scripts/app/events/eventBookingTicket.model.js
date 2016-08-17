@@ -2,7 +2,9 @@
     'use strict';
 
     function EventBookingTicket(data) {
-        var me = this;
+        var me = this,
+            eventService = new $paramount.AdDesignService(data.adId);
+        console.log(eventService);
         me.eventBookingTicketId = ko.observable();
         me.eventBookingId = ko.observable();
         me.eventTicketId = ko.observable();
@@ -22,11 +24,15 @@
                 return;
             }
 
-            // Update the guest
-
 
             var $btn = $(event.target);
             $btn.button('loading');
+
+            // Update the guest
+            eventService.editGuest(ko.toJS(me))
+                .then(function () {
+                    $btn.button('reset');
+                });
         }
 
         if (data) {

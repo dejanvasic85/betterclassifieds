@@ -93,6 +93,11 @@
         return $paramount.httpPost(me.baseUrl + 'add-guest', me.model);
     }
 
+    AdDesignService.prototype.editGuest= function(guest) {
+        $.extend(me.model, guest);
+        return $paramount.httpPost(me.baseUrl + 'edit-guest', me.model);
+    }
+
     AdDesignService.prototype.getCurrentEventDetails = function () {
         var url = me.baseUrl + 'GetEventDetails';
 

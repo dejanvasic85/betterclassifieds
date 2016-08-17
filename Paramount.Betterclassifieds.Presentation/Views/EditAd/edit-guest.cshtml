@@ -33,13 +33,22 @@
         <div class="col-md-12">
             <div class="form-group-lg" data-bind="validationElement: guestFullName">
                 <label for="guestFullName" class="control-label">Full Name:</label>
-                <input id="guestFullName" data-bind="value: guestFullName" type="text" class="form-control" />
+                <input id="guestFullName" data-bind="value: guestFullName" type="text" class="form-control"/>
             </div>
 
             <div class="form-group-lg" data-bind="validationElement: guestEmail">
                 <label for="guestEmail" class="control-label">Email *:</label>
-                <input id="guestEmail" data-bind="value: guestEmail" type="text" class="form-control" />
+                <input id="guestEmail" data-bind="value: guestEmail" type="text" class="form-control"/>
             </div>
+        </div>
+
+    </div>
+
+    <div class="row top-buffer-20">
+        <div class="col-sm-offset-10 col-sm-2">
+            <button class="btn btn-block btn-success" data-bind="click: save" data-loading-text="Please Wait...">
+                Save <i class="fa fa-save"></i>
+            </button>
         </div>
     </div>
 </div>

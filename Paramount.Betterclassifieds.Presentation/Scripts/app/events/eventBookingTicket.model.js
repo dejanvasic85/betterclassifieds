@@ -17,6 +17,18 @@
             guestEmail: me.guestEmail.extend({ required: true, email: true })
         });
 
+        me.save = function (vm, event) {
+            if ($p.checkValidity(me) === false) {
+                return;
+            }
+
+            // Update the guest
+
+
+            var $btn = $(event.target);
+            $btn.button('loading');
+        }
+
         if (data) {
             me.bind(data);
         }

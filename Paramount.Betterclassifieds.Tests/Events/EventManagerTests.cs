@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Compilation;
 using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business;
@@ -716,12 +717,39 @@ namespace Paramount.Betterclassifieds.Tests.Events
             manager.SetEventGroupStatus(1, true);
         }
 
+        [Test]
+        public void UpdateEventBookingTicket_CallsRepository()
+        {
+            var mockEventBookingTicket = new EventBookingTicketMockBuilder().Default().Build();
+
+            _eventRepositoryMock.SetupWithVerification(
+                call => call.GetEventBookingTicket(It.IsAny<int>()), mockEventBookingTicket);
+
+            _eventRepositoryMock.SetupWithVerification(
+                call => call.UpdateEventBookingTicket(It.Is<EventBookingTicket>(e => e == mockEventBookingTicket)));
+
+            var mockApplicationUser = new ApplicationUserMockBuilder().Default().Build();
+
+            _userManager.SetupWithVerification(call => 
+                call.GetCurrentUser(), mockApplicationUser);
+
+            _dateServiceMock.SetupNow().SetupNowUtc();
+
+            var manager = BuildTargetObject();
+            manager.UpdateEventBookingTicket(1, "Foo Two", "foo@two.com");
+
+            Assert.That(mockEventBookingTicket.GuestFullName, Is.EqualTo("Foo Two"));
+            Assert.That(mockEventBookingTicket.GuestEmail, Is.EqualTo("foo@two.com"));
+            Assert.That(mockEventBookingTicket.LastModifiedBy, Is.EqualTo(mockApplicationUser.Username));
+        }
+
         private Mock<IEventRepository> _eventRepositoryMock;
         private Mock<IDateService> _dateServiceMock;
         private Mock<IDocumentRepository> _documentRepository;
         private Mock<IClientConfig> _clientConfig;
         private Mock<IBookingManager> _bookingManager;
         private Mock<ILocationService> _locationService;
+        private Mock<IUserManager> _userManager;
 
         [SetUp]
         public void SetupDependencies()
@@ -732,6 +760,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _documentRepository = CreateMockOf<IDocumentRepository>();
             _bookingManager = CreateMockOf<IBookingManager>();
             _locationService = CreateMockOf<ILocationService>();
+            _userManager = CreateMockOf<IUserManager>();
         }
     }
 }

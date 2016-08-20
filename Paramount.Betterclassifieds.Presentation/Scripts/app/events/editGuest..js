@@ -1,15 +1,22 @@
-﻿(function ($, ko, $p) {
+﻿(function ($, ko, notifier, $p) {
     'use strict';
 
-    function EventBookingTicket(data) {
+    function ManageGuest(data) {
         var me = this,
             eventService = new $paramount.AdDesignService(data.adId);
-        console.log(eventService);
+        
         me.eventBookingTicketId = ko.observable();
         me.eventBookingId = ko.observable();
         me.eventTicketId = ko.observable();
         me.guestFullName = ko.observable();
         me.guestEmail = ko.observable();
+        me.sendEmailToGuest = ko.observable(true);
+        me.isEmailDifferent = ko.computed(function () {
+            if (me.guestEmail()) {
+                return data.guestEmail.toLowerCase() !== me.guestEmail().toLowerCase();
+            }
+            return false;
+        });
 
         /*
          * Validation
@@ -23,14 +30,14 @@
             if ($p.checkValidity(me) === false) {
                 return;
             }
-
-
+            
             var $btn = $(event.target);
             $btn.button('loading');
 
             // Update the guest
             eventService.editGuest(ko.toJS(me))
                 .then(function () {
+                    notifier.success("Guest information updated successfully");
                     $btn.button('reset');
                 });
         }
@@ -40,7 +47,7 @@
         }
     }
 
-    EventBookingTicket.prototype.bind = function (data) {
+    ManageGuest.prototype.bind = function (data) {
         var me = this;
         me.eventBookingTicketId(data.eventBookingTicketId);
         me.eventBookingId(data.eventBookingId);
@@ -48,5 +55,5 @@
         me.guestFullName(data.guestFullName);
         me.guestEmail(data.guestEmail);
     }
-    $p.models.EventBookngTicket = EventBookingTicket;
-})(jQuery, ko, $paramount);
+    $p.models.ManageGuest = ManageGuest;
+})(jQuery, ko, toastr, $paramount);

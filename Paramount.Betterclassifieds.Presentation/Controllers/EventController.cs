@@ -27,7 +27,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             if (onlineAdModel == null)
             {
-                return RedirectToAction("NotFound", "Error");
+                return Url.NotFound().ToRedirectResult();
             }
 
             _bookingManager.IncrementHits(id);
@@ -82,7 +82,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var eventId = ticketReservations.FirstOrDefault().With(t => t.EventTicket.With(r => r.EventId));
             if (eventId == null)
             {
-                return RedirectToAction("NotFound", "Error");
+                return Url.NotFound().ToRedirectResult();
             }
             var eventDetails = _eventManager.GetEventDetails(eventId.Value);
             var onlineAdModel = _searchService.GetByAdOnlineId(eventDetails.OnlineAdId);

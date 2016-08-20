@@ -31,8 +31,8 @@ namespace Paramount.Betterclassifieds.Tests
 
         public static void RedirectResultIsNotFound(this RedirectToRouteResult result)
         {
-            RedirectResultControllerIs(result, "Error");
-            RedirectResultActionIs(result, "NotFound");
+            RedirectResultControllerIs(result, "error");
+            RedirectResultActionIs(result, "notFound");
         }
     }
 }

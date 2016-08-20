@@ -162,6 +162,7 @@
     <Compile Include="Mocks\ApplicationUserMockBuilder.cs" />
     <Compile Include="Mocks\DateServiceMockExtensions.cs" />
     <Compile Include="Mocks\EventBookingMockBuilder.cs" />
+    <Compile Include="Mocks\EventBookingTicketMockBuilder.cs" />
     <Compile Include="Mocks\EventGroupMockBuilder.cs" />
     <Compile Include="Mocks\EventInvitationMockBuilder.cs" />
     <Compile Include="Mocks\EventModelMockBuilder.cs" />

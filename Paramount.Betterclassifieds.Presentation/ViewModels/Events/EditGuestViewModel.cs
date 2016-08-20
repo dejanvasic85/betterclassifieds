@@ -21,7 +21,5 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         [EmailAddress]
         [MaxLength(100)]
         public string GuestEmail { get; set; }
-
-        
     }
 }

@@ -17,8 +17,9 @@ namespace Paramount.Betterclassifieds.Business.Events
         private readonly IDocumentRepository _documentRepository;
         private readonly IBookingManager _bookingManager;
         private readonly ILocationService _locationService;
+        private readonly IUserManager _userManager;
 
-        public EventManager(IEventRepository eventRepository, IDateService dateService, IClientConfig clientConfig, IDocumentRepository documentRepository, IBookingManager bookingManager, ILocationService locationService)
+        public EventManager(IEventRepository eventRepository, IDateService dateService, IClientConfig clientConfig, IDocumentRepository documentRepository, IBookingManager bookingManager, ILocationService locationService, IUserManager userManager)
         {
             _eventRepository = eventRepository;
             _dateService = dateService;
@@ -26,6 +27,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             _documentRepository = documentRepository;
             _bookingManager = bookingManager;
             _locationService = locationService;
+            _userManager = userManager;
         }
 
         public EventModel GetEventDetailsForOnlineAdId(int onlineAdId, bool includeBookings = false)
@@ -56,6 +58,22 @@ namespace Paramount.Betterclassifieds.Business.Events
         public EventBookingTicket GetEventBookingTicket(int eventBookingTicketId)
         {
             return _eventRepository.GetEventBookingTicket(eventBookingTicketId);
+        }
+
+        public void UpdateEventBookingTicket(int eventBookingTicketId, string guestFullName, string guestEmail)
+        {
+            var eventBookingTicket = _eventRepository.GetEventBookingTicket(eventBookingTicketId);
+
+            if (eventBookingTicket == null)
+                throw new ArgumentException($"eventBookingTicket {eventBookingTicketId} not found");
+
+            eventBookingTicket.GuestFullName = guestFullName;
+            eventBookingTicket.GuestEmail = guestEmail;
+            eventBookingTicket.LastModifiedDate = _dateService.Now;
+            eventBookingTicket.LastModifiedDateUtc = _dateService.UtcNow;
+            eventBookingTicket.LastModifiedBy = _userManager.GetCurrentUser().Username;
+
+            _eventRepository.UpdateEventBookingTicket(eventBookingTicket);
         }
 
         public int GetRemainingTicketCount(int? ticketId)

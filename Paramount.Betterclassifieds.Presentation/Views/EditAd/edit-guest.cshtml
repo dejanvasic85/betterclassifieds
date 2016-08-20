@@ -11,7 +11,7 @@
         var data = @Html.Raw(Model.ToJsonString());
 
         $(function() {
-            var vm = new $paramount.models.EventBookngTicket(data);
+            var vm = new $paramount.models.ManageGuest(data);
             ko.applyBindings(vm, document.getElementsByClassName('edit-guest-view')[0]);
         });
 
@@ -19,7 +19,7 @@
 }
 
 <div class="container top-buffer-60 edit-guest-view">
-    <h1 class="page-header">Edit Guest Information</h1>
+    <h1 class="page-header">Edit guest information</h1>
 
     <div class="row">
         <div class="col-md-offset-9 col-sm-offset-8 col-sm-4 col-md-3">
@@ -39,6 +39,14 @@
             <div class="form-group-lg" data-bind="validationElement: guestEmail">
                 <label for="guestEmail" class="control-label">Email *:</label>
                 <input id="guestEmail" data-bind="value: guestEmail" type="text" class="form-control"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="row top-buffer-20">
+        <div class="col-md-12" data-bind="visible: isEmailDifferent">
+            <div class="alert alert-warning">
+                The email is different to the original. You may want to resend the tickets to the new recipient.
             </div>
         </div>
 

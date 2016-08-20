@@ -449,7 +449,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (!ModelState.IsValid)
                 return Json(ModelState.ToErrors());
 
-            
+            var currentUser = _userManager.GetCurrentUser();
+
+            _eventManager.UpdateEventBookingTicket(editGuestViewModel.EventBookingTicketId,
+                editGuestViewModel.GuestFullName,
+                editGuestViewModel.GuestEmail);
 
             return Json(true);
         }

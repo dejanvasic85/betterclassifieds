@@ -76,8 +76,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // assert
             var redirectResult = result.IsTypeOf<RedirectToRouteResult>();
-            redirectResult.RedirectResultControllerIs("Error");
-            redirectResult.RedirectResultActionIs("NotFound");
+            redirectResult.RedirectResultIsNotFound();
         }
 
         [Test]

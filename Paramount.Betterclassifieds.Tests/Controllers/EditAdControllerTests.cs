@@ -163,7 +163,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // assert
             result.IsTypeOf<RedirectResult>();
-            result.IsRedirectingTo("/EditAd/EventDashboard/2929");
+            result.IsRedirectingTo("/editAd/eventDashboard/2929");
         }
 
         [Test]
@@ -201,7 +201,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // assert
             result.IsTypeOf<JsonResult>();
-            result.JsonResultContains("{ NextUrl = /EditAd/EventDashboard/" + adId + " }");
+            result.JsonResultContains("{ NextUrl = /editAd/eventDashboard/" + adId + " }");
         }
 
         [Test]

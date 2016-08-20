@@ -61,7 +61,7 @@ namespace Paramount
 
         public static UrlBuilder NotFound(this UrlHelper urlHelper)
         {
-            return new UrlBuilder(urlHelper).WithAction("notfound", "error");
+            return new UrlBuilder(urlHelper).WithAction("notFound", "error");
         }
 
         public static UrlBuilder ContactUs(this UrlHelper urlHelper)

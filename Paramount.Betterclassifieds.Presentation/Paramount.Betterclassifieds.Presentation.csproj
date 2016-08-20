@@ -300,6 +300,7 @@
     <Compile Include="Services\LocationService.cs" />
     <Compile Include="Services\LogService.cs" />
     <Compile Include="Services\TemplatingService.cs" />
+    <Compile Include="Services\UserHttpManager.cs" />
     <Compile Include="ViewModels\Account\AccountConfirmationViewModel.cs" />
     <Compile Include="ViewModels\Account\EditAdDetailsViewModel.cs" />
     <Compile Include="ViewModels\Account\LoginOrRegisterModel.cs" />
@@ -574,7 +575,7 @@
     <Content Include="Scripts\app\events\addGuest.model.js" />
     <Content Include="Scripts\app\events\addGuest.ui.js" />
     <Content Include="Scripts\app\events\bookTickets.model.js" />
-    <Content Include="Scripts\app\events\eventBookingTicket.model.js" />
+    <Content Include="Scripts\app\events\editGuest..js" />
     <Content Include="Scripts\app\events\eventDashboard.ui.js" />
     <Content Include="Scripts\app\events\eventDashboard.model.js" />
     <Content Include="Scripts\app\events\eventGroup.model.js" />

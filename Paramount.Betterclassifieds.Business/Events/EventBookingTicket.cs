@@ -25,5 +25,8 @@ namespace Paramount.Betterclassifieds.Business.Events
         public decimal TotalPrice { get; set; }
         public int? EventGroupId { get; set; }
         public EventGroup EventGroup { get; set; }
+        public DateTime? LastModifiedDate { get; set; }
+        public DateTime? LastModifiedDateUtc { get; set; }
+        public string LastModifiedBy { get; set; }
     }
 }

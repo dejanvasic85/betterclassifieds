@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Business
+﻿using System;
+
+namespace Paramount.Betterclassifieds.Business
 {
     using System.Collections.Generic;
     using System.Security.Principal;
@@ -8,6 +10,7 @@
     {
         ApplicationUser GetUserByEmail(string email);
         ApplicationUser GetUserByEmailOrUsername(string emailOrUsername);
+        ApplicationUser GetCurrentUser();
         ApplicationUser GetCurrentUser(IPrincipal principal);
         IEnumerable<UserNetworkModel> GetUserNetworksForUserId(string userId);
         UserNetworkModel GetUserNetwork(int userNetworkId);
@@ -52,6 +55,11 @@
                 return userByEmail;
 
             return _userRepository.GetUserByUsername(emailOrUsername);
+        }
+
+        public ApplicationUser GetCurrentUser()
+        {
+            throw new NotImplementedException("Cannot user this method here. Call the UserHttpManager instead");
         }
 
         public ApplicationUser GetCurrentUser(IPrincipal principal)

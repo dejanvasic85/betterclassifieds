@@ -68,7 +68,7 @@
                 .RegisterType<IApplicationConfig, AppConfig>()
                 .RegisterType<IBookingManager, BookingManager>()
                 .RegisterType<IEditionManager, EditionManager>()
-                .RegisterType<IUserManager, UserManager>()
+                .RegisterType<IUserManager, UserHttpManager>()
                 .RegisterType<IAuthManager, AuthManager>()
                 .RegisterType<IBroadcastManager, BroadcastManager>()
                 .RegisterType<INotificationProcessor, EmailProcessor>("emailProcessingEngine")

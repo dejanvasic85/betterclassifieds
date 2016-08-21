@@ -60,14 +60,17 @@
         </div>
     </div>
 
-    @*<div class="row top-buffer-20">
-        <div class="col-md-12" data-bind="visible: isEmailDifferent">
-            <div class="alert alert-warning">
-                The email is different to the original. You may want to resend the tickets to the new recipient.
-            </div>
-        </div>
+   
 
-    </div>*@
+
+    @*<div class="row top-buffer-20">
+            <div class="col-md-12" data-bind="visible: isEmailDifferent">
+                <div class="alert alert-warning">
+                    The email is different to the original. You may want to resend the tickets to the new recipient.
+                </div>
+            </div>
+
+        </div>*@
 
     <div class="row top-buffer-20">
         <div class="col-sm-offset-10 col-sm-2">
@@ -76,4 +79,29 @@
             </button>
         </div>
     </div>
+
+    <div class="row top-buffer-20" data-bind="visible: fields().length> 0">
+        <div class="col-md-12">
+            <h4 class="page-header">
+                Ticket Information
+            </h4>
+
+            <div class="bs-callout bs-callout-info">
+                <h4>Ticket Name</h4>
+                <p>@Model.TicketName</p>
+            </div>
+
+            <div class="bs-callout bs-callout-info">
+                <h4>Price</h4>
+                <p>@Model.TicketPrice.ToString("C")</p>
+            </div>
+
+            <div class="bs-callout bs-callout-info">
+                <h4>Purchase Date</h4>
+                <p>@Model.TicketPurchaseDate.ToLongDateString()</p>
+            </div>
+
+        </div>
+    </div>
+
 </div>

@@ -430,29 +430,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var eventTicket = _eventManager.GetEventTicket(eventBookingTicket.EventTicketId);
 
-            var vm = new EditGuestViewModel
-            {
-                AdId = id,
-                EventBookingTicketId = eventBookingTicket.EventBookingTicketId,
-                GuestFullName = eventBookingTicket.GuestFullName,
-                GuestEmail = eventBookingTicket.GuestEmail,
-                EventBookingId = eventBookingTicket.EventBookingId,
-                EventTicketId = eventBookingTicket.EventTicketId
-            };
-
-            eventTicket.EventTicketFields?.Do(f =>
-            {
-                // Match on name
-                var val = eventBookingTicket.TicketFieldValues.Single(v => v.FieldName.Equals(f.FieldName));
-                vm.Fields.Add(new EventTicketFieldViewModel
-                {
-                    FieldName = f.FieldName,
-                    FieldValue = val.FieldValue,
-                    IsRequired = f.IsRequired,
-                    EventTicketId = f.EventTicketId.GetValueOrDefault()
-                });
-            });
-
+            var vm = new EditGuestViewModel(id, eventTicket, eventBookingTicket);
             return View(vm);
         }
 

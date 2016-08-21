@@ -575,7 +575,7 @@
     <Content Include="Scripts\app\events\addGuest.model.js" />
     <Content Include="Scripts\app\events\addGuest.ui.js" />
     <Content Include="Scripts\app\events\bookTickets.model.js" />
-    <Content Include="Scripts\app\events\editGuest..js" />
+    <Content Include="Scripts\app\events\editGuest.js" />
     <Content Include="Scripts\app\events\eventDashboard.ui.js" />
     <Content Include="Scripts\app\events\eventDashboard.model.js" />
     <Content Include="Scripts\app\events\eventGroup.model.js" />

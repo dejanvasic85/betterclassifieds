@@ -111,6 +111,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
             using (var context = _dbContextFactory.CreateEventContext())
             {
                 return context.EventBookingTickets
+                    .Include(b => b.TicketFieldValues)
                     .SingleOrDefault(t => t.EventBookingTicketId == eventBookingTicketId);
             }
         }

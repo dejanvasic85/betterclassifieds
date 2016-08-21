@@ -10,7 +10,6 @@ using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Presentation.Services;
 using System;
-using System.IO;
 using System.Linq;
 using System.Monads;
 using System.Threading.Tasks;
@@ -429,6 +428,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (eventBookingTicket == null)
                 return Url.NotFound().ToRedirectResult();
 
+            var eventTicket = _eventManager.GetEventTicket(eventBookingTicket.EventTicketId);
+            
             var vm = new EditGuestViewModel
             {
                 AdId = id,
@@ -439,6 +440,19 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 EventTicketId = eventBookingTicket.EventTicketId
             };
 
+            eventTicket.EventTicketFields?.Do(f =>
+            {
+                // Match on name
+                var val = eventBookingTicket.TicketFieldValues.Single(v => v.FieldName.Equals(f.FieldName));
+                vm.Fields.Add(new EventTicketFieldViewModel
+                {
+                    FieldName = f.FieldName,
+                    FieldValue = val.FieldValue,
+                    IsRequired = f.IsRequired,
+                    EventTicketId = f.EventTicketId.GetValueOrDefault()
+                });
+            });
+            
             return View(vm);
         }
 

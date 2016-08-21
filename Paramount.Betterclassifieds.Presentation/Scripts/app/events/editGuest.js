@@ -1,7 +1,7 @@
 ﻿(function ($, ko, notifier, $p) {
     'use strict';
 
-    function ManageGuest(data) {
+    function EditGuest(data) {
         var me = this,
             eventService = new $paramount.AdDesignService(data.adId);
         
@@ -10,7 +10,7 @@
         me.eventTicketId = ko.observable();
         me.guestFullName = ko.observable();
         me.guestEmail = ko.observable();
-        me.sendEmailToGuest = ko.observable(true);
+        me.fields = ko.observableArray();
         me.isEmailDifferent = ko.computed(function () {
             if (me.guestEmail()) {
                 return data.guestEmail.toLowerCase() !== me.guestEmail().toLowerCase();
@@ -37,7 +37,7 @@
             // Update the guest
             eventService.editGuest(ko.toJS(me))
                 .then(function () {
-                    notifier.success("Guest information updated successfully");
+                    notifier.success("Guest information updated.");
                     $btn.button('reset');
                 });
         }
@@ -47,13 +47,20 @@
         }
     }
 
-    ManageGuest.prototype.bind = function (data) {
+    EditGuest.prototype.bind = function (data) {
         var me = this;
         me.eventBookingTicketId(data.eventBookingTicketId);
         me.eventBookingId(data.eventBookingId);
         me.eventTicketId(data.eventTicketId);
         me.guestFullName(data.guestFullName);
         me.guestEmail(data.guestEmail);
+
+        console.log(data);
+        _.each(data.fields, function(f) {
+            me.fields.push(new $p.models.DynamicFieldValue(f));
+        });
     }
-    $p.models.ManageGuest = ManageGuest;
+
+    $p.models.EditGuest = EditGuest;
+
 })(jQuery, ko, toastr, $paramount);

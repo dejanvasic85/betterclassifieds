@@ -718,7 +718,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
         }
 
         [Test]
-        public void UpdateEventBookingTicket_CallsRepository()
+        public void UpdateEventBookingTicket_WithoutFields_CallsRepository()
         {
             var mockEventBookingTicket = new EventBookingTicketMockBuilder().Default().Build();
 
@@ -736,7 +736,44 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _dateServiceMock.SetupNow().SetupNowUtc();
 
             var manager = BuildTargetObject();
-            manager.UpdateEventBookingTicket(1, "Foo Two", "foo@two.com");
+            manager.UpdateEventBookingTicket(1, "Foo Two", "foo@two.com", null);
+
+            Assert.That(mockEventBookingTicket.GuestFullName, Is.EqualTo("Foo Two"));
+            Assert.That(mockEventBookingTicket.GuestEmail, Is.EqualTo("foo@two.com"));
+            Assert.That(mockEventBookingTicket.LastModifiedBy, Is.EqualTo(mockApplicationUser.Username));
+        }
+
+        [Test]
+        public void UpdateEventBookingTicket_WithFields_CallsRepository()
+        {
+            var fieldMockBuilder = new EventBookingTicketFieldMockBuilder().WithFieldName("Field").WithFieldValue("Value");
+
+            var mockEventBookingTicket = new EventBookingTicketMockBuilder()
+                .Default()
+                .WithFields(fieldMockBuilder.Build())
+                .Build();
+            
+            _eventRepositoryMock.SetupWithVerification(
+                call => call.GetEventBookingTicket(It.IsAny<int>()), mockEventBookingTicket);
+
+            _eventRepositoryMock.SetupWithVerification(
+                call => call.UpdateEventBookingTicket(It.Is<EventBookingTicket>(e => e == mockEventBookingTicket)));
+
+            _eventRepositoryMock.SetupWithVerification(
+                call => call.UpdateEventBookingTicketField(It.IsAny<EventBookingTicketField>()));
+
+            var mockApplicationUser = new ApplicationUserMockBuilder().Default().Build();
+
+            _userManager.SetupWithVerification(call =>
+                call.GetCurrentUser(), mockApplicationUser);
+
+            _dateServiceMock.SetupNow().SetupNowUtc();
+
+            var manager = BuildTargetObject();
+            manager.UpdateEventBookingTicket(1, "Foo Two", "foo@two.com", new List<EventBookingTicketField>
+            {
+                fieldMockBuilder.WithFieldName("Field").WithFieldValue("Lucas Hood").Build()
+            });
 
             Assert.That(mockEventBookingTicket.GuestFullName, Is.EqualTo("Foo Two"));
             Assert.That(mockEventBookingTicket.GuestEmail, Is.EqualTo("foo@two.com"));

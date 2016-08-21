@@ -571,6 +571,10 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.IncludeTransactionFee = val);
 		}
+		public EventModelMockBuilder WithVenueName(String val)
+		{ 
+			return WithBuildStep(p => p.VenueName = val);
+		}
 	}
 
 	internal partial class EventTicketMockBuilder : MockBuilder<EventTicketMockBuilder, EventTicket>
@@ -678,6 +682,38 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventBookingTicketMockBuilder WithEventGroup(EventGroup val)
 		{ 
 			return WithBuildStep(p => p.EventGroup = val);
+		}
+		public EventBookingTicketMockBuilder WithLastModifiedDate(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.LastModifiedDate = val);
+		}
+		public EventBookingTicketMockBuilder WithLastModifiedDateUtc(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.LastModifiedDateUtc = val);
+		}
+		public EventBookingTicketMockBuilder WithLastModifiedBy(String val)
+		{ 
+			return WithBuildStep(p => p.LastModifiedBy = val);
+		}
+	}
+
+	internal partial class EventBookingTicketFieldMockBuilder : MockBuilder<EventBookingTicketFieldMockBuilder, EventBookingTicketField>
+	{	
+		public EventBookingTicketFieldMockBuilder WithEventBookingTicketFieldId(Int64 val)
+		{ 
+			return WithBuildStep(p => p.EventBookingTicketFieldId = val);
+		}
+		public EventBookingTicketFieldMockBuilder WithEventBookingTicketId(Int32 val)
+		{ 
+			return WithBuildStep(p => p.EventBookingTicketId = val);
+		}
+		public EventBookingTicketFieldMockBuilder WithFieldName(String val)
+		{ 
+			return WithBuildStep(p => p.FieldName = val);
+		}
+		public EventBookingTicketFieldMockBuilder WithFieldValue(String val)
+		{ 
+			return WithBuildStep(p => p.FieldValue = val);
 		}
 	}
 
@@ -890,6 +926,18 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventGuestDetailsMockBuilder WithTicketNumber(Int32 val)
 		{ 
 			return WithBuildStep(p => p.TicketNumber = val);
+		}
+		public EventGuestDetailsMockBuilder WithTotalTicketPrice(Decimal val)
+		{ 
+			return WithBuildStep(p => p.TotalTicketPrice = val);
+		}
+		public EventGuestDetailsMockBuilder WithDateOfBooking(DateTime val)
+		{ 
+			return WithBuildStep(p => p.DateOfBooking = val);
+		}
+		public EventGuestDetailsMockBuilder WithDateOfBookingUtc(DateTime val)
+		{ 
+			return WithBuildStep(p => p.DateOfBookingUtc = val);
 		}
 	}
 

@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using Paramount.Betterclassifieds.Business.Events;
 
 namespace Paramount.Betterclassifieds.Tests
 {
@@ -13,6 +15,12 @@ namespace Paramount.Betterclassifieds.Tests
             WithCreatedDateTimeUtc(DateTime.UtcNow);
             WithEventBookingId(999);
             WithEventTicketId(1000);
+            return this;
+        }
+
+        public EventBookingTicketMockBuilder WithFields(params EventBookingTicketField[] fields)
+        {
+            WithTicketFieldValues(fields.ToList());
             return this;
         }
     }

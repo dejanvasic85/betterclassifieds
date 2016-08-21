@@ -43,7 +43,7 @@
         </div>
     </div>
 
-    <div class="row top-buffer-20" data-bind="visible: true">
+    <div class="row top-buffer-20" data-bind="visible: fields().length> 0">
         <div class="col-md-12">
             <h4 class="page-header">
                 Additional Fields
@@ -60,14 +60,14 @@
         </div>
     </div>
 
-    <div class="row top-buffer-20">
+    @*<div class="row top-buffer-20">
         <div class="col-md-12" data-bind="visible: isEmailDifferent">
             <div class="alert alert-warning">
                 The email is different to the original. You may want to resend the tickets to the new recipient.
             </div>
         </div>
 
-    </div>
+    </div>*@
 
     <div class="row top-buffer-20">
         <div class="col-sm-offset-10 col-sm-2">

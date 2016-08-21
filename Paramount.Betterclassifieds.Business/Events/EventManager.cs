@@ -60,7 +60,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             return _eventRepository.GetEventBookingTicket(eventBookingTicketId);
         }
 
-        public void UpdateEventBookingTicket(int eventBookingTicketId, string guestFullName, string guestEmail)
+        public void UpdateEventBookingTicket(int eventBookingTicketId, string guestFullName, string guestEmail, IEnumerable<EventBookingTicketField> fields)
         {
             var eventBookingTicket = _eventRepository.GetEventBookingTicket(eventBookingTicketId);
 
@@ -72,6 +72,19 @@ namespace Paramount.Betterclassifieds.Business.Events
             eventBookingTicket.LastModifiedDate = _dateService.Now;
             eventBookingTicket.LastModifiedDateUtc = _dateService.UtcNow;
             eventBookingTicket.LastModifiedBy = _userManager.GetCurrentUser().Username;
+
+            if (eventBookingTicket.TicketFieldValues.Count > 0)
+            {
+                eventBookingTicket.TicketFieldValues.ForEach(f =>
+                {
+                    var matchedField = fields.Single(mf => mf.FieldName == f.FieldName);
+                    if (f.FieldValue != matchedField.FieldValue)
+                    {
+                        f.FieldValue = matchedField.FieldValue;
+                        _eventRepository.UpdateEventBookingTicketField(f);
+                    }
+                });
+            }
 
             _eventRepository.UpdateEventBookingTicket(eventBookingTicket);
         }

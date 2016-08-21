@@ -429,7 +429,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return Url.NotFound().ToRedirectResult();
 
             var eventTicket = _eventManager.GetEventTicket(eventBookingTicket.EventTicketId);
-            
+
             var vm = new EditGuestViewModel
             {
                 AdId = id,
@@ -452,7 +452,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                     EventTicketId = f.EventTicketId.GetValueOrDefault()
                 });
             });
-            
+
             return View(vm);
         }
 
@@ -462,12 +462,17 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             if (!ModelState.IsValid)
                 return Json(ModelState.ToErrors());
-
-            var currentUser = _userManager.GetCurrentUser();
+            
+            // Fetch the existing fields
+            var fields = editGuestViewModel.Fields.Select(f => new EventBookingTicketField
+            {
+                FieldValue = f.FieldValue, FieldName = f.FieldName
+            });
 
             _eventManager.UpdateEventBookingTicket(editGuestViewModel.EventBookingTicketId,
                 editGuestViewModel.GuestFullName,
-                editGuestViewModel.GuestEmail);
+                editGuestViewModel.GuestEmail,
+                fields);
 
             return Json(true);
         }

@@ -341,6 +341,16 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
+        public void UpdateEventBookingTicketField(EventBookingTicketField eventBookingTicketField)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                context.EventBookingTicketFields.Attach(eventBookingTicketField);
+                context.Entry(eventBookingTicketField).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
         public void UpdateEventGroupStatus(int eventGroupId, bool isDisabled)
         {
             using (var context = _dbContextFactory.CreateEventContext())

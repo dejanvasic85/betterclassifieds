@@ -736,10 +736,11 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _dateServiceMock.SetupNow().SetupNowUtc();
 
             var manager = BuildTargetObject();
-            manager.UpdateEventBookingTicket(1, "Foo Two", "foo@two.com", null);
+            manager.UpdateEventBookingTicket(1, "Foo Two", "foo@two.com", 1, null);
 
             Assert.That(mockEventBookingTicket.GuestFullName, Is.EqualTo("Foo Two"));
             Assert.That(mockEventBookingTicket.GuestEmail, Is.EqualTo("foo@two.com"));
+            Assert.That(mockEventBookingTicket.EventGroupId, Is.EqualTo(1));
             Assert.That(mockEventBookingTicket.LastModifiedBy, Is.EqualTo(mockApplicationUser.Username));
         }
 
@@ -770,13 +771,14 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _dateServiceMock.SetupNow().SetupNowUtc();
 
             var manager = BuildTargetObject();
-            manager.UpdateEventBookingTicket(1, "Foo Two", "foo@two.com", new List<EventBookingTicketField>
+            manager.UpdateEventBookingTicket(1, "Foo Two", "foo@two.com", 1, new List<EventBookingTicketField>
             {
                 fieldMockBuilder.WithFieldName("Field").WithFieldValue("Lucas Hood").Build()
             });
 
             Assert.That(mockEventBookingTicket.GuestFullName, Is.EqualTo("Foo Two"));
             Assert.That(mockEventBookingTicket.GuestEmail, Is.EqualTo("foo@two.com"));
+            Assert.That(mockEventBookingTicket.EventGroupId, Is.EqualTo(1));
             Assert.That(mockEventBookingTicket.LastModifiedBy, Is.EqualTo(mockApplicationUser.Username));
         }
 

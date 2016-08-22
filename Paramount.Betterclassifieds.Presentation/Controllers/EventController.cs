@@ -299,7 +299,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _payPalService.CompletePayment(_eventBookingContext.EventBookingPaymentReference, payerId,
                 eventBooking.UserId, eventBooking.TotalCost, eventBooking.EventBookingId.ToString(), TransactionTypeName.EventBookingTickets);
 
-            return RedirectToAction("EventBooked");
+            return Url.EventBooked().ToRedirectResult();
         }
 
         [HttpPost, EventBookingRequired, RequireHttps, Authorize]
@@ -321,7 +321,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventManager.SetPaymentReferenceForBooking(eventBooking.EventBookingId, stripePayment.StripeToken, PaymentType.CreditCard);
             _eventManager.ActivateBooking(_eventBookingContext.EventBookingId, _eventBookingContext.EventInvitationId);
 
-            return RedirectToAction("EventBooked");
+            return Url.EventBooked().ToRedirectResult();
         }
 
         [HttpGet]

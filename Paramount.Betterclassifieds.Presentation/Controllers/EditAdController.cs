@@ -429,8 +429,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return Url.NotFound().ToRedirectResult();
 
             var eventTicket = _eventManager.GetEventTicket(eventBookingTicket.EventTicketId);
+            var groups = Task.Run(() => _eventManager.GetEventGroups(eventTicket.EventId.GetValueOrDefault(), eventTicket.EventTicketId))
+                .Result
+                .Where(g => g.IsAvailable());
 
-            var vm = new EditGuestViewModel(id, eventTicket, eventBookingTicket);
+            var vm = new EditGuestViewModel(id, eventTicket, eventBookingTicket, groups);
             return View(vm);
         }
 
@@ -438,18 +441,29 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost, ActionName("edit-guest")]
         public ActionResult EditGuest(int id, EditGuestViewModel editGuestViewModel)
         {
+            if (editGuestViewModel.GroupId.HasValue && editGuestViewModel.CurrentGroupId != editGuestViewModel.GroupId)
+            {
+                var eventGroup = Task.Run(() => _eventManager.GetEventGroup(editGuestViewModel.GroupId.Value)).Result;
+                if (!eventGroup.IsAvailable())
+                {
+                    ModelState.AddModelError("groupId", "The selected group is no longer available");
+                }
+            }
+
             if (!ModelState.IsValid)
-                return Json(ModelState.ToErrors());
-            
+                return Json(new { Errors = ModelState.ToErrors() });
+
             // Fetch the existing fields
             var fields = editGuestViewModel.Fields.Select(f => new EventBookingTicketField
             {
-                FieldValue = f.FieldValue, FieldName = f.FieldName
+                FieldValue = f.FieldValue,
+                FieldName = f.FieldName
             });
 
             _eventManager.UpdateEventBookingTicket(editGuestViewModel.EventBookingTicketId,
                 editGuestViewModel.GuestFullName,
                 editGuestViewModel.GuestEmail,
+                editGuestViewModel.GroupId,
                 fields);
 
             return Json(true);

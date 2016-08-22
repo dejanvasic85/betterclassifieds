@@ -14,18 +14,20 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             Fields = new List<EventTicketFieldViewModel>();
         }
 
-        public EditGuestViewModel(int adId, EventTicket eventTicket, EventBookingTicket eventBookingTicket)
+        public EditGuestViewModel(int adId, EventTicket eventTicket, EventBookingTicket eventBookingTicket, IEnumerable<EventGroup> groups)
         {
             AdId = adId;
+            EventId = eventTicket.EventId;
             EventTicketId = eventTicket.EventTicketId.GetValueOrDefault();
             EventBookingId = eventBookingTicket.EventBookingId;
             EventBookingTicketId = eventBookingTicket.EventBookingTicketId;
             GuestFullName = eventBookingTicket.GuestFullName;
             GuestEmail = eventBookingTicket.GuestEmail;
+            GroupId = eventBookingTicket.EventGroupId;
+            CurrentGroupId = eventBookingTicket.EventGroupId;
             TicketName = eventTicket.TicketName;
             TicketPrice = eventTicket.Price;
             TicketPurchaseDate = eventBookingTicket.CreatedDateTime.GetValueOrDefault();
-            GroupId = eventBookingTicket.EventGroupId;
 
             Fields = new List<EventTicketFieldViewModel>();
             eventTicket.EventTicketFields?.Do(f =>
@@ -40,7 +42,22 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                     EventTicketId = f.EventTicketId.GetValueOrDefault()
                 });
             });
+
+            if (groups != null)
+            {
+                Groups = groups.Select(g => new EventGroupViewModel
+                {
+                    EventId = g.EventId,
+                    MaxGuests = g.MaxGuests,
+                    GuestCount = g.GuestCount,
+                    EventGroupId = g.EventGroupId,
+                    GroupName = g.GroupName
+
+                }).ToList();
+            }
         }
+
+        public int? EventId { get; set; }
 
         public int AdId { get; set; }
 
@@ -60,13 +77,13 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         [MaxLength(100)]
         public string GuestEmail { get; set; }
 
-        public int? GroupId { get; set; }
-
         public List<EventTicketFieldViewModel> Fields { get; set; }
+        public List<EventGroupViewModel> Groups { get; set; }
+        public int? GroupId { get; set; }
+        public int? CurrentGroupId { get; set; }
 
         public string TicketName { get; set; }
         public decimal TicketPrice { get; set; }
         public DateTime TicketPurchaseDate { get; set; }
-
     }
 }

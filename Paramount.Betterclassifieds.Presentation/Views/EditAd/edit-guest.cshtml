@@ -60,7 +60,18 @@
         </div>
     </div>
 
-   
+    <div class="row top-buffer-20" data-bind="visible: groups().length > 0">
+        <div class="col-md-12">
+            <h4 class="page-header">
+                Group
+            </h4>
+
+            <div class="form-group-lg">
+                <select class="form-control input-lg"
+                        data-bind="options: groups, optionsText: 'groupName', value: selectedGroup, optionsCaption: 'Un-Assigned...', attr : {'data-guestName' : guestFullName}"></select>
+            </div>
+        </div>
+    </div>
 
 
     @*<div class="row top-buffer-20">
@@ -73,6 +84,11 @@
         </div>*@
 
     <div class="row top-buffer-20">
+        <div class="col-xs-12">
+            <div id="serverValidation" style="display: none">
+                <div class="alert alert-danger"></div>
+            </div>
+        </div>
         <div class="col-sm-offset-10 col-sm-2">
             <button class="btn btn-block btn-success" data-bind="click: save" data-loading-text="Please Wait...">
                 Save <i class="fa fa-save"></i>

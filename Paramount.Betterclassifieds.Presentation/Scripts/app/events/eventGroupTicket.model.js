@@ -1,5 +1,6 @@
 ﻿(function ($, ko, $p) {
     function EventGroupTicket(data) {
+
         var me = this;
         me.eventId = ko.observable();
         me.eventTicketId = ko.observable();

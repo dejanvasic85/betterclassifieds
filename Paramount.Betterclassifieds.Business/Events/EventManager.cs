@@ -60,15 +60,16 @@ namespace Paramount.Betterclassifieds.Business.Events
             return _eventRepository.GetEventBookingTicket(eventBookingTicketId);
         }
 
-        public void UpdateEventBookingTicket(int eventBookingTicketId, string guestFullName, string guestEmail, IEnumerable<EventBookingTicketField> fields)
+        public void UpdateEventBookingTicket(int eventBookingTicketId, string guestFullName, string guestEmail, int? eventGroupId, IEnumerable<EventBookingTicketField> fields)
         {
             var eventBookingTicket = _eventRepository.GetEventBookingTicket(eventBookingTicketId);
 
             if (eventBookingTicket == null)
                 throw new ArgumentException($"eventBookingTicket {eventBookingTicketId} not found");
-
+            
             eventBookingTicket.GuestFullName = guestFullName;
             eventBookingTicket.GuestEmail = guestEmail;
+            eventBookingTicket.EventGroupId = eventGroupId;
             eventBookingTicket.LastModifiedDate = _dateService.Now;
             eventBookingTicket.LastModifiedDateUtc = _dateService.UtcNow;
             eventBookingTicket.LastModifiedBy = _userManager.GetCurrentUser().Username;

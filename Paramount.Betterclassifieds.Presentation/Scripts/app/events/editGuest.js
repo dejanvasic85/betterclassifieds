@@ -6,18 +6,21 @@
         var me = this,
             adDesignService = new $p.AdDesignService(data.adId);
 
+        me.eventId = ko.observable();
         me.eventBookingTicketId = ko.observable();
         me.eventBookingId = ko.observable();
         me.eventTicketId = ko.observable();
         me.guestFullName = ko.observable();
+        me.originalGuestEmail = ko.observable();
         me.guestEmail = ko.observable();
         me.fields = ko.observableArray();
         me.groups = ko.observableArray();
         me.selectedGroup = ko.observable();
         me.currentGroupId = ko.observable();
+        me.sendEmailToGuest = ko.observable(true);
         me.isEmailDifferent = ko.computed(function () {
-            if (me.guestEmail()) {
-                return data.guestEmail.toLowerCase() !== me.guestEmail().toLowerCase();
+            if (me.guestEmail() && me.originalGuestEmail()) {
+                return me.guestEmail().toLowerCase() !== me.originalGuestEmail().toLowerCase();
             }
             return false;
         });
@@ -46,11 +49,13 @@
             } else {
                 dataToPost.groupId = null;
             }
+            dataToPost.sendEmailToGuest = me.isEmailDifferent() && me.sendEmailToGuest();
 
             adDesignService.editGuest(dataToPost).then(function (resp) {
                 $btn.button('reset');
                 if (!resp.errors) {
                     notifier.success("Guest information updated.");
+                    me.originalGuestEmail(me.guestEmail());
                 }
             });
         }
@@ -63,10 +68,12 @@
 
     EditGuest.prototype.bind = function (data) {
         var me = this;
+        me.eventId(data.eventId);
         me.eventBookingTicketId(data.eventBookingTicketId);
         me.eventBookingId(data.eventBookingId);
         me.eventTicketId(data.eventTicketId);
         me.guestFullName(data.guestFullName);
+        me.originalGuestEmail(data.guestEmail);
         me.guestEmail(data.guestEmail);
         me.currentGroupId(data.currentGroupId);
 

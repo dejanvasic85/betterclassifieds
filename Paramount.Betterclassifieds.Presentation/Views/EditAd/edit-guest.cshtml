@@ -38,7 +38,17 @@
 
             <div class="form-group-lg" data-bind="validationElement: guestEmail">
                 <label for="guestEmail" class="control-label">Email *:</label>
-                <input id="guestEmail" data-bind="value: guestEmail" type="text" class="form-control" />
+                <input id="guestEmail" data-bind="value: guestEmail, valueUpdate: 'keyup'" type="text" class="form-control" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row top-buffer-20">
+        <div class="col-md-12" data-bind="visible: isEmailDifferent">
+            <div class="alert alert-info-alt">
+                Do you want to send an email to the new recipient?
+                <br/>
+                <input type="checkbox" data-bind="toggle: sendEmailToGuest" data-onstyle="success" data-on="Yes" data-off="No"/>
             </div>
         </div>
     </div>
@@ -73,16 +83,6 @@
         </div>
     </div>
 
-
-    @*<div class="row top-buffer-20">
-            <div class="col-md-12" data-bind="visible: isEmailDifferent">
-                <div class="alert alert-warning">
-                    The email is different to the original. You may want to resend the tickets to the new recipient.
-                </div>
-            </div>
-
-        </div>*@
-
     <div class="row top-buffer-20">
         <div class="col-xs-12">
             <div id="serverValidation" style="display: none">
@@ -91,12 +91,12 @@
         </div>
         <div class="col-sm-offset-10 col-sm-2">
             <button class="btn btn-block btn-success" data-bind="click: save" data-loading-text="Please Wait...">
-                Save <i class="fa fa-save"></i>
+                Submit <i class="fa fa-save"></i>
             </button>
         </div>
     </div>
 
-    <div class="row top-buffer-20" data-bind="visible: fields().length> 0">
+    <div class="row top-buffer-20">
         <div class="col-md-12">
             <h4 class="page-header">
                 Ticket Information

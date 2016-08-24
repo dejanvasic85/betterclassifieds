@@ -28,7 +28,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             TicketName = eventTicket.TicketName;
             TicketPrice = eventTicket.Price;
             TicketPurchaseDate = eventBookingTicket.CreatedDateTime.GetValueOrDefault();
-
             Fields = new List<EventTicketFieldViewModel>();
             eventTicket.EventTicketFields?.Do(f =>
             {
@@ -85,5 +84,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string TicketName { get; set; }
         public decimal TicketPrice { get; set; }
         public DateTime TicketPurchaseDate { get; set; }
+
+        public bool SendEmailToGuest { get; set; }
     }
 }

@@ -78,6 +78,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             {
                 eventBookingTicket.TicketFieldValues.ForEach(f =>
                 {
+                    // Match on the name! Must be unique...
                     var matchedField = fields.Single(mf => mf.FieldName == f.FieldName);
                     if (f.FieldValue != matchedField.FieldValue)
                     {

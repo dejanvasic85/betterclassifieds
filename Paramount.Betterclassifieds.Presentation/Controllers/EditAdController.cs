@@ -439,11 +439,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         // Json
         [HttpPost, ActionName("edit-guest")]
-        public ActionResult EditGuest(int id, EditGuestViewModel editGuestViewModel)
+        public ActionResult EditGuest(int id, EditGuestViewModel vm)
         {
-            if (editGuestViewModel.GroupId.HasValue && editGuestViewModel.CurrentGroupId != editGuestViewModel.GroupId)
+            if (vm.GroupId.HasValue && vm.CurrentGroupId != vm.GroupId)
             {
-                var eventGroup = Task.Run(() => _eventManager.GetEventGroup(editGuestViewModel.GroupId.Value)).Result;
+                var eventGroup = Task.Run(() => _eventManager.GetEventGroup(vm.GroupId.Value)).Result;
                 if (!eventGroup.IsAvailable())
                 {
                     ModelState.AddModelError("groupId", "The selected group is no longer available");
@@ -453,18 +453,29 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (!ModelState.IsValid)
                 return Json(new { Errors = ModelState.ToErrors() });
 
-            // Fetch the existing fields
-            var fields = editGuestViewModel.Fields.Select(f => new EventBookingTicketField
+            // Fetch the existing fields and merge
+            var fields = vm.Fields.Select(f => new EventBookingTicketField
             {
                 FieldValue = f.FieldValue,
                 FieldName = f.FieldName
             });
 
-            _eventManager.UpdateEventBookingTicket(editGuestViewModel.EventBookingTicketId,
-                editGuestViewModel.GuestFullName,
-                editGuestViewModel.GuestEmail,
-                editGuestViewModel.GroupId,
+            _eventManager.UpdateEventBookingTicket(vm.EventBookingTicketId,
+                vm.GuestFullName,
+                vm.GuestEmail,
+                vm.GroupId,
                 fields);
+
+            if (vm.SendEmailToGuest)
+            {
+                var adDetails = _searchService.GetByAdId(id);
+                var eventDetails = _eventManager.GetEventDetails(vm.EventId.GetValueOrDefault());
+                var eventBooking = _eventManager.GetEventBooking(vm.EventBookingId);
+
+                var eventUrl = Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, adDetails.CategoryAdType).WithFullUrl();
+                var notification = new EventGuestNotificationFactory().Create(_clientConfig, eventDetails, adDetails, eventUrl, eventBooking.Email, vm.GuestEmail);
+                _broadcastManager.Queue(notification, vm.GuestEmail);
+            }
 
             return Json(true);
         }

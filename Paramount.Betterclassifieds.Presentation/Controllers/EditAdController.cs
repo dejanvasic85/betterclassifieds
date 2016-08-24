@@ -469,8 +469,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (vm.SendEmailToGuest)
             {
                 var adDetails = _searchService.GetByAdId(id);
-                var eventDetails = _eventManager.GetEventDetails(vm.EventId.GetValueOrDefault());
                 var eventBooking = _eventManager.GetEventBooking(vm.EventBookingId);
+                var eventDetails = eventBooking.Event;
 
                 var eventUrl = Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, adDetails.CategoryAdType).WithFullUrl();
                 var notification = new EventGuestNotificationFactory().Create(_clientConfig, eventDetails, adDetails, eventUrl, eventBooking.Email, vm.GuestEmail);

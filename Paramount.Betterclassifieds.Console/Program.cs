@@ -12,23 +12,28 @@ namespace Paramount.Betterclassifieds.Console
 
         static void Main(string[] args)
         {
-            Program program = new Program();
+            var program = new Program();
             program.RegisterContainer();
             
             try
             {
-
 #if DEBUG
-                program.Start(new[]
+                if (args.Length  == 0)
                 {
-                    TaskArguments.TaskFullArgName, nameof(Tasks.EmailProcessor), "-To", "dejan.vasic@paramountit.com.au"
-
-                    // TaskArguments.TaskFullArgName, nameof(Tasks.DownloadDocument), "-id", "3CABACF9-02E2-43F4-A98B-DE3F89F7E135", "-out", "c:\\temp\\out.json"
-                });
-
-#else
-                program.Start(args);
+                    args = new []
+                    {
+                         TaskArguments.TaskFullArgName, nameof(Tasks.CopyDb),
+                        "-dir", "C:\\temp",
+                        "-username", "dejan.vasic",
+                        "-password", "xxxxx",
+                        "-site", "ftp://kandobay.com.au",
+                        "-files", "KandoBay_Release_AppUser1.bak"
+                    };
+                }
 #endif
+
+                program.Start(args);
+
             }
             catch (Exception ex)
             {

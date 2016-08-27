@@ -8,6 +8,7 @@ namespace Paramount.Betterclassifieds.Console
         void Error(Exception exception);
         void Error(string message);
         void Warn(string message);
+        void Progress(char p = '.');
     }
 
     public class ConsoleLogger : ILogger
@@ -18,6 +19,11 @@ namespace Paramount.Betterclassifieds.Console
             System.Console.ForegroundColor = ConsoleColor.Cyan;
             System.Console.WriteLine(message);
             System.Console.ResetColor();
+        }
+
+        public void Progress(char p = '.')
+        {
+            System.Console.Write(p);
         }
 
         public void Error(Exception exception)

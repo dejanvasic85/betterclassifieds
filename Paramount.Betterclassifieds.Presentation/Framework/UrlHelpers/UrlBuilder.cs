@@ -139,7 +139,7 @@ namespace Paramount
 
         public RedirectToRouteResult ToRedirectResult()
         {
-            return new RedirectToRouteResult(null);
+            return ToRedirectResult(null);
         }
     }
 }

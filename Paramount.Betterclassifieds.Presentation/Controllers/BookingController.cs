@@ -413,7 +413,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             if (viewModel.ClosingDate.HasValue && viewModel.ClosingDate.Value < bookingCart.StartDate.GetValueOrDefault())
             {
-                ModelState.AddModelError("ClosingDate", "Closing date cannot be before the ad start date");
+                ModelState.AddModelError("ClosingDate", $"Closing date cannot be before the start date {viewModel.AdStartDate}");
+            }
+
+            if (!ModelState.IsValid)
+            {
                 return Json(new { Errors = ModelState.ToErrors() });
             }
 

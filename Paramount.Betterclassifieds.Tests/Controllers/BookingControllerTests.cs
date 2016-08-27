@@ -80,7 +80,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var mockViewModel = new BookingEventTicketSetupViewModel
             {
                 ClosingDate = null,
-                TicketFields = new List<EventTicketFieldViewModel> { new EventTicketFieldViewModel { FieldName = "test" } },
                 Tickets = new List<BookingEventTicketViewModel> { new BookingEventTicketViewModel { TicketName = "Adult", AvailableQuantity = 10, Price = 0 } }
             };
 

@@ -1,9 +1,31 @@
 ﻿(function ($, ko, $paramount) {
     'use strict';
 
-    function DynamicFieldDefinition(data) {
+    function DynamicFieldDefinition(parent, data) {
         var me = this;
-        me.fieldName = ko.observable();
+        me.fieldName = ko.observable().extend({
+            validation: {
+                validator: function (name, params) {
+                    var allFields = params.parent.eventTicketFields.peek();
+                    
+                    var otherFields = _.filter(allFields, function (row) {
+                        return row !== params.currentRow;
+                    });
+
+                    var otherFieldNames = _.map(otherFields, function(f) {
+                        return f.fieldName.peek();
+                    });
+                    
+                    return !_.contains(otherFieldNames, name);
+                    
+                },
+                message: 'Field Name must be unique',
+                params: {
+                    currentRow: me,
+                    parent: parent
+                }
+            }
+        });
         me.isRequired = ko.observable();
 
         if (data) {

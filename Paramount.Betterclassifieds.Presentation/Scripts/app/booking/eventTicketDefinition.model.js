@@ -10,7 +10,7 @@
         me.price = ko.observable();
 
         me.addField = function () {
-            me.eventTicketFields.push(new $paramount.models.DynamicFieldDefinition());
+            me.eventTicketFields.push(new $paramount.models.DynamicFieldDefinition(me));
         }
 
         me.removeTicketField = function (f) {
@@ -55,7 +55,7 @@
 
         if (data.eventTicketFields) {
             $.each(data.eventTicketFields, function (idx, f) {
-                me.eventTicketFields.push(new $paramount.models.DynamicFieldDefinition(f));
+                me.eventTicketFields.push(new $paramount.models.DynamicFieldDefinition(me, f));
             });
         }
     }

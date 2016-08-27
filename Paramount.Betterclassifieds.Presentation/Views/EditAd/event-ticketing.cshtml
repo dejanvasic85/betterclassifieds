@@ -63,11 +63,11 @@
                             Fields allow your to capture information about each guest.
                         </div>
                     </div>
-                    <div class="col-xs-12" data-bind="foreach: newTicket().fields">
+                    <div class="col-xs-12" data-bind="foreach: newTicket().eventTicketFields">
 
                         <div class="panel panel-default">
                             <div class="panel-body ticket-field-edit">
-                                <div class="form-group-lg">
+                                <div class="form-group-lg" data-bind="validationElement: fieldName">
                                     <label class="control-label">
                                         Field Name
                                     </label>

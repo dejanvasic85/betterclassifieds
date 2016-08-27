@@ -75,7 +75,7 @@
         me.ticketName = ko.observable();
         me.price = ko.observable();
         me.availableQuantity = ko.observable();
-        me.fields = ko.observableArray();
+        me.eventTicketFields = ko.observableArray();
 
         me.validator = ko.validatedObservable({
             ticketName: me.ticketName.extend({ required: true }),
@@ -84,7 +84,7 @@
         });
 
         me.addField = function () {
-            me.fields.push(new $p.models.DynamicFieldDefinition());
+            me.eventTicketFields.push(new $p.models.DynamicFieldDefinition(me));
         }
     }
 

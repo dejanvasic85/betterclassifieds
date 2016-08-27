@@ -140,7 +140,8 @@
     <Compile Include="Payment\ChargeableItem.cs" />
     <Compile Include="Payment\PayPalRequest.cs" />
     <Compile Include="Payment\CreditCardPaymentRequest.cs" />
-    <Compile Include="Payment\CreditCardPaymentResponse.cs" />
+    <Compile Include="Payment\ResponseType.cs" />
+    <Compile Include="Payment\CreditCardResponse.cs" />
     <Compile Include="Payment\TransactionTypeName.cs" />
     <Compile Include="Pricing\BookingOrderResult.cs" />
     <Compile Include="Pricing\IAdRateContext.cs" />

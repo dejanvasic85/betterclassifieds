@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Monads;
 using System.Web;
 using System.Web.Mvc;
@@ -56,7 +58,7 @@ namespace Paramount
             RouteValues = routeValues;
             return this;
         }
-
+        
         public UrlBuilder WithEncoding()
         {
             Encode = true;
@@ -109,12 +111,11 @@ namespace Paramount
             this.Path = UrlHelper.Content(relativeContentPath);
             return this;
         }
-
+        
         /// <summary>
         /// Converts the required Url information to a redirect result
         /// </summary>
-        /// <returns></returns>
-        public RedirectToRouteResult ToRedirectResult()
+        public RedirectToRouteResult ToRedirectResult(IDictionary<string, object> parameters)
         {
             Guard.NotNull(Controller, "You must set the controller first");
             Guard.NotNull(Action, "You must set the action fisrt");
@@ -122,10 +123,23 @@ namespace Paramount
             var routeValueDictionary = new RouteValueDictionary
             {
                 { "controller", Controller },
-                { "action", Action }
+                { "action", Action },
             };
 
+            if (parameters != null && parameters.Count > 0)
+            {
+                foreach (var parameter in parameters)
+                {
+                    routeValueDictionary.AddOrUpdate(parameter.Key, parameter.Value);
+                }
+            }
+
             return new RedirectToRouteResult(routeValueDictionary);
+        }
+
+        public RedirectToRouteResult ToRedirectResult()
+        {
+            return new RedirectToRouteResult(null);
         }
     }
 }

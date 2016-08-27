@@ -208,7 +208,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var eventTicketViewModel = eventTicketViewModelFactory.FromEventBooking(Url, _barcodeManager, adDetails, eventDetails, eventBooking);
             var ticketHtml = _templatingService.Generate(eventTicketViewModel, "Tickets");
             var ticketPdfData = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(ticketHtml);
-            
+
             var viewModel = new EventBookedViewModel(adDetails, eventDetails, eventBooking, this.Url, _clientConfig, _httpContext, groups);
             var eventTicketsBookedNotification = this.Map<EventBookedViewModel, EventTicketsBookedNotification>(viewModel).WithTickets(ticketPdfData);
 
@@ -253,7 +253,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpGet, EventBookingRequired, RequireHttps, Authorize]
-        public ViewResult MakePayment()
+        public ViewResult MakePayment(int? status)
         {
             var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.GetValueOrDefault());
             var viewModel = new MakePaymentViewModel
@@ -263,6 +263,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 StripePublishableKey = _appConfig.StripePublishableKey,
                 EnablePayPalPayments = _clientConfig.EnablePayPalPayments,
                 EnableCreditCardPayments = _clientConfig.EnableCreditCardPayments,
+                CardFailedMessage = ResponseFriendlyMessage.Get(status)
             };
 
             return View(viewModel);
@@ -308,7 +309,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.GetValueOrDefault());
             var currentUser = _userManager.GetCurrentUser(this.User);
 
-            _creditCardService.CompletePayment(new StripeChargeRequest
+            var response = _creditCardService.CompletePayment(new StripeChargeRequest
             {
                 AmountInCents = eventBooking.TotalCostInCents(),
                 Description = TransactionTypeName.EventBookingTickets,
@@ -316,6 +317,15 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 StripeToken = stripePayment.StripeToken,
                 UserId = currentUser.Username
             });
+
+            if (response.ResponseType != ResponseType.Success)
+            {
+                return Url.EventTicketingMakePayment()
+                    .ToRedirectResult(new Dictionary<string, object>
+                    {
+                        {"status", (int)response.ResponseType }
+                    });
+            }
 
             // Mark booking as paid in our database
             _eventManager.SetPaymentReferenceForBooking(eventBooking.EventBookingId, stripePayment.StripeToken, PaymentType.CreditCard);

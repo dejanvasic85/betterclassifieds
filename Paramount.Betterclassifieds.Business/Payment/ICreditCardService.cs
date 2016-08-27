@@ -2,6 +2,6 @@
 {
     public interface ICreditCardService
     {
-        StripeChargeResponse CompletePayment(StripeChargeRequest request);
+        CreditCardResponse CompletePayment(StripeChargeRequest request);
     }
 }

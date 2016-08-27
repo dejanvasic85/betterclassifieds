@@ -1,7 +1,6 @@
 using System.IO;
 using System.Text;
 using System.Web.Mvc;
-using System.Xml.Serialization;
 using Newtonsoft.Json;
 using Paramount.Betterclassifieds.Business;
 

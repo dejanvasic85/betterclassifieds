@@ -1,8 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 {
-    public class NewEventTicketViewModel
+    public class NewEventTicketViewModel : IValidatableObject
     {
         [Required]
         public int? EventId { get; set; }
@@ -14,6 +16,22 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
         public int AvailableQuantity { get; set; }
 
-        public EventTicketFieldViewModel[] Fields { get; set; }
+        public EventTicketFieldViewModel[] EventTicketFields { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            var results = new List<ValidationResult>();
+
+            if (EventTicketFields == null)
+                return results;
+
+            var uniqueFieldCount = EventTicketFields.Select(t => t.FieldName).Distinct().Count();
+            if (uniqueFieldCount < EventTicketFields.Length)
+            {
+                results.Add(new ValidationResult($"Ticket '{TicketName}' must have unique field names", new[] { "Fields" }));
+            }
+
+            return results;
+        }
     }
 }

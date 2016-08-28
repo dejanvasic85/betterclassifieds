@@ -178,7 +178,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 vm.TicketName,
                 vm.Price.GetValueOrDefault(),
                 vm.AvailableQuantity,
-                vm.Fields?.Select(f => new EventTicketField
+                vm.EventTicketFields?.Select(f => new EventTicketField
                 {
                     FieldName = f.FieldName,
                     IsRequired = f.IsRequired

@@ -44,18 +44,17 @@ namespace Paramount.Betterclassifieds.Business.Events
             }
         }
 
-        public EventBookingTicket CreateFromExisting(EventBookingTicket currentTicket, string guestFullName, 
-            string guestEmail, int? eventGroupId, IEnumerable<EventBookingTicketField> fields, 
+        public EventBookingTicket CreateFromExisting(EventBookingTicket currentTicket, string guestFullName,
+            string guestEmail, int? eventGroupId, IEnumerable<EventBookingTicketField> fields,
             string username)
-        { 
+        {
             Guard.NotNull(currentTicket);
 
             return new EventBookingTicket
             {
                 // Clone existing
                 EventBookingId = currentTicket.EventBookingId,
-                EventTicketId =  currentTicket.EventTicketId,
-                EventGroupId = currentTicket.EventGroupId,
+                EventTicketId = currentTicket.EventTicketId,
                 IsActive = true,
                 CreatedDateTime = _dateService.Now,
                 CreatedDateTimeUtc = _dateService.UtcNow,
@@ -67,10 +66,11 @@ namespace Paramount.Betterclassifieds.Business.Events
                 // New 
                 GuestEmail = guestEmail,
                 GuestFullName = guestFullName,
+                EventGroupId = eventGroupId,
                 LastModifiedBy = username,
                 LastModifiedDate = _dateService.Now,
                 LastModifiedDateUtc = _dateService.UtcNow,
-                TicketFieldValues = fields.ToList()
+                TicketFieldValues = fields?.ToList()
             };
         }
     }

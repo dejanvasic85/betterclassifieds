@@ -728,20 +728,23 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _eventRepositoryMock.SetupWithVerification(
                 call => call.UpdateEventBookingTicket(It.Is<EventBookingTicket>(e => e == mockEventBookingTicket)));
 
+            _eventRepositoryMock.SetupWithVerification(
+                call => call.CreateEventBookingTicket(It.IsAny<EventBookingTicket>()));
+
             var mockApplicationUser = new ApplicationUserMockBuilder().Default().Build();
 
-            _userManager.SetupWithVerification(call => 
+            _userManager.SetupWithVerification(call =>
                 call.GetCurrentUser(), mockApplicationUser);
 
             _dateServiceMock.SetupNow().SetupNowUtc();
 
             var manager = BuildTargetObject();
-            manager.UpdateEventBookingTicket(1, "Foo Two", "foo@two.com", 1, null);
+            var createdEventBookingTicket = manager.UpdateEventBookingTicket(1, "Foo Two", "foo@two.com", 1, null);
 
-            Assert.That(mockEventBookingTicket.GuestFullName, Is.EqualTo("Foo Two"));
-            Assert.That(mockEventBookingTicket.GuestEmail, Is.EqualTo("foo@two.com"));
-            Assert.That(mockEventBookingTicket.EventGroupId, Is.EqualTo(1));
-            Assert.That(mockEventBookingTicket.LastModifiedBy, Is.EqualTo(mockApplicationUser.Username));
+            Assert.That(createdEventBookingTicket.GuestFullName, Is.EqualTo("Foo Two"));
+            Assert.That(createdEventBookingTicket.GuestEmail, Is.EqualTo("foo@two.com"));
+            Assert.That(createdEventBookingTicket.EventGroupId, Is.EqualTo(1));
+            Assert.That(createdEventBookingTicket.LastModifiedBy, Is.EqualTo(mockApplicationUser.Username));
         }
 
         [Test]
@@ -753,15 +756,15 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 .Default()
                 .WithFields(fieldMockBuilder.Build())
                 .Build();
-            
+
+            _eventRepositoryMock.SetupWithVerification(
+                call => call.CreateEventBookingTicket(It.IsAny<EventBookingTicket>()));
+
             _eventRepositoryMock.SetupWithVerification(
                 call => call.GetEventBookingTicket(It.IsAny<int>()), mockEventBookingTicket);
 
             _eventRepositoryMock.SetupWithVerification(
                 call => call.UpdateEventBookingTicket(It.Is<EventBookingTicket>(e => e == mockEventBookingTicket)));
-
-            _eventRepositoryMock.SetupWithVerification(
-                call => call.UpdateEventBookingTicketField(It.IsAny<EventBookingTicketField>()));
 
             var mockApplicationUser = new ApplicationUserMockBuilder().Default().Build();
 
@@ -771,15 +774,15 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _dateServiceMock.SetupNow().SetupNowUtc();
 
             var manager = BuildTargetObject();
-            manager.UpdateEventBookingTicket(1, "Foo Two", "foo@two.com", 1, new List<EventBookingTicketField>
+            var updatedEventBookingTicket = manager.UpdateEventBookingTicket(1, "Foo Two", "foo@two.com", 1, new List<EventBookingTicketField>
             {
                 fieldMockBuilder.WithFieldName("Field").WithFieldValue("Lucas Hood").Build()
             });
 
-            Assert.That(mockEventBookingTicket.GuestFullName, Is.EqualTo("Foo Two"));
-            Assert.That(mockEventBookingTicket.GuestEmail, Is.EqualTo("foo@two.com"));
-            Assert.That(mockEventBookingTicket.EventGroupId, Is.EqualTo(1));
-            Assert.That(mockEventBookingTicket.LastModifiedBy, Is.EqualTo(mockApplicationUser.Username));
+            Assert.That(updatedEventBookingTicket.GuestFullName, Is.EqualTo("Foo Two"));
+            Assert.That(updatedEventBookingTicket.GuestEmail, Is.EqualTo("foo@two.com"));
+            Assert.That(updatedEventBookingTicket.EventGroupId, Is.EqualTo(1));
+            Assert.That(updatedEventBookingTicket.LastModifiedBy, Is.EqualTo(mockApplicationUser.Username));
         }
 
         private Mock<IEventRepository> _eventRepositoryMock;

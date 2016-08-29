@@ -29,95 +29,114 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group-lg" data-bind="validationElement: guestFullName">
-                <label for="guestFullName" class="control-label">Full Name:</label>
-                <input id="guestFullName" data-bind="value: guestFullName" type="text" class="form-control" />
-            </div>
-
-            <div class="form-group-lg" data-bind="validationElement: guestEmail">
-                <label for="guestEmail" class="control-label">Email *:</label>
-                <input id="guestEmail" data-bind="value: guestEmail, valueUpdate: 'keyup'" type="text" class="form-control" />
-            </div>
-        </div>
-    </div>
-
-    <div class="row top-buffer-20">
-        <div class="col-md-12" data-bind="visible: isEmailDifferent">
-            <div class="alert alert-info-alt">
-                Do you want to send an email to the new recipient?
-                <br/>
-                <input type="checkbox" data-bind="toggle: sendEmailToGuest" data-onstyle="success" data-on="Yes" data-off="No"/>
-            </div>
-        </div>
-    </div>
-
-    <div class="row top-buffer-20" data-bind="visible: fields().length> 0">
-        <div class="col-md-12">
-            <h4 class="page-header">
-                Additional Fields
-            </h4>
-            <!-- ko foreach: fields -->
-
-            <div class="form-group-lg" data-bind="validationElement: fieldValue">
-                <label class="control-label" data-bind="text: fieldName"></label>
-                <span data-bind="visible: isRequired">*</span>
-                <input type="text" data-bind="value: fieldValue" class="form-control" />
-            </div>
-
-            <!-- /ko -->
-        </div>
-    </div>
-
-    <div class="row top-buffer-20" data-bind="visible: groups().length > 0">
-        <div class="col-md-12">
-            <h4 class="page-header">
-                Group
-            </h4>
-
-            <div class="form-group-lg">
-                <select class="form-control input-lg"
-                        data-bind="options: groups, optionsText: 'groupName', value: selectedGroup, optionsCaption: 'Un-Assigned...', attr : {'data-guestName' : guestFullName}"></select>
-            </div>
-        </div>
-    </div>
-
-    <div class="row top-buffer-20">
-        <div class="col-xs-12">
-            <div id="serverValidation" style="display: none">
-                <div class="alert alert-danger"></div>
-            </div>
-        </div>
-        <div class="col-sm-offset-10 col-sm-2">
-            <button class="btn btn-block btn-success" data-bind="click: save" data-loading-text="Please Wait...">
-                Submit <i class="fa fa-save"></i>
-            </button>
-        </div>
-    </div>
-
     <div class="row top-buffer-20">
         <div class="col-md-12">
-            <h4 class="page-header">
-                Ticket Information
-            </h4>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-user"></i> Guest Info
+                </div>
+                <div class="panel-body">
 
-            <div class="bs-callout bs-callout-info">
-                <h4>Ticket Name</h4>
-                <p>@Model.TicketName</p>
+                    <div class="form-group-lg" data-bind="validationElement: guestFullName">
+                        <label for="guestFullName" class="control-label">Full Name:</label>
+                        <input id="guestFullName" data-bind="value: guestFullName" type="text" class="form-control" />
+                    </div>
+
+                    <div class="form-group-lg top-buffer-10" data-bind="validationElement: guestEmail">
+                        <label for="guestEmail" class="control-label">Email *:</label>
+                        <input id="guestEmail" data-bind="value: guestEmail, valueUpdate: 'keyup'" type="text" class="form-control" />
+                    </div>
+
+                    <div class="alert alert-info-alt top-buffer-10" data-bind="visible: isEmailDifferent">
+                        Do you want to send an email to the new recipient?
+                        <br />
+                        <input type="checkbox" data-bind="toggle: sendEmailToGuest" data-onstyle="success" data-on="Yes" data-off="No" />
+                    </div>
+
+
+                    <div class="row" data-bind="visible: fields().length> 0">
+                        <div class="col-md-12">
+                            <h4 class="page-header">
+                                Additional Fields
+                            </h4>
+                            <!-- ko foreach: fields -->
+
+                            <div class="form-group-lg" data-bind="validationElement: fieldValue">
+                                <label class="control-label" data-bind="text: fieldName"></label>
+                                <span data-bind="visible: isRequired">*</span>
+                                <input type="text" data-bind="value: fieldValue" class="form-control" />
+                            </div>
+
+                            <!-- /ko -->
+                        </div>
+                    </div>
+
+                    <div class="row" data-bind="visible: groups().length > 0">
+                        <div class="col-md-12">
+                            <h4 class="page-header">
+                                Group
+                            </h4>
+
+                            <div class="form-group-lg">
+                                <select class="form-control input-lg"
+                                        data-bind="options: groups, optionsText: 'groupName', value: selectedGroup, optionsCaption: 'Un-Assigned...', attr : {'data-guestName' : guestFullName}"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-footer">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div id="serverValidation" style="display: none">
+                                <div class="alert alert-danger"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-offset-10 col-sm-2">
+                            <button class="btn btn-block btn-success" data-bind="click: save" data-loading-text="Please Wait...">
+                                Update <i class="fa fa-upload"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="bs-callout bs-callout-info">
-                <h4>Price</h4>
-                <p>@Model.TicketPrice.ToString("C")</p>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-ticket"></i> Ticket Information
+                </div>
+                <!-- List group -->
+                <ul class="list-group">
+                    <li class="list-group-item">Ticket Number : <strong>@Model.EventBookingTicketId</strong></li>
+                    <li class="list-group-item">Ticket Name : <strong>@Model.TicketName</strong></li>
+                    <li class="list-group-item">Price : <strong>@Model.TicketPrice.ToString("C")</strong></li>
+                    <li class="list-group-item">Purchase Date : <strong>@Model.TicketPurchaseDate.ToString("dd/MM/yyyy HH:mm")</strong></li>
+                    <li class="list-group-item">Booking Order: <strong>@Model.EventBookingId</strong></li>
+                </ul>
             </div>
 
-            <div class="bs-callout bs-callout-info">
-                <h4>Purchase Date</h4>
-                <p>@Model.TicketPurchaseDate.ToLongDateString()</p>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <i class="fa fa-envelope-square"></i> Notifications
+                </div>
+                <div class="panel-body">
+                    <button class="btn btn-default">
+                        Resend Email to Guest
+                    </button>
+                </div>
             </div>
 
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <i class="fa fa-warning"></i> Danger Zone
+                </div>
+                <div class="panel-body">
+                    <button class="btn btn-danger">
+                        Remove Guest
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
+    
 
 </div>

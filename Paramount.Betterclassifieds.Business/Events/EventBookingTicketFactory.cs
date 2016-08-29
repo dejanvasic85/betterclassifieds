@@ -7,20 +7,22 @@ namespace Paramount.Betterclassifieds.Business.Events
     public class EventBookingTicketFactory
     {
         private readonly IEventRepository _eventRepository;
+        private readonly IDateService _dateService;
 
-        public EventBookingTicketFactory(IEventRepository eventRepository)
+        public EventBookingTicketFactory(IEventRepository eventRepository, IDateService dateService)
         {
             _eventRepository = eventRepository;
+            _dateService = dateService;
         }
 
         public IEnumerable<EventBookingTicket> CreateFromReservation(EventTicketReservation reservation,
             DateTime createdDate, DateTime createdDateUtc)
         {
             if (!reservation.EventTicketId.HasValue)
-                throw new ArgumentNullException("reservation", "EventTicketId cannot be null in the reservation");
+                throw new ArgumentNullException(nameof(reservation), "EventTicketId cannot be null in the reservation");
 
             var eventTicket = _eventRepository.GetEventTicketDetails(reservation.EventTicketId.GetValueOrDefault());
-            
+
             for (int i = 0; i < reservation.Quantity; i++)
             {
                 yield return new EventBookingTicket
@@ -40,6 +42,36 @@ namespace Paramount.Betterclassifieds.Business.Events
                         .ToList()
                 };
             }
+        }
+
+        public EventBookingTicket CreateFromExisting(EventBookingTicket currentTicket, string guestFullName, 
+            string guestEmail, int? eventGroupId, IEnumerable<EventBookingTicketField> fields, 
+            string username)
+        { 
+            Guard.NotNull(currentTicket);
+
+            return new EventBookingTicket
+            {
+                // Clone existing
+                EventBookingId = currentTicket.EventBookingId,
+                EventTicketId =  currentTicket.EventTicketId,
+                EventGroupId = currentTicket.EventGroupId,
+                IsActive = true,
+                CreatedDateTime = _dateService.Now,
+                CreatedDateTimeUtc = _dateService.UtcNow,
+                Price = currentTicket.Price,
+                TicketName = currentTicket.TicketName,
+                TotalPrice = currentTicket.TotalPrice,
+                TransactionFee = currentTicket.TransactionFee,
+
+                // New 
+                GuestEmail = guestEmail,
+                GuestFullName = guestFullName,
+                LastModifiedBy = username,
+                LastModifiedDate = _dateService.Now,
+                LastModifiedDateUtc = _dateService.UtcNow,
+                TicketFieldValues = fields.ToList()
+            };
         }
     }
 }

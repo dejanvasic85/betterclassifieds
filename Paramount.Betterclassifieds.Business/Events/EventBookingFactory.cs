@@ -7,24 +7,24 @@ namespace Paramount.Betterclassifieds.Business.Events
     public class EventBookingFactory
     {
         private readonly IEventRepository _eventRepository;
+        private readonly IDateService _dateService;
 
-        public EventBookingFactory(IEventRepository eventRepository)
+        public EventBookingFactory(IEventRepository eventRepository, IDateService dateService)
         {
             _eventRepository = eventRepository;
+            _dateService = dateService;
         }
 
         public EventBooking Create(int eventId,
             ApplicationUser applicationUser,
-            IEnumerable<EventTicketReservation> currentReservations,
-            DateTime createdDate,
-            DateTime createdDateUtc)
+            IEnumerable<EventTicketReservation> currentReservations)
         {
             var reservations = currentReservations.ToList();
             var eventBooking = new EventBooking
             {
                 EventId = eventId,
-                CreatedDateTimeUtc = createdDateUtc,
-                CreatedDateTime = createdDate,
+                CreatedDateTimeUtc = _dateService.Now,
+                CreatedDateTime = _dateService.UtcNow,
                 FirstName = applicationUser.FirstName,
                 LastName = applicationUser.LastName,
                 Email = applicationUser.Email,
@@ -34,9 +34,9 @@ namespace Paramount.Betterclassifieds.Business.Events
             };
 
             // Add the ticket bookings
-            var eventBookingTicketFactory = new EventBookingTicketFactory(_eventRepository);
+            var eventBookingTicketFactory = new EventBookingTicketFactory(_eventRepository, _dateService);
             eventBooking.EventBookingTickets.AddRange(
-                reservations.SelectMany(r => eventBookingTicketFactory.CreateFromReservation(r, createdDate, createdDateUtc)));
+                reservations.SelectMany(r => eventBookingTicketFactory.CreateFromReservation(r, _dateService.Now, _dateService.UtcNow)));
 
             // Calculate the total
             eventBooking.Cost = reservations.Sum(r => r.Price.GetValueOrDefault());

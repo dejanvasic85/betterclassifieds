@@ -96,7 +96,9 @@ namespace Paramount.Betterclassifieds.DataService.Events
                 if (eventBooking != null)
                 {
                     if (includeTickets)
-                        eventBooking.EventBookingTickets = context.EventBookingTickets.Where(e => e.EventBookingId == eventBookingId).ToList();
+                        eventBooking.EventBookingTickets = context.EventBookingTickets
+                            .Where(e => e.EventBookingId == eventBookingId)
+                            .Where(e => e.IsActive).ToList();
 
                     if (includeEvent)
                         eventBooking.Event = context.Events.SingleOrDefault(e => e.EventId == eventBooking.EventId);
@@ -111,6 +113,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
             using (var context = _dbContextFactory.CreateEventContext())
             {
                 return context.EventBookingTickets
+                    .Where(t => t.IsActive)
                     .Include(b => b.TicketFieldValues)
                     .SingleOrDefault(t => t.EventBookingTicketId == eventBookingTicketId);
             }
@@ -169,7 +172,9 @@ namespace Paramount.Betterclassifieds.DataService.Events
             {
                 var id = eventId.GetValueOrDefault();
                 var query = context.EventBookingTickets
-                    .Where(t => t.EventBooking.EventId == id && t.EventBooking.StatusAsString == EventBookingStatus.Active.ToString())
+                    .Where(t => t.EventBooking.EventId == id)
+                    .Where(t => t.EventBooking.StatusAsString == EventBookingStatus.Active.ToString())
+                    .Where(t => t.IsActive)
                     .Include(t => t.TicketFieldValues);
 
                 return query.ToList();
@@ -381,6 +386,16 @@ namespace Paramount.Betterclassifieds.DataService.Events
             {
                 context.EventTickets.Add(ticket);
                 context.Entry(ticket).State = EntityState.Added;
+                context.SaveChanges();
+            }
+        }
+
+        public void CreateEventBookingTicket(EventBookingTicket eventBookingTicket)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                context.EventBookingTickets.Add(eventBookingTicket);
+                context.Entry(eventBookingTicket).State = EntityState.Added;
                 context.SaveChanges();
             }
         }

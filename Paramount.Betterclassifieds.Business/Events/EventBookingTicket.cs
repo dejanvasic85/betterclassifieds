@@ -7,6 +7,7 @@ namespace Paramount.Betterclassifieds.Business.Events
     {
         public EventBookingTicket()
         {
+            IsActive = true;
             TicketFieldValues = new List<EventBookingTicketField>();
         }
         public int EventBookingTicketId { get; set; }
@@ -28,5 +29,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         public DateTime? LastModifiedDate { get; set; }
         public DateTime? LastModifiedDateUtc { get; set; }
         public string LastModifiedBy { get; set; }
+        public bool IsActive { get; set; }
     }
 }

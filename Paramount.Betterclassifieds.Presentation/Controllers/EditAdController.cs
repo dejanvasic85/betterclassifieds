@@ -460,11 +460,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 FieldName = f.FieldName
             });
 
-            _eventManager.UpdateEventBookingTicket(vm.EventBookingTicketId,
-                vm.GuestFullName,
-                vm.GuestEmail,
-                vm.GroupId,
-                fields);
+            var eventBookingTicket = _eventManager.UpdateEventBookingTicket(vm.EventBookingTicketId,
+                 vm.GuestFullName,
+                 vm.GuestEmail,
+                 vm.GroupId,
+                 fields);
 
             if (vm.SendEmailToGuest)
             {
@@ -477,7 +477,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 _broadcastManager.Queue(notification, vm.GuestEmail);
             }
 
-            return Json(true);
+            return Json(new { eventBookingTicketId = eventBookingTicket.EventBookingTicketId });
         }
 
         [HttpGet, ActionName("manage-groups")]

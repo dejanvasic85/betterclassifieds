@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business.Events;
+using Paramount.Betterclassifieds.Tests.Mocks;
 
 namespace Paramount.Betterclassifieds.Tests.Events
 {
@@ -15,20 +16,18 @@ namespace Paramount.Betterclassifieds.Tests.Events
             // arrange
             var eventId = 10;
             var eventTicketReservations = new List<EventTicketReservation>();
-            var createdDate = DateTime.Now;
-            var createdDateUtc = DateTime.UtcNow;
             var applicationUser = new ApplicationUserMockBuilder().Default().Build();
             var mockRepository = new Mock<IEventRepository>();
+            var mockDateService = new Mock<IDateService>();
+            mockDateService.SetupNow().SetupNowUtc();
 
             // act
-            var factory = new EventBookingFactory(mockRepository.Object);
+            var factory = new EventBookingFactory(mockRepository.Object, mockDateService.Object);
 
             var result = factory.Create(
                 eventId,
                 applicationUser,
-                eventTicketReservations,
-                createdDate,
-                createdDateUtc);
+                eventTicketReservations);
 
             Assert.That(result, Is.TypeOf<EventBooking>());
             Assert.That(result.EventId, Is.EqualTo(eventId));
@@ -71,19 +70,17 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 reservationMockBuilder.Build(),
                 reservationMockBuilder.Build()
             };
-            var createdDate = DateTime.Now;
-            var createdDateUtc = DateTime.UtcNow;
+            var mockDateService = new Mock<IDateService>();
+            mockDateService.SetupNow().SetupNowUtc();
             var applicationUser = new ApplicationUserMockBuilder().Default().Build();
 
             // act
-            var factory = new EventBookingFactory(mockRepository.Object);
+            var factory = new EventBookingFactory(mockRepository.Object, mockDateService.Object);
 
             var result = factory.Create(
                 eventId,
                 applicationUser,
-                eventTicketReservations,
-                createdDate,
-                createdDateUtc);
+                eventTicketReservations);
 
             Assert.That(result, Is.TypeOf<EventBooking>());
             Assert.That(result.EventBookingTickets, Is.Not.Null);

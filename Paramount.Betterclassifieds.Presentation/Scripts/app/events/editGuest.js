@@ -56,6 +56,7 @@
                 if (!resp.errors) {
                     notifier.success("Guest information updated.");
                     me.originalGuestEmail(me.guestEmail());
+                    me.eventBookingTicketId(resp.eventBookingTicketId);
                 }
             });
         }

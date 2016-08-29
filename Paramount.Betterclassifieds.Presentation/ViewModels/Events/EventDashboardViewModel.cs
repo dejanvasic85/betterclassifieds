@@ -28,6 +28,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
                 var bookedTickets = eventModel.EventBookings
                     .SelectMany(m => m.EventBookingTickets)
+                    .Where(t => t.IsActive)
                     .ToList();
 
                 this.TotalSoldQty = bookedTickets.Count;

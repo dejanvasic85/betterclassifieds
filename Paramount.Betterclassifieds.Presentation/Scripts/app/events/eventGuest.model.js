@@ -3,6 +3,7 @@
 
     function CurrentGuest(data) {
         var me = this;
+        var adDesignService = new $paramount.AdDesignService(data.adId);
 
         me.guestFullName = ko.observable(data.guestFullName);
         me.guestEmail = ko.observable(data.guestEmail);
@@ -11,7 +12,7 @@
             me.dynamicFields.push(new $paramount.models.DynamicFieldValue(f));
         });
 
-        me.editGuestUrl = ko.observable('/betterclassifieds/editad/edit-guest/' + data.adId + '?ticketNumber=' + data.ticketNumber);
+        me.editGuestUrl = ko.observable(adDesignService.editGuestUrl(data.ticketNumber));
     }
 
     $paramount.models = $paramount.models || {};

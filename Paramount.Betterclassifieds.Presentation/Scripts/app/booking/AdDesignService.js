@@ -64,7 +64,7 @@
         return $paramount.httpPost(me.baseUrl + 'EventTickets', me.model);
     }
 
-    AdDesignService.prototype.addEventTicket = function(eventTicket) {
+    AdDesignService.prototype.addEventTicket = function (eventTicket) {
         $.extend(me.model, eventTicket);
         return $paramount.httpPost(me.baseUrl + 'AddTicket', me.model);
     }
@@ -93,7 +93,15 @@
         return $paramount.httpPost(me.baseUrl + 'add-guest', me.model);
     }
 
-    AdDesignService.prototype.editGuest= function(guest) {
+    AdDesignService.prototype.editGuestUrl = function (ticketNumber) {
+        if ($paramount.notNullOrUndefined(me.model.id) === false) {
+            throw 'Ad Id must be available to generate the edit-guest url';
+        }
+
+        return me.baseUrl + 'edit-guest/' + me.model.id + '?ticketNumber=' + ticketNumber;
+    }
+
+    AdDesignService.prototype.editGuest = function (guest) {
         $.extend(me.model, guest);
         return $paramount.httpPost(me.baseUrl + 'edit-guest', me.model);
     }
@@ -120,7 +128,7 @@
         return $paramount.httpPost(url, me.model);
     }
 
-    AdDesignService.prototype.toggleTransactionFee = function(val) {
+    AdDesignService.prototype.toggleTransactionFee = function (val) {
         var url = me.baseUrl + 'toggleTransactionFee';
         $.extend(me.model, val);
         return $paramount.httpPost(url, me.model);

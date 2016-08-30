@@ -67,15 +67,20 @@ namespace Paramount.Betterclassifieds.Business.Events
             if (eventBookingTicket == null)
                 throw new ArgumentException($"eventBookingTicket {eventBookingTicketId} not found");
 
-            // We always mark the existing event booking ticket as inactive and simply create a new one
-            eventBookingTicket.IsActive = false;
-            _eventRepository.UpdateEventBookingTicket(eventBookingTicket);
 
-            var newEventBookingTicket = new EventBookingTicketFactory(_eventRepository, _dateService).CreateFromExisting(eventBookingTicket, 
+            var newEventBookingTicket = new EventBookingTicketFactory(_eventRepository, _dateService).CreateFromExisting(eventBookingTicket,
                 guestFullName, guestEmail, eventGroupId, fields, _userManager.GetCurrentUser().Username);
 
             _eventRepository.CreateEventBookingTicket(newEventBookingTicket);
 
+            // We always mark the existing event booking ticket as inactive and simply create a new one
+            // But we also need to reset the cost of the ticket!
+            eventBookingTicket.IsActive = false;
+            eventBookingTicket.Price = 0;
+            eventBookingTicket.TotalPrice = 0;
+            eventBookingTicket.TransactionFee = 0;
+            _eventRepository.UpdateEventBookingTicket(eventBookingTicket);
+            
             return newEventBookingTicket;
         }
 

@@ -745,6 +745,13 @@ namespace Paramount.Betterclassifieds.Tests.Events
             Assert.That(createdEventBookingTicket.GuestEmail, Is.EqualTo("foo@two.com"));
             Assert.That(createdEventBookingTicket.EventGroupId, Is.EqualTo(1));
             Assert.That(createdEventBookingTicket.LastModifiedBy, Is.EqualTo(mockApplicationUser.Username));
+
+            // Ensure that the old one is not active
+            mockEventBookingTicket.Price.IsEqualTo(0);
+            mockEventBookingTicket.TotalPrice.IsEqualTo(0);
+            mockEventBookingTicket.TransactionFee.IsEqualTo(0);
+            mockEventBookingTicket.IsActive.IsFalse();
+
         }
 
         [Test]

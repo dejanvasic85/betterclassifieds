@@ -85,7 +85,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 13
  testRunner.And("with a ticket option \"VIP\" for \"10\" dollars each and \"100\" available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 14
- testRunner.When("I go the event dashboard for the current ad", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I go to the event dashboard for the current ad", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 15
  testRunner.And("I select to manage groups", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 16

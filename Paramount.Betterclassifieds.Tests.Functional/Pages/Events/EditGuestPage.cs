@@ -19,6 +19,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         [FindsBy(How = How.Id, Using = "btnRemoveGuest")]
         public IWebElement RemoveGuestButton { get; set; }
 
+        [FindsBy(How = How.Id, Using = "guestFullName")]
+        public IWebElement GuestFullNameInput { get; set; }
+
+        [FindsBy(How = How.Id, Using = "guestEmail")]
+        public IWebElement GuestEmailInput { get; set; }
+
+        [FindsBy(How = How.Id, Using = "btnUpdateGuest")]
+        public IWebElement UpdateGuestButton { get; set; }
 
         public void RemoveGuest()
         {
@@ -28,6 +36,38 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
             var element = wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("btnConfirmRemoveGuest")));
 
             element.Click();
+        }
+
+        public EditGuestPage WithName(string name)
+        {
+            GuestFullNameInput.FillText(name);
+            return this;
+        }
+
+        public EditGuestPage WithEmail(string newGuestEmail)
+        {
+            GuestEmailInput.FillText(newGuestEmail);
+            return this;
+        }
+
+        public EditGuestPage Update()
+        {
+            UpdateGuestButton.Click();
+            return this;
+        }
+
+        public EditGuestPage WaitToInit()
+        {
+            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(5));
+            wait.Until(ExpectedConditions.ElementIsVisible(By.Id("guestFullName")));
+            return this;
+        }
+
+        public EditGuestPage WaitForToaster()
+        {
+            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(5));
+            wait.Until(ExpectedConditions.ElementIsVisible(By.ClassName("toast-success")));
+            return this;
         }
     }
 }

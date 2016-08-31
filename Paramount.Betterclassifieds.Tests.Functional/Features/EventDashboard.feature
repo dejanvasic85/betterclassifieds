@@ -22,12 +22,25 @@ Scenario: Guest is removed
 	And an event ad titled "Event for removing guests" exists for user "bddEventOrganiser"
 	And with a ticket option "General Admission" for "0" dollars each and "100" available
 	And a guest name "Guest One" and email "guestone@email.com" with a "General Admission" ticket to "Event for removing guests"
-	When I go the event dashboard for the current ad
+	When I go to the event dashboard for the current ad
 	And I go to edit the guest "guestone@email.com" from the dashboard
 	And I remove the guest from the event
-	Then the guest email "guestone@email.com" should be not active for the current event
-	And the guest email "guestone@email.com" event booking should not be active
-	And I should see the remove guest success message "The guest has been removed successfully."
+	Then I should see the remove guest success message "The guest has been removed successfully."
+	And the guest email "guestone@email.com" should be "not active" for the current event
+	And the guest email "guestone@email.com" event booking should not be active	
 	When I click Event Dashboard button
 	Then I should be back to event dashboard page
 	And the guest count should be 0 and 0 guests are in search results
+
+@EventGuest
+Scenario: Guest is updated
+	Given I am a registered user with username "bddEventOrganiser" and password "password123" and email "fakeorganiser@yahoo.com"
+	And I am logged in as "bddEventOrganiser" with password "password123"
+	And an event ad titled "Update Guest event" exists for user "bddEventOrganiser"
+	And with a ticket option "Ticket x" for "0" dollars each and "10" available
+	And a guest name "Tobias Dev" and email "tobias@dev.com" with a "Ticket x" ticket to "Update Guest event"
+	When I go to the event dashboard for the current ad
+	And I go to edit the guest "tobias@dev.com" from the dashboard
+	And I update the guest name to "Tobias Banana" and email to "tobias@banana.com"
+	Then the guest email "tobias@dev.com" should be "not active" for the current event
+	Then the guest email "tobias@banana.com" should be "active" for the current event

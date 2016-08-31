@@ -11,7 +11,7 @@ Scenario: Create event groups from event dashboard
 	And I am logged in as "bdduser" with password "password123"
 	And with a ticket option "Free entry" for "0" dollars each and "100" available
 	And with a ticket option "VIP" for "10" dollars each and "100" available
-	When I go the event dashboard for the current ad
+	When I go to the event dashboard for the current ad
 	And I select to manage groups
 	And I create a new group "Table For All" for all tickets and unlimited guests
 	Then the group "Table For All" should be created

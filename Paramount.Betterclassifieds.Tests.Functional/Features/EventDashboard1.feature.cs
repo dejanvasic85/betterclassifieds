@@ -125,24 +125,60 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.And("a guest name \"Guest One\" and email \"guestone@email.com\" with a \"General Admission" +
                     "\" ticket to \"Event for removing guests\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 25
- testRunner.When("I go the event dashboard for the current ad", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I go to the event dashboard for the current ad", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 26
  testRunner.And("I go to edit the guest \"guestone@email.com\" from the dashboard", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 27
  testRunner.And("I remove the guest from the event", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 28
- testRunner.Then("the guest email \"guestone@email.com\" should be not active for the current event", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I should see the remove guest success message \"The guest has been removed success" +
+                    "fully.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 29
- testRunner.And("the guest email \"guestone@email.com\" event booking should not be active", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the guest email \"guestone@email.com\" should be \"not active\" for the current event" +
+                    "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 30
- testRunner.And("I should see the remove guest success message \"The guest has been removed success" +
-                    "fully.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the guest email \"guestone@email.com\" event booking should not be active", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 31
  testRunner.When("I click Event Dashboard button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 32
  testRunner.Then("I should be back to event dashboard page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 33
  testRunner.And("the guest count should be 0 and 0 guests are in search results", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Guest is updated")]
+        [NUnit.Framework.CategoryAttribute("EventGuest")]
+        public virtual void GuestIsUpdated()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Guest is updated", new string[] {
+                        "EventGuest"});
+#line 36
+this.ScenarioSetup(scenarioInfo);
+#line 37
+ testRunner.Given("I am a registered user with username \"bddEventOrganiser\" and password \"password12" +
+                    "3\" and email \"fakeorganiser@yahoo.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 38
+ testRunner.And("I am logged in as \"bddEventOrganiser\" with password \"password123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 39
+ testRunner.And("an event ad titled \"Update Guest event\" exists for user \"bddEventOrganiser\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 40
+ testRunner.And("with a ticket option \"Ticket x\" for \"0\" dollars each and \"10\" available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 41
+ testRunner.And("a guest name \"Tobias Dev\" and email \"tobias@dev.com\" with a \"Ticket x\" ticket to " +
+                    "\"Update Guest event\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 42
+ testRunner.When("I go to the event dashboard for the current ad", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 43
+ testRunner.And("I go to edit the guest \"tobias@dev.com\" from the dashboard", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 44
+ testRunner.And("I update the guest name to \"Tobias Banana\" and email to \"tobias@banana.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 45
+ testRunner.Then("the guest email \"tobias@dev.com\" should be \"not active\" for the current event", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 46
+ testRunner.Then("the guest email \"tobias@banana.com\" should be \"active\" for the current event", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

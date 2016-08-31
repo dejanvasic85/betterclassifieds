@@ -65,9 +65,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             if (ScenarioContext.Current.TestError == null)
                 return;
 
-            // Max the size and take a screenshot of it.
-            _webDriver.Manage().Window.Maximize();
-
             Screenshot screenshot = ((ITakesScreenshot)_webDriver).GetScreenshot();
 
             const string screenShotDir = "Screenshots";

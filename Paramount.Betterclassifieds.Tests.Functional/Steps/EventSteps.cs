@@ -199,8 +199,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             Assert.That(guestTicket.GuestEmail, Is.EqualTo(guestEmail));
         }
 
-        [When(@"I go the event dashboard for the current ad")]
-        public void WhenIGoTheEventDashboardForTheCurrentAd()
+        [When(@"I go to the event dashboard for the current ad")]
+        public void WhenIGoToTheEventDashboardForTheCurrentAd()
         {
             _pageBrowser.NavigateTo<EventDashboardPage>(_contextData.Get().AdId);
         }
@@ -218,18 +218,33 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             _pageBrowser.Init<EventDashboardPage>(_contextData.Get().AdId).EditGuest(guestEmail);
         }
 
+        [When(@"I update the guest name to ""(.*)"" and email to ""(.*)""")]
+        public void WhenIUpdateTheGuestNameToAndEmailTo(string newGuestName, string newGuestEmail)
+        {
+            _pageBrowser.Init<EditGuestPage>(ensureUrl: false)
+                .WaitToInit()
+                .WithName(newGuestName)
+                .WithEmail(newGuestEmail)
+                .Update()
+                .WaitForToaster();
+        }
+        
         [When(@"I remove the guest from the event")]
         public void WhenIRemoveTheGuestFromTheEvent()
         {
-            _pageBrowser.Init<EditGuestPage>(ensureUrl: false).RemoveGuest();
+            _pageBrowser.Init<EditGuestPage>(ensureUrl: false)
+                .WaitToInit()
+                .RemoveGuest();
+        }
+        
+        [Then(@"the guest email ""(.*)"" should be ""(.*)"" for the current event")]
+        public void ThenTheGuestEmailShouldBeForTheCurrentEvent(string guestEmail, string activeOrNot)
+        {
+            var expectedStatus = activeOrNot == "active";
+            bool isActive = _repository.GetEventBookingTicketStatus(_contextData.Get().EventId, guestEmail);
+            Assert.That(isActive, Is.EqualTo(expectedStatus));
         }
 
-        [Then(@"the guest email ""(.*)"" should be not active for the current event")]
-        public void ThenTheGuestEmailShouldBeNotActiveForTheCurrentEvent(string guestEmail)
-        {
-            bool isActive = _repository.GetEventBookingTicketStatus(_contextData.Get().EventId, guestEmail);
-            Assert.That(isActive, Is.False);
-        }
 
         [Then(@"the guest email ""(.*)"" event booking should not be active")]
         public void ThenTheGuestEmailEventBookingShouldNotBeActive(string guestEmail)

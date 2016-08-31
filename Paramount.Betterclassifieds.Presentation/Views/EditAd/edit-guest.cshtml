@@ -131,7 +131,7 @@
                     <i class="fa fa-warning"></i> Danger Zone
                 </div>
                 <div class="panel-body">
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#removeGuestDialog">
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#removeGuestDialog" id="btnRemoveGuest">
                         Remove Guest
                     </button>
                 </div>
@@ -176,7 +176,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">No thanks</button>
-                    <button type="button" class="btn btn-danger confirm-cancel js-load" data-bind="click: removeGuest">
+                    <button type="button" class="btn btn-danger confirm-cancel js-load" data-bind="click: removeGuest" id="btnConfirmRemoveGuest">
                         Yes, do it.
                     </button>
                 </div>

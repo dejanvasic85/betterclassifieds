@@ -11,6 +11,32 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 {
     internal partial class DapperDataRepository
     {
+        public string GetEventBookingStatus(int eventId, string guestEmail)
+        {
+            using (var db = _connectionFactory.CreateClassifieds())
+            {
+                return db.Query<string>(@"
+                    select eb.Status from EventBookingTicket ebt
+                    join EventBooking eb on eb.EventBookingId = ebt.EventBookingId
+                    join [Event] e on e.EventId = eb.EventId and e.EventId = @eventId
+                    where ebt.GuestEmail = @guestEmail",
+                    new { eventId, guestEmail }).Single();
+            }
+        }
+
+        public bool GetEventBookingTicketStatus(int eventId, string guestEmail)
+        {
+            using (var db = _connectionFactory.CreateClassifieds())
+            {
+                return db.Query<bool>(@"
+                    select IsActive from EventBookingTicket ebt
+                    join EventBooking eb on eb.EventBookingId = ebt.EventBookingId
+                    join [Event] e on e.EventId = eb.EventId and e.EventId = @eventId
+                    where ebt.GuestEmail = @guestEmail",
+                    new { eventId, guestEmail }).Single();
+            }
+        }
+
         public int AddEventIfNotExists(int onlineAdId)
         {
             using (var db = _connectionFactory.CreateClassifieds())
@@ -102,7 +128,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 
         public List<EventBookingTicketData> GetPurchasedTicketsForEvent(int eventId)
         {
-            using(var connection = _connectionFactory.CreateClassifieds())
+            using (var connection = _connectionFactory.CreateClassifieds())
             {
                 return connection.Query<EventBookingTicketData>(
                     "SELECT ebt.* " +
@@ -132,7 +158,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             using (var db = _connectionFactory.CreateClassifieds())
             {
                 // Fetch the ticket id first
-                var ticketId = db.Query<int>("SELECT EventTicketId FROM EventTicket WHERE TicketName = @ticketName And EventId = @eventId", new { ticketName, eventId})
+                var ticketId = db.Query<int>("SELECT EventTicketId FROM EventTicket WHERE TicketName = @ticketName And EventId = @eventId", new { ticketName, eventId })
                     .Single();
 
                 // Call proc directly to create the event group
@@ -147,6 +173,47 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                     availableToAllTickets = false,
                     tickets = ticketId.ToString()
                 }, commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public int AddGuestToEvent(string username, string guestFullName, string guestEmail, string ticketName, int eventId)
+        {
+            using (var db = _connectionFactory.CreateClassifieds())
+            {
+                // Fetch the ticket id first
+                var ticketId = db.Query<int>("SELECT EventTicketId FROM EventTicket WHERE TicketName = @ticketName And EventId = @eventId", new { ticketName, eventId })
+                    .Single();
+
+                var eventBookingId = db.Add(Constants.Table.EventBooking, new
+                {
+                    UserId = username,
+                    EventId = eventId,
+                    Email = guestEmail,
+                    FirstName = guestFullName.Split(' ')[0],
+                    LastName = guestFullName.Split(' ')[1],
+                    TotalCost = 0,
+                    PaymentMethod = "None",
+                    Status = "Active",
+                    CreatedDateTime = DateTime.Now,
+                    CreatedDateTimeUtc = DateTime.UtcNow,
+                    TransactionFee = 0,
+                    Cost = 0
+                });
+
+                return db.Add(Constants.Table.EventBookingTicket, new
+                {
+                    EventBookingId = eventBookingId,
+                    EventTicketId = ticketId,
+                    TicketName = ticketName,
+                    CreatedDateTime = DateTime.Now,
+                    CreatedDateTimeUtc = DateTime.UtcNow,
+                    Price = 0,
+                    GuestEmail = guestEmail,
+                    GuestFullName = guestFullName,
+                    TransactionFee = 0,
+                    TotalPrice = 0,
+                    IsActive = 1
+                });
             }
         }
     }

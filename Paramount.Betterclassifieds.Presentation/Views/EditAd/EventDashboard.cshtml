@@ -41,7 +41,7 @@
                 <small>
                     Guest Count
                 </small>
-                <h4><span data-bind="text: totalSoldQty"></span></h4>
+                <h4><span id="totalSoldQty" data-bind="text: totalSoldQty"></span></h4>
             </div>
         </div>
 
@@ -188,7 +188,7 @@
 
                         <ul class="list-group guest-list" data-bind="foreach: guestsFiltered">
                             <li class="list-group-item">
-                                <div class="row">
+                                <div class="row" data-bind="attr : {'data-email' : guestEmail}">
                                     <div class="col-xs-8 col-sm-10">
 
                                         <ul class="list-unstyled">

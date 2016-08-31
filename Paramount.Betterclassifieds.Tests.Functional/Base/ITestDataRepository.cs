@@ -41,19 +41,23 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
         // Rates
         void AddOnlineRateForCategoryIfNotExists(decimal price, string categoryName);
         void AddPrintRateForCategoryIfNotExists(string categoryName);
-        
+
         // Events
-        int AddEventIfNotExists(int adBookingId);
-        void AddEventTicketType(int eventId, string ticketName, decimal price, int availableQuantity);
-        void SetEventIncludeTransactionFee(int eventId, bool include);
         EventBookingData GetEventBooking(int eventId);
         List<EventBookingTicketData> GetPurchasedTickets(int eventBookingId);
         List<EventBookingTicketData> GetPurchasedTicketsForEvent(int eventId);
+        string GetEventBookingStatus(int eventId, string guestEmail);
+        bool GetEventBookingTicketStatus(int eventId, string guestEmail);
+        int AddEventIfNotExists(int adBookingId);
+        void AddEventTicketType(int eventId, string ticketName, decimal price, int availableQuantity);
         int AddEventInvitationIfNotExists(int eventId, int userNetworkId);
         void AddEventGroup(int eventId, string groupName, string ticketName, int maxGuests);
+        int AddGuestToEvent(string username, string guestFullName, string guestEmail, string ticketName, int eventId);
+        void SetEventIncludeTransactionFee(int eventId, bool include);
 
         // Address
         int AddAddress(object address);
+
         
     }
 }

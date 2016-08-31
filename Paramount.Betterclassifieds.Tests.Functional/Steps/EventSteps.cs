@@ -15,12 +15,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         private readonly PageBrowser _pageBrowser;
         private readonly ITestDataRepository _repository;
         private readonly ContextData<EventAdContext> _contextData;
+        private readonly UserContext _userContext;
 
-        public EventSteps(PageBrowser pageBrowser, ITestDataRepository repository, ContextData<EventAdContext> contextData)
+        public EventSteps(PageBrowser pageBrowser, ITestDataRepository repository, ContextData<EventAdContext> contextData, UserContext userContext)
         {
             _pageBrowser = pageBrowser;
             _repository = repository;
             _contextData = contextData;
+            _userContext = userContext;
         }
 
         [Given(@"an event ad titled ""(.*)"" exists")]
@@ -55,6 +57,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         {
             // Create the event tickets
             _repository.AddEventTicketType(_contextData.Get().EventId, ticketName, amount, availableQty);
+        }
+
+        [Given(@"a guest name ""(.*)"" and email ""(.*)"" with a ""(.*)"" ticket to ""(.*)""")]
+        public void GivenAGuestNameAndEmailWithATicketTo(string guestFullName, string guestEmail, string ticketName, string eventName)
+        {
+            _repository.AddGuestToEvent(_userContext.Username, guestFullName, guestEmail, ticketName, _contextData.Get().EventId);
         }
 
         [Given(@"the event has a group ""(.*)"" for ticket ""(.*)"" and allows up to ""(.*)"" guests")]
@@ -204,5 +212,61 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 .ManageGroups();
         }
 
+        [When(@"I go to edit the guest ""(.*)"" from the dashboard")]
+        public void WhenIEditTheGuestFromTheDashboard(string guestEmail)
+        {
+            _pageBrowser.Init<EventDashboardPage>(_contextData.Get().AdId).EditGuest(guestEmail);
+        }
+
+        [When(@"I remove the guest from the event")]
+        public void WhenIRemoveTheGuestFromTheEvent()
+        {
+            _pageBrowser.Init<EditGuestPage>(ensureUrl: false).RemoveGuest();
+        }
+
+        [Then(@"the guest email ""(.*)"" should be not active for the current event")]
+        public void ThenTheGuestEmailShouldBeNotActiveForTheCurrentEvent(string guestEmail)
+        {
+            bool isActive = _repository.GetEventBookingTicketStatus(_contextData.Get().EventId, guestEmail);
+            Assert.That(isActive, Is.False);
+        }
+
+        [Then(@"the guest email ""(.*)"" event booking should not be active")]
+        public void ThenTheGuestEmailEventBookingShouldNotBeActive(string guestEmail)
+        {
+            var status = _repository.GetEventBookingStatus(_contextData.Get().EventId, guestEmail);
+            Assert.That(status, Is.EqualTo("Cancelled"));
+        }
+
+
+        [Then(@"I should see the remove guest success message ""(.*)""")]
+        public void ThenIShouldSeeTheRemoveGuestSuccessMessage(string expectedMessage)
+        {
+            var removePage = _pageBrowser.Init<RemoveGuestCompletePage>();
+            Assert.That(removePage.GetSuccessMessage(), Is.EqualTo(expectedMessage));
+        }
+
+        [When(@"I click Event Dashboard button")]
+        public void WhenIClickEventDashboardButton()
+        {
+            _pageBrowser.Init<RemoveGuestCompletePage>().ClickBackToDashboard();
+        }
+
+        [Then(@"I should be back to event dashboard page")]
+        public void ThenIShouldBeBackToEventDashboardPage()
+        {
+            var page = _pageBrowser.Init<EventDashboardPage>(_contextData.Get().AdId);
+
+            Assert.That(page, Is.Not.Null);
+        }
+
+        [Then(@"the guest count should be (.*) and (.*) guests are in search results")]
+        public void ThenTheGuestCountShouldBeAndGuestsAreInSearchResults(int expectedSoldQuantity, int expectedGuestsInSearch)
+        {
+            var dashboardPage = _pageBrowser.Init<EventDashboardPage>(_contextData.Get().AdId);
+
+            Assert.That(dashboardPage.GetTotalSoldQty(), Is.EqualTo(expectedSoldQuantity));
+            Assert.That(dashboardPage.GetGuestsInSearchResult(), Is.EqualTo(expectedGuestsInSearch));
+        }
     }
 }

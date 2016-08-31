@@ -106,8 +106,8 @@
         return $paramount.httpPost(me.baseUrl + 'edit-guest', me.model);
     }
 
-    AdDesignService.prototype.removeGuest = function (eventBookingTicketId) {
-        $.extend(me.model, { eventBookingTicketId: eventBookingTicketId });
+    AdDesignService.prototype.removeGuest = function (data) {
+        $.extend(me.model, data);
         return $paramount.httpPost(me.baseUrl + 'remove-guest', me.model);
     }
 

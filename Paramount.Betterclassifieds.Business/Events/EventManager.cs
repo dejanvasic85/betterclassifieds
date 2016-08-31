@@ -80,8 +80,29 @@ namespace Paramount.Betterclassifieds.Business.Events
             eventBookingTicket.TotalPrice = 0;
             eventBookingTicket.TransactionFee = 0;
             _eventRepository.UpdateEventBookingTicket(eventBookingTicket);
-            
+
             return newEventBookingTicket;
+        }
+
+        public void CancelEventBookingTicket(int eventBookingTicketId)
+        {
+            var eventBookingTicket = _eventRepository.GetEventBookingTicket(eventBookingTicketId);
+
+            if (eventBookingTicket == null)
+                throw new ArgumentException($"eventBookingTicket {eventBookingTicketId} not found");
+
+            eventBookingTicket.IsActive = false;
+            eventBookingTicket.LastModifiedBy = _userManager.GetCurrentUser().Username;
+            eventBookingTicket.LastModifiedDate = _dateService.Now;
+            eventBookingTicket.LastModifiedDateUtc = _dateService.UtcNow;
+            _eventRepository.UpdateEventBookingTicket(eventBookingTicket);
+
+            var eventBooking = _eventRepository.GetEventBooking(eventBookingTicket.EventBookingId, includeTickets: true);
+            if (eventBooking.EventBookingTickets.Count(t => t.IsActive) <= 0)
+            {
+                eventBooking.Status = EventBookingStatus.Cancelled;
+                _eventRepository.UpdateEventBooking(eventBooking);
+            }
         }
 
         public int GetRemainingTicketCount(int? ticketId)
@@ -153,6 +174,8 @@ namespace Paramount.Betterclassifieds.Business.Events
             eventBooking.Status = EventBookingStatus.Active;
             _eventRepository.UpdateEventBooking(eventBooking);
 
+            // This booking may have been activated through an 'invite'
+            // So mark the invitation as confirmed as well
             if (eventInvitationId.HasValue)
             {
                 var invitation = _eventRepository.GetEventInvitation(eventInvitationId.Value);

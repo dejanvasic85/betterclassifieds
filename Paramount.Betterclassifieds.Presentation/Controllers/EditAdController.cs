@@ -484,8 +484,17 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         // Json
         [HttpPost, ActionName("remove-guest")]
-        public ActionResult RemoveGuest(int id, int eventBookingTicketId)
+        public ActionResult RemoveGuest(int id, int eventBookingTicketId, bool sendEmailToGuestAboutRemoval)
         {
+            _eventManager.CancelEventBookingTicket(eventBookingTicketId);
+
+            if (sendEmailToGuestAboutRemoval)
+            {
+                // Todo - send email to the guest ...
+                var adDetails = _searchService.GetByAdId(id);
+                var eventModel = _eventManager.GetEventDetailsForOnlineAdId(adDetails.OnlineAdId);
+            }
+
             return Json(new
             {
                 NextUrl = Url.RemoveGuestComplete(id).ToString()

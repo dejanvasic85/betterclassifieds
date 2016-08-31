@@ -792,6 +792,97 @@ namespace Paramount.Betterclassifieds.Tests.Events
             Assert.That(updatedEventBookingTicket.LastModifiedBy, Is.EqualTo(mockApplicationUser.Username));
         }
 
+        [Test]
+        public void UpdateEventBookingTicket_ThrowsArgumentException()
+        {
+            var manager = BuildTargetObject();
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingTicket(It.IsAny<int>()), result: null);
+
+            Assert.Throws<ArgumentException>(() => manager.UpdateEventBookingTicket(1, "Foo Two", "foo@two.com", 1, null));
+        }
+
+
+        [Test]
+        public void CancelEventBookingTicket_ThrowsArgumentException()
+        {
+            var manager = BuildTargetObject();
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingTicket(It.IsAny<int>()), result: null);
+
+            Assert.Throws<ArgumentException>(() => manager.CancelEventBookingTicket(1));
+        }   
+
+        [Test]
+        public void CancelEventBookingTicket_TicketNotActive_BookingNotActive()
+        {
+            var mockEventBookingTicket = new EventBookingTicketMockBuilder().Default().Build();
+
+            var mockEventBooking = new EventBookingMockBuilder()
+                .Default()
+                .WithStatus(EventBookingStatus.Active)
+                .WithEventBookingTickets(new [] { mockEventBookingTicket })
+                .Build();
+
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingTicket(It.IsAny<int>()), result: mockEventBookingTicket);
+            _eventRepositoryMock.SetupWithVerification(call => call.UpdateEventBookingTicket(It.Is<EventBookingTicket>(t => t == mockEventBookingTicket)));
+            
+            _eventRepositoryMock.SetupWithVerification(
+                call => call.GetEventBooking(It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<bool>()),
+                result: mockEventBooking);
+            _eventRepositoryMock.SetupWithVerification(call => call.UpdateEventBooking(It.Is<EventBooking>(b => b == mockEventBooking)));
+            _userManager.SetupWithVerification(call=> call.GetCurrentUser(), result: new ApplicationUserMockBuilder().Default().Build());
+            _dateServiceMock.SetupNowUtc().SetupNow();
+
+            var manager = BuildTargetObject();
+            
+            manager.CancelEventBookingTicket(mockEventBookingTicket.EventBookingTicketId);
+
+            // Assert the status of the objects
+            mockEventBookingTicket.IsActive.IsFalse();
+            mockEventBookingTicket.LastModifiedBy.IsNotNull();
+            mockEventBookingTicket.LastModifiedDate.IsNotNull();
+            mockEventBookingTicket.LastModifiedDateUtc.IsNotNull();
+
+            mockEventBookingTicket.IsActive.IsFalse();
+            mockEventBooking.Status.IsEqualTo(EventBookingStatus.Cancelled);
+        }
+
+        [Test]
+        public void CancelEventBookingTicket_WithMultipleGuests_TicketNotActive()
+        {
+            var builder = new EventBookingTicketMockBuilder().Default();
+            var mockEventBookingTicket = builder.Build();
+            var mockEventBookingTicketTwo = builder.WithEventBookingTicketId(2).Build();
+            
+            var mockEventBooking = new EventBookingMockBuilder()
+                .Default()
+                .WithStatus(EventBookingStatus.Active)
+                .WithEventBookingTickets(new[] { mockEventBookingTicket, mockEventBookingTicketTwo })
+                .Build();
+
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingTicket(It.IsAny<int>()), result: mockEventBookingTicket);
+            _eventRepositoryMock.SetupWithVerification(call => call.UpdateEventBookingTicket(It.Is<EventBookingTicket>(t => t == mockEventBookingTicket)));
+
+            _eventRepositoryMock.SetupWithVerification(
+                call => call.GetEventBooking(It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<bool>()),
+                result: mockEventBooking);
+            
+            _userManager.SetupWithVerification(call => call.GetCurrentUser(), result: new ApplicationUserMockBuilder().Default().Build());
+            _dateServiceMock.SetupNowUtc().SetupNow();
+
+            var manager = BuildTargetObject();
+
+            manager.CancelEventBookingTicket(mockEventBookingTicket.EventBookingTicketId);
+            
+            // Assert the status of the objects
+            mockEventBookingTicket.IsActive.IsFalse();
+            mockEventBookingTicket.LastModifiedBy.IsNotNull();
+            mockEventBookingTicket.LastModifiedDate.IsNotNull();
+            mockEventBookingTicket.LastModifiedDateUtc.IsNotNull();
+
+            mockEventBookingTicket.IsActive.IsFalse();
+            mockEventBooking.Status.IsEqualTo(EventBookingStatus.Active);
+        }
+
         private Mock<IEventRepository> _eventRepositoryMock;
         private Mock<IDateService> _dateServiceMock;
         private Mock<IDocumentRepository> _documentRepository;

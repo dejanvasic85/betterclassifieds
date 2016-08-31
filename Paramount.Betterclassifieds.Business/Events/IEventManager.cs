@@ -14,6 +14,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         EventBooking GetEventBooking(int eventBookingId);
         EventBookingTicket GetEventBookingTicket(int eventBookingTicketId);
         EventBookingTicket UpdateEventBookingTicket(int eventBookingTicketId, string guestFullName, string guestEmail, int? eventGroupId, IEnumerable<EventBookingTicketField> fields);
+        void CancelEventBookingTicket(int eventBookingTicketId);
         int GetRemainingTicketCount(int? ticketId);
         int GetRemainingTicketCount(EventTicket eventTicket);
         IEnumerable<EventTicketReservation> GetTicketReservations(string sessionId);
@@ -51,6 +52,5 @@ namespace Paramount.Betterclassifieds.Business.Events
         void AddEventGroup(int eventId, string groupName, int? maxGuests, IEnumerable<int> tickets, string createdByUser, bool isDisabled);
         void SetEventGroupStatus(int eventGroupId, bool isDisabled);
         void SetTransactionFee(int eventId, bool includeTransactionFee);
-        
     }
 }

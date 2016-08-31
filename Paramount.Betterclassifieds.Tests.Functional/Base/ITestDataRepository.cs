@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Paramount.Betterclassifieds.Tests.Functional.ContextData;
-using Paramount.Betterclassifieds.Tests.Functional.Features.BookEventTickets;
 using Paramount.Betterclassifieds.Tests.Functional.Mocks.Models;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Base

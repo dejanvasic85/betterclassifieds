@@ -2,7 +2,6 @@
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Tests.Functional.Base;
 using Paramount.Betterclassifieds.Tests.Functional.ContextData;
-using Paramount.Betterclassifieds.Tests.Functional.Features.EventGroups;
 using TechTalk.SpecFlow;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events

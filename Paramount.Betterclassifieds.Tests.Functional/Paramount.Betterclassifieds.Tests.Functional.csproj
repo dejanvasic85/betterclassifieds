@@ -105,8 +105,8 @@
       <DependentUpon>AccountDetails.feature</DependentUpon>
     </Compile>
     <Compile Include="Pages\Events\EventBookedPage.cs" />
-    <Compile Include="Features\BookEventTickets\EventBookingData.cs" />
-    <Compile Include="Features\BookEventTickets\EventBookingTicketData.cs" />
+    <Compile Include="Mocks\Models\EventBookingData.cs" />
+    <Compile Include="Mocks\Models\EventBookingTicketData.cs" />
     <Compile Include="Pages\Events\MakeTicketPaymentPage.cs" />
     <Compile Include="Features\ChangePassword.feature.cs">
       <AutoGen>True</AutoGen>
@@ -128,7 +128,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BookEventTickets.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\EventGroups\GroupViewInfo.cs" />
+    <Compile Include="Mocks\Models\GroupViewInfo.cs" />
     <Compile Include="Features\ManageEventGroups.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -142,7 +142,7 @@
       <DependentUpon>BookTicketsFromInvite.feature</DependentUpon>
     </Compile>
     <Compile Include="Steps\BookTicketsFromInviteSteps.cs" />
-    <Compile Include="Features\EventInvitation\EventInvitePage.cs" />
+    <Compile Include="Pages\Events\EventInvitePage.cs" />
     <Compile Include="Pages\Events\AddGuestPage.cs" />
     <Compile Include="Pages\Events\EventDashboardPage.cs" />
     <Compile Include="Steps\EventSteps.cs" />
@@ -293,10 +293,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Features\Events\" />
-    <Folder Include="Features\Payment\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Paramount.Betterclassifieds.Security\Paramount.Betterclassifieds.Security.csproj">
       <Project>{9ce120ea-cb54-4f24-a68c-a80eb331dbde}</Project>

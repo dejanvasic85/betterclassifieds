@@ -1,6 +1,6 @@
 using System;
 
-namespace Paramount.Betterclassifieds.Tests.Functional.Features.BookEventTickets
+namespace Paramount.Betterclassifieds.Tests.Functional.Mocks.Models
 {
     internal class EventBookingData
     {

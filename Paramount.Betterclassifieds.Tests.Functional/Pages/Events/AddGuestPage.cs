@@ -4,7 +4,7 @@ using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 using Paramount.Betterclassifieds.Tests.Functional.Base;
 
-namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
+namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 {
     [NavRoute("editad/add-guest/{0}?eventId={1}")]
     public class AddGuestPage : ITestPage

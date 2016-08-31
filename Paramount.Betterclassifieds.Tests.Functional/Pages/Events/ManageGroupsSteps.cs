@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Tests.Functional.Base;
+using Paramount.Betterclassifieds.Tests.Functional.Features.EventGroups;
 using Paramount.Betterclassifieds.Tests.Functional.Features.Events;
 using TechTalk.SpecFlow;
 
-namespace Paramount.Betterclassifieds.Tests.Functional.Features.EventGroups
+namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 {
     [Binding]
     internal class ManageGroupsSteps

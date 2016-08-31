@@ -2,7 +2,7 @@
 using OpenQA.Selenium.Support.PageObjects;
 using Paramount.Betterclassifieds.Tests.Functional.Base;
 
-namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
+namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 {
     [NavRoute("Event/{0}/{1}")]
     internal class EventDetailsPage : ITestPage

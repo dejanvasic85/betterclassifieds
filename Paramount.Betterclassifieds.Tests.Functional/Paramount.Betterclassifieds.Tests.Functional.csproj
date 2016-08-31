@@ -97,17 +97,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AddGuest.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\BookEventTickets\BookTicketsPage.cs" />
+    <Compile Include="Pages\Events\BookTicketsPage.cs" />
     <Compile Include="Features\Events\EventAdContext.cs" />
     <Compile Include="Features\AccountDetails.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AccountDetails.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\BookEventTickets\EventBookedPage.cs" />
+    <Compile Include="Pages\Events\EventBookedPage.cs" />
     <Compile Include="Features\BookEventTickets\EventBookingData.cs" />
     <Compile Include="Features\BookEventTickets\EventBookingTicketData.cs" />
-    <Compile Include="Features\BookEventTickets\MakeTicketPaymentPage.cs" />
+    <Compile Include="Pages\Events\MakeTicketPaymentPage.cs" />
     <Compile Include="Features\ChangePassword.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -135,7 +135,7 @@
       <DependentUpon>ManageEventGroups.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\EventGroups\ManageGroupsPage.cs" />
-    <Compile Include="Features\EventGroups\ManageGroupsSteps.cs" />
+    <Compile Include="Pages\Events\ManageGroupsSteps.cs" />
     <Compile Include="Features\BookTicketsFromInvite.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -143,8 +143,8 @@
     </Compile>
     <Compile Include="Features\EventInvitation\BookTicketsFromInviteSteps.cs" />
     <Compile Include="Features\EventInvitation\EventInvitePage.cs" />
-    <Compile Include="Features\Events\AddGuestPage.cs" />
-    <Compile Include="Features\Events\EventDashboardPage.cs" />
+    <Compile Include="Pages\Events\AddGuestPage.cs" />
+    <Compile Include="Pages\Events\EventDashboardPage.cs" />
     <Compile Include="Steps\EventSteps.cs" />
     <Compile Include="Features\NotFound.feature.cs">
       <AutoGen>True</AutoGen>
@@ -152,7 +152,7 @@
       <DependentUpon>NotFound.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\Payment\PayPalSteps.cs" />
-    <Compile Include="Features\Payment\PayPalTestPage.cs" />
+    <Compile Include="Pages\PayPalTestPage.cs" />
     <Compile Include="Features\SubmitNewBooking.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -195,7 +195,7 @@
     <Compile Include="Pages\ChangePasswordTestPage.cs" />
     <Compile Include="Pages\ContactUsPage.cs" />
     <Compile Include="Pages\EditAdPage.cs" />
-    <Compile Include="Features\Events\EventDetailsPage.cs" />
+    <Compile Include="Pages\Events\EventDetailsPage.cs" />
     <Compile Include="Pages\LoginPage.cs" />
     <Compile Include="Pages\Booking\BookingStep2Page.cs" />
     <Compile Include="Pages\Booking\BookingStep3Page.cs" />
@@ -293,10 +293,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Features\AddGuestToEvent\" />
-    <Folder Include="Pages\Events\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Paramount.Betterclassifieds.Security\Paramount.Betterclassifieds.Security.csproj">
       <Project>{9ce120ea-cb54-4f24-a68c-a80eb331dbde}</Project>

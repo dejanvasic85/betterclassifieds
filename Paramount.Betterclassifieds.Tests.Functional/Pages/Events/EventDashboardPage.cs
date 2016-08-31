@@ -2,7 +2,7 @@
 using OpenQA.Selenium.Support.PageObjects;
 using Paramount.Betterclassifieds.Tests.Functional.Base;
 
-namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
+namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 {
     [NavRoute("EditAd/EventDashboard/{0}")]
     internal class EventDashboardPage : ITestPage

@@ -4,10 +4,9 @@ using System.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using Paramount.Betterclassifieds.Tests.Functional.Base;
-using Paramount.Betterclassifieds.Tests.Functional.Pages;
 using Paramount.Betterclassifieds.Tests.Functional.Pages.Components;
 
-namespace Paramount.Betterclassifieds.Tests.Functional.Features.BookEventTickets
+namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 {
     [NavRoute("Event/BookTickets")]
     internal class BookTicketsPage : ITestPage

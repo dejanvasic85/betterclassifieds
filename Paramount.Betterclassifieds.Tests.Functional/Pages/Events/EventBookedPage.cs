@@ -2,7 +2,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using Paramount.Betterclassifieds.Tests.Functional.Base;
 
-namespace Paramount.Betterclassifieds.Tests.Functional.Features.BookEventTickets
+namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 {
     [NavRoute("Event/EventBooked")]
     internal class EventBookedPage : ITestPage

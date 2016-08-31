@@ -5,7 +5,7 @@ using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
 using Paramount.Betterclassifieds.Tests.Functional.Base;
 
-namespace Paramount.Betterclassifieds.Tests.Functional.Features.Payment
+namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 {
     internal class PayPalTestPage : ITestPage
     {

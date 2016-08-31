@@ -1,4 +1,4 @@
-namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
+namespace Paramount.Betterclassifieds.Tests.Functional.ContextData
 {
     internal class EventAdContext
     {

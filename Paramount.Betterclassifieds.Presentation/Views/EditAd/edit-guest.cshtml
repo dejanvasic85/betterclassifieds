@@ -24,7 +24,8 @@
     <div class="row">
         <div class="col-md-offset-9 col-sm-offset-8 col-sm-4 col-md-3">
             <a class="btn btn-default btn-block js-load" href="@Url.EventDashboard(Model.AdId)">
-                <i class="fa fa-arrow-circle-left"></i> Event Dashboard
+                <i class="fa fa-arrow-circle-left"></i>
+                <span class="hidden-xs">Event</span> Dashboard
             </a>
         </div>
     </div>
@@ -130,13 +131,13 @@
                     <i class="fa fa-warning"></i> Danger Zone
                 </div>
                 <div class="panel-body">
-                    <button class="btn btn-danger">
+                    <button class="btn btn-danger js-load" data-bind="click: removeGuest">
                         Remove Guest
                     </button>
                 </div>
             </div>
         </div>
     </div>
-    
+
 
 </div>

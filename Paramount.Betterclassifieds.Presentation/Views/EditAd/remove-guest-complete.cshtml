@@ -1,0 +1,25 @@
+﻿@model RemoveGuestCompleteViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
+}
+
+<div class="container top-buffer-60">
+    <h1 class="page-header">
+        Guest Removed
+    </h1>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="alert alert-info-alt">
+                The guest has been removed successfully.
+            </div>
+        </div>
+        <div class="col-sm-6 text-right">
+            <a class="btn btn-default btn-block js-load" href="@Url.EventDashboard(Model.AdId)">
+                <i class="fa fa-arrow-circle-left"></i>
+                <span class="hidden-xs">Event</span> Dashboard
+            </a>
+        </div>
+    </div>
+</div>

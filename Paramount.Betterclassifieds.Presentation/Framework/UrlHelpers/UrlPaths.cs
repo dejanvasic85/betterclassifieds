@@ -257,5 +257,12 @@ namespace Paramount
         {
             return new UrlBuilder(urlHelper, "adEnquiry", "listings");
         }
+
+        public static UrlBuilder RemoveGuestComplete(this UrlHelper urlHelper, int id)
+        {
+            return new UrlBuilder(urlHelper)
+                .WithAction("remove-guest-complete", "EditAd")
+                .WithRouteValues(new { id });
+        }
     }
 }

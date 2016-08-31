@@ -61,6 +61,13 @@
             });
         }
 
+        me.removeGuest = function (vm, event) {
+            var $btn = $(event.target);
+            $btn.button('loading');
+
+            adDesignService.removeGuest(me.eventBookingTicketId());
+        }
+
         if (data) {
             me.bind(data);
         }

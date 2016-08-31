@@ -480,6 +480,23 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(new { eventBookingTicketId = eventBookingTicket.EventBookingTicketId });
         }
 
+        // Json
+        [HttpPost, ActionName("remove-guest")]
+        public ActionResult RemoveGuest(int id, int eventBookingTicketId)
+        {
+            return Json(new
+            {
+                NextUrl = Url.RemoveGuestComplete(id).ToString()
+            });
+        }
+
+        [HttpGet, ActionName("remove-guest-complete")]
+        public ActionResult RemoveGuestComplete(int id)
+        {
+            var vm = new RemoveGuestCompleteViewModel { AdId = id };
+            return View(vm);
+        }
+
         [HttpGet, ActionName("manage-groups")]
         public async Task<ActionResult> ManageGroups(int id, int eventId)
         {

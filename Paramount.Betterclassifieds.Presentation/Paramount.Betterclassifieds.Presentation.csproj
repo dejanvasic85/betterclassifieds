@@ -343,6 +343,7 @@
     <Compile Include="ViewModels\Events\ManageGroupsViewModel.cs" />
     <Compile Include="ViewModels\Events\ManageTicketsViewModel.cs" />
     <Compile Include="ViewModels\Events\NewEventTicketViewModel.cs" />
+    <Compile Include="ViewModels\Events\RemoveGuestCompleteViewModel.cs" />
     <Compile Include="ViewModels\Events\ReserveTicketsViewModel.cs" />
     <Compile Include="ViewModels\Events\TicketingPricesExplainedViewModel.cs" />
     <Compile Include="Services\Seo\ISitemapFactory.cs" />
@@ -974,6 +975,7 @@
     <Content Include="Views\EditAd\manage-groups.cshtml" />
     <Content Include="Views\EditAd\event-ticketing.cshtml" />
     <Content Include="Views\EditAd\edit-guest.cshtml" />
+    <Content Include="Views\EditAd\remove-guest-complete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

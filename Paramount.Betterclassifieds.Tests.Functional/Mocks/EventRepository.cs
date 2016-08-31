@@ -4,6 +4,8 @@ using System.Data;
 using System.Linq;
 using System.Transactions;
 using Dapper;
+using Paramount.Betterclassifieds.Tests.Functional.Base;
+using Paramount.Betterclassifieds.Tests.Functional.Features.BookEventTickets;
 using Paramount.Betterclassifieds.Tests.Functional.Features.Events;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Mocks

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Paramount.Betterclassifieds.Tests.Functional
+namespace Paramount.Betterclassifieds.Tests.Functional.Base
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     internal class NavRouteAttribute : Attribute

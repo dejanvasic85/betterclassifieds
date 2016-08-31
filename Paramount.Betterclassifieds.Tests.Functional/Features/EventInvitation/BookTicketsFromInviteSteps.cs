@@ -1,4 +1,6 @@
 ﻿using NUnit.Framework;
+using Paramount.Betterclassifieds.Tests.Functional.Base;
+using Paramount.Betterclassifieds.Tests.Functional.Features.BookEventTickets;
 using Paramount.Betterclassifieds.Tests.Functional.Features.Events;
 using Paramount.Betterclassifieds.Tests.Functional.Mocks;
 using TechTalk.SpecFlow;

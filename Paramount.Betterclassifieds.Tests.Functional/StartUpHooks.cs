@@ -8,7 +8,10 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
+using Paramount.Betterclassifieds.Tests.Functional.Base;
+using Paramount.Betterclassifieds.Tests.Functional.ContextData;
 using Paramount.Betterclassifieds.Tests.Functional.Mocks;
+using Paramount.Betterclassifieds.Tests.Functional.Mocks.Models;
 using TechTalk.SpecFlow;
 
 namespace Paramount.Betterclassifieds.Tests.Functional

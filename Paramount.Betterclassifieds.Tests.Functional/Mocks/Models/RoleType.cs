@@ -1,4 +1,4 @@
-﻿namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
+﻿namespace Paramount.Betterclassifieds.Tests.Functional.Mocks.Models
 {
     internal enum RoleType
     {

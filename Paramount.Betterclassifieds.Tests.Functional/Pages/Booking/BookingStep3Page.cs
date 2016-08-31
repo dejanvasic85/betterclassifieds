@@ -1,8 +1,9 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
-using Paramount.Betterclassifieds.Tests.Functional.Annotations;
+using Paramount.Betterclassifieds.Tests.Functional.Base;
+using Paramount.Betterclassifieds.Tests.Functional.Properties;
 
-namespace Paramount.Betterclassifieds.Tests.Functional.Pages
+namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Booking
 {
     [NavRoute(RelativeUrl = "Booking/Step/3")]
     public class BookingStep3Page : BookingTestPage

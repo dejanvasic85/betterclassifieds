@@ -2,6 +2,8 @@
 using Paramount.Betterclassifieds.Tests.Functional.Mocks;
 using Paramount.Betterclassifieds.Tests.Functional.Pages;
 using System;
+using Paramount.Betterclassifieds.Tests.Functional.Base;
+using Paramount.Betterclassifieds.Tests.Functional.ContextData;
 using TechTalk.SpecFlow;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Steps

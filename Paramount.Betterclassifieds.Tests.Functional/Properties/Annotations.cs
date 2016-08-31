@@ -9,7 +9,7 @@
 // ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable InconsistentNaming
 
-namespace Paramount.Betterclassifieds.Tests.Functional.Annotations
+namespace Paramount.Betterclassifieds.Tests.Functional.Properties
 {
   /// <summary>
   /// Indicates that the value of the marked element could be <c>null</c> sometimes,

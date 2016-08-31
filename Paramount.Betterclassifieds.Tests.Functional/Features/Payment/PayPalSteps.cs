@@ -1,4 +1,5 @@
-﻿using TechTalk.SpecFlow;
+﻿using Paramount.Betterclassifieds.Tests.Functional.Base;
+using TechTalk.SpecFlow;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Features.Payment
 {

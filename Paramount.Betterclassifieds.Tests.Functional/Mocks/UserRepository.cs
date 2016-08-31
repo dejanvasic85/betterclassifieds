@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Transactions;
 using System.Web.Security;
 using Dapper;
+using Paramount.Betterclassifieds.Tests.Functional.Base;
+using Paramount.Betterclassifieds.Tests.Functional.Mocks.Models;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 {

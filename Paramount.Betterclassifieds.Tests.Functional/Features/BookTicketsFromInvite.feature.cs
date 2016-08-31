@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Paramount.Betterclassifieds.Tests.Functional.Features.EventGroups
+namespace Paramount.Betterclassifieds.Tests.Functional.Features
 {
     using TechTalk.SpecFlow;
     
@@ -19,25 +19,25 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.EventGroups
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("ManageEventGroups")]
+    [NUnit.Framework.DescriptionAttribute("bookTicketsFromInvite")]
     [NUnit.Framework.CategoryAttribute("eventAd")]
-    [NUnit.Framework.CategoryAttribute("eventGroups")]
-    public partial class ManageEventGroupsFeature
+    [NUnit.Framework.CategoryAttribute("bookTicketsFromInvite")]
+    public partial class BookTicketsFromInviteFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "ManageEventGroups.feature"
+#line 1 "BookTicketsFromInvite.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ManageEventGroups", "In order to enable guest grouping\nAs an event organiser\nI want to manage groups a" +
-                    "fter creating an event", ProgrammingLanguage.CSharp, new string[] {
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "bookTicketsFromInvite", "In order to book tickets to an event\r\nAs a consumer\r\nI want to navitate to a page" +
+                    " with all ticket options and proceed to checkout", ProgrammingLanguage.CSharp, new string[] {
                         "eventAd",
-                        "eventGroups"});
+                        "bookTicketsFromInvite"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -70,32 +70,28 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.EventGroups
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Create event groups from event dashboard")]
-        public virtual void CreateEventGroupsFromEventDashboard()
+        [NUnit.Framework.DescriptionAttribute("Invitation exists and is used to book tickets")]
+        [NUnit.Framework.CategoryAttribute("EventInvite")]
+        public virtual void InvitationExistsAndIsUsedToBookTickets()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create event groups from event dashboard", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Invitation exists and is used to book tickets", new string[] {
+                        "EventInvite"});
 #line 9
 this.ScenarioSetup(scenarioInfo);
 #line 10
- testRunner.Given("an event ad titled \"The Opera with tables\" exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("an event ad titled \"Event with Invite\" exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 11
- testRunner.And("I am logged in as \"bdduser\" with password \"password123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the event has an invite for \"Foo Bar\" with email \"foo@bar.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 12
- testRunner.And("with a ticket option \"Free entry\" for \"0\" dollars each and \"100\" available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 13
  testRunner.And("with a ticket option \"VIP\" for \"10\" dollars each and \"100\" available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 13
+ testRunner.When("I navigate to the page for the new invitaton", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 14
- testRunner.When("I go the event dashboard for the current ad", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Then("It should display the invitation page with event title \"Event with Invite\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 15
- testRunner.And("I select to manage groups", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("selecting to purchase the \"VIP\" ticket", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 16
- testRunner.And("I create a new group \"Table For All\" for all tickets and unlimited guests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 17
- testRunner.Then("the group \"Table For All\" should be created", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 18
- testRunner.When("I create a new group \"Special Table\" for ticket \"VIP\" and \"10\" guests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 19
- testRunner.Then("the group \"Special Table\" should be created", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I should be on the book tickets page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

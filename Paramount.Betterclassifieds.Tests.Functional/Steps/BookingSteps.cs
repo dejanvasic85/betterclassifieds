@@ -1,8 +1,10 @@
 ﻿using System;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Tests.Functional.Base;
+using Paramount.Betterclassifieds.Tests.Functional.ContextData;
 using Paramount.Betterclassifieds.Tests.Functional.Mocks;
 using Paramount.Betterclassifieds.Tests.Functional.Pages;
+using Paramount.Betterclassifieds.Tests.Functional.Pages.Booking;
 using TechTalk.SpecFlow;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Steps

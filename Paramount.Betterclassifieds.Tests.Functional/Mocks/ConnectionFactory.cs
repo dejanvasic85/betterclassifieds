@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
+using Paramount.Betterclassifieds.Tests.Functional.Base;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 {

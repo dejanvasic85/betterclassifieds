@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
+using Paramount.Betterclassifieds.Tests.Functional.Base;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
 {

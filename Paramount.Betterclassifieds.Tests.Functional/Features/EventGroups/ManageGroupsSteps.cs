@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using Paramount.Betterclassifieds.Tests.Functional.Base;
 using Paramount.Betterclassifieds.Tests.Functional.Features.Events;
 using TechTalk.SpecFlow;
 

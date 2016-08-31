@@ -4,7 +4,7 @@ using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
-namespace Paramount.Betterclassifieds.Tests.Functional
+namespace Paramount.Betterclassifieds.Tests.Functional.Base
 {
     public static class WebElementExtensions
     {

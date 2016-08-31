@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 using Dapper;
+using Paramount.Betterclassifieds.Tests.Functional.Base;
+using Paramount.Betterclassifieds.Tests.Functional.ContextData;
+using Paramount.Betterclassifieds.Tests.Functional.Mocks.Models;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 {

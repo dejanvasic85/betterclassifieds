@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 
-namespace Paramount.Betterclassifieds.Tests.Functional
+namespace Paramount.Betterclassifieds.Tests.Functional.Base
 {
     public class AdminPageBrowser : PageBrowser
     {

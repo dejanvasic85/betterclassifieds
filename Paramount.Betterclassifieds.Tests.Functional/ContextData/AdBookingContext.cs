@@ -1,4 +1,4 @@
-namespace Paramount.Betterclassifieds.Tests.Functional
+namespace Paramount.Betterclassifieds.Tests.Functional.ContextData
 {
     internal class AdBookingContext
     {

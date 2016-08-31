@@ -1,4 +1,8 @@
-﻿namespace Paramount.Betterclassifieds.Tests.Functional.Steps
+﻿using Paramount.Betterclassifieds.Tests.Functional.Base;
+using Paramount.Betterclassifieds.Tests.Functional.ContextData;
+using Paramount.Betterclassifieds.Tests.Functional.Mocks.Models;
+
+namespace Paramount.Betterclassifieds.Tests.Functional.Steps
 {
     using Mocks;
     using NUnit.Framework;

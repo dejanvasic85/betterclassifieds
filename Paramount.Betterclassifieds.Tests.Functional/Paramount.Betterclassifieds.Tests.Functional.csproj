@@ -92,7 +92,7 @@
     <Compile Include="Base\WebElementExtensions.cs" />
     <Compile Include="Base\DataRepositoryFactory.cs" />
     <Compile Include="ContextData\AdBookingContext.cs" />
-    <Compile Include="Features\AddGuestToEvent\AddGuest.feature.cs">
+    <Compile Include="Features\AddGuest.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AddGuest.feature</DependentUpon>
@@ -123,20 +123,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EditAd.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\BookEventTickets\BookEventTickets.feature.cs">
+    <Compile Include="Features\BookEventTickets.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BookEventTickets.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\EventGroups\GroupViewInfo.cs" />
-    <Compile Include="Features\EventGroups\ManageEventGroups.feature.cs">
+    <Compile Include="Features\ManageEventGroups.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ManageEventGroups.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\EventGroups\ManageGroupsPage.cs" />
     <Compile Include="Features\EventGroups\ManageGroupsSteps.cs" />
-    <Compile Include="Features\EventInvitation\BookTicketsFromInvite.feature.cs">
+    <Compile Include="Features\BookTicketsFromInvite.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BookTicketsFromInvite.feature</DependentUpon>
@@ -145,7 +145,7 @@
     <Compile Include="Features\EventInvitation\EventInvitePage.cs" />
     <Compile Include="Features\Events\AddGuestPage.cs" />
     <Compile Include="Features\Events\EventDashboardPage.cs" />
-    <Compile Include="Features\Events\EventSteps.cs" />
+    <Compile Include="Steps\EventSteps.cs" />
     <Compile Include="Features\NotFound.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -235,7 +235,7 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AccountDetails.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\AddGuestToEvent\AddGuest.feature">
+    <None Include="Features\AddGuest.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AddGuest.feature.cs</LastGenOutput>
     </None>
@@ -251,15 +251,15 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>EditAd.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\BookEventTickets\BookEventTickets.feature">
+    <None Include="Features\BookEventTickets.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>BookEventTickets.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\EventGroups\ManageEventGroups.feature">
+    <None Include="Features\ManageEventGroups.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ManageEventGroups.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\EventInvitation\BookTicketsFromInvite.feature">
+    <None Include="Features\BookTicketsFromInvite.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>BookTicketsFromInvite.feature.cs</LastGenOutput>
     </None>
@@ -294,6 +294,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Features\AddGuestToEvent\" />
     <Folder Include="Pages\Events\" />
   </ItemGroup>
   <ItemGroup>

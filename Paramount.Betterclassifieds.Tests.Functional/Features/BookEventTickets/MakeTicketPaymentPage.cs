@@ -2,8 +2,9 @@ using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
+using Paramount.Betterclassifieds.Tests.Functional.Base;
 
-namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
+namespace Paramount.Betterclassifieds.Tests.Functional.Features.BookEventTickets
 {
     [NavRoute("Event/MakePayment")]
     internal class MakeTicketPaymentPage : ITestPage

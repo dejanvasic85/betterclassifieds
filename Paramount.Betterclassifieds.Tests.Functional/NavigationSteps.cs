@@ -1,3 +1,4 @@
+using Paramount.Betterclassifieds.Tests.Functional.Base;
 using Paramount.Betterclassifieds.Tests.Functional.Pages;
 using TechTalk.SpecFlow;
 

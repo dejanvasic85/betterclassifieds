@@ -3,6 +3,7 @@ using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
+using Paramount.Betterclassifieds.Tests.Functional.Base;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Features.Payment
 {

@@ -1,6 +1,6 @@
 using Paramount.Betterclassifieds.Tests.Functional.Mocks;
 
-namespace Paramount.Betterclassifieds.Tests.Functional
+namespace Paramount.Betterclassifieds.Tests.Functional.Base
 {
     internal class DataRepositoryFactory
     {

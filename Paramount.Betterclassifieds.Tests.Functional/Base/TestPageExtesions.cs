@@ -3,7 +3,7 @@ using System.Linq;
 using System.Reflection;
 using OpenQA.Selenium;
 
-namespace Paramount.Betterclassifieds.Tests.Functional
+namespace Paramount.Betterclassifieds.Tests.Functional.Base
 {
     public static class TestPageExtesions
     {

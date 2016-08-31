@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
+using Paramount.Betterclassifieds.Tests.Functional.Base;
+using Paramount.Betterclassifieds.Tests.Functional.Features.BookEventTickets;
+using Paramount.Betterclassifieds.Tests.Functional.Features.Events;
 using Paramount.Betterclassifieds.Tests.Functional.Mocks;
 using TechTalk.SpecFlow;
 
-namespace Paramount.Betterclassifieds.Tests.Functional.Features.Events
+namespace Paramount.Betterclassifieds.Tests.Functional.Steps
 {
     [Binding]
     internal class EventSteps

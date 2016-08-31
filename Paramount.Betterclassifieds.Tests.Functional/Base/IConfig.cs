@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Configuration;
 
-namespace Paramount.Betterclassifieds.Tests.Functional
+namespace Paramount.Betterclassifieds.Tests.Functional.Base
 {
     public interface IConfig
     {

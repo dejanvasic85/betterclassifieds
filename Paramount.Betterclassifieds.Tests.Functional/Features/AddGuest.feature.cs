@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Paramount.Betterclassifieds.Tests.Functional.Features.AddGuestToEvent
+namespace Paramount.Betterclassifieds.Tests.Functional.Features
 {
     using TechTalk.SpecFlow;
     
@@ -33,8 +33,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features.AddGuestToEvent
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "AddGuest", "In order to maintain a reconciliated guest list\nAs an event organiser\t\nI want to " +
-                    "add a guest from the dashboard without any payment", ProgrammingLanguage.CSharp, new string[] {
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "AddGuest", "In order to maintain a reconciliated guest list\r\nAs an event organiser\t\r\nI want t" +
+                    "o add a guest from the dashboard without any payment", ProgrammingLanguage.CSharp, new string[] {
                         "eventAd"});
             testRunner.OnFeatureStart(featureInfo);
         }

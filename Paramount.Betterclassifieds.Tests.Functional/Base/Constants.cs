@@ -1,4 +1,4 @@
-﻿namespace Paramount.Betterclassifieds.Tests.Functional
+﻿namespace Paramount.Betterclassifieds.Tests.Functional.Base
 {
     internal static class Constants
     {

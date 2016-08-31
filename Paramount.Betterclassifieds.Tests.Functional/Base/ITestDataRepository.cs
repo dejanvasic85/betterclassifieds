@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Paramount.Betterclassifieds.Tests.Functional.Features.Events;
+using Paramount.Betterclassifieds.Tests.Functional.ContextData;
+using Paramount.Betterclassifieds.Tests.Functional.Features.BookEventTickets;
+using Paramount.Betterclassifieds.Tests.Functional.Mocks.Models;
 
-namespace Paramount.Betterclassifieds.Tests.Functional
+namespace Paramount.Betterclassifieds.Tests.Functional.Base
 {
-    using Mocks;
-
     /// <summary>
     /// Used directly by the tests to setup and assert scenarios
     /// </summary>

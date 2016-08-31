@@ -1,6 +1,6 @@
 ﻿using TechTalk.SpecFlow;
 
-namespace Paramount.Betterclassifieds.Tests.Functional
+namespace Paramount.Betterclassifieds.Tests.Functional.Base
 {
     public sealed class ContextData<T> where T : class, new()
     {

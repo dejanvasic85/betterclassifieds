@@ -1,7 +1,8 @@
 ﻿using System.Threading;
 using OpenQA.Selenium;
+using Paramount.Betterclassifieds.Tests.Functional.Base;
 
-namespace Paramount.Betterclassifieds.Tests.Functional.Pages
+namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Components
 {
     /// <summary>
     /// Turns the bootstrap toggle/checkbox button on and off and hides all the complexity

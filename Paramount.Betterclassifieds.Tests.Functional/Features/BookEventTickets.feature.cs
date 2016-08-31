@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Paramount.Betterclassifieds.Tests.Functional.Features.BookEventTickets
+namespace Paramount.Betterclassifieds.Tests.Functional.Features
 {
     using TechTalk.SpecFlow;
     

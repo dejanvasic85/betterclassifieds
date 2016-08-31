@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
+﻿using Paramount.Betterclassifieds.Tests.Functional.Base;
+
+namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 {
     internal partial class DapperDataRepository
     {

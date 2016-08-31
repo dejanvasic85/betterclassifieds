@@ -1,8 +1,8 @@
 ﻿exec [EmailTemplate_Upsert]
-	@DocType = 'EventDailySummary',
+	@DocType = 'EventGuestRemoved',
 	@Brand = 'TheMusic',
-	@SubjectTemplate = 'Your daily event summary for [/event-name/]',
-	@Description = 'Event daily summary',
+	@SubjectTemplate = 'Ticket Cancellation',
+	@Description = 'Guest was removed from event and their ticket was canceled',
 	@From = 'classies@themusic.com.au',
 	@BodyTemplate = '
 <!DOCTYPE html>

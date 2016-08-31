@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.Practices.Unity;
+using Paramount.Betterclassifieds.Console.Tasks;
 
 namespace Paramount.Betterclassifieds.Console
 {
@@ -20,14 +21,18 @@ namespace Paramount.Betterclassifieds.Console
 #if DEBUG
                 if (args.Length  == 0)
                 {
-                    args = new []
+                    //args = new []
+                    //{
+                    //     TaskArguments.TaskFullArgName, nameof(Tasks.CopyDb),
+                    //    "-dir", "C:\\temp",
+                    //    "-username", "dejan.vasic",
+                    //    "-password", "xxxxx",
+                    //    "-site", "ftp://kandobay.com.au",
+                    //    "-files", "KandoBay_Release_AppUser1.bak"
+                    //};
+                    args = new[]
                     {
-                         TaskArguments.TaskFullArgName, nameof(Tasks.CopyDb),
-                        "-dir", "C:\\temp",
-                        "-username", "dejan.vasic",
-                        "-password", "xxxxx",
-                        "-site", "ftp://kandobay.com.au",
-                        "-files", "KandoBay_Release_AppUser1.bak"
+                        TaskArguments.TaskFullArgName, nameof(EmailProcessor),
                     };
                 }
 #endif

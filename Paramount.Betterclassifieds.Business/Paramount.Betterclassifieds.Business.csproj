@@ -60,6 +60,7 @@
     <Compile Include="Broadcast\AttachmentFactory.cs" />
     <Compile Include="Broadcast\DocTypes\EventDailySummaryNotification.cs" />
     <Compile Include="Broadcast\DocTypes\EventGuestNotification.cs" />
+    <Compile Include="Broadcast\DocTypes\EventGuestRemovedNotification.cs" />
     <Compile Include="Broadcast\DocTypes\EventPaymentRequest.cs" />
     <Compile Include="Broadcast\EmailAttachment.cs" />
     <Compile Include="Broadcast\DocTypes\EventTicketsBookedNotification.cs" />

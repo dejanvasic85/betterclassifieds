@@ -84,7 +84,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             return newEventBookingTicket;
         }
 
-        public void CancelEventBookingTicket(int eventBookingTicketId)
+        public EventBookingTicket CancelEventBookingTicket(int eventBookingTicketId)
         {
             var eventBookingTicket = _eventRepository.GetEventBookingTicket(eventBookingTicketId);
 
@@ -103,6 +103,8 @@ namespace Paramount.Betterclassifieds.Business.Events
                 eventBooking.Status = EventBookingStatus.Cancelled;
                 _eventRepository.UpdateEventBooking(eventBooking);
             }
+
+            return eventBookingTicket;
         }
 
         public int GetRemainingTicketCount(int? ticketId)

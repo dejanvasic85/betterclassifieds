@@ -56,7 +56,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Scripts-3.0\06-EmailTemplate-EventGuestRemoved-SriLankanEvents.sql" />
     <EmbeddedResource Include="Scripts-3.0\06-EmailTemplate-EventGuestRemoved-TheMusic.sql" />
-    <Content Include="Scripts-3.0\06-EmailTemplate-EventGuestRemoved-KandoBay.sql" />
+    <EmbeddedResource Include="Scripts-3.0\06-EmailTemplate-EventGuestRemoved-KandoBay.sql" />
     <EmbeddedResource Include="Scripts-3.0\05-EmailTemplate-EventDailySummary-SriLankanEvents.sql" />
     <EmbeddedResource Include="Scripts-3.0\05-EmailTemplate-EventDailySummary-TheMusic.sql" />
     <EmbeddedResource Include="Scripts-3.0\05-EmailTemplate-EventDailySummary-KandoBay.sql" />

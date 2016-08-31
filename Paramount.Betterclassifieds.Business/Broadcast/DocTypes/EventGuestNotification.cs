@@ -9,7 +9,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         {
             Attachments = new List<EmailAttachment>();
         }
-        public string DocumentType { get { return "EventGuest"; } }
+        public string DocumentType => "EventGuest";
         public IList<EmailAttachment> Attachments { get; set; }
 
 

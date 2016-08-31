@@ -110,8 +110,8 @@
                     <li class="list-group-item">Ticket Number : <strong>@Model.EventBookingTicketId</strong></li>
                     <li class="list-group-item">Ticket Name : <strong>@Model.TicketName</strong></li>
                     <li class="list-group-item">Price : <strong>@Model.TicketPrice.ToString("C")</strong></li>
-                    <li class="list-group-item">Purchase Date : <strong>@Model.TicketPurchaseDate.ToString("dd/MM/yyyy HH:mm")</strong></li>
-                    <li class="list-group-item">Booking Order: <strong>@Model.EventBookingId</strong></li>
+                    <li class="list-group-item">Purchase Date : <strong>@Model.TicketPurchaseDate.ToString("dd-MMM-yyyy hh:mm tt")</strong></li>
+                    <li class="list-group-item">Booking Number: <strong>@Model.EventBookingId</strong></li>
                 </ul>
             </div>
 
@@ -131,7 +131,7 @@
                     <i class="fa fa-warning"></i> Danger Zone
                 </div>
                 <div class="panel-body">
-                    <button class="btn btn-danger js-load" data-bind="click: removeGuest">
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#removeGuestDialog">
                         Remove Guest
                     </button>
                 </div>
@@ -139,5 +139,49 @@
         </div>
     </div>
 
+    <div id="removeGuestDialog" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Remove Guest</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="alert alert-danger">
+                        <strong><i class="fa fa-warning"></i> Danger: </strong>
+                        This action is not reversable and any refund will need to be organised offline.
+                    </p>
+                    @if (Model.RemovingGuestWillCancelBooking)
+                    {
+                        <p>
+                            This guest belongs to a booking that has only one guest remaining.
+                            Removing the guest will mean the booking is cancelled also.
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            This guest belongs to booking number @Model.EventBookingId that has multiple active guests.
+                            Removing @Model.GuestFullName will keep the booking active until there are no more guests.
+                        </p>
+                    }
+                    <p class="alert alert-info-alt">
+                        <label>
+                            Do you want to send a notification to the guest about their removal from the event?
+                        </label>
+                        <input type="checkbox" data-bind="toggle: sendEmailToGuestAboutRemoval" data-onstyle="success" data-on="Yes" data-off="No"/>
+                    </p>
+                    <p>
+                        Are you sure you want to continue?
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No thanks</button>
+                    <button type="button" class="btn btn-danger confirm-cancel js-load" data-bind="click: removeGuest">
+                        Yes, do it.
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>

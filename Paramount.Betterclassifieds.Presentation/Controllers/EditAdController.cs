@@ -429,11 +429,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return Url.NotFound().ToRedirectResult();
 
             var eventTicket = _eventManager.GetEventTicket(eventBookingTicket.EventTicketId);
+            var eventBooking = _eventManager.GetEventBooking(eventBookingTicket.EventBookingId);
+            
             var groups = Task.Run(() => _eventManager.GetEventGroups(eventTicket.EventId.GetValueOrDefault(), eventTicket.EventTicketId))
                 .Result
                 .Where(g => g.IsAvailable());
 
-            var vm = new EditGuestViewModel(id, eventTicket, eventBookingTicket, groups);
+            var vm = new EditGuestViewModel(id, eventTicket, eventBooking, eventBookingTicket, groups);
             return View(vm);
         }
 

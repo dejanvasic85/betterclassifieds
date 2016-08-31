@@ -18,6 +18,7 @@
         me.selectedGroup = ko.observable();
         me.currentGroupId = ko.observable();
         me.sendEmailToGuest = ko.observable(true);
+        me.sendEmailToGuestAboutRemoval = ko.observable(false);
         me.isEmailDifferent = ko.computed(function () {
             if (me.guestEmail() && me.originalGuestEmail()) {
                 return me.guestEmail().toLowerCase() !== me.originalGuestEmail().toLowerCase();

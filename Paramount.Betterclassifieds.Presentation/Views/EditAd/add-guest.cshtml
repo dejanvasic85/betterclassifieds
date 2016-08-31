@@ -22,8 +22,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="alert alert-info">
-                Do you have a guest that wants to pay you directly? No problem!
-                <a href="@Url.EventPricing()">Transaction fees</a> are not applicable here.
+                Adding a guest here will mean that an offline payment will be organised
+                and <a href="@Url.EventPricing()">transaction fees</a> are not applicable.
             </div>
         </div>
     </div>
@@ -48,70 +48,74 @@
     <div class="row">
 
         <div class="col-md-12">
-            <div class="form-group-lg" data-bind="validationElement: guestFullName">
-                <label for="guestFullName" class="control-label">Full Name:</label>
-                <input id="guestFullName" data-bind="value: guestFullName" type="text" class="form-control" />
-            </div>
+            <div class="well">
 
-            <div class="form-group-lg" data-bind="validationElement: guestEmail">
-                <label for="guestEmail" class="control-label">Email *:</label>
-                <input id="guestEmail" data-bind="value: guestEmail" type="text" class="form-control" />
-            </div>
-
-
-            <div class="form-group-lg">
-                <label class="control-label">Ticket *:</label>
-                <select class="form-control" id="tickets"
-                        data-bind="options: tickets, optionsText: 'ticketName', value: selectedTicket,  event:{ change: ticketChanged}"></select>
-                <p class="help-block">
-                    <span data-bind="text: selectedTicket().ticketName"></span>
-                    has <span data-bind="text: selectedTicket().remainingQuantity"></span> remaining tickets.
-                </p>
-            </div>
-
-            @*Dynamic fields*@
-            <div data-bind="foreach: ticketFields">
-                <div class="control-group  input-group-lg" data-bind="validationElement: fieldValue">
-                    <label class="control-label" data-bind="text: fieldName"></label>
-                    <span data-bind="visible: isRequired">*</span>
-                    <input type="text" data-bind="value: fieldValue" class="form-control" />
+                <div class="form-group-lg" data-bind="validationElement: guestFullName">
+                    <label for="guestFullName" class="control-label">Full Name:</label>
+                    <input id="guestFullName" data-bind="value: guestFullName" type="text" class="form-control" />
                 </div>
-            </div>
 
-            @*Groups (if any)*@
-            <div data-bind="visible: hasGroups">
+                <div class="form-group-lg" data-bind="validationElement: guestEmail">
+                    <label for="guestEmail" class="control-label">Email *:</label>
+                    <input id="guestEmail" data-bind="value: guestEmail" type="text" class="form-control" />
+                </div>
+
+
                 <div class="form-group-lg">
-                    <label class="control-label">Group</label>
-                    <select class="form-control" id="groups"
-                            data-bind="options: eventGroups, optionsText: 'groupName', value: selectedGroup, optionsCaption: 'Un-Assigned'"></select>
+                    <label class="control-label">Ticket *:</label>
+                    <select class="form-control" id="tickets"
+                            data-bind="options: tickets, optionsText: 'ticketName', value: selectedTicket,  event:{ change: ticketChanged}"></select>
+                    <p class="help-block">
+                        <span data-bind="text: selectedTicket().ticketName"></span>
+                        has <span data-bind="text: selectedTicket().remainingQuantity"></span> remaining tickets.
+                    </p>
                 </div>
-            </div>
 
-            <div class="control-group">
-                <label class="control-label">Send Email with Tickets</label>
-                <div>
-                    <input type="checkbox" data-bind="toggle: sendEmailToGuest" data-on="Send Email" data-off="Don't Email" data-onstyle="success" />
-                </div>
-            </div>
-
-            <div class="text-right" data-bind="visible: !saved()">
-                <button id="btnAddGuest" class="btn btn-success" data-bind="click: submitGuest">Submit</button>
-            </div>
-
-            <div class="row top-buffer-20" data-bind="visible:saved">
-                <div class="col-xs-12">
-
-                    <div class="alert alert-success" id="guestAddedSuccessfully">
-                        Guest has been added successfully.
+                @*Dynamic fields*@
+                <div data-bind="foreach: ticketFields">
+                    <div class="control-group  input-group-lg" data-bind="validationElement: fieldValue">
+                        <label class="control-label" data-bind="text: fieldName"></label>
+                        <span data-bind="visible: isRequired">*</span>
+                        <input type="text" data-bind="value: fieldValue" class="form-control" />
                     </div>
-                    <div class="text-right">
-                        <button class="btn btn-primary" data-bind="click: addAnother"><i class="fa fa-user-plus"></i>Add another guest</button>
-                    </div>
-
                 </div>
+
+                @*Groups (if any)*@
+                <div data-bind="visible: hasGroups">
+                    <div class="form-group-lg">
+                        <label class="control-label">Group</label>
+                        <select class="form-control" id="groups"
+                                data-bind="options: eventGroups, optionsText: 'groupName', value: selectedGroup, optionsCaption: 'Un-Assigned'"></select>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Send Email with Tickets</label>
+                    <div>
+                        <input type="checkbox" data-bind="toggle: sendEmailToGuest" data-on="Send Email" data-off="Don't Email" data-onstyle="success" />
+                    </div>
+                </div>
+
+                <div class="text-right" data-bind="visible: !saved()">
+                    <button id="btnAddGuest" class="btn btn-success" data-bind="click: submitGuest" data-loading-text="Please Wait...">
+                        Submit <i class="fa fa-save"></i>
+                    </button>
+                </div>
+
+                <div class="row top-buffer-20" data-bind="visible:saved">
+                    <div class="col-xs-12">
+
+                        <div class="alert alert-success" id="guestAddedSuccessfully">
+                            Guest has been added successfully.
+                        </div>
+                        <div class="text-right">
+                            <button class="btn btn-primary" data-bind="click: addAnother"><i class="fa fa-user-plus"></i>Add another guest</button>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
-
-
         </div>
 
     </div>

@@ -430,7 +430,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var eventTicket = _eventManager.GetEventTicket(eventBookingTicket.EventTicketId);
             var eventBooking = _eventManager.GetEventBooking(eventBookingTicket.EventBookingId);
-            
+
             var groups = Task.Run(() => _eventManager.GetEventGroups(eventTicket.EventId.GetValueOrDefault(), eventTicket.EventTicketId))
                 .Result
                 .Where(g => g.IsAvailable());
@@ -502,6 +502,23 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 NextUrl = Url.RemoveGuestComplete(id).ToString()
             });
+        }
+
+        // Json
+        [HttpPost, ActionName("resend-guest-email")]
+        public ActionResult ResendGuestEmail(int id, int eventBookingTicketId)
+        {
+            var adDetails = _searchService.GetByAdId(id);
+            var eventBookingTicket = _eventManager.GetEventBookingTicket(eventBookingTicketId);
+            var eventBooking = _eventManager.GetEventBooking(eventBookingTicket.EventBookingId);
+            var eventDetails = eventBooking.Event;
+            
+            var eventUrl = Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, adDetails.CategoryAdType).WithFullUrl();
+            var notification = new EventGuestNotificationFactory().Create(_clientConfig, eventDetails, adDetails,
+                eventUrl, eventBooking.GetFullName(), eventBookingTicket.GuestEmail);
+            _broadcastManager.Queue(notification, eventBookingTicket.GuestEmail);
+
+            return Json(true);
         }
 
         [HttpGet, ActionName("remove-guest-complete")]

@@ -56,6 +56,7 @@
                 $btn.button('reset');
                 if (!resp.errors) {
                     notifier.success("Guest information updated.");
+                    //  Update the local details
                     me.originalGuestEmail(me.guestEmail());
                     me.eventBookingTicketId(resp.eventBookingTicketId);
                 }
@@ -71,6 +72,17 @@
                 sendEmailToGuestAboutRemoval: me.sendEmailToGuestAboutRemoval()
             }
             adDesignService.removeGuest(data);
+        }
+
+        me.resendGuestEmail = function(vm, event) {
+            var $btn = $(event.target);
+            $btn.button('loading');
+
+            adDesignService.resendGuestEmail(me.eventBookingTicketId())
+                .then(function() {
+                    $btn.button('reset');
+                    notifier.success('Email has been sent successfully.');
+                });
         }
 
         if (data) {

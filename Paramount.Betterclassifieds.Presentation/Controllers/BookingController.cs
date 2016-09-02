@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Monads;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business;
@@ -19,6 +20,7 @@ using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
+    [OutputCache(NoStore = true, Duration = 0)]
     public class BookingController : Controller, IMappingBehaviour
     {
         [HttpPost, AuthorizeBookingIdentity]

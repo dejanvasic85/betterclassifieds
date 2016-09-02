@@ -84,7 +84,10 @@
                         <div class="row ticket-field-edit">
                             <div class="col-sm-6 form-group" data-bind="validationElement: fieldName">
                                 <label>Field Name</label>
-                                <input type="text" class="form-control js-field-name" data-bind="value: fieldName" placeholder="e.g. Age" />
+                                <input type="text" class="form-control js-field-name" data-bind="value: fieldName" placeholder="e.g. Age"/>
+                                <div class="alert alert-warning" data-bind="visible: showFieldNameWarning">
+                                    Note: Guest name and email are already included.
+                                </div>
                             </div>
                             <div class="col-sm-1 form-group" data-bind="validationElement: fieldName">
                                 <label>Required</label>
@@ -95,7 +98,7 @@
                             <div class="col-sm-1 form-group">
                                 <label>&nbsp;</label>
                                 <button class="btn btn-default remove-field" data-bind="click: $parent.removeTicketField">
-                                    <i class="fa fa-trash"></i> <span class="hidden-xs">Remove</span>
+                                    <i class="fa fa-trash"></i> <span class="hidden-xs">Remove Field</span>
                                 </button>
                             </div>
                         </div>

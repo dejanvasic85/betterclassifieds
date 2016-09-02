@@ -71,7 +71,10 @@
                                     <label class="control-label">
                                         Field Name
                                     </label>
-                                    <input type="text" data-bind="value: fieldName" class="form-control" placeholder="e.g. Age" />
+                                    <input type="text" data-bind="value: fieldName" class="form-control" placeholder="e.g. Age"/>
+                                    <div class="alert alert-warning" data-bind="visible: showFieldNameWarning">
+                                        Note: Guest name and email are already included.
+                                    </div>
                                 </div>
 
                                 <div class="row">

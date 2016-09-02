@@ -7,17 +7,17 @@
             validation: {
                 validator: function (name, params) {
                     var allFields = params.parent.eventTicketFields.peek();
-                    
+
                     var otherFields = _.filter(allFields, function (row) {
                         return row !== params.currentRow;
                     });
 
-                    var otherFieldNames = _.map(otherFields, function(f) {
+                    var otherFieldNames = _.map(otherFields, function (f) {
                         return f.fieldName.peek();
                     });
-                    
+
                     return !_.contains(otherFieldNames, name);
-                    
+
                 },
                 message: 'Field Name must be unique',
                 params: {
@@ -27,6 +27,13 @@
             }
         });
         me.isRequired = ko.observable();
+        me.showFieldNameWarning = ko.computed(function () {
+            if (me.fieldName()) {
+                var val = me.fieldName().toLowerCase();
+                return (val.indexOf('name') !== -1) || (val.indexOf('email') !== -1);
+            }
+            return false;
+        });
 
         if (data) {
             this.bindDynamicFieldDefinition(data);

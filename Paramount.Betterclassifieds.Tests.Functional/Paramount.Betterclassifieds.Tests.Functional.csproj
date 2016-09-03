@@ -138,11 +138,6 @@
     </Compile>
     <Compile Include="Pages\Events\ManageGroupsPage.cs" />
     <Compile Include="Pages\Events\ManageGroupsSteps.cs" />
-    <Compile Include="Features\BookTicketsFromInvite.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BookTicketsFromInvite.feature</DependentUpon>
-    </Compile>
     <Compile Include="Pages\Events\RemoveGuestCompletePage.cs" />
     <Compile Include="Steps\BookTicketsFromInviteSteps.cs" />
     <Compile Include="Pages\Events\EventInvitePage.cs" />
@@ -261,10 +256,6 @@
     <None Include="Features\ManageEventGroups.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ManageEventGroups.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Features\BookTicketsFromInvite.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>BookTicketsFromInvite.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\NotFound.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

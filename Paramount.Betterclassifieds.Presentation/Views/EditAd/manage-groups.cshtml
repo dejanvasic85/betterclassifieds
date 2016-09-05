@@ -51,19 +51,23 @@
                 <div class="col-sm-6">
                     <div class="form-group-lg" data-bind="validationElement: newGroup().groupName">
                         <label class="control-label">Group Name</label>
-                        <input id="txtNewGroupName" class="form-control" type="text" data-bind="value: newGroup().groupName" />
+                        <input id="txtNewGroupName" class="form-control" type="text" data-bind="value: newGroup().groupName"/>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group-lg" data-bind="validationElement: newGroup().maxGuests">
                         <label class="control-label">Max Guests</label>
-                        <input id="txtNewGroupMaxGuests" class="form-control" type="number" data-bind="value: newGroup().maxGuests" placeholder="Unlimited" />
+                        <input id="txtNewGroupMaxGuests" class="form-control" type="number" data-bind="value: newGroup().maxGuests" placeholder="Unlimited"/>
                         <p class="help-block">
                             Leaving this empty will allow set unlimited guests.
                         </p>
                     </div>
                 </div>
+            </div>
 
+            <hr/>
+
+            <div class="row">
                 <div class="col-sm-12 top-buffer-20">
                     <div class="control-group">
                         <label>
@@ -72,11 +76,12 @@
                         </label>
                     </div>
                 </div>
-
             </div>
 
+            <hr/>
+
             <div class="row top-buffer-10">
-                
+
                 <div class="col-xs-12">
                     <button class="btn btn-primary" type="button"
                             data-toggle="collapse" data-target="#limitTickets"
@@ -106,14 +111,53 @@
                 </div>
             </div>
 
+            <hr/>
+
+            @*Generation*@
+            <div class="row top-buffer-10">
+
+                <div class="col-xs-12">
+                    <button class="btn btn-primary" type="button"
+                            data-toggle="collapse" data-target="#generateGroups"
+                            aria-expanded="false" aria-controls="generateGroups" data-bind="click: newGroup().toggleGeneration">
+
+                        Auto-Generate <i class="fa fa-angle-down"></i>
+                    </button>
+                    <div class="collapse" id="generateGroups">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group-lg">
+                                    <label class="control-label">Start Number</label>
+                                    <input type="number" class="form-control" data-bind="value: newGroup().generateStart" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group-lg">
+                                    <label class="control-label">End Number</label>
+                                    <input type="number" class="form-control" data-bind="value: newGroup().generateEnd" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
             <div class="row top-buffer-40">
                 <div class="col-xs-6 text-left">
                     <button id="btnCancelNewGroup" class="btn btn-warning" data-bind="click: createCancel">Cancel</button>
                 </div>
 
-                <div class="col-xs-6 text-right">
-                    <button id="btnSaveGroup" class="btn btn-success" data-bind="click: create">
+                <div class="col-xs-6 text-right" data-bind="visible: !newGroup().generateEnabled()">
+                    <button id="btnSaveGroup" class="btn btn-success" data-bind="click: create" data-loading-text="Please Wait...">
                         Save <i class="fa fa-save"></i>
+                    </button>
+                </div>
+
+                <div class="col-xs-6 text-right" data-bind="visible: newGroup().generateEnabled">
+                    <button id="btnGenerate" class="btn btn-success" data-bind="click: create" data-loading-text="Please Wait...">
+                        Generate <i class="fa fa-cog"></i>
                     </button>
                 </div>
             </div>

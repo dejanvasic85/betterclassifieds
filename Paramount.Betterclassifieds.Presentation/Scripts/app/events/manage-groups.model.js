@@ -34,7 +34,6 @@
             // Set the available tickets
 
             var groupData = me.newGroup().toGroupData();
-            console.log(groupData);
 
             var $btn = $(event.target);
             $btn.button('loading');
@@ -80,7 +79,15 @@
         me.availableTickets = ko.observableArray();
         me.guestCount = ko.observable(0);
         me.isEnabled = ko.observable(true);
-        
+
+        // Generation
+        me.generateEnabled = ko.observable(false);
+        me.generateStart = ko.observable();
+        me.generateEnd = ko.observable();
+        me.toggleGeneration = function() {
+            me.generateEnabled(!me.generateEnabled());
+        };
+
         // Store all tickets for creating a new group
         _.each(data.tickets, function (t) {
             me.ticketSelection.push(new GroupTicketSelection(t));
@@ -97,6 +104,7 @@
 
             return jsonData;
         }
+
 
         /*
          * Validation

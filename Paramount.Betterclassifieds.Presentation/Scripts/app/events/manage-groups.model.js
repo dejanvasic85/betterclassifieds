@@ -4,24 +4,27 @@
     var adDesignService;
 
     function ManageGroups(data) {
-        var me = this;
 
+        adDesignService = new $p.AdDesignService(data.id);
+
+        var me = this;
         me.id = ko.observable();
         me.eventId = ko.observable();
         me.groups = ko.observableArray();
         me.hasTickets = ko.observable();
         me.isCreateEnabled = ko.observable(false);
 
-        // New Group 
-        me.newGroup = ko.observable(new Group(data.tickets));
+        me.newGroup = ko.observable(new GroupCreator(data));
 
         me.createStart = function () {
-            me.newGroup(new Group(data.tickets));
+            me.newGroup(new GroupCreator(data));
             me.isCreateEnabled(true);
         }
+
         me.createCancel = function () {
             me.isCreateEnabled(false);
         }
+
         me.create = function (model, event) {
             // Check validity
             if ($paramount.checkValidity(me.newGroup()) === false) {
@@ -29,13 +32,9 @@
             }
 
             // Set the available tickets
-            var groupData = ko.toJS(me.newGroup());
-            groupData.availableTickets = _.filter(groupData.ticketSelection, function (i) { return i.isSelected === true });
-            groupData.eventId = me.eventId();
-            groupData.isDisabled = !me.newGroup().isEnabled();
-            if (!groupData.maxGuests || groupData.maxGuests === '') {
-                groupData.maxGuests = null;
-            }
+
+            var groupData = me.newGroup().toGroupData();
+            console.log(groupData);
 
             var $btn = $(event.target);
             $btn.button('loading');
@@ -58,7 +57,6 @@
         me.id(data.id);
         me.eventId(data.eventId);
         me.hasTickets(data.tickets && data.tickets.length > 0);
-        adDesignService = new $paramount.AdDesignService(data.id);
 
         _.each(data.eventGroups, function (gr) {
             me.groups.push(new Group(data.tickets, gr));
@@ -72,49 +70,60 @@
         me.isSelected = ko.observable(data.isSelected);
     }
 
-    function Group(availableTickets, groupData) {
+    function GroupCreator(data) {
         var me = this;
-        me.eventGroupId = ko.observable();
+
+        me.eventId = ko.observable(data.eventId);
         me.groupName = ko.observable();
         me.maxGuests = ko.observable();
         me.ticketSelection = ko.observableArray();
         me.availableTickets = ko.observableArray();
         me.guestCount = ko.observable(0);
         me.isEnabled = ko.observable(true);
+        me.enableTicketSelection = ko.observable(false);
+
+        // Store all tickets for creating a new group
+        _.each(data.tickets, function (t) {
+            me.ticketSelection.push(new GroupTicketSelection(t));
+        });
+
+        me.toGroupData = function () {
+            var jsonData = ko.toJS(me);
+
+            jsonData.availableTickets = _.filter(jsonData.ticketSelection, function (i) { return i.isSelected === true });
+            jsonData.isDisabled = !me.isEnabled();
+            if (!jsonData.maxGuests || jsonData.maxGuests === '') {
+                jsonData.maxGuests = null;
+            }
+
+            return jsonData;
+        }
+
+        /*
+         * Validation
+         */
         me.validator = ko.validatedObservable({
             groupName: me.groupName.extend({ required: true }),
             maxGuests: me.maxGuests.extend({ min: 0 })
         });
+
         me.isValid = $paramount.checkValidity(me);
+    }
 
-        // Store all tickets for creating a new group
-        _.each(availableTickets, function (t) {
-            me.ticketSelection.push(new GroupTicketSelection(t));
-        });
-
-        if (groupData) {
-            me.eventGroupId(groupData.eventGroupId);
-            me.groupName(groupData.groupName);
-            me.maxGuests(groupData.maxGuests);
-            me.guestCount(groupData.guestCount);
-            me.isEnabled(groupData.isDisabled === false);
-            me.isEnabled.subscribe(function (isEnabled) {
-                adDesignService.toggleEventGroup({
-                    eventGroupId: me.eventGroupId(),
-                    isDisabled: !isEnabled
-                }).then(function () {
-                    var statusName = isEnabled ? "enabled" : "disabled";
-                    $n.success('Status is now ' + statusName);
-                });
-            });
-
-            _.each(groupData.availableTickets, function (t) {
-                me.availableTickets.push(new GroupTicketSelection(t));
-            });
-        }
-
+    function Group(availableTickets, groupData) {
+        var me = this;
+        me.eventGroupId = ko.observable(groupData.eventGroupId);
+        me.groupName = ko.observable(groupData.groupName);
+        me.maxGuests = ko.observable(groupData.maxGuests);
         me.maxGuestsText = ko.computed(function () {
             return me.maxGuests() === null ? "Unlimited" : me.maxGuests();
+        });
+        me.guestCount = ko.observable(groupData.guestCount);
+        me.isEnabled = ko.observable(groupData.isDisabled === false);
+        me.availableTickets = ko.observableArray();
+
+        _.each(availableTickets, function (t) {
+            me.availableTickets.push(new GroupTicketSelection(t));
         });
     }
 

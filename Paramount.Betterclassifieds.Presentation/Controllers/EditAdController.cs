@@ -560,7 +560,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 viewModel.GroupName,
                 viewModel.MaxGuests,
                 viewModel.AvailableTickets.Select(a => a.EventTicketId),
-                _userManager.GetCurrentUser(this.User).Username,
+                _userManager.GetCurrentUser().Username,
                 viewModel.IsDisabled);
 
             return Json(true);

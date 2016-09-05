@@ -39,7 +39,7 @@
             var $btn = $(event.target);
             $btn.button('loading');
             adDesignService.addEventGroup(groupData).then(function (resp) {
-                me.groups.push(new Group(data.tickets, groupData));
+                me.groups.push(new Group(groupData.availableTickets, groupData));
                 me.isCreateEnabled(false);
                 $n.success('Group has been created successfully');
             }).always(function () {
@@ -59,7 +59,7 @@
         me.hasTickets(data.tickets && data.tickets.length > 0);
 
         _.each(data.eventGroups, function (gr) {
-            me.groups.push(new Group(data.tickets, gr));
+            me.groups.push(new Group(gr.availableTickets, gr));
         });
     }
 
@@ -80,8 +80,7 @@
         me.availableTickets = ko.observableArray();
         me.guestCount = ko.observable(0);
         me.isEnabled = ko.observable(true);
-        me.enableTicketSelection = ko.observable(false);
-
+        
         // Store all tickets for creating a new group
         _.each(data.tickets, function (t) {
             me.ticketSelection.push(new GroupTicketSelection(t));

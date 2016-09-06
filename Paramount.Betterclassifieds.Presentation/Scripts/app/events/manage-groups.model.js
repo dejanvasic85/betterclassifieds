@@ -49,6 +49,17 @@
         if (data) {
             me.bind(data);
         }
+
+        me.generate = function (model, event) {
+            var $btn = $(event.target);
+            $btn.button('loading');
+
+            // Create bunch of groups now based on the start and end
+            var groups = me.newGroup().generateGroups();
+
+            console.log(groups);
+        }
+
     }
 
     ManageGroups.prototype.bind = function (data) {
@@ -84,7 +95,12 @@
         me.generateEnabled = ko.observable(false);
         me.generateStart = ko.observable();
         me.generateEnd = ko.observable();
-        me.toggleGeneration = function() {
+        me.generateTotalGroups = ko.computed(function () {
+            var first = parseInt(me.generateStart());
+            var last = parseInt(me.generateEnd());
+            return last - first;
+        });
+        me.toggleGeneration = function () {
             me.generateEnabled(!me.generateEnabled());
         };
 
@@ -101,8 +117,27 @@
             if (!jsonData.maxGuests || jsonData.maxGuests === '') {
                 jsonData.maxGuests = null;
             }
+            
+            // Remove unused properties for submit
+            delete jsonData.generateEnabled;
+            delete jsonData.generateStart;
+            delete jsonData.generateEnd;
 
             return jsonData;
+        }
+
+        me.generateGroups = function () {
+            var groups = [];
+            var start = parseInt(me.generateStart());
+            var end = parseInt(me.generateEnd());
+
+            for (var i = start; i < end; i++) {
+                var gr = me.toGroupData();
+                gr.groupName += ' ' + i;
+                groups.push(gr);
+            }
+
+            return groups;
         }
 
 

@@ -39,7 +39,7 @@
             </a>
         </div>
         <div class="col-xs-6 col-sm-3">
-            <button id="btnCreateGroup" class="btn btn-primary btn-block" data-bind="click: createStart">New Group <i class="fa fa-plus-circle"></i></button>
+            <button id="btnCreateGroup" class="btn btn-primary btn-block" data-bind="click: createStart">Create <i class="fa fa-plus-circle"></i></button>
         </div>
     </div>
 
@@ -51,13 +51,13 @@
                 <div class="col-sm-6">
                     <div class="form-group-lg" data-bind="validationElement: newGroup().groupName">
                         <label class="control-label">Group Name</label>
-                        <input id="txtNewGroupName" class="form-control" type="text" data-bind="value: newGroup().groupName"/>
+                        <input id="txtNewGroupName" class="form-control" type="text" data-bind="value: newGroup().groupName" placeholder="e.g. Table" />
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group-lg" data-bind="validationElement: newGroup().maxGuests">
                         <label class="control-label">Max Guests</label>
-                        <input id="txtNewGroupMaxGuests" class="form-control" type="number" data-bind="value: newGroup().maxGuests" placeholder="Unlimited"/>
+                        <input id="txtNewGroupMaxGuests" class="form-control" type="number" data-bind="value: newGroup().maxGuests" placeholder="Unlimited" />
                         <p class="help-block">
                             Leaving this empty will allow set unlimited guests.
                         </p>
@@ -65,7 +65,7 @@
                 </div>
             </div>
 
-            <hr/>
+            <hr />
 
             <div class="row">
                 <div class="col-sm-12 top-buffer-20">
@@ -78,7 +78,7 @@
                 </div>
             </div>
 
-            <hr/>
+            <hr />
 
             <div class="row top-buffer-10">
 
@@ -111,7 +111,7 @@
                 </div>
             </div>
 
-            <hr/>
+            <hr />
 
             @*Generation*@
             <div class="row top-buffer-10">
@@ -138,6 +138,20 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row" data-bind="visible: newGroup().groupName() !== undefined">
+                            <div class="col-xs-12">
+                                <p>What will be generated?</p>
+                                <div class="alert alert-info-alt">
+                                    Total Groups: <span data-bind="text: newGroup().generateTotalGroups"></span>
+                                    <br />
+                                    First Group: <strong><span data-bind="text: newGroup().groupName() + ' ' + newGroup().generateStart()"></span></strong>
+                                    <br/>
+                                    Last Group: <strong><span data-bind="text: newGroup().groupName() + ' ' + newGroup().generateEnd()"></span></strong>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -156,7 +170,7 @@
                 </div>
 
                 <div class="col-xs-6 text-right" data-bind="visible: newGroup().generateEnabled">
-                    <button id="btnGenerate" class="btn btn-success" data-bind="click: create" data-loading-text="Please Wait...">
+                    <button id="btnGenerate" class="btn btn-success" data-bind="click: generate" data-loading-text="Please Wait...">
                         Generate <i class="fa fa-cog"></i>
                     </button>
                 </div>

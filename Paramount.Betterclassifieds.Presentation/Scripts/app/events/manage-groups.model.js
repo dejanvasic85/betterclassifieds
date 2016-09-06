@@ -90,6 +90,10 @@
         me.availableTickets = ko.observableArray();
         me.guestCount = ko.observable(0);
         me.isEnabled = ko.observable(true);
+        me.limitsEnabled = ko.observable(false);
+        me.toggleLimits = function () {
+            me.limitsEnabled(!me.limitsEnabled());
+        }
 
         // Generation
         me.generateEnabled = ko.observable(false);
@@ -103,6 +107,23 @@
         me.toggleGeneration = function () {
             me.generateEnabled(!me.generateEnabled());
         };
+        me.generateError = ko.computed(function () {
+            if (_.isUndefined(me.groupName())) {
+                return 'You must provide a group name before generating.';
+            }
+
+            if (isNaN(me.generateStart()) || isNaN(me.generateEnd())) {
+                return 'You must provide start and end before generating.';
+            }
+
+            var totalGroups = me.generateTotalGroups();
+
+            if (totalGroups <= 1) {
+                return 'Total groups must be equal or greater than two';
+            }
+
+            return '';
+        });
 
         // Store all tickets for creating a new group
         _.each(data.tickets, function (t) {
@@ -117,7 +138,7 @@
             if (!jsonData.maxGuests || jsonData.maxGuests === '') {
                 jsonData.maxGuests = null;
             }
-            
+
             // Remove unused properties for submit
             delete jsonData.generateEnabled;
             delete jsonData.generateStart;

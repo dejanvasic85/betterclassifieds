@@ -7,7 +7,7 @@ $scriptPath = ( Split-Path $MyInvocation.MyCommand.Path )
 & $msbuild "Betterclassifieds.sln" "/p:Configuration=Debug" "/t:Clean,Build"
 
 # Set the variables for the database setup
-Set-Variable -Name 'Brand' -Value 'TheMusic' -Scope Global
+Set-Variable -Name 'Brand' -Value 'KandoBay' -Scope Global
 #Set-Variable -Name 'SqlFilesPath' -Value 'D:\Dejan\SQLData\MSSQL11.MSSQLSERVER\MSSQL\DATA\' -Scope Global
 Set-Variable -Name 'SqlFilesPath' -Value 'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\' -Scope Global
 

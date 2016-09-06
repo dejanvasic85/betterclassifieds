@@ -512,7 +512,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var eventBookingTicket = _eventManager.GetEventBookingTicket(eventBookingTicketId);
             var eventBooking = _eventManager.GetEventBooking(eventBookingTicket.EventBookingId);
             var eventDetails = eventBooking.Event;
-            
+
             var eventUrl = Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, adDetails.CategoryAdType).WithFullUrl();
             var notification = new EventGuestNotificationFactory().Create(_clientConfig, eventDetails, adDetails,
                 eventUrl, eventBooking.GetFullName(), eventBookingTicket.GuestEmail);
@@ -554,16 +554,16 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpPost] // Json
-        public ActionResult AddEventGroup(int id, CreateEventGroupViewModel viewModel)
+        public ActionResult AddEventGroup(int id, CreateEventGroupViewModel @group)
         {
-            _eventManager.AddEventGroup(viewModel.EventId,
-                viewModel.GroupName,
-                viewModel.MaxGuests,
-                viewModel.AvailableTickets.Select(a => a.EventTicketId),
+            _eventManager.AddEventGroup(@group.EventId,
+                @group.GroupName,
+                @group.MaxGuests,
+                @group.AvailableTickets.Select(a => a.EventTicketId),
                 _userManager.GetCurrentUser().Username,
-                viewModel.IsDisabled);
+                @group.IsDisabled);
 
-            return Json(true);
+            return Json(new { @group });
         }
 
         [HttpPost]

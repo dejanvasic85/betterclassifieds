@@ -55,9 +55,13 @@
             $btn.button('loading');
 
             // Create bunch of groups now based on the start and end
-            var groups = me.newGroup().generateGroups();
-
-            console.log(groups);
+            me.newGroup().generateGroups(function (addedGroup) {
+                me.groups.push(new Group(addedGroup.availableTickets, addedGroup));
+            }, function () {
+                $btn.button('reset');
+                me.isCreateEnabled(false);
+                $n.success('Done. Groups generated successfully.');
+            });
         }
 
     }
@@ -99,14 +103,18 @@
         me.generateEnabled = ko.observable(false);
         me.generateStart = ko.observable();
         me.generateEnd = ko.observable();
+        me.generateProgress = ko.observable(0);
+
         me.generateTotalGroups = ko.computed(function () {
             var first = parseInt(me.generateStart());
             var last = parseInt(me.generateEnd());
-            return last - first;
+            return (last - first) + 1;
         });
+
         me.toggleGeneration = function () {
             me.generateEnabled(!me.generateEnabled());
         };
+
         me.generateError = ko.computed(function () {
             if (_.isUndefined(me.groupName())) {
                 return 'You must provide a group name before generating.';
@@ -147,18 +155,27 @@
             return jsonData;
         }
 
-        me.generateGroups = function () {
-            var groups = [];
+        me.generateGroups = function (onGroupAdded, onComplete) {
+            var savedGroups = 0;
+
             var start = parseInt(me.generateStart());
             var end = parseInt(me.generateEnd());
+            var totalGroups = end - start;
 
-            for (var i = start; i < end; i++) {
+            for (var i = start; i <= end; i++) {
                 var gr = me.toGroupData();
                 gr.groupName += ' ' + i;
-                groups.push(gr);
-            }
+                
+                adDesignService.addEventGroup(gr).success(function (resp) {
+                    onGroupAdded(resp.group);
+                    savedGroups++;
+                    me.generateProgress(totalGroups / savedGroups);
 
-            return groups;
+                    if (savedGroups === totalGroups) {
+                        onComplete();
+                    }
+                });
+            }
         }
 
 

@@ -27,7 +27,7 @@
 
         me.create = function (model, event) {
             // Check validity
-            if ($paramount.checkValidity(me.newGroup()) === false) {
+            if ($p.checkValidity(me.newGroup()) === false) {
                 return;
             }
 
@@ -104,7 +104,7 @@
         me.generateStart = ko.observable();
         me.generateEnd = ko.observable();
         me.generateProgress = ko.observable(0);
-
+        
         me.generateTotalGroups = ko.computed(function () {
             var first = parseInt(me.generateStart());
             var last = parseInt(me.generateEnd());
@@ -168,8 +168,9 @@
                 
                 adDesignService.addEventGroup(gr).success(function (resp) {
                     onGroupAdded(resp.group);
+                    
                     savedGroups++;
-                    me.generateProgress(totalGroups / savedGroups);
+                    me.generateProgress((savedGroups / totalGroups) * 100);
 
                     if (savedGroups === totalGroups) {
                         onComplete();
@@ -187,7 +188,7 @@
             maxGuests: me.maxGuests.extend({ min: 0 })
         });
 
-        me.isValid = $paramount.checkValidity(me);
+        me.isValid = $p.checkValidity(me);
     }
 
     function Group(availableTickets, groupData) {

@@ -24,12 +24,17 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 
         [FindsBy(How = How.Id, Using = "txtNewGroupName")]
         private IWebElement NewGroupNameInput { get; set; }
-        
+
         [FindsBy(How = How.Id, Using = "txtNewGroupMaxGuests")]
         private IWebElement MaxGuestsInput { get; set; }
 
         [FindsBy(How = How.Id, Using = "btnSaveGroup")]
         private IWebElement SaveGroupButton { get; set; }
+
+        [FindsBy(How = How.Id, Using = "btnLimitTickets")]
+        public IWebElement LimitTicketsButton { get; set; }
+
+        public By LimitTicketsViewLocator => By.Id("limitTickets");
 
         public ManageGroupsPage CreateGroup()
         {
@@ -54,6 +59,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 
         public ManageGroupsPage WithSelectedTickets(params string[] selectedTickets)
         {
+            LimitTicketsButton.Click();
+            
+            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(5));
+            wait.Until(ExpectedConditions.ElementIsVisible(LimitTicketsViewLocator));
+            
             var ticketCheckboxElements = _webDriver.FindElements(By.ClassName("ticket-group-option"));
             foreach (var ticketCheckboxElement in ticketCheckboxElements)
             {
@@ -70,7 +80,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         {
             SaveGroupButton.Click();
             _webDriver.WaitForJqueryAjax();
-            _webDriver.WaitFor(ExpectedConditions.InvisibilityOfElementLocated(By.Id("createGroupForm")));            
+            _webDriver.WaitFor(ExpectedConditions.InvisibilityOfElementLocated(By.Id("createGroupForm")));
             return this;
         }
 

@@ -19,6 +19,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         {
             var paypalLoginPage = _browser.Init<PayPalTestPage>(ensureUrl: false);
             paypalLoginPage
+                .WaitForLoaderToFinish()
                 .WithEmailAddress("support-test2@paramountit.com.au")
                 .WithPassword("Paramount01")
                 .Login()

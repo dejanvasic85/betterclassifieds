@@ -26,7 +26,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         public PayPalTestPage WithEmailAddress(string email)
         {
             var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(10));
-            var element = wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("email")));
+            var element = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("email")));
             element.SendKeys(email);
             return this;
         }
@@ -43,7 +43,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             return this;
         }
 
-        public PayPalTestPage WaitUntilContinueButtonIsDisplayed()
+        public PayPalTestPage WaitForLoaderToFinish()
         {
             Thread.Sleep(500);
             var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(30));

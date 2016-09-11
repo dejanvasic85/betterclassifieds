@@ -29,10 +29,9 @@
             var $button = $('#btnSubmit');
             $button.button('loading');
             var eventTicketingSetup = ko.toJS(me);
-            adDesignService.updateEventTicketDetails(eventTicketingSetup)
-                .always(function () {
-                    $button.button('reset');
-                });
+            adDesignService.updateEventTicketDetails(eventTicketingSetup).error(function () {
+                $button.button('reset');
+            });
         }
 
         me.clearClosingDate = function () {

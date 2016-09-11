@@ -43,20 +43,18 @@
                                 <td>Reference Number</td>
                                 <td><span id="BookingReference">@Model.BookingReference</span></td>
                             </tr>
-                            <tr>
-                                <td><span class="glyphicon glyphicon-usd"></span></td>
-                                <td>Booking Total</td>
-                                <td><span id="BookingTotal">$ @Model.TotalPrice.ToString("N")</span></td>
-                            </tr>
+                            @if (Model.IsPaymentRequired)
+                            {
+                                <tr>
+                                    <td><span class="glyphicon glyphicon-usd"></span></td>
+                                    <td>Booking Total</td>
+                                    <td><span id="BookingTotal">$ @Model.TotalPrice.ToString("N")</span></td>
+                                </tr>
+                            }
                             <tr>
                                 <td><span class="glyphicon glyphicon-calendar"></span></td>
-                                <td>Online Schedule</td>
-                                <td>
-                                    <span id="BookingStartDate">
-                                        from <strong>@Model.StartDate.ToString("dd-MMM-yyyy")</strong>
-                                        until <strong>@Model.EndDate.ToString("dd-MMM-yyyy")</strong>
-                                    </span>
-                                </td>
+                                <td>Publish Date</td>
+                                <td><span id="BookingStartDate">@Model.StartDate.ToString("dd-MMM-yyyy")</span></td>
                             </tr>
                             @if (Model.IsLineAdIncluded)
                             {
@@ -110,22 +108,22 @@
         @*Pager*@
         <ul class="pager">
             <li class="previous">
-                <button id="btnPrev" class="btn btn-large btn-default js-load" data-nav='@Model.PreviousStepUrl'>
+                <button id="btnPrev" class="btn btn-default js-load" data-nav='@Model.PreviousStepUrl'>
                     <i class="glyphicon glyphicon-arrow-left"></i>
                     Previous
                 </button>
             </li>
             <li class="next">
                 @if (Model.IsPaymentRequired)
-            {
-                    <button id="btnSubmit" type="submit" class="btn btn-large btn-default">
+                {
+                    <button id="btnSubmit" type="submit" class="btn btn-primary">
                         Pay with PayPal <i class="fa fa-paypal"></i>
                     </button>
 
                 }
                 else
                 {
-                    <button id="btnSubmit" type="submit" class="btn btn-large btn-default">Place Ad <i class="glyphicon glyphicon-arrow-right"></i></button>
+                    <button id="btnSubmit" type="submit" class="btn btn-lg btn-primary">Submit <i class="glyphicon glyphicon-arrow-right"></i></button>
                 }
             </li>
         </ul>

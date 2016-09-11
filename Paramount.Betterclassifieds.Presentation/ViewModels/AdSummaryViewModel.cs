@@ -11,6 +11,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             AdRouteName = "adRoute";
         }
         public int AdId { get; set; }
+        public int OnlineAdId { get; set; }
         public string Heading { get; set; }
         public string Description { get; set; }
         public string[] ImageUrls { get; set; }

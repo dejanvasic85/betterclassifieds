@@ -1,0 +1,65 @@
+﻿@using Humanizer
+@using Paramount
+@using Paramount.Betterclassifieds.Business.Events
+
+@model AdSummaryViewModel
+
+@{
+    var eventSummary = DependencyResolver.Current.GetService<IEventManager>().GetEventDetailsForOnlineAdId(Model.OnlineAdId);
+}
+
+<a href="@Url.AdUrl(Model.HeadingSlug, Model.AdId, Model.CategoryAdType)" class="list-group-item">
+
+    <div class="row">
+        <div class="col-md-4 listing-img text-center">
+            @if (Model.ImageUrls.Any())
+            {
+                <img class="thumbnail img-responsive"
+                     alt="200x100"
+                     src="@Url.Image(Model.PrimaryImage, height: 100, width: 200)" />
+            }
+            else
+            {
+                <i class="thumbnail fa fa-5x fa-@Model.CategoryFontIcon"></i>
+            }
+        </div>
+        <div class="col-md-8">
+            <h4 class="media-heading">@Model.Heading</h4>
+            <p>@Model.Description.TruncateOnWordBoundary(150)</p>
+            <p>
+
+                <span class="label label-category">@Model.ParentCategoryName</span>
+                <span class="label label-category">@Model.CategoryName</span>
+                @foreach (var publication in Model.Publications)
+                {
+                    <span class="label label-publication">@publication</span>
+                }
+
+            </p>
+            @if (eventSummary.EventStartDate.GetValueOrDefault() > DateTime.Today)
+            {
+                <p>
+                    <small>@eventSummary.EventStartDate.GetValueOrDefault().Humanize()</small>
+                </p>
+            }
+
+            @if (eventSummary.Tickets != null && eventSummary.Tickets.Count > 0 && eventSummary.Tickets.Any(t => t.Price != 0))
+            {
+
+                var tickets = eventSummary.Tickets.OrderBy(t => t.Price);
+                
+                <p>
+                    <small class="label label-info">
+                        <i class="fa fa-ticket"></i>
+                        @tickets.First().Price.ToString("C")
+
+                        @if (eventSummary.Tickets.Count > 1)
+                        {
+                            <span> - @tickets.Last().Price.ToString("C")</span>
+                        }
+                    </small>
+                </p>
+            }
+        </div>
+    </div>
+</a>

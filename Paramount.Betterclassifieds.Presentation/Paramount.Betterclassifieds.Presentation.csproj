@@ -976,6 +976,8 @@
     <Content Include="Views\EditAd\event-ticketing.cshtml" />
     <Content Include="Views\EditAd\edit-guest.cshtml" />
     <Content Include="Views\EditAd\remove-guest-complete.cshtml" />
+    <Content Include="Views\Listings\_AdSummary.cshtml" />
+    <Content Include="Views\Listings\_AdSummaryEvent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

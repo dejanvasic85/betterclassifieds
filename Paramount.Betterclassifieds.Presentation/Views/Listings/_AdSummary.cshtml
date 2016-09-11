@@ -1,0 +1,38 @@
+﻿@using Paramount
+
+@model AdSummaryViewModel
+
+<a href="@Url.AdUrl(Model.HeadingSlug, Model.AdId, Model.CategoryAdType)" class="list-group-item">
+
+    <div class="row">
+        <div class="col-md-4 listing-img text-center">
+            @if (Model.ImageUrls.Any())
+            {
+                <img class="thumbnail img-responsive"
+                     alt="200x100"
+                     src="@Url.Action("Render", "Image", new {documentId = Model.ImageUrls.First(), height = 100, width = 200})" />
+            }
+            else
+            {
+                <i class="thumbnail fa fa-5x fa-@Model.CategoryFontIcon"></i>
+            }
+        </div>
+        <div class="col-md-8">
+            <h4 class="media-heading">@Model.Heading</h4>
+            <p>@Model.Description.TruncateOnWordBoundary(150)</p>
+            <p>
+
+                <span class="label label-category">@Model.ParentCategoryName</span>
+                <span class="label label-category">@Model.CategoryName</span>
+                @foreach (var publication in Model.Publications)
+                {
+                    <span class="label label-publication">@publication</span>
+                }
+
+            </p>
+            <p>
+                <small>@Model.BookingDateFriendly</small>
+            </p>
+        </div>
+    </div>
+</a>

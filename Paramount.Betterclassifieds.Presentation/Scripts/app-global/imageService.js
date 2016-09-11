@@ -11,7 +11,7 @@ var $paramount = (function (me, $) {
             return null;
         }
         dimensions = dimensions || {};
-        _.defaults(dimensions, { h: 100, w: 100 });
+        _.defaults(dimensions, { h: 100, w: 200 });
         return me.baseUrl + 'img/' + id + '/' + dimensions.w + '/' + dimensions.h;
     }
 

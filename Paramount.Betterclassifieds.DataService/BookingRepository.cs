@@ -84,8 +84,13 @@ namespace Paramount.Betterclassifieds.DataService.Repository
                 {
                     var booking = this.Map<AdBooking, AdBookingModel>(adBookingData);
 
-                    booking.CategoryAdType = adBookingData.MainCategory.CategoryAdType;
-                    booking.CategoryFontIcon = context.MainCategories.Single(m => m.MainCategoryId == adBookingData.MainCategory.ParentId).FontIcon;
+                    var category = adBookingData.MainCategory;
+                    var parentCategory = context.MainCategories.Single(m => m.MainCategoryId == category.ParentId);
+
+                    booking.CategoryAdType = category.CategoryAdType;
+                    booking.CategoryFontIcon = parentCategory.FontIcon;
+                    booking.ParentCategoryName = parentCategory.Title;
+                    booking.CategoryName = category.Title;
 
                     // Line ad
                     if (withLineAd)

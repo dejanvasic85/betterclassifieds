@@ -42,54 +42,35 @@
         <div class="col-xs-12">
 
             <div class="alert alert-info-alt" data-bind="visible: noAdsAvaialble" style="display: none;" id="noAdsMsg">
-                There doesn't seem to be anything here at the moment :( <br/>
+                There doesn't seem to be anything here at the moment :( <br />
                 <a href="@Url.Action("Step1", "Booking")">Go ahead and book an ad!</a>
             </div>
 
-            <div id="adList" data-bind="foreach: ads">
-                <div class="panel" data-bind="css : {'panel-danger' : $data.status() === 'Expired', 'panel-success' :  $data.status() === 'Current', 'panel-warning' : $data.status() === 'Scheduled'} ,visible: $data.status() === $parent.selectedStatus() || $parent.selectedStatus() === 'All'">
-                    <div class="panel-heading">
-                        <strong>
-                            <span data-bind="text: adId"></span> -
-                            <span data-bind="text: heading"></span>
-                        </strong>
-                        <div class="pull-right userads-cmd-panel" data-bind="visible : $data.status() === 'Current'">
-                            <strong>
-                                <a data-bind="attr : {href : viewHref}">
-                                    View <i class="fa fa-eye"></i>
-                                </a>
-                            </strong>
-                        </div>
-                    </div>
+            <div id="adList" class="listing-results" data-bind="foreach: ads">
+                <div class="panel panel-default" data-bind="visible: $data.status() === $parent.selectedStatus() || $parent.selectedStatus() === 'All'">
                     <div class="panel-body">
                         <div class="row">
                             @*Image*@
-                            <div class="col-sm-2 col-xs-3">
-                                <img class="thumbnail hidden-xs"
-                                     alt="100x100"
-                                     data-bind="visible : adImageId() !== '', attr : {src : imageUrl}">
-
-                                <img class="thumbnail visible-xs"
-                                     alt="50x50"
-                                     data-bind="visible : adImageId() !== '', attr : {src : imageUrlSmaller}">
-
-                                <i data-bind="attr : {class : fontIcon}, visible : adImageId() === ''"></i>
-
+                            <div class="col-md-4 img-centered">
+                                <a data-bind="attr : {href : viewHref}">
+                                    <img class="thumbnail" alt="100x200" data-bind="visible : adImageId() !== '', attr : {src : imageUrl}">
+                                    <i data-bind="attr : {class : fontIcon}, visible : adImageId() === ''"></i>
+                                </a>
                             </div>
 
                             @*Descripton*@
-                            <div class="col-sm-4 col-xs-9" data-bind="text: description"></div>
+                            <div class="col-md-8">
+                                <h4 class="media-heading" data-bind="text: heading"><small>(<strong data-bind="text: adId"></strong>)</small></h4>
+                                <p data-bind="text: description"></p>
+                                <p>
 
+                                    <span class="label label-category" data-bind="text: parentCategoryName"></span>
+                                    <span class="label label-category" data-bind="text: categoryName"></span>
 
-                            @*Dates*@
-                            <div class="col-sm-6 hidden-xs">
-                                <dl class="dl-horizontal myads-date-info">
-                                    <dt>Starts</dt>
-                                    <dd data-bind="text: starts"></dd>
-                                    <dt>Ends</dt>
-                                    <dd data-bind="text: ends"></dd>
-                                </dl>
+                                </p>
+                                <p><small>Published: <span data-bind="text: adPublishedDateDescription"></span></small></p>
                             </div>
+
                         </div>
                     </div>
 
@@ -98,24 +79,28 @@
                         Visits : <span data-bind="text: visits"></span>
                         <div class="pull-right">
 
+                            <div style="display: inline-block" data-bind="visible : $data.status() !== 'Expired'">
+                                <button class="btn btn-danger cancel-ad" data-bind="click: cancelAd">
+                                    <span class="hidden-xs">Cancel</span> <i class="fa fa-trash"></i>
+                                </button>
+
+                                <a class="btn btn-primary js-load" data-bind="attr : { 'data-adid' : $data.adId(), href : editHref} ">
+                                    <span class="hidden-xs">Details</span> <i class="fa fa-pencil"></i>
+                                </a>
+
+                                <a class="btn btn-primary js-load" data-bind="attr : {href : viewHref}">
+                                    <span class="hidden-xs">View</span> <i class="fa fa-eye"></i>
+                                </a>
+                            </div>
+
                             <button data-bind="visible: messageCount() > 0" class="btn btn-primary view-messages">
                                 <span class="hidden-xs">Enquiries</span> <i class="fa fa-envelope"></i> ( <span data-bind="text: messageCount"></span> )
                             </button>
 
-                            
-                            <a class="btn btn-default" data-bind="visible : $data.totalPrice() > 0 ,  attr : {href : bookingInvoiceHref}" target="_blank">
+                            <a class="btn btn-primary" data-bind="visible : $data.totalPrice() > 0 ,  attr : {href : bookingInvoiceHref}" target="_blank">
                                 <span class="hidden-xs">Invoice</span> <i class="fa fa-file"></i>
                             </a>
-
-                            <div style="display: inline-block" data-bind="visible : $data.status() !== 'Expired'">
-                                <a class="btn btn-primary js-load" data-bind="attr : { 'data-adid' : $data.adId(), href : editHref} ">
-                                    <span class="hidden-xs">Details</span> <i class="fa fa-pencil"></i>
-                                </a>
-                                <button class="btn btn-danger cancel-ad" data-bind="click: cancelAd">
-                                    <span class="hidden-xs">Cancel</span> <i class="fa fa-trash"></i>
-                                </button>
-                            </div>
-
+                            
                             <button class="btn btn-default book-again" data-bind="click: bookAgain()">
                                 <span class="hidden-xs">Use as Template</span> <i class="fa fa-recycle"></i>
                             </button>

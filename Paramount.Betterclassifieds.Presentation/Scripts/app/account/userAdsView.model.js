@@ -44,11 +44,12 @@
         this.heading = ko.observable(item.heading);
         this.description = ko.observable(item.description);
         this.adImageId = ko.observable(item.adImageId);
-        this.starts = ko.observable(item.starts);
-        this.ends = ko.observable(item.ends);
+        this.adPublishedDateDescription = ko.observable(item.adPublishedDateDescription);
         this.visits = ko.observable(item.visits);
         this.messageCount = ko.observable(item.messageCount);
         this.fontIcon = ko.observable('fa fa-5x fa-' + item.categoryFontIcon + ' thumbnail');
+        this.parentCategoryName = ko.observable(item.parentCategoryName);
+        this.categoryName = ko.observable(item.categoryName);
 
         me.messages = ko.observableArray([]);
         $.each(item.messages, function (idx, value) {

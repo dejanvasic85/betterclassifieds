@@ -76,7 +76,7 @@
                 return Redirect(loginViewModel.ReturnUrl);
             }
 
-            return RedirectToAction("Index", "Home");
+            return Url.Home().ToRedirectResult();
         }
 
         [HttpPost]
@@ -97,11 +97,21 @@
 
             var registrationResult = _userManager.RegisterUser(this.Map<RegisterViewModel, RegistrationModel>(viewModel), viewModel.RegisterPassword);
 
-            return View("Confirmation", new AccountConfirmationViewModel
+            if (registrationResult.RequiresConfirmation)
             {
-                RegistrationId = registrationResult.Registration.RegistrationId,
-                ReturnUrl = TempData[ReturnUrlKey] == null ? string.Empty : TempData[ReturnUrlKey].ToString(),
-            });
+                return View("Confirmation", new AccountConfirmationViewModel
+                {
+                    RegistrationId = registrationResult.Registration.RegistrationId,
+                    ReturnUrl = TempData[ReturnUrlKey]?.ToString() ?? string.Empty,
+                });
+            }
+
+            if (viewModel.ReturnUrl.HasValue())
+            {
+                return Redirect(viewModel.ReturnUrl);
+            }
+
+            return Url.Home().ToRedirectResult();
         }
 
         [HttpPost]

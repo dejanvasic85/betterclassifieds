@@ -4,6 +4,8 @@
 <p>Register now to start placing ads and more. We need just a few details. </p>
 <form role="form" method="POST" action="@Url.Action("Register")">
     @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.ReturnUrl)
+
     <div class="form-group">
         @Html.LabelFor(m => m.RegisterEmail)
         @Html.TextBoxFor(m => m.RegisterEmail, new { @class = "form-control", required = "", autocomplete = "off" })
@@ -40,8 +42,6 @@
         @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", @maxlength = 12, data_numbers_only = "true" })
         @Html.ValidationMessageFor(m => m.Phone)
     </div>
-
-    @Html.Partial("HowYouFoundUs/_HowYouFoundUs", Model)
 
     <div class="form-group">
         <button type="submit" id="btnRegister" class="btn btn-default">Register</button>

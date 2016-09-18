@@ -29,7 +29,7 @@ execute temp_createAppSetting @Key = 'SupportNotificationAccounts', @Setting = '
 execute temp_createAppSetting @Key = 'AdDurationDays', @Setting = '730', @Force = 1
 execute temp_createAppSetting @Key = 'ClientAddress', @Setting = '47 Coven,Avenue,Heathmont,VIC,3135,Australia', @Force = 1
 execute temp_createAppSetting @Key = 'ClientAddressLatLong', @Setting = '-37.827868,145.258419', @Force = 1
-execute temp_createAppSetting @Key = 'EnableTwoFactorAuth', @Setting = 'true', @Force = 1
+execute temp_createAppSetting @Key = 'Security.EnableRegistrationEmailVerification', @Setting = 'false', @Force = 1
 execute temp_createAppSetting @Key = 'ClientName', @Setting = 'KandoBay', @Force = 1
 execute temp_createAppSetting @Key = 'EventTicketReservationExpiryMinutes', @Setting = '20'
 execute temp_createAppSetting @Key = 'EventMaxTicketsPerBooking', @Setting = '20', @Force = 1
@@ -42,6 +42,15 @@ execute temp_createAppSetting @Key = 'Events.EnableCreditCardPayments', @Setting
 
 
 drop procedure temp_createAppSetting
+
+
+/*
+	Drop redundant settings
+*/
+
+GO
+
+DELETE FROM AppSetting WHERE AppKey = 'EnableTwoFactorAuth';
 
 
 GO

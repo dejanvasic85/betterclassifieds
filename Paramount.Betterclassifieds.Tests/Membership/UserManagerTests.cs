@@ -250,7 +250,7 @@ namespace Paramount.Betterclassifieds.Tests.Membership
                  It.IsAny<string>(),
                  It.IsAny<bool>()));
 
-            _mockConfig.SetupWithVerification(call => call.IsTwoFactorAuthEnabled, true);
+            _mockConfig.SetupWithVerification(call => call.EnableRegistrationEmailVerification, true);
             _mockCodeGenerator.SetupWithVerification(call => call.GenerateCode(), new ConfirmationCodeResult("1234", DateTime.Now.AddMinutes(10), DateTime.UtcNow.AddMinutes(10)));
             _mockDateService.SetupWithVerification(call => call.UtcNow, DateTime.UtcNow); // ahead of the registration model
 

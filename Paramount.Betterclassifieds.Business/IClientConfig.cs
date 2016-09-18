@@ -17,7 +17,7 @@
         string[] SupportEmailList { get; }
         int? MaxOnlineImages { get; }
         string PublisherHomeUrl { get; }
-        bool IsTwoFactorAuthEnabled { get; }
+        bool EnableRegistrationEmailVerification { get; }
         int PrintImagePixelsWidth { get; }
         int PrintImagePixelsHeight { get; }
         int PrintImageResolution { get; }

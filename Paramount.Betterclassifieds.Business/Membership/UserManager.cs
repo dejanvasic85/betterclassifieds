@@ -90,7 +90,7 @@ namespace Paramount.Betterclassifieds.Business
 
         public RegistrationResult RegisterUser(RegistrationModel registrationModel, string plaintextPassword, bool disableTwoFactorAuth = false)
         {
-            var isConfirmationRequired = _clientConfig.IsTwoFactorAuthEnabled && !disableTwoFactorAuth;
+            var isConfirmationRequired = _clientConfig.EnableRegistrationEmailVerification && !disableTwoFactorAuth;
 
             registrationModel
                 .GenerateUniqueUsername(_authManager.CheckUsernameExists)
@@ -111,8 +111,13 @@ namespace Paramount.Betterclassifieds.Business
                     ConfirmationCode = registrationModel.Token
                 }, registrationModel.Email);
             }
+            else
+            {
+                ConfirmRegistration(registrationModel.RegistrationId.GetValueOrDefault(),
+                    registrationModel.Token);
+            }
 
-            return new RegistrationResult(registrationModel, _clientConfig.IsTwoFactorAuthEnabled);
+            return new RegistrationResult(registrationModel, _clientConfig.EnableRegistrationEmailVerification);
         }
 
         /// <summary>

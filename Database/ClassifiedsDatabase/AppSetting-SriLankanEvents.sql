@@ -29,7 +29,7 @@ execute temp_createAppSetting @Key = 'SupportNotificationAccounts', @Setting = '
 execute temp_createAppSetting @Key = 'AdDurationDays', @Setting = '730'
 execute temp_createAppSetting @Key = 'ClientAddress', @Setting = 'Melbourne,VIC,3000,Australia', @Force = 1
 execute temp_createAppSetting @Key = 'ClientAddressLatLong', @Setting = '37.8136,144.9631', @Force = 1
-execute temp_createAppSetting @Key = 'EnableTwoFactorAuth', @Setting = 'true', @Force = 1
+execute temp_createAppSetting @Key = 'Security.EnableRegistrationEmailVerification', @Setting = 'false', @Force = 1
 execute temp_createAppSetting @Key = 'ClientName', @Setting = 'Sri Lankan Events', @Force = 1
 execute temp_createAppSetting @Key = 'EventTicketReservationExpiryMinutes', @Setting = '10'
 execute temp_createAppSetting @Key = 'EventMaxTicketsPerBooking', @Setting = '5'
@@ -41,6 +41,15 @@ execute temp_createAppSetting @Key = 'Events.EnableCreditCardPayments', @Setting
 
 
 drop procedure temp_createAppSetting
+
+
+/*
+	Drop redundant settings
+*/
+
+GO
+
+DELETE FROM AppSetting WHERE AppKey = 'EnableTwoFactorAuth';
 
 
 GO

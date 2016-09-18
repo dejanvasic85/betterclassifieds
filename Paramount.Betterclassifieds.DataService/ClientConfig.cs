@@ -83,7 +83,7 @@
 
         public string PublisherHomeUrl => GetValueFromDatabase("PublisherHomeUrl", false);
 
-        public bool IsTwoFactorAuthEnabled => GetValueFromDatabase<bool>("EnableTwoFactorAuth");
+        public bool EnableRegistrationEmailVerification => GetValueFromDatabase<bool>("Security.EnableRegistrationEmailVerification");
 
         public int PrintImagePixelsWidth => GetValueFromDatabase<int>("PrintImagePixelsWidth");
 

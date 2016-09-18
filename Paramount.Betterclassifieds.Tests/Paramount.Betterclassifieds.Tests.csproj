@@ -155,7 +155,6 @@
     <Compile Include="Events\EventPaymentRequestFactoryTests.cs" />
     <Compile Include="Events\EventTicketFactoryTest.cs" />
     <Compile Include="Events\SufficientTicketsRuleTests.cs" />
-    <Compile Include="Events\TicketBarcodeServiceTests.cs" />
     <Compile Include="Events\TicketFeeCalculatorTests.cs" />
     <Compile Include="Mocks\AddressMockBuilder.cs" />
     <Compile Include="Mocks\AdSearchResultMockBuilder.cs" />

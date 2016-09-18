@@ -36,7 +36,7 @@
                     {
                         ticketNameClass = "smaller";
                     }
-                }
+                } 
 
                 <div class="event-info @eventInfoClass">
                     <div class="event-title">
@@ -99,7 +99,7 @@
                 </div>
 
                 <div class="event-barcode">
-                    @Html.GenerateRelayQrCode(tick.BarcodeData, height: 162, width: 162)
+                    @Html.GenerateRelayQrCode(tick.BarcodeDataUrl, height: 162, width: 162)
                 </div>
             </div>
         </div>

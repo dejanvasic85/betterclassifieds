@@ -128,7 +128,6 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 ticketBuilder.WithEventBookingTicketId(2).Build()
             };
 
-            _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.Is<int>(param => param == 10)), eventMock);
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingTicketsForEvent(
                 It.Is<int>(param => param == 10)),
                 mockTickets);
@@ -139,7 +138,6 @@ namespace Paramount.Betterclassifieds.Tests.Events
             Assert.That(result.Count, Is.EqualTo(2));
             Assert.That(result[0].GuestFullName, Is.EqualTo("Morgan Freeman"));
             Assert.That(result[0].GuestEmail, Is.EqualTo("fake@email.com"));
-            Assert.That(result[0].BarcodeData, Is.Not.Null);
             Assert.That(result[0].TicketNumber, Is.EqualTo(1));
             Assert.That(result[0].TicketName, Is.EqualTo("General Admission"));
         }
@@ -890,6 +888,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
         private Mock<IBookingManager> _bookingManager;
         private Mock<ILocationService> _locationService;
         private Mock<IUserManager> _userManager;
+        private Mock<IEventBarcodeManager> _barcodeManager;
 
         [SetUp]
         public void SetupDependencies()
@@ -901,6 +900,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _bookingManager = CreateMockOf<IBookingManager>();
             _locationService = CreateMockOf<ILocationService>();
             _userManager = CreateMockOf<IUserManager>();
+            _barcodeManager = CreateMockOf<IEventBarcodeManager>();
         }
     }
 }

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Paramount.Betterclassifieds.Business.Broadcast
 {
@@ -36,6 +35,9 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
 
         [Placeholder("TicketType")]
         public string TicketType { get; set; }
+
+        [Placeholder("BarcodeImageData")]
+        public string  BarcodeImageData { get; set; }
 
         public EventGuestNotification WithCalendarInvite(byte[] calendarContent)
         {

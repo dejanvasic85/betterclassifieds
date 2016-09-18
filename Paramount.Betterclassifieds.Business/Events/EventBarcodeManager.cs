@@ -20,6 +20,18 @@ namespace Paramount.Betterclassifieds.Business.Events
             return $"{eventDetails.EventId}{CharSplitter}{eventBookingTicket.EventTicketId}{CharSplitter}{eventBookingTicket.EventBookingTicketId}";
         }
 
+        public string GenerateBase64StringImageData(string barcodeData, int height, int width, int margin = 0)
+        {
+            // See UI services
+            throw new System.NotImplementedException();
+        }
+
+        public string GenerateBase64StringImageData(EventModel eventModel, EventBookingTicket eventTicket, int height, int width, int margin = 0)
+        {
+            // See UI services
+            throw new System.NotImplementedException();
+        }
+
         public EventBookingTicketValidationResult ValidateTicket(string barcodeData)
         {
             Guard.NotNull(barcodeData);

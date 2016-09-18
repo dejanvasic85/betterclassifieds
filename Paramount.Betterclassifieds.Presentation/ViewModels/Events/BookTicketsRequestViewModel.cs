@@ -26,14 +26,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         [Required]
         public decimal TotalCost { get; set; }
 
-        public bool PaymentRequired
-        {
-            get { return this.TotalCost > 0; }
-        }
-
-        public bool SendEmailToGuests { get; set; }
+        public bool PaymentRequired => this.TotalCost > 0;
 
         public List<EventTicketReservedViewModel> Reservations { get; set; }
-        public string FullName { get { return FirstName + " " + LastName; } }
+        public string FullName => FirstName + " " + LastName;
     }
 }

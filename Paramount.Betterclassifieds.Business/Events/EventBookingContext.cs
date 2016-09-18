@@ -5,7 +5,6 @@
         int? EventId { get; set; }
         int? EventBookingId { get; set; }
         string EventBookingPaymentReference { get; set; }
-        string[] EmailGuestList { get; set; }
         string Purchaser { get; set; }
         long? EventInvitationId { get; set; }
         bool EventBookingComplete { get; set; }
@@ -17,15 +16,9 @@
     /// </summary>
     public class EventBookingContext : IEventBookingContext
     {
-        public EventBookingContext()
-        {
-            EmailGuestList = new string[0];
-        }
-
         public int? EventId { get; set; }
         public int? EventBookingId { get; set; }
         public string EventBookingPaymentReference { get; set; }
-        public string[] EmailGuestList { get; set; }
         public string Purchaser { get; set; }
         public long? EventInvitationId { get; set; }
         public bool EventBookingComplete { get; set; }
@@ -35,7 +28,6 @@
             EventId = null;
             EventBookingId = null;
             EventBookingPaymentReference = null;
-            EmailGuestList = new string[0];
             EventBookingComplete = false;
             Purchaser = null;
         }

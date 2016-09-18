@@ -172,11 +172,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventBookingContext.EventId = bookTicketsViewModel.EventId.GetValueOrDefault();
             _eventBookingContext.EventBookingId = eventBooking.EventBookingId;
             _eventBookingContext.Purchaser = bookTicketsViewModel.FullName;
-            if (bookTicketsViewModel.SendEmailToGuests)
-            {
-                _eventBookingContext.EmailGuestList = bookTicketsViewModel.Reservations.Select(e => e.GuestEmail).ToArray();
-            }
-
+            
             if (eventBooking.Status == EventBookingStatus.Active)
             {
                 // No payment required so return a redirect to action json object
@@ -204,7 +200,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             _eventManager.AdjustRemainingQuantityAndCancelReservations(sessionId, eventBooking.EventBookingTickets);
 
-            var eventTicketViewModelFactory = new ViewModels.Events.Factories.EventTicketPrintViewModelFactory();
+            var eventTicketViewModelFactory = new ViewModels.Events.Factories.EventTicketPrintViewModelFactory(_eventManager);
             var eventTicketViewModel = eventTicketViewModelFactory.FromEventBooking(Url, _barcodeManager, adDetails, eventDetails, eventBooking);
             var ticketHtml = _templatingService.Generate(eventTicketViewModel, "Tickets");
             var ticketPdfData = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(ticketHtml);
@@ -224,11 +220,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _broadcastManager.Queue(eventTicketsBookedNotification, eventBooking.Email);
             _eventManager.CreateEventTicketsDocument(eventBooking.EventBookingId, ticketPdfData, ticketsSentDate: DateTime.Now);
 
-            foreach (var guest in _eventBookingContext.With(ctx => ctx.EmailGuestList))
+            foreach (var ticket in eventBooking.EventBookingTickets)
             {
                 var eventUrl = Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, adDetails.CategoryAdType).WithFullUrl();
-                var notification = new EventGuestNotificationFactory().Create(_clientConfig, eventDetails, adDetails, eventUrl, _eventBookingContext.Purchaser, guest);
-                _broadcastManager.Queue(notification, guest);
+                var notification = new EventGuestNotificationFactory(_barcodeManager).Create(_clientConfig, eventDetails, ticket, adDetails, eventUrl, _eventBookingContext.Purchaser);
+                _broadcastManager.Queue(notification, ticket.GuestEmail);
             }
 
             _eventBookingContext.EventBookingComplete = true;

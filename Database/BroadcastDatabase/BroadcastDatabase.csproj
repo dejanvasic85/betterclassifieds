@@ -54,6 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts-3.0\08-EventGuest-Update-WithBarcode.sql" />
     <EmbeddedResource Include="Scripts-3.0\07-All-SriLankanEvents.sql" />
     <EmbeddedResource Include="Scripts-3.0\06-EmailTemplate-EventGuestRemoved-SriLankanEvents.sql" />
     <EmbeddedResource Include="Scripts-3.0\06-EmailTemplate-EventGuestRemoved-TheMusic.sql" />

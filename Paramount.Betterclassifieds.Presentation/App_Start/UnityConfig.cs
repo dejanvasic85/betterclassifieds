@@ -60,6 +60,7 @@
                 .RegisterType<Business.Events.IEventRepository, DataService.Events.EventRepository>()
                 .RegisterType<IEventManager, EventManager>()
                 .RegisterType<IEventBarcodeManager, EventBarcodeManager>()
+                .RegisterType<IEventBarcodeManager, QrBarcodeService>()
                 .RegisterType<Business.Events.IEventBookingContext, Business.Events.EventBookingContext>(
                     new SessionLifetimeManager<Business.Events.EventBookingContext>())
 

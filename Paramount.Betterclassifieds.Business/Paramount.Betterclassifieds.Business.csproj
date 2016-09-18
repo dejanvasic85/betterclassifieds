@@ -83,7 +83,6 @@
     <Compile Include="Events\TicketFeeCalculator.cs" />
     <Compile Include="Events\IEventBarcodeManager.cs" />
     <Compile Include="Events\IEventManager.cs" />
-    <Compile Include="Events\TicketBarcodeService.cs" />
     <Compile Include="Events\EventBookingContext.cs" />
     <Compile Include="Events\EventBookingStatus.cs" />
     <Compile Include="Events\EventBookingTicket.cs" />

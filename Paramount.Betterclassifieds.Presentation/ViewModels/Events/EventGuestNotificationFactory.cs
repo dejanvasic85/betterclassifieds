@@ -8,8 +8,16 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 {
     public class EventGuestNotificationFactory
     {
+        private readonly IEventBarcodeManager _eventBarcodeManager;
+
+        public EventGuestNotificationFactory(IEventBarcodeManager eventBarcodeManager)
+        {
+            _eventBarcodeManager = eventBarcodeManager;
+        }
+
+
         public EventGuestNotification Create(IClientConfig config,
-            EventModel eventModel, AdSearchResult ad, string eventUrl, string purchaserName, string guestEmail)
+            EventModel eventModel, EventBookingTicket eventBookingTicket, AdSearchResult ad, string eventUrl, string purchaserName)
         {
             var notification = new EventGuestNotification
             {
@@ -19,7 +27,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 ClientName = config.ClientName,
                 Location = eventModel.Location,
                 EventStartDate = $"{eventModel.EventStartDate:dd-MMM-yyyy h:mm tt} {eventModel.TimeZoneName}",
-                EventEndDate = $"{eventModel.EventEndDate:dd-MMM-yyyy h:mm tt} {eventModel.TimeZoneName}"
+                EventEndDate = $"{eventModel.EventEndDate:dd-MMM-yyyy h:mm tt} {eventModel.TimeZoneName}",
+                BarcodeImageData = _eventBarcodeManager.GenerateBase64StringImageData(eventModel, eventBookingTicket, 250, 250),
+                TicketType = eventBookingTicket.TicketName
             };
 
             var calendarAttachmentContent = new AttachmentFactory().CreateCalendarInvite(config.ClientName,
@@ -28,7 +38,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 ad.Description,
                 eventModel.EventStartDate.GetValueOrDefault(),
                 eventModel.EventEndDate.GetValueOrDefault(),
-                guestEmail,
+                eventBookingTicket.GuestEmail,
                 eventModel.Location,
                 eventModel.LocationLatitude.GetValueOrDefault(),
                 eventModel.LocationLongitude.GetValueOrDefault(),

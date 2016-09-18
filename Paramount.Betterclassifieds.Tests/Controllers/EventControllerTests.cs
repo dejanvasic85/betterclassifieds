@@ -239,7 +239,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventBookingContext.SetupSet(p => p.EventId = It.IsAny<int?>());
             _eventBookingContext.SetupSet(p => p.EventBookingId = It.IsAny<int?>());
             _eventBookingContext.SetupSet(p => p.Purchaser = It.IsAny<string>());
-            _eventBookingContext.SetupSet(p => p.EmailGuestList = It.IsAny<string[]>());
 
 
             // act
@@ -264,7 +263,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var mockBookTicketsRequestViewModel = new BookTicketsRequestViewModel
             {
                 EventId = mockEvent.EventId,
-                SendEmailToGuests = true,
                 Reservations = new List<EventTicketReservedViewModel>
                 {
                     new EventTicketReservedViewModel
@@ -293,14 +291,11 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _httpContext.SetupWithVerification(call => call.Session.SessionID, "session123");
             _eventManager.SetupWithVerification(call => call.GetTicketReservations(It.Is<string>(p => p == "session123")), mockTicketReservations);
             _eventManager.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(), It.IsAny<ApplicationUser>(), It.IsAny<IEnumerable<EventTicketReservation>>()), mockEventBooking);
-            //_eventManager.SetupWithVerification(call => call.SetPaymentReferenceForBooking(It.Is<int>(p => p == mockEventBookingId), It.Is<string>(p => p == mockPaymentResponse.PaymentId), It.Is<PaymentType>(p => p == PaymentType.PayPal)));
             _userManager.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.IsAny<string>()), mockApplicationUser);
-            //_paymentService.SetupWithVerification(call => call.SubmitPayment(It.IsAny<PaymentRequest>()), mockPaymentResponse);
 
             _eventBookingContext.SetupSet(p => p.EventId = It.IsAny<int?>());
             _eventBookingContext.SetupSet(p => p.EventBookingId = It.IsAny<int?>());
             _eventBookingContext.SetupSet(p => p.Purchaser = It.IsAny<string>());
-            _eventBookingContext.SetupSet(p => p.EmailGuestList = It.IsAny<string[]>());
             _eventBookingContext.SetupSet(p => p.EventBookingPaymentReference = It.IsAny<string>());
 
             // act
@@ -309,7 +304,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // assert
             var jsonResult = result.IsTypeOf<JsonResult>();
-            //jsonResult.JsonResultNextUrlIs(mockPaymentResponse.ApprovalUrl);
             jsonResult.JsonResultNextUrlIs("/Event/MakePayment");
         }
 
@@ -333,7 +327,10 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 .WithEmail("foo@bar.com")
                 .WithTotalCost(10)
                 .WithPaymentReference("pay123")
-                .WithEventBookingTickets(new List<EventBookingTicket> { new EventBookingTicketMockBuilder().WithPrice(10).WithTicketName("Boom").Build() })
+                .WithEventBookingTickets(new List<EventBookingTicket>
+                {
+                    new EventBookingTicketMockBuilder().WithPrice(10).WithTicketName("Boom").Default().Build()
+                })
                 .WithEventId(eventMock.EventId.GetValueOrDefault())
                 .Build();
 
@@ -341,7 +338,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // arrange service calls ( obviously theres a lot going on here and we should refactor this to use event sourcing)
             _eventBookingContext.SetupWithVerification(call => call.EventBookingId, eventBookingMock.EventBookingId);
-            _eventBookingContext.SetupWithVerification(call => call.EmailGuestList, new[] { "foo@bar.com", "code@me.com" });
             _eventBookingContext.SetupWithVerification(call => call.Purchaser, "George Clooney");
             _eventBookingContext.SetupSet<bool>(s => s.EventBookingComplete = true);
 
@@ -360,7 +356,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _clientConfig.SetupWithVerification(call => call.ClientPhoneNumber, "9999 0000");
             _clientConfig.SetupWithVerification(call => call.FacebookAppId, "123");
             _userManager.SetupWithVerification(call => call.GetUserByEmailOrUsername("foo@bar.com"), applicationUserMock);
-            _barcodeManager.SetupWithVerification(call => call.GenerateBarcodeData(It.IsAny<EventModel>(), It.IsAny<EventBookingTicket>()), "123 321 456");
+            _barcodeManager.SetupWithVerification(call => call.GenerateBarcodeData(It.IsAny<EventModel>(), It.IsAny<EventBookingTicket>()), "http://somewhere-cool/2020/20200");
+            _barcodeManager.SetupWithVerification(call => call.GenerateBase64StringImageData(It.IsAny<EventModel>(), It.IsAny<EventBookingTicket>(), It.IsAny<int>(), It.IsAny<int>(), 0), result: "kdk34830498lkdjf0934");
 
             // act
             var result = BuildController().EventBooked();
@@ -370,7 +367,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var viewModel = result.ViewResultModelIsTypeOf<EventBookedViewModel>();
             viewModel.EventHasGroups.IsEqualTo(false);
 
-            _broadcastManager.Verify(call => call.Queue(It.IsAny<IDocType>(), It.IsAny<string[]>()), Times.Exactly(3)); // Sends the tickets and each guest a calendar invite!
+            _broadcastManager.Verify(call => call.Queue(It.IsAny<IDocType>(), It.IsAny<string[]>()), Times.Exactly(2)); // Sends the tickets and each guest a calendar invite!
         }
 
         [Test]

@@ -10,12 +10,16 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events.Factories
 {
     public class EventTicketPrintViewModelFactory
     {
-        // Todo - Service location no good. Need to think of a better pattern :(
         private readonly IEventManager _eventManager;
 
         public EventTicketPrintViewModelFactory()
+            : this(DependencyResolver.Current.GetService<IEventManager>())
         {
-            _eventManager = DependencyResolver.Current.GetService<IEventManager>();
+        }
+
+        public EventTicketPrintViewModelFactory(IEventManager eventManager)
+        {
+            _eventManager = eventManager;
         }
 
         public IEnumerable<EventTicketPrintViewModel> FromEventBooking(UrlHelper urlHelper, IEventBarcodeManager barcodeManager, AdSearchResult adDetails, EventModel eventDetails, EventBooking eventBooking)
@@ -43,9 +47,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events.Factories
                 StartDateTime = eventDetails.EventStartDate.GetValueOrDefault().ToString("dd-MMM-yyyy HH:mm"),
                 Price = ticket.TotalPrice,
                 ContactNumber = adDetails.ContactPhone,
-                BarcodeData = urlHelper.ValidateBarcode(barcodeManager.GenerateBarcodeData(eventDetails, ticket)).WithFullUrl(),
+                BarcodeDataUrl = urlHelper.ValidateBarcode(barcodeManager.GenerateBarcodeData(eventDetails, ticket)).WithFullUrl(),
                 GroupName = group.With(g => g.GroupName),
-                GuestFullName = ticket.GuestFullName,
+                GuestFullName = ticket.GuestFullName
             };
         }
     }

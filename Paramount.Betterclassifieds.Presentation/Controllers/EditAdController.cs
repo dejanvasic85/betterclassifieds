@@ -476,7 +476,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 var eventDetails = eventBooking.Event;
 
                 var eventUrl = Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, adDetails.CategoryAdType).WithFullUrl();
-                var notification = new EventGuestNotificationFactory().Create(_clientConfig, eventDetails, adDetails, eventUrl, eventBooking.Email, vm.GuestEmail);
+                var notification = new EventGuestNotificationFactory(_barcodeManager)
+                    .Create(_clientConfig, eventDetails, eventBookingTicket, adDetails, eventUrl, eventBooking.Email);
+
                 _broadcastManager.Queue(notification, vm.GuestEmail);
             }
 
@@ -494,7 +496,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 var adDetails = _searchService.GetByAdId(id);
                 var eventModel = _eventManager.GetEventDetailsForOnlineAdId(adDetails.OnlineAdId);
 
-                _broadcastManager.Queue(new EventGuestNotificationFactory().CreateGuestRemovedNotification(
+                _broadcastManager.Queue(new EventGuestNotificationFactory(_barcodeManager).CreateGuestRemovedNotification(
                     new UrlHelper(_httpContext.Request.RequestContext), adDetails, eventModel, eventBookingTicket),
                     to: eventBookingTicket.GuestEmail);
             }
@@ -513,10 +515,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var eventBookingTicket = _eventManager.GetEventBookingTicket(eventBookingTicketId);
             var eventBooking = _eventManager.GetEventBooking(eventBookingTicket.EventBookingId);
             var eventDetails = eventBooking.Event;
-
+            
             var eventUrl = Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, adDetails.CategoryAdType).WithFullUrl();
-            var notification = new EventGuestNotificationFactory().Create(_clientConfig, eventDetails, adDetails,
-                eventUrl, eventBooking.GetFullName(), eventBookingTicket.GuestEmail);
+            var notification = new EventGuestNotificationFactory(_barcodeManager).Create(_clientConfig, eventDetails, eventBookingTicket, adDetails,
+                eventUrl, eventBooking.GetFullName());
             _broadcastManager.Queue(notification, eventBookingTicket.GuestEmail);
 
             return Json(true);
@@ -643,7 +645,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IDateService _dateService;
         private readonly IEventTicketReservationFactory _ticketReservationFactory;
         private readonly HttpContextBase _httpContext;
-        private readonly IEventBarcodeManager _barcodeManager;
+        private readonly IEventBarcodeManager _barcodeManager;  
 
         public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager, IEventManager eventManager, ITemplatingService templatingService, IUserManager userManager, IBroadcastManager broadcastManager, IDateService dateService, IEventTicketReservationFactory ticketReservationFactory, HttpContextBase httpContext, IEventBarcodeManager barcodeManager)
         {

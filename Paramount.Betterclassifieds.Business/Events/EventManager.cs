@@ -18,8 +18,9 @@ namespace Paramount.Betterclassifieds.Business.Events
         private readonly IBookingManager _bookingManager;
         private readonly ILocationService _locationService;
         private readonly IUserManager _userManager;
+        private readonly IEventBarcodeManager _eventBarcodeManager;
 
-        public EventManager(IEventRepository eventRepository, IDateService dateService, IClientConfig clientConfig, IDocumentRepository documentRepository, IBookingManager bookingManager, ILocationService locationService, IUserManager userManager)
+        public EventManager(IEventRepository eventRepository, IDateService dateService, IClientConfig clientConfig, IDocumentRepository documentRepository, IBookingManager bookingManager, ILocationService locationService, IUserManager userManager, IEventBarcodeManager eventBarcodeManager)
         {
             _eventRepository = eventRepository;
             _dateService = dateService;
@@ -28,6 +29,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             _bookingManager = bookingManager;
             _locationService = locationService;
             _userManager = userManager;
+            _eventBarcodeManager = eventBarcodeManager;
         }
 
         public EventModel GetEventDetailsForOnlineAdId(int onlineAdId, bool includeBookings = false)
@@ -277,7 +279,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         public IEnumerable<EventGuestDetails> BuildGuestList(int? eventId)
         {
             Guard.NotNull(eventId);
-            var eventModel = _eventRepository.GetEventDetails(eventId.GetValueOrDefault());
             var tickets = _eventRepository.GetEventBookingTicketsForEvent(eventId);
 
             return tickets.Select(t => new EventGuestDetails
@@ -285,7 +286,6 @@ namespace Paramount.Betterclassifieds.Business.Events
                 GuestFullName = t.GuestFullName,
                 GuestEmail = t.GuestEmail,
                 DynamicFields = t.TicketFieldValues,
-                BarcodeData = new TicketBarcodeService().Generate(eventModel, t),
                 TicketNumber = t.EventBookingTicketId,
                 TicketName = t.TicketName,
                 TotalTicketPrice = t.TotalPrice,

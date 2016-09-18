@@ -8,6 +8,7 @@ namespace Paramount.Betterclassifieds.Tests
     {
         public EventBookingTicketMockBuilder Default()
         {
+            WithTicketName("General Entry");
             WithEventBookingTicketId(1);
             WithGuestFullName("Foo Bar");
             WithGuestEmail("foo@bar.com");

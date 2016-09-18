@@ -129,17 +129,7 @@
 
                 <div class="well top-buffer-60">
                     <div class="row">
-                        <div class="col-xs-6" id="emailGuestsToggle">
-                            <input type="checkbox" data-bind="toggle: sendEmailToGuests"
-                                   data-onstyle="success"
-                                   data-on="Email Guests"
-                                   data-off="Don't Email" />
-
-                            <p class="help-block" data-bind="visible: sendEmailToGuests">Send an email to each guest with a calendar invitation</p>
-                            <p class="help-block" data-bind="visible: sendEmailToGuests() === false">Only the purchaser will be notified</p>
-
-                        </div>
-                        <div class="col-xs-6 text-right">
+                        <div class="col-xs-12 text-right">
                             <h4>Total Cost: <strong><span data-bind="text: $paramount.formatCurrency(totalCost())"></span></strong></h4>
                         </div>
                     </div>
@@ -186,8 +176,10 @@
 
             <div class="col-xs-12 col-sm-8 book-tickets-form">
                 <div class="alert alert-warning" data-bind="visible: requiresPayment">
-                    By proceeding to payment, you agree to the <a href="@Url.Terms()">terms and
-                        conditions</a> and are committed to purchase the tickets.
+                    By proceeding to payment, you agree to the <a href="@Url.Terms()">
+                        terms and
+                        conditions
+                    </a> and are committed to purchase the tickets.
                 </div>
 
                 <div class="pull-right" data-bind="visible: canContinue()">

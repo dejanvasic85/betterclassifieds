@@ -75,7 +75,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.Given("The user with username \"usr_change_password\" does not exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("The user with username \"usr_change_password\" and email \"usr_change@email.com\" doe" +
+                    "s not exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
  testRunner.And("I am a registered user with username \"usr_change_password\" and password \"usr_chan" +
                     "ge_password\" and email \"usr_change@email.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");

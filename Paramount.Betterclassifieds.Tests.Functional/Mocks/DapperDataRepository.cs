@@ -13,6 +13,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
     {
         private readonly ConnectionFactory _connectionFactory;
 
+
         // Used for membership database
         private Dictionary<RoleType, string> RoleProviderDictionary = new Dictionary<RoleType, string>
         {
@@ -22,6 +23,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
         public DapperDataRepository(ConnectionFactory connectionFactory)
         {
             _connectionFactory = connectionFactory;
+        }
+
+        public void SetClientConfig(string settingName, string settingValue)
+        {
+            using (var db = _connectionFactory.CreateClassifieds())
+            {
+                db.ExecuteSql("UPDATE AppSetting SET SettingValue = @settingValue WHERE AppKey = @settingName", new { settingValue, settingName });
+            }
         }
 
         public int AddPublicationIfNotExists(string publicationName, string publicationType = Constants.PublicationType.Newspaper, string frequency = Constants.FrequencyType.Weekly, int? frequencyValue = 3)
@@ -370,6 +379,7 @@ DELETE FROM [Event] WHERE EventId = @eventId;
 
 
         }
+
 
         public int AddCategoryIfNotExists(string subCategory, string parentCategory, string categoryAdType = "")
         {

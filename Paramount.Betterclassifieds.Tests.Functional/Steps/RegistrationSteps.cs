@@ -1,5 +1,6 @@
 ﻿using Paramount.Betterclassifieds.Tests.Functional.Base;
 using Paramount.Betterclassifieds.Tests.Functional.ContextData;
+using Paramount.Betterclassifieds.Tests.Functional.Features;
 using Paramount.Betterclassifieds.Tests.Functional.Mocks.Models;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Steps
@@ -34,11 +35,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             _userContext.Password = password;
             _userContext.Email = email;
         }
-        
-        [Given(@"The user with username ""(.*)"" does not exist")]
-        public void GivenTheUserWithUsernameDoesNotExist(string username)
+
+        [Given(@"The user with username ""(.*)"" and email ""(.*)"" does not exist")]
+        public void GivenTheUserWithUsernameDoesNotExist(string username, string email)
         {
-            _dataRepository.DropUserIfExists(username);
+            _dataRepository.DropUserIfExists(username, email);
         }
 
         [Given(@"I navigate to the registration page")]
@@ -54,6 +55,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             registrationPage.SetFirstName(firstName);
             registrationPage.SetLastName(lastName);
             registrationPage.SetPostcode(postcode);
+            registrationPage.SetPhone(telephone);
         }
 
         [Given(@"I have entered my account details ""(.*)"", ""(.*)""")]
@@ -80,8 +82,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Then(@"the user ""(.*)"" should be created successfully")]
         public void ThenTheUserShouldBeCreatedSuccessfully(string username)
         {
-            var registrationResult = _pageBrowser.WaitUntil(() => _dataRepository.RegistrationExistsForEmail(username));   
-            
+            var registrationResult = _pageBrowser.WaitUntil(() => _dataRepository.RegistrationExistsForEmail(username));
+
             // Assert
             Assert.That(registrationResult, Is.True);
         }
@@ -111,5 +113,18 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             Assert.That(registrationPage.IsCodeTextboxAvailable(), Is.True);
         }
 
+        [Then(@"I should be on page with url ""(.*)""")]
+        public void ThenIShouldBeOnPageWithUrl(string expectedUrl)
+        {
+            Assert.That(_pageBrowser.CurrentUrl(), Is.StringContaining(expectedUrl));
+        }
+
+        [Then(@"I should see the home page")]
+        public void ThenIShouldSeeTheHomePage()
+        {
+            var homePage = _pageBrowser.Init<HomeTestPage>();
+
+            Assert.That(homePage, Is.Not.Null);
+        }
     }
 }

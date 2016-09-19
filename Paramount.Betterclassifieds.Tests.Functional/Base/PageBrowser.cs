@@ -66,6 +66,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
             return (T)Activator.CreateInstance(typeOfPage, objectsToPassToCtor.ToArray());
         }
 
+        /// <summary>
+        /// Navigates to a page and constructs the page object
+        /// </summary>        
+        /// <param name="query">If the page requires a parameter, then object is required to do key/value replacement.</param>
         public TPage GoTo<TPage>(params object[] query) where TPage : ITestPage
         {
             var relativeUrl = typeof(TPage).GetCustomAttribute<NavRouteAttribute>().RelativeUrl;
@@ -73,6 +77,24 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
             WebDriver.Navigate().GoToUrl(fullPageUrl);
             return Init<TPage>(query: query);
         }
+
+        /// <summary>
+        /// Navigates to a particular page with an exact query string 
+        /// </summary>
+        public TPage GoTo<TPage>(string queryString) where TPage : ITestPage
+        {
+            var relativeUrl = typeof(TPage).GetCustomAttribute<NavRouteAttribute>().RelativeUrl;
+            if (!queryString.StartsWith("?"))
+            {
+                queryString += "?";
+            }
+            var fullPageUrl = GetBaseUrl().Append(relativeUrl).TrimEnd('/').Append(queryString);
+
+            WebDriver.Navigate().GoToUrl(fullPageUrl);
+
+            return Init<TPage>();
+        }
+
 
         public void NavigateTo<TPage>(params object[] query) where TPage : ITestPage
         {
@@ -132,6 +154,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
                 // Boom - the method kept returning false so return false!
                 return false;
             }
+        }
+
+        public string CurrentUrl()
+        {
+            return WebDriver.Url;
         }
     }
 }

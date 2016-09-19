@@ -10,6 +10,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
     /// </summary>
     internal interface ITestDataRepository
     {
+        // Client Config
+        void SetClientConfig(string settingName, string settingValue);
+
         // Categories
         int AddCategoryIfNotExists(string subCategory, string parentCategory, string categoryAdType = "");
         int? GetCategoryIdForTitle(string categoryName);
@@ -26,7 +29,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
         void DropOnlineAdIfExists(string adTitle);
 
         // Users
-        void DropUserIfExists(string username);
+        void DropUserIfExists(string username, string email);
         bool RegistrationExistsForEmail(string email);
         Guid? AddUserIfNotExists(string username, string password, string email, RoleType roleType);
         void DropUserNetwork(string userId, string userNetworkEmail);
@@ -58,6 +61,5 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
         // Address
         int AddAddress(object address);
 
-        
     }
 }

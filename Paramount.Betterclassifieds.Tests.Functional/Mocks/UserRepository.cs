@@ -13,13 +13,20 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 {
     internal partial class DapperDataRepository
     {
-        public void DropUserIfExists(string username)
+        public void DropUserIfExists(string username, string email)
         {
             // Drop from user table
             using (var db = _connectionFactory.CreateMembership())
             using (var scope = new TransactionScope())
             {
                 var userId = db.Query<Guid?>("SELECT UserId FROM aspnet_Users WHERE UserName = @username", new { username }).FirstOrDefault();
+
+                if (!userId.HasValue)
+                {
+                    // Also try to query the aspnet_Membership table (in case data got corrupt)
+                    userId = db.Query<Guid?>("SELECT UserId FROM aspnet_Membership WHERE Email = @email", new { email }).FirstOrDefault();
+                }
+
                 if (userId.HasValue)
                 {
                     db.Execute("DELETE FROM aspnet_Membership WHERE UserId = @userId", new { userId });
@@ -27,7 +34,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                     db.Execute("DELETE FROM UserProfile WHERE UserID = @userId", new { userId });
                 }
 
-                db.Execute("DELETE FROM Registration WHERE Email = @username", new { username });
+
+                db.Execute("DELETE FROM Registration WHERE Email = @email", new { email });
                 scope.Complete();
             }
         }
@@ -37,7 +45,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             using (var db = _connectionFactory.CreateMembership())
             {
                 return db.Query("SELECT Username FROM Registration WHERE Email = @email", new { email }).Any();
-
             }
         }
 

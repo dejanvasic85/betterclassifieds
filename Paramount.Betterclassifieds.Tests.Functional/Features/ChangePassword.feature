@@ -5,7 +5,7 @@
 
 @changePassword
 Scenario: Change password successfully
-	Given The user with username "usr_change_password" does not exist
+	Given The user with username "usr_change_password" and email "usr_change@email.com" does not exist
 	And I am a registered user with username "usr_change_password" and password "usr_change_password" and email "usr_change@email.com"
 	And I am logged in as the newly added user
 	When I navigate to relative url "Account/ChangePassword"

@@ -42,6 +42,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         [FindsBy(How = How.Id, Using = "btnRegister"), UsedImplicitly]
         private IWebElement RegisterButton;
 
+        [FindsBy(How = How.Id, Using = "Phone"), UsedImplicitly]
+        private IWebElement PhoneInputElement;
+
         #endregion
 
         #region Driving Methods
@@ -84,6 +87,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
         public void ClickRegister()
         {
             RegisterButton.Click();
+        }
+
+        public RegisterNewUserTestPage SetPhone(string telephone)
+        {
+            PhoneInputElement.FillText(telephone);
+            return this;
         }
 
         #endregion

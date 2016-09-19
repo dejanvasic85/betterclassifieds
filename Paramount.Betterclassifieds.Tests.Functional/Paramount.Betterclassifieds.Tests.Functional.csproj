@@ -134,6 +134,8 @@
     <Compile Include="Pages\Events\ManageGroupsPage.cs" />
     <Compile Include="Pages\Events\ManageGroupsSteps.cs" />
     <Compile Include="Pages\Events\RemoveGuestCompletePage.cs" />
+    <Compile Include="Pages\HomeTestPage.cs" />
+    <Compile Include="Steps\AppSettingSteps.cs" />
     <Compile Include="Steps\BookTicketsFromInviteSteps.cs" />
     <Compile Include="Pages\Events\EventInvitePage.cs" />
     <Compile Include="Pages\Events\AddGuestPage.cs" />

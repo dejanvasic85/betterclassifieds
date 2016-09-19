@@ -110,7 +110,7 @@ namespace Paramount
 
         public static string Append(this string source, string value)
         {
-            return string.Format("{0}{1}", source, value);
+            return $"{source}{value}";
         }
 
         public static string Prefix(this string source, string prefixValue)

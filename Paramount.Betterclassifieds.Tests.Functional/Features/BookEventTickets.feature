@@ -18,12 +18,11 @@ Scenario: View event and book two tickets with successful payment
 	And I navigate to "/Event/the-opera/adId"
 	When I select "2" "General Admission" tickets
 	And enter the email "guest@event.com" and name "Guest FoEvent" for the second guest
-	And choose to email all guests
 	And my details are prefilled so I proceed to payment
 	And paypal payment is completed
 	Then I should see a ticket purchased success page
 	And the tickets should be booked
-	And When selecting "Table 1" for guest "bddTicketBuyer bddTicketBuyer"
+	When When selecting "Table 1" for guest "bddTicketBuyer bddTicketBuyer"
 	Then ticket with full name "bddTicketBuyer bddTicketBuyer" should be assigned to a group
 	
 

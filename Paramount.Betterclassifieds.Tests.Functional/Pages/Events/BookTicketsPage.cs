@@ -31,13 +31,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         public IWebElement PhoneNumberElement { get; set; }
 
 
-        public BookTicketsPage WithEmailGuests(bool emailGuests = true)
-        {
-            var toggleBtn = new ToggleButton(EmailGuestsButton);
-            toggleBtn.Toggle(emailGuests);
-            return this;
-        }
-
         public BookTicketsPage ProceedToPayment()
         {
             CheckoutButton.ClickOnElement();

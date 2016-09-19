@@ -97,12 +97,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 .WithSecondGuest(email, fullName);
         }
 
-        [When(@"choose to email all guests")]
-        public void WhenChooseToEmailAllGuests()
-        {
-            _pageBrowser.Init<BookTicketsPage>()
-                .WithEmailGuests();
-        }
 
         [When(@"my details are prefilled so I proceed to payment")]
         public void WhenMyDetailsArePrefilledSoIProceedToPayment()
@@ -123,7 +117,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             Assert.That(eventBookedPage.GetSuccessText(), Is.EquivalentTo("You have tickets to The Opera"));
         }
 
-        [Then(@"When selecting ""(.*)"" for guest ""(.*)""")]
+        [When(@"When selecting ""(.*)"" for guest ""(.*)""")]
         public void ThenWhenSelectingForGuest(string groupName, string guestFullName)
         {
             var eventBookedPage = _pageBrowser.Init<EventBookedPage>();

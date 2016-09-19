@@ -30,7 +30,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                 if (userId.HasValue)
                 {
                     Console.WriteLine("Dropping User " + userId);
-                    var param = new {userId};
+                    var param = new { userId };
 
                     db.ExecuteSql("DELETE FROM aspnet_Membership WHERE UserId = @userId", param);
                     db.ExecuteSql("DELETE FROM aspnet_Users WHERE UserId = @userId", param);
@@ -41,8 +41,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                     Console.WriteLine("User " + email + " not found.");
                 }
 
+                var registrations = db.Query<int?>("SELECT RegistrationId from [Registration] where Email = @email", new { email }).ToList();
+                foreach (var registrationId in registrations)
+                {
+                    db.ExecuteSql("DELETE FROM Registration WHERE RegistrationId = @registrationId", new { registrationId });
+                }
 
-                db.ExecuteSql("DELETE FROM Registration WHERE Email = @email", new { email });
                 scope.Complete();
             }
         }

@@ -13,7 +13,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             _repository = repository;
         }
 
-        [Given(@"setting ""(.*)"" is set to ""(.*)""")]
+        [Given(@"client setting ""(.*)"" is set to ""(.*)""")]
         public void GivenSettingIsSetToFalse(string settingName, string settingValue)
         {
             _repository.SetClientConfig(settingName, settingValue);

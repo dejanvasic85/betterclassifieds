@@ -8,7 +8,8 @@ Feature: bookEventTickets
 
 @BookTickets
 Scenario: View event and book two tickets with successful payment
-	Given I am a registered user with username "bddTicketBuyer" and password "bddTicketBuyer" and email "bdd@TicketBuyer.com"
+	Given client setting "Events.EnablePayPalPayments" is set to "true"
+	And I am a registered user with username "bddTicketBuyer" and password "bddTicketBuyer" and email "bdd@TicketBuyer.com"
 	And I am logged in as "bddTicketBuyer" with password "bddTicketBuyer"
 	And an event ad titled "The Opera" exists 
 	And the event does not include a transaction fee

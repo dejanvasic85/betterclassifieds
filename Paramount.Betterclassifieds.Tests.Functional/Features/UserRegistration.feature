@@ -6,7 +6,7 @@ Feature: UserRegistration
 
 Scenario: Create new account successfully
 	Given The user with username "bdduser" and email "bdd@somefakeaddress.com" does not exist
-	And setting "Security.EnableRegistrationEmailVerification" is set to "true"
+	And client setting "Security.EnableRegistrationEmailVerification" is set to "true"
 	And I navigate to the registration page
 	And I have entered my personal details "Bdd FirstName", "Bdd Lastname", "1 Anderson Road", "Sydney", "NSW", "2000", "02 9999 9999"
 	And I have entered my account details "bdd@somefakeaddress.com", "password123"
@@ -17,7 +17,7 @@ Scenario: Create new account successfully
 
 Scenario: Create user without confirmation
 	Given The user with username "bdduser" and email "bdd@somefakeaddress.com" does not exist
-	And setting "Security.EnableRegistrationEmailVerification" is set to "false"
+	And client setting "Security.EnableRegistrationEmailVerification" is set to "false"
 	And I navigate to the registration page
 	And I have entered my personal details "Bdd FirstName", "Bdd Lastname", "1 Anderson Road", "Sydney", "NSW", "2000", "02 9999 9999"
 	And I have entered my account details "bdd@somefakeaddress.com", "password123"

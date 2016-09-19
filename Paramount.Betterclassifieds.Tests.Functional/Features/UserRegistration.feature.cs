@@ -78,7 +78,7 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.Given("The user with username \"bdduser\" and email \"bdd@somefakeaddress.com\" does not exi" +
                     "st", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
- testRunner.And("setting \"Security.EnableRegistrationEmailVerification\" is set to \"true\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("client setting \"Security.EnableRegistrationEmailVerification\" is set to \"true\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 10
  testRunner.And("I navigate to the registration page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 11
@@ -109,7 +109,7 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.Given("The user with username \"bdduser\" and email \"bdd@somefakeaddress.com\" does not exi" +
                     "st", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 20
- testRunner.And("setting \"Security.EnableRegistrationEmailVerification\" is set to \"false\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("client setting \"Security.EnableRegistrationEmailVerification\" is set to \"false\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 21
  testRunner.And("I navigate to the registration page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 22

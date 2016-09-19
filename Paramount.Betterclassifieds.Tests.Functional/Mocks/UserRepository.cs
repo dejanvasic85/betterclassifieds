@@ -19,23 +19,30 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             using (var db = _connectionFactory.CreateMembership())
             using (var scope = new TransactionScope())
             {
-                var userId = db.Query<Guid?>("SELECT UserId FROM aspnet_Users WHERE UserName = @username", new { username }).FirstOrDefault();
+                var userId = db.Query<Guid?>("SELECT UserId FROM aspnet_Users WHERE UserName = @username", new { username }).SingleOrDefault();
 
                 if (!userId.HasValue)
                 {
                     // Also try to query the aspnet_Membership table (in case data got corrupt)
-                    userId = db.Query<Guid?>("SELECT UserId FROM aspnet_Membership WHERE Email = @email", new { email }).FirstOrDefault();
+                    userId = db.Query<Guid?>("SELECT UserId FROM aspnet_Membership WHERE Email = @email", new { email }).SingleOrDefault();
                 }
 
                 if (userId.HasValue)
                 {
-                    db.Execute("DELETE FROM aspnet_Membership WHERE UserId = @userId", new { userId });
-                    db.Execute("DELETE FROM aspnet_Users WHERE UserId = @userId", new { userId });
-                    db.Execute("DELETE FROM UserProfile WHERE UserID = @userId", new { userId });
+                    Console.WriteLine("Dropping User " + userId);
+                    var param = new {userId};
+
+                    db.ExecuteSql("DELETE FROM aspnet_Membership WHERE UserId = @userId", param);
+                    db.ExecuteSql("DELETE FROM aspnet_Users WHERE UserId = @userId", param);
+                    db.ExecuteSql("DELETE FROM UserProfile WHERE UserID = @userId", param);
+                }
+                else
+                {
+                    Console.WriteLine("User " + email + " not found.");
                 }
 
 
-                db.Execute("DELETE FROM Registration WHERE Email = @email", new { email });
+                db.ExecuteSql("DELETE FROM Registration WHERE Email = @email", new { email });
                 scope.Complete();
             }
         }
@@ -69,7 +76,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                 }
 
                 MembershipCreateStatus createStatus;
-                membershipProvider.CreateUser(username, password, username, null, null, true, Guid.NewGuid(), out createStatus);
+                membershipProvider.CreateUser(username, password, email, null, null, true, Guid.NewGuid(), out createStatus);
 
                 userId = db.Query<Guid?>("SELECT UserId FROM aspnet_Users WHERE UserName = @username", new { username }).First();
 

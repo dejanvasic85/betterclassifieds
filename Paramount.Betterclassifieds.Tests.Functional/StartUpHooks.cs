@@ -143,7 +143,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             var dataRepository = DataRepositoryFactory.Create(_configuration);
 
             // Setup a demo user
-            dataRepository.AddUserIfNotExists(TestData.DefaultUsername, TestData.DefaultPassword, TestData.UserEmail, RoleType.Advertiser);
+            dataRepository.DropCreateUser(TestData.DefaultUsername, TestData.DefaultPassword, TestData.UserEmail, RoleType.Advertiser);
         }
 
         #endregion

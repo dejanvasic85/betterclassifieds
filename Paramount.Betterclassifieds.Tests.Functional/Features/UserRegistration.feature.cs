@@ -75,7 +75,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Features
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.Given("The user with username \"bdd\" and email \"bdd@somefakeaddress.com\" does not exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("The user with username \"bdd\" and email \"bdd@user.com\" does not exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
  testRunner.And("client setting \"Security.EnableRegistrationEmailVerification\" is set to \"true\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 10
@@ -84,13 +84,13 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.And("I have entered my personal details \"Bdd FirstName\", \"Bdd Lastname\", \"1 Anderson R" +
                     "oad\", \"Sydney\", \"NSW\", \"2000\", \"02 9999 9999\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 12
- testRunner.And("I have entered my account details \"bdd@somefakeaddress.com\", \"password123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I have entered my account details \"bdd@user.com\", \"password123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 13
  testRunner.When("I click register button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 14
- testRunner.Then("the user \"bdd@somefakeaddress.com\" should be created successfully", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the user \"bdd@user.com\" should be created successfully", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 15
- testRunner.And("a registration email should be sent to \"bdd@somefakeaddress.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("a registration email should be sent to \"bdd@user.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 16
  testRunner.And("I should see a code confirmation page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
@@ -105,7 +105,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 18
 this.ScenarioSetup(scenarioInfo);
 #line 19
- testRunner.Given("The user with username \"bdd\" and email \"bdd@somefakeaddress.com\" does not exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("The user with username \"bdd\" and email \"bdd@user.com\" does not exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 20
  testRunner.And("client setting \"Security.EnableRegistrationEmailVerification\" is set to \"false\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 21
@@ -114,11 +114,11 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.And("I have entered my personal details \"Bdd FirstName\", \"Bdd Lastname\", \"1 Anderson R" +
                     "oad\", \"Sydney\", \"NSW\", \"2000\", \"02 9999 9999\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 23
- testRunner.And("I have entered my account details \"bdd@somefakeaddress.com\", \"password123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I have entered my account details \"bdd@user.com\", \"password123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 24
  testRunner.When("I click register button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 25
- testRunner.Then("the user \"bdd@somefakeaddress.com\" should be created successfully", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the user \"bdd@user.com\" should be created successfully", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 26
  testRunner.And("I should see the home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden

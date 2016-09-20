@@ -29,7 +29,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [Given(@"I am a registered user with username ""(.*)"" and password ""(.*)"" and email ""(.*)""")]
         public void GivenIAmARegisteredUserWithUsernameAndPassword(string username, string password, string email)
         {
-            _dataRepository.AddUserIfNotExists(username, password, email, RoleType.Advertiser);
+            _dataRepository.DropCreateUser(username, password, email, RoleType.Advertiser);
 
             _userContext.Username = username;
             _userContext.Password = password;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,9 +33,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                     Console.WriteLine("Dropping User " + userId);
                     var param = new { userId };
 
-                    db.ExecuteSql("DELETE FROM aspnet_Membership WHERE UserId = @userId", param);
-                    db.ExecuteSql("DELETE FROM aspnet_Users WHERE UserId = @userId", param);
-                    db.ExecuteSql("DELETE FROM UserProfile WHERE UserID = @userId", param);
+                    db.Execute("DELETE FROM aspnet_Membership WHERE UserId = @userId", param);
+                    db.Execute("DELETE FROM aspnet_Users WHERE UserId = @userId", param);
+                    db.Execute("DELETE FROM UserProfile WHERE UserID = @userId", param);
                 }
                 else
                 {
@@ -44,7 +45,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                 var registrations = db.Query<int?>("SELECT RegistrationId from [Registration] where Email = @email", new { email }).ToList();
                 foreach (var registrationId in registrations)
                 {
-                    db.ExecuteSql("DELETE FROM Registration WHERE RegistrationId = @registrationId", new { registrationId });
+                    db.Execute("DELETE FROM Registration WHERE RegistrationId = @registrationId", new { registrationId });
                 }
 
                 scope.Complete();
@@ -59,8 +60,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             }
         }
 
-        public Guid? AddUserIfNotExists(string username, string password, string email, RoleType roleType)
+        public Guid? DropCreateUser(string username, string password, string email, RoleType roleType)
         {
+            DropUserIfExists(username, email);
+
             using (var db = _connectionFactory.CreateMembership())
             using (var scope = new TransactionScope())
             {
@@ -70,19 +73,17 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 
                 var applicationName = membershipProvider.ApplicationName;
                 var applicationId = db.Query<Guid?>("SELECT ApplicationId FROM aspnet_Applications WHERE ApplicationName = @applicationName", new { applicationName }).FirstOrDefault();
-                Guid? userId;
-                if (applicationId.HasValue)
-                {
-                    userId = db.Query<Guid?>("SELECT UserId FROM aspnet_Users WHERE UserName = @username AND ApplicationId = @applicationId", new { username, applicationId }).FirstOrDefault();
 
-                    if (userId.HasValue)
-                        return userId;
-                }
+                if (!applicationId.HasValue)
+                    throw new Exception("The membership is not setup and application Id is NULL");
 
                 MembershipCreateStatus createStatus;
                 membershipProvider.CreateUser(username, password, email, null, null, true, Guid.NewGuid(), out createStatus);
 
-                userId = db.Query<Guid?>("SELECT UserId FROM aspnet_Users WHERE UserName = @username", new { username }).First();
+                var userId = db.Query<Guid?>("SELECT UserId FROM aspnet_Users WHERE UserName = @username", new { username }).First();
+
+                if (createStatus != MembershipCreateStatus.Success)
+                    throw new MembershipCreateUserException("unable to create the user. Status is " + createStatus);
 
                 string sql = string.Format(
                     "INSERT INTO {0} (UserID, FirstName, LastName, Email, PostCode, ProfileVersion, LastUpdatedDate) VALUES ('{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}')",

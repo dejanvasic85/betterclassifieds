@@ -31,7 +31,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
         // Users
         void DropUserIfExists(string username, string email);
         bool RegistrationExistsForEmail(string email);
-        Guid? AddUserIfNotExists(string username, string password, string email, RoleType roleType);
+        Guid? DropCreateUser(string username, string password, string email, RoleType roleType);
         void DropUserNetwork(string userId, string userNetworkEmail);
         int AddUserNetworkIfNotExists(string username, string email, string fullName);
 

@@ -71,11 +71,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                 if (membershipProvider == null)
                     throw new NullReferenceException();
 
-                var applicationName = membershipProvider.ApplicationName;
-                var applicationId = db.Query<Guid?>("SELECT ApplicationId FROM aspnet_Applications WHERE ApplicationName = @applicationName", new { applicationName }).FirstOrDefault();
+                //var applicationName = membershipProvider.ApplicationName;
+                //var applicationId = db.Query<Guid?>("SELECT ApplicationId FROM aspnet_Applications WHERE ApplicationName = @applicationName", new { applicationName }).FirstOrDefault();
 
-                if (!applicationId.HasValue)
-                    throw new Exception("The membership is not setup and application Id is NULL");
+                //if (!applicationId.HasValue)
+                //    throw new Exception("The membership is not setup and application Id is NULL");
 
                 MembershipCreateStatus createStatus;
                 membershipProvider.CreateUser(username, password, email, null, null, true, Guid.NewGuid(), out createStatus);

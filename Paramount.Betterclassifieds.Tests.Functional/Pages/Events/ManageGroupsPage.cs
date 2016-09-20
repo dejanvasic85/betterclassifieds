@@ -70,7 +70,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
                 var attrValue = ticketCheckboxElement.GetAttribute("data-ticketName");
                 if (selectedTickets.Any(st => st.Equals(attrValue, StringComparison.OrdinalIgnoreCase)))
                 {
-                    ticketCheckboxElement.Click();
+                    _webDriver.ScrollElementToMiddle(ticketCheckboxElement).ClickOnElement();
                 }
             }
             return this;

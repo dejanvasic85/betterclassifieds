@@ -16,14 +16,10 @@
 
         me.startOrder = function (element, event) {
             var $btn = $(event.target).button('loading');
-            $btn.button('loading');
             _.remove(me.tickets(), function (t) {
                 return t.selectedQuantity() === undefined || t.selectedQuantity() === 0;
             });
-            eventService.startTicketOrder(ko.toJSON(me)).then(function (resp) {
-                if (resp.nextUrl) {
-                    return;
-                }
+            eventService.startTicketOrder(ko.toJSON(me)).error(function () {
                 $btn.button('reset');
             });
         }

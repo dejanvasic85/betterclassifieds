@@ -6,21 +6,21 @@
     }
 
     EventService.prototype.startTicketOrder = function (order) {
-        return $paramount.httpPost(this.baseUrl + 'Event/ReserveTickets', order);
+        return $paramount.httpPost(this.baseUrl + 'event/reserveTickets', order);
     }
 
     EventService.prototype.bookTickets = function (ticketBookingDetails) {
-        return $paramount.httpPost(this.baseUrl + 'Event/BookTickets', ticketBookingDetails);
+        return $paramount.httpPost(this.baseUrl + 'event/bookTickets', ticketBookingDetails);
     }
 
     EventService.prototype.updateTicket = function (ticketDetails) {
-        return $paramount.httpPost(this.baseUrl + 'EditAd/EventTicketUpdate', {
+        return $paramount.httpPost(this.baseUrl + 'editAd/eventTicketUpdate', {
             id: ticketDetails.adId, eventTicketViewModel: ticketDetails
         });
     }
 
     EventService.prototype.payWithPayPal = function () {
-        return $paramount.httpPost(this.baseUrl + 'Event/PayWithPayPal');
+        return $paramount.httpPost(this.baseUrl + 'event/payWithPayPal');
     }
 
     EventService.prototype.getFieldsForTicket = function (eventTicketId) {

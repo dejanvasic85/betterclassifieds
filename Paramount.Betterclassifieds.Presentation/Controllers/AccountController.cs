@@ -11,30 +11,40 @@
         private readonly IUserManager _userManager;
         private readonly IAuthManager _authManager;
         private readonly IBroadcastManager _broadcastManager;
+        private readonly IClientConfig _clientConfig;
 
         public const string ReturnUrlKey = "ReturnUrlForLogin";
 
-        public AccountController(IUserManager userManager, IAuthManager authManager, IBroadcastManager broadcastManager)
+        public AccountController(IUserManager userManager, IAuthManager authManager, IBroadcastManager broadcastManager, IClientConfig clientConfig)
         {
             _userManager = userManager;
             _authManager = authManager;
             _broadcastManager = broadcastManager;
+            _clientConfig = clientConfig;
         }
 
         [HttpGet]
         [RequireHttps]
         public ActionResult Login(string returnUrl = "")
         {
-            if (_authManager.IsUserIdentityLoggedIn(this.User))
-                return RedirectToAction("Index", "Home");
+            if (_authManager.IsUserIdentityLoggedIn(User))
+            {
+                return Url.Home().ToRedirectResult();
+            }
 
             if (returnUrl.HasValue())
             {
                 TempData[ReturnUrlKey] = returnUrl;
             }
 
+            var loginMsgFactory = new LoginMessageFactory(_clientConfig);
+
             // Render Login page
-            return View(new LoginOrRegisterModel { LoginViewModel = new LoginViewModel { ReturnUrl = returnUrl } });
+            return View(new LoginOrRegisterModel
+            {
+                LoginViewModel = new LoginViewModel { ReturnUrl = returnUrl },
+                LoginHelpMessage = loginMsgFactory.Get(returnUrl)
+            });
         }
 
         [HttpPost]

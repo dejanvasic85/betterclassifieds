@@ -129,9 +129,8 @@
                         if (resp.nextUrl) {
                             return;
                         }
-                        $btn.button('reset');
                     })
-                    .always(function () {
+                    .error(function () {
                         $btn.button('reset');
                     });
             }

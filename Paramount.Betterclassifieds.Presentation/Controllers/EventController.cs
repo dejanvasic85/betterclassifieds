@@ -75,7 +75,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(new { NextUrl = Url.Action("BookTickets", "Event") });
         }
 
-        [HttpGet, EnsurePaymentNotInProgress]
+        [HttpGet, EnsurePaymentNotInProgress, Authorize]
         public ActionResult BookTickets(bool? paymentCancelled = null)
         {
             var ticketReservations = _eventManager.GetTicketReservations(_httpContext.With(s => s.Session).SessionID).ToList();
@@ -122,7 +122,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View(viewModel);
         }
 
-        [HttpPost, EnsurePaymentNotInProgress]
+        [HttpPost, EnsurePaymentNotInProgress, Authorize]
         public ActionResult BookTickets(BookTicketsRequestViewModel bookTicketsViewModel)
         {
             if (!ModelState.IsValid)
@@ -189,7 +189,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View();
         }
 
-        [HttpGet, EventBookingRequired]
+        [HttpGet, EventBookingRequired, Authorize]
         public ActionResult EventBooked()
         {
             var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.GetValueOrDefault());

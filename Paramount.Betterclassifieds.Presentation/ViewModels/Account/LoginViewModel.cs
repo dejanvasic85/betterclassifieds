@@ -18,5 +18,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
 
         [HiddenInput]
         public string ReturnUrl { get; set; }
+        
     }
 }

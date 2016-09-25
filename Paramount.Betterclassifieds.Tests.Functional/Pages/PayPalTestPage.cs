@@ -25,7 +25,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
 
         public PayPalTestPage WithEmailAddress(string email)
         {
-            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(10));
+            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(20));
             var element = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("email")));
             element.SendKeys(email);
             return this;

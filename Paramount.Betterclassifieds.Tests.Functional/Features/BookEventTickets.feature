@@ -33,7 +33,7 @@ Scenario: Register before booking tickets
 	And with a ticket option "General Admission" for "0" dollars each and "50" available
 	When I navigate to "/Event/register-before-buying-tickets/adId"
 	And I select "2" "General Admission" tickets
-	Then I should be on registration page
+	Then I should be on the registration page
 
 
 @IncludeTransaction

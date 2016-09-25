@@ -5,10 +5,17 @@ namespace Paramount.Betterclassifieds.Tests
 {
     public static class ActionResultAssertExtensions
     {
-        public static void IsRedirectingTo(this ActionResult actionResult, string expected)
+        public static void IsRedirectingTo(this ActionResult actionResult, string expectedUrlPath)
         {
             var redirectResult = (RedirectResult)actionResult;
-            Assert.That(redirectResult.Url, Is.EqualTo(expected));
+            Assert.That(redirectResult.Url, Is.EqualTo(expectedUrlPath));
+        }
+
+        public static void IsRedirectingTo(this ActionResult actionResult, string controller, string action)
+        {
+            var redirectResult = (RedirectToRouteResult)actionResult;
+            redirectResult.RouteValues["controller"].IsEqualTo(controller);
+            redirectResult.RouteValues["action"].IsEqualTo(action);
         }
         
         public static TExpected ViewResultModelIsTypeOf<TExpected>(this ActionResult actionResult)

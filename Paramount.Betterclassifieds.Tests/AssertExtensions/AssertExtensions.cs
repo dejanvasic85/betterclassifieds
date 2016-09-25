@@ -51,6 +51,7 @@ namespace Paramount.Betterclassifieds.Tests
             Assert.That(target, Is.EqualTo(expected), message, parameters);
             return target;
         }
+        
         #endregion
 
         #region IsNotEqualTo

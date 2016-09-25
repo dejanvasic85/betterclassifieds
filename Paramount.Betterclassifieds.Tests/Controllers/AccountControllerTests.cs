@@ -26,10 +26,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var result = controller.Login(string.Empty);
 
             // assert
-            result.IsTypeOf<RedirectToRouteResult>();
-            var redirectResult = (RedirectToRouteResult)result;
-            redirectResult.RouteValues.ElementAt(0).Value.IsEqualTo("Index");
-            redirectResult.RouteValues.ElementAt(1).Value.IsEqualTo("Home");
+            result.IsRedirectingTo("home", "index");
         }
 
         [Test]
@@ -179,6 +176,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IBroadcastManager> _mockBroadcastMgr;
         private Mock<ISearchService> _searchServiceMgr;
         private Mock<IPrincipal> _mockLoggedInUser;
+        private Mock<IClientConfig> _mockClientConfig;
 
         [SetUp]
         public void SetupCotroller()
@@ -188,6 +186,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _mockAuthMgr = CreateMockOf<IAuthManager>();
             _mockBroadcastMgr = CreateMockOf<IBroadcastManager>();
             _searchServiceMgr = CreateMockOf<ISearchService>();
+            _mockClientConfig = CreateMockOf<IClientConfig>();
         }
     }
 }

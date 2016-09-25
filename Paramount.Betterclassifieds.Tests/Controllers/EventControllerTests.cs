@@ -187,8 +187,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _userManager.SetupWithVerification(call => call.GetCurrentUser(It.IsAny<IPrincipal>()), mockApplicationUser);
             _clientConfig.SetupWithVerification(call => call.EventTicketReservationExpiryMinutes, 10);
             _appConfig.SetupWithVerification(call => call.Brand, "HelloBrand");
-            _mockUser.SetupIdentityCall();
-
+            _eventBookingContext.SetupWithVerification(call => call.EventInvitationId, null);
+            
             // act
             var result = BuildController(mockUser: _mockUser).BookTickets();
 

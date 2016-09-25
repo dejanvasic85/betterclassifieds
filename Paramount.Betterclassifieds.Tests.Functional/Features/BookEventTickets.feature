@@ -33,7 +33,7 @@ Scenario: Register before booking tickets
 	And with a ticket option "General Admission" for "0" dollars each and "50" available
 	When I navigate to "/Event/register-before-buying-tickets/adId"
 	And I select "2" "General Admission" tickets
-	Then I should be on page with url "/Account/Login"
+	Then I should be on registration page
 
 
 @IncludeTransaction
@@ -67,5 +67,5 @@ Scenario: Invitation exists and is used to book tickets
 	When I navigate to the page for the new invitaton
 	Then It should display the invitation page with event title "Event with Invite"
 	When selecting to purchase the "VIP" ticket
-	#Then I should be on the book tickets page 
+	Then I should be on the registration page
 	Then I should be on page with url "/Account/Login"

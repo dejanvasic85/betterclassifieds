@@ -1,17 +1,14 @@
-﻿using Paramount.Betterclassifieds.Tests.Functional.Base;
+﻿using System;
+using System.Linq;
+using NUnit.Framework;
+using Paramount.Betterclassifieds.Tests.Functional.Base;
 using Paramount.Betterclassifieds.Tests.Functional.ContextData;
-using Paramount.Betterclassifieds.Tests.Functional.Features;
 using Paramount.Betterclassifieds.Tests.Functional.Mocks.Models;
+using Paramount.Betterclassifieds.Tests.Functional.Pages;
+using TechTalk.SpecFlow;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Steps
 {
-    using Mocks;
-    using NUnit.Framework;
-    using Pages;
-    using System;
-    using System.Linq;
-    using TechTalk.SpecFlow;
-
     [Binding]
     internal class RegistrationSteps
     {
@@ -103,28 +100,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             Assert.That(isRegistrationEmailQueued, Is.True);
         }
 
-        [Then(@"I should see a code confirmation page")]
-        public void ThenIShouldSeeACodeConfirmationPage()
-        {
-            var registrationPage = _pageBrowser.Init<RegistrationConfirmationPage>();
 
-            Assert.That(registrationPage.GetConfirmationText(), Is.EqualTo("We sent you an email with a confirmation code. In order for us to ensure that the email belongs to you, please copy the number from the email in to the form below."));
-            Assert.That(registrationPage.GetThankYouHeading(), Is.EqualTo("Confirmation Required"));
-            Assert.That(registrationPage.IsCodeTextboxAvailable(), Is.True);
-        }
-
-        [Then(@"I should be on page with url ""(.*)""")]
-        public void ThenIShouldBeOnPageWithUrl(string expectedUrl)
-        {
-            Assert.That(_pageBrowser.CurrentUrl(), Is.StringContaining(expectedUrl));
-        }
-
-        [Then(@"I should see the home page")]
-        public void ThenIShouldSeeTheHomePage()
-        {
-            var homePage = _pageBrowser.Init<HomeTestPage>();
-
-            Assert.That(homePage, Is.Not.Null);
-        }
     }
 }

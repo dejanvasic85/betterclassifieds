@@ -223,8 +223,8 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.Then("It should display the invitation page with event title \"Event with Invite\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 69
  testRunner.When("selecting to purchase the \"VIP\" ticket", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 70
- testRunner.Then("I should be on the book tickets page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 71
+ testRunner.Then("I should be on page with url \"/Account/Login\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

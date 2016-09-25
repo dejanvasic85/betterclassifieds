@@ -29,6 +29,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
                 throw new NoSuchElementException("Cannot find the button for the ticket " + ticketName);
 
             ticketCallToAction.Click();
+            _webDriver.WaitForJqueryAjax();
+
             return this;
         }
 

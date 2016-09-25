@@ -7,6 +7,7 @@ Feature: bookEventTickets
 	So that I can go to the event
 
 @BookTickets
+@ignore
 Scenario: View event and book two tickets with successful payment
 	Given client setting "Events.EnablePayPalPayments" is set to "true"
 	And I am a registered user with username "bddTicketBuyer" and password "bddTicketBuyer" and email "bdd@TicketBuyer.com"
@@ -68,4 +69,3 @@ Scenario: Invitation exists and is used to book tickets
 	Then It should display the invitation page with event title "Event with Invite"
 	When selecting to purchase the "VIP" ticket
 	Then I should be on the registration page
-	Then I should be on page with url "/Account/Login"

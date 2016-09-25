@@ -89,19 +89,15 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var remainingTimeToCompleteBooking = _eventManager.GetRemainingTimeForReservationCollection(ticketReservations);
 
             // Construct the view model
-            ApplicationUser applicationUser = null;
+            ApplicationUser applicationUser = _userManager.GetCurrentUser(User);
             UserNetworkModel userNetwork = null;
-            if (this.User.Identity.IsAuthenticated)
-            {
-                applicationUser = _userManager.GetCurrentUser(User);
-            }
-            else if (_eventBookingContext.EventInvitationId.HasValue)
+            
+            if (_eventBookingContext.EventInvitationId.HasValue)
             {
                 var invitation = _eventManager.GetEventInvitation(_eventBookingContext.EventInvitationId.Value);
                 userNetwork = _userManager.GetUserNetwork(invitation.UserNetworkId);
             }
 
-            // Construct the view model
             var viewModel = new BookTicketsViewModel(onlineAdModel, eventDetails, _clientConfig, _appConfig,
                 applicationUser, ticketReservations, userNetwork)
             {
@@ -130,24 +126,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return Json(new { Errors = ModelState.ToErrors() });
             }
 
-            ApplicationUser applicationUser;
-            if (!User.Identity.IsAuthenticated)
-            {
-                var registrationModel = this.Map<BookTicketsRequestViewModel, RegistrationModel>(bookTicketsViewModel);
-                var result = _userManager.LoginOrRegister(registrationModel, bookTicketsViewModel.Password);
-
-                if (result.LoginResult == LoginResult.BadUsernameOrPassword)
-                {
-                    return Json(new { LoginFailed = true });
-                }
-
-                applicationUser = result.ApplicationUser;
-            }
-            else
-            {
-                applicationUser = _userManager.GetUserByEmailOrUsername(User.Identity.Name);
-            }
-
+            var applicationUser = _userManager.GetUserByEmailOrUsername(User.Identity.Name);
+            
             // Convert from view model
             var currentReservations = _eventManager.GetTicketReservations(_httpContext.With(ctx => ctx.Session).SessionID).ToArray();
 

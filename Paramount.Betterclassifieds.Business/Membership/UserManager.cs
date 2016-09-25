@@ -198,6 +198,7 @@ namespace Paramount.Betterclassifieds.Business
             original.BankAccountName = applicationUser.BankAccountName;
             original.BankAccountNumber = applicationUser.BankAccountNumber;
             original.BankBsbNumber = applicationUser.BankBsbNumber;
+            original.Phone = applicationUser.Phone;
 
             // Update
             _userRepository.UpdateUserProfile(original);

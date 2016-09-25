@@ -30,12 +30,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
 
         public static bool IsJqueryDefined(this IJavaScriptExecutor executor)
         {
-            return (bool)executor.ExecuteScript("return jQuery !== undefined");
+            return (bool)executor.ExecuteScript("return jQuery !== undefined;");
         }
 
         public static bool IsJqueryAjaxComplete(this IJavaScriptExecutor executor)
         {
-            return (bool)executor.ExecuteScript("return jQuery.active === 0");
+            return (bool)executor.ExecuteScript("return jQuery.active === 0;");
         }
 
         public static void ExecuteJavaScript(this IWebDriver driver, string script, params object[] args)
@@ -53,13 +53,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
 
         public static IWebElement ScrollElementToMiddle(this IWebDriver driver, IWebElement element)
         {
-            //   driver.ExecuteJavaScript("window.scrollTo(0, (arguments[0].offsetTop + ( arguments[0].offsetParent ? arguments[0].offsetParent.documentOffsetTop() : 0 )) - (window.innerHeight / 2))", element);
-            driver.ExecuteJavaScript(@"
-var el = arguments[0];
-var top = el.offsetTop + ( el.offsetParent ? el.offsetParent.offsetTop : 0 );
-var scrollPosition = top - (window.innerHeight / 2);
-window.scrollTo(0, scrollPosition);", element);
-            Thread.Sleep(500);
+            driver.ExecuteJavaScript("window.scrollTo(0, $(arguments[0]).offset().top - (window.innerHeight / 2));", element);
+            Thread.Sleep(150);
             return element;
         }
 

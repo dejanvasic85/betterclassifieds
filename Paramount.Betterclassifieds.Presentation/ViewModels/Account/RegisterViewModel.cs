@@ -59,6 +59,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         [Display(Name = "Phone Number")]
         [RegularExpression(@"^\d+$", ErrorMessage = "Phone must be a number")]
         [StringLength(12)]
+        [Required]
         public string Phone { get; set; }
 
         [HiddenInput]

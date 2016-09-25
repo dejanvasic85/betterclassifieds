@@ -27,6 +27,15 @@ Scenario: View event and book two tickets with successful payment
 	Then ticket with full name "bddTicketBuyer bddTicketBuyer" should be assigned to a group
 	
 
+@BookTickets
+Scenario: Register before booking tickets
+	Given an event ad titled "Register before buying tickets" exists
+	And with a ticket option "General Admission" for "0" dollars each and "50" available
+	When I navigate to "/Event/register-before-buying-tickets/adId"
+	And I select "2" "General Admission" tickets
+	Then I should be on page with url "/Account/Login"
+
+
 @IncludeTransaction
 Scenario: View event ad with transaction fee should increase the price of tickets
 	Given an event ad titled "The Opera 2" exists

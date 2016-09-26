@@ -41,7 +41,9 @@ namespace Paramount.Betterclassifieds.Business.Events
         public string VenueName { get; set; }
 
         public string VenueNameAndLocation => VenueName.HasValue()
-            ? $"{VenueName} - {Location}"
-            : Location;
+            ? $"{VenueName} - {LocationWithoutAustralia}"
+            : LocationWithoutAustralia;
+        
+        public string LocationWithoutAustralia => Location.Replace(", Australia", string.Empty);
     }
 }

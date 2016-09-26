@@ -72,7 +72,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             _eventManager.ReserveTickets(sessionId, reservations);
-            return Json(new { NextUrl = Url.Action("BookTickets", "Event") });
+            return Json(new { NextUrl = Url.EventBookTickets().Build() });
         }
 
         [HttpGet, EnsurePaymentNotInProgress, Authorize]
@@ -91,7 +91,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             // Construct the view model
             ApplicationUser applicationUser = _userManager.GetCurrentUser(User);
             UserNetworkModel userNetwork = null;
-            
+
             if (_eventBookingContext.EventInvitationId.HasValue)
             {
                 var invitation = _eventManager.GetEventInvitation(_eventBookingContext.EventInvitationId.Value);
@@ -127,7 +127,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             var applicationUser = _userManager.GetUserByEmailOrUsername(User.Identity.Name);
-            
+
             // Convert from view model
             var currentReservations = _eventManager.GetTicketReservations(_httpContext.With(ctx => ctx.Session).SessionID).ToArray();
 
@@ -152,7 +152,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventBookingContext.EventId = bookTicketsViewModel.EventId.GetValueOrDefault();
             _eventBookingContext.EventBookingId = eventBooking.EventBookingId;
             _eventBookingContext.Purchaser = bookTicketsViewModel.FullName;
-            
+            _eventBookingContext.SendEmailToGuests = bookTicketsViewModel.SendEmailToGuests;
+
             if (eventBooking.Status == EventBookingStatus.Active)
             {
                 // No payment required so return a redirect to action json object
@@ -200,11 +201,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _broadcastManager.Queue(eventTicketsBookedNotification, eventBooking.Email);
             _eventManager.CreateEventTicketsDocument(eventBooking.EventBookingId, ticketPdfData, ticketsSentDate: DateTime.Now);
 
-            foreach (var ticket in eventBooking.EventBookingTickets)
+            if (_eventBookingContext.SendEmailToGuests)
             {
-                var eventUrl = Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, adDetails.CategoryAdType).WithFullUrl();
-                var notification = new EventGuestNotificationFactory(_barcodeManager).Create(_clientConfig, eventDetails, ticket, adDetails, eventUrl, _eventBookingContext.Purchaser);
-                _broadcastManager.Queue(notification, ticket.GuestEmail);
+                foreach (var ticket in eventBooking.EventBookingTickets)
+                {
+                    var eventUrl = Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, adDetails.CategoryAdType).WithFullUrl();
+                    var notification = new EventGuestNotificationFactory(_barcodeManager).Create(_clientConfig, eventDetails, ticket, adDetails, eventUrl, _eventBookingContext.Purchaser);
+                    _broadcastManager.Queue(notification, ticket.GuestEmail);
+                }
             }
 
             _eventBookingContext.EventBookingComplete = true;

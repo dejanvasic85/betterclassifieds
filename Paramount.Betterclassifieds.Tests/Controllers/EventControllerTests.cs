@@ -208,6 +208,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var mockBookTicketsRequestViewModel = new BookTicketsRequestViewModel
             {
                 EventId = mockEvent.EventId,
+                SendEmailToGuests = true,
                 Reservations = new List<EventTicketReservedViewModel>
                 {
                     new EventTicketReservedViewModel

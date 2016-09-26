@@ -15,25 +15,14 @@ namespace Paramount.Betterclassifieds.Console
         {
             var program = new Program();
             program.RegisterContainer();
-            
+
             try
             {
 #if DEBUG
-                if (args.Length  == 0)
+                if (args.Length == 0)
                 {
-                    //args = new []
-                    //{
-                    //     TaskArguments.TaskFullArgName, nameof(Tasks.CopyDb),
-                    //    "-dir", "C:\\temp",
-                    //    "-username", "dejan.vasic",
-                    //    "-password", "xxxxx",
-                    //    "-site", "ftp://kandobay.com.au",
-                    //    "-files", "KandoBay_Release_AppUser1.bak"
-                    //};
-                    args = new[]
-                    {
-                        TaskArguments.TaskFullArgName, nameof(EmailProcessor),
-                    };
+                    // args = BuildCopyDbArgs();
+                    args = BuildEmailArgs();
                 }
 #endif
 
@@ -50,6 +39,27 @@ namespace Paramount.Betterclassifieds.Console
                 ex.ToEventLog();
 #endif
             }
+        }
+
+        private static string[] BuildCopyDbArgs()
+        {
+            return new[]
+            {
+                TaskArguments.TaskFullArgName, nameof(Tasks.CopyDb),
+                "-dir", "C:\\temp",
+                "-username", "dejan.vasic",
+                "-password", "xxxxx",
+                "-site", "ftp://kandobay.com.au",
+                "-files", "KandoBay_Release_AppUser1.bak"
+            };
+        }
+
+        private static string[] BuildEmailArgs()
+        {
+            return new[]
+            {
+                TaskArguments.TaskFullArgName, nameof(EmailProcessor),
+            };
         }
 
         public void Start(string[] args)

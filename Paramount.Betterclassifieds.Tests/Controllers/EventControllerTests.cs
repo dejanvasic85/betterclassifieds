@@ -188,7 +188,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _clientConfig.SetupWithVerification(call => call.EventTicketReservationExpiryMinutes, 10);
             _appConfig.SetupWithVerification(call => call.Brand, "HelloBrand");
             _eventBookingContext.SetupWithVerification(call => call.EventInvitationId, null);
-            
+
             // act
             var result = BuildController(mockUser: _mockUser).BookTickets();
 
@@ -240,6 +240,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventBookingContext.SetupSet(p => p.EventId = It.IsAny<int?>());
             _eventBookingContext.SetupSet(p => p.EventBookingId = It.IsAny<int?>());
             _eventBookingContext.SetupSet(p => p.Purchaser = It.IsAny<string>());
+            _eventBookingContext.SetupSet(p => p.SendEmailToGuests = It.Is<bool>(val => val));
+
 
 
             // act
@@ -298,6 +300,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventBookingContext.SetupSet(p => p.EventBookingId = It.IsAny<int?>());
             _eventBookingContext.SetupSet(p => p.Purchaser = It.IsAny<string>());
             _eventBookingContext.SetupSet(p => p.EventBookingPaymentReference = It.IsAny<string>());
+            _eventBookingContext.SetupSet(p => p.SendEmailToGuests = It.IsAny<bool>());
 
             // act
             var controller = BuildController(mockUser: _mockUser);
@@ -340,6 +343,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             // arrange service calls ( obviously theres a lot going on here and we should refactor this to use event sourcing)
             _eventBookingContext.SetupWithVerification(call => call.EventBookingId, eventBookingMock.EventBookingId);
             _eventBookingContext.SetupWithVerification(call => call.Purchaser, "George Clooney");
+            _eventBookingContext.SetupWithVerification(call => call.SendEmailToGuests, true);
             _eventBookingContext.SetupSet<bool>(s => s.EventBookingComplete = true);
 
             _httpContext.SetupWithVerification(call => call.Session.SessionID, sessionMock);

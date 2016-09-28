@@ -8,16 +8,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 {
     public class EventGuestNotificationFactory
     {
-        private readonly IEventBarcodeManager _eventBarcodeManager;
-
-        public EventGuestNotificationFactory(IEventBarcodeManager eventBarcodeManager)
-        {
-            _eventBarcodeManager = eventBarcodeManager;
-        }
-
-
         public EventGuestNotification Create(IClientConfig config,
-            EventModel eventModel, EventBookingTicket eventBookingTicket, AdSearchResult ad, string eventUrl, string purchaserName)
+            EventModel eventModel, EventBookingTicket eventBookingTicket, AdSearchResult ad,
+            string eventUrl, string purchaserName)
         {
             var notification = new EventGuestNotification
             {
@@ -28,8 +21,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 Location = eventModel.Location,
                 EventStartDate = $"{eventModel.EventStartDate:dd-MMM-yyyy h:mm tt} {eventModel.TimeZoneName}",
                 EventEndDate = $"{eventModel.EventEndDate:dd-MMM-yyyy h:mm tt} {eventModel.TimeZoneName}",
-                BarcodeImageData = _eventBarcodeManager.GenerateBase64StringImageData(eventModel, eventBookingTicket, 250, 250),
-                TicketType = eventBookingTicket.TicketName
+                // BarcodeImageData = _eventBarcodeManager.GenerateBase64StringImageData(eventModel, eventBookingTicket, 250, 250),
+                TicketType = eventBookingTicket.TicketName,
+                GuestEmail = eventBookingTicket.GuestEmail
             };
 
             var calendarAttachmentContent = new AttachmentFactory().CreateCalendarInvite(config.ClientName,

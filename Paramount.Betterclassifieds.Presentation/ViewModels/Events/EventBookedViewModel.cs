@@ -14,7 +14,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public EventBookedViewModel()
         { }
 
-        public EventBookedViewModel(AdSearchResult adDetails, EventModel eventDetails, EventBooking eventBooking, UrlHelper urlHelper, IClientConfig clientConfig, HttpContextBase httpContext, IEnumerable<EventGroup> groups)
+        public EventBookedViewModel(AdSearchResult adDetails, EventModel eventDetails, EventBooking eventBooking, IClientConfig clientConfig, HttpContextBase httpContext, IEnumerable<EventGroup> groups)
         {
             EventName = adDetails.Heading;
             CustomerEmailAddress = eventBooking.Email;
@@ -29,7 +29,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             EndDateTime = eventDetails.EventEndDate.GetValueOrDefault();
             EventPhoto = adDetails.PrimaryImage;
             EventHasGroups = groups != null && groups.Any();
-            
+
+            var urlHelper = new UrlHelper(httpContext.Request.RequestContext);
             EventUrl = urlHelper.AdUrl(adDetails.HeadingSlug, adDetails.AdId, adDetails.CategoryAdType).WithFullUrl();
             EventPhotoUrl = urlHelper.ImageOriginal(adDetails.PrimaryImage).WithFullUrl();
             Title = adDetails.Heading;

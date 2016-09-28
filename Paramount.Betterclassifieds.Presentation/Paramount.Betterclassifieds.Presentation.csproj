@@ -322,6 +322,7 @@
     <Compile Include="ViewModels\Events\EventGuestListDownloadViewModel.cs" />
     <Compile Include="ViewModels\Events\EventGuestListViewModel.cs" />
     <Compile Include="ViewModels\Events\EventGuestNotificationFactory.cs" />
+    <Compile Include="ViewModels\Events\EventNotificationFactory.cs" />
     <Compile Include="ViewModels\Events\EventPaymentRequestViewModel.cs" />
     <Compile Include="ViewModels\Events\EventPaymentSummaryViewModel.cs" />
     <Compile Include="ViewModels\Events\EventTicketFieldViewModel.cs" />
@@ -337,7 +338,7 @@
     <Compile Include="ViewModels\Booking\Step2View.cs" />
     <Compile Include="ViewModels\Booking\Step3View.cs" />
     <Compile Include="ViewModels\Booking\SuccessView.cs" />
-    <Compile Include="ViewModels\Events\Factories\EventTicketPrintViewModelFactory.cs" />
+    <Compile Include="ViewModels\Events\EventTicketPrintViewModelFactory.cs" />
     <Compile Include="ViewModels\Events\GroupSelectionViewModel.cs" />
     <Compile Include="ViewModels\Events\MakePaymentViewModel.cs" />
     <Compile Include="ViewModels\Events\InvitationViewModel.cs" />

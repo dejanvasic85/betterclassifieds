@@ -398,7 +398,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (reservation.Status != EventTicketReservationStatus.Reserved)
                 ModelState.AddModelError("SelectedTicket", "The selected ticket could not be reserved");
 
-            var currentUser = _userManager.GetCurrentUser(this.User);
+            var currentUser = _userManager.GetCurrentUser();
             reservation.GuestFullName = viewModel.GuestFullName;
             reservation.GuestEmail = viewModel.GuestEmail;
             reservation.EventGroupId = viewModel.SelectedGroup.With(g => g.EventGroupId);
@@ -409,15 +409,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var eventBooking = _eventManager.CreateEventBooking(viewModel.EventId.GetValueOrDefault(), currentUser, new[] { reservation });
             _eventManager.AdjustRemainingQuantityAndCancelReservations(_httpContext.Session?.SessionID, eventBooking.EventBookingTickets);
 
-            var eventModel = _eventManager.GetEventDetails(viewModel.EventId.GetValueOrDefault());
-            var adDetails = _searchService.GetByAdId(id);
-            var eventTicketPrintViewModels = new ViewModels.Events.Factories.EventTicketPrintViewModelFactory().FromEventBooking(Url, _barcodeManager, adDetails, eventModel, eventBooking);
-            var ticketHtml = _templatingService.Generate(eventTicketPrintViewModels, "~/Views/Event/Tickets.cshtml");
-            var ticketPdfData = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(ticketHtml);
-            var notification = CreateNotification(viewModel, eventModel, adDetails,
-                Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, adDetails.CategoryAdType).WithFullUrl(),
-                ticketPdfData);
-            _broadcastManager.Queue(notification, viewModel.GuestEmail);
+
+            var purchaserNotification = _eventNotificationBuilder.SetEventBooking(eventBooking.EventBookingId)
+                .CreateTicketPurchaserNotification();
+            _broadcastManager.Queue(purchaserNotification, viewModel.GuestEmail);
+
+            var guestNotifications = _eventNotificationBuilder.CreateEventGuestNotifications();
+            guestNotifications.ForEach(g => _broadcastManager.Queue(g, g.GuestEmail));
+
 
             return Json(true);
         }
@@ -448,9 +447,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 var eventGroup = Task.Run(() => _eventManager.GetEventGroup(vm.GroupId.Value)).Result;
                 if (!eventGroup.IsAvailable())
-                {
                     ModelState.AddModelError("groupId", "The selected group is no longer available");
-                }
             }
 
             if (!ModelState.IsValid)
@@ -471,15 +468,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             if (vm.SendEmailToGuest)
             {
-                var adDetails = _searchService.GetByAdId(id);
-                var eventBooking = _eventManager.GetEventBooking(vm.EventBookingId);
-                var eventDetails = eventBooking.Event;
-
-                var eventUrl = Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, adDetails.CategoryAdType).WithFullUrl();
-                var notification = new EventGuestNotificationFactory(_barcodeManager)
-                    .Create(_clientConfig, eventDetails, eventBookingTicket, adDetails, eventUrl, eventBooking.Email);
-
-                _broadcastManager.Queue(notification, vm.GuestEmail);
+                _eventNotificationBuilder
+                    .SetEventBooking(vm.EventBookingId)
+                    .CreateEventGuestNotifications()
+                    .ForEach(notification => _broadcastManager.Queue(notification, notification.GuestEmail));
             }
 
             return Json(new { eventBookingTicketId = eventBookingTicket.EventBookingTicketId });
@@ -496,7 +488,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 var adDetails = _searchService.GetByAdId(id);
                 var eventModel = _eventManager.GetEventDetailsForOnlineAdId(adDetails.OnlineAdId);
 
-                _broadcastManager.Queue(new EventGuestNotificationFactory(_barcodeManager).CreateGuestRemovedNotification(
+                _broadcastManager.Queue(new EventGuestNotificationFactory().CreateGuestRemovedNotification(
                     new UrlHelper(_httpContext.Request.RequestContext), adDetails, eventModel, eventBookingTicket),
                     to: eventBookingTicket.GuestEmail);
             }
@@ -511,16 +503,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost, ActionName("resend-guest-email")]
         public ActionResult ResendGuestEmail(int id, int eventBookingTicketId)
         {
-            var adDetails = _searchService.GetByAdId(id);
             var eventBookingTicket = _eventManager.GetEventBookingTicket(eventBookingTicketId);
-            var eventBooking = _eventManager.GetEventBooking(eventBookingTicket.EventBookingId);
-            var eventDetails = eventBooking.Event;
-            
-            var eventUrl = Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, adDetails.CategoryAdType).WithFullUrl();
-            var notification = new EventGuestNotificationFactory(_barcodeManager).Create(_clientConfig, eventDetails, eventBookingTicket, adDetails,
-                eventUrl, eventBooking.GetFullName());
-            _broadcastManager.Queue(notification, eventBookingTicket.GuestEmail);
+            var notification = _eventNotificationBuilder
+                .SetEventBooking(eventBookingTicket.EventBookingId)
+                .CreateEventGuestNotifications()
+                .SingleOrDefault();
 
+            _broadcastManager.Queue(notification, eventBookingTicket.GuestEmail);
             return Json(true);
         }
 
@@ -645,9 +634,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IDateService _dateService;
         private readonly IEventTicketReservationFactory _ticketReservationFactory;
         private readonly HttpContextBase _httpContext;
-        private readonly IEventBarcodeManager _barcodeManager;  
+        private readonly IEventBarcodeManager _barcodeManager;
+        private readonly EventNotificationBuilder _eventNotificationBuilder;
 
-        public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager, IEventManager eventManager, ITemplatingService templatingService, IUserManager userManager, IBroadcastManager broadcastManager, IDateService dateService, IEventTicketReservationFactory ticketReservationFactory, HttpContextBase httpContext, IEventBarcodeManager barcodeManager)
+        public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager, IEventManager eventManager, ITemplatingService templatingService, IUserManager userManager, IBroadcastManager broadcastManager, IDateService dateService, IEventTicketReservationFactory ticketReservationFactory, HttpContextBase httpContext, IEventBarcodeManager barcodeManager, EventNotificationBuilder eventNotificationBuilder)
         {
             _searchService = searchService;
             _applicationConfig = applicationConfig;
@@ -660,6 +650,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _ticketReservationFactory = ticketReservationFactory;
             _httpContext = httpContext;
             _barcodeManager = barcodeManager;
+            _eventNotificationBuilder = eventNotificationBuilder;
             _templatingService = templatingService.Init(this); // This service is tightly coupled to an mvc controller
         }
     }

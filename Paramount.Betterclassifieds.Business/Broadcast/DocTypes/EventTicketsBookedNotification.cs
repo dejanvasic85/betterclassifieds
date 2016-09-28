@@ -40,8 +40,12 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         [Placeholder("EventUrl")]
         public string EventUrl { get; set; }
         
+        public byte[] TicketPdfData { get; private set; }
+
         public EventTicketsBookedNotification WithTickets(byte[] ticketsPdfFileContent)
         {
+            TicketPdfData = ticketsPdfFileContent;
+
             Attachments.Add(
                 new EmailAttachment
                 {

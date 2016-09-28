@@ -39,6 +39,8 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         [Placeholder("BarcodeImageData")]
         public string  BarcodeImageData { get; set; }
 
+        public string GuestEmail { get; set; }
+
         public EventGuestNotification WithCalendarInvite(byte[] calendarContent)
         {
             Attachments.Add(

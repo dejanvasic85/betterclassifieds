@@ -27,7 +27,8 @@ namespace Paramount.Betterclassifieds.Tests
         #region AreEqual
         public static string AreEqual(this string target, string expected, bool ignoreCase, string message = null, params object[] parameters)
         {
-            Assert.AreEqual(expected, target);
+            Assert.That(target, ignoreCase ? Is.EqualTo(expected).IgnoreCase : Is.EqualTo(expected));
+
             return target;
         }
 
@@ -42,7 +43,7 @@ namespace Paramount.Betterclassifieds.Tests
         #region IsEqualTo
         public static string IsEqualTo(this string target, string expected, bool ignoreCase, string message = null, params object[] parameters)
         {
-            Assert.AreEqual(expected, target);
+            Assert.That(target, ignoreCase ? Is.EqualTo(expected).IgnoreCase : Is.EqualTo(expected));
             return target;
         }
 
@@ -51,13 +52,13 @@ namespace Paramount.Betterclassifieds.Tests
             Assert.That(target, Is.EqualTo(expected), message, parameters);
             return target;
         }
-        
+
         #endregion
 
         #region IsNotEqualTo
         public static string IsNotEqualTo(this string target, string expected, bool ignoreCase, string message = null, params object[] parameters)
         {
-            Assert.AreNotEqual(expected, target);
+            Assert.That(target, ignoreCase ? Is.Not.EqualTo(expected).IgnoreCase : Is.Not.EqualTo(expected));
             return target;
         }
 
@@ -127,6 +128,5 @@ namespace Paramount.Betterclassifieds.Tests
                 IsTrue(predicate(item));
             }
         }
-
     }
 }

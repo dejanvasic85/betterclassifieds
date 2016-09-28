@@ -289,6 +289,21 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var result = controller.AddGuest(123, mockRequest);
         }
 
+        [Test]
+        public void EditGuest_Get_WithUnknownTicketId_Returns_404()
+        {
+            // arrange
+            _eventManagerMock.SetupWithVerification(
+                call => call.GetEventBookingTicket(It.IsAny<int>()), null);
+
+            // act
+            var controller = BuildController();
+            var result = controller.EditGuest(id: 100, ticketNumber: 200);
+
+            // assert
+            result.IsRedirectingTo("error", "notfound");
+        }
+
         private Mock<ISearchService> _searchServiceMock;
         private Mock<IApplicationConfig> _applicationConfigMock;
         private Mock<IClientConfig> _clientConfigMock;

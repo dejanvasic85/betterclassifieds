@@ -1,17 +1,16 @@
-﻿using System.Collections.Generic;
-
-namespace Paramount.Betterclassifieds.Presentation.Controllers
+﻿namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     using Business;
     using Business.DocumentStorage;
     using Framework;
     using System;
-    using System.IO;
-    using System.Web.Mvc;
-    using System.Linq;
-    using System.Web;
+    using System.Collections.Generic;
     using System.Drawing;
     using System.Drawing.Imaging;
+    using System.IO;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Mvc;
 
     public class ImageController : Controller
     {

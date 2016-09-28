@@ -75,8 +75,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var result = BuildController().ViewEventAd(mockAdId);
 
             // assert
-            var redirectResult = result.IsTypeOf<RedirectToRouteResult>();
-            redirectResult.RedirectResultIsNotFound();
+            result.IsRedirectingTo("error", "notfound");
         }
 
         [Test]
@@ -161,7 +160,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventManager.SetupWithVerification(call => call.GetTicketReservations(It.Is<string>(p => p == mockSessionId)), new List<EventTicketReservation>());
 
             var result = BuildController().BookTickets();
-            result.IsTypeOf<RedirectToRouteResult>().RedirectResultIsNotFound();
+
+            result.IsRedirectingTo("error", "notfound");
         }
 
         [Test]
@@ -405,8 +405,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var result = controller.AuthorisePayPal("payer123");
 
             // assert
-            var redirectResult = result.IsTypeOf<RedirectToRouteResult>();
-            redirectResult.RedirectResultActionIs("EventBooked");
+            result.IsRedirectingTo("Event", "EventBooked");
         }
 
         [Test]
@@ -419,8 +418,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var controller = BuildController();
             var result = controller.Invite(123);
 
-            var redirectResult = result.IsTypeOf<RedirectToRouteResult>();
-            redirectResult.RedirectResultIsNotFound();
+            result.IsRedirectingTo("error", "notfound");
         }
 
         [Test]

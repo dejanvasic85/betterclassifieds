@@ -7,39 +7,20 @@ namespace Paramount.Betterclassifieds.Tests
     {
         public static void IsRedirectingTo(this ActionResult actionResult, string expectedUrlPath)
         {
-            var redirectResult = (RedirectResult)actionResult;
-            Assert.That(redirectResult.Url, Is.EqualTo(expectedUrlPath));
+            var redirectResult = actionResult.IsTypeOf<RedirectResult>();
+            expectedUrlPath.IsEqualTo(expectedUrlPath, ignoreCase: true);
         }
 
         public static void IsRedirectingTo(this ActionResult actionResult, string controller, string action)
         {
-            var redirectResult = (RedirectToRouteResult)actionResult;
-            redirectResult.RouteValues["controller"].IsEqualTo(controller);
-            redirectResult.RouteValues["action"].IsEqualTo(action);
+            var redirectResult = actionResult.IsTypeOf<RedirectToRouteResult>();
+            redirectResult.RouteValues["controller"].ToString().IsEqualTo(controller, ignoreCase: true);
+            redirectResult.RouteValues["action"].ToString().IsEqualTo(action, ignoreCase: true);
         }
-        
+
         public static TExpected ViewResultModelIsTypeOf<TExpected>(this ActionResult actionResult)
         {
-            var viewResult = (ViewResult)actionResult;
-            var model = viewResult.Model;
-            Assert.That(model, Is.TypeOf<TExpected>());
-            return (TExpected)model;
-        }
-
-        public static void RedirectResultControllerIs(this RedirectToRouteResult result, string expectedController)
-        {
-            Assert.That(result.RouteValues["controller"], Is.EqualTo(expectedController));
-        }
-
-        public static void RedirectResultActionIs(this RedirectToRouteResult result, string expectedAction)
-        {
-            Assert.That(result.RouteValues["action"], Is.EqualTo(expectedAction));
-        }
-
-        public static void RedirectResultIsNotFound(this RedirectToRouteResult result)
-        {
-            RedirectResultControllerIs(result, "error");
-            RedirectResultActionIs(result, "notFound");
+            return actionResult.IsTypeOf<ViewResult>().IsTypeOf<TExpected>();
         }
     }
 }

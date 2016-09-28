@@ -174,41 +174,20 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult EventBooked()
         {
             var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.GetValueOrDefault());
-            var eventDetails = eventBooking.Event;
-            var adDetails = _searchService.GetByAdOnlineId(eventDetails.OnlineAdId);
             var sessionId = _httpContext.With(h => h.Session).SessionID;
-            var groups = Task.Run(() => _eventManager.GetEventGroups(eventBooking.EventId)).Result;
 
             _eventManager.AdjustRemainingQuantityAndCancelReservations(sessionId, eventBooking.EventBookingTickets);
+            _eventNotificationBuilder.SetEventBooking(_eventBookingContext.EventBookingId);
+            var viewModel =  _eventNotificationBuilder.EventBookedViewModel;
+            var ticketPurchaserNotification = _eventNotificationBuilder.CreateTicketPurchaserNotification();
 
-            var eventTicketViewModelFactory = new ViewModels.Events.Factories.EventTicketPrintViewModelFactory(_eventManager);
-            var eventTicketViewModel = eventTicketViewModelFactory.FromEventBooking(Url, _barcodeManager, adDetails, eventDetails, eventBooking);
-            var ticketHtml = _templatingService.Generate(eventTicketViewModel, "Tickets");
-            var ticketPdfData = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(ticketHtml);
-
-            var viewModel = new EventBookedViewModel(adDetails, eventDetails, eventBooking, this.Url, _clientConfig, _httpContext, groups);
-            var eventTicketsBookedNotification = this.Map<EventBookedViewModel, EventTicketsBookedNotification>(viewModel).WithTickets(ticketPdfData);
-
-            if (eventBooking.TotalCost > 0)
-            {
-                var applicationUser = _userManager.GetUserByEmailOrUsername(eventBooking.Email);
-                var invoiceViewModel = new EventBookingInvoiceViewModel(_clientConfig, eventBooking, applicationUser, adDetails.Heading);
-                var invoiceHtml = _templatingService.Generate(invoiceViewModel, "Invoice");
-                var invoicePdf = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(invoiceHtml);
-                eventTicketsBookedNotification.WithInvoice(invoicePdf);
-            }
-
-            _broadcastManager.Queue(eventTicketsBookedNotification, eventBooking.Email);
-            _eventManager.CreateEventTicketsDocument(eventBooking.EventBookingId, ticketPdfData, ticketsSentDate: DateTime.Now);
+            _broadcastManager.Queue(ticketPurchaserNotification, eventBooking.Email);
+            _eventManager.CreateEventTicketsDocument(eventBooking.EventBookingId, ticketPurchaserNotification.TicketPdfData, ticketsSentDate: DateTime.Now);
 
             if (_eventBookingContext.SendEmailToGuests)
             {
-                foreach (var ticket in eventBooking.EventBookingTickets)
-                {
-                    var eventUrl = Url.AdUrl(adDetails.HeadingSlug, adDetails.AdId, adDetails.CategoryAdType).WithFullUrl();
-                    var notification = new EventGuestNotificationFactory(_barcodeManager).Create(_clientConfig, eventDetails, ticket, adDetails, eventUrl, _eventBookingContext.Purchaser);
-                    _broadcastManager.Queue(notification, ticket.GuestEmail);
-                }
+                _eventNotificationBuilder.CreateEventGuestNotifications().ForEach(
+                    notification => _broadcastManager.Queue(notification, notification.GuestEmail));
             }
 
             _eventBookingContext.EventBookingComplete = true;
@@ -329,10 +308,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public ActionResult Tickets(int id)
         {
-            var eventBooking = _eventManager.GetEventBooking(id);
-            var eventDetails = eventBooking.Event;
-            var ad = _searchService.GetByAdOnlineId(eventDetails.OnlineAdId);
-            var viewModels = new ViewModels.Events.Factories.EventTicketPrintViewModelFactory().FromEventBooking(Url, _barcodeManager, ad, eventDetails, eventBooking);
+            var viewModels = _eventNotificationBuilder.SetEventBooking(id).CreateEventTicketPrintViewModels();
             return View(viewModels.ToList());
         }
 
@@ -425,8 +401,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IEventBarcodeManager _barcodeManager;
         private readonly IApplicationConfig _appConfig;
         private readonly ICreditCardService _creditCardService;
+        private readonly EventNotificationBuilder _eventNotificationBuilder;
 
-        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPayPalService payPalService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeManager barcodeManager, IApplicationConfig appConfig, ICreditCardService creditCardService)
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPayPalService payPalService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeManager barcodeManager, IApplicationConfig appConfig, ICreditCardService creditCardService, EventNotificationBuilder eventNotificationBuilder)
         {
             _searchService = searchService;
             _eventManager = eventManager;
@@ -442,6 +419,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _barcodeManager = barcodeManager;
             _appConfig = appConfig;
             _creditCardService = creditCardService;
+            _eventNotificationBuilder = eventNotificationBuilder;
             _templatingService = templatingService.Init(this); // This service is tightly coupled to an mvc controller
         }
 

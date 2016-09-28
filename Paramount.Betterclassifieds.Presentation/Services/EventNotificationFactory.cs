@@ -9,39 +9,51 @@ using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
-using Paramount.Betterclassifieds.Presentation.Services;
+using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 
-namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
+namespace Paramount.Betterclassifieds.Presentation.Services
 {
-    public class EventNotificationBuilder : IMappingBehaviour
+    public interface IEventNotificationBuilder
+    {
+        IEventNotificationBuilder WithEventBooking(int? eventBookingId);
+        IEventNotificationBuilder WithTemplateService(ITemplatingService templateService);
+        EventTicketsBookedNotification CreateTicketPurchaserNotification();
+        byte[] CreateTicketsAttachment();
+        IEnumerable<EventTicketPrintViewModel> CreateEventTicketPrintViewModels();
+        byte[] CreateInvoiceAttachment();
+        IEnumerable<EventGuestNotification> CreateEventGuestNotifications();
+        EventBookedViewModel CreateEventBookedViewModel();
+    }
+
+    public class EventNotificationBuilder : IMappingBehaviour, IEventNotificationBuilder
     {
         private readonly HttpContextBase _httpContextBase;
         private readonly IClientConfig _clientConfig;
         private readonly IEventManager _eventManager;
         private readonly ISearchService _searchService;
-        private readonly ITemplatingService _templateService;
         private readonly IUserManager _userManager;
+
+        private ITemplatingService _templateService;
+        private EventBookedViewModel _eventBookedViewModel;
 
         public EventNotificationBuilder(
             HttpContextBase httpContextBase,
-            ITemplatingService templateService,
             ISearchService searchService,
             IClientConfig clientConfig,
             IEventManager eventManager,
             IUserManager userManager)
         {
             _httpContextBase = httpContextBase;
-            _templateService = templateService;
             _searchService = searchService;
             _clientConfig = clientConfig;
             _eventManager = eventManager;
             _userManager = userManager;
         }
 
-        public int? EventBookingId { get; private set; }
-        public EventBookedViewModel EventBookedViewModel { get; private set; }
 
-        public EventNotificationBuilder SetEventBooking(int? eventBookingId)
+        public int? EventBookingId { get; private set; }
+
+        public IEventNotificationBuilder WithEventBooking(int? eventBookingId)
         {
             if (EventBookingId.HasValue && EventBookingId.Value == eventBookingId)
                 return this;
@@ -50,11 +62,30 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 throw new ArgumentException("Cannot set a different event booking at the moment. You can only do this once until we figure out how to reset lazy objects in a nice way...");
 
             EventBookingId = eventBookingId.GetValueOrDefault();
-            EventBookedViewModel = new EventBookedViewModel(Ad.Value, EventDetails.Value, EventBooking.Value, _clientConfig, _httpContextBase, EventGroups.Value);
+
+            CreateEventBookedViewModel();
 
             return this;
         }
 
+        public EventBookedViewModel CreateEventBookedViewModel()
+        {
+            if (_eventBookedViewModel != null)
+                return _eventBookedViewModel;
+
+            if (!EventBookingId.HasValue)
+                throw new NullReferenceException("Please call WithEventBooking before attempting to create the EventBookedViewModel");
+
+            _eventBookedViewModel = new EventBookedViewModel(Ad.Value, EventDetails.Value, EventBooking.Value, _clientConfig, _httpContextBase, EventGroups.Value);
+
+            return _eventBookedViewModel;
+        }
+
+        public IEventNotificationBuilder WithTemplateService(ITemplatingService templateService)
+        {
+            _templateService = templateService;
+            return this;
+        }
 
         private Lazy<EventBooking> EventBooking => new Lazy<EventBooking>(() =>
             {
@@ -86,7 +117,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
         public EventTicketsBookedNotification CreateTicketPurchaserNotification()
         {
-            var notification = this.Map<EventBookedViewModel, EventTicketsBookedNotification>(EventBookedViewModel)
+            var notification = this.Map<EventBookedViewModel, EventTicketsBookedNotification>(_eventBookedViewModel)
                 .WithTickets(CreateTicketsAttachment());
 
             if (EventBooking.Value.TotalCost > 0)

@@ -177,8 +177,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var sessionId = _httpContext.With(h => h.Session).SessionID;
 
             _eventManager.AdjustRemainingQuantityAndCancelReservations(sessionId, eventBooking.EventBookingTickets);
-            _eventNotificationBuilder.SetEventBooking(_eventBookingContext.EventBookingId);
-            var viewModel =  _eventNotificationBuilder.EventBookedViewModel;
+            _eventNotificationBuilder.WithEventBooking(_eventBookingContext.EventBookingId);
+            var viewModel =  _eventNotificationBuilder.CreateEventBookedViewModel();
             var ticketPurchaserNotification = _eventNotificationBuilder.CreateTicketPurchaserNotification();
 
             _broadcastManager.Queue(ticketPurchaserNotification, eventBooking.Email);
@@ -308,7 +308,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public ActionResult Tickets(int id)
         {
-            var viewModels = _eventNotificationBuilder.SetEventBooking(id).CreateEventTicketPrintViewModels();
+            var viewModels = _eventNotificationBuilder.WithEventBooking(id).CreateEventTicketPrintViewModels();
             return View(viewModels.ToList());
         }
 
@@ -397,13 +397,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IBroadcastManager _broadcastManager;
         private readonly IBookingManager _bookingManager;
         private readonly IEventTicketReservationFactory _eventTicketReservationFactory;
-        private readonly ITemplatingService _templatingService;
         private readonly IEventBarcodeManager _barcodeManager;
         private readonly IApplicationConfig _appConfig;
         private readonly ICreditCardService _creditCardService;
-        private readonly EventNotificationBuilder _eventNotificationBuilder;
+        private readonly IEventNotificationBuilder _eventNotificationBuilder;
 
-        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPayPalService payPalService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeManager barcodeManager, IApplicationConfig appConfig, ICreditCardService creditCardService, EventNotificationBuilder eventNotificationBuilder)
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPayPalService payPalService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeManager barcodeManager, IApplicationConfig appConfig, ICreditCardService creditCardService, IEventNotificationBuilder eventNotificationBuilder)
         {
             _searchService = searchService;
             _eventManager = eventManager;
@@ -415,13 +414,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _broadcastManager = broadcastManager;
             _bookingManager = bookingManager;
             _eventTicketReservationFactory = eventTicketReservationFactory;
-            _templatingService = templatingService;
             _barcodeManager = barcodeManager;
             _appConfig = appConfig;
             _creditCardService = creditCardService;
-            _eventNotificationBuilder = eventNotificationBuilder;
-            _templatingService = templatingService.Init(this); // This service is tightly coupled to an mvc controller
+            _eventNotificationBuilder = eventNotificationBuilder.WithTemplateService(templatingService.Init(this));
         }
-
     }
 }

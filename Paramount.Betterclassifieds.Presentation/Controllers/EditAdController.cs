@@ -396,7 +396,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var reservation = _ticketReservationFactory.CreateFreeReservation(_httpContext.Session?.SessionID, eventTicket);
 
             if (reservation.Status != EventTicketReservationStatus.Reserved)
+            {
                 ModelState.AddModelError("SelectedTicket", "The selected ticket could not be reserved");
+                return Json(ModelState.ToErrors());
+            }
 
             var currentUser = _userManager.GetCurrentUser();
             reservation.GuestFullName = viewModel.GuestFullName;
@@ -408,16 +411,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var eventBooking = _eventManager.CreateEventBooking(viewModel.EventId.GetValueOrDefault(), currentUser, new[] { reservation });
             _eventManager.AdjustRemainingQuantityAndCancelReservations(_httpContext.Session?.SessionID, eventBooking.EventBookingTickets);
-
-
-            var purchaserNotification = _eventNotificationBuilder.SetEventBooking(eventBooking.EventBookingId)
-                .CreateTicketPurchaserNotification();
+        
+            var purchaserNotification = _eventNotificationBuilder.WithEventBooking(eventBooking.EventBookingId).CreateTicketPurchaserNotification();
             _broadcastManager.Queue(purchaserNotification, viewModel.GuestEmail);
 
-            var guestNotifications = _eventNotificationBuilder.CreateEventGuestNotifications();
-            guestNotifications.ForEach(g => _broadcastManager.Queue(g, g.GuestEmail));
-
-
+            var guestNotification = _eventNotificationBuilder.CreateEventGuestNotifications().Single();
+            _broadcastManager.Queue(guestNotification, guestNotification.GuestEmail);
+            
             return Json(true);
         }
 
@@ -469,7 +469,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (vm.SendEmailToGuest)
             {
                 _eventNotificationBuilder
-                    .SetEventBooking(vm.EventBookingId)
+                    .WithEventBooking(vm.EventBookingId)
                     .CreateEventGuestNotifications()
                     .ForEach(notification => _broadcastManager.Queue(notification, notification.GuestEmail));
             }
@@ -505,7 +505,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var eventBookingTicket = _eventManager.GetEventBookingTicket(eventBookingTicketId);
             var notification = _eventNotificationBuilder
-                .SetEventBooking(eventBookingTicket.EventBookingId)
+                .WithEventBooking(eventBookingTicket.EventBookingId)
                 .CreateEventGuestNotifications()
                 .SingleOrDefault();
 
@@ -571,27 +571,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventManager.SetTransactionFee(eventId, includeTransactionFee);
             return Json(true);
         }
-
-        private EventTicketsBookedNotification CreateNotification(AddEventGuestViewModel viewModel, EventModel eventModel,
-            AdSearchResult ad, string eventUrl, byte[] ticketPdfData)
-        {
-            return new EventTicketsBookedNotification
-            {
-                CustomerEmailAddress = viewModel.GuestEmail,
-                CustomerFirstName = viewModel.FirstName,
-                CustomerLastName = viewModel.LastName,
-                StartDateTime = eventModel.EventStartDate.GetValueOrDefault(),
-                EndDateTime = eventModel.EventEndDate.GetValueOrDefault(),
-                EventName = ad.Heading,
-                EventUrl = eventUrl,
-                Address = eventModel.Location,
-                OrganiserName = ad.ContactName,
-                LocationLatitude = eventModel.LocationLatitude,
-                LocationLongitude = eventModel.LocationLongitude,
-                OrganiserEmail = ad.ContactEmail
-            }.WithTickets(ticketPdfData);
-        }
-
+        
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.RecognizeDestinationPrefixes("OnlineAd", "Line");
@@ -635,9 +615,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IEventTicketReservationFactory _ticketReservationFactory;
         private readonly HttpContextBase _httpContext;
         private readonly IEventBarcodeManager _barcodeManager;
-        private readonly EventNotificationBuilder _eventNotificationBuilder;
+        private readonly IEventNotificationBuilder _eventNotificationBuilder;
 
-        public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager, IEventManager eventManager, ITemplatingService templatingService, IUserManager userManager, IBroadcastManager broadcastManager, IDateService dateService, IEventTicketReservationFactory ticketReservationFactory, HttpContextBase httpContext, IEventBarcodeManager barcodeManager, EventNotificationBuilder eventNotificationBuilder)
+        public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager, IEventManager eventManager, ITemplatingService templatingService, IUserManager userManager, IBroadcastManager broadcastManager, IDateService dateService, IEventTicketReservationFactory ticketReservationFactory, HttpContextBase httpContext, IEventBarcodeManager barcodeManager, IEventNotificationBuilder eventNotificationBuilder)
         {
             _searchService = searchService;
             _applicationConfig = applicationConfig;
@@ -650,8 +630,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _ticketReservationFactory = ticketReservationFactory;
             _httpContext = httpContext;
             _barcodeManager = barcodeManager;
-            _eventNotificationBuilder = eventNotificationBuilder;
             _templatingService = templatingService.Init(this); // This service is tightly coupled to an mvc controller
+            _eventNotificationBuilder = eventNotificationBuilder.WithTemplateService(_templatingService);
         }
     }
 }

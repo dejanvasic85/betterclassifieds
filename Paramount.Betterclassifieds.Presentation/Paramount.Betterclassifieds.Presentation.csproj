@@ -322,7 +322,7 @@
     <Compile Include="ViewModels\Events\EventGuestListDownloadViewModel.cs" />
     <Compile Include="ViewModels\Events\EventGuestListViewModel.cs" />
     <Compile Include="ViewModels\Events\EventGuestNotificationFactory.cs" />
-    <Compile Include="ViewModels\Events\EventNotificationFactory.cs" />
+    <Compile Include="Services\EventNotificationFactory.cs" />
     <Compile Include="ViewModels\Events\EventPaymentRequestViewModel.cs" />
     <Compile Include="ViewModels\Events\EventPaymentSummaryViewModel.cs" />
     <Compile Include="ViewModels\Events\EventTicketFieldViewModel.cs" />

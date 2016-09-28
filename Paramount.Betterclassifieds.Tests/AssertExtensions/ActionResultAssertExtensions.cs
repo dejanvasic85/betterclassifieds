@@ -20,7 +20,7 @@ namespace Paramount.Betterclassifieds.Tests
 
         public static TExpected ViewResultModelIsTypeOf<TExpected>(this ActionResult actionResult)
         {
-            return actionResult.IsTypeOf<ViewResult>().IsTypeOf<TExpected>();
+            return actionResult.IsTypeOf<ViewResult>().Model.IsTypeOf<TExpected>();
         }
     }
 }

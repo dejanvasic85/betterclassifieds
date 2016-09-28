@@ -101,6 +101,7 @@
                 .RegisterType<ITemplatingService, TemplatingService>()
                 .RegisterType<ILocationService, LocationService>()
                 .RegisterType<ISitemapFactory, SitemapFactory>()
+                .RegisterType<IEventNotificationBuilder, EventNotificationBuilder>()
                 ;
 
             return container;

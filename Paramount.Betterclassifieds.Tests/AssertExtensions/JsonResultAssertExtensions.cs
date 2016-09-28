@@ -8,8 +8,7 @@ namespace Paramount.Betterclassifieds.Tests
     {
         public static void JsonResultContains(this ActionResult actionResult, string expected)
         {
-            var jsonResult = (JsonResult)actionResult;
-            Assert.That(jsonResult.Data.ToString(), Is.StringContaining(expected));
+            actionResult.IsTypeOf<JsonResult>().Data.ToString().IsEqualTo(expected, ignoreCase: true);
         }
 
         public static void JsonResultDoesNotContain(this ActionResult actionResult, string expected)

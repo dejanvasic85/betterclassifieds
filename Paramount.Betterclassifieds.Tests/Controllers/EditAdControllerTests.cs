@@ -245,32 +245,39 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         [Test]
         public void AddGuest_Post_ReturnsJsonResult()
         {
+            // Mock objects
             var mockEvent = new EventModelMockBuilder().Default().Build();
             var mockEventTicket = new EventTicketMockBuilder().Default().Build();
             var mockTicketField = new EventTicketFieldMockBuilder().Default().Build();
             var mockEventTicketReservation = new EventTicketReservationMockBuilder().Build();
             var mockEventBooking = new EventBookingMockBuilder().Default().Build();
             var mockApplicationUser = new ApplicationUserMockBuilder().Default().Build();
-            var mockAdSearchResult = new AdSearchResultMockBuilder().Default().Build();
 
             // arrange calls
             _eventManagerMock.SetupWithVerification(call => call.GetEventTicket(It.IsAny<int>()), mockEventTicket);
             _eventTicketReservationFactory.SetupWithVerification(
                 call => call.CreateFreeReservation(It.IsAny<string>(), It.IsAny<EventTicket>()),
                 mockEventTicketReservation);
+
             _eventManagerMock.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(),
                 It.IsAny<ApplicationUser>(),
                 It.IsAny<IEnumerable<EventTicketReservation>>()), mockEventBooking);
+
             _httpContextBase.SetupWithVerification(call => call.Session.SessionID, "1234");
-            _userManagerMock.SetupWithVerification(call => call.GetCurrentUser(It.IsAny<IPrincipal>()), mockApplicationUser);
+
+            _userManagerMock.SetupWithVerification(call => call.GetCurrentUser(), mockApplicationUser);
+
             _eventManagerMock.SetupWithVerification(call => call.AdjustRemainingQuantityAndCancelReservations(It.IsAny<string>(),
                 It.IsAny<IList<EventBookingTicket>>()));
-            _eventManagerMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
-            _searchServiceMock.SetupWithVerification(call => call.GetByAdId(It.IsAny<int>()), mockAdSearchResult);
-            _templatingServiceMock.SetupWithVerification(call => call.Generate(It.IsAny<object>(), It.Is<string>(str => str == "~/Views/Event/Tickets.cshtml")),
-                "<html>Test only</html>");
-            _broadcastManagerMock.SetupWithVerification(call => call.Queue(It.IsAny<IDocType>(), It.IsAny<string>()), new Notification(new Guid()));
 
+            _eventNotificationBuilder
+                .SetupWithVerification(call => call.WithEventBooking(It.IsAny<int?>()), result: _eventNotificationBuilder.Object)
+                .SetupWithVerification(call => call.CreateTicketPurchaserNotification(), new EventTicketsBookedNotification())
+                .SetupWithVerification(call => call.CreateEventGuestNotifications(), new [] {new EventGuestNotification() });
+                
+            _broadcastManagerMock.SetupWithVerification(call => call.Queue(It.IsAny<IDocType>(), It.IsAny<string>()), result: null);
+            
+            // Act
             var controller = BuildController(mockUser: new Mock<IPrincipal>());
             var mockRequest = new AddEventGuestViewModel
             {
@@ -287,6 +294,42 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             };
 
             var result = controller.AddGuest(123, mockRequest);
+
+
+            // Assert
+            result.JsonResultContains("true");
+        }
+
+        [Test]
+        public void AddGuest_Post_ModelStateNotValid_ReturnsJsonErrors()
+        {
+            var controller = BuildController();
+            controller.ModelState.AddModelError("err", "msg");
+
+            var result = controller.AddGuest(100, new AddEventGuestViewModel());
+            result.IsTypeOf<JsonResult>();
+        }
+
+
+        [Test]
+        public void AddGuest_Post_TicketCannotBeReserved_ReturnsJsonErrors()
+        {
+            var mockEventTicketReservation = new EventTicketReservationMockBuilder().WithStatus(EventTicketReservationStatus.SoldOut).Build();
+
+            _eventManagerMock.SetupWithVerification(call => call.GetEventTicket(It.IsAny<int>()), 
+                new EventTicketMockBuilder().Default().Build());
+            
+            _eventTicketReservationFactory.SetupWithVerification(call => call.CreateFreeReservation(
+                It.IsAny<string>(), It.IsAny<EventTicket>()), mockEventTicketReservation);
+
+            _httpContextBase.SetupWithVerification(call => call.Session.SessionID, "1234");
+
+            var controller = BuildController();
+            
+            var result = controller.AddGuest(100, new AddEventGuestViewModel());
+            result.IsTypeOf<JsonResult>();
+            
+            Assert.That(controller.ModelState.ContainsKey("SelectedTicket") , Is.True);
         }
 
         [Test]
@@ -316,6 +359,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IEventTicketReservationFactory> _eventTicketReservationFactory;
         private Mock<HttpContextBase> _httpContextBase;
         private Mock<IEventBarcodeManager> _eventBarcodeManager;
+        private Mock<IEventNotificationBuilder> _eventNotificationBuilder;
 
         [SetUp]
         public void SetupDependencies()
@@ -333,6 +377,11 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventTicketReservationFactory = CreateMockOf<IEventTicketReservationFactory>();
             _httpContextBase = CreateMockOf<HttpContextBase>();
             _eventBarcodeManager = CreateMockOf<IEventBarcodeManager>();
+            _eventNotificationBuilder = CreateMockOf<IEventNotificationBuilder>();
+
+            _eventNotificationBuilder
+                .Setup(call => call.WithTemplateService(It.IsAny<ITemplatingService>()))
+                .Returns(_eventNotificationBuilder.Object);
         }
     }
 }

@@ -342,27 +342,21 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // arrange service calls ( obviously theres a lot going on here and we should refactor this to use event sourcing)
             _eventBookingContext.SetupWithVerification(call => call.EventBookingId, eventBookingMock.EventBookingId);
-            _eventBookingContext.SetupWithVerification(call => call.Purchaser, "George Clooney");
+            
             _eventBookingContext.SetupWithVerification(call => call.SendEmailToGuests, true);
             _eventBookingContext.SetupSet<bool>(s => s.EventBookingComplete = true);
 
             _httpContext.SetupWithVerification(call => call.Session.SessionID, sessionMock);
-            _httpContext.SetupWithVerification(call => call.Server.HtmlEncode(It.IsAny<string>()), "");
             _eventManager.SetupWithVerification(call => call.GetEventBooking(eventBookingMock.EventBookingId), eventBookingMock);
             _eventManager.SetupWithVerification(call => call.AdjustRemainingQuantityAndCancelReservations(sessionMock, eventBookingMock.EventBookingTickets));
             _eventManager.SetupWithVerification(call => call.CreateEventTicketsDocument(eventBookingMock.EventBookingId, It.IsAny<byte[]>(), It.IsAny<DateTime?>()), "Document123");
-            _eventManager.SetupWithVerification(call => call.GetEventGroups(It.IsAny<int>(), It.IsAny<int?>()), Task.FromResult(Enumerable.Empty<EventGroup>()));
-            _searchService.SetupWithVerification(call => call.GetByAdOnlineId(eventMock.OnlineAdId), adMock);
-            _templatingService.SetupWithVerification(call => call.Generate(It.IsAny<object>(), "Tickets"), "<html><body>Output for PDF</body></html>");
-            _templatingService.SetupWithVerification(call => call.Generate(It.IsAny<object>(), "Invoice"), "<html><body>Output for PDF Invoice</body></html>");
             _broadcastManager.Setup(call => call.Queue(It.IsAny<IDocType>(), It.IsAny<string[]>())).Returns(new Notification(Guid.NewGuid(), "BoomDoc"));
-            _clientConfig.SetupWithVerification(call => call.ClientName, "A-Brand");
-            _clientConfig.SetupWithVerification(call => call.ClientAddress, new Address() { StreetNumber = "1", StreetName = "Smith Street", State = "VIC" });
-            _clientConfig.SetupWithVerification(call => call.ClientPhoneNumber, "9999 0000");
-            _clientConfig.SetupWithVerification(call => call.FacebookAppId, "123");
-            _userManager.SetupWithVerification(call => call.GetUserByEmailOrUsername("foo@bar.com"), applicationUserMock);
-            _barcodeManager.SetupWithVerification(call => call.GenerateBarcodeData(It.IsAny<EventModel>(), It.IsAny<EventBookingTicket>()), "http://somewhere-cool/2020/20200");
-            _barcodeManager.SetupWithVerification(call => call.GenerateBase64StringImageData(It.IsAny<EventModel>(), It.IsAny<EventBookingTicket>(), It.IsAny<int>(), It.IsAny<int>(), 0), result: "kdk34830498lkdjf0934");
+            _eventNotificationBuilder
+                .SetupWithVerification(call => call.WithEventBooking(It.IsAny<int?>()), result: _eventNotificationBuilder.Object)
+                .SetupWithVerification(call => call.CreateEventBookedViewModel(), result: new EventBookedViewModel())
+                .SetupWithVerification(call => call.CreateTicketPurchaserNotification(), result: new EventTicketsBookedNotification())
+                .SetupWithVerification(call => call.CreateEventGuestNotifications(), result: new [] { new EventGuestNotification(), new EventGuestNotification()})
+                ;
 
             // act
             var result = BuildController().EventBooked();
@@ -372,7 +366,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var viewModel = result.ViewResultModelIsTypeOf<EventBookedViewModel>();
             viewModel.EventHasGroups.IsEqualTo(false);
 
-            _broadcastManager.Verify(call => call.Queue(It.IsAny<IDocType>(), It.IsAny<string[]>()), Times.Exactly(2)); // Sends the tickets and each guest a calendar invite!
+            _broadcastManager.Verify(call => call.Queue(It.IsAny<IDocType>(), It.IsAny<string[]>()), Times.Exactly(3)); // Sends the tickets and each guest a calendar invite!
         }
 
         [Test]
@@ -457,6 +451,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IEventBarcodeManager> _barcodeManager;
         private Mock<IApplicationConfig> _appConfig;
         private Mock<ICreditCardService> _creditCardService;
+        private Mock<IEventNotificationBuilder> _eventNotificationBuilder;
 
         [SetUp]
         public void SetupController()
@@ -477,6 +472,9 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _barcodeManager = CreateMockOf<IEventBarcodeManager>();
             _appConfig = CreateMockOf<IApplicationConfig>();
             _creditCardService = CreateMockOf<ICreditCardService>();
+            _eventNotificationBuilder = CreateMockOf<IEventNotificationBuilder>();
+            _eventNotificationBuilder.Setup(call => call.WithTemplateService(It.IsAny<ITemplatingService>())).Returns(
+                _eventNotificationBuilder.Object);
         }
     }
 }

@@ -90,7 +90,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // assert
             result.IsTypeOf<JsonResult>();
-            result.JsonResultContains("/Booking/Step/3");
+            result.JsonResultContains("{ nextUrl = /Booking/Step/3 }");
         }
 
         [Test]
@@ -116,7 +116,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // assert
             result.IsTypeOf<JsonResult>();
-            result.JsonResultContains("/Booking/Step/3");
+            result.JsonResultContains("{ NextUrl = /Booking/Step/3 }");
             mockBookingCart.Object.Event.ClosingDate.IsEqualTo(mockClosingDate);
         }
 

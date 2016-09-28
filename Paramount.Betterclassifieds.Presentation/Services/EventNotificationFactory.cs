@@ -55,12 +55,14 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
         public IEventNotificationBuilder WithEventBooking(int? eventBookingId)
         {
-            if (EventBookingId.HasValue && EventBookingId.Value == eventBookingId)
-                return this;
+            Guard.NotNull(eventBookingId);
 
-            if (eventBookingId.HasValue && EventBookingId != eventBookingId)
+            if (EventBookingId.HasValue && EventBookingId.Value != eventBookingId)
                 throw new ArgumentException("Cannot set a different event booking at the moment. You can only do this once until we figure out how to reset lazy objects in a nice way...");
 
+            if (EventBookingId.HasValue)
+                return this;
+                
             EventBookingId = eventBookingId.GetValueOrDefault();
 
             CreateEventBookedViewModel();
@@ -128,7 +130,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
         public byte[] CreateTicketsAttachment()
         {
-            var viewModels = CreateEventTicketPrintViewModels();
+            var viewModels = CreateEventTicketPrintViewModels().ToList();
             var ticketHtml = _templateService.Generate(viewModels, "Tickets");
             var ticketPdfData = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(ticketHtml);
 

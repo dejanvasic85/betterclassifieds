@@ -7,7 +7,6 @@ Feature: bookEventTickets
 	So that I can go to the event
 
 @BookTickets
-@ignore
 Scenario: View event and book two tickets with successful payment
 	Given client setting "Events.EnablePayPalPayments" is set to "true"
 	And I am a registered user with username "bddTicketBuyer" and password "bddTicketBuyer" and email "bdd@TicketBuyer.com"
@@ -24,8 +23,8 @@ Scenario: View event and book two tickets with successful payment
 	And paypal payment is completed
 	Then I should see a ticket purchased success page
 	And the tickets should be booked
-	When When selecting "Table 1" for guest "bddTicketBuyer bddTicketBuyer"
-	Then ticket with full name "bddTicketBuyer bddTicketBuyer" should be assigned to a group
+	#When When selecting "Table 1" for guest "bddTicketBuyer bddTicketBuyer"
+	#Then ticket with full name "bddTicketBuyer bddTicketBuyer" should be assigned to a group
 	
 
 @BookTickets

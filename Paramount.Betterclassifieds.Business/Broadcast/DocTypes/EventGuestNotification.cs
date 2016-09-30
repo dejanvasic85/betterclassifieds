@@ -36,8 +36,8 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         [Placeholder("TicketType")]
         public string TicketType { get; set; }
 
-        [Placeholder("BarcodeImageData")]
-        public string  BarcodeImageData { get; set; }
+        [Placeholder("BarcodeImgUrl")]
+        public string  BarcodeImgUrl { get; set; }
 
         public string GuestEmail { get; set; }
 

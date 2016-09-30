@@ -43,7 +43,7 @@
 
             <div class="alert alert-info-alt" data-bind="visible: noAdsAvaialble" style="display: none;" id="noAdsMsg">
                 There doesn't seem to be anything here at the moment :( <br />
-                <a href="@Url.Action("Step1", "Booking")">Go ahead and book an ad!</a>
+                <a href="@Url.Booking()">Go ahead and start creating!</a>
             </div>
 
             <div id="adList" class="listing-results" data-bind="foreach: ads">

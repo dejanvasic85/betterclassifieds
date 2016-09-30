@@ -159,7 +159,9 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         {
             var eventGuestNotificationFactory = new EventGuestNotificationFactory();
 
-            return EventBooking.Value.EventBookingTickets.Select(eventBookingTicket => eventGuestNotificationFactory.Create(_clientConfig,
+            return EventBooking.Value.EventBookingTickets.Select(eventBookingTicket => eventGuestNotificationFactory.Create(
+                _httpContextBase,
+                _clientConfig,
                 EventDetails.Value,
                 eventBookingTicket,
                 Ad.Value,

@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Web;
+using System.Web.Mvc;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Events;
@@ -8,10 +9,12 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 {
     public class EventGuestNotificationFactory
     {
-        public EventGuestNotification Create(IClientConfig config,
+        public EventGuestNotification Create(HttpContextBase httpContext, IClientConfig config,
             EventModel eventModel, EventBookingTicket eventBookingTicket, AdSearchResult ad,
             string eventUrl, string purchaserName)
         {
+            var urlHelper= new UrlHelper(httpContext.Request.RequestContext);
+
             var notification = new EventGuestNotification
             {
                 EventName = ad.Heading,
@@ -21,7 +24,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 Location = eventModel.Location,
                 EventStartDate = $"{eventModel.EventStartDate:dd-MMM-yyyy h:mm tt} {eventModel.TimeZoneName}",
                 EventEndDate = $"{eventModel.EventEndDate:dd-MMM-yyyy h:mm tt} {eventModel.TimeZoneName}",
-                // BarcodeImageData = _eventBarcodeManager.GenerateBase64StringImageData(eventModel, eventBookingTicket, 250, 250),
+                BarcodeImgUrl = urlHelper.Image(eventBookingTicket.BarcodeImageDocumentId.GetValueOrDefault().ToString() ).WithFullUrl(),
                 TicketType = eventBookingTicket.TicketName,
                 GuestEmail = eventBookingTicket.GuestEmail
             };

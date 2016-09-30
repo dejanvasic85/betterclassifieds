@@ -1,4 +1,4 @@
-﻿-- EventGuest
+﻿-- EventGuest - Kandobay
 exec [EmailTemplate_Upsert]
 	@DocType = 'EventGuest',
 	@Brand = 'KandoBay',
@@ -30,7 +30,7 @@ exec [EmailTemplate_Upsert]
             </div>
 			<div class="text-centre">
 				Simply show this barcode on entry: <br />
-				<img class="thumbnail" alt="QR" src="data:image/gif;base64,[/BarcodeImageData/]"></img>
+				<img class="thumbnail" alt="Barcode" src="[/BarcodeImgUrl/]"></img>
 			</div>
 			
             <p>We have included a calendar invite for your convenience.</p>
@@ -53,7 +53,7 @@ exec [EmailTemplate_Upsert]
 </html>';
 
 
--- EventGuest
+-- EventGuest - TheMusic
 exec [EmailTemplate_Upsert]
 	@DocType = 'EventGuest',
 	@Brand = 'TheMusic',
@@ -85,7 +85,7 @@ exec [EmailTemplate_Upsert]
             </div>
 			<div class="text-centre">
 				Simply show this barcode on entry: <br />
-				<img class="thumbnail" alt="QR" src="data:image/gif;base64,[/BarcodeImageData/]"></img>
+				<img class="thumbnail" alt="QR" src="[/BarcodeImgUrl/]"></img>
 			</div>
 
             <p>We have included a calendar invite for your convenience.</p>
@@ -107,7 +107,7 @@ exec [EmailTemplate_Upsert]
 </body>
 </html>';
 
--- EventGuest
+-- EventGuest - SriLankanEvents
 exec [EmailTemplate_Upsert]
 	@DocType = 'EventGuest',
 	@Brand = 'SriLankanEvents',
@@ -136,7 +136,7 @@ exec [EmailTemplate_Upsert]
             </div>
 			<div class="text-centre">
 				Simply show this barcode on entry: <br />
-				<img class="thumbnail" alt="QR" src="data:image/gif;base64,[/BarcodeImageData/]"></img>
+				<img class="thumbnail" alt="QR" src="[/BarcodeImgUrl/]"></img>
 			</div>
             <p>We have included a calendar invite for your convenience.</p>
         </div>

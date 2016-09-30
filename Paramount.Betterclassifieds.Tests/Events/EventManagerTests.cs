@@ -40,10 +40,12 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             _dateServiceMock.SetupNow().SetupNowUtc();
             _eventRepositoryMock.SetupWithVerification(call => call.CreateBooking(It.IsAny<EventBooking>()));
+            _logService.SetupWithVerification(call => call.Info(It.IsAny<string>()));
 
             // act
             var manager = BuildTargetObject();
-            manager.CreateEventBooking(10, mockUser, new List<EventTicketReservation>());
+            var result = manager.CreateEventBooking(10, mockUser, new List<EventTicketReservation>(), null);
+
         }
 
         [Test]
@@ -52,7 +54,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
             Assert.Throws<ArgumentException>(() => BuildTargetObject().CreateEventBooking(
                 eventId: 0,
                 applicationUser: new ApplicationUserMockBuilder().Build(),
-                currentReservations: new List<EventTicketReservation>()));
+                currentReservations: new List<EventTicketReservation>(),
+                barcodeUrlCreator: It.IsAny<Func<string, string>>()));
         }
 
         [Test]
@@ -61,7 +64,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
             Assert.Throws<ArgumentNullException>(() => BuildTargetObject().CreateEventBooking(
                 eventId: 10,
                 applicationUser: null,
-                currentReservations: new List<EventTicketReservation>()));
+                currentReservations: new List<EventTicketReservation>(), 
+                barcodeUrlCreator: It.IsAny<Func<string, string>>()));
         }
 
         [Test]
@@ -889,6 +893,9 @@ namespace Paramount.Betterclassifieds.Tests.Events
         private Mock<ILocationService> _locationService;
         private Mock<IUserManager> _userManager;
         private Mock<IEventBarcodeValidator> _eventBarcodeValidator;
+        private Mock<IBarcodeGenerator> _barcodeGenerator;
+        private Mock<ILogService> _logService;
+
 
         [SetUp]
         public void SetupDependencies()
@@ -901,6 +908,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _locationService = CreateMockOf<ILocationService>();
             _userManager = CreateMockOf<IUserManager>();
             _eventBarcodeValidator = CreateMockOf<IEventBarcodeValidator>();
+            _barcodeGenerator = CreateMockOf<IBarcodeGenerator>();
+            _logService = CreateMockOf<ILogService>();
         }
     }
 }

@@ -252,7 +252,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var mockEventTicketReservation = new EventTicketReservationMockBuilder().Build();
             var mockEventBooking = new EventBookingMockBuilder().Default().Build();
             var mockApplicationUser = new ApplicationUserMockBuilder().Default().Build();
-
+             
             // arrange calls
             _eventManagerMock.SetupWithVerification(call => call.GetEventTicket(It.IsAny<int>()), mockEventTicket);
             _eventTicketReservationFactory.SetupWithVerification(
@@ -261,7 +261,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             _eventManagerMock.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(),
                 It.IsAny<ApplicationUser>(),
-                It.IsAny<IEnumerable<EventTicketReservation>>()), mockEventBooking);
+                It.IsAny<IEnumerable<EventTicketReservation>>(),
+                It.IsAny<Func<string,string>>()), mockEventBooking);
 
             _httpContextBase.SetupWithVerification(call => call.Session.SessionID, "1234");
 

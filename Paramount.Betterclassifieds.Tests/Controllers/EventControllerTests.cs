@@ -234,7 +234,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _mockUser.SetupIdentityCall();
             _httpContext.SetupWithVerification(call => call.Session.SessionID, "session123");
             _eventManager.SetupWithVerification(call => call.GetTicketReservations(It.Is<string>(p => p == "session123")), mockTicketReservations);
-            _eventManager.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(), It.IsAny<ApplicationUser>(), It.IsAny<IEnumerable<EventTicketReservation>>()), mockEventBooking);
+            _eventManager.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(), It.IsAny<ApplicationUser>(), It.IsAny<IEnumerable<EventTicketReservation>>(), It.IsAny<Func<string, string>>()), mockEventBooking);
             _userManager.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.IsAny<string>()), mockApplicationUser);
 
             _eventBookingContext.SetupSet(p => p.EventId = It.IsAny<int?>());
@@ -287,13 +287,12 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             };
 
             var mockApplicationUser = new ApplicationUserMockBuilder().Default().Build();
-            //var mockPaymentResponse = new PaymentResponse { ApprovalUrl = "paypal.com/approveMe", PaymentId = "123", Status = PaymentStatus.ApprovalRequired };
-
+            
             // arrange service calls
             _mockUser.SetupIdentityCall();
             _httpContext.SetupWithVerification(call => call.Session.SessionID, "session123");
             _eventManager.SetupWithVerification(call => call.GetTicketReservations(It.Is<string>(p => p == "session123")), mockTicketReservations);
-            _eventManager.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(), It.IsAny<ApplicationUser>(), It.IsAny<IEnumerable<EventTicketReservation>>()), mockEventBooking);
+            _eventManager.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(), It.IsAny<ApplicationUser>(), It.IsAny<IEnumerable<EventTicketReservation>>(), It.IsAny<Func<string, string>>()), mockEventBooking);
             _userManager.SetupWithVerification(call => call.GetUserByEmailOrUsername(It.IsAny<string>()), mockApplicationUser);
 
             _eventBookingContext.SetupSet(p => p.EventId = It.IsAny<int?>());

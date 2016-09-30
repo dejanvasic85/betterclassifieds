@@ -192,7 +192,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult DownloadGuestListPdf(int id, int eventId)
         {
             var viewModel = GetEventGuestList(id, eventId);
-            var html = _templatingService.Generate(viewModel, "EventGuestList");
+            var html = _templatingService.Generate(viewModel, "~/Views/Templates/EventGuestList.cshtml");
             var pdf = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(html);
             return File(pdf, ContentType.Pdf, $"{viewModel.EventName} - Guest List.pdf");
         }

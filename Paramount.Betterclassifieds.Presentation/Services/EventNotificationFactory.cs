@@ -131,7 +131,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         public byte[] CreateTicketsAttachment()
         {
             var viewModels = CreateEventTicketPrintViewModels().ToList();
-            var ticketHtml = _templateService.Generate(viewModels, "Tickets");
+            var ticketHtml = _templateService.Generate(viewModels, "~/Views/Templates/Tickets.cshtml");
             var ticketPdfData = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(ticketHtml);
 
             return ticketPdfData;
@@ -151,7 +151,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             var invoiceViewModel = new EventBookingInvoiceViewModel(_clientConfig,
                 EventBooking.Value, EventBookingUser.Value, Ad.Value.Heading);
 
-            var invoiceHtml = _templateService.Generate(invoiceViewModel, "Invoice");
+            var invoiceHtml = _templateService.Generate(invoiceViewModel, "~/Views/Templates/Invoice.cshtml");
             return new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(invoiceHtml);
         }
 

@@ -940,13 +940,13 @@
     <Content Include="Views\Event\_UserEventBookingDetails.cshtml" />
     <Content Include="Views\Event\EventBooked.cshtml" />
     <Content Include="Views\Event\CancelEventBooking.cshtml" />
-    <Content Include="Views\Event\Tickets.cshtml" />
+    <Content Include="Views\Templates\Tickets.cshtml" />
     <Content Include="Views\EditAd\EventDashboard.cshtml" />
     <Content Include="Views\Booking\Step2_EventTickets.cshtml" />
-    <Content Include="Views\EditAd\EventGuestList.cshtml" />
+    <Content Include="Views\Templates\EventGuestList.cshtml" />
     <Content Include="Views\EditAd\EventPaymentRequest.cshtml" />
     <Content Include="Views\Shared\_LayoutInvoice.cshtml" />
-    <Content Include="Views\Event\Invoice.cshtml" />
+    <Content Include="Views\Templates\Invoice.cshtml" />
     <Content Include="Views\Home\Index.KandoBay.cshtml" />
     <Content Include="Views\Home\_AdTile.cshtml" />
     <Content Include="Views\Home\_AdTile_Event.cshtml" />

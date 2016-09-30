@@ -152,6 +152,9 @@
     <Compile Include="Events\EventBarcodeManagerTests.cs" />
     <Compile Include="Events\EventBookingFactoryTests.cs" />
     <Compile Include="Events\EventManagerTests.cs" />
+    <Compile Include="Events\EventManagerTests_CreateEventBooking.cs">
+      <DependentUpon>EventManagerTests.cs</DependentUpon>
+    </Compile>
     <Compile Include="Events\EventPaymentRequestFactoryTests.cs" />
     <Compile Include="Events\EventTicketFactoryTest.cs" />
     <Compile Include="Events\SufficientTicketsRuleTests.cs" />
@@ -169,6 +172,7 @@
     <Compile Include="Mocks\EventTicketMockBuilder.cs" />
     <Compile Include="Mocks\EventTicketReservationMockBuilder.cs" />
     <Compile Include="Mocks\IdentityMockExtensions.cs" />
+    <Compile Include="Mocks\LogServiceMockExtensions.cs" />
     <Compile Include="Mocks\MockBuilder%27T.cs" />
     <Compile Include="Mocks\MockGenerator.cs">
       <AutoGen>True</AutoGen>

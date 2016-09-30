@@ -163,8 +163,8 @@ namespace Paramount.Betterclassifieds.Business.Events
             _eventRepository.CreateBooking(eventBooking);
             _logService.Info("Event booking created. Id " + eventBooking.EventBookingId);
 
-            if (barcodeUrlCreator == null)
-                return eventBooking;
+            if (eventBooking.EventBookingTickets.Count > 0 && barcodeUrlCreator == null)
+                throw new NullReferenceException("barcodeUrlCreator cannot be null when there's tickets to have their barcode images created.");
 
             Parallel.ForEach(eventBooking.EventBookingTickets, ticket =>
             {

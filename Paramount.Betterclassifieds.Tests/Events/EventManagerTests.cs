@@ -16,7 +16,7 @@ using Paramount.Betterclassifieds.Tests.Mocks;
 namespace Paramount.Betterclassifieds.Tests.Events
 {
     [TestFixture]
-    internal class EventManagerTests : TestContext<EventManager>
+    internal partial class EventManagerTests : TestContext<EventManager>
     {
         [Test]
         public void GetEventDetailsForOnlineAdId_CallsRepository()
@@ -31,43 +31,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             // assert
             result.IsEqualTo(mockEvent);
         }
-
-        [Test]
-        public void CreateEventBooking_CallsRepository_AfterFactory()
-        {
-            // arrange
-            var mockUser = new ApplicationUserMockBuilder().Build();
-
-            _dateServiceMock.SetupNow().SetupNowUtc();
-            _eventRepositoryMock.SetupWithVerification(call => call.CreateBooking(It.IsAny<EventBooking>()));
-            _logService.SetupWithVerification(call => call.Info(It.IsAny<string>()));
-
-            // act
-            var manager = BuildTargetObject();
-            var result = manager.CreateEventBooking(10, mockUser, new List<EventTicketReservation>(), null);
-
-        }
-
-        [Test]
-        public void CreateEventBooking_WithEventId_AsZero_ThrowsArgException()
-        {
-            Assert.Throws<ArgumentException>(() => BuildTargetObject().CreateEventBooking(
-                eventId: 0,
-                applicationUser: new ApplicationUserMockBuilder().Build(),
-                currentReservations: new List<EventTicketReservation>(),
-                barcodeUrlCreator: It.IsAny<Func<string, string>>()));
-        }
-
-        [Test]
-        public void CreateEventBooking_WithUser_AsNull_ThrowsArgException()
-        {
-            Assert.Throws<ArgumentNullException>(() => BuildTargetObject().CreateEventBooking(
-                eventId: 10,
-                applicationUser: null,
-                currentReservations: new List<EventTicketReservation>(), 
-                barcodeUrlCreator: It.IsAny<Func<string, string>>()));
-        }
-
+        
         [Test]
         public void GetRemainingTicketCount_TicketId_HasNoValue_ThrowsArgumentException()
         {
@@ -811,7 +775,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingTicket(It.IsAny<int>()), result: null);
 
             Assert.Throws<ArgumentException>(() => manager.CancelEventBookingTicket(1));
-        }   
+        }
 
         [Test]
         public void CancelEventBookingTicket_TicketNotActive_BookingNotActive()
@@ -821,21 +785,21 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var mockEventBooking = new EventBookingMockBuilder()
                 .Default()
                 .WithStatus(EventBookingStatus.Active)
-                .WithEventBookingTickets(new [] { mockEventBookingTicket })
+                .WithEventBookingTickets(new[] { mockEventBookingTicket })
                 .Build();
 
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingTicket(It.IsAny<int>()), result: mockEventBookingTicket);
             _eventRepositoryMock.SetupWithVerification(call => call.UpdateEventBookingTicket(It.Is<EventBookingTicket>(t => t == mockEventBookingTicket)));
-            
+
             _eventRepositoryMock.SetupWithVerification(
                 call => call.GetEventBooking(It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<bool>()),
                 result: mockEventBooking);
             _eventRepositoryMock.SetupWithVerification(call => call.UpdateEventBooking(It.Is<EventBooking>(b => b == mockEventBooking)));
-            _userManager.SetupWithVerification(call=> call.GetCurrentUser(), result: new ApplicationUserMockBuilder().Default().Build());
+            _userManager.SetupWithVerification(call => call.GetCurrentUser(), result: new ApplicationUserMockBuilder().Default().Build());
             _dateServiceMock.SetupNowUtc().SetupNow();
 
             var manager = BuildTargetObject();
-            
+
             manager.CancelEventBookingTicket(mockEventBookingTicket.EventBookingTicketId);
 
             // Assert the status of the objects
@@ -854,7 +818,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var builder = new EventBookingTicketMockBuilder().Default();
             var mockEventBookingTicket = builder.Build();
             var mockEventBookingTicketTwo = builder.WithEventBookingTicketId(2).Build();
-            
+
             var mockEventBooking = new EventBookingMockBuilder()
                 .Default()
                 .WithStatus(EventBookingStatus.Active)
@@ -867,14 +831,14 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _eventRepositoryMock.SetupWithVerification(
                 call => call.GetEventBooking(It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<bool>()),
                 result: mockEventBooking);
-            
+
             _userManager.SetupWithVerification(call => call.GetCurrentUser(), result: new ApplicationUserMockBuilder().Default().Build());
             _dateServiceMock.SetupNowUtc().SetupNow();
 
             var manager = BuildTargetObject();
 
             manager.CancelEventBookingTicket(mockEventBookingTicket.EventBookingTicketId);
-            
+
             // Assert the status of the objects
             mockEventBookingTicket.IsActive.IsFalse();
             mockEventBookingTicket.LastModifiedBy.IsNotNull();
@@ -909,7 +873,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _userManager = CreateMockOf<IUserManager>();
             _eventBarcodeValidator = CreateMockOf<IEventBarcodeValidator>();
             _barcodeGenerator = CreateMockOf<IBarcodeGenerator>();
-            _logService = CreateMockOf<ILogService>();
+            _logService = CreateMockOf<ILogService>().SetupAllCalls();
         }
     }
 }

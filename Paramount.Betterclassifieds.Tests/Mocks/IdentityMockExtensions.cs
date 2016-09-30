@@ -7,7 +7,7 @@ namespace Paramount.Betterclassifieds.Tests.Mocks
     {
         public static Mock<IPrincipal> SetupIdentityCall(this Mock<IPrincipal> mock, string username = "fooBar")
         {
-            mock.SetupWithVerification(call => call.Identity, new GenericIdentity(username));
+            mock.Setup(call => call.Identity).Returns(new GenericIdentity(username));
             return mock;
         }
     }

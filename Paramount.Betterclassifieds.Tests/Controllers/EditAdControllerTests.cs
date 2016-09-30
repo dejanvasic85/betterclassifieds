@@ -358,7 +358,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IDateService> _dateService;
         private Mock<IEventTicketReservationFactory> _eventTicketReservationFactory;
         private Mock<HttpContextBase> _httpContextBase;
-        private Mock<IEventBarcodeManager> _eventBarcodeManager;
+        private Mock<IEventBarcodeValidator> _eventBarcodeValidator;
         private Mock<IEventNotificationBuilder> _eventNotificationBuilder;
 
         [SetUp]
@@ -376,7 +376,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _dateService = CreateMockOf<IDateService>();
             _eventTicketReservationFactory = CreateMockOf<IEventTicketReservationFactory>();
             _httpContextBase = CreateMockOf<HttpContextBase>();
-            _eventBarcodeManager = CreateMockOf<IEventBarcodeManager>();
+            _eventBarcodeValidator = CreateMockOf<IEventBarcodeValidator>();
             _eventNotificationBuilder = CreateMockOf<IEventNotificationBuilder>();
 
             _eventNotificationBuilder

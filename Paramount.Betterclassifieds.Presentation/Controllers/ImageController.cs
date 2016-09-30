@@ -1,4 +1,7 @@
-﻿namespace Paramount.Betterclassifieds.Presentation.Controllers
+﻿using ZXing;
+using ZXing.Common;
+
+namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     using Business;
     using Business.DocumentStorage;
@@ -180,6 +183,34 @@
             }
         }
 
-       
+        public ActionResult Barcode()
+        {
+            var data = DateTime.Now;
+            var documentId = Guid.NewGuid();
+
+            // Use the third party library here
+            var barcodeWriter = new BarcodeWriter
+            {
+                Format = BarcodeFormat.QR_CODE,
+                Options = new EncodingOptions { Height = 250, Width = 250, Margin = 0}
+            };
+
+            using (var bitmap = barcodeWriter.Write(data.ToString()))
+            {
+                using (var stream = new MemoryStream())
+                {
+                    bitmap.Save(stream, ImageFormat.Gif);
+                    var barcodeByteArray = stream.ToArray();
+                    _documentRepository.Create(new Document(documentId,
+                        barcodeByteArray,
+                        ContentType.Gif,
+                        documentId+".gif",
+                        barcodeByteArray.Length));
+                }
+            }
+
+
+            return View(documentId);
+        }
     }
 }

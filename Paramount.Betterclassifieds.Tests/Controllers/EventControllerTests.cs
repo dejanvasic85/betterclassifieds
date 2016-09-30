@@ -448,7 +448,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IEventTicketReservationFactory> _eventTicketReservationFactory;
         private Mock<IPrincipal> _mockUser;
         private Mock<ITemplatingService> _templatingService;
-        private Mock<IEventBarcodeManager> _barcodeManager;
+        private Mock<IEventBarcodeValidator> _eventBarcodeValidator;
         private Mock<IApplicationConfig> _appConfig;
         private Mock<ICreditCardService> _creditCardService;
         private Mock<IEventNotificationBuilder> _eventNotificationBuilder;
@@ -469,7 +469,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventTicketReservationFactory = CreateMockOf<IEventTicketReservationFactory>();
             _templatingService = CreateMockOf<ITemplatingService>();
             _templatingService.Setup(call => call.Init(It.IsAny<Controller>())).Returns(_templatingService.Object);
-            _barcodeManager = CreateMockOf<IEventBarcodeManager>();
+            _eventBarcodeValidator = CreateMockOf<IEventBarcodeValidator>();
             _appConfig = CreateMockOf<IApplicationConfig>();
             _creditCardService = CreateMockOf<ICreditCardService>();
             _eventNotificationBuilder = CreateMockOf<IEventNotificationBuilder>();

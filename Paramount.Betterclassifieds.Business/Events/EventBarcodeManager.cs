@@ -2,34 +2,21 @@ using System.Linq;
 
 namespace Paramount.Betterclassifieds.Business.Events
 {
-    public class EventBarcodeManager : IEventBarcodeManager
+    public class EventBarcodeValidator : IEventBarcodeValidator
     {
         private readonly IEventRepository _eventRepository;
         private const char CharSplitter = '-';
 
-        public EventBarcodeManager(IEventRepository eventRepository)
+        public EventBarcodeValidator(IEventRepository eventRepository)
         {
             _eventRepository = eventRepository;
         }
 
-        public string GenerateBarcodeData(EventModel eventDetails, EventBookingTicket eventBookingTicket)
+        public string GetDataForBarcode(int eventId, EventBookingTicket eventBookingTicket)
         {
-            Guard.NotNull(eventDetails);
             Guard.NotNull(eventBookingTicket);
 
-            return $"{eventDetails.EventId}{CharSplitter}{eventBookingTicket.EventTicketId}{CharSplitter}{eventBookingTicket.EventBookingTicketId}";
-        }
-
-        public string GenerateBase64StringImageData(string barcodeData, int height, int width, int margin = 0)
-        {
-            // See UI services
-            throw new System.NotImplementedException();
-        }
-
-        public string GenerateBase64StringImageData(EventModel eventModel, EventBookingTicket eventTicket, int height, int width, int margin = 0)
-        {
-            // See UI services
-            throw new System.NotImplementedException();
+            return $"{eventId}{CharSplitter}{eventBookingTicket.EventTicketId}{CharSplitter}{eventBookingTicket.EventBookingTicketId}";
         }
 
         public EventBookingTicketValidationResult ValidateTicket(string barcodeData)

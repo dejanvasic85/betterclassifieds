@@ -18,9 +18,11 @@ namespace Paramount.Betterclassifieds.Business.Events
         private readonly IBookingManager _bookingManager;
         private readonly ILocationService _locationService;
         private readonly IUserManager _userManager;
-        private readonly IEventBarcodeManager _eventBarcodeManager;
+        private readonly IEventBarcodeValidator _eventBarcodeValidator;
+        private readonly IBarcodeGenerator _barcodeGenerator;
+        private readonly ILogService _logService;
 
-        public EventManager(IEventRepository eventRepository, IDateService dateService, IClientConfig clientConfig, IDocumentRepository documentRepository, IBookingManager bookingManager, ILocationService locationService, IUserManager userManager, IEventBarcodeManager eventBarcodeManager)
+        public EventManager(IEventRepository eventRepository, IDateService dateService, IClientConfig clientConfig, IDocumentRepository documentRepository, IBookingManager bookingManager, ILocationService locationService, IUserManager userManager, IEventBarcodeValidator eventBarcodeValidator, IBarcodeGenerator barcodeGenerator, ILogService logService)
         {
             _eventRepository = eventRepository;
             _dateService = dateService;
@@ -29,7 +31,9 @@ namespace Paramount.Betterclassifieds.Business.Events
             _bookingManager = bookingManager;
             _locationService = locationService;
             _userManager = userManager;
-            _eventBarcodeManager = eventBarcodeManager;
+            _eventBarcodeValidator = eventBarcodeValidator;
+            _barcodeGenerator = barcodeGenerator;
+            _logService = logService;
         }
 
         public EventModel GetEventDetailsForOnlineAdId(int onlineAdId, bool includeBookings = false)
@@ -70,8 +74,8 @@ namespace Paramount.Betterclassifieds.Business.Events
                 throw new ArgumentException($"eventBookingTicket {eventBookingTicketId} not found");
 
 
-            var newEventBookingTicket = new EventBookingTicketFactory(_eventRepository, _dateService).CreateFromExisting(eventBookingTicket,
-                guestFullName, guestEmail, eventGroupId, fields, _userManager.GetCurrentUser().Username);
+            var newEventBookingTicket = new EventBookingTicketFactory(_eventRepository, _dateService)
+                .CreateFromExisting(eventBookingTicket, guestFullName, guestEmail, eventGroupId, fields, _userManager.GetCurrentUser().Username);
 
             _eventRepository.CreateEventBookingTicket(newEventBookingTicket);
 
@@ -150,15 +154,37 @@ namespace Paramount.Betterclassifieds.Business.Events
             return soonestEnding.ExpiryDateUtc.Value - _dateService.UtcNow;
         }
 
-        public EventBooking CreateEventBooking(int eventId, ApplicationUser applicationUser, IEnumerable<EventTicketReservation> currentReservations)
+        public EventBooking CreateEventBooking(int eventId, ApplicationUser applicationUser, IEnumerable<EventTicketReservation> currentReservations, Func<string, string> barcodeUrlCreator)
         {
             Guard.NotDefaultValue(eventId);
             Guard.NotNull(applicationUser);
 
             var eventBooking = new EventBookingFactory(_eventRepository, _dateService).Create(eventId, applicationUser, currentReservations);
-
-            // Call the repository
             _eventRepository.CreateBooking(eventBooking);
+            _logService.Info("Event booking created. Id " + eventBooking.EventBookingId);
+
+            if (barcodeUrlCreator == null)
+                return eventBooking;
+
+            Parallel.ForEach(eventBooking.EventBookingTickets, ticket =>
+            {
+                try
+                {
+                    _logService.Info("Creating barcode for ticket " + ticket.EventBookingTicketId);
+                    var barcodeData = barcodeUrlCreator(_eventBarcodeValidator.GetDataForBarcode(eventBooking.EventId, ticket));
+                    var barcode = _barcodeGenerator.CreateQr(barcodeData, height: 250, width: 250);
+                    var document = new Document(Guid.NewGuid(), barcode, ContentType.Gif, $"Ticket-{ticket.EventBookingTicketId}.gif", barcode.Length);
+                    _documentRepository.Create(document);
+
+                    ticket.BarcodeImageDocumentId = document.DocumentId;
+                    _eventRepository.UpdateEventBookingTicket(ticket);
+                }
+                catch (Exception ex)
+                {
+                    _logService.Error("Unable to generate barcode for ticket " + ticket.EventBookingTicketId, ex);
+                    throw;
+                }
+            });
 
             return eventBooking;
         }

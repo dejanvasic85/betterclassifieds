@@ -1,5 +1,4 @@
 ﻿@using Paramount
-@using Paramount.Betterclassifieds.Presentation.Framework.HtmlHelpers
 @model List<EventTicketPrintViewModel>
 
 @{
@@ -99,7 +98,7 @@
                 </div>
 
                 <div class="event-barcode">
-                    @*@Html.GenerateRelayQrCode(tick.BarcodeDataUrl, height: 162, width: 162)*@
+                    <img src="@Url.Image(tick.BarcodeImageDocumentId, height: 162, width: 162).WithFullUrl()" alt="barcode" />
                 </div>
             </div>
         </div>

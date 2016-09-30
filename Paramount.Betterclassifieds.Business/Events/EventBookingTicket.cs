@@ -30,5 +30,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         public DateTime? LastModifiedDateUtc { get; set; }
         public string LastModifiedBy { get; set; }
         public bool IsActive { get; set; }
+        public Guid? BarcodeImageDocumentId { get; set; }
     }
 }

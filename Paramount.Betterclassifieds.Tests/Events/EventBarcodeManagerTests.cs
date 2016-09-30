@@ -7,7 +7,7 @@ using Paramount.Betterclassifieds.Tests.Mocks;
 namespace Paramount.Betterclassifieds.Tests.Events
 {
     [TestFixture]
-    internal class EventBarcodeManagerTests : TestContext<EventBarcodeManager>
+    internal class EventBarcodeValidatorTests : TestContext<EventBarcodeValidator>
     {
         [Test]
         public void GenerateBarcodeData_WithValidObjects_ReturnsString()
@@ -20,7 +20,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             // act
             var eventBarcodeManager = BuildTargetObject();
-            var result = eventBarcodeManager.GenerateBarcodeData(eventModel, eventBookingTicket);
+            var result = eventBarcodeManager.GetDataForBarcode(eventModel.EventId.GetValueOrDefault(), eventBookingTicket);
 
             Assert.That(result, Is.EqualTo("3333-1111-2222"));
         }

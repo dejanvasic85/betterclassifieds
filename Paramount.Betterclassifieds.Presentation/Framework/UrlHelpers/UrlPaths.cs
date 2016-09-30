@@ -42,8 +42,7 @@ namespace Paramount
                 {
                     title = titleSlug,
                     id = id
-                })
-                ;
+                });
 
             return builder;
         }

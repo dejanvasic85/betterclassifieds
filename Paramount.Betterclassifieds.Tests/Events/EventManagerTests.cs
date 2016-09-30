@@ -888,7 +888,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
         private Mock<IBookingManager> _bookingManager;
         private Mock<ILocationService> _locationService;
         private Mock<IUserManager> _userManager;
-        private Mock<IEventBarcodeManager> _barcodeManager;
+        private Mock<IEventBarcodeValidator> _eventBarcodeValidator;
 
         [SetUp]
         public void SetupDependencies()
@@ -900,7 +900,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _bookingManager = CreateMockOf<IBookingManager>();
             _locationService = CreateMockOf<ILocationService>();
             _userManager = CreateMockOf<IUserManager>();
-            _barcodeManager = CreateMockOf<IEventBarcodeManager>();
+            _eventBarcodeValidator = CreateMockOf<IEventBarcodeValidator>();
         }
     }
 }

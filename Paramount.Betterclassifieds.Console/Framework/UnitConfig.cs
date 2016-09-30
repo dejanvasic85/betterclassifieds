@@ -45,7 +45,8 @@ namespace Paramount.Betterclassifieds.Console
                 .RegisterType(typeof(ICategoryAdRepository<ICategoryAd>), typeof(Paramount.Betterclassifieds.DataService.Events.EventRepository), "Event")
                 .RegisterType<Business.Events.IEventRepository, DataService.Events.EventRepository>()
                 .RegisterType<IEventManager, EventManager>()
-                .RegisterType<IEventBarcodeManager, EventBarcodeManager>()
+                .RegisterType<IEventBarcodeValidator, EventBarcodeValidator>()
+                .RegisterType<IBarcodeGenerator, BarcodeGenerator>()
                 .RegisterType<Business.Events.IEventBookingContext, Business.Events.EventBookingContext>(new SessionLifetimeManager<Business.Events.EventBookingContext>())
 
                 // Managers and Config

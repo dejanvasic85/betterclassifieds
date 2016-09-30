@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
+﻿using System;
+
+namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 {
     public class EventTicketPrintViewModel
     {
@@ -11,7 +13,6 @@
         public string TicketName { get; set; }
         public decimal Price { get; set; }
         public string ContactNumber { get; set; }
-        public string BarcodeDataUrl { get; set; }
         public string TickTypeAndPrice
         {
             get
@@ -24,5 +25,6 @@
         }
 
         public string GuestFullName { get; set; }
+        public string BarcodeImageDocumentId { get; set; }
     }
 }

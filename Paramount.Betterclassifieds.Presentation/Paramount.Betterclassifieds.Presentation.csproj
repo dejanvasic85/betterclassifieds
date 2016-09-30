@@ -260,7 +260,6 @@
     <Compile Include="Framework\HtmlHelpers\BootstrapInputExtensions.cs" />
     <Compile Include="Framework\HtmlHelpers\DropDownHtmlExtensions.cs" />
     <Compile Include="Framework\HtmlHelpers\HtmlAttributeExtensions.cs" />
-    <Compile Include="Framework\HtmlHelpers\HtmlHelperExtensions.cs" />
     <Compile Include="Framework\SessionLifetimeManager.cs" />
     <Compile Include="Framework\Validators\MaxWordsAttribute.cs" />
     <Compile Include="Framework\Validators\MustBeOneOf.cs" />
@@ -293,7 +292,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Services\QrBarcodeService.cs" />
+    <Compile Include="Services\BarcodeGenerator.cs" />
     <Compile Include="Services\ClientConfigService.cs" />
     <Compile Include="Services\Constants.cs" />
     <Compile Include="Services\EventGuestListCsvLineProvider.cs" />
@@ -978,6 +977,7 @@
     <Content Include="Views\EditAd\remove-guest-complete.cshtml" />
     <Content Include="Views\Listings\_AdSummary.cshtml" />
     <Content Include="Views\Listings\_AdSummaryEvent.cshtml" />
+    <Content Include="Views\Image\Barcode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

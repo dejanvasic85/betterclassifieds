@@ -409,15 +409,20 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 .With(tf => new EventBookingTicketField { FieldName = tf.FieldName, FieldValue = tf.FieldValue })
                 .With(l => l.ToList());
 
-            var eventBooking = _eventManager.CreateEventBooking(viewModel.EventId.GetValueOrDefault(), currentUser, new[] { reservation });
+            var eventBooking = _eventManager.CreateEventBooking(
+                viewModel.EventId.GetValueOrDefault(), 
+                currentUser, 
+                new[] { reservation }, 
+                barcode => Url.ValidateBarcode(barcode).WithFullUrl());
+
             _eventManager.AdjustRemainingQuantityAndCancelReservations(_httpContext.Session?.SessionID, eventBooking.EventBookingTickets);
-        
+
             var purchaserNotification = _eventNotificationBuilder.WithEventBooking(eventBooking.EventBookingId).CreateTicketPurchaserNotification();
             _broadcastManager.Queue(purchaserNotification, viewModel.GuestEmail);
 
             var guestNotification = _eventNotificationBuilder.CreateEventGuestNotifications().Single();
             _broadcastManager.Queue(guestNotification, guestNotification.GuestEmail);
-            
+
             return Json(true);
         }
 
@@ -571,7 +576,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventManager.SetTransactionFee(eventId, includeTransactionFee);
             return Json(true);
         }
-        
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.RecognizeDestinationPrefixes("OnlineAd", "Line");
@@ -614,10 +619,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IDateService _dateService;
         private readonly IEventTicketReservationFactory _ticketReservationFactory;
         private readonly HttpContextBase _httpContext;
-        private readonly IEventBarcodeManager _barcodeManager;
         private readonly IEventNotificationBuilder _eventNotificationBuilder;
 
-        public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager, IEventManager eventManager, ITemplatingService templatingService, IUserManager userManager, IBroadcastManager broadcastManager, IDateService dateService, IEventTicketReservationFactory ticketReservationFactory, HttpContextBase httpContext, IEventBarcodeManager barcodeManager, IEventNotificationBuilder eventNotificationBuilder)
+        public EditAdController(ISearchService searchService, IApplicationConfig applicationConfig, IClientConfig clientConfig, IBookingManager bookingManager, IEventManager eventManager, ITemplatingService templatingService, IUserManager userManager, IBroadcastManager broadcastManager, IDateService dateService, IEventTicketReservationFactory ticketReservationFactory, HttpContextBase httpContext, IEventNotificationBuilder eventNotificationBuilder)
         {
             _searchService = searchService;
             _applicationConfig = applicationConfig;
@@ -629,7 +633,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _dateService = dateService;
             _ticketReservationFactory = ticketReservationFactory;
             _httpContext = httpContext;
-            _barcodeManager = barcodeManager;
             _templatingService = templatingService.Init(this); // This service is tightly coupled to an mvc controller
             _eventNotificationBuilder = eventNotificationBuilder.WithTemplateService(_templatingService);
         }

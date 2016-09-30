@@ -76,16 +76,11 @@
 
                     @*Footer - Command Panel*@
                     <div class="panel-footer">
-                        Visits : <span data-bind="text: visits"></span>
-                        <div class="pull-right">
-
-                            <div style="display: inline-block" data-bind="visible : $data.status() !== 'Expired'">
-                                <button class="btn btn-danger cancel-ad" data-bind="click: cancelAd">
-                                    <span class="hidden-xs">Cancel</span> <i class="fa fa-trash"></i>
-                                </button>
-
+                        @*Visits : <span data-bind="text: visits"></span>*@
+                        <div class="pull-left">
+                            <div data-bind="visible : $data.status() !== 'Expired'" style="display: inline-block">
                                 <a class="btn btn-primary js-load" data-bind="attr : { 'data-adid' : $data.adId(), href : editHref} ">
-                                    <span class="hidden-xs">Details</span> <i class="fa fa-pencil"></i>
+                                    <span class="hidden-xs">Manage</span> <i class="fa fa-pencil"></i>
                                 </a>
 
                                 <a class="btn btn-primary js-load" data-bind="attr : {href : viewHref}">
@@ -100,10 +95,22 @@
                             <a class="btn btn-primary" data-bind="visible : $data.totalPrice() > 0 ,  attr : {href : bookingInvoiceHref}" target="_blank">
                                 <span class="hidden-xs">Invoice</span> <i class="fa fa-file"></i>
                             </a>
-                            
+
                             <button class="btn btn-default book-again" data-bind="click: bookAgain()">
                                 <span class="hidden-xs">Use as Template</span> <i class="fa fa-recycle"></i>
                             </button>
+
+                        </div>
+
+                        <div class="pull-right">
+
+                            <div data-bind="visible : $data.status() !== 'Expired'">
+                                <button class="btn btn-danger cancel-ad" data-bind="click: cancelAd">
+                                    <span class="hidden-xs">Cancel</span> <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+
+                            
 
                         </div>
                         <div class="clearfix"></div>

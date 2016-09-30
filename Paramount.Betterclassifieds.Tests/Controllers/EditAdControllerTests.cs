@@ -78,7 +78,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             const int adId = 1;
             const int eventId = 2;
             const string mockPdfOutput = "<html><body>Sample Data</body></html>";
-
+            const string expectedViewLocation = "~/Views/Templates/EventGuestList.cshtml";
 
             var builder = new EventGuestDetailsMockBuilder();
             var mockGuests = new[]
@@ -90,7 +90,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var mockSearchResult = new AdSearchResultMockBuilder().WithHeading("Testing").Build();
 
             _searchServiceMock.SetupWithVerification(call => call.GetByAdId(It.Is<int>(p => p == 1)), mockSearchResult);
-            _templatingServiceMock.SetupWithVerification(call => call.Generate(It.IsAny<object>(), It.Is<string>(param => param == "EventGuestList")), mockPdfOutput);
+            
+            _templatingServiceMock.SetupWithVerification(call => call.Generate(It.IsAny<object>(), It.Is<string>(param => param == expectedViewLocation)), mockPdfOutput);
             _eventManagerMock.SetupWithVerification(call => call.BuildGuestList(It.Is<int?>(val => val == eventId)), mockGuests);
 
 

@@ -24,7 +24,8 @@ When we deploy the application we generally require a single server with the fol
 - IIS 7.5+ feature enabled
 - SQL Server with Full Text search
 - .Net Framework 4.6.1+ installed
-
+- A local identity 'ApplicationUser' exists and has read/write access to the database. This is used mostly for offline-tasks.
+- Add ApplicationPool identity (once created in IIS) to SQL Server Security with access to the required databases.
 
 ## Post Release Activities
 

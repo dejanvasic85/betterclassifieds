@@ -21,6 +21,7 @@ Running the powershell build should setup the databases automatically under loca
 ### Deployment server requirements
 
 When we deploy the application we generally require a single server with the following features:
+
 - IIS 7.5+ feature enabled
 - SQL Server with Full Text search
 - .Net Framework 4.6.1+ installed
@@ -49,6 +50,3 @@ Here's a list of problems that we may run in to that are not available on google
 
 The Linq-2-Sql tables that have a "Timestamp" column property, have to have that
 property mapped to a byte[] so that the automapper will work.
-
-
-

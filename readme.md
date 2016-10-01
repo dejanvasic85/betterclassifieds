@@ -1,6 +1,6 @@
 # Getting Started #
 
-## Requirements ##
+### Development Requirements
 
 - Windows 7 and higher with all IIS features installed and default website exists
 - Visual Studio 2015 (ultimate preferred)
@@ -8,7 +8,7 @@
 - Ensure that SQL is running as the default instance (localhost)
 
 
-## Building the Solution ##
+#### Building the Solution
 
 - Run VS as administrator
 - Open the solution. This should automatically create the websites fo you in IIS.
@@ -17,15 +17,16 @@
 
 Running the powershell build should setup the databases automatically under localhost.
 
-## Troubleshooting
 
-#### Registration object Version property cannot be mapped 
+### Deployment server requirements
 
-The Linq-2-Sql tables that have a "Timestamp" column property, have to have that
-property mapped to a byte[] so that the automapper will work.
+When we deploy the application we generally require a single server with the following features:
+- IIS 7.5+ feature enabled
+- SQL Server with Full Text search
+- .Net Framework 4.6.1+ installed
 
 
-# Post Release Activities #
+## Post Release Activities
 
 
 Whenever we do a release to production, we need to ensure the following is done
@@ -37,4 +38,16 @@ Whenever we do a release to production, we need to ensure the following is done
 
 - Run the SQL Agent db backup jobs for all the brands that were deployed to and copy them to the development server. This allows consistent upgrades check for new featuers. 
 > The backup location on the dev server is: S:\SQL\Backup
+
+
+
+## Troubleshooting
+Here's a list of problems that we may run in to that are not available on google/stackoverflow.
+
+#### Registration object Version property cannot be mapped 
+
+The Linq-2-Sql tables that have a "Timestamp" column property, have to have that
+property mapped to a byte[] so that the automapper will work.
+
+
 

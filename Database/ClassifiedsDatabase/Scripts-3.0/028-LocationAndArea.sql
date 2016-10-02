@@ -1,6 +1,6 @@
 ﻿SET ANSI_PADDING ON
 
-
+GO
 DECLARE @anyLocationId AS INT,
 		@anyAreaId AS INT;
 
@@ -25,3 +25,7 @@ begin
 	INSERT INTO LocationArea (LocationId, Title) VALUES (@anyLocationId, ' Any Area');
 	SET @anyLocationId = @@IDENTITY;
 end
+
+GO
+SET ANSI_PADDING OFF
+GO

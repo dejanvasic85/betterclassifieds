@@ -1,4 +1,7 @@
-﻿DECLARE @anyLocationId AS INT,
+﻿SET ANSI_PADDING ON
+
+
+DECLARE @anyLocationId AS INT,
 		@anyAreaId AS INT;
 
 SELECT @anyLocationId = LocationId

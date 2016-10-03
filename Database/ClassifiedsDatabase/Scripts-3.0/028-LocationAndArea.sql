@@ -1,4 +1,9 @@
-﻿SET ANSI_PADDING ON
+﻿/*
+So yeah... 
+This is not ideal at all but we have to add these really bad values because of the search ads stored procedure / view
+One day... we may just implement proper location services and remove these tables altogether?
+*/
+SET ANSI_PADDING ON
 
 GO
 DECLARE @anyLocationId AS INT,

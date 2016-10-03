@@ -410,9 +410,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 .With(l => l.ToList());
 
             var eventBooking = _eventManager.CreateEventBooking(
-                viewModel.EventId.GetValueOrDefault(), 
-                currentUser, 
-                new[] { reservation }, 
+                viewModel.EventId.GetValueOrDefault(),
+                currentUser,
+                new[] { reservation },
                 barcode => Url.ValidateBarcode(barcode).WithFullUrl());
 
             _eventManager.AdjustRemainingQuantityAndCancelReservations(_httpContext.Session?.SessionID, eventBooking.EventBookingTickets);
@@ -528,7 +528,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpGet, ActionName("manage-groups")]
         public async Task<ActionResult> ManageGroups(int id, int eventId)
         {
-            var tickets = _eventManager.GetEventDetails(eventId).With(e => e.Tickets);
+            var eventDetails = _eventManager.GetEventDetails(eventId);
+            var tickets = eventDetails.With(e => e.Tickets);
             var currentGroups = await _eventManager.GetEventGroups(eventId);
 
             var manageGroupsViewModel = new ManageGroupsViewModel
@@ -536,7 +537,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 Id = id,
                 EventId = eventId,
                 EventGroups = this.MapList<EventGroup, EventGroupViewModel>(currentGroups.ToList()),
-                Tickets = this.MapList<EventTicket, EventTicketViewModel>(tickets.ToList())
+                Tickets = this.MapList<EventTicket, EventTicketViewModel>(tickets.ToList()),
+                GroupsRequired = eventDetails.GroupsRequired.GetValueOrDefault()
             };
 
             foreach (var gr in manageGroupsViewModel.EventGroups)
@@ -574,6 +576,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult ToggleTransactionFee(int id, int eventId, bool includeTransactionFee)
         {
             _eventManager.SetTransactionFee(eventId, includeTransactionFee);
+            return Json(true);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateEventGroupSettings(int id, int eventId, bool groupsRequired)
+        {
+            _eventManager.UpdateEventGroupSettings(eventId, groupsRequired);
             return Json(true);
         }
 

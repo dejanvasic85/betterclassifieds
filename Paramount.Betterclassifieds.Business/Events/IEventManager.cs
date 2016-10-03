@@ -42,6 +42,8 @@ namespace Paramount.Betterclassifieds.Business.Events
             string organiserPhone, DateTime adStartDate, string floorPlanDocumentId, string locationFloorPlanFilename,
             Address address);
 
+        void UpdateEventGroupSettings(int eventId, bool groupsRequired);
+
         EventInvitation CreateInvitationForUserNetwork(int eventId, int userNetworkId);
 
         Task<IEnumerable<EventGroup>> GetEventGroups(int eventId, int? eventTicketId = null);
@@ -52,5 +54,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         void AddEventGroup(int eventId, string groupName, int? maxGuests, IEnumerable<int> tickets, string createdByUser, bool isDisabled);
         void SetEventGroupStatus(int eventGroupId, bool isDisabled);
         void SetTransactionFee(int eventId, bool includeTransactionFee);
+        
     }
 }

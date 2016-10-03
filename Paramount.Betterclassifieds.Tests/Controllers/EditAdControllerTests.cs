@@ -94,7 +94,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var mockSearchResult = new AdSearchResultMockBuilder().WithHeading("Testing").Build();
 
             _searchServiceMock.SetupWithVerification(call => call.GetByAdId(It.Is<int>(p => p == 1)), mockSearchResult);
-            
+
             _templatingServiceMock.SetupWithVerification(call => call.Generate(It.IsAny<object>(), It.Is<string>(param => param == expectedViewLocation)), mockPdfOutput);
             _eventManagerMock.SetupWithVerification(call => call.BuildGuestList(It.Is<int?>(val => val == eventId)), mockGuests);
 
@@ -257,7 +257,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var mockEventTicketReservation = new EventTicketReservationMockBuilder().Build();
             var mockEventBooking = new EventBookingMockBuilder().Default().Build();
             var mockApplicationUser = new ApplicationUserMockBuilder().Default().Build();
-             
+
             // arrange calls
             _eventManagerMock.SetupWithVerification(call => call.GetEventTicket(It.IsAny<int>()), mockEventTicket);
             _eventTicketReservationFactory.SetupWithVerification(
@@ -267,7 +267,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventManagerMock.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(),
                 It.IsAny<ApplicationUser>(),
                 It.IsAny<IEnumerable<EventTicketReservation>>(),
-                It.IsAny<Func<string,string>>()), mockEventBooking);
+                It.IsAny<Func<string, string>>()), mockEventBooking);
 
             _httpContextBase.SetupWithVerification(call => call.Session.SessionID, "1234");
 
@@ -279,10 +279,10 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventNotificationBuilder
                 .SetupWithVerification(call => call.WithEventBooking(It.IsAny<int?>()), result: _eventNotificationBuilder.Object)
                 .SetupWithVerification(call => call.CreateTicketPurchaserNotification(), new EventTicketsBookedNotification())
-                .SetupWithVerification(call => call.CreateEventGuestNotifications(), new [] {new EventGuestNotification() });
-                
+                .SetupWithVerification(call => call.CreateEventGuestNotifications(), new[] { new EventGuestNotification() });
+
             _broadcastManagerMock.SetupWithVerification(call => call.Queue(It.IsAny<IDocType>(), It.IsAny<string>()), result: null);
-            
+
             // Act
             var controller = BuildController(mockUser: new Mock<IPrincipal>());
             var mockRequest = new AddEventGuestViewModel
@@ -322,20 +322,20 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         {
             var mockEventTicketReservation = new EventTicketReservationMockBuilder().WithStatus(EventTicketReservationStatus.SoldOut).Build();
 
-            _eventManagerMock.SetupWithVerification(call => call.GetEventTicket(It.IsAny<int>()), 
+            _eventManagerMock.SetupWithVerification(call => call.GetEventTicket(It.IsAny<int>()),
                 new EventTicketMockBuilder().Default().Build());
-            
+
             _eventTicketReservationFactory.SetupWithVerification(call => call.CreateFreeReservation(
                 It.IsAny<string>(), It.IsAny<EventTicket>()), mockEventTicketReservation);
 
             _httpContextBase.SetupWithVerification(call => call.Session.SessionID, "1234");
 
             var controller = BuildController();
-            
+
             var result = controller.AddGuest(100, new AddEventGuestViewModel());
             result.IsTypeOf<JsonResult>();
-            
-            Assert.That(controller.ModelState.ContainsKey("SelectedTicket") , Is.True);
+
+            Assert.That(controller.ModelState.ContainsKey("SelectedTicket"), Is.True);
         }
 
         [Test]
@@ -351,6 +351,55 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // assert
             result.IsRedirectingTo("error", "notfound");
+        }
+
+        [Test]
+        public void ManageGroups_Get_Returns_ViewResult()
+        {
+            // Arrange
+            var mockAdId = 1;
+            var mockEventId = 123;
+            var mockTicket = new EventTicketMockBuilder().Default().Build();
+            var mockTicketIds = new[] { mockTicket.EventTicketId.GetValueOrDefault() };
+            var mockEvent = new EventModelMockBuilder().Default().WithGroupsRequired(true).WithCustomTicket(mockTicket).Build();
+            var eventGroups = new[] { new EventGroupMockBuilder().Default().Build() };
+
+            // Arrange service calls
+            _eventManagerMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
+
+            _eventManagerMock
+                .Setup(call => call.GetEventGroups(It.IsAny<int>(), It.IsAny<int?>()))
+                .Returns(Task.FromResult(eventGroups.AsEnumerable()));
+
+            _eventManagerMock
+                .Setup(call => call.GetEventTicketsForGroup(It.IsAny<int>()))
+                .Returns(Task.FromResult(mockTicketIds.AsEnumerable()));
+
+            // Act
+            var controller = BuildController();
+            var viewResult = controller.ManageGroups(mockAdId, mockEventId).Result;
+
+            // Assert - ensure tha mapping
+            var vm = viewResult.ViewResultModelIsTypeOf<ManageGroupsViewModel>();
+            vm.Id.IsEqualTo(mockAdId);
+            vm.EventId.IsEqualTo(mockEventId);
+            vm.EventGroups.Count.IsEqualTo(1);
+            vm.EventGroups.Single().AvailableTickets.Count.IsEqualTo(1);
+            vm.GroupsRequired.IsTrue();
+        }
+
+        [Test]
+        public void UpdateEventGroupSettings_Post_ReturnsJson()
+        {
+            _eventManagerMock.SetupWithVerification(call =>
+                call.UpdateEventGroupSettings(It.Is<int>(v => v == 123), It.Is<bool>(v => v)));
+
+            // Act 
+            var controller = BuildController();
+            var result = controller.UpdateEventGroupSettings(1, 123, true);
+
+            // Assert
+            result.IsTypeOf<JsonResult>();
         }
 
         private Mock<ISearchService> _searchServiceMock;

@@ -487,6 +487,14 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.CategoryFontIcon = val);
 		}
+		public AdBookingModelMockBuilder WithCategoryName(String val)
+		{ 
+			return WithBuildStep(p => p.CategoryName = val);
+		}
+		public AdBookingModelMockBuilder WithParentCategoryName(String val)
+		{ 
+			return WithBuildStep(p => p.ParentCategoryName = val);
+		}
 	}
 
 	internal partial class EventModelMockBuilder : MockBuilder<EventModelMockBuilder, EventModel>
@@ -574,6 +582,10 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventModelMockBuilder WithVenueName(String val)
 		{ 
 			return WithBuildStep(p => p.VenueName = val);
+		}
+		public EventModelMockBuilder WithGroupsRequired(Boolean? val)
+		{ 
+			return WithBuildStep(p => p.GroupsRequired = val);
 		}
 	}
 
@@ -694,6 +706,14 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventBookingTicketMockBuilder WithLastModifiedBy(String val)
 		{ 
 			return WithBuildStep(p => p.LastModifiedBy = val);
+		}
+		public EventBookingTicketMockBuilder WithIsActive(Boolean val)
+		{ 
+			return WithBuildStep(p => p.IsActive = val);
+		}
+		public EventBookingTicketMockBuilder WithBarcodeImageDocumentId(Guid? val)
+		{ 
+			return WithBuildStep(p => p.BarcodeImageDocumentId = val);
 		}
 	}
 

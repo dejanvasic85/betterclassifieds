@@ -467,6 +467,15 @@ namespace Paramount.Betterclassifieds.Business.Events
             _bookingManager.UpdateSchedule(adId, adStartDate);
         }
 
+        public void UpdateEventGroupSettings(int eventId, bool groupsRequired)
+        {
+            var eventDetails = _eventRepository.GetEventDetails(eventId);
+            Guard.NotNull(eventDetails);
+
+            eventDetails.GroupsRequired = groupsRequired;
+            _eventRepository.UpdateEvent(eventDetails);
+        }
+
         public EventBookingTicketValidation GetTicketValidation(int eventTicketId)
         {
             return _eventRepository.GetEventBookingTicketValidation(eventTicketId);

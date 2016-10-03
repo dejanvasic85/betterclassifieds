@@ -144,6 +144,11 @@
         return $paramount.httpPost(url, me.model);
     }
 
+    AdDesignService.prototype.updateEventGroupSettings = function (settings) {
+        return $paramount.httpPost(me.baseUrl +  'updateEventGroupSettings', $.extend(me.model, settings));
+    }
+
+    // Exports
     $paramount.AdDesignService = AdDesignService;
 
     return $paramount;

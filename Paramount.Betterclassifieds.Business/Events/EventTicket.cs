@@ -13,6 +13,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             EventBookingTickets = new List<EventBookingTicket>();
             EventTicketFields = new List<EventTicketField>();
         }
+
         public int? EventTicketId { get; set; }
         public int? EventId { get; set; }
         public string TicketName { get; set; }

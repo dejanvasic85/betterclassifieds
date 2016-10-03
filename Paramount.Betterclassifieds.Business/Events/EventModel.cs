@@ -39,6 +39,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         /// </summary>
         public bool? IncludeTransactionFee { get; set; }
         public string VenueName { get; set; }
+        public bool? GroupsRequired { get; set; }
 
         public string VenueNameAndLocation => VenueName.HasValue()
             ? $"{VenueName} - {LocationWithoutAustralia}"

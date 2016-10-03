@@ -13,8 +13,8 @@
         me.groups = ko.observableArray();
         me.hasTickets = ko.observable();
         me.isCreateEnabled = ko.observable(false);
-
         me.newGroup = ko.observable(new GroupCreator(data));
+        me.eventGroupSettings = ko.observable(new EventGroupSettings(data));
 
         me.createStart = function () {
             me.newGroup(new GroupCreator(data));
@@ -104,7 +104,7 @@
         me.generateStart = ko.observable();
         me.generateEnd = ko.observable();
         me.generateProgress = ko.observable(0);
-        
+
         me.generateTotalGroups = ko.computed(function () {
             var first = parseInt(me.generateStart());
             var last = parseInt(me.generateEnd());
@@ -165,10 +165,10 @@
             for (var i = start; i <= end; i++) {
                 var gr = me.toGroupData();
                 gr.groupName += ' ' + i;
-                
+
                 adDesignService.addEventGroup(gr).success(function (resp) {
                     onGroupAdded(resp.group);
-                    
+
                     savedGroups++;
                     me.generateProgress((savedGroups / totalGroups) * 100);
 
@@ -206,6 +206,24 @@
         _.each(availableTickets, function (t) {
             me.availableTickets.push(new GroupTicketSelection(t));
         });
+    }
+
+    function EventGroupSettings(settings) {
+        var me = this;
+        me.eventId = ko.observable(settings.eventId);
+        me.groupsRequired = ko.observable(settings.groupsRequired);
+
+        me.update = function (model, event) {
+            var $btn = $(event.target);
+            $btn.button('loading');
+
+            var data = ko.toJS(me);
+            adDesignService.updateEventGroupSettings(data).then(function () {
+                $n.success('Group settings updated');
+            }).always(function() {
+                $btn.button('reset');
+            });
+        }
     }
 
     $p.models.ManageGroups = ManageGroups;

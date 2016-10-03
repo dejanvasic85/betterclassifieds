@@ -31,7 +31,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             // assert
             result.IsEqualTo(mockEvent);
         }
-        
+
         [Test]
         public void GetRemainingTicketCount_TicketId_HasNoValue_ThrowsArgumentException()
         {
@@ -847,6 +847,23 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             mockEventBookingTicket.IsActive.IsFalse();
             mockEventBooking.Status.IsEqualTo(EventBookingStatus.Active);
+        }
+
+        [Test]
+        public void UpdateEventGroupSettings_UpdatesEventDetails_Successfully()
+        {
+            // Arrange 
+            var mockEvent = new EventModelMockBuilder().Default().Build();
+            var mockEventId = mockEvent.EventId.GetValueOrDefault();
+
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.Is<int>(e => e == mockEventId)), mockEvent);
+            _eventRepositoryMock.SetupWithVerification(call => call.UpdateEvent(It.Is<EventModel>(e => e == mockEvent)));
+            
+            // Act 
+            var manager = BuildTargetObject();
+            manager.UpdateEventGroupSettings(mockEventId, true);
+            
+            mockEvent.GroupsRequired.IsTrue();
         }
 
         private Mock<IEventRepository> _eventRepositoryMock;

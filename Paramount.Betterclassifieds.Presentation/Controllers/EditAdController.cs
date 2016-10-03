@@ -143,7 +143,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var paymentSummary = _eventManager.BuildPaymentSummary(eventDetails.EventId);
             var status = _eventManager.GetEventPaymentRequestStatus(eventDetails.EventId);
 
-            var eventEditViewModel = new EventDashboardViewModel(id, adDetails.NumOfViews, eventDetails, paymentSummary, status,
+            var eventEditViewModel = new EventDashboardViewModel(id, adDetails.NumOfViews, adDetails.Heading, eventDetails, paymentSummary, status,
                 this.MapList<EventTicket, EventTicketViewModel>(eventTicketTypes.ToList()),
                 this.MapList<EventGuestDetails, EventGuestListViewModel>(guestList.ToList())
                 );

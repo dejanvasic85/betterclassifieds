@@ -31,7 +31,11 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             const int onlineAdId = 90;
             const int eventId = 10;
 
-            var mockSearchResult = new AdSearchResultMockBuilder().WithOnlineAdId(onlineAdId).WithNumOfViews(7).Build();
+            var mockSearchResult = new AdSearchResultMockBuilder()
+                .WithOnlineAdId(onlineAdId)
+                .WithNumOfViews(7)
+                .WithHeading("Business Research Event")
+                .Build();
             var mockGuestListBuilder = new EventGuestDetailsMockBuilder().WithGuestEmail("foo@bar.com").WithGuestFullName("Foo Bar").WithTicketNumber(123);
             var mockGuestList = new[] { mockGuestListBuilder.Build(), mockGuestListBuilder.Build() };
             var mockTicketBuilder = new EventTicketMockBuilder().WithRemainingQuantity(5).WithEventId(eventId);
@@ -55,10 +59,9 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var result = BuildController().EventDashboard(adId);
 
             // Assert
-            Assert.That(result, Is.TypeOf<ViewResult>());
-            var viewModel = ((ViewResult)result).Model as EventDashboardViewModel;
-            Assert.That(viewModel, Is.Not.Null);
+            var viewModel = result.ViewResultModelIsTypeOf<EventDashboardViewModel>();
 
+            Assert.That(viewModel, Is.Not.Null);
             Assert.That(viewModel.PageViews, Is.EqualTo(7));
             Assert.That(viewModel.Tickets.Count, Is.EqualTo(1));
             Assert.That(viewModel.AdId, Is.EqualTo(adId));
@@ -69,6 +72,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             Assert.That(viewModel.EventOrganiserOwedAmount, Is.EqualTo(90));
             Assert.That(viewModel.TotalSoldAmount, Is.EqualTo(100));
             Assert.That(viewModel.IsClosed, Is.True);
+            Assert.That(viewModel.EventName, Is.Not.Null);
         }
 
         [Test]

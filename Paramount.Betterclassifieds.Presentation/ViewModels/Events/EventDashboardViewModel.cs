@@ -11,30 +11,31 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public EventDashboardViewModel()
         { }
 
-        public EventDashboardViewModel(int adId, int pageViews, EventModel eventModel, EventPaymentSummary paymentSummary, EventPaymentRequestStatus status, List<EventTicketViewModel> tickets, List<EventGuestListViewModel> guests)
+        public EventDashboardViewModel(int adId, int pageViews, string eventName, EventModel eventModel, EventPaymentSummary paymentSummary, EventPaymentRequestStatus status, List<EventTicketViewModel> tickets, List<EventGuestListViewModel> guests)
         {
-            this.AdId = adId;
-            this.PageViews = pageViews;
-            this.EventId = eventModel.EventId.GetValueOrDefault();
-            this.Tickets = tickets;
-            this.Guests = guests;
-            this.EventPaymentRequestStatus = status.Humanize(LetterCasing.Title);
-            this.IsClosed = eventModel.IsClosed;
-            this.OrganiserAbsorbsTransactionFee = !eventModel.IncludeTransactionFee;
+            EventName = eventName;
+            AdId = adId;
+            PageViews = pageViews;
+            EventId = eventModel.EventId.GetValueOrDefault();
+            Tickets = tickets;
+            Guests = guests;
+            EventPaymentRequestStatus = status.Humanize(LetterCasing.Title);
+            IsClosed = eventModel.IsClosed;
+            OrganiserAbsorbsTransactionFee = !eventModel.IncludeTransactionFee;
 
             if (eventModel.EventBookings != null)
             {
-                this.TotalRemainingQty = eventModel.Tickets.Sum(t => t.RemainingQuantity);
+                TotalRemainingQty = eventModel.Tickets.Sum(t => t.RemainingQuantity);
 
                 var bookedTickets = eventModel.EventBookings
                     .SelectMany(m => m.EventBookingTickets)
                     .Where(t => t.IsActive)
                     .ToList();
 
-                this.TotalSoldQty = bookedTickets.Count;
-                this.TotalSoldAmount = paymentSummary.TotalTicketSalesAmount;
-                this.EventOrganiserOwedAmount = paymentSummary.EventOrganiserOwedAmount;
-                this.TotalTicketFees = paymentSummary.EventOrganiserFeesTotalFeesAmount.ToString("C");
+                TotalSoldQty = bookedTickets.Count;
+                TotalSoldAmount = paymentSummary.TotalTicketSalesAmount;
+                EventOrganiserOwedAmount = paymentSummary.EventOrganiserOwedAmount;
+                TotalTicketFees = paymentSummary.EventOrganiserFeesTotalFeesAmount.ToString("C");
 
 
                 // Get the sold quantity for each ticket type
@@ -49,8 +50,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
         public string EventPaymentRequestStatus { get; set; }
 
-
         public int AdId { get; set; }
+        public string EventName { get; set; }
         public int PageViews { get; set; }
         public int EventId { get; set; }
         public List<EventTicketViewModel> Tickets { get; set; } // Ticket definitions

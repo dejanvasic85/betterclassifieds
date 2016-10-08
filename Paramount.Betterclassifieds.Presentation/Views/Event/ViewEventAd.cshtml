@@ -54,7 +54,7 @@
         {
             <div class="col-sm-4">
                 <h3 class="page-header">
-                    <i class="fa fa-ticket"> </i>Tickets
+                    <i class="fa fa-ticket"> </i> Tickets
                 </h3>
 
                 @if (Model.IsClosed)
@@ -70,21 +70,21 @@
                     <div class="ticketing" id="ticketing">
                         <ul class="list-group" data-bind="foreach: tickets">
                             <li class="list-group-item" data-bind="attr : {'data-ticket-name' : ticketName}">
-                                
-
                                 <div class="row">
-                                    <div class="col-xs-4">
-                                        <span class="ticket-info" data-bind="text: ticketName"></span>
+                                    <div class="col-md-6">
+                                        <div class="text-left">
+                                            <span class="ticket-info" data-bind="text: ticketName"></span>
+                                            <span class="ticket-info tst-ticket-free badge" data-bind="visible: price() === 0, text : 'Free'"></span>
+                                            <span class="ticket-info tst-ticket-price badge" data-bind="visible: price() > 0, text : priceFormatted"></span>
+                                        </div>
                                     </div>
-                                    <div class="col-xs-2">
-                                        <span class="ticket-info tst-ticket-free" data-bind="visible: price() === 0, text : 'Free'"></span>
-                                        <span class="ticket-info tst-ticket-price" data-bind="visible: price() > 0, text : priceFormatted"></span>
-                                    </div>
-                                    <div class="col-xs-6">
+
+
+                                    <div class="col-md-6">
                                         <div class="form-inline pull-right">
                                             <span data-bind="visible: soldOut, text: 'SOLD OUT'" class="label label-danger"></span>
                                             <div class="form-group" data-bind="visible: isAvailable">
-                                                <span class="ticket-info">Quantity</span>
+                                                <span class="ticket-info">Quantity:</span>
                                                 <select class="form-control" data-bind="value: selectedQuantity, options: maxTicketsPerBooking, optionsText : 'label', optionsValue : 'value'"></select>
                                             </div>
                                         </div>

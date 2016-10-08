@@ -33,6 +33,12 @@
                         .attr('target', '_blank')
                         .attr('href', url);
                 }
+
+                $('.ticket-booth').affix({
+                    offset: {
+                        top: 300
+                    }
+                });
             });
         }
     }

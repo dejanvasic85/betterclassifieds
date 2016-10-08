@@ -100,10 +100,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string SocialShareText { get; set; }
         public string LocationFriendlyName { get; set; }
 
-        public bool TicketingEnabled
-        {
-            get { return Tickets != null && Tickets.Length > 0; }
-        }
-
+        public bool TicketingEnabled => Tickets != null && Tickets.Length > 0;
     }
 }

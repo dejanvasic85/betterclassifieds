@@ -309,11 +309,16 @@
     }
 
     .event-photo {
-        img {
-            width: 100%;
+        min-height: 400px;
+        width: 100%;
+        background-position: center;
+        background-size: cover;
+
+        /* the background-image is specified as inline-style using the url() property*/
+        @media (max-width: 992px) {
+            min-height:200px;
         }
     }
-
     .ticketing {
         .ticket-info {
             font-size: 16px;

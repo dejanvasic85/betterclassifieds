@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -18,7 +19,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
         }
 
-        public EventViewDetailsModel(HttpContextBase httpContext, UrlHelper urlHelper, AdSearchResult searchResult, EventModel eventModel, IClientConfig clientConfig)
+        public EventViewDetailsModel(HttpContextBase httpContext, UrlHelper urlHelper, AdSearchResult searchResult, EventModel eventModel, 
+            IClientConfig clientConfig)
         {
             AdId = searchResult.AdId;
             Title = searchResult.Heading;
@@ -45,13 +47,14 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             EventStartTime = eventModel.EventStartDate.GetValueOrDefault().ToString("hh:mm tt");
             EventEndDateDisplay = eventModel.EventStartDate.GetValueOrDefault().ToLongDateString();
             EventEndTime = eventModel.EventEndDate.GetValueOrDefault().ToString("hh:mm tt");
+            GroupsRequired = eventModel.GroupsRequired.GetValueOrDefault();
 
             FacebookAppId = clientConfig.FacebookAppId;
             MaxTicketsPerBooking = clientConfig.MaxOnlineImages.GetValueOrDefault();
 
             LocationFloorPlanFilename = eventModel.LocationFloorPlanFilename;
             LocationFloorPlanDocumentId = eventModel.LocationFloorPlanDocumentId;
-
+            
             Tickets = eventModel.Tickets.Select(t => new EventTicketViewModel
             {
                 EventId = t.EventId,
@@ -65,6 +68,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 TicketName = t.TicketName
             }).ToArray();
         }
+
+        public bool GroupsRequired { get; set; }
 
         public DateTime EventEndDate { get; set; }
 

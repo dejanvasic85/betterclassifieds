@@ -33,8 +33,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _bookingManager.IncrementHits(id);
 
             var eventModel = _eventManager.GetEventDetailsForOnlineAdId(onlineAdModel.OnlineAdId);
+          
             var eventViewModel = new EventViewDetailsModel(_httpContext,
-                this.Url, onlineAdModel, eventModel, _clientConfig);
+                Url, onlineAdModel, eventModel, _clientConfig);
 
             return View(eventViewModel);
         }

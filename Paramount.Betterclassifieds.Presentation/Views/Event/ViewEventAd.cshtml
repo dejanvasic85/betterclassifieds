@@ -128,7 +128,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="row top-buffer-20">
                 <div class="col-xs-12 col-md-6">
                     <div class="panel panel-primary">
@@ -200,8 +200,8 @@
         var ticketData = @Html.Raw(Model.Tickets.ToJsonString());
         $paramount.ui.eventView.init({
             ticketData: ticketData,
+            groupsRequired:@Model.GroupsRequired.ToJsonString(),
             maxTicketsPerBooking: @Model.MaxTicketsPerBooking,
-            baseUrl: '@Url.Action("Index", "Home")',
             eventId: @Model.EventId,
             floorPlanDocumentId: '@Model.LocationFloorPlanDocumentId',
             floorPlanFileName: '@Model.LocationFloorPlanFilename'

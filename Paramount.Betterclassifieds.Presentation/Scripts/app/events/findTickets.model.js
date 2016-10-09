@@ -1,6 +1,8 @@
 ﻿(function ($, $paramount, ko) {
     'use strict';
-
+    /*
+     * Used for the event view details page for ticket and group selection
+     */
     $paramount.models = $paramount.models || {};
     $paramount.models.FindTickets = function (eventService, data) {
         var me = this;
@@ -9,6 +11,14 @@
 
         me.tickets = ko.observableArray();
         me.eventId = ko.observable(data.eventId);
+        me.groupsRequired = ko.observable(data.groupsRequired);
+        me.groups = ko.observableArray();
+
+        if (data.groupsRequired === true && data.groups) {
+            $.each(data.groups, function (index, item) {
+                me.groups.push(new $paramount.models.EventGroup(item));
+            });
+        }
 
         $.each(data.ticketData, function (index, item) {
             me.tickets.push(new $paramount.models.EventTicket(item, data.maxTicketsPerBooking));

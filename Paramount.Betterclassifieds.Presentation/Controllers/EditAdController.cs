@@ -603,6 +603,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<EventGuestDetails, EventGuestListViewModel>();
             configuration.CreateMap<EventBookingTicketField, EventTicketFieldViewModel>();
             configuration.CreateMap<EventGroup, EventGroupViewModel>();
+            EventGroupViewModelFactory.GetMapping(configuration);
             configuration.CreateMap<EventTicket, EventTicketViewModel>();
 
             // From view model

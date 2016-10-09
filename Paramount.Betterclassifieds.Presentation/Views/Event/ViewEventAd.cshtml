@@ -69,7 +69,8 @@
                     else
                     {
                         <div class="ticketing" id="ticketing">
-                            <ul class="list-group" data-bind="foreach: tickets">
+                            @Html.Partial("_GroupAndTicketSelection")
+                            <ul class="list-group" data-bind="foreach: tickets, visible: groupsRequired() === false">
                                 <li class="list-group-item" data-bind="attr : {'data-ticket-name' : ticketName}">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -103,7 +104,6 @@
                 </div>
             </div>
         }
-
 
         <div class="@classForMainEventContent">
 

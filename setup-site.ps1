@@ -54,7 +54,11 @@ $cert = Get-ChildItem -Path "Cert:\LocalMachine\My" | Where { $_.Subject -eq "CN
 if ( $cert -eq $null ) {
     Write-Host "Creating certificate"
     $cert = New-SelfSignedCertificate -DnsName $localDomain -CertStoreLocation "Cert:\LocalMachine\My" -FriendlyName $localDomain
+
+    Write-Host "Setting up SSL"
+    Set-Location "IIS:\SslBindings"
+    New-Item -Path "IIS:\SslBindings\*!443!betterclassifieds.local" -Thumbprint $cert.Thumbprint -SslFlags 1
+    New-WebBinding -Port 443 -Protocol https -Name $iisAppName -HostHeader $localDomain -SslFlags 1
 }
 
-#Set-Location "IIS:\SslBindings"
-#New-Item -Path "IIS:\SslBindings\*!443!betterclassifieds.local" -Thumbprint $mycert.Thumbprint -SslFlags 1
+Write-Host "Done!"

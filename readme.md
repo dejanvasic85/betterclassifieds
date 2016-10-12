@@ -6,16 +6,15 @@
 - Visual Studio 2015 (ultimate preferred)
 - SQL Server 2008 R2 or higher with Full text search feature enabled ( you may need Developer  )
 - Ensure that SQL is running as the default instance (localhost)
+- Windows service RpcLocator is running so you can avoid all the sql-powershell warnings
 
 
 #### Building the Solution
 
-- Run VS as administrator
-- Open the solution. This should automatically create the websites fo you in IIS.
-- Open the package manager console (nuget console)
+- Open powershell as administrator
 - Run .\build.ps1
-
-Running the powershell build should setup the databases automatically under localhost.
+- This should have built solution, created the databases, setup site with app pool and SSL, and setup your hosts file.
+- Open http://betterclassifieds.local/ and it should render the site
 
 
 ### Deployment server requirements

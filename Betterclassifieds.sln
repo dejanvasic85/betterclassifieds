@@ -29,7 +29,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06 Build", "06 Build", "{767D0413-71AD-4641-8C51-E07B6CF2F6B6}"
 	ProjectSection(SolutionItems) = preProject
 		build.ps1 = build.ps1
-		setup-site.ps1 = setup-site.ps1
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{AC46CF8D-0922-4020-B203-51138A54AC59}"

@@ -23,6 +23,7 @@ $iisAppPoolDotNetVersion = "v4.0"
 $iisAppName = "betterclassifieds"
 $currentDirectory = Get-ScriptDirectory
 $directoryPath = Join-Path -Path $currentDirectory -ChildPath "Paramount.Betterclassifieds.Presentation"
+$localDomain = "betterclassifieds.local"
 
 #navigate to the app pools root
 cd IIS:\AppPools\
@@ -39,11 +40,21 @@ if (!(Test-Path $iisAppPoolName -pathType container))
 cd IIS:\Sites\
 
 #check if the site exists
-if (Test-Path $iisAppName -pathType container)
+if ((Test-Path $iisAppName -pathType container) -eq $false)
 {
-    return
+    Write-Host "setting up site"
+    #create the site
+    $iisApp = New-Item $iisAppName -bindings @{protocol="http";bindingInformation=":80:" + $localDomain} -physicalPath $directoryPath
+    $iisApp | Set-ItemProperty -Name "applicationPool" -Value $iisAppPoolName
 }
 
-#create the site
-$iisApp = New-Item $iisAppName -bindings @{protocol="http";bindingInformation=":80:" + $iisAppName} -physicalPath $directoryPath
-$iisApp | Set-ItemProperty -Name "applicationPool" -Value $iisAppPoolName
+# if the certificate exists then we must have the binding setup already
+$cert = Get-ChildItem -Path "Cert:\LocalMachine\My" | Where { $_.Subject -eq "CN=$($localDomain)" }
+
+if ( $cert -eq $null ) {
+    Write-Host "Creating certificate"
+    $cert = New-SelfSignedCertificate -DnsName $localDomain -CertStoreLocation "Cert:\LocalMachine\My" -FriendlyName $localDomain
+}
+
+#Set-Location "IIS:\SslBindings"
+#New-Item -Path "IIS:\SslBindings\*!443!betterclassifieds.local" -Thumbprint $mycert.Thumbprint -SslFlags 1

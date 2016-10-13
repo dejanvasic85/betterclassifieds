@@ -14,6 +14,10 @@ function Setup-Upgrade-Databases(){
 }
 
 function Build-Solution(){
+
+	$nugetDirectory = Join-Path -Path $scriptPath -ChildPath "packages\NuGet.CommandLine.3.4.3\tools\NuGet.exe"
+	& $nugetDirectory "restore" "Betterclassifieds.sln"
+
 	$regKey = "HKLM:\software\Microsoft\MSBuild\ToolsVersions\14.0"
 	$regProperty = "MSBuildToolsPath"
 	$msbuild = Join-Path -Path (Get-ItemProperty $regKey).$regProperty -ChildPath "msbuild.exe"
@@ -104,6 +108,7 @@ Setup-Upgrade-Databases
 Setup-Website
 Setup-AppPool-DbUser
 Setup-Hosts
+
 
 Write-Host "Done..."
 

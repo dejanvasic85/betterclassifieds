@@ -1,0 +1,23 @@
+﻿
+<ul class="list-group" data-bind="foreach: tickets, visible: groupsRequired() === false && groups().length > 0">
+    <li class="list-group-item" data-bind="attr : {'data-ticket-name' : ticketName}">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="text-left">
+                    <span class="ticket-info" data-bind="text: ticketName"></span>
+                    <span class="ticket-info tst-ticket-free badge" data-bind="visible: price() === 0, text : 'Free'"></span>
+                    <span class="ticket-info tst-ticket-price badge" data-bind="visible: price() > 0, text : priceFormatted"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-inline pull-right">
+                    <span data-bind="visible: soldOut, text: 'SOLD OUT'" class="label label-danger"></span>
+                    <div class="form-group" data-bind="visible: isAvailable">
+                        <span class="ticket-info">Quantity:</span>
+                        <select class="form-control" data-bind="value: selectedQuantity, options: maxTicketsPerBooking, optionsText : 'label', optionsValue : 'value'"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>

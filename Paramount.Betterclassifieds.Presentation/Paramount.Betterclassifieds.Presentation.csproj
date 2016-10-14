@@ -980,7 +980,8 @@
     <Content Include="Views\Listings\_AdSummaryEvent.cshtml" />
     <Content Include="Views\Image\Barcode.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Event\_GroupAndTicketSelection.cshtml" />
+    <Content Include="Views\Event\_TicketSelectionByGroup.cshtml" />
+    <Content Include="Views\Event\_TicketSelection.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

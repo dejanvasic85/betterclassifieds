@@ -1,0 +1,13 @@
+﻿<div data-bind="visible: groups().length > 0 && groupsRequired() === true">
+    <p>
+        Please select your group:
+    </p>
+
+    <ul class="list-group group-button-options" data-bind="foreach: groups">
+        <li class="list-group-item">
+            <button class="btn btn-primary btn-block" data-bind="click: selectGroup">
+                <span data-bind="text: groupNameWithCount"></span>
+            </button>
+        </li>
+    </ul>
+</div>

@@ -1,5 +1,5 @@
 ﻿/*
- * jQuery UI hooks to elements for viewing details for an Event Ad
+ * ViewEventAd.cshtml - ui hooks
  */
 (function ($, ko, $paramount) {
     'use strict';
@@ -20,7 +20,7 @@
                         maxTicketsPerBooking: options.maxTicketsPerBooking,
                         eventId: options.eventId
                     };
-                    
+
                     if (options.groupsRequired === true) {
                         eventService.getGroups(options.eventId).then(function (groups) {
                             data.groups = groups;

@@ -3,6 +3,24 @@
     /*
      * Used for the event view details page for ticket and group selection
      */
+
+    ko.components.register('ticket-selection', {
+        viewModel: function (params) {
+            var me = this;
+            var eventService = new $paramount.EventService();
+            me.availableTickets = ko.observableArray();
+
+            if (params && params.eventId) {
+                eventService.getAvailableTicketsForGroup( params.eventId, params.eventGroupId ).then(function(resp) {
+                    console.log(resp);
+                });
+            }   
+            
+        },
+        template: '<div data-bind="foreach: availableTickets"><span data=bind="text: ticketName"></span></div>'
+    });
+
+
     $paramount.models = $paramount.models || {};
     $paramount.models.FindTickets = function (eventService, data) {
         var me = this;

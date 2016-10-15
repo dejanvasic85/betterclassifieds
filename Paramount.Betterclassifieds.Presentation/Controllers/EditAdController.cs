@@ -393,7 +393,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return Json(ModelState.ToErrors());
 
             var eventTicket = _eventManager.GetEventTicket(viewModel.With(vm => vm.SelectedTicket).With(t => t.EventTicketId.GetValueOrDefault()));
-            var reservation = _ticketReservationFactory.CreateFreeReservation(_httpContext.Session?.SessionID, eventTicket);
+            var reservation = _ticketReservationFactory.CreateFreeReservation(_httpContext.Session?.SessionID, viewModel.SelectedGroup.With(g => g.EventGroupId), eventTicket);
 
             if (reservation.Status != EventTicketReservationStatus.Reserved)
             {
@@ -404,7 +404,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var currentUser = _userManager.GetCurrentUser();
             reservation.GuestFullName = viewModel.GuestFullName;
             reservation.GuestEmail = viewModel.GuestEmail;
-            reservation.EventGroupId = viewModel.SelectedGroup.With(g => g.EventGroupId);
             reservation.TicketFields = viewModel.With(vm => vm.TicketFields)
                 .With(tf => new EventBookingTicketField { FieldName = tf.FieldName, FieldValue = tf.FieldValue })
                 .With(l => l.ToList());

@@ -33,7 +33,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _bookingManager.IncrementHits(id);
 
             var eventModel = _eventManager.GetEventDetailsForOnlineAdId(onlineAdModel.OnlineAdId);
-          
+
             var eventViewModel = new EventViewDetailsModel(_httpContext,
                 Url, onlineAdModel, eventModel, _clientConfig);
 
@@ -59,6 +59,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return Json(new { Errors = ModelState.ToErrors() });
             }
 
+            if (eventModel.GroupsRequired.GetValueOrDefault() && tickets.Any(t => !t.EventGroupId.HasValue))
+            {
+                ModelState.AddModelError("Tickets", "The event requires a group to be selected with each ticket.");
+                return Json(new { Errors = ModelState.ToErrors() });
+            }
+
             _eventBookingContext.Clear();
             _eventBookingContext.EventInvitationId = reserveTicketsViewModel.EventInvitationId;
 
@@ -69,7 +75,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 reservations.AddRange(_eventTicketReservationFactory.CreateReservations(
                     t.EventTicketId.GetValueOrDefault(),
                     t.SelectedQuantity,
-                    sessionId));
+                    sessionId,
+                    t.EventGroupId));
             }
 
             _eventManager.ReserveTickets(sessionId, reservations);

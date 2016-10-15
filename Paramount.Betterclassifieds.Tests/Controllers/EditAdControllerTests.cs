@@ -261,7 +261,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             // arrange calls
             _eventManagerMock.SetupWithVerification(call => call.GetEventTicket(It.IsAny<int>()), mockEventTicket);
             _eventTicketReservationFactory.SetupWithVerification(
-                call => call.CreateFreeReservation(It.IsAny<string>(), It.IsAny<EventTicket>()),
+                call => call.CreateFreeReservation(It.IsAny<string>(), It.IsAny<int?>(), It.IsAny<EventTicket>()),
                 mockEventTicketReservation);
 
             _eventManagerMock.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(),
@@ -326,7 +326,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 new EventTicketMockBuilder().Default().Build());
 
             _eventTicketReservationFactory.SetupWithVerification(call => call.CreateFreeReservation(
-                It.IsAny<string>(), It.IsAny<EventTicket>()), mockEventTicketReservation);
+                It.IsAny<string>(), It.IsAny<int?>(), It.IsAny<EventTicket>()), mockEventTicketReservation);
 
             _httpContextBase.SetupWithVerification(call => call.Session.SessionID, "1234");
 

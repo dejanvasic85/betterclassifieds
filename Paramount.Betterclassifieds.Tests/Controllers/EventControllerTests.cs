@@ -112,6 +112,33 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         }
 
         [Test]
+        public void ReserveTickets_Post_EventRequiresGroups_NotGroupSelected_ReturnsJsonError()
+        {
+            // arrange
+            var eventTicketRequests = new List<EventTicketRequestViewModel>
+            {
+                new EventTicketRequestViewModel {TicketName = "Tick1", AvailableQuantity = 10, EventId = 999, Price = 10, SelectedQuantity = 1},
+                new EventTicketRequestViewModel {TicketName = "Tick2", AvailableQuantity = 11, EventId = 999, Price = 60, SelectedQuantity = 2, EventGroupId = 100},
+            };
+
+            var mockEventModel = new EventModelMockBuilder()
+                .WithGroupsRequired(true)
+                .Build();
+
+            _eventManager.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEventModel);
+
+            var controller = BuildController();
+            var vm = new ReserveTicketsViewModel { EventId = 1, Tickets = eventTicketRequests };
+
+            // act
+            var result = controller.ReserveTickets(vm);
+
+            // assert
+            var jsonResult = result.IsTypeOf<JsonResult>();
+            jsonResult.JsonResultContainsErrors();
+        }
+
+        [Test]
         public void ReserveTickets_Post_EventManager_SavesTheReservations_ReturnsJsonResult()
         {
             // arrange
@@ -139,7 +166,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _httpContext.SetupWithVerification(call => call.Session.SessionID, "123");
             _eventManager.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEventModel);
             _eventManager.SetupWithVerification(call => call.ReserveTickets(It.IsAny<string>(), It.IsAny<IEnumerable<EventTicketReservation>>()));
-            _eventTicketReservationFactory.SetupWithVerification(call => call.CreateReservations(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()), mockReservations);
+            _eventTicketReservationFactory.SetupWithVerification(call => call.CreateReservations(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<int?>()), result: mockReservations);
             _eventBookingContext.SetupWithVerification(call => call.Clear());
             _eventBookingContext.SetupSet(p => p.EventInvitationId = It.Is<long>(s => s == vm.EventInvitationId));
 

@@ -15,7 +15,7 @@ function Setup-Upgrade-Databases(){
 
 function Build-Solution(){
 
-	$nugetDirectory = Join-Path -Path $scriptPath -ChildPath "packages\NuGet.CommandLine.3.4.3\tools\NuGet.exe"
+	$nugetDirectory = "C:\Program Files (x86)\NuGet\NuGet.exe"
 	& $nugetDirectory "restore" "Betterclassifieds.sln"
 
 	$regKey = "HKLM:\software\Microsoft\MSBuild\ToolsVersions\14.0"
@@ -101,7 +101,16 @@ $scriptPath = ( Split-Path $MyInvocation.MyCommand.Path )
 
 # Set the variables for the database setup
 Set-Variable -Name 'Brand' -Value 'KandoBay' -Scope Global
-Set-Variable -Name 'SqlFilesPath' -Value 'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\' -Scope Global
+
+if(Test-Path "C:\Program Files\Microsoft SQL Server\MSSQL12.MSSQLSERVER\MSSQL\")
+{
+	Set-Variable -Name 'SqlFilesPath' -Value 'C:\Program Files\Microsoft SQL Server\MSSQL12.MSSQLSERVER\MSSQL\' -Scope Global
+
+}else{
+	Set-Variable -Name 'SqlFilesPath' -Value 'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\' -Scope Global
+}
+
+
 
 Build-Solution
 Setup-Upgrade-Databases

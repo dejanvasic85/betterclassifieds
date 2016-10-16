@@ -50,7 +50,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             GroupsRequired = eventModel.GroupsRequired.GetValueOrDefault();
 
             FacebookAppId = clientConfig.FacebookAppId;
-            MaxTicketsPerBooking = clientConfig.MaxOnlineImages.GetValueOrDefault();
+            MaxTicketsPerBooking = clientConfig.EventMaxTicketsPerBooking;
 
             LocationFloorPlanFilename = eventModel.LocationFloorPlanFilename;
             LocationFloorPlanDocumentId = eventModel.LocationFloorPlanDocumentId;

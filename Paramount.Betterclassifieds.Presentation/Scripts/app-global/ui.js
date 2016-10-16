@@ -86,8 +86,10 @@
         $.validator.methods.date = function (value, element) {
             return this.optional(element) || moment(value, 'dd/MM/yyyy').isValid();
         };
-
-        // JQuery extensions
+        
+        /*
+         * jQuery extensions
+         */
         $.fn.extend({
             loadSubCategories: function (parentCategoryId) {
                 var me = this;
@@ -107,10 +109,7 @@
                     me.removeAttr('disabled').removeClass('hidden');
                 });
                 return me;
-            }
-        });
-
-        $.fn.extend({
+            },
             loadLocationAreas: function (locationId) {
                 var me = this;
                 me.empty();
@@ -130,6 +129,14 @@
                     me.removeAttr('disabled').removeClass('hidden');
                 });
                 return me;
+            },
+            loadBtn : function() {
+                this.button('loading');
+                return this;
+            },
+            resetBtn : function() {
+                this.button('reset');
+                return this;
             }
         });
     });

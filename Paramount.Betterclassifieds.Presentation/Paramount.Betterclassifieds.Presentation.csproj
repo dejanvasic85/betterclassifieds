@@ -597,7 +597,7 @@
     <Content Include="Scripts\app\events\eventAd.model.js" />
     <Content Include="Scripts\app\booking\bookingCategorySelection.js" />
     <Content Include="Scripts\app\booking\designAd.js" />
-    <Content Include="Scripts\app\events\eventView.ui.js" />
+    <Content Include="Scripts\app\events\viewEventAd.ui.js" />
     <Content Include="Scripts\app\categories\categoryLinks.model.js" />
     <Content Include="Scripts\app\events\invitation.ui.js" />
     <Content Include="Scripts\app\events\manage-groups.model.js" />

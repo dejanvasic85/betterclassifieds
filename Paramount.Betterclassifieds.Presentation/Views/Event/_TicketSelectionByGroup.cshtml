@@ -1,16 +1,31 @@
 ﻿<div data-bind="visible: groups().length > 0 && groupsRequired() === true">
     <p>
-        Please select your group:
+        Click on the group you want to join:
     </p>
-
-
-    
 
     <ul class="list-group group-button-options" data-bind="foreach: groups">
         <li class="list-group-item">
-            <button class="btn btn-primary btn-block" data-bind="click: selectGroup">
+            <button class="btn btn-primary btn-block ko-load" data-bind="click: $parent.onGroupSelect">
                 <span data-bind="text: groupNameWithCount"></span>
             </button>
         </li>
     </ul>
+</div>
+
+<div id="ticketSelectionModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Available tickets for group:</h4>
+            </div>
+            <div class="modal-body" data-bind="foreach: tickets">
+                <ticket-selection params="ticketData: $data"></ticket-selection>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" data-bind="click: onGroupTicketSave">Save &amp; Find Another...</button>
+                <button type="button" class="btn btn-primary">Checkout</button>
+            </div>
+        </div>
+    </div>
 </div>

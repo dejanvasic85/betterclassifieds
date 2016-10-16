@@ -1,12 +1,4 @@
 ﻿<div>
-
-    <div data-bind="visible: groupsRequired">
-        Group selection here
-
-    </div>
-
-    <div data-bind="visible: groupsRequired() === false">
-        <div data-bind="foreach: availableTickets"></div>
-    </div>
-
+    <label class="control-label" data-bind="text: ticketName"></label>
+    <input type="number" class="form-control" data-bind="value: selectedQuantity"/>
 </div>

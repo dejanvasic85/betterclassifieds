@@ -1,6 +1,8 @@
 ﻿(function ($, ko, $p) {
     'use strict';
 
+    var service = new $p.EventService();
+
     function EventGroup(data) {
         var me = this;
         me.eventGroupId = ko.observable();
@@ -8,6 +10,8 @@
         me.groupName = ko.observable();
         me.maxGuests = ko.observable();
         me.guestCount = ko.observable();
+
+
         if (data) {
             me.bind(data);
         }
@@ -23,10 +27,7 @@
 
             return me.groupName() + " (" + me.guestCount() + " / " + me.maxGuests() + ")";
         });
-    }
 
-    EventGroup.prototype.selectGroup = function () {
-        alert('selected ' + this.eventGroupId());
     }
 
     EventGroup.prototype.bind = function (data) {

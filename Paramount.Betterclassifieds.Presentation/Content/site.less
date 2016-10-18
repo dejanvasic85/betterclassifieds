@@ -335,6 +335,19 @@
             position: static;
         }
 
+        @media(min-width: 992px){
+            &.affix-top{
+                position: static;
+                margin-top: 30px;
+                width: 283px;
+            }
+
+            &.affix {
+                position: fixed;
+                top: 30px;
+                width: 283px;
+            }
+        }
 
         @media (min-width: 1200px) {
             &.affix-top {
@@ -345,22 +358,8 @@
 
             &.affix {
                 position: fixed;
-                top: 20px;
+                top: 30px;
                 width: 350px;
-            }
-        }
-
-        @media (max-width: 1200px) {
-            &.affix-top {
-                position: static;
-                margin-top: 30px;
-                width: 210px;
-            }
-
-            &.affix {
-                position: fixed;
-                top: 20px;
-                width: 210px;
             }
         }
     }

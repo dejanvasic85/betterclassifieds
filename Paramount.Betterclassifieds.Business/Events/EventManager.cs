@@ -51,8 +51,19 @@ namespace Paramount.Betterclassifieds.Business.Events
             return _eventRepository.GetEventTicketDetails(eventTicketId);
         }
 
-        public async Task<IEnumerable<int>> GetEventTicketsForGroup(int eventGroupId)
+        public async Task<IEnumerable<EventTicket>> GetEventTicketsForGroup(int eventGroupId)
         {
+            var eventGroup = await _eventRepository.GetEventGroup(eventGroupId);
+            if (eventGroup == null)
+            {
+                return null;
+            }
+
+            if (eventGroup.AvailableToAllTickets.GetValueOrDefault())
+            {
+                return await _eventRepository.GetEventTickets(eventGroup.EventId.GetValueOrDefault());
+            }
+
             return await _eventRepository.GetEventTicketsForGroup(eventGroupId);
         }
 

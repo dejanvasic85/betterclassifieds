@@ -65,20 +65,13 @@
 
             selectedGroupId = model.eventGroupId();
             me.tickets.removeAll();
-            me.eventService.getAvailableTicketsForGroup(model.eventId(), model.eventGroupId()).then(loadTickets);
-
-            function loadTickets(resp) {
-
-                // Todo - create event ticket from each item in resp
-                console.log('resp', resp);
-
-                //me.tickets.push({
-                //    ticketName: ko.observable('General Admission'),
-                //    selectedQuantity: ko.observable(0),
-                //    price : ko.observable(0)
-                //});
-                $ticketsModal.modal('show');
-            }
+            me.eventService.getTicketsForGroup(model.eventId(), model.eventGroupId())
+                .then(function(resp) {
+                    console.log(resp);
+                    me.tickets.push(new $paramount.models.EventTicket());
+                    $ticketsModal.modal('show');
+                    $btn.resetBtn();
+                });
         }
 
         /*

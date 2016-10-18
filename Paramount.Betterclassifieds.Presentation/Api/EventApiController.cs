@@ -94,9 +94,12 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         /// Returns ID's only for the tickets that are available for a group!
         /// </summary>
         [Route("{id:int}/groups/{eventGroupId:int}/tickets")]
-        public async Task<IHttpActionResult> GetAvailableTicketsForGroup(int id, int eventGroupId)
+        public async Task<IHttpActionResult> GetTicketsForGroup(int id, int eventGroupId)
         {
             var eventTickets = await _eventManager.GetEventTicketsForGroup(eventGroupId);
+            if (eventTickets == null)
+                return NotFound();
+
             return Ok(eventTickets);
         }
 

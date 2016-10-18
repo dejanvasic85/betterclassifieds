@@ -10,7 +10,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         EventModel GetEventDetailsForOnlineAdId(int onlineAdId, bool includeBookings = false);
         EventModel GetEventDetails(int eventId);
         EventTicket GetEventTicket(int eventTicketId);
-        Task<IEnumerable<int>> GetEventTicketsForGroup(int eventGroupId);
+        Task<IEnumerable<EventTicket>> GetEventTicketsForGroup(int eventGroupId);
         EventBooking GetEventBooking(int eventBookingId);
         EventBookingTicket GetEventBookingTicket(int eventBookingTicketId);
         EventBookingTicket UpdateEventBookingTicket(int eventBookingTicketId, string guestFullName, string guestEmail, int? eventGroupId, IEnumerable<EventBookingTicketField> fields);

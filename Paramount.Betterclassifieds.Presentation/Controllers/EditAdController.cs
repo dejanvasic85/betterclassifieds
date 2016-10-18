@@ -542,10 +542,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             foreach (var gr in manageGroupsViewModel.EventGroups)
             {
-                var availableTicketIds = await _eventManager.GetEventTicketsForGroup(gr.EventGroupId.GetValueOrDefault());
-                gr.AvailableTickets = this.MapList<EventTicket, EventTicketViewModel>(tickets
-                    .Where(t => availableTicketIds.Contains(t.EventTicketId.GetValueOrDefault()))
-                    .ToList());
+                var ticketsForGroup = await _eventManager.GetEventTicketsForGroup(gr.EventGroupId.GetValueOrDefault());
+                gr.AvailableTickets = ticketsForGroup.Select(this.Map<EventTicket, EventTicketViewModel>).ToList();
             }
 
             return View(manageGroupsViewModel);

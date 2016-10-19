@@ -1,6 +1,30 @@
 ﻿<div data-bind="visible: groups().length > 0 && groupsRequired() === true">
     <p>
-        Click on the group you want to join:
+        Selected Tickets:
+    </p>
+    <ul class="list-group" data-bind="foreach: selectedTickets">
+        <li class="list-group-item">
+            <div class="text-left">
+                <span data-bind="text: ticketName"></span> &nbsp;
+                x<span data-bind="text: selectedQuantity"></span>
+                <span data-bind="text: eventGroupId"></span>
+            </div>
+            <div class="text-right">
+                <button class="btn btn-default" data-bind="click: $parent.removeSelectedTicket">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </div>
+        </li>
+    </ul>
+    <div class="text-right">
+        <button class="btn btn-primary btn-block" data-loading-text="Please Wait..."
+                data-bind="click: startOrder" id="btnGetTickets">
+            Order Tickets <i class="fa fa-arrow-right"></i>
+        </button>
+    </div>
+
+    <p>
+        Available groups:
     </p>
 
     <ul class="list-group group-button-options" data-bind="foreach: groups">
@@ -18,8 +42,8 @@
             <div class="modal-header">
                 <h4>Available tickets for group:</h4>
             </div>
-            <div class="modal-body" data-bind="foreach: tickets">
-                <ticket-selection params="ticketData: $data"></ticket-selection>
+            <div class="modal-body" data-bind="foreach: availableTickets">
+                <ticket-selection params="ticket: $data"></ticket-selection>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

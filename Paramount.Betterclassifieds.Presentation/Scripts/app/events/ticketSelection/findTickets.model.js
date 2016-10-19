@@ -1,4 +1,4 @@
-﻿(function ($, $paramount, ko) {
+﻿(function ($, $p, ko) {
     'use strict';
 
     /*
@@ -6,55 +6,61 @@
      */
 
     var $ticketsModal = $('#ticketSelectionModal');
-    var selectedTickets = [];
-    var selectedGroupId = null;
 
-    $paramount.models = $paramount.models || {};
-    $paramount.models.FindTickets = function (eventService, data) {
+    function FindTickets(eventService, data) {
         var me = this;
 
-        $.extend(data, {});
+        _.defaults(data, {});
 
-        me.tickets = ko.observableArray();
-        me.eventId = ko.observable(data.eventId);
+        me.availableTickets = ko.observableArray();
+        me.eventInvitationId = ko.observable(data.eventInvitationId);
         me.groupsRequired = ko.observable(data.groupsRequired);
         me.groups = ko.observableArray();
         me.eventService = eventService;
+        me.groupSelectionEnabled = data.groupsRequired && !_.isUndefined(data.groups) && data.groups.length > 0;
+        me.maxTicketsPerBooking = data.maxTicketsPerBooking;
+        me.selectedGroupId = null;
+        me.selectedTickets = ko.observableArray();
+
+        // This maps to the EventTicketReservedViewModel
+        me.reservationData = {
+            eventId: data.eventId,
+            eventInvitationId: data.invitationId,
+            tickets: []
+        };
+
 
         if (data.groupsRequired === true && data.groups) {
             $.each(data.groups, function (index, item) {
-                me.groups.push(new $paramount.models.EventGroup(item));
+                me.groups.push(new $p.models.EventGroup(item));
+            });
+        } else {
+            $.each(data.ticketData, function (index, item) {
+                me.availableTickets.push(new $p.models.EventTicket(item, me.maxTicketsPerBooking));
             });
         }
-
-        $.each(data.ticketData, function (index, item) {
-            me.tickets.push(new $paramount.models.EventTicket(item, data.maxTicketsPerBooking));
-        });
 
         me.startOrder = function (element, event) {
             var $btn = $(event.target).loadBtn();
-            _.remove(me.tickets(), function (t) {
-                return t.selectedQuantity() === undefined || t.selectedQuantity() === 0;
-            });
-            eventService.startTicketOrder(ko.toJSON(me)).error(function () {
-                $btn.resetBtn();
-            });
+
+            saveSelectedTickets();
+
+            if (me.selectedTickets().length > 0) {
+
+                reservationData.tickets = ko.toJSON(me.selectedTickets());
+
+                eventService.startTicketOrder(reservationData).fail(function () {
+                    $btn.resetBtn();
+                });
+            }
         }
 
-        // property used for the user interface to show/hide the submit button
-        me.totalSelectedTickets = ko.computed(function () {
-            var total = 0;
-            if (_.isUndefined(me.tickets()) || me.tickets().length === 0) {
-                return total;
+        me.allowToOrderTickets = ko.computed(function () {
+            if (me.groupSelectionEnabled === true) {
+                return true;
             }
 
-            $.each(me.tickets(), function (index, item) {
-                if (!_.isUndefined(item.selectedQuantity())) {
-                    total += item.selectedQuantity();
-                }
-            });
-
-            return total;
+            return me.selectedTickets().length > 0;
         });
 
         /*
@@ -63,15 +69,27 @@
         me.onGroupSelect = function (model, el) {
             var $btn = $(el.target).loadBtn();
 
-            selectedGroupId = model.eventGroupId();
-            me.tickets.removeAll();
-            me.eventService.getTicketsForGroup(model.eventId(), model.eventGroupId())
-                .then(function(resp) {
-                    console.log(resp);
-                    me.tickets.push(new $paramount.models.EventTicket());
+            me.selectedGroupId = model.eventGroupId();
+            me.availableTickets.removeAll();
+
+            me.eventService.getTicketsForGroup(me.reservationData.eventId, model.eventGroupId())
+                .then(function (resp) {
+                    _.each(resp, function (t) {
+                        var maxTicketsAllowed = getMaxTicketsAllowed(me.selectedGroupId, t.eventTicketId, model.maxGuests(), t.remainingQuantity);
+                        var eventTicket = new $p.models.EventTicket(t, maxTicketsAllowed);
+                        eventTicket.eventGroupId = ko.observable(model.eventGroupId());
+                        me.availableTickets.push(eventTicket);
+                    });
+
                     $ticketsModal.modal('show');
+                })
+                .always(function () {
                     $btn.resetBtn();
                 });
+        }
+
+        me.removeSelectedTicket = function (model) {
+            me.selectedTickets.remove(this);
         }
 
         /*
@@ -83,18 +101,37 @@
         }
 
         function saveSelectedTickets() {
-            var tix = ko.toJS(me.tickets);
+            _.each(me.availableTickets(), function (t) {
+                if (t.selectedQuantity() > 0) {
+                    me.selectedTickets.push(t);
+                }
+            });
+        }
 
-            _.remove(tix, function (t) {
-                return _.isUndefined(t.selectedQuantity) || t.selectedQuantity <= 0;
+        function getMaxTicketsAllowed(eventGroupId, eventTicketId, groupMaxGuests, ticketRemainingQuantity) {
+            var currentSelectedCount = _.sumBy(me.selectedTickets(), function (t) {
+                if (t.eventGroupId() === eventGroupId && t.eventTicketId() === eventTicketId) {
+                    return t.selectedQuantity();
+                }
+                return 0;
             });
 
-            _.each(tix, function (t) {
-                t.eventGroupId = selectedGroupId;
-            });
+            var maxTicketsAllowed = me.maxTicketsPerBooking; // Set the default max value first.
+            if (!_.isNull(groupMaxGuests) && groupMaxGuests < maxTicketsAllowed) {
+                maxTicketsAllowed = groupMaxGuests;
+            }
 
-            selectedTickets.push(tix);
-            console.log('selectedTickets', selectedTickets);
+            if (!_.isNull(ticketRemainingQuantity) && ticketRemainingQuantity < maxTicketsAllowed) {
+                maxTicketsAllowed = ticketRemainingQuantity;
+            }
+
+            maxTicketsAllowed = maxTicketsAllowed - currentSelectedCount;
+
+            return maxTicketsAllowed;
         }
     }
+
+    $p.models = $p.models || {};
+    $p.models.FindTickets = FindTickets;
+
 })(jQuery, $paramount, ko);

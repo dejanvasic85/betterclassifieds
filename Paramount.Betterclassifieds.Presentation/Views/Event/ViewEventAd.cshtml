@@ -71,17 +71,11 @@
                         else
                         {
                             <div class="ticketing" id="ticketing">
+                                
                                 @Html.Partial("_TicketSelectionByGroup")
 
                                 @Html.Partial("_TicketSelection")
 
-                                <div class="well  text-right" data-bind="visible: totalSelectedTickets() > 0">
-                                    <button class="btn btn-primary" data-loading-text="Please Wait..."
-                                            data-bind="click: startOrder" id="btnGetTickets">
-                                        Get Tickets <i class="fa fa-arrow-right"></i>
-                                    </button>
-                                </div>
-                                
                             </div>
                         }
                     </div>

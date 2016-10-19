@@ -49,3 +49,21 @@ Here's a list of problems that we may run in to that are not available on google
 
 The Linq-2-Sql tables that have a "Timestamp" column property, have to have that
 property mapped to a byte[] so that the automapper will work.
+
+
+## Conventions
+
+### Automation Testing Tagging Elements
+
+When we need to select elements in our automation tests
+and they don't have and Id or a class name because they 
+were not required for functional purposes, then we attach
+a specific class prefixed with "tst". 
+
+Example (ticket-selection.html):
+
+``` 
+<span class="ticket-info tst-ticket-free badge" data-bind="visible: price() === 0, text : 'Free'"></span>
+```
+
+This allows selenium web driver to select an element with class ```tst-ticket-free``` for any free ticket.

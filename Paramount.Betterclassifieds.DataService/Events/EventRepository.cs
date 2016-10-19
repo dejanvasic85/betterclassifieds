@@ -234,7 +234,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
             {
                 return await context.Database
                     .SqlQuery<EventTicket>("EventTicket_GetByEventGroupId @eventGroupId",
-                        new SqlParameter("eventTicketId", eventGroupId))
+                        new SqlParameter("eventGroupId", eventGroupId))
                     .ToListAsync();
             }
         }

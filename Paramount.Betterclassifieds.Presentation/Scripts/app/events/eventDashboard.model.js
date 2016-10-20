@@ -9,7 +9,7 @@
         me.totalSoldQty = ko.observable();
         me.isClosed = ko.observable();
         me.totalRemainingQty = ko.computed(function () {
-            return _.sum(me.tickets(), function (t) {
+            return _.sumBy(me.tickets(), function (t) {
                 return t.remainingQuantity();
             });
         });

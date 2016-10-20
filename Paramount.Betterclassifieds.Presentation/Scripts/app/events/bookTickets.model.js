@@ -56,7 +56,7 @@
         });
 
         me.totalCost = ko.computed(function () {
-            return _.sum(me.reservations(), function (r) {
+            return _.sumBy(me.reservations(), function (r) {
                 if (r.notReserved()) {
                     return 0;
                 }

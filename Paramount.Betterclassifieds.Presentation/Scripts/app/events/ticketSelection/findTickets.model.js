@@ -21,6 +21,7 @@
         me.maxTicketsPerBooking = data.maxTicketsPerBooking;
         me.selectedGroupId = null;
         me.selectedTickets = ko.observableArray();
+        me.displayNoSelectedTickets = ko.observable(false);
 
         // This maps to the EventTicketReservedViewModel
         me.reservationData = {
@@ -28,7 +29,6 @@
             eventInvitationId: data.invitationId,
             tickets: []
         };
-
 
         if (data.groupsRequired === true && data.groups) {
             $.each(data.groups, function (index, item) {
@@ -41,17 +41,15 @@
         }
 
         me.startOrder = function (element, event) {
-            var $btn = $(event.target).loadBtn();
-
             saveSelectedTickets();
-
             if (me.selectedTickets().length > 0) {
-
-                reservationData.tickets = ko.toJSON(me.selectedTickets());
-
-                eventService.startTicketOrder(reservationData).fail(function () {
+                me.reservationData.tickets = ko.toJS(me.selectedTickets());
+                var $btn = $(event.target).loadBtn();
+                eventService.startTicketOrder(me.reservationData).fail(function() {
                     $btn.resetBtn();
                 });
+            } else {
+                me.displayNoSelectedTickets(true);
             }
         }
 
@@ -59,7 +57,6 @@
             if (me.groupSelectionEnabled === true) {
                 return true;
             }
-
             return me.selectedTickets().length > 0;
         });
 

@@ -40,7 +40,7 @@
             });
         }
 
-        me.startOrder = function (element, event) {
+        me.startOrder = function (model, event) {
             if (me.selectedTickets().length > 0) {
                 me.reservationData.tickets = ko.toJS(me.selectedTickets());
                 var $btn = $(event.target).loadBtn();
@@ -67,8 +67,8 @@
         /*
          * Used for the findTickets.model.js page
          */
-        me.onGroupSelect = function (model, el) {
-            var $btn = $(el.target).loadBtn();
+        me.onGroupSelect = function (model, event) {
+            var $btn = $(event.target).loadBtn();
 
             me.selectedGroupId = model.eventGroupId();
             me.availableTickets.removeAll();
@@ -88,17 +88,19 @@
                     $btn.resetBtn();
                 });
         }
-
-        me.removeSelectedTicket = function (model) {
+        
+        me.removeSelectedTicket = function () {
             me.selectedTickets.remove(this);
         }
 
-        /*
-         * User selected to save tickets and continue
-         */
         me.onGroupTicketSave = function () {
             saveSelectedTickets();
             $ticketsModal.modal('hide');
+        }
+
+        me.onGroupTicketSaveAndOrder = function (model, event) {
+            saveSelectedTickets();
+            me.startOrder(model, event);
         }
 
         function saveSelectedTickets() {

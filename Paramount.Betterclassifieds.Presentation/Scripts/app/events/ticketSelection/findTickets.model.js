@@ -41,17 +41,21 @@
         }
 
         me.startOrder = function (element, event) {
-            saveSelectedTickets();
             if (me.selectedTickets().length > 0) {
                 me.reservationData.tickets = ko.toJS(me.selectedTickets());
                 var $btn = $(event.target).loadBtn();
-                eventService.startTicketOrder(me.reservationData).fail(function() {
+                eventService.startTicketOrder(me.reservationData).fail(function () {
                     $btn.resetBtn();
                 });
             } else {
                 me.displayNoSelectedTickets(true);
             }
         }
+
+        me.saveAndOrder = function (element, event) {
+            saveSelectedTickets();
+            me.startOrder(element, event);
+        };
 
         me.allowToOrderTickets = ko.computed(function () {
             if (me.groupSelectionEnabled === true) {

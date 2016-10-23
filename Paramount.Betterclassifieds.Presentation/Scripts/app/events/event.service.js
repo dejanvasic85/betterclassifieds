@@ -42,14 +42,12 @@
     }
 
     EventService.prototype.getTicketsForEvent = function(eventId) {
-        return this.getTicketsForGroup(eventId);
+        var url = this.baseUrl + 'api/events/' + eventId + '/tickets';
+        return $paramount.httpGet(url);
     }
 
     EventService.prototype.getTicketsForGroup = function(eventId, eventGroupId) {
-        var url = this.baseUrl + 'api/events/' + eventId;
-        if (!_.isUndefined(eventGroupId)) {
-            url += '/groups/' + eventGroupId + '/tickets';
-        } 
+        var url = this.baseUrl + 'api/events/' + eventId + '/groups/' + eventGroupId + '/tickets';
         return $paramount.httpGet(url);
     }
 

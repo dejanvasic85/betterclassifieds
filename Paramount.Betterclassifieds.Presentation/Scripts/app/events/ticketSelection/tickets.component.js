@@ -30,8 +30,104 @@
             tickets: []
         };
 
-        this.load(params, function() {
-            console.log('done');
+        me.startOrder = function (model, event) {
+            if (me.selectedTickets().length > 0) {
+                me.reservationData.tickets = ko.toJS(me.selectedTickets());
+                var $btn = $(event.target).loadBtn();
+                eventService.startTicketOrder(me.reservationData).fail(function () {
+                    $btn.resetBtn();
+                });
+            } else {
+                me.displayNoSelectedTickets(true);
+            }
+        }
+
+        me.saveAndOrder = function (element, event) {
+            saveSelectedTickets();
+            me.startOrder(element, event);
+        };
+
+        me.allowToOrderTickets = ko.computed(function () {
+            if (me.groupSelectionEnabled === true) {
+                return true;
+            }
+            return me.selectedTickets().length > 0;
+        });
+
+        /*
+         * Used for the findTickets.model.js page
+         */
+        me.onGroupSelect = function (model, event) {
+            var $btn = $(event.target).loadBtn();
+
+            me.selectedGroupId = model.eventGroupId();
+            me.availableTickets.removeAll();
+
+            me.eventService.getTicketsForGroup(me.reservationData.eventId, model.eventGroupId())
+                .then(function (resp) {
+                    _.each(resp, function (t) {
+                        var maxTicketsAllowed = getMaxTicketsAllowed(me.selectedGroupId, t.eventTicketId, model.maxGuests(), t.remainingQuantity);
+                        var eventTicket = new $p.models.EventTicket(t, maxTicketsAllowed);
+                        eventTicket.eventGroupId = ko.observable(model.eventGroupId());
+                        me.availableTickets.push(eventTicket);
+                    });
+
+                    $ticketsModal.modal('show');
+                })
+                .always(function () {
+                    $btn.resetBtn();
+                });
+        }
+
+        me.removeSelectedTicket = function () {
+            me.selectedTickets.remove(this);
+        }
+
+        me.onGroupTicketSave = function () {
+            saveSelectedTickets();
+            $ticketsModal.modal('hide');
+        }
+
+        me.onGroupTicketSaveAndOrder = function (model, event) {
+            saveSelectedTickets();
+            me.startOrder(model, event);
+        }
+
+        function saveSelectedTickets() {
+            _.each(me.availableTickets(), function (t) {
+                if (t.selectedQuantity() > 0) {
+                    me.selectedTickets.push(t);
+                }
+            });
+        }
+
+        function getMaxTicketsAllowed(eventGroupId, eventTicketId, groupMaxGuests, ticketRemainingQuantity) {
+            var currentSelectedCount = _.sumBy(me.selectedTickets(), function (t) {
+                if (t.eventGroupId() === eventGroupId && t.eventTicketId() === eventTicketId) {
+                    return t.selectedQuantity();
+                }
+                return 0;
+            });
+
+            var maxTicketsAllowed = me.maxTicketsPerBooking; // Set the default max value first.
+            if (!_.isNull(groupMaxGuests) && groupMaxGuests < maxTicketsAllowed) {
+                maxTicketsAllowed = groupMaxGuests;
+            }
+
+            if (!_.isNull(ticketRemainingQuantity) && ticketRemainingQuantity < maxTicketsAllowed) {
+                maxTicketsAllowed = ticketRemainingQuantity;
+            }
+
+            maxTicketsAllowed = maxTicketsAllowed - currentSelectedCount;
+
+            return maxTicketsAllowed;
+        }
+
+        /*
+         * Databind data from the server
+         */
+        this.load(params, function () {
+            // Todo - toggle loader
         });
     }
 
@@ -51,7 +147,9 @@
                 });
             } else {
                 eventService.getTicketsForEvent(params.eventId).then(function (ticketData) {
-                    console.log(ticketData);
+                    _.each(ticketData, function (t) {
+                        me.availableTickets.push(new $p.models.EventTicket(t, me.maxTicketsPerBooking));
+                    });
                     done();
                 });
             }

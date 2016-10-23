@@ -8,8 +8,8 @@
             <ul class="list-group" data-bind="foreach: selectedTickets">
                 <li class="list-group-item">
                     <div class="text-left">
-                        <span data-bind="text: ticketName"></span> &nbsp;
-                        x<span data-bind="text: selectedQuantity"></span>
+                        <span data-bind="text: ticketName"></span>
+                        (<i class="fa fa-times"></i> <span data-bind="text: selectedQuantity"></span>)
                     </div>
                     <div class="text-right">
                         <button class="btn btn-default" data-bind="click: $parent.removeSelectedTicket">

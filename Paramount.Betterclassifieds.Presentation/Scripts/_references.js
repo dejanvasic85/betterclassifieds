@@ -35,7 +35,6 @@
 /// <reference path="app/events/invitation.ui.js" />
 /// <reference path="app/events/manage-groups.model.js" />
 /// <reference path="app/events/manage-tickets.model.js" />
-/// <reference path="app/events/ticketselection/findtickets.model.js" />
 /// <reference path="app/events/ticketselection/ticket-option.component.js" />
 /// <reference path="app/events/ticketselection/tickets.component.js" />
 /// <reference path="app/events/vieweventad.ui.js" />

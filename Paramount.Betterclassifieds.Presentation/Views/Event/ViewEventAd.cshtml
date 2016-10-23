@@ -71,11 +71,6 @@
                         else
                         {
                             <div class="ticketing" id="ticketing">
-
-                                @*@Html.Partial("_TicketSelectionByGroup")
-
-                                @Html.Partial("_TicketSelection")*@
-
                                 <tickets params="{eventId: @Model.EventId, maxTicketsPerBooking : @Model.MaxTicketsPerBooking, baseUrl: '@Url.Home().WithFullUrl()'}"></tickets>
                             </div>
                         }

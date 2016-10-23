@@ -1,6 +1,5 @@
 ﻿(function ($, ko, $p) {
 
-    var $ticketsModal = $('#ticketSelectionModal');
     var eventService;
 
     ko.components.register('tickets', {
@@ -10,6 +9,7 @@
 
     function Tickets(params) {
         var me = this;
+
 
         eventService = new $p.EventService(params.baseUrl);
 
@@ -63,7 +63,7 @@
             me.selectedGroupId = model.eventGroupId();
             me.availableTickets.removeAll();
 
-            me.eventService.getTicketsForGroup(me.reservationData.eventId, model.eventGroupId())
+            eventService.getTicketsForGroup(me.reservationData.eventId, model.eventGroupId())
                 .then(function (resp) {
                     _.each(resp, function (t) {
                         var maxTicketsAllowed = getMaxTicketsAllowed(me.selectedGroupId, t.eventTicketId, model.maxGuests(), t.remainingQuantity);
@@ -72,7 +72,7 @@
                         me.availableTickets.push(eventTicket);
                     });
 
-                    $ticketsModal.modal('show');
+                    $('#ticketSelectionModal').modal('show');
                 })
                 .always(function () {
                     $btn.resetBtn();
@@ -85,7 +85,7 @@
 
         me.onGroupTicketSave = function () {
             saveSelectedTickets();
-            $ticketsModal.modal('hide');
+            $('#ticketSelectionModal').modal('hide');
         }
 
         me.onGroupTicketSaveAndOrder = function (model, event) {
@@ -109,7 +109,7 @@
                 return 0;
             });
 
-            var maxTicketsAllowed = me.maxTicketsPerBooking; // Set the default max value first.
+            var maxTicketsAllowed = me.maxTicketsPerBooking; // Align by the maximum first
             if (!_.isNull(groupMaxGuests) && groupMaxGuests < maxTicketsAllowed) {
                 maxTicketsAllowed = groupMaxGuests;
             }

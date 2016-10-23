@@ -14,7 +14,6 @@
         eventService = new $p.EventService(params.baseUrl);
 
         me.availableTickets = ko.observableArray();
-        me.eventInvitationId = ko.observable(); // Todo - bind it from params for invitation page
         me.groupsRequired = ko.observable();
         me.groups = ko.observableArray();
         me.groupSelectionEnabled = false;
@@ -26,7 +25,7 @@
         // This maps to the EventTicketReservedViewModel
         me.reservationData = {
             eventId: params.eventId,
-            eventInvitationId: params.invitationId,
+            eventInvitationId: params.eventInvitationId,
             tickets: []
         };
 

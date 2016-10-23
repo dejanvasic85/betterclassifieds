@@ -50,6 +50,7 @@
       <Column Name="LocationFloorPlanDocumentId" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="LocationFloorPlanFilename" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="IncludeTransactionFee" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="GroupsRequired" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="AddressId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="StreetNumber" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
       <Column Name="StreetName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
@@ -97,6 +98,7 @@
     <ElementType IdRef="ID1" />
   </Function>
   <Function Name="dbo.BookedEvent_GetCurrent" Method="BookedEvent_GetCurrent">
+    <Parameter Name="eventId" Type="System.Int32" DbType="Int" />
     <ElementType IdRef="ID2" />
   </Function>
 </Database>

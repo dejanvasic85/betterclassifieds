@@ -93,9 +93,9 @@ namespace Paramount.Betterclassifieds.DataService.Search
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.BookedEvent_GetCurrent")]
-		public ISingleResult<BookedEvent> BookedEvent_GetCurrent()
+		public ISingleResult<BookedEvent> BookedEvent_GetCurrent([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> eventId)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), eventId);
 			return ((ISingleResult<BookedEvent>)(result.ReturnValue));
 		}
 	}
@@ -665,6 +665,8 @@ namespace Paramount.Betterclassifieds.DataService.Search
 		
 		private System.Nullable<bool> _IncludeTransactionFee;
 		
+		private System.Nullable<bool> _GroupsRequired;
+		
 		private long _AddressId;
 		
 		private string _StreetNumber;
@@ -965,6 +967,22 @@ namespace Paramount.Betterclassifieds.DataService.Search
 				if ((this._IncludeTransactionFee != value))
 				{
 					this._IncludeTransactionFee = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GroupsRequired", DbType="Bit")]
+		public System.Nullable<bool> GroupsRequired
+		{
+			get
+			{
+				return this._GroupsRequired;
+			}
+			set
+			{
+				if ((this._GroupsRequired != value))
+				{
+					this._GroupsRequired = value;
 				}
 			}
 		}

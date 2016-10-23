@@ -9,29 +9,25 @@
         init: function (options) {
             $(function () {
                 var ticketingInterface = document.getElementById('ticketing');
+                ko.applyBindings({}, ticketingInterface);
 
-                if ($paramount.notNullOrUndefined(options.ticketData) &&
-                    $paramount.notNullOrUndefined(ticketingInterface)) {
-
-                    var eventService = new $paramount.EventService();
-                    var data = {
-                        groupsRequired: options.groupsRequired,
-                        ticketData: options.ticketData,
-                        maxTicketsPerBooking: options.maxTicketsPerBooking,
-                        eventId: options.eventId
-                    };
-
-                    if (options.groupsRequired === true) {
-                        eventService.getGroups(options.eventId).then(function (groups) {
-                            data.groups = groups;
-                            var ticketBookingModel = new $paramount.models.FindTickets(eventService, data);
-                            ko.applyBindings(ticketBookingModel, ticketingInterface);
-                        });
-                    } else {
-                        var ticketBookingModel = new $paramount.models.FindTickets(eventService, data);
-                        ko.applyBindings(ticketBookingModel, ticketingInterface);
-                    }
-                }
+                //var eventService = new $paramount.EventService();
+                //var data = {
+                //    groupsRequired: options.groupsRequired,
+                //    ticketData: options.ticketData,
+                //    maxTicketsPerBooking: options.maxTicketsPerBooking,
+                //    eventId: options.eventId
+                //};
+                //if (options.groupsRequired === true) {
+                //    eventService.getGroups(options.eventId).then(function (groups) {
+                //        data.groups = groups;
+                //        var ticketBookingModel = new $paramount.models.FindTickets(eventService, data);
+                //        ko.applyBindings(ticketBookingModel, ticketingInterface);
+                //    });
+                //} else {
+                //    var ticketBookingModel = new $paramount.models.FindTickets(eventService, data);
+                //    ko.applyBindings(ticketBookingModel, ticketingInterface);
+                //}
 
                 if (options.floorPlanDocumentId === '') {
                     $('.floor-plan').hide();

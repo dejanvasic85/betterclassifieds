@@ -27,7 +27,7 @@ namespace Paramount.Betterclassifieds.Tests.Api
                     new AddressMockBuilder().Default().Build())
             };
 
-            _mockSearchService.SetupWithVerification(call => call.GetCurrentEvents(),
+            _mockSearchService.SetupWithVerification(call => call.GetEvents(null),
                 mockSearchResults);
 
             var controller = BuildTargetObject();
@@ -51,7 +51,7 @@ namespace Paramount.Betterclassifieds.Tests.Api
                     new AddressMockBuilder().Default().Build())
             };
 
-            _mockSearchService.SetupWithVerification(call => call.GetCurrentEvents(),
+            _mockSearchService.SetupWithVerification(call => call.GetEvents(null),
                 mockSearchResults);
 
             var controller = BuildTargetObject();

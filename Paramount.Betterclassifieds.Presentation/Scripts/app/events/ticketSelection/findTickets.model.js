@@ -6,7 +6,7 @@
      */
 
     var $ticketsModal = $('#ticketSelectionModal');
-
+    
     function FindTickets(eventService, data) {
         var me = this;
 

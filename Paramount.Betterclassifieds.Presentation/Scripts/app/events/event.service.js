@@ -5,6 +5,10 @@
         this.baseUrl = baseUrl || $paramount.baseUrl;
     }
 
+    EventService.prototype.getEvent = function(eventId) {
+        return $paramount.httpGet(this.baseUrl + 'api/events/' + eventId);
+    }
+
     EventService.prototype.startTicketOrder = function (order) {
         return $paramount.httpPost(this.baseUrl + 'event/reserveTickets', order);
     }
@@ -37,8 +41,15 @@
         return $paramount.httpGet(url);
     }
 
+    EventService.prototype.getTicketsForEvent = function(eventId) {
+        return this.getTicketsForGroup(eventId);
+    }
+
     EventService.prototype.getTicketsForGroup = function(eventId, eventGroupId) {
-        var url = this.baseUrl + 'api/events/' + eventId + '/groups/' + eventGroupId + '/tickets';
+        var url = this.baseUrl + 'api/events/' + eventId;
+        if (!_.isUndefined(eventGroupId)) {
+            url += '/groups/' + eventGroupId + '/tickets';
+        } 
         return $paramount.httpGet(url);
     }
 

@@ -43,7 +43,7 @@
                 <h4>Available tickets for group:</h4>
             </div>
             <div class="modal-body" data-bind="foreach: availableTickets">
-                <ticket-selection params="ticket: $data"></ticket-selection>
+                <ticket-option params="ticket: $data"></ticket-option>
             </div>
             <div class="alert alert-warning" data-bind="visible: displayNoSelectedTickets">
                 Please select at least one ticket before ordering.

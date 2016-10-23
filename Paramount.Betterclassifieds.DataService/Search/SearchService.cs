@@ -141,11 +141,11 @@ namespace Paramount.Betterclassifieds.DataService
             }
         }
 
-        public IEnumerable<EventSearchResult> GetCurrentEvents()
+        public IEnumerable<EventSearchResult> GetEvents(int? eventId = null)
         {
             using (var context = _dbContextFactory.CreateClassifiedSearchContext())
             {
-                return context.BookedEvent_GetCurrent().Select(be => new EventSearchResult
+                return context.BookedEvent_GetCurrent(eventId).Select(be => new EventSearchResult
                 {
                     AdSearchResult = this.Map<BookedEvent, AdSearchResult>(be),
                     EventDetails = this.Map<BookedEvent, EventModel>(be),
@@ -153,6 +153,11 @@ namespace Paramount.Betterclassifieds.DataService
                     
                 }).ToList();
             }
+        }
+
+        public EventSearchResult GetEvent(int eventId)
+        {
+            return GetEvents(eventId).SingleOrDefault();
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

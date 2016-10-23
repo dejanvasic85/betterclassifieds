@@ -25,7 +25,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         {
             // Get all current 
             var eventContractFactory = new EventContractFactory();
-            var contracts = _searchService.GetCurrentEvents()
+            var contracts = _searchService.GetEvents()
                 .Select(eventContractFactory.FromModel);
 
             return Ok(contracts);
@@ -34,9 +34,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         [Route("{id:int}")]
         public IHttpActionResult GetEvent(int id)
         {
-            var searchResult = _searchService
-                .GetCurrentEvents()
-                .FirstOrDefault(currentEvent => currentEvent.With(c => c.EventDetails).With(d => d.EventId) == id);
+            var searchResult = _searchService.GetEvent(id);
 
             if (searchResult == null)
                 return NotFound();

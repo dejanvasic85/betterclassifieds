@@ -170,12 +170,7 @@
     </script>
 
     <script>
-        var ticketData = @Html.Raw(Model.Tickets.ToJsonString());
         $paramount.ui.eventView.init({
-            ticketData: ticketData,
-            groupsRequired:@Model.GroupsRequired.ToJsonString(),
-            maxTicketsPerBooking: @Model.MaxTicketsPerBooking,
-            eventId: @Model.EventId,
             floorPlanDocumentId: '@Model.LocationFloorPlanDocumentId',
             floorPlanFileName: '@Model.LocationFloorPlanFilename'
         });

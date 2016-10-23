@@ -71,7 +71,7 @@
                         else
                         {
                             <div class="ticketing" id="ticketing">
-                                <tickets params="{eventId: @Model.EventId, maxTicketsPerBooking : @Model.MaxTicketsPerBooking, baseUrl: '@Url.Home().WithFullUrl()'}"></tickets>
+                                <find-tickets params="{eventId: @Model.EventId, maxTicketsPerBooking : @Model.MaxTicketsPerBooking, baseUrl: '@Url.Home().WithFullUrl()'}"></find-tickets>
                             </div>
                         }
                     </div>
@@ -124,7 +124,6 @@
         </div>
     </div>
 </div>
-
 
 @section HeadSection
 {

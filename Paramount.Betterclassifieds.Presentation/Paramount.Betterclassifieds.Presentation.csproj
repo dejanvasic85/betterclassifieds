@@ -589,8 +589,8 @@
     <Content Include="Scripts\app\events\eventGuest.model.js" />
     <Content Include="Scripts\app\events\eventPaymentRequest.ui.js" />
     <Content Include="Scripts\app\events\eventTicketReserved.model.js" />
-    <Content Include="Scripts\app\events\ticketSelection\tickets.component.js" />
-    <Content Include="Scripts\app\events\ticketSelection\tickets.html" />
+    <Content Include="Scripts\app\events\ticketSelection\find-tickets.js" />
+    <Content Include="Scripts\app\events\ticketSelection\find-tickets.html" />
     <Content Include="Scripts\app\events\event.service.js" />
     <Content Include="Scripts\app\events\eventTicket.model.js" />
     <Content Include="Scripts\app\events\bookTickets.ui.js" />
@@ -603,8 +603,8 @@
     <Content Include="Scripts\app\events\invitation.ui.js" />
     <Content Include="Scripts\app\events\manage-groups.model.js" />
     <Content Include="Scripts\app\events\manage-tickets.model.js" />
-    <Content Include="Scripts\app\events\ticketSelection\ticket-option.component.js" />
-    <Content Include="Scripts\app\events\ticketSelection\ticket-option.html" />
+    <Content Include="Scripts\app\events\ticketSelection\ticket-options.js" />
+    <Content Include="Scripts\app\events\ticketSelection\ticket-options.html" />
     <Content Include="Scripts\app\ui\home.ui.js" />
     <Content Include="Scripts\app\locations\location.service.js" />
     <Content Include="Scripts\app\userNetwork\userNetwork.service.js" />

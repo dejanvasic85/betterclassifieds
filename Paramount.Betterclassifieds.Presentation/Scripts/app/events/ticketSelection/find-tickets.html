@@ -40,11 +40,7 @@
     </div>
 
     <div data-bind="visible: groupsRequired() === false">
-        <ul class="list-group" data-bind="foreach: availableTickets">
-            <li class="list-group-item" data-bind="attr : {'data-ticket-name' : ticketName}">
-                <ticket-option params="ticket: $data"></ticket-option>
-            </li>
-        </ul>
+        <ticket-options></ticket-options>
 
         <div class="alert alert-warning" data-bind="visible: displayNoSelectedTickets">
             Please select at least one ticket before ordering.
@@ -64,8 +60,8 @@
                 <div class="modal-header">
                     <h4>Available tickets for group:</h4>
                 </div>
-                <div class="modal-body" data-bind="foreach: availableTickets">
-                    <ticket-option params="ticket: $data"></ticket-option>
+                <div class="modal-body">
+                    <ticket-options></ticket-options>
                 </div>
                 <div class="alert alert-warning" data-bind="visible: displayNoSelectedTickets">
                     Please select at least one ticket before ordering.

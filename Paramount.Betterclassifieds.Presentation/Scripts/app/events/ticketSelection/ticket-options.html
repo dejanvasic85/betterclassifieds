@@ -1,0 +1,24 @@
+﻿<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Ticket Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody data-bind="foreach: $parent.availableTickets">
+        <tr>
+            <td data-bind="text: ticketName"></td>
+            <td>
+                <span class="ticket-info tst-ticket-free badge" data-bind="visible: price() === 0, text : 'Free'"></span>
+                <span class="ticket-info tst-ticket-price badge" data-bind="visible: price() > 0, text : priceFormatted"></span>
+            </td>
+            <td>
+                <span data-bind="visible: soldOut, text: 'SOLD OUT'" class="label label-danger"></span>
+                <div class="form-group" data-bind="visible: isAvailable">
+                    <select class="form-control" data-bind="value: selectedQuantity, options: maxTicketsPerBooking, optionsText : 'label', optionsValue : 'value'"></select>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

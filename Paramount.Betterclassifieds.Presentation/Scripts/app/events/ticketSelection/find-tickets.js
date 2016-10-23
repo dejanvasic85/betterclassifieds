@@ -2,9 +2,9 @@
 
     var eventService;
 
-    ko.components.register('tickets', {
+    ko.components.register('find-tickets', {
         viewModel: Tickets,
-        template: { path: '/Scripts/app/events/ticketSelection/tickets.html' }
+        template: { path: '/Scripts/app/events/ticketSelection/find-tickets.html' }
     });
 
     function Tickets(params) {

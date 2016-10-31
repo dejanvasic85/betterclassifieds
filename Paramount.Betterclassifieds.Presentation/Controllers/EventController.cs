@@ -11,6 +11,7 @@ using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Events;
+using Paramount.Betterclassifieds.Business.Events.Reservations;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Services;
@@ -62,6 +63,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (eventModel.GroupsRequired.GetValueOrDefault() && tickets.Any(t => !t.EventGroupId.HasValue))
             {
                 ModelState.AddModelError("Tickets", "The event requires a group to be selected with each ticket.");
+                return Json(new { Errors = ModelState.ToErrors() });
+            }
+
+            if (!_ticketRequestValidator.IsSufficientTicketsAvailableForRequest(reserveTicketsViewModel.Tickets.Select(t => new TicketReservationRequest(t.EventTicketId.GetValueOrDefault(), t.EventGroupId, t.SelectedQuantity)).ToArray()))
+            {
+                ModelState.AddModelError("Tickets", "The requested ticket quantity is no longer available. Please refresh and try again.");
                 return Json(new { Errors = ModelState.ToErrors() });
             }
 
@@ -409,8 +416,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IApplicationConfig _appConfig;
         private readonly ICreditCardService _creditCardService;
         private readonly IEventNotificationBuilder _eventNotificationBuilder;
+        private readonly ITicketRequestValidator _ticketRequestValidator;
 
-        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPayPalService payPalService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeValidator eventBarcodeValidator, IApplicationConfig appConfig, ICreditCardService creditCardService, IEventNotificationBuilder eventNotificationBuilder)
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPayPalService payPalService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeValidator eventBarcodeValidator, IApplicationConfig appConfig, ICreditCardService creditCardService, IEventNotificationBuilder eventNotificationBuilder, ITicketRequestValidator ticketRequestValidator)
         {
             _searchService = searchService;
             _eventManager = eventManager;
@@ -425,6 +433,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventBarcodeValidator = eventBarcodeValidator;
             _appConfig = appConfig;
             _creditCardService = creditCardService;
+            _ticketRequestValidator = ticketRequestValidator;
             _eventNotificationBuilder = eventNotificationBuilder.WithTemplateService(templatingService.Init(this));
         }
     }

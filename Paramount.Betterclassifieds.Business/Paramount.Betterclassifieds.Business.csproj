@@ -80,7 +80,14 @@
     <Compile Include="Events\EventPaymentSummary.cs" />
     <Compile Include="Events\EventInvitation.cs" />
     <Compile Include="Events\EventTicketFactory.cs" />
+    <Compile Include="Events\EventTicketReservationStatus.cs" />
     <Compile Include="Events\IEventBarcodeValidator.cs" />
+    <Compile Include="Events\Reservations\GroupQuantityRequestRule.cs" />
+    <Compile Include="Events\Reservations\GroupRequest.cs" />
+    <Compile Include="Events\Reservations\TicketQuantityRequest.cs" />
+    <Compile Include="Events\Reservations\TicketQuantityRequestRule.cs" />
+    <Compile Include="Events\Reservations\TicketRequestValidator.cs" />
+    <Compile Include="Events\Reservations\TicketReservationRequest.cs" />
     <Compile Include="Events\TicketFeeCalculator.cs" />
     <Compile Include="Events\IEventManager.cs" />
     <Compile Include="Events\EventBookingContext.cs" />
@@ -93,11 +100,9 @@
     <Compile Include="Events\EventTicketField.cs" />
     <Compile Include="Events\EventBookingTicketField.cs" />
     <Compile Include="Events\EventTicketReservation.cs" />
-    <Compile Include="Events\EventTicketReservationStatus.cs" />
     <Compile Include="Events\EventManager.cs" />
     <Compile Include="Events\EventTicketReservationFactory.cs" />
     <Compile Include="Events\RemainingTicketsWithRequestInfo.cs" />
-    <Compile Include="Events\SufficientTicketsRule.cs" />
     <Compile Include="Events\TicketPrice.cs" />
     <Compile Include="IBarcodeGenerator.cs" />
     <Compile Include="IBusinessRule.cs" />

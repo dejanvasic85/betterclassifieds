@@ -157,8 +157,9 @@
     </Compile>
     <Compile Include="Events\EventPaymentRequestFactoryTests.cs" />
     <Compile Include="Events\EventTicketFactoryTest.cs" />
-    <Compile Include="Events\SufficientTicketsRuleTests.cs" />
+    <Compile Include="Events\GroupQuantityRequestRuleTests.cs" />
     <Compile Include="Events\TicketFeeCalculatorTests.cs" />
+    <Compile Include="Events\TicketRequestValidatorTests.cs" />
     <Compile Include="Mocks\AddressMockBuilder.cs" />
     <Compile Include="Mocks\AdSearchResultMockBuilder.cs" />
     <Compile Include="Mocks\ApplicationUserMockBuilder.cs" />

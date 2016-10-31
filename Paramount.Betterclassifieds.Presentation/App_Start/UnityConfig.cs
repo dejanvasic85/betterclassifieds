@@ -1,4 +1,6 @@
-﻿namespace Paramount.Betterclassifieds.Presentation
+﻿using Paramount.Betterclassifieds.Business.Events.Reservations;
+
+namespace Paramount.Betterclassifieds.Presentation
 {
     using Business;
     using Business.Booking;
@@ -63,6 +65,7 @@
                 .RegisterType<IBarcodeGenerator, BarcodeGenerator>()
                 .RegisterType<Business.Events.IEventBookingContext, Business.Events.EventBookingContext>(
                     new SessionLifetimeManager<Business.Events.EventBookingContext>())
+                .RegisterType<ITicketRequestValidator, TicketRequestValidator>()
 
                 // Managers and Config
                 .RegisterType<IClientConfig, ClientConfig>()

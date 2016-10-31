@@ -67,9 +67,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                 Quantity = 1,
                 EventGroupId = eventGroupId,
                 EventTicketId = eventTicket?.EventTicketId,
-                Status = new SufficientTicketsRule()
-                    .IsSatisfiedBy(new RemainingTicketsWithRequestInfo(1, _eventManager.GetRemainingTicketCount(eventTicket)))
-                    .Result
+                Status = EventTicketReservationStatus.Reserved
             };
             return reservation;
         }

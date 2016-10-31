@@ -34,6 +34,7 @@
 
         // Tickets
         me.reservations = ko.observableArray();
+        var groupsPromise = eventService.getGroups(data.eventId);
         $.each(data.reservations, function (idx, reservationData) {
             if (idx === 0) {
                 if (data.email) {
@@ -52,6 +53,7 @@
                 reservationData.guestFullName = name;
             }
 
+            reservationData.getGroupsPromise = groupsPromise;
             me.reservations.push(new $paramount.models.EventTicketReserved(reservationData));
         });
 

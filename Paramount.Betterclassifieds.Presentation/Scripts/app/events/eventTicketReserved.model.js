@@ -1,5 +1,8 @@
 ﻿(function ($, $paramount, ko) {
     'use strict';
+
+    var eventService = new $paramount.EventService();
+
     function EventTicketReserved(data) {
 
         var me = this;
@@ -13,6 +16,7 @@
         me.isReserved = ko.observable();
         me.notReserved = ko.observable();
         me.ticketFields = ko.observableArray();
+        me.eventGroupName = ko.observable();
 
         /*
          * Computed functions
@@ -62,18 +66,24 @@
         if (data.guestEmail) {
             me.guestEmail(data.guestEmail);
         }
-
+        
         /*
         * Fetch the fields required for each ticket (if any)
         */
-        var service = new $paramount.EventService();
-        service.getFieldsForTicket(data.eventTicketId).then(function (resp) {
+        eventService.getFieldsForTicket(data.eventTicketId).then(function (resp) {
             $.each(resp, function (fieldIndex, f) {
                 me.ticketFields.push(new $paramount.models.DynamicFieldValue(f));
             });
         });
-    }
 
+        if (data.eventGroupId) {
+            data.getGroupsPromise.then(function (groups) {
+                var group = _.find(groups, { 'eventGroupId': data.eventGroupId });
+                me.eventGroupName(group.groupName);
+            });
+        }
+    }
+        
     $paramount.models = $paramount.models || {};
     $paramount.models.EventTicketReserved = EventTicketReserved;
 

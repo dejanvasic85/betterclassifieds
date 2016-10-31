@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Paramount.Betterclassifieds.Business.Events.Reservations
 {
@@ -22,6 +23,8 @@ namespace Paramount.Betterclassifieds.Business.Events.Reservations
 
         public bool IsSufficientTicketsAvailableForRequest(TicketReservationRequest[] requests)
         {
+            Guard.NotNull(requests);
+
             var groupRule = new GroupQuantityRequestRule();
             var ticketRule = new TicketQuantityRequestRule(_eventManager);
 
@@ -33,9 +36,9 @@ namespace Paramount.Betterclassifieds.Business.Events.Reservations
 
         private IEnumerable<GroupRequest> CreateGroupRequests(IEnumerable<TicketReservationRequest> requests)
         {
-            var groups = requests.GroupBy(r => r.EventGroupId);
+            var groups = requests.Where(g => g.EventGroupId.HasValue).GroupBy(r => r.EventGroupId);
             return groups.Select(gr => new GroupRequest(
-                _eventManager.GetEventGroup(gr.Key.GetValueOrDefault()).Result,
+                Task.Run(() => _eventManager.GetEventGroup(gr.Key.GetValueOrDefault())).Result,
                 gr.Sum(g => g.SelectedQuantity)));
         }
 

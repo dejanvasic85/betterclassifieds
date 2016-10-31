@@ -159,6 +159,7 @@
     <Compile Include="Events\EventTicketFactoryTest.cs" />
     <Compile Include="Events\GroupQuantityRequestRuleTests.cs" />
     <Compile Include="Events\TicketFeeCalculatorTests.cs" />
+    <Compile Include="Events\TicketQuantityRequestRuleTests.cs" />
     <Compile Include="Events\TicketRequestValidatorTests.cs" />
     <Compile Include="Mocks\AddressMockBuilder.cs" />
     <Compile Include="Mocks\AdSearchResultMockBuilder.cs" />

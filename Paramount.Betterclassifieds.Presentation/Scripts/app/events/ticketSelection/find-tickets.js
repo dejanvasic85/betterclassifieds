@@ -35,6 +35,10 @@
                 var $btn = $(event.target).loadBtn();
                 eventService.startTicketOrder(me.reservationData).fail(function () {
                     $btn.resetBtn();
+                }).then(function(resp) {
+                    if (resp.errors) {
+                        $btn.resetBtn();
+                    }
                 });
             } else {
                 me.displayNoSelectedTickets(true);

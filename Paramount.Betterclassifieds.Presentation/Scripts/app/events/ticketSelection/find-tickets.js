@@ -11,7 +11,7 @@
         var me = this;
 
 
-        eventService = new $p.EventService(params.baseUrl);
+        eventService = new $p.EventService(params.baseUrl); 
 
         me.availableTickets = ko.observableArray();
         me.groupsRequired = ko.observable();

@@ -114,27 +114,24 @@
             var $btn = $('#bookTicketsView button');
 
             if ($form.valid() === true) {
-                $btn.button('loading');
+                $btn.loadBtn();
 
                 // Reset all the errors
                 me.invalidCredentials(false);
 
                 var request = ko.toJSON(me);
                 eventService.bookTickets(request)
-                    .then(function (response) {
-                        if (response.loginFailed === true) {
-                            me.invalidCredentials(true);
-                            return;
-                        }
-                    })
                     .then(function (resp) {
                         if (resp.nextUrl) {
                             return;
                         }
+                        resetButton();
                     })
-                    .error(function () {
-                        $btn.button('reset');
-                    });
+                    .fail(resetButton);
+
+                function resetButton() {
+                    $btn.resetBtn();
+                }
             }
         }
 
@@ -142,7 +139,7 @@
         function getAllDynamicFields() {
 
             var result = [];
-            var fieldObservables = _.pluck(me.reservations(), 'ticketFields');
+            var fieldObservables = _.map(me.reservations(), 'ticketFields');
             _.each(fieldObservables, function (f) {
                 _.each(f(), function (dynamicField) {
                     result.push(dynamicField);

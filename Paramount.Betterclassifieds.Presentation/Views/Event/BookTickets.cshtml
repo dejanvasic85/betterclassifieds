@@ -54,7 +54,7 @@
 
                 <div class="bs-callout bs-callout-info">
                     <h4><i class="fa fa-ticket"></i>&nbsp; Tickets</h4>
-                    <p data-bind="visible: canContinue">We'll need some details for each guest. If you logged in we prefilled some details for you.</p>
+                    <p data-bind="visible: canContinue">We'll need some details for each guest. Buyer details have been prefilled.</p>
                 </div>
 
                 <div data-bind="foreach: reservations">
@@ -90,7 +90,7 @@
                                         <span data-bind="text: ticketTypeAndPrice"></span>
                                     </div>
 
-                                    <div class="col-xs-12">
+                                    <div class="col-xs-12" data-bind="visible: eventGroupName() !== undefined">
                                         <label class="ticket-label">
                                             <i class="fa fa-users"></i> Group
                                         </label>

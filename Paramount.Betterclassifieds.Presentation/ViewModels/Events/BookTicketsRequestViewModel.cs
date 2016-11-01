@@ -20,9 +20,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string PostCode { get; set; }
         [Required]
         public string Email { get; set; }
-        [RequiredIfNotLoggedIn]
-        public string Password { get; set; }
-        
+     
         [Required]
         public decimal TotalCost { get; set; }
 

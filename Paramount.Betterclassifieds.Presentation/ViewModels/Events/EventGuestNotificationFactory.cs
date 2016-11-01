@@ -1,4 +1,6 @@
-﻿using System.Web;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Broadcast;
@@ -10,10 +12,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
     public class EventGuestNotificationFactory
     {
         public EventGuestNotification Create(HttpContextBase httpContext, IClientConfig config,
-            EventModel eventModel, EventBookingTicket eventBookingTicket, AdSearchResult ad,
+            EventModel eventModel, EventBookingTicket eventBookingTicket, AdSearchResult ad, IEnumerable<EventGroup> eventGroups,
             string eventUrl, string purchaserName)
         {
-            var urlHelper= new UrlHelper(httpContext.Request.RequestContext);
+            var urlHelper = new UrlHelper(httpContext.Request.RequestContext);
 
             var notification = new EventGuestNotification
             {
@@ -24,9 +26,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 Location = eventModel.Location,
                 EventStartDate = $"{eventModel.EventStartDate:dd-MMM-yyyy h:mm tt} {eventModel.TimeZoneName}",
                 EventEndDate = $"{eventModel.EventEndDate:dd-MMM-yyyy h:mm tt} {eventModel.TimeZoneName}",
-                BarcodeImgUrl = urlHelper.Image(eventBookingTicket.BarcodeImageDocumentId.GetValueOrDefault().ToString() ).WithFullUrl(),
+                BarcodeImgUrl = urlHelper.Image(eventBookingTicket.BarcodeImageDocumentId.GetValueOrDefault().ToString()).WithFullUrl(),
                 TicketType = eventBookingTicket.TicketName,
-                GuestEmail = eventBookingTicket.GuestEmail
+                GuestEmail = eventBookingTicket.GuestEmail,
+                GroupName = eventGroups?.FirstOrDefault(g => g.EventGroupId == eventBookingTicket.EventGroupId)?.GroupName.Default("None")
             };
 
             var calendarAttachmentContent = new AttachmentFactory().CreateCalendarInvite(config.ClientName,

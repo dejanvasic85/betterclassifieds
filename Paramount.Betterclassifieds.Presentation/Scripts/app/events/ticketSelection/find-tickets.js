@@ -11,7 +11,7 @@
         var me = this;
 
 
-        eventService = new $p.EventService(params.baseUrl); 
+        eventService = new $p.EventService(params.baseUrl);
 
         me.availableTickets = ko.observableArray();
         me.groupsRequired = ko.observable();
@@ -35,7 +35,7 @@
                 var $btn = $(event.target).loadBtn();
                 eventService.startTicketOrder(me.reservationData).fail(function () {
                     $btn.resetBtn();
-                }).then(function(resp) {
+                }).then(function (resp) {
                     if (resp.errors) {
                         $btn.resetBtn();
                     }
@@ -99,7 +99,15 @@
         function saveSelectedTickets() {
             _.each(me.availableTickets(), function (t) {
                 if (t.selectedQuantity() > 0) {
-                    me.selectedTickets.push(t);
+                    var existingTicket = _.find(me.selectedTickets(), function (existing) {
+                        return existing.eventTicketId() === t.eventTicketId() && existing.eventGroupId() === t.eventGroupId();
+                    });
+                    if (existingTicket) {
+                        var currentQty = existingTicket.selectedQuantity();
+                        existingTicket.selectedQuantity(currentQty + t.selectedQuantity());
+                    } else {
+                        me.selectedTickets.push(t);
+                    }
                 }
             });
         }

@@ -20,6 +20,8 @@
         me.soldQuantity = ko.observable();
         me.isAvailable = ko.observable();
         me.maxTicketsPerBooking = ko.observableArray();
+        me.eventGroupId = ko.observable();
+        me.eventGroupName = ko.observable();
 
         /*
          * Computed functions

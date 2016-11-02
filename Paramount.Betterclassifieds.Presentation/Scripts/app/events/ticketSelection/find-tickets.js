@@ -1,6 +1,7 @@
 ﻿(function ($, ko, $p) {
 
     var eventService;
+    var eventGroupsPromise;
 
     function Tickets(params) {
         var me = this;
@@ -66,7 +67,7 @@
                     _.each(resp, function (t) {
                         var maxTicketsAllowed = getMaxTicketsAllowed(me.selectedGroupId, t.eventTicketId, model.maxGuests(), t.remainingQuantity);
                         var eventTicket = new $p.models.EventTicket(t, maxTicketsAllowed);
-                        eventTicket.eventGroupId = ko.observable(model.eventGroupId());
+                        eventTicket.eventGroupId(model.eventGroupId());
                         me.availableTickets.push(eventTicket);
                     });
 
@@ -109,12 +110,23 @@
         function saveSelectedTickets() {
             _.each(me.availableTickets(), function (t) {
                 if (t.selectedQuantity() > 0) {
+
                     var existingTicket = _.find(me.selectedTickets(), function (existing) {
                         return existing.eventTicketId() === t.eventTicketId() && existing.eventGroupId() === t.eventGroupId();
                     });
+
                     if (existingTicket) {
                         var currentQty = existingTicket.selectedQuantity();
                         existingTicket.selectedQuantity(currentQty + t.selectedQuantity());
+                        return;
+                    }
+
+                    if (t.eventGroupId() && eventGroupsPromise !== null) {
+                        eventGroupsPromise.then(function (groups) {
+                            var group = _.find(groups, { eventGroupId: t.eventGroupId() });
+                            t.eventGroupName(group.groupName);
+                            me.selectedTickets.push(t);
+                        });
                     } else {
                         me.selectedTickets.push(t);
                     }
@@ -159,7 +171,8 @@
             me.groupsRequired(eventData.groupsRequired);
 
             if (eventData.groupsRequired === true) {
-                eventService.getGroups(params.eventId).then(function (groupData) {
+                eventGroupsPromise = eventService.getGroups(params.eventId);
+                eventGroupsPromise.then(function (groupData) {
                     _.each(groupData, function (gr) {
                         me.groups.push(new $p.models.EventGroup(gr));
                     });

@@ -605,6 +605,8 @@
     <Content Include="Scripts\app\events\manage-tickets.model.js" />
     <Content Include="Scripts\app\events\ticketSelection\ticket-options.js" />
     <Content Include="Scripts\app\events\ticketSelection\ticket-options.html" />
+    <Content Include="Scripts\app\pagination\pagination.html" />
+    <Content Include="Scripts\app\pagination\pagination.js" />
     <Content Include="Scripts\app\ui\home.ui.js" />
     <Content Include="Scripts\app\locations\location.service.js" />
     <Content Include="Scripts\app\userNetwork\userNetwork.service.js" />

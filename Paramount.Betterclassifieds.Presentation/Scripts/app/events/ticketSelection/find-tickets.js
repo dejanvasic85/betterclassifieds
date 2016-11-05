@@ -2,11 +2,6 @@
 
     var eventService;
 
-    ko.components.register('find-tickets', {
-        viewModel: Tickets,
-        template: { path: '/Scripts/app/events/ticketSelection/find-tickets.html' }
-    });
-
     function Tickets(params) {
         var me = this;
 
@@ -96,6 +91,21 @@
             me.startOrder(model, event);
         }
 
+        me.groupPage = ko.observable(1);
+        me.pageSize = 2;
+        me.totalGroups = ko.computed(function() {
+            return me.groups().length;
+        });
+        me.groupsPaged = ko.computed(function() {
+            var chunked = _.chunk(me.groups(), me.pageSize);
+            return chunked[me.groupPage() - 1];
+        });
+
+        me.viewGroupPage = function (pageNum) {
+            console.log(pageNum);
+            me.groupPage(pageNum);
+        }
+
         function saveSelectedTickets() {
             _.each(me.availableTickets(), function (t) {
                 if (t.selectedQuantity() > 0) {
@@ -166,5 +176,12 @@
             }
         });
     }
+
+
+    ko.components.register('find-tickets', {
+        viewModel: Tickets,
+        template: { path: '/Scripts/app/events/ticketSelection/find-tickets.html' }
+    });
+
 
 })(jQuery, ko, $paramount);

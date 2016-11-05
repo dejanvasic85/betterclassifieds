@@ -1,10 +1,12 @@
 ﻿<!--Selection by group-->
 <div>
+    
     <div data-bind="visible: groups().length > 0 && groupsRequired() === true">
         <div data-bind="visible: selectedTickets().length > 0">
             <p>
                 Selected Tickets:
             </p>
+            
             <ul class="list-group" data-bind="foreach: selectedTickets">
                 <li class="list-group-item">
                     <div class="text-left">
@@ -18,25 +20,30 @@
                     </div>
                 </li>
             </ul>
+
             <div class="text-right">
                 <button class="btn btn-success btn-block" data-loading-text="Please Wait..."
                         data-bind="click: startOrder" id="btnGetTickets">
                     Order Tickets <i class="fa fa-arrow-right"></i>
                 </button>
             </div>
+
+            
         </div>
 
         <p>
             Available groups:
         </p>
 
-        <ul class="list-group group-button-options" data-bind="foreach: groups">
+        <ul class="list-group group-button-options" data-bind="foreach: groupsPaged">
             <li class="list-group-item">
                 <button class="btn btn-primary btn-block ko-load" data-bind="click: $parent.onGroupSelect">
                     <span data-bind="text: groupNameWithCount"></span>
                 </button>
             </li>
         </ul>
+           
+        <pager params="maxPagesToDisplay: 5, pageSize: pageSize, data: groups, changePage: viewGroupPage"></pager>
     </div>
 
     <div data-bind="visible: !groupsRequired()">
@@ -53,6 +60,8 @@
             </button>
         </div>
     </div>
+
+    
 
     <div id="ticketSelectionModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">

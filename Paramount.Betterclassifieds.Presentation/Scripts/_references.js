@@ -40,6 +40,7 @@
 /// <reference path="app/events/vieweventad.ui.js" />
 /// <reference path="app/listings/Find.min.js" />
 /// <reference path="app/locations/location.service.js" />
+/// <reference path="app/pagination/pagination.js" />
 /// <reference path="app/ui/home.ui.js" />
 /// <reference path="app/usernetwork/usernetwork.model.js" />
 /// <reference path="app/usernetwork/usernetwork.service.js" />

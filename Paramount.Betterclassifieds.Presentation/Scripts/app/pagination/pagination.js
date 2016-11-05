@@ -3,37 +3,34 @@
     'use strict';
 
     function Pagination(param) {
+
         var me = this;
-        me.pages = ko.computed(function () {
-            var arr = ko.observableArray();
-            for (var i = 0; i <= param.data().length; i++) {
-                arr.push(new Page({
-                    number: i + 1,
+        me.currentPage = ko.observable(1);
+        me.pages = ko.observableArray();
+        me.totalPages = ko.observable();
+        me.showNextButton = ko.observable(me.totalPages() < param.maxPagesToDisplay);
+
+        me.start = ko.observable(0);
+        var endInitial = param.maxPagesToDisplay;
+        if (me.totalPages > param.maxPagesToDisplay) {
+            endInitial = me.totalPages();
+        }
+        me.end = ko.observable(endInitial);
+
+        param.dataPromise.then(function (items) {
+            me.totalPages(Math.ceil(items.length / param.pageSize));
+
+            for (var i = 1; i <= me.totalPages() ; i++) {
+                me.pages.push(new Page({
+                    number: i,
                     selectPage: function (pageNum) {
                         me.currentPage(pageNum);
                         param.changePage(pageNum);
                     }
                 }));
             }
-            return arr;
         });
 
-        me.totalPages = ko.computed(function() {
-            return Math.ceil(me.pages().length / param.pageSize);
-        });
-
-        me.start = ko.observable(0);
-        //me.endInital = ko.computed(function () {
-        //    var endInitial = me.totalPages();
-        //    if (param.maxPagesToDisplay < me.totalPages()) {
-        //        endInitial = param.maxPagesToDisplay;
-        //    }
-        //    return endInitial;
-        //});
-        me.end = ko.observable(param.maxPagesToDisplay);
-        me.currentPage = ko.observable(1);
-        me.showNextButton = ko.observable(me.totalPages() < param.maxPagesToDisplay);
-        
         me.next = function () {
             if (me.end() === me.totalPages()) {
                 return;

@@ -1,11 +1,9 @@
 ﻿(function ($, ko, $p) {
 
     var eventService;
-    var eventGroupsPromise;
 
     function Tickets(params) {
         var me = this;
-
 
         eventService = new $p.EventService(params.baseUrl);
 
@@ -17,6 +15,7 @@
         me.selectedGroupId = null;
         me.selectedTickets = ko.observableArray();
         me.displayNoSelectedTickets = ko.observable(false);
+        me.eventGroupsPromise = eventService.getGroups(params.eventId);;
 
         // This maps to the EventTicketReservedViewModel
         me.reservationData = {
@@ -103,7 +102,6 @@
         });
 
         me.viewGroupPage = function (pageNum) {
-            console.log(pageNum);
             me.groupPage(pageNum);
         }
 
@@ -121,11 +119,13 @@
                         return;
                     }
 
-                    if (t.eventGroupId() && eventGroupsPromise !== null) {
-                        eventGroupsPromise.then(function (groups) {
+                    if (t.eventGroupId() && me.eventGroupsPromise !== null) {
+                        me.eventGroupsPromise.then(function (groups) {
                             var group = _.find(groups, { eventGroupId: t.eventGroupId() });
                             t.eventGroupName(group.groupName);
                             me.selectedTickets.push(t);
+
+                            return groups;
                         });
                     } else {
                         me.selectedTickets.push(t);
@@ -171,13 +171,15 @@
             me.groupsRequired(eventData.groupsRequired);
 
             if (eventData.groupsRequired === true) {
-                eventGroupsPromise = eventService.getGroups(params.eventId);
-                eventGroupsPromise.then(function (groupData) {
+                
+                me.eventGroupsPromise.then(function (groupData) {
                     _.each(groupData, function (gr) {
                         me.groups.push(new $p.models.EventGroup(gr));
                     });
                     me.groupSelectionEnabled = eventData.groupsRequired && groupData.length > 0;
                     done();
+
+                    return groupData;
                 });
             } else {
                 eventService.getTicketsForEvent(params.eventId).then(function (ticketData) {

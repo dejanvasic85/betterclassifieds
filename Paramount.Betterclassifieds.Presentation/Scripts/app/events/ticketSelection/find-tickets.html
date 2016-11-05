@@ -44,7 +44,7 @@
             </li>
         </ul>
            
-        <pager params="maxPagesToDisplay: 5, pageSize: pageSize, data: groups, changePage: viewGroupPage"></pager>
+        <pager params="maxPagesToDisplay: 5, pageSize: pageSize, dataPromise: eventGroupsPromise, changePage: viewGroupPage"></pager>
     </div>
 
     <div data-bind="visible: !groupsRequired()">

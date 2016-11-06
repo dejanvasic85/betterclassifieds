@@ -43,12 +43,18 @@
                 </button>
             </li>
         </ul>
-           
-        <pager params="maxPagesToDisplay: 5, pageSize: pageSize, dataPromise: eventGroupsPromise, changePage: viewGroupPage"></pager>
+
+        <div data-bind="visible: groups().length > pageSize">
+            <pager params="maxPagesToDisplay: 5, pageSize: pageSize, dataPromise: eventGroupsPromise, changePage: changePage"></pager>
+        </div>
     </div>
 
     <div data-bind="visible: !groupsRequired()">
         <ticket-options></ticket-options>
+
+        <div data-bind="visible: availableTickets().length > pageSize">
+            <pager params="maxPagesToDisplay: 5, pageSize: pageSize, dataPromise: getTicketsPromise, changePage: changePage"></pager>
+        </div>
 
         <div class="alert alert-warning" data-bind="visible: displayNoSelectedTickets">
             Please select at least one ticket before ordering.
@@ -65,7 +71,7 @@
     
 
     <div id="ticketSelectionModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4>Available tickets for group:</h4>

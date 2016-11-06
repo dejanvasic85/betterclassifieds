@@ -6,6 +6,8 @@
         var me = this;
 
         eventService = new $p.EventService(params.baseUrl);
+        me.eventGroupsPromise = eventService.getGroups(params.eventId);
+        me.getTicketsPromise = eventService.getTicketsForEvent(params.eventId);
 
         me.availableTickets = ko.observableArray();
         me.groupsRequired = ko.observable();
@@ -15,7 +17,7 @@
         me.selectedGroupId = null;
         me.selectedTickets = ko.observableArray();
         me.displayNoSelectedTickets = ko.observable(false);
-        me.eventGroupsPromise = eventService.getGroups(params.eventId);;
+
 
         // This maps to the EventTicketReservedViewModel
         me.reservationData = {
@@ -91,18 +93,21 @@
             me.startOrder(model, event);
         }
 
-        me.groupPage = ko.observable(1);
-        me.pageSize = 2;
-        me.totalGroups = ko.computed(function() {
+        me.currentPage = ko.observable(1);
+        me.pageSize = 4;
+        me.totalGroups = ko.computed(function () {
             return me.groups().length;
         });
-        me.groupsPaged = ko.computed(function() {
+        me.groupsPaged = ko.computed(function () {
             var chunked = _.chunk(me.groups(), me.pageSize);
-            return chunked[me.groupPage() - 1];
+            return chunked[me.currentPage() - 1];
         });
-
-        me.viewGroupPage = function (pageNum) {
-            me.groupPage(pageNum);
+        me.ticketsPaged = ko.computed(function () {
+            var chunkd = _.chunk(me.availableTickets(), me.pageSize);
+            return chunkd[me.currentPage() - 1];
+        });
+        me.changePage = function (pageNum) {
+            me.currentPage(pageNum);
         }
 
         function saveSelectedTickets() {
@@ -171,7 +176,7 @@
             me.groupsRequired(eventData.groupsRequired);
 
             if (eventData.groupsRequired === true) {
-                
+
                 me.eventGroupsPromise.then(function (groupData) {
                     _.each(groupData, function (gr) {
                         me.groups.push(new $p.models.EventGroup(gr));
@@ -182,11 +187,12 @@
                     return groupData;
                 });
             } else {
-                eventService.getTicketsForEvent(params.eventId).then(function (ticketData) {
+                me.getTicketsPromise.then(function (ticketData) {
                     _.each(ticketData, function (t) {
                         me.availableTickets.push(new $p.models.EventTicket(t, me.maxTicketsPerBooking));
                     });
                     done();
+                    return ticketData;
                 });
             }
         });

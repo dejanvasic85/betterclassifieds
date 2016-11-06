@@ -7,20 +7,17 @@
         var me = this;
         me.currentPage = ko.observable(1);
         me.pages = ko.observableArray();
-        me.totalPages = ko.observable();
-        me.showNextButton = ko.observable(me.totalPages() < param.maxPagesToDisplay);
-
+        me.totalPageCount = ko.observable();
         me.start = ko.observable(0);
-        var endInitial = param.maxPagesToDisplay;
-        if (me.totalPages > param.maxPagesToDisplay) {
-            endInitial = me.totalPages();
-        }
-        me.end = ko.observable(endInitial);
+        me.end = ko.observable(param.maxPagesToDisplay);
 
         param.dataPromise.then(function (items) {
-            me.totalPages(Math.ceil(items.length / param.pageSize));
+            me.totalPageCount(Math.ceil(items.length / param.pageSize));
+            if (me.totalPageCount() < param.maxPagesToDisplay) {
+                me.end(me.totalPageCount());
+            }
 
-            for (var i = 1; i <= me.totalPages() ; i++) {
+            for (var i = 1; i <= me.totalPageCount() ; i++) {
                 me.pages.push(new Page({
                     number: i,
                     selectPage: function (pageNum) {
@@ -32,7 +29,7 @@
         });
 
         me.next = function () {
-            if (me.end() === me.totalPages()) {
+            if (me.end() === me.totalPageCount()) {
                 return;
             }
             me.start(me.start() + 1);
@@ -52,7 +49,7 @@
         });
 
         me.hideNext = ko.computed(function () {
-            return me.end() === me.totalPages();
+            return me.end() === me.totalPageCount();
         });
 
         me.pagesFiltered = ko.computed(function () {

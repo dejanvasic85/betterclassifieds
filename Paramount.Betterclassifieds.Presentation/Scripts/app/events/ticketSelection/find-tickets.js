@@ -94,7 +94,7 @@
         }
 
         me.currentPage = ko.observable(1);
-        me.pageSize = 4;
+        me.pageSize = 3;
         me.totalGroups = ko.computed(function () {
             return me.groups().length;
         });
@@ -183,6 +183,9 @@
                     });
                     me.groupSelectionEnabled = eventData.groupsRequired && groupData.length > 0;
                     done();
+
+                    $(window).off('.affix');
+                    $('.ticket-booth').removeClass("affix affix-top").removeData('bs.affix');
 
                     return groupData;
                 });

@@ -4,7 +4,6 @@ using System.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using Paramount.Betterclassifieds.Tests.Functional.Base;
-using Paramount.Betterclassifieds.Tests.Functional.Pages.Components;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 {

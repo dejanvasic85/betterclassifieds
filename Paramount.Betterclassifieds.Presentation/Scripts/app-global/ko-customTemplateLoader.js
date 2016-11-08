@@ -2,7 +2,7 @@
  * This allows ko components to look like the following where we can specify the full path to the template html:
  * ko.components.register('ticket-selection', {
         viewModel: ...,
-        template: { path: '/Scripts/app/events/ticketSelection/ticket-selection.html' }
+        template: { path: $paramount.baseUrl + '/Scripts/app/events/ticketSelection/ticket-selection.html' }
     });
  */
 ko.components.loaders.unshift({

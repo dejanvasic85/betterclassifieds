@@ -16,7 +16,7 @@ Scenario: View event and book two tickets with successful payment
 	And with a ticket option "General Admission" for "5" dollars each and "100" available
 	And the event has a group "Table 1" for ticket "General Admission" and allows up to "10" guests
 	And the event has a group "Table 2" for ticket "General Admission" and allows up to "10" guests
-	And I navigate to "/Event/the-opera/adId"
+	And I navigate to "Event/the-opera/adId"
 	When I select "2" "General Admission" tickets
 	And enter the email "guest@event.com" and name "Guest FoEvent" for the second guest
 	And my details are prefilled so I proceed to payment
@@ -31,7 +31,7 @@ Scenario: View event and book two tickets with successful payment
 Scenario: Register before booking tickets
 	Given an event ad titled "Register before buying tickets" exists
 	And with a ticket option "General Admission" for "0" dollars each and "50" available
-	When I navigate to "/Event/register-before-buying-tickets/adId"
+	When I navigate to "Event/register-before-buying-tickets/adId"
 	And I select "2" "General Admission" tickets
 	Then I should be on the registration page
 

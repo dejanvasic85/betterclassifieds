@@ -200,11 +200,10 @@
             }
         });
     }
-
-
+    
     ko.components.register('find-tickets', {
         viewModel: Tickets,
-        template: { path: '/Scripts/app/events/ticketSelection/find-tickets.html' }
+        template: { path: $p.baseUrl + '/Scripts/app/events/ticketSelection/find-tickets.html' }
     });
 
 

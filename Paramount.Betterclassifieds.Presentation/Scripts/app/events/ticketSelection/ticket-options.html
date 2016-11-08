@@ -7,7 +7,7 @@
         </tr>
     </thead>
     <tbody data-bind="foreach: $parent.ticketsPaged">
-        <tr>
+        <tr data-bind="attr: { 'data-ticket-name' : ticketName }">
             <td data-bind="text: ticketName"></td>
             <td>
                 <span class="ticket-info tst-ticket-free badge" data-bind="visible: price() === 0, text : 'Free'"></span>

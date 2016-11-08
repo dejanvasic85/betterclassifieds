@@ -1,5 +1,5 @@
 ﻿(function (ko) {
     ko.components.register('ticket-options', {
-        template: { path: '/Scripts/app/events/ticketSelection/ticket-options.html' }
+        template: { path: $paramount.baseUrl + '/Scripts/app/events/ticketSelection/ticket-options.html' }
     });
 })(ko);

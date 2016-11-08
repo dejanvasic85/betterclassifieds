@@ -99,7 +99,7 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.And("the event has a group \"Table 2\" for ticket \"General Admission\" and allows up to \"" +
                     "10\" guests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 19
- testRunner.And("I navigate to \"/Event/the-opera/adId\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I navigate to \"Event/the-opera/adId\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 20
  testRunner.When("I select \"2\" \"General Admission\" tickets", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 21
@@ -130,7 +130,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 33
  testRunner.And("with a ticket option \"General Admission\" for \"0\" dollars each and \"50\" available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 34
- testRunner.When("I navigate to \"/Event/register-before-buying-tickets/adId\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I navigate to \"Event/register-before-buying-tickets/adId\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 35
  testRunner.And("I select \"2\" \"General Admission\" tickets", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 36

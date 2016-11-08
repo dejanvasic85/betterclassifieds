@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System.Linq;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using Paramount.Betterclassifieds.Tests.Functional.Base;
 
@@ -13,16 +14,16 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         {
             _webDriver = webDriver;
         }
-
-        [FindsBy(How = How.Id, Using = "btnGetTickets")]
-        private IWebElement GetTicketsButton { get; set; }
-
+        
         public EventDetailsPage SelectTickets(int numberOfTickets, string ticketType)
         {
-            _webDriver.FindElement(By.CssSelector("[data-ticket-name='" + ticketType + "']"))
+
+            _webDriver.FindElements(By.CssSelector("[data-ticket-name='" + ticketType + "'] td"))
+                .Last(el => el.Displayed)
                 .FindElement(By.TagName("select"))
                 .ToSelectElement()
                 .WithSelectedOptionValue(numberOfTickets.ToString());
+
             return this;
         }
 
@@ -35,7 +36,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 
         public EventDetailsPage ConfirmTicketSelection()
         {
-            GetTicketsButton.ClickOnElement();
+            _webDriver.FindElements(By.ClassName("tst-order-tickets")).First(el => el.Displayed).Click();
             return this;
         }
 

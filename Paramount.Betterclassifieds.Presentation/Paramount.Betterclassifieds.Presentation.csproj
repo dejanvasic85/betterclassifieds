@@ -303,6 +303,7 @@
     <Compile Include="Services\UserHttpManager.cs" />
     <Compile Include="ViewModels\Account\AccountConfirmationViewModel.cs" />
     <Compile Include="ViewModels\Account\EditAdDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Account\EventOrganiserConfirmationViewModel.cs" />
     <Compile Include="ViewModels\Account\LoginOrRegisterModel.cs" />
     <Compile Include="ViewModels\Account\RegisterViewModel.cs" />
     <Compile Include="ViewModels\Account\ChangePasswordView.cs" />
@@ -986,6 +987,7 @@
     <Content Include="Views\Image\Barcode.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Event\session-expired.cshtml" />
+    <Content Include="Views\Account\confirm-event-organiser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

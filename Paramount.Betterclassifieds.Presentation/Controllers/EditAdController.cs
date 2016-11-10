@@ -142,11 +142,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var eventTicketTypes = eventDetails.Tickets;
             var paymentSummary = _eventManager.BuildPaymentSummary(eventDetails.EventId);
             var status = _eventManager.GetEventPaymentRequestStatus(eventDetails.EventId);
+            var applicationUser = _userManager.GetCurrentUser();
 
             var eventEditViewModel = new EventDashboardViewModel(id, adDetails.NumOfViews, adDetails.Heading, eventDetails, paymentSummary, status,
                 this.MapList<EventTicket, EventTicketViewModel>(eventTicketTypes.ToList()),
-                this.MapList<EventGuestDetails, EventGuestListViewModel>(guestList.ToList())
-                );
+                this.MapList<EventGuestDetails, EventGuestListViewModel>(guestList.ToList()));
+
+            eventEditViewModel.RequiresEventOrganiserConfirmation = applicationUser.RequiresEventOrganiserConfirmation;
 
             return View(eventEditViewModel);
         }

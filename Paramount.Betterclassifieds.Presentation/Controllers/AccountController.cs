@@ -1,4 +1,7 @@
-﻿namespace Paramount.Betterclassifieds.Presentation.Controllers
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     using AutoMapper;
     using Business;
@@ -12,15 +15,17 @@
         private readonly IAuthManager _authManager;
         private readonly IBroadcastManager _broadcastManager;
         private readonly IClientConfig _clientConfig;
+        private readonly ISmtpMailer _emailer;
 
         public const string ReturnUrlKey = "ReturnUrlForLogin";
 
-        public AccountController(IUserManager userManager, IAuthManager authManager, IBroadcastManager broadcastManager, IClientConfig clientConfig)
+        public AccountController(IUserManager userManager, IAuthManager authManager, IBroadcastManager broadcastManager, IClientConfig clientConfig, ISmtpMailer emailer)
         {
             _userManager = userManager;
             _authManager = authManager;
             _broadcastManager = broadcastManager;
             _clientConfig = clientConfig;
+            _emailer = emailer;
         }
 
         [HttpGet]
@@ -248,6 +253,36 @@
 
             changePasswordView.UpdatedSuccessfully = true;
             return View(changePasswordView);
+        }
+
+        [HttpGet]
+        [ActionName("confirm-event-organiser")]
+        [Authorize]
+        public ActionResult ConfirmEventOrganiser()
+        {
+            return View(new EventOrganiserConfirmationViewModel());
+        }
+
+        [ActionName("confirm-event-organiser")]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult ConfirmEventOrganiser(EventOrganiserConfirmationViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
+            var currentUser = _userManager.GetCurrentUser();
+            var body = $"User [{currentUser.Email}, {currentUser.Username}] would like to confirm their account.";
+
+            _emailer.SendEmail("Organiser Confirmation", body, "support@paramountit.com.au", viewModel.Files.Select(file => new EmailAttachment
+            {
+                Content = file.InputStream.ToBytes(), ContentType = file.ContentType, FileName = file.FileName
+            }).ToArray(), _clientConfig.SupportEmailList );
+
+            viewModel.IsSubmitted = true;
+            return View(viewModel);
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

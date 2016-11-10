@@ -2681,6 +2681,8 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 		
 		private string _BankBsbNumber;
 		
+		private System.Nullable<bool> _RequiresEventOrganiserConfirmation;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -2739,6 +2741,8 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
     partial void OnBankAccountNumberChanged();
     partial void OnBankBsbNumberChanging(string value);
     partial void OnBankBsbNumberChanged();
+    partial void OnRequiresEventOrganiserConfirmationChanging(System.Nullable<bool> value);
+    partial void OnRequiresEventOrganiserConfirmationChanged();
     #endregion
 		
 		public UserProfile()
@@ -3282,6 +3286,26 @@ namespace Paramount.Betterclassifieds.DataService.LinqObjects
 					this._BankBsbNumber = value;
 					this.SendPropertyChanged("BankBsbNumber");
 					this.OnBankBsbNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequiresEventOrganiserConfirmation", DbType="Bit")]
+		public System.Nullable<bool> RequiresEventOrganiserConfirmation
+		{
+			get
+			{
+				return this._RequiresEventOrganiserConfirmation;
+			}
+			set
+			{
+				if ((this._RequiresEventOrganiserConfirmation != value))
+				{
+					this.OnRequiresEventOrganiserConfirmationChanging(value);
+					this.SendPropertyChanging();
+					this._RequiresEventOrganiserConfirmation = value;
+					this.SendPropertyChanged("RequiresEventOrganiserConfirmation");
+					this.OnRequiresEventOrganiserConfirmationChanged();
 				}
 			}
 		}

@@ -1,0 +1,68 @@
+﻿@model EventOrganiserConfirmationViewModel
+
+@{
+    ViewBag.Title = "Account Confirmation";
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
+}
+
+<div class="container top-buffer-60">
+
+   
+    @if (Model.IsSubmitted)
+    {
+        <div class="row">
+            <div class="col-xs-12">
+                <h3 class="page-header">
+                    Thank you
+                </h3>
+                <p>
+                    Your details have been submitted for review.
+                    Please allow up to 24 hours but we'll do the best
+                    we can do process as soon as possible.
+                </p>
+
+            </div>
+        </div>
+    }
+    else
+    {
+        <h1 class="page-header">
+            Event Organiser Confirmation
+        </h1>
+
+        <form role="form" method="POST" action="@Url.ConfirmEventOrganiser()"  enctype="multipart/form-data">
+
+            @Html.AntiForgeryToken()
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <p>
+                        In order to ensure our users are protected, we'll need to confirm your identity. To do this,
+                        <a target="_blank" href="http://www.police.vic.gov.au/content.asp?Document_ID=34472">
+                            100 points of identification is required
+                        </a>. Please upload your identification documents.
+                    </p>
+                </div>
+
+                <div class="col-xs-12">
+
+                    <div class="form-group">
+                        <label for="files">Files</label>
+                        <input type="file" id="files" name="files" multiple="multiple"> 
+                        <p class="help-block">You can select multiple files to be uploaded</p>
+                    </div>
+
+                </div>
+
+                <div class="col-xs-12">
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    }
+
+
+</div>

@@ -263,5 +263,10 @@ namespace Paramount
                 .WithAction("remove-guest-complete", "EditAd")
                 .WithRouteValues(new { id });
         }
+
+        public static UrlBuilder ConfirmEventOrganiser(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper).WithAction("confirm-event-organiser", "account");
+        }
     }
 }

@@ -61,5 +61,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public decimal? EventOrganiserOwedAmount { get; set; }
         public string TotalTicketFees { get; set; }
         public bool IsClosed { get; set; }
+        public bool? RequiresEventOrganiserConfirmation { get; set; }
     }
 }

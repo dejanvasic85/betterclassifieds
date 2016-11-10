@@ -142,6 +142,7 @@
       <Column Name="BankAccountName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="BankAccountNumber" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="BankBsbNumber" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="RequiresEventOrganiserConfirmation" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

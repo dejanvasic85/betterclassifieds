@@ -57,6 +57,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Scripts\0015-UserProfile.Column.IsEventOrganiserProfileConfirmed.sql" />
     <EmbeddedResource Include="Scripts\0014-UserProfile.Columns.Payment.sql" />
     <EmbeddedResource Include="Scripts\0013-Registration.Column.ConfirmationAttempts.sql" />
     <EmbeddedResource Include="Scripts\0012-RegistrationTokenIsNowNullable.sql" />

@@ -13,6 +13,7 @@
                 return t.remainingQuantity();
             });
         });
+        me.requiresEventOrganiserConfirmation = ko.observable();
         me.organiserAbsorbsTransactionFee = ko.observable();
         me.eventOrganiserOwedAmount = ko.observable();
         me.totalSoldAmount = ko.observable();
@@ -107,6 +108,8 @@
         me.totalSoldQty(editEventViewModel.totalSoldQty);
         me.pageViews(editEventViewModel.pageViews);
         me.requestPaymentStatus(editEventViewModel.eventPaymentRequestStatus);
+        me.requiresEventOrganiserConfirmation(editEventViewModel.requiresEventOrganiserConfirmation);
+        console.log(editEventViewModel);
     }
 
     $paramount.models = $paramount.models || {};

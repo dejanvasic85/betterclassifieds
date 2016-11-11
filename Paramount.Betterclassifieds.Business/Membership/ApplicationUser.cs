@@ -41,6 +41,8 @@ namespace Paramount.Betterclassifieds.Business
             }
         }
 
+        public bool? RequiresEventOrganiserConfirmation { get; set; }
+
         public virtual bool AuthenticateUser(IAuthManager authManager, string password, bool persistAuthCookie = true)
         {
             if (!authManager.ValidatePassword(Username, password))

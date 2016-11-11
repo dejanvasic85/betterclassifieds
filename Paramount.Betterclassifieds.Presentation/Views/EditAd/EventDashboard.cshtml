@@ -220,7 +220,6 @@
             </div>
         </div>
 
-
         @*Close Event*@
         <div class="col-xs-12">
             <div class="action-item clearfix">
@@ -232,6 +231,13 @@
                     <button class="btn btn-primary" data-bind="visible: !isClosed()" data-toggle="modal" data-target="#closeEventDialog">Close <i class="fa fa-ban"></i></button>
                     <span class="label label-warning" data-bind="visible: isClosed">Closed</span>
                 </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12" data-bind="visible: requiresEventOrganiserConfirmation">
+            <div class="alert alert-danger">
+                <strong>Account Confirmation Required.</strong> To meet our security standards, as an event organiser, you must confirm your identity.
+                <a class="btn btn-sm btn-primary js-load" href="@Url.ConfirmEventOrganiser()">Continue</a>
             </div>
         </div>
     </div>

@@ -55,6 +55,8 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventManagerMock.SetupWithVerification(call => call.BuildPaymentSummary(It.Is<int>(p => p == eventId)), mockPaymentSummary);
             _eventManagerMock.SetupWithVerification(call => call.GetEventPaymentRequestStatus(It.Is<int>(p => p == eventId)), EventPaymentRequestStatus.Complete);
 
+            _userManagerMock.SetupWithVerification(call => call.GetCurrentUser(), new ApplicationUserMockBuilder().Default().Build());
+
             // Act 
             var result = BuildController().EventDashboard(adId);
 

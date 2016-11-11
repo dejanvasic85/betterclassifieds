@@ -17,13 +17,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         
         public EventDetailsPage SelectTickets(int numberOfTickets, string ticketType)
         {
-
-            _webDriver.FindElements(By.CssSelector("[data-ticket-name='" + ticketType + "'] td"))
-                .Last(el => el.Displayed)
-                .FindElement(By.TagName("select"))
-                .ToSelectElement()
-                .WithSelectedOptionValue(numberOfTickets.ToString());
-
+            new TicketSelectionComponent(_webDriver).SelectTickets(numberOfTickets, ticketType);
+            
             return this;
         }
 
@@ -36,7 +31,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 
         public EventDetailsPage ConfirmTicketSelection()
         {
-            _webDriver.FindElements(By.ClassName("tst-order-tickets")).First(el => el.Displayed).Click();
+            new TicketSelectionComponent(_webDriver).PlaceOrder();
             return this;
         }
 

@@ -386,7 +386,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<Business.Events.EventBookingTicket, EventBookingTicketViewModel>();
             configuration.CreateMap<Business.Events.EventTicketReservation, EventTicketReservedViewModel>()
                 .ForMember(m => m.Status, options => options.MapFrom(s => s.StatusAsString.Humanize()))
-                .ForMember(m => m.Price, options => options.MapFrom(s => s.Price.GetValueOrDefault() + s.TransactionFee.GetValueOrDefault()))
                 .ForMember(m => m.TicketName, options => options.MapFrom(s => s.EventTicket.TicketName))
                 ;
 

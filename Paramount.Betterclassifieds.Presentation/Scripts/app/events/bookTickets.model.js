@@ -7,6 +7,7 @@
         $.extend(data, {});
 
         me.eventId = ko.observable(data.eventId);
+        me.includeTransactionFee = ko.observable(data.includeTransactionFee);
         me.sendEmailToGuests = ko.observable(data.sendEmailToGuests);
         me.minsRemaining = ko.observable(data.reservationExpiryMinutes);
         me.secondsRemaining = ko.observable(data.reservationExpirySeconds);
@@ -55,15 +56,6 @@
 
             reservationData.getGroupsPromise = groupsPromise;
             me.reservations.push(new $paramount.models.EventTicketReserved(reservationData));
-        });
-
-        me.totalCost = ko.computed(function () {
-            return _.sumBy(me.reservations(), function (r) {
-                if (r.notReserved()) {
-                    return 0;
-                }
-                return r.price();
-            });
         });
 
         // Timer
@@ -147,6 +139,8 @@
             });
             return result;
         }
+
+        console.log(ko.toJS(me));
     }
 
 

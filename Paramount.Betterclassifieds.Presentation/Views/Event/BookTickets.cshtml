@@ -201,13 +201,22 @@
                     </a> and are committed to purchase the tickets.
                 </div>
 
-                <div class="row">
-                    <div class="col-xs-12 text-right">
-                        <hr />
-                        <h4>Total Cost: <strong><span data-bind="text: $paramount.formatCurrency(totalCost())"></span></strong></h4>
-                        <hr />
-                    </div>
-                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Tickets Total</th>
+                            <th>Transaction Fee</th>
+                            <th>Sub Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@Model.TotalCostWithoutFees.ToString("C")</td>
+                            <td>@Model.TotalFees.ToString("C")</td>
+                            <td><h4>@Model.TotalCost.ToString("C")</h4></td>
+                        </tr>
+                    </tbody>
+                </table>
 
                 <div class="pull-right" data-bind="visible: canContinue()">
                     <button class="btn btn-primary" data-loading-text="Please Wait..." id="proceedToPaymentBtn">

@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.PageObjects;
+﻿using OpenQA.Selenium;
 using Paramount.Betterclassifieds.Tests.Functional.Base;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
@@ -41,6 +39,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
                 .FindElement(By.ClassName("tst-ticket-free"))
                 .Text
                 .EqualTo("free");
+        }
+
+        public EventDetailsPage SelectGroup(string groupName)
+        {
+            new TicketSelectionComponent(_webDriver).SelectGroup(groupName);
+            return this;
         }
     }
 }

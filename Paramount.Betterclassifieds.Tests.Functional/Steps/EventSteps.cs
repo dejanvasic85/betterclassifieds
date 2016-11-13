@@ -52,6 +52,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             _repository.SetEventIncludeTransactionFee(_contextData.Get().EventId, false);
         }
 
+        [Given(@"the event requires group selection")]
+        public void GivenTheEventRequiresGroupSelection()
+        {
+            _repository.SetEventGroupsRequired(_contextData.Get().EventId);
+        }
+
+
         [Given(@"with a ticket option ""(.*)"" for ""(.*)"" dollars each and ""(.*)"" available")]
         public void GivenWithATicketOptionForDollars(string ticketName, decimal amount, int availableQty)
         {
@@ -80,6 +87,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         {
             var relativePath = url.Replace("adId", _contextData.Get().AdId.ToString());
             _pageBrowser.NavigateTo(relativePath);
+        }
+
+        [When(@"I select group ""(.*)""")]
+        public void WhenISelectGroup(string groupName)
+        {
+            var eventPage = _pageBrowser.Init<EventDetailsPage>(ensureUrl: false);
+            eventPage.SelectGroup(groupName);
         }
 
         [When(@"I select ""(.*)"" ""(.*)"" tickets")]

@@ -13,9 +13,6 @@ Scenario: View event and book two tickets with successful payment
 	And an event ad titled "The Opera" exists 
 	And the event does not include a transaction fee
 	And with a ticket option "General Admission" for "5" dollars each and "100" available
-	And the event has a group "Table 1" for ticket "General Admission" and allows up to "10" guests
-	And the event has a group "Table 2" for ticket "General Admission" and allows up to "10" guests
-	And I navigate to "Event/the-opera/adId"
 	When I select "2" "General Admission" tickets
 	And proceed to order the tickets
 	And enter the email "guest@event.com" and name "Guest FoEvent" for the second guest
@@ -23,9 +20,26 @@ Scenario: View event and book two tickets with successful payment
 	And paypal payment is completed
 	Then I should see a ticket purchased success page
 	And the tickets should be booked
-	#When When selecting "Table 1" for guest "bddTicketBuyer bddTicketBuyer"
-	#Then ticket with full name "bddTicketBuyer bddTicketBuyer" should be assigned to a group
-	
+
+@BookTickets @GroupsRequired
+Scenario: View event and book ticket by selecting group first
+	Given client setting "Events.EnablePayPalPayments" is set to "true"
+	And I am logged in as "bddTicketBuyer" with password "bddTicketBuyer"
+	And an event ad titled "The Opera" exists 
+	And the event does not include a transaction fee
+	And the event requires group selection
+	And with a ticket option "General Admission" for "5" dollars each and "100" available
+	And the event has a group "Table 1" for ticket "General Admission" and allows up to "10" guests
+	And the event has a group "Table 2" for ticket "General Admission" and allows up to "10" guests
+	And I navigate to "Event/the-opera/adId"
+	When I select group "Table 1"
+	And I select "2" "General Admission" tickets
+	And proceed to order the tickets
+	And enter the email "guest@event.com" and name "Guest FoEvent" for the second guest
+	And my details are prefilled so I proceed to payment
+	And paypal payment is completed
+	Then I should see a ticket purchased success page
+	And the tickets should be booked
 
 @BookTickets
 Scenario: Register before booking tickets

@@ -391,7 +391,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\animate.min.css">
       <DependentUpon>animate.css</DependentUpon>

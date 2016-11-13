@@ -139,8 +139,6 @@
             });
             return result;
         }
-
-        console.log(ko.toJS(me));
     }
 
 

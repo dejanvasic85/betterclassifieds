@@ -24,7 +24,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                     TicketName = ebt.TicketName,
                     GuestFullName = ebt.GuestFullName,
                     GuestEmail = ebt.GuestEmail,
-                    TotalPrice = ebt.TotalPrice
+                    Price = ebt.TotalPrice
                 })
                 .ToList();
         }

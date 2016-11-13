@@ -34,6 +34,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _bookingManager.IncrementHits(id);
 
             var eventModel = _eventManager.GetEventDetailsForOnlineAdId(onlineAdModel.OnlineAdId);
+            _eventBookingContext.EventUrl = Url.AdUrl(titleSlug, id, onlineAdModel.CategoryAdType);
 
             var eventViewModel = new EventViewDetailsModel(_httpContext,
                 Url, onlineAdModel, eventModel, _clientConfig);
@@ -233,6 +234,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var viewModel = new MakePaymentViewModel
             {
                 TotalCost = eventBooking.TotalCost,
+                TotalCostWithoutFees = eventBooking.Cost,
+                TotalFees = eventBooking.TransactionFee,
                 EventTickets = this.MapList<EventBookingTicket, EventBookingTicketViewModel>(eventBooking.EventBookingTickets.ToList()),
                 StripePublishableKey = _appConfig.StripePublishableKey,
                 EnablePayPalPayments = _clientConfig.EnablePayPalPayments,
@@ -377,6 +380,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 _eventManager.GetEventTicket(id).With(et => et.EventTicketFields.ToList()));
 
             return Json(fields);
+        }
+
+        [HttpGet]
+        [ActionName("session-expired")]
+        public ActionResult SessionExpired()
+        {
+            return View(_eventBookingContext.EventUrl);
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

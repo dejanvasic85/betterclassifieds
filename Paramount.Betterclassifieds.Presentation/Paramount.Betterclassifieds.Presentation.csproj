@@ -986,6 +986,7 @@
     <Content Include="Views\Listings\_AdSummaryEvent.cshtml" />
     <Content Include="Views\Image\Barcode.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Event\session-expired.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

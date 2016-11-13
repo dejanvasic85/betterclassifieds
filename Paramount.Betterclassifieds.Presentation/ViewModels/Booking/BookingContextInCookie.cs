@@ -101,7 +101,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
                     Value = value.HasValue()
                         ? CryptoHelper.Encrypt(value)
                         : value,
-                    Secure = true,
                     HttpOnly = true
                 };
 

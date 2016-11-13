@@ -86,9 +86,15 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         public void WhenISelectTickets(int numberOfTickets, string ticketType)
         {
             var eventPage = _pageBrowser.Init<EventDetailsPage>(ensureUrl: false);
-            eventPage.SelectTickets(numberOfTickets, ticketType)
-                .ConfirmTicketSelection();
+            eventPage.SelectTickets(numberOfTickets, ticketType);
         }
+
+        [When(@"proceed to order the tickets")]
+        public void WhenProceedToOrderTheTickets()
+        {
+            _pageBrowser.Init<EventDetailsPage>(ensureUrl: false).ConfirmTicketSelection();
+        }
+
 
         [When(@"enter the email ""(.*)"" and name ""(.*)"" for the second guest")]
         public void WhenEnterTheEmailAndNameForTheSecondGuest(string email, string fullName)
@@ -162,6 +168,22 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 var currentPrice = eventDetailsPage.GetPriceForTicket(ticketName);
                 Assert.That(currentPrice, Is.EqualTo(expectedPrice));
             }
+        }
+
+        [Then(@"the booking page should display total tickets ""(.*)"" total fees ""(.*)"" and sub total ""(.*)""")]
+        public void ThenTheBookingPageShouldDisplayTotalTicketsTotalFeesAndSubTotal(decimal totalTickets, decimal totalFees, decimal subTotal)
+        {
+            var bookingPage = _pageBrowser.Init<BookTicketsPage>();
+
+            var currentTotalTickets = bookingPage.GetTotalTicketsCost();
+            Assert.That(currentTotalTickets, Is.EqualTo(totalTickets));
+
+            var currentTotalFees = bookingPage.GetTotalFees();
+            Assert.That(currentTotalFees, Is.EqualTo(totalFees));
+
+            var currentSubTotal = bookingPage.GetSubTotal();
+            Assert.That(currentSubTotal, Is.EqualTo(subTotal));
+
         }
 
         [When(@"I navigate to event ""(.*)""")]

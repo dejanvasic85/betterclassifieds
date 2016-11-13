@@ -29,6 +29,16 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         [FindsBy(How = How.Id, Using = "phone")]
         public IWebElement PhoneNumberElement { get; set; }
 
+        [FindsBy(How = How.ClassName, Using = "tst-totalTicketCost")]
+        public IWebElement TotalTicketCostElement { get; set; }
+
+        [FindsBy(How = How.ClassName, Using = "tst-totalFees")]
+        public IWebElement TotalFeesElement { get; set; }
+
+        [FindsBy(How = How.ClassName, Using = "tst-subTotal")]
+        public IWebElement SubTotalElement { get; set; }
+
+
 
         public BookTicketsPage ProceedToPayment()
         {
@@ -52,6 +62,26 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         {
             PhoneNumberElement.SendKeys(phone);
             return this;
+        }
+
+        public decimal GetTotalTicketsCost()
+        {
+            return GetPriceFromElement(TotalTicketCostElement);
+        }
+
+        public decimal GetTotalFees()
+        {
+            return GetPriceFromElement(TotalFeesElement);
+        }
+
+        public decimal GetSubTotal()
+        {
+            return GetPriceFromElement(SubTotalElement);
+        }
+
+        private decimal GetPriceFromElement(IWebElement element)
+        {
+            return decimal.Parse(element.Text.Trim().Replace("$", string.Empty));
         }
     }
 }

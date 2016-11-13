@@ -81,27 +81,26 @@ this.ScenarioSetup(scenarioInfo);
 #line 11
  testRunner.Given("client setting \"Events.EnablePayPalPayments\" is set to \"true\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 12
- testRunner.And("I am a registered user with username \"bddTicketBuyer\" and password \"bddTicketBuye" +
-                    "r\" and email \"bdd@TicketBuyer.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 13
  testRunner.And("I am logged in as \"bddTicketBuyer\" with password \"bddTicketBuyer\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 14
+#line 13
  testRunner.And("an event ad titled \"The Opera\" exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 15
+#line 14
  testRunner.And("the event does not include a transaction fee", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 16
+#line 15
  testRunner.And("with a ticket option \"General Admission\" for \"5\" dollars each and \"100\" available" +
                     "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 17
+#line 16
  testRunner.And("the event has a group \"Table 1\" for ticket \"General Admission\" and allows up to \"" +
                     "10\" guests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 18
+#line 17
  testRunner.And("the event has a group \"Table 2\" for ticket \"General Admission\" and allows up to \"" +
                     "10\" guests", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 19
+#line 18
  testRunner.And("I navigate to \"Event/the-opera/adId\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 20
+#line 19
  testRunner.When("I select \"2\" \"General Admission\" tickets", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 20
+ testRunner.And("proceed to order the tickets", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 21
  testRunner.And("enter the email \"guest@event.com\" and name \"Guest FoEvent\" for the second guest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 22
@@ -134,6 +133,10 @@ this.ScenarioSetup(scenarioInfo);
 #line 35
  testRunner.And("I select \"2\" \"General Admission\" tickets", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 36
+ testRunner.And("proceed to order the tickets", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 37
+ testRunner.And("my details are prefilled so I proceed to payment", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 38
  testRunner.Then("I should be on the registration page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -146,25 +149,36 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View event ad with transaction fee should increase the price of tickets", new string[] {
                         "IncludeTransaction"});
-#line 40
-this.ScenarioSetup(scenarioInfo);
-#line 41
- testRunner.Given("an event ad titled \"The Opera 2\" exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 42
+this.ScenarioSetup(scenarioInfo);
+#line 43
+ testRunner.Given("I am logged in as \"bddTicketBuyer\" with password \"bddTicketBuyer\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 44
+ testRunner.And("an event ad titled \"The Opera 2\" exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 45
  testRunner.And("with a ticket option \"General Admission\" for \"5\" dollars each and \"100\" available" +
                     "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 43
- testRunner.And("with a ticket option \"VIP\" for \"10\" dollars each and \"100\" available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 44
- testRunner.And("with a ticket option \"Free entry\" for \"0\" dollars each and \"100\" available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 45
- testRunner.When("I navigate to \"/Event/the-opera/adId\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 46
- testRunner.Then("the ticket \"General Admission\" price should be \"$5.41\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("with a ticket option \"VIP\" for \"10\" dollars each and \"100\" available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 47
- testRunner.And("the ticket \"VIP\" price should be \"$10.51\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("with a ticket option \"Free entry\" for \"0\" dollars each and \"100\" available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 48
+ testRunner.When("I navigate to \"/Event/the-opera/adId\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 50
+ testRunner.Then("the ticket \"General Admission\" price should be \"$5.00\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 51
+ testRunner.And("the ticket \"VIP\" price should be \"$10.00\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 52
  testRunner.And("the ticket \"Free entry\" price should be \"Free\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 53
+ testRunner.When("I select \"1\" \"General Admission\" tickets", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 54
+ testRunner.When("I select \"1\" \"VIP\" tickets", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 55
+ testRunner.And("proceed to order the tickets", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 56
+ testRunner.Then("the booking page should display total tickets \"15.00\" total fees \"0.92\" and sub t" +
+                    "otal \"15.92\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -176,23 +190,34 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("View event ad with no transaction fee", new string[] {
                         "DoesNotIncludeTransactionFee"});
-#line 52
+#line 60
 this.ScenarioSetup(scenarioInfo);
-#line 53
- testRunner.Given("an event ad titled \"The Opera 3\" exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 54
+#line 61
+ testRunner.Given("I am logged in as \"bddTicketBuyer\" with password \"bddTicketBuyer\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 62
+ testRunner.And("an event ad titled \"The Opera 3\" exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 63
  testRunner.And("the event does not include a transaction fee", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 55
+#line 64
  testRunner.And("with a ticket option \"General Admission\" for \"5\" dollars each and \"100\" available" +
                     "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 56
+#line 65
  testRunner.And("with a ticket option \"VIP\" for \"10\" dollars each and \"100\" available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 57
+#line 66
  testRunner.When("I navigate to \"/Event/the-opera/adId\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 58
+#line 67
  testRunner.Then("the ticket \"General Admission\" price should be \"$5.00\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 59
+#line 68
  testRunner.Then("the ticket \"VIP\" price should be \"$10.00\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 69
+ testRunner.When("I select \"1\" \"General Admission\" tickets", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 70
+ testRunner.When("I select \"1\" \"VIP\" tickets", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 71
+ testRunner.And("proceed to order the tickets", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 72
+ testRunner.Then("the booking page should display total tickets \"15.00\" total fees \"0.00\" and sub t" +
+                    "otal \"15.00\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -204,21 +229,21 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Invitation exists and is used to book tickets", new string[] {
                         "EventInvite"});
-#line 63
+#line 76
 this.ScenarioSetup(scenarioInfo);
-#line 64
+#line 77
  testRunner.Given("an event ad titled \"Event with Invite\" exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 65
+#line 78
  testRunner.And("the event has an invite for \"Foo Bar\" with email \"foo@bar.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 66
+#line 79
  testRunner.And("with a ticket option \"VIP\" for \"10\" dollars each and \"100\" available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 67
+#line 80
  testRunner.When("I navigate to the page for the new invitaton", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 68
+#line 81
  testRunner.Then("It should display the invitation page with event title \"Event with Invite\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 69
+#line 82
  testRunner.When("selecting to purchase the \"VIP\" ticket", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 70
+#line 83
  testRunner.Then("I should be on the registration page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

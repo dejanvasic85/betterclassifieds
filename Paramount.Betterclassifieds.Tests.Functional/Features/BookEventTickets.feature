@@ -48,7 +48,6 @@ Scenario: Register before booking tickets
 	When I navigate to "Event/register-before-buying-tickets/adId"
 	And I select "2" "General Admission" tickets
 	And proceed to order the tickets
-	And my details are prefilled so I proceed to payment
 	Then I should be on the registration page
 
 

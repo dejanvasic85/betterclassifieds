@@ -171,6 +171,25 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View(vm);
         }
 
+        [HttpGet]
+        [ActionName("edit-ticket")]
+        [Route("event-dashboard/{id}/event-ticket/{ticketId}")]
+        public ActionResult EditTicket(int id, int ticketId)
+        {
+            // Ensure tickets have not been purchased
+            var ticket = _eventManager.GetEventTicket(ticketId);
+            if (ticket == null)
+                return Url.NotFound().ToRedirectResult();
+
+            ViewBag.Id = id;
+            ViewBag.TicketsSold = ticket.RemainingQuantity != ticket.AvailableQuantity;
+            ViewBag.BackToTicketsUrl = Url.EventTicketManagement(id, ticket.EventId.GetValueOrDefault());
+            var viewModel = this.Map<EventTicket, EventTicketViewModel>(ticket);
+
+            return View(viewModel);
+        }
+
+
         [HttpPost]
         public ActionResult AddTicket(int id, NewEventTicketViewModel vm)
         {

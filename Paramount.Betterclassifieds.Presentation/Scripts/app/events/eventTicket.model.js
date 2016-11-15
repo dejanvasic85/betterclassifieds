@@ -22,6 +22,7 @@
         me.maxTicketsPerBooking = ko.observableArray();
         me.eventGroupId = ko.observable();
         me.eventGroupName = ko.observable();
+        me.editTicketUrl = ko.observable();
 
         /*
          * Computed functions
@@ -71,7 +72,7 @@
 
     EventTicket.prototype.bindEventTicket = function (data, maxTicketsPerBooking) {
         var me = this;
-
+        console.log(data);
         me.adId(data.adId);
         me.eventId(data.eventId);
         me.eventTicketId(data.eventTicketId);
@@ -83,6 +84,8 @@
         me.isAvailable(data.remainingQuantity > 0);
         me.editMode(data.editMode === true);
         me.soldQuantity(data.soldQty);
+       
+        me.editTicketUrl('/event-dashboard/' + data.adId + '/event-ticket/' + data.eventTicketId);
 
         // MaxTickets Per booking setup
         if (maxTicketsPerBooking) {

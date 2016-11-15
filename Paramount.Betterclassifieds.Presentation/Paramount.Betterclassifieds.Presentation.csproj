@@ -987,7 +987,8 @@
     <Content Include="Views\Image\Barcode.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Event\session-expired.cshtml" />
-        <Content Include="Views\Account\confirm-event-organiser.cshtml" />
+    <Content Include="Views\Account\confirm-event-organiser.cshtml" />
+    <Content Include="Views\EditAd\edit-ticket.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

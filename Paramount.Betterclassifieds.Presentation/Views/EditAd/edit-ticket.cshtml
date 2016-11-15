@@ -1,0 +1,31 @@
+﻿@model EventTicketViewModel
+
+@{
+    ViewBag.Title = "Edit Ticket Details";
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
+}
+
+@section Scripts
+{
+    <script>
+        var ticketDetails = @Model.ToJsonString();
+        _.extend(ticketDetails, {
+            id : '@ViewBag.Id'
+        });
+        console.log(ticketDetails);
+    </script>
+}
+
+<div class="container top-buffer-60" id="editTicket">
+    <h2 class="page-header">
+        Edit Ticket Details
+    </h2>
+
+    <div class="row">
+        <div class="col-xs-offset-6 col-xs-6 col-sm-offset-8 col-sm-4">
+            <a href="@ViewBag.BackToTicketsUrl" class="btn btn-default btn-block js-load">
+                <i class="fa fa-arrow-circle-left"></i> Ticketing
+            </a>
+        </div>
+    </div>
+</div>

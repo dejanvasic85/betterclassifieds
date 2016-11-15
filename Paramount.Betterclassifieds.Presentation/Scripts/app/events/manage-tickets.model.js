@@ -11,6 +11,7 @@
         me.eventId = ko.observable(data.eventId);
         me.includeTransactionFee = ko.observable(data.includeTransactionFee);
         me.tickets = $p.ko.bindArray(data.tickets, function (t) {
+            t.adId = data.id;
             return new $p.models.EventTicket(t, 20);
         });
 

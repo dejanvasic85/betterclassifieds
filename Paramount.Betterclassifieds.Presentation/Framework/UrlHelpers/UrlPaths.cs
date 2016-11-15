@@ -164,7 +164,7 @@ namespace Paramount
                 .WithAction("event-ticketing", "editad")
                 .WithRouteValues(new { id = adId, eventId });
         }
-
+        
         public static UrlBuilder UpdateEventDetails(this UrlHelper urlHelper)
         {
             return new UrlBuilder(urlHelper, "UpdateEventDetails", "EditAd");

@@ -48,6 +48,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         public TicketSelectionComponent SelectGroup(string groupName)
         {
             _webDriver.FindElement(By.CssSelector("[data-group-name='" + groupName + "']")).Click();
+            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(2));
+            wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.Id("ticketSelectionModal")));
+
             return this;
         }
     }

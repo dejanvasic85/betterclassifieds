@@ -8,11 +8,12 @@
 @section Scripts
 {
     <script>
-        var ticketDetails = @Model.ToJsonString();
-        _.extend(ticketDetails, {
-            id : '@ViewBag.Id'
-        });
-        console.log(ticketDetails);
+        $(function() {
+            var ticketDetails = @Html.Raw(@Model.ToJsonString());
+            _.extend(ticketDetails, {
+                id : @Html.Raw(ViewBag.Id)
+            });
+        })
     </script>
 }
 
@@ -27,5 +28,15 @@
                 <i class="fa fa-arrow-circle-left"></i> Ticketing
             </a>
         </div>
+
+        @if ((bool)ViewBag.TicketsSold)
+        {
+            <div class="col-xs-12">
+                <div class="alert alert-warning">
+                    Please note: this ticket already has been distributed to some guests.
+                    Any changes made will not affected the previously purchased tickets.
+                </div>
+            </div>
+        }
     </div>
 </div>

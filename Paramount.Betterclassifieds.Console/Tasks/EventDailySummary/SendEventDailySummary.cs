@@ -34,7 +34,7 @@ namespace Paramount.Betterclassifieds.Console.Tasks
         public void Run()
         {
             // Fetch all the current events and send an email to each organiser
-            foreach (var eventSearchResult in _searchService.GetCurrentEvents())
+            foreach (var eventSearchResult in _searchService.GetEvents())
             {
                 var adSearchResult = eventSearchResult.With(e => e.AdSearchResult);
                 var eventDetails = eventSearchResult.With(e => e.EventDetails);

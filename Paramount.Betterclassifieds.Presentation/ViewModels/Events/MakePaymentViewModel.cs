@@ -11,5 +11,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public bool EnablePayPalPayments { get; set; }
         public bool EnableCreditCardPayments { get; set; }
         public string CardFailedMessage { get; set; }
+        public decimal TotalCostWithoutFees { get; set; }
+        public decimal TotalFees { get; set; }
     }
 }

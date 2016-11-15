@@ -11,7 +11,7 @@ namespace Paramount.Betterclassifieds.Tests.Integration
         public void GetCurrentEvents()
         {
             var searchService = new SearchService(new DbContextFactory());
-            var events = searchService.GetCurrentEvents();
+            var events = searchService.GetEvents();
         }
     }
 }

@@ -27,12 +27,14 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string EventName => _adSearchResult.Heading;
         public int EventId => _eventModel.EventId.GetValueOrDefault();
         public string EventStartDate => _eventModel.EventStartDate.GetValueOrDefault().ToString("hh:mm tt");
+        public bool IsEventPassed => _eventModel.EventEndDate <= DateTime.Now;
         public string Location => _eventModel.Location;
         public string GuestFullName => _userNetwork.FullName;
         public string GuestEmail => _userNetwork.UserNetworkEmail;
         public long EventInvitationId => _invitation.EventInvitationId.GetValueOrDefault();
         public bool IsEventClosed => _eventModel.IsClosed;
         public bool IsAlreadyConfirmed => _invitation.ConfirmedDate.HasValue;
+        public int MaxTicketsPerBooking => _clientConfig.EventMaxTicketsPerBooking;
 
         public EventTicketViewModel[] Tickets
         {

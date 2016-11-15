@@ -107,6 +107,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
             }
         }
 
+        public void SetEventGroupsRequired(int eventId)
+        {
+            using (var connection = _connectionFactory.CreateClassifieds())
+            {
+                connection.ExecuteSql("UPDATE [Event] SET [GroupsRequired] = 1 WHERE EventId = @eventId", new { eventId });
+            }
+        }
+
         public EventBookingData GetEventBooking(int eventId)
         {
             using (var connection = _connectionFactory.CreateClassifieds())

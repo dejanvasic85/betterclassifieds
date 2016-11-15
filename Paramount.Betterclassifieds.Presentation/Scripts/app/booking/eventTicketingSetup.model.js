@@ -27,10 +27,10 @@
             }
 
             var $button = $('#btnSubmit');
-            $button.button('loading');
+            $button.loadBtn();
             var eventTicketingSetup = ko.toJS(me);
             adDesignService.updateEventTicketDetails(eventTicketingSetup).error(function () {
-                $button.button('reset');
+                $button.resetBtn();
             });
         }
 

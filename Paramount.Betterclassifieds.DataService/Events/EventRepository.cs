@@ -220,6 +220,25 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
+        public async Task<IEnumerable<EventTicket>> GetEventTickets(int eventId)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                return await context.EventTickets.Where(t => t.EventId == eventId).ToListAsync();
+            }
+        }
+
+        public async Task<IEnumerable<EventTicket>> GetEventTicketsForGroup(int eventGroupId)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                return await context.Database
+                    .SqlQuery<EventTicket>("EventTicket_GetByEventGroupId @eventGroupId",
+                        new SqlParameter("eventGroupId", eventGroupId))
+                    .ToListAsync();
+            }
+        }
+
         public void CreateEventTicketReservation(EventTicketReservation eventTicketReservation)
         {
             using (var context = _dbContextFactory.CreateEventContext())
@@ -366,17 +385,6 @@ namespace Paramount.Betterclassifieds.DataService.Events
                     "WHERE EventGroupId = @eventGroupId",
                     new SqlParameter("isDisabled", isDisabled),
                     new SqlParameter("eventGroupId", eventGroupId));
-            }
-        }
-
-        public async Task<IEnumerable<int>> GetEventTicketsForGroup(int eventGroupId)
-        {
-            using (var context = _dbContextFactory.CreateEventContext())
-            {
-                return await context.Database.SqlQuery<int>(
-                    "SELECT EventTicketId FROM EventGroupTicket WHERE EventGroupId = @eventGroupId",
-                    new SqlParameter("eventGroupId", eventGroupId))
-                    .ToListAsync();
             }
         }
 

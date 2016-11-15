@@ -21,7 +21,7 @@
                     View Floor Plan / Seating
                 </a>
             </p>
-            
+
             <div class="pull-right social-share">
                 <div id="fb-root"></div>
 
@@ -43,117 +43,90 @@
         </div>
     </div>
 
+    @*Event details go here!*@
+
     <div class="container" id="eventView">
-        @if (Model.EventPhoto.HasValue())
+        @{
+            var classForMainEventContent = Model.TicketingEnabled ? "col-md-8" : "col-md-12";
+        }
+
+        @if (Model.TicketingEnabled)
         {
-            <div class="row">
-                <div class="col-md-12 event-photo">
-                    <img class="img-responsive" src="@Url.Image(Model.EventPhoto, 400, 1020)" />
+            <div class="col-md-4">
+
+                <div class="ticket-booth">
+                    <div class="well well-lg">
+                        <h3 class="page-header">
+                            <i class="fa fa-ticket"> </i> Tickets
+                        </h3>
+
+                        @if (Model.IsClosed)
+                        {
+                            <div class="alert alert-warning">Ticketing has been closed this event :(</div>
+                        }
+                        else if (Model.EventEndDate <= DateTime.Now)
+                        {
+                            <div class="alert alert-warning">This event has passed.</div>
+                        }
+                        else
+                        {
+                            <div class="ticketing" id="ticketing">
+                                <find-tickets params="{eventId: @Model.EventId, maxTicketsPerBooking : @Model.MaxTicketsPerBooking, baseUrl: '@Url.Home().WithFullUrl()'}"></find-tickets>
+                            </div>
+                            <div id="serverValidation">
+                                <div class="alert alert-danger"></div>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
         }
 
-        <div class="row">
-            @if (Model.TicketingEnabled)
+        <div class="@classForMainEventContent">
+
+            @if (Model.EventPhoto.HasValue())
             {
-                <div class="col-md-6 ticketing" id="ticketing">
-                    @if (Model.TicketingEnabled && !Model.IsClosed)
-                    {
-                        <h3>
-                            <i class="fa fa-ticket"></i> Tickets
-                        </h3>
-                        <ul class="list-group" data-bind="foreach: tickets">
-                            <li class="list-group-item" data-bind="attr : {'data-ticket-name' : ticketName}">
-                                <div class="row">
-                                    <div class="col-xs-4">
-                                        <span class="ticket-info" data-bind="text: ticketName"></span>
-                                    </div>
-                                    <div class="col-xs-2">
-                                        <span class="ticket-info tst-ticket-free" data-bind="visible: price() === 0, text : 'Free'"></span>
-                                        <span class="ticket-info tst-ticket-price" data-bind="visible: price() > 0, text : priceFormatted"></span>
-                                    </div>
-                                    <div class="col-xs-6">
-                                        <div class="form-inline pull-right">
-                                            <span data-bind="visible: soldOut, text: 'SOLD OUT'" class="label label-danger"></span>
-                                            <div class="form-group" data-bind="visible: isAvailable">
-                                                <span class="ticket-info">Quantity</span>
-                                                <select class="form-control" data-bind="value: selectedQuantity, options: maxTicketsPerBooking, optionsText : 'label', optionsValue : 'value'"></select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-
-                        <div class="well  text-right" data-bind="visible: totalSelectedTickets() > 0">
-                            <button class="btn btn-primary" data-loading-text="Please Wait..."
-                                    data-bind="click: startOrder" id="btnGetTickets">
-                                Get Tickets <i class="fa fa-arrow-right"></i>
-                            </button>
-                        </div>
-
-                    }
-
-
-                    @if (Model.IsClosed)
-                    {
-                        <div class="panel panel-body">
-                            <div class="well">
-                                The ticketing has been closed for this event. Please
-                                contact the organiser for any further queries.
-                            </div>
-                        </div>
-                    }
-
-                </div>
+                <div class="event-photo" style="background-image:url('@Url.Image(Model.EventPhoto, 400, 1020)')"></div>
             }
-            <div class="@(Model.TicketingEnabled ? "col-md-6" : "col-md-12")">
-                <h3>
-                    <i class="fa fa-paperclip"></i> Details
-                </h3>
-                <div class="well well-lg @(Model.HtmlText.Length > 600 ? "small" : "")">
-                    @Html.Raw(Model.HtmlText)
-                </div>
+            <h3 class="page-header">
+                <i class="fa fa-paperclip"></i> Event Details
+            </h3>
+            <div class="well well-lg @(Model.HtmlText.Length > 600 ? "small" : "")">
+                @Html.Raw(Model.HtmlText)
             </div>
-        </div>
 
-    </div>
-
-    <div class="event-map top-buffer-40">
-        <div class="google-map" data-latitude="@Model.LocationLatitude" data-longitude="@Model.LocationLongitude" data-address="@Model.Location"></div>
-        <div class="container top-buffer-20">
-            <div class="text-center">
-                <a class="btn btn-default" href='http://maps.google.com/?q=@Model.Location' target="_blank">
-                    <i class="fa fa-map-marker"></i> Open in maps
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="row top-buffer-20">
-            <div class="col-xs-12 col-md-6">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h4><i class="fa fa-phone"></i> Organiser Details</h4>
+            <div class="event-map top-buffer-40">
+                <div class="google-map" data-latitude="@Model.LocationLatitude" data-longitude="@Model.LocationLongitude" data-address="@Model.Location"></div>
+                <div class="container top-buffer-20">
+                    <div class="text-center">
+                        <a class="btn btn-default" href='http://maps.google.com/?q=@Model.Location' target="_blank">
+                            <i class="fa fa-map-marker"></i> Open in maps
+                        </a>
                     </div>
-                    <table class="table table-striped">
-                        @Html.AdContactDetail(m => m.OrganiserName, "user")
-                        @Html.AdContactDetail(m => m.OrganiserPhone, "phone")
-                        @Html.AdContactDetail(m => m.Views, "eye-open")
-                        @Html.AdContactDetail(m => m.Posted, fontIcon: "calendar-check-o")
-                    </table>
                 </div>
             </div>
-            <div class="col-xs-12 col-md-6">
-                @Html.Partial("_ContactAdvertiser")
-            </div>
 
+            <div class="row top-buffer-20">
+                <div class="col-xs-12 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4><i class="fa fa-phone"></i> Organiser Details</h4>
+                        </div>
+                        <table class="table table-striped">
+                            @Html.AdContactDetail(m => m.OrganiserName, "user")
+                            @Html.AdContactDetail(m => m.OrganiserPhone, "phone")
+                            @Html.AdContactDetail(m => m.Posted, fontIcon: "calendar-check-o")
+                        </table>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    @Html.Partial("_ContactAdvertiser")
+                </div>
+
+            </div>
         </div>
     </div>
-
 </div>
-
 
 @section HeadSection
 {
@@ -200,12 +173,7 @@
     </script>
 
     <script>
-        var ticketData = @Html.Raw(Model.Tickets.ToJsonString());
         $paramount.ui.eventView.init({
-            ticketData: ticketData,
-            maxTicketsPerBooking: @Model.MaxTicketsPerBooking,
-            baseUrl: '@Url.Action("Index", "Home")',
-            eventId: @Model.EventId,
             floorPlanDocumentId: '@Model.LocationFloorPlanDocumentId',
             floorPlanFileName: '@Model.LocationFloorPlanFilename'
         });
@@ -216,7 +184,6 @@
             name: '@Model.Title',
             description: '@Model.Description'
         });
-
 
     </script>
 }

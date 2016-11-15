@@ -9,6 +9,7 @@
         long? EventInvitationId { get; set; }
         bool EventBookingComplete { get; set; }
         bool SendEmailToGuests { get; set; }
+        string EventUrl { get; set; }
         void Clear();
     }
 
@@ -24,14 +25,16 @@
         public long? EventInvitationId { get; set; }
         public bool EventBookingComplete { get; set; }
         public bool SendEmailToGuests { get; set; }
+        public string EventUrl { get; set; }
 
         public void Clear()
         {
-            EventId = null;
+            // EventId = null; // Don't clear the event id... in case we need to go back to it.
             EventBookingId = null;
             EventBookingPaymentReference = null;
             EventBookingComplete = false;
             Purchaser = null;
+            EventInvitationId = null; 
         }
     }
 }

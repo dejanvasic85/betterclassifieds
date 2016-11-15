@@ -1,0 +1,30 @@
+﻿@model string
+
+@{
+    Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
+    ViewBag.Title = "Session expired ...";
+}
+
+<div class="container top-buffer-60">
+    <!-- Jumbotron -->
+    <div class="jumbotron">
+        <h1 id="notFoundHeading"><span class="fa fa-blind"></span> Session expired  </h1>
+        <p class="lead">Your booking session has expired or completed</p>
+    </div>
+
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-xs-6">
+            <h2>What can I do?</h2>
+            @if (Model.HasValue())
+            {
+                <p class="lead"><a href="@Model">Go back to event details</a></p>
+            }
+            <p class="lead"><a href="@Url.Search()">Find More Events</a></p>
+            <p class="lead"><a href="@Url.Home()">Go to home page</a></p>
+        </div>
+    </div>
+
+</div>
+
+

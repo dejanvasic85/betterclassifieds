@@ -27,7 +27,7 @@ namespace Paramount.Betterclassifieds.Tests.Api
                     new AddressMockBuilder().Default().Build())
             };
 
-            _mockSearchService.SetupWithVerification(call => call.GetCurrentEvents(),
+            _mockSearchService.SetupWithVerification(call => call.GetEvents(null),
                 mockSearchResults);
 
             var controller = BuildTargetObject();
@@ -43,16 +43,12 @@ namespace Paramount.Betterclassifieds.Tests.Api
         [Test]
         public void GetEvent_HasEvent_ReturnsOk()
         {
-            IEnumerable<EventSearchResult> mockSearchResults = new[]
-            {
-                new EventSearchResult(
-                    new AdSearchResultMockBuilder().Default().Build(),
-                    new EventModelMockBuilder().Default().Build(),
-                    new AddressMockBuilder().Default().Build())
-            };
-
-            _mockSearchService.SetupWithVerification(call => call.GetCurrentEvents(),
-                mockSearchResults);
+            var eventSearchResult = new EventSearchResult(
+                new AdSearchResultMockBuilder().Default().Build(),
+                new EventModelMockBuilder().Default().Build(),
+                new AddressMockBuilder().Default().Build());
+            
+            _mockSearchService.SetupWithVerification(call => call.GetEvent(It.IsAny<int>()), eventSearchResult);
 
             var controller = BuildTargetObject();
             var events = controller.GetEvent(123);

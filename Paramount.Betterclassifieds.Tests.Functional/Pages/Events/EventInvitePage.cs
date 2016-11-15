@@ -22,14 +22,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
             _webDriver = webDriver;
         }
 
-        public EventInvitePage SelectTicket(string ticketName)
+        public EventInvitePage SelectTicket(string ticketType, int numberOfTickets = 1)
         {
-            var ticketCallToAction = TicketActionButtons.FirstOrDefault(el => el.GetAttribute("data-ticketName").Equals(ticketName));
-            if (ticketCallToAction == null)
-                throw new NoSuchElementException("Cannot find the button for the ticket " + ticketName);
-
-            ticketCallToAction.Click();
-            _webDriver.WaitForJqueryAjax();
+            new TicketSelectionComponent(_webDriver).SelectTickets(numberOfTickets, ticketType).PlaceOrder();
 
             return this;
         }

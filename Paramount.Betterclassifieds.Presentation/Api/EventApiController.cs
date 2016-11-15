@@ -25,7 +25,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         {
             // Get all current 
             var eventContractFactory = new EventContractFactory();
-            var contracts = _searchService.GetCurrentEvents()
+            var contracts = _searchService.GetEvents()
                 .Select(eventContractFactory.FromModel);
 
             return Ok(contracts);
@@ -34,9 +34,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         [Route("{id:int}")]
         public IHttpActionResult GetEvent(int id)
         {
-            var searchResult = _searchService
-                .GetCurrentEvents()
-                .FirstOrDefault(currentEvent => currentEvent.With(c => c.EventDetails).With(d => d.EventId) == id);
+            var searchResult = _searchService.GetEvent(id);
 
             if (searchResult == null)
                 return NotFound();
@@ -94,9 +92,12 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         /// Returns ID's only for the tickets that are available for a group!
         /// </summary>
         [Route("{id:int}/groups/{eventGroupId:int}/tickets")]
-        public async Task<IHttpActionResult> GetAvailableTicketsForGroup(int id, int eventGroupId)
+        public async Task<IHttpActionResult> GetTicketsForGroup(int id, int eventGroupId)
         {
             var eventTickets = await _eventManager.GetEventTicketsForGroup(eventGroupId);
+            if (eventTickets == null)
+                return NotFound();
+
             return Ok(eventTickets);
         }
 

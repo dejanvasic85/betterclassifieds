@@ -57,6 +57,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
         void AddEventGroup(int eventId, string groupName, string ticketName, int maxGuests);
         int AddGuestToEvent(string username, string guestFullName, string guestEmail, string ticketName, int eventId);
         void SetEventIncludeTransactionFee(int eventId, bool include);
+        void SetEventGroupsRequired(int eventId);
 
         // Address
         int AddAddress(object address);

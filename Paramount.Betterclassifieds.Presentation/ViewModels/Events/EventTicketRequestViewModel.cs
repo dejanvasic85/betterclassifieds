@@ -19,5 +19,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public decimal Price { get; set; }
         [Required]
         public int SelectedQuantity { get; set; }
+        public int? EventGroupId { get; set; }
     }
 }

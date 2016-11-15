@@ -144,6 +144,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
 
             // Setup a demo user
             dataRepository.DropCreateUser(TestData.DefaultUsername, TestData.DefaultPassword, TestData.UserEmail, RoleType.Advertiser);
+            dataRepository.DropCreateUser("bddTicketBuyer", "bddTicketBuyer", "bdd@TicketBuyer.com", RoleType.Advertiser);
         }
 
         #endregion

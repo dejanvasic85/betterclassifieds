@@ -16,7 +16,7 @@
                         return f.fieldName.peek();
                     });
 
-                    return !_.contains(otherFieldNames, name);
+                    return !_.includes(otherFieldNames, name);
 
                 },
                 message: 'Field Name must be unique',

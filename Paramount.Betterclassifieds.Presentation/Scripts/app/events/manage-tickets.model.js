@@ -10,27 +10,29 @@
         me.id = ko.observable(data.id);
         me.eventId = ko.observable(data.eventId);
         me.includeTransactionFee = ko.observable(data.includeTransactionFee);
-        me.includeTransactionFee.subscribe(function (includeTransactionFee) {
-            var obj = {
-                eventId: me.eventId(),
-                includeTransactionFee: includeTransactionFee
-            }
-            adDesignService.toggleTransactionFee(obj).then(function() {
-                if (includeTransactionFee) {
-                    toastr.success("Changed to: Customer will pay the transaction fee");
-                } else {
-                    toastr.success("Changed to: Event organiser will pay the transaction fee");
-                }
-            });
-        });
         me.tickets = $p.ko.bindArray(data.tickets, function (t) {
             return new $p.models.EventTicket(t, 20);
         });
+
         me.isCreateEnabled = ko.observable(false);
         me.newTicket = ko.observable(new NewEventTicket({ eventId: data.eventId }));
-        
+
         me.removeField = function (f) {
             me.newTicket().fields.remove(f);
+        }
+
+        me.updateTicketSettings = function (model, event) {
+            var $btn = $(event.target);
+            $btn.loadBtn();
+
+            adDesignService.toggleTransactionFee({
+                eventId: model.eventId(),
+                includeTransactionFee: model.includeTransactionFee()
+            }).success(function () {
+                toastr.success("Settings updated successfully.");
+            }).then(function () {
+                $btn.resetBtn();
+            });
         }
     }
 

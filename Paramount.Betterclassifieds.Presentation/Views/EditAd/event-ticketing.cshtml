@@ -71,7 +71,7 @@
                                     <label class="control-label">
                                         Field Name
                                     </label>
-                                    <input type="text" data-bind="value: fieldName" class="form-control" placeholder="e.g. Age"/>
+                                    <input type="text" data-bind="value: fieldName" class="form-control" placeholder="e.g. Age" />
                                     <div class="alert alert-warning" data-bind="visible: showFieldNameWarning">
                                         Note: Guest name and email are already included.
                                     </div>
@@ -126,17 +126,30 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <h3>Transaction Fee</h3>
-        </div>
-        <div class="col-xs-12">
-            <div class="alert alert-info-alt">
-                <p>
-                    Do you want the customer to pay the transaction fee?
-                    <a class="btn btn-link" href="@Url.EventPricing()" target="_blank">Click here for more info</a>
-                </p>
-                <input type="checkbox" data-bind="toggle: includeTransactionFee"
-                       data-on="Yes"
-                       data-off="No, I will"/>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-cog"></i> Settings
+                </div>
+
+                <div class="panel-body">
+                    <h3>Transaction Fee</h3>
+                    <p>
+                        Do you want the customer to pay the transaction fee?
+                    </p>
+                    <input type="checkbox" data-bind="toggle: includeTransactionFee"
+                           data-on="Yes"
+                           data-off="No, I will"/>
+
+                    <p class="help-block">
+                        Fees won't be displayed to the ticket purchasers until checkout. <a href="@Url.EventPricing()" target="_blank">Click here for more info</a>
+                    </p>
+                </div>
+
+                <div class="panel-footer text-right">
+                    <button class="btn btn-primary" data-bind="click: updateTicketSettings" data-loading-text="Please wait...">
+                        Save <i class="fa fa-floppy-o"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

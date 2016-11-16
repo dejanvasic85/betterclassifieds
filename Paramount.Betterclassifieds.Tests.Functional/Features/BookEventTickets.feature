@@ -13,7 +13,8 @@ Scenario: View event and book two tickets with successful payment
 	And an event ad titled "The Opera" exists 
 	And the event does not include a transaction fee
 	And with a ticket option "General Admission" for "5" dollars each and "100" available
-	When I select "2" "General Admission" tickets
+	When I navigate to "Event/the-opera/adId"
+	And I select "2" "General Admission" tickets
 	And proceed to order the tickets
 	And enter the email "guest@event.com" and name "Guest FoEvent" for the second guest
 	And my details are prefilled so I proceed to payment

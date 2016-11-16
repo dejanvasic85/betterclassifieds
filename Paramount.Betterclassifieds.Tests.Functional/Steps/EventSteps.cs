@@ -117,13 +117,20 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 .WithSecondGuest(email, fullName);
         }
 
+        [When(@"my details are prefilled so I proceed to checkout")]
+        public void WhenMyDetailsArePrefilledSoIProceedToCheckout()
+        {
+            var bookingTicketPage = _pageBrowser.Init<BookTicketsPage>();
+            bookingTicketPage.WithPhone("0433 095 822");
+            bookingTicketPage.Checkout();
+        }
 
-        [When(@"my details are prefilled so I proceed to payment")]
+        [When(@"my details are prefilled so I proceed to checkout and payment")]
         public void WhenMyDetailsArePrefilledSoIProceedToPayment()
         {
             var bookingTicketPage = _pageBrowser.Init<BookTicketsPage>();
             bookingTicketPage.WithPhone("0433 095 822");
-            bookingTicketPage.ProceedToPayment();
+            bookingTicketPage.Checkout();
 
             _pageBrowser.Init<MakeTicketPaymentPage>()
                 .PayWithPayPal()
@@ -145,16 +152,16 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         }
 
 
-        [Then(@"the tickets should be booked")]
-        public void ThenTheTicketsShouldBeBooked()
+        [Then(@"the tickets should be booked with total cost ""(.*)"" and ticket count ""(.*)""")]
+        public void ThenTheTicketsShouldBeBooked(int expectedCost, int expectedTicketCount)
         {
             var testContext = _contextData.Get();
             var eventBooking = _repository.GetEventBooking(testContext.EventId);
             var eventBookingTickets = _repository.GetPurchasedTickets(eventBooking.EventBookingId);
 
             Assert.That(eventBooking, Is.Not.Null);
-            Assert.That(eventBooking.TotalCost, Is.EqualTo(10)); // 10 dollars - 5 bucks x 2 tickets
-            Assert.That(eventBookingTickets.Count, Is.EqualTo(2));
+            Assert.That(eventBooking.TotalCost, Is.EqualTo(expectedCost)); // 10 dollars - 5 bucks x 2 tickets
+            Assert.That(eventBookingTickets.Count, Is.EqualTo(expectedTicketCount));
         }
 
         [Then(@"ticket with full name ""(.*)"" should be assigned to a group")]

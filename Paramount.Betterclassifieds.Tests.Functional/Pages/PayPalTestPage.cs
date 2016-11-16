@@ -56,6 +56,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages
             _webDriver.SwitchTo().ParentFrame();
             var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(30));
             var button = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("confirmButtonTop")));
+            wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("confirmButtonTop")));
             button.ClickOnElement();
             return this;
         }

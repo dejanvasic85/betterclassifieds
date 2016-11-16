@@ -23,6 +23,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 .WithEmailAddress("support-test2@paramountit.com.au")
                 .WithPassword("Paramount01")
                 .Login()
+                .WaitForLoaderToFinish()
                 .Continue();
         }
 

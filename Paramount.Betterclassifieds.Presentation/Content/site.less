@@ -309,15 +309,63 @@
     }
 
     .event-photo {
-        img {
-            width: 100%;
+        min-height: 400px;
+        width: 100%;
+        background-position: center;
+        background-size: cover;
+        /* the background-image is specified as inline-style using the url() property*/
+        @media (max-width: 992px) {
+            min-height: 200px;
         }
     }
 
-    .ticketing {
-        .ticket-info {
-            font-size: 16px;
-            vertical-align: middle;
+    .ticket-booth {
+        
+        max-height: 600px; 
+        overflow-y: auto;
+        overflow-x: hidden;
+        
+
+        h3{
+            margin-top: 2px;
+        }
+        .ticketing {
+            .ticket-info {
+                font-size: 16px;
+                vertical-align: middle;
+            }
+        }
+
+        &.affix-top, &.affix {
+            position: static;
+        }
+
+        @media(min-width: 992px){
+            &.affix-top{
+                position: static;
+                margin-top: 30px;
+                width: 283px;
+            }
+
+            &.affix {
+                position: fixed;
+                top: 30px;
+                width: 283px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            &.affix-top {
+                position: static;
+                margin-top: 30px;
+                width: 350px;
+            }
+
+            &.affix {
+                position: fixed;
+                top: 30px;
+                width: 350px;
+            }
         }
     }
 }
@@ -732,5 +780,24 @@ input[readonly] {
 
 .well {
     &.well-info {
+    }
+}
+
+
+/*
+    NAVBAR collapse early! Th
+*/
+@media (min-width: 768px) and (max-width: 991px) {
+    .navbar-collapse.collapse {
+        display: none !important;
+    }
+    .navbar-collapse.collapse.in {
+        display: block !important;
+    }
+    .navbar-header .collapse, .navbar-toggle {
+        display:block !important;
+    }
+    .navbar-header {
+        float:none;
     }
 }

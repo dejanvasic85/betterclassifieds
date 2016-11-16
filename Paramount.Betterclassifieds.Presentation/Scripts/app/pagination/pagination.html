@@ -1,0 +1,13 @@
+﻿<nav>
+    <ul class="pagination">
+        <li class="page-item" data-bind="css: {disabled: hidePrev}">
+            <a class="page-link" href="" data-bind="click: prev"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+        <!-- ko foreach: pagesFiltered -->
+        <li class="page-item"><a class="page-link" data-bind="text: number, click: selectPage" href=""></a></li>
+        <!-- /ko -->
+        <li class="page-item" data-bind="css: {disabled: hideNext}">
+            <a href="" class="page-link" data-bind="click: next"><span aria-hidden="true">&raquo;</span></a>
+        </li>
+    </ul>
+</nav>

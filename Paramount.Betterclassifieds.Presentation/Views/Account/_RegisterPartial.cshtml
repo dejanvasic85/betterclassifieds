@@ -1,7 +1,7 @@
 ﻿@model RegisterViewModel
 
-<h2>Not a User?</h2>
-<p>Register now to start placing ads and more. We need just a few details. </p>
+<h2>Registration</h2>
+<p>Create an account to maximise your benefits. </p>
 <form role="form" method="POST" action="@Url.Action("Register")">
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.ReturnUrl)

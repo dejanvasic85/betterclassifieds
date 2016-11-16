@@ -29,7 +29,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             SuccessfulReservationCount = ticketReservations.Count(r => r.Status == EventTicketReservationStatus.Reserved);
             LargeRequestCount = ticketReservations.Count(r => r.Status == EventTicketReservationStatus.RequestTooLarge);
             SendEmailToGuests = true;
+            TotalCostWithoutFees = ticketReservations.Sum(r => r.Price.GetValueOrDefault());
             TotalCost = ticketReservations.Sum(r => r.TotalPriceWithTxnFee);
+            TotalFees = ticketReservations.Sum(r => r.TransactionFee.GetValueOrDefault());
+            IncludeTransactionFee = eventDetails.IncludeTransactionFee;
 
             if (applicationUser != null)
             {
@@ -48,6 +51,11 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             }
             BrandName = appConfig.Brand;
         }
+
+       
+
+        public bool? IncludeTransactionFee { get; set; }
+
         public int AdId { get; set; }
         public string Title { get; set; }
         public List<EventTicketReservedViewModel> Reservations { get; set; }
@@ -71,8 +79,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public bool SendEmailToGuests { get; set; }
         public bool? PaymentCancelled { get; set; }
         public decimal TotalCost { get; set; }
-
         public int TotalCostCents => (int)(TotalCost * 100);
+        public decimal TotalFees { get; set; }
+        public decimal TotalCostWithoutFees { get; set; }
+
         public string BrandName { get; set; }
     }
 }

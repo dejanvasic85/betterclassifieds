@@ -11,6 +11,7 @@ using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Events;
+using Paramount.Betterclassifieds.Business.Events.Reservations;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Controllers;
@@ -112,6 +113,33 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         }
 
         [Test]
+        public void ReserveTickets_Post_EventRequiresGroups_NotGroupSelected_ReturnsJsonError()
+        {
+            // arrange
+            var eventTicketRequests = new List<EventTicketRequestViewModel>
+            {
+                new EventTicketRequestViewModel {TicketName = "Tick1", AvailableQuantity = 10, EventId = 999, Price = 10, SelectedQuantity = 1},
+                new EventTicketRequestViewModel {TicketName = "Tick2", AvailableQuantity = 11, EventId = 999, Price = 60, SelectedQuantity = 2, EventGroupId = 100},
+            };
+
+            var mockEventModel = new EventModelMockBuilder()
+                .WithGroupsRequired(true)
+                .Build();
+
+            _eventManager.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEventModel);
+
+            var controller = BuildController();
+            var vm = new ReserveTicketsViewModel { EventId = 1, Tickets = eventTicketRequests };
+
+            // act
+            var result = controller.ReserveTickets(vm);
+
+            // assert
+            var jsonResult = result.IsTypeOf<JsonResult>();
+            jsonResult.JsonResultContainsErrors();
+        }
+
+        [Test]
         public void ReserveTickets_Post_EventManager_SavesTheReservations_ReturnsJsonResult()
         {
             // arrange
@@ -139,9 +167,10 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _httpContext.SetupWithVerification(call => call.Session.SessionID, "123");
             _eventManager.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEventModel);
             _eventManager.SetupWithVerification(call => call.ReserveTickets(It.IsAny<string>(), It.IsAny<IEnumerable<EventTicketReservation>>()));
-            _eventTicketReservationFactory.SetupWithVerification(call => call.CreateReservations(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()), mockReservations);
+            _eventTicketReservationFactory.SetupWithVerification(call => call.CreateReservations(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<int?>()), result: mockReservations);
             _eventBookingContext.SetupWithVerification(call => call.Clear());
             _eventBookingContext.SetupSet(p => p.EventInvitationId = It.Is<long>(s => s == vm.EventInvitationId));
+            _ticketRequestValidator.SetupWithVerification(call => call.IsSufficientTicketsAvailableForRequest(It.IsAny<TicketReservationRequest[]>()), result: true);
 
             // act
             var controller = BuildController();
@@ -149,6 +178,43 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // assert
             result.IsTypeOf<JsonResult>().JsonResultPropertyEquals("NextUrl", "/Event/BookTickets");
+        }
+
+        [Test]
+        public void ReserveTickets_Post_EventManager_RequestValidatorReturnsFalse_ReturnsJsonError()
+        {
+            // arrange
+            var eventTicketRequests = new List<EventTicketRequestViewModel>
+            {
+                new EventTicketRequestViewModel {TicketName = "Tick1", AvailableQuantity = 10, EventId = 999, Price = 10, SelectedQuantity = 1},
+                new EventTicketRequestViewModel {TicketName = "Tick2", AvailableQuantity = 11, EventId = 999, Price = 60, SelectedQuantity = 2},
+            };
+
+            var mockEventModel = new EventModelMockBuilder()
+                .WithClosingDate(DateTime.Now.AddMonths(1))
+                .WithClosingDateUtc(DateTime.UtcNow.AddMonths(1))
+                .Default()
+                .Build();
+
+            var vm = new ReserveTicketsViewModel
+            {
+                EventId = 1,
+                Tickets = eventTicketRequests,
+                EventInvitationId = 1234
+            };
+
+            // arrange service calls
+            _eventManager.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEventModel);
+            _eventBookingContext.SetupSet(p => p.EventInvitationId = It.Is<long>(s => s == vm.EventInvitationId));
+            _ticketRequestValidator.SetupWithVerification(call => call.IsSufficientTicketsAvailableForRequest(It.IsAny<TicketReservationRequest[]>()), result: false);
+
+            // act
+            var controller = BuildController();
+            var result = controller.ReserveTickets(vm);
+
+            // assert
+            var jsonResult = result.IsTypeOf<JsonResult>();
+            jsonResult.JsonResultContainsErrors();
         }
 
         [Test]
@@ -451,6 +517,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         private Mock<IApplicationConfig> _appConfig;
         private Mock<ICreditCardService> _creditCardService;
         private Mock<IEventNotificationBuilder> _eventNotificationBuilder;
+        private Mock<ITicketRequestValidator> _ticketRequestValidator;
 
         [SetUp]
         public void SetupController()
@@ -474,6 +541,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventNotificationBuilder = CreateMockOf<IEventNotificationBuilder>();
             _eventNotificationBuilder.Setup(call => call.WithTemplateService(It.IsAny<ITemplatingService>())).Returns(
                 _eventNotificationBuilder.Object);
+            _ticketRequestValidator = CreateMockOf<ITicketRequestValidator>();
         }
     }
 }

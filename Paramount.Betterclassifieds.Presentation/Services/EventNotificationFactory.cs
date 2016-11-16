@@ -165,6 +165,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
                 EventDetails.Value,
                 eventBookingTicket,
                 Ad.Value,
+                EventGroups.Value,
                 EventUrl.Value,
                 EventBooking.Value.GetFullName()));
         }

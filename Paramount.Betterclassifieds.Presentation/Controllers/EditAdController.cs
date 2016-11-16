@@ -395,7 +395,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return Json(ModelState.ToErrors());
 
             var eventTicket = _eventManager.GetEventTicket(viewModel.With(vm => vm.SelectedTicket).With(t => t.EventTicketId.GetValueOrDefault()));
-            var reservation = _ticketReservationFactory.CreateFreeReservation(_httpContext.Session?.SessionID, eventTicket);
+            var reservation = _ticketReservationFactory.CreateFreeReservation(_httpContext.Session?.SessionID, viewModel.SelectedGroup.With(g => g.EventGroupId), eventTicket);
 
             if (reservation.Status != EventTicketReservationStatus.Reserved)
             {
@@ -406,7 +406,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var currentUser = _userManager.GetCurrentUser();
             reservation.GuestFullName = viewModel.GuestFullName;
             reservation.GuestEmail = viewModel.GuestEmail;
-            reservation.EventGroupId = viewModel.SelectedGroup.With(g => g.EventGroupId);
             reservation.TicketFields = viewModel.With(vm => vm.TicketFields)
                 .With(tf => new EventBookingTicketField { FieldName = tf.FieldName, FieldValue = tf.FieldValue })
                 .With(l => l.ToList());
@@ -545,10 +544,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             foreach (var gr in manageGroupsViewModel.EventGroups)
             {
-                var availableTicketIds = await _eventManager.GetEventTicketsForGroup(gr.EventGroupId.GetValueOrDefault());
-                gr.AvailableTickets = this.MapList<EventTicket, EventTicketViewModel>(tickets
-                    .Where(t => availableTicketIds.Contains(t.EventTicketId.GetValueOrDefault()))
-                    .ToList());
+                var ticketsForGroup = await _eventManager.GetEventTicketsForGroup(gr.EventGroupId.GetValueOrDefault());
+                gr.AvailableTickets = ticketsForGroup.Select(this.Map<EventTicket, EventTicketViewModel>).ToList();
             }
 
             return View(manageGroupsViewModel);
@@ -605,6 +602,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<EventGuestDetails, EventGuestListViewModel>();
             configuration.CreateMap<EventBookingTicketField, EventTicketFieldViewModel>();
             configuration.CreateMap<EventGroup, EventGroupViewModel>();
+            EventGroupViewModelFactory.GetMapping(configuration);
             configuration.CreateMap<EventTicket, EventTicketViewModel>();
 
             // From view model

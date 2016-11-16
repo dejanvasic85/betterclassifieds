@@ -263,7 +263,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             // arrange calls
             _eventManagerMock.SetupWithVerification(call => call.GetEventTicket(It.IsAny<int>()), mockEventTicket);
             _eventTicketReservationFactory.SetupWithVerification(
-                call => call.CreateFreeReservation(It.IsAny<string>(), It.IsAny<EventTicket>()),
+                call => call.CreateFreeReservation(It.IsAny<string>(), It.IsAny<int?>(), It.IsAny<EventTicket>()),
                 mockEventTicketReservation);
 
             _eventManagerMock.SetupWithVerification(call => call.CreateEventBooking(It.IsAny<int>(),
@@ -328,7 +328,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 new EventTicketMockBuilder().Default().Build());
 
             _eventTicketReservationFactory.SetupWithVerification(call => call.CreateFreeReservation(
-                It.IsAny<string>(), It.IsAny<EventTicket>()), mockEventTicketReservation);
+                It.IsAny<string>(), It.IsAny<int?>(), It.IsAny<EventTicket>()), mockEventTicketReservation);
 
             _httpContextBase.SetupWithVerification(call => call.Session.SessionID, "1234");
 
@@ -362,7 +362,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var mockAdId = 1;
             var mockEventId = 123;
             var mockTicket = new EventTicketMockBuilder().Default().Build();
-            var mockTicketIds = new[] { mockTicket.EventTicketId.GetValueOrDefault() };
+            var mockTicketsForGroup = new[] { mockTicket };
             var mockEvent = new EventModelMockBuilder().Default().WithGroupsRequired(true).WithCustomTicket(mockTicket).Build();
             var eventGroups = new[] { new EventGroupMockBuilder().Default().Build() };
 
@@ -375,7 +375,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             _eventManagerMock
                 .Setup(call => call.GetEventTicketsForGroup(It.IsAny<int>()))
-                .Returns(Task.FromResult(mockTicketIds.AsEnumerable()));
+                .Returns(Task.FromResult(mockTicketsForGroup.AsEnumerable()));
 
             // Act
             var controller = BuildController();

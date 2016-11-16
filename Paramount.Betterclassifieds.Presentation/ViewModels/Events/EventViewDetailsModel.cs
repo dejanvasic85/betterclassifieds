@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -18,7 +19,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
         }
 
-        public EventViewDetailsModel(HttpContextBase httpContext, UrlHelper urlHelper, AdSearchResult searchResult, EventModel eventModel, IClientConfig clientConfig)
+        public EventViewDetailsModel(HttpContextBase httpContext, UrlHelper urlHelper, AdSearchResult searchResult, EventModel eventModel, 
+            IClientConfig clientConfig)
         {
             AdId = searchResult.AdId;
             Title = searchResult.Heading;
@@ -47,25 +49,13 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             EventEndTime = eventModel.EventEndDate.GetValueOrDefault().ToString("hh:mm tt");
 
             FacebookAppId = clientConfig.FacebookAppId;
-            MaxTicketsPerBooking = clientConfig.MaxOnlineImages.GetValueOrDefault();
+            MaxTicketsPerBooking = clientConfig.EventMaxTicketsPerBooking;
 
             LocationFloorPlanFilename = eventModel.LocationFloorPlanFilename;
             LocationFloorPlanDocumentId = eventModel.LocationFloorPlanDocumentId;
-
-            Tickets = eventModel.Tickets.Select(t => new EventTicketViewModel
-            {
-                EventId = t.EventId,
-                AvailableQuantity = t.AvailableQuantity,
-                EventTicketId = t.EventTicketId,
-                Price = eventModel.IncludeTransactionFee.GetValueOrDefault()
-                    ? new TicketFeeCalculator(clientConfig).GetTotalTicketPrice(t).PriceIncludingFee
-                    : t.Price,
-
-                RemainingQuantity = t.RemainingQuantity,
-                TicketName = t.TicketName
-            }).ToArray();
+            TicketingEnabled = eventModel.Tickets != null && eventModel.Tickets.Any();
         }
-
+        
         public DateTime EventEndDate { get; set; }
 
         public DateTime EventStartDate { get; set; }
@@ -86,7 +76,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string OrganiserPhone { get; set; }
         public int Views { get; set; }
         public string Posted { get; set; }
-        public EventTicketViewModel[] Tickets { get; set; }
         public bool IsClosed { get; set; }
         public string LocationFloorPlanDocumentId { get; set; }
         public string LocationFloorPlanFilename { get; set; }
@@ -100,10 +89,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string SocialShareText { get; set; }
         public string LocationFriendlyName { get; set; }
 
-        public bool TicketingEnabled
-        {
-            get { return Tickets != null && Tickets.Length > 0; }
-        }
-
+        public bool TicketingEnabled { get; set; }
     }
 }

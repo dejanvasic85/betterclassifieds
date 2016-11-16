@@ -1,5 +1,5 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.PageObjects;
+﻿using System.Threading;
+using OpenQA.Selenium;
 using Paramount.Betterclassifieds.Tests.Functional.Base;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
@@ -13,16 +13,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         {
             _webDriver = webDriver;
         }
-
-        [FindsBy(How = How.Id, Using = "btnGetTickets")]
-        private IWebElement GetTicketsButton { get; set; }
-
+        
         public EventDetailsPage SelectTickets(int numberOfTickets, string ticketType)
-        {
-            _webDriver.FindElement(By.CssSelector("[data-ticket-name='" + ticketType + "']"))
-                .FindElement(By.TagName("select"))
-                .ToSelectElement()
-                .WithSelectedOptionValue(numberOfTickets.ToString());
+        {   
+            new TicketSelectionComponent(_webDriver).SelectTickets(numberOfTickets, ticketType);
             return this;
         }
 
@@ -35,7 +29,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 
         public EventDetailsPage ConfirmTicketSelection()
         {
-            GetTicketsButton.ClickOnElement();
+            new TicketSelectionComponent(_webDriver).PlaceOrder();
             return this;
         }
 
@@ -45,6 +39,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
                 .FindElement(By.ClassName("tst-ticket-free"))
                 .Text
                 .EqualTo("free");
+        }
+
+        public EventDetailsPage SelectGroup(string groupName)
+        {
+            new TicketSelectionComponent(_webDriver).SelectGroup(groupName);
+
+            return this;
         }
     }
 }

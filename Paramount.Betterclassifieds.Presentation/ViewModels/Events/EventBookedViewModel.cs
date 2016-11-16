@@ -28,7 +28,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             StartDateTime = eventDetails.EventStartDate.GetValueOrDefault();
             EndDateTime = eventDetails.EventEndDate.GetValueOrDefault();
             EventPhoto = adDetails.PrimaryImage;
-            EventHasGroups = groups != null && groups.Any();
+
+            // Setup the group selection only if groups are not required and there's some available
+            EventHasGroups = groups != null && groups.Any() && !eventDetails.GroupsRequired.GetValueOrDefault();
 
             var urlHelper = new UrlHelper(httpContext.Request.RequestContext);
             EventUrl = urlHelper.AdUrl(adDetails.HeadingSlug, adDetails.AdId, adDetails.CategoryAdType).WithFullUrl();

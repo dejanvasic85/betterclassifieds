@@ -22,6 +22,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             RecipientAddress = applicationUser.FullAddress;
             RecipientPhoneNumber = applicationUser.Phone;
 
+            Fees = eventBooking.TransactionFee;
             Total = eventBooking.TotalCost;
             PaymentReference = eventBooking.PaymentReference;
 
@@ -43,6 +44,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string RecipientPhoneNumber { get; set; }
         public InvoiceItemViewModel[] LineItems { get; set; }
         public decimal Total { get; set; }
+        public decimal Fees { get; set; }
         public string PaymentReference { get; set; }
     }
 }

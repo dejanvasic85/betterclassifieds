@@ -54,7 +54,7 @@
 
                 <div class="bs-callout bs-callout-info">
                     <h4><i class="fa fa-ticket"></i>&nbsp; Tickets</h4>
-                    <p data-bind="visible: canContinue">We'll need some details for each guest. If you logged in we prefilled some details for you.</p>
+                    <p data-bind="visible: canContinue">We'll need some details for each guest. Buyer details have been prefilled.</p>
                 </div>
 
                 <div data-bind="foreach: reservations">
@@ -88,6 +88,13 @@
                                             <i class="fa fa-ticket"></i> Ticket
                                         </label>
                                         <span data-bind="text: ticketTypeAndPrice"></span>
+                                    </div>
+
+                                    <div class="col-xs-12" data-bind="visible: eventGroupName() !== undefined">
+                                        <label class="ticket-label">
+                                            <i class="fa fa-users"></i> Group
+                                        </label>
+                                        <span data-bind="text: eventGroupName"></span>
                                     </div>
 
                                     <div class="col-xs-12">
@@ -194,13 +201,22 @@
                     </a> and are committed to purchase the tickets.
                 </div>
 
-                <div class="row">
-                    <div class="col-xs-12 text-right">
-                        <hr />
-                        <h4>Total Cost: <strong><span data-bind="text: $paramount.formatCurrency(totalCost())"></span></strong></h4>
-                        <hr />
-                    </div>
-                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Tickets Total</th>
+                            <th>Transaction Fee</th>
+                            <th>Sub Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="tst-totalTicketCost">@Model.TotalCostWithoutFees.ToString("C")</td>
+                            <td class="tst-totalFees">@Model.TotalFees.ToString("C")</td>
+                            <td class="tst-subTotal"><h4>@Model.TotalCost.ToString("C")</h4></td>
+                        </tr>
+                    </tbody>
+                </table>
 
                 <div class="pull-right" data-bind="visible: canContinue()">
                     <button class="btn btn-primary" data-loading-text="Please Wait..." id="proceedToPaymentBtn">

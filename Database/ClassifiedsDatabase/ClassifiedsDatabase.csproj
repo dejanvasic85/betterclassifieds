@@ -72,6 +72,9 @@
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Scripts-3.0\031-BookedEvents.Alter.sql" />
+    <EmbeddedResource Include="Scripts-3.0\031-BookedEvents_GetCurrent.Alter.sql" />
+    <EmbeddedResource Include="Scripts-3.0\030-EventTicket_GetByGroupId.Proc.sql" />
     <EmbeddedResource Include="Scripts-3.0\029-Event.GroupsRequired.sql" />
     <EmbeddedResource Include="Scripts-3.0\028-LocationAndArea.sql" />
     <EmbeddedResource Include="Scripts-3.0\027-EventBookingTicket.BarcodeImageDocumentId.sql" />

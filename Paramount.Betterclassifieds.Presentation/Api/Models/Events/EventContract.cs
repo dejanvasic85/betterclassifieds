@@ -24,6 +24,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models.Events
         public string LocationFloorPlanFilename { get; set; }
         public bool IsClosed { get; set; }
         public bool? IncludeTransactionFee { get; set; }
+        public bool? GroupsRequired { get; set; }
 
         // Maps to the online ad details
         public int AdId { get; set; }

@@ -127,6 +127,9 @@
       <DependentUpon>Classifieds.dbml</DependentUpon>
     </Compile>
     <Compile Include="EnquiryRepository.cs" />
+    <Compile Include="Search\ClassifiedsSearchEntities.cs">
+      <DependentUpon>ClassifiedsSearchEntities.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Search\ClassifiedsSearchEntities.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

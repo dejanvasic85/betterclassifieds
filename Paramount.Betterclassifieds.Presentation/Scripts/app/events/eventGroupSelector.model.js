@@ -1,4 +1,8 @@
 ﻿(function ($, ko, $p) {
+    /*
+     * Used for the EventBooked page after an EventBooking has been completed and groups are not required...
+     */
+
     function EventGroupSelector(data) {
         var me = this;
         me.eventBookingId = ko.observable();

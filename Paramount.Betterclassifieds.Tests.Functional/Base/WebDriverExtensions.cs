@@ -57,6 +57,5 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
             Thread.Sleep(150);
             return element;
         }
-
     }
 }

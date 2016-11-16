@@ -39,6 +39,9 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         [Placeholder("BarcodeImgUrl")]
         public string  BarcodeImgUrl { get; set; }
 
+        [Placeholder("GroupName")]
+        public string GroupName { get; set; }
+
         public string GuestEmail { get; set; }
 
         public EventGuestNotification WithCalendarInvite(byte[] calendarContent)

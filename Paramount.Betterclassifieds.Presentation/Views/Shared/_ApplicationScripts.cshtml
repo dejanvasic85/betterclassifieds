@@ -4,7 +4,7 @@
 @using Paramount.Utility
 
 @{
-    var clientConfig = ClientConfigService.Instance; 
+    var clientConfig = ClientConfigService.Instance;
 
     var brand = ConfigManager.ReadAppSetting<string>("Brand");
     var environment = ConfigManager.ReadAppSetting<string>("Environment");
@@ -40,21 +40,21 @@
             });
         }
 
-        me.baseUrl = '@Url.Home()';
+        me.baseUrl = '@Url.Home().WithFullUrl()';
         $('#serverValidation').hide();
         me.httpPost = function (url, data) {
             var promise = call('POST', url, data);
             promise.then(function (resp) {
                 if (resp.nextUrl) {
                     window.location = resp.nextUrl;
-                        return;
+                    return;
                 }
-                
+
                 if (resp.errors) {
                     var $errorContainer = $('#serverValidation > .alert-danger');
                     $errorContainer.empty();
                     $.each(resp.errors, function (i1, err) {
-                        $.each(err.value, function(i2, msg) {
+                        $.each(err.value, function (i2, msg) {
                             $errorContainer.append('<span>' + msg + '</span><br>');
                         });
                     });
@@ -103,7 +103,7 @@
 </script>
 
 <script>
-    window.fbAsyncInit = function() {
+    window.fbAsyncInit = function () {
         FB.init({
             appId: '@clientConfig.FacebookAppId',
             xfbml: true,
@@ -111,7 +111,7 @@
         });
     };
 
-    (function(d, s, id) {
+    (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) {
             return;

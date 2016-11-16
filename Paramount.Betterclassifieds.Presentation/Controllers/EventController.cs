@@ -11,6 +11,7 @@ using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Booking;
 using Paramount.Betterclassifieds.Business.Broadcast;
 using Paramount.Betterclassifieds.Business.Events;
+using Paramount.Betterclassifieds.Business.Events.Reservations;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Services;
@@ -33,8 +34,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _bookingManager.IncrementHits(id);
 
             var eventModel = _eventManager.GetEventDetailsForOnlineAdId(onlineAdModel.OnlineAdId);
+            _eventBookingContext.EventUrl = Url.AdUrl(titleSlug, id, onlineAdModel.CategoryAdType);
+
             var eventViewModel = new EventViewDetailsModel(_httpContext,
-                this.Url, onlineAdModel, eventModel, _clientConfig);
+                Url, onlineAdModel, eventModel, _clientConfig);
 
             return View(eventViewModel);
         }
@@ -58,6 +61,18 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return Json(new { Errors = ModelState.ToErrors() });
             }
 
+            if (eventModel.GroupsRequired.GetValueOrDefault() && tickets.Any(t => !t.EventGroupId.HasValue))
+            {
+                ModelState.AddModelError("Tickets", "The event requires a group to be selected with each ticket.");
+                return Json(new { Errors = ModelState.ToErrors() });
+            }
+
+            if (!_ticketRequestValidator.IsSufficientTicketsAvailableForRequest(reserveTicketsViewModel.Tickets.Select(t => new TicketReservationRequest(t.EventTicketId.GetValueOrDefault(), t.EventGroupId, t.SelectedQuantity)).ToArray()))
+            {
+                ModelState.AddModelError("Tickets", "The requested ticket quantity is no longer available. Please reload the page and try again.");
+                return Json(new { Errors = ModelState.ToErrors() });
+            }
+
             _eventBookingContext.Clear();
             _eventBookingContext.EventInvitationId = reserveTicketsViewModel.EventInvitationId;
 
@@ -68,7 +83,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 reservations.AddRange(_eventTicketReservationFactory.CreateReservations(
                     t.EventTicketId.GetValueOrDefault(),
                     t.SelectedQuantity,
-                    sessionId));
+                    sessionId,
+                    t.EventGroupId));
             }
 
             _eventManager.ReserveTickets(sessionId, reservations);
@@ -218,6 +234,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var viewModel = new MakePaymentViewModel
             {
                 TotalCost = eventBooking.TotalCost,
+                TotalCostWithoutFees = eventBooking.Cost,
+                TotalFees = eventBooking.TransactionFee,
                 EventTickets = this.MapList<EventBookingTicket, EventBookingTicketViewModel>(eventBooking.EventBookingTickets.ToList()),
                 StripePublishableKey = _appConfig.StripePublishableKey,
                 EnablePayPalPayments = _clientConfig.EnablePayPalPayments,
@@ -364,6 +382,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return Json(fields);
         }
 
+        [HttpGet]
+        [ActionName("session-expired")]
+        public ActionResult SessionExpired()
+        {
+            return View(_eventBookingContext.EventUrl);
+        }
+
         public void OnRegisterMaps(IConfiguration configuration)
         {
             configuration.CreateMap<Business.Events.EventTicket, EventTicketViewModel>().ReverseMap();
@@ -371,7 +396,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<Business.Events.EventBookingTicket, EventBookingTicketViewModel>();
             configuration.CreateMap<Business.Events.EventTicketReservation, EventTicketReservedViewModel>()
                 .ForMember(m => m.Status, options => options.MapFrom(s => s.StatusAsString.Humanize()))
-                .ForMember(m => m.Price, options => options.MapFrom(s => s.Price.GetValueOrDefault() + s.TransactionFee.GetValueOrDefault()))
                 .ForMember(m => m.TicketName, options => options.MapFrom(s => s.EventTicket.TicketName))
                 ;
 
@@ -401,8 +425,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         private readonly IApplicationConfig _appConfig;
         private readonly ICreditCardService _creditCardService;
         private readonly IEventNotificationBuilder _eventNotificationBuilder;
+        private readonly ITicketRequestValidator _ticketRequestValidator;
 
-        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPayPalService payPalService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeValidator eventBarcodeValidator, IApplicationConfig appConfig, ICreditCardService creditCardService, IEventNotificationBuilder eventNotificationBuilder)
+        public EventController(ISearchService searchService, IEventManager eventManager, HttpContextBase httpContext, IClientConfig clientConfig, IUserManager userManager, IEventBookingContext eventBookingContext, IPayPalService payPalService, IBroadcastManager broadcastManager, IBookingManager bookingManager, IEventTicketReservationFactory eventTicketReservationFactory, ITemplatingService templatingService, IEventBarcodeValidator eventBarcodeValidator, IApplicationConfig appConfig, ICreditCardService creditCardService, IEventNotificationBuilder eventNotificationBuilder, ITicketRequestValidator ticketRequestValidator)
         {
             _searchService = searchService;
             _eventManager = eventManager;
@@ -417,6 +442,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventBarcodeValidator = eventBarcodeValidator;
             _appConfig = appConfig;
             _creditCardService = creditCardService;
+            _ticketRequestValidator = ticketRequestValidator;
             _eventNotificationBuilder = eventNotificationBuilder.WithTemplateService(templatingService.Init(this));
         }
     }

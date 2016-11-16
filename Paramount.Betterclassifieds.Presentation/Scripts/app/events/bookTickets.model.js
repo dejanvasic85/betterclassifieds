@@ -7,6 +7,7 @@
         $.extend(data, {});
 
         me.eventId = ko.observable(data.eventId);
+        me.includeTransactionFee = ko.observable(data.includeTransactionFee);
         me.sendEmailToGuests = ko.observable(data.sendEmailToGuests);
         me.minsRemaining = ko.observable(data.reservationExpiryMinutes);
         me.secondsRemaining = ko.observable(data.reservationExpirySeconds);
@@ -34,6 +35,7 @@
 
         // Tickets
         me.reservations = ko.observableArray();
+        var groupsPromise = eventService.getGroups(data.eventId);
         $.each(data.reservations, function (idx, reservationData) {
             if (idx === 0) {
                 if (data.email) {
@@ -52,16 +54,8 @@
                 reservationData.guestFullName = name;
             }
 
+            reservationData.getGroupsPromise = groupsPromise;
             me.reservations.push(new $paramount.models.EventTicketReserved(reservationData));
-        });
-
-        me.totalCost = ko.computed(function () {
-            return _.sum(me.reservations(), function (r) {
-                if (r.notReserved()) {
-                    return 0;
-                }
-                return r.price();
-            });
         });
 
         // Timer
@@ -112,27 +106,24 @@
             var $btn = $('#bookTicketsView button');
 
             if ($form.valid() === true) {
-                $btn.button('loading');
+                $btn.loadBtn();
 
                 // Reset all the errors
                 me.invalidCredentials(false);
 
                 var request = ko.toJSON(me);
                 eventService.bookTickets(request)
-                    .then(function (response) {
-                        if (response.loginFailed === true) {
-                            me.invalidCredentials(true);
-                            return;
-                        }
-                    })
                     .then(function (resp) {
                         if (resp.nextUrl) {
                             return;
                         }
+                        resetButton();
                     })
-                    .error(function () {
-                        $btn.button('reset');
-                    });
+                    .fail(resetButton);
+
+                function resetButton() {
+                    $btn.resetBtn();
+                }
             }
         }
 
@@ -140,7 +131,7 @@
         function getAllDynamicFields() {
 
             var result = [];
-            var fieldObservables = _.pluck(me.reservations(), 'ticketFields');
+            var fieldObservables = _.map(me.reservations(), 'ticketFields');
             _.each(fieldObservables, function (f) {
                 _.each(f(), function (dynamicField) {
                     result.push(dynamicField);

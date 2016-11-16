@@ -52,6 +52,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             _repository.SetEventIncludeTransactionFee(_contextData.Get().EventId, false);
         }
 
+        [Given(@"the event requires group selection")]
+        public void GivenTheEventRequiresGroupSelection()
+        {
+            _repository.SetEventGroupsRequired(_contextData.Get().EventId);
+        }
+
+
         [Given(@"with a ticket option ""(.*)"" for ""(.*)"" dollars each and ""(.*)"" available")]
         public void GivenWithATicketOptionForDollars(string ticketName, decimal amount, int availableQty)
         {
@@ -82,13 +89,26 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             _pageBrowser.NavigateTo(relativePath);
         }
 
+        [When(@"I select group ""(.*)""")]
+        public void WhenISelectGroup(string groupName)
+        {
+            var eventPage = _pageBrowser.Init<EventDetailsPage>(ensureUrl: false);
+            eventPage.SelectGroup(groupName);
+        }
+
         [When(@"I select ""(.*)"" ""(.*)"" tickets")]
         public void WhenISelectTickets(int numberOfTickets, string ticketType)
         {
             var eventPage = _pageBrowser.Init<EventDetailsPage>(ensureUrl: false);
-            eventPage.SelectTickets(numberOfTickets, ticketType)
-                .ConfirmTicketSelection();
+            eventPage.SelectTickets(numberOfTickets, ticketType);
         }
+
+        [When(@"proceed to order the tickets")]
+        public void WhenProceedToOrderTheTickets()
+        {
+            _pageBrowser.Init<EventDetailsPage>(ensureUrl: false).ConfirmTicketSelection();
+        }
+
 
         [When(@"enter the email ""(.*)"" and name ""(.*)"" for the second guest")]
         public void WhenEnterTheEmailAndNameForTheSecondGuest(string email, string fullName)
@@ -97,13 +117,20 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 .WithSecondGuest(email, fullName);
         }
 
+        [When(@"my details are prefilled so I proceed to checkout")]
+        public void WhenMyDetailsArePrefilledSoIProceedToCheckout()
+        {
+            var bookingTicketPage = _pageBrowser.Init<BookTicketsPage>();
+            bookingTicketPage.WithPhone("0433 095 822");
+            bookingTicketPage.Checkout();
+        }
 
-        [When(@"my details are prefilled so I proceed to payment")]
+        [When(@"my details are prefilled so I proceed to checkout and payment")]
         public void WhenMyDetailsArePrefilledSoIProceedToPayment()
         {
             var bookingTicketPage = _pageBrowser.Init<BookTicketsPage>();
             bookingTicketPage.WithPhone("0433 095 822");
-            bookingTicketPage.ProceedToPayment();
+            bookingTicketPage.Checkout();
 
             _pageBrowser.Init<MakeTicketPaymentPage>()
                 .PayWithPayPal()
@@ -125,16 +152,16 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         }
 
 
-        [Then(@"the tickets should be booked")]
-        public void ThenTheTicketsShouldBeBooked()
+        [Then(@"the tickets should be booked with total cost ""(.*)"" and ticket count ""(.*)""")]
+        public void ThenTheTicketsShouldBeBooked(int expectedCost, int expectedTicketCount)
         {
             var testContext = _contextData.Get();
             var eventBooking = _repository.GetEventBooking(testContext.EventId);
             var eventBookingTickets = _repository.GetPurchasedTickets(eventBooking.EventBookingId);
 
             Assert.That(eventBooking, Is.Not.Null);
-            Assert.That(eventBooking.TotalCost, Is.EqualTo(10)); // 10 dollars - 5 bucks x 2 tickets
-            Assert.That(eventBookingTickets.Count, Is.EqualTo(2));
+            Assert.That(eventBooking.TotalCost, Is.EqualTo(expectedCost)); // 10 dollars - 5 bucks x 2 tickets
+            Assert.That(eventBookingTickets.Count, Is.EqualTo(expectedTicketCount));
         }
 
         [Then(@"ticket with full name ""(.*)"" should be assigned to a group")]
@@ -162,6 +189,22 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 var currentPrice = eventDetailsPage.GetPriceForTicket(ticketName);
                 Assert.That(currentPrice, Is.EqualTo(expectedPrice));
             }
+        }
+
+        [Then(@"the booking page should display total tickets ""(.*)"" total fees ""(.*)"" and sub total ""(.*)""")]
+        public void ThenTheBookingPageShouldDisplayTotalTicketsTotalFeesAndSubTotal(decimal totalTickets, decimal totalFees, decimal subTotal)
+        {
+            var bookingPage = _pageBrowser.Init<BookTicketsPage>();
+
+            var currentTotalTickets = bookingPage.GetTotalTicketsCost();
+            Assert.That(currentTotalTickets, Is.EqualTo(totalTickets));
+
+            var currentTotalFees = bookingPage.GetTotalFees();
+            Assert.That(currentTotalFees, Is.EqualTo(totalFees));
+
+            var currentSubTotal = bookingPage.GetSubTotal();
+            Assert.That(currentSubTotal, Is.EqualTo(subTotal));
+
         }
 
         [When(@"I navigate to event ""(.*)""")]

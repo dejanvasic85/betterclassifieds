@@ -100,7 +100,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
                 {
                     Value = value.HasValue()
                         ? CryptoHelper.Encrypt(value)
-                        : value
+                        : value,
+                    HttpOnly = true
                 };
 
                 _httpContext.Response.Cookies.Add(bookingCookie);

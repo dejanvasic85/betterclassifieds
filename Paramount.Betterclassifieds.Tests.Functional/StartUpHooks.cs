@@ -81,8 +81,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             switch (browserName)
             {
                 case "chrome":
-                    var chromeOptions = new ChromeOptions();
-                    chromeOptions.AddArgument("test-type");
+                    //var chromeOptions = new ChromeOptions();
+                    //chromeOptions.AddArgument("test-type");
                     driver = new ChromeDriver();
                     break;
                 case "firefox":

@@ -42,7 +42,7 @@ Scenario: View event and book ticket by selecting group first
 	And the tickets should be booked with total cost "0" and ticket count "2"
 
 @BookTickets
-Scenario: Register before booking tickets
+Scenario: Register before booking tickets	
 	Given an event ad titled "Register before buying tickets" exists
 	And with a ticket option "General Admission" for "0" dollars each and "50" available
 	When I navigate to "Event/register-before-buying-tickets/adId"

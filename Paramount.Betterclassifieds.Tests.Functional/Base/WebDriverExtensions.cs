@@ -8,6 +8,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
 {
     public static class WebDriverExtensions
     {
+
+
         public static void WaitForJqueryAjax(this IWebDriver webDriver, int timeOutSeconds = 30)
         {
             var waitForJqueryToBeAvailable = new WebDriverWait(webDriver, TimeSpan.FromSeconds(timeOutSeconds));

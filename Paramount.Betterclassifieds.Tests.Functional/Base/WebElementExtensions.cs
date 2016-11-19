@@ -84,7 +84,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
         public static IWebElement FillText(this IWebElement webElement, string text)
         {
             webElement.Clear();
-            webElement.SendKeys(text);
+            webElement.SendKeys(text); 
             return webElement;
         }
 

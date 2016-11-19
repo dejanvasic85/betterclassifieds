@@ -249,6 +249,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 .ManageGroups();
         }
 
+        [When(@"I select to manage tickets")]
+        public void WhenISelectToManageTickets()
+        {
+            _pageBrowser.Init<EventDashboardPage>(_contextData.Get().AdId)
+                .ManageTickets();
+        }
+
         [When(@"I go to edit the guest ""(.*)"" from the dashboard")]
         public void WhenIEditTheGuestFromTheDashboard(string guestEmail)
         {

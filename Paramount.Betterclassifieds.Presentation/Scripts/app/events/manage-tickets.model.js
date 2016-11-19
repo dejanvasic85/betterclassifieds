@@ -30,7 +30,7 @@
         me.newTicket = ko.observable(new NewEventTicket({ eventId: data.eventId }));
         
         me.removeField = function (f) {
-            me.newTicket().fields.remove(f);
+            me.newTicket().eventTicketFields.remove(f);
         }
     }
 

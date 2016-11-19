@@ -97,6 +97,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EventDashboard.feature</DependentUpon>
     </Compile>
+    <Compile Include="Mocks\Models\TicketDetails.cs" />
     <Compile Include="Pages\Events\BookTicketsPage.cs" />
     <Compile Include="ContextData\EventAdContext.cs" />
     <Compile Include="Features\AccountDetails.feature.cs">
@@ -132,7 +133,8 @@
     </Compile>
     <Compile Include="Mocks\Models\GroupViewInfo.cs" />
     <Compile Include="Pages\Events\ManageGroupsPage.cs" />
-    <Compile Include="Pages\Events\ManageGroupsSteps.cs" />
+    <Compile Include="Pages\Events\ManageTicketsPage.cs" />
+    <Compile Include="Steps\ManageGroupsSteps.cs" />
     <Compile Include="Pages\Events\RemoveGuestCompletePage.cs" />
     <Compile Include="Pages\Events\TicketSelectionComponent.cs" />
     <Compile Include="Pages\HomeTestPage.cs" />
@@ -147,6 +149,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NotFound.feature</DependentUpon>
     </Compile>
+    <Compile Include="Steps\ManageTicketSteps.cs" />
     <Compile Include="Steps\PayPalSteps.cs" />
     <Compile Include="Pages\PayPalTestPage.cs" />
     <Compile Include="Features\SubmitNewBooking.feature.cs">

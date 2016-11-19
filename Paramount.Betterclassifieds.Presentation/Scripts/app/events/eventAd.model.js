@@ -10,7 +10,7 @@
             adService = options.adDesignService,
             imageService = options.imageService,
             MAX_TITLE_CHARS = 100,
-            DATE_FORMAT = 'DD/MM/yyyy';
+            DATE_FORMAT = 'DD/MM/YYYY';
 
         // Properties
 

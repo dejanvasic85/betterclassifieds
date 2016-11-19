@@ -10,5 +10,6 @@ Here's a list of the latest changes:
 - [Change - Do not display 404 when session expires. Instead we display a more relevant page.](https://trello.com/c/0eopf73d/553-404-is-not-a-nice-page-to-display-when-session-is-no-longer-available)
 - [Fix - Server side validation for checking tickets remaining is not accurate](https://trello.com/c/ZDtBrEe4/550-server-side-validation-for-checking-tickets-remaining-is-not-accurate)
 - [Fix - The remove button for a field is now working on the new ticket form](https://trello.com/c/AgyqtpDN/549-unable-to-remove-field-in-create-ticket-from-event-dashboard)
+- [Fix - Validation of start and end date validation was broken](https://trello.com/c/05y7Q30v/551-date-selection-broken-between-years)
 - [Security - Our cookie is now marked as secure](https://trello.com/c/Hv0oKUjl/555-secure-the-bookie-cookie-so-it-cannot-be-read-on-the-client)
 - [Tech - More logging information like IP address is going to the file appender](https://trello.com/c/o48DnLlR/554-more-logging-information-required)

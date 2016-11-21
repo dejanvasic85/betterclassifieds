@@ -268,5 +268,10 @@ namespace Paramount
         {
             return new UrlBuilder(urlHelper).WithAction("confirm-event-organiser", "account");
         }
+
+        public static UrlBuilder EventBookingSessionExpired(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper).WithAction("session-expired", "event");
+        }
     }
 }

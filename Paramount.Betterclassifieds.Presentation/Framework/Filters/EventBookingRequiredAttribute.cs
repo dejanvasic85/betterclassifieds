@@ -15,18 +15,18 @@ namespace Paramount.Betterclassifieds.Presentation
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var notFoundResult = new UrlHelper(HttpContext.Current.Request.RequestContext)
-                .NotFound()
+            var redirectResult = new UrlHelper(HttpContext.Current.Request.RequestContext)
+                .EventBookingSessionExpired()
                 .ToRedirectResult();
 
             if (EventBookingContext?.EventBookingId == null)
             {
-                filterContext.Result = notFoundResult;
+                filterContext.Result = redirectResult;
             }
 
             if (EventBookingContext.With(b => b.EventBookingComplete) && !AllowCompleted)
             {
-                filterContext.Result = notFoundResult;
+                filterContext.Result = redirectResult;
             }
         }
     }

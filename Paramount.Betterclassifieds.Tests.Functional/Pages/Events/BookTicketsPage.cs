@@ -42,7 +42,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 
         public BookTicketsPage Checkout()
         {
-            CheckoutButton.ClickOnElement();
+            _webDriver.ClickAsJavascript(By.Id("proceedToPaymentBtn"));
             return this;
         }
 

@@ -438,6 +438,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         public void AuthorisePayPal_CallsPaymentServiceAndEventManager()
         {
             // arrange 
+            var willPaymentComplete = true;
             var mockEventBooking = new EventBookingMockBuilder()
                 .WithUserId("user123")
                 .WithTotalCost(100)
@@ -456,8 +457,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 "user123",
                 100,
                 "1000",
-                TransactionTypeName.EventBookingTickets
-                ));
+                TransactionTypeName.EventBookingTickets), result: willPaymentComplete);
 
             // act
             var controller = BuildController();
@@ -465,6 +465,39 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // assert
             result.IsRedirectingTo("Event", "EventBooked");
+        }
+
+        [Test]
+        public void AuthorisePayPal_WithIncompletePayment_ReturnsRedirectResult()
+        {
+            // arrange 
+            bool willPaymentComplete = false;
+            var mockEventBooking = new EventBookingMockBuilder()
+                .WithUserId("user123")
+                .WithTotalCost(100)
+                .WithEventBookingId(1000)
+                .Build();
+
+            _eventBookingContext.SetupWithVerification(call => call.EventBookingId, 1000);
+            _eventBookingContext.SetupWithVerification(call => call.EventBookingPaymentReference, "ref123");
+            
+            _eventManager.SetupWithVerification(call => call.GetEventBooking(It.IsAny<int>()), mockEventBooking);
+
+            
+            _paymentService.SetupWithVerification(call => call.CompletePayment(
+                "ref123",
+                "payer123",
+                "user123",
+                100,
+                "1000",
+                TransactionTypeName.EventBookingTickets), result: willPaymentComplete);
+
+            // act
+            var controller = BuildController();
+            var result = controller.AuthorisePayPal("payer123");
+
+            // assert
+            result.IsRedirectingTo("Event", "MakePayment");
         }
 
         [Test]

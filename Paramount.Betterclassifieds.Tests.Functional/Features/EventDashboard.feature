@@ -61,7 +61,6 @@ Scenario: Create event groups from event dashboard
 	Then the group "Special Table" should be created
 
 @EventTickets
-@ignore
 Scenario: Create event ticket with custom fields
 	Given an event ad titled "Ticket Management Event" exists
 	And I am logged in as "bdduser" with password "password123"

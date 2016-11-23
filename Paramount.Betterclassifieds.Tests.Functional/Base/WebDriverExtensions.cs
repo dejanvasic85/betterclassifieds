@@ -50,7 +50,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             var element = wait.Until(ExpectedConditions.ElementToBeClickable(by));
 
-            driver.ExecuteJavaScript("arguments[0].click()", element);
+            // Focus on the element before clicking otherwise knockout binding won't actually work
+            driver.ExecuteJavaScript("arguments[0].focus();");
+            Thread.Sleep(500);
+            driver.ExecuteJavaScript(" arguments[0].click()", element);
         }
 
         public static IJavaScriptExecutor ToJavaScriptExecutor(this IWebDriver driver)

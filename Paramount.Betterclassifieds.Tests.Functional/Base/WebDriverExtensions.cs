@@ -48,9 +48,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
         public static void ClickAsJavascript(this IWebDriver driver, By by)
         {
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            wait.Until(ExpectedConditions.ElementToBeClickable(by));
+            var element = wait.Until(ExpectedConditions.ElementToBeClickable(by));
 
-            driver.ExecuteJavaScript("arguments[0].click()", by.ToString());
+            driver.ExecuteJavaScript("arguments[0].click()", element);
         }
 
         public static IJavaScriptExecutor ToJavaScriptExecutor(this IWebDriver driver)

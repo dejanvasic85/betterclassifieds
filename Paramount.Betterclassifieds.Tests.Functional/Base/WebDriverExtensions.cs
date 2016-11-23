@@ -51,7 +51,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
             var element = wait.Until(ExpectedConditions.ElementToBeClickable(by));
 
             // Focus on the element before clicking otherwise knockout binding won't actually work
-            driver.ExecuteJavaScript("arguments[0].focus();");
+            driver.ExecuteJavaScript("arguments[0].focus();", element);
             Thread.Sleep(500);
             driver.ExecuteJavaScript(" arguments[0].click()", element);
         }

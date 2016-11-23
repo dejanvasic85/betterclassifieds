@@ -80,9 +80,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 
         public void Save()
         {
-            //SaveTicketButton.ClickOnElement();
-            Thread.Sleep(1000);
-            _webDriver.ExecuteJavaScript("arguments[0].click()", SaveTicketButton);
+            _webDriver.JsClick(SaveTicketButton);
+            Thread.Sleep(1000); // Wait a little until the db record is persisted
         }
 
         public ManageTicketsPage WithField(string fieldName, bool isRequired)

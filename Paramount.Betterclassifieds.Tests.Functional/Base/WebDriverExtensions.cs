@@ -45,15 +45,20 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
             driver.ToJavaScriptExecutor().ExecuteScript(script, args);
         }
 
-        public static void ClickAsJavascript(this IWebDriver driver, By by)
+        public static IWebElement JsClick(this IWebDriver driver, By by)
         {
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             var element = wait.Until(ExpectedConditions.ElementToBeClickable(by));
+            return driver.JsClick(element);
+        }
 
-            // Focus on the element before clicking otherwise knockout binding won't actually work
+        public static IWebElement JsClick(this IWebDriver driver, IWebElement element)
+        {
             driver.ExecuteJavaScript("arguments[0].focus();", element);
             Thread.Sleep(500);
+            // Focus on the element before clicking otherwise knockout binding won't actually work
             driver.ExecuteJavaScript(" arguments[0].click()", element);
+            return element;
         }
 
         public static IJavaScriptExecutor ToJavaScriptExecutor(this IWebDriver driver)

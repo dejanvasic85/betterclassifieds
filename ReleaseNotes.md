@@ -6,6 +6,7 @@ Here's a list of the latest changes:
 - [Enhancement - Group selection comes before tickets if groups are required](https://trello.com/c/eMKAF5Em/524-events-group-selection-comes-first-if-groups-are-required)
 - [Enhancement - Event page improvements now with a sticky panel for selecting tickets](https://trello.com/c/dOJ4x18N/556-event-page-improvement-with-sticky-ticket-panel)
 - [Enhancement - Paging the tickets and groups on the event page](https://trello.com/c/26t2phpU/557-event-tickets-and-group-selection-paging)
+- [Enhancement - Adding privacy policy](https://trello.com/c/HFhEkSpc/564-add-privacy-policy)
 - [Change - Only display transaction fee to customer when checking out](https://trello.com/c/tADMAEbk/548-only-display-transaction-fee-to-consumer-when-booking-purchasing-the-tickets)
 - [Change - Do not display 404 when session expires. Instead we display a more relevant page.](https://trello.com/c/0eopf73d/553-404-is-not-a-nice-page-to-display-when-session-is-no-longer-available)
 - [Change - Making the add-ticket button really big on the booking page](https://trello.com/c/MyVxAkUq/529-add-a-ticket-very-easy-to-miss-bem)

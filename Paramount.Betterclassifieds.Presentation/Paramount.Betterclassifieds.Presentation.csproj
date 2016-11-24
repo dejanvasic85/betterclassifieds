@@ -988,6 +988,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Event\session-expired.cshtml" />
     <Content Include="Views\Account\confirm-event-organiser.cshtml" />
+    <Content Include="Views\Home\privacy-policy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\app\home\" />

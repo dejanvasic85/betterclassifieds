@@ -179,7 +179,7 @@ namespace Paramount
 
         public static UrlBuilder EventTicketingMakePayment(this UrlHelper urlHelper)
         {
-            return new UrlBuilder(urlHelper).WithAction("MakePayment", "Event");
+            return new UrlBuilder(urlHelper).WithAction("makePayment", "event");
         }
 
         public static UrlBuilder EventBooked(this UrlHelper urlHelper)
@@ -204,7 +204,12 @@ namespace Paramount
 
         public static UrlBuilder Terms(this UrlHelper urlHelper)
         {
-            return new UrlBuilder(urlHelper, "Terms", "Home");
+            return new UrlBuilder(urlHelper, "terms", "home");
+        }
+
+        public static UrlBuilder PrivacyPolicy(this UrlHelper urlHelper)
+        {
+            return new UrlBuilder(urlHelper, "privacy-policy", "home");
         }
 
         public static UrlBuilder EventPricing(this UrlHelper urlHelper)

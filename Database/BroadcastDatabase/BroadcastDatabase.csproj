@@ -54,6 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Scripts-3.0\10-KandobayTemplates_ReplcateAdWithEvent.sql" />
     <EmbeddedResource Include="Scripts-3.0\09-EventGuest-Update-WithGroupName.sql" />
     <EmbeddedResource Include="Scripts-3.0\08-EventGuest-Update-WithBarcode.sql" />
     <EmbeddedResource Include="Scripts-3.0\07-All-SriLankanEvents.sql" />

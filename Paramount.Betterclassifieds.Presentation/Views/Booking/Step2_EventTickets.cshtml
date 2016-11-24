@@ -13,7 +13,7 @@
         $(function () {
             var data = @Html.Raw(Model.ToJsonString());
             var viewModel = new $paramount.models.EventTicketingSetup(data);
-            ko.applyBindings(viewModel, $('#eventBookingTicketEditor')[0]);
+            ko.applyBindings(viewModel, document.getElementById('#eventBookingTicketEditor'));
         });
     </script>
 }
@@ -43,11 +43,14 @@
                 <div class="alert alert-info-alt">
                     <p>
                         Do you want the customer to pay the transaction fee?
-                        <a class="btn btn-link" href="@Url.EventPricing()" target="_blank">Click here for more info</a>
+                        <a class="small" href="@Url.EventPricing()" target="_blank">Click for more info...</a>
                     </p>
                     <input type="checkbox" data-bind="toggle: includeTransactionFee"
                            data-on="Yes"
                            data-off="No, I will" />
+                    <p class="small">
+                        Click the button above to toggle this setting.
+                    </p>
                 </div>
             </div>
         </div>
@@ -128,40 +131,7 @@
                 </button>
             </div>
         </div>
-
-        @*Closing Date*@
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="bs-callout bs-callout-info">
-                    <h4><i class="fa fa-calendar-check-o"></i> &nbsp; Ticketing Close Date</h4>
-                    <p>
-                        Users will no longer be able to purchase tickets after the event has been closed.
-
-                    </p>
-                    <p>
-                        <i class="fa fa-info-circle"></i> Note: Closing of an event can occur at any time after the event
-                        is published to the public using your event management dashboard.
-                    </p>
-                </div>
-            </div>
-
-            <div class="col-xs-12" data-bind="validationElement: closingDate">
-                <div class="input-group input-group-lg">
-                    <input type="text" class="form-control input-lg" data-bind="date: closingDate">
-                    <div class="input-group-btn input-group-lg">
-                        <button class="btn btn-default" type="button" data-bind="click: clearClosingDate">
-                            <i class="fa fa-times"></i> Clear
-                        </button>
-                    </div>
-
-                </div><!-- /input-group -->
-                <div class="help-block">
-                    The event is set to be published on @Model.AdStartDate.GetValueOrDefault().ToString("dd/MM/yyyy").
-                    Ticketing cannot be closed before this day.
-                </div>
-            </div>
-        </div>
-
+        
         <div id="serverValidation" style="display: none">
             <div class="alert alert-danger"></div>
         </div>

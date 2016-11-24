@@ -52,7 +52,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             var mockBookingCart = CreateMockOf<IBookingCart>();
             mockBookingCart.SetupWithVerification(call => call.Event, mockEvent);
-            mockBookingCart.SetupWithVerification(call => call.StartDate, mockStartDate);
+            //mockBookingCart.SetupWithVerification(call => call.StartDate, mockStartDate);
             _clientConfigMock.SetupWithVerification(call => call.EventTicketFeePercentage, 5);
             _clientConfigMock.SetupWithVerification(call => call.EventTicketFeeCents, 30);
 
@@ -62,8 +62,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             // assert
             result.IsTypeOf<ViewResult>();
             var model = result.ViewResultModelIsTypeOf<BookingEventTicketSetupViewModel>();
-            model.AdStartDate.IsEqualTo(mockStartDate);
-            model.ClosingDate.IsNotNull();
+            
             model.Tickets.Count.IsEqualTo(1);
             model.Tickets.First().EventTicketFields.Count.IsEqualTo(1);
             model.EventTicketFee.IsEqualTo(5);
@@ -79,7 +78,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             var mockViewModel = new BookingEventTicketSetupViewModel
             {
-                ClosingDate = null,
                 Tickets = new List<BookingEventTicketViewModel> { new BookingEventTicketViewModel { TicketName = "Adult", AvailableQuantity = 10, Price = 0 } }
             };
 
@@ -92,52 +90,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             result.IsTypeOf<JsonResult>();
             result.JsonResultContains("{ nextUrl = /Booking/Step/3 }");
         }
-
-        [Test]
-        public void EventTickets_Post_SetsTheClosingDate_ReturnsJsonResult()
-        {
-            var mockEvent = new EventModelMockBuilder().Build();
-
-            var mockBookingCart = CreateMockOf<IBookingCart>();
-            mockBookingCart.SetupWithVerification(call => call.Event, mockEvent);
-            mockBookingCart.SetupWithVerification(call => call.StartDate, DateTime.Now.AddDays(1));
-            mockBookingCart.SetupProperty(prop => prop.EndDate, null);
-
-            var mockClosingDate = DateTime.Now.AddDays(10);
-            var mockViewModel = new BookingEventTicketSetupViewModel
-            {
-                ClosingDate = mockClosingDate,
-            };
-
-            _cartRepositoryMock.SetupWithVerification(call => call.Save(It.Is<IBookingCart>(p => p == mockBookingCart.Object)), mockBookingCart.Object);
-
-            // act
-            var result = BuildController().EventTickets(mockBookingCart.Object, mockViewModel);
-
-            // assert
-            result.IsTypeOf<JsonResult>();
-            result.JsonResultContains("{ NextUrl = /Booking/Step/3 }");
-            mockBookingCart.Object.Event.ClosingDate.IsEqualTo(mockClosingDate);
-        }
-
-        [Test]
-        public void EventTickets_Post_ClosingDateValidation_ReturnsJsonResult()
-        {
-            var mockBookingCart = CreateMockOf<IBookingCart>();
-            mockBookingCart.SetupWithVerification(call => call.StartDate, DateTime.Now.AddDays(11));
-
-            var mockViewModel = new BookingEventTicketSetupViewModel
-            {
-                ClosingDate = DateTime.Now.AddDays(10)
-            };
-            
-            // act
-            var result = BuildController().EventTickets(mockBookingCart.Object, mockViewModel);
-
-            // assert
-            result.IsTypeOf<JsonResult>();
-            result.JsonResultDoesNotContain("/Booking/Step/3");
-        }
+        
         
         private Mock<ISearchService> _searchServiceMock;
         private Mock<IBookCartRepository> _cartRepositoryMock;

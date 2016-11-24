@@ -400,8 +400,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             var viewModel = new BookingEventTicketSetupViewModel
             {
-                ClosingDate = bookingCart.With(b => b.Event).With(e => e.ClosingDate),
-                AdStartDate = bookingCart.StartDate,
                 IncludeTransactionFee = bookingCart.With(b => b.Event).IncludeTransactionFee,
                 Tickets = this.MapList<EventTicket, BookingEventTicketViewModel>(bookingCart.Event.Tickets.ToList()),
                 EventTicketFee = _clientConfig.EventTicketFeePercentage,
@@ -413,11 +411,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost, BookingRequired, BookingCategoryTypeRequired("Event")]
         public ActionResult EventTickets(IBookingCart bookingCart, BookingEventTicketSetupViewModel viewModel)
         {
-            if (viewModel.ClosingDate.HasValue && viewModel.ClosingDate.Value < bookingCart.StartDate.GetValueOrDefault())
-            {
-                ModelState.AddModelError("ClosingDate", $"Closing date cannot be before the start date {viewModel.AdStartDate}");
-            }
-
             if (!ModelState.IsValid)
             {
                 return Json(new { Errors = ModelState.ToErrors() });
@@ -425,9 +418,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             bookingCart.Event.Tickets = this.MapList<BookingEventTicketViewModel, EventTicket>(viewModel.Tickets);
             bookingCart.Event.IncludeTransactionFee = viewModel.IncludeTransactionFee;
-            bookingCart.Event.ClosingDate = viewModel.ClosingDate;
-            bookingCart.Event.ClosingDateUtc = viewModel.ClosingDate?.ToUniversalTime();
-
+            
             _cartRepository.Save(bookingCart);
             var nextUrl = Url.Action("Step3");
 

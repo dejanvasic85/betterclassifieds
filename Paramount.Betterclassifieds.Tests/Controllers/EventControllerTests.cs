@@ -373,7 +373,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // assert
             var jsonResult = result.IsTypeOf<JsonResult>();
-            jsonResult.JsonResultNextUrlIs("/Event/MakePayment");
+            jsonResult.JsonResultNextUrlIs("/event/makePayment");
         }
 
         [Test]

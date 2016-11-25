@@ -244,6 +244,39 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Resend tickets to a guest")]
+        [NUnit.Framework.CategoryAttribute("ResendTickets")]
+        [NUnit.Framework.CategoryAttribute("EventTickets")]
+        public virtual void ResendTicketsToAGuest()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Resend tickets to a guest", new string[] {
+                        "ResendTickets",
+                        "EventTickets"});
+#line 75
+this.ScenarioSetup(scenarioInfo);
+#line 76
+ testRunner.Given("an event ad titled \"Ticket Resend feature event\" exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 77
+ testRunner.And("I am logged in as \"bdduser\" with password \"password123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 78
+ testRunner.And("with a ticket option \"General Admission\" for \"5\" dollars each and \"100\" available" +
+                    "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 79
+ testRunner.And("a guest name \"Guest One\" and email \"guestone@email.com\" with a \"General Admission" +
+                    "\" ticket to \"Ticket Resend feature event\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 80
+ testRunner.When("I go to the event dashboard for the current ad", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 81
+ testRunner.And("I go to edit the guest \"guestone@email.com\" from the dashboard", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 82
+ testRunner.And("I choose to resend ticket for the guest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 83
+ testRunner.Then("the ticket should be sent successfully", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

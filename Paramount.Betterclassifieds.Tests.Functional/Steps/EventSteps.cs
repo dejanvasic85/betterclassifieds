@@ -77,7 +77,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         {
             _repository.AddEventGroup(_contextData.Get().EventId,
                 groupName,
-                ticketName, 
+                ticketName,
                 maxGuests);
         }
 
@@ -212,7 +212,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         {
             _pageBrowser.GoTo<EventDashboardPage>(_contextData.Get().AdId);
         }
-        
+
         [When(@"I choose to add guest manually from the dashboard with details ""(.*)"" ""(.*)"" ""(.*)""")]
         public void WhenIChooseToAddGuestManuallyFromTheDashboardWithDetails(string fullName, string email, string ticketType)
         {
@@ -229,7 +229,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         {
             var guestTicket = _repository.GetPurchasedTicketsForEvent(_contextData.Get().EventId)
                 .FirstOrDefault(t => t.GuestEmail.Equals(guestEmail, StringComparison.OrdinalIgnoreCase));
-                
+
 
             Assert.That(guestTicket, Is.Not.Null);
             Assert.That(guestTicket.TicketName, Is.EqualTo(ticketName));
@@ -272,7 +272,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 .Update()
                 .WaitForToaster();
         }
-        
+
         [When(@"I remove the guest from the event")]
         public void WhenIRemoveTheGuestFromTheEvent()
         {
@@ -280,7 +280,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 .WaitToInit()
                 .RemoveGuest();
         }
-        
+
         [Then(@"the guest email ""(.*)"" should be ""(.*)"" for the current event")]
         public void ThenTheGuestEmailShouldBeForTheCurrentEvent(string guestEmail, string activeOrNot)
         {
@@ -327,5 +327,22 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             Assert.That(dashboardPage.GetTotalSoldQty(), Is.EqualTo(expectedSoldQuantity));
             Assert.That(dashboardPage.GetGuestsInSearchResult(), Is.EqualTo(expectedGuestsInSearch));
         }
+
+        [When(@"I choose to resend ticket for the guest")]
+        public void WhenIChooseToResendTicketForTheGuest()
+        {
+            var page = _pageBrowser.Init<EditGuestPage>(ensureUrl: false);
+            page.ResentTicket();
+        }
+        
+        [Then(@"the ticket should be sent successfully")]
+        public void ThenTicketShouldBeSentSuccessfullyInTicketEditingScreen()
+        {
+            var page = _pageBrowser.Init<EditGuestPage>(ensureUrl: false);
+            var msg = page.GetToastSuccessMsg();
+
+            Assert.That(msg, Is.EqualTo("Email has been sent successfully."));
+        }
+
     }
 }

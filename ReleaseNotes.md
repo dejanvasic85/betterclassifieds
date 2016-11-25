@@ -16,5 +16,6 @@ Here's a list of the latest changes:
 - [Fix - The remove button for a field is now working on the new ticket form](https://trello.com/c/AgyqtpDN/549-unable-to-remove-field-in-create-ticket-from-event-dashboard)
 - [Fix - Validation of start and end date validation was broken](https://trello.com/c/05y7Q30v/551-date-selection-broken-between-years)
 - [Fix - PayPal server errors are now handled properly](https://trello.com/c/uiaNvisu/559-paypal-server-errors-exceptions-are-not-handled-nicely-should-do-something-similar-to-stripe)
+- [Fix - Unable to resend guest notification](https://trello.com/c/aQLRtxps/565-unable-to-resend-tickets-to-guest-when-booking-contains-another-tickets)
 - [Security - Our cookie is now marked as secure](https://trello.com/c/Hv0oKUjl/555-secure-the-bookie-cookie-so-it-cannot-be-read-on-the-client)
 - [Tech - More logging information like IP address is going to the file appender](https://trello.com/c/o48DnLlR/554-more-logging-information-required)

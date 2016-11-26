@@ -35,6 +35,11 @@
                     <span class="label label-publication">@publication</span>
                 }
 
+                @if (eventSummary.IsClosed)
+                {
+                    <span class="label label-danger">Closed</span>
+                }
+
             </p>
             @if (eventSummary.EventStartDate.GetValueOrDefault() > DateTime.Today)
             {

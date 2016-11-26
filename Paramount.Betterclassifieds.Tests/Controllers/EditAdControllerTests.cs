@@ -404,6 +404,32 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             result.IsTypeOf<JsonResult>();
         }
 
+        [Test]
+        public void ResendGuestEmail_SendsEmailToIndividualGuest()
+        {
+            var mockEventBookingTicket = new EventBookingTicketMockBuilder()
+                .WithGuestEmail("guest@one.com")
+                .Build();
+
+            var mockEventGuestNotifications = new[]
+            {
+                new EventGuestNotification { GuestEmail = "guest@one.com"},
+                new EventGuestNotification { GuestEmail = "guest@two.com"},
+            };
+
+            // arrange service calls
+            _eventManagerMock.SetupWithVerification(call => call.GetEventBookingTicket(It.IsAny<int>()), mockEventBookingTicket);
+            _eventNotificationBuilder.SetupWithVerification(call => call.WithEventBooking(It.IsAny<int>()), _eventNotificationBuilder.Object);
+            _eventNotificationBuilder.SetupWithVerification(call => call.CreateEventGuestNotifications(), mockEventGuestNotifications);
+            _broadcastManagerMock.SetupWithVerification(call => call.Queue(It.IsAny<EventGuestNotification>(), It.IsAny<string[]>()), null);
+
+            var controller= BuildController();
+            var result = controller.ResendGuestEmail(1, eventBookingTicketId: 100);
+            
+
+            result.IsTypeOf<JsonResult>();
+        }
+
         private Mock<ISearchService> _searchServiceMock;
         private Mock<IApplicationConfig> _applicationConfigMock;
         private Mock<IClientConfig> _clientConfigMock;

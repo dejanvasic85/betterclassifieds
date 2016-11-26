@@ -49,6 +49,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
         EventBookingData GetEventBooking(int eventId);
         List<EventBookingTicketData> GetPurchasedTickets(int eventBookingId);
         List<EventBookingTicketData> GetPurchasedTicketsForEvent(int eventId);
+        TicketDetails GetEventTicketByName(int eventId, string ticketName);
+        List<string> GetEventTicketFieldNames(int eventTicketId);
         string GetEventBookingStatus(int eventId, string guestEmail);
         bool GetEventBookingTicketStatus(int eventId, string guestEmail);
         int AddEventIfNotExists(int adBookingId);
@@ -58,9 +60,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
         int AddGuestToEvent(string username, string guestFullName, string guestEmail, string ticketName, int eventId);
         void SetEventIncludeTransactionFee(int eventId, bool include);
         void SetEventGroupsRequired(int eventId);
+        
 
         // Address
         int AddAddress(object address);
 
+
+        
     }
 }

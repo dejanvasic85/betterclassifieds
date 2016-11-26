@@ -40,9 +40,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 
 
 
-        public BookTicketsPage ProceedToPayment()
+        public BookTicketsPage Checkout()
         {
-            CheckoutButton.ClickOnElement();
+            _webDriver.JsClick(By.Id("proceedToPaymentBtn"));
             return this;
         }
 

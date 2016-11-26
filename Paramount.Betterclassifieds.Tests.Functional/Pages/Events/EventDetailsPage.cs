@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System.Threading;
+using OpenQA.Selenium;
 using Paramount.Betterclassifieds.Tests.Functional.Base;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
@@ -14,9 +15,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         }
         
         public EventDetailsPage SelectTickets(int numberOfTickets, string ticketType)
-        {
+        {   
             new TicketSelectionComponent(_webDriver).SelectTickets(numberOfTickets, ticketType);
-            
             return this;
         }
 
@@ -44,6 +44,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         public EventDetailsPage SelectGroup(string groupName)
         {
             new TicketSelectionComponent(_webDriver).SelectGroup(groupName);
+
             return this;
         }
     }

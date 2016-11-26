@@ -23,6 +23,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         [FindsBy(How = How.Id, Using = "lnkManageGroups")]
         private IWebElement ManageGroupsButton { get; set; }
 
+        [FindsBy(How = How.Id, Using = "lnkManageTickets")]
+        private IWebElement ManageTicketsButton { get; set; }
+
         [FindsBy(How = How.CssSelector, Using = ".guest-list [data-email]")]
         private IList<IWebElement> GuestSearchElements { get; set; }
 
@@ -38,6 +41,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         public EventDashboardPage ManageGroups()
         {
             ManageGroupsButton.Click();
+            return this;
+        }
+
+        public EventDashboardPage ManageTickets()
+        {
+            ManageTicketsButton.Click();
             return this;
         }
 

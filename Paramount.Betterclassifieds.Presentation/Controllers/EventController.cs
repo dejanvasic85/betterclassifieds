@@ -240,7 +240,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 StripePublishableKey = _appConfig.StripePublishableKey,
                 EnablePayPalPayments = _clientConfig.EnablePayPalPayments,
                 EnableCreditCardPayments = _clientConfig.EnableCreditCardPayments,
-                CardFailedMessage = ResponseFriendlyMessage.Get(status)
+                PaymentFailedMessage = ResponseFriendlyMessage.Get(status)
             };
 
             return View(viewModel);
@@ -270,13 +270,23 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var eventBooking = _eventManager.GetEventBooking(_eventBookingContext.EventBookingId.GetValueOrDefault());
 
-            // Mark booking as paid in our database
-            _eventManager.ActivateBooking(_eventBookingContext.EventBookingId, _eventBookingContext.EventInvitationId);
-
             // Call paypal to let them know we completed our end
-            _payPalService.CompletePayment(_eventBookingContext.EventBookingPaymentReference, payerId,
+
+            var isComplete = _payPalService.CompletePayment(_eventBookingContext.EventBookingPaymentReference, payerId,
                 eventBooking.UserId, eventBooking.TotalCost, eventBooking.EventBookingId.ToString(), TransactionTypeName.EventBookingTickets);
 
+            if (!isComplete)
+            {
+                return Url.EventTicketingMakePayment()
+                   .ToRedirectResult(new Dictionary<string, object>
+                   {
+                        {"status", (int)Business.Payment.ResponseType.PayPalServerError }
+                   });
+            }
+
+            // Mark booking as paid in our database
+            _eventManager.ActivateBooking(_eventBookingContext.EventBookingId, _eventBookingContext.EventInvitationId);
+            
             return Url.EventBooked().ToRedirectResult();
         }
 

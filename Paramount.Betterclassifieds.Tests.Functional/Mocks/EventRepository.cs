@@ -11,6 +11,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
 {
     internal partial class DapperDataRepository
     {
+        public List<string> GetEventTicketFieldNames(int eventTicketId)
+        {
+            using (var connection = _connectionFactory.CreateClassifieds())
+            {
+                return connection.Query<string>("select f.FieldName from EventTicketField f where f.EventTicketId = @eventTicketId", new {eventTicketId}).ToList();
+            }
+        }
+
         public string GetEventBookingStatus(int eventId, string guestEmail)
         {
             using (var db = _connectionFactory.CreateClassifieds())
@@ -143,6 +151,15 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                     "FROM EventBookingTicket ebt " +
                     "JOIN EventBooking eb ON eb.EventBookingId = ebt.EventBookingId " +
                     "JOIN [Event] e ON e.EventId = eb.EventId and e.EventId = @eventId ", new { eventId }).ToList();
+            }
+        }
+
+        public TicketDetails GetEventTicketByName(int eventId, string ticketName)
+        {
+            using (var connection = _connectionFactory.CreateClassifieds())
+            {
+                return connection.Query<TicketDetails>("SELECT t.* FROM EventTicket t WHERE t.EventId = @eventId and t.TicketName = @ticketName",
+                    new { eventId, ticketName }).SingleOrDefault();
             }
         }
 

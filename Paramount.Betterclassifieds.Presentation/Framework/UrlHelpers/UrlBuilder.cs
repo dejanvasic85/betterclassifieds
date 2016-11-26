@@ -18,6 +18,8 @@ namespace Paramount
         public object RouteValues { get; private set; }
         public string Path { get; private set; }
         public bool IsFullUrl { get; private set; }
+        
+
         public string RouteName { get; private set; }
         public bool Encode { get; private set; }
 

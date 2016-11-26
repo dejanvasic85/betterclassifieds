@@ -9,11 +9,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Booking
     public class BookingEventTicketSetupViewModel : IValidatableObject
     {
         public List<BookingEventTicketViewModel> Tickets { get; set; }
-
-        public DateTime? ClosingDate { get; set; }
-
-        public DateTime? AdStartDate { get; set; }
-
+        
         public decimal EventTicketFee { get; set; }
         public decimal EventTicketFeeCents { get; set; }
         public bool? IncludeTransactionFee { get; set; }

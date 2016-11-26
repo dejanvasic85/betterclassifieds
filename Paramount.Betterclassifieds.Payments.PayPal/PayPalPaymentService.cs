@@ -5,6 +5,7 @@ using AutoMapper;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.DataService;
 using PayPal.Api;
+using Paramount.Betterclassifieds.Business;
 
 namespace Paramount.Betterclassifieds.Payments.pp
 {
@@ -12,18 +13,20 @@ namespace Paramount.Betterclassifieds.Payments.pp
     {
         private readonly IDbContextFactory _contextFactory;
         private readonly IDateService _dateService;
+        private readonly ILogService _logService;
 
-        public PayPalPayPalService(IDbContextFactory contextFactory, IDateService dateService)
+        public PayPalPayPalService(IDbContextFactory contextFactory, IDateService dateService, ILogService logService)
         {
             _contextFactory = contextFactory;
             _dateService = dateService;
+            _logService = logService;
         }
 
         public PayPalResponse SubmitPayment(PayPalRequest request)
         {
             var apiContext = ApiContextFactory.CreateApiContext();
             // var converter = new ChargeableItemsToPaypalConverter();
-            var paypalItems = new ItemList() { items = new List<Item>()}; 
+            var paypalItems = new ItemList() { items = new List<Item>() };
             paypalItems.items.AddRange(this.MapList<ChargeableItem, Item>(request.ChargeableItems.ToList()));
 
             // ###Payer
@@ -88,7 +91,7 @@ namespace Paramount.Betterclassifieds.Payments.pp
                 redirect_urls = redirUrls
             };
 
-            
+
             var myResponse = payment.Create(apiContext);
 
             if (myResponse?.links == null)
@@ -106,18 +109,34 @@ namespace Paramount.Betterclassifieds.Payments.pp
             };
         }
 
-        public void CompletePayment(string payReference, string payerId)
+        public bool CompletePayment(string payReference, string payerId)
         {
-            var apiContext = ApiContextFactory.CreateApiContext();
-            var payment = new Payment { id = payReference };
-            var paymentExecution = new PaymentExecution { payer_id = payerId };
+            try
+            {
+                var apiContext = ApiContextFactory.CreateApiContext();
+                var payment = new Payment { id = payReference };
+                var paymentExecution = new PaymentExecution { payer_id = payerId };
 
-            payment.Execute(apiContext, paymentExecution);
+                payment.Execute(apiContext, paymentExecution);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logService.Error(ex);
+                return false;
+            }
         }
 
-        public void CompletePayment(string payReference, string payerId, string userId, decimal amount, string title, string description)
+        public bool CompletePayment(string payReference, string payerId, string userId, decimal amount, string title, string description)
         {
-            CompletePayment(payReference, payerId);
+            var done = CompletePayment(payReference, payerId);
+            if (!done)
+            {
+                return false;
+            }
+
+            // We will cater for the 3rd party services bombing out and not process the rest of transaction
+            // But try catch should not be surrounding our code
             using (var context = _contextFactory.CreateClassifiedContext())
             {
                 context.Transactions.InsertOnSubmit(new Paramount.Betterclassifieds.DataService.Classifieds.Transaction()
@@ -131,6 +150,8 @@ namespace Paramount.Betterclassifieds.Payments.pp
                 });
                 context.SubmitChanges();
             }
+
+            return true;
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

@@ -77,7 +77,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         {
             _repository.AddEventGroup(_contextData.Get().EventId,
                 groupName,
-                ticketName, 
+                ticketName,
                 maxGuests);
         }
 
@@ -117,13 +117,20 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 .WithSecondGuest(email, fullName);
         }
 
+        [When(@"my details are prefilled so I proceed to checkout")]
+        public void WhenMyDetailsArePrefilledSoIProceedToCheckout()
+        {
+            var bookingTicketPage = _pageBrowser.Init<BookTicketsPage>();
+            bookingTicketPage.WithPhone("0433 095 822");
+            bookingTicketPage.Checkout();
+        }
 
-        [When(@"my details are prefilled so I proceed to payment")]
+        [When(@"my details are prefilled so I proceed to checkout and payment")]
         public void WhenMyDetailsArePrefilledSoIProceedToPayment()
         {
             var bookingTicketPage = _pageBrowser.Init<BookTicketsPage>();
             bookingTicketPage.WithPhone("0433 095 822");
-            bookingTicketPage.ProceedToPayment();
+            bookingTicketPage.Checkout();
 
             _pageBrowser.Init<MakeTicketPaymentPage>()
                 .PayWithPayPal()
@@ -145,16 +152,16 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         }
 
 
-        [Then(@"the tickets should be booked")]
-        public void ThenTheTicketsShouldBeBooked()
+        [Then(@"the tickets should be booked with total cost ""(.*)"" and ticket count ""(.*)""")]
+        public void ThenTheTicketsShouldBeBooked(int expectedCost, int expectedTicketCount)
         {
             var testContext = _contextData.Get();
             var eventBooking = _repository.GetEventBooking(testContext.EventId);
             var eventBookingTickets = _repository.GetPurchasedTickets(eventBooking.EventBookingId);
 
             Assert.That(eventBooking, Is.Not.Null);
-            Assert.That(eventBooking.TotalCost, Is.EqualTo(10)); // 10 dollars - 5 bucks x 2 tickets
-            Assert.That(eventBookingTickets.Count, Is.EqualTo(2));
+            Assert.That(eventBooking.TotalCost, Is.EqualTo(expectedCost)); // 10 dollars - 5 bucks x 2 tickets
+            Assert.That(eventBookingTickets.Count, Is.EqualTo(expectedTicketCount));
         }
 
         [Then(@"ticket with full name ""(.*)"" should be assigned to a group")]
@@ -205,7 +212,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         {
             _pageBrowser.GoTo<EventDashboardPage>(_contextData.Get().AdId);
         }
-        
+
         [When(@"I choose to add guest manually from the dashboard with details ""(.*)"" ""(.*)"" ""(.*)""")]
         public void WhenIChooseToAddGuestManuallyFromTheDashboardWithDetails(string fullName, string email, string ticketType)
         {
@@ -222,7 +229,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         {
             var guestTicket = _repository.GetPurchasedTicketsForEvent(_contextData.Get().EventId)
                 .FirstOrDefault(t => t.GuestEmail.Equals(guestEmail, StringComparison.OrdinalIgnoreCase));
-                
+
 
             Assert.That(guestTicket, Is.Not.Null);
             Assert.That(guestTicket.TicketName, Is.EqualTo(ticketName));
@@ -242,6 +249,13 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 .ManageGroups();
         }
 
+        [When(@"I select to manage tickets")]
+        public void WhenISelectToManageTickets()
+        {
+            _pageBrowser.Init<EventDashboardPage>(_contextData.Get().AdId)
+                .ManageTickets();
+        }
+
         [When(@"I go to edit the guest ""(.*)"" from the dashboard")]
         public void WhenIEditTheGuestFromTheDashboard(string guestEmail)
         {
@@ -258,7 +272,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 .Update()
                 .WaitForToaster();
         }
-        
+
         [When(@"I remove the guest from the event")]
         public void WhenIRemoveTheGuestFromTheEvent()
         {
@@ -266,7 +280,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
                 .WaitToInit()
                 .RemoveGuest();
         }
-        
+
         [Then(@"the guest email ""(.*)"" should be ""(.*)"" for the current event")]
         public void ThenTheGuestEmailShouldBeForTheCurrentEvent(string guestEmail, string activeOrNot)
         {
@@ -313,5 +327,22 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             Assert.That(dashboardPage.GetTotalSoldQty(), Is.EqualTo(expectedSoldQuantity));
             Assert.That(dashboardPage.GetGuestsInSearchResult(), Is.EqualTo(expectedGuestsInSearch));
         }
+
+        [When(@"I choose to resend ticket for the guest")]
+        public void WhenIChooseToResendTicketForTheGuest()
+        {
+            var page = _pageBrowser.Init<EditGuestPage>(ensureUrl: false);
+            page.ResentTicket();
+        }
+        
+        [Then(@"the ticket should be sent successfully")]
+        public void ThenTicketShouldBeSentSuccessfullyInTicketEditingScreen()
+        {
+            var page = _pageBrowser.Init<EditGuestPage>(ensureUrl: false);
+            var msg = page.GetToastSuccessMsg();
+
+            Assert.That(msg, Is.EqualTo("Email has been sent successfully."));
+        }
+
     }
 }

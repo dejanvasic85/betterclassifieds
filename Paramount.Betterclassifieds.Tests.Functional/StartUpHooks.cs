@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using BoDi;
@@ -39,7 +38,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             _configuration = ConfigFactory.CreateConfig();
             _webDriver = GetDriverForBrowser("firefox");
         }
-
+        
         [BeforeScenario]
         public void RegisterConfigAndRepository()
         {
@@ -81,8 +80,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional
             switch (browserName)
             {
                 case "chrome":
-                    var chromeOptions = new ChromeOptions();
-                    chromeOptions.AddArgument("test-type");
+                    //var chromeOptions = new ChromeOptions();
+                    //chromeOptions.AddArgument("test-type");
                     driver = new ChromeDriver();
                     break;
                 case "firefox":

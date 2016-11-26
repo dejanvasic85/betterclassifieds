@@ -80,6 +80,12 @@
             return View();
         }
 
+        [ActionName("privacy-policy")]
+        public ActionResult PrivacyPolicy()
+        {
+            return View();
+        }
+
         [Route("sitemap.xml")]
         public ActionResult Sitemap()
         {

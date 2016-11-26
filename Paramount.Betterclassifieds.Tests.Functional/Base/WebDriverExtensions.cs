@@ -8,6 +8,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
 {
     public static class WebDriverExtensions
     {
+
+
         public static void WaitForJqueryAjax(this IWebDriver webDriver, int timeOutSeconds = 30)
         {
             var waitForJqueryToBeAvailable = new WebDriverWait(webDriver, TimeSpan.FromSeconds(timeOutSeconds));
@@ -41,6 +43,22 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Base
         public static void ExecuteJavaScript(this IWebDriver driver, string script, params object[] args)
         {
             driver.ToJavaScriptExecutor().ExecuteScript(script, args);
+        }
+
+        public static IWebElement JsClick(this IWebDriver driver, By by)
+        {
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            var element = wait.Until(ExpectedConditions.ElementToBeClickable(by));
+            return driver.JsClick(element);
+        }
+
+        public static IWebElement JsClick(this IWebDriver driver, IWebElement element)
+        {
+            driver.ExecuteJavaScript("arguments[0].focus();", element);
+            Thread.Sleep(500);
+            // Focus on the element before clicking otherwise knockout binding won't actually work
+            driver.ExecuteJavaScript(" arguments[0].click()", element);
+            return element;
         }
 
         public static IJavaScriptExecutor ToJavaScriptExecutor(this IWebDriver driver)

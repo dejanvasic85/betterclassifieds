@@ -19,14 +19,15 @@
 
 <div class="container">
     <div class="row top-buffer-40">
-        @if (Model.CardFailedMessage.HasValue())
+        @if (Model.PaymentFailedMessage.HasValue())
         {
             <div class="col-xs-12">
                 <div class="alert alert-danger">
-                    @Model.CardFailedMessage
+                    @Model.PaymentFailedMessage
                 </div>
             </div>
         }
+
 
         <div class="col-xs-12 well well-lg">
             <h1>

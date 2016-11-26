@@ -1,4 +1,5 @@
 ﻿@eventAd
+@eventDashboard
 Feature: EventDashboard
 	In order to keep the event details up to date
 	As an event organiser	
@@ -58,3 +59,25 @@ Scenario: Create event groups from event dashboard
 	Then the group "Table For All" should be created
 	When I create a new group "Special Table" for ticket "VIP" and "10" guests
 	Then the group "Special Table" should be created
+
+@EventTickets
+Scenario: Create event ticket with custom fields
+	Given an event ad titled "Ticket Management Event" exists
+	And I am logged in as "bdduser" with password "password123"
+	When I go to the event dashboard for the current ad
+	And I select to manage tickets
+	And a new ticket is created titled "Ticket One" with price "0" and quantity "100" and field "Custom Field 1"
+	Then a ticket "Ticket One" exists with price "0" quantity "100" and field "Custom Field 1"
+
+
+@ResendTickets
+@EventTickets
+Scenario: Resend tickets to a guest
+	Given an event ad titled "Ticket Resend feature event" exists
+	And I am logged in as "bdduser" with password "password123"
+	And with a ticket option "General Admission" for "5" dollars each and "100" available
+	And a guest name "Guest One" and email "guestone@email.com" with a "General Admission" ticket to "Ticket Resend feature event"
+	When I go to the event dashboard for the current ad
+	And I go to edit the guest "guestone@email.com" from the dashboard
+	And I choose to resend ticket for the guest
+	Then the ticket should be sent successfully

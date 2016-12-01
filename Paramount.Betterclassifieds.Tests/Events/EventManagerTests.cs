@@ -788,8 +788,16 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 .WithEventBookingTickets(new[] { mockEventBookingTicket })
                 .Build();
 
+            var currentRemainingQuantity = 9;
+            var expectedRemainingQuantity = 10;
+            var mockTicket = new EventTicketMockBuilder().Default().WithRemainingQuantity(currentRemainingQuantity).Build();
+            
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingTicket(It.IsAny<int>()), result: mockEventBookingTicket);
             _eventRepositoryMock.SetupWithVerification(call => call.UpdateEventBookingTicket(It.Is<EventBookingTicket>(t => t == mockEventBookingTicket)));
+
+            // Get ticket and adjust the remaining count property on it...
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventTicketDetails(It.IsAny<int>(), It.IsAny<bool>()), result: mockTicket);
+            _eventRepositoryMock.SetupWithVerification(call => call.UpdateEventTicket(It.Is<EventTicket>(t => t == mockTicket)));
 
             _eventRepositoryMock.SetupWithVerification(
                 call => call.GetEventBooking(It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<bool>()),
@@ -807,6 +815,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
             mockEventBookingTicket.LastModifiedBy.IsNotNull();
             mockEventBookingTicket.LastModifiedDate.IsNotNull();
             mockEventBookingTicket.LastModifiedDateUtc.IsNotNull();
+
+            mockTicket.RemainingQuantity.IsEqualTo(expectedRemainingQuantity);
 
             mockEventBookingTicket.IsActive.IsFalse();
             mockEventBooking.Status.IsEqualTo(EventBookingStatus.Cancelled);

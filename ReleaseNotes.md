@@ -1,8 +1,9 @@
 Here's a list of the latest changes:
 
 **3.16.1 - Post-Release bug fixes**
-- [Fix - Validation wasn't quite working on booking tickets when multiple tickets were purchased and extra fields were available](https://trello.com/c/9nzJZLnc/567-major-validation-not-working-for-2nd-guest-in-booktickets-page)
 
+- [Fix - Validation wasn't quite working on booking tickets when multiple tickets were purchased and extra fields were available](https://trello.com/c/9nzJZLnc/567-major-validation-not-working-for-2nd-guest-in-booktickets-page)
+- [Fix - Removing a guest from the event is not decreasing the remaining ticket count](https://trello.com/c/IV0K50pq/568-major-removing-a-guest-from-the-event-dashboard-is-not-increasing-the-remaining-tickets)
 
 **3.16.0 - Event groups**
 

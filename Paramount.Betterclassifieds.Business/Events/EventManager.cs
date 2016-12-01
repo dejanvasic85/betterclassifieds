@@ -126,6 +126,11 @@ namespace Paramount.Betterclassifieds.Business.Events
                 _eventRepository.UpdateEventBooking(eventBooking);
             }
 
+            // Increase the remaining quantity on the ticket type !
+            var ticket = _eventRepository.GetEventTicketDetails(eventBookingTicket.EventTicketId);
+            ticket.RemainingQuantity = ticket.RemainingQuantity + 1;
+            _eventRepository.UpdateEventTicket(ticket);
+
             return eventBookingTicket;
         }
 

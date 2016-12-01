@@ -98,7 +98,7 @@
 
             var fields = getAllDynamicFields();
 
-            if ($paramount.checkValidity(me.reservations(), fields) === false) {
+            if (!$paramount.checkValidity(me.reservations()) || !$paramount.checkValidity(fields)) {
                 return;
             };
 

@@ -1,5 +1,9 @@
 Here's a list of the latest changes:
 
+**3.16.1 - Post-Release bug fixes**
+- [Fix - Validation wasn't quite working on booking tickets when multiple tickets were purchased and extra fields were available](https://trello.com/c/9nzJZLnc/567-major-validation-not-working-for-2nd-guest-in-booktickets-page)
+
+
 **3.16.0 - Event groups**
 
 - [Enhancement - Groups can now be configured to be required](https://trello.com/c/v6wEDGSg/533-events-organisers-ability-to-toggle-whether-groups-are-required)

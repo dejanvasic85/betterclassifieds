@@ -3,7 +3,7 @@
 	@Brand = 'KandoBay',
 	@SubjectTemplate = 'Ticket Cancellation',
 	@Description = 'Guest was removed from event and their ticket was canceled',
-	@From = 'kandobay-support@kandobay.com.au',
+	@From = 'events@kandobay.com.au',
 	@BodyTemplate = '
 <!DOCTYPE html>
 <html lang="en">

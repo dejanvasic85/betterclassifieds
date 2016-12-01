@@ -44,7 +44,7 @@
 
     AddGuest.prototype.submitGuest = function (element, event) {
         var me = this;
-        if (!$paramount.checkValidity(me, me.ticketFields())) {
+        if ( !$p.checkValidity(me) || !$p.checkValidity(me.ticketFields()) ) {
             return;
         }
 
@@ -89,7 +89,7 @@
         $('html, body').animate({ scrollTop: $('.add-guest-view').offset().top }, 1000);
     }
 
-    $paramount.models = $paramount.models || {};
-    $paramount.models.AddGuest = AddGuest;
+    $p.models = $p.models || {};
+    $p.models.AddGuest = AddGuest;
 
 })(jQuery, $paramount, ko);

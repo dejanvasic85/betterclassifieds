@@ -154,6 +154,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpGet, ActionName("event-ticketing")]
+        [Route("event-dashboard/{id}/event/{eventId}/ticketing")]
         public ActionResult ManageEventTicketing(int id, int eventId)
         {
             var eventDetails = _eventManager.GetEventDetails(eventId);

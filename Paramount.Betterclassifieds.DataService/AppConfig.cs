@@ -42,6 +42,8 @@ namespace Paramount.Betterclassifieds.DataService.Repository
 
         public string Version => ConfigManager.ReadAppSetting<string>("Version");
 
+        public bool DropMailsToFolder => Environment.EquivalentToAny("DEV", "CI");
+
         public string DslImageUrlHandler
         {
             get { return ConfigManager.ReadAppSetting<string>("DslImageUrlHandler"); }

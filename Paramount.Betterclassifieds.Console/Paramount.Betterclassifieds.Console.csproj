@@ -114,7 +114,9 @@
       <DependentUpon>App.config</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Paramount.Betterclassifieds.Console.nuspec" />
   </ItemGroup>
   <ItemGroup>

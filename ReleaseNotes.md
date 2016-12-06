@@ -1,5 +1,9 @@
 Here's a list of the latest changes:
 
+**3.16.2 - Post-Release bug fixes**
+
+- [Fix - SMTP not configured properly for the Release environment]
+
 **3.16.1 - Post-Release bug fixes**
 
 - [Fix - Validation wasn't quite working on booking tickets when multiple tickets were purchased and extra fields were available](https://trello.com/c/9nzJZLnc/567-major-validation-not-working-for-2nd-guest-in-booktickets-page)

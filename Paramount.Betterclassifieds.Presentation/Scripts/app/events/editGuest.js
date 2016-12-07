@@ -1,6 +1,5 @@
 ﻿(function ($, ko, notifier, $p) {
-    'use strict';
-
+    
     function EditGuest(data) {
 
         var me = this,

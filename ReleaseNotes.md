@@ -2,7 +2,8 @@ Here's a list of the latest changes:
 
 **3.16.2 - Post-Release bug fixes**
 
-- [Fix - SMTP not configured properly for the Release environment]
+- [Fix - Groups should be ordered by name](https://trello.com/c/Nh7HAiSD/569-groups-are-not-ordered-by-name)
+- [Fix - SMTP not configured properly for the Release environment](https://trello.com/c/bK0Ff6dR/570-smtp-is-not-configured-properly-for-production)
 
 **3.16.1 - Post-Release bug fixes**
 

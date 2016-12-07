@@ -1,5 +1,4 @@
 ﻿(function ($, ko, $paramount) {
-    'use strict';
 
     function EventPaymentRequest(data, adDesignService) {
         var me = this;

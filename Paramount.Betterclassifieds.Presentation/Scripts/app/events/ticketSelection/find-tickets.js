@@ -17,6 +17,7 @@
         me.selectedGroupId = null;
         me.selectedTickets = ko.observableArray();
         me.displayNoSelectedTickets = ko.observable(false);
+        me.currentPage = ko.observable(1);
 
 
         // This maps to the EventTicketReservedViewModel
@@ -54,6 +55,16 @@
             return me.selectedTickets().length > 0;
         });
 
+        me.groupsPaged = ko.computed(function () {
+            var chunked = _.chunk(me.groups(), me.pageSize);
+            return chunked[me.currentPage() - 1];
+        });
+
+        me.ticketsPaged = ko.computed(function () {
+            var chunkd = _.chunk(me.availableTickets(), me.pageSize);
+            return chunkd[me.currentPage() - 1];
+        });
+
         /*
          * Used for the findTickets.model.js page
          */
@@ -65,14 +76,17 @@
 
             eventService.getTicketsForGroup(me.reservationData.eventId, model.eventGroupId())
                 .then(function (resp) {
-                    _.each(resp, function (t) {
+                    _.each(resp, function(t) {
                         var maxTicketsAllowed = getMaxTicketsAllowed(me.selectedGroupId, t.eventTicketId, model.maxGuests(), t.remainingQuantity);
                         var eventTicket = new $p.models.EventTicket(t, maxTicketsAllowed);
                         eventTicket.eventGroupId(model.eventGroupId());
                         me.availableTickets.push(eventTicket);
                     });
-
                     $('#ticketSelectionModal').modal('show');
+                })
+                .then(function () {
+                    console.log(me.currentPage());
+                    console.log(me.ticketsPaged());
                 })
                 .always(function () {
                     $btn.resetBtn();
@@ -93,19 +107,11 @@
             me.startOrder(model, event);
         }
 
-        me.currentPage = ko.observable(1);
         me.pageSize = 3;
         me.totalGroups = ko.computed(function () {
             return me.groups().length;
         });
-        me.groupsPaged = ko.computed(function () {
-            var chunked = _.chunk(me.groups(), me.pageSize);
-            return chunked[me.currentPage() - 1];
-        });
-        me.ticketsPaged = ko.computed(function () {
-            var chunkd = _.chunk(me.availableTickets(), me.pageSize);
-            return chunkd[me.currentPage() - 1];
-        });
+
         me.changePage = function (pageNum) {
             me.currentPage(pageNum);
         }
@@ -200,7 +206,7 @@
             }
         });
     }
-    
+
     ko.components.register('find-tickets', {
         viewModel: Tickets,
         template: { path: $p.baseUrl + '/Scripts/app/events/ticketSelection/find-tickets.html' }

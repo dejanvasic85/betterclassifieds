@@ -1,6 +1,5 @@
 ﻿(function ($, ko, $p) {
-    'use strict';
-
+    
     $p.models = $p.models || {};
 
     $p.models.BookingCategorySelection = function (stepData) {

@@ -1,5 +1,5 @@
 ﻿(function ($, $p) {
-    'use strict';
+    
     var $view = $('.add-guest-view');
     $p.ui = $p.ui || {};
     $p.ui.addGuest = {

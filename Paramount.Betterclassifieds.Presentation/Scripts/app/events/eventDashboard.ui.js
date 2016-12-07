@@ -1,7 +1,5 @@
 ﻿(function ($, $paramount) {
 
-    'use strict';
-
     $paramount.ui = $paramount.ui || {};
     $paramount.ui.eventDashboard = {
         init: function (eventDashboardViewModel) {

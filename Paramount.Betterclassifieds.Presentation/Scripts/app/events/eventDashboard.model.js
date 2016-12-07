@@ -1,6 +1,5 @@
 ﻿(function ($, ko, $paramount) {
-    'use strict';
-
+    
     function EventDashboardModel(editEventViewModel, adDesignService) {
         var me = this;
         me.eventId = ko.observable();

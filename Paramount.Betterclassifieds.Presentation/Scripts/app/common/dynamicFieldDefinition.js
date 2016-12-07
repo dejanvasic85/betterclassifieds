@@ -1,6 +1,5 @@
 ﻿(function ($, ko, $paramount) {
-    'use strict';
-
+    
     function DynamicFieldDefinition(parent, data) {
         var me = this;
         me.fieldName = ko.observable().extend({

@@ -1,6 +1,4 @@
 ﻿(function ($, $paramount) {
-    'use strict';
-
     $paramount.ui = $paramount.ui || {};
     $paramount.ui.eventPaymentRequest = {
         init: function (eventPaymentRequestViewModel) {

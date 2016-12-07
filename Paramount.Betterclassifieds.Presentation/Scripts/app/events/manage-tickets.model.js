@@ -1,6 +1,5 @@
 ﻿(function ($, ko, toastr, $p) {
-    'use strict';
-
+    
     var adDesignService;
 
     function ManageTickets(data) {

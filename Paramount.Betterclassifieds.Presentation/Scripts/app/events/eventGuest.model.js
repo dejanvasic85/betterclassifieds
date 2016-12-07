@@ -1,5 +1,4 @@
 ﻿(function ($, ko, $paramount) {
-    'use strict';
 
     function CurrentGuest(data) {
         var me = this;

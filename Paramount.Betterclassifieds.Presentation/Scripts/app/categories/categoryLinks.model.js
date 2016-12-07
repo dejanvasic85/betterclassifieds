@@ -1,6 +1,4 @@
-﻿'use strict';
-
-(function ($, ko, $paramount) {
+﻿(function ($, ko, $paramount) {
 
     $paramount.models = $paramount.models || {};
     $paramount.models.CategoryLinks = function (parentCategories) {

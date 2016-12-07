@@ -1,6 +1,5 @@
 ﻿(function ($, $paramount, ko, moment, notifier) {
-    'use strict';
-
+    
     $paramount.models = $paramount.models || {};
 
     // Event ad details editing object used for knockout

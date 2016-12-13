@@ -18,7 +18,7 @@
         me.selectedTickets = ko.observableArray();
         me.displayNoSelectedTickets = ko.observable(false);
         me.currentPage = ko.observable(1);
-
+        me.pageSize = 3;
 
         // This maps to the EventTicketReservedViewModel
         me.reservationData = {
@@ -84,10 +84,6 @@
                     });
                     $('#ticketSelectionModal').modal('show');
                 })
-                .then(function () {
-                    console.log(me.currentPage());
-                    console.log(me.ticketsPaged());
-                })
                 .always(function () {
                     $btn.resetBtn();
                 });
@@ -107,7 +103,6 @@
             me.startOrder(model, event);
         }
 
-        me.pageSize = 3;
         me.totalGroups = ko.computed(function () {
             return me.groups().length;
         });

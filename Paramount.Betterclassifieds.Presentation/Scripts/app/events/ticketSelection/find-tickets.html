@@ -1,9 +1,6 @@
 ﻿<!--Selection by group-->
 <div>
-
-    <span data-bind="text: currentPage"></span>
-    <span data-bind="text: JSON.stringify(ticketsPaged())"></span>
-
+    
     <div data-bind="visible: groups().length > 0 && groupsRequired() === true">
         <div data-bind="visible: selectedTickets().length > 0">
             <p>
@@ -58,7 +55,7 @@
                         <h4>Available tickets for group:</h4>
                     </div>
                     <div class="modal-body">
-                        <ticket-options></ticket-options>
+                        <ticket-options params="{ ticketsObservable: availableTickets }"></ticket-options>
                     </div>
                     <div class="alert alert-warning" data-bind="visible: displayNoSelectedTickets">
                         Please select at least one ticket before ordering.
@@ -74,7 +71,7 @@
     </div>
 
     <div data-bind="visible: !groupsRequired()">
-        <ticket-options></ticket-options>
+        <ticket-options params="ticketsObservable: ticketsPaged"></ticket-options>
 
         <div data-bind="visible: availableTickets().length > pageSize">
             <pager params="maxPagesToDisplay: 5, pageSize: pageSize, dataPromise: getTicketsPromise, changePage: changePage"></pager>

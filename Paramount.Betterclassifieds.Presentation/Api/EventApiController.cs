@@ -51,7 +51,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api
                 .Where(r => r.IsAvailable())
                 .Select(new EventGroupContractFactory().FromModel)
                 .OrderBy(g => g.GroupName)
-                ;
+                .AsEnumerable();
 
             return Ok(groups);
         }

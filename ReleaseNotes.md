@@ -4,6 +4,7 @@ Here's a list of the latest changes:
 
 - [Fix - Groups should be ordered by name](https://trello.com/c/Nh7HAiSD/569-groups-are-not-ordered-by-name)
 - [Fix - SMTP not configured properly for the Release environment](https://trello.com/c/bK0Ff6dR/570-smtp-is-not-configured-properly-for-production)
+- [Fix - Modal dialog not displaying available tickets per group from 2nd page](https://trello.com/c/h7RjfuXl/581-the-tickets-are-not-visible-for-selection-on-the-2nd-page-of-group-selection)
 
 **3.16.1 - Post-Release bug fixes**
 

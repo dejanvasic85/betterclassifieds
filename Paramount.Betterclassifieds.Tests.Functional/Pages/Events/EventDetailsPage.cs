@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System.Linq;
+using OpenQA.Selenium;
 using Paramount.Betterclassifieds.Tests.Functional.Base;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
@@ -22,10 +23,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         public string GetPriceForTicket(string ticketType)
         {
             var nameSelector = By.CssSelector("[data-ticket-name='" + ticketType + "']");
-            var classSelector = By.ClassName("tst-ticket-price");
-
-            _webDriver.WaitFor(driver => driver.FindElement(nameSelector).FindElement(classSelector).Text != string.Empty, secondsToWait: 5);
-            return _webDriver.FindElement(nameSelector).FindElement(classSelector).Text;
+            var priceSelector = By.ClassName("tst-ticket-price");
+            
+            return _webDriver.FindElements(nameSelector)
+                .FirstOrDefault(el => el.Displayed)?
+                .FindElement(priceSelector)
+                .Text;
         }
 
         public EventDetailsPage ConfirmTicketSelection()

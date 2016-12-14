@@ -75,7 +75,7 @@ namespace Paramount.Betterclassifieds.Presentation
                 .RegisterType<IUserManager, UserHttpManager>()
                 .RegisterType<IAuthManager, AuthManager>()
                 .RegisterType<IBroadcastManager, BroadcastManager>()
-                .RegisterType<INotificationProcessor, EmailProcessor>("emailProcessingEngine")
+                .RegisterType<INotificationProcessor, EmailProcessor>("emailProcessor")
                 .RegisterType<ISmtpMailer, DefaultMailer>()
                 .RegisterType<IEnquiryManager, EnquiryManager>()
                 .RegisterType<IRateCalculator, RateCalculator>()

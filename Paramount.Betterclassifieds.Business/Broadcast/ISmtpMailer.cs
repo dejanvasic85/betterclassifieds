@@ -12,6 +12,13 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
 
     public class DefaultMailer : ISmtpMailer
     {
+        private readonly IApplicationConfig _appConfig;
+
+        public DefaultMailer(IApplicationConfig appConfig)
+        {
+            _appConfig = appConfig;
+        }
+
         public void SendEmail(string subject, string body, string from, EmailAttachment[] attachments, params string[] to)
         {
             var mailMessage = new MailMessage
@@ -34,10 +41,13 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             }
 
             var client = new SmtpClient(); // Reads the configuration settings
-#if DEBUG
-            client.DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory;
-            client.PickupDirectoryLocation = @"c:\Paramount\MailDrop\";
-#endif
+
+            if (_appConfig.DropMailsToFolder)
+            {
+                client.DeliveryMethod = SmtpDeliveryMethod.SpecifiedPickupDirectory;
+                client.PickupDirectoryLocation = @"c:\Paramount\MailDrop\";
+            }
+
             client.Send(mailMessage);
             attachmentStreams.ForEach(s => s.Dispose());
         }

@@ -2,8 +2,7 @@
  * ViewEventAd.cshtml - ui hooks
  */
 (function ($, ko, $paramount) {
-    'use strict';
-
+    
     $paramount.ui = $paramount.ui || {};
     $paramount.ui.eventView = {
         init: function (options) {

@@ -18,9 +18,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 
         public TicketSelectionComponent SelectTickets(int numberOfTickets, string ticketType)
         {
-            var cssSelector = "[data-ticket-name='" + ticketType + "'] td";
+            var ticketSelector = By.CssSelector( "[data-ticket-name='" + ticketType + "'] td");
 
-            var element = _webDriver.FindElements(By.CssSelector(cssSelector))
+            var element = _webDriver.FindElements(ticketSelector)
                 .Last(el => el.Displayed)
                 .FindElement(By.TagName("select"));
 

@@ -1,5 +1,11 @@
 Here's a list of the latest changes:
 
+**3.16.2 - Post-Release bug fixes**
+
+- [Fix - Groups should be ordered by name](https://trello.com/c/Nh7HAiSD/569-groups-are-not-ordered-by-name)
+- [Fix - SMTP not configured properly for the Release environment](https://trello.com/c/bK0Ff6dR/570-smtp-is-not-configured-properly-for-production)
+- [Fix - Modal dialog not displaying available tickets per group from 2nd page](https://trello.com/c/h7RjfuXl/581-the-tickets-are-not-visible-for-selection-on-the-2nd-page-of-group-selection)
+
 **3.16.1 - Post-Release bug fixes**
 
 - [Fix - Validation wasn't quite working on booking tickets when multiple tickets were purchased and extra fields were available](https://trello.com/c/9nzJZLnc/567-major-validation-not-working-for-2nd-guest-in-booktickets-page)

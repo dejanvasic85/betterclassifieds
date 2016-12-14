@@ -6,7 +6,7 @@
             <th>Quantity</th>
         </tr>
     </thead>
-    <tbody data-bind="foreach: $parent.ticketsPaged">
+    <tbody data-bind="foreach: tickets">
         <tr data-bind="attr: { 'data-ticket-name' : ticketName }">
             <td data-bind="text: ticketName"></td>
             <td>

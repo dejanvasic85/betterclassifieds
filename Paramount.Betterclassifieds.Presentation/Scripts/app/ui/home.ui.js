@@ -1,6 +1,4 @@
-﻿'use strict';
-
-(function ($, ko, $paramount) {
+﻿(function ($, ko, $paramount) {
 
     $paramount.ui = $paramount.ui || {};
     $paramount.ui.home = {

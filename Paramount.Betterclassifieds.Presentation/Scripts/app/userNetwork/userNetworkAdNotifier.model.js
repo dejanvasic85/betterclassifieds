@@ -1,7 +1,4 @@
 ﻿(function (jQuery, ko, $paramount) {
-
-    'use strict';
-
     function UserNetworkAdNotifier(data) {
         var userNetworkService = new $paramount.UserNetworkService();
 

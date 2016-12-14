@@ -1,6 +1,5 @@
 ﻿(function ($, $paramount, ko) {
-    'use strict';
-
+    
     function BookTickets(data, eventService) {
         var me = this;
 

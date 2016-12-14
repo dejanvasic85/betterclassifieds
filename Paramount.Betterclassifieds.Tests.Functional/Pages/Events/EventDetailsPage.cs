@@ -1,4 +1,4 @@
-﻿using System.Threading;
+﻿using System.Linq;
 using OpenQA.Selenium;
 using Paramount.Betterclassifieds.Tests.Functional.Base;
 
@@ -13,17 +13,20 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         {
             _webDriver = webDriver;
         }
-        
+
         public EventDetailsPage SelectTickets(int numberOfTickets, string ticketType)
-        {   
+        {
             new TicketSelectionComponent(_webDriver).SelectTickets(numberOfTickets, ticketType);
             return this;
         }
 
         public string GetPriceForTicket(string ticketType)
         {
-            return _webDriver.FindElement(By.CssSelector("[data-ticket-name='" + ticketType + "']"))
-                .FindElement(By.ClassName("tst-ticket-price"))
+            var nameSelector = By.CssSelector("[data-ticket-name='" + ticketType + "']");
+            var priceSelector = By.ClassName("tst-ticket-price");
+
+            return GetVisibleTicket(ticketType)?
+                .FindElement(priceSelector)
                 .Text;
         }
 
@@ -35,10 +38,17 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 
         public bool IsPriceFreeForTicket(string ticketName)
         {
-            return _webDriver.FindElement(By.CssSelector("[data-ticket-name='" + ticketName + "']"))
+            return GetVisibleTicket(ticketName)
                 .FindElement(By.ClassName("tst-ticket-free"))
-                .Text
+                .Text.ToLower()
                 .EqualTo("free");
+        }
+
+        private IWebElement GetVisibleTicket(string ticketName)
+        {
+            var nameSelector = By.CssSelector("[data-ticket-name='" + ticketName + "']");
+            return _webDriver.FindElements(nameSelector)
+                .FirstOrDefault(el => el.Displayed);
         }
 
         public EventDetailsPage SelectGroup(string groupName)

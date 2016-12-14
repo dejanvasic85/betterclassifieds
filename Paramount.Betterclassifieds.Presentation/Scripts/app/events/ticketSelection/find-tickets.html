@@ -47,10 +47,31 @@
         <div data-bind="visible: groups().length > pageSize">
             <pager params="maxPagesToDisplay: 5, pageSize: pageSize, dataPromise: eventGroupsPromise, changePage: changePage"></pager>
         </div>
+
+        <div id="ticketSelectionModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Available tickets for group:</h4>
+                    </div>
+                    <div class="modal-body">
+                        <ticket-options params="{ ticketsObservable: availableTickets }"></ticket-options>
+                    </div>
+                    <div class="alert alert-warning" data-bind="visible: displayNoSelectedTickets">
+                        Please select at least one ticket before ordering.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" data-bind="click: onGroupTicketSave">Add to Cart <i class="fa fa-cart-plus"></i></button>
+                        <button type="button" class="btn btn-success ko-load tst-order-tickets" data-bind="click: onGroupTicketSaveAndOrder">Checkout <i class="fa fa-arrow-circle-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div data-bind="visible: !groupsRequired()">
-        <ticket-options></ticket-options>
+        <ticket-options params="ticketsObservable: ticketsPaged"></ticket-options>
 
         <div data-bind="visible: availableTickets().length > pageSize">
             <pager params="maxPagesToDisplay: 5, pageSize: pageSize, dataPromise: getTicketsPromise, changePage: changePage"></pager>
@@ -68,26 +89,5 @@
         </div>
     </div>
 
-    
-
-    <div id="ticketSelectionModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4>Available tickets for group:</h4>
-                </div>
-                <div class="modal-body">
-                    <ticket-options></ticket-options>
-                </div>
-                <div class="alert alert-warning" data-bind="visible: displayNoSelectedTickets">
-                    Please select at least one ticket before ordering.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" data-bind="click: onGroupTicketSave">Add to Cart <i class="fa fa-cart-plus"></i></button>
-                    <button type="button" class="btn btn-success ko-load tst-order-tickets" data-bind="click: onGroupTicketSaveAndOrder">Checkout <i class="fa fa-arrow-circle-right"></i></button>
-                </div>
-            </div>
-        </div>
-    </div>
+   
 </div>

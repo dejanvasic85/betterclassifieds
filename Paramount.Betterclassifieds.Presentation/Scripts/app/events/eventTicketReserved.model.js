@@ -1,6 +1,5 @@
 ﻿(function ($, $paramount, ko) {
-    'use strict';
-
+    
     var eventService = new $paramount.EventService();
 
     function EventTicketReserved(data) {

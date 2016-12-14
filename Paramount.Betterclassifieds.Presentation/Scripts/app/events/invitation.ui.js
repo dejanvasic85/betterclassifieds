@@ -1,6 +1,5 @@
 ﻿(function($, $paramount) {
 
-    'use strict';
     $paramount.ui = $paramount.ui || {};
     $paramount.ui.invitation = {
         init: function (eventId, eventInvitationId, availableTickets) {

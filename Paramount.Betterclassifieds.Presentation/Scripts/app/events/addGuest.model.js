@@ -1,7 +1,5 @@
 ﻿(function ($, $p, ko) {
-
-    'use strict';
-
+    
     function AddGuest() {
         this.id = ko.observable();
         this.eventId = ko.observable();

@@ -1,6 +1,5 @@
 ﻿(function ($, ko, $p, $n) {
-    'use strict';
-
+    
     var adDesignService;
 
     function ManageGroups(data) {

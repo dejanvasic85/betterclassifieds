@@ -49,7 +49,9 @@ namespace Paramount.Betterclassifieds.Presentation.Api
             var result = await _eventManager.GetEventGroups(id);
             var groups = result
                 .Where(r => r.IsAvailable())
-                .Select(new EventGroupContractFactory().FromModel);
+                .Select(new EventGroupContractFactory().FromModel)
+                .OrderBy(g => g.GroupName)
+                .AsEnumerable();
 
             return Ok(groups);
         }
@@ -71,7 +73,9 @@ namespace Paramount.Betterclassifieds.Presentation.Api
             var result = await _eventManager.GetEventGroups(id, ticketId);
             var groups = result
                 .Where(r => r.IsAvailable())
-                .Select(g => new EventGroupContractFactory().FromModel(g));
+                .Select(g => new EventGroupContractFactory().FromModel(g))
+                .OrderBy(g => g.GroupName)
+                ;
 
             return Ok(groups);
         }

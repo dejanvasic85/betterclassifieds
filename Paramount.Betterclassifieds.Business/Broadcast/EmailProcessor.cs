@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
 
 namespace Paramount.Betterclassifieds.Business.Broadcast
 {
@@ -10,12 +7,6 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         private readonly IBroadcastRepository _broadcastRepository;
         private readonly ISmtpMailer _mailer;
         
-        public EmailProcessor(IBroadcastRepository broadcastRepository)
-            : this(broadcastRepository, new DefaultMailer())
-        {
-            // Overloaded constructor
-        }
-
         public EmailProcessor(IBroadcastRepository broadcastRepository, ISmtpMailer mailer)
         {
             _broadcastRepository = broadcastRepository;

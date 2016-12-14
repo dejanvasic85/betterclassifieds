@@ -24,9 +24,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         {
             var nameSelector = By.CssSelector("[data-ticket-name='" + ticketType + "']");
             var priceSelector = By.ClassName("tst-ticket-price");
-            
-            return _webDriver.FindElements(nameSelector)
-                .FirstOrDefault(el => el.Displayed)?
+
+            return GetVisibleTicket(ticketType)?
                 .FindElement(priceSelector)
                 .Text;
         }
@@ -39,10 +38,17 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 
         public bool IsPriceFreeForTicket(string ticketName)
         {
-            return _webDriver.FindElement(By.CssSelector("[data-ticket-name='" + ticketName + "']"))
+            return GetVisibleTicket(ticketName)
                 .FindElement(By.ClassName("tst-ticket-free"))
-                .Text
+                .Text.ToLower()
                 .EqualTo("free");
+        }
+
+        private IWebElement GetVisibleTicket(string ticketName)
+        {
+            var nameSelector = By.CssSelector("[data-ticket-name='" + ticketName + "']");
+            return _webDriver.FindElements(nameSelector)
+                .FirstOrDefault(el => el.Displayed);
         }
 
         public EventDetailsPage SelectGroup(string groupName)

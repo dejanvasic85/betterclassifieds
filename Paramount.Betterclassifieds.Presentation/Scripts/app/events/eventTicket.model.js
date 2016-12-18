@@ -1,9 +1,8 @@
-﻿(function ($, $paramount, ko, notifier) {
+﻿(function ($, $paramount, ko) {
     
     function EventTicket(data, maxTicketsPerBooking) {
 
         var me = this;
-        var eventService = new $paramount.EventService();
 
         me.adId = ko.observable();
         me.eventId = ko.observable();
@@ -30,30 +29,7 @@
             return me.remainingQuantity() <= 0;
         });
 
-        /*
-         * Editing mode
-         */
-        me.editMode = ko.observable();
-        me.enableEdit = function () {
-            me.editMode(true);
-        }
-
-        /*
-         * Save
-         */
-        me.saveTicketDetails = function (e, jQueryElement) {
-            var $button = $(jQueryElement.toElement);
-            $button.button('loading');
-            var ticketDetails = ko.toJS(me);
-            eventService.updateTicket(ticketDetails).done(function (response) {
-                if (response) {
-                    notifier.success("Ticket details saved successfully");
-                    me.editMode(false);
-                    $button.button('reset');
-                }
-            });
-        }
-
+        
         /*
          * Validation
          */
@@ -71,7 +47,6 @@
 
     EventTicket.prototype.bindEventTicket = function (data, maxTicketsPerBooking) {
         var me = this;
-        console.log(data);
         me.adId(data.adId);
         me.eventId(data.eventId);
         me.eventTicketId(data.eventTicketId);
@@ -81,7 +56,6 @@
         me.selectedQuantity(data.selectedQuantity);
         me.remainingQuantity(data.remainingQuantity);
         me.isAvailable(data.remainingQuantity > 0);
-        me.editMode(data.editMode === true);
         me.soldQuantity(data.soldQty);
        
         me.editTicketUrl('/event-dashboard/' + data.adId + '/event-ticket/' + data.eventTicketId);

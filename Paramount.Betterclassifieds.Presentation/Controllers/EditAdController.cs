@@ -160,6 +160,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var eventDetails = _eventManager.GetEventDetails(eventId);
             if (eventDetails == null)
                 return Url.NotFound().ToRedirectResult();
+            var guestList = _eventManager.BuildGuestList(eventId);
 
             var vm = new ManageTicketsViewModel
             {
@@ -168,6 +169,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 Tickets = this.MapList<EventTicket, EventTicketViewModel>(eventDetails.Tickets.ToList()),
                 IncludeTransactionFee = eventDetails.With(e => e.IncludeTransactionFee)
             };
+
+            var groupedGuests = guestList.GroupBy(g => g.TicketId);
+            foreach (var ticketGroup in groupedGuests)
+            {
+                vm.Tickets.Single(t => t.EventTicketId == ticketGroup.Key).SoldQty = ticketGroup.Count();
+            }
 
             return View(vm);
         }
@@ -183,13 +190,26 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 return Url.NotFound().ToRedirectResult();
 
             ViewBag.Id = id;
-            ViewBag.TicketsSold = ticket.RemainingQuantity != ticket.AvailableQuantity;
             ViewBag.BackToTicketsUrl = Url.EventTicketManagement(id, ticket.EventId.GetValueOrDefault());
             var viewModel = this.Map<EventTicket, EventTicketViewModel>(ticket);
+            var guests = _eventManager.BuildGuestList(ticket.EventId).Where(t => t.TicketId == ticketId);
+            viewModel.SoldQty = guests.Count();
 
             return View(viewModel);
         }
 
+        [HttpGet]
+        [ActionName("edit-ticket")]
+        [Route("event-dashboard/{id}/event-ticket/{ticketId}")]
+        public ActionResult EditTicket(int id, EventTicketViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+                return Json(new { Errors = ModelState.ToErrors() });
+
+            // Todo - coming soon
+
+            return Json(true);
+        }
 
         [HttpPost]
         public ActionResult AddTicket(int id, NewEventTicketViewModel vm)
@@ -197,7 +217,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (!ModelState.IsValid)
                 return Json(new { Errors = ModelState.ToErrors() });
 
-            _eventManager.CreateEventTicket(vm.EventId.GetValueOrDefault(),
+            var ticket = _eventManager.CreateEventTicket(vm.EventId.GetValueOrDefault(),
                 vm.TicketName,
                 vm.Price.GetValueOrDefault(),
                 vm.AvailableQuantity,
@@ -207,7 +227,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                     IsRequired = f.IsRequired
                 }));
 
-            return Json(true);
+            return Json(ticket);
         }
 
         [HttpGet]

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 {
@@ -14,5 +13,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public int RemainingQuantity { get; set; }
         public decimal Price { get; set; }
         public int SoldQty { get; set; }
+
+        public EventTicketFieldViewModel[] EventTicketFields { get; set; }
     }
 }

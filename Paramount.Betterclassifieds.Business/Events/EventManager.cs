@@ -313,7 +313,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             _eventRepository.UpdateEventTicket(eventTicket);
         }
 
-        public void CreateEventTicket(int eventId, string ticketName, decimal price, int remainingQuantity, IEnumerable<EventTicketField> fields)
+        public EventTicket CreateEventTicket(int eventId, string ticketName, decimal price, int remainingQuantity, IEnumerable<EventTicketField> fields)
         {
             Guard.NotDefaultValue(eventId);
             var ticket = new EventTicketFactory().Create(remainingQuantity, eventId, ticketName, price);
@@ -321,6 +321,8 @@ namespace Paramount.Betterclassifieds.Business.Events
                 ticket.EventTicketFields = fields.ToList();
 
             _eventRepository.CreateEventTicket(ticket);
+
+            return ticket;
         }
 
         public IEnumerable<EventGuestDetails> BuildGuestList(int? eventId)
@@ -334,6 +336,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                 GuestEmail = t.GuestEmail,
                 DynamicFields = t.TicketFieldValues,
                 TicketNumber = t.EventBookingTicketId,
+                TicketId = t.EventTicketId,
                 TicketName = t.TicketName,
                 TotalTicketPrice = t.TotalPrice,
                 DateOfBooking = t.CreatedDateTime.GetValueOrDefault(),

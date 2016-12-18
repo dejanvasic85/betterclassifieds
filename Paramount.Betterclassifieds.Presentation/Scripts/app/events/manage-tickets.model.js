@@ -53,13 +53,15 @@
             var eventTicketData = ko.toJS(newTicket);
             adDesignService.addEventTicket(eventTicketData)
                 .then(function (resp) {
-                    if (resp === true) {
+                    if (resp) {
                         toastr.success('Ticket added successfully');
                         me.newTicket(new NewEventTicket({ eventId: me.eventId() }));
 
                         eventTicketData.remainingQuantity = eventTicketData.availableQuantity;
                         eventTicketData.soldQty = 0;
-
+                        eventTicketData.eventTicketId = resp.eventTicketId;
+                        eventTicketData.adId = me.id();
+                        
                         me.tickets.push(new $p.models.EventTicket(eventTicketData, 20));
                         me.isCreateEnabled(false);
                     }

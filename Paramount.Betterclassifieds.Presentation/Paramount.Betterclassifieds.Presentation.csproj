@@ -598,6 +598,8 @@
     <Content Include="Scripts\app\events\eventAd.model.js" />
     <Content Include="Scripts\app\booking\bookingCategorySelection.js" />
     <Content Include="Scripts\app\booking\designAd.js" />
+    <Content Include="Scripts\app\events\ticketEditor\ticket-editor.html" />
+    <Content Include="Scripts\app\events\ticketEditor\ticket-editor.js" />
     <Content Include="Scripts\app\events\viewEventAd.ui.js" />
     <Content Include="Scripts\app\categories\categoryLinks.model.js" />
     <Content Include="Scripts\app\events\invitation.ui.js" />

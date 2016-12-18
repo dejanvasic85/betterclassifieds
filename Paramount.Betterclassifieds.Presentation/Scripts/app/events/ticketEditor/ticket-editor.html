@@ -1,0 +1,93 @@
+﻿<div class="row">
+    <div class="col-xs-12 form-group-lg" data-bind="validationElement: ticketName">
+        <label for="ticketName" class="control-label">Ticket Name:</label>
+        <input id="ticketName" data-bind="value: ticketName" type="text" class="form-control" />
+    </div>
+
+    <div class="col-xs-12 form-group-lg" data-bind="validationElement: price">
+        <label class="control-label">Price</label>
+        <input id="txtTicketPrice" type="number" class="form-control" data-bind="value: price" />
+    </div>
+    <div class="col-xs-12 form-group-lg" data-bind="validationElement: availableQuantity">
+        <label class="control-label">Quantity</label>
+        <input id="txtTicketQuantity" type="number" class="form-control" data-bind="value: availableQuantity" />
+    </div>
+
+    <div class="col-xs-12 top-buffer-10">
+        <div class="alert alert-info-alt">
+            Fields allow your to capture information about each guest.
+        </div>
+    </div>
+
+    <div class="col-xs-12" data-bind="foreach: eventTicketFields">
+
+        <div class="panel panel-default">
+            <div class="panel-body ticket-field-edit">
+                <div class="form-group-lg" data-bind="validationElement: fieldName">
+                    <label class="control-label">
+                        Field Name
+                    </label>
+                    <input type="text" data-bind="value: fieldName" class="form-control" placeholder="e.g. Age" />
+                    <div class="alert alert-warning" data-bind="visible: showFieldNameWarning">
+                        Note: Guest name and email are already included.
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6 form-group-lg">
+                        <label class="control-label">Required</label>
+                        <div class="display-block toggle-required">
+                            <input type="checkbox" data-bind="toggle: isRequired" data-on="Yes" data-off="No" />
+                        </div>
+                    </div>
+                    <div class="col-xs-offset-3 col-xs-3 form-group-lg">
+                        <label class="control-label">Remove</label>
+                        <div>
+                            <button class="btn btn-block btn-default" data-bind="click: $parent.removeField">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-xs-offset-6 col-xs-6 col-sm-offset-8 col-sm-4">
+            <button id="btnAddDynamicField" class="btn btn-default btn-block" data-bind="click: addField">
+                Add Field <i class="fa fa-plus-circle"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="row" data-bind="visible: displayGuestPurchasesWarning() === false">
+
+        <div class="col-sm-offset-8 col-sm-4 top-buffer-10" data-bind="click: saveTicket">
+            <button class="btn btn-success btn-block ko-load">
+                <i class="fa fa-floppy-o"></i> Save
+            </button>
+        </div>
+
+    </div>
+
+    <div class="row" data-bind="visible: displayGuestPurchasesWarning">
+        <div class="col-md-12">
+            <div class="alert alert-warning">
+                At least <span data-bind="text: soldQty"></span> guests have purchased this ticket. What would you like to do?
+                <div>
+                    <button class="btn btn-success">
+                        Save and Resend Ticket to each guest
+                    </button> &nbsp;
+
+                    <button class="btn btn-default">
+                        Save. Don't Notify
+                    </button>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

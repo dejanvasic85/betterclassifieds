@@ -12,7 +12,12 @@
             var ticketDetails = @Html.Raw(@Model.ToJsonString());
             _.extend(ticketDetails, {
                 id : @Html.Raw(ViewBag.Id)
-            });
+                });
+            var vm = {
+                ticketDetails: ticketDetails
+            };
+            console.log(ticketDetails);
+            ko.applyBindings(vm, document.getElementById('editTicket'));
         })
     </script>
 }
@@ -29,14 +34,9 @@
             </a>
         </div>
 
-        @if ((bool)ViewBag.TicketsSold)
-        {
-            <div class="col-xs-12">
-                <div class="alert alert-warning">
-                    Please note: this ticket already has been distributed to some guests.
-                    Any changes made will not affected the previously purchased tickets.
-                </div>
-            </div>
-        }
+    </div>
+
+    <div class="well top-buffer-20">
+        <ticket-editor params="ticketDetails: ticketDetails"></ticket-editor>
     </div>
 </div>

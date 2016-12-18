@@ -19,5 +19,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         public decimal TotalTicketPrice { get; set; }
         public DateTime DateOfBooking { get; set; }
         public DateTime DateOfBookingUtc { get; set; }
+        public int TicketId { get; set; }
     }
 }

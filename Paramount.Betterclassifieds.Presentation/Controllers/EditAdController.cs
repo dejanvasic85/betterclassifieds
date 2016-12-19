@@ -201,14 +201,22 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost]
         [ActionName("edit-ticket")]
         [Route("event-dashboard/{id}/event-ticket/{ticketId}")]
-        public ActionResult EditTicket(int id, EventTicketViewModel viewModel)
+        public ActionResult EditTicket(int id, UpdateEventTicketViewModel viewModel)
         {
             if (!ModelState.IsValid)
                 return Json(new { Errors = ModelState.ToErrors() });
 
-            
+            // todo - check whether the sold quantity was 0 and now there's been purchases... Handle in the UI!
 
-            return Json(true);
+
+            var eventTicket = viewModel.EventTicket;
+            _eventManager.UpdateEventTicket(eventTicket.EventTicketId.GetValueOrDefault(), eventTicket.TicketName,  eventTicket.Price, eventTicket.RemainingQuantity);
+
+            // todo update the extra fields
+
+            // todo send notifications (if required)
+
+            return Json(viewModel.EventTicket);
         }
 
         [HttpPost]

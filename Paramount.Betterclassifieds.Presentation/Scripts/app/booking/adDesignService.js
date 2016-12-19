@@ -148,9 +148,12 @@
         return $paramount.httpPost(me.baseUrl +  'updateEventGroupSettings', $.extend(me.model, settings));
     }
 
-    AdDesignService.prototype.editTicket = function (ticket) {
-        var url = $paramount.baseUrl + "event-dashboard/" + me.model.id + '/event-ticket/' + ticket.eventTicketId;
-        return $paramount.httpPost(url, $.extend(me.model, ticket));
+    AdDesignService.prototype.editTicket = function (data) {
+        $paramount.guard(data, 'data');
+        $paramount.guard(data.eventTicket, 'data.eventTicket');
+
+        var url = $paramount.baseUrl + "event-dashboard/" + me.model.id + '/event-ticket/' + data.eventTicket.eventTicketId;
+        return $paramount.httpPost(url, $.extend(me.model, data));
     }
 
     // Exports

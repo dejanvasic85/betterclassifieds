@@ -15,5 +15,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public int SoldQty { get; set; }
 
         public EventTicketFieldViewModel[] EventTicketFields { get; set; }
+
     }
 }

@@ -43,8 +43,8 @@
                 me.eventTicketFields.remove(field);
             }
 
-            me.saveTicket = function () {
-                me.saveWithoutSendingNotifications();
+            me.saveTicket = function (model, event) {
+                me.saveWithoutSendingNotifications(model, event);
             }
 
             me.ticketName.subscribe(function () {
@@ -53,25 +53,42 @@
                 }
             });
 
-            me.saveWithoutSendingNotifications = function () {
-                save({
-                    resendNotifications: false
+            me.saveWithoutSendingNotifications = function (model, event) {
+                save(model, event,{
+                    resendGuestNotifications: false
                 });
             }
 
-            me.saveAndSendNotifications = function () {
-                save({
-                    resendNotifications: true
+            me.saveAndSendNotifications = function (model, event) {
+                save(model, event, {
+                    resendGuestNotifications: true
                 });
             }
 
-            function save(options) {
-                var data = _.extend(options, ko.toJS(me));
-                adDesignService.editTicket(data).then(showSuccess);
+            function save(model, event, options) {
+                // todo check validity
+
+                var $btn = $(event.target);
+                $btn.loadBtn();
+
+                // maps to UpdateEventTicketViewModel.cs
+                var data = _.extend(options, {
+                    eventTicket: ko.toJS(me)
+                });
+                adDesignService.editTicket(data).then(handleResponse).then(function() {
+                    $btn.resetBtn();
+                });
             }
 
-            function showSuccess() {
-                toastr.success("Ticket details saved successfully");
+            function handleResponse(resp) {
+                if (resp.errors) {
+
+                    // todo Check the sold quantity error!
+
+                    toastr.error('Something went wrong.');
+                } else {
+                    toastr.success("Ticket details saved successfully");
+                }
             }
         },
         template: { path: $p.baseUrl + '/Scripts/app/events/ticketEditor/ticket-editor.html' }

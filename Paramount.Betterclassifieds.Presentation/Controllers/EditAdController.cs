@@ -198,7 +198,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View(viewModel);
         }
 
-        [HttpGet]
+        [HttpPost]
         [ActionName("edit-ticket")]
         [Route("event-dashboard/{id}/event-ticket/{ticketId}")]
         public ActionResult EditTicket(int id, EventTicketViewModel viewModel)

@@ -36,9 +36,9 @@
     /*
      * Utility function to guard against undefined parameters
      */
-    function guard(val, name) {
-        if (!val) {
-            throw name + ' is required';
+    $paramount.guard = function(val, name) {
+        if (_.isUndefined(val)) {
+            throw new Error(name + ' must be defined');
         }
     };
 
@@ -80,9 +80,9 @@
      */
     $paramount.upload = function (options) {
 
-        guard(options, 'options');
-        guard(options.url, 'url');
-        guard(options.element, '');
+        $paramount.guard(options, 'options');
+        $paramount.guard(options.url, 'url');
+        $paramount.guard(options.element, '');
 
         options.progressBar = options.progressBar || $('<div><span class=".progress-bar"></span></div>'); // Todo - popup a real progress bar somewhere
         options.progressBar.hide();

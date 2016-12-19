@@ -1,7 +1,14 @@
 ﻿(function (ko, $p, toastr) {
     ko.components.register('ticket-editor', {
         viewModel: function (params) {
-            var me = this;
+
+            $p.guard(params.eventId, 'eventId');
+
+            var me = this,
+                adDesignService = new $p.AdDesignService();
+
+            me.eventId = ko.observable(params.eventId); // Must be set!
+            me.eventTicketId = ko.observable();
             me.ticketName = ko.observable();
             me.availableQuantity = ko.observable();
             me.price = ko.observable();
@@ -12,6 +19,9 @@
             me.ticketHasPurchases = ko.observable(false);
 
             if (params.ticketDetails) {
+
+                adDesignService = new $p.AdDesignService(params.ticketDetails.id);
+                me.eventTicketId(params.ticketDetails.eventTicketId);
                 me.editMode(true);
                 me.ticketName(params.ticketDetails.ticketName);
                 me.availableQuantity(params.ticketDetails.availableQuantity);
@@ -32,23 +42,34 @@
             }
 
             me.saveTicket = function () {
-
-                console.log('current ticket state:', ko.toJS(me));
-
-                if (me.ticketHasPurchases()) {
-                    me.displayGuestPurchasesWarning(true);
-
-                } else {
-                    me.saveWithoutSendingNotifications();
-                }
+                me.saveWithoutSendingNotifications();
             }
 
+            me.ticketName.subscribe(function () {
+                if (me.ticketHasPurchases()) {
+                    me.displayGuestPurchasesWarning(true);
+                }
+            });
+
             me.saveWithoutSendingNotifications = function () {
-                toastr.success('Ticket details saved successfully.');
+                save({
+                    resendNotifications: false
+                });
             }
 
             me.saveAndSendNotifications = function () {
-                
+                save({
+                    resendNotifications: true
+                });
+            }
+
+            function save(options) {
+                var data = _.extend(options, ko.toJS(me));
+                adDesignService.editTicket(data).then(showSuccess);
+            }
+
+            function showSuccess() {
+                toastr.success("Ticket details saved successfully");
             }
         },
         template: { path: $p.baseUrl + '/Scripts/app/events/ticketEditor/ticket-editor.html' }

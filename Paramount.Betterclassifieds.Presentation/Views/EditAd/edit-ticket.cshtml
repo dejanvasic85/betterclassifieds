@@ -16,7 +16,6 @@
             var vm = {
                 ticketDetails: ticketDetails
             };
-            console.log(ticketDetails);
             ko.applyBindings(vm, document.getElementById('editTicket'));
         })
     </script>
@@ -37,6 +36,6 @@
     </div>
 
     <div class="well top-buffer-20">
-        <ticket-editor params="ticketDetails: ticketDetails"></ticket-editor>
+        <ticket-editor params="ticketDetails: ticketDetails, eventId: ticketDetails.eventId"></ticket-editor>
     </div>
 </div>

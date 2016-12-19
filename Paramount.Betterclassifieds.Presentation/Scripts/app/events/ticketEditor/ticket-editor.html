@@ -75,13 +75,13 @@
     <div class="row" data-bind="visible: displayGuestPurchasesWarning">
         <div class="col-md-12">
             <div class="alert alert-warning">
-                At least <span data-bind="text: soldQty"></span> guests have purchased this ticket. What would you like to do?
+                At least <span data-bind="text: soldQty"></span> guest(s) purchased this ticket. What would you like to do?
                 <div>
-                    <button class="btn btn-success">
+                    <button class="btn btn-success ko-load" data-bind="click: saveAndSendNotifications">
                         Save and Resend Ticket to each guest
                     </button> &nbsp;
 
-                    <button class="btn btn-default">
+                    <button class="btn btn-default ko-load" data-bind="click: saveWithoutSendingNotifications">
                         Save. Don't Notify
                     </button>
                     

@@ -54,7 +54,7 @@
             });
 
             me.saveWithoutSendingNotifications = function (model, event) {
-                save(model, event,{
+                save(model, event, {
                     resendGuestNotifications: false
                 });
             }
@@ -75,20 +75,23 @@
                 var data = _.extend(options, {
                     eventTicket: ko.toJS(me)
                 });
-                adDesignService.editTicket(data).then(handleResponse).then(function() {
+                adDesignService.editTicket(data).then(handleResponse).then(function () {
                     $btn.resetBtn();
                 });
             }
 
             function handleResponse(resp) {
                 if (resp.errors) {
+                    
+                    if (_.some(resp.errors, ['key', 'GuestCountIncreased'])) {
+                        me.displayGuestPurchasesWarning(true);
+                        return;
+                    }
 
-                    // todo Check the sold quantity error!
-
-                    toastr.error('Something went wrong.');
-                } else {
-                    toastr.success("Ticket details saved successfully");
+                    return;
                 }
+
+                toastr.success("Ticket details saved successfully");
             }
         },
         template: { path: $p.baseUrl + '/Scripts/app/events/ticketEditor/ticket-editor.html' }

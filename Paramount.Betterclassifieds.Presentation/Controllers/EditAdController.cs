@@ -201,16 +201,25 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpPost]
         [ActionName("edit-ticket")]
         [Route("event-dashboard/{id}/event-ticket/{ticketId}")]
-        public ActionResult EditTicket(int id, UpdateEventTicketViewModel viewModel)
+        public ActionResult EditTicket(int id, int ticketId, UpdateEventTicketViewModel viewModel)
         {
             if (!ModelState.IsValid)
                 return Json(new { Errors = ModelState.ToErrors() });
-
-            // todo - check whether the sold quantity was 0 and now there's been purchases... Handle in the UI!
-
-
+            
             var eventTicket = viewModel.EventTicket;
-            _eventManager.UpdateEventTicket(eventTicket.EventTicketId.GetValueOrDefault(), eventTicket.TicketName,  eventTicket.Price, eventTicket.RemainingQuantity);
+
+            if (eventTicket.SoldQty == 0)
+            {
+                // Double check if anyone in the meantime purchased a ticket and the organiser wants to change something
+                var guestCount = _eventManager.BuildGuestList(viewModel.EventTicket.EventId.GetValueOrDefault()).Count(t => t.TicketId == ticketId);
+                if (guestCount > 0)
+                {
+                    ModelState.AddModelError("GuestCountIncreased", "Looks like someone purchased this ticket in the meantime.");
+                    return Json(new { Errors = ModelState.ToErrors() });
+                }
+            }
+
+            _eventManager.UpdateEventTicket(ticketId, eventTicket.TicketName,  eventTicket.Price, eventTicket.RemainingQuantity);
 
             // todo update the extra fields
 

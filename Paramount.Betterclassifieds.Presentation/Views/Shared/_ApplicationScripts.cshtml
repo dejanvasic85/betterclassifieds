@@ -53,9 +53,9 @@
                 if (resp.errors) {
                     var $errorContainer = $('#serverValidation > .alert-danger');
                     $errorContainer.empty();
-                    $.each(resp.errors, function (i1, err) {
-                        $.each(err.value, function (i2, msg) {
-                            $errorContainer.append('<span>' + msg + '</span><br>');
+                    _.forEach(resp.errors, function (err) {
+                        _.forEach(err.value, function (msg) {
+                            toastr.error(msg);
                         });
                     });
                     $('#serverValidation').show();

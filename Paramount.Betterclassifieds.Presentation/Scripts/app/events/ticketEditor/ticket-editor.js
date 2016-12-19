@@ -1,7 +1,7 @@
 ﻿(function (ko, $p, toastr) {
     ko.components.register('ticket-editor', {
         viewModel: function (params) {
-
+            console.log(params);
             $p.guard(params.eventId, 'eventId');
 
             var me = this,
@@ -10,7 +10,8 @@
             me.eventId = ko.observable(params.eventId); // Must be set!
             me.eventTicketId = ko.observable();
             me.ticketName = ko.observable();
-            me.availableQuantity = ko.observable();
+            me.availableQuantity = ko.observable(); // Only available in create
+            me.remainingQuantity = ko.observable(); // Only available in edit
             me.price = ko.observable();
             me.eventTicketFields = ko.observableArray();
             me.editMode = ko.observable(false);
@@ -25,6 +26,7 @@
                 me.editMode(true);
                 me.ticketName(params.ticketDetails.ticketName);
                 me.availableQuantity(params.ticketDetails.availableQuantity);
+                me.remainingQuantity(params.ticketDetails.remainingQuantity);
                 me.price(params.ticketDetails.price);
                 me.ticketHasPurchases(params.ticketDetails.soldQty > 0);
                 me.soldQty(params.ticketDetails.soldQty);

@@ -206,7 +206,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (!ModelState.IsValid)
                 return Json(new { Errors = ModelState.ToErrors() });
 
-            // Todo - coming soon
+            
 
             return Json(true);
         }

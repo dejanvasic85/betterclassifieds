@@ -66,8 +66,11 @@
             }
 
             function save(model, event, options) {
-                // todo check validity
 
+                if (!$p.checkValidity(me)) {
+                    return;
+                }
+                
                 var $btn = $(event.target);
                 $btn.loadBtn();
 
@@ -78,11 +81,13 @@
                 adDesignService.editTicket(data).then(handleResponse).then(function () {
                     $btn.resetBtn();
                 });
+
+
             }
 
             function handleResponse(resp) {
                 if (resp.errors) {
-                    
+
                     if (_.some(resp.errors, ['key', 'GuestCountIncreased'])) {
                         me.displayGuestPurchasesWarning(true);
                         return;

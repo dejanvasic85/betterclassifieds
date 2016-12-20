@@ -5,7 +5,6 @@ using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.Practices.ObjectBuilder2;
 using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business;
@@ -482,6 +481,32 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             // mock service calls 
             _eventManagerMock.SetupWithVerification(call => call.BuildGuestList(It.IsAny<int>()), guestList);
+
+            var result = BuildController().EditTicket(1, viewModelMock.EventTicket.EventTicketId.Value, viewModelMock);
+            var jsonResult = result.IsTypeOf<JsonResult>();
+        }
+
+        [Test]
+        public void EditTicket_Post_UpdatesTicket_NoNotificationsSend()
+        {
+            var viewModelMock = new UpdateEventTicketViewModel
+            {
+                ResendGuestNotifications = false,
+                EventTicket = new EventTicketViewModel
+                {
+                    EventTicketId = 100,
+                    SoldQty = 0,
+                    EventId = 1
+                }
+            };
+
+            // setup service calls
+            _eventManagerMock.SetupWithVerification(call => call.UpdateEventTicket(
+                It.Is<int>(i => i == viewModelMock.EventTicket.EventTicketId.Value),
+                It.Is<string>(i => i == viewModelMock.EventTicket.TicketName),
+                It.Is<decimal>(d => d == viewModelMock.EventTicket.Price),
+                It.Is<int>(i => i == viewModelMock.EventTicket.RemainingQuantity)
+                ));
 
             var result = BuildController().EditTicket(1, viewModelMock.EventTicket.EventTicketId.Value, viewModelMock);
             var jsonResult = result.IsTypeOf<JsonResult>();

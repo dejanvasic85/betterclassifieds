@@ -81,8 +81,6 @@
                 adDesignService.editTicket(data).then(handleResponse).then(function () {
                     $btn.resetBtn();
                 });
-
-
             }
 
             function handleResponse(resp) {

@@ -12,7 +12,6 @@ using Paramount.Betterclassifieds.Presentation.Services;
 using System;
 using System.Linq;
 using System.Monads;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;

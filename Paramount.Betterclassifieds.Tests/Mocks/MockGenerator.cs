@@ -299,6 +299,10 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.BankBsbNumber = val);
 		}
+		public ApplicationUserMockBuilder WithRequiresEventOrganiserConfirmation(Boolean? val)
+		{ 
+			return WithBuildStep(p => p.RequiresEventOrganiserConfirmation = val);
+		}
 	}
 
 	internal partial class UserNetworkModelMockBuilder : MockBuilder<UserNetworkModelMockBuilder, UserNetworkModel>
@@ -958,6 +962,10 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventGuestDetailsMockBuilder WithDateOfBookingUtc(DateTime val)
 		{ 
 			return WithBuildStep(p => p.DateOfBookingUtc = val);
+		}
+		public EventGuestDetailsMockBuilder WithTicketId(Int32 val)
+		{ 
+			return WithBuildStep(p => p.TicketId = val);
 		}
 	}
 

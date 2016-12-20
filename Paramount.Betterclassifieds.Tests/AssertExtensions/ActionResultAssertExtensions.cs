@@ -22,5 +22,10 @@ namespace Paramount.Betterclassifieds.Tests
         {
             return actionResult.IsTypeOf<ViewResult>().Model.IsTypeOf<TExpected>();
         }
+
+        public static void IsRedirectingToNotFound(this ActionResult actionResult)
+        {
+            IsRedirectingTo(actionResult, "Error", "NotFound");
+        }
     }
 }

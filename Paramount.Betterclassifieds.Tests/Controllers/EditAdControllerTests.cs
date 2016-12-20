@@ -5,6 +5,7 @@ using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Practices.ObjectBuilder2;
 using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business;
@@ -423,12 +424,69 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventNotificationBuilder.SetupWithVerification(call => call.CreateEventGuestNotifications(), mockEventGuestNotifications);
             _broadcastManagerMock.SetupWithVerification(call => call.Queue(It.IsAny<EventGuestNotification>(), It.IsAny<string[]>()), null);
 
-            var controller= BuildController();
+            var controller = BuildController();
             var result = controller.ResendGuestEmail(1, eventBookingTicketId: 100);
-            
+
 
             result.IsTypeOf<JsonResult>();
         }
+
+
+        [Test]
+        public void EditTicket_Get_ReturnsView()
+        {
+            var mockTicket = new EventTicketMockBuilder().Default().Build();
+            var guestBuilder = new EventGuestDetailsMockBuilder();
+            var guestList = new[]
+            {
+                guestBuilder.WithGuestEmail("foo1@bar.com").WithTicketId(mockTicket.EventTicketId.Value).Build(),
+                guestBuilder.WithGuestEmail("foo2@bar.com").WithTicketId(mockTicket.EventTicketId.Value).Build()
+            };
+
+            _eventManagerMock.SetupWithVerification(call => call.GetEventTicket(It.IsAny<int>()), mockTicket);
+            _eventManagerMock.SetupWithVerification(call => call.BuildGuestList(It.IsAny<int>()), guestList);
+
+            var result = BuildController().EditTicket(100, mockTicket.EventTicketId.Value);
+            var viewModel = result.ViewResultModelIsTypeOf<EventTicketViewModel>();
+            viewModel.IsNotNull();
+            viewModel.SoldQty.IsEqualTo(2);
+        }
+
+        [Test]
+        public void EditTicket_Get_NoTicket_Returns404()
+        {
+            _eventManagerMock.SetupWithVerification(call => call.GetEventTicket(It.IsAny<int>()), null);
+            var result = BuildController().EditTicket(0, 0);
+            result.IsRedirectingToNotFound();
+        }
+
+        [Test]
+        public void EditTicket_Post_TicketsSoldDuringEditing_ReturnsJsonError()
+        {
+            var viewModelMock = new UpdateEventTicketViewModel()
+            {
+                EventTicket = new EventTicketViewModel
+                {
+                    EventTicketId = 100,
+                    SoldQty = 0,
+                    EventId = 1
+                }
+            };
+
+            var guestBuilder = new EventGuestDetailsMockBuilder();
+            var guestList = new[]
+            {
+                guestBuilder.WithGuestEmail("foo1@bar.com").WithTicketId(100).Build(),
+                guestBuilder.WithGuestEmail("foo2@bar.com").WithTicketId(100).Build()
+            };
+
+            // mock service calls 
+            _eventManagerMock.SetupWithVerification(call => call.BuildGuestList(It.IsAny<int>()), guestList);
+
+            var result = BuildController().EditTicket(1, viewModelMock.EventTicket.EventTicketId.Value, viewModelMock);
+            var jsonResult = result.IsTypeOf<JsonResult>();
+        }
+
 
         private Mock<ISearchService> _searchServiceMock;
         private Mock<IApplicationConfig> _applicationConfigMock;

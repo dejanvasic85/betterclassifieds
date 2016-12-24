@@ -298,7 +298,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             }
         }
 
-        public void UpdateEventTicket(int eventTicketId, string ticketName, decimal price, int remainingQuantity)
+        public void UpdateEventTicket(int eventTicketId, string ticketName, decimal price, int remainingQuantity, IEnumerable<EventTicketField> fields)
         {
             var eventTicket = _eventRepository.GetEventTicketDetails(eventTicketId);
             eventTicket.TicketName = ticketName;
@@ -306,11 +306,15 @@ namespace Paramount.Betterclassifieds.Business.Events
             if (eventTicket.RemainingQuantity != remainingQuantity)
             {
                 var difference = remainingQuantity - eventTicket.RemainingQuantity;
-                eventTicket.AvailableQuantity += difference;
+                eventTicket.AvailableQuantity += difference; // This makes the total available tickets add the difference
                 eventTicket.RemainingQuantity = remainingQuantity;
             }
+            if (fields != null)
+            {
+                eventTicket.EventTicketFields = fields.ToList();
+            }
 
-            _eventRepository.UpdateEventTicket(eventTicket);
+            _eventRepository.UpdateEventTicketIncudingFields(eventTicket);
         }
 
         public EventTicket CreateEventTicket(int eventId, string ticketName, decimal price, int remainingQuantity, IEnumerable<EventTicketField> fields)

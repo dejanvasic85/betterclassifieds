@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.DataService;
@@ -6,7 +7,7 @@ using Paramount.Betterclassifieds.DataService.Events;
 
 namespace Paramount.Betterclassifieds.Tests.Integration
 {
-    [TestFixture]
+    [TestFixture("These tests are not executed on the build server and are just used for testing out entity framework repository methods directly.")]
     public class EventRepositoryTests
     {
         [Test]
@@ -14,7 +15,7 @@ namespace Paramount.Betterclassifieds.Tests.Integration
         {
             var repository = new EventRepository(new DbContextFactory());
             var result = repository.GetEventGroups(11, null).Result;
-            
+
         }
 
         [Test]
@@ -37,7 +38,44 @@ namespace Paramount.Betterclassifieds.Tests.Integration
                 GroupName = "Group 123",
                 MaxGuests = 10,
                 AvailableToAllTickets = false
-            }, new [] {12, 13} );
+            }, new[] { 12, 13 });
+        }
+
+        [Test]
+        public void UpdateEventTicketIncudingFields()
+        {
+            var originalEventTicket = new EventTicket
+            {
+                EventId = 25,
+                TicketName = "Free Entry",
+                RemainingQuantity = 100,
+                AvailableQuantity = 100,
+                Price = 0,
+                EventTicketFields = new List<EventTicketField>
+                {
+                    new EventTicketField { FieldName = "Weight" },
+                    new EventTicketField { FieldName = "Height" }
+                }
+            };
+
+            var repository = new EventRepository(new DbContextFactory());
+            repository.CreateEventTicket(originalEventTicket);
+
+
+            var ticketToUpdate = new EventTicket
+            {
+                EventTicketId = originalEventTicket.EventTicketId,
+                EventId = originalEventTicket.EventId,
+                TicketName = "New Name",
+                Price = 1,
+                EventTicketFields = new List<EventTicketField>
+                {
+                    new EventTicketField{FieldName = "* Weight", IsRequired = true},
+                    new EventTicketField { FieldName = "Height", IsRequired = true}
+                }
+            };
+
+            repository.UpdateEventTicketIncudingFields(ticketToUpdate);
         }
     }
 }

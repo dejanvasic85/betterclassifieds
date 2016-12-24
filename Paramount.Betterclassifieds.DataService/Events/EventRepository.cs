@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
@@ -321,6 +322,47 @@ namespace Paramount.Betterclassifieds.DataService.Events
             {
                 context.EventTickets.Attach(eventTicket);
                 context.Entry(eventTicket).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        public void UpdateEventTicketIncudingFields(EventTicket eventTicket)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                var originalEventTicket = context.EventTickets
+                    .Include(e => e.EventTicketFields)
+                    .Single(e => e.EventTicketId == eventTicket.EventTicketId);
+
+                context.Entry(originalEventTicket).CurrentValues.SetValues(eventTicket);
+
+                for (int i = 0; i < originalEventTicket.EventTicketFields.Count; i++)
+                {
+                    var field = originalEventTicket.EventTicketFields[i];
+                    if (!eventTicket.EventTicketFields.Any(f => f.FieldName.Equals(field.FieldName, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        context.EventTicketFields.Remove(field);
+                    }
+                }
+
+                foreach (var eventTicketField in eventTicket.EventTicketFields)
+                {
+                    var originalField = context.EventTicketFields
+                        .Where(f => f.FieldName.Equals(eventTicketField.FieldName, StringComparison.OrdinalIgnoreCase))
+                        .FirstOrDefault(f => f.EventTicketId == eventTicket.EventTicketId);
+
+                    if (originalField == null)
+                    {
+                        originalEventTicket.EventTicketFields.Add(eventTicketField);
+                    }
+                    else
+                    {
+                        // Map the updatable properties here
+                        originalField.IsRequired = eventTicketField.IsRequired;
+                        context.Entry(originalField).State = EntityState.Modified;
+                    }
+                }
+
                 context.SaveChanges();
             }
         }

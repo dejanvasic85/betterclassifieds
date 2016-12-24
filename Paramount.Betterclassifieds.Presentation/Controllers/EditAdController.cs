@@ -204,23 +204,25 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             if (!ModelState.IsValid)
                 return Json(new { Errors = ModelState.ToErrors() });
-            
-            var eventTicket = viewModel.EventTicket;
 
+            var eventTicket = viewModel.EventTicket;
             if (eventTicket.SoldQty == 0)
             {
                 // Double check if anyone in the meantime purchased a ticket and the organiser wants to change something
-                var guestCount = _eventManager.BuildGuestList(viewModel.EventTicket.EventId.GetValueOrDefault()).Count(t => t.TicketId == ticketId);
+                var guestCount =
+                    _eventManager.BuildGuestList(viewModel.EventTicket.EventId.GetValueOrDefault())
+                        .Count(t => t.TicketId == ticketId);
                 if (guestCount > 0)
                 {
-                    ModelState.AddModelError("GuestCountIncreased", "Looks like someone purchased this ticket in the meantime.");
+                    ModelState.AddModelError("GuestCountIncreased",
+                        "Looks like someone purchased this ticket in the meantime.");
                     return Json(new { Errors = ModelState.ToErrors() });
                 }
             }
 
-            _eventManager.UpdateEventTicket(ticketId, eventTicket.TicketName,  eventTicket.Price, eventTicket.RemainingQuantity);
-
-            // todo update the extra fields
+            _eventManager.UpdateEventTicket(ticketId, eventTicket.TicketName,
+                eventTicket.Price, eventTicket.RemainingQuantity, 
+                this.MapList<EventTicketFieldViewModel, EventTicketField>(viewModel.EventTicket.EventTicketFields.ToList()));
 
             // todo send notifications (if required)
 
@@ -669,8 +671,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<EditAdDetailsViewModel, LineAdModel>()
                 .ForMember(member => member.UsePhoto, options => options.MapFrom(src => src.LineAdImageId.HasValue()));
 
-            configuration.CreateMap<EventTicket, EventTicketViewModel>();
-            configuration.CreateMap<EventTicketField, EventTicketFieldViewModel>();
+            configuration.CreateMap<EventTicket, EventTicketViewModel>().ReverseMap();
+            configuration.CreateMap<EventTicketField, EventTicketFieldViewModel>().ReverseMap();
         }
 
         private readonly ISearchService _searchService;

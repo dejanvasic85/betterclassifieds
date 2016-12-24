@@ -42,5 +42,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         void UpdateEventBookingTicket(EventBookingTicket eventBookingTicket);
         void UpdateEventBookingTicketField(EventBookingTicketField eventBookingTicketField);
         void UpdateEventGroupStatus(int eventGroupId, bool isDisabled);
+        void UpdateEventTicketIncudingFields(EventTicket eventTicket);
     }
 }

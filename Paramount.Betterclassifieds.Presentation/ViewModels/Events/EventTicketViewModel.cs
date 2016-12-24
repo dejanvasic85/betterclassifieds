@@ -1,9 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 {
     public class EventTicketViewModel
     {
+        public EventTicketViewModel()
+        {
+            this.EventTicketFields = new List<EventTicketFieldViewModel>();
+        }
         public int? EventTicketId { get; set; }
         [Required]
         public int? EventId { get; set; }
@@ -14,7 +19,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public decimal Price { get; set; }
         public int SoldQty { get; set; }
 
-        public EventTicketFieldViewModel[] EventTicketFields { get; set; }
+        public List<EventTicketFieldViewModel> EventTicketFields { get; set; }
 
     }
 }

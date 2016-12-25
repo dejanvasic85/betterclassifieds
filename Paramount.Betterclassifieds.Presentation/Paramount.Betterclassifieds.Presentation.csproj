@@ -229,6 +229,7 @@
     <Compile Include="Api\Models\Events\EventContract.cs" />
     <Compile Include="Api\Models\Events\EventGroupContract.cs" />
     <Compile Include="Api\Models\Events\EventTicketContract.cs" />
+    <Compile Include="Api\Models\Events\GuestContract.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\LoggingConfig.cs" />
     <Compile Include="App_Start\ModelBindingConfig.cs" />

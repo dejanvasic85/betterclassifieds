@@ -332,7 +332,12 @@ namespace Paramount.Betterclassifieds.Business.Events
         public IEnumerable<EventGuestDetails> BuildGuestList(int? eventId)
         {
             Guard.NotNull(eventId);
+
             var tickets = _eventRepository.GetEventBookingTicketsForEvent(eventId);
+            
+            // Need to fetch all the groups to match each guest to the group
+            // We cannot do that at the moment because groups cannot be fetched from EntityFramework (separate stored procedure)
+            var groups = _eventRepository.GetEventGroups(eventId.GetValueOrDefault(), eventTicketId: null);
 
             return tickets.Select(t => new EventGuestDetails
             {
@@ -344,7 +349,8 @@ namespace Paramount.Betterclassifieds.Business.Events
                 TicketName = t.TicketName,
                 TotalTicketPrice = t.TotalPrice,
                 DateOfBooking = t.CreatedDateTime.GetValueOrDefault(),
-                DateOfBookingUtc = t.CreatedDateTimeUtc.GetValueOrDefault()
+                DateOfBookingUtc = t.CreatedDateTimeUtc.GetValueOrDefault(),
+                GroupName = groups.SingleOrDefault(g => g.EventGroupId == t.EventGroupId)?.GroupName
             });
         }
 
@@ -526,7 +532,7 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         public async Task<IEnumerable<EventGroup>> GetEventGroups(int eventId, int? eventTicketId = null)
         {
-            return await _eventRepository.GetEventGroups(eventId, eventTicketId);
+            return await _eventRepository.GetEventGroupsAsync(eventId, eventTicketId);
         }
 
         public async Task<EventGroup> GetEventGroup(int eventGroupId)

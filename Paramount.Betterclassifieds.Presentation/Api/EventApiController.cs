@@ -105,5 +105,11 @@ namespace Paramount.Betterclassifieds.Presentation.Api
             return Ok(eventTickets);
         }
 
+        [Route("{id:int}/guests")]
+        public IHttpActionResult GetGuestList(int id)
+        {
+            var guestList = _eventManager.BuildGuestList(id);
+            return Ok(new GuestContractFactory().FromEventGuestDetails(guestList));
+        }
     }
 }

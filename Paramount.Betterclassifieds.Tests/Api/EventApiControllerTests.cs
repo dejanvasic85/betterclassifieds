@@ -47,7 +47,7 @@ namespace Paramount.Betterclassifieds.Tests.Api
                 new AdSearchResultMockBuilder().Default().Build(),
                 new EventModelMockBuilder().Default().Build(),
                 new AddressMockBuilder().Default().Build());
-            
+
             _mockSearchService.SetupWithVerification(call => call.GetEvent(It.IsAny<int>()), eventSearchResult);
 
             var controller = BuildTargetObject();
@@ -62,7 +62,7 @@ namespace Paramount.Betterclassifieds.Tests.Api
             result.Content.Heading.IsEqualTo("heading of mock ad");
 
         }
-        
+
         [Test]
         public async void GetEventGroups_HasResults_ReturnsOk()
         {
@@ -109,19 +109,42 @@ namespace Paramount.Betterclassifieds.Tests.Api
 
             result.Content.IsNotNull();
         }
-        
+
+        [Test]
+        public void GetGuestList()
+        {
+            var eventGuests = new List<EventGuestDetails>()
+            {
+                new EventGuestDetails {GuestEmail = "hello@world.com", TicketId = 123}
+            };
+
+            _mockEventManager.SetupWithVerification(
+                call => call.BuildGuestList(It.IsAny<int>()),
+                eventGuests);
+
+            var controller = BuildTargetObject();
+            var result = controller.GetGuestList(111);
+            var okResult = result.IsTypeOf<OkNegotiatedContentResult<IEnumerable<GuestContract>>>();
+            var expected = okResult.Content.Single();
+
+            expected.TicketId.IsEqualTo(123);
+            expected.GuestEmail.IsEqualTo("hello@world.com");
+        }
+
         [Test]
         public async void GetEventGroup_NoResults_ReturnsNotFound()
         {
             _mockEventManager.SetupWithVerification(
-                call => call.GetEventGroup(It.IsAny<int>()), 
+                call => call.GetEventGroup(It.IsAny<int>()),
                 Task.FromResult<EventGroup>(null));
-        
+
             var controller = BuildTargetObject();
             var results = await controller.GetEventGroup(123, 543);
             results.IsTypeOf<NotFoundResult>();
         }
+
         private Mock<IEventManager> _mockEventManager;
+
         private Mock<ISearchService> _mockSearchService;
 
         [SetUp]

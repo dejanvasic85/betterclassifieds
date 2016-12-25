@@ -14,7 +14,7 @@ namespace Paramount.Betterclassifieds.Tests.Integration
         public void GetEventGroups()
         {
             var repository = new EventRepository(new DbContextFactory());
-            var result = repository.GetEventGroups(11, null).Result;
+            var result = repository.GetEventGroupsAsync(11, null).Result;
 
         }
 

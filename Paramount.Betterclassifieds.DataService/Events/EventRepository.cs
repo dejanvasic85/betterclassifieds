@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Monads;
@@ -173,10 +174,10 @@ namespace Paramount.Betterclassifieds.DataService.Events
             {
                 var id = eventId.GetValueOrDefault();
                 var query = context.EventBookingTickets
+                    .Include(t => t.TicketFieldValues)
                     .Where(t => t.EventBooking.EventId == id)
                     .Where(t => t.EventBooking.StatusAsString == EventBookingStatus.Active.ToString())
-                    .Where(t => t.IsActive)
-                    .Include(t => t.TicketFieldValues);
+                    .Where(t => t.IsActive);
 
                 return query.ToList();
             }
@@ -198,16 +199,29 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
-        public async Task<IEnumerable<EventGroup>> GetEventGroups(int eventId, int? eventTicketId)
+        public async Task<IEnumerable<EventGroup>> GetEventGroupsAsync(int eventId, int? eventTicketId)
         {
             using (var context = _dbContextFactory.CreateEventContext())
             {
-                return await context.Database
+                return await GetRawEventGroupsQuery(context, eventId, eventTicketId).ToListAsync();
+            }
+        }
+
+        public IEnumerable<EventGroup> GetEventGroups(int eventId, int? eventTicketId)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                return GetRawEventGroupsQuery(context, eventId, eventTicketId).ToList();
+            }
+        }
+
+        private DbRawSqlQuery<EventGroup> GetRawEventGroupsQuery(EventDbContext context, int eventId, int? eventTicketId)
+        {
+            return context.Database
                     .SqlQuery<EventGroup>("EventGroups_GetByEventId @eventId, @eventTicketId",
                         new SqlParameter("eventId", eventId),
-                        new SqlParameter("eventTicketId", SqlDbType.Int) { SqlValue = eventTicketId.SqlNullIfEmpty() })
-                    .ToListAsync();
-            }
+                        new SqlParameter("eventTicketId", SqlDbType.Int) { SqlValue = eventTicketId.SqlNullIfEmpty() });
+
         }
 
         public async Task<EventGroup> GetEventGroup(int eventGroupId)

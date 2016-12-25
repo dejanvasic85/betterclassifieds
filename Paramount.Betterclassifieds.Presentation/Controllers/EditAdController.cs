@@ -224,7 +224,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 eventTicket.Price, eventTicket.RemainingQuantity, 
                 this.MapList<EventTicketFieldViewModel, EventTicketField>(viewModel.EventTicket.EventTicketFields.ToList()));
 
-            // todo send notifications (if required)
+            if (viewModel.ResendGuestNotifications)
+            {
+                
+            }
 
             return Json(viewModel.EventTicket);
         }
@@ -576,7 +579,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _broadcastManager.Queue(notification, eventBookingTicket.GuestEmail);
             return Json(true);
         }
-
+        
         [HttpGet, ActionName("remove-guest-complete")]
         public ActionResult RemoveGuestComplete(int id)
         {

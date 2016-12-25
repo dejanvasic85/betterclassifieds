@@ -83,12 +83,14 @@ namespace Paramount.Betterclassifieds.Tests.Events
         [Test]
         public void BuildGuestList_ForEvent_ReturnsListOfGuests_WithAllData()
         {
-            var eventMock = new EventModelMockBuilder().WithEventId(10).Build();
+            var mockGroup = new EventGroupMockBuilder().WithEventGroupId(123).WithGroupName("foo group").Build();
             var ticketBuilder = new EventBookingTicketMockBuilder()
                 .WithEventTicketId(900)
                 .WithTicketName("General Admission")
                 .WithGuestFullName("Morgan Freeman")
-                .WithGuestEmail("fake@email.com");
+                .WithGuestEmail("fake@email.com")
+                .WithEventGroupId(123)
+                ;
 
             var mockTickets = new[]
             {
@@ -100,14 +102,21 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 It.Is<int>(param => param == 10)),
                 mockTickets);
 
+            _eventRepositoryMock.SetupWithVerification(
+                call => call.GetEventGroups(It.IsAny<int>(), null), new List<EventGroup> {mockGroup});
+
+
             var result = this.BuildTargetObject().BuildGuestList(10).ToList();
 
 
-            Assert.That(result.Count, Is.EqualTo(2));
-            Assert.That(result[0].GuestFullName, Is.EqualTo("Morgan Freeman"));
-            Assert.That(result[0].GuestEmail, Is.EqualTo("fake@email.com"));
-            Assert.That(result[0].TicketNumber, Is.EqualTo(1));
-            Assert.That(result[0].TicketName, Is.EqualTo("General Admission"));
+            result.Count.IsEqualTo(2);
+            var expectedGuest = result.First();
+            expectedGuest.GuestFullName.IsEqualTo("Morgan Freeman");
+            expectedGuest.GuestEmail.IsEqualTo("fake@email.com");
+            expectedGuest.TicketNumber.IsEqualTo(1);
+            expectedGuest.TicketName.IsEqualTo("General Admission");
+            expectedGuest.GroupName.IsEqualTo("foo group");
+
         }
 
         [Test]
@@ -589,7 +598,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 mockBuilder.WithEventGroupId(101).Build()
             }).AsEnumerable();
 
-            _eventRepositoryMock.Setup(call => call.GetEventGroups(It.IsAny<int>(), It.IsAny<int?>()))
+            _eventRepositoryMock.Setup(call => call.GetEventGroupsAsync(It.IsAny<int>(), It.IsAny<int?>()))
                 .Returns(Task.FromResult(objectsToReturn));
 
             var manager = BuildTargetObject();
@@ -791,7 +800,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var currentRemainingQuantity = 9;
             var expectedRemainingQuantity = 10;
             var mockTicket = new EventTicketMockBuilder().Default().WithRemainingQuantity(currentRemainingQuantity).Build();
-            
+
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingTicket(It.IsAny<int>()), result: mockEventBookingTicket);
             _eventRepositoryMock.SetupWithVerification(call => call.UpdateEventBookingTicket(It.Is<EventBookingTicket>(t => t == mockEventBookingTicket)));
 
@@ -876,11 +885,11 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.Is<int>(e => e == mockEventId)), mockEvent);
             _eventRepositoryMock.SetupWithVerification(call => call.UpdateEvent(It.Is<EventModel>(e => e == mockEvent)));
-            
+
             // Act 
             var manager = BuildTargetObject();
             manager.UpdateEventGroupSettings(mockEventId, true);
-            
+
             mockEvent.GroupsRequired.IsTrue();
         }
 

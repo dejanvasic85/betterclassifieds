@@ -13,5 +13,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public EventTicketFieldViewModel[] DynamicFields { get; set; }
         public decimal TicketTotalPrice { get; set; }
         public DateTime DateOfBooking { get; set; }
+        public string GroupName { get; set; }
     }
 }

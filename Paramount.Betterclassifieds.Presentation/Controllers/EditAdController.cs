@@ -276,8 +276,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var excelBytes = new Services.ExcelGuestGeneratorService(viewModel.Guests).GetBytes();
             return File(excelBytes, ContentType.Excel, $"{viewModel.EventName} - Guest list.xlsx");
         }
-
-
+        
         private EventGuestListDownloadViewModel GetEventGuestList(int id, int eventId)
         {
             var adDetails = _searchService.GetByAdId(id);
@@ -286,8 +285,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var viewModel = new EventGuestListDownloadViewModel { EventName = adDetails.Heading, Guests = guests };
             return viewModel;
         }
-
-
+        
         [HttpGet]
         public ActionResult EventPaymentRequest(int id, int eventId)
         {

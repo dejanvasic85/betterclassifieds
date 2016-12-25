@@ -33,11 +33,11 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             eventTicket.EventTicketFields?.Do(f =>
             {
                 // Match on name
-                var val = eventBookingTicket.TicketFieldValues.Single(v => v.FieldName.Equals(f.FieldName));
+                var val = eventBookingTicket.TicketFieldValues.FirstOrDefault(v => v.FieldName.Equals(f.FieldName, StringComparison.OrdinalIgnoreCase));
                 Fields.Add(new EventTicketFieldViewModel
                 {
                     FieldName = f.FieldName,
-                    FieldValue = val.FieldValue,
+                    FieldValue = val?.FieldValue,
                     IsRequired = f.IsRequired,
                     EventTicketId = f.EventTicketId.GetValueOrDefault()
                 });

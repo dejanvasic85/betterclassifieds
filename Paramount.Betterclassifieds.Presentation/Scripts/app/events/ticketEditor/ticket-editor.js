@@ -41,7 +41,7 @@
 
             me.addField = function () {
                 me.eventTicketFields.push(new $p.models.DynamicFieldDefinition(me));
-                if (ticketHasPurchases() === true) {
+                if (me.ticketHasPurchases() === true) {
                     me.displayGuestPurchasesWarning(true);
                 }
             }

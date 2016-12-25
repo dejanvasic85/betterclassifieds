@@ -264,7 +264,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult DownloadGuestListCsv(int id, int eventId)
         {
             var viewModel = GetEventGuestList(id, eventId);
-            var csvGenerator = new Business.Csv.CsvGenerator<EventGuestListViewModel>(viewModel.Guests, new EventGuestListCsvLineProvider());
+            var availableTickets = _eventManager.GetEventDetails(eventId).Tickets;
+            var csvGenerator = new Business.Csv.CsvGenerator<EventGuestListViewModel>(viewModel.Guests, new EventGuestListCsvLineProvider(availableTickets));
             var csvData = csvGenerator.GetBytes();
             return File(csvData, ContentType.Csv, $"{viewModel.EventName} - Guest List.csv");
         }
@@ -273,7 +274,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult DownloadGuestListExcel(int id, int eventId)
         {
             var viewModel = GetEventGuestList(id, eventId);
-            var excelBytes = new Services.ExcelGuestGeneratorService(viewModel.Guests).GetBytes();
+            var availableTickets = _eventManager.GetEventDetails(eventId).Tickets;
+            var excelBytes = new Services.ExcelGuestGeneratorService(availableTickets, viewModel.Guests).GetBytes();
             return File(excelBytes, ContentType.Excel, $"{viewModel.EventName} - Guest list.xlsx");
         }
         

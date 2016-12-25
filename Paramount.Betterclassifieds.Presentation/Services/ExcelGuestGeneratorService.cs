@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Monads;
 using OfficeOpenXml;
+using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 
 namespace Paramount.Betterclassifieds.Presentation.Services
 {
     public class ExcelGuestGeneratorService : IDisposable
     {
+        private readonly EventTicketField[] _eventTicketFields;
         private readonly IEnumerable<EventGuestListViewModel> _data;
         private readonly Lazy<ExcelPackage> _lazyPackage;
 
-        public ExcelGuestGeneratorService(IEnumerable<EventGuestListViewModel> data)
+        public ExcelGuestGeneratorService(IEnumerable<EventTicket> eventTickets, IEnumerable<EventGuestListViewModel> data)
         {
             // ReSharper disable once PossibleMultipleEnumeration
             Guard.NotNull(data);
             // ReSharper disable once PossibleMultipleEnumeration
+            _eventTicketFields = eventTickets.SelectMany(t => t.EventTicketFields).ToArray();
             _data = data;
 
             _lazyPackage = new Lazy<ExcelPackage>(GetPackage);
@@ -32,18 +35,15 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             sheet.Cells[1, 2].Value = "Ticket Name";
             sheet.Cells[1, 3].Value = "Guest Email";
             sheet.Cells[1, 4].Value = "Guest Full Name";
-            sheet.Cells[1, 5].Value = "Ticket Price";
-            sheet.Cells[1, 6].Value = "Booking Date";
-            sheet.Cells[1, 7].Value = "Booking Time";
+            sheet.Cells[1, 5].Value = "Group";
+            sheet.Cells[1, 6].Value = "Ticket Price";
+            sheet.Cells[1, 7].Value = "Booking Date";
+            sheet.Cells[1, 8].Value = "Booking Time";
 
-
-            // Fetch the dynamic fields (headers)
-            var firstEntry = _data.First();
-            var numberOfDynamicFields = firstEntry.With(f => f.DynamicFields).With(f => f.Count());
-
-            for (int i = 0; i < numberOfDynamicFields; i++)
+            for (int i = 0; i < _eventTicketFields.Length; i++)
             {
-                sheet.Cells[1, i + 8].Value = firstEntry.DynamicFields[i].FieldName;
+                var field = _eventTicketFields[i];
+                sheet.Cells[1, i + 9].Value = field.FieldName;
             }
 
             // Data rows
@@ -54,20 +54,20 @@ namespace Paramount.Betterclassifieds.Presentation.Services
                 sheet.Cells[dataRowIndex, 2].Value = guest.TicketName;
                 sheet.Cells[dataRowIndex, 3].Value = guest.GuestEmail;
                 sheet.Cells[dataRowIndex, 4].Value = guest.GuestFullName;
-                sheet.Cells[dataRowIndex, 5].Value = guest.TicketTotalPrice;
-                sheet.Cells[dataRowIndex, 6].Value = guest.DateOfBooking.ToString("dd/MM/yyyy");
-                sheet.Cells[dataRowIndex, 7].Value = guest.DateOfBooking.ToString("HH:mm");
-                
+                sheet.Cells[dataRowIndex, 5].Value = guest.GroupName;
+                sheet.Cells[dataRowIndex, 6].Value = guest.TicketTotalPrice;
+                sheet.Cells[dataRowIndex, 7].Value = guest.DateOfBooking.ToString("dd/MM/yyyy");
+                sheet.Cells[dataRowIndex, 8].Value = guest.DateOfBooking.ToString("HH:mm");
+
 
                 // Print out the dynamic field (values)
-                for (int i = 0; i < guest.With(g => g.DynamicFields).With(d => d.Length); i++)
+                for (int i = 0; i < _eventTicketFields.Length; i++)
                 {
-                    var cell = sheet.Cells[dataRowIndex, i + 9];
-                    cell.Value = guest.DynamicFields[i].FieldValue;
+                    var field = _eventTicketFields[i];
+                    var guestField = guest.DynamicFields.FirstOrDefault(f => f.FieldName.Equals(field.FieldName, StringComparison.OrdinalIgnoreCase));
+                    if (guestField != null)
+                        sheet.Cells[dataRowIndex, i + 9].Value = guestField.FieldValue;
                 }
-
-
-
                 dataRowIndex++;
             }
 

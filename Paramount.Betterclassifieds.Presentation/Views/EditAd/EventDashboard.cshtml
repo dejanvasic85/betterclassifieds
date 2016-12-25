@@ -112,7 +112,7 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </div>x
 
         @*Ticketing*@
         <div class="col-xs-12">
@@ -196,6 +196,12 @@
                                                 <i class="fa fa-user"></i>&nbsp;
                                                 <span data-bind="text: guestFullName"></span>
                                                 &lt;<span data-bind="text: guestEmail"></span>&gt;
+                                            </li>
+                                            
+                                        </ul>
+                                        <ul class="list-unstyled guest-fields">
+                                            <li data-bind="visible: groupName() !== null">
+                                                <span>Group</span> : <span data-bind="text: groupName"></span>
                                             </li>
                                         </ul>
                                         <ul class="list-unstyled guest-fields" data-bind="foreach: dynamicFields">

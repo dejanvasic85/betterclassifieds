@@ -1,5 +1,10 @@
 Here's a list of the latest changes:
 
+**3.17.0**
+
+- [Fix - Guest list csv and excel were not exporting fields correctly](https://trello.com/c/bBa52B2q/583-guest-list-was-not-displaying-fields-properly)
+
+ 
 **3.16.2 - Post-Release bug fixes**
 
 - [Fix - Groups should be ordered by name](https://trello.com/c/Nh7HAiSD/569-groups-are-not-ordered-by-name)

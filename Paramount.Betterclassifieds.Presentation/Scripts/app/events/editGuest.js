@@ -35,7 +35,7 @@
 
         me.save = function (vm, event) {
 
-            if ($p.checkValidity(me) === false) {
+            if (!$p.checkValidity(me) || !$paramount.checkValidity(me.fields())) {
                 return;
             }
 

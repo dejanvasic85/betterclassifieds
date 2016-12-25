@@ -1,5 +1,10 @@
 ﻿(function ($, ko, $p) {
 
+    ko.components.register('find-tickets', {
+        viewModel: Tickets,
+        template: { path: $p.baseUrl + '/Scripts/app/events/ticketSelection/find-tickets.html' }
+    });
+
     var eventService;
 
     function Tickets(params) {
@@ -202,10 +207,7 @@
         });
     }
 
-    ko.components.register('find-tickets', {
-        viewModel: Tickets,
-        template: { path: $p.baseUrl + '/Scripts/app/events/ticketSelection/find-tickets.html' }
-    });
+    
 
 
 })(jQuery, ko, $paramount);

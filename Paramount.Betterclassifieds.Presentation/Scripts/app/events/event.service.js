@@ -51,6 +51,11 @@
         return $paramount.httpGet(url);
     }
 
+    EventService.prototype.getGuests = function (eventId) {
+        var url = this.baseUrl + 'api/events/' + eventId + '/guests';
+        return $paramount.httpGet(url);
+    }
+
     EventService.prototype.assignGroup = function (eventBookingTicketId, eventGroupId) {
         var data = {
             eventBookingTicketId: eventBookingTicketId,

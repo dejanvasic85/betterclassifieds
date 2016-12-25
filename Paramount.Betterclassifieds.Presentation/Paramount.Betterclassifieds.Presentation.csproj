@@ -611,12 +611,15 @@
     <Content Include="Scripts\app\events\ticketSelection\ticket-options.html" />
     <Content Include="Scripts\app\pagination\pagination.html" />
     <Content Include="Scripts\app\pagination\pagination.js" />
+    <Content Include="Scripts\app\progress-bar\progress-bar.html" />
+    <Content Include="Scripts\app\progress-bar\progress-bar.js" />
     <Content Include="Scripts\app\ui\home.ui.js" />
     <Content Include="Scripts\app\locations\location.service.js" />
     <Content Include="Scripts\app\userNetwork\userNetwork.service.js" />
     <Content Include="Scripts\app\userNetwork\userNetworkAdNotifier.model.js" />
     <Content Include="Scripts\app\userNetwork\userNetworkNotifyAd.ui.js" />
     <Content Include="Scripts\knockout\knockout.validation-2.0.3.js" />
+    <Content Include="Scripts\vendor\bluebird.js" />
     <Content Include="Scripts\vendor\bootstrap-3.3.6.js" />
     <Content Include="Scripts\vendor\bootstrap-clockpicker.js" />
     <Content Include="Scripts\vendor\bootstrap-datepicker.js" />

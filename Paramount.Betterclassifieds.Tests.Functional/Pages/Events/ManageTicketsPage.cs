@@ -8,7 +8,7 @@ using Paramount.Betterclassifieds.Tests.Functional.Base;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 {
-    [NavRoute("editad/event-ticketing/{0}?eventId={1}")]
+    [NavRoute("event-dashboard/{0}/event/{1}")]
     internal class ManageTicketsPage : ITestPage
     {
         private readonly IWebDriver _webDriver;
@@ -95,6 +95,18 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
             var fieldNameInput = _webDriver.FindElements(By.CssSelector(Locators.FieldNameInput)).ElementAt(FieldCount - 1);
             fieldNameInput.FillText(fieldName);
 
+            return this;
+        }
+
+        public ManageTicketsPage EditTicket(string ticketName, out int ticketId)
+        {
+            var editBtn = _webDriver.FindElements(By.CssSelector($"[data-ticketName='{ticketName}'] .btn"))
+                .Single(btn => btn.Text.Equals("edit", StringComparison.OrdinalIgnoreCase));
+
+            var ticketIdAttr = editBtn.GetAttribute("data-ticketId");
+            ticketId = int.Parse(ticketIdAttr);
+
+            editBtn.Click();
             return this;
         }
     }

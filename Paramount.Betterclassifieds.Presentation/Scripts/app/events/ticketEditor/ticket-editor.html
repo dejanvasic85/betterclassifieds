@@ -1,15 +1,15 @@
 ﻿<div class="row">
     <div class="col-xs-12 form-group-lg" data-bind="validationElement: ticketName">
-        <label for="ticketName" class="control-label">Ticket Name:</label>
-        <input id="ticketName" data-bind="value: ticketName" type="text" class="form-control" />
+        <label for="txtTicketName" class="control-label">Ticket Name:</label>
+        <input id="txtTicketName" data-bind="value: ticketName" type="text" class="form-control" />
     </div>
 
     <div class="col-xs-12 form-group-lg" data-bind="validationElement: price">
         <label class="control-label">Price</label>
-        <input id="txtTicketPrice" type="number" class="form-control" data-bind="value: price"/>
+        <input id="txtTicketPrice" type="number" class="form-control" data-bind="value: price" />
     </div>
     <div class="col-xs-12 form-group-lg" data-bind="validationElement: availableQuantity, visible: !editMode">
-        <label class="control-label">Remaining Quantity</label>
+        <label class="control-label">Available Quantity</label>
         <input id="txtAvailableQuantity" type="number" class="form-control" data-bind="value: availableQuantity" />
     </div>
     <div class="col-xs-12 form-group-lg" data-bind="validationElement: remainingQuantity, visible: editMode">
@@ -66,10 +66,12 @@
         </div>
     </div>
 
+    <hr />
+
     <div class="row" data-bind="visible: displayGuestPurchasesWarning() === false">
 
         <div class="col-sm-offset-8 col-sm-4 top-buffer-10" data-bind="click: saveTicket">
-            <button class="btn btn-success btn-block ko-load">
+            <button class="btn btn-success btn-block ko-load" id="btnSaveTicket">
                 <i class="fa fa-floppy-o"></i> Save
             </button>
         </div>

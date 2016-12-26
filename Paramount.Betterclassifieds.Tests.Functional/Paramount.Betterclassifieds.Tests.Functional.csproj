@@ -106,6 +106,7 @@
       <DependentUpon>AccountDetails.feature</DependentUpon>
     </Compile>
     <Compile Include="Pages\Events\EditGuestPage.cs" />
+    <Compile Include="Pages\Events\EditTicketPage.cs" />
     <Compile Include="Pages\Events\EventBookedPage.cs" />
     <Compile Include="Mocks\Models\EventBookingData.cs" />
     <Compile Include="Mocks\Models\EventBookingTicketData.cs" />

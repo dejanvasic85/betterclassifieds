@@ -220,29 +220,34 @@ this.ScenarioSetup(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Create event ticket with custom fields")]
-        [NUnit.Framework.IgnoreAttribute()]
         [NUnit.Framework.CategoryAttribute("EventTickets")]
         public virtual void CreateEventTicketWithCustomFields()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create event ticket with custom fields", new string[] {
-                        "EventTickets",
-                        "ignore"});
-#line 65
+                        "EventTickets"});
+#line 64
 this.ScenarioSetup(scenarioInfo);
-#line 66
+#line 65
  testRunner.Given("an event ad titled \"Ticket Management Event\" exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 67
+#line 66
  testRunner.And("I am logged in as \"bdduser\" with password \"password123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 68
+#line 67
  testRunner.When("I go to the event dashboard for the current ad", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 69
+#line 68
  testRunner.And("I select to manage tickets", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 70
+#line 69
  testRunner.And("a new ticket is created titled \"Ticket One\" with price \"0\" and quantity \"100\" and" +
                     " field \"Custom Field 1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 71
+#line 70
  testRunner.Then("a ticket \"Ticket One\" exists with price \"0\" quantity \"100\" and field \"Custom Fiel" +
                     "d 1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 71
+ testRunner.When("I edit the ticket \"Ticket One\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 72
+ testRunner.And("I change the name to \"Ticket One Updated\" price to \"10\" and quantity to \"120\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 73
+ testRunner.Then("a ticket \"Ticket One Updated\" exists with price \"10\" quantity \"120\" and field \"Cu" +
+                    "stom Field 1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -256,25 +261,25 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Resend tickets to a guest", new string[] {
                         "ResendTickets",
                         "EventTickets"});
-#line 76
-this.ScenarioSetup(scenarioInfo);
-#line 77
- testRunner.Given("an event ad titled \"Ticket Resend feature event\" exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 78
- testRunner.And("I am logged in as \"bdduser\" with password \"password123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+this.ScenarioSetup(scenarioInfo);
 #line 79
+ testRunner.Given("an event ad titled \"Ticket Resend feature event\" exists", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 80
+ testRunner.And("I am logged in as \"bdduser\" with password \"password123\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 81
  testRunner.And("with a ticket option \"General Admission\" for \"5\" dollars each and \"100\" available" +
                     "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 80
+#line 82
  testRunner.And("a guest name \"Guest One\" and email \"guestone@email.com\" with a \"General Admission" +
                     "\" ticket to \"Ticket Resend feature event\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 81
- testRunner.When("I go to the event dashboard for the current ad", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 82
- testRunner.And("I go to edit the guest \"guestone@email.com\" from the dashboard", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 83
- testRunner.And("I choose to resend ticket for the guest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("I go to the event dashboard for the current ad", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 84
+ testRunner.And("I go to edit the guest \"guestone@email.com\" from the dashboard", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 85
+ testRunner.And("I choose to resend ticket for the guest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 86
  testRunner.Then("the ticket should be sent successfully", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

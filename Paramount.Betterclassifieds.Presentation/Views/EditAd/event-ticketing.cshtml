@@ -171,9 +171,10 @@
         @*List of current Tickets*@
         <!-- ko foreach: tickets -->
         <div class="col-xs-12 col-lg-6 top-buffer-20">
-            <div class="panel panel-default event-ticket-panel" data-bind="css : {'panel-danger' : soldOut }">
+            <div class="panel panel-default event-ticket-panel" data-bind="attr: {'data-ticketName': ticketName}, css : {'panel-danger' : soldOut }">
                 <div class="panel-heading">
                     <h4>
+                        <i class="fa fa-ticket"></i>
                         <span data-bind="text: ticketName"></span>
                         <span data-bind="text: priceFormatted"></span>
                     </h4>
@@ -192,7 +193,7 @@
                 </div>
 
                 <div class="panel-footer text-right">
-                    <a class="btn btn-primary js-load" data-bind="attr : {href : editTicketUrl}">Edit</a>
+                    <a class="btn btn-primary js-load" data-bind="attr : {href : editTicketUrl, 'data-ticketId': eventTicketId}" >Edit</a>
                 </div>
             </div>
         </div>

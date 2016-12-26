@@ -28,7 +28,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         [FindsBy(How = How.Id, Using = "btnUpdateGuest")]
         public IWebElement UpdateGuestButton { get; set; }
 
-        [FindsBy(How = How.Id, Using= "btnResendGuestTicket")]
+        [FindsBy(How = How.Id, Using = "btnResendGuestTicket")]
         public IWebElement ResentTicketButton { get; set; }
 
         public void RemoveGuest()
@@ -76,7 +76,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         {
             var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(5));
             var el = wait.Until(ExpectedConditions.ElementIsVisible(By.ClassName("toast-success")));
-            return el.Text; 
+            return el.Text;
         }
 
         public EditGuestPage ResentTicket()

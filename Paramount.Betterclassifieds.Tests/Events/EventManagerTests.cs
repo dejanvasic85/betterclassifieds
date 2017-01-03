@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Compilation;
 using Moq;
 using NUnit.Framework;
 using Paramount.Betterclassifieds.Business;
@@ -64,20 +63,16 @@ namespace Paramount.Betterclassifieds.Tests.Events
         public void CreateEventTicketsDocument_CallsDocumentRepository_ReturnsDocumentId()
         {
             var mockEventBookingId = 10;
-            var mockSentDateTime = DateTime.Now;
-            var mockEventBooking = new EventBookingMockBuilder().WithEventBookingId(mockEventBookingId).Build();
+            var mockTicket = new EventBookingTicketMockBuilder().Default().Build();
 
             _documentRepository.SetupWithVerification(call => call.Create(It.IsAny<Document>()));
-            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBooking(It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<bool>()), result: mockEventBooking);
-            _eventRepositoryMock.SetupWithVerification(call => call.UpdateEventBooking(It.Is<EventBooking>(eb => eb == mockEventBooking)));
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingTicket(It.IsAny<int>()), mockTicket);
+            _eventRepositoryMock.SetupWithVerification(call => call.UpdateEventBookingTicket(It.Is<EventBookingTicket>(eb => eb == mockTicket)));
 
             var eventManager = this.BuildTargetObject();
-            var documentId = eventManager.CreateEventTicketDocument(mockEventBookingId, new byte[0], ticketsSentDate: mockSentDateTime);
+            var documentId = eventManager.CreateEventTicketDocument(mockEventBookingId, new byte[0]);
 
-            Assert.That(documentId, Is.Not.Null);
-            Assert.That(mockEventBooking.TicketsDocumentId, Is.Not.Null);
-            Assert.That(mockEventBooking.TicketsSentDate, Is.EqualTo(mockSentDateTime));
-            Assert.That(mockEventBooking.TicketsSentDateUtc, Is.Not.Null);
+            documentId.IsNotNull();
         }
 
         [Test]

@@ -3,15 +3,15 @@ using System.Net.Mime;
 
 namespace Paramount.Betterclassifieds.Business.Broadcast
 {
-    public class EventGuestNotification : IDocType
+    public class EventGuestResendNotification : IDocType
     {
-        public EventGuestNotification()
+        public EventGuestResendNotification()
         {
             Attachments = new List<EmailAttachment>();
         }
-        public string DocumentType => "EventGuest";
-        public IList<EmailAttachment> Attachments { get; set; }
+        public string DocumentType => "EventGuestResend";
 
+        public IList<EmailAttachment> Attachments { get; set; }
 
         [Placeholder("EventName")]
         public string EventName { get; set; }
@@ -43,13 +43,13 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         [Placeholder("GroupName")]
         public string GroupName { get; set; }
 
-        [Placeholder("GuestFullName")]
-        public string GuestFullName { get; set; }
-        
-        [Placeholder("GroupEmail")]
+        [Placeholder("GuestEmail")]
         public string GuestEmail { get; set; }
 
-        public EventGuestNotification WithCalendarInvite(byte[] calendarContent)
+        [Placeholder("GuestFullName")]
+        public string GuestFullName { get; set; }
+
+        public EventGuestResendNotification WithCalendarInvite(byte[] calendarContent)
         {
             Attachments.Add(
                 new EmailAttachment
@@ -61,7 +61,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
             return this;
         }
 
-        public EventGuestNotification WithTicket(byte[] ticket)
+        public EventGuestResendNotification WithTicket(byte[] ticket)
         {
             Attachments.Add(
                 new EmailAttachment

@@ -23,6 +23,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         IEnumerable<EventTicketPrintViewModel> CreateEventTicketPrintViewModelsForBooking();
         byte[] CreateInvoiceAttachment();
         IEnumerable<EventGuestNotification> CreateEventGuestNotifications();
+        IEnumerable<EventGuestResendNotification> CreateEventGuestResendNotifications();
         EventBookedViewModel CreateEventBookedViewModel();
     }
 
@@ -166,6 +167,22 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             var eventGuestNotificationFactory = new EventGuestNotificationFactory();
 
             return EventBooking.Value.EventBookingTickets.Select(eventBookingTicket => eventGuestNotificationFactory.Create(
+                _httpContextBase,
+                _clientConfig,
+                EventDetails.Value,
+                eventBookingTicket,
+                Ad.Value,
+                EventGroups.Value,
+                EventUrl.Value,
+                EventBooking.Value.GetFullName(),
+                CreateTicketAttachment(eventBookingTicket)));
+        }
+
+        public IEnumerable<EventGuestResendNotification> CreateEventGuestResendNotifications()
+        {
+            var eventGuestNotificationFactory = new EventGuestNotificationFactory();
+
+            return EventBooking.Value.EventBookingTickets.Select(eventBookingTicket => eventGuestNotificationFactory.CreateGuestResendNotification(
                 _httpContextBase,
                 _clientConfig,
                 EventDetails.Value,

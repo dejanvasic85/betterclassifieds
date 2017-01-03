@@ -573,7 +573,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var eventBookingTicket = _eventManager.GetEventBookingTicket(eventBookingTicketId);
             var notification = _eventNotificationBuilder
                 .WithEventBooking(eventBookingTicket.EventBookingId)
-                .CreateEventGuestNotifications()
+                .CreateEventGuestResendNotifications()
                 .Single(g => g.GuestEmail == eventBookingTicket.GuestEmail);
 
             _broadcastManager.Queue(notification, eventBookingTicket.GuestEmail);

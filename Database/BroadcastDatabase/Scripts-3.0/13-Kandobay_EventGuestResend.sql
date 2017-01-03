@@ -2,6 +2,8 @@
 exec [EmailTemplate_Upsert]
 	@DocType = 'EventGuestResend',
 	@Brand = 'KandoBay',
+	@SubjectTemplate = 'Tickets resent for [/EventName/]',
+	@From = 'events@kandobay.com.au',
 	@BodyTemplate = '
 <!DOCTYPE html>
 <html lang="en">

@@ -2,6 +2,8 @@
 exec [EmailTemplate_Upsert]
 	@DocType = 'EventGuestResend',
 	@Brand = 'TheMusic',
+	@From = 'classies@themusic.com.au',
+	@SubjectTemplate = 'Tickets resent for [/EventName/]',
 	@BodyTemplate = '
 <h3>Hello [/GuestFullName/]</h3>
     <p>On behalf of the event organiser for <em>[/EventName/]</em> we are resending your tickets due to potential changes to the event or your tickets.</p> <p>Please use this email (tickets included) for entry and discard the old one(s).</p>

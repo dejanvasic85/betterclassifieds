@@ -28,6 +28,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 ContactNumber = adDetails.ContactPhone,
                 GroupName = group.With(g => g.GroupName),
                 GuestFullName = ticket.GuestFullName,
+                GuestEmail = ticket.GuestEmail,
                 BarcodeImageDocumentId = ticket.BarcodeImageDocumentId.GetValueOrDefault().ToString()
             };
         }

@@ -36,7 +36,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                 EventBookingStatus status;
                 if (Enum.TryParse(value, out status))
                 {
-                    this.Status = status;
+                    Status = status;
                 }
             }
         }
@@ -49,20 +49,17 @@ namespace Paramount.Betterclassifieds.Business.Events
                 PaymentType status;
                 if (Enum.TryParse(value, out status))
                 {
-                    this.PaymentMethod = status;
+                    PaymentMethod = status;
                 }
             }
         }
 
-        public Guid? TicketsDocumentId { get; set; }
-        public DateTime? TicketsSentDate { get; set; }
-        public DateTime? TicketsSentDateUtc { get; set; }
         public decimal Cost { get; set; }
         public decimal TransactionFee { get; set; }
 
         public string GetFullName()
         {
-            return string.Format("{0} {1}", FirstName, LastName);
+            return $"{FirstName} {LastName}";
         }
 
         public int TotalCostInCents()

@@ -26,7 +26,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         void ActivateBooking(int? eventBookingId, long? eventInvitationId);
         void SetPaymentReferenceForBooking(int eventBookingId, string paymentReference, PaymentType paymentType);
         void AdjustRemainingQuantityAndCancelReservations(string sessionId, IList<EventBookingTicket> eventBookingTickets);
-        string CreateEventTicketsDocument(int eventBookingId, byte[] ticketPdfData, DateTime? ticketsSentDate = null);
+        string CreateEventTicketDocument(int eventBookingTicketId, byte[] ticketPdfData);
         void UpdateEventTicket(int eventTicketId, string ticketName, decimal price, int remainingQuantity, IEnumerable<EventTicketField> fields);
         EventTicket CreateEventTicket(int eventId, string ticketName, decimal price, int remainingQuantity, IEnumerable<EventTicketField> fields);
         IEnumerable<EventGuestDetails> BuildGuestList(int? eventId);

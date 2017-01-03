@@ -11,9 +11,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 {
     public class EventGuestNotificationFactory
     {
-        public EventGuestNotification Create(HttpContextBase httpContext, IClientConfig config,
-            EventModel eventModel, EventBookingTicket eventBookingTicket, AdSearchResult ad, IEnumerable<EventGroup> eventGroups,
-            string eventUrl, string purchaserName)
+        public EventGuestNotification Create(HttpContextBase httpContext, IClientConfig config, EventModel eventModel, EventBookingTicket eventBookingTicket, AdSearchResult ad, IEnumerable<EventGroup> eventGroups, string eventUrl, string purchaserName, byte[] ticketAttachment)
         {
             var urlHelper = new UrlHelper(httpContext.Request.RequestContext);
 
@@ -45,7 +43,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 eventUrl,
                 eventModel.TimeZoneId);
 
-            notification.WithCalendarInvite(calendarAttachmentContent);
+            notification.WithCalendarInvite(calendarAttachmentContent).WithTicket(ticketAttachment);
 
             return notification;
         }

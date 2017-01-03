@@ -18,8 +18,9 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         IEventNotificationBuilder WithEventBooking(int? eventBookingId);
         IEventNotificationBuilder WithTemplateService(ITemplatingService templateService);
         EventTicketsBookedNotification CreateTicketPurchaserNotification();
-        byte[] CreateTicketsAttachment();
-        IEnumerable<EventTicketPrintViewModel> CreateEventTicketPrintViewModels();
+        byte[] CreateTicketAttachment(EventBookingTicket ticket);
+        EventTicketPrintViewModel CreateEventTicketPrintViewModel(EventBookingTicket ticket);
+        IEnumerable<EventTicketPrintViewModel> CreateEventTicketPrintViewModelsForBooking();
         byte[] CreateInvoiceAttachment();
         IEnumerable<EventGuestNotification> CreateEventGuestNotifications();
         EventBookedViewModel CreateEventBookedViewModel();
@@ -62,7 +63,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
             if (EventBookingId.HasValue)
                 return this;
-                
+
             EventBookingId = eventBookingId.GetValueOrDefault();
 
             CreateEventBookedViewModel();
@@ -119,8 +120,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
 
         public EventTicketsBookedNotification CreateTicketPurchaserNotification()
         {
-            var notification = this.Map<EventBookedViewModel, EventTicketsBookedNotification>(_eventBookedViewModel)
-                .WithTickets(CreateTicketsAttachment());
+            var notification = this.Map<EventBookedViewModel, EventTicketsBookedNotification>(_eventBookedViewModel);
 
             if (EventBooking.Value.TotalCost > 0)
                 notification.WithInvoice(CreateInvoiceAttachment());
@@ -128,22 +128,28 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             return notification;
         }
 
-        public byte[] CreateTicketsAttachment()
+        public byte[] CreateTicketAttachment(EventBookingTicket ticket)
         {
-            var viewModels = CreateEventTicketPrintViewModels().ToList();
-            var ticketHtml = _templateService.Generate(viewModels, "~/Views/Templates/Tickets.cshtml");
+            var viewModel = CreateEventTicketPrintViewModel(ticket);
+
+            var ticketHtml = _templateService.Generate(new List<EventTicketPrintViewModel> { viewModel }, "~/Views/Templates/Tickets.cshtml");
             var ticketPdfData = new NReco.PdfGenerator.HtmlToPdfConverter().GeneratePdf(ticketHtml);
+
+            _eventManager.CreateEventTicketDocument(ticket.EventBookingTicketId, ticketPdfData);
 
             return ticketPdfData;
         }
 
-        public IEnumerable<EventTicketPrintViewModel> CreateEventTicketPrintViewModels()
+        public EventTicketPrintViewModel CreateEventTicketPrintViewModel(EventBookingTicket ticket)
         {
             var viewModelFactory = new EventTicketPrintViewModelFactory();
-            var viewModels = EventBooking.Value.EventBookingTickets.Select(t =>
-                viewModelFactory.Create(Ad.Value, EventDetails.Value, t, EventGroups.Value));
+            return viewModelFactory.Create(Ad.Value, EventDetails.Value, ticket, EventGroups.Value);
+        }
 
-            return viewModels;
+        public IEnumerable<EventTicketPrintViewModel> CreateEventTicketPrintViewModelsForBooking()
+        {
+            var viewModelFactory = new EventTicketPrintViewModelFactory();
+            return EventBooking.Value.EventBookingTickets.Select(t => viewModelFactory.Create(Ad.Value, EventDetails.Value, t, EventGroups.Value));
         }
 
         public byte[] CreateInvoiceAttachment()
@@ -167,7 +173,8 @@ namespace Paramount.Betterclassifieds.Presentation.Services
                 Ad.Value,
                 EventGroups.Value,
                 EventUrl.Value,
-                EventBooking.Value.GetFullName()));
+                EventBooking.Value.GetFullName(),
+                CreateTicketAttachment(eventBookingTicket)));
         }
 
         public void OnRegisterMaps(IConfiguration configuration)

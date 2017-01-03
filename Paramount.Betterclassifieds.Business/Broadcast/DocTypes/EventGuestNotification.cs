@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Net.Mime;
 
 namespace Paramount.Betterclassifieds.Business.Broadcast
 {
@@ -52,6 +53,18 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
                     ContentType = ContentType.Calendar,
                     FileName = "Event_Invite.ics",
                     Content = calendarContent
+                });
+            return this;
+        }
+
+        public EventGuestNotification WithTicket(byte[] ticket)
+        {
+            Attachments.Add(
+                new EmailAttachment
+                {
+                    Content = ticket,
+                    ContentType = MediaTypeNames.Application.Pdf,
+                    FileName = "Tickets.pdf"
                 });
             return this;
         }

@@ -259,23 +259,18 @@ namespace Paramount.Betterclassifieds.Business.Events
             }
         }
 
-        public string CreateEventTicketsDocument(int eventBookingId, byte[] ticketPdfData, DateTime? ticketsSentDate = null)
+        public string CreateEventTicketDocument(int eventBookingTicketId, byte[] ticketPdfData)
         {
             var pdfDocument = new Document(Guid.NewGuid(), ticketPdfData, ContentType.Pdf,
-                fileName: $"{eventBookingId}_.pdf",
+                fileName: $"Ticket_{eventBookingTicketId}.pdf",
                 fileLength: ticketPdfData.Length);
 
             _documentRepository.Create(pdfDocument);
 
-            var eventBooking = _eventRepository.GetEventBooking(eventBookingId, includeEvent: false);
-            eventBooking.TicketsDocumentId = pdfDocument.DocumentId;
-            if (ticketsSentDate.HasValue)
-            {
-                eventBooking.TicketsSentDate = ticketsSentDate;
-                eventBooking.TicketsSentDateUtc = ticketsSentDate.Value.ToUniversalTime();
-            }
-            _eventRepository.UpdateEventBooking(eventBooking);
-
+            var eventBookingTicket = _eventRepository.GetEventBookingTicket(eventBookingTicketId);
+            eventBookingTicket.TicketDocumentId = pdfDocument.DocumentId;
+            _eventRepository.UpdateEventBookingTicket(eventBookingTicket);
+            
             return pdfDocument.DocumentId.ToString();
         }
 

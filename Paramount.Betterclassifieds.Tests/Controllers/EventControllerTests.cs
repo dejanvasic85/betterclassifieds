@@ -274,7 +274,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var mockBookTicketsRequestViewModel = new BookTicketsRequestViewModel
             {
                 EventId = mockEvent.EventId,
-                SendEmailToGuests = true,
                 Reservations = new List<EventTicketReservedViewModel>
                 {
                     new EventTicketReservedViewModel
@@ -306,8 +305,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventBookingContext.SetupSet(p => p.EventId = It.IsAny<int?>());
             _eventBookingContext.SetupSet(p => p.EventBookingId = It.IsAny<int?>());
             _eventBookingContext.SetupSet(p => p.Purchaser = It.IsAny<string>());
-            _eventBookingContext.SetupSet(p => p.SendEmailToGuests = It.Is<bool>(val => val));
-
 
 
             // act
@@ -365,7 +362,6 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventBookingContext.SetupSet(p => p.EventBookingId = It.IsAny<int?>());
             _eventBookingContext.SetupSet(p => p.Purchaser = It.IsAny<string>());
             _eventBookingContext.SetupSet(p => p.EventBookingPaymentReference = It.IsAny<string>());
-            _eventBookingContext.SetupSet(p => p.SendEmailToGuests = It.IsAny<bool>());
 
             // act
             var controller = BuildController(mockUser: _mockUser);
@@ -408,13 +404,12 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             // arrange service calls ( obviously theres a lot going on here and we should refactor this to use event sourcing)
             _eventBookingContext.SetupWithVerification(call => call.EventBookingId, eventBookingMock.EventBookingId);
             
-            _eventBookingContext.SetupWithVerification(call => call.SendEmailToGuests, true);
             _eventBookingContext.SetupSet<bool>(s => s.EventBookingComplete = true);
 
             _httpContext.SetupWithVerification(call => call.Session.SessionID, sessionMock);
             _eventManager.SetupWithVerification(call => call.GetEventBooking(eventBookingMock.EventBookingId), eventBookingMock);
             _eventManager.SetupWithVerification(call => call.AdjustRemainingQuantityAndCancelReservations(sessionMock, eventBookingMock.EventBookingTickets));
-            _eventManager.SetupWithVerification(call => call.CreateEventTicketsDocument(eventBookingMock.EventBookingId, It.IsAny<byte[]>(), It.IsAny<DateTime?>()), "Document123");
+            _eventManager.SetupWithVerification(call => call.CreateEventTicketDocument(eventBookingMock.EventBookingId, It.IsAny<byte[]>(), It.IsAny<DateTime?>()), "Document123");
             _broadcastManager.Setup(call => call.Queue(It.IsAny<IDocType>(), It.IsAny<string[]>())).Returns(new Notification(Guid.NewGuid(), "BoomDoc"));
             _eventNotificationBuilder
                 .SetupWithVerification(call => call.WithEventBooking(It.IsAny<int?>()), result: _eventNotificationBuilder.Object)

@@ -7,7 +7,6 @@
 
         me.eventId = ko.observable(data.eventId);
         me.includeTransactionFee = ko.observable(data.includeTransactionFee);
-        me.sendEmailToGuests = ko.observable(data.sendEmailToGuests);
         me.minsRemaining = ko.observable(data.reservationExpiryMinutes);
         me.secondsRemaining = ko.observable(data.reservationExpirySeconds);
         me.secondsRemainingDisplay = ko.computed(function () {

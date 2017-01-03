@@ -72,7 +72,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _eventRepositoryMock.SetupWithVerification(call => call.UpdateEventBooking(It.Is<EventBooking>(eb => eb == mockEventBooking)));
 
             var eventManager = this.BuildTargetObject();
-            var documentId = eventManager.CreateEventTicketsDocument(mockEventBookingId, new byte[0], ticketsSentDate: mockSentDateTime);
+            var documentId = eventManager.CreateEventTicketDocument(mockEventBookingId, new byte[0], ticketsSentDate: mockSentDateTime);
 
             Assert.That(documentId, Is.Not.Null);
             Assert.That(mockEventBooking.TicketsDocumentId, Is.Not.Null);

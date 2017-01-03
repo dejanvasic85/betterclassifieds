@@ -719,6 +719,10 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.BarcodeImageDocumentId = val);
 		}
+		public EventBookingTicketMockBuilder WithTicketDocumentId(Guid? val)
+		{ 
+			return WithBuildStep(p => p.TicketDocumentId = val);
+		}
 	}
 
 	internal partial class EventBookingTicketFieldMockBuilder : MockBuilder<EventBookingTicketFieldMockBuilder, EventBookingTicketField>
@@ -830,18 +834,6 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventBookingMockBuilder WithPaymentMethodAsString(String val)
 		{ 
 			return WithBuildStep(p => p.PaymentMethodAsString = val);
-		}
-		public EventBookingMockBuilder WithTicketsDocumentId(Guid? val)
-		{ 
-			return WithBuildStep(p => p.TicketsDocumentId = val);
-		}
-		public EventBookingMockBuilder WithTicketsSentDate(DateTime? val)
-		{ 
-			return WithBuildStep(p => p.TicketsSentDate = val);
-		}
-		public EventBookingMockBuilder WithTicketsSentDateUtc(DateTime? val)
-		{ 
-			return WithBuildStep(p => p.TicketsSentDateUtc = val);
 		}
 		public EventBookingMockBuilder WithCost(Decimal val)
 		{ 
@@ -966,6 +958,10 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventGuestDetailsMockBuilder WithTicketId(Int32 val)
 		{ 
 			return WithBuildStep(p => p.TicketId = val);
+		}
+		public EventGuestDetailsMockBuilder WithGroupName(String val)
+		{ 
+			return WithBuildStep(p => p.GroupName = val);
 		}
 	}
 

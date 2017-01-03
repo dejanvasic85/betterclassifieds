@@ -41,21 +41,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         public string EventUrl { get; set; }
         
         public byte[] TicketPdfData { get; private set; }
-
-        public EventTicketsBookedNotification WithTickets(byte[] ticketsPdfFileContent)
-        {
-            TicketPdfData = ticketsPdfFileContent;
-
-            Attachments.Add(
-                new EmailAttachment
-                {
-                    Content = ticketsPdfFileContent,
-                    ContentType = MediaTypeNames.Application.Pdf,
-                    FileName = "Tickets.pdf"
-                });
-            return this;
-        }
-
+        
         public EventTicketsBookedNotification WithInvoice(byte[] invoicePdf)
         {
             Attachments.Add(

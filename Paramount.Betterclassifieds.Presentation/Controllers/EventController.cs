@@ -168,7 +168,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _eventBookingContext.EventId = bookTicketsViewModel.EventId.GetValueOrDefault();
             _eventBookingContext.EventBookingId = eventBooking.EventBookingId;
             _eventBookingContext.Purchaser = bookTicketsViewModel.FullName;
-            _eventBookingContext.SendEmailToGuests = bookTicketsViewModel.SendEmailToGuests;
 
             if (eventBooking.Status == EventBookingStatus.Active)
             {
@@ -194,17 +193,17 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             _eventManager.AdjustRemainingQuantityAndCancelReservations(sessionId, eventBooking.EventBookingTickets);
             _eventNotificationBuilder.WithEventBooking(_eventBookingContext.EventBookingId);
+
             var viewModel = _eventNotificationBuilder.CreateEventBookedViewModel();
             var ticketPurchaserNotification = _eventNotificationBuilder.CreateTicketPurchaserNotification();
 
             _broadcastManager.Queue(ticketPurchaserNotification, eventBooking.Email);
-            _eventManager.CreateEventTicketsDocument(eventBooking.EventBookingId, ticketPurchaserNotification.TicketPdfData, ticketsSentDate: DateTime.Now);
 
-            if (_eventBookingContext.SendEmailToGuests)
-            {
-                _eventNotificationBuilder.CreateEventGuestNotifications().ForEach(
-                    notification => _broadcastManager.Queue(notification, notification.GuestEmail));
-            }
+            // Todo - think about how this can be done offline. Maybe once we have a better emailing system and Azure functions!
+            _eventNotificationBuilder.CreateEventGuestNotifications().ForEach(notification =>
+                {
+                    _broadcastManager.Queue(notification, notification.GuestEmail);
+                });
 
             _eventBookingContext.EventBookingComplete = true;
             return View(viewModel);
@@ -286,7 +285,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             // Mark booking as paid in our database
             _eventManager.ActivateBooking(_eventBookingContext.EventBookingId, _eventBookingContext.EventInvitationId);
-            
+
             return Url.EventBooked().ToRedirectResult();
         }
 
@@ -336,7 +335,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         public ActionResult Tickets(int id)
         {
-            var viewModels = _eventNotificationBuilder.WithEventBooking(id).CreateEventTicketPrintViewModels();
+            var builder = _eventNotificationBuilder.WithEventBooking(id);
+
+            var viewModels = builder.CreateEventTicketPrintViewModelsForBooking();
             return View(viewModels.ToList());
         }
 

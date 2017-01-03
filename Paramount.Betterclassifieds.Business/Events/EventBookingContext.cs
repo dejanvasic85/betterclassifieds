@@ -8,7 +8,6 @@
         string Purchaser { get; set; }
         long? EventInvitationId { get; set; }
         bool EventBookingComplete { get; set; }
-        bool SendEmailToGuests { get; set; }
         string EventUrl { get; set; }
         void Clear();
     }
@@ -24,7 +23,6 @@
         public string Purchaser { get; set; }
         public long? EventInvitationId { get; set; }
         public bool EventBookingComplete { get; set; }
-        public bool SendEmailToGuests { get; set; }
         public string EventUrl { get; set; }
 
         public void Clear()

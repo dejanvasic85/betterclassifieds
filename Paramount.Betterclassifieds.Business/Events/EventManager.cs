@@ -306,10 +306,13 @@ namespace Paramount.Betterclassifieds.Business.Events
                 eventTicket.AvailableQuantity += difference; // This makes the total available tickets add the difference
                 eventTicket.RemainingQuantity = remainingQuantity;
             }
+
             if (fields != null)
             {
                 eventTicket.EventTicketFields = fields.ToList();
             }
+
+            _eventRepository.UpdateEventTicketIncudingFields(eventTicket);
 
             if (nameChanged)
             {

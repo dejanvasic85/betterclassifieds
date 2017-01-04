@@ -413,15 +413,15 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             var mockEventGuestNotifications = new[]
             {
-                new EventGuestNotification { GuestEmail = "guest@one.com"},
-                new EventGuestNotification { GuestEmail = "guest@two.com"},
+                new EventGuestResendNotification { GuestEmail = "guest@one.com"},
+                new EventGuestResendNotification { GuestEmail = "guest@two.com"},
             };
 
             // arrange service calls
             _eventManagerMock.SetupWithVerification(call => call.GetEventBookingTicket(It.IsAny<int>()), mockEventBookingTicket);
             _eventNotificationBuilder.SetupWithVerification(call => call.WithEventBooking(It.IsAny<int>()), _eventNotificationBuilder.Object);
-            _eventNotificationBuilder.SetupWithVerification(call => call.CreateEventGuestNotifications(), mockEventGuestNotifications);
-            _broadcastManagerMock.SetupWithVerification(call => call.Queue(It.IsAny<EventGuestNotification>(), It.IsAny<string[]>()), null);
+            _eventNotificationBuilder.SetupWithVerification(call => call.CreateEventGuestResendNotifications(), mockEventGuestNotifications);
+            _broadcastManagerMock.SetupWithVerification(call => call.Queue(It.IsAny<EventGuestResendNotification>(), It.IsAny<string[]>()), null);
 
             var controller = BuildController();
             var result = controller.ResendGuestEmail(1, eventBookingTicketId: 100);

@@ -98,7 +98,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 mockTickets);
 
             _eventRepositoryMock.SetupWithVerification(
-                call => call.GetEventGroups(It.IsAny<int>(), null), new List<EventGroup> {mockGroup});
+                call => call.GetEventGroups(It.IsAny<int>(), null), new List<EventGroup> { mockGroup });
 
 
             var result = this.BuildTargetObject().BuildGuestList(10).ToList();
@@ -886,6 +886,33 @@ namespace Paramount.Betterclassifieds.Tests.Events
             manager.UpdateEventGroupSettings(mockEventId, true);
 
             mockEvent.GroupsRequired.IsTrue();
+        }
+
+        [Test]
+        public void UpdateEventTicket_Successfully()
+        {
+            var mockOriginalTicket = new EventTicketMockBuilder().Default()
+                .WithEventTicketId(1)
+                .WithPrice(10)
+                .WithRemainingQuantity(50)
+                .WithAvailableQuantity(100)
+                .Build();
+
+            var newTicketName = "new ticket name";
+
+            // Setup calls
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventTicketDetails(It.IsAny<int>(), It.IsAny<bool>()), result: mockOriginalTicket);
+            _eventRepositoryMock.SetupWithVerification(call => call.UpdateEventTicketIncudingFields(It.Is<EventTicket>(t => t == mockOriginalTicket)));
+            _eventRepositoryMock.SetupWithVerification(call => call.UpdateEventBookingTicketNames(It.Is<int>(t => t == 1), It.Is<string>(t => t == newTicketName)));
+
+            var manager = BuildTargetObject();
+
+            manager.UpdateEventTicket(1, newTicketName, price: 9, remainingQuantity: 45, fields: new List<EventTicketField>());
+
+            mockOriginalTicket.RemainingQuantity.IsEqualTo(45);
+            mockOriginalTicket.AvailableQuantity.IsEqualTo(95); // Reduced by 5 (50 - 45) so availability originally is down to 95
+            mockOriginalTicket.TicketName.IsEqualTo(newTicketName);
+            mockOriginalTicket.Price.IsEqualTo(9);
         }
 
         private Mock<IEventRepository> _eventRepositoryMock;

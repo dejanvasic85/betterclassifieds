@@ -209,25 +209,17 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (eventTicket.SoldQty == 0)
             {
                 // Double check if anyone in the meantime purchased a ticket and the organiser wants to change something
-                var guestCount =
-                    _eventManager.BuildGuestList(viewModel.EventTicket.EventId.GetValueOrDefault())
-                        .Count(t => t.TicketId == ticketId);
+                var guestCount = _eventManager.BuildGuestList(viewModel.EventTicket.EventId.GetValueOrDefault()).Count(t => t.TicketId == ticketId);
                 if (guestCount > 0)
                 {
-                    ModelState.AddModelError("GuestCountIncreased",
-                        "Looks like someone purchased this ticket in the meantime.");
+                    ModelState.AddModelError("GuestCountIncreased", "Looks like someone purchased this ticket in the meantime.");
                     return Json(new { Errors = ModelState.ToErrors() });
                 }
             }
 
             _eventManager.UpdateEventTicket(ticketId, eventTicket.TicketName,
-                eventTicket.Price, eventTicket.RemainingQuantity, 
+                eventTicket.Price, eventTicket.RemainingQuantity,
                 this.MapList<EventTicketFieldViewModel, EventTicketField>(viewModel.EventTicket.EventTicketFields.ToList()));
-
-            if (viewModel.ResendGuestNotifications)
-            {
-                
-            }
 
             return Json(viewModel.EventTicket);
         }
@@ -278,7 +270,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var excelBytes = new Services.ExcelGuestGeneratorService(availableTickets, viewModel.Guests).GetBytes();
             return File(excelBytes, ContentType.Excel, $"{viewModel.EventName} - Guest list.xlsx");
         }
-        
+
         private EventGuestListDownloadViewModel GetEventGuestList(int id, int eventId)
         {
             var adDetails = _searchService.GetByAdId(id);
@@ -287,7 +279,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var viewModel = new EventGuestListDownloadViewModel { EventName = adDetails.Heading, Guests = guests };
             return viewModel;
         }
-        
+
         [HttpGet]
         public ActionResult EventPaymentRequest(int id, int eventId)
         {
@@ -433,7 +425,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var eventModel = _eventManager.GetEventDetails(eventId);
             var groups = await _eventManager
-                .GetEventGroups(eventId, eventModel.With(e => e.Tickets.FirstOrDefault()).With(e => e.EventTicketId.GetValueOrDefault()));
+                .GetEventGroupsAsync(eventId, eventModel.With(e => e.Tickets.FirstOrDefault()).With(e => e.EventTicketId.GetValueOrDefault()));
 
             var viewModel = new AddEventGuestViewModel
             {
@@ -498,7 +490,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var eventTicket = _eventManager.GetEventTicket(eventBookingTicket.EventTicketId);
             var eventBooking = _eventManager.GetEventBooking(eventBookingTicket.EventBookingId);
 
-            var groups = Task.Run(() => _eventManager.GetEventGroups(eventTicket.EventId.GetValueOrDefault(), eventTicket.EventTicketId))
+            var groups = Task.Run(() => _eventManager.GetEventGroupsAsync(eventTicket.EventId.GetValueOrDefault(), eventTicket.EventTicketId))
                 .Result
                 .Where(g => g.IsAvailable());
 
@@ -579,7 +571,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             _broadcastManager.Queue(notification, eventBookingTicket.GuestEmail);
             return Json(true);
         }
-        
+
         [HttpGet, ActionName("remove-guest-complete")]
         public ActionResult RemoveGuestComplete(int id)
         {
@@ -592,7 +584,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var eventDetails = _eventManager.GetEventDetails(eventId);
             var tickets = eventDetails.With(e => e.Tickets);
-            var currentGroups = await _eventManager.GetEventGroups(eventId);
+            var currentGroups = await _eventManager.GetEventGroupsAsync(eventId);
 
             var manageGroupsViewModel = new ManageGroupsViewModel
             {

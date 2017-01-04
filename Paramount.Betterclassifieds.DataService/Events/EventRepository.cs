@@ -421,6 +421,17 @@ namespace Paramount.Betterclassifieds.DataService.Events
             }
         }
 
+        public void UpdateEventBookingTicketNames(int eventTicketId, string ticketName)
+        {
+            using (var context = _dbContextFactory.CreateEventContext())
+            {
+                context.Database
+                    .ExecuteSqlCommand("EventBookingTicket_UpdateName @eventTicketId, @ticketName",
+                        new SqlParameter("eventTicketId", eventTicketId),
+                        new SqlParameter("ticketName", ticketName));
+            }
+        }
+
         public void UpdateEventBookingTicketField(EventBookingTicketField eventBookingTicketField)
         {
             using (var context = _dbContextFactory.CreateEventContext())

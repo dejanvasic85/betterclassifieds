@@ -92,6 +92,12 @@
                     </button>
 
                 </div>
+
+                <p data-bind="visible: soldQty() > 5">
+                    Note: Resending tickets may take a while.<br />
+                    Please don't close the browser until finished. This message
+                    will disappear once everything has been processed.
+                </p>
             </div>
         </div>
     </div>

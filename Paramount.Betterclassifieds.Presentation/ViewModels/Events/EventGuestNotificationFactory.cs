@@ -52,7 +52,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public EventGuestResendNotification CreateGuestResendNotification(HttpContextBase httpContext, IClientConfig config, EventModel eventModel, EventBookingTicket eventBookingTicket, AdSearchResult ad, IEnumerable<EventGroup> eventGroups, string eventUrl, string purchaserName, byte[] ticketAttachment)
         {
             var urlHelper = new UrlHelper(httpContext.Request.RequestContext);
-
+            
             var notification = new EventGuestResendNotification
             {
                 EventName = ad.Heading,

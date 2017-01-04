@@ -46,7 +46,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         [Route("{id:int}/groups")]
         public async Task<IHttpActionResult> GetEventGroups(int id)
         {
-            var result = await _eventManager.GetEventGroups(id);
+            var result = await _eventManager.GetEventGroupsAsync(id);
             var groups = result
                 .Where(r => r.IsAvailable())
                 .Select(new EventGroupContractFactory().FromModel)
@@ -70,7 +70,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         [Route("{id:int}/tickets/{ticketId:int}/groups")]
         public async Task<IHttpActionResult> GetEventGroupsForTicket(int id, int ticketId)
         {
-            var result = await _eventManager.GetEventGroups(id, ticketId);
+            var result = await _eventManager.GetEventGroupsAsync(id, ticketId);
             var groups = result
                 .Where(r => r.IsAvailable())
                 .Select(g => new EventGroupContractFactory().FromModel(g))

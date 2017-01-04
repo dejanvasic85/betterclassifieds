@@ -236,7 +236,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
 
             _eventManagerMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
             var eventGroups = new List<EventGroup>();
-            _eventManagerMock.Setup(call => call.GetEventGroups(It.IsAny<int>(), It.IsAny<int?>())).Returns(Task.FromResult(eventGroups.AsEnumerable()));
+            _eventManagerMock.Setup(call => call.GetEventGroupsAsync(It.IsAny<int>(), It.IsAny<int?>())).Returns(Task.FromResult(eventGroups.AsEnumerable()));
 
             // Act
             var controller = BuildController();
@@ -370,7 +370,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             _eventManagerMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
 
             _eventManagerMock
-                .Setup(call => call.GetEventGroups(It.IsAny<int>(), It.IsAny<int?>()))
+                .Setup(call => call.GetEventGroupsAsync(It.IsAny<int>(), It.IsAny<int?>()))
                 .Returns(Task.FromResult(eventGroups.AsEnumerable()));
 
             _eventManagerMock
@@ -485,37 +485,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var result = BuildController().EditTicket(1, viewModelMock.EventTicket.EventTicketId.Value, viewModelMock);
             var jsonResult = result.IsTypeOf<JsonResult>();
         }
-
-        [Test]
-        [Ignore("Coming soon")]
-        public void EditTicket_Post_UpdatesTicket_NoNotificationsSend()
-        {
-            var viewModelMock = new UpdateEventTicketViewModel
-            {
-                ResendGuestNotifications = false,
-                EventTicket = new EventTicketViewModel
-                {
-                    EventTicketId = 100,
-                    SoldQty = 0,
-                    EventId = 1
-                }
-            };
-
-            // setup service calls
-            //_eventManagerMock.SetupWithVerification(call => call.UpdateEventTicket(
-            //    It.Is<int>(i => i == viewModelMock.EventTicket.EventTicketId.Value),
-            //    It.Is<string>(i => i == viewModelMock.EventTicket.TicketName),
-            //    It.Is<decimal>(d => d == viewModelMock.EventTicket.Price),
-            //    It.Is<int>(i => i == viewModelMock.EventTicket.RemainingQuantity)
-            //    ));
-
-            var result = BuildController().EditTicket(1, viewModelMock.EventTicket.EventTicketId.Value, viewModelMock);
-
-            // Todo - work out how to test whether json result has errors
-            var jsonResult = result.IsTypeOf<JsonResult>();
-        }
-
-
+        
         private Mock<ISearchService> _searchServiceMock;
         private Mock<IApplicationConfig> _applicationConfigMock;
         private Mock<IClientConfig> _clientConfigMock;

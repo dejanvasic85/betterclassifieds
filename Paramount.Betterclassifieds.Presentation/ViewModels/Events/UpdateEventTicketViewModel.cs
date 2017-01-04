@@ -5,7 +5,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 {
     public class UpdateEventTicketViewModel : IValidatableObject
     {
-        public bool ResendGuestNotifications { get; set; }
         public EventTicketViewModel EventTicket { get; set; }
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

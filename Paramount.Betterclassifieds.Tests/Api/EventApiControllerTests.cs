@@ -78,7 +78,7 @@ namespace Paramount.Betterclassifieds.Tests.Api
             };
 
             _mockEventManager.SetupWithVerification(
-                call => call.GetEventGroups(It.IsAny<int>(), It.IsAny<int?>()),
+                call => call.GetEventGroupsAsync(It.IsAny<int>(), It.IsAny<int?>()),
                 Task.FromResult(mockEventGroups));
 
             var controller = BuildTargetObject();

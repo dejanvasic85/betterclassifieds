@@ -36,7 +36,7 @@
     /*
      * Utility function to guard against undefined parameters
      */
-    $paramount.guard = function(val, name) {
+    $paramount.guard = function (val, name) {
         if (_.isUndefined(val)) {
             throw new Error(name + ' must be defined');
         }
@@ -195,16 +195,50 @@
         }
         return true;
     }
-    
+
     $paramount.ko = {
         bindArray: function (collection, creator) {
             var observableArray = ko.observableArray();
-            _.each(collection, function(item) {
+            _.each(collection, function (item) {
                 observableArray.push(creator(item));
             });
             return observableArray;
         }
     }
+
+    $paramount.processPromises = function (funcsWithPromises, cb) {
+        /// <summary>Will process each promise one by one which is very useufl in http calls to not flood the server.</summary>  
+        /// <param name="funcsWithPromises" type="Array">The collection of methods when executed will return a Promise.</param>  
+        /// <param name="cb" type="function">Callback function that is executed whenever each promise is returned and will contain the result as the first parameter.</param>  
+        /// <returns type="Number">Promise</returns>  
+
+        $paramount.guard(funcsWithPromises);
+        $paramount.guard(cb);
+
+        if (!_.isArray(funcsWithPromises)) {
+            throw new Error('funcs must be an array');
+        }
+
+        return new Promise(function (resolve) {
+
+            var processCount = 0;
+            next(); // start the recurse
+
+            function next() {
+                if (funcsWithPromises.length === (processCount + 1)) {
+                    return resolve('done'); // Finished
+                }
+
+                return funcsWithPromises[processCount]().then(function (result) {
+                    cb(result);
+                    processCount++;
+                    next();
+                });
+            }
+
+        });
+    }
+
 
     return me;
 

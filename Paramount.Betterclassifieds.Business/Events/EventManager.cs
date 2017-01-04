@@ -270,7 +270,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             var eventBookingTicket = _eventRepository.GetEventBookingTicket(eventBookingTicketId);
             eventBookingTicket.TicketDocumentId = pdfDocument.DocumentId;
             _eventRepository.UpdateEventBookingTicket(eventBookingTicket);
-            
+
             return pdfDocument.DocumentId.ToString();
         }
 
@@ -296,8 +296,10 @@ namespace Paramount.Betterclassifieds.Business.Events
         public void UpdateEventTicket(int eventTicketId, string ticketName, decimal price, int remainingQuantity, IEnumerable<EventTicketField> fields)
         {
             var eventTicket = _eventRepository.GetEventTicketDetails(eventTicketId);
+            var nameChanged = eventTicket.TicketName != ticketName;
             eventTicket.TicketName = ticketName;
             eventTicket.Price = price;
+
             if (eventTicket.RemainingQuantity != remainingQuantity)
             {
                 var difference = remainingQuantity - eventTicket.RemainingQuantity;
@@ -309,7 +311,10 @@ namespace Paramount.Betterclassifieds.Business.Events
                 eventTicket.EventTicketFields = fields.ToList();
             }
 
-            _eventRepository.UpdateEventTicketIncudingFields(eventTicket);
+            if (nameChanged)
+            {
+                _eventRepository.UpdateEventBookingTicketNames(eventTicket.EventTicketId.GetValueOrDefault(), ticketName);
+            }
         }
 
         public EventTicket CreateEventTicket(int eventId, string ticketName, decimal price, int remainingQuantity, IEnumerable<EventTicketField> fields)
@@ -329,7 +334,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             Guard.NotNull(eventId);
 
             var tickets = _eventRepository.GetEventBookingTicketsForEvent(eventId);
-            
+
             // Need to fetch all the groups to match each guest to the group
             // We cannot do that at the moment because groups cannot be fetched from EntityFramework (separate stored procedure)
             var groups = _eventRepository.GetEventGroups(eventId.GetValueOrDefault(), eventTicketId: null);
@@ -525,7 +530,12 @@ namespace Paramount.Betterclassifieds.Business.Events
             return eventInvitation;
         }
 
-        public async Task<IEnumerable<EventGroup>> GetEventGroups(int eventId, int? eventTicketId = null)
+        public IEnumerable<EventGroup> GetEventGroups(int eventId, int? eventTicketId = null)
+        {
+            return _eventRepository.GetEventGroups(eventId, eventTicketId);
+        }
+
+        public async Task<IEnumerable<EventGroup>> GetEventGroupsAsync(int eventId, int? eventTicketId = null)
         {
             return await _eventRepository.GetEventGroupsAsync(eventId, eventTicketId);
         }

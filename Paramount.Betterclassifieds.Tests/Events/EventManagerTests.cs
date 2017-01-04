@@ -597,7 +597,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 .Returns(Task.FromResult(objectsToReturn));
 
             var manager = BuildTargetObject();
-            var resuls = await manager.GetEventGroups(1, 2);
+            var resuls = await manager.GetEventGroupsAsync(1, 2);
 
             Assert.That(resuls, Is.EqualTo(objectsToReturn));
         }

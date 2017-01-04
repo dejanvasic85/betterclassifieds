@@ -109,7 +109,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             () => _eventManager.GetEventDetails(EventBooking.Value.EventId));
 
         private Lazy<IEnumerable<EventGroup>> EventGroups => new Lazy<IEnumerable<EventGroup>>(
-            () => Task.Run(() => _eventManager.GetEventGroups(EventDetails.Value.EventId.GetValueOrDefault())).Result);
+            () => _eventManager.GetEventGroups(EventDetails.Value.EventId.GetValueOrDefault()));
 
         private Lazy<string> EventUrl => new Lazy<string>(
             () =>

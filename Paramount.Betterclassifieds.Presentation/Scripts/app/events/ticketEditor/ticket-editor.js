@@ -138,18 +138,29 @@
                         me.guestsAffected(guests.length);
                         me.guestsNotified(1);
 
-                        var emailPromises = _.map(guests, function (g) {
-                            return adDesignService.resendGuestEmail(g.ticketNumber).then(function() {
-                                me.guestsNotified(me.guestsNotified() + 1);
-                            });
+
+                        var emailFuncs = _.map(guests, function (g) {
+                            return function () {
+                                return new Promise(function (resendResolve, resendReject) {
+                                    adDesignService.resendGuestEmail(g.ticketNumber)
+                                        .then(function (res) {
+                                            resendResolve(res);
+                                        });
+                                });
+                            }
                         });
 
-                        Promise.all(emailPromises).then(function () {
+                        $p.processPromises(emailFuncs, function () {
+
+                            me.guestsNotified(me.guestsNotified() + 1);
+
+                        }).then(function () {
+
                             resolve(guests);
                             me.displayGuestPurchasesWarning(false);
                             me.displayNotificationProgress(false);
-                        }).catch(function(err) {
-                            reject(err);
+
+                            toastr.success('Done! The guests should receive an email with updated ticket information.');
                         });
                     });
                 });

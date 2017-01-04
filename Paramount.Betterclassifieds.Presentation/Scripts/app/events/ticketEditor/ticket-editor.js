@@ -129,7 +129,8 @@
                         return;
                     }
 
-                    eventService.getGuests(me.eventId()).then(function (guests) {
+                    eventService.getGuestsForTicket(me.eventId(), me.eventTicketId()).then(function (guests) {
+
                         if (guests.errors) {
                             reject(guests.errors);
                         }
@@ -138,10 +139,9 @@
                         me.guestsAffected(guests.length);
                         me.guestsNotified(1);
 
-
                         var emailFuncs = _.map(guests, function (g) {
                             return function () {
-                                return new Promise(function (resendResolve, resendReject) {
+                                return new Promise(function (resendResolve) {
                                     adDesignService.resendGuestEmail(g.ticketNumber)
                                         .then(function (res) {
                                             resendResolve(res);
@@ -151,15 +151,11 @@
                         });
 
                         $p.processPromises(emailFuncs, function () {
-
                             me.guestsNotified(me.guestsNotified() + 1);
-
                         }).then(function () {
-
                             resolve(guests);
                             me.displayGuestPurchasesWarning(false);
                             me.displayNotificationProgress(false);
-
                             toastr.success('Done! The guests should receive an email with updated ticket information.');
                         });
                     });

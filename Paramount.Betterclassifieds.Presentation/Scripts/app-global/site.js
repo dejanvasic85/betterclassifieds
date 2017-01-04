@@ -225,7 +225,7 @@
             next(); // start the recurse
 
             function next() {
-                if (funcsWithPromises.length === (processCount + 1)) {
+                if (processCount >= funcsWithPromises.length) {
                     return resolve('done'); // Finished
                 }
 

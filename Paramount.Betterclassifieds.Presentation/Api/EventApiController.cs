@@ -80,6 +80,13 @@ namespace Paramount.Betterclassifieds.Presentation.Api
             return Ok(groups);
         }
 
+        [Route("{id:int}/ticket/{ticketId}/guests")]
+        public IHttpActionResult GetEventTicketGuests(int id, int ticketId)
+        {
+            var guests = _eventManager.BuildGuestList(id).Where(g => g.TicketId == ticketId);
+            return Ok(guests);
+        }
+
         [Route("{id:int}/tickets")]
         public IHttpActionResult GetEventTicketTypes(int id)
         {
@@ -111,5 +118,6 @@ namespace Paramount.Betterclassifieds.Presentation.Api
             var guestList = _eventManager.BuildGuestList(id);
             return Ok(new GuestContractFactory().FromEventGuestDetails(guestList));
         }
+
     }
 }

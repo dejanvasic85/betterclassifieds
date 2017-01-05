@@ -27,7 +27,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 
         public MakeTicketPaymentPage WaitForPayPal()
         {
-            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(60));
+            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(90));
             wait.Until(ExpectedConditions.TitleContains("PayPal Checkout - Log in"));
             _webDriver.SwitchTo().Frame("injectedUl");
             return this;

@@ -15,19 +15,16 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         {
             _webDriver = webDriver;
         }
-
-        [FindsBy(How = How.Id, Using = "payWithPayPal")]
-        protected IWebElement PayWithPayPalButton { get; set; }
-
+        
         public MakeTicketPaymentPage PayWithPayPal()
         {
-            PayWithPayPalButton.ClickOnElement();
+            _webDriver.JsClick(By.Id("payWithPayPal"));
             return this;
         }
 
         public MakeTicketPaymentPage WaitForPayPal()
         {
-            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(90));
+            var wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(60));
             wait.Until(ExpectedConditions.TitleContains("PayPal Checkout - Log in"));
             _webDriver.SwitchTo().Frame("injectedUl");
             return this;

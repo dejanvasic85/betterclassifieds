@@ -523,14 +523,26 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                  vm.GuestFullName,
                  vm.GuestEmail,
                  vm.GroupId,
-                 fields);
+                 fields,
+                 barcode => Url.ValidateBarcode(barcode).WithFullUrl());
 
-            if (vm.SendEmailToGuest)
+            if (vm.SendTransferEmail)
             {
-                _eventNotificationBuilder
-                    .WithEventBooking(vm.EventBookingId)
-                    .CreateEventGuestNotifications()
-                    .ForEach(notification => _broadcastManager.Queue(notification, notification.GuestEmail));
+                var builder = _eventNotificationBuilder.WithEventBooking(vm.EventBookingId);
+
+                // Send the new guest an email
+                builder
+                    .CreateEventGuestNotifications(vm.GuestEmail)
+                    .ForEach(notification =>
+                    {
+                        _broadcastManager.Queue(notification, notification.GuestEmail);
+                    });
+
+                // Send the old guest a transfer email
+                var transferNotification = builder.CreateEventTransferEmail(vm.TicketName,
+                    vm.GuestEmail, vm.GuestFullName);
+
+                _broadcastManager.Queue(transferNotification, vm.OriginalGuestEmail);
             }
 
             return Json(new { eventBookingTicketId = eventBookingTicket.EventBookingTicketId });

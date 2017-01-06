@@ -695,11 +695,27 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _eventRepositoryMock.SetupWithVerification(
                 call => call.GetEventBookingTicket(It.IsAny<int>()), mockEventBookingTicket);
 
+
+            var mockEventBooking = new EventBookingMockBuilder().Default().Build();
+
             _eventRepositoryMock.SetupWithVerification(
-                call => call.UpdateEventBookingTicket(It.Is<EventBookingTicket>(e => e == mockEventBookingTicket)));
+                call => call.GetEventBooking(It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<bool>()), mockEventBooking);
+
+
+            _eventRepositoryMock.SetupWithVerification(
+                call => call.UpdateEventBookingTicket(It.IsAny<EventBookingTicket>()));
 
             _eventRepositoryMock.SetupWithVerification(
                 call => call.CreateEventBookingTicket(It.IsAny<EventBookingTicket>()));
+
+            _barcodeGenerator.SetupWithVerification(
+                call => call.CreateQr(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()), new byte[0]);
+
+            _eventBarcodeValidator.SetupWithVerification(
+                call => call.GetDataForBarcode(It.IsAny<int>(), It.IsAny<EventBookingTicket>()), "barcode123");
+
+            _documentRepository.SetupWithVerification(call => call.Create(It.IsAny<Document>()));
+
 
             var mockApplicationUser = new ApplicationUserMockBuilder().Default().Build();
 
@@ -709,7 +725,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _dateServiceMock.SetupNow().SetupNowUtc();
 
             var manager = BuildTargetObject();
-            var createdEventBookingTicket = manager.UpdateEventBookingTicket(1, "Foo Two", "foo@two.com", 1, null);
+            var createdEventBookingTicket = manager.UpdateEventBookingTicket(1, "Foo Two", "foo@two.com", 1, null, barcode => "barcode123");
 
             Assert.That(createdEventBookingTicket.GuestFullName, Is.EqualTo("Foo Two"));
             Assert.That(createdEventBookingTicket.GuestEmail, Is.EqualTo("foo@two.com"));
@@ -721,7 +737,6 @@ namespace Paramount.Betterclassifieds.Tests.Events
             mockEventBookingTicket.TotalPrice.IsEqualTo(0);
             mockEventBookingTicket.TransactionFee.IsEqualTo(0);
             mockEventBookingTicket.IsActive.IsFalse();
-
         }
 
         [Test]
@@ -734,6 +749,11 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 .WithFields(fieldMockBuilder.Build())
                 .Build();
 
+            var mockEventBooking = new EventBookingMockBuilder().Default().Build();
+
+            _eventRepositoryMock.SetupWithVerification(
+                call => call.GetEventBooking(It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<bool>()), mockEventBooking);
+
             _eventRepositoryMock.SetupWithVerification(
                 call => call.CreateEventBookingTicket(It.IsAny<EventBookingTicket>()));
 
@@ -741,7 +761,15 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 call => call.GetEventBookingTicket(It.IsAny<int>()), mockEventBookingTicket);
 
             _eventRepositoryMock.SetupWithVerification(
-                call => call.UpdateEventBookingTicket(It.Is<EventBookingTicket>(e => e == mockEventBookingTicket)));
+                call => call.UpdateEventBookingTicket(It.IsAny<EventBookingTicket>()));
+
+            _barcodeGenerator.SetupWithVerification(
+                call => call.CreateQr(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()), new byte[0]);
+
+            _eventBarcodeValidator.SetupWithVerification(
+                call => call.GetDataForBarcode(It.IsAny<int>(), It.IsAny<EventBookingTicket>()), "barcode123");
+
+            _documentRepository.SetupWithVerification(call => call.Create(It.IsAny<Document>()));
 
             var mockApplicationUser = new ApplicationUserMockBuilder().Default().Build();
 
@@ -754,7 +782,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var updatedEventBookingTicket = manager.UpdateEventBookingTicket(1, "Foo Two", "foo@two.com", 1, new List<EventBookingTicketField>
             {
                 fieldMockBuilder.WithFieldName("Field").WithFieldValue("Lucas Hood").Build()
-            });
+            }, barcode => "barcode123");
 
             Assert.That(updatedEventBookingTicket.GuestFullName, Is.EqualTo("Foo Two"));
             Assert.That(updatedEventBookingTicket.GuestEmail, Is.EqualTo("foo@two.com"));
@@ -767,8 +795,8 @@ namespace Paramount.Betterclassifieds.Tests.Events
         {
             var manager = BuildTargetObject();
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingTicket(It.IsAny<int>()), result: null);
-
-            Assert.Throws<ArgumentException>(() => manager.UpdateEventBookingTicket(1, "Foo Two", "foo@two.com", 1, null));
+            
+            Assert.Throws<ArgumentException>(() => manager.UpdateEventBookingTicket(1, "Foo Two", "foo@two.com", 1, null, b => "barcode123"));
         }
 
 

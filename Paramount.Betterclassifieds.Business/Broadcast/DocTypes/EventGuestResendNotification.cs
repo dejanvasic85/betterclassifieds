@@ -9,6 +9,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         {
             Attachments = new List<EmailAttachment>();
         }
+
         public string DocumentType => "EventGuestResend";
 
         public IList<EmailAttachment> Attachments { get; set; }
@@ -38,7 +39,7 @@ namespace Paramount.Betterclassifieds.Business.Broadcast
         public string TicketType { get; set; }
 
         [Placeholder("BarcodeImgUrl")]
-        public string  BarcodeImgUrl { get; set; }
+        public string BarcodeImgUrl { get; set; }
 
         [Placeholder("GroupName")]
         public string GroupName { get; set; }

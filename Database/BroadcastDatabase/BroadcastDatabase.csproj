@@ -54,6 +54,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Scripts-3.0\14-SriLankanEvents_EventGuestTransferFrom.sql" />
+    <EmbeddedResource Include="Scripts-3.0\14-TheMusic_EventGuestTransferFrom.sql" />
+    <EmbeddedResource Include="Scripts-3.0\14-Kandobay_EventGuestTransferFrom.sql" />
     <EmbeddedResource Include="Scripts-3.0\13-TheMusic_EventGuestResend.sql" />
     <EmbeddedResource Include="Scripts-3.0\13-SriLankanEvents_EventGuestResend.sql" />
     <EmbeddedResource Include="Scripts-3.0\13-Kandobay_EventGuestResend.sql" />

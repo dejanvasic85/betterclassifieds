@@ -14,7 +14,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         Task<IEnumerable<EventTicket>> GetEventTicketsForGroup(int eventGroupId);
         EventBooking GetEventBooking(int eventBookingId);
         EventBookingTicket GetEventBookingTicket(int eventBookingTicketId);
-        EventBookingTicket UpdateEventBookingTicket(int eventBookingTicketId, string guestFullName, string guestEmail, int? eventGroupId, IEnumerable<EventBookingTicketField> fields);
+        EventBookingTicket UpdateEventBookingTicket(int eventBookingTicketId, string guestFullName, string guestEmail, int? eventGroupId, IEnumerable<EventBookingTicketField> fields, Func<string, string> barcodeUrlCreator);
         EventBookingTicket CancelEventBookingTicket(int eventBookingTicketId);
         int GetRemainingTicketCount(int? ticketId);
         int GetRemainingTicketCount(EventTicket eventTicket);
@@ -48,7 +48,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         EventInvitation CreateInvitationForUserNetwork(int eventId, int userNetworkId);
         IEnumerable<EventGroup> GetEventGroups(int eventId, int? eventTicketId = null);
         Task<IEnumerable<EventGroup>> GetEventGroupsAsync(int eventId, int? eventTicketId = null);
-        
+
 
         Task<EventGroup> GetEventGroup(int eventGroupId);
         void AssignGroupToTicket(int eventBookingTicketId, int? eventGroupId);

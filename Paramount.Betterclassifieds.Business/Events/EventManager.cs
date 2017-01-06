@@ -82,18 +82,23 @@ namespace Paramount.Betterclassifieds.Business.Events
             return _eventRepository.GetEventBookingTicket(eventBookingTicketId);
         }
 
-        public EventBookingTicket UpdateEventBookingTicket(int eventBookingTicketId, string guestFullName, string guestEmail, int? eventGroupId, IEnumerable<EventBookingTicketField> fields)
+        public EventBookingTicket UpdateEventBookingTicket(int eventBookingTicketId, string guestFullName, string guestEmail, int? eventGroupId, IEnumerable<EventBookingTicketField> fields, Func<string, string> barcodeUrlCreator)
         {
             var eventBookingTicket = _eventRepository.GetEventBookingTicket(eventBookingTicketId);
-
             if (eventBookingTicket == null)
                 throw new ArgumentException($"eventBookingTicket {eventBookingTicketId} not found");
 
-
+            var eventBooking = _eventRepository.GetEventBooking(eventBookingTicket.EventBookingId);
+            
             var newEventBookingTicket = new EventBookingTicketFactory(_eventRepository, _dateService)
                 .CreateFromExisting(eventBookingTicket, guestFullName, guestEmail, eventGroupId, fields, _userManager.GetCurrentUser().Username);
 
+            // Save the new ticket
             _eventRepository.CreateEventBookingTicket(newEventBookingTicket);
+
+            // Now we have the id so we need to generate the barcode
+            CreateTicketBarcodeAndUpdate(eventBooking, newEventBookingTicket, barcodeUrlCreator);
+
 
             // We always mark the existing event booking ticket as inactive and simply create a new one
             // But we also need to reset the cost of the ticket!
@@ -104,6 +109,18 @@ namespace Paramount.Betterclassifieds.Business.Events
             _eventRepository.UpdateEventBookingTicket(eventBookingTicket);
 
             return newEventBookingTicket;
+        }
+
+        private void CreateTicketBarcodeAndUpdate(EventBooking eventBooking,
+            EventBookingTicket newEventBookingTicket, Func<string, string> barcodeUrlCreator)
+        {
+            var barcodeData = barcodeUrlCreator(_eventBarcodeValidator.GetDataForBarcode(eventBooking.EventId, newEventBookingTicket));
+            var barcode = _barcodeGenerator.CreateQr(barcodeData, height: 250, width: 250);
+            var document = new Document(Guid.NewGuid(), barcode, ContentType.Gif,
+                $"Ticket-{newEventBookingTicket.EventBookingTicketId}.gif", barcode.Length);
+            _documentRepository.Create(document);
+            newEventBookingTicket.BarcodeImageDocumentId = document.DocumentId;
+            _eventRepository.UpdateEventBookingTicket(newEventBookingTicket);
         }
 
         public EventBookingTicket CancelEventBookingTicket(int eventBookingTicketId)
@@ -192,13 +209,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                 try
                 {
                     _logService.Info("Creating barcode for ticket " + ticket.EventBookingTicketId);
-                    var barcodeData = barcodeUrlCreator(_eventBarcodeValidator.GetDataForBarcode(eventBooking.EventId, ticket));
-                    var barcode = _barcodeGenerator.CreateQr(barcodeData, height: 250, width: 250);
-                    var document = new Document(Guid.NewGuid(), barcode, ContentType.Gif, $"Ticket-{ticket.EventBookingTicketId}.gif", barcode.Length);
-                    _documentRepository.Create(document);
-
-                    ticket.BarcodeImageDocumentId = document.DocumentId;
-                    _eventRepository.UpdateEventBookingTicket(ticket);
+                    CreateTicketBarcodeAndUpdate(eventBooking, ticket, barcodeUrlCreator);
                 }
                 catch (Exception ex)
                 {

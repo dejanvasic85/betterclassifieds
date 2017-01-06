@@ -1,5 +1,6 @@
 ﻿(function ($, ko, notifier, $p) {
     
+    // Maps to ViewModel: EditGuestViewModel
     function EditGuest(data) {
 
         var me = this,
@@ -16,7 +17,7 @@
         me.groups = ko.observableArray();
         me.selectedGroup = ko.observable();
         me.currentGroupId = ko.observable();
-        me.sendEmailToGuest = ko.observable(true);
+        me.sendTransferEmail = ko.observable(true);
         me.sendEmailToGuestAboutRemoval = ko.observable(false);
         me.isEmailDifferent = ko.computed(function () {
             if (me.guestEmail() && me.originalGuestEmail()) {
@@ -49,7 +50,7 @@
             } else {
                 dataToPost.groupId = null;
             }
-            dataToPost.sendEmailToGuest = me.isEmailDifferent() && me.sendEmailToGuest();
+            dataToPost.sendTransferEmail = me.isEmailDifferent() && me.sendTransferEmail();
 
             adDesignService.editGuest(dataToPost).then(function (resp) {
                 $btn.button('reset');

@@ -79,6 +79,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         [MaxLength(100)]
         public string GuestEmail { get; set; }
 
+        [EmailAddress]
+        public string OriginalGuestEmail { get; set; }
+
         public List<EventTicketFieldViewModel> Fields { get; set; }
         public List<EventGroupViewModel> Groups { get; set; }
         public int? GroupId { get; set; }
@@ -88,6 +91,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public decimal TicketPrice { get; set; }
         public DateTime TicketPurchaseDate { get; set; }
 
-        public bool SendEmailToGuest { get; set; }
+        public bool SendTransferEmail { get; set; }
     }
 }

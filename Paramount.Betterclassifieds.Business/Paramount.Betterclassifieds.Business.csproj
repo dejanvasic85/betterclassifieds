@@ -62,6 +62,7 @@
     <Compile Include="Broadcast\DocTypes\EventGuestResendNotification.cs" />
     <Compile Include="Broadcast\DocTypes\EventGuestNotification.cs" />
     <Compile Include="Broadcast\DocTypes\EventGuestRemovedNotification.cs" />
+    <Compile Include="Broadcast\DocTypes\EventGuestTransferFromNotification.cs" />
     <Compile Include="Broadcast\DocTypes\EventPaymentRequest.cs" />
     <Compile Include="Broadcast\EmailAttachment.cs" />
     <Compile Include="Broadcast\DocTypes\EventTicketsBookedNotification.cs" />

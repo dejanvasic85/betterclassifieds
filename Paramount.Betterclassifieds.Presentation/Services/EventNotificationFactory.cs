@@ -23,8 +23,11 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         IEnumerable<EventTicketPrintViewModel> CreateEventTicketPrintViewModelsForBooking();
         byte[] CreateInvoiceAttachment();
         IEnumerable<EventGuestNotification> CreateEventGuestNotifications();
+        IEnumerable<EventGuestNotification> CreateEventGuestNotifications(string targetGuestEmail);
         IEnumerable<EventGuestResendNotification> CreateEventGuestResendNotifications();
         EventBookedViewModel CreateEventBookedViewModel();
+        EventGuestTransferFromNotification CreateEventTransferEmail(string ticketName,
+            string newGuestEmail, string newGuestFullName);
     }
 
     public class EventNotificationBuilder : IMappingBehaviour, IEventNotificationBuilder
@@ -119,6 +122,19 @@ namespace Paramount.Betterclassifieds.Presentation.Services
                 return helper.AdUrl(adDetails.HeadingSlug, adDetails.AdId, adDetails.CategoryAdType).WithFullUrl();
             });
 
+        public EventGuestTransferFromNotification CreateEventTransferEmail(string ticketName,
+            string newGuestEmail, string newGuestFullName)
+        {
+            return new EventGuestTransferFromNotification
+            {
+                EventName = Ad.Value.Heading,
+                EventUrl = EventUrl.Value,
+                TicketName = ticketName,
+                NewGuestEmail = newGuestEmail,
+                NewGuestName = newGuestFullName
+            };
+        }
+
         public EventTicketsBookedNotification CreateTicketPurchaserNotification()
         {
             var notification = this.Map<EventBookedViewModel, EventTicketsBookedNotification>(_eventBookedViewModel);
@@ -165,8 +181,21 @@ namespace Paramount.Betterclassifieds.Presentation.Services
         public IEnumerable<EventGuestNotification> CreateEventGuestNotifications()
         {
             var eventGuestNotificationFactory = new EventGuestNotificationFactory();
+            return EventBooking.Value.EventBookingTickets.Select(ToEventGuestNotification(eventGuestNotificationFactory));
+        }
 
-            return EventBooking.Value.EventBookingTickets.Select(eventBookingTicket => eventGuestNotificationFactory.Create(
+        public IEnumerable<EventGuestNotification> CreateEventGuestNotifications(string targetGuestEmail)
+        {
+            var eventGuestNotificationFactory = new EventGuestNotificationFactory();
+
+            return EventBooking.Value.EventBookingTickets
+                .Where(t => t.GuestEmail.Equals(targetGuestEmail, StringComparison.OrdinalIgnoreCase))
+                .Select(ToEventGuestNotification(eventGuestNotificationFactory));
+        }
+
+        private Func<EventBookingTicket, EventGuestNotification> ToEventGuestNotification(EventGuestNotificationFactory eventGuestNotificationFactory)
+        {
+            return eventBookingTicket => eventGuestNotificationFactory.Create(
                 _httpContextBase,
                 _clientConfig,
                 EventDetails.Value,
@@ -175,7 +204,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
                 EventGroups.Value,
                 EventUrl.Value,
                 EventBooking.Value.GetFullName(),
-                CreateTicketAttachment(eventBookingTicket)));
+                CreateTicketAttachment(eventBookingTicket));
         }
 
         public IEnumerable<EventGuestResendNotification> CreateEventGuestResendNotifications()

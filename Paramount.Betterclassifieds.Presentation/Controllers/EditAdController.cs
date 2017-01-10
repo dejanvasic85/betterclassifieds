@@ -531,16 +531,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 var builder = _eventNotificationBuilder.WithEventBooking(vm.EventBookingId);
 
                 // Send the new guest an email
-                builder
-                    .CreateEventGuestNotifications(vm.GuestEmail)
-                    .ForEach(notification =>
-                    {
-                        _broadcastManager.Queue(notification, notification.GuestEmail);
-                    });
+                builder.CreateEventGuestNotifications(vm.GuestEmail)
+                    .ForEach(notification => { _broadcastManager.Queue(notification, notification.GuestEmail); });
 
                 // Send the old guest a transfer email
-                var transferNotification = builder.CreateEventTransferEmail(vm.TicketName,
-                    vm.GuestEmail, vm.GuestFullName);
+                var transferNotification = builder.CreateEventTransferEmail(vm.TicketName, vm.GuestEmail, vm.GuestFullName);
 
                 _broadcastManager.Queue(transferNotification, vm.OriginalGuestEmail);
             }

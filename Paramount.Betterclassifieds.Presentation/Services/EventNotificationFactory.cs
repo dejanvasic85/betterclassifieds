@@ -128,6 +128,7 @@ namespace Paramount.Betterclassifieds.Presentation.Services
             return new EventGuestTransferFromNotification
             {
                 EventName = Ad.Value.Heading,
+                EventStartDate = EventDetails.Value.EventStartDate.GetValueOrDefault().ToString(Constants.DATE_FORMAT),
                 EventUrl = EventUrl.Value,
                 TicketName = ticketName,
                 NewGuestEmail = newGuestEmail,

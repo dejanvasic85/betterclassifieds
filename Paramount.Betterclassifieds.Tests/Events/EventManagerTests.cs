@@ -943,6 +943,35 @@ namespace Paramount.Betterclassifieds.Tests.Events
             mockOriginalTicket.Price.IsEqualTo(9);
         }
 
+        [Test]
+        public void UpdateEventTicketSettings_Successfully()
+        {
+            var mockEvent = new EventModelMockBuilder()
+                .WithEventId(100)
+                .WithIncludeTransactionFee(true)
+                .Build();
+
+            var expectedClosingDate = DateTime.Now.AddDays(30);
+            var expectedOpeningDate = DateTime.Now.AddDays(1);
+
+            _eventRepositoryMock.SetupWithVerification(
+                call => call.GetEventDetails(It.Is<int>(v => v == mockEvent.EventId)), mockEvent);
+
+            _eventRepositoryMock.SetupWithVerification(
+                call => call.UpdateEvent(It.Is<EventModel>(e => e == mockEvent)));
+
+            var mgr = BuildTargetObject();
+            
+            mgr.UpdateEventTicketSettings(mockEvent.EventId.Value, 
+                includeTransactionFee: false,
+                closingDate: expectedClosingDate,
+                openingDate: expectedOpeningDate);
+
+            mockEvent.IncludeTransactionFee.IsEqualTo(false);
+            mockEvent.ClosingDate.IsEqualTo(expectedClosingDate);
+            mockEvent.OpeningDate.IsEqualTo(expectedOpeningDate);
+        }
+
         private Mock<IEventRepository> _eventRepositoryMock;
         private Mock<IDateService> _dateServiceMock;
         private Mock<IDocumentRepository> _documentRepository;

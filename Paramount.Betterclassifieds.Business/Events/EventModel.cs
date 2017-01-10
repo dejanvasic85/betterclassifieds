@@ -26,11 +26,10 @@ namespace Paramount.Betterclassifieds.Business.Events
         public DateTime? EventEndDate { get; set; }
         public IList<EventTicket> Tickets { get; set; }
         public IList<EventBooking> EventBookings { get; set; }
-        public DateTime? ClosingDate { get; set; }
-        public DateTime? ClosingDateUtc { get; set; }
+        
         public string LocationFloorPlanDocumentId { get; set; }
         public string LocationFloorPlanFilename { get; set; }
-        public bool IsClosed => this.ClosingDateUtc.HasValue && this.ClosingDateUtc <= DateTime.UtcNow;
+        
         public Address Address { get; set; }
         public long? AddressId { get; set; }
 
@@ -46,5 +45,13 @@ namespace Paramount.Betterclassifieds.Business.Events
             : LocationWithoutAustralia;
         
         public string LocationWithoutAustralia => Location.Replace(", Australia", string.Empty);
+
+
+        // Ticket Availability Dates
+        public DateTime? ClosingDate { get; set; }
+        public DateTime? ClosingDateUtc { get; set; }
+        public DateTime? OpeningDate { get; set; }
+        public DateTime? OpeningDateUtc { get; set; }
+        public bool IsClosed => this.ClosingDateUtc.HasValue && this.ClosingDateUtc <= DateTime.UtcNow;
     }
 }

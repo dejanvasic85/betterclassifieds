@@ -489,14 +489,21 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
         [Test]
         public void EditTicketSettings_ReturnsJson()
         {
-            _eventManagerMock.SetupWithVerification(
-                call => call.SetTransactionFee(It.Is<int>(id => id == 10), It.Is<bool>(val => val == true)));
-
-            var controller = BuildController();
-            controller.EditTicketSettings(1, 10, new TicketSettingsViewModel
+            var mockSettings = new TicketSettingsViewModel
             {
                 IncludeTransactionFee = true
-            });
+            };
+
+            _eventManagerMock.SetupWithVerification(
+                call => call.UpdateEventTicketSettings(
+                    It.Is<int>(id => id == 10), 
+                    It.Is<bool>(val => val == mockSettings.IncludeTransactionFee),
+                    It.Is<DateTime?>(val => val == mockSettings.ClosingDate),
+                    It.Is<DateTime?>(val => val == mockSettings.OpeningDate)));
+
+            var controller = BuildController();
+            
+            controller.EditTicketSettings(1, 10, mockSettings);
         }
 
         private Mock<ISearchService> _searchServiceMock;

@@ -555,14 +555,6 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.EventBookings = val);
 		}
-		public EventModelMockBuilder WithClosingDate(DateTime? val)
-		{ 
-			return WithBuildStep(p => p.ClosingDate = val);
-		}
-		public EventModelMockBuilder WithClosingDateUtc(DateTime? val)
-		{ 
-			return WithBuildStep(p => p.ClosingDateUtc = val);
-		}
 		public EventModelMockBuilder WithLocationFloorPlanDocumentId(String val)
 		{ 
 			return WithBuildStep(p => p.LocationFloorPlanDocumentId = val);
@@ -590,6 +582,22 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventModelMockBuilder WithGroupsRequired(Boolean? val)
 		{ 
 			return WithBuildStep(p => p.GroupsRequired = val);
+		}
+		public EventModelMockBuilder WithClosingDate(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.ClosingDate = val);
+		}
+		public EventModelMockBuilder WithClosingDateUtc(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.ClosingDateUtc = val);
+		}
+		public EventModelMockBuilder WithOpeningDate(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.OpeningDate = val);
+		}
+		public EventModelMockBuilder WithOpeningDateUtc(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.OpeningDateUtc = val);
 		}
 	}
 

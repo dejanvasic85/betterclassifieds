@@ -84,7 +84,13 @@
 
         me.eventId = ko.observable(eventId);
         me.includeTransactionFee = ko.observable(data.includeTransactionFee);
-        me.showTicketAvailability = ko.observable(data.closingDate !== null || data.openingDate !== null);
+        me.ticketAvailability = ko.observable("alwaysAvailable")
+        
+        if (data.closingDate !== null || data.openingDate !== null) {
+            me.ticketAvailability("specificDates");
+        }
+
+
         me.closingDate = ko.observable(data.closingDate);
         me.openingDate = ko.observable(data.openingDate);
 

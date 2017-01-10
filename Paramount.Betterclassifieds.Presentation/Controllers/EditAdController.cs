@@ -223,6 +223,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             return Json(viewModel.EventTicket);
         }
+            
+        [HttpPost]
+        [Route("event-dashboard/{id}/event/{eventId}/edit-ticket-settings")]
+        public ActionResult EditTicketSettings(int id, int eventId, TicketSettingsViewModel ticketSettingsViewModel)
+        {
+            _eventManager.SetTransactionFee(eventId, ticketSettingsViewModel.IncludeTransactionFee);
+            return Json(true);
+        }
 
         [HttpPost]
         public ActionResult AddTicket(int id, NewEventTicketViewModel vm)
@@ -628,13 +636,6 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult ToggleEventGroupStatus(int id, int eventGroupId, bool isDisabled)
         {
             _eventManager.SetEventGroupStatus(eventGroupId, isDisabled);
-            return Json(true);
-        }
-
-        [HttpPost]
-        public ActionResult ToggleTransactionFee(int id, int eventId, bool includeTransactionFee)
-        {
-            _eventManager.SetTransactionFee(eventId, includeTransactionFee);
             return Json(true);
         }
 

@@ -354,6 +354,7 @@
     <Compile Include="Services\Seo\SitemapFactory.cs" />
     <Compile Include="Services\Seo\SitemapFrequency.cs" />
     <Compile Include="Services\Seo\SitemapNode.cs" />
+    <Compile Include="ViewModels\Events\TicketSettingsViewModel.cs" />
     <Compile Include="ViewModels\Events\UpdateEventTicketViewModel.cs" />
     <Compile Include="ViewModels\StripePaymentViewModel.cs" />
     <Compile Include="ViewModels\UserNetwork\UserNetworkEmailView.cs" />

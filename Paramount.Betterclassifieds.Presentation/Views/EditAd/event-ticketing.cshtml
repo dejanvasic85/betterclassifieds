@@ -44,19 +44,31 @@
                 <div class="panel-heading">
                     <i class="fa fa-cog"></i> Settings
                 </div>
-
+                
                 <div class="panel-body">
-                    <h3>Transaction Fee</h3>
-                    <p>
-                        Do you want the customer to pay the transaction fee?
-                    </p>
-                    <input type="checkbox" data-bind="toggle: includeTransactionFee"
-                           data-on="Yes"
-                           data-off="No, I will" />
 
-                    <p class="help-block">
-                        Fees won't be displayed to the ticket purchasers until checkout. <a href="@Url.EventPricing()" target="_blank">Click here for more info</a>
-                    </p>
+                    <div>
+                        <h3>Ticket Availability</h3>
+                        <p>
+                            coming soon
+                        </p>
+                    </div>
+                    
+
+                    <hr />
+                    <div>
+                        <h3>Transaction Fee</h3>
+                        <p>
+                            Do you want the customer to pay the transaction fee?
+                        </p>
+                        <input type="checkbox" data-bind="toggle: includeTransactionFee"
+                               data-on="Yes"
+                               data-off="No, I will" />
+
+                        <p class="help-block">
+                            Fees won't be displayed to the ticket purchasers until checkout. <a href="@Url.EventPricing()" target="_blank">Click here for more info</a>
+                        </p>
+                    </div>
                 </div>
 
                 <div class="panel-footer text-right">
@@ -67,6 +79,8 @@
             </div>
         </div>
     </div>
+
+    <hr />
 
     <div class="row">
         <div class="col-sm-3 col-sm-offset-9">
@@ -193,7 +207,7 @@
                 </div>
 
                 <div class="panel-footer text-right">
-                    <a class="btn btn-primary js-load" data-bind="attr : {href : editTicketUrl, 'data-ticketId': eventTicketId}" >Edit</a>
+                    <a class="btn btn-primary js-load" data-bind="attr : {href : editTicketUrl, 'data-ticketId': eventTicketId}">Edit</a>
                 </div>
             </div>
         </div>

@@ -111,7 +111,7 @@
         return $paramount.httpPost(me.baseUrl + 'remove-guest', me.model);
     }
 
-    AdDesignService.prototype.resendGuestEmail = function(eventBookingTicketId) {
+    AdDesignService.prototype.resendGuestEmail = function (eventBookingTicketId) {
         $.extend(me.model, { eventBookingTicketId: eventBookingTicketId });
         return $paramount.httpPost(me.baseUrl + 'resend-guest-email', me.model);
     }
@@ -138,14 +138,13 @@
         return $paramount.httpPost(url, me.model);
     }
 
-    AdDesignService.prototype.toggleTransactionFee = function (val) {
-        var url = me.baseUrl + 'toggleTransactionFee';
-        $.extend(me.model, val);
-        return $paramount.httpPost(url, me.model);
+    AdDesignService.prototype.editTicketSettings = function (eventId, settings) {
+        var url = $paramount.baseUrl + 'event-dashboard/' + me.model.id + '/event/' + eventId + '/edit-ticket-settings';
+        return $paramount.httpPost(url, settings);
     }
 
     AdDesignService.prototype.updateEventGroupSettings = function (settings) {
-        return $paramount.httpPost(me.baseUrl +  'updateEventGroupSettings', $.extend(me.model, settings));
+        return $paramount.httpPost(me.baseUrl + 'updateEventGroupSettings', $.extend(me.model, settings));
     }
 
     AdDesignService.prototype.editTicket = function (data) {

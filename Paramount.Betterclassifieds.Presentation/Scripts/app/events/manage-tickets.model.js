@@ -25,8 +25,7 @@
             var $btn = $(event.target);
             $btn.loadBtn();
 
-            adDesignService.toggleTransactionFee({
-                eventId: model.eventId(),
+            adDesignService.editTicketSettings(model.eventId(), {
                 includeTransactionFee: model.includeTransactionFee()
             }).success(function () {
                 toastr.success("Settings updated successfully.");

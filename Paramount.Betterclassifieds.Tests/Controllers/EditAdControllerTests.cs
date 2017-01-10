@@ -485,7 +485,20 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             var result = BuildController().EditTicket(1, viewModelMock.EventTicket.EventTicketId.Value, viewModelMock);
             var jsonResult = result.IsTypeOf<JsonResult>();
         }
-        
+
+        [Test]
+        public void EditTicketSettings_ReturnsJson()
+        {
+            _eventManagerMock.SetupWithVerification(
+                call => call.SetTransactionFee(It.Is<int>(id => id == 10), It.Is<bool>(val => val == true)));
+
+            var controller = BuildController();
+            controller.EditTicketSettings(1, 10, new TicketSettingsViewModel
+            {
+                IncludeTransactionFee = true
+            });
+        }
+
         private Mock<ISearchService> _searchServiceMock;
         private Mock<IApplicationConfig> _applicationConfigMock;
         private Mock<IClientConfig> _clientConfigMock;

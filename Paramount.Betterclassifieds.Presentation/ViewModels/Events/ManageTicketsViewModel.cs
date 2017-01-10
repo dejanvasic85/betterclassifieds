@@ -7,7 +7,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public int Id { get; set; } // AdId
         public int EventId { get; set; }
         public List<EventTicketViewModel> Tickets { get; set; }
-        public bool? IncludeTransactionFee { get; set; }
+        public TicketSettingsViewModel TicketSettings { get; set; }
         
     }
 }

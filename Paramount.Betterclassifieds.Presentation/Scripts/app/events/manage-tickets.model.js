@@ -1,5 +1,5 @@
 ﻿(function ($, ko, toastr, $p) {
-    
+
     var adDesignService;
 
     function ManageTickets(data) {
@@ -8,7 +8,8 @@
         var me = this;
         me.id = ko.observable(data.id);
         me.eventId = ko.observable(data.eventId);
-        me.includeTransactionFee = ko.observable(data.includeTransactionFee);
+        me.ticketSettings = new TicketSettings(data.eventId, data.ticketSettings);
+
         me.tickets = $p.ko.bindArray(data.tickets, function (t) {
             t.adId = data.id;
             return new $p.models.EventTicket(t, 20);
@@ -19,19 +20,6 @@
 
         me.removeField = function (f) {
             me.newTicket().eventTicketFields.remove(f);
-        }
-
-        me.updateTicketSettings = function (model, event) {
-            var $btn = $(event.target);
-            $btn.loadBtn();
-
-            adDesignService.editTicketSettings(model.eventId(), {
-                includeTransactionFee: model.includeTransactionFee()
-            }).success(function () {
-                toastr.success("Settings updated successfully.");
-            }).then(function () {
-                $btn.resetBtn();
-            });
         }
     }
 
@@ -48,10 +36,10 @@
         var $btn = $(event.target); // Grab the jQuery element from knockout
         var newTicket = me.newTicket();
         if ($paramount.checkValidity(newTicket)) {
-            $btn.button('loading');
+            $btn.loadBtn();
             var eventTicketData = ko.toJS(newTicket);
             adDesignService.addEventTicket(eventTicketData)
-                .then(function (resp) {
+                .success(function (resp) {
                     if (resp) {
                         toastr.success('Ticket added successfully');
                         me.newTicket(new NewEventTicket({ eventId: me.eventId() }));
@@ -60,13 +48,13 @@
                         eventTicketData.soldQty = 0;
                         eventTicketData.eventTicketId = resp.eventTicketId;
                         eventTicketData.adId = me.id();
-                        
+
                         me.tickets.push(new $p.models.EventTicket(eventTicketData, 20));
                         me.isCreateEnabled(false);
                     }
                 })
                 .always(function () {
-                    $btn.button('reset');
+                    $btn.resetBtn();
                 });
         }
     }
@@ -88,6 +76,28 @@
 
         me.addField = function () {
             me.eventTicketFields.push(new $p.models.DynamicFieldDefinition(me));
+        }
+    }
+
+    function TicketSettings(eventId, data) {
+        var me = this;
+
+        me.eventId = ko.observable(eventId);
+        me.includeTransactionFee = ko.observable(data.includeTransactionFee);
+        me.showTicketAvailability = ko.observable(data.closingDate !== null || data.openingDate !== null);
+        me.closingDate = ko.observable(data.closingDate);
+        me.openingDate = ko.observable(data.openingDate);
+
+        me.updateTicketSettings = function (model, event) {
+            var $btn = $(event.target);
+            $btn.loadBtn();
+
+            adDesignService.editTicketSettings(model.eventId(), ko.toJS(model))
+                .success(function () {
+                    toastr.success("Settings updated successfully.");
+                }).always(function () {
+                    $btn.resetBtn();
+                });
         }
     }
 

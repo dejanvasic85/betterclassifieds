@@ -158,15 +158,17 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             var eventDetails = _eventManager.GetEventDetails(eventId);
             if (eventDetails == null)
+            {
                 return Url.NotFound().ToRedirectResult();
-            var guestList = _eventManager.BuildGuestList(eventId);
+            }
 
+            var guestList = _eventManager.BuildGuestList(eventId);
             var vm = new ManageTicketsViewModel
             {
                 Id = id,
                 EventId = eventId,
+                TicketSettings = new TicketSettingsViewModel(eventDetails),
                 Tickets = this.MapList<EventTicket, EventTicketViewModel>(eventDetails.Tickets.ToList()),
-                IncludeTransactionFee = eventDetails.With(e => e.IncludeTransactionFee)
             };
 
             var groupedGuests = guestList.GroupBy(g => g.TicketId);

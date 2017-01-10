@@ -198,8 +198,9 @@
 
     $paramount.ko = {
         bindArray: function (collection, creator) {
+            /// <summary>Creates a new knockout observableArray where each item is created by the creator callback</summary>
             var observableArray = ko.observableArray();
-            _.each(collection, function (item) {
+            _.forEach(collection, function (item) {
                 observableArray.push(creator(item));
             });
             return observableArray;

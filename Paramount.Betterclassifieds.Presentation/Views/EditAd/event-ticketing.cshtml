@@ -49,29 +49,9 @@
 
                     <div>
                         <h3>Ticket Availability</h3>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="ticketAvailability" id="alwaysAvailable" value="alwaysAvailable"
-                                       data-bind="checked: ticketAvailability">
-                                Always available
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="ticketAvailability" id="specificDates" value="specificDates"
-                                       data-bind="checked: ticketAvailability">
-                                Only for the following dates
-                            </label>
-                        </div>
-
-                        <div data-bind="visible: ticketAvailability() === 'specificDates'">
-
-                            Show dates selection here!
-
-                        </div>                        
+                        <availability-options params="startDate: openingDate, endDate: closingDate"></availability-options>                   
                     </div>
                     
-
                     <hr />
                     <div>
                         <h3>Transaction Fee</h3>

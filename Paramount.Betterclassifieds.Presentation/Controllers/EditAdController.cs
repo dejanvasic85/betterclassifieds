@@ -230,6 +230,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [Route("event-dashboard/{id}/event/{eventId}/edit-ticket-settings")]
         public ActionResult EditTicketSettings(int id, int eventId, TicketSettingsViewModel ticketSettingsViewModel)
         {
+            if (!ModelState.IsValid)
+                return Json(new { Errors = ModelState.ToErrors() });
+
             _eventManager.UpdateEventTicketSettings(eventId, 
                 ticketSettingsViewModel.IncludeTransactionFee,
                 ticketSettingsViewModel.ClosingDate,

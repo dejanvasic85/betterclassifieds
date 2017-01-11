@@ -1,0 +1,36 @@
+﻿<div>
+    <div class="radio">
+        <label>
+            <input type="radio" name="availability" id="alwaysAvailable" value="alwaysAvailable"
+                   data-bind="checked: availability">
+            Always available
+        </label>
+    </div>
+    <div class="radio">
+        <label>
+            <input type="radio" name="availability" id="specificDates" value="specificDates"
+                   data-bind="checked: availability">
+            Only for the following dates
+        </label>
+    </div>
+
+    <div data-bind="visible: availability() === 'specificDates'">
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="control-group">
+                    <label class="control-label">Start Date</label>
+                    <input type="text" data-bind="value: startDate" class="form-control"/>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="control-group">
+                    <label class="control-label">End Date</label>
+                    <input type="text" data-bind="value: endDate" class="form-control" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

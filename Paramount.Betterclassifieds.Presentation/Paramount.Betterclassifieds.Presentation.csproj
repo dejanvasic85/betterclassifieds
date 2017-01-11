@@ -574,6 +574,8 @@
     <Content Include="Scripts\app\account\userEnquiry.model.js" />
     <Content Include="Scripts\app\account\userAdsView.model.js" />
     <Content Include="Scripts\app\account\userAds.service.js" />
+    <Content Include="Scripts\app\availabilityOptions\availability-options.html" />
+    <Content Include="Scripts\app\availabilityOptions\availability-options.js" />
     <Content Include="Scripts\app\common\dynamicFieldDefinition.js" />
     <Content Include="Scripts\app\common\dynamicFieldValue.js" />
     <Content Include="Scripts\app\contactAdvertiser\contactAdvertiser.model.js" />

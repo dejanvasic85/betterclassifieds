@@ -5,6 +5,7 @@
 /// <reference path="app/account/userads.ui.js" />
 /// <reference path="app/account/useradsview.model.js" />
 /// <reference path="app/account/userenquiry.model.js" />
+/// <reference path="app/availabilityoptions/availability-options.js" />
 /// <reference path="app/booking/addesignservice.js" />
 /// <reference path="app/booking/bookingcategoryselection.js" />
 /// <reference path="app/booking/designad.js" />

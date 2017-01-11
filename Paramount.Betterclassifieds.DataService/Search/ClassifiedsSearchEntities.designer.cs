@@ -727,6 +727,10 @@ namespace Paramount.Betterclassifieds.DataService.Search
 		
 		private string _CategoryFontIcon;
 		
+		private System.Nullable<System.DateTime> _OpeningDate;
+		
+		private System.Nullable<System.DateTime> _OpeningDateUtc;
+		
 		public BookedEvent()
 		{
 		}
@@ -1463,6 +1467,38 @@ namespace Paramount.Betterclassifieds.DataService.Search
 				if ((this._CategoryFontIcon != value))
 				{
 					this._CategoryFontIcon = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OpeningDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> OpeningDate
+		{
+			get
+			{
+				return this._OpeningDate;
+			}
+			set
+			{
+				if ((this._OpeningDate != value))
+				{
+					this._OpeningDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OpeningDateUtc", DbType="DateTime")]
+		public System.Nullable<System.DateTime> OpeningDateUtc
+		{
+			get
+			{
+				return this._OpeningDateUtc;
+			}
+			set
+			{
+				if ((this._OpeningDateUtc != value))
+				{
+					this._OpeningDateUtc = value;
 				}
 			}
 		}

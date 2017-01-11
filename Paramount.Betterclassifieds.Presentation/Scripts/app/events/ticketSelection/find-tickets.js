@@ -2,7 +2,7 @@
 
     ko.components.register('find-tickets', {
         viewModel: Tickets,
-        template: { path: $p.baseUrl + '/Scripts/app/events/ticketSelection/find-tickets.html' }
+        template: { path: $p.baseUrl + 'Scripts/app/events/ticketSelection/find-tickets.html' }
     });
 
     var eventService;
@@ -179,6 +179,7 @@
         var me = this;
 
         eventService.getEvent(params.eventId).then(function (eventData) {
+            console.log(eventData);
             me.groupsRequired(eventData.groupsRequired);
 
             if (eventData.groupsRequired === true) {

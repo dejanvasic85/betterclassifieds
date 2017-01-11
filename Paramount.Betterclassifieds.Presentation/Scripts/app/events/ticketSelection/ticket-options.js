@@ -3,6 +3,6 @@
         viewModel : function(params) {
             this.tickets = params.ticketsObservable;
         },
-        template: { path: $paramount.baseUrl + '/Scripts/app/events/ticketSelection/ticket-options.html' }
+        template: { path: $paramount.baseUrl + 'Scripts/app/events/ticketSelection/ticket-options.html' }
     });
 })(ko);

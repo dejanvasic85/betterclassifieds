@@ -81,6 +81,8 @@
       <Column Name="DocumentIds" Type="System.String" CanBeNull="false" />
       <Column Name="ParentCategoryName" Type="System.String" CanBeNull="false" />
       <Column Name="CategoryFontIcon" Type="System.String" CanBeNull="false" />
+      <Column Name="OpeningDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="OpeningDateUtc" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
   <Function Name="dbo.BookedAd_GetById" Method="BookedAd_GetById">

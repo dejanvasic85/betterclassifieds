@@ -69,7 +69,7 @@
     ko.components.register('pager', {
         viewModel: Pagination,
         template: {
-            path: $paramount.baseUrl + '/Scripts/app/pagination/pagination.html'
+            path: $paramount.baseUrl + 'Scripts/app/pagination/pagination.html'
         }
     });
 })(ko);

@@ -89,7 +89,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                 throw new ArgumentException($"eventBookingTicket {eventBookingTicketId} not found");
 
             var eventBooking = _eventRepository.GetEventBooking(eventBookingTicket.EventBookingId);
-            
+
             var newEventBookingTicket = new EventBookingTicketFactory(_eventRepository, _dateService)
                 .CreateFromExisting(eventBookingTicket, guestFullName, guestEmail, eventGroupId, fields, _userManager.GetCurrentUser().Username);
 
@@ -598,8 +598,18 @@ namespace Paramount.Betterclassifieds.Business.Events
         {
             var eventModel = _eventRepository.GetEventDetails(eventId);
             eventModel.IncludeTransactionFee = includeTransactionFee;
+
+            // The dates supplied are assumed to be local to the event.
+            // That means we simply take away the daylight savings and Utc offsets ... and we have our Utc dates!
+            var totalSecondsToSubstract = eventModel.TimeZoneUtcOffsetSeconds.GetValueOrDefault() +
+                                          eventModel.TimeZoneDaylightSavingsOffsetSeconds.GetValueOrDefault();
+            
             eventModel.ClosingDate = closingDate;
+            eventModel.ClosingDateUtc = closingDate?.AddSeconds(-totalSecondsToSubstract);
+
             eventModel.OpeningDate = openingDate;
+            eventModel.OpeningDateUtc = openingDate?.AddSeconds(-totalSecondsToSubstract);
+
             _eventRepository.UpdateEvent(eventModel);
         }
     }

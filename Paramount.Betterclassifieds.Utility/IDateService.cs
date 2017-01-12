@@ -25,7 +25,7 @@ namespace Paramount.Betterclassifieds
     /// </summary>
     public class ServerDateService : IDateService
     {
-        private const string DATE_FORMAT = "dd/MM/yyyy";
+        private const string DATE_FORMAT = "dd/MM/yyyy"; // Default aus format? lol . Should be using Culture
 
         public DateTime Today
         {

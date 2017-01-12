@@ -24,8 +24,8 @@ namespace Paramount.Betterclassifieds.Presentation.Framework.ModelBinders
                 {
                     bindingContext.ModelState.AddModelError(
                         bindingContext.ModelName,
-                        string.Format("{0} is an invalid date format", value.AttemptedValue)
-                    );
+                        $"{value.AttemptedValue} is an invalid date format"
+                        );
                 }
             }
 

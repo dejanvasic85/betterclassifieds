@@ -2,8 +2,29 @@
 ** $paramount utility class
 */
 (function ($paramount, $window, $, $mobileDetect, htmlEditor) {
+
     var me = this;
     me.isMobileDevice = null;
+
+    $paramount.jsToServerDateFormat = "YYYY-MM-DD HH:mm";   // How we talk to the server
+    $paramount.jsToDisplayDateFormat = "DD/MM/YYYY HH:mm";  // How we display in browser
+
+    $paramount.dateToServerString = function (date) {
+        ///<summary>Returns a string ready to be converted to the .Net parsable on the server</summary>
+        if (!date) {
+            return null;
+        }
+        return moment(date).format($paramount.jsToServerDateFormat);
+    }
+
+    $paramount.dateFromServer = function(date) {
+        ///<summary>Returns a moment date object after being parsed from the server</summary>
+        if (!date) {
+            return null;
+        }
+
+        return moment(date, $paramount.jsToServerDateFormat);
+    }
 
     /*
      * Constants

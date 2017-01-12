@@ -949,10 +949,15 @@ namespace Paramount.Betterclassifieds.Tests.Events
             var mockEvent = new EventModelMockBuilder()
                 .WithEventId(100)
                 .WithIncludeTransactionFee(true)
+                .WithTimeZoneDaylightSavingsOffsetSeconds(10)
+                .WithTimeZoneUtcOffsetSeconds(100)
                 .Build();
 
             var expectedClosingDate = DateTime.Now.AddDays(30);
+            var expectedClosingDateUtc = expectedClosingDate.AddSeconds(-110);
+            
             var expectedOpeningDate = DateTime.Now.AddDays(1);
+            var expectedOpeningDateUtc = expectedOpeningDate.AddSeconds(-110);
 
             _eventRepositoryMock.SetupWithVerification(
                 call => call.GetEventDetails(It.Is<int>(v => v == mockEvent.EventId)), mockEvent);
@@ -969,7 +974,10 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             mockEvent.IncludeTransactionFee.IsEqualTo(false);
             mockEvent.ClosingDate.IsEqualTo(expectedClosingDate);
+            mockEvent.ClosingDateUtc.IsEqualTo(expectedClosingDateUtc);
             mockEvent.OpeningDate.IsEqualTo(expectedOpeningDate);
+            mockEvent.OpeningDateUtc.IsEqualTo(expectedOpeningDateUtc);
+
         }
 
         private Mock<IEventRepository> _eventRepositoryMock;

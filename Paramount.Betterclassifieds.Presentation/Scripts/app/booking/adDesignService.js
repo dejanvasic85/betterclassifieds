@@ -139,6 +139,8 @@
     }
 
     AdDesignService.prototype.editTicketSettings = function (eventId, settings) {
+        settings.openingDate = $paramount.dateToServerString(settings.openingDate);
+        settings.closingDate = $paramount.dateToServerString(settings.closingDate);
         var url = $paramount.baseUrl + 'event-dashboard/' + me.model.id + '/event/' + eventId + '/edit-ticket-settings';
         return $paramount.httpPost(url, settings);
     }

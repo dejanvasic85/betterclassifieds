@@ -20,14 +20,32 @@
             <div class="col-md-6">
                 <div class="control-group">
                     <label class="control-label">Start Date</label>
-                    <input type="text" data-bind="value: startDate" class="form-control"/>
+
+                    <div class="form-group">
+                        <div class='input-group date'>
+                            <input type='text' class="form-control" data-bind="datetime: startDate" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
             <div class="col-md-6">
                 <div class="control-group">
                     <label class="control-label">End Date</label>
-                    <input type="text" data-bind="value: endDate" class="form-control" />
+
+                    <div class="form-group">
+                        <div class='input-group date'>
+                            <input type='text' class="form-control" data-bind="datetime: endDate" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

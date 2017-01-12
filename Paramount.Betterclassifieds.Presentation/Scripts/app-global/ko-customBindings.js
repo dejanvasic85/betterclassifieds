@@ -4,30 +4,9 @@
 
 (function (knockout, $) {
 
-    /*
-     * Time - Clock picker
-     */
-    ko.bindingHandlers.time = {
-        init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-            var accessor = valueAccessor();
-            var time = ko.unwrap(accessor);
-            $(element)
-                .val(time)
-                .attr('readonly', '')               // Prevents the user from inputting their own value
-                .addClass('bs-clock-picker')        // Prevents the user from inputting their own value
-                .clockpicker({
-                    donetext: 'OK',
-                    autoclose: true,
-                    afterDone: function () {
-                        accessor($(element).val());
-                    }
-                });
-        }
-    }
-
 
     /*
-     * Date Picker
+     * Date Picker DEPRECATED. TODO - replace this with datepicker (see below)
      * Usage : <input type='text' data-bind='date: modelProperty' />
      */
     ko.bindingHandlers.date = {
@@ -152,5 +131,51 @@
             $(element).toggle(isVisible);
         }
     }
+
+
+    /*
+     * New date selector (with time)
+     */
+    var dateFormat = 'DD/MM/YYYY HH:mm';
+    ko.bindingHandlers.datetime = {
+        init: function (element, valueAccessor, allBindingsAccessor) {
+            //initialize datepicker with some optional options
+            var options = allBindingsAccessor().dateTimePickerOptions || {};
+            options.format = dateFormat;
+            $(element).datetimepicker(options);
+
+            //when a user changes the date, update the view model
+            ko.utils.registerEventHandler(element, "dp.change", function (event) {
+                var value = valueAccessor();
+                if (ko.isObservable(value)) {
+                    if (event.date != null && !(event.date instanceof Date)) {
+                        value(event.date.toDate());
+                    } else {
+                        value(event.date);
+                    }
+                }
+            });
+
+            ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+                var picker = $(element).data("DateTimePicker");
+                if (picker) {
+                    picker.destroy();
+                }
+            });
+        },
+        update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+
+            var picker = $(element).data("DateTimePicker");
+            //when the view model is updated, update the widget
+            if (picker) {
+                var koDate = ko.utils.unwrapObservable(valueAccessor());
+
+                //in case return from server datetime i am get in this form for example /Date(93989393)/ then fomat this
+                koDate = (typeof (koDate) !== 'object') ? new Date(parseFloat(koDate.replace(/[^0-9]/g, ''))) : koDate;
+
+                picker.date(koDate);
+            }
+        }
+    };
 
 })(ko, jQuery);

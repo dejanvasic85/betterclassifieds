@@ -15,7 +15,9 @@ namespace Paramount.Betterclassifieds.Presentation
                 .IncludeDirectory("~/Scripts/knockout", "*.js"));
 
             // Components - all others
-            bundles.Add(new ScriptBundle("~/bundle/vendor").IncludeDirectory("~/Scripts/vendor", "*.js", false));
+            bundles.Add(new ScriptBundle("~/bundle/vendor")
+                .Include("~/Scripts/vendor/moment-2.8.2.js")            // This needs to be loaded first (or before bootstrap-datepicker)
+                .IncludeDirectory("~/Scripts/vendor", "*.js", false));
 
             // Paramount            
             bundles.Add(new ScriptBundle("~/bundle/paramount-app")

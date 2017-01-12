@@ -410,6 +410,7 @@
     <Content Include="Content\bootstrap-theme-united-3.3.0.min.css" />
     <Content Include="Content\bootstrap-theme-yeti.css" />
     <Content Include="Content\components\bootstrap-clockpicker.css" />
+    <Content Include="Content\components\bootstrap-datepicker.css" />
     <Content Include="Content\components\bootstrap-toggle.css" />
     <Content Include="Content\components\bootstrap-toggleoverride.css">
       <DependentUpon>bootstrap-toggleoverride.less</DependentUpon>
@@ -623,9 +624,8 @@
     <Content Include="Scripts\app\userNetwork\userNetworkNotifyAd.ui.js" />
     <Content Include="Scripts\knockout\knockout.validation-2.0.3.js" />
     <Content Include="Scripts\vendor\bluebird.js" />
+    <Content Include="Scripts\vendor\bootstrap-datepicker-4.7.14.js" />
     <Content Include="Scripts\vendor\bootstrap-3.3.6.js" />
-    <Content Include="Scripts\vendor\bootstrap-clockpicker.js" />
-    <Content Include="Scripts\vendor\bootstrap-datepicker.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
     <Content Include="Scripts\ckeditor\config.js" />
@@ -833,6 +833,7 @@
     <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc.js" />
     <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\wsc_ie.js" />
     <Content Include="Scripts\ckeditor\styles.js" />
+    <Content Include="Scripts\vendor\bootstrap-datepicker.js" />
     <Content Include="Scripts\vendor\bootstrap-toggle.js" />
     <Content Include="Scripts\vendor\chart.js" />
     <Content Include="Scripts\vendor\cropper.js" />

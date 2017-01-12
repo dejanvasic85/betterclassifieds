@@ -22,7 +22,7 @@
             });
         },
         template: {
-            path: $paramount.baseUrl + '/Scripts/app/availabilityOptions/availability-options.html'
+            path: $paramount.baseUrl + 'Scripts/app/availabilityOptions/availability-options.html'
         }
     });
 

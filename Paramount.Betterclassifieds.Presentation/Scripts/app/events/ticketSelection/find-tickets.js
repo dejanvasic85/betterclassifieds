@@ -179,7 +179,6 @@
         var me = this;
 
         eventService.getEvent(params.eventId).then(function (eventData) {
-            console.log(eventData);
             me.groupsRequired(eventData.groupsRequired);
 
             if (eventData.groupsRequired === true) {

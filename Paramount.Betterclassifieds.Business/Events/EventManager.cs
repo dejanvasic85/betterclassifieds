@@ -597,6 +597,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         public void UpdateEventTicketSettings(int eventId, bool includeTransactionFee, DateTime? closingDate, DateTime? openingDate)
         {
             var eventModel = _eventRepository.GetEventDetails(eventId);
+
             eventModel.IncludeTransactionFee = includeTransactionFee;
 
             // The dates supplied are assumed to be local to the event.

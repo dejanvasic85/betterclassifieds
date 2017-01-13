@@ -104,7 +104,7 @@ namespace Paramount.Betterclassifieds.DataService
 
         public List<CategorySearchResult> GetTopLevelCategories()
         {
-            return GetCategories().Where(c => c.ParentId.IsNullValue()).ToList();
+            return GetCategories().Where(c => c.ParentId == null).ToList();
         }
 
         public List<CategorySearchResult> GetCategories()

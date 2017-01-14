@@ -17,16 +17,7 @@
 }
 
 <div class="container top-buffer-60">
-    @if (Model.IsEventClosed)
-    {
-        <div class="alert alert-warning">
-
-            <h3>
-                <i class="fa fa-times-circle-o"></i> Sorry. The event you are looking for has been closed. Tickets are no longer available.
-            </h3>
-        </div>
-    }
-    else if (Model.IsAlreadyConfirmed)
+    @if (Model.IsAlreadyConfirmed)
     {
         <div class="alert alert-warning">
 

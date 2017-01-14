@@ -26,6 +26,14 @@
         return moment(date, $paramount.jsToServerDateFormat);
     }
 
+    $paramount.dateToDisplay = function(date) {
+        if (!date) {
+            return '';
+        }
+
+        return moment(date).format($paramount.jsToDisplayDateFormat);
+    }
+
     /*
      * Constants
      */

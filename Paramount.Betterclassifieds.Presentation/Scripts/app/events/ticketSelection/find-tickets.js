@@ -25,6 +25,28 @@
         me.currentPage = ko.observable(1);
         me.pageSize = 3;
 
+        // Opening and closing dates
+        me.openingDate = ko.observable();
+        me.closingDate = ko.observable();
+        me.hasClosed = ko.computed(function () {
+            if (!me.closingDate()) {
+                return false;
+            }
+            return me.closingDate().isBefore(moment());
+        });
+
+        me.hasNotOpened = ko.computed(function () {
+            if (!me.openingDate()) {
+                return false;
+            }
+            return me.openingDate().isAfter(moment());
+        });
+
+        me.isAvailable = ko.computed(function () {
+            return !me.hasClosed() && !me.hasNotOpened();
+        });
+
+
         // This maps to the EventTicketReservedViewModel
         me.reservationData = {
             eventId: params.eventId,
@@ -81,7 +103,7 @@
 
             eventService.getTicketsForGroup(me.reservationData.eventId, model.eventGroupId())
                 .then(function (resp) {
-                    _.each(resp, function(t) {
+                    _.each(resp, function (t) {
                         var maxTicketsAllowed = getMaxTicketsAllowed(me.selectedGroupId, t.eventTicketId, model.maxGuests(), t.remainingQuantity);
                         var eventTicket = new $p.models.EventTicket(t, maxTicketsAllowed);
                         eventTicket.eventGroupId(model.eventGroupId());
@@ -180,6 +202,8 @@
 
         eventService.getEvent(params.eventId).then(function (eventData) {
             me.groupsRequired(eventData.groupsRequired);
+            me.openingDate(moment.utc(eventData.openingDateUtc).local());
+            me.closingDate(moment.utc(eventData.closingDateUtc).local());
 
             if (eventData.groupsRequired === true) {
 
@@ -207,7 +231,7 @@
         });
     }
 
-    
+
 
 
 })(jQuery, ko, $paramount);

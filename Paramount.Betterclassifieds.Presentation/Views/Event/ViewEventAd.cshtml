@@ -60,11 +60,7 @@
                             <i class="fa fa-ticket"> </i> Tickets
                         </h3>
 
-                        @if (Model.IsClosed)
-                        {
-                            <div class="alert alert-warning">Ticketing has been closed this event :(</div>
-                        }
-                        else if (Model.EventEndDate <= DateTime.Now)
+                        @if (Model.EventEndDate <= DateTime.Now)
                         {
                             <div class="alert alert-warning">This event has passed.</div>
                         }

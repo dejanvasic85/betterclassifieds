@@ -11,6 +11,8 @@
 
             this.startDate = params.startDate;
             this.endDate = params.endDate;
+            this.startDateLabel = params.startDateLabel || 'Start Date';
+            this.endDateLabel = params.endDateLabel || 'End Date';
 
             this.availability.subscribe(function(newValue) {
 

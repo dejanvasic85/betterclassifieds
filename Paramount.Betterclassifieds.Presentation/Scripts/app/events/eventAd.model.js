@@ -1,4 +1,4 @@
-﻿(function ($, $paramount, ko, moment, notifier) {
+﻿(function ($, $paramount, ko) {
 
     $paramount.models = $paramount.models || {};
 
@@ -89,4 +89,4 @@
 
     };
 
-})(jQuery, $paramount, ko, moment, toastr);
+})(jQuery, $paramount, ko);

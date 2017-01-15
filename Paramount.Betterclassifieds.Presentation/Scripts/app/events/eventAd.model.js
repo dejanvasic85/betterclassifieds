@@ -80,11 +80,20 @@
             var $btn = $(event.target);
 
             if (!$paramount.checkValidity(me)) {
-                return;
+                return Promise.resolve();
             }
 
             $btn.loadBtn();
-            adService.updateEventDetails(ko.toJS(me));
+            return adService.updateEventDetails(ko.toJS(me));
+        }
+
+        me.submitChangesAndNotify = function(element, event) {
+            me.submitChanges(element, event).then(function(res) {
+                if (!res.errors) {
+                    toastr.success('Details updated successfully');
+                    $(event.target).resetBtn();
+                }
+            });
         }
 
     };

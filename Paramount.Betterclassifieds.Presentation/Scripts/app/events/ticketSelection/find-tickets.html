@@ -11,6 +11,10 @@
         </div>
     </div>
 
+    <div data-bind="if: isPastEvent">
+        <div class="alert alert-warning">Sorry, this event has passed. Everyone had a very a good time!</div>
+    </div>
+
     <div data-bind="if: isAvailable">
         <div data-bind="visible: groups().length > 0 && groupsRequired() === true">
             <div data-bind="visible: selectedTickets().length > 0">

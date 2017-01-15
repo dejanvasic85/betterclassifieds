@@ -471,12 +471,10 @@ namespace Paramount.Betterclassifieds.Business.Events
 
             if (originalEventDetails == null || onlineAd == null)
                 throw new ArgumentException("Cannot find required event to update", "eventId");
-
+#if !DEBUG
             if (IsEventEditable(eventId))
             {
                 // Only the following details will allowed to be changed if the event has started
-                originalEventDetails.EventStartDate = eventStartDate;
-                originalEventDetails.EventEndDate = eventEndDateTime;
                 originalEventDetails.Location = location;
 
 
@@ -487,7 +485,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                     originalEventDetails.LocationLongitude = locationLongitude;
 
                     // Only perform this in non-debug scenario so that we don't have to waste the timezone look ups for development environments
-#if !DEBUG
+
                     // Update the timezone info using the location service
                     var timezoneResult = _locationService.GetTimezone(locationLatitude.Value, locationLongitude.Value);
                     originalEventDetails.TimeZoneId = timezoneResult.TimeZoneId;
@@ -498,13 +496,18 @@ namespace Paramount.Betterclassifieds.Business.Events
 
                     // Work out what the UTC date is for these dates which is based on the events location!
                     var totalOffset = timezoneResult.RawOffset + timezoneResult.DstOffset;
+                    originalEventDetails.EventStartDate = eventStartDate;
                     originalEventDetails.EventStartDateUtc = eventStartDate.AddSeconds(-totalOffset);
+                    originalEventDetails.EventEndDate = eventEndDateTime;
                     originalEventDetails.EventEndDateUtc = eventEndDateTime.AddSeconds(-totalOffset);
-#endif
-
+                    
                     address.AddressId = originalEventDetails.AddressId;
                     originalEventDetails.Address = address;
                     _eventRepository.UpdateEventAddress(address);
+                }
+                else
+                {
+                    _logService.Warn("Unable to update timezone and all dates information. Long and Latitude are missing!");
                 }
 
                 onlineAd.Heading = title; // This is used for ticketing so cannot change!
@@ -513,7 +516,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             {
                 _logService.Info("Event will be partially updated as it's in a not-modifiable state.");
             }
-
+#endif
             onlineAd.Description = description;
             onlineAd.HtmlText = htmlText;
             onlineAd.ContactName = organiserName;

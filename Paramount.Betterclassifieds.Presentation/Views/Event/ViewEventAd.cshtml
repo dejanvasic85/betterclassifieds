@@ -60,19 +60,13 @@
                             <i class="fa fa-ticket"> </i> Tickets
                         </h3>
 
-                        @if (Model.EventEndDate <= DateTime.Now)
-                        {
-                            <div class="alert alert-warning">This event has passed.</div>
-                        }
-                        else
-                        {
-                            <div class="ticketing" id="ticketing">
-                                <find-tickets params="{eventId: @Model.EventId, maxTicketsPerBooking : @Model.MaxTicketsPerBooking, baseUrl: '@Url.Home().WithFullUrl()'}"></find-tickets>
-                            </div>
-                            <div id="serverValidation">
-                                <div class="alert alert-danger"></div>
-                            </div>
-                        }
+                        <div class="ticketing" id="ticketing">
+                            <find-tickets params="{eventId: @Model.EventId, maxTicketsPerBooking : @Model.MaxTicketsPerBooking, baseUrl: '@Url.Home().WithFullUrl()'}"></find-tickets>
+                        </div>
+                        <div id="serverValidation">
+                            <div class="alert alert-danger"></div>
+                        </div>
+
                     </div>
                 </div>
             </div>

@@ -26,6 +26,7 @@
         me.pageSize = 3;
 
         // Opening and closing dates
+        me.eventEndDate = ko.observable();
         me.openingDate = ko.observable();
         me.closingDate = ko.observable();
         me.hasClosed = ko.computed(function () {
@@ -42,8 +43,15 @@
             return me.openingDate().isAfter(moment());
         });
 
+        me.isPastEvent = ko.computed(function () {
+            if (!me.eventEndDate()) {
+                return false;
+            }
+            return me.eventEndDate().isBefore(moment());
+        });
+
         me.isAvailable = ko.computed(function () {
-            return !me.hasClosed() && !me.hasNotOpened();
+            return !me.hasClosed() && !me.hasNotOpened() && !me.isPastEvent();
         });
 
 
@@ -204,6 +212,13 @@
             me.groupsRequired(eventData.groupsRequired);
             me.openingDate(moment.utc(eventData.openingDateUtc).local());
             me.closingDate(moment.utc(eventData.closingDateUtc).local());
+
+            // EndDateUtc was added a little later so we cannot rely on it. So fallback to eventEndDate (AEST time)
+            if (eventData.eventEndDateUtc) {
+                me.eventEndDate(moment.utc(eventData.eventEndDateUtc).local());
+            } else {
+                me.eventEndDate(moment(eventData.eventEndDate));  // This is for old events (pre-3.20 release)
+            }
 
             if (eventData.groupsRequired === true) {
 

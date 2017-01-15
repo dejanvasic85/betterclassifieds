@@ -8,8 +8,7 @@
         var me = this,
             adService = options.adDesignService,
             imageService = options.imageService,
-            MAX_TITLE_CHARS = 100,
-            DATE_FORMAT = 'DD/MM/YYYY';
+            MAX_TITLE_CHARS = 100;
 
         me.eventId = ko.observable(data.eventId);
         me.canEdit = ko.observable(data.canEdit);
@@ -35,12 +34,6 @@
         }
         me.configDurationDays = ko.observable(options.configDurationDays);
         me.adStartDate = ko.observable(data.adStartDate);
-        me.adEndDate = ko.computed(function () {
-            if (me.adStartDate() === '') {
-                return '';
-            }
-            return moment(me.adStartDate(), DATE_FORMAT).add(options.configDurationDays, 'days').format(DATE_FORMAT.toUpperCase());
-        });
         me.venueName = ko.observable(data.venueName);
         me.location = ko.observable(data.location);
         me.locationLatitude = ko.observable(data.locationLatitude);
@@ -75,7 +68,8 @@
             eventEndDate: me.eventEndDate
                 .extend({ required: true })
                 .extend({ mustBeAfter: me.eventStartDate(), message: 'End date must be after start date.' }),
-            organiserName: me.organiserName.extend({ required: true })
+            organiserName: me.organiserName.extend({ required: true }),
+            adStartDate: me.adStartDate.extend({ required: true })
         });
 
         /*

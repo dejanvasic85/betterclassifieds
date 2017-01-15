@@ -6,11 +6,10 @@
 
 
     /*
-     * Date Picker DEPRECATED. TODO - replace this with datepicker (see below)
      * Usage : <input type='text' data-bind='date: modelProperty' />
      */
     ko.bindingHandlers.date = {
-        init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+        init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
             var value = valueAccessor();
             var date = ko.unwrap(value);
 
@@ -28,18 +27,19 @@
                     startDate: new Date(),
                     orientation: 'bottom'
                 })
-                .on('changeDate', function () {
+                .on('changeDate', function() {
                     var changedDate = $(element).val();
                     value(changedDate);
                 });
         },
-        update: function (element, valueAccessor) {
+        update: function(element, valueAccessor) {
             var newValue = ko.unwrap(valueAccessor());
             if (newValue === null) {
                 $(element).val(''); // Force to clear the textbox
             }
         }
-    }
+    };
+    ko.validation.makeBindingHandlerValidatable('date');
 
     /*
      * Google Map
@@ -73,7 +73,7 @@
                     map: $map,
                     markerOptions: {
                         draggable: false
-                    },
+                    }
                 })
                 .bind('geocode:result', function (event, geoData) {
                     viewModel.location(geoData["formatted_address"]);
@@ -100,6 +100,7 @@
             }
         }
     }
+    ko.validation.makeBindingHandlerValidatable('googleMap');
 
     /*
      * Toggle button
@@ -119,6 +120,7 @@
             });
         }
     }
+    
 
     ko.bindingHandlers.bounceInDown = {
         init: function (element, valueAccessor) {
@@ -133,7 +135,7 @@
             $(element).toggle(isVisible);
         }
     }
-
+    
 
     /*
      * New date selector (with time)

@@ -68,6 +68,8 @@
 
             var googleMap = $(element).val(address)
                 .geocomplete({
+                    country: "AU",
+                    type: ['(regions)'],
                     map: $map,
                     markerOptions: {
                         draggable: false

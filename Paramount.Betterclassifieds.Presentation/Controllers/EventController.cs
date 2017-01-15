@@ -20,7 +20,7 @@ using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
-    public class EventController : Controller, IMappingBehaviour
+    public class EventController : ApplicationController, IMappingBehaviour
     {
         public ActionResult ViewEventAd(int id, string titleSlug = "")
         {
@@ -51,26 +51,26 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (tickets == null || tickets.Count == 0)
             {
                 ModelState.AddModelError("Tickets", "No tickets have been selected");
-                return Json(new { Errors = ModelState.ToErrors() });
+                return JsonModelErrors();;
             }
 
             var eventModel = _eventManager.GetEventDetails(eventId);
             if (eventModel.IsClosed)
             {
                 ModelState.AddModelError("Tickets", "The event is closed and is not accepting any more ticket purchases.");
-                return Json(new { Errors = ModelState.ToErrors() });
+                return JsonModelErrors();;
             }
 
             if (eventModel.GroupsRequired.GetValueOrDefault() && tickets.Any(t => !t.EventGroupId.HasValue))
             {
                 ModelState.AddModelError("Tickets", "The event requires a group to be selected with each ticket.");
-                return Json(new { Errors = ModelState.ToErrors() });
+                return JsonModelErrors();;
             }
 
             if (!_ticketRequestValidator.IsSufficientTicketsAvailableForRequest(reserveTicketsViewModel.Tickets.Select(t => new TicketReservationRequest(t.EventTicketId.GetValueOrDefault(), t.EventGroupId, t.SelectedQuantity)).ToArray()))
             {
                 ModelState.AddModelError("Tickets", "The requested ticket quantity is no longer available. Please reload the page and try again.");
-                return Json(new { Errors = ModelState.ToErrors() });
+                return JsonModelErrors();;
             }
 
             _eventBookingContext.Clear();
@@ -139,7 +139,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new { Errors = ModelState.ToErrors() });
+                return JsonModelErrors();;
             }
 
             var applicationUser = _userManager.GetUserByEmailOrUsername(User.Identity.Name);

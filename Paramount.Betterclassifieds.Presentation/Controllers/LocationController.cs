@@ -4,7 +4,7 @@ using Paramount.Betterclassifieds.Business.Search;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
-    public class LocationController : Controller
+    public class LocationController : ApplicationController
     {
         private readonly ISearchService _searchService;
 

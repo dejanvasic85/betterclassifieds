@@ -7,7 +7,7 @@ using System.Web.Mvc;
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     [Authorize]
-    public class UserAdsController : Controller
+    public class UserAdsController : ApplicationController
     {
         private readonly IBookingManager _bookingManager;
 

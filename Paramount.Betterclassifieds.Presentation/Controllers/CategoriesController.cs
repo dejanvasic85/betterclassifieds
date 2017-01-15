@@ -5,7 +5,7 @@ using System.Web.Mvc;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
-    public class CategoriesController : Controller
+    public class CategoriesController : ApplicationController
     {
         private readonly ISearchService _searchService;
 

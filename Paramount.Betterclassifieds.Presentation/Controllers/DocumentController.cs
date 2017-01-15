@@ -4,7 +4,7 @@ using Paramount.Betterclassifieds.Business.DocumentStorage;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
-    public class DocumentController : Controller
+    public class DocumentController : ApplicationController
     {
         private readonly IDocumentRepository _documentRepository;
 

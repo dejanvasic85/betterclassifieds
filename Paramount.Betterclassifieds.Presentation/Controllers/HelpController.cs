@@ -5,7 +5,7 @@ using Paramount.Betterclassifieds.Presentation.ViewModels;
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
-    public class HelpController : Controller
+    public class HelpController : ApplicationController
     {
         private readonly IClientConfig _clientConfig;
 

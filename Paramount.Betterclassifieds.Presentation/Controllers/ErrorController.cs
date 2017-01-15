@@ -2,7 +2,7 @@
 
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
-    public class ErrorController : Controller
+    public class ErrorController : ApplicationController
     {
         //
         // GET: /Error/NotFound

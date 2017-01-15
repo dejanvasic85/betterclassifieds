@@ -10,7 +10,7 @@
     using System.Web.Mvc;
     using ViewModels;
 
-    public class ListingsController : Controller, IMappingBehaviour
+    public class ListingsController : ApplicationController, IMappingBehaviour
     {
         private readonly ISearchService _searchService;
         private readonly IBookingManager _bookingManager;

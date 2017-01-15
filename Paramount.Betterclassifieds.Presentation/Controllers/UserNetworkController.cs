@@ -9,7 +9,7 @@ using Paramount.Betterclassifieds.Presentation.ViewModels;
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     [Authorize]
-    public class UserNetworkController : Controller
+    public class UserNetworkController : ApplicationController
     {
         private readonly ISearchService _searchService;
         private readonly IUserManager _userManager;
@@ -45,7 +45,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new { Errors = ModelState.ToErrors() });
+                return JsonModelErrors();;
             }
 
             // Adds a contact for the existing (logged in user)

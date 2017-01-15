@@ -9,7 +9,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
     using System.Web.Mvc;
     using ViewModels;
 
-    public class AccountController : Controller, IMappingBehaviour
+    public class AccountController : ApplicationController, IMappingBehaviour
     {
         private readonly IUserManager _userManager;
         private readonly IAuthManager _authManager;

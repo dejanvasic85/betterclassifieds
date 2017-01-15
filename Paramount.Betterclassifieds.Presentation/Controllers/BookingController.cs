@@ -421,9 +421,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult EventTickets(IBookingCart bookingCart, BookingEventTicketSetupViewModel viewModel)
         {
             if (!ModelState.IsValid)
-            {
-                return Json(new { Errors = ModelState.ToErrors() });
-            }
+                return JsonModelErrors();
 
             bookingCart.Event.Tickets = this.MapList<BookingEventTicketViewModel, EventTicket>(viewModel.Tickets);
             bookingCart.Event.IncludeTransactionFee = viewModel.IncludeTransactionFee;

@@ -6,7 +6,7 @@ using Paramount.Betterclassifieds.Presentation.ViewModels;
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     [Authorize]
-    public class InvoiceController : Controller, IMappingBehaviour
+    public class InvoiceController : ApplicationController, IMappingBehaviour
     {
         private readonly IInvoiceService _invoiceService;
 

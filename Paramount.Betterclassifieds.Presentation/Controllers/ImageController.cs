@@ -15,7 +15,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
     using System.Web;
     using System.Web.Mvc;
 
-    public class ImageController : Controller
+    public class ImageController : ApplicationController
     {
         private readonly IDocumentRepository _documentRepository;
         private readonly IApplicationConfig _applicationConfig;

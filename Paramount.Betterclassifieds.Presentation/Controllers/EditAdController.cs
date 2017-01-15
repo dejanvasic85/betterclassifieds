@@ -20,7 +20,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     [Authorize]
     [AuthorizeBookingIdentity]
-    public class EditAdController : Controller, IMappingBehaviour
+    public class EditAdController : ApplicationController, IMappingBehaviour
     {
         [HttpGet]
         public ActionResult Details(int id)
@@ -205,7 +205,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult EditTicket(int id, int ticketId, UpdateEventTicketViewModel viewModel)
         {
             if (!ModelState.IsValid)
-                return Json(new { Errors = ModelState.ToErrors() });
+                return JsonModelErrors();;
 
             var eventTicket = viewModel.EventTicket;
             if (eventTicket.SoldQty == 0)
@@ -215,7 +215,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 if (guestCount > 0)
                 {
                     ModelState.AddModelError("GuestCountIncreased", "Looks like someone purchased this ticket in the meantime.");
-                    return Json(new { Errors = ModelState.ToErrors() });
+                    return JsonModelErrors();;
                 }
             }
 
@@ -231,7 +231,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult EditTicketSettings(int id, int eventId, TicketSettingsViewModel ticketSettingsViewModel)
         {
             if (!ModelState.IsValid)
-                return Json(new { Errors = ModelState.ToErrors() });
+                return JsonModelErrors();;
 
             _eventManager.UpdateEventTicketSettings(eventId, 
                 ticketSettingsViewModel.IncludeTransactionFee,
@@ -245,7 +245,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult AddTicket(int id, NewEventTicketViewModel vm)
         {
             if (!ModelState.IsValid)
-                return Json(new { Errors = ModelState.ToErrors() });
+                return JsonModelErrors();;
 
             var ticket = _eventManager.CreateEventTicket(vm.EventId.GetValueOrDefault(),
                 vm.TicketName,
@@ -334,9 +334,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult EventPaymentRequest(int id, EventPaymentRequestViewModel eventPaymentRequestViewModel)
         {
             if (!ModelState.IsValid)
-            {
-                return Json(new { IsValid = false, Errors = ModelState.ToErrors() });
-            }
+                return JsonModelErrors();
 
             var mappedPaymentMethod = eventPaymentRequestViewModel.PaymentMethod.CastToEnum<PaymentType>();
             var currentUserId = this.User.Identity.Name;
@@ -525,7 +523,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             if (!ModelState.IsValid)
-                return Json(new { Errors = ModelState.ToErrors() });
+                return JsonModelErrors();;
 
             // Fetch the existing fields and merge
             var fields = vm.Fields.Select(f => new EventBookingTicketField

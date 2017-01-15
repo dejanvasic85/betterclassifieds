@@ -10,7 +10,7 @@
     using System.Text;
     using Services.Seo;
 
-    public class HomeController : Controller, IMappingBehaviour
+    public class HomeController : ApplicationController, IMappingBehaviour
     {
         private readonly ISearchService _searchService;
         private readonly IClientConfig _clientConfig;

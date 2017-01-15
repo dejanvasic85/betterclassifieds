@@ -51,14 +51,33 @@
                 }
 
                 if (resp.errors) {
-                    var $errorContainer = $('#serverValidation > .alert-danger');
-                    $errorContainer.empty();
+                    var errors = [];
+
+                    // Flatten all the server errors
                     _.forEach(resp.errors, function (err) {
                         _.forEach(err.value, function (msg) {
-                            toastr.error(msg);
+                            errors.push(msg);
                         });
                     });
-                    $('#serverValidation').show();
+
+                    var $errorContainer = $('#serverValidation > .alert-danger');
+
+                    if ($errorContainer.length > 0) {
+                        $errorContainer.empty();
+                        $('#serverValidation').show();
+
+                        _.forEach(errors, function (e) {
+                            $errorContainer.append('<span>' + e + '</span>');
+                        });
+
+                    } else {
+                        _.forEach(errors, function (e) {
+                            toastr.error(e);
+                        });
+                    }
+
+                    $('[data-loading-text]').button('reset');
+
                     return;
                 }
             });

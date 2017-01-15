@@ -243,6 +243,7 @@
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\UserNetworkController.cs" />
     <Compile Include="App_Start\BookingWorkflowConfig.cs" />
+    <Compile Include="Framework\ApplicationController.cs" />
     <Compile Include="Framework\BookingWorkflow\BookingWorkflow.cs" />
     <Compile Include="Framework\BookingWorkflow\BookingWorkflowController.cs" />
     <Compile Include="Framework\BookingWorkflow\BookingWorkflowManager.cs" />

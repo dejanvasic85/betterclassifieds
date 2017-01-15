@@ -50,10 +50,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
                 bookingCart.Event = new AdFactory(_dateService).CreateEvent();
             }
 
-            eventViewModel.EventStartDate = _dateService.ConvertToString(bookingCart.Event.EventStartDate);
-            eventViewModel.EventStartTime = _dateService.ConvertToStringTime(bookingCart.Event.EventStartDate);
-            eventViewModel.EventEndDate = _dateService.ConvertToString(bookingCart.Event.EventEndDate);
-            eventViewModel.EventEndTime = _dateService.ConvertToStringTime(bookingCart.Event.EventEndDate);
+            eventViewModel.EventStartDate = bookingCart.Event.EventStartDate.GetValueOrDefault();
+            eventViewModel.EventEndDate = bookingCart.Event.EventEndDate.GetValueOrDefault();
             eventViewModel.VenueName = bookingCart.Event.VenueName;
             eventViewModel.Location = bookingCart.Event.Location;
             eventViewModel.LocationLatitude = bookingCart.Event.LocationLatitude;

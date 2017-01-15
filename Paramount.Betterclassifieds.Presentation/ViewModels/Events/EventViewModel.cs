@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
@@ -40,18 +41,12 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string EventPhoto { get; set; }
 
         [Required]
-        public string EventStartDate { get; set; }
+        [DisplayFormat(DataFormatString = "yyyy-MM-dd H:mm")]
+        public DateTime EventStartDate { get; set; }
 
         [Required]
-        [TimeAsString(ErrorMessage = "Start time is not in a valid format")]
-        public string EventStartTime { get; set; }
-
-        [Required]
-        public string EventEndDate { get; set; }
-
-        [Required]
-        [TimeAsString(ErrorMessage = "End time is not in a valid format")]
-        public string EventEndTime { get; set; }
+        [DisplayFormat(DataFormatString = "yyyy-MM-dd H:mm")]
+        public DateTime EventEndDate { get; set; }
 
         [Required]
         public string OrganiserName { get; set; }
@@ -72,11 +67,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var validationResults = new List<ValidationResult>();
-
-            var startDateTime = new ServerDateService().ConvertFromString(EventStartDate, EventStartTime);
-            var endDateTime = new ServerDateService().ConvertFromString(EventEndDate, EventEndTime);
-
-            if (endDateTime <= startDateTime)
+            
+            if (this.EventEndDate <= this.EventStartDate)
             {
                 validationResults.Add(new ValidationResult("End date must be after the start date", new[] { "EventStartDate" }));
             }

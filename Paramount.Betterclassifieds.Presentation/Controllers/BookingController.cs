@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Monads;
-using System.Web.Configuration;
 using System.Web.Mvc;
 using AutoMapper;
 using Paramount.Betterclassifieds.Business;
@@ -14,6 +13,7 @@ using Paramount.Betterclassifieds.Business.Location;
 using Paramount.Betterclassifieds.Business.Payment;
 using Paramount.Betterclassifieds.Business.Print;
 using Paramount.Betterclassifieds.Business.Search;
+using Paramount.Betterclassifieds.Presentation.Framework;
 using Paramount.Betterclassifieds.Presentation.ViewModels;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Booking;
 using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
@@ -21,7 +21,7 @@ using Paramount.Betterclassifieds.Presentation.ViewModels.Events;
 namespace Paramount.Betterclassifieds.Presentation.Controllers
 {
     [OutputCache(NoStore = true, Duration = 0)]
-    public class BookingController : Controller, IMappingBehaviour
+    public class BookingController : ApplicationController, IMappingBehaviour
     {
         [HttpPost, AuthorizeBookingIdentity]
         public ActionResult StartFromTemplate(int id)
@@ -360,7 +360,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult UpdateEventDetails(EventViewModel eventViewModel, IBookingCart bookingCart)
         {
             if (!ModelState.IsValid)
-                return Json(new { Errors = ModelState.ToErrors() });
+                return JsonModelErrors();
 
             this.Map(eventViewModel, bookingCart);
 

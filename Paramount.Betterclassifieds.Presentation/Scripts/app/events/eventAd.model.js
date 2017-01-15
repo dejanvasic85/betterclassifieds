@@ -1,5 +1,5 @@
 ﻿(function ($, $paramount, ko, moment, notifier) {
-    
+
     $paramount.models = $paramount.models || {};
 
     // Event ad details editing object used for knockout
@@ -10,18 +10,6 @@
             imageService = options.imageService,
             MAX_TITLE_CHARS = 100,
             DATE_FORMAT = 'DD/MM/YYYY';
-
-        // Properties
-
-        me.timeOptions = ko.observableArray();
-        for (var i = 0; i < 24; i++) {
-            var label = i.toString();
-            if (label.length === 1) {
-                label = "0" + label;
-            }
-            me.timeOptions.push(label + ":00");
-            me.timeOptions.push(label + ":30");
-        }
 
         me.eventId = ko.observable(data.eventId);
         me.canEdit = ko.observable(data.canEdit);
@@ -47,7 +35,6 @@
         }
         me.configDurationDays = ko.observable(options.configDurationDays);
         me.adStartDate = ko.observable(data.adStartDate);
-        me.isEventNotStarted = ko.observable(moment().diff(moment(data.adStartDate, DATE_FORMAT), 'days') <= 0);
         me.adEndDate = ko.computed(function () {
             if (me.adStartDate() === '') {
                 return '';
@@ -61,38 +48,10 @@
         me.locationFloorPlanDocumentId = ko.observable(data.locationFloorPlanDocumentId);
         me.locationFloorPlanFilename = ko.observable(data.locationFloorPlanFilename);
         me.eventStartDate = ko.observable(data.eventStartDate);
-        me.eventStartTime = ko.observable(data.eventStartTime);
         me.eventEndDate = ko.observable(data.eventEndDate);
-        me.eventEndDateValidation = ko.computed(function () {
-            // Ensure that the start date is less than end date
-            if (moment(me.eventStartDate(), DATE_FORMAT).isAfter(moment(me.eventEndDate(), DATE_FORMAT))) {
-                return 'End date must be after start date';
-            }
-            return '';
-        });
-        me.eventEndTime = ko.observable(data.eventEndTime);
-        me.eventEndTimeValidation = ko.computed(function () {
-            if (me.eventEndDateValidation().length > 0) {
-                return '';
-            }
-
-            var startTimeValues = me.eventStartTime().split(':'),
-                endTimeValues = me.eventEndTime().split(':');
-
-            var startDate = moment(me.eventStartDate(), DATE_FORMAT).hours(startTimeValues[0]).minutes(startTimeValues[1]),
-                endDate = moment(me.eventEndDate(), DATE_FORMAT).hours(endTimeValues[0]).minutes(endTimeValues[1]);
-
-            if (startDate.isAfter(endDate)) {
-                return 'End time must be after the start time';
-            }
-
-            return '';
-        });
-
         me.organiserName = ko.observable(data.organiserName);
         me.organiserPhone = ko.observable(data.organiserPhone);
         me.ticketingEnabled = ko.observable(data.ticketingEnabled);
-
 
         /*
          * Address properties
@@ -104,19 +63,34 @@
         me.postCode = ko.observable(data.postCode);
         me.country = ko.observable(data.country);
 
+
+        /*
+         * Validation
+         */
+        me.validator = ko.validatedObservable({
+            title: me.title.extend({ required: true, maxLength: MAX_TITLE_CHARS }),
+            description: me.description.extend({ required: true }),
+            location: me.location.extend({ required: true, maxLength: 200 }),
+            eventStartDate: me.eventStartDate.extend({ required: true }),
+            eventEndDate: me.eventEndDate
+                .extend({ required: true })
+                .extend({ mustBeAfter: me.eventStartDate(), message: 'End date must be after start date.' }),
+            organiserName: me.organiserName.extend({ required: true })
+        });
+
         /*
          * Submit changes
          */
         me.submitChanges = function (element, event) {
-            var json = ko.toJS(me);
-            var promise = adService.updateEventDetails(json);
 
-            promise.then(function (resp) {
-                if (options.notifyUpdate === true && resp === true) {
-                    notifier.success('Details updated successfully');
-                }
-            });
-            return promise;
+            var $btn = $(event.target);
+
+            if (!$paramount.checkValidity(me)) {
+                return;
+            }
+
+            $btn.loadBtn();
+            adService.updateEventDetails(ko.toJS(me));
         }
 
     };

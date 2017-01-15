@@ -40,7 +40,22 @@
         },
         message: 'Must be a later date'
     }
-    
-    ko.validation.registerExtenders();
 
+    ko.validation.rules['mustBeAfter'] = {
+        validator: function (val, comparisonVal) {
+            if (!val) {
+                return false;
+            }
+
+            if (!comparisonVal) {
+                return false;
+            }
+
+            return moment(comparisonVal).isBefore(moment(val));
+        },
+        message: 'Must be a later date'
+    };
+
+    ko.validation.registerExtenders();
+    
 })(ko, moment);

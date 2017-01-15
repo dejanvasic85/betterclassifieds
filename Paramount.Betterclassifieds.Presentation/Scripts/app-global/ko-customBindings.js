@@ -138,7 +138,6 @@
     /*
      * New date selector (with time)
      */
-    
     ko.bindingHandlers.datetime = {
         init: function (element, valueAccessor, allBindingsAccessor) {
             //initialize datepicker with some optional options
@@ -182,5 +181,5 @@
             }
         }
     };
-
+    ko.validation.makeBindingHandlerValidatable('datetime');
 })(ko, jQuery);

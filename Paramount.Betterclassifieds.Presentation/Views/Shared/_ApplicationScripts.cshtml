@@ -41,8 +41,10 @@
         }
 
         me.baseUrl = '@Url.Home().WithFullUrl()';
-        $('#serverValidation').hide();
+        
         me.httpPost = function (url, data) {
+
+            $('#serverValidation').hide();
             var promise = call('POST', url, data);
             promise.then(function (resp) {
                 if (resp.nextUrl) {

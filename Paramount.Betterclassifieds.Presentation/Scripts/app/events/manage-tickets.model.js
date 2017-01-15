@@ -92,8 +92,10 @@
             $btn.loadBtn();
 
             adDesignService.editTicketSettings(model.eventId(), ko.toJS(model))
-                .success(function () {
-                    toastr.success("Settings updated successfully.");
+                .success(function (resp) {
+                    if (!resp.errors) {
+                        toastr.success("Settings updated successfully.");
+                    }
                 }).always(function () {
                     $btn.resetBtn();
                 });

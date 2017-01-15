@@ -23,7 +23,9 @@ namespace Paramount.Betterclassifieds.Business.Events
         public long? TimeZoneDaylightSavingsOffsetSeconds { get; set; }
         public long? TimeZoneUtcOffsetSeconds { get; set; }
         public DateTime? EventStartDate { get; set; }
+        public DateTime? EventStartDateUtc { get; set; }
         public DateTime? EventEndDate { get; set; }
+        public DateTime? EventEndDateUtc { get; set; }
         public IList<EventTicket> Tickets { get; set; }
         public IList<EventBooking> EventBookings { get; set; }
         
@@ -53,5 +55,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         public DateTime? OpeningDate { get; set; }
         public DateTime? OpeningDateUtc { get; set; }
         public bool IsClosed => this.ClosingDateUtc.HasValue && this.ClosingDateUtc <= DateTime.UtcNow;
+        
     }
 }

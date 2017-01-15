@@ -8,7 +8,10 @@
         init: function (options) {
             $(function () {
                 var ticketingInterface = document.getElementById('ticketing');
-                ko.applyBindings({}, ticketingInterface);
+                if (ticketingInterface) {
+                    ko.applyBindings({}, ticketingInterface);
+                }
+
 
                 if (options.floorPlanDocumentId === '') {
                     $('.floor-plan').hide();

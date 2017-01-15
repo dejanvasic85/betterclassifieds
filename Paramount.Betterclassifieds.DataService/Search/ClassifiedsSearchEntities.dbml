@@ -40,7 +40,9 @@
       <Column Name="LocationLatitude" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
       <Column Name="LocationLongitude" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
       <Column Name="EventStartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EventStartDateUtc" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="EventEndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EventEndDateUtc" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="ClosingDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="ClosingDateUtc" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="TimeZoneId" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />

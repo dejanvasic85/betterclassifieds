@@ -17,7 +17,9 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models.Events
         public long? TimeZoneDaylightSavingsOffsetSeconds { get; set; }
         public long? TimeZoneUtcOffsetSeconds { get; set; }
         public DateTime? EventStartDate { get; set; }
+        public DateTime? EventStartDateUtc { get; set; }
         public DateTime? EventEndDate { get; set; }
+        public DateTime? EventEndDateUtc { get; set; }
         public DateTime? ClosingDate { get; set; }
         public DateTime? ClosingDateUtc { get; set; }
         public DateTime? OpeningDate { get; set; }

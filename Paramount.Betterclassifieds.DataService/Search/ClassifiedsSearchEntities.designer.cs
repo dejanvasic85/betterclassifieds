@@ -645,7 +645,11 @@ namespace Paramount.Betterclassifieds.DataService.Search
 		
 		private System.Nullable<System.DateTime> _EventStartDate;
 		
+		private System.Nullable<System.DateTime> _EventStartDateUtc;
+		
 		private System.Nullable<System.DateTime> _EventEndDate;
+		
+		private System.Nullable<System.DateTime> _EventEndDateUtc;
 		
 		private System.Nullable<System.DateTime> _ClosingDate;
 		
@@ -815,6 +819,22 @@ namespace Paramount.Betterclassifieds.DataService.Search
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventStartDateUtc", DbType="DateTime")]
+		public System.Nullable<System.DateTime> EventStartDateUtc
+		{
+			get
+			{
+				return this._EventStartDateUtc;
+			}
+			set
+			{
+				if ((this._EventStartDateUtc != value))
+				{
+					this._EventStartDateUtc = value;
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventEndDate", DbType="DateTime")]
 		public System.Nullable<System.DateTime> EventEndDate
 		{
@@ -827,6 +847,22 @@ namespace Paramount.Betterclassifieds.DataService.Search
 				if ((this._EventEndDate != value))
 				{
 					this._EventEndDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventEndDateUtc", DbType="DateTime")]
+		public System.Nullable<System.DateTime> EventEndDateUtc
+		{
+			get
+			{
+				return this._EventEndDateUtc;
+			}
+			set
+			{
+				if ((this._EventEndDateUtc != value))
+				{
+					this._EventEndDateUtc = value;
 				}
 			}
 		}

@@ -494,13 +494,24 @@ namespace Paramount.Betterclassifieds.Business.Events
                     originalEventDetails.TimeZoneName = timezoneResult.TimeZoneName;
                     originalEventDetails.TimeZoneDaylightSavingsOffsetSeconds = timezoneResult.DstOffset;
                     originalEventDetails.TimeZoneUtcOffsetSeconds = timezoneResult.RawOffset;
+
+
+                    // Work out what the UTC date is for these dates which is based on the events location!
+                    var totalOffset = timezoneResult.RawOffset + timezoneResult.DstOffset;
+                    originalEventDetails.EventStartDateUtc = eventStartDate.AddSeconds(-totalOffset);
+                    originalEventDetails.EventEndDateUtc = eventEndDateTime.AddSeconds(-totalOffset);
 #endif
+
                     address.AddressId = originalEventDetails.AddressId;
                     originalEventDetails.Address = address;
                     _eventRepository.UpdateEventAddress(address);
                 }
 
                 onlineAd.Heading = title; // This is used for ticketing so cannot change!
+            }
+            else
+            {
+                _logService.Info("Event will be partially updated as it's in a not-modifiable state.");
             }
 
             onlineAd.Description = description;
@@ -513,6 +524,8 @@ namespace Paramount.Betterclassifieds.Business.Events
             _bookingManager.UpdateOnlineAd(adId, onlineAd);
             _eventRepository.UpdateEvent(originalEventDetails);
             _bookingManager.UpdateSchedule(adId, adStartDate);
+
+            _logService.Info("Updated event successfully.");
         }
 
         public void UpdateEventGroupSettings(int eventId, bool groupsRequired)
@@ -604,7 +617,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             // That means we simply take away the daylight savings and Utc offsets ... and we have our Utc dates!
             var totalSecondsToSubstract = eventModel.TimeZoneUtcOffsetSeconds.GetValueOrDefault() +
                                           eventModel.TimeZoneDaylightSavingsOffsetSeconds.GetValueOrDefault();
-            
+
             eventModel.ClosingDate = closingDate;
             eventModel.ClosingDateUtc = closingDate?.AddSeconds(-totalSecondsToSubstract);
 

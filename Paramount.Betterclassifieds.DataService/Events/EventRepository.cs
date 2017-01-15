@@ -65,7 +65,7 @@ namespace Paramount.Betterclassifieds.DataService.Events
                         .ToList();
                 }
 
-                if (eventModel != null && eventModel.AddressId.HasValue && !eventModel.Address.AddressId.HasValue)
+                if (eventModel?.AddressId != null && !eventModel.Address.AddressId.HasValue)
                 {
                     eventModel.Address = context.Addresses.Single(a => a.AddressId == eventModel.AddressId);
                 }

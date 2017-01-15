@@ -360,26 +360,35 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult UpdateEventDetails(EventViewModel eventViewModel, IBookingCart bookingCart)
         {
             if (!ModelState.IsValid)
-            {
                 return Json(new { Errors = ModelState.ToErrors() });
-            }
 
+            this.Map(eventViewModel, bookingCart);
+
+#if !DEBUG
+            // Do the timezone stuff before saving
             // Fetches the Timezone information selected for the map / address from google map
             if (eventViewModel.LocationLatitude.HasValue && eventViewModel.LocationLongitude.HasValue)
             {
-#if !DEBUG
+                
                 var result = _locationService.GetTimezone(eventViewModel.LocationLatitude.Value, eventViewModel.LocationLongitude.Value);
                 if (result.IsOk())
                 {
-                    eventViewModel.TimeZoneId = result.TimeZoneId;
-                    eventViewModel.TimeZoneName = result.TimeZoneName;
-                    eventViewModel.TimeZoneDaylightSavingsOffsetSeconds = result.DstOffset;
-                    eventViewModel.TimeZoneUtcOffsetSeconds = result.RawOffset;
-                }
-#endif
-            }
+                    bookingCart.Event.TimeZoneId = result.TimeZoneId;
+                    bookingCart.Event.TimeZoneName = result.TimeZoneName;
+                    bookingCart.Event.TimeZoneDaylightSavingsOffsetSeconds = result.DstOffset;
+                    bookingCart.Event.TimeZoneUtcOffsetSeconds = result.RawOffset;
 
-            this.Map(eventViewModel, bookingCart);
+                    // Work out what the UTC date is for these dates which is based on the events location!
+                    var totalOffset = result.RawOffset + result.DstOffset;
+
+                    if (bookingCart.Event.EventStartDate != null)
+                        bookingCart.Event.EventStartDateUtc = bookingCart.Event.EventStartDate.Value.AddSeconds(-totalOffset);
+
+                    if (bookingCart.Event.EventEndDate != null)
+                        bookingCart.Event.EventEndDateUtc = bookingCart.Event.EventEndDate.Value.AddSeconds(-totalOffset);
+                }
+            }
+#endif
             _cartRepository.Save(bookingCart);
 
             var designTicketingStep = new BookingWorkflowController<DesignEventStep>(Url, bookingCart);
@@ -418,7 +427,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             bookingCart.Event.Tickets = this.MapList<BookingEventTicketViewModel, EventTicket>(viewModel.Tickets);
             bookingCart.Event.IncludeTransactionFee = viewModel.IncludeTransactionFee;
-            
+
             _cartRepository.Save(bookingCart);
             var nextUrl = Url.Action("Step3");
 

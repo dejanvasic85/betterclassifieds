@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http.Results;
 using Moq;
 using NUnit.Framework;
+using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Api;
@@ -43,12 +45,13 @@ namespace Paramount.Betterclassifieds.Tests.Api
         [Test]
         public void GetEvent_HasEvent_ReturnsOk()
         {
-            var eventSearchResult = new EventSearchResult(
-                new AdSearchResultMockBuilder().Default().Build(),
-                new EventModelMockBuilder().Default().Build(),
-                new AddressMockBuilder().Default().Build());
+            var mockEvent = new EventModelMockBuilder().Default().Build();
+            var mockResult = new AdSearchResultMockBuilder().Default().Build();
+            var mockUser = new ApplicationUserMockBuilder().Default().WithUsername(mockResult.Username).Build();
 
-            _mockSearchService.SetupWithVerification(call => call.GetEvent(It.IsAny<int>()), eventSearchResult);
+            _mockEventManager.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
+            _mockSearchService.SetupWithVerification(call => call.GetByAdOnlineId(It.IsAny<int>()), mockResult);
+            _mockUserManager.SetupWithVerification(call => call.GetCurrentUser(), mockUser);
 
             var controller = BuildTargetObject();
             var events = controller.GetEvent(123);
@@ -61,6 +64,88 @@ namespace Paramount.Betterclassifieds.Tests.Api
             result.Content.EventId.IsEqualTo(123);
             result.Content.Heading.IsEqualTo("heading of mock ad");
 
+        }
+
+        [Test]
+        public void GetEvent_NoEvent_Returns_404()
+        {
+            
+            _mockEventManager.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), null);
+            
+            var controller = BuildTargetObject();
+            var events = controller.GetEvent(123);
+
+            events.IsNotNull();
+            var result = events
+                .IsTypeOf<NotFoundResult>();
+
+        }
+
+        [Test]
+        public void GetEvent_HasNotStartedEvent_IsCurrentUser_ReturnsEvent()
+        {
+
+            var mockEvent = new EventModelMockBuilder().Default().Build();
+            var mockResult = new AdSearchResultMockBuilder().Default()
+                .WithStartDate(DateTime.Today.AddDays(10)).Build();
+            var mockUser = new ApplicationUserMockBuilder().Default().WithUsername(mockResult.Username).Build();
+
+            _mockEventManager.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
+            _mockSearchService.SetupWithVerification(call => call.GetByAdOnlineId(It.IsAny<int>()), mockResult);
+            _mockUserManager.SetupWithVerification(call => call.GetCurrentUser(), mockUser);
+
+            var controller = BuildTargetObject();
+            var events = controller.GetEvent(123);
+
+            events.IsNotNull();
+            var result = events
+                .IsTypeOf<OkNegotiatedContentResult<EventContract>>();
+
+            result.Content.IsNotNull();
+            result.Content.EventId.IsEqualTo(123);
+            result.Content.Heading.IsEqualTo("heading of mock ad");
+
+        }
+
+        [Test]
+        public void GetEvent_HasNotStartedEvent_NoLoggedInUser_Returns404()
+        {
+
+            var mockEvent = new EventModelMockBuilder().Default().Build();
+            var mockResult = new AdSearchResultMockBuilder().Default()
+                .WithStartDate(DateTime.Today.AddDays(10)).Build();
+
+            _mockEventManager.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
+            _mockSearchService.SetupWithVerification(call => call.GetByAdOnlineId(It.IsAny<int>()), mockResult);
+            _mockUserManager.SetupWithVerification(call => call.GetCurrentUser(), null);
+
+            var controller = BuildTargetObject();
+            var events = controller.GetEvent(123);
+
+            events.IsNotNull();
+            var result = events
+                .IsTypeOf<NotFoundResult>();
+        }
+
+        [Test]
+        public void GetEvent_HasNotStartedEvent_AdNotBelongToUser_Returns404()
+        {
+
+            var mockEvent = new EventModelMockBuilder().Default().Build();
+            var mockResult = new AdSearchResultMockBuilder().Default()
+                .WithStartDate(DateTime.Today.AddDays(10)).Build();
+            var mockUser = new ApplicationUserMockBuilder().Default().WithUsername("unkown").Build();
+
+            _mockEventManager.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), mockEvent);
+            _mockSearchService.SetupWithVerification(call => call.GetByAdOnlineId(It.IsAny<int>()), mockResult);
+            _mockUserManager.SetupWithVerification(call => call.GetCurrentUser(), mockUser);
+
+            var controller = BuildTargetObject();
+            var events = controller.GetEvent(123);
+
+            events.IsNotNull();
+            var result = events
+                .IsTypeOf<NotFoundResult>();
         }
 
         [Test]
@@ -147,11 +232,14 @@ namespace Paramount.Betterclassifieds.Tests.Api
 
         private Mock<ISearchService> _mockSearchService;
 
+        private Mock<IUserManager> _mockUserManager;
+
         [SetUp]
         public void SetupDependencies()
         {
             _mockEventManager = CreateMockOf<IEventManager>();
             _mockSearchService = CreateMockOf<ISearchService>();
+            _mockUserManager = CreateMockOf<IUserManager>();
         }
     }
 }

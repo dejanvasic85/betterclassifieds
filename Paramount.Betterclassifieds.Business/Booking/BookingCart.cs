@@ -100,8 +100,13 @@ namespace Paramount.Betterclassifieds.Business.Booking
             return TotalPrice == 0;
         }
 
-        public void SetSchedule(IClientConfig clientConfig, DateTime startDate, DateTime? firstEditionDate = null, int? numberOfInsertions = null)
+        public void SetSchedule(IClientConfig clientConfig, DateTime? startDate, DateTime? firstEditionDate = null, int? numberOfInsertions = null)
         {
+            if (!startDate.HasValue)
+            {
+                return;
+            }
+
             this.StartDate = startDate;
             EndDate = StartDate.Value.AddDays(clientConfig.RestrictedOnlineDaysCount);
 

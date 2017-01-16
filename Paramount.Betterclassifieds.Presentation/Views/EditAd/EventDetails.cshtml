@@ -11,7 +11,8 @@
             maxFreeImages: 5,
             configDurationDays: 60,
             adDesignService: new $paramount.AdDesignService('@ViewBag.Id'),
-            notifyUpdate: true
+            notifyUpdate: true,
+            adStartRequired: true
         });
     </script>
 }
@@ -242,6 +243,7 @@
 
     </div>
 
+    @*Ad Publishing Date*@
     <div class="row">
         <div class="col-xs-12">
             <div class="bs-callout bs-callout-info">
@@ -251,13 +253,13 @@
         </div>
 
         <div class="col-xs-12" data-bind="validationElement: adStartDate">
-            <div class="form-group-lg">
-                <label class="control-label" for="AdStartDate">Event Publish Date *</label>
-                <input type="text" class="form-control" id="AdStartDate" name="AdStartDate"
-                       data-bind="date: adStartDate" />
-
-            </div>
+            <label for="adStartDate" class="control-label">Publishing Date *</label>
+            <input type="text" class="form-control"
+                   id="adStartDate"
+                   name="adStartDate"
+                   data-bind="datetime: adStartDate" />
         </div>
+
     </div>
 
 

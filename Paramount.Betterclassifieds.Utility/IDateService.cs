@@ -18,6 +18,7 @@ namespace Paramount.Betterclassifieds
         string ConvertToString(DateTime? date);
         string ConvertToString(DateTime? date, string format);
         string ConvertToStringTime(DateTime? date, string format = "HH:mm");
+        bool IsFutureDate(DateTime dateTime);
     }
 
     /// <summary>
@@ -25,22 +26,14 @@ namespace Paramount.Betterclassifieds
     /// </summary>
     public class ServerDateService : IDateService
     {
-        private const string DATE_FORMAT = "dd/MM/yyyy"; // Default aus format? lol . Should be using Culture
+        private const string DATE_FORMAT = "dd/MM/yyyy"; 
+        
 
-        public DateTime Today
-        {
-            get { return DateTime.Today; }
-        }
+        public DateTime Today => DateTime.Today;
 
-        public DateTime Now
-        {
-            get { return DateTime.Now; }
-        }
+        public DateTime Now => DateTime.Now;
 
-        public DateTime UtcNow
-        {
-            get { return DateTime.UtcNow; }
-        }
+        public DateTime UtcNow => DateTime.UtcNow;
 
         public DateTime NowToNextHour
         {
@@ -52,10 +45,7 @@ namespace Paramount.Betterclassifieds
             }
         }
 
-        public string Timestamp
-        {
-            get { return (DateTime.Now - GetEpochTime()).TotalSeconds.ToString(); }
-        }
+        public string Timestamp => (DateTime.Now - GetEpochTime()).TotalSeconds.ToString();
 
         public DateTime GetEpochTime()
         {
@@ -106,6 +96,11 @@ namespace Paramount.Betterclassifieds
         public string ConvertToStringTime(DateTime? date, string format = "HH:mm")
         {
             return ConvertToString(date, format);
+        }
+
+        public bool IsFutureDate(DateTime dateTime)
+        {
+            return DateTime.Now < dateTime;
         }
     }
 }

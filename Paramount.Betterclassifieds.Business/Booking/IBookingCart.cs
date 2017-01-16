@@ -26,7 +26,7 @@ namespace Paramount.Betterclassifieds.Business.Booking
         EventModel Event { get; set; }
         DateTime? GetStartDateOrMinimum();
         bool NoPaymentRequired();
-        void SetSchedule(IClientConfig clientConfig, DateTime startDate, DateTime? firstEditionDate = null, int? numberOfInsertions = null);
+        void SetSchedule(IClientConfig clientConfig, DateTime? startDate, DateTime? firstEditionDate = null, int? numberOfInsertions = null);
         void UpdateByPricingFactors(PricingFactors pricingFactors);
     }
 }

@@ -79,8 +79,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             bookingCart.Event.Address.Suburb = eventViewModel.Suburb;
 
             // Schedule
-            bookingCart.SetSchedule(_clientConfig, _dateService.ConvertFromString(eventViewModel.AdStartDate));
-
+            bookingCart.SetSchedule(_clientConfig, eventViewModel.AdStartDate);
 
             return bookingCart;
         }

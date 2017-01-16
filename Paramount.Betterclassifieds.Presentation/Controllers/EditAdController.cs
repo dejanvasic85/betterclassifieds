@@ -393,7 +393,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 LocationFloorPlanFilename = eventDetails.LocationFloorPlanFilename,
                 OrganiserName = adDetails.ContactName,
                 OrganiserPhone = adDetails.ContactPhone,
-                AdStartDate = _dateService.ConvertToString(adDetails.StartDate),
+                AdStartDate = adDetails.StartDate,
                 EventPhoto = adDetails.PrimaryImage,
             };
 
@@ -417,7 +417,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 viewModel.LocationLongitude,
                 viewModel.OrganiserName,
                 viewModel.OrganiserPhone,
-                _dateService.ConvertFromString(viewModel.AdStartDate),
+                viewModel.AdStartDate.GetValueOrDefault(_dateService.Today),
                 viewModel.LocationFloorPlanDocumentId,
                 viewModel.LocationFloorPlanFilename,
                 new Address

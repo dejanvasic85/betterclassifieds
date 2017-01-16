@@ -22,10 +22,12 @@ namespace Paramount.Betterclassifieds.Presentation.Framework.ModelBinders
                 }
                 else
                 {
-                    bindingContext.ModelState.AddModelError(
-                        bindingContext.ModelName,
-                        $"{value.AttemptedValue} is an invalid date format"
-                        );
+                    if (bindingContext.ModelMetadata.IsRequired)
+                    {
+                        bindingContext.ModelState.AddModelError(
+                            bindingContext.ModelName,
+                            $"{value.AttemptedValue} is an invalid date format");
+                    }
                 }
             }
 

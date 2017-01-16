@@ -6,11 +6,12 @@
             Always available
         </label>
     </div>
+
     <div class="radio">
         <label>
             <input type="radio" name="availability" id="specificDates" value="specificDates"
                    data-bind="checked: availability">
-            Only for the following dates
+            <span data-bind="text: dateOptionLabel"></span>
         </label>
     </div>
 
@@ -24,7 +25,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-6" data-bind="visible: showEndDate">
                 <div class="form-group">
                     <label class="control-label" data-bind="text: endDateLabel"></label>
                     <input type='text' class="form-control" data-bind="datetime: endDate" />

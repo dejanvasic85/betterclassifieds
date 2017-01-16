@@ -27,7 +27,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
             var eventViewModel = context.DestinationValue as EventViewModel ?? new EventViewModel();
             var bookingCart = (IBookingCart)context.SourceValue;
 
-            eventViewModel.AdStartDate = _dateService.ConvertToString(bookingCart.StartDate);
+            eventViewModel.AdStartDate = bookingCart.StartDate;
 
             if (bookingCart.OnlineAdModel != null)
             {

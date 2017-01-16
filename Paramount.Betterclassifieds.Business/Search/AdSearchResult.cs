@@ -54,7 +54,7 @@ namespace Paramount.Betterclassifieds.Business.Search
 
         public bool HasNotStarted()
         {
-            return StartDate > DateTime.Today;
+            return StartDate > DateTime.Now;
         }
     }
 }

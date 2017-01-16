@@ -2,6 +2,7 @@
 using System.Monads;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
 using Paramount.Betterclassifieds.Presentation.Api.Models.Events;
@@ -13,11 +14,13 @@ namespace Paramount.Betterclassifieds.Presentation.Api
     {
         private readonly IEventManager _eventManager;
         private readonly ISearchService _searchService;
+        private readonly IUserManager _userManager;
 
-        public EventApiController(IEventManager eventManager, ISearchService searchService)
+        public EventApiController(IEventManager eventManager, ISearchService searchService, IUserManager userManager)
         {
             _eventManager = eventManager;
             _searchService = searchService;
+            _userManager = userManager;
         }
 
         [Route("")]
@@ -34,11 +37,17 @@ namespace Paramount.Betterclassifieds.Presentation.Api
         [Route("{id:int}")]
         public IHttpActionResult GetEvent(int id)
         {
-            var searchResult = _searchService.GetEvent(id);
-
-            if (searchResult == null)
+            var eventDetails = _eventManager.GetEventDetails(id);
+            if (eventDetails == null)
                 return NotFound();
 
+            var onlineAdModel = _searchService.GetByAdOnlineId(eventDetails.OnlineAdId);
+            var isCurrentUserTheOwner = onlineAdModel.Username == _userManager.GetCurrentUser()?.Username;
+
+            if (onlineAdModel.HasNotStarted() && !isCurrentUserTheOwner)
+                return NotFound();
+            
+            var searchResult = new EventSearchResult(onlineAdModel, eventDetails, eventDetails.Address);
             var contract = new EventContractFactory().FromModel(searchResult);
             return Ok(contract);
         }

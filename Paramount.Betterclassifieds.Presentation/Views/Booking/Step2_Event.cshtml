@@ -7,7 +7,8 @@
     <script>
         $paramount.ui.eventEditor.init({
             maxFreeImages: 5,
-            configDurationDays: 60
+            configDurationDays: 60,
+            adStartDateRequired: false
         });
     </script>
 }
@@ -22,270 +23,270 @@
     </ul>
 
     <div id="eventEditor" class="event-editor">
-        
 
-            @*Event Details*@
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="bs-callout bs-callout-info">
-                        <h4><i class="fa fa-list"></i> &nbsp; Event Details</h4>
-                    </div>
 
-                    <div class="form-group-lg" data-bind="validationElement: title">
-                        <label for="Title" class="control-label">Event Name *</label>
-                        <input type="text" class="form-control" id="Title" name="Title" placeholder="Provide a short impact title"
-                               data-bind="value: title, valueUpdate: 'keyup'"
-                               maxlength="100" />
-                        
-                        <span class="help-block">
-                            * Remaining characters : <span data-bind="text: titleRemaining"></span>
-                        </span>
-                    </div>
-
-                    <div class="form-group" data-bind="validationElement: description">
-                        <label class="control-label" for="Description">Details *</label>
-                        <textarea class="form-control input-lg" id="Description" name="Description" rows="5" placeholder="What's the event about? Who will be there?"
-                                  data-bind="value: description"></textarea>
-                    </div>
+        @*Event Details*@
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="bs-callout bs-callout-info">
+                    <h4><i class="fa fa-list"></i> &nbsp; Event Details</h4>
                 </div>
 
-                @*Photo*@
-                <div class="col-xs-12">
+                <div class="form-group-lg" data-bind="validationElement: title">
+                    <label for="Title" class="control-label">Event Name *</label>
+                    <input type="text" class="form-control" id="Title" name="Title" placeholder="Provide a short impact title"
+                           data-bind="value: title, valueUpdate: 'keyup'"
+                           maxlength="100" />
 
-                    <div class="bs-callout bs-callout-info">
-                        <h4><i class="fa fa-photo"></i>&nbsp; Event Artwork</h4>
-                        <input id="eventPhoto" type="hidden" name="eventPhoto" data-bind="value: eventPhoto" />
-                        <span class="btn btn-success fileinput-button pull-right">
-                            <i class="fa fa-upload"></i>
-                            <span>Upload Photo</span>
-                            <input id="eventPhotoUpload" type="file" name="files[]" multiple>
-                        </span>
-                    </div>
-
-                    <div class="well photo-upload">
-                        <p>
-                            Note: This will be used as a background image and should be a high quality photo
-                        </p>
-                        <div class="photo text-center">
-                            <i class="fa fa-picture-o fa-5x" data-bind="visible: eventPhoto() === null"></i>
-                            <div class="thumbnail" data-bind="visible: eventPhoto() !== null">
-                                <img data-bind="visible: eventPhoto() !== null, attr: {src: eventPhotoUrl }" />
-                                <div class="caption">
-                                    <a class="btn btn-warning btn-remove" title="Remove" data-bind="click: removeEventPhoto">
-                                        <span class="glyphicon glyphicon-trash"></span> Remove
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="eventPhotoUploadProgress" class="progress progress-striped active">
-                        <div class="progress-bar active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-                            <span>Uploading...</span>
-                        </div>
-                    </div>
-                    <div class="alert alert-danger" data-bind="visible: eventPhotoUploadError() !== null, text: eventPhotoUploadError"></div>
+                    <span class="help-block">
+                        * Remaining characters : <span data-bind="text: titleRemaining"></span>
+                    </span>
                 </div>
 
+                <div class="form-group" data-bind="validationElement: description">
+                    <label class="control-label" for="Description">Details *</label>
+                    <textarea class="form-control input-lg" id="Description" name="Description" rows="5" placeholder="What's the event about? Who will be there?"
+                              data-bind="value: description"></textarea>
+                </div>
             </div>
 
+            @*Photo*@
+            <div class="col-xs-12">
 
-            @*Location*@
-            <div class="row">
-
-                <div class="col-xs-12">
-                    <div class="bs-callout bs-callout-info">
-                        <h4><i class="fa fa-map-marker"></i> &nbsp;Location</h4>
-                        @*<p>Tell your visitors the location and what's the event about.</p>*@
-                    </div>
+                <div class="bs-callout bs-callout-info">
+                    <h4><i class="fa fa-photo"></i>&nbsp; Event Artwork</h4>
+                    <input id="eventPhoto" type="hidden" name="eventPhoto" data-bind="value: eventPhoto" />
+                    <span class="btn btn-success fileinput-button pull-right">
+                        <i class="fa fa-upload"></i>
+                        <span>Upload Photo</span>
+                        <input id="eventPhotoUpload" type="file" name="files[]" multiple>
+                    </span>
                 </div>
 
-                <div class="col-xs-12">
-                    <div class="form-group-lg">
-                        <label class="control-label">Venue Name (optional)</label>
-                        <input type="text" maxlength="100" class="form-control" data-bind="value: venueName" />
-                    </div>
-                </div>
-
-                <div class="col-xs-12">
-                    <div class="form-group-lg" data-bind="validationElement: location">
-                        <label class="control-label">Address *</label>
-                        <input type="text" class="form-control" id="Location" name="Location" placeholder="Type address, and google should find it!" maxlength="200"
-                               data-bind="googleMap: location, mapElement : '#LocationMap'" />
-                        <span class="help-block">
-                            Please ensure that your address is displayed on the map before submitting.
-                        </span>
-                        <input type="hidden" name="LocationLatitude" data-bind="value: locationLatitude" />
-                        <input type="hidden" name="LocationLongitude" data-bind="value: locationLongitude" />
-                    </div>
-                </div>
-
-                @*Div to display the map using google maps*@
-                <div class="col-xs-12">
-                    <div class="well" style="min-height: 200px" id="LocationMap"></div>
-                </div>
-
-                @*Location (venue) floor map*@
-                <div class="col-xs-12">
-                    <div class="form-group-lg">
-                        <label class="control-label">&nbsp; Floor Plan</label>
-                        <input type="hidden" data-bind="value: locationFloorPlanDocumentId" />
-
-                        <div class="well text-center">
-                            <i class="fa fa-map-o"></i>&nbsp; Upload a floor plan of your venue
-                            to provide more information to users while they book your tickets.
-                            Image or PDF is accepted.
-                            <div class="top-buffer-20">
-                                <h3>
-                                    <span class="label label-info" data-bind="text: locationFloorPlanFilename()"></span>
-                                </h3>
-                                <span class="btn btn-success fileinput-button">
-                                    <i class="fa fa-upload"></i>&nbsp; Upload floor plan
-                                    <input id="locationFloorUpload" type="file" name="files[]" multiple>
-                                </span>
-                                <div id="locationFloorUploadProgress" class="progress progress-striped active">
-                                    <div class="progress-bar active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-                                        <span>Uploading...</span>
-                                    </div>
-                                </div>
-
+                <div class="well photo-upload">
+                    <p>
+                        Note: This will be used as a background image and should be a high quality photo
+                    </p>
+                    <div class="photo text-center">
+                        <i class="fa fa-picture-o fa-5x" data-bind="visible: eventPhoto() === null"></i>
+                        <div class="thumbnail" data-bind="visible: eventPhoto() !== null">
+                            <img data-bind="visible: eventPhoto() !== null, attr: {src: eventPhotoUrl }" />
+                            <div class="caption">
+                                <a class="btn btn-warning btn-remove" title="Remove" data-bind="click: removeEventPhoto">
+                                    <span class="glyphicon glyphicon-trash"></span> Remove
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div id="eventPhotoUploadProgress" class="progress progress-striped active">
+                    <div class="progress-bar active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                        <span>Uploading...</span>
+                    </div>
+                </div>
+                <div class="alert alert-danger" data-bind="visible: eventPhotoUploadError() !== null, text: eventPhotoUploadError"></div>
             </div>
 
-            @*Schedule Start*@
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="bs-callout bs-callout-info">
-                        <h4><i class="fa fa-clock-o"></i> &nbsp; Event Schedule</h4>
-                        <p>Dates are local to the event location? Click on the text box to see the calendar and time selectors.</p>
-                    </div>
+        </div>
 
+
+        @*Location*@
+        <div class="row">
+
+            <div class="col-xs-12">
+                <div class="bs-callout bs-callout-info">
+                    <h4><i class="fa fa-map-marker"></i> &nbsp;Location</h4>
+                    @*<p>Tell your visitors the location and what's the event about.</p>*@
                 </div>
             </div>
 
-
-            @*Event start and End Date*@
-            <div class="row">
-                <div class="col-sm-6">
-
-                    
-                    <div class="form-group-lg" data-bind="validationElement: eventStartDate">
-
-                        <label for="EventStartDate" class="control-label">Start Date *</label>
-                        <input type="text" class="form-control"
-                               id="EventStartDate"
-                               name="EventStartDate"
-                               data-bind="datetime: eventStartDate" />
-                    </div>
-
+            <div class="col-xs-12">
+                <div class="form-group-lg">
+                    <label class="control-label">Venue Name (optional)</label>
+                    <input type="text" maxlength="100" class="form-control" data-bind="value: venueName" />
                 </div>
-
-                <div class="col-sm-6">
-                    <div class="form-group-lg" data-bind="validationElement: eventEndDate"> 
-
-                        <label for="EventEndDate" class="control-label">End Date *</label>
-                        <input type="text" class="form-control"
-                               id="EventEndDate"
-                               name="EventEndDate"
-                               data-bind="datetime: eventEndDate" />
-                    </div>
-                </div>
-
-
             </div>
 
-
-            @*Additional Details*@
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="bs-callout bs-callout-info">
-                        <h4><i class="fa fa-anchor"></i>&nbsp; Contact</h4>
-                        @*<p>Tell your visitors the location and what's the event about.</p>*@
-                    </div>
-
+            <div class="col-xs-12">
+                <div class="form-group-lg" data-bind="validationElement: location">
+                    <label class="control-label">Address *</label>
+                    <input type="text" class="form-control" id="Location" name="Location" placeholder="Type address, and google should find it!" maxlength="200"
+                           data-bind="googleMap: location, mapElement : '#LocationMap'" />
+                    <span class="help-block">
+                        Please ensure that your address is displayed on the map before submitting.
+                    </span>
+                    <input type="hidden" name="LocationLatitude" data-bind="value: locationLatitude" />
+                    <input type="hidden" name="LocationLongitude" data-bind="value: locationLongitude" />
                 </div>
-
-                <div class="col-sm-6">
-                    <div class="form-group-lg" data-bind="validationElement: organiserName">
-                        <label for="OrganiserName">Organiser Name *</label>
-                        <input type="text" class="form-control" id="OrganiserName" name="OrganiserName" data-bind="value: organiserName"
-                               placeholder="Main contact person / group" />
-                    </div>
-                </div>
-
-                <div class="col-sm-6">
-                    <div class="form-group-lg">
-                        <label for="OrganiserPhone">Organiser Phone</label>
-                        <input type="text" class="form-control" id="OrganiserPhone" maxlength="20" name="OrganiserPhone" data-bind="value: organiserPhone" placeholder="Direct contact number (optional)" />
-                    </div>
-                </div>
-
-
             </div>
 
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="bs-callout bs-callout-info">
-                        <h4><i class="fa fa-calendar"></i>&nbsp; Publishing Date</h4>
-                        <p>When should the customers see your event online?</p>
-                    </div>
-                </div>
-
-                <div class="col-xs-12" data-bind="validationElement: adStartDate">
-                    <div class="form-group-lg">
-                        <label class="control-label" for="AdStartDate">Event Publish Date *</label>
-                        <input type="text" class="form-control" id="AdStartDate" name="AdStartDate"
-                               data-bind="date: adStartDate"/>
-
-                    </div>
-                </div>
-
+            @*Div to display the map using google maps*@
+            <div class="col-xs-12">
+                <div class="well" style="min-height: 200px" id="LocationMap"></div>
             </div>
 
-            @*Ticketing*@
-            <div class="row event-tickets">
-                <div class="col-xs-12">
-                    <div class="bs-callout bs-callout-info">
-                        <h4 style="display: inline-block;"><i class="fa fa-ticket"></i>&nbsp; Ticketing</h4>
-                        <div class="pull-right" id="TicketingToggle">
-                            <input type="checkbox" data-bind="toggle: ticketingEnabled" data-onstyle="success" data-on="Yes Please" data-off="No Thanks" />
+            @*Location (venue) floor map*@
+            <div class="col-xs-12">
+                <div class="form-group-lg">
+                    <label class="control-label">&nbsp; Floor Plan</label>
+                    <input type="hidden" data-bind="value: locationFloorPlanDocumentId" />
+
+                    <div class="well text-center">
+                        <i class="fa fa-map-o"></i>&nbsp; Upload a floor plan of your venue
+                        to provide more information to users while they book your tickets.
+                        Image or PDF is accepted.
+                        <div class="top-buffer-20">
+                            <h3>
+                                <span class="label label-info" data-bind="text: locationFloorPlanFilename()"></span>
+                            </h3>
+                            <span class="btn btn-success fileinput-button">
+                                <i class="fa fa-upload"></i>&nbsp; Upload floor plan
+                                <input id="locationFloorUpload" type="file" name="files[]" multiple>
+                            </span>
+                            <div id="locationFloorUploadProgress" class="progress progress-striped active">
+                                <div class="progress-bar active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                                    <span>Uploading...</span>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12 text-center" data-bind="visible: ticketingEnabled">
-                    Click Next to configure your tickets.
+            </div>
+        </div>
+
+        @*Schedule Start*@
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="bs-callout bs-callout-info">
+                    <h4><i class="fa fa-clock-o"></i> &nbsp; Event Schedule</h4>
+                    <p>Dates are local to the event location? Click on the text box to see the calendar and time selectors.</p>
                 </div>
-                <div class="col-xs-12 text-center" data-bind="visible: ticketingEnabled() === false">
-                    Good news. You can always come back and turn on the ticketing feature after your event is booked or even published.
+
+            </div>
+        </div>
+
+
+        @*Event start and End Date*@
+        <div class="row">
+            <div class="col-sm-6">
+
+
+                <div class="form-group-lg" data-bind="validationElement: eventStartDate">
+
+                    <label for="EventStartDate" class="control-label">Start Date *</label>
+                    <input type="text" class="form-control"
+                           id="EventStartDate"
+                           name="EventStartDate"
+                           data-bind="datetime: eventStartDate" />
+                </div>
+
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group-lg" data-bind="validationElement: eventEndDate">
+
+                    <label for="EventEndDate" class="control-label">End Date *</label>
+                    <input type="text" class="form-control"
+                           id="EventEndDate"
+                           name="EventEndDate"
+                           data-bind="datetime: eventEndDate" />
                 </div>
             </div>
 
-            <div id="serverValidation" style="display: none">
-                <div class="alert alert-danger"></div>
+
+        </div>
+
+
+        @*Additional Details*@
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="bs-callout bs-callout-info">
+                    <h4><i class="fa fa-anchor"></i>&nbsp; Contact</h4>
+                    @*<p>Tell your visitors the location and what's the event about.</p>*@
+                </div>
+
             </div>
 
-
-            @*Pager*@
-            <div class="row">
-                <div class="col-xs-12">
-                    <ul class="pager">
-                        <li class="previous">
-                            <button type="button" id="btnPrev" class="btn btn-default js-load" data-nav='@Url.Action("Step1", "Booking")'>
-                                <i class="glyphicon glyphicon-arrow-left"></i> Previous
-                            </button>
-                        </li>
-                        <li class="next">
-                            <button id="btnSubmit" type="submit"
-                                    class="btn btn-primary ko-load"
-                                    data-bind="click: submitChanges">Next <i class="glyphicon glyphicon-arrow-right"></i></button>
-                        </li>
-                    </ul>
+            <div class="col-sm-6">
+                <div class="form-group-lg" data-bind="validationElement: organiserName">
+                    <label for="OrganiserName">Organiser Name *</label>
+                    <input type="text" class="form-control" id="OrganiserName" name="OrganiserName" data-bind="value: organiserName"
+                           placeholder="Main contact person / group" />
                 </div>
             </div>
-        
+
+            <div class="col-sm-6">
+                <div class="form-group-lg">
+                    <label for="OrganiserPhone">Organiser Phone</label>
+                    <input type="text" class="form-control" id="OrganiserPhone" maxlength="20" name="OrganiserPhone" data-bind="value: organiserPhone" placeholder="Direct contact number (optional)" />
+                </div>
+            </div>
+
+
+        </div>
+
+        @*Ad Publishing Date*@
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="bs-callout bs-callout-info">
+                    <h4><i class="fa fa-calendar"></i>&nbsp; Publishing Date</h4>
+                    <p>When should the customers see your event online?</p>
+                </div>
+            </div>
+
+            <div class="col-xs-12" data-bind="validationElement: adStartDate">
+
+                <availability-options params="startDate: adStartDate, showEndDate: false, dateOptionLabel: 'Only from date:'"></availability-options>
+
+            </div>
+
+        </div>
+
+        @*Ticketing*@
+        <div class="row event-tickets">
+            <div class="col-xs-12">
+                <div class="bs-callout bs-callout-info">
+                    <h4 style="display: inline-block;"><i class="fa fa-ticket"></i>&nbsp; Ticketing</h4>
+                    <div class="pull-right" id="TicketingToggle">
+                        <input type="checkbox" data-bind="toggle: ticketingEnabled" data-onstyle="success" data-on="Yes Please" data-off="No Thanks" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 text-center" data-bind="visible: ticketingEnabled">
+                Click Next to configure your tickets.
+            </div>
+            <div class="col-xs-12 text-center" data-bind="visible: ticketingEnabled() === false">
+                Good news. You can always come back and turn on the ticketing feature after your event is booked or even published.
+            </div>
+        </div>
+
+        <div id="serverValidation" style="display: none">
+            <div class="alert alert-danger"></div>
+        </div>
+
+
+        @*Pager*@
+        <div class="row">
+            <div class="col-xs-12">
+                <ul class="pager">
+                    <li class="previous">
+                        <button type="button" id="btnPrev" class="btn btn-default js-load" data-nav='@Url.Action("Step1", "Booking")'>
+                            <i class="glyphicon glyphicon-arrow-left"></i> Previous
+                        </button>
+                    </li>
+                    <li class="next">
+                        <button id="btnSubmit" type="submit"
+                                class="btn btn-primary ko-load"
+                                data-bind="click: submitChanges">
+                            Next <i class="glyphicon glyphicon-arrow-right"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
 
     </div>
 </div>

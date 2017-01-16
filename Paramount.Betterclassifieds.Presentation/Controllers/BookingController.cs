@@ -220,12 +220,16 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         // GET /Booking/Success
         [HttpGet, BookingRequired, Authorize, AuthorizeCartIdentity]
         public ActionResult Success()
-        {
+        {   
             var bookingCart = _bookingContext.Current();
+            if (!bookingCart.StartDate.HasValue)
+            {
+                bookingCart.SetSchedule(_clientConfig, DateTime.Today);
+            }
 
             var bookingOrder = _rateCalculator.Calculate(bookingCart);
-            bookingOrder.SetRecipientDetails(_userManager.GetCurrentUser(this.User));
-
+            bookingOrder.SetRecipientDetails(_userManager.GetCurrentUser());
+           
             var id = _bookingManager.CreateBooking(bookingCart, bookingOrder);
 
             // Complete the booking

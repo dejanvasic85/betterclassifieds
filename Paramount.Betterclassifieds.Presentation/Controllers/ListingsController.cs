@@ -75,7 +75,7 @@
             // Map the results for the view model
             searchModel.SearchResults = this.MapList<AdSearchResult, AdSummaryViewModel>(results.ToList());
 
-            ViewBag.Title = string.Format("Classified Search | {0}", searchModel.SearchSummary);
+            ViewBag.Title = $"Classified Search | {searchModel.SearchSummary}";
             ViewBag.AllowUserToFetchMore = searchModel.TotalCount > _clientConfig.SearchResultsPerPage;
             ViewBag.ResultsPerPage = _clientConfig.SearchResultsPerPage;
             ViewBag.MaxPageRequests = _clientConfig.SearchMaxPagedRequests;

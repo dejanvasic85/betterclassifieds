@@ -25,13 +25,21 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult ViewEventAd(int id, string titleSlug = "")
         {
             var onlineAdModel = _searchService.GetByAdId(id);
-
             if (onlineAdModel == null)
             {
                 return Url.NotFound().ToRedirectResult();
             }
 
-            _bookingManager.IncrementHits(id);
+            var isCurrentUserTheOwner = onlineAdModel.Username == _userManager.GetCurrentUser()?.Username;
+            if (onlineAdModel.HasNotStarted() && !isCurrentUserTheOwner)
+            {
+                return Url.NotFound().ToRedirectResult();
+            }
+
+            if (!isCurrentUserTheOwner)
+            {
+                _bookingManager.IncrementHits(id);
+            }
 
             var eventModel = _eventManager.GetEventDetailsForOnlineAdId(onlineAdModel.OnlineAdId);
             _eventBookingContext.EventUrl = Url.AdUrl(titleSlug, id, onlineAdModel.CategoryAdType);
@@ -51,26 +59,26 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (tickets == null || tickets.Count == 0)
             {
                 ModelState.AddModelError("Tickets", "No tickets have been selected");
-                return JsonModelErrors();;
+                return JsonModelErrors(); ;
             }
 
             var eventModel = _eventManager.GetEventDetails(eventId);
             if (eventModel.IsClosed)
             {
                 ModelState.AddModelError("Tickets", "The event is closed and is not accepting any more ticket purchases.");
-                return JsonModelErrors();;
+                return JsonModelErrors(); ;
             }
 
             if (eventModel.GroupsRequired.GetValueOrDefault() && tickets.Any(t => !t.EventGroupId.HasValue))
             {
                 ModelState.AddModelError("Tickets", "The event requires a group to be selected with each ticket.");
-                return JsonModelErrors();;
+                return JsonModelErrors(); ;
             }
 
             if (!_ticketRequestValidator.IsSufficientTicketsAvailableForRequest(reserveTicketsViewModel.Tickets.Select(t => new TicketReservationRequest(t.EventTicketId.GetValueOrDefault(), t.EventGroupId, t.SelectedQuantity)).ToArray()))
             {
                 ModelState.AddModelError("Tickets", "The requested ticket quantity is no longer available. Please reload the page and try again.");
-                return JsonModelErrors();;
+                return JsonModelErrors(); ;
             }
 
             _eventBookingContext.Clear();
@@ -139,7 +147,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return JsonModelErrors();;
+                return JsonModelErrors(); ;
             }
 
             var applicationUser = _userManager.GetUserByEmailOrUsername(User.Identity.Name);

@@ -45,7 +45,7 @@
         me.organiserName = ko.observable(data.organiserName);
         me.organiserPhone = ko.observable(data.organiserPhone);
         me.ticketingEnabled = ko.observable(data.ticketingEnabled);
-
+        
         /*
          * Address properties
          */
@@ -55,7 +55,6 @@
         me.state = ko.observable(data.state);
         me.postCode = ko.observable(data.postCode);
         me.country = ko.observable(data.country);
-
 
         /*
          * Validation
@@ -69,7 +68,7 @@
                 .extend({ required: true })
                 .extend({ mustBeAfter: me.eventStartDate(), message: 'End date must be after start date.' }),
             organiserName: me.organiserName.extend({ required: true }),
-            adStartDate: me.adStartDate.extend({ required: true })
+            adStartDate: me.adStartDate.extend({ required: options.adStartDateRequired })
         });
 
         /*

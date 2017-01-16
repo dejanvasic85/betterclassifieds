@@ -30,7 +30,10 @@ namespace Paramount.Betterclassifieds.DataService.Events
                     .Include(e => e.Address)
                     .SingleOrDefault(e => e.EventId == eventId);
 
-                if (eventModel?.Address != null && !eventModel.Address.AddressId.HasValue)
+                if (eventModel == null)
+                    return null;
+
+                if (eventModel.Address != null && !eventModel.Address.AddressId.HasValue)
                 {
                     // For some reason entity framework is not loading the address object here!
                     eventModel.Address = context.Addresses.SingleOrDefault(a => a.AddressId == eventModel.AddressId);

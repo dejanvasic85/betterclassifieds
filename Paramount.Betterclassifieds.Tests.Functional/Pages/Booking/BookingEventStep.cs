@@ -31,9 +31,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Booking
         [FindsBy(How = How.Id, Using = "OrganiserPhone"), UsedImplicitly]
         private IWebElement OrganiserPhoneInput;
 
-        [FindsBy(How = How.Id, Using = "AdStartDate"), UsedImplicitly]
-        private IWebElement AdStartDateInput;
-
         [FindsBy(How = How.Id, Using = "TicketingToggle"), UsedImplicitly]
         private IWebElement TicketingToggleBtn;
 
@@ -72,21 +69,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Booking
 
         public BookingEventStep WithAdStartDateToday()
         {
-            AdStartDateInput.ClickOnElement();
-            var waitForDay = new WebDriverWait(_webdriver, TimeSpan.FromSeconds(5));
-            var currentDayElement = waitForDay.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector(".datepicker-days td.today")));
-            currentDayElement.ClickOnElement();
-
-            var waitForText = new WebDriverWait(_webdriver, TimeSpan.FromSeconds(5));
-            waitForText.Until(drv =>
-            {
-                var findElement = drv.FindElement(By.Id("AdStartDate"));
-                if (findElement == null)
-                {
-                    return false;
-                }
-                return findElement.GetValue().HasValue();
-            });
+            // Nothing to do anymore because it should be a radio button for Always Available
 
             return this;
         }

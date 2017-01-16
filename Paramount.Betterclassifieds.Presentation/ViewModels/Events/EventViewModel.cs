@@ -22,8 +22,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         [Required]
         public string Description { get; set; }
 
-        [Required]
-        public string AdStartDate { get; set; }
+        [DisplayFormat(DataFormatString = "yyyy-MM-dd H:mm")]
+        public DateTime? AdStartDate { get; set; }
+
         [MaxLength(100)]
         public string VenueName { get; set; }
 

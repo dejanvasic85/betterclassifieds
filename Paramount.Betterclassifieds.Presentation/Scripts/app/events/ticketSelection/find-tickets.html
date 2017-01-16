@@ -1,7 +1,7 @@
 ﻿<!--Selection by group-->
 <div>
 
-    <div data-bind="if: hasClosed">
+    <div data-bind="if: hasClosed() && !isPastEvent()">
         <div class="alert alert-warning">Ticketing has been closed this event :(</div>
     </div>
 

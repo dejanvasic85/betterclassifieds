@@ -85,6 +85,25 @@
                 @Html.Raw(Model.HtmlText)
             </div>
 
+            @*Who's coming*@
+            @if (Model.Guests.Count > 0)
+            {
+                <h4 class="page-header">
+                    <i class="fa fa-hand-o-up"></i> Who's going?
+                </h4>
+                <div class="well well-lg">
+
+                    @foreach (var guest in Model.Guests)
+                    {
+                        <span>@guest.GuestFullName</span>
+                    }
+
+                </div>
+            }
+
+
+            @*Google Maps*@
+
             <div class="event-map top-buffer-40">
                 <div class="google-map" data-latitude="@Model.LocationLatitude" data-longitude="@Model.LocationLongitude" data-address="@Model.Location"></div>
                 <div class="container top-buffer-20">

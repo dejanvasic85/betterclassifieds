@@ -42,10 +42,11 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             }
 
             var eventModel = _eventManager.GetEventDetailsForOnlineAdId(onlineAdModel.OnlineAdId);
+            var guestList = _eventManager.BuildGuestList(eventModel.EventId);
             _eventBookingContext.EventUrl = Url.AdUrl(titleSlug, id, onlineAdModel.CategoryAdType);
 
             var eventViewModel = new EventViewDetailsModel(_httpContext,
-                Url, onlineAdModel, eventModel, _clientConfig);
+                Url, onlineAdModel, eventModel, _clientConfig, guestList);
 
             return View(eventViewModel);
         }

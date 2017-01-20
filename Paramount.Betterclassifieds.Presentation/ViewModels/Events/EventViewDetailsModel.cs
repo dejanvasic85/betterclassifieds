@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
 using Paramount.Betterclassifieds.Business;
 using Paramount.Betterclassifieds.Business.Events;
 using Paramount.Betterclassifieds.Business.Search;
@@ -12,15 +13,14 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
     /// <summary>
     /// Used for viewing the event ad
     /// </summary>
-    public class EventViewDetailsModel
+    public class EventViewDetailsModel : IMappingBehaviour
     {
         public EventViewDetailsModel()
         {
 
         }
 
-        public EventViewDetailsModel(HttpContextBase httpContext, UrlHelper urlHelper, AdSearchResult searchResult, EventModel eventModel, 
-            IClientConfig clientConfig)
+        public EventViewDetailsModel(HttpContextBase httpContext, UrlHelper urlHelper, AdSearchResult searchResult, EventModel eventModel, IClientConfig clientConfig, IEnumerable<EventGuestDetails> guestList)
         {
             AdId = searchResult.AdId;
             Title = searchResult.Heading;
@@ -54,6 +54,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             LocationFloorPlanFilename = eventModel.LocationFloorPlanFilename;
             LocationFloorPlanDocumentId = eventModel.LocationFloorPlanDocumentId;
             TicketingEnabled = eventModel.Tickets != null && eventModel.Tickets.Any();
+
+            // Build the guest list
+            Guests = this.MapList<EventGuestDetails, EventGuestListViewModel>(guestList.ToList());
         }
         
         public DateTime EventEndDate { get; set; }
@@ -90,5 +93,12 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string LocationFriendlyName { get; set; }
 
         public bool TicketingEnabled { get; set; }
+
+        public List<EventGuestListViewModel> Guests { get; set; }
+
+        public void OnRegisterMaps(IConfiguration configuration)
+        {
+            configuration.CreateMap<EventGuestDetails, EventGuestListViewModel>();
+        }
     }
 }

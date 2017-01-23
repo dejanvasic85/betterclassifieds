@@ -608,6 +608,8 @@
     <Content Include="Scripts\app\events\manage-tickets.model.js" />
     <Content Include="Scripts\app\events\ticketSelection\ticket-options.js" />
     <Content Include="Scripts\app\events\ticketSelection\ticket-options.html" />
+    <Content Include="Scripts\app\events\viewGuests\view-guests.html" />
+    <Content Include="Scripts\app\events\viewGuests\view-guests.js" />
     <Content Include="Scripts\app\pagination\pagination.html" />
     <Content Include="Scripts\app\pagination\pagination.js" />
     <Content Include="Scripts\app\progress-bar\progress-bar.html" />

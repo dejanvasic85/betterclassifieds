@@ -12,6 +12,10 @@
                     ko.applyBindings({}, ticketingInterface);
                 }
 
+                var guestsDialogInterface = document.getElementById('guestsDialog');
+                if (guestsDialogInterface) {
+                    ko.applyBindings({}, guestsDialogInterface);
+                }
 
                 if (options.floorPlanDocumentId === '') {
                     $('.floor-plan').hide();

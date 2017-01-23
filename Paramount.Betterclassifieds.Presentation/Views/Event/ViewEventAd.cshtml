@@ -5,8 +5,6 @@
     Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
 }
 
-@Html.Partial("_FloorPlanDialog")
-
 <div class="event-details">
     <div class="event-title">
         <div class="container">
@@ -106,14 +104,13 @@
                 </div>
             }
 
-
-            @if (Model.Guests.Count > 1)
+            @if (Model.Guests.Count > 6)
             {
                 <div class="row">
                     <div class="col-sm-4"></div>
                     <div class="col-sm-4">
-                        <button class="btn btn-primary btn-block">
-                            See All <i class="fa fa-search"> </i>
+                        <button class="btn btn-primary btn-block" data-toggle="modal" id="btnViewGuests" data-target="#guestsDialog">
+                            Find a friend <i class="fa fa-search"> </i>
                         </button>
                     </div>
                 </div>
@@ -213,4 +210,34 @@
         });
 
     </script>
+}
+
+
+@section Modals
+{
+    @Html.Partial("_FloorPlanDialog")
+
+
+
+    <div class="modal modal-open fade" tabindex="-1" role="dialog" 
+         aria-labelledby="guestsDialog" aria-hidden="true" 
+         id="guestsDialog">
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Guests attending</h4>
+            </div>
+
+            <div class="modal-body">
+                <view-guests params="{eventId: @Model.EventId}"></view-guests>
+            </div>
+
+            <div class="modal-footer text-right">
+                <button class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 }

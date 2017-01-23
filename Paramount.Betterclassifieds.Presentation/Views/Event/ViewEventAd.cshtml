@@ -91,13 +91,31 @@
                 <h4 class="page-header">
                     <i class="fa fa-hand-o-up"></i> Who's going?
                 </h4>
-                <div class="well well-lg">
+                <div class="row guests">
 
-                    @foreach (var guest in Model.Guests)
+                    @foreach (var guest in Model.Guests.OrderByDescending(g => g.TicketNumber).Take(6))
                     {
-                        <span>@guest.GuestFullName</span>
+                        <div class="col-sm-2 col-xs-4 guest">
+                            <span>
+                                <i class="fa fa-user"></i><br/>
+                                @guest.GuestFullName
+                            </span>
+                        </div>
                     }
 
+                </div>
+            }
+
+
+            @if (Model.Guests.Count > 1)
+            {
+                <div class="row">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                        <button class="btn btn-primary btn-block">
+                            See All <i class="fa fa-search"> </i>
+                        </button>
+                    </div>
                 </div>
             }
 

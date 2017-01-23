@@ -98,7 +98,12 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
         public void OnRegisterMaps(IConfiguration configuration)
         {
-            configuration.CreateMap<EventGuestDetails, EventGuestListViewModel>();
+            configuration
+                .CreateMap<EventGuestDetails, EventGuestListViewModel>();
+
+            configuration
+                .CreateMap<EventBookingTicketField, EventTicketFieldViewModel>();
+
         }
     }
 }

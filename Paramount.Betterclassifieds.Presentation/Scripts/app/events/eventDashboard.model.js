@@ -107,7 +107,6 @@
         me.pageViews(editEventViewModel.pageViews);
         me.requestPaymentStatus(editEventViewModel.eventPaymentRequestStatus);
         me.requiresEventOrganiserConfirmation(editEventViewModel.requiresEventOrganiserConfirmation);
-        console.log(editEventViewModel);
     }
 
     $paramount.models = $paramount.models || {};

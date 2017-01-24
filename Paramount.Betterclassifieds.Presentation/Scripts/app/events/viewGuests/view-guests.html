@@ -1,9 +1,23 @@
 ﻿<div>
-    Guests will be displayed here for
 
-    <ul data-bind="foreach: guests">
-        <li data-bind="text: guestFullName">
-            
-        </li>
-    </ul>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="form-group">
+                <label>Search:</label>
+                <input type="text" data-bind="value: guestListFilter, valueUpdate: 'keyup'" class="form-control" placeholder="e.g. Lisa "/>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <ul data-bind="foreach: guestsFiltered">
+                <li>
+                    <span data-bind="text: groupName, visible: groupName !== null"></span>
+                    <span data-bind="text: guestFullName"></span></li>
+            </ul>
+        </div>
+    </div>
+
+    
 </div>

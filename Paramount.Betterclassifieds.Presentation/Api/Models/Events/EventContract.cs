@@ -44,6 +44,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models.Events
         public string ParentCategoryName { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        public bool DisplayGuests { get; set; }
 
         // Address object
         public AddressContract Address { get; set; }

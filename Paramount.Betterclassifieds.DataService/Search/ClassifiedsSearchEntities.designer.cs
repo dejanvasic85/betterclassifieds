@@ -735,6 +735,8 @@ namespace Paramount.Betterclassifieds.DataService.Search
 		
 		private System.Nullable<System.DateTime> _OpeningDateUtc;
 		
+		private bool _DisplayGuests;
+		
 		public BookedEvent()
 		{
 		}
@@ -1535,6 +1537,22 @@ namespace Paramount.Betterclassifieds.DataService.Search
 				if ((this._OpeningDateUtc != value))
 				{
 					this._OpeningDateUtc = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DisplayGuests", DbType="Bit")]
+		public bool DisplayGuests
+		{
+			get
+			{
+				return this._DisplayGuests;
+			}
+			set
+			{
+				if ((this._DisplayGuests != value))
+				{
+					this._DisplayGuests = value;
 				}
 			}
 		}

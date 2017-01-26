@@ -45,6 +45,7 @@
         me.organiserName = ko.observable(data.organiserName);
         me.organiserPhone = ko.observable(data.organiserPhone);
         me.ticketingEnabled = ko.observable(data.ticketingEnabled);
+        me.displayGuests = ko.observable(data.displayGuests);
         
         /*
          * Address properties

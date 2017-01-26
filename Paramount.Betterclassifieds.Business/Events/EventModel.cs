@@ -56,5 +56,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         public DateTime? OpeningDateUtc { get; set; }
         public bool IsClosed => this.ClosingDateUtc.HasValue && this.ClosingDateUtc <= DateTime.UtcNow;
         
+        public bool DisplayGuests { get; set; }
     }
 }

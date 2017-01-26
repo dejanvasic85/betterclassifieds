@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 10.75" name="ClassifiedsSearchEntities">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 11.375" name="ClassifiedsSearchEntities">
   <DataContextMoniker Name="/ClassifiedsSearchEntitiesDataContext" />
   <nestedChildShapes>
     <classShape Id="53363930-cde8-443b-ad18-f9683cf9f0b3" absoluteBounds="0.5, 0.5, 2, 6.3861311848958326">
@@ -8,10 +8,10 @@
         <elementListCompartment Id="2f9b9e82-5198-4f20-bc75-4c93b0d852b4" absoluteBounds="0.51500000000000012, 0.96, 1.9700000000000002, 5.826131184895833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="b095e54b-e11a-4a59-8905-ac1f3dbf063d" absoluteBounds="2.875, 0.5, 2, 10.0398583984375">
+    <classShape Id="b095e54b-e11a-4a59-8905-ac1f3dbf063d" absoluteBounds="2.875, 0.5, 2, 10.6167626953125">
       <DataClassMoniker Name="/ClassifiedsSearchEntitiesDataContext/BookedEvent" />
       <nestedChildShapes>
-        <elementListCompartment Id="32d6eeea-da57-471f-bb0a-744cef66c445" absoluteBounds="2.89, 0.96, 1.9700000000000002, 9.4798583984375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="32d6eeea-da57-471f-bb0a-744cef66c445" absoluteBounds="2.89, 0.96, 1.9700000000000002, 10.0567626953125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

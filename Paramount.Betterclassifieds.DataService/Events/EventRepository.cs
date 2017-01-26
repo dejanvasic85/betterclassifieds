@@ -180,7 +180,8 @@ namespace Paramount.Betterclassifieds.DataService.Events
                     .Include(t => t.TicketFieldValues)
                     .Where(t => t.EventBooking.EventId == id)
                     .Where(t => t.EventBooking.StatusAsString == EventBookingStatus.Active.ToString())
-                    .Where(t => t.IsActive);
+                    .Where(t => t.IsActive)
+                    .Where(t => t.GuestFullName != null);
 
                 return query.ToList();
             }

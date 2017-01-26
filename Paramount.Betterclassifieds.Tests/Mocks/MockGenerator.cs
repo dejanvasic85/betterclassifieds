@@ -543,9 +543,17 @@ namespace Paramount.Betterclassifieds.Tests
 		{ 
 			return WithBuildStep(p => p.EventStartDate = val);
 		}
+		public EventModelMockBuilder WithEventStartDateUtc(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.EventStartDateUtc = val);
+		}
 		public EventModelMockBuilder WithEventEndDate(DateTime? val)
 		{ 
 			return WithBuildStep(p => p.EventEndDate = val);
+		}
+		public EventModelMockBuilder WithEventEndDateUtc(DateTime? val)
+		{ 
+			return WithBuildStep(p => p.EventEndDateUtc = val);
 		}
 		public EventModelMockBuilder WithTickets(IList<EventTicket> val)
 		{ 
@@ -598,6 +606,10 @@ namespace Paramount.Betterclassifieds.Tests
 		public EventModelMockBuilder WithOpeningDateUtc(DateTime? val)
 		{ 
 			return WithBuildStep(p => p.OpeningDateUtc = val);
+		}
+		public EventModelMockBuilder WithDisplayGuests(Boolean val)
+		{ 
+			return WithBuildStep(p => p.DisplayGuests = val);
 		}
 	}
 

@@ -38,6 +38,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
                 .Default()
                 .WithOnlineAdId(mockAd.OnlineAdId)
                 .WithPastClosedDate()
+                .WithDisplayGuests(true)
                 .Build();
 
             // arrange services
@@ -63,6 +64,7 @@ namespace Paramount.Betterclassifieds.Tests.Controllers
             eventViewModel.EventStartDateDisplay.IsEqualTo(mockEventAd.EventStartDate.GetValueOrDefault().ToLongDateString());
             eventViewModel.EventStartTime.IsEqualTo(mockEventAd.EventStartDate.GetValueOrDefault().ToString("hh:mm tt"));
             eventViewModel.EventEndDateDisplay.IsEqualTo(mockEventAd.EventEndDate.GetValueOrDefault().ToLongDateString());
+            eventViewModel.DisplayGuests.IsEqualTo(true);
         }
 
         [Test]

@@ -84,7 +84,7 @@
             </div>
 
             @*Who's coming*@
-            @if (Model.Guests.Count > 0)
+            @if (Model.DisplayGuests && Model.Guests.Count > 0)
             {
                 <h4 class="page-header">
                     <i class="fa fa-hand-o-up"></i> Who's going?
@@ -104,7 +104,7 @@
                 </div>
             }
 
-            @if (Model.Guests.Count > 6)
+            @if (Model.DisplayGuests && Model.Guests.Count > 6)
             {
                 <div class="row">
                     <div class="col-sm-4"></div>

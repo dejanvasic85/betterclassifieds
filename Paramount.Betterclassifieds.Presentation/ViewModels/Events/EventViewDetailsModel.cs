@@ -47,6 +47,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             EventStartTime = eventModel.EventStartDate.GetValueOrDefault().ToString("hh:mm tt");
             EventEndDateDisplay = eventModel.EventStartDate.GetValueOrDefault().ToLongDateString();
             EventEndTime = eventModel.EventEndDate.GetValueOrDefault().ToString("hh:mm tt");
+            DisplayGuests = eventModel.DisplayGuests;
 
             FacebookAppId = clientConfig.FacebookAppId;
             MaxTicketsPerBooking = clientConfig.EventMaxTicketsPerBooking;
@@ -95,6 +96,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public bool TicketingEnabled { get; set; }
 
         public List<EventGuestListViewModel> Guests { get; set; }
+        public bool DisplayGuests { get; set; }
 
         public void OnRegisterMaps(IConfiguration configuration)
         {

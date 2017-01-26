@@ -80,7 +80,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                             LocationLongitude = "144.98",
                             EventStartDate = DateTime.Now.AddDays(30).ToString("yyyy-MM-dd"),
                             EventEndDate = DateTime.Now.AddDays(32).ToString("yyyy-MM-dd"),
-                            addressId
+                            addressId,
+                            displayGuests = true
                         },
                         filterByValue: onlineAdId,
                         findByColumnName: "OnlineAdId");

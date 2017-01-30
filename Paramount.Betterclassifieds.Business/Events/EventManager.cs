@@ -540,6 +540,15 @@ namespace Paramount.Betterclassifieds.Business.Events
             _eventRepository.UpdateEvent(eventDetails);
         }
 
+        public void UpdateEventGuestSettings(int eventId, bool displayGuestsToPublic)
+        {
+            var eventDetails = _eventRepository.GetEventDetails(eventId);
+            Guard.NotNull(eventDetails);
+
+            eventDetails.DisplayGuests = displayGuestsToPublic;
+            _eventRepository.UpdateEvent(eventDetails);
+        }
+
         public EventBookingTicketValidation GetTicketValidation(int eventTicketId)
         {
             return _eventRepository.GetEventBookingTicketValidation(eventTicketId);

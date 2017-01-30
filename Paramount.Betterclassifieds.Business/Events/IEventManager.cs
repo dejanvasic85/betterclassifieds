@@ -45,6 +45,8 @@ namespace Paramount.Betterclassifieds.Business.Events
 
         void UpdateEventGroupSettings(int eventId, bool groupsRequired);
 
+        void UpdateEventGuestSettings(int eventId, bool displayGuestsToPublic);
+
         EventInvitation CreateInvitationForUserNetwork(int eventId, int userNetworkId);
         IEnumerable<EventGroup> GetEventGroups(int eventId, int? eventTicketId = null);
         Task<IEnumerable<EventGroup>> GetEventGroupsAsync(int eventId, int? eventTicketId = null);

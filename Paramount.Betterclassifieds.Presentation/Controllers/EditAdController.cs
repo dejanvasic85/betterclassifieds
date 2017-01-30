@@ -142,7 +142,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [HttpGet]
         [Route("event-dashboard/{id}")]
         public ActionResult EventDashboard(int id)
-        {
+        { 
             var adDetails = _searchService.GetByAdId(id);
             var eventDetails = _eventManager.GetEventDetailsForOnlineAdId(adDetails.OnlineAdId, includeBookings: true);
             var guestList = _eventManager.BuildGuestList(eventDetails.EventId);
@@ -637,13 +637,25 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         [Route("event-dashboard/{id}/event/{eventId}/manage-guests")]
         public ActionResult ManageGuests(int id, int eventId)
         {
+            var eventDetails = _eventManager.GetEventDetails(eventId);
+
             var viewModel = new ManageGuestsViewModel
             {
                 Id = id,
-                EventId = eventId
+                EventId = eventId,
+                DisplayGuests = eventDetails.DisplayGuests
             };
 
             return View(viewModel);
+        }
+
+        [HttpPost, ActionName("update-guest-settings")]
+        [Route("event-dashboard/{id}/event/{eventId}/guest-settings")]
+        public ActionResult UpdateGuestSettings(int id, int eventId, bool displayGuests)
+        {
+            _eventManager.UpdateEventGuestSettings(eventId, displayGuests);
+
+            return Json(true);
         }
 
         [HttpPost] // Json

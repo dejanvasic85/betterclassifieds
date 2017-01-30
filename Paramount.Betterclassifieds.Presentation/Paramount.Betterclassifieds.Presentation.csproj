@@ -591,6 +591,7 @@
     <Content Include="Scripts\app\events\eventGuest.model.js" />
     <Content Include="Scripts\app\events\eventPaymentRequest.ui.js" />
     <Content Include="Scripts\app\events\eventTicketReserved.model.js" />
+    <Content Include="Scripts\app\events\guest-settings.js" />
     <Content Include="Scripts\app\events\ticketSelection\find-tickets.js" />
     <Content Include="Scripts\app\events\ticketSelection\find-tickets.html" />
     <Content Include="Scripts\app\events\event.service.js" />

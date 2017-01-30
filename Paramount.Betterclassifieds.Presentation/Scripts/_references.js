@@ -33,6 +33,7 @@
 /// <reference path="app/events/eventpaymentrequest.ui.js" />
 /// <reference path="app/events/eventticket.model.js" />
 /// <reference path="app/events/eventticketreserved.model.js" />
+/// <reference path="app/events/guest-settings.js" />
 /// <reference path="app/events/invitation.ui.js" />
 /// <reference path="app/events/manage-groups.model.js" />
 /// <reference path="app/events/manage-tickets.model.js" />

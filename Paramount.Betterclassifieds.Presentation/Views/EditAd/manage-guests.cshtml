@@ -7,8 +7,10 @@
 
 @section Scripts{
     <script>
-        $(function() {
-            
+        $(function () {
+            var vm = @Html.Raw(Model.ToJsonString());
+            var guestSettings = new $paramount.models.GuestSettings(vm);
+            ko.applyBindings(guestSettings, document.getElementById('guestSettings'));
         });
     </script>
 }
@@ -37,7 +39,7 @@
                 <a href="#guests" aria-controls="guests" role="tab" data-toggle="tab">Guests</a>
             </li>
             <li role="presentation">
-                <a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">
+                <a href="#guestSettings" aria-controls="settings" role="tab" data-toggle="tab">
                     <i class="fa fa-cog"></i>
                     Settings
                 </a>
@@ -49,11 +51,20 @@
             <div role="tabpanel" class="tab-pane active in" id="guests">
                 Guest list will go here
             </div>
-            <div role="tabpanel" class="tab-pane" id="settings">
+            <div role="tabpanel" class="tab-pane" id="guestSettings">
                 <div>
                     <h3>Guest settings</h3>
                 </div>
-                
+
+                <div class="row">
+                    <div class="col-xs-12 form-group-lg">
+                        <label class="control-label">Display guests on the event details page</label>
+                        <div class="display-block toggle-required">
+                            <input type="checkbox" data-bind="toggle: displayGuests" data-on="Yes" data-off="No" />
+                        </div>
+                    </div>
+                </div>
+
                 <div class="panel-footer text-right">
                     <button class="btn btn-primary" data-loading-text="Please wait...">
                         Save <i class="fa fa-floppy-o"></i>

@@ -164,7 +164,7 @@ namespace Paramount
                 .WithAction("event-ticketing", "editad")
                 .WithRouteValues(new { id = adId, eventId });
         }
-        
+
         public static UrlBuilder UpdateEventDetails(this UrlHelper urlHelper)
         {
             return new UrlBuilder(urlHelper, "UpdateEventDetails", "EditAd");
@@ -250,6 +250,11 @@ namespace Paramount
         public static UrlBuilder ManageGroups(this UrlHelper urlHelper, int id, int eventId)
         {
             return new UrlBuilder(urlHelper).WithAction("manage-groups", "editad").WithRouteValues(new { id, eventId });
+        }
+
+        public static UrlBuilder ManageGuests(this UrlHelper urlHelper, int id, int eventId)
+        {
+            return new UrlBuilder(urlHelper).WithAction("manage-guests", "editad").WithRouteValues(new { id, eventId });
         }
 
         public static UrlBuilder CategorySeoView(this UrlHelper urlHelper, string seoName)

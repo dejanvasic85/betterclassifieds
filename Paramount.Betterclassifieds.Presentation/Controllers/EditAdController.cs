@@ -133,6 +133,14 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpGet]
+        [Route("EditAd/EventDashboard/{id}")]
+        public ActionResult EventDashboardLegacyUrl(int id)
+        {
+            return RedirectToActionPermanent("EventDashboard");
+        }
+
+        [HttpGet]
+        [Route("event-dashboard/{id}")]
         public ActionResult EventDashboard(int id)
         {
             var adDetails = _searchService.GetByAdId(id);
@@ -623,6 +631,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             return View(manageGroupsViewModel);
         }
+
 
         [HttpGet, ActionName("manage-guests")]
         [Route("event-dashboard/{id}/event/{eventId}/manage-guests")]

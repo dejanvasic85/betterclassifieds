@@ -25,7 +25,7 @@
     }
 
     UserAdService.prototype.getEventDashboardUrl = function(adId) {
-        return this.baseUrl + 'EditAd/EventDashboard/' + adId;
+        return this.baseUrl + 'event-dashboard/' + adId;
     }
 
     UserAdService.prototype.getEventEditUrl = function (adId) {

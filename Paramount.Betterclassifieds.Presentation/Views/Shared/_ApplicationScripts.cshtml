@@ -50,6 +50,8 @@
                 if (resp.nextUrl) {
                     window.location = resp.nextUrl;
                     return;
+                } else {
+                    $('[data-loading-text]').button('reset');
                 }
 
                 if (resp.errors) {
@@ -77,8 +79,6 @@
                             toastr.error(e);
                         });
                     }
-
-                    $('[data-loading-text]').button('reset');
 
                     return;
                 }

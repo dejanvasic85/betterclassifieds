@@ -157,6 +157,11 @@
         return $paramount.httpPost(url, $.extend(me.model, data));
     }
 
+    AdDesignService.prototype.updateEventGuestSettings = function(model) {
+        var url = $paramount.baseUrl + 'event-dashboard/' + me.model.id + '/event/' + model.eventId + '/guest-settings';
+        return $paramount.httpPost(url, model);
+    }
+
     // Exports
     $paramount.AdDesignService = AdDesignService;
 

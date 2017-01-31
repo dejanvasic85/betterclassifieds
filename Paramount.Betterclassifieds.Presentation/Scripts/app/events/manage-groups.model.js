@@ -214,13 +214,11 @@
 
         me.update = function (model, event) {
             var $btn = $(event.target);
-            $btn.button('loading');
+            $btn.loadBtn();
 
             var data = ko.toJS(me);
             adDesignService.updateEventGroupSettings(data).then(function () {
                 $n.success('Group settings updated');
-            }).always(function() {
-                $btn.button('reset');
             });
         }
     }

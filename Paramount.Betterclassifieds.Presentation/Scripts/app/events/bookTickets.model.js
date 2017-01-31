@@ -19,6 +19,7 @@
             return r.price > 0;
         });
         me.requiresPayment = ko.observable(requiresPayment);
+        me.displayGuests = ko.observable(data.displayGuests);
 
         // User details
         me.firstName = ko.observable(data.firstName);
@@ -53,6 +54,7 @@
             }
 
             reservationData.getGroupsPromise = groupsPromise;
+            reservationData.displayGuests = me.displayGuests();
             me.reservations.push(new $paramount.models.EventTicketReserved(reservationData));
         });
 

@@ -20,5 +20,6 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public string GuestEmail { get; set; }
         public List<EventTicketFieldViewModel> TicketFields { get; set; }
         public int? EventGroupId { get; set; }
+        public bool IsPublic { get; set; }
     }
 }

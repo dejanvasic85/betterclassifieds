@@ -37,6 +37,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                     GuestEmail = reservation.GuestEmail,
                     GuestFullName = reservation.GuestFullName,
                     EventGroupId = reservation.EventGroupId,
+                    IsPublic = reservation.IsPublic,
                     TicketFieldValues = reservation?.TicketFields?
                         .Select(r => new EventBookingTicketField { FieldName = r.FieldName, FieldValue = r.FieldValue })?
                         .ToList()

@@ -120,7 +120,12 @@
                                     <input type="email" data-bind="value: guestEmail" class="form-control" />
                                 </div>
                             </div>
-
+                            <div class="col-sm-12" data-bind="visible: displayGuests">
+                                <label>Let others know I'm coming:</label>
+                                <div>
+                                    <input type="checkbox" data-bind="toggle: isPublic" data-on="Yes" data-off="No" />
+                                </div>
+                            </div>
                         </div>
                         <div class="row" data-bind="foreach: ticketFields">
                             <div class="col-sm-6">

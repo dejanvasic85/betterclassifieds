@@ -33,6 +33,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             TotalCost = ticketReservations.Sum(r => r.TotalPriceWithTxnFee);
             TotalFees = ticketReservations.Sum(r => r.TransactionFee.GetValueOrDefault());
             IncludeTransactionFee = eventDetails.IncludeTransactionFee;
+            DisplayGuests = eventDetails.DisplayGuests;
 
             if (applicationUser != null)
             {
@@ -52,7 +53,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             BrandName = appConfig.Brand;
         }
 
-       
+        public bool DisplayGuests { get; set; }
+
 
         public bool? IncludeTransactionFee { get; set; }
 

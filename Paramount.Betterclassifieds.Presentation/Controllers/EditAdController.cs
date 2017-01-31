@@ -631,8 +631,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
             return View(manageGroupsViewModel);
         }
-
-
+        
         [HttpGet, ActionName("manage-guests")]
         [Route("event-dashboard/{id}/event/{eventId}/manage-guests")]
         public ActionResult ManageGuests(int id, int eventId)

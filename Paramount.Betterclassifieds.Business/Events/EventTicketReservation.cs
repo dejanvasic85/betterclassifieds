@@ -41,5 +41,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         public decimal? TransactionFee { get; set; }
         public decimal TotalPriceWithTxnFee => Price.GetValueOrDefault() + TransactionFee.GetValueOrDefault();
         public int? EventGroupId { get; set; }
+        public bool IsPublic { get; set; }
     }
 }

@@ -223,7 +223,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                     CreatedDateTime = DateTime.Now,
                     CreatedDateTimeUtc = DateTime.UtcNow,
                     TransactionFee = 0,
-                    Cost = 0
+                    Cost = 0,
+                    IsPublic = false
                 });
 
                 return db.Add(Constants.Table.EventBookingTicket, new

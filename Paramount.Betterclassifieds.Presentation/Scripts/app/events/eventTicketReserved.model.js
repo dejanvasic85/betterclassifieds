@@ -16,6 +16,8 @@
         me.notReserved = ko.observable();
         me.ticketFields = ko.observableArray();
         me.eventGroupName = ko.observable();
+        me.isPublic = ko.observable();
+        me.displayGuests = ko.observable();
 
         /*
          * Computed functions
@@ -65,6 +67,8 @@
         if (data.guestEmail) {
             me.guestEmail(data.guestEmail);
         }
+        me.isPublic(data.isPublic);
+        me.displayGuests(data.displayGuests);
         
         /*
         * Fetch the fields required for each ticket (if any)

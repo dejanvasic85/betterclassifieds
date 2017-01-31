@@ -7,7 +7,7 @@ using Paramount.Betterclassifieds.Tests.Functional.Base;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 {
-    [NavRoute("EditAd/EventDashboard/{0}")]
+    [NavRoute("event-dashboard/{0}")]
     internal class EventDashboardPage : ITestPage
     {
         private readonly IWebDriver _webDriver;

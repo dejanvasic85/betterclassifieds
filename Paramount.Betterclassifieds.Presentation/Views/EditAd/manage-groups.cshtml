@@ -23,272 +23,299 @@
     </h2>
 
     <div class="row">
-        <div class="col-md-12">
-            <div class="alert alert-info alert-info-alt">
-                Do you have tables at your event or any other way of grouping guests? Then grouping feature is your answer.
-                <!-- ko if: groups().length === 0 -->
-                Click "Create" to get started.
-                <!-- /ko -->
-            </div>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-xs-offset-6 col-xs-6 col-sm-offset-8 col-sm-4">
-            <a href="@Url.EventDashboard(Model.Id)" class="btn btn-default btn-block js-load">
-                <i class="fa fa-arrow-circle-left"></i> Event Dashboard
-            </a>
-        </div>
-        <div class="col-xs-12 top-buffer-10">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <i class="fa fa-cog"></i> Settings
-                </div>
-                <div class="panel-body">
-                    <div>
-                        <p>Are groups mandatory?</p>
-                        <input type="checkbox" data-bind="toggle: eventGroupSettings().groupsRequired" data-on="Yes" data-off="No" />
-                        <p class="help-block">
-                            By making groups required, the guests will need to select a group
-                            before selecting their ticket.
-                        </p>
-                    </div>
-                </div>
-                <div class="panel-footer text-right">
-                    <button class="btn btn-primary" data-bind="click: eventGroupSettings().update" data-loading-text="Please wait...">
-                        Save <i class="fa fa-floppy-o"></i>
-                    </button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <hr />
-    <div class="row">
-        <div class="col-xs-12">
-            <h3 class="page-header">
-                Create / Generate
-            </h3>
-        </div>
-
-        <div class="col-xs-offset-6 col-xs-6 col-sm-offset-8 col-sm-4">
+        <div class="col-xs-12 col-sm-6 col-md-offset-6 col-md-3">
             <button id="btnCreateGroup" class="btn btn-primary btn-block" data-bind="click: createStart">Create <i class="fa fa-plus-circle"></i></button>
         </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <a href="@Url.EventDashboard(Model.Id)" class="btn btn-default btn-block js-load">
+                <i class="fa fa-arrow-circle-left"></i>
+                <span class="hidden-sm">Event</span>
+                Dashboard
+            </a>
+        </div>
+
     </div>
 
-    <div class="row">
-
-        @*Group Creation*@
-        <div id="createGroupForm" class="col-xs-12 top-buffer-20 well" data-bind="bounceInDown: isCreateEnabled">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="form-group-lg" data-bind="validationElement: newGroup().groupName">
-                        <label class="control-label">Group Name</label>
-                        <input id="txtNewGroupName" class="form-control" type="text" data-bind="value: newGroup().groupName" placeholder="e.g. Table" />
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group-lg" data-bind="validationElement: newGroup().maxGuests">
-                        <label class="control-label">Max Guests</label>
-                        <input id="txtNewGroupMaxGuests" class="form-control" type="number" data-bind="value: newGroup().maxGuests" placeholder="Unlimited" />
-                        <p class="help-block">
-                            Leaving this empty will allow set unlimited guests.
-                        </p>
-                    </div>
+    @*Group Creation*@
+    <div id="createGroupForm" class="col-xs-12 top-buffer-20 well" data-bind="bounceInDown: isCreateEnabled">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group-lg" data-bind="validationElement: newGroup().groupName">
+                    <label class="control-label">Group Name</label>
+                    <input id="txtNewGroupName" class="form-control" type="text" data-bind="value: newGroup().groupName" placeholder="e.g. Table" />
                 </div>
             </div>
-
-            <hr />
-
-            <div class="row">
-                <div class="col-sm-12 top-buffer-20">
-                    <div class="control-group">
-                        <label>
-                            <input id="chkNewGroupStatus" type="checkbox" data-bind="checked: newGroup().isEnabled" />
-                            Enabled
-                        </label>
-                    </div>
+            <div class="col-sm-6">
+                <div class="form-group-lg" data-bind="validationElement: newGroup().maxGuests">
+                    <label class="control-label">Max Guests</label>
+                    <input id="txtNewGroupMaxGuests" class="form-control" type="number" data-bind="value: newGroup().maxGuests" placeholder="Unlimited" />
+                    <p class="help-block">
+                        Leaving this empty will allow set unlimited guests.
+                    </p>
                 </div>
             </div>
+        </div>
 
-            <hr />
+        <hr />
 
-            <div class="row top-buffer-10">
-
-                <div class="col-xs-12">
-                    <button class="btn btn-primary" type="button" data-bind="click: newGroup().toggleLimits"
-                            data-toggle="collapse" data-target="#limitTickets"
-                            aria-expanded="false" aria-controls="limitTickets"
-                            id="btnLimitTickets">
-
-                        Limit to Tickets
-                        <i class="fa fa-angle-down" data-bind="visible: !newGroup().limitsEnabled()"></i>
-                        <i class="fa fa-angle-up" data-bind="visible: newGroup().limitsEnabled"></i>
-                    </button>
-                    <div class="collapse" id="limitTickets">
-                        <div class="form-group-lg" data-bind="visible: hasTickets">
-                            <div class="alert alert-info">
-                                <i class="fa fa-question-circle-o"></i> Select the tickets below you want to be limited to this group. If none are selected then the
-                                group is available for all tickets.
-                            </div>
-
-                            <ul class="list-group" data-bind="foreach: newGroup().ticketSelection">
-                                <li class="list-group-item">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input class="ticket-group-option" type="checkbox" data-bind="checked: isSelected, attr : { 'data-ticketName' : ticketName }">
-                                            <!-- ko text: ticketName --><!-- /ko -->
-                                        </label>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="alert alert-warning" data-bind="visible: !hasTickets">
-                            You don't have any tickets set up at the moment. Any group created now will be available for all ticket types.
-                        </div>
-
-                    </div>
+        <div class="row">
+            <div class="col-sm-12 top-buffer-20">
+                <div class="control-group">
+                    <label>
+                        <input id="chkNewGroupStatus" type="checkbox" data-bind="checked: newGroup().isEnabled" />
+                        Enabled
+                    </label>
                 </div>
             </div>
+        </div>
 
-            <hr />
+        <hr />
 
-            @*Generation*@
-            <div class="row top-buffer-10">
+        <div class="row top-buffer-10">
 
-                <div class="col-xs-12">
-                    <button class="btn btn-primary" type="button"
-                            data-toggle="collapse" data-target="#generateGroups"
-                            aria-expanded="false" aria-controls="generateGroups" data-bind="click: newGroup().toggleGeneration">
+            <div class="col-xs-12">
+                <button class="btn btn-primary" type="button" data-bind="click: newGroup().toggleLimits"
+                        data-toggle="collapse" data-target="#limitTickets"
+                        aria-expanded="false" aria-controls="limitTickets"
+                        id="btnLimitTickets">
 
-                        Auto-Generate
-                        <i class="fa fa-angle-down" data-bind="visible: !newGroup().generateEnabled()"></i>
-                        <i class="fa fa-angle-up" data-bind="visible: newGroup().generateEnabled"></i>
-                    </button>
-                    <div class="collapse" id="generateGroups">
+                    Limit to Tickets
+                    <i class="fa fa-angle-down" data-bind="visible: !newGroup().limitsEnabled()"></i>
+                    <i class="fa fa-angle-up" data-bind="visible: newGroup().limitsEnabled"></i>
+                </button>
+                <div class="collapse" id="limitTickets">
+                    <div class="form-group-lg" data-bind="visible: hasTickets">
                         <div class="alert alert-info">
-                            <i class="fa fa-question-circle-o"></i>
-                            Generate many groups at once by specifying a group name (above) as a prefix. We will then use the start
-                            and end numbers (below) to generate groups.
+                            <i class="fa fa-question-circle-o"></i> Select the tickets below you want to be limited to this group. If none are selected then the
+                            group is available for all tickets.
                         </div>
 
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group-lg">
-                                    <label class="control-label">Start Number</label>
-                                    <input type="number" class="form-control" data-bind="value: newGroup().generateStart" />
+                        <ul class="list-group" data-bind="foreach: newGroup().ticketSelection">
+                            <li class="list-group-item">
+                                <div class="checkbox">
+                                    <label>
+                                        <input class="ticket-group-option" type="checkbox" data-bind="checked: isSelected, attr : { 'data-ticketName' : ticketName }">
+                                        <!-- ko text: ticketName --><!-- /ko -->
+                                    </label>
                                 </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="alert alert-warning" data-bind="visible: !hasTickets">
+                        You don't have any tickets set up at the moment. Any group created now will be available for all ticket types.
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        @*Generation*@
+        <div class="row top-buffer-10">
+
+            <div class="col-xs-12">
+                <button class="btn btn-primary" type="button"
+                        data-toggle="collapse" data-target="#generateGroups"
+                        aria-expanded="false" aria-controls="generateGroups" data-bind="click: newGroup().toggleGeneration">
+
+                    Auto-Generate
+                    <i class="fa fa-angle-down" data-bind="visible: !newGroup().generateEnabled()"></i>
+                    <i class="fa fa-angle-up" data-bind="visible: newGroup().generateEnabled"></i>
+                </button>
+                <div class="collapse" id="generateGroups">
+                    <div class="alert alert-info">
+                        <i class="fa fa-question-circle-o"></i>
+                        Generate many groups at once by specifying a group name (above) as a prefix. We will then use the start
+                        and end numbers (below) to generate groups.
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group-lg">
+                                <label class="control-label">Start Number</label>
+                                <input type="number" class="form-control" data-bind="value: newGroup().generateStart" />
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group-lg">
-                                    <label class="control-label">End Number</label>
-                                    <input type="number" class="form-control" data-bind="value: newGroup().generateEnd" />
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group-lg">
+                                <label class="control-label">End Number</label>
+                                <input type="number" class="form-control" data-bind="value: newGroup().generateEnd" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" data-bind="visible: newGroup().generateError().length === 0">
+                        <div class="col-xs-12">
+                            <p>What will be generated?</p>
+                            <div class="alert alert-info-alt">
+                                Total Groups: <span data-bind="text: newGroup().generateTotalGroups"></span>
+                                <br />
+                                First Group: <strong><span data-bind="text: newGroup().groupName() + ' ' + newGroup().generateStart()"></span></strong>
+                                <br />
+                                Last Group: <strong><span data-bind="text: newGroup().groupName() + ' ' + newGroup().generateEnd()"></span></strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12" data-bind="visible: newGroup().generateError().length> 1">
+                            <div class="alert alert-warning" data-bind="text: newGroup().generateError"></div>
+                        </div>
+
+                        <div class="col-xs-12">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar"
+                                     data-bind="attr : {style : 'width: ' + newGroup().generateProgress() + '%'}"
+                                     aria-valuemin="0" aria-valuemax="100">
+                                    <span class="sr-only">Saving Groups ...</span>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="row" data-bind="visible: newGroup().generateError().length === 0">
-                            <div class="col-xs-12">
-                                <p>What will be generated?</p>
-                                <div class="alert alert-info-alt">
-                                    Total Groups: <span data-bind="text: newGroup().generateTotalGroups"></span>
-                                    <br />
-                                    First Group: <strong><span data-bind="text: newGroup().groupName() + ' ' + newGroup().generateStart()"></span></strong>
-                                    <br />
-                                    Last Group: <strong><span data-bind="text: newGroup().groupName() + ' ' + newGroup().generateEnd()"></span></strong>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row top-buffer-40">
+            <div class="col-xs-6 text-left">
+                <button id="btnCancelNewGroup" class="btn btn-warning" data-bind="click: createCancel">Cancel</button>
+            </div>
+
+            <div class="col-xs-6 text-right" data-bind="visible: !newGroup().generateEnabled()">
+                <button id="btnSaveGroup" class="btn btn-success" data-bind="click: create" data-loading-text="Please Wait...">
+                    Save <i class="fa fa-save"></i>
+                </button>
+            </div>
+
+            <div class="col-xs-6 text-right" data-bind="visible: newGroup().generateEnabled">
+                <button id="btnGenerate" class="btn btn-success" data-bind="click: generate, disable: newGroup().generateError().length > 0" data-loading-text="Please Wait...">
+                    Generate <i class="fa fa-cog"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="top-buffer-20">
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#groups" aria-controls="groups" role="tab" data-toggle="tab">
+                    <i class="fa fa-users"></i> Groups
+                </a>
+            </li>
+            <li role="presentation">
+                <a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">
+                    <i class="fa fa-cog"></i>
+                    Settings
+                </a>
+            </li>
+
+        </ul>
+
+
+        <div class="tab-content">
+
+
+            <div role="tabpanel" class="tab-pane active in" id="groups">
+
+                <div class="top-buffer-20">
+                    <div class="row">
+
+                       
+                        @*List of current Groups*@
+                        <!-- ko foreach: groups -->
+                        <div class="col-xs-12 top-buffer-20 group-info">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <span data-bind="text: groupName" class="group-info-name"></span>
+                                    @*<div class="toggle-enabled-disable pull-right">
+                                            <input type="checkbox" data-bind="toggle: isEnabled" data-on="Enabled" data-off="Disabled" data-onstyle="success" />
+                                        </div>
+                                        <div class="clearfix"></div>*@
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-xs-12" data-bind="visible: newGroup().generateError().length> 1">
-                                <div class="alert alert-warning" data-bind="text: newGroup().generateError"></div>
-                            </div>
-
-                            <div class="col-xs-12">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar"
-                                         data-bind="attr : {style : 'width: ' + newGroup().generateProgress() + '%'}"
-                                         aria-valuemin="0" aria-valuemax="100">
-                                        <span class="sr-only">Saving Groups ...</span>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div>Max Guests</div>
+                                            <div>
+                                                <strong data-bind="text: maxGuestsText"></strong>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div>Current Guests</div>
+                                            <div>
+                                                <strong data-bind="text: guestCount"></strong>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div>Available Tickets</div>
+                                            <!-- ko if: availableTickets().length > 0 -->
+                                            <ul class="list-group" data-bind="foreach: availableTickets">
+                                                <li class="list-group-item">
+                                                    <i class="fa fa-ticket"></i>
+                                                    <span data-bind="text: ticketName"></span>
+                                                </li>
+                                            </ul>
+                                            <!-- /ko -->
+                                            <!-- ko if: availableTickets().length === 0 -->
+                                            <div>
+                                                <strong>All</strong>
+                                            </div>
+                                            <!-- /ko -->
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                        <!-- /ko -->
                     </div>
                 </div>
+
             </div>
 
+            <div role="tabpanel" class="tab-pane" id="settings">
 
-
-            <div class="row top-buffer-40">
-                <div class="col-xs-6 text-left">
-                    <button id="btnCancelNewGroup" class="btn btn-warning" data-bind="click: createCancel">Cancel</button>
-                </div>
-
-                <div class="col-xs-6 text-right" data-bind="visible: !newGroup().generateEnabled()">
-                    <button id="btnSaveGroup" class="btn btn-success" data-bind="click: create" data-loading-text="Please Wait...">
-                        Save <i class="fa fa-save"></i>
-                    </button>
-                </div>
-
-                <div class="col-xs-6 text-right" data-bind="visible: newGroup().generateEnabled">
-                    <button id="btnGenerate" class="btn btn-success" data-bind="click: generate, disable: newGroup().generateError().length > 0" data-loading-text="Please Wait...">
-                        Generate <i class="fa fa-cog"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-
-        @*List of current Groups*@
-        <!-- ko foreach: groups -->
-        <div class="col-xs-12 col-lg-6 top-buffer-20 group-info">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <span data-bind="text: groupName" class="group-info-name"></span>
-                    @*<div class="toggle-enabled-disable pull-right">
-                            <input type="checkbox" data-bind="toggle: isEnabled" data-on="Enabled" data-off="Disabled" data-onstyle="success" />
-                        </div>
-                        <div class="clearfix"></div>*@
-                </div>
-                <div class="panel-body">
+                <div class="top-buffer-20">
                     <div class="row">
-                        <div class="col-sm-4">
-                            <div>Max Guests</div>
-                            <div>
-                                <strong data-bind="text: maxGuestsText"></strong>
+
+                        <div class="col-xs-12 top-buffer-10">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div>
+                                        <p>Are groups mandatory?</p>
+                                        <input type="checkbox" data-bind="toggle: eventGroupSettings().groupsRequired" data-on="Yes" data-off="No" />
+                                        <p class="help-block">
+                                            By making groups required, the guests will need to select a group
+                                            before selecting their ticket.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="panel-footer text-right">
+                                    <button class="btn btn-primary" data-bind="click: eventGroupSettings().update" data-loading-text="Please wait...">
+                                        Save <i class="fa fa-floppy-o"></i>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div>Current Guests</div>
-                            <div>
-                                <strong data-bind="text: guestCount"></strong>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div>Available Tickets</div>
-                            <!-- ko if: availableTickets().length > 0 -->
-                            <ul class="list-group" data-bind="foreach: availableTickets">
-                                <li class="list-group-item">
-                                    <i class="fa fa-ticket"></i>
-                                    <span data-bind="text: ticketName"></span>
-                                </li>
-                            </ul>
-                            <!-- /ko -->
-                            <!-- ko if: availableTickets().length === 0 -->
-                            <div>
-                                <strong>All</strong>
-                            </div>
-                            <!-- /ko -->
+
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
-        <!-- /ko -->
+
+
+
     </div>
+
 </div>

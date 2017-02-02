@@ -980,6 +980,21 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
         }
 
+        [Test]
+        public void UpdateEventGuestSettings_UpdatesSuccessfully()
+        {
+            var mockEvent = new EventModelMockBuilder().Build();
+
+            _eventRepositoryMock.SetupWithVerification(call => call.GetEventDetails(It.IsAny<int>()), result: mockEvent);
+            _eventRepositoryMock.SetupWithVerification(call => call.UpdateEvent(It.Is<EventModel>(e=> e == mockEvent)));
+
+            var manager = BuildTargetObject();
+            
+            manager.UpdateEventGuestSettings(mockEvent.EventId.GetValueOrDefault(), true);
+
+            mockEvent.DisplayGuests.IsTrue();
+        }
+
         private Mock<IEventRepository> _eventRepositoryMock;
         private Mock<IDateService> _dateServiceMock;
         private Mock<IDocumentRepository> _documentRepository;

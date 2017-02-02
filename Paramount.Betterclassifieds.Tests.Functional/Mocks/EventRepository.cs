@@ -223,8 +223,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                     CreatedDateTime = DateTime.Now,
                     CreatedDateTimeUtc = DateTime.UtcNow,
                     TransactionFee = 0,
-                    Cost = 0,
-                    IsPublic = false
+                    Cost = 0
                 });
 
                 return db.Add(Constants.Table.EventBookingTicket, new
@@ -239,7 +238,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                     GuestFullName = guestFullName,
                     TransactionFee = 0,
                     TotalPrice = 0,
-                    IsActive = 1
+                    IsActive = 1,
+                    IsPublic = false
                 });
             }
         }

@@ -4,7 +4,6 @@
         var me = this;
         me.eventId = ko.observable();
         me.tickets = ko.observableArray();
-        me.guests = ko.observableArray();
         me.totalSoldQty = ko.observable();
         me.isClosed = ko.observable();
         me.totalRemainingQty = ko.computed(function () {
@@ -32,9 +31,6 @@
                 soldQty: 0
             }));
         }
-        me.hasGuests = ko.computed(function () {
-            return me.guests().length > 0;
-        });
         me.bindEditEvent(editEventViewModel);
 
         /*
@@ -69,19 +65,6 @@
         me.showWithdrawPayment = ko.computed(function () {
             return me.requestPaymentStatus() !== $paramount.EVENT_PAYMENT_STATUS.NOT_AVAILABLE && me.eventOrganiserOwedAmount() > 0;
         });
-
-
-        me.guestListFilter = ko.observable();
-        me.guestsFiltered = ko.computed(function () {
-            var filter = me.guestListFilter();
-            if (!filter) {
-                return me.guests();
-            } else {
-                return ko.utils.arrayFilter(me.guests(), function (g) {
-                    return g.guestFullName().toLowerCase().indexOf(filter.toLowerCase()) > -1;
-                });
-            }
-        });
     }
 
     EventDashboardModel.prototype.bindEditEvent = function (editEventViewModel) {
@@ -90,11 +73,7 @@
             t.adId = editEventViewModel.adId;
             me.tickets.push(new $paramount.models.EventTicket(t));
         });
-        $.each(editEventViewModel.guests, function (idx, g) {
-            g.adId = editEventViewModel.adId; // Attach the ad id property for each guest/eventBooking
-            me.guests.push(new $paramount.models.CurrentGuest(g));
-        });
-
+       
         me.eventId(editEventViewModel.eventId);
         me.organiserAbsorbsTransactionFee(editEventViewModel.organiserAbsorbsTransactionFee);
         me.isClosed(editEventViewModel.isClosed);

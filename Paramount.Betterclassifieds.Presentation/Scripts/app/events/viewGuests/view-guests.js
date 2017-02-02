@@ -1,6 +1,7 @@
 ﻿(function (ko, $p) {
 
-    var eventService;
+    var eventService = new $p.EventService(),
+        adDesignService = new $p.AdDesignService();
 
     ko.components.register('view-guests', {
         template: {
@@ -12,9 +13,19 @@
 
             function setGuests(guests) {
                 _.each(guests, function (g) {
+
                     me.guests.push({
+
                         guestFullName: g.guestFullName,
-                        groupName: g.groupName
+                        groupName: g.groupName,
+                        email: g.guestEmail,
+                        displayEmail: params.admin || false,
+                        ticketNumber: g.ticketNumber,
+
+                        editGuest: function (model) {
+                            var url = adDesignService.editGuestUrl(model.ticketNumber);
+                            window.location = url;
+                        }
                     });
                 });
             }
@@ -35,7 +46,6 @@
                 return _.orderBy(guestsToReturn, ['groupName']);
             });
 
-            eventService = new $p.EventService();
             eventService.getGuests(params.eventId).then(setGuests);
         }
     });

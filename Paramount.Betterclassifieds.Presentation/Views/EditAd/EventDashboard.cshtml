@@ -144,100 +144,18 @@
             </div>
         </div>
 
-        @*Groups*@
+        @*Guests*@
         <div class="col-xs-12">
             <div class="action-item clearfix">
                 <h3>
-                    Guests and Bookings
+                    Guests
                 </h3>
-                <p class="action-info">See who's coming, edit their details, transfer or add a new guest 'offline'.</p>
+                <p class="action-info">See who's coming, edit their details or transfer tickets.</p>
                 <div class="action-btn">
                     <a id="lnkManageGuests" class="btn btn-primary js-load" href="@Url.ManageGuests(Model.AdId, Model.EventId)">
                         Manage Guests <i class="fa fa-user"></i>
                     </a>
                 </div>
-            </div>
-        </div>
-
-
-        @*Guest List*@
-        <div class="col-xs-12">
-            <div class="action-item clearfix">
-                <h3>
-                    Guest List
-                </h3>
-                <p class="action-info">Check out who is coming to the event...</p>
-
-                <div class="action-btn">
-
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Download <i class="fa fa-download"></i> &nbsp; <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="@Url.DownloadGuestListPdf(Model.AdId, Model.EventId)" class="btn btn-default">
-                                    PDF <i class="fa fa-file-pdf-o"></i>
-                                </a>
-                                <a href="@Url.DownloadGuestListCsv(Model.AdId, Model.EventId)" class="btn btn-default">
-                                    CSV <i class="fa fa-file"></i>
-                                </a>
-                                <a href="@Url.DownloadGuestListExcel(Model.AdId, Model.EventId)" class="btn btn-default">
-                                    Excel <i class="fa fa-file-excel-o"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <a id="lnkAddGuest" class="btn btn-primary js-load" href="@Url.AddEventGuest(Model.AdId, Model.EventId)">
-                        Add Guest <i class="fa fa-user-plus"></i>
-                    </a>
-                </div>
-
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="form-group" data-bind="visible: hasGuests">
-                            <label>Search:</label>
-                            <input type="text" data-bind="value: guestListFilter, valueUpdate: 'keyup'" class="form-control" placeholder="e.g. Lisa " />
-                        </div>
-
-                        <ul class="list-group guest-list" data-bind="foreach: guestsFiltered">
-                            <li class="list-group-item">
-                                <div class="row" data-bind="attr : {'data-email' : guestEmail}">
-                                    <div class="col-xs-8 col-sm-10">
-
-                                        <ul class="list-unstyled">
-                                            <li>
-                                                <i class="fa fa-user"></i>&nbsp;
-                                                <span data-bind="text: guestFullName"></span>
-                                                &lt;<span data-bind="text: guestEmail"></span>&gt;
-                                            </li>
-                                            
-                                        </ul>
-                                        <ul class="list-unstyled guest-fields">
-                                            <li data-bind="visible: groupName() !== null">
-                                                <span>Group</span> : <span data-bind="text: groupName"></span>
-                                            </li>
-                                        </ul>
-                                        <ul class="list-unstyled guest-fields" data-bind="foreach: dynamicFields">
-                                            <li>
-                                                <span data-bind="text: fieldName"></span> : <span data-bind="text: fieldValue"></span>
-                                            </li>
-                                        </ul>
-
-                                    </div>
-                                    <div class="col-xs-4 col-sm-2">
-                                        <a class="btn btn-default btn-block js-load" data-bind="attr : { 'href' : editGuestUrl }">
-                                            Edit <i class="fa fa-pencil"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-                </div>
-
             </div>
         </div>
 

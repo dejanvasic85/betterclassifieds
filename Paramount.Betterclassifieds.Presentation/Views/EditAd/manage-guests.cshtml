@@ -11,6 +11,7 @@
             var vm = @Html.Raw(Model.ToJsonString());
             var guestSettings = new $paramount.models.GuestSettings(vm);
             ko.applyBindings(guestSettings, document.getElementById('guestSettings'));
+            ko.applyBindings({}, document.getElementById('guestList'));
         });
     </script>
 }
@@ -21,13 +22,21 @@
     </h2>
 
     <div class="row">
-        <div class="col-sm-3 col-sm-offset-9">
+
+        <div class="col-xs-12 col-sm-6 col-md-offset-6 col-md-3">
+            <a id="lnkAddGuest" class="btn btn-primary btn-block js-load" href="@Url.AddEventGuest(Model.Id, Model.EventId)">
+                <i class="fa fa-user-plus"></i> Add Guest
+            </a>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-3">
             <a href="@Url.EventDashboard(Model.Id)" class="btn btn-default btn-block js-load">
                 <i class="fa fa-arrow-circle-left"></i>
                 <span class="hidden-sm">Event</span>
                 Dashboard
             </a>
         </div>
+
     </div>
 
 
@@ -36,7 +45,15 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active">
-                <a href="#guests" aria-controls="guests" role="tab" data-toggle="tab">Guests</a>
+                <a href="#guestList" aria-controls="guests" role="tab" data-toggle="tab">
+                    <i class="fa fa-users"></i> Guests
+                </a>
+            </li>
+            <li role="presentation">
+                <a href="#download" aria-controls="download" role="tab" data-toggle="tab">
+                    <i class="fa fa-download"></i>
+                    Download
+                </a>
             </li>
             <li role="presentation">
                 <a href="#guestSettings" aria-controls="settings" role="tab" data-toggle="tab">
@@ -48,11 +65,50 @@
 
         <!-- Tab panes -->
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active in" id="guests">
-                Guest list will go here
+            <div role="tabpanel" class="tab-pane active in" id="guestList">
+
+                <div class="top-buffer-20">
+                    <h3>Guest List</h3>
+                    <p>Click on the guest to edit them.</p>
+                </div>
+                
+                <view-guests params="{eventId: @Model.EventId, admin:true}"></view-guests>
             </div>
+
+            <div role="tabpanel" id="download" class="tab-pane">
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h3>
+                            Download Guest List
+                        </h3>
+                    </div>
+                </div>
+                <div class="row top-buffer-20">
+
+                    <div class="col-sm-4">
+                        <a href="@Url.DownloadGuestListExcel(Model.Id, Model.EventId)" class="btn btn-primary btn-block">
+                            <i class="fa fa-file-excel-o"></i> Excel
+                        </a>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <a href="@Url.DownloadGuestListCsv(Model.Id, Model.EventId)" class="btn btn-primary btn-block">
+                            <i class="fa fa-file"></i> CSV
+                        </a>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <a href="@Url.DownloadGuestListPdf(Model.Id, Model.EventId)" class="btn btn-primary btn-block">
+                            <i class="fa fa-file-pdf-o"></i> PDF
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
             <div role="tabpanel" class="tab-pane" id="guestSettings">
-                <div>
+                <div class="top-buffer-20">
                     <h3>Guest settings</h3>
                 </div>
 
@@ -73,6 +129,7 @@
                 </div>
 
             </div>
+
         </div>
 
     </div>

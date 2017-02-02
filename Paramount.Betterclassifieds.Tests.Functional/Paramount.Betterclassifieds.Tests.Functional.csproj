@@ -134,6 +134,7 @@
     </Compile>
     <Compile Include="Mocks\Models\GroupViewInfo.cs" />
     <Compile Include="Pages\Events\ManageGroupsPage.cs" />
+    <Compile Include="Pages\Events\ManageGuestsPage.cs" />
     <Compile Include="Pages\Events\ManageTicketsPage.cs" />
     <Compile Include="Steps\ManageGroupsSteps.cs" />
     <Compile Include="Pages\Events\RemoveGuestCompletePage.cs" />

@@ -26,12 +26,14 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         [FindsBy(How = How.Id, Using = "lnkManageTickets")]
         private IWebElement ManageTicketsButton { get; set; }
 
-        [FindsBy(How = How.CssSelector, Using = ".guest-list [data-email]")]
-        private IList<IWebElement> GuestSearchElements { get; set; }
+
+        [FindsBy(How = How.Id, Using = "lnkManageGuests")]
+        private IWebElement ManageGuestsButton { get; set; }
 
         [FindsBy(How = How.Id, Using = "totalSoldQty")]
         public IWebElement TotalSoldQtyStat { get; set; }
 
+        
         public EventDashboardPage AddGuest()
         {
             AddGuestButton.Click();
@@ -50,22 +52,18 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
             return this;
         }
 
-        public EventDashboardPage EditGuest(string guestEmail)
+        public EventDashboardPage ManageGuests()
         {
-            var targetGuestElement = GuestSearchElements.Single(el => el.HasAttributeValue("data-email", guestEmail));
-            var button = targetGuestElement.FindElements(By.ClassName("btn")).Single(el => el.Text.Contains("Edit"));
-            button.Click();
+            ManageGuestsButton.Click();
             return this;
         }
 
+        
         public int GetTotalSoldQty()
         {
             return int.Parse(TotalSoldQtyStat.Text);
         }
 
-        public int GetGuestsInSearchResult()
-        {
-            return GuestSearchElements.Count;
-        }
+        
     }
 }

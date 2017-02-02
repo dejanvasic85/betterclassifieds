@@ -259,7 +259,16 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         [When(@"I go to edit the guest ""(.*)"" from the dashboard")]
         public void WhenIEditTheGuestFromTheDashboard(string guestEmail)
         {
-            _pageBrowser.Init<EventDashboardPage>(_contextData.Get().AdId).EditGuest(guestEmail);
+
+            var eventAdContext = _contextData.Get();
+
+            _pageBrowser.Init<EventDashboardPage>(eventAdContext.AdId)
+                .ManageGuests();
+
+
+            _pageBrowser.Init<ManageGuestsPage>(
+                eventAdContext.AdId,
+                eventAdContext.EventId).EditGuest(guestEmail);
         }
 
         [When(@"I update the guest name to ""(.*)"" and email to ""(.*)""")]
@@ -325,7 +334,10 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             var dashboardPage = _pageBrowser.Init<EventDashboardPage>(_contextData.Get().AdId);
 
             Assert.That(dashboardPage.GetTotalSoldQty(), Is.EqualTo(expectedSoldQuantity));
-            Assert.That(dashboardPage.GetGuestsInSearchResult(), Is.EqualTo(expectedGuestsInSearch));
+
+            dashboardPage.ManageGuests();
+            var manageGuestsPage = _pageBrowser.Init<ManageGuestsPage>();
+            Assert.That(manageGuestsPage.GetGuestsInSearchResult(), Is.EqualTo(expectedGuestsInSearch));
         }
 
         [When(@"I choose to resend ticket for the guest")]

@@ -160,9 +160,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             return View(eventEditViewModel);
         }
 
-        [HttpGet, ActionName("event-ticketing")]
+        [HttpGet, ActionName("manage-tickets")]
         [Route("event-dashboard/{id}/event/{eventId}/ticketing")]
-        public ActionResult ManageEventTicketing(int id, int eventId)
+        public ActionResult ManageTickets(int id, int eventId)
         {
             var eventDetails = _eventManager.GetEventDetails(eventId);
             if (eventDetails == null)

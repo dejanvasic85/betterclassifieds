@@ -44,7 +44,7 @@
             @if (eventSummary.EventStartDate.GetValueOrDefault() > DateTime.Today)
             {
                 <p>
-                    <small>@eventSummary.EventStartDate.GetValueOrDefault().Humanize()</small>
+                    <small>@eventSummary.EventStartDate.GetValueOrDefault().Humanize(utcDate: false)</small>
                 </p>
             }
 

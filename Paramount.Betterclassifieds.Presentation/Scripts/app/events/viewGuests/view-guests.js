@@ -19,7 +19,8 @@
                         guestFullName: g.guestFullName,
                         groupName: g.groupName,
                         email: g.guestEmail,
-                        displayEmail: params.admin || false,
+                        admin: params.admin || false,
+                        ticketNumberDisplay: '#' + g.ticketNumber,
                         ticketNumber: g.ticketNumber,
 
                         editGuest: function (model) {

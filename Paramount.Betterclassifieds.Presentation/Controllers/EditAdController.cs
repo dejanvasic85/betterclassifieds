@@ -566,10 +566,10 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
         // Json
         [HttpPost, ActionName("remove-guest")]
-        public ActionResult RemoveGuest(int id, int eventBookingTicketId, bool sendEmailToGuestAboutRemoval)
+        public ActionResult RemoveGuest(int id, int eventId, int eventBookingTicketId, bool sendEmailToGuestAboutRemoval)
         {
             var eventBookingTicket = _eventManager.CancelEventBookingTicket(eventBookingTicketId);
-
+            
             if (sendEmailToGuestAboutRemoval)
             {
                 var adDetails = _searchService.GetByAdId(id);
@@ -577,12 +577,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
 
                 _broadcastManager.Queue(new EventGuestNotificationFactory().CreateGuestRemovedNotification(
                     new UrlHelper(_httpContext.Request.RequestContext), adDetails, eventModel, eventBookingTicket),
-                    to: eventBookingTicket.GuestEmail);
+                    to: eventBookingTicket?.GuestEmail);
             }
-
+            
             return Json(new
             {
-                NextUrl = Url.RemoveGuestComplete(id).ToString()
+                NextUrl = Url.RemoveGuestComplete(id, eventId).ToString()
             });
         }
 
@@ -601,9 +601,9 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpGet, ActionName("remove-guest-complete")]
-        public ActionResult RemoveGuestComplete(int id)
+        public ActionResult RemoveGuestComplete(int id, int eventId)
         {
-            var vm = new RemoveGuestCompleteViewModel { AdId = id };
+            var vm = new RemoveGuestCompleteViewModel { AdId = id, EventId = eventId};
             return View(vm);
         }
 

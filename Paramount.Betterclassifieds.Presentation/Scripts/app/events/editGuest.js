@@ -68,9 +68,11 @@
             $btn.button('loading');
 
             var data = {
+                eventId : me.eventId(),
                 eventBookingTicketId: me.eventBookingTicketId(),
                 sendEmailToGuestAboutRemoval: me.sendEmailToGuestAboutRemoval()
             }
+
             adDesignService.removeGuest(data);
         }
 

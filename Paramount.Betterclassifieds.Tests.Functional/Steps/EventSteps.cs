@@ -217,11 +217,11 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         public void WhenIChooseToAddGuestManuallyFromTheDashboardWithDetails(string fullName, string email, string ticketType)
         {
             var contextData = _contextData.Get();
-            _pageBrowser.Init<EventDashboardPage>(query: contextData.AdId).AddGuest();
+            _pageBrowser.Init<EventDashboardPage>(query: contextData.AdId).ManageGuests();
+            _pageBrowser.Init<ManageGuestsPage>().AddGuest();
             _pageBrowser.Init<AddGuestPage>(contextData.AdId, contextData.EventId)
                 .WithGuest(fullName, email, ticketType)
-                .Add()
-                ;
+                .Add();
         }
 
         [Then(@"the new guest with email ""(.*)"" should have a ticket ""(.*)"" to the event")]

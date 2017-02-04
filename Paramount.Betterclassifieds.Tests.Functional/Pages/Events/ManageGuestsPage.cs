@@ -20,6 +20,9 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         [FindsBy(How = How.CssSelector, Using = ".guest-list [data-email]")]
         private IList<IWebElement> GuestSearchElements { get; set; }
 
+        [FindsBy(How = How.Id, Using = "lnkAddGuest")]
+        private IWebElement AddGuestButton { get; set; }
+
         public ManageGuestsPage EditGuest(string guestEmail)
         {
             var targetGuestElement = GuestSearchElements.Single(el => el.HasAttributeValue("data-email", guestEmail));
@@ -31,5 +34,12 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         {
             return GuestSearchElements.Count;
         }
+
+        public ManageGuestsPage AddGuest()
+        {
+            AddGuestButton.Click();
+            return this;
+        }
+
     }
 }

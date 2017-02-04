@@ -17,9 +17,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
             _webDriver = webDriver;
         }
 
-        [FindsBy(How = How.Id, Using = "lnkAddGuest")]
-        private IWebElement AddGuestButton { get; set; }
-
+        
         [FindsBy(How = How.Id, Using = "lnkManageGroups")]
         private IWebElement ManageGroupsButton { get; set; }
 
@@ -34,12 +32,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
         public IWebElement TotalSoldQtyStat { get; set; }
 
         
-        public EventDashboardPage AddGuest()
-        {
-            AddGuestButton.Click();
-            return this;
-        }
-
         public EventDashboardPage ManageGroups()
         {
             ManageGroupsButton.Click();

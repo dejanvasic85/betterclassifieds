@@ -267,11 +267,11 @@ namespace Paramount
             return new UrlBuilder(urlHelper, "adEnquiry", "listings");
         }
 
-        public static UrlBuilder RemoveGuestComplete(this UrlHelper urlHelper, int id)
+        public static UrlBuilder RemoveGuestComplete(this UrlHelper urlHelper, int id, int eventId)
         {
             return new UrlBuilder(urlHelper)
                 .WithAction("remove-guest-complete", "EditAd")
-                .WithRouteValues(new { id });
+                .WithRouteValues(new { id, eventId });
         }
 
         public static UrlBuilder ConfirmEventOrganiser(this UrlHelper urlHelper)

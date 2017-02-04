@@ -13,10 +13,10 @@
         <div class="col-xs-12">
             <div data-bind="foreach: guestsFiltered" class="list-group guest-list">
                 <button class="list-group-item" data-bind="click: editGuest, attr : {'data-email' : email}">
-                    <span class="badge" data-bind="text: ticketNumber"></span>
+                    <span class="badge" data-bind="visible: admin, text: ticketNumberDisplay"></span>
                     <span data-bind="text: groupName, visible: groupName !== null"></span>
                     <span data-bind="text: guestFullName"></span>
-                    <span data-bind="visible: displayEmail">
+                    <span data-bind="visible: admin">
                         &lt;<span data-bind="text: email"></span>&gt;
                     </span>
                 </button>

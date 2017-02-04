@@ -11,6 +11,8 @@
         this.ticketFields = ko.observableArray();
         this.saved = ko.observable();
         this.selectedGroup = ko.observable();
+        this.displayGuests = ko.observable();
+        this.isPublic = ko.observable();
         this.hasGroups = ko.observable(false);
         this.eventGroups = ko.observableArray();
         this.validator = ko.validatedObservable({
@@ -25,6 +27,8 @@
         me.eventId(data.eventId);
         me.guestFullName(data.guestFullName);
         me.guestEmail(data.guestEmail);
+        me.displayGuests(data.displayGuests);
+        me.isPublic(data.isPublic);
         me.hasGroups(data.eventGroups && data.eventGroups.length > 0);
 
         _.each(data.ticketFields, function (tf) {

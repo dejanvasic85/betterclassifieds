@@ -57,7 +57,13 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             TicketingEnabled = eventModel.Tickets != null && eventModel.Tickets.Any();
 
             // Build the guest list
-            Guests = this.MapList<EventGuestDetails, EventGuestListViewModel>(guestList.ToList());
+            var guests = guestList.ToList();
+            TotalGuests = guests.Count;
+            Guests = this.MapList<EventGuestDetails, EventGuestListViewModel>(guests
+                .Where(g => g.IsPublic)
+                .OrderByDescending(g => g.TicketNumber)
+                .Take(6).
+                ToList());
         }
         
         public DateTime EventEndDate { get; set; }
@@ -97,6 +103,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
         public List<EventGuestListViewModel> Guests { get; set; }
         public bool DisplayGuests { get; set; }
+        public int TotalGuests { get; set; }
 
         public void OnRegisterMaps(IConfiguration configuration)
         {

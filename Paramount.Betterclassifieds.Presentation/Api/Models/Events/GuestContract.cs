@@ -19,6 +19,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models.Events
         public DateTime DateOfBookingUtc { get; set; }
         public int TicketId { get; set; }
         public string GroupName { get; set; }
+        public bool IsPublic { get; set; }
     }
 
     public class GuestContractFactory : IMappingBehaviour

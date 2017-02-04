@@ -452,6 +452,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             {
                 Id = id,
                 EventId = eventId,
+                DisplayGuests = eventModel.DisplayGuests,
                 EventTickets = this.MapList<EventTicket, EventTicketViewModel>(eventModel.Tickets.Where(t => t.RemainingQuantity > 0).ToList()),
                 TicketFields = eventModel
                     .With(e => e.Tickets.FirstOrDefault()) // the first one will be selected in the UI by default
@@ -480,6 +481,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             var currentUser = _userManager.GetCurrentUser();
             reservation.GuestFullName = viewModel.GuestFullName;
             reservation.GuestEmail = viewModel.GuestEmail;
+            reservation.IsPublic = viewModel.IsPublic;
             reservation.TicketFields = viewModel.With(vm => vm.TicketFields)
                 .With(tf => new EventBookingTicketField { FieldName = tf.FieldName, FieldValue = tf.FieldValue })
                 .With(l => l.ToList());
@@ -502,6 +504,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         }
 
         [HttpGet, ActionName("edit-guest")]
+        [Route("event-dashboard/{id}/guest/{ticketNumber}")]
         public ActionResult EditGuest(int id, int ticketNumber)
         {
             var eventBookingTicket = _eventManager.GetEventBookingTicket(ticketNumber);
@@ -515,12 +518,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 .Result
                 .Where(g => g.IsAvailable());
 
-            var vm = new EditGuestViewModel(id, eventTicket, eventBooking, eventBookingTicket, groups);
+            var vm = new EditGuestViewModel(id, eventBooking.Event, eventTicket, eventBooking, eventBookingTicket, groups);
             return View(vm);
         }
 
         // Json
         [HttpPost, ActionName("edit-guest")]
+        [Route("event-dashboard/{id}/guest/{ticketNumber}")]
         public ActionResult EditGuest(int id, EditGuestViewModel vm)
         {
             if (vm.GroupId.HasValue && vm.CurrentGroupId != vm.GroupId)
@@ -544,6 +548,7 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                  vm.GuestFullName,
                  vm.GuestEmail,
                  vm.GroupId,
+                 vm.IsPublic,
                  fields,
                  barcode => Url.ValidateBarcode(barcode).WithFullUrl());
 

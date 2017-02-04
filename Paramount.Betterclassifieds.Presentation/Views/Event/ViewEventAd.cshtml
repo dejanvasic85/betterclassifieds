@@ -91,7 +91,7 @@
                 </h4>
                 <div class="row guests">
 
-                    @foreach (var guest in Model.Guests.OrderByDescending(g => g.TicketNumber).Take(6))
+                    @foreach (var guest in Model.Guests)
                     {
                         <div class="col-sm-2 col-xs-4 guest">
                             <span>
@@ -104,7 +104,7 @@
                 </div>
             }
 
-            @if (Model.DisplayGuests && Model.Guests.Count > 6)
+            @if (Model.DisplayGuests && Model.TotalGuests > 6)
             {
                 <div class="row">
                     <div class="col-sm-4"></div>
@@ -227,6 +227,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Guests attending</h4>
+                <p>Some guests are private and may not appear in this list.</p>
             </div>
 
             <div class="modal-body">

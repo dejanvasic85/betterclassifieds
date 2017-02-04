@@ -38,14 +38,22 @@
                 </div>
                 <div class="panel-body">
 
-                    <div class="form-group-lg" data-bind="validationElement: guestFullName">
+                    <div class="form-group" data-bind="validationElement: guestFullName">
                         <label for="guestFullName" class="control-label">Full Name:</label>
                         <input id="guestFullName" data-bind="value: guestFullName" type="text" class="form-control" />
                     </div>
 
-                    <div class="form-group-lg top-buffer-10" data-bind="validationElement: guestEmail">
+                    <div class="form-group top-buffer-10" data-bind="validationElement: guestEmail">
                         <label for="guestEmail" class="control-label">Email *:</label>
                         <input id="guestEmail" data-bind="value: guestEmail, valueUpdate: 'keyup'" type="text" class="form-control" />
+                    </div>
+
+                    <div class="form-group" data-bind="visible: displayGuests">
+                        <label class="control-label">Privacy</label> <br />
+                        <input type="checkbox" data-bind="toggle: isPublic" data-onstyle="success" data-on="Public" data-off="Private" />
+                        <span class="help-block">
+                            Displaying guests is turned on. If Public selected, then anyone can see this guest coming to the event.
+                        </span>
                     </div>
 
                     <div class="alert alert-info-alt top-buffer-10" data-bind="visible: isEmailDifferent">
@@ -134,7 +142,7 @@
                     <i class="fa fa-warning"></i> Danger Zone
                 </div>
                 <div class="panel-body">
-                    
+
                     @if (Model.RemovingGuestWillCancelBooking)
                     {
                         <p>
@@ -167,12 +175,12 @@
                     <p class="alert alert-danger">
                         <strong><i class="fa fa-warning"></i> Danger: </strong>
                         This action is not reversable and any refund will need to be organised offline.
-                    
+
                     <p class="alert alert-info-alt">
                         <label>
                             Do you want to send a notification to the guest about their removal from the event?
                         </label>
-                        <input type="checkbox" data-bind="toggle: sendEmailToGuestAboutRemoval" data-onstyle="success" data-on="Yes" data-off="No"/>
+                        <input type="checkbox" data-bind="toggle: sendEmailToGuestAboutRemoval" data-onstyle="success" data-on="Yes" data-off="No" />
                     </p>
                     <p>
                         Are you sure you want to continue?

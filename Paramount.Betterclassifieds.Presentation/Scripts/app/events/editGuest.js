@@ -17,6 +17,8 @@
         me.groups = ko.observableArray();
         me.selectedGroup = ko.observable();
         me.currentGroupId = ko.observable();
+        me.displayGuests = ko.observable(); // High level setting
+        me.isPublic = ko.observable();
         me.sendTransferEmail = ko.observable(true);
         me.sendEmailToGuestAboutRemoval = ko.observable(false);
         me.isEmailDifferent = ko.computed(function () {
@@ -53,7 +55,6 @@
             dataToPost.sendTransferEmail = me.isEmailDifferent() && me.sendTransferEmail();
 
             adDesignService.editGuest(dataToPost).then(function (resp) {
-                $btn.button('reset');
                 if (!resp.errors) {
                     notifier.success("Guest information updated.");
                     //  Update the local details
@@ -81,8 +82,7 @@
             $btn.button('loading');
 
             adDesignService.resendGuestEmail(me.eventBookingTicketId())
-                .then(function() {
-                    $btn.button('reset');
+                .success(function() {
                     notifier.success('Email has been sent successfully.');
                 });
         }
@@ -103,6 +103,8 @@
         me.originalGuestEmail(data.guestEmail);
         me.guestEmail(data.guestEmail);
         me.currentGroupId(data.currentGroupId);
+        me.displayGuests(data.displayGuests);
+        me.isPublic(data.isPublic);
 
         _.each(data.fields, function (f) {
             me.fields.push(new $p.models.DynamicFieldValue(f));

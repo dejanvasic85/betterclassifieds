@@ -21,5 +21,6 @@ namespace Paramount.Betterclassifieds.Business.Events
         public DateTime DateOfBookingUtc { get; set; }
         public int TicketId { get; set; }
         public string GroupName { get; set; }
+        public bool IsPublic { get; set; }
     }
 }

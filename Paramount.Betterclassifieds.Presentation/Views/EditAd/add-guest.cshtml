@@ -60,6 +60,13 @@
                     <input id="guestEmail" data-bind="value: guestEmail" type="text" class="form-control" />
                 </div>
 
+                <div class="form-group" data-bind="visible: displayGuests">
+                    <label class="control-label">Privacy</label> <br />
+                    <input type="checkbox" data-bind="toggle: isPublic" data-onstyle="success" data-on="Public" data-off="Private" />
+                    <span class="help-block">
+                        Displaying guests is turned on. If Public selected, then anyone can see this guest coming to the event.
+                    </span>
+                </div>
 
                 <div class="form-group-lg">
                     <label class="control-label">Ticket *:</label>

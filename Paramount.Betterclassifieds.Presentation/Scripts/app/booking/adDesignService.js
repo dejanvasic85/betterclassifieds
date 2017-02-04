@@ -98,18 +98,20 @@
             throw 'Ad Id must be available to generate the edit-guest url';
         }
 
-        return me.baseUrl + 'edit-guest/' + me.model.id + '?ticketNumber=' + ticketNumber;
+        return $paramount.baseUrl + 'event-dashboard/' + me.model.id + '/guest/' + ticketNumber;
     }
 
     AdDesignService.prototype.editGuest = function (guest) {
         $.extend(me.model, guest);
-        return $paramount.httpPost(me.baseUrl + 'edit-guest', me.model);
+        var url = this.editGuestUrl(guest.eventBookingTicketId);
+        return $paramount.httpPost(url, me.model);
     }
 
     AdDesignService.prototype.removeGuest = function (data) {
         $.extend(me.model, data);
         return $paramount.httpPost(me.baseUrl + 'remove-guest', me.model);
     }
+    
 
     AdDesignService.prototype.resendGuestEmail = function (eventBookingTicketId) {
         $.extend(me.model, { eventBookingTicketId: eventBookingTicketId });

@@ -46,7 +46,7 @@ namespace Paramount.Betterclassifieds.Business.Events
         }
 
         public EventBookingTicket CreateFromExisting(EventBookingTicket currentTicket, string guestFullName,
-            string guestEmail, int? eventGroupId, IEnumerable<EventBookingTicketField> fields,
+            string guestEmail, bool isPublic, int? eventGroupId, IEnumerable<EventBookingTicketField> fields,
             string username)
         {
             Guard.NotNull(currentTicket);
@@ -57,6 +57,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                 EventBookingId = currentTicket.EventBookingId,
                 EventTicketId = currentTicket.EventTicketId,
                 IsActive = true,
+                IsPublic = isPublic,
                 CreatedDateTime = _dateService.Now,
                 CreatedDateTimeUtc = _dateService.UtcNow,
                 Price = currentTicket.Price,

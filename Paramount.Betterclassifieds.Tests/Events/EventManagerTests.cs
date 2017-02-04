@@ -725,10 +725,11 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _dateServiceMock.SetupNow().SetupNowUtc();
 
             var manager = BuildTargetObject();
-            var createdEventBookingTicket = manager.UpdateEventBookingTicket(1, "Foo Two", "foo@two.com", 1, null, barcode => "barcode123");
+            var createdEventBookingTicket = manager.UpdateEventBookingTicket(1, "Foo Two", "foo@two.com", 1, true, null, barcode => "barcode123");
 
             Assert.That(createdEventBookingTicket.GuestFullName, Is.EqualTo("Foo Two"));
             Assert.That(createdEventBookingTicket.GuestEmail, Is.EqualTo("foo@two.com"));
+            Assert.That(createdEventBookingTicket.IsPublic, Is.EqualTo(true));
             Assert.That(createdEventBookingTicket.EventGroupId, Is.EqualTo(1));
             Assert.That(createdEventBookingTicket.LastModifiedBy, Is.EqualTo(mockApplicationUser.Username));
 
@@ -779,7 +780,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
             _dateServiceMock.SetupNow().SetupNowUtc();
 
             var manager = BuildTargetObject();
-            var updatedEventBookingTicket = manager.UpdateEventBookingTicket(1, "Foo Two", "foo@two.com", 1, new List<EventBookingTicketField>
+            var updatedEventBookingTicket = manager.UpdateEventBookingTicket(1, "Foo Two", "foo@two.com", 1, true, new List<EventBookingTicketField>
             {
                 fieldMockBuilder.WithFieldName("Field").WithFieldValue("Lucas Hood").Build()
             }, barcode => "barcode123");
@@ -787,16 +788,17 @@ namespace Paramount.Betterclassifieds.Tests.Events
             Assert.That(updatedEventBookingTicket.GuestFullName, Is.EqualTo("Foo Two"));
             Assert.That(updatedEventBookingTicket.GuestEmail, Is.EqualTo("foo@two.com"));
             Assert.That(updatedEventBookingTicket.EventGroupId, Is.EqualTo(1));
+            Assert.That(updatedEventBookingTicket.IsPublic, Is.EqualTo(true));
             Assert.That(updatedEventBookingTicket.LastModifiedBy, Is.EqualTo(mockApplicationUser.Username));
         }
-
+        
         [Test]
         public void UpdateEventBookingTicket_ThrowsArgumentException()
         {
             var manager = BuildTargetObject();
             _eventRepositoryMock.SetupWithVerification(call => call.GetEventBookingTicket(It.IsAny<int>()), result: null);
             
-            Assert.Throws<ArgumentException>(() => manager.UpdateEventBookingTicket(1, "Foo Two", "foo@two.com", 1, null, b => "barcode123"));
+            Assert.Throws<ArgumentException>(() => manager.UpdateEventBookingTicket(1, "Foo Two", "foo@two.com", 1, false, null, b => "barcode123"));
         }
 
 

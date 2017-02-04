@@ -14,7 +14,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             Fields = new List<EventTicketFieldViewModel>();
         }
 
-        public EditGuestViewModel(int adId, EventTicket eventTicket, EventBooking eventBooking, EventBookingTicket eventBookingTicket, IEnumerable<EventGroup> groups)
+        public EditGuestViewModel(int adId, EventModel eventModel, EventTicket eventTicket, EventBooking eventBooking, EventBookingTicket eventBookingTicket, IEnumerable<EventGroup> groups)
         {
             AdId = adId;
             EventId = eventTicket.EventId;
@@ -27,6 +27,9 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             CurrentGroupId = eventBookingTicket.EventGroupId;
             TicketName = eventTicket.TicketName;
             TicketPrice = eventTicket.Price;
+            DisplayGuests = eventModel.DisplayGuests;
+            IsPublic = eventBookingTicket.IsPublic;
+
             TicketPurchaseDate = eventBookingTicket.CreatedDateTime.GetValueOrDefault();
             RemovingGuestWillCancelBooking = eventBooking.EventBookingTickets.Count(b => b.IsActive) == 1;
             Fields = new List<EventTicketFieldViewModel>();
@@ -56,6 +59,10 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 }).ToList();
             }
         }
+
+        public bool DisplayGuests { get; set; }
+
+        public bool IsPublic { get; set; }
 
         public bool RemovingGuestWillCancelBooking { get; set; }
 

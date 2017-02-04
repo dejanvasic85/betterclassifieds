@@ -14,6 +14,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         [MaxLength(100)]
         public string GuestFullName { get; set; }
 
+        public bool IsPublic { get; set; }
+
         [EmailAddress]
         [MaxLength(100)]
         public string GuestEmail { get; set; }
@@ -23,6 +25,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public List<EventTicketFieldViewModel> TicketFields { get; set; }
         public List<EventTicketViewModel> EventTickets { get; set; }
         public List<EventGroupViewModel> EventGroups { get; set; }
+
 
         public string FirstName => GuestFullName?.Split(' ').First();
 
@@ -40,6 +43,8 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
             }
         }
 
+        public bool DisplayGuests { get; set; }
+        
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var results = new List<ValidationResult>();

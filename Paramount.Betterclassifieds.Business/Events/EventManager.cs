@@ -82,7 +82,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             return _eventRepository.GetEventBookingTicket(eventBookingTicketId);
         }
 
-        public EventBookingTicket UpdateEventBookingTicket(int eventBookingTicketId, string guestFullName, string guestEmail, int? eventGroupId, IEnumerable<EventBookingTicketField> fields, Func<string, string> barcodeUrlCreator)
+        public EventBookingTicket UpdateEventBookingTicket(int eventBookingTicketId, string guestFullName, string guestEmail, int? eventGroupId, bool isPublic, IEnumerable<EventBookingTicketField> fields, Func<string, string> barcodeUrlCreator)
         {
             var eventBookingTicket = _eventRepository.GetEventBookingTicket(eventBookingTicketId);
             if (eventBookingTicket == null)
@@ -91,7 +91,7 @@ namespace Paramount.Betterclassifieds.Business.Events
             var eventBooking = _eventRepository.GetEventBooking(eventBookingTicket.EventBookingId);
 
             var newEventBookingTicket = new EventBookingTicketFactory(_eventRepository, _dateService)
-                .CreateFromExisting(eventBookingTicket, guestFullName, guestEmail, eventGroupId, fields, _userManager.GetCurrentUser().Username);
+                .CreateFromExisting(eventBookingTicket, guestFullName, guestEmail, isPublic, eventGroupId, fields, _userManager.GetCurrentUser().Username);
 
             // Save the new ticket
             _eventRepository.CreateEventBookingTicket(newEventBookingTicket);
@@ -362,6 +362,7 @@ namespace Paramount.Betterclassifieds.Business.Events
                 TicketId = t.EventTicketId,
                 TicketName = t.TicketName,
                 TotalTicketPrice = t.TotalPrice,
+                IsPublic = t.IsPublic,
                 DateOfBooking = t.CreatedDateTime.GetValueOrDefault(),
                 DateOfBookingUtc = t.CreatedDateTimeUtc.GetValueOrDefault(),
                 GroupName = groups.SingleOrDefault(g => g.EventGroupId == t.EventGroupId)?.GroupName

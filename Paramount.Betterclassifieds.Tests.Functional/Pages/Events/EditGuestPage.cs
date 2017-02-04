@@ -6,7 +6,7 @@ using Paramount.Betterclassifieds.Tests.Functional.Base;
 
 namespace Paramount.Betterclassifieds.Tests.Functional.Pages.Events
 {
-    [NavRoute("EditAd/edit-guest/{0}?ticketNumber={1}")]
+    [NavRoute("event-dashboard/{0}/guest/{1}")]
     internal class EditGuestPage : ITestPage
     {
         private readonly IWebDriver _webDriver;

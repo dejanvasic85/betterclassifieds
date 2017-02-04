@@ -218,7 +218,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
         {
             var contextData = _contextData.Get();
             _pageBrowser.Init<EventDashboardPage>(query: contextData.AdId).ManageGuests();
-            _pageBrowser.Init<ManageGuestsPage>().AddGuest();
+            _pageBrowser.Init<ManageGuestsPage>(contextData.AdId, contextData.EventId).AddGuest();
             _pageBrowser.Init<AddGuestPage>(contextData.AdId, contextData.EventId)
                 .WithGuest(fullName, email, ticketType)
                 .Add();
@@ -334,10 +334,6 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Steps
             var dashboardPage = _pageBrowser.Init<EventDashboardPage>(_contextData.Get().AdId);
 
             Assert.That(dashboardPage.GetTotalSoldQty(), Is.EqualTo(expectedSoldQuantity));
-
-            dashboardPage.ManageGuests();
-            var manageGuestsPage = _pageBrowser.Init<ManageGuestsPage>();
-            Assert.That(manageGuestsPage.GetGuestsInSearchResult(), Is.EqualTo(expectedGuestsInSearch));
         }
 
         [When(@"I choose to resend ticket for the guest")]

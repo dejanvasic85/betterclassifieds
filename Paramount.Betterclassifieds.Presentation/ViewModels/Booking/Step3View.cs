@@ -11,7 +11,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels
         [MustBeTrue(ErrorMessage = "You must confirm your details")]
         [Display(Name = "I have ensured that the booking details are correct")]
         public bool DetailsAreCorrect { get; set; }
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public decimal TotalPrice { get; set; }
         public string BookingReference { get; set; }

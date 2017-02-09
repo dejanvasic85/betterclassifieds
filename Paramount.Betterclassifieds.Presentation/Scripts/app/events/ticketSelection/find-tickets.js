@@ -112,6 +112,9 @@
             eventService.getTicketsForGroup(me.reservationData.eventId, model.eventGroupId())
                 .then(function (resp) {
                     _.each(resp, function (t) {
+                        if (!t.isActive) {
+                            return;
+                        }
                         var maxTicketsAllowed = getMaxTicketsAllowed(me.selectedGroupId, t.eventTicketId, model.maxGuests(), t.remainingQuantity);
                         var eventTicket = new $p.models.EventTicket(t, maxTicketsAllowed);
                         eventTicket.eventGroupId(model.eventGroupId());
@@ -237,6 +240,9 @@
             } else {
                 me.getTicketsPromise.then(function (ticketData) {
                     _.each(ticketData, function (t) {
+                        if (!t.isActive) {
+                            return;
+                        }
                         me.availableTickets.push(new $p.models.EventTicket(t, me.maxTicketsPerBooking));
                     });
                     done();

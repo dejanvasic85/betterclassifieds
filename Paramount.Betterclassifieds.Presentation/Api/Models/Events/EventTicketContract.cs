@@ -11,6 +11,7 @@ namespace Paramount.Betterclassifieds.Presentation.Api.Models.Events
         public int AvailableQuantity { get; set; }
         public int RemainingQuantity { get; set; }
         public decimal Price { get; set; }
+        public bool IsActive { get; set; }
     }
 
     public class EventTicketContractFactory : IMappingBehaviour

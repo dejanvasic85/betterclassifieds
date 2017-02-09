@@ -1,5 +1,9 @@
 Here's a list of the latest changes:
 
+**3.22.0**
+
+- [Enhancement - Tickets active status can now be toggled](https://trello.com/c/FZlTCdIM/599-tickets-should-have-isactive-flag-to-allow-organisers-to-hide-some-tickets)
+
 **3.21.0**
 
 - [Enhancement - Allow public to see guest list - opt-in/out per organiser and guest](https://trello.com/c/qN6hBEV4/588-events-allow-public-to-see-guest-list-opt-in-out-per-organiser-and-guest)

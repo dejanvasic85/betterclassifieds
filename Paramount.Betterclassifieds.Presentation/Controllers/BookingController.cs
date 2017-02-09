@@ -451,8 +451,12 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             configuration.CreateMap<BookingOrderResult, PriceSummaryView>().ConvertUsing<PriceSummaryViewConverter>();
             configuration.CreateMap<BookingCart, Step3View>().ForMember(m => m.PublicationCount, options => options.MapFrom(src => src.Publications.Length));
             configuration.CreateMap<IBookingCart, EventViewModel>().ConvertUsing(new BookingCartToEventViewConverter(_dateService));
-            configuration.CreateMap<EventTicket, BookingEventTicketViewModel>().ReverseMap().ForMember(m => m.RemainingQuantity, options => options.MapFrom(src => src.AvailableQuantity));
-            configuration.CreateMap<EventTicketField, EventTicketFieldViewModel>().ReverseMap();
+            configuration.CreateMap<EventTicket, BookingEventTicketViewModel>().ReverseMap()
+                .ForMember(m => m.RemainingQuantity, options => options.MapFrom(src => src.AvailableQuantity))
+                .ForMember(m => m.IsActive, options => options.UseValue(true))
+                ;
+            configuration.CreateMap<EventTicketField, EventTicketFieldViewModel>()
+                .ReverseMap();
 
             // From ViewModel
             configuration.CreateMap<Step2View, OnlineAdModel>()

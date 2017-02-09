@@ -10,6 +10,7 @@
         me.ticketName = ko.observable();
         me.availableQuantity = ko.observable();
         me.price = ko.observable();
+        me.isActive = ko.observable();
         me.priceFormatted = ko.computed(function () {
             return $paramount.formatCurrency(me.price());
         });
@@ -21,6 +22,7 @@
         me.eventGroupId = ko.observable();
         me.eventGroupName = ko.observable();
         me.editTicketUrl = ko.observable();
+        
 
         /*
          * Computed functions
@@ -52,6 +54,7 @@
         me.eventTicketId(data.eventTicketId);
         me.ticketName(data.ticketName);
         me.availableQuantity(data.availableQuantity);
+        me.isActive(data.isActive);
         me.price(data.price);
         me.selectedQuantity(data.selectedQuantity);
         me.remainingQuantity(data.remainingQuantity);

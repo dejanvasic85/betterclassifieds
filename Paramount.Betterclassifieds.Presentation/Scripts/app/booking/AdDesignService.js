@@ -65,8 +65,8 @@
     }
 
     AdDesignService.prototype.addEventTicket = function (eventTicket) {
-        $.extend(me.model, eventTicket);
-        return $paramount.httpPost(me.baseUrl + 'AddTicket', me.model);
+        eventTicket.id = me.model.id;
+        return $paramount.httpPost(me.baseUrl + 'AddTicket', eventTicket);
     }
 
     AdDesignService.prototype.requestEventPayment = function (paymentDetails) {

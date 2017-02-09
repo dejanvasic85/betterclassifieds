@@ -319,6 +319,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 ticketName: "Adult",
                 price: 100,
                 remainingQuantity: 50,
+                isActive: true,
                 fields: null);
         }
 
@@ -329,6 +330,7 @@ namespace Paramount.Betterclassifieds.Tests.Events
                 ticketName: "Adult",
                 price: 100,
                 remainingQuantity: 50,
+                isActive: true,
                 fields: null));
         }
 
@@ -937,12 +939,13 @@ namespace Paramount.Betterclassifieds.Tests.Events
 
             var manager = BuildTargetObject();
 
-            manager.UpdateEventTicket(1, newTicketName, price: 9, remainingQuantity: 45, fields: new List<EventTicketField>());
+            manager.UpdateEventTicket(1, newTicketName, price: 9, remainingQuantity: 45, isActive: true, fields: new List<EventTicketField>());
 
             mockOriginalTicket.RemainingQuantity.IsEqualTo(45);
             mockOriginalTicket.AvailableQuantity.IsEqualTo(95); // Reduced by 5 (50 - 45) so availability originally is down to 95
             mockOriginalTicket.TicketName.IsEqualTo(newTicketName);
             mockOriginalTicket.Price.IsEqualTo(9);
+            mockOriginalTicket.IsActive.IsTrue();
         }
 
         [Test]

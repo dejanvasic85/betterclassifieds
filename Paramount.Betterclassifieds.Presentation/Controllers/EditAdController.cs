@@ -215,8 +215,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
             if (!ModelState.IsValid)
                 return JsonModelErrors();;
 
-            var eventTicket = viewModel.EventTicket;
-            if (eventTicket.SoldQty == 0)
+            var vm = viewModel.EventTicket;
+            if (vm.SoldQty == 0)
             {
                 // Double check if anyone in the meantime purchased a ticket and the organiser wants to change something
                 var guestCount = _eventManager.BuildGuestList(viewModel.EventTicket.EventId.GetValueOrDefault()).Count(t => t.TicketId == ticketId);
@@ -227,8 +227,8 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
                 }
             }
 
-            _eventManager.UpdateEventTicket(ticketId, eventTicket.TicketName,
-                eventTicket.Price, eventTicket.RemainingQuantity,
+            _eventManager.UpdateEventTicket(ticketId, vm.TicketName,
+                vm.Price, vm.RemainingQuantity, vm.IsActive,
                 this.MapList<EventTicketFieldViewModel, EventTicketField>(viewModel.EventTicket.EventTicketFields.ToList()));
 
             return Json(viewModel.EventTicket);
@@ -253,12 +253,13 @@ namespace Paramount.Betterclassifieds.Presentation.Controllers
         public ActionResult AddTicket(int id, NewEventTicketViewModel vm)
         {
             if (!ModelState.IsValid)
-                return JsonModelErrors();;
+                return JsonModelErrors();
 
             var ticket = _eventManager.CreateEventTicket(vm.EventId.GetValueOrDefault(),
                 vm.TicketName,
                 vm.Price.GetValueOrDefault(),
                 vm.AvailableQuantity,
+                vm.IsActive,
                 vm.EventTicketFields?.Select(f => new EventTicketField
                 {
                     FieldName = f.FieldName,

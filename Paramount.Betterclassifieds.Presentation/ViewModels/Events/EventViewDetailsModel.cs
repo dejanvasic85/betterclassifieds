@@ -54,7 +54,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
 
             LocationFloorPlanFilename = eventModel.LocationFloorPlanFilename;
             LocationFloorPlanDocumentId = eventModel.LocationFloorPlanDocumentId;
-            TicketingEnabled = eventModel.Tickets != null && eventModel.Tickets.Any();
+            TicketingEnabled = eventModel.Tickets != null && eventModel.Tickets.Where(t => t.IsActive).Any();
 
             // Build the guest list
             var guests = guestList.ToList();
@@ -65,7 +65,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
                 .Take(6).
                 ToList());
         }
-        
+
         public DateTime EventEndDate { get; set; }
 
         public DateTime EventStartDate { get; set; }

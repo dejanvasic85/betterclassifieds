@@ -15,7 +15,7 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
         {
             using (var connection = _connectionFactory.CreateClassifieds())
             {
-                return connection.Query<string>("select f.FieldName from EventTicketField f where f.EventTicketId = @eventTicketId", new {eventTicketId}).ToList();
+                return connection.Query<string>("select f.FieldName from EventTicketField f where f.EventTicketId = @eventTicketId", new { eventTicketId }).ToList();
             }
         }
 
@@ -103,7 +103,8 @@ namespace Paramount.Betterclassifieds.Tests.Functional.Mocks
                     ticketName,
                     price,
                     availableQuantity,
-                    RemainingQuantity = availableQuantity
+                    RemainingQuantity = availableQuantity,
+                    isActive = true
                 });
             }
         }

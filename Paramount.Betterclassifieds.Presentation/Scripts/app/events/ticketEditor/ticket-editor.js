@@ -4,13 +4,14 @@
             $p.guard(params.eventId, 'eventId');
 
             var me = this,
-                adDesignService = new $p.AdDesignService(),
+                adDesignService = new $p.AdDesignService(params.adId),
                 eventService = new $p.EventService(),
                 resendGuestNotifications = false;
 
             me.eventId = ko.observable(params.eventId); // Must be set!
             me.eventTicketId = ko.observable();
             me.ticketName = ko.observable();
+            me.isActive = ko.observable(true);
             me.availableQuantity = ko.observable(); // Only available in create
             me.remainingQuantity = ko.observable(); // Only available in edit
             me.price = ko.observable();
@@ -22,15 +23,16 @@
             me.ticketHasPurchases = ko.observable(false);
             me.guestsAffected = ko.observable(0);
             me.guestsNotified = ko.observable(0);
-
+            me.onSave = params.onSave;
+            
             if (params.ticketDetails) {
 
-                adDesignService = new $p.AdDesignService(params.ticketDetails.id);
                 me.eventTicketId(params.ticketDetails.eventTicketId);
                 me.editMode(true);
                 me.ticketName(params.ticketDetails.ticketName);
                 me.availableQuantity(params.ticketDetails.availableQuantity);
                 me.remainingQuantity(params.ticketDetails.remainingQuantity);
+                me.isActive(params.ticketDetails.isActive);
                 me.price(params.ticketDetails.price);
                 me.ticketHasPurchases(params.ticketDetails.soldQty > 0);
                 me.soldQty(params.ticketDetails.soldQty);
@@ -87,15 +89,27 @@
                     eventTicket: ko.toJS(me)
                 });
 
-                adDesignService.editTicket(data)
-                    .then(handleResponse)
-                    .then(notify)
-                    .then(function (pr) {
-                        pr.then(function () {
-                            me.displayNotificationProgress(false);
-                            $btn.resetBtn();
+                if (me.editMode()) {
+
+                    adDesignService.editTicket(data)
+                        .then(handleResponse)
+                        .then(notify)
+                        .then(function (pr) {
+                            pr.then(function () {
+                                me.displayNotificationProgress(false);
+                                $btn.resetBtn();
+                            });
                         });
+                }
+                else {
+
+                    adDesignService.addEventTicket(data.eventTicket).then(function (newTicket) {
+                        if (me.onSave) {
+                            me.onSave(newTicket);
+                        }
                     });
+                }
+
             }
 
             function handleResponse(resp) {

@@ -304,12 +304,13 @@ namespace Paramount.Betterclassifieds.Business.Events
             }
         }
 
-        public void UpdateEventTicket(int eventTicketId, string ticketName, decimal price, int remainingQuantity, IEnumerable<EventTicketField> fields)
+        public void UpdateEventTicket(int eventTicketId, string ticketName, decimal price, int remainingQuantity, bool isActive, IEnumerable<EventTicketField> fields)
         {
             var eventTicket = _eventRepository.GetEventTicketDetails(eventTicketId);
             var nameChanged = eventTicket.TicketName != ticketName;
             eventTicket.TicketName = ticketName;
             eventTicket.Price = price;
+            eventTicket.IsActive = isActive;
 
             if (eventTicket.RemainingQuantity != remainingQuantity)
             {
@@ -331,10 +332,10 @@ namespace Paramount.Betterclassifieds.Business.Events
             }
         }
 
-        public EventTicket CreateEventTicket(int eventId, string ticketName, decimal price, int remainingQuantity, IEnumerable<EventTicketField> fields)
+        public EventTicket CreateEventTicket(int eventId, string ticketName, decimal price, int remainingQuantity, bool isActive, IEnumerable<EventTicketField> fields)
         {
             Guard.NotDefaultValue(eventId);
-            var ticket = new EventTicketFactory().Create(remainingQuantity, eventId, ticketName, price);
+            var ticket = new EventTicketFactory().Create(remainingQuantity, eventId, ticketName, price, isActive);
             if (fields != null)
                 ticket.EventTicketFields = fields.ToList();
 

@@ -10,9 +10,6 @@
     <script>
         $(function() {
             var ticketDetails = @Html.Raw(@Model.ToJsonString());
-            _.extend(ticketDetails, {
-                id : @Html.Raw(ViewBag.Id)
-                });
             var vm = {
                 ticketDetails: ticketDetails
             };
@@ -36,6 +33,6 @@
     </div>
 
     <div class="well top-buffer-20">
-        <ticket-editor params="ticketDetails: ticketDetails, eventId: ticketDetails.eventId"></ticket-editor>
+        <ticket-editor params="ticketDetails: ticketDetails, eventId: ticketDetails.eventId, adId: @ViewBag.Id"></ticket-editor>
     </div>
 </div>

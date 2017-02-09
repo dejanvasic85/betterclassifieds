@@ -17,6 +17,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public int AvailableQuantity { get; set; }
 
         public EventTicketFieldViewModel[] EventTicketFields { get; set; }
+        public bool IsActive { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

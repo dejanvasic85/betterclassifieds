@@ -18,6 +18,7 @@ namespace Paramount.Betterclassifieds.Presentation.ViewModels.Events
         public int RemainingQuantity { get; set; }
         public decimal Price { get; set; }
         public int SoldQty { get; set; }
+        public bool IsActive { get; set; }
 
         public List<EventTicketFieldViewModel> EventTicketFields { get; set; }
 

@@ -1,21 +1,32 @@
 ﻿<div class="row">
-    <div class="col-xs-12 form-group-lg" data-bind="validationElement: ticketName">
+    <div class="col-xs-12 form-group" data-bind="validationElement: ticketName">
         <label for="txtTicketName" class="control-label">Ticket Name:</label>
         <input id="txtTicketName" data-bind="value: ticketName" type="text" class="form-control" />
     </div>
 
-    <div class="col-xs-12 form-group-lg" data-bind="validationElement: price">
+    <div class="col-xs-12 form-group" data-bind="validationElement: price">
         <label class="control-label">Price</label>
         <input id="txtTicketPrice" type="number" class="form-control" data-bind="value: price" />
     </div>
-    <div class="col-xs-12 form-group-lg" data-bind="validationElement: availableQuantity, visible: !editMode">
+    <div class="col-xs-12 form-group" data-bind="validationElement: availableQuantity, visible: editMode() === false">
         <label class="control-label">Available Quantity</label>
         <input id="txtAvailableQuantity" type="number" class="form-control" data-bind="value: availableQuantity" />
     </div>
-    <div class="col-xs-12 form-group-lg" data-bind="validationElement: remainingQuantity, visible: editMode">
+    <div class="col-xs-12 form-group" data-bind="validationElement: remainingQuantity, visible: editMode">
         <label class="control-label">Remaining Quantity</label>
         <input id="txtRemainingQuantity" type="number" class="form-control" data-bind="value: remainingQuantity" />
     </div>
+
+    <div class="col-xs-12 form-group">
+        <label class="control-label">Active</label>
+        <div class="display-block toggle-required">
+            <input type="checkbox" data-bind="toggle: isActive" data-on="Yes" data-off="No" data-onstyle="success" />
+        </div>
+        <p class="help-block">
+            By disabling the ticket, it will be hidden from the public for new purchases.
+        </p>
+    </div>
+    
 
     <div class="col-xs-12 top-buffer-10">
         <div class="alert alert-info-alt">
@@ -27,7 +38,7 @@
 
         <div class="panel panel-default">
             <div class="panel-body ticket-field-edit">
-                <div class="form-group-lg" data-bind="validationElement: fieldName">
+                <div class="form-group" data-bind="validationElement: fieldName">
                     <label class="control-label">
                         Field Name
                     </label>
@@ -38,16 +49,18 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-xs-6 form-group-lg">
+                    <div class="col-xs-6 form-group">
                         <label class="control-label">Required</label>
                         <div class="display-block toggle-required">
                             <input type="checkbox" data-bind="toggle: isRequired" data-on="Yes" data-off="No" />
                         </div>
                     </div>
-                    <div class="col-xs-offset-3 col-xs-3 form-group-lg">
+                    <div class="col-xs-offset-3 col-xs-3 form-group">
                         <label class="control-label">Remove</label>
                         <div>
-                            <button class="btn btn-block btn-default" data-bind="click: $parent.removeField">
+                            <button class="btn btn-block btn-default" 
+                                    data-loading-text="Please wait ..."
+                                    data-bind="click: $parent.removeField">
                                 <i class="fa fa-trash"></i>
                             </button>
                         </div>
@@ -71,7 +84,7 @@
     <div class="row" data-bind="visible: displayGuestPurchasesWarning() === false">
 
         <div class="col-sm-offset-8 col-sm-4 top-buffer-10" data-bind="click: saveTicket">
-            <button class="btn btn-success btn-block ko-load" id="btnSaveTicket">
+            <button class="btn btn-success btn-block" data-loading-text="Please wait ..." id="btnSaveTicket">
                 <i class="fa fa-floppy-o"></i> Save
             </button>
         </div>

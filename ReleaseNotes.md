@@ -3,6 +3,8 @@ Here's a list of the latest changes:
 **3.22.0**
 
 - [Enhancement - Tickets active status can now be toggled](https://trello.com/c/FZlTCdIM/599-tickets-should-have-isactive-flag-to-allow-organisers-to-hide-some-tickets)
+- [Change Request - Removing the address details from contact](https://trello.com/c/h7sUy8q6/600-remove-the-contact-us-address-details-there-s-no-need-for-that-at-the-moment)
+
 
 **3.21.0**
 

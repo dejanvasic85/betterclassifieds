@@ -3,20 +3,15 @@
 @{
     Layout = "~/Views/Shared/_ApplicationLayout.cshtml";
     ViewBag.Title = "Classifieds Home - Find everything you're looking for right here";
-    var address = (AddressViewModel)ViewBag.Address;
 }
 
 <div class="container top-buffer-60">
     <div class="row">
-        <div class="col-md-6 col-sm-6">
+        <div class="col-sm-6">
             <div class="well">
                 <h2>Contact Us</h2>
                 <div class="alert alert-success hidden" id="enquirySuccessful">Your message has been sent successfully</div>
                 <form id="contactUsForm">
-                    <p>
-                        Have a suggestion, complaint or general feedback? Provide details below
-                        and one of our team members will be in touch with you shortly.
-                    </p>
                     @Html.AntiForgeryToken()
                     <div class="form-group">
                         @Html.LabelFor(m => m.FullName)
@@ -47,28 +42,12 @@
                 </form>
             </div>
         </div>
-        <div class="col-md-6 col-sm-6">
+        <div class="col-sm-6 hidden-xs">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="well">
-                        <h2>Address</h2>
-                        <address>
-                            <strong>@address.StreetNumber @address.StreetName</strong><br />
-                            @address.Suburb, @address.State @address.Postcode<br />
-                            @if (ViewBag.PhoneNumber != null)
-                        {
-                                <text>P:</text>
-                                <a href="tel:+@ViewBag.PhoneNumber">@ViewBag.PhoneNumber</a>
-                        }
-                        </address>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div id="map-canvas" style="height: 200px">
-                        Loading map...
-                        @*Map goes here*@
+                        <h4>Have a suggestion, complaint or general feedback? Fill in the easy form
+                        and one of our team members will be in touch with you shortly..</h4>
                     </div>
                 </div>
             </div>
